@@ -14,8 +14,8 @@ class CommentTest < ActiveSupport::TestCase
     AbstractNotifier.delivery_mode = @delivery_mode
   end
 
-  test '.without_talk' do
-    non_talk_comment_count = Comment.without_talk.count
+  test '.without_private_comment' do
+    non_talk_comment_count = Comment.without_private_comment.count
     all_comment_count = Comment.count
     only_talk_comment_count = Comment.where(commentable_type: 'Talk').count
     assert_equal non_talk_comment_count, all_comment_count - only_talk_comment_count
