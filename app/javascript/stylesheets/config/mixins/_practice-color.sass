@@ -21,6 +21,14 @@
     +practice-button($success, $border)
     color: var(--reversal-text)
   &.is-unstarted
+    +practice-button(#fff)
+    color: var(--muted-text)
+    border: solid 1px var(--border)
+    &.is-active
+      color: var(--default-text)
+      border-color: var(--defaut-text)
+      background-color: var(--background-tint)
+  &.is-skip-on
     +practice-button(#dcdcdc, $border)
     color: var(--muted-text)
   @if $border == true
