@@ -112,7 +112,6 @@ class Searcher
                                .select { |result| words.all? { |word| result_matches_keyword?(result, word) } }
                                .sort_by(&:updated_at)
                                .reverse
-      results += result_for(:users, words)
       results
     end
   end  
