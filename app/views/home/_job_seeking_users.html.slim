@@ -36,7 +36,7 @@
         .card-list-item__user-detail
           .card-list-item__user-description.a-short-text
             = simple_format user.description
-          = render 'users/metas', user: user
+          = render 'users/metas', user: user, user_course_practice: UserCoursePractice.new(user)
           label.card-list-item__close-user-detail(for="show-user-detail-#{user.id}")
             | 閉じる
   hr.a-border-tint

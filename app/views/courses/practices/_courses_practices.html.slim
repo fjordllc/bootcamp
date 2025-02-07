@@ -1,13 +1,14 @@
 .page-body__inner
   .page-body__columns
     .page-body__column.is-main
+      - skipped_practices = current_user.skipped_practices.pluck(:practice_id)
       - categories.each do |category|
         - if category.practices.present?
           .categories-item.practices(id="category-#{category.id}")
             header.categories-item__header
               h2.categories-item__title
                 = category.name
-                - if category.practices.size == current_user.completed_practices_size_by_category[category.id]
+                - if category.practices.size == completed_practices_size[category.id]
                   span.stamp.is-circle.is-solved 修了
             .categories-item__description
               - if current_user.mentor
@@ -19,7 +20,7 @@
             .categories-item__body.a-card
               .category-practices
                 - category.practices.each do |practice|
-                  == render 'courses_practice', practice: practice, learnings: learnings
+                  == render 'courses_practice', practice: practice, learnings: learnings, skipped_practices: skipped_practices
     .page-body__column.is-sub
       nav.page-nav.a-card
         ul.page-nav__items

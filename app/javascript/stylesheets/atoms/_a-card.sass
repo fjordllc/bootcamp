@@ -34,7 +34,7 @@
       margin-inline: 1rem
   &.is-toggle
     label
-        cursor: pointer
+      cursor: pointer
     > input:not(:checked) + * + *
       display: none
     > input:not(:checked) + *
@@ -45,6 +45,10 @@
       display: none
     > input:checked + * .is-hidden-then-checked
       display: none
+    .card-body
+      max-height: 50vh
+      overflow-y: auto
+
 
 table.a-card
   display: table

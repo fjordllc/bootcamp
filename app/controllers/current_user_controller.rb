@@ -8,6 +8,7 @@ class CurrentUserController < ApplicationController
   end
 
   def update
+    @user.uploaded_avatar = user_params[:avatar]
     if @user.update(user_params)
       redirect_to @user, notice: 'ユーザー情報を更新しました。'
     else

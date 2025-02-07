@@ -1,5 +1,5 @@
-import React from 'react'
-import UserIcon from './UserIcon'
+import React, { useEffect, useRef } from 'react'
+import userIcon from '../user-icon.js'
 
 const RegularEvent = ({ regularEvent }) => {
   const categoryClass =
@@ -67,6 +67,28 @@ const EventTitle = ({ event }) => {
 }
 
 const EventOrganizers = ({ event }) => {
+  // userIconの非React化により、useRef,useEffectを導入している。
+  const userIconRef = useRef(null)
+  useEffect(() => {
+    const linkClass = 'card-list-item__user-link'
+    const imgClasses = ['card-list-item__user-icon', 'a-user-icon']
+
+    const userIconElements = event.organizers.map((organizer) => {
+      return userIcon({
+        user: organizer,
+        linkClass,
+        imgClasses
+      })
+    })
+
+    if (userIconRef.current) {
+      userIconRef.current.innerHTML = ''
+      userIconElements.forEach((element) => {
+        userIconRef.current.appendChild(element)
+      })
+    }
+  }, [event.organizers])
+
   return (
     <>
       {event.organizers.length > 0 && (
@@ -74,15 +96,9 @@ const EventOrganizers = ({ event }) => {
           <div className="a-meta">
             <div className="a-meta__label">主催</div>
             <div className="a-meta__value">
-              <div className="card-list-item__user-icons">
-                {event.organizers.map((organizer) => (
-                  <UserIcon
-                    key={organizer.id}
-                    user={organizer}
-                    blockClassSuffix="card-list-item"
-                  />
-                ))}
-              </div>
+              <div
+                className="card-list-item__user-icons"
+                ref={userIconRef}></div>
             </div>
           </div>
         </div>

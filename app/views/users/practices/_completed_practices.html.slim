@@ -4,5 +4,5 @@
     .card-header__sub-title
       = render 'users/learning_status', user: user
   hr.a-border-tint
-  = render 'users/practices/completed_practices_progress', user: user, is_display_progress_count: true
+  = render 'users/practices/completed_practices_progress', user: user, is_display_progress_count: true, user_course_practice: UserCoursePractice.new(user)
   = render 'users/practices/completed_practices_list', user:, completed_learnings:
