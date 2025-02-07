@@ -22,14 +22,17 @@
           | プレビュー
         .js-preview.a-long-text.is-md.markdown-form__preview
   .form-item
+    label.a-form-label
+      | このコースに含むカテゴリー
     .row
       .col-md-6.col-xs-12
         .checkboxes
-          ul.checkboxes__items
+          .checkboxes__items
             = f.collection_check_boxes :category_ids, Category.all, :id, :name, class: 'label-checkbox' do |b|
-              li.checkboxes__item
+              .checkboxes__item
                 = b.check_box(class: 'a-toggle-checkbox')
                 = b.label { b.text }
+
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main

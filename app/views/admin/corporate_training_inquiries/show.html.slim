@@ -1,0 +1,127 @@
+- title '企業研修申し込み'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title
+          | 管理ページ
+
+= render 'admin/admin_page_tabs'
+
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            = @corporate_training_inquiry.company_name
+            | （#{@corporate_training_inquiry.name}様）
+        .page-main-header__end
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              li.page-main-header-actions__item
+                = link_to admin_corporate_training_inquiries_path, class: 'a-button is-md is-secondary is-block is-back' do
+                  | 申し込み一覧へ
+  hr.a-border
+  .page-body
+    .container.is-md
+      .page-content
+        header.page-content-header
+          .page-content-header__end
+            .page-content-header__row
+              h1.page-content-header__title
+                = "#{@corporate_training_inquiry.company_name} 様 （#{@corporate_training_inquiry.email}）"
+            .page-content-header__row
+              .page-content-header-metas
+                .page-content-header-metas__start
+                  .page-content-header-metas__meta
+                    .a-meta
+                      span.a-meta__label 受信日
+                      span.a-meta__value = l @corporate_training_inquiry.created_at
+        .page-content__body
+          .a-card
+            header.card-header
+              h2.card-header__title
+                | お問い合わせ元情報
+            hr.a-border-tint
+            .card-body
+              .card-body__description
+                .form__items
+                  .form__items-inner
+                    .form-item
+                      .a-form-label
+                        | 企業名と担当者
+                      .a-short-text
+                        p
+                          = @corporate_training_inquiry.company_name
+                          | （担当者: #{@corporate_training_inquiry.name}様）
+                          br
+                          = @corporate_training_inquiry.email
+          .a-card
+            header.card-header
+              h2.card-header__title
+                | 研修打ち合わせ希望日時
+            hr.a-border-tint
+            .card-body
+              .card-body__description
+                .form__items
+                  .form__items-inner
+                    .form-item
+                      .a-form-label
+                        = CorporateTrainingInquiry.human_attribute_name(:meeting_date1)
+                      .a-short-text
+                        p
+                          = l @corporate_training_inquiry.meeting_date1
+                    .form-item
+                      .a-form-label
+                        = CorporateTrainingInquiry.human_attribute_name(:meeting_date2)
+                      .a-short-text
+                        p
+                          = l @corporate_training_inquiry.meeting_date2
+                    .form-item
+                      .a-form-label
+                        = CorporateTrainingInquiry.human_attribute_name(:meeting_date3)
+                      .a-short-text
+                        p
+                          = l @corporate_training_inquiry.meeting_date3
+          .a-card
+            header.card-header
+              h2.card-header__title
+                | 現時点での研修の希望
+            hr.a-border-tint
+            .card-body
+              .card-body__description
+                .form__items
+                  .form__items-inner
+                    .form-item
+                      .a-form-label
+                        = CorporateTrainingInquiry.human_attribute_name(:participants_count)
+                      .a-short-text
+                        p
+                          | #{@corporate_training_inquiry.participants_count}人
+                    .form-item
+                      .a-form-label
+                        = CorporateTrainingInquiry.human_attribute_name(:training_duration)
+                      .a-short-text
+                        p
+                          = @corporate_training_inquiry.training_duration
+                    .form-item
+                      .a-form-label
+                        = CorporateTrainingInquiry.human_attribute_name(:additional_information)
+                      .a-short-text
+                        = simple_format(@corporate_training_inquiry.additional_information)
+          .a-card
+            header.card-header
+              h2.card-header__title
+                | アンケート
+            hr.a-border-tint
+            .card-body
+              .card-body__description
+                .form__items
+                  .form__items-inner
+                    .form-item
+                      .a-form-label
+                        = CorporateTrainingInquiry.human_attribute_name(:how_did_you_hear)
+                      .a-short-text
+                        = simple_format(@corporate_training_inquiry.how_did_you_hear)

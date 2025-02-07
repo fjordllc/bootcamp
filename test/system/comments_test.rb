@@ -37,6 +37,11 @@ class CommentsTest < ApplicationSystemTestCase
 
   test 'post new comment for report' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
+    # テストが落ちやすいため、setCheckableが実行されるまで待つ
+    within('.page-content-header') do
+      find('.stamp.stamp-approve')
+    end
+
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
@@ -81,6 +86,10 @@ class CommentsTest < ApplicationSystemTestCase
 
   test 'post new comment with emoji for report' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
+    within('.page-content-header') do
+      find('.stamp.stamp-approve')
+    end
+
     find('#comments.loaded', wait: 10)
 
     Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
@@ -96,6 +105,10 @@ class CommentsTest < ApplicationSystemTestCase
 
   test 'post new comment with image for report' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
+    within('.page-content-header') do
+      find('.stamp.stamp-approve')
+    end
+
     find('#comments.loaded', wait: 10)
     find('#js-new-comment').set('画像付きで説明します。 ![Image](https://example.com/test.png)')
     click_button 'コメントする'
@@ -106,6 +119,10 @@ class CommentsTest < ApplicationSystemTestCase
 
   test 'post new comment with linked image for report' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
+    within('.page-content-header') do
+      find('.stamp.stamp-approve')
+    end
+
     find('#comments.loaded', wait: 10)
     find('#js-new-comment').set('[![Image](https://example.com/test.png)](https://example.com)')
     click_button 'コメントする'
@@ -204,6 +221,10 @@ class CommentsTest < ApplicationSystemTestCase
 
   test 'prevent double submit' do
     visit_with_auth report_path(users(:komagata).reports.first), 'komagata'
+    within('.page-content-header') do
+      find('.stamp.stamp-approve')
+    end
+
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
@@ -214,6 +235,10 @@ class CommentsTest < ApplicationSystemTestCase
 
   test 'submit_button is enabled after a post is done' do
     visit_with_auth report_path(users(:komagata).reports.first), 'komagata'
+    within('.page-content-header') do
+      find('.stamp.stamp-approve')
+    end
+
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
@@ -283,6 +308,10 @@ class CommentsTest < ApplicationSystemTestCase
 
   test 'clear preview after posting new comment for report' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
+    within('.page-content-header') do
+      find('.stamp.stamp-approve')
+    end
+
     find('#js-new-comment').set('test')
     click_button 'コメントする'
     assert_text 'test'
