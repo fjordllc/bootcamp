@@ -11,7 +11,7 @@ export default class {
       headers: { 'X-Requested-With': 'XMLHttpRequest' }
     })
     this.urls = await response.json()
-    this._callbackFunc()
+    setTimeout(() => this._callbackFunc(), 100)
     Array.from(textareas).forEach((textarea) => {
       textarea.addEventListener('input', () => {
         this._callbackFunc()
