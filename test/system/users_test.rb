@@ -609,7 +609,7 @@ class UsersTest < ApplicationSystemTestCase
     assert_link '退会', href: '/users?target=retired'
   end
 
-  test 'admin can see retired and hibernated tabs' do
+  test 'admin can see retired and hibernated tabsaaaaaaaaaaaaaaa' do
     visit_with_auth '/users', 'komagata'
     assert_link '休会', href: '/users?target=hibernated'
     assert_link '退会', href: '/users?target=retired'
