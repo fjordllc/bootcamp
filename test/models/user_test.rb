@@ -330,8 +330,9 @@ class UserTest < ActiveSupport::TestCase
 
   test 'return not retired user data' do
     hajime = users(:hajime)
-    result = Searcher.search(hajime.name)
-    assert_includes(result, hajime)
+    result = Searcher.search(hajime.name, current_user: hajime)
+    users = result.map { |search_result| User.find(search_result.user_id) }
+    assert_includes(users, hajime)
   end
 
   test 'columns_for_keyword_searchの設定がsearch_by_keywordsに反映されていることを確認' do
