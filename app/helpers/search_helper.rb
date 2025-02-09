@@ -56,10 +56,8 @@ module SearchHelper
       else
         searchable.description
       end
-    when Product
-      searchable.body
     else
-      searchable.try(:description)
+      searchable.try(:description) || searchable.try(:body)
     end
   end
 
