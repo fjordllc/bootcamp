@@ -164,14 +164,14 @@ class Searcher
 
     if word =~ /^user:(\w+)$/
       username = Regexp.last_match(1)
-      return result.user&.login_name == username unless result.is_a?(Practice)
+      return result.user&.login_name&.casecmp?(username) unless result.is_a?(Practice)
 
-        user = User.find_by(id: result.last_updated_user_id)
-        return user&.login_name == username
-
+      user = User.find_by(id: result.last_updated_user_id)
+      return user&.login_name&.casecmp?(username)
     end
+
     searchable_fields = [result.try(:title), result.try(:body), result.try(:description)]
-    searchable_fields.any? { |field| field.to_s.include?(word) }
+    searchable_fields.any? { |field| field.to_s.downcase.include?(word.downcase) }
   end
 
   def self.result_for_comments(document_type, word)
