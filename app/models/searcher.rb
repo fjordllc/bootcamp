@@ -112,29 +112,22 @@ class Searcher
                                .select { |result| words.all? { |word| result_matches_keyword?(result, word) } }
                                .sort_by(&:updated_at)
                                .reverse
-      results
+      results + result_for(:users, words)
     end
-  end  
+  end
 
   def self.result_for(type, words, commentable_type: nil)
     raise ArgumentError, "#{type} is not an available type" unless type.in?(AVAILABLE_TYPES)
 
-    if words.blank?
-      if commentable?(type)
-        return model(type).all + Comment.where(commentable_type: model_name(type)).all
-      elsif type == :questions
-        return model(type).all + Answer.all + CorrectAnswer.all
-      else
-        return model(type).all
-      end
-    end
+    return User.where(
+      words.map { |word| "login_name ILIKE ? OR name ILIKE ? OR description ILIKE ?" }
+           .join(" AND "),
+      *words.flat_map { |word| ["%#{word}%", "%#{word}%", "%#{word}%"] }
+    ) if type == :users
 
-    if type == :users
-      return User.where(
-        words.map { |word| "login_name ILIKE ? OR name ILIKE ? OR description ILIKE ?" }
-             .join(" AND "),
-        *words.flat_map { |word| ["%#{word}%", "%#{word}%", "%#{word}%"] }
-      )
+    if words.blank?
+      return model(type).all if !commentable?(type)
+      return model(type).all + Comment.where(commentable_type: model_name(type)).all
     end
 
     user_filter = words.find { |word| word.match(/^user:(\w+)$/) }
