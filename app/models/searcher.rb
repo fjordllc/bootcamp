@@ -91,11 +91,11 @@ class Searcher
       user = User.find_by(login_name: username)
       return [] unless user
 
-      return AVAILABLE_TYPES.reject { |type| type == :users }
+      AVAILABLE_TYPES.reject { |type| type == :users }
                             .flat_map do |type|
                               model = model(type)
                               next [] unless model.column_names.include?('user_id') || model.column_names.include?('last_updated_user_id')
-  
+
                               if type == :practices
                                 model.where('last_updated_user_id = ?', user.id)
                               else
@@ -120,14 +120,17 @@ class Searcher
   def self.result_for(type, words, commentable_type: nil)
     raise ArgumentError, "#{type} is not an available type" unless type.in?(AVAILABLE_TYPES)
 
-    return User.where(
-      words.map { |word| "login_name ILIKE ? OR name ILIKE ? OR description ILIKE ?" }
-           .join(" AND "),
-      *words.flat_map { |word| ["%#{word}%", "%#{word}%", "%#{word}%"] }
-    ) if type == :users
+    if type == :users
+      return User.where(
+        words.map { |_word| 'login_name ILIKE ? OR name ILIKE ? OR description ILIKE ?' }
+             .join(' AND '),
+        *words.flat_map { |word| ["%#{word}%", "%#{word}%", "%#{word}%"] }
+      )
+    end
 
     if words.blank?
       return model(type).all if !commentable?(type)
+
       return model(type).all + Comment.where(commentable_type: model_name(type)).all
     end
 
