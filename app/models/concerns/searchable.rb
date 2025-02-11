@@ -21,16 +21,17 @@ module Searchable
     private
 
     def params_for_keyword_search(searched_values = {})
-      return {} if searched_values[:words].blank?
+      return {} if searched_values[:word].blank?
 
-      groupings = searched_values[:words].map do |word|
+      groupings = searched_values[:word].split(/[[:blank:]]+/).map do |word|
         if word.start_with?('user:')
           create_parameter_for_search_user_id(word.delete_prefix('user:'))
         else
           { _join_column_names => word }
         end
       end
-      { combinator: 'and', groupings: }
+
+      { combinator: 'or', groupings: groupings }
     end
 
     def word_to_groupings(word)
