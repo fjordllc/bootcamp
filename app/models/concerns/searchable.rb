@@ -31,7 +31,7 @@ module Searchable
         end
       end
 
-      { combinator: 'or', groupings: groupings }
+      { combinator: 'or', groupings: }
     end
 
     def word_to_groupings(word)
