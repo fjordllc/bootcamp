@@ -10,6 +10,12 @@ header.page-header
       .page-header__end
         .page-header-actions
           ul.page-header-actions__items
+            - if current_user == @user
+              li.page-header-actions__item
+                = link_to new_report_path, class: 'a-button is-md is-secondary is-block' do
+                  i.fa-regular.fa-plus
+                  span
+                    | 日報作成
             li.page-header-actions__item
               = link_to users_path, class: 'a-button is-md is-secondary is-block is-back' do
                 | ユーザー一覧
