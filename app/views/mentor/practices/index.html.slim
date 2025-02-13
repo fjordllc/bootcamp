@@ -28,4 +28,8 @@ main.page-main
   hr.a-border
   .page-body
     .container.is-lg
+      .pagination
+        = paginate @practices
       = render 'mentor_practices', practices: @practices
+      .pagination
+        = paginate @practices

@@ -29,7 +29,7 @@
           - if practice.submission
             td.admin-table__item-value.text-right
               = link_to practice_products_path(practice) do
-                = practice.products.size
+                = practice.products_count
           - else
             td.admin-table__item-value.is-text-align-center
               span.admin-table__item-blank
@@ -44,10 +44,10 @@
                 i.fa-solid.fa-plus
           td.admin-table__item-value.text-right
             = link_to practice_reports_path(practice) do
-              = practice.reports.size
+              = practice.reports_count
           td.admin-table__item-value.text-right
             = link_to practice_questions_path(practice) do
-              = practice.questions.size
+              = practice.questions_count
           td.admin-table__item-value.is-text-align-center
             ul.is-inline-buttons
               li
