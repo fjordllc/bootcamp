@@ -59,6 +59,19 @@ class Practice < ApplicationRecord
 
   columns_for_keyword_search :title, :description, :goal
 
+  scope :with_counts, lambda {
+    select('practices.*,
+           (SELECT COUNT(*) FROM products WHERE products.practice_id = practices.id) as products_count,
+           (SELECT COUNT(*) FROM practices_reports WHERE practices_reports.practice_id = practices.id) as reports_count,
+           (SELECT COUNT(*) FROM questions WHERE questions.practice_id = practices.id) as questions_count')
+  }
+
+  scope :for_mentor_index, lambda {
+    with_counts
+      .preload(:categories, :submission_answer)
+      .order(:id)
+  }
+
   class << self
     def save_learning_minute_statistics
       Practice.all.find_each do |practice|
