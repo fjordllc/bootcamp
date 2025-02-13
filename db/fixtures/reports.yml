@@ -344,6 +344,26 @@ report89:
   title: "リンクカードの動作確認"
   emotion: 2
   description: |-
+    ## 通常のTweet
+    @[card](https://x.com/fjordbootcamp/status/1866097842483503117)
+
+    ### 存在しないTweet
+    @[card](https://x.com/fjordbootcamp/status/186609784248350311774832921aaa)
+
+    ### ユーザーのホーム画面
+    @[card](https://x.com/fjordbootcamp)
+
+    ### リスト
+    @[card](https://x.com/mousuFBC/lists)
+
+    ### ハッシュタグの検索結果
+    @[card](https://x.com/hashtag/fjordbootcamp?src=hashtag_click)
+
+    ### リンクカードが生成されるがfetchに失敗するパターン
+    @[card](https://bootcamp.fjord.jp/aaa)
+
+    ---
+
     # リンクカードが生成されるパターン
     @[card](https://bootcamp.fjord.jp)
 
@@ -388,22 +408,6 @@ report89:
     :::details リンクカードが展開される
     @[card](https://bootcamp.fjord.jp)
     :::
-
-    ---
-
-    ## Tweet
-    @[card](https://x.com/fjordbootcamp/status/1866097842483503117)
-
-    ---
-
-    # リンクカードが生成されるが、失敗するパターン
-    ## サイトが存在しない
-    @[card](https://examplehogehoge.com/hoge/)
-
-    ---
-
-    ## 存在しないTweet
-    @[card](https://x.com/fjordbootcamp/status/186609784248350311774832921aaa)
 
     ---
 
