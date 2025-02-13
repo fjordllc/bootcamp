@@ -6,7 +6,7 @@ class ArticlesHelperTest < ActionView::TestCase
   test '#feature_tag?' do
     article = articles(:article1).dup
     assert_not feature_tag?(article)
-    article.tag_list = [:feature]
+    article.tag_list = ['注目の記事']
     article.save!
     assert feature_tag?(article)
   end
