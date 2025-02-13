@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 class Mentor::PracticesController < ApplicationController
+  PER_PAGE = 50
   before_action :require_admin_or_mentor_login, only: %i[index new create edit update]
   before_action :set_course, only: %i[new]
   before_action :set_practice, only: %i[edit update]
 
   def index
-    @practices = Practice.preload(:categories, :products, :reports, :questions).order(:id)
+    @practices = Practice.for_mentor_index.page(params[:page]).per(PER_PAGE)
   end
 
   def new
