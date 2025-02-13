@@ -47,6 +47,10 @@ const isTweet = (url) => {
   )
 }
 
+const isTwitter = (url) => {
+  return /^https:\/\/(twitter|x)\.com/.test(url)
+}
+
 const loadTwitterScript = () => {
   if (
     !document.querySelector(
@@ -179,6 +183,7 @@ const handleEmbedFailure = (targetLink) => {
       )}" target="_blank" rel="noopener">
         ${targetLink.getAttribute('data-url')}
       </a>
+      ${isTwitter ? '<span>X</span>' : ''}
     </div>
     `
   )
