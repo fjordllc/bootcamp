@@ -55,15 +55,9 @@ class ReportsController < ApplicationController
     set_wip
     canonicalize_learning_times(@report)
 
-    begin
-      if @report.save
-        Newspaper.publish(:report_save, { report: @report })
-        redirect_to redirect_url(@report), notice: notice_message(@report), flash: flash_contents(@report)
-      else
-        render :new
-      end
-    rescue ActiveRecord::RecordNotUnique
-      @report.errors.add(:reported_on, 'はすでに存在します')
+    if @report.save_with_uniqueness_handling
+      redirect_to redirect_url(@report), notice: notice_message(@report), flash: flash_contents(@report)
+    else
       render :new
     end
   end

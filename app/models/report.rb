@@ -132,12 +132,10 @@ class Report < ApplicationRecord
           .second
   end
 
-  def save_uniquely
-    transaction do
-      save
-    end
+  def save_with_uniqueness_handling(*args, &block)
+    save(*args, &block)
   rescue ActiveRecord::RecordNotUnique
-    errors.add(:base, '学習日はすでに存在します')
+    errors.add(:reported_on, 'はすでに存在します')
     false
   end
 
