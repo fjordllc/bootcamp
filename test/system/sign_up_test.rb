@@ -287,15 +287,19 @@ class SignUpTest < ApplicationSystemTestCase
 
   test 'form item about job seek is only displayed to students' do
     visit '/users/new'
-    assert has_field? 'user[job_seeker]', visible: :all
+    assert_selector "input[name='user[job_seeker]']", visible: :all
+
     visit '/users/new?role=adviser'
-    assert has_no_field? 'user[job_seeker]', visible: :all
+    assert has_no_selector? "input[name='user[job_seeker]']", visible: :all, wait: 5
+
     visit '/users/new?role=trainee_invoice_payment'
-    assert has_no_field? 'user[job_seeker]', visible: :all
+    assert has_no_selector? "input[name='user[job_seeker]']", visible: :all, wait: 5
+
     visit '/users/new?role=trainee_credit_card_payment'
-    assert has_no_field? 'user[job_seeker]', visible: :all
+    assert has_no_selector? "input[name='user[job_seeker]']", visible: :all, wait: 5
+
     visit '/users/new?role=trainee_select_a_payment_method'
-    assert has_no_field? 'user[job_seeker]', visible: :all
+    assert has_no_selector? "input[name='user[job_seeker]']", visible: :all, wait: 5
   end
 
   test 'sign up with reserved login name' do
