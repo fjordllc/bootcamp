@@ -24,6 +24,14 @@ article3:
   thumbnail_type: :prepared_thumbnail
   token: abcdef123456
 
+article4:
+  title: タイトル４
+  body: sponsorshipページに表示される記事です。
+  user: komagata
+  wip: false
+  thumbnail_type: :sponsorship
+  token: abcdef123456
+
 <% (21..27).each_with_index do |id, i| %>
 article<%= id %>:
   title: test with 注目の記事 tag <%= id %>
