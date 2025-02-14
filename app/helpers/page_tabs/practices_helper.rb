@@ -9,7 +9,7 @@ module PageTabs
       tabs << { name: '質問', link: practice_questions_path(practice), count: practice.questions.length }
       tabs << { name: 'Docs', link: practice_pages_path(practice), count: practice.pages.length }
       tabs << { name: '提出物', link: practice_products_path(practice) }
-      tabs << { name: '模範解答', link: practice_submission_answer_path(practice) }
+      tabs << { name: '模範解答', link: practice_submission_answer_path(practice) } if practice.submission_answer.present?
       tabs << { name: 'コーディングテスト', link: practice_coding_tests_path(practice) } if practice.coding_tests.present?
       render PageTabsComponent.new(tabs:, active_tab:)
     end
