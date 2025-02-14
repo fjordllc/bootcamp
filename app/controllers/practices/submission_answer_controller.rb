@@ -6,6 +6,7 @@ class Practices::SubmissionAnswerController < ApplicationController
   def show
     @practice = Practice.find(params[:practice_id])
     @submission_answer = @practice.submission_answer
+    raise ActiveRecord::RecordNotFound if @submission_answer.nil?
   end
 
   private
