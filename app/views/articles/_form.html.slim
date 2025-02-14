@@ -158,29 +158,28 @@
             .a-block-check.is-radio
               = f.radio_button :target, 'all', id: 'all', class: 'a-toggle-checkbox'
               label.a-block-check__label(for='all')
-                = t("activerecord.enums.article.target.all")
+                = t('activerecord.enums.article.target.all')
           li.block-checks__item
             .a-block-check.is-radio
               = f.radio_button :target, 'students', id: 'students', class: 'a-toggle-checkbox'
               label.a-block-check__label(for='students')
-                = t("activerecord.enums.article.target.students")
+                = t('activerecord.enums.article.target.students')
           li.block-checks__item
             .a-block-check.is-radio
               = f.radio_button :target, 'job_seekers', id: 'job_seekers', class: 'a-toggle-checkbox'
               label.a-block-check__label(for='job_seekers')
-                = t("activerecord.enums.article.target.job_seekers")
+                = t('activerecord.enums.article.target.job_seekers')
           li.block-checks__item
             .a-block-check.is-radio
               = f.radio_button :target, 'none', id: 'none', class: 'a-toggle-checkbox'
               label.a-block-check__label(for='none')
-                =t("activerecord.enums.article.target.none")
+                =t('activerecord.enums.article.target.none')
+    - elsif article.target == 'none'
+      p
+        | この記事は通知を行わずに公開しました。
     - else
-      - if article.target == 'none'
-        p
-          | この記事は通知を行わずに公開しました。
-      - else
-        p
-          = "この記事は初回公開時に#{t("activerecord.enums.article.target.#{article.target}")}に対してすでに通知を行っています。"
+      p
+        = "この記事は初回公開時に#{t("activerecord.enums.article.target.#{article.target}")}に対してすでに通知を行っています。"
 
   .form-actions
     ul.form-actions__items
