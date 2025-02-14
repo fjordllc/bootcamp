@@ -74,8 +74,8 @@ class API::UsersController < API::BaseController
   end
 
   def set_user
-    @user = if params[:id] == 'show'
-              User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
+    @user = if params[:id] == 'show' && doorkeeper_token
+              User.find(doorkeeper_token.resource_owner_id)
             else
               User.find(params[:id])
             end
