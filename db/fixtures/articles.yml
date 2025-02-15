@@ -80,26 +80,26 @@ article4:
   user: komagata
   wip: true
 
-<% (5..20).each do |id| %>
+<% (5..20).each_with_index do |id, i| %>
 article<%= id %>:
   title: test title<%= id %>
   body: |-
     test body<%= id %>
   user: komagata
   wip: false
-  published_at: "<%= (Date.parse('2024-01-01') + id - 5) %>"
-  created_at: "<%= (Date.parse('2024-01-01') + id - 5) %>"
+  published_at: "<%= Date.parse('2024-01-01') + i %>"
+  created_at: "<%= Date.parse('2024-01-01') + i %>"
 <% end %>
 
-<% (21..27).each do |id| %>
+<% (21..27).each_with_index do |id, i| %>
 article<%= id %>:
   title: test with 注目の記事 tag <%= id %>
   body: |-
     test body<%= id %>
   user: komagata
   wip: false
-  published_at: "<%= (Date.parse('2024-02-01') + id - 21) %>"
-  created_at: "<%= (Date.parse('2024-02-01') + id - 21) %>"
+  published_at: "<%= Date.parse('2024-02-01') + i %>"
+  created_at: "<%= Date.parse('2024-02-01') + i %>"
 <% end %>
 
 <% (41..55).each do |id| %>
