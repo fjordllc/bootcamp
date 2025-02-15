@@ -6,7 +6,7 @@ module RegularEventHelpers
   private
 
   def set_regular_event
-    @regular_event = current_user.mentor? ? RegularEvent.find(params[:id]) : RegularEvent.organizer_event(current_user).find(params[:id])
+    @regular_event = RegularEvent.find(params[:id])
   end
 
   def handle_redirect_after_create_or_update

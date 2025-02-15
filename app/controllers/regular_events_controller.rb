@@ -3,13 +3,14 @@
 class RegularEventsController < ApplicationController
   include RegularEventHelpers
 
-  before_action :set_regular_event, only: %i[edit update destroy show]
+  before_action :set_regular_event, only: %i[edit update destroy]
 
   def index
     @upcoming_events_groups = UpcomingEvent.upcoming_events_groups
   end
 
   def show
+    @regular_event = RegularEvent.find(params[:id])
     Footprint.find_or_create_footprint(@regular_event, current_user) unless @regular_event.user == current_user
     @footprints = Footprint.fetch_footprints(@regular_event)
     @footprint_total_count = Footprint.footprint_count(@regular_event)
