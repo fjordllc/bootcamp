@@ -98,37 +98,9 @@ page13_tag_net_framework:
   context: tags
   tag: _net_framework
 
-article21_tag_注目の記事:
-  taggable: article21 (Article)
+<% (21..27).each do |id| %> 
+article<%= id %>_tag_feature:
+  taggable: article<%= id %> (Article)
   context: tags
-  tag: 注目の記事
-
-article22_tag_注目の記事:
-  taggable: article22 (Article)
-  context: tags
-  tag: 注目の記事
-
-article23_tag_注目の記事:
-  taggable: article23 (Article)
-  context: tags
-  tag: 注目の記事
-
-article24_tag_注目の記事:
-  taggable: article24 (Article)
-  context: tags
-  tag: 注目の記事
-
-article25_tag_注目の記事:
-  taggable: article25 (Article)
-  context: tags
-  tag: 注目の記事
-
-article26_tag_注目の記事:
-  taggable: article26 (Article)
-  context: tags
-  tag: 注目の記事
-
-article27_tag_注目の記事:
-  taggable: article27 (Article)
-  context: tags
-  tag: 注目の記事
+  tag: feature
+<% end %>
