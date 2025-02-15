@@ -56,6 +56,9 @@ class Article < ApplicationRecord
       .limit(limit)
   }
 
+  scope :featured, -> { tagged_with('注目の記事').order(published_at: :desc).where(wip: false).limit(6) }
+
+
   def prepared_thumbnail_url(thumbnail_size = THUMBNAIL_SIZE)
     if thumbnail.attached?
       thumbnail.variant(resize_to_fill: thumbnail_size).processed.url
