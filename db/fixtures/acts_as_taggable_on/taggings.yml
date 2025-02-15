@@ -103,8 +103,9 @@ page13_tag_net_framework:
   context: tags
   tag: _net_framework
 
-article21_tag_注目の記事:
-  taggable: article21 (Article)
+<% (21..27).each do |id| %>
+article<%= id %>_tag_feature:
+  taggable: article<%= id %> (Article)
   context: tags
   tag: cat
 
@@ -161,3 +162,5 @@ article27_tag_注目の記事:
   taggable: article27 (Article)
   context: tags
   tag: 注目の記事
+  tag: feature
+<% end %>
