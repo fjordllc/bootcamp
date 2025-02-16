@@ -15,7 +15,7 @@ class AnnouncementsController < ApplicationController
   end
 
   def show
-    Footprint.find_or_create_footprint(@announcement, current_user) unless @announcement.user == current_user
+    Footprint.record_footprint(@announcement, current_user) unless @announcement.user == current_user
     @footprints = Footprint.fetch_footprints(@announcement)
     @footprint_total_count = Footprint.footprint_count(@announcement)
   end
