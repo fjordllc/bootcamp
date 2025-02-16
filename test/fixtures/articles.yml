@@ -32,3 +32,57 @@ article<%= id %>:
   published_at: "<%= Date.parse('2024-02-01') + i %>"
   created_at: "<%= Date.parse('2024-02-01') + i %>"
 <% end %>
+
+featured_article_1:
+  title: 注目の記事1
+  body: test body1
+  user: komagata
+  wip: false
+  published_at: 2024-02-07 09:00:00
+  created_at: 2024-02-07 09:00:00
+  tag_list: 注目の記事
+
+featured_article_2:
+  title: 注目の記事2
+  body: test body2
+  user: komagata
+  wip: false
+  published_at: 2024-02-06 09:00:00
+  created_at: 2024-02-06 09:00:00
+  tag_list: 注目の記事
+
+  featured_article_3:
+  title: 注目の記事3
+  body: test body3
+  user: komagata
+  wip: false
+  published_at: 2024-02-05 09:00:00
+  created_at: 2024-02-05 09:00:00
+  tag_list: 注目の記事
+
+featured_article_4:
+  title: 注目の記事4
+  body: test body4
+  user: komagata
+  wip: false
+  published_at: 2024-02-04 09:00:00
+  created_at: 2024-02-04 09:00:00
+  tag_list: 注目の記事
+
+  featured_article_5:
+  title: 注目の記事5
+  body: test body5
+  user: komagata
+  wip: false
+  published_at: 2024-02-03 09:00:00
+  created_at: 2024-02-03 09:00:00
+  tag_list: 注目の記事
+
+featured_article_6:
+  title: 注目の記事6
+  body: test body6
+  user: komagata
+  wip: false
+  published_at: 2024-02-02 09:00:00
+  created_at: 2024-02-02 09:00:00
+  tag_list: 注目の記事
