@@ -137,6 +137,10 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     participated_regular_events
   end
 
+  def publish_with_announcement?
+    wants_announcement? && !wip?
+  end
+
   private
 
   def end_at_be_greater_than_start_at
