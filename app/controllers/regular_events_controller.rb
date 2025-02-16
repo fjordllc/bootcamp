@@ -67,8 +67,7 @@ class RegularEventsController < ApplicationController
     path = if @regular_event.publish_with_announcement?
              new_announcement_path(regular_event_id: @regular_event.id)
            else
-             Redirection.determin_url(self,
-                                                                                                                                                        @regular_event)
+             Redirection.determin_url(self, @regular_event)
            end
     redirect_to path, notice: notice_message(@regular_event)
   end
