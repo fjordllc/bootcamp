@@ -4,6 +4,7 @@ article1:
   user: komagata
   wip: false
   published_at: '2022-01-01 00:00:00'
+  published_at: '2022-01-01 00:00:00'
   thumbnail_type: :ruby_on_rails
 
 article2:
@@ -11,6 +12,7 @@ article2:
   body: サムネイルにはデフォルトの画像を使います。
   user: machida
   wip: false
+  published_at: '2022-01-02 00:00:00'
   published_at: '2022-01-02 00:00:00'
   thumbnail_type: :prepared_thumbnail
 
@@ -22,56 +24,59 @@ article3:
   thumbnail_type: :prepared_thumbnail
   token: abcdef123456
 
-featured_article_1:
-  title: 注目の記事1
-  body: test body1
+article21:
+  title: 注目の記事21
+  body: test body21
   user: komagata
   wip: false
-  published_at: 2024-02-07 09:00:00
-  created_at: 2024-02-07 09:00:00
-  tag_list: 注目の記事
+  published_at: '2024-02-01 09:00:00'
+  created_at: '2024-02-01 09:00:00'
 
-featured_article_2:
-  title: 注目の記事2
-  body: test body2
+article22:
+  title: 注目の記事22
+  body: test body22
   user: komagata
   wip: false
-  published_at: 2024-02-06 09:00:00
-  created_at: 2024-02-06 09:00:00
-  tag_list: 注目の記事
+  published_at: '2024-02-02 09:00:00'
+  created_at: '2024-02-02 09:00:00'
 
-  featured_article_3:
-  title: 注目の記事3
-  body: test body3
+article23:
+  title: 注目の記事23
+  body: test body23
   user: komagata
   wip: false
-  published_at: 2024-02-05 09:00:00
-  created_at: 2024-02-05 09:00:00
-  tag_list: 注目の記事
+  published_at: '2024-02-03 09:00:00'
+  created_at: '2024-02-03 09:00:00'
 
-featured_article_4:
-  title: 注目の記事4
-  body: test body4
+article24:
+  title: 注目の記事24
+  body: test body24
   user: komagata
   wip: false
-  published_at: 2024-02-04 09:00:00
-  created_at: 2024-02-04 09:00:00
-  tag_list: 注目の記事
+  published_at: '2024-02-04 09:00:00'
+  created_at: '2024-02-04 09:00:00'
 
-  featured_article_5:
-  title: 注目の記事5
-  body: test body5
+article25:
+  title: 注目の記事25
+  body: test body25
   user: komagata
   wip: false
-  published_at: 2024-02-03 09:00:00
-  created_at: 2024-02-03 09:00:00
-  tag_list: 注目の記事
+  published_at: '2024-02-05 09:00:00'
+  created_at: '2024-02-05 09:00:00'
 
-featured_article_6:
-  title: 注目の記事6
-  body: test body6
+article26:
+  title: 注目の記事26
+  body: test body26
   user: komagata
   wip: false
-  published_at: 2024-02-02 09:00:00
-  created_at: 2024-02-02 09:00:00
-  tag_list: 注目の記事
+  published_at: '2024-02-06 09:00:00'
+  created_at: '2024-02-06 09:00:00'
+
+article27:
+  title: 注目の記事27
+  body: test body27
+  user: komagata
+  wip: false
+  published_at: '2024-02-07 09:00:00'
+  created_at: '2024-02-07 09:00:00'
+
