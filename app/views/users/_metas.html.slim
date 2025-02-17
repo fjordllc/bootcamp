@@ -37,6 +37,7 @@
         .user-metas__item-value
           = "#{number_with_precision(user.total_learning_time, precision: 1)}時間（"
           = render 'users/learning_status', user: user
+          | ）
     .user-metas__item
       .user-metas__item-label
         | 区分
