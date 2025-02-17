@@ -178,12 +178,14 @@ const handleEmbedFailure = (targetLink) => {
     `
     <div class="a-link-card embed-error">
       <!-- リンクの変換に失敗しました。以下のリンクをご確認ください。 -->
-      <a href="${targetLink.getAttribute(
-        'data-url'
-      )}" target="_blank" rel="noopener">
-        ${targetLink.getAttribute('data-url')}
-      </a>
-      ${isTwitter ? '<span>X</span>' : ''}
+      <div class="embed-error__inner">
+        ${isTwitter ? '<i class="fa-brands fa-x-twitter"></i>' : ''}
+        <a href="${targetLink.getAttribute(
+          'data-url'
+        )}" target="_blank" rel="noopener">
+          ${targetLink.getAttribute('data-url')}
+        </a>
+      </div>
     </div>
     `
   )
