@@ -18,8 +18,9 @@ ignore_unreachable_actions:
   - .*#paid_login\?
   - .*#staff_or_paid_login\?
   - .*#hibernated_login\?
+  - .*#training_completed_login\?
+  - .*#inactive_login\?
   - .*#retired_login\?
-  - .*#hibernated_or_retired_login\?
   - .*#policy
   - .*#require_active_user_login
   - .*#require_admin_login
