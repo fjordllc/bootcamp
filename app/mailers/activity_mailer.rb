@@ -296,6 +296,22 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
     message
   end
 
+  def training_completed(args = {})
+    @sender ||= args[:sender]
+    @receiver ||= args[:receiver]
+
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: "/users/#{@sender.id}",
+      kind: Notification.kinds[:training_completed]
+    )
+    subject = "[FBC] #{@sender.login_name}さんが研修終了しました。"
+    message = mail(to: @user.email, subject:)
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
+  end
+
   # required params: report, receiver
   def first_report(args = {})
     @report = params&.key?(:report) ? params[:report] : args[:report]

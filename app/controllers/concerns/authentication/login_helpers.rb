@@ -13,11 +13,12 @@ module Authentication::LoginHelpers
                   :paid_login?,
                   :staff_or_paid_login?,
                   :hibernated_login?,
+                  :training_completed_login?,
                   :retired_login?,
-                  :hibernated_or_retired_login?
+                  :inactive_login?
   end
 
-  %i[admin mentor adviser staff student paid hibernated retired].each do |user_type|
+  %i[admin mentor adviser staff student paid hibernated training_completed retired].each do |user_type|
     define_method("#{user_type}_login?") do
       logged_in? && current_user.public_send("#{user_type}?")
     end
@@ -27,7 +28,7 @@ module Authentication::LoginHelpers
     logged_in? && current_user.admin_or_mentor?
   end
 
-  def hibernated_or_retired_login?
-    logged_in? && current_user.hibernated_or_retired?
+  def inactive_login?
+    logged_in? && current_user.inactive?
   end
 end

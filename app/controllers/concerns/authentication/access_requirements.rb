@@ -4,8 +4,8 @@ module Authentication::AccessRequirements
   extend ActiveSupport::Concern
 
   def require_active_user_login
-    if hibernated_or_retired_login?
-      deny_hibernated_or_retired_login
+    if inactive_login?
+      deny_inactive_user_login
     else
       require_login
     end
