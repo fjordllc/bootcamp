@@ -11,22 +11,18 @@ class UserSessionsController < ApplicationController
     @user = login(params[:user][:login], params[:user][:password], params[:remember])
     if @user
       if @user.retired_on?
-        logout
-        flash.now[:alert] = '退会したユーザーです。'
-        render 'new'
+        logout_with_alert('退会したユーザーです。')
+      elsif @user.training_completed?
+        logout_with_alert('研修終了したユーザーです。')
       elsif @user.hibernated?
-        logout
         link = view_context.link_to '休会復帰ページ', new_comeback_path, target: '_blank', rel: 'noopener'
-        flash.now[:alert] = "休会中です。#{link}から手続きをお願いします。"
-        render 'new'
+        logout_with_alert("休会中です。#{link}から手続きをお願いします。")
       else
         redirect_back_or_to root_url, notice: 'ログインしました。'
       end
     else
-      logout
       @user = User.new
-      flash.now[:alert] = 'ユーザー名かパスワードが違います。'
-      render 'new'
+      logout_with_alert('ユーザー名かパスワードが違います。')
     end
   end
 
@@ -62,5 +58,11 @@ class UserSessionsController < ApplicationController
     flash[:notice] = result[:notice] if result[:notice]
     flash[:alert] = result[:alert] if result[:alert]
     session[:user_id] = result[:user_id] if result[:user_id]
+  end
+
+  def logout_with_alert(message)
+    logout
+    flash.now[:alert] = message
+    render 'new'
   end
 end

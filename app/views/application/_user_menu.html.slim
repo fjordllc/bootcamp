@@ -26,5 +26,9 @@
           = link_to new_hibernation_path, class: 'header-dropdown__item-link' do
             | 休会手続き
     li.header-dropdown__item
-      = link_to new_retirement_path, class: 'header-dropdown__item-link' do
-        | 退会手続き
+      - if current_user.trainee?
+        = link_to new_training_completion_path, class: 'header-dropdown__item-link' do
+          | 研修終了手続き
+      - else
+        = link_to new_retirement_path, class: 'header-dropdown__item-link' do
+          | 退会手続き

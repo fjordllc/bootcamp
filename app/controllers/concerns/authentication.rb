@@ -12,11 +12,14 @@ module Authentication
     redirect_to root_path, alert: 'ログインしてください'
   end
 
-  def deny_hibernated_or_retired_login
+  def deny_inactive_user_login
     if hibernated_login?
       logout
       link = view_context.link_to '休会復帰ページ', new_comeback_path, target: '_blank', rel: 'noopener'
       redirect_to root_path, alert: "休会中です。#{link}から手続きをお願いします。"
+    elsif training_completed_login?
+      logout
+      redirect_to root_path, alert: '研修終了したユーザーです。'
     elsif retired_login?
       logout
       redirect_to root_path, alert: '退会したユーザーです。'
