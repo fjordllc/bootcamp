@@ -12,6 +12,11 @@ class UserMailer < ApplicationMailer
     mail to: user.email, bcc: 'info@lokka.jp', subject: '[FBC] フィヨルドブートキャンプへようこそ'
   end
 
+  def training_complete(user)
+    @user = user
+    mail to: user.email, bcc: 'info@lokka.jp', subject: '[FBC] 研修終了手続きが完了しました'
+  end
+
   def retire(user)
     @user = user
     mail to: user.email, bcc: 'info@lokka.jp', subject: '[FBC] 退会処理が完了しました'

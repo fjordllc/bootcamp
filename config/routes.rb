@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   draw :products
   draw :reports
   resources :announcements
+  resource :training_completion, only: %i(show new create), controller: "training_completion"
   resource :retirement, only: %i(show new create), controller: "retirement"
   resources :request_retirements, only: %i(show new create)
   resource :hibernation, only: %i(show new create), controller: "hibernation"
