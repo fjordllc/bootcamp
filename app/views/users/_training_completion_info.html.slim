@@ -1,0 +1,19 @@
+.user-metas.is-only-mentor
+  h2.user-metas__title
+    | 研修終了情報（非公開）
+  .user-metas__items
+    .user-metas__item
+      .user-metas__item-label
+        = User.human_attribute_name :training_completed_at
+      .user-metas__item-value
+        | #{l user.training_completed_at}(開始日: #{l user.created_at.to_date})
+    .user-metas__item
+      .user-metas__item-label
+        | 選択入力の研修感想
+      .user-metas__item-value
+        = user.satisfaction
+    .user-metas__item
+      .user-metas__item-label
+        | 自由記入の研修感想
+      .user-metas__item-value
+        = user.opinion
