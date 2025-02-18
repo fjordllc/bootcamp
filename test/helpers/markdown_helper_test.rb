@@ -11,15 +11,15 @@ class MarkdownHelperTest < ActionView::TestCase
     assert_equal expected_plain_text, markdown_to_plain_text(markdown)
 
     markdown = "<script>alert('xss');</script>"
-    expected_plain_text = ""
+    expected_plain_text = ''
     assert_equal expected_plain_text, markdown_to_plain_text(markdown)
 
-    markdown = "<div>test</div>"
-    expected_plain_text = "test"
+    markdown = '<div>test</div>'
+    expected_plain_text = 'test'
     assert_equal expected_plain_text, markdown_to_plain_text(markdown)
   end
 
   def test_markdown_to_plain_text_handles_empty_markdown
-    assert_equal "", markdown_to_plain_text("")
+    assert_equal '', markdown_to_plain_text('')
   end
 end
