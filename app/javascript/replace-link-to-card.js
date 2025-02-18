@@ -16,7 +16,7 @@ const replaceLinkToCard = () => {
   )
 
   targetLinkList.forEach((targetLink) => {
-    const url = targetLink.getAttribute('data-url')
+    const url = targetLink.dataset.url
     if (!url) {
       console.error('URLが取得できませんでした:', targetLink)
       handleEmbedFailure(targetLink)
@@ -180,10 +180,8 @@ const handleEmbedFailure = (targetLink) => {
       <!-- リンクの変換に失敗しました。以下のリンクをご確認ください。 -->
       <div class="embed-error__inner">
         ${isTwitter ? '<i class="fa-brands fa-x-twitter"></i>' : ''}
-        <a href="${targetLink.getAttribute(
-          'data-url'
-        )}" target="_blank" rel="noopener">
-          ${targetLink.getAttribute('data-url')}
+        <a href="${targetLink.dataset.url}" target="_blank" rel="noopener">
+          ${targetLink.dataset.url}
         </a>
       </div>
     </div>
