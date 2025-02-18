@@ -2,7 +2,7 @@
 
 module UserDecorator
   module Role
-    def roles
+    def roles(user: current_user)
       role_list = [
         { role: 'retired', value: retired? },
         { role: 'hibernationed', value: hibernated? },
@@ -15,12 +15,13 @@ module UserDecorator
       roles = role_list.find_all { |v| v[:value] }
                        .map { |v| v[:role] }
       roles << :student if roles.empty?
+      roles.unshift('new-user') if user&.mentor? && (roles & %i[student trainee]).any? && elapsed_days <= 7
 
       roles
     end
 
-    def primary_role
-      roles.first
+    def primary_role(user: current_user)
+      roles(user:).first
     end
 
     def staff_roles
@@ -34,8 +35,8 @@ module UserDecorator
                  .join('、')
     end
 
-    def roles_to_s
-      return '' if roles.empty?
+    def roles_to_s(user: current_user)
+      return '' if roles(user:).empty?
 
       roles = [
         { role: '退会ユーザー', value: retired? },
