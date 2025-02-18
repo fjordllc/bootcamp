@@ -12,7 +12,7 @@ class HomeController < ApplicationController
       display_products_for_mentor
       render action: :index
     else
-      @mentors = User.with_attached_profile_image.mentor.includes(authored_books: { cover_attachment: :blob })
+      @mentors = User.visible_sorted_mentors
       @featured_articles = Article.featured
       render template: 'welcome/index', layout: 'lp'
     end
