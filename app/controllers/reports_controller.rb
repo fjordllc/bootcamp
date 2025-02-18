@@ -56,6 +56,7 @@ class ReportsController < ApplicationController
     canonicalize_learning_times(@report)
 
     if @report.save_with_uniqueness_handling
+      Newspaper.publish(:report_save, { report: @report })
       redirect_to redirect_url(@report), notice: notice_message(@report), flash: flash_contents(@report)
     else
       render :new
