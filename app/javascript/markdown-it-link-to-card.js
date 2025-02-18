@@ -19,11 +19,11 @@ export default (md, _options) => {
         continue
       }
       // リンクの親のp要素が他のマークダウンにネストしていない場合のみリンクカードを生成する(details, message以外)
-      const sourceToken = tokens[i - 1]
+      const parentToken = tokens[i - 1]
       const isAllowedParagraph =
-        sourceToken &&
-        sourceToken.type === 'paragraph_open' &&
-        sourceToken.level === allowLevel
+        parentToken &&
+        parentToken.type === 'paragraph_open' &&
+        parentToken.level === allowLevel
       if (!isAllowedParagraph) continue
 
       // 記法の対象となるlinkはinlineTokenのchildrenにのみ存在する
@@ -58,7 +58,7 @@ export default (md, _options) => {
       // 正しいTokenの配列を保つために、linkCardの一連のtoken(pOpen inline pClose)の後にpushしている
       tokens.splice(i + 2, 0, linkCardToken)
 
-      sourceToken.attrJoin('style', 'display: none')
+      parentToken.attrJoin('style', 'display: none')
     }
     return true
   })
