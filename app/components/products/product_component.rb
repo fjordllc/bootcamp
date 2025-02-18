@@ -11,8 +11,8 @@ class Products::ProductComponent < ViewComponent::Base
     @display_user_icon = display_user_icon
   end
 
-  def role_class
-    "is-#{@product.user.primary_role}"
+  def role_class(user: helpers.current_user)
+    "is-#{@product.user.primary_role(user:)}"
   end
 
   def practice_title
