@@ -20,7 +20,7 @@ class GenerationsTest < ApplicationSystemTestCase
     assert_text 'ユーザー一覧'
     assert_link "#{users(:otameshi).generation}期生"
     within all('.a-user-icons__items').first do
-      within first('.a-user-role.is-student') do
+      within first('.a-user-role.is-student, .a-user-role.is-new-user') do
         assert_equal first('img')['class'], 'a-user-icons__item-icon a-user-icon'
       end
     end
