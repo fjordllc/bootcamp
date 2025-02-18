@@ -19,15 +19,17 @@ const replaceLinkToCard = () => {
     const url = targetLink.dataset.url
     if (!url) {
       console.error('URLが取得できませんでした:', targetLink)
-      handleEmbedFailure(targetLink)
+      handleEmbedFailure(targetLink, url)
       return
     }
 
     if (isTweet(url)) {
-      embedToTweet(targetLink, url).catch(() => handleEmbedFailure(targetLink))
+      embedToTweet(targetLink, url).catch(() =>
+        handleEmbedFailure(targetLink, url)
+      )
     } else {
       embedToLinkCard(targetLink, url).catch(() =>
-        handleEmbedFailure(targetLink)
+        handleEmbedFailure(targetLink, url)
       )
     }
 
@@ -86,7 +88,7 @@ const embedToTweet = async (targetLink, url) => {
     loadTwitterScript()
   } catch (error) {
     console.error('Tweetの埋め込みに失敗しました:', error)
-    handleEmbedFailure(targetLink)
+    handleEmbedFailure(targetLink, url)
   }
 }
 
@@ -168,11 +170,11 @@ const embedToLinkCard = async (targetLink, url) => {
     targetLink.remove()
   } catch (error) {
     console.error('リンクカードの埋め込みに失敗しました:', error)
-    handleEmbedFailure(targetLink)
+    handleEmbedFailure(targetLink, url)
   }
 }
 
-const handleEmbedFailure = (targetLink) => {
+const handleEmbedFailure = (targetLink, url) => {
   targetLink.insertAdjacentHTML(
     'afterend',
     `
@@ -180,8 +182,8 @@ const handleEmbedFailure = (targetLink) => {
       <!-- リンクの変換に失敗しました。以下のリンクをご確認ください。 -->
       <div class="embed-error__inner">
         ${isTwitter ? '<i class="fa-brands fa-x-twitter"></i>' : ''}
-        <a href="${targetLink.dataset.url}" target="_blank" rel="noopener">
-          ${targetLink.dataset.url}
+        <a href="${url}" target="_blank" rel="noopener">
+          ${url}
         </a>
       </div>
     </div>
