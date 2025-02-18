@@ -151,7 +151,7 @@ class ReportsController < ApplicationController
   def celebrating_count(report)
     return nil if report.wip
 
-    report_count = current_user.reports.count
+    report_count = current_user.reports.not_wip.count
     CELEBRATING_COUNTS.find { |count| count == report_count }
   end
 
