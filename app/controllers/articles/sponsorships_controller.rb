@@ -2,12 +2,12 @@
 
 class Articles::SponsorshipsController < ApplicationController
   skip_before_action :require_active_user_login, raise: false, only: %i[index]
-  MAX_PAGE_COUNT = 12
+  PAGER_NUMBER = 12
 
   layout 'lp'
 
   def index
-    @articles = sponsorships_articles.per(MAX_PAGE_COUNT)
+    @articles = sponsorships_articles.per(PAGER_NUMBER)
   end
 
   private
