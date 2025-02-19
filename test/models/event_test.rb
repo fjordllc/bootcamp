@@ -4,7 +4,7 @@ require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
   test '.scheduled_on(date)' do
-    travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
+    travel_to Time.zone.local(2017, 4, 3, 8, 0, 0) do
       today_date = Time.zone.today
       today_events_count = 2
       today_events = Event.scheduled_on(today_date)
@@ -134,5 +134,21 @@ class EventTest < ActiveSupport::TestCase
     assert 626_726_618, ids
     assert 994_018_171, ids
     assert 205_042_674, ids
+  end
+
+  test 'Events in progress today should be displayed' do
+    travel_to Time.zone.local(2024, 12, 1, 10, 0, 0) do
+      today_date = Time.zone.today
+      events = Event.scheduled_on_without_ended(today_date)
+      assert_includes events, events(:event35)
+    end
+  end
+
+  test 'Events that have already ended today should not be displayed' do
+    travel_to Time.zone.local(2024, 12, 1, 10, 0, 0) do
+      today_date = Time.zone.today
+      events = Event.scheduled_on_without_ended(today_date)
+      assert_not_includes events, events(:event36)
+    end
   end
 end
