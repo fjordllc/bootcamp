@@ -66,7 +66,7 @@ import '../new-answer.js'
 import '../coding-test.js'
 import '../copy-url.js'
 import '../footprints.js'
-import '../article.js'
+import '../article-target.js'
 
 import VueMounter from '../VueMounter.js'
 import Questions from '../components/questions.vue'
