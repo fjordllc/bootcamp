@@ -45,7 +45,7 @@ class WelcomeController < ApplicationController
   def coc; end
 
   def press_kit
-    @press_releases = Article.press_releases.includes([:user, :thumbnail_attachment]).order(published_at: :desc)
+    @press_releases = Article.press_releases.includes(%i[user thumbnail_attachment]).order(published_at: :desc)
   end
 
   def logo; end

@@ -22,8 +22,8 @@ article3:
   thumbnail_type: :prepared_thumbnail
   token: abcdef123456
 
-<% date = Date.parse("2022-01-01") %>
-<% (4..33).each do |id| %>
+<% date = Date.parse("2023-01-01") %>
+<% (4..10).each do |id| %>
 article<%= id %>:
   <% number = id - 3 %>
   title: プレスリリース<%= number %>
@@ -33,9 +33,10 @@ article<%= id %>:
   published_at: <%= "#{date + number} 00:00:00" %>
 <% end %>
 
-article34:
-  title: wip プレスリリース31
-  body: wipの「プレスリリース」タグを持つブログ
+article11:
+  title: プレスリリース
+  body: 「プレスリリース」タグを持つブログ
   user: komagata
   wip: true
-  published_at: '2022-03-01 00:00:00'
+  thumbnail_type: :prepared_thumbnail
+  token: abcdefghijkl
