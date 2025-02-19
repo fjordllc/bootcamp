@@ -6,18 +6,16 @@ module Searchable
   COLUMN_NAMES_FOR_SEARCH_USER_ID = %i[user_id last_updated_user_id].freeze
 
   included do
-    # 拡張する場合はこのスコープを上書きする
     scope :search_by_keywords_scope, -> { all }
   end
 
-  # rubocop:disable Metrics/BlockLength
   class_methods do
     def search_by_keywords(searched_values = {})
       ransack(**params_for_keyword_search(searched_values)).result.search_by_keywords_scope
     end
 
     def columns_for_keyword_search(*column_names)
-      define_singleton_method(:_join_column_names) { "#{column_names.join('_or_')}_cont_all" }
+      define_singleton_method(:_join_column_names) { "#{column_names.join('_or_')}_cont_any" }
     end
 
     private
@@ -25,10 +23,15 @@ module Searchable
     def params_for_keyword_search(searched_values = {})
       return {} if searched_values[:word].blank?
 
-      groupings = split_keyword_by_blank(searched_values[:word])
-                  .map { |word| word_to_groupings(word) }
+      groupings = searched_values[:word].split(/[[:blank:]]+/).map do |word|
+        if word.start_with?('user:')
+          create_parameter_for_search_user_id(word.delete_prefix('user:'))
+        else
+          { _join_column_names => word }
+        end
+      end
 
-      { groupings: }
+      { combinator: 'or', groupings: }
     end
 
     def word_to_groupings(word)
@@ -46,19 +49,83 @@ module Searchable
       word.split(/[[:blank:]]/)
     end
 
-    def create_parameter_for_search_user_id(name)
-      user = User.find_by(login_name: name)
+    def create_parameter_for_search_user_id(username)
+      user = User.find_by(login_name: username)
       { "#{COLUMN_NAMES_FOR_SEARCH_USER_ID.join('_or_')}_eq" => user&.id || 0 }
     end
   end
-  # rubocop:enable Metrics/BlockLength
 
-  def description
-    case self
-    when Page, Product
-      self[:body]
+  def primary_role
+    if is_a?(User)
+      return 'admin' if admin?
+      return 'mentor' if mentor?
+      return 'adviser' if adviser?
+      return 'trainee' if trainee?
+      return 'graduate' if graduated?
+      return 'student' if student?
+    elsif respond_to?(:user) && user.present?
+      return 'admin' if user.admin?
+      return 'mentor' if user.mentor?
+      return 'adviser' if user.adviser?
+      return 'trainee' if user.trainee?
+      return 'graduate' if user.graduated?
+      return 'student' if user.student?
+    end
+    nil
+  end
+
+  def formatted_updated_at
+    if is_a?(SearchResult)
+      formatted_updated_at
     else
-      self[:description]
+      weekdays = { 'Sunday' => '日', 'Monday' => '月', 'Tuesday' => '火', 'Wednesday' => '水',
+                   'Thursday' => '木', 'Friday' => '金', 'Saturday' => '土' }
+      day_name = updated_at.strftime('%A')
+      updated_at.strftime("%Y年%m月%d日(#{weekdays[day_name]}) %H:%M")
+    end
+  end
+
+  def label
+    if model_name.name.casecmp('user').zero?
+      avatar_url
+    else
+      case model_name.name.downcase
+      when 'regularevent'
+        "定期\nイベント"
+      when 'event'
+        "特別\nイベント"
+      when 'practice'
+        "プラク\nティス"
+      when 'correctanswer'
+        'Q&A'
+      when 'comment'
+        if respond_to?(:commentable) && commentable.present?
+          case commentable_type
+          when 'Announcement'
+            'お知らせ'
+          when 'Practice'
+            "プラク\nティス"
+          when 'Report'
+            '日報'
+          when 'Product'
+            '提出物'
+          when 'Question'
+            'Q&A'
+          when 'Page'
+            'Docs'
+          when 'Event'
+            "特別\nイベント"
+          when 'RegularEvent'
+            "定期\nイベント"
+          else
+            'コメント'
+          end
+        else
+          'コメント'
+        end
+      else
+        model_name.name == 'Answer' ? 'Q&A' : I18n.t("activerecord.models.#{model_name.name.underscore}")
+      end
     end
   end
 end

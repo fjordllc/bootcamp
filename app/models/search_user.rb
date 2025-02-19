@@ -10,7 +10,7 @@ class SearchUser
 
   def search
     validated_search_word = validate_search_word
-    searched_user = @users ? @users.search_by_keywords(word: validated_search_word) : User.search_by_keywords({ word: validated_search_word })
+    searched_user = @users ? @users.merge(User.search_by_keywords(word: validated_search_word)) : User.search_by_keywords(word: validated_search_word)
 
     if @target == 'retired'
       searched_user.unscope(where: :retired_on).retired
