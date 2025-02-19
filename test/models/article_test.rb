@@ -28,6 +28,11 @@ class ArticleTest < ActiveSupport::TestCase
     assert_not articles(:article3).published?
   end
 
+  test '#before_initial_publish?' do
+    assert_not articles(:article1).before_initial_publish?
+    assert articles(:article3).before_initial_publish?
+  end
+
   test '#generate_token!' do
     test_article = Article.create(
       title: 'サンプル記事',
