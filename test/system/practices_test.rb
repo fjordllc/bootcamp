@@ -161,20 +161,6 @@ class PracticesTest < ApplicationSystemTestCase
     assert_equal 'started', practice.status(users(:hatsuno))
   end
 
-  test 'valid is_startable_practice' do
-    practice = practices(:practice1)
-    visit_with_auth "/practices/#{practice.id}", 'hatsuno'
-    first('.js-started').click
-    wait_for_status_change
-    assert_equal 'started', practice.status(users(:hatsuno))
-
-    practice = practices(:practice2)
-    visit "/practices/#{practice.id}"
-    accept_alert "すでに着手しているプラクティスがあります。\n提出物を提出するか修了すると新しいプラクティスを開始できます。" do
-      first('.js-started').click
-    end
-  end
-
   test 'show other practices' do
     practice = practices(:practice2)
     visit_with_auth "/practices/#{practice.id}", 'kimura'

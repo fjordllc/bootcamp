@@ -1,4 +1,4 @@
 .a-user-icons__item
-  a.a-user-icons__item-link(href="#{user_path(started_student)}")
-    span.a-user-role(class="a-user-role is-#{started_student.primary_role}")
-      = image_tag started_student.avatar_url, title: started_student.icon_title, class: 'a-user-icons__item-icon a-user-icon'
+  a.a-user-icons__item-link(href="#{user_path(started_or_submitted_student)}")
+    span.a-user-role(class="a-user-role is-#{started_or_submitted_student.primary_role}")
+      = image_tag started_or_submitted_student.avatar_url, title: started_or_submitted_student.icon_title, class: 'a-user-icons__item-icon a-user-icon'
