@@ -526,6 +526,7 @@ class User < ApplicationRecord
     def depressed_reports
       ids = User.where(
         hibernated_at: nil,
+        training_completed_at: nil,
         retired_on: nil,
         graduated_on: nil,
         sad_streak: true
