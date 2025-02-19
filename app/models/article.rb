@@ -64,6 +64,10 @@ class Article < ApplicationRecord
     !wip?
   end
 
+  def before_initial_publish?
+    published_at.nil?
+  end
+
   def generate_token!
     self.token ||= SecureRandom.urlsafe_base64
   end
