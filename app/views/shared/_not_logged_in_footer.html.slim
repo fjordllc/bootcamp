@@ -29,6 +29,9 @@ footer.not-logged-in-footer
         li.not-logged-in-footer__nav-item
           = link_to press_kit_path, class: 'not-logged-in-footer__nav-item-link' do
             | プレスキット
+        li.not-logged-in-footer__nav-item
+          = link_to sponsorships_path, class: 'not-logged-in-footer__nav-item-link' do
+            | スポンサー実績
         - if admin_login?
           // TODO リスキル講座 公開したら if を外す
           li.not-logged-in-footer__nav-item
