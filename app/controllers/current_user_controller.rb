@@ -32,7 +32,8 @@ class CurrentUserController < ApplicationController
       :after_graduation_hope, :training_ends_on, :profile_image,
       :hide_mentor_profile,
       :profile_name, :profile_job, :profile_text, { authored_books_attributes: %i[id title url cover _destroy] },
-      :feed_url, :country_code, :subdivision_code, { discord_profile_attributes: %i[id account_name times_url] }
+      :feed_url, :country_code, :subdivision_code, { discord_profile_attributes: %i[id account_name times_url] },
+      { learning_time_frame_ids: [] }
     ]
     user_attribute.concat(admin_user_attributes) if current_user.admin?
     params.require(:user).permit(user_attribute)
