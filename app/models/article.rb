@@ -67,7 +67,7 @@ class Article < ApplicationRecord
   end
 
   def before_initial_publish?
-    attribute_in_database(:published_at).nil?
+    published_at.nil?
   end
 
   def generate_token!
