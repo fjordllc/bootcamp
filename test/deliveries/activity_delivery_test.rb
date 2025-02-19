@@ -325,7 +325,7 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
     params = {
       sender: user,
       receiver: users(:komagata),
-      sender_roles: user.roles_to_s
+      sender_roles: user.roles_to_s(user:)
     }
 
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
