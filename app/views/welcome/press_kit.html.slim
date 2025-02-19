@@ -76,3 +76,27 @@ hr.a-border
                     li
                       = link_to 'https://x.com/fjordbootcamp', class: 'a-text-link' do
                         | X
+                  h2
+                    | プレスリリース
+                    - @press_releases.take(6).each do |press_release|
+                      .col-lg-4.col-md-6.col-xs-12
+                        .thumbnail-card.a-card
+                          = link_to press_release, class: 'thumbnail-card__inner' do
+                            .thumbnail-card__row
+                              - if press_release.prepared_thumbnail?
+                                = image_tag press_release.prepared_thumbnail_url, class: 'thumbnail-card__image', alt: "ブログ記事「#{press_release.title}」のアイキャッチ画像"
+                              - else
+                                = image_tag press_release.selected_thumbnail_url, class: 'thumbnail-card__image', alt: 'ブログ記事のブランクアイキャッチ画像'
+                            .thumbnail-card__row
+                              h3.thumbnail-card__title
+                                = press_release.title
+                            .thumbnail-card__row
+                              .thumbnail-card__metas
+                                .thumbnail-card__meta
+                                  .thumbnail-card__author
+                                    = image_tag press_release.user.avatar_url
+                                    = press_release.user.login_name
+                                .thumbnail-card__meta
+                                  .thumbnail-card__date
+                                    = l(press_release.published_at)
+                    = link_to '全てのプレスリリース', press_releases_path

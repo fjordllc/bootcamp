@@ -13,6 +13,15 @@ class ArticleTest < ActiveSupport::TestCase
     end
   end
 
+  test '.press_release' do
+    articles = Article.press_releases
+
+    articles.each do |article|
+      assert_equal 'プレスリリース', *article.tag_list
+      assert_not article.wip
+    end
+  end
+
   test '#prepared_thumbnail_url' do
     article = articles(:article3)
     assert_equal '/ogp/blank.svg', article.prepared_thumbnail_url
