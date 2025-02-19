@@ -3,7 +3,7 @@ article1:
   body: サムネイルは「/public/ogp/」配下にある画像を使っています。
   user: komagata
   wip: false
-  published_at: "2022-01-01 00:00:00"
+  published_at: '2022-01-01 00:00:00'
   thumbnail_type: :ruby_on_rails
 
 article2:
@@ -11,7 +11,7 @@ article2:
   body: サムネイルにはデフォルトの画像を使います。
   user: machida
   wip: false
-  published_at: "2022-01-02 00:00:00"
+  published_at: '2022-01-02 00:00:00'
   thumbnail_type: :prepared_thumbnail
 
 article3:
@@ -21,3 +21,21 @@ article3:
   wip: true
   thumbnail_type: :prepared_thumbnail
   token: abcdef123456
+
+<% date = Date.parse("2022-01-01") %>
+<% (4..33).each do |id| %>
+article<%= id %>:
+  <% number = id - 3 %>
+  title: プレスリリース<%= number %>
+  body: 「プレスリリース」タグを持つブログ
+  user: komagata
+  wip: false
+  published_at: <%= "#{date + number} 00:00:00" %>
+<% end %>
+
+article34:
+  title: wip プレスリリース31
+  body: wipの「プレスリリース」タグを持つブログ
+  user: komagata
+  wip: true
+  published_at: '2022-03-01 00:00:00'
