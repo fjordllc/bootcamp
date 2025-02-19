@@ -3,6 +3,26 @@
 require 'application_system_test_case'
 
 class WelcomeTest < ApplicationSystemTestCase
+  setup do
+    articles_with_dates = {
+      article21: '2024-02-01 09:00:00',
+      article22: '2024-02-02 09:00:00',
+      article23: '2024-02-03 09:00:00',
+      article24: '2024-02-04 09:00:00',
+      article25: '2024-02-05 09:00:00',
+      article26: '2024-02-06 09:00:00',
+      article27: '2024-02-07 09:00:00'
+    }
+    articles_with_dates.each do |key, datetime|
+      article = articles(key)
+      article.tag_list.add('注目の記事')
+      time = Time.zone.parse(datetime)
+      article.published_at = time
+      article.created_at = time
+      article.save!
+    end
+  end
+
   test 'GET /welcome' do
     visit '/welcome'
     assert_equal 'プログラミングスクール FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
@@ -137,5 +157,19 @@ class WelcomeTest < ApplicationSystemTestCase
     assert_no_text '駒形 真幸'
     visit_with_auth '/welcome', 'kimura'
     assert_no_text '駒形 真幸'
+  end
+
+  test '6 articles with a specific tag are displayed in order of published_at' do
+    visit '/welcome'
+    article_dates = all('.articles-item__published-at').map(&:text)
+    expected_dates = [
+      '2024年02月07日(水) 09:00',
+      '2024年02月06日(火) 09:00',
+      '2024年02月05日(月) 09:00',
+      '2024年02月04日(日) 09:00',
+      '2024年02月03日(土) 09:00',
+      '2024年02月02日(金) 09:00'
+    ]
+    assert_equal expected_dates, article_dates
   end
 end
