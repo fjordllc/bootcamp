@@ -139,7 +139,7 @@
                     p
                       | WIPで保存した場合は、記事公開日時は保存されません。
 
-    - if article.published_at.nil?
+    - if article.before_initial_publish?
       .form-item
         label.a-form-label
           | 通知ターゲット
