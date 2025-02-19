@@ -102,7 +102,7 @@ tagging_2:
   context: tags
   tag: FJORD
 
-<% (4..34).each do |id| %>
+<% (4..11).each do |id| %>
 article<%= id %>_tag_press_release:
   taggable: article<%= id %> (Article)
   context: tags

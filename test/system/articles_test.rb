@@ -463,11 +463,12 @@ class ArticlesTest < ApplicationSystemTestCase
       wip: true,
       published_at: '2022-01-03 00:00:00'
     )
+    wip_press_release = articles(:article11)
 
     visit_with_auth articles_wips_path, 'komagata'
     titles = all('h2.thumbnail-card__title').map(&:text)
 
-    assert_equal ["WIP#{wip_article5.title}", "WIP#{wip_article4.title}", "WIP#{@article3.title}"], titles
+    assert_equal ["WIP#{wip_article5.title}", "WIP#{wip_article4.title}", "WIP#{@article3.title}", "WIP#{wip_press_release.title}"], titles
   end
 
   test 'not logged-in users cannot view WIP articles without correct token' do
