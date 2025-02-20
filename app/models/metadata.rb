@@ -24,7 +24,7 @@ class Metadata
       content = case metadata_key
                 when :site_url then site_url
                 when :favicon then favicon(site_url, html)
-                else ogp.public_send(metadata_key)
+                else ogp.find_by(metadata_key)
                 end
       [metadata_key, content]
     end.to_h
