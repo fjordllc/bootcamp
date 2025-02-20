@@ -23,7 +23,7 @@ class Metadata
     metadata_keys.map do |metadata_key|
       content = case metadata_key
                 when :site_url then site_url
-                when :favicon then favicon(html, site_url)
+                when :favicon then favicon(site_url, html)
                 else ogp.public_send(metadata_key)
                 end
       [metadata_key, content]
@@ -35,7 +35,7 @@ class Metadata
     "#{uri.scheme}://#{uri.host}"
   end
 
-  def favicon(html, site_url)
+  def favicon(site_url, html)
     doc = Nokogiri::HTML(html)
     favicon_path = doc.at_css('link[rel="icon"]')['href']
     absolute_regexp = URI::DEFAULT_PARSER.make_regexp
