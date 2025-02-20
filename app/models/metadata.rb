@@ -5,11 +5,11 @@ class Metadata
     @url = url
   end
 
-  def fetch_metadata
+  def fetch
     response = Link::Client.request(@url)
     case response
     when Net::HTTPSuccess
-      parse_metadata(response.body)
+      parse(response.body)
     else
       {}
     end
@@ -17,7 +17,7 @@ class Metadata
 
   private
 
-  def parse_metadata(html)
+  def parse(html)
     ogp = LinkCard::Ogp.new(html)
     metadata_keys = %i[site_name site_url favicon url title description image]
     metadata_keys.map do |metadata_key|
