@@ -9,7 +9,7 @@ module LinkCard
 
     def metadata
       Rails.cache.fetch @url, expires_in: 3.days do
-        @tweet ? fetch_tweet : Metadata.new(@url).fetch_metadata
+        @tweet ? fetch_tweet : Metadata.new(@url).fetch
       end
     end
 
