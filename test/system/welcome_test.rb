@@ -3,25 +3,6 @@
 require 'application_system_test_case'
 
 class WelcomeTest < ApplicationSystemTestCase
-  setup do
-    articles_with_dates = {
-      article21: '2024-02-01 09:00:00',
-      article22: '2024-02-02 09:00:00',
-      article23: '2024-02-03 09:00:00',
-      article24: '2024-02-04 09:00:00',
-      article25: '2024-02-05 09:00:00',
-      article26: '2024-02-06 09:00:00',
-      article27: '2024-02-07 09:00:00'
-    }
-    articles_with_dates.each do |key, datetime|
-      article = articles(key)
-      article.tag_list.add('注目の記事')
-      time = Time.zone.parse(datetime)
-      article.published_at = time
-      article.created_at = time
-      article.save!
-    end
-  end
 
   test 'GET /welcome' do
     visit '/welcome'
