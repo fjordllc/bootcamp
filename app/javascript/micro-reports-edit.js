@@ -1,3 +1,4 @@
+import CSRF from 'csrf'
 import MarkdownInitializer from 'markdown-initializer'
 import TextareaInitializer from 'textarea-initializer'
 
@@ -49,6 +50,17 @@ document.addEventListener('DOMContentLoaded', () => {
       })
     }
 
+    const saveButton = microReportEditor.querySelector('.is-primary')
+    if (saveButton) {
+      saveButton.addEventListener('click', () => {
+        toggleVisibility(modalElements, 'is-hidden')
+        savedMicroReort = editorTextarea.value
+        updatemicroReport(microReportId, savedMicroReort)
+        microReporDisplayContent.innerHTML =
+          markdownInitializer.render(savedMicroReort)
+      })
+    }
+
     const cancelButton = microReportEditor.querySelector('.is-secondary')
     cancelButton.addEventListener('click', () => {
       toggleVisibility(modalElements, 'is-hidden')
@@ -86,6 +98,29 @@ document.addEventListener('DOMContentLoaded', () => {
   function toggleVisibility(elements, className) {
     elements.forEach((element) => {
       element.classList.toggle(className)
+    })
+  }
+
+  function updatemicroReport(microReportId, content) {
+    if (content.length < 1) {
+      return null
+    }
+    const params = {
+      id: microReportId,
+      micro_report: { content: content }
+    }
+    fetch(`/api/micro_reports/${microReportId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-Token': CSRF.getToken()
+      },
+      credentials: 'same-origin',
+      redirect: 'manual',
+      body: JSON.stringify(params)
+    }).catch((error) => {
+      console.warn(error)
     })
   }
 })
