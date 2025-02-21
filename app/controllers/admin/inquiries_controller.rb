@@ -10,5 +10,6 @@ class Admin::InquiriesController < AdminController
 
   def show
     @inquiry = Inquiry.find(params[:id])
+    @comments = @inquiry.comments.order(created_at: :asc)
   end
 end
