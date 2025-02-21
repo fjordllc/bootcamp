@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const microReportId = threadComment.dataset.micro_report_id
     const microReportContent = threadComment.dataset.micro_report_content
     TextareaInitializer.initialize(`#js-comment-${microReportId}`)
-    let savedMicroReort = ''
+    let savedMicroReport = ''
 
     const microReportDisplay = threadComment.querySelector(
       '.micro-report-display'
@@ -43,8 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
     )
     if (editButton) {
       editButton.addEventListener('click', () => {
-        if (!savedMicroReort) {
-          savedMicroReort = editorTextarea.value
+        if (!savedMicroReport) {
+          savedMicroReport = editorTextarea.value
         }
         toggleVisibility(modalElements, 'is-hidden')
       })
@@ -54,19 +54,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (saveButton) {
       saveButton.addEventListener('click', () => {
         toggleVisibility(modalElements, 'is-hidden')
-        savedMicroReort = editorTextarea.value
-        updatemicroReport(microReportId, savedMicroReort)
+        savedMicroReport = editorTextarea.value
+        updatemicroReport(microReportId, savedMicroReport)
         microReporDisplayContent.innerHTML =
-          markdownInitializer.render(savedMicroReort)
+          markdownInitializer.render(savedMicroReport)
       })
     }
 
     const cancelButton = microReportEditor.querySelector('.is-secondary')
     cancelButton.addEventListener('click', () => {
       toggleVisibility(modalElements, 'is-hidden')
-      editorTextarea.value = savedMicroReort
+      editorTextarea.value = savedMicroReport
       microReportEditorPreview.innerHTML =
-        markdownInitializer.render(savedMicroReort)
+        markdownInitializer.render(savedMicroReport)
     })
 
     editorTextarea.addEventListener('input', () => {
