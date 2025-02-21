@@ -1,8 +1,8 @@
-.thread-comment
+.thread-comment.micro-report id="micro_report_#{@micro_report.id}" data-micro_report_id="#{@micro_report.id}" data-micro_report_content="#{@micro_report.content}"
   .thread-comment__start
     = render 'users/icon', user: @user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon-image'
   .thread-comment__end
-    article.a-card
+    .a-card.is-micro-report.micro-report-display
       header.card-header
         h2.thread-comment__title
           = link_to user_path(@user), class: 'thread-comment__title-link a-text-link' do
@@ -29,3 +29,32 @@
                   = link_to user_micro_report_path(@user, @micro_report), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
                     span#delete
                       | 削除する
+    .a-card.is-micro-report.micro-report-editor.is-hidden
+        .thread-comment-form__form
+          .a-form-tabs.js-tabs
+            .a-form-tabs__tab.js-tabs__tab.edit-micro-reort-tab.is-active
+              | コメント
+            .a-form-tabs__tab.js-tabs__tab.micro-reort-preview-tab
+              | プレビュー
+          .a-markdown-input.js-markdown-parent
+            .a-markdown-input__inner.is-editor.js-tabs__content.is-active
+              .form-textarea
+                .form-textarea__body
+                  textarea.a-text-input.a-markdown-input__textarea id="js-comment-#{@micro_report.id}" data-preview="#js-comment-preview-#{@micro_report.id}" data-input=".js-comment-file-input-#{@micro_report.id}" name='micro_report[content]'
+                    = @micro_report.content
+                .form-textarea__footer
+                  .form-textarea__insert
+                    label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
+                      | ファイルを挿入
+                      input(class="js-comment-file-input-#{@micro_report.id}" type='file' multiple)
+            .a-markdown-input__inner.is-preview.js-tabs__content
+              .js-preview.a-long-text.is-md.a-markdown-input__preview id="js-comment-preview-#{@micro_report.id}"
+          .card-footer
+              .card-main-actions
+                .card-main-actions__items
+                  .card-main-actions__item
+                    button.a-button.is-sm.is-primary.is-block
+                      | 保存する
+                  .card-main-actions__item
+                    button.a-button.is-sm.is-secondary.is-block
+                      | キャンセル
