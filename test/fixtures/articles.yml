@@ -22,58 +22,13 @@ article3:
   thumbnail_type: :prepared_thumbnail
   token: abcdef123456
 
-article21:
-  title: 注目の記事21
-  body: test body21
+<% (21..27).each_with_index do |id, i| %>
+article<%= id %>:
+  title: test with 注目の記事 tag <%= id %>
+  body: |-
+    test body<%= id %>
   user: komagata
   wip: false
-  published_at: '2024-02-01 09:00:00'
-  created_at: '2024-02-01 09:00:00'
-
-article22:
-  title: 注目の記事22
-  body: test body22
-  user: komagata
-  wip: false
-  published_at: '2024-02-02 09:00:00'
-  created_at: '2024-02-02 09:00:00'
-
-article23:
-  title: 注目の記事23
-  body: test body23
-  user: komagata
-  wip: false
-  published_at: '2024-02-03 09:00:00'
-  created_at: '2024-02-03 09:00:00'
-
-article24:
-  title: 注目の記事24
-  body: test body24
-  user: komagata
-  wip: false
-  published_at: '2024-02-04 09:00:00'
-  created_at: '2024-02-04 09:00:00'
-
-article25:
-  title: 注目の記事25
-  body: test body25
-  user: komagata
-  wip: false
-  published_at: '2024-02-05 09:00:00'
-  created_at: '2024-02-05 09:00:00'
-
-article26:
-  title: 注目の記事26
-  body: test body26
-  user: komagata
-  wip: false
-  published_at: '2024-02-06 09:00:00'
-  created_at: '2024-02-06 09:00:00'
-
-article27:
-  title: 注目の記事27
-  body: test body27
-  user: komagata
-  wip: false
-  published_at: '2024-02-07 09:00:00'
-  created_at: '2024-02-07 09:00:00'
+  published_at: "<%= Date.parse('2024-02-01') + i %>"
+  created_at: "<%= Date.parse('2024-02-01') + i %>"
+<% end %>
