@@ -22,6 +22,25 @@ document.addEventListener('DOMContentLoaded', () => {
     cancelButton.addEventListener('click', () => {
       toggleVisibility(modalElements, 'is-hidden')
     })
+
+    const editTab = microReportEditor.querySelector('.edit-micro-reort-tab')
+    const editorTabContent = microReportEditor.querySelector('.is-editor')
+    const previewTab = microReportEditor.querySelector(
+      '.micro-reort-preview-tab'
+    )
+    const previewTabContent = microReportEditor.querySelector('.is-preview')
+    const tabElements = [
+      editTab,
+      editorTabContent,
+      previewTab,
+      previewTabContent
+    ]
+    editTab.addEventListener('click', () =>
+      toggleVisibility(tabElements, 'is-active')
+    )
+    previewTab.addEventListener('click', () =>
+      toggleVisibility(tabElements, 'is-active')
+    )
   })
 
   function toggleVisibility(elements, className) {
