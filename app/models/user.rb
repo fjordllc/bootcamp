@@ -226,7 +226,7 @@ class User < ApplicationRecord
                            }
   end
 
-  with_options if: -> { validation_context != :reset_password && validation_context != :retirement } do
+  with_options if: -> { !validation_context.in?(%i[reset_password retirement training_completion]) } do
     validates :name_kana, presence: true,
                           format: {
                             with: /\A[\p{katakana}\p{blank}ー－]+\z/,
@@ -234,15 +234,15 @@ class User < ApplicationRecord
                           }
   end
 
-  with_options if: -> { !staff? && validation_context != :reset_password && validation_context != :retirement } do
+  with_options if: -> { !staff? && !validation_context.in?(%i[reset_password retirement training_completion]) } do
     validates :job, presence: true
   end
 
-  with_options if: -> { !adviser? && validation_context != :reset_password && validation_context != :retirement } do
+  with_options if: -> { !adviser? && !validation_context.in?(%i[reset_password retirement training_completion]) } do
     validates :os, presence: true
   end
 
-  with_options if: -> { validation_context == :retirement } do
+  with_options if: -> { validation_context.in?(%i[retirement training_completion]) } do
     validates :satisfaction, presence: true
   end
 
@@ -250,7 +250,7 @@ class User < ApplicationRecord
     validates :company_id, presence: true
   end
 
-  with_options if: -> { validation_context != :retirement } do
+  with_options if: -> { !validation_context.in?(%i[retirement training_completion]) } do
     validates :twitter_account,
               length: { maximum: 15 },
               allow_blank: true,
@@ -484,6 +484,7 @@ class User < ApplicationRecord
     def depressed_reports
       ids = User.where(
         hibernated_at: nil,
+        training_completed_at: nil,
         retired_on: nil,
         graduated_on: nil,
         sad_streak: true
@@ -633,12 +634,16 @@ class User < ApplicationRecord
     current_student? && !hibernated? && after_twenty_nine_days_registration? && !sent_student_followup_message
   end
 
+  def training_completed?
+    training_completed_at?
+  end
+
   def retired?
     retired_on?
   end
 
-  def hibernated_or_retired?
-    hibernated_at? || retired_on?
+  def hibernated_or_training_completed_or_retired?
+    hibernated_at? || training_completed_at? || retired_on?
   end
 
   def graduated?
