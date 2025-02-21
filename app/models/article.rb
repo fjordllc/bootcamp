@@ -17,6 +17,13 @@ class Article < ApplicationRecord
     blue: 12
   }
 
+  enum target: {
+    all: 0,
+    students: 1,
+    job_seekers: 2,
+    none: 3
+  }, _prefix: true
+
   belongs_to :user
   alias sender user
   include ActionView::Helpers::AssetUrlHelper
@@ -33,6 +40,8 @@ class Article < ApplicationRecord
   validates :thumbnail,
             content_type: %w[image/png image/jpg image/jpeg],
             size: { less_than: 10.megabytes }
+
+  after_validation :reset_published_at_if_invalid
 
   paginates_per 24
   acts_as_taggable
@@ -57,6 +66,10 @@ class Article < ApplicationRecord
     !wip?
   end
 
+  def before_initial_publish?
+    published_at.nil?
+  end
+
   def generate_token!
     self.token ||= SecureRandom.urlsafe_base64
   end
@@ -69,5 +82,11 @@ class Article < ApplicationRecord
 
   def set_published_at
     self.published_at = Time.current
+  end
+
+  def reset_published_at_if_invalid
+    return unless errors.any?
+
+    self.published_at = nil
   end
 end

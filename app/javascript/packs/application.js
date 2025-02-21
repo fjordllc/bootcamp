@@ -64,6 +64,7 @@ import '../micro-reports.js'
 import '../answer.js'
 import '../new-answer.js'
 import '../coding-test.js'
+import '../article-target.js'
 
 import VueMounter from '../VueMounter.js'
 import Questions from '../components/questions.vue'
