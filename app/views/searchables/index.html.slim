@@ -1,4 +1,4 @@
-- title "'#{params[:word]}'の検索結果"
+- title "検索カテゴリ「#{Searcher::DOCUMENT_TYPES.select { |arr| arr.second == params[:document_type].to_sym }.first.first}」#{("、 検索ワード「" + params[:word] + "」") if params[:word].present?}#{"、 自分の投稿のみ" if params[:only_logged_in_user]} の検索結果"
 - set_meta_tags description: "'#{params[:word]}'の検索結果一覧ページです。"
 
 header.page-header
