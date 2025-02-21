@@ -20,15 +20,25 @@ module LinkChecker
     end
 
     def valid_url?(url)
-      uri = Addressable::URI.parse(url)
-      uri.scheme && uri.host
-    rescue Addressable::URI::InvalidURIError
-      false
+      begin
+        uri = Addressable::URI.parse(url)
+        uri.scheme && uri.host
+      rescue Addressable::URI::InvalidURIError
+        return false
+      end
+      valid_domain?(uri.host)
     end
 
     def denied_host?(url)
       uri = Addressable::URI.parse(url)
       DENY_HOST.include?(uri.host)
+    end
+
+    def valid_domain?(domain)
+      Resolv.getaddress(domain)
+      true
+    rescue Resolv::ResolvError
+      false
     end
 
     def check_response(links)
