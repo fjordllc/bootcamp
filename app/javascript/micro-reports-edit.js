@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const microReportId = threadComment.dataset.micro_report_id
     const microReportContent = threadComment.dataset.micro_report_content
     TextareaInitializer.initialize(`#js-comment-${microReportId}`)
+    let savedMicroReort = ''
+
     const microReportDisplay = threadComment.querySelector(
       '.micro-report-display'
     )
@@ -21,6 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
       microReportDisplay.querySelector('.a-long-text')
     const microReportEditorPreview = microReportEditor.querySelector(
       '.a-markdown-input__preview'
+    )
+    const editorTextarea = microReportEditor.querySelector(
+      '.a-markdown-input__textarea'
     )
 
     const markdownInitializer = new MarkdownInitializer()
@@ -36,11 +41,23 @@ document.addEventListener('DOMContentLoaded', () => {
       '.card-main-actions__action'
     )
     editButton.addEventListener('click', () => {
+      if (!savedMicroReort) {
+        savedMicroReort = editorTextarea.value
+      }
       toggleVisibility(modalElements, 'is-hidden')
     })
     const cancelButton = microReportEditor.querySelector('.is-secondary')
     cancelButton.addEventListener('click', () => {
       toggleVisibility(modalElements, 'is-hidden')
+      editorTextarea.value = savedMicroReort
+      microReportEditorPreview.innerHTML =
+        markdownInitializer.render(savedMicroReort)
+    })
+
+    editorTextarea.addEventListener('input', () => {
+      microReportEditorPreview.innerHTML = markdownInitializer.render(
+        editorTextarea.value
+      )
     })
 
     const editTab = microReportEditor.querySelector('.edit-micro-reort-tab')
