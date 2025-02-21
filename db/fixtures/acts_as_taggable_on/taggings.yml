@@ -103,7 +103,7 @@ movie1_tag_cat:
   context: tags
   tag: cat
 
-<% (21..27).each do |id| %> 
+<% (21..27).each do |id| %>
 article<%= id %>_tag_feature:
   taggable: article<%= id %> (Article)
   context: tags
