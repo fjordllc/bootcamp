@@ -30,7 +30,7 @@
           | 修了
   .practice-status-buttons__end(v-if='submission === "false"')
     .practice-status-buttons__note
-      | このプラクティスに提出物はありません。終了条件をクリアしたら修了にしてください。
+      | このプラクティスに提出物はありません。修了条件をクリアしたら修了にしてください。
 </template>
 <script>
 import 'whatwg-fetch'
