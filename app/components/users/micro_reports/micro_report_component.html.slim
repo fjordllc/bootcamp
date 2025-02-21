@@ -15,3 +15,17 @@
           = @micro_report.content
       hr.a-border-tint
       = render(Reactions::ReactionsComponent.new(reactionable: @micro_report, current_user: @current_user))
+      hr.a-border-tint
+      - if @micro_report.user == @current_user || mentor_login?
+        footer.card-footer
+          .card-main-actions
+            ul.card-main-actions__items
+              li.card-main-actions__item
+                button.card-main-actions__action.a-button.is-sm.is-secondary.is-block
+                  i.fa-solid.fa-pen
+                  | 内容修正
+              - if @micro_report.user == @current_user
+                li.card-main-actions__item.is-sub
+                  = link_to user_micro_report_path(@user, @micro_report), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
+                    span#delete
+                      | 削除する
