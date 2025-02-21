@@ -1,4 +1,5 @@
 import MarkdownInitializer from 'markdown-initializer'
+import TextareaInitializer from 'textarea-initializer'
 
 document.addEventListener('DOMContentLoaded', () => {
   const threadComments = document.querySelectorAll(
@@ -6,7 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
   )
 
   threadComments.forEach((threadComment) => {
+    const microReportId = threadComment.dataset.micro_report_id
     const microReportContent = threadComment.dataset.micro_report_content
+    TextareaInitializer.initialize(`#js-comment-${microReportId}`)
     const microReportDisplay = threadComment.querySelector(
       '.micro-report-display'
     )
