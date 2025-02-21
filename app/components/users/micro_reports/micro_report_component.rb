@@ -17,4 +17,8 @@ class Users::MicroReports::MicroReportComponent < ViewComponent::Base
       l(time, format: :date_and_time)
     end
   end
+
+  def mentor_login?
+    helpers.mentor_login?
+  end
 end
