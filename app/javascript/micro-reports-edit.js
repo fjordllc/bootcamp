@@ -1,15 +1,32 @@
+import MarkdownInitializer from 'markdown-initializer'
+
 document.addEventListener('DOMContentLoaded', () => {
   const threadComments = document.querySelectorAll(
     '.thread-comment[id^="micro_report_"]'
   )
 
   threadComments.forEach((threadComment) => {
+    const microReportContent = threadComment.dataset.micro_report_content
     const microReportDisplay = threadComment.querySelector(
       '.micro-report-display'
     )
     const microReportEditor = threadComment.querySelector(
       '.micro-report-editor'
     )
+
+    const microReporDisplayContent =
+      microReportDisplay.querySelector('.a-long-text')
+    const microReportEditorPreview = microReportEditor.querySelector(
+      '.a-markdown-input__preview'
+    )
+
+    const markdownInitializer = new MarkdownInitializer()
+    if (microReportContent) {
+      microReporDisplayContent.innerHTML =
+        markdownInitializer.render(microReportContent)
+      microReportEditorPreview.innerHTML =
+        markdownInitializer.render(microReportContent)
+    }
 
     const modalElements = [microReportDisplay, microReportEditor]
     const editButton = microReportDisplay.querySelector(
