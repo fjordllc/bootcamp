@@ -18,7 +18,5 @@ class Users::MicroReports::MicroReportComponent < ViewComponent::Base
     end
   end
 
-  def mentor_login?
-    helpers.mentor_login?
-  end
+  delegate :mentor_login?, to: :helpers
 end
