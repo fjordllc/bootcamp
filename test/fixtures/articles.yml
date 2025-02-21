@@ -38,6 +38,13 @@ article<%= id %>:
     test body<%= id %>
   user: komagata
   wip: false
+<% (21..27).each_with_index do |id, i| %>
+article<%= id %>:
+  title: test with 注目の記事 tag <%= id %>
+  body: |-
+    test body<%= id %>
+  user: komagata
+  wip: false
   published_at: "<%= Date.parse('2024-02-01') + i %>"
   created_at: "<%= Date.parse('2024-02-01') + i %>"
 <% end %>
