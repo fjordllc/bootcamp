@@ -1,0 +1,49 @@
+.form-table
+  overflow: auto
+  max-width: 100%
+  &.is-sm
+    font-size: .8125rem
+  table
+    border: solid 1px var(--border)
+  td,
+  th
+    padding: .5rem
+    border: solid 1px var(--border)
+  th
+    background-color: var(--background-tint)
+    border: solid 1px var(--border-shade)
+  .form-table__check
+    padding: 0
+    label
+      display: flex
+      align-items: center
+      justify-content: center
+      padding: .5rem
+      cursor: pointer
+      border-radius: .25rem
+      input
+        opacity: 0
+        position: absolute
+        pointer-events: none
+      &::after
+        content: ""
+        +size(.875rem)
+        border: solid 1px var(--border-shade)
+        border-radius: .25rem
+    &:has(:checked)
+      label
+        background: var(--input-selected-background)
+        box-shadow: 0 0 0 1px var(--input-selected-border) inset
+      label::after
+        border: none
+        +fa(fas '\f00c')
+        color: var(--main)
+  &.is-sticky
+    thead th
+      position: sticky
+      top: 0
+      z-index: 1
+
+    thead th:first-child
+      position: sticky
+      left: 0
