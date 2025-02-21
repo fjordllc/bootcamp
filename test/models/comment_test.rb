@@ -17,7 +17,7 @@ class CommentTest < ActiveSupport::TestCase
   test '.without_private_comment' do
     non_talk_comment_count = Comment.without_private_comment.count
     all_comment_count = Comment.count
-    only_talk_comment_count = Comment.where(commentable_type: 'Talk').count
+    only_talk_comment_count = Comment.where(commentable_type: %w[Talk Inquiry]).count
     assert_equal non_talk_comment_count, all_comment_count - only_talk_comment_count
   end
 
