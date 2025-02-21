@@ -40,12 +40,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const editButton = microReportDisplay.querySelector(
       '.card-main-actions__action'
     )
-    editButton.addEventListener('click', () => {
-      if (!savedMicroReort) {
-        savedMicroReort = editorTextarea.value
-      }
-      toggleVisibility(modalElements, 'is-hidden')
-    })
+    if (editButton) {
+      editButton.addEventListener('click', () => {
+        if (!savedMicroReort) {
+          savedMicroReort = editorTextarea.value
+        }
+        toggleVisibility(modalElements, 'is-hidden')
+      })
+    }
+
     const cancelButton = microReportEditor.querySelector('.is-secondary')
     cancelButton.addEventListener('click', () => {
       toggleVisibility(modalElements, 'is-hidden')
