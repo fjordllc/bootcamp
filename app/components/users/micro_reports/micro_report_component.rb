@@ -18,5 +18,5 @@ class Users::MicroReports::MicroReportComponent < ViewComponent::Base
     end
   end
 
-  delegate :mentor_login?, to: :helpers
+  delegate :admin_login?, to: :helpers
 end
