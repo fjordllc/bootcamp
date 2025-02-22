@@ -133,4 +133,15 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     authorized_keys = %w[id login_name email long_name url roles primary_role icon_title adviser avatar_url]
     assert_equal authorized_keys.sort, response_body.keys.sort
   end
+
+  test 'returns a 401 response when access an unauthorized API, even with a doorkeeper token' do
+    user = users(:hatsuno)
+    doorkeeper_token = Doorkeeper::AccessToken.create!(
+      application_id: @application.id,
+      resource_owner_id: user.id,
+      scopes: 'read'
+    )
+    get api_admin_count_path(format: :json), headers: { Authorization: "Bearer #{doorkeeper_token.token}", Accept: 'application/json' }
+    assert_response 401
+  end
 end
