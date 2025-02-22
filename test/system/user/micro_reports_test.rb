@@ -201,14 +201,14 @@ class MicroReportsTest < ApplicationSystemTestCase
   test 'deleting micro_report redirect to original micro_report page when over 26 micro_reports exist' do
     users(:hatsuno).micro_reports.create!(Array.new(30) { |i| { content: "分報#{i + 1}" } })
     visit_with_auth user_micro_reports_path(users(:hatsuno)), 'hatsuno'
-    click_link_or_button '分報 （30）'
+    assert_selector '.pagination__item.is-active', text: '1'
 
-    within('.thread-comment[data-micro_report_content="分報30"]') do
+    within('.thread-comment[data-micro_report_content="分報1"]') do
       click_link_or_button '削除する'
       page.accept_alert
     end
 
     assert_text '分報を削除しました。'
-    assert_selector '.pagination__item.is-active', text: '2'
+    assert_selector '.pagination__item.is-active', text: '1'
   end
 end
