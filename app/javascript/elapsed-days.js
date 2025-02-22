@@ -22,7 +22,7 @@ export default function elapsedDays({
     const li = document.createElement('li')
     li.className = `page-nav__item ${additionalClass} ${activeClass(
       countProductsGroupedBy(elapsedDays)
-    )}`
+    )}`.trim()
     return li
   }
 
@@ -43,6 +43,8 @@ export default function elapsedDays({
       }経過 (${countProductsGroupedBy(elapsedDays)})`
     return span
   }
+
+  const nav = document.createElement('nav')
 
   const div = document.createElement('div')
   div.className = 'page-nav a-card'
@@ -87,5 +89,6 @@ export default function elapsedDays({
   )
 
   div.appendChild(ol)
-  return div
+  nav.appendChild(div)
+  return nav
 }

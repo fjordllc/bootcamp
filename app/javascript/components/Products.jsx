@@ -238,7 +238,7 @@ export default function Products({
             <UnconfirmedLink label={unconfirmedLinksName()} />
           </div>
 
-          <nav className="page-body__column is-sub" ref={elapsedDaysRef}></nav>
+          <div className="page-body__column is-sub" ref={elapsedDaysRef}></div>
         </div>
       </div>
     )
