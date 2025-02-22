@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
 import useSWR from 'swr'
 import Pagination from './Pagination'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
 import UnconfirmedLink from './UnconfirmedLink'
 import Product from './Product'
 import fetcher from '../fetcher'
-import ElapsedDays from './ElapsedDays'
+import elapsedDays from '../elapsed-days.js'
 import usePage from './hooks/usePage'
 
 export default function Products({
@@ -92,6 +92,19 @@ export default function Products({
   const elapsedDaysId = (elapsedDays) => {
     return `${elapsedDays}days-elapsed`
   }
+
+  const elapsedDaysRef = useRef(null)
+
+  useEffect(() => {
+    if (elapsedDaysRef.current) {
+      const elapsedDaysElement = elapsedDays({
+        countProductsGroupedBy,
+        productDeadlineDay
+      })
+      elapsedDaysRef.current.innerHTML = ''
+      elapsedDaysRef.current.appendChild(elapsedDaysElement)
+    }
+  }, [countProductsGroupedBy, productDeadlineDay])
 
   if (error) return <>エラーが発生しました。</>
 
@@ -225,10 +238,7 @@ export default function Products({
             <UnconfirmedLink label={unconfirmedLinksName()} />
           </div>
 
-          <ElapsedDays
-            countProductsGroupedBy={countProductsGroupedBy}
-            productDeadlineDay={productDeadlineDay}
-          />
+          <div className="page-body__column is-sub" ref={elapsedDaysRef}></div>
         </div>
       </div>
     )
