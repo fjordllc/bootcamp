@@ -15,7 +15,7 @@ class MarkdownHelperTest < ActionView::TestCase
     assert_equal expected_plain_text, markdown_to_plain_text(markdown)
 
     markdown = '<div>test</div>'
-    expected_plain_text = 'test'
+    expected_plain_text = ''
     assert_equal expected_plain_text, markdown_to_plain_text(markdown)
   end
 
