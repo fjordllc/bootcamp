@@ -98,8 +98,8 @@ class ArticleTest < ActiveSupport::TestCase
         wip: false,
         published_at: Date.parse('2024-02-01') + i,
         created_at: Date.parse('2024-02-01') + i,
-        title: '注目の記事#{i}',
-        body: '注目の記事#{i}本文',
+        title: "注目の記事#{i}",
+        body: "注目の記事#{i}本文",
         user: users(:komagata)
       )
       article.tag_list.add('注目の記事')
@@ -111,8 +111,8 @@ class ArticleTest < ActiveSupport::TestCase
         wip: false,
         published_at: Date.parse('2024-02-01') + i,
         created_at: Date.parse('2024-02-01') + i,
-        title: '通常の記事#{i}',
-        body: '通常の記事#{i}本文',
+        title: "通常の記事#{i}",
+        body: "通常の記事#{i}本文",
         user: users(:komagata)
       )
     end
