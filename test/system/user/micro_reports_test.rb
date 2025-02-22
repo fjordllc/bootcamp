@@ -167,4 +167,17 @@ class MicroReportsTest < ApplicationSystemTestCase
     assert_text '分報を削除しました。'
     assert_no_text '最初の分報'
   end
+
+  test 'cancel updating micro_report through micro_report form' do
+    micro_report = micro_reports(:hajime_first_micro_report)
+    visit_with_auth user_micro_reports_path(users(:hajime)), 'hajime'
+    within(".thread-comment#micro_report_#{micro_report.id}") do
+      assert_text '最初の分報'
+      click_link_or_button '内容修正'
+      fill_in('micro_report[content]', with: '初めての分報')
+      click_link_or_button 'キャンセル'
+      assert_text '最初の分報'
+      assert_no_text '初めての分報'
+    end
+  end
 end
