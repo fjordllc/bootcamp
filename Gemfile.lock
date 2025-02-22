@@ -161,6 +161,8 @@ GEM
       rest-client (>= 2.0.0)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
+    doorkeeper (5.8.0)
+      railties (>= 5)
     erubi (1.12.0)
     et-orbi (1.2.11)
       tzinfo
@@ -621,6 +623,7 @@ DEPENDENCIES
   diffy
   discord-notifier
   discordrb (~> 3.5)
+  doorkeeper
   foreman
   good_job (~> 3.14)!
   google-cloud-storage (~> 1.25)

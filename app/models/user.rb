@@ -182,6 +182,16 @@ class User < ApplicationRecord
 
   has_many :coding_test_submissions, dependent: :destroy
 
+  has_many :oauth_access_grants,
+           foreign_key: 'resource_owner_id',
+           dependent: :delete_all,
+           inverse_of: 'user'
+
+  has_many :oauth_access_tokens,
+           foreign_key: 'resource_owner_id',
+           dependent: :delete_all,
+           inverse_of: 'user'
+
   has_one_attached :avatar
   has_one_attached :profile_image
 
