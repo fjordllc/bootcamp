@@ -1,0 +1,21 @@
+micro_report1:
+  user: hajime
+  content: 初めての分報です。
+  created_at: '2022-01-01 00:00:00'
+
+micro_report2:
+  user: hajime
+  content: 2個目の分報です。
+  created_at: '2022-01-02 00:00:00'
+
+micro_report3:
+  user: hajime
+  content: 3個目の分報です。
+  created_at: '2022-01-03 00:00:00'
+
+<% (4..30).each do |id| %>
+micro_report<%= id %>:
+  user: hajime
+  content: <%= id %>個目の分報です。
+  created_at: '2022-01-04 00:00:00'
+<% end %>
