@@ -110,4 +110,105 @@ class MicroReportsTest < ApplicationSystemTestCase
     click_on '分報 （26）'
     assert_selector '.pagination__item.is-active', text: '2'
   end
+
+  test 'edit micro_report form has comment tab and preview tab' do
+    micro_report = micro_reports(:hajime_first_micro_report)
+    visit_with_auth user_micro_reports_path(users(:hajime)), 'hajime'
+    within(".thread-comment#micro_report_#{micro_report.id}") do
+      click_button '内容修正'
+      assert_text 'コメント'
+      assert_text 'プレビュー'
+    end
+  end
+
+  test 'only owner and admin can edit and delete micro_reports' do
+    micro_report = micro_reports(:hajime_first_micro_report)
+    visit_with_auth user_micro_reports_path(users(:hajime)), 'hajime'
+    within(".thread-comment#micro_report_#{micro_report.id}") do
+      assert_selector 'a', text: '削除する'
+      assert_selector 'button', text: '内容修正'
+    end
+
+    visit_with_auth user_micro_reports_path(users(:hajime)), 'komagata'
+    within(".thread-comment#micro_report_#{micro_report.id}") do
+      assert_selector 'a', text: '削除する'
+      assert_selector 'button', text: '内容修正'
+    end
+
+    visit_with_auth user_micro_reports_path(users(:hajime)), 'mentormentaro'
+    within(".thread-comment#micro_report_#{micro_report.id}") do
+      assert_no_selector 'a', text: '削除する'
+      assert_no_selector 'button', text: '内容修正'
+    end
+  end
+
+  test 'update micro_report through comment tab form' do
+    micro_report = micro_reports(:hajime_first_micro_report)
+    visit_with_auth user_micro_reports_path(users(:hajime)), 'hajime'
+    within(".thread-comment#micro_report_#{micro_report.id}") do
+      assert_text '最初の分報'
+      click_link_or_button '内容修正'
+      fill_in('micro_report[content]', with: '初めての分報')
+      click_link_or_button '保存する'
+      assert_text '初めての分報'
+    end
+  end
+
+  test 'delete micro_report' do
+    micro_report = micro_reports(:hajime_first_micro_report)
+    visit_with_auth user_micro_reports_path(users(:hajime)), 'hajime'
+
+    assert_text '最初の分報'
+    within(".thread-comment#micro_report_#{micro_report.id}") do
+      click_link_or_button '削除する'
+      page.accept_alert
+    end
+
+    assert_text '分報を削除しました。'
+    assert_no_text '最初の分報'
+  end
+
+  test 'cancel updating micro_report through micro_report form' do
+    micro_report = micro_reports(:hajime_first_micro_report)
+    visit_with_auth user_micro_reports_path(users(:hajime)), 'hajime'
+    within(".thread-comment#micro_report_#{micro_report.id}") do
+      assert_text '最初の分報'
+      click_link_or_button '内容修正'
+      fill_in('micro_report[content]', with: '初めての分報')
+      click_link_or_button 'キャンセル'
+      assert_text '最初の分報'
+      assert_no_text '初めての分報'
+    end
+  end
+
+  test 'micro_report content being edited is displayed in preview tab' do
+    micro_report = micro_reports(:hajime_first_micro_report)
+    visit_with_auth user_micro_reports_path(users(:hajime)), 'hajime'
+
+    within(".thread-comment#micro_report_#{micro_report.id}") do
+      assert_text '最初の分報'
+      click_link_or_button '内容修正'
+      fill_in('micro_report[content]', with: '初めての分報')
+
+      find('.a-form-tabs__tab', text: 'プレビュー').click
+      within("#js-comment-preview-#{micro_report.id}") do
+        assert_text '初めての分報'
+        assert_no_text '最初の分報'
+      end
+    end
+  end
+
+  test 'deleting micro_report redirect to original micro_report page when over 26 micro_reports exist' do
+    users(:hatsuno).micro_reports.create!(Array.new(30) { |i| { content: "分報#{i + 1}" } })
+    visit_with_auth user_micro_reports_path(users(:hatsuno)), 'hatsuno'
+    assert_selector '.pagination__item.is-active', text: '1'
+
+    within('.thread-comment[data-micro_report_content="分報1"]') do
+      click_link_or_button '削除する'
+      page.accept_alert
+    end
+
+    assert_text '分報を削除しました。'
+    assert_selector '.pagination__item.is-active', text: '1'
+  end
 end
