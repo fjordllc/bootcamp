@@ -141,4 +141,30 @@ class MicroReportsTest < ApplicationSystemTestCase
       assert_no_selector 'button', text: '内容修正'
     end
   end
+
+  test 'update micro_report through comment tab form' do
+    micro_report = micro_reports(:hajime_first_micro_report)
+    visit_with_auth user_micro_reports_path(users(:hajime)), 'hajime'
+    within(".thread-comment#micro_report_#{micro_report.id}") do
+      assert_text '最初の分報'
+      click_link_or_button '内容修正'
+      fill_in('micro_report[content]', with: '初めての分報')
+      click_link_or_button '保存する'
+      assert_text '初めての分報'
+    end
+  end
+
+  test 'delete micro_report' do
+    micro_report = micro_reports(:hajime_first_micro_report)
+    visit_with_auth user_micro_reports_path(users(:hajime)), 'hajime'
+
+    assert_text '最初の分報'
+    within(".thread-comment#micro_report_#{micro_report.id}") do
+      click_link_or_button '削除する'
+      page.accept_alert
+    end
+
+    assert_text '分報を削除しました。'
+    assert_no_text '最初の分報'
+  end
 end
