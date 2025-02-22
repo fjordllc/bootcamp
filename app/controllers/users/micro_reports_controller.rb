@@ -3,8 +3,8 @@
 class Users::MicroReportsController < ApplicationController
   PAGER_NUMBER = 25
 
-  before_action :set_user, only: %i[index create]
-  before_action :set_my_micro_report, only: %i[destroy]
+  before_action :set_user
+  before_action :set_micro_report, only: %i[destroy]
 
   def index
     @micro_reports = @user.micro_reports.order(created_at: :asc).page(params[:page]).per(PAGER_NUMBER)
@@ -25,7 +25,7 @@ class Users::MicroReportsController < ApplicationController
   def destroy
     @micro_report.destroy!
 
-    redirect_to user_micro_reports_path(current_user, page: current_user.latest_micro_report_page)
+    redirect_to user_micro_reports_path(@user, page: @user.latest_micro_report_page)
     flash[:notice] = '分報を削除しました。'
   end
 
@@ -35,8 +35,8 @@ class Users::MicroReportsController < ApplicationController
     @user = User.find(params[:user_id])
   end
 
-  def set_my_micro_report
-    @micro_report = current_user.micro_reports.find(params[:id])
+  def set_micro_report
+    @micro_report = current_user.admin? ? MicroReport.find(params[:id]) : current_user.micro_reports.find(params[:id])
   end
 
   def micro_report_params
