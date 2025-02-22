@@ -120,4 +120,25 @@ class MicroReportsTest < ApplicationSystemTestCase
       assert_text 'プレビュー'
     end
   end
+
+  test 'only owner and admin can edit and delete micro_reports' do
+    micro_report = micro_reports(:hajime_first_micro_report)
+    visit_with_auth user_micro_reports_path(users(:hajime)), 'hajime'
+    within(".thread-comment#micro_report_#{micro_report.id}") do
+      assert_selector 'a', text: '削除する'
+      assert_selector 'button', text: '内容修正'
+    end
+
+    visit_with_auth user_micro_reports_path(users(:hajime)), 'komagata'
+    within(".thread-comment#micro_report_#{micro_report.id}") do
+      assert_selector 'a', text: '削除する'
+      assert_selector 'button', text: '内容修正'
+    end
+
+    visit_with_auth user_micro_reports_path(users(:hajime)), 'mentormentaro'
+    within(".thread-comment#micro_report_#{micro_report.id}") do
+      assert_no_selector 'a', text: '削除する'
+      assert_no_selector 'button', text: '内容修正'
+    end
+  end
 end
