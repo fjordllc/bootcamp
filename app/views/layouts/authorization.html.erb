@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      background-color: #eee;
+      font-size: 14px;
+    }
+
+    #container {
+      background-color: #fff;
+      border: 1px solid #999;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 6px;
+      -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 3px 20px rgba(0, 0, 0, 0.3);
+      margin: 2em auto;
+      max-width: 600px;
+      outline: 0;
+      padding: 1em;
+      width: 80%;
+    }
+
+    .page-header {
+      margin-top: 20px;
+    }
+
+    .text-info {
+      color: #17a2b8;
+    }
+
+    .actions {
+      border-top: 1px solid #eee;
+      margin-top: 1em;
+      padding-top: 9px;
+      text-align: center;
+    }
+
+    .actions > form > .btn {
+      margin-top: 5px;
+    }
+
+    .separator {
+      color: #eee;
+      padding: 0 0.5em;
+    }
+
+    .inline_block {
+      display: inline-block;
+    }
+
+    #oauth {
+      margin-bottom: 1em;
+    }
+
+    #oauth > .btn {
+      width: 7em;
+    }
+
+    td {
+      vertical-align: middle !important;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 6px;
+      font-size: 22px;
+      line-height: 1.7;
+      border: 1px solid transparent;
+      border-radius: 4px;
+    }
+
+    .btn-success {
+      color: #fff;
+      background-color: #28a745;
+      border-color: #28a745;
+    }
+
+    .btn-success:hover {
+      color: #fff;
+      background-color: #218838;
+      border-color: #1e7e34;
+    }
+
+    .btn-danger {
+      color: #fff;
+      background-color: #dc3545;
+      border-color: #dc3545;
+    }
+
+    .btn-danger:hover {
+      color: #fff;
+      background-color: #c82333;
+      border-color: #bd2130;
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header" role="banner">
+  </header>
+
+  <main role="main">
+    <div id="container">
+      <% if @pre_auth.scopes.count > 0 %>
+        <div id="oauth-permissions">
+          <p><%= t('doorkeeper.authorizations.new.able_to') %>:</p>
+
+          <ul class="text-info">
+            <% @pre_auth.scopes.each do |scope| %>
+              <li><%= t scope, scope: [:doorkeeper, :scopes] %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="actions">
+        <%= form_tag oauth_authorization_path, method: :post do %>
+          <%= hidden_field_tag :client_id, @pre_auth.client.uid, id: nil %>
+          <%= hidden_field_tag :redirect_uri, @pre_auth.redirect_uri, id: nil %>
+          <%= hidden_field_tag :state, @pre_auth.state, id: nil %>
+          <%= hidden_field_tag :response_type, @pre_auth.response_type, id: nil %>
+          <%= hidden_field_tag :response_mode, @pre_auth.response_mode, id: nil %>
+          <%= hidden_field_tag :scope, @pre_auth.scope, id: nil %>
+          <%= hidden_field_tag :code_challenge, @pre_auth.code_challenge, id: nil %>
+          <%= hidden_field_tag :code_challenge_method, @pre_auth.code_challenge_method, id: nil %>
+          <%= submit_tag t('doorkeeper.authorizations.buttons.authorize'), class: "btn btn-success btn-lg btn-block" %>
+        <% end %>
+        <%= form_tag oauth_authorization_path, method: :delete do %>
+          <%= hidden_field_tag :client_id, @pre_auth.client.uid, id: nil %>
+          <%= hidden_field_tag :redirect_uri, @pre_auth.redirect_uri, id: nil %>
+          <%= hidden_field_tag :state, @pre_auth.state, id: nil %>
+          <%= hidden_field_tag :response_type, @pre_auth.response_type, id: nil %>
+          <%= hidden_field_tag :response_mode, @pre_auth.response_mode, id: nil %>
+          <%= hidden_field_tag :scope, @pre_auth.scope, id: nil %>
+          <%= hidden_field_tag :code_challenge, @pre_auth.code_challenge, id: nil %>
+          <%= hidden_field_tag :code_challenge_method, @pre_auth.code_challenge_method, id: nil %>
+          <%= submit_tag t('doorkeeper.authorizations.buttons.deny'), class: "btn btn-danger btn-lg btn-block" %>
+        <% end %>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
