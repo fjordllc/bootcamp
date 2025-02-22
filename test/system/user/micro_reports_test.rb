@@ -180,4 +180,21 @@ class MicroReportsTest < ApplicationSystemTestCase
       assert_no_text '初めての分報'
     end
   end
+
+  test 'micro_report content being edited is displayed in preview tab' do
+    micro_report = micro_reports(:hajime_first_micro_report)
+    visit_with_auth user_micro_reports_path(users(:hajime)), 'hajime'
+
+    within(".thread-comment#micro_report_#{micro_report.id}") do
+      assert_text '最初の分報'
+      click_link_or_button '内容修正'
+      fill_in('micro_report[content]', with: '初めての分報')
+
+      find('.a-form-tabs__tab', text: 'プレビュー').click
+      within("#js-comment-preview-#{micro_report.id}") do
+        assert_text '初めての分報'
+        assert_no_text '最初の分報'
+      end
+    end
+  end
 end
