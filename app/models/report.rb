@@ -132,11 +132,15 @@ class Report < ApplicationRecord
           .second
   end
 
-  def save_with_uniqueness_handling(*args, &block)
-    save(*args, &block)
-  rescue ActiveRecord::RecordNotUnique
-    errors.add(:reported_on, 'はすでに存在します')
-    false
+  def save_with_lock
+    Report.transaction do
+      if user.reports.lock.find_by(reported_on:)
+        valid?
+        false
+      else
+        save
+      end
+    end
   end
 
   private
