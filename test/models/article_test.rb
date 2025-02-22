@@ -96,4 +96,41 @@ class ArticleTest < ActiveSupport::TestCase
     )
     assert article.published_at?
   end
+
+  test 'featured scope returns articles tagged with "注目の記事" in descending order and limited to 6' do
+    7.times do |i|
+      article = Article.create!(
+        wip: false,
+        published_at: Date.parse('2024-02-01') + i,
+        created_at: Date.parse('2024-02-01') + i,
+        title: '注目の記事#{i}',
+        body: '注目の記事#{i}本文',
+        user: users(:komagata)
+      )
+      article.tag_list.add('注目の記事')
+      article.save!
+    end
+
+    2.times do |i|
+      Article.create!(
+        wip: false,
+        published_at: Date.parse('2024-02-01') + i,
+        created_at: Date.parse('2024-02-01') + i,
+        title: '通常の記事#{i}',
+        body: '通常の記事#{i}本文',
+        user: users(:komagata)
+      )
+    end
+
+    articles = Article.featured
+    assert_equal 6, articles.size
+
+    articles.each do |article|
+      assert_not article.wip?
+      assert_includes article.tag_list, '注目の記事'
+    end
+
+    published_dates = articles.map(&:published_at)
+    assert_equal published_dates.sort.reverse, published_dates
+  end
 end
