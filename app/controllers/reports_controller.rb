@@ -55,7 +55,8 @@ class ReportsController < ApplicationController
     @report.user = current_user
     set_wip
     canonicalize_learning_times(@report)
-    if @report.save
+
+    if @report.save_with_lock
       Newspaper.publish(:report_save, { report: @report })
       redirect_to redirect_url(@report), notice: notice_message(@report), flash: flash_contents(@report)
     else

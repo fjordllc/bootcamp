@@ -131,6 +131,17 @@ class Report < ApplicationRecord
           .second
   end
 
+  def save_with_lock
+    Report.transaction do
+      if user.reports.lock.find_by(reported_on:)
+        valid?
+        false
+      else
+        save
+      end
+    end
+  end
+
   private
 
   def limited_date_within_range
