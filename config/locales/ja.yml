@@ -556,6 +556,7 @@ ja:
         secret: Secret
         title: '%{name}'
     authorizations:
+      title: Oauth2 Provider
       buttons:
         authorize: 承認
         deny: キャンセル
