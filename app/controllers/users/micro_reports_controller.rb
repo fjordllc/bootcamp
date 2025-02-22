@@ -2,6 +2,7 @@
 
 class Users::MicroReportsController < ApplicationController
   PAGER_NUMBER = 25
+  FIRST_PAGE = 1
 
   before_action :set_user
   before_action :set_micro_report, only: %i[destroy]
@@ -25,7 +26,14 @@ class Users::MicroReportsController < ApplicationController
   def destroy
     @micro_report.destroy!
 
-    redirect_to user_micro_reports_path(@user, page: @user.latest_micro_report_page)
+    referer_path = request.referer
+    matched_page_number = referer_path.match(/page=(\d+)/)
+    page_number = matched_page_number ? matched_page_number[1].to_i : FIRST_PAGE
+    if MicroReport.page(page_number).out_of_range?
+      redirect_to user_micro_reports_path(@user, page: @user.latest_micro_report_page)
+    else
+      redirect_to referer_path
+    end
     flash[:notice] = '分報を削除しました。'
   end
 
