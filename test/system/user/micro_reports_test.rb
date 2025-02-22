@@ -110,4 +110,14 @@ class MicroReportsTest < ApplicationSystemTestCase
     click_on '分報 （26）'
     assert_selector '.pagination__item.is-active', text: '2'
   end
+
+  test 'edit micro_report form has comment tab and preview tab' do
+    micro_report = micro_reports(:hajime_first_micro_report)
+    visit_with_auth user_micro_reports_path(users(:hajime)), 'hajime'
+    within(".thread-comment#micro_report_#{micro_report.id}") do
+      click_button '内容修正'
+      assert_text 'コメント'
+      assert_text 'プレビュー'
+    end
+  end
 end
