@@ -3,7 +3,6 @@
 require 'application_system_test_case'
 
 class WelcomeTest < ApplicationSystemTestCase
-
   test 'GET /welcome' do
     visit '/welcome'
     assert_equal 'プログラミングスクール FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
