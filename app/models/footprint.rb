@@ -7,7 +7,7 @@ class Footprint < ApplicationRecord
   belongs_to :footprintable, polymorphic: true
   validates :user_id, presence: true
 
-  def self.record_footprint(resource, current_user)
+  def self.create_on_resource(resource, current_user)
     find_or_create_by(footprintable: resource, user: current_user)
   end
 

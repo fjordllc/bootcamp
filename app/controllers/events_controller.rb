@@ -9,7 +9,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.with_avatar.find(params[:id])
-    Footprint.record_footprint(@event, current_user) unless @event.user == current_user
+    Footprint.create_on_resource(@event, current_user) unless @event.user == current_user
     @footprints = Footprint.fetch_footprints(@event)
     @footprint_total_count = Footprint.footprint_count(@event)
   end
