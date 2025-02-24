@@ -15,7 +15,7 @@ module Searchable
     end
 
     def columns_for_keyword_search(*column_names)
-      define_singleton_method(:_join_column_names) { "#{column_names.join('_or_')}_cont_any" }
+      define_singleton_method(:_join_column_names) { "#{(column_names + %i[kana_name]).join('_or_')}_cont_any" }
     end
 
     private
@@ -23,22 +23,16 @@ module Searchable
     def params_for_keyword_search(searched_values = {})
       return {} if searched_values[:words].blank?
 
-      groupings = searched_values[:words].map do |word|
-        if word.start_with?('user:')
-          create_parameter_for_search_user_id(word.delete_prefix('user:'))
-        else
-          { _join_column_names => word }
-        end
-      end
-      { combinator: 'and', groupings: }
+      word = searched_values[:word].strip
+
+      { combinator: 'or', groupings: [word_to_groupings(word)] }
     end
 
     def word_to_groupings(word)
       return { _join_column_names => word } if COLUMN_NAMES_FOR_SEARCH_USER_ID.none? { |column_name| has_attribute?(column_name) }
 
-      case word
-      when /user:(.*)/
-        create_parameter_for_search_user_id(Regexp.last_match(1))
+      if word.match?(/^user:/)
+        create_parameter_for_search_user_id(word.delete_prefix("user:"))
       else
         { _join_column_names => word }
       end
@@ -50,7 +44,7 @@ module Searchable
 
     def create_parameter_for_search_user_id(username)
       user = User.find_by(login_name: username)
-      { "#{COLUMN_NAMES_FOR_SEARCH_USER_ID.join('_or_')}_eq" => user&.id || 0 }
+      { "#{%i[user_id last_updated_user_id].join('_or_')}_eq" => user&.id || 0 }
     end
   end
 
