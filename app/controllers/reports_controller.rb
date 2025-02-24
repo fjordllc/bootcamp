@@ -22,8 +22,8 @@ class ReportsController < ApplicationController
     @products = @report.user.products.not_wip.order(published_at: :desc)
     @recent_reports = Report.list.where(user_id: @report.user.id).limit(10)
     Footprint.create_on_resource(@report, current_user) unless @report.user == current_user
-    @footprints = Footprint.fetch_footprints(@report)
-    @footprint_total_count = Footprint.footprint_count(@report)
+    @footprints = Footprint.fetch_for_resource(@report)
+    @footprint_total_count = Footprint.count_for_resource(@report)
     respond_to do |format|
       format.html
       format.md

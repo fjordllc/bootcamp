@@ -18,8 +18,8 @@ class ProductsController < ApplicationController
     @tweet_url = @practice.tweet_url(practice_completion_url(@practice.id))
     @recent_reports = Report.list.where(user_id: @product.user.id).limit(10)
     Footprint.create_on_resource(@product, current_user) unless @product.user == current_user
-    @footprints = Footprint.fetch_footprints(@product)
-    @footprint_total_count = Footprint.footprint_count(@product)
+    @footprints = Footprint.fetch_for_resource(@product)
+    @footprint_total_count = Footprint.count_for_resource(@product)
     respond_to do |format|
       format.html
       format.md
