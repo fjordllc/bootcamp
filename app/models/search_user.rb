@@ -10,7 +10,6 @@ class SearchUser
 
   def search
     validated_search_word = validate_search_word
-    return User.none if validated_search_word.blank?
 
     searched_user = if @users
                       @users.merge(User.search_by_keywords(word: validated_search_word, exact_match: true))
