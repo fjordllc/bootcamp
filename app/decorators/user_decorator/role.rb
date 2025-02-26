@@ -2,6 +2,8 @@
 
 module UserDecorator
   module Role
+    FIRSTWEEK = 7
+
     def roles(user: current_user)
       role_list = [
         { role: 'retired', value: retired? },
@@ -16,7 +18,7 @@ module UserDecorator
                        .map { |v| v[:role] }
       roles << :student if roles.empty?
 
-      new_student_or_trainee = (roles & %i[student trainee]).any? && elapsed_days <= 7
+      new_student_or_trainee = (roles & %i[student trainee]).any? && elapsed_days <= FIRSTWEEK
       roles.unshift('new-user') if new_student_or_trainee && user&.mentor?
 
       roles
