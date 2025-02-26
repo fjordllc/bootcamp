@@ -319,5 +319,8 @@ class ArticleTest < ActiveSupport::TestCase
 
     published_dates = articles.map(&:published_at)
     assert_equal published_dates.sort.reverse, published_dates
+  test 'articles are sorted by published_at descending' do
+    articles = Article.all
+    assert_equal articles.sort_by(&:published_at).reverse, articles
   end
 end
