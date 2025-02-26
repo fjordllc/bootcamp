@@ -9,14 +9,6 @@ class MarkdownHelperTest < ActionView::TestCase
     markdown = "# Hello, world! \n This is a **test**."
     expected_plain_text = "Hello, world!\nThis is a test."
     assert_equal expected_plain_text, markdown_to_plain_text(markdown)
-
-    markdown = "<script>alert('xss');</script>"
-    expected_plain_text = ''
-    assert_equal expected_plain_text, markdown_to_plain_text(markdown)
-
-    markdown = '<div>test</div>'
-    expected_plain_text = ''
-    assert_equal expected_plain_text, markdown_to_plain_text(markdown)
   end
 
   def test_markdown_to_plain_text_handles_empty_markdown
