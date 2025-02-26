@@ -18,7 +18,7 @@
         - 24.times do |hour|
           tr(class='hover:bg-[var(--background-more-tint)]')
             th
-              | #{hour.to_s}:00
+              | #{hour}:00
             - 7.times do |day_index|
               - value = day_index * 24 + hour + 1
               td.form-table__check
