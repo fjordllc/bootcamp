@@ -15,7 +15,9 @@ module UserDecorator
       roles = role_list.find_all { |v| v[:value] }
                        .map { |v| v[:role] }
       roles << :student if roles.empty?
-      roles.unshift('new-user') if user&.mentor? && (roles & %i[student trainee]).any? && elapsed_days <= 7
+
+      new_student_or_trainee = (roles & %i[student trainee]).any? && elapsed_days <= 7
+      roles.unshift('new-user') if new_student_or_trainee && user&.mentor?
 
       roles
     end
