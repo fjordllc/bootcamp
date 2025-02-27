@@ -83,6 +83,20 @@ class ArticleTest < ActiveSupport::TestCase
     assert_nil article.published_at
   end
 
+  test 'once articles directly kept at WIP is published, value of the published_at is not nil' do
+    article = Article.create(
+      title: '未公開の記事',
+      body: '一度も公開したことがないWIP記事',
+      user: users(:komagata),
+      wip: true
+    )
+
+    article.update(
+      wip: false
+    )
+    assert article.published_at?
+  end
+
   test 'articles are sorted by published_at descending' do
     articles = [
       articles(:article27),
