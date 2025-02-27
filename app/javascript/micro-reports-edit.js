@@ -3,25 +3,21 @@ import MarkdownInitializer from 'markdown-initializer'
 import TextareaInitializer from 'textarea-initializer'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const threadComments = document.querySelectorAll(
-    '.thread-comment[id^="micro_report_"]'
-  )
+  const microReports = document.querySelectorAll('.micro-report')
 
-  threadComments.forEach((threadComment) => {
-    const microReportId = threadComment.dataset.micro_report_id
-    const microReportContent = threadComment.dataset.micro_report_content
+  microReports.forEach((microReport) => {
+    const microReportId = microReport.dataset.micro_report_id
+    const microReportContent = microReport.dataset.micro_report_content
     TextareaInitializer.initialize(`#js-comment-${microReportId}`)
     let savedMicroReport = ''
 
-    const microReportDisplay = threadComment.querySelector(
+    const microReportDisplay = microReport.querySelector(
       '.micro-report-display'
     )
-    const microReportEditor = threadComment.querySelector(
-      '.micro-report-editor'
-    )
+    const microReportEditor = microReport.querySelector('.micro-report-editor')
 
     const microReporDisplayContent =
-      microReportDisplay.querySelector('.a-long-text')
+      microReportDisplay.querySelector('.a-short-text')
     const microReportEditorPreview = microReportEditor.querySelector(
       '.a-markdown-input__preview'
     )
@@ -38,9 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const modalElements = [microReportDisplay, microReportEditor]
-    const editButton = microReportDisplay.querySelector(
-      '.card-main-actions__action'
-    )
+    const editButton = microReportDisplay.querySelector('.js-editor-button')
     if (editButton) {
       editButton.addEventListener('click', () => {
         if (!savedMicroReport) {
@@ -49,8 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleVisibility(modalElements, 'is-hidden')
       })
     }
-
-    const saveButton = microReportEditor.querySelector('.is-primary')
+    const saveButton = microReportEditor.querySelector('.js-save-button')
     if (saveButton) {
       saveButton.addEventListener('click', () => {
         toggleVisibility(modalElements, 'is-hidden')
@@ -61,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })
     }
 
-    const cancelButton = microReportEditor.querySelector('.is-secondary')
+    const cancelButton = microReportEditor.querySelector('.js-cancel-button')
     cancelButton.addEventListener('click', () => {
       toggleVisibility(modalElements, 'is-hidden')
       editorTextarea.value = savedMicroReport
@@ -75,11 +68,9 @@ document.addEventListener('DOMContentLoaded', () => {
       )
     })
 
-    const editTab = microReportEditor.querySelector('.edit-micro-reort-tab')
+    const editTab = microReportEditor.querySelector('.js-edit-tab')
     const editorTabContent = microReportEditor.querySelector('.is-editor')
-    const previewTab = microReportEditor.querySelector(
-      '.micro-reort-preview-tab'
-    )
+    const previewTab = microReportEditor.querySelector('.js-preview-tab')
     const previewTabContent = microReportEditor.querySelector('.is-preview')
     const tabElements = [
       editTab,
