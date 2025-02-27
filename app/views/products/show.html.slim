@@ -16,6 +16,11 @@ header.page-header
       .page-header__end
         .page-header-actions
           ul.page-header-actions__items
+            - if current_user.admin?
+              li.page-header-actions__item.is-only-mentor
+                = link_to new_product_path(practice_id: @product.practice.id), class: 'a-button is-md is-secondary is-block' do
+                  i.fa-regular.fa-plus
+                  | 模範解答作成
             li.page-header-actions__item
               = link_to course_practices_path(current_user.course, anchor: "category-#{category.id}"),
                 class: 'a-button is-md is-secondary is-block is-back' do
