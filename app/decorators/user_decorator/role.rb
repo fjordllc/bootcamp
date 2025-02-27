@@ -4,7 +4,7 @@ module UserDecorator
   module Role
     FIRSTWEEK = 7
 
-    def roles(user: current_user)
+    def roles(user = current_user)
       role_list = [
         { role: 'retired', value: retired? },
         { role: 'hibernationed', value: hibernated? },
@@ -24,8 +24,8 @@ module UserDecorator
       roles
     end
 
-    def primary_role(user: current_user)
-      roles(user:).first
+    def primary_role(user = current_user)
+      roles(user).first
     end
 
     def staff_roles
@@ -39,8 +39,8 @@ module UserDecorator
                  .join('、')
     end
 
-    def roles_to_s(user: current_user)
-      return '' if roles(user:).empty?
+    def roles_to_s(user = current_user)
+      return '' if roles(user).empty?
 
       roles = [
         { role: '退会ユーザー', value: retired? },

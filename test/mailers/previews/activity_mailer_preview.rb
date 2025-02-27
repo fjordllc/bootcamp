@@ -154,7 +154,7 @@ class ActivityMailerPreview < ActionMailer::Preview
     sender = ActiveDecorator::Decorator.instance.decorate(User.find(ActiveRecord::FixtureSet.identify(:hajime)))
     receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))
 
-    ActivityMailer.with(sender:, receiver:, sender_roles: sender.roles_to_s(user: sender)).signed_up
+    ActivityMailer.with(sender:, receiver:, sender_roles: sender.roles_to_s(sender)).signed_up
   end
 
   def chose_correct_answer

@@ -9,5 +9,5 @@ ruby:
     class: user.icon_classes(image_class)
   }
 = link_to user, link_options do
-  span class="a-user-role is-#{user.primary_role(user:)}"
+  span class="a-user-role is-#{user.primary_role(user)}"
     = image_tag user.avatar_url, image_options
