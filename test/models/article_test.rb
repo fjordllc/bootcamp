@@ -97,16 +97,15 @@ class ArticleTest < ActiveSupport::TestCase
     assert article.published_at?
   end
 
-  test 'articles are sorted by published_at descending' do
-    articles = [
-      articles(:article27),
-      articles(:article26),
-      articles(:article25),
-      articles(:article24),
-      articles(:article23),
-      articles(:article22),
-      articles(:article21)
-    ]
+  test 'featured scope returns articles tagged with "注目の記事" in descending order and limited to 6' do
+    articles = Article.featured
     assert_equal articles.sort_by(&:published_at).reverse, articles
+    assert_equal 6, articles.size
+
+    articles.each do |article|
+      assert_not article.wip?
+      assert_includes article.tag_list, '注目の記事'
+    end
   end
+
 end
