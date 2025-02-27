@@ -114,7 +114,7 @@ class MicroReportsTest < ApplicationSystemTestCase
   test 'edit micro_report form has comment tab and preview tab' do
     micro_report = micro_reports(:hajime_first_micro_report)
     visit_with_auth user_micro_reports_path(users(:hajime)), 'hajime'
-    within(".thread-comment#micro_report_#{micro_report.id}") do
+    within(".micro-report#micro_report_#{micro_report.id}") do
       click_button '内容修正'
       assert_text 'コメント'
       assert_text 'プレビュー'
@@ -124,19 +124,19 @@ class MicroReportsTest < ApplicationSystemTestCase
   test 'only owner and admin can edit and delete micro_reports' do
     micro_report = micro_reports(:hajime_first_micro_report)
     visit_with_auth user_micro_reports_path(users(:hajime)), 'hajime'
-    within(".thread-comment#micro_report_#{micro_report.id}") do
+    within(".micro-report#micro_report_#{micro_report.id}") do
       assert_selector 'a', text: '削除する'
       assert_selector 'button', text: '内容修正'
     end
 
     visit_with_auth user_micro_reports_path(users(:hajime)), 'komagata'
-    within(".thread-comment#micro_report_#{micro_report.id}") do
+    within(".micro-report#micro_report_#{micro_report.id}") do
       assert_selector 'a', text: '削除する'
       assert_selector 'button', text: '内容修正'
     end
 
     visit_with_auth user_micro_reports_path(users(:hajime)), 'mentormentaro'
-    within(".thread-comment#micro_report_#{micro_report.id}") do
+    within(".micro-report#micro_report_#{micro_report.id}") do
       assert_no_selector 'a', text: '削除する'
       assert_no_selector 'button', text: '内容修正'
     end
@@ -145,7 +145,7 @@ class MicroReportsTest < ApplicationSystemTestCase
   test 'update micro_report through comment tab form' do
     micro_report = micro_reports(:hajime_first_micro_report)
     visit_with_auth user_micro_reports_path(users(:hajime)), 'hajime'
-    within(".thread-comment#micro_report_#{micro_report.id}") do
+    within(".micro-report#micro_report_#{micro_report.id}") do
       assert_text '最初の分報'
       click_link_or_button '内容修正'
       fill_in('micro_report[content]', with: '初めての分報')
@@ -159,7 +159,7 @@ class MicroReportsTest < ApplicationSystemTestCase
     visit_with_auth user_micro_reports_path(users(:hajime)), 'hajime'
 
     assert_text '最初の分報'
-    within(".thread-comment#micro_report_#{micro_report.id}") do
+    within(".micro-report#micro_report_#{micro_report.id}") do
       click_link_or_button '削除する'
       page.accept_alert
     end
@@ -171,7 +171,7 @@ class MicroReportsTest < ApplicationSystemTestCase
   test 'cancel updating micro_report through micro_report form' do
     micro_report = micro_reports(:hajime_first_micro_report)
     visit_with_auth user_micro_reports_path(users(:hajime)), 'hajime'
-    within(".thread-comment#micro_report_#{micro_report.id}") do
+    within(".micro-report#micro_report_#{micro_report.id}") do
       assert_text '最初の分報'
       click_link_or_button '内容修正'
       fill_in('micro_report[content]', with: '初めての分報')
@@ -185,7 +185,7 @@ class MicroReportsTest < ApplicationSystemTestCase
     micro_report = micro_reports(:hajime_first_micro_report)
     visit_with_auth user_micro_reports_path(users(:hajime)), 'hajime'
 
-    within(".thread-comment#micro_report_#{micro_report.id}") do
+    within(".micro-report#micro_report_#{micro_report.id}") do
       assert_text '最初の分報'
       click_link_or_button '内容修正'
       fill_in('micro_report[content]', with: '初めての分報')
@@ -203,7 +203,7 @@ class MicroReportsTest < ApplicationSystemTestCase
     visit_with_auth user_micro_reports_path(users(:hatsuno)), 'hatsuno'
     assert_selector '.pagination__item.is-active', text: '1'
 
-    within('.thread-comment[data-micro_report_content="分報1"]') do
+    within('.micro-report[data-micro_report_content="分報1"]') do
       click_link_or_button '削除する'
       page.accept_alert
     end
