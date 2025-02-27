@@ -107,5 +107,4 @@ class ArticleTest < ActiveSupport::TestCase
       assert_includes article.tag_list, '注目の記事'
     end
   end
-
 end
