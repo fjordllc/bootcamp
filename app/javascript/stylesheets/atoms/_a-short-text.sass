@@ -1,6 +1,11 @@
 .a-short-text
   h3
     +text-block(1.25em 1.4 .75em)
+  &.is-sm
+    +media-breakpoint-up(md)
+      font-size: .8125rem
+    +media-breakpoint-down(sm)
+      font-size: .75rem
   p
     +text-block(1em 1.6 .75em)
   li
