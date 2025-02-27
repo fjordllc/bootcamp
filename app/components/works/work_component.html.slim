@@ -14,7 +14,7 @@
             .thumbnail-card__author
               .thumbnail-card__icon
                 = link_to user_path(work.user) do
-                  span class="a-user-role is-#{work.user.primary_role(user: work.user)}"
+                  span class="a-user-role is-#{work.user.primary_role(work.user)}"
                     = creator_avatar
               .thumbnail-card__user
                 = link_to work.user.name, user_path(work.user), class: 'a-user-name'
