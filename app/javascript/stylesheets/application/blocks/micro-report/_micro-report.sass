@@ -1,0 +1,145 @@
+.micro-report
+  +position(relative)
+  display: flex
+
+.micro-report__start
+  +media-breakpoint-up(md)
+    flex: 0 0 4rem
+    +size(4rem 100%)
+
+.micro-report__end
+  +media-breakpoint-up(md)
+    max-width:  calc(100% - var(--thread-header-author))
+    flex: 1
+
+.micro-report__header
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+.micro-report__title
+  +text-block(.875rem 1.4, 600)
+  +media-breakpoint-up(md)
+    margin-right: .5rem
+    flex: 1
+  +media-breakpoint-down(sm)
+    display: flex
+
+.micro-report__title-user-icon
+  +media-breakpoint-up(md)
+    display: none
+  +media-breakpoint-down(sm)
+    +size(1.5rem)
+    display: inline-block
+    vertical-align: middle
+    margin-right: .25rem
+
+.micro-report__title-link
+  +media-breakpoint-up(md)
+    height: 100%
+    display: inline-flex
+    align-items: center
+  +media-breakpoint-down(sm)
+    display: inline-block
+    white-space: nowrap
+    max-width: calc(100vw - 15.5rem)
+    overflow: hidden
+    text-overflow: ellipsis
+    vertical-align: middle
+  &.a-placeholder
+    width: 15%
+    height: 1.4em
+
+.micro-report__title-icon
+  +size(1.5rem)
+  margin-right: .5rem
+
+.micro-report__title-label
+  +text-block(.8125rem, block 400)
+  color: var(--muted-text)
+  margin-bottom: .125rem
+  i
+    margin-right: .1875rem
+
+.micro-report__body
+  +media-breakpoint-down(sm)
+    word-wrap: break-word
+
+.micro-report__user-icon
+  +size(3.5rem)
+  object-fit: cover
+  border-radius: 50%
+  +media-breakpoint-down(sm)
+    display: none
+
+.micro-report__created-at
+  display: block
+  +text-block(.8125rem 1.4, nowrap)
+  color: var(--muted-text)
+  +hover-link-reversal
+  cursor: pointer
+  +position(relative)
+  +media-breakpoint-down(sm)
+    font-size: .75rem
+  &:active,
+  &:focus,
+  &.is-active
+    color: var(--danger)
+    &::after
+      content: "Copied!"
+      display: block
+      background-color: rgba(black, .4)
+      border-radius: .125rem
+      padding: .25rem
+      +text-block(.625rem 1)
+      color: var(--reversal-text)
+      +position(absolute, left 0, top 100%)
+  &.a-placeholder
+    width: 30%
+    height: 1.4em
+
+.micro-report__actions
+  padding-block: 0 1rem
+
+.micro-report__actions-items
+  display: flex
+  align-items: center
+
+.micro-report__actions-item-link
+  +text-block(1.25rem 1, center flex)
+  color: var(--muted-text)
+  +size(2.375rem)
+  align-items: center
+  justify-content: center
+  border-radius: 50%
+  transition: color .2s ease-in, background-color .2s ease-in
+  &.is-success
+    &:hover
+      background-color: #e0eefe
+      color: var(--primary)
+  &.is-danger
+    &:hover
+      background-color: #f5e6ea
+      color: var(--danger)
+
+.micro-report__footer
+  display: flex
+  justify-content: space-between
+  margin-top: .75rem
+  .reactions
+    justify-content: flex-end
+  .card-footer
+    flex: 1
+
+.micro-report__reactions
+  flex: 1
+
+.micro-report-actions__action
+  font-size: .875rem
+  text-decoration: underline
+
+.micro-report-actions__user-link
+  +block-link
+
+.micro-report_user-icon.a-user-icon
+  +size(2.75rem)
