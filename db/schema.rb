@@ -920,6 +920,8 @@ ActiveRecord::Schema.define(version: 2025_03_24_002043) do
     t.string "other_editor"
     t.boolean "hide_mentor_profile", default: false, null: false
     t.integer "experiences", default: 0, null: false
+    t.integer "referral_source"
+    t.text "other_referral_source"
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true
