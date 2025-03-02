@@ -13,6 +13,7 @@ class SurveyQuestion < ApplicationRecord
   validates_associated :check_box
   has_many :survey_question_listings, dependent: :destroy
   has_many :surveys, through: :survey_question_listings
+  has_many :survey_question_answers, dependent: :destroy
 
   enum format: {
     text_area: 0,
