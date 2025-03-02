@@ -4,6 +4,7 @@ class Survey < ApplicationRecord
   belongs_to :user
   has_many :survey_question_listings, dependent: :destroy
   has_many :survey_questions, through: :survey_question_listings
+  has_many :survey_answers, dependent: :destroy
   accepts_nested_attributes_for :survey_question_listings, allow_destroy: true
   validates_associated :survey_question_listings
 
