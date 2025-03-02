@@ -104,6 +104,9 @@ Rails.application.routes.draw do
   resources :generations, only: %i(show index)
   resource :billing_portal, only: :create, controller: "billing_portal"
   resources :external_entries, only: %i(index)
+  resources :surveys, only: %i(show) do
+    resources :survey_answers, only: %i(create), controller: "surveys/survey_answers"
+  end
   get "articles/tags/:tag", to: "articles#index", as: :tag, tag: /.+/
   get 'sponsorships', to: 'articles/sponsorships#index'
   get "pages/tags/:tag", to: "pages#index", as: :pages_tag, tag: /.+/, format: "html"
