@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SurveysController < ApplicationController
+class Mentor::SurveysController < ApplicationController
   before_action :require_admin_or_mentor_login
   before_action :set_survey, only: %i[show edit update destroy]
 
@@ -29,7 +29,7 @@ class SurveysController < ApplicationController
     @survey = Survey.new(survey_params)
     @survey.user_id = current_user.id
     if @survey.save
-      redirect_to surveys_path, notice: notice_message(@survey)
+      redirect_to mentor_surveys_path, notice: notice_message(@survey)
     else
       render action: :new
     end
@@ -37,7 +37,7 @@ class SurveysController < ApplicationController
 
   def update
     if @survey.update(survey_params)
-      redirect_to surveys_path, notice: notice_message(@survey)
+      redirect_to mentor_surveys_path, notice: notice_message(@survey)
     else
       render :edit
     end
@@ -45,7 +45,7 @@ class SurveysController < ApplicationController
 
   def destroy
     @survey.destroy
-    redirect_to surveys_path, notice: 'アンケートを削除しました。'
+    redirect_to mentor_surveys_path, notice: 'アンケートを削除しました。'
   end
 
   private

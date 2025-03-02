@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SurveyQuestionsController < ApplicationController
+class Mentor::SurveyQuestionsController < ApplicationController
   before_action :set_survey_question, only: %i[edit update]
   before_action :require_admin_or_mentor_login
 
@@ -22,7 +22,7 @@ class SurveyQuestionsController < ApplicationController
     @survey_question.user_id = current_user.id
 
     if @survey_question.save
-      redirect_to survey_questions_path, notice: '質問を保存しました。'
+      redirect_to mentor_survey_questions_path, notice: '質問を保存しました。'
     else
       render action: :new
     end
@@ -32,7 +32,7 @@ class SurveyQuestionsController < ApplicationController
 
   def update
     if @survey_question.update(survey_question_params)
-      redirect_to survey_questions_path, notice: '質問を保存しました。'
+      redirect_to mentor_survey_questions_path, notice: '質問を保存しました。'
     else
       render action: :edit
     end

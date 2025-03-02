@@ -2,9 +2,9 @@
 
 require 'application_system_test_case'
 
-class SurveysTest < ApplicationSystemTestCase
+class Mentor::SurveysTest < ApplicationSystemTestCase
   test 'showing questions in a show page' do
-    visit_with_auth "/surveys/#{surveys(:survey1).id}", 'komagata'
+    visit_with_auth "/mentor/surveys/#{surveys(:survey1).id}", 'komagata'
     assert_selector 'h1', text: '【第1回】FBCモチベーションに関するアンケート'
     assert_text 'フィヨルドブートキャンプでは満足度向上と質の高いサービスの提供に活かすためアンケートを実施しております。5分程度の簡単なアンケートです。'
     assert_text 'フィヨルドブートキャンプの学習を通して、どんなことを学びましたか？'
@@ -15,7 +15,7 @@ class SurveysTest < ApplicationSystemTestCase
   end
 
   test 'displaying added question when choices reason for answer are required are choosed' do
-    visit_with_auth "/surveys/#{surveys(:survey1).id}", 'komagata'
+    visit_with_auth "/mentor/surveys/#{surveys(:survey1).id}", 'komagata'
     assert_selector 'h1', text: '【第1回】FBCモチベーションに関するアンケート'
     required_answer_checkbox = find('.survey-questions-item__checkboxes').all('.checkboxes__item')[4]
     required_answer_checkbox.select_option
@@ -36,7 +36,7 @@ class SurveysTest < ApplicationSystemTestCase
   end
 
   test 'displaying ended badge if a survey which deadline is over' do
-    visit_with_auth '/surveys', 'komagata'
+    visit_with_auth '/mentor/surveys', 'komagata'
     assert_selector 'h1', text: 'アンケート一覧'
 
     assert_text '【第1回】FBCモチベーションに関するアンケート'
@@ -48,7 +48,7 @@ class SurveysTest < ApplicationSystemTestCase
   end
 
   test 'creating a survey which beginning of accepting and deadline is current' do
-    visit_with_auth '/surveys/new', 'komagata'
+    visit_with_auth '/mentor/surveys/new', 'komagata'
 
     fill_in 'アンケートのタイトル', with: '【第2回】FBCモチベーションに関するアンケート'
     fill_in 'アンケートの説明', with: 'フィヨルドブートキャンプでは満足度向上と質の高いサービスの提供に活かすためアンケートを実施しております。5分程度の簡単なアンケートです。'
@@ -63,7 +63,7 @@ class SurveysTest < ApplicationSystemTestCase
   end
 
   test 'creating a survey which beginning of accepting and deadline is future' do
-    visit_with_auth '/surveys/new', 'komagata'
+    visit_with_auth '/mentor/surveys/new', 'komagata'
 
     fill_in 'アンケートのタイトル', with: '【第3回】FBCモチベーションに関するアンケート'
     fill_in 'アンケートの説明', with: 'フィヨルドブートキャンプでは満足度向上と質の高いサービスの提供に活かすためアンケートを実施しております。5分程度の簡単なアンケートです。'
@@ -78,7 +78,7 @@ class SurveysTest < ApplicationSystemTestCase
   end
 
   test 'updating a survey by adding a question' do
-    visit_with_auth "/surveys/#{surveys(:survey1).id}", 'komagata'
+    visit_with_auth "/mentor/surveys/#{surveys(:survey1).id}", 'komagata'
     click_on '編集'
 
     assert_selector 'h1', text: 'アンケート編集'
@@ -88,12 +88,12 @@ class SurveysTest < ApplicationSystemTestCase
     click_on '保存'
 
     assert_text 'アンケートを更新しました。'
-    visit_with_auth "/surveys/#{surveys(:survey1).id}", 'komagata'
+    visit_with_auth "/mentor/surveys/#{surveys(:survey1).id}", 'komagata'
     assert_text 'フィヨルドブートキャンプに対してご意見・ご要望がございましたら、ご自由にお書きください。'
   end
 
   test 'destroying a survey' do
-    visit_with_auth "/surveys/#{surveys(:survey1).id}", 'komagata'
+    visit_with_auth "/mentor/surveys/#{surveys(:survey1).id}", 'komagata'
     click_on '編集'
 
     assert_selector 'h1', text: 'アンケート編集'
@@ -104,22 +104,22 @@ class SurveysTest < ApplicationSystemTestCase
   end
 
   test "can't visit the show page without admin account" do
-    visit_with_auth '/surveys', 'hajime'
+    visit_with_auth '/mentor/surveys', 'hajime'
     assert_text '管理者・メンターとしてログインしてください'
   end
 
   test "can't visit a show page without admin account" do
-    visit_with_auth "/surveys/#{surveys(:survey1).id}", 'hajime'
+    visit_with_auth "/mentor/surveys/#{surveys(:survey1).id}", 'hajime'
     assert_text '管理者・メンターとしてログインしてください'
   end
 
   test "can't visit an edit page without admin account" do
-    visit_with_auth "/surveys/#{surveys(:survey1).id}/edit", 'hajime'
+    visit_with_auth "/mentor/surveys/#{surveys(:survey1).id}/edit", 'hajime'
     assert_text '管理者・メンターとしてログインしてください'
   end
 
   test "can't visit a new page without admin account" do
-    visit_with_auth '/surveys/new', 'hajime'
+    visit_with_auth '/mentor/surveys/new', 'hajime'
     assert_text '管理者・メンターとしてログインしてください'
   end
 end
