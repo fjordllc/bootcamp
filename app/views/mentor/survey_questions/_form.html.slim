@@ -1,5 +1,5 @@
 = render 'errors', object: survey_question
-= form_with model: survey_question, local: true do |f|
+= form_with model: [:mentor, survey_question], local: true do |f|
   .form__items
     .form__items-inner
       .form-item

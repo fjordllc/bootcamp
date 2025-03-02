@@ -1,0 +1,9 @@
+- if object.errors.any?
+  .alert.is-danger
+    .alert__body
+      h2.alert__title
+        = "#{object.errors.count}件のエラーがあります。"
+      ul.alert__items
+        - object.errors.full_messages.each do |message|
+          li.alert__item
+            = message

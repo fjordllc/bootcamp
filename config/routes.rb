@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :surveys do
-    resources :survey_questions, only: %i(index), controller: "surveys/survey_question_listings"
-  end
   root to: "home#index"
 
   get "test", to: "home#test", as: "test"
@@ -86,7 +83,6 @@ Rails.application.routes.draw do
     resources :wips, only: %i(index), controller: "wips"
   end
   resources :articles
-  resources :survey_questions, except: %i(show destroy)
   namespace :events do
     resources :calendars, only: %i(index)
   end

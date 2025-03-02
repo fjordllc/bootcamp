@@ -18,13 +18,13 @@ tbody.admin-table__items
       |〜
       = l survey.end_at
     td.admin-table__item-value
-      = link_to survey do
+      = link_to mentor_survey_path(survey) do
           = survey.title
     td.admin-table__item-value.is-text-align-center
       ul.is-inline-buttons
         li
-          = link_to edit_survey_path(survey), class: 'a-button is-sm is-secondary is-icon is-block' do
+          = link_to edit_mentor_survey_path(survey), class: 'a-button is-sm is-secondary is-icon is-block' do
             i.fa.fa-solid.fa-pen
         li
-          = link_to survey_survey_questions_path(survey), class: 'a-button is-sm is-secondary is-icon is-block' do
+          = link_to mentor_survey_survey_questions_path(survey), class: 'a-button is-sm is-secondary is-icon is-block' do
             i.fa-solid.fa-align-justify

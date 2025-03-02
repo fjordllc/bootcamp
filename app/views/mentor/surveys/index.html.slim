@@ -7,7 +7,7 @@ header.page-header
         h2.page-header__title
           = title
 
-= render 'tabs'
+= render 'mentor/mentor_page_tabs'
 
 .page-main
   header.page-main-header
@@ -20,7 +20,7 @@ header.page-header
           .page-main-header-actions
             ul.page-main-header-actions__items
               li.page-main-header-actions__item
-                = link_to new_survey_path, class: 'a-button is-md is-secondary is-block' do
+                = link_to new_mentor_survey_path, class: 'a-button is-md is-secondary is-block' do
                   i.fa-regular.fa-plus
                   span
                     | 新規作成
@@ -40,7 +40,7 @@ header.page-header
                   | アンケート名
                 td.admin-table__label
                   | 操作
-            = render partial: 'surveys/survey', collection: @surveys, as: :survey
+            = render partial: 'survey', collection: @surveys, as: :survey
       - else
         .o-empty-message
           .o-empty-message__icon
