@@ -38,3 +38,5 @@ storage/
 
 .envrc
 /test/reports
+
+/memory-bank

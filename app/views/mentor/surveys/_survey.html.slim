@@ -21,6 +21,14 @@ tbody.admin-table__items
       = link_to mentor_survey_path(survey) do
           = survey.title
     td.admin-table__item-value.is-text-align-center
+      = link_to mentor_survey_survey_answers_path(survey), class: 'a-button is-sm is-secondary is-block' do
+        i.fa-regular.fa-list-alt
+        | 回答一覧
+    td.admin-table__item-value.is-text-align-center
+      = link_to survey_result_mentor_survey_path(survey), class: 'a-button is-sm is-secondary is-block' do
+        i.fa-regular.fa-chart-pie
+        | 集計結果
+    td.admin-table__item-value.is-text-align-center
       ul.is-inline-buttons
         li
           = link_to edit_mentor_survey_path(survey), class: 'a-button is-sm is-secondary is-icon is-block' do

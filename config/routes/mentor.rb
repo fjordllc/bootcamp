@@ -14,8 +14,10 @@ Rails.application.routes.draw do
       resources :categories, only: %i(index), controller: "courses/categories"
     end
     resources :survey_questions, except: %i(show destroy)
-    resources :surveys do
-      resources :survey_questions, only: %i(index), controller: "surveys/survey_question_listings"
-    end
+  resources :surveys do
+    resources :survey_questions, only: %i(index), controller: "surveys/survey_question_listings"
+    resources :survey_answers, only: %i(index show), controller: "surveys/survey_answers"
+    get 'survey_result', on: :member
+  end
   end
 end
