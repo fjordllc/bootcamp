@@ -4,13 +4,8 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 Chart.register(ChartDataLabels);
 
 document.addEventListener('DOMContentLoaded', function() {
-  // ラジオボタンの円グラフを初期化
   initRadioButtonCharts();
-  
-  // チェックボックスの円グラフを初期化
   initCheckBoxCharts();
-  
-  // リニアスケールの円グラフを初期化
   initLinearScaleCharts();
 });
 
@@ -20,12 +15,10 @@ function initRadioButtonCharts() {
     const choices = JSON.parse(element.dataset.choices);
     const answers = JSON.parse(element.dataset.answers);
     
-    // 各選択肢の回答数をカウント
     const counts = choices.map(choice => {
       return answers.filter(answer => answer === choice).length;
     });
     
-    // 色の配列
     const backgroundColors = [
       'rgba(255, 99, 132, 0.7)',
       'rgba(54, 162, 235, 0.7)',
@@ -61,8 +54,8 @@ function initRadioButtonCharts() {
             text: '回答分布'
           },
           datalabels: {
-            formatter: (value, ctx) => {
-              const total = ctx.dataset.data.reduce((acc, data) => acc + data, 0);
+            formatter: (value, _ctx) => {
+              const total = _ctx.dataset.data.reduce((acc, data) => acc + data, 0);
               const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
               return percentage > 0 ? `${percentage}%` : '';
             },
@@ -85,12 +78,10 @@ function initCheckBoxCharts() {
     const allSelectedChoices = JSON.parse(element.dataset.allSelectedChoices);
     const totalRespondents = parseInt(element.dataset.totalRespondents);
     
-    // 各選択肢の回答数をカウント
     const counts = choices.map(choice => {
       return allSelectedChoices.filter(selected => selected === choice).length;
     });
     
-    // 色の配列
     const backgroundColors = [
       'rgba(255, 99, 132, 0.7)',
       'rgba(54, 162, 235, 0.7)',
@@ -136,7 +127,7 @@ function initCheckBoxCharts() {
             }
           },
           datalabels: {
-            formatter: (value, ctx) => {
+            formatter: (value, _ctx) => {
               const percentage = totalRespondents > 0 ? Math.round((value / totalRespondents) * 100) : 0;
               return percentage > 0 ? `${percentage}%` : '';
             },
@@ -161,56 +152,50 @@ function initLinearScaleCharts() {
     
     const scaleValues = Array.from({length: maxValue - minValue + 1}, (_, i) => minValue + i);
     
-    // 各評価値の回答数をカウント
     const counts = scaleValues.map(value => {
-      return answers.filter(answer => answer === value).length;
+      return answers.filter(answer => parseInt(answer) === value).length;
     });
-    
-    // 色の配列
-    const backgroundColors = [
-      'rgba(255, 99, 132, 0.7)',
-      'rgba(54, 162, 235, 0.7)',
-      'rgba(255, 206, 86, 0.7)',
-      'rgba(75, 192, 192, 0.7)',
-      'rgba(153, 102, 255, 0.7)',
-      'rgba(255, 159, 64, 0.7)',
-      'rgba(199, 199, 199, 0.7)',
-      'rgba(83, 102, 255, 0.7)',
-      'rgba(40, 159, 64, 0.7)',
-      'rgba(210, 199, 199, 0.7)',
-    ];
     
     // eslint-disable-next-line no-new
     new Chart(ctx, {
-      type: 'pie',
+      type: 'bar',
       data: {
         labels: scaleValues.map(value => `${value}`),
         datasets: [{
+          label: '回答数',
           data: counts,
-          backgroundColor: backgroundColors.slice(0, scaleValues.length),
+          backgroundColor: 'rgba(54, 162, 235, 0.7)',
+          borderColor: 'rgba(54, 162, 235, 1)',
           borderWidth: 1
         }]
       },
       options: {
         responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              precision: 0
+            }
+          }
+        },
         plugins: {
           legend: {
-            position: 'bottom',
+            display: false
           },
           title: {
             display: true,
             text: '評価分布'
           },
           datalabels: {
-            formatter: (value, ctx) => {
-              const total = ctx.dataset.data.reduce((acc, data) => acc + data, 0);
-              const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
-              return percentage > 0 ? `${percentage}%` : '';
+            formatter: (value) => {
+              return value > 0 ? value : '';
             },
-            color: '#fff',
+            anchor: 'end',
+            align: 'top',
+            color: '#000',
             font: {
-              weight: 'bold',
-              size: 14
+              weight: 'bold'
             }
           }
         }
