@@ -1,0 +1,61 @@
+- title 'アンケートの回答一覧'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title
+          = title
+
+= render 'mentor/mentor_page_tabs'
+
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | #{@survey.title}の回答一覧
+        .page-main-header__end
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              li.page-main-header-actions__item
+                = link_to mentor_survey_path(@survey), class: 'a-button is-md is-secondary is-block is-back' do
+                  i.fa-regular
+                  | アンケート詳細
+  hr.a-border
+  .page-body
+    .container.is-lg
+      - if @survey_answers.empty?
+        .o-empty-message
+          .o-empty-message__icon
+            i.fa-regular.fa-sad-tear
+          p.o-empty-message__text
+            | まだ回答がありません。
+      - else
+        .a-card
+          .card-header
+            h2.card-header__title
+              | 回答者一覧
+          .card-body
+            .admin-table
+              table.admin-table__table
+                thead.admin-table__header
+                  tr.admin-table__labels
+                    th.admin-table__label 回答者
+                    th.admin-table__label 回答日時
+                    th.admin-table__label
+                tbody.admin-table__items
+                  - @survey_answers.each do |survey_answer|
+                    tr.admin-table__item
+                      td.admin-table__item-value
+                        = survey_answer.user.name
+                      td.admin-table__item-value
+                        = l survey_answer.created_at
+                      td.admin-table__item-value
+                        .card-body__actions
+                          .card-body-actions
+                            ul.card-body-actions__items
+                              li.card-body-actions__item
+                                = link_to mentor_survey_survey_answer_path(@survey, survey_answer), class: 'a-button is-sm is-secondary' do
+                                  | 詳細を表示

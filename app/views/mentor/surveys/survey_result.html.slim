@@ -1,0 +1,129 @@
+- title "#{@survey.title}の集計結果"
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title
+          = title
+
+= render 'mentor/mentor_page_tabs'
+
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            = "#{@survey.title}の集計結果"
+        .page-main-header__end
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              li.page-main-header-actions__item
+                = link_to mentor_surveys_path, class: 'a-button is-md is-secondary is-block' do
+                  i.fa-regular.fa-angle-left
+                  span
+                    | 一覧に戻る
+  hr.a-border
+  .page-body
+    .container.is-xl
+      - if @survey_answers.present?
+        .a-card
+          .card-header
+            h2.card-header__title
+              | 回答数: #{@survey_answers.count}件
+          .card-body
+            - @survey_questions.each do |question|
+              .a-card.is-border.mb-4
+                .card-header
+                  h3.card-header__title
+                    = question.title
+                .card-body
+                  - case question.format
+                  - when 'radio_button'
+                    .row
+                      .col-md-6
+                        - choices = question.radio_button.radio_button_choices
+                        - answers = @survey_answers.map { |sa| sa.survey_question_answers.find_by(survey_question_id: question.id)&.answer }.compact
+                        canvas id="chart-#{question.id}" width="400" height="400" data-radio-button-chart="true" data-choices="#{choices.map(&:choices).to_json}" data-answers="#{answers.to_json}"
+                      .col-md-6
+                        table.table
+                          thead
+                            tr
+                              th 選択肢
+                              th 回答数
+                              th 割合
+                          tbody
+                            - choice_counts = choices.map do |choice|
+                              - count = answers.count { |answer| answer == choice.choices }
+                              tr
+                                td = choice.choices
+                                td = count
+                                td = "#{(count.to_f / answers.count * 100).round(1)}%" if answers.present?
+                  - when 'check_box'
+                    .row
+                      .col-md-6
+                        - choices = question.check_box.check_box_choices
+                        - answers = @survey_answers.map { |sa| sa.survey_question_answers.find_by(survey_question_id: question.id)&.answer }.compact
+                        - all_selected_choices = answers.flat_map { |answer| answer.split(',') }
+                        - total_respondents = answers.count
+                        canvas id="chart-#{question.id}" width="400" height="400" data-check-box-chart="true" data-choices="#{choices.map(&:choices).to_json}" data-all-selected-choices="#{all_selected_choices.to_json}" data-total-respondents="#{total_respondents}"
+                      .col-md-6
+                        table.table
+                          thead
+                            tr
+                              th 選択肢
+                              th 回答数
+                              th 割合
+                          tbody
+                            - choice_counts = choices.map do |choice|
+                              - count = all_selected_choices.count { |selected| selected == choice.choices }
+                              tr
+                                td = choice.choices
+                                td = count
+                                td = "#{(count.to_f / total_respondents * 100).round(1)}%" if total_respondents > 0
+                  - when 'linear_scale'
+                    .row
+                      .col-md-6
+                        - min_value = question.linear_scale.first.to_i
+                        - max_value = question.linear_scale.last.to_i
+                        - answers = @survey_answers.map { |sa| sa.survey_question_answers.find_by(survey_question_id: question.id)&.answer }.compact
+                        canvas id="chart-#{question.id}" width="400" height="400" data-linear-scale-chart="true" data-min-value="#{min_value}" data-max-value="#{max_value}" data-answers="#{answers.map(&:to_i).to_json}"
+                      .col-md-6
+                        table.table
+                          thead
+                            tr
+                              th 評価
+                              th 回答数
+                              th 割合
+                          tbody
+                            - scale_values = (min_value..max_value).to_a
+                            - scale_values.each do |value|
+                              - count = answers.count { |answer| answer.to_i == value }
+                              tr
+                                td = value
+                                td = count
+                                td = "#{(count.to_f / answers.count * 100).round(1)}%" if answers.present?
+                  - when 'text_area', 'text_field'
+                    .row
+                      .col-md-12
+                        h4.mb-3 テキスト回答一覧
+                        .table-responsive
+                          table.table
+                            thead
+                              tr
+                                th 回答者
+                                th 回答内容
+                            tbody
+                              - @survey_answers.each do |survey_answer|
+                                - answer = survey_answer.survey_question_answers.find_by(survey_question_id: question.id)
+                                - if answer&.answer.present?
+                                  tr
+                                    td = survey_answer.user.login_name
+                                    td.text-break = simple_format(answer.answer)
+      - else
+        .o-empty-message
+          .o-empty-message__icon
+            i.fa-regular.fa-sad-tear
+          .o-empty-message__text
+            | まだ回答がありません。

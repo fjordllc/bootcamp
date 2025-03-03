@@ -1,0 +1,64 @@
+- title 'アンケートの回答詳細'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title
+          = title
+
+= render 'mentor/mentor_page_tabs'
+
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | #{@survey.title}の回答詳細
+        .page-main-header__end
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              li.page-main-header-actions__item
+                = link_to mentor_survey_survey_answers_path(@survey), class: 'a-button is-md is-secondary is-block is-back' do
+                  i.fa-regular
+                  | 回答一覧に戻る
+  hr.a-border
+  .page-body
+    .container.is-lg
+      .a-card
+        .card-header
+          h2.card-header__title
+            | 回答者情報
+        .card-body
+          .user-detail
+            .user-detail__item
+              label.form-label 回答者
+              .user-detail__value = @survey_answer.user.name
+            .user-detail__item
+              label.form-label 回答日時
+              .user-detail__value = l @survey_answer.created_at
+      
+      .a-card.is-mt-lg
+        .card-header
+          h2.card-header__title
+            | 回答内容
+        .card-body
+          .survey-answer-detail
+            - @survey_answer.survey_question_answers.includes(:survey_question).each do |question_answer|
+              .survey-answer-detail__item
+                h3.survey-answer-detail__question
+                  = question_answer.survey_question.title
+                .survey-answer-detail__answer
+                  - if question_answer.survey_question.format_text_area? || question_answer.survey_question.format_text_field?
+                    .a-long-text
+                      = simple_format(question_answer.answer)
+                  - else
+                    .survey-answer-detail__choice
+                      = question_answer.answer
+                    - if question_answer.reason.present?
+                      .survey-answer-detail__reason
+                        h4.survey-answer-detail__reason-title
+                          | 理由
+                        .a-long-text
+                          = simple_format(question_answer.reason)

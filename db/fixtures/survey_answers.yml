@@ -1,0 +1,61 @@
+# frozen_string_literal: true
+
+survey_answer1:
+  survey: survey2
+  user: komagata
+  created_at: <%= Time.current - 10.days %>
+  updated_at: <%= Time.current - 10.days %>
+
+survey_answer2:
+  survey: survey2
+  user: machida
+  created_at: <%= Time.current - 9.days %>
+  updated_at: <%= Time.current - 9.days %>
+
+survey_answer3:
+  survey: survey2
+  user: kimura
+  created_at: <%= Time.current - 8.days %>
+  updated_at: <%= Time.current - 8.days %>
+
+survey_answer4:
+  survey: survey2
+  user: hatsuno
+  created_at: <%= Time.current - 7.days %>
+  updated_at: <%= Time.current - 7.days %>
+
+survey_answer5:
+  survey: survey2
+  user: hajime
+  created_at: <%= Time.current - 6.days %>
+  updated_at: <%= Time.current - 6.days %>
+
+survey_answer6:
+  survey: survey2
+  user: muryou
+  created_at: <%= Time.current - 5.days %>
+  updated_at: <%= Time.current - 5.days %>
+
+survey_answer7:
+  survey: survey2
+  user: kensyu
+  created_at: <%= Time.current - 4.days %>
+  updated_at: <%= Time.current - 4.days %>
+
+survey_answer8:
+  survey: survey2
+  user: senpai
+  created_at: <%= Time.current - 3.days %>
+  updated_at: <%= Time.current - 3.days %>
+
+survey_answer9:
+  survey: survey2
+  user: sumi
+  created_at: <%= Time.current - 2.days %>
+  updated_at: <%= Time.current - 2.days %>
+
+survey_answer10:
+  survey: survey2
+  user: nobu
+  created_at: <%= Time.current - 1.day %>
+  updated_at: <%= Time.current - 1.day %>
