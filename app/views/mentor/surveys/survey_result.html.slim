@@ -85,8 +85,8 @@ header.page-header
                   - when 'linear_scale'
                     .row
                       .col-md-6
-                        - min_value = question.linear_scale.first.to_i
-                        - max_value = question.linear_scale.last.to_i
+                        - min_value = 0
+                        - max_value = 10
                         - answers = @survey_answers.map { |sa| sa.survey_question_answers.find_by(survey_question_id: question.id)&.answer }.compact
                         canvas id="chart-#{question.id}" width="400" height="400" data-linear-scale-chart="true" data-min-value="#{min_value}" data-max-value="#{max_value}" data-answers="#{answers.map(&:to_i).to_json}"
                       .col-md-6
