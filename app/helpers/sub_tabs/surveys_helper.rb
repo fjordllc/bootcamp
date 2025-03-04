@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module PageTabs
-  module MentorSurveysHelper
-    def mentor_surveys_page_tabs(active_tab:)
+module SubTabs
+  module SurveysHelper
+    def mentor_surveys_sub_tabs(active_tab:)
       tabs = []
       tabs << { name: 'アンケート', link: mentor_surveys_path }
       tabs << { name: '質問', link: mentor_survey_questions_path }
