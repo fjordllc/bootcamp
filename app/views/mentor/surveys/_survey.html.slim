@@ -30,7 +30,7 @@ tbody.admin-table__items
           | 回答一覧
     td.admin-table__item-value.is-text-align-center
       - if survey.answers?
-        = link_to survey_result_mentor_survey_path(survey), class: 'a-button is-sm is-secondary is-block' do
+        = link_to mentor_survey_survey_result_path(survey), class: 'a-button is-sm is-secondary is-block' do
           i.fa-regular.fa-chart-pie
           | 集計結果
     td.admin-table__item-value.is-text-align-center

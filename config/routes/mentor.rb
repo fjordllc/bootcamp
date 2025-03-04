@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :surveys do
     resources :survey_questions, only: %i(index), controller: "surveys/survey_question_listings"
     resources :survey_answers, only: %i(index show), controller: "surveys/survey_answers"
-    get 'survey_result', on: :member
+    resource :survey_result, only: %i(show), controller: "surveys/survey_result"
   end
   end
 end
