@@ -1,5 +1,64 @@
-# frozen_string_literal: true
+survey_answer_first1:
+  survey: survey1
+  user: komagata
+  created_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
 
+survey_answer_first2:
+  survey: survey1
+  user: machida
+  created_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
+
+survey_answer_first3:
+  survey: survey1
+  user: kimura
+  created_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
+
+survey_answer_first4:
+  survey: survey1
+  user: hatsuno
+  created_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
+
+survey_answer_first5:
+  survey: survey1
+  user: hajime
+  created_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
+
+survey_answer_first6:
+  survey: survey1
+  user: muryou
+  created_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
+
+survey_answer_first7:
+  survey: survey1
+  user: kensyu
+  created_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
+
+survey_answer_first8:
+  survey: survey1
+  user: senpai
+  created_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
+
+survey_answer_first9:
+  survey: survey1
+  user: sumi
+  created_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
+
+survey_answer_first10:
+  survey: survey1
+  user: nobu
+  created_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
+
+# 第2回アンケートの回答
 survey_answer1:
   survey: survey2
   user: komagata

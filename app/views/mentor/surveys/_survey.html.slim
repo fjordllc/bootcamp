@@ -18,16 +18,21 @@ tbody.admin-table__items
       |〜
       = l survey.end_at
     td.admin-table__item-value
-      = link_to mentor_survey_path(survey) do
-          = survey.title
+      = survey.title
+    td.admin-table__item-value
+      = link_to '詳細', mentor_survey_path(survey)
+      = ' | '
+      = link_to 'アンケートフォーム', survey_path(survey), target: '_blank'
     td.admin-table__item-value.is-text-align-center
-      = link_to mentor_survey_survey_answers_path(survey), class: 'a-button is-sm is-secondary is-block' do
-        i.fa-regular.fa-list-alt
-        | 回答一覧
+      - if survey.has_answers?
+        = link_to mentor_survey_survey_answers_path(survey), class: 'a-button is-sm is-secondary is-block' do
+          i.fa-regular.fa-list-alt
+          | 回答一覧
     td.admin-table__item-value.is-text-align-center
-      = link_to survey_result_mentor_survey_path(survey), class: 'a-button is-sm is-secondary is-block' do
-        i.fa-regular.fa-chart-pie
-        | 集計結果
+      - if survey.has_answers?
+        = link_to survey_result_mentor_survey_path(survey), class: 'a-button is-sm is-secondary is-block' do
+          i.fa-regular.fa-chart-pie
+          | 集計結果
     td.admin-table__item-value.is-text-align-center
       ul.is-inline-buttons
         li
