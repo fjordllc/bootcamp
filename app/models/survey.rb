@@ -24,4 +24,8 @@ class Survey < ApplicationRecord
   def answer_ended?
     Time.current > end_at
   end
+
+  def has_answers?
+    survey_answers.exists?
+  end
 end

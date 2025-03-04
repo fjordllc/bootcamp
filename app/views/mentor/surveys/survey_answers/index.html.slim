@@ -8,6 +8,7 @@ header.page-header
           = title
 
 = render 'mentor/mentor_page_tabs'
+= mentor_surveys_page_tabs(active_tab: 'アンケート')
 
 .page-main
   header.page-main-header
@@ -33,29 +34,24 @@ header.page-header
           p.o-empty-message__text
             | まだ回答がありません。
       - else
-        .a-card
-          .card-header
-            h2.card-header__title
-              | 回答者一覧
-          .card-body
-            .admin-table
-              table.admin-table__table
-                thead.admin-table__header
-                  tr.admin-table__labels
-                    th.admin-table__label 回答者
-                    th.admin-table__label 回答日時
-                    th.admin-table__label
-                tbody.admin-table__items
-                  - @survey_answers.each do |survey_answer|
-                    tr.admin-table__item
-                      td.admin-table__item-value
-                        = survey_answer.user.name
-                      td.admin-table__item-value
-                        = l survey_answer.created_at
-                      td.admin-table__item-value
-                        .card-body__actions
-                          .card-body-actions
-                            ul.card-body-actions__items
-                              li.card-body-actions__item
-                                = link_to mentor_survey_survey_answer_path(@survey, survey_answer), class: 'a-button is-sm is-secondary' do
-                                  | 詳細を表示
+        .admin-table
+          table.admin-table__table
+            thead.admin-table__header
+              tr.admin-table__labels
+                th.admin-table__label 回答者
+                th.admin-table__label 回答日時
+                th.admin-table__label
+            tbody.admin-table__items
+              - @survey_answers.each do |survey_answer|
+                tr.admin-table__item
+                  td.admin-table__item-value
+                    = survey_answer.user.name
+                  td.admin-table__item-value
+                    = l survey_answer.created_at
+                  td.admin-table__item-value
+                    .card-body__actions
+                      .card-body-actions
+                        ul.card-body-actions__items
+                          li.card-body-actions__item
+                            = link_to mentor_survey_survey_answer_path(@survey, survey_answer), class: 'a-button is-sm is-secondary' do
+                              | 詳細を表示
