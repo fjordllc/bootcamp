@@ -29,17 +29,40 @@ header.page-header
   .page-body
     .container.is-xl
       - if @survey_answers.present?
-        .a-card
-          .card-header
-            h2.card-header__title
-              | 回答数: #{@survey_answers.count}件
-          .card-body
-            - @survey_questions.each do |question|
-              .a-card.is-border.mb-4
-                .card-header
-                  h3.card-header__title
-                    = question.title
-                .card-body
+        .survey-result-summary
+          .survey-result-summary__header
+            .survey-result-summary__count
+              i.fa-solid.fa-chart-pie.survey-result-summary__icon
+              span.survey-result-summary__value = "回答数: #{@survey_answers.count}件"
+            .survey-result-summary__date
+              i.fa-regular.fa-calendar.survey-result-summary__icon
+              span = "集計日時: #{l Time.current}"
+
+        .survey-result-questions
+          - @survey_questions.each do |question|
+            .survey-result-question
+              .survey-result-question__header
+                h3.survey-result-question__title
+                  = question.title
+                .survey-result-question__type
+                  - case question.format
+                  - when 'text_area', 'text_field'
+                    span.survey-result-question__badge.is-text
+                      i.fa-solid.fa-font
+                      | テキスト
+                  - when 'radio_button'
+                    span.survey-result-question__badge.is-radio
+                      i.fa-solid.fa-circle-dot
+                      | 単一選択
+                  - when 'check_box'
+                    span.survey-result-question__badge.is-checkbox
+                      i.fa-solid.fa-check-square
+                      | 複数選択
+                  - when 'linear_scale'
+                    span.survey-result-question__badge.is-scale
+                      i.fa-solid.fa-sliders
+                      | スケール
+              .survey-result-question__content
                   - case question.format
                   - when 'radio_button'
                     .row
@@ -156,7 +179,9 @@ header.page-header
                                 - answer = survey_answer.survey_question_answers.find_by(survey_question_id: question.id)
                                 - if answer&.answer.present?
                                   tr
-                                    td = survey_answer.user.login_name
+                                    td
+                                      = link_to user_path(survey_answer.user) do
+                                        = survey_answer.user.login_name
                                     td.text-break = simple_format(answer.answer)
       - else
         .o-empty-message

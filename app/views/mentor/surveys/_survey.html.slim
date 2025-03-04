@@ -22,7 +22,7 @@ tbody.admin-table__items
     td.admin-table__item-value
       = link_to '詳細', mentor_survey_path(survey)
       = ' | '
-      = link_to 'アンケートフォーム', survey_path(survey), target: '_blank', rel: 'noopener'
+      = link_to 'アンケートフォーム', survey_path(survey)
     td.admin-table__item-value.is-text-align-center
       - if survey.answers?
         = link_to mentor_survey_survey_answers_path(survey), class: 'a-button is-sm is-secondary is-block' do
