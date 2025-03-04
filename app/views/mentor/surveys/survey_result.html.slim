@@ -1,4 +1,4 @@
-- title @survey.title + 'の集計結果'
+- title "#{@survey.title}の集計結果"
 
 header.page-header
   .container
@@ -44,8 +44,9 @@ header.page-header
                   - when 'radio_button'
                     .row
                       .col-md-6
-                        - choices = question.radio_button.radio_button_choices
-                        - answers = @survey_answers.map { |sa| sa.survey_question_answers.find_by(survey_question_id: question.id)&.answer }.compact
+                        ruby:
+                          choices = question.radio_button.radio_button_choices
+                          answers = @survey_answers.map { |sa| sa.survey_question_answers.find_by(survey_question_id: question.id)&.answer }.compact
                         canvas id="chart-#{question.id}" width="400" height="400" data-radio-button-chart="true" data-choices="#{choices.map(&:choices).to_json}" data-answers="#{answers.to_json}"
                       .col-md-6
                         table.table
@@ -55,7 +56,7 @@ header.page-header
                               th 回答数
                               th 割合
                           tbody
-                            - choice_counts = choices.map do |choice|
+                            - choices.each do |choice|
                               - count = answers.count { |answer| answer == choice.choices }
                               tr
                                 td = choice.choices
@@ -64,11 +65,18 @@ header.page-header
                   - when 'check_box'
                     .row
                       .col-md-6
-                        - choices = question.check_box.check_box_choices
-                        - answers = @survey_answers.map { |sa| sa.survey_question_answers.find_by(survey_question_id: question.id)&.answer }.compact
-                        - all_selected_choices = answers.flat_map { |answer| answer.split(',') }
-                        - total_respondents = answers.count
-                        canvas id="chart-#{question.id}" width="400" height="400" data-check-box-chart="true" data-choices="#{choices.map(&:choices).to_json}" data-all-selected-choices="#{all_selected_choices.to_json}" data-total-respondents="#{total_respondents}"
+                        ruby:
+                          choices = question.check_box.check_box_choices
+                          answers = @survey_answers.map { |sa| sa.survey_question_answers.find_by(survey_question_id: question.id)&.answer }.compact
+                          all_selected_choices = answers.flat_map { |answer| answer.split(',') }
+                          total_respondents = answers.count
+                        canvas(id="chart-#{question.id}"
+                               width="400"
+                               height="400"
+                               data-check-box-chart="true"
+                               data-choices="#{choices.map(&:choices).to_json}"
+                               data-all-selected-choices="#{all_selected_choices.to_json}"
+                               data-total-respondents="#{total_respondents}")
                       .col-md-6
                         table.table
                           thead
@@ -77,22 +85,37 @@ header.page-header
                               th 回答数
                               th 割合
                           tbody
-                            - choice_counts = choices.map do |choice|
+                            - choices.each do |choice|
                               - count = all_selected_choices.count { |selected| selected == choice.choices }
                               tr
                                 td = choice.choices
                                 td = count
-                                td = "#{(count.to_f / total_respondents * 100).round(1)}%" if total_respondents > 0
+                                td = "#{(count.to_f / total_respondents * 100).round(1)}%" if total_respondents.positive?
                   - when 'linear_scale'
                     .row
                       .col-md-6
-                        - min_value = 0
-                        - max_value = 10
-                        - answers = @survey_answers.map { |sa| sa.survey_question_answers.find_by(survey_question_id: question.id)&.answer }.compact
-                        - numeric_answers = answers.map(&:to_i)
-                        - average = numeric_answers.sum.to_f / numeric_answers.length if numeric_answers.present?
-                        - median = numeric_answers.present? ? (sorted = numeric_answers.sort; len = sorted.length; len.odd? ? sorted[len / 2] : (sorted[len / 2 - 1] + sorted[len / 2]) / 2.0) : nil
-                        canvas id="chart-#{question.id}" width="400" height="400" data-linear-scale-chart="true" data-min-value="#{min_value}" data-max-value="#{max_value}" data-answers="#{numeric_answers.to_json}" data-average="#{average}" data-median="#{median}"
+                        ruby:
+                          min_value = 0
+                          max_value = 10
+                          answers = @survey_answers.map { |sa| sa.survey_question_answers.find_by(survey_question_id: question.id)&.answer }.compact
+                          numeric_answers = answers.map(&:to_i)
+                          average = numeric_answers.sum.to_f / numeric_answers.length if numeric_answers.present?
+                          if numeric_answers.present?
+                            sorted = numeric_answers.sort
+                            len = sorted.length
+                            median = len.odd? ? sorted[len / 2] : (sorted[len / 2 - 1] + sorted[len / 2]) / 2.0
+                          else
+                            median = nil
+                          end
+                        canvas(id="chart-#{question.id}"
+                               width="400"
+                               height="400"
+                               data-linear-scale-chart="true"
+                               data-min-value="#{min_value}"
+                               data-max-value="#{max_value}"
+                               data-answers="#{numeric_answers.to_json}"
+                               data-average="#{average}"
+                               data-median="#{median}")
                       .col-md-6
                         table.table
                           thead

@@ -3,7 +3,7 @@
 class Surveys::SurveyAnswersController < ApplicationController
   skip_before_action :require_active_user_login
   before_action :set_survey
-  # before_action :check_survey_period
+  before_action :check_survey_period
   before_action :check_already_answered
 
   def create
@@ -39,9 +39,9 @@ class Surveys::SurveyAnswersController < ApplicationController
   end
 
   def check_already_answered
-    if SurveyAnswer.exists?(survey: @survey, user: current_user)
-      redirect_to root_path, alert: 'このアンケートには既に回答済みです。'
-    end
+    return unless SurveyAnswer.exists?(survey: @survey, user: current_user)
+
+    redirect_to root_path, alert: 'このアンケートには既に回答済みです。'
   end
 
   def save_question_answers
@@ -63,11 +63,7 @@ class Surveys::SurveyAnswersController < ApplicationController
     answer = answer_params[:answer]
     reason = get_reason(survey_question, answer_params)
 
-    @survey_answer.survey_question_answers.create(
-      survey_question: survey_question,
-      answer: answer,
-      reason: reason
-    )
+    @survey_answer.survey_question_answers.create(survey_question:, answer:, reason:)
   end
 
   def save_multiple_answers(survey_question, answer_params)
@@ -79,17 +75,14 @@ class Surveys::SurveyAnswersController < ApplicationController
         reason = answer_params[:title_of_reason_for_checkbox]
       end
 
-      @survey_answer.survey_question_answers.create(
-        survey_question: survey_question,
-        answer: choice,
-        reason: reason
-      )
+      answer = choice
+      @survey_answer.survey_question_answers.create(survey_question:, answer:, reason:)
     end
   end
 
   def save_text_answer(survey_question, answer_params)
     @survey_answer.survey_question_answers.create(
-      survey_question: survey_question,
+      survey_question:,
       answer: answer_params
     )
   end
@@ -101,9 +94,7 @@ class Surveys::SurveyAnswersController < ApplicationController
         answer_params[:title_of_reason]
       end
     when 'linear_scale'
-      if survey_question.linear_scale.reason_for_choice_required
-        answer_params[:title_of_reason_for_linear_scale]
-      end
+      answer_params[:title_of_reason_for_linear_scale] if survey_question.linear_scale.reason_for_choice_required
     end
   end
 end

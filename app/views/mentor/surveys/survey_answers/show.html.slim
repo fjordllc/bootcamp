@@ -39,14 +39,14 @@ header.page-header
             .user-detail__item
               label.form-label 回答日時
               .user-detail__value = l @survey_answer.created_at
-      
+
       .a-card.is-mt-lg
         .card-header
           h2.card-header__title
             | 回答内容
         .card-body
           .survey-answer-detail
-            - @survey_answer.survey_question_answers.includes(:survey_question).each do |question_answer|
+            - @survey_answer.survey_question_answers.includes(:survey_question).find_each do |question_answer|
               .survey-answer-detail__item
                 h3.survey-answer-detail__question
                   = question_answer.survey_question.title

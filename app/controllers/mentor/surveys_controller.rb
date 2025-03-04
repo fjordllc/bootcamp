@@ -19,7 +19,10 @@ class Mentor::SurveysController < ApplicationController
   end
 
   def new
-    @survey = Survey.new(start_at: Time.current.beginning_of_day, end_at: Time.current.end_of_day.strftime('%Y-%m-%dT-%H:%M'))
+    @survey = Survey.new(
+      start_at: Time.current.beginning_of_day,
+      end_at: Time.current.end_of_day.strftime('%Y-%m-%dT-%H:%M')
+    )
     @survey.survey_question_listings.build
   end
 

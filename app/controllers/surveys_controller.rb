@@ -16,7 +16,6 @@ class SurveysController < ApplicationController
                         )
   end
 
-
   private
 
   def set_survey
@@ -32,9 +31,8 @@ class SurveysController < ApplicationController
   end
 
   def check_already_answered
-    if SurveyAnswer.exists?(survey: @survey, user: current_user)
-      redirect_to root_path, alert: 'このアンケートには既に回答済みです。'
-    end
-  end
+    return unless SurveyAnswer.exists?(survey: @survey, user: current_user)
 
+    redirect_to root_path, alert: 'このアンケートには既に回答済みです。'
+  end
 end

@@ -25,7 +25,7 @@ class Survey < ApplicationRecord
     Time.current > end_at
   end
 
-  def has_answers?
+  def answers?
     survey_answers.exists?
   end
 end

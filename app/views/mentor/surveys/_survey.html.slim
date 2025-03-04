@@ -22,14 +22,14 @@ tbody.admin-table__items
     td.admin-table__item-value
       = link_to '詳細', mentor_survey_path(survey)
       = ' | '
-      = link_to 'アンケートフォーム', survey_path(survey), target: '_blank'
+      = link_to 'アンケートフォーム', survey_path(survey), target: '_blank', rel: 'noopener'
     td.admin-table__item-value.is-text-align-center
-      - if survey.has_answers?
+      - if survey.answers?
         = link_to mentor_survey_survey_answers_path(survey), class: 'a-button is-sm is-secondary is-block' do
           i.fa-regular.fa-list-alt
           | 回答一覧
     td.admin-table__item-value.is-text-align-center
-      - if survey.has_answers?
+      - if survey.answers?
         = link_to survey_result_mentor_survey_path(survey), class: 'a-button is-sm is-secondary is-block' do
           i.fa-regular.fa-chart-pie
           | 集計結果
