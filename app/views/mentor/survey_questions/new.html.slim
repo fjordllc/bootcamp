@@ -1,11 +1,11 @@
-- title '質問作成'
+- title 'メンターページ'
 
 header.page-header
   .container
     .page-header__inner
       .page-header__start
         .page-header__title
-          | アンケート
+          = title
 
 = render 'mentor/mentor_page_tabs'
 = mentor_surveys_sub_tabs(active_tab: '質問')
