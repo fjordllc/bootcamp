@@ -45,7 +45,8 @@ header.page-header
               - @survey_answers.each do |survey_answer|
                 tr.admin-table__item
                   td.admin-table__item-value
-                    = survey_answer.user.name
+                    = link_to user_path(survey_answer.user), class: 'user-link' do
+                      = survey_answer.user.name
                   td.admin-table__item-value
                     = l survey_answer.created_at
                   td.admin-table__item-value
