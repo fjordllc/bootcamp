@@ -438,8 +438,8 @@ ActiveRecord::Schema.define(version: 2025_01_30_052357) do
   end
 
   create_table "learning_time_frames", force: :cascade do |t|
-    t.string "week_day"
-    t.integer "activity_time"
+    t.string "week_day", null: false
+    t.integer "activity_time", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
