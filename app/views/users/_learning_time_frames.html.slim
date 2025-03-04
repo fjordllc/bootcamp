@@ -7,7 +7,7 @@
       thead
         tr
           th
-          - %w[日 月 火 水 木 金 土].each do |day|
+          - day_of_the_week.each do |day|
             th = day
       tbody#learning_time_frame
         - 24.times do |hour|
