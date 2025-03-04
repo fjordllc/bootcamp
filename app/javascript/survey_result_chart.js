@@ -1,7 +1,9 @@
 import Chart from 'chart.js/auto';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import annotationPlugin from 'chartjs-plugin-annotation';
 
 Chart.register(ChartDataLabels);
+Chart.register(annotationPlugin);
 
 document.addEventListener('DOMContentLoaded', function() {
   initRadioButtonCharts();
@@ -150,11 +152,66 @@ function initLinearScaleCharts() {
     const maxValue = parseInt(element.dataset.maxValue);
     const answers = JSON.parse(element.dataset.answers);
     
+    // 平均値と中央値を計算
+    let average = null;
+    let median = null;
+    
+    if (element.dataset.average && !isNaN(parseFloat(element.dataset.average))) {
+      average = parseFloat(element.dataset.average);
+    }
+    
+    if (element.dataset.median && !isNaN(parseFloat(element.dataset.median))) {
+      median = parseFloat(element.dataset.median);
+    }
+    
     const scaleValues = Array.from({length: maxValue - minValue + 1}, (_, i) => minValue + i);
     
     const counts = scaleValues.map(value => {
       return answers.filter(answer => parseInt(answer) === value).length;
     });
+    
+    // アノテーションの設定
+    const annotations = {};
+    
+    // 平均値のアノテーション
+    if (average !== null) {
+      annotations.averageLine = {
+        type: 'line',
+        xMin: average,
+        xMax: average,
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 2,
+        label: {
+          display: true,
+          content: `平均値: ${average.toFixed(2)}`,
+          position: 'start',
+          backgroundColor: 'rgba(255, 99, 132, 0.8)',
+          font: {
+            weight: 'bold'
+          }
+        }
+      };
+    }
+    
+    // 中央値のアノテーション
+    if (median !== null) {
+      annotations.medianLine = {
+        type: 'line',
+        xMin: median,
+        xMax: median,
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 2,
+        label: {
+          display: true,
+          content: `中央値: ${median.toFixed(1)}`,
+          position: 'end',
+          backgroundColor: 'rgba(75, 192, 192, 0.8)',
+          font: {
+            weight: 'bold'
+          }
+        }
+      };
+    }
     
     // eslint-disable-next-line no-new
     new Chart(ctx, {
@@ -177,15 +234,51 @@ function initLinearScaleCharts() {
             ticks: {
               precision: 0
             }
+          },
+          x: {
+            type: 'linear',
+            min: minValue - 0.5,
+            max: maxValue + 0.5,
+            offset: false,
+            grid: {
+              offset: false
+            },
+            ticks: {
+              stepSize: 1,
+              callback: function(value) {
+                if (Number.isInteger(value) && value >= minValue && value <= maxValue) {
+                  return value.toString();
+                }
+                return '';
+              }
+            }
           }
         },
         plugins: {
           legend: {
-            display: false
+            display: true,
+            position: 'top'
           },
           title: {
             display: true,
             text: '評価分布'
+          },
+          tooltip: {
+            callbacks: {
+              title: function(context) {
+                return `評価: ${context[0].label}`;
+              },
+              footer: function() {
+                let footer = '';
+                if (average !== null) {
+                  footer += `平均値: ${average.toFixed(2)}`;
+                }
+                if (median !== null) {
+                  footer += footer ? `, 中央値: ${median.toFixed(1)}` : `中央値: ${median.toFixed(1)}`;
+                }
+                return footer;
+              }
+            }
           },
           datalabels: {
             formatter: (value) => {
@@ -197,6 +290,9 @@ function initLinearScaleCharts() {
             font: {
               weight: 'bold'
             }
+          },
+          annotation: {
+            annotations: annotations
           }
         }
       }
