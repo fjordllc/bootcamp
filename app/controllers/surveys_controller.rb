@@ -3,7 +3,7 @@
 class SurveysController < ApplicationController
   skip_before_action :require_active_user_login
   before_action :set_survey, only: %i[show]
-  # before_action :check_survey_period, only: %i[show]
+  before_action :check_survey_period, only: %i[show]
   before_action :check_already_answered, only: %i[show]
 
   def show
