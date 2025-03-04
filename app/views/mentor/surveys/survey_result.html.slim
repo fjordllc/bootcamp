@@ -1,4 +1,4 @@
-- title "#{@survey.title}の集計結果"
+- title @survey.title + 'の集計結果'
 
 header.page-header
   .container
@@ -88,7 +88,10 @@ header.page-header
                         - min_value = 0
                         - max_value = 10
                         - answers = @survey_answers.map { |sa| sa.survey_question_answers.find_by(survey_question_id: question.id)&.answer }.compact
-                        canvas id="chart-#{question.id}" width="400" height="400" data-linear-scale-chart="true" data-min-value="#{min_value}" data-max-value="#{max_value}" data-answers="#{answers.map(&:to_i).to_json}"
+                        - numeric_answers = answers.map(&:to_i)
+                        - average = numeric_answers.sum.to_f / numeric_answers.length if numeric_answers.present?
+                        - median = numeric_answers.present? ? (sorted = numeric_answers.sort; len = sorted.length; len.odd? ? sorted[len / 2] : (sorted[len / 2 - 1] + sorted[len / 2]) / 2.0) : nil
+                        canvas id="chart-#{question.id}" width="400" height="400" data-linear-scale-chart="true" data-min-value="#{min_value}" data-max-value="#{max_value}" data-answers="#{numeric_answers.to_json}" data-average="#{average}" data-median="#{median}"
                       .col-md-6
                         table.table
                           thead
@@ -97,13 +100,23 @@ header.page-header
                               th 回答数
                               th 割合
                           tbody
+                            - if numeric_answers.present?
+                              tr.table-info
+                                td.font-weight-bold 平均値
+                                td.font-weight-bold colspan="2" = average.round(2)
+                              tr.table-info
+                                td.font-weight-bold 中央値
+                                td.font-weight-bold colspan="2" = median
+                              tr
+                                td colspan="3"
+                                  hr
                             - scale_values = (min_value..max_value).to_a
                             - scale_values.each do |value|
-                              - count = answers.count { |answer| answer.to_i == value }
+                              - count = numeric_answers.count { |answer| answer == value }
                               tr
                                 td = value
                                 td = count
-                                td = "#{(count.to_f / answers.count * 100).round(1)}%" if answers.present?
+                                td = "#{(count.to_f / numeric_answers.count * 100).round(1)}%" if numeric_answers.present?
                   - when 'text_area', 'text_field'
                     .row
                       .col-md-12

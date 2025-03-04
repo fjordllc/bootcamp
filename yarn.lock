@@ -2520,6 +2520,11 @@ chart.js@^4.4.8:
   dependencies:
     "@kurkle/color" "^0.3.0"
 
+chartjs-plugin-annotation@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/chartjs-plugin-annotation/-/chartjs-plugin-annotation-3.1.0.tgz#0b3910862bde232344bbb6cf998633f71db7b093"
+  integrity sha512-EkAed6/ycXD/7n0ShrlT1T2Hm3acnbFhgkIEJLa0X+M6S16x0zwj1Fv4suv/2bwayCT3jGPdAtI9uLcAMToaQQ==
+
 chartjs-plugin-datalabels@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/chartjs-plugin-datalabels/-/chartjs-plugin-datalabels-2.2.0.tgz#369578e131d743c2e34b5fbe2d3f9335f6639b8f"
