@@ -2,7 +2,7 @@
 
 class Mentor::SurveysController < ApplicationController
   before_action :require_admin_or_mentor_login
-  before_action :set_survey, only: %i[show edit update destroy survey_result]
+  before_action :set_survey, only: %i[show edit update destroy]
 
   def index
     @surveys = Survey.order(end_at: :desc)
@@ -49,17 +49,6 @@ class Mentor::SurveysController < ApplicationController
   def destroy
     @survey.destroy
     redirect_to mentor_surveys_path, notice: 'アンケートを削除しました。'
-  end
-
-  def survey_result
-    @survey_questions = @survey
-                        .survey_questions
-                        .includes(
-                          :linear_scale,
-                          radio_button: :radio_button_choices,
-                          check_box: :check_box_choices
-                        )
-    @survey_answers = @survey.survey_answers.includes(survey_question_answers: :survey_question)
   end
 
   private
