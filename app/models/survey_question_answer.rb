@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SurveyQuestionAnswer < ApplicationRecord
   belongs_to :survey_answer
   belongs_to :survey_question
