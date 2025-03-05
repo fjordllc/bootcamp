@@ -31,6 +31,7 @@ tables = %i[
   followings
   reports
   learning_times
+  learning_time_frames
   learnings
   notifications
   participations

@@ -23,6 +23,8 @@
     = render 'users/form/avatar', f: f, user: user
     = render 'users/form/description', f: f, user: user
     = render 'users/form/tags', f: f, user: user
+    - if from == :edit && !@user.graduated? && !@user.adviser?
+      = render 'users/form/learning_time_frames', f: f, user: user
     - unless user.adviser?
       - unless user.mentor?
         = render 'users/form/after_graduation_hope', f:, user:
