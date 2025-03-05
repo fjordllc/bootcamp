@@ -1,0 +1,191 @@
+- title 'メンターページ'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title
+          = title
+
+= render 'mentor/mentor_page_tabs'
+= mentor_surveys_sub_tabs(active_tab: 'アンケート')
+
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            = "#{@survey.title}の集計結果"
+        .page-main-header__end
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              li.page-main-header-actions__item
+                = link_to mentor_surveys_path, class: 'a-button is-md is-secondary is-block' do
+                  i.fa-regular.fa-angle-left
+                  span
+                    | 一覧に戻る
+  hr.a-border
+  .page-body
+    .container.is-xl
+      - if @survey_answers.present?
+        .survey-result-summary
+          .survey-result-summary__header
+            .survey-result-summary__count
+              i.fa-solid.fa-chart-pie.survey-result-summary__icon
+              span.survey-result-summary__value = "回答数: #{@survey_answers.count}件"
+            .survey-result-summary__date
+              i.fa-regular.fa-calendar.survey-result-summary__icon
+              span = "集計日時: #{l Time.current}"
+
+        .survey-result-questions
+          - @survey_questions.each do |question|
+            .survey-result-question
+              .survey-result-question__header
+                h3.survey-result-question__title
+                  = question.title
+                .survey-result-question__type
+                  - case question.format
+                  - when 'text_area', 'text_field'
+                    span.survey-result-question__badge.is-text
+                      i.fa-solid.fa-font
+                      | テキスト
+                  - when 'radio_button'
+                    span.survey-result-question__badge.is-radio
+                      i.fa-solid.fa-circle-dot
+                      | 単一選択
+                  - when 'check_box'
+                    span.survey-result-question__badge.is-checkbox
+                      i.fa-solid.fa-check-square
+                      | 複数選択
+                  - when 'linear_scale'
+                    span.survey-result-question__badge.is-scale
+                      i.fa-solid.fa-sliders
+                      | スケール
+              .survey-result-question__content
+                  - case question.format
+                  - when 'radio_button'
+                    .row
+                      .col-md-6
+                        ruby:
+                          choices = question.radio_button.radio_button_choices
+                          answers = @survey_answers.map { |sa| sa.survey_question_answers.find_by(survey_question_id: question.id)&.answer }.compact
+                        canvas id="chart-#{question.id}" width="400" height="400" data-radio-button-chart="true" data-choices="#{choices.map(&:choices).to_json}" data-answers="#{answers.to_json}"
+                      .col-md-6
+                        table.table
+                          thead
+                            tr
+                              th 選択肢
+                              th 回答数
+                              th 割合
+                          tbody
+                            - choices.each do |choice|
+                              - count = answers.count { |answer| answer == choice.choices }
+                              tr
+                                td = choice.choices
+                                td = count
+                                td = "#{(count.to_f / answers.count * 100).round(1)}%" if answers.present?
+                  - when 'check_box'
+                    .row
+                      .col-md-6
+                        ruby:
+                          choices = question.check_box.check_box_choices
+                          answers = @survey_answers.map { |sa| sa.survey_question_answers.find_by(survey_question_id: question.id)&.answer }.compact
+                          all_selected_choices = answers.flat_map { |answer| answer.split(',') }
+                          total_respondents = answers.count
+                        canvas(id="chart-#{question.id}"
+                               width="400"
+                               height="400"
+                               data-check-box-chart="true"
+                               data-choices="#{choices.map(&:choices).to_json}"
+                               data-all-selected-choices="#{all_selected_choices.to_json}"
+                               data-total-respondents="#{total_respondents}")
+                      .col-md-6
+                        table.table
+                          thead
+                            tr
+                              th 選択肢
+                              th 回答数
+                              th 割合
+                          tbody
+                            - choices.each do |choice|
+                              - count = all_selected_choices.count { |selected| selected == choice.choices }
+                              tr
+                                td = choice.choices
+                                td = count
+                                td = "#{(count.to_f / total_respondents * 100).round(1)}%" if total_respondents.positive?
+                  - when 'linear_scale'
+                    .row
+                      .col-md-6
+                        ruby:
+                          min_value = 0
+                          max_value = 10
+                          answers = @survey_answers.map { |sa| sa.survey_question_answers.find_by(survey_question_id: question.id)&.answer }.compact
+                          numeric_answers = answers.map(&:to_i)
+                          average = numeric_answers.sum.to_f / numeric_answers.length if numeric_answers.present?
+                          if numeric_answers.present?
+                            sorted = numeric_answers.sort
+                            len = sorted.length
+                            median = len.odd? ? sorted[len / 2] : (sorted[len / 2 - 1] + sorted[len / 2]) / 2.0
+                          else
+                            median = nil
+                          end
+                        canvas(id="chart-#{question.id}"
+                               width="400"
+                               height="400"
+                               data-linear-scale-chart="true"
+                               data-min-value="#{min_value}"
+                               data-max-value="#{max_value}"
+                               data-answers="#{numeric_answers.to_json}"
+                               data-average="#{average}"
+                               data-median="#{median}")
+                      .col-md-6
+                        table.table
+                          thead
+                            tr
+                              th 評価
+                              th 回答数
+                              th 割合
+                          tbody
+                            - if numeric_answers.present?
+                              tr.table-info
+                                td.font-weight-bold 平均値
+                                td.font-weight-bold colspan="2" = average.round(2)
+                              tr.table-info
+                                td.font-weight-bold 中央値
+                                td.font-weight-bold colspan="2" = median
+                              tr
+                                td colspan="3"
+                                  hr
+                            - scale_values = (min_value..max_value).to_a
+                            - scale_values.each do |value|
+                              - count = numeric_answers.count { |answer| answer == value }
+                              tr
+                                td = value
+                                td = count
+                                td = "#{(count.to_f / numeric_answers.count * 100).round(1)}%" if numeric_answers.present?
+                  - when 'text_area', 'text_field'
+                    .row
+                      .col-md-12
+                        h4.mb-3 テキスト回答一覧
+                        .table-responsive
+                          table.table
+                            thead
+                              tr
+                                th 回答者
+                                th 回答内容
+                            tbody
+                              - @survey_answers.each do |survey_answer|
+                                - answer = survey_answer.survey_question_answers.find_by(survey_question_id: question.id)
+                                - if answer&.answer.present?
+                                  tr
+                                    td
+                                      = link_to user_path(survey_answer.user) do
+                                        = survey_answer.user.login_name
+                                    td.text-break = simple_format(answer.answer)
+      - else
+        .o-empty-message
+          .o-empty-message__icon
+            i.fa-regular.fa-sad-tear
+          .o-empty-message__text
+            | まだ回答がありません。

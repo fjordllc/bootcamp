@@ -1,5 +1,5 @@
 = render 'errors', object: survey
-= form_with model: survey, local: true do |f|
+= form_with model: [:mentor, survey], local: true do |f|
   .form__items
     .form-item
       = f.label :title, class: 'a-form-label is-required'
@@ -30,10 +30,10 @@
       li.form-actions__item.is-sub
         - case params[:action]
         - when 'new', 'create'
-          = link_to 'キャンセル', surveys_path, class: 'a-button is-sm is-text'
+          = link_to 'キャンセル', mentor_surveys_path, class: 'a-button is-sm is-text'
         - when 'edit', 'update'
-          = link_to 'キャンセル', survey_path, class: 'a-button is-sm is-text'
+          = link_to 'キャンセル', mentor_survey_path, class: 'a-button is-sm is-text'
       li.form-actions__item.is-sub
         - case params[:action]
         - when 'edit', 'update'
-          = link_to '削除する', survey_path(@survey), class: 'a-button is-sm is-text', data: { confirm: '本当によろしいですか？' }, method: :delete
+          = link_to '削除する', mentor_survey_path(@survey), class: 'a-button is-sm is-text', data: { confirm: '本当によろしいですか？' }, method: :delete

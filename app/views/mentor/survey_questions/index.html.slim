@@ -1,4 +1,4 @@
-- title 'アンケート'
+- title 'メンターページ'
 
 header.page-header
   .container
@@ -7,7 +7,8 @@ header.page-header
         h2.page-header__title
           = title
 
-= render 'surveys/tabs'
+= render 'mentor/mentor_page_tabs'
+= mentor_surveys_sub_tabs(active_tab: '質問')
 
 .page-main
   header.page-main-header
@@ -15,12 +16,12 @@ header.page-header
       .page-main-header__inner
         .page-main-header__start
           h1.page-main-header__title
-            | 質問
+            | 質問一覧
         .page-main-header__end
           .page-main-header-actions
             ul.page-main-header-actions__items
               li.page-main-header-actions__item
-                = link_to new_survey_question_path, class: 'a-button is-md is-secondary is-block' do
+                = link_to new_mentor_survey_question_path, class: 'a-button is-md is-secondary is-block' do
                   i.fa-regular.fa-plus
                   span
                     | 新規作成
@@ -62,5 +63,5 @@ header.page-header
                 td.admin-table__item-value
                   = "更新: #{l survey_question.updated_at, format: :long}"
                 td.admin-table__item-value.is-text-align-center
-                  = link_to edit_survey_question_path(survey_question), class: 'a-button is-sm is-secondary is-icon', id: 'edit_icon' do
+                  = link_to edit_mentor_survey_question_path(survey_question), class: 'a-button is-sm is-secondary is-icon', id: 'edit_icon' do
                     i.fa-solid.fa-pen

@@ -2,9 +2,9 @@
 
 require 'application_system_test_case'
 
-class SurveyQuestionsTest < ApplicationSystemTestCase
+class Mentor::SurveyQuestionsTest < ApplicationSystemTestCase
   test 'create text area question' do
-    visit_with_auth '/survey_questions/new', 'komagata'
+    visit_with_auth '/mentor/survey_questions/new', 'komagata'
     fill_in 'survey_question[title]', with: 'フィヨルドブートキャンプに入会した理由は何ですか？'
     choose '段落', allow_label_click: true
     click_button '保存'
@@ -15,7 +15,7 @@ class SurveyQuestionsTest < ApplicationSystemTestCase
   end
 
   test 'create input question' do
-    visit_with_auth '/survey_questions/new', 'komagata'
+    visit_with_auth '/mentor/survey_questions/new', 'komagata'
     fill_in 'survey_question[title]', with: '一番辛かったプラクティスは何ですか？'
     choose '記述式', allow_label_click: true
     click_button '保存'
@@ -26,7 +26,7 @@ class SurveyQuestionsTest < ApplicationSystemTestCase
   end
 
   test 'create radio button question' do
-    visit_with_auth '/survey_questions/new', 'komagata'
+    visit_with_auth '/mentor/survey_questions/new', 'komagata'
     fill_in 'survey_question[title]', with: 'フィヨルドブートキャンプの内容に対して、どのくらい満足していますか？'
     choose 'ラジオボタン', allow_label_click: true
     click_link '追加'
@@ -40,7 +40,7 @@ class SurveyQuestionsTest < ApplicationSystemTestCase
   end
 
   test 'create check box question' do
-    visit_with_auth '/survey_questions/new', 'komagata'
+    visit_with_auth '/mentor/survey_questions/new', 'komagata'
     fill_in 'survey_question[title]', with: '就職についてどんな不安を抱えていますか？'
     choose 'チェックボックス', allow_label_click: true
     click_link '追加'
@@ -54,7 +54,7 @@ class SurveyQuestionsTest < ApplicationSystemTestCase
   end
 
   test 'create linear scale question' do
-    visit_with_auth '/survey_questions/new', 'komagata'
+    visit_with_auth '/mentor/survey_questions/new', 'komagata'
     fill_in 'survey_question[title]', with: 'フィヨルドブートキャンプを親しい友人や家族にお薦めする可能性はどれくらいありますか？'
     choose '均等目盛', allow_label_click: true
     fill_in 'survey_question[linear_scale_attributes][first]', with: 'お薦めしない'
@@ -68,7 +68,7 @@ class SurveyQuestionsTest < ApplicationSystemTestCase
   end
 
   test 'display a list of questions' do
-    visit_with_auth '/survey_questions', 'komagata'
+    visit_with_auth '/mentor/survey_questions', 'komagata'
     assert_text '段落'
     assert_text 'フィヨルドブートキャンプの学習を通して、どんなことを学びましたか？'
     assert_text "作成: #{Time.current.strftime("%Y年%m月%d日(#{%w[日 月 火 水 木 金 土][Time.current.wday]})")}"
@@ -76,7 +76,7 @@ class SurveyQuestionsTest < ApplicationSystemTestCase
   end
 
   test 'edit question' do
-    visit_with_auth '/survey_questions', 'komagata'
+    visit_with_auth '/mentor/survey_questions', 'komagata'
     assert_text '段落'
     assert_text 'フィヨルドブートキャンプの学習を通して、どんなことを学びましたか？'
     assert_text "作成: #{Time.current.strftime("%Y年%m月%d日(#{%w[日 月 火 水 木 金 土][Time.current.wday]})")}"

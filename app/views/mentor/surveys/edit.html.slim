@@ -1,4 +1,4 @@
-- title 'アンケート'
+- title 'メンターページ'
 
 header.page-header
   .container
@@ -7,7 +7,8 @@ header.page-header
         h2.page-header__title
           = title
 
-= render 'tabs'
+= render 'mentor/mentor_page_tabs'
+= mentor_surveys_sub_tabs(active_tab: 'アンケート')
 
 .page-main
   header.page-main-header
@@ -20,7 +21,7 @@ header.page-header
           .page-main-header-actions
             ul.page-main-header-actions__items
               li.page-main-header-actions__item
-                = link_to surveys_path, class: 'a-button is-md is-secondary is-block' do
+                = link_to mentor_surveys_path, class: 'a-button is-md is-secondary is-block' do
                   i.fa-regular
                   | アンケート一覧
   hr.a-border

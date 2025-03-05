@@ -1,0 +1,79 @@
+# 1st survey
+survey_answer_first1:
+  survey: survey1
+  user: kimura
+  created_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
+
+survey_answer_first2:
+  survey: survey1
+  user: hatsuno
+  created_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
+
+survey_answer_first3:
+  survey: survey1
+  user: hajime
+  created_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
+
+survey_answer_first4:
+  survey: survey1
+  user: muryou
+  created_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
+
+survey_answer_first5:
+  survey: survey1
+  user: kensyu
+  created_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
+
+survey_answer_first6:
+  survey: survey1
+  user: senpai
+  created_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
+
+survey_answer_first7:
+  survey: survey1
+  user: sumi
+  created_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
+
+survey_answer_first8:
+  survey: survey1
+  user: nobu
+  created_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
+
+# 2nd survey
+survey_answer1:
+  survey: survey2
+  user: kimura
+  created_at: <%= Time.current - 8.days %>
+  updated_at: <%= Time.current - 8.days %>
+
+survey_answer2:
+  survey: survey2
+  user: hatsuno
+  created_at: <%= Time.current - 7.days %>
+  updated_at: <%= Time.current - 7.days %>
+
+survey_answer3:
+  survey: survey2
+  user: hajime
+  created_at: <%= Time.current - 6.days %>
+  updated_at: <%= Time.current - 6.days %>
+
+survey_answer4:
+  survey: survey2
+  user: muryou
+  created_at: <%= Time.current - 5.days %>
+  updated_at: <%= Time.current - 5.days %>
+
+survey_answer5:
+  survey: survey2
+  user: kensyu
+  created_at: <%= Time.current - 4.days %>
+  updated_at: <%= Time.current - 4.days %>
