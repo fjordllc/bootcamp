@@ -30,93 +30,88 @@ header.page-header
             = simple_format(@survey.description)
 
         .survey-questions
-          - if @already_answered
-            .survey-questions__message.a-card
-              .card-body
-                p.card-body__alert このアンケートには既に回答済みです。
-          - else
-            = form_with url: survey_survey_answers_path(@survey), method: :post do |f|
-              .survey-questions__items
-                - @survey_questions.each do |survey_question|
-                  .survey-questions-item.a-card
-                    .card-body
-                      .card-body__description
-                        - if survey_question.answer_required
-                          = f.label "survey_question[#{survey_question.id}][answer]", survey_question.title, class: 'a-form-label is-lg is-required'
-                        - else
-                          = f.label "survey_question[#{survey_question.id}][answer]", survey_question.title, class: 'a-form-label is-lg'
-                        .survey-questions-item__description
-                          .a-long-text.is-sm
-                            = simple_format(survey_question.description)
-                      .survey-questions-item__input
-                        - if survey_question.format == 'text_area'
-                          = f.text_area "survey_question[#{survey_question.id}]", class: 'a-text-input js-warning-form'
-                        - if survey_question.format == 'text_field'
-                          = f.text_field "survey_question[#{survey_question.id}]", class: 'a-text-input js-warning-form'
-                        - if survey_question.format == 'radio_button'
-                          .survey-questions-item__radios.radios
-                            ul.radios__items
-                              - survey_question.radio_button.radio_button_choices.each do |choice|
-                                li.radios__item
-                                  - if choice.reason_for_choice_required
-                                    = f.radio_button "survey_question[#{survey_question.id}][answer]", choice.choices, id: "radio-#{choice.id}", class: 'a-toggle-checkbox js-questionnaire_choice js-answer_required_choice'
-                                  - else
-                                    = f.radio_button "survey_question[#{survey_question.id}][answer]", choice.choices, id: "radio-#{choice.id}", class: 'a-toggle-checkbox js-questionnaire_choice'
-                                  = f.label "survey_question[#{survey_question.id}][answer]_#{choice.choices}", choice.choices, for: "radio-#{choice.id}"
-                          - if survey_question.answer_required_choice_exists?(survey_question.id)
-                            .survey-additional-question.is-hidden name="js-additional_question_#{survey_question.id}"
-                              = f.label "survey_question[#{survey_question.id}][title_of_reason]", survey_question.radio_button.title_of_reason, class: 'a-form-label is-required'
-                              .survey-questions-item__description
-                                .a-long-text.is-sm
-                                  = simple_format(survey_question.radio_button.description_of_reason)
-                              .survey-additional-question__input
-                                = f.text_area "survey_question[#{survey_question.id}][title_of_reason]", class: 'a-text-input js-warning-form'
-                        - if survey_question.format == 'check_box'
-                          .survey-questions-item__checkboxes.checkboxes
-                            ul.checkboxes__items
-                              - survey_question.check_box.check_box_choices.each do |choice|
-                                li.checkboxes__item
-                                  - if choice.reason_for_choice_required
-                                    = f.check_box "survey_question[#{survey_question.id}][#{choice.choices}]", id: "checkbox-#{choice.id}", class: 'a-toggle-checkbox js-questionnaire_choice js-answer_required_choice'
-                                  - else
-                                    = f.check_box "survey_question[#{survey_question.id}][#{choice.choices}]", id: "checkbox-#{choice.id}", class: 'a-toggle-checkbox js-questionnaire_choice'
-                                  = f.label "survey_question[#{survey_question.id}][#{choice.choices}]", choice.choices, for: "checkbox-#{choice.id}"
-                          - if survey_question.answer_required_choice_exists?(survey_question.id)
-                            .survey-additional-question.is-hidden name="js-additional_question_#{survey_question.id}"
-                              = f.label "survey_question[#{survey_question.id}][title_of_reason_for_checkbox]", survey_question.check_box.title_of_reason, class: 'a-form-label is-required'
-                              .survey-questions-item__description
-                                .a-long-text.is-sm
-                                  = simple_format(survey_question.check_box.description_of_reason)
-                              .survey-additional-question__input
-                                = f.text_area "survey_question[#{survey_question.id}][title_of_reason_for_checkbox]", class: 'a-text-input js-warning-form'
+          = form_with url: survey_survey_answers_path(@survey), method: :post do |f|
+            .survey-questions__items
+              - @survey_questions.each do |survey_question|
+                .survey-questions-item.a-card
+                  .card-body
+                    .card-body__description
+                      - if survey_question.answer_required
+                        = f.label "survey_question[#{survey_question.id}][answer]", survey_question.title, class: 'a-form-label is-lg is-required'
+                      - else
+                        = f.label "survey_question[#{survey_question.id}][answer]", survey_question.title, class: 'a-form-label is-lg'
+                      .survey-questions-item__description
+                        .a-long-text.is-sm
+                          = simple_format(survey_question.description)
+                    .survey-questions-item__input
+                      - if survey_question.format == 'text_area'
+                        = f.text_area "survey_question[#{survey_question.id}]", class: 'a-text-input js-warning-form'
+                      - if survey_question.format == 'text_field'
+                        = f.text_field "survey_question[#{survey_question.id}]", class: 'a-text-input js-warning-form'
+                      - if survey_question.format == 'radio_button'
+                        .survey-questions-item__radios.radios
+                          ul.radios__items
+                            - survey_question.radio_button.radio_button_choices.each do |choice|
+                              li.radios__item
+                                - if choice.reason_for_choice_required
+                                  = f.radio_button "survey_question[#{survey_question.id}][answer]", choice.choices, id: "radio-#{choice.id}", class: 'a-toggle-checkbox js-questionnaire_choice js-answer_required_choice'
+                                - else
+                                  = f.radio_button "survey_question[#{survey_question.id}][answer]", choice.choices, id: "radio-#{choice.id}", class: 'a-toggle-checkbox js-questionnaire_choice'
+                                = f.label "survey_question[#{survey_question.id}][answer]_#{choice.choices}", choice.choices, for: "radio-#{choice.id}"
+                        - if survey_question.answer_required_choice_exists?(survey_question.id)
+                          .survey-additional-question.is-hidden name="js-additional_question_#{survey_question.id}"
+                            = f.label "survey_question[#{survey_question.id}][title_of_reason]", survey_question.radio_button.title_of_reason, class: 'a-form-label is-required'
+                            .survey-questions-item__description
+                              .a-long-text.is-sm
+                                = simple_format(survey_question.radio_button.description_of_reason)
+                            .survey-additional-question__input
+                              = f.text_area "survey_question[#{survey_question.id}][title_of_reason]", class: 'a-text-input js-warning-form'
+                      - if survey_question.format == 'check_box'
+                        .survey-questions-item__checkboxes.checkboxes
+                          ul.checkboxes__items
+                            - survey_question.check_box.check_box_choices.each do |choice|
+                              li.checkboxes__item
+                                - if choice.reason_for_choice_required
+                                  = f.check_box "survey_question[#{survey_question.id}][#{choice.choices}]", id: "checkbox-#{choice.id}", class: 'a-toggle-checkbox js-questionnaire_choice js-answer_required_choice'
+                                - else
+                                  = f.check_box "survey_question[#{survey_question.id}][#{choice.choices}]", id: "checkbox-#{choice.id}", class: 'a-toggle-checkbox js-questionnaire_choice'
+                                = f.label "survey_question[#{survey_question.id}][#{choice.choices}]", choice.choices, for: "checkbox-#{choice.id}"
+                        - if survey_question.answer_required_choice_exists?(survey_question.id)
+                          .survey-additional-question.is-hidden name="js-additional_question_#{survey_question.id}"
+                            = f.label "survey_question[#{survey_question.id}][title_of_reason_for_checkbox]", survey_question.check_box.title_of_reason, class: 'a-form-label is-required'
+                            .survey-questions-item__description
+                              .a-long-text.is-sm
+                                = simple_format(survey_question.check_box.description_of_reason)
+                            .survey-additional-question__input
+                              = f.text_area "survey_question[#{survey_question.id}][title_of_reason_for_checkbox]", class: 'a-text-input js-warning-form'
 
-                        - if survey_question.format == 'linear_scale'
-                          .linear-scale
-                            .linear-scale__label
-                              = survey_question.linear_scale.first
-                            .linear-scale__points
-                              ul.linear-scale__points-items
-                                - 10.times do |i|
-                                  li.linear-scale__points-item
-                                    - if survey_question.linear_scale.reason_for_choice_required
-                                      = f.radio_button "survey_question[#{survey_question.id}][answer]", i + 1, id: "linear-scale-#{survey_question.id}-#{i}",
-                                        class: 'a-toggle-checkbox js-questionnaire_choice js-answer_required_choice'
-                                    - else
-                                      = f.radio_button "survey_question[#{survey_question.id}][answer]", i + 1, id: "linear-scale-#{survey_question.id}-#{i}",
-                                        class: 'a-toggle-checkbox js-questionnaire_choice'
-                                    label.linear-scale__point for="linear-scale-#{survey_question.id}-#{i}"
-                                      .linear-scale__point-number
-                                        = i + 1
-                            .linear-scale__label
-                              = survey_question.linear_scale.last
-                          - if survey_question.linear_scale.reason_for_choice_required
-                            .survey-additional-question.is-hidden name="js-additional_question_#{survey_question.id}"
-                              = f.label "survey_question[#{survey_question.id}][title_of_reason_for_linear_scale]", survey_question.linear_scale.title_of_reason, class: 'a-form-label is-required'
-                              .survey-questions-item__description
-                                .a-long-text.is-sm
-                                  = simple_format(survey_question.linear_scale.description_of_reason)
-                              .survey-additional-question__input
-                                = f.text_area "survey_question[#{survey_question.id}][title_of_reason_for_linear_scale]", class: 'a-text-input js-warning-form'
+                      - if survey_question.format == 'linear_scale'
+                        .linear-scale
+                          .linear-scale__label
+                            = survey_question.linear_scale.first
+                          .linear-scale__points
+                            ul.linear-scale__points-items
+                              - 10.times do |i|
+                                li.linear-scale__points-item
+                                  - if survey_question.linear_scale.reason_for_choice_required
+                                    = f.radio_button "survey_question[#{survey_question.id}][answer]", i + 1, id: "linear-scale-#{survey_question.id}-#{i}",
+                                      class: 'a-toggle-checkbox js-questionnaire_choice js-answer_required_choice'
+                                  - else
+                                    = f.radio_button "survey_question[#{survey_question.id}][answer]", i + 1, id: "linear-scale-#{survey_question.id}-#{i}",
+                                      class: 'a-toggle-checkbox js-questionnaire_choice'
+                                  label.linear-scale__point for="linear-scale-#{survey_question.id}-#{i}"
+                                    .linear-scale__point-number
+                                      = i + 1
+                          .linear-scale__label
+                            = survey_question.linear_scale.last
+                        - if survey_question.linear_scale.reason_for_choice_required
+                          .survey-additional-question.is-hidden name="js-additional_question_#{survey_question.id}"
+                            = f.label "survey_question[#{survey_question.id}][title_of_reason_for_linear_scale]", survey_question.linear_scale.title_of_reason, class: 'a-form-label is-required'
+                            .survey-questions-item__description
+                              .a-long-text.is-sm
+                                = simple_format(survey_question.linear_scale.description_of_reason)
+                            .survey-additional-question__input
+                              = f.text_area "survey_question[#{survey_question.id}][title_of_reason_for_linear_scale]", class: 'a-text-input js-warning-form'
 
               .form-actions
                 ul.form-actions__items
