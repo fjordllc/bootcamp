@@ -186,6 +186,8 @@
         .a-form-help
           = link_to 'プライバシーポリシーを確認（別タブで開きます）', pp_path, target: '_blank', rel: 'noopener'
 
+      = render 'users/form/referral_source', f: f
+
   - if from == :new
     .form-actions
       ul.form-actions__items

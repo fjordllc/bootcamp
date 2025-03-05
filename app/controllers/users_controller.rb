@@ -177,7 +177,8 @@ class UsersController < ApplicationController
       :trainee, :adviser, :mentor, :job_seeker,
       :tag_list, :after_graduation_hope, :feed_url,
       :country_code, :subdivision_code, :invoice_payment,
-      :credit_card_payment, :role
+      :credit_card_payment, :role,
+      :referral_source, :other_referral_source
     )
   end
 
