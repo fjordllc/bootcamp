@@ -30,19 +30,24 @@ header.page-header
             = simple_format(@survey.description)
 
         .survey-questions
-          = form_with url: survey_survey_answers_path(@survey), method: :post do |f|
-            .survey-questions__items
-              - @survey_questions.each do |survey_question|
-                .survey-questions-item.a-card
-                  .card-body
-                    .card-body__description
-                      - if survey_question.answer_required
-                        = f.label "survey_question[#{survey_question.id}][answer]", survey_question.title, class: 'a-form-label is-lg is-required'
-                      - else
-                        = f.label "survey_question[#{survey_question.id}][answer]", survey_question.title, class: 'a-form-label is-lg'
-                      .survey-questions-item__description
-                        .a-long-text.is-sm
-                          = simple_format(survey_question.description)
+          - if @already_answered
+            .survey-questions__message.a-card
+              .card-body
+                p.card-body__alert このアンケートには既に回答済みです。
+          - else
+            = form_with url: survey_survey_answers_path(@survey), method: :post do |f|
+              .survey-questions__items
+                - @survey_questions.each do |survey_question|
+                  .survey-questions-item.a-card
+                    .card-body
+                      .card-body__description
+                        - if survey_question.answer_required
+                          = f.label "survey_question[#{survey_question.id}][answer]", survey_question.title, class: 'a-form-label is-lg is-required'
+                        - else
+                          = f.label "survey_question[#{survey_question.id}][answer]", survey_question.title, class: 'a-form-label is-lg'
+                        .survey-questions-item__description
+                          .a-long-text.is-sm
+                            = simple_format(survey_question.description)
                       .survey-questions-item__input
                         - if survey_question.format == 'text_area'
                           = f.text_area "survey_question[#{survey_question.id}]", class: 'a-text-input js-warning-form'
@@ -113,7 +118,7 @@ header.page-header
                               .survey-additional-question__input
                                 = f.text_area "survey_question[#{survey_question.id}][title_of_reason_for_linear_scale]", class: 'a-text-input js-warning-form'
 
-            .form-actions
-              ul.form-actions__items
-                li.form-actions__item.is-main
-                  = f.submit 'アンケートを送信する', class: 'a-button is-lg is-primary is-block'
+              .form-actions
+                ul.form-actions__items
+                  li.form-actions__item.is-main
+                    = f.submit '回答する', class: 'a-button is-lg is-primary is-block'

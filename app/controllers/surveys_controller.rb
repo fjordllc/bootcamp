@@ -33,6 +33,8 @@ class SurveysController < ApplicationController
   def check_already_answered
     return unless SurveyAnswer.exists?(survey: @survey, user: current_user)
 
-    redirect_to root_path, alert: 'このアンケートには既に回答済みです。'
+    @already_answered = true
+    flash.now[:alert] = 'このアンケートには既に回答済みです。'
+    @survey_questions = []
   end
 end
