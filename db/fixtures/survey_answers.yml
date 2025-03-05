@@ -1,58 +1,47 @@
+# 第1回アンケートの回答
 survey_answer_first1:
-  survey: survey1
-  user: komagata
-  created_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
-
-survey_answer_first2:
-  survey: survey1
-  user: machida
-  created_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
-
-survey_answer_first3:
   survey: survey1
   user: kimura
   created_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
   updated_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
 
-survey_answer_first4:
+survey_answer_first2:
   survey: survey1
   user: hatsuno
   created_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
   updated_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
 
-survey_answer_first5:
+survey_answer_first3:
   survey: survey1
   user: hajime
   created_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
   updated_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
 
-survey_answer_first6:
+survey_answer_first4:
   survey: survey1
   user: muryou
   created_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
   updated_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
 
-survey_answer_first7:
+survey_answer_first5:
   survey: survey1
   user: kensyu
   created_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
   updated_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
 
-survey_answer_first8:
+survey_answer_first6:
   survey: survey1
   user: senpai
   created_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
   updated_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
 
-survey_answer_first9:
+survey_answer_first7:
   survey: survey1
   user: sumi
   created_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
   updated_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
 
-survey_answer_first10:
+survey_answer_first8:
   survey: survey1
   user: nobu
   created_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
@@ -61,60 +50,30 @@ survey_answer_first10:
 # 第2回アンケートの回答
 survey_answer1:
   survey: survey2
-  user: komagata
-  created_at: <%= Time.current - 10.days %>
-  updated_at: <%= Time.current - 10.days %>
-
-survey_answer2:
-  survey: survey2
-  user: machida
-  created_at: <%= Time.current - 9.days %>
-  updated_at: <%= Time.current - 9.days %>
-
-survey_answer3:
-  survey: survey2
   user: kimura
   created_at: <%= Time.current - 8.days %>
   updated_at: <%= Time.current - 8.days %>
 
-survey_answer4:
+survey_answer2:
   survey: survey2
   user: hatsuno
   created_at: <%= Time.current - 7.days %>
   updated_at: <%= Time.current - 7.days %>
 
-survey_answer5:
+survey_answer3:
   survey: survey2
   user: hajime
   created_at: <%= Time.current - 6.days %>
   updated_at: <%= Time.current - 6.days %>
 
-survey_answer6:
+survey_answer4:
   survey: survey2
   user: muryou
   created_at: <%= Time.current - 5.days %>
   updated_at: <%= Time.current - 5.days %>
 
-survey_answer7:
+survey_answer5:
   survey: survey2
   user: kensyu
   created_at: <%= Time.current - 4.days %>
   updated_at: <%= Time.current - 4.days %>
-
-survey_answer8:
-  survey: survey2
-  user: senpai
-  created_at: <%= Time.current - 3.days %>
-  updated_at: <%= Time.current - 3.days %>
-
-survey_answer9:
-  survey: survey2
-  user: sumi
-  created_at: <%= Time.current - 2.days %>
-  updated_at: <%= Time.current - 2.days %>
-
-survey_answer10:
-  survey: survey2
-  user: nobu
-  created_at: <%= Time.current - 1.day %>
-  updated_at: <%= Time.current - 1.day %>
