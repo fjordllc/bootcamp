@@ -1,4 +1,4 @@
-# 第1回アンケートの回答
+# 1st survey
 survey_answer_first1:
   survey: survey1
   user: kimura
@@ -47,7 +47,7 @@ survey_answer_first8:
   created_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
   updated_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
 
-# 第2回アンケートの回答
+# 2nd survey
 survey_answer1:
   survey: survey2
   user: kimura
