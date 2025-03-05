@@ -48,7 +48,11 @@
     .card-body
       max-height: 50vh
       overflow-y: auto
-
+  &:has(.a-table)
+    border: none
+    .card-header
+      border: solid 1px var(--border)
+      border-bottom: none
 
 table.a-card
   display: table
