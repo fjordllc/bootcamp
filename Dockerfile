@@ -29,7 +29,7 @@ RUN apt-get install -y libvips-dev
 
 # Install npm packages
 COPY package.json yarn.lock ./
-RUN yarn install --production --ignore-engines
+RUN yarn install --prod --ignore-engines
 
 # Install gems
 COPY Gemfile Gemfile.lock ./
