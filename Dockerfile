@@ -1,4 +1,4 @@
-FROM ruby:3.1.4-alpine
+FROM ruby:3.1.4-slim
 
 ENV RAILS_ENV production
 WORKDIR /app
@@ -9,20 +9,23 @@ RUN printf "install: --no-rdoc --no-ri\nupdate:  --no-rdoc --no-ri" > ~/.gemrc
 RUN gem install --no-document --force bundler -v 2.4.21
 
 # Install packages
-RUN apk add --no-cache \
-      yarn \
-      ruby-dev \
-      build-base \
+RUN apt-get update -qq && apt-get install -y \
+      build-essential \
       git \
       nodejs \
-      postgresql-dev postgresql \
+      postgresql-client \
+      libpq-dev \
       tzdata \
       curl \
-      rust cargo && \
-      cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+      rustc \
+      cargo \
+      yarn
+
+# Set timezone
+RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 # libvips
-RUN apk add --no-cache vips-dev vips-heif orc-dev bash pngcrush optipng=0.7.8-r0 ghostscript-fonts
+RUN apt-get install -y libvips-dev
 
 # Install npm packages
 COPY package.json yarn.lock ./
@@ -36,7 +39,6 @@ RUN bundle install -j4
 
 # Compile assets
 COPY . ./
-RUN apk add --no-cache ruby-dev ruby-bundler ruby-json ruby-etc
 RUN gem install logger
 RUN bundle config set --local force_ruby_platform true
 RUN bundle update --conservative
