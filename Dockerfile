@@ -31,7 +31,7 @@ RUN yarn install --production --ignore-engines
 # Install gems
 COPY Gemfile Gemfile.lock ./
 RUN gem install logger
-RUN bundle config set --local specific_platform x86_64-linux-musl
+RUN bundle config set --local force_ruby_platform true
 RUN bundle install -j4
 
 # Compile assets
