@@ -657,6 +657,7 @@ DEPENDENCIES
   diffy
   discord-notifier
   discordrb (~> 3.5)
+  ffi (= 1.17.1)
   foreman
   good_job (~> 3.14)!
   google-cloud-storage (~> 1.25)
