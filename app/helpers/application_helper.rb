@@ -12,7 +12,7 @@ module ApplicationHelper
   def md2html(text)
     return '' if text.nil?
 
-    html = CommonMarker.render_html(text, %i[HARDBREAKS UNSAFE])
+    html = Kramdown::Document.new(text, input: 'GFM', hard_wrap: true).to_html
     doc = Nokogiri::HTML::DocumentFragment.parse(html)
     doc.css('img').each do |img|
       img.remove_attribute('width')
