@@ -36,17 +36,10 @@ RUN yarn install --prod --ignore-engines
 
 # Install gems
 COPY Gemfile Gemfile.lock ./
-RUN gem install logger
-RUN bundle config set --local force_ruby_platform true
 RUN bundle install -j4
 
 # Copy application code
 COPY . ./
-
-# Fix Logger issue
-RUN echo "require 'logger'" > /tmp/fix_logger.rb
-RUN ruby /tmp/fix_logger.rb
-RUN echo "Logger = ::Logger unless defined?(Logger)" > config/initializers/logger_fix.rb
 
 # Compile assets
 ENV RAILS_LOG_TO_STDOUT true
