@@ -882,7 +882,7 @@ class User < ApplicationRecord
     return unless uploaded_avatar
 
     mime_type = Marcel::Magic.by_magic(uploaded_avatar)&.type
-    return if mime_type&.start_with?('image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'image/heic', 'image/heif')
+    return if mime_type&.start_with?('image/png', 'image/jpeg', 'image/gif', 'image/heic', 'image/heif')
 
     errors.add(:avatar, 'は指定された拡張子(PNG, JPG, JPEG, GIF, HEIC, HEIF形式)になっていないか、あるいは画像が破損している可能性があります')
   end
