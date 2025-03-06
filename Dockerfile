@@ -17,8 +17,11 @@ RUN apt-get update -qq && apt-get install -y \
       libpq-dev \
       tzdata \
       curl \
-      rustc \
-      cargo
+      gnupg2
+
+# Install latest Rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
 
 # Install latest yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
