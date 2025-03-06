@@ -28,6 +28,7 @@ RUN yarn install --production --ignore-engines
 
 # Install gems
 COPY Gemfile Gemfile.lock ./
+RUN bundle config set --local specific_platform true
 RUN bundle install -j4
 
 # Compile assets
