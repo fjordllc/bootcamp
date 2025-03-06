@@ -36,6 +36,9 @@ RUN bundle install -j4
 
 # Compile assets
 COPY . ./
+RUN apk add --no-cache ruby-dev
+RUN echo "require 'logger'" > /tmp/require_logger.rb
+RUN ruby /tmp/require_logger.rb
 RUN SECRET_KEY_BASE=dummy NODE_OPTIONS=--openssl-legacy-provider bin/rails assets:precompile
 
 ENV PORT 3000
