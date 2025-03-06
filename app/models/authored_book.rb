@@ -6,7 +6,7 @@ class AuthoredBook < ApplicationRecord
 
   validates :cover, attached: false,
                     content_type: {
-                      in: %w[image/png image/jpg image/jpeg image/gif],
+                      in: %w[image/png image/jpeg image/gif],
                       message: 'はPNG, JPG, GIF形式にしてください'
                     }
 
