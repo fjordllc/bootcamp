@@ -36,10 +36,11 @@ RUN bundle install -j4
 
 # Compile assets
 COPY . ./
-RUN apk add --no-cache ruby-dev
-RUN echo "require 'logger'" > /tmp/require_logger.rb
-RUN ruby /tmp/require_logger.rb
-RUN SECRET_KEY_BASE=dummy NODE_OPTIONS=--openssl-legacy-provider bin/rails assets:precompile
+RUN apk add --no-cache ruby-dev ruby-bundler ruby-json ruby-etc
+RUN gem install logger
+RUN bundle config set --local force_ruby_platform true
+RUN bundle update --conservative
+RUN SECRET_KEY_BASE=dummy RAILS_ENV=production NODE_OPTIONS=--openssl-legacy-provider bundle exec rails assets:precompile
 
 ENV PORT 3000
 EXPOSE 3000
