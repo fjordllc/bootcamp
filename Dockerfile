@@ -36,16 +36,14 @@ RUN yarn install --prod --ignore-engines
 
 # Install gems
 COPY Gemfile Gemfile.lock ./
-RUN gem install logger
-RUN bundle config set --local force_ruby_platform true
 RUN bundle install -j4
 
-# Compile assets
+# Copy application code
 COPY . ./
-RUN gem install logger
-RUN bundle config set --local force_ruby_platform true
-RUN bundle update --conservative
-RUN SECRET_KEY_BASE=dummy RAILS_ENV=production NODE_OPTIONS=--openssl-legacy-provider bundle exec rails assets:precompile
+
+# Compile assets
+ENV RAILS_LOG_TO_STDOUT true
+RUN SECRET_KEY_BASE=dummy NODE_OPTIONS=--openssl-legacy-provider bundle exec rails assets:precompile
 
 ENV PORT 3000
 EXPOSE 3000
