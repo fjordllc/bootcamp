@@ -31,7 +31,7 @@ class Article < ApplicationRecord
   validates :thumbnail_type, presence: true
   validates :published_at, presence: true, if: :will_be_published?
   validates :thumbnail,
-            content_type: %w[image/png image/jpg image/jpeg],
+            content_type: %w[image/png image/jpeg],
             size: { less_than: 10.megabytes }
 
   paginates_per 24
