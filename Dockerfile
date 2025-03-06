@@ -16,7 +16,9 @@ RUN apk add --no-cache \
       git \
       nodejs \
       postgresql-dev postgresql \
-      tzdata && \
+      tzdata \
+      curl \
+      rust cargo && \
       cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 # libvips
