@@ -38,6 +38,6 @@ module ApplicationHelper
     return summary if match.nil?
 
     begin_offset = (match.begin(0) - EXTRACTING_CHARACTERS).clamp(0, Float::INFINITY)
-    summary[begin_offset...]
+    summary[begin_offset...].strip
   end
 end

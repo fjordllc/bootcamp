@@ -4,7 +4,8 @@ class API::Watches::ToggleController < API::BaseController
   def index
     @watches = Watch.where(
       user: current_user,
-      watchable:
+      watchable_id: params[:watchable_id],
+      watchable_type: params[:watchable_type]
     )
   end
 
