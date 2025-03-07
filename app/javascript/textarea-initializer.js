@@ -85,7 +85,11 @@ export default class {
           MarkDownItContainerDetails,
           MarkDownItLinkAttributes,
           MarkDownItContainerSpeak,
+<<<<<<< HEAD
           MarkDownItContainerFigure
+=======
+          MarkdownItSanitizer
+>>>>>>> d17d39ff7 (markdown-it-sanitizerを導入した)
         ],
         markdownOptions: MarkdownOption
       })
