@@ -36,8 +36,8 @@ class Area
       by_countries.each_with_object(Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }) do |v, result|
         country, pair_array = v
         if country == '日本'
-          pair_array.each_value do |s|
-            result = select_region(s, result)
+          pair_array.each do |pair|
+            result = select_region(pair[1], result)
           end
         else
           result['海外'][pair_array.map(&:first)[0]] = pair_array.map(&:second).length
