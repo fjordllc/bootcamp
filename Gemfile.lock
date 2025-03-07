@@ -268,6 +268,8 @@ GEM
     kaminari-core (1.2.2)
     kramdown (2.5.1)
       rexml (>= 3.3.9)
+    kramdown-parser-gfm (1.1.0)
+      kramdown (~> 2.0)
     language_server-protocol (3.17.0.4)
     launchy (3.1.1)
       addressable (~> 2.8)
@@ -666,6 +668,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   kramdown
+  kramdown-parser-gfm
   letter_opener_web (~> 2.0)
   listen
   mentionable (~> 0.3.0)
