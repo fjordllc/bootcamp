@@ -7,7 +7,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/ruby:3.1.4-node
+      - image: cimg/ruby:3.2.7-node
     steps:
       - checkout
       - ruby/install-deps
@@ -18,7 +18,7 @@ jobs:
           pkg-manager: yarn
   check:
     docker:
-      - image: 'cimg/ruby:3.1.4-node'
+      - image: 'cimg/ruby:3.2.7-node'
     steps:
       - checkout
       - ruby/install-deps
@@ -47,7 +47,7 @@ jobs:
           command: bin/yarn lint
   test:
     docker:
-      - image: cimg/ruby:3.1.4-browsers
+      - image: cimg/ruby:3.2.7-browsers
         environment:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -99,7 +99,7 @@ jobs:
           name: Assets precompile
           command: 'bundle exec rails assets:clean assets:precompile NODE_OPTIONS=--openssl-legacy-provider'
       - run:  
-          command: 'gem install stringio -v 3.1.0'
+          command: 'gem install stringio -v 3.1.5'
       - run:
           name: Test
           command: |
