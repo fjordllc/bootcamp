@@ -1,15 +1,20 @@
 version: 2.1
 
 orbs:
-  ruby: circleci/ruby@2.3.1
-  node: circleci/node@7.0.0
-  browser-tools: circleci/browser-tools@1.5.0
+  ruby: circleci/ruby@2.5.0
+  node: circleci/node@7.1.0
+  browser-tools: circleci/browser-tools@1.5.2
 jobs:
   build:
     docker:
       - image: cimg/ruby:3.2.7-node
     steps:
       - checkout
+      - run:
+          name: Configure Bundler
+          command: |
+            bundle config set --local force_ruby_platform true
+            bundle lock --add-platform ruby
       - ruby/install-deps
       - node/install:
           install-yarn: true
@@ -21,6 +26,11 @@ jobs:
       - image: 'cimg/ruby:3.2.7-node'
     steps:
       - checkout
+      - run:
+          name: Configure Bundler
+          command: |
+            bundle config set --local force_ruby_platform true
+            bundle lock --add-platform ruby
       - ruby/install-deps
       - ruby/rubocop-check:
           format: progress
@@ -76,6 +86,11 @@ jobs:
             google-chrome --version
             chromedriver --version
           name: Check install
+      - run:
+          name: Configure Bundler
+          command: |
+            bundle config set --local force_ruby_platform true
+            bundle lock --add-platform ruby
       - ruby/install-deps:
           clean-bundle: true
       - node/install:
@@ -98,8 +113,6 @@ jobs:
       - run:
           name: Assets precompile
           command: 'bundle exec rails assets:clean assets:precompile NODE_OPTIONS=--openssl-legacy-provider'
-      - run:  
-          command: 'gem install stringio -v 3.1.5'
       - run:
           name: Test
           command: |
