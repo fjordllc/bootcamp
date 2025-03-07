@@ -42,54 +42,21 @@ module SearchHelper
   end
 
   def filtered_message(searchable)
-    case searchable
-    when SearchResult
-      searchable.summary
-    when Comment
-      if searchable.instance_of?(Comment) && searchable.commentable_type == 'Product'
-        commentable = searchable.commentable_type.constantize.find(searchable.commentable_id)
-        if policy(commentable).show? || (commentable.is_a?(Practice) && commentable.open_product?)
-          searchable.body
-        else
-          '該当プラクティスを修了するまで他の人の提出物へのコメントは見れません。'
-        end
-      else
-        searchable.description
-      end
-    else
-      searchable.try(:description) || searchable.try(:body)
-    end
-  end
+    return searchable.summary if searchable.is_a?(SearchResult)
 
-  def comment_or_answer?(searchable)
-    if searchable.is_a?(SearchResult)
-      %w[comment answer correct_answer].include?(searchable.model_name)
-    else
-      searchable.is_a?(Comment) || searchable.is_a?(Answer)
-    end
-  end
+    if searchable.is_a?(Comment) && searchable.commentable_type == 'Product'
+      commentable = searchable.commentable
+      return searchable.body if policy(commentable).show? || commentable.is_a?(Practice) && commentable.open_product?
 
-  def talk?(searchable)
-    if searchable.is_a?(SearchResult)
-      searchable.model_name == 'user' && searchable.talk.present?
-    else
-      searchable.instance_of?(User) && searchable.talk.present?
+      '該当プラクティスを修了するまで他の人の提出物へのコメントは見れません。'
     end
-  end
 
-  def user?(searchable)
-    if searchable.is_a?(SearchResult)
-      searchable.model_name == 'user'
-    else
-      searchable.instance_of?(User)
-    end
+    searchable.try(:description) || searchable.try(:body)
   end
 
   def created_user(searchable)
-    if searchable.is_a?(SearchResult)
-      User.find_by(id: searchable.user_id)
-    else
-      searchable.respond_to?(:user) ? searchable.user : nil
-    end
+    return User.find_by(id: searchable.user_id) if searchable.is_a?(SearchResult)
+
+    searchable.respond_to?(:user) ? searchable.user : nil
   end
 end

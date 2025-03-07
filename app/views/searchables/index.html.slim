@@ -8,6 +8,7 @@ header.page-header
         h2.page-header__title
           | '#{@word}' の検索結果
 hr.a-border
+  = paginate @searchables
 
 .page-body
   - if @searchables.any?
