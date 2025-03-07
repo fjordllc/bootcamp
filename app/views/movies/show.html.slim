@@ -31,7 +31,7 @@ main.page-main
             .card-body
               .card__main-movie
                 = video_tag url_for(@movie.movie_data.blob), controls: true, width: '717.52', height: '403.58'
-              .card__description
+              .card-body__description
                 .a-long-text.is-md.js-markdown-view
                   = @movie.description
             hr.a-border-tint
