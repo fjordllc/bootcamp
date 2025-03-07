@@ -16,6 +16,7 @@ import MarkDownItContainerSpeak from 'markdown-it-container-speak'
 import CSRF from 'csrf'
 import TextareaMarkdownLinkify from 'textarea-markdown-linkify'
 import ReplaceLinkToCard from 'replace-link-to-card'
+import MarkdownItSanitizer from 'markdown-it-sanitizer'
 
 export default class {
   static initialize(selector) {
@@ -77,7 +78,8 @@ export default class {
           MarkDownItContainerMessage,
           MarkDownItContainerDetails,
           MarkDownItLinkAttributes,
-          MarkDownItContainerSpeak
+          MarkDownItContainerSpeak,
+          MarkdownItSanitizer
         ],
         markdownOptions: MarkdownOption
       })
