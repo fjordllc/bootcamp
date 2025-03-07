@@ -16,6 +16,7 @@ import MarkDownItContainerSpeak from 'markdown-it-container-speak'
 import CSRF from 'csrf'
 import TextareaMarkdownLinkify from 'textarea-markdown-linkify'
 import MarkdownItSanitizer from 'markdown-it-sanitizer'
+import MarkdownItOnlineVideo from './markdown-it-online-video'
 
 export default class {
   static initialize(selector) {
@@ -78,7 +79,8 @@ export default class {
           MarkDownItContainerDetails,
           MarkDownItLinkAttributes,
           MarkDownItContainerSpeak,
-          MarkdownItSanitizer
+          MarkdownItSanitizer,
+          MarkdownItOnlineVideo
         ],
         markdownOptions: MarkdownOption
       })
