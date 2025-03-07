@@ -86,10 +86,15 @@ export default class {
           MarkDownItLinkAttributes,
           MarkDownItContainerSpeak,
 <<<<<<< HEAD
+<<<<<<< HEAD
           MarkDownItContainerFigure
 =======
           MarkdownItSanitizer
 >>>>>>> d17d39ff7 (markdown-it-sanitizerを導入した)
+=======
+          MarkdownItSanitizer,
+          MarkdownItOnlineVideo
+>>>>>>> 06640c634 (markdown-it-videoを導入した)
         ],
         markdownOptions: MarkdownOption
       })

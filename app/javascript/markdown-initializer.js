@@ -60,7 +60,11 @@ export default class {
     md.use(MarkDownItContainerFigure)
 =======
     md.use(MarkdownItSanitizer)
+<<<<<<< HEAD
 >>>>>>> d17d39ff7 (markdown-it-sanitizerを導入した)
+=======
+    md.use(MarkdownItOnlineVideo)
+>>>>>>> 06640c634 (markdown-it-videoを導入した)
     return md.render(text)
   }
 }
