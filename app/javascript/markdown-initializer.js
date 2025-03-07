@@ -56,7 +56,11 @@ export default class {
       }
     })
     md.use(MarkDownItContainerSpeak)
+<<<<<<< HEAD
     md.use(MarkDownItContainerFigure)
+=======
+    md.use(MarkdownItSanitizer)
+>>>>>>> d17d39ff7 (markdown-it-sanitizerを導入した)
     return md.render(text)
   }
 }
