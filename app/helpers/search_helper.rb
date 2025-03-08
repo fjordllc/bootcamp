@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 module SearchHelper
-  def matched_document(searchable)
+  include PolicyHelper
+
+  def self.matched_document(searchable)
     if searchable.instance_of?(Comment)
       searchable.commentable_type.constantize.find(searchable.commentable_id)
     elsif searchable.instance_of?(Answer) || searchable.instance_of?(CorrectAnswer)
@@ -12,43 +14,33 @@ module SearchHelper
   end
 
   def searchable_url(searchable)
-    if searchable.instance_of?(Comment)
-      document = searchable.commentable_type.constantize.find(searchable.commentable_id)
-      "#{polymorphic_url(document)}#comment_#{searchable.id}"
-    elsif searchable.instance_of?(Answer) || searchable.instance_of?(CorrectAnswer)
-      document = Question.find(searchable.question.id)
-      "#{polymorphic_url(document)}#answer_#{searchable.id}"
+    case searchable
+    when Comment
+      "#{Rails.application.routes.url_helpers.polymorphic_path(searchable.commentable)}#comment_#{searchable.id}"
+    when CorrectAnswer, Answer
+      Rails.application.routes.url_helpers.question_path(searchable.question, anchor: "answer_#{searchable.id}")
     else
-      polymorphic_url(searchable)
+      helper_method = "#{searchable.class.name.underscore}_path"
+      Rails.application.routes.url_helpers.send(helper_method, searchable)
     end
   end
 
   def filtered_message(searchable)
-    if searchable.instance_of?(Comment) && searchable.commentable_type == 'Product'
-      commentable = Product.find(searchable.commentable_id)
-      if policy(commentable).show? || commentable.practice.open_product?
-        searchable.description
-      else
-        '該当プラクティスを修了するまで他の人の提出物へのコメントは見れません。'
-      end
-    else
-      searchable.description
+    return searchable.summary if searchable.is_a?(SearchResult)
+
+    if searchable.is_a?(Comment) && searchable.commentable_type == 'Product'
+      commentable = searchable.commentable
+      return searchable.body if policy(commentable).show? || commentable.is_a?(Practice) && commentable.open_product?
+
+      '該当プラクティスを修了するまで他の人の提出物へのコメントは見れません。'
     end
-  end
 
-  def comment_or_answer?(searchable)
-    searchable.is_a?(Comment) || searchable.is_a?(Answer)
-  end
-
-  def talk?(searchable)
-    searchable.instance_of?(User) && searchable.talk.present?
-  end
-
-  def user?(searchable)
-    searchable.instance_of?(User)
+    searchable.try(:description) || searchable.try(:body)
   end
 
   def created_user(searchable)
+    return User.find_by(id: searchable.user_id) if searchable.is_a?(SearchResult)
+
     searchable.respond_to?(:user) ? searchable.user : nil
   end
 end
