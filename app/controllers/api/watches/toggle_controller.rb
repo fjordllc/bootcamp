@@ -11,8 +11,7 @@ class API::Watches::ToggleController < API::BaseController
   def create
     watch_existence = Watch.exists?(
       user_id: current_user.id,
-      watchable_id: params[:watchable_id],
-      watchable_type: params[:watchable_type]
+      watchable:
     )
     if watch_existence
       message = "この#{watchable.class.model_name.human}はWatch済です。"

@@ -1,4 +1,4 @@
-FROM ruby:3.1.4-slim
+FROM ruby:3.2.7-slim
 
 ENV RAILS_ENV production
 WORKDIR /app

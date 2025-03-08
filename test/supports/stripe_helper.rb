@@ -2,20 +2,46 @@
 
 module StripeHelper
   def fill_stripe_element(card, exp, cvc)
-    card_iframe = all('iframe')[0]
+    card_iframe = find('iframe[name^="__privateStripeFrame"]', wait: 10)
 
     within_frame card_iframe do
-      card.chars.each do |piece|
-        find_field('cardnumber').send_keys(piece)
-      end
+      wait_and_fill_field('cardnumber', card)
+      wait_and_fill_field('exp-date', exp)
+      wait_and_fill_field('cvc', cvc)
+    end
 
-      exp.chars.each do |piece|
-        find_field('exp-date').send_keys(piece)
-      end
+    page.has_no_css?('iframe[name^="__privateStripeFrame"]', wait: 5)
+  end
 
-      cvc.chars.each do |piece|
-        find_field('cvc').send_keys(piece)
+  private
+
+  def wait_and_fill_field(field_name, value)
+    field = find_field(field_name, wait: 10)
+    wait_until_field_ready(field)
+
+    value.chars.each do |char|
+      field.send_keys(char)
+      sleep 0.05
+    end
+
+    sleep 0.2
+  end
+
+  def wait_until_field_ready(field)
+    max_attempts = 5
+    attempts = 0
+
+    while attempts < max_attempts
+      begin
+        field.tag_name
+        return true
+      rescue Selenium::WebDriver::Error::StaleElementReferenceError
+        attempts += 1
+        sleep 0.2
+        next
       end
     end
+
+    false
   end
 end

@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.4'
+ruby '3.2.7'
 
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'ffi', '1.17.1'
@@ -42,6 +42,7 @@ gem 'kramdown-parser-gfm'
 gem 'mentionable', '~> 0.3.0'
 gem 'meta-tags'
 gem 'mini_magick'
+gem 'mutex_m', '0.1.2'
 gem 'net-imap', require: false
 gem 'net-pop', require: false
 gem 'net-smtp', require: false # TODO: Remove it if you use rails 7.0.1
@@ -68,6 +69,7 @@ gem 'rubyzip'
 gem 'slim-rails'
 gem 'sorcery', '~> 0.16.2'
 gem 'sorcery-jwt'
+gem 'stringio', '~> 3.1.5'
 gem 'stripe'
 gem 'stripe-i18n', git: 'https://github.com/komagata/stripe-i18n', branch: 'update-depencency'
 gem 'tzinfo', '~> 2.0', '>= 2.0.6'
@@ -78,7 +80,6 @@ group :development, :test do
 
   # not default
   gem 'pry-byebug'
-  gem 'syntax_suggest'
   gem 'traceroute'
 end
 
