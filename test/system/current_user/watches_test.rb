@@ -54,7 +54,7 @@ class CurrentUser::WatchesTest < ApplicationSystemTestCase
     visit_with_auth '/current_user/watches', 'mentormentaro'
 
     assert_text 'OS X Mountain Lionをクリーンインストールする'
-    assert_text 'description...'
+    assert_text 'description…'
     assert_no_text 'mentormentaro'
 
     assert_text 'test1'
