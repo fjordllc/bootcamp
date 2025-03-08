@@ -132,15 +132,13 @@ class Report < ApplicationRecord
           .second
   end
 
-  def save_with_lock
-    Report.transaction do
-      if user.reports.lock.find_by(reported_on:)
-        valid?
-        false
-      else
-        save
-      end
+  def save_uniquely
+    transaction do
+      save
     end
+  rescue ActiveRecord::RecordNotUnique
+    errors.add(:base, '同じ日付のレポートが既に存在します。')
+    false
   end
 
   private
