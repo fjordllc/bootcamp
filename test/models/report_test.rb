@@ -43,4 +43,21 @@ class ReportTest < ActiveSupport::TestCase
   test '#interval' do
     assert_equal 10, reports(:report32).interval
   end
+
+  test 'save_with_lock does not save duplicate report and adds validation errors' do
+    Report.create!(
+      user: users(:komagata),
+      reported_on: Time.zone.today,
+      title: 'report1',
+      description: 'report1本文'
+    )
+
+    duplicate_report = Report.new(
+      user: users(:komagata),
+      reported_on: Time.zone.today,
+      title: 'report2',
+      description: 'report2本文'
+    )
+    assert_not duplicate_report.save_with_lock
+  end
 end
