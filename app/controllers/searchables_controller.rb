@@ -7,7 +7,7 @@ class SearchablesController < ApplicationController
     @word = params[:word].to_s
     @document_type = params[:document_type]&.to_sym || :all
 
-    result = Searcher.search(@word, document_type: @document_type, current_user:)
-    @searchables = Kaminari.paginate_array(result.uniq).page(params[:page]).per(PER_PAGE)
+    searchables = Searcher.search(@word, document_type: @document_type, current_user:)
+    @searchables = Kaminari.paginate_array(searchables.uniq).page(params[:page]).per(PER_PAGE)
   end
 end
