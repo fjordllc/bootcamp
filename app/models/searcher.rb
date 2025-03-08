@@ -21,36 +21,13 @@ class Searcher
       end
     end
 
-    def fetch_title(searchable)
-      return searchable.question&.title if searchable.is_a?(Answer)
-      return searchable.login_name if searchable.is_a?(User)
-
-      searchable.try(:title)
-    end
-
-    def fetch_login_name(searchable)
-      User.find_by(id: searchable.try(:user_id))&.login_name
-    end
-
-    def fetch_commentable_user(searchable)
-      return searchable.question&.user if searchable.is_a?(Answer) || searchable.is_a?(CorrectAnswer)
-
-      searchable.try(:commentable)&.try(:user)
-    end
-
-    def fetch_label(searchable)
-      searchable.is_a?(User) ? searchable.avatar_url : searchable.try(:label)
-    end
-
-    def highlight_word(text, word)
-      text&.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
-    end
-
     private
 
     def fetch_results(words, document_type)
       return fetch_results_for_all(words) if document_type == :all
-      return result_for_comments(document_type, words) if model(document_type).include?(Commentable)
+
+      model = model(document_type)
+      return result_for_comments(document_type, words) if model.include?(Commentable)
       return result_for_questions(document_type, words) if document_type == :questions
 
       result_for(document_type, words) || []
@@ -67,6 +44,54 @@ class Searcher
                      .reverse
     end
 
+    def result_for(type, words)
+      raise ArgumentError, "#{type} is not available" unless type.in?(AVAILABLE_TYPES)
+
+      return search_users(words) if type == :users
+      return model(type).all if words.blank?
+
+      filter_by_keywords(model(type).search_by_keywords(words:), words)
+    end
+
+    def result_for_comments(document_type, words)
+      results = result_for(document_type, words) || []
+      comment_results = result_for(:comments, words)&.select do |comment|
+        comment.commentable_type == search_model_name(document_type)
+      end || []
+
+      (results + comment_results).sort_by(&:updated_at).reverse
+    end
+
+    def result_for_questions(document_type, words)
+      (result_for(document_type, words) || []) + (result_for(:answers, words) || [])
+                                                 .sort_by(&:updated_at)
+                                                 .reverse
+    end
+
+    def filter_results!(searchables, current_user)
+      searchables&.select { |searchable| visible_to_user?(searchable, current_user) }
+    end
+
+    def visible_to_user?(searchable, current_user)
+      return true unless searchable.is_a?(Talk) || searchable.is_a?(Comment)
+
+      return current_user.admin? || searchable.user_id == current_user.id if searchable.is_a?(Talk)
+
+      return current_user.admin? || searchable.commentable.user_id == current_user.id if searchable.is_a?(Comment) && searchable.commentable.is_a?(Talk)
+
+      true
+    end
+
+    def model(type)
+      search_model_name(type)&.constantize
+    end
+
+    def search_model_name(type)
+      return nil if type == :all
+
+      type.to_s.camelize.singularize
+    end
+
     def search_by_user_filter(username, words)
       user = User.find_by(login_name: username) or return []
       filter_by_keywords(search_by_user_id(user.id), words)
@@ -81,57 +106,15 @@ class Searcher
       type == :practices ? { last_updated_user_id: user_id } : { user_id: }
     end
 
-    def filter_by_keywords(results, words)
-      (results || []).select { |result| words.all? { |word| result_matches_keyword?(result, word) } }
-                     .sort_by(&:updated_at)
-                     .reverse
-    end
-
-    def result_for(type, words)
-      raise ArgumentError, "#{type} is not available" unless type.in?(AVAILABLE_TYPES)
-
-      return search_users(words) if type == :users
-      return model(type).all if words.blank?
-
-      filter_by_keywords(model(type).search_by_keywords(words:), words)
-    end
-
     def search_users(words)
       User.where(words.map { |_word| 'login_name ILIKE ? OR name ILIKE ? OR description ILIKE ?' }
                       .join(' AND '), *words.flat_map { |word| ["%#{word}%"] * 3 })
     end
 
-    def result_for_comments(document_type, words)
-      results = result_for(document_type, words) || []
-      comment_results = result_for(:comments, words)&.select do |comment|
-        comment.commentable_type == model_name(document_type)
-      end || []
-
-      (results + comment_results).sort_by(&:updated_at).reverse
-    end
-
-    def result_for_questions(document_type, words)
-      (result_for(document_type, words) || []) + (result_for(:answers, words) || [])
-                                                 .sort_by(&:updated_at)
-                                                 .reverse
-    end
-
-    def model(type)
-      model_name(type)&.constantize
-    end
-
-    def model_name(type)
-      return nil if type == :all
-
-      type.to_s.camelize.singularize
-    end
-
-    def filter_results!(searchables, current_user)
-      searchables&.select do |searchable|
-        !(searchable.is_a?(Talk) && !current_user.admin? && searchable.user_id != current_user.id) &&
-          !(searchable.is_a?(Comment) && searchable.commentable.is_a?(Talk) &&
-            searchable.commentable.user_id != current_user.id && !current_user.admin?)
-      end
+    def filter_by_keywords(results, words)
+      (results || []).select { |result| words.all? { |word| result_matches_keyword?(result, word) } }
+                     .sort_by(&:updated_at)
+                     .reverse
     end
 
     def result_matches_keyword?(result, word)
