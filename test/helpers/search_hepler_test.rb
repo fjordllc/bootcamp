@@ -48,7 +48,7 @@ class SearchHelperTest < ActionView::TestCase
     policy_mock = Minitest::Mock.new
     policy_mock.expect(:show?, false)
 
-    self.stub :policy, policy_mock do
+    stub :policy, policy_mock do
       searchable_message = filtered_message(@unfinished_product_comment)
       assert_equal '該当プラクティスを修了するまで他の人の提出物へのコメントは見れません。', searchable_message
     end
