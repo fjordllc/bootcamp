@@ -55,7 +55,7 @@ class ReportsController < ApplicationController
     set_wip
     canonicalize_learning_times(@report)
 
-    if @report.save_with_lock
+    if @report.save_uniquely
       Newspaper.publish(:report_save, { report: @report })
       redirect_to redirect_url(@report), notice: notice_message(@report), flash: flash_contents(@report)
     else
@@ -69,7 +69,8 @@ class ReportsController < ApplicationController
     @report.practice_ids = nil if params[:report][:practice_ids].nil?
     @report.assign_attributes(report_params)
     canonicalize_learning_times(@report)
-    if @report.save
+
+    if @report.save_uniquely
       Newspaper.publish(:report_save, { report: @report })
       redirect_to redirect_url(@report), notice: notice_message(@report), flash: flash_contents(@report)
     else
