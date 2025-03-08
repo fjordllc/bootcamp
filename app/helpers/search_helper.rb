@@ -19,7 +19,7 @@ module SearchHelper
 
   include PolicyHelper
 
-  def self.matched_document(searchable)
+  def matched_document(searchable)
     if searchable.instance_of?(Comment)
       searchable.commentable_type.constantize.find(searchable.commentable_id)
     elsif searchable.instance_of?(Answer) || searchable.instance_of?(CorrectAnswer)
