@@ -63,19 +63,11 @@ module SearchHelper
     end
   end
 
-  def comment_or_answer?(searchable)
-    if searchable.is_a?(SearchResult)
-      %w[comment answer correct_answer].include?(searchable.model_name)
-    else
-      searchable.is_a?(Comment) || searchable.is_a?(Answer)
-    end
-  end
+    if searchable.is_a?(Comment) && searchable.commentable_type == 'Product'
+      commentable = searchable.commentable
+      return '該当プラクティスを修了するまで他の人の提出物へのコメントは見れません。' unless policy(commentable).show? || commentable.practice.open_product?
 
-  def talk?(searchable)
-    if searchable.is_a?(SearchResult)
-      searchable.model_name == 'user' && searchable.talk.present?
-    else
-      searchable.instance_of?(User) && searchable.talk.present?
+      searchable.body
     end
   end
 
