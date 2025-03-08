@@ -12,78 +12,23 @@ class Searcher
 
   AVAILABLE_TYPES = DOCUMENT_TYPES.map(&:second) - %i[all] + %i[comments answers]
 
-  def self.fetch_url(searchable)
-      searchable_url(searchable)
-  rescue NoMethodError
-      nil
-  end
-
-  def self.search(word, current_user:, document_type: :all)
-    words = word.split(/[[:blank:]]+/).reject(&:blank?)
-    searchables = case document_type
-                  when :all
-                    result_for_all(word)
-                  when commentable?(document_type)
-                    result_for_comments(document_type, word)
-                  when :questions
-                    result_for_questions(document_type, word)
-                  else
-                    result_for(document_type, word).sort_by(&:updated_at).reverse
-                  end
-
-    searchables = if current_user.admin?
-                    searchables.reject { |searchable| searchable.instance_of?(Talk) }
-                  else
-                    searchables.reject do |searchable|
-                      searchable.instance_of?(Talk) && searchable.user_id != current_user.id
-                    end
-                  end
-
-    delete_comment_of_talk!(searchables, current_user)
-
-    searchables.map do |searchable|
-      SearchResult.new(searchable, word, current_user)
+  class << self
+    def search(word, current_user:, document_type: :all)
+      words = word.split(/[[:blank:]]+/).reject(&:blank?)
+      searchables = fetch_results(words, document_type) || []
+      filter_results!(searchables, current_user).map do |searchable|
+        SearchResult.new(searchable, word, current_user)
+      end
     end
-  end
 
-  def self.fetch_login_name(searchable)
-    User.find_by(id: searchable.try(:user_id))&.login_name
-  end
+    private
 
-  def self.fetch_commentable_user(searchable)
-    if searchable.is_a?(Answer) || searchable.is_a?(CorrectAnswer)
-      searchable.question&.user
-    else
-      searchable.try(:commentable)&.try(:user)
-    end
-  end
+    def fetch_results(words, document_type)
+      return fetch_results_for_all(words) if document_type == :all
 
-  def self.fetch_title(searchable)
-    if searchable.is_a?(Answer)
-      searchable.question&.title
-    elsif searchable.is_a?(User)
-      searchable.login_name
-    else
-      searchable.try(:title)
-    end
-  end
-
-  def self.fetch_label(searchable)
-    if searchable.is_a?(User)
-      searchable.avatar_url
-    elsif searchable.is_a?(Talk)
-      nil
-    else
-      searchable.label
-    end
-  end
-
-  def self.result_for_all(words)
-    user_filter = words.find { |word| word.match(/^user:(\w+)$/) }
-    if user_filter
-      username = user_filter.delete_prefix('user:')
-      user = User.find_by(login_name: username)
-      return [] unless user
+      model = model(document_type)
+      return result_for_comments(document_type, words) if model.include?(Commentable)
+      return result_for_questions(document_type, words) if document_type == :questions
 
       AVAILABLE_TYPES.reject { |type| type == :users }
                             .flat_map do |type|
@@ -122,53 +67,8 @@ class Searcher
       )
     end
 
-    if words.blank?
-      if commentable?(type)
-  
-      return model(type).all + Comment.where(commentable_type: model_name(type)).all
-      elsif type == :questions
-        return model(type).all + Answer.all + CorrectAnswer.all
-      else
-        return model(type).all
-      end
-    end
-
-    if type == :users
-      return User.where(
-        words.map { |word| "login_name ILIKE ? OR name ILIKE ?" }
-             .join(" AND "),
-        *words.flat_map { |word| ["%#{word}%", "%#{word}%"] }
-      )
-    end
-
-    user_filter = words.find { |word| word.match(/^user:(\w+)$/) }
-    if user_filter
-      username = user_filter.delete_prefix('user:')
-      user = User.find_by(login_name: username)
-      return [] unless user
-
-      results = if type == :practices
-                  model(type).where('user_id = ? OR last_updated_user_id = ?', user.id, user.id)
-                else
-                  model(type).where(user_id: user.id)
-                end
-    else
-      results = if commentable?(type)
-                  model(type).search_by_keywords(words:, commentable_type:) +
-                    Comment.search_by_keywords(words:, commentable_type: model_name(type))
-                else
-                  model(type).search_by_keywords(words:, commentable_type:)
-                end
-    end
-    results.select { |result| words.all? { |word| result_matches_keyword?(result, word) } }
-  end
-
-  def self.result_matches_keyword?(result, word)
-    return false unless result
-
-    if word =~ /^user:(\w+)$/
-      username = Regexp.last_match(1)
-      return result.user&.login_name == username unless result.is_a?(Practice)
+    def result_for(type, words)
+      raise ArgumentError, "#{type} is not available" unless type.in?(AVAILABLE_TYPES)
 
         user = User.find_by(id: result.last_updated_user_id)
         return user&.login_name == username
@@ -178,23 +78,11 @@ class Searcher
     searchable_fields.any? { |field| field.to_s.include?(word) }
   end
 
-  def self.result_for_comments(document_type, word)
-    [document_type, :comments].flat_map do |type|
-      result_for(type, word, commentable_type: model_name(document_type))
-    end.uniq.sort_by(&:updated_at).reverse
-  end
-
-  def self.result_for_questions(document_type, word)
-    [document_type, :answers].flat_map { |type| result_for(type, word) }.sort_by(&:updated_at).reverse
-  end
-
-  def self.model(type)
-    model_name(type).constantize
-  end
-
-  def self.model_name(type)
-    type.to_s.camelize.singularize
-  end
+    def result_for_comments(document_type, words)
+      results = result_for(document_type, words) || []
+      comment_results = result_for(:comments, words)&.select do |comment|
+        comment.commentable_type == search_model_name(document_type)
+      end || []
 
   def self.commentable?(document_type)
     model(document_type).include?(Commentable)
@@ -220,6 +108,20 @@ class Searcher
       else
         false
       end
+    end
+
+    def filter_results!(searchables, current_user)
+      searchables&.select { |searchable| visible_to_user?(searchable, current_user) }
+    end
+
+    def visible_to_user?(searchable, current_user)
+      return true unless searchable.is_a?(Talk) || searchable.is_a?(Comment)
+
+      return current_user.admin? || searchable.user_id == current_user.id if searchable.is_a?(Talk)
+
+      return current_user.admin? || searchable.commentable.user_id == current_user.id if searchable.is_a?(Comment) && searchable.commentable.is_a?(Talk)
+
+      true
     end
 
     def model(type)
