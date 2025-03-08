@@ -6,7 +6,8 @@ module Searchable
   COLUMN_NAMES_FOR_SEARCH_USER_ID = %i[user_id last_updated_user_id].freeze
 
   included do
-    scope :search_by_keywords_scope, -> { all }
+    # 拡張する場合はこのスコープを上書きする
+    scope :search_by_keywords_scope, -> { all } if self < ActiveRecord::Base
   end
 
   class_methods do
