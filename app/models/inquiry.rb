@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Inquiry < ApplicationRecord
+  include Commentable
+
   validates :name, presence: true
   validates :email,
             presence: true,
