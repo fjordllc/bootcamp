@@ -10,8 +10,8 @@ json.authorUrl bookmarkable.user.url
 json.user bookmarkable.user, partial: "api/users/user", as: :user
 json.url polymorphic_url(bookmarkable)
 json.title bookmarkable_title
-json.created_at SearchHelper.matched_document(bookmark.bookmarkable).created_at
-json.updated_at SearchHelper.matched_document(bookmark.bookmarkable).updated_at
-json.reported_on SearchHelper.matched_document(bookmark.bookmarkable).reported_on if bookmark.bookmarkable_type == "Report"
+json.created_at matched_document(bookmark.bookmarkable).created_at
+json.updated_at matched_document(bookmark.bookmarkable).updated_at
+json.reported_on matched_document(bookmark.bookmarkable).reported_on if bookmark.bookmarkable_type == "Report"
 json.bookmark_class_name bookmark.bookmarkable_type.to_s.tableize.chop
 json.summary searchable_summary(filtered_message(bookmark.bookmarkable)) unless bookmark.bookmarkable_type == 'Talk'
