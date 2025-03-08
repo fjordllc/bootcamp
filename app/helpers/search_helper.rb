@@ -46,9 +46,9 @@ module SearchHelper
 
     if searchable.is_a?(Comment) && searchable.commentable_type == 'Product'
       commentable = searchable.commentable
-      return searchable.body if policy(commentable).show? || commentable.is_a?(Practice) && commentable.open_product?
+      return '該当プラクティスを修了するまで他の人の提出物へのコメントは見れません。' unless policy(commentable).show? || commentable.practice.open_product?
 
-      '該当プラクティスを修了するまで他の人の提出物へのコメントは見れません。'
+      searchable.body
     end
 
     searchable.try(:description) || searchable.try(:body)

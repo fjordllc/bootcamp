@@ -157,6 +157,11 @@ comment<%= i + 44 %>:
   updated_at: <%= Time.current + i.minute %>
 <% end %>
 
+comment43:
+  user: mentormentaro
+  commentable: product9 (Product)
+  description: "テスト用 product9へのコメント"
+
 commentOfTalk:
   user: komagata
   commentable: talk1 (Talk)
