@@ -108,4 +108,9 @@ class CommentTest < ActiveSupport::TestCase
 
     assert last_comment.certain_period_passed_since_the_last_comment_by_submitter?(3.days)
   end
+
+  test '#title returns commentable title if present' do
+    comment = comments(:comment1)
+    assert_equal '作業週1日目', comment.title
+  end
 end
