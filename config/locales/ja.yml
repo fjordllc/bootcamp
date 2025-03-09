@@ -393,6 +393,7 @@ ja:
   target:
     student_and_trainee: 現役 + 研修生
     student: 現役生
+    new-user: 新入生
     job_seeking: 就職活動中
     hibernationed: 休会中
     mentor: メンター
