@@ -17,6 +17,7 @@ import CSRF from 'csrf'
 import TextareaMarkdownLinkify from 'textarea-markdown-linkify'
 import MarkdownItSanitizer from 'markdown-it-sanitizer'
 import MarkdownItOnlineVideo from './markdown-it-online-video'
+import MarkdownItLocalVideo from './markdown-it-local-video'
 
 export default class {
   static initialize(selector) {
@@ -65,6 +66,7 @@ export default class {
         placeholder: '%filenameをアップロード中...',
         uploadImageTag:
           '<a href="%url" target="_blank" rel="noopener noreferrer"><img src="%url" width="%width" height="%height" alt="%filename"></a>\n',
+        uploadVideoTag: '!video(%url)\n',
         afterPreview: () => {
           autosize.update(textarea)
 
@@ -84,7 +86,8 @@ export default class {
           MarkDownItLinkAttributes,
           MarkDownItContainerSpeak,
           MarkdownItSanitizer,
-          MarkdownItOnlineVideo
+          MarkdownItOnlineVideo,
+          MarkdownItLocalVideo
         ],
         markdownOptions: MarkdownOption
       })
