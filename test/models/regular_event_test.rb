@@ -157,19 +157,14 @@ class RegularEventTest < ActiveSupport::TestCase
     end
   end
 
-  test 'Regular event in progress today should be displayed' do
+  test '.scheduled_on_without_ended' do
     travel_to Time.zone.local(2024, 12, 1, 10, 0, 0) do
       today_date = Time.zone.today
-      regular_event = RegularEvent.scheduled_on_without_ended(today_date)
-      assert_includes regular_event, regular_events(:regular_event36)
-    end
-  end
-
-  test 'Regular event that have already ended today should not be displayed' do
-    travel_to Time.zone.local(2024, 12, 1, 10, 0, 0) do
-      today_date = Time.zone.today
-      regular_event = RegularEvent.scheduled_on_without_ended(today_date)
-      assert_not_includes regular_event, regular_events(:regular_event37)
+      regular_events = RegularEvent.scheduled_on_without_ended(today_date)
+      regular_event_in_progress = regular_events(:regular_event36)
+      regular_event_ended = regular_events(:regular_event37)
+      assert_includes regular_events, regular_event_in_progress
+      assert_not_includes regular_events, regular_event_ended
     end
   end
 end
