@@ -25,6 +25,42 @@ class SearchableTest < ActiveSupport::TestCase
     ActionController::Base.helpers.strip_tags(text)
   end
 
+  test 'returns results for all types when no user filter is applied' do
+    results = Searcher.search('テスト', current_user:, document_type: :all)
+    actual_classes = results.map(&:model_name).uniq
+    expected_classes = %w[report page practice question announcement event regular_event comment answer correct_answer user]
+    expected_classes.each do |klass|
+      assert_includes actual_classes, klass
+    end
+  end
+
+  test 'filters results by user when user filter is applied' do
+    results = Searcher.search('user:kimura', current_user:, document_type: :all)
+    assert_includes results.map(&:login_name), 'kimura'
+    assert_not_includes results.map(&:login_name), 'komagata'
+  end
+
+  test 'filters results based on user visibility' do
+    result = Searcher.search('相談部屋', current_user:)
+    assert_equal 0, result.size
+    admin_user = users(:komagata)
+    result_for_admin = Searcher.search('相談部屋', current_user: admin_user)
+    assert_not_empty result_for_admin
+  end
+
+  test 'returns results filtered by user' do
+    result = Searcher.search('user:kimura', current_user:, document_type: :reports)
+    assert_includes result.map(&:login_name), 'kimura'
+    assert_not_includes result.map(&:login_name), 'komagata'
+  end
+
+  test 'filters results by all keywords' do
+    result = Searcher.search('OS クリーンインストール', document_type: :practices, current_user:)
+    titles = result.map(&:title)
+    assert_includes titles, practices(:practice1).title
+    assert_not_includes titles, practices(:practice3).title
+  end
+
   test "returns all types when document_type argument isn't specified" do
     results = Searcher.search('テスト', current_user:)
     actual_classes = results.map(&:model_name).uniq
