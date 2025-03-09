@@ -105,6 +105,8 @@ class MoviesTest < ApplicationSystemTestCase
     end
 
     assert_text '動画を削除しました。'
+    assert_current_path movies_path
+    assert_no_text 'mp4動画'
   end
 
   test 'show a WIP movie on movie list page' do
