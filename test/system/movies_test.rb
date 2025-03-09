@@ -26,6 +26,8 @@ class MoviesTest < ApplicationSystemTestCase
     attach_file 'movie[movie_data]', 'test/fixtures/files/movies/movie.mp4', make_visible: true
     click_button '動画を追加'
     assert_text '動画を追加しました'
+    video = find('video')
+    assert_match(/movie\.mp4$/, video.native['src'])
   end
 
   test 'add new mov movie' do
@@ -36,6 +38,8 @@ class MoviesTest < ApplicationSystemTestCase
     attach_file 'movie[movie_data]', 'test/fixtures/files/movies/movie.mov', make_visible: true
     click_button '動画を追加'
     assert_text '動画を追加しました'
+    video = find('video')
+    assert_match(/movie\.mov$/, video.native['src'])
   end
 
   test 'doc can relate practice' do
@@ -75,6 +79,8 @@ class MoviesTest < ApplicationSystemTestCase
     click_button 'WIP'
     assert_text '動画をWIPとして保存しました。'
     assert_text '動画編集'
+    video = find('video')
+    assert_match(/movie\.mp4$/, video.native['src'])
   end
 
   test 'update movie as WIP' do
@@ -87,6 +93,8 @@ class MoviesTest < ApplicationSystemTestCase
     click_button 'WIP'
     assert_text '動画をWIPとして保存しました。'
     assert_text '動画編集'
+    video = find('video')
+    assert_match(/movie\.mov$/, video.native['src'])
   end
 
   test 'destroy movie' do
