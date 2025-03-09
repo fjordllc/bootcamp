@@ -59,7 +59,7 @@ class MarkdownTest < ApplicationSystemTestCase
   test 'should convert private vimeo url' do
     visit_with_auth new_page_path, 'komagata'
     fill_in 'page[body]', with: '(https://vimeo.com/0000000000/1aaaaaaaaa)'
-    assert page.has_content?('(0000000000?h=1aaaaaaaaa)')
+    assert page.has_text?('(0000000000?h=1aaaaaaaaa)')
   end
 
   def cmd_ctrl
