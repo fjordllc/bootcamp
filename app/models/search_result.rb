@@ -48,6 +48,13 @@ class SearchResult
   end
 
   def highlight_word(text, word)
-    text&.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
+    return unless text
+
+    words = word.split(/[[:blank:]]+/).reject(&:blank?)
+    words.each do |w|
+      text = text.gsub(/(#{Regexp.escape(w)})/i, '<strong class="matched_word">\1</strong>')
+    end
+
+    text
   end
 end
