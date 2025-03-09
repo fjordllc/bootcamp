@@ -139,6 +139,10 @@
                       = link_to edit_mentor_practice_path(@practice), class: 'a-button is-sm is-secondary is-block' do
                         i.fa-solid.fa-pen
                         | 編集
+                    li.card-main-actions__item
+                      = link_to mentor_practice_path(@practice), method: :delete, class: 'a-button is-sm is-danger is-block', data: { confirm: '本当にこのプラクティスを削除しますか？この操作は取り消せません。' } do
+                        i.fa-solid.fa-trash
+                        | 削除する
       .col-lg-4.col-xs-12
         nav.page-nav.a-card
           header.page-nav__header
