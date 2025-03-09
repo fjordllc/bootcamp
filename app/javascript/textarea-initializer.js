@@ -58,9 +58,6 @@ export default class {
 
     // markdown
     Array.from(textareas).forEach((textarea) => {
-      // TODO: 動画機能が実装されたら削除する
-      this.convertPrivateVimeoUrl(textarea)
-
       /* eslint-disable no-new */
       new TextareaMarkdown(textarea, {
         endPoint: '/api/image.json',
@@ -88,16 +85,7 @@ export default class {
           MarkDownItContainerDetails,
           MarkDownItLinkAttributes,
           MarkDownItContainerSpeak,
-<<<<<<< HEAD
-<<<<<<< HEAD
           MarkDownItContainerFigure
-=======
-          MarkdownItSanitizer
->>>>>>> d17d39ff7 (markdown-it-sanitizerを導入した)
-=======
-          MarkdownItSanitizer,
-          MarkdownItOnlineVideo
->>>>>>> 06640c634 (markdown-it-videoを導入した)
         ],
         markdownOptions: MarkdownOption
       })
@@ -111,23 +99,6 @@ export default class {
     new TextareaMarkdownLinkify().linkify(selector)
 
     ReplaceLinkToCard(selector)
-  }
-
-  // TODO: 動画機能が実装されたら削除する
-  static convertPrivateVimeoUrl(textarea) {
-    textarea.addEventListener('input', () => {
-      const privateVimeoUrlRegex =
-        /\(https:\/\/vimeo\.com\/(\d+)\/([a-zA-Z0-9]+)\)/g
-
-      if (privateVimeoUrlRegex.test(textarea.value)) {
-        textarea.value = textarea.value.replace(
-          privateVimeoUrlRegex,
-          (_, id, hash) => {
-            return `(${id}?h=${hash})`
-          }
-        )
-      }
-    })
   }
 
   static uninitialize(selector) {
