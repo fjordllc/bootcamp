@@ -14,7 +14,7 @@ class CorporateTrainingInquiriesController < ApplicationController
     result = valid_recaptcha?('inquiry')
     if result && @corporate_training_inquiry.save
       CorporateTrainingInquiryMailer.incoming(@corporate_training_inquiry).deliver_later
-      redirect_to new_corporate_training_inquiry_url, notice: 'お問い合わせを送信しました。'
+      render :complete
     else
       flash.now[:alert] = 'Bot対策のため送信を拒否しました。しばらくしてからもう一度送信してください。' unless result
       render :new
