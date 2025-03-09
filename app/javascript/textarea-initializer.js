@@ -52,6 +52,10 @@ export default class {
 
     // markdown
     Array.from(textareas).forEach((textarea) => {
+      textarea.addEventListener('input', () => {
+        textarea.value = this.convertPrivateVimeoUrl(textarea.value)
+      })
+
       /* eslint-disable no-new */
       new TextareaMarkdown(textarea, {
         endPoint: '/api/image.json',
@@ -92,6 +96,15 @@ export default class {
 
     // Convert selected text to markdown link on URL paste
     new TextareaMarkdownLinkify().linkify(selector)
+  }
+
+  // TODO: 動画機能が実装されたら削除する
+  static convertPrivateVimeoUrl(textarea) {
+    const privateVimeoUrlRegex =
+      /\(https:\/\/vimeo\.com\/(\d+)\/([a-zA-Z0-9]+)\)/g
+    return textarea.replace(privateVimeoUrlRegex, (_, id, hash) => {
+      return `(${id}?h=${hash})`
+    })
   }
 
   static uninitialize(selector) {
