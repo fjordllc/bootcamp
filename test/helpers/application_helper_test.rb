@@ -2,7 +2,8 @@
 
 require 'test_helper'
 
-class  ApplicationHelperTest < ActionView::TestCase
+class ApplicationHelperTest < ActionView::TestCase
+  include SearchHelper
   test 'searchable_summary, comment = word' do
     comment = '検索ワード'
     word = '検索ワード'

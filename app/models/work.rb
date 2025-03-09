@@ -18,7 +18,7 @@ class Work < ApplicationRecord
               message: 'は「http://example.com」や「https://example.com」のようなURL形式で入力してください'
             }
   validates :thumbnail,
-            content_type: %w[image/png image/jpg image/jpeg],
+            content_type: %w[image/png image/jpeg],
             size: { less_than: 10.megabytes }
 
   def thumbnail_url

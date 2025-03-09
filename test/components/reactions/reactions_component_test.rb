@@ -36,7 +36,7 @@ class Reactions::ReactionsComponentTest < ViewComponent::TestCase
 
   def test_does_not_display_unreacted_emojis
     unreacted_emojis = Reaction.emojis.except('heart', 'thumbsup')
-    unreacted_emojis.each do |kind, _emoji|
+    unreacted_emojis.each_key do |kind|
       assert_selector ".reactions__item[data-reaction-kind='#{kind}']", visible: false
     end
   end

@@ -2,6 +2,7 @@
 
 class ActivityMailer < ApplicationMailer
   helper ApplicationHelper
+  helper MarkdownHelper
   include Rails.application.routes.url_helpers
 
   before_action do

@@ -10,7 +10,7 @@ json.categories @categories do |category|
       json.include_must_read_books practice.include_must_read_books?
       json.url practice_path(practice)
       json.learning_minute_statistic practice.learning_minute_statistic
-      json.started_students practice.started_students.each do |user|
+      json.started_or_submitted_students practice.started_or_submitted_students.each do |user|
         json.active user.active?
         json.updated_at user.updated_at
         json.user_link user_path(user)
