@@ -45,6 +45,73 @@
   strong,
   b
     font-weight: 700
+  h1
+    +text-block(1.75em 1.4 0 .5em, 600)
+    color: var(--main-text)
+    padding-bottom: .25em
+    border-bottom: 3px solid var(--border)
+  h2
+    +text-block(1.5em 1.4 0 .5em, 600)
+    padding-bottom: .25em
+    border-bottom: 1px solid var(--border)
+  * + h2,
+  * + h3,
+  * + h4,
+  * + h5
+    margin-top: .75em
+  h3
+    +text-block(1.25em 1.4, 600)
+    margin-bottom: .625em
+    & + *
+      margin-top: 0 !important
+  h4
+    +text-block(1.125em 1.5, 600)
+    margin-bottom: .625em
+    & + *
+      margin-top: 0 !important
+  h5
+    +text-block(1em 1.5, 600)
+    margin-bottom: .625em
+    & + *
+      margin-top: 0 !important
+  h6
+    +text-block(.875rem 1.5, 600)
+    margin-bottom: .625em
+    & + *
+      margin-top: 0 !important
+
+  // header-anchor
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6
+    scroll-snap-align: start
+    scroll-snap-stop: always
+    position: relative
+    outline-style: none
+    &:hover
+      .header-anchor
+        opacity: 1
+
+  .header-anchor
+    display: flex
+    +text-block(.75rem, 400)
+    float: left
+    +position(absolute)
+    margin-left: -1.5rem
+    text-decoration: none !important
+    +size(1.5rem 100%)
+    align-items: center
+    justify-content: center
+    transition: all .2s ease-out
+    opacity: 0
+    &:link,
+    &:visited
+      color: var(--main)
+
+
   .is-danger
     color: var(--danger)
   &.is-ta-center,
