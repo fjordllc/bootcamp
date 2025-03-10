@@ -1,3 +1,38 @@
 .micro-report-actions__items
   display: flex
-  gap: 1rem
+  gap: .5rem
+  padding-top: .375rem
+
+.micro-report-actions__action
+  font-size: .75rem
+  display: flex
+  height: 2rem
+  align-items: center
+  text-decoration: none
+  padding-inline: .75rem
+  background-color: var(--background-shade)
+  border-radius: .25rem
+  color: var(--muted-text)
+  transition: all .2s ease-out
+  &:hover
+    background-color: var(--main)
+    color: var(--reversal-text)
+
+.micro-report-actions__user-link
+  +block-link
+
+.micro-report__footer
+  .reactions__items
+    margin: 0
+  .reactions__items.is-reacted
+    gap: .5rem
+    .reactions__item.is-reacted
+      border: 1px solid var(--border)
+      border-radius: .25rem
+      +media-breakpoint-down(sm)
+        height: 2.25rem
+  .reactions__dropdown-toggle
+    margin-left: .5rem
+    border: none
+    +media-breakpoint-down(sm)
+      height: 2.25rem

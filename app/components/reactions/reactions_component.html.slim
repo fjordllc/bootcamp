@@ -1,5 +1,5 @@
 .reactions.test-block.js-reactions[*reactions_attributes]
-  ul.reactions__items.test-inline-block.js-reaction
+  ul.reactions__items.is-reacted.test-inline-block.js-reaction
     - Reaction.emojis.each do |kind, emoji|
       li.reactions__item.test-inline-block[*reaction_attributes(kind)]
         span.reactions__item-emoji.js-reaction-emoji = emoji
@@ -11,7 +11,7 @@
     .reactions__dropdown-toggle.js-reaction-dropdown-toggle
       i.fa-regular.fa-plus.reactions__dropdown-toggle-plus
       i.fa-solid.fa-smile
-    ul.reactions__items.test-inline-block.js-reaction(hidden=true)
+    ul.reactions__items.is-dropdown.test-inline-block.js-reaction(hidden=true)
       - Reaction.emojis.each do |kind, emoji|
         li.reactions__item.test-inline-block[*reaction_attribute(kind)]
           span.reactions__item-emoji.js-reaction-emoji = emoji
