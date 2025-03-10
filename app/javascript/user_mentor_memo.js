@@ -67,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
       savedMemo = editorTextarea.value
       updateMemo(savedMemo, userId)
       memoDisplayContent.innerHTML = markdownInitializer.render(savedMemo)
+      TextareaInitializer.initialize('#js-user-mentor-memo')
       switchMemoDisplay(memoDisplay, savedMemo)
     })
 
@@ -75,12 +76,14 @@ document.addEventListener('DOMContentLoaded', () => {
       toggleClass(modalElements, 'is-hidden')
       editorTextarea.value = savedMemo
       memoEditorPreview.innerHTML = markdownInitializer.render(savedMemo)
+      TextareaInitializer.initialize('#js-user-mentor-memo')
     })
 
     editorTextarea.addEventListener('change', () => {
       memoEditorPreview.innerHTML = markdownInitializer.render(
         editorTextarea.value
       )
+      TextareaInitializer.initialize('#js-user-mentor-memo')
     })
 
     const editorTab = memoEditor.querySelector('.editor-tab')
