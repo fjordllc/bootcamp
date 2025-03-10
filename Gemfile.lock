@@ -321,7 +321,7 @@ GEM
     multi_xml (0.7.1)
       bigdecimal (~> 3.1)
     multipart-post (2.4.1)
-    mutex_m (0.1.2)
+    mutex_m (0.1.1)
     net-http (0.6.0)
       uri
     net-imap (0.5.6)
@@ -604,7 +604,7 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webmock (3.25.0)
+    webmock (3.25.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
@@ -676,7 +676,7 @@ DEPENDENCIES
   minitest-ci
   minitest-retry
   minitest-stub_any_instance
-  mutex_m (= 0.1.2)
+  mutex_m (= 0.1.1)
   net-imap
   net-pop
   net-smtp
@@ -698,7 +698,7 @@ DEPENDENCIES
   rails (~> 6.1.7.10)
   rails-i18n (~> 6.0.0)
   rails_autolink
-  ransack
+  ransack (= 3.1.0)
   react-rails
   recaptcha (~> 5.12)
   rollbar
