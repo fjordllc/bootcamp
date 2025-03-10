@@ -5,6 +5,14 @@ require 'test_helper'
 class PracticeTest < ActiveSupport::TestCase
   fixtures :learnings, :practices, :users
 
+  test '#started_or_submitted_learnings' do
+    started_or_submitted_learnings = practices(:practice3).started_or_submitted_learnings
+
+    started_or_submitted_learnings.each do |learning|
+      assert_includes %w[started submitted], learning.status
+    end
+  end
+
   test '#status(user)' do
     assert_equal \
       practices(:practice1).status(users(:komagata)),

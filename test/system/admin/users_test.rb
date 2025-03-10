@@ -78,12 +78,21 @@ class Admin::UsersTest < ApplicationSystemTestCase
 
   test 'update user' do
     user = users(:hatsuno)
-    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
+
+    visit_with_auth "/users/#{user.id}", 'komagata'
+    icon_before = find('img.user-profile__user-icon-image', visible: false)
+    assert icon_before.native['src'].end_with?('hatsuno.jpg')
+
+    visit "/admin/users/#{user.id}/edit"
     within 'form[name=user]' do
       fill_in 'user[login_name]', with: 'hatsuno-1'
+      attach_file 'user[avatar]', 'test/fixtures/files/users/avatars/komagata.jpg', make_visible: true
       click_on '更新する'
     end
+
     assert_text 'ユーザー情報を更新しました。'
+    icon_after = find('img.user-profile__user-icon-image', visible: false)
+    assert icon_after.native['src'].end_with?('komagata.png')
   end
 
   test 'update user with company' do

@@ -100,14 +100,13 @@ export default new Vuex.Store({
         })
     },
     setWatchable({ commit }, { watchableId, watchableType }) {
-      const meta = document.querySelector('meta[name="csrf-token"]')
       fetch(
         `/api/watches/toggle.json?watchable_id=${watchableId}&watchable_type=${watchableType}`,
         {
           method: 'GET',
           headers: {
             'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRF-Token': meta ? meta.getAttribute('content') : ''
+            'X-CSRF-Token': CSRF.getToken()
           },
           credentials: 'same-origin'
         }

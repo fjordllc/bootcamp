@@ -2,6 +2,7 @@
 
 class NotificationMailer < ApplicationMailer
   helper ApplicationHelper
+  helper MarkdownHelper
 
   before_action do
     @mentionable = params[:mentionable]

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_01_29_033027) do
+ActiveRecord::Schema.define(version: 2025_01_30_052357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -435,6 +435,22 @@ ActiveRecord::Schema.define(version: 2025_01_29_033027) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["practice_id"], name: "index_learning_minute_statistics_on_practice_id"
+  end
+
+  create_table "learning_time_frames", force: :cascade do |t|
+    t.string "week_day", null: false
+    t.integer "activity_time", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "learning_time_frames_users", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "learning_time_frame_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["learning_time_frame_id"], name: "index_learning_time_frames_users_on_learning_time_frame_id"
+    t.index ["user_id"], name: "index_learning_time_frames_users_on_user_id"
   end
 
   create_table "learning_times", force: :cascade do |t|
@@ -889,6 +905,8 @@ ActiveRecord::Schema.define(version: 2025_01_29_033027) do
   add_foreign_key "hibernations", "users"
   add_foreign_key "images", "users"
   add_foreign_key "learning_minute_statistics", "practices"
+  add_foreign_key "learning_time_frames_users", "learning_time_frames"
+  add_foreign_key "learning_time_frames_users", "users"
   add_foreign_key "learning_times", "reports"
   add_foreign_key "linear_scales", "survey_questions"
   add_foreign_key "micro_reports", "users"

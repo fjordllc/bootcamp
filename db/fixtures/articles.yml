@@ -90,3 +90,14 @@ article<%= id %>:
   wip: false
   published_at: "2022-03-14 00:00:00"
 <% end %>
+
+<% (41..55).each do |id| %>
+article<%= id %>:
+  title: test title<%= id %>
+  body: |-
+    test body<%= id %>
+  user: komagata
+  wip: false
+  published_at: "2022-03-14 00:00:00"
+  thumbnail_type: :sponsorship
+<% end %>

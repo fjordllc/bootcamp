@@ -3,31 +3,33 @@
 require 'application_system_test_case'
 
 class SearchablesTest < ApplicationSystemTestCase
-  test 'search All ' do
+  test 'search with word' do
     visit_with_auth '/', 'hatsuno'
+    search_word = '検索結果テスト用'
     within('form[name=search]') do
       select 'すべて'
-      fill_in 'word', with: '検索結果テスト用'
+      fill_in 'word', with: search_word
     end
     find('#test-search').click
-    assert_text 'お知らせの検索結果テスト用'
-    assert_text 'プラクティスの検索結果テスト用'
-    assert_text '日報の検索結果テスト用'
-    assert_text '提出物の検索結果テスト用'
-    assert_text 'Q&Aの検索結果テスト用'
-    assert_text 'Docsの検索結果テスト用'
-    assert_text 'イベントの検索結果テスト用'
-    assert_text '定期イベントの検索結果テスト用'
+    summaries = all('.card-list-item__summary')
+    summaries.each do |summary|
+      assert_includes summary.text, search_word
+    end
   end
 
-  test 'search reports ' do
+  test 'search with document_type' do
     visit_with_auth '/', 'hatsuno'
+    document_type = '日報'
     within('form[name=search]') do
-      select '日報'
-      fill_in 'word', with: 'テストの日報'
+      select document_type
     end
     find('#test-search').click
-    assert_text 'テストの日報'
+    labels = all('.card-list-item__label')
+    assert_equal labels.count, 50
+    assert_equal labels[3].text, document_type
+    labels.each do |label|
+      assert_equal label.text, document_type
+    end
   end
 
   test 'search events' do
