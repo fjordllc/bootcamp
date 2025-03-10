@@ -8,24 +8,34 @@ section.lp-content.is-lp-bg-1.is-top-title
             br
             | &プレゼンテーション
       .lp-content__end
-        .lp-content__articles
-          .row.is-gutter-width-32
+        .lp-content-stack
+          - if articles.present?
+            .lp-content-stack__item
+              .lp-content__articles
+                .row.is-gutter-width-32
 
-            - if articles.present?
-              - articles.each do |article|
-                .col-xs-6.col-md-4
-                  .thumbnail-card.a-card
-                    = link_to article_path(article), class: 'thumbnail-card__inner' do
-                      = image_tag article.prepared_thumbnail_url, class: 'thumbnail-card__image', alt: "#{article.title}の記事のサムネイル"
-                      .thumbnail-card__row
-                        h3.thumbnail-card__title
-                          = article.title
-                      .thumbnail-card__row
-                        .thumbnail-card__description
-                          .a-short-text
-                            p
-                              = article.summary
-            - else
+                  - articles.each do |article|
+                    .col-xs-6.col-md-4
+                      .thumbnail-card.a-card
+                        = link_to article_path(article), class: 'thumbnail-card__inner' do
+                          = image_tag article.prepared_thumbnail_url, class: 'thumbnail-card__image', alt: "#{article.title}の記事のサムネイル"
+                          .thumbnail-card__row
+                            h3.thumbnail-card__title
+                              = article.title
+                          .thumbnail-card__row
+                            .thumbnail-card__description
+                              .a-short-text
+                                p
+                                  = article.summary
+            .lp-content-stack__item
+              .lp-actions
+                .lp-actions__items
+                  .lp-actions__item
+                    = link_to '', class: 'a-button is-xl is-primary-border is-block' do
+                      | もっと見る
+
+          - else
+            .lp-content-stack__item
               .o-empty-message
                 .o-empty-message__icon
                   i.fa-regular.fa-sad-tear
