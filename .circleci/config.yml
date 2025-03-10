@@ -7,7 +7,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/ruby:3.2.7-node
+      - image: cimg/ruby:3.1.6-node
     steps:
       - checkout
       - run:
@@ -23,7 +23,7 @@ jobs:
           pkg-manager: yarn
   check:
     docker:
-      - image: 'cimg/ruby:3.2.7-node'
+      - image: 'cimg/ruby:3.1.6-node'
     steps:
       - checkout
       - run:
@@ -57,7 +57,7 @@ jobs:
           command: bin/yarn lint
   test:
     docker:
-      - image: cimg/ruby:3.2.7-browsers
+      - image: cimg/ruby:3.1.6-browsers
         environment:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
