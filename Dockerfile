@@ -17,7 +17,8 @@ RUN apt-get update -qq && apt-get install -y \
       libpq-dev \
       tzdata \
       curl \
-      gnupg2
+      gnupg2 \
+      libyaml-dev
 
 # Install latest yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
