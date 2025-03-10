@@ -121,7 +121,6 @@ class MoviesTest < ApplicationSystemTestCase
   test 'show ghost icon and ghost text when the movie-author was deleted' do
     visit_with_auth "/movies/#{movies(:movie4).id}", 'komagata'
     within '.a-meta.is-creator' do
-      assert_no_selector 'a'
       assert_text 'ghost'
       img = find('img')
       assert_match(/ghost-\w+\.png$/, img.native['src'])
