@@ -1,0 +1,42 @@
+.col-xxl-3.col-xl-3.col-lg-4.col-md-6.col-xs-12
+  .thumbnail-card.a-card
+    .thumbnail-card__inner
+      .thumbnail-card__row
+        = link_to movie, class: 'thumbnail-card__image-link' do
+          = image_tag('work-blank.svg', class: 'thumbnail-card__image')
+      .thumbnail-card__row
+        h2.thumbnail-card__title(class="#{movie.wip? ? 'is-wip' : ''}")
+          - if movie.wip?
+            span.a-title-label.is-wip WIP
+          = link_to movie, class: 'thumbnail-card__title-link a-text-link' do
+            = movie.title
+      .thumbnail-card__row
+        .thumbnail-card__metas
+          .thumbnail-card__meta
+            .thumbnail-card__author
+              - if movie.user
+                .thumbnail-card__icon
+                  = link_to user_path(movie.user), class: 'a-user-icons__item-link' do
+                    span class="a-user-role is-#{movie.user.primary_role}"
+                      = image_tag movie.user.avatar_url, title: movie.user.icon_title, class: 'a-user-icons__item-icon a-user-icon'
+                .thumbnail-card__user
+                  = link_to movie.user.name, user_path(movie.user), class: 'a-user-name'
+              - else
+                .thumbnail-card__icon
+                  = image_tag 'users/avatars/ghost.png', class: 'a-user-icons__item-icon a-user-icon'
+                .thumbnail-card__user.a-user-name
+                  | ghost
+      .thumbnail-card__row
+        .thumbnail-card__metas
+          .thumbnail-card__meta
+            .thumbnail-card__date
+              = l(movie.created_at)
+      .thumbnail-card__row
+        .thumbnail-card__tags
+          .tag-links
+            ul.tag-links__items
+              - movie.tag_list.each do |tag|
+                li.tag-links__item
+                  = link_to tag, '', class: 'tag-links__item-link'
+                  // ToDo リンクを実装
+                  //= link_to tag, movies_tag_path(tag), class: 'tag-links__item-link'
