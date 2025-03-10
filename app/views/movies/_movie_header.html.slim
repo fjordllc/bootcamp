@@ -47,8 +47,11 @@ header.page-content-header
                       = link_to movie.user, class: 'a-user-name' do
                         | #{movie.user.login_name}
                     - else
-                      = image_tag 'users/avatars/ghost.png', class: 'thread-header__user-icon'
-                      | ghost
+                      a.thread-header__user-icon-link
+                        span.a-user-role.is-student
+                          = image_tag 'users/avatars/ghost.png', class: 'thread-header__user-icon a-user-icon'
+                      .a-user-name
+                        | ghost
 
         .page-content-header-metas__end
           .page-content-header-metas
