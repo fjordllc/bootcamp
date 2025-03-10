@@ -141,12 +141,12 @@
 
     - if article.before_initial_publish?
       .form-item
-        label.a-form-label
+        label.a-form-label.is-margin-bottom-0
           | 通知ターゲット
-          .a-form-help
-            p
-              | 通知は初回公開時のみ行われます。
-        ul.block-checks.is-3-items
+        .a-form-help
+          p
+            | 通知は初回公開時のみ行われます。
+        ul.block-checks.is-4-items.sm-down:is-2-items.is-margin-top-12
           li.block-checks__item
             .a-block-check.is-radio
               = f.radio_button :target, 'all', id: 'all', class: 'a-toggle-checkbox'
