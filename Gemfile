@@ -9,8 +9,8 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'ffi', '1.17.1'
 gem 'image_processing', '~> 1.12'
 gem 'jbuilder', '~> 2.7'
-gem 'puma', '~> 6.4'
-gem 'rails', '~> 6.1.4.4'
+gem 'puma', '~> 5.0'
+gem 'rails', '~> 6.1.7.10'
 gem 'webpacker', '~> 5.0'
 
 # not default
@@ -84,7 +84,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'listen'
+  gem 'listen', '~> 3.3'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 4.1.0'
@@ -107,7 +107,7 @@ group :development do
 end
 
 group :test do
-  gem 'capybara'
+  gem 'capybara', '>= 3.26'
   gem 'minitest-ci'
   gem 'minitest-retry'
   gem 'minitest-stub_any_instance'
