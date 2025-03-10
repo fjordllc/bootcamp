@@ -17,40 +17,44 @@
           .micro-report-actions
             ul.micro-report-actions__items
               li.micro-report-actions__item
-                button.micro-report-actions__action.a-text-link.js-editor-button
+                button.micro-report-actions__action.is-edit.js-editor-button
                   | 内容修正
               li.micro-report-actions__item
-                = link_to user_micro_report_path(@user, @micro_report), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'micro-report-actions__action a-muted-text-link' do
+                = link_to user_micro_report_path(@user, @micro_report), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'micro-report-actions__action is-delete' do
                   span#delete
                   | 削除する
         = render(Reactions::ReactionsComponent.new(reactionable: @micro_report, current_user: @current_user))
 
-    .a-card.is-micro-report.micro-report-editor.is-hidden
-        .thread-comment-form__form
-          .a-form-tabs
-            .a-form-tabs__tab.js-edit-tab.is-active
-              | コメント
-            .a-form-tabs__tab.js-preview-tab
-              | プレビュー
-          .a-markdown-input
-            .a-markdown-input__inner.is-editor.is-active
-              .form-textarea
-                .form-textarea__body
-                  textarea.a-text-input.a-markdown-input__textarea id="js-comment-#{@micro_report.id}" data-preview="#js-comment-preview-#{@micro_report.id}" data-input=".js-comment-file-input-#{@micro_report.id}" name='micro_report[content]'
-                    = @micro_report.content
-                .form-textarea__footer
-                  .form-textarea__insert
-                    label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
-                      | ファイルを挿入
-                      input(class="js-comment-file-input-#{@micro_report.id}" type='file' multiple)
-            .a-markdown-input__inner.is-preview
-              .a-long-text.is-md.a-markdown-input__preview id="js-comment-preview-#{@micro_report.id}"
-          .card-footer
-              .card-main-actions
-                .card-main-actions__items
-                  .card-main-actions__item
-                    button.a-button.is-sm.is-primary.is-block.js-save-button
-                      | 保存する
-                  .card-main-actions__item
-                    button.a-button.is-sm.is-secondary.is-block.js-cancel-button
-                      | キャンセル
+    .is-micro-report.micro-report-editor.is-hidden
+        .micro-report-editor__form
+          .micro-report-form-tabs
+            ul.micro-report-form-tabs__items.form-tabs
+              li.micro-report-form-tabs__item
+                .micro-report-form-tabs__item-link.form-tabs__tab.js-edit-tab.is-active
+                  | コメント
+              li.micro-report-form-tabs__item
+                .micro-report-form-tabs__item-link.form-tabs__tab.js-preview-tab
+                  | プレビュー
+          .tab-content
+            .a-markdown-input
+              .a-markdown-input__inner.is-editor.is-active
+                .form-textarea
+                  .form-textarea__body
+                    textarea.a-text-input.a-markdown-input__textarea id="js-comment-#{@micro_report.id}" data-preview="#js-comment-preview-#{@micro_report.id}" data-input=".js-comment-file-input-#{@micro_report.id}" name='micro_report[content]'
+                      = @micro_report.content
+                  .form-textarea__footer
+                    .form-textarea__insert
+                      label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
+                        | ファイルを挿入
+                        input(class="js-comment-file-input-#{@micro_report.id}" type='file' multiple)
+              .a-markdown-input__inner.is-preview
+                .a-short-text.is-sm.a-markdown-input__preview id="js-comment-preview-#{@micro_report.id}"
+            .card-footer
+                .card-main-actions
+                  .card-main-actions__items
+                    .card-main-actions__item
+                      button.a-button.is-sm.is-primary.is-block.js-save-button
+                        | 保存する
+                    .card-main-actions__item
+                      button.a-button.is-sm.is-secondary.is-block.js-cancel-button
+                        | キャンセル
