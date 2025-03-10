@@ -39,6 +39,17 @@ class MarkdownTest < ApplicationSystemTestCase
     assert page.has_content?('(0000000000?h=1aaaaaaaaa)')
   end
 
+  test 'create video tag by markdown syntax' do
+    visit_with_auth new_page_path, 'komagata'
+    fill_in 'page[title]', with: 'markdown表記でvideoタグが作成されているかのテスト'
+    fill_in 'page[body]', with: '!video(http://localhost:3000/rails/active_storage/blobs/redirect/test.mp4)'
+    click_button 'Docを公開'
+    assert page.has_css?('video')
+    video_tag = page.find('video')
+    assert video_tag[:controls]
+    assert_equal video_tag[:src], 'http://localhost:3000/rails/active_storage/blobs/redirect/test.mp4'
+  end
+
   def cmd_ctrl
     page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
   end
