@@ -1,21 +1,27 @@
 .micro-report
   +position(relative)
   display: flex
+  &:not(:last-child)
+    margin-top: 1.5rem
+  +media-breakpoint-up(md)
+    gap: 1rem
+  +media-breakpoint-down(sm)
+    gap: .75rem
 
 .micro-report__start
-  +media-breakpoint-up(md)
-    flex: 0 0 4rem
-    +size(4rem 100%)
+  flex: 0 0 2.75rem
+  +size(2.75rem 100%)
 
 .micro-report__end
+  flex: 1
   +media-breakpoint-up(md)
-    max-width:  calc(100% - var(--thread-header-author))
-    flex: 1
+    max-width: calc(100% - var(--thread-header-author))
 
 .micro-report__header
   display: flex
   align-items: center
   justify-content: space-between
+  margin-bottom: .25rem
 
 .micro-report__title
   +text-block(.875rem 1.4, 600)
@@ -124,22 +130,25 @@
 
 .micro-report__footer
   display: flex
-  justify-content: space-between
-  margin-top: .75rem
-  .reactions
-    justify-content: flex-end
-  .card-footer
-    flex: 1
+  +media-breakpoint-up(md)
+    justify-content: space-between
+    .reactions
+      justify-content: flex-end
+    .card-footer
+      flex: 1
+  +media-breakpoint-down(sm)
+    flex-direction: column
+    gap: .5rem
+    .reactions
+      justify-content: flex-start
+    .card-footer
+      flex: 1
 
 .micro-report__reactions
   flex: 1
 
-.micro-report-actions__action
-  font-size: .875rem
-  text-decoration: underline
-
-.micro-report-actions__user-link
-  +block-link
-
 .micro-report_user-icon.a-user-icon
   +size(2.75rem)
+
+
+.micro-report-editor__form
