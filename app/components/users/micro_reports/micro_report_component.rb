@@ -17,4 +17,6 @@ class Users::MicroReports::MicroReportComponent < ViewComponent::Base
       l(time, format: :date_and_time)
     end
   end
+
+  delegate :admin_login?, to: :helpers
 end

@@ -1,4 +1,9 @@
 .a-short-text
+  &.is-sm
+    +media-breakpoint-up(md)
+      font-size: .8125rem
+    +media-breakpoint-down(sm)
+      font-size: .75rem
   p
     +text-block(1em 1.6 .75em)
   li
