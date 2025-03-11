@@ -109,7 +109,7 @@ ja:
         subscription_id: サブスクリプションID
         country_code: 国
         subdivision_code: 都道府県・州
-        not_auto_retire: 休会六ヶ月後に自動退会しない
+        not_auto_retire: 休会三ヶ月後に自動退会しない
         invoice_payment_user: 請求書払い
         credit_card_payment_user: クレジットカード払い
         other_editor: その他のエディタ
