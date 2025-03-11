@@ -32,7 +32,7 @@ class RegularEventsController < ApplicationController
       Organizer.create(user_id: current_user.id, regular_event_id: @regular_event.id)
       Newspaper.publish(:event_create, { event: @regular_event })
       set_all_user_participants_and_watchers
-      handle_redirect_after_create_or_update
+      select_redirect_path
     else
       render :new
     end
@@ -46,7 +46,7 @@ class RegularEventsController < ApplicationController
       update_published_at
       Newspaper.publish(:regular_event_update, { regular_event: @regular_event, sender: current_user })
       set_all_user_participants_and_watchers
-      handle_redirect_after_create_or_update
+      select_redirect_path
     else
       render :edit
     end
@@ -63,7 +63,7 @@ class RegularEventsController < ApplicationController
     @regular_event = current_user.mentor? ? RegularEvent.find(params[:id]) : RegularEvent.organizer_event(current_user).find(params[:id])
   end
 
-  def handle_redirect_after_create_or_update
+  def select_redirect_path
     path = if @regular_event.publish_with_announcement?
              new_announcement_path(regular_event_id: @regular_event.id)
            else
