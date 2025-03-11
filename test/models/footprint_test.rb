@@ -8,22 +8,9 @@ class FootprintTest < ActiveSupport::TestCase
     @resource = announcements(:announcement1)
   end
 
-  test 'create_on_resource creates a footprint for the resource and user' do
-    assert_difference 'Footprint.count', 1 do
-      Footprint.create_on_resource(@resource, @user)
-    end
-  end
-
-  test 'create_on_resource does not create duplicate footprints for the same resource and user' do
-    Footprint.create_on_resource(@resource, @user)
-    assert_no_difference 'Footprint.count' do
-      Footprint.create_on_resource(@resource, @user)
-    end
-  end
-
   test 'fetch_for_resource returns footprints associated with the resource' do
     user2 = users(:machida)
-    Footprint.create_on_resource(@resource, user2)
+    Footprint.find_or_create_by(footprintable: @resource, user: user2)
 
     footprints = Footprint.fetch_for_resource(@resource)
     assert_equal 1, footprints.count
@@ -31,7 +18,7 @@ class FootprintTest < ActiveSupport::TestCase
   end
 
   test 'fetch_for_resource excludes footprints of the resource owner' do
-    Footprint.create_on_resource(@resource, @user)
+    Footprint.find_or_create_by(footprintable: @resource, user: @user)
 
     footprints = Footprint.fetch_for_resource(@resource)
     assert_equal 0, footprints.count
@@ -39,8 +26,8 @@ class FootprintTest < ActiveSupport::TestCase
 
   test 'count_for_resource returns the correct count of footprints for the resource' do
     user2 = users(:machida)
-    Footprint.create_on_resource(@resource, user2)
-    Footprint.create_on_resource(@resource, @user)
+    Footprint.find_or_create_by(footprintable: @resource, user: user2)
+    Footprint.find_or_create_by(footprintable: @resource, user: @user)
 
     count = Footprint.count_for_resource(@resource)
     assert_equal 1, count
