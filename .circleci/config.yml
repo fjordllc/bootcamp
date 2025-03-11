@@ -7,7 +7,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/ruby:3.2.7-node
+      - image: cimg/ruby:3.1.6-node
     steps:
       - checkout
       - run:
@@ -23,7 +23,7 @@ jobs:
           pkg-manager: yarn
   check:
     docker:
-      - image: 'cimg/ruby:3.2.7-node'
+      - image: 'cimg/ruby:3.1.6-node'
     steps:
       - checkout
       - run:
@@ -57,7 +57,7 @@ jobs:
           command: bin/yarn lint
   test:
     docker:
-      - image: cimg/ruby:3.2.7-browsers
+      - image: cimg/ruby:3.1.6-browsers
         environment:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -116,8 +116,8 @@ jobs:
       - run:
           name: Test
           command: |
-            TESTFILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=timings)
-            bundle exec rails test $TESTFILES
+            TEST_FILES=$(circleci tests glob "test/**/*_test.rb")
+            echo "$TEST_FILES" | circleci tests run --command="xargs bundle exec rails test $TESTFILES" --verbose --split-by=timings
           no_output_timeout: 30m
           when: always
       - store_test_results:
