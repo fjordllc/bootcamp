@@ -1341,7 +1341,7 @@ nagai-kyuukai:
   os: mac
   country_code: JP
   subdivision_code: '09'
-  hibernated_at: <%= Time.current - 6.months %>
+  hibernated_at: <%= Time.current - 3.months %>
   updated_at: "2014-01-01 00:00:13"
   created_at: "2014-01-01 00:00:13"
   sent_student_followup_message: true
