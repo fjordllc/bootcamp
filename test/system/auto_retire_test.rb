@@ -12,9 +12,9 @@ class AutoRetireTest < ApplicationSystemTestCase
     AbstractNotifier.delivery_mode = @delivery_mode
   end
 
-  test 'retire after six-month hibernation' do
+  test 'retire after three-month hibernation' do
     user = users(:kyuukai)
-    travel_to Time.zone.local(2020, 7, 2, 0, 0, 0) do
+    travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
       VCR.use_cassette 'subscription/update' do
         mock_env('TOKEN' => 'token') do
           visit scheduler_daily_auto_retire_path(token: 'token')
@@ -23,7 +23,7 @@ class AutoRetireTest < ApplicationSystemTestCase
       assert_equal Date.current, user.reload.retired_on
     end
 
-    assert_equal '（休会後六ヶ月経過したため自動退会）', user.retire_reason
+    assert_equal '（休会後三ヶ月経過したため自動退会）', user.retire_reason
     assert_nil user.hibernated_at
     login_user 'kyuukai', 'testtest'
     assert_text '退会したユーザーです'
@@ -47,9 +47,9 @@ class AutoRetireTest < ApplicationSystemTestCase
     assert_equal '[FBC] 重要なお知らせ：受講ステータスの変更について', mail_to_user.subject
   end
 
-  test 'not retire when hibernated for less than six months' do
+  test 'not retire when hibernated for less than three months' do
     user = users(:kyuukai)
-    travel_to Time.zone.local(2020, 7, 1, 0, 0, 0) do
+    travel_to Time.zone.local(2020, 4, 1, 0, 0, 0) do
       VCR.use_cassette 'subscription/update' do
         mock_env('TOKEN' => 'token') do
           visit scheduler_daily_auto_retire_path(token: 'token')
@@ -63,11 +63,11 @@ class AutoRetireTest < ApplicationSystemTestCase
     user = users(:kyuukai)
 
     visit_with_auth edit_admin_user_path(user), 'komagata'
-    check '休会六ヶ月後に自動退会しない', allow_label_click: true
+    check '休会三ヶ月後に自動退会しない', allow_label_click: true
     click_on '更新する'
     logout
 
-    travel_to Time.zone.local(2020, 7, 2, 0, 0, 0) do
+    travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
       mock_env('TOKEN' => 'token') do
         visit scheduler_daily_auto_retire_path(token: 'token')
       end
@@ -78,10 +78,10 @@ class AutoRetireTest < ApplicationSystemTestCase
   test 'do nothing with already retired user' do
     user = users(:kyuukai)
 
-    retired_date = Date.new(2020, 7, 1)
+    retired_date = Date.new(2020, 4, 1)
     user.update!(retired_on: retired_date)
 
-    travel_to Time.zone.local(2020, 7, 2, 0, 0, 0) do
+    travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
       mock_env('TOKEN' => 'token') do
         visit scheduler_daily_auto_retire_path(token: 'token')
       end
@@ -95,7 +95,7 @@ class AutoRetireTest < ApplicationSystemTestCase
     assert user.products.unchecked.count.positive?
     assert user.reports.wip.count.positive?
 
-    travel_to Time.zone.local(2020, 7, 2, 0, 0, 0) do
+    travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
       VCR.use_cassette 'subscription/update' do
         mock_env('TOKEN' => 'token') do
           visit scheduler_daily_auto_retire_path(token: 'token')
@@ -115,7 +115,7 @@ class AutoRetireTest < ApplicationSystemTestCase
     user.discord_profile.account_name = 'kyuukai#1234'
     user.discord_profile.save!(validate: false)
 
-    travel_to Time.zone.local(2020, 7, 2, 0, 0, 0) do
+    travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
       Discord::Server.stub(:delete_text_channel, true) do
         VCR.use_cassette 'subscription/update' do
           mock_env('TOKEN' => 'token') do
@@ -135,7 +135,7 @@ class AutoRetireTest < ApplicationSystemTestCase
     Rails.logger.stub(:warn, stub_warn_logger) do
       stub_postmark_error = ->(_user) { raise Postmark::InactiveRecipientError }
       UserMailer.stub(:auto_retire, stub_postmark_error) do
-        travel_to Time.zone.local(2020, 7, 2, 0, 0, 0) do
+        travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
           VCR.use_cassette 'subscription/update' do
             mock_env('TOKEN' => 'token') do
               visit scheduler_daily_auto_retire_path(token: 'token')
@@ -154,7 +154,7 @@ class AutoRetireTest < ApplicationSystemTestCase
     user.save!(validate: false)
     assert user.invalid?
 
-    travel_to Time.zone.local(2020, 7, 2, 0, 0, 0) do
+    travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
       VCR.use_cassette 'subscription/update' do
         mock_env('TOKEN' => 'token') do
           visit scheduler_daily_auto_retire_path(token: 'token')
