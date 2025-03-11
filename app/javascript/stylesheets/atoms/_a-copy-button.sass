@@ -1,0 +1,23 @@
+.a-copy-button
+  position: relative
+  color: var(--semi-muted-text)
+  background-color: var(--background-semi-shade)
+  border: none
+  &.is-muted
+    color: var(--semi-muted-text)
+    background-color: var(--background-semi-shade)
+  &.is-active
+    background-color: hsl(242, 51%, 51%)
+    color: var(--reversal-text)
+  &.is-active::after
+    content: "Copied!"
+    display: block
+    background-color: rgba(0, 0, 0, 0.4)
+    border-radius: .125rem
+    padding: .25rem
+    font-size: .625rem
+    line-height: 1
+    color: var(--reversal-text)
+    position: absolute
+    left: 0
+    top: 100%
