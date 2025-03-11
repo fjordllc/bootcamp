@@ -42,7 +42,7 @@
               .a-card
                 .user-data
                   .user-data__row
-                    .user-data__description
+                    .user-data__description.a-short-text.is-md
                       = auto_link simple_format h @user.description
                   - if @user.tag_list.present? || current_user == @user
                     .user-data__row
