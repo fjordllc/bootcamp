@@ -1,4 +1,4 @@
-FROM ruby:3.1.4-alpine
+FROM ruby:3.1.6-slim
 
 ENV RAILS_ENV production
 WORKDIR /app
@@ -9,30 +9,42 @@ RUN printf "install: --no-rdoc --no-ri\nupdate:  --no-rdoc --no-ri" > ~/.gemrc
 RUN gem install --no-document --force bundler -v 2.4.21
 
 # Install packages
-RUN apk add --no-cache \
-      yarn \
-      ruby-dev \
-      build-base \
+RUN apt-get update -qq && apt-get install -y \
+      build-essential \
       git \
       nodejs \
-      postgresql-dev postgresql \
-      tzdata && \
-      cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+      postgresql-client \
+      libpq-dev \
+      tzdata \
+      curl \
+      gnupg2 \
+      libyaml-dev
+
+# Install latest yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    apt-get update && apt-get install -y yarn
+
+# Set timezone
+RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 # libvips
-RUN apk add --no-cache vips-dev vips-heif orc-dev bash pngcrush optipng=0.7.8-r0 ghostscript-fonts
+RUN apt-get install -y libvips-dev
 
 # Install npm packages
 COPY package.json yarn.lock ./
-RUN yarn install --production --ignore-engines
+RUN yarn install --prod --ignore-engines
 
 # Install gems
 COPY Gemfile Gemfile.lock ./
 RUN bundle install -j4
 
-# Compile assets
+# Copy application code
 COPY . ./
-RUN SECRET_KEY_BASE=dummy NODE_OPTIONS=--openssl-legacy-provider bin/rails assets:precompile
+
+# Compile assets
+ENV RAILS_LOG_TO_STDOUT true
+RUN SECRET_KEY_BASE=dummy NODE_OPTIONS=--openssl-legacy-provider bundle exec rails assets:precompile
 
 ENV PORT 3000
 EXPOSE 3000

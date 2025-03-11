@@ -113,6 +113,7 @@ class User < ApplicationRecord
   has_many :request_retirements, dependent: :destroy
   has_one :targeted_request_retirement, class_name: 'RequestRetirement', foreign_key: 'target_user_id', dependent: :destroy, inverse_of: :target_user
   has_many :micro_reports, dependent: :destroy
+  has_many :learning_time_frames_users, dependent: :destroy
 
   has_many :participate_events,
            through: :participations,
@@ -181,6 +182,9 @@ class User < ApplicationRecord
            source: :regular_event
 
   has_many :coding_test_submissions, dependent: :destroy
+
+  has_many :learning_time_frames,
+           through: :learning_time_frames_users
 
   has_one_attached :avatar
   has_one_attached :profile_image
@@ -878,7 +882,7 @@ class User < ApplicationRecord
     return unless uploaded_avatar
 
     mime_type = Marcel::Magic.by_magic(uploaded_avatar)&.type
-    return if mime_type&.start_with?('image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'image/heic', 'image/heif')
+    return if mime_type&.start_with?('image/png', 'image/jpeg', 'image/gif', 'image/heic', 'image/heif')
 
     errors.add(:avatar, 'は指定された拡張子(PNG, JPG, JPEG, GIF, HEIC, HEIF形式)になっていないか、あるいは画像が破損している可能性があります')
   end

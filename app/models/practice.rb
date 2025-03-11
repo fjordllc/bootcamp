@@ -6,25 +6,19 @@ class Practice < ApplicationRecord
 
   has_many :learnings, dependent: :destroy
   has_and_belongs_to_many :reports # rubocop:disable Rails/HasAndBelongsToMany
-  has_many :started_learnings,
-           -> { where(status: 'started') },
-           class_name: 'Learning',
-           inverse_of: 'practice',
-           dependent: nil
   has_many :completed_learnings,
            -> { where(status: 'complete') },
            class_name: 'Learning',
            inverse_of: 'practice',
            dependent: nil
-  has_many :started_users,
-           through: :started_learnings,
-           source: :user
-  has_many :completed_users,
-           through: :completed_learnings,
-           source: :user
-  has_many :started_students,
+  has_many :started_or_submitted_learnings,
+           -> { where(status: 'started').or(where(status: 'submitted')) },
+           class_name: 'Learning',
+           inverse_of: 'practice',
+           dependent: nil
+  has_many :started_or_submitted_students,
            -> { students_and_trainees },
-           through: :started_learnings,
+           through: :started_or_submitted_learnings,
            source: :user
   has_many :skipped_users,
            through: :skipped_practices,

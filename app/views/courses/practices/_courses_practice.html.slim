@@ -24,8 +24,7 @@
       - learning_minute_statistic = practice.learning_minute_statistic
       | 所要時間の目安: #{convert_to_hour_minute(learning_minute_statistic.median)}
       |  （平均: #{convert_to_hour_minute(learning_minute_statistic.average)}）
-  - if practice.started_students.present?
+  - if practice.started_or_submitted_students.present?
     .a-user-icons
       .a-user-icons__items
-        - practice.started_students.each do |started_student|
-          == render 'practice_user_icon', started_student: started_student
+        = render partial: 'practice_user_icon', collection: practice.started_or_submitted_students, as: :started_or_submitted_student
