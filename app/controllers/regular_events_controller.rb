@@ -11,7 +11,6 @@ class RegularEventsController < ApplicationController
     @regular_event = RegularEvent.find(params[:id])
     Footprint.create_on_resource(footprintable: resource, user: current_user) unless @regular_event.user == current_user
     @footprints = Footprint.fetch_for_resource(@regular_event)
-    @footprint_total_count = Footprint.count_for_resource(@regular_event)
   end
 
   def new

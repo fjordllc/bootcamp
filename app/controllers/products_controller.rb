@@ -19,7 +19,6 @@ class ProductsController < ApplicationController
     @recent_reports = Report.list.where(user_id: @product.user.id).limit(10)
     Footprint.create_on_resource(footprintable: resource, user: current_user) unless @product.user == current_user
     @footprints = Footprint.fetch_for_resource(@product)
-    @footprint_total_count = Footprint.count_for_resource(@product)
     respond_to do |format|
       format.html
       format.md
