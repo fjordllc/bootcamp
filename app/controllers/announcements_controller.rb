@@ -15,7 +15,7 @@ class AnnouncementsController < ApplicationController
   end
 
   def show
-    Footprint.create_on_resource(footprintable: resource, user: current_user) unless @announcement.user == current_user
+    Footprint.create_on_resource(footprintable: @announcement, user: current_user) unless @announcement.user == current_user
     @footprints = Footprint.fetch_for_resource(@announcement)
   end
 
