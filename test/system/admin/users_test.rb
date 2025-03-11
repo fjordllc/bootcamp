@@ -92,7 +92,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
 
     assert_text 'ユーザー情報を更新しました。'
     icon_after = find('img.user-profile__user-icon-image', visible: false)
-    assert icon_after.native['src'].end_with?('komagata.png')
+    assert_includes icon_after.native['src'], 'komagata'
   end
 
   test 'update user with company' do

@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.2.7'
+ruby '3.1.6'
 
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'ffi', '1.17.1'
@@ -42,7 +42,7 @@ gem 'kramdown-parser-gfm'
 gem 'mentionable', '~> 0.3.0'
 gem 'meta-tags'
 gem 'mini_magick'
-gem 'mutex_m', '0.1.2'
+gem 'mutex_m', '0.1.1'
 gem 'net-imap', require: false
 gem 'net-pop', require: false
 gem 'net-smtp', require: false # TODO: Remove it if you use rails 7.0.1
@@ -59,7 +59,7 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'rack-user_agent'
 gem 'rails_autolink'
 gem 'rails-i18n', '~> 6.0.0'
-gem 'ransack'
+gem 'ransack', '3.1.0'
 gem 'react-rails'
 gem 'recaptcha', '~> 5.12'
 gem 'rollbar'
@@ -69,7 +69,7 @@ gem 'rubyzip'
 gem 'slim-rails'
 gem 'sorcery', '~> 0.16.2'
 gem 'sorcery-jwt'
-gem 'stringio', '~> 3.1.5'
+gem 'stringio', '3.0.1.2'
 gem 'stripe'
 gem 'stripe-i18n', git: 'https://github.com/komagata/stripe-i18n', branch: 'update-depencency'
 gem 'tzinfo', '~> 2.0', '>= 2.0.6'
