@@ -760,16 +760,16 @@ class User < ApplicationRecord
     adviser? && company_id?
   end
 
-  def collegues
+  def colleagues
     company_id ? company.users : User.none
   end
 
-  def collegues_other_than_self
-    collegues.where.not(id:)
+  def colleagues_other_than_self
+    colleagues.where.not(id:)
   end
 
-  def collegue_trainees
-    collegues.students_and_trainees
+  def colleague_trainees
+    colleagues.students_and_trainees
   end
 
   def last_hibernation
