@@ -463,7 +463,7 @@ class ArticlesTest < ApplicationSystemTestCase
       wip: true,
       published_at: '2022-01-03 00:00:00'
     )
-    wip_press_release = articles(:article11)
+    wip_press_release = articles(:article12)
 
     visit_with_auth articles_wips_path, 'komagata'
     titles = all('h2.thumbnail-card__title').map(&:text)

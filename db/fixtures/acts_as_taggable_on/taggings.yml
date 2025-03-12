@@ -98,7 +98,7 @@ page13_tag_net_framework:
   context: tags
   tag: _net_framework
 
-<% (41..70).each do |id| %>
+<% (56..85).each do |id| %>
 article<%= id %>_tag_press_release:
   taggable: article<%= id %> (Article)
   context: tags
