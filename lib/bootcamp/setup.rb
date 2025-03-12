@@ -14,6 +14,7 @@ module Bootcamp
         attach_book_cover!
         attach_authored_book_cover!
         attach_practice_ogp!
+        attach_movie_data!
       end
 
       private
@@ -70,6 +71,18 @@ module Bootcamp
           filename = "#{i + 1}.jpg"
           path = Rails.root.join("#{fixtures_dir}/fixtures/files/practices/#{filename}")
           practice.ogp_image.attach(io: File.open(path), filename:) if File.exist?(path)
+        end
+      end
+
+      def attach_movie_data!
+        Movie.order(:created_at).each do |movie|
+          if movie.title.include?('mp4')
+            movie_path = Rails.root.join("#{fixtures_dir}/fixtures/files/movies/movie.mp4")
+            movie.movie_data.attach(io: File.open(movie_path), filename: 'movie.mp4')
+          elsif movie.title.include?('mov')
+            movie_path = Rails.root.join("#{fixtures_dir}/fixtures/files/movies/movie.mov")
+            movie.movie_data.attach(io: File.open(movie_path), filename: 'movie.mov')
+          end
         end
       end
     end

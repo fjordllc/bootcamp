@@ -104,6 +104,7 @@ class User < ApplicationRecord
   has_many :surveys, dependent: :destroy
   has_many :survey_questions, dependent: :destroy
   has_many :external_entries, dependent: :destroy
+  has_many :movies, dependent: :nullify
   has_many :coding_tests, dependent: :destroy
   has_many :coding_test_submissions, dependent: :destroy
   has_one :report_template, dependent: :destroy

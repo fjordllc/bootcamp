@@ -50,6 +50,7 @@ ja:
       faq: FAQ
       faq_category: FAQカテゴリ
       coding_test: コーディングテスト
+      movie: 動画
     attributes:
       user:
         login_name: アカウント
@@ -185,6 +186,12 @@ ja:
         body: 本文
         tag_list: タグ
         slug: スラッグ
+      movie:
+        practice: 関連プラクティス
+        title: タイトル
+        description: 説明
+        tag_list: タグ
+        movie_data: 動画データ
       question:
         practice: プラクティス
         title: タイトル
