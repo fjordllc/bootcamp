@@ -44,6 +44,7 @@ class Mentor::CoursesController < MentorController
   def course_params
     params.require(:course).permit(
       :title,
+      :summary,
       :description,
       :published,
       category_ids: []
