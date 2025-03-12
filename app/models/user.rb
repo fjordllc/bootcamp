@@ -25,7 +25,7 @@ class User < ApplicationRecord
     'admin' => :admins
   }.freeze
   DEFAULT_REGULAR_EVENT_ORGANIZER = 'komagata'
-  HIBERNATION_LIMIT = 6.months
+  HIBERNATION_LIMIT = 3.months
 
   INVITATION_ROLES = [
     [I18n.t('invitation_role.adviser'), :adviser],

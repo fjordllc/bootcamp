@@ -209,7 +209,7 @@ class CurrentUserTest < ApplicationSystemTestCase
 
   test 'update admin user\'s auto_retire' do
     visit_with_auth '/current_user/edit', 'komagata'
-    check '休会六ヶ月後に自動退会しない', allow_label_click: true
+    check '休会三ヶ月後に自動退会しない', allow_label_click: true
     click_on '更新する'
 
     assert_not users(:komagata).reload.auto_retire
