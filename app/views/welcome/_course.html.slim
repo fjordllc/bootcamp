@@ -10,6 +10,9 @@ article.lp-course-selection-item
         | このコースを選択
     .a-card
       .lp-course-selection-item__body
+        - if course.summary.present?
+          .a-long-text.is-md.js-markdown-view
+            = course.summary
         .a-long-text.is-md.js-markdown-view
           = course.description
     .lp-course-selection-item__categories

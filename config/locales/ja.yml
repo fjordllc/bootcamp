@@ -126,6 +126,7 @@ ja:
       course:
         title: タイトル
         description: 説明
+        summary: 要約
         created_at: 作成日時
         updated_at: 更新日時
       practice:

@@ -15,12 +15,21 @@
   .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12
-        = f.label :description, class: 'a-form-label'
-        = f.text_area :description, class: 'a-text-input js-warning-form markdown-form__text-area js-markdown', data: { 'preview': '.js-preview' }
+        = f.label :summary, class: 'a-form-label'
+        = f.text_area :summary, class: 'a-text-input js-warning-form markdown-form__text-area js-markdown', data: { 'preview': '#summary-preview' }
       .col-md-6.col-xs-12
         .a-form-label
           | プレビュー
-        .js-preview.a-long-text.is-md.markdown-form__preview
+        .js-preview.a-long-text.is-md.markdown-form__preview#summary-preview
+  .form-item
+    .row.js-markdown-parent
+      .col-md-6.col-xs-12
+        = f.label :description, class: 'a-form-label'
+        = f.text_area :description, class: 'a-text-input js-warning-form markdown-form__text-area js-markdown', data: { 'preview': '#description-preview' }
+      .col-md-6.col-xs-12
+        .a-form-label
+          | プレビュー
+        .js-preview.a-long-text.is-md.markdown-form__preview#description-preview
   .form-item
     label.a-form-label
       | このコースに含むカテゴリー
