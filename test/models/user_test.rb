@@ -478,24 +478,24 @@ class UserTest < ActiveSupport::TestCase
     assert users(:senpai).belongs_company_and_adviser?
   end
 
-  test '#collegues' do
-    target = users(:kensyu).collegues
+  test '#colleagues' do
+    target = users(:kensyu).colleagues
     assert_includes(target, users(:kensyuowata))
-    assert_empty users(:kimura).collegues
+    assert_empty users(:kimura).colleagues
   end
 
-  test '#collegues_other_than_self' do
+  test '#colleagues_other_than_self' do
     self_user = users(:kensyu)
-    target = self_user.collegues_other_than_self
+    target = self_user.colleagues_other_than_self
     assert_includes(target, users(:kensyuowata))
     assert_not_includes(target, self_user)
   end
 
-  test '#collegue_trainees' do
-    target = users(:senpai).collegue_trainees
+  test '#colleague_trainees' do
+    target = users(:senpai).colleague_trainees
     assert_includes(target, users(:kensyu))
-    assert_empty users(:kimura).collegue_trainees
-    assert_empty users(:advijirou).collegue_trainees
+    assert_empty users(:kimura).colleague_trainees
+    assert_empty users(:advijirou).colleague_trainees
   end
 
   test '#after_twenty_nine_days_registration?' do
