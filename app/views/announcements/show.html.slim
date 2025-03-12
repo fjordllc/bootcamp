@@ -87,5 +87,7 @@ hr.a-border
                       span#delete
                       | 削除する
       #js-comments(data-commentable-id="#{@announcement.id}" data-commentable-type='Announcement' data-current-user-id="#{current_user.id}")
-      div(data-vue='Footprints' data-vue-footprintable-id="#{@announcement.id}" data-vue-footprintable-type='Announcement')
+      .user-icons
+        ul.user-icons__items
+          = render '/footprints/footprints', footprints: @footprints
     = render partial: 'recent_announcements'
