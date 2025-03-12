@@ -21,6 +21,8 @@ class ReportsController < ApplicationController
   def show
     @products = @report.user.products.not_wip.order(published_at: :desc)
     @recent_reports = Report.list.where(user_id: @report.user.id).limit(10)
+    Footprint.find_or_create_by(footprintable: @report, user: current_user) unless @report.user == current_user
+    @footprints = Footprint.fetch_for_resource(@report)
     respond_to do |format|
       format.html
       format.md
