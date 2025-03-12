@@ -249,6 +249,7 @@ ActiveRecord::Schema.define(version: 2025_03_24_002043) do
   create_table "courses", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
+    t.text "summary"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "published", default: false, null: false
