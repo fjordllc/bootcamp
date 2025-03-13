@@ -5,8 +5,7 @@ require 'application_system_test_case'
 class PressReleasesTest < ApplicationSystemTestCase
   test 'show listing press releases' do
     visit press_releases_path
-    assert_text 'プレスリリース'
-    assert_selector '.articles'
+    assert_equal 'プレスリリース | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'show only published press releases' do
