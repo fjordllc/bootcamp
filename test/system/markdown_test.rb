@@ -42,6 +42,19 @@ class MarkdownTest < ApplicationSystemTestCase
     assert page.has_text?('<style></style>')
   end
 
+  test 'should not execute onload attribute' do
+    slug = 'test-page-onload'
+    visit_with_auth new_page_path, 'komagata'
+    fill_in('page[title]', with: 'onloadが実行されないかのテスト')
+    fill_in('page[slug]', with: slug)
+    fill_in('page[body]', with: '<svg onload="window.location=\'https://www.google.com\'"></svg>')
+
+    click_button 'Docを公開'
+
+    assert page.has_text?('<svg onload="window.location=\'https://www.google.com\'"></svg>')
+    assert_equal "/pages/#{slug}", URI.parse(current_url).path
+  end
+
   def cmd_ctrl
     page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
   end
