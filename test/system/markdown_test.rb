@@ -34,6 +34,14 @@ class MarkdownTest < ApplicationSystemTestCase
     assert_includes emoji['data-user'], 'mentormentaro'
   end
 
+  test 'should not execute style tag' do
+    visit_with_auth new_page_path, 'komagata'
+    fill_in('page[title]', with: 'styleタグが実行されないかのテスト')
+    fill_in('page[body]', with: '<style></style>')
+    click_button 'Docを公開'
+    assert page.has_text?('<style></style>')
+  end
+
   def cmd_ctrl
     page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
   end
