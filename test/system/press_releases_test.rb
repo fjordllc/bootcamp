@@ -74,4 +74,21 @@ class PressReleasesTest < ApplicationSystemTestCase
     top_three_titles = all('h2.thumbnail-card__title').take(3).map(&:text)
     assert_equal [one_day_ago_press_release.title, two_days_ago_press_release.title, three_days_ago_press_release.title], top_three_titles
   end
+
+  test 'displays up to 24 articles' do
+    30.times do |i|
+      press_release = Article.create(
+        title: "press releases #{i}",
+        body: 'プレスリリースのタグを持つブログ記事',
+        user: users(:komagata),
+        wip: false,
+        published_at: "2022-1-1 00:00:#{i}"
+      )
+      press_release.tag_list.add('プレスリリース')
+      press_release.save
+    end
+
+    visit press_releases_path
+    assert_equal all('.thumbnail-card.a-card').count, 24
+  end
 end
