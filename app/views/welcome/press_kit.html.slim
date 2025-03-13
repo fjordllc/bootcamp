@@ -91,7 +91,7 @@ hr.a-border
             - if @press_releases.present?
               .lp-content-stack__item
                 .row
-                  - @press_releases.take(6).each do |press_release|
+                  - @press_releases.each do |press_release|
                     .col-lg-4.col-md-6.col-xs-12
                       .thumbnail-card.a-card
                         = link_to press_release, class: 'thumbnail-card__inner' do
