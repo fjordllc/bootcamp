@@ -4,8 +4,6 @@ require 'application_system_test_case'
 
 class PressKitTest < ApplicationSystemTestCase
   test 'show recent 6 press releases' do
-    Article.delete_all
-
     8.times do |i|
       article = Article.create(
         title: "press releases #{i}",
