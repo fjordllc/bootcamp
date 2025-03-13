@@ -14,11 +14,22 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   test '.press_release' do
-    articles = Article.press_releases
+    article1 = articles(:article1)
+    article1.tag_list.add('プレスリリース')
+    article1.save
 
-    articles.each do |article|
-      assert_includes article.tag_list, 'プレスリリース'
-      assert_not article.wip
+    article2 = articles(:article2)
+    article2.tag_list.add('2つのタグを持つ公開済み記事', 'プレスリリース')
+    article2.save
+
+    wip_article = articles(:article3)
+    wip_article.tag_list.add('2つのタグを持つwip状態の記事', 'プレスリリース')
+    wip_article.save
+    press_releases = Article.press_releases
+
+    press_releases.each do |press_release|
+      assert_includes press_release.tag_list, 'プレスリリース'
+      assert_not press_release.wip
     end
   end
 
