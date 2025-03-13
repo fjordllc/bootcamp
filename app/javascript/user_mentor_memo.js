@@ -5,7 +5,6 @@ import MarkdownInitializer from 'markdown-initializer'
 document.addEventListener('DOMContentLoaded', () => {
   const mentorMemo = document.querySelector('.user-mentor-memo')
   if (mentorMemo) {
-    TextareaInitializer.initialize('#js-user-mentor-memo')
     const markdownInitializer = new MarkdownInitializer()
     const userId = mentorMemo.dataset.user_id
     let savedMemo = ''
@@ -50,6 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
           memoDisplayContent.innerHTML = markdownInitializer.render(savedMemo)
           memoEditorPreview.innerHTML = markdownInitializer.render(savedMemo)
         }
+      })
+      .then(() => {
+        TextareaInitializer.initialize('#js-user-mentor-memo')
       })
       .catch((error) => {
         console.warn(error)

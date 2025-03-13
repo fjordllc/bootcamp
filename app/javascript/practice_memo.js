@@ -6,7 +6,6 @@ import { toast } from 'toast_react'
 document.addEventListener('DOMContentLoaded', () => {
   const practiceMemo = document.querySelector('.practice-memo')
   if (practiceMemo) {
-    TextareaInitializer.initialize('.a-markdown-input__textarea')
     const markdownInitializer = new MarkdownInitializer()
     const practiceId = practiceMemo.dataset.practice_id
     let savedMemo = ''
@@ -40,6 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
           memoDisplayContent.innerHTML = markdownInitializer.render(savedMemo)
           memoEditorPreview.innerHTML = markdownInitializer.render(savedMemo)
         }
+      })
+      .then(() => {
+        TextareaInitializer.initialize('.a-markdown-input__textarea')
       })
       .catch((error) => {
         console.warn(error)
