@@ -21,4 +21,19 @@ class PressKitTest < ApplicationSystemTestCase
     visit press_kit_path
     assert_selector '.thumbnail-card.a-card', count: 6
   end
+
+  test 'WIP press release is not display' do
+    wip_press_release = Article.create(
+      title: '非公開のプレスリリース',
+      body: '一度公開した後にWIPに戻した最新のプレスリリース',
+      user: users(:komagata),
+      wip: true,
+      published_at: Date.current
+    )
+    wip_press_release.tag_list.add('プレスリリース')
+    wip_press_release.save
+
+    visit press_kit_path
+    assert_no_text wip_press_release.title
+  end
 end
