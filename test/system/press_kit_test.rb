@@ -10,15 +10,15 @@ class PressKitTest < ApplicationSystemTestCase
 
   test 'show recent 6 press releases' do
     8.times do |i|
-      article = Article.create(
+      press_release = Article.create(
         title: "press releases #{i}",
         body: 'プレスリリースのタグを持つブログ記事',
         user: users(:komagata),
         wip: false,
         published_at: "2022-1-1 #{i}:00:00"
       )
-      article.tag_list.add('プレスリリース')
-      article.save
+      press_release.tag_list.add('プレスリリース')
+      press_release.save
     end
 
     visit press_kit_path
