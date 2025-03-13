@@ -29,22 +29,3 @@ article4:
   wip: false
   published_at: '2022-01-01 00:00:00'
   thumbnail_type: :sponsorship
-
-<% date = Date.parse("2023-01-01") %>
-<% (5..11).each do |id| %>
-article<%= id %>:
-  <% number = id - 5 %>
-  title: プレスリリース<%= number %>
-  body: 「プレスリリース」タグを持つブログ
-  user: komagata
-  wip: false
-  published_at: <%= "#{date + number} 00:00:00" %>
-<% end %>
-
-article12:
-  title: プレスリリース
-  body: 「プレスリリース」タグを持つブログ
-  user: komagata
-  wip: true
-  thumbnail_type: :prepared_thumbnail
-  token: abcdefghijkl
