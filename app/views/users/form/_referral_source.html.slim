@@ -4,7 +4,7 @@
     = f.collection_radio_buttons :referral_source, User.referral_sources, :first, :first do |b|
       li.block-checks__item
         = b.radio_button
-        = b.label( for: "user_referral_source_#{b.value}")
+        = b.label(for: "user_referral_source_#{b.value}")
           = t("activerecord.enums.user.referral_source.#{b.text}")
 .form-item.hidden(id='other_referral_source_form')
   = f.label :other_referral_source, 'その他を選んだ方はFBCを知った経路を教えてください。', class: 'a-form-label is-required'
