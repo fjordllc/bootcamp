@@ -21,7 +21,7 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_equal '全てのQ&A | FBC', title
   end
 
-  test 'show a resolved qestion' do
+  test 'show a resolved question' do
     question = questions(:question3)
     visit_with_auth question_path(question), 'kimura'
     assert_text '解決済'
