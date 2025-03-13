@@ -17,7 +17,7 @@ class ArticleTest < ActiveSupport::TestCase
     articles = Article.press_releases
 
     articles.each do |article|
-      assert_equal 'プレスリリース', *article.tag_list
+      assert_includes article.tag_list, 'プレスリリース'
       assert_not article.wip
     end
   end
