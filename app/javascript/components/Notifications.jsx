@@ -36,7 +36,7 @@ export default function Notifications({ isMentor }) {
   }
 
   const { page, setPage } = usePage()
-  const { data, error } = useSWR(apiUrl, fetcher)
+  const { data, error } = useSWR(apiUrl, fetcher, { revalidateOnFocus: false })
 
   if (error) {
     console.warn(error)
