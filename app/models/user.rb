@@ -190,6 +190,7 @@ class User < ApplicationRecord
   has_one_attached :profile_image
 
   after_create UserCallbacks.new
+  before_validation :convert_blank_of_country_code_to_nil, :convert_blank_of_subdivision_code_to_nil
 
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
   validates :name, presence: true
@@ -218,9 +219,9 @@ class User < ApplicationRecord
 
   validate :validate_uploaded_avatar_content_type
 
-  validates :country_code, inclusion: { in: ISO3166::Country.codes }, allow_blank: true
+  validates :country_code, inclusion: { in: ISO3166::Country.codes }, allow_nil: true
 
-  validates :subdivision_code, inclusion: { in: ->(user) { user.subdivision_codes } }, allow_blank: true, if: -> { country_code.present? }
+  validates :subdivision_code, inclusion: { in: ->(user) { user.subdivision_codes } }, allow_nil: true, if: -> { country_code.present? }
 
   with_options if: -> { %i[create update].include? validation_context } do
     validates :login_name, presence: true, uniqueness: true,
@@ -889,5 +890,13 @@ class User < ApplicationRecord
 
   def required_practices_size_with_skip
     course.practices.where(id: practice_ids_skipped, include_progress: true).size
+  end
+
+  def convert_blank_of_country_code_to_nil
+    self.country_code = nil if country_code.blank?
+  end
+
+  def convert_blank_of_subdivision_code_to_nil
+    self.subdivision_code = nil if subdivision_code.blank?
   end
 end
