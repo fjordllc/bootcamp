@@ -13,7 +13,7 @@ class CurrentUser::WatchesController < ApplicationController
   end
 
   def set_watches
-    @watches = user.watches
+    @watches = user.watches.preload(:watchable).order(created_at: :desc).page(params[:page])
   end
 
   def user
