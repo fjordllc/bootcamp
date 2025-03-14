@@ -9,7 +9,7 @@
             - regular_event.organizers.each do |organizer|
               li.user-icons-item
                 = link_to organizer do
-                  span class="a-user-role is-#{organizer.primary_role}"
+                  span class="a-user-role is-#{organizer.primary_role} is-#{organizer.joining_status}"
                     = image_tag organizer.avatar_url, title: organizer.icon_title, class: "a-user-icon is-sm is-#{organizer.login_name}", alt: organizer.login_name
       .event-meta__item
         dt.event-meta__item-label

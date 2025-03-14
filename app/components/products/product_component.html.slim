@@ -3,7 +3,7 @@
     - if @display_user_icon
       .card-list-item__user
         = link_to user_url(@product.user), class: "card-list-item__user-link" do
-          span class=["a-user-role", role_class]
+          span class=["a-user-role", role_class, joining_status_class]
             = image_tag @product.user.avatar_url,
               class: "card-list-item__user-icon a-user-icon",
               title: @product.user.icon_title,
@@ -79,7 +79,7 @@
                   - @product.commented_users.distinct.each do |user|
                     a.card-list-item__user-icons-icon href=user_path(user)
                       = image_tag user.avatar_url,
-                        class: "a-user-icon #{role_class}",
+                        class: "a-user-icon #{role_class} #{joining_status_class}",
                         title: user.icon_title,
                         alt: user.icon_title
 
