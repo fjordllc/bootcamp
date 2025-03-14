@@ -704,7 +704,7 @@ class UsersTest < ApplicationSystemTestCase
     filtered_users = all('.users-item__icon .a-user-role')
     assert(filtered_users.all? do |user|
       classes = user[:class].split(' ')
-      classes.include?('is-student') || classes.include?('is-trainee') || classes.include?('is-new-user')
+      classes.include?('is-student') || classes.include?('is-trainee')
     end)
   end
 
@@ -714,10 +714,7 @@ class UsersTest < ApplicationSystemTestCase
 
     assert_selector('a.tab-nav__item-link.is-active', text: '現役生')
     filtered_users = all('.users-item__icon .a-user-role')
-    assert(filtered_users.all? do |user|
-      classes = user[:class].split(' ')
-      classes.include?('is-student') || classes.include?('is-new-user')
-    end)
+    assert(filtered_users.all? { |user| user[:class].split(' ').include?('is-student') })
   end
 
   test 'can not upload broken image as user avatar' do

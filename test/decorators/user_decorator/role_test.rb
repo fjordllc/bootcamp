@@ -5,14 +5,6 @@ require 'active_decorator_test_case'
 
 module UserDecorator
   class RoleTest < ActiveDecoratorTestCase
-    test '#role_is_new_user' do
-      controller.stub(:current_user, users(:komagata)) do
-        new_student = decorate(users(:otameshi))
-
-        assert_equal 'new-user', new_student.primary_role
-      end
-    end
-
     test '#staff_roles' do
       admin_mentor = decorate(users(:komagata))
       student = decorate(users(:hajime))

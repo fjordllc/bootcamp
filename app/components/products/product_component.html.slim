@@ -3,8 +3,7 @@
     - if @display_user_icon
       .card-list-item__user
         = link_to user_url(@product.user), class: "card-list-item__user-link" do
-          - target_user = defined?(current_user) ? current_user : @product.user
-          span class=["a-user-role", role_class(target_user)]
+          span class=["a-user-role", role_class]
             = image_tag @product.user.avatar_url,
               class: "card-list-item__user-icon a-user-icon",
               title: @product.user.icon_title,
@@ -106,7 +105,7 @@
                       | 〜 #{l(@product.mentor_last_commented_at)}（メンター）
 
 
-      - if (@is_mentor || @is_admin) && @product.user.primary_role(@product.user) == 'trainee'
+      - if (@is_mentor || @is_admin) && @product.user.primary_role == 'trainee'
         .card-list-item__row
           .card-list-item-meta__items
             .card-list-item-meta__item
