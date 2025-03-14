@@ -91,4 +91,8 @@ module UserDecorator
 
     [*blanks, *dates_and_reports].each_slice(7).to_a
   end
+
+  def joining_status
+    'new-user' if elapsed_days <= 7
+  end
 end
