@@ -1,6 +1,6 @@
 user_course_practice = ActiveDecorator::Decorator.instance.decorate(UserCoursePractice.new(user))
 
-json.(user, :id, :login_name, :name, :description, :github_account, :twitter_account, :facebook_url, :blog_url, :job_seeker, :job, :os, :experience, :email, :roles, :primary_role, :icon_title, :graduated_on)
+json.(user, :id, :login_name, :name, :description, :github_account, :twitter_account, :facebook_url, :blog_url, :job_seeker, :job, :os, :experience, :email, :roles, :primary_role, :icon_title, :graduated_on, :joining_status)
 json.tag_list user.tags.pluck(:name)
 json.url user_url(user)
 json.updated_at l(user.updated_at)
