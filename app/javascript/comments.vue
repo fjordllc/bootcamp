@@ -31,7 +31,7 @@
   .thread-comment-form
     #latest-comment(v-if='comments.length === 0')
     .thread-comment__start
-      span(:class='["a-user-role", roleClass]')
+      span(:class='["a-user-role", roleClass, joiningStatusClass]')
         img.thread-comment__user-icon.a-user-icon(
           :src='currentUser.avatar_url',
           :title='currentUser.icon_title')
@@ -133,6 +133,9 @@ export default {
     },
     roleClass() {
       return `is-${this.currentUser.primary_role}`
+    },
+    joiningStatusClass() {
+      return `is-${this.currentUser.joining_status}`
     },
     productCheckerId() {
       return this.$store.getters.productCheckerId
