@@ -181,7 +181,7 @@ const handleEmbedFailure = (targetLink, url) => {
     <div class="a-link-card embed-error">
       <!-- リンクの変換に失敗しました。以下のリンクをご確認ください。 -->
       <div class="embed-error__inner">
-        ${isTwitter ? '<i class="fa-brands fa-x-twitter"></i>' : ''}
+        ${isTwitter(url) ? '<i class="fa-brands fa-x-twitter"></i>' : ''}
         <a href="${url}" target="_blank" rel="noopener">
           ${url}
         </a>
