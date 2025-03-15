@@ -22,7 +22,7 @@ export default function elapsedDays({
     const li = document.createElement('li')
     li.className = `page-nav__item ${additionalClass} ${activeClass(
       countProductsGroupedBy(elapsedDays)
-    )}`.trim()
+    )}`
     return li
   }
 
