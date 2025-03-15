@@ -8,6 +8,8 @@ module LinkCard
 
     def find_by(name)
       target = ogp_nodes.find { |node| node['property'] == "og:#{name}" }
+      return '' if target.nil?
+
       target['content']
     end
 
