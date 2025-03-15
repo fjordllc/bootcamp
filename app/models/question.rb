@@ -8,6 +8,7 @@ class Question < ApplicationRecord
   include Taggable
   include Mentioner
   include Bookmarkable
+  include SearchHelper
 
   QuestionsProperty = Struct.new(:title, :empty_message)
 
