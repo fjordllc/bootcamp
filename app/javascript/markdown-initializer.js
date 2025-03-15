@@ -12,6 +12,9 @@ import MarkDownItContainerMessage from 'markdown-it-container-message'
 import MarkDownItContainerDetails from 'markdown-it-container-details'
 import MarkDownItLinkAttributes from 'markdown-it-link-attributes'
 import MarkDownItContainerSpeak from 'markdown-it-container-speak'
+import MarkdownItSanitizer from 'markdown-it-sanitizer'
+import MarkdownItOnlineVideo from './markdown-it-online-video'
+import MarkdownItLocalVideo from './markdown-it-local-video'
 
 export default class {
   replace(selector) {
@@ -53,6 +56,9 @@ export default class {
       }
     })
     md.use(MarkDownItContainerSpeak)
+    md.use(MarkdownItSanitizer)
+    md.use(MarkdownItOnlineVideo)
+    md.use(MarkdownItLocalVideo)
     return md.render(text)
   }
 }
