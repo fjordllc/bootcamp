@@ -2,6 +2,7 @@
 
 module SearchHelper
   include MarkdownHelper
+  include PolicyHelper
 
   EXTRACTING_CHARACTERS = 50
 
@@ -16,8 +17,6 @@ module SearchHelper
     summary = process_markdown_case(comment)
     find_match_in_text(summary, word)
   end
-
-  include PolicyHelper
 
   def matched_document(searchable)
     if searchable.instance_of?(Comment)
