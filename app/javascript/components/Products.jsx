@@ -120,11 +120,11 @@ export default function Products({
     return (
       <>
         {selectedTab === 'unchecked' || selectedTab === 'self_assigned' ? (
-          <nav className="pill-nav">
+          <div className="pill-nav">
             <ul className="pill-nav__items">
               <FilterButtons selectedTab={selectedTab} />
             </ul>
-          </nav>
+          </div>
         ) : null}
 
         <div className="o-empty-message loaded">

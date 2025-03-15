@@ -44,8 +44,6 @@ export default function elapsedDays({
     return span
   }
 
-  const nav = document.createElement('nav')
-
   const div = document.createElement('div')
   div.className = 'page-nav a-card'
 
@@ -89,6 +87,5 @@ export default function elapsedDays({
   )
 
   div.appendChild(ol)
-  nav.appendChild(div)
-  return nav
+  return div
 }
