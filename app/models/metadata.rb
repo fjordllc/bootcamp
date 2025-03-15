@@ -33,6 +33,8 @@ class Metadata
   def favicon(site_url, html)
     doc = Nokogiri::HTML(html)
     favicon_path = doc.at_css('link[rel="icon"]')['href']
+    return '' if favicon_path.nil?
+
     absolute_regexp = URI::DEFAULT_PARSER.make_regexp
 
     # faviconはサイトによって絶対パス、相対パスと異なるため、どちらにも対応出来る実装にしている
