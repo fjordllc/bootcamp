@@ -344,27 +344,15 @@ report89:
   title: "リンクカードの動作確認"
   emotion: 2
   description: |-
-    ## 通常のTweet
+    # リンクカードが生成されるパターン
+    ## Twitter関連のリンクカード
+    ### Tweet個別
     @[card](https://x.com/fjordbootcamp/status/1866097842483503117)
-
-    ### 存在しないTweet
-    @[card](https://x.com/fjordbootcamp/status/186609784248350311774832921aaa)
-
-    ### ユーザーのホーム画面
-    @[card](https://x.com/fjordbootcamp)
-
-    ### リスト
-    @[card](https://x.com/mousuFBC/lists)
-
-    ### ハッシュタグの検索結果
-    @[card](https://x.com/hashtag/fjordbootcamp?src=hashtag_click)
-
-    ### リンクカードが生成されるがfetchに失敗するパターン
-    @[card](https://bootcamp.fjord.jp/aaa)
 
     ---
 
-    # リンクカードが生成されるパターン
+    ## 通常のリンクカード
+
     @[card](https://bootcamp.fjord.jp)
 
     ---
@@ -408,6 +396,31 @@ report89:
     :::details リンクカードが展開される
     @[card](https://bootcamp.fjord.jp)
     :::
+
+    ---
+
+    # リンクカードが生成されるがfetchが失敗するパターン
+    ## Twitter関連
+    ### 存在しないTweet
+    @[card](https://x.com/fjordbootcamp/status/186609784248350311774832921aaa)
+
+    ### ユーザーのホーム画面
+    @[card](https://x.com/fjordbootcamp)
+
+    ### リスト
+    @[card](https://x.com/mousuFBC/lists)
+
+    ### ハッシュタグの検索結果
+    @[card](https://x.com/hashtag/fjordbootcamp?src=hashtag_click)
+
+    ## 通常のサイト
+    ### ドメインは存在するがページが存在しない場合
+    @[card](https://bootcamp.fjord.jp/aaa)
+
+    ---
+
+    ### ドメインもページも存在しない場合
+    @[card](https://bootmp.fjd.jp/aaa)
 
     ---
 
