@@ -18,7 +18,7 @@
           - if user_comments_page?
             h2.card-list-item-title__title
               = link_to commentable, class: 'card-list-item-title__link a-text-link' do
-                span class="a-user-role is-#{commentable.user.primary_role} align-middle"
+                span class="a-user-role is-#{commentable.user.primary_role} is-#{commentable.user.joining_status} align-middle"
                   = image_tag commentable.user.avatar_url, title: commentable.user.icon_title, class: 'thread-comment__title-icon a-user-icon'
                 = commentable.title
           - else

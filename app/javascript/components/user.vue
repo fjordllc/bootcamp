@@ -16,7 +16,7 @@
           .users-item__header-start
             .users-item__icon
               a(:href='user.url')
-                span(:class='["a-user-role", roleClass]')
+                span(:class='["a-user-role", roleClass, joiningStatusClass]')
                   img.users-item__user-icon-image.a-user-icon(
                     :title='user.icon_title',
                     :alt='user.icon_title',
@@ -118,6 +118,9 @@ export default {
     },
     roleClass() {
       return `is-${this.user.primary_role}`
+    },
+    joiningStatusClass() {
+      return `is-${this.user.joining_status}`
     }
   }
 }

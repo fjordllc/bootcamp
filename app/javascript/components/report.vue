@@ -3,7 +3,7 @@
   .card-list-item__inner
     .card-list-item__user(v-if='displayUserIcon')
       a.card-list-item__user-link(:href='report.user.url')
-        span(:class='["a-user-role", roleClass]')
+        span(:class='["a-user-role", roleClass, joiningStatusClass]')
           img.card-list-item__user-icon.a-user-icon(
             :src='report.user.avatar_url',
             :title='report.user.login_name',
@@ -90,6 +90,9 @@ export default {
   computed: {
     roleClass() {
       return `is-${this.report.user.primary_role}`
+    },
+    joiningStatusClass() {
+      return `is-${this.report.user.joining_status}`
     },
     wipClass() {
       return { 'is-wip': this.report.wip }
