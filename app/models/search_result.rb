@@ -11,7 +11,7 @@ class SearchResult
     @current_user = current_user
     @url = searchable_url(searchable)
     @title = fetch_title(searchable)
-    @summary = filtered_message(searchable)
+    @summary = searchable_summary(filtered_message(searchable), word)
     @formatted_summary = highlight_word(@summary, word)
     @user_id = searchable.is_a?(User) ? searchable.id : searchable.try(:user_id)
     @login_name = fetch_login_name(searchable)
