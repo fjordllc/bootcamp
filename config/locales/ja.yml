@@ -537,13 +537,13 @@ ja:
       confirmations:
         destroy: アプリケーションを削除しますか？
       form:
-        error: 'フォームにエラーが無いか確認してください'
+        error: フォームにエラーが無いか確認してください
       help:
-        confidential: '機密性の高いアプリケーションの場合はチェックしてください'
+        confidential: 機密性の高いアプリケーションの場合はチェックしてください
         redirect_uri: 一行に一つのURLを入力してください
-        scopes: '空白の場合デフォルトスコープが使用されます'
+        scopes: 空白の場合、read writeが設定されます
       edit:
-        title: 'アプリケーション編集'
+        title: アプリケーション編集
       index:
         actions: ''
         new: アプリケーション追加
@@ -586,3 +586,4 @@ ja:
         title: Oauth2 Provider
     scopes:
       read: メールアドレスを含む基本的なプロフィール情報の読み取り
+      write: リソースの作成・修正
