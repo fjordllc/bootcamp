@@ -6,6 +6,6 @@ class PressReleasesController < ApplicationController
   layout 'lp'
 
   def index
-    @press_releases = Article.press_releases.includes(%i[user thumbnail_attachment]).order(published_at: :desc).page(params[:page])
+    @press_releases = Article.press_releases.page(params[:page])
   end
 end
