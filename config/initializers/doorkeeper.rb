@@ -14,8 +14,8 @@ orm :active_record
     end
   end
 
-  # デフォルトのスコープを read に設定
-  # これにより承認されたアプリケーションは API から公開データの「読み取り」が可能
-  default_scopes :read
+  # クライアントアプリが、BootCampアプリのリソースをどの範囲まで使用できるかを設定
+  # read = 読み取り, write = 書き込み
+  default_scopes :read, :write
   enforce_configured_scopes
 end
