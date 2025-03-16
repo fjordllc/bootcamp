@@ -93,6 +93,6 @@ module UserDecorator
   end
 
   def joining_status
-    'new-user' if elapsed_days <= 7
+    elapsed_days <= 7 ? 'new-user' : 'standard-user'
   end
 end
