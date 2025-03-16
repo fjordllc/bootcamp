@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module MarkdownHelper
+  include ActionView::Helpers::OutputSafetyHelper
+
   def markdown_to_plain_text(markdown_content)
     html = CommonMarker.render_html(markdown_content)
     Nokogiri::HTML(html).text.strip
@@ -8,6 +10,7 @@ module MarkdownHelper
 
   def md2html(text)
     return '' if text.nil?
+    return text.to_s unless text.is_a?(String)
 
     html = Kramdown::Document.new(text, input: 'GFM', hard_wrap: true).to_html
     doc = Nokogiri::HTML::DocumentFragment.parse(html)
@@ -20,7 +23,7 @@ module MarkdownHelper
   end
 
   def md_summary(comment, word_count)
-    summary = strip_tags(md2html(comment)).gsub(/[\r\n]/, '')
+    summary = ActionController::Base.helpers.strip_tags(md2html(comment)).gsub(/[\r\n]/, '')
     simple_format(truncate(summary, length: word_count))
   end
 
@@ -43,7 +46,7 @@ module MarkdownHelper
                         end
 
     html_content = md2html(processed_comment)
-    strip_tags(html_content).gsub(/[\r\n]/, '')
+    ActionController::Base.helpers.strip_tags(html_content).gsub(/[\r\n]/, '')
   end
 
   def find_match_in_text(text, word)
