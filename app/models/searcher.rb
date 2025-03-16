@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Searcher
-  include SearchHelper
-
   DOCUMENT_TYPES = [
     ['すべて', :all], ['お知らせ', :announcements], ['プラクティス', :practices],
     ['日報', :reports], ['提出物', :products], ['Q&A', :questions],
@@ -13,6 +11,8 @@ class Searcher
   AVAILABLE_TYPES = DOCUMENT_TYPES.map(&:second) - %i[all] + %i[comments answers]
 
   class << self
+    include SearchHelper
+
     def search(word, current_user:, document_type: :all)
       words = word.split(/[[:blank:]]+/).reject(&:blank?)
       searchables = fetch_results(words, document_type) || []
