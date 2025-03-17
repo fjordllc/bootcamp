@@ -6,6 +6,8 @@ class ArticlesController < ApplicationController
   before_action :require_admin_or_mentor_login, except: %i[index show]
 
   def index
+    return redirect_to articles_path, alert: '管理者・メンターとしてログインしてください' if params[:tag] && !admin_or_mentor_login?
+
     @articles = sorted_articles.preload([:tags]).page(params[:page])
     @articles = @articles.tagged_with(params[:tag]) if params[:tag]
     number_per_page = @articles.page(1).limit_value
