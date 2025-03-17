@@ -70,6 +70,15 @@ nav.global-nav
             .global-nav-links__link-icon
               i.fa-solid.fa-beer
             .global-nav-links__link-label イベント
+        / logoをペアワークの物に変更する
+        li.global-nav-links__item
+          = link_to pair_works_path(target: 'not_solved'), class: "global-nav-links__link #{current_link(/^pair_works/)}" do
+            .global-nav-links__link-icon
+              i.fa-solid.fa-comments-question-check
+            - if PairWork.not_solved.not_wip.count.positive?
+              .global-nav__item-count.a-notification-count
+                = PairWork.not_solved.not_wip.count
+            .global-nav-links__link-label ペアワーク
         li.global-nav-links__item
           = link_to action_uncompleted_index_path(current_user.talk), class: "global-nav-links__link #{current_link(/talk/)}" do
             .global-nav-links__link-icon
