@@ -7,12 +7,7 @@ class Metadata
 
   def fetch
     response = Link::Client.request(@url)
-    case response
-    when Net::HTTPSuccess
-      parse(response.body)
-    else
-      false
-    end
+    response.message == 'OK' ? parse(response.body) : nil
   end
 
   private
