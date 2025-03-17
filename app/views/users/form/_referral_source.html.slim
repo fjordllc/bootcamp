@@ -1,11 +1,12 @@
 .form-item
-  = f.label :referral_source, 'どこでFBCを知りましたか？', class: 'a-form-label is-required'
+  = f.label :referral_source, 'フィヨルドブートキャンプをどのようにして知りましたか？', class: 'a-form-label is-required'
   ul.block-checks.is-2-items.mt-4
     = f.collection_radio_buttons :referral_source, User.referral_sources, :first, :first do |b|
       li.block-checks__item
-        = b.radio_button
-        = b.label(for: "user_referral_source_#{b.value}")
-          = t("activerecord.enums.user.referral_source.#{b.text}")
+        .a-block-check.is-radio
+          = b.radio_button(class: 'a-toggle-checkbox')
+          = b.label(for: "user_referral_source_#{b.value}", class: 'a-block-check__label is-ta-left')
+            = t("activerecord.enums.user.referral_source.#{b.text}")
 .form-item.hidden(id='other_referral_source_form')
-  = f.label :other_referral_source, 'その他を選んだ方はFBCを知った経路を教えてください。', class: 'a-form-label is-required'
-  = f.text_field :other_referral_source, id: 'other_referral_source', placeholder: 'SNS名など'
+  = f.label :other_referral_source, '「その他」を選んだ方は、フィヨルドブートキャンプを知った具体的な経路をご記入ください。', class: 'a-form-label is-required'
+  = f.text_field :other_referral_source, id: 'other_referral_source', placeholder: 'ブログ名など', class: 'a-text-input'

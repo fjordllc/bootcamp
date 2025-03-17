@@ -463,7 +463,7 @@ class SignUpTest < ApplicationSystemTestCase
     find('label', text: 'その他').click
     assert_text 'その他を選んだ方はFBCを知った経路を教えてください。'
     fill_in 'user[other_referral_source]', with: 'mixi2'
-    find('label', text: '知人の口コミ').click
+    find('label', text: '知人の紹介').click
 
     fill_stripe_element('4242 4242 4242 4242', '12 / 50', '111')
 
