@@ -68,14 +68,18 @@
       = render 'users/form/sns', f: f
   - else
     .form__items
+      h3.form__items-title パスワード
       = render 'users/form/password', f: f, from: from
 
   - if user.mentor? || user.adviser? || user.graduated_on? || user.admin?
     .form__items
+      h3.form__items-title 所属企業情報
       = render 'users/form/company', f: f, user: user
 
   - if from == :new && user.student? && !user.grant_course?
-    = render 'users/form/card'
+    .form__items
+      h3.form__items-title クレジットカード情報
+      = render 'users/form/card'
 
   - if user.mentor?
     .form__items
@@ -186,6 +190,9 @@
         .a-form-help
           = link_to 'プライバシーポリシーを確認（別タブで開きます）', pp_path, target: '_blank', rel: 'noopener'
 
+    .form__items
+      h3.form__items-title
+        | アンケートのご協力をお願いします
       = render 'users/form/referral_source', f: f
 
   - if from == :new
