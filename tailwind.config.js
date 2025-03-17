@@ -2,11 +2,12 @@
 module.exports = {
   content: [
     './app/views/**/*.html.slim',
-    './app/javascript/**/*.{js,vue,jsx}',
+    './app/components/**/*.html.slim',
+    './app/javascript/**/*.{js,vue,jsx}'
   ],
   theme: {
-    extend: {},
+    extend: {}
   },
   plugins: [],
-  important: true,
+  important: true
 }
