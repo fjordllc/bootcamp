@@ -379,8 +379,8 @@ ja:
           other_editor: その他
         referral_source:
           search_engine: 検索エンジン
-          referral: 知人の口コミ
-          event: エンジニアイベント
+          referral: 知人の紹介
+          event: テックイベント
           x: X（旧Twitter）
           facebook: Facebook
           blog: ブログ記事
