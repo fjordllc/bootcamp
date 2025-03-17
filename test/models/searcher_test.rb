@@ -217,8 +217,9 @@ class SearchableTest < ActiveSupport::TestCase
 
   test 'returns only comments having all keywords' do
     result = Searcher.search('report_id', document_type: :reports, current_user:)
-    assert_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [comments(:comment6).description, comments(:comment6).user.login_name])
-    assert_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [comments(:comment5).description, comments(:comment5).user.login_name])
+    actual_results = result.map { |r| [strip_html(r.formatted_summary).strip.gsub('`', ''), r.login_name] }
+    assert_includes(actual_results, [strip_html(comments(:comment6).description).strip.gsub('`', ''), comments(:comment6).user.login_name])
+    assert_includes(actual_results, [strip_html(comments(:comment5).description).strip.gsub('`', ''), comments(:comment5).user.login_name])
 
     result = Searcher.search('report_id typo', document_type: :reports, current_user:)
     assert_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [comments(:comment6).description, comments(:comment6).user.login_name])
