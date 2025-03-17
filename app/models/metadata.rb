@@ -11,7 +11,7 @@ class Metadata
     when Net::HTTPSuccess
       parse(response.body)
     else
-      {}
+      false
     end
   end
 
