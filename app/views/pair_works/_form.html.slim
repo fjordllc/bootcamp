@@ -1,0 +1,75 @@
+= render 'errors', object: pair_work
+= form_with model: pair_work, local: true, class: 'form', html: { name: 'pair_work' } do |f|
+  .form__items
+    .form-item
+      .form-item
+        .row
+          .col-lg-6.col-xs-12
+            .form-item
+              .select-practices
+                = f.select :practice_id,
+                  practice_options_within_course,
+                  { include_blank: 'プラクティス選択なし' },
+                  { class: 'js-choices-singles', id: 'js-choices-practice' }
+
+      .form-item
+        .row.js-markdown-parent
+          .col-md-6.col-xs-12
+            = f.label :title, class: 'a-form-label'
+            = f.text_field :title, class: 'a-text-input js-warning-form', placeholder: 'lsコマンドのペアワークを申し込みます'
+      .form-item
+        .row.js-markdown-parent
+          .col-md-6.col-xs-12
+            = f.label :description, class: 'a-form-label'
+            .form-textarea
+              .form-textarea__body
+                = f.text_area :description, class: 'a-text-input markdown-form__text-area js-markdown js-warning-form',
+                data: { 'preview': '.js-preview', 'input': '.file-input' }
+              .form-textarea__footer
+                .form-textarea__bottom-note
+                  | 途中保存は「#{request.os == 'Mac OSX' ? 'command + s' : 'Ctrl + s'}」 マメに保存しよう。
+          .col-md-6.col-xs-12
+            .a-form-label
+              | プレビュー
+            .js-preview.a-long-text.is-md.practices-edit__input.markdown-form__preview
+
+      - if pair_work.new_record?
+        .form-item
+          = f.label :schedule, '希望日時', class: 'a-form-label'
+          .form-table.is-sm.max-h-96.is-sticky.mt-4.pair_work_schedule
+            table.min-w-full
+              thead
+                tr
+                  th
+                  - schedule_dates(Time.current).each do |day|
+                    th = l day, format: :mdw_unique
+              tbody
+                - 24.times do |hour|
+                  tr(class='hover:bg-[var(--background-more-tint)]')
+                    th
+                      | #{hour}:00
+                    - sorted_wdays(Time.current).each_with_index do |wday, day|
+                      - value = Time.current.beginning_of_day + hour.hour + day.day
+                      - disabled = value < Time.current
+                      - id = wday * 24 + hour + 1
+                      - checked = !disabled && current_user.learning_time_frames.ids.include?(id)
+                      td.form-table__check
+                        = f.label :pair_work_schedule, for: "pair_work_schedule_ids_#{value}" do
+                          span
+                            = f.check_box :pair_work_schedule, { multiple: true, id: "pair_work_schedule_ids_#{value}", disabled: disabled, checked: checked }, value, false
+      - else
+        = render 'schedule', pair_work: pair_work
+
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item.is-main
+        = f.submit 'WIP', class: 'a-button is-lg is-secondary is-block', id: 'js-shortcut-wip'
+      li.form-actions__item.is-main
+        - if pair_work.new_record?
+          = f.submit '登録する', class: 'a-button is-lg is-primary is-block'
+        - elsif pair_work.wip?
+          = f.submit 'ペアワークを公開', class: 'a-button is-lg is-primary is-block'
+        - else
+          = f.submit '更新する', class: 'a-button is-lg is-primary is-block'
+      li.form-actions__item
+        = link_to 'キャンセル', pair_works_path(target: 'not_solved'), class: 'a-button is-sm is-secondary'
