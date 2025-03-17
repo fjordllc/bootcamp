@@ -1,0 +1,40 @@
+- title @pair_works_property.title
+- set_meta_tags description: 'ペアワークの一覧です。'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        .page-header__title
+          | ペアワーク
+      .page-header__end
+        .page-header-actions
+          .page-header-actions__items
+            .page-header-actions__item
+              = link_to new_pair_work_path, class: 'a-button is-md is-secondary is-block' do
+                i.fa-regular.fa-plus
+                span
+                  | ペアワーク募集する
+
+= pair_works_page_tabs
+
+.page-main
+  - if @pair_works.empty?
+    .o-empty-message
+      .o-empty-message__icon
+        .card-list.a-card
+          .card-body__description
+            .o-empty-message
+              .o-empty-message__icon
+                i.fa-regular.fa-sad-tear
+              .o-empty-message__text
+                | ペアワーク募集はまだありません。
+  - else
+    .page-body
+      .container.is-md
+        .page_content.pair_works
+          = paginate @pair_works
+          .card-list.a-card
+            .card-list__items
+              = render partial: 'pair_work', collection: @pair_works
+          = paginate @pair_works

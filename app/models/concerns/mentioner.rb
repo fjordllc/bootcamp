@@ -26,6 +26,9 @@ module Mentioner
       "#{user.login_name}さんのQ&A「#{practice_title}」"
     when MicroReport
       "#{user.login_name}さんの分報"
+    when PairWork
+      practice_title = practice ? practice[:title] : 'プラクティス選択なし'
+      "#{user.login_name}さんのペアワーク「#{practice_title}」"
     end
   end
 
