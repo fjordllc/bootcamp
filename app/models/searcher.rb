@@ -5,7 +5,7 @@ class Searcher
     ['すべて', :all], ['お知らせ', :announcements], ['プラクティス', :practices],
     ['日報', :reports], ['提出物', :products], ['Q&A', :questions],
     ['Docs', :pages], ['イベント', :events], ['定期イベント', :regular_events],
-    ['ユーザー', :users]
+    ['ユーザー', :users], ['ペアワーク', :pair_works]
   ].freeze
 
   AVAILABLE_TYPES = DOCUMENT_TYPES.map(&:second) - %i[all] + %i[comments answers]
