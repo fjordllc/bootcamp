@@ -461,7 +461,7 @@ class SignUpTest < ApplicationSystemTestCase
       find('label', text: '利用規約に同意').click
     end
     find('label', text: 'その他').click
-    assert_text 'その他を選んだ方はFBCを知った経路を教えてください。'
+    assert_text '「その他」を選んだ方は、フィヨルドブートキャンプを知った具体的な経路をご記入ください。'
     fill_in 'user[other_referral_source]', with: 'mixi2'
     find('label', text: '知人の紹介').click
 
