@@ -1,5 +1,5 @@
-- title "#{@word} の検索結果"
-- set_meta_tags description: "#{@word}の検索結果一覧ページです。"
+- title '#{@word} の検索結果'
+- set_meta_tags description: '#{@word}の検索結果一覧ページです。'
 
 header.page-header
   .container
@@ -15,10 +15,10 @@ header.page-header
       .card-list.a-card
         - @searchables.each do |searchable|
           - next if searchable.model_name == 'talk'
-          span class="card-list-item is-#{searchable.model_name}"
+          span class='card-list-item is-#{searchable.model_name}'
             .card-list-item__inner
               - searchable_user = User.find_by(id: searchable.user_id)
-              - if searchable.model_name == "user"
+              - if searchable.model_name == 'user'
                 .card-list-item__user
                   = link_to "/users/#{searchable_user.id}", class: 'card-list-item__user-link' do
                     span.a-user-role class="is-#{searchable.primary_role}"
@@ -34,16 +34,13 @@ header.page-header
                     - if searchable.wip
                       .a-list-item-badge.is-wip
                         span WIP
-                    - elsif searchable.model_name == "user"
+                    - elsif searchable.model_name == 'user'
                       .a-list-item-badge.is-searchable
                         span ユーザー
-                    - elsif searchable.model_name == "comment"
+                    - elsif searchable.model_name == 'comment'
                       .a-list-item-badge.is-searchable
                         span コメント
-                    - elsif searchable.model_name == "answer" 
-                      .a-list-item-badge.is-searchable
-                        span コメント
-                    - elsif searchable.model_name == "correct_answer" 
+                    - elsif searchable.model_name.in?(%w[answer correct_answer])
                       .a-list-item-badge.is-searchable
                         span コメント
                     .card-list-item-title__title
@@ -51,33 +48,32 @@ header.page-header
 
                 .card-list-item__row
                   .card-list-item__summary
-                    p= raw(searchable.formatted_summary)
+                    p= sanitize(searchable.formatted_summary)
 
                 .card-list-item__row
                   .card-list-item-meta
                     .card-list-item-meta__items
-                        - if searchable_user && searchable.model_name != "user"
+                      - if searchable_user && searchable.model_name != 'user'
+                        .card-list-item-meta__item
+                          .card-list-item-meta__user
+                            = link_to "/users/#{searchable_user.id}", class: 'card-list-item-meta__icon-link' do
+                              span.a-user-role class="is-#{searchable.primary_role}"
+                                = image_tag searchable_user.avatar_url, class: 'card-list-item-meta__icon a-user-icon'
+                            = link_to searchable_user.login_name, "/users/#{searchable_user.id}", class: 'a-user-name'
+                      .card-list-item-meta__item
+                        time.a-meta datetime=searchable.formatted_updated_at pubdate='pubdate'
+                          = searchable.formatted_updated_at
+                      .card-list-item-meta__item
+                        .a-meta
+                          - if searchable.model_name == 'comment'
+                            = safe_join(["(", link_to(searchable.commentable_user&.login_name, "/users/#{searchable.commentable_user&.id}", class: 'a-user-name'), " #{searchable.commentable_type})"], ' ')
+                          - elsif searchable.model_name.in?(%w[answer correct_answer])
+                            = safe_join(["(", link_to(searchable.commentable_user&.login_name, "/users/#{searchable.commentable_user&.id}", class: 'a-user-name'), ' Q&A)'], ' ')
+                      - if current_user.admin? && searchable.model_name == 'user'
+                        - talk = Talk.find_by(user_id: searchable_user.id)
+                        - if talk.present?
                           .card-list-item-meta__item
-                            .card-list-item-meta__user
-                              = link_to "/users/#{searchable_user.id}", class: 'card-list-item-meta__icon-link' do
-                                span.a-user-role class="is-#{searchable.primary_role}"
-                                  = image_tag searchable_user.avatar_url, class: 'card-list-item-meta__icon a-user-icon'
-                              = link_to searchable_user.login_name, "/users/#{searchable_user.id}", class: 'a-user-name'
-                        .card-list-item-meta__item
-                          time.a-meta datetime=searchable.formatted_updated_at pubdate='pubdate'
-                            = searchable.formatted_updated_at
-                        .card-list-item-meta__item
-                          .a-meta
-                            - if searchable.model_name == 'comment'
-                              = raw "(#{link_to(searchable.commentable_user&.login_name, "/users/#{searchable.commentable_user&.id}", class: 'a-user-name')} #{searchable.commentable_type})"
-                            - elsif searchable.model_name.in?(%w[answer correct_answer])
-                              = raw "(#{link_to(searchable.commentable_user&.login_name, "/users/#{searchable.commentable_user&.id}", class: 'a-user-name')} Q&A)"
-                        - if current_user.admin? && searchable.model_name == 'user'
-                          - talk = Talk.find_by(user_id: searchable_user.id)
-                          - if talk.present?
-                            .card-list-item-meta__item
-                              = link_to '相談部屋', talk_path(talk), class: 'a-text-link'
-
+                            = link_to '相談部屋', talk_path(talk), class: 'a-text-link'
   - else
     .o-empty-message
       .o-empty-message__icon
