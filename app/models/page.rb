@@ -30,6 +30,10 @@ class Page < ApplicationRecord
     Page.find_by!(attr_name => params)
   end
 
+  def description
+    body # description が求められる場合は body を返す
+  end
+
   private
 
   def empty_slug_to_nil
