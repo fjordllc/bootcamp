@@ -41,8 +41,6 @@ class Article < ApplicationRecord
             content_type: %w[image/png image/jpeg],
             size: { less_than: 10.megabytes }
 
-  after_validation :reset_published_at_if_invalid
-
   paginates_per 24
   acts_as_taggable
 
@@ -67,7 +65,7 @@ class Article < ApplicationRecord
   end
 
   def before_initial_publish?
-    published_at.nil?
+    attribute_in_database(:published_at).nil?
   end
 
   def generate_token!
@@ -77,16 +75,10 @@ class Article < ApplicationRecord
   private
 
   def will_be_published?
-    !wip && published_at.nil?
+    !wip && before_initial_publish?
   end
 
   def set_published_at
     self.published_at = Time.current
-  end
-
-  def reset_published_at_if_invalid
-    return unless errors.any?
-
-    self.published_at = nil
   end
 end
