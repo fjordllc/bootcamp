@@ -326,4 +326,20 @@ class PagesTest < ApplicationSystemTestCase
     end
     assert_equal '.file-input', find('textarea.a-text-input')['data-input']
   end
+
+  test 'check if Docs are sorted by update order' do
+    practice = practices(:practice1)
+    page1 = Page.create!(title: '三番目に新しい更新のDocs', body: 'test', user: users(:komagata), practice:, updated_at: Time.current,
+                         published_at: Time.current)
+    page2 = Page.create!(title: '二番目に新しい更新のDocs', body: 'test', user: users(:komagata), practice:, updated_at: Time.current,
+                         published_at: Time.current)
+    page3 = Page.create!(title: '一番新しい更新のDocs', body: 'test', user: users(:komagata), practice:, updated_at: Time.current, published_at: Time.current)
+
+    visit_with_auth "/pages/#{page1.id}", 'kimura'
+
+    sidebar_titles = all('li.a-side-nav__item .a-side-nav__item-link-inner').take(3).map(&:text)
+
+    expected_order = [page3.title, page2.title, page1.title]
+    assert_equal expected_order, sidebar_titles, 'サイドバーのDocsのタイトルの順番が更新順と一致しません。'
+  end
 end
