@@ -11,7 +11,7 @@ class SearchablesTest < ApplicationSystemTestCase
       fill_in 'word', with: search_word
     end
     find('#test-search').click
-    summaries = all('.card-list-item__summary')
+    summaries = all('.card-list-item__summary.p')
     summaries.each do |summary|
       assert_includes summary.text, search_word
     end
