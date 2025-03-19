@@ -1,12 +1,11 @@
-- title '#{@word} の検索結果'
-- set_meta_tags description: '#{@word}の検索結果一覧ページです。'
+- title("#{@word} の検索結果")
+- set_meta_tags({ description: "#{@word}の検索結果一覧ページです。" })
 
 header.page-header
   .container
     .page-header__inner
       .page-header__start
-        h2.page-header__title
-          | '#{@word}' の検索結果
+        h2.page-header__title = "#{@word} の検索結果"
 
 .page-body
   = paginate @searchables
@@ -15,7 +14,7 @@ header.page-header
       .card-list.a-card
         - @searchables.each do |searchable|
           - next if searchable.model_name == 'talk'
-          span class='card-list-item is-#{searchable.model_name}'
+          span class="card-list-item is-#{searchable.model_name}"
             .card-list-item__inner
               - searchable_user = User.find_by(id: searchable.user_id)
               - if searchable.model_name == 'user'
@@ -48,7 +47,7 @@ header.page-header
 
                 .card-list-item__row
                   .card-list-item__summary
-                    p= sanitize(searchable.formatted_summary)
+                    p = sanitize(searchable.formatted_summary)
 
                 .card-list-item__row
                   .card-list-item-meta
@@ -66,9 +65,9 @@ header.page-header
                       .card-list-item-meta__item
                         .a-meta
                           - if searchable.model_name == 'comment'
-                            = safe_join(["(", link_to(searchable.commentable_user&.login_name, "/users/#{searchable.commentable_user&.id}", class: 'a-user-name'), " #{searchable.commentable_type})"], ' ')
+                            = safe_join(['(', link_to(searchable.commentable_user&.login_name, "/users/#{searchable.commentable_user&.id}", class: 'a-user-name'), " #{searchable.commentable_type})"], ' ')
                           - elsif searchable.model_name.in?(%w[answer correct_answer])
-                            = safe_join(["(", link_to(searchable.commentable_user&.login_name, "/users/#{searchable.commentable_user&.id}", class: 'a-user-name'), ' Q&A)'], ' ')
+                            = safe_join(['(', link_to(searchable.commentable_user&.login_name, "/users/#{searchable.commentable_user&.id}", class: 'a-user-name'), ' Q&A)'], ' ')
                       - if current_user.admin? && searchable.model_name == 'user'
                         - talk = Talk.find_by(user_id: searchable_user.id)
                         - if talk.present?
