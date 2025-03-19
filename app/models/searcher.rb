@@ -24,47 +24,24 @@ class Searcher
     private
 
     def fetch_results(words, document_type)
-      return fetch_results_for_all(words) if document_type == :all
+      return results_for_all(words) if document_type == :all
 
       model = model(document_type)
       return result_for_comments(document_type, words) if model.include?(Commentable)
       return result_for_questions(document_type, words) if document_type == :questions
 
-      AVAILABLE_TYPES.reject { |type| type == :users }
-                            .flat_map do |type|
-                              model = model(type)
-                              next [] unless model.column_names.include?('user_id') || model.column_names.include?('last_updated_user_id')
-
-                              if type == :practices
-                                model.where('last_updated_user_id = ?', user.id)
-                              else
-                                model.where(user_id: user.id)
-                              end
-                            end
-                            .uniq
-                            .select { |result| words.all? { |word| result_matches_keyword?(result, word) } }
-                            .sort_by(&:updated_at)
-                            .reverse
-    else
-      results = AVAILABLE_TYPES.flat_map { |type| result_for(type, words) }
-                               .uniq
-                               .select { |result| words.all? { |word| result_matches_keyword?(result, word) } }
-                               .sort_by(&:updated_at)
-                               .reverse
-      results += result_for(:users, words)
-      results
+      result_for(document_type, words) || []
     end
-  end  
 
-  def self.result_for(type, words, commentable_type: nil)
-    raise ArgumentError, "#{type} is not an available type" unless type.in?(AVAILABLE_TYPES)
+    def results_for_all(words)
+      user_filter = words.find { |word| word.match(/^user:(\w+)$/) }&.delete_prefix('user:')
+      return search_by_user_filter(user_filter, words) if user_filter
 
-    if type == :users
-      return User.where(
-        words.map { |_word| 'login_name ILIKE ? OR name ILIKE ? OR description ILIKE ?' }
-             .join(' AND '),
-        *words.flat_map { |word| ["%#{word}%", "%#{word}%", "%#{word}%"] }
-      )
+      AVAILABLE_TYPES.map { |type| result_for(type, words) }
+                     .flatten
+                     .uniq
+                     .sort_by(&:updated_at)
+                     .reverse
     end
 
     def result_for(type, words)
