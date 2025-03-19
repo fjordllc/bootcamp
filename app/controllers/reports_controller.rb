@@ -42,7 +42,6 @@ class ReportsController < ApplicationController
 
     report              = current_user.reports.find(params[:id])
     @report.title       = report.title
-    @report.emotion = report.emotion
     @report.description = "<!-- #{report.reported_on} の日報をコピー -->\n" + report.description
     @report.practices   = report.practices
     flash.now[:notice] = '日報をコピーしました。'
