@@ -70,7 +70,6 @@ Rails.application.routes.draw do
       resource :passed, only: %i(show), controller: 'passed'
     end
     resources :products, only: %i(index show)
-    resources :searchables, only: %i(index)
     resources :bookmarks, only: %i(index create destroy)
     resources :events, only: %i(index)
     resources :report_templates, only: %i(create update)
