@@ -24,7 +24,7 @@ class Searcher
     private
 
     def fetch_results(words, document_type)
-      return fetch_results_for_all(words) if document_type == :all
+      return results_for_all(words) if document_type == :all
 
       model = model(document_type)
       return result_for_comments(document_type, words) if model.include?(Commentable)
@@ -33,7 +33,7 @@ class Searcher
       result_for(document_type, words) || []
     end
 
-    def fetch_results_for_all(words)
+    def results_for_all(words)
       user_filter = words.find { |word| word.match(/^user:(\w+)$/) }&.delete_prefix('user:')
       return search_by_user_filter(user_filter, words) if user_filter
 
