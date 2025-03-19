@@ -329,11 +329,11 @@ class PagesTest < ApplicationSystemTestCase
 
   test 'check if Docs are sorted by update order' do
     practice = practices(:practice1)
-    page1 = Page.create!(title: '三番目に新しい更新のDocs', body: 'test', user: users(:komagata), practice:, updated_at: Time.current,
-                         published_at: Time.current)
-    page2 = Page.create!(title: '二番目に新しい更新のDocs', body: 'test', user: users(:komagata), practice:, updated_at: Time.current,
-                         published_at: Time.current)
-    page3 = Page.create!(title: '一番新しい更新のDocs', body: 'test', user: users(:komagata), practice:, updated_at: Time.current, published_at: Time.current)
+    user = users(:komagata)
+    now = Time.current
+    page1 = Page.create!(title: '三番目に新しい更新のDocs', body: '三番目に新しいです。', user:, practice:, updated_at: now + 1.hour)
+    page2 = Page.create!(title: '二番目に新しい更新のDocs', body: '二番目に新しいです。', user:, practice:, updated_at: now + 2.hours)
+    page3 = Page.create!(title: '一番新しい更新のDocs', body: '一番新しいです。', user:, practice:, updated_at: now + 3.hours)
 
     visit_with_auth "/pages/#{page1.id}", 'kimura'
 
