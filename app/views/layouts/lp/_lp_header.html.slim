@@ -58,7 +58,7 @@ header.lp-header
           label.lp-header-nav__overlay(for='welcome-mobile-nav')
 
       .lp-header__end
-        .lp-header__login.is-hidden-md-down
+        .lp-header__login
           - if current_user
             = link_to course_practices_path(current_user.course), class: 'a-button is-sm is-secondary is-block' do
               | プラクティス
