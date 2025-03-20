@@ -392,6 +392,13 @@ ja:
           average: どちらでもない
           poor: 悪い
           very_poor: とても悪い
+        career_path:
+          before_graduation: 卒業前
+          employed_via_referral: 就職した（Lokkaの紹介）
+          employed_without_referral: 就職した（Lokkaの紹介を使わず）
+          employed_non_it: IT系以外に就職した
+          internal_transfer_to_programmer: 社内転職でプログラマーになった
+          not_employed: 就職していない
       learning:
         status:
           unstarted: 未着手

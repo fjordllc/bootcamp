@@ -83,6 +83,14 @@ class User < ApplicationRecord
     blog: 5,
     web_ad: 6,
     other: 99
+
+    enum career_path: {
+    before_graduation: 0,
+    employed_via_referral: 1,
+    employed_without_referral: 2,
+    employed_non_it: 3,
+    internal_transfer_to_programmer: 4,
+    not_employed: 5
   }, _prefix: true
 
   belongs_to :company, optional: true
