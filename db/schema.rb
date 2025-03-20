@@ -922,6 +922,8 @@ ActiveRecord::Schema.define(version: 2025_03_24_002043) do
     t.integer "experiences", default: 0, null: false
     t.integer "referral_source"
     t.text "other_referral_source"
+    t.integer "career_path", default: 0, null: false
+    t.text "career_memo"
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true
