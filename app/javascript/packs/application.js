@@ -65,6 +65,7 @@ import '../answer.js'
 import '../new-answer.js'
 import '../coding-test.js'
 import '../copy-url.js'
+import '../survey_result_chart.js'
 import '../footprints.js'
 
 import VueMounter from '../VueMounter.js'
