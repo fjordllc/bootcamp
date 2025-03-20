@@ -91,7 +91,6 @@ group :development do
 
   # not default
   gem 'bullet'
-  gem 'bundle_outdated_formatter'
   gem 'foreman'
   gem 'letter_opener_web', '~> 2.0'
   gem 'rack-dev-mark'

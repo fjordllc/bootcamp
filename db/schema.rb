@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_01_30_052357) do
+ActiveRecord::Schema.define(version: 2025_03_04_062341) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -724,6 +724,27 @@ ActiveRecord::Schema.define(version: 2025_01_30_052357) do
     t.index ["practice_id"], name: "index_submission_answers_on_practice_id"
   end
 
+  create_table "survey_answers", force: :cascade do |t|
+    t.bigint "survey_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["survey_id", "user_id"], name: "index_survey_answers_on_survey_id_and_user_id", unique: true
+    t.index ["survey_id"], name: "index_survey_answers_on_survey_id"
+    t.index ["user_id"], name: "index_survey_answers_on_user_id"
+  end
+
+  create_table "survey_question_answers", force: :cascade do |t|
+    t.bigint "survey_answer_id", null: false
+    t.bigint "survey_question_id", null: false
+    t.text "answer"
+    t.text "reason"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["survey_answer_id"], name: "index_survey_question_answers_on_survey_answer_id"
+    t.index ["survey_question_id"], name: "index_survey_question_answers_on_survey_question_id"
+  end
+
   create_table "survey_question_listings", force: :cascade do |t|
     t.bigint "survey_id", null: false
     t.bigint "survey_question_id", null: false
@@ -934,6 +955,10 @@ ActiveRecord::Schema.define(version: 2025_01_30_052357) do
   add_foreign_key "request_retirements", "users"
   add_foreign_key "request_retirements", "users", column: "target_user_id"
   add_foreign_key "submission_answers", "practices"
+  add_foreign_key "survey_answers", "surveys"
+  add_foreign_key "survey_answers", "users"
+  add_foreign_key "survey_question_answers", "survey_answers"
+  add_foreign_key "survey_question_answers", "survey_questions"
   add_foreign_key "survey_question_listings", "survey_questions"
   add_foreign_key "survey_question_listings", "surveys"
   add_foreign_key "survey_questions", "users"
