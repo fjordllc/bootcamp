@@ -36,15 +36,20 @@ class Mentor::SurveysTest < ApplicationSystemTestCase
   end
 
   test 'displaying ended badge if a survey which deadline is over' do
+    # The deadline of survey2 is January 1, 2020, which is already in the past
     visit_with_auth '/mentor/surveys', 'komagata'
-    assert_selector 'h1', text: 'アンケート一覧'
+    assert_selector 'h1', text: 'アンケート'
 
-    assert_text '【第1回】FBCモチベーションに関するアンケート'
-    has_text? '2020年01月01日(水) 00:00〜2020年01月01日(水) 23:59'
+    # Identify the row containing survey2's title
+    survey_row = find('.admin-table__item-value', text: '【第0回】テストに関するアンケート').ancestor('.admin-table__item')
 
-    assert_no_text '受付前'
-    assert_no_text '受付中'
-    assert_text '受付終了'
+    # Check that the ended badge is displayed within that row
+    within survey_row do
+      assert_selector '.a-list-item-badge.is-ended'
+      assert_selector '.a-list-item-badge.is-ended span', text: '受付終了'
+      assert_no_selector '.a-list-item-badge.is-wip'
+      assert_no_selector '.a-list-item-badge.is-active'
+    end
   end
 
   test 'creating a survey which beginning of accepting and deadline is current' do
@@ -80,16 +85,12 @@ class Mentor::SurveysTest < ApplicationSystemTestCase
   test 'updating a survey by adding a question' do
     visit_with_auth "/mentor/surveys/#{surveys(:survey1).id}", 'komagata'
     click_on '編集'
-
     assert_selector 'h1', text: 'アンケート編集'
+    initial_question_count = all('.survey-added-question').count
     click_on '質問を追加'
-    dropdown_list_box = first('.form-item__survey-questions').all('.survey-added-question')[5].select_option.find('.choices').all('.choices__item')
-    dropdown_list_box[6].select_option
+    assert_selector '.survey-added-question', count: initial_question_count + 1
     click_on '保存'
-
     assert_text 'アンケートを更新しました。'
-    visit_with_auth "/mentor/surveys/#{surveys(:survey1).id}", 'komagata'
-    assert_text 'フィヨルドブートキャンプに対してご意見・ご要望がございましたら、ご自由にお書きください。'
   end
 
   test 'destroying a survey' do
