@@ -67,6 +67,18 @@
                     = render 'users/metas', user: @user, user_course_practice: UserCoursePractice.new(@user)
 
           .col-xs-12(class="#{visible_learning_time_frames?(@user) ? 'col-lg-4 col-xxl-4' : 'col-lg-6 col-xxl-6'}")
+            - if admin_login?
+              .a-card.is-only-mentor
+                .card-header.is-sm
+                  h2.card-header__title
+                    | 卒業後の進路
+                hr.a-border-tint
+                .user-statuses
+                  .user-statuses__items
+                    .user-statuses__item
+                      = t("activerecord.enums.user.career_path.#{@user.career_path}")
+                    .user-statuses__item
+                      = @user.career_memo
             - if admin_or_mentor_login?
               = render 'users/user_mentor_memo', user_id: @user.id
             - unless @user.total_learning_time.zero? || @user.mentor?
