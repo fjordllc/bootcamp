@@ -18,9 +18,13 @@ class SubTabs::SurveysHelperTest < ActionView::TestCase
 
       component_mock
     }) do
-      result = mentor_surveys_sub_tabs(active_tab: 'アンケート')
+      stub(:render, lambda { |component|
+        component.call
+      }) do
+        result = mentor_surveys_sub_tabs(active_tab: 'アンケート')
 
-      assert_equal 'rendered component', result
+        assert_equal 'rendered component', result
+      end
     end
 
     component_mock.verify
@@ -41,9 +45,13 @@ class SubTabs::SurveysHelperTest < ActionView::TestCase
 
       component_mock
     }) do
-      result = mentor_surveys_sub_tabs(active_tab: '質問')
+      stub(:render, lambda { |component|
+        component.call
+      }) do
+        result = mentor_surveys_sub_tabs(active_tab: '質問')
 
-      assert_equal 'rendered component', result
+        assert_equal 'rendered component', result
+      end
     end
 
     component_mock.verify
