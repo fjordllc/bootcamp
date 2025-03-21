@@ -741,17 +741,12 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 2, user.latest_micro_report_page
   end
 
-  test 'convert to nil during saving when country_code is empty string' do
+  test 'convert to nil during saving when country_code and subdivision_code is empty string' do
     user = users(:hajime)
     user.country_code = ''
-    user.save!
-    assert_nil user.country_code
-  end
-
-  test 'convert to nil during saving when subdivision_code is empty string' do
-    user = users(:hajime)
     user.subdivision_code = ''
     user.save!
+    assert_nil user.country_code
     assert_nil user.subdivision_code
   end
 end
