@@ -7,11 +7,15 @@
 
 .lp-header-nav__items
   display: flex
+  +media-breakpoint-up(xxl)
+    gap: 1rem
   +media-breakpoint-up(xl)
     height: 100%
     align-items: center
     gap: .5rem
     font-size: .875rem
+  +media-breakpoint-only(xl)
+    gap: .25rem
   +media-breakpoint-down(lg)
     flex-direction: column
     +position(fixed, left 0, top 0, bottom 0, 2)
