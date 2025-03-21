@@ -69,7 +69,7 @@ header.page-content-header
     .page-content-header__row
       .page-content-header-actions
         .page-content-header-actions__start
-          = render 'watches/watch_toggle'
+          = render 'watches/watch_toggle', type: page.class.to_s, id: page.id, watch: page.watch_by(current_user)
           .page-content-header-actions__action
             = react_component('BookmarkButton', bookmarkableId: page.id, bookmarkableType: 'Page')
           = render 'application/url_copy_button'
