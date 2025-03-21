@@ -12,6 +12,7 @@
   +media-breakpoint-up(xl)
     height: 100%
     align-items: center
+    gap: .5rem
     font-size: .875rem
   +media-breakpoint-only(xl)
     gap: .25rem
@@ -30,6 +31,7 @@
   text-decoration: none
   font-weight: 700
   color: var(--main)
+  white-space: nowrap
   display: flex
   justify-content: center
   align-items: center
@@ -38,7 +40,7 @@
     white-space: nowrap
   +media-breakpoint-up(xl)
     height: 2.25rem
-    padding-inline: 1rem
+    padding-inline: .75rem
     font-size: .875rem
     background-color: var(--base)
     border-radius: .5rem
@@ -63,8 +65,13 @@
 .lp-header__login
   display: flex
   height: 100%
-  width: 7.5rem
   align-items: center
+  +media-breakpoint-up(md)
+    width: 7.5rem
+  +media-breakpoint-down(sm)
+    width: auto
+    .a-button
+      font-size: .6875rem
 
 .lp-header__mobile-nav-trigger
   +media-breakpoint-up(xl)

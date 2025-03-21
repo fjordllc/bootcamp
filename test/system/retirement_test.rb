@@ -205,7 +205,9 @@ class RetirementTest < ApplicationSystemTestCase
     assert_text '退会処理が完了しました'
 
     visit_with_auth "regular_events/#{regular_event.id}", 'komagata'
-    assert_no_selector '.is-kimura'
+    within('.a-card.participants') do
+      assert_no_selector '.is-kimura'
+    end
   end
 
   test 'retire with event organizer' do

@@ -1,0 +1,127 @@
+.survey-result-summary
+  margin-bottom: 2rem
+  background-color: #fff
+  border-radius: 0.5rem
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1)
+  padding: 1.5rem
+  &__header
+    display: flex
+    justify-content: space-between
+    align-items: center
+    flex-wrap: wrap
+    gap: 1rem
+  &__count, &__date
+    display: flex
+    align-items: center
+    gap: 0.5rem
+  &__icon
+    color: #6f7b8a
+    font-size: 1rem
+  &__value
+    font-weight: bold
+    font-size: 1.125rem
+
+.survey-result-questions
+  display: flex
+  flex-direction: column
+  gap: 1.5rem
+
+.survey-result-question
+  background-color: #fff
+  border-radius: 0.5rem
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1)
+  overflow: hidden
+  margin-bottom: 2rem
+  &__header
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: 1rem 1.5rem
+    background-color: #f8f9fa
+    border-bottom: 1px solid #e9ecef
+    flex-wrap: wrap
+    gap: 0.5rem
+  &__title
+    font-size: 1.125rem
+    font-weight: bold
+    margin: 0
+    flex: 1
+  &__badge
+    display: inline-flex
+    align-items: center
+    gap: 0.25rem
+    font-size: 0.75rem
+    padding: 0.25rem 0.5rem
+    border-radius: 1rem
+    i
+      font-size: 0.75rem
+    &.is-text
+      background-color: #e3f2fd
+      color: #0d47a1
+    &.is-radio
+      background-color: #e8f5e9
+      color: #1b5e20
+    &.is-checkbox
+      background-color: #fff3e0
+      color: #e65100
+    &.is-scale
+      background-color: #f3e5f5
+      color: #4a148c
+  &__content
+    padding: 1.5rem
+    .row
+      margin-bottom: 1rem
+    .table
+      border-collapse: collapse
+      width: 100%
+      margin-bottom: 1rem
+      th, td
+        padding: 0.75rem
+        vertical-align: top
+        border-top: 1px solid #dee2e6
+      thead th
+        vertical-align: bottom
+        border-bottom: 2px solid #dee2e6
+        background-color: #f8f9fa
+      tbody + tbody
+        border-top: 2px solid #dee2e6
+      .table-info
+        background-color: #e3f2fd
+    .table-responsive
+      display: block
+      width: 100%
+      overflow-x: auto
+      -webkit-overflow-scrolling: touch
+    canvas
+      max-width: 100%
+      height: auto !important
+    h4
+      font-size: 1rem
+      font-weight: bold
+      margin-top: 0
+      color: #495057
+    .text-break
+      word-break: break-word
+    .font-weight-bold
+      font-weight: bold
+    a
+      color: #4a90e2
+      text-decoration: none
+      &:hover
+        text-decoration: underline
+
+@media (max-width: 767px)
+  .survey-result-question
+    &__header
+      flex-direction: column
+      align-items: flex-start
+    &__badge
+      margin-top: 0.5rem
+    &__content
+      .row
+        margin-left: 0
+        margin-right: 0
+      .col-md-6, .col-md-12
+        padding-left: 0
+        padding-right: 0
+        margin-bottom: 1.5rem
