@@ -1,7 +1,7 @@
 .a-card
   header.card-header.is-sm
     h2.card-header__title
-      | ユーザー一覧（#{collegues.count}）
+      | ユーザー一覧（#{colleagues.count}）
   hr.a-border-tint
   .card-list.has-scroll
     .card-list__description
@@ -16,7 +16,7 @@
             = link_to new_request_retirement_path, class: 'a-button is-sm is-block is-secondary' do
               | 退会申請フォーム
     hr.a-border-tint
-    = render partial: 'collegue', collection: collegues, as: :user
+    = render partial: 'colleague', collection: colleagues, as: :user
   hr.a-border-tint
   footer.card-footer
     .card-main-actions

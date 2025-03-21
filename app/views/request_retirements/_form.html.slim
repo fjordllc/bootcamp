@@ -14,9 +14,9 @@
   .form__items
     .form-item
       = f.label :target_user_id, RequestRetirement.human_attribute_name(:target_user), class: 'a-form-label'
-      - if current_user.collegues_other_than_self.present?
+      - if current_user.colleagues_other_than_self.present?
         .a-button.is-md.is-secondary.is-select.is-block
-          = f.collection_select :target_user_id, current_user.collegues_other_than_self, :id, :login_name, prompt: '選択してください', required: true, class: 'a-text-input'
+          = f.collection_select :target_user_id, current_user.colleagues_other_than_self, :id, :login_name, prompt: '選択してください', required: true, class: 'a-text-input'
   .form__items
     .form-item
       = f.label :reason, class: 'a-form-label'
