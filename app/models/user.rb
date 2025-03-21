@@ -190,7 +190,7 @@ class User < ApplicationRecord
   has_one_attached :profile_image
 
   after_create UserCallbacks.new
-  before_validation :convert_blank_of_country_code_to_nil, :convert_blank_of_subdivision_code_to_nil
+  before_validation :convert_blank_of_address_to_nil
 
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
   validates :name, presence: true
@@ -892,11 +892,8 @@ class User < ApplicationRecord
     course.practices.where(id: practice_ids_skipped, include_progress: true).size
   end
 
-  def convert_blank_of_country_code_to_nil
+  def convert_blank_of_address_to_nil
     self.country_code = nil if country_code.blank?
-  end
-
-  def convert_blank_of_subdivision_code_to_nil
     self.subdivision_code = nil if subdivision_code.blank?
   end
 end
