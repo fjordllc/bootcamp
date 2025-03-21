@@ -1,699 +1,699 @@
-# komagataの回答（第1回）
-survey_question_answer_first1:
-  survey_answer: survey_answer_first1
-  survey_question: survey_question1
-  answer: "Rubyの基礎からRailsの実践的な使い方まで、幅広く学ぶことができました。特にテスト駆動開発の考え方が身についたと思います。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
-
-survey_question_answer_first2:
-  survey_answer: survey_answer_first1
-  survey_question: survey_question2
-  answer: "とても満足している"
-  created_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
-
-survey_question_answer_first3:
-  survey_answer: survey_answer_first1
-  survey_question: survey_question3
-  answer: "とても楽しく学習できている"
-  created_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
-
-survey_question_answer_first4:
-  survey_answer: survey_answer_first1
-  survey_question: survey_question4
-  answer: "JavaScriptの課題が難しかったです。特にPromiseの概念を理解するのに時間がかかりました。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
-
-survey_question_answer_first5:
-  survey_answer: survey_answer_first1
-  survey_question: survey_question5
-  answer: "プログラマーとしてやっていけるか不安"
-  created_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
-
-survey_question_answer_first6:
-  survey_answer: survey_answer_first1
-  survey_question: survey_question6
-  answer: "9"
-  reason: "カリキュラムの質が高く、メンターのサポートも手厚いため、プログラミング学習を真剣に考えている人には最適だと思います。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
-
-# machidaの回答（第1回）
-survey_question_answer_first7:
-  survey_answer: survey_answer_first2
-  survey_question: survey_question1
-  answer: "デザインとプログラミングの両方の視点から考えることの重要性を学びました。特にユーザー体験を考慮したUI設計について深く理解できました。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
-
-survey_question_answer_first8:
-  survey_answer: survey_answer_first2
-  survey_question: survey_question2
-  answer: "満足している"
-  created_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
-
-survey_question_answer_first9:
-  survey_answer: survey_answer_first2
-  survey_question: survey_question3
-  answer: "楽しく学習できている"
-  created_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
-
-survey_question_answer_first10:
-  survey_answer: survey_answer_first2
-  survey_question: survey_question4
-  answer: "CSSのレイアウト課題が難しかったです。特にFlexboxとGridの使い分けに苦労しました。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
-
-survey_question_answer_first11:
-  survey_answer: survey_answer_first2
-  survey_question: survey_question5
-  answer: "入りたい企業が見つかるか不安,望んでいる給料がもらえるか不安"
-  created_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
-
-survey_question_answer_first12:
-  survey_answer: survey_answer_first2
-  survey_question: survey_question6
-  answer: "8"
-  reason: "カリキュラムは素晴らしいですが、デザイン面の内容がもう少し充実するとさらに良くなると思います。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
-
-# kimuraの回答（第1回）
-survey_question_answer_first13:
-  survey_answer: survey_answer_first3
-  survey_question: survey_question1
-  answer: "チーム開発の進め方やGitを使った協力作業の方法を学びました。また、コードレビューを通じて品質の高いコードを書く意識が身につきました。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
-
-survey_question_answer_first14:
-  survey_answer: survey_answer_first3
-  survey_question: survey_question2
-  answer: "満足している"
-  created_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
-
-survey_question_answer_first15:
-  survey_answer: survey_answer_first3
-  survey_question: survey_question3
-  answer: "楽しく学習できている"
-  created_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
-
-survey_question_answer_first16:
-  survey_answer: survey_answer_first3
-  survey_question: survey_question4
-  answer: "RSpecでのテスト作成が難しかったです。特にモックやスタブの概念を理解するのに時間がかかりました。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
-
-survey_question_answer_first17:
-  survey_answer: survey_answer_first3
-  survey_question: survey_question5
-  answer: "プログラマーとしてやっていけるか不安,自分でも就職できるか不安"
-  created_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
-
-survey_question_answer_first18:
-  survey_answer: survey_answer_first3
-  survey_question: survey_question6
-  answer: "7"
-  reason: "学習内容は良いですが、もう少し実践的なプロジェクト経験があるとより就職に役立つと思います。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
-
-# hatsunoの回答（第1回）
-survey_question_answer_first19:
-  survey_answer: survey_answer_first4
-  survey_question: survey_question1
-  answer: "Webアプリケーション開発の一連の流れを実践的に学ぶことができました。特にデータベース設計とモデル間の関連付けについて理解が深まりました。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
-
-survey_question_answer_first20:
-  survey_answer: survey_answer_first4
-  survey_question: survey_question2
-  answer: "とても満足している"
-  created_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
-
-survey_question_answer_first21:
-  survey_answer: survey_answer_first4
-  survey_question: survey_question3
-  answer: "とても楽しく学習できている"
-  created_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
-
-survey_question_answer_first22:
-  survey_answer: survey_answer_first4
-  survey_question: survey_question4
-  answer: "AWSへのデプロイ課題が難しかったです。特にインフラ周りの設定に苦労しました。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
-
-survey_question_answer_first23:
-  survey_answer: survey_answer_first4
-  survey_question: survey_question5
-  answer: "入りたい企業が見つかるか不安"
-  created_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
-
-survey_question_answer_first24:
-  survey_answer: survey_answer_first4
-  survey_question: survey_question6
-  answer: "10"
-  reason: "カリキュラムの質、メンターのサポート、コミュニティの雰囲気すべてが素晴らしく、プログラミング学習に最適な環境だと思います。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
-
-# hajimeの回答（第1回）
-survey_question_answer_first25:
-  survey_answer: survey_answer_first5
-  survey_question: survey_question1
-  answer: "プログラミングの基礎から応用まで体系的に学ぶことができました。特にオブジェクト指向設計の考え方が身についたと思います。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
-
-survey_question_answer_first26:
-  survey_answer: survey_answer_first5
-  survey_question: survey_question2
-  answer: "どちらでもない"
-  created_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
-
-survey_question_answer_first27:
-  survey_answer: survey_answer_first5
-  survey_question: survey_question3
-  answer: "楽しく学習できていない"
-  created_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
-
-survey_question_answer_first28:
-  survey_answer: survey_answer_first5
-  survey_question: survey_question4
-  answer: "Railsの課題が難しかったです。特にアソシエーションの設定に苦労しました。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
-
-survey_question_answer_first29:
-  survey_answer: survey_answer_first5
-  survey_question: survey_question5
-  answer: "プログラマーとしてやっていけるか不安,望んでいる給料がもらえるか不安,自分でも就職できるか不安"
-  created_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
-
-survey_question_answer_first30:
-  survey_answer: survey_answer_first5
-  survey_question: survey_question6
-  answer: "5"
-  reason: "カリキュラムは良いですが、もう少し初心者向けの説明があると理解しやすいと思います。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
-
-# muryouの回答（第1回）
-survey_question_answer_first31:
-  survey_answer: survey_answer_first6
-  survey_question: survey_question1
-  answer: "プログラミングの考え方や問題解決のアプローチ方法を学びました。特にデバッグの手法が身についたと思います。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
-
-survey_question_answer_first32:
-  survey_answer: survey_answer_first6
-  survey_question: survey_question2
-  answer: "満足している"
-  created_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
-
-survey_question_answer_first33:
-  survey_answer: survey_answer_first6
-  survey_question: survey_question3
-  answer: "楽しく学習できている"
-  created_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
-
-survey_question_answer_first34:
-  survey_answer: survey_answer_first6
-  survey_question: survey_question4
-  answer: "JavaScriptのフレームワーク課題が難しかったです。特にReactの状態管理に苦労しました。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
-
-survey_question_answer_first35:
-  survey_answer: survey_answer_first6
-  survey_question: survey_question5
-  answer: "その他"
-  reason: "年齢的に採用されるか不安です。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
-
-survey_question_answer_first36:
-  survey_answer: survey_answer_first6
-  survey_question: survey_question6
-  answer: "8"
-  reason: "カリキュラムは充実していますが、もう少し実務に近い内容があるとより良いと思います。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
-
-# kensyuの回答（第1回）
-survey_question_answer_first37:
-  survey_answer: survey_answer_first7
-  survey_question: survey_question1
-  answer: "実践的なWeb開発の知識とスキルを学びました。特にAPIの設計と実装について理解が深まりました。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
-
-survey_question_answer_first38:
-  survey_answer: survey_answer_first7
-  survey_question: survey_question2
-  answer: "とても満足している"
-  created_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
-
-survey_question_answer_first39:
-  survey_answer: survey_answer_first7
-  survey_question: survey_question3
-  answer: "とても楽しく学習できている"
-  created_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
-
-survey_question_answer_first40:
-  survey_answer: survey_answer_first7
-  survey_question: survey_question4
-  answer: "セキュリティ対策の課題が難しかったです。特にCSRF対策やXSS対策の実装に苦労しました。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
-
-survey_question_answer_first41:
-  survey_answer: survey_answer_first7
-  survey_question: survey_question5
-  answer: "入りたい企業が見つかるか不安,望んでいる給料がもらえるか不安"
-  created_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
-
-survey_question_answer_first42:
-  survey_answer: survey_answer_first7
-  survey_question: survey_question6
-  answer: "9"
-  reason: "カリキュラムの質が高く、メンターのサポートも手厚いため、プログラミング学習を真剣に考えている人には最適だと思います。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
-
-# senpaiの回答（第1回）
-survey_question_answer_first43:
-  survey_answer: survey_answer_first8
-  survey_question: survey_question1
-  answer: "プログラミングの基礎から応用まで体系的に学ぶことができました。特にコードの可読性や保守性を考慮した設計について理解が深まりました。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
-
-survey_question_answer_first44:
-  survey_answer: survey_answer_first8
-  survey_question: survey_question2
-  answer: "満足している"
-  created_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
-
-survey_question_answer_first45:
-  survey_answer: survey_answer_first8
-  survey_question: survey_question3
-  answer: "楽しく学習できている"
-  created_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
-
-survey_question_answer_first46:
-  survey_answer: survey_answer_first8
-  survey_question: survey_question4
-  answer: "パフォーマンス最適化の課題が難しかったです。特にN+1問題の解決に苦労しました。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
-
-survey_question_answer_first47:
-  survey_answer: survey_answer_first8
-  survey_question: survey_question5
-  answer: "プログラマーとしてやっていけるか不安"
-  created_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
-
-survey_question_answer_first48:
-  survey_answer: survey_answer_first8
-  survey_question: survey_question6
-  answer: "8"
-  reason: "カリキュラムは充実していますが、もう少し実務に近い内容があるとより良いと思います。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
-
-# sumiの回答（第1回）
-survey_question_answer_first49:
-  survey_answer: survey_answer_first9
-  survey_question: survey_question1
-  answer: "プログラミングの基礎から応用まで体系的に学ぶことができました。特にテスト駆動開発の考え方が身についたと思います。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
-
-survey_question_answer_first50:
-  survey_answer: survey_answer_first9
-  survey_question: survey_question2
-  answer: "不満がある"
-  created_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
-
-survey_question_answer_first51:
-  survey_answer: survey_answer_first9
-  survey_question: survey_question3
-  answer: "挫折しそうで辛い"
-  reason: "学習内容についていくのが難しく、他の受講生との差を感じることがあります。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
-
-survey_question_answer_first52:
-  survey_answer: survey_answer_first9
-  survey_question: survey_question4
-  answer: "Railsの課題が難しかったです。特にルーティングの設定に苦労しました。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
-
-survey_question_answer_first53:
-  survey_answer: survey_answer_first9
-  survey_question: survey_question5
-  answer: "プログラマーとしてやっていけるか不安,望んでいる給料がもらえるか不安,自分でも就職できるか不安"
-  created_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
-
-survey_question_answer_first54:
-  survey_answer: survey_answer_first9
-  survey_question: survey_question6
-  answer: "4"
-  reason: "カリキュラムの難易度が高く、初心者には厳しいと感じることがあります。もう少し段階的な学習ステップがあると良いと思います。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
-
-# nobuの回答（第1回）
-survey_question_answer_first55:
-  survey_answer: survey_answer_first10
-  survey_question: survey_question1
-  answer: "Webアプリケーション開発の一連の流れを実践的に学ぶことができました。特にデータベース設計とモデル間の関連付けについて理解が深まりました。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
-
-survey_question_answer_first56:
-  survey_answer: survey_answer_first10
-  survey_question: survey_question2
-  answer: "とても不満がある"
-  reason: "カリキュラムの内容が古く、最新の技術トレンドに対応していないと感じます。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
-
-survey_question_answer_first57:
-  survey_answer: survey_answer_first10
-  survey_question: survey_question3
-  answer: "楽しく学習できていない"
-  created_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
-
-survey_question_answer_first58:
-  survey_answer: survey_answer_first10
-  survey_question: survey_question4
-  answer: "Dockerの課題が難しかったです。特にコンテナ間の通信設定に苦労しました。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
-
-survey_question_answer_first59:
-  survey_answer: survey_answer_first10
-  survey_question: survey_question5
-  answer: "入りたい企業が見つかるか不安,プログラマーとしてやっていけるか不安,望んでいる給料がもらえるか不安,自分でも就職できるか不安"
-  created_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
-
-survey_question_answer_first60:
-  survey_answer: survey_answer_first10
-  survey_question: survey_question6
-  answer: "3"
-  reason: "カリキュラムの内容が古く、メンターの対応も遅いことがあります。もっと最新の技術を取り入れた内容にしてほしいです。"
-  created_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
-  updated_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
-
-# 第2回アンケートの回答
-
-# komagataの回答（第2回）
+# komagata's answer (1st survey)
 survey_question_answer1:
   survey_answer: survey_answer1
   survey_question: survey_question1
   answer: "Rubyの基礎からRailsの実践的な使い方まで、幅広く学ぶことができました。特にテスト駆動開発の考え方が身についたと思います。"
-  created_at: <%= Time.current - 10.days %>
-  updated_at: <%= Time.current - 10.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
 
 survey_question_answer2:
   survey_answer: survey_answer1
   survey_question: survey_question2
   answer: "とても満足している"
-  created_at: <%= Time.current - 10.days %>
-  updated_at: <%= Time.current - 10.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
 
 survey_question_answer3:
   survey_answer: survey_answer1
   survey_question: survey_question3
   answer: "とても楽しく学習できている"
-  created_at: <%= Time.current - 10.days %>
-  updated_at: <%= Time.current - 10.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
 
 survey_question_answer4:
   survey_answer: survey_answer1
   survey_question: survey_question4
   answer: "JavaScriptの課題が難しかったです。特にPromiseの概念を理解するのに時間がかかりました。"
-  created_at: <%= Time.current - 10.days %>
-  updated_at: <%= Time.current - 10.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
 
 survey_question_answer5:
   survey_answer: survey_answer1
   survey_question: survey_question5
   answer: "プログラマーとしてやっていけるか不安"
-  created_at: <%= Time.current - 10.days %>
-  updated_at: <%= Time.current - 10.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
 
 survey_question_answer6:
   survey_answer: survey_answer1
   survey_question: survey_question6
   answer: "9"
   reason: "カリキュラムの質が高く、メンターのサポートも手厚いため、プログラミング学習を真剣に考えている人には最適だと思います。"
-  created_at: <%= Time.current - 10.days %>
-  updated_at: <%= Time.current - 10.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 10, 0) %>
 
-# machidaの回答
+# machida's answer (1st survey)
 survey_question_answer7:
   survey_answer: survey_answer2
   survey_question: survey_question1
   answer: "デザインとプログラミングの両方の視点から考えることの重要性を学びました。特にユーザー体験を考慮したUI設計について深く理解できました。"
-  created_at: <%= Time.current - 9.days %>
-  updated_at: <%= Time.current - 9.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
 
 survey_question_answer8:
   survey_answer: survey_answer2
   survey_question: survey_question2
   answer: "満足している"
-  created_at: <%= Time.current - 9.days %>
-  updated_at: <%= Time.current - 9.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
 
 survey_question_answer9:
   survey_answer: survey_answer2
   survey_question: survey_question3
   answer: "楽しく学習できている"
-  created_at: <%= Time.current - 9.days %>
-  updated_at: <%= Time.current - 9.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
 
 survey_question_answer10:
   survey_answer: survey_answer2
   survey_question: survey_question4
   answer: "CSSのレイアウト課題が難しかったです。特にFlexboxとGridの使い分けに苦労しました。"
-  created_at: <%= Time.current - 9.days %>
-  updated_at: <%= Time.current - 9.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
 
 survey_question_answer11:
   survey_answer: survey_answer2
   survey_question: survey_question5
   answer: "入りたい企業が見つかるか不安,望んでいる給料がもらえるか不安"
-  created_at: <%= Time.current - 9.days %>
-  updated_at: <%= Time.current - 9.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
 
 survey_question_answer12:
   survey_answer: survey_answer2
   survey_question: survey_question6
   answer: "8"
   reason: "カリキュラムは素晴らしいですが、デザイン面の内容がもう少し充実するとさらに良くなると思います。"
-  created_at: <%= Time.current - 9.days %>
-  updated_at: <%= Time.current - 9.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 11, 0) %>
 
-# kimuraの回答
+# kimura's answer (1st survey)
 survey_question_answer13:
   survey_answer: survey_answer3
   survey_question: survey_question1
   answer: "チーム開発の進め方やGitを使った協力作業の方法を学びました。また、コードレビューを通じて品質の高いコードを書く意識が身につきました。"
-  created_at: <%= Time.current - 8.days %>
-  updated_at: <%= Time.current - 8.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
 
 survey_question_answer14:
   survey_answer: survey_answer3
   survey_question: survey_question2
   answer: "満足している"
-  created_at: <%= Time.current - 8.days %>
-  updated_at: <%= Time.current - 8.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
 
 survey_question_answer15:
   survey_answer: survey_answer3
   survey_question: survey_question3
   answer: "楽しく学習できている"
-  created_at: <%= Time.current - 8.days %>
-  updated_at: <%= Time.current - 8.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
 
 survey_question_answer16:
   survey_answer: survey_answer3
   survey_question: survey_question4
   answer: "RSpecでのテスト作成が難しかったです。特にモックやスタブの概念を理解するのに時間がかかりました。"
-  created_at: <%= Time.current - 8.days %>
-  updated_at: <%= Time.current - 8.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
 
 survey_question_answer17:
   survey_answer: survey_answer3
   survey_question: survey_question5
   answer: "プログラマーとしてやっていけるか不安,自分でも就職できるか不安"
-  created_at: <%= Time.current - 8.days %>
-  updated_at: <%= Time.current - 8.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
 
 survey_question_answer18:
   survey_answer: survey_answer3
   survey_question: survey_question6
   answer: "7"
   reason: "学習内容は良いですが、もう少し実践的なプロジェクト経験があるとより就職に役立つと思います。"
-  created_at: <%= Time.current - 8.days %>
-  updated_at: <%= Time.current - 8.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 12, 0) %>
 
-# hatsunoの回答
+# hatsuno's answer (1st survey)
 survey_question_answer19:
   survey_answer: survey_answer4
   survey_question: survey_question1
   answer: "Webアプリケーション開発の一連の流れを実践的に学ぶことができました。特にデータベース設計とモデル間の関連付けについて理解が深まりました。"
-  created_at: <%= Time.current - 7.days %>
-  updated_at: <%= Time.current - 7.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
 
 survey_question_answer20:
   survey_answer: survey_answer4
   survey_question: survey_question2
   answer: "とても満足している"
-  created_at: <%= Time.current - 7.days %>
-  updated_at: <%= Time.current - 7.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
 
 survey_question_answer21:
   survey_answer: survey_answer4
   survey_question: survey_question3
   answer: "とても楽しく学習できている"
-  created_at: <%= Time.current - 7.days %>
-  updated_at: <%= Time.current - 7.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
 
 survey_question_answer22:
   survey_answer: survey_answer4
   survey_question: survey_question4
   answer: "AWSへのデプロイ課題が難しかったです。特にインフラ周りの設定に苦労しました。"
-  created_at: <%= Time.current - 7.days %>
-  updated_at: <%= Time.current - 7.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
 
 survey_question_answer23:
   survey_answer: survey_answer4
   survey_question: survey_question5
   answer: "入りたい企業が見つかるか不安"
-  created_at: <%= Time.current - 7.days %>
-  updated_at: <%= Time.current - 7.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
 
 survey_question_answer24:
   survey_answer: survey_answer4
   survey_question: survey_question6
   answer: "10"
   reason: "カリキュラムの質、メンターのサポート、コミュニティの雰囲気すべてが素晴らしく、プログラミング学習に最適な環境だと思います。"
-  created_at: <%= Time.current - 7.days %>
-  updated_at: <%= Time.current - 7.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 13, 0) %>
 
-# hajimeの回答
+# hajime's answer (1st survey)
 survey_question_answer25:
   survey_answer: survey_answer5
   survey_question: survey_question1
   answer: "プログラミングの基礎から応用まで体系的に学ぶことができました。特にオブジェクト指向設計の考え方が身についたと思います。"
-  created_at: <%= Time.current - 6.days %>
-  updated_at: <%= Time.current - 6.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
 
 survey_question_answer26:
   survey_answer: survey_answer5
   survey_question: survey_question2
   answer: "どちらでもない"
-  created_at: <%= Time.current - 6.days %>
-  updated_at: <%= Time.current - 6.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
 
 survey_question_answer27:
   survey_answer: survey_answer5
   survey_question: survey_question3
   answer: "楽しく学習できていない"
-  created_at: <%= Time.current - 6.days %>
-  updated_at: <%= Time.current - 6.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
 
 survey_question_answer28:
   survey_answer: survey_answer5
   survey_question: survey_question4
   answer: "Railsの課題が難しかったです。特にアソシエーションの設定に苦労しました。"
-  created_at: <%= Time.current - 6.days %>
-  updated_at: <%= Time.current - 6.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
 
 survey_question_answer29:
   survey_answer: survey_answer5
   survey_question: survey_question5
   answer: "プログラマーとしてやっていけるか不安,望んでいる給料がもらえるか不安,自分でも就職できるか不安"
-  created_at: <%= Time.current - 6.days %>
-  updated_at: <%= Time.current - 6.days %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
 
 survey_question_answer30:
   survey_answer: survey_answer5
   survey_question: survey_question6
   answer: "5"
   reason: "カリキュラムは良いですが、もう少し初心者向けの説明があると理解しやすいと思います。"
+  created_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 14, 0) %>
+
+# muryou's answer (1st survey)
+survey_question_answer31:
+  survey_answer: survey_answer6
+  survey_question: survey_question1
+  answer: "プログラミングの考え方や問題解決のアプローチ方法を学びました。特にデバッグの手法が身についたと思います。"
+  created_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
+
+survey_question_answer32:
+  survey_answer: survey_answer6
+  survey_question: survey_question2
+  answer: "満足している"
+  created_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
+
+survey_question_answer33:
+  survey_answer: survey_answer6
+  survey_question: survey_question3
+  answer: "楽しく学習できている"
+  created_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
+
+survey_question_answer34:
+  survey_answer: survey_answer6
+  survey_question: survey_question4
+  answer: "JavaScriptのフレームワーク課題が難しかったです。特にReactの状態管理に苦労しました。"
+  created_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
+
+survey_question_answer35:
+  survey_answer: survey_answer6
+  survey_question: survey_question5
+  answer: "その他"
+  reason: "年齢的に採用されるか不安です。"
+  created_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
+
+survey_question_answer36:
+  survey_answer: survey_answer6
+  survey_question: survey_question6
+  answer: "8"
+  reason: "カリキュラムは充実していますが、もう少し実務に近い内容があるとより良いと思います。"
+  created_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 15, 0) %>
+
+# kensyu's answer (1st survey)
+survey_question_answer37:
+  survey_answer: survey_answer7
+  survey_question: survey_question1
+  answer: "実践的なWeb開発の知識とスキルを学びました。特にAPIの設計と実装について理解が深まりました。"
+  created_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
+
+survey_question_answer38:
+  survey_answer: survey_answer7
+  survey_question: survey_question2
+  answer: "とても満足している"
+  created_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
+
+survey_question_answer39:
+  survey_answer: survey_answer7
+  survey_question: survey_question3
+  answer: "とても楽しく学習できている"
+  created_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
+
+survey_question_answer40:
+  survey_answer: survey_answer7
+  survey_question: survey_question4
+  answer: "セキュリティ対策の課題が難しかったです。特にCSRF対策やXSS対策の実装に苦労しました。"
+  created_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
+
+survey_question_answer41:
+  survey_answer: survey_answer7
+  survey_question: survey_question5
+  answer: "入りたい企業が見つかるか不安,望んでいる給料がもらえるか不安"
+  created_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
+
+survey_question_answer42:
+  survey_answer: survey_answer7
+  survey_question: survey_question6
+  answer: "9"
+  reason: "カリキュラムの質が高く、メンターのサポートも手厚いため、プログラミング学習を真剣に考えている人には最適だと思います。"
+  created_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 16, 0) %>
+
+# senpai's answer (1st survey)
+survey_question_answer43:
+  survey_answer: survey_answer8
+  survey_question: survey_question1
+  answer: "プログラミングの基礎から応用まで体系的に学ぶことができました。特にコードの可読性や保守性を考慮した設計について理解が深まりました。"
+  created_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
+
+survey_question_answer44:
+  survey_answer: survey_answer8
+  survey_question: survey_question2
+  answer: "満足している"
+  created_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
+
+survey_question_answer45:
+  survey_answer: survey_answer8
+  survey_question: survey_question3
+  answer: "楽しく学習できている"
+  created_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
+
+survey_question_answer46:
+  survey_answer: survey_answer8
+  survey_question: survey_question4
+  answer: "パフォーマンス最適化の課題が難しかったです。特にN+1問題の解決に苦労しました。"
+  created_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
+
+survey_question_answer47:
+  survey_answer: survey_answer8
+  survey_question: survey_question5
+  answer: "プログラマーとしてやっていけるか不安"
+  created_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
+
+survey_question_answer48:
+  survey_answer: survey_answer8
+  survey_question: survey_question6
+  answer: "8"
+  reason: "カリキュラムは充実していますが、もう少し実務に近い内容があるとより良いと思います。"
+  created_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 17, 0) %>
+
+# sumi's answer (1st survey)
+survey_question_answer49:
+  survey_answer: survey_answer7
+  survey_question: survey_question1
+  answer: "プログラミングの基礎から応用まで体系的に学ぶことができました。特にテスト駆動開発の考え方が身についたと思います。"
+  created_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
+
+survey_question_answer50:
+  survey_answer: survey_answer7
+  survey_question: survey_question2
+  answer: "不満がある"
+  created_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
+
+survey_question_answer51:
+  survey_answer: survey_answer7
+  survey_question: survey_question3
+  answer: "挫折しそうで辛い"
+  reason: "学習内容についていくのが難しく、他の受講生との差を感じることがあります。"
+  created_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
+
+survey_question_answer52:
+  survey_answer: survey_answer7
+  survey_question: survey_question4
+  answer: "Railsの課題が難しかったです。特にルーティングの設定に苦労しました。"
+  created_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
+
+survey_question_answer53:
+  survey_answer: survey_answer7
+  survey_question: survey_question5
+  answer: "プログラマーとしてやっていけるか不安,望んでいる給料がもらえるか不安,自分でも就職できるか不安"
+  created_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
+
+survey_question_answer54:
+  survey_answer: survey_answer7
+  survey_question: survey_question6
+  answer: "4"
+  reason: "カリキュラムの難易度が高く、初心者には厳しいと感じることがあります。もう少し段階的な学習ステップがあると良いと思います。"
+  created_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 18, 0) %>
+
+# nobu's answer (1st survey)
+survey_question_answer55:
+  survey_answer: survey_answer8
+  survey_question: survey_question1
+  answer: "Webアプリケーション開発の一連の流れを実践的に学ぶことができました。特にデータベース設計とモデル間の関連付けについて理解が深まりました。"
+  created_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
+
+survey_question_answer56:
+  survey_answer: survey_answer8
+  survey_question: survey_question2
+  answer: "とても不満がある"
+  reason: "カリキュラムの内容が古く、最新の技術トレンドに対応していないと感じます。"
+  created_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
+
+survey_question_answer57:
+  survey_answer: survey_answer8
+  survey_question: survey_question3
+  answer: "楽しく学習できていない"
+  created_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
+
+survey_question_answer58:
+  survey_answer: survey_answer8
+  survey_question: survey_question4
+  answer: "Dockerの課題が難しかったです。特にコンテナ間の通信設定に苦労しました。"
+  created_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
+
+survey_question_answer59:
+  survey_answer: survey_answer8
+  survey_question: survey_question5
+  answer: "入りたい企業が見つかるか不安,プログラマーとしてやっていけるか不安,望んでいる給料がもらえるか不安,自分でも就職できるか不安"
+  created_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
+
+survey_question_answer60:
+  survey_answer: survey_answer8
+  survey_question: survey_question6
+  answer: "3"
+  reason: "カリキュラムの内容が古く、メンターの対応も遅いことがあります。もっと最新の技術を取り入れた内容にしてほしいです。"
+  created_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 19, 0) %>
+
+# 2nd survey answers
+
+# komagata's answer (2nd survey)
+survey_question_answer1:
+  survey_answer: survey_answer9
+  survey_question: survey_question1
+  answer: "Rubyの基礎からRailsの実践的な使い方まで、幅広く学ぶことができました。特にテスト駆動開発の考え方が身についたと思います。"
+  created_at: <%= Time.current - 10.days %>
+  updated_at: <%= Time.current - 10.days %>
+
+survey_question_answer2:
+  survey_answer: survey_answer9
+  survey_question: survey_question2
+  answer: "とても満足している"
+  created_at: <%= Time.current - 10.days %>
+  updated_at: <%= Time.current - 10.days %>
+
+survey_question_answer3:
+  survey_answer: survey_answer9
+  survey_question: survey_question3
+  answer: "とても楽しく学習できている"
+  created_at: <%= Time.current - 10.days %>
+  updated_at: <%= Time.current - 10.days %>
+
+survey_question_answer4:
+  survey_answer: survey_answer9
+  survey_question: survey_question4
+  answer: "JavaScriptの課題が難しかったです。特にPromiseの概念を理解するのに時間がかかりました。"
+  created_at: <%= Time.current - 10.days %>
+  updated_at: <%= Time.current - 10.days %>
+
+survey_question_answer5:
+  survey_answer: survey_answer9
+  survey_question: survey_question5
+  answer: "プログラマーとしてやっていけるか不安"
+  created_at: <%= Time.current - 10.days %>
+  updated_at: <%= Time.current - 10.days %>
+
+survey_question_answer6:
+  survey_answer: survey_answer9
+  survey_question: survey_question6
+  answer: "9"
+  reason: "カリキュラムの質が高く、メンターのサポートも手厚いため、プログラミング学習を真剣に考えている人には最適だと思います。"
+  created_at: <%= Time.current - 10.days %>
+  updated_at: <%= Time.current - 10.days %>
+
+# machida's answer
+survey_question_answer7:
+  survey_answer: survey_answer10
+  survey_question: survey_question1
+  answer: "デザインとプログラミングの両方の視点から考えることの重要性を学びました。特にユーザー体験を考慮したUI設計について深く理解できました。"
+  created_at: <%= Time.current - 9.days %>
+  updated_at: <%= Time.current - 9.days %>
+
+survey_question_answer8:
+  survey_answer: survey_answer10
+  survey_question: survey_question2
+  answer: "満足している"
+  created_at: <%= Time.current - 9.days %>
+  updated_at: <%= Time.current - 9.days %>
+
+survey_question_answer9:
+  survey_answer: survey_answer10
+  survey_question: survey_question3
+  answer: "楽しく学習できている"
+  created_at: <%= Time.current - 9.days %>
+  updated_at: <%= Time.current - 9.days %>
+
+survey_question_answer10:
+  survey_answer: survey_answer10
+  survey_question: survey_question4
+  answer: "CSSのレイアウト課題が難しかったです。特にFlexboxとGridの使い分けに苦労しました。"
+  created_at: <%= Time.current - 9.days %>
+  updated_at: <%= Time.current - 9.days %>
+
+survey_question_answer11:
+  survey_answer: survey_answer10
+  survey_question: survey_question5
+  answer: "入りたい企業が見つかるか不安,望んでいる給料がもらえるか不安"
+  created_at: <%= Time.current - 9.days %>
+  updated_at: <%= Time.current - 9.days %>
+
+survey_question_answer12:
+  survey_answer: survey_answer10
+  survey_question: survey_question6
+  answer: "8"
+  reason: "カリキュラムは素晴らしいですが、デザイン面の内容がもう少し充実するとさらに良くなると思います。"
+  created_at: <%= Time.current - 9.days %>
+  updated_at: <%= Time.current - 9.days %>
+
+# kimura's answer
+survey_question_answer13:
+  survey_answer: survey_answer11
+  survey_question: survey_question1
+  answer: "チーム開発の進め方やGitを使った協力作業の方法を学びました。また、コードレビューを通じて品質の高いコードを書く意識が身につきました。"
+  created_at: <%= Time.current - 8.days %>
+  updated_at: <%= Time.current - 8.days %>
+
+survey_question_answer14:
+  survey_answer: survey_answer11
+  survey_question: survey_question2
+  answer: "満足している"
+  created_at: <%= Time.current - 8.days %>
+  updated_at: <%= Time.current - 8.days %>
+
+survey_question_answer15:
+  survey_answer: survey_answer11
+  survey_question: survey_question3
+  answer: "楽しく学習できている"
+  created_at: <%= Time.current - 8.days %>
+  updated_at: <%= Time.current - 8.days %>
+
+survey_question_answer16:
+  survey_answer: survey_answer11
+  survey_question: survey_question4
+  answer: "RSpecでのテスト作成が難しかったです。特にモックやスタブの概念を理解するのに時間がかかりました。"
+  created_at: <%= Time.current - 8.days %>
+  updated_at: <%= Time.current - 8.days %>
+
+survey_question_answer17:
+  survey_answer: survey_answer11
+  survey_question: survey_question5
+  answer: "プログラマーとしてやっていけるか不安,自分でも就職できるか不安"
+  created_at: <%= Time.current - 8.days %>
+  updated_at: <%= Time.current - 8.days %>
+
+survey_question_answer18:
+  survey_answer: survey_answer11
+  survey_question: survey_question6
+  answer: "7"
+  reason: "学習内容は良いですが、もう少し実践的なプロジェクト経験があるとより就職に役立つと思います。"
+  created_at: <%= Time.current - 8.days %>
+  updated_at: <%= Time.current - 8.days %>
+
+# hatsuno's answer
+survey_question_answer19:
+  survey_answer: survey_answer12
+  survey_question: survey_question1
+  answer: "Webアプリケーション開発の一連の流れを実践的に学ぶことができました。特にデータベース設計とモデル間の関連付けについて理解が深まりました。"
+  created_at: <%= Time.current - 7.days %>
+  updated_at: <%= Time.current - 7.days %>
+
+survey_question_answer20:
+  survey_answer: survey_answer12
+  survey_question: survey_question2
+  answer: "とても満足している"
+  created_at: <%= Time.current - 7.days %>
+  updated_at: <%= Time.current - 7.days %>
+
+survey_question_answer21:
+  survey_answer: survey_answer12
+  survey_question: survey_question3
+  answer: "とても楽しく学習できている"
+  created_at: <%= Time.current - 7.days %>
+  updated_at: <%= Time.current - 7.days %>
+
+survey_question_answer22:
+  survey_answer: survey_answer12
+  survey_question: survey_question4
+  answer: "AWSへのデプロイ課題が難しかったです。特にインフラ周りの設定に苦労しました。"
+  created_at: <%= Time.current - 7.days %>
+  updated_at: <%= Time.current - 7.days %>
+
+survey_question_answer23:
+  survey_answer: survey_answer12
+  survey_question: survey_question5
+  answer: "入りたい企業が見つかるか不安"
+  created_at: <%= Time.current - 7.days %>
+  updated_at: <%= Time.current - 7.days %>
+
+survey_question_answer24:
+  survey_answer: survey_answer12
+  survey_question: survey_question6
+  answer: "10"
+  reason: "カリキュラムの質、メンターのサポート、コミュニティの雰囲気すべてが素晴らしく、プログラミング学習に最適な環境だと思います。"
+  created_at: <%= Time.current - 7.days %>
+  updated_at: <%= Time.current - 7.days %>
+
+# hajime's answer
+survey_question_answer25:
+  survey_answer: survey_answer13
+  survey_question: survey_question1
+  answer: "プログラミングの基礎から応用まで体系的に学ぶことができました。特にオブジェクト指向設計の考え方が身についたと思います。"
   created_at: <%= Time.current - 6.days %>
   updated_at: <%= Time.current - 6.days %>
 
-# muryouの回答
+survey_question_answer26:
+  survey_answer: survey_answer13
+  survey_question: survey_question2
+  answer: "どちらでもない"
+  created_at: <%= Time.current - 6.days %>
+  updated_at: <%= Time.current - 6.days %>
+
+survey_question_answer27:
+  survey_answer: survey_answer13
+  survey_question: survey_question3
+  answer: "楽しく学習できていない"
+  created_at: <%= Time.current - 6.days %>
+  updated_at: <%= Time.current - 6.days %>
+
+survey_question_answer28:
+  survey_answer: survey_answer13
+  survey_question: survey_question4
+  answer: "Railsの課題が難しかったです。特にアソシエーションの設定に苦労しました。"
+  created_at: <%= Time.current - 6.days %>
+  updated_at: <%= Time.current - 6.days %>
+
+survey_question_answer29:
+  survey_answer: survey_answer13
+  survey_question: survey_question5
+  answer: "プログラマーとしてやっていけるか不安,望んでいる給料がもらえるか不安,自分でも就職できるか不安"
+  created_at: <%= Time.current - 6.days %>
+  updated_at: <%= Time.current - 6.days %>
+
+survey_question_answer30:
+  survey_answer: survey_answer13
+  survey_question: survey_question6
+  answer: "5"
+  reason: "カリキュラムは良いですが、もう少し初心者向けの説明があると理解しやすいと思います。"
+  created_at: <%= Time.current - 6.days %>
+  updated_at: <%= Time.current - 6.days %>
+
+# muryou's answer
 survey_question_answer31:
-  survey_answer: survey_answer6
+  survey_answer: survey_answer12
   survey_question: survey_question1
   answer: "プログラミングの考え方や問題解決のアプローチ方法を学びました。特にデバッグの手法が身についたと思います。"
   created_at: <%= Time.current - 5.days %>
   updated_at: <%= Time.current - 5.days %>
 
 survey_question_answer32:
-  survey_answer: survey_answer6
+  survey_answer: survey_answer12
   survey_question: survey_question2
   answer: "満足している"
   created_at: <%= Time.current - 5.days %>
   updated_at: <%= Time.current - 5.days %>
 
 survey_question_answer33:
-  survey_answer: survey_answer6
+  survey_answer: survey_answer12
   survey_question: survey_question3
   answer: "楽しく学習できている"
   created_at: <%= Time.current - 5.days %>
   updated_at: <%= Time.current - 5.days %>
 
 survey_question_answer34:
-  survey_answer: survey_answer6
+  survey_answer: survey_answer12
   survey_question: survey_question4
   answer: "JavaScriptのフレームワーク課題が難しかったです。特にReactの状態管理に苦労しました。"
   created_at: <%= Time.current - 5.days %>
   updated_at: <%= Time.current - 5.days %>
 
 survey_question_answer35:
-  survey_answer: survey_answer6
+  survey_answer: survey_answer12
   survey_question: survey_question5
   answer: "その他"
   reason: "年齢的に採用されるか不安です。"
@@ -701,118 +701,118 @@ survey_question_answer35:
   updated_at: <%= Time.current - 5.days %>
 
 survey_question_answer36:
-  survey_answer: survey_answer6
+  survey_answer: survey_answer12
   survey_question: survey_question6
   answer: "8"
   reason: "カリキュラムは充実していますが、もう少し実務に近い内容があるとより良いと思います。"
   created_at: <%= Time.current - 5.days %>
   updated_at: <%= Time.current - 5.days %>
 
-# kensyuの回答
+# kensyu's answer
 survey_question_answer37:
-  survey_answer: survey_answer7
+  survey_answer: survey_answer13
   survey_question: survey_question1
   answer: "実践的なWeb開発の知識とスキルを学びました。特にAPIの設計と実装について理解が深まりました。"
   created_at: <%= Time.current - 4.days %>
   updated_at: <%= Time.current - 4.days %>
 
 survey_question_answer38:
-  survey_answer: survey_answer7
+  survey_answer: survey_answer13
   survey_question: survey_question2
   answer: "とても満足している"
   created_at: <%= Time.current - 4.days %>
   updated_at: <%= Time.current - 4.days %>
 
 survey_question_answer39:
-  survey_answer: survey_answer7
+  survey_answer: survey_answer13
   survey_question: survey_question3
   answer: "とても楽しく学習できている"
   created_at: <%= Time.current - 4.days %>
   updated_at: <%= Time.current - 4.days %>
 
 survey_question_answer40:
-  survey_answer: survey_answer7
+  survey_answer: survey_answer13
   survey_question: survey_question4
   answer: "セキュリティ対策の課題が難しかったです。特にCSRF対策やXSS対策の実装に苦労しました。"
   created_at: <%= Time.current - 4.days %>
   updated_at: <%= Time.current - 4.days %>
 
 survey_question_answer41:
-  survey_answer: survey_answer7
+  survey_answer: survey_answer13
   survey_question: survey_question5
   answer: "入りたい企業が見つかるか不安,望んでいる給料がもらえるか不安"
   created_at: <%= Time.current - 4.days %>
   updated_at: <%= Time.current - 4.days %>
 
 survey_question_answer42:
-  survey_answer: survey_answer7
+  survey_answer: survey_answer13
   survey_question: survey_question6
   answer: "9"
   reason: "カリキュラムの質が高く、メンターのサポートも手厚いため、プログラミング学習を真剣に考えている人には最適だと思います。"
   created_at: <%= Time.current - 4.days %>
   updated_at: <%= Time.current - 4.days %>
 
-# senpaiの回答
+# senpai's answer
 survey_question_answer43:
-  survey_answer: survey_answer8
+  survey_answer: survey_answer9
   survey_question: survey_question1
   answer: "プログラミングの基礎から応用まで体系的に学ぶことができました。特にコードの可読性や保守性を考慮した設計について理解が深まりました。"
   created_at: <%= Time.current - 3.days %>
   updated_at: <%= Time.current - 3.days %>
 
 survey_question_answer44:
-  survey_answer: survey_answer8
+  survey_answer: survey_answer9
   survey_question: survey_question2
   answer: "満足している"
   created_at: <%= Time.current - 3.days %>
   updated_at: <%= Time.current - 3.days %>
 
 survey_question_answer45:
-  survey_answer: survey_answer8
+  survey_answer: survey_answer9
   survey_question: survey_question3
   answer: "楽しく学習できている"
   created_at: <%= Time.current - 3.days %>
   updated_at: <%= Time.current - 3.days %>
 
 survey_question_answer46:
-  survey_answer: survey_answer8
+  survey_answer: survey_answer9
   survey_question: survey_question4
   answer: "パフォーマンス最適化の課題が難しかったです。特にN+1問題の解決に苦労しました。"
   created_at: <%= Time.current - 3.days %>
   updated_at: <%= Time.current - 3.days %>
 
 survey_question_answer47:
-  survey_answer: survey_answer8
+  survey_answer: survey_answer9
   survey_question: survey_question5
   answer: "プログラマーとしてやっていけるか不安"
   created_at: <%= Time.current - 3.days %>
   updated_at: <%= Time.current - 3.days %>
 
 survey_question_answer48:
-  survey_answer: survey_answer8
+  survey_answer: survey_answer9
   survey_question: survey_question6
   answer: "8"
   reason: "カリキュラムは充実していますが、もう少し実務に近い内容があるとより良いと思います。"
   created_at: <%= Time.current - 3.days %>
   updated_at: <%= Time.current - 3.days %>
 
-# sumiの回答
+# sumi's answer
 survey_question_answer49:
-  survey_answer: survey_answer9
+  survey_answer: survey_answer10
   survey_question: survey_question1
   answer: "プログラミングの基礎から応用まで体系的に学ぶことができました。特にテスト駆動開発の考え方が身についたと思います。"
   created_at: <%= Time.current - 2.days %>
   updated_at: <%= Time.current - 2.days %>
 
 survey_question_answer50:
-  survey_answer: survey_answer9
+  survey_answer: survey_answer10
   survey_question: survey_question2
   answer: "不満がある"
   created_at: <%= Time.current - 2.days %>
   updated_at: <%= Time.current - 2.days %>
 
 survey_question_answer51:
-  survey_answer: survey_answer9
+  survey_answer: survey_answer10
   survey_question: survey_question3
   answer: "挫折しそうで辛い"
   reason: "学習内容についていくのが難しく、他の受講生との差を感じることがあります。"
@@ -820,37 +820,37 @@ survey_question_answer51:
   updated_at: <%= Time.current - 2.days %>
 
 survey_question_answer52:
-  survey_answer: survey_answer9
+  survey_answer: survey_answer10
   survey_question: survey_question4
   answer: "Railsの課題が難しかったです。特にルーティングの設定に苦労しました。"
   created_at: <%= Time.current - 2.days %>
   updated_at: <%= Time.current - 2.days %>
 
 survey_question_answer53:
-  survey_answer: survey_answer9
+  survey_answer: survey_answer10
   survey_question: survey_question5
   answer: "プログラマーとしてやっていけるか不安,望んでいる給料がもらえるか不安,自分でも就職できるか不安"
   created_at: <%= Time.current - 2.days %>
   updated_at: <%= Time.current - 2.days %>
 
 survey_question_answer54:
-  survey_answer: survey_answer9
+  survey_answer: survey_answer10
   survey_question: survey_question6
   answer: "4"
   reason: "カリキュラムの難易度が高く、初心者には厳しいと感じることがあります。もう少し段階的な学習ステップがあると良いと思います。"
   created_at: <%= Time.current - 2.days %>
   updated_at: <%= Time.current - 2.days %>
 
-# nobuの回答
+# nobu's answer
 survey_question_answer55:
-  survey_answer: survey_answer10
+  survey_answer: survey_answer11
   survey_question: survey_question1
   answer: "Webアプリケーション開発の一連の流れを実践的に学ぶことができました。特にデータベース設計とモデル間の関連付けについて理解が深まりました。"
   created_at: <%= Time.current - 1.day %>
   updated_at: <%= Time.current - 1.day %>
 
 survey_question_answer56:
-  survey_answer: survey_answer10
+  survey_answer: survey_answer11
   survey_question: survey_question2
   answer: "とても不満がある"
   reason: "カリキュラムの内容が古く、最新の技術トレンドに対応していないと感じます。"
@@ -858,28 +858,28 @@ survey_question_answer56:
   updated_at: <%= Time.current - 1.day %>
 
 survey_question_answer57:
-  survey_answer: survey_answer10
+  survey_answer: survey_answer11
   survey_question: survey_question3
   answer: "楽しく学習できていない"
   created_at: <%= Time.current - 1.day %>
   updated_at: <%= Time.current - 1.day %>
 
 survey_question_answer58:
-  survey_answer: survey_answer10
+  survey_answer: survey_answer11
   survey_question: survey_question4
   answer: "Dockerの課題が難しかったです。特にコンテナ間の通信設定に苦労しました。"
   created_at: <%= Time.current - 1.day %>
   updated_at: <%= Time.current - 1.day %>
 
 survey_question_answer59:
-  survey_answer: survey_answer10
+  survey_answer: survey_answer11
   survey_question: survey_question5
   answer: "入りたい企業が見つかるか不安,プログラマーとしてやっていけるか不安,望んでいる給料がもらえるか不安,自分でも就職できるか不安"
   created_at: <%= Time.current - 1.day %>
   updated_at: <%= Time.current - 1.day %>
 
 survey_question_answer60:
-  survey_answer: survey_answer10
+  survey_answer: survey_answer11
   survey_question: survey_question6
   answer: "3"
   reason: "カリキュラムの内容が古く、メンターの対応も遅いことがあります。もっと最新の技術を取り入れた内容にしてほしいです。"
