@@ -1,7 +1,7 @@
 .thread-comment.answer id="answer_#{answer.id}" data-question_id="#{question.id}" data-answer_id="#{answer.id}" data-answer_description="#{answer.description}"
   .thread-comment__start
     a.thread-comment__user-link href="#{answer.user.url}"
-      span class="a-user-role is-#{answer.user.primary_role}"
+      span class="a-user-role is-#{answer.user.primary_role} is-#{answer.user.joining_status}"
         img.thread-comment__user-icon.a-user-icon src="#{answer.user.avatar_url}"
       - if answer.user.company && answer.user.adviser?
         a.thread-comment__company-link href="#{company_path(answer.user.company)}"
