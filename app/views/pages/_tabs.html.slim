@@ -1,0 +1,10 @@
+.page-tabs
+  .container
+    ul.page-tabs__items
+      li.page-tabs__item
+        = link_to pages_path, class: "page-tabs__item-link #{current_link(/^pages/)}"
+          | Docs
+// リンクを隠した状態でのリリース
+      li.page-tabs__item
+        = link_to movies_path, class: "page-tabs__item-link #{current_link(/^movies/)}"
+          | 動画

@@ -1,0 +1,81 @@
+header.page-content-header
+  .page-content-header__end
+    .page-content-header__row
+      - if movie.practices.present?
+        .page-content-header__row
+          .page-content-header__tags
+            .tag-links
+              ul.tag-links__items
+                - category_practices(movie).each do |practice|
+                  li.tag-links__item
+                    = link_to practice, class: 'tag-links__item-link' do
+                      = practice.title
+      h1.page-content-header__title(class="#{movie.wip? ? 'is-wip' : ''}")
+        - if movie.wip?
+          span.a-title-label.is-wip WIP
+        | #{movie.title}
+
+    .page-content-header__row
+      .page-content-header-metas
+        .page-content-header-metas__start
+          .page-content-header-metas
+            - if movie.wip?
+              .page-content-header-metas__meta
+                .a-meta.is-creator
+                  span.a-meta__label
+                    | 動画作成中
+                  span.a-meta__value
+                    = render 'users/icon',
+                      user: movie.user,
+                      link_class: 'thread-header__user-icon-link',
+                      image_class: 'thread-header__user-icon'
+                    = link_to movie.user, class: 'a-user-name' do
+                      | #{movie.user.login_name}
+            - elsif movie.published_at.present?
+              .page-content-header-metas__meta
+                .a-meta.is-creator
+                  span.a-meta__label
+                    | 公開
+                  .a-meta__value
+                    time(datetime="#{movie.published_at.to_datetime}")
+                      | #{l movie.published_at}
+                    - if movie.user
+                      = render 'users/icon',
+                        user: movie.user,
+                        link_class: 'thread-header__user-icon-link',
+                        image_class: 'thread-header__user-icon'
+                      = link_to movie.user, class: 'a-user-name' do
+                        | #{movie.user.login_name}
+                    - else
+                      a.thread-header__user-icon-link
+                        span.a-user-role.is-student
+                          = image_tag 'users/avatars/ghost.png', class: 'thread-header__user-icon a-user-icon'
+                      .a-user-name
+                        | ghost
+
+        .page-content-header-metas__end
+          .page-content-header-metas
+            .page-content-header-metas__meta
+              - length = movie.comments.length
+              a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
+                | コメント（
+                span#comment_count(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
+                  = length
+                | ）
+
+    .page-content-header__row
+      .page-content-header-actions
+        .page-content-header-actions__start
+          .page-content-header-actions__action
+            div(data-vue="WatchToggle" data-vue-watchable-id:number="#{movie.id}" data-vue-watchable-type='Movie')
+          .page-content-header-actions__action
+            = react_component('BookmarkButton', bookmarkableId: movie.id, bookmarkableType: 'Movie')
+          = render 'application/url_copy_button'
+
+    .page-content-header__row
+      .page-content-header__tags
+        = react_component('Tags/Tags', { tagsInitialValue: movie.tag_list.join(',').to_s,
+                                         tagsParamName: 'movie[tag_list]',
+                                         tagsInputId: 'movie_tag_list',
+                                         tagsType: 'Movie',
+                                         tagsTypeId: movie.id.to_s })
