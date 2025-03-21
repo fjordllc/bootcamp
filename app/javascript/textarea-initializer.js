@@ -15,6 +15,8 @@ import MarkDownItLinkAttributes from 'markdown-it-link-attributes'
 import MarkDownItContainerSpeak from 'markdown-it-container-speak'
 import CSRF from 'csrf'
 import TextareaMarkdownLinkify from 'textarea-markdown-linkify'
+import MarkDownItLinkToCard from 'markdown-it-link-to-card'
+import ReplaceLinkToCard from 'replace-link-to-card'
 
 export default class {
   static initialize(selector) {
@@ -76,7 +78,8 @@ export default class {
           MarkDownItContainerMessage,
           MarkDownItContainerDetails,
           MarkDownItLinkAttributes,
-          MarkDownItContainerSpeak
+          MarkDownItContainerSpeak,
+          MarkDownItLinkToCard
         ],
         markdownOptions: MarkdownOption
       })
@@ -88,6 +91,9 @@ export default class {
 
     // Convert selected text to markdown link on URL paste
     new TextareaMarkdownLinkify().linkify(selector)
+
+    // Generate linkCard
+    ReplaceLinkToCard(textareas)
   }
 
   static uninitialize(selector) {
