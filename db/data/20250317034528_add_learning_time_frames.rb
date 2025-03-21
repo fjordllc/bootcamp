@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddThisToThat < ActiveRecord::Migration[6.1]
+class AddLearningTimeFrames < ActiveRecord::Migration[6.1]
   def up
     week_days = { '日' => 'sun', '月' => 'mon', '火' => 'tue', '水' => 'wed', '木' => 'thu', '金' => 'fri', '土' => 'sat' }
 
