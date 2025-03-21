@@ -4,6 +4,7 @@ article1:
   user: komagata
   wip: false
   published_at: '2022-01-01 00:00:00'
+  published_at: '2022-01-01 00:00:00'
   thumbnail_type: :ruby_on_rails
 
 article2:
@@ -11,6 +12,7 @@ article2:
   body: サムネイルにはデフォルトの画像を使います。
   user: machida
   wip: false
+  published_at: '2022-01-02 00:00:00'
   published_at: '2022-01-02 00:00:00'
   thumbnail_type: :prepared_thumbnail
 
@@ -29,3 +31,21 @@ article4:
   wip: false
   published_at: '2022-01-01 00:00:00'
   thumbnail_type: :sponsorship
+  title: タイトル４
+  body: sponsorshipページに表示される記事です。
+  user: komagata
+  wip: false
+  published_at: '2022-01-01 00:00:00'
+  thumbnail_type: :sponsorship
+
+<% (21..27).each_with_index do |id, i| %>
+article<%= id %>:
+  title: test with 注目の記事 tag <%= id %>
+  body: |-
+    test body<%= id %>
+  user: komagata
+  wip: false
+  published_at: "<%= Date.parse('2024-02-01') + i %>"
+  created_at: "<%= Date.parse('2024-02-01') + i %>"
+<% end %>
+

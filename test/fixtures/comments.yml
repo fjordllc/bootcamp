@@ -137,6 +137,11 @@ comment42:
   commentable: regular_event27 (RegularEvent)
   description: "テスト用 regular_event27へのコメント"
 
+comment43:
+  user: mentormentaro
+  commentable: product9 (Product)
+  description: "テスト用 product9へのコメント"
+
 commentOfTalk:
   user: komagata
   commentable: talk1 (Talk)
