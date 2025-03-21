@@ -1,0 +1,43 @@
+tbody.admin-table__items
+  tr.admin-table__item(class="#{survey.before_start? ? 'is-wip' : ''}")
+    td.admin-table__item-value.is-text-align-center
+      - if survey.before_start?
+        .a-list-item-badge.is-wip
+          span
+            | 受付前
+      - elsif survey.answer_accepting?
+        .a-list-item-badge.is-active
+          span
+            | 受付中
+      - elsif survey.answer_ended?
+        .a-list-item-badge.is-ended
+          span
+            | 受付終了
+    td.admin-table__item-value
+      = l survey.start_at
+      |〜
+      = l survey.end_at
+    td.admin-table__item-value
+      = survey.title
+    td.admin-table__item-value
+      = link_to '詳細', mentor_survey_path(survey)
+      = ' | '
+      = link_to 'アンケートフォーム', survey_path(survey)
+    td.admin-table__item-value.is-text-align-center
+      - if survey.answers?
+        = link_to mentor_survey_survey_answers_path(survey), class: 'a-button is-sm is-secondary is-block' do
+          i.fa-regular.fa-list-alt
+          | 回答一覧
+    td.admin-table__item-value.is-text-align-center
+      - if survey.answers?
+        = link_to mentor_survey_survey_result_path(survey), class: 'a-button is-sm is-secondary is-block' do
+          i.fa-regular.fa-chart-pie
+          | 集計結果
+    td.admin-table__item-value.is-text-align-center
+      ul.is-inline-buttons
+        li
+          = link_to edit_mentor_survey_path(survey), class: 'a-button is-sm is-secondary is-icon is-block' do
+            i.fa.fa-solid.fa-pen
+        li
+          = link_to mentor_survey_survey_questions_path(survey), class: 'a-button is-sm is-secondary is-icon is-block' do
+            i.fa-solid.fa-align-justify

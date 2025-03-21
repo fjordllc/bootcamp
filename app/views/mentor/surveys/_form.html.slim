@@ -1,0 +1,39 @@
+= render 'errors', object: survey
+= form_with model: [:mentor, survey], local: true do |f|
+  .form__items
+    .form-item
+      = f.label :title, class: 'a-form-label is-required'
+      = f.text_field :title, class: 'a-text-input js-warning-form', placeholder: 'FBCモチベーションに関するアンケート'
+    .form-item
+      = f.label :description, class: 'a-form-label'
+      = f.text_area :description, class: 'a-text-input js-warning-form'
+    .form-item
+      = f.label :start_at, class: 'a-form-label is-required'
+      = f.datetime_field :start_at, class: 'a-text-input js-warning-form'
+    .form-item
+      = f.label :end_at, class: 'a-form-label is-required'
+      = f.datetime_field :end_at, class: 'a-text-input js-warning-form'
+    .form-item
+      = f.label :questions, class: 'a-form-label is-required'
+      .form-item__survey-questions
+        = f.fields_for :survey_question_listings, include_id: true do |survey_question_listing|
+          = render 'survey_question_listing_fields', f: survey_question_listing
+        .form-item__add-choice.js-add-choice
+          = link_to_add_association f, :survey_question_listings, class: 'a-button is-md is-primary' do
+            i.fa-regular.fa-plus
+            span
+              | 質問を追加
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item.is-main
+        = f.submit '保存', class: 'a-button is-lg is-primary is-block'
+      li.form-actions__item.is-sub
+        - case params[:action]
+        - when 'new', 'create'
+          = link_to 'キャンセル', mentor_surveys_path, class: 'a-button is-sm is-text'
+        - when 'edit', 'update'
+          = link_to 'キャンセル', mentor_survey_path, class: 'a-button is-sm is-text'
+      li.form-actions__item.is-sub
+        - case params[:action]
+        - when 'edit', 'update'
+          = link_to '削除する', mentor_survey_path(@survey), class: 'a-button is-sm is-text', data: { confirm: '本当によろしいですか？' }, method: :delete
