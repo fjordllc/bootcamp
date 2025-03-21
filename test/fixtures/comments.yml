@@ -4,7 +4,7 @@ comment1:
   user: machida
   commentable: report1 (Report)
   description: |-
-    **CSS** は奥が深いですね。
+    CSSは奥が深いですね。
 
 comment2:
   user: komagata
@@ -42,7 +42,7 @@ comment5:
 comment6:
   user: sotugyou
   commentable: report4 (Report)
-  description: "失礼しました。 report_id を id と typo してました :sweat_drops:"
+  description: "失礼しました。 report_id を id と typo してました💦"
   created_at: "2019-01-02 18:00:01"
 comment7:
   user: komagata
