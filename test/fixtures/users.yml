@@ -864,9 +864,9 @@ sotsugyoukigyoshozoku:
   created_at: "2022-07-01 00:00:00"
   last_activity_at: "2022-07-01 00:00:00"
 
-advisernocolleguetrainee:
-  login_name: advisernocolleguetrainee
-  email: nocollegueadvisernocollegueadviser@example.com
+advisernocolleaguetrainee:
+  login_name: advisernocolleaguetrainee
+  email: nocolleagueadvisernocolleagueadviser@example.com
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: あどばいざ 同僚いない子
