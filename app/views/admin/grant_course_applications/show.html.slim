@@ -1,10 +1,11 @@
-- title '給付金対応コース受講申請'
+- title '給付金対応コース申し込み'
 
 header.page-header
   .container
     .page-header__inner
       .page-header__start
-        h2.page-header__title 管理ページ
+        h2.page-header__title
+          | 管理ページ
 
 = render 'admin/admin_page_tabs'
 
@@ -14,13 +15,13 @@ main.page-main
       .page-main-header__inner
         .page-main-header__start
           h1.page-main-header__title
-            | #{@grant_course_application.full_name}様
+            | #{@grant_course_application.name}様
         .page-main-header__end
           .page-main-header-actions
             ul.page-main-header-actions__items
               li.page-main-header-actions__item
                 = link_to admin_grant_course_applications_path, class: 'a-button is-md is-secondary is-block is-back' do
-                  | 給付金対応コース受講申請へ
+                  | 給付金対応コース申し込み一覧へ
   hr.a-border
   .page-body
     .container.is-md
@@ -42,14 +43,9 @@ main.page-main
             .card-body
               .card-body__description
                 .a-long-text.is-md
-                  h2 氏名
-                  p = "#{@grant_course_application.last_name} #{@grant_course_application.first_name}"
                   h2 住所（書籍の送付先）
-                  p
-                    | 〒#{@grant_course_application.zip}
-                    br
-                    = auto_link(simple_format(@grant_course_application.address), html: { target: '_blank' })
+                  p = auto_link(simple_format(@grant_course_application.address), html: { target: '_blank' })
                   h2 電話番号
-                  p = @grant_course_application.tel
-                  h2 お試し利用希望
+                  p = @grant_course_application.phone
+                  h2 お試し期間利用希望
                   p = @grant_course_application.trial_period ? 'あり' : 'なし'
