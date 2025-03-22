@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Oauth2ProviderTest < ApplicationSystemTestCase
+class DoorkeeperApplicationTest < ApplicationSystemTestCase
   setup do
     visit_with_auth root_path, 'komagata'
     Doorkeeper::Application.create!(
@@ -39,6 +39,7 @@ class Oauth2ProviderTest < ApplicationSystemTestCase
     within('form[class="edit_doorkeeper_application"]') do
       fill_in 'Name', with: 'Sample Application edited'
       fill_in 'Redirect URL', with: 'https://example.com/callback/edited'
+      fill_in 'Scopes', with: 'read write'
     end
     click_on '登録する'
     assert_text 'アプリケーションを更新しました。'
