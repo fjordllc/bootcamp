@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_03_04_062341) do
+ActiveRecord::Schema.define(version: 2025_03_22_230221) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -407,6 +407,16 @@ ActiveRecord::Schema.define(version: 2025_03_04_062341) do
     t.index ["scheduled_at"], name: "index_good_jobs_on_scheduled_at", where: "(finished_at IS NULL)"
   end
 
+  create_table "grant_course_applications", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
+    t.text "address", null: false
+    t.string "phone", null: false
+    t.boolean "trial_period", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "hibernations", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.text "reason", null: false
@@ -659,7 +669,7 @@ ActiveRecord::Schema.define(version: 2025_03_04_062341) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reactionable_type", "reactionable_id"], name: "index_reactions_on_reactionable_type_and_reactionable_id"
-    t.index ["user_id", "reactionable_id", "reactionable_type", "kind"], name: "index_reactions_on_reactionable", unique: true
+    t.index ["user_id", "reactionable_id", "reactionable_type", "kind"], name: "index_reactions_on_reactionable_u_k", unique: true
     t.index ["user_id"], name: "index_reactions_on_user_id"
   end
 

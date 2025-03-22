@@ -107,6 +107,11 @@ Rails.application.routes.draw do
   resources :surveys, only: %i(show) do
     resources :survey_answers, only: %i(create), controller: "surveys/survey_answers"
   end
+  resources :grant_course_applications, only: %i(new create) do
+    collection do
+      get :created
+    end
+  end
   get "articles/tags/:tag", to: "articles#index", as: :tag, tag: /.+/
   get 'sponsorships', to: 'articles/sponsorships#index'
   get "pages/tags/:tag", to: "pages#index", as: :pages_tag, tag: /.+/, format: "html"
