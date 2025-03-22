@@ -16,5 +16,6 @@ Rails.application.routes.draw do
     resources :faq_categories, only: %i(index new create edit update destroy) do
       resources :faqs, only: %i(index update), controller: 'faq_categories/faqs'
     end
+    resources :grant_course_applications, only: %i(index show)
   end
 end

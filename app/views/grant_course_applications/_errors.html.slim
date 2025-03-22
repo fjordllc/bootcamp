@@ -1,0 +1,8 @@
+- if object.errors.any?
+  .a-card.is-danger.is-alert
+    .a-card__body
+      h2.a-card__title
+        | 入力内容にエラーがあります
+      ul.a-card__description
+        - object.errors.full_messages.each do |message|
+          li = message

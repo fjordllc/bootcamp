@@ -50,6 +50,7 @@ ja:
       faq: FAQ
       faq_category: FAQカテゴリ
       coding_test: コーディングテスト
+      grant_course_application: 給付金対応コース申し込み
     attributes:
       user:
         login_name: アカウント
@@ -319,6 +320,13 @@ ja:
         practice: 所属プラクティス
         language: 言語
         coding_test_submissions: 回答コード
+      grant_course_application:
+        name: 名前
+        email: メールアドレス
+        address: 住所
+        phone: 電話番号
+        trial_period: お試し期間利用希望
+        privacy_policy: 個人情報の取り扱い
       coding_test_case:
         input: 入力
         output: 出力
