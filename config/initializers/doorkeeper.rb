@@ -15,7 +15,13 @@ orm :active_record
   end
 
   # クライアントアプリが、BootCampアプリのリソースをどの範囲まで使用できるかを設定
-  # read = 読み取り, write = 書き込み
-  default_scopes :read, :write
+  # Scopesのドキュメント：https://doorkeeper.gitbook.io/guides/ruby-on-rails/scopes
+  # read = 読み取り, write = 書き込み 
+  default_scopes :read # Scopesが未設定（空白）の場合、設定されるスコープ
+  
+  optional_scopes :write # Scopesで指定されたときに設定されるスコープ
+
+
+  # defalut_scopeとoptional_scopeで定義されたスコープのみ要求できるようになる
   enforce_configured_scopes
 end
