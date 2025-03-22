@@ -1,0 +1,49 @@
+grant_course_application_1:
+  id: 1
+  name: 山田太郎
+  email: yamada@example.com
+  address: 東京都渋谷区渋谷1-1-1 渋谷マンション101号室
+  phone: 090-1234-5678
+  trial_period: true
+  created_at: <%= Time.current - 10.days %>
+  updated_at: <%= Time.current - 10.days %>
+
+grant_course_application_2:
+  id: 2
+  name: 佐藤花子
+  email: sato@example.com
+  address: 大阪府大阪市北区梅田2-2-2 梅田ハイツ202号室
+  phone: 080-8765-4321
+  trial_period: false
+  created_at: <%= Time.current - 7.days %>
+  updated_at: <%= Time.current - 7.days %>
+
+grant_course_application_3:
+  id: 3
+  name: 鈴木一郎
+  email: suzuki@example.com
+  address: 福岡県福岡市博多区博多3-3-3
+  phone: 070-9876-5432
+  trial_period: true
+  created_at: <%= Time.current - 3.days %>
+  updated_at: <%= Time.current - 3.days %>
+
+grant_course_application_4:
+  id: 4
+  name: 高橋美咲
+  email: takahashi@example.com
+  address: 北海道札幌市中央区北4条西4-4-4 札幌ビル404号室
+  phone: 060-1122-3344
+  trial_period: false
+  created_at: <%= Time.current - 1.day %>
+  updated_at: <%= Time.current - 1.day %>
+
+grant_course_application_5:
+  id: 5
+  name: 田中健太
+  email: tanaka@example.com
+  address: 愛知県名古屋市中区栄5-5-5 名古屋タワー505号室
+  phone: 050-5566-7788
+  trial_period: true
+  created_at: <%= Time.current - 12.hours %>
+  updated_at: <%= Time.current - 12.hours %>

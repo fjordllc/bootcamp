@@ -1,0 +1,21 @@
+ruby:
+  title '給付金対応コース申し込み'
+  content_for :extra_body_classes, 'no-header no-footer no-global-nav is-auth-page is-piyo-background'
+  set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）')
+- if recaptcha_enabled?
+  - content_for :head_last do
+    = javascript_include_tag 'recaptcha'
+
+.auth-form.is-lg.a-card
+  header.auth-form__header
+    h1.auth-form__title = title
+  .auth-form__body
+    = render 'form', grant_course_application: @grant_course_application
+  hr.a-border-tint
+  footer.auth-form__footer
+    nav.auth-form-nav
+      ul.auth-form-nav__items
+        li.auth-form-nav__item
+          = link_to 'トップページ', welcome_path, class: 'auth-form-nav__item-link'
+        li.auth-form-nav__item
+          = link_to 'FAQ', faq_path, class: 'auth-form-nav__item-link'

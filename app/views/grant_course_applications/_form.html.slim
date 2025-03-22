@@ -1,0 +1,38 @@
+= form_with model: grant_course_application, url: grant_course_applications_path, method: :post, local: true do |f|
+  = render 'errors', object: grant_course_application
+  .form__items
+    .form-item
+      = f.label :name, class: 'a-form-label is-required'
+      = f.text_field :name, class: 'a-text-input'
+    .form-item
+      = f.label :email, class: 'a-form-label is-required'
+      = f.text_field :email, class: 'a-text-input'
+    .form-item
+      = f.label :address, class: 'a-form-label is-required' do
+        | 住所（書籍の送付先）
+      = f.text_area :address, class: 'a-text-input is-md'
+    .form-item
+      = f.label :phone, class: 'a-form-label is-required' do
+        | 電話番号
+      = f.text_field :phone, class: 'a-text-input'
+    .form-item
+      label.form-item__one-checkbox.a-checkbox
+        = f.check_box :trial_period
+        span
+          | お試し期間利用希望
+    .form-item
+      .a-form-label
+        | 個人情報の取り扱いについて
+      label.form-item__one-checkbox.a-checkbox
+        = f.check_box :privacy_policy
+        span
+          | 下記の個人情報の取り扱いに同意する
+      .a-form-frame.form-item__pp
+        = render('pp')
+
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item.is-main
+        = f.submit '送信', class: 'a-button is-lg is-primary is-block'
+
+  = recaptcha_v3(action: 'grant_course_application', callback: 'skipOnLoadReCaptcha') if recaptcha_enabled?
