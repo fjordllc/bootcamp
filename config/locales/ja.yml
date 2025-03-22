@@ -568,6 +568,7 @@ ja:
       messages:
         invalid_client: アプリの認証に失敗しました
         invalid_redirect_uri: Redirect URLが無効です
+        invalid_scope: スコープが無効です
     flash:
       applications:
         create:
