@@ -5,9 +5,9 @@ export default function TagEditButton({ tagId, tagName }) {
   const [showModal, setShowModal] = useState(false)
 
   return (
-    <div className="page-main-header-actions__item">
+    <div className="w-full">
       <button
-        className="a-button is-sm is-secondary is-block"
+        className="a-button is-md is-secondary is-block"
         onClick={() => setShowModal(true)}>
         <i className="fa-solid fa-cog"></i>
         タグ名変更
