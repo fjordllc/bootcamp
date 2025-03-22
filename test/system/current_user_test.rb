@@ -181,8 +181,8 @@ class CurrentUserTest < ApplicationSystemTestCase
     find('label[for=register_address_no]').click
     click_on '更新する'
 
-    assert_equal '', user.reload.country_code
-    assert_equal '', user.reload.subdivision_code
+    assert_nil user.reload.country_code
+    assert_nil user.reload.subdivision_code
   end
 
   test 'change subdivisions' do
