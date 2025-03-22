@@ -5,7 +5,7 @@ class API::CommentsController < API::BaseController
   before_action :set_available_emojis, only: %i[index create]
   skip_before_action :verify_authenticity_token, if: -> { doorkeeper_token.present? }
   before_action :doorkeeper_authorize!, if: -> { doorkeeper_token.present? }
-  before_action -> { doorkeeper_authorize! :write }, only: [:create, :update, :destroy], if: -> { doorkeeper_token.present? }
+  before_action -> { doorkeeper_authorize! :write }, only: %i[create update destroy], if: -> { doorkeeper_token.present? }
 
   def index
     if params[:commentable_type].present?
