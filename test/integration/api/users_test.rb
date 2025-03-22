@@ -100,7 +100,7 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     assert_response :ok
 
     response_body = JSON.parse(@response.body)
-    authorized_keys = %w[id login_name email long_name url roles primary_role icon_title adviser avatar_url company]
+    authorized_keys = %w[id login_name email long_name url roles primary_role icon_title adviser avatar_url company mentor_memo]
     assert_equal authorized_keys.sort, response_body.keys.sort
   end
 
@@ -115,7 +115,7 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     assert_response :ok
 
     response_body = JSON.parse(@response.body)
-    authorized_keys = %w[id login_name email long_name url roles primary_role icon_title adviser avatar_url]
+    authorized_keys = %w[id login_name email long_name url roles primary_role icon_title adviser avatar_url mentor_memo]
     assert_equal authorized_keys.sort, response_body.keys.sort
   end
 
