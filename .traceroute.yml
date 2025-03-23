@@ -55,6 +55,7 @@ ignore_unreachable_actions:
   - api/markdown_tasks#current_resource_owner
   - api/mention_users#current_resource_owner
   - api/mentor_memos#current_resource_owner
+  - api/movies#current_resource_owner
   - api/notifications#current_resource_owner
   - api/pages#current_resource_owner
   - api/practices#current_resource_owner
