@@ -6,11 +6,14 @@ class GrantCourseApplicationsTest < ApplicationSystemTestCase
   test 'user can apply for grant course' do
     visit new_grant_course_application_path
 
-    assert_text '給付金対応コース受講申請'
+    assert_text '給付金対応コース申し込み'
 
-    fill_in 'grant_course_application[last_name]', with: '山田'
-    fill_in 'grant_course_application[first_name]', with: '太郎'
-    fill_in 'grant_course_application[email]', with: 'test@example.com'
+    # Set up Recaptcha mock
+    GrantCourseApplicationsController.any_instance.stubs(:valid_recaptcha?).returns(true)
+
+    fill_in '姓', with: '山田'
+    fill_in '名', with: '太郎'
+    fill_in 'メールアドレス', with: 'test@example.com'
     fill_in 'grant_course_application_zip1', with: '123'
     fill_in 'grant_course_application_zip2', with: '4567'
     select '東京都', from: '都道府県'
@@ -19,24 +22,24 @@ class GrantCourseApplicationsTest < ApplicationSystemTestCase
     fill_in 'grant_course_application_tel1', with: '090'
     fill_in 'grant_course_application_tel2', with: '1234'
     fill_in 'grant_course_application_tel3', with: '5678'
-    check 'grant_course_application_trial_period', allow_label_click: true, visible: false
-    check 'grant_course_application_privacy_policy', allow_label_click: true, visible: false
-    check 'grant_course_application_privacy_policy', allow_label_click: true, visible: false
-    check 'notes', allow_label_click: true, visible: false
+    check 'お試し期間利用希望'
+    check '下記の個人情報の取り扱いに同意する'
 
-    click_button '申請する'
+    click_button '送信'
 
-    assert_text '給付金対応コース受講申請完了'
-    assert_text '受講申請が完了しました。ありがとうございます。'
+    assert_text '給付金対応コース申し込み完了'
+    assert_text '給付金対応コースへの申し込みが完了しました。ありがとうございます。'
     assert_text '担当者より折り返しご連絡いたします。'
   end
 
   test 'user sees error messages when submitting invalid form' do
     visit new_grant_course_application_path
 
-    check 'notes', allow_label_click: true, visible: false
+    # Set up Recaptcha mock
+    GrantCourseApplicationsController.any_instance.stubs(:valid_recaptcha?).returns(true)
+
     # Submit without entering any information
-    click_button '申請する'
+    click_button '送信'
 
     assert_text '入力内容にエラーがあります'
     assert_text '姓を入力してください'
@@ -49,6 +52,6 @@ class GrantCourseApplicationsTest < ApplicationSystemTestCase
     assert_text '電話番号（前半）を入力してください'
     assert_text '電話番号（中央）を入力してください'
     assert_text '電話番号（後半）を入力してください'
-    assert_text '個人情報の取り扱いを受諾してください'
+    assert_text '個人情報の取り扱いに同意してください'
   end
 end

@@ -1,20 +1,67 @@
-= form_with model: grant_course_application, url: grant_course_applications_path, method: :post, local: true do |f|
+= form_with model: grant_course_application,
+  url: grant_course_applications_path,
+  method: :post,
+  local: true do |f|
   = render 'errors', object: grant_course_application
   .form__items
     .form-item
-      = f.label :name, class: 'a-form-label is-required'
-      = f.text_field :name, class: 'a-text-input'
+      .a-name-input
+        .a-name-input__field
+          label.a-form-label.is-required 姓
+          = f.text_field :last_name,
+            class: 'a-text-input',
+            placeholder: '山田'
+        .a-name-input__field
+          label.a-form-label.is-required 名
+          = f.text_field :first_name,
+            class: 'a-text-input',
+            placeholder: '太郎'
     .form-item
       = f.label :email, class: 'a-form-label is-required'
       = f.text_field :email, class: 'a-text-input'
     .form-item
-      = f.label :address, class: 'a-form-label is-required' do
-        | 住所（書籍の送付先）
-      = f.text_area :address, class: 'a-text-input is-md'
+      = f.label :zip1, '郵便番号', class: 'a-form-label is-required'
+      .a-zip-input
+        = f.text_field :zip1,
+          class: 'a-text-input is-sm',
+          maxlength: 3,
+          placeholder: '123'
+        span.a-zip-input__label -
+        = f.text_field :zip2,
+          class: 'a-text-input is-sm',
+          maxlength: 4,
+          placeholder: '4567'
     .form-item
-      = f.label :phone, class: 'a-form-label is-required' do
-        | 電話番号
-      = f.text_field :phone, class: 'a-text-input'
+      = f.label :prefecture_code, '都道府県', class: 'a-form-label is-required'
+      = f.collection_select :prefecture_code,
+        JpPrefecture::Prefecture.all,
+        :code,
+        :name,
+        { include_blank: '選択してください' },
+        { class: 'a-text-input' }
+    .form-item
+      = f.label :address1, '市区町村', class: 'a-form-label is-required'
+      = f.text_field :address1, class: 'a-text-input', placeholder: '渋谷区渋谷'
+    .form-item
+      = f.label :address2, '建物名・部屋番号', class: 'a-form-label'
+      = f.text_field :address2, class: 'a-text-input', placeholder: 'ABCビル101号室'
+    .form-item
+      = f.label :tel1, '電話番号', class: 'a-form-label is-required'
+      .a-tel-input
+        = f.text_field :tel1,
+          class: 'a-text-input is-sm',
+          maxlength: 4,
+          placeholder: '090'
+        span.a-tel-input__label -
+        = f.text_field :tel2,
+          class: 'a-text-input is-sm',
+          maxlength: 4,
+          placeholder: '1234'
+        span.a-tel-input__label -
+        = f.text_field :tel3,
+          class: 'a-text-input is-sm',
+          maxlength: 4,
+          placeholder: '5678'
     .form-item
       label.form-item__one-checkbox.a-checkbox
         = f.check_box :trial_period
@@ -35,4 +82,6 @@
       li.form-actions__item.is-main
         = f.submit '送信', class: 'a-button is-lg is-primary is-block'
 
-  = recaptcha_v3(action: 'grant_course_application', callback: 'skipOnLoadReCaptcha') if recaptcha_enabled?
+  - if recaptcha_enabled?
+    = recaptcha_v3 action: 'grant_course_application',
+      callback: 'skipOnLoadReCaptcha'

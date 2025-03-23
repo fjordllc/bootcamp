@@ -1,49 +1,79 @@
-grant_course_application_1:
-  id: 1
-  name: 山田太郎
+grant_course_application1:
+  last_name: 山田
+  first_name: 太郎
   email: yamada@example.com
-  address: 東京都渋谷区渋谷1-1-1 渋谷マンション101号室
-  phone: 090-1234-5678
+  zip1: '150'
+  zip2: '0002'
+  prefecture_code: 13
+  address1: 渋谷区渋谷1-1-1
+  address2: 渋谷マンション101号室
+  tel1: '090'
+  tel2: '1234'
+  tel3: '5678'
   trial_period: true
-  created_at: <%= Time.current - 10.days %>
-  updated_at: <%= Time.current - 10.days %>
+  created_at: "2025-03-13 00:00:00"
+  updated_at: "2025-03-13 00:00:00"
 
-grant_course_application_2:
-  id: 2
-  name: 佐藤花子
+grant_course_application2:
+  last_name: 佐藤
+  first_name: 花子
   email: sato@example.com
-  address: 大阪府大阪市北区梅田2-2-2 梅田ハイツ202号室
-  phone: 080-8765-4321
+  zip1: '530'
+  zip2: '0001'
+  prefecture_code: 27
+  address1: 大阪市北区梅田2-2-2
+  address2: 梅田ハイツ202号室
+  tel1: '080'
+  tel2: '8765'
+  tel3: '4321'
   trial_period: false
-  created_at: <%= Time.current - 7.days %>
-  updated_at: <%= Time.current - 7.days %>
+  created_at: "2025-03-16 00:00:00"
+  updated_at: "2025-03-16 00:00:00"
 
-grant_course_application_3:
-  id: 3
-  name: 鈴木一郎
+grant_course_application3:
+  last_name: 鈴木
+  first_name: 一郎
   email: suzuki@example.com
-  address: 福岡県福岡市博多区博多3-3-3
-  phone: 070-9876-5432
+  zip1: '812'
+  zip2: '0011'
+  prefecture_code: 40
+  address1: 福岡市博多区博多3-3-3
+  address2: 
+  tel1: '070'
+  tel2: '9876'
+  tel3: '5432'
   trial_period: true
-  created_at: <%= Time.current - 3.days %>
-  updated_at: <%= Time.current - 3.days %>
+  created_at: "2025-03-20 00:00:00"
+  updated_at: "2025-03-20 00:00:00"
 
-grant_course_application_4:
-  id: 4
-  name: 高橋美咲
+grant_course_application4:
+  last_name: 高橋
+  first_name: 美咲
   email: takahashi@example.com
-  address: 北海道札幌市中央区北4条西4-4-4 札幌ビル404号室
-  phone: 060-1122-3344
+  zip1: '060'
+  zip2: '0004'
+  prefecture_code: 1
+  address1: 札幌市中央区北4条西4-4-4
+  address2: 札幌ビル404号室
+  tel1: '060'
+  tel2: '1122'
+  tel3: '3344'
   trial_period: false
-  created_at: <%= Time.current - 1.day %>
-  updated_at: <%= Time.current - 1.day %>
+  created_at: "2025-03-22 00:00:00"
+  updated_at: "2025-03-22 00:00:00"
 
-grant_course_application_5:
-  id: 5
-  name: 田中健太
+grant_course_application5:
+  last_name: 田中
+  first_name: 健太
   email: tanaka@example.com
-  address: 愛知県名古屋市中区栄5-5-5 名古屋タワー505号室
-  phone: 050-5566-7788
+  zip1: '460'
+  zip2: '0008'
+  prefecture_code: 23
+  address1: 名古屋市中区栄5-5-5
+  address2: 名古屋タワー505号室
+  tel1: '050'
+  tel2: '5566'
+  tel3: '7788'
   trial_period: true
-  created_at: <%= Time.current - 12.hours %>
-  updated_at: <%= Time.current - 12.hours %>
+  created_at: "2025-03-23 12:00:00"
+  updated_at: "2025-03-23 12:00:00"
