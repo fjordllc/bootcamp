@@ -24,3 +24,17 @@ movie4:
   description: userが削除された時のmovの動画です
   user: null
   published_at: '2024-04-09 00:00:00'
+
+movie5:
+  title: Terminalの基礎を覚える mp4動画
+  description: Terminalの基礎を覚えるに関連する動画です。
+  user: komagata
+  published_at: '2024-04-10 00:00:00'
+
+<% (6..10).each do |id| %>
+movie<%= id %>:
+  title: OS X Mountain Lionに関する mp4動画<%= id %> mp4動画
+  description: OS X Mountain Lionをクリーンインストールするに関連する動画<%= id %>です。
+  user: komagata
+  published_at: '2024-04-10 00:00:00'
+<% end %>
