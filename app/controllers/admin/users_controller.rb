@@ -62,7 +62,7 @@ class Admin::UsersController < AdminController
       :password, :password_confirmation, :job,
       :organization, :os, :study_place,
       { experiences: [] }, :company_id,
-      :trainee, :job_seeking, :nda, :avatar,
+      :trainee, :nda, :avatar,
       :graduated_on, :retired_on,
       :job_seeker, :github_collaborator,
       :officekey_permission, :tag_list, :training_ends_on,
