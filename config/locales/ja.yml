@@ -57,6 +57,7 @@ ja:
         login_name: アカウント
         name: 名前（ニックネームも可）
         name_kana: 名前（カナ）
+        career_memo: メモ（卒業後の進路）
         course_id: コース
         description: 自己紹介
         email: Email
