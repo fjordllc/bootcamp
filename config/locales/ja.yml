@@ -395,7 +395,8 @@ ja:
           poor: 悪い
           very_poor: とても悪い
         career_path:
-          before_graduation: 卒業前
+          unset: 未設定
+          job_seeking: 就職活動中
           employed_via_referral: 就職した（Lokkaの紹介）
           employed_without_referral: 就職した（Lokkaの紹介を使わず）
           employed_non_it: IT系以外に就職した
