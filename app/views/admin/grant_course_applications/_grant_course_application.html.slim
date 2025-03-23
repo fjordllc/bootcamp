@@ -19,4 +19,7 @@
                 span.a-meta__value = grant_course_application.trial_period ? 'あり' : 'なし'
       .card-list-item__row
         .a-meta
-          p = grant_course_application.address.truncate(100)
+          p
+            | 〒#{grant_course_application.zip}
+            br
+            = grant_course_application.address

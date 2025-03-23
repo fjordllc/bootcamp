@@ -1,0 +1,22 @@
+.a-zip-input,
+.a-tel-input,
+.a-name-input {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &__label {
+    font-size: 1.25rem;
+    color: var(--muted-text);
+  }
+}
+
+.a-name-input {
+  &__field {
+    flex: 1;
+    
+    .a-form-label {
+      margin-bottom: 0.25rem;
+    }
+  }
+}

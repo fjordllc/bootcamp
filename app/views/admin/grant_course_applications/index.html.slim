@@ -1,4 +1,4 @@
-- title '給付金対応コース申し込み一覧'
+- title '給付金対応コース申し込み'
 
 header.page-header
   .container
@@ -12,8 +12,7 @@ header.page-header
 header.page-main-header
   .container
     .page-main-header__inner
-      h1.page-main-header__title
-        | 給付金対応コース申し込み一覧
+      h1.page-main-header__title 給付金対応コース申し込み
 hr.a-border
 .page-body
   .page-body__inner
@@ -22,5 +21,5 @@ hr.a-border
         = paginate @grant_course_applications
         .card-list.a-card
           .card-list__items
-            = render partial: 'grant_course_applications_item', collection: @grant_course_applications, as: :grant_course_application
+            = render @grant_course_applications
         = paginate @grant_course_applications

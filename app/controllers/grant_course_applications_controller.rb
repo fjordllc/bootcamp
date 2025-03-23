@@ -26,6 +26,10 @@ class GrantCourseApplicationsController < ApplicationController
   private
 
   def grant_course_application_params
-    params.require(:grant_course_application).permit(:name, :email, :address, :phone, :trial_period, :privacy_policy)
+    params.require(:grant_course_application).permit(
+      :last_name, :first_name, :email,
+      :zip1, :zip2, :prefecture_code, :address1, :address2,
+      :tel1, :tel2, :tel3, :trial_period, :privacy_policy
+    )
   end
 end
