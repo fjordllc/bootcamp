@@ -322,9 +322,20 @@ ja:
         coding_test_submissions: 回答コード
       grant_course_application:
         name: 名前
+        last_name: 姓
+        first_name: 名
         email: メールアドレス
+        zip: 郵便番号
+        zip1: 郵便番号（前半）
+        zip2: 郵便番号（後半）
+        prefecture_code: 都道府県
         address: 住所
-        phone: 電話番号
+        address1: 市区町村
+        address2: 建物名・部屋番号
+        tel: 電話番号
+        tel1: 電話番号（前半）
+        tel2: 電話番号（中央）
+        tel3: 電話番号（後半）
         trial_period: お試し期間利用希望
         privacy_policy: 個人情報の取り扱い
       coding_test_case:
