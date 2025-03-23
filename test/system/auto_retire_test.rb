@@ -91,7 +91,7 @@ class AutoRetireTest < ApplicationSystemTestCase
 
   test 'delete unfinished data when retire' do
     user = users(:kyuukai)
-    user.update!(job_seeking: true)
+    user.update!(career_path: 1)
     assert user.products.unchecked.count.positive?
     assert user.reports.wip.count.positive?
 
@@ -104,7 +104,7 @@ class AutoRetireTest < ApplicationSystemTestCase
       assert_equal Date.current, user.reload.retired_on
     end
 
-    assert_not user.job_seeking
+    assert_not_equal user.career_path, 1
     assert_equal 0, user.products.unchecked.count
     assert_equal 0, user.reports.wip.count
   end
