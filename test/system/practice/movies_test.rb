@@ -9,4 +9,12 @@ class Practice::MoviesTest < ApplicationSystemTestCase
     assert_selector 'h2.page-header__title', text: 'OS X Mountain Lionをクリーンインストールする'
     assert_selector '.page-tabs__item-link.is-active', text: '動画 （1）'
   end
+
+  test 'show listing no movies' do
+    visit_with_auth "/practices/#{practices(:practice10).id}/movies", 'hatsuno'
+    assert_equal 'sshdをインストールするに関する動画 | FBC', title
+    assert_selector 'h2.page-header__title', text: 'sshdをインストールする'
+    assert_selector '.page-tabs__item-link.is-active', text: '動画 （0）'
+    assert_text '動画はまだありません'
+  end
 end
