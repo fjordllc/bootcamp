@@ -429,7 +429,7 @@ class TalksTest < ApplicationSystemTestCase
     visit_with_auth talk_path(user.talk), 'komagata'
 
     check '就職活動中', allow_label_click: true
-    assert user.reload.job_seeking
+    assert_equal user.reload.career_path, 1
   end
 
   test 'hide user icon from recent reports in talk show' do

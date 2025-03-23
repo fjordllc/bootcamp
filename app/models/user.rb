@@ -415,7 +415,7 @@ class User < ApplicationRecord
   scope :admins, -> { where(admin: true) }
   scope :admins_and_mentors, -> { admins.or(mentor) }
   scope :trainees, -> { where(trainee: true) }
-  scope :job_seeking, -> { where(job_seeking: true) }
+  scope :job_seeking, -> { where(career_path: 1) }
   scope :job_seekers, lambda {
     where(
       admin: false,
