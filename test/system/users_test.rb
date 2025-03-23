@@ -381,7 +381,7 @@ class UsersTest < ApplicationSystemTestCase
     user = users(:hajime)
     visit_with_auth user_path(user.id), 'komagata'
     check '就職活動中', allow_label_click: true
-    assert user.reload.job_seeking
+    assert_equal user.reload.career_path, 1
   end
 
   test 'GET /users/new' do
