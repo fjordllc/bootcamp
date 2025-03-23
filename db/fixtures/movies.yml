@@ -33,7 +33,7 @@ movie5:
 
 <% (6..10).each do |id| %>
 movie<%= id %>:
-  title: OS X Mountain Lionに関する mp4動画<%= id %> mp4動画
+  title: OS X Mountain Lionをクリーンインストールする 動画<%= id %> mp4動画
   description: OS X Mountain Lionをクリーンインストールするに関連する動画<%= id %>です。
   user: komagata
   published_at: '2024-04-10 00:00:00'
