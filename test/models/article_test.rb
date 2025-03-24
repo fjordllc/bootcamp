@@ -13,20 +13,36 @@ class ArticleTest < ActiveSupport::TestCase
     end
   end
 
-  test '.press_release' do
-    article1 = articles(:article1)
+  test '.press_release includes only not wip articles with press release tag' do
+    article1 = Article.create(
+      title: 'プレスリリースタグのみを持つブログ',
+      body: 'test',
+      user: users(:komagata),
+      wip: false
+    )
     article1.tag_list.add('プレスリリース')
     article1.save
 
-    article2 = articles(:article2)
-    article2.tag_list.add('2つのタグを持つ公開済み記事', 'プレスリリース')
+    article2 = Article.create(
+      title: '2つのタグを持つブログ',
+      body: 'test',
+      user: users(:komagata),
+      wip: false
+    )
+    article2.tag_list.add('test', 'プレスリリース')
     article2.save
 
-    wip_article = articles(:article3)
-    wip_article.tag_list.add('2つのタグを持つwip状態の記事', 'プレスリリース')
+    wip_article = Article.create(
+      title: 'プレスリリースタグを持つwipブログ',
+      body: 'test',
+      user: users(:komagata),
+      wip: true
+    )
+    wip_article.tag_list.add('プレスリリース')
     wip_article.save
-    press_releases = Article.press_releases
 
+    press_releases = Article.press_releases
+    assert_equal [article2, article1], press_releases
     press_releases.each do |press_release|
       assert_includes press_release.tag_list, 'プレスリリース'
       assert_not press_release.wip
