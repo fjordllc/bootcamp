@@ -50,7 +50,8 @@ module SearchHelper
       return markdown_to_plain_text(searchable.body)
     end
 
-    markdown_to_plain_text(searchable.try(:description) || searchable.try(:body))
+    description_or_body = searchable.try(:description) || searchable.try(:body) || ''
+    markdown_to_plain_text(description_or_body)
   end
 
   def created_user(searchable)
