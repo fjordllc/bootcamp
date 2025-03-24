@@ -587,4 +587,4 @@ ja:
         title: Oauth2 Provider
     scopes:
       read: メールアドレスを含む基本的なプロフィール情報の読み取り
-      write: リソースの作成・修正
+      write: リソースの作成・修正・削除
