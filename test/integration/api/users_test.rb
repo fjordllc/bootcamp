@@ -97,7 +97,7 @@ class API::UsersTest < ActionDispatch::IntegrationTest
       scopes: 'read'
     )
     get api_user_path(id: 'show'),
-        headers: { Authorization: "Bearer #{doorkeeper_token.token}",Accept: 'application/json' }
+        headers: { Authorization: "Bearer #{doorkeeper_token.token}", Accept: 'application/json' }
     assert_response :ok
 
     response_body = JSON.parse(@response.body)
