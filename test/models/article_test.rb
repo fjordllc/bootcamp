@@ -49,6 +49,47 @@ class ArticleTest < ActiveSupport::TestCase
     end
   end
 
+  test '.press_release orders by published_at in descending order' do
+    three_days_ago_press_release = Article.create(
+      title: '3日前に公開されたプレスリリース',
+      body: 'test',
+      user: users(:komagata),
+      wip: false,
+      created_at: Date.current - 4.days,
+      updated_at: Date.current - 4.days,
+      published_at: Date.current - 3.days
+    )
+    three_days_ago_press_release.tag_list.add('プレスリリース')
+    three_days_ago_press_release.save
+
+    two_days_ago_press_release = Article.create(
+      title: '2日前に公開されたプレスリリース',
+      body: 'test',
+      user: users(:komagata),
+      wip: false,
+      created_at: Date.current - 5.days,
+      updated_at: Date.current - 5.days,
+      published_at: Date.current - 2.days
+    )
+    two_days_ago_press_release.tag_list.add('プレスリリース')
+    two_days_ago_press_release.save
+
+    one_day_ago_press_release = Article.create(
+      title: '1日前に公開されたプレスリリース',
+      body: 'test',
+      user: users(:komagata),
+      wip: false,
+      created_at: Date.current - 6.days,
+      updated_at: Date.current - 6.days,
+      published_at: Date.current - 1.day
+    )
+    one_day_ago_press_release.tag_list.add('プレスリリース')
+    one_day_ago_press_release.save
+
+    press_releases = Article.press_releases
+    assert_equal [one_day_ago_press_release, two_days_ago_press_release, three_days_ago_press_release], press_releases
+  end
+
   test '#prepared_thumbnail_url' do
     article = articles(:article3)
     assert_equal '/ogp/blank.svg', article.prepared_thumbnail_url
