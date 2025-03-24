@@ -16,7 +16,7 @@ class API::CommentsTest < ActionDispatch::IntegrationTest
       application:,
       resource_owner_id: user.id,
       scopes: 'read'
-      )
+    )
     @write_token = Doorkeeper::AccessToken.create!(
       application:,
       resource_owner_id: user.id,
@@ -43,8 +43,8 @@ class API::CommentsTest < ActionDispatch::IntegrationTest
 
   test 'can not create comment with read scope' do
     post api_comments_url(format: :json, commentable_type: 'Report', commentable_id: @comment.commentable_id),
-        headers: { Authorization: "Bearer #{@read_token.token}" },
-        params: { comment: { description: 'New comment' } }
+         headers: { Authorization: "Bearer #{@read_token.token}" },
+         params: { comment: { description: 'New comment' } }
     assert_response :forbidden
   end
 
@@ -57,7 +57,7 @@ class API::CommentsTest < ActionDispatch::IntegrationTest
 
   test 'can not delete comment with read scope' do
     delete api_comment_url(@comment.id, format: :json),
-          headers: { Authorization: "Bearer #{@read_token.token}" }
+           headers: { Authorization: "Bearer #{@read_token.token}" }
     assert_response :forbidden
   end
 
@@ -71,8 +71,8 @@ class API::CommentsTest < ActionDispatch::IntegrationTest
   test 'can create comment with read, write scope' do
     assert_difference('Comment.count') do
       post api_comments_url(format: :json, commentable_type: 'Report', commentable_id: @comment.commentable_id),
-          headers: { Authorization: "Bearer #{@write_token.token}" },
-          params: { comment: { description: 'New comment' } }
+           headers: { Authorization: "Bearer #{@write_token.token}" },
+           params: { comment: { description: 'New comment' } }
       assert_response :created
     end
   end
@@ -87,7 +87,7 @@ class API::CommentsTest < ActionDispatch::IntegrationTest
   test 'can delete comment with read, write scope' do
     assert_difference('Comment.count', -1) do
       delete api_comment_url(@comment.id, format: :json),
-            headers: { Authorization: "Bearer #{@write_token.token}" }
+             headers: { Authorization: "Bearer #{@write_token.token}" }
       assert_response :no_content
     end
   end
