@@ -541,7 +541,7 @@ ja:
       help:
         confidential: 機密性の高いアプリケーションの場合はチェックしてください
         redirect_uri: 一行に一つのURLを入力してください
-        scopes: クライアントアプリがリソースを利用できるようになる範囲を指定してください。read writeが設定でき、readは「読み取り」writeは「書き込み」ができるようになります。空白の場合は、readが利用できます。writeのみ設定した場合は、readも利用できます。
+        scopes: クライアントアプリがリソースを利用できるようになる範囲を指定してください。read writeが設定でき、readは「読み取り」writeは「書き込み」ができるようになります。空白の場合は、readが利用できます。writeを利用したい場合は、read writeのように入力してください。
       edit:
         title: アプリケーション編集
       index:
