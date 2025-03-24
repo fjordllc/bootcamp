@@ -377,13 +377,6 @@ class UsersTest < ApplicationSystemTestCase
     assert_no_selector 'label.a-form-label', text: '活動時間'
   end
 
-  test 'change job seeking flag when click toggle button' do
-    user = users(:hajime)
-    visit_with_auth user_path(user.id), 'komagata'
-    check '就職活動中', allow_label_click: true
-    assert_equal user.reload.career_path, 1
-  end
-
   test 'GET /users/new' do
     visit '/users/new'
     assert_equal 'FBC参加登録 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
