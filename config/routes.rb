@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :surveys do
-    resources :survey_questions, only: %i(index), controller: "surveys/survey_question_listings"
-  end
   root to: "home#index"
 
   get "test", to: "home#test", as: "test"
@@ -86,7 +83,6 @@ Rails.application.routes.draw do
     resources :wips, only: %i(index), controller: "wips"
   end
   resources :articles
-  resources :survey_questions, except: %i(show destroy)
   namespace :events do
     resources :calendars, only: %i(index)
   end
@@ -109,6 +105,9 @@ Rails.application.routes.draw do
   resource :billing_portal, only: :create, controller: "billing_portal"
   resources :external_entries, only: %i(index)
   resources :press_releases, only: %i(index)
+  resources :surveys, only: %i(show) do
+    resources :survey_answers, only: %i(create), controller: "surveys/survey_answers"
+  end
   get "articles/tags/:tag", to: "articles#index", as: :tag, tag: /.+/
   get 'sponsorships', to: 'articles/sponsorships#index'
   get "pages/tags/:tag", to: "pages#index", as: :pages_tag, tag: /.+/, format: "html"
@@ -124,6 +123,7 @@ Rails.application.routes.draw do
   get '/', to: 'home#index', as: :niconico_calendar_date, constraints: niconico_calendar_constraints
   get '/users/:id', to: 'users#show', as: :niconico_calendar_date_in_profile, constraints: niconico_calendar_constraints
   resource :buzz, only: %i(show edit update), controller: "buzz"
+  resources :movies
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   mount GoodJob::Engine => 'good_job'
 end

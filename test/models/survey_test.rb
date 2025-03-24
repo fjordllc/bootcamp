@@ -3,26 +3,65 @@
 require 'test_helper'
 
 class SurveyTest < ActiveSupport::TestCase
-  setup do
-    @survey = surveys(:survey1)
+  test 'before_start? returns true when current time is before start_at' do
+    survey = surveys(:survey1)
+    survey.start_at = Time.current + 1.day
+    survey.end_at = Time.current + 2.days
+    assert survey.before_start?
   end
 
-  test 'survey1 is valid' do
-    @survey.valid?
+  test 'before_start? returns false when current time is after start_at' do
+    survey = surveys(:survey1)
+    survey.start_at = Time.current - 1.day
+    survey.end_at = Time.current + 1.day
+    assert_not survey.before_start?
   end
 
-  test 'survey1 is invalid if title is null' do
-    @survey.title = nil
-    @survey.invalid?
+  test 'answer_accepting? returns true when current time is between start_at and end_at' do
+    survey = surveys(:survey1)
+    survey.start_at = Time.current - 1.day
+    survey.end_at = Time.current + 1.day
+    assert survey.answer_accepting?
   end
 
-  test 'survey1 is invalid if start_at is null' do
-    @survey.start_at = nil
-    @survey.invalid?
+  test 'answer_accepting? returns false when current time is before start_at' do
+    survey = surveys(:survey1)
+    survey.start_at = Time.current + 1.day
+    survey.end_at = Time.current + 2.days
+    assert_not survey.answer_accepting?
   end
 
-  test 'survey1 is invalid if end_at is null' do
-    @survey.end_at = nil
-    @survey.invalid?
+  test 'answer_accepting? returns false when current time is after end_at' do
+    survey = surveys(:survey1)
+    survey.start_at = Time.current - 2.days
+    survey.end_at = Time.current - 1.day
+    assert_not survey.answer_accepting?
+  end
+
+  test 'answer_ended? returns true when current time is after end_at' do
+    survey = surveys(:survey1)
+    survey.start_at = Time.current - 2.days
+    survey.end_at = Time.current - 1.day
+    assert survey.answer_ended?
+  end
+
+  test 'answer_ended? returns false when current time is before end_at' do
+    survey = surveys(:survey1)
+    survey.start_at = Time.current - 1.day
+    survey.end_at = Time.current + 1.day
+    assert_not survey.answer_ended?
+  end
+
+  test 'answers? returns true when survey has answers' do
+    survey = surveys(:survey1)
+    user = users(:komagata)
+    survey.survey_answers.create(user:)
+    assert survey.answers?
+  end
+
+  test 'answers? returns false when survey has no answers' do
+    survey = surveys(:survey1)
+    survey.survey_answers.destroy_all
+    assert_not survey.answers?
   end
 end

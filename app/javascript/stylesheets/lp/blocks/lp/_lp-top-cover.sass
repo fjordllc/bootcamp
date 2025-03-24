@@ -1,4 +1,5 @@
 .lp-top-cover
+  background-image: url(https://bootcamp.fjord.jp/images/background/people.png)
   background-image: url(https://bootcamp.fjord.jp/images/background/people.svg)
   background-color: var(--lp-bg-2)
   background-repeat: repeat
@@ -12,13 +13,32 @@
   +media-breakpoint-down(sm)
     height: 24rem
     background-size: 20rem
+  &::before
+    content: ''
+    position: absolute
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
+    width: 100%
+    height: 100%
+    background-image: url(https://bootcamp.fjord.jp/images/background/people.svg)
+    background-repeat: repeat
+    background-color: var(--lp-bg-2)
+    +media-breakpoint-up(lg)
+      background-size: 36rem
+    +media-breakpoint-only(md)
+      background-size: 26rem
+    +media-breakpoint-down(sm)
+      background-size: 20rem
 
 .lp-top-cover__container
   height: 100%
 
 .lp-top-cover__inner
   height: 100%
-  +position(relative)
+  position: relative
+  z-index: 2
   display: flex
   align-items: center
   +media-breakpoint-down(sm)

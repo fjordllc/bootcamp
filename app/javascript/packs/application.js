@@ -53,6 +53,7 @@ import '../header-dropdown.js'
 import '../editor-selection-form.js'
 import '../user_mentor_memo.js'
 import '../invitation-url-updater.js'
+import '../movie-fileinput.js'
 import '../payment-methods-check-boxes.js'
 import '../product_checker.js'
 import '../product_checker_button.js'
@@ -65,6 +66,8 @@ import '../answer.js'
 import '../new-answer.js'
 import '../coding-test.js'
 import '../copy-url.js'
+import '../survey_result_chart.js'
+import '../footprints.js'
 
 import VueMounter from '../VueMounter.js'
 import Questions from '../components/questions.vue'
@@ -72,7 +75,6 @@ import UsersAnswers from '../components/users-answers.vue'
 import User from '../components/user.vue'
 import Watches from '../components/watches.vue'
 import WatchToggle from '../components/watch-toggle.vue'
-import Footprints from '../components/footprints.vue'
 import SadReports from '../components/sad_reports.vue'
 import UserProducts from '../components/user-products.vue'
 import ActionCompletedButton from '../components/action-completed-button.vue'
@@ -85,7 +87,6 @@ mounter.addComponent(UsersAnswers)
 mounter.addComponent(User)
 mounter.addComponent(Watches)
 mounter.addComponent(WatchToggle)
-mounter.addComponent(Footprints)
 mounter.addComponent(SadReports)
 mounter.addComponent(UserProducts)
 mounter.addComponent(ActionCompletedButton)

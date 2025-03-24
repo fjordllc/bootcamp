@@ -30,8 +30,7 @@
       = link_to articles_path,
         class: 'header-dropdown__item-link' do
         | ブログ
-    - if Rails.env.development? || Rails.env.test?
-      li.header-dropdown__item
-        = link_to survey_questions_path,
-          class: 'header-dropdown__item-link' do
-          | アンケート
+    li.header-dropdown__item
+      = link_to mentor_surveys_path,
+        class: 'header-dropdown__item-link' do
+        | アンケート

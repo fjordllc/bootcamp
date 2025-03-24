@@ -1,0 +1,23 @@
+movie1:
+  title: mp4動画
+  description: mp4の動画です
+  user: kimura
+  published_at: '2024-04-09 00:00:00'
+
+movie2:
+  title: mov動画
+  description: movの動画です
+  user: kimura
+  published_at: '2024-04-09 00:00:00'
+
+movie3:
+  title: WIPのテスト
+  description: WIPのテスト用です
+  user: kimura
+  wip: true
+
+movie4:
+  title: userが削除された動画
+  description: userが削除された動画です
+  user: null
+  published_at: '2024-04-09 00:00:00'

@@ -62,8 +62,11 @@ tables = %i[
   check_box_choices
   surveys
   survey_question_listings
+  survey_answers
+  survey_question_answers
   buzzes
   inquiries
+  movies
   coding_tests
   coding_test_cases
   coding_test_submissions

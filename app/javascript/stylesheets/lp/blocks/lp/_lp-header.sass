@@ -15,7 +15,10 @@
 .lp-header__end
   height: 100%
   display: flex
-  gap: 1rem
   align-items: center
   +media-breakpoint-down(lg)
     margin-right: -1rem
+  +media-breakpoint-up(md)
+    gap: 1rem
+  +media-breakpoint-down(md)
+    gap: .25rem

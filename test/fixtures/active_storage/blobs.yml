@@ -30,3 +30,10 @@ komagata_profile_image_blob: <%= ActiveStorage::Blob.fixture filename: "users/av
 machida_profile_image_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/machida.jpg", service_name: "test_fixtures" %>
 
 kimuramitai_profile_image_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/default.jpg", service_name: "test_fixtures" %>
+
+mp4_movie_blob: <%= ActiveStorage::Blob.fixture filename: "movies/movie.mp4" %>
+
+mov_movie_blob: <%= ActiveStorage::Blob.fixture filename: "movies/movie.mov" %>
+
+wip_movie_blob: <%= ActiveStorage::Blob.fixture filename: "movies/movie.mp4" %>
+

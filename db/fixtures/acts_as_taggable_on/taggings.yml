@@ -104,3 +104,8 @@ article<%= id %>_tag_press_release:
   context: tags
   tag: press_release
 <% end %>
+
+movie1_tag_cat:
+  taggable: movie1 (Movie)
+  context: tags
+  tag: cat

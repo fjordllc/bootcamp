@@ -1,0 +1,59 @@
+= render 'errors', object: survey_question
+= form_with model: [:mentor, survey_question], local: true do |f|
+  .form__items
+    .form__items-inner
+      .form-item
+        = f.label :title, class: 'a-form-label is-required'
+        = f.text_field :title, class: 'a-text-input js-warning-form', placeholder: '現在の学習に対するモチベーションを教えてください。'
+      .form-item
+        = f.label :description, class: 'a-form-label'
+        = f.text_area :description, class: 'a-text-input js-warning-form', placeholder: '複数選択可。'
+      .form-item
+        label.a-form-label
+          | 回答必須
+        .checkboxes
+          ul.checkboxes__items
+            li.checkboxes__item
+              = f.check_box :answer_required, class: 'a-toggle-checkbox js-warning-form'
+              = f.label :answer_required do
+                | 回答必須の場合はチェック
+      .form-item
+        label.a-form-label.is-required
+          | 質問形式
+        ul.block-checks.is-2-items
+          li.block-checks__item
+            .a-block-check.is-radio
+              = f.radio_button :format, 'text_area', id: 'text_area', class: 'a-toggle-checkbox'
+              label.a-block-check__label(for='text_area')
+                | 段落
+          li.block-checks__item
+            .a-block-check.is-radio
+              = f.radio_button :format, 'text_field', id: 'text_field', class: 'a-toggle-checkbox'
+              label.a-block-check__label(for='text_field')
+                | 記述式
+          li.block-checks__item
+            .a-block-check.is-radio
+              = f.radio_button :format, 'radio_button', id: 'radio_button', class: 'a-toggle-checkbox'
+              label.a-block-check__label(for='radio_button')
+                | ラジオボタン
+          li.block-checks__item
+            .a-block-check.is-radio
+              = f.radio_button :format, 'check_box', id: 'check_box', class: 'a-toggle-checkbox'
+              label.a-block-check__label(for='check_box')
+                | チェックボックス
+          li.block-checks__item
+            .a-block-check.is-radio
+              = f.radio_button :format, 'linear_scale', id: 'linear_scale', class: 'a-toggle-checkbox'
+              label.a-block-check__label(for='linear_scale')
+                | 均等目盛
+
+      = render 'form_radio_button', f: f
+      = render 'form_check_box', f: f
+      = render 'form_linear_scale', f: f
+
+      .form-actions
+        ul.form-actions__items
+          li.form-actions__item.is-main
+            = f.submit '保存', class: 'a-button is-lg is-primary is-block'
+          li.form-actions__item.is-sub
+            = link_to 'キャンセル', :back, class: 'a-button is-sm is-text'

@@ -503,7 +503,7 @@ class HomeTest < ApplicationSystemTestCase
   end
 
   test 'not show trainee lists for adviser when adviser does not have same company trainees' do
-    visit_with_auth '/', 'advisernocolleguetrainee'
+    visit_with_auth '/', 'advisernocolleaguetrainee'
     assert_text '現在、ユーザの企業に登録しないで株式会社は研修を利用していません。'
   end
 

@@ -44,12 +44,12 @@ class HomeController < ApplicationController
     @completed_learnings = current_user.learnings.where(status: 3).includes(:practice).order(updated_at: :desc)
     @inactive_students = User.with_attached_avatar.inactive_students_and_trainees.order(last_activity_at: :desc)
     @job_seeking_users = User.with_attached_avatar.job_seeking.includes(:reports, :products, :works, :course, :company)
-    @collegue_trainees = current_user.collegue_trainees.with_attached_avatar.includes(:reports, :products, :comments)
-    collegue_trainees_reports = Report.with_avatar.where(wip: false).where(user: current_user.collegue_trainees.with_attached_avatar)
-    @collegue_trainees_recent_reports = collegue_trainees_reports.order(reported_on: :desc).limit(10)
+    @colleague_trainees = current_user.colleague_trainees.with_attached_avatar.includes(:reports, :products, :comments)
+    colleague_trainees_reports = Report.with_avatar.where(wip: false).where(user: current_user.colleague_trainees.with_attached_avatar)
+    @colleague_trainees_recent_reports = colleague_trainees_reports.order(reported_on: :desc).limit(10)
     @recent_reports = Report.with_avatar.where(wip: false).order(reported_on: :desc, created_at: :desc).limit(10)
     @product_deadline_day = Product::PRODUCT_DEADLINE
-    @collegues = current_user.collegues_other_than_self
+    @colleagues = current_user.colleagues_other_than_self
     @calendar = NicoNicoCalendar.new(current_user, params[:niconico_calendar])
   end
 

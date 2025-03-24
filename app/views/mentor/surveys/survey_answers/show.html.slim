@@ -1,0 +1,77 @@
+- title 'メンターページ'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title
+          = title
+
+= render 'mentor/mentor_page_tabs'
+= mentor_surveys_sub_tabs(active_tab: 'アンケート')
+
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | #{@survey.title}の回答詳細
+        .page-main-header__end
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              li.page-main-header-actions__item
+                = link_to mentor_survey_survey_answers_path(@survey), class: 'a-button is-md is-secondary is-block is-back' do
+                  i.fa-regular
+                  | 回答一覧に戻る
+  hr.a-border
+  .page-body
+    .container.is-lg
+      .survey-answer-summary
+        .survey-answer-summary__header
+          .survey-answer-summary__user
+            i.fa-solid.fa-user.survey-answer-summary__icon
+            = link_to user_path(@survey_answer.user), class: 'survey-answer-summary__name' do
+              = @survey_answer.user.name
+          .survey-answer-summary__date
+            i.fa-regular.fa-calendar.survey-answer-summary__icon
+            span = l @survey_answer.created_at
+
+      .survey-answer-questions
+        - @survey_answer.survey_question_answers.includes(:survey_question).find_each do |question_answer|
+          .survey-answer-question
+            .survey-answer-question__header
+              h3.survey-answer-question__title
+                = question_answer.survey_question.title
+              .survey-answer-question__type
+                - case question_answer.survey_question.format
+                - when 'text_area', 'text_field'
+                  span.survey-answer-question__badge.is-text
+                    i.fa-solid.fa-font
+                    | テキスト
+                - when 'radio_button'
+                  span.survey-answer-question__badge.is-radio
+                    i.fa-solid.fa-circle-dot
+                    | 単一選択
+                - when 'check_box'
+                  span.survey-answer-question__badge.is-checkbox
+                    i.fa-solid.fa-check-square
+                    | 複数選択
+                - when 'linear_scale'
+                  span.survey-answer-question__badge.is-scale
+                    i.fa-solid.fa-sliders
+                    | スケール
+            .survey-answer-question__content
+              - if question_answer.survey_question.format_text_area? || question_answer.survey_question.format_text_field?
+                .survey-answer-question__text
+                  = simple_format(question_answer.answer)
+              - else
+                .survey-answer-question__choice
+                  .survey-answer-question__choice-label 回答:
+                  .survey-answer-question__choice-value = question_answer.answer
+
+                - if question_answer.reason.present?
+                  .survey-answer-question__reason
+                    .survey-answer-question__reason-label 理由:
+                    .survey-answer-question__reason-text
+                      = simple_format(question_answer.reason)

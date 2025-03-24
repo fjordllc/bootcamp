@@ -1,0 +1,12 @@
+.a-card
+  header.card-header.is-sm
+    h2.card-header__title
+      | 研修生の最新の日報
+  hr.a-border-tint
+  .card-list.has-scroll
+    = render partial: 'colleague_trainee_recent_report', collection: @colleague_trainees_recent_reports, as: :report
+  hr.a-border-tint
+  footer.card-footer
+    .card-footer__footer-link
+      = link_to company_reports_path(current_user.company_id), class: 'card-footer__footer-text-link' do
+        | もっと見る
