@@ -127,8 +127,8 @@ ActiveRecord::Schema.define(version: 2025_04_11_103935) do
   end
 
   create_table "categories", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255
-    t.string "slug", limit: 255
+    t.string "name"
+    t.string "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text "description"
@@ -216,14 +216,13 @@ ActiveRecord::Schema.define(version: 2025_04_11_103935) do
     t.datetime "updated_at"
     t.string "commentable_type", default: "Report"
     t.index ["commentable_id"], name: "index_comments_on_commentable_id"
-    t.index ["user_id"], name: "comment_user_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "companies", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255
+    t.string "name"
     t.text "description"
-    t.string "website", limit: 255
+    t.string "website"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text "tos"
@@ -263,9 +262,6 @@ ActiveRecord::Schema.define(version: 2025_04_11_103935) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["course_id", "category_id"], name: "index_courses_categories_on_course_id_and_category_id", unique: true
-  end
-
-  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
   end
 
   create_table "discord_profiles", force: :cascade do |t|
@@ -720,8 +716,8 @@ ActiveRecord::Schema.define(version: 2025_04_11_103935) do
     t.integer "kind", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["reactionable_type", "reactionable_id"], name: "index_reactions_on_reactionable_type_and_reactionable_id"
-    t.index ["user_id", "reactionable_id", "reactionable_type", "kind"], name: "index_reactions_on_reactionable", unique: true
+    t.index ["reactionable_type", "reactionable_id"], name: "index_reactions_on_reactionable"
+    t.index ["user_id", "reactionable_id", "reactionable_type", "kind"], name: "index_reactions_on_reactionable_u_k", unique: true
     t.index ["user_id"], name: "index_reactions_on_user_id"
   end
 
@@ -782,7 +778,6 @@ ActiveRecord::Schema.define(version: 2025_04_11_103935) do
     t.index ["created_at"], name: "index_reports_on_created_at"
     t.index ["user_id", "reported_on"], name: "index_reports_on_user_id_and_reported_on", unique: true
     t.index ["user_id", "title"], name: "index_reports_on_user_id_and_title", unique: true
-    t.index ["user_id"], name: "reports_user_id"
   end
 
   create_table "request_retirements", force: :cascade do |t|
@@ -899,21 +894,21 @@ ActiveRecord::Schema.define(version: 2025_04_11_103935) do
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
-    t.string "login_name", limit: 255, null: false
-    t.string "email", limit: 255
-    t.string "crypted_password", limit: 255
-    t.string "salt", limit: 255
+    t.string "login_name", null: false
+    t.string "email"
+    t.string "crypted_password"
+    t.string "salt"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "remember_me_token", limit: 255
+    t.string "remember_me_token"
     t.datetime "remember_me_token_expires_at"
-    t.string "twitter_account", limit: 255
-    t.string "facebook_url", limit: 255
-    t.string "blog_url", limit: 255
+    t.string "twitter_account"
+    t.string "facebook_url"
+    t.string "blog_url"
     t.integer "company_id"
     t.text "description"
     t.datetime "accessed_at"
-    t.string "github_account", limit: 255
+    t.string "github_account"
     t.boolean "adviser", default: false, null: false
     t.boolean "nda", default: true, null: false
     t.string "reset_password_token"
@@ -935,13 +930,13 @@ ActiveRecord::Schema.define(version: 2025_04_11_103935) do
     t.string "subscription_id"
     t.boolean "mail_notification", default: true, null: false
     t.boolean "job_seeker", default: false, null: false
-    t.boolean "github_collaborator", default: false, null: false
     t.string "github_id"
+    t.boolean "github_collaborator", default: false, null: false
+    t.string "name", default: "", null: false
+    t.string "name_kana", default: "", null: false
     t.integer "satisfaction"
     t.text "opinion"
     t.bigint "retire_reasons", default: 0, null: false
-    t.string "name", default: "", null: false
-    t.string "name_kana", default: "", null: false
     t.string "unsubscribe_email_token"
     t.text "mentor_memo"
     t.text "after_graduation_hope"
@@ -958,7 +953,6 @@ ActiveRecord::Schema.define(version: 2025_04_11_103935) do
     t.string "country_code"
     t.string "subdivision_code"
     t.boolean "auto_retire", default: true
-    t.boolean "invoice_payment", default: false, null: false
     t.integer "editor"
     t.string "other_editor"
     t.boolean "show_mentor_profile", default: true, null: false
@@ -983,7 +977,7 @@ ActiveRecord::Schema.define(version: 2025_04_11_103935) do
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.index ["watchable_type", "watchable_id", "user_id"], name: "index_watches_on_watchable_type_and_watchable_id_and_user_id", unique: true
-    t.index ["watchable_type", "watchable_id"], name: "index_watches_on_watchable_type_and_watchable_id"
+    t.index ["watchable_type", "watchable_id"], name: "index_watches_on_watchable"
   end
 
   create_table "works", force: :cascade do |t|
