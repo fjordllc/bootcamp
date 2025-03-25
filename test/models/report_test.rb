@@ -44,7 +44,7 @@ class ReportTest < ActiveSupport::TestCase
     assert_equal 10, reports(:report32).interval
   end
 
-  test 'save_with_lock does not save duplicate report and adds validation errors' do
+  test 'save_uniquely does not save duplicate report and adds validation errors' do
     Report.create!(
       user: users(:komagata),
       reported_on: Time.zone.today,
@@ -58,6 +58,7 @@ class ReportTest < ActiveSupport::TestCase
       title: 'report2',
       description: 'report2本文'
     )
-    assert_not duplicate_report.save_with_lock
+    assert_not duplicate_report.save_uniquely
+    assert_includes duplicate_report.errors.full_messages, '同じ日付のレポートが既に存在します。'
   end
 end
