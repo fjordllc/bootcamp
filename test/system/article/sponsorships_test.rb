@@ -10,6 +10,7 @@ class Article::SponsorshipsTest < ApplicationSystemTestCase
     fill_in_tag 'スポンサーシップ'
     click_on '公開する'
     visit sponsorships_path
+    assert_selector '.thumbnail-card__inner', count: 1
     assert_text 'sponsorshipページに表示される記事のタイトルです。'
   end
 end
