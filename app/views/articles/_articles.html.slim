@@ -18,6 +18,9 @@ hr.a-border-tint
 .lp-page-body
   .articles
     .articles__body
+      .container
+        - if params[:tag].present?
+          | タグ「#{params[:tag]}」
       - if current_user&.admin_or_mentor_login?
         nav.pill-nav.mb-8
           .pill-nav__items
@@ -66,12 +69,11 @@ hr.a-border-tint
                               = l(article.created_at)
                             - else
                               = l(article.published_at)
-                    - if current_user&.admin_or_mentor_login? && article.tag_list.present?
-                      .thumbnail-card__row
-                        .a-tags
-                          ul.a-tags__items
-                            - article.tag_list.each do |tag|
-                              li.a-tags__item
-                                .a-badge.is-muted.is-sm
-                                  = tag
+                    .thumbnail-card__row
+                      .a-tags
+                        ul.a-tags__items
+                          - article.tag_list.each do |tag|
+                            li.a-tags__item
+                              .a-badge.is-muted.is-sm
+                                = tag
         = paginate articles

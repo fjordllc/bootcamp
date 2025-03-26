@@ -55,13 +55,12 @@ hr.a-border-tint
                         = l(@article.created_at)
                       - else
                         = l(@article.published_at)
-              - if current_user&.admin_or_mentor_login? && @article.tag_list.present?
-                .article__header-row
-                  .a-tags
-                    ul.a-tags__items
-                      - @article.tag_list.each do |tag|
-                        li.a-tags__item
-                          = link_to tag, articles_path(tag: tag), class: 'a-badge is-muted is-sm'
+              .article__header-row
+                .a-tags
+                  ul.a-tags__items
+                    - @article.tag_list.each do |tag|
+                      li.a-tags__item
+                        = link_to tag, articles_path(tag: tag), class: 'a-badge is-muted is-sm'
               .article__header-row
                 = render 'share_buttons', article: @article
               - if @article.display_thumbnail_in_body?
