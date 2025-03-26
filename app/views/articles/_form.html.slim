@@ -168,11 +168,9 @@
               label.a-block-check__label(for='none')
                 =t('activerecord.enums.article.target.none')
     - elsif article.target == 'none'
-      p
-        | この記事は通知を行わずに公開しました。
+      p この記事は通知を行わずに公開しました。
     - else
-      p
-        = 'この記事は初回公開時にすでに通知を行っています。'
+      p この記事は初回公開時にすでに通知を行っています。
 
   .form-actions
     ul.form-actions__items
