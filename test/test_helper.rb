@@ -15,17 +15,6 @@ Capybara.default_max_wait_time = 10
 Capybara.disable_animation = true
 Minitest::Retry.use! if ENV['CI']
 
-Capybara.register_driver :selenium_chrome_headless_with_clipboard do |app|
-  options = Selenium::WebDriver::Chrome::Options.new
-  options.args << 'headless'
-  options.args << 'disable-gpu'
-  options.args << 'no-sandbox'
-  options.args << 'enable-blink-features=Clipboard'
-
-  Capybara::Selenium::Driver.new(app, browser: :chrome, options:)
-end
-Capybara.javascript_driver = :selenium_chrome_headless_with_clipboard
-
 class ActiveSupport::TestCase
   include VCRHelper
 
