@@ -501,20 +501,18 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'comment url is copied when click its updated_time at inquiry' do
-    Capybara.using_driver(:selenium_chrome_headless_with_clipboard) do
-      visit_with_auth "/admin/inquiries/#{inquiries(:inquiry1).id}", 'komagata'
-      find('#comments.loaded', wait: 10)
-      first(:css, '.thread-comment__created-at').click
-      # 参考：https://gist.github.com/KonnorRogers/5fe937ee60695ff1d227f18fe4b1d5c4
-      cdp_permission = {
-        origin: page.server_url,
-        permission: { name: 'clipboard-read' },
-        setting: 'granted'
-      }
-      page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission)
-      clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
-      assert_equal current_url + "#comment_#{comments(:comment43).id}", clip_text
-    end
+    visit_with_auth "/admin/inquiries/#{inquiries(:inquiry1).id}", 'komagata'
+    find('#comments.loaded', wait: 10)
+    first(:css, '.thread-comment__created-at').click
+    # 参考：https://gist.github.com/KonnorRogers/5fe937ee60695ff1d227f18fe4b1d5c4
+    cdp_permission = {
+      origin: page.server_url,
+      permission: { name: 'clipboard-read' },
+      setting: 'granted'
+    }
+    page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission)
+    clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
+    assert_equal current_url + "#comment_#{comments(:comment43).id}", clip_text
   end
 
   test 'text change "see more comments" button by remaining comment amount at inquiry' do
