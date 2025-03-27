@@ -1,3 +1,5 @@
+import { toast } from './vanillaToast'
+
 document.addEventListener('DOMContentLoaded', function () {
   const buttons = document.querySelectorAll('.a-button')
 
@@ -50,6 +52,11 @@ document.addEventListener('DOMContentLoaded', function () {
           if (description) {
             description.innerHTML = newMessage
           }
+
+          const tostMessage = isActionCompleted
+            ? '未対応にしました'
+            : '対応済みにしました'
+          toast(tostMessage, 'success')
         })
         .catch((error) => {
           console.error('エラーが発生しました:', error)
