@@ -137,7 +137,7 @@ class Report < ApplicationRecord
       save
     end
   rescue ActiveRecord::RecordNotUnique
-    errors.add(:base, '同じ日付のレポートが既に存在します。')
+    errors.add(:base, '学習日はすでに存在します')
     false
   end
 
