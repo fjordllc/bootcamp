@@ -6,7 +6,7 @@ import { toast } from 'toast_react'
 document.addEventListener('DOMContentLoaded', () => {
   const practiceMemo = document.querySelector('.practice-memo')
   if (practiceMemo) {
-    TextareaInitializer.initialize('.a-markdown-input__textarea')
+    TextareaInitializer.initialize('#js-practice-memo')
     const markdownInitializer = new MarkdownInitializer()
     const practiceId = practiceMemo.dataset.practice_id
     let savedMemo = ''
