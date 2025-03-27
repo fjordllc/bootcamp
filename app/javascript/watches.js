@@ -1,6 +1,9 @@
+import { unWatch } from './watch-toggle'
+
 document.addEventListener('DOMContentLoaded', () => {
   const localStorage = window.localStorage
   const editToggle = document.getElementById('card-list-tools__action')
+
   const deleteButtons = document.querySelectorAll('.a-watch-button')
   if (!editToggle) {
     window.addEventListener('beforeunload', function () {
@@ -8,6 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     return
   }
+
+  deleteButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      unWatch(button)
+    })
+  })
 
   if (localStorage.getItem('watchs-delete-mode') === 'on') {
     editToggle.checked = true
