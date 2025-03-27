@@ -59,6 +59,6 @@ class ReportTest < ActiveSupport::TestCase
       description: 'report2本文'
     )
     assert_not duplicate_report.save_uniquely
-    assert_includes duplicate_report.errors.full_messages, '同じ日付のレポートが既に存在します。'
+    assert_includes duplicate_report.errors.full_messages, '学習日はすでに存在します'
   end
 end
