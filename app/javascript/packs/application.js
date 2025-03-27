@@ -75,7 +75,6 @@ import '../article-target.js'
 import '../referral-source-selection-form.js'
 import '../watches.js'
 import '../watch-toggle.js'
-import '../watch.js'
 
 import VueMounter from '../VueMounter.js'
 import Questions from '../components/questions.vue'
