@@ -36,10 +36,20 @@ document.addEventListener('DOMContentLoaded', function () {
             ? '対応済にする'
             : '対応済です'
           const iconClass = isActionCompleted ? 'fa-redo' : 'fa-check'
+          const newMessage = isActionCompleted
+            ? '返信が完了し次は相談者からのアクションの待ちの状態になったとき、もしくは、相談者とのやりとりが一通り完了した際は、このボタンをクリックして対応済のステータスに変更してください。'
+            : 'お疲れ様でした！相談者から次のアクションがあった際は、自動で未対応のステータスに変更されます。再度このボタンをクリックすると、未対応にステータスに戻ります。'
 
           button.innerHTML = `<i class="fas ${iconClass}"></i> ${newButtonText}`
           button.classList.toggle('is-warning', isActionCompleted)
           button.classList.toggle('is-muted-borderd', !isActionCompleted)
+
+          const description = button
+            .closest('.thread-comment-form')
+            .querySelector('.action-completed__description p')
+          if (description) {
+            description.innerHTML = newMessage
+          }
         })
         .catch((error) => {
           console.error('エラーが発生しました:', error)
