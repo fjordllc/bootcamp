@@ -1222,7 +1222,7 @@ autoretire-within-1-week:
   subdivision_code: '04'
   github_account: autoretire-within-1-week
   unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
-  hibernated_at: <%= Time.current - 6.months + 6.days%>
+  hibernated_at: <%= Time.current - 3.months + 1.week%>
   updated_at: "2014-01-01 00:00:13"
   created_at: "2014-01-01 00:00:13"
   sent_student_followup_message: true
