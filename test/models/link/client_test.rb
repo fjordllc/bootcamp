@@ -22,7 +22,7 @@ module Link
         assert_match '<title>就職支援 | FJORD BOOT CAMP（フィヨルドブートキャンプ）</title>', response.body
       end
       VCR.use_cassette 'link/client/request/developer.mozilla.org' do
-        response = Client.request('https://developer.mozilla.org/ja/docs/Web/JavaScript#Tutorials')
+        response = Client.request('https://developer.mozilla.org/ja/docs/Web/JavaScript')
         assert_equal '200', response.code
         assert_match '<h1>JavaScript</h1>', response.body
       end
@@ -45,7 +45,7 @@ module Link
         assert_match '<title>就職支援 | FJORD BOOT CAMP（フィヨルドブートキャンプ）</title>', response.body
       end
       VCR.use_cassette 'link/client/request/developer.mozilla.org' do
-        response = Client.new('https://developer.mozilla.org/ja/docs/Web/JavaScript#Tutorials').request
+        response = Client.new('https://developer.mozilla.org/ja/docs/Web/JavaScript').request
         assert_equal '200', response.code
         assert_match '<h1>JavaScript</h1>', response.body
       end
