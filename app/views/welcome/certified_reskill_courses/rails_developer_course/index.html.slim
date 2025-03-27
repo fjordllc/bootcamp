@@ -1,14 +1,43 @@
-- title 'Railsエンジニア（Reスキル認定講座対応）コース'
+- title '給付金制度対象講座Railsエンジニア（Reスキル認定講座対応）コース'
 - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
-  description: 'フィヨルドブートキャンプのRailsエンジニア（Reスキル認定講座対応）コースの説明です。')
+  description: '最大受講料の80%が給付金で返ってくる、専門実践教育訓練給付制度の対象講座Railsエンジニア（Reスキル認定講座対応）コースの説明です。')
 
-header.lp-page-header
-  .l-container
-    .lp-page-header__inner
-      .lp-page-header__start
-        h1.lp-page-header__title
-          = title
-      .lp-page-header__end
+.lp-content.is-lp-bg-main.is-hero
+  .l-container.is-xl
+    .lp-content__inner
+      .lp-content__start
+        .lp-hero-info
+          hgroup.lp-hero-info__titles
+            h1.lp-hero-info__title
+              | Railsエンジニア
+              | （
+              strong
+                | Reスキル認定講座対応
+              | ）
+              | コース
+            h2.lp-hero-info__catchcopy
+              | 受講料の最大80%が
+              br
+              | 給付金で返ってくる
+          .lp-hero-info__description
+            p
+              | Railsエンジニア（Reスキル認定講座対応）コースは、
+              | 厚生労働省が認定した専門実践教育訓練給付制度の対象講座です。
+          .lp-actions
+            ul.lp-actions__items
+              li.lp-actions__item
+                = link_to '', class: 'a-button is-xl is-warning is-block' do
+                  | お試し利用
+              li.lp-actions__item
+                = link_to '', class: 'a-button is-xl is-secondary-border is-block' do
+                  | お問い合わせ
+      .lp-content__end
+        .lp-hero-visual
+
+  .lp-content-divider.is-lp-bg-1
+    svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+      path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+
 hr.a-border
 .lp
   section.lp-content.is-lp-bg-1.is-top-title
@@ -25,6 +54,9 @@ hr.a-border
               | ）
               br
               | コース
+
+
+
         .lp-content__end
           .lp-content-stack
             .lp-content-stack__item
@@ -35,13 +67,28 @@ hr.a-border
                     .a-short-text.flex-1
                       p
                         | 「Railsエンジニア（Reスキル認定講座対応）コース」は、
-                        | 第四次産業革命スキル習得講座（Reスキル講座）認定を受けた
-                        | Railsエンジニアコースです。
-                        = link_to practices_path do
-                          | 通常のRailsエンジニアコース
-                        | 同様、
-                        | Ruby on Railsを使ってWebアプリケーションを開発するのに
-                        | 必要な技術を学びます。
+                        | 厚生労働省が認定する専門実践教育訓練給付制度の対象講座です。
+                        | 一定の条件を満たすことで、
+                        | 支払った受講料の最大80%が給付金として支給されます。
+                      p
+                        | また、このコースは経済産業大臣が認定する
+                        | 第四次産業革命スキル習得講座（Reスキル講座）認定も受けています。
+            .lp-content-stack__item
+              .l-inner-container.is-sm
+                aside.lp-supplementary-info
+                  .lp-supplementary-info__inner
+                    header.lp-supplementary-info__header
+                      h3.lp-card-title.is-sm
+                        | 第四次産業革命スキル習得講座（Reスキル講座）認定制度とは？
+                    .lp-supplementary-info__body
+                      .a-short-text
+                        p
+                          | 「第四次産業革命スキル習得講座（Reスキル講座）認定制度」は、
+                          | IT・データを中心とした将来の成長が強く見込まれ、
+                          | 雇用創出に貢献する分野において、社会人が高度な専門性を身に付けて
+                          | キャリアアップを図る、専門的・実践的な教育訓練講座を
+                          | 経済産業大臣が認定する制度です。
+
             .lp-content-stack__item
               .l-inner-container.is-sm
                 aside.lp-supplementary-info
@@ -63,7 +110,10 @@ hr.a-border
                 ul.lp-actions__items
                   li.lp-actions__item
                     = link_to new_inquiry_path, class: 'a-button is-xl is-warning is-block' do
-                      | お問い合わせ・受講申請
+                      | お試し利用申請
+                  li.lp-actions__item
+                    = link_to new_inquiry_path, class: 'a-button is-xl is-primary-border is-block' do
+                      | お問い合わせ
               .lp-content__description.mt-8
                 .l-inner-container.is-sm
                     .a-short-text.flex-1
@@ -78,11 +128,11 @@ hr.a-border
         .lp-content__start
           header.lp-content__header
             h2.lp-content-title.text-center.is-border-bottom
-              | 料金と期間
+              | 料金と給付金
         .lp-content__end
           .lp-content-stack
             .lp-content-stack__item
-              .l-cards.is-step-by-step
+              .l-cards.is-calculation
                 .l-cards__item
                   .l-cards__item-inner
                     .a-card
@@ -108,8 +158,8 @@ hr.a-border
                                     | 通常のRailsエンジニアコース
                                   | とは違い、24ヶ月分の利用料を受講料として一括でお支払い
                                   | いただく必要があります（受講料に必須教材費は含まれていません）。
-                                  | 学習開始から24ヶ月間は学習時間の制限はなく、
-                                  | いつでもログインをし、学習をすることができます。
+                .l-cards__item.is-symbol
+                  i.fa-solid.fa-plus
                 .l-cards__item
                   .l-cards__item-inner
                     .a-card
