@@ -1,5 +1,5 @@
 - watchable = watch.watchable
-.card-list-item(class="is-#{watchable.class.to_s.tableize.singularize}")
+.card-list-item.a_watch(class="is-#{watchable.class.to_s.tableize.singularize}", id="#{watch.id}")
   .card-list-item__inner
     .card-list-item__label
       - case watchable.class.to_s
@@ -35,5 +35,5 @@
               time.a-meta(datetime="#{watchable.created_at}")
                 = l watchable.created_at
     .card-list-item__option
-      .a-watch-button.a-button.is-sm.is-block.is-main.hidden
+      .a-watch-button.a-button.is-sm.is-block.is-main.hidden data-watch_id="#{watch.id}"
         | 削除
