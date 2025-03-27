@@ -1,7 +1,12 @@
 - if watch
-  .page-content-header-actions__action#data-for-watch data-watchable_type="#{type}" data-watchable_id="#{id}" data-watch_id="#{watch.id}"
-    #watch-button.a-watch-button.a-button.is-sm.is-block.is-active.is-main watch中
+  .page-content-header-actions__action#data-for-watch
+    #watch-button.a-watch-button.a-button.is-sm.is-block.is-active.is-main [
+      data-watchable_type="#{type}"
+      data-watchable_id="#{id}"
+      data-watch_id="#{watch.id}" ] watch中
 - else
-  .page-content-header-actions__action#data-for-watch data-watchable_type="#{type}" data-watchable_id="#{id}"
-    #watch-button.a-watch-button.a-button.is-sm.is-block.is-inactive.is-muted watch
+  .page-content-header-actions__action#data-for-watch
+    #watch-button.a-watch-button.a-button.is-sm.is-block.is-inactive.is-muted [
+      data-watchable_type="#{type}"
+      data-watchable_id="#{id}" ] watch
 

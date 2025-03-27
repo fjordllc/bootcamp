@@ -76,7 +76,6 @@ import '../referral-source-selection-form.js'
 import '../coding_tests_sort.js'
 import '../watches.js'
 import '../watch-toggle.js'
-import '../watch.js'
 
 import VueMounter from '../VueMounter.js'
 import Questions from '../components/questions.vue'
