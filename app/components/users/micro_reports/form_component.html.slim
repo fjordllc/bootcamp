@@ -17,12 +17,13 @@
 
           .tab-content
             .js-tab-pane#form-container
-              .form__items
-                .js-markdown-parent
-                  = f.text_area :content,
-                    class: "a-text-input micro-report-form__text-area js-markdown",
-                    placeholder: '今やっていることを投稿してみましょう！',
-                    data: { 'preview': '.js-preview' }, id: 'js-micro-report-textarea'
+              .micro-report-form__form.form
+                .form__items
+                  .js-markdown-parent
+                    = f.text_area :content,
+                      class: "a-text-input micro-report-form__text-area js-markdown",
+                      placeholder: '今やっていることを投稿してみましょう！',
+                      data: { 'preview': '.js-preview' }, id: 'js-micro-report-textarea'
             .js-tab-pane#preview-container.hidden
               .js-preview.a-long-text.is-md.micro-report-form__preview
 
