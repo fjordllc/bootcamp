@@ -34,8 +34,6 @@
     &.is-vertical.is-border-left
       &::before
         top: .125em
-    &.is-xs
-      +text-block(1.75rem 1.3, 700)
   +media-breakpoint-down(lg)
     text-align: center
     position: relative
@@ -45,21 +43,24 @@
         transform: translate(-50%)
   +media-breakpoint-only(lg)
     +text-block(2.75rem 1.4, 800)
-    padding-bottom: 2.25rem
+    &.is-border-bottom
+      padding-bottom: 2.25rem
     &[class*=is-border-]
       &::before
         width: 4.5em
         height: .5rem
   +media-breakpoint-only(md)
     +text-block(2.25rem 1.4, 800)
-    padding-bottom: 2.25rem
+    &.is-border-bottom
+      padding-bottom: 2.25rem
     &[class*=is-border-]
       &::before
         width: 4.5em
         height: .5rem
   +media-breakpoint-down(sm)
     +text-block(1.75rem 1.4, 800)
-    padding-bottom: 1.5rem
+    &.is-border-bottom
+      padding-bottom: 1.5rem
     &[class*=is-border-]
       &::before
         width: 3.5em
@@ -69,6 +70,14 @@
     padding-bottom: 0
     +media-breakpoint-up(lg)
       +text-block(2.25rem 1.3, 700)
+    +media-breakpoint-only(md)
+      +text-block(1.5rem 1.3, 700)
+    +media-breakpoint-down(sm)
+      +text-block(1.25rem 1.3, 700)
+
+  &.is-xs
+    +media-breakpoint-up(lg)
+      +text-block(1.75rem 1.3, 700)
     +media-breakpoint-only(md)
       +text-block(1.5rem 1.3, 700)
     +media-breakpoint-down(sm)

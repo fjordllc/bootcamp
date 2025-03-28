@@ -32,11 +32,9 @@ footer.not-logged-in-footer
         li.not-logged-in-footer__nav-item
           = link_to sponsorships_path, class: 'not-logged-in-footer__nav-item-link' do
             | スポンサー実績
-        - if admin_login?
-          // TODO リスキル講座 公開したら if を外す
-          li.not-logged-in-footer__nav-item
-            = link_to certified_reskill_courses_rails_developer_course_root_path, class: 'not-logged-in-footer__nav-item-link' do
-              | Reスキル認定講座対応コース
+        li.not-logged-in-footer__nav-item
+          = link_to certified_reskill_courses_rails_developer_course_root_path, class: 'not-logged-in-footer__nav-item-link' do
+            | Reスキル認定講座対応コース
         li.not-logged-in-footer__nav-item
           = link_to '/articles.atom', class: 'a-button is-sm is-secondary is-icon', target: '_blank', rel: 'noopener', title: 'フィヨルドブートキャンプブログフィード' do
             i.fa-solid.fa-rss

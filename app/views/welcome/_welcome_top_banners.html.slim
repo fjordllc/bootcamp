@@ -1,0 +1,13 @@
+.welcome-section.is-top-banners
+  .l-container.is-xl
+    .flex.pt-12.gap-4
+      - if Campaign.today_campaign?
+        .flex-1
+          = link_to 'https://bootcamp.fjord.jp/articles/167', target: '_blank', rel: 'noopener' do
+            = image_tag('welcome/banners/new-course-launch-campaign.png', alt: '専門実践教育訓練給付金の対象コースを開講を記念してキャンペーンを開催中')
+      .flex-1
+        = link_to certified_reskill_courses_rails_developer_course_root_path, target: '_blank', rel: 'noopener' do
+          = image_tag('welcome/banners/grant-eligible-course.png', alt: '専門実践教育訓練給付金の対象コースを開講')
+      .flex-1
+        = link_to 'https://bootcamp.fjord.jp/articles/167', target: '_blank', rel: 'noopener' do
+          = image_tag('welcome/banners/rubykaigi-2025.png', alt: '【4月1日から】オンライン・プログラミングスクール「フィヨルドブートキャンプ」が専門実践教育訓練給付金の対象コースを開講！それを記念してキャンペーンを開催します！')
