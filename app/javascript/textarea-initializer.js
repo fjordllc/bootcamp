@@ -15,6 +15,9 @@ import MarkDownItLinkAttributes from 'markdown-it-link-attributes'
 import MarkDownItContainerSpeak from 'markdown-it-container-speak'
 import CSRF from 'csrf'
 import TextareaMarkdownLinkify from 'textarea-markdown-linkify'
+import MarkdownItSanitizer from 'markdown-it-sanitizer'
+import MarkdownItOnlineVideo from './markdown-it-online-video'
+import MarkdownItLocalVideo from './markdown-it-local-video'
 
 export default class {
   static initialize(selector) {
@@ -50,6 +53,9 @@ export default class {
 
     // markdown
     Array.from(textareas).forEach((textarea) => {
+      // TODO: 動画機能が実装されたら削除する
+      this.convertPrivateVimeoUrl(textarea)
+
       /* eslint-disable no-new */
       new TextareaMarkdown(textarea, {
         endPoint: '/api/image.json',
@@ -59,6 +65,7 @@ export default class {
         placeholder: '%filenameをアップロード中...',
         uploadImageTag:
           '<a href="%url" target="_blank" rel="noopener noreferrer"><img src="%url" width="%width" height="%height" alt="%filename"></a>\n',
+        uploadVideoTag: '!video(%url)\n',
         afterPreview: () => {
           autosize.update(textarea)
 
@@ -76,7 +83,10 @@ export default class {
           MarkDownItContainerMessage,
           MarkDownItContainerDetails,
           MarkDownItLinkAttributes,
-          MarkDownItContainerSpeak
+          MarkDownItContainerSpeak,
+          MarkdownItSanitizer,
+          MarkdownItOnlineVideo,
+          MarkdownItLocalVideo
         ],
         markdownOptions: MarkdownOption
       })
@@ -88,6 +98,23 @@ export default class {
 
     // Convert selected text to markdown link on URL paste
     new TextareaMarkdownLinkify().linkify(selector)
+  }
+
+  // TODO: 動画機能が実装されたら削除する
+  static convertPrivateVimeoUrl(textarea) {
+    textarea.addEventListener('input', () => {
+      const privateVimeoUrlRegex =
+        /\(https:\/\/vimeo\.com\/(\d+)\/([a-zA-Z0-9]+)\)/g
+
+      if (privateVimeoUrlRegex.test(textarea.value)) {
+        textarea.value = textarea.value.replace(
+          privateVimeoUrlRegex,
+          (_, id, hash) => {
+            return `(${id}?h=${hash})`
+          }
+        )
+      }
+    })
   }
 
   static uninitialize(selector) {
