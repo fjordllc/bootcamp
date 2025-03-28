@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_03_04_062341) do
+ActiveRecord::Schema.define(version: 2025_03_31_062253) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -215,7 +215,6 @@ ActiveRecord::Schema.define(version: 2025_03_04_062341) do
     t.datetime "updated_at"
     t.string "commentable_type", default: "Report"
     t.index ["commentable_id"], name: "index_comments_on_commentable_id"
-    t.index ["user_id"], name: "comment_user_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -260,9 +259,6 @@ ActiveRecord::Schema.define(version: 2025_03_04_062341) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["course_id", "category_id"], name: "index_courses_categories_on_course_id_and_category_id", unique: true
-  end
-
-  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
   end
 
   create_table "discord_profiles", force: :cascade do |t|
@@ -430,6 +426,7 @@ ActiveRecord::Schema.define(version: 2025_03_04_062341) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "action_completed", default: false, null: false
   end
 
   create_table "learning_minute_statistics", force: :cascade do |t|
@@ -657,8 +654,8 @@ ActiveRecord::Schema.define(version: 2025_03_04_062341) do
     t.integer "kind", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["reactionable_type", "reactionable_id"], name: "index_reactions_on_reactionable_type_and_reactionable_id"
-    t.index ["user_id", "reactionable_id", "reactionable_type", "kind"], name: "index_reactions_on_reactionable", unique: true
+    t.index ["reactionable_type", "reactionable_id"], name: "index_reactions_on_reactionable"
+    t.index ["user_id", "reactionable_id", "reactionable_type", "kind"], name: "index_reactions_on_reactionable_u_k", unique: true
     t.index ["user_id"], name: "index_reactions_on_user_id"
   end
 
@@ -689,9 +686,9 @@ ActiveRecord::Schema.define(version: 2025_03_04_062341) do
     t.boolean "hold_national_holiday", null: false
     t.time "start_at", null: false
     t.time "end_at", null: false
+    t.boolean "wip", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "wip", default: false, null: false
     t.integer "category", default: 0, null: false
     t.boolean "all", default: false, null: false
     t.datetime "published_at"
@@ -719,7 +716,6 @@ ActiveRecord::Schema.define(version: 2025_03_04_062341) do
     t.index ["created_at"], name: "index_reports_on_created_at"
     t.index ["user_id", "reported_on"], name: "index_reports_on_user_id_and_reported_on", unique: true
     t.index ["user_id", "title"], name: "index_reports_on_user_id_and_title", unique: true
-    t.index ["user_id"], name: "reports_user_id"
   end
 
   create_table "request_retirements", force: :cascade do |t|
@@ -839,13 +835,13 @@ ActiveRecord::Schema.define(version: 2025_03_04_062341) do
     t.string "login_name", limit: 255, null: false
     t.string "email", limit: 255
     t.string "crypted_password", limit: 255
-    t.string "salt", limit: 255
+    t.string "salt", limit:255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "remember_me_token", limit: 255
     t.datetime "remember_me_token_expires_at"
     t.string "twitter_account", limit: 255
-    t.string "facebook_url", limit: 255
+    t.string "facebook_url", limit:255
     t.string "blog_url", limit: 255
     t.integer "company_id"
     t.text "description"
@@ -872,13 +868,13 @@ ActiveRecord::Schema.define(version: 2025_03_04_062341) do
     t.string "subscription_id"
     t.boolean "mail_notification", default: true, null: false
     t.boolean "job_seeker", default: false, null: false
-    t.boolean "github_collaborator", default: false, null: false
     t.string "github_id"
+    t.boolean "github_collaborator", default: false, null: false
+    t.string "name", default: "", null: false
+    t.string "name_kana", default: "", null: false
     t.integer "satisfaction"
     t.text "opinion"
     t.bigint "retire_reasons", default: 0, null: false
-    t.string "name", default: "", null: false
-    t.string "name_kana", default: "", null: false
     t.string "unsubscribe_email_token"
     t.text "mentor_memo"
     t.text "after_graduation_hope"
@@ -895,9 +891,9 @@ ActiveRecord::Schema.define(version: 2025_03_04_062341) do
     t.string "country_code"
     t.string "subdivision_code"
     t.boolean "auto_retire", default: true
-    t.boolean "invoice_payment", default: false, null: false
     t.integer "editor"
     t.string "other_editor"
+    t.boolean "invoice_payment", default: false, null: false
     t.boolean "hide_mentor_profile", default: false, null: false
     t.integer "experiences", default: 0, null: false
     t.index ["course_id"], name: "index_users_on_course_id"
@@ -915,7 +911,7 @@ ActiveRecord::Schema.define(version: 2025_03_04_062341) do
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.index ["watchable_type", "watchable_id", "user_id"], name: "index_watches_on_watchable_type_and_watchable_id_and_user_id", unique: true
-    t.index ["watchable_type", "watchable_id"], name: "index_watches_on_watchable_type_and_watchable_id"
+    t.index ["watchable_type", "watchable_id"], name: "index_watches_on_watchable"
   end
 
   create_table "works", force: :cascade do |t|
@@ -955,8 +951,8 @@ ActiveRecord::Schema.define(version: 2025_03_04_062341) do
   add_foreign_key "learning_time_frames_users", "users"
   add_foreign_key "learning_times", "reports"
   add_foreign_key "linear_scales", "survey_questions"
-  add_foreign_key "movies", "users"
   add_foreign_key "micro_reports", "users"
+  add_foreign_key "movies", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "sender_id"
   add_foreign_key "organizers", "regular_events"
