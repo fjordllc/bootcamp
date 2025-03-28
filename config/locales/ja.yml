@@ -50,6 +50,8 @@ ja:
       faq: FAQ
       faq_category: FAQカテゴリ
       coding_test: コーディングテスト
+      movie: 動画
+      grant_course_application: 給付金対応コース申し込み
     attributes:
       user:
         login_name: アカウント
@@ -108,7 +110,7 @@ ja:
         subscription_id: サブスクリプションID
         country_code: 国
         subdivision_code: 都道府県・州
-        not_auto_retire: 休会六ヶ月後に自動退会しない
+        not_auto_retire: 休会三ヶ月後に自動退会しない
         invoice_payment_user: 請求書払い
         credit_card_payment_user: クレジットカード払い
         other_editor: その他のエディタ
@@ -185,6 +187,12 @@ ja:
         body: 本文
         tag_list: タグ
         slug: スラッグ
+      movie:
+        practice: 関連プラクティス
+        title: タイトル
+        description: 説明
+        tag_list: タグ
+        movie_data: 動画データ
       question:
         practice: プラクティス
         title: タイトル
@@ -319,6 +327,24 @@ ja:
         practice: 所属プラクティス
         language: 言語
         coding_test_submissions: 回答コード
+      grant_course_application:
+        name: 名前
+        last_name: 姓
+        first_name: 名
+        email: メールアドレス
+        zip: 郵便番号
+        zip1: 郵便番号（前半）
+        zip2: 郵便番号（後半）
+        prefecture_code: 都道府県
+        address: 住所
+        address1: 市区町村
+        address2: 建物名・部屋番号
+        tel: 電話番号
+        tel1: 電話番号（前半）
+        tel2: 電話番号（中央）
+        tel3: 電話番号（後半）
+        trial_period: お試し期間利用希望
+        privacy_policy: 個人情報の取り扱い
       coding_test_case:
         input: 入力
         output: 出力
@@ -384,6 +410,11 @@ ja:
           orange: Orange
           brown: Brown
           blue: Blue
+        target:
+          all: 全員（退会者を除く）
+          students: 現役生のみ
+          job_seekers: 就職希望者のみ
+          none: 通知しない
     errors:
       models:
         campaign:

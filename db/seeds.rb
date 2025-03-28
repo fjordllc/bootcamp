@@ -66,10 +66,12 @@ tables = %i[
   survey_question_answers
   buzzes
   inquiries
+  movies
   coding_tests
   coding_test_cases
   coding_test_submissions
   skipped_practices
+  grant_course_applications
 ]
 
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', tables
