@@ -5,7 +5,7 @@ class ArticleNotifier
     article = payload[:article]
     return unless article.saved_change_to_attribute?(:published_at, from: nil)
 
-    receivers = User.students_trainees_mentors_and_admins.reject { |receiver| receiver == article.user }
+    receivers = User.notification_receiver(article.target).reject { |receiver| receiver == article.sender }
     send_notification(article:, receivers:)
   end
 

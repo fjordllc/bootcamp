@@ -17,6 +17,13 @@ class Article < ApplicationRecord
     blue: 12
   }
 
+  enum target: {
+    all: 0,
+    students: 1,
+    job_seekers: 2,
+    none: 3
+  }, _prefix: true
+
   belongs_to :user
   alias sender user
   include ActionView::Helpers::AssetUrlHelper
@@ -57,6 +64,10 @@ class Article < ApplicationRecord
     !wip?
   end
 
+  def before_initial_publish?
+    attribute_in_database(:published_at).nil?
+  end
+
   def generate_token!
     self.token ||= SecureRandom.urlsafe_base64
   end
@@ -64,7 +75,7 @@ class Article < ApplicationRecord
   private
 
   def will_be_published?
-    !wip && published_at.nil?
+    !wip && before_initial_publish?
   end
 
   def set_published_at
