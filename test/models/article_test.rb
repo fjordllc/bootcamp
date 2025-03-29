@@ -90,6 +90,42 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal [one_day_ago_press_release, two_days_ago_press_release, three_days_ago_press_release], press_releases
   end
 
+  test '.press_release return all records when no limit is specified' do
+    records_count = 10
+    records_count.times do |i|
+      press_release = Article.create(
+        title: "press releases #{i}",
+        body: 'プレスリリースのタグを持つブログ記事',
+        user: users(:komagata),
+        wip: false,
+        published_at: "2022-1-1 00:00:#{i}"
+      )
+      press_release.tag_list.add('プレスリリース')
+      press_release.save
+    end
+
+    press_releases = Article.press_releases
+    assert_equal records_count, press_releases.length
+  end
+
+  test '.press_release return the specified number of records by limit' do
+    10.times do |i|
+      press_release = Article.create(
+        title: "press releases #{i}",
+        body: 'プレスリリースのタグを持つブログ記事',
+        user: users(:komagata),
+        wip: false,
+        published_at: "2022-1-1 00:00:#{i}"
+      )
+      press_release.tag_list.add('プレスリリース')
+      press_release.save
+    end
+
+    limit = 5
+    press_releases = Article.press_releases(limit)
+    assert_equal limit, press_releases.length
+  end
+
   test '#prepared_thumbnail_url' do
     article = articles(:article3)
     assert_equal '/ogp/blank.svg', article.prepared_thumbnail_url
