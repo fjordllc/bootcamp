@@ -19,6 +19,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
     @product = params[:product] if params&.key?(:product)
     @report = params[:report] if params&.key?(:report)
     @regular_event = params[:regular_event] if params&.key?(:regular_event)
+    @pair_work = params[:pair_work] if params&.key?(:pair_work)
     @message = params[:message] if params&.key?(:message)
   end
 
@@ -465,6 +466,45 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
 
     subject = "[FBC] #{@work.user.login_name}さんがポートフォリオに作品「#{@work.title}」を追加しました。"
     message = mail(to: @user.email, subject:)
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message
+  end
+
+  def came_pair_work(args = {})
+    @receiver ||= args[:receiver]
+    @pair_work ||= args[:pair_work]
+
+    @user = @receiver
+    @title = @pair_work.practice.present? ? "「#{@pair_work.practice.title}」についてのペアワーク依頼がありました。" : 'ペアワーク依頼がありました。'
+    @link_url = notification_redirector_url(
+      link: "/pair_works/#{@pair_work.id}",
+      kind: Notification.kinds[:came_pair_work]
+    )
+
+    subject = "[FBC] #{@pair_work.user.login_name}さんからペアワーク依頼「#{@pair_work.title}」が投稿されました。"
+    message = mail(to: @user.email, subject:)
+
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message
+  end
+
+  def matching_pair_work(args = {})
+    @receiver ||= args[:receiver]
+    @pair_work ||= args[:pair_work]
+
+    @user = @receiver
+    @title = @pair_work.practice.present? ? "「#{@pair_work.practice.title}」についてのペアワークの相手が見つかりました。" : 'ペアワークの相手が見つかりました。'
+    matched_user = User.find(@pair_work.buddy_id)
+    @user_name = @receiver == matched_user ? 'あなた' : "#{matched_user.login_name}さん"
+
+    @link_url = notification_redirector_url(
+      link: "/pair_works/#{@pair_work.id}",
+      kind: Notification.kinds[:matching_pair_work]
+    )
+
+    subject = "[FBC] #{@pair_work.user.login_name}さんのペアワーク【 #{@pair_work.title} 】の相手が#{@user_name}に決定しました。"
+    message = mail(to: @user.email, subject:)
+
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
     message
   end
