@@ -104,6 +104,7 @@ Rails.application.routes.draw do
   resources :generations, only: %i(show index)
   resource :billing_portal, only: :create, controller: "billing_portal"
   resources :external_entries, only: %i(index)
+  resources :press_releases, only: %i(index)
   resources :surveys, only: %i(show) do
     resources :survey_answers, only: %i(create), controller: "surveys/survey_answers"
   end
