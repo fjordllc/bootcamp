@@ -675,9 +675,11 @@ class User < ApplicationRecord
 
   def avatar_url
     default_image_path = '/images/users/avatars/default.png'
+    format = 'webp'
 
     if avatar.attached?
-      avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }, format: :webp).processed.url
+      avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 },
+                     format:).processed.url(filename: "#{login_name}.#{format}")
     else
       image_url default_image_path
     end
