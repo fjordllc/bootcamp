@@ -132,6 +132,15 @@ class Report < ApplicationRecord
           .second
   end
 
+  def save_uniquely
+    transaction do
+      save
+    end
+  rescue ActiveRecord::RecordNotUnique
+    errors.add(:base, '学習日はすでに存在します')
+    false
+  end
+
   private
 
   def limited_date_within_range
