@@ -1,6 +1,6 @@
 .thread-comment-form.new-answer data-question_id="#{question.id}"
   .thread-comment__start
-    span class="a-user-role is-#{user.primary_role}"
+    span class="a-user-role is-#{user.primary_role} is-#{user.joining_status}"
       img.thread-comment__user-icon.a-user-icon src="#{user.avatar_url}" alt="#{current_user.icon_title}"
   .thread-comment__end
     .answer-editor

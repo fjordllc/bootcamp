@@ -85,7 +85,7 @@
               - event.participants.each do |participant|
                 li.user-icons-item
                   = link_to participant do
-                    span class="a-user-role is-#{participant.primary_role}"
+                    span class="a-user-role is-#{participant.primary_role} is-#{participant.joining_status}"
                       = image_tag participant.avatar_url, title: participant.icon_title, class: "a-user-icon is-sm is-#{participant.login_name}", alt: participant.login_name
           - else
             .o-empty-message
