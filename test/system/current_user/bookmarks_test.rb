@@ -30,7 +30,7 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
 
     assert_text '作業週1日目'
     assert_selector '.card-list-item__label', text: '日報'
-    assert_text '今日はローカルで怖話を動かしてみました。rbenv で ruby を動かすのは初めてだったので、色々手間取りました。'
+    assert_text '今日はローカルで怖話を動かしてみました。 rbenv で ruby を動かすのは初めてだったので、色々手間取りました。'
     assert_text 'komagata(コマガタ マサキ)'
     assert_text '2017年01月01日(日) 00:00'
   end

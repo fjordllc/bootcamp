@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 module MarkdownHelper
+  include ActionView::Helpers::OutputSafetyHelper
+
+  def markdown_to_plain_text(markdown_content)
+    html = Commonmarker.to_html(markdown_content)
+    Nokogiri::HTML(html).text.strip
+  end
+
   def md2html(text)
     return '' if text.nil?
 
