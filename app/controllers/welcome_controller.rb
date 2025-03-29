@@ -45,7 +45,7 @@ class WelcomeController < ApplicationController
   def coc; end
 
   def press_kit
-    @press_releases = Article.press_releases.limit(6)
+    @press_releases = Article.press_releases(6)
   end
 
   def logo; end

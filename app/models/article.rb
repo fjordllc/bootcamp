@@ -40,11 +40,12 @@ class Article < ApplicationRecord
   scope :with_attachments_and_user, lambda {
     with_attached_thumbnail.includes(user: { avatar_attachment: :blob }).where(wip: false)
   }
-  scope :press_releases, lambda {
+  scope :press_releases, lambda { |limit = nil|
     where(wip: false)
       .tagged_with('プレスリリース')
       .includes(%i[user thumbnail_attachment])
       .order(published_at: :desc)
+      .limit(limit)
   }
 
   def prepared_thumbnail_url(thumbnail_size = THUMBNAIL_SIZE)
