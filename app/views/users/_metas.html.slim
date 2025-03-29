@@ -22,7 +22,7 @@
         | 環境
       .user-metas__item-value
         | OS:
-        = t("activerecord.enums.user.os.#{user.os}") || '回答なし'
+        = user.os.present? ? t("activerecord.enums.user.os.#{user.os}") : '回答なし'
         | 、エディタ:
         = user.editor_or_other_editor || '回答なし'
     .user-metas__item

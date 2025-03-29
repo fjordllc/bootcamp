@@ -21,11 +21,3 @@ article3:
   wip: true
   thumbnail_type: :prepared_thumbnail
   token: abcdef123456
-
-article4:
-  title: sponsorshipページに表示される記事のタイトルです。
-  body: sponsorshipページに表示される記事の本文です。
-  user: komagata
-  wip: false
-  published_at: '2022-01-01 00:00:00'
-  thumbnail_type: :sponsorship

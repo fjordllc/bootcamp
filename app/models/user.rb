@@ -25,7 +25,7 @@ class User < ApplicationRecord
     'admin' => :admins
   }.freeze
   DEFAULT_REGULAR_EVENT_ORGANIZER = 'komagata'
-  HIBERNATION_LIMIT = 6.months
+  HIBERNATION_LIMIT = 3.months
 
   INVITATION_ROLES = [
     [I18n.t('invitation_role.adviser'), :adviser],
@@ -104,6 +104,7 @@ class User < ApplicationRecord
   has_many :surveys, dependent: :destroy
   has_many :survey_questions, dependent: :destroy
   has_many :external_entries, dependent: :destroy
+  has_many :movies, dependent: :nullify
   has_many :coding_tests, dependent: :destroy
   has_many :coding_test_submissions, dependent: :destroy
   has_one :report_template, dependent: :destroy
@@ -190,6 +191,7 @@ class User < ApplicationRecord
   has_one_attached :profile_image
 
   after_create UserCallbacks.new
+  before_validation :convert_blank_of_address_to_nil
 
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
   validates :name, presence: true
@@ -218,9 +220,9 @@ class User < ApplicationRecord
 
   validate :validate_uploaded_avatar_content_type
 
-  validates :country_code, inclusion: { in: ISO3166::Country.codes }, allow_blank: true
+  validates :country_code, inclusion: { in: ISO3166::Country.codes }, allow_nil: true
 
-  validates :subdivision_code, inclusion: { in: ->(user) { user.subdivision_codes } }, allow_blank: true, if: -> { country_code.present? }
+  validates :subdivision_code, inclusion: { in: ->(user) { user.subdivision_codes } }, allow_nil: true, if: -> { country_code.present? }
 
   with_options if: -> { %i[create update].include? validation_context } do
     validates :login_name, presence: true, uniqueness: true,
@@ -450,7 +452,7 @@ class User < ApplicationRecord
   )
 
   class << self
-    def announcement_receiver(target)
+    def notification_receiver(target)
       case target
       when 'all'
         User.unretired
@@ -458,6 +460,8 @@ class User < ApplicationRecord
         User.admins_and_mentors.or(User.students)
       when 'job_seekers'
         User.admins_and_mentors.or(User.job_seekers)
+      when 'none'
+        User.none
       else
         User.none
       end
@@ -760,16 +764,16 @@ class User < ApplicationRecord
     adviser? && company_id?
   end
 
-  def collegues
+  def colleagues
     company_id ? company.users : User.none
   end
 
-  def collegues_other_than_self
-    collegues.where.not(id:)
+  def colleagues_other_than_self
+    colleagues.where.not(id:)
   end
 
-  def collegue_trainees
-    collegues.students_and_trainees
+  def colleague_trainees
+    colleagues.students_and_trainees
   end
 
   def last_hibernation
@@ -889,5 +893,10 @@ class User < ApplicationRecord
 
   def required_practices_size_with_skip
     course.practices.where(id: practice_ids_skipped, include_progress: true).size
+  end
+
+  def convert_blank_of_address_to_nil
+    self.country_code = nil if country_code.blank?
+    self.subdivision_code = nil if subdivision_code.blank?
   end
 end
