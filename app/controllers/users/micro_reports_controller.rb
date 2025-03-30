@@ -28,7 +28,7 @@ class Users::MicroReportsController < ApplicationController
 
     referer_path = request.referer
     matched_page_number = referer_path.match(/page=(\d+)/)
-    page_number = matched_page_number ? matched_page_number[1].to_i : FIRST_PAGE
+    page_number = matched_page_number ? matched_page_number[1] : FIRST_PAGE
     if MicroReport.page(page_number).out_of_range?
       redirect_to user_micro_reports_path(@user, page: @user.latest_micro_report_page)
     else
