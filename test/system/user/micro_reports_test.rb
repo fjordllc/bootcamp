@@ -13,13 +13,13 @@ class MicroReportsTest < ApplicationSystemTestCase
 
   test 'micro reports are ordered by created_at asc' do
     visit_with_auth user_micro_reports_path(users(:hajime)), 'hatsuno'
-    within('.micro-reports-posts') do
-      assert_selector '.thread-comment', count: 3
-      within first('.thread-comment') do
+    within('.micro-reports__items') do
+      assert_selector '.micro-report', count: 3
+      within first('.micro-report') do
         assert_text '最初の分報'
       end
 
-      within all('.thread-comment').last do
+      within all('.micro-report').last do
         assert_text '最新の分報'
       end
     end
@@ -83,23 +83,23 @@ class MicroReportsTest < ApplicationSystemTestCase
     users(:hatsuno).micro_reports.create!(Array.new(25) { |i| { content: "分報#{i + 1}" } })
     visit_with_auth user_micro_reports_path(users(:hatsuno)), 'hatsuno'
     assert_no_selector '.pagination__items'
-    assert_selector '.thread-comment', count: 25
+    assert_selector '.micro-report', count: 25
 
     users(:hatsuno).micro_reports.create!(content: '分報26')
     visit current_path # 作成した分報を反映させるためにページをリロード
     assert_selector '.pagination__items', count: 2
-    assert_selector '.thread-comment', count: 25
+    assert_selector '.micro-report', count: 25
     within first('.pagination__items') do
       click_link '2'
     end
-    assert_selector '.thread-comment', count: 1
+    assert_selector '.micro-report', count: 1
   end
 
   test 'redirect to latest micro report page when over 26 micro reports exist' do
     users(:hatsuno).micro_reports.create!(Array.new(25) { |i| { content: "分報#{i + 1}" } })
     visit_with_auth user_micro_reports_path(users(:hatsuno)), 'hatsuno'
     assert_no_selector '.pagination__items'
-    assert_selector '.thread-comment', count: 25
+    assert_selector '.micro-report', count: 25
 
     # 26件目投稿時に2ページ目に遷移するか
     fill_in('micro_report[content]', with: '分報26')
@@ -190,7 +190,7 @@ class MicroReportsTest < ApplicationSystemTestCase
       click_link_or_button '内容修正'
       fill_in('micro_report[content]', with: '初めての分報')
 
-      find('.a-form-tabs__tab', text: 'プレビュー').click
+      find('.micro-report-form-tabs__item-link', text: 'プレビュー').click
       within("#js-comment-preview-#{micro_report.id}") do
         assert_text '初めての分報'
         assert_no_text '最初の分報'
