@@ -6,7 +6,7 @@ section.lp-content.is-lp-bg-3.is-top-title#course-select
           h2.lp-content-title.text-center.is-border-bottom
             | 選べる
             strong
-              | 2つの
+              | 2つ + 1の
             | コース
 
       .lp-content__end
@@ -16,14 +16,11 @@ section.lp-content.is-lp-bg-3.is-top-title#course-select
               .l-inner-container.is-md
                 .a-short-text
                   p
-                    | 「Railsエンジニアコース」と「フロントエンドエンジニアコース」の2つのコースがあります。
+                    | 「Railsエンジニアコース」と「フロントエンドエンジニアコース」の2つのコース
+                    |  + 専門実践教育訓練給付制度の対象講座の「Railsエンジニアコース（Reスキル認定講座対応）」があります。
                     | 最初は共通のカリキュラムからスタートし、その後に専門分野に分かれて学んでいきます。
-                    | どちらのコースも最終的には、自分で考えたWebサービスを作ってリリースすることを目指します。
-                    | また、どちらもチーム開発を体験できるので、実践的なスキルが身につきます。
-                    br
-                    | コース選びに迷ったら、まずはRailsエンジニアコースを選んでみてください。
-                    | 入会後はメンターに相談ができるので、その時にしっかり考えましょう。
-                    | 途中でのコースの変更、卒業後に別コースの必要なカリキュラムだけを受講することもできます。
+                    | どのコースも最終的には、自分で考えたWebサービスを作ってリリースすることを目指します。
+                    | また、どれもチーム開発を体験できるので、実践的なスキルが身につきます。
 
           .lp-content-stack__item
             .lp-content-section
@@ -36,7 +33,13 @@ section.lp-content.is-lp-bg-3.is-top-title#course-select
                       .lp-card-description.a-short-text
                         = image_tag('courses/rails.svg', class: 'lp-top-image-section__float-image', alt: 'Ruby on Railsのロゴ')
                         p.mt-0
-                          | プログラミング言語「Ruby」を用いたWebアプリケーションフレームワークであるRails(Ruby on Rails)を使ってWebエンジニアになるためのバックエンド・フロントエンドも含めた一通りの技術を学びます。
+                          | プログラミング言語「Ruby」を用いたWebアプリケーションフレームワークである
+                          | Rails(Ruby on Rails)を使ってWebエンジニアになるためのバックエンド・フロントエンドも含めた
+                          | 一通りの技術を学びます。
+                      .lp-card-actions
+                        .lp-card-actions__items
+                          .lp-card-actions__item
+                            = link_to 'コース内容を確認する', practices_path, class: 'a-button is-md is-primary-border is-block'
                 .col-xs-12.col-md-6
                   section.lp-top-image-section
                     .lp-top-image-section__inner.a-card
@@ -46,12 +49,37 @@ section.lp-content.is-lp-bg-3.is-top-title#course-select
                         = image_tag('courses/nextjs.svg', class: 'lp-top-image-section__float-image', alt: 'Ruby on Railsのロゴ')
                         p.mt-0
                           | HTML、CSS やJavaScript/TypeScriptをつかってWebアプリケーションにおいてユーザーが直接触る部分（ユーザーインターフェース）を作るための技術を習得できます。
+                      .lp-card-actions
+                        .lp-card-actions__items
+                          .lp-card-actions__item
+                            = link_to 'コース内容を確認する', practices_path, class: 'a-button is-md is-primary-border is-block'
 
           .lp-content-stack__item
-            .lp-actions
-              .lp-actions__items
-                .lp-actions__item
-                  = link_to 'コース内容を確認する', practices_path, class: 'a-button is-xl is-primary-border is-block'
+            .lp-content-section
+              .row.is-gutter-width-24.justify-center
+                .col-xs-12.col-md-8
+                  section.lp-top-image-section
+                    .lp-top-image-section__inner.a-card
+                      h3.lp-card-title.text-center
+                        | 専門実践教育訓練給付制度対象講座
+                        br
+                        | Railsエンジニア（Reスキル認定講座対応）コース
+                      .lp-card-description.a-short-text
+                        = image_tag('courses/rails.svg', class: 'lp-top-image-section__float-image', alt: 'Ruby on Railsのロゴ')
+                        p.mt-0
+                          | 2025年4月1日より厚生労働省が認定した専門実践教育訓練給付制度の対象講座の
+                          | 「Railsエンジニアコース（Reスキル認定講座対応）」が開講されました。
+                          br
+                          | こちらのコースはサブスクではなく一括支払い 746,218円（税込 教材費含む）になりますが、
+                          | 一定の条件を満たすことで受講料の最大80%（最大給付額 596,974円）が給付金として支給されます。
+                        p
+                          | プログラミング言語「Ruby」を用いたWebアプリケーションフレームワークである
+                          | Rails(Ruby on Rails)を使ってWebエンジニアになるためのバックエンド・フロントエンドも含めた
+                          | 一通りの技術を学びます。
+                      .lp-card-actions
+                        .lp-card-actions__items
+                          .lp-card-actions__item
+                            = link_to 'コース内容を確認する', certified_reskill_courses_rails_developer_course_root_path, class: 'a-button is-md is-primary-border is-block'
 
   .lp-content-divider.is-lp-bg-1
     svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]

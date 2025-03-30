@@ -33,6 +33,8 @@
                   | お問い合わせ
       .lp-content__end
         .lp-hero-visual
+          = image_tag('grant-eligible-course/grant-eligible-course-main.svg', class: 'lp-hero-visual__image', alt: '給付金制度対象講座Railsエンジニア（Reスキル認定講座対応）コースのイラスト')
+
 
   .lp-content-divider.is-lp-bg-1
     svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
@@ -54,8 +56,6 @@ hr.a-border
               | ）
               br
               | コース
-
-
 
         .lp-content__end
           .lp-content-stack
@@ -132,58 +132,94 @@ hr.a-border
         .lp-content__end
           .lp-content-stack
             .lp-content-stack__item
-              .l-cards.is-calculation
+              .l-cards.is-stacked
                 .l-cards__item
                   .l-cards__item-inner
                     .a-card
-                      .lp-left-image-section
-                        .lp-left-image-section__inner
-                          .lp-left-image-section__start.is-hidden-sm-down
-                            = image_tag('invoice.svg', class: 'lp-top-image-section__icon', alt: '請求書のイラスト')
-                          .lp-left-image-section__end
-                            header.lp-left-image-section__header
-                              h3.lp-card-title
-                                | 受講料
-                              h4.lp-price.is-sm
-                                span.lp-price__value
-                                  span.lp-price__amount 715,200
-                                  span.lp-price__currency 円
-                                span.lp-price__details
-                                  span.lp-price__tax （税込）
-                            .lp-card-description
-                              .a-short-text
-                                p
-                                  | Railsエンジニア（Reスキル認定講座対応）コースの場合、
-                                  = link_to practices_path do
-                                    | 通常のRailsエンジニアコース
-                                  | とは違い、24ヶ月分の利用料を受講料として一括でお支払い
-                                  | いただく必要があります（受講料に必須教材費は含まれていません）。
-                .l-cards__item.is-symbol
-                  i.fa-solid.fa-plus
-                .l-cards__item
+                      .flex
+                        .lp-left-image-section
+                          .lp-left-image-section__inner
+                            .lp-left-image-section__start.is-hidden-sm-down
+                              = image_tag('invoice.svg', class: 'lp-top-image-section__icon', alt: '請求書のイラスト')
+                            .lp-left-image-section__end
+                              header.lp-left-image-section__header
+                                h3.lp-card-title
+                                  | 受講料 + 教材費
+                                h4.lp-price.is-sm
+                                  span.lp-price__value
+                                    span.lp-price__amount 746,218
+                                    span.lp-price__currency 円
+                                  span.lp-price__details
+                                    span.lp-price__tax （税込）
+                              .lp-card-description
+                                .a-short-text
+                                  p
+                                    | Railsエンジニア（Reスキル認定講座対応）コースの場合、
+                                    = link_to practices_path do
+                                      | 通常のRailsエンジニアコース
+                                    | とは違い、受講料（715,200円）と教材費（31,018円）を一括でお支払い
+                                    | いただく必要があります。
+                                  p
+                                    | また、Railsエンジニア（Reスキル認定講座対応）コースの場合は、
+                                    | フィヨルドブートキャンプで教材を揃え、ご自宅に発送します。
+                                    | 教材費も給付金の対象となります。
+                .l-cards__item.is-wide
                   .l-cards__item-inner
-                    .a-card
-                      .lp-left-image-section
-                        .lp-left-image-section__inner
-                          .lp-left-image-section__start.is-hidden-sm-down
-                            = image_tag('books.svg', class: 'lp-top-image-section__icon', alt: '技術本のイラスト')
-                          .lp-left-image-section__end
-                            header.lp-left-image-section__header
-                              h3.lp-card-title
-                                | 必須教材費
-                              h4.lp-price.is-sm
-                                span.lp-price__value
-                                  span.lp-price__amount 31,018
-                                  span.lp-price__currency 円
-                                span.lp-price__details
-                                  span.lp-price__tax （税込）
-                            .lp-card-description
-                              .a-short-text
-                                p
-                                  | 学習を進めるにあたって、必読書がいくつかあります。
-                                  | その合計金額が必須教材費になります。
-                                  | 必読書は学習を始めたタイミングで全てをそろえる必要はなく、
-                                  | 学習の進捗に合わせて都度必要な書籍をご購入いただきます。
+                    .a-card.is-danger
+                      .flex
+                        .lp-left-image-section
+                          .lp-left-image-section__inner
+                            .lp-left-image-section__start.is-hidden-sm-down
+                              = image_tag('money-2.svg', class: 'lp-top-image-section__icon', alt: '請求書のイラスト')
+                            .lp-left-image-section__end
+                              header.lp-left-image-section__header
+                                h3.lp-card-title
+                                  | 給付金最大80%
+                                h4.lp-price.is-sm
+                                  span.lp-price__value
+                                    span.lp-price__amount 596,974
+                                    span.lp-price__currency 円
+                              .lp-card-description
+                                .a-short-text
+                                  p
+                                    | Railsエンジニア（Reスキル認定講座対応）コースの場合、
+                                    = link_to practices_path do
+                                      | 通常のRailsエンジニアコース
+                                    | とは違い、24ヶ月分の利用料を受講料として一括でお支払い
+                                    | いただく必要があります（受講料に必須教材費は含まれていません）。
+
+                        .lp-left-image-section
+                          .lp-left-image-section__inner
+                            .lp-left-image-section__start.is-hidden-sm-down
+                              = image_tag('money-3.svg', class: 'lp-top-image-section__icon', alt: '請求書のイラスト')
+                            .lp-left-image-section__end
+                              header.lp-left-image-section__header
+                                h3.lp-card-title
+                                  | 最大給付金適用後の自己負担額
+                                h4.lp-price.is-sm
+                                  span.lp-price__value
+                                    span.lp-price__amount 149,244
+                                    span.lp-price__currency 円
+                              .lp-card-description
+                                .a-short-text
+                                  p
+                                    | Railsエンジニア（Reスキル認定講座対応）コースの場合、
+                                    = link_to practices_path do
+                                      | 通常のRailsエンジニアコース
+                                    | とは違い、24ヶ月分の利用料を受講料として一括でお支払い
+                                    | いただく必要があります（受講料に必須教材費は含まれていません）。
+
+  section.lp-content.is-lp-bg-3.is-top-title
+    .l-container.is-xl
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-border-bottom
+              | 期間
+        .lp-content__end
+          .lp-content-stack
+            .lp-content-stack__item
+              .l-cards.is-stacked
                 .l-cards__item
                   .l-cards__item-inner
                     .a-card
@@ -194,7 +230,7 @@ hr.a-border
                           .lp-left-image-section__end
                             header.lp-left-image-section__header
                               h3.lp-card-title
-                                | 期間
+                                | 最長
                               h4.lp-price.is-sm
                                 span.lp-price__value
                                   span.lp-price__amount 24
@@ -224,9 +260,7 @@ hr.a-border
               .l-inner-container.is-sm
                 = render 'welcome/certified_reskill_courses/rails_developer_course/practices'
 
-  = render 'welcome/process'
-
-  section.lp-content.is-lp-bg-1.is-top-title
+  section.lp-content.is-lp-bg-2.is-top-title
     .l-container.is-xl
       .lp-content__inner
         .lp-content__start
@@ -520,3 +554,5 @@ hr.a-border
                         | 「Railsエンジニア（Reスキル認定講座対応）コース」の受講を申請する際は、
                         | お問い合わせフォームよりご連絡ください。
                         | 担当者よりメールで受講までの手続きを説明させていただきます。
+
+  = render 'welcome/process'
