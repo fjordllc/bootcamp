@@ -72,13 +72,19 @@
                 .card-header.is-sm
                   h2.card-header__title
                     | 卒業後の進路
+                    | （#{t("activerecord.enums.user.career_path.#{@user.career_path}")}）
                 hr.a-border-tint
-                .user-statuses
-                  .user-statuses__items
-                    .user-statuses__item
-                      = t("activerecord.enums.user.career_path.#{@user.career_path}")
-                    .user-statuses__item
-                      = @user.career_memo
+                .card-body
+                  .card-body__description
+                    - if @user.career_memo.present?
+                      .a-long-text.is-sm
+                        = simple_format(@user.career_memo)
+                    - else
+                      .o-empty-message
+                        .o-empty-message__icon
+                          i.fa-regular.fa-sad-tear
+                        .o-empty-message__text
+                          | 進路メモはまだありません。
             - if admin_or_mentor_login?
               = render 'users/user_mentor_memo', user_id: @user.id
             - unless @user.total_learning_time.zero? || @user.mentor?
