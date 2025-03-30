@@ -24,18 +24,16 @@
     .auth-form__body
       .form-item
         .form-notice.a-notice-block.is-danger
-          - if !@user.grant_course?
-            p
-              | 専門実践教育訓練給付制度対象講座「Railsエンジニア（Reスキル認定講座対応）コース」は
-              = link_to certified_reskill_courses_rails_developer_course_root_path do
-                |  こちらからお申し込みください
-              | 。
-          - if !@user.trainee?
-            p
-              | 企業研修でのご利用は、
-              = link_to new_corporate_training_inquiry_path do
-                | こちらの企業研修申し込みフォーム
-              | からお申し込みください。
+          p
+            | 専門実践教育訓練給付制度対象講座「Railsエンジニア（Reスキル認定講座対応）コース」は
+            = link_to certified_reskill_courses_rails_developer_course_root_path do
+              |  こちらからお申し込みください
+            | 。
+          p
+            | 企業研修でのご利用は、
+            = link_to new_corporate_training_inquiry_path do
+              | こちらの企業研修申し込みフォーム
+            | からお申し込みください。
       = render 'form', from: :new, url: users_path, user: @user || user
     hr.a-border-tint
     footer.auth-form__footer
