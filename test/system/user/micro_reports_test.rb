@@ -111,28 +111,24 @@ class MicroReportsTest < ApplicationSystemTestCase
     assert_selector '.pagination__item.is-active', text: '2'
   end
 
-  test 'edit micro_report form has comment tab and preview tab' do
-    micro_report = micro_reports(:hajime_first_micro_report)
-    visit_with_auth user_micro_reports_path(users(:hajime)), 'hajime'
-    within(".micro-report#micro_report_#{micro_report.id}") do
-      click_button '内容修正'
-      assert_text 'コメント'
-      assert_text 'プレビュー'
-    end
-  end
-
   test 'only owner and admin can edit and delete micro_reports' do
     micro_report = micro_reports(:hajime_first_micro_report)
     visit_with_auth user_micro_reports_path(users(:hajime)), 'hajime'
     within(".micro-report#micro_report_#{micro_report.id}") do
       assert_selector 'a', text: '削除する'
       assert_selector 'button', text: '内容修正'
+      click_button '内容修正'
+      assert_text 'コメント'
+      assert_text 'プレビュー'
     end
 
     visit_with_auth user_micro_reports_path(users(:hajime)), 'komagata'
     within(".micro-report#micro_report_#{micro_report.id}") do
       assert_selector 'a', text: '削除する'
       assert_selector 'button', text: '内容修正'
+      click_button '内容修正'
+      assert_text 'コメント'
+      assert_text 'プレビュー'
     end
 
     visit_with_auth user_micro_reports_path(users(:hajime)), 'mentormentaro'
