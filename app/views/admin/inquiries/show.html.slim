@@ -39,8 +39,18 @@ main.page-main
                       span.a-meta__label 受信日
                       span.a-meta__value = l @inquiry.created_at
         .page-content__body
-          .a-card
+          .a-card.position-relative
+            - if @inquiry.checked?
+              .stamp.stamp-approve.is-sm(style="position: absolute; right: 500px; top: 220px; z-index: 10;")
+                .stamp__content.is-title
+                  | 確認済
             .card-body
               .card-body__description
                 .a-long-text.is-md
                   = auto_link(simple_format(@inquiry.body), html: { target: '_blank' })
+          .mt-4
+            div(data-vue="ActionCompletedButton" 
+                data-vue-commentable-id:number="#{@inquiry.id}" 
+                data-vue-is-initial-action-completed:boolean="#{@inquiry.action_completed || false}"
+                data-vue-model-name:string="inquiry"
+                data-vue-api-path:string="/api/inquiries")

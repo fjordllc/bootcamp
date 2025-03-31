@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_03_04_062341) do
+ActiveRecord::Schema.define(version: 2025_03_31_062253) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -426,6 +426,7 @@ ActiveRecord::Schema.define(version: 2025_03_04_062341) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "action_completed", default: false, null: false
   end
 
   create_table "learning_minute_statistics", force: :cascade do |t|
@@ -653,7 +654,7 @@ ActiveRecord::Schema.define(version: 2025_03_04_062341) do
     t.integer "kind", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["reactionable_type", "reactionable_id"], name: "index_reactions_on_reactionable"
+    t.index ["reactionable_type", "reactionable_id"], name: "index_reactions_on_reactionable_type_and_reactionable_id"
     t.index ["user_id", "reactionable_id", "reactionable_type", "kind"], name: "index_reactions_on_reactionable_u_k", unique: true
     t.index ["user_id"], name: "index_reactions_on_user_id"
   end
@@ -910,7 +911,7 @@ ActiveRecord::Schema.define(version: 2025_03_04_062341) do
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.index ["watchable_type", "watchable_id", "user_id"], name: "index_watches_on_watchable_type_and_watchable_id_and_user_id", unique: true
-    t.index ["watchable_type", "watchable_id"], name: "index_watches_on_watchable"
+    t.index ["watchable_type", "watchable_id"], name: "index_watches_on_watchable_type_and_watchable_id"
   end
 
   create_table "works", force: :cascade do |t|
