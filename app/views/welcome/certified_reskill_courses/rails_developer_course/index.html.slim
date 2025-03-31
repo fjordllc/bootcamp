@@ -27,7 +27,7 @@
             ul.lp-actions__items
               li.lp-actions__item
                 = link_to new_grant_course_application_path, class: 'a-button is-xl is-warning is-block' do
-                  | お申し込み
+                  | 受講申し込み
               li.lp-actions__item
                 = link_to '', class: 'a-button is-xl is-secondary-border is-block' do
                   | お問い合わせ
@@ -57,18 +57,36 @@ hr.a-border
           .lp-content-stack
             .lp-content-stack__item
               .lp-content__description
-                .l-inner-container.is-sm
-                  .flex
-                    = image_tag('re-skill.svg', class: 'w-20 mr-8')
-                    .a-short-text.flex-1
-                      p
-                        | 「Railsエンジニア（Reスキル認定講座対応）コース」は、
-                        | 厚生労働省が認定する専門実践教育訓練給付制度の対象講座です。
-                        | 一定の条件を満たすことで、
-                        | 支払った受講料の最大80%が給付金として支給されます。
-                      p
-                        | また、このコースは経済産業大臣が認定する
-                        | 第四次産業革命スキル習得講座（Reスキル講座）認定も受けています。
+                .l-inner-container.is-md
+                  .a-short-text
+                    p
+                      | 「Railsエンジニア（Reスキル認定講座対応）コース」は、
+                      | 厚生労働省が認定する専門実践教育訓練給付制度の対象講座です。
+                      | 一定の条件を満たすことで、
+                      | 支払った受講料の最大80%が給付金として支給されます。
+                    p
+                      | また、このコースは経済産業大臣が認定する
+                      | 第四次産業革命スキル習得講座（Reスキル講座）認定も受けています。
+            .lp-content-stack__item
+              .lp-content__description
+                .l-inner-container.is-md
+                  .a-short-text
+                    p
+                      | 専門実践教育訓練給付金を受けるためには、いくつかの重要な手続きが必要です。
+                      | 給付金の条件や詳細を確認するために、
+                      | ご自身でハローワークに直接問い合わせ、
+                      | 自己責任で手続きを進めてください。
+                    p
+                      | 給付金を受けるための資格を確認する手続きは、
+                      | 講座開始の2週間前までにハローワークで完了させる必要があります。
+                      | この点を特に注意してください。
+                    p
+                      | 申し込みと受講料の支払いは、個人名義で行うことが必須です。
+                      | 当社では、この制度の利用や給付金の受給に関しては責任を負いかねますので、
+                      | 不明な点がある場合はハローワークにご確認ください。
+                    p
+                      | また、申請した学習期間内にコースを修了することが受給条件となりますので、
+                      | 期間内に修了できるよう計画的に進めてください。
             .lp-content-stack__item
               .l-inner-container.is-sm
                 aside.lp-supplementary-info
@@ -84,6 +102,8 @@ hr.a-border
                           | 雇用創出に貢献する分野において、社会人が高度な専門性を身に付けて
                           | キャリアアップを図る、専門的・実践的な教育訓練講座を
                           | 経済産業大臣が認定する制度です。
+
+
 
             .lp-content-stack__item
               .l-inner-container.is-sm
@@ -106,7 +126,7 @@ hr.a-border
                 ul.lp-actions__items
                   li.lp-actions__item
                     = link_to new_grant_course_application_path, class: 'a-button is-xl is-warning is-block' do
-                      | お申し込み
+                      | 受講申し込み
                   li.lp-actions__item
                     = link_to new_inquiry_path, class: 'a-button is-xl is-primary-border is-block' do
                       | お問い合わせ
@@ -114,9 +134,7 @@ hr.a-border
                 .l-inner-container.is-sm
                     .a-short-text.flex-1
                       p
-                        | 「Railsエンジニア（Reスキル認定講座対応）コース」の受講を申請する際は、
-                        | お問い合わせフォームよりご連絡ください。
-                        | 担当者よりメールで受講までの手続きを説明させていただきます。
+                        | 「Railsエンジニア（Reスキル認定講座対応）コース」の受講には、
 
   section.lp-content.is-lp-bg-2.is-top-title
     .l-container.is-xl
@@ -162,48 +180,66 @@ hr.a-border
                 .l-cards__item.is-wide
                   .l-cards__item-inner
                     .a-card.is-danger
-                      .flex
-                        .lp-left-image-section
-                          .lp-left-image-section__inner
-                            .lp-left-image-section__start.is-hidden-sm-down
-                              = image_tag('money-2.svg', class: 'lp-top-image-section__icon', alt: '請求書のイラスト')
-                            .lp-left-image-section__end
-                              header.lp-left-image-section__header
-                                h3.lp-card-title
-                                  | 給付金最大80%
-                                h4.lp-price.is-sm
-                                  span.lp-price__value
-                                    span.lp-price__amount 596,974
-                                    span.lp-price__currency 円
-                              .lp-card-description
-                                .a-short-text
-                                  p
-                                    | Railsエンジニア（Reスキル認定講座対応）コースの場合、
-                                    = link_to practices_path do
-                                      | 通常のRailsエンジニアコース
-                                    | とは違い、24ヶ月分の利用料を受講料として一括でお支払い
-                                    | いただく必要があります（受講料に必須教材費は含まれていません）。
-
-                        .lp-left-image-section
-                          .lp-left-image-section__inner
-                            .lp-left-image-section__start.is-hidden-sm-down
-                              = image_tag('money-3.svg', class: 'lp-top-image-section__icon', alt: '請求書のイラスト')
-                            .lp-left-image-section__end
-                              header.lp-left-image-section__header
-                                h3.lp-card-title
-                                  | 最大給付金適用後の自己負担額
-                                h4.lp-price.is-sm
-                                  span.lp-price__value
-                                    span.lp-price__amount 149,244
-                                    span.lp-price__currency 円
-                              .lp-card-description
-                                .a-short-text
-                                  p
-                                    | Railsエンジニア（Reスキル認定講座対応）コースの場合、
-                                    = link_to practices_path do
-                                      | 通常のRailsエンジニアコース
-                                    | とは違い、24ヶ月分の利用料を受講料として一括でお支払い
-                                    | いただく必要があります（受講料に必須教材費は含まれていません）。
+                      .a-card__columns
+                        .a-card__column
+                          .lp-left-image-section
+                            .lp-left-image-section__inner
+                              .lp-left-image-section__start.is-hidden-sm-down
+                                = image_tag('money-2.svg', class: 'lp-top-image-section__icon', alt: '請求書のイラスト')
+                              .lp-left-image-section__end
+                                header.lp-left-image-section__header
+                                  h3.lp-card-title
+                                    | 給付金最大80%
+                                  h4.lp-price.is-sm
+                                    span.lp-price__value
+                                      span.lp-price__amount 596,974
+                                      span.lp-price__currency 円
+                                .lp-card-description
+                                  .a-short-text
+                                    p
+                                      | Railsエンジニア（Reスキル認定講座対応）コースの場合、
+                                      = link_to practices_path do
+                                        | 通常のRailsエンジニアコース
+                                      | とは違い、24ヶ月分の利用料を受講料として一括でお支払い
+                                      | いただく必要があります（受講料に必須教材費は含まれていません）。
+                        .a-card__column
+                          .lp-left-image-section
+                            .lp-left-image-section__inner
+                              .lp-left-image-section__start.is-hidden-sm-down
+                                = image_tag('money-3.svg', class: 'lp-top-image-section__icon', alt: '請求書のイラスト')
+                              .lp-left-image-section__end
+                                header.lp-left-image-section__header
+                                  h3.lp-card-title
+                                    | 最大給付金適用後の自己負担額
+                                  h4.lp-price.is-sm
+                                    span.lp-price__value
+                                      span.lp-price__amount 149,244
+                                      span.lp-price__currency 円
+                                .lp-card-description
+                                  .a-short-text
+                                    p
+                                      | Railsエンジニア（Reスキル認定講座対応）コースの場合、
+                                      = link_to practices_path do
+                                        | 通常のRailsエンジニアコース
+                                      | とは違い、24ヶ月分の利用料を受講料として一括でお支払い
+                                      | いただく必要があります（受講料に必須教材費は含まれていません）。
+            .lp-content-stack__item
+              .lp-content-section
+                h3.lp-content-sub-title.text-center
+                  | 給付金制度の対象か確認
+                .lp-content__description
+                  .l-inner-container.is-sm
+                    .a-short-text
+                      p
+                        | この図は給付金の受給資格を判断するための一般的なガイドラインを示していますが、
+                        | 最終的な受給資格については個々の状況により異なる場合があります。
+                        | 正確な情報と受給資格の確認のためには、必ずハローワークにご相談ください。
+                        | 当社では、この図の内容に基づく給付金の申請や受給に関しての責任は負いかねますので、ご了承ください。
+                .lp-content__description
+                  .l-inner-container.is-xs
+                    .a-card
+                      .card-body.p-6
+                        = image_tag('grant-eligible-course/benefit-eligibility-chart.svg')
 
   section.lp-content.is-lp-bg-3.is-top-title
     .l-container.is-xl
@@ -317,25 +353,257 @@ hr.a-border
             h3.lp-content-title.is-vertical.is-border-left
               | 履修スタート
               br
-              | 給付金で返ってくる
-          .lp-hero-info__description
-            p
-              | Railsエンジニア（Reスキル認定講座対応）コースは、
-              | 厚生労働省が認定した専門実践教育訓練給付制度の対象講座です。
-          .lp-actions
-            ul.lp-actions__items
-              li.lp-actions__item
-                = link_to new_grant_course_application_path, class: 'a-button is-xl is-warning is-block' do
-                  | 受講申請
-              li.lp-actions__item
-                = link_to new_inquiry_path, class: 'a-button is-xl is-secondary-border is-block' do
-                  | お問い合わせ
-      .lp-content__end
-        .lp-hero-visual
-          = image_tag('grant-eligible-course/grant-eligible-course-main.svg', class: 'lp-hero-visual__image', alt: '給付金制度対象講座Railsエンジニア（Reスキル認定講座対応）コースのイラスト')
-  .lp-content-divider.is-lp-bg-1
-    svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
-      path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+              | までの
+              strong
+                | 流れ
+        .lp-content__end
+          .lp-left-number-sections__items
+            .l-cards.is-zigzag
+              .l-cards__item
+                .l-cards__item-inner
+                  .a-card
+                    section.lp-left-number-section
+                      .lp-left-number-section__start
+                        header.lp-left-number-section__header
+                          h4.lp-left-number-section__title
+                            | 受給資格確認
+                      .lp-left-number-section__end
+                        .lp-card-description
+                          .a-short-text
+                            p
+                              | 支給を受けるためには、受講開始の14日前までにハローワークで
+                              | 訓練前のキャリアコンサルティングを受け、
+                              | その後で受給資格の確認を受ける必要があります。
+                              | この資格確認の手続きには手数料はかかりません。
+                            p
+                              | 受給資格認定の前に先に「
+                              = link_to '受講申込フォーム',
+                                new_grant_course_application_path,
+                                target: '_blank', rel: 'noopener'
+                              | 」から申し込みをし、
+                              | お試し期間を利用することも可能です。
+                              | ただし、入金の完了をもってお申し込みの成立になるため、
+                              | ご入金は必ず受給資格が認定された後に行ってください。
+              .l-cards__item
+                .l-cards__item-inner
+                  .a-card
+                    section.lp-left-number-section
+                      .lp-left-number-section__start
+                        header.lp-left-number-section__header
+                          h4.lp-left-number-section__title
+                            | 受講申し込み
+                      .lp-left-number-section__end
+                        .lp-card-description
+                          .a-short-text
+                            p
+                              | 「
+                              = link_to '受講申込フォーム',
+                                new_grant_course_application_path,
+                                target: '_blank', rel: 'noopener'
+                              | 」より、必ず本人名義でお申し込みください。
+                              | 担当者よりメールにて請求書をお送りいたします。
+                            p
+                              | お試し期間の利用を希望する場合、
+                              | 入金の完了をもってお申し込みの成立になるため、
+                              | ご入金は必ずお試し期間終了後に行ってください。
+                        .lp-card-actions
+                          .lp-card-actions__items
+                            .lp-card-actions__item
+                              = link_to '受講申込フォーム',
+                                new_grant_course_application_path,
+                                class: 'a-button is-md is-primary-border is-block',
+                                target: '_blank', rel: 'noopener'
+
+              .l-cards__item
+                .l-cards__item-inner
+                  .a-card
+                    section.lp-left-number-section
+                      .lp-left-number-section__start
+                        header.lp-left-number-section__header
+                          h4.lp-left-number-section__title
+                            | ご入金
+                      .lp-left-number-section__end
+                        .lp-card-description
+                          .a-short-text
+                            p
+                              | 請求書にある口座へ必ず本人名義で「受講料＋教材費」をお振込みください。
+                              | 支払い方法は銀行振込のみで、一括払いとなります。
+                              | 振込手数料はお客様負担となりますので、ご了承ください。
+                            p
+                              | ご入金の完了をもってお申し込みの成立になります。
+                              | ご入金後、担当者よりメールで領収書をお送りいたします。
+              .l-cards__item
+                .l-cards__item-inner
+                  .a-card
+                    section.lp-left-number-section
+                      .lp-left-number-section__start
+                        header.lp-left-number-section__header
+                          h4.lp-left-number-section__title
+                            | 本人確認
+                      .lp-left-number-section__end
+                        .lp-card-description
+                          .a-short-text
+                            p
+                              | 担当者宛にメールで身分証明書のスキャンをお送りいただき、
+                              | ビデオチャットにて身分証明書と合わせて本人確認を行います。
+                              | そのときに、履修開始日の確定も行います。
+                            p
+                              | 身分証明書として、運転免許証、パスポート、マイナンバーカード、
+                              | 在留カード、または特別永住者証明書をご利用いただけます。
+              .l-cards__item
+                .l-cards__item-inner
+                  .a-card
+                    section.lp-left-number-section
+                      .lp-left-number-section__start
+                        header.lp-left-number-section__header
+                          h4.lp-left-number-section__title
+                            | 履修開始
+                      .lp-left-number-section__end
+                        .lp-card-description
+                          .a-short-text
+                            p
+                              | 履修開始日からオンライン学習アプリに
+                              | ログインができるようになり、履修開始となります。
+                            p
+                              | お試し期間をご利用いただいていた場合、
+                              | そのときに使用していたアカウントを再度有効化し、
+                              | そのアカウントで学習を継続できるようにします。
+
+  section.lp-content.is-lp-bg-1.is-top-title
+    .l-container.is-lg
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-border-bottom
+              | 講座概要
+        .lp-content__end
+          .lp-content-stack
+            .lp-content-stack__item
+              .l-inner-container.is-sm
+                table.lp-table
+                  tbody
+                    tr
+                      th
+                        | 講座の名称
+                      td
+                        p
+                          | Railsエンジニア（Reスキル認定講座対応）コース
+                    tr
+                      th
+                        | 講座内容
+                      td
+                        p
+                          | Ruby on Railsを使ってWebアプリケーションを開発するのに必要な
+                          | 技術を学びます。
+                    tr
+                      th
+                        | 習得するデジタルスキルについて
+                      td
+                        p
+                          | HTML・CSS・JavaScriptなどのフロントエンドから、
+                          | RubyやRailsによるバックエンド開発まで幅広いスキルを学びます。
+                          | GitとGitHubを使ったバージョン管理や、SQLを活用したデータベース操作、
+                          | LinuxやNginxを使ったサーバー管理も経験します。
+                          | また、ReactでのSPA開発やWebセキュリティの知識も習得し、
+                          | チーム開発を通じてアジャイル手法やPRの実践を学びます。
+                          | 学んだスキルでWebサービスを設計・開発し、デプロイまでの全工程を体験します。
+                    tr
+                      th
+                        | 習得内容がどの業種・職種に活かせるか
+                      td
+                        p
+                          | IT業界でのエンジニアとしてのバックエンド開発スキルは、
+                          | ウェブ開発、フィンテック、ヘルスケア、eコマース、
+                          | クラウドサービスやSaaSなど様々な分野で活用されます。
+                          | サーバーサイドのロジック構築、データベース管理、セキュリティ対策、
+                          | 顧客データ処理など、多岐にわたる技術的要において活用可能です。
+                    tr
+                      th
+                        | 学習方法
+                      td
+                        ul
+                          li eラーニング
+                          li 完全オンライン
+                    tr
+                      th
+                        | 学習期間
+                      td
+                        p
+                          | 24ヶ月
+                          br
+                          | ※24ヶ月で卒業できなかった場合は、
+                          | サブスクリプション方式での延長にされます。
+                    tr
+                      th
+                        | 必要な実務経験、最低限の技能、知識の内容（学歴・資格等）
+                      td
+                        p
+                          | 不要
+                    tr
+                      th
+                        | 受講料
+                      td
+                        p
+                          | 715,200円(税込)
+                          br
+                          | ※授業料に必須教材費は含まれていません。
+                    tr
+                      th
+                        | 必須教材費
+                      td
+                        p
+                          | 31,018円(税込)
+                          br
+                          | ※カリキュラムで指定している必須書籍の合計金額。
+                    tr
+                      th
+                        | 受講料の支払方法
+                      td
+                        p
+                          | 一括のみ
+                    tr
+                      th
+                        | ITSSレベル
+                      td
+                        p
+                          | ITSSレベル３
+                    tr
+                      th
+                        | 規約
+                      td
+                        ul
+                          li
+                            = link_to '利用規約', tos_path, class: 'a-text-link', target: '_blank', rel: 'noopener'
+                          li
+                            = link_to 'アンチハラスメントポリシー', coc_path, class: 'a-text-link', target: '_blank', rel: 'noopener'
+                    tr
+                      th
+                        | 受講者の本人確認書類
+                      td
+                        p
+                          | メールにて下記の中から1点のスキャンをお送りいただき、本人確認を行います。
+                        ul
+                          li
+                            | 運転免許証
+                          li
+                            | パスポート
+                          li
+                            | マイナンバーカード
+                          li
+                            | 在留カード
+                          li
+                            | 特別永住者証明書
+                    tr
+                      th
+                        | 受講者の本人確認方法
+                      td
+                        p
+                          | 受講開始前にzoomを使用してビデオチャットを行い、
+                          | お送りいただいた資料と同一人物かを確認した上で本人確認を
+                          | 行います。
+                          | その後、メールでアカウントを発行し、
+                          | このアカウントを使用して学習を進めることで、
+                          | 本人であると認定いたします。
 
             .lp-content-stack__item
               .lp-actions
