@@ -29,7 +29,7 @@
                 = link_to new_grant_course_application_path, class: 'a-button is-xl is-warning is-block' do
                   | 受講申し込み
               li.lp-actions__item
-                = link_to '', class: 'a-button is-xl is-secondary-border is-block' do
+                = link_to new_inquiry_path, class: 'a-button is-xl is-secondary-border is-block' do
                   | お問い合わせ
       .lp-content__end
         .lp-hero-visual
@@ -57,70 +57,44 @@ hr.a-border
           .lp-content-stack
             .lp-content-stack__item
               .lp-content__description
-                .l-inner-container.is-md
+                .l-inner-container.is-sm
                   .a-short-text
                     p
                       | 「Railsエンジニア（Reスキル認定講座対応）コース」は、
-                      | 厚生労働省が認定する専門実践教育訓練給付制度の対象講座です。
+                      | 厚生労働省が認定する
+                      label.a-text-help-link(for='modal-training-benefit-course')
+                        span.a-form-help-link__label
+                          | 専門実践教育訓練給付制度の対象講座
+                        span.a-help
+                          i.fa-solid.fa-question
+                      | です。
                       | 一定の条件を満たすことで、
                       | 支払った受講料の最大80%が給付金として支給されます。
                     p
                       | また、このコースは経済産業大臣が認定する
-                      | 第四次産業革命スキル習得講座（Reスキル講座）認定も受けています。
-            .lp-content-stack__item
-              .lp-content__description
-                .l-inner-container.is-md
-                  .a-short-text
-                    p
-                      | 専門実践教育訓練給付金を受けるためには、いくつかの重要な手続きが必要です。
-                      | 給付金の条件や詳細を確認するために、
-                      | ご自身でハローワークに直接問い合わせ、
-                      | 自己責任で手続きを進めてください。
-                    p
-                      | 給付金を受けるための資格を確認する手続きは、
-                      | 講座開始の2週間前までにハローワークで完了させる必要があります。
-                      | この点を特に注意してください。
-                    p
-                      | 申し込みと受講料の支払いは、個人名義で行うことが必須です。
-                      | 当社では、この制度の利用や給付金の受給に関しては責任を負いかねますので、
-                      | 不明な点がある場合はハローワークにご確認ください。
-                    p
-                      | また、申請した学習期間内にコースを修了することが受給条件となりますので、
-                      | 期間内に修了できるよう計画的に進めてください。
-            .lp-content-stack__item
-              .l-inner-container.is-sm
-                aside.lp-supplementary-info
-                  .lp-supplementary-info__inner
-                    header.lp-supplementary-info__header
-                      h3.lp-card-title.is-sm
-                        | 第四次産業革命スキル習得講座（Reスキル講座）認定制度とは？
-                    .lp-supplementary-info__body
-                      .a-short-text
-                        p
-                          | 「第四次産業革命スキル習得講座（Reスキル講座）認定制度」は、
-                          | IT・データを中心とした将来の成長が強く見込まれ、
-                          | 雇用創出に貢献する分野において、社会人が高度な専門性を身に付けて
-                          | キャリアアップを図る、専門的・実践的な教育訓練講座を
-                          | 経済産業大臣が認定する制度です。
+                      label.a-text-help-link(for='modal-industry-4-skills-yraining-certification')
+                        span.a-text-help-link__label
+                          | 第四次産業革命スキル習得講座（Reスキル講座）認定
+                        span.a-help
+                          i.fa-solid.fa-question
+                      | も受けています。
+                    = render '/shared/modal', id: 'modal-training-benefit-course', modal_title: '専門実践教育訓練給付制度の対象講座'
+                      .modal__description.is-md
+                        .a-short-text
+                          p
+                            | チェックを入れると本文の頭（タイトルの下）にサムネイル画像が大きく表示されます。
+                            | 記事のアイキャッチ画像としてサムネイル画像を使用する場合はチェックを入れてください。
+                          p = image_tag('articles/thumbnail_description.png')
 
-
-
-            .lp-content-stack__item
-              .l-inner-container.is-sm
-                aside.lp-supplementary-info
-                  .lp-supplementary-info__inner
-                    header.lp-supplementary-info__header
-                      h3.lp-card-title.is-sm
-                        | 第四次産業革命スキル習得講座（Reスキル講座）認定制度とは？
-                    .lp-supplementary-info__body
-                      .a-short-text
-                        p
-                          | 「第四次産業革命スキル習得講座（Reスキル講座）認定制度」は、
-                          | IT・データを中心とした将来の成長が強く見込まれ、
-                          | 雇用創出に貢献する分野において、社会人が高度な専門性を身に付けて
-                          | キャリアアップを図る、専門的・実践的な教育訓練講座を
-                          | 経済産業大臣が認定する制度です。
-
+                    = render '/shared/modal', id: 'modal-industry-4-skills-yraining-certification', modal_title: '第四次産業革命スキル習得講座（Reスキル講座）認定制度とは？'
+                      .modal__description.is-md
+                        .a-short-text
+                          p
+                            | 「第四次産業革命スキル習得講座（Reスキル講座）認定制度」は、
+                            | IT・データを中心とした将来の成長が強く見込まれ、
+                            | 雇用創出に貢献する分野において、社会人が高度な専門性を身に付けて
+                            | キャリアアップを図る、専門的・実践的な教育訓練講座を
+                            | 経済産業大臣が認定する制度です。
             .lp-content-stack__item
               .lp-actions
                 ul.lp-actions__items
@@ -197,11 +171,6 @@ hr.a-border
                                 .lp-card-description
                                   .a-short-text
                                     p
-                                      | Railsエンジニア（Reスキル認定講座対応）コースの場合、
-                                      = link_to practices_path do
-                                        | 通常のRailsエンジニアコース
-                                      | とは違い、24ヶ月分の利用料を受講料として一括でお支払い
-                                      | いただく必要があります（受講料に必須教材費は含まれていません）。
                         .a-card__column
                           .lp-left-image-section
                             .lp-left-image-section__inner
@@ -218,15 +187,27 @@ hr.a-border
                                 .lp-card-description
                                   .a-short-text
                                     p
-                                      | Railsエンジニア（Reスキル認定講座対応）コースの場合、
-                                      = link_to practices_path do
-                                        | 通常のRailsエンジニアコース
-                                      | とは違い、24ヶ月分の利用料を受講料として一括でお支払い
-                                      | いただく必要があります（受講料に必須教材費は含まれていません）。
+            .lp-content-stack__item
+              .lp-content__description
+                .l-inner-container.is-sm
+                  .a-short-text
+                    p
+                      | 専門実践教育訓練給付金を受けるためには、いくつかの重要な手続きが必要です。
+                      | 給付金の条件や詳細を確認するために、
+                      | ご自身でハローワークに直接問い合わせ、
+                      | 自己責任で手続きを進めてください。
+                    p
+                      | 当社では、この制度の利用や給付金の受給に関しては責任を負いかねますので、
+                      | 不明な点がある場合はハローワークにご確認ください。
             .lp-content-stack__item
               .lp-content-section
                 h3.lp-content-sub-title.text-center
-                  | 給付金制度の対象か確認
+                  | 給付金制度の対象かのチェック
+                .lp-content__description
+                  .l-inner-container.is-xs
+                    .a-card
+                      .card-body.p-6
+                        = image_tag('grant-eligible-course/benefit-eligibility-chart.svg')
                 .lp-content__description
                   .l-inner-container.is-sm
                     .a-short-text
@@ -234,12 +215,15 @@ hr.a-border
                         | この図は給付金の受給資格を判断するための一般的なガイドラインを示していますが、
                         | 最終的な受給資格については個々の状況により異なる場合があります。
                         | 正確な情報と受給資格の確認のためには、必ずハローワークにご相談ください。
-                        | 当社では、この図の内容に基づく給付金の申請や受給に関しての責任は負いかねますので、ご了承ください。
-                .lp-content__description
-                  .l-inner-container.is-xs
-                    .a-card
-                      .card-body.p-6
-                        = image_tag('grant-eligible-course/benefit-eligibility-chart.svg')
+            .lp-content-stack__item
+              .lp-actions
+                ul.lp-actions__items
+                  li.lp-actions__item
+                    = link_to new_grant_course_application_path, class: 'a-button is-xl is-warning is-block' do
+                      | 受講申し込み
+                  li.lp-actions__item
+                    = link_to new_inquiry_path, class: 'a-button is-xl is-primary-border is-block' do
+                      | お問い合わせ
 
   section.lp-content.is-lp-bg-3.is-top-title
     .l-container.is-xl
@@ -270,14 +254,26 @@ hr.a-border
                             .lp-card-description
                               .a-short-text
                                 p
-                                  | Railsエンジニア（Reスキル認定講座対応）コースの受講期間は24ヶ月です。
-                                  | 卒業までにかかる時間の目安は約1200時間になります。
-                                  | ただし、学習の頻度や元々のスキルなどによって個人差が大きくあります。
+                                  | Railsエンジニア（Reスキル認定講座対応）コースの最長受講期間は24ヶ月です。
+                                  | 卒業までにかかる時間の目安は約1200時間になりますが、
+                                  | 学習の頻度や元々のスキルなどによって個人差が大きくあります。
+                                  | 申請した学習期間内にコースを修了することが受給条件となりますので、
+                                  | 期間内に修了できるよう計画的に進めてください。
+                                p
                                   | もし、24ヶ月で卒業に至らなかった場合、受講の延長をすることは可能ですが、
                                   | その際は
                                   = link_to practices_path do
                                     | 通常のRailsエンジニアコース
                                   | と同様の月額課金のサブスクリプション方式で課金がされます。
+            .lp-content-stack__item
+              .lp-actions
+                ul.lp-actions__items
+                  li.lp-actions__item
+                    = link_to new_grant_course_application_path, class: 'a-button is-xl is-warning is-block' do
+                      | 受講申し込み
+                  li.lp-actions__item
+                    = link_to new_inquiry_path, class: 'a-button is-xl is-primary-border is-block' do
+                      | お問い合わせ
 
   section.lp-content.is-lp-bg-1.is-top-title
     .l-container.is-lg
@@ -288,6 +284,21 @@ hr.a-border
               | 講座内容
         .lp-content__end
           .lp-content-stack
+            .lp-content-stack__item
+              .lp-content__description
+                .l-inner-container.is-sm
+                  .a-short-text
+                    p
+                      | Railsエンジニア（Reスキル認定講座対応）コースは、
+                      | デジタルスキルの基礎から開始し、開発環境の構築、Ruby言語の習得、
+                      | Webアプリケーションの開発までを学びます。
+                      | 特にRuby on Railsを使ったアプリケーション制作では、データベース操作、ユーザー認証、
+                      | 画像アップロードなど実践的な技術が身に付きます。
+                      | フロントエンドの技術としてJavaScriptやReactも習得し、
+                      | プロジェクト管理やチームでの開発プロセスも経験します。
+                      | このコースを通じて、技術的知識だけでなく、
+                      | 実践的な問題解決能力やチームワークの重要性を学ぶことができます。
+
             .lp-content-stack__item
               .l-inner-container.is-sm
                 = render 'welcome/certified_reskill_courses/rails_developer_course/practices'
@@ -376,12 +387,11 @@ hr.a-border
                               | その後で受給資格の確認を受ける必要があります。
                               | この資格確認の手続きには手数料はかかりません。
                             p
-                              | 受給資格認定の前に先に「
+                              | 受給資格確認の前に先に「
                               = link_to '受講申込フォーム',
                                 new_grant_course_application_path,
                                 target: '_blank', rel: 'noopener'
-                              | 」から申し込みをし、
-                              | お試し期間を利用することも可能です。
+                              | 」からお試し利用を申請することができます。
                               | ただし、入金の完了をもってお申し込みの成立になるため、
                               | ご入金は必ず受給資格が認定された後に行ってください。
               .l-cards__item
@@ -401,6 +411,8 @@ hr.a-border
                                 new_grant_course_application_path,
                                 target: '_blank', rel: 'noopener'
                               | 」より、必ず本人名義でお申し込みください。
+                              | 給付金を受けるには、申し込みと受講料の支払いは、
+                              | 個人名義で行うことが必須です。
                               | 担当者よりメールにて請求書をお送りいたします。
                             p
                               | お試し期間の利用を希望する場合、
@@ -609,8 +621,11 @@ hr.a-border
               .lp-actions
                 ul.lp-actions__items
                   li.lp-actions__item
-                    = link_to new_inquiry_path, class: 'a-button is-xl is-warning is-block' do
-                      | お問い合わせ・受講申請
+                    = link_to new_grant_course_application_path, class: 'a-button is-xl is-warning is-block' do
+                      | 受講申し込み
+                  li.lp-actions__item
+                    = link_to new_inquiry_path, class: 'a-button is-xl is-primary-border is-block' do
+                      | お問い合わせ
               .lp-content__description.mt-8
                 .l-inner-container.is-sm
                     .a-short-text.flex-1
