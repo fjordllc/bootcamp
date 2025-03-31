@@ -22,6 +22,8 @@ class GrantCourseApplicationsTest < ApplicationSystemTestCase
       fill_in 'grant_course_application_tel3', with: '5678'
       check 'grant_course_application_trial_period', allow_label_click: true, visible: false
       check 'grant_course_application_privacy_policy', allow_label_click: true, visible: false
+      check 'grant_course_application_privacy_policy', allow_label_click: true, visible: false
+      check 'notes', allow_label_click: true, visible: false
 
       click_button '申請する'
 
@@ -35,6 +37,7 @@ class GrantCourseApplicationsTest < ApplicationSystemTestCase
     GrantCourseApplicationsController.stub_any_instance(:valid_recaptcha?, true) do
       visit new_grant_course_application_path
 
+      check 'notes', allow_label_click: true, visible: false
       # Submit without entering any information
       click_button '申請する'
 
