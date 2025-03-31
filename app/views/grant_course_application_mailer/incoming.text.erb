@@ -1,12 +1,12 @@
-給付金対応コース申し込みがありました。
+給付金対応コース受講申請がありました。
 
 氏名: <%= @grant_course_application.last_name %> <%= @grant_course_application.first_name %>
 メールアドレス: <%= @grant_course_application.email %>
 郵便番号: <%= @grant_course_application.zip %>
-住所: 
+住所:
 〒<%= @grant_course_application.zip %>
 <%= @grant_course_application.address %>
 電話番号: <%= @grant_course_application.tel %>
-お試し期間利用希望: <%= @grant_course_application.trial_period ? 'あり' : 'なし' %>
+お試し利用希望: <%= @grant_course_application.trial_period ? 'あり' : 'なし' %>
 
 申し込み日時: <%= l @grant_course_application.created_at %>

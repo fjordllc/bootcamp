@@ -7,7 +7,7 @@ class GrantCourseApplicationsTest < ApplicationSystemTestCase
     GrantCourseApplicationsController.stub_any_instance(:valid_recaptcha?, true) do
       visit new_grant_course_application_path
 
-      assert_text '給付金対応コース申し込み'
+      assert_text '給付金対応コース受講申請'
 
       fill_in 'grant_course_application[last_name]', with: '山田'
       fill_in 'grant_course_application[first_name]', with: '太郎'
@@ -23,10 +23,10 @@ class GrantCourseApplicationsTest < ApplicationSystemTestCase
       check 'grant_course_application_trial_period', allow_label_click: true, visible: false
       check 'grant_course_application_privacy_policy', allow_label_click: true, visible: false
 
-      click_button '送信'
+      click_button '申請する'
 
-      assert_text '給付金対応コース申し込み完了'
-      assert_text '給付金対応コースへの申し込みが完了しました。ありがとうございます。'
+      assert_text '給付金対応コース受講申請完了'
+      assert_text '受講申請が完了しました。ありがとうございます。'
       assert_text '担当者より折り返しご連絡いたします。'
     end
   end
@@ -36,7 +36,7 @@ class GrantCourseApplicationsTest < ApplicationSystemTestCase
       visit new_grant_course_application_path
 
       # Submit without entering any information
-      click_button '送信'
+      click_button '申請する'
 
       assert_text '入力内容にエラーがあります'
       assert_text '姓を入力してください'
