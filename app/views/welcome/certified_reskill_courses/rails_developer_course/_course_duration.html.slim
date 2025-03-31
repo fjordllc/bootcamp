@@ -1,0 +1,46 @@
+section.lp-content.is-lp-bg-1.is-top-title
+  .l-container.is-xl
+    .lp-content__inner
+      .lp-content__start
+        header.lp-content__header
+          h2.lp-content-title.text-center.is-border-bottom
+            | 期間
+      .lp-content__end
+        .lp-content-stack
+          .lp-content-stack__item
+            .l-cards.is-stacked
+              .l-cards__item
+                .l-cards__item-inner
+                  .a-card
+                    .lp-left-image-section
+                      .lp-left-image-section__inner
+                        .lp-left-image-section__start.is-hidden-sm-down
+                          = image_tag('subscription.svg', class: 'lp-left-image-section__icon', alt: '課金日を書き込んだカレンダーのイラスト')
+                        .lp-left-image-section__end
+                          header.lp-left-image-section__header
+                            h3.lp-card-title
+                              | 最長
+                            h4.lp-price.is-sm
+                              span.lp-price__value
+                                span.lp-price__amount 24
+                                span.lp-price__currency ヶ月
+                          .lp-card-description
+                            .a-short-text
+                              p
+                                | Railsエンジニア（Reスキル認定講座対応）コースの最長受講期間は24ヶ月です。
+                                | 卒業までにかかる時間の目安は約1200時間になりますが、
+                                | 学習の頻度や元々のスキルなどによって個人差が大きくあります。
+                                | 申請した学習期間内にコースを修了することが受給条件となりますので、
+                                | 期間内に修了できるよう計画的に進めてください。
+                              p
+                                | もし、24ヶ月で卒業に至らなかった場合、受講の延長をすることは可能ですが、
+                                | その際は
+                                = link_to practices_path do
+                                  | Railsエンジニアコース
+                                | と同様の月額課金のサブスクリプション方式で課金がされます。
+
+          = render 'welcome/certified_reskill_courses/rails_developer_course/main_actions'
+
+  .lp-content-divider.is-lp-bg-2
+    svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+      path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"

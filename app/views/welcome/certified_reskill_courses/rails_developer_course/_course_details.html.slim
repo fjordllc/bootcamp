@@ -1,0 +1,33 @@
+section.lp-content.is-lp-bg-2.is-top-title
+  .l-container.is-lg
+    .lp-content__inner
+      .lp-content__start
+        header.lp-content__header
+          h2.lp-content-title.text-center.is-border-bottom
+            | 講座内容
+      .lp-content__end
+        .lp-content-stack
+          .lp-content-stack__item
+            .lp-content__description
+              .l-inner-container.is-sm
+                .a-short-text
+                  p
+                    | Railsエンジニア（Reスキル認定講座対応）コースは、
+                    | デジタルスキルの基礎から開始し、開発環境の構築、Ruby言語の習得、
+                    | Webアプリケーションの開発までを学びます。
+                    | 特にRuby on Railsを使ったアプリケーション制作では、データベース操作、ユーザー認証、
+                    | 画像アップロードなど実践的な技術が身に付きます。
+                    | フロントエンドの技術としてJavaScriptやReactも習得し、
+                    | プロジェクト管理やチームでの開発プロセスも経験します。
+                    | このコースを通じて、技術的知識だけでなく、
+                    | 実践的な問題解決能力やチームワークの重要性を学ぶことができます。
+
+          .lp-content-stack__item
+            .l-inner-container.is-sm
+              = render 'welcome/certified_reskill_courses/rails_developer_course/practices'
+
+          = render 'welcome/certified_reskill_courses/rails_developer_course/main_actions'
+
+  .lp-content-divider.is-lp-bg-3
+    svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+      path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"

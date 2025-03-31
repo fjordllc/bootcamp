@@ -1,0 +1,127 @@
+section.lp-content.is-lp-bg-3.is-right-title.lp-left-number-sections
+  .l-container.is-lg
+    .lp-content__inner
+      .lp-content__start
+        header.lp-content__header
+          h3.lp-content-title.is-vertical.is-border-left
+            | 履修スタート
+            br
+            | までの
+            strong
+              | 流れ
+      .lp-content__end
+        .lp-left-number-sections__items
+          .l-cards.is-zigzag
+            .l-cards__item
+              .l-cards__item-inner
+                .a-card
+                  section.lp-left-number-section
+                    .lp-left-number-section__start
+                      header.lp-left-number-section__header
+                        h4.lp-left-number-section__title
+                          | 受給資格確認
+                    .lp-left-number-section__end
+                      .lp-card-description
+                        .a-short-text
+                          p
+                            | 給付を受けるためには、受講開始の14日前までにハローワークで
+                            | 訓練前のキャリアコンサルティングを受け、
+                            | その後で受給資格の確認を受ける必要があります。
+                          p
+                            | 受給資格確認の前に先に「
+                            = link_to '受講申請フォーム',
+                              new_grant_course_application_path,
+                              target: '_blank', rel: 'noopener'
+                            | 」からお試し利用を申請することができます。
+                            | ただし、入金の完了をもって申し込み成立になるため、
+                            | ご入金は必ず受給資格が認定された後に行ってください。
+            .l-cards__item
+              .l-cards__item-inner
+                .a-card
+                  section.lp-left-number-section
+                    .lp-left-number-section__start
+                      header.lp-left-number-section__header
+                        h4.lp-left-number-section__title
+                          | 受講申請
+                    .lp-left-number-section__end
+                      .lp-card-description
+                        .a-short-text
+                          p
+                            | 「
+                            = link_to '受講申請込フォーム',
+                              new_grant_course_application_path,
+                              target: '_blank', rel: 'noopener'
+                            | 」より、必ず本人名義でお申し込みください。
+                            | 給付金を受けるには、申し込みと受講料の支払いは、
+                            | 個人名義で行うことが必須です。
+                            | 担当者よりメールにて請求書をお送りいたします。
+                          p
+                            | お試し期間の利用を希望する場合、
+                            | 入金の完了をもって申し込み成立になるため、
+                            | ご入金はお試し期間終了後に行ってください。
+                      .lp-card-actions
+                        .lp-card-actions__items
+                          .lp-card-actions__item
+                            = link_to '受講申請フォーム',
+                              new_grant_course_application_path,
+                              class: 'a-button is-md is-primary-border is-block',
+                              target: '_blank', rel: 'noopener'
+
+            .l-cards__item
+              .l-cards__item-inner
+                .a-card
+                  section.lp-left-number-section
+                    .lp-left-number-section__start
+                      header.lp-left-number-section__header
+                        h4.lp-left-number-section__title
+                          | ご入金
+                    .lp-left-number-section__end
+                      .lp-card-description
+                        .a-short-text
+                          p
+                            | 請求書にある口座へ必ず本人名義で「受講料＋教材費」をお振込みください。
+                            | 支払い方法は銀行振込のみで、一括払いとなります。
+                            | 振込手数料は受講者の負担となりますので、ご了承ください。
+                          p
+                            | ご入金の完了をもって申し込み成立になります。
+                            | ご入金後、担当者よりメールで領収書をお送りいたします。
+            .l-cards__item
+              .l-cards__item-inner
+                .a-card
+                  section.lp-left-number-section
+                    .lp-left-number-section__start
+                      header.lp-left-number-section__header
+                        h4.lp-left-number-section__title
+                          | 本人確認
+                    .lp-left-number-section__end
+                      .lp-card-description
+                        .a-short-text
+                          p
+                            | 担当者宛にメールで身分証明書のスキャンをお送りいただき、
+                            | ビデオチャットにて身分証明書と合わせて本人確認を行います。
+                            | そのときに、履修開始日の確定も行います。
+                          p
+                            | 身分証明書として、運転免許証、パスポート、マイナンバーカード、
+                            | 在留カード、または特別永住者証明書をご利用いただけます。
+            .l-cards__item
+              .l-cards__item-inner
+                .a-card
+                  section.lp-left-number-section
+                    .lp-left-number-section__start
+                      header.lp-left-number-section__header
+                        h4.lp-left-number-section__title
+                          | 履修開始
+                    .lp-left-number-section__end
+                      .lp-card-description
+                        .a-short-text
+                          p
+                            | 履修開始日からオンライン学習アプリに
+                            | ログインができるようになり、履修開始となります。
+                          p
+                            | お試し期間をご利用いただいていた場合、
+                            | そのときに使用していたアカウントを再度有効化し、
+                            | そのアカウントで学習を継続できるようにします。
+
+  .lp-content-divider.is-lp-bg-1
+    svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+      path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"

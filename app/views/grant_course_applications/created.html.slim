@@ -1,23 +1,24 @@
 ruby:
-  title '給付金対応コース申し込み完了'
-  content_for :extra_body_classes, 'no-header no-footer no-global-nav is-auth-page is-piyo-background'
+  title '給付金対応コース受講申請完了'
+  content_for(:extra_body_classes, 'no-header no-footer no-global-nav is-error-page is-piyo-background')
   set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）')
 
-.auth-form.is-lg.a-card
-  header.auth-form__header
-    h1.auth-form__title = title
-  .auth-form__body
-    .a-card.is-success.is-alert
-      .a-card__body
-        p.a-card__description
-          | 給付金対応コースへの申し込みが完了しました。ありがとうございます。
-        p.a-card__description
-          | 担当者より折り返しご連絡いたします。
-  hr.a-border-tint
-  footer.auth-form__footer
-    nav.auth-form-nav
-      ul.auth-form-nav__items
-        li.auth-form-nav__item
-          = link_to 'トップページ', welcome_path, class: 'auth-form-nav__item-link'
-        li.auth-form-nav__item
-          = link_to 'FAQ', faq_path, class: 'auth-form-nav__item-link'
+.thanks-message
+  .container.is-xs
+    .thanks-message__header
+      h1.thanks-message__title
+        = title
+    .a-card
+      .card-body.thanks-message__body
+        .a-long-text
+          p
+            | 受講申請が完了しました。ありがとうございます。
+            br
+            | 担当者より折り返しご連絡いたします。
+      hr.a-border-tint
+      footer.card-footer
+        .card-main-actions
+          ul.card-main-actions__items
+            li.card-main-actions__item
+              = link_to root_path, class: 'a-button is-secondary is-sm is-block' do
+                | フィヨルドブートキャンプ
