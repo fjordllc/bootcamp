@@ -133,7 +133,3 @@
     ul.form-actions__items
       li.form-actions__item.is-main
         = f.submit '申請する', class: 'a-button is-lg is-primary is-block is-disabled js-agreements-submit'
-
-  - if recaptcha_enabled?
-    = recaptcha_v3 action: 'grant_course_application',
-      callback: 'skipOnLoadReCaptcha'
