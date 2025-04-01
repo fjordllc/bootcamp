@@ -4,7 +4,7 @@ class Mentor::CategoriesController < MentorController
   before_action :set_category, only: %i[show edit update destroy]
 
   def index
-    @categories = Category.includes(:practices).order(params[:id])
+    @categories = Category.includes(:practices).order(:created_at)
   end
 
   def show; end
