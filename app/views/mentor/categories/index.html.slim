@@ -26,28 +26,25 @@ main.page-main
   hr.a-border
   .page-body
     .container.is-lg
-      - if @categories.empty?
-        p カテゴリーがありません。
-      - else
-        .admin-table.is-grab
-          table.admin-table__table
-            thead.admin-table__header
-              tr.admin-table__labels
-                th.admin-table__label 名前
-                th.admin-table__label URLスラッグ
-                th.admin-table__label 操作
-            tbody.admin-table__items
-              - @categories.each do |category|
-                tr.admin-table__item
-                  td.admin-table__item-value
-                    = link_to category.name, mentor_category_path(category)
-                    | (#{category.practices.length})
-                  td.admin-table__item-value = category.slug
-                  td.admin-table__item-value.is-text-align-center
-                    ul.is-inline-buttons
-                      li
-                        = link_to edit_mentor_category_path(category), class: 'a-button is-sm is-secondary is-icon spec-edit' do
-                          i.fa-solid.fa-pen
-                      li
-                        = link_to mentor_category_practices_path(category), class: 'a-button is-sm is-secondary is-icon is-block' do
-                          i.fa-solid.fa-align-justify
+      .admin-table.is-grab
+        table.admin-table__table
+          thead.admin-table__header
+            tr.admin-table__labels
+              th.admin-table__label 名前
+              th.admin-table__label URLスラッグ
+              th.admin-table__label 操作
+          tbody.admin-table__items
+            - @categories.each do |category|
+              tr.admin-table__item
+                td.admin-table__item-value
+                  = link_to category.name, mentor_category_path(category)
+                  | (#{category.practices.length})
+                td.admin-table__item-value = category.slug
+                td.admin-table__item-value.is-text-align-center
+                  ul.is-inline-buttons
+                    li
+                      = link_to edit_mentor_category_path(category), class: 'a-button is-sm is-secondary is-icon spec-edit' do
+                        i.fa-solid.fa-pen
+                    li
+                      = link_to mentor_category_practices_path(category), class: 'a-button is-sm is-secondary is-icon is-block' do
+                        i.fa-solid.fa-align-justify
