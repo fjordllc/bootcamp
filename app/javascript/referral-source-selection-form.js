@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const referralSources = document.getElementsByName('user[referral_source]')
-  if (!referralSources) {
+  if (referralSources.length === 0) {
     return null
   }
 
