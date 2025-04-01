@@ -1,0 +1,111 @@
+section.lp-content.is-lp-bg-2.is-top-title
+  .l-container.is-md
+    .lp-content__inner
+      .lp-content__start
+        header.lp-content__header
+          h2.lp-content-title.text-center.is-border-bottom
+            | 料金と給付金
+      .lp-content__end
+        .lp-content-stack
+          .lp-content-stack__item
+            .l-cards.is-stacked
+              .l-cards__item.is-wide
+                .l-cards__item-inner
+                  .a-card
+                    .flex
+                      .lp-left-image-section
+                        .lp-left-image-section__inner
+                          .lp-left-image-section__start.is-hidden-sm-down
+                            = image_tag('invoice.svg', class: 'lp-top-image-section__icon', alt: '請求書のイラスト')
+                          .lp-left-image-section__end
+                            header.lp-left-image-section__header
+                              h3.lp-card-title
+                                | 受講料 + 教材費
+                              h4.lp-price.is-sm
+                                span.lp-price__value
+                                  span.lp-price__amount 746,218
+                                  span.lp-price__currency 円
+                                span.lp-price__details
+                                  span.lp-price__tax （税込）
+                            .lp-card-description
+                              .a-short-text
+                                p
+                                  | Railsエンジニア（Reスキル認定講座対応）コースの場合、
+                                  = link_to practices_path do
+                                    | 通常のRailsエンジニアコース
+                                  | とは違い、受講料（715,200円）と教材費（31,018円）を
+                                  | サブスクではなく、一括でお支払いいただく必要があります。
+                                p
+                                  | Railsエンジニア（Reスキル認定講座対応）コースの場合、
+                                  | フィヨルドブートキャンプで教材を揃え、ご自宅に発送します。
+              .l-cards__item.is-wide
+                .l-cards__item-inner
+                  .a-card.is-danger
+                    .lp-left-image-section
+                      .lp-left-image-section__inner
+                        .lp-left-image-section__start.is-hidden-sm-down
+                          = image_tag('money-2.svg', class: 'lp-top-image-section__icon', alt: '給付金のイメージイラスト')
+                        .lp-left-image-section__end
+                          header.lp-left-image-section__header
+                            h3.lp-card-title
+                              | 給付金最大80%
+                            h4.lp-price.is-sm
+                              span.lp-price__value
+                                span.lp-price__amount 596,974
+                                span.lp-price__currency 円
+                          .lp-card-description
+                            .a-short-text
+                              p
+                                | 給付金最大80%を受給した場合、
+                                | 受講料 + 教材費746,218円の80%である
+                                | 596,974円が給付されます。
+                    .lp-left-image-section
+                      .lp-left-image-section__inner
+                        .lp-left-image-section__start.is-hidden-sm-down
+                          = image_tag('money-3.svg', class: 'lp-top-image-section__icon', alt: '自己負担のイメージイラスト')
+                        .lp-left-image-section__end
+                          header.lp-left-image-section__header
+                            h3.lp-card-title
+                              | 最大給付金適用後の自己負担額
+                            h4.lp-price.is-sm
+                              span.lp-price__value
+                                span.lp-price__amount 149,244
+                                span.lp-price__currency 円
+                          .lp-card-description
+                            .a-short-text
+                              p
+                                | 給付金最大80%を受給した場合、
+                                | 実質自己負担額は
+                                | 149,244円になります。
+          .lp-content-stack__item
+            .lp-content__description
+              .l-inner-container.is-sm
+                .a-short-text
+                  p
+                    | 専門実践教育訓練給付金を受けるためには、いくつかの重要な手続きが必要です。
+                    | 給付金の条件や詳細を確認するために、
+                    | ご自身でハローワークに直接問い合わせ、
+                    | 自己責任で手続きを進めてください。
+                    | 当社では、この制度の利用や給付金の受給に関しては責任を負いかねますので、
+                    | 不明な点がある場合はハローワークにご確認ください。
+          .lp-content-stack__item
+            .lp-content-section
+              h3.lp-content-sub-title.text-center
+                | 給付金制度の対象チェック
+              .lp-content__description
+                .l-inner-container.is-sm
+                  .a-card
+                    .card-body.p-8
+                      = image_tag('grant-eligible-course/benefit-eligibility-chart.svg', alt: '給付金制度の対象チェックの図')
+              .lp-content__description
+                .l-inner-container.is-sm
+                  .a-short-text
+                    p
+                      | この図は給付金の受給資格を判断するための一般的なガイドラインを示していますが、
+                      | 最終的な受給資格については個々の状況により異なる場合があります。
+                      | 正確な情報と受給資格の確認のためには、必ずハローワークにてご確認ください。
+          = render 'welcome/certified_reskill_courses/rails_developer_course/main_actions'
+
+  .lp-content-divider.is-lp-bg-3
+    svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+      path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"

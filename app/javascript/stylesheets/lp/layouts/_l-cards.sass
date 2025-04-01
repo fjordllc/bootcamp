@@ -19,6 +19,16 @@
         justify-content: center
       &:last-child
         justify-content: flex-end
+  &.is-stacked
+    flex-direction: column
+    align-items: center
+    .l-cards__item
+      justify-content: center
+    .l-cards__item.is-wide
+      flex: 0 0 100%
+      max-width: 100%
+      .l-cards__item-inner
+        flex: 0 0 100%
 
 .l-cards__item
   display: flex

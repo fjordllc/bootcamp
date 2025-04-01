@@ -20,7 +20,7 @@
 .under-cards
   .under-cards__links.mt-4.text-center.leading-normal.text-sm
     = link_to "/products/unassigned##{@reply_warning_days - 1}days-elapsed",
-      class: "divide-indigo-800 block p-3 border rounded border-solid text-indigo-800 a-hover-link hover:bg-black" do
+      class: "block p-8 border rounded border-solid text-indigo-800 a-hover-link hover:bg-black" do
       - if count_almost_passed_reply_warning_days > 0
         strong = count_almost_passed_reply_warning_days
         | 件の提出物が、
