@@ -8,7 +8,9 @@ class Article::SponsorshipsTest < ApplicationSystemTestCase
     fill_in 'タイトル', with: 'sponsorshipページに表示される記事のタイトルです。'
     fill_in '本文', with: 'sponsorshipページに表示される記事の本文です。'
     fill_in_tag 'スポンサーシップ'
-    click_on '公開する'
+    page.accept_confirm do
+      click_on '公開する'
+    end
     visit sponsorships_path
     assert_selector '.thumbnail-card__inner', count: 1
     assert_text 'sponsorshipページに表示される記事のタイトルです。'
