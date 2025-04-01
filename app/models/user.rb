@@ -82,7 +82,7 @@ class User < ApplicationRecord
     facebook: 4,
     blog: 5,
     web_ad: 6,
-    other: 7
+    other: 99
   }, _prefix: true
 
   belongs_to :company, optional: true
