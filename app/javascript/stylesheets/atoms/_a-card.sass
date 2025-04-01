@@ -53,6 +53,8 @@
     .card-header
       border: solid 1px var(--border)
       border-bottom: none
+  &.is-danger
+    border: solid .25rem var(--danger)
 
 table.a-card
   display: table
@@ -67,3 +69,8 @@ table.a-card
   a
     +hover-link-reversal
     color: var(--reversal-text)
+
+.a-card__columns
+  display: flex
+  +media-breakpoint-down(md)
+    flex-direction: column

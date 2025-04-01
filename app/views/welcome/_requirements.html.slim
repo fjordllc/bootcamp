@@ -25,6 +25,16 @@ section.lp-content.is-lp-bg-1.is-top-title#feature
                       = link_to coc_path, target: '_blank', rel: 'noopener' do
                         | アンチハラスメントポリシー
                       | にも同意する必要があります。
+                  .a-notice-block.is-danger.mt-4
+                    p.text-base
+                      | FBCに入会資格はありませんが、給付金が適用される専門実践教育訓練給付制度対象講座
+                      |「
+                      = link_to certified_reskill_courses_rails_developer_course_root_path, target: '_blank', rel: 'noopener' do
+                        | Railsエンジニア（Reスキル認定講座対応）コース
+                      | 」を受講する場合、
+                      | 給付金を受給するための受給対象条件を満たす必要があります。
+                      | 受給対象条件等は、ご自身でハローワークにご確認いただく必要があります。
+
           .lp-content-stack__item
               = render 'welcome/unlimited'
           .lp-content-stack__item

@@ -1,4 +1,6 @@
 .a-short-text
+  h3
+    +text-block(1.25em 1.4 .75em)
   p
     +text-block(1em 1.6 .75em)
   li
@@ -78,6 +80,10 @@
     &.success
       background-color: var(--success-tint)
       color: var(--success-text)
+
+  .a-help
+    width: 1.25em
+    height: 1.25em
 
   *:first-child
     margin-top: 0
