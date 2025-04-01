@@ -761,4 +761,9 @@ class UserTest < ActiveSupport::TestCase
     assert_nil user.country_code
     assert_nil user.subdivision_code
   end
+
+  test '.job_seeking' do
+    user = users(:jobseeking)
+    assert_includes User.job_seeking, user
+  end
 end
