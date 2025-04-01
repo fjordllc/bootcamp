@@ -41,7 +41,7 @@ main.page-main
                 tr.admin-table__item
                   td.admin-table__item-value
                     = link_to category.name, mentor_category_path(category)
-                    | (#{category.practices.count})
+                    | (#{category.practices.length})
                   td.admin-table__item-value = category.slug
                   td.admin-table__item-value.is-text-align-center
                     ul.is-inline-buttons
