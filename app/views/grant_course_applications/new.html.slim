@@ -2,9 +2,6 @@ ruby:
   title '給付金対応コース受講申請'
   content_for :extra_body_classes, 'no-header no-footer no-global-nav is-auth-page is-piyo-background'
   set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）')
-- if recaptcha_enabled?
-  - content_for :head_last do
-    = javascript_include_tag 'recaptcha'
 
 .auth-form.is-lg.a-card
   header.auth-form__header
