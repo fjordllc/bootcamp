@@ -449,6 +449,29 @@ jobseeker: #就活希望するユーザー
   last_activity_at: "2020-01-01 00:00:12"
   sent_student_followup_message: true
 
+jobseeking: #就職活動中の卒業生
+  login_name: jobseeking
+  email: jobseeking@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 就活 中
+  name_kana: シュウカツ チュウ
+  github_account: jobseeking
+  twitter_account: jobseeking
+  facebook_url: https://www.facebook.com/fjordllc/exmaple
+  blog_url: http://example.org
+  description: "卒業しました。就職活動中です。"
+  course: course1
+  job: office_worker
+  experiences: 6
+  job_seeker: true
+  career_path: 1
+  graduated_on: "2015-01-01"
+  unsubscribe_email_token: Z2tKHxSjj7FreyqQ95Yd9g
+  updated_at: "2020-01-01 00:50:12"
+  created_at: "2020-01-01 00:50:12"
+  last_activity_at: "2020-01-01 00:50:12"
+
 nippounashi: # 日報を投稿していないユーザー
   login_name: nippounashi
   email: nippounashi@fjord.jp
