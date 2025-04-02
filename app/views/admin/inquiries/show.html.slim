@@ -29,8 +29,12 @@ main.page-main
         header.page-content-header
           .page-content-header__end
             .page-content-header__row
-              h1.page-content-header__title
+              h1.page-content-header__title.position-relative
                 = @inquiry.sender_name_and_email
+                - if @inquiry.checked?
+                  .stamp.stamp-approve.is-sm
+                    .stamp__content.is-title
+                      | 確認済
             .page-content-header__row
               .page-content-header-metas
                 .page-content-header-metas__start
@@ -39,11 +43,7 @@ main.page-main
                       span.a-meta__label 受信日
                       span.a-meta__value = l @inquiry.created_at
         .page-content__body
-          .a-card.position-relative
-            - if @inquiry.checked?
-              .stamp.stamp-approve.is-sm(style="position: absolute; right: 500px; top: 220px; z-index: 10;")
-                .stamp__content.is-title
-                  | 確認済
+          .a-card
             .card-body
               .card-body__description
                 .a-long-text.is-md
