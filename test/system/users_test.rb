@@ -475,7 +475,7 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'search only graduated students when target is graduate' do
     visit_with_auth '/users?target=graduate', 'komagata'
-    assert_selector '.users-item', count: 3
+    assert_selector '.users-item', count: 4
     fill_in 'js-user-search-input', with: '卒業 就職済美'
     find('#js-user-search-input').send_keys :return
     assert_text '卒業 就職済美', count: 1
@@ -552,9 +552,14 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test "don't show incremental search when target's users aren't exist" do
+    user = users(:jobseeking)
+    user.update!(career_path: 0)
+
     visit_with_auth '/users?target=job_seeking', 'komagata'
     assert_no_selector '.users-item'
     assert has_no_field? 'js-user-search-input'
+
+    user.update!(career_path: 1)
   end
 
   test 'only show incremental search in all tab' do

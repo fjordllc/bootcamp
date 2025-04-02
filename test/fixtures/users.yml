@@ -463,6 +463,7 @@ jobseeking: #就職活動中の卒業生
   description: "卒業しました。就職活動中です。"
   course: course1
   job: office_worker
+  os: mac
   experiences: 6
   job_seeker: true
   career_path: 1
