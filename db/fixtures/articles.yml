@@ -101,3 +101,14 @@ article<%= id %>:
   published_at: "2022-03-14 00:00:00"
   thumbnail_type: :sponsorship
 <% end %>
+
+<% date = Date.parse("2023-01-01") %>
+<% (56..85).each do |id| %>
+article<%= id %>:
+  <% number = id - 55 %>
+  title: プレスリリース<%= number %>
+  body: 「プレスリリース」タグを持つブログ
+  user: komagata
+  wip: false
+  published_at: <%= "#{date + number} 00:00:00" %>
+<% end %>
