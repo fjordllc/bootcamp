@@ -51,7 +51,7 @@ Rails.application.routes.draw do
       resources :recents, only: %i(index)
       resources :sad_streak, only: %i(index)
     end
-    resources :watches, only: %i(index)
+    resources :watches, only: %i(show)
     namespace "watches" do
       resources :toggle, only: %i(index create destroy)
     end
