@@ -116,7 +116,6 @@ Rails.application.routes.draw do
   get 'auth/failure', to: "user_sessions#failure"
   post "user_sessions" => "user_sessions#create"
   get "logout" => "user_sessions#destroy", as: :logout
-  get "thanks", to: "static_pages#thanks"
   get "portfolios" => "works#index"
   niconico_calendar_constraints = { niconico_calendar: /\d{4}-\d{2}/ }
   get '/', to: 'home#index', as: :niconico_calendar_date, constraints: niconico_calendar_constraints
