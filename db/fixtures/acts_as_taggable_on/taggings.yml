@@ -102,3 +102,18 @@ movie1_tag_cat:
   taggable: movie1 (Movie)
   context: tags
   tag: cat
+
+article56_tag_alumni_voice:
+  taggable: article56 (Article)
+  context: tags
+  tag: alumni_voice
+
+article57_tag_alumni_voice:
+  taggable: article57 (Article)
+  context: tags
+  tag: alumni_voice
+
+article58_tag_alumni_voice:
+  taggable: article58 (Article)
+  context: tags
+  tag: alumni_voice
