@@ -912,6 +912,11 @@ class User < ApplicationRecord
     [micro_reports.page.total_pages, 1].max
   end
 
+  def mark_mail_as_sent_before_auto_retire
+    self.sent_student_before_auto_retire_mail = true
+    save(validate: false)
+  end
+
   private
 
   def password_required?
