@@ -234,3 +234,8 @@ discord_profire_ios-course:
   user: ios-course
   account_name:
   times_url:
+
+discord_profile_jobseeking:
+  user: jobseeking
+  account_name:
+  times_url:
