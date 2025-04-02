@@ -464,6 +464,7 @@ class SignUpTest < ApplicationSystemTestCase
     assert_text '「その他」を選んだ方は、フィヨルドブートキャンプを知った具体的な経路をご記入ください。'
     fill_in 'user[other_referral_source]', with: 'mixi2'
     find('label', text: '知人の紹介').click
+    assert_no_text '「その他」を選んだ方は、フィヨルドブートキャンプを知った具体的な経路をご記入ください。'
 
     fill_stripe_element('4242 4242 4242 4242', '12 / 50', '111')
 
