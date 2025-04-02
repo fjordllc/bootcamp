@@ -7,10 +7,7 @@ class Article::SponsorshipsTest < ApplicationSystemTestCase
     sponsorship_article = Article.create!(
       title: 'sponsorshipページに表示される記事のタイトルです。',
       body: 'sponsorshipページに表示される記事の本文です。',
-      user: users(:komagata),
-      wip: false,
-      published_at: '2022-01-01 00:00:00',
-      thumbnail_type: :prepared_thumbnail
+      user: users(:komagata)
     )
     sponsorship_article.tag_list.add('スポンサーシップ')
     sponsorship_article.save
