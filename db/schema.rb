@@ -654,7 +654,7 @@ ActiveRecord::Schema.define(version: 2025_03_31_062253) do
     t.integer "kind", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["reactionable_type", "reactionable_id"], name: "index_reactions_on_reactionable_type_and_reactionable_id"
+    t.index ["reactionable_type", "reactionable_id"], name: "index_reactions_on_reactionable"
     t.index ["user_id", "reactionable_id", "reactionable_type", "kind"], name: "index_reactions_on_reactionable_u_k", unique: true
     t.index ["user_id"], name: "index_reactions_on_user_id"
   end
@@ -911,7 +911,7 @@ ActiveRecord::Schema.define(version: 2025_03_31_062253) do
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.index ["watchable_type", "watchable_id", "user_id"], name: "index_watches_on_watchable_type_and_watchable_id_and_user_id", unique: true
-    t.index ["watchable_type", "watchable_id"], name: "index_watches_on_watchable_type_and_watchable_id"
+    t.index ["watchable_type", "watchable_id"], name: "index_watches_on_watchable"
   end
 
   create_table "works", force: :cascade do |t|
