@@ -8,6 +8,7 @@ class Page < ApplicationRecord
   include Commentable
   include Watchable
   include Bookmarkable
+  include SearchHelper
 
   belongs_to :user
   belongs_to :practice, optional: true, inverse_of: :pages
@@ -27,6 +28,10 @@ class Page < ApplicationRecord
   def self.search_by_slug_or_id!(params)
     attr_name = params.start_with?(/[a-z]/) ? :slug : :id
     Page.find_by!(attr_name => params)
+  end
+
+  def description
+    body # description が求められる場合は body を返す
   end
 
   private
