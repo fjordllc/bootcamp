@@ -213,14 +213,14 @@ class UserTest < ActiveSupport::TestCase
     assert user.invalid?
   end
 
-  test 'announcment for all' do
-    target = User.announcement_receiver('all')
+  test 'notification for all' do
+    target = User.notification_receiver('all')
     assert_includes(target, users(:kimura))
     assert_not_includes(target, users(:yameo))
   end
 
-  test 'announcment for students' do
-    target = User.announcement_receiver('students')
+  test 'notification for students' do
+    target = User.notification_receiver('students')
     assert_includes(target, users(:kimura))
     assert_includes(target, users(:komagata))
     assert_includes(target, users(:mentormentaro))
@@ -230,14 +230,26 @@ class UserTest < ActiveSupport::TestCase
     assert_not_includes(target, users(:kensyu))
   end
 
-  test 'announcment for job_seekers' do
-    target = User.announcement_receiver('job_seekers')
+  test 'notification for job_seekers' do
+    target = User.notification_receiver('job_seekers')
     assert_includes(target, users(:jobseeker))
     assert_includes(target, users(:komagata))
     assert_includes(target, users(:sotugyou))
     assert_includes(target, users(:mentormentaro))
     assert_not_includes(target, users(:sotugyou_with_job))
     assert_not_includes(target, users(:kimura))
+    assert_not_includes(target, users(:yameo))
+  end
+
+  test 'notification for none' do
+    target = User.notification_receiver('none')
+    assert_not_includes(target, users(:kimura))
+    assert_not_includes(target, users(:jobseeker))
+    assert_not_includes(target, users(:komagata))
+    assert_not_includes(target, users(:mentormentaro))
+    assert_not_includes(target, users(:sotugyou))
+    assert_not_includes(target, users(:advijirou))
+    assert_not_includes(target, users(:kensyu))
     assert_not_includes(target, users(:yameo))
   end
 
@@ -478,24 +490,24 @@ class UserTest < ActiveSupport::TestCase
     assert users(:senpai).belongs_company_and_adviser?
   end
 
-  test '#collegues' do
-    target = users(:kensyu).collegues
+  test '#colleagues' do
+    target = users(:kensyu).colleagues
     assert_includes(target, users(:kensyuowata))
-    assert_empty users(:kimura).collegues
+    assert_empty users(:kimura).colleagues
   end
 
-  test '#collegues_other_than_self' do
+  test '#colleagues_other_than_self' do
     self_user = users(:kensyu)
-    target = self_user.collegues_other_than_self
+    target = self_user.colleagues_other_than_self
     assert_includes(target, users(:kensyuowata))
     assert_not_includes(target, self_user)
   end
 
-  test '#collegue_trainees' do
-    target = users(:senpai).collegue_trainees
+  test '#colleague_trainees' do
+    target = users(:senpai).colleague_trainees
     assert_includes(target, users(:kensyu))
-    assert_empty users(:kimura).collegue_trainees
-    assert_empty users(:advijirou).collegue_trainees
+    assert_empty users(:kimura).colleague_trainees
+    assert_empty users(:advijirou).colleague_trainees
   end
 
   test '#after_twenty_nine_days_registration?' do
@@ -688,7 +700,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '#scheduled_retire_at' do
-    assert_equal '2020-07-01 09:00:00 +0900', users(:kyuukai).scheduled_retire_at.to_s
+    assert_equal '2020-04-01 09:00:00 +0900', users(:kyuukai).scheduled_retire_at.to_s
     assert_nil users(:hatsuno).scheduled_retire_at
   end
 
@@ -739,5 +751,14 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 1, user.latest_micro_report_page
     user.micro_reports.create!(Array.new(25) { |i| { content: "分報#{i + 1}" } })
     assert_equal 2, user.latest_micro_report_page
+  end
+
+  test 'convert to nil during saving when country_code and subdivision_code is empty string' do
+    user = users(:hajime)
+    user.country_code = ''
+    user.subdivision_code = ''
+    user.save!
+    assert_nil user.country_code
+    assert_nil user.subdivision_code
   end
 end

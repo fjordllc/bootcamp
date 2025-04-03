@@ -17,7 +17,7 @@ class User::CompaniesTest < ApplicationSystemTestCase
     assert_text '企業別（全員）'
     assert_selector('.group-company-name__label', text: 'ユーザの企業に登録しないで株式会社')
     within first('.a-user-icons__items') do
-      assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'advisernocolleguetrainee'
+      assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'advisernocolleaguetrainee'
     end
     assert_selector('.group-company-name__label', text: 'Fjord inc.')
     within all('.a-user-icons__items')[1] do
@@ -50,7 +50,7 @@ class User::CompaniesTest < ApplicationSystemTestCase
     assert_selector('.group-company-name__label', text: 'ユーザの企業に登録しないで株式会社')
     within first('.a-user-icons__items') do
       within first('.a-user-role.is-adviser') do
-        assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'advisernocolleguetrainee'
+        assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'advisernocolleaguetrainee'
       end
     end
     assert_selector('.group-company-name__label', text: 'Fjord inc.')
@@ -103,7 +103,7 @@ class User::CompaniesTest < ApplicationSystemTestCase
     assert_selector('a.tab-nav__item-link.is-active', text: 'アドバイザー')
     assert_selector('.group-company-name__label', text: 'ユーザの企業に登録しないで株式会社')
     within first('.a-user-role.is-adviser') do
-      assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'advisernocolleguetrainee'
+      assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'advisernocolleaguetrainee'
     end
     assert_selector('.group-company-name__label', text: 'Fjord inc.')
     within all('.a-user-role.is-adviser')[1] do

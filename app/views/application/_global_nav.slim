@@ -45,6 +45,8 @@ nav.global-nav
             .global-nav-links__link-icon
               i.fa-solid.fa-file
             .global-nav-links__link-label Docs
+          // 動画リンクを隠した状態でのリリース。リリース後にDocs・動画に変更する
+            .global-nav-links__link-label Docs・動画
         li.global-nav-links__item
           = link_to portfolios_path, class: "global-nav-links__link #{current_link(/^works/)}" do
             .global-nav-links__link-icon
