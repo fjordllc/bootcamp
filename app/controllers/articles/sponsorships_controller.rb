@@ -14,6 +14,6 @@ class Articles::SponsorshipsController < ApplicationController
 
   def sponsorships_articles
     Article.with_attached_thumbnail.includes(user: { avatar_attachment: :blob })
-           .where(thumbnail_type: :sponsorship, wip: false).order(published_at: :desc).page(params[:page])
+           .tagged_with('スポンサーシップ').where(wip: false).order(published_at: :desc).page(params[:page])
   end
 end

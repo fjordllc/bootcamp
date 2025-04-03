@@ -10,7 +10,7 @@ class Page < ApplicationRecord
   include Bookmarkable
 
   belongs_to :user
-  belongs_to :practice, optional: true
+  belongs_to :practice, optional: true, inverse_of: :pages
   belongs_to :last_updated_user, class_name: 'User', optional: true
   has_many :watches, as: :watchable, dependent: :destroy
   validates :title, presence: true

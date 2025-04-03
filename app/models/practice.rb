@@ -26,7 +26,12 @@ class Practice < ApplicationRecord
   has_many :skipped_practices, dependent: :destroy
   has_many :products, dependent: :destroy
   has_many :questions, dependent: :nullify
-  has_many :pages, dependent: :nullify
+  has_many :pages,
+           -> { order(updated_at: :desc, id: :desc) },
+           dependent: :nullify,
+           inverse_of: :practice
+  has_many :practices_movies, dependent: :nullify
+  has_many :movies, through: :practices_movies
   has_one :learning_minute_statistic, dependent: :destroy
   belongs_to :last_updated_user, class_name: 'User', optional: true
 

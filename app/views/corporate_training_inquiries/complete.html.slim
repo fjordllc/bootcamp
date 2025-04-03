@@ -1,0 +1,40 @@
+- content_for(:extra_body_classes, 'no-header no-footer no-global-nav is-error-page is-piyo-background')
+- title '企業研修申し込み送信完了'
+- set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
+description: '企業研修のお申し込みありがとうございます。')
+
+.thanks-message
+  .container.is-sm
+    .thanks-message__header
+      h1.thanks-message__title
+        | 企業研修のお申し込み
+        br
+        | ありがとうございます。
+    .a-card
+      .card-body.thanks-message__body
+        .a-long-text
+          p
+            | フィヨルドブートキャンプの企業研修プログラムへのお申し込みを頂き、
+            | 誠にありがとうございます。
+            | お申し込み内容を確認の上、担当者よりメールでご連絡させていただきます。
+          p
+            | ビデオチャットでの打ち合わせ日程、URLについては、
+            | ご登録のメールアドレス宛にご案内いたします。
+            | 研修の目的や内容についての詳細な調整を行いながら、
+            | 貴社のニーズに最適なプランを提案させていただきます。
+          p
+            | 何かご不明な点や、さらにご相談いただきたいことがあれば、
+            | お気軽に
+            = link_to new_inquiry_path, target: '_blank', rel: 'noopener' do
+              | お問い合わせフォーム
+            | よりお問い合わせください。
+            | 貴社の成果向上に貢献できるよう、全力でサポートいたします。
+          p
+            | 引き続き、フィヨルドブートキャンプをどうぞよろしくお願い申し上げます。
+      hr.a-border-tint
+      footer.card-footer
+        .card-main-actions
+          ul.card-main-actions__items
+            li.card-main-actions__item
+              = link_to root_path, class: 'a-button is-secondary is-sm is-block' do
+                | フィヨルドブートキャンプ

@@ -1306,16 +1306,16 @@ sotsugyoukigyoshozoku:
   sent_student_followup_message: true
   last_activity_at: "2022-07-01 00:00:00"
 
-advisernocolleguetrainee:
-  login_name: advisernocolleguetrainee
-  email: advisernocolleguetrainee@example.com
+advisernocolleaguetrainee:
+  login_name: advisernocolleaguetrainee
+  email: advisernocolleaguetrainee@example.com
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: あどばいざ 同僚いない子
   name_kana: アドバイザ ドウリョウイナイコ
-  twitter_account: advisernocolleguetrainee
+  twitter_account: advisernocolleaguetrainee
   facebook_url: https://www.facebook.com/fjordllc
-  blog_url: http://advisernocolleguetrainee.example.com
+  blog_url: http://advisernocolleaguetrainee.example.com
   company: company26
   description: '同僚がいないアドバイザーです。'
   adviser: true
@@ -1341,7 +1341,7 @@ nagai-kyuukai:
   os: mac
   country_code: JP
   subdivision_code: '09'
-  hibernated_at: <%= Time.current - 6.months %>
+  hibernated_at: <%= Time.current - 3.months %>
   updated_at: "2014-01-01 00:00:13"
   created_at: "2014-01-01 00:00:13"
   sent_student_followup_message: true

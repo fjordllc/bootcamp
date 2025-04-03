@@ -110,7 +110,7 @@ ja:
         subscription_id: サブスクリプションID
         country_code: 国
         subdivision_code: 都道府県・州
-        not_auto_retire: 休会六ヶ月後に自動退会しない
+        not_auto_retire: 休会三ヶ月後に自動退会しない
         invoice_payment_user: 請求書払い
         credit_card_payment_user: クレジットカード払い
         other_editor: その他のエディタ
@@ -187,6 +187,12 @@ ja:
         body: 本文
         tag_list: タグ
         slug: スラッグ
+      movie:
+        practice: 関連プラクティス
+        title: タイトル
+        description: 説明
+        tag_list: タグ
+        movie_data: 動画データ
       question:
         practice: プラクティス
         title: タイトル
@@ -404,6 +410,11 @@ ja:
           orange: Orange
           brown: Brown
           blue: Blue
+        target:
+          all: 全員（退会者を除く）
+          students: 現役生のみ
+          job_seekers: 就職希望者のみ
+          none: 通知しない
     errors:
       models:
         campaign:

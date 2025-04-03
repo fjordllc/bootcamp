@@ -2,6 +2,8 @@
   display: flex
   flex-wrap: wrap
   gap: .5rem
+  &.is-margin-top-12
+    margin-top: .75rem
 
 .block-checks__item
   flex: 1
@@ -24,3 +26,11 @@
     +media-breakpoint-down(sm)
       width: calc((100% - 1rem) / 3)
       flex: 0 0 calc((100% - 1rem) / 3)
+
+  .block-checks.is-4-items &
+    width: calc((100% - 1.5rem) / 4)
+    flex: 0 0 calc((100% - 1.5rem) / 4)
+  .block-checks.sm-down\:is-2-items &
+    +media-breakpoint-down(sm)
+      width: calc((100% - .5rem) / 2)
+      flex: 0 0 calc((100% - .5rem) / 2)

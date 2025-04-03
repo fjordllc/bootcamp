@@ -19,6 +19,7 @@ a.thumbnail-card__inner
       text-decoration: underline
 
 .thumbnail-card__image-link
+  transition: all .2s ease-out
   &:hover
     opacity: .7
 
@@ -42,8 +43,7 @@ a.thumbnail-card__inner
     color: var(--muted-text)
 
 .thumbnail-card__title-link
-  color: var(--default-text)
-  +hover-link
+  +hover-link-reversal
 
 .thumbnail-card__metas
   display: flex
