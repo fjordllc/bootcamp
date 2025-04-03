@@ -28,6 +28,7 @@ class SignUpTest < ApplicationSystemTestCase
       check 'Rubyの経験あり', allow_label_click: true
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
+      find('label', text: '検索エンジン').click
     end
 
     fill_stripe_element('4242 4242 4242 4242', '12 / 50', '111')
@@ -53,6 +54,7 @@ class SignUpTest < ApplicationSystemTestCase
       check 'Rubyの経験あり', allow_label_click: true
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
+      find('label', text: '検索エンジン').click
     end
 
     fill_stripe_element('4000 0000 0000 0069', '12 / 50', '111')
@@ -78,6 +80,7 @@ class SignUpTest < ApplicationSystemTestCase
       check 'Rubyの経験あり', allow_label_click: true
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
+      find('label', text: '検索エンジン').click
     end
 
     fill_stripe_element('4000 0000 0000 0127', '12 / 50', '111')
@@ -103,6 +106,7 @@ class SignUpTest < ApplicationSystemTestCase
       check 'Rubyの経験あり', allow_label_click: true
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
+      find('label', text: '検索エンジン').click
     end
 
     fill_stripe_element('4000 0000 0000 0002', '12 / 50', '111')
