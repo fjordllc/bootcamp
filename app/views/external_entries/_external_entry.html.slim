@@ -10,7 +10,7 @@
       .card-list-item__row
         .card-list-item__summary
           p
-            | #{external_entry.summary}
+            | #{strip_tags(external_entry.summary)}
       .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items
