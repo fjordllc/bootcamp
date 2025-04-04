@@ -1,5 +1,6 @@
 .users-item
   height: 100%
+  container: users-item / inline-size
 
 .users-item__inactive-message
   background-color: var(--disabled)
@@ -70,12 +71,15 @@
   padding-bottom: 1rem
 
 .user-item__company-logo
-  +size(3rem)
-  min-width: 3rem
+  +size(4rem)
+  min-width: 4rem
   object-fit: cover
   background-color: var(--base)
   border-radius: .25rem
   border: solid 1px var(--border-tint)
+  @container users-item (max-width: 340px)
+    +size(3rem)
+    min-width: 3rem
 
 .users-item__footer
   position: relative
