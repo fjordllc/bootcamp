@@ -1,4 +1,4 @@
-<template lang="pug">
+<!-- <template lang="pug">
 .practice-status-buttons
   .practice-status-buttons__start
     .practice-status-buttons__label
@@ -82,4 +82,4 @@ export default {
   }
 }
 </script>
-<style scoped></style>
+<style scoped></style> -->
