@@ -77,23 +77,23 @@
                     .practice-first-actions
                       .practice-first-actions__start
                         - status = @practice.status_by_learnings(current_user.learnings)
-                        .js-learning-status(data-practice-id="#{@practice.id}" data-status="#{status}" data-submission="#{@practice.submission}")
+                        .js-learning-status(id="practice" data-id="#{@practice.id}" data-status="#{status}" data-submission="#{@practice.submission}")
                         .practice-status-buttons
                           .practice-status-buttons__start
                             .practice-status-buttons__label
                               | ステータス
                             ul.practice-status-buttons__items.is-button-group
                               li.practice-status-buttons__item
-                                button.practice-status-buttons__button.a-button.is-sm.is-block.is-unstarted.js-not-complete.is-inactive
+                                button.practice-status-buttons__button.a-button.is-sm.is-block.is-unstarted.js-not-complete.is-inactive class="#{status == 'unstarted' ? 'is-active' : 'is-inactive'}"
                                   | 未着手
                               li.practice-status-buttons__item
-                                button.practice-status-buttons__button.a-button.is-sm.is-block.is-started.js-started.is-inactive
+                                button.practice-status-buttons__button.a-button.is-sm.is-block.is-started.js-started.is-inactive class="#{status == 'started' ? 'is-active' : 'is-inactive'}"
                                   | 着手
                               li.practice-status-buttons__item
-                                button.practice-status-buttons__button.a-button.is-sm.is-block.is-submitted.js-submitted.is-inactive
+                                button.practice-status-buttons__button.a-button.is-sm.is-block.is-submitted.js-submitted.is-inactive class="#{status == 'submitted' ? 'is-active' : 'is-inactive'}"
                                   | 提出
                               li.practice-status-buttons__item
-                                button.practice-status-buttons__button.a-button.is-sm.is-block.is-complete.js-complete.is-inactive
+                                button.practice-status-buttons__button.a-button.is-sm.is-block.is-complete.js-complete.is-inactive class="#{status == 'complete' ? 'is-active' : 'is-inactive'}"
                                   | 修了
                           .practice-status-buttons__end
                             .practice-status-buttons__note
