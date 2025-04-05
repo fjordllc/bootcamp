@@ -1145,6 +1145,7 @@ kyuukai:
   updated_at: "2014-01-01 00:00:13"
   created_at: "2014-01-01 00:00:13"
   sent_student_followup_message: true
+  sent_student_before_auto_retire_mail: true
 
 autoretire-within-1-hour:
   login_name: autoretire-within-1-hour
@@ -1168,10 +1169,11 @@ autoretire-within-1-hour:
   subdivision_code: '04'
   github_account: autoretire-within-1-hour
   unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
-  hibernated_at: <%= Time.current - 6.months + 30.minutes %>
+  hibernated_at: <%= Time.current - 3.months + 30.minutes %>
   updated_at: "2014-01-01 00:00:13"
   created_at: "2014-01-01 00:00:13"
   sent_student_followup_message: true
+  sent_student_before_auto_retire_mail: true
 
 autoretire-within-24-hour:
   login_name: autoretire-within-24-hour
@@ -1195,10 +1197,11 @@ autoretire-within-24-hour:
   subdivision_code: '04'
   github_account: autoretire-within-24-hour
   unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
-  hibernated_at: <%= Time.current - 6.months + 23.hour%>
+  hibernated_at: <%= Time.current - 3.months + 23.hour %>
   updated_at: "2014-01-01 00:00:13"
   created_at: "2014-01-01 00:00:13"
   sent_student_followup_message: true
+  sent_student_before_auto_retire_mail: true
 
 autoretire-within-1-week:
   login_name: autoretire-within-1-week
@@ -1222,7 +1225,7 @@ autoretire-within-1-week:
   subdivision_code: '04'
   github_account: autoretire-within-1-week
   unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
-  hibernated_at: <%= Time.current - 6.months + 6.days%>
+  hibernated_at: <%= Time.current - 3.months + 1.week %>
   updated_at: "2014-01-01 00:00:13"
   created_at: "2014-01-01 00:00:13"
   sent_student_followup_message: true
@@ -1249,7 +1252,7 @@ autoretire-over-1-week:
   subdivision_code: '04'
   github_account: autoretire-over-1-week
   unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
-  hibernated_at: <%= Time.current - 6.months + 3.months%>
+  hibernated_at: <%= Time.current - 3.months + 1.week + 1.day %>
   updated_at: "2014-01-01 00:00:13"
   created_at: "2014-01-01 00:00:13"
   sent_student_followup_message: true
@@ -1346,6 +1349,7 @@ nagai-kyuukai:
   created_at: "2014-01-01 00:00:13"
   sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:04"
+  sent_student_before_auto_retire_mail: true
 
 paginataion-taro:
   login_name: paginataion-taro
