@@ -2,7 +2,7 @@ header.page-content-header
   .page-content-header__start
     .page-content-header__user
       = link_to user, class: 'page-content-header__user-link' do
-        span class="a-user-role is-#{user.primary_role}"
+        span class="a-user-role is-#{user.primary_role} is-#{user.joining_status}"
           = image_tag user.avatar_url, title: user.icon_title, class: 'user-profile__user-icon-image a-user-icon'
   .page-content-header__end
     .page-content-header__row
