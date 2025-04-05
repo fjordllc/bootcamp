@@ -1,11 +1,11 @@
 .form-item
   = f.label :editor, class: 'a-form-label'
-    | #{t('activerecord.attributes.user.editor')}（任意）
+    | #{t('activerecord.attributes.user.editor')}
 
   .a-form-help
     p
-      | もしプログラミング経験がある場合、その際に使用しているエディターをお知らせください。
-      | この情報はサポートを提供する際の参考にさせていただきます。
+      | 既にプログラミング経験がある場合、その際に使用しているエディターをお知らせください。
+      | それ以外の場合は、プラクティス「開発環境を作る」にて登録をしてください。この情報はサポートを提供する際の参考にさせていただきます。
 
   ul.block-checks.is-2-items.mt-4
     - editors = User.editors.keys
