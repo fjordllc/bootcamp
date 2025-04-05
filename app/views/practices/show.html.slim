@@ -77,7 +77,7 @@
                     .practice-first-actions
                       .practice-first-actions__start
                         - status = @practice.status_by_learnings(current_user.learnings)
-                        .js-learning-status(id="practice" data-id="#{@practice.id}" data-status="#{status}" data-submission="#{@practice.submission}")
+                        .js-learning-status(id="practice" data-id="#{@practice.id}")
                         .practice-status-buttons
                           .practice-status-buttons__start
                             .practice-status-buttons__label
@@ -89,12 +89,14 @@
                               li.practice-status-buttons__item
                                 button.practice-status-buttons__button.a-button.is-sm.is-block.is-started.js-started.is-inactive class="#{status == 'started' ? 'is-active' : 'is-inactive'}"
                                   | 着手
-                              li.practice-status-buttons__item
-                                button.practice-status-buttons__button.a-button.is-sm.is-block.is-submitted.js-submitted.is-inactive class="#{status == 'submitted' ? 'is-active' : 'is-inactive'}"
-                                  | 提出
+                              - if @practice.submission
+                                li.practice-status-buttons__item
+                                  button.practice-status-buttons__button.a-button.is-sm.is-block.is-submitted.js-submitted.is-inactive class="#{status == 'submitted' ? 'is-active' : 'is-inactive'}"
+                                    | 提出
                               li.practice-status-buttons__item
                                 button.practice-status-buttons__button.a-button.is-sm.is-block.is-complete.js-complete.is-inactive class="#{status == 'complete' ? 'is-active' : 'is-inactive'}"
                                   | 修了
+                        - if !@practice.submission
                           .practice-status-buttons__end
                             .practice-status-buttons__note
                               | このプラクティスに提出物はありません。修了条件をクリアしたら修了にしてください。
