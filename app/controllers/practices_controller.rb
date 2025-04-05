@@ -9,9 +9,9 @@ class PracticesController < ApplicationController
     @tweet_url = @practice.tweet_url(practice_completion_url(@practice.id))
     @common_page = Page.find_by(slug: 'practice_common_description')
     @common_page = nil if @common_page&.wip?
-    @status = @practice.status_by_learnings(current_user.learnings)
 
     if logged_in?
+      @status = @practice.status_by_learnings(current_user.learnings)
       render :show
     else
       render :unauthorized_show, layout: 'not_logged_in'
