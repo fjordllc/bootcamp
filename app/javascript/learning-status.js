@@ -19,9 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
 
-  const pushStatus = (name, clickedButton) => {
+  const pushStatus = (statusName, clickedButton) => {
     const params = new FormData()
-    params.append('status', name)
+    params.append('status', statusName)
 
     fetch(`/api/practices/${practice.dataset.id}/learning.json`, {
       method: 'PATCH',
