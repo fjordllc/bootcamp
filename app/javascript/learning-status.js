@@ -46,8 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     button.addEventListener('click', (event) => {
       const clickedButton = event.target
       const statusName = clickedButton.dataset.status
-
-      pushStatus(statusName,clickedButton)
+      pushStatus(statusName, clickedButton)
     })
   })
 })
