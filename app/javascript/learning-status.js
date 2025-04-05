@@ -5,12 +5,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const buttons = document.querySelectorAll('.practice-status-buttons__button')
   const practice = document.querySelector('#practice')
 
+  const statusMap = {
+    'js-not-complete': 'unstarted',
+    'js-started': 'started',
+    'js-submitted': 'submitted',
+    'js-complete': 'complete'
+  }
+
   const updateButtonsStates = (buttons, clickedButton) => {
     buttons.forEach((button) => {
-      button.classList.toggle('is-active', button === clickedButton);
-      button.classList.toggle('is-inactive', button !== clickedButton);
-    });
-  };
+      button.classList.toggle('is-active', button === clickedButton)
+      button.classList.toggle('is-inactive', button !== clickedButton)
+    })
+  }
 
   const pushStatus = (name, clickedButton) => {
     const params = new FormData()
@@ -25,32 +32,31 @@ document.addEventListener('DOMContentLoaded', () => {
       credentials: 'same-origin',
       redirect: 'manual',
       body: params
-    }).then((response) => {
-      if (response.ok) {
-        updateButtonsStates(buttons, clickedButton)
-      } else {
-        response.json().then((data) => {
-          alert(data.error)
-        })
-      }
     })
-    .catch((error) => {
-      console.warn(error)
-    })
+      .then((response) => {
+        if (response.ok) {
+          updateButtonsStates(buttons, clickedButton)
+        } else {
+          response.json().then((data) => {
+            alert(data.error)
+          })
+        }
+      })
+      .catch((error) => {
+        console.warn(error)
+      })
   }
 
   buttons.forEach((button) => {
     button.addEventListener('click', (event) => {
       const clickedButton = event.target
 
-      if (clickedButton.classList.contains('js-not-complete')) {
-        pushStatus('unstarted', clickedButton)
-      } else if (clickedButton.classList.contains('js-started')) {
-        pushStatus('started', clickedButton)
-      } else if (clickedButton.classList.contains('js-submitted')) {
-        pushStatus('submitted', clickedButton)
-      } else if (clickedButton.classList.contains('js-complete')) {
-        pushStatus('complete', clickedButton)
+      if (clickedButton) {
+        const matchingClass = Object.keys(statusMap).find((className) =>
+          clickedButton.classList.contains(className)
+        )
+        const statusName = statusMap[matchingClass]
+        pushStatus(statusName, clickedButton)
       }
     })
   })
