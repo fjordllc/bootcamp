@@ -4,7 +4,7 @@ require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
   test '.scheduled_on(date)' do
-    travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
+    travel_to Time.zone.local(2017, 4, 3, 8, 0, 0) do
       today_date = Time.zone.today
       today_events_count = 2
       today_events = Event.scheduled_on(today_date)
@@ -134,5 +134,16 @@ class EventTest < ActiveSupport::TestCase
     assert 626_726_618, ids
     assert 994_018_171, ids
     assert 205_042_674, ids
+  end
+
+  test '.scheduled_on_without_ended' do
+    travel_to Time.zone.local(2024, 12, 1, 10, 0, 0) do
+      today_date = Time.zone.today
+      events = Event.scheduled_on_without_ended(today_date)
+      event_in_progress = events(:event35)
+      event_ended = events(:event36)
+      assert_includes events, event_in_progress
+      assert_not_includes events, event_ended
+    end
   end
 end
