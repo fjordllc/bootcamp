@@ -83,18 +83,14 @@
                               | ステータス
                             ul.practice-status-buttons__items.is-button-group
                               li.practice-status-buttons__item
-                                button.practice-status-buttons__button.a-button.is-sm.is-block.is-unstarted.js-not-complete.is-inactive class="#{@status == 'unstarted' ? 'is-active' : 'is-inactive'}"
-                                  | 未着手
+                                  = content_tag :button, "未着手", class: "practice-status-buttons__button a-button is-sm is-block is-unstarted js-not-complete #{ @status == 'unstarted' ? 'is-active' : 'is-inactive' }", disabled: @status == 'unstarted'
                               li.practice-status-buttons__item
-                                button.practice-status-buttons__button.a-button.is-sm.is-block.is-started.js-started.is-inactive class="#{@status == 'started' ? 'is-active' : 'is-inactive'}"
-                                  | 着手
+                                  = content_tag :button, "着手", class: "practice-status-buttons__button a-button is-sm is-block is-started js-started #{ @status == 'started' ? 'is-active' : 'is-inactive' }" , disabled: @status == 'started'
                               - if @practice.submission
                                 li.practice-status-buttons__item
-                                  button.practice-status-buttons__button.a-button.is-sm.is-block.is-submitted.js-submitted.is-inactive class="#{@status == 'submitted' ? 'is-active' : 'is-inactive'}"
-                                    | 提出
+                                      = content_tag :button, "提出", class: "practice-status-buttons__button a-button is-sm is-block is-submitted js-submitted #{ @status == 'submitted' ? 'is-active' : 'is-inactive' }", disabled: @status == 'submitted'
                               li.practice-status-buttons__item
-                                button.practice-status-buttons__button.a-button.is-sm.is-block.is-complete.js-complete.is-inactive class="#{@status == 'complete' ? 'is-active' : 'is-inactive'}"
-                                  | 修了
+                                = content_tag :button, "修了", class: "practice-status-buttons__button a-button is-sm is-block is-complete js-complete #{ @status == 'complete' ? 'is-active' : 'is-inactive' }", disabled: @status == 'complete'
                         - if !@practice.submission
                           .practice-status-buttons__end
                             .practice-status-buttons__note
