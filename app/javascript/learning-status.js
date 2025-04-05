@@ -34,6 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
         })
       }
     })
+    .catch((error) => {
+      console.warn(error)
+    })
   }
 
   buttons.forEach((button) => {
