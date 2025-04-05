@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const buttons = document.querySelectorAll('.practice-status-buttons__button')
-  const practice = document.querySelector('#practice')
+  const practiceId = document.querySelector('#practice').dataset.id
 
   const updateButtonsStates = (buttons, clickedButton) => {
     buttons.forEach((button) => {
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const params = new FormData()
     params.append('status', statusName)
 
-    fetch(`/api/practices/${practice.dataset.id}/learning.json`, {
+    fetch(`/api/practices/${practiceId}/learning.json`, {
       method: 'PATCH',
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
