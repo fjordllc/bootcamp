@@ -2,13 +2,6 @@ import 'whatwg-fetch'
 import CSRF from 'csrf'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const statusMap = {
-    'js-not-complete': 'unstarted',
-    'js-started': 'started',
-    'js-submitted': 'submitted',
-    'js-complete': 'complete'
-  }
-
   const buttons = document.querySelectorAll('.practice-status-buttons__button')
   const practiceId = document.querySelector('#practice').dataset.id
 
@@ -52,14 +45,9 @@ document.addEventListener('DOMContentLoaded', () => {
   buttons.forEach((button) => {
     button.addEventListener('click', (event) => {
       const clickedButton = event.target
+      const statusName = clickedButton.dataset.status
 
-      if (clickedButton) {
-        const matchingClass = Object.keys(statusMap).find((className) =>
-          clickedButton.classList.contains(className)
-        )
-        const statusName = statusMap[matchingClass]
-        pushStatus(statusName, clickedButton)
-      }
+      pushStatus(statusName,clickedButton)
     })
   })
 })
