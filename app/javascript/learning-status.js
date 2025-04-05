@@ -2,9 +2,6 @@ import 'whatwg-fetch'
 import CSRF from 'csrf'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const buttons = document.querySelectorAll('.practice-status-buttons__button')
-  const practice = document.querySelector('#practice')
-
   const statusMap = {
     'js-not-complete': 'unstarted',
     'js-started': 'started',
@@ -12,10 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
     'js-complete': 'complete'
   }
 
+  const buttons = document.querySelectorAll('.practice-status-buttons__button')
+  const practice = document.querySelector('#practice')
+
   const updateButtonsStates = (buttons, clickedButton) => {
     buttons.forEach((button) => {
-      button.classList.toggle('is-active', button === clickedButton)
-      button.classList.toggle('is-inactive', button !== clickedButton)
+      const isClicked = button === clickedButton
+      button.classList.toggle('is-active', isClicked)
+      button.classList.toggle('is-inactive', !isClicked)
+      button.disabled = isClicked
     })
   }
 
