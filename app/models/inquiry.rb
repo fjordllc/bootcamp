@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 class Inquiry < ApplicationRecord
+  include Checkable
+  scope :action_completed, -> { where(action_completed: true) }
+  scope :not_completed, -> { where(action_completed: false) }
+
+  def user
+    nil
+  end
   validates :name, presence: true
   validates :email,
             presence: true,
