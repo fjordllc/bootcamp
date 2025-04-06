@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_03_31_062253) do
+ActiveRecord::Schema.define(version: 2025_03_23_175738) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -835,13 +835,13 @@ ActiveRecord::Schema.define(version: 2025_03_31_062253) do
     t.string "login_name", limit: 255, null: false
     t.string "email", limit: 255
     t.string "crypted_password", limit: 255
-    t.string "salt", limit:255
+    t.string "salt", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "remember_me_token", limit: 255
     t.datetime "remember_me_token_expires_at"
     t.string "twitter_account", limit: 255
-    t.string "facebook_url", limit:255
+    t.string "facebook_url", limit: 255
     t.string "blog_url", limit: 255
     t.integer "company_id"
     t.text "description"

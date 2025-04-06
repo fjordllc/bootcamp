@@ -51,6 +51,7 @@ ja:
       faq_category: FAQカテゴリ
       coding_test: コーディングテスト
       movie: 動画
+      grant_course_application: 給付金対応コース受講申請
     attributes:
       user:
         login_name: アカウント
