@@ -76,26 +76,7 @@
                   .page-content-header-actions__start
                     .practice-first-actions
                       .practice-first-actions__start
-                        .js-learning-status(id="practice" data-id="#{@practice.id}")
-                        .practice-status-buttons
-                          .practice-status-buttons__start
-                            .practice-status-buttons__label
-                              | ステータス
-                            ul.practice-status-buttons__items.is-button-group
-                              - button_base_class = 'practice-status-buttons__button a-button is-sm is-block'
-                              li.practice-status-buttons__item
-                                - button_class = "#{button_base_class} is-unstarted #{@status == 'unstarted' ? 'is-active' : 'is-inactive'}"
-                                = content_tag :button, '未着手', class: button_class, disabled: @status == 'unstarted', data: { status: 'unstarted' }
-                              li.practice-status-buttons__item
-                                - button_class = "#{button_base_class} is-started #{@status == 'started' ? 'is-active' : 'is-inactive'}"
-                                = content_tag :button, '着手', class: button_class, disabled: @status == 'started', data: { status: 'started' }
-                              - if @practice.submission
-                                li.practice-status-buttons__item
-                                  - button_class = "#{button_base_class} is-submitted #{@status == 'submitted' ? 'is-active' : 'is-inactive'}"
-                                  = content_tag :button, '提出', class: button_class, disabled: @status == 'submitted', data: { status: 'submitted' }
-                              li.practice-status-buttons__item
-                                - button_class = "#{button_base_class} is-complete #{@status == 'complete' ? 'is-active' : 'is-inactive'}"
-                                = content_tag :button, '修了', class: button_class, disabled: @status == 'complete', data: { status: 'complete' }
+                        = render 'learning-status'
                         - if !@practice.submission
                           .practice-status-buttons__end
                             .practice-status-buttons__note
