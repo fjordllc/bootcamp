@@ -77,10 +77,6 @@
                     .practice-first-actions
                       .practice-first-actions__start
                         = render 'learning-status'
-                        - if !@practice.submission
-                          .practice-status-buttons__end
-                            .practice-status-buttons__note
-                              | このプラクティスに提出物はありません。修了条件をクリアしたら修了にしてください。
                   - if current_user.mentor? && @practice.submission
                     .page-content-header-actions__end
                       .practice-first-actions__end.is-only-mentor
