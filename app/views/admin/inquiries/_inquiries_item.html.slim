@@ -1,5 +1,9 @@
 .card-list-item
-  .card-list-item__inner
+  .card-list-item__inner.position-relative
+    - if inquiry.checked?
+      .stamp.stamp-approve.is-sm
+        .stamp__content.is-title
+          | 対応済
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
@@ -13,6 +17,11 @@
               .a-meta
                 span.a-meta__label 受信日
                 span.a-meta__value = l inquiry.created_at
+            - if inquiry.checked?
+              .card-list-item-meta__item
+                .a-meta
+                  span.a-meta__label 確認者
+                  span.a-meta__value = inquiry.checks.first.user.login_name
       .card-list-item__row
         .a-meta
           p = inquiry.body.truncate(100)

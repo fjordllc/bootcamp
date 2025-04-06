@@ -87,6 +87,7 @@ Rails.application.routes.draw do
     resources :regular_events, only: %i(index)
     resources :books, only: %i(index)
     resources :courses, only: %i(index)
+    resources :inquiries, only: %i(index update)
     resources :survey_question_listings, only: %i() do
       resource :position, only: %i(update), controller: "survey_question_listings/position"
     end
