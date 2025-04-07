@@ -5,6 +5,8 @@ article.lp-course-selection-item
         | #{course.title}
         br
         | コース
+    .a-short-text.is-md
+      = simple_format(course.description)
     .lp-course-selection-item__categories
       - course.categories.each do |category|
         - if category.practices.present?
