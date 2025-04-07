@@ -4,6 +4,7 @@ import TextareaInitializer from 'textarea-initializer'
 
 document.addEventListener('DOMContentLoaded', () => {
   const microReports = document.querySelectorAll('.micro-report')
+  if (microReports.length === 0) return
 
   microReports.forEach((microReport) => {
     const microReportId = microReport.dataset.micro_report_id
