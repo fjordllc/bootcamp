@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleVisibility(modalElements, 'is-hidden')
         savedMicroReport = editorTextarea.value
         updatemicroReport(microReportId, savedMicroReport)
+        TextareaInitializer.initialize(`#js-comment-${microReportId}`)
         microReporDisplayContent.innerHTML =
           markdownInitializer.render(savedMicroReport)
       })
