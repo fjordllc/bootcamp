@@ -15,10 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const updatePracticesStatus = async (statusName) => {
-    const params = new FormData();
+    const params = new FormData()
     params.append('status', statusName)
 
-    const response = await fetch (`/api/practices/${practiceId}/learning.json`, {
+    const response = await fetch(`/api/practices/${practiceId}/learning.json`, {
       method: 'PATCH',
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
@@ -36,10 +36,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const pushStatus = async (statusName, clickedButton) => {
-    try{
+    try {
       await updatePracticesStatus(statusName)
       updateButtonsStates(clickedButton)
-    } catch(error) {
+    } catch (error) {
       console.error(error)
       alert(error.message)
     }
