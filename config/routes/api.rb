@@ -49,7 +49,6 @@ Rails.application.routes.draw do
         get 'counts', on: :collection
       end
       resources :recents, only: %i(index)
-      resources :sad_streak, only: %i(index)
     end
     resources :watches, only: %i(index)
     namespace "watches" do
