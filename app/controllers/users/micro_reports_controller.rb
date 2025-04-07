@@ -27,9 +27,7 @@ class Users::MicroReportsController < ApplicationController
     @micro_report.destroy!
 
     referer_path = request.referer
-    matched_page_number = referer_path.match(/page=(\d+)/)
-    page_number = matched_page_number ? matched_page_number[1] : FIRST_PAGE
-    if MicroReport.page(page_number).out_of_range?
+    if page_out_of_range?(referer_path)
       redirect_to user_micro_reports_path(@user, page: @user.latest_micro_report_page)
     else
       redirect_to referer_path
@@ -49,5 +47,12 @@ class Users::MicroReportsController < ApplicationController
 
   def micro_report_params
     params.require(:micro_report).permit(:content)
+  end
+
+  def page_out_of_range?(referer_path)
+    matched_page_number = referer_path.match(/page=(\d+)/)
+    page_number = matched_page_number ? matched_page_number[1] : FIRST_PAGE
+
+    MicroReport.page(page_number).out_of_range?
   end
 end
