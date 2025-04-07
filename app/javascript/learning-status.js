@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const buttons = document.querySelectorAll('.practice-status-buttons__button')
   const practiceId = document.querySelector('#practice').dataset.id
 
-  const updateButtonsStates = (buttons, clickedButton) => {
+  const updateButtonsStates = (clickedButton) => {
     buttons.forEach((button) => {
       const isClicked = button === clickedButton
       button.classList.toggle('is-active', isClicked)
@@ -14,11 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
 
-  const pushStatus = (statusName, clickedButton) => {
-    const params = new FormData()
+  const updatePracticesStatus = async (statusName) => {
+    const params = new FormData();
     params.append('status', statusName)
 
-    fetch(`/api/practices/${practiceId}/learning.json`, {
+    const response = await fetch (`/api/practices/${practiceId}/learning.json`, {
       method: 'PATCH',
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
@@ -28,18 +28,21 @@ document.addEventListener('DOMContentLoaded', () => {
       redirect: 'manual',
       body: params
     })
-      .then((response) => {
-        if (response.ok) {
-          updateButtonsStates(buttons, clickedButton)
-        } else {
-          response.json().then((data) => {
-            alert(data.error)
-          })
-        }
-      })
-      .catch((error) => {
-        console.warn(error)
-      })
+
+    if (!response.ok) {
+      const data = await response.json()
+      throw new Error(data.error)
+    }
+  }
+
+  const pushStatus = async (statusName, clickedButton) => {
+    try{
+      await updatePracticesStatus(statusName)
+      updateButtonsStates(clickedButton)
+    } catch(error) {
+      console.error(error)
+      alert(error.message)
+    }
   }
 
   buttons.forEach((button) => {
