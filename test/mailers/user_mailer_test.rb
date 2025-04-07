@@ -36,7 +36,7 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal ['kensyu@fjord.jp'], email.to
     assert_equal ['info@lokka.jp'], email.bcc
     assert_equal '[FBC] 研修終了手続きが完了しました', email.subject
-    assert_match(/研修終了ユーザーの方へ送られるメールの仮文章です。/, email.body.to_s)
+    assert_match("#{user.name}様の今後のご活躍を心からお祈り申し上げます。", email.body.to_s)
   end
 
   test 'request_retirement' do
