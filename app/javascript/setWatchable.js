@@ -20,6 +20,6 @@ export function setWatchable(watchableId, watchableType) {
       watch.classList.remove('is-inactive', 'is-muted')
       watch.classList.add('is-active', 'is-main')
       watch.setAttribute('data-watch_id', data[0].id)
-      watch.innerHTML = 'watch中'
+      watch.innerHTML = 'Watch中'
     })
 }
