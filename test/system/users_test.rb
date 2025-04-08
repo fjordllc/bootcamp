@@ -499,7 +499,7 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'search only retired when target is retired' do
     visit_with_auth '/users?target=retired', 'komagata'
-    assert_selector '.users-item', count: 4
+    assert_selector '.users-item', count: 3
     fill_in 'js-user-search-input', with: 'yameo'
     find('#js-user-search-input').send_keys :return
     assert_text '辞目 辞目夫', count: 1
