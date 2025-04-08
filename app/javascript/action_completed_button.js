@@ -61,8 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
           toast(tostMessage, 'success')
         })
         .catch((error) => {
-          console.error('エラーが発生しました:', error)
-          alert('エラーが発生しました。再読み込みしてください。')
+          console.warn(error)
         })
     })
   })
