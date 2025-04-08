@@ -446,6 +446,7 @@ class TalksTest < ApplicationSystemTestCase
     visit "/talks/#{user.talk.id}"
     find('.check-button').click
     assert_text '対応済みにしました'
+    assert_text '対応済です'
     visit '/talks/action_uncompleted'
     assert_no_text "#{decorated_user.long_name} さんの相談部屋"
   end
@@ -459,6 +460,7 @@ class TalksTest < ApplicationSystemTestCase
     visit "/talks/#{user.talk.id}"
     find('.check-button').click
     assert_text '未対応にしました'
+    assert_text '対応済にする'
     visit '/talks/action_uncompleted'
     assert_text "#{decorated_user.long_name} さんの相談部屋"
   end
