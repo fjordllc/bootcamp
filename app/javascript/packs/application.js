@@ -78,13 +78,13 @@ import '../coding_tests_sort.js'
 import '../watches.js'
 import '../watch-toggle.js'
 import '../diploma-upload.js'
+import '../action_completed_button.js'
 
 import VueMounter from '../VueMounter.js'
 import Questions from '../components/questions.vue'
 import UsersAnswers from '../components/users-answers.vue'
 import User from '../components/user.vue'
 import UserProducts from '../components/user-products.vue'
-import '../action_completed_button.js'
 
 import '../stylesheets/application'
 
