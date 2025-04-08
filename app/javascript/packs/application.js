@@ -79,11 +79,11 @@ import '../watches.js'
 import '../watch-toggle.js'
 import '../diploma-upload.js'
 import Cocooned from '@notus.sh/cocooned'
+import '../action_completed_button.js'
 
 import VueMounter from '../VueMounter.js'
 import Questions from '../components/questions.vue'
 import UserProducts from '../components/user-products.vue'
-import '../action_completed_button.js'
 
 import '../stylesheets/application'
 
