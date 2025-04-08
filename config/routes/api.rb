@@ -53,9 +53,10 @@ Rails.application.routes.draw do
       end
       resources :recents, only: %i(index)
     end
-    resources :watches, only: %i(show)
-    namespace "watches" do
-      resources :toggle, only: %i(index create destroy)
+    resources :watches, only: %i(show create destroy) do
+      collection do
+         get :toggle, to: 'watches/toggle#index'
+      end
     end
     resources :mentor_memos, only: %i(update)
     resources :tags, only: %i(index update)

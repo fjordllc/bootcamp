@@ -24,7 +24,7 @@ function watch(element) {
     watchable_type: watchableType,
     watchable_id: watchableId
   }
-  fetch(`/api/watches/toggle`, {
+  fetch(`/api/watches`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
@@ -57,7 +57,7 @@ function watch(element) {
 export function unWatch(element) {
   const watchId = element.dataset.watch_id
 
-  fetch(`/api/watches/toggle/${watchId}`, {
+  fetch(`/api/watches/${watchId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
