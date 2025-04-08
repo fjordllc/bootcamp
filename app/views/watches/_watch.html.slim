@@ -25,7 +25,7 @@
       .card-list-item__row
         .card-list-item-title
           .card-list-item-title__title
-            = link_to watchable, class: 'card-list-item-title__link a-text-link' do 
+            = link_to watchable, class: 'card-list-item-title__link a-text-link' do
               = watchable.title
       .card-list-item__row
         .card-list-item__summary
@@ -35,7 +35,7 @@
           .card-list-item-meta__items
             - if created_user(watchable)
               .card-list-item-meta__item
-                = link_to created_user(watchable), class: 'a-user-name' do 
+                = link_to created_user(watchable), class: 'a-user-name' do
                   = created_user(watchable).login_name
             .card-list-item-meta__item
               time.a-meta(datetime="#{watchable.created_at}")
