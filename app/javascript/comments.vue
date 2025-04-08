@@ -90,6 +90,7 @@ import confirmUnload from 'confirm-unload'
 import toast from 'toast'
 import role from 'role'
 import checkable from 'checkable.js'
+import { setWatchable } from './setWatchable.js'
 
 export default {
   components: {
@@ -232,10 +233,7 @@ export default {
           this.buttonDisabled = false
           this.resizeTextarea()
           this.displayToast(toastMessage)
-          this.$store.dispatch('setWatchable', {
-            watchableId: this.commentableId,
-            watchableType: this.commentableType
-          })
+          setWatchable(this.commentableId, this.commentableType)
         })
         .catch((error) => {
           console.warn(error)
