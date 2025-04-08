@@ -13,6 +13,11 @@
           | 特別
           br
           | イベント
+      - when 'Practice'
+        span.card-list-item__label-inner.is-sm
+          | プラク
+          br
+          | ティス
       - else
         span.card-list-item__label-inner
           = t("activerecord.models.#{watchable.class.to_s.tableize.singularize}")
@@ -28,9 +33,10 @@
       .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items
-            .card-list-item-meta__item
-              = link_to watchable.user, class: 'a-user-name' do 
-                = watchable.user.login_name
+            - if created_user(watchable)
+              .card-list-item-meta__item
+                = link_to created_user(watchable), class: 'a-user-name' do 
+                  = created_user(watchable).login_name
             .card-list-item-meta__item
               time.a-meta(datetime="#{watchable.created_at}")
                 = l watchable.created_at
