@@ -27,12 +27,8 @@ document.addEventListener('DOMContentLoaded', function () {
           if (!response.ok) {
             throw new Error('Network response was not ok')
           }
-          return response.json().catch(() => null)
         })
-        .then((data) => {
-          if (data) {
-            console.log('API Response:', data)
-          }
+        .then(() => {
           const newButtonText = isActionCompleted
             ? '対応済にする'
             : '対応済です'
