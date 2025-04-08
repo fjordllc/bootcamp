@@ -5,15 +5,12 @@ document.addEventListener('DOMContentLoaded', function () {
   const buttons = document.querySelectorAll('.check-button')
 
   buttons.forEach((button) => {
+    const commentableId = button.dataset.commentableId
+
+    if (!commentableId) return
+
     button.addEventListener('click', function () {
       const isActionCompleted = button.classList.contains('is-muted-borderd')
-      const commentableId = button.dataset.commentableId
-      const csrfToken = button.dataset.csrfToken
-
-      if (!commentableId || !csrfToken) {
-        console.error('必要なデータがありません')
-        return
-      }
 
       fetch(`/api/talks/${commentableId}`, {
         method: 'PATCH',
