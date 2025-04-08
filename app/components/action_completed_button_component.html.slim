@@ -4,7 +4,6 @@
       .action-completed
         .action-completed__action
           button.a-button.is-sm.is-block.check-button.is-muted-borderd(
-            data-initial-completed='true'
             data-commentable-id='#{commentable_id}'
             data-csrf-token='#{form_authenticity_token}'
           )
@@ -20,7 +19,6 @@
       .action-complete
         .action-completed__action
           button.a-button.is-sm.is-block.check-button.is-warning(
-            data-initial-completed='false'
             data-commentable-id='#{commentable_id}'
             data-csrf-token='#{form_authenticity_token}'
           )
