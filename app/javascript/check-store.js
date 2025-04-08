@@ -98,36 +98,6 @@ export default new Vuex.Store({
         .catch((error) => {
           console.warn(error)
         })
-    },
-    setWatchable({ commit }, { watchableId, watchableType }) {
-      fetch(
-        `/api/watches/toggle.json?watchable_id=${watchableId}&watchable_type=${watchableType}`,
-        {
-          method: 'GET',
-          headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRF-Token': CSRF.getToken()
-          },
-          credentials: 'same-origin'
-        }
-      )
-        .then((response) => {
-          return response.json()
-        })
-        .then((watchable) => {
-          if (watchable[0]) {
-            commit('setWatchable', {
-              watchId: watchable[0].id
-            })
-          } else {
-            commit('setWatchable', {
-              watchId: null
-            })
-          }
-        })
-        .catch((error) => {
-          console.warn(error)
-        })
     }
   }
 })
