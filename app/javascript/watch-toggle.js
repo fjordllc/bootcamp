@@ -46,7 +46,7 @@ function watch(element) {
         element.classList.remove('is-inactive', 'is-muted')
         element.classList.add('is-active', 'is-main')
         element.setAttribute('data-watch_id', json.id)
-        element.innerHTML = 'watch中'
+        element.innerHTML = 'Watch中'
       }
     })
     .catch((error) => {
@@ -69,11 +69,11 @@ export function unWatch(element) {
   })
     .then(() => {
       toast('Watchを外しました')
-      if (element.innerHTML === 'watch中') {
+      if (element.innerHTML === 'Watch中') {
         element.classList.remove('is-active', 'is-main')
         element.classList.add('is-inactive', 'is-muted')
         element.removeAttribute('data-watch_id')
-        element.innerHTML = 'watch'
+        element.innerHTML = 'Watch'
       }
       if (element.innerHTML === '削除') {
         const deleteWatch = document.getElementById(watchId)
