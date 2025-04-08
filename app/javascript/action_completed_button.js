@@ -2,7 +2,7 @@ import CSRF from 'csrf'
 import { toast } from './vanillaToast'
 
 document.addEventListener('DOMContentLoaded', function () {
-  const buttons = document.querySelectorAll('.a-button')
+  const buttons = document.querySelectorAll('.check-button')
 
   buttons.forEach((button) => {
     button.addEventListener('click', function () {
