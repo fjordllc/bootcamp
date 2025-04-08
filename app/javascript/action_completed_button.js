@@ -1,3 +1,4 @@
+import CSRF from 'csrf'
 import { toast } from './vanillaToast'
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -17,8 +18,9 @@ document.addEventListener('DOMContentLoaded', function () {
       fetch(`/api/talks/${commentableId}`, {
         method: 'PATCH',
         headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': csrfToken
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': CSRF.getToken()
         },
         body: JSON.stringify({
           talk: { action_completed: !isActionCompleted }
