@@ -55,7 +55,6 @@ class WelcomeController < ApplicationController
   def choose_courses
     @rails_course = Course.preload(categories: :practices).find_by(title: 'Railsエンジニア')
     @frontend_course = Course.preload(categories: :practices).find_by(title: 'フロントエンドエンジニア')
-    render 'welcome/courses'
   end
   private
 
