@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get 'certified_reskill_courses/rails_developer_course',
     to: 'welcome#rails_developer_course',
     as: :certified_reskill_courses_rails_developer_course_root
+  get 'choose_courses', to: "welcome#choose_courses", as: "choose_courses"
   draw :scheduler
   draw :api
   draw :paper
