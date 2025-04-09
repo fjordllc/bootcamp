@@ -40,6 +40,6 @@
             .card-list-item-meta__item
               time.a-meta(datetime="#{watchable.created_at}")
                 = l watchable.created_at
-    .card-list-item__option
-      .a-watch-button.a-button.is-sm.is-block.is-main.hidden data-watch_id="#{watch.id}"
+    .card-list-item__option.hidden
+      .a-watch-button.a-button.is-sm.is-block.is-main data-watch_id="#{watch.id}"
         | 削除
