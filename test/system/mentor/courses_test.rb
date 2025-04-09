@@ -12,7 +12,8 @@ class Mentor::CoursesTest < ApplicationSystemTestCase
     visit_with_auth '/mentor/courses/new', 'mentormentaro'
     within 'form[name=course]' do
       fill_in 'course[title]', with: 'テストコース'
-      fill_in 'course[description]', with: 'テストのコースです。'
+      fill_in 'course[description]', with: 'テストコースの説明です'
+      fill_in 'course[summary]', with: 'テストコースの概要です'
       click_button '内容を保存'
     end
     assert_text 'コースを作成しました。'
@@ -22,7 +23,8 @@ class Mentor::CoursesTest < ApplicationSystemTestCase
     visit_with_auth "/mentor/courses/#{courses(:course1).id}/edit", 'mentormentaro'
     within 'form[name=course]' do
       fill_in 'course[title]', with: 'テストコース'
-      fill_in 'course[description]', with: 'テストのコースです。'
+      fill_in 'course[description]', with: 'テストコースの説明です'
+      fill_in 'course[summary]', with: 'テストコースの概要です'
       click_button '内容を保存'
     end
     assert_text 'コースを更新しました。'
