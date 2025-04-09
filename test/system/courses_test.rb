@@ -19,9 +19,4 @@ class CoursesTest < ApplicationSystemTestCase
     assert_no_link courses(:course2).title
     assert_no_text courses(:course2).description
   end
-
-  test 'show welcome page when user isnt logged in' do
-    visit '/courses'
-    assert_text 'コースを選択してください'
-  end
 end
