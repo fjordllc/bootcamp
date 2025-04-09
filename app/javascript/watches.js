@@ -3,7 +3,9 @@ import { unWatch } from './watch-toggle'
 document.addEventListener('DOMContentLoaded', () => {
   const localStorage = window.localStorage
   const editToggle = document.getElementById('card-list-tools__action')
-  const deleteButtons = document.querySelectorAll('.a-watch-button')
+  const deleteButtonContainers = document.querySelectorAll(
+    '.card-list-item__option'
+  )
 
   if (!editToggle) {
     window.addEventListener('beforeunload', function () {
@@ -14,26 +16,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (localStorage.getItem('watchs-delete-mode') === 'on') {
     editToggle.checked = true
-    deleteButtons.forEach((button) => {
-      button.classList.remove('hidden')
+    deleteButtonContainers.forEach((container) => {
+      container.classList.remove('hidden')
     })
   } else {
     editToggle.checked = false
-    deleteButtons.forEach((button) => {
-      button.classList.add('hidden')
+    deleteButtonContainers.forEach((container) => {
+      container.classList.add('hidden')
     })
   }
 
   editToggle.addEventListener('change', () => {
     if (editToggle.checked) {
       localStorage.setItem('watchs-delete-mode', 'on')
-      deleteButtons.forEach((button) => {
-        button.classList.remove('hidden')
+      deleteButtonContainers.forEach((container) => {
+        container.classList.remove('hidden')
       })
     } else {
       localStorage.removeItem('watchs-delete-mode')
-      deleteButtons.forEach((button) => {
-        button.classList.add('hidden')
+      deleteButtonContainers.forEach((container) => {
+        container.classList.add('hidden')
       })
     }
   })
@@ -42,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const perPage = hiddenData.dataset.default_per_page
   const pageNum = hiddenData.dataset.page_num
   const ids = hiddenData.dataset.all_ids.match(/\d+/g).map(Number)
+  const deleteButtons = document.querySelectorAll('.a-watch-button')
 
   deleteButtons.forEach((button) => {
     button.addEventListener('click', () => {
