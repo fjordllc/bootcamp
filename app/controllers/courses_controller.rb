@@ -20,6 +20,7 @@ class CoursesController < ApplicationController
       :title,
       :description,
       :published,
+      :grant,
       category_ids: []
     )
   end

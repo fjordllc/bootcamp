@@ -48,17 +48,9 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    @user.role = params[:role]
-    case @user.role
-    when 'adviser'
-      @user.adviser = true
-    when 'trainee_invoice_payment', 'trainee_credit_card_payment', 'trainee_select_a_payment_method'
-      @user.trainee = true
-    when 'mentor'
-      @user.mentor = true
-    end
     @user.course_id = params[:course_id]
     @user.company_id = params[:company_id]
+    assign_role(@user)
   end
 
   def create
@@ -70,7 +62,9 @@ class UsersController < ApplicationController
     @user.build_discord_profile
     @user.credit_card_payment = params[:credit_card_payment]
     @user.uploaded_avatar = user_params[:avatar]
+
     Newspaper.publish(:user_create, { user: @user })
+
     if @user.staff? || @user.trainee?
       create_free_user!
     else
@@ -196,5 +190,18 @@ class UsersController < ApplicationController
     return unless !params[:token] || !ENV['TOKEN'] || params[:token] != ENV['TOKEN']
 
     redirect_to root_path, notice: 'アドバイザー・メンター・研修生登録にはTOKENが必要です。'
+  end
+
+  def assign_role(user)
+    user.role = params[:role]
+
+    case user.role
+    when 'adviser'
+      user.adviser = true
+    when 'trainee_invoice_payment', 'trainee_credit_card_payment', 'trainee_select_a_payment_method'
+      user.trainee = true
+    when 'mentor'
+      user.mentor = true
+    end
   end
 end
