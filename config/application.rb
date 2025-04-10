@@ -31,5 +31,9 @@ module Bootcamp
     config.active_storage.variant_processor = :vips
 
     config.view_component.capture_compatibility_patch_enabled = true
+
+    config.to_prepare do
+      Doorkeeper::AuthorizationsController.layout "authorization"
+    end
   end
 end
