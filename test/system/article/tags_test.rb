@@ -20,4 +20,26 @@ class Article::TagsTest < ApplicationSystemTestCase
     created_article = Article.find_by(title: 'タグ追加のテスト記事')
     assert_equal tags, created_article.tag_list.sort
   end
+
+  test 'mentor can view and use tags' do
+    article = Article.create!(
+      user: users(:mentormentaro),
+      title: 'タグ付きテスト記事',
+      body: '2つタグが付与された記事です',
+      tag_list: %w[FirstTag SecondTag],
+      wip: false
+    )
+
+    visit_with_auth article_path(article), 'mentormentaro'
+    assert_selector 'ul.a-tags__items li.a-tags__item', text: 'FirstTag'
+    assert_selector 'ul.a-tags__items li.a-tags__item', text: 'SecondTag'
+    click_link 'SecondTag'
+    assert_text 'タグ付きテスト記事'
+
+    visit_with_auth article_path(article), 'hatsuno'
+    assert_no_selector 'ul.a-tags__items li.a-tags__item'
+    visit articles_path(tag: 'SecretTag')
+    assert_current_path articles_path
+    assert_text '管理者・メンターとしてログインしてください'
+  end
 end
