@@ -868,6 +868,11 @@ class User < ApplicationRecord
     end
   end
 
+  def grant_course?
+    course = Course.find_by(id: course_id)
+    course_id.present? && course&.grant?
+  end
+
   def latest_micro_report_page
     [micro_reports.page.total_pages, 1].max
   end
