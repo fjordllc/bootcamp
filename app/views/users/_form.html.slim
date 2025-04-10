@@ -27,13 +27,13 @@
       = render 'users/form/learning_time_frames', f: f, user: user
     - unless user.adviser?
       - unless user.mentor?
-        = render 'users/form/after_graduation_hope', f:, user:
-        = render('users/form/job', f:)
-      = render 'users/form/os', f: f, user:
+        = render 'users/form/after_graduation_hope', f: f, user: user
+        = render 'users/form/job', f: f
+      = render 'users/form/os', f: f, user: user
     - unless user.adviser? || user.mentor?
-      = render 'users/form/experiences', f:
+      = render 'users/form/experiences', f: f
 
-    - if user.trainee? && from == :new
+    - if user.trainee? && from == :new && !user.grant_course?
       .form-item
         .form-item-block
           .form-item-block__inner
@@ -41,7 +41,7 @@
               .form-item-block__title
                 | 支払い方法
             .form-item-block__item
-              = render 'users/form/payment_methods_check_boxes', f:, user:
+              = render 'users/form/payment_methods_check_boxes', f: f, user: user
       - if user.role == 'trainee_credit_card_payment'
         #card
           = render 'users/form/card'
@@ -74,7 +74,7 @@
     .form__items
       = render 'users/form/company', f: f, user: user
 
-  - if from == :new && user.student?
+  - if from == :new && user.student? && !user.grant_course?
     = render 'users/form/card'
 
   - if user.mentor?

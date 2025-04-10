@@ -17,3 +17,9 @@ course4:
   title: フロントエンドエンジニア
   description: "JavaScriptやTypeScriptなどを学んでフロントエンドエンジニアになろう。"
   published: true
+
+course5:
+  title: Railsエンジニア（Reスキル講座認定）
+  description: "Linux, Web, Ruby, Railsなどを学んでRailsエンジニアになろう。"
+  published: true
+  grant: true
