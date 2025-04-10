@@ -16,6 +16,11 @@ class UserTest < ActiveSupport::TestCase
     assert_not users(:hatsuno).hibernated?
   end
 
+  test '#training_completed?' do
+    assert users(:kensyuowata).training_completed?
+    assert_not users(:kensyu).training_completed?
+  end
+
   test '#retired?' do
     assert users(:yameo).retired?
     assert_not users(:komagata).retired?
