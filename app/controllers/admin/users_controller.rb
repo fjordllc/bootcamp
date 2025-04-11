@@ -67,7 +67,7 @@ class Admin::UsersController < AdminController
       :job_seeker, :github_collaborator,
       :officekey_permission, :tag_list, :training_ends_on,
       :career_path, :career_memo,
-      :auto_retire, :invoice_payment, :hide_mentor_profile,
+      :auto_retire, :invoice_payment, :show_mentor_profile,
       :profile_image, :profile_name, :profile_job, :mentor,
       :profile_text, { authored_books_attributes: %i[id title url cover _destroy] },
       :country_code, :subdivision_code, discord_profile_attributes: %i[account_name times_url times_id], practice_ids: []
