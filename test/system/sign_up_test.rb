@@ -285,6 +285,7 @@ class SignUpTest < ApplicationSystemTestCase
     assert User.find_by(email:).trainee?
   end
 
+  # 修正前の検証のための差分です
   test 'form item about job seek is only displayed to students' do
     visit '/users/new'
     assert_selector "input[name='user[job_seeker]']", visible: :all
