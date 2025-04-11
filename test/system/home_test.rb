@@ -588,7 +588,7 @@ class HomeTest < ApplicationSystemTestCase
     assert_text '駒形 真幸'
     assert_text '株式会社ロッカの代表兼エンジニア。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
     visit_with_auth edit_current_user_path, 'komagata'
-    check 'プロフィール非公開', allow_label_click: true
+    uncheck 'プロフィール公開', allow_label_click: true
     click_on '更新する'
     assert_text 'ユーザー情報を更新しました。'
     logout
