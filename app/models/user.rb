@@ -402,7 +402,7 @@ class User < ApplicationRecord
       .mentor
       .includes(authored_books: { cover_attachment: :blob })
       .order(:created_at)
-      .where(hide_mentor_profile: false)
+      .where(show_mentor_profile: true)
   }
   scope :working, lambda {
     active.where(
