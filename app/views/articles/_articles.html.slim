@@ -66,4 +66,12 @@ hr.a-border-tint
                               = l(article.created_at)
                             - else
                               = l(article.published_at)
+                    - if current_user&.admin_or_mentor_login? && article.tag_list.present?
+                      .thumbnail-card__row
+                        .a-tags
+                          ul.a-tags__items
+                            - article.tag_list.each do |tag|
+                              li.a-tags__item
+                                .a-badge.is-muted.is-sm
+                                  = tag
         = paginate articles
