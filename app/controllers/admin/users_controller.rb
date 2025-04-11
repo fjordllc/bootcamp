@@ -15,6 +15,16 @@ class Admin::UsersController < AdminController
                  end
     @job = params[:job]
     user_scope = user_scope.users_job(@job) if @job.present?
+    @job_seeking = params[:job_seeking]
+    user_scope =
+      case @job_seeking
+      when 'true'
+        user_scope.where(job_seeking: true)
+      when 'false'
+        user_scope.where(job_seeking: false)
+      else
+        user_scope
+      end
     @users = user_scope.with_attached_avatar
                        .preload(:company, :course)
                        .order_by_counts(params[:order_by] || 'id', @direction)
