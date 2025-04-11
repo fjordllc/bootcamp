@@ -22,7 +22,7 @@ class CurrentUserController < ApplicationController
     user_attribute = [
       :adviser, :login_name, :name,
       :name_kana, :email, :course_id,
-      :description, :job_seeking,
+      :description,
       :github_account, :twitter_account, :facebook_url,
       :blog_url, :password, :password_confirmation,
       :job, :organization, :os,
