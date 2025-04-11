@@ -13,7 +13,7 @@ class Article::TagsTest < ApplicationSystemTestCase
     )
   end
 
-  test 'cat add tag to article' do
+  test 'can add tag to article' do
     visit_with_auth new_article_url, 'komagata'
     fill_in 'タイトル', with: 'タグ追加のテスト記事'
     fill_in '本文', with: '2つタグが付与された記事です'
