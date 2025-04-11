@@ -30,7 +30,7 @@ section.lp-content.is-lp-bg-2.is-top-title#mentors
           .lp-content-stack__item
               .row.is-gutter-width-32
                 - mentors.each do |mentor|
-                  - unless mentor.hide_mentor_profile
+                  - if mentor.show_mentor_profile
                     .col-xs-6.col-md-6.col-lg-4
                       = render 'welcome/mentor', mentor:, page: 'welcome-index'
 

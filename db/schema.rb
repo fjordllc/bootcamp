@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_03_24_002043) do
+ActiveRecord::Schema.define(version: 2025_04_11_103935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -918,7 +918,7 @@ ActiveRecord::Schema.define(version: 2025_03_24_002043) do
     t.boolean "invoice_payment", default: false, null: false
     t.integer "editor"
     t.string "other_editor"
-    t.boolean "hide_mentor_profile", default: false, null: false
+    t.boolean "show_mentor_profile", default: true, null: false
     t.integer "experiences", default: 0, null: false
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -975,8 +975,8 @@ ActiveRecord::Schema.define(version: 2025_03_24_002043) do
   add_foreign_key "learning_time_frames_users", "users"
   add_foreign_key "learning_times", "reports"
   add_foreign_key "linear_scales", "survey_questions"
-  add_foreign_key "movies", "users"
   add_foreign_key "micro_reports", "users"
+  add_foreign_key "movies", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "sender_id"
   add_foreign_key "organizers", "regular_events"
