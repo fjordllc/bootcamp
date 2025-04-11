@@ -1,16 +1,23 @@
 import CSRF from 'csrf'
 import { debounce } from './debounce.js'
 
-export default (textareas) => {
+export default (selector) => {
+  const textareas = document.querySelectorAll(selector)
+  if (!textareas.length) return
+
   replaceLinkToCard()
   const debouncedReplace = debounce(replaceLinkToCard, 300)
-
-  Array.from(textareas).forEach((textarea) => {
+  textareas.forEach((textarea) => {
     textarea.addEventListener('input', debouncedReplace)
   })
 }
 
 const replaceLinkToCard = () => {
+  const elements = document.querySelectorAll('.a-long-text')
+  elements.forEach((element) => {
+    render(element)
+  })
+
   const targetLinkList = document.querySelectorAll(
     '.before-replacement-link-card:not(.processed)'
   )
@@ -33,14 +40,55 @@ const replaceLinkToCard = () => {
       )
     }
 
-    const sibling = targetLink.previousElementSibling
-    if (sibling.tagName === 'P') {
-      sibling.insertAdjacentElement('afterend', targetLink)
-      sibling.remove()
-    }
-
     targetLink.classList.add('processed')
   })
+}
+
+const render = (element) => {
+  const links = element.querySelectorAll('a')
+
+  const matchedLinks = Array.from(links).filter((link) =>
+    /^@card$/.test(link.parentElement.textContent)
+  )
+
+  matchedLinks.forEach((link) => {
+    const parent = link.parentElement
+    if (!(parent.tagName === 'P')) return
+
+    const url = escapeHTML(link.href)
+    if (!isValidHttpUrl(url)) return
+
+    const div = document.createElement('div')
+    div.dataset.url = url
+    div.classList.add('a-link-card', 'before-replacement-link-card')
+
+    const p = document.createElement('p')
+    p.textContent = 'リンクカード適用中...'
+
+    const i = document.createElement('i')
+    i.classList.add('fa-regular', 'fa-loader', 'fa-spin')
+
+    p.appendChild(i)
+    div.appendChild(p)
+    parent.replaceWith(div)
+  })
+}
+
+const isValidHttpUrl = (str) => {
+  try {
+    const url = new URL(str)
+    return url.protocol === 'http:' || url.protocol === 'https:'
+  } catch (_) {
+    return false
+  }
+}
+function escapeHTML(string) {
+  return string
+    .replace(/&/g, '&lt;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;')
 }
 
 const isTweet = (url) => {
