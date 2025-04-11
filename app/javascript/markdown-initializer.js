@@ -12,7 +12,6 @@ import MarkDownItContainerMessage from 'markdown-it-container-message'
 import MarkDownItContainerDetails from 'markdown-it-container-details'
 import MarkDownItLinkAttributes from 'markdown-it-link-attributes'
 import MarkDownItContainerSpeak from 'markdown-it-container-speak'
-import MarkDownItLinkToCard from 'markdown-it-link-to-card'
 import ReplaceLinkToCard from 'replace-link-to-card'
 
 export default class {
@@ -29,7 +28,7 @@ export default class {
 
     new UserIconRenderer().render(selector)
     MarkdownItTaskListsInitializer.initialize()
-    ReplaceLinkToCard(elements)
+    ReplaceLinkToCard(selector)
   }
 
   render(text) {
@@ -56,7 +55,6 @@ export default class {
       }
     })
     md.use(MarkDownItContainerSpeak)
-    md.use(MarkDownItLinkToCard)
     return md.render(text)
   }
 }
