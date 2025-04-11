@@ -12,6 +12,7 @@
           | 企業
           = render 'sort_column', order_by: 'company_id', direction: direction, target: @target, job: @job
         th.admin-table__label 職業
+        th.admin-table__label 就職希望
         th.admin-table__label Discord
         th.admin-table__label
           |
@@ -87,6 +88,11 @@
                 = t("activerecord.enums.user.job.#{user.job}")
               - else
                 | 回答なし
+          td.admin-table__item-value.text-center
+            - if user.job_seeking?
+              | 希望する
+            - else
+              | 希望しない
           td.admin-table__item-value.text-center
             - if user.discord_profile.present?
               = user.discord_profile.account_name || '-'
