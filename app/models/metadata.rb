@@ -13,13 +13,14 @@ class Metadata
   private
 
   def parse(html)
-    ogp = LinkCard::Ogp.new(html)
+    og = OpenGraph.new(html)
     metadata_keys = %i[site_name site_url favicon url title description image]
     metadata_keys.map do |metadata_key|
       content = case metadata_key
                 when :site_url then site_url
                 when :favicon then favicon(site_url, html)
-                else ogp.find_by(metadata_key)
+                when :site_name then og.metadata[:site_name][0][:_value]
+                else og.public_send(metadata_key)
                 end
       [metadata_key, content]
     end.to_h
