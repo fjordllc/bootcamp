@@ -6,8 +6,8 @@ module LinkCard
   class CardTest < ActiveSupport::TestCase
     test '#metadata' do
       VCR.use_cassette 'link_card/metadata' do
-        params = { url: 'https://bootcamp.fjord.jp/faq' }
-        card = LinkCard::Card.new(params)
+        params = { url: 'https://bootcamp.fjord.jp/faq', tweet: nil }
+        card = LinkCard::Card.new(params[:url], params[:tweet])
         metadata = card.metadata
 
         assert_equal 'fjord bootcamp', metadata[:site_name]
@@ -20,7 +20,7 @@ module LinkCard
     test '#metadata for tweet' do
       VCR.use_cassette 'link_card/metadata/tweet' do
         params = { url: 'https://x.com/fjordbootcamp/status/1866097842483503117', tweet: '1' }
-        card = LinkCard::Card.new(params)
+        card = LinkCard::Card.new(params[:url], params[:tweet])
         metadata = JSON.parse(card.metadata, symbolize_names: true)
 
         assert_equal 'フィヨルドブートキャンプ', metadata[:author_name]
