@@ -2,7 +2,7 @@
 
 class API::MetadataController < ApplicationController
   def index
-    card = LinkCard::Card.new(params)
+    card = LinkCard::Card.new(params[:url], params[:tweet])
     metadata = card.metadata
 
     if metadata

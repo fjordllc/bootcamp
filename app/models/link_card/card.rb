@@ -2,9 +2,9 @@
 
 module LinkCard
   class Card
-    def initialize(params)
-      @url = params[:url]
-      @tweet = params[:tweet]
+    def initialize(url, tweet)
+      @url = url
+      @tweet = tweet
     end
 
     def metadata
