@@ -14,7 +14,7 @@ class Metadata
 
   def parse(html)
     og = OpenGraph.new(html)
-    metadata_keys = %i[site_name site_url favicon url title description image]
+    metadata_keys = %i[site_name site_url favicon url title description images]
     metadata_keys.map do |metadata_key|
       content = case metadata_key
                 when :site_url then site_url

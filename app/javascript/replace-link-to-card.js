@@ -159,12 +159,12 @@ const embedToLinkCard = async (targetLink, url) => {
 
     const metaData = await response.json()
 
-    const imageSection = metaData.image
+    const imageSection = metaData.images
       ? `
     <div class="a-link-card__image"><a href="${
       metaData.site_url || ''
     }" target="_blank"  rel="noopener" class="a-link-card__image-link">
-      <img src="${metaData.image}" alt="${
+      <img src="${metaData.images}" alt="${
           metaData.title || 'Site Image'
         }" class="a-link-card__image-ogp" />
     </a></div>
