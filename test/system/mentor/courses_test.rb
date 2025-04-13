@@ -47,5 +47,6 @@ class Mentor::CoursesTest < ApplicationSystemTestCase
   test 'can see closed courses' do
     visit_with_auth '/courses', 'mentormentaro'
     assert_text courses(:course2).title
+    assert_text courses(:course2).description
   end
 end
