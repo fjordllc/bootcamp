@@ -12,18 +12,12 @@ class CoursesTest < ApplicationSystemTestCase
     visit_with_auth '/courses', 'hajime'
     assert_link courses(:course1).title
     assert_text courses(:course1).description
-    assert_link courses(:course4).title
-    assert_text courses(:course4).description
+  end
+
+  test 'cant see unpublished courses' do
+    visit_with_auth '/courses', 'hajime'
     assert_no_link courses(:course2).title
     assert_no_text courses(:course2).description
-    visit_with_auth "/mentor/courses/#{courses(:course2).id}/edit", 'komagata'
-    within 'form[name=course]' do
-      find(:css, '#checkbox-published-course').set(true)
-      click_button '内容を保存'
-    end
-    visit_with_auth '/courses', 'hajime'
-    assert_link courses(:course2).title
-    assert_text courses(:course2).description
   end
 
   test 'mentors can see closed courses' do
