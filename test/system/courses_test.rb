@@ -20,15 +20,6 @@ class CoursesTest < ApplicationSystemTestCase
     assert_no_text courses(:course2).description
   end
 
-  test 'mentors can see closed courses' do
-    visit_with_auth "/mentor/courses/#{courses(:course1).id}/edit", 'komagata'
-    within 'form[name=course]' do
-      assert_not find(:css, '#checkbox-published-course').checked?
-    end
-    visit_with_auth '/courses', 'mentormentaro'
-    assert_text courses(:course1).title
-  end
-
   test 'show welcome page when user isnt logged in' do
     visit '/courses'
     assert_text 'コースを選択してください'

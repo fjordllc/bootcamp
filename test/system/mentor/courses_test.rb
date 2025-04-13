@@ -43,4 +43,9 @@ class Mentor::CoursesTest < ApplicationSystemTestCase
     visit "/mentor/courses/#{courses(:course1).id}/edit"
     assert_no_checked_field('course_published', visible: false)
   end
+
+  test 'can see closed courses' do
+    visit_with_auth '/courses', 'mentormentaro'
+    assert_text courses(:course2).title
+  end
 end
