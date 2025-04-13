@@ -490,9 +490,6 @@ report89:
     ---
 
     ## リンクカードが生成されない特殊パターン
-    ### リンクがただの文字列な場合
-    @[card](URL)
-
     ### リンクのスキームがhttp / https以外な場合
     @[card](ftp://target.example.com/target/directory/)
 
