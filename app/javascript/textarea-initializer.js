@@ -90,7 +90,6 @@ export default class {
     // Convert selected text to markdown link on URL paste
     new TextareaMarkdownLinkify().linkify(selector)
 
-    // Generate link-card
     ReplaceLinkToCard(selector)
   }
 
