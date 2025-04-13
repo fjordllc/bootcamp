@@ -1,6 +1,12 @@
+- pair_work_events = scheduled_on_pair_works(events_group.date_key)
+
 .card-list__items
   .card-list__label
     | #{I18n.t("dates.#{events_group.date_key}")}開催
+
+  - if pair_work_events
+    - pair_work_events.each do |pair_work|
+      = render 'events/upcoming_pair_work', pair_work: pair_work
   - if events_group.events.present?
     - events_group.events.each do |event|
       = render 'events/upcoming_event', event: event
