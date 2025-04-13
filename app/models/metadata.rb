@@ -6,7 +6,8 @@ class Metadata
   end
 
   def fetch
-    response = Link::Client.request(@url)
+    uri = Addressable::URI.parse(@url).normalize
+    response = Net::HTTP.get_response(uri)
     response.message == 'OK' ? parse(response.body) : nil
   end
 
