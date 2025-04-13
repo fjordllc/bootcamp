@@ -28,8 +28,8 @@ class Mentor::CoursesTest < ApplicationSystemTestCase
     assert_text 'コースを更新しました。'
   end
 
-  test 'can published course' do
-    visit_with_auth "/mentor/courses/#{courses(:course2).id}/edit", 'komagata'
+  test 'can publish course' do
+    visit_with_auth "/mentor/courses/#{courses(:course2).id}/edit", 'mentormentaro'
     check 'course_published', allow_label_click: true, visible: false
     click_button '内容を保存'
     visit "/mentor/courses/#{courses(:course2).id}/edit"
@@ -37,7 +37,7 @@ class Mentor::CoursesTest < ApplicationSystemTestCase
   end
 
   test 'can hide course' do
-    visit_with_auth "/mentor/courses/#{courses(:course1).id}/edit", 'komagata'
+    visit_with_auth "/mentor/courses/#{courses(:course1).id}/edit", 'mentormentaro'
     uncheck 'course_published', allow_label_click: true, visible: false
     click_button '内容を保存'
     visit "/mentor/courses/#{courses(:course1).id}/edit"
