@@ -9,6 +9,8 @@ module LinkCard
 
     def metadata
       Rails.cache.fetch @url, expires_in: 3.days do
+        return unless LinkChecker::Checker.valid_url?(@url)
+
         @tweet ? fetch_tweet : Metadata.new(@url).fetch
       end
     end
@@ -17,7 +19,8 @@ module LinkCard
 
     def fetch_tweet
       embed_tweet_url = "https://publish.twitter.com/oembed?url=#{@url}"
-      response = Link::Client.request(embed_tweet_url)
+      uri = Addressable::URI.parse(embed_tweet_url).normalize
+      response = Net::HTTP.get_response(uri)
       response.message == 'OK' ? response.body : nil
     end
   end
