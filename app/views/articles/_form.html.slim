@@ -40,24 +40,30 @@
           = f.label :tag_list, 'タグを入力してください',
             class: 'a-form-label'
           = render 'tags_input', taggable: article
-          .a-form-help
-            p 入力してエンターキーを押すとタグになります（スペースは入力できません）。
 
-    .form-item
-      .row
-        .col-md-6.col-xs-12
-          = 'タグ入力'
-      ul.tab-nav__items
-        li
-          = button_tag '注目の記事', type: 'button', class: 'tag-item', data: { tag: '注目の記事' }
-        li
-          = button_tag '卒業生の声', type: 'button', class: 'tag-item', data: { tag: '卒業生の声' }
-        li
-          = button_tag 'プレスリリース', type: 'button', class: 'tag-item', data: { tag: 'プレスリリース' }
-        li
-          = button_tag 'スポンサーシップ', type: 'button', class: 'tag-item', data: { tag: 'スポンサーシップ' }
-        li
-          = button_tag '受賞実績', type: 'button', class: 'tag-item', data: { tag: '受賞実績' }
+          .tag-input
+            .tag-input__title
+              | 簡単タグ入力
+            .tag-input__tags
+              ul.tag-input__items
+                li.tag-input__item
+                  = button_tag '注目の記事', type: 'button', class: 'a-button is-sm is-primary-border js-tag-input-button', data: { tag: '注目の記事' }
+                li.tag-input__item
+                  = button_tag '卒業生の声', type: 'button', class: 'a-button is-sm is-primary-border js-tag-input-button', data: { tag: '卒業生の声' }
+                li.tag-input__item
+                  = button_tag 'プレスリリース', type: 'button', class: 'a-button is-sm is-primary-border js-tag-input-button', data: { tag: 'プレスリリース' }
+                li.tag-input__item
+                  = button_tag 'スポンサーシップ', type: 'button', class: 'a-button is-sm is-primary-border js-tag-input-button', data: { tag: 'スポンサーシップ' }
+                li.tag-input__item
+                  = button_tag '受賞実績', type: 'button', class: 'a-button is-sm is-primary-border js-tag-input-button', data: { tag: '受賞実績' }
+
+          .a-form-help
+            p 注目の記事...トップページの注目の記事一覧に表示されます。
+            p 卒業生の声...卒業生の声ページの記事一覧に表示されます。
+            p プレスリリース...プレスキットの記事一覧に表示されます。
+            p スポンサーシップ...スポンサー実績ページの記事一覧に表示されます。
+            p 受賞実績...受賞実績ページの記事一覧に表示されます。
+            p タグは手入力でも登録できます。入力してエンターキーを押すとタグになります（スペースは入力できません）。
 
     .form-item
       .row

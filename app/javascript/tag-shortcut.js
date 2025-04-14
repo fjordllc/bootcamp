@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.tag-item').forEach((button) => {
+  document.querySelectorAll('.js-tag-input-button').forEach((button) => {
     button.addEventListener('click', () => {
       const tag = button.dataset.tag
       const tagifyScope = document.querySelector('.tagify')
