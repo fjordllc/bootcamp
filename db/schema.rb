@@ -560,6 +560,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_19_100001) do
     t.boolean "wip", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "channel", default: "ペアワーク・モブワーク1", null: false
     t.index ["buddy_id"], name: "index_pair_works_on_buddy_id"
     t.index ["practice_id"], name: "index_pair_works_on_practice_id"
     t.index ["user_id"], name: "index_pair_works_on_user_id"
