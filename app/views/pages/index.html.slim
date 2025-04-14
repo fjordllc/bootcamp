@@ -12,7 +12,7 @@ main.page-main
           .page-main-header__start
             h2.page-optional-header__title
               | タグ 「#{@tag.name}」
-              = link_to pages_path, class: 'page-optional-header__title-cancel' do
+              = link_to pages_path, class: 'page-optional-header__title-cancel a-cancel-button' do
                 i.fa-solid.fa-times.fa-fw
           .page-main-header__end
               .page-main-header-actions
