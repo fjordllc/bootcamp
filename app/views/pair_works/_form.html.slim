@@ -60,6 +60,12 @@
       - else
         = render 'schedule', pair_work: pair_work
 
+      .form-item
+        .row.js-markdown-parent
+          .col-md-6.col-xs-12
+            = f.label :channel, 'ペアワークを行うチャンネル'
+            = f.text_field :channel, class: 'a-text-input js-warning-form', value: 'ペアワーク・モブワーク1'
+
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
