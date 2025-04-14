@@ -78,6 +78,7 @@ import '../coding_tests_sort.js'
 import '../watches.js'
 import '../watch-toggle.js'
 import '../diploma-upload.js'
+import '../tag-shortcut.js'
 import Cocooned from '@notus.sh/cocooned'
 import '../action_completed_button.js'
 

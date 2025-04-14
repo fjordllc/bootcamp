@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useRef, useEffect } from 'react'
 import TagifyTags from '@yaireo/tagify/dist/react.tagify'
 import '@yaireo/tagify/dist/tagify.css' // Tagify CSS
 import useSWR from 'swr'
@@ -15,6 +15,7 @@ export default function TagsInput({
 }) {
   const [tags, setTags] = useState(parseTags(tagsInitialValue))
   const [isSharp, setIsSharp] = useState(false)
+  const tagifyRef = useRef()
   const { data, error } = useSWR(
     `/api/tags.json?taggable_type=${taggableType}`,
     fetcher
@@ -42,9 +43,30 @@ export default function TagsInput({
     setIsSharp(false)
   }, [])
 
+  useEffect(() => {
+    const handleAddTag = (e) => {
+      const newTag = e.detail?.tag
+      if (!newTag || tagifyRef.current?.value.some((t) => t.value === newTag))
+        return
+      tagifyRef.current.addTags([newTag])
+    }
+
+    const root = tagifyRef.current?.DOM?.scope
+    if (root) {
+      root.addEventListener('add-tag-from-shortcut', handleAddTag)
+    }
+
+    return () => {
+      if (root) {
+        root.removeEventListener('add-tag-from-shortcut', handleAddTag)
+      }
+    }
+  }, [])
+
   return (
     <>
       <TagifyTags
+        tagifyRef={tagifyRef}
         settings={{
           validate: validateTagName,
           transformTag: transformHeadSharp
