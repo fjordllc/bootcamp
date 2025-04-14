@@ -46,6 +46,22 @@
     .form-item
       .row
         .col-md-6.col-xs-12
+          = 'タグ入力'
+      ul.tab-nav__items
+        li
+          = button_tag '注目の記事', type: 'button', class: 'tag-item', data: { tag: '注目の記事' }
+        li
+          = button_tag '卒業生の声', type: 'button', class: 'tag-item', data: { tag: '卒業生の声' }
+        li
+          = button_tag 'プレスリリース', type: 'button', class: 'tag-item', data: { tag: 'プレスリリース' }
+        li
+          = button_tag 'スポンサーシップ', type: 'button', class: 'tag-item', data: { tag: 'スポンサーシップ' }
+        li
+          = button_tag '受賞実績', type: 'button', class: 'tag-item', data: { tag: '受賞実績' }
+
+    .form-item
+      .row
+        .col-md-6.col-xs-12
           label.a-form-label
             | サムネイル画像選択
           .a-form-help.mb-4
