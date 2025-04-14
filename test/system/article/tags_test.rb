@@ -47,7 +47,7 @@ class Article::TagsTest < ApplicationSystemTestCase
     visit_with_auth new_article_url, 'komagata'
     fill_in 'タイトル', with: 'ショートカットボタンからのタグ追加テスト'
     fill_in '本文', with: 'タグショートカットボタンのテストです'
-    find('button.tag-item', text: '注目の記事').click
+    find('button.js-tag-input-button', text: '注目の記事').click
     find('.tagify__input')
     assert_text '注目の記事'
     page.accept_confirm do
