@@ -53,7 +53,7 @@ class PairWorksController < ApplicationController
   private
 
   def pair_work_params
-    fields = %i[practice_id title description reserved_at buddy_id]
+    fields = %i[practice_id title description reserved_at buddy_id channel]
     fields << :pair_work_schedules if params[:action] == 'create'
 
     params.require(:pair_work).permit(*fields)
