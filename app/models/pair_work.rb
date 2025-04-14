@@ -65,6 +65,10 @@ class PairWork < ApplicationRecord
     !!reserved_at
   end
 
+  def important?
+    comments.blank? && !solved?
+  end
+
   private
 
   def will_be_published?
