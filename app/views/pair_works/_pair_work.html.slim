@@ -42,7 +42,7 @@
                   span.a-meta__value
                     | #{l pair_work.published_at}
             .card-list-item-meta__item
-              .a-meta
+              .a-meta(class="#{pair_work.important? ? 'is-important' : ''}")
                 | コメント（#{pair_work.comments.length}）
 
     - if pair_work.solved?
