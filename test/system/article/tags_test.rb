@@ -42,4 +42,20 @@ class Article::TagsTest < ApplicationSystemTestCase
     click_link 'SecondTag'
     assert_text 'タグ付きテスト記事'
   end
+
+  test 'can add tag using shortcut buttons' do
+    visit_with_auth new_article_url, 'komagata'
+    fill_in 'タイトル', with: 'ショートカットボタンからのタグ追加テスト'
+    fill_in '本文', with: 'タグショートカットボタンのテストです'
+    find('button.tag-item', text: '注目の記事').click
+    find('.tagify__input')
+    assert_text '注目の記事'
+    page.accept_confirm do
+      click_on '公開する'
+    end
+    assert_text '記事を作成しました'
+
+    created_article = Article.find_by(title: 'ショートカットボタンからのタグ追加テスト')
+    assert_includes created_article.tag_list, '注目の記事'
+  end
 end
