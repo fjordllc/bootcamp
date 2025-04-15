@@ -1,11 +1,7 @@
 import CSRF from 'csrf'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
-<<<<<<< HEAD
 import { initializeComment, toggleVisibility } from './initializeComment.js'
-=======
-import initializeComment from './initializeComment.js'
->>>>>>> e10a067bf (コメントを扱うための各種ファイルを追加)
 import { initializeReaction } from './reaction.js'
 import { toast } from './vanillaToast.js'
 

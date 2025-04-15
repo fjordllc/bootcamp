@@ -25,7 +25,9 @@ class API::CommentsController < API::BaseController
     @comment.user = current_user
     @comment.commentable = commentable
     if @comment.save
-      if params[:commentable_type] == 'Report'
+      exception_type = ['Report', 'Announcement']
+      # if params[:commentable_type] == 'Report'
+      if exception_type.include?(params[:commentable_type])
         render partial: 'comments/comment', locals: { commentable:, comment: @comment, user: current_user }, status: :created
       else
         render :create, status: :created
