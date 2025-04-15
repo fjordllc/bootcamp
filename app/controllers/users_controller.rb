@@ -162,7 +162,7 @@ class UsersController < ApplicationController
   end
 
   def notify_to_chat(user)
-    ChatNotifier.message "#{user.login_name}さんが新たなメンバーとしてJOINしました🎉\r<#{url_for(user)}>"
+    ChatNotifier.message "#{user.login_name}さん#{user.roles_to_s.empty? ? '' : "（#{user.roles_to_s}）"}が新たなメンバーとしてJOINしました🎉\r<#{url_for(user)}>"
   end
 
   def user_params
