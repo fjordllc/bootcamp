@@ -19,6 +19,7 @@ class ProductsController < ApplicationController
     @recent_reports = Report.list.where(user_id: @product.user.id).limit(10)
     Footprint.find_or_create_for(@product, current_user)
     @footprints = Footprint.fetch_for_resource(@product)
+    @comments = @product.comments.order(:created_at)
     respond_to do |format|
       format.html
       format.md
