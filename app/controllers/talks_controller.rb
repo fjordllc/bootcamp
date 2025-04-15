@@ -29,7 +29,9 @@ class TalksController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @comments = @talk.comments.order(:created_at)
+  end
 
   private
 
