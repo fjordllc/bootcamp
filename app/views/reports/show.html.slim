@@ -40,7 +40,7 @@
                 = link_to @report.next, class: 'page-content-prev-next__item-link is-next' do
                   | 次の日報
                   i.fa-solid.fa-angle-right
-        #js-comments(data-commentable-id="#{@report.id}" data-commentable-type='Report' data-current-user-id="#{current_user.id}")
+        = render 'comments/comments', commentable: @report, commentable_type: 'Report'
         .user-icons
           ul.user-icons__items
             = render '/footprints/footprints', footprints: @footprints
