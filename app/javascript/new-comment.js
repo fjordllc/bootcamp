@@ -1,19 +1,31 @@
 import CSRF from 'csrf'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
+<<<<<<< HEAD
 import { initializeComment, toggleVisibility } from './initializeComment.js'
+=======
+import initializeComment from './initializeComment.js'
+>>>>>>> e10a067bf (コメントを扱うための各種ファイルを追加)
 import { initializeReaction } from './reaction.js'
 import { toast } from './vanillaToast.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const newComment = document.querySelector('.new-comment')
   if (newComment) {
+<<<<<<< HEAD
     const commentableId = newComment.dataset.commentable_id
     const commentableType = newComment.dataset.commentable_type
 
     let savedComment = ''
     TextareaInitializer.initialize('#js-new-comment')
     const markdownInitializer = new MarkdownInitializer()
+=======
+    TextareaInitializer.initialize('#js-new-comment')
+    const markdownInitializer = new MarkdownInitializer()
+    const commentableId = newComment.dataset.commentable_id
+    const commentableType = newComment.dataset.commentable_type
+    let savedComment = ''
+>>>>>>> e10a067bf (コメントを扱うための各種ファイルを追加)
 
     const commentEditor = newComment.querySelector('.comment-editor')
     const commentEditorPreview = commentEditor.querySelector(
@@ -27,18 +39,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const editorTabContent = commentEditor.querySelector('.is-editor')
     const previewTab = commentEditor.querySelector('.comment-preview-tab')
     const previewTabContent = commentEditor.querySelector('.is-preview')
+<<<<<<< HEAD
+=======
+
+>>>>>>> e10a067bf (コメントを扱うための各種ファイルを追加)
     const tabElements = [
       editTab,
       editorTabContent,
       previewTab,
       previewTabContent
     ]
+<<<<<<< HEAD
     editTab.addEventListener('click', () =>
       toggleVisibility(tabElements, 'is-active')
     )
     previewTab.addEventListener('click', () =>
       toggleVisibility(tabElements, 'is-active')
     )
+=======
+>>>>>>> e10a067bf (コメントを扱うための各種ファイルを追加)
 
     const saveButton = commentEditor.querySelector('.is-primary')
     editorTextarea.addEventListener('input', () => {
@@ -60,6 +79,17 @@ document.addEventListener('DOMContentLoaded', () => {
       )
       saveButton.disabled = true
     })
+<<<<<<< HEAD
+=======
+
+    editTab.addEventListener('click', () =>
+      toggleVisibility(tabElements, 'is-active')
+    )
+
+    previewTab.addEventListener('click', () =>
+      toggleVisibility(tabElements, 'is-active')
+    )
+>>>>>>> e10a067bf (コメントを扱うための各種ファイルを追加)
   }
 })
 
@@ -109,3 +139,12 @@ function createComment(description, commentableId, commentableType) {
       console.warn(error)
     })
 }
+<<<<<<< HEAD
+=======
+
+function toggleVisibility(elements, className) {
+  elements.forEach((element) => {
+    element.classList.toggle(className)
+  })
+}
+>>>>>>> e10a067bf (コメントを扱うための各種ファイルを追加)
