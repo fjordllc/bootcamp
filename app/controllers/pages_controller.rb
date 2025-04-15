@@ -22,6 +22,7 @@ class PagesController < ApplicationController
 
   def show
     @pages = @page.practice.pages.limit(SIDE_LINK_LIMIT) if @page.practice
+    @comments = @page.comments.order(:created_at)
 
     if logged_in?
       render :show
