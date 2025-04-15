@@ -60,7 +60,7 @@ header.page-header
             .page-body__row
               = render 'product_body', product: @product
 
-        #js-comments(data-commentable-id="#{@product.id}" data-commentable-type='Product' data-current-user-id="#{current_user.id}")
+        = render 'comments/comments', commentable: @product, commentable_type: 'Product'
         .user-icons
           ul.user-icons__items
             = render '/footprints/footprints', footprints: @footprints
