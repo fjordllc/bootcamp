@@ -45,11 +45,16 @@ export default {
           } else {
             checkStamp()
             if (!this.checkId) {
+              const event = new CustomEvent('checked')
+              document.dispatchEvent(event)
               if (checkableType === 'Product') {
                 this.toast('提出物を合格にしました。')
               } else if (checkableType === 'Report') {
                 this.toast('日報を確認済みにしました。')
               }
+            } else {
+              const event = new CustomEvent('unchecked')
+              document.dispatchEvent(event)
             }
           }
         })
