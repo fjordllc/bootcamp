@@ -54,6 +54,12 @@ class MoviesTest < ApplicationSystemTestCase
   end
 
   test 'show comment count' do
+    movie = movies(:movie1)
+    movie.movie_data.attach(
+      io: File.open(Rails.root.join('test/fixtures/files/movies/movie.mp4')),
+      filename: 'movie.mp4',
+      content_type: 'video/mp4'
+    )
     visit_with_auth "/movies/#{movies(:movie1).id}", 'kimura'
     assert_selector '#comment_count', text: 0
 
