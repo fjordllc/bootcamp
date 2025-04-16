@@ -27,3 +27,9 @@ movie5:
   description: OS X Mountain Lionをクリーンインストールするに関連する動画です
   user: kimura
   published_at: '2024-04-09 00:00:00'
+
+movie6:
+  title: 削除のテスト
+  description: 削除のテスト用です
+  user: kimura
+  published_at: '2024-04-09 00:00:00'
