@@ -48,7 +48,7 @@ export default {
     document.addEventListener('comment-posted', this.handleCommentPosted)
   },
   beforeDestroy() {
-    document.removeEventListener('comment-posted', this.handleCommentPosted);
+    document.removeEventListener('comment-posted', this.handleCommentPosted)
   },
   methods: {
     buttonClick() {
