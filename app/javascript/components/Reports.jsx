@@ -30,16 +30,16 @@ export default function Reports({
     practices
       ? `/api/reports.json?user_id=${userId}&page=${page}&practice_id=${userPracticeId}`
       : unchecked
-      ? `/api/reports/unchecked.json?page=${page}&user_id=${userId}`
-      : userId !== ''
-      ? `/api/reports.json?page=${page}&user_id=${userId}`
-      : practiceId !== ''
-      ? `/api/reports.json?page=${page}&practice_id=${practiceId}`
-      : companyId !== ''
-      ? `/api/reports.json?page=${page}&company_id=${companyId}`
-      : all === true
-      ? `/api/reports.json?page=${page}&practice_id=${userPracticeId}`
-      : console.log('data_fetched!'),
+        ? `/api/reports/unchecked.json?page=${page}&user_id=${userId}`
+        : userId !== ''
+          ? `/api/reports.json?page=${page}&user_id=${userId}`
+          : practiceId !== ''
+            ? `/api/reports.json?page=${page}&practice_id=${practiceId}`
+            : companyId !== ''
+              ? `/api/reports.json?page=${page}&company_id=${companyId}`
+              : all === true
+                ? `/api/reports.json?page=${page}&practice_id=${userPracticeId}`
+                : console.log('data_fetched!'),
     fetcher
   )
 

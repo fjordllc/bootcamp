@@ -4,13 +4,14 @@ import MarkdownInitializer from 'markdown-initializer'
 import { initializeComment, toggleVisibility } from './initializeComment.js'
 import { initializeReaction } from './reaction.js'
 import { toast } from './vanillaToast.js'
+import jsCheckable from './jsCheckable.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const newComment = document.querySelector('.new-comment')
   if (newComment) {
     const commentableId = newComment.dataset.commentable_id
     const commentableType = newComment.dataset.commentable_type
-
+    const isMentor = newComment.dataset.is_mentor === 'true'
     let savedComment = ''
     TextareaInitializer.initialize('#js-new-comment')
     const markdownInitializer = new MarkdownInitializer()
@@ -41,32 +42,107 @@ document.addEventListener('DOMContentLoaded', () => {
     )
 
     const saveButton = commentEditor.querySelector('.is-primary')
-    editorTextarea.addEventListener('input', () => {
+
+    const saveAndCheckButton = commentEditor.querySelector('.is-danger')
+
+    const updatePreviewAndButtonState = () => {
       commentEditorPreview.innerHTML = markdownInitializer.render(
         editorTextarea.value
       )
-      saveButton.disabled = editorTextarea.value.length === 0
-    })
+      const isEmpty = editorTextarea.value.length === 0
+      saveButton.disabled = isEmpty
+      saveAndCheckButton.disabled = isEmpty
+    }
 
-    saveButton.addEventListener('click', () => {
-      savedComment = editorTextarea.value
-      createComment(savedComment, commentableId, commentableType)
+    const resetEditor = () => {
       if (previewTab.classList.contains('is-active')) {
         toggleVisibility(tabElements, 'is-active')
       }
       editorTextarea.value = ''
-      commentEditorPreview.innerHTML = markdownInitializer.render(
-        editorTextarea.value
-      )
-      saveButton.disabled = true
+      updatePreviewAndButtonState()
+    }
+
+    editorTextarea.addEventListener('input', () => {
+      updatePreviewAndButtonState()
+    })
+
+    const handleSave = async (checkAfterSave = false) => {
+      if (commentableType === 'Report' && isMentor && !checkAfterSave) {
+        const isAlreadyChecked = await jsCheckable.isChecked(
+          commentableType,
+          commentableId
+        )
+
+        if (
+          !isAlreadyChecked &&
+          !window.confirm('日報を確認済みにしていませんがよろしいですか？')
+        ) {
+          return
+        }
+      }
+
+      savedComment = editorTextarea.value
+
+      try {
+        await createComment(savedComment, commentableId, commentableType)
+
+        if (checkAfterSave) {
+          await jsCheckable.check(
+            commentableType,
+            commentableId,
+            '/api/checks',
+            'POST'
+          )
+          saveAndCheckButton.parentNode.style.display = 'none'
+        }
+        resetEditor()
+      } catch (error) {
+        console.warn(error)
+      }
+    }
+
+    saveButton.addEventListener('click', () => {
+      handleSave()
+    })
+
+    saveAndCheckButton.addEventListener('click', () => {
+      if (
+        commentableType === 'Product' &&
+        !window.confirm('提出物を確認済にしてよろしいですか？')
+      ) {
+        return null
+      } else {
+        handleSave(true)
+      }
+    })
+
+    editTab.addEventListener('click', () =>
+      toggleVisibility(tabElements, 'is-active')
+    )
+
+    previewTab.addEventListener('click', () =>
+      toggleVisibility(tabElements, 'is-active')
+    )
+
+    document.addEventListener('checked', () => {
+      if (saveAndCheckButton && saveAndCheckButton.parentNode) {
+        saveAndCheckButton.parentNode.style.display = 'none'
+      }
+    })
+
+    document.addEventListener('unchecked', () => {
+      if (saveAndCheckButton && saveAndCheckButton.parentNode) {
+        saveAndCheckButton.parentNode.style.display = 'block'
+      }
     })
   }
 })
 
-function createComment(description, commentableId, commentableType) {
+async function createComment(description, commentableId, commentableType) {
   if (description.length < 1) {
     return null
   }
+
   const params = {
     commentable_id: commentableId,
     commentable_type: commentableType,
@@ -74,45 +150,46 @@ function createComment(description, commentableId, commentableType) {
       description: description
     }
   }
-  fetch('/api/comments', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      'X-Requested-With': 'XMLHttpRequest',
-      'X-CSRF-Token': CSRF.getToken()
-    },
-    credentials: 'same-origin',
-    redirect: 'manual',
-    body: JSON.stringify(params)
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.text()
-      } else {
-        return response.json().then((data) => {
-          throw new Error(data.errors.join(', '))
-        })
+
+  try {
+    const response = await fetch('/api/comments', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-Token': CSRF.getToken()
+      },
+      credentials: 'same-origin',
+      redirect: 'manual',
+      body: JSON.stringify(params)
+    })
+
+    let html
+    if (response.ok) {
+      html = await response.text()
+    } else {
+      const data = await response.json()
+      throw new Error(data.errors.join(', '))
+    }
+
+    const comments = document.querySelector('.thread-comments__items')
+    const commentDiv = document.createElement('div')
+    commentDiv.innerHTML = html.replace('style="display: none;', '')
+    const newCommentElement = commentDiv.firstElementChild
+    comments.appendChild(newCommentElement)
+    initializeComment(newCommentElement)
+    const reactionElement = newCommentElement.querySelector('.js-reactions')
+    initializeReaction(reactionElement)
+    toast('コメントを投稿しました！')
+
+    const event = new CustomEvent('comment-posted', {
+      detail: {
+        watchableId: commentableId,
+        watchableType: commentableType
       }
     })
-    .then((html) => {
-      const comments = document.querySelector('.thread-comments__items')
-      const commentDiv = document.createElement('div')
-      commentDiv.innerHTML = html.replace('style="display: none;', '')
-      const newCommentElement = commentDiv.firstElementChild
-      comments.appendChild(newCommentElement)
-      initializeComment(newCommentElement)
-      const reactionElement = newCommentElement.querySelector('.js-reactions')
-      initializeReaction(reactionElement)
-      toast('コメントを投稿しました！')
-      const event = new CustomEvent('comment-posted', {
-        detail: {
-          watchableId: commentableId,
-          watchableType: commentableType
-        }
-      })
-      document.dispatchEvent(event)
-    })
-    .catch((error) => {
-      console.warn(error)
-    })
+    document.dispatchEvent(event)
+  } catch (error) {
+    console.warn(error)
+  }
 }
