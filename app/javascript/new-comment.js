@@ -104,6 +104,13 @@ function createComment(description, commentableId, commentableType) {
       const reactionElement = newCommentElement.querySelector('.js-reactions')
       initializeReaction(reactionElement)
       toast('コメントを投稿しました！')
+      const event = new CustomEvent('comment-posted', {
+        detail: {
+          watchableId: commentableId,
+          watchableType: commentableType
+        }
+      })
+      document.dispatchEvent(event)
     })
     .catch((error) => {
       console.warn(error)
