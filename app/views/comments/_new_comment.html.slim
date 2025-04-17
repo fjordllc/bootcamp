@@ -1,4 +1,4 @@
-.thread-comment-form.new-comment data-commentable_id="#{commentable.id}" data-commentable_type="#{commentable_type}" data-is_check="#{commentable.try(:checked?)}" data-is_mentor="#{mentor_login?}"
+.thread-comment-form.new-comment data-commentable_id="#{commentable.id}" data-commentable_type="#{commentable_type}" data-is_mentor="#{mentor_login?}" data-current_user_id="#{current_user.id}"
   .thread-comment__start
     span class="a-user-role is-#{user.primary_role}"
       img.thread-comment__user-icon.a-user-icon src="#{user.avatar_url}" alt="#{current_user.icon_title}"

@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (newComment) {
     const commentableId = newComment.dataset.commentable_id
     const commentableType = newComment.dataset.commentable_type
+    const currentUserId = newComment.dataset.current_user_id
     const isMentor = newComment.dataset.is_mentor === 'true'
     let savedComment = ''
     TextareaInitializer.initialize('#js-new-comment')
@@ -67,6 +68,11 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     const handleSave = async (checkAfterSave = false) => {
+      const isUnassignedAndUnchekedProduct = await jsCheckable.isUnassignedAndUnchekedProduct(commentableType, commentableId)
+      if (isUnassignedAndUnchekedProduct) {
+        jsCheckable.assignChecker(commentableId, currentUserId)
+      }
+      
       if (commentableType === 'Report' && isMentor && !checkAfterSave) {
         const isAlreadyChecked = await jsCheckable.isChecked(
           commentableType,
