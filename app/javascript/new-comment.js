@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         resetEditor()
         toast(toastMessage)
+        toastMessage = 'コメントを投稿しました！'
       } catch (error) {
         console.warn(error)
       }
