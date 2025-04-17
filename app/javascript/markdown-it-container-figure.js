@@ -12,7 +12,6 @@ export default (md) => {
   })
 
   buildFigureContent(md)
-  removeFigureParagraph(md)
 }
 
 // figureブロックの中身からキャプションを抽出しfigcaptionタグで囲み、figureコンテンツを整形する
@@ -20,7 +19,7 @@ const buildFigureContent = (md) => {
   md.core.ruler.after('block', 'extracting_caption_from_figure', (state) => {
     let isInContainerFigure = false
 
-    state.tokens.forEach((token) => {
+    state.tokens.forEach((token, i) => {
       if (token.type === 'container_figure_open') {
         isInContainerFigure = true
       }
@@ -31,6 +30,12 @@ const buildFigureContent = (md) => {
         const linkedImageTag = linkedImageMatch ? linkedImageMatch[0] : ''
         const caption = token.content.replace(linkedImageTag, '').trim()
         token.content = `${linkedImageTag}${`<figcaption>${caption}</figcaption>`}`
+
+        // markdown-itが自動出力してしまうfigureタグ内のpタグを出力しないようにする
+        const pOpen = state.tokens[i - 1]
+        const pClose = state.tokens[i + 1]
+        pOpen.hidden = true
+        pClose.hidden = true
       }
       if (token.type === 'container_figure_close') {
         isInContainerFigure = false
@@ -39,25 +44,4 @@ const buildFigureContent = (md) => {
 
     return true
   })
-}
-
-// markdown-itが自動出力してしまうfigureタグ内のpタグを削除する
-const removeFigureParagraph = (md) => {
-  let isInContainerFigure = false
-
-  md.renderer.rules.container_figure_open = () => {
-    isInContainerFigure = true
-    return '<figure>'
-  }
-
-  md.renderer.rules.paragraph_open = (tokens, idx, options, env, self) =>
-    isInContainerFigure ? '' : self.renderToken(tokens, idx, options, env)
-
-  md.renderer.rules.paragraph_close = (tokens, idx, options, env, self) =>
-    isInContainerFigure ? '' : self.renderToken(tokens, idx, options, env)
-
-  md.renderer.rules.container_figure_close = () => {
-    isInContainerFigure = false
-    return '</figure>'
-  }
 }
