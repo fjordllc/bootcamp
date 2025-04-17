@@ -52,7 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
       )
       const isEmpty = editorTextarea.value.length === 0
       saveButton.disabled = isEmpty
-      saveAndCheckButton.disabled = isEmpty
+      if (saveAndCheckButton) {
+        saveAndCheckButton.disabled = isEmpty
+      }
     }
 
     const resetEditor = () => {
@@ -68,7 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     const handleSave = async (checkAfterSave = false) => {
-      let toastMessage = 'コメントを投稿しました！'
       const isUnassignedAndUnchekedProduct =
         await jsCheckable.isUnassignedAndUnchekedProduct(
           commentableType,
@@ -110,9 +111,14 @@ document.addEventListener('DOMContentLoaded', () => {
             '/api/checks',
             'POST'
           )
+          toastMessage =
+            commentableType === 'Product'
+              ? '提出物を確認済みにしました。'
+              : '日報を確認済みにしました。'
           saveAndCheckButton.parentNode.style.display = 'none'
         }
         resetEditor()
+        toast(toastMessage)
       } catch (error) {
         console.warn(error)
       }
@@ -122,16 +128,18 @@ document.addEventListener('DOMContentLoaded', () => {
       handleSave()
     })
 
-    saveAndCheckButton.addEventListener('click', () => {
-      if (
-        commentableType === 'Product' &&
-        !window.confirm('提出物を確認済にしてよろしいですか？')
-      ) {
-        return null
-      } else {
-        handleSave(true)
-      }
-    })
+    if (saveAndCheckButton) {
+      saveAndCheckButton.addEventListener('click', () => {
+        if (
+          commentableType === 'Product' &&
+          !window.confirm('提出物を確認済にしてよろしいですか？')
+        ) {
+          return null
+        } else {
+          handleSave(true)
+        }
+      })
+    }
 
     editTab.addEventListener('click', () =>
       toggleVisibility(tabElements, 'is-active')
@@ -155,12 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 })
 
-async function createComment(
-  description,
-  commentableId,
-  commentableType,
-  toastMessage
-) {
+async function createComment(description, commentableId, commentableType) {
   if (description.length < 1) {
     return null
   }
@@ -202,7 +205,6 @@ async function createComment(
     initializeComment(newCommentElement)
     const reactionElement = newCommentElement.querySelector('.js-reactions')
     initializeReaction(reactionElement)
-    toast(toastMessage)
 
     const event = new CustomEvent('comment-posted', {
       detail: {
