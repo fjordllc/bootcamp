@@ -68,11 +68,17 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     const handleSave = async (checkAfterSave = false) => {
-      const isUnassignedAndUnchekedProduct = await jsCheckable.isUnassignedAndUnchekedProduct(commentableType, commentableId)
+      let toastMessage = 'コメントを投稿しました！'
+      const isUnassignedAndUnchekedProduct =
+        await jsCheckable.isUnassignedAndUnchekedProduct(
+          commentableType,
+          commentableId
+        )
       if (isUnassignedAndUnchekedProduct) {
+        toastMessage = '担当になりました。'
         jsCheckable.assignChecker(commentableId, currentUserId)
       }
-      
+
       if (commentableType === 'Report' && isMentor && !checkAfterSave) {
         const isAlreadyChecked = await jsCheckable.isChecked(
           commentableType,
@@ -90,7 +96,12 @@ document.addEventListener('DOMContentLoaded', () => {
       savedComment = editorTextarea.value
 
       try {
-        await createComment(savedComment, commentableId, commentableType)
+        await createComment(
+          savedComment,
+          commentableId,
+          commentableType,
+          toastMessage
+        )
 
         if (checkAfterSave) {
           await jsCheckable.check(
@@ -144,7 +155,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 })
 
-async function createComment(description, commentableId, commentableType) {
+async function createComment(
+  description,
+  commentableId,
+  commentableType,
+  toastMessage
+) {
   if (description.length < 1) {
     return null
   }
@@ -186,7 +202,7 @@ async function createComment(description, commentableId, commentableType) {
     initializeComment(newCommentElement)
     const reactionElement = newCommentElement.querySelector('.js-reactions')
     initializeReaction(reactionElement)
-    toast('コメントを投稿しました！')
+    toast(toastMessage)
 
     const event = new CustomEvent('comment-posted', {
       detail: {
