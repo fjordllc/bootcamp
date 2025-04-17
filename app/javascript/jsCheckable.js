@@ -4,13 +4,11 @@ import checkStamp from 'check-stamp.js'
 
 export default {
   async isUnassignedAndUnchekedProduct(checkableType, checkableId) {
-    const hasCheckerResult = await this.hasChecker(checkableId)
-    const isCheckedResult = await this.isChecked(checkableType, checkableId)
-    return (
-      checkableType === 'Product' &&
-      hasCheckerResult === false &&
-      isCheckedResult === false
-    )
+    if (checkableType === 'Product') {
+      const hasCheckerResult = await this.hasChecker(checkableId)
+      const isCheckedResult = await this.isChecked(checkableType, checkableId)
+      return hasCheckerResult === false && isCheckedResult === false
+    }
   },
 
   async check(checkableType, checkableId, url, method) {
@@ -43,11 +41,6 @@ export default {
         toast(data.message, 'error')
       } else {
         checkStamp()
-        if (checkableType === 'Product') {
-          toast('提出物を確認済みにしました。')
-        } else if (checkableType === 'Report') {
-          toast('日報を確認済みにしました。')
-        }
       }
     } catch (error) {
       console.warn(error)
@@ -123,6 +116,7 @@ export default {
         {
           method: 'GET',
           headers: {
+            'Content-Type': 'application/json; charset=utf-8',
             'X-Requested-With': 'XMLHttpRequest',
             'X-CSRF-Token': CSRF.getToken()
           },
