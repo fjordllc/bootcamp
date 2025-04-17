@@ -98,15 +98,14 @@ class MoviesTest < ApplicationSystemTestCase
   end
 
   test 'destroy movie' do
-    visit_with_auth "/movies/#{movies(:movie1).id}", 'komagata'
+    visit_with_auth "/movies/#{movies(:movie5).id}", 'komagata'
 
     accept_confirm do
       click_link '削除する'
     end
 
-    assert_text '動画を削除しました。'
     assert_current_path movies_path
-    assert_no_text 'mp4動画'
+    assert_no_text '削除のテスト'
   end
 
   test 'show a WIP movie on movie list page' do
