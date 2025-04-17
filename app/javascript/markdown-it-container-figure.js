@@ -19,12 +19,10 @@ export default (md) => {
 const buildFigureContent = (md) => {
   md.core.ruler.after('block', 'extracting_caption_from_figure', (state) => {
     let isInContainerFigure = false
-    const figureIndexes = []
 
-    state.tokens.forEach((token, i) => {
+    state.tokens.forEach((token) => {
       if (token.type === 'container_figure_open') {
         isInContainerFigure = true
-        figureIndexes.push(i)
       }
       if (isInContainerFigure && token.type === 'inline') {
         const linkedImageMatch = token.content.match(
