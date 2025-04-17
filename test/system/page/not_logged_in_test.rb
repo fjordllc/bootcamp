@@ -4,6 +4,7 @@ require 'application_system_test_case'
 
 class Page::NotLoggedInTest < ApplicationSystemTestCase
   test 'when not logged in user access docs, meta description is displayed' do
+    logout
     target_page = pages(:page1)
     visit page_path(target_page)
     assert_selector 'head', visible: false do
