@@ -4,7 +4,7 @@ import MarkdownInitializer from 'markdown-initializer'
 import { initializeComment, toggleVisibility } from './initializeComment.js'
 import { initializeReaction } from './reaction.js'
 import { toast } from './vanillaToast.js'
-import jsCheckable from './commentCheckable.js'
+import commentCheckable from './comment-checkable.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const newComment = document.querySelector('.new-comment')
@@ -76,17 +76,17 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const isUnassignedAndUncheckedProduct =
-        await jsCheckable.isUnassignedAndUncheckedProduct(
+        await commentCheckable.isUnassignedAndUncheckedProduct(
           commentableType,
           commentableId,
           isMentor
         )
       if (isUnassignedAndUncheckedProduct) {
-        jsCheckable.assignChecker(commentableId, currentUserId)
+        commentCheckable.assignChecker(commentableId, currentUserId)
       }
 
       if (commentableType === 'Report' && isMentor && !checkAfterSave) {
-        const isAlreadyChecked = await jsCheckable.isChecked(
+        const isAlreadyChecked = await commentCheckable.isChecked(
           commentableType,
           commentableId
         )
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
         await createComment(savedComment, commentableId, commentableType)
 
         if (checkAfterSave) {
-          await jsCheckable.check(
+          await commentCheckable.check(
             commentableType,
             commentableId,
             '/api/checks',
