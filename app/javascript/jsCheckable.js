@@ -2,6 +2,41 @@ import CSRF from 'csrf'
 import { toast } from './vanillaToast.js'
 import checkStamp from 'check-stamp.js'
 
+async function sendRequest(url, method = 'GET', body = null) {
+  const options = {
+    method,
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'X-Requested-With': 'XMLHttpRequest',
+      'X-CSRF-Token': CSRF.getToken()
+    },
+    credentials: 'same-origin',
+    redirect: 'manual'
+  }
+  if (body) {
+    options.body = JSON.stringify(body)
+  }
+
+  const response = await fetch(url, options)
+
+  let data
+  if (response.ok) {
+    try {
+      data = await response.json()
+    } catch {
+      data = response
+    }
+  } else {
+    try {
+      data = await response.json()
+    } catch {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+  }
+
+  return data
+}
+
 export default {
   async isUnassignedAndUncheckedProduct(checkableType, checkableId) {
     if (checkableType === 'Product') {
@@ -18,24 +53,7 @@ export default {
     }
 
     try {
-      const response = await fetch(url, {
-        method: method,
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': CSRF.getToken()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual',
-        body: JSON.stringify(params)
-      })
-
-      let data
-      if (response.ok) {
-        data = response
-      } else {
-        data = await response.json()
-      }
+      const data = await sendRequest(url, method, params)
 
       if (data.message) {
         toast(data.message, 'error')
@@ -52,24 +70,9 @@ export default {
       product_id: productId,
       current_user_id: currentUserId
     }
+
     try {
-      const response = await fetch('/api/products/checker', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': CSRF.getToken()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual',
-        body: JSON.stringify(params)
-      })
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
-
-      const json = await response.json()
+      const json = await sendRequest('/api/products/checker', 'PATCH', params)
 
       if (json.message) {
         alert(json.message)
@@ -86,21 +89,10 @@ export default {
 
   async isChecked(checkableType, checkableId) {
     try {
-      const response = await fetch(
-        `/api/checks.json/?checkable_type=${checkableType}&checkable_id=${checkableId}`,
-        {
-          method: 'GET',
-          headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRF-Token': CSRF.getToken()
-          },
-          credentials: 'same-origin'
-        }
+      const json = await sendRequest(
+        `/api/checks.json/?checkable_type=${checkableType}&checkable_id=${checkableId}`
       )
-      const json = await response.json()
-
       return !!json[0]
-
     } catch (error) {
       console.warn(error)
     }
@@ -108,22 +100,10 @@ export default {
 
   async hasChecker(productId) {
     try {
-      const response = await fetch(
-        `/api/products/checker.json?product_id=${productId}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-            'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRF-Token': CSRF.getToken()
-          },
-          credentials: 'same-origin'
-        }
+      const json = await sendRequest(
+        `/api/products/checker.json?product_id=${productId}`
       )
-      const json = await response.json()
-
       return !!json.checker_name
-      
     } catch (error) {
       console.warn(error)
     }
