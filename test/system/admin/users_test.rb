@@ -81,7 +81,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
 
     visit_with_auth "/users/#{user.id}", 'komagata'
     icon_before = find('img.user-profile__user-icon-image', visible: false)
-    assert icon_before.native['src'].end_with?('hatsuno.jpg')
+    assert icon_before.native['src'].end_with?('hatsuno.webp')
 
     visit "/admin/users/#{user.id}/edit"
     within 'form[name=user]' do
