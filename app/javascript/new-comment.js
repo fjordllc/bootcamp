@@ -70,13 +70,12 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     const handleSave = async (checkAfterSave = false) => {
-      const isUnassignedAndUnchekedProduct =
-        await jsCheckable.isUnassignedAndUnchekedProduct(
+      const isUnassignedAndUncheckedProduct =
+        await jsCheckable.isUnassignedAndUncheckedProduct(
           commentableType,
           commentableId
         )
-      if (isUnassignedAndUnchekedProduct) {
-        toastMessage = '担当になりました。'
+      if (isUnassignedAndUncheckedProduct) {
         jsCheckable.assignChecker(commentableId, currentUserId)
       }
 
@@ -97,12 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
       savedComment = editorTextarea.value
 
       try {
-        await createComment(
-          savedComment,
-          commentableId,
-          commentableType,
-          toastMessage
-        )
+        await createComment(savedComment, commentableId, commentableType)
 
         if (checkAfterSave) {
           await jsCheckable.check(
@@ -111,15 +105,16 @@ document.addEventListener('DOMContentLoaded', () => {
             '/api/checks',
             'POST'
           )
-          toastMessage =
-            commentableType === 'Product'
-              ? '提出物を確認済みにしました。'
-              : '日報を確認済みにしました。'
           saveAndCheckButton.parentNode.style.display = 'none'
         }
         resetEditor()
-        toast(toastMessage)
-        toastMessage = 'コメントを投稿しました！'
+        toast(
+          getToastMessage(
+            commentableType,
+            checkAfterSave,
+            isUnassignedAndUncheckedProduct
+          )
+        )
       } catch (error) {
         console.warn(error)
       }
@@ -164,6 +159,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 })
 
+function getToastMessage(
+  commentableType,
+  checkAfterSave,
+  isUnassignedAndUncheckedProduct
+) {
+  if (checkAfterSave) {
+    return commentableType === 'Product'
+      ? '提出物を確認済みにしました。'
+      : '日報を確認済みにしました。'
+  } else if (isUnassignedAndUncheckedProduct) {
+    return '担当になりました。'
+  }
+  return 'コメントを投稿しました！'
+}
+
 async function postComment(description, commentableId, commentableType) {
   const params = {
     commentable_id: commentableId,
@@ -171,7 +181,7 @@ async function postComment(description, commentableId, commentableType) {
     comment: {
       description: description
     }
-  };
+  }
 
   const response = await fetch('/api/comments', {
     method: 'POST',
@@ -183,44 +193,44 @@ async function postComment(description, commentableId, commentableType) {
     credentials: 'same-origin',
     redirect: 'manual',
     body: JSON.stringify(params)
-  });
+  })
 
   if (!response.ok) {
-    const data = await response.json();
-    throw new Error(data.errors.join(', '));
+    const data = await response.json()
+    throw new Error(data.errors.join(', '))
   }
 
-  return await response.text();
+  return await response.text()
 }
 
 function addCommentToDOM(html, commentableId, commentableType) {
-  const comments = document.querySelector('.thread-comments__items');
-  const commentDiv = document.createElement('div');
-  commentDiv.innerHTML = html.replace('style="display: none;', '');
-  const newCommentElement = commentDiv.firstElementChild;
-  comments.appendChild(newCommentElement);
-  initializeComment(newCommentElement);
-  const reactionElement = newCommentElement.querySelector('.js-reactions');
-  initializeReaction(reactionElement);
+  const comments = document.querySelector('.thread-comments__items')
+  const commentDiv = document.createElement('div')
+  commentDiv.innerHTML = html.replace('style="display: none;', '')
+  const newCommentElement = commentDiv.firstElementChild
+  comments.appendChild(newCommentElement)
+  initializeComment(newCommentElement)
+  const reactionElement = newCommentElement.querySelector('.js-reactions')
+  initializeReaction(reactionElement)
 
   const event = new CustomEvent('comment-posted', {
     detail: {
       watchableId: commentableId,
       watchableType: commentableType
     }
-  });
-  document.dispatchEvent(event);
+  })
+  document.dispatchEvent(event)
 }
 
 async function createComment(description, commentableId, commentableType) {
   if (description.length < 1) {
-    return null;
+    return null
   }
 
   try {
-    const html = await postComment(description, commentableId, commentableType);
-    addCommentToDOM(html, commentableId, commentableType);
+    const html = await postComment(description, commentableId, commentableType)
+    addCommentToDOM(html, commentableId, commentableType)
   } catch (error) {
-    console.warn(error);
+    console.warn(error)
   }
 }

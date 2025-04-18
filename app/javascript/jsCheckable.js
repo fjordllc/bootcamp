@@ -3,7 +3,7 @@ import { toast } from './vanillaToast.js'
 import checkStamp from 'check-stamp.js'
 
 export default {
-  async isUnassignedAndUnchekedProduct(checkableType, checkableId) {
+  async isUnassignedAndUncheckedProduct(checkableType, checkableId) {
     if (checkableType === 'Product') {
       const hasCheckerResult = await this.hasChecker(checkableId)
       const isCheckedResult = await this.isChecked(checkableType, checkableId)
