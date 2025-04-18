@@ -24,7 +24,9 @@ const buildFigureContent = (md) => {
         isInContainerFigure = true
       }
       if (isInContainerFigure && token.type === 'inline') {
-        const match = token.content.match(/^(<a [^>]+>\s*<img [^>]+>\s*<\/a>)([\s\S]*)$/)
+        const match = token.content.match(
+          /^(<a [^>]+>\s*<img [^>]+>\s*<\/a>)([\s\S]*)$/
+        )
         const linkedImageTag = match ? match[1] : ''
         const caption = match ? match[2].trim() : ''
         token.content = `${linkedImageTag}<figcaption>${caption}</figcaption>`
