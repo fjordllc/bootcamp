@@ -170,16 +170,19 @@ const OnBrowserJudge = {
     errorMessage,
     _execTime
   ) {
-    document.getElementById(`${testCase}_std_output`).innerHTML =
-      `<pre><code>${output}</code></pre>`
-    document.getElementById(`${testCase}_std_error`).innerHTML =
-      `<pre><code>${errorMessage}</code></pre>`
+    document.getElementById(
+      `${testCase}_std_output`
+    ).innerHTML = `<pre><code>${output}</code></pre>`
+    document.getElementById(
+      `${testCase}_std_error`
+    ).innerHTML = `<pre><code>${errorMessage}</code></pre>`
     const span =
       `<span class="status ${result.toLowerCase()}` +
       `" title="${result}">${this.dict[result]}</span>`
     document.getElementById(`${testCase}_status`).innerHTML = span
-    document.getElementById(`${testCase}__items`).className =
-      `is-${result.toLowerCase()}`
+    document.getElementById(
+      `${testCase}__items`
+    ).className = `is-${result.toLowerCase()}`
   },
 
   stop: function () {
