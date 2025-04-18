@@ -77,7 +77,7 @@ export default {
     handleCheckerAssigned() {
       this.parent = 'product'
       this.id = this.currentUserId
-  }
+    }
   }
 }
 </script>
