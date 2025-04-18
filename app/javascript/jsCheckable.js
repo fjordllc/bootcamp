@@ -38,7 +38,8 @@ async function sendRequest(url, method = 'GET', body = null) {
 }
 
 export default {
-  async isUnassignedAndUncheckedProduct(checkableType, checkableId) {
+  async isUnassignedAndUncheckedProduct(checkableType, checkableId, isMentor) {
+    if (!isMentor) return
     if (checkableType === 'Product') {
       const hasCheckerResult = await this.hasChecker(checkableId)
       const isCheckedResult = await this.isChecked(checkableType, checkableId)

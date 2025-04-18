@@ -25,7 +25,7 @@ class API::CommentsController < API::BaseController
     @comment.user = current_user
     @comment.commentable = commentable
     if @comment.save
-      render partial: 'comments/comment', locals: { commentable:, comment: @comment, user: current_user }, status: :created
+      render partial: 'comments/comment', locals: { commentable:, comment: @comment, user: current_user, latest_comment: @comment }, status: :created
     else
       head :bad_request
     end
