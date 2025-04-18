@@ -4,7 +4,7 @@ import MarkdownInitializer from 'markdown-initializer'
 import { initializeComment, toggleVisibility } from './initializeComment.js'
 import { initializeReaction } from './reaction.js'
 import { toast } from './vanillaToast.js'
-import jsCheckable from './jsCheckable.js'
+import jsCheckable from './commentCheckable.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const newComment = document.querySelector('.new-comment')
