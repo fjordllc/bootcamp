@@ -78,7 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const isUnassignedAndUncheckedProduct =
         await jsCheckable.isUnassignedAndUncheckedProduct(
           commentableType,
-          commentableId
+          commentableId,
+          isMentor
         )
       if (isUnassignedAndUncheckedProduct) {
         jsCheckable.assignChecker(commentableId, currentUserId)
@@ -169,21 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 })
 
-function getToastMessage(
-  commentableType,
-  checkAfterSave,
-  isUnassignedAndUncheckedProduct
-) {
-  if (checkAfterSave) {
-    return commentableType === 'Product'
-      ? '提出物を確認済みにしました。'
-      : '日報を確認済みにしました。'
-  } else if (isUnassignedAndUncheckedProduct) {
-    return '担当になりました。'
-  }
-  return 'コメントを投稿しました！'
-}
-
 async function postComment(description, commentableId, commentableType) {
   const params = {
     commentable_id: commentableId,
@@ -223,6 +209,13 @@ function addCommentToDOM(html, commentableId, commentableType) {
   const reactionElement = newCommentElement.querySelector('.js-reactions')
   initializeReaction(reactionElement)
 
+  const previousLatest = comments.querySelector('.is-latest')
+  if (previousLatest) {
+    previousLatest.classList.remove('is-latest')
+  }
+
+  newCommentElement.classList.add('is-latest')
+
   const event = new CustomEvent('comment-posted', {
     detail: {
       watchableId: commentableId,
@@ -243,4 +236,19 @@ async function createComment(description, commentableId, commentableType) {
   } catch (error) {
     console.warn(error)
   }
+}
+
+function getToastMessage(
+  commentableType,
+  checkAfterSave,
+  isUnassignedAndUncheckedProduct
+) {
+  if (checkAfterSave) {
+    return commentableType === 'Product'
+      ? '提出物を確認済みにしました。'
+      : '日報を確認済みにしました。'
+  } else if (isUnassignedAndUncheckedProduct) {
+    return '担当になりました。'
+  }
+  return 'コメントを投稿しました！'
 }
