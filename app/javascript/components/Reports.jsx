@@ -1,116 +1,156 @@
-import React from 'react'
-import ListComment from './ListComment'
+import React, { useState, useEffect } from 'react'
+import useSWR from 'swr'
+import fetcher from '../fetcher'
+import LoadingListPlaceholder from './LoadingListPlaceholder'
+import Report from './Report'
+import Pagination from './Pagination'
+import PracticeFilterDropdown from './PracticeFilterDropdown'
+import UnconfirmedLink from './UnconfirmedLink'
+import usePage from './hooks/usePage'
 
-export default function Report({ report, currentUserId, displayUserIcon }) {
-  return (
-    <div className={`card-list-item ${report.wip ? 'is-wip' : ''}`}>
-      <div className="card-list-item__inner">
-        {displayUserIcon && <DisplayUserIcon report={report} />}
-        <div className="card-list-item__rows">
-          <div className="card-list-item__row">
-            <header className="card-list-item-title">
-              <div className="card-list-item-title__start">
-                {report.wip && (
-                  <div className="a-list-item-badge is-wip">
-                    <span>WIP</span>
-                  </div>
-                )}
-                <h2 className="card-list-item-title__title">
-                  <a
-                    className="card-list-item-title__link a-text-link js-unconfirmed-link"
-                    href={report.url}>
-                    <img
-                      className="card-list-item-title__emotion-image"
-                      src={`/images/emotion/${report.emotion}.svg`}
-                      alt={report.emotion}
-                    />
-                    {report.title}
-                  </a>
-                </h2>
-                {currentUserId === report.user.id && (
-                  <ReportListItemActions report={report} />
-                )}
-              </div>
-            </header>
-          </div>
-          <div className="card-list-item__row">
-            <div className="card-list-item-meta">
-              <div className="card-list-item-meta__items">
-                <div className="card-list-item-meta__item">
-                  <a className="a-user-name" href={report.user.url}>
-                    {report.user.long_name}
-                  </a>
-                </div>
-                <div className="card-list-item-meta__item">
-                  <time className="a-meta">{`${report.reportedOn}の日報`}</time>
-                </div>
-              </div>
-            </div>
-            {report.hasAnyComments && <ListComment report={report} />}
+export default function Reports({
+  all = false,
+  userId = '',
+  practices = false,
+  unchecked = false,
+  displayUserIcon = true,
+  companyId = '',
+  practiceId = '',
+  displayPagination = true
+}) {
+  const per = 20
+  const { page, setPage } = usePage()
+  const [userPracticeId, setUserPracticeId] = useState('')
+
+  useEffect(() => {
+    setUserPracticeId(userPracticeId)
+  }, [userPracticeId])
+
+  const { data, error } = useSWR(
+    practices
+      ? `/api/reports.json?user_id=${userId}&page=${page}&practice_id=${userPracticeId}`
+      : unchecked
+      ? `/api/reports/unchecked.json?page=${page}&user_id=${userId}`
+      : userId !== ''
+      ? `/api/reports.json?page=${page}&user_id=${userId}`
+      : practiceId !== ''
+      ? `/api/reports.json?page=${page}&practice_id=${practiceId}`
+      : companyId !== ''
+      ? `/api/reports.json?page=${page}&company_id=${companyId}`
+      : all === true
+      ? `/api/reports.json?page=${page}&practice_id=${userPracticeId}`
+      : console.log('data_fetched!'),
+    fetcher
+  )
+
+  if (error) return <>エラーが発生しました。</>
+  if (!data) {
+    return (
+      <div className="page-main">
+        <div className="page-body">
+          <div className="container is-md">
+            <LoadingListPlaceholder />
           </div>
         </div>
-        {report.hasCheck && (
-          <div className="stamp stamp-approve">
-            <h2 className="stamp__content is-title">確認済</h2>
-            <time className="stamp__content is-created-at">
-              {report.checkDate}
-            </time>
-            <div className="stamp__content is-user-name">
-              <div className="stamp__content-inner">{report.checkUserName}</div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="page-main is-react">
+      {data.totalPages === 0 && (
+        <div>
+          {practices && (
+            <PracticeFilterDropdown
+              practices={practices}
+              setPracticeId={setUserPracticeId}
+              practiceId={userPracticeId}
+            />
+          )}
+          <NoReports unchecked={unchecked} />
+        </div>
+      )}
+      {data.totalPages > 0 && (
+        <div>
+          {practices && (
+            <PracticeFilterDropdown
+              practices={practices}
+              setPracticeId={setUserPracticeId}
+              practiceId={userPracticeId}
+            />
+          )}
+          <div className="page-body">
+            <div className="container is-md">
+              <div className="page-content reports">
+                {data.totalPages > 1 && displayPagination && (
+                  <Pagination
+                    sum={data.totalPages * per}
+                    per={per}
+                    page={page}
+                    setPage={setPage}
+                  />
+                )}
+                <div className="card-list a-card">
+                  <div className="card-list__items">
+                    {data.reports.map((report) => {
+                      return (
+                        <Report
+                          key={report.id}
+                          report={report}
+                          currentUserId={report.currentUserId}
+                          displayUserIcon={displayUserIcon}
+                        />
+                      )
+                    })}
+                  </div>
+                  {unchecked && (
+                    <UnconfirmedLink label={'未チェックの日報を一括で開く'} />
+                  )}
+                </div>
+                {data.totalPages > 1 && displayPagination && (
+                  <Pagination
+                    sum={data.totalPages * per}
+                    per={per}
+                    page={page}
+                    setPage={setPage}
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+const NoReports = ({ unchecked }) => {
+  return (
+    <div className="o-empty-message">
+      <div className="o-empty-message__icon">
+        {unchecked ? (
+          <>
+            <i className="fa-regular fa-smile" />
+            <p className="o-empty-message__text">
+              未チェックの日報はありません
+            </p>
+          </>
+        ) : (
+          <div className="card-list">
+            <div className="card-body">
+              <div className="card-body__description">
+                <div className="o-empty-message">
+                  <div className="o-empty-message__icon">
+                    <i className="fa-regular fa-sad-tear" />
+                  </div>
+                  <p className="o-empty-message__text">
+                    日報はまだありません。
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         )}
-      </div>
-    </div>
-  )
-}
-
-const DisplayUserIcon = ({ report }) => {
-  const roleClass = `is-${report.user.primary_role}`
-
-  return (
-    <div className="card-list-item__user">
-      <a href={report.user.url} className="card-list-item__user-link">
-        <span className={`a-user-role ${roleClass}`}>
-          <img
-            className="card-list-item__user-icon a-user-icon"
-            src={report.user.avatar_url}
-            title={report.user.login_name}
-            alt={report.user.login_name}
-          />
-        </span>
-      </a>
-    </div>
-  )
-}
-
-const ReportListItemActions = ({ report }) => {
-  return (
-    <div className="card-list-item-title__end">
-      <label className="card-list-item-actions__trigger" htmlFor={report.id}>
-        <i className="fa-solid fa-ellipsis-h"></i>
-      </label>
-      <div className="card-list-item-actions">
-        <input className="a-toggle-checkbox" type="checkbox" id={report.id} />
-        <div className="card-list-item-actions__inner">
-          <ul className="card-list-item-actions__items">
-            <li className="card-list-item-actions__item">
-              <a
-                className="card-list-item-actions__action"
-                href={report.editURL}>
-                <i className="fa-solid fa-pen">内容変更</i>
-              </a>
-            </li>
-            <li className="card-list-item-actions__item">
-              <a
-                className="card-list-item-actions__action"
-                href={report.newURL}>
-                <i className="fa-solid fa-copy">コピー</i>
-              </a>
-            </li>
-          </ul>
-          <label className="a-overlay" htmlFor={report.id}></label>
-        </div>
       </div>
     </div>
   )
