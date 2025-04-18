@@ -164,57 +164,63 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 })
 
-async function createComment(description, commentableId, commentableType) {
-  if (description.length < 1) {
-    return null
-  }
-
+async function postComment(description, commentableId, commentableType) {
   const params = {
     commentable_id: commentableId,
     commentable_type: commentableType,
     comment: {
       description: description
     }
+  };
+
+  const response = await fetch('/api/comments', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'X-Requested-With': 'XMLHttpRequest',
+      'X-CSRF-Token': CSRF.getToken()
+    },
+    credentials: 'same-origin',
+    redirect: 'manual',
+    body: JSON.stringify(params)
+  });
+
+  if (!response.ok) {
+    const data = await response.json();
+    throw new Error(data.errors.join(', '));
+  }
+
+  return await response.text();
+}
+
+function addCommentToDOM(html, commentableId, commentableType) {
+  const comments = document.querySelector('.thread-comments__items');
+  const commentDiv = document.createElement('div');
+  commentDiv.innerHTML = html.replace('style="display: none;', '');
+  const newCommentElement = commentDiv.firstElementChild;
+  comments.appendChild(newCommentElement);
+  initializeComment(newCommentElement);
+  const reactionElement = newCommentElement.querySelector('.js-reactions');
+  initializeReaction(reactionElement);
+
+  const event = new CustomEvent('comment-posted', {
+    detail: {
+      watchableId: commentableId,
+      watchableType: commentableType
+    }
+  });
+  document.dispatchEvent(event);
+}
+
+async function createComment(description, commentableId, commentableType) {
+  if (description.length < 1) {
+    return null;
   }
 
   try {
-    const response = await fetch('/api/comments', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': CSRF.getToken()
-      },
-      credentials: 'same-origin',
-      redirect: 'manual',
-      body: JSON.stringify(params)
-    })
-
-    let html
-    if (response.ok) {
-      html = await response.text()
-    } else {
-      const data = await response.json()
-      throw new Error(data.errors.join(', '))
-    }
-
-    const comments = document.querySelector('.thread-comments__items')
-    const commentDiv = document.createElement('div')
-    commentDiv.innerHTML = html.replace('style="display: none;', '')
-    const newCommentElement = commentDiv.firstElementChild
-    comments.appendChild(newCommentElement)
-    initializeComment(newCommentElement)
-    const reactionElement = newCommentElement.querySelector('.js-reactions')
-    initializeReaction(reactionElement)
-
-    const event = new CustomEvent('comment-posted', {
-      detail: {
-        watchableId: commentableId,
-        watchableType: commentableType
-      }
-    })
-    document.dispatchEvent(event)
+    const html = await postComment(description, commentableId, commentableType);
+    addCommentToDOM(html, commentableId, commentableType);
   } catch (error) {
-    console.warn(error)
+    console.warn(error);
   }
 }
