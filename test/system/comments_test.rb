@@ -228,9 +228,8 @@ class CommentsTest < ApplicationSystemTestCase
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
-    assert_raises Selenium::WebDriver::Error::ElementClickInterceptedError do
-      find('#js-shortcut-post-comment', text: 'コメントする').click.click
-    end
+      find('#js-shortcut-post-comment', text: 'コメントする').click
+      assert find('#js-shortcut-post-comment', visible: false)[:disabled]
   end
 
   test 'submit_button is enabled after a post is done' do
