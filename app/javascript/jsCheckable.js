@@ -99,11 +99,8 @@ export default {
       )
       const json = await response.json()
 
-      if (json[0]) {
-        return true
-      } else {
-        return false
-      }
+      return !!json[0]
+
     } catch (error) {
       console.warn(error)
     }
@@ -125,11 +122,8 @@ export default {
       )
       const json = await response.json()
 
-      if (json.checker_name) {
-        return true
-      } else {
-        return false
-      }
+      return !!json.checker_name
+      
     } catch (error) {
       console.warn(error)
     }
