@@ -2,7 +2,7 @@ import checkStamp from 'check-stamp.js'
 
 export default {
   computed: {
-    isUnassignedAndUnchekedProduct() {
+    isUnassignedAndUncheckedProduct() {
       return (
         this.commentableType === 'Product' &&
         this.productCheckerId === null &&
