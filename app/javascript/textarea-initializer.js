@@ -46,7 +46,13 @@ export default class {
       const tribute = new Tribute({
         collection: collection
       })
-      tribute.attach(textareas)
+      
+      textareas.forEach((textarea) => {
+        if (!textarea.dataset.tribute) {
+          tribute.attach(textarea)
+          textarea.dataset.tribute = 'true'
+        }
+      })
     })
 
     // markdown
