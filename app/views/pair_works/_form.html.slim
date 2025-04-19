@@ -49,10 +49,11 @@
                     th
                       | #{hour}:00
                     - sorted_wdays(Time.current).each_with_index do |wday, day|
-                      - value = Time.current.beginning_of_day + hour.hour + day.day
-                      - disabled = value < Time.current
-                      - id = wday * 24 + hour + 1
-                      - checked = !disabled && current_user.learning_time_frames.ids.include?(id)
+                      ruby:
+                        value = Time.current.beginning_of_day + hour.hour + day.day
+                        disabled = value < Time.current
+                        id = wday * 24 + hour + 1
+                        checked = !disabled && current_user.learning_time_frames.ids.include?(id)
                       td.form-table__check
                         = f.label :pair_work_schedule, for: "pair_work_schedule_ids_#{value}" do
                           span
