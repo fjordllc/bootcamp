@@ -24,13 +24,13 @@ const buildFigureContent = (md) => {
         isInContainerFigure = true
       }
       if (isInContainerFigure && token.type === 'inline') {
-        const match = token.content.match(
+        const matchedImageAndCaption = token.content.match(
           /^(<a [^>]+>\s*<img [^>]+>\s*<\/a>)([\s\S]*)$/
         )
-        if (!match) return
+        if (!matchedImageAndCaption) return
 
-        const linkedImageTag = match[1]
-        const caption = match[2].trim()
+        const linkedImageTag = matchedImageAndCaption[1]
+        const caption = matchedImageAndCaption[2].trim()
         token.content = `${linkedImageTag}<figcaption>${caption}</figcaption>`
 
         // markdown-itが自動出力してしまうfigureタグ内のpタグを出力しないようにする
