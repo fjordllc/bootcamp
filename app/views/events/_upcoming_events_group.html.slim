@@ -4,7 +4,7 @@
   .card-list__label
     | #{I18n.t("dates.#{events_group.date_key}")}開催
 
-  - if pair_work_events
+  - if pair_work_events.present?
     - pair_work_events.each do |pair_work|
       = render 'events/upcoming_pair_work', pair_work: pair_work
   - if events_group.events.present?
