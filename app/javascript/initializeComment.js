@@ -55,6 +55,7 @@ function initializeComment(comment) {
   const saveButton = commentEditor.querySelector('.is-primary')
   if (saveButton) {
     saveButton.addEventListener('click', () => {
+      TextareaInitializer.initialize(`#js-comment-${commentId}`)
       toggleVisibility(modalElements, 'is-hidden')
       savedComment = editorTextarea.value
       updateComment(commentId, savedComment)
@@ -63,11 +64,13 @@ function initializeComment(comment) {
   }
 
   const cancelButton = commentEditor.querySelector('.is-secondary')
-  cancelButton.addEventListener('click', () => {
-    toggleVisibility(modalElements, 'is-hidden')
-    editorTextarea.value = savedComment
-    commentEditorPreview.innerHTML = markdownInitializer.render(savedComment)
+    cancelButton.addEventListener('click', () => {
+      toggleVisibility(modalElements, 'is-hidden')
+      editorTextarea.value = savedComment
+      commentEditorPreview.innerHTML = markdownInitializer.render(savedComment)
+      console.log("通過テスト")
   })
+
 
   editorTextarea.addEventListener('input', () => {
     commentEditorPreview.innerHTML = markdownInitializer.render(
