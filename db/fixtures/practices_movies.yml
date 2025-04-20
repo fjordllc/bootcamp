@@ -1,0 +1,9 @@
+practices_movie5:
+  practice: practice2
+  movie: movie5
+
+<% (6..10).each do |id| %>
+practices_movie<%= id %>:
+  practice: practice1
+  movie: movie<%= id %>
+<% end %>
