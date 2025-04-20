@@ -27,7 +27,7 @@ class PairWorksController < ApplicationController
     @pair_work.user = current_user
     set_wip
     if @pair_work.save
-      Newspaper.publish(:pair_work_create, { pair_work: @pair_work, schedules: params[:pair_work][:pair_work_schedule] })
+      Newspaper.publish(:pair_work_create, { pair_work: @pair_work, schedules: params[:pair_work][:schedules] })
       redirect_to @pair_work, notice: @pair_work.generate_notice_message(:create)
 
     else
