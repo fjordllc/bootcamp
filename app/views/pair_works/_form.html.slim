@@ -55,9 +55,9 @@
                         id = wday * 24 + hour + 1
                         checked = !disabled && current_user.learning_time_frames.ids.include?(id)
                       td.form-table__check
-                        = f.label :pair_work_schedule, for: "pair_work_schedule_ids_#{value}" do
+                        = f.label :schedules, for: "schedule_ids_#{value}" do
                           span
-                            = f.check_box :pair_work_schedule, { multiple: true, id: "pair_work_schedule_ids_#{value}", disabled: disabled, checked: checked }, value, false
+                            = f.check_box :schedules, { multiple: true, id: "schedule_ids_#{value}", disabled: disabled, checked: checked }, value, false
 
       .form-item
         .row.js-markdown-parent
