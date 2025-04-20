@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       })
       .then(() => {
-        TextareaInitializer.initialize('.a-markdown-input__textarea')
+        TextareaInitializer.initialize('#js-practice-memo')
       })
       .catch((error) => {
         console.warn(error)
