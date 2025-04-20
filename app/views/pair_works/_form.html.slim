@@ -58,8 +58,6 @@
                         = f.label :pair_work_schedule, for: "pair_work_schedule_ids_#{value}" do
                           span
                             = f.check_box :pair_work_schedule, { multiple: true, id: "pair_work_schedule_ids_#{value}", disabled: disabled, checked: checked }, value, false
-      - else
-        = render 'schedule', pair_work: pair_work
 
       .form-item
         .row.js-markdown-parent
