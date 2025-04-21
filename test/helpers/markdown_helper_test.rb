@@ -7,7 +7,7 @@ class MarkdownHelperTest < ActionView::TestCase
 
   test 'markdown_to_plain_text_converts_markdown_to_plain_text' do
     markdown = "# Hello, world! \n This is a **test**."
-    expected_plain_text = "Hello, world!\nThis is a test."
+    expected_plain_text = "Hello, world!\n\nThis is a test."
     assert_equal expected_plain_text, markdown_to_plain_text(markdown)
   end
 
