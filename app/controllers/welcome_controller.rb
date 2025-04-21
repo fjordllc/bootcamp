@@ -12,7 +12,7 @@ class WelcomeController < ApplicationController
   end
 
   def alumni_voices
-    @articles = Article.with_attachments_and_user.tagged_with('卒業生の声').order(published_at: :desc).page(params[:page])
+    @articles = Article.alumni_voices.page(params[:page])
   end
 
   def job_support; end
