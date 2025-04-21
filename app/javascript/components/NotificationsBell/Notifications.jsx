@@ -57,7 +57,7 @@ function Notification({ notification }) {
         className="header-dropdown__item-link unconfirmed_link">
         <div className="header-notifications-item__body">
           <span
-            className={`a-user-role header-notifications-item__user-icon is-${notification.sender.primary_role}`}>
+            className={`a-user-role header-notifications-item__user-icon is-${notification.sender.primary_role} is-${notification.sender.joining_status}`}>
             <img
               src={notification.sender.avatar_url}
               className="a-user-icon"

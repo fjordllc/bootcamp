@@ -67,11 +67,12 @@ export default function Report({ report, currentUserId, displayUserIcon }) {
 
 const DisplayUserIcon = ({ report }) => {
   const roleClass = `is-${report.user.primary_role}`
+  const joiningStatusClass = `is-${report.user.joining_status}`
 
   return (
     <div className="card-list-item__user">
       <a href={report.user.url} className="card-list-item__user-link">
-        <span className={`a-user-role ${roleClass}`}>
+        <span className={`a-user-role ${roleClass} ${joiningStatusClass}`}>
           <img
             className="card-list-item__user-icon a-user-icon"
             src={report.user.avatar_url}

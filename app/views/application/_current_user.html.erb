@@ -1,5 +1,5 @@
 <script>
-  const user = <%= raw(current_user&.to_json(only: [:id, :login_name, :name], methods: [:avatar_url, :roles, :primary_role]) || '{}') %>;
+  const user = <%= raw(current_user&.to_json(only: [:id, :login_name, :name], methods: [:avatar_url, :roles, :primary_role, :joining_status]) || '{}') %>;
 
   window.currentUser = user;
   window.currentUserID = user.id || 0;

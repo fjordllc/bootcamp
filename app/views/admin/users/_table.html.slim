@@ -69,7 +69,7 @@
           td.admin-table__item-value.text-left
             = link_to user, class: 'admin-table__user', target: '_blank', rel: 'noopener' do
               span.admin-table__user-icon
-                span(class="a-user-role is-#{user.primary_role}")
+                span(class="a-user-role is-#{user.primary_role} is-#{user.joining_status}")
                   = image_tag user.avatar_url, title: user.icon_title, class: 'admin-table__user-icon a-user-icon'
               span.admin-table__user-login-name
                 = user.login_name

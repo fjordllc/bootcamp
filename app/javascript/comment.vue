@@ -3,7 +3,7 @@
   #latest-comment(v-if='isLatest')
   .thread-comment__start
     a.thread-comment__user-link(:href='comment.user.url')
-      span(:class='["a-user-role", roleClass]')
+      span(:class='["a-user-role", roleClass, joiningStatusClass]')
         img.thread-comment__user-icon.a-user-icon(
           :src='comment.user.avatar_url',
           :title='comment.user.icon_title')
@@ -20,7 +20,7 @@
             img.thread-comment__title-user-icon.a-user-icon(
               :src='comment.user.avatar_url',
               :title='comment.user.icon_title',
-              :class='[roleClass]')
+              :class='[roleClass, joiningStatusClass]')
 
           a.thread-comment__title-link.a-text-link(:href='comment.user.url')
             | {{ comment.user.login_name }}
@@ -148,6 +148,9 @@ export default {
     },
     roleClass() {
       return `is-${this.comment.user.primary_role}`
+    },
+    joiningStatusClass() {
+      return `is-${this.comment.user.joining_status}`
     },
     validation() {
       return this.description.length > 0

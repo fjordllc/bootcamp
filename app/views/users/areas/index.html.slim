@@ -39,7 +39,7 @@ main.page-main
                     .a-user-icons__items
                       - users_group_by_area[:users].each do |user|
                         a.a-user-icons__item-link href=user.url
-                          span.a-user-role class="is-#{user.primary_role}"
+                          span.a-user-role class="is-#{user.primary_role} is-#{user.joining_status}"
                             img.a-user-icons__item-icon.a-user-icon src=user.avatar_url title=user.icon_title data-login-name=user.login_name
             = paginate @sorted_user_groups_by_area_user_num
           - else
