@@ -34,7 +34,7 @@ class MarkdownTest < ApplicationSystemTestCase
     assert_includes emoji['data-user'], 'mentormentaro'
   end
 
-  test 'should not execute style tag' do
+  test 'renders style tag as escaped text' do
     visit_with_auth new_page_path, 'komagata'
     fill_in('page[title]', with: 'styleタグが実行されないかのテスト')
     fill_in('page[body]', with: '<style></style>')
@@ -42,7 +42,7 @@ class MarkdownTest < ApplicationSystemTestCase
     assert page.has_text?('<style></style>')
   end
 
-  test 'should not execute onload attribute' do
+  test 'renders onload attribute as escaped text' do
     slug = 'test-page-onload'
     visit_with_auth new_page_path, 'komagata'
     fill_in('page[title]', with: 'onloadが実行されないかのテスト')
