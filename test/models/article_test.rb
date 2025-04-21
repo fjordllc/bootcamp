@@ -96,4 +96,80 @@ class ArticleTest < ActiveSupport::TestCase
     )
     assert article.published_at?
   end
+
+  test '.alumni_voices includes only not wip articles with alumni voice tag' do
+    article1 = Article.create(
+      title: '卒業生の声タグのみを持つブログ',
+      body: 'test',
+      user: users(:komagata),
+      wip: false
+    )
+    article1.tag_list.add('卒業生の声')
+    article1.save
+
+    article2 = Article.create(
+      title: '2つのタグを持つブログ',
+      body: 'test',
+      user: users(:komagata),
+      wip: false
+    )
+    article2.tag_list.add('test', '卒業生の声')
+    article2.save
+
+    wip_article = Article.create(
+      title: '卒業生の声タグを持つwipブログ',
+      body: 'test',
+      user: users(:komagata),
+      wip: true
+    )
+    wip_article.tag_list.add('卒業生の声')
+    wip_article.save
+
+    alumni_voices = Article.alumni_voices
+    assert_equal [article2, article1], alumni_voices
+    alumni_voices.each do |alumni_voice|
+      assert_includes alumni_voice.tag_list, '卒業生の声'
+      assert_not alumni_voice.wip
+    end
+  end
+  test '.alumni_voices orders by published_at in descending order' do
+    three_days_ago_alumni_voice = Article.create(
+      title: '3日前に公開された卒業生の声',
+      body: 'test',
+      user: users(:komagata),
+      wip: false,
+      created_at: Date.current - 4.days,
+      updated_at: Date.current - 4.days,
+      published_at: Date.current - 3.days
+    )
+    three_days_ago_alumni_voice.tag_list.add('卒業生の声')
+    three_days_ago_alumni_voice.save
+
+    two_days_ago_alumni_voice = Article.create(
+      title: '2日前に公開された卒業生の声',
+      body: 'test',
+      user: users(:komagata),
+      wip: false,
+      created_at: Date.current - 5.days,
+      updated_at: Date.current - 5.days,
+      published_at: Date.current - 2.days
+    )
+    two_days_ago_alumni_voice.tag_list.add('卒業生の声')
+    two_days_ago_alumni_voice.save
+
+    one_day_ago_alumni_voice = Article.create(
+      title: '1日前に公開された卒業生の声',
+      body: 'test',
+      user: users(:komagata),
+      wip: false,
+      created_at: Date.current - 6.days,
+      updated_at: Date.current - 6.days,
+      published_at: Date.current - 1.day
+    )
+    one_day_ago_alumni_voice.tag_list.add('卒業生の声')
+    one_day_ago_alumni_voice.save
+
+    alumni_voices = Article.alumni_voices
+    assert_equal [one_day_ago_alumni_voice, two_days_ago_alumni_voice, three_days_ago_alumni_voice], alumni_voices
+  end
 end
