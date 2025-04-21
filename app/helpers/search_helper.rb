@@ -7,6 +7,7 @@ module SearchHelper
 
   def searchable_summary(comment, word = '')
     return '' if comment.nil?
+
     comment_str = comment.to_s
 
     if comment_str.include?('|') && !comment_str.include?('```')
@@ -79,15 +80,31 @@ module SearchHelper
   end
 
   def find_match_in_text(text, word)
-    return text if word.blank? || text.blank?
-    words = word.split(/[[:space:]]+/).compact.reject(&:empty?)
-    return text if words.blank?
+    return text if text.blank?
 
-    words_pattern = words.map { |keyword| Regexp.escape(keyword) }.join('|')
-    words_regexp = Regexp.new(words_pattern, Regexp::IGNORECASE)
+    keywords = extract_keywords_for_search(word)
+    return text if keywords.blank?
+
+    words_regexp = build_search_regex_from_keywords(keywords)
     match = words_regexp.match(text)
+
     return text if match.nil?
 
+    extract_matched_slice_from_text(text, match)
+  end
+
+  def extract_keywords_for_search(word)
+    return [] if word.blank?
+
+    word.split(/[[:space:]]+/).compact.reject(&:empty?)
+  end
+
+  def build_search_regex_from_keywords(keywords)
+    words_pattern = keywords.map { |keyword| Regexp.escape(keyword) }.join('|')
+    Regexp.new(words_pattern, Regexp::IGNORECASE)
+  end
+
+  def extract_matched_slice_from_text(text, match)
     begin_offset = (match.begin(0) - EXTRACTING_CHARACTERS).clamp(0, Float::INFINITY)
     text.slice(begin_offset..)&.strip || ''
   end

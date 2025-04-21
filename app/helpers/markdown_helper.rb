@@ -4,7 +4,6 @@ require 'redcarpet'
 require 'nokogiri'
 
 module MarkdownHelper
-
   def md2html(text)
     return '' if text.nil?
 
