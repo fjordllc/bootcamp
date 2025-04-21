@@ -47,7 +47,7 @@ class Article::TagsTest < ApplicationSystemTestCase
 
   test 'non-mentor cannot access tag filter page' do
     visit articles_path(tag: 'SecretTag')
-    assert_current_path articles_path
+    assert_current_path root_path
     assert_text '管理者・メンターとしてログインしてください'
   end
 end
