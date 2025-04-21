@@ -47,11 +47,11 @@ class MarkdownTest < ApplicationSystemTestCase
     visit_with_auth new_page_path, 'komagata'
     fill_in('page[title]', with: 'onloadが実行されないかのテスト')
     fill_in('page[slug]', with: slug)
-    fill_in('page[body]', with: '<svg onload="window.location=\'https://www.google.com\'"></svg>')
+    fill_in('page[body]', with: '<p onload="window.location=\'https://www.google.com\'"></p>')
 
     click_button 'Docを公開'
 
-    assert page.has_text?('<svg onload="window.location=\'https://www.google.com\'"></svg>')
+    assert page.has_text?('<p onload="window.location=\'https://www.google.com\'"></p>')
     assert_equal "/pages/#{slug}", URI.parse(current_url).path
   end
 
