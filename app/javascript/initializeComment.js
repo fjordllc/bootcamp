@@ -64,13 +64,12 @@ function initializeComment(comment) {
   }
 
   const cancelButton = commentEditor.querySelector('.is-secondary')
-    cancelButton.addEventListener('click', () => {
-      toggleVisibility(modalElements, 'is-hidden')
-      editorTextarea.value = savedComment
-      commentEditorPreview.innerHTML = markdownInitializer.render(savedComment)
-      console.log("通過テスト")
+  cancelButton.addEventListener('click', () => {
+    toggleVisibility(modalElements, 'is-hidden')
+    editorTextarea.value = savedComment
+    commentEditorPreview.innerHTML = markdownInitializer.render(savedComment)
+    console.log('通過テスト')
   })
-
 
   editorTextarea.addEventListener('input', () => {
     commentEditorPreview.innerHTML = markdownInitializer.render(
