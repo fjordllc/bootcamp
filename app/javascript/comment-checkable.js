@@ -80,7 +80,7 @@ export default {
       } else {
         alert('提出物の担当になりました。')
 
-        const event = new CustomEvent('checkerAssigned')
+        const event = new Event('checkerAssigned')
         window.dispatchEvent(event)
       }
     } catch (error) {

@@ -43,8 +43,23 @@ document.addEventListener('DOMContentLoaded', () => {
     )
 
     const saveButton = commentEditor.querySelector('.is-primary')
-
     const saveAndCheckButton = commentEditor.querySelector('.is-danger')
+
+    const toggleVisibility = (elements, className) => {
+      elements.forEach((element) => {
+        element.classList.toggle(className)
+      })
+    }
+
+    const disableButtons = () => {
+      saveButton.disabled = true
+      if (saveAndCheckButton) saveAndCheckButton.disabled = true
+    }
+
+    const enableButtons = () => {
+      saveButton.disabled = false
+      if (saveAndCheckButton) saveAndCheckButton.disabled = false
+    }
 
     const updatePreviewAndButtonState = () => {
       commentEditorPreview.innerHTML = markdownInitializer.render(
@@ -65,71 +80,162 @@ document.addEventListener('DOMContentLoaded', () => {
       updatePreviewAndButtonState()
     }
 
-    editorTextarea.addEventListener('input', () => {
-      updatePreviewAndButtonState()
-    })
-
-    const handleSave = async (checkAfterSave = false) => {
-      saveButton.disabled = true
-      if (saveAndCheckButton) {
-        saveAndCheckButton.disabled = true
+    const hideSaveAndCheckButton = () => {
+      if (saveAndCheckButton && saveAndCheckButton.parentNode) {
+        saveAndCheckButton.parentNode.style.display = 'none'
       }
+    }
 
-      const isUnassignedAndUncheckedProduct =
+    const validateBeforeSave = async (checkAfterSave) => {
+      if (commentableType === 'Report' && isMentor && !checkAfterSave) {
+        const alreadyChecked = await commentCheckable.isChecked(
+          commentableType,
+          commentableId
+        )
+        if (!alreadyChecked) {
+          return window.confirm(
+            '日報を確認済みにしていませんがよろしいですか？'
+          )
+        }
+      }
+      return true
+    }
+
+    const assignIfRequired = async () => {
+      const shouldAssign =
         await commentCheckable.isUnassignedAndUncheckedProduct(
           commentableType,
           commentableId,
           isMentor
         )
-      if (isUnassignedAndUncheckedProduct) {
-        commentCheckable.assignChecker(commentableId, currentUserId)
+      if (shouldAssign) {
+        await commentCheckable.assignChecker(commentableId, currentUserId)
+        return true
       }
+      return false
+    }
 
-      if (commentableType === 'Report' && isMentor && !checkAfterSave) {
-        const isAlreadyChecked = await commentCheckable.isChecked(
-          commentableType,
-          commentableId
-        )
-
-        if (
-          !isAlreadyChecked &&
-          !window.confirm('日報を確認済みにしていませんがよろしいですか？')
-        ) {
-          return
+    const postComment = async () => {
+      const params = {
+        commentable_id: commentableId,
+        commentable_type: commentableType,
+        comment: {
+          description: savedComment
         }
       }
 
-      savedComment = editorTextarea.value
+      const response = await fetch('/api/comments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': CSRF.getToken()
+        },
+        credentials: 'same-origin',
+        redirect: 'manual',
+        body: JSON.stringify(params)
+      })
+
+      if (!response.ok) {
+        const data = await response.json()
+        throw new Error(data.errors.join(', '))
+      }
+
+      return await response.text()
+    }
+
+    const addCommentToDOM = (html) => {
+      const comments = document.querySelector('.thread-comments__items')
+      const commentDiv = document.createElement('div')
+      commentDiv.innerHTML = html.replace('style="display: none;', '')
+      const newCommentElement = commentDiv.firstElementChild
+      comments.appendChild(newCommentElement)
+      initializeComment(newCommentElement)
+      const reactionElement = newCommentElement.querySelector('.js-reactions')
+      initializeReaction(reactionElement)
+
+      const previousLatest = comments.querySelector('.is-latest')
+      if (previousLatest) {
+        previousLatest.classList.remove('is-latest')
+      }
+
+      newCommentElement.classList.add('is-latest')
+
+      const event = new CustomEvent('comment-posted', {
+        detail: {
+          watchableId: commentableId,
+          watchableType: commentableType
+        }
+      })
+      document.dispatchEvent(event)
+    }
+
+    const createComment = async () => {
+      if (savedComment.length < 1) {
+        return null
+      }
 
       try {
-        await createComment(savedComment, commentableId, commentableType)
+        const html = await postComment()
+        addCommentToDOM(html)
+      } catch (error) {
+        console.warn(error)
+      }
+    }
+
+    const getToastMessage = (checkAfterSave, assigned) => {
+      if (checkAfterSave) {
+        return commentableType === 'Product'
+          ? '提出物を確認済みにしました。'
+          : '日報を確認済みにしました。'
+      } else if (assigned) {
+        return '担当になりました。'
+      }
+      return 'コメントを投稿しました！'
+    }
+
+    const performCheck = () => {
+      const event = new Event('check')
+      document.dispatchEvent(event)
+    }
+
+    const handleSave = async (checkAfterSave = false) => {
+      disableButtons()
+
+      try {
+        const shouldContinue = await validateBeforeSave(checkAfterSave)
+        if (!shouldContinue) return
+
+        const assigned = await assignIfRequired()
+
+        savedComment = editorTextarea.value
+        await createComment()
 
         if (checkAfterSave) {
-          await commentCheckable.check(
-            commentableType,
-            commentableId,
-            '/api/checks',
-            'POST'
-          )
-          saveAndCheckButton.parentNode.style.display = 'none'
+          performCheck()
+          hideSaveAndCheckButton()
         }
+
         resetEditor()
-        toast(
-          getToastMessage(
-            commentableType,
-            checkAfterSave,
-            isUnassignedAndUncheckedProduct
-          )
-        )
+        toast(getToastMessage(checkAfterSave, assigned))
       } catch (error) {
         console.warn(error)
       } finally {
-        saveButton.disabled = false
-        if (saveAndCheckButton) {
-          saveAndCheckButton.disabled = false
-        }
+        enableButtons()
       }
     }
+
+    editorTextarea.addEventListener('input', () => {
+      updatePreviewAndButtonState()
+    })
+
+    editTab.addEventListener('click', () =>
+      toggleVisibility(tabElements, 'is-active')
+    )
+
+    previewTab.addEventListener('click', () =>
+      toggleVisibility(tabElements, 'is-active')
+    )
 
     saveButton.addEventListener('click', () => {
       handleSave()
@@ -148,14 +254,6 @@ document.addEventListener('DOMContentLoaded', () => {
       })
     }
 
-    editTab.addEventListener('click', () =>
-      toggleVisibility(tabElements, 'is-active')
-    )
-
-    previewTab.addEventListener('click', () =>
-      toggleVisibility(tabElements, 'is-active')
-    )
-
     document.addEventListener('checked', () => {
       if (saveAndCheckButton && saveAndCheckButton.parentNode) {
         saveAndCheckButton.parentNode.style.display = 'none'
@@ -169,86 +267,3 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
 })
-
-async function postComment(description, commentableId, commentableType) {
-  const params = {
-    commentable_id: commentableId,
-    commentable_type: commentableType,
-    comment: {
-      description: description
-    }
-  }
-
-  const response = await fetch('/api/comments', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      'X-Requested-With': 'XMLHttpRequest',
-      'X-CSRF-Token': CSRF.getToken()
-    },
-    credentials: 'same-origin',
-    redirect: 'manual',
-    body: JSON.stringify(params)
-  })
-
-  if (!response.ok) {
-    const data = await response.json()
-    throw new Error(data.errors.join(', '))
-  }
-
-  return await response.text()
-}
-
-function addCommentToDOM(html, commentableId, commentableType) {
-  const comments = document.querySelector('.thread-comments__items')
-  const commentDiv = document.createElement('div')
-  commentDiv.innerHTML = html.replace('style="display: none;', '')
-  const newCommentElement = commentDiv.firstElementChild
-  comments.appendChild(newCommentElement)
-  initializeComment(newCommentElement)
-  const reactionElement = newCommentElement.querySelector('.js-reactions')
-  initializeReaction(reactionElement)
-
-  const previousLatest = comments.querySelector('.is-latest')
-  if (previousLatest) {
-    previousLatest.classList.remove('is-latest')
-  }
-
-  newCommentElement.classList.add('is-latest')
-
-  const event = new CustomEvent('comment-posted', {
-    detail: {
-      watchableId: commentableId,
-      watchableType: commentableType
-    }
-  })
-  document.dispatchEvent(event)
-}
-
-async function createComment(description, commentableId, commentableType) {
-  if (description.length < 1) {
-    return null
-  }
-
-  try {
-    const html = await postComment(description, commentableId, commentableType)
-    addCommentToDOM(html, commentableId, commentableType)
-  } catch (error) {
-    console.warn(error)
-  }
-}
-
-function getToastMessage(
-  commentableType,
-  checkAfterSave,
-  isUnassignedAndUncheckedProduct
-) {
-  if (checkAfterSave) {
-    return commentableType === 'Product'
-      ? '提出物を確認済みにしました。'
-      : '日報を確認済みにしました。'
-  } else if (isUnassignedAndUncheckedProduct) {
-    return '担当になりました。'
-  }
-  return 'コメントを投稿しました！'
-}
