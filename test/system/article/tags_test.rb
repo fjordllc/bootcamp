@@ -56,8 +56,7 @@ class Article::TagsTest < ApplicationSystemTestCase
     fill_in 'タイトル', with: 'ショートカットボタンからのタグ追加テスト'
     fill_in '本文', with: 'タグショートカットボタンのテストです'
     find('button.js-tag-input-button', text: '注目の記事').click
-    find('.tagify__input')
-    assert_text '注目の記事'
+    assert_selector('.tagify__tag', text: '注目の記事')
     page.accept_confirm do
       click_on '公開する'
     end
