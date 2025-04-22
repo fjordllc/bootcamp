@@ -194,14 +194,17 @@ document.addEventListener('DOMContentLoaded', () => {
       return 'コメントを投稿しました！'
     }
 
-    const performCheck = () => {
-      const event = new Event('check')
-      document.dispatchEvent(event)
+    const performCheck = async () => {
+      await commentCheckable.check(
+        commentableType,
+        commentableId,
+        '/api/checks',
+        'POST'
+      )
     }
 
     const handleSave = async (checkAfterSave = false) => {
       disableButtons()
-
       try {
         const shouldContinue = await validateBeforeSave(checkAfterSave)
         if (!shouldContinue) return
