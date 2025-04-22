@@ -52,6 +52,11 @@ class WelcomeController < ApplicationController
     render template: 'welcome/certified_reskill_courses/rails_developer_course/index'
   end
 
+  def choose_courses
+    @rails_course = Course.preload(categories: :practices).find_by(title: 'Railsエンジニア')
+    @frontend_course = Course.preload(categories: :practices).find_by(title: 'フロントエンドエンジニア')
+  end
+
   private
 
   # TODO: リスキル講座 公開までは管理者のみ見れるようにするので、そのメソッド。
