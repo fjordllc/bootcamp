@@ -15,6 +15,7 @@ import MarkDownItLinkAttributes from 'markdown-it-link-attributes'
 import MarkDownItContainerSpeak from 'markdown-it-container-speak'
 import CSRF from 'csrf'
 import TextareaMarkdownLinkify from 'textarea-markdown-linkify'
+import ReplaceLinkToCard from 'replace-link-to-card'
 import MarkdownItSanitize from './markdown-it-sanitize'
 
 export default class {
@@ -51,9 +52,6 @@ export default class {
 
     // markdown
     Array.from(textareas).forEach((textarea) => {
-      // TODO: 動画機能が実装されたら削除する
-      this.convertPrivateVimeoUrl(textarea)
-
       /* eslint-disable no-new */
       new TextareaMarkdown(textarea, {
         endPoint: '/api/image.json',
@@ -63,7 +61,6 @@ export default class {
         placeholder: '%filenameをアップロード中...',
         uploadImageTag:
           '<a href="%url" target="_blank" rel="noopener noreferrer"><img src="%url" width="%width" height="%height" alt="%filename"></a>\n',
-        uploadVideoTag: '!video(%url)\n',
         afterPreview: () => {
           autosize.update(textarea)
 
