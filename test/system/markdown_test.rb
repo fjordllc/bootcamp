@@ -39,27 +39,27 @@ class MarkdownTest < ApplicationSystemTestCase
 
     fill_in('page[title]', with: 'styleタグのテスト')
     fill_in('page[body]', with: '<style>p { color: red; }</style><p>これはテストです</p>')
-  
+
     click_button 'Docを公開'
-  
+
     assert_text '<style>p { color: red; }</style>'
-  
+
     color = page.evaluate_script(<<~JS)
       getComputedStyle(document.querySelector('p')).color
     JS
-    refute_equal 'rgb(255, 0, 0)', color
+    assert_not_equal 'rgb(255, 0, 0)', color
   end
 
   test 'escapes and disables onload attributes' do
     visit_with_auth new_page_path, 'komagata'
     fill_in('page[title]', with: 'onloadが発火しないことのテスト')
-  
+
     fill_in('page[body]', with: '<iframe onload="document.body.appendChild(document.createElement(\'h3\'))"></iframe>')
-  
+
     click_button 'Docを公開'
-  
+
     assert_no_selector 'h3'
-  
+
     assert_text '<iframe onload="document.body.appendChild(document.createElement(\'h3\'))"></iframe>'
   end
 
