@@ -46,7 +46,7 @@ export default class {
       const tribute = new Tribute({
         collection: collection
       })
-      
+
       textareas.forEach((textarea) => {
         if (!textarea.dataset.tribute) {
           tribute.attach(textarea)
