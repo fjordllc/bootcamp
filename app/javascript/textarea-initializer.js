@@ -15,10 +15,7 @@ import MarkDownItLinkAttributes from 'markdown-it-link-attributes'
 import MarkDownItContainerSpeak from 'markdown-it-container-speak'
 import CSRF from 'csrf'
 import TextareaMarkdownLinkify from 'textarea-markdown-linkify'
-import ReplaceLinkToCard from 'replace-link-to-card'
-import MarkdownItSanitizer from 'markdown-it-sanitizer'
-import MarkdownItOnlineVideo from './markdown-it-online-video'
-import MarkdownItLocalVideo from './markdown-it-local-video'
+import MarkdownItSanitize from './markdown-it-sanitize'
 
 export default class {
   static initialize(selector) {
@@ -85,9 +82,7 @@ export default class {
           MarkDownItContainerDetails,
           MarkDownItLinkAttributes,
           MarkDownItContainerSpeak,
-          MarkdownItSanitizer,
-          MarkdownItOnlineVideo,
-          MarkdownItLocalVideo
+          MarkdownItSanitize
         ],
         markdownOptions: MarkdownOption
       })
