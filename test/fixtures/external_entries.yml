@@ -31,6 +31,40 @@ external_entry<%= i %>:
   title: 最新の記事<%= i %>
   url: http://test<%= i %>/example
   summary: 最新の記事<%= i %>です。
-  published_at: <%= Time.zone.local(2022, 1, 5, 0, 0, 0) %>
+  published_at: <%= Time.zone.local(2022, 1, i, 0, 0, 0) %>
   user: komagata
 <% end %>
+
+external_entry27:
+  title: 最新の記事2 summaryがHTML
+  url: http://test2/example
+  summary: |
+    <h1>ああああ</h1>
+    <p>あああああ</p>
+  published_at: <%= Time.zone.local(2022, 1, 2, 0, 0, 0) %>
+  user: advijirou
+
+external_entry28:
+  title: 最新の記事3 summaryが長いHTML
+  url: http://test3/example
+  summary: |
+    <h2 id="結論">結論</h2>
+    <p>この<a class="keyword" href="https://d.hatena.ne.jp/keyword/%B3%C8%C4%A5%B5%A1%C7%BD">拡張機能</a>を使おう！</p>
+    <p><iframe src="https://hatenablog-parts.com/embed?url=https%3A%2F%2Fmarketplace.visualstudio.com%2Fitems%3FitemName%3Dsetobiralo.erb-commenter" title="ERB Commenter - Visual Studio Marketplace" class="embed-card embed-webcard" scrolling="no" frameborder="0" style="display: block; width: 100%; height: 155px; max-width: 500px; margin: 10px 0px;" loading="lazy"></iframe><cite class="hatena-citation"><a href="https://marketplace.visualstudio.com/items?itemName=setobiralo.erb-commenter">marketplace.visualstudio.com</a></cite></p>
+    <p><a href="https://marketplace.visualstudio.com/items?itemName=setobiralo.erb-commenter">https://marketplace.visualstudio.com/items?itemName=setobiralo.erb-commenter</a></p>
+    <h2 id="経緯">経緯</h2>
+    <p><a class="keyword" href="https://d.hatena.ne.jp/keyword/VSCode">VSCode</a>でerbのファイル内で<a class="keyword" href="https://d.hatena.ne.jp/keyword/Ruby">Ruby</a>の部分を、<code>ctrl + /</code>（もしくは<code>command + /</code>）でうまく<a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%B3%A5%E1%A5%F3%A5%C8%A5%A2%A5%A6%A5%C8">コメントアウト</a>することができませんでした</p>
+    <p>具体的にはこんな感じで変なふうになります。</p>
+    <p><figure class="figure-image figure-image-fotolife" title="うまくコメントアウトできていない例"><span itemscope itemtype="http://schema.org/Photograph"><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/l/lef237/20250331/20250331222118.png" width="1200" height="291" loading="lazy" title="" class="hatena-fotolife" itemprop="image"></span><figcaption>うまく<a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%B3%A5%E1%A5%F3%A5%C8%A5%A2%A5%A6%A5%C8">コメントアウト</a>できていない例</figcaption></figure></p>
+    <p>あーっ、これはいけません。</p>
+    <p>というわけで先程の<a class="keyword" href="https://d.hatena.ne.jp/keyword/%B3%C8%C4%A5%B5%A1%C7%BD">拡張機能</a>を導入しましょう。</p>
+    <p>もういちど<code>ctrl + /</code>で<a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%B3%A5%E1%A5%F3%A5%C8%A5%A2%A5%A6%A5%C8">コメントアウト</a>します。</p>
+    <p>するとどうでしょう。うまく全部<a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%B3%A5%E1%A5%F3%A5%C8%A5%A2%A5%A6%A5%C8">コメントアウト</a>できます！</p>
+    <p><figure class="figure-image figure-image-fotolife" title="コメントアウトできた例"><span itemscope itemtype="http://schema.org/Photograph"><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/l/lef237/20250331/20250331222613.png" width="1136" height="272" loading="lazy" title="" class="hatena-fotolife" itemprop="image"></span><figcaption><a class="keyword" href="https://d.hatena.ne.jp/keyword/%A5%B3%A5%E1%A5%F3%A5%C8%A5%A2%A5%A6%A5%C8">コメントアウト</a>できた例</figcaption></figure></p>
+    <p>ちなみに、複数行でも大丈夫です。HTMLのところと<a class="keyword" href="https://d.hatena.ne.jp/keyword/Ruby">Ruby</a>のところをうまい感じに切り替えてくれます。</p>
+    <p><figure class="figure-image figure-image-fotolife" title="これが……"><span itemscope itemtype="http://schema.org/Photograph"><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/l/lef237/20250331/20250331222909.png" width="1200" height="373" loading="lazy" title="" class="hatena-fotolife" itemprop="image"></span><figcaption>これが……</figcaption></figure></p>
+    <p><figure class="figure-image figure-image-fotolife" title="こうじゃ！"><span itemscope itemtype="http://schema.org/Photograph"><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/l/lef237/20250331/20250331222942.png" width="1200" height="361" loading="lazy" title="" class="hatena-fotolife" itemprop="image"></span><figcaption>こうじゃ！</figcaption></figure></p>
+    <p>というわけで便利なのでerbを使う方はぜひ試してみましょう！</p>
+    <p><iframe src="https://hatenablog-parts.com/embed?url=https%3A%2F%2Fmarketplace.visualstudio.com%2Fitems%3FitemName%3Dsetobiralo.erb-commenter" title="ERB Commenter - Visual Studio Marketplace" class="embed-card embed-webcard" scrolling="no" frameborder="0" style="display: block; width: 100%; height: 155px; max-width: 500px; margin: 10px 0px;" loading="lazy"></iframe><cite class="hatena-citation"><a href="https://marketplace.visualstudio.com/items?itemName=setobiralo.erb-commenter">marketplace.visualstudio.com</a></cite></p>
+  published_at: <%= Time.zone.local(2022, 1, 3, 0, 0, 0) %>
+  user: mentormentaro
