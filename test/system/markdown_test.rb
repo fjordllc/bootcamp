@@ -34,25 +34,33 @@ class MarkdownTest < ApplicationSystemTestCase
     assert_includes emoji['data-user'], 'mentormentaro'
   end
 
-  test 'renders style tag as escaped text' do
+  test 'escapes and disables style tags' do
     visit_with_auth new_page_path, 'komagata'
-    fill_in('page[title]', with: 'styleタグが実行されないかのテスト')
-    fill_in('page[body]', with: '<style></style>')
+
+    fill_in('page[title]', with: 'styleタグのテスト')
+    fill_in('page[body]', with: '<style>p { color: red; }</style><p>これはテストです</p>')
+  
     click_button 'Docを公開'
-    assert page.has_text?('<style></style>')
+  
+    assert_text '<style>p { color: red; }</style>'
+  
+    color = page.evaluate_script(<<~JS)
+      getComputedStyle(document.querySelector('p')).color
+    JS
+    refute_equal 'rgb(255, 0, 0)', color
   end
 
-  test 'renders onload attribute as escaped text' do
-    slug = 'test-page-onload'
+  test 'escapes and disables onload attributes' do
     visit_with_auth new_page_path, 'komagata'
-    fill_in('page[title]', with: 'onloadが実行されないかのテスト')
-    fill_in('page[slug]', with: slug)
-    fill_in('page[body]', with: '<p onload="window.location=\'https://www.google.com\'"></p>')
-
+    fill_in('page[title]', with: 'onloadが発火しないことのテスト')
+  
+    fill_in('page[body]', with: '<iframe onload="document.body.appendChild(document.createElement(\'h3\'))"></iframe>')
+  
     click_button 'Docを公開'
-
-    assert page.has_text?('<p onload="window.location=\'https://www.google.com\'"></p>')
-    assert_equal "/pages/#{slug}", URI.parse(current_url).path
+  
+    assert_no_selector 'h3'
+  
+    assert_text '<iframe onload="document.body.appendChild(document.createElement(\'h3\'))"></iframe>'
   end
 
   # TODO: 動画機能が実装されたら削除する
