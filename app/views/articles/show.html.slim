@@ -35,30 +35,41 @@ hr.a-border-tint
         .a-card
           .article__inner
             header.article__header
-              h1.article__title
-                - if @article.wip?
-                  span.article__title-label
-                    | WIP
-                = @article.title
-              .article__metas
-                .article__meta
-                  .article__author
-                    = image_tag @article.user.avatar_url
-                    = @article.user.login_name
-                .article__meta
-                  .article__published-at
-                    - if @article.wip?
-                      = '執筆中'
-                    - elsif @article.published_at.nil?
-                      = l(@article.created_at)
-                    - else
-                      = l(@article.published_at)
-              = render 'share_buttons', article: @article
+              .article__header-row
+                h1.article__title
+                  - if @article.wip?
+                    span.article__title-label
+                      | WIP
+                  = @article.title
+              .article__header-row
+                .article__metas
+                  .article__meta
+                    .article__author
+                      = image_tag @article.user.avatar_url
+                      = @article.user.login_name
+                  .article__meta
+                    .article__published-at
+                      - if @article.wip?
+                        = '執筆中'
+                      - elsif @article.published_at.nil?
+                        = l(@article.created_at)
+                      - else
+                        = l(@article.published_at)
+              - if current_user&.admin_or_mentor_login? && @article.tag_list.present?
+                .article__header-row
+                  .a-tags
+                    ul.a-tags__items
+                      - @article.tag_list.each do |tag|
+                        li.a-tags__item
+                          = link_to tag, articles_path(tag: tag), class: 'a-badge is-muted is-sm'
+              .article__header-row
+                = render 'share_buttons', article: @article
               - if @article.display_thumbnail_in_body?
-                - if @article.prepared_thumbnail?
-                  = image_tag @article.prepared_thumbnail_url, class: 'article__image'
-                - else
-                  = image_tag @article.selected_thumbnail_url, class: 'article__image'
+                .article__header-row
+                  - if @article.prepared_thumbnail?
+                    = image_tag @article.prepared_thumbnail_url, class: 'article__image'
+                  - else
+                    = image_tag @article.selected_thumbnail_url, class: 'article__image'
             .article__body
               - if @article.wip? && @article.token == params[:token]
                 .article__message.a-notice-block.mb-8
