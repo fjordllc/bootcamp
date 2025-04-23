@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const hiddenData = document.getElementById('hidden-watch-data')
   const perPage = hiddenData.dataset.default_per_page
-  const pageNum = hiddenData.dataset.page_num
+  const pageNum = hiddenData.dataset.page_number
   const ids = hiddenData.dataset.all_ids.match(/\d+/g).map(Number)
   const deleteButtons = document.querySelectorAll('.a-watch-button')
 
