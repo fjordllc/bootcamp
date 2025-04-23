@@ -5,8 +5,8 @@ class CurrentUser::WatchesController < ApplicationController
   before_action :set_watches
 
   def index
-    @default_per_page = 25
-    @page_num = params[:page]
+    @default_per_page = Kaminari.config.default_per_page
+    @page_number = params[:page]
     @all_ids = Watch.where(user: current_user).order(created_at: :desc).pluck(:id)
   end
 
