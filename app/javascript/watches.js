@@ -41,21 +41,20 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   const hiddenData = document.getElementById('hidden-watch-data')
-  const perPage = hiddenData.dataset.default_per_page
-  const pageNum = hiddenData.dataset.page_number
   const ids = hiddenData.dataset.all_ids.match(/\d+/g).map(Number)
+  const nextWatchIndex = parseInt(hiddenData.dataset.next_watch_index)
   const deleteButtons = document.querySelectorAll('.a-watch-button')
 
   deleteButtons.forEach((button) => {
     button.addEventListener('click', () => {
       unWatch(button)
-      fetchNextPageWatch(perPage, pageNum, ids)
+      const deleteWatchIndex = ids.indexOf(parseInt(button.dataset.watch_id))
+      fetchNextPageWatch(ids, nextWatchIndex, deleteWatchIndex)
     })
   })
 })
 
-async function fetchNextPageWatch(perPage, pageNum, ids) {
-  const nextWatchIndex = pageNum ? perPage * pageNum : perPage
+async function fetchNextPageWatch(ids, nextWatchIndex, deleteWatchIndex) {
   if (ids.length < nextWatchIndex) {
     return
   }
@@ -72,7 +71,7 @@ async function fetchNextPageWatch(perPage, pageNum, ids) {
     })
 
     if (response.ok) {
-      ids.splice(nextWatchIndex, 1)
+      ids.splice(deleteWatchIndex, 1)
       const html = await response.text()
       const watchsList = document.querySelector('.card-list', '.a-card')
       watchsList.insertAdjacentHTML('beforeend', html)
@@ -86,7 +85,10 @@ async function fetchNextPageWatch(perPage, pageNum, ids) {
         deleteButtonContainer.querySelector('.a-watch-button')
       deleteButton.addEventListener('click', () => {
         unWatch(deleteButton)
-        fetchNextPageWatch(perPage, pageNum, ids)
+        const deleteWatchIndex = ids.indexOf(
+          parseInt(deleteButton.dataset.watch_id)
+        )
+        fetchNextPageWatch(ids, nextWatchIndex, deleteWatchIndex)
       })
     }
   } catch (error) {

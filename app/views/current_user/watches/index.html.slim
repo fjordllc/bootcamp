@@ -27,7 +27,7 @@
     .container.is-md
       = paginate @watches
       - if @watches.present?
-        #hidden-watch-data data-all_ids="#{@all_ids}" data-default_per_page="#{@default_per_page}" data-page_number="#{@page_number}"
+        #hidden-watch-data data-all_ids="#{@all_ids}" data-next_watch_index="#{@next_watch_index}"
         .card-list.a-card
           = render partial: 'watches/watch', collection: @watches, as: :watch
         = paginate @watches
