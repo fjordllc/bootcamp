@@ -36,6 +36,8 @@ class CurrentUser::WatchesTest < ApplicationSystemTestCase
     assert_selector '.card-list-item__option'
     first('.a-watch-button').click
     assert_no_text '作業週1日目'
+    assert_text 'テストの提出物8です。'
+    assert_equal 25, all('div.a-watch-button.a-button', text: '削除').size
     visit report_path(report)
     assert_text 'Watch'
   end
