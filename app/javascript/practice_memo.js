@@ -68,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
       toggleClass(modalElements, 'is-hidden')
       editorTextarea.value = savedMemo
       memoEditorPreview.innerHTML = markdownInitializer.render(savedMemo)
-      TextareaInitializer.initialize('#js-practice-memo')
     })
 
     editorTextarea.addEventListener('change', () => {
