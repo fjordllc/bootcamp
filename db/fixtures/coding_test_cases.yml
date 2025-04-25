@@ -53,29 +53,29 @@ coding_test_case11:
   input: world
   output: w o r l d
 
-coding_test_case12:
-  coding_test: coding_test6
-  input: ""
-  output: hello
-
-coding_test_case13:
-  coding_test: coding_test7
-  input: 3
-  output: Fizz
-
-coding_test_case14:
-  coding_test: coding_test7
-  input: 5
-  output: Buzz
-
-coding_test_case15:
-  coding_test: coding_test7
-  input: 15
-  output: FizzBuzz
-
-<% 16.upto(29) do |i| %>
+<% 12.upto(27) do |i| %>
 coding_test_case<%= i %>:
-  coding_test: coding_test<%= i - 8 %>
+  coding_test: coding_test<%= i - 6 %>
   input: ""
   output: hello
 <% end %>
+
+coding_test_case28:
+  coding_test: coding_test22
+  input: ""
+  output: hello
+
+coding_test_case29:
+  coding_test: coding_test23
+  input: 3
+  output: Fizz
+
+coding_test_case30:
+  coding_test: coding_test23
+  input: 5
+  output: Buzz
+
+coding_test_case31:
+  coding_test: coding_test23
+  input: 15
+  output: FizzBuzz
