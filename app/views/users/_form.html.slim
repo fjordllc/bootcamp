@@ -10,8 +10,8 @@
   = render 'errors', object: user
   - if !current_user && !@user.adviser? && !@user.trainee? && Campaign.today_campaign?
     = render 'checked_campaign'
-  .form__items
-    - unless @user.adviser? || @user.mentor?
+  - unless @user.adviser? || @user.mentor?
+    .form__items
       = render 'users/form/course_select', f: f, user: @user
   .form__items
     = render 'users/form/login_name', f: f
