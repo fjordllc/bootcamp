@@ -68,5 +68,8 @@ main.page-main
                       = link_to edit_mentor_coding_test_path(coding_test),
                         class: 'a-button is-sm is-secondary is-icon'
                         i.fa-solid.fa-pen
+                    li
+                      = link_to mentor_practice_coding_tests_path(coding_test.practice), class: 'a-button is-sm is-secondary is-icon is-block' do
+                        i.fa-solid.fa-align-justify
 
         = paginate @coding_tests
