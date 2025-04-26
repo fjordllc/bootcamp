@@ -55,7 +55,19 @@ coding_test5:
   hint: 文字列を分割するにはsplitが使えます。
   position: 5
 
-coding_test6:
+<% 6.upto(21) do |i| %>
+coding_test<%= i %>:
+  practice: practice62
+  user: komagata
+  language: javascript
+  title: 最初の出力
+  description: |-
+    `hello`という文字列を出力しなさい。
+  hint: ""
+  position: <%= i %>
+<% end %>
+
+coding_test22:
   practice: practice26
   user: komagata
   language: ruby
@@ -65,7 +77,7 @@ coding_test6:
   hint: ""
   position: 1
 
-coding_test7:
+coding_test23:
   practice: practice26
   user: komagata
   language: ruby
@@ -78,15 +90,3 @@ coding_test7:
     どれでもないならaを出力してください。
   hint: 条件分岐にはifが使えます。
   position: 2
-
-<% 8.upto(21) do |i| %>
-coding_test<%= i %>:
-  practice: practice62
-  user: komagata
-  language: javascript
-  title: 最初の出力
-  description: |-
-    `hello`という文字列を出力しなさい。
-  hint: ""
-  position: <%= i - 6 %>
-<% end %>
