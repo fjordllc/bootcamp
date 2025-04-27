@@ -74,6 +74,17 @@ class User < ApplicationRecord
     very_poor: 4
   }, _prefix: true
 
+  enum referral_source: {
+    search_engine: 0,
+    referral: 1,
+    event: 2,
+    x: 3,
+    facebook: 4,
+    blog: 5,
+    web_ad: 6,
+    other: 99
+  }, _prefix: true
+
   belongs_to :company, optional: true
   belongs_to :course
   has_many :learnings, dependent: :destroy
@@ -202,6 +213,7 @@ class User < ApplicationRecord
   validates :hide_mentor_profile, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
   validates :other_editor, presence: true, if: -> { editor == 'other_editor' }
+  validates :other_referral_source, presence: true, if: -> { referral_source == 'other' }
   validates :invoice_payment, inclusion: { in: [true], message: 'にチェックを入れてください。' }, if: -> { role == 'trainee_invoice_payment' }
   validates :invoice_payment, inclusion: { in: [true],
                                            message: 'か「クレジットカード払い」のいずれかを選択してください。' },
