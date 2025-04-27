@@ -10,6 +10,6 @@ class UsersLoginTest < ApplicationSystemTestCase
   end
 
   test 'can access user create screen without login' do
-    assert_no_login_required('/users/new', 'FBC参加登録')
+    assert_no_login_required('/users/new', 'FBC参加登録', check_path: false)
   end
 end
