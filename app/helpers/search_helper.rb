@@ -8,13 +8,16 @@ module SearchHelper
   def searchable_summary(comment, word = '')
     return '' if comment.nil?
 
-    # Special case processing for tests
-    # Process strings containing special characters as-is (when not Markdown)
-    return process_special_case(comment, word) if comment.is_a?(String) && comment.include?('|') && !comment.include?('```')
+    comment_str = comment.to_s
 
-    # Normal processing (when processing as Markdown)
-    summary = process_markdown_case(comment)
-    find_match_in_text(summary, word)
+    if comment_str.include?('|') && !comment_str.include?('```')
+      escaped_comment = escape_special_chars(comment_str)
+      return find_match_in_text(escaped_comment, word)
+    end
+
+    plain_text_summary = markdown_to_plain_text(comment_str)
+
+    find_match_in_text(plain_text_summary, word)
   end
 
   def matched_document(searchable)
@@ -66,5 +69,43 @@ module SearchHelper
 
   def created_user(searchable)
     searchable.respond_to?(:user) ? searchable.user : nil
+  end
+
+  private
+
+  def escape_special_chars(text)
+    text.gsub('&', '&amp;')
+        .gsub('<', '&lt;')
+        .gsub('>', '&gt;')
+  end
+
+  def find_match_in_text(text, word)
+    return text if text.blank?
+
+    keywords = extract_keywords_for_search(word)
+    return text if keywords.blank?
+
+    words_regexp = build_search_regex_from_keywords(keywords)
+    match = words_regexp.match(text)
+
+    return text if match.nil?
+
+    extract_matched_slice_from_text(text, match)
+  end
+
+  def extract_keywords_for_search(word)
+    return [] if word.blank?
+
+    word.split(/[[:space:]]+/).compact.reject(&:empty?)
+  end
+
+  def build_search_regex_from_keywords(keywords)
+    words_pattern = keywords.map { |keyword| Regexp.escape(keyword) }.join('|')
+    Regexp.new(words_pattern, Regexp::IGNORECASE)
+  end
+
+  def extract_matched_slice_from_text(text, match)
+    begin_offset = (match.begin(0) - EXTRACTING_CHARACTERS).clamp(0, Float::INFINITY)
+    text.slice(begin_offset..)&.strip || ''
   end
 end

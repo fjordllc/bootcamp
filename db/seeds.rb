@@ -72,7 +72,6 @@ tables = %i[
   coding_test_submissions
   skipped_practices
   grant_course_applications
-  practices_movies
 ]
 
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', tables
