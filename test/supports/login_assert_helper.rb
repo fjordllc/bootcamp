@@ -11,5 +11,6 @@ module LoginAssertHelper
     visit path
     assert_selector 'h1.auth-form__title', text: text, wait: 10
     assert_no_text 'ログインしてください'
+    assert_current_path path
   end
 end
