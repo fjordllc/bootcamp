@@ -61,8 +61,8 @@ unhibernated_tag_cat:
 question13_tag_cat:
   taggable: question13 (Question)
   context: tags
-
   tag: cat
+
 question13_tag_game:
   taggable: question13 (Question)
   context: tags
