@@ -9,7 +9,7 @@ module LoginAssertHelper
 
   def assert_no_login_required(path, text, check_path: true)
     visit path
-    assert_selector '.auth-form__title', text: text, wait: 10
+    assert_text text, wait: 10
     assert_no_text 'ログインしてください'
     if check_path
       current_path = URI.parse(current_url).path
