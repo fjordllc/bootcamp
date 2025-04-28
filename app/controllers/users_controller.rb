@@ -78,7 +78,7 @@ class UsersController < ApplicationController
     if @target == 'followings'
       current_user.followees_list(watch: @watch)
     elsif @entered_tag
-      User.tagged_with(@entered_tag)
+      User.desc_tagged_with(@entered_tag)
     else
       users = User.users_role(@target, allowed_targets: target_allowlist)
       @target == 'inactive' ? users.order(:last_activity_at) : users
