@@ -11,6 +11,9 @@ module LoginAssertHelper
     visit path
     assert_text text, wait: 10
     assert_no_text 'ログインしてください'
-    assert_current_path path if check_path
+    if check_path
+      current_path = URI.parse(current_url).path
+      assert_equal path, current_path, "Expected path #{path} but got #{current_path}"
+    end
   end
 end
