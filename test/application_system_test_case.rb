@@ -32,6 +32,8 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       driver_option.add_argument('--disable-dev-shm-usage')
       driver_option.add_argument('--remote-allow-origins=*')
       driver_option.add_argument('--headless=new')
+      driver_option.add_argument('--disable-gpu')
+      driver_option.add_argument('--window-size=1920,1080')
     end
   end
 
