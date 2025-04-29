@@ -11,7 +11,7 @@ h2 目次
   | #{i + 1} #{category.name.sub('（Reスキル）', '')}
   br
   - category.practices.each_with_index do |practice, h|
-    | 　　#{i + 1}.#{h + 1} 
+    = "　　#{i + 1}.#{h + 1} "
     = link_to practice.title.sub('（Reスキル）', ''), "##{practice.id}"
     br
 
