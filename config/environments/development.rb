@@ -83,14 +83,5 @@ Rails.application.configure do
   config.action_controller.asset_host = "http://localhost:3000"
   config.action_mailer.asset_host = "http://localhost:3000"
 
-  config.after_initialize do
-    Bullet.enable = true
-    Bullet.add_footer = true
-    Bullet.bullet_logger = true
-  end
-
-  config.rack_dev_mark.enable = true
-  config.rack_dev_mark.theme = [:title, Rack::DevMark::Theme::GithubForkRibbon.new(position: 'right-bottom')]
-
   Rails.application.routes.default_url_options[:host] = 'localhost:3000'
 end
