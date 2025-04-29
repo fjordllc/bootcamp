@@ -26,7 +26,6 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     driven_by :selenium, using: :chrome
   else
     ENV['WEBDRIVER_HTTP_FACTORY'] = 'jdk-http-client'
-
     driven_by(:selenium, using: :headless_chrome) do |driver_option|
       driver_option.add_argument('--no-sandbox')
       driver_option.add_argument('--disable-dev-shm-usage')
