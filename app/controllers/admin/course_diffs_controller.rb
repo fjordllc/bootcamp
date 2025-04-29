@@ -14,6 +14,7 @@ class Admin::CourseDiffsController < AdminController
 
   private
 
+  # rubocop:disable Metrics/MethodLength
   def rails_course
     ActiveRecord::Base.connection.select_all(<<~SQL.squish)
       SELECT
@@ -62,4 +63,5 @@ class Admin::CourseDiffsController < AdminController
         categories_practices.position
     SQL
   end
+  # rubocop:enable Metrics/MethodLength
 end
