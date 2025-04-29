@@ -8,7 +8,10 @@ class MoviesController < ApplicationController
   PAGER_NUMBER = 24
 
   def index
-    @movies = Movie.includes(:user)
+    @tag = ActsAsTaggableOn::Tag.find_by(name: params[:tag])
+    @tags = Movie.all.all_tags
+    @movies = Movie.by_tag(params[:tag])
+                   .includes(:user)
                    .order(updated_at: :desc, id: :desc)
                    .page(params[:page])
                    .per(PAGER_NUMBER)
