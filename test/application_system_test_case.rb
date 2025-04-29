@@ -31,6 +31,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       driver_option.add_argument('--no-sandbox')
       driver_option.add_argument('--disable-dev-shm-usage')
       driver_option.add_argument('--remote-allow-origins=*')
+      driver_option.add_argument('--headless=new')
     end
   end
 
