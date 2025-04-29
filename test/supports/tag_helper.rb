@@ -12,7 +12,7 @@ module TagHelper
     tag_input = find(selector)
     sleep 1
     tag_input.set name
-    
+
     if ENV['HEADFUL']
       accept_alert do
         tag_input.native.send_keys :return
