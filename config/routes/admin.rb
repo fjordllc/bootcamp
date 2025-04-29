@@ -17,5 +17,6 @@ Rails.application.routes.draw do
       resources :faqs, only: %i(index update), controller: 'faq_categories/faqs'
     end
     resources :grant_course_applications, only: %i(index show)
+    resources :course_diffs, only: %i(index show)
   end
 end
