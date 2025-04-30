@@ -22,17 +22,17 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include MockEnvHelper
   include ArticleHelper
 
-  if ENV['HEADFUL']
+  if ENV["HEADFUL"]
     driven_by :selenium, using: :chrome
   else
-    ENV['WEBDRIVER_HTTP_FACTORY'] = 'jdk-http-client'
+    ENV["WEBDRIVER_HTTP_FACTORY"] = "jdk-http-client"
     driven_by(:selenium, using: :headless_chrome) do |driver_option|
-      driver_option.add_argument('--no-sandbox')
-      driver_option.add_argument('--disable-dev-shm-usage')
-      driver_option.add_argument('--remote-allow-origins=*')
-      driver_option.add_argument('--headless=new')
-      driver_option.add_argument('--disable-gpu')
-      driver_option.add_argument('--window-size=1920,1080')
+      driver_option.add_argument("--no-sandbox")
+      driver_option.add_argument("--disable-dev-shm-usage")
+      driver_option.add_argument("--remote-allow-origins=*")
+      driver_option.add_argument("--headless=new")
+      driver_option.add_argument("--disable-gpu")
+      driver_option.add_argument("--window-size=1920,1080")
     end
   end
 
