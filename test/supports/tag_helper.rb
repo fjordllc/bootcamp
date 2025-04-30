@@ -18,7 +18,7 @@ module TagHelper
         tag_input.native.send_keys :return
       end
     else
-      page.execute_script('window.confirm = function() { return true; }; window.alert = function() { return true; };')
+      page.execute_script("window.confirm = function() { return true; }; window.alert = function() { return true; };")
       tag_input.native.send_keys :return
     end
   end
