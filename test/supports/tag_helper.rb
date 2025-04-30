@@ -12,7 +12,13 @@ module TagHelper
     tag_input = find(selector)
     sleep 1
     tag_input.set name
-    accept_alert do
+
+    if ENV['HEADFUL']
+      accept_alert do
+        tag_input.native.send_keys :return
+      end
+    else
+      page.execute_script('window.confirm = function() { return true; }; window.alert = function() { return true; };')
       tag_input.native.send_keys :return
     end
   end
