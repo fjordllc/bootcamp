@@ -27,20 +27,20 @@ function escapeHtmlContent(html, escapeTags = [], escapeAttributes = []) {
   const parser = new DOMParser()
   const doc = parser.parseFromString(`<body>${html}</body>`, 'text/html')
 
-  doc.querySelectorAll('*').forEach((el) => {
-    if (shouldEscape(el, escapeTags, escapeAttributes)) {
-      el.replaceWith(doc.createTextNode(el.outerHTML))
+  doc.querySelectorAll('*').forEach((element) => {
+    if (shouldEscape(element, escapeTags, escapeAttributes)) {
+      element.replaceWith(doc.createTextNode(element.outerHTML))
     }
   })
 
   return doc.body.innerHTML
 }
 
-function shouldEscape(el, escapeTags, escapeAttributes) {
-  const tag = el.tagName.toLowerCase()
+function shouldEscape(element, escapeTags, escapeAttributes) {
+  const tag = element.tagName.toLowerCase()
   const isDangerousTag = escapeTags.includes(tag)
 
-  const hasDangerousAttribute = [...el.attributes].some((attr) => {
+  const hasDangerousAttribute = [...element.attributes].some((attr) => {
     const attrName = attr.name.toLowerCase()
     return escapeAttributes.includes(attrName)
   })
