@@ -1,39 +1,5 @@
-.book-name 申請講座で使用する教材
+h1 書類
 
-.book-company_name 株式会社ロッカ
-.book-updated #{Date.current.year}年#{Date.current.month}月
-
-div(style="page-break-before:always")
-
-h2 目次
-
-- @categories.each_with_index do |category, i|
-  | #{i + 1} #{category.name}
-  br
-  - category.practices.each_with_index do |practice, h|
-    | 　　#{i + 1}.#{h + 1}
-    = link_to practice.title, "##{practice.id}"
-    br
-
-div(style="page-break-before:always")
-
-- @categories.each_with_index do |category, i|
-  h3.category_name
-    | #{i + 1} #{category.name}
-  = category.description
-
-  div(style="page-break-before:always")
-
-  - category.practices.each_with_index do |practice, h|
-    h3.practice_title(id="#{practice.id}")
-      | #{i + 1}.#{h + 1} #{practice.title.strip}
-
-    div(style="page-break-before:always")
-
-    .a-long-text.is-md.js-markdown-view = practice.description
-
-    h2 終了条件
-
-    .a-long-text.is-md.js-markdown-view = practice.goal
-
-    div(style="page-break-before:always")
+ol
+  li = link_to '申請講座で使用する教材', paper_course_document_path
+  li = link_to '演習の具体的な実施手順等を示す資料', paper_exercise_procedure_document_path

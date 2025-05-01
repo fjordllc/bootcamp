@@ -132,3 +132,93 @@ courses_category27:
   course: course1
   category: category23
   position: 19
+
+courses_category28:
+  course: course5
+  category: category1
+  position: 1
+
+courses_category29:
+  course: course5
+  category: category2
+  position: 2
+
+courses_category30:
+  course: course5
+  category: category3
+  position: 3
+
+courses_category31:
+  course: course5
+  category: category4
+  position: 4
+
+courses_category32:
+  course: course5
+  category: category5
+  position: 5
+
+courses_category33:
+  course: course5
+  category: category6
+  position: 6
+
+courses_category34:
+  course: course5
+  category: category7
+  position: 7
+
+courses_category35:
+  course: course5
+  category: category8
+  position: 8
+
+courses_category36:
+  course: course5
+  category: category9
+  position: 9
+
+courses_category37:
+  course: course5
+  category: category10
+  position: 10
+
+courses_category38:
+  course: course5
+  category: category11
+  position: 11
+
+courses_category39:
+  course: course5
+  category: category12
+  position: 12
+
+courses_category40:
+  course: course5
+  category: category13
+  position: 13
+
+courses_category41:
+  course: course5
+  category: category14
+  position: 14
+
+courses_category42:
+  course: course5
+  category: category15
+  position: 15
+
+courses_category43:
+  course: course5
+  category: category16
+  position: 16
+
+courses_category44:
+  course: course5
+  category: category22
+  position: 17
+
+courses_category45:
+  course: course5
+  category: category23
+  position: 18

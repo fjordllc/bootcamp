@@ -116,6 +116,7 @@ ja:
         other_editor: その他のエディタ
         hide_mentor_profile: プロフィール非公開
         invoice_payment: 「請求書払い」
+        other_referral_source: FBCを知ったその他の経路
       discord_profile:
         account_name: Discord アカウント
         times_url: 分報URL
@@ -376,6 +377,15 @@ ja:
           vim: Vim
           emacs: Emacs
           other_editor: その他
+        referral_source:
+          search_engine: 検索エンジン
+          referral: 知人の紹介
+          event: テックイベント
+          x: X（旧Twitter）
+          facebook: Facebook
+          blog: ブログ記事
+          web_ad: Web広告
+          other: その他
         satisfaction:
           excellent: とても良い
           good: 良い

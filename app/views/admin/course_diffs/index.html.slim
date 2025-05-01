@@ -1,0 +1,54 @@
+- title 'コース差分一覧'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title
+          | 管理ページ
+
+= render 'admin/admin_page_tabs'
+
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | コース差分一覧
+        .page-main-header__end
+          .page-main-header-actions
+            .page-main-header-actions__items
+              .page-main-header-actions__item
+
+  hr.a-border
+
+  .page-body
+    .container
+      .admin-table
+        table.admin-table__table
+          thead.admin-table__header
+            tr.admin-table__labels
+              th.admin-table__label(colspan=4) Railsエンジニアコース
+              th.admin-table__label <=>
+              th.admin-table__label(colspan=2) Railsエンジニアコース（Reスキル）
+            tr.admin-table__labels
+            - %w[CID カテゴリー名 PID プラクティスタイトル <=> PID2 プラクティス2タイトル].each do |label|
+              th.admin-table__label = label
+          tbody.admin-table__items
+            - @rails_course.each do |key, value|
+              tr.admin-table__item
+                td.admin-table__item-value
+                  = value['category_id']
+                td.admin-table__item-value
+                  = value['category_name']
+                td.admin-table__item-value
+                  = key
+                td.admin-table__item-value
+                  = value['practice_title']
+                td.admin-table__item-value
+                  | <=>
+                td.admin-table__item-value
+                  = value['practice2_id']
+                td.admin-table__item-value
+                  = value['practice2_title']

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get 'certified_reskill_courses/rails_developer_course',
     to: 'welcome#rails_developer_course',
     as: :certified_reskill_courses_rails_developer_course_root
+  get 'choose_courses', to: "welcome#choose_courses", as: "choose_courses"
   draw :scheduler
   draw :api
   draw :paper
@@ -54,6 +55,7 @@ Rails.application.routes.draw do
     resource :completion, only: %i(show), controller: "practices/completion"
     resource :submission_answer, only: %i(show), controller: "practices/submission_answer"
     resources :coding_tests, only: %i(index), controller: "practices/coding_tests"
+    resources :movies, only: %i(index), controller: "practices/movies"
   end
   resources :coding_tests, only: %i(show) do
     resources :coding_test_submissions,
@@ -121,7 +123,6 @@ Rails.application.routes.draw do
   get 'auth/failure', to: "user_sessions#failure"
   post "user_sessions" => "user_sessions#create"
   get "logout" => "user_sessions#destroy", as: :logout
-  get "thanks", to: "static_pages#thanks"
   get "portfolios" => "works#index"
   niconico_calendar_constraints = { niconico_calendar: /\d{4}-\d{2}/ }
   get '/', to: 'home#index', as: :niconico_calendar_date, constraints: niconico_calendar_constraints

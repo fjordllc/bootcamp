@@ -21,3 +21,4 @@ article3:
   wip: true
   thumbnail_type: :prepared_thumbnail
   token: abcdef123456
+  target: :all
