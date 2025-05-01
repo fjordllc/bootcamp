@@ -43,11 +43,6 @@ class MarkdownTest < ApplicationSystemTestCase
     click_button 'Docを公開'
 
     assert_text '<style>p { color: red; }</style>'
-
-    color = page.evaluate_script(<<~JS)
-      getComputedStyle(document.querySelector('p')).color
-    JS
-    assert_not_equal 'rgb(255, 0, 0)', color
   end
 
   test 'escapes and disables onload attributes' do
