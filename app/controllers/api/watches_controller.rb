@@ -2,9 +2,9 @@
 
 class API::WatchesController < API::BaseController
   include Rails.application.routes.url_helpers
+  before_action :set_watch, only: %i[show destroy]
 
   def show
-    @watch = Watch.find(params[:id])
     render partial: 'watches/watch', locals: { watch: @watch }
   end
 
@@ -26,12 +26,15 @@ class API::WatchesController < API::BaseController
   end
 
   def destroy
-    @watch = Watch.find(params[:id])
     @watch.destroy
     head :no_content
   end
 
   private
+
+  def set_watch
+    @watch = Watch.find(params[:id])
+  end
 
   def watchable
     params[:watchable_type].constantize.find_by(id: params[:watchable_id])
