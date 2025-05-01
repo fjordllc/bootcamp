@@ -9,12 +9,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!editToggle) {
     window.addEventListener('beforeunload', function () {
-      localStorage.removeItem('watchs-delete-mode')
+      localStorage.removeItem('watches-delete-mode')
     })
     return
   }
 
-  if (localStorage.getItem('watchs-delete-mode') === 'on') {
+  if (localStorage.getItem('watches-delete-mode') === 'on') {
     editToggle.checked = true
     deleteButtonContainers.forEach((container) => {
       container.classList.remove('hidden')
@@ -28,12 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   editToggle.addEventListener('change', () => {
     if (editToggle.checked) {
-      localStorage.setItem('watchs-delete-mode', 'on')
+      localStorage.setItem('watches-delete-mode', 'on')
       deleteButtonContainers.forEach((container) => {
         container.classList.remove('hidden')
       })
     } else {
-      localStorage.removeItem('watchs-delete-mode')
+      localStorage.removeItem('watches-delete-mode')
       deleteButtonContainers.forEach((container) => {
         container.classList.add('hidden')
       })
@@ -73,8 +73,8 @@ async function fetchNextPageWatch(ids, nextWatchIndex, deleteWatchIndex) {
     if (response.ok) {
       ids.splice(deleteWatchIndex, 1)
       const html = await response.text()
-      const watchsList = document.querySelector('.card-list', '.a-card')
-      watchsList.insertAdjacentHTML('beforeend', html)
+      const watchesList = document.querySelector('.card-list')
+      watchesList.insertAdjacentHTML('beforeend', html)
 
       const nextWatch = document.getElementById(nextWatchId)
       const deleteButtonContainer = nextWatch.querySelector(
