@@ -50,4 +50,19 @@ class Article::TagsTest < ApplicationSystemTestCase
     assert_current_path root_path
     assert_text '管理者・メンターとしてログインしてください'
   end
+
+  test 'can add tag using shortcut buttons' do
+    visit_with_auth new_article_url, 'komagata'
+    fill_in 'タイトル', with: 'ショートカットボタンからのタグ追加テスト'
+    fill_in '本文', with: 'タグショートカットボタンのテストです'
+    find('button.js-tag-input-button', text: '注目の記事').click
+    assert_selector('.tagify__tag', text: '注目の記事')
+    page.accept_confirm do
+      click_on '公開する'
+    end
+    assert_text '記事を作成しました'
+
+    created_article = Article.find_by(title: 'ショートカットボタンからのタグ追加テスト')
+    assert_includes created_article.tag_list, '注目の記事'
+  end
 end
