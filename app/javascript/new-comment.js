@@ -1,18 +1,19 @@
 import CSRF from 'csrf'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
-import initializeComment from './initializeComment.js'
+import { initializeComment, toggleVisibility } from './initializeComment.js'
 import { initializeReaction } from './reaction.js'
 import { toast } from './vanillaToast.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const newComment = document.querySelector('.new-comment')
   if (newComment) {
-    TextareaInitializer.initialize('#js-new-comment')
-    const markdownInitializer = new MarkdownInitializer()
     const commentableId = newComment.dataset.commentable_id
     const commentableType = newComment.dataset.commentable_type
+
     let savedComment = ''
+    TextareaInitializer.initialize('#js-new-comment')
+    const markdownInitializer = new MarkdownInitializer()
 
     const commentEditor = newComment.querySelector('.comment-editor')
     const commentEditorPreview = commentEditor.querySelector(
@@ -26,13 +27,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const editorTabContent = commentEditor.querySelector('.is-editor')
     const previewTab = commentEditor.querySelector('.comment-preview-tab')
     const previewTabContent = commentEditor.querySelector('.is-preview')
-
     const tabElements = [
       editTab,
       editorTabContent,
       previewTab,
       previewTabContent
     ]
+    editTab.addEventListener('click', () =>
+      toggleVisibility(tabElements, 'is-active')
+    )
+    previewTab.addEventListener('click', () =>
+      toggleVisibility(tabElements, 'is-active')
+    )
 
     const saveButton = commentEditor.querySelector('.is-primary')
     editorTextarea.addEventListener('input', () => {
@@ -54,14 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
       )
       saveButton.disabled = true
     })
-
-    editTab.addEventListener('click', () =>
-      toggleVisibility(tabElements, 'is-active')
-    )
-
-    previewTab.addEventListener('click', () =>
-      toggleVisibility(tabElements, 'is-active')
-    )
   }
 })
 
@@ -110,10 +108,4 @@ function createComment(description, commentableId, commentableType) {
     .catch((error) => {
       console.warn(error)
     })
-}
-
-function toggleVisibility(elements, className) {
-  elements.forEach((element) => {
-    element.classList.toggle(className)
-  })
 }

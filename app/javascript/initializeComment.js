@@ -2,7 +2,7 @@ import CSRF from 'csrf'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
 
-export default function initializeComment(comment) {
+function initializeComment(comment) {
   const commentId = comment.dataset.comment_id
   const commentDescription = comment.dataset.comment_description
 
@@ -10,12 +10,7 @@ export default function initializeComment(comment) {
   TextareaInitializer.initialize(`#js-comment-${commentId}`)
   const markdownInitializer = new MarkdownInitializer()
 
-  const commentDisplay = comment.querySelector('.comment-display')
   const commentEditor = comment.querySelector('.comment-editor')
-  const commentDisplayContent = commentDisplay.querySelector('.a-long-text')
-  commentDisplayContent.innerHTML =
-    markdownInitializer.render(commentDescription)
-
   const commentEditorPreview = commentEditor.querySelector(
     '.a-markdown-input__preview'
   )
@@ -23,6 +18,10 @@ export default function initializeComment(comment) {
     '.a-markdown-input__textarea'
   )
 
+  const commentDisplay = comment.querySelector('.comment-display')
+  const commentDisplayContent = commentDisplay.querySelector('.a-long-text')
+  commentDisplayContent.innerHTML =
+    markdownInitializer.render(commentDescription)
   if (commentDescription) {
     commentDisplayContent.innerHTML =
       markdownInitializer.render(commentDescription)
@@ -40,6 +39,18 @@ export default function initializeComment(comment) {
       toggleVisibility(modalElements, 'is-hidden')
     })
   }
+
+  const editTab = commentEditor.querySelector('.edit-comment-tab')
+  const editorTabContent = commentEditor.querySelector('.is-editor')
+  const previewTab = commentEditor.querySelector('.comment-preview-tab')
+  const previewTabContent = commentEditor.querySelector('.is-preview')
+  const tabElements = [editTab, editorTabContent, previewTab, previewTabContent]
+  editTab.addEventListener('click', () =>
+    toggleVisibility(tabElements, 'is-active')
+  )
+  previewTab.addEventListener('click', () =>
+    toggleVisibility(tabElements, 'is-active')
+  )
 
   const saveButton = commentEditor.querySelector('.is-primary')
   if (saveButton) {
@@ -73,20 +84,6 @@ export default function initializeComment(comment) {
     })
   }
 
-  const editTab = commentEditor.querySelector('.edit-comment-tab')
-  const editorTabContent = commentEditor.querySelector('.is-editor')
-  const previewTab = commentEditor.querySelector('.comment-preview-tab')
-  const previewTabContent = commentEditor.querySelector('.is-preview')
-
-  const tabElements = [editTab, editorTabContent, previewTab, previewTabContent]
-  editTab.addEventListener('click', () =>
-    toggleVisibility(tabElements, 'is-active')
-  )
-
-  previewTab.addEventListener('click', () =>
-    toggleVisibility(tabElements, 'is-active')
-  )
-
   const createdAtElement = comment.querySelector('.thread-comment__created-at')
   if (createdAtElement && navigator.clipboard) {
     createdAtElement.addEventListener('click', () => {
@@ -104,56 +101,58 @@ export default function initializeComment(comment) {
         })
     })
   }
+}
 
-  function toggleVisibility(elements, className) {
-    elements.forEach((element) => {
-      element.classList.toggle(className)
-    })
+function toggleVisibility(elements, className) {
+  elements.forEach((element) => {
+    element.classList.toggle(className)
+  })
+}
+
+function updateComment(commentId, description) {
+  if (description.length < 1) {
+    return null
   }
+  const params = {
+    id: commentId,
+    comment: { description: description }
+  }
+  fetch(`/api/comments/${commentId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'X-Requested-With': 'XMLHttpRequest',
+      'X-CSRF-Token': CSRF.getToken()
+    },
+    credentials: 'same-origin',
+    redirect: 'manual',
+    body: JSON.stringify(params)
+  }).catch((error) => {
+    console.warn(error)
+  })
+}
 
-  function updateComment(commentId, description) {
-    if (description.length < 1) {
-      return null
-    }
-    const params = {
-      id: commentId,
-      comment: { description: description }
-    }
-    fetch(`/api/comments/${commentId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': CSRF.getToken()
-      },
-      credentials: 'same-origin',
-      redirect: 'manual',
-      body: JSON.stringify(params)
-    }).catch((error) => {
+function deleteComment(commentId) {
+  fetch(`/api/comments/${commentId}.json`, {
+    method: 'DELETE',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+      'X-CSRF-Token': CSRF.getToken()
+    },
+    credentials: 'same-origin',
+    redirect: 'manual'
+  })
+    .then(() => {
+      const deletedComment = document.querySelector(
+        `.thread-comment.comment[data-comment_id='${commentId}']`
+      )
+      if (deletedComment) {
+        deletedComment.remove()
+      }
+    })
+    .catch((error) => {
       console.warn(error)
     })
-  }
-
-  function deleteComment(commentId) {
-    fetch(`/api/comments/${commentId}.json`, {
-      method: 'DELETE',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': CSRF.getToken()
-      },
-      credentials: 'same-origin',
-      redirect: 'manual'
-    })
-      .then(() => {
-        const deletedComment = document.querySelector(
-          `.thread-comment.comment[data-comment_id='${commentId}']`
-        )
-        if (deletedComment) {
-          deletedComment.remove()
-        }
-      })
-      .catch((error) => {
-        console.warn(error)
-      })
-  }
 }
+
+export { initializeComment, toggleVisibility }

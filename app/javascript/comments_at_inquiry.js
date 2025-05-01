@@ -1,4 +1,4 @@
-import initializeComment from './initializeComment.js'
+import { initializeComment } from './initializeComment.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const comments = document.querySelectorAll('.comment')
