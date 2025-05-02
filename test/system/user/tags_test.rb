@@ -150,7 +150,7 @@ class User::TagsTest < ApplicationSystemTestCase
     assert_includes all('.tag-links__item-link').map(&:text), 'ハッシュハッシュ'
   end
 
-  test 'hibernated users are displayed in the user list by tag' do
+  test 'hibernated users are not displayed in the user list by tag' do
     user = users(:kensyu)
     tag_name = acts_as_taggable_on_tags('guitar').name.to_s
 
@@ -188,7 +188,7 @@ class User::TagsTest < ApplicationSystemTestCase
     assert_no_selector ".a-user-icons__items img[title='#{user.login_name} (#{user.name})']"
   end
 
-  test 'retired users are displayed in the user list by tag' do
+  test 'retired users are not displayed in the user list by tag' do
     user = users(:kensyu)
     tag_name = acts_as_taggable_on_tags('guitar').name.to_s
 
