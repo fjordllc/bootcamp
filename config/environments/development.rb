@@ -31,7 +31,7 @@ Rails.application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+  config.active_storage.service = :google2
   config.active_storage.service_urls_expire_in = 7.days
 
   # Don't care if the mailer can't send.
