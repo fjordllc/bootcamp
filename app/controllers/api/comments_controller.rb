@@ -22,7 +22,12 @@ class API::CommentsController < API::BaseController
     @comment.user = current_user
     @comment.commentable = commentable
     if @comment.save
-      render :create, status: :created
+      # TODO: Inquiry以外はvueでJSONを使用している。コメント機能のJS変換が完了すれば下の'Inquiry'による分岐は不要なので削除してください。
+      if params[:commentable_type] == 'Inquiry'
+        render partial: 'comments/comment', locals: { commentable:, comment: @comment, user: current_user }, status: :created
+      else
+        render :create, status: :created
+      end
     else
       head :bad_request
     end
