@@ -8,191 +8,40 @@ section.lp-content.is-lp-bg-1.is-top-title
             br
             | &プレゼンテーション
       .lp-content__end
-        .lp-content__articles
-          .row.is-gutter-width-32
+        .lp-content-stack
+          - if articles.present?
+            .lp-content-stack__item
+              .lp-content__articles
+                .row.is-gutter-width-32
 
-            .col-xs-6.col-md-4
-              .thumbnail-card.a-card
-                = link_to 'https://bootcamp.fjord.jp/articles/138', class: 'thumbnail-card__inner' do
-                  = image_tag 'articles/article-138.jpeg', class: 'thumbnail-card__image', alt: '私たちも最初から、1000時間も学習できると思っていませんでした【卒業生インタビューキャタル様】の記事のサムネイル'
-                  .thumbnail-card__row
-                    h3.thumbnail-card__title
-                      | 私たちも最初から、1000時間も学習できると
-                      | 思っていませんでした【卒業生インタビューキャタル様】
-                  .thumbnail-card__row
-                    .thumbnail-card__description
-                      .a-short-text
-                        p
-                          | フィヨルドブートキャンプを卒業した方々は、
-                          | どんな経験をして、どんな基準で会社を選び、
-                          | 今エンジニアとしてどんな思いで働いているのでしょうか。
-                          | 今回は株式会社キャタルで働くharuna-tsujitaさん、
-                          | siroemkさん、CTOのgeekneesさんにお話を聞きました。
+                  - articles.each do |article|
+                    .col-xs-6.col-md-4
+                      .thumbnail-card.a-card
+                        = link_to article_path(article), class: 'thumbnail-card__inner' do
+                          = image_tag article.prepared_thumbnail_url, class: 'thumbnail-card__image', alt: "#{article.title}の記事のサムネイル"
+                          .thumbnail-card__row
+                            h3.thumbnail-card__title
+                              = article.title
+                          .thumbnail-card__row
+                            .thumbnail-card__description
+                              .a-short-text
+                                p
+                                  = article.summary
+            / TODO: 別issueで対応するためコメントアウト　https://github.com/fjordllc/bootcamp/pull/8272#issuecomment-2709838791
+            / .lp-content-stack__item
+              .lp-actions
+                .lp-actions__items
+                  .lp-actions__item
+                    = link_to '', class: 'a-button is-xl is-primary-border is-block' do
+                      | もっと見る
 
-            .col-xs-6.col-md-4
-              .thumbnail-card.a-card
-                = link_to 'https://bootcamp.fjord.jp/articles/137', class: 'thumbnail-card__inner' do
-                  = image_tag 'articles/article-137.png', class: 'thumbnail-card__image', alt: '幅広い開発スキルを学び、自分の好きなこと・強みを活かして働けている。【卒業生インタビューキャタル様】の記事のサムネイル'
-                  .thumbnail-card__row
-                    h3.thumbnail-card__title
-                      | 幅広い開発スキルを学び、自分の好きなこと・
-                      | 強みを活かして働けている。【卒業生インタビューキャタル様】
-                  .thumbnail-card__row
-                    .thumbnail-card__description
-                      .a-short-text
-                        p
-                          | フィヨルドブートキャンプを卒業した方々は、
-                          | どんな経験をして、どんな基準で会社を選び、
-                          | 今エンジニアとしてどんな思いで働いているのでしょうか。
-                          | 今回は株式会社キャタルで働くgogutanさん、kanazawaさん、
-                          | 技術顧問のokuramasafumiさんにお話を聞きました。
-
-            .col-xs-6.col-md-4
-              .thumbnail-card.a-card
-                = link_to 'https://bootcamp.fjord.jp/articles/133', class: 'thumbnail-card__inner' do
-                  = image_tag 'articles/article-133.png', class: 'thumbnail-card__image', alt: 'プログラミングの挑戦の楽しさと現役エンジニアからの学び【卒業生インタビューTebiki様】の記事のサムネイル'
-                  .thumbnail-card__row
-                    h3.thumbnail-card__title
-                      | プログラミングの挑戦の楽しさと
-                      | 現役エンジニアからの学び【卒業生インタビューTebiki様】
-                  .thumbnail-card__row
-                    .thumbnail-card__description
-                      .a-short-text
-                        p
-                          | フィヨルドブートキャンプを卒業した方々は、
-                          | どんな経験をして、どんな基準で会社を選び、
-                          | 今エンジニアとしてどんな思いで働いているのでしょうか。
-                          | 今回はTebiki株式会社で働くmasuyama13さん、unstoppa61eさん、
-                          | CTOのshibukkさんにお話を聞きました。
-
-            .col-xs-6.col-md-4
-              .thumbnail-card.a-card
-                = link_to 'https://bootcamp.fjord.jp/articles/128', class: 'thumbnail-card__inner' do
-                  = image_tag 'articles/article-128.jpeg', class: 'thumbnail-card__image', alt: '30歳、警察官と教員からエンジニアへ！コミュニティとの出会いがキャリアを大きく変えてくれた【卒業生インタビュー永和システムマネジメント様】の記事のサムネイル'
-                  .thumbnail-card__row
-                    h3.thumbnail-card__title
-                      | 30歳、警察官と教員からエンジニアへ！
-                      | コミュニティとの出会いがキャリアを大きく変えてくれた
-                      | 【卒業生インタビュー永和システムマネジメント様】
-                  .thumbnail-card__row
-                    .thumbnail-card__description
-                      .a-short-text
-                        p
-                          | フィヨルドブートキャンプを卒業した方々は、
-                          | どんな経験をして、どんな基準で会社を選び、
-                          | 今エンジニアとしてどんな思いで働いているのでしょうか。
-                          | 今回は株式会社永和システムマネジメントで働くfugakkbnさん、haruguchi-yumaさん、
-                          | 先輩社員のnsgcさんにお話を聞きました。
-
-            .col-xs-6.col-md-4
-              .thumbnail-card.a-card
-                = link_to 'https://bootcamp.fjord.jp/articles/122', class: 'thumbnail-card__inner' do
-                  = image_tag 'articles/article-122.jpeg', class: 'thumbnail-card__image', alt: 'フィヨルドブートキャンプはプログラミングスクールでもあり、1つのコミュニティ。【卒業生インタビューピクシブ様】の記事のサムネイル'
-                  .thumbnail-card__row
-                    h3.thumbnail-card__title
-                      | フィヨルドブートキャンプはプログラミングスクールでもあり、1つのコミュニティ。【卒業生インタビューピクシブ様】
-                  .thumbnail-card__row
-                    .thumbnail-card__description
-                      .a-short-text
-                        p
-                          | フィヨルドブートキャンプを卒業した方々は、
-                          | どんな経験をして、どんな基準で会社を選び、
-                          | 今エンジニアとしてどんな思いで働いているのでしょうか。
-                          | 今回はピクシブ株式会社で働くyumaさんと、上長のsakiさんにお話を聞きました。
-
-            .col-xs-6.col-md-4
-              .thumbnail-card.a-card
-                = link_to 'https://bootcamp.fjord.jp/articles/119', class: 'thumbnail-card__inner' do
-                  = image_tag 'articles/article-119.png', class: 'thumbnail-card__image', alt: 'Slerからフィヨルドブートキャンプへ。Web開発に必要な知識が学べて自信がついた【卒業生インタビューしくみ製作所様】の記事のサムネイル'
-                  .thumbnail-card__row
-                    h3.thumbnail-card__title
-                      | Slerからフィヨルドブートキャンプへ。Web開発に必要な知識が学べて自信がついた【卒業生インタビューしくみ製作所様】
-                  .thumbnail-card__row
-                    .thumbnail-card__description
-                      .a-short-text
-                        p
-                          | フィヨルドブートキャンプを卒業した方々は、どんな経験をして、
-                          | どんな基準で会社を選び、今どんな思いでエンジニアとして
-                          | 働いているのでしょうか。
-                          | 今回はしくみ製作所で働くseijiさん、makiichikawaさんと、
-                          | お二人の上長のhozumiさんtottyさんにお話を聞きました。
-
-            .col-xs-6.col-md-4
-              .thumbnail-card.a-card
-                = link_to 'https://bootcamp.fjord.jp/articles/114', class: 'thumbnail-card__inner' do
-                  = image_tag 'articles/article-114.png', class: 'thumbnail-card__image', alt: 'コマンドって何……？Macも初めて。本当に未経験だった私が、エンジニアになった話【卒業生インタビューラグザイア様】の記事のサムネイル'
-                  .thumbnail-card__row
-                    h3.thumbnail-card__title
-                      | コマンドって何……？Macも初めて。本当に未経験だった私が、エンジニアになった話【卒業生インタビューラグザイア様】
-                  .thumbnail-card__row
-                    .thumbnail-card__description
-                      .a-short-text
-                        p
-                          | フィヨルドブートキャンプを卒業した方々は、どんな経験をして、
-                          | どんな基準で会社を選び、今どんな思いでエンジニアとして
-                          | 働いているのでしょうか。
-                          | 今回は株式会社ラグザイアで働く
-                          | takapi61 さんにお話を聞きました。
-            .col-xs-6.col-md-4
-              .thumbnail-card.a-card
-                = link_to 'https://bootcamp.fjord.jp/articles/103', class: 'thumbnail-card__inner' do
-                  = image_tag 'articles/article-103.png', class: 'thumbnail-card__image', alt: '[フィヨブーフェス 2023 文字起こし] 4. フィヨブーは最高だぞ （maimu）の記事のサムネイル'
-                  .thumbnail-card__body
-                    h3.thumbnail-card__title
-                      | [フィヨブーフェス 2023 文字起こし] 4. フィヨブーは最高だぞ （maimu）
-                  .thumbnail-card__body
-                    .thumbnail-card__description
-                      .a-short-text
-                        p
-                          | 先輩受講生や卒業生からフィヨルドブートキャンプの楽しみ方や
-                          | 学習継続のコツ、アドバイスをショートプレゼンテーション形式で伝える
-                          | イベント「フィヨブーフェス2023」での
-                          | 卒業生のmaimuさんのプレゼンテーションです。
-            .col-xs-6.col-md-4
-              .thumbnail-card.a-card
-                = link_to 'https://bootcamp.fjord.jp/articles/98', class: 'thumbnail-card__inner' do
-                  = image_tag 'articles/article-98.jpeg', class: 'thumbnail-card__image', alt: '実践的な学びと入社後の研修で、自信を持って業務に取り組めた。【卒業生インタビューラグザイア様】の記事のサムネイル'
-                  .thumbnail-card__row
-                    h3.thumbnail-card__title
-                      | 実践的な学びと入社後の研修で、自信を持って業務に取り組めた。【卒業生インタビューラグザイア様】
-                  .thumbnail-card__row
-                    .thumbnail-card__description
-                      .a-short-text
-                        p
-                          | フィヨルドブートキャンプを卒業した方々は、どんな経験をして、
-                          | どんな基準で会社を選び、今どんな思いでエンジニアとして
-                          | 働いているのでしょうか。
-                          | 今回は株式会社ラグザイアで働く naomichi-h さんにお話を聞きました。
-            .col-xs-6.col-md-4
-              .thumbnail-card.a-card
-                = link_to 'https://bootcamp.fjord.jp/articles/83', class: 'thumbnail-card__inner' do
-                  = image_tag 'articles/article-83.jpeg', class: 'thumbnail-card__image', alt: 'プログラミングの楽しさや難しさを話せる仲間ができた【卒業生インタビューGMOペパボ様】の記事のサムネイル'
-                  .thumbnail-card__row
-                    h3.thumbnail-card__title
-                      | プログラミングの楽しさや難しさを話せる仲間ができた【卒業生インタビューGMOペパボ様】
-                  .thumbnail-card__row
-                    .thumbnail-card__description
-                      .a-short-text
-                        p
-                          | フィヨルドブートキャンプを卒業した方々は、どんな経験をして、
-                          | どんな基準で会社を選び、今どんな思いでエンジニアとして働いているのでしょうか。
-                          | 今回はGMOペパボ株式会社で働くyana-giさん、Sakiさんと、
-                          | お二人の上長のebihara99999さんにお話を聞きました。
-            .col-xs-6.col-md-4
-              .thumbnail-card.a-card
-                = link_to 'https://bootcamp.fjord.jp/articles/46', class: 'thumbnail-card__inner' do
-                  = image_tag 'articles/article-46.png', class: 'thumbnail-card__image', alt: '卒業生の kasumi さん、ima1zumi さんにインタビューをしましたの記事のサムネイル'
-                  .thumbnail-card__row
-                    h3.thumbnail-card__title
-                      | 卒業生の kasumi さん、ima1zumi さんにインタビューをしました
-                  .thumbnail-card__row
-                    .thumbnail-card__description
-                      .a-short-text
-                        p
-                          | 株式会社永和システムマネジメントさんに就職したフィヨルドブートキャンプの卒業生、
-                          | kasumi さんと ima1zumi さんにインタビューをさせていただきました。
-                          | フィヨルドブートキャンプで大変だったこと、今プログラマーになって役立っていることなどを
-                          | 聞かせていただきました。
+          - else
+            .lp-content-stack__item
+              .o-empty-message
+                .o-empty-message__icon
+                  i.fa-regular.fa-sad-tear
+                .o-empty-message__text
+                  | まだ記事はありません
 
     .lp-content-divider.is-lp-bg-2
       svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
