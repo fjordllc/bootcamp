@@ -2,7 +2,7 @@ export default (md) => {
   const escapeTags = ['style']
   const escapeAttributes = ['onload']
 
-  md.core.ruler.push('sanitize', function (state) {
+  md.core.ruler.push('escape', function (state) {
     for (const token of state.tokens) {
       if (['html_block', 'html_inline'].includes(token.type)) {
         token.content = escapeHtmlContent(
