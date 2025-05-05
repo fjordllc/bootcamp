@@ -68,7 +68,6 @@ function initializeComment(comment) {
     toggleVisibility(modalElements, 'is-hidden')
     editorTextarea.value = savedComment
     commentEditorPreview.innerHTML = markdownInitializer.render(savedComment)
-    console.log('通過テスト')
   })
 
   editorTextarea.addEventListener('input', () => {
