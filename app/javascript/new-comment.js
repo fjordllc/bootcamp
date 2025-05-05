@@ -50,11 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (saveAndCheckButton) saveAndCheckButton.disabled = true
     }
 
-    const enableButtons = () => {
-      saveButton.disabled = false
-      if (saveAndCheckButton) saveAndCheckButton.disabled = false
-    }
-
     const updatePreviewAndButtonState = () => {
       commentEditorPreview.innerHTML = markdownInitializer.render(
         editorTextarea.value
@@ -217,8 +212,6 @@ document.addEventListener('DOMContentLoaded', () => {
         toast(getToastMessage(checkAfterSave, assigned))
       } catch (error) {
         console.warn(error)
-      } finally {
-        enableButtons()
       }
     }
 
