@@ -45,12 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveButton = commentEditor.querySelector('.is-primary')
     const saveAndCheckButton = commentEditor.querySelector('.is-danger')
 
-    const toggleVisibility = (elements, className) => {
-      elements.forEach((element) => {
-        element.classList.toggle(className)
-      })
-    }
-
     const disableButtons = () => {
       saveButton.disabled = true
       if (saveAndCheckButton) saveAndCheckButton.disabled = true
@@ -231,14 +225,6 @@ document.addEventListener('DOMContentLoaded', () => {
     editorTextarea.addEventListener('input', () => {
       updatePreviewAndButtonState()
     })
-
-    editTab.addEventListener('click', () =>
-      toggleVisibility(tabElements, 'is-active')
-    )
-
-    previewTab.addEventListener('click', () =>
-      toggleVisibility(tabElements, 'is-active')
-    )
 
     saveButton.addEventListener('click', () => {
       handleSave()
