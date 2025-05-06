@@ -34,7 +34,8 @@ export default {
     return {
       id: this.checkerId,
       name: this.checkerName,
-      parent: this.parentComponent
+      parent: this.parentComponent,
+      forceUpdate: false
     }
   },
   computed: {
@@ -56,6 +57,11 @@ export default {
     this.$store.dispatch('setProduct', {
       productId: this.productId
     })
+
+    window.addEventListener('checkerAssigned', this.handleCheckerAssigned)
+  },
+  beforeDestroy() {
+    window.removeEventListener('checkerAssigned', this.handleCheckerAssigned)
   },
   methods: {
     checkInCharge() {
@@ -67,6 +73,10 @@ export default {
         CSRF.getToken(),
         false
       )
+    },
+    handleCheckerAssigned() {
+      this.parent = 'product'
+      this.id = this.currentUserId
     }
   }
 }
