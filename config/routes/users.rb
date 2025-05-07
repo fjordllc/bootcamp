@@ -19,7 +19,6 @@ Rails.application.routes.draw do
     resources :micro_reports, only: %i[index create], controller: "users/micro_reports"
     get "portfolio" => "users/works#index", as: :portfolio
     patch "graduation", to: "graduation#update", as: :graduation
-    patch "job_seek", to: "job_seek#update"
     resource :mail_notification, only: %i(edit update), controller: "users/mail_notification"
   end
 

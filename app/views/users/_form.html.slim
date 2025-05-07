@@ -104,11 +104,23 @@
               | ユーザーステータス
           .form-item-block__items
             .form-item-block__item
-              = render 'users/form/job_seeking', f: f
-            .form-item-block__item
               = render 'users/form/retire', f: f
             .form-item-block__item
               = render 'users/form/graduate', f: f
+
+      .form-item
+        label.a-form-label
+          | 卒業後の進路
+        ul.block-checks.is-2-items.mt-4
+          - career_paths = User.career_paths.keys
+          - career_paths.each do |career_path|
+            li.block-checks__item
+              .a-block-check.is-radio
+                = f.radio_button :career_path, career_path, id: career_path, class: 'a-toggle-checkbox'
+                = f.label :career_path, for: career_path, class: 'a-block-check__label has-icon is-ta-left' do
+                  = t("activerecord.enums.user.career_path.#{career_path}")
+      .form-item
+        = render 'users/form/career_memo', f: f, user: user
 
       .form-item-block
         .form-item-block__inner
