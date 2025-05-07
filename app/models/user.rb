@@ -433,7 +433,7 @@ class User < ApplicationRecord
   scope :classmates, lambda { |start_date, end_date|
     where(created_at: start_date..end_date).order(:created_at, :id)
   }
-  scope :desc_tagged_with, lambda { |tag_name|
+  scope :active_tagged_with, lambda { |tag_name|
     with_attached_avatar
       .unretired
       .unhibernated
