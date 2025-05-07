@@ -2,10 +2,11 @@
 
 class API::WatchesController < API::BaseController
   include Rails.application.routes.url_helpers
-  before_action :set_watch, only: %i[show destroy]
 
-  def show
-    render partial: 'watches/watch', locals: { watch: @watch }
+  def index
+    @current_page = params[:page]
+    @watches = current_user.watches.preload(watchable: [:user]).order(created_at: :desc).page(params[:page])
+    render partial: 'watches/watches', locals: { watches: @watches }
   end
 
   def create
@@ -26,15 +27,12 @@ class API::WatchesController < API::BaseController
   end
 
   def destroy
+    @watch = Watch.find(params[:id])
     @watch.destroy
     head :no_content
   end
 
   private
-
-  def set_watch
-    @watch = Watch.find(params[:id])
-  end
 
   def watchable
     params[:watchable_type].constantize.find_by(id: params[:watchable_id])
