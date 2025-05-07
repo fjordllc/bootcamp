@@ -449,7 +449,7 @@ jobseeker: #就活希望するユーザー
   last_activity_at: "2020-01-01 00:00:12"
   sent_student_followup_message: true
 
-jobseeking: #就職活動中の卒業生
+jobseeking: # 就職活動中の卒業生
   login_name: jobseeking
   email: jobseeking@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
