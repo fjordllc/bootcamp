@@ -53,7 +53,7 @@ Rails.application.routes.draw do
       end
       resources :recents, only: %i(index)
     end
-    resources :watches, only: %i(show create destroy) do
+    resources :watches, only: %i(index create destroy) do
       collection do
          get :toggle, to: 'watches/toggle#index'
       end
