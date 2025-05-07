@@ -1,5 +1,5 @@
 - watchable = watch.watchable
-.card-list-item.a_watch(class="is-#{watchable.class.to_s.tableize.singularize}", id="#{watch.id}")
+.card-list-item.a_watch(id="#{watch.id}")
   .card-list-item__inner
     .card-list-item__label
       - case watchable.class.to_s
