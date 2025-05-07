@@ -54,33 +54,37 @@ function watch(element) {
     })
 }
 
-export function unWatch(element) {
+export async function unWatch(element) {
   const watchId = element.dataset.watch_id
 
-  fetch(`/api/watches/${watchId}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      'X-Requested-With': 'XMLHttpRequest',
-      'X-CSRF-Token': CSRF.getToken()
-    },
-    credentials: 'same-origin',
-    redirect: 'manual'
-  })
-    .then(() => {
-      toast('Watchを外しました')
-      if (element.innerHTML === 'Watch中') {
-        element.classList.remove('is-active', 'is-main')
-        element.classList.add('is-inactive', 'is-muted')
-        element.removeAttribute('data-watch_id')
-        element.innerHTML = 'Watch'
-      }
-      if (element.innerHTML === '削除') {
-        const deleteWatch = document.getElementById(watchId)
-        deleteWatch.remove()
-      }
+  try {
+    const response = await fetch(`/api/watches/${watchId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-Token': CSRF.getToken()
+      },
+      credentials: 'same-origin',
+      redirect: 'manual'
     })
-    .catch((error) => {
-      console.warn(error)
-    })
+
+    if (!response.ok) {
+      throw new Error(`${response.error}`)
+    }
+
+    if (element.innerHTML === 'Watch中') {
+      element.classList.remove('is-active', 'is-main')
+      element.classList.add('is-inactive', 'is-muted')
+      element.removeAttribute('data-watch_id')
+      element.innerHTML = 'Watch'
+    }
+    if (element.innerHTML === '削除') {
+      const deleteWatch = document.getElementById(watchId)
+      deleteWatch.remove()
+    }
+    toast('Watchを外しました')
+  } catch (error) {
+    console.warn(error)
+  }
 }

@@ -40,28 +40,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
-  const hiddenData = document.getElementById('hidden-watch-data')
-  const ids = hiddenData.dataset.all_ids.match(/\d+/g).map(Number)
-  const nextWatchIndex = parseInt(hiddenData.dataset.next_watch_index)
-  const deleteButtons = document.querySelectorAll('.a-watch-button')
-
-  deleteButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      unWatch(button)
-      const deleteWatchIndex = ids.indexOf(parseInt(button.dataset.watch_id))
-      fetchNextPageWatch(ids, nextWatchIndex, deleteWatchIndex)
-    })
+  const currentPage = parseInt(
+    document.querySelector('.card-list').dataset.current_page
+  )
+  const WatchList = document.querySelector('.container.is-md')
+  WatchList.addEventListener('click', async (event) => {
+    if (event.target.matches('.a-watch-button')) {
+      await unWatch(event.target)
+      getWatches(currentPage)
+    }
   })
 })
 
-async function fetchNextPageWatch(ids, nextWatchIndex, deleteWatchIndex) {
-  if (ids.length < nextWatchIndex) {
-    return
-  }
-
-  const nextWatchId = ids[nextWatchIndex]
+async function getWatches(currentPage) {
   try {
-    const response = await fetch(`/api/watches/${nextWatchId}`, {
+    const response = await fetch(`/api/watches?page=${currentPage}`, {
       method: 'GET',
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
@@ -70,29 +63,20 @@ async function fetchNextPageWatch(ids, nextWatchIndex, deleteWatchIndex) {
       redirect: 'manual'
     })
 
-    if (response.ok) {
-      ids.splice(deleteWatchIndex, 1)
-      const html = await response.text()
-      const watchesList = document.querySelector('.card-list')
-      watchesList.insertAdjacentHTML('beforeend', html)
-
-      const nextWatch = document.getElementById(nextWatchId)
-      const deleteButtonContainer = nextWatch.querySelector(
-        '.card-list-item__option'
-      )
-      deleteButtonContainer.classList.remove('hidden')
-      const deleteButton =
-        deleteButtonContainer.querySelector('.a-watch-button')
-      deleteButton.addEventListener('click', () => {
-        unWatch(deleteButton)
-        const deleteWatchIndex = ids.indexOf(
-          parseInt(deleteButton.dataset.watch_id)
-        )
-        fetchNextPageWatch(ids, nextWatchIndex, deleteWatchIndex)
-      })
+    if (!response.ok) {
+      throw new Error(`${response.error}`)
     }
+
+    const html = await response.text()
+    const watchesContainer = document.querySelector('#watches')
+    watchesContainer.innerHTML = html
+    const deleteButtonContainers = watchesContainer.querySelectorAll(
+      '.card-list-item__option'
+    )
+    deleteButtonContainers.forEach((container) => {
+      container.classList.remove('hidden')
+    })
   } catch (error) {
     console.warn(error)
-    return false
   }
 }
