@@ -13,6 +13,119 @@ class ArticleTest < ActiveSupport::TestCase
     end
   end
 
+  test '.press_release includes only not wip articles with press release tag' do
+    article1 = Article.create(
+      title: 'プレスリリースタグのみを持つブログ',
+      body: 'test',
+      user: users(:komagata),
+      wip: false
+    )
+    article1.tag_list.add('プレスリリース')
+    article1.save
+
+    article2 = Article.create(
+      title: '2つのタグを持つブログ',
+      body: 'test',
+      user: users(:komagata),
+      wip: false
+    )
+    article2.tag_list.add('test', 'プレスリリース')
+    article2.save
+
+    wip_article = Article.create(
+      title: 'プレスリリースタグを持つwipブログ',
+      body: 'test',
+      user: users(:komagata),
+      wip: true
+    )
+    wip_article.tag_list.add('プレスリリース')
+    wip_article.save
+
+    press_releases = Article.press_releases
+    assert_equal [article2, article1], press_releases
+    press_releases.each do |press_release|
+      assert_includes press_release.tag_list, 'プレスリリース'
+      assert_not press_release.wip
+    end
+  end
+
+  test '.press_release orders by published_at in descending order' do
+    three_days_ago_press_release = Article.create(
+      title: '3日前に公開されたプレスリリース',
+      body: 'test',
+      user: users(:komagata),
+      wip: false,
+      created_at: Date.current - 4.days,
+      updated_at: Date.current - 4.days,
+      published_at: Date.current - 3.days
+    )
+    three_days_ago_press_release.tag_list.add('プレスリリース')
+    three_days_ago_press_release.save
+
+    two_days_ago_press_release = Article.create(
+      title: '2日前に公開されたプレスリリース',
+      body: 'test',
+      user: users(:komagata),
+      wip: false,
+      created_at: Date.current - 5.days,
+      updated_at: Date.current - 5.days,
+      published_at: Date.current - 2.days
+    )
+    two_days_ago_press_release.tag_list.add('プレスリリース')
+    two_days_ago_press_release.save
+
+    one_day_ago_press_release = Article.create(
+      title: '1日前に公開されたプレスリリース',
+      body: 'test',
+      user: users(:komagata),
+      wip: false,
+      created_at: Date.current - 6.days,
+      updated_at: Date.current - 6.days,
+      published_at: Date.current - 1.day
+    )
+    one_day_ago_press_release.tag_list.add('プレスリリース')
+    one_day_ago_press_release.save
+
+    press_releases = Article.press_releases
+    assert_equal [one_day_ago_press_release, two_days_ago_press_release, three_days_ago_press_release], press_releases
+  end
+
+  test '.press_release return all records when no limit is specified' do
+    records_count = 10
+    records_count.times do |i|
+      press_release = Article.create(
+        title: "press releases #{i}",
+        body: 'プレスリリースのタグを持つブログ記事',
+        user: users(:komagata),
+        wip: false,
+        published_at: "2022-1-1 00:00:#{i}"
+      )
+      press_release.tag_list.add('プレスリリース')
+      press_release.save
+    end
+
+    press_releases = Article.press_releases
+    assert_equal records_count, press_releases.length
+  end
+
+  test '.press_release return the specified number of records by limit' do
+    10.times do |i|
+      press_release = Article.create(
+        title: "press releases #{i}",
+        body: 'プレスリリースのタグを持つブログ記事',
+        user: users(:komagata),
+        wip: false,
+        published_at: "2022-1-1 00:00:#{i}"
+      )
+      press_release.tag_list.add('プレスリリース')
+      press_release.save
+    end
+
+    limit = 5
+    press_releases = Article.press_releases(limit)
+    assert_equal limit, press_releases.length
+  end
+
   test '#prepared_thumbnail_url' do
     article = articles(:article3)
     assert_equal '/ogp/blank.svg', article.prepared_thumbnail_url
