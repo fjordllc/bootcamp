@@ -410,7 +410,7 @@ class EventsTest < ApplicationSystemTestCase
 
   test 'When signing up for an event during Watch, Watch is not registered twice' do
     visit_with_auth event_path(events(:event2)), 'komagata'
-    find('#watch-button').click
+    find('.watch-toggle').click
     accept_confirm do
       click_link '参加申込'
     end
