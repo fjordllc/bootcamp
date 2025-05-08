@@ -2,7 +2,7 @@ import CSRF from 'csrf'
 import { toast } from './vanillaToast.js'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const watchToggle = document.getElementById('watch-button')
+  const watchToggle = document.querySelector('.watch-toggle')
   if (!watchToggle) {
     return
   }
@@ -73,13 +73,12 @@ export async function unWatch(element) {
       throw new Error(`${response.error}`)
     }
 
-    if (element.innerHTML === 'Watch中') {
+    if (element.classList.contains('watch-toggle')) {
       element.classList.remove('is-active', 'is-main')
       element.classList.add('is-inactive', 'is-muted')
       element.removeAttribute('data-watch_id')
       element.innerHTML = 'Watch'
-    }
-    if (element.innerHTML === '削除') {
+    } else {
       const deleteWatch = document.getElementById(watchId)
       deleteWatch.remove()
     }
