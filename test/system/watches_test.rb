@@ -11,7 +11,7 @@ class WatchesTest < ApplicationSystemTestCase
     all('.a-form-tabs__tab.js-tabs__tab')[1].click
     click_button 'コメントする'
     assert_text 'Watch中'
-    find('#watch-button').click
+    find('.watch-toggle').click
     assert_text 'Watch'
     visit_with_auth '/current_user/watches', 'komagata'
     assert_no_text 'お知らせ1'
@@ -25,7 +25,7 @@ class WatchesTest < ApplicationSystemTestCase
     page.all('.a-form-tabs__tab.js-tabs__tab')[1].click
     click_button 'コメントする'
     assert_text 'Watch中'
-    find('#watch-button').click
+    find('.watch-toggle').click
     assert_text 'Watch'
     visit_with_auth '/current_user/watches', 'komagata'
     assert_no_text 'injectとreduce'
@@ -45,7 +45,7 @@ class WatchesTest < ApplicationSystemTestCase
 
     visit target_report_path
     assert_text 'Watch中'
-    find('#watch-button').click
+    find('.watch-toggle').click
     assert_text 'Watchを外しました'
     within('.thread-comment:last-child') do
       accept_alert do
@@ -72,7 +72,7 @@ class WatchesTest < ApplicationSystemTestCase
 
     visit target_report_path
     assert_text 'Watch中'
-    find('#watch-button').click
+    find('.watch-toggle').click
     assert_text 'Watchを外しました'
     within('.thread-comment:last-child') do
       click_button '編集'

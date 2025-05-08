@@ -13,7 +13,7 @@ class CurrentUser::WatchesTest < ApplicationSystemTestCase
     assert_no_text 'テストの質問1'
     question = questions(:question3)
     visit question_path(question)
-    find('#watch-button').click
+    find('.watch-toggle').click
     assert_text 'Watch中'
     visit '/current_user/watches'
     assert_text 'テストの質問1'
