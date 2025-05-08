@@ -14,23 +14,19 @@ header.page-header
               = link_to new_pair_work_path, class: 'a-button is-md is-secondary is-block' do
                 i.fa-regular.fa-plus
                 span
-                  | ペアワーク募集する
+                  | 相手を募集する
 
 = pair_works_page_tabs
 
 .page-main
-  - if @pair_works.empty?
-    .o-empty-message
-      .o-empty-message__icon
-        .card-list.a-card
-          .card-body__description
-            .o-empty-message
-              .o-empty-message__icon
-                i.fa-regular.fa-sad-tear
-              .o-empty-message__text
-                | ペアワーク募集はまだありません。
-  - else
-    .page-body
+  .page-body
+    - if @pair_works.empty?
+      .o-empty-message
+        .o-empty-message__icon
+          i.fa-regular.fa-sad-tear
+        .o-empty-message__text
+          | ペアワーク募集はまだありません。
+    - else
       .container.is-md
         .page_content.pair_works
           = paginate @pair_works
