@@ -32,4 +32,29 @@ class FootprintTest < ActiveSupport::TestCase
     count = Footprint.count_for_resource(@resource)
     assert_equal 1, count
   end
+
+  test 'find_or_create_for handles race conditions' do
+    user2 = users(:machida)
+    
+    # Mock a race condition by attempting to create the same footprint twice
+    footprint1 = Footprint.find_or_create_for(@resource, user2)
+    footprint2 = Footprint.find_or_create_for(@resource, user2)
+    
+    # Both calls should return the same footprint object (by ID)
+    assert_equal footprint1.id, footprint2.id
+    
+    # Only one footprint should exist in the database
+    count = Footprint.where(footprintable: @resource, user: user2).count
+    assert_equal 1, count
+  end
+
+  test 'find_or_create_for returns nil when footprintable user is the same as current user' do
+    # When the resource owner is the same as the current user, no footprint should be created
+    result = Footprint.find_or_create_for(@resource, @user)
+    assert_nil result
+    
+    # No footprint should exist in the database
+    count = Footprint.where(footprintable: @resource, user: @user).count
+    assert_equal 0, count
+  end
 end
