@@ -16,7 +16,7 @@ export function setWatchable(watchableId, watchableType) {
       return response.json()
     })
     .then((data) => {
-      const watch = document.getElementById('watch-button')
+      const watch = document.querySelector('.watch-toggle')
       watch.classList.remove('is-inactive', 'is-muted')
       watch.classList.add('is-active', 'is-main')
       watch.setAttribute('data-watch_id', data[0].id)
