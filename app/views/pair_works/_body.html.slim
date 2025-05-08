@@ -3,7 +3,7 @@
     .card-body__description
       .a-long-text.is-md.js-markdown-view
         = pair_work.description
-      .a-table.is-sm.text-center.pair_work_schedule
+      .a-table.is-sm.text-center.mt-6
         table.min-w-full
           thead
             tr
@@ -19,13 +19,12 @@
                   - value = pair_work.created_at.beginning_of_day + hour.hour + day.day
                   - disabled = value < Time.current || pair_work.user_id == current_user.id || pair_work.reserved_at.present?
                   - if pair_work.schedules.map(&:proposed_at).include?(value)
-                    td.p-0.h-6
-                      span.flex.h-full.text-center.justify-center.items-center.p-1.border.border-solid.rounded(class='text-[var(--main)] bg-[var(--input-selected-background)] border-[var(--main)]')
-                        = form_with model: pair_work, method: :patch, local: true do
-                          = hidden_field_tag 'pair_work[reserved_at]', value
-                          = hidden_field_tag 'pair_work[buddy_id]', current_user.id
-                          = button_tag type: 'submit', disabled: disabled, data: { confirm: "#{l value, format: :mdw_and_time} にペアワークを申し込みますか？" } do
-                            i.fa-duotone.fa-solid.fa-check
+                    td.p-0.h-6.relative
+                      = form_with model: pair_work, method: :patch, local: true do
+                        = hidden_field_tag 'pair_work[reserved_at]', value
+                        = hidden_field_tag 'pair_work[buddy_id]', current_user.id
+                        = button_tag type: 'submit', class: "absolute top-0 flex w-full h-full text-center justify-center items-center p-1 border border-solid rounded text-[var(--main)] bg-[var(--input-selected-background)] border-[var(--main)]", data: { confirm: "#{l value, format: :mdw_and_time} にペアワークを申し込みますか？" } do
+                          i.fa-duotone.fa-solid.fa-check
                   - else
                     td.p-0.h-6
                       span ✖️

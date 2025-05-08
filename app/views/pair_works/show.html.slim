@@ -18,7 +18,7 @@ header.page-header
               = link_to new_pair_work_path, class: 'a-button is-md is-secondary is-block' do
                 i.fa-regular.fa-plus
                 span
-                  | ペアワークを募集する
+                  | 相手を募集する
             li.page-header-actions__item
               = link_to pair_works_path(target: 'not_solved'), class: 'a-button is-md is-secondary is-block is-back' do
                 | ペアワーク一覧
@@ -29,4 +29,4 @@ hr.a-border
       .question.page-content
         = render 'header', pair_work: @pair_work
         = render 'body', pair_work: @pair_work
-    #js-comments(data-commentable-id="#{@pair_work.id}" data-commentable-type='PairWork' data-current-user-id="#{current_user.id}")
+      #js-comments(data-commentable-id="#{@pair_work.id}" data-commentable-type='PairWork' data-current-user-id="#{current_user.id}")

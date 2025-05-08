@@ -6,6 +6,7 @@
         .row
           .col-lg-6.col-xs-12
             .form-item
+              = f.label :practice, class: 'a-form-label'
               .select-practices
                 = f.select :practice_id,
                   practice_options_within_course,
@@ -16,7 +17,10 @@
         .row.js-markdown-parent
           .col-md-6.col-xs-12
             = f.label :title, class: 'a-form-label'
-            = f.text_field :title, class: 'a-text-input js-warning-form', placeholder: 'lsコマンドのペアワークを申し込みます'
+            = f.text_field :title, class: 'a-text-input js-warning-form', placeholder: 'CSS の display: flex の使い方をきっちり理解したい'
+            .a-form-help
+              p
+                | ペアワークで解決したい問題を登録してください。
       .form-item
         .row.js-markdown-parent
           .col-md-6.col-xs-12
@@ -35,36 +39,50 @@
 
       - if pair_work.new_record?
         .form-item
-          = f.label :schedule, '希望日時', class: 'a-form-label'
-          .form-table.is-sm.max-h-96.is-sticky.mt-4.pair_work_schedule
-            table.min-w-full
-              thead
-                tr
-                  th
-                  - schedule_dates(Time.current).each do |day|
-                    th = l day, format: :mdw_unique
-              tbody
-                - 24.times do |hour|
-                  tr(class='hover:bg-[var(--background-more-tint)]')
-                    th
-                      | #{hour}:00
-                    - sorted_wdays(Time.current).each_with_index do |wday, day|
-                      ruby:
-                        value = Time.current.beginning_of_day + hour.hour + day.day
-                        disabled = value < Time.current
-                        id = wday * 24 + hour + 1
-                        checked = !disabled && current_user.learning_time_frames.ids.include?(id)
-                      td.form-table__check
-                        = f.label :schedules, for: "schedule_ids_#{value}" do
-                          span
-                            = f.check_box :schedules, { multiple: true, id: "schedule_ids_#{value}", disabled: disabled, checked: checked }, value, false
+          .row
+            .col-md-6.col-xs-12
+              = f.label :schedule, '希望日時', class: 'a-form-label'
+              .a-form-help.mb-2
+                p
+                  | ペアワークを実施する希望日時にチェックを入れてください。
+                  br
+                  = link_to edit_current_user_path(anchor: 'activity-schedule') do
+                    | ユーザー情報の「主な活動予定時間」
+                  | を登録しておくと、初期設定でその日時が選択されるようになります。
+              .form-table.is-sm.max-h-96.is-sticky
+                table.min-w-full
+                  thead
+                    tr
+                      th
+                      - schedule_dates(Time.current).each do |day|
+                        th = l day, format: :mdw_unique
+                  tbody
+                    - 24.times do |hour|
+                      tr(class='hover:bg-[var(--background-more-tint)]')
+                        th
+                          | #{hour}:00
+                        - sorted_wdays(Time.current).each_with_index do |wday, day|
+                          ruby:
+                            value = Time.current.beginning_of_day + hour.hour + day.day
+                            disabled = value < Time.current
+                            id = wday * 24 + hour + 1
+                            checked = !disabled && current_user.learning_time_frames.ids.include?(id)
+                          td.form-table__check
+                            = f.label :schedules, for: "schedule_ids_#{value}" do
+                              span
+                                = f.check_box :schedules, { multiple: true, id: "schedule_ids_#{value}", disabled: disabled, checked: checked }, value, false
 
       .form-item
         .row.js-markdown-parent
           .col-md-6.col-xs-12
-            = f.label :channel, 'ペアワークを行うチャンネル'
+            = f.label :channel, 'ペアワークを行うチャンネル', class: 'a-form-label'
             = f.text_field :channel, class: 'a-text-input js-warning-form', value: 'ペアワーク・モブワーク1'
-
+            .a-form-help.mb-2
+              p
+                | 特に理由がない場合は「ペアワーク・モブワーク1」を登録してください。
+                br
+                | もし、同じ時間に「ペアワーク・モブワーク1」が別のペアワークに使われていて、
+                | それに気づいた場合は別のチャンネルに変更してください。
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
