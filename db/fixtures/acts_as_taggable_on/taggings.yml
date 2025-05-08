@@ -122,3 +122,10 @@ article58_tag_alumni_voice:
   taggable: article58 (Article)
   context: tags
   tag: alumni_voice
+
+<% (101..130).each do |id| %>
+article<%= id %>_tag_press_release:
+  taggable: article<%= id %> (Article)
+  context: tags
+  tag: press_release
+<% end %>

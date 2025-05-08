@@ -76,3 +76,52 @@ hr.a-border
                     li
                       = link_to 'https://x.com/fjordbootcamp', class: 'a-text-link' do
                         | X
+    .lp-content-divider.is-lp-bg-2
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+  .lp-content.is-lp-bg-2.is-top-title
+    .l-container.is-xl
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-border-bottom
+              | 最新のプレスリリース
+        .lp-content__end
+          .lp-content-stack
+            - if @press_releases.present?
+              .lp-content-stack__item
+                .row
+                  - @press_releases.each do |press_release|
+                    .col-lg-4.col-md-6.col-xs-12
+                      .thumbnail-card.a-card
+                        = link_to press_release, class: 'thumbnail-card__inner' do
+                          .thumbnail-card__row
+                            - if press_release.prepared_thumbnail?
+                              = image_tag press_release.prepared_thumbnail_url, class: 'thumbnail-card__image', alt: "ブログ記事「#{press_release.title}」のアイキャッチ画像"
+                            - else
+                              = image_tag press_release.selected_thumbnail_url, class: 'thumbnail-card__image', alt: 'ブログ記事のブランクアイキャッチ画像'
+                          .thumbnail-card__row
+                            h3.thumbnail-card__title
+                              = press_release.title
+                          .thumbnail-card__row
+                            .thumbnail-card__metas
+                              .thumbnail-card__meta
+                                .thumbnail-card__author
+                                  = image_tag press_release.user.avatar_url
+                                  = press_release.user.login_name
+                              .thumbnail-card__meta
+                                .thumbnail-card__date
+                                  = l(press_release.published_at)
+              .lp-content-stack__item
+                .lp-actions
+                  .lp-actions__items
+                    .lp-actions__item
+                      = link_to press_releases_path, class: 'a-button is-xl is-primary-border is-block' do
+                        | 全てのプレスリリース
+            - else
+              .lp-content-stack__item
+                .o-empty-message
+                  .o-empty-message__icon
+                    i.fa-regular.fa-sad-tear
+                  .o-empty-message__text
+                    | プレスリリースはまだありません。
