@@ -78,7 +78,7 @@ class UsersController < ApplicationController
     if @target == 'followings'
       current_user.followees_list(watch: @watch)
     elsif @entered_tag
-      User.tagged_with(@entered_tag)
+      User.active_tagged_with(@entered_tag)
     else
       users = User.users_role(@target, allowed_targets: target_allowlist)
       @target == 'inactive' ? users.order(:last_activity_at) : users
@@ -162,7 +162,7 @@ class UsersController < ApplicationController
   end
 
   def notify_to_chat(user)
-    ChatNotifier.message "#{user.login_name}さんが新たなメンバーとしてJOINしました🎉\r<#{url_for(user)}>"
+    ChatNotifier.message "#{user.login_name}さん#{user.roles_to_s.empty? ? '' : "（#{user.roles_to_s}）"}が新たなメンバーとしてJOINしました🎉\r<#{url_for(user)}>"
   end
 
   def user_params
@@ -177,7 +177,8 @@ class UsersController < ApplicationController
       :trainee, :adviser, :mentor, :job_seeker,
       :tag_list, :after_graduation_hope, :feed_url,
       :country_code, :subdivision_code, :invoice_payment,
-      :credit_card_payment, :role
+      :credit_card_payment, :role,
+      :referral_source, :other_referral_source
     )
   end
 

@@ -11,7 +11,6 @@ Rails.application.routes.draw do
     resource :session, controller: "session", only: %i(create)
     resource :image, controller: "image", only: %i(create)
     resources :grasses, only: %i(show)
-    resources :categories, only: %i(index destroy)
     resources :courses, only: %i() do
       resources :practices, only: %i(index), controller: "/api/courses/practices"
     end
@@ -49,7 +48,6 @@ Rails.application.routes.draw do
         get 'counts', on: :collection
       end
       resources :recents, only: %i(index)
-      resources :sad_streak, only: %i(index)
     end
     resources :watches, only: %i(index)
     namespace "watches" do
@@ -90,5 +88,6 @@ Rails.application.routes.draw do
     end
     resources :reading_circles, only: %i(index)
     resources :movies, only: %i(index update)
+    resources :metadata, only: %i(index)
   end
 end

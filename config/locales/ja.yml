@@ -57,6 +57,7 @@ ja:
         login_name: アカウント
         name: 名前（ニックネームも可）
         name_kana: 名前（カナ）
+        career_memo: メモ（卒業後の進路）
         course_id: コース
         description: 自己紹介
         email: Email
@@ -116,6 +117,7 @@ ja:
         other_editor: その他のエディタ
         hide_mentor_profile: プロフィール非公開
         invoice_payment: 「請求書払い」
+        other_referral_source: FBCを知ったその他の経路
       discord_profile:
         account_name: Discord アカウント
         times_url: 分報URL
@@ -124,8 +126,9 @@ ja:
         scheduled_return_on: 復帰予定日
         returned_at: 復帰日時
       course:
-        title: タイトル
+        title: コース名
         description: 説明
+        summary: 主な内容や概要
         created_at: 作成日時
         updated_at: 更新日時
       practice:
@@ -376,12 +379,29 @@ ja:
           vim: Vim
           emacs: Emacs
           other_editor: その他
+        referral_source:
+          search_engine: 検索エンジン
+          referral: 知人の紹介
+          event: テックイベント
+          x: X（旧Twitter）
+          facebook: Facebook
+          blog: ブログ記事
+          web_ad: Web広告
+          other: その他
         satisfaction:
           excellent: とても良い
           good: 良い
           average: どちらでもない
           poor: 悪い
           very_poor: とても悪い
+        career_path:
+          unset: 未設定
+          job_seeking: 就職活動中
+          employed_via_referral: 就職した（Lokkaの紹介）
+          employed_without_referral: 就職した（Lokkaの紹介を使わず）
+          employed_non_it: IT系以外に就職した
+          internal_transfer_to_programmer: 社内転職でプログラマーになった
+          not_employed: 就職していない
       learning:
         status:
           unstarted: 未着手

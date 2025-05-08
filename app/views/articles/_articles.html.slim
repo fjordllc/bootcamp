@@ -13,10 +13,18 @@ header.lp-page-header
                   i.fas.fa-plus
                   span
                     | ブログ記事作成
-hr.a-border-tint
 
 .lp-page-body
   .articles
+    - if params[:tag].present?
+      header.articles__header
+        .container
+          .articles__header-inner
+            h2.articles__title
+              | 「#{params[:tag]}」の記事一覧
+            = link_to articles_path, class: 'page-optional-header__title-cancel a-cancel-button' do
+              i.fa-solid.fa-times.fa-fw
+      hr.a-border
     .articles__body
       - if current_user&.admin_or_mentor_login?
         nav.pill-nav.mb-8
@@ -66,4 +74,11 @@ hr.a-border-tint
                               = l(article.created_at)
                             - else
                               = l(article.published_at)
+                    .thumbnail-card__row
+                      .a-tags
+                        ul.a-tags__items
+                          - article.tag_list.each do |tag|
+                            li.a-tags__item
+                              .a-badge.is-muted.is-sm
+                                = tag
         = paginate articles

@@ -74,6 +74,27 @@ class User < ApplicationRecord
     very_poor: 4
   }, _prefix: true
 
+  enum referral_source: {
+    search_engine: 0,
+    referral: 1,
+    event: 2,
+    x: 3,
+    facebook: 4,
+    blog: 5,
+    web_ad: 6,
+    other: 99
+  }, _prefix: true
+
+  enum career_path: {
+    unset: 0,
+    job_seeking: 1,
+    employed_via_referral: 2,
+    employed_without_referral: 3,
+    employed_non_it: 4,
+    internal_transfer_to_programmer: 5,
+    not_employed: 6
+  }, _prefix: true
+
   belongs_to :company, optional: true
   belongs_to :course
   has_many :learnings, dependent: :destroy
@@ -202,6 +223,7 @@ class User < ApplicationRecord
   validates :hide_mentor_profile, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
   validates :other_editor, presence: true, if: -> { editor == 'other_editor' }
+  validates :other_referral_source, presence: true, if: -> { referral_source == 'other' }
   validates :invoice_payment, inclusion: { in: [true], message: 'にチェックを入れてください。' }, if: -> { role == 'trainee_invoice_payment' }
   validates :invoice_payment, inclusion: { in: [true],
                                            message: 'か「クレジットカード払い」のいずれかを選択してください。' },
@@ -393,7 +415,7 @@ class User < ApplicationRecord
   scope :admins, -> { where(admin: true) }
   scope :admins_and_mentors, -> { admins.or(mentor) }
   scope :trainees, -> { where(trainee: true) }
-  scope :job_seeking, -> { where(job_seeking: true) }
+  scope :job_seeking, -> { where(career_path: 'job_seeking') }
   scope :job_seekers, lambda {
     where(
       admin: false,
@@ -421,7 +443,7 @@ class User < ApplicationRecord
   scope :classmates, lambda { |start_date, end_date|
     where(created_at: start_date..end_date).order(:created_at, :id)
   }
-  scope :desc_tagged_with, lambda { |tag_name|
+  scope :active_tagged_with, lambda { |tag_name|
     with_attached_avatar
       .unretired
       .unhibernated
@@ -663,9 +685,11 @@ class User < ApplicationRecord
 
   def avatar_url
     default_image_path = '/images/users/avatars/default.png'
+    format = 'webp'
 
     if avatar.attached?
-      avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }).processed.url
+      avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 },
+                     format:).processed.url(filename: "#{login_name}.#{format}")
     else
       image_url default_image_path
     end

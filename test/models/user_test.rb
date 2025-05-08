@@ -64,8 +64,11 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '#avatar_url' do
-    user = users(:kimura)
-    assert_equal '/images/users/avatars/default.png', user.avatar_url
+    user_with_default_avatar = users(:kimura)
+    assert_equal '/images/users/avatars/default.png', user_with_default_avatar.avatar_url
+
+    user_with_custom_avatar = users(:komagata)
+    assert_includes user_with_custom_avatar.avatar_url, "#{user_with_custom_avatar.login_name}.webp"
   end
 
   test '#generation' do
@@ -760,5 +763,10 @@ class UserTest < ActiveSupport::TestCase
     user.save!
     assert_nil user.country_code
     assert_nil user.subdivision_code
+  end
+
+  test '.job_seeking' do
+    user = users(:jobseeking)
+    assert_includes User.job_seeking, user
   end
 end

@@ -10,8 +10,8 @@
   = render 'errors', object: user
   - if !current_user && !@user.adviser? && !@user.trainee? && Campaign.today_campaign?
     = render 'checked_campaign'
-  .form__items
-    - unless @user.adviser? || @user.mentor?
+  - unless @user.adviser? || @user.mentor?
+    .form__items
       = render 'users/form/course_select', f: f, user: @user
   .form__items
     = render 'users/form/login_name', f: f
@@ -68,14 +68,18 @@
       = render 'users/form/sns', f: f
   - else
     .form__items
+      h3.form__items-title パスワード
       = render 'users/form/password', f: f, from: from
 
   - if user.mentor? || user.adviser? || user.graduated_on? || user.admin?
     .form__items
+      h3.form__items-title 所属企業情報
       = render 'users/form/company', f: f, user: user
 
   - if from == :new && user.student? && !user.grant_course?
-    = render 'users/form/card'
+    .form__items
+      h3.form__items-title クレジットカード情報
+      = render 'users/form/card'
 
   - if user.mentor?
     .form__items
@@ -100,11 +104,23 @@
               | ユーザーステータス
           .form-item-block__items
             .form-item-block__item
-              = render 'users/form/job_seeking', f: f
-            .form-item-block__item
               = render 'users/form/retire', f: f
             .form-item-block__item
               = render 'users/form/graduate', f: f
+
+      .form-item
+        label.a-form-label
+          | 卒業後の進路
+        ul.block-checks.is-2-items.mt-4
+          - career_paths = User.career_paths.keys
+          - career_paths.each do |career_path|
+            li.block-checks__item
+              .a-block-check.is-radio
+                = f.radio_button :career_path, career_path, id: career_path, class: 'a-toggle-checkbox'
+                = f.label :career_path, for: career_path, class: 'a-block-check__label has-icon is-ta-left' do
+                  = t("activerecord.enums.user.career_path.#{career_path}")
+      .form-item
+        = render 'users/form/career_memo', f: f, user: user
 
       .form-item-block
         .form-item-block__inner
@@ -185,6 +201,11 @@
           = link_to '利用規約を確認（別タブで開きます）', tos_path, target: '_blank', rel: 'noopener'
         .a-form-help
           = link_to 'プライバシーポリシーを確認（別タブで開きます）', pp_path, target: '_blank', rel: 'noopener'
+
+    .form__items
+      h3.form__items-title
+        | アンケートのご協力をお願いします
+      = render 'users/form/referral_source', f: f
 
   - if from == :new
     .form-actions

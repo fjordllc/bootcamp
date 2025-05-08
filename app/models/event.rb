@@ -45,6 +45,8 @@ class Event < ApplicationRecord
   scope :wip, -> { where(wip: true) }
   scope :related_to, ->(user) { user.job_seeker ? all : where.not(job_hunting: true) }
   scope :scheduled_on, ->(date) { where(start_at: date.midnight...(date + 1.day).midnight) }
+  scope :not_ended, -> { where('end_at > ?', Time.current) }
+  scope :scheduled_on_without_ended, ->(date) { scheduled_on(date).not_ended }
 
   def opening?
     Time.current.between?(open_start_at, open_end_at)
