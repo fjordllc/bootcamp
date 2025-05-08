@@ -132,3 +132,13 @@ article58:
   wip: false
   published_at: "2024-03-12 00:00:00"
 
+<% date = Date.parse("2023-01-01") %>
+<% (101..130).each do |id| %>
+article<%= id %>:
+  <% number = id - 100 %>
+  title: プレスリリース<%= number %>
+  body: 「プレスリリース」タグを持つブログ
+  user: komagata
+  wip: false
+  published_at: <%= "#{date + number} 00:00:00" %>
+<% end %>
