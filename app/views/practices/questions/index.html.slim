@@ -24,4 +24,4 @@ nav.tab-nav
 
 .page-body
   .container.is-md
-    div(data-vue='Questions' data-vue-empty-message="#{@empty_message}" data-vue-practice-id="#{params[:practice_id]}")
+    = render 'questions/questions', questions: @questions
