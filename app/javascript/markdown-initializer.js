@@ -13,6 +13,7 @@ import MarkDownItContainerDetails from 'markdown-it-container-details'
 import MarkDownItLinkAttributes from 'markdown-it-link-attributes'
 import MarkDownItContainerSpeak from 'markdown-it-container-speak'
 import ReplaceLinkToCard from 'replace-link-to-card'
+import MarkdownItEscape from 'markdown-it-escape'
 
 export default class {
   replace(selector) {
@@ -55,6 +56,7 @@ export default class {
       }
     })
     md.use(MarkDownItContainerSpeak)
+    md.use(MarkdownItEscape)
     return md.render(text)
   }
 }
