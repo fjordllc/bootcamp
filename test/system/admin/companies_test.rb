@@ -87,7 +87,7 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
     find('div.choices__item[data-value="636488896"]').click
     click_button '更新する'
 
-    find('.user-item__company-logo').click
+    find('.user-item__company-logo-image').click
 
     find('a.card-main-actions__action', text: 'アドバイザーとして編集').click
     within 'form[name=company]' do
@@ -106,7 +106,7 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
     find('.choices__inner').click
     find('div.choices__item[data-value="636488896"]').click
     click_button '更新する'
-    find('.user-profile__company-logo').click
+    find('.user-profile__company-logo-image').click
     assert_no_text '管理者として編集'
   end
 end
