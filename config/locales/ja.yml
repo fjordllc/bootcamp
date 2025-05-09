@@ -115,7 +115,7 @@ ja:
         invoice_payment_user: 請求書払い
         credit_card_payment_user: クレジットカード払い
         other_editor: その他のエディタ
-        hide_mentor_profile: プロフィール非公開
+        show_mentor_profile: プロフィール公開
         invoice_payment: 「請求書払い」
         other_referral_source: FBCを知ったその他の経路
       discord_profile:

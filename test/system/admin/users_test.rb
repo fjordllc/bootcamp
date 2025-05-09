@@ -349,17 +349,17 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert_text 'メンター紹介用公開プロフィール'
   end
 
-  test 'administrator can update hide profile of mentor' do
+  test 'administrator can update show profile of mentor' do
     user = users(:mentormentaro)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     assert_text 'メンター紹介用公開プロフィール'
-    assert_no_checked_field('user_hide_mentor_profile', visible: false)
-    check 'user_hide_mentor_profile', allow_label_click: true, visible: false
-    assert has_checked_field?('user_hide_mentor_profile', visible: false)
+    assert has_checked_field?('user_show_mentor_profile', visible: false)
+    uncheck 'user_show_mentor_profile', allow_label_click: true, visible: false
+    assert_no_checked_field('user_show_mentor_profile', visible: false)
     click_on '更新する'
     assert_text 'ユーザー情報を更新しました'
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
-    assert has_checked_field?('user_hide_mentor_profile', visible: false)
+    assert_no_checked_field('user_show_mentor_profile', visible: false)
   end
 
   test 'administrator can set skipped_practice of general users' do

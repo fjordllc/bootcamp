@@ -220,7 +220,7 @@ class User < ApplicationRecord
   validates :nda, presence: true
   validates :password, length: { minimum: 4 }, confirmation: true, if: :password_required?
   validates :mail_notification, inclusion: { in: [true, false] }
-  validates :hide_mentor_profile, inclusion: { in: [true, false] }
+  validates :show_mentor_profile, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
   validates :other_editor, presence: true, if: -> { editor == 'other_editor' }
   validates :other_referral_source, presence: true, if: -> { referral_source == 'other' }
@@ -402,7 +402,7 @@ class User < ApplicationRecord
       .mentor
       .includes(authored_books: { cover_attachment: :blob })
       .order(:created_at)
-      .where(hide_mentor_profile: false)
+      .where(show_mentor_profile: true)
   }
   scope :working, lambda {
     active.where(
