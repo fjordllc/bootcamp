@@ -80,7 +80,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     )
     visit_with_auth "/products/#{product.id}", 'komagata'
     click_button '提出物を確認'
-    assert_text '提出物を確認済みにしました。'
+    assert_text '提出物を合格にしました。'
 
     visit_with_auth '/notifications', 'kimura'
 

@@ -35,22 +35,22 @@ class Check::ProductsTest < ApplicationSystemTestCase
 
   test 'comment and check product' do
     visit_with_auth "/products/#{products(:product1).id}", 'komagata'
-    fill_in 'new_comment[description]', with: '提出物でcomment+確認OKにするtest'
+    fill_in 'new_comment[description]', with: '提出物でcomment+合格にするtest'
     page.accept_confirm do
-      click_on '確認OKにする'
+      click_on '合格にする'
     end
     assert_text '確認済'
-    assert_text '提出物でcomment+確認OKにするtest'
+    assert_text '提出物でcomment+合格にするtest'
   end
 
   test 'comment and check product by mentor' do
     visit_with_auth "/products/#{products(:product1).id}", 'mentormentaro'
-    fill_in 'new_comment[description]', with: '提出物でcomment+確認OKにするtest'
+    fill_in 'new_comment[description]', with: '提出物でcomment+合格にするtest'
     page.accept_confirm do
-      click_on '確認OKにする'
+      click_on '合格にする'
     end
     assert_text '確認済'
-    assert_text '提出物でcomment+確認OKにするtest'
+    assert_text '提出物でcomment+合格にするtest'
   end
 
   test 'display error message when checking confirmed product' do
