@@ -23,7 +23,7 @@ class PairWorkMatchingNotifier
 
   def notify_to_chat(pair_work)
     ChatNotifier.message(<<~TEXT)
-      ペアワーク：「#{pair_work.title}」のマッチング相手が決定しました。
+      ペアワーク：「#{pair_work.title}」のマッチングペアが決定しました。
       <#{Rails.application.routes.url_helpers.pair_work_url(pair_work)}>
     TEXT
   end
