@@ -5,7 +5,7 @@ header.page-content-header
       - if pair_work.solved?
         .answer-badge
           .answer-badge__label
-            | 相手確定
+            | ペア確定
   .page-content-header__end
     .page-content-header__row
       .page-content-header__before-title
@@ -17,7 +17,7 @@ header.page-content-header
             | WIP
         - elsif pair_work.solved?
           span.a-title-label.is-solved.is-success.js-solved-status
-            | 相手確定
+            | ペア確定
         - else
           span.a-title-label.is-solved.is-danger.js-solved-status
             | 募集中
@@ -54,24 +54,3 @@ header.page-content-header
         .page-content-header-actions__start
           .page-content-header-actions__action
             div(data-vue='WatchToggle' data-vue-watchable-id:number="#{pair_work.id}" data-vue-watchable-type='PairWork')
-    - if pair_work.solved?
-      - user = User.find(pair_work.buddy_id)
-      .page-content-header__row
-        .page-content-header-metas
-          .page-content-header-metas__start
-            .page-content-header-metas__meta
-              time.a-meta
-                span.a-meta__value
-                  time(datetime="#{pair_work.reserved_at.to_datetime}")
-                    | #{l pair_work.reserved_at}
-            .page-content-header-metas__meta
-              = render 'users/icon', user:, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon'
-            .page-content-header-metas__meta
-              = link_to user.long_name, user_path(user), class: 'a-user-name'
-            .page-content-header-metas__meta
-              = link_to events_calendars_url(protocol: :webcal, format: :ics, user_id: current_user.id), class: 'a-button is-md is-secondary is-block' do
-                i.fa-regular.fa-plus
-                span
-                  | カレンダーに登録
-    .page-content-header__row
-      = pair_work.channel

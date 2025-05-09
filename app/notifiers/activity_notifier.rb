@@ -378,7 +378,7 @@ class ActivityNotifier < ApplicationNotifier # rubocop:todo Metrics/ClassLength
     user_name = receiver == matched_user ? 'あなた' : "#{matched_user.login_name}さん"
 
     notification(
-      body: "#{sender.login_name}さんのペアワーク【 #{pair_work.title} 】の相手が#{user_name}に決定しました。",
+      body: "#{sender.login_name}さんのペアワーク【 #{pair_work.title} 】のペアが#{user_name}に決定しました。",
       kind: :matching_pair_work,
       receiver:,
       sender:,
