@@ -2,7 +2,7 @@ header.page-content-header
   .page-content-header__start
     .page-content-header__user
       = link_to company, class: 'page-content-header__user-link' do
-        = image_tag company.logo_url, title: company.name, alt: company.name, class: 'company-profile__logo-image a-user-icon'
+        = image_tag company.logo_url, title: company.name, alt: company.name, class: 'company-profile__logo-image'
 
   .page-content-header__end
     .page-content-header__row
@@ -25,4 +25,7 @@ header.page-content-header
         .card-main-actions__items
           .card-main-actions__item
             = link_to edit_admin_company_path(company), class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
-              | 管理者として編集
+              - if current_user.admin?
+                | 管理者として編集
+              - elsif current_user.company == company && current_user.adviser?
+                | アドバイザーとして編集

@@ -3,9 +3,9 @@
     a.thread-comment__user-link href="#{answer.user.url}"
       span class="a-user-role is-#{answer.user.primary_role}"
         img.thread-comment__user-icon.a-user-icon src="#{answer.user.avatar_url}"
-      - if answer.user.company && answer.user.adviser?
-        a.thread-comment__company-link href="#{company_path(answer.user.company)}"
-          img.thread-comment__company-logo src="#{answer.user.company.logo_url}"
+    - if answer.user.company && (answer.user.adviser? || answer.user.trainee?)
+      a.thread-comment__company-link href="#{company_path(answer.user.company)}"
+        img.thread-comment__company-logo src="#{answer.user.company.logo_url}"
   .thread-comment__end
     .a-card.is-answer.answer-display
       .answer-badge class=(answer.type == 'CorrectAnswer' ? 'correct-answer' : 'is-hidden')
