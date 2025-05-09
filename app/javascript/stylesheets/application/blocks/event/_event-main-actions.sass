@@ -1,13 +1,13 @@
 .event-main-actions
   +position(relative, 1)
-  padding-block: .75rem
   margin-inline: 1rem
   border-radius: 4px
+  &:first-child
+    margin-top: 1rem
+    margin-bottom: 0
   +media-breakpoint-up(md)
-    padding-inline: 2rem
     margin-bottom: 1.5rem
   +media-breakpoint-down(sm)
-    padding-inline: .75rem
     margin-bottom: 1rem
   &.is-participationed
     background-color: #f8fff2
@@ -25,6 +25,33 @@
     border: 1px solid var(--danger)
     background-color: var(--danger-tint)
     color: var(--danger)
+
+.event-main-actions__header
+  padding-block: .75rem
+  +media-breakpoint-up(md)
+    padding-inline: 1rem
+  +media-breakpoint-down(sm)
+    padding-inline: .75rem
+  .is-participationed &
+    border-bottom: 1px solid var(--success)
+    color: #4e732e
+  .is-unparticipationed.is-available &
+    border-bottom: 1px solid var(--primary)
+    color: #116e94
+  .is-unparticipationed.is-capacity-over &
+    border-bottom: 1px solid var(--warning)
+    color: #6f5819
+  .is-non-participationed &
+    border-bottom: 1px solid var(--danger)
+    color: var(--danger)
+
+
+.event-main-actions__body
+  padding-block: .75rem
+  +media-breakpoint-up(md)
+    padding-inline: 1rem
+  +media-breakpoint-down(sm)
+    padding-inline: .75rem
 
 .event-main-actions__description
   +text-block(.8125rem 1.4)
