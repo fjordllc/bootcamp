@@ -11,8 +11,8 @@ class LearningStatusTest < ApplicationSystemTestCase
     )
     visit_with_auth "/products/#{product.id}", 'machida'
     click_button '担当する'
-    click_button '提出物を確認'
-    click_button '提出物の確認を取り消す'
+    click_button '合格にする'
+    click_button '提出物の合格を取り消す'
     visit_with_auth "/products/#{product.id}", 'kimuramitai'
     assert_no_selector 'h2', text: 'このプラクティスは修了しました🎉'
   end
@@ -27,9 +27,9 @@ class LearningStatusTest < ApplicationSystemTestCase
     click_button '担当する'
     fill_in('new_comment[description]', with: 'LGTMです。')
     accept_alert do
-      click_button '確認OKにする'
+      click_button '合格にする'
     end
-    click_button '提出物の確認を取り消す'
+    click_button '提出物の合格を取り消す'
     visit_with_auth "/products/#{product.id}", 'kimuramitai'
     assert_no_selector 'h2', text: 'このプラクティスは修了しました🎉'
   end

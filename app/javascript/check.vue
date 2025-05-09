@@ -57,9 +57,7 @@ export default {
       return this.$store.getters.checkId
     },
     buttonLabel() {
-      return (
-        this.checkableLabel + (this.checkId ? 'の確認を取り消す' : 'を確認')
-      )
+      return this.checkId ? '提出物の合格を取り消す' : '合格にする'
     },
     url() {
       return this.checkId ? `/api/checks/${this.checkId}` : '/api/checks'
