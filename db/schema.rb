@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_03_31_062253) do
+ActiveRecord::Schema.define(version: 2025_03_24_002043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -77,8 +77,8 @@ ActiveRecord::Schema.define(version: 2025_03_31_062253) do
     t.datetime "published_at"
     t.text "summary"
     t.integer "thumbnail_type", default: 0, null: false
-    t.string "token"
     t.boolean "display_thumbnail_in_body", default: true, null: false
+    t.string "token"
     t.integer "target"
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
@@ -248,6 +248,7 @@ ActiveRecord::Schema.define(version: 2025_03_31_062253) do
   create_table "courses", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
+    t.text "summary"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "published", default: false, null: false
@@ -345,7 +346,7 @@ ActiveRecord::Schema.define(version: 2025_03_31_062253) do
     t.index ["user_id"], name: "index_footprints_on_user_id"
   end
 
-  create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "good_job_batches", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "description"
@@ -360,13 +361,13 @@ ActiveRecord::Schema.define(version: 2025_03_31_062253) do
     t.datetime "finished_at"
   end
 
-  create_table "good_job_processes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "good_job_processes", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.jsonb "state"
   end
 
-  create_table "good_job_settings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "good_job_settings", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "key"
@@ -374,7 +375,7 @@ ActiveRecord::Schema.define(version: 2025_03_31_062253) do
     t.index ["key"], name: "index_good_job_settings_on_key", unique: true
   end
 
-  create_table "good_jobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "good_jobs", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
     t.text "queue_name"
     t.integer "priority"
     t.jsonb "serialized_params"
@@ -881,10 +882,10 @@ ActiveRecord::Schema.define(version: 2025_03_31_062253) do
     t.string "organization"
     t.integer "os"
     t.integer "experience"
-    t.text "retire_reason"
     t.boolean "trainee", default: false, null: false
-    t.string "customer_id"
+    t.text "retire_reason"
     t.boolean "job_seeking", default: false, null: false
+    t.string "customer_id"
     t.string "subscription_id"
     t.boolean "mail_notification", default: true, null: false
     t.boolean "job_seeker", default: false, null: false
@@ -918,6 +919,8 @@ ActiveRecord::Schema.define(version: 2025_03_31_062253) do
     t.integer "experiences", default: 0, null: false
     t.integer "referral_source"
     t.text "other_referral_source"
+    t.integer "career_path", default: 0, null: false
+    t.text "career_memo"
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true

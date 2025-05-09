@@ -9,3 +9,9 @@ inquiry2:
   email: 'inquiry2@example.com'
   created_at: '2017-01-01 00:00:00'
   body: 'お問い合わせのテスト2です。'
+
+inquiry3:
+  name: 'inquiry3'
+  email: 'inquiry3@example.com'
+  created_at: '2017-01-01 00:00:00'
+  body: 'お問い合わせのテスト3です。'

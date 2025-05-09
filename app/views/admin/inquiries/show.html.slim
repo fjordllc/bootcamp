@@ -54,3 +54,5 @@ main.page-main
                 data-vue-is-initial-action-completed:boolean="#{@inquiry.action_completed || false}"
                 data-vue-model-name:string="inquiry"
                 data-vue-api-path:string="/api/inquiries")
+
+      = render 'comments/comments', commentable: @inquiry, commentable_type: 'Inquiry'

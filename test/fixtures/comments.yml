@@ -137,6 +137,26 @@ comment42:
   commentable: regular_event27 (RegularEvent)
   description: "テスト用 regular_event27へのコメント"
 
+comment43:
+  user: komagata
+  commentable: inquiry1 (Inquiry)
+  description: "テスト用 inquiry1へのコメント"
+  created_at: "2019-01-02 00:00:00 JST"
+
+comment44:
+  user: komagata
+  commentable: inquiry2 (Inquiry)
+  description: "inquiryにて削除するコメント"
+
+<% (1..20).each do |i| %>
+comment<%= i + 44 %>:
+  user: komagata
+  commentable: inquiry3 (Inquiry)
+  description: <%= "テスト用 inquiry3へのコメント。No.#{i}" %>
+  created_at: <%= Time.current + i.minute %>
+  updated_at: <%= Time.current + i.minute %>
+<% end %>
+
 commentOfTalk:
   user: komagata
   commentable: talk1 (Talk)

@@ -8,6 +8,7 @@ class Inquiry < ApplicationRecord
   def user
     nil
   end
+  include Commentable
   validates :name, presence: true
   validates :email,
             presence: true,

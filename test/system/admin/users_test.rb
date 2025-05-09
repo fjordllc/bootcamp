@@ -81,7 +81,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
 
     visit_with_auth "/users/#{user.id}", 'komagata'
     icon_before = find('img.user-profile__user-icon-image', visible: false)
-    assert icon_before.native['src'].end_with?('hatsuno.jpg')
+    assert icon_before.native['src'].end_with?('hatsuno.webp')
 
     visit "/admin/users/#{user.id}/edit"
     within 'form[name=user]' do
@@ -92,7 +92,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
 
     assert_text 'ユーザー情報を更新しました。'
     icon_after = find('img.user-profile__user-icon-image', visible: false)
-    assert_includes icon_after.native['src'], 'komagata'
+    assert_includes icon_after.native['src'], 'hatsuno'
   end
 
   test 'update user with company' do

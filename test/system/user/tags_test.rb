@@ -150,7 +150,7 @@ class User::TagsTest < ApplicationSystemTestCase
     assert_includes all('.tag-links__item-link').map(&:text), 'ハッシュハッシュ'
   end
 
-  test 'hibernated users are displayed in the user list by tag' do
+  test 'hibernated users are not displayed in the user list by tag' do
     user = users(:kensyu)
     tag_name = acts_as_taggable_on_tags('guitar').name.to_s
 
@@ -179,8 +179,8 @@ class User::TagsTest < ApplicationSystemTestCase
     assert_text '休会手続きが完了しました'
 
     visit_with_auth users_tag_path(tag_name), 'komagata'
-    assert_text "タグ「#{tag_name}」のユーザー（2）"
-    assert_selector ".users-item__icon img[title='#{user.login_name} (#{user.name})']"
+    assert_text "タグ「#{tag_name}」のユーザー（1）"
+    assert_no_selector ".users-item__icon img[title='#{user.login_name} (#{user.name})']"
 
     visit_with_auth users_tags_path, 'komagata'
     displayed_users_number = find('.user-group__count').text[/\d+/]
@@ -188,7 +188,7 @@ class User::TagsTest < ApplicationSystemTestCase
     assert_no_selector ".a-user-icons__items img[title='#{user.login_name} (#{user.name})']"
   end
 
-  test 'retired users are displayed in the user list by tag' do
+  test 'retired users are not displayed in the user list by tag' do
     user = users(:kensyu)
     tag_name = acts_as_taggable_on_tags('guitar').name.to_s
 
@@ -210,8 +210,8 @@ class User::TagsTest < ApplicationSystemTestCase
     assert_text '退会処理が完了しました'
 
     visit_with_auth users_tag_path(tag_name), 'komagata'
-    assert_text "タグ「#{tag_name}」のユーザー（2）"
-    assert_selector ".users-item__icon img[title='#{user.login_name} (#{user.name})']"
+    assert_text "タグ「#{tag_name}」のユーザー（1）"
+    assert_no_selector ".users-item__icon img[title='#{user.login_name} (#{user.name})']"
 
     visit_with_auth users_tags_path, 'komagata'
     displayed_users_number = find('.user-group__count').text[/\d+/]

@@ -30,7 +30,7 @@ class Searcher
           result_for(document_type, word).sort_by(&:updated_at).reverse
         end
 
-      delete_comment_of_talk!(searchables) # 相談部屋の内容は検索できないようにする
+      delete_private_comment!(searchables) # 相談部屋とお問い合わせのコメント内容は検索できないようにする
     end
 
     private
@@ -70,9 +70,9 @@ class Searcher
       [document_type, :answers].flat_map { |type| result_for(type, word) }.sort_by(&:updated_at).reverse
     end
 
-    def delete_comment_of_talk!(searchables)
+    def delete_private_comment!(searchables)
       searchables.reject do |searchable|
-        searchable.instance_of?(Comment) && searchable.commentable.instance_of?(Talk)
+        searchable.instance_of?(Comment) && searchable.commentable.class.in?([Talk, Inquiry])
       end
     end
   end

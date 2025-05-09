@@ -1,0 +1,23 @@
+.articles__header
+  background-color: var(--base)
+
+.articles__header-inner
+  display: flex
+  align-items: center
+  +media-breakpoint-up(md)
+    height: 3.5rem
+  +media-breakpoint-down(sm)
+    height: 3rem
+
+.articles__title
+  font-weight: 700
+  +media-breakpoint-up(md)
+    +text-block(1.25rem 1.4)
+  +media-breakpoint-down(sm)
+    +text-block(1rem 1.4)
+
+.articles__body
+  +media-breakpoint-up(md)
+    padding-block: 2rem
+  +media-breakpoint-down(sm)
+    padding-block: 1.5rem

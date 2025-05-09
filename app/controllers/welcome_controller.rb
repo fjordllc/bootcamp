@@ -11,7 +11,9 @@ class WelcomeController < ApplicationController
     @mentors = current_user ? User.mentors_sorted_by_created_at : User.visible_sorted_mentors
   end
 
-  def alumni_voices; end
+  def alumni_voices
+    @articles = Article.alumni_voices.page(params[:page])
+  end
 
   def job_support; end
 

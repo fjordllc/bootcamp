@@ -377,13 +377,6 @@ class UsersTest < ApplicationSystemTestCase
     assert_no_selector 'label.a-form-label', text: '活動時間'
   end
 
-  test 'change job seeking flag when click toggle button' do
-    user = users(:hajime)
-    visit_with_auth user_path(user.id), 'komagata'
-    check '就職活動中', allow_label_click: true
-    assert user.reload.job_seeking
-  end
-
   test 'GET /users/new' do
     visit '/users/new'
     assert_equal 'FBC参加登録 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
@@ -482,7 +475,7 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'search only graduated students when target is graduate' do
     visit_with_auth '/users?target=graduate', 'komagata'
-    assert_selector '.users-item', count: 3
+    assert_selector '.users-item', count: 4
     fill_in 'js-user-search-input', with: '卒業 就職済美'
     find('#js-user-search-input').send_keys :return
     assert_text '卒業 就職済美', count: 1
@@ -559,9 +552,14 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test "don't show incremental search when target's users aren't exist" do
+    user = users(:jobseeking)
+    user.update!(career_path: 0)
+
     visit_with_auth '/users?target=job_seeking', 'komagata'
     assert_no_selector '.users-item'
     assert has_no_field? 'js-user-search-input'
+
+    user.update!(career_path: 1)
   end
 
   test 'only show incremental search in all tab' do

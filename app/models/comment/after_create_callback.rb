@@ -5,7 +5,7 @@ class Comment::AfterCreateCallback
     if comment.commentable.class.include?(Watchable)
       create_watch(comment)
       notify_to_watching_user(comment)
-    elsif comment.sender != comment.receiver
+    elsif comment.receiver.present? && comment.receiver != comment.sender
       Newspaper.publish(:came_comment, { comment: })
     end
 
