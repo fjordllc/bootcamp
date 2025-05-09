@@ -24,6 +24,12 @@
   display: flex
   gap: 1rem
 
+.users-item__header-start
+  display: flex
+  flex-direction: column
+  gap: .25rem
+  align-items: center
+
 .users-item__header-end
   flex: 1
 
@@ -71,15 +77,12 @@
   padding-bottom: 1rem
 
 .user-item__company-logo
-  +size(4rem)
-  min-width: 4rem
+  +size(3rem)
+  min-width: 3rem
   object-fit: cover
   background-color: var(--base)
   border-radius: .25rem
   border: solid 1px var(--border-tint)
-  @container users-item (max-width: 340px)
-    +size(3rem)
-    min-width: 3rem
 
 .users-item__footer
   position: relative

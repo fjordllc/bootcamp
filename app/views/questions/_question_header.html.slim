@@ -1,7 +1,12 @@
 header.page-content-header
   .page-content-header__start
     .page-content-header__user
-      = render 'users/icon', user: question.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon'
+      .page-content-header__user-icon
+        = render 'users/icon', user: question.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon-image'
+    - if question.user.trainee?
+      .page-content-header__company-logo
+        = link_to company_path(question.user.company), class: 'page-content-header__company-link' do
+          = image_tag question.user.company.logo_url, class: 'page-content-header__company-logo-image'
   .page-content-header__end
     a.a-count-badge href='#comments'
       .a-count-badge__label
