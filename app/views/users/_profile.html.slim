@@ -4,6 +4,9 @@ header.page-content-header
       = link_to user, class: 'page-content-header__user-link' do
         span class="a-user-role is-#{user.primary_role}"
           = image_tag user.avatar_url, title: user.icon_title, class: 'user-profile__user-icon-image a-user-icon'
+    - if user.trainee?
+      = link_to company_path(user.company), class: 'page-content-header__user-link is-company' do
+        = image_tag user.company.logo_url, class: 'page-content-header__company-logo-image is-lg'
   .page-content-header__end
     .page-content-header__row
       .page-content-header__before-title

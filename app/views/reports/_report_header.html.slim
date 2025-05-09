@@ -1,12 +1,14 @@
-header.page-content-header
+header.page-content-header.is-report
   #js-check-stamp(data-checkable-type='Report' data-checkable-id="#{report.id}")
   = render 'checks/check-stamp'
   .page-content-header__start
     .page-content-header__user
-      = render 'users/icon', user: report.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon'
+      .page-content-header__user-icon
+        = render 'users/icon', user: report.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon-image'
     - if report.user.trainee?
-      = link_to company_path(report.user.company) do
-        = image_tag report.user.company.logo_url, class: 'page-content-header__company-logo'
+      .page-content-header__company-logo
+        = link_to company_path(report.user.company), class: 'page-content-header__company-link' do
+          = image_tag report.user.company.logo_url, class: 'page-content-header__company-logo-image'
   .page-content-header__end
     .page-content-header__row
       .page-content-header__before-title
