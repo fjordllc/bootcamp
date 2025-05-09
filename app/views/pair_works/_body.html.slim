@@ -1,5 +1,26 @@
 .a-card
   .card-body
+    - if pair_work.solved?
+      - user = User.find(pair_work.buddy_id)
+      .event-main-actions.is-participationed
+        header.event-main-actions__header
+          h2
+            | ペアが確定しました。
+        .event-main-actions__body
+          time.a-meta
+            span.a-meta__value
+              time(datetime="#{pair_work.reserved_at.to_datetime}")
+                | #{l pair_work.reserved_at}
+          .page-content-header-metas__meta
+            = render 'users/icon', user:, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon'
+          .page-content-header-metas__meta
+            = link_to user.long_name, user_path(user), class: 'a-user-name'
+          .page-content-header-metas__meta
+            = link_to events_calendars_url(protocol: :webcal, format: :ics, user_id: current_user.id), class: 'a-button is-md is-secondary is-block' do
+              i.fa-regular.fa-plus
+              span
+                | カレンダーに登録
+          = pair_work.channel
     .card-body__description
       .a-long-text.is-md.js-markdown-view
         = pair_work.description
