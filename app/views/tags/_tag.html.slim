@@ -14,5 +14,5 @@
     .a-user-icons
       .a-user-icons__items
         = render partial: 'tags/user',
-                collection: User.desc_tagged_with(tag.name),
+                collection: User.active_tagged_with(tag.name),
                 as: :user

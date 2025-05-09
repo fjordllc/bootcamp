@@ -88,9 +88,6 @@
                       .user-statuses__item
                         = link_to 'ユーザー情報変更', edit_admin_user_path(@talk.user), class: 'card-main-actions__action a-button is-sm is-secondary is-block'
                       .user-statuses__item
-                        = form_with model: @user, local: true, url: user_job_seek_path(@user), class: 'form', html: { name: 'jobseeking' } do |f|
-                          = render 'talks/seeking_switch', f:
-                      .user-statuses__item
                         .graduation_button
                           - if @user.graduated_on?
                             .a-button.is-sm.is-disabled.is-block

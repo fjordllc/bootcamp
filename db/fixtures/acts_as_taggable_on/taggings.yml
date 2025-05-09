@@ -53,11 +53,16 @@ kimura_tag_may_j_:
   context: tags
   tag: may_j_
 
+unhibernated_tag_cat:
+  taggable: unhibernated (User)
+  context: tags
+  tag: cat
+
 question13_tag_cat:
   taggable: question13 (Question)
   context: tags
-
   tag: cat
+
 question13_tag_game:
   taggable: question13 (Question)
   context: tags
