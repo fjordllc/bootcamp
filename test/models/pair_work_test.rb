@@ -18,8 +18,8 @@ class PairWorkTest < ActiveSupport::TestCase
 
   test 'generate_pair_works_property' do
     solved_pair_works_property = PairWork.generate_pair_works_property('solved')
-    assert_equal '相手確定済みのペアワーク', solved_pair_works_property.title
-    assert_equal '相手確定済みのペアワークはありません。', solved_pair_works_property.empty_message
+    assert_equal 'ペア確定済みのペアワーク', solved_pair_works_property.title
+    assert_equal 'ペア確定済みのペアワークはありません。', solved_pair_works_property.empty_message
 
     not_solved_pair_works_property = PairWork.generate_pair_works_property('not_solved')
     assert_equal '募集中のペアワーク', not_solved_pair_works_property.title
