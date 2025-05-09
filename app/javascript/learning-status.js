@@ -2,8 +2,14 @@ import 'whatwg-fetch'
 import CSRF from 'csrf'
 
 document.addEventListener('DOMContentLoaded', () => {
+  const practiceElement = document.querySelector('#practice')
+
+  if (!practiceElement) {
+    return
+  }
+
   const buttons = document.querySelectorAll('.practice-status-buttons__button')
-  const practiceId = document.querySelector('#practice').dataset.id
+  const practiceId = practiceElement.dataset.id
 
   const updateButtonsStates = (clickedButton) => {
     buttons.forEach((button) => {
