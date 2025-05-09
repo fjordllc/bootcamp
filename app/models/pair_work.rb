@@ -42,7 +42,7 @@ class PairWork < ApplicationRecord
   def self.generate_pair_works_property(target)
     case target
     when 'solved'
-      PairWorksProperty.new('相手確定済みのペアワーク', '相手確定済みのペアワークはありません。')
+      PairWorksProperty.new('ペア確定済みのペアワーク', 'ペア確定済みのペアワークはありません。')
     when 'not_solved'
       PairWorksProperty.new('募集中のペアワーク', '募集中のペアワークはありません。')
     else
