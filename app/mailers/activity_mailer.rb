@@ -493,7 +493,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
     @pair_work ||= args[:pair_work]
 
     @user = @receiver
-    @title = @pair_work.practice.present? ? "「#{@pair_work.practice.title}」についてのペアワークの相手が見つかりました。" : 'ペアワークの相手が見つかりました。'
+    @title = @pair_work.practice.present? ? "「#{@pair_work.practice.title}」についてのペアワークのペアが見つかりました。" : 'ペアワークのペアが見つかりました。'
     matched_user = User.find(@pair_work.buddy_id)
     @user_name = @receiver == matched_user ? 'あなた' : "#{matched_user.login_name}さん"
 
@@ -502,7 +502,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
       kind: Notification.kinds[:matching_pair_work]
     )
 
-    subject = "[FBC] #{@pair_work.user.login_name}さんのペアワーク【 #{@pair_work.title} 】の相手が#{@user_name}に決定しました。"
+    subject = "[FBC] #{@pair_work.user.login_name}さんのペアワーク【 #{@pair_work.title} 】のペアが#{@user_name}に決定しました。"
     message = mail(to: @user.email, subject:)
 
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
