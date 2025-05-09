@@ -79,8 +79,6 @@
   +media-breakpoint-down(sm)
     +size(2.75rem)
     +position(absolute, right 0, top 0)
-  &.is-lg
-    +size(4.5rem)
 
 .page-content-header__before-title
   gap: .25rem 1rem
@@ -167,13 +165,12 @@
 .page-content-header__checker
   +position(absolute, right 0, top -.5rem)
 
-.user-profile__company-logo
+.user-profile__company-logo-image
   background-color: var(--base)
   object-fit: contain
   border-radius: .25rem
-  border: solid 1px var(--border)
   +media-breakpoint-up(md)
-    +size(3.75rem)
+    +size(4.5rem)
   +media-breakpoint-down(sm)
     +size(3.5rem)
     +position(absolute, right 0, top 0)
