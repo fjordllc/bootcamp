@@ -10,8 +10,8 @@ pair_work1:
   wip: false
 
 pair_work2:
-  title: 相手確定済みのペアワークです(タイトル)
-  description: 相手確定済みのペアワークです(詳細)
+  title: ペア確定済みのペアワークです(タイトル)
+  description: ペア確定済みのペアワークです(詳細)
   reserved_at: <%= Time.zone.parse('2025-01-02 01:00:00') %>
   user: kimura
   practice: practice1
