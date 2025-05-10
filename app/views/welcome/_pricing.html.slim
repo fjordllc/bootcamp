@@ -57,6 +57,13 @@ section.lp-content.is-lp-bg-2.is-top-title#pricing
               .lp-actions__items
                 .lp-actions__item
                   = link_to '料金について詳しく', pricing_path, class: 'a-button is-xl is-primary-border is-block'
+              ul.lp-actions__items
+                li.lp-actions__item
+                  = link_to new_inquiry_path, class: 'a-button is-xl is-primary-border is-block' do
+                    | お問い合わせ
+                li.lp-actions__item
+                  = link_to choose_courses_path, class: 'a-button is-xl is-warning is-block' do
+                    | 参加登録
 
   .lp-content-divider.is-lp-bg-3
     svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
