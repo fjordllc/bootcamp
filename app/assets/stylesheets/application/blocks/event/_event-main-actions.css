@@ -83,6 +83,13 @@
   color: var(--danger);
 }
 
+.event-main-actions__title {
+  font-size: .875rem;
+  line-height: 1.4;
+  font-weight: 700;
+  text-align: center;
+}
+
 .event-main-actions__body {
   padding-block: .75rem;
 }
