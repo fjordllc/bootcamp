@@ -56,7 +56,9 @@ export default class {
       }
     })
     md.use(MarkDownItContainerSpeak)
-    md.use(MarkdownItEscape)
+    md.use(MarkdownItEscape, {
+      ALLOWED_TAGS: []
+    })
     return md.render(text)
   }
 }

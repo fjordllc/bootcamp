@@ -1,49 +1,22 @@
-export default (md) => {
-  const escapeTags = ['style']
-  const escapeAttributes = ['onload']
+import DOMPurify from 'dompurify';
 
-  md.core.ruler.push('escape', function (state) {
-    for (const token of state.tokens) {
-      if (['html_block', 'html_inline'].includes(token.type)) {
-        token.content = escapeHtmlContent(
-          token.content,
-          escapeTags,
-          escapeAttributes
-        )
-      } else if (token.type === 'inline' && token.children) {
-        for (const child of token.children) {
-          child.content = escapeHtmlContent(
-            child.content,
-            escapeTags,
-            escapeAttributes
-          )
-        }
+function dompurifyPlugin(md, options = {}) {
+  md.core.ruler.push('sanitize_all', function(state) {
+    state.tokens.forEach(token => {
+      if (token.type === 'html_block' || token.type === 'html_inline') {
+        console.log(token)
+        token.content = DOMPurify.sanitize(token.content, options)
       }
-    }
+      if (token.type === 'inline' && token.children) {
+        console.log(token.children)
+        token.children.forEach(child => {
+          if (child.type === 'html_inline') {
+            child.content = DOMPurify.sanitize(child.content, options)
+          }
+        })
+      }
+    })
   })
 }
 
-function escapeHtmlContent(html, escapeTags = [], escapeAttributes = []) {
-  const parser = new DOMParser()
-  const doc = parser.parseFromString(`<body>${html}</body>`, 'text/html')
-
-  doc.querySelectorAll('*').forEach((element) => {
-    if (shouldEscape(element, escapeTags, escapeAttributes)) {
-      element.replaceWith(doc.createTextNode(element.outerHTML))
-    }
-  })
-
-  return doc.body.innerHTML
-}
-
-function shouldEscape(element, escapeTags, escapeAttributes) {
-  const tag = element.tagName.toLowerCase()
-  const isDangerousTag = escapeTags.includes(tag)
-
-  const hasDangerousAttribute = [...element.attributes].some((attr) => {
-    const attrName = attr.name.toLowerCase()
-    return escapeAttributes.includes(attrName)
-  })
-
-  return isDangerousTag || hasDangerousAttribute
-}
+export default dompurifyPlugin;
