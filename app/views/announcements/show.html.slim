@@ -22,10 +22,11 @@ hr.a-border
         header.page-content-header
           .page-content-header__start
             .page-content-header__user
-              = render 'users/icon',
-                user: @announcement.user,
-                link_class: 'page-content-header__user-link',
-                image_class: 'page-content-header__user-icon'
+              .page-content-header__user-icon
+                = render 'users/icon',
+                  user: @announcement.user,
+                  link_class: 'page-content-header__user-link',
+                  image_class: 'page-content-header__user-icon-image'
           .page-content-header__end
             .page-content-header__row
               .page-content-header__before-title
