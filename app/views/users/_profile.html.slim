@@ -4,7 +4,7 @@ header.page-content-header
       = link_to user, class: 'page-content-header__user-link' do
         span class="a-user-role is-#{user.primary_role}"
           = image_tag user.avatar_url, title: user.icon_title, class: 'user-profile__user-icon-image a-user-icon'
-    - if user.trainee?
+    - if user.company.present?
       .user-profile__company-logo
         = link_to company_path(user.company), class: 'user-profile__company-link is-company' do
           = image_tag user.company.logo_url, class: 'user-profile__company-logo-image'
