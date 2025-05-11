@@ -86,8 +86,8 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
     find('.choices__inner').click
     find('div.choices__item[data-value="636488896"]').click
     click_button '更新する'
-    find('.user-profile__company-logo').click
-    find('a.card-main-actions__action', text: '管理者として編集').click
+    find('.user-profile__company-link').click
+    find('a.card-main-actions__action', text: 'アドバイザーとして編集').click
     within 'form[name=company]' do
       fill_in 'company[description]', with: '更新しました。'
     end
@@ -96,7 +96,7 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
 
     find('a.a-button.is-md.is-secondary.is-block.is-back').click
     find('a.companies-item__name-link[href="/companies/998823850"]').click
-    assert_no_text '管理者として編集'
+    assert_no_text 'アドバイザーとして編集'
   end
 
   test 'mentor cannot edit as admin' do
@@ -104,7 +104,7 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
     find('.choices__inner').click
     find('div.choices__item[data-value="636488896"]').click
     click_button '更新する'
-    find('.user-profile__company-logo').click
+    find('.user-profile__company-link').click
     assert_no_text '管理者として編集'
   end
 end

@@ -9,9 +9,9 @@ class AttachmentsTest < ApplicationSystemTestCase
     assert_includes find('img.user-profile__user-icon-image')['src'], 'komagata.webp'
   end
 
-  test 'attachment company icons in reports' do
+  test 'attachment company-logo in reports' do
     report = reports(:report11)
     visit_with_auth "/reports/#{report.id}", 'kensyu'
-    assert_includes ['2.png', 'default.png'], File.basename(find('img.page-content-header__company-logo')['src'])
+    assert_includes ['2.png', 'default.png'], File.basename(find('img.page-content-header__company-logo-image')['src'])
   end
 end

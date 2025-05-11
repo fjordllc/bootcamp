@@ -76,7 +76,7 @@ export default function UserSns({ user }) {
       {user.company && user.company.logo_url && (
         <a href={user.company.url}>
           <img
-            className="user-item__company-logo"
+            className="user-item__company-logo-image"
             src={user.company.logo_url}
           />
         </a>
