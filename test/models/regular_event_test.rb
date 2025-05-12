@@ -167,4 +167,13 @@ class RegularEventTest < ActiveSupport::TestCase
       assert_not_includes regular_events, regular_event_ended
     end
   end
+
+  test '.scheduled_on_without_ended in tomorrow’s event' do
+    travel_to Time.zone.local(2024, 12, 1, 10, 0, 0) do
+      tomorrow = Time.zone.tomorrow
+      regular_events = RegularEvent.scheduled_on_without_ended(tomorrow)
+      regular_event_scheduled_for_tomorrow = regular_events(:regular_event38)
+      assert_includes regular_events, regular_event_scheduled_for_tomorrow
+    end
+  end
 end
