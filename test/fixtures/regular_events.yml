@@ -207,3 +207,13 @@ regular_event37:
   end_at: <%= Time.zone.local(2024, 12, 1, 10, 0, 0) %>
   user: komagata
   published_at: "2024-12-01 00:00:00"
+
+regular_event38:
+  title: 明日開催で、時間は本日の時刻以降の定期イベント
+  description: 明日開催で時間は本日の時刻以降の定期イベントの表示テスト用
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2024, 12, 2, 9, 0, 0) %>
+  end_at: <%= Time.zone.local(2024, 12, 2, 10, 0, 0) %>
+  user: komagata
+  published_at: "2024-12-01 00:00:00"
