@@ -42,7 +42,7 @@ class RegularEventTest < ActiveSupport::TestCase
   test '.scheduled_on(date)' do
     travel_to Time.zone.local(2017, 4, 3, 23, 0, 0) do
       today_date = Time.zone.today
-      today_events_count = 3
+      today_events_count = 4
       today_events = RegularEvent.scheduled_on(today_date)
       assert_equal today_events_count, today_events.count
 
