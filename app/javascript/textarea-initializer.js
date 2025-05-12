@@ -16,7 +16,7 @@ import MarkDownItContainerSpeak from 'markdown-it-container-speak'
 import CSRF from 'csrf'
 import TextareaMarkdownLinkify from 'textarea-markdown-linkify'
 import ReplaceLinkToCard from 'replace-link-to-card'
-import MarkdownItEscape from './markdown-it-escape'
+import MarkdownItPurifier from 'markdown-it-purifier'
 
 export default class {
   static initialize(selector) {
@@ -79,7 +79,33 @@ export default class {
           MarkDownItContainerDetails,
           MarkDownItLinkAttributes,
           MarkDownItContainerSpeak,
-          MarkdownItEscape
+          [MarkdownItPurifier, {
+            ALLOWED_TAGS: [
+              'a',
+              'br',
+              'div',
+              'em',
+              'h2',
+              'h5',
+              'img',
+              'p',
+              'span',
+              'strong',
+              'spanv'
+            ],
+            ALLOWED_ATTR: [
+              'alt',
+              'class',
+              'decoding',
+              'height',
+              'href',
+              'loading',
+              'src',
+              'style',
+              'target',
+              'width'
+            ]
+           }]
         ],
         markdownOptions: MarkdownOption
       })

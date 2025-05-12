@@ -13,7 +13,7 @@ import MarkDownItContainerDetails from 'markdown-it-container-details'
 import MarkDownItLinkAttributes from 'markdown-it-link-attributes'
 import MarkDownItContainerSpeak from 'markdown-it-container-speak'
 import ReplaceLinkToCard from 'replace-link-to-card'
-import MarkdownItEscape from 'markdown-it-escape'
+import MarkdownItPurifier from 'markdown-it-purifier'
 
 export default class {
   replace(selector) {
@@ -56,9 +56,34 @@ export default class {
       }
     })
     md.use(MarkDownItContainerSpeak)
-    md.use(MarkdownItEscape, {
-      ALLOWED_TAGS: []
+    md.use(MarkdownItPurifier, {
+      ALLOWED_TAGS: [
+        'a',
+        'br',
+        'div',
+        'em',
+        'h2',
+        'h5',
+        'img',
+        'p',
+        'span',
+        'strong',
+        'spanv'
+      ],
+      ALLOWED_ATTR: [
+        'alt',
+        'class',
+        'decoding',
+        'height',
+        'href',
+        'loading',
+        'src',
+        'style',
+        'target',
+        'width'
+      ]
     })
+    console.log(md.render(text))
     return md.render(text)
   }
 }
