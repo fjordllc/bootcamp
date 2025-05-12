@@ -14,6 +14,7 @@ class UpcomingEventTest < ActiveSupport::TestCase
       today_events = [
         events(:event27),
         events(:event33),
+        regular_events(:regular_event38),
         regular_events(:regular_event2),
         regular_events(:regular_event26),
         regular_events(:regular_event32)
