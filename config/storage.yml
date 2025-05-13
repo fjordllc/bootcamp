@@ -15,13 +15,6 @@ google:
   bucket: <%= ENV["GCS_BUCKET"] %>
   public: true
 
-google2:
-  service: GCS
-  project: "still-algebra-458410-h2"
-  credentials: "/home/bonnmasa/still-algebra-458410-h2-f75c93610852.json"
-  bucket: "example_bootcamp"
-  public: true
-
 test_fixtures:
   service: Disk
   root: <%= Rails.root.join("tmp/storage_fixtures") %>
