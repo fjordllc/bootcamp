@@ -14,6 +14,7 @@ import MarkDownItLinkAttributes from 'markdown-it-link-attributes'
 import MarkDownItContainerSpeak from 'markdown-it-container-speak'
 import ReplaceLinkToCard from 'replace-link-to-card'
 import MarkdownItPurifier from 'markdown-it-purifier'
+import { ALLOWED_TAGS, ALLOWED_ATTR } from './config/markdown-it-purifier-config'
 
 export default class {
   replace(selector) {
@@ -57,31 +58,8 @@ export default class {
     })
     md.use(MarkDownItContainerSpeak)
     md.use(MarkdownItPurifier, {
-      ALLOWED_TAGS: [
-        'a',
-        'br',
-        'div',
-        'em',
-        'h2',
-        'h5',
-        'img',
-        'p',
-        'span',
-        'strong',
-        'spanv'
-      ],
-      ALLOWED_ATTR: [
-        'alt',
-        'class',
-        'decoding',
-        'height',
-        'href',
-        'loading',
-        'src',
-        'style',
-        'target',
-        'width'
-      ]
+      ALLOWED_TAGS,
+      ALLOWED_ATTR
     })
     console.log(md.render(text))
     return md.render(text)
