@@ -18,6 +18,7 @@ import TextareaMarkdownLinkify from 'textarea-markdown-linkify'
 import ReplaceLinkToCard from 'replace-link-to-card'
 import MarkDownItContainerFigure from 'markdown-it-container-figure'
 import MarkdownItPurifier from 'markdown-it-purifier'
+import { ALLOWED_TAGS, ALLOWED_ATTR } from './config/markdown-it-purifier-config'
 
 export default class {
   static initialize(selector) {
@@ -88,31 +89,8 @@ export default class {
           MarkDownItContainerSpeak,
           MarkDownItContainerFigure
           [MarkdownItPurifier, {
-            ALLOWED_TAGS: [
-              'a',
-              'br',
-              'div',
-              'em',
-              'h2',
-              'h5',
-              'img',
-              'p',
-              'span',
-              'strong',
-              'spanv'
-            ],
-            ALLOWED_ATTR: [
-              'alt',
-              'class',
-              'decoding',
-              'height',
-              'href',
-              'loading',
-              'src',
-              'style',
-              'target',
-              'width'
-            ]
+            ALLOWED_TAGS,
+            ALLOWED_ATTR
            }]
         ],
         markdownOptions: MarkdownOption
