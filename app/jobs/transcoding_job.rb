@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TranscodingJob < ApplicationJob
   queue_as :default
 
@@ -10,23 +12,24 @@ class TranscodingJob < ApplicationJob
   end
 
   def bucket_name
-    active_storage_config["bucket"]
+    active_storage_config['bucket']
   end
 
   def project_id
-    active_storage_config["project"]
+    active_storage_config['project']
   end
 
   def location
-    "asia-northeast1"
+    'asia-northeast1'
   end
 
   def active_storage_config
-    Rails.application.config.active_storage.service_configurations["google"]
+    Rails.application.config.active_storage.service_configurations['google']
   end
 
   def production_only
     return unless Rails.env.production?
+
     yield
   end
 end
