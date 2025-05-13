@@ -42,7 +42,7 @@ class RegularEventTest < ActiveSupport::TestCase
   test '.scheduled_on(date)' do
     travel_to Time.zone.local(2017, 4, 3, 23, 0, 0) do
       today_date = Time.zone.today
-      today_events_count = 3
+      today_events_count = 4
       today_events = RegularEvent.scheduled_on(today_date)
       assert_equal today_events_count, today_events.count
 
@@ -165,6 +165,15 @@ class RegularEventTest < ActiveSupport::TestCase
       regular_event_ended = regular_events(:regular_event37)
       assert_includes regular_events, regular_event_in_progress
       assert_not_includes regular_events, regular_event_ended
+    end
+  end
+
+  test '.scheduled_on_without_ended in tomorrow’s event' do
+    travel_to Time.zone.local(2024, 12, 1, 10, 0, 0) do
+      tomorrow = Time.zone.tomorrow
+      regular_events = RegularEvent.scheduled_on_without_ended(tomorrow)
+      regular_event_scheduled_for_tomorrow = regular_events(:regular_event38)
+      assert_includes regular_events, regular_event_scheduled_for_tomorrow
     end
   end
 end
