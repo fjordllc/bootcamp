@@ -38,7 +38,7 @@ class StartTranscodeJob < TranscodingJob
         }
       }
 
-      job = transcoder_client.create_job parent: parent_path, job: job_config
+      job = transcoder_client.create_job parent: "projects/#{project_id}/locations/#{location}", job: job_config
 
       MonitorAndFinalizeTranscodeJob.set(wait: POLLING_INTERVAL).perform_later(movie, job.name)
     end
