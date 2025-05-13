@@ -1,6 +1,4 @@
 # frozen_string_literal: true
-require "google/cloud/video/transcoder"
-require "open-uri"
 
 class MoviesController < ApplicationController
   before_action :set_movie, only: %i[show edit update destroy]
