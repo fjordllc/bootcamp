@@ -21,10 +21,6 @@ class TranscodingJob < ApplicationJob
     "asia-northeast1"
   end
 
-  def parent_path
-    "projects/#{project_id}/locations/#{location}"
-  end
-
   def active_storage_config
     Rails.application.config.active_storage.service_configurations["google"]
   end
