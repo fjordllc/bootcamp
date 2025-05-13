@@ -48,6 +48,13 @@ class Article < ApplicationRecord
     with_attached_thumbnail.includes(user: { avatar_attachment: :blob }).where(wip: false)
   }
   scope :alumni_voices, -> { with_attachments_and_user.tagged_with('卒業生の声').order(published_at: :desc) }
+  scope :press_releases, lambda { |limit = nil|
+    where(wip: false)
+      .tagged_with('プレスリリース')
+      .includes(%i[user thumbnail_attachment])
+      .order(published_at: :desc)
+      .limit(limit)
+  }
 
   def prepared_thumbnail_url(thumbnail_size = THUMBNAIL_SIZE)
     if thumbnail.attached?
