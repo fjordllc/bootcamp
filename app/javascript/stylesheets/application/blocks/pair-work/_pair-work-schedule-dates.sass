@@ -1,0 +1,33 @@
+.pair-work-schedule-dates
+  &.is-solved
+    .pair-work-schedule-dates__table
+      display: none
+    input:checked + .pair-work-schedule-dates__table
+      display: block
+
+.pair-work-schedule-dates__action-items
+  display: flex
+  justify-content: center
+
+.pair-work-schedule-dates__action-item
+  min-width: 20rem
+
+.pair-work-schedule-dates__action-item-description
+  margin-top: .25rem
+  +text-block(.75rem 1.4, center)
+
+.pair-work-schedule-dates__title
+  +text-block(1rem 1.4, 600)
+  margin-bottom: 1rem
+
+.pair-work-schedule-dates__table
+  .pair-work-schedule-dates__action + .pair-work-schedule-dates__table-container &
+    margin-top: 1rem
+
+.pair-work-schedule-dates__cansel
+  display: flex
+  justify-content: center
+  margin-bottom: 1rem
+
+.pair-work-schedule-dates__cansel-action
+  min-width: 20rem

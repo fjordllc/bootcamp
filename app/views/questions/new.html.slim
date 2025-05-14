@@ -6,20 +6,36 @@ header.page-header
     .page-header__inner
       .page-header__start
         h2.page-header__title
-          | 質問する
+          | Q&A・ペアワーク
       .page-header__end
+
+= questions_and_pair_works_page_tabs
+.page-main
+  header.page-main-header
+  .container
+    .page-main-header__inner
+      .page-main-header__start
+        h2.page-main-header__title
+          | 質問する
+      .page-main-header__end
         .page-header-actions
           ul.page-header-actions__items
             li.page-header-actions__item
+              = link_to new_question_path, class: 'a-button is-md is-secondary is-block' do
+                i.fa-regular.fa-plus
+                span
+                  | 質問する
+            li.page-header-actions__item
               = link_to questions_path(target: 'not_solved'), class: 'a-button is-md is-secondary is-block is-back' do
                 | Q&A一覧
-hr.a-border
-.a-page-notice.page-notice
-  .container
-    .a-page-notice__inner
-      p
-        = link_to '/pages/how_to_ask_questions', target: '_blank', class: 'page-notice__link', rel: 'noopener noreferrer' do
-          | このドキュメントを参考にして質問をしてみよう！
-.page-body
-  .container.is-xxl
-    = render 'form', question: @question
+  hr.a-border
+  .a-page-notice.page-notice
+    .container
+      .a-page-notice__inner
+        p
+          = link_to '/pages/how_to_ask_questions', target: '_blank', class: 'page-notice__link', rel: 'noopener noreferrer' do
+            | このドキュメントを参考にして質問をしてみよう！
+
+  .page-body
+    .container.is-xxl
+      = render 'form', question: @question
