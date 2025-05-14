@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-module PageTabs
+module SubTabs
   module PairWorksHelper
-    def pair_works_page_tabs
+    def pair_works_sub_tabs
       tabs = []
       tabs << { name: 'ペア募集中', link: pair_works_path(target: 'not_solved'), badge: PairWork.not_solved.not_wip.size }
       tabs << { name: 'ペア確定', link: pair_works_path(target: 'solved') }
       tabs << { name: '全て', link: pair_works_path }
-      render PageTabsComponent.new(tabs:, active_tab: pair_work_active_tab)
+      render SubTabsComponent.new(tabs:, active_tab: pair_work_active_tab)
     end
 
     private

@@ -8,33 +8,33 @@ header.page-header
   .container
     .page-header__inner
       .page-header__start
-        h2.page-header__title
-          | Q&A
+        h1.page-header__title
+          | Q&A・ペアワーク
       .page-header__end
         .page-header-actions
           .page-header-actions__items
             .page-header-actions__item
-              = link_to new_question_path, class: 'a-button is-md is-secondary is-block' do
-                i.fa-regular.fa-plus
-                span
-                  | 質問する
 
-= questions_page_tabs
+= questions_and_pair_works_page_tabs
 
-- if @tag.present?
+.page-main
   header.page-main-header
     .container
       .page-main-header__inner
         .page-main-header__start
-          h1.page-main-header__title
-            | タグ「#{@tag.name}」のQ&A（#{@questions.total_count}）
-        - if admin_login?
-          .page-main-header__end
-            .page-main-header-actions
-              .page-main-header-actions__items
-                = react_component('Tags/TagEditButton', tagId: @tag.id, tagName: @tag.name)
+          h2.page-main-header__title
+            | Q&A
+        .page-main-header__end
+          .page-header-actions
+            ul.page-header-actions__items
+              li.page-header-actions__item
+                = link_to new_question_path, class: 'a-button is-md is-secondary is-block' do
+                  i.fa-regular.fa-plus
+                  span
+                    | 質問する
   hr.a-border
-.page-main
+  = questions_sub_tabs
+
   nav.page-filter.form
     .container.is-md
       = form_with url: questions_path, method: 'get', local: true
@@ -49,6 +49,21 @@ header.page-header
   hr.a-border
   .page-body
     .page-body__inner.has-side-nav
+
+      - if @tag.present?
+        header.page-body-header
+          .container.is-md
+            .page-body-header__inner
+              .page-body-header__start
+                h1.page-body-header__title
+                  | タグ「#{@tag.name}」のQ&A（#{@questions.total_count}）
+              - if admin_login?
+                .page-body-header__end
+                  .page-body-header-actions
+                    .page-body-header-actions__items
+                      = react_component('Tags/TagEditButton', tagId: @tag.id, tagName: @tag.name)
+
+
       .container.is-md
         .page-body__columns
           .page-body__column.is-main
