@@ -53,7 +53,7 @@ function watch(element) {
     })
 }
 
-export async function unWatch(element) {
+async function unWatch(element) {
   const watchId = element.dataset.watch_id
 
   try {
@@ -71,16 +71,10 @@ export async function unWatch(element) {
     if (!response.ok) {
       throw new Error(`${response.error}`)
     }
-
-    if (element.classList.contains('watch-toggle')) {
-      element.classList.remove('is-active', 'is-main')
-      element.classList.add('is-inactive', 'is-muted')
-      element.removeAttribute('data-watch_id')
-      element.innerHTML = 'Watch'
-    } else {
-      const deleteWatch = document.getElementById(watchId)
-      deleteWatch.remove()
-    }
+    element.classList.remove('is-active', 'is-main')
+    element.classList.add('is-inactive', 'is-muted')
+    element.removeAttribute('data-watch_id')
+    element.innerHTML = 'Watch'
     toast('Watchを外しました')
   } catch (error) {
     console.warn(error)
