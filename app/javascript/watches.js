@@ -47,13 +47,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const WatchList = document.querySelector('.container.is-md')
   WatchList.addEventListener('click', async (event) => {
     if (event.target.matches('.a-watch-button')) {
-      await unWatch(event.target)
+      await unWatchInList(event.target)
       getWatches(currentPage)
     }
   })
 })
 
-export async function unWatch(element) {
+async function unWatchInList(element) {
   const watchId = element.dataset.watch_id
   try {
     const response = await fetch(`/api/watches/${watchId}`, {
