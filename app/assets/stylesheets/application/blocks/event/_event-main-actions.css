@@ -49,6 +49,13 @@
 
 .event-main-actions__header {
   padding-block: .75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.event-main-actions__header .a-button {
+  margin-block: -.5rem;
 }
 
 @media (min-width: 48em) {
