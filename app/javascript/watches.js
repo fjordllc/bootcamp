@@ -1,4 +1,5 @@
-import { unWatch } from './watch-toggle'
+import CSRF from 'csrf'
+import { toast } from './vanillaToast.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const localStorage = window.localStorage
@@ -51,6 +52,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 })
+
+export async function unWatch(element) {
+  const watchId = element.dataset.watch_id
+  try {
+    const response = await fetch(`/api/watches/${watchId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-Token': CSRF.getToken()
+      },
+      credentials: 'same-origin',
+      redirect: 'manual'
+    })
+
+    if (!response.ok) {
+      throw new Error(`${response.error}`)
+    }
+    const deleteWatch = document.getElementById(watchId)
+    deleteWatch.remove()
+    toast('Watchを外しました')
+  } catch (error) {
+    console.warn(error)
+  }
+}
 
 async function getWatches(currentPage) {
   try {
