@@ -1,11 +1,13 @@
 header.page-content-header
   .page-content-header__start
     .page-content-header__user
-      = render 'users/icon', user: pair_work.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon'
+      = render 'users/icon', user: pair_work.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon-image'
       - if pair_work.solved?
-        .answer-badge
-          .answer-badge__label
-            | ペア確定
+        .pair-badge
+          .pair-badge__label
+            | ペア
+            br
+            | 確定
   .page-content-header__end
     .page-content-header__row
       .page-content-header__before-title

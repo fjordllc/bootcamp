@@ -1,0 +1,44 @@
+.pair-work-info {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.pair-work-info__user-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+.pair-work-info__end {
+  flex: 1;
+}
+
+.pair-badge {
+  font-family: serif;
+  border: double 0.1875rem var(--stamp-color);
+  border-radius: 0.75rem;
+  width: 4rem;
+  height: 3.5rem;
+  padding: 0.125rem;
+  position: absolute;
+  right: 0;
+  top: -0.125rem;
+  z-index: 1;
+  transform: rotate(25deg);
+  font-size: 1.125rem;
+  line-height: 1.1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: var(--stamp-color);
+  flex-direction: column;
+  pointer-events: none;
+}
+
+@media (max-width: 47.9375em) {
+  .pair-badge {
+    position: absolute;
+    left: 80%;
+    top: 0;
+  }
+}
