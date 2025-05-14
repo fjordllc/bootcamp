@@ -36,12 +36,10 @@ document.addEventListener('DOMContentLoaded', () => {
           savedMemo = json.memo
           editorTextarea.value = savedMemo
           switchMemoDisplay(memoDisplay, savedMemo)
+          TextareaInitializer.initialize('#js-practice-memo')
           memoDisplayContent.innerHTML = markdownInitializer.render(savedMemo)
           memoEditorPreview.innerHTML = markdownInitializer.render(savedMemo)
         }
-      })
-      .then(() => {
-        TextareaInitializer.initialize('#js-practice-memo')
       })
       .catch((error) => {
         console.warn(error)

@@ -46,12 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
           memoDisplayContent.classList.remove('is-hidden')
           editorTextarea.value = savedMemo
           switchMemoDisplay(memoDisplay, savedMemo)
+          TextareaInitializer.initialize('#js-user-mentor-memo')
           memoDisplayContent.innerHTML = markdownInitializer.render(savedMemo)
           memoEditorPreview.innerHTML = markdownInitializer.render(savedMemo)
         }
-      })
-      .then(() => {
-        TextareaInitializer.initialize('#js-user-mentor-memo')
       })
       .catch((error) => {
         console.warn(error)
