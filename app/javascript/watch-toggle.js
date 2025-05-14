@@ -10,8 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   watchToggle.addEventListener('click', () => {
     if (watchToggle.classList.contains('is-inactive')) {
       watch(watchToggle)
-    }
-    if (watchToggle.classList.contains('is-active')) {
+    } else if (watchToggle.classList.contains('is-active')) {
       unWatch(watchToggle)
     }
   })
