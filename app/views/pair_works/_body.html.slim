@@ -6,53 +6,38 @@
         header.event-main-actions__header
           h2.event-main-actions__title
             | ペアが確定しました
+          = link_to events_calendars_url(protocol: :webcal, format: :ics, user_id: current_user.id), class: 'a-button is-sm is-secondary' do
+            i.fa-regular.fa-plus
+            span
+              | カレンダーに登録
+
         .event-main-actions__body
           .pair-work-info
             .pair-work-info__start
-              = render 'users/icon', user:, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon'
+              = render 'users/icon', user:, link_class: 'pair-work-info__user-link', image_class: 'pair-work-info__user-icon'
             .pair-work-info__end
-              .pair-work-info__pair-name
-                = link_to user.long_name, user_path(user), class: 'a-user-name'
-              .pair-work-info__time
-                time(datetime="#{pair_work.reserved_at.to_datetime}")
-                  | #{l pair_work.reserved_at}
-                = link_to events_calendars_url(protocol: :webcal, format: :ics, user_id: current_user.id), class: 'a-button is-md is-secondary is-block' do
-                  i.fa-regular.fa-plus
-                  span
-                    | カレンダーに登録
-
-              .pair-work-info__channel
-                = pair_work.channel
+              .event-meta
+                .event-meta__items
+                  .event-meta__item
+                    dt.event-meta__item-label
+                      | ペア
+                    dd.event-meta__item-value
+                      = link_to user.long_name, user_path(user), class: ''
+                  .event-meta__item
+                    dt.event-meta__item-label
+                      | 日時
+                    dd.event-meta__item-value
+                      time.pair-work-info__datetime(datetime="#{pair_work.reserved_at.to_datetime}")
+                        | #{l pair_work.reserved_at}
+                  .event-meta__item
+                    dt.event-meta__item-label
+                      | チャンネル
+                    dd.event-meta__item-value
+                      = pair_work.channel
 
     .card-body__description
       .a-long-text.is-md.js-markdown-view
         = pair_work.description
-      .a-table.is-sm.text-center.mt-6
-        table.min-w-full
-          thead
-            tr
-              th
-              - schedule_dates(pair_work.created_at).each do |date|
-                th = l date, format: :mdw_unique
-          tbody#
-            - 24.times do |hour|
-              tr(class='hover:bg-[var(--background-more-tint)]')
-                th
-                  | #{hour}:00
-                - 7.times do |day|
-                  - value = pair_work.created_at.beginning_of_day + hour.hour + day.day
-                  - disabled = value < Time.current || pair_work.user_id == current_user.id || pair_work.reserved_at.present?
-                  - if pair_work.schedules.map(&:proposed_at).include?(value)
-                    td.p-0.h-6.relative
-                      = form_with model: pair_work, method: :patch, local: true do
-                        = hidden_field_tag 'pair_work[reserved_at]', value
-                        = hidden_field_tag 'pair_work[buddy_id]', current_user.id
-                        = button_tag type: 'submit', class: "absolute top-0 flex w-full h-full text-center justify-center items-center p-1 border border-solid rounded text-[var(--main)] bg-[var(--input-selected-background)] border-[var(--main)]", data: { confirm: "#{l value, format: :mdw_and_time} にペアワークを申し込みますか？" } do
-                          i.fa-duotone.fa-solid.fa-check
-                  - else
-                    td.p-0.h-6
-                      span ✖️
-
   hr.a-border-tint
   = render 'reactions/reactions', reactionable: pair_work
 
@@ -67,3 +52,73 @@
         li.card-main-actions__item.is-sub.is-only-metor class=(current_user.admin? || pair_work.user == current_user ? '' : 'is-hidden')
           = link_to '削除', pair_work_path(pair_work),
             data: { confirm: '本当に削除しますか？' }, method: :delete, class: 'card-main-actions__muted-action'
+
+.a-card
+  header.card-header
+    h2.card-header__title
+      | ペアを希望する
+  hr.a-border-tint
+  .card-body
+    .card-body__description
+      .pair-work-schedule-dates(class="#{pair_work.solved? ? 'is-solved':''}")
+        - if pair_work.solved?
+          .pair-work-schedule-dates__action
+            .pair-work-schedule-dates__action-items
+              - if user == current_user
+                .pair-work-schedule-dates__action-item
+                  label.a-button.is-md.is-secondary.is-block(for='show-schedule-dates')
+                    | 日時の変更、ペアをキャンセル
+                  .pair-work-schedule-dates__action-item-description
+                    p
+                      | あながたペアとして確定しています。
+              - elsif mentor_login?
+                .pair-work-schedule-dates__action-item
+                  label.a-button.is-md.is-secondary.is-block(for='show-schedule-dates')
+                    | ペア変更、自分がペアになる
+                  .pair-work-schedule-dates__action-item-description
+                    p
+                      | 代わりに自分がペアになる場合はこちらから変更。
+        - if mentor_login?
+          .pair-work-schedule-dates__table-container
+            input.a-toggle-checkbox#show-schedule-dates(type="checkbox")
+            .pair-work-schedule-dates__table
+              - if user == current_user
+                h3.pair-work-schedule-dates__title
+                  | 日時の変更、もしくはキャンセル
+                .pair-work-schedule-dates__cansel
+                  .pair-work-schedule-dates__cansel-action
+                    a.a-button.is-md.is-danger.is-block
+                      | ペア確定を取り消す
+              - else
+                h3.pair-work-schedule-dates__title
+                  | ペアを希望する場合、以下のスケジュールから都合のいい日時を選択してください。
+              .a-table.is-sm.text-center
+                table.min-w-full
+                  thead
+                    tr
+                      th
+                      - schedule_dates(pair_work.created_at).each do |date|
+                        th = l date, format: :mdw_unique
+                  tbody#
+                    - 24.times do |hour|
+                      tr(class='hover:bg-[var(--background-more-tint)]')
+                        th
+                          | #{hour}:00
+                        - 7.times do |day|
+                          - value = pair_work.created_at.beginning_of_day + hour.hour + day.day
+                          - disabled = value < Time.current || pair_work.user_id == current_user.id || pair_work.reserved_at.present?
+                          - if pair_work.schedules.map(&:proposed_at).include?(value)
+                            td.p-0.h-6.relative
+                              = form_with model: pair_work, method: :patch, local: true do
+                                = hidden_field_tag 'pair_work[reserved_at]', value
+                                = hidden_field_tag 'pair_work[buddy_id]', current_user.id
+                                = button_tag type: 'submit', class: "absolute top-0 flex w-full h-full text-center justify-center items-center p-1 border border-solid rounded text-[var(--main)] bg-[var(--input-selected-background)] border-[var(--main)]", data: { confirm: "#{l value, format: :mdw_and_time} にペアワークを申し込みますか？" } do
+                                  i.fa-duotone.fa-solid.fa-check
+                          - else
+                            td.p-0.h-6
+                              span ✖️
+        - else
+          .a-long-text.is-md
+            .message.danger
+              p
+                | 現在はテスト運用のため、メンターのみがペアを申し込めます。
