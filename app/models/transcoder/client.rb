@@ -18,7 +18,7 @@ module Transcoder
       @location = 'asia-northeast1'
     end
 
-    def start
+    def create_job
       @client.create_job(
         parent: parent_path,
         job: {
@@ -32,7 +32,7 @@ module Transcoder
       )
     end
 
-    def fetch(job_name)
+    def get_job(job_name)
       @client.get_job(name: job_name)
     end
 
