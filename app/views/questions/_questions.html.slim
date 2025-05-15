@@ -1,0 +1,29 @@
+- if questions == nil
+  .card-list.a-card.is-loading
+    - 8.times do
+     .card-list-item
+        .card-list-item__inner
+          .card-list-item__user
+            .card-list-item__user-icon.a-user-icon.a-placeholder
+          .card-list-item__rows
+            .card-list-item__row
+              .card-list-item-title.a-placeholder
+            .card-list-item__row
+              .card-list-item-meta__items.a-placeholder
+                .card-list-item-meta__item
+                .card-list-item-meta__item
+- elsif questions.empty?
+  .o-empty-message
+      .o-empty-message__icon
+        i.fa-regular.fa-sad-tear
+      p.o-empty-message__text
+        = @empty_message
+- else
+  nav.pagination
+    = paginate questions
+    .card-list.a-card
+     .card-list__items
+        - questions.each do |question|
+          = render 'questions/question', question: question
+  nav.pagination
+    = paginate questions

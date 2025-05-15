@@ -52,7 +52,8 @@ header.page-header
       .container.is-md
         .page-body__columns
           .page-body__column.is-main
-            div(data-vue='Questions' data-vue-empty-message="#{@questions_property.empty_message}" data-vue-selected-tag="#{params[:tag]}")
+            = render 'questions/questions', questions: @questions
+
       - if @tags.any?
         nav.a-side-nav
           .a-side-nav__inner
