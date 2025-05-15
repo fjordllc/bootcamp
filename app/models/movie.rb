@@ -21,11 +21,11 @@ class Movie < ApplicationRecord
 
   scope :wip, -> { where(wip: true) }
 
-  after_commit :start_transcode_job, on: :create
+  after_create_commit :start_transcode_job, on: :create
 
   private
 
   def start_transcode_job
-    StartTranscodeJob.perform_later(self)
+    TranscodeJob.perform_later(self)
   end
 end
