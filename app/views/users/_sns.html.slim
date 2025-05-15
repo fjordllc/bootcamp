@@ -35,6 +35,3 @@
       - else
         .sns-links__item-link.a-button.is-sm.is-disabled.is-icon
           i.fa-solid.fa-clock
-  - if user.company&.logo_url
-    = link_to company_path(user.company) do
-      img.user-item__company-logo src=user.company.logo_url

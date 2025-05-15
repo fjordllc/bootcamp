@@ -619,7 +619,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'display company-logo when user is trainee' do
     visit_with_auth "/products/#{products(:product13).id}", 'mentormentaro'
-    assert_selector 'img[class="page-content-header__company-logo"]'
+    assert_selector 'img[class="page-content-header__company-logo-image"]'
   end
 
   test 'using file uploading by file selection dialogue in textarea' do

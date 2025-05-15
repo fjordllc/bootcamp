@@ -529,7 +529,7 @@ class EventsTest < ApplicationSystemTestCase
   end
 
   test 'upcoming events groups' do
-    today_events_count = 5
+    today_events_count = 6
     tomorrow_events_count = 2
     day_after_tomorrow_events_count = 4
     travel_to Time.zone.local(2017, 4, 3, 8, 0, 0) do

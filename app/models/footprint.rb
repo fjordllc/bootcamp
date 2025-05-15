@@ -17,4 +17,14 @@ class Footprint < ApplicationRecord
   def self.count_for_resource(resource)
     fetch_for_resource(resource).count
   end
+
+  def self.find_or_create_for(footprintable, user)
+    return if footprintable.user == user
+
+    transaction do
+      find_or_create_by(footprintable:, user:)
+    end
+  rescue ActiveRecord::RecordNotUnique
+    find_by(footprintable:, user:)
+  end
 end

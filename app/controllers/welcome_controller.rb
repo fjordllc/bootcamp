@@ -46,7 +46,9 @@ class WelcomeController < ApplicationController
 
   def coc; end
 
-  def press_kit; end
+  def press_kit
+    @press_releases = Article.press_releases(6)
+  end
 
   def logo; end
 
