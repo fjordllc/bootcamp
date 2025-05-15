@@ -15,7 +15,7 @@ class TranscodeJobTest < ActiveJob::TestCase
 
   def build_client_mock(state)
     client_mock = Minitest::Mock.new
-    client_mock.expect :fetch, OpenStruct.new(state:), [DEFAULT_JOB_NAME]
+    client_mock.expect :get_job, OpenStruct.new(state:), [DEFAULT_JOB_NAME]
     client_mock
   end
 
@@ -24,7 +24,7 @@ class TranscodeJobTest < ActiveJob::TestCase
   end
 
   test 'starts job and enqueues polling job when job_name is nil' do
-    Transcoder::Client.stub :new, OpenStruct.new(start: OpenStruct.new(name: DEFAULT_JOB_NAME)) do
+    Transcoder::Client.stub :new, OpenStruct.new(create_job: OpenStruct.new(name: DEFAULT_JOB_NAME)) do
       with_production_env do
         assert_enqueued_with(job: TranscodeJob, args: [@movie, DEFAULT_JOB_NAME]) do
           TranscodeJob.perform_now(@movie)
