@@ -34,7 +34,9 @@ export default {
   mixins: [toast],
   props: {
     isInitialActionCompleted: { type: Boolean, required: true },
-    commentableId: { type: Number, required: true }
+    commentableId: { type: Number, required: true },
+    modelName: { type: String, default: 'talk' },
+    apiPath: { type: String, default: '/api/talks' }
   },
   data() {
     return {
@@ -50,11 +52,10 @@ export default {
     },
     changeCompleted() {
       this.isActionCompleted = !this.isActionCompleted
-      const params = {
-        talk: { action_completed: this.isActionCompleted }
-      }
+      const params = {}
+      params[this.modelName] = { action_completed: this.isActionCompleted }
 
-      Bootcamp.patch(`/api/talks/${this.commentableId}`, params)
+      Bootcamp.patch(`${this.apiPath}/${this.commentableId}`, params)
         .then(() => {
           this.toast(`${this.completedLabel()}にしました`)
         })
