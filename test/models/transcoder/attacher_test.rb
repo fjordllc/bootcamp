@@ -18,13 +18,14 @@ module Transcoder
       storage_mock = Minitest::Mock.new
       storage_mock.expect :bucket, bucket_mock, ['test-bucket']
 
-      attacher = Transcoder::Attacher.new(movie)
-      attacher.instance_variable_set(:@storage, storage_mock)
-      attacher.instance_variable_set(:@bucket_name, 'test-bucket')
+      Google::Cloud::Storage.stub :new, storage_mock do
+        attacher = Transcoder::Attacher.new(movie)
+        attacher.instance_variable_set(:@bucket_name, 'test-bucket')
 
-      attacher.perform
+        attacher.perform
 
-      assert movie.movie_data.attached?, 'movie_data should be attached'
+        assert movie.movie_data.attached?, 'movie_data should be attached'
+      end
       [file_mock, bucket_mock, storage_mock].each(&:verify)
     end
   end
