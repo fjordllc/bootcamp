@@ -78,4 +78,13 @@ Rails.configuration.after_initialize do
   Newspaper.subscribe(:work_destroy, WorkNotificationDestroyer.new)
 
   Newspaper.subscribe(:came_inquiry, InquiryNotifier.new)
+
+  watch_for_pair_work_creator = WatchForPairWorkCreator.new
+  Newspaper.subscribe(:pair_work_create, watch_for_pair_work_creator)
+  Newspaper.subscribe(:pair_work_update, watch_for_pair_work_creator)
+
+  Newspaper.subscribe(:pair_work_create, PairWorkScheduleCreator.new)
+  Newspaper.subscribe(:pair_work_create, PairWorkNotifier.new)
+
+  Newspaper.subscribe(:pair_work_update, PairWorkMatchingNotifier.new)
 end
