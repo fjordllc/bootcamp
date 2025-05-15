@@ -17,4 +17,16 @@ class Report::UncheckedTest < ApplicationSystemTestCase
     visit_with_auth '/reports/unchecked', 'komagata'
     assert_button '未チェックの日報を一括で開く'
   end
+
+  test 'non-staff user can not see unchecked reports tab on reports page' do
+    visit_with_auth '/reports', 'hatsuno'
+    assert_text '日報・ブログ'
+    assert_no_link '未チェックの日報'
+  end
+
+  test 'mentor can see unchecked reports tab on reports page' do
+    visit_with_auth '/reports', 'komagata'
+    assert_text '日報・ブログ'
+    assert_link '未チェックの日報'
+  end
 end
