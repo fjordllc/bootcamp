@@ -10,12 +10,12 @@ class TranscodeJob < ApplicationJob
     client = Transcoder::Client.new(movie)
 
     if job_name.nil?
-      job = client.start
+      job = client.create_job
       self.class.set(wait: POLLING_INTERVAL).perform_later(movie, job.name)
       return
     end
 
-    job = client.fetch(job_name)
+    job = client.get_job(job_name)
 
     case job.state
     when :SUCCEEDED
