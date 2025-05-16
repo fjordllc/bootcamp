@@ -80,7 +80,7 @@
                   - if current_user.mentor? && @practice.submission
                     .page-content-header-actions__end
                       .practice-first-actions__end.is-only-mentor
-                        div(data-vue="WatchToggle" data-vue-watchable-id:number="#{@practice.id}" data-vue-watchable-type='Practice')
+                        = render 'watches/watch_toggle', type: @practice.class.to_s, id: @practice.id, watch: @practice.watch_by(current_user)
 
           - if @practice.summary?
             = render 'summary', practice: @practice
