@@ -54,4 +54,4 @@ main.page-main
               = link_to :movies, class: 'page-content-prev-next__item-link is-index' do
                 | 一覧に戻る
 
-        #js-comments(data-commentable-id="#{@movie.id}" data-commentable-type='Movie' data-current-user-id="#{current_user.id}")
+        = render 'comments/comments', commentable: @movie, commentable_type: 'Movie'
