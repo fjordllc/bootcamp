@@ -29,8 +29,8 @@ module Transcoder
         assert_equal client.send(:parent_path), called_with_parent
         assert_equal client.send(:elementary_streams), called_with_job[:config][:elementary_streams]
         assert_equal client.send(:mux_streams), called_with_job[:config][:mux_streams]
-        assert_match(/^gs:\/\//, called_with_job[:input_uri])
-        assert_match(/^gs:\/\//, called_with_job[:output_uri])
+        assert_match(%r{^gs://}, called_with_job[:input_uri])
+        assert_match(%r{^gs://}, called_with_job[:output_uri])
       end
     end
 
@@ -38,6 +38,7 @@ module Transcoder
       expected_state = :SUCCEEDED
 
       @mock_service.define_singleton_method(:get_job) do |name:|
+        _name = name
         OpenStruct.new(state: expected_state)
       end
 
