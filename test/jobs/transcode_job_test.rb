@@ -23,7 +23,7 @@ class TranscodeJobTest < ActiveJob::TestCase
     assert_no_enqueued_jobs { TranscodeJob.perform_now(@movie) }
   end
 
-  test 'starts job and enqueues polling job when job_name is nil' do
+  test 'create job and enqueues polling job when job_name is nil' do
     Transcoder::Client.stub :new, OpenStruct.new(create_job: OpenStruct.new(name: DEFAULT_JOB_NAME)) do
       with_production_env do
         assert_enqueued_with(job: TranscodeJob, args: [@movie, DEFAULT_JOB_NAME]) do
