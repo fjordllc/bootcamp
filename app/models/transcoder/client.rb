@@ -36,6 +36,8 @@ module Transcoder
       get_job(job_name).state
     end
 
+    private
+
     def elementary_streams
       [
         {
@@ -68,8 +70,6 @@ module Transcoder
         }
       ]
     end
-
-    private
 
     def input_uri
       "gs://#{@bucket_name}/#{@movie.movie_data.key}"
