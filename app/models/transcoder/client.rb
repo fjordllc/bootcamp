@@ -32,8 +32,8 @@ module Transcoder
       )
     end
 
-    def get_job(job_name)
-      @client.get_job(name: job_name)
+    def fetch_job_state(job_name)
+      get_job(job_name).state
     end
 
     def elementary_streams
@@ -81,6 +81,10 @@ module Transcoder
 
     def parent_path
       "projects/#{@project_id}/locations/#{@location}"
+    end
+
+    def get_job(job_name)
+      @client.get_job(name: job_name)
     end
   end
 end
