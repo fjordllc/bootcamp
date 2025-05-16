@@ -11,22 +11,27 @@ class TranscodeJob < ApplicationJob
 
     if job_name.nil?
       job = client.create_job
-      self.class.set(wait: POLLING_INTERVAL).perform_later(movie, job.name)
+      schedule_polling_job(movie, job.name)
       return
     end
 
-    job = client.get_job(job_name)
+    state = client.fetch_job_state(job_name)
+    handlers = job_state_handlers(movie)
 
-    case job.state
-    when :SUCCEEDED
-      Transcoder::Attacher.new(movie).perform
-      Rails.logger.info "Movie #{movie.id} transcoding completed."
-    when :FAILED
-      Rails.logger.error "Transcoding failed for Movie #{movie.id}"
-    when :CANCELLED
-      Rails.logger.info "Transcoding job for Movie #{movie.id} was cancelled."
-    else
-      self.class.set(wait: POLLING_INTERVAL).perform_later(movie, job_name)
-    end
+    handlers[state]&.call || schedule_polling_job(movie, job_name)
+  end
+
+  private
+
+  def schedule_polling_job(movie, job_name)
+    self.class.set(wait: POLLING_INTERVAL).perform_later(movie, job_name)
+  end
+
+  def job_state_handlers(movie)
+    {
+      SUCCEEDED: -> { Transcoder::Attacher.new(movie).perform },
+      FAILED: -> { Rails.logger.error "Transcoding failed for Movie #{movie.id}" },
+      CANCELLED: -> { Rails.logger.info "Transcoding job for Movie #{movie.id} was cancelled." }
+    }
   end
 end
