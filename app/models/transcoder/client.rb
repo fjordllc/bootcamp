@@ -12,14 +12,14 @@ module Transcoder
     def initialize(movie)
       service_name = ActiveStorage::Blob.service.name.to_s
       @movie = movie
-      @client = Google::Cloud::Video::Transcoder.transcoder_service
+      @transcoder_service = Google::Cloud::Video::Transcoder.transcoder_service
       @bucket_name = Rails.application.config.active_storage.service_configurations[service_name]['bucket']
       @project_id = Rails.application.config.active_storage.service_configurations[service_name]['project']
       @location = 'asia-northeast1'
     end
 
     def create_job
-      @client.create_job(
+      @transcoder_service.create_job(
         parent: parent_path,
         job: {
           input_uri:,
@@ -84,7 +84,7 @@ module Transcoder
     end
 
     def get_job(job_name)
-      @client.get_job(name: job_name)
+      @transcoder_service.get_job(name: job_name)
     end
   end
 end
