@@ -11,17 +11,19 @@ module Transcoder
     end
 
     def perform
-      file = @storage.bucket(@bucket_name).file(@transcoded_video_path)
+      file = storage.bucket(bucket_name).file(transcoded_video_path)
       attach(file)
       delete(file)
     end
 
     private
 
+    attr_reader :movie, :transcoded_video_path, :storage, :bucket_name
+
     def attach(file)
       io = StringIO.new(file.download.string)
-      @movie.movie_data.attach(io:, filename: "#{@movie.id}.mp4")
-      @movie.save
+      movie.movie_data.attach(io:, filename: "#{movie.id}.mp4")
+      movie.save
     end
 
     def delete(file)
