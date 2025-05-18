@@ -20,16 +20,15 @@ module Transcoder
 
       Transcoder::Client.stub :new, client_mock do
         TranscodeJob.stub :set, ->(*) { set_mock } do
-          Rails.stub :env, ActiveSupport::StringInquirer.new('production') do
-            job = Job.new(@movie)
-            job.call
-          end
+          Rails.application.config.transcoder['enable'] = true
+          job = Job.new(@movie)
+          job.call
         end
       end
       [client_mock, set_mock].each(&:verify)
     end
 
-    test 'attaches file when job state is SUCCEEDED' do
+    test 'attaches and cleans up file when job state is SUCCEEDED' do
       client_mock = Minitest::Mock.new
       client_mock.expect :fetch_job_state, :SUCCEEDED, [DEFAULT_JOB_NAME]
 
@@ -38,13 +37,11 @@ module Transcoder
 
       Transcoder::Client.stub :new, client_mock do
         Transcoder::File.stub :new, file_mock do
-          Rails.stub :env, ActiveSupport::StringInquirer.new('production') do
-            job = Job.new(@movie, DEFAULT_JOB_NAME)
-            job.call
-          end
+          Rails.application.config.transcoder['enable'] = true
+          job = Job.new(@movie, DEFAULT_JOB_NAME)
+          job.call
         end
       end
-
       [client_mock, file_mock].each(&:verify)
     end
 
@@ -58,10 +55,9 @@ module Transcoder
 
         Transcoder::Client.stub :new, client_mock do
           TranscodeJob.stub :set, ->(*) { set_mock } do
-            Rails.stub :env, ActiveSupport::StringInquirer.new('production') do
-              job = Job.new(@movie, DEFAULT_JOB_NAME)
-              job.call
-            end
+            Rails.application.config.transcoder['enable'] = true
+            job = Job.new(@movie, DEFAULT_JOB_NAME)
+            job.call
           end
         end
         [client_mock, set_mock].each(&:verify)
@@ -78,16 +74,14 @@ module Transcoder
                         else
                           "Transcoding job for Movie #{@movie.id} was cancelled."
                         end
-
         logger_mock = Minitest::Mock.new
         logger_mock.expect :error, nil, [error_message]
 
         Transcoder::Client.stub :new, client_mock do
           Rails.logger.stub :error, ->(msg) { logger_mock.error(msg) } do
-            Rails.stub :env, ActiveSupport::StringInquirer.new('production') do
-              job = Job.new(@movie, DEFAULT_JOB_NAME)
-              job.call
-            end
+            Rails.application.config.transcoder['enable'] = true
+            job = Job.new(@movie, DEFAULT_JOB_NAME)
+            job.call
           end
         end
         [client_mock, logger_mock].each(&:verify)
@@ -103,24 +97,22 @@ module Transcoder
 
       Transcoder::Client.stub :new, client_mock do
         Rails.logger.stub :warn, ->(msg) { logger_mock.warn(msg) } do
-          Rails.stub :env, ActiveSupport::StringInquirer.new('production') do
-            job = Job.new(@movie, DEFAULT_JOB_NAME)
-            job.call
-          end
+          Rails.application.config.transcoder['enable'] = true
+          job = Job.new(@movie, DEFAULT_JOB_NAME)
+          job.call
         end
       end
       [client_mock, logger_mock].each(&:verify)
     end
 
-    test 'call returns early if not production' do
+    test 'returns early when transcoding is disabled' do
       client_mock = Minitest::Mock.new
       client_mock.expect :create_job, DEFAULT_JOB_NAME
 
       Transcoder::Client.stub :new, client_mock do
-        Rails.stub :env, ActiveSupport::StringInquirer.new('development') do
-          job = Job.new(@movie)
-          job.call
-        end
+        Rails.application.config.transcoder['enable'] = false
+        job = Job.new(@movie)
+        job.call
       end
       client_mock.verify
     end
