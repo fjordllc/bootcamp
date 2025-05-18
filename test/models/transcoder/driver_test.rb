@@ -12,8 +12,7 @@ module Transcoder
 
     test 'creates job and schedules polling when job_name is nil' do
       client_mock = Minitest::Mock.new
-      job = OpenStruct.new(name: DEFAULT_JOB_NAME)
-      client_mock.expect :create_job, job
+      client_mock.expect :create_job, DEFAULT_JOB_NAME
 
       set_mock = Minitest::Mock.new
       set_mock.expect :perform_later, nil, [@movie, DEFAULT_JOB_NAME]
