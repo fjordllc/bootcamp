@@ -2,7 +2,6 @@
 
 module Transcoder
   class Client
-
     def initialize(movie)
       @movie = movie
     end
