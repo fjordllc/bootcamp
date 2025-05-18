@@ -70,7 +70,7 @@ GEM
       bigdecimal
       logger
       mutex_m
-    active_storage_validations (2.0.3)
+    active_storage_validations (2.0.2)
       activejob (>= 6.1.4)
       activemodel (>= 6.1.4)
       activestorage (>= 6.1.4)
@@ -123,10 +123,10 @@ GEM
     bootsnap (1.18.4)
       msgpack (~> 1.2)
     builder (3.3.0)
-    bullet (8.0.5)
+    bullet (8.0.1)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
-    byebug (12.0.0)
+    byebug (11.1.3)
     capybara (3.40.0)
       addressable
       matrix
@@ -144,7 +144,7 @@ GEM
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
     concurrent-ruby (1.3.4)
-    connection_pool (2.5.2)
+    connection_pool (2.5.0)
     countries (7.1.1)
       unaccent (~> 0.3)
     country_select (10.0.1)
@@ -185,7 +185,7 @@ GEM
     event_emitter (0.2.6)
     event_stream_parser (1.0.0)
     execjs (2.10.0)
-    faraday (2.13.1)
+    faraday (2.12.2)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
@@ -221,7 +221,7 @@ GEM
       base64 (~> 0.2)
       faraday (>= 1.0, < 3.a)
     google-cloud-errors (1.5.0)
-    google-cloud-storage (1.56.0)
+    google-cloud-storage (1.55.0)
       addressable (~> 2.8)
       digest-crc (~> 0.4)
       google-apis-core (~> 0.13)
@@ -249,10 +249,8 @@ GEM
       mutex_m
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
-    icalendar (2.11.0)
-      base64
+    icalendar (2.10.3)
       ice_cube (~> 0.16)
-      logger
       ostruct
     ice_cube (0.17.0)
     ice_nine (0.11.2)
@@ -268,7 +266,7 @@ GEM
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
-    json (2.11.3)
+    json (2.10.2)
     jwt (2.10.1)
       base64
     kaminari (1.2.2)
@@ -302,7 +300,7 @@ GEM
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    logger (1.7.0)
+    logger (1.6.6)
     loofah (2.24.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -319,10 +317,10 @@ GEM
     meta-tags (2.22.1)
       actionpack (>= 6.0.0, < 8.1)
     method_source (1.1.0)
-    mime-types (3.6.2)
+    mime-types (3.6.1)
       logger
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2025.0422)
+    mime-types-data (3.2025.0318)
     mini_magick (5.2.0)
       benchmark
       logger
@@ -342,7 +340,7 @@ GEM
     mutex_m (0.1.1)
     net-http (0.6.0)
       uri
-    net-imap (0.5.7)
+    net-imap (0.5.6)
       date
       net-protocol
     net-pop (0.1.2)
@@ -396,7 +394,7 @@ GEM
       ffi
     os (1.1.4)
     ostruct (0.6.1)
-    parallel (1.27.0)
+    parallel (1.26.3)
     parser (3.2.2.4)
       ast (~> 2.4.1)
       racc
@@ -406,12 +404,12 @@ GEM
     postmark-rails (0.22.1)
       actionmailer (>= 3.0.0)
       postmark (>= 1.21.3, < 2.0)
-    pry (0.15.2)
+    pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    pry-byebug (3.11.0)
-      byebug (~> 12.0)
-      pry (>= 0.13, < 0.16)
+    pry-byebug (3.10.1)
+      byebug (~> 11.0)
+      pry (>= 0.13, < 0.15)
     public_suffix (6.0.1)
     puma (5.6.9)
       nio4r (~> 2.0)
@@ -420,7 +418,7 @@ GEM
     rack (2.2.14)
     rack-cors (2.0.2)
       rack (>= 2.0.0)
-    rack-dev-mark (0.8.1)
+    rack-dev-mark (0.8.0)
       rack (>= 1.1, < 4.0)
     rack-mini-profiler (2.3.4)
       rack (>= 1.2.0)
@@ -502,7 +500,7 @@ GEM
       netrc (~> 0.8)
     retriable (3.1.2)
     rexml (3.4.1)
-    rollbar (3.6.2)
+    rollbar (3.6.1)
     rss (0.3.1)
       rexml
     rubocop (1.59.0)
@@ -534,7 +532,7 @@ GEM
       rack (>= 1.1)
       rubocop (>= 1.33.0, < 2.0)
       rubocop-ast (>= 1.30.0, < 2.0)
-    ruby-openai (8.1.0)
+    ruby-openai (8.0.0)
       event_stream_parser (>= 0.3.0, < 2.0.0)
       faraday (>= 1)
       faraday-multipart (>= 1)
@@ -562,7 +560,7 @@ GEM
       actionpack (>= 3.1)
       railties (>= 3.1)
       slim (>= 3.0, < 6.0, != 5.0.0)
-    slim_lint (0.33.0)
+    slim_lint (0.32.2)
       rexml (~> 3.2)
       rubocop (>= 1.0, < 2.0)
       slim (>= 3.0, < 6.0)
@@ -580,16 +578,15 @@ GEM
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
       spring (>= 1.2, < 3.0)
-    sprockets (4.2.2)
+    sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
-      logger
       rack (>= 2.2.4, < 4)
     sprockets-rails (3.5.2)
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
     stringio (3.0.1.2)
-    stripe (15.0.0)
+    stripe (13.5.0)
     temple (0.10.3)
     thor (1.3.2)
     thread_safe (0.3.6)
@@ -607,10 +604,10 @@ GEM
     uri (1.0.3)
     vcr (6.3.1)
       base64
-    version_gem (1.1.7)
-    view_component (3.22.0)
+    version_gem (1.1.6)
+    view_component (3.21.0)
       activesupport (>= 5.2.0, < 8.1)
-      concurrent-ruby (= 1.3.4)
+      concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
     view_source_map (0.3.0)
       rails (>= 5)

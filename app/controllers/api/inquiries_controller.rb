@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
 class API::InquiriesController < API::BaseController
-  def index
-    @inquiries = Inquiry.order(created_at: :desc)
-    render json: @inquiries
-  end
-
   def update
     inquiry = Inquiry.find(params[:id])
     if inquiry.update(inquiry_params)
