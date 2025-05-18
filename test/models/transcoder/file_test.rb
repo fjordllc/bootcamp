@@ -4,8 +4,8 @@ require 'test_helper'
 require 'google/cloud/storage'
 
 module Transcoder
-  class AttacherTest < ActiveSupport::TestCase
-    test '#perform' do
+  class FileTest < ActiveSupport::TestCase
+    test '#attach_and_cleanup' do
       movie = movies(:movie5)
 
       file_mock = Minitest::Mock.new
@@ -19,13 +19,14 @@ module Transcoder
       storage_mock.expect :bucket, bucket_mock, ['test-bucket']
 
       Google::Cloud::Storage.stub :new, storage_mock do
-        attacher = Transcoder::Attacher.new(movie)
-        attacher.instance_variable_set(:@bucket_name, 'test-bucket')
+        file = Transcoder::File.new(movie)
+        file.stub :bucket_name, 'test-bucket' do
+          file.attach_and_cleanup
+        end
 
-        attacher.perform
-
-        assert movie.movie_data.attached?, 'movie_data should be attached'
+        assert movie.movie_data.attached?
       end
+
       [file_mock, bucket_mock, storage_mock].each(&:verify)
     end
   end

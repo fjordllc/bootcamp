@@ -10,16 +10,11 @@ module Transcoder
     AUDIO_BITRATE = 128_000
 
     def initialize(movie)
-      service_name = ActiveStorage::Blob.service.name.to_s
       @movie = movie
-      @transcoder_service = Google::Cloud::Video::Transcoder.transcoder_service
-      @bucket_name = Rails.application.config.active_storage.service_configurations[service_name]['bucket']
-      @project_id = Rails.application.config.active_storage.service_configurations[service_name]['project']
-      @location = 'asia-northeast1'
     end
 
     def create_job
-      job = @transcoder_service.create_job(
+      transcoder_service.create_job(
         parent: parent_path,
         job: {
           input_uri:,
@@ -30,7 +25,7 @@ module Transcoder
           }
         }
       )
-      job.name
+                        .name
     end
 
     def fetch_job_state(job_name)
@@ -72,20 +67,40 @@ module Transcoder
       ]
     end
 
+    def transcoder_service
+      Google::Cloud::Video::Transcoder.transcoder_service
+    end
+
+    def location
+      'asia-northeast1'
+    end
+
+    def service_name
+      ActiveStorage::Blob.service.name.to_s
+    end
+
+    def bucket_name
+      Rails.application.config.active_storage.service_configurations[service_name]['bucket']
+    end
+
+    def project_id
+      Rails.application.config.active_storage.service_configurations[service_name]['project']
+    end
+
     def input_uri
-      "gs://#{@bucket_name}/#{@movie.movie_data.key}"
+      "gs://#{bucket_name}/#{@movie.movie_data.key}"
     end
 
     def output_uri
-      "gs://#{@bucket_name}/#{@movie.id}/"
+      "gs://#{bucket_name}/#{@movie.id}/"
     end
 
     def parent_path
-      "projects/#{@project_id}/locations/#{@location}"
+      "projects/#{project_id}/locations/#{location}"
     end
 
     def get_job(job_name)
-      @transcoder_service.get_job(name: job_name)
+      transcoder_service.get_job(name: job_name)
     end
   end
 end
