@@ -11,7 +11,7 @@ module Transcoder
     end
 
     def call
-      # return unless Rails.env.production?
+      return unless Rails.application.config.transcoder['enable']
 
       handle_state
     end
