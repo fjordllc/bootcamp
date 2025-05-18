@@ -25,7 +25,7 @@ module Transcoder
         client = Transcoder::Client.new(@movie)
         response = client.create_job
 
-        assert_equal DEFAULT_JOB_NAME, response.name
+        assert_equal DEFAULT_JOB_NAME, response
         assert_equal client.send(:parent_path), called_with_parent
         assert_equal client.send(:elementary_streams), called_with_job[:config][:elementary_streams]
         assert_equal client.send(:mux_streams), called_with_job[:config][:mux_streams]
