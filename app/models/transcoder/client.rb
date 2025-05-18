@@ -19,7 +19,7 @@ module Transcoder
     end
 
     def create_job
-      @transcoder_service.create_job(
+      job = @transcoder_service.create_job(
         parent: parent_path,
         job: {
           input_uri:,
@@ -30,6 +30,7 @@ module Transcoder
           }
         }
       )
+      job.name
     end
 
     def fetch_job_state(job_name)

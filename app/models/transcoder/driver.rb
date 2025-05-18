@@ -13,8 +13,8 @@ module Transcoder
       return unless Rails.env.production?
 
       if @job_name.nil?
-        job = client.create_job
-        schedule_polling_job(job.name)
+        job_name = client.create_job
+        schedule_polling_job(job_name)
         return
       end
 
