@@ -17,8 +17,6 @@ module PageTabs
         'Q&A'
       when %r{\A/pair_works}
         'ペアワーク'
-      else
-        nil
       end
     end
   end
