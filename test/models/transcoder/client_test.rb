@@ -8,17 +8,17 @@ module Transcoder
 
     def setup
       @movie = movies(:movie1)
-      @mock_service = Object.new
+      @mock_service = Minitest::Mock.new
     end
 
     test '#create_job' do
       called_with_parent = nil
       called_with_job = nil
 
-      @mock_service.define_singleton_method(:create_job) do |parent:, job:|
+      @mock_service.expect :create_job, OpenStruct.new(name: DEFAULT_JOB_NAME) do |parent:, job:|
         called_with_parent = parent
         called_with_job = job
-        OpenStruct.new(name: DEFAULT_JOB_NAME)
+        true
       end
 
       Google::Cloud::Video::Transcoder.stub :transcoder_service, @mock_service do
@@ -32,14 +32,14 @@ module Transcoder
         assert_match(%r{^gs://}, called_with_job[:input_uri])
         assert_match(%r{^gs://}, called_with_job[:output_uri])
       end
+      @mock_service.verify
     end
 
     test '#fetch_job_state' do
       expected_state = :SUCCEEDED
 
-      @mock_service.define_singleton_method(:get_job) do |name:|
-        _name = name
-        OpenStruct.new(state: expected_state)
+      @mock_service.expect :get_job, OpenStruct.new(state: expected_state) do |**args|
+        args == { name: DEFAULT_JOB_NAME }
       end
 
       Google::Cloud::Video::Transcoder.stub :transcoder_service, @mock_service do
@@ -47,6 +47,7 @@ module Transcoder
         state = client.fetch_job_state(DEFAULT_JOB_NAME)
         assert_equal expected_state, state
       end
+      @mock_service.verify
     end
   end
 end
