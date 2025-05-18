@@ -927,7 +927,6 @@ ActiveRecord::Schema.define(version: 2025_03_31_062253) do
     t.text "retire_reason"
     t.boolean "trainee", default: false, null: false
     t.string "customer_id"
-    t.boolean "job_seeking", default: false, null: false
     t.string "subscription_id"
     t.boolean "mail_notification", default: true, null: false
     t.boolean "job_seeker", default: false, null: false
