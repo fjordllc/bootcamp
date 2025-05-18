@@ -3,7 +3,7 @@
 require 'test_helper'
 
 module Transcoder
-  class DriverTest < ActiveSupport::TestCase
+  class JobTest < ActiveSupport::TestCase
     DEFAULT_JOB_NAME = 'jobs/123'
 
     setup do
@@ -13,6 +13,7 @@ module Transcoder
     test 'creates job and schedules polling when job_name is nil' do
       client_mock = Minitest::Mock.new
       client_mock.expect :create_job, DEFAULT_JOB_NAME
+      client_mock.expect :fetch_job_state, :RUNNING, [DEFAULT_JOB_NAME]
 
       set_mock = Minitest::Mock.new
       set_mock.expect :perform_later, nil, [@movie, DEFAULT_JOB_NAME]
@@ -20,13 +21,31 @@ module Transcoder
       Transcoder::Client.stub :new, client_mock do
         TranscodeJob.stub :set, ->(*) { set_mock } do
           Rails.stub :env, ActiveSupport::StringInquirer.new('production') do
-            driver = Driver.new(@movie)
-            driver.call
+            job = Job.new(@movie)
+            job.call
           end
         end
       end
-      client_mock.verify
-      set_mock.verify
+      [client_mock, set_mock].each(&:verify)
+    end
+
+    test 'attaches file when job state is SUCCEEDED' do
+      client_mock = Minitest::Mock.new
+      client_mock.expect :fetch_job_state, :SUCCEEDED, [DEFAULT_JOB_NAME]
+
+      file_mock = Minitest::Mock.new
+      file_mock.expect :attach_and_cleanup, nil
+
+      Transcoder::Client.stub :new, client_mock do
+        Transcoder::File.stub :new, file_mock do
+          Rails.stub :env, ActiveSupport::StringInquirer.new('production') do
+            job = Job.new(@movie, DEFAULT_JOB_NAME)
+            job.call
+          end
+        end
+      end
+
+      [client_mock, file_mock].each(&:verify)
     end
 
     test 'schedules polling when job state is RUNNING or PENDING' do
@@ -40,13 +59,12 @@ module Transcoder
         Transcoder::Client.stub :new, client_mock do
           TranscodeJob.stub :set, ->(*) { set_mock } do
             Rails.stub :env, ActiveSupport::StringInquirer.new('production') do
-              driver = Driver.new(@movie, DEFAULT_JOB_NAME)
-              driver.call
+              job = Job.new(@movie, DEFAULT_JOB_NAME)
+              job.call
             end
           end
         end
-        client_mock.verify
-        set_mock.verify
+        [client_mock, set_mock].each(&:verify)
       end
     end
 
@@ -64,16 +82,15 @@ module Transcoder
         logger_mock = Minitest::Mock.new
         logger_mock.expect :error, nil, [error_message]
 
-        Rails.stub :env, ActiveSupport::StringInquirer.new('production') do
-          Transcoder::Client.stub :new, client_mock do
-            Rails.logger.stub :error, ->(msg) { logger_mock.error(msg) } do
-              driver = Transcoder::Driver.new(@movie, DEFAULT_JOB_NAME)
-              driver.call
+        Transcoder::Client.stub :new, client_mock do
+          Rails.logger.stub :error, ->(msg) { logger_mock.error(msg) } do
+            Rails.stub :env, ActiveSupport::StringInquirer.new('production') do
+              job = Job.new(@movie, DEFAULT_JOB_NAME)
+              job.call
             end
           end
         end
-        client_mock.verify
-        logger_mock.verify
+        [client_mock, logger_mock].each(&:verify)
       end
     end
 
@@ -85,25 +102,27 @@ module Transcoder
       logger_mock.expect :warn, nil, [String]
 
       Transcoder::Client.stub :new, client_mock do
-        Rails.logger.stub :warn, lambda { |msg|
-          assert_match(/Unknown transcoder job state: UNKNOWN_STATE/, msg)
-        } do
+        Rails.logger.stub :warn, ->(msg) { logger_mock.warn(msg) } do
           Rails.stub :env, ActiveSupport::StringInquirer.new('production') do
-            driver = Driver.new(@movie, DEFAULT_JOB_NAME)
-            driver.call
+            job = Job.new(@movie, DEFAULT_JOB_NAME)
+            job.call
           end
         end
       end
-      client_mock.verify
+      [client_mock, logger_mock].each(&:verify)
     end
 
-    test 'does nothing if not production' do
-      Transcoder::Client.stub :new, ->(_) { flunk 'Should not be called' } do
+    test 'call returns early if not production' do
+      client_mock = Minitest::Mock.new
+      client_mock.expect :create_job, DEFAULT_JOB_NAME
+
+      Transcoder::Client.stub :new, client_mock do
         Rails.stub :env, ActiveSupport::StringInquirer.new('development') do
-          driver = Driver.new(@movie)
-          driver.call
+          job = Job.new(@movie)
+          job.call
         end
       end
+      client_mock.verify
     end
   end
 end
