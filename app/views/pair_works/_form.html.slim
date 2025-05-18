@@ -68,7 +68,7 @@
                             value = Time.current.beginning_of_day + hour.hour + day.day
                             disabled = value < Time.current
                             id = wday * 24 + hour + 1
-                            checked = !disabled && current_user.learning_time_frames.ids.include?(id)
+                            checked = !disabled && current_user.learning_time_frame_ids.include?(id)
                           td.form-table__check
                             = f.label :schedules, for: "schedule_ids_#{value}" do
                               span
