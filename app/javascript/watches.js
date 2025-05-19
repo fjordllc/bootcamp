@@ -4,10 +4,6 @@ import { toast } from './vanillaToast.js'
 document.addEventListener('DOMContentLoaded', () => {
   const localStorage = window.localStorage
   const editToggle = document.getElementById('card-list-tools__action')
-  const deleteButtonContainers = document.querySelectorAll(
-    '.card-list-item__option'
-  )
-
   if (!editToggle) {
     window.addEventListener('beforeunload', function () {
       localStorage.removeItem('watches-delete-mode')
@@ -17,27 +13,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (localStorage.getItem('watches-delete-mode') === 'on') {
     editToggle.checked = true
-    deleteButtonContainers.forEach((container) => {
-      container.classList.remove('hidden')
-    })
+    toggleDeleteButtonsVisibility(false)
   } else {
     editToggle.checked = false
-    deleteButtonContainers.forEach((container) => {
-      container.classList.add('hidden')
-    })
+    toggleDeleteButtonsVisibility(true)
   }
 
   editToggle.addEventListener('change', () => {
     if (editToggle.checked) {
-      localStorage.setItem('watches-delete-mode', 'on')
-      deleteButtonContainers.forEach((container) => {
-        container.classList.remove('hidden')
-      })
+      toggleDeleteButtonsVisibility(false)
     } else {
-      localStorage.removeItem('watches-delete-mode')
-      deleteButtonContainers.forEach((container) => {
-        container.classList.add('hidden')
-      })
+      toggleDeleteButtonsVisibility(true)
     }
   })
 
@@ -52,6 +38,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 })
+
+function toggleDeleteButtonsVisibility(shouldHide) {
+  const deleteButtonContainers = document.querySelectorAll(
+    '.card-list-item__option'
+  )
+  deleteButtonContainers.forEach((container) => {
+    container.classList.toggle('hidden', shouldHide)
+  })
+}
 
 async function unWatchInList(element) {
   const watchId = element.dataset.watch_id
