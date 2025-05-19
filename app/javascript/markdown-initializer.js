@@ -14,7 +14,10 @@ import MarkDownItLinkAttributes from 'markdown-it-link-attributes'
 import MarkDownItContainerSpeak from 'markdown-it-container-speak'
 import ReplaceLinkToCard from 'replace-link-to-card'
 import MarkdownItPurifier from 'markdown-it-purifier'
-import { ALLOWED_TAGS, ALLOWED_ATTR } from './config/markdown-it-purifier-config'
+import {
+  ALLOWED_TAGS,
+  ALLOWED_ATTR
+} from './config/markdown-it-purifier-config'
 
 export default class {
   replace(selector) {
