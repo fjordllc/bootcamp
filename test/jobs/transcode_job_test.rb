@@ -8,7 +8,7 @@ class TranscodeJobTest < ActiveJob::TestCase
     driver_mock = Minitest::Mock.new
     driver_mock.expect :call, true
 
-    Transcoder::Driver.stub :new, ->(_movie, _job_name) { driver_mock } do
+    Transcoder::Job.stub :new, ->(_movie, _job_name) { driver_mock } do
       TranscodeJob.new.perform(movie)
     end
     driver_mock.verify
