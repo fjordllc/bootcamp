@@ -555,7 +555,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_07_000002) do
 
   create_table "pair_works", force: :cascade do |t|
     t.string "title", null: false
-    t.text "description"
+    t.text "description", null: false
     t.datetime "reserved_at"
     t.bigint "user_id", null: false
     t.bigint "practice_id"
