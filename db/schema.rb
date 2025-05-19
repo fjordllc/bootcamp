@@ -643,7 +643,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_20_000001) do
 
   create_table "pair_works", force: :cascade do |t|
     t.string "title", null: false
-    t.text "description"
+    t.text "description", null: false
     t.datetime "reserved_at"
     t.bigint "user_id", null: false
     t.bigint "practice_id"
