@@ -11,19 +11,17 @@ document.addEventListener('DOMContentLoaded', () => {
     return
   }
 
-  if (localStorage.getItem('watches-delete-mode') === 'on') {
-    editToggle.checked = true
-    toggleDeleteButtonsVisibility(false)
-  } else {
-    editToggle.checked = false
-    toggleDeleteButtonsVisibility(true)
-  }
+  const deleteMode = localStorage.getItem('watches-delete-mode') === 'on'
+  editToggle.checked = deleteMode
+  toggleDeleteButtonsVisibility(!deleteMode)
 
   editToggle.addEventListener('change', () => {
     if (editToggle.checked) {
       toggleDeleteButtonsVisibility(false)
+      localStorage.setItem('watches-delete-mode', 'on')
     } else {
       toggleDeleteButtonsVisibility(true)
+      localStorage.removeItem('watches-delete-mode')
     }
   })
 
