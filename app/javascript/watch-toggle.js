@@ -16,41 +16,44 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 })
 
-function watch(element) {
+async function watch(element) {
   const watchableType = element.dataset.watchable_type
   const watchableId = element.dataset.watchable_id
   const params = {
     watchable_type: watchableType,
     watchable_id: watchableId
   }
-  fetch(`/api/watches`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      'X-Requested-With': 'XMLHttpRequest',
-      'X-CSRF-Token': CSRF.getToken()
-    },
-    credentials: 'same-origin',
-    redirect: 'manual',
-    body: JSON.stringify(params)
-  })
-    .then((response) => {
-      return response.json()
+
+  try {
+    const response = await fetch(`/api/watches`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-Token': CSRF.getToken()
+      },
+      credentials: 'same-origin',
+      redirect: 'manual',
+      body: JSON.stringify(params)
     })
-    .then((json) => {
-      if (json.message) {
-        toast(json.message, 'error')
-      } else {
-        toast('Watchしました！')
-        element.classList.remove('is-inactive', 'is-muted')
-        element.classList.add('is-active', 'is-main')
-        element.setAttribute('data-watch_id', json.id)
-        element.innerHTML = 'Watch中'
-      }
-    })
-    .catch((error) => {
-      console.warn(error)
-    })
+
+    if (!response.ok) {
+      throw new Error(`${response.error}`)
+    }
+
+    const json = await response.json()
+    if (json.message) {
+      toast(json.message, 'error')
+    } else {
+      toast('Watchしました！')
+      element.classList.remove('is-inactive', 'is-muted')
+      element.classList.add('is-active', 'is-main')
+      element.setAttribute('data-watch_id', json.id)
+      element.innerHTML = 'Watch中'
+    }
+  } catch (error) {
+    console.warn(error)
+  }
 }
 
 async function unWatch(element) {
