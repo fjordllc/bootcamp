@@ -134,4 +134,56 @@ class QuestionTest < ActiveSupport::TestCase
     assert_equal '質問を作成しました。', published_question.generate_notice_message(:create)
     assert_equal '質問を更新しました。', published_question.generate_notice_message(:update)
   end
+
+  test '.post_auto_close_warning posts warning answer by pjord after 1 month inactivity' do
+    question = Question.create!(
+      title: '自動クローズテスト',
+      description: 'テスト',
+      user: users(:kimura),
+      created_at: 2.months.ago,
+      updated_at: 2.months.ago
+    )
+    travel_to 1.month.ago + 1.day do
+      assert_difference -> { question.answers.count }, 1 do
+        QuestionAutoClose.post_auto_close_warning
+      end
+      answer = question.answers.last
+      assert_equal users(:pjord), answer.user
+      assert_includes answer.description, '1週間後に自動的にクローズされます'
+    end
+  end
+
+  test '.auto_close_and_select_best_answer closes question and selects last user answer as best answer' do
+    question = Question.create!(
+      title: '自動クローズテスト3',
+      description: 'テスト',
+      user: users(:kimura),
+      created_at: 2.months.ago,
+      updated_at: 2.months.ago
+    )
+
+    user_answer = question.answers.create!(
+      user: users(:kimura),
+      description: 'これは通常のユーザーによる回答です',
+      created_at: 6.weeks.ago
+    )
+
+    system_user = users(:pjord)
+    question.answers.create!(
+      user: system_user,
+      description: 'このQ&Aは1ヶ月間コメントがありませんでした。1週間後に自動的にクローズされます。',
+      created_at: 8.days.ago
+    )
+
+    assert_difference -> { question.answers.count }, 1 do
+      QuestionAutoClose.auto_close_and_select_best_answer
+    end
+
+    question.reload
+    assert_equal 'CorrectAnswer', user_answer.reload.type
+
+    close_answer = question.answers.order(created_at: :desc).first
+    assert_equal system_user, close_answer.user
+    assert_includes close_answer.description, '自動的にクローズしました'
+  end
 end
