@@ -16,6 +16,8 @@ import MarkDownItContainerSpeak from 'markdown-it-container-speak'
 import CSRF from 'csrf'
 import TextareaMarkdownLinkify from 'textarea-markdown-linkify'
 import ReplaceLinkToCard from 'replace-link-to-card'
+import MarkdownItPurifier from 'markdown-it-purifier'
+import { ALLOWED_TAGS, ALLOWED_ATTR } from './config/markdown-it-purifier-config'
 
 export default class {
   static initialize(selector) {
@@ -77,7 +79,11 @@ export default class {
           MarkDownItContainerMessage,
           MarkDownItContainerDetails,
           MarkDownItLinkAttributes,
-          MarkDownItContainerSpeak
+          MarkDownItContainerSpeak,
+          [MarkdownItPurifier, {
+            ALLOWED_TAGS,
+            ALLOWED_ATTR
+           }]
         ],
         markdownOptions: MarkdownOption
       })

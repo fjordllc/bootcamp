@@ -32,6 +32,30 @@ class MarkdownTest < ApplicationSystemTestCase
     assert_includes emoji['data-user'], 'mentormentaro'
   end
 
+  test 'escapes and disables style tags' do
+    visit_with_auth new_page_path, 'komagata'
+
+    fill_in('page[title]', with: 'styleタグのテスト')
+    fill_in('page[body]', with: '<style>p { color: red; }</style><p>これはテストです</p>')
+
+    click_button 'Docを公開'
+
+    assert_text '<style>p { color: red; }</style>'
+  end
+
+  test 'escapes and disables onload attributes' do
+    visit_with_auth new_page_path, 'komagata'
+    fill_in('page[title]', with: 'onloadが発火しないことのテスト')
+
+    fill_in('page[body]', with: '<iframe onload="document.body.appendChild(document.createElement(\'h3\'))"></iframe>')
+
+    click_button 'Docを公開'
+
+    assert_no_selector 'h3'
+
+    assert_text '<iframe onload="document.body.appendChild(document.createElement(\'h3\'))"></iframe>'
+  end
+
   def cmd_ctrl
     page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
   end
