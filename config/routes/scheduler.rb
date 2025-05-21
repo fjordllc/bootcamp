@@ -14,5 +14,7 @@ Rails.application.routes.draw do
       resource :send_mail_to_hibernation_user, only: %i(show), controller: "send_mail_to_hibernation_user"
       resource :fetch_external_entry, only: %i(show), controller: "fetch_external_entry"
     end
+      resource :auto_close_questions, only: %i(show), controller: "auto_close_questions"
+
   end
 end

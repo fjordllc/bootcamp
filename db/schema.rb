@@ -447,6 +447,7 @@ ActiveRecord::Schema.define(version: 2025_06_18_144325) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "action_completed", default: false, null: false
   end
 
   create_table "learning_minute_statistics", force: :cascade do |t|
@@ -718,7 +719,7 @@ ActiveRecord::Schema.define(version: 2025_06_18_144325) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reactionable_type", "reactionable_id"], name: "index_reactions_on_reactionable"
-    t.index ["user_id", "reactionable_id", "reactionable_type", "kind"], name: "index_reactions_on_reactionable_u_k", unique: true
+    t.index ["user_id", "reactionable_id", "reactionable_type", "kind"], name: "index_reactions_on_reactionable_u_k_u_k", unique: true
     t.index ["user_id"], name: "index_reactions_on_user_id"
   end
 
