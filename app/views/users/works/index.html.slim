@@ -1,25 +1,7 @@
 - title "#{@user.login_name}さんのポートフォリオ"
 - set_meta_tags description: "#{@user.login_name}さんのポートフォリオページです。"
 
-header.page-header
-  .container
-    .page-header__inner
-      .page-header__start
-        h2.page-header__title
-          = @user.login_name
-      .page-header__end
-        .page-header-actions
-          ul.page-header-actions__items
-            - if current_user == @user
-              li.page-header-actions__item
-                = link_to new_report_path, class: 'a-button is-md is-secondary is-block' do
-                  i.fa-regular.fa-plus
-                  span
-                    | 日報作成
-            li.page-header-actions__item
-              = link_to users_path, class: 'a-button is-md is-secondary is-block is-back' do
-                | ユーザー一覧
-
+= render 'users/page_title', user: @user
 = user_page_tabs(@user, active_tab: 'ポートフォリオ')
 
 .page-main
