@@ -13,6 +13,7 @@ module Transcoder
     def call(&block)
       return unless Rails.application.config.transcoder['enable']
 
+      @block = block
       handle_state
     end
 
@@ -32,7 +33,7 @@ module Transcoder
 
     def handlers
       {
-        SUCCEEDED: ->(&block) { handle_success(&block) },
+        SUCCEEDED: -> { handle_success },
         FAILED: -> { Rails.logger.error "Transcoding failed for Movie #{@movie.id}" },
         CANCELLED: -> { Rails.logger.error "Transcoding job for Movie #{@movie.id} was cancelled." },
         RUNNING: -> { schedule_polling },
@@ -40,9 +41,9 @@ module Transcoder
       }
     end
 
-    def handle_success(&block)
+    def handle_success
       transcoded_data = Transcoder::File.new(@movie).transcoded_data
-      block.call(transcoded_data)
+      @block.call(transcoded_data)
     end
 
     def unknown_state
