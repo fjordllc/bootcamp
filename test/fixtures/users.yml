@@ -30,7 +30,7 @@ komagata:
   updated_at: "2014-01-01 00:00:01"
   created_at: "2014-01-01 00:00:01"
   last_activity_at: "2014-01-01 00:00:01"
-  hide_mentor_profile: false
+  show_mentor_profile: true
   profile_name: "駒形 真幸"
   profile_job: "エンジニア"
   profile_text: "株式会社ロッカの代表兼エンジニア。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。"
@@ -343,7 +343,7 @@ senpai:
   created_at: "2014-01-01 00:00:12"
   last_activity_at: "2014-01-01 00:00:12"
 
-kananashi: #name_kanaを持たないユーザー
+kananashi: # name_kanaを持たないユーザー
   login_name: kananashi
   email: kananashi@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -364,7 +364,7 @@ kananashi: #name_kanaを持たないユーザー
   last_activity_at: "2014-01-01 00:00:12"
   sent_student_followup_message: true
 
-osnashi: #osを持たないユーザー
+osnashi: # osを持たないユーザー
   login_name: osnashi
   email: osnashi@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -385,7 +385,7 @@ osnashi: #osを持たないユーザー
   last_activity_at: "2014-01-01 00:00:12"
   sent_student_followup_message: true
 
-discordinvalid: #Discord IDが不正なユーザー
+discordinvalid: # Discord IDが不正なユーザー
   login_name: discordinvalid
   email: discordinvalid@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -406,7 +406,7 @@ discordinvalid: #Discord IDが不正なユーザー
   last_activity_at: "2014-01-01 00:00:12"
   sent_student_followup_message: true
 
-twitterinvalid: #X（Twitter） IDが不正なユーザー
+twitterinvalid: # X（Twitter） IDが不正なユーザー
   login_name: twitterinvalid
   email: twitterinvalid@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -427,7 +427,7 @@ twitterinvalid: #X（Twitter） IDが不正なユーザー
   last_activity_at: "2020-01-01 00:00:12"
   sent_student_followup_message: true
 
-jobseeker: #就活希望するユーザー
+jobseeker: # 就活希望するユーザー
   login_name: jobseeker
   email: jobseeker@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -908,7 +908,7 @@ advisernocolleaguetrainee:
   created_at: "2022-07-01 00:00:00"
   last_activity_at: "2022-07-01 00:00:00"
 
-tom: #アメリカ在住のユーザー
+tom: # アメリカ在住のユーザー
   login_name: tom
   email: tom@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -1009,7 +1009,7 @@ marumarushain<%= i %>: # ページネーション確認のためのユーザー
   sent_student_followup_message: true
 <% end %>
 
-harikirio: #必修でないプラクティスも修了しているユーザー
+harikirio: # 必修でないプラクティスも修了しているユーザー
   login_name: harikirio
   email: harikiro@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest

@@ -257,6 +257,7 @@ class HomeTest < ApplicationSystemTestCase
       today_events_texts = [
         { category: '特別', title: '直近イベントの表示テスト用(当日)', start_at: '2017年04月03日(月) 09:00' },
         { category: '特別', title: 'kimura専用イベント', start_at: '2017年04月03日(月) 09:00' },
+        { category: '輪読会', title: '月曜日開催で10:00に終了する定期イベント', start_at: '2017年04月03日(月) 09:00' },
         { category: '質問', title: '質問・雑談タイム', start_at: '2017年04月03日(月) 16:00' },
         { category: '輪読会', title: 'ダッシュボード表示確認用テスト定期イベント', start_at: '2017年04月03日(月) 21:00' },
         { category: '輪読会', title: 'ダッシュボード表示確認用テスト定期イベント', start_at: '2017年04月03日(月) 21:00' }
@@ -588,7 +589,7 @@ class HomeTest < ApplicationSystemTestCase
     assert_text '駒形 真幸'
     assert_text '株式会社ロッカの代表兼エンジニア。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
     visit_with_auth edit_current_user_path, 'komagata'
-    check 'プロフィール非公開', allow_label_click: true
+    uncheck 'プロフィール公開', allow_label_click: true
     click_on '更新する'
     assert_text 'ユーザー情報を更新しました。'
     logout

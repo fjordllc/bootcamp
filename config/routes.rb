@@ -114,6 +114,7 @@ Rails.application.routes.draw do
       get :created
     end
   end
+  resources :press_releases, only: %i(index)
   get "articles/tags/:tag", to: "articles#index", as: :tag, tag: /.+/
   get 'sponsorships', to: 'articles/sponsorships#index'
   get "pages/tags/:tag", to: "pages#index", as: :pages_tag, tag: /.+/, format: "html"

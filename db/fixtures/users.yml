@@ -428,7 +428,7 @@ senpai:
   sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:12"
 
-kananashi: #name_kanaを持たないユーザー
+kananashi: # name_kanaを持たないユーザー
   login_name: kananashi
   email: kananashi@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -449,7 +449,7 @@ kananashi: #name_kanaを持たないユーザー
   sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:12"
 
-osnashi: #osを持たないユーザー
+osnashi: # osを持たないユーザー
   login_name: osnashi
   email: osnashi@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -470,7 +470,7 @@ osnashi: #osを持たないユーザー
   sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:12"
 
-jobseeker: #就活希望するユーザー
+jobseeker: # 就活希望するユーザー
   login_name: jobseeker
   email: jobseeker@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -1037,7 +1037,7 @@ unhibernated:
   sent_student_followup_message: false
   last_activity_at: <%= Time.current - 10.days %>
 
-discordinvalid: #Discord IDが不正なユーザー
+discordinvalid: # Discord IDが不正なユーザー
   login_name: discordinvalid
   email: discordinvalid@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -1058,7 +1058,7 @@ discordinvalid: #Discord IDが不正なユーザー
   sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:12"
 
-twitterinvalid: #X（Twitter） IDが不正なユーザー
+twitterinvalid: # X（Twitter） IDが不正なユーザー
   login_name: twitterinvalid
   email: twitterinvalid@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -1401,7 +1401,7 @@ pjord:
   sent_student_followup_message: true
   last_activity_at: "2021-02-01 00:00:30"
 
-harikirio: #必修でないプラクティスも修了しているユーザー
+harikirio: # 必修でないプラクティスも修了しているユーザー
   login_name: harikirio
   email: harikiro@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
