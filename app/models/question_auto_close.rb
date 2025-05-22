@@ -1,98 +1,111 @@
 # frozen_string_literal: true
 
 class QuestionAutoClose < ApplicationRecord
+  SYSTEM_USER_LOGIN = 'pjord'
+  AUTO_CLOSE_WARNING_MESSAGE = 'このQ&Aは1ヶ月間コメントがありませんでした。1週間後に自動的にクローズされます。'
+  AUTO_CLOSE_MESSAGE = '自動的にクローズしました。'
+
   def self.post_auto_close_warning
-    system_user = User.find_by(login_name: 'pjord')
+    system_user = User.find_by(login_name: SYSTEM_USER_LOGIN)
     return unless system_user
 
     Question.not_solved.find_each do |question|
-      last_activity_at = question.answers.order(created_at: :desc).first&.created_at || question.created_at
-      next unless last_activity_at <= 1.month.ago
-      next if question.answers.any? { |a| a.user == system_user && a.description =~ /自動的にクローズ/ }
-      next if question.answers.any? { |a| a.user == system_user && a.description =~ /1週間後に自動的にクローズ/ }
+      next unless should_post_warning?(question, system_user)
 
-      question.answers.create!(
-        user: system_user,
-        description: 'このQ&Aは1ヶ月間コメントがありませんでした。1週間後に自動的にクローズされます。'
-      )
+      post_warning(question, system_user)
     end
   end
 
   def self.auto_close_and_select_best_answer
-    system_user = User.find_by(login_name: 'pjord')
+    system_user = User.find_by(login_name: SYSTEM_USER_LOGIN)
     return unless system_user
 
     question_count = 0
-
-    Rails.logger.info '=== 自動クローズ処理を開始します ==='
-
     Question.not_solved.find_each do |question|
+      next unless should_auto_close?(question, system_user)
+
+      question_count += close_question_with_best_answer(question, system_user)
+    end
+
+    question_count
+  end
+
+  class << self
+    private
+
+    def should_post_warning?(question, system_user)
+      last_activity_at = question.answers.order(created_at: :desc).first&.created_at || question.created_at
+      return false unless last_activity_at <= 1.month.ago
+
+      !system_message?(question, system_user, /自動的にクローズ/) &&
+        !system_message?(question, system_user, /1週間後に自動的にクローズ/)
+    end
+
+    def post_warning(question, system_user)
+      question.answers.create!(
+        user: system_user,
+        description: AUTO_CLOSE_WARNING_MESSAGE
+      )
+    end
+
+    def should_auto_close?(question, system_user)
+      warning_answer = find_warning_message(question, system_user)
+      return false unless warning_answer
+
+      !system_message?(question, system_user, /自動的にクローズしました/)
+    end
+
+    def find_warning_message(question, system_user)
       warning_answers = question.answers.select do |a|
         a.user_id == system_user.id && a.description =~ /1週間後に自動的にクローズ/
       end
-
-      warning_answer = warning_answers.max_by(&:created_at)
-      unless warning_answer
-        Rails.logger.info "質問 ID: #{question.id} - 警告回答がないためスキップします"
-        next
-      end
-
-      # unless warning_answer.created_at <= 1.week.ago
-      #   Rails.logger.info "質問 ID: #{question.id} - 警告回答から1週間経過していないためスキップします (#{warning_answer.created_at})"
-      #   next
-      # end
-      Rails.logger.info "質問 ID: #{question.id} - 警告回答があります。経過期間チェックを無視して処理を続行します (#{warning_answer.created_at})"
-
-      if question.answers.any? { |a| a.user_id == system_user.id && a.description =~ /自動的にクローズしました/ }
-        Rails.logger.info "質問 ID: #{question.id} - すでにクローズ済みのためスキップします"
-        next
-      end
-
-      user_answers = question.answers.reject { |a| a.user_id == system_user.id }
-                             .reject { |a| a.description =~ /自動的にクローズ|1週間後に自動的にクローズ/ }
-
-      last_user_answer = user_answers.max_by(&:created_at)
-      unless last_user_answer
-        Rails.logger.info "質問 ID: #{question.id} - ユーザーからの回答がないためスキップします"
-        next
-      end
-
-      Rails.logger.info "質問 ID: #{question.id} - 自動クローズ条件を満たしています。処理を開始します"
-      Rails.logger.info "選択する回答 ID: #{last_user_answer.id}, ユーザー: #{last_user_answer.user_id}"
-
-      ActiveRecord::Base.transaction do
-        existing_correct = CorrectAnswer.find_by(question_id: question.id)
-        existing_correct&.destroy
-
-        correct_answer = CorrectAnswer.new(
-          id: last_user_answer.id,
-          question_id: last_user_answer.question_id,
-          user_id: last_user_answer.user_id,
-          description: last_user_answer.description,
-          created_at: last_user_answer.created_at,
-          updated_at: Time.current
-        )
-
-        last_user_answer.destroy
-        correct_answer.save!
-
-        Newspaper.publish(:answer_save, { answer: correct_answer })
-        Newspaper.publish(:correct_answer_save, { answer: correct_answer })
-
-        question.answers.create!(
-          user: system_user,
-          description: '自動的にクローズしました。'
-        )
-
-        question_count += 1
-        Rails.logger.info "質問 ID: #{question.id} - 自動クローズが完了しました"
-      end
-    rescue StandardError => e
-      Rails.logger.error "質問 ID: #{question.id} - 自動クローズ処理中にエラーが発生しました: #{e.message}"
-      Rails.logger.error e.backtrace.join("\n")
+      warning_answers.max_by(&:created_at)
     end
 
-    Rails.logger.info "=== 自動クローズ処理が完了しました。#{question_count}件の質問をクローズしました ==="
-    question_count
+    def system_message?(question, system_user, pattern)
+      question.answers.any? { |a| a.user_id == system_user.id && a.description =~ pattern }
+    end
+
+    def close_question_with_best_answer(question, system_user)
+      ActiveRecord::Base.transaction do
+        remove_existing_best_answer(question)
+        close_answer = create_close_message(question, system_user)
+        make_best_answer(close_answer)
+        publish_events(close_answer)
+        1
+      end
+    end
+
+    def remove_existing_best_answer(question)
+      existing_correct = CorrectAnswer.find_by(question_id: question.id)
+      existing_correct&.destroy
+    end
+
+    def create_close_message(question, system_user)
+      question.answers.create!(
+        user: system_user,
+        description: AUTO_CLOSE_MESSAGE
+      )
+    end
+
+    def make_best_answer(close_answer)
+      correct_answer = CorrectAnswer.new(
+        id: close_answer.id,
+        question_id: close_answer.question_id,
+        user_id: close_answer.user_id,
+        description: close_answer.description,
+        created_at: close_answer.created_at,
+        updated_at: Time.current
+      )
+
+      close_answer.destroy
+      correct_answer.save!
+      correct_answer
+    end
+
+    def publish_events(correct_answer)
+      Newspaper.publish(:answer_save, { answer: correct_answer })
+      Newspaper.publish(:correct_answer_save, { answer: correct_answer })
+    end
   end
 end

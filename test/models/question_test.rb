@@ -153,16 +153,16 @@ class QuestionTest < ActiveSupport::TestCase
     end
   end
 
-  test '.auto_close_and_select_best_answer closes question and selects last user answer as best answer' do
+  test '.auto_close_and_select_best_answer closes question and selects system close comment as best answer' do
     question = Question.create!(
-      title: '自動クローズテスト3',
+      title: '自動クローズテスト2',
       description: 'テスト',
       user: users(:kimura),
       created_at: 2.months.ago,
       updated_at: 2.months.ago
     )
 
-    user_answer = question.answers.create!(
+    question.answers.create!(
       user: users(:kimura),
       description: 'これは通常のユーザーによる回答です',
       created_at: 6.weeks.ago
@@ -175,15 +175,13 @@ class QuestionTest < ActiveSupport::TestCase
       created_at: 8.days.ago
     )
 
-    assert_difference -> { question.answers.count }, 1 do
-      QuestionAutoClose.auto_close_and_select_best_answer
-    end
+    QuestionAutoClose.auto_close_and_select_best_answer
 
     question.reload
-    assert_equal 'CorrectAnswer', user_answer.reload.type
 
-    close_answer = question.answers.order(created_at: :desc).first
-    assert_equal system_user, close_answer.user
-    assert_includes close_answer.description, '自動的にクローズしました'
+    correct_answer = CorrectAnswer.find_by(question_id: question.id)
+    assert_not_nil correct_answer
+    assert_equal system_user, correct_answer.user
+    assert_includes correct_answer.description, '自動的にクローズしました'
   end
 end
