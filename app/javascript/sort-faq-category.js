@@ -1,5 +1,5 @@
 import Sortable from 'sortablejs'
-import Bootcamp from 'bootcamp'
+import { patch } from '@rails/request.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const element = document.querySelector('#js-faq-category-sortable')
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
-      Bootcamp.patch(url, params).catch((error) => {
+      patch(url, { body: params }).catch((error) => {
         console.error('Error while updating an order:', error)
       })
     }
