@@ -45,6 +45,10 @@ export default {
       watchableId: this.watchableId,
       watchableType: this.watchableType
     })
+    document.addEventListener('comment-posted', this.handleCommentPosted)
+  },
+  beforeDestroy() {
+    document.removeEventListener('comment-posted', this.handleCommentPosted)
   },
   methods: {
     buttonClick() {
@@ -112,6 +116,10 @@ export default {
         .catch((error) => {
           console.warn(error)
         })
+    },
+    handleCommentPosted(event) {
+      const { watchableId, watchableType } = event.detail
+      this.$store.dispatch('setWatchable', { watchableId, watchableType })
     }
   }
 }

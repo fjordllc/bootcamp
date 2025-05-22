@@ -55,6 +55,7 @@ function initializeComment(comment) {
   const saveButton = commentEditor.querySelector('.is-primary')
   if (saveButton) {
     saveButton.addEventListener('click', () => {
+      TextareaInitializer.initialize(`#js-comment-${commentId}`)
       toggleVisibility(modalElements, 'is-hidden')
       savedComment = editorTextarea.value
       updateComment(commentId, savedComment)

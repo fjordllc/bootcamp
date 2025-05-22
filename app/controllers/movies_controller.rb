@@ -14,7 +14,9 @@ class MoviesController < ApplicationController
                    .per(PAGER_NUMBER)
   end
 
-  def show; end
+  def show
+    @comments = @movie.comments.order(:created_at)
+  end
 
   def new
     @movie = Movie.new
