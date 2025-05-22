@@ -4,6 +4,9 @@ class QuestionAutoClose < ApplicationRecord
   SYSTEM_USER_LOGIN = 'pjord'
   AUTO_CLOSE_WARNING_MESSAGE = 'このQ&Aは1ヶ月間コメントがありませんでした。1週間後に自動的にクローズされます。'
   AUTO_CLOSE_MESSAGE = '自動的にクローズしました。'
+  WARNING_MESSAGE_PATTERN = /1週間後に自動的にクローズ/
+  CLOSE_MESSAGE_PATTERN = /自動的にクローズしました/
+  ANY_CLOSE_MESSAGE_PATTERN = /自動的にクローズ/
 
   def self.post_auto_close_warning
     system_user = User.find_by(login_name: SYSTEM_USER_LOGIN)
@@ -37,8 +40,8 @@ class QuestionAutoClose < ApplicationRecord
       last_activity_at = question.answers.order(created_at: :desc).first&.created_at || question.created_at
       return false unless last_activity_at <= 1.month.ago
 
-      !system_message?(question, system_user, /自動的にクローズ/) &&
-        !system_message?(question, system_user, /1週間後に自動的にクローズ/)
+      !system_message?(question, system_user, ANY_CLOSE_MESSAGE_PATTERN) &&
+        !system_message?(question, system_user, WARNING_MESSAGE_PATTERN)
     end
 
     def post_warning(question, system_user)
@@ -49,15 +52,16 @@ class QuestionAutoClose < ApplicationRecord
     end
 
     def should_auto_close?(question, system_user)
-      warning_answer = find_warning_message(question, system_user)
+      warning_answer = find_system_message(question, system_user, WARNING_MESSAGE_PATTERN)
       return false unless warning_answer
+      return false unless warning_answer.created_at <= 1.week.ago
 
-      !system_message?(question, system_user, /自動的にクローズしました/)
+      !system_message?(question, system_user, CLOSE_MESSAGE_PATTERN)
     end
 
-    def find_warning_message(question, system_user)
+    def find_system_message(question, system_user, pattern)
       warning_answers = question.answers.select do |a|
-        a.user_id == system_user.id && a.description =~ /1週間後に自動的にクローズ/
+        a.user_id == system_user.id && a.description =~ pattern
       end
       warning_answers.max_by(&:created_at)
     end
@@ -70,7 +74,7 @@ class QuestionAutoClose < ApplicationRecord
       ActiveRecord::Base.transaction do
         remove_existing_best_answer(question)
         close_answer = create_close_message(question, system_user)
-        make_best_answer(close_answer)
+        select_as_best_answer(close_answer)
         publish_events(close_answer)
         1
       end
@@ -88,7 +92,7 @@ class QuestionAutoClose < ApplicationRecord
       )
     end
 
-    def make_best_answer(close_answer)
+    def select_as_best_answer(close_answer)
       correct_answer = CorrectAnswer.new(
         id: close_answer.id,
         question_id: close_answer.question_id,
