@@ -73,6 +73,7 @@ import '../survey_result_chart.js'
 import '../footprints.js'
 import '../article-target.js'
 import '../referral-source-selection-form.js'
+import '../coding_tests_sort.js'
 
 import VueMounter from '../VueMounter.js'
 import Questions from '../components/questions.vue'
