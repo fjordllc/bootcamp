@@ -5724,10 +5724,10 @@ markdown-it-anchor@^8.4.1:
   resolved "https://registry.npmjs.org/markdown-it-anchor/-/markdown-it-anchor-8.6.7.tgz"
   integrity sha512-FlCHFwNnutLgVTflOYHPW2pPcl2AACqVzExlkGQNsi4CJgqOHN7YTgDd4LuhgN1BFO3TS0vLAruV1Td6dwWPJA==
 
-markdown-it-container-figure@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/markdown-it-container-figure/-/markdown-it-container-figure-1.0.0.tgz"
-  integrity sha512-rQmIQsqZV3xm4HRSFM+n/osjkR9Rjgimio8Z5EP6LGbdKhZo23mscF0yyqauRhskJn8XQPb72u5bJUZ7M4cV1Q==
+markdown-it-container-figure@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/markdown-it-container-figure/-/markdown-it-container-figure-1.1.1.tgz"
+  integrity sha512-450bFhs2jHN4YGgwlumSUxuYTVM4Mp0GMU//YpFcKF8UT/zupz43quC0UnjmltUeh3DmuLjl8sV49+i6Tx32EA==
   dependencies:
     markdown-it "^12.3.2"
     markdown-it-container "^3.0.0"
