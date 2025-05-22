@@ -352,6 +352,11 @@ ja:
         input: 入力
         output: 出力
     enums:
+      report:
+        emotion:
+          sad: Negative
+          soso: Neutral
+          happy: Positive
       user:
         job:
           student: 学生
@@ -434,7 +439,7 @@ ja:
           all: 全員（退会者を除く）
           students: 現役生のみ
           job_seekers: 就職希望者のみ
-          none: 通知しない
+          none: 通知しない  
     errors:
       models:
         campaign:
