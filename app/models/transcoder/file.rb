@@ -6,19 +6,12 @@ module Transcoder
       @movie = movie
     end
 
-    def attach_and_cleanup
-      file = storage.bucket(bucket_name).file(transcoded_video_path)
-      attach(file)
-      cleanup(file)
+    def transcoded_data
+      transcoded_file = storage.bucket(bucket_name).file(transcoded_video_path)
+      StringIO.new(transcoded_file.download.string)
     end
 
     private
-
-    def attach(file)
-      io = StringIO.new(file.download.string)
-      @movie.movie_data.attach(io:, filename: "#{@movie.id}.mp4")
-      @movie.save
-    end
 
     def cleanup(file)
       file&.delete
