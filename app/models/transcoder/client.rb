@@ -2,8 +2,11 @@
 
 module Transcoder
   class Client
-    def initialize(movie)
+    def initialize(movie, config: nil, bucket_name: nil, project_id: nil)
       @movie = movie
+      @config = config || default_config
+      @bucket_name = bucket_name || default_bucket_name
+      @project_id = project_id || default_project_id
     end
 
     def create_job
@@ -33,18 +36,18 @@ module Transcoder
           key: 'video-stream',
           video_stream: {
             h264: {
-              height_pixels: config['video_height'],
-              width_pixels: config['video_width'],
-              bitrate_bps: config['video_bitrate'],
-              frame_rate: config['video_frame_rate']
+              height_pixels: @config['video_height'],
+              width_pixels: @config['video_width'],
+              bitrate_bps: @config['video_bitrate'],
+              frame_rate: @config['video_frame_rate']
             }
           }
         },
         {
           key: 'audio-stream',
           audio_stream: {
-            codec: config['audio_codec'],
-            bitrate_bps: config['audio_bitrate']
+            codec: @config['audio_codec'],
+            bitrate_bps: @config['audio_bitrate']
           }
         }
       ]
@@ -54,7 +57,7 @@ module Transcoder
       [
         {
           key: 'muxed-stream',
-          container: config['container'],
+          container: @config['container'],
           elementary_streams: %w[video-stream audio-stream]
         }
       ]
@@ -72,11 +75,11 @@ module Transcoder
       ActiveStorage::Blob.service.name.to_s
     end
 
-    def bucket_name
+    def default_bucket_name
       Rails.application.config.active_storage.service_configurations[service_name]['bucket']
     end
 
-    def project_id
+    def default_project_id
       Rails.application.config.active_storage.service_configurations[service_name]['project']
     end
 
@@ -96,8 +99,8 @@ module Transcoder
       transcoder_service.get_job(name: job_name)
     end
 
-    def config
-      @config ||= Rails.application.config.transcoder
+    def default_config
+      Rails.application.config.transcoder
     end
   end
 end
