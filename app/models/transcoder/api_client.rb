@@ -2,6 +2,12 @@
 
 module Transcoder
   class ApiClient
+    STATES = {
+      succeeded: :SUCCEEDED,
+      failed: :FAILED,
+      cancelled: :CANCELLED,
+      active: %i[RUNNING PENDING]
+    }.freeze
     
     def initialize(movie, config: nil, bucket_name: nil, project_id: nil)
       @movie = movie
@@ -25,19 +31,19 @@ module Transcoder
     end
 
     def succeeded?(job)
-      fetch_job_state(job) == :SUCCEEDED
+      job.state == STATES[:succeeded]
     end
     
     def failed?(job)
-      fetch_job_state(job) == :FAILED
+      job.state == STATES[:failed]
     end
 
     def cancelled?(job)
-      fetch_job_state(job) == :CANCELLED
+      job.state == STATES[:cancelled]
     end
     
     def active?(job)
-      %i[RUNNING PENDING].include?(fetch_job_state(job))
+      STATES[:active].include?(job.state)
     end
 
     private
@@ -101,15 +107,6 @@ module Transcoder
 
     def parent_path
       "projects/#{project_id}/locations/#{location}"
-    end
-
-    def get_job(job_name)
-      transcoder_service.get_job(name: job_name)
-    end
-
-    def fetch_job_state(job)
-      @job_state ||= {}
-      @job_state[job.name] ||= get_job(job.name).state
     end
 
     def default_config
