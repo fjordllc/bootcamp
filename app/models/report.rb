@@ -108,7 +108,7 @@ class Report < ApplicationRecord
   end
 
   def set_default_emotion
-    self.emotion ||= 2
+    self.emotion ||= 0
   end
 
   def total_learning_time
