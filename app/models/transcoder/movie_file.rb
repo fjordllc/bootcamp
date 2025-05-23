@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Transcoder
-  class File
+  class MovieFile
     def initialize(movie, bucket_name: nil)
       @movie = movie
       @bucket_name = bucket_name || default_bucket_name
