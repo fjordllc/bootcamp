@@ -2,14 +2,15 @@
 
 module Transcoder
   class ApiClient
+    
     def initialize(movie, config: nil, bucket_name: nil, project_id: nil)
       @movie = movie
       @config = config || default_config
-      @bucket_name = bucket_name || default_bucket_name
-      @project_id = project_id || default_project_id
+      @bucket_name = bucket_name || default_storage_config['bucket']
+      @project_id = project_id || default_storage_config['project']
     end
 
-    def create_job
+    def create_transcoding_job
       transcoder_service.create_job(
         parent: parent_path,
         job: {
@@ -87,12 +88,8 @@ module Transcoder
       ActiveStorage::Blob.service.name.to_s
     end
 
-    def default_bucket_name
-      Rails.application.config.active_storage.service_configurations[service_name]['bucket']
-    end
-
-    def default_project_id
-      Rails.application.config.active_storage.service_configurations[service_name]['project']
+    def default_storage_config
+      Rails.application.config.active_storage.service_configurations[service_name]
     end
 
     def input_uri
