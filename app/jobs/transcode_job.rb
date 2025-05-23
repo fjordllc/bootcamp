@@ -33,9 +33,9 @@ class TranscodeJob < ApplicationJob
   end
 
   def handle_success
-    transcoded_data = Transcoder::MovieFile.new(@movie).transcoded_data
-    @movie.movie_data.attach(io: transcoded_data, filename: "#{@movie.id}.mp4")
-    Transcoder::MovieFile.new(@movie).cleanup
+    file = Transcoder::TranscodedMovieFile.new(@movie)
+    @movie.movie_data.attach(io: file.data, filename: "#{@movie.id}.mp4")
+    file.cleanup
   end
 
   def log_state(state)
