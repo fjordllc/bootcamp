@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Transcoder
-  class Client
+  class ApiClient
     def initialize(movie, config: nil, bucket_name: nil, project_id: nil)
       @movie = movie
       @config = config || default_config
