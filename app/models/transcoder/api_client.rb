@@ -24,8 +24,20 @@ module Transcoder
                         .name
     end
 
-    def fetch_job_state(job_name)
-      get_job(job_name).state
+    def succeeded?(job_name)
+      fetch_job_state(job_name) == :SUCCEEDED
+    end
+    
+    def failed?(job_name)
+      fetch_job_state(job_name) == :FAILED
+    end
+
+    def cancelled?(job_name)
+      fetch_job_state(job_name) == :CANCELLED
+    end
+    
+    def active?(job_name)
+      %i[RUNNING PENDING].include?(fetch_job_state(job_name))
     end
 
     private
@@ -97,6 +109,10 @@ module Transcoder
 
     def get_job(job_name)
       transcoder_service.get_job(name: job_name)
+    end
+
+    def fetch_job_state(job_name)
+      get_job(job_name).state
     end
 
     def default_config
