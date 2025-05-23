@@ -25,7 +25,7 @@ export default (md) => {
 
 function escapeHTML(string) {
   return string
-    .replace(/&/g, '&lt;')
+    .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
