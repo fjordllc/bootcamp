@@ -1,4 +1,5 @@
 import MarkdownItContainer from 'markdown-it-container'
+import escapeHTML from './escapeHtml.js'
 
 export default (md) => {
   md.use(MarkdownItContainer, 'details', {
@@ -14,13 +15,4 @@ export default (md) => {
       }
     }
   })
-}
-
-function escapeHTML(string) {
-  return string
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#x27;')
 }
