@@ -1,21 +1,25 @@
 # frozen_string_literal: true
 
 module Transcoder
-  class MovieFile
-    def initialize(movie, bucket_name: nil)
+  class TranscodedMovieFile
+    def initialize(movie, bucket_name: nil, path: nil)
       @movie = movie
       @bucket_name = bucket_name || default_bucket_name
+      @path = path || default_path
     end
 
-    def transcoded_data
-      transcoded_file = storage.bucket(bucket_name).file(transcoded_video_path)
-      StringIO.new(transcoded_file.download.string)
+    def data
+      StringIO.new(file.download.string)
+    end
+
+    def cleanup
+      file&.delete
     end
 
     private
 
-    def cleanup(file)
-      file&.delete
+    def file
+      @file ||= storage.bucket(bucket_name).file(@path)
     end
 
     def storage
@@ -27,7 +31,7 @@ module Transcoder
       Rails.application.config.active_storage.service_configurations[service_name]['bucket']
     end
 
-    def transcoded_video_path
+    def default_path
       "#{@movie.id}/muxed-stream.mp4"
     end
   end
