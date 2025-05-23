@@ -171,6 +171,15 @@
     &:nth-child(even)
       background-color: mix($default-text, $background, 2%)
 
+=figure
+  figure:has(figcaption) > *:first-child
+    margin-bottom: 0
+  figcaption
+    +text-block(.875em 1.6)
+    margin-top: .75em
+    text-align: center
+
+
 =message
   .message
     padding: 1em 1.25em 1em 2.75em
@@ -315,10 +324,7 @@
       max-width: 100% !important
   br + img
     margin-block: 1em
-  figcaption
-    +text-block(.875em 1.6)
-    margin-top: .75em
-    text-align: center
+  +figure
   +list
   div
     +list
