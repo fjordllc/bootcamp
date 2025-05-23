@@ -4,7 +4,7 @@ import 'ace-builds/webpack-resolver'
 import 'ace-builds/src-noconflict/mode-javascript'
 import 'ace-builds/src-noconflict/mode-ruby'
 import 'ace-builds/src-noconflict/theme-github'
-import Bootcamp from 'bootcamp'
+import { post } from '@rails/request.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const id = 'code_editor'
@@ -51,10 +51,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const response = await Bootcamp.post(
-        '/api/coding_test_submissions',
-        params
-      )
+      const response = await post('/api/coding_test_submissions', {
+        body: JSON.stringify(params),
+        contentType: 'application/json'
+      })
       if (response.ok) {
         location.href = `/practices/${practiceId}`
       } else {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import useSWR, { useSWRConfig } from 'swr'
 import fetcher from '../fetcher'
-import Bootcamp from '../bootcamp'
+import { destroy } from '@rails/request.js'
 import userIcon from '../user-icon.js'
 import Pagination from './Pagination'
 import usePage from './hooks/usePage'
@@ -139,7 +139,7 @@ const EditButton = ({ editable, setEditable }) => {
   )
 }
 
-const Bookmark = ({ bookmark, editable, bookmarksUrl, _setEditable }) => {
+const Bookmark = ({ bookmark, editable, bookmarksUrl }) => {
   // userIconの非React化により、useRef,useEffectを導入している。
   const userIconRef = useRef(null)
   useEffect(() => {
@@ -159,16 +159,25 @@ const Bookmark = ({ bookmark, editable, bookmarksUrl, _setEditable }) => {
   }, [bookmark.user])
 
   const date = bookmark.reported_on || bookmark.created_at
-  const createdAt = Bootcamp.iso8601ToFullTime(date)
+  // ISO8601日付を「YYYY年MM月DD日(曜日)」形式に変換
+  const createdAt = new Date(date).toLocaleDateString('ja-JP', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    weekday: 'short'
+  })
   const { mutate } = useSWRConfig()
-  const afterDelete = (id) => {
-    Bootcamp.delete(`/api/bookmarks/${id}.json`)
-      .then((_response) => {
+  const afterDelete = async (id) => {
+    try {
+      const response = await destroy(`/api/bookmarks/${id}.json`)
+      if (response.ok) {
         mutate(bookmarksUrl)
-      })
-      .catch((error) => {
-        console.warn(error)
-      })
+      } else {
+        console.warn('削除に失敗しました。')
+      }
+    } catch (error) {
+      console.warn(error)
+    }
   }
 
   return (
