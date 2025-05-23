@@ -80,7 +80,7 @@ module Transcoder
     end
 
     def location
-      config['location']
+      @config['location']
     end
 
     def service_name
