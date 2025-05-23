@@ -96,13 +96,15 @@ const Bookmark = ({ bookmark, editable, bookmarksUrl }) => {
   }, [bookmark.user])
 
   const date = bookmark.reported_on || bookmark.created_at
-  // ISO8601日付を「YYYY年MM月DD日(曜日)」形式に変換
-  const createdAt = new Date(date).toLocaleDateString('ja-JP', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    weekday: 'short'
-  })
+  // ISO8601日付を「YYYY年MM月DD日(曜日) HH:mm」形式に変換
+  const dateObj = new Date(date)
+  const year = dateObj.getFullYear()
+  const month = String(dateObj.getMonth() + 1).padStart(2, '0')
+  const day = String(dateObj.getDate()).padStart(2, '0')
+  const weekday = dateObj.toLocaleDateString('ja-JP', { weekday: 'short' })
+  const hours = String(dateObj.getHours()).padStart(2, '0')
+  const minutes = String(dateObj.getMinutes()).padStart(2, '0')
+  const createdAt = `${year}年${month}月${day}日(${weekday}) ${hours}:${minutes}`
   const { mutate } = useSWRConfig()
   const afterDelete = async (id) => {
     try {

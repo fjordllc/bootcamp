@@ -1371,9 +1371,10 @@
   dependencies:
     pug-lexer "^5.0.1"
 
-"@rails/request.js@rails/request.js":
+"@rails/request.js@^0.0.12":
   version "0.0.12"
-  resolved "https://codeload.github.com/rails/request.js/tar.gz/83620bb9e96ef99c964c0dfb0f214a8d1483586e"
+  resolved "https://registry.yarnpkg.com/@rails/request.js/-/request.js-0.0.12.tgz#3d1f73e7585141d9c4c2149a34476d128eb900bc"
+  integrity sha512-g3//JBja1s04Zflj7IoMLQuXza9i4ZvtLmm0r0dMwh1QQUs6rL2iKUOGGyERfLsd81SnXC5ucfVV//rtsDlEEA==
 
 "@rails/webpacker@5.4.3":
   version "5.4.3"
