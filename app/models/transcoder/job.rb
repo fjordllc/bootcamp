@@ -6,8 +6,8 @@ module Transcoder
 
     def initialize(movie, name = nil)
       @movie = movie
-      @client = Transcoder::Client.new(@movie)
-      @name = name || @client.create_job
+      @api_client = Transcoder::ApiClient.new(@movie)
+      @name = name || @api_client.create_job
     end
 
     def call(&block)
@@ -20,7 +20,7 @@ module Transcoder
     private
 
     def state
-      @client.fetch_job_state(@name)
+      @api_client.fetch_job_state(@name)
     end
 
     def schedule_polling
