@@ -28,26 +28,43 @@ module Transcoder
     end
 
     def handle_state
-      handlers.fetch(state) { method(:unknown_state) }.call
+      handlers[state_category].call
     end
 
     def handlers
       {
-        SUCCEEDED: -> { handle_success },
-        FAILED: -> { Rails.logger.error "Transcoding failed for Movie #{@movie.id}" },
-        CANCELLED: -> { Rails.logger.error "Transcoding job for Movie #{@movie.id} was cancelled." },
-        RUNNING: -> { schedule_polling },
-        PENDING: -> { schedule_polling }
+        succeeded: -> { handle_success },
+        failed:    -> { log_failure },
+        cancelled: -> { log_cancel },
+        active:    -> { schedule_polling },
+        unknown:   -> { log_unknown }
       }
+    end
+
+    def state_category
+      return :succeeded if @api_client.succeeded?(@name)
+      return :failed    if @api_client.failed?(@name)
+      return :cancelled if @api_client.cancelled?(@name)
+      return :active    if @api_client.active?(@name)
+      :unknown
     end
 
     def handle_success
       transcoded_data = Transcoder::MovieFile.new(@movie).transcoded_data
-      @block.call(transcoded_data)
+      @block.call(transcoded_data) if @block
     end
 
-    def unknown_state
+    def log_failure
+      Rails.logger.error "Transcoding failed for Movie #{@movie.id}"
+    end
+
+    def log_cancel
+      Rails.logger.error "Transcoding job for Movie #{@movie.id} was cancelled."
+    end
+
+    def log_unknown
       Rails.logger.warn "Unknown transcoder job state for Movie #{@movie.id}. No further action taken."
     end
+
   end
 end
