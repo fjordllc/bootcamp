@@ -112,7 +112,8 @@ module Transcoder
     end
 
     def fetch_job_state(job_name)
-      get_job(job_name).state
+      @job_state ||= {}
+      @job_state[job_name] ||= get_job(job_name).state
     end
 
     def default_config
