@@ -10,8 +10,9 @@ class TranscodeJob < ApplicationJob
 
     @movie = movie
     @api_client = Transcoder::ApiClient.new(@movie)
-    @job_name = job_name || @api_client.create_job
+    @job_name = job_name || @api_client.create_transcoding_job
 
+    job_state = fetch_job_state
     case job_state
     when :succeeded then handle_success
     when :failed    then log_state(:failed)
@@ -24,7 +25,7 @@ class TranscodeJob < ApplicationJob
 
   private
 
-  def job_state
+  def fetch_job_state
     return :succeeded if @api_client.succeeded?(@job_name)
     return :failed    if @api_client.failed?(@job_name)
     return :cancelled if @api_client.cancelled?(@job_name)
