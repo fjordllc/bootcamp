@@ -42,7 +42,7 @@ module Transcoder
     end
 
     def handle_success
-      transcoded_data = Transcoder::File.new(@movie).transcoded_data
+      transcoded_data = Transcoder::MovieFile.new(@movie).transcoded_data
       @block.call(transcoded_data)
     end
 
