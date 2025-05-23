@@ -6,19 +6,19 @@ class TranscodeJob < ApplicationJob
   POLLING_INTERVAL = 60.seconds
 
   def perform(movie, job_name = nil)
+    return unless Rails.application.config.transcoder['enable']
+
     @movie = movie
     @api_client = Transcoder::ApiClient.new(@movie)
     @job_name = job_name || @api_client.create_job
 
-    return unless Rails.application.config.transcoder['enable']
-
     case job_state
     when :succeeded then handle_success
-    when :failed    then log_state("failed")
-    when :cancelled then log_state("cancelled")
+    when :failed    then log_state(:failed)
+    when :cancelled then log_state(:cancelled)
     when :active    then schedule_polling
     else
-      log_state("unknown")
+      log_state(:unknown)
     end
   end
 
@@ -39,11 +39,11 @@ class TranscodeJob < ApplicationJob
   end
 
   def log_state(state)
-    level = %w[failed cancelled].include?(state) ? :error : :warn
+    level = %i[failed cancelled].include?(state) ? :error : :warn
     message = case state
-              when "failed"
+              when :failed
                 "Transcoding failed for Movie #{@movie.id}"
-              when "cancelled"
+              when :cancelled
                 "Transcoding job for Movie #{@movie.id} was cancelled."
               else
                 "Unknown transcoder job state for Movie #{@movie.id}. No further action taken."
