@@ -21,4 +21,7 @@ hr.a-border
       nav.auth-form-nav
         ul.auth-form-nav__items
           li.auth-form-nav__item
-            = link_to '退会手続き', new_retirement_path, class: 'auth-form-nav__item-link test-fixed-bottom'
+            - if @user.trainee?
+              = link_to '研修終了手続き', new_training_completion_path, class: 'auth-form-nav__item-link test-fixed-bottom'
+            - else
+              = link_to '退会手続き', new_retirement_path, class: 'auth-form-nav__item-link test-fixed-bottom'
