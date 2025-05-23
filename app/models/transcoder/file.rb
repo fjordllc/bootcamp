@@ -2,8 +2,9 @@
 
 module Transcoder
   class File
-    def initialize(movie)
+    def initialize(movie, bucket_name: nil)
       @movie = movie
+      @bucket_name = bucket_name || default_bucket_name
     end
 
     def transcoded_data
@@ -21,7 +22,7 @@ module Transcoder
       Google::Cloud::Storage.new
     end
 
-    def bucket_name
+    def default_bucket_name
       service_name = ActiveStorage::Blob.service.name.to_s
       Rails.application.config.active_storage.service_configurations[service_name]['bucket']
     end
