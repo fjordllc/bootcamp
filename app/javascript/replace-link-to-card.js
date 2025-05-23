@@ -1,5 +1,6 @@
 import CSRF from 'csrf'
 import { debounce } from './debounce.js'
+import escapeHTML from './escapeHtml.js'
 
 export default (selector) => {
   const textareas = document.querySelectorAll(selector)
@@ -81,14 +82,6 @@ const isValidHttpUrl = (str) => {
   } catch (_) {
     return false
   }
-}
-function escapeHTML(string) {
-  return string
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#x27;')
 }
 
 const isTweet = (url) => {
