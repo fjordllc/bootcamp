@@ -10,6 +10,6 @@ class Check < ApplicationRecord
   validates :user_id, uniqueness: { scope: %i[checkable_id checkable_type] }
 
   def receiver
-    checkable.user
+    checkable.respond_to?(:user) ? checkable.user : nil
   end
 end
