@@ -46,10 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const saveButton = microReportEditor.querySelector('.js-save-button')
     if (saveButton) {
-      saveButton.addEventListener('click', () => {
+      saveButton.addEventListener('click', async () => {
         toggleVisibility(modalElements, 'is-hidden')
         savedMicroReport = editorTextarea.value
-        updateMicroReport(microReportId, savedMicroReport)
+        await updateMicroReport(microReportId, savedMicroReport)
         TextareaInitializer.initialize(`#js-comment-${microReportId}`)
         microReportDisplayContent.innerHTML =
           markdownInitializer.render(savedMicroReport)
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
       micro_report: { content: content }
     }
     const url = `/api/micro_reports/${microReportId}`
-    Bootcamp.patch(url, params).catch((error) => {
+    return Bootcamp.patch(url, params).catch((error) => {
       console.warn(error)
     })
   }
