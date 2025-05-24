@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2025_04_11_103935) do
-=======
-ActiveRecord::Schema.define(version: 2025_04_02_095053) do
->>>>>>> 7b7de3678 (自動退会１週間前のメールの送信フラグ用のカラムを追加した)
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
