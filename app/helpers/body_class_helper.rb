@@ -26,7 +26,8 @@ module BodyClassHelper
     if admin_page?
       'admin-page'
     elsif qualified_controller_name.include?('welcome') ||
-          (qualified_controller_name.include?('articles') && %w[index-page show-page].include?(page_category))
+          (qualified_controller_name.include?('articles') && (page_category == 'index-page' ||
+          page_category == 'show-page'))
       'welcome-page'
     else
       'learning-page'
