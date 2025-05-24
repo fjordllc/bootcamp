@@ -9,8 +9,9 @@ class TranscodeJob < ApplicationJob
     return unless Rails.application.config.transcoder['enable']
 
     @movie = movie
-    @api_client = Transcoder::APIClient.new(@movie)
+    api_client = Transcoder::APIClient.new(@movie)
     @job_name = job_name || @api_client.create_transcoding_job
+
     job_state = @api_client.job_state(@job_name)
     case job_state
     when :succeeded then attach_transcoded_movie
