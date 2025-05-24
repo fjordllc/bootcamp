@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Transcoder
-  class ApiClient
+  class APIClient
     STATES = {
       succeeded: :SUCCEEDED,
       failed: :FAILED,
@@ -27,23 +27,18 @@ module Transcoder
             mux_streams:
           }
         }
-      )
+      ).name
     end
 
-    def succeeded?(job)
-      job.state == STATES[:succeeded]
-    end
-    
-    def failed?(job)
-      job.state == STATES[:failed]
-    end
-
-    def cancelled?(job)
-      job.state == STATES[:cancelled]
-    end
-    
-    def active?(job)
-      STATES[:active].include?(job.state)
+    def job_state(job_name)
+      job = transcoder_service.get_job(name: job_name)
+      case job.state
+      when *STATES[:active]   then :active
+      when STATES[:succeeded] then :succeeded
+      when STATES[:failed]    then :failed
+      when STATES[:cancelled] then :cancelled
+      else                         :unknown
+      end
     end
 
     private
@@ -98,15 +93,15 @@ module Transcoder
     end
 
     def input_uri
-      "gs://#{bucket_name}/#{@movie.movie_data.key}"
+      "gs://#{@bucket_name}/#{@movie.movie_data.key}"
     end
 
     def output_uri
-      "gs://#{bucket_name}/#{@movie.id}/"
+      "gs://#{@bucket_name}/#{@movie.id}/"
     end
 
     def parent_path
-      "projects/#{project_id}/locations/#{location}"
+      "projects/#{@project_id}/locations/#{location}"
     end
 
     def default_config
