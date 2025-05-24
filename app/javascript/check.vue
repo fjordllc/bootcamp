@@ -57,9 +57,17 @@ export default {
       return this.$store.getters.checkId
     },
     buttonLabel() {
-      return (
-        this.checkableLabel + (this.checkId ? 'の確認を取り消す' : 'を確認')
-      )
+      const path = window.location.pathname
+      if (path.includes('/products')) {
+        return (
+          this.checkableLabel +
+          (this.checkId ? 'の合格を取り消す' : 'を合格にする')
+        )
+      } else {
+        return (
+          this.checkableLabel + (this.checkId ? 'の確認を取り消す' : 'を確認')
+        )
+      }
     },
     url() {
       return this.checkId ? `/api/checks/${this.checkId}` : '/api/checks'
