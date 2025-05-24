@@ -5,16 +5,15 @@ class TranscodeJob < ApplicationJob
 
   POLLING_INTERVAL = 60.seconds
 
-  def perform(movie, job = nil)
+  def perform(movie, job_name = nil)
     return unless Rails.application.config.transcoder['enable']
 
     @movie = movie
-    @api_client = Transcoder::ApiClient.new(@movie)
-    @job = job || @api_client.create_transcoding_job
-
-    job_state = fetch_job_state
+    @api_client = Transcoder::APIClient.new(@movie)
+    @job_name = job_name || @api_client.create_transcoding_job
+    job_state = @api_client.job_state(@job_name)
     case job_state
-    when :succeeded then handle_success
+    when :succeeded then attach_transcoded_movie
     when :failed    then log_state(:failed)
     when :cancelled then log_state(:cancelled)
     when :active    then schedule_polling
@@ -25,15 +24,7 @@ class TranscodeJob < ApplicationJob
 
   private
 
-  def fetch_job_state
-    return :succeeded if @api_client.succeeded?(@job)
-    return :failed    if @api_client.failed?(@job)
-    return :cancelled if @api_client.cancelled?(@job)
-    return :active    if @api_client.active?(@job)
-    :unknown
-  end
-
-  def handle_success
+  def attach_transcoded_movie
     file = Transcoder::TranscodedMovieFile.new(@movie)
     @movie.movie_data.attach(io: file.data, filename: "#{@movie.id}.mp4")
     file.cleanup
@@ -54,6 +45,6 @@ class TranscodeJob < ApplicationJob
   end
 
   def schedule_polling
-    TranscodeJob.set(wait: POLLING_INTERVAL).perform_later(@movie, @job)
+    TranscodeJob.set(wait: POLLING_INTERVAL).perform_later(@movie, @job_name)
   end
 end
