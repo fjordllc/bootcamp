@@ -6,6 +6,7 @@ class ChatNotifier
     username: 'ピヨルド',
     webhook_url: ENV['DISCORD_NOTICE_WEBHOOK_URL']
   )
+
     if Rails.env.production?
       Discord::Notifier.message(message, username:, url: webhook_url)
     else

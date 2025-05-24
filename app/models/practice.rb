@@ -160,7 +160,7 @@ class Practice < ApplicationRecord
     if minute_list.size.even?
       (minute_list[center_index] + minute_list[center_index + 1]) / 2
     else
-      minute_list[center_index]
+      (minute_list[center_index])
     end
   end
 
