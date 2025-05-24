@@ -28,7 +28,7 @@
         .a-form-help
           p
             | ここにアップロードした画像が、X（Twitter）、Facebook で投稿した際に表示される画像として使われます。
-            | 画像サイズが 1200px × 630px でない場合は、アスペクト比を維持したまま1200px x 630pxにリサイズして使われます。
+            | 画像サイズが #{PracticesHelper::OGP_SIZE.join('px x ')}px でない場合は、アスペクト比を維持したまま#{PracticesHelper::OGP_SIZE.join('px x ')}pxにリサイズして使われます。
   .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12
