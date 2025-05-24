@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     )
     const microReportEditor = microReport.querySelector('.micro-report-editor')
 
-    const microReporDisplayContent =
+    const microReportDisplayContent =
       microReportDisplay.querySelector('.a-short-text')
     const microReportEditorPreview = microReportEditor.querySelector(
       '.a-markdown-input__preview'
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const markdownInitializer = new MarkdownInitializer()
     if (microReportContent) {
-      microReporDisplayContent.innerHTML =
+      microReportDisplayContent.innerHTML =
         markdownInitializer.render(microReportContent)
       microReportEditorPreview.innerHTML =
         markdownInitializer.render(microReportContent)
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         savedMicroReport = editorTextarea.value
         updateMicroReport(microReportId, savedMicroReport)
         TextareaInitializer.initialize(`#js-comment-${microReportId}`)
-        microReporDisplayContent.innerHTML =
+        microReportDisplayContent.innerHTML =
           markdownInitializer.render(savedMicroReport)
       })
     }
