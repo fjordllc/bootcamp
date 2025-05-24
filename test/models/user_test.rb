@@ -769,4 +769,11 @@ class UserTest < ActiveSupport::TestCase
     user = users(:jobseeking)
     assert_includes User.job_seeking, user
   end
+
+  test '#mark_mail_as_sent_before_auto_retire' do
+    user = users(:hajime)
+    assert_not user.sent_student_before_auto_retire_mail
+    user.mark_mail_as_sent_before_auto_retire
+    assert user.sent_student_before_auto_retire_mail
+  end
 end

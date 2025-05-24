@@ -163,4 +163,17 @@ class AutoRetireTest < ApplicationSystemTestCase
       assert_equal Date.current, user.reload.retired_on
     end
   end
+
+  test 'send mail one week before auto retire' do
+    travel_to Time.zone.local(2020, 3, 26, 0, 0, 0) do
+      mock_env('TOKEN' => 'token') do
+        visit scheduler_daily_send_mail_to_hibernation_user_path(token: 'token')
+      end
+    end
+
+    user = users(:kyuukai)
+    mails = ActionMailer::Base.deliveries
+    mail_to_user = mails.find { |m| m.to == [user.email] }
+    assert_equal '[FBC] ご注意：休会期限の接近について', mail_to_user.subject
+  end
 end
