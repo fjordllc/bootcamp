@@ -216,7 +216,7 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                   ))
 
     assert_selector '.stamp.stamp-approve' do
-      assert_text '確認済'
+      assert_text '合格'
       assert_text I18n.l(Time.zone.today, format: :short)
       assert_text 'komagata'
     end

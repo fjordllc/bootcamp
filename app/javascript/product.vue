@@ -106,7 +106,7 @@
 
     .stamp.stamp-approve(v-if='product.checks.size > 0')
       h2.stamp__content.is-title
-        | 確認済
+        | 合格
       time.stamp__content.is-created-at
         | {{ product.checks.last_created_at }}
       .stamp__content.is-user-name
