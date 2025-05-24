@@ -1,4 +1,4 @@
-import CSRF from 'csrf'
+import Bootcamp from 'bootcamp'
 import MarkdownInitializer from 'markdown-initializer'
 import TextareaInitializer from 'textarea-initializer'
 
@@ -102,17 +102,8 @@ document.addEventListener('DOMContentLoaded', () => {
       id: microReportId,
       micro_report: { content: content }
     }
-    fetch(`/api/micro_reports/${microReportId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': CSRF.getToken()
-      },
-      credentials: 'same-origin',
-      redirect: 'manual',
-      body: JSON.stringify(params)
-    }).catch((error) => {
+    const url = `/api/micro_reports/${microReportId}`
+    Bootcamp.patch(url, params).catch((error) => {
       console.warn(error)
     })
   }
