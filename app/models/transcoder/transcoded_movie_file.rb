@@ -19,7 +19,7 @@ module Transcoder
     private
 
     def file
-      @file ||= storage.bucket(bucket_name).file(@path)
+      @file ||= storage.bucket(@bucket_name).file(@path)
     end
 
     def storage
