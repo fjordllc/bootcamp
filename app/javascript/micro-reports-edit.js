@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
       saveButton.addEventListener('click', () => {
         toggleVisibility(modalElements, 'is-hidden')
         savedMicroReport = editorTextarea.value
-        updatemicroReport(microReportId, savedMicroReport)
+        updateMicroReport(microReportId, savedMicroReport)
         TextareaInitializer.initialize(`#js-comment-${microReportId}`)
         microReporDisplayContent.innerHTML =
           markdownInitializer.render(savedMicroReport)
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
 
-  function updatemicroReport(microReportId, content) {
+  function updateMicroReport(microReportId, content) {
     if (content.length < 1) {
       return null
     }
