@@ -57,12 +57,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const cancelButton = microReportEditor.querySelector('.js-cancel-button')
-    cancelButton.addEventListener('click', () => {
-      toggleVisibility(modalElements, 'is-hidden')
-      editorTextarea.value = savedMicroReport
-      microReportEditorPreview.innerHTML =
-        markdownInitializer.render(savedMicroReport)
-    })
+    if (cancelButton) {
+      cancelButton.addEventListener('click', () => {
+        toggleVisibility(modalElements, 'is-hidden')
+        editorTextarea.value = savedMicroReport
+        microReportEditorPreview.innerHTML =
+          markdownInitializer.render(savedMicroReport)
+      })
+    }
 
     editorTextarea.addEventListener('input', () => {
       microReportEditorPreview.innerHTML = markdownInitializer.render(
