@@ -51,8 +51,8 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'not display learning completion message when a user of the completed product visits after the second time' do
     visit_with_auth "/products/#{products(:product65).id}", 'komagata'
-    click_button '提出物を確認'
-    assert_text '提出物の確認を取り消す'
+    click_button '提出物を合格にする'
+    assert_text '提出物の合格を取り消す'
     visit_with_auth "/products/#{products(:product65).id}", 'kimura'
     first('label.card-main-actions__muted-action.is-closer').click
     assert_no_text '喜びをXにポストする！'
@@ -217,7 +217,7 @@ class ProductsTest < ApplicationSystemTestCase
   test 'hide checker button at product checked' do
     visit_with_auth "/products/#{products(:product1).id}", 'machida'
     assert_button '担当する'
-    click_button '提出物を確認'
+    click_button '提出物を合格にする'
     assert_no_button '担当する'
     assert_no_button '担当から外れる'
   end

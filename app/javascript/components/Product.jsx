@@ -96,7 +96,7 @@ export default function Product({
         </div>
         {product.checks.size > 0 && (
           <div className=" stamp stamp-approve">
-            <h2 className="stamp__content is-title">確認済</h2>
+            <h2 className="stamp__content is-title">合格</h2>
             <time className="stamp__content is-created-at">
               {product.checks.last_created_at}
             </time>
