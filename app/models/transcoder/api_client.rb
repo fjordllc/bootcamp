@@ -8,7 +8,7 @@ module Transcoder
       cancelled: :CANCELLED,
       active: %i[RUNNING PENDING]
     }.freeze
-    
+
     def initialize(movie, config: nil, bucket_name: nil, project_id: nil)
       @movie = movie
       @config = config || default_config
