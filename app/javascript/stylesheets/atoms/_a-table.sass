@@ -1,0 +1,45 @@
+.a-table
+  +media-breakpoint-down(sm)
+    overflow-x: auto
+  overflow-x: auto
+  &.is-sm
+    font-size: .8125rem
+  td,
+  th
+    padding: .5rem
+  th
+    background-color: var(--background-tint)
+    border: solid 1px var(--border-shade)
+  td
+    border: solid 1px var(--border)
+
+.a-table table
+  border-radius: .25rem
+  width: 100%
+
+.a-table thead
+  background-color: var(--background-semi-shade)
+  border: solid 1px var(--border-shade)
+  +border-radius(top, .25rem)
+
+.a-table tr
+  +border(horizontal, solid 1px var(--border))
+
+.a-table th
+  +text-block(.75rem 1.4, center 600)
+  border: solid 1px var(--border-shade)
+  white-space: nowrap
+  height: 2rem
+  padding-inline: .5rem
+
+.a-table td
+  transition: all .2s ease-out
+  background-color: var(--base)
+  padding: .375rem .75rem
+  border: solid 1px var(--border)
+  +text-block(.8125rem 1.45)
+
+.card-body
+  >.a-table table
+    margin: -1px
+    width: calc(100% + 2px)

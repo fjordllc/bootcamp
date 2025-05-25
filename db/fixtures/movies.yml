@@ -1,0 +1,34 @@
+# setup時のattachファイルの拡張子判別に必要なため、タイトルにはattachする動画の拡張子名を含むようにする
+# attachする動画データのタイトルはmovie#{i}.拡張子名(mp4 or mov)
+
+movie1:
+  title: mp4動画
+  description: mp4の動画です
+  user: kimura
+  published_at: '2024-04-09 00:00:00'
+
+movie2:
+  title: mov動画
+  description: movの動画です
+  user: kimura
+  published_at: '2024-04-09 00:00:00'
+
+movie3:
+  title: WIPのテスト mp4
+  description: WIPのテスト用です
+  user: kimura
+  wip: true
+
+movie4:
+  title: Terminalの基礎を覚える mp4動画
+  description: Terminalの基礎を覚えるに関連する動画です。
+  user: komagata
+  published_at: '2024-04-10 00:00:00'
+
+<% (5..10).each do |id| %>
+movie<%= id %>:
+  title: OS X Mountain Lionをクリーンインストールする 動画<%= id %> mp4動画
+  description: OS X Mountain Lionをクリーンインストールするに関連する動画<%= id %>です。
+  user: komagata
+  published_at: '2024-04-10 00:00:00'
+<% end %>

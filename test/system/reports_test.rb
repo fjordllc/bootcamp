@@ -467,7 +467,20 @@ class ReportsTest < ApplicationSystemTestCase
       fill_in('report[reported_on]', with: Date.current.next_day)
     end
     click_button '提出'
-    assert_text '学習日は今日以前の日付にしてください'
+    assert_text '学習日は2013年01月01日から今日以前の間の日付にしてください'
+  end
+
+  test 'cannot post a new report with min date' do
+    visit_with_auth '/reports/new', 'komagata'
+    within('form[name=report]') do
+      fill_in('report[title]', with: '学習日が2013年1月1日より前では日報を作成できない')
+      fill_in('report[description]', with: 'エラーになる')
+      fill_in('report[reported_on]', with: Date.new(2012, 12, 31))
+    end
+    click_button '提出'
+    html_validataion_message = page.find('#report_reported_on').native.attribute('validationMessage')
+    assert_not_nil html_validataion_message
+    assert_not_empty html_validataion_message
   end
 
   test 'display recently reports' do
@@ -479,7 +492,7 @@ class ReportsTest < ApplicationSystemTestCase
   test 'display list of submission when mentor is access' do
     visit_with_auth report_path(reports(:report5)), 'komagata'
     assert_text '提出物'
-    find('#side-tabs-nav-3').click
+    find('#side-tabs-nav-4').click
     assert_text 'Terminalの基礎を覚える'
     assert_text 'PC性能の見方を知る'
   end
@@ -768,5 +781,25 @@ class ReportsTest < ApplicationSystemTestCase
 
     visit_with_auth report_path(report), 'komagata'
     assert_selector '.a-page-notice.is-muted.is-only-mentor', text: 'このユーザーは退会しています。'
+  end
+
+  test 'URL copy button copies the current URL to the clipboard' do
+    report = reports(:report10)
+    visit_with_auth "/reports/#{report.id}", 'hajime'
+    cdp_permission_write = {
+      origin: page.server_url,
+      permission: { name: 'clipboard-write' },
+      setting: 'granted'
+    }
+    page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission_write)
+    cdp_permission_read = {
+      origin: page.server_url,
+      permission: { name: 'clipboard-read' },
+      setting: 'granted'
+    }
+    page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission_read)
+    click_button 'URLコピー'
+    clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
+    assert_equal current_url, clip_text
   end
 end

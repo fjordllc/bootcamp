@@ -42,17 +42,17 @@
               .dashboard-category__body
                 .a-panels
                   .a-panels__items
-                    - if @collegue_trainees.present?
+                    - if @colleague_trainees.present?
                       .a-panels__item
-                        = render 'collegue_trainees', collegue_trainees: @collegue_trainees
+                        = render 'colleague_trainees', colleague_trainees: @colleague_trainees
                       .a-panels__item
-                        = render 'collegue_trainees_recent_reports'
+                        = render 'colleague_trainees_recent_reports'
                     - else
                       .a-panels__item
                         .a-panels
                           .a-panels__items
                             .a-panels__item
-                              = render 'collegue_trainees_empty'
+                              = render 'colleague_trainees_empty'
                     .a-panels__item
                       = render 'invite_trainee_link', company: current_user.company
                     .a-panels__item
@@ -63,9 +63,9 @@
               .dashboard-category__body
                 .a-panels
                   .a-panels__items
-                    - if @collegues.present?
+                    - if @colleagues.present?
                       .a-panels__item
-                        = render 'collegues', collegues: @collegues
+                        = render 'colleagues', colleagues: @colleagues
                   //
                     TODO 企業に所属するアドバイザーが企業情報を編集できるようにしたら公開
                     - if current_user.belongs_company_and_adviser?

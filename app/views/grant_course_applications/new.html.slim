@@ -1,0 +1,29 @@
+ruby:
+  title '給付金対応コース受講申請'
+  content_for :extra_body_classes, 'no-header no-footer no-global-nav is-auth-page is-piyo-background'
+  set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）')
+
+.auth-form.is-lg.a-card
+  header.auth-form__header
+    h1.auth-form__title = title
+  .auth-form__body
+    .form-notice.a-notice-block.is-danger
+      p
+        | こちらはRailsエンジニア（Reスキル認定講座対応）コース（給付金対応コース）受講申請フォームです。
+        | サブスクのコースを参加申し込みは
+        = link_to choose_courses_path do
+          | こちらからお申し込みください
+        | 。
+      p
+        | 支給を受けるためには、ハローワークで訓練前のキャリアコンサルティングを受け、
+        | その後で受給資格の確認を受ける必要があります。
+        | ご入金は必ずハローワークにて受給資格が認定された後に行ってください。
+    = render 'form', grant_course_application: @grant_course_application
+  hr.a-border-tint
+  footer.auth-form__footer
+    nav.auth-form-nav
+      ul.auth-form-nav__items
+        li.auth-form-nav__item
+          = link_to 'トップページ', welcome_path, class: 'auth-form-nav__item-link'
+        li.auth-form-nav__item
+          = link_to 'FAQ', faq_path, class: 'auth-form-nav__item-link'

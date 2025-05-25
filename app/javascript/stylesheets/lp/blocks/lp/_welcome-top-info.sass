@@ -1,0 +1,33 @@
+.welcome-top-info
+  background-color: var(--danger)
+
+.welcome-top-info__inner
+  padding-block: .75rem
+  +media-breakpoint-up(md)
+    display: flex
+    align-items: center
+    justify-content: center
+
+.welcome-top-info__label
+  border: solid 1px var(--reversal-text)
+  background-color: var(--danger)
+  +text-block(.75rem 1.4, flex 700 nowrap)
+  color: var(--reversal-text)
+  padding: .25rem .75rem
+  border-radius: 1rem
+  align-items: center
+  justify-content: center
+  +media-breakpoint-up(md)
+    margin-right: .5rem
+  +media-breakpoint-down(sm)
+    margin-bottom: .5rem
+    width: 10rem
+    margin: -26px auto .5rem
+
+.welcome-top-info__link
+  color: var(--reversal-text)
+  +hover-link
+  +media-breakpoint-up(md)
+    +text-block(1.125rem 1.5)
+  +media-breakpoint-down(sm)
+    +text-block(.875rem 1.5)

@@ -13,8 +13,8 @@ class Footprint::ProductsTest < ApplicationSystemTestCase
   end
 
   test 'should not footpoint with my own product' do
-    visit_with_auth product_path(@product), 'mentormentaro'
-    assert_no_css '.a-user-icon.is-mentormentaro'
+    visit_with_auth product_path(@product), 'sotugyou'
+    assert_no_css '.a-user-icon.is-sotugyou'
   end
 
   test 'show link if there are more than ten footprints' do
@@ -32,7 +32,7 @@ class Footprint::ProductsTest < ApplicationSystemTestCase
   end
 
   test 'has no link if there are less than ten footprints' do
-    user_data = User.unhibernated.unretired.last(10)
+    user_data = User.unhibernated.unretired.last(9)
     user_data.map do |user|
       Footprint.create(
         user_id: user.id,

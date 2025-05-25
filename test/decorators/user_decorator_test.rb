@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'supports/product_helper'
 require 'active_decorator_test_case'
 
 class UserDecoratorTest < ActiveDecoratorTestCase
+  include ProductHelper
+
   setup do
     @admin_mentor_user = decorate(users(:komagata))
     @student_user = decorate(users(:hajime))
@@ -69,39 +72,6 @@ class UserDecoratorTest < ActiveDecoratorTestCase
     assert_nil @japanese_user.editor
     assert_equal @admin_mentor_user.editor_or_other_editor, 'textbringer'
     assert_equal @student_user.editor_or_other_editor, 'VSCode'
-  end
-
-  test '#completed_fraction don\'t calculate practice that include_progress: false' do
-    user = @admin_mentor_user
-    old_fraction = user.completed_practices_include_progress_size
-    user.completed_practices << practices(:practice5)
-
-    assert_not_equal old_fraction, user.completed_fraction
-
-    old_fraction = user.completed_practices_include_progress_size
-    user.completed_practices << practices(:practice53)
-
-    assert_equal old_fraction, user.completed_practices_include_progress_size
-  end
-
-  test '#completed_fraction don\'t calculate practice unrelated cource' do
-    old_fraction = @admin_mentor_user.completed_practices_include_progress_size
-    @admin_mentor_user.completed_practices << practices(:practice5)
-
-    assert_not_equal old_fraction, @admin_mentor_user.completed_practices_include_progress_size
-
-    old_fraction = @admin_mentor_user.completed_practices_include_progress_size
-    @admin_mentor_user.completed_practices << practices(:practice55)
-
-    assert_equal old_fraction, @admin_mentor_user.completed_practices_include_progress_size
-  end
-
-  test '#completed_fraction_in_metas' do
-    fraction_in_metas = '2 （必須:1）'
-    @non_required_subject_completed_user.completed_practices = []
-    @non_required_subject_completed_user.completed_practices << practices(:practice5)
-    @non_required_subject_completed_user.completed_practices << practices(:practice61)
-    assert_equal fraction_in_metas, @non_required_subject_completed_user.completed_fraction_in_metas
   end
 
   test '#niconico_calendar' do

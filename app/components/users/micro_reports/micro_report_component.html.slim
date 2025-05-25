@@ -1,0 +1,17 @@
+.thread-comment
+  .thread-comment__start
+    = render 'users/icon', user: @user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon-image'
+  .thread-comment__end
+    article.a-card
+      header.card-header
+        h2.thread-comment__title
+          = link_to user_path(@user), class: 'thread-comment__title-link a-text-link' do
+            = @user.login_name
+        time.thread-comment__created-at
+          = posted_datetime
+      hr.a-border-tint
+      .thread-comment__description
+        .a-long-text.is-md.js-markdown-view
+          = @micro_report.content
+      hr.a-border-tint
+      = render(Reactions::ReactionsComponent.new(reactionable: @micro_report, current_user: @current_user))

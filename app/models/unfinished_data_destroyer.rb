@@ -5,6 +5,6 @@ class UnfinishedDataDestroyer
     user = payload[:user]
     Product.where(user:).unchecked.destroy_all
     Report.where(user:).wip.destroy_all
-    user.update(job_seeking: false)
+    user.update(career_path: 0)
   end
 end

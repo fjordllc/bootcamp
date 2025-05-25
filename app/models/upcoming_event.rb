@@ -48,6 +48,7 @@ class UpcomingEvent
   class << self
     def build_group(date_key)
       date = date_key_to_date_class(date_key)
+      Rails.logger.debug("build_group date: #{date}")
       upcoming_events = original_events_scheduled_on(date).map { |e| UpcomingEvent.new(e, date) }
 
       UpcomingEventsGroup.new(date_key, upcoming_events.sort_by(&:scheduled_date_with_start_time))
@@ -86,7 +87,7 @@ class UpcomingEvent
 
     def original_events_scheduled_on(date)
       [Event, RegularEvent].map do |model|
-        model.public_send(:scheduled_on, date)
+        model.public_send(:scheduled_on_without_ended, date)
       end.flatten
     end
   end

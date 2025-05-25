@@ -16,6 +16,7 @@ class Product < ApplicationRecord
 
   belongs_to :practice
   belongs_to :user, touch: true
+  has_many :footprints, as: :footprintable, dependent: :destroy
   belongs_to :checker, class_name: 'User', optional: true
   alias sender user
 
@@ -106,6 +107,22 @@ class Product < ApplicationRecord
     no_replied_product_ids = self_assigned_no_replied_product_ids(user_id)
     Product.where(id: no_replied_product_ids)
            .order(published_at: :asc, id: :asc)
+  end
+
+  def self.require_assignment_products
+    Product.all
+           .unassigned
+           .unchecked
+           .not_wip
+           .list
+           .ascending_by_date_of_publishing_and_id
+  end
+
+  def self.group_by_elapsed_days(products)
+    reply_deadline_days = PRODUCT_DEADLINE + 2
+    products.group_by do |product|
+      product.elapsed_days >= reply_deadline_days ? reply_deadline_days : product.elapsed_days
+    end
   end
 
   def completed?(user)

@@ -37,6 +37,7 @@ class Event < ApplicationRecord
   has_many :participations, dependent: :destroy
   has_many :users, through: :participations
   has_many :watches, as: :watchable, dependent: :destroy
+  has_many :footprints, as: :footprintable, dependent: :destroy
   attribute :announcement_of_publication, :boolean
 
   columns_for_keyword_search :title, :description
@@ -44,6 +45,8 @@ class Event < ApplicationRecord
   scope :wip, -> { where(wip: true) }
   scope :related_to, ->(user) { user.job_seeker ? all : where.not(job_hunting: true) }
   scope :scheduled_on, ->(date) { where(start_at: date.midnight...(date + 1.day).midnight) }
+  scope :not_ended, -> { where('end_at > ?', Time.current) }
+  scope :scheduled_on_without_ended, ->(date) { scheduled_on(date).not_ended }
 
   def opening?
     Time.current.between?(open_start_at, open_end_at)

@@ -26,9 +26,9 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     driven_by :selenium, using: :chrome
   else
     driven_by(:selenium, using: :headless_chrome) do |driver_option|
-      driver_option.add_argument('--headless=old')
       driver_option.add_argument('--no-sandbox')
       driver_option.add_argument('--disable-dev-shm-usage')
+      driver_option.add_argument('enable-blink-features=Clipboard')
     end
   end
 

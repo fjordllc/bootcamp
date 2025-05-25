@@ -1,25 +1,30 @@
-.category-practices-item
+.category-practices-item(class="#{skipped_practices.include?(practice.id) ? 'is-skip-on' : ''}")
   a.category-practices-item__anchor :id="practice_#{practice.id}"
   header.category-practices-item__header
     .category-practices-item__title
-      a.category-practices-item__title-link href=practice_path(practice.id)
+      = link_to practice_path(practice.id), class: "category-practices-item__title-link #{skipped_practices.include?(practice.id) ? 'is-skip-on' : ''}" do
         - if practice.include_must_read_books?
-          span.a-badge.is-danger.is-xs 要書籍
-        span.category-practices-item__title-link-label = practice.title
+          span.a-badge.is-danger.is-xs
+            | 要書籍
+        span.category-practices-item__title-link-label
+          = practice.title
     - learning = learnings.find { |l| l.practice_id == practice.id }
     - learning_status = learning ? learning.status : 'unstarted'
-    a.practice-status.category-practices-item__status(
-      class="is-#{learning_status}",
-      href="#{practice_path(practice.id)}#learning-Status")
-        = t("activerecord.enums.learning.status.#{learning_status}")
+    - if skipped_practices.include?(practice.id)
+      = link_to practice_path(practice.id), anchor: 'learning-Status', class: 'practice-status category-practices-item__status is-skip-on' do
+        | スキップ
+    - else
+      a.practice-status.category-practices-item__status(
+        class="is-#{learning_status}",
+        href="#{practice_path(practice.id)}#learning-Status")
+          = t("activerecord.enums.learning.status.#{learning_status}")
 
   .category-practices-item__learning-time.is-only-mentor
     - unless practice.learning_minute_statistic.nil?
       - learning_minute_statistic = practice.learning_minute_statistic
       | 所要時間の目安: #{convert_to_hour_minute(learning_minute_statistic.median)}
       |  （平均: #{convert_to_hour_minute(learning_minute_statistic.average)}）
-  - if practice.started_students.present?
+  - if practice.started_or_submitted_students.present?
     .a-user-icons
       .a-user-icons__items
-        - practice.started_students.each do |started_student|
-          == render 'practice_user_icon', started_student: started_student
+        = render partial: 'practice_user_icon', collection: practice.started_or_submitted_students, as: :started_or_submitted_student

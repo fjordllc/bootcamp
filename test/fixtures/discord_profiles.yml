@@ -178,8 +178,8 @@ discord_profile_sotsugyoukigyoshozoku:
   account_name:
   times_url:
 
-discord_profile_advisernocolleguetrainee:
-  user: advisernocolleguetrainee
+discord_profile_advisernocolleaguetrainee:
+  user: advisernocolleaguetrainee
   account_name:
   times_url:
 
@@ -232,5 +232,10 @@ discord_profire_unity-course:
 
 discord_profire_ios-course:
   user: ios-course
+  account_name:
+  times_url:
+
+discord_profile_jobseeking:
+  user: jobseeking
   account_name:
   times_url:

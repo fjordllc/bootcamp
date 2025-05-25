@@ -27,6 +27,15 @@
               company.users.students_and_trainees.size,
               company_users_path(company, target: 'student_and_trainee'),
               class: 'card-counts__item-value-link'
+    .card-counts__item
+      .card-counts__item-inner
+        dt.card-counts__item-label
+          | 卒業生
+        dd.card-counts__item-value
+          = link_to_if company.users.unretired.graduated.present?,
+              company.users.graduated.size,
+              company_users_path(company, target: 'graduate'),
+              class: 'card-counts__item-value-link'
     - unless company.users.admins.empty?
       .card-counts__item
         .card-counts__item-inner

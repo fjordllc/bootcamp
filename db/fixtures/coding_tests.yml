@@ -1,0 +1,92 @@
+coding_test1:
+  practice: practice62
+  user: komagata
+  language: javascript
+  title: 最初の出力
+  description: |-
+    `hello`という文字列を出力しなさい。
+  hint: ""
+  position: 1
+
+coding_test2:
+  practice: practice62
+  user: komagata
+  language: javascript
+  title: 最初の入力
+  description: |-
+    文字列sが与えられます。
+    `hello `とsをつなげて出力しなさい。
+  hint: ""
+  position: 2
+
+coding_test3:
+  practice: practice62
+  user: komagata
+  language: javascript
+  title: 条件分岐
+  description: |-
+    正の整数aが与えられます。
+    aが3の倍数なら`Fizz`と出力してください。
+    aが5の倍数なら`Buzz`と出力してください。
+    aが3の倍数かつ5の倍数なら`FizzBuzz`と出力してください。
+    どれでもないならaを出力してください。
+  hint: 条件分岐にはifが使えます。
+  position: 3
+
+coding_test4:
+  practice: practice62
+  user: komagata
+  language: javascript
+  title: 配列を並び替え
+  description: |-
+    文字a, b, c, dが与えられます。
+    逆に並び替えて`d c b a`と出力してください。
+  hint: 逆に並び替えるにはreverseが使えます。
+  position: 4
+
+coding_test5:
+  practice: practice62
+  user: komagata
+  language: javascript
+  title: スペース区切り
+  description: |-
+    文字列aが与えられます。
+    1文字ずつスペースを入れて出力してください。
+  hint: 文字列を分割するにはsplitが使えます。
+  position: 5
+
+<% 6.upto(21) do |i| %>
+coding_test<%= i %>:
+  practice: practice62
+  user: komagata
+  language: javascript
+  title: 最初の出力
+  description: |-
+    `hello`という文字列を出力しなさい。
+  hint: ""
+  position: <%= i %>
+<% end %>
+
+coding_test22:
+  practice: practice26
+  user: komagata
+  language: ruby
+  title: 最初の出力
+  description: |-
+    `hello`という文字列を出力しなさい。
+  hint: ""
+  position: 1
+
+coding_test23:
+  practice: practice26
+  user: komagata
+  language: ruby
+  title: 条件分岐
+  description: |-
+    正の整数aが与えられます。
+    aが3の倍数なら`Fizz`と出力してください。
+    aが5の倍数なら`Buzz`と出力してください。
+    aが3の倍数かつ5の倍数なら`FizzBuzz`と出力してください。
+    どれでもないならaを出力してください。
+  hint: 条件分岐にはifが使えます。
+  position: 2

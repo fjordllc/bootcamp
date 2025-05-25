@@ -80,6 +80,20 @@ class WelcomeTest < ApplicationSystemTestCase
     assert_selector "meta[name='twitter:title'][content='アンチハラスメントポリシー']", visible: false
   end
 
+  test 'GET /alumni_voices' do
+    visit '/alumni_voices'
+    assert_equal '卒業生の声 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_selector "meta[property='og:title'][content='卒業生の声']", visible: false
+    assert_selector "meta[name='twitter:title'][content='卒業生の声']", visible: false
+  end
+
+  test 'get /choose_courses' do
+    visit '/choose_courses'
+    assert_equal 'コース選択 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_selector "meta[property='og:title'][content='コース選択']", visible: false
+    assert_selector "meta[name='twitter:title'][content='コース選択']", visible: false
+  end
+
   test 'mentors can update their profiles' do
     visit_with_auth '/current_user/edit', 'komagata'
     attach_file 'user[profile_image]', Rails.root.join('test/fixtures/files/users/avatars/komagata.jpg'), make_visible: true
@@ -122,7 +136,7 @@ class WelcomeTest < ApplicationSystemTestCase
     assert_text '駒形 真幸'
     assert_text '株式会社ロッカの代表兼エンジニア。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
     visit_with_auth edit_current_user_path, 'komagata'
-    check 'プロフィール非公開', allow_label_click: true
+    uncheck 'プロフィール公開', allow_label_click: true
     click_on '更新する'
     assert_text 'ユーザー情報を更新しました。'
     logout

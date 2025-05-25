@@ -40,6 +40,13 @@ section.lp-content.is-lp-bg-2.is-top-title#pricing
                       | これにより、
                       | 他の興味が見つかった場合、または事情が変わって学習を続けられなくなった場合でも、
                       | リスクを最小限に抑えることができます。
+                  .a-notice-block.is-danger.mt-4
+                    p.text-base
+                      | 受講料の最大80%の給付金が適用される専門実践教育訓練給付制度対象講座「Railsエンジニア（Reスキル認定講座対応）コース」は
+                      | 料金体系が異なります。
+                      = link_to certified_reskill_courses_rails_developer_course_root_path do
+                        |  こちらからご確認ください
+                      | 。
 
           .lp-content-stack__item
             section.lp-content-section
@@ -50,6 +57,16 @@ section.lp-content.is-lp-bg-2.is-top-title#pricing
               .lp-actions__items
                 .lp-actions__item
                   = link_to '料金について詳しく', pricing_path, class: 'a-button is-xl is-primary-border is-block'
+
+          .lp-content-stack__item
+            .lp-actions
+              ul.lp-actions__items
+                li.lp-actions__item
+                  = link_to new_inquiry_path, class: 'a-button is-xl is-primary-border is-block' do
+                    | お問い合わせ
+                li.lp-actions__item
+                  = link_to choose_courses_path, class: 'a-button is-xl is-warning is-block' do
+                    | 参加登録
 
   .lp-content-divider.is-lp-bg-3
     svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]

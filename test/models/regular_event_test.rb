@@ -15,10 +15,34 @@ class RegularEventTest < ActiveSupport::TestCase
     assert regular_event.invalid?
   end
 
+  test 'titles formatted as markdown are invalid' do
+    invalid_title = [
+      '# 見出し1',
+      '## 見出し2',
+      '+ 順序なしリスト',
+      '- 順序なしリスト',
+      '* 順序なしリスト',
+      '1. 順序付きリスト',
+      '> 引用',
+      '``` コードブロック',
+      '~~取り消し線~~',
+      '**強調**,',
+      '__下線__',
+      '||伏せ字||'
+    ]
+
+    regular_event = regular_events(:regular_event1)
+    errors = invalid_title.filter_map do |title|
+      regular_event.title = title
+      title if regular_event.valid?
+    end
+    assert_empty errors
+  end
+
   test '.scheduled_on(date)' do
     travel_to Time.zone.local(2017, 4, 3, 23, 0, 0) do
       today_date = Time.zone.today
-      today_events_count = 3
+      today_events_count = 4
       today_events = RegularEvent.scheduled_on(today_date)
       assert_equal today_events_count, today_events.count
 
@@ -102,8 +126,8 @@ class RegularEventTest < ActiveSupport::TestCase
   end
 
   test '#all_scheduled_dates' do
-    start_date = Date.new(Time.current.year, 1, 1)
-    end_date = Date.new(Time.current.year, 12, 31)
+    start_date = Date.current
+    end_date = Date.current.next_year
     wednesday_for_year = (start_date..end_date).select(&:wednesday?)
 
     regular_event = regular_events(:regular_event34)
@@ -112,13 +136,15 @@ class RegularEventTest < ActiveSupport::TestCase
     assert_equal wednesday_for_year, scheduled_dates
   end
 
-  test '#format_event_date' do
+  test '#transform_for_subscription' do
     travel_to Time.zone.local(2024, 8, 5, 23, 0, 0) do
-      regular_event = regular_events(:regular_event34)
+      regular_event = RegularEvent.new(start_at: '21:00', end_at: '22:00')
       event_date = Date.new(2024, 8, 7)
       transformed_regular_event = regular_event.transform_for_subscription(event_date)
-      assert_equal DateTime.new(2024, 8, 7, 21, 0, 0, '+09:00'), transformed_regular_event.start_on
-      assert_equal DateTime.new(2024, 8, 7, 22, 0, 0, '+09:00'), transformed_regular_event.end_on
+
+      assert_equal Time.zone.parse('2024-08-07 21:00'), transformed_regular_event.start_on
+      assert_equal Time.zone.parse('2024-08-07 22:00'), transformed_regular_event.end_on
+      assert_equal 'JST', transformed_regular_event.start_on.zone, 'タイムゾーンが日本標準時(Japan Standard Time)と異なります'
     end
   end
 
@@ -128,6 +154,26 @@ class RegularEventTest < ActiveSupport::TestCase
 
       participated_regular_events = RegularEvent.fetch_participated_regular_events(user)
       assert_equal 157, participated_regular_events.count
+    end
+  end
+
+  test '.scheduled_on_without_ended' do
+    travel_to Time.zone.local(2024, 12, 1, 10, 0, 0) do
+      today_date = Time.zone.today
+      regular_events = RegularEvent.scheduled_on_without_ended(today_date)
+      regular_event_in_progress = regular_events(:regular_event36)
+      regular_event_ended = regular_events(:regular_event37)
+      assert_includes regular_events, regular_event_in_progress
+      assert_not_includes regular_events, regular_event_ended
+    end
+  end
+
+  test '.scheduled_on_without_ended in tomorrow’s event' do
+    travel_to Time.zone.local(2024, 12, 1, 10, 0, 0) do
+      tomorrow = Time.zone.tomorrow
+      regular_events = RegularEvent.scheduled_on_without_ended(tomorrow)
+      regular_event_scheduled_for_tomorrow = regular_events(:regular_event38)
+      assert_includes regular_events, regular_event_scheduled_for_tomorrow
     end
   end
 end

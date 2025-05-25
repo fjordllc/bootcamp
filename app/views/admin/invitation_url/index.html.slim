@@ -6,6 +6,7 @@ header.page-header
       h1.page-header__title = title
 
 = render 'admin/admin_page_tabs'
+= render 'admin/users/user_tabs'
 
 .page-main
   header.page-main-header
@@ -36,4 +37,11 @@ header.page-header
             .invitation__url-inner.flex.gap-1
               input.js-invitation-url-text.a-text-input(type="text")
               a.js-invitation-url.a-button.is-md.is-secondary.is-icon(class='h-[2.375rem]')
+                i.fa-solid.fa-arrow-up-right-from-square
+          .grant_invitation_url
+            .a-form-label 給金対応コース登録URL
+            .invitation__url-inner.flex.gap-1
+              input.a-text-input(type="text" value="#{new_grant_course_user_url}")
+              = link_to new_grant_course_user_url,
+                class: 'a-button is-md is-secondary is-icon h-[2.375rem]' do
                 i.fa-solid.fa-arrow-up-right-from-square

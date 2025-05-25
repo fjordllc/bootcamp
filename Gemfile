@@ -3,13 +3,14 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.4'
+ruby '3.1.6'
 
 gem 'bootsnap', '>= 1.4.4', require: false
+gem 'ffi', '1.17.1'
 gem 'image_processing', '~> 1.12'
 gem 'jbuilder', '~> 2.7'
-gem 'puma', '~> 6.4'
-gem 'rails', '~> 6.1.4.4'
+gem 'puma', '~> 5.0'
+gem 'rails', '~> 6.1.7.10'
 gem 'webpacker', '~> 5.0'
 
 # not default
@@ -23,22 +24,27 @@ gem 'acts-as-taggable-on'
 gem 'addressable'
 gem 'any_login'
 gem 'cocoon'
-gem 'commonmarker'
+gem 'concurrent-ruby', '1.3.4'
 gem 'countries', '>= 5.5.0'
 gem 'country_select'
-gem 'data_migrate'
+gem 'data_migrate', '9.2.0'
 gem 'diffy'
 gem 'discord-notifier'
 gem 'discordrb', '~> 3.5', require: false
+gem 'doorkeeper'
 gem 'good_job', '~> 3.14', github: 'komagata/good_job'
 gem 'google-cloud-storage', '~> 1.25', require: false
 gem 'holiday_jp'
 gem 'icalendar', '~> 2.8'
+gem 'jp_prefecture', '~> 1.1'
 gem 'jquery-rails'
 gem 'kaminari'
+gem 'kramdown'
+gem 'kramdown-parser-gfm'
 gem 'mentionable', '~> 0.3.0'
 gem 'meta-tags'
 gem 'mini_magick'
+gem 'mutex_m', '0.1.1'
 gem 'net-imap', require: false
 gem 'net-pop', require: false
 gem 'net-smtp', require: false # TODO: Remove it if you use rails 7.0.1
@@ -48,6 +54,7 @@ gem 'omniauth', '~> 2.1.1'
 gem 'omniauth-discord'
 gem 'omniauth-github', '~> 2.0.1'
 gem 'omniauth-rails_csrf_protection'
+gem 'opengraph_parser'
 gem 'parser', '3.2.2.4'
 gem 'pg', '~> 1.4.6'
 gem 'postmark-rails'
@@ -55,7 +62,7 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'rack-user_agent'
 gem 'rails_autolink'
 gem 'rails-i18n', '~> 6.0.0'
-gem 'ransack'
+gem 'ransack', '3.1.0'
 gem 'react-rails'
 gem 'recaptcha', '~> 5.12'
 gem 'rollbar'
@@ -65,7 +72,7 @@ gem 'rubyzip'
 gem 'slim-rails'
 gem 'sorcery', '~> 0.16.2'
 gem 'sorcery-jwt'
-gem 'stringio', '3.1.0'
+gem 'stringio', '3.0.1.2'
 gem 'stripe'
 gem 'stripe-i18n', git: 'https://github.com/komagata/stripe-i18n', branch: 'update-depencency'
 gem 'tzinfo', '~> 2.0', '>= 2.0.6'
@@ -76,19 +83,17 @@ group :development, :test do
 
   # not default
   gem 'pry-byebug'
-  gem 'syntax_suggest'
   gem 'traceroute'
 end
 
 group :development do
-  gem 'listen'
+  gem 'listen', '~> 3.3'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 4.1.0'
 
   # not default
   gem 'bullet'
-  gem 'bundle_outdated_formatter'
   gem 'foreman'
   gem 'letter_opener_web', '~> 2.0'
   gem 'rack-dev-mark'
@@ -104,7 +109,7 @@ group :development do
 end
 
 group :test do
-  gem 'capybara'
+  gem 'capybara', '>= 3.26'
   gem 'minitest-ci'
   gem 'minitest-retry'
   gem 'minitest-stub_any_instance'

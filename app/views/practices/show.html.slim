@@ -3,7 +3,12 @@
 - category = @practice.category(current_user.course)
 
 = render '/shared/modal_learning_completion', practice: @practice, tweet_url: @tweet_url, should_display_message_automatically: false
-= render '/practices/page_header', title: @practice.title, category: category
+
+= render '/practices/page_header',
+  title: @practice.title,
+  category: category,
+  practice: @practice
+
 = practice_page_tabs(@practice, active_tab: 'プラクティス')
 
 .page-body
@@ -38,9 +43,10 @@
                       | 人によっては時間のかかり方は様々です。この数字はあくまで一つの目安として捉えてください。
               #js-annotation-modal
           header.page-content-header
+            - skipped_practices = current_user.skipped_practices.pluck(:practice_id)
             .page-content-header__end
               .page-content-header__row
-                h1.page-content-header__title
+                h1.page-content-header__title(class="#{skipped_practices.include?(@practice.id) ? 'is-skip-on' : ''}")
                   - if @practice.include_must_read_books?
                     span.a-title-label.is-danger
                       | 要書籍
@@ -62,16 +68,19 @@
                           = @practice.last_updated_user.login_name
 
               .page-content-header__row
+              - if skipped_practices.include?(@practice.id)
+                .page-content-header__alert
+                  | このプラクティスはスキップしてください。
+              - else
                 .page-content-header-actions
                   .page-content-header-actions__start
                     .practice-first-actions
                       .practice-first-actions__start
-                        - status = @practice.status_by_learnings(current_user.learnings)
-                        .js-learning-status(data-practice-id="#{@practice.id}" data-status="#{status}" data-submission="#{@practice.submission}")
+                        = render 'learning-status'
                   - if current_user.mentor? && @practice.submission
                     .page-content-header-actions__end
                       .practice-first-actions__end.is-only-mentor
-                        div(data-vue="WatchToggle" data-vue-watchable-id:number="#{@practice.id}" data-vue-watchable-type='Practice')
+                        = render 'watches/watch_toggle', type: @practice.class.to_s, id: @practice.id, watch: @practice.watch_by(current_user)
 
           - if @practice.summary?
             = render 'summary', practice: @practice
@@ -81,35 +90,39 @@
           - if @practice.practices_books.exists?
             = render 'books', practice: @practice
 
-          .a-card
-            header.card-header
-              h2.card-header__title
-                = Practice.human_attribute_name :goal
-            hr.a-border
-            .card-body.is-goal
-              .card-body__description
-                .a-long-text.is-md.js-markdown-view
-                  = @practice.goal
-                - if !current_user.adviser? && @practice.open_product?
-                  = render 'content_notice'
-            hr.a-border-tint
-            footer.card-footer
-              = render(Learnings::LearningComponent.new(practice: @practice, current_user:))
-              - if @practice.submission
-                .card-footer__alert
-                  = link_to '提出の前に、提出時の注意点を確認しよう',
-                    'https://bootcamp.fjord.jp/pages/info-for-product',
-                    target: '_blank',
-                    rel: 'noopener'
-                .card-footer__description
-                  | 提出物を作成し提出し、メンターから確認をもらったら
-                  br
-                  | このプラクティスを修了にしてください。
-              - else
-                .card-footer__description
-                  | このプラクティスに提出物はありません。
-                  br
-                  | 終了条件をクリアしたら修了にしてください。
+          - unless skipped_practices.include?(@practice.id)
+            .a-card
+              header.card-header
+                h2.card-header__title
+                  = Practice.human_attribute_name :goal
+              hr.a-border-tint
+              .card-body.is-goal
+                .card-body__description
+                  .a-long-text.is-md.js-markdown-view
+                    = @practice.goal
+                  - if !current_user.adviser? && @practice.open_product?
+                    = render 'content_notice'
+              hr.a-border-tint
+              footer.card-footer
+                = render(Learnings::LearningComponent.new(practice: @practice, current_user:))
+                - if @practice.submission
+                  .card-footer__alert
+                    = link_to '提出の前に、提出時の注意点を確認しよう',
+                      'https://bootcamp.fjord.jp/pages/info-for-product',
+                      target: '_blank',
+                      rel: 'noopener'
+                  .card-footer__description
+                    | 提出物を作成し提出し、メンターから確認をもらったら
+                    br
+                    | このプラクティスを修了にしてください。
+                - else
+                  .card-footer__description
+                    | このプラクティスに提出物はありません。
+                    br
+                    | 修了条件をクリアしたら修了にしてください。
+
+          - if @practice.coding_tests.present?
+            = render partial: 'coding_tests', locals: { coding_tests: @practice.coding_tests }
 
           - if current_user.admin_or_mentor?
             = render 'memo', practice: @practice
@@ -117,7 +130,7 @@
             .a-card.is-only-mentor
               header.card-header
                 h2.card-header__title 管理者・メンター用メニュー
-              hr.a-border
+              hr.a-border-tint
               footer.card-footer
                 .card-main-actions
                   ul.card-main-actions__items
@@ -125,6 +138,10 @@
                       = link_to edit_mentor_practice_path(@practice), class: 'a-button is-sm is-secondary is-block' do
                         i.fa-solid.fa-pen
                         | 編集
+                    li.card-main-actions__item
+                      = link_to mentor_practice_path(@practice), method: :delete, class: 'a-button is-sm is-danger is-block', data: { confirm: '本当にこのプラクティスを削除しますか？この操作は取り消せません。' } do
+                        i.fa-solid.fa-trash
+                        | 削除する
       .col-lg-4.col-xs-12
         nav.page-nav.a-card
           header.page-nav__header

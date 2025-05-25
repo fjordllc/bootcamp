@@ -1,0 +1,135 @@
+= form_with model: grant_course_application,
+  url: grant_course_applications_path,
+  method: :post,
+  local: true do |f|
+  = render 'errors', object: grant_course_application
+  .form__items
+    .form__items-title
+      | 氏名
+    .form-item
+      .a-name-input
+        .a-name-input__field
+          label.a-form-label.is-required 姓
+          = f.text_field :last_name,
+            class: 'a-text-input',
+            placeholder: '山田'
+        .a-name-input__field
+          label.a-form-label.is-required 名
+          = f.text_field :first_name,
+            class: 'a-text-input',
+            placeholder: '太郎'
+      .a-form-help
+        p
+          | 給付金を受けるには、申し込みと受講料の支払いは、本人名義で行うことが必須です。
+          | 必ず本人名義でお申し込みください。
+  .form__items
+    .form__items-title
+      | 連絡先
+    .form-item
+      = f.label :email, class: 'a-form-label is-required'
+      = f.text_field :email, class: 'a-text-input'
+      .a-form-help
+        p
+          | お申し込み〜履修開始までの連絡はこちらに登録したメールにて行います。
+  .form__items
+    .form__items-title
+      | 住所・電話番号（教材の送付先）
+    .form-item
+      = f.label :tel1, '電話番号', class: 'a-form-label is-required'
+      .a-tel-input
+        = f.text_field :tel1,
+          class: 'a-text-input w-24',
+          maxlength: 4,
+          placeholder: '090'
+        span.a-tel-input__label -
+        = f.text_field :tel2,
+          class: 'a-text-input w-24',
+          maxlength: 4,
+          placeholder: '1234'
+        span.a-tel-input__label -
+        = f.text_field :tel3,
+          class: 'a-text-input w-24',
+          maxlength: 4,
+          placeholder: '5678'
+    .form-item
+      = f.label :zip1, '郵便番号', class: 'a-form-label is-required'
+      .a-zip-input
+        = f.text_field :zip1,
+          class: 'a-text-input w-24',
+          maxlength: 3,
+          placeholder: '123'
+        span.a-zip-input__label -
+        = f.text_field :zip2,
+          class: 'a-text-input w-24',
+          maxlength: 4,
+          placeholder: '4567'
+    .form-item
+      = f.label :prefecture_code, '都道府県', class: 'a-form-label is-required'
+      .a-button.is-md.is-secondary.is-select.is-block
+        = f.collection_select :prefecture_code,
+          JpPrefecture::Prefecture.all,
+          :code,
+          :name,
+          { include_blank: '選択してください' }
+    .form-item
+      = f.label :address1, '市区町村', class: 'a-form-label is-required'
+      = f.text_field :address1, class: 'a-text-input', placeholder: '渋谷区渋谷'
+    .form-item
+      = f.label :address2, '建物名・部屋番号', class: 'a-form-label'
+      = f.text_field :address2, class: 'a-text-input', placeholder: 'ABCビル101号室'
+  .form__items
+    .form__items-title
+      | お試し利用について
+    .form-item
+      label.form-item__one-checkbox.a-checkbox
+        = f.check_box :trial_period
+        span
+          | お試し利用希望
+      .a-form-help.mt-4
+        p
+          | サブスクのコースと同様、ご入金前に3日間のお試し期間をご利用いただくことができます。
+          | お試し利用をご希望される場合はチェックを入れてください。
+          | 担当者よりお試し利用の手順のメールをお送りいたします。
+  .form__items
+    .form__items-title
+      | 以下に同意ください
+    .form-item
+      .a-form-label
+        | 個人情報の取り扱いについて
+      label.form-item__one-checkbox.a-checkbox
+        = f.check_box :privacy_policy
+        span
+          | 下記の個人情報の取り扱いに同意する
+      .a-form-frame.form-item__pp
+        = render('pp')
+
+  .form__items
+    .form__items-title
+      | 注意
+    .form-item
+      .form-notice.a-notice-block.is-danger
+        p
+          | 申請後、担当者よりメールで請求書をお送りいたします。
+        p
+          | 給付金対応コースは入金の完了をもってお申し込みの成立になります。
+          | ご入金は必ずハローワークにて受給資格が認定された後に行ってください。
+        p
+          | 給付金を受けるには、申し込みと受講料の支払いは、本人名義で行うことが必須です。
+          | 必ず本人名義でお申し込み、本人名義でご入金ください。
+        p
+          | 当社では、この制度の利用や給付金の受給については責任を負いかねます。
+          | 不明な点は最寄りのハローワークにお問い合わせいただき、
+          | 手続きは自己責任でお願いいたします。
+    .form-item
+      .a-form-label
+        | 上記の注意を読み、チェックを入れてください
+      ul.block-checks.is-1-item
+        li.block-checks__item
+          .a-block-check.is-checkbox
+            = check_box_tag :notes, 1, params[:notes], class: 'a-toggle-checkbox js-agreements-checkbox'
+            label.a-block-check__label.is-ta-left(for='notes')
+              | 注意を読みました
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item.is-main
+        = f.submit '申請する', class: 'a-button is-lg is-primary is-block is-disabled js-agreements-submit'

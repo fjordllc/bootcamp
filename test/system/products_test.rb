@@ -50,6 +50,9 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'not display learning completion message when a user of the completed product visits after the second time' do
+    visit_with_auth "/products/#{products(:product65).id}", 'komagata'
+    click_button '提出物を確認'
+    assert_text '提出物の確認を取り消す'
     visit_with_auth "/products/#{products(:product65).id}", 'kimura'
     first('label.card-main-actions__muted-action.is-closer').click
     assert_no_text '喜びをXにポストする！'
@@ -461,7 +464,7 @@ class ProductsTest < ApplicationSystemTestCase
   test 'mentors can see block for mentors' do
     visit_with_auth "/products/#{products(:product2).id}", 'mentormentaro'
     assert_text '直近の日報'
-    assert_text 'プラクティスメモ'
+    assert_text 'ユーザー情報'
     assert_text 'ユーザーメモ'
     assert_selector '#side-tabs-nav-4', text: '提出物'
   end
@@ -484,13 +487,13 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'display the user memos after click on user-memos tab' do
     visit_with_auth "/products/#{products(:product2).id}", 'komagata'
-    find('#side-tabs-nav-3').click
+    find('#side-tabs-nav-2').click
     assert_text 'kimuraさんのメモ'
   end
 
   test 'can cancel editing of user-memos' do
     visit_with_auth "/products/#{products(:product2).id}", 'komagata'
-    find('#side-tabs-nav-3').click
+    find('#side-tabs-nav-2').click
     click_button '編集'
     fill_in 'js-user-mentor-memo', with: '編集はできないはずです。'
     click_button 'キャンセル'
@@ -500,7 +503,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'can preview editing of user-memos' do
     visit_with_auth "/products/#{products(:product2).id}", 'komagata'
-    find('#side-tabs-nav-3').click
+    find('#side-tabs-nav-2').click
     assert_text 'kimuraさんのメモ'
     click_button '編集'
     fill_in 'js-user-mentor-memo', with: 'プレビューができます。'
@@ -510,7 +513,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'can update user-memos' do
     visit_with_auth "/products/#{products(:product2).id}", 'komagata'
-    find('#side-tabs-nav-3').click
+    find('#side-tabs-nav-2').click
     click_button '編集'
     fill_in 'js-user-mentor-memo', with: '編集後のユーザーメモです。'
     click_button '保存する'
@@ -616,7 +619,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'display company-logo when user is trainee' do
     visit_with_auth "/products/#{products(:product13).id}", 'mentormentaro'
-    assert_selector 'img[class="page-content-header__company-logo"]'
+    assert_selector 'img[class="page-content-header__company-logo-image"]'
   end
 
   test 'using file uploading by file selection dialogue in textarea' do
@@ -704,5 +707,13 @@ class ProductsTest < ApplicationSystemTestCase
     click_link 'キャンセル'
     assert_selector '.page-tabs__item-link.is-active', text: '提出物'
     assert_link '内容修正'
+  end
+
+  test 'display the skip practices after click on user-info tab' do
+    visit_with_auth "/products/#{products(:product13).id}", 'komagata'
+    find('#side-tabs-nav-3').click
+    assert_text 'スキップするプラクティス一覧'
+    assert_text 'Linuxのファイル操作の基礎を覚える'
+    assert_text 'viのチュートリアルをやる'
   end
 end
