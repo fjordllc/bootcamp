@@ -89,6 +89,16 @@ module LinkChecker
       assert_not Checker.denied_host?('http://example.com')
     end
 
+    test '.valid_domain? returns true with valid domain' do
+      assert Checker.valid_domain?('example.com')
+      assert Checker.valid_domain?('bootcamp.fjord.jp')
+    end
+
+    test '.valid_domain? returns false with invalid domain' do
+      assert_not Checker.valid_domain?('invalid-domain.co')
+      assert_not Checker.valid_domain?('')
+    end
+
     test '.summary' do
       expected = <<~TEXT
         リンク切れがありました。

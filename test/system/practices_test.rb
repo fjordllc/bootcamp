@@ -19,7 +19,7 @@ class PracticesTest < ApplicationSystemTestCase
   end
 
   test 'finish a practice' do
-    visit_with_auth "/practices/#{practices(:practice1).id}", 'komagata'
+    visit_with_auth "/practices/#{practices(:practice3).id}", 'komagata'
     find('#js-complete').click
     assert_not has_link? '修了'
   end
@@ -94,7 +94,7 @@ class PracticesTest < ApplicationSystemTestCase
     end
     assert_text 'プラクティスを更新しました'
     visit "/products/#{product.id}"
-    find('#side-tabs-nav-2').click
+    check 'toggle-mentor-memo-body', allow_label_click: true, visible: false
     assert_text 'メンター向けのメモの内容です'
   end
 
@@ -133,13 +133,14 @@ class PracticesTest < ApplicationSystemTestCase
   test 'add completion image' do
     practice = practices(:practice1)
     visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
+
+    assert_selector 'form', wait: 10
     attach_file 'practice[completion_image]', 'test/fixtures/files/practices/ogp_images/1.jpg', make_visible: true
     click_button '更新する'
 
     visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
-    within('form[name=practice]') do
-      assert_selector 'img'
-    end
+    assert_selector 'form', wait: 10
+    assert_selector 'img'
   end
 
   test 'show setting for completed percentage' do
@@ -159,20 +160,6 @@ class PracticesTest < ApplicationSystemTestCase
     first('.js-started').click
     wait_for_status_change
     assert_equal 'started', practice.status(users(:hatsuno))
-  end
-
-  test 'valid is_startable_practice' do
-    practice = practices(:practice1)
-    visit_with_auth "/practices/#{practice.id}", 'hatsuno'
-    first('.js-started').click
-    wait_for_status_change
-    assert_equal 'started', practice.status(users(:hatsuno))
-
-    practice = practices(:practice2)
-    visit "/practices/#{practice.id}"
-    accept_alert "すでに着手しているプラクティスがあります。\n提出物を提出するか修了すると新しいプラクティスを開始できます。" do
-      first('.js-started').click
-    end
   end
 
   test 'show other practices' do
@@ -328,5 +315,15 @@ class PracticesTest < ApplicationSystemTestCase
     click_button '更新する'
 
     assert_no_selector '.a-card', text: '概要'
+  end
+
+  test 'see skip practices as a trainee' do
+    visit_with_auth course_practices_path(courses(:course1)), 'kensyu'
+    assert_link('スキップ', href: "/practices/#{practices(:practice5).id}")
+    visit_with_auth "/practices/#{practices(:practice5).id}", 'kensyu'
+
+    assert_text 'このプラクティスはスキップしてください。'
+
+    assert_no_selector 'label#js-complete'
   end
 end

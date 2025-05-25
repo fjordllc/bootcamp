@@ -141,8 +141,8 @@ talk36:
   user: paginataion-jirou
   action_completed: true
 
-talk_advisernocolleguetrainee:
-  user: advisernocolleguetrainee
+talk_advisernocolleaguetrainee:
+  user: advisernocolleaguetrainee
   action_completed: true
 
 <% 1.upto(4) do |i| %>
@@ -169,4 +169,8 @@ talk45:
 
 talk46:
   user: ios-course
+  action_completed: true
+
+talk47:
+  user: jobseeking
   action_completed: true

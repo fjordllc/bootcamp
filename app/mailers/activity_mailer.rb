@@ -2,6 +2,7 @@
 
 class ActivityMailer < ApplicationMailer
   helper ApplicationHelper
+  helper MarkdownHelper
   include Rails.application.routes.url_helpers
 
   before_action do
@@ -287,6 +288,7 @@ class ActivityMailer < ApplicationMailer
       link: "/users/#{@sender.id}",
       kind: Notification.kinds[:hibernated]
     )
+    @hibernation = Hibernation.find_by(user_id: @sender.id)
 
     subject = "[FBC] #{@sender.login_name}さんが休会しました。"
     message = mail(to: @user.email, subject:)

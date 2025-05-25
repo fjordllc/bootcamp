@@ -3,7 +3,7 @@ article1:
   body: サムネイルは「/public/ogp/」配下にある画像を使っています。
   user: komagata
   wip: false
-  published_at: "2022-01-01 00:00:00"
+  published_at: '2022-01-01 00:00:00'
   thumbnail_type: :ruby_on_rails
 
 article2:
@@ -11,7 +11,7 @@ article2:
   body: サムネイルにはデフォルトの画像を使います。
   user: machida
   wip: false
-  published_at: "2022-01-02 00:00:00"
+  published_at: '2022-01-02 00:00:00'
   thumbnail_type: :prepared_thumbnail
 
 article3:
@@ -21,3 +21,12 @@ article3:
   wip: true
   thumbnail_type: :prepared_thumbnail
   token: abcdef123456
+  target: :all
+
+article4:
+  title: sponsorshipページに表示される記事のタイトルです。
+  body: sponsorshipページに表示される記事の本文です。
+  user: komagata
+  wip: false
+  published_at: '2022-01-01 00:00:00'
+  thumbnail_type: :sponsorship

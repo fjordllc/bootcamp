@@ -10,28 +10,30 @@
   = render 'errors', object: user
   - if !current_user && !@user.adviser? && !@user.trainee? && Campaign.today_campaign?
     = render 'checked_campaign'
-  .form__items
-    - unless @user.adviser? || @user.mentor?
+  - unless @user.adviser? || @user.mentor?
+    .form__items
       = render 'users/form/course_select', f: f, user: @user
   .form__items
     = render 'users/form/login_name', f: f
     = render 'users/form/email', f: f, user: user
     - if from == :edit
-      = render 'users/form/mail_notification', f:
+      = render 'users/form/mail_notification', f: f
     = render 'users/form/name', f: f, user: user
     = render 'users/form/kana_name', f: f, user: user
     = render 'users/form/avatar', f: f, user: user
     = render 'users/form/description', f: f, user: user
     = render 'users/form/tags', f: f, user: user
+    - if from == :edit && !@user.graduated? && !@user.adviser?
+      = render 'users/form/learning_time_frames', f: f, user: user
     - unless user.adviser?
       - unless user.mentor?
-        = render 'users/form/after_graduation_hope', f:, user:
-        = render('users/form/job', f:)
-      = render 'users/form/os', f: f, user:
+        = render 'users/form/after_graduation_hope', f: f, user: user
+        = render 'users/form/job', f: f
+      = render 'users/form/os', f: f, user: user
     - unless user.adviser? || user.mentor?
-      = render 'users/form/experiences', f:
+      = render 'users/form/experiences', f: f
 
-    - if user.trainee? && from == :new
+    - if user.trainee? && from == :new && !user.grant_course?
       .form-item
         .form-item-block
           .form-item-block__inner
@@ -39,7 +41,7 @@
               .form-item-block__title
                 | 支払い方法
             .form-item-block__item
-              = render 'users/form/payment_methods_check_boxes', f:, user:
+              = render 'users/form/payment_methods_check_boxes', f: f, user: user
       - if user.role == 'trainee_credit_card_payment'
         #card
           = render 'users/form/card'
@@ -48,9 +50,9 @@
           = render 'users/form/card'
 
     - if from == :edit
-      = render 'users/form/editor', f:, user:
+      = render 'users/form/editor', f: f, user: user
     - if user.student?
-      = render 'users/form/job_seeker', f:
+      = render 'users/form/job_seeker', f: f
     = render 'users/form/register_address', f: f, user: user
   - if from == :edit
     .form__items
@@ -63,27 +65,31 @@
             = link_to 'パスワード変更はこちらから', edit_current_user_password_path, class: 'a-button is-md is-secondary'
     .form__items
       h3.form__items-title SNSアカウント
-      = render 'users/form/sns', f:
+      = render 'users/form/sns', f: f
   - else
     .form__items
-      = render 'users/form/password', f:, from:
+      h3.form__items-title パスワード
+      = render 'users/form/password', f: f, from: from
 
   - if user.mentor? || user.adviser? || user.graduated_on? || user.admin?
     .form__items
-      = render 'users/form/company', f:, user:
+      h3.form__items-title 所属企業情報
+      = render 'users/form/company', f: f, user: user
 
-  - if from == :new && user.student?
-    = render 'users/form/card'
+  - if from == :new && user.student? && !user.grant_course?
+    .form__items
+      h3.form__items-title クレジットカード情報
+      = render 'users/form/card'
 
   - if user.mentor?
     .form__items
       h3.form__items-title メンター紹介用公開プロフィール
-      = render 'users/form/hide_mentor_profile', f: f
+      = render 'users/form/show_mentor_profile', f: f
       = render 'users/form/profile_image', f: f
       = render 'users/form/profile_name', f: f
       = render 'users/form/profile_job', f: f
       = render 'users/form/profile_text', f: f
-      = render 'users/form/authored_book', f:
+      = render 'users/form/authored_book', f: f
 
   - if admin_login?
     .form__items
@@ -97,8 +103,6 @@
             .form-item-block__title
               | ユーザーステータス
           .form-item-block__items
-            .form-item-block__item
-              = render 'users/form/job_seeking', f: f
             .form-item-block__item
               = render 'users/form/retire', f: f
             .form-item-block__item
@@ -122,6 +126,20 @@
             .a-pdf-input__upload.a-button.is-md.is-secondary
               | PDFを選択
           = button_tag '削除', type: 'button', class: 'a-button is-md is-secondary', id: 'js-remove-pdf-button'
+        
+      .form-item
+        label.a-form-label
+          | 卒業後の進路
+        ul.block-checks.is-2-items.mt-4
+          - career_paths = User.career_paths.keys
+          - career_paths.each do |career_path|
+            li.block-checks__item
+              .a-block-check.is-radio
+                = f.radio_button :career_path, career_path, id: career_path, class: 'a-toggle-checkbox'
+                = f.label :career_path, for: career_path, class: 'a-block-check__label has-icon is-ta-left' do
+                  = t("activerecord.enums.user.career_path.#{career_path}")
+      .form-item
+        = render 'users/form/career_memo', f: f, user: user
 
       .form-item-block
         .form-item-block__inner
@@ -129,7 +147,7 @@
             .form-item-block__title
               | 自動退会設定
           .form-item-block__item
-              = render 'users/form/auto_retire', f: f, user: user
+            = render 'users/form/auto_retire', f: f, user: user
 
       .form-item
         = f.label :subscription_id, class: 'a-form-label'
@@ -166,7 +184,17 @@
     .form__items.js-training-info-block
       h3.form__items-title 研修情報
       = render 'users/form/training_end', f: f
-      = render 'users/form/company', f:, user:
+      = render 'users/form/company', f: f, user: user
+
+      - if admin_login? && user.course
+        .form-item
+          = f.label :training_ends_on, class: 'a-form-label' do
+            | スキップするプラクティス
+          .a-form-help.mb-2
+            p
+              | 複数のカテゴリに所属するプラクティスは、所属するいずれかのカテゴリに一度しか表示されません（数値には反映されます）。
+          // 選択したコースに紐づくカテゴリーを表示させる。
+          = render SkippedPracticeComponent.new(form: f, user: user)
 
   - if from == :new
     .form__items
@@ -192,6 +220,11 @@
           = link_to '利用規約を確認（別タブで開きます）', tos_path, target: '_blank', rel: 'noopener'
         .a-form-help
           = link_to 'プライバシーポリシーを確認（別タブで開きます）', pp_path, target: '_blank', rel: 'noopener'
+
+    .form__items
+      h3.form__items-title
+        | アンケートのご協力をお願いします
+      = render 'users/form/referral_source', f: f
 
   - if from == :new
     .form-actions

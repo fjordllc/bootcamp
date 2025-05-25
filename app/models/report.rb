@@ -24,6 +24,7 @@ class Report < ApplicationRecord
   validates_associated :learning_times
   accepts_nested_attributes_for :learning_times, reject_if: :all_blank, allow_destroy: true
   has_and_belongs_to_many :practices # rubocop:disable Rails/HasAndBelongsToMany
+  has_many :footprints, as: :footprintable, dependent: :destroy
   belongs_to :user, touch: true
   alias sender user
 
@@ -32,7 +33,7 @@ class Report < ApplicationRecord
   validates :user, presence: true
   validates :reported_on, presence: true, uniqueness: { scope: :user }
   validates :emotion, presence: true
-  validate :reported_on_or_before_today
+  validate :limited_date_within_range
 
   after_create ReportCallbacks.new
   after_destroy ReportCallbacks.new
@@ -114,10 +115,6 @@ class Report < ApplicationRecord
     (learning_times.sum(&:diff) / 60).to_i
   end
 
-  def reported_on_or_before_today
-    errors.add(:reported_on, 'は今日以前の日付にしてください') if reported_on > Date.current
-  end
-
   def latest_of_user?
     self == Report.not_wip
                   .where(user:, wip: false)
@@ -133,5 +130,23 @@ class Report < ApplicationRecord
     Report.where(user:, wip: false)
           .order(reported_on: :desc)
           .second
+  end
+
+  def save_uniquely
+    transaction do
+      save
+    end
+  rescue ActiveRecord::RecordNotUnique
+    errors.add(:base, '学習日はすでに存在します')
+    false
+  end
+
+  private
+
+  def limited_date_within_range
+    min_date = Date.new(2013, 1, 1)
+    return if min_date <= reported_on && reported_on <= Date.current
+
+    errors.add(:reported_on, "は#{I18n.l min_date}から今日以前の間の日付にしてください")
   end
 end

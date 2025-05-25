@@ -22,6 +22,6 @@ header.page-header
     .container
       .page-main-header__inner
         h1.page-main-header__title
-          = "#{t("target.#{@target}")}（#{@users.size}）"
+          = "#{t("target.#{@target}")}（#{@users.total_count}）"
   hr.a-border
-  #js-company-users(company-id="#{@company.id}")
+  = render 'company_users', users: @users, data_title: title

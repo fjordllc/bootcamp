@@ -10,6 +10,8 @@
     padding: .5rem .75rem .75rem
   &.sortable-chosen
     background-color: tint($warning, 90%)
+  &.is-skip-on
+    background-color: var(--background-tint)
   &[draggable="false"]
     background-color: var(--base)
     animation: grab-background-color 1.25s ease 0s 1 normal none running
@@ -52,6 +54,8 @@
     font-size: .8125rem
   .a-badge
     margin-right: .25rem
+  &.is-skip-on
+    color: var(--muted-text)
 
 .category-practices-item__title-link-label
   a.category-practices-item__title-link:hover &

@@ -423,15 +423,6 @@ class TalksTest < ApplicationSystemTestCase
     has_no_css?('page-tabs')
   end
 
-  test 'change job seeking flag when click toggle button' do
-    user = users(:hajime)
-
-    visit_with_auth talk_path(user.talk), 'komagata'
-
-    check '就職活動中', allow_label_click: true
-    assert user.reload.job_seeking
-  end
-
   test 'hide user icon from recent reports in talk show' do
     user = users(:hajime)
     visit_with_auth "/talks/#{user.talk.id}", 'komagata'
@@ -474,6 +465,6 @@ class TalksTest < ApplicationSystemTestCase
 
   test 'display company-logo in consultation room when user is trainee' do
     visit_with_auth "/talks/#{talks(:talk11).id}", 'kensyu'
-    assert_selector 'img[class="page-content-header__company-logo"]'
+    assert_selector 'img[class="page-content-header__company-logo-image"]'
   end
 end

@@ -1,0 +1,102 @@
+section.lp-content.is-lp-bg-1.is-top-title
+  .l-container.is-xl
+    .lp-content__inner
+      .lp-content__start
+        header.lp-content__header
+          h2.lp-content-title.text-center.is-border-bottom
+            | Railsエンジニア
+            br
+            | （
+            strong
+              | Reスキル認定講座対応
+            | ）
+            br
+            | コース
+
+      .lp-content__end
+        .lp-content-stack
+
+          .lp-content-stack__item
+            .row.is-gutter-width-32
+              .col-xs-12.col-md-4
+                section.lp-top-image-section
+                  .lp-top-image-section__inner.a-card
+                    = image_tag('money-2.svg', class: 'lp-top-image-section__icon', alt: '給付金のイメージイラスト')
+                    h3.lp-card-title.text-center
+                      | 給付制度の<br>対象講座
+                    .lp-card-description
+                      .a-short-text
+                        p
+                          | 厚生労働省が認定する
+                          label.a-text-help-link(for='modal-training-benefit-course')
+                            span.a-form-help-link__label
+                              | 専門実践教育訓練給付制度
+                          | の対象講座です。
+                          | 給付金制度の対象者が一定の条件を満たすことで、
+                          | 支払った受講料の
+                          strong
+                            | 最大80%が給付金として支給されます
+                          | 。
+
+              .col-xs-12.col-md-4
+                section.lp-top-image-section
+                  .lp-top-image-section__inner.a-card
+                    = image_tag('re-skill-2.svg', class: 'lp-top-image-section__icon', alt: 'Reスキル講座認定のロゴ')
+                    h3.lp-card-title.text-center
+                      | Reスキル講座
+                      br
+                      | 認定
+                    .lp-card-description
+                      .a-short-text
+                        p
+                          | 社会人が高度な専門性を身に付けてキャリアアップを図る、
+                          | 専門的・実践的な教育訓練講座を
+                          | 経済産業大臣が認定する
+                          label.a-text-help-link(for='modal-industry-4-skills-yraining-certification')
+                            span.a-text-help-link__label
+                              | 第四次産業革命スキル習得講座（Reスキル講座）認定
+                          | も受けています。
+              .col-xs-12.col-md-4
+                section.lp-top-image-section
+                  .lp-top-image-section__inner.a-card
+                    = image_tag('rails.svg', class: 'lp-top-image-section__icon', alt: 'RubyとRailsのイラスト')
+                    h3.lp-card-title.text-center
+                      | Railsエンジニア
+                      br
+                      | コース
+                    .lp-card-description
+                      .a-short-text
+                        p
+                          | カリキュラムは多くのエンジニアを輩出している
+                          | サブスクのRailsエンジニアコースとほとんど同じ内容です。
+                          | デジタルスキルの基礎から開始し、開発環境の構築、Ruby言語の習得、
+                          | Webアプリケーションの開発までを学びます。
+                  = render '/shared/modal', id: 'modal-training-benefit-course', modal_title: '専門実践教育訓練給付制度'
+                    .modal__description
+                      .a-short-text
+                        p
+                          | 専門実践教育訓練給付制度は、雇用保険を利用して中長期的なキャリア形成や再就職を支援する目的で設けられた制度です。この制度では、厚生労働大臣が指定する専門的・実践的な教育訓練を受講し、修了した場合に受講費用の一部が給付されます。給付率は一般的な教育訓練給付よりも高く、最大で受講費用の80%が支給されることがあります。
+                        p
+                          | 対象となる職種や業種は、国家資格が必要な医療・福祉、保育・教育、技術分野などが中心で、高度な専門性を要するビジネスやIT分野の講座も含まれます。具体的な講座には、介護福祉士養成講座、看護師養成課程、保育士コース、美容師養成専門課程などがあり、これらは通常1年以上の体系的なカリキュラムを有します。
+                        p
+                          | 申請方法については、受講する講座を決定後、ハローワークで受給資格の確認を受け、教育訓練給付金受給資格者証を取得する必要があります。講座受講中は出席率や成績を保ちつつ、6ヶ月ごとに給付申請を行い、講座修了後に資格取得と就職が条件を満たした場合に追加給付が可能です。給付金は受講中50%、修了後20%、賃金増加で追加10%の支給があり、全体で最大80%の給付を受けることができます。
+                        p
+                          | 専門実践教育訓練給付金は、経済的負担を軽減し、専門職へのキャリアアップや職業訓練への参加を促進するための有効な支援策とされています。
+                  = render '/shared/modal', id: 'modal-industry-4-skills-yraining-certification', modal_title: '第四次産業革命スキル習得講座（Reスキル講座）認定制度'
+                    .modal__description
+                      .a-short-text
+                        p
+                          | 「第四次産業革命スキル習得講座認定制度」は、
+                          | 経済産業省がAIやデータサイエンス、
+                          | IoTなどの先端技術分野で必要とされる高度なスキルを持つ社会人を育成するための制度です。
+                          | この制度により認定された教育訓練講座は、
+                          | 第四次産業革命を支える専門技術を習得するための公式な場として提供されます。
+                          | 目的は、デジタル技術の急速な進展に対応できる人材を育成し、
+                          | 働く人々のキャリア形成と日本の産業競争力の強化を促進することです。
+                          | この制度は2017年に創設され、特に企業のDX推進ニーズの増加とIT人材の不足を背景に、
+                          | 人材育成の加速が求められています。
+          = render 'welcome/certified_reskill_courses/rails_developer_course/main_actions'
+
+  .lp-content-divider.is-lp-bg-2
+    svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+      path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"

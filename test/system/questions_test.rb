@@ -21,7 +21,7 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_equal '全てのQ&A | FBC', title
   end
 
-  test 'show a resolved qestion' do
+  test 'show a resolved question' do
     question = questions(:question3)
     visit_with_auth question_path(question), 'kimura'
     assert_text '解決済'
@@ -185,7 +185,7 @@ class QuestionsTest < ApplicationSystemTestCase
     end
     fill_in 'answer[description]', with: 'アンサーテスト'
     click_button 'コメントする'
-    within '.a-card.is-answer' do
+    within '.a-card.is-answer.answer-display' do
       assert_text '内容修正'
       assert_text 'ベストアンサーにする'
       assert_text '削除する'
@@ -193,7 +193,7 @@ class QuestionsTest < ApplicationSystemTestCase
 
     visit_with_auth questions_path(target: 'not_solved'), 'komagata'
     click_on 'テストの質問タイトル'
-    within '.a-card.is-answer' do
+    within '.a-card.is-answer.answer-display' do
       assert_text '内容修正'
       assert_text 'ベストアンサーにする'
       assert_text '削除する'
@@ -201,7 +201,7 @@ class QuestionsTest < ApplicationSystemTestCase
 
     visit_with_auth questions_path(target: 'not_solved'), 'hatsuno'
     click_on 'テストの質問タイトル'
-    within '.a-card.is-answer' do
+    within '.a-card.is-answer.answer-display' do
       assert_no_text '内容修正'
       assert_no_text 'ベストアンサーにする'
       assert_no_text '削除する'

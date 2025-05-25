@@ -15,6 +15,13 @@
   .a-count-badge
     float: right
     margin-left: .5rem
+    margin-top: -.5rem
+
+.page-content-header__start
+  display: flex
+  flex-direction: column
+  align-items: center
+  gap: .5rem
 
 .page-content-header__end
   +media-breakpoint-up(md)
@@ -60,17 +67,15 @@
 .page-content-header__user-link
   +block-link
 
-.page-content-header__user-icon
+.page-content-header__user-icon-image
   +size(3.5rem)
 
-.page-content-header__company-logo
+.page-content-header__company-logo-image
   background-color: var(--base)
   object-fit: contain
   border-radius: .25rem
-  border: solid 1px var(--border)
   +media-breakpoint-up(md)
     +size(3.5rem)
-    margin-top: .5rem
   +media-breakpoint-down(sm)
     +size(2.75rem)
     +position(absolute, right 0, top 0)
@@ -105,6 +110,8 @@
     font-size: 1.125rem
     word-break: break-all
   &.is-wip
+    color: var(--muted-text)
+  &.is-skip-on
     color: var(--muted-text)
   .a-title-label
     display: inline-flex
@@ -158,13 +165,21 @@
 .page-content-header__checker
   +position(absolute, right 0, top -.5rem)
 
-.user-profile__company-logo
+.user-profile__company-logo-image
   background-color: var(--base)
   object-fit: contain
   border-radius: .25rem
-  border: solid 1px var(--border)
   +media-breakpoint-up(md)
-    +size(3.75rem)
+    +size(4.5rem)
   +media-breakpoint-down(sm)
     +size(3.5rem)
     +position(absolute, right 0, top 0)
+
+.page-content-header__alert
+  background-color: var(--danger-tint)
+  color: var(--danger-text)
+  +text-block(.875rem 1.4)
+  text-align: center
+  padding: .5rem 1rem
+  border: solid 1px var(--danger)
+  border-radius: .25rem

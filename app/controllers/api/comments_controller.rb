@@ -3,6 +3,9 @@
 class API::CommentsController < API::BaseController
   before_action :set_my_comment, only: %i[update destroy]
   before_action :set_available_emojis, only: %i[index create]
+  skip_before_action :verify_authenticity_token, if: -> { doorkeeper_token.present? }
+  before_action :doorkeeper_authorize!, if: -> { doorkeeper_token.present? }
+  before_action -> { doorkeeper_authorize! :write }, only: %i[create update destroy], if: -> { doorkeeper_token.present? }
 
   def index
     if params[:commentable_type].present?
@@ -22,7 +25,12 @@ class API::CommentsController < API::BaseController
     @comment.user = current_user
     @comment.commentable = commentable
     if @comment.save
-      render :create, status: :created
+      # TODO: Inquiry以外はvueでJSONを使用している。コメント機能のJS変換が完了すれば下の'Inquiry'による分岐は不要なので削除してください。
+      if params[:commentable_type] == 'Inquiry'
+        render partial: 'comments/comment', locals: { commentable:, comment: @comment, user: current_user }, status: :created
+      else
+        render :create, status: :created
+      end
     else
       head :bad_request
     end

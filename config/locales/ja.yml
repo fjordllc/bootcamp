@@ -47,11 +47,17 @@ ja:
       book: 参考書籍
       regular_event: 定期イベント
       request_retirement: 退会申請
+      faq: FAQ
+      faq_category: FAQカテゴリ
+      coding_test: コーディングテスト
+      movie: 動画
+      grant_course_application: 給付金対応コース受講申請
     attributes:
       user:
         login_name: アカウント
         name: 名前（ニックネームも可）
         name_kana: 名前（カナ）
+        career_memo: メモ（卒業後の進路）
         course_id: コース
         description: 自己紹介
         email: Email
@@ -105,13 +111,14 @@ ja:
         subscription_id: サブスクリプションID
         country_code: 国
         subdivision_code: 都道府県・州
-        not_auto_retire: 休会六ヶ月後に自動退会しない
+        not_auto_retire: 休会三ヶ月後に自動退会しない
         invoice_payment_user: 請求書払い
         credit_card_payment_user: クレジットカード払い
         other_editor: その他のエディタ
-        hide_mentor_profile: プロフィール非公開
+        show_mentor_profile: プロフィール公開
         invoice_payment: 「請求書払い」
         diploma_file: 卒業証書(PDF)
+        other_referral_source: FBCを知ったその他の経路
       discord_profile:
         account_name: Discord アカウント
         times_url: 分報URL
@@ -120,14 +127,15 @@ ja:
         scheduled_return_on: 復帰予定日
         returned_at: 復帰日時
       course:
-        title: タイトル
+        title: コース名
         description: 説明
+        summary: 主な内容や概要
         created_at: 作成日時
         updated_at: 更新日時
       practice:
         title: タイトル
         description: 内容
-        goal: 終了条件
+        goal: 修了条件
         target: ターゲット
         submission: 提出物
         submission_answer: 模範解答
@@ -183,6 +191,12 @@ ja:
         body: 本文
         tag_list: タグ
         slug: スラッグ
+      movie:
+        practice: 関連プラクティス
+        title: タイトル
+        description: 説明
+        tag_list: タグ
+        movie_data: 動画データ
       question:
         practice: プラクティス
         title: タイトル
@@ -304,6 +318,42 @@ ja:
       request_retirement/keep_data/option:
         keep: 残す
         delete: 削除する
+      faq:
+        question: 質問
+        answer: 回答
+        faq_category: カテゴリー
+      faq_category:
+        name: カテゴリー名
+      coding_test:
+        title: タイトル
+        description: 問題文
+        user: 作成者
+        practice: 所属プラクティス
+        language: 言語
+        coding_test_submissions: 回答コード
+      grant_course_application:
+        name: 名前
+        last_name: 姓
+        first_name: 名
+        email: メールアドレス
+        zip: 郵便番号
+        zip1: 郵便番号（前半）
+        zip2: 郵便番号（後半）
+        prefecture_code: 都道府県
+        address: 住所
+        address1: 市区町村
+        address2: 建物名・部屋番号
+        tel: 電話番号
+        tel1: 電話番号（前半）
+        tel2: 電話番号（中央）
+        tel3: 電話番号（後半）
+        trial_period: お試し利用希望
+        privacy_policy: 個人情報の取り扱い
+      coding_test_case:
+        input: 入力
+        output: 出力
+      doorkeeper/application:
+        redirect_uri: Redirect URL
     enums:
       user:
         job:
@@ -332,12 +382,29 @@ ja:
           vim: Vim
           emacs: Emacs
           other_editor: その他
+        referral_source:
+          search_engine: 検索エンジン
+          referral: 知人の紹介
+          event: テックイベント
+          x: X（旧Twitter）
+          facebook: Facebook
+          blog: ブログ記事
+          web_ad: Web広告
+          other: その他
         satisfaction:
           excellent: とても良い
           good: 良い
           average: どちらでもない
           poor: 悪い
           very_poor: とても悪い
+        career_path:
+          unset: 未設定
+          job_seeking: 就職活動中
+          employed_via_referral: 就職した（Lokkaの紹介）
+          employed_without_referral: 就職した（Lokkaの紹介を使わず）
+          employed_non_it: IT系以外に就職した
+          internal_transfer_to_programmer: 社内転職でプログラマーになった
+          not_employed: 就職していない
       learning:
         status:
           unstarted: 未着手
@@ -366,12 +433,21 @@ ja:
           orange: Orange
           brown: Brown
           blue: Blue
+        target:
+          all: 全員（退会者を除く）
+          students: 現役生のみ
+          job_seekers: 就職希望者のみ
+          none: 通知しない
     errors:
       models:
         campaign:
           attributes:
             end_at:
               format: 'は%{shortest_end_at}以降を入力してください。'
+        doorkeeper/application:
+          attributes:
+            redirect_uri:
+              relative_uri: Redirect URLの値が無効です
   target:
     student_and_trainee: 現役 + 研修生
     student: 現役生
@@ -451,3 +527,65 @@ ja:
     followup: "こんにちは。\nご登録から30日ほど経ちますが、学習について困っていることや詰まっている部分などありますでしょうか？\nもしあれば、メンターの皆さんにお気軽にご相談ください。"
     comeback: "お帰りなさい！！復会ありがとうございます。\n休会中に何か変わったことがあれば、再びスムーズに学び始めることができるように全力でサポートします。何か困ったことや質問があれば、メンターの皆さんに遠慮なくご相談ください。\n\nまたフィヨルドブートキャンプの Discord のサーバーに入室できるように、再度、Doc にある Discord の招待 URL にアクセスをお願いします。\n<https://bootcamp.fjord.jp/practices/129#url>"
   unregistered: 未登録
+  doorkeeper:
+    applications:
+      buttons:
+        authorize: 承認
+        cancel: キャンセル
+        destroy: 削除
+        edit: 編集
+        submit: 登録する
+      confirmations:
+        destroy: アプリケーションを削除しますか？
+      form:
+        error: フォームにエラーが無いか確認してください
+      help:
+        confidential: 機密性の高いアプリケーションの場合はチェックしてください
+        redirect_uri: 一行に一つのURLを入力してください
+        scopes: クライアントアプリがリソースを利用できるようになる範囲を指定してください。read writeが設定でき、readは「読み取り」writeは「書き込み」ができるようになります。空白の場合は、readが利用できます。writeを利用したい場合は、read writeのように入力してください。
+      edit:
+        title: アプリケーション編集
+      index:
+        actions: ''
+        new: アプリケーション追加
+        title: アプリケーション一覧
+      new:
+        title: アプリケーション追加
+      show:
+        actions: ''
+        application_id: Application ID
+        secret: Secret
+        title: '%{name}'
+    authorizations:
+      title: Oauth2 Provider
+      buttons:
+        authorize: 承認
+        deny: キャンセル
+      new:
+        able_to: 次の許可をリクエストしています
+        title: ''
+        prompt: ''
+    errors:
+      messages:
+        invalid_client: アプリの認証に失敗しました
+        invalid_redirect_uri: Redirect URLが無効です
+        invalid_scope: スコープが無効です
+    flash:
+      applications:
+        create:
+          notice: アプリケーションを追加しました。
+        destroy:
+          notice: アプリケーションを削除しました。
+        update:
+          notice: アプリケーションを更新しました。
+    layouts:
+      admin:
+        nav:
+          applications: ''
+          home: BootCamp
+        title: Oauth2 Provider
+      application:
+        title: Oauth2 Provider
+    scopes:
+      read: メールアドレスを含む基本的なプロフィール情報の読み取り
+      write: リソースの作成・修正・削除

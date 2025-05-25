@@ -1,0 +1,15 @@
+.a-card.coding-tests
+  header.card-header
+    h2.card-header__title
+      | コーディングテスト
+  hr.a-border-tint
+  .card-list
+    - coding_tests.order(:position).each do |coding_test|
+      .card-list-item
+        .coding-tests-item
+          - if coding_test.passed_by?(current_user)
+            .coding-tests-item__passed
+              .a-badge.is-success.is-sm
+                | クリア
+          = link_to coding_test, class: 'coding-tests-item__test-link' do
+            = coding_test.title

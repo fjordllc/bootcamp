@@ -6,9 +6,13 @@
                 mentor_root_path,
                 class: "page-tabs__item-link #{current_link(/^mentor-home/)}"
       li.page-tabs__item
+        = link_to 'コーディングテスト',
+                mentor_coding_tests_path,
+                class: "page-tabs__item-link #{current_link(/mentor(-practices)?-coding_tests/)}"
+      li.page-tabs__item
         = link_to 'プラクティス',
                 mentor_practices_path,
-                class: "page-tabs__item-link #{current_link(/^mentor-practices/)}"
+                class: "page-tabs__item-link #{current_link(/^mentor-practices(?!-coding_tests)/)}"
       li.page-tabs__item
         = link_to 'カテゴリー',
                 mentor_categories_path,
@@ -25,3 +29,7 @@
         = link_to 'ブログ',
                 articles_path,
                 class: "page-tabs__item-link #{current_link(/^articles/)}"
+      li.page-tabs__item
+        = link_to 'アンケート',
+                mentor_surveys_path,
+                class: "page-tabs__item-link #{current_link(/^mentor-surveys/)}"

@@ -1,44 +1,58 @@
-.a-card.practice-memo data-practice_id=practice_id
-  .memo-display
-    .card-body
-      .card-body__description.any-memo.is-hidden
-        .a-long-text.is-md
-      .card-list.no-memo
-        .card-list__message
-          .container
-            .o-empty-message
-              .o-empty-message__icon
-                i.fa-regular.fa-sad-tear
-              .o-empty-message__text
-                | プラクティスメモはまだありません。
-    hr.a-border-tint
-    footer.card-footer
-      .card-main-actions
-        ul.card-main-actions__items
-          li.card-main-actions__item
-            button.card-main-actions__action.a-button.is-sm.is-secondary.is-block
-              i.fa-solid.fa-pen
-              | 編集
-  .memo-editor.is-hidden
-    .form-tabs.js-tabs
-      .form-tabs__tab.js-tabs__tab.editor-tab.is-active
-        | メモ
-      .form-tabs__tab.js-tabs__tab.preview-tab
-        | プレビュー
-    .card-body
-      .card-body__description
-        .a-markdown-input.js-markdown-parent
-          .a-markdown-input__inner.is-editor.js-tabs__content.is-active
-            textarea.a-text-input.a-markdown-input__textarea id='js-practice-memo' data-preview='#practice-memo-preview' name='practice[memo]'
-          .a-markdown-input__inner.is-preview.js-tabs__content
-            .a-long-text.a-markdown-input__preview
-    hr.a-border-tint
-    .card-footer
-      .card-main-actions
-        .card-main-actions__items
-          .card-main-actions__item
-            button.a-button.is-sm.is-primary.is-block
-              | 保存する
-          .card-main-actions__item
-            button.a-button.is-sm.is-secondary.is-block
-              | キャンセル
+.a-card.is-toggle.practice-memo.is-only-mentor(data-practice_id=practice_id)
+  input.a-toggle-checkbox#toggle-mentor-memo-body(type='checkbox')
+  label.card-header.is-sm(for="toggle-mentor-memo-body")
+    h2.card-header__title
+      | メンターメモを確認
+    .is-hidden-then-checked
+      i.fas.fa-angle-down
+    .is-hidden-then-unchecked
+      i.fas.fa-angle-up
+  .memo
+    .memo-display
+      hr.a-border-tint
+      .card-body
+        .card-body__description.any-memo.is-hidden
+          .a-long-text.is-sm.js-markdown-view
+        .card-list.no-memo
+          .card-list__message
+            .container
+              .o-empty-message
+                .o-empty-message__icon
+                  i.fa-regular.fa-sad-tear
+                .o-empty-message__text
+                  | プラクティスメモはまだありません。
+      hr.a-border-tint
+      footer.card-footer
+        .card-main-actions
+          ul.card-main-actions__items
+            li.card-main-actions__item
+              button.card-main-actions__action.a-button.is-sm.is-secondary.is-block
+                i.fa-solid.fa-pen
+                | 編集
+            li.card-main-actions__item.is-sub
+              label.card-main-actions__muted-action(for="toggle-mentor-memo-body")
+                | 閉じる
+    .memo-editor.is-hidden
+      hr.a-border-tint
+      .form-tabs.js-tabs
+        .form-tabs__tab.js-tabs__tab.editor-tab.is-active
+          | メモ
+        .form-tabs__tab.js-tabs__tab.preview-tab
+          | プレビュー
+      .card-body
+        .card-body__description
+          .a-markdown-input.js-markdown-parent
+            .a-markdown-input__inner.is-editor.js-tabs__content.is-active
+              textarea.a-text-input.a-markdown-input__textarea id='js-practice-memo' data-preview='#practice-memo-preview' name='practice[memo]'
+            .a-markdown-input__inner.is-preview.js-tabs__content
+              .a-long-text.a-markdown-input__preview
+      hr.a-border-tint
+      .card-footer
+        .card-main-actions
+          .card-main-actions__items
+            .card-main-actions__item
+              button.a-button.is-sm.is-primary.is-block
+                | 保存する
+            .card-main-actions__item
+              button.a-button.is-sm.is-secondary.is-block
+                | キャンセル

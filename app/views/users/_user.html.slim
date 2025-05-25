@@ -1,4 +1,4 @@
-.col-xxxl-2.col-xxl-3.col-xl-4.col-lg-4.col-md-6.col-xs-12
+.col-xxxl-2.col-xxl-3.col-xl-6.col-lg-6.col-md-6.col-xs-12
   .users-item.is-rails
     .users-item__inner.a-card
       .users-item__inactive-message-container.is-only-mentor
@@ -19,6 +19,10 @@
               = link_to user.url
                 span class="a-user-role is-#{user.primary_role}"
                   img.users-item__user-icon-image.a-user-icon title=user.icon_title alt=user.icon_title src=user.avatar_url
+            - if user.company&.logo_url
+              .users-item__company
+                = link_to company_path(user.company) do
+                  img.user-item__company-logo-image src=user.company.logo_url
           .users-item__header-end
             .card-list-item__rows
               .card-list-item__row
@@ -46,7 +50,8 @@
                           .a-meta__icon
                             i.fa-brands.fa-discord
                             | #{user.discord_profile.account_name}
-        = render 'users/sns', user: user
+              .card-list-item__row
+                = render 'users/sns', user: user
         - if user.student_or_trainee?
           .card-counts.is-users.mt-3
             = render 'users/activity_counts', user: user
@@ -57,7 +62,7 @@
               = desc_paragraph[:text]
         .users-item__tags
           = render 'users/tags', user: user
-      = render 'users/practices/completed_practices_progress', user: user, is_display_progress_count: false
+      = render 'users/practices/completed_practices_progress', user: user, is_display_progress_count: false, user_course_practice: UserCoursePractice.new(user)
       hr.a-border-tint
       footer.card-footer.users-item__footer
         .card-main-actions

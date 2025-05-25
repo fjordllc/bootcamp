@@ -1,0 +1,12 @@
+.side-filter
+  .a-card
+    ul.side-filter__items
+      li.side-filter__item
+        = link_to faq_path(anchor: 'faqs'),
+          class: "side-filter__item-link #{params[:category] ? '' : 'is-active'}" do
+          | 全て
+      - faq_categories.each do |faq_category|
+        li.side-filter__item
+          = link_to faq_path(category: faq_category.name, anchor: 'faqs'),
+            class: "side-filter__item-link #{params[:category] == faq_category.name ? 'is-active' : ''}" do
+            = faq_category.name

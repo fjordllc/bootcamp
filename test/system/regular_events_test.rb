@@ -196,7 +196,7 @@ class RegularEventsTest < ApplicationSystemTestCase
 
   test 'show listing not finished regular events' do
     visit_with_auth regular_events_path(target: 'not_finished'), 'kimura'
-    assert_selector '.card-list.a-card .card-list-item', count: 17
+    assert_selector '.card-list.a-card .card-list-item', count: 20
   end
 
   test 'show listing all regular events' do
@@ -366,10 +366,10 @@ class RegularEventsTest < ApplicationSystemTestCase
   end
 
   test 'upcoming events groups' do
-    today_events_count = 5
+    today_events_count = 6
     tomorrow_events_count = 2
     day_after_tomorrow_events_count = 4
-    travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
+    travel_to Time.zone.local(2017, 4, 3, 8, 0, 0) do
       visit_with_auth events_path, 'komagata'
       within('.upcoming_events_groups') do
         assert_text '近日開催のイベント'

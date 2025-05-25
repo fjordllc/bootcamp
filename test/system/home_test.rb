@@ -82,6 +82,36 @@ class HomeTest < ApplicationSystemTestCase
     assert_no_text 'ブログURLを登録してください。'
   end
 
+  test 'visible announcement for activity time setup' do
+    visit_with_auth '/', 'kimura'
+    assert_selector 'h2.page-header__title', text: 'ダッシュボード'
+    assert has_link?('活動時間を登録してください。', href: '/current_user/edit')
+    click_on '活動時間を登録してください。'
+
+    assert_selector 'h1.auth-form__title', text: '登録情報変更'
+    assert_selector 'label.a-form-label', text: '主な活動予定時間'
+    find('label[for="user_learning_time_frame_ids_1"]').click
+    click_on '更新する'
+
+    visit '/'
+    assert_selector 'h2.page-header__title', text: 'ダッシュボード'
+    assert has_no_link?('活動時間を登録してください。', href: '/current_user/edit')
+
+    visit_with_auth '/', 'kensyu'
+    assert_selector 'h2.page-header__title', text: 'ダッシュボード'
+    assert has_link?('活動時間を登録してください。', href: '/current_user/edit')
+    click_on '活動時間を登録してください。'
+
+    assert_selector 'h1.auth-form__title', text: '登録情報変更'
+    assert_selector 'label.a-form-label', text: '主な活動予定時間'
+    find('label[for="user_learning_time_frame_ids_1"]').click
+    click_on '更新する'
+
+    visit '/'
+    assert_selector 'h2.page-header__title', text: 'ダッシュボード'
+    assert has_no_link?('活動時間を登録してください。', href: '/current_user/edit')
+  end
+
   test 'not show message of after_graduation_hope for graduated user' do
     visit_with_auth '/', 'sotugyou'
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
@@ -99,6 +129,7 @@ class HomeTest < ApplicationSystemTestCase
     )
     path = Rails.root.join('test/fixtures/files/users/avatars/hatsuno.jpg')
     user.avatar.attach(io: File.open(path), filename: 'hatsuno.jpg')
+    LearningTimeFramesUser.create!(user:, learning_time_frame_id: 1)
 
     visit_with_auth '/', 'hatsuno'
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
@@ -217,7 +248,7 @@ class HomeTest < ApplicationSystemTestCase
   end
 
   test 'show all regular events and special events on dashbord' do
-    travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
+    travel_to Time.zone.local(2017, 4, 3, 8, 0, 0) do
       visit_with_auth '/', 'kimura'
       today_event_label = find('.card-list__label', text: '今日開催')
       tomorrow_event_label = find('.card-list__label', text: '明日開催')
@@ -226,6 +257,7 @@ class HomeTest < ApplicationSystemTestCase
       today_events_texts = [
         { category: '特別', title: '直近イベントの表示テスト用(当日)', start_at: '2017年04月03日(月) 09:00' },
         { category: '特別', title: 'kimura専用イベント', start_at: '2017年04月03日(月) 09:00' },
+        { category: '輪読会', title: '月曜日開催で10:00に終了する定期イベント', start_at: '2017年04月03日(月) 09:00' },
         { category: '質問', title: '質問・雑談タイム', start_at: '2017年04月03日(月) 16:00' },
         { category: '輪読会', title: 'ダッシュボード表示確認用テスト定期イベント', start_at: '2017年04月03日(月) 21:00' },
         { category: '輪読会', title: 'ダッシュボード表示確認用テスト定期イベント', start_at: '2017年04月03日(月) 21:00' }
@@ -472,7 +504,7 @@ class HomeTest < ApplicationSystemTestCase
   end
 
   test 'not show trainee lists for adviser when adviser does not have same company trainees' do
-    visit_with_auth '/', 'advisernocolleguetrainee'
+    visit_with_auth '/', 'advisernocolleaguetrainee'
     assert_text '現在、ユーザの企業に登録しないで株式会社は研修を利用していません。'
   end
 
@@ -557,7 +589,7 @@ class HomeTest < ApplicationSystemTestCase
     assert_text '駒形 真幸'
     assert_text '株式会社ロッカの代表兼エンジニア。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
     visit_with_auth edit_current_user_path, 'komagata'
-    check 'プロフィール非公開', allow_label_click: true
+    uncheck 'プロフィール公開', allow_label_click: true
     click_on '更新する'
     assert_text 'ユーザー情報を更新しました。'
     logout

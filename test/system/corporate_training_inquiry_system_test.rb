@@ -18,7 +18,6 @@ class CorporateTrainingInquirySystemTest < ApplicationSystemTestCase
 
   test 'GET /corporate_training_inquiry/new' do
     visit '/corporate_training_inquiry/new'
-    assert_equal '企業研修申し込みフォーム | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
 
     fill_in '担当者様のお名前', with: '研修 する世'
     fill_in '企業名', with: '株式会社カンパニー'
@@ -35,10 +34,10 @@ class CorporateTrainingInquirySystemTest < ApplicationSystemTestCase
     assert_difference 'ActionMailer::Base.deliveries.count', 1 do
       click_button '送信'
     end
+
     mail = ActionMailer::Base.deliveries.last
     assert_equal '[FBC] 企業研修の申し込み', mail.subject
 
-    assert_text 'お問い合わせを送信しました。'
-    assert_no_text 'Bot対策のため送信を拒否しました。しばらくしてからもう一度送信してください。'
+    assert_includes title, '企業研修申し込み送信完了'
   end
 end

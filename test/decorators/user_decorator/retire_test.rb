@@ -11,33 +11,33 @@ module UserDecorator
     end
 
     test '#retire_countdown' do
-      travel_to Time.zone.local(2020, 6, 24, 9, 0, 0) do
+      travel_to Time.zone.local(2020, 3, 25, 9, 0, 0) do
         assert_equal 1.week, @hibernationed.retire_countdown
         assert_nil @student.retire_countdown
       end
     end
 
     test '#retire_deadline wihin 1 hour' do
-      travel_to Time.zone.local(2020, 7, 1, 8, 1, 0) do
-        assert_equal '2020年07月01日(水) 09:00 (自動退会まであと59分)', @hibernationed.retire_deadline
+      travel_to Time.zone.local(2020, 4, 1, 8, 1, 0) do
+        assert_equal '2020年04月01日(水) 09:00 (自動退会まであと59分)', @hibernationed.retire_deadline
       end
     end
 
     test '#retire_deadline within 24 hours' do
-      travel_to Time.zone.local(2020, 6, 30, 10, 0, 0) do
-        assert_equal '2020年07月01日(水) 09:00 (自動退会まであと23時間)', @hibernationed.retire_deadline
+      travel_to Time.zone.local(2020, 3, 31, 10, 0, 0) do
+        assert_equal '2020年04月01日(水) 09:00 (自動退会まであと23時間)', @hibernationed.retire_deadline
       end
     end
 
     test '#retire_deadline within 1 week' do
-      travel_to Time.zone.local(2020, 6, 24, 9, 0, 0) do
-        assert_equal '2020年07月01日(水) 09:00 (自動退会まであと7日)', @hibernationed.retire_deadline
+      travel_to Time.zone.local(2020, 3, 25, 9, 0, 0) do
+        assert_equal '2020年04月01日(水) 09:00 (自動退会まであと7日)', @hibernationed.retire_deadline
       end
     end
 
     test '#retire_deadline over 1 week' do
       travel_to Time.zone.local(2020, 1, 1, 9, 0, 0) do
-        assert_equal '2020年07月01日(水) 09:00 (自動退会まであと182日)', @hibernationed.retire_deadline
+        assert_equal '2020年04月01日(水) 09:00 (自動退会まであと91日)', @hibernationed.retire_deadline
       end
     end
 

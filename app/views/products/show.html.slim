@@ -16,6 +16,12 @@ header.page-header
       .page-header__end
         .page-header-actions
           ul.page-header-actions__items
+            - if current_user.mentor? && @practice.submission && !@practice.submission_answer
+              li.page-header-actions__item.is-hidden-sm-down.is-only-mentor
+                = link_to new_mentor_practice_submission_answer_path(@practice), class: 'a-button is-md is-secondary is-block' do
+                  i.fa-regular.fa-plus
+                  span
+                    | 模範解答作成
             li.page-header-actions__item
               = link_to course_practices_path(current_user.course, anchor: "category-#{category.id}"),
                 class: 'a-button is-md is-secondary is-block is-back' do
@@ -49,11 +55,15 @@ header.page-header
               = render PracticeContentToggle::PracticeContentToggleComponent.new(content_type: :practice, practice: @product.practice)
             .page-body__row
               = render PracticeContentToggle::PracticeContentToggleComponent.new(content_type: :goal, practice: @product.practice)
+            .page-body__row.is-only-mentor
+              = render 'practice_memo', practice_id: @practice.id
             .page-body__row
               = render 'product_body', product: @product
 
         #js-comments(data-commentable-id="#{@product.id}" data-commentable-type='Product' data-current-user-id="#{current_user.id}")
-        div(data-vue='Footprints' data-vue-footprintable-id="#{@product.id}" data-vue-footprintable-type='Product')
+        .user-icons
+          ul.user-icons__items
+            = render '/footprints/footprints', footprints: @footprints
 
       .is-only-mentor(class="#{current_user.mentor? || current_user.admin? ? 'col-xl-5 col-xs-12 is-hidden-sm-down' : ''}")
         - if current_user.mentor? || current_user.admin?
@@ -69,10 +79,10 @@ header.page-header
                     | 直近の日報
                 .side-tabs-nav__item
                   label.side-tabs-nav__item-link#side-tabs-nav-2 for='side-tabs-2'
-                    | プラクティスメモ
+                    | ユーザーメモ
                 .side-tabs-nav__item
                   label.side-tabs-nav__item-link#side-tabs-nav-3 for='side-tabs-3'
-                    | ユーザーメモ
+                    | ユーザー情報
                 .side-tabs-nav__item
                   label.side-tabs-nav__item-link#side-tabs-nav-4 for='side-tabs-4'
                     | 提出物
@@ -80,12 +90,30 @@ header.page-header
               .side-tabs-contents__item#side-tabs-content-1
                 = render partial: 'reports/recent_reports', locals: { header_display: true }
               .side-tabs-contents__item#side-tabs-content-2
-                = render 'practice_memo', practice_id: @product.practice_id
-              .side-tabs-contents__item#side-tabs-content-3
-                .user-info
-                  = render 'users/user_secret_attributes', user: @product.user
-                  = render 'users/metas', user: @product.user
                 = render 'users/user_mentor_memo', user_id: @product.user.id
+              .side-tabs-contents__item#side-tabs-content-3
+                .a-card
+                  .user-data
+                    .user-data__row
+                      = render 'users/user_secret_attributes', user: @product.user
+                    .user-data__row
+                      = render 'users/metas', user: @product.user, user_course_practice: UserCoursePractice.new(@product.user)
+                    ruby:
+                      skipped_practices = @product.user.skipped_practices
+                      user_practices = @product.user.practices
+                    - if skipped_practices.present?
+                      .user-data__row
+                        .user-metas.is-only-mentor
+                          h2.user-metas__title
+                            | スキップするプラクティス一覧
+                          .user-metas__items
+                            - skipped_practices.each do |skipped_practice|
+                              .user-metas__item
+                                .user-metas__item-value
+                                  = link_to practice_path(skipped_practice.practice.id) do
+                                    - display_practice = user_practices.find_by(id: skipped_practice.practice.id)
+                                    span.category-practices-item__title-link-label
+                                      = display_practice.title
               .side-tabs-contents__item#side-tabs-content-4
                 div(data-vue="UserProducts" data-vue-user-id:number="#{@product.user.id}" data-vue-is-mentor:boolean="#{false}" data-vue-current-user-id:number="#{current_user.id}" data-vue-display-user-icon:boolean="false")
 

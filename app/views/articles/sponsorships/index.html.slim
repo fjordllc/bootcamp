@@ -1,0 +1,5 @@
+ruby:
+  title 'ブログ'
+  set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）')
+  description 'オンラインプログラミングフィヨルドブートキャンプのスポンサーに関するブログ記事一覧ページです。'
+= render '/articles/articles', { articles: @articles, is_published: true }

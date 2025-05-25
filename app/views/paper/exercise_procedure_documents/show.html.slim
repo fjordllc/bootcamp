@@ -1,0 +1,45 @@
+.book-name 演習の具体的な実施手順等を示す資料
+
+.book-company_name 株式会社ロッカ
+.book-updated #{Date.current.year}年#{Date.current.month}月
+
+div(style="page-break-before:always")
+
+h2 演習の具体的な実施手順等を示す資料の概要
+
+p
+  | 本資料は、提出物が必要なカリキュラム項目をまとめたものです。
+  | 提出物が不要なカリキュラムは含まれていません。
+  | 資料内では、提出物の内容と具体的な手順について詳述しています。
+
+h2 受講生の提出物の確認プロセス
+
+p 提出物はメンターによって確認され、内容に問題がなければ該当カリキュラムは修了となります。
+p 課題の文章と解答例を記載しています。
+
+div(style="page-break-before:always")
+
+h2 目次
+
+- @categories.each_with_index do |category, i|
+  - category.practices.where(submission: true).each_with_index do |practice, h|
+    | #{i + 1}.#{h + 1}&nbsp;
+    = link_to practice.title.sub('（Reスキル）', ''), "##{practice.id}"
+    br
+
+div(style="page-break-before:always")
+
+- @categories.each_with_index do |category, i|
+  - category.practices.where(submission: true).each_with_index do |practice, h|
+    h3.practice_title(id="#{practice.id}")
+      | #{i + 1}.#{h + 1} #{practice.title.strip.sub('（Reスキル）', '')}
+
+    h4 課題
+
+    .a-long-text.is-md.js-markdown-view = practice.goal
+
+    h4 解答例
+
+    .a-long-text.is-md.js-markdown-view = practice.submission_answer.description
+
+    div(style="page-break-before:always")

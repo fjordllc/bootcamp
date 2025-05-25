@@ -6,10 +6,10 @@ class ArticlesController < ApplicationController
   before_action :require_admin_or_mentor_login, except: %i[index show]
 
   def index
-    @articles = Article.with_attachments_and_user.order(created_at: :desc).page(params[:page])
+    @articles = sorted_articles.preload([:tags]).page(params[:page])
     @articles = @articles.tagged_with(params[:tag]) if params[:tag]
     number_per_page = @articles.page(1).limit_value
-    @atom_articles = Article.with_attachments_and_user.order(published_at: :desc).limit(number_per_page)
+    @atom_articles = sorted_articles.limit(number_per_page)
     respond_to do |format|
       format.html { render layout: 'lp' }
       format.atom
@@ -18,7 +18,7 @@ class ArticlesController < ApplicationController
 
   def show
     @mentor = @article.user
-    @recent_articles = Article.with_attachments_and_user.order(published_at: :desc).limit(10)
+    @recent_articles = sorted_articles.limit(10)
     if @article.published? || @article.token == params[:token] || admin_or_mentor_login?
       render layout: 'lp'
     else
@@ -28,7 +28,7 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    @article = Article.new
+    @article = Article.new(target: 'all')
   end
 
   def edit; end
@@ -39,6 +39,7 @@ class ArticlesController < ApplicationController
     set_wip
     if @article.save
       Newspaper.publish(:create_article, { article: @article })
+
       redirect_to redirect_url(@article), notice: notice_message(@article)
     else
       render :new
@@ -78,6 +79,10 @@ class ArticlesController < ApplicationController
            .where(wip: false).order(published_at: :desc).limit(number)
   end
 
+  def sorted_articles
+    Article.with_attachments_and_user.order(published_at: :desc)
+  end
+
   def article_params
     article_attributes = %i[
       title
@@ -88,6 +93,7 @@ class ArticlesController < ApplicationController
       thumbnail_type
       summary
       display_thumbnail_in_body
+      target
     ]
     article_attributes.push(:published_at) unless params[:commit] == 'WIP'
     article_attributes.push(:token) if params[:commit] == 'WIP'

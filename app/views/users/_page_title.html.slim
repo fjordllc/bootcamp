@@ -17,6 +17,12 @@ header.page-header
               - else
                 li.page-main-header-actions__item
                   = render 'users/following', user:
+            - else
+              li.page-header-actions__item
+                = link_to new_report_path, class: 'a-button is-md is-secondary is-block' do
+                  i.fa-regular.fa-plus
+                  span
+                    | 日報作成
             li.page-header-actions__item
               = link_to users_path, class: 'a-button is-md is-secondary is-block is-back' do
                 | ユーザー一覧

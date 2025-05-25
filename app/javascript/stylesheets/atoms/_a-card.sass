@@ -34,7 +34,7 @@
       margin-inline: 1rem
   &.is-toggle
     label
-        cursor: pointer
+      cursor: pointer
     > input:not(:checked) + * + *
       display: none
     > input:not(:checked) + *
@@ -45,6 +45,16 @@
       display: none
     > input:checked + * .is-hidden-then-checked
       display: none
+    .card-body
+      max-height: 50vh
+      overflow-y: auto
+  &:has(.a-table)
+    border: none
+    .card-header
+      border: solid 1px var(--border)
+      border-bottom: none
+  &.is-danger
+    border: solid .25rem var(--danger)
 
 table.a-card
   display: table
@@ -59,3 +69,8 @@ table.a-card
   a
     +hover-link-reversal
     color: var(--reversal-text)
+
+.a-card__columns
+  display: flex
+  +media-breakpoint-down(md)
+    flex-direction: column

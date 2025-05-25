@@ -1,0 +1,64 @@
+= form_with model: [:mentor, coding_test], local: true, html: { name: 'coding_test', class: 'form' } do |f|
+  = render 'errors', object: coding_test
+  = f.hidden_field :course_id, value: params[:course_id]
+  .form__items
+    .form-item
+      .row
+        .col-lg-6.col-xs-12
+          = f.label :practice, class: 'a-form-label'
+          .select-practices
+            = f.collection_select :practice_id,
+              Practice.all,
+              :id,
+              :title,
+              { include_blank: 'プラクティスを選択してください' },
+              { id: 'js-choices-single-select' }
+        .col-md-3.col-xs-6
+          = f.label :language, class: 'a-form-label'
+          .select-users
+            = f.select :language,
+              CodingTest.languages.keys,
+              { include_blank: '言語を選択してください' },
+              { class: 'js-select2' }
+    .form-item
+      .row
+        .col-md-6.col-xs-12
+          = f.label :title, class: 'a-form-label'
+          = f.text_field :title, class: 'a-text-input js-warning-form', placeholder: '文字列操作'
+        .col-md-3.col-xs-6
+          = f.label :user, class: 'a-form-label'
+          .select-users
+            = f.select :user_id,
+              User.where(retired_on: nil).pluck(:login_name, :id).sort,
+              { include_blank: '作成者を選択してください' },
+              { class: 'js-select2' }
+    .form-item
+      .row.js-markdown-parent
+        .col-md-6.col-xs-12
+          = f.label :description, class: 'a-form-label'
+          = f.text_area :description,
+            class: 'a-text-input js-warning-form js-markdown markdown-form__text-area practices-edit__input',
+            data: { 'preview': '.js-preview' }
+        .col-md-6.col-xs-12
+          .a-form-label プレビュー
+          .js-preview.a-long-text.is-md.practices-edit__input.markdown-form__preview
+
+  .form__items
+    .test-cases
+      = f.fields_for :coding_test_cases do |coding_test_case|
+        = render 'coding_test_case_fields', f: coding_test_case
+      .test-cases__add.mt-6
+        = link_to_add_association f, :coding_test_cases, class: 'a-button is-md is-primary' do
+          i.fa-regular.fa-plus
+          span
+            | テストケースを追加
+
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item.is-main
+        = f.submit nil, class: 'a-button is-lg is-primary is-block'
+      li.form-actions__item.is-sub
+        = link_to 'キャンセル', mentor_categories_path, class: 'a-button is-sm is-text'
+      - if coding_test.id.present?
+        li.form-actions__item.is-muted
+          = link_to '削除', mentor_coding_test_path(coding_test), method: :delete, data: { confirm: '本当によろしいですか？' }, class: 'a-button is-sm is-muted-text'

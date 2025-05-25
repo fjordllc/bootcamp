@@ -1,0 +1,127 @@
+- title 'プレスキット'
+- set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
+  description: '株式会社ロッカ（以下「当社」といいます）の提供する「フィヨルドブートキャンプ」（以下「本サービス」といいます。）における、ユーザーの個人情報の取扱いについて、このページにあるとおりプライバシーポリシー（以下、「本ポリシー」といいます。）を定めます。')
+
+header.lp-page-header
+  .l-container
+    .lp-page-header__inner
+      .lp-page-header__start
+        h1.lp-page-header__title
+          = title
+      .lp-page-header__end
+hr.a-border
+.lp
+  .lp-content.is-lp-bg-1.is-top-title
+    .l-container.is-lg
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-border-bottom
+              = title
+        .lp-content__end
+          .a-card
+            .card-body
+              .card-body__inner
+                .a-long-text.is-md
+                  h2
+                    | ロゴ
+                  ul
+                    li
+                      = link_to logo_path, class: 'a-text-link' do
+                        | ロゴ・ガイドライン
+                  h2
+                    | 運営会社
+                  p
+                    strong
+                      | 社名 :&nbsp;
+                    span
+                      | 株式会社ロッカ（Lokka, Inc）
+                    br
+                    strong
+                      | 所在地 :&nbsp;
+                    span
+                      | 〒150-0041 東京都 渋谷区 神南1-12-14 渋谷宮田ビル710号
+                    br
+                    strong
+                      | 設立 :&nbsp;
+                    span
+                      | 2021年7月27日
+                    br
+                    strong
+                      | 資本金 :&nbsp;
+                    span
+                      | 900万円
+                    br
+                    strong
+                      | 従業員 :&nbsp;
+                    span
+                      | 3人
+                    br
+                    strong
+                      | 代表取締役 :&nbsp;
+                    span
+                      | 駒形真幸（コマガタマサキ）、町田哲平（マチダテッペイ）
+                    br
+                    strong
+                      | 取材に関するお問い合わせ :&nbsp;
+                    span
+                      = link_to new_inquiry_path, class: 'a-text-link' do
+                        | お問い合わせフォーム
+                  h2
+                    | SNS
+                  ul
+                    li
+                      = link_to 'https://github.com/fjordllc', class: 'a-text-link' do
+                        | GitHub
+                    li
+                      = link_to 'https://x.com/fjordbootcamp', class: 'a-text-link' do
+                        | X
+    .lp-content-divider.is-lp-bg-2
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+  .lp-content.is-lp-bg-2.is-top-title
+    .l-container.is-xl
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-border-bottom
+              | 最新のプレスリリース
+        .lp-content__end
+          .lp-content-stack
+            - if @press_releases.present?
+              .lp-content-stack__item
+                .row
+                  - @press_releases.each do |press_release|
+                    .col-lg-4.col-md-6.col-xs-12
+                      .thumbnail-card.a-card
+                        = link_to press_release, class: 'thumbnail-card__inner' do
+                          .thumbnail-card__row
+                            - if press_release.prepared_thumbnail?
+                              = image_tag press_release.prepared_thumbnail_url, class: 'thumbnail-card__image', alt: "ブログ記事「#{press_release.title}」のアイキャッチ画像"
+                            - else
+                              = image_tag press_release.selected_thumbnail_url, class: 'thumbnail-card__image', alt: 'ブログ記事のブランクアイキャッチ画像'
+                          .thumbnail-card__row
+                            h3.thumbnail-card__title
+                              = press_release.title
+                          .thumbnail-card__row
+                            .thumbnail-card__metas
+                              .thumbnail-card__meta
+                                .thumbnail-card__author
+                                  = image_tag press_release.user.avatar_url
+                                  = press_release.user.login_name
+                              .thumbnail-card__meta
+                                .thumbnail-card__date
+                                  = l(press_release.published_at)
+              .lp-content-stack__item
+                .lp-actions
+                  .lp-actions__items
+                    .lp-actions__item
+                      = link_to press_releases_path, class: 'a-button is-xl is-primary-border is-block' do
+                        | 全てのプレスリリース
+            - else
+              .lp-content-stack__item
+                .o-empty-message
+                  .o-empty-message__icon
+                    i.fa-regular.fa-sad-tear
+                  .o-empty-message__text
+                    | プレスリリースはまだありません。

@@ -15,7 +15,7 @@
     - if current_user.adviser?
       = render 'adviser_dashboard'
     - elsif current_user.mentor?
-      = render 'mentor_dashboard'
+      = render 'mentor_dashboard', products: @products, products_grouped_by_elapsed_days: @products_grouped_by_elapsed_days
     - else
       .columns
         .container.is-xl

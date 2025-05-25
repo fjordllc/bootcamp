@@ -14,7 +14,7 @@ class Mentor::CategoriesTest < ApplicationSystemTestCase
     first('.card-list-item').assert_text 'OS X Mountain Lionをクリーンインストールする'
   end
 
-  test 'create category' do
+  test 'create a category' do
     visit_with_auth '/mentor/categories/new', 'mentormentaro'
     within 'form[name=category]' do
       fill_in 'category[name]', with: 'テストカテゴリー'

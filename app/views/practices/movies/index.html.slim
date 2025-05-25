@@ -1,0 +1,30 @@
+- title "#{@practice.title}に関する動画"
+- set_meta_tags description: "プラクティス「#{@practice.title}」に関する動画一覧です。"
+- category = @practice.category(current_user.course)
+
+= render '/practices/page_header',
+  title: @practice.title,
+  category: category,
+  practice: @practice
+
+= practice_page_tabs(@practice, active_tab: '動画')
+
+.page-body
+  = paginate @movies
+  - if @movies.empty?
+    .o-empty-message
+      .o-empty-message__icon
+        i.fa-regular.fa-sad-tear
+      p.o-empty-message__text
+        | 動画はまだありません
+  - else
+    .page-body.is-movies
+      .page-body__inner
+        .container
+          .movies
+            .page-content.is-movies
+              .movies__items
+                .movie-list
+                  .row
+                    = render partial: 'movies/movie_list', collection: @movies, as: :movie
+  = paginate @movies
