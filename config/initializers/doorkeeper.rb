@@ -14,6 +14,9 @@ orm :active_record
     end
   end
 
+  # 本番・ステージング環境でもリダイレクトURLに「http://」を許可
+  force_ssl_in_redirect_uri false
+
   # クライアントアプリが、BootCampアプリのリソースをどの範囲まで使用できるかを設定
   # Scopesのドキュメント：https://doorkeeper.gitbook.io/guides/ruby-on-rails/scopes
   # read = 読み取り, write = 書き込み 
