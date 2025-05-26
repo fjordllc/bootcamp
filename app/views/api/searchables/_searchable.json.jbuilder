@@ -12,6 +12,7 @@ if searchable.respond_to?(:user)
   json.avatar_url searchable.user.avatar_url
   json.icon_title searchable.user.icon_title
   json.primary_role searchable.user.primary_role
+  json.joining_status searchable.user.joining_status
 end
 json.is_comment_or_answer comment_or_answer?(searchable)
 if comment_or_answer?(searchable)
@@ -25,4 +26,5 @@ json.is_user user?(searchable)
 if user?(searchable)
   json.avatar_url searchable.avatar_url
   json.primary_role searchable.primary_role
+  json.joining_status searchable.joining_status
 end
