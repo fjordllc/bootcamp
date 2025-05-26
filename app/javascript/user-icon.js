@@ -9,7 +9,11 @@ export default function userIcon({
   link.classList.add(linkClass)
 
   const span = document.createElement('span')
-  span.classList.add('a-user-role', `is-${user.primary_role}`)
+  span.classList.add(
+    'a-user-role',
+    `is-${user.primary_role}`,
+    `is-${user.joining_status}`
+  )
 
   const img = document.createElement('img')
   img.src = user.avatar_url
