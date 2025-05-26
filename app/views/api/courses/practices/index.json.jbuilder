@@ -18,6 +18,7 @@ json.categories @categories do |category|
         json.icon_title user.icon_title
         json.roles user.roles
         json.primary_role user.primary_role
+        json.joining_status user.joining_status
       end
     end
   end
