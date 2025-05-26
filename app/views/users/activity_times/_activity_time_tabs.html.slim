@@ -1,0 +1,80 @@
+.activity-time-filter
+  .container
+    = form_with url: users_activity_times_path, method: 'get', local: true, class: 'activity-time-filter__form' do |f|
+      .activity-time-filter__controls
+        .dropdown-group
+          .dropdown-wrapper
+            button.dropdown-button type="button" data-target="day-dropdown"
+              - day_names = ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日']
+              span.dropdown-button__text = day_names[@target_day_of_week.to_i]
+              i.fas.fa-chevron-down.dropdown-button__icon
+            .dropdown-menu id="day-dropdown"
+              - day_names.each_with_index do |day_name, index|
+                .dropdown-item data-value=index
+                  = day_name
+            = hidden_field_tag :day_of_week, @target_day_of_week, id: 'selected-day'
+
+          .dropdown-wrapper
+            button.dropdown-button type="button" data-target="hour-dropdown"
+              span.dropdown-button__text = "#{@target_hour}:00-#{(@target_hour.to_i + 1) % 24}:00"
+              i.fas.fa-chevron-down.dropdown-button__icon
+            .dropdown-menu id="hour-dropdown"
+              - (0..23).each do |hour|
+                .dropdown-item data-value=hour
+                  = "#{hour}:00-#{(hour + 1) % 24}:00"
+            = hidden_field_tag :hour, @target_hour, id: 'selected-hour'
+
+        button.search-button type="submit"
+          i.fas.fa-search
+          span 検索
+
+javascript:
+  document.addEventListener('DOMContentLoaded', function() {
+    // プルダウンメニューの動作
+    const dropdownButtons = document.querySelectorAll('.dropdown-button');
+    const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+    
+    dropdownButtons.forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('data-target');
+        const targetMenu = document.getElementById(targetId);
+        
+        // 他のメニューを閉じる
+        dropdownMenus.forEach(menu => {
+          if (menu.id !== targetId) {
+            menu.classList.remove('is-open');
+          }
+        });
+        
+        // 対象メニューをトグル
+        targetMenu.classList.toggle('is-open');
+      });
+    });
+    
+    // プルダウンアイテムの選択
+    const dropdownItems = document.querySelectorAll('.dropdown-item');
+    dropdownItems.forEach(item => {
+      item.addEventListener('click', function() {
+        const value = this.getAttribute('data-value');
+        const text = this.textContent.trim();
+        const dropdown = this.closest('.dropdown-wrapper');
+        const button = dropdown.querySelector('.dropdown-button__text');
+        const hiddenField = dropdown.querySelector('input[type="hidden"]');
+        const menu = dropdown.querySelector('.dropdown-menu');
+        
+        button.textContent = text;
+        hiddenField.value = value;
+        menu.classList.remove('is-open');
+      });
+    });
+    
+    // 外部クリックで閉じる
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.dropdown-wrapper')) {
+        dropdownMenus.forEach(menu => {
+          menu.classList.remove('is-open');
+        });
+      }
+    });
+  });
