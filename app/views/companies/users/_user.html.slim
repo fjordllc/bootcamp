@@ -17,7 +17,7 @@
           .users-item__header-start
             .users-item__icon
               = link_to user.url
-                span(:class='["a-user-role", roleClass]')
+                span(:class='["a-user-role", roleClass, joiningStatusClass]')
                   img.users-item__user-icon-image.a-user-icon(
                     title="#{user.login_name}(#{user.name})"
                     alt="#{user.login_name}(#{user.name})"
