@@ -1,0 +1,120 @@
+.activity-time-filter
+  padding-block: .875rem
+  border-bottom: solid 1px var(--border)
+
+.activity-time-filter__form
+  width: 100%
+
+.activity-time-filter__controls
+  display: flex
+  gap: 1rem
+  align-items: center
+  flex-wrap: wrap
+
+.dropdown-group
+  display: flex
+  gap: .5rem
+  align-items: center
+
+.dropdown-wrapper
+  position: relative
+  display: inline-block
+
+.dropdown-button
+  +block-link
+  +text-block(.75rem 2.3, left nowrap)
+  color: var(--semi-muted-text)
+  border: solid 1px var(--border-shade)
+  border-radius: 20rem
+  transition: all .2s ease-out
+  padding: .5rem 1rem
+  background-color: var(--background)
+  cursor: pointer
+  display: flex
+  align-items: center
+  gap: .5rem
+  min-width: 8rem
+  &:hover
+    background-color: var(--background-semi-shade)
+  &:focus
+    outline: none
+    box-shadow: 0 0 0 2px var(--main-alpha)
+
+.dropdown-button__text
+  flex: 1
+
+.dropdown-button__icon
+  font-size: .75rem
+  transition: transform .2s ease-out
+
+.dropdown-menu
+  position: absolute
+  top: 100%
+  left: 0
+  z-index: 1000
+  background-color: var(--background)
+  border: solid 1px var(--border-shade)
+  border-radius: .5rem
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)
+  min-width: 100%
+  max-height: 200px
+  overflow-y: auto
+  opacity: 0
+  visibility: hidden
+  transform: translateY(-10px)
+  transition: all .2s ease-out
+  &.is-open
+    opacity: 1
+    visibility: visible
+    transform: translateY(0)
+    .dropdown-button__icon
+      transform: rotate(180deg)
+
+.dropdown-item
+  padding: .5rem 1rem
+  cursor: pointer
+  transition: background-color .2s ease-out
+  +text-block(.75rem 1.5, left nowrap)
+  &:hover
+    background-color: var(--background-semi-shade)
+  &:first-child
+    border-radius: .5rem .5rem 0 0
+  &:last-child
+    border-radius: 0 0 .5rem .5rem
+
+.search-button
+  +block-link
+  +text-block(.75rem 2.3, center nowrap)
+  background-color: var(--main)
+  border: solid 1px var(--main)
+  color: var(--reversal-text)
+  border-radius: 20rem
+  transition: all .2s ease-out
+  padding: .5rem 1.5rem
+  cursor: pointer
+  display: flex
+  align-items: center
+  gap: .5rem
+  &:hover
+    background-color: var(--main-shade)
+    border-color: var(--main-shade)
+  &:focus
+    outline: none
+    box-shadow: 0 0 0 2px var(--main-alpha)
+
+// レスポンシブ対応
+@media (max-width: 768px)
+  .activity-time-filter__controls
+    flex-direction: column
+    align-items: stretch
+    gap: .75rem
+  
+  .dropdown-group
+    justify-content: space-between
+  
+  .dropdown-wrapper
+    flex: 1
+  
+  .dropdown-button
+    width: 100%
+    justify-content: space-between
