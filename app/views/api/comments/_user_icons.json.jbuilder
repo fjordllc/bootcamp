@@ -8,6 +8,7 @@ if report.comments.present?
       json.user_icon user.avatar_url
       json.user_id user.id
       json.primary_role user.primary_role
+      json.joining_status user.joining_status
     end
   end
 end
