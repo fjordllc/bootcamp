@@ -1,7 +1,7 @@
 import DOMPurify from 'dompurify'
 
 function dompurifyPlugin(md, options = {}) {
-  md.core.ruler.push('sanitize_all', function (state) {
+  md.core.ruler.push('sanitize', function (state) {
     state.tokens.forEach((token) => {
       if (token.type === 'html_block') {
         token.content = DOMPurify.sanitize(token.content, options)
