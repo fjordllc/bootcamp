@@ -1,1 +1,3 @@
-div Add UserIconList template here
+.user-icon-list
+  - @users.each do |user|
+    = render UserIconComponent.new(user: user)
