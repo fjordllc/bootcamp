@@ -85,7 +85,7 @@ export default {
       return `is-${this.question.user.primary_role}`
     },
     joiningStatusClass() {
-      return `is-${this.comment.user.joining_status}`
+      return `is-${this.question.user.joining_status}`
     },
     urgentClass() {
       return {
