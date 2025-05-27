@@ -135,7 +135,7 @@ class QuestionTest < ActiveSupport::TestCase
     assert_equal '質問を更新しました。', published_question.generate_notice_message(:update)
   end
 
-  test '.post_auto_close_warning posts warning answer by pjord after 1 month inactivity' do
+  test '.post_auto_close_warning' do
     question = Question.create!(
       title: '自動クローズテスト',
       description: 'テスト',
@@ -153,7 +153,7 @@ class QuestionTest < ActiveSupport::TestCase
     end
   end
 
-  test '.auto_close_and_select_best_answer closes question and selects system close comment as best answer' do
+  test '.auto_close_and_select_best_answer' do
     question = Question.create!(
       title: '自動クローズテスト2',
       description: 'テスト',
