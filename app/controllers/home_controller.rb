@@ -40,6 +40,7 @@ class HomeController < ApplicationController
   end
 
   def display_dashboard
+    @users_for_time_slot = User.with_attached_avatar.limit(5)
     @announcements = Announcement.with_avatar.where(wip: false).order(published_at: :desc).limit(5)
     @bookmarks = current_user.bookmarks.order(created_at: :desc).limit(5)
     @completed_learnings = current_user.learnings.where(status: 3).includes(:practice).order(updated_at: :desc)
