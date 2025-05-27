@@ -21,7 +21,35 @@ ALLOWED_TAGS = %w[
 
 ALLOWED_TABLE_TAGS = %w[table caption colgroup col thead tbody tfoot tr th td]
 
-  test 'allowed tags are not removed' do
+ALL_ATTRIBUTES = %w[
+  accept accept-charset accesskey action align allow allowfullscreen allowpaymentrequest alt
+  async autocapitalize autocomplete autofocus autoplay background bgcolor border
+  buffered capture challenge charset checked cite class code codebase color cols colspan
+  content contenteditable contextmenu controls coords crossorigin csp data datetime
+  decoding default defer dir dirname disabled download draggable dropzone enctype enterkeyhint
+  for form formaction formenctype formmethod formnovalidate formtarget headers height hidden
+  high href hreflang http-equiv icon id importance inputmode integrity ismap itemprop keytype
+  kind label lang language list loading loop low manifest max maxlength media method min
+  minlength multiple muted name novalidate open optimum pattern ping placeholder playsinline
+  poster preload readonly referrerpolicy rel required reversed rows rowspan sandbox scope
+  scoped selected shape size sizes slot span spellcheck src srcdoc srclang srcset start step
+  style summary tabindex target title translate type usemap value width wrap
+  onabort onafterprint onbeforeprint onbeforeunload onblur oncanplay oncanplaythrough onchange
+  onclick oncontextmenu oncopy oncuechange oncut ondblclick ondrag ondragend ondragenter
+  ondragleave ondragover ondragstart ondrop ondurationchange onemptied onended onerror
+  onfocus onhashchange oninput oninvalid onkeydown onkeypress onkeyup onload onloadeddata
+  onloadedmetadata onloadstart onmessage onmousedown onmouseenter onmouseleave onmousemove
+  onmouseout onmouseover onmouseup onmousewheel onoffline ononline onpagehide onpageshow
+  onpaste onpause onplay onplaying onpopstate onprogress onratechange onreset onresize
+  onscroll onsearch onseeked onseeking onselect onshow onstalled onstorage onsubmit onsuspend
+  ontimeupdate ontoggle onunload onvolumechange onwaiting onwheel
+]
+
+ALLOWED_ATTRIBUTES = %w[
+  href src alt title target rel width height class decoding loading style
+]
+
+  test 'keeps allowed tags' do
     visit_with_auth new_page_path, 'komagata'
 
     allowed_tag_string = ALLOWED_TAGS.map { |tag| "<#{tag}>OK</#{tag}>" }.join(' ')
@@ -38,7 +66,7 @@ ALLOWED_TABLE_TAGS = %w[table caption colgroup col thead tbody tfoot tr th td]
     end
   end
 
-  test 'forbidden tags are not rendered' do
+  test 'strips forbidden tags' do
     forbidden_tags = ALL_TAGS - ALLOWED_TAGS - ALLOWED_TABLE_TAGS
 
     forbidden_tag_string = forbidden_tags.map { |tag| "<#{tag}>NG</#{tag}>" }.join(' ')
@@ -57,7 +85,7 @@ ALLOWED_TABLE_TAGS = %w[table caption colgroup col thead tbody tfoot tr th td]
     end
   end
 
-  test 'table related tags are rendered correctly' do # テーブルタグは構造が正しくないと無効化されるので、個別でテストを用意
+  test 'keeps allowed table tags' do # テーブルタグは構造が正しくないと無効化されるので、個別でテストを用意
     table_html = <<~HTML
     <table>
       <caption>テーブルキャプション</caption>
@@ -95,22 +123,38 @@ ALLOWED_TABLE_TAGS = %w[table caption colgroup col thead tbody tfoot tr th td]
     end
   end
 
-  test 'user input style tag does not affect' do #styleタグ単体で検証すると、headタグ内に移動してテストできないので個別テストを用意
+  test 'keeps allowed attributes' do
     visit_with_auth new_page_path, 'komagata'
   
-    fill_in 'page[title]', with: 'Style Injection Test'
-    fill_in 'page[body]', with: "<style> p { color: red; } </style> \nテスト用テキスト"
+    allowed_attrs_string = ALLOWED_ATTRIBUTES.map { |attr| "#{attr}=\"test\"" }.join(' ')
+    body = "<span #{allowed_attrs_string}>テスト</span>"
   
+    fill_in 'page[title]', with: 'Attributes Sanitization Test'
+    fill_in 'page[body]', with: body
     click_button 'Docを公開'
-  
+
     within '.a-long-text.is-md.js-markdown-view' do
-      color = page.evaluate_script <<~JS
-        window.getComputedStyle(
-          document.querySelector('.a-long-text.is-md.js-markdown-view p')
-        ).color
-      JS
+      ALLOWED_ATTRIBUTES.each do |attr|
+        assert_selector("span[#{attr}]")
+      end
+    end
+  end
+
+  test 'strips forbidden attributes' do
+    visit_with_auth new_page_path, 'komagata'
+
+    forbidden_attrs = ALL_ATTRIBUTES - ALLOWED_ATTRIBUTES
+    forbidden_attrs_string = forbidden_attrs.map { |attr| "#{attr}=\"test\"" }.join(' ')
+    body = "<span #{forbidden_attrs_string}>テスト</span>"
   
-      refute_equal 'rgb(255, 0, 0)', color
+    fill_in 'page[title]', with: 'Attributes Sanitization Test'
+    fill_in 'page[body]', with: body
+    click_button 'Docを公開'
+
+    within '.a-long-text.is-md.js-markdown-view' do
+      forbidden_attrs.each do |attr|
+        assert_no_selector("span[#{attr}]")
+      end
     end
   end
 
