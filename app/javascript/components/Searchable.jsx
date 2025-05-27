@@ -5,7 +5,7 @@ dayjs.locale(ja)
 
 export default function Searchable({ searchable, word }) {
   const roleClass = `is-${searchable.primary_role}`
-  const joiningStatusClass = `is-${report.user.joining_status}`
+  const joiningStatusClass = `is-${searchable.joining_status}`
   const searchableClass = searchable.wip
     ? `is-wip is-${searchable.model_name}`
     : `is-${searchable.model_name}`

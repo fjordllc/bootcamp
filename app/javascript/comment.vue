@@ -149,7 +149,7 @@ export default {
     roleClass() {
       return `is-${this.comment.user.primary_role}`
     },
-    joiningStatusClass(){
+    joiningStatusClass() {
       return `is-${this.comment.user.joining_status}`
     },
     validation() {
