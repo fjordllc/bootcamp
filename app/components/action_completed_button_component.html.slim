@@ -5,7 +5,6 @@
         .action-completed__action
           button.a-button.is-sm.is-block.check-button.is-muted-borderd(
             data-commentable-id='#{commentable_id}'
-            data-csrf-token='#{form_authenticity_token}'
           )
             i.fas.fa-check
             | 対応済です
@@ -20,7 +19,6 @@
         .action-completed__action
           button.a-button.is-sm.is-block.check-button.is-warning(
             data-commentable-id='#{commentable_id}'
-            data-csrf-token='#{form_authenticity_token}'
           )
             i.fas.fa-redo
             | 対応済にする
