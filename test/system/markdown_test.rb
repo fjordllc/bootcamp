@@ -3,6 +3,117 @@
 require 'application_system_test_case'
 
 class MarkdownTest < ApplicationSystemTestCase
+  ALL_TAGS = %w[
+  a abbr acronym address applet area article aside audio b base basefont bdi bdo
+  big blockquote body br button canvas caption center cite code col colgroup
+  data datalist dd del details dfn dialog dir div dl dt em embed fieldset figcaption
+  figure font footer form frame frameset h1 h2 h3 h4 h5 h6 head header hr html i
+  iframe img input ins isindex kbd label legend li link listing main map mark marquee
+  menu menuitem meta meter nav noframes noscript object ol optgroup option output
+  p param picture plaintext pre progress q rb rp rt rtc ruby s samp script section
+  select slot small source span strike strong style sub summary sup table tbody td
+  template textarea tfoot th thead time title tr track tt u ul var video wbr xmp
+]
+
+ALLOWED_TAGS = %w[
+  a abbr address article aside b bdi bdo blockquote br cite code dd del details dfn div dl dt em figcaption figure footer h1 h2 h3 h4 h5 h6 header hr i img ins kbd li mark nav ol p pre q rp rt ruby s samp section small span strong sub summary sup time u ul video
+]
+
+ALLOWED_TABLE_TAGS = %w[table caption colgroup col thead tbody tfoot tr th td]
+
+  test 'allowed tags are not removed' do
+    visit_with_auth new_page_path, 'komagata'
+
+    allowed_tag_string = ALLOWED_TAGS.map { |tag| "<#{tag}>OK</#{tag}>" }.join(' ')
+
+    fill_in 'page[title]', with: 'Allowed Tags Simple Test'
+    fill_in 'page[body]', with: allowed_tag_string
+
+    click_button 'Docを公開'
+
+    within '.a-long-text.is-md.js-markdown-view' do
+      ALLOWED_TAGS.each do |tag|
+        assert_selector tag, visible: :all
+      end
+    end
+  end
+
+  test 'forbidden tags are not rendered' do
+    forbidden_tags = ALL_TAGS - ALLOWED_TAGS - ALLOWED_TABLE_TAGS
+
+    forbidden_tag_string = forbidden_tags.map { |tag| "<#{tag}>NG</#{tag}>" }.join(' ')
+
+    visit_with_auth new_page_path, 'komagata'
+
+    fill_in 'page[title]', with: 'XSS Test'
+    fill_in 'page[body]', with: forbidden_tag_string
+
+    click_button 'Docを公開'
+
+    within '.a-long-text.is-md.js-markdown-view' do
+      forbidden_tags.each do |tag|
+        assert_no_selector tag
+      end
+    end
+  end
+
+  test 'table related tags are rendered correctly' do # テーブルタグは構造が正しくないと無効化されるので、個別でテストを用意
+    table_html = <<~HTML
+    <table>
+      <caption>テーブルキャプション</caption>
+      <colgroup>
+        <col>
+      </colgroup>
+      <thead>
+        <tr>
+          <th>ヘッダ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>データ</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>フッタ</td>
+        </tr>
+      </tfoot>
+    </table>
+  HTML
+
+    visit_with_auth new_page_path, 'komagata'
+  
+    fill_in 'page[title]', with: 'Table Structure Test'
+    fill_in 'page[body]', with: table_html
+    click_button 'Docを公開'
+  
+    within '.a-long-text.is-md.js-markdown-view' do
+      ALLOWED_TABLE_TAGS.each do |tag|
+        assert_selector tag
+      end
+    end
+  end
+
+  test 'user input style tag does not affect' do #styleタグ単体で検証すると、headタグ内に移動してテストできないので個別テストを用意
+    visit_with_auth new_page_path, 'komagata'
+  
+    fill_in 'page[title]', with: 'Style Injection Test'
+    fill_in 'page[body]', with: "<style> p { color: red; } </style> \nテスト用テキスト"
+  
+    click_button 'Docを公開'
+  
+    within '.a-long-text.is-md.js-markdown-view' do
+      color = page.evaluate_script <<~JS
+        window.getComputedStyle(
+          document.querySelector('.a-long-text.is-md.js-markdown-view p')
+        ).color
+      JS
+  
+      refute_equal 'rgb(255, 0, 0)', color
+    end
+  end
+
   test 'speak block test' do
     reset_avatar(users(:mentormentaro))
     visit_with_auth new_page_path, 'komagata'
@@ -32,30 +143,6 @@ class MarkdownTest < ApplicationSystemTestCase
     emoji = find('.js-user-icon.a-user-emoji')
     assert_includes emoji['title'], '@mentormentaro'
     assert_includes emoji['data-user'], 'mentormentaro'
-  end
-
-  test 'escapes and disables style tags' do
-    visit_with_auth new_page_path, 'komagata'
-
-    fill_in('page[title]', with: 'styleタグのテスト')
-    fill_in('page[body]', with: '<style>p { color: red; }</style><p>これはテストです</p>')
-
-    click_button 'Docを公開'
-
-    assert_text '<style>p { color: red; }</style>'
-  end
-
-  test 'escapes and disables onload attributes' do
-    visit_with_auth new_page_path, 'komagata'
-    fill_in('page[title]', with: 'onloadが発火しないことのテスト')
-
-    fill_in('page[body]', with: '<iframe onload="document.body.appendChild(document.createElement(\'h3\'))"></iframe>')
-
-    click_button 'Docを公開'
-
-    assert_no_selector 'h3'
-
-    assert_text '<iframe onload="document.body.appendChild(document.createElement(\'h3\'))"></iframe>'
   end
 
   def cmd_ctrl
