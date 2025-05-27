@@ -4,50 +4,52 @@ require 'application_system_test_case'
 
 class MarkdownTest < ApplicationSystemTestCase
   ALL_TAGS = %w[
-  a abbr acronym address applet area article aside audio b base basefont bdi bdo
-  big blockquote body br button canvas caption center cite code col colgroup
-  data datalist dd del details dfn dialog dir div dl dt em embed fieldset figcaption
-  figure font footer form frame frameset h1 h2 h3 h4 h5 h6 head header hr html i
-  iframe img input ins isindex kbd label legend li link listing main map mark marquee
-  menu menuitem meta meter nav noframes noscript object ol optgroup option output
-  p param picture plaintext pre progress q rb rp rt rtc ruby s samp script section
-  select slot small source span strike strong style sub summary sup table tbody td
-  template textarea tfoot th thead time title tr track tt u ul var video wbr xmp
-]
+    a abbr acronym address applet area article aside audio b base basefont bdi bdo
+    big blockquote body br button canvas caption center cite code col colgroup
+    data datalist dd del details dfn dialog dir div dl dt em embed fieldset figcaption
+    figure font footer form frame frameset h1 h2 h3 h4 h5 h6 head header hr html i
+    iframe img input ins isindex kbd label legend li link listing main map mark marquee
+    menu menuitem meta meter nav noframes noscript object ol optgroup option output
+    p param picture plaintext pre progress q rb rp rt rtc ruby s samp script section
+    select slot small source span strike strong style sub summary sup table tbody td
+    template textarea tfoot th thead time title tr track tt u ul var video wbr xmp
+  ].freeze
 
-ALLOWED_TAGS = %w[
-  a abbr address article aside b bdi bdo blockquote br cite code dd del details dfn div dl dt em figcaption figure footer h1 h2 h3 h4 h5 h6 header hr i img ins kbd li mark nav ol p pre q rp rt ruby s samp section small span strong sub summary sup time u ul video
-]
+  ALLOWED_TAGS = %w[
+    a abbr address article aside b bdi bdo blockquote br cite code dd del details
+    dfn div dl dt em figcaption figure footer h1 h2 h3 h4 h5 h6 header hr i img ins
+    kbd li mark nav ol p pre q rp rt ruby s samp section small span strong sub summary sup time u ul video
+  ].freeze
 
-ALLOWED_TABLE_TAGS = %w[table caption colgroup col thead tbody tfoot tr th td]
+  ALLOWED_TABLE_TAGS = %w[table caption colgroup col thead tbody tfoot tr th td].freeze
 
-ALL_ATTRIBUTES = %w[
-  accept accept-charset accesskey action align allow allowfullscreen allowpaymentrequest alt
-  async autocapitalize autocomplete autofocus autoplay background bgcolor border
-  buffered capture challenge charset checked cite class code codebase color cols colspan
-  content contenteditable contextmenu controls coords crossorigin csp data datetime
-  decoding default defer dir dirname disabled download draggable dropzone enctype enterkeyhint
-  for form formaction formenctype formmethod formnovalidate formtarget headers height hidden
-  high href hreflang http-equiv icon id importance inputmode integrity ismap itemprop keytype
-  kind label lang language list loading loop low manifest max maxlength media method min
-  minlength multiple muted name novalidate open optimum pattern ping placeholder playsinline
-  poster preload readonly referrerpolicy rel required reversed rows rowspan sandbox scope
-  scoped selected shape size sizes slot span spellcheck src srcdoc srclang srcset start step
-  style summary tabindex target title translate type usemap value width wrap
-  onabort onafterprint onbeforeprint onbeforeunload onblur oncanplay oncanplaythrough onchange
-  onclick oncontextmenu oncopy oncuechange oncut ondblclick ondrag ondragend ondragenter
-  ondragleave ondragover ondragstart ondrop ondurationchange onemptied onended onerror
-  onfocus onhashchange oninput oninvalid onkeydown onkeypress onkeyup onload onloadeddata
-  onloadedmetadata onloadstart onmessage onmousedown onmouseenter onmouseleave onmousemove
-  onmouseout onmouseover onmouseup onmousewheel onoffline ononline onpagehide onpageshow
-  onpaste onpause onplay onplaying onpopstate onprogress onratechange onreset onresize
-  onscroll onsearch onseeked onseeking onselect onshow onstalled onstorage onsubmit onsuspend
-  ontimeupdate ontoggle onunload onvolumechange onwaiting onwheel
-]
+  ALL_ATTRIBUTES = %w[
+    accept accept-charset accesskey action align allow allowfullscreen allowpaymentrequest alt
+    async autocapitalize autocomplete autofocus autoplay background bgcolor border
+    buffered capture challenge charset checked cite class code codebase color cols colspan
+    content contenteditable contextmenu controls coords crossorigin csp data datetime
+    decoding default defer dir dirname disabled download draggable dropzone enctype enterkeyhint
+    for form formaction formenctype formmethod formnovalidate formtarget headers height hidden
+    high href hreflang http-equiv icon id importance inputmode integrity ismap itemprop keytype
+    kind label lang language list loading loop low manifest max maxlength media method min
+    minlength multiple muted name novalidate open optimum pattern ping placeholder playsinline
+    poster preload readonly referrerpolicy rel required reversed rows rowspan sandbox scope
+    scoped selected shape size sizes slot span spellcheck src srcdoc srclang srcset start step
+    style summary tabindex target title translate type usemap value width wrap
+    onabort onafterprint onbeforeprint onbeforeunload onblur oncanplay oncanplaythrough onchange
+    onclick oncontextmenu oncopy oncuechange oncut ondblclick ondrag ondragend ondragenter
+    ondragleave ondragover ondragstart ondrop ondurationchange onemptied onended onerror
+    onfocus onhashchange oninput oninvalid onkeydown onkeypress onkeyup onload onloadeddata
+    onloadedmetadata onloadstart onmessage onmousedown onmouseenter onmouseleave onmousemove
+    onmouseout onmouseover onmouseup onmousewheel onoffline ononline onpagehide onpageshow
+    onpaste onpause onplay onplaying onpopstate onprogress onratechange onreset onresize
+    onscroll onsearch onseeked onseeking onselect onshow onstalled onstorage onsubmit onsuspend
+    ontimeupdate ontoggle onunload onvolumechange onwaiting onwheel
+  ].freeze
 
-ALLOWED_ATTRIBUTES = %w[
-  href src alt title target rel width height class decoding loading style
-]
+  ALLOWED_ATTRIBUTES = %w[
+    href src alt title target rel width height class decoding loading style
+  ].freeze
 
   test 'keeps allowed tags' do
     visit_with_auth new_page_path, 'komagata'
@@ -87,35 +89,35 @@ ALLOWED_ATTRIBUTES = %w[
 
   test 'keeps allowed table tags' do # テーブルタグは構造が正しくないと無効化されるので、個別でテストを用意
     table_html = <<~HTML
-    <table>
-      <caption>テーブルキャプション</caption>
-      <colgroup>
-        <col>
-      </colgroup>
-      <thead>
-        <tr>
-          <th>ヘッダ</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>データ</td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td>フッタ</td>
-        </tr>
-      </tfoot>
-    </table>
-  HTML
+      <table>
+        <caption>テーブルキャプション</caption>
+        <colgroup>
+          <col>
+        </colgroup>
+        <thead>
+          <tr>
+            <th>ヘッダ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>データ</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>フッタ</td>
+          </tr>
+        </tfoot>
+      </table>
+    HTML
 
     visit_with_auth new_page_path, 'komagata'
-  
+
     fill_in 'page[title]', with: 'Table Structure Test'
     fill_in 'page[body]', with: table_html
     click_button 'Docを公開'
-  
+
     within '.a-long-text.is-md.js-markdown-view' do
       ALLOWED_TABLE_TAGS.each do |tag|
         assert_selector tag
@@ -125,10 +127,10 @@ ALLOWED_ATTRIBUTES = %w[
 
   test 'keeps allowed attributes' do
     visit_with_auth new_page_path, 'komagata'
-  
+
     allowed_attrs_string = ALLOWED_ATTRIBUTES.map { |attr| "#{attr}=\"test\"" }.join(' ')
     body = "<span #{allowed_attrs_string}>テスト</span>"
-  
+
     fill_in 'page[title]', with: 'Attributes Sanitization Test'
     fill_in 'page[body]', with: body
     click_button 'Docを公開'
@@ -146,7 +148,7 @@ ALLOWED_ATTRIBUTES = %w[
     forbidden_attrs = ALL_ATTRIBUTES - ALLOWED_ATTRIBUTES
     forbidden_attrs_string = forbidden_attrs.map { |attr| "#{attr}=\"test\"" }.join(' ')
     body = "<span #{forbidden_attrs_string}>テスト</span>"
-  
+
     fill_in 'page[title]', with: 'Attributes Sanitization Test'
     fill_in 'page[body]', with: body
     click_button 'Docを公開'
