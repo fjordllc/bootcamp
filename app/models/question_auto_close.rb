@@ -23,14 +23,11 @@ class QuestionAutoClose < ApplicationRecord
     system_user = User.find_by(login_name: SYSTEM_USER_LOGIN)
     return unless system_user
 
-    question_count = 0
     Question.not_solved.find_each do |question|
       next unless should_auto_close?(question, system_user)
 
-      question_count += close_question_with_best_answer(question, system_user)
+      close_question_with_best_answer(question, system_user)
     end
-
-    question_count
   end
 
   class << self
@@ -76,7 +73,6 @@ class QuestionAutoClose < ApplicationRecord
         close_answer = create_close_message(question, system_user)
         select_as_best_answer(close_answer)
         publish_events(close_answer)
-        1
       end
     end
 
