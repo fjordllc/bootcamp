@@ -21,6 +21,8 @@
         .container.is-xl
           .row
             .col-xs-12.col-xl-6.col-xxl-6
+              - if @users_for_time_slot.present?
+                = render UserIconListComponent.new(users: @users_for_time_slot)
               - if @upcoming_events_groups.present?
                 = render 'upcoming_events_groups', upcoming_events_groups: @upcoming_events_groups
               - if @announcements.present?
