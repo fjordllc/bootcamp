@@ -130,7 +130,7 @@ export default {
       return `is-${this.product.user.primary_role}`
     },
     joiningStatusClass() {
-      return `is-${this.comment.user.joining_status}`
+      return `is-${this.product.user.joining_status}`
     },
     practiceTitle() {
       return `${this.product.practice.title}の提出物`
