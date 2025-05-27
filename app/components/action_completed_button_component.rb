@@ -7,8 +7,4 @@ class ActionCompletedButtonComponent < ViewComponent::Base
     @is_action_completed = is_initial_action_completed
     @commentable_id = commentable_id
   end
-
-  def completed_label
-    is_action_completed ? '対応済み' : '未対応'
-  end
 end
