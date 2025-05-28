@@ -330,9 +330,9 @@ class CommentsTest < ApplicationSystemTestCase
 
     accept_confirm do
       fill_in 'new_comment[description]', with: 'comment test'
-      click_button '確認OKにする'
+      click_button '合格にする'
     end
-    assert_text '提出物を確認済みにしました'
+    assert_text '提出物を合格にしました'
     assert_text 'comment test'
   end
 
@@ -343,9 +343,9 @@ class CommentsTest < ApplicationSystemTestCase
 
     accept_confirm do
       fill_in 'new_comment[description]', with: 'comment test'
-      click_button '確認OKにする'
+      click_button '合格にする'
     end
-    assert_text '提出物を確認済みにしました'
+    assert_text '提出物を合格にしました'
     assert_text 'comment test'
   end
 
