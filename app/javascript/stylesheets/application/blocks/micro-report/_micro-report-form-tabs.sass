@@ -1,3 +1,9 @@
+.micro-report-form-tabs
+  background-color: var(--background)
+
+.micro-report-form-tabs + .tab-content
+  margin-top: .5rem
+
 .micro-report-form-tabs__items
   display: flex
 
@@ -6,6 +12,9 @@
   padding: .5rem .75rem 1rem
   +text-block(.875rem 1.4)
 
-.micro-report-form__preview
+.micro-report-form__preview,
+.micro-report-form__form
   min-height: 3.75rem
   padding: .5rem
+  max-height: calc(100vh - 14rem)
+  overflow-y: auto
