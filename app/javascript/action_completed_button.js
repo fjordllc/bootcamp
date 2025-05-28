@@ -8,7 +8,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   const commentableId = button.dataset.commentableId
   button.addEventListener('click', function () {
-    const isInitialActionCompleted = button.classList.contains('is-muted-borderd')
+    const isInitialActionCompleted =
+      button.classList.contains('is-muted-borderd')
     const isActionCompleted = !isInitialActionCompleted
 
     fetch(`/api/talks/${commentableId}`, {
