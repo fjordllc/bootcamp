@@ -6,6 +6,7 @@ class SignUpTest < ApplicationSystemTestCase
   setup do
     @bot_token = Discord::Server.authorize_token
     Discord::Server.authorize_token = nil
+    Capybara.reset_sessions!
   end
 
   teardown do
@@ -289,20 +290,33 @@ class SignUpTest < ApplicationSystemTestCase
     assert User.find_by(email:).trainee?
   end
 
-  test 'form item about job seek is only displayed to students' do
+  test 'job seeker option is shown for student' do
     visit '/users/new'
+    assert_selector 'form'
     assert_selector "input[name='user[job_seeker]']", visible: :all
+  end
 
+  test 'job seeker option is hidden for adviser' do
     visit '/users/new?role=adviser'
+    assert_selector 'form'
     assert has_no_selector? "input[name='user[job_seeker]']", visible: :all, wait: 5
+  end
 
+  test 'job seeker option is hidden for trainee invoice payment' do
     visit '/users/new?role=trainee_invoice_payment'
+    assert_selector 'form'
     assert has_no_selector? "input[name='user[job_seeker]']", visible: :all, wait: 5
+  end
 
+  test 'job seeker option is hidden for trainee credit card payment' do
     visit '/users/new?role=trainee_credit_card_payment'
+    assert_selector 'form'
     assert has_no_selector? "input[name='user[job_seeker]']", visible: :all, wait: 5
+  end
 
+  test 'job seeker option is hidden for trainee select a payment method' do
     visit '/users/new?role=trainee_select_a_payment_method'
+    assert_selector 'form'
     assert has_no_selector? "input[name='user[job_seeker]']", visible: :all, wait: 5
   end
 
