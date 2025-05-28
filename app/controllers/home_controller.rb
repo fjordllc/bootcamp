@@ -39,7 +39,6 @@ class HomeController < ApplicationController
   end
 
   def display_dashboard
-    @users_for_time_slot = User.with_attached_avatar.limit(5)
     @announcements = Announcement.with_avatar.where(wip: false).order(published_at: :desc).limit(5)
     @bookmarks = current_user.bookmarks.order(created_at: :desc).limit(5)
     @completed_learnings = current_user.learnings.where(status: 3).includes(:practice).order(updated_at: :desc)
@@ -52,6 +51,7 @@ class HomeController < ApplicationController
     @product_deadline_day = Product::PRODUCT_DEADLINE
     @colleagues = current_user.colleagues_other_than_self
     @calendar = NicoNicoCalendar.new(current_user, params[:niconico_calendar])
+    @users_for_time_slot = User.students_and_trainees.joins(:learning_time_frames).merge(LearningTimeFrame.active_now)
   end
 
   def display_events_on_dashboard
