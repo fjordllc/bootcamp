@@ -19,9 +19,9 @@ class Admin::UsersController < AdminController
     user_scope =
       case @job_seeking
       when 'true'
-        user_scope.where(job_seeking: true)
+        user_scope.where(job_seeker: true)
       when 'false'
-        user_scope.where(job_seeking: false)
+        user_scope.where(job_seeker: false)
       else
         user_scope
       end
