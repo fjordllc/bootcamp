@@ -221,6 +221,7 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
   has_one_attached :profile_image
+  has_one_attached :diploma_file
 
   after_create UserCallbacks.new
   before_validation :convert_blank_of_address_to_nil
@@ -252,6 +253,8 @@ class User < ApplicationRecord
   validates :login_name, length: { minimum: 3, message: 'は3文字以上にしてください。' }
 
   validate :validate_uploaded_avatar_content_type
+
+  validates :diploma_file, content_type: { in: ['application/pdf'], message: 'はPDF形式にしてください' }
 
   validates :country_code, inclusion: { in: ISO3166::Country.codes }, allow_nil: true
 
