@@ -1,5 +1,6 @@
 .users-item
   height: 100%
+  container: users-item / inline-size
 
 .users-item__inactive-message
   background-color: var(--disabled)
@@ -22,6 +23,12 @@
 .users-item__header-inner
   display: flex
   gap: 1rem
+
+.users-item__header-start
+  display: flex
+  flex-direction: column
+  gap: .25rem
+  align-items: center
 
 .users-item__header-end
   flex: 1
@@ -69,9 +76,9 @@
   margin-top: -.25rem
   padding-bottom: 1rem
 
-.user-item__company-logo
-  +size(3rem)
-  min-width: 3rem
+.user-item__company-logo-image
+  +size(3.5rem)
+  min-width: 3.5rem
   object-fit: cover
   background-color: var(--base)
   border-radius: .25rem

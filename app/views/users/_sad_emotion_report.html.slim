@@ -5,6 +5,6 @@
         | 2回連続
         = image_tag Report.faces['sad'], id: 'sad', alt: 'sad', class: 'card-header__title-emotion-image'
         | のユーザー
-    hr.a-border
+    hr.a-border-tint
     .card-list
       = render partial: 'reports/report', collection: reports, as: :report, locals: { user_icon_display: true, actions_display: false }

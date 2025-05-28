@@ -22,10 +22,11 @@ hr.a-border
         header.page-content-header
           .page-content-header__start
             .page-content-header__user
-              = render 'users/icon',
-                user: @announcement.user,
-                link_class: 'page-content-header__user-link',
-                image_class: 'page-content-header__user-icon'
+              .page-content-header__user-icon
+                = render 'users/icon',
+                  user: @announcement.user,
+                  link_class: 'page-content-header__user-link',
+                  image_class: 'page-content-header__user-icon-image'
           .page-content-header__end
             .page-content-header__row
               .page-content-header__before-title
@@ -53,8 +54,7 @@ hr.a-border
             .page-content-header__row
               .page-content-header-actions
                 .page-content-header-actions__start
-                  .page-content-header-actions__action
-                    div(data-vue="WatchToggle" data-vue-watchable-id:number="#{@announcement.id}" data-vue-watchable-type='Announcement')
+                  = render 'watches/watch_toggle', type: @announcement.class.to_s, id: @announcement.id, watch: @announcement.watch_by(current_user)
                 .page-content-header-actions__end
                   .page-content-header-actions__action
                     = link_to new_announcement_path(id: @announcement), class: 'a-button is-sm is-secondary is-block', id: 'copy' do
@@ -87,5 +87,7 @@ hr.a-border
                       span#delete
                       | 削除する
       #js-comments(data-commentable-id="#{@announcement.id}" data-commentable-type='Announcement' data-current-user-id="#{current_user.id}")
-      div(data-vue='Footprints' data-vue-footprintable-id="#{@announcement.id}" data-vue-footprintable-type='Announcement')
+      .user-icons
+        ul.user-icons__items
+          = render '/footprints/footprints', footprints: @footprints
     = render partial: 'recent_announcements'

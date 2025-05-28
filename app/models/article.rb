@@ -17,6 +17,13 @@ class Article < ApplicationRecord
     blue: 12
   }
 
+  enum target: {
+    all: 0,
+    students: 1,
+    job_seekers: 2,
+    none: 3
+  }, _prefix: true
+
   belongs_to :user
   alias sender user
   include ActionView::Helpers::AssetUrlHelper
@@ -31,7 +38,7 @@ class Article < ApplicationRecord
   validates :thumbnail_type, presence: true
   validates :published_at, presence: true, if: :will_be_published?
   validates :thumbnail,
-            content_type: %w[image/png image/jpg image/jpeg],
+            content_type: %w[image/png image/jpeg],
             size: { less_than: 10.megabytes }
 
   paginates_per 24
@@ -39,6 +46,14 @@ class Article < ApplicationRecord
 
   scope :with_attachments_and_user, lambda {
     with_attached_thumbnail.includes(user: { avatar_attachment: :blob }).where(wip: false)
+  }
+  scope :alumni_voices, -> { with_attachments_and_user.tagged_with('卒業生の声').order(published_at: :desc) }
+  scope :press_releases, lambda { |limit = nil|
+    where(wip: false)
+      .tagged_with('プレスリリース')
+      .includes(%i[user thumbnail_attachment])
+      .order(published_at: :desc)
+      .limit(limit)
   }
 
   def prepared_thumbnail_url(thumbnail_size = THUMBNAIL_SIZE)
@@ -57,6 +72,10 @@ class Article < ApplicationRecord
     !wip?
   end
 
+  def before_initial_publish?
+    attribute_in_database(:published_at).nil?
+  end
+
   def generate_token!
     self.token ||= SecureRandom.urlsafe_base64
   end
@@ -64,7 +83,7 @@ class Article < ApplicationRecord
   private
 
   def will_be_published?
-    !wip && published_at.nil?
+    !wip && before_initial_publish?
   end
 
   def set_published_at

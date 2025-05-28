@@ -297,12 +297,13 @@ class ActivityNotifier < ApplicationNotifier
     params.merge!(@params)
     regular_event = params[:regular_event]
     receiver = params[:receiver]
+    sender = params[:sender]
 
     notification(
       body: "定期イベント【#{regular_event.title}】が更新されました。",
       kind: :regular_event_updated,
       receiver:,
-      sender: regular_event.user,
+      sender:,
       link: Rails.application.routes.url_helpers.polymorphic_path(regular_event),
       read: false
     )

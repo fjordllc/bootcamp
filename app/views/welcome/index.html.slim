@@ -4,11 +4,43 @@
 - content_for :head_last do
   = javascript_include_tag 'https://sdk.form.run/js/v2/formrun.js'
 
-//= render 'welcome/welcome_top_info'
+= render 'welcome/welcome_top_info'
 = render 'welcome/main_visual'
 
-//= render 'welcome/welcome_top_banner'
-= render 'welcome/campaign' if Campaign.today_campaign?
+//
+  section.lp-content.is-top-title.is-campaign
+    .lp-content-divider.is-campaign
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+
+    .l-container.is-xl
+      .lp-content__inner.gap-6
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-xs
+              | 給付金制度対象「Railsエンジニアコース」スタート
+
+        .lp-content__end
+          .lp-content__description
+            .l-container.is-md
+              .a-short-text
+                h3.font-semibold.text-center
+                  | 受講料の最大80％が給付金で補助される！
+                p.font-semibold
+                  | Railsエンジニア（Reスキル認定講座対応）コースが、
+                  | 厚生労働省の認定する専門実践教育訓練給付制度の対象講座となりました。
+          .lp-actions.mt-6
+            ul.lp-actions__items
+              li.lp-actions__item
+                = link_to certified_reskill_courses_rails_developer_course_root_path, class: 'a-button is-xl is-warning is-block' do
+                  | くわしくはこちら
+
+    .lp-content-divider.is-lp-bg-1
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+
+//= render 'welcome/welcome_top_banners'
+//= render 'welcome/campaign' if Campaign.today_campaign?
 = render 'welcome/about'
 = render 'welcome/pricing'
 = render 'welcome/course-select'

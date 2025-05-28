@@ -21,6 +21,10 @@ header.lp-header
                 span
                   | 料金
             li.lp-header-nav__item
+              = link_to certified_reskill_courses_rails_developer_course_root_path, class: 'lp-header-nav__item-link' do
+                span
+                  | 給付制度対象講座
+            li.lp-header-nav__item
               = link_to job_support_path, class: 'lp-header-nav__item-link' do
                 span
                   | 就職支援
@@ -44,11 +48,7 @@ header.lp-header
               = link_to articles_path, class: 'lp-header-nav__item-link' do
                 span
                   | ブログ
-            - unless current_user
-              li.lp-header-nav__item
-                = link_to courses_path, class: 'lp-header-nav__item-link' do
-                  | 参加登録
-            li.lp-header-nav__item.is-hidden-md-up
+            li.lp-header-nav__item.is-hidden-lg-up
               - if current_user
                 = link_to course_practices_path(current_user.course), class: 'lp-header-nav__item-link' do
                   | プラクティス
@@ -58,7 +58,7 @@ header.lp-header
           label.lp-header-nav__overlay(for='welcome-mobile-nav')
 
       .lp-header__end
-        .lp-header__login.is-hidden-md-down
+        .lp-header__login
           - if current_user
             = link_to course_practices_path(current_user.course), class: 'a-button is-sm is-secondary is-block' do
               | プラクティス

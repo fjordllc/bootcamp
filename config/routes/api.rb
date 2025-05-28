@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  use_doorkeeper
   namespace 'api' do
     namespace 'admin' do
       resource :count, controller: 'count', only: %i(show)
-      resources :companies, only: %i(index destroy)
     end
     namespace 'mentor' do
       resources :practices, only: %i(index)
@@ -12,7 +12,6 @@ Rails.application.routes.draw do
     resource :session, controller: "session", only: %i(create)
     resource :image, controller: "image", only: %i(create)
     resources :grasses, only: %i(show)
-    resources :categories, only: %i(index destroy)
     resources :courses, only: %i() do
       resources :practices, only: %i(index), controller: "/api/courses/practices"
     end
@@ -43,6 +42,10 @@ Rails.application.routes.draw do
         resource :completion_message, only: %i(update), controller: "practices/learning/completion_message"
       end
     end
+    resources :coding_tests, only: %i() do
+      resource :position, only: %i(update), controller: "coding_tests/position"
+    end
+    resources :coding_test_submissions, only: %i(create)
     resources :reports, only: %i(index)
     namespace "reports" do
       resources :unchecked, only: %i(index) do
@@ -50,9 +53,9 @@ Rails.application.routes.draw do
       end
       resources :recents, only: %i(index)
     end
-    resources :watches, only: %i(index)
-    namespace "watches" do
-      resources :toggle, only: %i(index create destroy)
+    resources :watches, only: %i(index create destroy)
+    namespace 'watches' do
+      resources :toggle, only: %i(index)
     end
     resources :mentor_memos, only: %i(update)
     resources :tags, only: %i(index update)
@@ -84,10 +87,12 @@ Rails.application.routes.draw do
     resources :regular_events, only: %i(index)
     resources :books, only: %i(index)
     resources :courses, only: %i(index)
-    resources :footprints, only: %i(index)
     resources :survey_question_listings, only: %i() do
       resource :position, only: %i(update), controller: "survey_question_listings/position"
     end
     resources :reading_circles, only: %i(index)
+    resources :movies, only: %i(index update)
+    resources :metadata, only: %i(index)
+    resources :micro_reports, only: %i(update)
   end
 end

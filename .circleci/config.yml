@@ -1,15 +1,20 @@
 version: 2.1
 
 orbs:
-  ruby: circleci/ruby@2.1.0
-  node: circleci/node@5.1.0
-  browser-tools: circleci/browser-tools@1.4.7
+  ruby: circleci/ruby@2.5.0
+  node: circleci/node@7.1.0
+  browser-tools: circleci/browser-tools@1.5.2
 jobs:
   build:
     docker:
-      - image: cimg/ruby:3.1.4-node
+      - image: cimg/ruby:3.1.6-node
     steps:
       - checkout
+      - run:
+          name: Configure Bundler
+          command: |
+            bundle config set --local force_ruby_platform true
+            bundle lock --add-platform ruby
       - ruby/install-deps
       - node/install:
           install-yarn: true
@@ -18,9 +23,14 @@ jobs:
           pkg-manager: yarn
   check:
     docker:
-      - image: 'cimg/ruby:3.1.4-node'
+      - image: 'cimg/ruby:3.1.6-node'
     steps:
       - checkout
+      - run:
+          name: Configure Bundler
+          command: |
+            bundle config set --local force_ruby_platform true
+            bundle lock --add-platform ruby
       - ruby/install-deps
       - ruby/rubocop-check:
           format: progress
@@ -47,7 +57,7 @@ jobs:
           command: bin/yarn lint
   test:
     docker:
-      - image: cimg/ruby:3.1.4-browsers
+      - image: cimg/ruby:3.1.6-browsers
         environment:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -67,10 +77,20 @@ jobs:
     parallelism: 3
     steps:
       - checkout
-      - run: sudo apt-get update # TODO: remove it https://github.com/CircleCI-Public/browser-tools-orb/issues/75#issuecomment-1641031119
       - browser-tools/install-chrome:
           replace-existing: true
+          chrome-version: 130.0.6723.116
       - browser-tools/install-chromedriver
+      - run:
+          command: |
+            google-chrome --version
+            chromedriver --version
+          name: Check install
+      - run:
+          name: Configure Bundler
+          command: |
+            bundle config set --local force_ruby_platform true
+            bundle lock --add-platform ruby
       - ruby/install-deps:
           clean-bundle: true
       - node/install:
@@ -93,13 +113,11 @@ jobs:
       - run:
           name: Assets precompile
           command: 'bundle exec rails assets:clean assets:precompile NODE_OPTIONS=--openssl-legacy-provider'
-      - run:  
-          command: 'gem install stringio -v 3.1.0'
       - run:
           name: Test
           command: |
-            TESTFILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=timings)
-            bundle exec rails test $TESTFILES
+            TEST_FILES=$(circleci tests glob "test/**/*_test.rb")
+            echo "$TEST_FILES" | circleci tests run --command="xargs bundle exec rails test $TESTFILES" --verbose --split-by=timings
           no_output_timeout: 30m
           when: always
       - store_test_results:

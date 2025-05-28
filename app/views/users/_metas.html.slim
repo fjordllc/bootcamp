@@ -6,8 +6,7 @@
       .user-metas__item-label
         = User.human_attribute_name :created_at
       .user-metas__item-value
-        = l user.created_at.to_date
-        = user.enrollment_period
+        | #{l user.created_at.to_date}（#{user.enrollment_period}）
     .user-metas__item
       .user-metas__item-label
         | お住まい
@@ -20,46 +19,37 @@
         = link_to user.course.title, course_practices_path(user.course), target: '_blank', rel: 'noopener'
     .user-metas__item
       .user-metas__item-label
-        | マシンのOS
+        | 環境
       .user-metas__item-value
-        - if user.os
-          = t("activerecord.enums.user.os.#{user.os}")
-        - else
-          | 回答なし
+        | OS:
+        = user.os.present? ? t("activerecord.enums.user.os.#{user.os}") : '回答なし'
+        | 、エディタ:
+        = user.editor_or_other_editor || '回答なし'
     .user-metas__item
       .user-metas__item-label
         | 修了プラクティス
       .user-metas__item-value
-        = user.completed_fraction_in_metas
+        = user_course_practice.cached_completed_fraction_in_metas
     - unless user.admin? || user.adviser?
       .user-metas__item
         .user-metas__item-label
           | 合計学習時間
         .user-metas__item-value
-          = "#{number_with_precision(user.total_learning_time, precision: 1)}時間 / "
-          = render 'users/learning_status', user:
-    .user-metas__item
-      .user-metas__item-label
-        | 使用しているエディタ
-      .user-metas__item-value
-        = user.editor_or_other_editor
-    - if user.company.present?
-      .user-metas__item
-        .user-metas__item-label
-          | 所属企業
-        .user-metas__item-value
-          = user.company.name
+          = "#{number_with_precision(user.total_learning_time, precision: 1)}時間（"
+          = render 'users/learning_status', user: user
     .user-metas__item
       .user-metas__item-label
         | 区分
       .user-metas__item-value
         ul
-          - user.roles.each do |role|
+          - user.roles.each_with_index do |role, i|
             li
               = t "target.#{role}"
+              - if i.zero? && user.company.present?
+                | （#{user.company.name}）
               - if admin_or_mentor_login?
                 span.is-only-mentor
-                  = " / 休会から#{(Time.current.to_date - user.hibernated_at.to_date).to_i}日目" if role == 'hibernationed'
+                  = "（休会から#{(Time.current.to_date - user.hibernated_at.to_date).to_i}日目）" if role == 'hibernationed'
     - if user.trainee? && user.training_ends_on?
       .user-metas__item
         .user-metas__item-label

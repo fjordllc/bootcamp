@@ -26,6 +26,8 @@ class Subscription
   end
 
   def destroy(subscription_id)
+    return true if retrieve(subscription_id).status == 'canceled'
+
     Stripe::Subscription.update(subscription_id, cancel_at_period_end: true)
   end
 

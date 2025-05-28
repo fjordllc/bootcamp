@@ -7,7 +7,7 @@
 
 .card-main-actions__items
   display: flex
-  gap: .75rem
+  gap: .5rem
   @container card-main-actions (min-width: 20em)
     +position(relative)
     justify-content: center
@@ -37,6 +37,16 @@
       text-align: right
     &:last-child
       margin-bottom: 0
+  @container card-main-actions (min-width: 20em)
+    flex: 1
+    max-width: 50%
+    &.is-sub
+      +position(absolute, right 0, bottom 0)
+  @container card-main-actions (min-width: 30em)
+    flex: 1
+    max-width: 15rem
+    &.is-sub
+      +position(absolute, right 0, bottom 0)
   &.is-end
     margin-left: auto
     flex-basis: 2.5rem

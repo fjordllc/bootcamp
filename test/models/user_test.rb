@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'supports/product_helper'
 
 class UserTest < ActiveSupport::TestCase
+  include ProductHelper
+
   test '#admin?' do
     assert users(:komagata).admin?
     assert users(:machida).admin?
@@ -61,8 +64,11 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '#avatar_url' do
-    user = users(:kimura)
-    assert_equal '/images/users/avatars/default.png', user.avatar_url
+    user_with_default_avatar = users(:kimura)
+    assert_equal '/images/users/avatars/default.png', user_with_default_avatar.avatar_url
+
+    user_with_custom_avatar = users(:komagata)
+    assert_includes user_with_custom_avatar.avatar_url, "#{user_with_custom_avatar.login_name}.webp"
   end
 
   test '#generation' do
@@ -72,30 +78,9 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 29, User.new(created_at: '2020-01-10 00:00:00').generation
   end
 
-  test '#completed_percentage don\'t calculate practice that include_progress: false' do
-    user = users(:komagata)
-    old_percentage = user.completed_percentage
-    user.completed_practices << practices(:practice5)
-
-    assert_not_equal old_percentage, user.completed_percentage
-
-    old_percentage = user.completed_percentage
-    user.completed_practices << practices(:practice53)
-
-    assert_equal old_percentage, user.completed_percentage
-  end
-
-  test '#completed_percentage don\'t calculate practice unrelated cource' do
-    user = users(:komagata)
-    old_percentage = user.completed_percentage
-    user.completed_practices << practices(:practice5)
-
-    assert_not_equal old_percentage, user.completed_percentage
-
-    old_percentage = user.completed_percentage
-    user.completed_practices << practices(:practice55)
-
-    assert_equal old_percentage, user.completed_percentage
+  test '#practice_ids_skipped' do
+    user = users(:kensyu)
+    assert_includes(user.practice_ids_skipped, practices(:practice8).id)
   end
 
   test '#depressed?' do
@@ -231,14 +216,14 @@ class UserTest < ActiveSupport::TestCase
     assert user.invalid?
   end
 
-  test 'announcment for all' do
-    target = User.announcement_receiver('all')
+  test 'notification for all' do
+    target = User.notification_receiver('all')
     assert_includes(target, users(:kimura))
     assert_not_includes(target, users(:yameo))
   end
 
-  test 'announcment for students' do
-    target = User.announcement_receiver('students')
+  test 'notification for students' do
+    target = User.notification_receiver('students')
     assert_includes(target, users(:kimura))
     assert_includes(target, users(:komagata))
     assert_includes(target, users(:mentormentaro))
@@ -248,14 +233,26 @@ class UserTest < ActiveSupport::TestCase
     assert_not_includes(target, users(:kensyu))
   end
 
-  test 'announcment for job_seekers' do
-    target = User.announcement_receiver('job_seekers')
+  test 'notification for job_seekers' do
+    target = User.notification_receiver('job_seekers')
     assert_includes(target, users(:jobseeker))
     assert_includes(target, users(:komagata))
     assert_includes(target, users(:sotugyou))
     assert_includes(target, users(:mentormentaro))
     assert_not_includes(target, users(:sotugyou_with_job))
     assert_not_includes(target, users(:kimura))
+    assert_not_includes(target, users(:yameo))
+  end
+
+  test 'notification for none' do
+    target = User.notification_receiver('none')
+    assert_not_includes(target, users(:kimura))
+    assert_not_includes(target, users(:jobseeker))
+    assert_not_includes(target, users(:komagata))
+    assert_not_includes(target, users(:mentormentaro))
+    assert_not_includes(target, users(:sotugyou))
+    assert_not_includes(target, users(:advijirou))
+    assert_not_includes(target, users(:kensyu))
     assert_not_includes(target, users(:yameo))
   end
 
@@ -320,12 +317,6 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 1, kimura.followees_list(watch: 'false').count
   end
 
-  test '#completed_practices_size_by_category' do
-    kimura = users(:kimura)
-    category2 = categories(:category2)
-    assert_equal 1, kimura.completed_practices_size_by_category[category2.id]
-  end
-
   test "don't unfollow user when other user unfollow user" do
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)
@@ -381,6 +372,7 @@ class UserTest < ActiveSupport::TestCase
     practice2 = practices(:practice2)
     today = Time.zone.today
 
+    create_checked_product(user, practice1)
     Learning.create!(
       user:,
       practice: practice1,
@@ -389,6 +381,7 @@ class UserTest < ActiveSupport::TestCase
       updated_at: (today - 2.weeks).to_formatted_s(:db)
     )
 
+    create_checked_product(user, practice2)
     Learning.create!(
       user:,
       practice: practice2,
@@ -425,6 +418,7 @@ class UserTest < ActiveSupport::TestCase
     practice1 = practices(:practice1)
     today = Time.zone.today
 
+    create_checked_product(user, practice1)
     Learning.create!(
       user:,
       practice: practice1,
@@ -442,20 +436,6 @@ class UserTest < ActiveSupport::TestCase
 
     worried_users = User.delayed.order(completed_at: :asc)
     assert_equal worried_users.where(id: user.id).size, 0
-  end
-
-  test 'get category active or unstarted practice' do
-    komagata = users(:komagata)
-    assert_equal 917_504_053, komagata.category_active_or_unstarted_practice.id
-
-    machida = users(:machida)
-    practice1 = practices(:practice1)
-    Learning.create!(
-      user: machida,
-      practice: practice1,
-      status: :complete
-    )
-    assert_equal 685_020_562, machida.category_active_or_unstarted_practice.id
   end
 
   test 'trainee must select company' do
@@ -513,24 +493,24 @@ class UserTest < ActiveSupport::TestCase
     assert users(:senpai).belongs_company_and_adviser?
   end
 
-  test '#collegues' do
-    target = users(:kensyu).collegues
+  test '#colleagues' do
+    target = users(:kensyu).colleagues
     assert_includes(target, users(:kensyuowata))
-    assert_empty users(:kimura).collegues
+    assert_empty users(:kimura).colleagues
   end
 
-  test '#collegues_other_than_self' do
+  test '#colleagues_other_than_self' do
     self_user = users(:kensyu)
-    target = self_user.collegues_other_than_self
+    target = self_user.colleagues_other_than_self
     assert_includes(target, users(:kensyuowata))
     assert_not_includes(target, self_user)
   end
 
-  test '#collegue_trainees' do
-    target = users(:senpai).collegue_trainees
+  test '#colleague_trainees' do
+    target = users(:senpai).colleague_trainees
     assert_includes(target, users(:kensyu))
-    assert_empty users(:kimura).collegue_trainees
-    assert_empty users(:advijirou).collegue_trainees
+    assert_empty users(:kimura).colleague_trainees
+    assert_empty users(:advijirou).colleague_trainees
   end
 
   test '#after_twenty_nine_days_registration?' do
@@ -723,7 +703,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '#scheduled_retire_at' do
-    assert_equal '2020-07-01 09:00:00 +0900', users(:kyuukai).scheduled_retire_at.to_s
+    assert_equal '2020-04-01 09:00:00 +0900', users(:kyuukai).scheduled_retire_at.to_s
     assert_nil users(:hatsuno).scheduled_retire_at
   end
 
@@ -774,5 +754,26 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 1, user.latest_micro_report_page
     user.micro_reports.create!(Array.new(25) { |i| { content: "分報#{i + 1}" } })
     assert_equal 2, user.latest_micro_report_page
+  end
+
+  test 'convert to nil during saving when country_code and subdivision_code is empty string' do
+    user = users(:hajime)
+    user.country_code = ''
+    user.subdivision_code = ''
+    user.save!
+    assert_nil user.country_code
+    assert_nil user.subdivision_code
+  end
+
+  test '.job_seeking' do
+    user = users(:jobseeking)
+    assert_includes User.job_seeking, user
+  end
+
+  test '#mark_mail_as_sent_before_auto_retire' do
+    user = users(:hajime)
+    assert_not user.sent_student_before_auto_retire_mail
+    user.mark_mail_as_sent_before_auto_retire
+    assert user.sent_student_before_auto_retire_mail
   end
 end

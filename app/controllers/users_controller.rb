@@ -48,17 +48,9 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    @user.role = params[:role]
-    case @user.role
-    when 'adviser'
-      @user.adviser = true
-    when 'trainee_invoice_payment', 'trainee_credit_card_payment', 'trainee_select_a_payment_method'
-      @user.trainee = true
-    when 'mentor'
-      @user.mentor = true
-    end
     @user.course_id = params[:course_id]
     @user.company_id = params[:company_id]
+    assign_role(@user)
   end
 
   def create
@@ -69,7 +61,10 @@ class UsersController < ApplicationController
     @user.course_id ||= Course.first.id
     @user.build_discord_profile
     @user.credit_card_payment = params[:credit_card_payment]
+    @user.uploaded_avatar = user_params[:avatar]
+
     Newspaper.publish(:user_create, { user: @user })
+
     if @user.staff? || @user.trainee?
       create_free_user!
     else
@@ -83,7 +78,7 @@ class UsersController < ApplicationController
     if @target == 'followings'
       current_user.followees_list(watch: @watch)
     elsif @entered_tag
-      User.tagged_with(@entered_tag)
+      User.active_tagged_with(@entered_tag)
     else
       users = User.users_role(@target, allowed_targets: target_allowlist)
       @target == 'inactive' ? users.order(:last_activity_at) : users
@@ -167,7 +162,7 @@ class UsersController < ApplicationController
   end
 
   def notify_to_chat(user)
-    ChatNotifier.message "#{user.login_name}さんが新たなメンバーとしてJOINしました🎉\r<#{url_for(user)}>"
+    ChatNotifier.message "#{user.login_name}さん#{user.roles_to_s.empty? ? '' : "（#{user.roles_to_s}）"}が新たなメンバーとしてJOINしました🎉\r<#{url_for(user)}>"
   end
 
   def user_params
@@ -182,7 +177,8 @@ class UsersController < ApplicationController
       :trainee, :adviser, :mentor, :job_seeker,
       :tag_list, :after_graduation_hope, :feed_url,
       :country_code, :subdivision_code, :invoice_payment,
-      :credit_card_payment, :role
+      :credit_card_payment, :role,
+      :referral_source, :other_referral_source
     )
   end
 
@@ -195,5 +191,18 @@ class UsersController < ApplicationController
     return unless !params[:token] || !ENV['TOKEN'] || params[:token] != ENV['TOKEN']
 
     redirect_to root_path, notice: 'アドバイザー・メンター・研修生登録にはTOKENが必要です。'
+  end
+
+  def assign_role(user)
+    user.role = params[:role]
+
+    case user.role
+    when 'adviser'
+      user.adviser = true
+    when 'trainee_invoice_payment', 'trainee_credit_card_payment', 'trainee_select_a_payment_method'
+      user.trainee = true
+    when 'mentor'
+      user.mentor = true
+    end
   end
 end

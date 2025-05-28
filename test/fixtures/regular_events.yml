@@ -187,3 +187,33 @@ regular_event35:
   user: komagata
   category: 0
   published_at: "2023-08-01 00:00:00"
+
+regular_event36:
+  title: 日曜日開催で12:00に終了する定期イベント
+  description: 日曜日開催で12:00に終了する定期イベントの表示テスト用
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2024, 12, 1, 9, 0, 0) %>
+  end_at: <%= Time.zone.local(2024, 12, 1, 12, 0, 0) %>
+  user: komagata
+  published_at: "2024-12-01 00:00:00"
+
+regular_event37:
+  title: 日曜日開催で10:00に終了する定期イベント
+  description: 日曜日開催で10:00に終了する定期イベントの表示テスト用
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2024, 12, 1, 9, 0, 0) %>
+  end_at: <%= Time.zone.local(2024, 12, 1, 10, 0, 0) %>
+  user: komagata
+  published_at: "2024-12-01 00:00:00"
+
+regular_event38:
+  title: 月曜日開催で10:00に終了する定期イベント
+  description: 月曜日開催で10:00に終了する定期イベントの表示テスト用
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2024, 12, 2, 9, 0, 0) %>
+  end_at: <%= Time.zone.local(2024, 12, 2, 10, 0, 0) %>
+  user: komagata
+  published_at: "2024-12-01 00:00:00"

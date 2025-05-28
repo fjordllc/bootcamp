@@ -6,29 +6,32 @@ class Practice < ApplicationRecord
 
   has_many :learnings, dependent: :destroy
   has_and_belongs_to_many :reports # rubocop:disable Rails/HasAndBelongsToMany
-  has_many :started_learnings,
-           -> { where(status: 'started') },
-           class_name: 'Learning',
-           inverse_of: 'practice',
-           dependent: nil
   has_many :completed_learnings,
            -> { where(status: 'complete') },
            class_name: 'Learning',
            inverse_of: 'practice',
            dependent: nil
-  has_many :started_users,
-           through: :started_learnings,
-           source: :user
-  has_many :completed_users,
-           through: :completed_learnings,
-           source: :user
-  has_many :started_students,
+  has_many :started_or_submitted_learnings,
+           -> { where(status: 'started').or(where(status: 'submitted')) },
+           class_name: 'Learning',
+           inverse_of: 'practice',
+           dependent: nil
+  has_many :started_or_submitted_students,
            -> { students_and_trainees },
-           through: :started_learnings,
+           through: :started_or_submitted_learnings,
            source: :user
+  has_many :skipped_users,
+           through: :skipped_practices,
+           source: :user
+  has_many :skipped_practices, dependent: :destroy
   has_many :products, dependent: :destroy
   has_many :questions, dependent: :nullify
-  has_many :pages, dependent: :nullify
+  has_many :pages,
+           -> { order(updated_at: :desc, id: :desc) },
+           dependent: :nullify,
+           inverse_of: :practice
+  has_many :practices_movies, dependent: :nullify
+  has_many :movies, through: :practices_movies
   has_one :learning_minute_statistic, dependent: :destroy
   belongs_to :last_updated_user, class_name: 'User', optional: true
 
@@ -37,11 +40,16 @@ class Practice < ApplicationRecord
   has_one_attached :ogp_image
   has_one_attached :completion_image
 
-  has_many :books, through: :practices_books
   has_many :practices_books, dependent: :destroy
+  has_many :books, through: :practices_books
   accepts_nested_attributes_for :practices_books, reject_if: :all_blank, allow_destroy: true
 
   has_one :submission_answer, dependent: :destroy
+  has_many :coding_tests, dependent: :nullify
+
+  has_many :coding_test_submissions,
+           through: :coding_tests,
+           source: :coding_test_submissions
 
   validates :title, presence: true
   validates :description, presence: true
@@ -49,6 +57,19 @@ class Practice < ApplicationRecord
   validates :categories, presence: true
 
   columns_for_keyword_search :title, :description, :goal
+
+  scope :with_counts, lambda {
+    select('practices.*,
+           (SELECT COUNT(*) FROM products WHERE products.practice_id = practices.id) as products_count,
+           (SELECT COUNT(*) FROM practices_reports WHERE practices_reports.practice_id = practices.id) as reports_count,
+           (SELECT COUNT(*) FROM questions WHERE questions.practice_id = practices.id) as questions_count')
+  }
+
+  scope :for_mentor_index, lambda {
+    with_counts
+      .preload(:categories, :submission_answer)
+      .order(:id)
+  }
 
   class << self
     def save_learning_minute_statistics

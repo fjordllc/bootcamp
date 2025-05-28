@@ -4,6 +4,10 @@ header.page-content-header
       = link_to user, class: 'page-content-header__user-link' do
         span class="a-user-role is-#{user.primary_role}"
           = image_tag user.avatar_url, title: user.icon_title, class: 'user-profile__user-icon-image a-user-icon'
+    - if user.company.present?
+      .user-profile__company-logo
+        = link_to company_path(user.company), class: 'user-profile__company-link is-company' do
+          = image_tag user.company.logo_url, class: 'user-profile__company-logo-image'
   .page-content-header__end
     .page-content-header__row
       .page-content-header__before-title
@@ -34,7 +38,3 @@ header.page-content-header
                 = user.discord_profile.account_name.presence || 'Discord 未設定'
     .page-content-header__row
       = render 'users/sns', user: user
-
-  - if user.company.present?
-    = link_to company_path(user.company) do
-      = image_tag user.company.logo_url, class: 'user-profile__company-logo'

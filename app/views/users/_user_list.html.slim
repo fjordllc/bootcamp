@@ -3,7 +3,8 @@
     = paginate users
     .row
       - users.each do |user|
-        = render 'users/user', user:
+        - user_course_practice = UserCoursePractice.new(user)
+        = render 'users/user', user:, user_course_practice:
     = paginate users
 - else
   = render 'users/no_match_user'

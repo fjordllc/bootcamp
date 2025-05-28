@@ -31,7 +31,7 @@ class API::AnswersController < API::BaseController
     if @answer.save
       Newspaper.publish(:answer_create, { answer: @answer })
       Newspaper.publish(:answer_save, { answer: @answer })
-      render :create, status: :created
+      render partial: 'questions/answer', locals: { question:, answer: @answer, user: current_user }, status: :created
     else
       head :bad_request
     end

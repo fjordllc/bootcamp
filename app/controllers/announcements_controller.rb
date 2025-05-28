@@ -2,6 +2,7 @@
 
 class AnnouncementsController < ApplicationController
   PAGER_NUMBER = 25
+
   before_action :set_announcement, only: %i[show edit update destroy]
   before_action :rewrite_announcement, only: %i[update]
 
@@ -14,6 +15,8 @@ class AnnouncementsController < ApplicationController
   end
 
   def show
+    Footprint.find_or_create_for(@announcement, current_user)
+    @footprints = Footprint.fetch_for_resource(@announcement)
     @announcements = Announcement.with_avatar.where(wip: false).order(published_at: :desc).limit(10)
   end
 

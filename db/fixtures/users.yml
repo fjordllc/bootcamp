@@ -428,7 +428,7 @@ senpai:
   sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:12"
 
-kananashi: #name_kanaを持たないユーザー
+kananashi: # name_kanaを持たないユーザー
   login_name: kananashi
   email: kananashi@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -449,7 +449,7 @@ kananashi: #name_kanaを持たないユーザー
   sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:12"
 
-osnashi: #osを持たないユーザー
+osnashi: # osを持たないユーザー
   login_name: osnashi
   email: osnashi@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -470,7 +470,7 @@ osnashi: #osを持たないユーザー
   sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:12"
 
-jobseeker: #就活希望するユーザー
+jobseeker: # 就活希望するユーザー
   login_name: jobseeker
   email: jobseeker@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -552,7 +552,7 @@ sumi:
   os: mac_apple
   experiences: 1
   job_seeker: true
-  job_seeking: true
+  career_path: 1
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:18"
   created_at: "2021-01-01 00:00:18"
@@ -749,7 +749,7 @@ take8:
   job: office_worker
   os: mac
   job_seeker: true
-  job_seeking: true
+  career_path: 1
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:27"
   created_at: "2021-01-01 00:00:27"
@@ -1037,7 +1037,7 @@ unhibernated:
   sent_student_followup_message: false
   last_activity_at: <%= Time.current - 10.days %>
 
-discordinvalid: #Discord IDが不正なユーザー
+discordinvalid: # Discord IDが不正なユーザー
   login_name: discordinvalid
   email: discordinvalid@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -1058,7 +1058,7 @@ discordinvalid: #Discord IDが不正なユーザー
   sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:12"
 
-twitterinvalid: #X（Twitter） IDが不正なユーザー
+twitterinvalid: # X（Twitter） IDが不正なユーザー
   login_name: twitterinvalid
   email: twitterinvalid@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -1145,6 +1145,7 @@ kyuukai:
   updated_at: "2014-01-01 00:00:13"
   created_at: "2014-01-01 00:00:13"
   sent_student_followup_message: true
+  sent_student_before_auto_retire_mail: true
 
 autoretire-within-1-hour:
   login_name: autoretire-within-1-hour
@@ -1168,10 +1169,11 @@ autoretire-within-1-hour:
   subdivision_code: '04'
   github_account: autoretire-within-1-hour
   unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
-  hibernated_at: <%= Time.current - 6.months + 30.minutes %>
+  hibernated_at: <%= Time.current - 3.months + 30.minutes %>
   updated_at: "2014-01-01 00:00:13"
   created_at: "2014-01-01 00:00:13"
   sent_student_followup_message: true
+  sent_student_before_auto_retire_mail: true
 
 autoretire-within-24-hour:
   login_name: autoretire-within-24-hour
@@ -1195,10 +1197,11 @@ autoretire-within-24-hour:
   subdivision_code: '04'
   github_account: autoretire-within-24-hour
   unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
-  hibernated_at: <%= Time.current - 6.months + 23.hour%>
+  hibernated_at: <%= Time.current - 3.months + 23.hour %>
   updated_at: "2014-01-01 00:00:13"
   created_at: "2014-01-01 00:00:13"
   sent_student_followup_message: true
+  sent_student_before_auto_retire_mail: true
 
 autoretire-within-1-week:
   login_name: autoretire-within-1-week
@@ -1222,7 +1225,7 @@ autoretire-within-1-week:
   subdivision_code: '04'
   github_account: autoretire-within-1-week
   unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
-  hibernated_at: <%= Time.current - 6.months + 6.days%>
+  hibernated_at: <%= Time.current - 3.months + 1.week %>
   updated_at: "2014-01-01 00:00:13"
   created_at: "2014-01-01 00:00:13"
   sent_student_followup_message: true
@@ -1249,7 +1252,7 @@ autoretire-over-1-week:
   subdivision_code: '04'
   github_account: autoretire-over-1-week
   unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
-  hibernated_at: <%= Time.current - 6.months + 3.months%>
+  hibernated_at: <%= Time.current - 3.months + 1.week + 1.day %>
   updated_at: "2014-01-01 00:00:13"
   created_at: "2014-01-01 00:00:13"
   sent_student_followup_message: true
@@ -1306,16 +1309,16 @@ sotsugyoukigyoshozoku:
   sent_student_followup_message: true
   last_activity_at: "2022-07-01 00:00:00"
 
-advisernocolleguetrainee:
-  login_name: advisernocolleguetrainee
-  email: advisernocolleguetrainee@example.com
+advisernocolleaguetrainee:
+  login_name: advisernocolleaguetrainee
+  email: advisernocolleaguetrainee@example.com
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: あどばいざ 同僚いない子
   name_kana: アドバイザ ドウリョウイナイコ
-  twitter_account: advisernocolleguetrainee
+  twitter_account: advisernocolleaguetrainee
   facebook_url: https://www.facebook.com/fjordllc
-  blog_url: http://advisernocolleguetrainee.example.com
+  blog_url: http://advisernocolleaguetrainee.example.com
   company: company26
   description: '同僚がいないアドバイザーです。'
   adviser: true
@@ -1341,11 +1344,12 @@ nagai-kyuukai:
   os: mac
   country_code: JP
   subdivision_code: '09'
-  hibernated_at: <%= Time.current - 6.months %>
+  hibernated_at: <%= Time.current - 3.months %>
   updated_at: "2014-01-01 00:00:13"
   created_at: "2014-01-01 00:00:13"
   sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:04"
+  sent_student_before_auto_retire_mail: true
 
 paginataion-taro:
   login_name: paginataion-taro
@@ -1401,7 +1405,7 @@ pjord:
   sent_student_followup_message: true
   last_activity_at: "2021-02-01 00:00:30"
 
-harikirio: #必修でないプラクティスも修了しているユーザー
+harikirio: # 必修でないプラクティスも修了しているユーザー
   login_name: harikirio
   email: harikiro@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest

@@ -1,0 +1,86 @@
+.thread-comment.answer id="answer_#{answer.id}" data-question_id="#{question.id}" data-answer_id="#{answer.id}" data-answer_description="#{answer.description}"
+  .thread-comment__start
+    a.thread-comment__user-link href="#{answer.user.url}"
+      span class="a-user-role is-#{answer.user.primary_role}"
+        img.thread-comment__user-icon.a-user-icon src="#{answer.user.avatar_url}"
+    - if answer.user.company && (answer.user.adviser? || answer.user.trainee?)
+      a.thread-comment__company-link href="#{company_path(answer.user.company)}"
+        img.thread-comment__company-logo src="#{answer.user.company.logo_url}"
+  .thread-comment__end
+    .a-card.is-answer.answer-display
+      .answer-badge class=(answer.type == 'CorrectAnswer' ? 'correct-answer' : 'is-hidden')
+        .answer-badge__icon
+          i.fa-solid.fa-star
+        .answer-badge__label
+          | ベスト
+          br
+          | アンサー
+      header.card-header
+        h2.thread-comment__title
+          a.thread-comment__title-user-link.is-hidden-md-up href="#{answer.user.url}"
+            img.thread-comment__title-user-icon.a-user-icon src="#{answer.user.avatar_url}"
+          a.thread-comment__title-link.a-text-link href="#{answer.user.url}"
+            = answer.user.login_name
+        time.thread-comment__created-at
+          = l(answer.created_at)
+      hr.a-border-tint
+      .thread-comment__description
+        - if answer.user.company && answer.user.adviser
+          a.thread-comment__company-link.is-hidden-md-up href="#{company_path(answer.user.company)}"
+            img.thread-comment__company-logo src="#{answer.user.company.logo_url}"
+        .a-long-text.is-md
+          = answer.description
+      hr.a-border-tint
+      .thread-comment__reactions
+        = render 'reactions/reactions', reactionable: answer
+      hr.a-border-tint
+      footer.card-footer
+        .card-main-actions
+          ul.card-main-actions__items
+            - if answer.user.id == user.id || user.admin?
+              li.card-main-actions__item
+                button.card-main-actions__action.a-button.is-sm.is-secondary.is-block
+                  i.fa-solid.fa-pen
+                  | 内容修正
+            - if user.mentor? || user.id == question.user.id
+              - make_button_hidden = (question.correct_answer && answer.type != 'CorrectAnswer') || (answer.type == 'CorrectAnswer')
+              - cancel_button_hidden = (question.correct_answer && answer.type != 'CorrectAnswer') || !question.correct_answer
+              li.card-main-actions__item.make-best-answer-button class=(make_button_hidden ? 'is-hidden' : '')
+                button.card-main-actions__action.a-button.is-sm.is-warning.is-block
+                  | ベストアンサーにする
+              li.card-main-actions__item.cancel-best-answer-button class=(cancel_button_hidden ? 'is-hidden' : '')
+                button.card-main-actions__action.a-button.is-sm.is-muted.is-block
+                  | ベストアンサーを取り消す
+            - if answer.user.id == user.id || user.mentor?
+              li.card-main-actions__item.is-sub
+                button.card-main-actions__muted-action
+                  | 削除する
+    .a-card.is-answer.answer-editor.is-hidden
+      .thread-comment-form__form
+        .a-form-tabs.js-tabs
+          .a-form-tabs__tab.js-tabs__tab.edit-answer-tab.is-active
+            | コメント
+          .a-form-tabs__tab.js-tabs__tab.answer-preview-tab
+            | プレビュー
+        .a-markdown-input.js-markdown-parent
+          .a-markdown-input__inner.is-editor.js-tabs__content.is-active
+            .form-textarea
+              .form-textarea__body
+                textarea.a-text-input.a-markdown-input__textarea id="js-comment-#{answer.id}" data-preview="#js-comment-preview-#{answer.id}" data-input=".js-comment-file-input-#{answer.id}" name='answer[description]'
+                  = answer.description
+              .form-textarea__footer
+                .form-textarea__insert
+                  label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
+                    | ファイルを挿入
+                    input(class="js-comment-file-input-#{answer.id}" type='file' multiple)
+          .a-markdown-input__inner.is-preview.js-tabs__content
+            .js-preview.a-long-text.is-md.a-markdown-input__preview id="js-comment-preview-#{answer.id}"
+        .card-footer
+          .card-main-actions
+            .card-main-actions__items
+              .card-main-actions__item
+                button.a-button.is-sm.is-primary.is-block
+                  | 保存する
+              .card-main-actions__item
+                button.a-button.is-sm.is-secondary.is-block
+                  | キャンセル

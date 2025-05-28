@@ -365,11 +365,16 @@ class UsersTest < ApplicationSystemTestCase
     assert_text '卒業済'
   end
 
-  test 'change job seeking flag when click toggle button' do
-    user = users(:hajime)
-    visit_with_auth user_path(user.id), 'komagata'
-    check '就職活動中', allow_label_click: true
-    assert user.reload.job_seeking
+  test 'learning time frames hidden after user graduation' do
+    user = users(:kimura)
+    LearningTimeFramesUser.create!(user:, learning_time_frame_id: 1)
+
+    visit_with_auth "/users/#{user.id}", 'komagata'
+    accept_confirm do
+      click_link '卒業にする'
+    end
+    assert_text '卒業済'
+    assert_no_selector 'label.a-form-label', text: '活動時間'
   end
 
   test 'GET /users/new' do
@@ -470,7 +475,7 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'search only graduated students when target is graduate' do
     visit_with_auth '/users?target=graduate', 'komagata'
-    assert_selector '.users-item', count: 3
+    assert_selector '.users-item', count: 4
     fill_in 'js-user-search-input', with: '卒業 就職済美'
     find('#js-user-search-input').send_keys :return
     assert_text '卒業 就職済美', count: 1
@@ -547,9 +552,14 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test "don't show incremental search when target's users aren't exist" do
+    user = users(:jobseeking)
+    user.update!(career_path: 0)
+
     visit_with_auth '/users?target=job_seeking', 'komagata'
     assert_no_selector '.users-item'
     assert has_no_field? 'js-user-search-input'
+
+    user.update!(career_path: 1)
   end
 
   test 'only show incremental search in all tab' do
@@ -664,10 +674,10 @@ class UsersTest < ApplicationSystemTestCase
 
     travel_to hibernated_user.hibernated_at + 30.days do
       visit_with_auth user_path(hibernated_user), 'komagata'
-      assert_text '休会中 / 休会から30日目'
+      assert_text '休会中（休会から30日目）'
     end
     visit_with_auth user_path(user), 'komagata'
-    assert_no_text '休会中 / 休会から'
+    assert_no_text '休会中（休会から'
   end
 
   test 'show retirement message on users page' do
@@ -703,5 +713,35 @@ class UsersTest < ApplicationSystemTestCase
     assert_selector('a.tab-nav__item-link.is-active', text: '現役生')
     filtered_users = all('.users-item__icon .a-user-role')
     assert(filtered_users.all? { |user| user[:class].split(' ').include?('is-student') })
+  end
+
+  test 'can not upload broken image as user avatar' do
+    visit_with_auth '/current_user/edit', 'hajime'
+    attach_file 'user[avatar]', 'test/fixtures/files/images/broken_image.jpg', make_visible: true
+    click_button '更新する'
+
+    assert_text 'ユーザーアイコンは指定された拡張子(PNG, JPG, JPEG, GIF, HEIC, HEIF形式)になっていないか、あるいは画像が破損している可能性があります'
+  end
+
+  test 'visible learning time frames table on profile pages non advisors and grad users' do
+    hatsuno = users(:hatsuno)
+    mentormentaro = users(:mentormentaro)
+    kensyu = users(:kensyu)
+
+    LearningTimeFramesUser.create!(user: hatsuno, learning_time_frame_id: 1)
+    LearningTimeFramesUser.create!(user: mentormentaro, learning_time_frame_id: 2)
+    LearningTimeFramesUser.create!(user: kensyu, learning_time_frame_id: 3)
+
+    visit_with_auth "/users/#{hatsuno.id}", 'kimura'
+    assert_selector 'h1.page-main-header__title', text: 'プロフィール'
+    assert_selector 'h2.card-header__title', text: '主な活動予定時間'
+
+    visit_with_auth "/users/#{mentormentaro.id}", 'kimura'
+    assert_selector 'h1.page-main-header__title', text: 'プロフィール'
+    assert_selector 'h2.card-header__title', text: '主な活動予定時間'
+
+    visit_with_auth "/users/#{kensyu.id}", 'kimura'
+    assert_selector 'h1.page-main-header__title', text: 'プロフィール'
+    assert_selector 'h2.card-header__title', text: '主な活動予定時間'
   end
 end

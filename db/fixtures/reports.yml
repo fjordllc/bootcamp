@@ -338,3 +338,162 @@ report88:
   description: |-
     お世話になりました
   reported_on: <%= Time.now - 1.month - 1.day %>
+
+report89:
+  user: komagata
+  title: "リンクカードの動作確認"
+  emotion: 2
+  description: |-
+    # リンクカードが生成されるパターン
+    ## Twitter関連のリンクカード
+    ### Tweet個別
+    @[card](https://x.com/fjordbootcamp/status/1866097842483503117)
+
+    ---
+
+    ## 通常のリンクカード
+
+    @[card](https://bootcamp.fjord.jp)
+
+    ---
+
+    あいうえお
+
+    @[card](https://bootcamp.fjord.jp)
+
+    かきくけこ
+
+    ---
+
+    あいうえお
+
+    @[card](https://bootcamp.fjord.jp)
+
+    ---
+
+    @[card](https://bootcamp.fjord.jp)
+
+    かきくけこ
+
+    ---
+
+    ## 複数のリンクカードがあるパターン
+    @[card](https://bootcamp.fjord.jp)
+
+    @[card](https://bootcamp.fjord.jp)
+
+    @[card](https://bootcamp.fjord.jp)
+
+    @[card](https://bootcamp.fjord.jp)
+
+    ---
+
+    ## ネストが許容されるマークダウン
+    :::message
+    @[card](https://bootcamp.fjord.jp)
+    :::
+
+    :::details リンクカードが展開される
+    @[card](https://bootcamp.fjord.jp)
+    :::
+
+    ---
+
+    # リンクカードが生成されるがfetchが失敗するパターン
+    ## Twitter関連
+    ### 存在しないTweet
+    @[card](https://x.com/fjordbootcamp/status/186609784248350311774832921aaa)
+
+    ### ユーザーのホーム画面
+    @[card](https://x.com/fjordbootcamp)
+
+    ### リスト
+    @[card](https://x.com/mousuFBC/lists)
+
+    ### ハッシュタグの検索結果
+    @[card](https://x.com/hashtag/fjordbootcamp?src=hashtag_click)
+
+    ## 通常のサイト
+    ### ドメインは存在するがページが存在しない場合
+    @[card](https://bootcamp.fjord.jp/aaa)
+
+    ---
+
+    ### ドメインもページも存在しない場合
+    @[card](https://bootmp.fjd.jp/aaa)
+
+    ---
+
+    # リンクカードが生成されないパターン
+    あいうえお@[card](https://bootcamp.fjord.jp)かきくけこ
+
+    ---
+
+    あいうえお @[card](https://bootcamp.fjord.jp)かきくけこ
+
+    ---
+
+    あいうえお@[card](https://bootcamp.fjord.jp) かきくけこ
+
+    ---
+
+    あいうえお @[card](https://bootcamp.fjord.jp) かきくけこ
+
+    ---
+
+    あいうえお@[card](https://bootcamp.fjord.jp)
+
+    ---
+
+    @[card](https://bootcamp.fjord.jp)かきくけこ
+
+    ---
+
+    あいうえお
+    @[card](https://bootcamp.fjord.jp)
+
+    ---
+
+    @[card](https://bootcamp.fjord.jp)
+    かきくけこ
+
+    ---
+
+    あいうえお
+    @[card](https://bootcamp.fjord.jp)かきくけこ
+
+    ---
+
+    あいうえお@[card](https://bootcamp.fjord.jp)
+    かきくけこ
+
+    ---
+
+    あいうえお
+    @[card](https://bootcamp.fjord.jp)
+    かきくけこ
+
+    ---
+
+    あいうえお
+
+    @[card](https://bootcamp.fjord.jp)
+    かきくけこ
+
+    ---
+
+    あいうえお
+    @[card](https://bootcamp.fjord.jp)
+
+    かきくけこ
+
+    ---
+
+    ## リンクカードが生成されない特殊パターン
+    ### リンクのスキームがhttp / https以外な場合
+    @[card](ftp://target.example.com/target/directory/)
+
+    ### detailsとmessage以外のマークダウンにネストしている場合
+    * @[card](https://bootcamp.fjord.jp)
+
+  reported_on: <%= Time.now %>

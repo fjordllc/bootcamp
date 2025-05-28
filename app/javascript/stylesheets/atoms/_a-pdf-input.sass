@@ -1,0 +1,48 @@
+.a-pdf-input
+  display: flex
+  gap: .75rem
+  +media-breakpoint-down(sm)
+    flex-direction: column
+
+.a-pdf-input__inner
+  flex: 1
+  background-color: var(--base)
+  display: flex
+  align-items: center
+  justify-content: center
+  +position(relative)
+  overflow: hidden
+  cursor: pointer
+  border-radius: .25rem
+  height: 2.25rem
+  input
+    overflow: hidden
+    +size(0)
+    +position(absolute, left 0, top 0)
+    opacity: 0
+
+a.a-pdf-input__inner
+  text-decoration: none
+  color: var(--default-text)
+
+.a-pdf-input__file
+  padding: .5rem
+  flex: 1
+  border-radius: .25rem 0 0 .25rem
+  border: solid 1px var(--input-border)
+  border-right: none
+  height: 2.25rem
+
+.a-pdf-input__file-name
+  font-size: .875rem
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+  display: block
+  +media-breakpoint-up(md)
+    max-width: 18rem
+  +media-breakpoint-down(sm)
+    max-width: 8rem
+
+.a-pdf-input__upload.a-button
+  border-radius: 0 .25rem .25rem 0

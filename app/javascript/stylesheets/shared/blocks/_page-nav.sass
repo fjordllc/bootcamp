@@ -48,7 +48,6 @@ a.page-nav__title-inner
   box-shadow: 0 0 0 1px $border-color inset
   background-color: $background-color
   border-bottom: none
-  margin-bottom: -1px
   .page-nav__item-link
     background-color: transparent
     color: $text-color
@@ -64,6 +63,10 @@ a.page-nav__title-inner
       font-weight: 700
   &.is-current
     +page-nav-current(var(--primary-tint), var(--primary), var(--primary-text), true)
+  &.is-current:not(:last-child)
+    margin-bottom: -1px
+  &.is-current:last-child
+    border-radius: 0 0 .25rem .25rem
   &.is-reply-warning
     +page-nav-current(var(--reply-warning-background), var(--reply-warning-border), var(--default-text), false)
   &.is-reply-alert
@@ -103,3 +106,8 @@ a.page-nav__title-inner
   display: flex
   flex-wrap: wrap
   gap: .25rem .75rem
+
+.page-nav__item-link-inner
+  +flex-link
+  gap: .5rem
+  align-items: center

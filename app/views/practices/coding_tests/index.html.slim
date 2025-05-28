@@ -1,0 +1,29 @@
+- title "#{@practice.title}のコーディングテスト"
+- description 'コーディングテストの一覧ページです。'
+
+= render '/practices/page_header', title: @practice.title, practice: @practice
+
+= practice_page_tabs(@practice, active_tab: 'コーディングテスト')
+
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h2.page-main-header__title
+            | #{@practice.title}のコーディングテスト
+        .page-main-header__end
+  hr.a-border
+
+  .page-body
+    .container.is-md
+      - if @coding_tests.empty?
+        .o-empty-message
+          .o-empty-message__icon
+            i.fa-regular.fa-sad-tear
+          p.o-empty-message__text
+            | コーディングテストはまだありません
+      - else
+        .card-list.a-card
+          .card-list__items
+            = render @coding_tests
