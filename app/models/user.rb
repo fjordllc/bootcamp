@@ -26,6 +26,7 @@ class User < ApplicationRecord
   }.freeze
   DEFAULT_REGULAR_EVENT_ORGANIZER = 'komagata'
   HIBERNATION_LIMIT = 3.months
+  HIBERNATION_LIMIT_BEFORE_ONE_WEEK = HIBERNATION_LIMIT - 1.week
 
   INVITATION_ROLES = [
     [I18n.t('invitation_role.adviser'), :adviser],
@@ -909,6 +910,11 @@ class User < ApplicationRecord
 
   def latest_micro_report_page
     [micro_reports.page.total_pages, 1].max
+  end
+
+  def mark_mail_as_sent_before_auto_retire
+    self.sent_student_before_auto_retire_mail = true
+    save(validate: false)
   end
 
   private
