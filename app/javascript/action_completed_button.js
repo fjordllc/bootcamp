@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
         'X-CSRF-Token': CSRF.getToken()
       },
       body: JSON.stringify({
-        talk: { action_completed: !isActionCompleted }
+        talk: { action_completed: isActionCompleted }
       })
     })
       .then((response) => {
