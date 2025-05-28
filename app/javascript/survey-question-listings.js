@@ -1,5 +1,5 @@
 import Sortable from 'sortablejs'
-import Bootcamp from 'bootcamp'
+import { patch } from '@rails/request.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const element = document.querySelector('#js-survey-question-listing-sortable')
@@ -15,9 +15,18 @@ document.addEventListener('DOMContentLoaded', () => {
       const params = { insert_at: event.newIndex + 1 }
       const url = `/api/survey_question_listings/${id}/position.json`
 
-      Bootcamp.patch(url, params).catch((error) => {
-        console.warn(error)
+      patch(url, {
+        body: JSON.stringify(params),
+        contentType: 'application/json'
       })
+        .then((response) => {
+          if (!response.ok) {
+            console.warn('Request failed:', response.statusCode)
+          }
+        })
+        .catch((error) => {
+          console.warn(error)
+        })
     }
   })
 })
