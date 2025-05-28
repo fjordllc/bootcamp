@@ -79,7 +79,7 @@
                   @click='commentAndCheck',
                   :disabled='!validation || buttonDisabled')
                   i.fa-solid.fa-check
-                  | 確認OKにする
+                  | {{ checkButtonLabel }}
 </template>
 <script>
 import CSRF from 'csrf'
@@ -137,6 +137,14 @@ export default {
     },
     productCheckerId() {
       return this.$store.getters.productCheckerId
+    },
+    checkButtonLabel() {
+      const path = window.location.pathname
+      if (path.includes('/products/')) {
+        return '合格にする'
+      } else {
+        return '確認OKにする'
+      }
     }
   },
   created() {
@@ -277,7 +285,7 @@ export default {
     commentAndCheck() {
       if (
         this.commentableType === 'Product' &&
-        !window.confirm('提出物を確認済にしてよろしいですか？')
+        !window.confirm('提出物を合格にしてよろしいですか？')
       ) {
         return null
       } else {
