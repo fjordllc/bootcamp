@@ -411,6 +411,21 @@ practice64:
   title: "JavaScript上級"
   description: "description..."
   goal: "goal..."
+
+practice65:
+  title: "複数カテゴリに所属するプラクティス1"
+  summary: "概要です"
+  description: "複数のカテゴリに所属しているプラクティスです(必修ではありません)"
+  goal: "goal..."
+  include_progress: false
+  memo: "memo for mentors..."
+
+practice66:
+  title: "複数カテゴリに所属するプラクティス2"
+  summary: "概要です"
+  description: "複数のカテゴリに所属しているプラクティスです(必修です)"
+  goal: "goal..."
+  include_progress: true
   memo: "memo for mentors..."
 
 practice65:

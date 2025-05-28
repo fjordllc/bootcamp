@@ -24,6 +24,7 @@ class Report < ApplicationRecord
   validates_associated :learning_times
   accepts_nested_attributes_for :learning_times, reject_if: :all_blank, allow_destroy: true
   has_and_belongs_to_many :practices # rubocop:disable Rails/HasAndBelongsToMany
+  has_many :footprints, as: :footprintable, dependent: :destroy
   belongs_to :user, touch: true
   alias sender user
 
@@ -107,7 +108,7 @@ class Report < ApplicationRecord
   end
 
   def set_default_emotion
-    self.emotion ||= 2
+    self.emotion ||= 0
   end
 
   def total_learning_time
@@ -129,6 +130,15 @@ class Report < ApplicationRecord
     Report.where(user:, wip: false)
           .order(reported_on: :desc)
           .second
+  end
+
+  def save_uniquely
+    transaction do
+      save
+    end
+  rescue ActiveRecord::RecordNotUnique
+    errors.add(:base, '学習日はすでに存在します')
+    false
   end
 
   private

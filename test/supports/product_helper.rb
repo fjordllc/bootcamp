@@ -16,4 +16,9 @@ module ProductHelper
 
     products[2..products.size].each(&:delete)
   end
+
+  def create_checked_product(user, practice)
+    product = Product.create(user:, practice:, body: 'test')
+    Check.create(user:, checkable: product)
+  end
 end

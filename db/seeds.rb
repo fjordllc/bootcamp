@@ -19,6 +19,7 @@ tables = %i[
   checks
   comments
   companies
+  corporate_training_inquiries
   correct_answers
   courses
   courses_categories
@@ -30,6 +31,7 @@ tables = %i[
   followings
   reports
   learning_times
+  learning_time_frames
   learnings
   notifications
   participations
@@ -60,8 +62,18 @@ tables = %i[
   check_box_choices
   surveys
   survey_question_listings
+  survey_answers
+  survey_question_answers
   buzzes
   inquiries
+  movies
+  coding_tests
+  coding_test_cases
+  coding_test_submissions
+  skipped_practices
+  grant_course_applications
+  practices_movies
+  micro_reports
 ]
 
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', tables

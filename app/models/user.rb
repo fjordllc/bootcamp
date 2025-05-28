@@ -5,7 +5,7 @@ class User < ApplicationRecord
   include Taggable
   include Searchable
 
-  attr_accessor :credit_card_payment, :role
+  attr_accessor :credit_card_payment, :role, :uploaded_avatar
 
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w[id login_name company_id last_activity_at created_at report comment asc desc].freeze
@@ -25,7 +25,8 @@ class User < ApplicationRecord
     'admin' => :admins
   }.freeze
   DEFAULT_REGULAR_EVENT_ORGANIZER = 'komagata'
-  HIBERNATION_LIMIT = 6.months
+  HIBERNATION_LIMIT = 3.months
+  HIBERNATION_LIMIT_BEFORE_ONE_WEEK = HIBERNATION_LIMIT - 1.week
 
   INVITATION_ROLES = [
     [I18n.t('invitation_role.adviser'), :adviser],
@@ -74,6 +75,27 @@ class User < ApplicationRecord
     very_poor: 4
   }, _prefix: true
 
+  enum referral_source: {
+    search_engine: 0,
+    referral: 1,
+    event: 2,
+    x: 3,
+    facebook: 4,
+    blog: 5,
+    web_ad: 6,
+    other: 99
+  }, _prefix: true
+
+  enum career_path: {
+    unset: 0,
+    job_seeking: 1,
+    employed_via_referral: 2,
+    employed_without_referral: 3,
+    employed_non_it: 4,
+    internal_transfer_to_programmer: 5,
+    not_employed: 6
+  }, _prefix: true
+
   belongs_to :company, optional: true
   belongs_to :course
   has_many :learnings, dependent: :destroy
@@ -104,6 +126,9 @@ class User < ApplicationRecord
   has_many :surveys, dependent: :destroy
   has_many :survey_questions, dependent: :destroy
   has_many :external_entries, dependent: :destroy
+  has_many :movies, dependent: :nullify
+  has_many :coding_tests, dependent: :destroy
+  has_many :coding_test_submissions, dependent: :destroy
   has_one :report_template, dependent: :destroy
   has_one :talk, dependent: :destroy
   has_one :discord_profile, dependent: :destroy
@@ -111,6 +136,7 @@ class User < ApplicationRecord
   has_many :request_retirements, dependent: :destroy
   has_one :targeted_request_retirement, class_name: 'RequestRetirement', foreign_key: 'target_user_id', dependent: :destroy, inverse_of: :target_user
   has_many :micro_reports, dependent: :destroy
+  has_many :learning_time_frames_users, dependent: :destroy
 
   has_many :participate_events,
            through: :participations,
@@ -150,6 +176,12 @@ class User < ApplicationRecord
            inverse_of: 'follower',
            dependent: :destroy
 
+  has_many :skipped_practices,
+           dependent: :destroy
+
+  has_many :practices,
+           through: :skipped_practices
+
   has_many :followees,
            through: :active_relationships,
            source: :followed
@@ -172,10 +204,27 @@ class User < ApplicationRecord
            through: :regular_event_participations,
            source: :regular_event
 
+  has_many :coding_test_submissions, dependent: :destroy
+
+  has_many :learning_time_frames,
+           through: :learning_time_frames_users
+
+  has_many :oauth_access_grants,
+           foreign_key: 'resource_owner_id',
+           dependent: :delete_all,
+           inverse_of: 'user'
+
+  has_many :oauth_access_tokens,
+           foreign_key: 'resource_owner_id',
+           dependent: :delete_all,
+           inverse_of: 'user'
+
   has_one_attached :avatar
   has_one_attached :profile_image
+  has_one_attached :diploma_file
 
   after_create UserCallbacks.new
+  before_validation :convert_blank_of_address_to_nil
 
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
   validates :name, presence: true
@@ -183,9 +232,10 @@ class User < ApplicationRecord
   validates :nda, presence: true
   validates :password, length: { minimum: 4 }, confirmation: true, if: :password_required?
   validates :mail_notification, inclusion: { in: [true, false] }
-  validates :hide_mentor_profile, inclusion: { in: [true, false] }
+  validates :show_mentor_profile, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
   validates :other_editor, presence: true, if: -> { editor == 'other_editor' }
+  validates :other_referral_source, presence: true, if: -> { referral_source == 'other' }
   validates :invoice_payment, inclusion: { in: [true], message: 'にチェックを入れてください。' }, if: -> { role == 'trainee_invoice_payment' }
   validates :invoice_payment, inclusion: { in: [true],
                                            message: 'か「クレジットカード払い」のいずれかを選択してください。' },
@@ -202,15 +252,13 @@ class User < ApplicationRecord
 
   validates :login_name, length: { minimum: 3, message: 'は3文字以上にしてください。' }
 
-  validates :avatar, attached: false,
-                     content_type: {
-                       in: %w[image/png image/jpg image/jpeg image/gif image/heic image/heif],
-                       message: 'はPNG, JPG, GIF, HEIC, HEIF形式にしてください'
-                     }
+  validate :validate_uploaded_avatar_content_type
 
-  validates :country_code, inclusion: { in: ISO3166::Country.codes }, allow_blank: true
+  validates :diploma_file, content_type: { in: ['application/pdf'], message: 'はPDF形式にしてください' }
 
-  validates :subdivision_code, inclusion: { in: ->(user) { user.subdivision_codes } }, allow_blank: true, if: -> { country_code.present? }
+  validates :country_code, inclusion: { in: ISO3166::Country.codes }, allow_nil: true
+
+  validates :subdivision_code, inclusion: { in: ->(user) { user.subdivision_codes } }, allow_nil: true, if: -> { country_code.present? }
 
   with_options if: -> { %i[create update].include? validation_context } do
     validates :login_name, presence: true, uniqueness: true,
@@ -368,7 +416,7 @@ class User < ApplicationRecord
       .mentor
       .includes(authored_books: { cover_attachment: :blob })
       .order(:created_at)
-      .where(hide_mentor_profile: false)
+      .where(show_mentor_profile: true)
   }
   scope :working, lambda {
     active.where(
@@ -381,7 +429,7 @@ class User < ApplicationRecord
   scope :admins, -> { where(admin: true) }
   scope :admins_and_mentors, -> { admins.or(mentor) }
   scope :trainees, -> { where(trainee: true) }
-  scope :job_seeking, -> { where(job_seeking: true) }
+  scope :job_seeking, -> { where(career_path: 'job_seeking') }
   scope :job_seekers, lambda {
     where(
       admin: false,
@@ -409,7 +457,7 @@ class User < ApplicationRecord
   scope :classmates, lambda { |start_date, end_date|
     where(created_at: start_date..end_date).order(:created_at, :id)
   }
-  scope :desc_tagged_with, lambda { |tag_name|
+  scope :active_tagged_with, lambda { |tag_name|
     with_attached_avatar
       .unretired
       .unhibernated
@@ -440,7 +488,7 @@ class User < ApplicationRecord
   )
 
   class << self
-    def announcement_receiver(target)
+    def notification_receiver(target)
       case target
       when 'all'
         User.unretired
@@ -448,6 +496,8 @@ class User < ApplicationRecord
         User.admins_and_mentors.or(User.students)
       when 'job_seekers'
         User.admins_and_mentors.or(User.job_seekers)
+      when 'none'
+        User.none
       else
         User.none
       end
@@ -518,30 +568,12 @@ class User < ApplicationRecord
     end
   end
 
+  def submitted?(coding_test)
+    coding_test_submissions.exists?(coding_test_id: coding_test.id)
+  end
+
   def away?
     last_activity_at && (last_activity_at <= 10.minutes.ago)
-  end
-
-  def completed_percentage
-    completed_practices_include_progress_size.to_f / practices_include_progress.pluck(:id).uniq.size * MAX_PERCENTAGE
-  end
-
-  def completed_practices_size_by_category
-    Practice
-      .joins({ categories: :categories_practices }, :learnings)
-      .where(
-        learnings: {
-          user_id: id,
-          status: 'complete'
-        }
-      )
-      .group('categories_practices.category_id')
-      .count('DISTINCT practices.id')
-  end
-
-  def completed_practices_include_progress_size
-    practices_include_progress.joins(:learnings)
-                              .merge(Learning.complete.where(user_id: id)).pluck(:id).uniq.size
   end
 
   def active?
@@ -604,6 +636,10 @@ class User < ApplicationRecord
     Subscription.new.retrieve(subscription_id)
   end
 
+  def practice_ids_skipped
+    skipped_practices.pluck(:practice_id)
+  end
+
   def student?
     !admin? && !adviser? && !mentor? && !trainee?
   end
@@ -663,9 +699,11 @@ class User < ApplicationRecord
 
   def avatar_url
     default_image_path = '/images/users/avatars/default.png'
+    format = 'webp'
 
     if avatar.attached?
-      avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }).processed.url
+      avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 },
+                     format:).processed.url(filename: "#{login_name}.#{format}")
     else
       image_url default_image_path
     end
@@ -742,23 +780,11 @@ class User < ApplicationRecord
     end
   end
 
-  def practices
-    course.practices.order('courses_categories.position', 'categories_practices.position')
-  end
-
   def update_mentor_memo(new_memo)
     # ユーザーの「最終ログイン」にupdated_at値が利用されるため
     # メンターor管理者によるmemoカラムのupdateの際は、updated_at値の変更を防ぐ
     self.record_timestamps = false
     update!(mentor_memo: new_memo)
-  end
-
-  def category_active_or_unstarted_practice
-    if active_practices.present?
-      category_having_active_practice
-    elsif unstarted_practices.present?
-      category_having_unstarted_practice
-    end
   end
 
   def mark_all_as_read_and_delete_cache_of_unreads(target_notifications: nil)
@@ -776,16 +802,16 @@ class User < ApplicationRecord
     adviser? && company_id?
   end
 
-  def collegues
+  def colleagues
     company_id ? company.users : User.none
   end
 
-  def collegues_other_than_self
-    collegues.where.not(id:)
+  def colleagues_other_than_self
+    colleagues.where.not(id:)
   end
 
-  def collegue_trainees
-    collegues.students_and_trainees
+  def colleague_trainees
+    colleagues.students_and_trainees
   end
 
   def last_hibernation
@@ -880,8 +906,18 @@ class User < ApplicationRecord
     end
   end
 
+  def grant_course?
+    course = Course.find_by(id: course_id)
+    course_id.present? && course&.grant?
+  end
+
   def latest_micro_report_page
     [micro_reports.page.total_pages, 1].max
+  end
+
+  def mark_mail_as_sent_before_auto_retire
+    self.sent_student_before_auto_retire_mail = true
+    save(validate: false)
   end
 
   private
@@ -894,18 +930,21 @@ class User < ApplicationRecord
     course.practices.where(include_progress: true)
   end
 
-  def unstarted_practices
-    @unstarted_practices ||= practices -
-                             practices.joins(:learnings).where(learnings: { user_id: id, status: :started })
-                                      .or(practices.joins(:learnings).where(learnings: { user_id: id, status: :submitted }))
-                                      .or(practices.joins(:learnings).where(learnings: { user_id: id, status: :complete }))
+  def validate_uploaded_avatar_content_type
+    return unless uploaded_avatar
+
+    mime_type = Marcel::Magic.by_magic(uploaded_avatar)&.type
+    return if mime_type&.start_with?('image/png', 'image/jpeg', 'image/gif', 'image/heic', 'image/heif')
+
+    errors.add(:avatar, 'は指定された拡張子(PNG, JPG, JPEG, GIF, HEIC, HEIF形式)になっていないか、あるいは画像が破損している可能性があります')
   end
 
-  def category_having_active_practice
-    active_practices&.first&.categories&.first
+  def required_practices_size_with_skip
+    course.practices.where(id: practice_ids_skipped, include_progress: true).size
   end
 
-  def category_having_unstarted_practice
-    unstarted_practices&.first&.categories&.first
+  def convert_blank_of_address_to_nil
+    self.country_code = nil if country_code.blank?
+    self.subdivision_code = nil if subdivision_code.blank?
   end
 end

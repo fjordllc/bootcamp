@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_11_03_082456) do
+ActiveRecord::Schema.define(version: 2025_04_11_103935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -77,8 +77,9 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
     t.datetime "published_at"
     t.text "summary"
     t.integer "thumbnail_type", default: 0, null: false
-    t.string "token"
     t.boolean "display_thumbnail_in_body", default: true, null: false
+    t.string "token"
+    t.integer "target"
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
@@ -126,8 +127,8 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
   end
 
   create_table "categories", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.string "slug"
+    t.string "name", limit: 255
+    t.string "slug", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text "description"
@@ -173,6 +174,40 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
     t.index ["user_id"], name: "index_checks_on_user_id"
   end
 
+  create_table "coding_test_cases", force: :cascade do |t|
+    t.text "input"
+    t.text "output"
+    t.bigint "coding_test_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["coding_test_id"], name: "index_coding_test_cases_on_coding_test_id"
+  end
+
+  create_table "coding_test_submissions", force: :cascade do |t|
+    t.text "code", null: false
+    t.bigint "coding_test_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["coding_test_id", "user_id"], name: "index_coding_test_submissions_on_coding_test_id_and_user_id", unique: true
+    t.index ["coding_test_id"], name: "index_coding_test_submissions_on_coding_test_id"
+    t.index ["user_id"], name: "index_coding_test_submissions_on_user_id"
+  end
+
+  create_table "coding_tests", force: :cascade do |t|
+    t.integer "language", null: false
+    t.string "title", null: false
+    t.text "description"
+    t.text "hint"
+    t.integer "position"
+    t.bigint "practice_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["practice_id"], name: "index_coding_tests_on_practice_id"
+    t.index ["user_id"], name: "index_coding_tests_on_user_id"
+  end
+
   create_table "comments", id: :serial, force: :cascade do |t|
     t.text "description"
     t.integer "user_id"
@@ -181,13 +216,14 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
     t.datetime "updated_at"
     t.string "commentable_type", default: "Report"
     t.index ["commentable_id"], name: "index_comments_on_commentable_id"
+    t.index ["user_id"], name: "comment_user_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "companies", id: :serial, force: :cascade do |t|
-    t.string "name"
+    t.string "name", limit: 255
     t.text "description"
-    t.string "website"
+    t.string "website", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text "tos"
@@ -213,9 +249,11 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
   create_table "courses", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
+    t.text "summary"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "published", default: false, null: false
+    t.boolean "grant", default: false, null: false
   end
 
   create_table "courses_categories", force: :cascade do |t|
@@ -225,6 +263,9 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["course_id", "category_id"], name: "index_courses_categories_on_course_id_and_category_id", unique: true
+  end
+
+  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
   end
 
   create_table "discord_profiles", force: :cascade do |t|
@@ -309,7 +350,7 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
     t.index ["user_id"], name: "index_footprints_on_user_id"
   end
 
-  create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "good_job_batches", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "description"
@@ -324,13 +365,13 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
     t.datetime "finished_at"
   end
 
-  create_table "good_job_processes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "good_job_processes", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.jsonb "state"
   end
 
-  create_table "good_job_settings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "good_job_settings", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "key"
@@ -338,7 +379,7 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
     t.index ["key"], name: "index_good_job_settings_on_key", unique: true
   end
 
-  create_table "good_jobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "good_jobs", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
     t.text "queue_name"
     t.integer "priority"
     t.jsonb "serialized_params"
@@ -366,6 +407,24 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
     t.index ["priority", "created_at"], name: "index_good_jobs_jobs_on_priority_created_at_when_unfinished", order: { priority: "DESC NULLS LAST" }, where: "(finished_at IS NULL)"
     t.index ["queue_name", "scheduled_at"], name: "index_good_jobs_on_queue_name_and_scheduled_at", where: "(finished_at IS NULL)"
     t.index ["scheduled_at"], name: "index_good_jobs_on_scheduled_at", where: "(finished_at IS NULL)"
+  end
+
+  create_table "grant_course_applications", force: :cascade do |t|
+    t.string "email", null: false
+    t.boolean "trial_period", default: false, null: false
+    t.string "last_name", null: false
+    t.string "first_name", null: false
+    t.string "zip1", null: false
+    t.string "zip2", null: false
+    t.integer "prefecture_code", null: false
+    t.string "address1", null: false
+    t.string "address2"
+    t.string "tel1", null: false
+    t.string "tel2", null: false
+    t.string "tel3", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_grant_course_applications_on_email"
   end
 
   create_table "hibernations", force: :cascade do |t|
@@ -401,6 +460,22 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["practice_id"], name: "index_learning_minute_statistics_on_practice_id"
+  end
+
+  create_table "learning_time_frames", force: :cascade do |t|
+    t.string "week_day", null: false
+    t.integer "activity_time", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "learning_time_frames_users", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "learning_time_frame_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["learning_time_frame_id"], name: "index_learning_time_frames_users_on_learning_time_frame_id"
+    t.index ["user_id"], name: "index_learning_time_frames_users_on_user_id"
   end
 
   create_table "learning_times", force: :cascade do |t|
@@ -441,6 +516,17 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
     t.index ["user_id"], name: "index_micro_reports_on_user_id"
   end
 
+  create_table "movies", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "wip", default: false, null: false
+    t.datetime "published_at"
+    t.index ["user_id"], name: "index_movies_on_user_id"
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.integer "kind", default: 0, null: false
     t.bigint "user_id"
@@ -452,6 +538,48 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
     t.datetime "updated_at", null: false
     t.index ["created_at"], name: "index_notifications_on_created_at"
     t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
+  create_table "oauth_access_grants", force: :cascade do |t|
+    t.bigint "resource_owner_id", null: false
+    t.bigint "application_id", null: false
+    t.string "token", null: false
+    t.integer "expires_in", null: false
+    t.text "redirect_uri", null: false
+    t.string "scopes", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "revoked_at"
+    t.index ["application_id"], name: "index_oauth_access_grants_on_application_id"
+    t.index ["resource_owner_id"], name: "index_oauth_access_grants_on_resource_owner_id"
+    t.index ["token"], name: "index_oauth_access_grants_on_token", unique: true
+  end
+
+  create_table "oauth_access_tokens", force: :cascade do |t|
+    t.bigint "resource_owner_id"
+    t.bigint "application_id", null: false
+    t.string "token", null: false
+    t.string "refresh_token"
+    t.integer "expires_in"
+    t.string "scopes"
+    t.datetime "created_at", null: false
+    t.datetime "revoked_at"
+    t.string "previous_refresh_token", default: "", null: false
+    t.index ["application_id"], name: "index_oauth_access_tokens_on_application_id"
+    t.index ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true
+    t.index ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id"
+    t.index ["token"], name: "index_oauth_access_tokens_on_token", unique: true
+  end
+
+  create_table "oauth_applications", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "uid", null: false
+    t.string "secret", null: false
+    t.text "redirect_uri", null: false
+    t.string "scopes", default: "", null: false
+    t.boolean "confidential", default: true, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
 
   create_table "organizers", force: :cascade do |t|
@@ -505,6 +633,7 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
     t.text "memo"
     t.integer "last_updated_user_id"
     t.text "summary"
+    t.integer "source_id"
     t.index ["category_id"], name: "index_practices_on_category_id"
   end
 
@@ -516,6 +645,15 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["book_id"], name: "index_practices_books_on_book_id"
     t.index ["practice_id"], name: "index_practices_books_on_practice_id"
+  end
+
+  create_table "practices_movies", force: :cascade do |t|
+    t.bigint "practice_id"
+    t.bigint "movie_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["movie_id"], name: "index_practices_movies_on_movie_id"
+    t.index ["practice_id"], name: "index_practices_movies_on_practice_id"
   end
 
   create_table "practices_reports", id: false, force: :cascade do |t|
@@ -582,8 +720,8 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
     t.integer "kind", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["reactionable_type", "reactionable_id"], name: "index_reactions_on_reactionable"
-    t.index ["user_id", "reactionable_id", "reactionable_type", "kind"], name: "index_reactions_on_reactionable_u_k", unique: true
+    t.index ["reactionable_type", "reactionable_id"], name: "index_reactions_on_reactionable_type_and_reactionable_id"
+    t.index ["user_id", "reactionable_id", "reactionable_type", "kind"], name: "index_reactions_on_reactionable", unique: true
     t.index ["user_id"], name: "index_reactions_on_user_id"
   end
 
@@ -644,6 +782,7 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
     t.index ["created_at"], name: "index_reports_on_created_at"
     t.index ["user_id", "reported_on"], name: "index_reports_on_user_id_and_reported_on", unique: true
     t.index ["user_id", "title"], name: "index_reports_on_user_id_and_title", unique: true
+    t.index ["user_id"], name: "reports_user_id"
   end
 
   create_table "request_retirements", force: :cascade do |t|
@@ -657,12 +796,41 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
     t.index ["user_id"], name: "index_request_retirements_on_user_id"
   end
 
+  create_table "skipped_practices", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "practice_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id", "practice_id"], name: "index_skipped_practices_on_user_id_and_practice_id", unique: true
+  end
+
   create_table "submission_answers", force: :cascade do |t|
     t.bigint "practice_id", null: false
     t.text "description", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["practice_id"], name: "index_submission_answers_on_practice_id"
+  end
+
+  create_table "survey_answers", force: :cascade do |t|
+    t.bigint "survey_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["survey_id", "user_id"], name: "index_survey_answers_on_survey_id_and_user_id", unique: true
+    t.index ["survey_id"], name: "index_survey_answers_on_survey_id"
+    t.index ["user_id"], name: "index_survey_answers_on_user_id"
+  end
+
+  create_table "survey_question_answers", force: :cascade do |t|
+    t.bigint "survey_answer_id", null: false
+    t.bigint "survey_question_id", null: false
+    t.text "answer"
+    t.text "reason"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["survey_answer_id"], name: "index_survey_question_answers_on_survey_answer_id"
+    t.index ["survey_question_id"], name: "index_survey_question_answers_on_survey_question_id"
   end
 
   create_table "survey_question_listings", force: :cascade do |t|
@@ -731,21 +899,21 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
-    t.string "login_name", null: false
-    t.string "email"
-    t.string "crypted_password"
-    t.string "salt"
+    t.string "login_name", limit: 255, null: false
+    t.string "email", limit: 255
+    t.string "crypted_password", limit: 255
+    t.string "salt", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "remember_me_token"
+    t.string "remember_me_token", limit: 255
     t.datetime "remember_me_token_expires_at"
-    t.string "twitter_account"
-    t.string "facebook_url"
-    t.string "blog_url"
+    t.string "twitter_account", limit: 255
+    t.string "facebook_url", limit: 255
+    t.string "blog_url", limit: 255
     t.integer "company_id"
     t.text "description"
     t.datetime "accessed_at"
-    t.string "github_account"
+    t.string "github_account", limit: 255
     t.boolean "adviser", default: false, null: false
     t.boolean "nda", default: true, null: false
     t.string "reset_password_token"
@@ -760,20 +928,20 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
     t.string "organization"
     t.integer "os"
     t.integer "experience"
-    t.text "retire_reason"
     t.boolean "trainee", default: false, null: false
-    t.string "customer_id"
+    t.text "retire_reason"
     t.boolean "job_seeking", default: false, null: false
+    t.string "customer_id"
     t.string "subscription_id"
     t.boolean "mail_notification", default: true, null: false
     t.boolean "job_seeker", default: false, null: false
-    t.string "github_id"
     t.boolean "github_collaborator", default: false, null: false
-    t.string "name", default: "", null: false
-    t.string "name_kana", default: "", null: false
+    t.string "github_id"
     t.integer "satisfaction"
     t.text "opinion"
     t.bigint "retire_reasons", default: 0, null: false
+    t.string "name", default: "", null: false
+    t.string "name_kana", default: "", null: false
     t.string "unsubscribe_email_token"
     t.text "mentor_memo"
     t.text "after_graduation_hope"
@@ -790,11 +958,16 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
     t.string "country_code"
     t.string "subdivision_code"
     t.boolean "auto_retire", default: true
+    t.boolean "invoice_payment", default: false, null: false
     t.integer "editor"
     t.string "other_editor"
-    t.boolean "invoice_payment", default: false, null: false
-    t.boolean "hide_mentor_profile", default: false, null: false
+    t.boolean "show_mentor_profile", default: true, null: false
     t.integer "experiences", default: 0, null: false
+    t.integer "referral_source"
+    t.text "other_referral_source"
+    t.integer "career_path", default: 0, null: false
+    t.text "career_memo"
+    t.boolean "sent_student_before_auto_retire_mail", default: false
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true
@@ -810,7 +983,7 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.index ["watchable_type", "watchable_id", "user_id"], name: "index_watches_on_watchable_type_and_watchable_id_and_user_id", unique: true
-    t.index ["watchable_type", "watchable_id"], name: "index_watches_on_watchable"
+    t.index ["watchable_type", "watchable_id"], name: "index_watches_on_watchable_type_and_watchable_id"
   end
 
   create_table "works", force: :cascade do |t|
@@ -835,17 +1008,29 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
   add_foreign_key "categories_practices", "practices"
   add_foreign_key "check_box_choices", "check_boxes"
   add_foreign_key "check_boxes", "survey_questions"
+  add_foreign_key "coding_test_cases", "coding_tests"
+  add_foreign_key "coding_test_submissions", "coding_tests"
+  add_foreign_key "coding_test_submissions", "users"
+  add_foreign_key "coding_tests", "practices"
+  add_foreign_key "coding_tests", "users"
   add_foreign_key "discord_profiles", "users"
   add_foreign_key "external_entries", "users"
   add_foreign_key "faqs", "faq_categories"
   add_foreign_key "hibernations", "users"
   add_foreign_key "images", "users"
   add_foreign_key "learning_minute_statistics", "practices"
+  add_foreign_key "learning_time_frames_users", "learning_time_frames"
+  add_foreign_key "learning_time_frames_users", "users"
   add_foreign_key "learning_times", "reports"
   add_foreign_key "linear_scales", "survey_questions"
   add_foreign_key "micro_reports", "users"
+  add_foreign_key "movies", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "sender_id"
+  add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
+  add_foreign_key "oauth_access_grants", "users", column: "resource_owner_id"
+  add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
+  add_foreign_key "oauth_access_tokens", "users", column: "resource_owner_id"
   add_foreign_key "organizers", "regular_events"
   add_foreign_key "organizers", "users"
   add_foreign_key "pages", "practices"
@@ -854,6 +1039,8 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
   add_foreign_key "participations", "users"
   add_foreign_key "practices_books", "books"
   add_foreign_key "practices_books", "practices"
+  add_foreign_key "practices_movies", "movies"
+  add_foreign_key "practices_movies", "practices"
   add_foreign_key "products", "practices"
   add_foreign_key "products", "users"
   add_foreign_key "questions", "practices"
@@ -868,6 +1055,10 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
   add_foreign_key "request_retirements", "users"
   add_foreign_key "request_retirements", "users", column: "target_user_id"
   add_foreign_key "submission_answers", "practices"
+  add_foreign_key "survey_answers", "surveys"
+  add_foreign_key "survey_answers", "users"
+  add_foreign_key "survey_question_answers", "survey_answers"
+  add_foreign_key "survey_question_answers", "survey_questions"
   add_foreign_key "survey_question_listings", "survey_questions"
   add_foreign_key "survey_question_listings", "surveys"
   add_foreign_key "survey_questions", "users"

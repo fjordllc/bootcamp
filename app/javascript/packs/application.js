@@ -15,6 +15,8 @@ import '../check.js'
 import '../check-stamp.js'
 import '../unconfirmed-links-open.js'
 import '../comments.js'
+import '../comments_at_inquiry.js'
+import '../new-comment.js'
 import '../category-select.js'
 import '../fileinput.js'
 import '../reaction.js'
@@ -50,9 +52,11 @@ import '../change-subdivisions.js'
 import '../register-address.js'
 import '../upload-image-to-article.js'
 import '../header-dropdown.js'
+import '../postal-code-address.js'
 import '../editor-selection-form.js'
 import '../user_mentor_memo.js'
 import '../invitation-url-updater.js'
+import '../movie-fileinput.js'
 import '../payment-methods-check-boxes.js'
 import '../product_checker.js'
 import '../product_checker_button.js'
@@ -61,18 +65,26 @@ import '../sort-faq.js'
 import '../sort-faq-category.js'
 import '../micro-report-form-tabs.js'
 import '../micro-reports.js'
+import '../micro-reports-edit.js'
+import '../answer.js'
+import '../new-answer.js'
+import '../coding-test.js'
+import '../copy-url.js'
+import '../survey_result_chart.js'
+import '../footprints.js'
+import '../article-target.js'
+import '../referral-source-selection-form.js'
+import '../coding_tests_sort.js'
+import '../watches.js'
+import '../watch-toggle.js'
+import '../diploma-upload.js'
 
 import VueMounter from '../VueMounter.js'
 import Questions from '../components/questions.vue'
 import UsersAnswers from '../components/users-answers.vue'
 import User from '../components/user.vue'
-import Watches from '../components/watches.vue'
-import WatchToggle from '../components/watch-toggle.vue'
-import Footprints from '../components/footprints.vue'
-import QuestionAnswers from '../components/question-answers.vue'
 import UserProducts from '../components/user-products.vue'
 import ActionCompletedButton from '../components/action-completed-button.vue'
-import CourseBooks from '../components/course-books.vue'
 
 import '../stylesheets/application'
 
@@ -80,13 +92,8 @@ const mounter = new VueMounter()
 mounter.addComponent(Questions)
 mounter.addComponent(UsersAnswers)
 mounter.addComponent(User)
-mounter.addComponent(Watches)
-mounter.addComponent(WatchToggle)
-mounter.addComponent(Footprints)
-mounter.addComponent(QuestionAnswers)
 mounter.addComponent(UserProducts)
 mounter.addComponent(ActionCompletedButton)
-mounter.addComponent(CourseBooks)
 mounter.mount()
 
 // Support component names relative to this directory:

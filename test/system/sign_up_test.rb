@@ -6,6 +6,7 @@ class SignUpTest < ApplicationSystemTestCase
   setup do
     @bot_token = Discord::Server.authorize_token
     Discord::Server.authorize_token = nil
+    Capybara.reset_sessions!
   end
 
   teardown do
@@ -28,6 +29,7 @@ class SignUpTest < ApplicationSystemTestCase
       check 'Rubyの経験あり', allow_label_click: true
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
+      find('label', text: '検索エンジン').click
     end
 
     fill_stripe_element('4242 4242 4242 4242', '12 / 50', '111')
@@ -53,6 +55,7 @@ class SignUpTest < ApplicationSystemTestCase
       check 'Rubyの経験あり', allow_label_click: true
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
+      find('label', text: '検索エンジン').click
     end
 
     fill_stripe_element('4000 0000 0000 0069', '12 / 50', '111')
@@ -78,6 +81,7 @@ class SignUpTest < ApplicationSystemTestCase
       check 'Rubyの経験あり', allow_label_click: true
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
+      find('label', text: '検索エンジン').click
     end
 
     fill_stripe_element('4000 0000 0000 0127', '12 / 50', '111')
@@ -103,6 +107,7 @@ class SignUpTest < ApplicationSystemTestCase
       check 'Rubyの経験あり', allow_label_click: true
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
+      find('label', text: '検索エンジン').click
     end
 
     fill_stripe_element('4000 0000 0000 0002', '12 / 50', '111')
@@ -285,17 +290,34 @@ class SignUpTest < ApplicationSystemTestCase
     assert User.find_by(email:).trainee?
   end
 
-  test 'form item about job seek is only displayed to students' do
+  test 'job seeker option is shown for student' do
     visit '/users/new'
-    assert has_field? 'user[job_seeker]', visible: :all
+    assert_selector 'form'
+    assert_selector "input[name='user[job_seeker]']", visible: :all
+  end
+
+  test 'job seeker option is hidden for adviser' do
     visit '/users/new?role=adviser'
-    assert has_no_field? 'user[job_seeker]', visible: :all
+    assert_selector 'form'
+    assert has_no_selector? "input[name='user[job_seeker]']", visible: :all, wait: 5
+  end
+
+  test 'job seeker option is hidden for trainee invoice payment' do
     visit '/users/new?role=trainee_invoice_payment'
-    assert has_no_field? 'user[job_seeker]', visible: :all
+    assert_selector 'form'
+    assert has_no_selector? "input[name='user[job_seeker]']", visible: :all, wait: 5
+  end
+
+  test 'job seeker option is hidden for trainee credit card payment' do
     visit '/users/new?role=trainee_credit_card_payment'
-    assert has_no_field? 'user[job_seeker]', visible: :all
+    assert_selector 'form'
+    assert has_no_selector? "input[name='user[job_seeker]']", visible: :all, wait: 5
+  end
+
+  test 'job seeker option is hidden for trainee select a payment method' do
     visit '/users/new?role=trainee_select_a_payment_method'
-    assert has_no_field? 'user[job_seeker]', visible: :all
+    assert_selector 'form'
+    assert has_no_selector? "input[name='user[job_seeker]']", visible: :all, wait: 5
   end
 
   test 'sign up with reserved login name' do
@@ -428,5 +450,10 @@ class SignUpTest < ApplicationSystemTestCase
       visit_with_auth user_path(user), 'taguo'
       assert_text 'タグ夫'
     end
+  end
+
+  test 'hidden input learning time frames table' do
+    visit '/users/new'
+    assert_no_selector ".form-item.a-form-label[for='user_learning_time_frames']", text: '主な活動予定時間'
   end
 end

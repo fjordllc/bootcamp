@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
 class SurveysController < ApplicationController
-  before_action :require_admin_or_mentor_login
-  before_action :set_survey, only: %i[show edit update destroy]
-
-  def index
-    @surveys = Survey.order(end_at: :desc)
-  end
+  skip_before_action :require_active_user_login
+  before_action :set_survey, only: %i[show]
+  before_action :check_survey_period, only: %i[show]
+  before_action :check_already_answered, only: %i[show]
 
   def show
     @survey_questions = @survey
@@ -18,58 +16,23 @@ class SurveysController < ApplicationController
                         )
   end
 
-  def new
-    @survey = Survey.new(start_at: Time.current.beginning_of_day, end_at: Time.current.end_of_day.strftime('%Y-%m-%dT-%H:%M'))
-    @survey.survey_question_listings.build
-  end
-
-  def edit; end
-
-  def create
-    @survey = Survey.new(survey_params)
-    @survey.user_id = current_user.id
-    if @survey.save
-      redirect_to surveys_path, notice: notice_message(@survey)
-    else
-      render action: :new
-    end
-  end
-
-  def update
-    if @survey.update(survey_params)
-      redirect_to surveys_path, notice: notice_message(@survey)
-    else
-      render :edit
-    end
-  end
-
-  def destroy
-    @survey.destroy
-    redirect_to surveys_path, notice: 'アンケートを削除しました。'
-  end
-
   private
 
   def set_survey
     @survey = Survey.find(params[:id])
   end
 
-  def survey_params
-    params.require(:survey).permit(
-      :title,
-      :start_at,
-      :end_at,
-      :description,
-      survey_question_listings_attributes: %i[id survey_id survey_question_id _destroy]
-    )
+  def check_survey_period
+    if @survey.before_start?
+      redirect_to root_path, alert: 'このアンケートはまだ回答期間ではありません。'
+    elsif @survey.answer_ended?
+      redirect_to root_path, alert: 'このアンケートの回答期間は終了しました。'
+    end
   end
 
-  def notice_message(survey)
-    case params[:action]
-    when 'create'
-      survey.before_start? ? 'アンケートを受付前として保存しました。' : 'アンケートを作成しました。'
-    when 'update'
-      survey.before_start? ? 'アンケートを受付前として保存しました。' : 'アンケートを更新しました。'
-    end
+  def check_already_answered
+    return unless SurveyAnswer.exists?(survey: @survey, user: current_user)
+
+    redirect_to root_path, alert: 'このアンケートには既に回答済みです。'
   end
 end

@@ -11,7 +11,9 @@ class WelcomeController < ApplicationController
     @mentors = current_user ? User.mentors_sorted_by_created_at : User.visible_sorted_mentors
   end
 
-  def alumni_voices; end
+  def alumni_voices
+    @articles = Article.alumni_voices.page(params[:page])
+  end
 
   def job_support; end
 
@@ -44,12 +46,19 @@ class WelcomeController < ApplicationController
 
   def coc; end
 
-  def press_kit; end
+  def press_kit
+    @press_releases = Article.press_releases(6)
+  end
 
   def logo; end
 
   def rails_developer_course
     render template: 'welcome/certified_reskill_courses/rails_developer_course/index'
+  end
+
+  def choose_courses
+    @rails_course = Course.preload(categories: :practices).find_by(title: 'Railsエンジニア')
+    @frontend_course = Course.preload(categories: :practices).find_by(title: 'フロントエンドエンジニア')
   end
 
   private

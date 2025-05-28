@@ -1,2 +1,4 @@
-li.user-icons-item
-  = render 'users/icon', user: footprint.user, image_class: "a-user-icon is-sm is-#{footprint.user.login_name}"
+li.user-icons__item
+  a.user-icons__item-link href=footprint.user.url
+    span.a-user-role class="is-#{footprint.user.primary_role}"
+      img.a-user-icon.is-sm title=footprint.user.icon_title alt=footprint.user.icon_title src=footprint.user.avatar_url class="is-#{footprint.user.login_name}"

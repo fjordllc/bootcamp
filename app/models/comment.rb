@@ -18,6 +18,8 @@ class Comment < ApplicationRecord
 
   mentionable_as :description, hook_name: :after_commit
 
+  scope :without_private_comment, -> { where.not(commentable_type: %w[Talk Inquiry]) }
+
   class << self
     def commented_users
       User.with_attached_avatar
@@ -35,7 +37,7 @@ class Comment < ApplicationRecord
   end
 
   def receiver
-    commentable.user
+    commentable.respond_to?(:user) ? commentable.user : nil
   end
 
   def path
@@ -51,7 +53,7 @@ class Comment < ApplicationRecord
   end
 
   def certain_period_passed_since_the_last_comment_by_submitter?(certain_period)
-    (created_at.since(certain_period).to_date == Date.current) && latest? && (user == commentable.user)
+    (created_at.since(certain_period).to_date == Date.current) && latest? && (user == receiver)
   end
 
   private

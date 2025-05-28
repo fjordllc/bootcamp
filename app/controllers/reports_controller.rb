@@ -21,6 +21,8 @@ class ReportsController < ApplicationController
   def show
     @products = @report.user.products.not_wip.order(published_at: :desc)
     @recent_reports = Report.list.where(user_id: @report.user.id).limit(10)
+    Footprint.find_or_create_for(@report, current_user)
+    @footprints = Footprint.fetch_for_resource(@report)
     respond_to do |format|
       format.html
       format.md
@@ -40,7 +42,6 @@ class ReportsController < ApplicationController
 
     report              = current_user.reports.find(params[:id])
     @report.title       = report.title
-    @report.emotion = report.emotion
     @report.description = "<!-- #{report.reported_on} の日報をコピー -->\n" + report.description
     @report.practices   = report.practices
     flash.now[:notice] = '日報をコピーしました。'
@@ -55,7 +56,8 @@ class ReportsController < ApplicationController
     @report.user = current_user
     set_wip
     canonicalize_learning_times(@report)
-    if @report.save
+
+    if @report.save_uniquely
       Newspaper.publish(:report_save, { report: @report })
       redirect_to redirect_url(@report), notice: notice_message(@report), flash: flash_contents(@report)
     else
@@ -69,7 +71,8 @@ class ReportsController < ApplicationController
     @report.practice_ids = nil if params[:report][:practice_ids].nil?
     @report.assign_attributes(report_params)
     canonicalize_learning_times(@report)
-    if @report.save
+
+    if @report.save_uniquely
       Newspaper.publish(:report_save, { report: @report })
       redirect_to redirect_url(@report), notice: notice_message(@report), flash: flash_contents(@report)
     else
@@ -147,7 +150,7 @@ class ReportsController < ApplicationController
       celebrate_report_count: celebrating_count(report) }
   end
 
-  CELEBRATING_COUNTS = [100, 200, 222, 300, 333, 400, 500, 555, 600, 700, 777, 800, 900, 1000].freeze
+  CELEBRATING_COUNTS = [100, 200, 222, 300, 333, 400, 500, 555, 600, 700, 777, 800, 900, 1000, 1024, 1100, 1111, 1200, 1234, 1300, 1400, 1500].freeze
 
   def celebrating_count(report)
     return nil if report.wip

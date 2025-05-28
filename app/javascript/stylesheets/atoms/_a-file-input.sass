@@ -1,3 +1,21 @@
+.a-pdf-input
+  display: flex
+  gap: .75rem
+  +media-breakpoint-down(sm)
+    flex-direction: column
+
+.a-pdf-input__inner
+  flex: 1
+  background-color: var(--base)
+  display: flex
+  align-items: center
+  justify-content: center
+  +position(relative)
+  overflow: hidden
+  cursor: pointer
+  border-radius: .25rem
+  height: 2.25rem
+  
 .a-file-input
   label
     height: 10rem
@@ -13,6 +31,10 @@
     cursor: pointer
     border-radius: .25rem
     padding: .5rem .5rem 2.75rem .5rem
+  &.is-movie
+    label
+      height: auto
+      aspect-ratio: 16 / 10
   &.is-thumbnail
     label
       height: 15rem
@@ -29,19 +51,35 @@
     max-width: 100%
     object-fit: contain
     border: solid 1px var(--border-tint)
+
   input
     overflow: hidden
     +size(0)
     +position(absolute, left 0, top 0)
     opacity: 0
-  p
-    +size(100% 2.25rem)
-    background-color: var(--base)
-    +position(absolute, left 0, bottom 0, right 0)
-    +text-block(.8125rem 1, flex 600)
-    justify-content: center
-    align-items: center
-    border-top: solid 1px var(--input-border)
-    transition: all .2s ease-out
-    &:hover
-      background-color: #e8e8e8
+
+a.a-pdf-input__inner
+  text-decoration: none
+  color: var(--default-text)
+
+.a-pdf-input__file
+  padding: .5rem
+  flex: 1
+  border-radius: .25rem 0 0 .25rem
+  border: solid 1px var(--input-border)
+  border-right: none
+  height: 2.25rem
+
+.a-pdf-input__file-name
+  font-size: .875rem
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+  display: block
+  +media-breakpoint-up(md)
+    max-width: 18rem
+  +media-breakpoint-down(sm)
+    max-width: 8rem
+
+.a-pdf-input__upload.a-button
+  border-radius: 0 .25rem .25rem 0

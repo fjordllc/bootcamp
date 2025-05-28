@@ -78,40 +78,49 @@ class Admin::UsersTest < ApplicationSystemTestCase
 
   test 'update user' do
     user = users(:hatsuno)
-    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
+
+    visit_with_auth "/users/#{user.id}", 'komagata'
+    icon_before = find('img.user-profile__user-icon-image', visible: false)
+    assert icon_before.native['src'].end_with?('hatsuno.webp')
+
+    visit "/admin/users/#{user.id}/edit"
     within 'form[name=user]' do
       fill_in 'user[login_name]', with: 'hatsuno-1'
+      attach_file 'user[avatar]', 'test/fixtures/files/users/avatars/komagata.jpg', make_visible: true
       click_on '更新する'
     end
+
     assert_text 'ユーザー情報を更新しました。'
+    icon_after = find('img.user-profile__user-icon-image', visible: false)
+    assert_includes icon_after.native['src'], 'hatsuno'
   end
 
   test 'update user with company' do
     user = users(:kensyu)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     within 'form[name=user]' do
-      assert_text '所属企業'
       find('.choices').click
       first('.choices__item', text: 'Lokka Inc.').click
       click_on '更新する'
     end
     assert_text 'ユーザー情報を更新しました。'
     visit "/users/#{user.id}"
-    assert_equal('Lokka Inc.', find('.user-metas__item-label', text: '所属企業').sibling('.user-metas__item-value').text)
+    found_value = all('.user-metas__item-value').find { |element| element.text.include?('Lokka Inc.') }
+    assert_not_nil(found_value, "Expected to find '.user-metas__item-value' with text 'Lokka Inc.'")
   end
 
   test 'update advisor with company' do
     user = users(:senpai)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     within 'form[name=user]' do
-      assert_text '所属企業'
       find('.choices').click
       first('.choices__item', text: 'Lokka Inc.').click
       click_on '更新する'
     end
     assert_text 'ユーザー情報を更新しました。'
     visit "/users/#{user.id}"
-    assert_equal('Lokka Inc.', find('.user-metas__item-label', text: '所属企業').sibling('.user-metas__item-value').text)
+    found_value = all('.user-metas__item-value').find { |element| element.text.include?('Lokka Inc.') }
+    assert_not_nil(found_value, "Expected to find '.user-metas__item-value' with text 'Lokka Inc.'")
   end
 
   test 'hide input for retire date when unchecked' do
@@ -340,16 +349,63 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert_text 'メンター紹介用公開プロフィール'
   end
 
-  test 'administrator can update hide profile of mentor' do
+  test 'administrator can update show profile of mentor' do
     user = users(:mentormentaro)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     assert_text 'メンター紹介用公開プロフィール'
-    assert_no_checked_field('user_hide_mentor_profile', visible: false)
-    check 'user_hide_mentor_profile', allow_label_click: true, visible: false
-    assert has_checked_field?('user_hide_mentor_profile', visible: false)
+    assert has_checked_field?('user_show_mentor_profile', visible: false)
+    uncheck 'user_show_mentor_profile', allow_label_click: true, visible: false
+    assert_no_checked_field('user_show_mentor_profile', visible: false)
     click_on '更新する'
     assert_text 'ユーザー情報を更新しました'
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
-    assert has_checked_field?('user_hide_mentor_profile', visible: false)
+    assert_no_checked_field('user_show_mentor_profile', visible: false)
+  end
+
+  test 'administrator can set skipped_practice of general users' do
+    user = users(:kensyu)
+    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
+    assert_text 'UNIX (1/9)', normalize_ws: true
+    check 'UNIX', allow_label_click: true, visible: false
+    check 'Terminalの基礎を覚える', allow_label_click: true, visible: false
+    click_on '更新する'
+    assert_text 'ユーザー情報を更新しました'
+    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
+    assert_text 'UNIX (2/9)', normalize_ws: true
+  end
+
+  test 'shows diploma link on edit page after upload' do
+    user = users(:kimura)
+    visit_with_auth edit_admin_user_path(user), 'komagata'
+    attach_file 'user[diploma_file]', file_fixture('users/diplomas/diploma.pdf'), visible: false
+    click_on '更新する'
+    assert_text 'ユーザー情報を更新しました'
+    assert user.reload.diploma_file.attached?
+    visit edit_admin_user_path(user)
+    assert_link 'diploma.pdf'
+  end
+
+  test 'admin can delete diploma file' do
+    user = users(:kimura)
+    visit_with_auth edit_admin_user_path(user), 'komagata'
+    attach_file 'user[diploma_file]', file_fixture('users/diplomas/diploma.pdf'), visible: false
+    click_button '更新する'
+    assert_text 'ユーザー情報を更新しました'
+    assert user.reload.diploma_file.attached?
+    visit edit_admin_user_path(user)
+    click_on '削除'
+    click_on '更新する'
+    assert_text 'ユーザー情報を更新しました'
+    assert_not user.reload.diploma_file.attached?
+    visit edit_admin_user_path(user)
+    assert_no_link 'diploma.pdf'
+  end
+
+  test 'rejects diploma upload if not PDF format' do
+    user = users(:kimura)
+    visit_with_auth edit_admin_user_path(user), 'komagata'
+    attach_file 'user[diploma_file]', file_fixture('users/diplomas/diploma.html'), visible: false
+    click_on '更新する'
+    assert_text '卒業証書(PDF)はPDF形式にしてください'
   end
 end

@@ -1,5 +1,5 @@
 import Sortable from 'sortablejs'
-import Bootcamp from 'bootcamp'
+import { patch } from '@rails/request.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const element = document.querySelector('#js-practice-sortable')
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const params = { insert_at: event.newIndex + 1 }
       const url = `/api/categories_practices/${id}/position.json`
 
-      Bootcamp.patch(url, params).catch((error) => {
+      patch(url, { body: params }).catch((error) => {
         console.warn(error)
       })
     }

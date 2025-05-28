@@ -26,10 +26,10 @@ article.lp
             .lp-actions
               ul.lp-actions__items
                 li.lp-actions__item
-                  = link_to '/', class: 'a-button is-xl is-secondary-border is-block' do
+                  = link_to new_inquiry_path, class: 'a-button is-xl is-secondary-border is-block' do
                     | お問い合わせ
                 li.lp-actions__item
-                  = link_to '/', class: 'a-button is-xl is-warning is-block' do
+                  = link_to choose_courses_path, class: 'a-button is-xl is-warning is-block' do
                     | 参加登録
         .lp-content__end
           .lp-hero-visual
@@ -66,6 +66,14 @@ article.lp
                   | そのため、最初に大金を支払う必要がなく、退会すればそれ以降の料金は発生しません。
                   | これにより、他の興味が見つかった場合、または事情が変わって学習を続けられなくなった場合でも、
                   | リスクを最小限に抑えることができます。
+                      | リスクを最小限に抑えることができます。
+              .a-notice-block.is-danger.mt-4
+                p.text-base
+                  | 受講料の最大80%の給付金が適用される専門実践教育訓練給付制度対象講座「Railsエンジニア（Reスキル認定講座対応）コース」は
+                  | 料金体系が異なります。
+                  = link_to certified_reskill_courses_rails_developer_course_root_path do
+                    |  こちらからご確認ください
+                  | 。
 
           = render 'welcome/pricing_features'
 
@@ -142,7 +150,7 @@ article.lp
                                       | #{Campaign.example_start_at}
                                     | に
                                     br
-                                    | 利用登録が完了した場合、
+                                    | 参加登録が完了した場合、
                                   p
                                     | お試し期間終了は3日後（72時間後）の
                                     br
@@ -171,7 +179,7 @@ article.lp
                                       | #{Campaign.example_start_at}
                                     | に
                                     br
-                                    | 利用登録が完了した場合、
+                                    | 参加登録が完了した場合、
                                   p
                                     | 利用料金が引き落としは3日後（72時間後）の
                                     br

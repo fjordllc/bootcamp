@@ -1,0 +1,26 @@
+.a-card
+  header.card-header.is-sm
+    h2.card-header__title
+      | ユーザー一覧（#{colleagues.count}）
+  hr.a-border-tint
+  .card-list.has-scroll
+    .card-list__description
+      .a-short-text.is-sm
+        p
+          | アカウントを持つ社員が退職される場合、セキュリティ対策として、
+          | その社員のアカウントを退会させる必要があります。
+          | その際は、以下のフォームから退会申請をしてください。
+      .card-main-actions
+        ul.card-main-actions__items
+          li.card-main-actions__item
+            = link_to new_request_retirement_path, class: 'a-button is-sm is-block is-secondary' do
+              | 退会申請フォーム
+    hr.a-border-tint
+    = render partial: 'colleague', collection: colleagues, as: :user
+  hr.a-border-tint
+  footer.card-footer
+    .card-main-actions
+      ul.card-main-actions__items
+        li.card-main-actions__item
+          = link_to company_users_path(current_user.company), class: 'a-button is-sm is-block is-secondary' do
+            | ユーザー一覧ページ

@@ -1,3 +1,5 @@
+import checkStamp from 'check-stamp.js'
+
 export default {
   computed: {
     isUnassignedAndUnchekedProduct() {
@@ -41,9 +43,10 @@ export default {
           if (json.message) {
             this.toast(json.message, 'error')
           } else {
+            checkStamp()
             if (!this.checkId) {
               if (checkableType === 'Product') {
-                this.toast('提出物を確認済みにしました。')
+                this.toast('提出物を合格にしました。')
               } else if (checkableType === 'Report') {
                 this.toast('日報を確認済みにしました。')
               }

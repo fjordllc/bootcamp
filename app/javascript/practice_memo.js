@@ -6,7 +6,6 @@ import { toast } from 'toast_react'
 document.addEventListener('DOMContentLoaded', () => {
   const practiceMemo = document.querySelector('.practice-memo')
   if (practiceMemo) {
-    TextareaInitializer.initialize('.a-markdown-input__textarea')
     const markdownInitializer = new MarkdownInitializer()
     const practiceId = practiceMemo.dataset.practice_id
     let savedMemo = ''
@@ -41,6 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
           memoEditorPreview.innerHTML = markdownInitializer.render(savedMemo)
         }
       })
+      .then(() => {
+        TextareaInitializer.initialize('#js-practice-memo')
+      })
       .catch((error) => {
         console.warn(error)
       })
@@ -57,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
       savedMemo = editorTextarea.value
       updateMemo(savedMemo, practiceId)
       memoDisplayContent.innerHTML = markdownInitializer.render(savedMemo)
+      TextareaInitializer.initialize('#js-practice-memo')
       switchMemoDisplay(memoDisplay, savedMemo)
     })
 
@@ -65,12 +68,14 @@ document.addEventListener('DOMContentLoaded', () => {
       toggleClass(modalElements, 'is-hidden')
       editorTextarea.value = savedMemo
       memoEditorPreview.innerHTML = markdownInitializer.render(savedMemo)
+      TextareaInitializer.initialize('#js-practice-memo')
     })
 
     editorTextarea.addEventListener('change', () => {
       memoEditorPreview.innerHTML = markdownInitializer.render(
         editorTextarea.value
       )
+      TextareaInitializer.initialize('#js-practice-memo')
     })
 
     const editorTab = memoEditor.querySelector('.editor-tab')

@@ -1,0 +1,20 @@
+coding_test1:
+  practice: practice1
+  user: komagata
+  language: javascript
+  title: 最初の出力
+  description: |-
+    `hello`という文字列を出力しなさい。
+  hint: ""
+  position: 1
+
+coding_test2:
+  practice: practice1
+  user: komagata
+  language: javascript
+  title: 2番目の出力
+  description: |-
+    文字列sが与えられます。
+    `hello `とsをつなげて出力しなさい。
+  hint: ""
+  position: 2

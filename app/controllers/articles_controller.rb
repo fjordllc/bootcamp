@@ -6,7 +6,7 @@ class ArticlesController < ApplicationController
   before_action :require_admin_or_mentor_login, except: %i[index show]
 
   def index
-    @articles = sorted_articles.page(params[:page])
+    @articles = sorted_articles.preload([:tags]).page(params[:page])
     @articles = @articles.tagged_with(params[:tag]) if params[:tag]
     number_per_page = @articles.page(1).limit_value
     @atom_articles = sorted_articles.limit(number_per_page)
@@ -28,7 +28,7 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    @article = Article.new
+    @article = Article.new(target: 'all')
   end
 
   def edit; end
@@ -39,6 +39,7 @@ class ArticlesController < ApplicationController
     set_wip
     if @article.save
       Newspaper.publish(:create_article, { article: @article })
+
       redirect_to redirect_url(@article), notice: notice_message(@article)
     else
       render :new
@@ -92,6 +93,7 @@ class ArticlesController < ApplicationController
       thumbnail_type
       summary
       display_thumbnail_in_body
+      target
     ]
     article_attributes.push(:published_at) unless params[:commit] == 'WIP'
     article_attributes.push(:token) if params[:commit] == 'WIP'

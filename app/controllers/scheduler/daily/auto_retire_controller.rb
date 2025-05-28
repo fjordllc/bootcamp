@@ -10,7 +10,7 @@ class Scheduler::Daily::AutoRetireController < SchedulerController
 
   def auto_retire
     User.unretired.hibernated_for(User::HIBERNATION_LIMIT).auto_retire.each do |user|
-      user.retire_reason = '（休会後六ヶ月経過したため自動退会）'
+      user.retire_reason = '（休会後三ヶ月経過したため自動退会）'
       user.retired_on = Date.current
       user.hibernated_at = nil
       user.save!(validate: false)

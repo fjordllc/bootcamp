@@ -9,13 +9,4 @@ class Learning < ApplicationRecord
   validates :practice_id,
             presence: true,
             uniqueness: { scope: :user_id }
-  validate :startable_practice
-
-  private
-
-  def startable_practice
-    return unless started? && Learning.exists?(user_id:, status: 'started')
-
-    errors.add :error, "すでに着手しているプラクティスがあります。\n提出物を提出するか修了すると新しいプラクティスを開始できます。"
-  end
 end

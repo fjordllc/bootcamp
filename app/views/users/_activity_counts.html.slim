@@ -18,8 +18,8 @@ dl.card-counts__items
       dt.card-counts__item-label
         | コメント
       dd.card-counts__item-value
-        = link_to_if !user.comments.empty?,
-            user.comments.size, user_comments_path(user)
+        = link_to_if !user.comments.without_private_comment.empty?,
+            user.comments.without_private_comment.size, user_comments_path(user)
   .card-counts__item
     .card-counts__item-inner
       dt.card-counts__item-label
