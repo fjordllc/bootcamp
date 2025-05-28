@@ -27,4 +27,9 @@ class UserMailer < ApplicationMailer
     @request_retirement = request_retirement
     mail to: email, bcc: 'info@lokka.jp', subject: '[FBC] 退会申請を受け付けました'
   end
+
+  def one_week_before_auto_retire(user)
+    @user = user
+    mail to: user.email, bcc: 'info@lokka.jp', subject: '[FBC] ご注意：休会期限の接近について'
+  end
 end
