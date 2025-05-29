@@ -21,7 +21,7 @@ module Transcoder
             mux_streams:,
             pubsub_destination: { topic: pubsub_topic_path }
           },
-          labels: { movie_id: @movie.id }
+          labels: { movie_id: @movie.id.to_s }
         }
       )
     end
