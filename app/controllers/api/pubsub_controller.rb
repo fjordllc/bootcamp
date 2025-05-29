@@ -7,10 +7,10 @@ class API::PubsubController < API::BaseController
   def create
     body = request.body.read
     message = JSON.parse(body)
-    data = JSON.parse(Base64.decode64(message["message"]["data"]))
+    data = JSON.parse(Base64.decode64(message['message']['data']))
 
-    job_name = data.dig("job", "name")
-    job_state = data.dig("job", "state")
+    job_name = data.dig('job', 'name')
+    job_state = data.dig('job', 'state')
 
     client = Transcoder::Client.new
     movie_id = client.get_movie_id(job_name)
@@ -29,9 +29,9 @@ class API::PubsubController < API::BaseController
 
   def handle_job_state(movie, job_name, job_state)
     case job_state
-    when "SUCCEEDED"
+    when 'SUCCEEDED'
       attach_transcoded_file(movie)
-    when "FAILED", "CANCELLED"
+    when 'FAILED', 'CANCELLED'
       Rails.logger.error("Transcoding job #{job_name} for Movie #{movie.id} failed or cancelled.")
     else
       Rails.logger.warn("Unknown job state: #{job_state} for Movie #{movie.id}")
