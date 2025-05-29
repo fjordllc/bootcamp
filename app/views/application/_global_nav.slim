@@ -45,7 +45,7 @@ nav.global-nav
             .global-nav-links__link-icon
               i.fa-solid.fa-file
             .global-nav-links__link-label
-              - if Rails.env == 'development'
+              - if Rails.env.development?
                 | Docs・動画
               - else
                 | Docs
