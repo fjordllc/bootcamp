@@ -1,0 +1,12 @@
+= render '/notification_mailer/notification_mailer_template',
+  title: "#{@sender.login_name}さんが研修終了しました。",
+  link_url: @link_url,
+  link_text: "#{@sender.login_name}さんのページへ" do
+  .a-long-text
+    h2
+      | 選択入力の研修感想
+    p
+      = t("activerecord.enums.user.satisfaction.#{@sender.satisfaction}")
+    h2
+      = User.human_attribute_name('retire_reason')
+    = md2html(@sender.opinion)
