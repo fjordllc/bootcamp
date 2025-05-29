@@ -1,22 +1,16 @@
 # frozen_string_literal: true
 
 module Transcoder
-  class APIClient
-    STATES = {
-      succeeded: :SUCCEEDED,
-      failed: :FAILED,
-      cancelled: :CANCELLED,
-      active: %i[RUNNING PENDING]
-    }.freeze
+  class Client
 
-    def initialize(movie, config: nil, bucket_name: nil, project_id: nil)
+    def initialize(movie = nil, config: nil, bucket_name: nil, project_id: nil)
       @movie = movie
       @config = config || default_config
       @bucket_name = bucket_name || default_storage_config['bucket']
       @project_id = project_id || default_storage_config['project']
     end
 
-    def create_transcoding_job
+    def transcode # api/pubsubにレスポンスが返る
       transcoder_service.create_job(
         parent: parent_path,
         job: {
@@ -24,21 +18,17 @@ module Transcoder
           output_uri:,
           config: {
             elementary_streams:,
-            mux_streams:
-          }
+            mux_streams:,
+            pubsub_destination: { topic: pubsub_topic_path }
+          },
+          labels: { movie_id: @movie.id.to_s }
         }
-      ).name
+      )
     end
 
-    def job_state(job_name)
+    def get_movie_id(job_name)
       job = transcoder_service.get_job(name: job_name)
-      case job.state
-      when *STATES[:active]   then :active
-      when STATES[:succeeded] then :succeeded
-      when STATES[:failed]    then :failed
-      when STATES[:cancelled] then :cancelled
-      else                         :unknown
-      end
+      job.labels["movie_id"]
     end
 
     private
@@ -92,6 +82,10 @@ module Transcoder
       Rails.application.config.active_storage.service_configurations[service_name]
     end
 
+    def job_id
+      "movie-#{@movie.id}"
+    end
+
     def input_uri
       "gs://#{@bucket_name}/#{@movie.movie_data.key}"
     end
@@ -102,6 +96,10 @@ module Transcoder
 
     def parent_path
       "projects/#{@project_id}/locations/#{location}"
+    end
+
+    def pubsub_topic_path
+      "projects/#{@project_id}/topics/#{@config['pubsub_topic']}"
     end
 
     def default_config
