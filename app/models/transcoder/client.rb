@@ -2,7 +2,6 @@
 
 module Transcoder
   class Client
-
     def initialize(movie = nil, config: nil, bucket_name: nil, project_id: nil)
       @movie = movie
       @config = config || default_config
@@ -10,7 +9,8 @@ module Transcoder
       @project_id = project_id || default_storage_config['project']
     end
 
-    def transcode # api/pubsubにレスポンスが返る
+    def transcode
+      # 処理完了後にAPI::PubsubControllerへPub/Subで通知を送る
       transcoder_service.create_job(
         parent: parent_path,
         job: {
@@ -21,14 +21,14 @@ module Transcoder
             mux_streams:,
             pubsub_destination: { topic: pubsub_topic_path }
           },
-          labels: { movie_id: @movie.id.to_s }
+          labels: { movie_id: @movie.id }
         }
       )
     end
 
     def get_movie_id(job_name)
       job = transcoder_service.get_job(name: job_name)
-      job.labels["movie_id"]
+      job.labels['movie_id']
     end
 
     private
@@ -80,10 +80,6 @@ module Transcoder
 
     def default_storage_config
       Rails.application.config.active_storage.service_configurations[service_name]
-    end
-
-    def job_id
-      "movie-#{@movie.id}"
     end
 
     def input_uri
