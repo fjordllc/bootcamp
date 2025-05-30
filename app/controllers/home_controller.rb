@@ -51,6 +51,7 @@ class HomeController < ApplicationController
     @product_deadline_day = Product::PRODUCT_DEADLINE
     @colleagues = current_user.colleagues_other_than_self
     @calendar = NicoNicoCalendar.new(current_user, params[:niconico_calendar])
+    @users_for_time_slot = User.students_and_trainees.joins(:learning_time_frames).merge(LearningTimeFrame.active_now).where.not(id: current_user.id)
   end
 
   def display_events_on_dashboard
