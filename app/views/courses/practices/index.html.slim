@@ -1,18 +1,5 @@
 - title "#{@course.title}コース"
 
-= render '/shared/modal', id: 'modal-progress', modal_title: 'みんなの進捗とは？'
-  .modal__description.is-md
-    .a-short-text
-      p
-        | こちらのページで他の受講者が今どのプラクティスを学習しているかが確認できます。
-      p
-        | 他の受講者の進捗が目に入ると焦ってしまう、精神的に追い詰められる、と感じた場合、「OFF」にすることで、他の受講者の進捗が非表示になります。逆にみんなの進捗が見れることでモチベーションアップにつながる、という方は「ON」にしてください。
-      hr
-      p
-        | フィヨルドブートキャンプは、前提の知識や経験は人によってバラバラ、どこまで掘り下げて学習をするかも人によってバラバラ、学習に使える時間もバラバラなので、学校の授業や資格取得の勉強とは全く別物です。早ければいいというものではないです。
-      p
-        | 同じくらいのプラクティスをやってる人の日報をフォローしたり、お互い日報にコメントを付け合ったり、チャットやミートアップで話してみたりするのオススメです。
-
 header.page-header
   .container
     .page-header__inner
@@ -22,21 +9,11 @@ header.page-header
       .page-header__end
         .page-header-actions
           ul.page-header-actions__items
-            li.page-header-actions__item.is-hidden-sm-down
-              .a-switch
-                label.a-switch__label(for='modal-progress')
-                  span.a-switch__label-text
-                    | みんなの進捗
-                  .a-help
-                    i.fa-solid.fa-question
-                label.a-on-off-checkbox.is-sm(for='display-progress')
-                  input.js-users-visibility__trigger#display-progress(type = 'checkbox' checked = 'checked')
-                  span#checkbox-progress
             li.page-header-actions__item
               = link_to courses_path, class: 'a-button is-md is-secondary is-block is-back' do
                 | コース一覧
 
 = courses_page_tabs(@course, active_tab: 'プラクティス')
-.page-body.js-users-visibility
+.page-body
   .container.is-xl
     = render 'courses_practices', course_id: @course.id, categories: @categories, learnings: @learnings, completed_practices_size: @completed_practices_size_by_category
