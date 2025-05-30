@@ -8,8 +8,17 @@ class LearningTimeFrame < ApplicationRecord
 
   scope :active_now, -> {
     now = Time.zone.now
-    weekday = now.strftime('%A').downcase  # => "monday", "tuesday", ...
-    hour = now.hour                        # => 10（現在の時間 0〜23）
+    weekday_map = {
+      "sunday" => "日",
+      "monday" => "月",
+      "tuesday" => "火",
+      "wednesday" => "水",
+      "thursday" => "木",
+      "friday" => "金",
+      "saturday" => "土"
+    }
+    weekday = weekday_map[now.strftime('%A').downcase]
+    hour = now.hour
 
     where(week_day: weekday, activity_time: hour)
   }
