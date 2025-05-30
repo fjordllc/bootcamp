@@ -5,7 +5,7 @@ class Survey < ApplicationRecord
   has_many :survey_question_listings, dependent: :destroy
   has_many :survey_questions, through: :survey_question_listings
   has_many :survey_answers, dependent: :destroy
-  accepts_nested_attributes_for :survey_question_listings, allow_destroy: true
+  accepts_nested_attributes_for :survey_question_listings, reject_if: :all_blank, allow_destroy: true
   validates_associated :survey_question_listings
 
   validates :title, presence: true, length: { maximum: 255 }
