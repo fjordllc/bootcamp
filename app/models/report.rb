@@ -14,9 +14,9 @@ class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include SearchHelper
 
   enum emotion: {
-    sad: 1,
-    soso: 0,
-    happy: 2
+    negative: 1,
+    neutral: 0,
+    positive: 2
   }
 
   attribute :no_learn, :boolean
