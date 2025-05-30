@@ -354,11 +354,6 @@ ja:
       doorkeeper/application:
         redirect_uri: Redirect URL
     enums:
-      report:
-        emotion:
-          sad: Negative
-          soso: Neutral
-          happy: Positive
       user:
         job:
           student: 学生
