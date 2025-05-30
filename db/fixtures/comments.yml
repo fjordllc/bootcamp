@@ -137,7 +137,7 @@ comment43:
   commentable: product74 (Product)
   description: "メンターのコメントです。"
 
-comment44: 
+comment44:
   user: machida
   commentable: regular_event1 (RegularEvent)
   description: "定期イベントのコメントです。"
@@ -151,6 +151,6 @@ commentOfTalk:
 comment45:
   user: kimura
   commentable: product77 (Product)
-  description: "提出者の5日前にコメントしたコメントです。"
-  created_at: <%= now - 5.days%>
-  updated_at: <%= now - 5.days%>
+  description: "提出者の3日前にコメントしたコメントです。"
+  created_at: <%= now - 3.days%>
+  updated_at: <%= now - 3.days%>
