@@ -6,16 +6,16 @@ class LearningTimeFrame < ApplicationRecord
 
   validates :week_day, :activity_time, presence: true
 
-  scope :active_now, -> {
+  scope :active_now, lambda {
     now = Time.zone.now
     weekday_map = {
-      "sunday" => "日",
-      "monday" => "月",
-      "tuesday" => "火",
-      "wednesday" => "水",
-      "thursday" => "木",
-      "friday" => "金",
-      "saturday" => "土"
+      'sunday' => '日',
+      'monday' => '月',
+      'tuesday' => '火',
+      'wednesday' => '水',
+      'thursday' => '木',
+      'friday' => '金',
+      'saturday' => '土'
     }
     weekday = weekday_map[now.strftime('%A').downcase]
     hour = now.hour

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "test_helper"
+require 'test_helper'
 
 class UserIconListComponentTest < ViewComponent::TestCase
   fixtures :users, :learning_time_frames, :learning_time_frames_users
@@ -24,7 +24,7 @@ class UserIconListComponentTest < ViewComponent::TestCase
 
       assert_includes users_for_time_slot, users(:kimura)
       assert_includes users_for_time_slot, users(:kensyu)
-      refute_includes users_for_time_slot, current_user
+      assert_not_includes users_for_time_slot, current_user
     end
   end
 end
