@@ -44,3 +44,6 @@ storage/
 
 .clinerules
 memory-bank/
+
+.claude
+CLAUDE.md

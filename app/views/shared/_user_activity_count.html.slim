@@ -1,0 +1,9 @@
+.card-counts__item
+  .card-counts__item-inner
+    dt.card-counts__item-label
+      = activity_name
+    dd.card-counts__item-value class=('is-empty' if activity_count.zero?)
+      - if activity_count.zero?
+        span = activity_count
+      - else
+        = link_to activity_count, activity_url, class: 'a-text-link'

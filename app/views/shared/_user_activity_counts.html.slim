@@ -1,0 +1,9 @@
+- if user.student_or_trainee?
+  .card-counts.is-users.mt-3
+    dl.card-counts__items
+      = render 'shared/user_activity_count', activity_name: '日報', activity_count: user.report_count, activity_url: "#{user_path(user)}/reports"
+      = render 'shared/user_activity_count', activity_name: '提出物', activity_count: user.product_count, activity_url: "#{user_path(user)}/products"
+      = render 'shared/user_activity_count', activity_name: 'コメント', activity_count: user.comment_count, activity_url: "#{user_path(user)}/comments"
+      = render 'shared/user_activity_count', activity_name: '質問', activity_count: user.question_count, activity_url: "#{user_path(user)}/questions"
+      = render 'shared/user_activity_count', activity_name: '回答', activity_count: user.answer_count, activity_url: "#{user_path(user)}/answers"
+      = render 'shared/user_activity_count', activity_name: 'ポートフォリオ', activity_count: user.work_count, activity_url: "#{user_path(user)}/portfolio"
