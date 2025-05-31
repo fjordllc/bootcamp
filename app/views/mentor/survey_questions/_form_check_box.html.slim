@@ -3,13 +3,14 @@
     .form-item
       label.a-form-label.is-required
         | チェックボックスの選択肢
-      = i.fields_for :check_box_choices do |check_box_choice|
-        = render 'check_box_choice_fields', f: check_box_choice
-      .form-item__add-choice.js-add-choice
-        = link_to_add_association i, :check_box_choices, class: 'a-button is-md is-primary' do
-          i.fa-regular.fa-plus
-          span
-            | 選択肢を追加
+      = cocooned_container do
+        = i.fields_for :check_box_choices do |check_box_choice|
+          = render 'check_box_choice_fields', f: check_box_choice
+        .form-item__add-choice.js-add-choice
+          = cocooned_add_item_link i, :check_box_choices, class: 'a-button is-md is-primary' do
+            i.fa-regular.fa-plus
+            span
+              | 選択肢を追加
     .form-item.is-hidden.check_box
       = i.label :title_of_reason, class: 'a-form-label is-required'
       = i.text_field :title_of_reason, class: 'a-text-input js-warning-form', placeholder: 'その他を選択した場合、その他の内容について具体的に教えてください。'
