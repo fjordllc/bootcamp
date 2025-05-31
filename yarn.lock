@@ -1348,6 +1348,11 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@notus.sh/cocooned@^2.4.1":
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/@notus.sh/cocooned/-/cocooned-2.4.1.tgz#3d0320b65c9793d6bb5ca6622aa67e85a816db94"
+  integrity sha512-2Bz1shAPvf/Jyh8laqOl7ViN0U0IcPWQ2wX7+yuhDfAtm4Q8/m7pT0FfC6UY87V7j2bbbnlivYHLjbN+Vp6WbQ==
+
 "@npmcli/fs@^1.0.0":
   version "1.1.1"
   resolved "https://registry.npmjs.org/@npmcli/fs/-/fs-1.1.1.tgz"

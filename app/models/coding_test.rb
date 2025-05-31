@@ -8,10 +8,9 @@ class CodingTest < ApplicationRecord
 
   belongs_to :practice
   belongs_to :user
-  has_many :coding_test_cases, dependent: :destroy
+  has_many :coding_test_cases, dependent: :destroy, inverse_of: :coding_test
+  accepts_nested_attributes_for :coding_test_cases, reject_if: :all_blank, allow_destroy: true
   has_many :coding_test_submissions, dependent: :destroy
-
-  accepts_nested_attributes_for :coding_test_cases
 
   acts_as_list scope: :practice
 
