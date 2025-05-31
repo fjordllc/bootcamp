@@ -50,7 +50,6 @@
                           i.fa-brands.fa-discord
                         | {{ user.discord_profile.account_name }}
         user-sns(:user='user')
-        user-activity-counts(:user='user')
       .users-item__body
         .users-item__description.a-short-text
           p(v-for='paragraph in userDescParagraphs', :key='paragraph.id')
@@ -80,7 +79,6 @@
 </template>
 <script>
 import Following from '../following.vue'
-import UserActivityCounts from './user-activity-counts.vue'
 import UserSns from './user-sns.vue'
 import UserTags from './user-tags.vue'
 import UserPracticeProgress from './user-practice-progress.vue'
@@ -89,7 +87,6 @@ export default {
   name: 'User',
   components: {
     following: Following,
-    'user-activity-counts': UserActivityCounts,
     'user-sns': UserSns,
     'user-tags': UserTags,
     'user-practice-progress': UserPracticeProgress
