@@ -1,7 +1,8 @@
-.survey-added-question.nested-fields
-  .survey-added-question__inner
-    .survey-added-question__col.is-main
-      = f.select(:survey_question_id, question_options_within_survey_question, { include_hidden: false }, { multiple: false, class: 'js-choices-added-select' })
-    .survey-added-question__col
-      .survey-added-question__action
-        = link_to_remove_association '削除', f, class: 'a-button is-sm is-text'
+= cocooned_item do
+  .survey-added-question.mt-3
+    .survey-added-question__inner
+      .survey-added-question__col.is-main
+        = f.select(:survey_question_id, question_options_within_survey_question, { include_hidden: false }, { multiple: false, class: 'js-choices-added-select' })
+      .survey-added-question__col
+        .survey-added-question__action
+          = cocooned_remove_item_link '削除', f, class: 'a-button is-sm is-text'
