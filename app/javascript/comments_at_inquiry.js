@@ -3,7 +3,7 @@ import { initializeComment } from './initializeComment.js'
 document.addEventListener('DOMContentLoaded', () => {
   const comments = document.querySelectorAll('.comment')
   const loadingContent = document.querySelector('.loading-content')
-  if (!loadingContent) {
+  if (!document.querySelector('.Inquiry')) {
     return
   }
   const commentContent = document.querySelector(

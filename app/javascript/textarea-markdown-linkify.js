@@ -5,6 +5,9 @@ export default class {
     const textareas = document.querySelectorAll(selector)
 
     Array.from(textareas).forEach((textarea) => {
+      if (textarea.dataset.listenerAttached) return
+      textarea.dataset.listenerAttached = 'true'
+
       textarea.addEventListener('paste', async (event) => {
         event.preventDefault()
         const { selectionStart, selectionEnd } = textarea

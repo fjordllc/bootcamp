@@ -26,6 +26,7 @@ class User < ApplicationRecord
   }.freeze
   DEFAULT_REGULAR_EVENT_ORGANIZER = 'komagata'
   HIBERNATION_LIMIT = 3.months
+  HIBERNATION_LIMIT_BEFORE_ONE_WEEK = HIBERNATION_LIMIT - 1.week
 
   INVITATION_ROLES = [
     [I18n.t('invitation_role.adviser'), :adviser],
@@ -208,8 +209,19 @@ class User < ApplicationRecord
   has_many :learning_time_frames,
            through: :learning_time_frames_users
 
+  has_many :oauth_access_grants,
+           foreign_key: 'resource_owner_id',
+           dependent: :delete_all,
+           inverse_of: 'user'
+
+  has_many :oauth_access_tokens,
+           foreign_key: 'resource_owner_id',
+           dependent: :delete_all,
+           inverse_of: 'user'
+
   has_one_attached :avatar
   has_one_attached :profile_image
+  has_one_attached :diploma_file
 
   after_create UserCallbacks.new
   before_validation :convert_blank_of_address_to_nil
@@ -241,6 +253,8 @@ class User < ApplicationRecord
   validates :login_name, length: { minimum: 3, message: 'は3文字以上にしてください。' }
 
   validate :validate_uploaded_avatar_content_type
+
+  validates :diploma_file, content_type: { in: ['application/pdf'], message: 'はPDF形式にしてください' }
 
   validates :country_code, inclusion: { in: ISO3166::Country.codes }, allow_nil: true
 
@@ -899,6 +913,11 @@ class User < ApplicationRecord
 
   def latest_micro_report_page
     [micro_reports.page.total_pages, 1].max
+  end
+
+  def mark_mail_as_sent_before_auto_retire
+    self.sent_student_before_auto_retire_mail = true
+    save(validate: false)
   end
 
   private

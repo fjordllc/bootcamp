@@ -373,4 +373,39 @@ class Admin::UsersTest < ApplicationSystemTestCase
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     assert_text 'UNIX (2/9)', normalize_ws: true
   end
+
+  test 'shows diploma link on edit page after upload' do
+    user = users(:kimura)
+    visit_with_auth edit_admin_user_path(user), 'komagata'
+    attach_file 'user[diploma_file]', file_fixture('users/diplomas/diploma.pdf'), visible: false
+    click_on '更新する'
+    assert_text 'ユーザー情報を更新しました'
+    assert user.reload.diploma_file.attached?
+    visit edit_admin_user_path(user)
+    assert_link 'diploma.pdf'
+  end
+
+  test 'admin can delete diploma file' do
+    user = users(:kimura)
+    visit_with_auth edit_admin_user_path(user), 'komagata'
+    attach_file 'user[diploma_file]', file_fixture('users/diplomas/diploma.pdf'), visible: false
+    click_button '更新する'
+    assert_text 'ユーザー情報を更新しました'
+    assert user.reload.diploma_file.attached?
+    visit edit_admin_user_path(user)
+    click_on '削除'
+    click_on '更新する'
+    assert_text 'ユーザー情報を更新しました'
+    assert_not user.reload.diploma_file.attached?
+    visit edit_admin_user_path(user)
+    assert_no_link 'diploma.pdf'
+  end
+
+  test 'rejects diploma upload if not PDF format' do
+    user = users(:kimura)
+    visit_with_auth edit_admin_user_path(user), 'komagata'
+    attach_file 'user[diploma_file]', file_fixture('users/diplomas/diploma.html'), visible: false
+    click_on '更新する'
+    assert_text '卒業証書(PDF)はPDF形式にしてください'
+  end
 end
