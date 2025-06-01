@@ -32,12 +32,6 @@ function dompurifyPlugin(md, options = {}) {
             if (isStartTag) {
               inHtmlBlock = true
               buffer += child.content
-            } else if (child.type === 'html_inline') {
-              sanitizedChildren.push({
-                type: 'html_inline',
-                content: DOMPurify.sanitize(child.content, options),
-                level: child.level
-              })
             } else {
               sanitizedChildren.push(child)
             }
