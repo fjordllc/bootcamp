@@ -55,7 +55,11 @@
           p(v-for='paragraph in userDescParagraphs', :key='paragraph.id')
             | {{ paragraph.text }}
         .users-item__tags
-          user-tags(:user='user')
+          .tag-links
+            ul.tag-links__items(v-if='user.tag_list.length !== 0')
+              li.tag-links__item(v-for='tag in user.tag_list', :key='tag')
+                a.tag-links__item-link(:href='`/users/tags/${encodeURIComponent(tag)}`')
+                  | {{ tag }}
       user-practice-progress(:user='user')
       hr.a-border-tint
       footer.card-footer.users-item__footer
@@ -80,7 +84,6 @@
 <script>
 import Following from '../following.vue'
 import UserSns from './user-sns.vue'
-import UserTags from './user-tags.vue'
 import UserPracticeProgress from './user-practice-progress.vue'
 
 export default {
@@ -88,7 +91,6 @@ export default {
   components: {
     following: Following,
     'user-sns': UserSns,
-    'user-tags': UserTags,
     'user-practice-progress': UserPracticeProgress
   },
   props: {

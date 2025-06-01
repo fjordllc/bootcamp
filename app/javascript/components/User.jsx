@@ -2,7 +2,6 @@ import React from 'react'
 import Following from './Following.jsx'
 import UserActivityCounts from './UserActivityCounts.jsx'
 import UserSns from './UserSns.jsx'
-import UserTags from './UserTags.jsx'
 import UserPracticeProgress from './UserPracticeProgress.jsx'
 
 export default function User({ user, currentUser }) {
@@ -115,7 +114,21 @@ export default function User({ user, currentUser }) {
               ))}
             </div>
             <div className="users-item__tags">
-              <UserTags user={user} />
+              {user.tag_list.length > 0 && (
+                <div className="tag-links">
+                  <ul className="tag-links__items">
+                    {user.tag_list.map((tag) => (
+                      <li className="tag-links__item" key={tag}>
+                        <a
+                          className="tag-links__item-link"
+                          href={`/users/tags/${encodeURIComponent(tag)}`}>
+                          {tag}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
           <UserPracticeProgress user={user} />
