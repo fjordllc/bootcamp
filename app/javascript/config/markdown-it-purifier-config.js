@@ -66,11 +66,10 @@ export const ALLOWED_TAGS = [
   'tr',
   'u',
   'ul',
-  'video',
-  'style'
+  'video'
 ]
 
-export const ALLOWED_ATTR = [
+export const ALLOWED_ATTRS = [
   'alt',
   'class',
   'decoding',
