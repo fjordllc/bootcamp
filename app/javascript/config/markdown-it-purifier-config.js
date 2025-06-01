@@ -69,7 +69,7 @@ export const ALLOWED_TAGS = [
   'video'
 ]
 
-export const ALLOWED_ATTRS = [
+export const ALLOWED_ATTR = [
   'alt',
   'class',
   'decoding',
