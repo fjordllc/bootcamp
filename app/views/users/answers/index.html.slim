@@ -6,4 +6,12 @@
 
 .page-body
   .container.is-md
-    div(data-vue="UsersAnswers" data-vue-user-id:number="#{params[:user_id]}")
+    - if @answers.any?
+      .card-list.a-card
+        = render partial: 'users_answer_list_item', collection: @answers, as: :answer
+      = paginate @answers
+    - else
+      .o-empty-message
+        .o-empty-message__icon
+          i.fa-regular.fa-sad-tear
+        p.o-empty-message__text 回答はまだありません。

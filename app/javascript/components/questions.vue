@@ -3,7 +3,7 @@ div
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
   div(v-if='questions === null')
-    loadingListPlaceholder
+    .card-list.a-card Loading...
   .o-empty-message(v-else-if='questions.length === 0')
     .o-empty-message__icon
       i.fa-regular.fa-sad-tear
@@ -20,14 +20,12 @@ div
 </template>
 
 <script>
-import LoadingListPlaceholder from 'loading-list-placeholder.vue'
 import Pager from 'pager.vue'
 import Question from 'components/question.vue'
 
 export default {
   name: 'Questions',
   components: {
-    loadingListPlaceholder: LoadingListPlaceholder,
     pager: Pager,
     question: Question
   },

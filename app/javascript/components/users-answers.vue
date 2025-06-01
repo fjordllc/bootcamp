@@ -3,8 +3,7 @@ div
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
   div(v-if='answers === null')
-    loadingListPlaceholder
-    .card-list.a-card
+    .card-list.a-card Loading...
   .o-empty-message(v-else-if='answers.length === 0')
     .o-empty-message__icon
       i.fa-regular.fa-sad-tear
@@ -17,14 +16,12 @@ div
 </template>
 
 <script>
-import LoadingListPlaceholder from '../loading-list-placeholder.vue'
 import Pager from '../pager.vue'
 import UsersAnswer from './users-answer.vue'
 
 export default {
   name: 'UsersAnswers',
   components: {
-    loadingListPlaceholder: LoadingListPlaceholder,
     pager: Pager,
     usersAnswer: UsersAnswer
   },
