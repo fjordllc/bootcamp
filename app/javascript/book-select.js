@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const addChoiceButtons = document.querySelectorAll('.books-form__add')
-  addChoiceButtons.forEach(button => {
+  addChoiceButtons.forEach((button) => {
     button.addEventListener('cocooned:after-insert', () => {
       const elements = document.querySelectorAll('.js-book-select')
       if (!elements) return
