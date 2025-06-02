@@ -19,7 +19,7 @@ class QuestionsController < ApplicationController
                  .by_practice_id(params[:practice_id])
                  .by_tag(params[:tag])
                  .with_avatar
-                 .includes(:practice, :answers, :tags, :correct_answer)
+                 .includes(:practice, :answers, :tags, :correct_answer, user: { avatar_attachment: :blob })
                  .latest_update_order
                  .page(params[:page])
     @questions_property = Question.generate_questions_property(params[:target])

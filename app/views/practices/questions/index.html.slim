@@ -24,4 +24,16 @@ nav.tab-nav
 
 .page-body
   .container.is-md
-    div(data-vue='Questions' data-vue-empty-message="#{@empty_message}" data-vue-practice-id="#{params[:practice_id]}")
+    = paginate @questions if @questions.respond_to?(:current_page)
+    - if @questions.empty?
+      .o-empty-message
+        .o-empty-message__icon
+          i.fa-regular.fa-sad-tear
+        p.o-empty-message__text
+          = @empty_message
+    - else
+      .card-list.a-card
+        .card-list__items
+          - @questions.each do |question|
+            = render 'shared/question_list_item', question: question
+    = paginate @questions if @questions.respond_to?(:current_page)

@@ -6,4 +6,15 @@
 
 .page-body
   .container.is-md
-    div(data-vue="UsersAnswers" data-vue-user-id:number="#{params[:user_id]}")
+    = paginate @answers if @answers.respond_to?(:current_page)
+    - if @answers.empty?
+      .o-empty-message
+        .o-empty-message__icon
+          i.fa-regular.fa-sad-tear
+        p.o-empty-message__text
+          回答はまだありません。
+    - else
+      .card-list.a-card
+        - @answers.each do |answer|
+          = render 'shared/users_answer_list_item', answer: answer
+    = paginate @answers if @answers.respond_to?(:current_page)
