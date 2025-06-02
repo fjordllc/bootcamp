@@ -88,6 +88,8 @@ class ProductCommentsTest < ApplicationSystemTestCase
 
   test 'when mentor confirm a product with comment' do
     unconfirmed_product = products(:product1)
+    # Ensure the product is unassigned
+    unconfirmed_product.update!(checker_id: nil)
     visit_with_auth product_url(unconfirmed_product), 'machida'
 
     # Wait for page to fully load
@@ -116,6 +118,8 @@ class ProductCommentsTest < ApplicationSystemTestCase
 
   test 'when mentor confirm unassigned product with comment' do
     unassigned_product = products(:product1)
+    # Ensure the product is unassigned
+    unassigned_product.update!(checker_id: nil)
     visit_with_auth product_url(unassigned_product), 'machida'
 
     # Wait for page to fully load
