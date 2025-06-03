@@ -49,6 +49,7 @@ nav.global-nav
           = link_to questions_path(target: 'not_solved'), class: "global-nav-links__link #{current_link(/^questions/)}" do
             .global-nav-links__link-icon
               i.fa-solid.fa-comment-question
+            // TODO ペアワークを本番リリースしたらこの分岐は削除
             - if Rails.env.production?
               - if Question.not_solved.not_wip.count.positive?
                 .global-nav__item-count.a-notification-count
@@ -57,6 +58,7 @@ nav.global-nav
               - if Question.not_solved.not_wip.count.positive? || PairWork.not_solved.not_wip.count.positive?
                 .global-nav__item-count.a-notification-count
                   = Question.not_solved.not_wip.count + PairWork.not_solved.not_wip.count
+            // TODO ペアワークを本番リリースしたらこの分岐は削除
             - if Rails.env.production?
               .global-nav-links__link-label
                 | Q&A
