@@ -49,24 +49,24 @@ nav.global-nav
           = link_to questions_path(target: 'not_solved'), class: "global-nav-links__link #{current_link(/^questions/)}" do
             .global-nav-links__link-icon
               i.fa-solid.fa-comment-question
-            - unless Rails.env.production?
-              - if Question.not_solved.not_wip.count.positive? || PairWork.not_solved.not_wip.count.positive?
-                .global-nav__item-count.a-notification-count
-                  = Question.not_solved.not_wip.count + PairWork.not_solved.not_wip.count
-            - else
+            - if Rails.env.production?
               - if Question.not_solved.not_wip.count.positive?
                 .global-nav__item-count.a-notification-count
                   = Question.not_solved.not_wip.count
-            - unless Rails.env.production?
+            - else
+              - if Question.not_solved.not_wip.count.positive? || PairWork.not_solved.not_wip.count.positive?
+                .global-nav__item-count.a-notification-count
+                  = Question.not_solved.not_wip.count + PairWork.not_solved.not_wip.count
+            - if Rails.env.production?
+              .global-nav-links__link-label
+                | Q&A
+            - else
               .global-nav-links__link-label
                 | Q&A
                 br.is-hidden-sm-down
                 span.is-hidden-md-up
                   | ・
                 | ペアワーク
-            - else
-              .global-nav-links__link-label
-                | Q&A
         li.global-nav-links__item
           = link_to '/pages', class: "global-nav-links__link #{@page&.slug != 'help' && @page&.slug != 'help-adviser' && current_link(/^pages/)}" do
             .global-nav-links__link-icon
