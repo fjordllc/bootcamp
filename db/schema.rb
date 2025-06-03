@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_06_03_030422) do
+ActiveRecord::Schema.define(version: 2025_06_03_035408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -946,8 +946,8 @@ ActiveRecord::Schema.define(version: 2025_06_03_030422) do
     t.text "mentor_memo"
     t.text "after_graduation_hope"
     t.date "training_ends_on"
-    t.boolean "sad_streak", default: false, null: false
-    t.integer "last_sad_report_id"
+    t.boolean "negative_streak", default: false, null: false
+    t.integer "last_negative_report_id"
     t.datetime "last_activity_at"
     t.datetime "hibernated_at"
     t.string "profile_name"

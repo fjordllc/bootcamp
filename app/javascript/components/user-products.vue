@@ -15,7 +15,7 @@
     .card-body__description
       .o-empty-message
         .o-empty-message__icon
-          i.fa-regular.fa-sad-tear
+          i.fa-regular.fa-negative-tear
         .o-empty-message__text
           | 提出物はまだありません。
 </template>

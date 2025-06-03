@@ -146,7 +146,7 @@ class ReportsController < ApplicationController
   end
 
   def flash_contents(report)
-    { notify_help: !report.wip? && report.sad?,
+    { notify_help: !report.wip? && report.negative?,
       celebrate_report_count: celebrating_count(report) }
   end
 

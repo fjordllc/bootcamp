@@ -30,7 +30,7 @@ export default function Searchables({ word }) {
         <div className="container">
           <div className="o-empty-message">
             <div className="o-empty-message__icon">
-              <i className="fa-regular fa-sad-tear" />
+              <i className="fa-regular fa-negative-tear" />
             </div>
             <p className="o-empty-message__text">
               {word}に一致する情報は見つかりませんでした。

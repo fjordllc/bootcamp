@@ -7,7 +7,7 @@ div
     .card-list.a-card
   .o-empty-message(v-else-if='answers.length === 0')
     .o-empty-message__icon
-      i.fa-regular.fa-sad-tear
+      i.fa-regular.fa-negative-tear
     p.o-empty-message__text
       | 回答はまだありません。
   .card-list.a-card(v-else)
