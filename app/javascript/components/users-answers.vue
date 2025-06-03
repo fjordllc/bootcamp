@@ -2,44 +2,38 @@
 div
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
-  div(v-if='questions === null')
+  div(v-if='answers === null')
     loadingListPlaceholder
-  .o-empty-message(v-else-if='questions.length === 0')
+    .card-list.a-card
+  .o-empty-message(v-else-if='answers.length === 0')
     .o-empty-message__icon
       i.fa-regular.fa-negative-tear
     p.o-empty-message__text
-      | {{ emptyMessage }}
+      | 回答はまだありません。
   .card-list.a-card(v-else)
-    .card-list__items
-      question(
-        v-for='question in questions',
-        :key='question.id',
-        :question='question')
+    usersAnswer(v-for='answer in answers', :key='answer.id', :answer='answer')
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
 </template>
 
 <script>
-import LoadingListPlaceholder from 'loading-list-placeholder.vue'
-import Pager from 'pager.vue'
-import Question from 'components/question.vue'
+import LoadingListPlaceholder from '../loading-list-placeholder.vue'
+import Pager from '../pager.vue'
+import UsersAnswer from './users-answer.vue'
 
 export default {
-  name: 'Questions',
+  name: 'UsersAnswers',
   components: {
     loadingListPlaceholder: LoadingListPlaceholder,
     pager: Pager,
-    question: Question
+    usersAnswer: UsersAnswer
   },
   props: {
-    emptyMessage: { type: String, required: true },
-    selectedTag: { type: String, default: null, required: false },
-    userId: { type: Number, default: null, required: false },
-    practiceId: { type: Number, default: null, required: false }
+    userId: { type: Number, required: true }
   },
   data() {
     return {
-      questions: null,
+      answers: null,
       currentPage: this.pageParam(),
       totalPages: null
     }
@@ -48,17 +42,15 @@ export default {
     newParams() {
       const params = new URL(location.href).searchParams
       params.set('page', this.currentPage)
-      if (this.selectedTag) params.set('tag', this.selectedTag)
-      if (this.userId) params.set('user_id', this.userId)
-      if (this.practiceId) params.set('practice_id', this.practiceId)
+      params.set('user_id', this.userId)
       return params
     },
     newURL() {
       return `${location.pathname}?${this.newParams}`
     },
-    questionsAPI() {
+    usersAnswersAPI() {
       const params = this.newParams
-      return `/api/questions.json?${params}`
+      return `/api/answers.json?${params}`
     },
     pagerProps() {
       return {
@@ -72,9 +64,9 @@ export default {
   created() {
     window.onpopstate = () => {
       this.currentPage = this.pageParam()
-      this.getQuestions()
+      this.getUsersAnswers()
     }
-    this.getQuestions()
+    this.getUsersAnswers()
   },
   methods: {
     pageParam() {
@@ -85,12 +77,11 @@ export default {
     clickCallback(pageNum) {
       this.currentPage = pageNum
       history.pushState(null, null, this.newURL)
-      this.questions = null
-      this.getQuestions()
-      window.scrollTo(0, 0)
+      this.usersAnswers = null
+      this.getUsersAnswers()
     },
-    getQuestions() {
-      fetch(this.questionsAPI, {
+    getUsersAnswers() {
+      fetch(this.usersAnswersAPI, {
         method: 'GET',
         headers: { 'X-Requested-With': 'XMLHttpRequest' },
         credentials: 'same-origin',
@@ -100,9 +91,10 @@ export default {
           return response.json()
         })
         .then((json) => {
-          this.questions = []
-          json.questions.forEach((r) => {
-            this.questions.push(r)
+          this.answers = []
+          json.answers.forEach((r) => {
+            this.answers.push(r)
+            console.log(this.answers)
           })
           this.totalPages = parseInt(json.totalPages)
         })

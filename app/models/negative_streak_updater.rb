@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class SadStreakUpdater
+class NegativeStreakUpdater
   def call(payload)
     report = payload[:report]
-    report.user.update_sad_streak
+    report.user.update_negative_streak
   end
 end

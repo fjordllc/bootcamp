@@ -63,7 +63,7 @@ class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
   class << self
     def faces
       @faces ||= emotions.keys
-                         .zip(%w[emotion/sad.svg emotion/neutral.svg emotion/positive.svg])
+                         .zip(%w[emotion/negative.svg emotion/neutral.svg emotion/positive.svg])
                          .to_h
                          .with_indifferent_access
     end
