@@ -1,15 +1,8 @@
 - title '質問編集'
 - set_meta_tags description: '質問編集ページです。'
 
-header.page-header
-  .container
-    .page-header__inner
-      .page-header__start
-        h2.page-header__title
-          | Q&A・ペアワーク
-      .page-header__end
-
-= questions_and_pair_works_page_tabs
+= render 'questions_and_pair_works/questions_and_pair_works_header'
+hr.a-border
 .page-main
   header.page-main-header
   .container
