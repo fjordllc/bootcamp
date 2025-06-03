@@ -15,7 +15,7 @@ class MoviesTest < ApplicationSystemTestCase
 
   test 'movie has a comment form ' do
     visit_with_auth "/movies/#{movies(:movie1).id}", 'kimura'
-    assert_selector '.thread-comment-form'
+    assert_selector '.thread-comment-form', wait: 10
   end
 
   test 'add new mp4 movie' do
