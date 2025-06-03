@@ -5,14 +5,7 @@
 - else
   - set_meta_tags description: "#{@pair_work.user.long_name}さんが投稿した、ペアワーク募集「#{@pair_work.title}」のページです。このペアワーク募集に関連するプラクティスはありません。"
 
-header.page-header
-  .container
-    .page-header__inner
-      .page-header__start
-        .page-header__title
-          | Q&A・ペアワーク
-      .page-header__end
-= questions_and_pair_works_page_tabs
+= render 'questions_and_pair_works/questions_and_pair_works_header'
 .page-main
   header.page-main-header
     .container

@@ -1,14 +1,7 @@
 - title 'ペアワーク編集'
 - set_meta_tags description: 'ペアワーク編集ページです。'
 
-header.page-header
-  .container
-    .page-header__inner
-      .page-header__start
-        h2.page-header__title
-          | Q&A・ペアワーク
-      .page-header__end
-= questions_and_pair_works_page_tabs
+= render 'questions_and_pair_works/questions_and_pair_works_header'
 .page-main
   header.page-main-header
     .container

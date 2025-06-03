@@ -1,19 +1,7 @@
 - title @pair_works_property.title
 - set_meta_tags description: 'ペアワークの一覧です。'
 
-header.page-header
-  .container
-    .page-header__inner
-      .page-header__start
-        .page-header__title
-          | Q&A・ペアワーク
-      .page-header__end
-        .page-header-actions
-          .page-header-actions__items
-            .page-header-actions__item
-
-= questions_and_pair_works_page_tabs
-
+= render 'questions_and_pair_works/questions_and_pair_works_header'
 .page-main
   header.page-main-header
     .container
