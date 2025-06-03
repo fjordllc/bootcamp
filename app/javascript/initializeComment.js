@@ -79,7 +79,7 @@ function initializeComment(comment) {
   const deleteButton = comment.querySelector('.card-main-actions__muted-action')
   if (deleteButton) {
     deleteButton.addEventListener('click', () => {
-      if (window.confirm('本当に宜しいですか？')) {
+      if (window.confirm('削除してよろしいですか？')) {
         deleteComment(commentId)
       }
     })
