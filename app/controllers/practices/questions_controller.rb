@@ -4,18 +4,18 @@ class Practices::QuestionsController < ApplicationController
   def index
     @practice = Practice.find(params[:practice_id])
     @empty_message = empty_message
-    
+
     # Use same logic as API controller for consistency
     questions = case params[:target]
-               when 'solved'
-                 Question.solved
-               when 'not_solved'
-                 Question.not_solved.not_wip
-               else
-                 Question.all
-               end
+                when 'solved'
+                  Question.solved
+                when 'not_solved'
+                  Question.not_solved.not_wip
+                else
+                  Question.all
+                end
     questions = questions.where(practice_id: params[:practice_id])
-    
+
     @questions = questions
                  .with_avatar
                  .includes(:practice, :answers, :tags, :correct_answer)

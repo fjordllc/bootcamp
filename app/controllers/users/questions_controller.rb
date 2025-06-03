@@ -6,8 +6,8 @@ class Users::QuestionsController < ApplicationController
   def index
     @user = User.find(params[:user_id])
     @questions = @user.questions.includes(%i[correct_answer practice answers tag_taggings tags])
-                     .order(created_at: :desc)
-                     .page(params[:page])
+                      .order(created_at: :desc)
+                      .page(params[:page])
     @questions_property = QuestionsProperty.new('全ての質問', '質問はありません。')
   end
 end

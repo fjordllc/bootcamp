@@ -14,26 +14,26 @@ class QuestionsController < ApplicationController
   def index
     @tag = ActsAsTaggableOn::Tag.find_by(name: params[:tag])
     @tags = Question.all.all_tags
-    
+
     # Use same logic as API controller for consistency
     questions = case params[:target]
-               when 'solved'
-                 Question.solved
-               when 'not_solved'
-                 Question.not_solved.not_wip
-               else
-                 Question.all
-               end
+                when 'solved'
+                  Question.solved
+                when 'not_solved'
+                  Question.not_solved.not_wip
+                else
+                  Question.all
+                end
     questions = params[:practice_id].present? ? questions.where(practice_id: params[:practice_id]) : questions
     questions = params[:user_id].present? ? Question.where(user_id: params[:user_id]) : questions
     questions = questions.tagged_with(params[:tag]) if params[:tag]
-    
+
     @questions = questions
                  .with_avatar
                  .includes(:practice, :answers, :tags, :correct_answer)
                  .order(updated_at: :desc, id: :desc)
                  .page(params[:page])
-                 
+
     @questions_property = Question.generate_questions_property(params[:target])
   end
 
