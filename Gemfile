@@ -82,6 +82,7 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
 
   # not default
+  gem 'fixture_seed', '~> 0.4.2'
   gem 'pry-byebug'
   gem 'traceroute'
 end
