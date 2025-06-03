@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Talk::UserFilteringTest < ApplicationSystemTestCase
+class TalkUserFilteringTest < ApplicationSystemTestCase
   test 'a list of current students is displayed' do
     user = users(:hajime)
     decorated_user = ActiveDecorator::Decorator.instance.decorate(user)

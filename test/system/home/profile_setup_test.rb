@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Home::ProfileSetupTest < ApplicationSystemTestCase
+class HomeProfileSetupTest < ApplicationSystemTestCase
   test 'verify message presence of github_account registration' do
     visit_with_auth '/', 'hajime'
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'

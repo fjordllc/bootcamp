@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Home::LearningGrassTest < ApplicationSystemTestCase
+class HomeLearningGrassTest < ApplicationSystemTestCase
   test 'show the grass for student' do
     assert users(:kimura).student?
     visit_with_auth '/', 'kimura'

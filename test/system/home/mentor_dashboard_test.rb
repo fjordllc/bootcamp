@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Home::MentorDashboardTest < ApplicationSystemTestCase
+class HomeMentorDashboardTest < ApplicationSystemTestCase
   test 'mentor can products that are more than 4 days.' do
     visit_with_auth '/', 'mentormentaro'
     assert_text '6日以上経過（7）'

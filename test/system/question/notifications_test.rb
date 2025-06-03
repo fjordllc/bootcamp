@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Question::NotificationsTest < ApplicationSystemTestCase
+class QuestionNotificationsTest < ApplicationSystemTestCase
   test "mentor's watch-button is automatically on when new question is published" do
     visit_with_auth new_question_path, 'kimura'
     within 'form[name=question]' do

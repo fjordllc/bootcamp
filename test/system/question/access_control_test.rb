@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Question::AccessControlTest < ApplicationSystemTestCase
+class QuestionAccessControlTest < ApplicationSystemTestCase
   test 'admin can update and delete any questions' do
     question = questions(:question8)
     visit_with_auth question_path(question), 'komagata'

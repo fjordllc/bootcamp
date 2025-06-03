@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Question::AnswersTest < ApplicationSystemTestCase
+class QuestionAnswersTest < ApplicationSystemTestCase
   test 'permission decision best answer' do
     visit_with_auth new_question_path, 'kimura'
     within 'form[name=question]' do

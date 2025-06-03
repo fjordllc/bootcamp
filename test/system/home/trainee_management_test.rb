@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Home::TraineeManagementTest < ApplicationSystemTestCase
+class HomeTraineeManagementTest < ApplicationSystemTestCase
   test 'show trainee lists for adviser belonging a company' do
     visit_with_auth '/', 'senpai'
     assert_selector 'h2.card-header__title', text: '研修生'

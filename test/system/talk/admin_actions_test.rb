@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Talk::AdminActionsTest < ApplicationSystemTestCase
+class TalkAdminActionsTest < ApplicationSystemTestCase
   test 'push guraduation button in talk room when admin logined' do
     user = users(:kimura)
     visit_with_auth "/talks/#{user.talk.id}", 'komagata'

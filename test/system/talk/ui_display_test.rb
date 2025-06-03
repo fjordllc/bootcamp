@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Talk::UiDisplayTest < ApplicationSystemTestCase
+class TalkUiDisplayTest < ApplicationSystemTestCase
   test 'Displays a list of the 10 most recent reports' do
     user = users(:hajime)
     visit_with_auth "/talks/#{user.talk.id}", 'komagata'

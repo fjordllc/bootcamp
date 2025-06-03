@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Talk::RoomManagementTest < ApplicationSystemTestCase
+class TalkRoomManagementTest < ApplicationSystemTestCase
   test 'cannot access other users talk page' do
     visited_user = users(:hatsuno)
     visit_user = users(:mentormentaro)

@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Question::PracticeIntegrationTest < ApplicationSystemTestCase
+class QuestionPracticeIntegrationTest < ApplicationSystemTestCase
   test 'select box shows the practices that belong to a user course' do
     visit_with_auth questions_path(target: 'not_solved'), 'kimura'
     find('.choices__inner').click

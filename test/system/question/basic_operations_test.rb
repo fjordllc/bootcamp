@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Question::BasicOperationsTest < ApplicationSystemTestCase
+class QuestionBasicOperationsTest < ApplicationSystemTestCase
   test 'show listing unsolved questions' do
     visit_with_auth questions_path(target: 'not_solved'), 'kimura'
     assert_equal '未解決のQ&A | FBC', title

@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Home::WipContentTest < ApplicationSystemTestCase
+class HomeWipContentTest < ApplicationSystemTestCase
   test "show my wip's page's date on dashboard" do
     visit_with_auth '/', 'komagata'
     assert_text 'WIPで保存中'

@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Home::EventsTest < ApplicationSystemTestCase
+class HomeEventsTest < ApplicationSystemTestCase
   test 'show job hunting events on dashboard for all user' do
     travel_to Time.zone.local(2017, 4, 2, 10, 0, 0) do
       visit_with_auth '/', 'jobseeker'

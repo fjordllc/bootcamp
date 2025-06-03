@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Question::WipFeaturesTest < ApplicationSystemTestCase
+class QuestionWipFeaturesTest < ApplicationSystemTestCase
   test 'create a question through wip' do
     visit_with_auth new_question_path, 'kimura'
     within 'form[name=question]' do

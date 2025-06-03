@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Home::NicoNicoCalendarTest < ApplicationSystemTestCase
+class HomeNicoNicoCalendarTest < ApplicationSystemTestCase
   test 'show the Nico Nico calendar for students' do
     visit_with_auth '/', 'hajime'
     assert_text 'ニコニコカレンダー'

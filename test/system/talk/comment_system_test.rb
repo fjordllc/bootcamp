@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Talk::CommentSystemTest < ApplicationSystemTestCase
+class TalkCommentSystemTest < ApplicationSystemTestCase
   test 'a talk room is shown up on action uncompleted tab when users except admin comments there' do
     user = users(:kimura)
     decorated_user = ActiveDecorator::Decorator.instance.decorate(user)

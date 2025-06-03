@@ -3,7 +3,7 @@
 require 'application_system_test_case'
 require 'supports/tag_helper'
 
-class Question::TaggingTest < ApplicationSystemTestCase
+class QuestionTaggingTest < ApplicationSystemTestCase
   include TagHelper
 
   test 'alert when enter tag with space on creation question' do

@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Home::BasicAccessTest < ApplicationSystemTestCase
+class HomeBasicAccessTest < ApplicationSystemTestCase
   test 'GET / without sign in' do
     logout
     visit '/'

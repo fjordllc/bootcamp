@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Question::UiFeaturesTest < ApplicationSystemTestCase
+class QuestionUiFeaturesTest < ApplicationSystemTestCase
   test 'Question display 25 items correctly' do
     visit_with_auth questions_path(target: 'solved'), 'kimura'
     50.times do |n|

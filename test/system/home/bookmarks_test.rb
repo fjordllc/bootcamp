@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Home::BookmarksTest < ApplicationSystemTestCase
+class HomeBookmarksTest < ApplicationSystemTestCase
   test 'show the five latest bookmarks on dashboard' do
     visit_with_auth "/questions/#{questions(:question1).id}", 'machida'
     find('#bookmark-button').click
