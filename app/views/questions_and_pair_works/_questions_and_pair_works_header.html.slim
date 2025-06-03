@@ -1,0 +1,29 @@
+- unless Rails.env.production?
+  header.page-header
+    .container
+      .page-header__inner
+        .page-header__start
+          h2.page-header__title
+            | Q&A・ペアワーク
+        .page-header__end
+  = questions_and_pair_works_page_tabs
+- else
+  header.page-header
+    .container
+      .page-header__inner
+        .page-header__start
+          h2.page-header__title
+            | Q&A
+        .page-header__end
+          .page-header-actions
+            ul.page-header-actions__items
+              - unless params[:action] == 'new'
+                li.page-header-actions__item
+                  = link_to new_question_path, class: 'a-button is-md is-secondary is-block' do
+                    i.fa-regular.fa-plus
+                    span
+                      | 質問する
+              - unless params[:action] == 'index'
+                li.page-header-actions__item
+                  = link_to questions_path(target: 'not_solved'), class: 'a-button is-md is-secondary is-block is-back' do
+                    | Q&A一覧
