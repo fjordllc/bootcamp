@@ -1,13 +1,4 @@
-- unless Rails.env.production?
-  header.page-header
-    .container
-      .page-header__inner
-        .page-header__start
-          h2.page-header__title
-            | Q&A・ペアワーク
-        .page-header__end
-  = questions_and_pair_works_page_tabs
-- else
+- if Rails.env.production?
   header.page-header
     .container
       .page-header__inner
@@ -27,3 +18,12 @@
                 li.page-header-actions__item
                   = link_to questions_path(target: 'not_solved'), class: 'a-button is-md is-secondary is-block is-back' do
                     | Q&A一覧
+- else
+  header.page-header
+    .container
+      .page-header__inner
+        .page-header__start
+          h2.page-header__title
+            | Q&A・ペアワーク
+        .page-header__end
+  = questions_and_pair_works_page_tabs
