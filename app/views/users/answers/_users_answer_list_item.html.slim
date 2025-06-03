@@ -33,7 +33,7 @@
             .card-list-item-meta__item
               time.a-meta datetime=answer.updated_at pubdate='pubdate'
                 = l(answer.updated_at, format: :long_with_day)
-      - if answer.type == "CorrectAnswer"
+      - if answer.type == 'CorrectAnswer'
         .answer-badge
           .answer-badge__icon
             i.fa-solid.fa-star
