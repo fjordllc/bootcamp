@@ -4,6 +4,7 @@ import MarkdownInitializer from 'markdown-initializer'
 import { initializeComment, toggleVisibility } from './initializeComment.js'
 import { initializeReaction } from './reaction.js'
 import { toast } from './vanillaToast.js'
+import { setWatchable } from './setWatchable.js'
 import commentCheckable from './comment-checkable.js'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -138,14 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const previousLatest = comments.querySelector('.is-latest')
     if (previousLatest) previousLatest.classList.remove('is-latest')
     newCommentElement.classList.add('is-latest')
-
-    const event = new CustomEvent('comment-posted', {
-      detail: {
-        watchableId: commentableId,
-        watchableType: commentableType
-      }
-    })
-    document.dispatchEvent(event)
   }
 
   const createComment = async () => {
@@ -184,6 +177,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       savedComment = editorTextarea.value
       await createComment()
+
+      if (document.querySelector('.watch-toggle'))
+        setWatchable(commentableId, commentableType)
 
       if (checkAfterSave) {
         await performCheck()
