@@ -134,8 +134,11 @@ class ProductCommentsTest < ApplicationSystemTestCase
     # Wait for page content to be fully loaded before checking for button
     assert_selector '.page-content'
 
-    # Wait for the product checker button (担当する) to become available
-    assert_button '担当する'
+    # Wait for Vue.js component to initialize and render the product checker button
+    assert_selector '#js-check', wait: 10
+
+    # Wait for the product checker button (担当する) to become available and enabled
+    assert_button '担当する', wait: 10
 
     accept_confirm do
       fill_in 'new_comment[description]', with: 'comment test'
