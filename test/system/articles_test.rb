@@ -382,7 +382,7 @@ class ArticlesTest < ApplicationSystemTestCase
   test 'share button Facebook' do
     visit "/articles/#{@article.id}"
 
-    within find('.fb-share-button', match: :first) do
+    within first('.fb-share-button') do
       within_frame do
         assert_selector "a[href*='u=https%3A%2F%2Fbootcamp.fjord.jp%2Farticles%2F#{@article.id}']"
       end
@@ -392,7 +392,7 @@ class ArticlesTest < ApplicationSystemTestCase
   test 'share button Hatena' do
     visit "/articles/#{@article.id}"
 
-    within_frame(find('.hatena-bookmark-button-frame', match: :first)) do
+    within_frame(first('.hatena-bookmark-button-frame')) do
       assert_selector "a[href='https://b.hatena.ne.jp/entry/s/bootcamp.fjord.jp/articles/#{@article.id}#bbutton']"
     end
   end

@@ -5,7 +5,20 @@ require 'application_system_test_case'
 class MailNotificationsTest < ApplicationSystemTestCase
   test "update user's mail_notification" do
     visit "/users/#{users(:kimura).id}/mail_notification/edit?token=#{users(:kimura).unsubscribe_email_token}"
-    assert_selector '.unauthorized', text: 'メール通知をオフにしますか？'
+
+    # Ensure the page loads completely by waiting for title
+    assert_selector 'title', text: 'メール通知解除の確認', visible: false
+
+    # Wait for page body to load first
+    assert_selector '.page-body'
+
+    # Wait for unauthorized section to appear with more specific targeting
+    assert_selector 'article.unauthorized'
+    assert_text 'メール通知をオフにしますか？'
+
+    # Ensure the actions section is loaded before interacting
+    assert_selector '.unauthorized-actions'
+    assert_selector '.unauthorized-actions a', text: 'オフにする'
 
     within '.unauthorized-actions' do
       click_link 'オフにする'

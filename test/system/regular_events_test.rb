@@ -152,9 +152,12 @@ class RegularEventsTest < ApplicationSystemTestCase
     assert_text '定期イベントを作成しました。'
 
     visit '/regular_events'
-    within '.card-list.a-card' do
-      assert_text 'その他'
-    end
+
+    # Wait for page to load and ensure elements are stable
+    assert_selector '.card-list.a-card'
+
+    # Use a more specific assertion to avoid stale element reference
+    assert_selector '.card-list.a-card', text: 'その他'
   end
 
   test 'show participation link during opening' do

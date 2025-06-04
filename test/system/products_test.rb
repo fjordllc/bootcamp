@@ -188,7 +188,9 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'product has a comment form ' do
-    visit_with_auth "/products/#{products(:product1).id}", 'mentormentaro'
+    product = ensure_valid_product(products(:product1))
+    visit_with_auth "/products/#{product.id}", 'mentormentaro'
+    wait_for_comment_form
     assert_selector '.thread-comment-form'
   end
 
@@ -359,12 +361,14 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'add comment setting checker' do
-    visit_with_auth "/products/#{products(:product1).id}", 'komagata'
-    fill_in 'new_comment[description]', with: 'コメントしたら担当になるテスト'
-    click_button 'コメントする'
+    product = ensure_valid_product(products(:product1))
+    visit_with_auth "/products/#{product.id}", 'komagata'
+    wait_for_comment_form
+    post_comment('コメントしたら担当になるテスト')
     accept_alert '提出物の担当になりました。'
     assert_text 'コメントしたら担当になるテスト'
     visit current_path
+    wait_for_javascript_components
     assert_text '担当から外れる'
     assert_no_text '担当する'
   end
@@ -636,7 +640,7 @@ class ProductsTest < ApplicationSystemTestCase
 
     travel_to Time.zone.local(2021, 4, 1, 0, 0, 0) do
       visit_with_auth '/products', 'mentormentaro'
-      find('.is-products.loaded', wait: 10)
+      find('.is-products.loaded')
       assert_selector '.a-meta__label', text: '研修終了日'
       assert_selector '.a-meta__value', text: '2022年04月01日'
       assert_selector '.a-meta__value', text: '（あと365日）'
@@ -662,7 +666,7 @@ class ProductsTest < ApplicationSystemTestCase
 
     travel_to Time.zone.local(2021, 4, 1, 0, 0, 0) do
       visit_with_auth '/products', 'adminonly'
-      find('.is-products.loaded', wait: 10)
+      find('.is-products.loaded')
       assert_selector '.a-meta__label', text: '研修終了日'
       assert_selector '.a-meta__value', text: '2022年04月01日'
       assert_selector '.a-meta__value', text: '（あと365日）'
@@ -688,7 +692,7 @@ class ProductsTest < ApplicationSystemTestCase
 
     travel_to Time.zone.local(2021, 4, 1, 0, 0, 0) do
       visit_with_auth '/products', 'advijirou'
-      find('.is-products.loaded', wait: 10)
+      find('.is-products.loaded')
       assert_no_selector '.a-meta__label', text: '研修終了日'
       assert_no_selector '.a-meta__value', text: '2022年04月01日'
       assert_no_selector '.a-meta__value', text: '（あと365日）'

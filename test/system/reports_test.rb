@@ -693,7 +693,7 @@ class ReportsTest < ApplicationSystemTestCase
     click_button '提出'
 
     visit_with_auth reports_path, 'kimura'
-    within('.card-list-item__user', match: :first) do
+    within(first('.card-list-item__user')) do
       assert_selector('span.a-user-role.is-mentor')
     end
   end
