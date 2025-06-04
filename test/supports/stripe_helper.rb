@@ -2,7 +2,7 @@
 
 module StripeHelper
   def fill_stripe_element(card, exp, cvc)
-    card_iframe = find('iframe[name^="__privateStripeFrame"]', wait: 10)
+    card_iframe = find('iframe[name^="__privateStripeFrame"]')
 
     within_frame card_iframe do
       wait_and_fill_field('cardnumber', card)
@@ -10,13 +10,13 @@ module StripeHelper
       wait_and_fill_field('cvc', cvc)
     end
 
-    page.has_no_css?('iframe[name^="__privateStripeFrame"]', wait: 5)
+    page.has_no_css?('iframe[name^="__privateStripeFrame"]')
   end
 
   private
 
   def wait_and_fill_field(field_name, value)
-    field = find_field(field_name, wait: 10)
+    field = find_field(field_name)
     wait_until_field_ready(field)
 
     value.chars.each do |char|
