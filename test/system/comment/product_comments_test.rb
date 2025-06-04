@@ -119,10 +119,10 @@ class ProductCommentsTest < ApplicationSystemTestCase
     # The button might be rendered by different components depending on the layout
     assert_button '担当する', visible: true
 
-    accept_confirm ('提出物の担当になりました。')do
-      accept_confirm ('提出物を確認済にしてよろしいですか？')do
-      fill_in 'new_comment[description]', with: 'comment test'
-      click_button '合格にする'
+    accept_confirm('提出物の担当になりました。') do
+      accept_confirm('提出物を確認済にしてよろしいですか？') do
+        fill_in 'new_comment[description]', with: 'comment test'
+        click_button '合格にする'
       end
     end
 
