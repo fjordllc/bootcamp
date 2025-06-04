@@ -73,16 +73,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const validateBeforeSave = async (checkAfterSave) => {
-    if (commentableType === 'Report' && isMentor && !checkAfterSave) {
-      const alreadyChecked = await commentCheckable.isChecked(
-        commentableType,
-        commentableId
-      )
-      if (!alreadyChecked) {
-        return window.confirm('日報を確認済みにしていませんがよろしいですか？')
-      }
+    if (commentableType !== 'Report' || !isMentor || checkAfterSave) {
+      return true
     }
-    return true
+    const alreadyChecked = await commentCheckable.isChecked(
+      commentableType,
+      commentableId
+    )
+    if (alreadyChecked) return true
+    return window.confirm('日報を確認済みにしていませんがよろしいですか？')
   }
 
   const assignIfRequired = async () => {
