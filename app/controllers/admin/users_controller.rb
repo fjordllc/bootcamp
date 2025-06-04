@@ -25,6 +25,16 @@ class Admin::UsersController < AdminController
       else
         user_scope
       end
+    @payment_method = params[:payment_method]
+    user_scope =
+      case @payment_method
+      when 'card'
+        user_scope.where(trainee: true, invoice_payment: false)
+      when 'invoice'
+        user_scope.where(trainee: true, invoice_payment: true)
+      else
+        user_scope
+      end
     @users = user_scope.with_attached_avatar
                        .preload(:company, :course)
                        .order_by_counts(params[:order_by] || 'id', @direction)
