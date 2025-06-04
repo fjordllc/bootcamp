@@ -22,11 +22,8 @@ class ReportCommentsTest < ApplicationSystemTestCase
 
   test 'post new comment with mention for report' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
-    if has_css?('#comments.loaded')
-      find('#comments.loaded')
-    else
-      find('.thread-comment-form, .thread-comment')
-    end
+
+    wait_for_comments
 
     Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
       until find('#js-new-comment').value == 'login_nameの補完テスト: @komagata '
@@ -42,11 +39,8 @@ class ReportCommentsTest < ApplicationSystemTestCase
 
   test 'post new comment with mention to mentor for report' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
-    if has_css?('#comments.loaded')
-      find('#comments.loaded')
-    else
-      find('.thread-comment-form, .thread-comment')
-    end
+
+    wait_for_comments
 
     Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
       until find('#js-new-comment').value == 'login_nameの補完テスト: @mentor '
@@ -66,11 +60,7 @@ class ReportCommentsTest < ApplicationSystemTestCase
       find('.stamp.stamp-approve')
     end
 
-    if has_css?('#comments.loaded')
-      find('#comments.loaded')
-    else
-      find('.thread-comment-form, .thread-comment')
-    end
+    wait_for_comments
 
     Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
       until find('#js-new-comment').value == '絵文字の補完テスト: 😺 '
@@ -89,11 +79,8 @@ class ReportCommentsTest < ApplicationSystemTestCase
       find('.stamp.stamp-approve')
     end
 
-    if has_css?('#comments.loaded')
-      find('#comments.loaded')
-    else
-      find('.thread-comment-form, .thread-comment')
-    end
+    wait_for_comments
+
     find('#js-new-comment').set('画像付きで説明します。 ![Image](https://example.com/test.png)')
     click_button 'コメントする'
     assert_text '画像付きで説明します。'
@@ -107,11 +94,8 @@ class ReportCommentsTest < ApplicationSystemTestCase
       find('.stamp.stamp-approve')
     end
 
-    if has_css?('#comments.loaded')
-      find('#comments.loaded')
-    else
-      find('.thread-comment-form, .thread-comment')
-    end
+    wait_for_comments
+
     find('#js-new-comment').set('[![Image](https://example.com/test.png)](https://example.com)')
     click_button 'コメントする'
     assert_match '<a href="https://example.com"><img src="https://example.com/test.png" alt="Image"></a>', page.body
@@ -163,12 +147,7 @@ class ReportCommentsTest < ApplicationSystemTestCase
   test 'show confirm dialog if report is not confirmed' do
     visit_with_auth "/reports/#{reports(:report2).id}", 'machida'
 
-    # Wait for page to load completely
-    if has_css?('#comments.loaded')
-      find('#comments.loaded')
-    else
-      find('.thread-comment-form, .thread-comment')
-    end
+    wait_for_comments
 
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'comment test')

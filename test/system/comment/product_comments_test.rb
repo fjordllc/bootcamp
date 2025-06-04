@@ -26,14 +26,7 @@ class ProductCommentsTest < ApplicationSystemTestCase
   test 'text change "see more comments" button by remaining comment amount' do
     visit_with_auth product_path(users(:hatsuno).products.first.id), 'komagata'
 
-    # Wait for comments to load completely
-    # Wait for comments section to load
-    if has_css?('#comments.loaded')
-      find('#comments.loaded')
-    else
-      # Fallback: wait for comments section to be present
-      find('#comments')
-    end
+    wait_for_comments
 
     # Wait for the button to appear with correct text
     assert_selector '.a-button.is-lg.is-text.is-block', text: '前のコメント（ 8 / 12 ）'
@@ -52,14 +45,7 @@ class ProductCommentsTest < ApplicationSystemTestCase
   test 'comments added 8 or within the last 8' do
     visit_with_auth product_path(users(:hatsuno).products.first.id), 'komagata'
 
-    # Wait for comments to load completely
-    # Wait for comments section to load
-    if has_css?('#comments.loaded')
-      find('#comments.loaded')
-    else
-      # Fallback: wait for comments section to be present
-      find('#comments')
-    end
+    wait_for_comments
 
     # Wait for all comments to be rendered
     assert_selector '.thread-comment', minimum: 1
@@ -92,14 +78,7 @@ class ProductCommentsTest < ApplicationSystemTestCase
     unconfirmed_product.update!(checker_id: nil)
     visit_with_auth product_url(unconfirmed_product), 'machida'
 
-    # Wait for page to fully load
-    # Wait for comments section to load
-    if has_css?('#comments.loaded')
-      find('#comments.loaded')
-    else
-      # Fallback: wait for comments section to be present
-      find('#comments')
-    end
+    wait_for_comments
 
     click_button '担当する'
     assert_button '担当から外れる'
@@ -122,23 +101,14 @@ class ProductCommentsTest < ApplicationSystemTestCase
     unassigned_product.update!(checker_id: nil)
     visit_with_auth product_url(unassigned_product), 'machida'
 
-    # Wait for page to fully load
-    # Wait for comments section to load
-    if has_css?('#comments.loaded')
-      find('#comments.loaded')
-    else
-      # Fallback: wait for comments section to be present
-      find('#comments')
-    end
+    wait_for_comments
 
     # Wait for page content to be fully loaded before checking for button
     assert_selector '.page-content'
 
-    # Wait for Vue.js component to initialize and render the product checker button
-    assert_selector '#js-check', wait: 10
-
-    # Wait for the product checker button (担当する) to become available and enabled
-    assert_button '担当する', wait: 10
+    # Wait for the product checker button (担当する) to become available
+    # The button might be rendered by different components depending on the layout
+    assert_button '担当する'
 
     accept_confirm do
       fill_in 'new_comment[description]', with: 'comment test'
