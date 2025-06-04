@@ -32,4 +32,7 @@
                 .card-main-actions__item.is-only-mentor
                   button.a-button.is-sm.is-danger.is-block disabled=true
                     i.fa-solid.fa-check
-                    | 合格にする
+                    - if commentable_type == 'Report'
+                      | 確認OKにする
+                    - else
+                      | 合格にする
