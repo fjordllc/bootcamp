@@ -44,7 +44,7 @@ class User::AreasTest < ApplicationSystemTestCase
 
   test 'show user icons in area card' do
     visit_with_auth '/users/areas', 'kimura'
-    within '.user-group', match: :first do
+    within first('.user-group') do
       assert_selector 'img.a-user-icon', count: 3
       assert_selector 'img.a-user-icon[data-login-name="kimura"]'
       assert_selector 'img.a-user-icon[data-login-name="adminonly"]'

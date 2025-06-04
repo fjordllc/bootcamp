@@ -31,7 +31,9 @@ class PagesTest < ApplicationSystemTestCase
   end
 
   test 'page has a comment form ' do
-    visit_with_auth "/pages/#{pages(:page1).id}", 'kimura'
+    page = pages(:page1)
+    visit_with_auth "/pages/#{page.id}", 'kimura'
+    wait_for_comment_form
     assert_selector '.thread-comment-form'
   end
 
@@ -143,13 +145,15 @@ class PagesTest < ApplicationSystemTestCase
   end
 
   test 'show comment count' do
-    visit_with_auth "/pages/#{pages(:page1).id}", 'kimura'
+    page = pages(:page1)
+    visit_with_auth "/pages/#{page.id}", 'kimura'
     assert_selector '#comment_count', text: 0
 
-    fill_in 'new_comment[description]', with: 'コメント数表示のテストです。'
-    click_button 'コメントする'
+    wait_for_comment_form
+    post_comment('コメント数表示のテストです。')
 
     visit current_path
+    wait_for_javascript_components
     assert_selector '#comment_count', text: 1
   end
 

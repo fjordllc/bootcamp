@@ -39,11 +39,11 @@ class InquiryCommentsTest < ApplicationSystemTestCase
   test 'post new comment with emoji for inquiry' do
     visit_with_auth "/admin/inquiries/#{inquiries(:inquiry1).id}", 'komagata'
     # Wait for comments section to load
-    if has_css?('#comments.loaded', wait: 2)
+    if has_css?('#comments.loaded')
       find('#comments.loaded')
     else
       # Fallback: wait for comments section or form to be present
-      find('.thread-comment-form, .thread-comment', wait: 10)
+      find('.thread-comment-form, .thread-comment')
     end
 
     Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
@@ -60,11 +60,11 @@ class InquiryCommentsTest < ApplicationSystemTestCase
   test 'post new comment with image for inquiry' do
     visit_with_auth "/admin/inquiries/#{inquiries(:inquiry1).id}", 'komagata'
     # Wait for comments section to load
-    if has_css?('#comments.loaded', wait: 2)
+    if has_css?('#comments.loaded')
       find('#comments.loaded')
     else
       # Fallback: wait for comments section or form to be present
-      find('.thread-comment-form, .thread-comment', wait: 10)
+      find('.thread-comment-form, .thread-comment')
     end
     find('#js-new-comment').set('画像付きで説明します。 ![Image](https://example.com/test.png)')
     click_button 'コメントする'
@@ -76,11 +76,11 @@ class InquiryCommentsTest < ApplicationSystemTestCase
   test 'post new comment with linked image for inquiry' do
     visit_with_auth "/admin/inquiries/#{inquiries(:inquiry1).id}", 'komagata'
     # Wait for comments section to load
-    if has_css?('#comments.loaded', wait: 2)
+    if has_css?('#comments.loaded')
       find('#comments.loaded')
     else
       # Fallback: wait for comments section or form to be present
-      find('.thread-comment-form, .thread-comment', wait: 10)
+      find('.thread-comment-form, .thread-comment')
     end
     find('#js-new-comment').set('[![Image](https://example.com/test.png)](https://example.com)')
     click_button 'コメントする'
@@ -145,11 +145,11 @@ class InquiryCommentsTest < ApplicationSystemTestCase
   test 'comment url is copied when click its updated_time at inquiry' do
     visit_with_auth "/admin/inquiries/#{inquiries(:inquiry1).id}", 'komagata'
     # Wait for comments section to load
-    if has_css?('#comments.loaded', wait: 2)
+    if has_css?('#comments.loaded')
       find('#comments.loaded')
     else
       # Fallback: wait for comments section or form to be present
-      find('.thread-comment-form, .thread-comment', wait: 10)
+      find('.thread-comment-form, .thread-comment')
     end
     first(:css, '.thread-comment__created-at').click
     # 参考：https://gist.github.com/KonnorRogers/5fe937ee60695ff1d227f18fe4b1d5c4

@@ -28,25 +28,25 @@ class ProductCommentsTest < ApplicationSystemTestCase
 
     # Wait for comments to load completely
     # Wait for comments section to load
-    if has_css?('#comments.loaded', wait: 2)
+    if has_css?('#comments.loaded')
       find('#comments.loaded')
     else
       # Fallback: wait for comments section to be present
-      find('#comments', wait: 10)
+      find('#comments')
     end
 
     # Wait for the button to appear with correct text
-    assert_selector '.a-button.is-lg.is-text.is-block', text: '前のコメント（ 8 / 12 ）', wait: 10
+    assert_selector '.a-button.is-lg.is-text.is-block', text: '前のコメント（ 8 / 12 ）'
 
     find('.a-button.is-lg.is-text.is-block').click
 
     # Wait for button text to update
-    assert_selector '.a-button.is-lg.is-text.is-block', text: '前のコメント（ 4 ）', wait: 10
+    assert_selector '.a-button.is-lg.is-text.is-block', text: '前のコメント（ 4 ）'
 
     find('.a-button.is-lg.is-text.is-block').click
 
     # Wait for button to disappear
-    assert_no_selector '.a-button.is-lg.is-text.is-block', wait: 10
+    assert_no_selector '.a-button.is-lg.is-text.is-block'
   end
 
   test 'comments added 8 or within the last 8' do
@@ -54,15 +54,15 @@ class ProductCommentsTest < ApplicationSystemTestCase
 
     # Wait for comments to load completely
     # Wait for comments section to load
-    if has_css?('#comments.loaded', wait: 2)
+    if has_css?('#comments.loaded')
       find('#comments.loaded')
     else
       # Fallback: wait for comments section to be present
-      find('#comments', wait: 10)
+      find('#comments')
     end
 
     # Wait for all comments to be rendered
-    assert_selector '.thread-comment', minimum: 1, wait: 10
+    assert_selector '.thread-comment', minimum: 1
 
     assert_text '提出物のコメント20です'
     assert_text '提出物のコメント13です。'
@@ -71,7 +71,7 @@ class ProductCommentsTest < ApplicationSystemTestCase
     find('.a-button.is-lg.is-text.is-block').click
 
     # Wait for new comments to load
-    assert_text '提出物のコメント12です。', wait: 10
+    assert_text '提出物のコメント12です。'
 
     assert_text '提出物のコメント20です'
     assert_text '提出物のコメント5です。'
@@ -80,7 +80,7 @@ class ProductCommentsTest < ApplicationSystemTestCase
     find('.a-button.is-lg.is-text.is-block').click
 
     # Wait for all comments to load
-    assert_text '提出物のコメント4です。', wait: 10
+    assert_text '提出物のコメント4です。'
 
     assert_text '提出物のコメント20です'
     assert_text '提出物のコメント1です。'
@@ -94,11 +94,11 @@ class ProductCommentsTest < ApplicationSystemTestCase
 
     # Wait for page to fully load
     # Wait for comments section to load
-    if has_css?('#comments.loaded', wait: 2)
+    if has_css?('#comments.loaded')
       find('#comments.loaded')
     else
       # Fallback: wait for comments section to be present
-      find('#comments', wait: 10)
+      find('#comments')
     end
 
     click_button '担当する'
@@ -110,7 +110,7 @@ class ProductCommentsTest < ApplicationSystemTestCase
     end
 
     # Wait for comment to be displayed first
-    assert_selector '.thread-comment__description', text: 'comment test', wait: 10
+    assert_selector '.thread-comment__description', text: 'comment test'
 
     # Check that product is confirmed in database
     assert unconfirmed_product.reload.checked?
@@ -124,13 +124,17 @@ class ProductCommentsTest < ApplicationSystemTestCase
 
     # Wait for page to fully load
     # Wait for comments section to load
-    if has_css?('#comments.loaded', wait: 2)
+    if has_css?('#comments.loaded')
       find('#comments.loaded')
     else
       # Fallback: wait for comments section to be present
-      find('#comments', wait: 10)
+      find('#comments')
     end
 
+    # Wait for page content to be fully loaded before checking for button
+    assert_selector '.page-content'
+
+    # Wait for the product checker button (担当する) to become available
     assert_button '担当する'
 
     accept_confirm do
@@ -139,7 +143,7 @@ class ProductCommentsTest < ApplicationSystemTestCase
     end
 
     # Wait for comment to be displayed first
-    assert_selector '.thread-comment__description', text: 'comment test', wait: 10
+    assert_selector '.thread-comment__description', text: 'comment test'
 
     # Check that product is confirmed in database
     assert unassigned_product.reload.checked?

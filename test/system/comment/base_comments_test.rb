@@ -16,7 +16,7 @@ class BaseCommentsTest < ApplicationSystemTestCase
   test 'comment form found in /reports/:report_id' do
     visit_with_auth report_path(users(:komagata).reports.first), 'komagata'
     # Wait for page to load
-    find('.thread-comment-form', wait: 10)
+    find('.thread-comment-form')
     assert has_field?('new_comment[description]')
   end
 
@@ -30,8 +30,16 @@ class BaseCommentsTest < ApplicationSystemTestCase
 
   test 'edit comment form has comment tab and preview tab' do
     visit_with_auth "/reports/#{reports(:report3).id}", 'komagata'
-    within('.thread-comment:first-child') do
-      click_button '編集'
+
+    # Wait for comments to load completely
+    assert_selector '.thread-comment:first-child'
+
+    # Click edit button by text to avoid stale element issues
+    page.find('button', text: '編集', match: :first).click
+
+    # Wait for edit form to appear and check for tabs within the comment edit form
+    assert_selector '.thread-comment-form .a-form-tabs'
+    within('.thread-comment-form .a-form-tabs') do
       assert_text 'コメント'
       assert_text 'プレビュー'
     end
@@ -41,10 +49,10 @@ class BaseCommentsTest < ApplicationSystemTestCase
     visit_with_auth "/reports/#{reports(:report3).id}", 'komagata'
 
     # Wait for form to load
-    find('.thread-comment-form__form', wait: 10)
+    find('.thread-comment-form__form')
 
     # Wait for tabs to be active
-    assert_selector '.a-form-tabs__tab.is-active', text: 'コメント', wait: 10
+    assert_selector '.a-form-tabs__tab.is-active', text: 'コメント'
 
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
@@ -56,7 +64,7 @@ class BaseCommentsTest < ApplicationSystemTestCase
     click_button 'コメントする'
 
     # Wait for comment to be posted and tab to switch back
-    assert_text 'test', wait: 10
+    assert_text 'test'
     assert_selector '.a-form-tabs__tab.is-active', text: 'コメント', wait: 5
   end
 
@@ -105,11 +113,11 @@ class BaseCommentsTest < ApplicationSystemTestCase
   test 'comment url is copied when click its updated_time' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
     # Wait for comments section to load
-    if has_css?('#comments.loaded', wait: 2)
+    if has_css?('#comments.loaded')
       find('#comments.loaded')
     else
       # Fallback: wait for comments section or form to be present
-      find('.thread-comment-form, .thread-comment', wait: 10)
+      find('.thread-comment-form, .thread-comment')
     end
     first(:css, '.thread-comment__created-at').click
     # 参考：https://gist.github.com/ParamagicDev/5fe937ee60695ff1d227f18fe4b1d5c4

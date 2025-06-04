@@ -22,12 +22,10 @@ class ReportCommentsTest < ApplicationSystemTestCase
 
   test 'post new comment with mention for report' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
-    # Wait for comments section to load
-    if has_css?('#comments.loaded', wait: 2)
+    if has_css?('#comments.loaded')
       find('#comments.loaded')
     else
-      # Fallback: wait for comments section or form to be present
-      find('.thread-comment-form, .thread-comment', wait: 10)
+      find('.thread-comment-form, .thread-comment')
     end
 
     Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
@@ -44,12 +42,10 @@ class ReportCommentsTest < ApplicationSystemTestCase
 
   test 'post new comment with mention to mentor for report' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
-    # Wait for comments section to load
-    if has_css?('#comments.loaded', wait: 2)
+    if has_css?('#comments.loaded')
       find('#comments.loaded')
     else
-      # Fallback: wait for comments section or form to be present
-      find('.thread-comment-form, .thread-comment', wait: 10)
+      find('.thread-comment-form, .thread-comment')
     end
 
     Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
@@ -70,12 +66,10 @@ class ReportCommentsTest < ApplicationSystemTestCase
       find('.stamp.stamp-approve')
     end
 
-    # Wait for comments section to load
-    if has_css?('#comments.loaded', wait: 2)
+    if has_css?('#comments.loaded')
       find('#comments.loaded')
     else
-      # Fallback: wait for comments section or form to be present
-      find('.thread-comment-form, .thread-comment', wait: 10)
+      find('.thread-comment-form, .thread-comment')
     end
 
     Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
@@ -95,12 +89,10 @@ class ReportCommentsTest < ApplicationSystemTestCase
       find('.stamp.stamp-approve')
     end
 
-    # Wait for comments section to load
-    if has_css?('#comments.loaded', wait: 2)
+    if has_css?('#comments.loaded')
       find('#comments.loaded')
     else
-      # Fallback: wait for comments section or form to be present
-      find('.thread-comment-form, .thread-comment', wait: 10)
+      find('.thread-comment-form, .thread-comment')
     end
     find('#js-new-comment').set('画像付きで説明します。 ![Image](https://example.com/test.png)')
     click_button 'コメントする'
@@ -115,12 +107,10 @@ class ReportCommentsTest < ApplicationSystemTestCase
       find('.stamp.stamp-approve')
     end
 
-    # Wait for comments section to load
-    if has_css?('#comments.loaded', wait: 2)
+    if has_css?('#comments.loaded')
       find('#comments.loaded')
     else
-      # Fallback: wait for comments section or form to be present
-      find('.thread-comment-form, .thread-comment', wait: 10)
+      find('.thread-comment-form, .thread-comment')
     end
     find('#js-new-comment').set('[![Image](https://example.com/test.png)](https://example.com)')
     click_button 'コメントする'
@@ -129,23 +119,24 @@ class ReportCommentsTest < ApplicationSystemTestCase
 
   test 'edit the comment for report' do
     visit_with_auth "/reports/#{reports(:report3).id}", 'komagata'
-    within('.thread-comment:first-child') do
-      click_button '編集'
-      within(:css, '.thread-comment-form__form') do
-        fill_in('comment[description]', with: 'edit test')
-      end
-      click_button '保存する'
-    end
+
+    first('button', text: '編集').click
+    fill_in 'comment[description]', with: 'edit test'
+    click_button '保存する'
+
     assert_text 'edit test'
+    assert_no_text 'どういう教材がいいんでしょうかね？'
   end
 
   test 'destroy the comment for report' do
     visit_with_auth "/reports/#{reports(:report3).id}", 'komagata'
-    within('.thread-comment:first-child') do
-      accept_alert do
-        click_button('削除')
-      end
+
+    assert_selector '.thread-comment:first-child'
+
+    accept_alert do
+      page.find('button', text: '削除', match: :first).click
     end
+
     assert_no_text 'どういう教材がいいんでしょうかね？'
   end
 
@@ -153,12 +144,10 @@ class ReportCommentsTest < ApplicationSystemTestCase
     visit_with_auth "/reports/#{reports(:report2).id}", 'machida'
 
     # Wait for page to fully load
-    # Wait for comments section to load
-    if has_css?('#comments.loaded', wait: 2)
+    if has_css?('#comments.loaded')
       find('#comments.loaded')
     else
-      # Fallback: wait for comments section or form to be present
-      find('.thread-comment-form, .thread-comment', wait: 10)
+      find('.thread-comment-form, .thread-comment')
     end
 
     assert_text '確認OKにする'
@@ -167,10 +156,7 @@ class ReportCommentsTest < ApplicationSystemTestCase
     end
     click_button '確認OKにする'
 
-    # Wait for comment to be displayed first
-    assert_selector '.thread-comment__description', text: 'comment test', wait: 10
-
-    # Check that report is confirmed in database
+    assert_selector '.thread-comment__description', text: 'comment test'
     assert reports(:report2).reload.checked?
   end
 
@@ -178,20 +164,17 @@ class ReportCommentsTest < ApplicationSystemTestCase
     visit_with_auth "/reports/#{reports(:report2).id}", 'machida'
 
     # Wait for page to load completely
-    # Wait for comments section to load
-    if has_css?('#comments.loaded', wait: 2)
+    if has_css?('#comments.loaded')
       find('#comments.loaded')
     else
-      # Fallback: wait for comments section or form to be present
-      find('.thread-comment-form, .thread-comment', wait: 10)
+      find('.thread-comment-form, .thread-comment')
     end
 
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'comment test')
     end
 
-    # Check if confirmation button exists and handle accordingly
-    if has_text?('確認OKにする', wait: 5)
+    if has_text?('確認OKにする')
       accept_confirm '日報を確認済みにしていませんがよろしいですか？' do
         click_button 'コメントする'
       end
