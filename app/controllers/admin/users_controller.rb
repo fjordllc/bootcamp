@@ -16,25 +16,9 @@ class Admin::UsersController < AdminController
     @job = params[:job]
     user_scope = user_scope.users_job(@job) if @job.present?
     @job_seeking = params[:job_seeking]
-    user_scope =
-      case @job_seeking
-      when 'true'
-        user_scope.where(job_seeker: true)
-      when 'false'
-        user_scope.where(job_seeker: false)
-      else
-        user_scope
-      end
+    user_scope = apply_job_seeking_filter(user_scope, @job_seeking)
     @payment_method = params[:payment_method]
-    user_scope =
-      case @payment_method
-      when 'card'
-        user_scope.where(trainee: true, invoice_payment: false)
-      when 'invoice'
-        user_scope.where(trainee: true, invoice_payment: true)
-      else
-        user_scope
-      end
+    user_scope = apply_payment_method_filter(user_scope, @payment_method)
     @users = user_scope.with_attached_avatar
                        .preload(:company, :course)
                        .order_by_counts(params[:order_by] || 'id', @direction)
@@ -72,6 +56,28 @@ class Admin::UsersController < AdminController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def apply_job_seeking_filter(scope, job_seeking)
+    case job_seeking
+    when 'true'
+      scope.where(job_seeker: true)
+    when 'false'
+      scope.where(job_seeker: false)
+    else
+      scope
+    end
+  end
+
+  def apply_payment_method_filter(scope, payment_method)
+    case payment_method
+    when 'card'
+      scope.where(trainee: true, invoice_payment: false)
+    when 'invoice'
+      scope.where(trainee: true, invoice_payment: true)
+    else
+      scope
+    end
   end
 
   def user_params
