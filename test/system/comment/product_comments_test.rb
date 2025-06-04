@@ -80,6 +80,11 @@ class ProductCommentsTest < ApplicationSystemTestCase
 
     wait_for_comments
 
+    # Wait for mentor mode to be properly initialized and担当する button to become visible
+    # The button is controlled by .is-only-mentor CSS class which depends on body.is-mentor-mode
+    assert_selector 'body.is-mentor-mode'
+    assert_selector '.is-only-mentor', visible: true
+
     click_button '担当する'
     assert_button '担当から外れる'
 
@@ -106,9 +111,14 @@ class ProductCommentsTest < ApplicationSystemTestCase
     # Wait for page content to be fully loaded before checking for button
     assert_selector '.page-content'
 
+    # Wait for mentor mode to be properly initialized and担当する button to become visible
+    # The button is controlled by .is-only-mentor CSS class which depends on body.is-mentor-mode
+    assert_selector 'body.is-mentor-mode'
+    assert_selector '.is-only-mentor', visible: true
+
     # Wait for the product checker button (担当する) to become available
     # The button might be rendered by different components depending on the layout
-    assert_button '担当する'
+    assert_button '担当する', visible: true
 
     accept_confirm do
       fill_in 'new_comment[description]', with: 'comment test'
