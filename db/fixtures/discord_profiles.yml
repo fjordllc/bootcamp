@@ -325,3 +325,8 @@ discord_profire_ios-course:
   user: ios-course
   account_name:
   times_url:
+
+discord_profire_kensyu-invoice:
+  user: kensyu-invoice
+  account_name:
+  times_url:

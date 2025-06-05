@@ -1504,3 +1504,29 @@ ios-course:
   updated_at: "2014-01-01 00:00:07"
   created_at: "2014-01-01 00:00:07"
   last_activity_at: "2014-01-01 00:00:07"
+
+kensyu-invoice:
+  login_name: kensyu-invoice
+  email: kensyu-invoice@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 請求書払いの研修生
+  name_kana: セイキュウショバライノケンシュウセイ
+  github_account: kensyu-invoice
+  twitter_account: kensyu-invoice
+  facebook_url: https://www.facebook.com/fjordllc/kensyu-invoice
+  blog_url: http://kensyu-invoice.org
+  company: company2
+  description: "請求書払いの研修生です。"
+  course: course1
+  job: office_worker
+  os: mac
+  experiences: 2
+  organization: 研修請求書大学
+  trainee: true
+  invoice_payment: true
+  updated_at: "2014-01-01 00:00:11"
+  created_at: "2014-01-01 00:00:11"
+  last_activity_at: "2014-01-01 00:00:11"
+  sent_student_followup_message: true
+  training_ends_on: <%= Time.current.next_year %>
