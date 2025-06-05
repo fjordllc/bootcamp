@@ -183,8 +183,6 @@ GEM
     ffi (1.17.1)
     ffi (1.17.1-arm64-darwin)
     ffi (1.17.1-x86_64-linux-gnu)
-    fixture_seed (0.4.2)
-      rails (>= 5.0)
     foreman (0.88.1)
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
@@ -655,7 +653,6 @@ DEPENDENCIES
   discordrb (~> 3.5)
   doorkeeper
   ffi (= 1.17.1)
-  fixture_seed (~> 0.4.2)
   foreman
   good_job (~> 3.14)!
   google-cloud-storage (~> 1.25)
