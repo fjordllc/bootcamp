@@ -22,7 +22,7 @@
   nav.pagination
     = paginate questions
     .card-list.a-card
-     .card-list__items
+      .card-list__items
         - questions.each do |question|
           = render 'questions/question', question:
   nav.pagination
