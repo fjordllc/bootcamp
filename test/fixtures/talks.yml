@@ -174,3 +174,7 @@ talk46:
 talk47:
   user: jobseeking
   action_completed: true
+
+talk48:
+  user: kensyu-invoice
+  action_completed: true
