@@ -134,12 +134,12 @@ class PracticesTest < ApplicationSystemTestCase
     practice = practices(:practice1)
     visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
 
-    assert_selector 'form', wait: 10
+    assert_selector 'form'
     attach_file 'practice[completion_image]', 'test/fixtures/files/practices/ogp_images/1.jpg', make_visible: true
     click_button '更新する'
 
     visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
-    assert_selector 'form', wait: 10
+    assert_selector 'form'
     assert_selector 'img'
   end
 

@@ -6,11 +6,11 @@ class MentionAndInteractionTest < ApplicationSystemTestCase
   test 'suggest mention to mentor' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
     # Wait for comments section to load
-    if has_css?('#comments.loaded', wait: 2)
+    if has_css?('#comments.loaded')
       find('#comments.loaded')
     else
       # Fallback: wait for comments section or form to be present
-      find('.thread-comment-form, .thread-comment', wait: 10)
+      find('.thread-comment-form, .thread-comment')
     end
     Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
       find('#js-new-comment').set('@') until has_selector?('span.mention', wait: false)

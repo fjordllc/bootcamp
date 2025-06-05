@@ -10,6 +10,8 @@ require 'supports/comment_helper'
 require 'supports/tag_helper'
 require 'supports/mock_env_helper'
 require 'supports/article_helper'
+require 'supports/javascript_helper'
+require 'supports/product_helper'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include LoginHelper
@@ -21,6 +23,8 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include TagHelper
   include MockEnvHelper
   include ArticleHelper
+  include JavascriptHelper
+  include ProductHelper
 
   if ENV['HEADFUL']
     driven_by :selenium, using: :chrome
@@ -32,7 +36,22 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     end
   end
 
+  setup do
+    # Ensure ActiveStorage is properly configured for system tests
+    ActiveStorage::Current.host = 'http://localhost:3000'
+  end
+
   teardown do
     ActionMailer::Base.deliveries.clear
+    ActiveStorage::Current.host = nil
+
+    # Clean up any uploaded test files
+    if defined?(ActiveStorage::Blob)
+      begin
+        ActiveStorage::Blob.unattached.where('created_at < ?', 1.hour.ago).find_each(&:purge)
+      rescue StandardError
+        # Ignore cleanup errors in tests
+      end
+    end
   end
 end

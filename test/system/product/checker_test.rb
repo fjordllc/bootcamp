@@ -28,11 +28,22 @@ class Product::CheckerTest < ApplicationSystemTestCase
 
   test 'be not person on charge at comment on product of there are person on charge' do
     visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'komagata'
-    product = find('.card-list-item', match: :first)
-    product.click_button '担当する'
-    assert_text '担当から外れる'
 
-    show_product_path = product.find_link(href: /products/)[:href]
+    # Wait for products list to be fully loaded with both link and button present
+    assert_selector '.card-list-item'
+    assert_selector '.card-list-item a[href*="products"]'
+    assert_selector '.card-list-item button', text: '担当する'
+
+    # Get product URL - element is guaranteed to be stable at this point
+    show_product_path = first('.card-list-item a[href*="products"]')[:href]
+
+    # Click assign button within the first card
+    within(first('.card-list-item')) do
+      click_button '担当する'
+    end
+
+    # Wait for button text to change and verify
+    assert_text '担当から外れる'
     logout
 
     visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'machida'
@@ -56,7 +67,7 @@ class Product::CheckerTest < ApplicationSystemTestCase
 
     visit_with_auth product_url(old_product), 'kimura'
 
-    within first('#comments.loaded', wait: 10) do
+    within first('#comments.loaded') do
       fill_in 'new_comment[description]', with: 'edit test'
       click_button 'コメントする'
     end

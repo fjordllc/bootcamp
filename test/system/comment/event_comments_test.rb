@@ -7,7 +7,7 @@ class EventCommentsTest < ApplicationSystemTestCase
     visit_with_auth "/events/#{events(:event1).id}", 'komagata'
 
     # Wait for form to load
-    find('.thread-comment-form__form', wait: 10)
+    find('.thread-comment-form__form')
 
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
@@ -21,7 +21,7 @@ class EventCommentsTest < ApplicationSystemTestCase
     end
 
     click_button 'コメントする'
-    assert_text 'test', wait: 10
-    assert_text 'Watch中', wait: 5
+    assert_text 'test'
+    assert_text 'Watch中'
   end
 end
