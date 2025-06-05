@@ -1,4 +1,4 @@
-- if questions == nil
+- if questions.nil?
   .card-list.a-card.is-loading
     - 8.times do
      .card-list-item
@@ -24,6 +24,6 @@
     .card-list.a-card
      .card-list__items
         - questions.each do |question|
-          = render 'questions/question', question: question
+          = render 'questions/question', question:
   nav.pagination
     = paginate questions
