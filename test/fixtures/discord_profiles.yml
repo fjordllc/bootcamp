@@ -239,3 +239,8 @@ discord_profile_jobseeking:
   user: jobseeking
   account_name:
   times_url:
+
+discord_profile_kensyu-invoice:
+  user: kensyu-invoice
+  account_name:
+  times_url:
