@@ -4,6 +4,7 @@ import fetcher from '../fetcher'
 import { destroy } from '@rails/request.js'
 import userIcon from '../user-icon.js'
 import { toast } from '../toast_react'
+import { formatDateToJapanese } from '../dateFormatter'
 
 export default function BookmarksInDashboard() {
   const [editable, setEditable] = useState(false)
@@ -96,16 +97,7 @@ const Bookmark = ({ bookmark, editable, bookmarksUrl }) => {
   }, [bookmark.user])
 
   const date = bookmark.reported_on || bookmark.created_at
-  // ISO8601日付を「YYYY年MM月DD日(曜日) HH:mm」形式に変換
-  // タイムゾーンを考慮してUTCとして解釈し、日本時間での表示を行う
-  const dateObj = new Date(date + (date.includes('T') ? '' : 'T00:00:00'))
-  const year = dateObj.getFullYear()
-  const month = String(dateObj.getMonth() + 1).padStart(2, '0')
-  const day = String(dateObj.getDate()).padStart(2, '0')
-  const weekday = dateObj.toLocaleDateString('ja-JP', { weekday: 'short' })
-  const hours = String(dateObj.getHours()).padStart(2, '0')
-  const minutes = String(dateObj.getMinutes()).padStart(2, '0')
-  const createdAt = `${year}年${month}月${day}日(${weekday}) ${hours}:${minutes}`
+  const createdAt = formatDateToJapanese(date)
   const { mutate } = useSWRConfig()
   const afterDelete = async (id) => {
     try {
