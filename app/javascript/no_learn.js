@@ -14,7 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
   checkBox.addEventListener('change', (event) => {
     times.classList.toggle('is-hidden')
     if (event.target.checked) {
-      times.querySelectorAll('.nested-fields').forEach((field) => field.remove())
+      times
+        .querySelectorAll('.nested-fields')
+        .forEach((field) => field.remove())
     }
   })
 })
