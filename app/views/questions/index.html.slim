@@ -52,7 +52,7 @@ header.page-header
       .container.is-md
         .page-body__columns
           .page-body__column.is-main
-            = render 'questions/questions', questions: @questions
+            = render 'questions/questions', questions: @questions, empty_message: @questions_property.empty_message
 
       - if @tags.any?
         nav.a-side-nav
