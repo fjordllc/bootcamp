@@ -47,7 +47,6 @@
                     | 公開
                   span.a-meta__value
                     = l question.published_at, format: :default
-            - if !question.wip
               .card-list-item-meta__item
                 time.a-meta
                   span.a-meta__label
@@ -57,7 +56,7 @@
             .card-list-item-meta__item
               .a-meta.(class="#{question.answers.empty? ? 'is-important' : ''}")
                 | 回答・コメント
-                = "\(#{question.answers.size}\)"
+                = "（#{question.answers.size}）"
     - if question.correct_answer.present?
       .stamp.is-circle.is-solved
         .stamp__content.is-icon 解
