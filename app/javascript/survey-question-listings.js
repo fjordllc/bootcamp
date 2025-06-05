@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })
         .then((response) => {
           if (!response.ok) {
-            console.warn('Request failed:', response.statusCode)
+            console.warn('Request failed:', response.status)
           }
         })
         .catch((error) => {
