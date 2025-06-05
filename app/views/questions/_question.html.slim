@@ -1,4 +1,6 @@
-.card-list-item.(class="#{question.correct_answer.present? ? 'is-solved' : (question.wip? ? 'is-wip' : '')}")
+- question_class = 'is-solved' if question.correct_answer.present?
+- question_class = 'is-wip' if question.wip?
+.card-list-item.(class="#{question_class}")
   .card-list-item__inner
     .card-list-item__user
       = link_to question.user, class: 'card-list-item__user-link'
@@ -21,7 +23,7 @@
             .card-list-item-meta__items
               .card-list-item-meta__item
                 = link_to practice_path(question.practice), class: 'a-meta is-practice'
-                  - if question.practice_id != nil
+                  - if question.practice_id.nil?
                     = question.practice.title
 
       .card-list-item__row
@@ -53,7 +55,7 @@
                   span.a-meta__value
                     = l question.updated_at, format: :default
             .card-list-item-meta__item
-              .a-meta.(class="#{question.answers.size == 0 ? 'is-important' : ''}")
+              .a-meta.(class="#{question.answers.empty? ? 'is-important' : ''}")
                 | 回答・コメント
                 = "\(#{question.answers.size}\)"
     - if question.correct_answer.present?
