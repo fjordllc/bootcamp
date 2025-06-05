@@ -19,19 +19,19 @@ class Notification::ReportsTest < ApplicationSystemTestCase
 
     notification_message = 'muryouさんがはじめての日報を書きました！'
     visit_with_auth '/notifications', 'machida'
-    find('#notifications.loaded', wait: 10)
+    find('#notifications.loaded')
     assert_text notification_message
 
     visit_with_auth '/notifications', 'kimura'
-    find('#notifications.loaded', wait: 10)
+    find('#notifications.loaded')
     assert_no_text notification_message
 
     visit_with_auth '/notifications', 'advijirou'
-    find('#notifications.loaded', wait: 10)
+    find('#notifications.loaded')
     assert_no_text notification_message
 
     visit_with_auth '/notifications', 'sotugyou'
-    find('#notifications.loaded', wait: 10)
+    find('#notifications.loaded')
     assert_no_text notification_message
   end
 

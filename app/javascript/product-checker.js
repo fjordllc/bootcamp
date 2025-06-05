@@ -61,21 +61,34 @@ function checkInCharge(event, productId, currentUserId) {
     })
 
   if (
+    event.currentTarget.className.includes('is-warning') ||
     event.currentTarget.className === 'product-checker a-button is-block is-sm'
   ) {
-    event.currentTarget.className =
-      'product-checker a-button is-block is-warning is-sm'
-    event.currentTarget.children[0].className = 'fas fa-times'
-    event.currentTarget.children[0].textContent = '担当から外れる'
-  } else {
-    event.currentTarget.className = 'product-checker a-button is-block is-sm'
+    if (event.currentTarget.classList.contains('check-product-button')) {
+      event.currentTarget.className =
+        'a-button is-block is-sm check-product-button is-secondary'
+    } else {
+      event.currentTarget.className = 'product-checker a-button is-block is-sm'
+    }
     event.currentTarget.children[0].className = 'fas fa-hand-paper'
     event.currentTarget.children[0].textContent = '担当する'
+  } else {
+    if (event.currentTarget.classList.contains('check-product-button')) {
+      event.currentTarget.className =
+        'a-button is-block is-sm check-product-button is-warning'
+    } else {
+      event.currentTarget.className =
+        'product-checker a-button is-block is-warning is-sm'
+    }
+    event.currentTarget.children[0].className = 'fas fa-times'
+    event.currentTarget.children[0].textContent = '担当から外れる'
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const buttons = document.querySelectorAll('.product-checker')
+  const buttons = document.querySelectorAll(
+    '.product-checker, .check-product-button'
+  )
   buttons.forEach((button) => {
     button.addEventListener('click', (event) => {
       const productId = event.currentTarget.dataset.productId
