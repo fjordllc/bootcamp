@@ -6,4 +6,4 @@
 
 .page-body
   .container.is-md
-    = render 'questions/questions', questions: @questions
+    = render 'questions/questions', questions: @questions, empty_message: @questions_property.empty_message
