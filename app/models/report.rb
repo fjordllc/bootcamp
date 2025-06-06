@@ -59,6 +59,8 @@ class Report < ApplicationRecord
       .default_order
   }
 
+  scope :user, ->(user) { where(user_id: user.id) }
+
   class << self
     def faces
       @faces ||= emotions.keys
