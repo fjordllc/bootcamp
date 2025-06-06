@@ -38,9 +38,3 @@ storage/
 
 .envrc
 /test/reports
-
-/memory-bank
-.clinerules
-
-.clinerules
-memory-bank/

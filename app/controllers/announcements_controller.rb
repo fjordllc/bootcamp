@@ -17,6 +17,7 @@ class AnnouncementsController < ApplicationController
   def show
     Footprint.find_or_create_for(@announcement, current_user)
     @footprints = Footprint.fetch_for_resource(@announcement)
+    @announcements = Announcement.with_avatar.where(wip: false).order(published_at: :desc).limit(10)
   end
 
   def new

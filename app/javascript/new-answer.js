@@ -5,7 +5,7 @@ import { toast } from './vanillaToast.js'
 import updateAnswerCount from './updateAnswerCount.js'
 import initializeAnswer from './initializeAnswer.js'
 import { initializeReaction } from './reaction.js'
-import store from './check-store.js'
+import { setWatchable } from './setWatchable.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const newAnswer = document.querySelector('.new-answer')
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         )
         saveButton.disabled = true
         updateAnswerCount(true)
-        updateWatchable(questionId)
+        setWatchable(questionId, 'Question')
         if (previewTab.classList.contains('is-active')) {
           toggleVisibility(tabElements, 'is-active')
         }
@@ -113,13 +113,6 @@ async function createAnswer(description, questionId) {
 function toggleVisibility(elements, className) {
   elements.forEach((element) => {
     element.classList.toggle(className)
-  })
-}
-
-function updateWatchable(questionId) {
-  store.dispatch('setWatchable', {
-    watchableId: questionId,
-    watchableType: 'Question'
   })
 }
 

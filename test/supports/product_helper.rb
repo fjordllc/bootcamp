@@ -21,4 +21,11 @@ module ProductHelper
     product = Product.create(user:, practice:, body: 'test')
     Check.create(user:, checkable: product)
   end
+
+  # Helper method to ensure product ID is valid before using it
+  def ensure_valid_product(product)
+    raise ArgumentError, 'Product ID is nil or invalid' if product.nil? || product.id.nil?
+
+    product
+  end
 end

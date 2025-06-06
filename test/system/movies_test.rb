@@ -9,12 +9,27 @@ class MoviesTest < ApplicationSystemTestCase
   end
 
   test 'show the movie page' do
-    visit_with_auth "/movies/#{movies(:movie1).id}", 'kimura'
+    movie = movies(:movie1)
+    # Ensure the movie has an attached file for the test
+    movie.movie_data.attach(
+      io: File.open(Rails.root.join('test/fixtures/files/movies/movie.mp4')),
+      filename: 'movie.mp4',
+      content_type: 'video/mp4'
+    )
+    visit_with_auth "/movies/#{movie.id}", 'kimura'
     assert_equal '動画: mp4動画 | FBC', title
   end
 
   test 'movie has a comment form ' do
-    visit_with_auth "/movies/#{movies(:movie1).id}", 'kimura'
+    movie = movies(:movie1)
+    # Ensure the movie has an attached file for the test
+    movie.movie_data.attach(
+      io: File.open(Rails.root.join('test/fixtures/files/movies/movie.mp4')),
+      filename: 'movie.mp4',
+      content_type: 'video/mp4'
+    )
+    visit_with_auth "/movies/#{movie.id}", 'kimura'
+    wait_for_comment_form
     assert_selector '.thread-comment-form'
   end
 
@@ -54,18 +69,32 @@ class MoviesTest < ApplicationSystemTestCase
   end
 
   test 'show comment count' do
-    visit_with_auth "/movies/#{movies(:movie1).id}", 'kimura'
+    movie = movies(:movie1)
+    movie.movie_data.attach(
+      io: File.open(Rails.root.join('test/fixtures/files/movies/movie.mp4')),
+      filename: 'movie.mp4',
+      content_type: 'video/mp4'
+    )
+    visit_with_auth "/movies/#{movie.id}", 'kimura'
     assert_selector '#comment_count', text: 0
 
-    fill_in 'new_comment[description]', with: 'コメント数表示のテストです。'
-    click_button 'コメントする'
+    wait_for_comment_form
+    post_comment('コメント数表示のテストです。')
 
-    visit_with_auth "/movies/#{movies(:movie1).id}", 'kimura'
+    visit_with_auth "/movies/#{movie.id}", 'kimura'
+    wait_for_javascript_components
     assert_selector '#comment_count', text: 1
   end
 
   test 'show the edit movie page' do
-    visit_with_auth "/movies/#{movies(:movie2).id}/edit", 'kimura'
+    movie = movies(:movie2)
+    # Ensure the movie has an attached file for the test
+    movie.movie_data.attach(
+      io: File.open(Rails.root.join('test/fixtures/files/movies/movie.mov')),
+      filename: 'movie.mov',
+      content_type: 'video/quicktime'
+    )
+    visit_with_auth "/movies/#{movie.id}/edit", 'kimura'
     assert_equal '動画編集 | FBC', title
   end
 
@@ -84,7 +113,14 @@ class MoviesTest < ApplicationSystemTestCase
   end
 
   test 'update movie as WIP' do
-    visit_with_auth "/movies/#{movies(:movie1).id}/edit", 'kimura'
+    movie = movies(:movie1)
+    # Ensure the movie has an attached file for the test
+    movie.movie_data.attach(
+      io: File.open(Rails.root.join('test/fixtures/files/movies/movie.mp4')),
+      filename: 'movie.mp4',
+      content_type: 'video/mp4'
+    )
+    visit_with_auth "/movies/#{movie.id}/edit", 'kimura'
     within('.form') do
       fill_in('movie[title]', with: 'test')
       fill_in('movie[description]', with: 'test')
@@ -98,7 +134,14 @@ class MoviesTest < ApplicationSystemTestCase
   end
 
   test 'destroy movie' do
-    visit_with_auth "/movies/#{movies(:movie1).id}", 'komagata'
+    movie = movies(:movie1)
+    # Ensure the movie has an attached file for the test
+    movie.movie_data.attach(
+      io: File.open(Rails.root.join('test/fixtures/files/movies/movie.mp4')),
+      filename: 'movie.mp4',
+      content_type: 'video/mp4'
+    )
+    visit_with_auth "/movies/#{movie.id}", 'komagata'
 
     accept_confirm do
       click_link '削除する'
@@ -119,7 +162,14 @@ class MoviesTest < ApplicationSystemTestCase
   end
 
   test 'show ghost icon and ghost text when the movie-author was deleted' do
-    visit_with_auth "/movies/#{movies(:movie4).id}", 'komagata'
+    movie = movies(:movie4)
+    # Ensure the movie has an attached file for the test
+    movie.movie_data.attach(
+      io: File.open(Rails.root.join('test/fixtures/files/movies/movie.mp4')),
+      filename: 'movie.mp4',
+      content_type: 'video/mp4'
+    )
+    visit_with_auth "/movies/#{movie.id}", 'komagata'
     within '.a-meta.is-creator' do
       assert_text 'ghost'
       img = find('img')

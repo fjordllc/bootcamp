@@ -79,7 +79,7 @@
                   @click='commentAndCheck',
                   :disabled='!validation || buttonDisabled')
                   i.fa-solid.fa-check
-                  | 確認OKにする
+                  | {{ checkButtonLabel }}
 </template>
 <script>
 import CSRF from 'csrf'
@@ -90,6 +90,7 @@ import confirmUnload from 'confirm-unload'
 import toast from 'toast'
 import role from 'role'
 import checkable from 'checkable.js'
+import { setWatchable } from './setWatchable.js'
 
 export default {
   components: {
@@ -136,6 +137,14 @@ export default {
     },
     productCheckerId() {
       return this.$store.getters.productCheckerId
+    },
+    checkButtonLabel() {
+      const path = window.location.pathname
+      if (path.includes('/products/')) {
+        return '合格にする'
+      } else {
+        return '確認OKにする'
+      }
     }
   },
   created() {
@@ -232,10 +241,7 @@ export default {
           this.buttonDisabled = false
           this.resizeTextarea()
           this.displayToast(toastMessage)
-          this.$store.dispatch('setWatchable', {
-            watchableId: this.commentableId,
-            watchableType: this.commentableType
-          })
+          setWatchable(this.commentableId, this.commentableType)
         })
         .catch((error) => {
           console.warn(error)
@@ -279,7 +285,7 @@ export default {
     commentAndCheck() {
       if (
         this.commentableType === 'Product' &&
-        !window.confirm('提出物を確認済にしてよろしいですか？')
+        !window.confirm('提出物を合格にしてよろしいですか？')
       ) {
         return null
       } else {

@@ -46,7 +46,7 @@ export default {
             checkStamp()
             if (!this.checkId) {
               if (checkableType === 'Product') {
-                this.toast('提出物を確認済みにしました。')
+                this.toast('提出物を合格にしました。')
               } else if (checkableType === 'Report') {
                 this.toast('日報を確認済みにしました。')
               }

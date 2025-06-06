@@ -187,7 +187,7 @@ export default {
           `#js-comment-${this.comment.id}`
         )
         autosize.update(textarea)
-        $(`.comment-id-${this.comment.id}`).trigger('input')
+        $(`#js-comment-${this.comment.id}`).trigger('input')
       })
     },
     updateComment() {

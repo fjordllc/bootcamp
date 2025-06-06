@@ -51,7 +51,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
 
     visit_with_auth "/products/#{product.id}/", 'komagata'
 
-    find('#watch-button').click
+    find('.watch-toggle').click
     assert_text 'Watchしました！'
 
     visit_with_auth "/products/#{product.id}/edit", 'hajime'
@@ -79,8 +79,8 @@ class Notification::ProductsTest < ApplicationSystemTestCase
       checker_id: checker.id
     )
     visit_with_auth "/products/#{product.id}", 'komagata'
-    click_button '提出物を確認'
-    assert_text '提出物を確認済みにしました。'
+    click_button '提出物を合格にする'
+    assert_text '提出物を合格にしました。'
 
     visit_with_auth '/notifications', 'kimura'
 

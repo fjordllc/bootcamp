@@ -31,6 +31,7 @@ gem 'data_migrate', '9.2.0'
 gem 'diffy'
 gem 'discord-notifier'
 gem 'discordrb', '~> 3.5', require: false
+gem 'doorkeeper'
 gem 'good_job', '~> 3.14', github: 'komagata/good_job'
 gem 'google-cloud-storage', '~> 1.25', require: false
 gem 'holiday_jp'

@@ -601,7 +601,7 @@ class UsersTest < ApplicationSystemTestCase
     assert_text 'Kimura', count: 2
   end
 
-  test 'can upload heic image as user avatar' do
+  test 'can upload heic image and converts it to webp with login_name' do
     skip 'HEICのサポートがないため、CI では実行されません。' if ENV['CI']
 
     visit_with_auth '/current_user/edit', 'hajime'
@@ -610,7 +610,7 @@ class UsersTest < ApplicationSystemTestCase
 
     assert_text 'ユーザー情報を更新しました。'
     img = find('img.user-profile__user-icon-image', visible: false)
-    assert_match(/heic-sample-file\.png$/, img.native['src'])
+    assert_match(/hajime\.webp$/, img.native['src'])
   end
 
   test 'mentor can see retired and hibernated tabs' do

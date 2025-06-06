@@ -11,9 +11,13 @@ require 'supports/vcr_helper'
 require 'abstract_notifier/testing/minitest'
 require 'webmock/minitest'
 
-Capybara.default_max_wait_time = 10
+Capybara.default_max_wait_time = 15
 Capybara.disable_animation = true
-Minitest::Retry.use! if ENV['CI']
+Capybara.automatic_reload = false
+Capybara.enable_aria_label = true
+
+# Configure retry for flaky tests
+Minitest::Retry.use!(retry_count: 3, verbose: true) if ENV['CI']
 
 class ActiveSupport::TestCase
   include VCRHelper

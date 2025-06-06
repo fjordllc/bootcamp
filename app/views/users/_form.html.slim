@@ -109,6 +109,26 @@
               = render 'users/form/graduate', f: f
 
       .form-item
+        = f.hidden_field :remove_diploma, value: '0', id: 'js-remove-pdf-flag'
+        = f.label :diploma_file, class: 'a-form-label'
+        .a-pdf-input
+          - if @user.diploma_file.attached?
+            = link_to url_for(@user.diploma_file), class: 'a-pdf-input__inner', id: 'js-pdf-file-link', target: '_blank', rel: 'noopener' do
+              .a-pdf-input__file
+                span.a-pdf-input__file-name
+                  = @user.diploma_file.filename
+              .a-pdf-input__upload.a-button.is-md.is-secondary
+                | PDFを確認
+          label.a-pdf-input__inner#js-pdf-upload-field
+            = f.file_field :diploma_file
+            .a-pdf-input__file
+              span.a-pdf-input__file-name#js-pdf-name
+            .a-pdf-input__upload.a-button.is-md.is-secondary
+              | PDFを選択
+
+          = button_tag '削除', type: 'button', class: 'a-button is-md is-secondary', id: 'js-remove-pdf-button'
+
+      .form-item
         label.a-form-label
           | 卒業後の進路
         ul.block-checks.is-2-items.mt-4

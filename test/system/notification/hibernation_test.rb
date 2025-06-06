@@ -14,7 +14,7 @@ class Notification::HibernationTest < ApplicationSystemTestCase
 
   test 'notify admins and mentors when a student hibernate' do
     visit_with_auth notifications_path, 'komagata'
-    find('#notifications.loaded', wait: 10)
+    find('#notifications.loaded')
     within first('.card-list-item') do
       assert_no_selector '.card-list-item-title__link-label', text: 'kimuraさんが休会しました。'
     end
@@ -29,7 +29,7 @@ class Notification::HibernationTest < ApplicationSystemTestCase
     assert_text '休会手続きが完了しました'
 
     visit_with_auth notifications_path, 'komagata'
-    find('#notifications.loaded', wait: 10)
+    find('#notifications.loaded')
     within first('.card-list-item.is-unread') do
       assert_selector '.card-list-item-title__link-label', text: 'kimuraさんが休会しました。'
     end
@@ -37,7 +37,7 @@ class Notification::HibernationTest < ApplicationSystemTestCase
 
   test 'notify admins and mentors when a trainee hibernate' do
     visit_with_auth notifications_path, 'komagata'
-    find('#notifications.loaded', wait: 10)
+    find('#notifications.loaded')
     within first('.card-list-item') do
       assert_no_selector '.card-list-item-title__link-label', text: 'kensyuさんが休会しました。'
     end
@@ -52,7 +52,7 @@ class Notification::HibernationTest < ApplicationSystemTestCase
     assert_text '休会手続きが完了しました'
 
     visit_with_auth notifications_path, 'komagata'
-    find('#notifications.loaded', wait: 10)
+    find('#notifications.loaded')
     within first('.card-list-item.is-unread') do
       assert_selector '.card-list-item-title__link-label', text: 'kensyuさんが休会しました。'
     end
@@ -60,7 +60,7 @@ class Notification::HibernationTest < ApplicationSystemTestCase
 
   test 'notify admins and mentors when a adviser hibernate' do
     visit_with_auth notifications_path, 'komagata'
-    find('#notifications.loaded', wait: 10)
+    find('#notifications.loaded')
     within first('.card-list-item') do
       assert_no_selector '.card-list-item-title__link-label', text: 'senpaiさんが休会しました。'
     end
@@ -75,7 +75,7 @@ class Notification::HibernationTest < ApplicationSystemTestCase
     assert_text '休会手続きが完了しました'
 
     visit_with_auth notifications_path, 'komagata'
-    find('#notifications.loaded', wait: 10)
+    find('#notifications.loaded')
     within first('.card-list-item.is-unread') do
       assert_selector '.card-list-item-title__link-label', text: 'senpaiさんが休会しました。'
     end
