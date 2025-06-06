@@ -23,7 +23,7 @@
             .card-list-item-meta__items
               .card-list-item-meta__item
                 = link_to practice_path(question.practice), class: 'a-meta is-practice'
-                  - if question.practice_id.nil?
+                  - if !question.practice_id.nil?
                     = question.practice.title
 
       .card-list-item__row
