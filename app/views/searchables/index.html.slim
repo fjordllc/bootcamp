@@ -1,5 +1,19 @@
-- title "'#{params[:word]}'の検索結果"
-- set_meta_tags description: "'#{params[:word]}'の検索結果一覧ページです。"
+- title "'#{@word}'の検索結果"
+- set_meta_tags description: "'#{@word}'の検索結果一覧ページです。"
+
+javascript:
+  document.addEventListener('DOMContentLoaded', () => {
+    const url = "#{@url}";
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  });
+
 
 header.page-header
   .container
@@ -8,4 +22,29 @@ header.page-header
         h2.page-header__title
           = title
 hr.a-border
-  = react_component('Searchables', word: params[:word].to_s)
+.page-body
+  - if @error
+    div
+      | failed to load
+  - elsif @data.nil?
+    .container.is-md
+      = react_component('LoadingListPlaceholder')
+  - elsif @data.empty?
+    .container
+      .o-empty-message
+        .o-empty-message__icon
+          i.fa-regular.fa-sad-tear
+        p.o-empty-message__text
+          | #{@word}に一致する情報は見つかりませんでした。
+  - elsif @data.present?
+    .container.is-md
+      - if @data['total_pages'] > 1
+        nav.pagination
+          = react_component('Pagination', { sum: @data['total_pages'] * @per, per: @per, neighbours: 2, page: @page_number, setPage: setPage })
+      .card-list.a-card
+        - @data['searchables'].each do |searchable|
+          = render partial: 'searchable', locals: { searchable: searchable, word: @word }
+      - if @data['total_pages'] > 1
+        nav.pagination
+          = react_component('Pagination', { sum: @data['total_pages'] * @per, per: @per, neighbours: 2, page: @page_number, setPage: setPage })
+  = react_component('Searchables', word: @word.to_s)
