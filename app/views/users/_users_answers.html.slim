@@ -1,0 +1,17 @@
+- if answers.nil?
+  = render 'shared/loading_list_placeholder'
+  .card-list.a-card
+- elsif answers.empty?
+  .o-empty-message
+    .o-empty-message__icon
+      i.fa-regular.fa-sad-tear
+    p.o-empty-message__text
+      | 回答はまだありません。
+- else
+  nav.pagination
+    = paginate answers
+  .card-list.a-card
+    - answers.each do |answer|
+      = render 'users/users_answer', answer:
+  nav.pagination
+    = paginate answers
