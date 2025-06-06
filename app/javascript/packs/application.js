@@ -82,7 +82,6 @@ import '../diploma-upload.js'
 import VueMounter from '../VueMounter.js'
 import Questions from '../components/questions.vue'
 import UsersAnswers from '../components/users-answers.vue'
-import User from '../components/user.vue'
 import UserProducts from '../components/user-products.vue'
 import ActionCompletedButton from '../components/action-completed-button.vue'
 
@@ -91,7 +90,6 @@ import '../stylesheets/application'
 const mounter = new VueMounter()
 mounter.addComponent(Questions)
 mounter.addComponent(UsersAnswers)
-mounter.addComponent(User)
 mounter.addComponent(UserProducts)
 mounter.addComponent(ActionCompletedButton)
 mounter.mount()
