@@ -333,12 +333,12 @@ class TalksTest < ApplicationSystemTestCase
     visit_with_auth '/talks', 'komagata'
     fill_in 'js-talk-search-input', with: 'kensyu'
     find('#js-talk-search-input').send_keys :return
-    assert_text 'さんの相談部屋', count: 4
+    assert_text 'さんの相談部屋', count: 5
 
     visit '/talks?target=trainee'
     fill_in 'js-talk-search-input', with: 'kensyu'
     find('#js-talk-search-input').send_keys :return
-    assert_text 'さんの相談部屋', count: 3 # users(:nocompanykensyu, :kensyu, :kensyuowata)
+    assert_text 'さんの相談部屋', count: 4 # users(:nocompanykensyu, :kensyu, :kensyuowata, :kensyu-invoice)
   end
 
   test 'incremental search for retired' do
