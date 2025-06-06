@@ -12,6 +12,16 @@ class Cache
       Rails.cache.delete 'unchecked_report_count'
     end
 
+    def user_unchecked_report_count(user)
+      Rails.cache.fetch "#{user.id}-user_unchecked_report_count" do
+        Report.unchecked.not_wip.user(user).count
+      end
+    end
+
+    def delete_user_unchecked_report_count(user_id)
+      Rails.cache.delete "#{user_id}-user_unchecked_report_count"
+    end
+
     def unchecked_product_count
       Rails.cache.fetch 'unchecked_product_count' do
         Product.unhibernated_user_products.unchecked.not_wip.count
