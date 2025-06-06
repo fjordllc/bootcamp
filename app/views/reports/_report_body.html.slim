@@ -6,7 +6,7 @@
     .card-body__description
       .a-long-text.is-md.js-markdown-view(data-taskable-id="#{report.id}" data-taskable-type='Report' data-taskable="#{report.taskable?(current_user).to_s}")
         = report.description
-    .card-body__user_report_count
+    .card-body__user_report_count(class="#{mentor_login? ? 'is-only-mentor' : ''}")
       == "#{report.user.login_name}さんの未チェックの日報が#{Cache.user_unchecked_report_count(report.user)}件あります。"
   hr.a-border-tint
   = render 'reactions/reactions', reactionable: report
