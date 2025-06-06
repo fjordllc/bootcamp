@@ -53,6 +53,6 @@ main.page-main
                         - ActiveDecorator::Decorator.instance.decorate(user)
                         .a-user-icons__item
                           = link_to user_path(user), class: 'a-user-icons__item-link' do
-                            span class=["a-user-role", "is-#{user.primary_role}"]
+                            span class=["a-user-role", "is-#{user.primary_role}", "is-#{user.joining_status}"]
                               img.a-user-icons__item-icon.a-user-icon src=user.avatar_url title=user.icon_title data-login-name=user.login_name
       = paginate @generations

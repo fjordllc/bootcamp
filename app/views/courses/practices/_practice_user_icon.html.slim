@@ -1,4 +1,4 @@
 .a-user-icons__item
   a.a-user-icons__item-link(href="#{user_path(started_or_submitted_student)}")
-    span.a-user-role(class="a-user-role is-#{started_or_submitted_student.primary_role}")
+    span.a-user-role(class="a-user-role is-#{started_or_submitted_student.primary_role} is-#{started_or_submitted_student.joining_status}")
       = image_tag started_or_submitted_student.avatar_url, title: started_or_submitted_student.icon_title, class: 'a-user-icons__item-icon a-user-icon'
