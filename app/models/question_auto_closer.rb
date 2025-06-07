@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class QuestionAutoClose < ApplicationRecord
+class QuestionAutoCloser
   SYSTEM_USER_LOGIN = 'pjord'
   AUTO_CLOSE_WARNING_MESSAGE = 'このQ&Aは1ヶ月間コメントがありませんでした。1週間後に自動的にクローズされます。'
   AUTO_CLOSE_MESSAGE = '自動的にクローズしました。'
@@ -8,29 +8,29 @@ class QuestionAutoClose < ApplicationRecord
   CLOSE_MESSAGE_PATTERN = /自動的にクローズしました/
   ANY_CLOSE_MESSAGE_PATTERN = /自動的にクローズ/
 
-  def self.post_auto_close_warning
-    system_user = User.find_by(login_name: SYSTEM_USER_LOGIN)
-    return unless system_user
-
-    Question.not_solved.find_each do |question|
-      next unless should_post_warning?(question, system_user)
-
-      post_warning(question, system_user)
-    end
-  end
-
-  def self.auto_close_and_select_best_answer
-    system_user = User.find_by(login_name: SYSTEM_USER_LOGIN)
-    return unless system_user
-
-    Question.not_solved.find_each do |question|
-      next unless should_auto_close?(question, system_user)
-
-      close_question_with_best_answer(question, system_user)
-    end
-  end
-
   class << self
+    def post_warning
+      system_user = User.find_by(login_name: SYSTEM_USER_LOGIN)
+      return unless system_user
+
+      Question.not_solved.find_each do |question|
+        next unless should_post_warning?(question, system_user)
+
+        create_warning_message(question, system_user)
+      end
+    end
+
+    def close_and_select_best_answer
+      system_user = User.find_by(login_name: SYSTEM_USER_LOGIN)
+      return unless system_user
+
+      Question.not_solved.find_each do |question|
+        next unless should_close?(question, system_user)
+
+        close_with_best_answer(question, system_user)
+      end
+    end
+
     private
 
     def should_post_warning?(question, system_user)
@@ -41,14 +41,14 @@ class QuestionAutoClose < ApplicationRecord
         !system_message?(question, system_user, WARNING_MESSAGE_PATTERN)
     end
 
-    def post_warning(question, system_user)
+    def create_warning_message(question, system_user)
       question.answers.create!(
         user: system_user,
         description: AUTO_CLOSE_WARNING_MESSAGE
       )
     end
 
-    def should_auto_close?(question, system_user)
+    def should_close?(question, system_user)
       warning_answer = find_system_message(question, system_user, WARNING_MESSAGE_PATTERN)
       return false unless warning_answer
       return false unless warning_answer.created_at <= 1.week.ago
@@ -67,7 +67,7 @@ class QuestionAutoClose < ApplicationRecord
       question.answers.any? { |a| a.user_id == system_user.id && a.description =~ pattern }
     end
 
-    def close_question_with_best_answer(question, system_user)
+    def close_with_best_answer(question, system_user)
       ActiveRecord::Base.transaction do
         remove_existing_best_answer(question)
         close_answer = create_close_message(question, system_user)
