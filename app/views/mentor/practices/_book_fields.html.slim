@@ -1,15 +1,16 @@
-.col-xl-4.col-md-6.col-xs-12.nested-fields
-  .books-form
-    .books-form__header
-      .books-form__delete
-        = link_to_remove_association f, class: 'books-form__delete-link' do
-          i.fas.fa-times
-    .books-form__items
-      .books-form-item
-        = f.label '参考書籍', class: 'a-form-label'
-        = f.collection_select :book_id, all_books, :first, :last, {}, { class: 'js-book-select' }
-      .books-form-item.is-inline
-        = f.label '必読', class: 'a-form-label'
-        label.a-on-off-checkbox.is-sm.books-form-item__must-read
-          = f.check_box :must_read
-          span
+= cocooned_item do
+  .col-xl-4.col-md-6.col-xs-12
+    .books-form
+      .books-form__header
+        .books-form__delete
+          = cocooned_remove_item_link f, class: 'books-form__delete-link' do
+            i.fas.fa-times
+      .books-form__items
+        .books-form-item
+          = f.label '参考書籍', class: 'a-form-label'
+          = f.collection_select :book_id, all_books, :first, :last, {}, { class: 'js-book-select' }
+        .books-form-item.is-inline
+          = f.label '必読', class: 'a-form-label'
+          label.a-on-off-checkbox.is-sm.books-form-item__must-read
+            = f.check_box :must_read
+            span

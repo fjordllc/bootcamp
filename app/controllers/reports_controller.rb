@@ -70,6 +70,7 @@ class ReportsController < ApplicationController
     set_wip
     @report.practice_ids = nil if params[:report][:practice_ids].nil?
     @report.assign_attributes(report_params)
+    @report.learning_times.each(&:mark_for_destruction) if @report.no_learn
     canonicalize_learning_times(@report)
 
     if @report.save_uniquely
