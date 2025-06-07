@@ -451,7 +451,6 @@ ActiveRecord::Schema.define(version: 2025_04_11_103935) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "action_completed", default: false, null: false
   end
 
   create_table "learning_minute_statistics", force: :cascade do |t|
