@@ -484,7 +484,7 @@ class ProductsTest < ApplicationSystemTestCase
   test 'display recently reports' do
     visit_with_auth "/products/#{products(:product1).id}", 'mentormentaro'
     within first('.side-tabs .card-list-item') do
-      assert_selector 'img[alt="happy"]'
+      assert_selector 'img[alt="positive"]'
       assert_text '1時間だけ学習'
     end
   end
