@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require Rails.root.join('app/models/question_auto_closer')
 
 class QuestionTest < ActiveSupport::TestCase
   test '#last_answer' do
@@ -135,7 +136,7 @@ class QuestionTest < ActiveSupport::TestCase
     assert_equal '質問を更新しました。', published_question.generate_notice_message(:update)
   end
 
-  test '.post_auto_close_warning' do
+  test '.post_warning' do
     question = Question.create!(
       title: '自動クローズテスト',
       description: 'テスト',
@@ -145,7 +146,7 @@ class QuestionTest < ActiveSupport::TestCase
     )
     travel_to 1.month.ago + 1.day do
       assert_difference -> { question.answers.count }, 1 do
-        QuestionAutoClose.post_auto_close_warning
+        QuestionAutoCloser.post_warning
       end
       answer = question.answers.last
       assert_equal users(:pjord), answer.user
@@ -153,7 +154,7 @@ class QuestionTest < ActiveSupport::TestCase
     end
   end
 
-  test '.auto_close_and_select_best_answer' do
+  test '.close_and_select_best_answer' do
     question = Question.create!(
       title: '自動クローズテスト2',
       description: 'テスト',
@@ -175,7 +176,7 @@ class QuestionTest < ActiveSupport::TestCase
       created_at: 8.days.ago
     )
 
-    QuestionAutoClose.auto_close_and_select_best_answer
+    QuestionAutoCloser.close_and_select_best_answer
 
     question.reload
 
