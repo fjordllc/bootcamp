@@ -1,4 +1,4 @@
-.thread-comment.comment id="comment_#{comment.id}" data-comment_id="#{comment.id}" data-comment_description="#{comment.description}" style='display: none;'
+.thread-comment.comment class=" #{'is-latest' if latest_comment?(comment, latest_comment)}" id="comment_#{comment.id}" data-comment_id="#{comment.id}" data-comment_description="#{comment.description}" style="display: none;"
   #latest-comment
   .thread-comment__start
     a.thread-comment__user-link href="#{comment.user.url}"

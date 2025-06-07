@@ -55,6 +55,7 @@ function initializeComment(comment) {
   const saveButton = commentEditor.querySelector('.is-primary')
   if (saveButton) {
     saveButton.addEventListener('click', () => {
+      TextareaInitializer.initialize(`#js-comment-${commentId}`)
       toggleVisibility(modalElements, 'is-hidden')
       savedComment = editorTextarea.value
       updateComment(commentId, savedComment)
@@ -78,7 +79,7 @@ function initializeComment(comment) {
   const deleteButton = comment.querySelector('.card-main-actions__muted-action')
   if (deleteButton) {
     deleteButton.addEventListener('click', () => {
-      if (window.confirm('本当に宜しいですか？')) {
+      if (window.confirm('削除してよろしいですか？')) {
         deleteComment(commentId)
       }
     })

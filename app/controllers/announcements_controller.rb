@@ -18,6 +18,7 @@ class AnnouncementsController < ApplicationController
     Footprint.find_or_create_for(@announcement, current_user)
     @footprints = Footprint.fetch_for_resource(@announcement)
     @announcements = Announcement.with_avatar.where(wip: false).order(published_at: :desc).limit(10)
+    @comments = @announcement.comments.order(:created_at)
   end
 
   def new

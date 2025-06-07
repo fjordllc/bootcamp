@@ -60,7 +60,7 @@
   .page-body
     .container.is-md
       = render 'event', event: @event
-      #js-comments(data-commentable-id="#{@event.id}" data-commentable-type='Event' data-current-user-id="#{current_user.id}")
+      = render 'comments/comments', commentable: @event, commentable_type: 'Event'
       .user-icons
         ul.user-icons__items
           = render '/footprints/footprints', footprints: @footprints

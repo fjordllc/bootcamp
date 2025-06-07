@@ -37,8 +37,8 @@ class WatchesTest < ApplicationSystemTestCase
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'ウォッチ確認用のtestコメント')
     end
-    all('.a-form-tabs__tab.js-tabs__tab')[1].click
     click_button 'コメントする'
+    assert_text 'ウォッチ確認用のtestコメント'
 
     visit '/current_user/watches'
     assert_text '作業週1日目'
@@ -64,8 +64,8 @@ class WatchesTest < ApplicationSystemTestCase
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'ウォッチ確認用のtestコメント')
     end
-    all('.a-form-tabs__tab.js-tabs__tab')[1].click
     click_button 'コメントする'
+    assert_text 'ウォッチ確認用のtestコメント'
 
     visit '/current_user/watches'
     assert_text '作業週1日目'

@@ -22,6 +22,7 @@ class PagesController < ApplicationController
 
   def show
     @pages = @page.practice.pages.limit(SIDE_LINK_LIMIT) if @page.practice
+    @comments = @page.comments.order(:created_at)
 
     if logged_in?
       render :show
@@ -100,11 +101,7 @@ class PagesController < ApplicationController
   def notice_message(page, is_published)
     return 'ドキュメントをWIPとして保存しました。' if page.wip?
 
-    if is_published
-      'ドキュメントを更新しました。'
-    else
-      'ドキュメントを作成しました。'
-    end
+    is_published ? 'ドキュメントを更新しました。' : 'ドキュメントを作成しました。'
   end
 
   def set_categories
