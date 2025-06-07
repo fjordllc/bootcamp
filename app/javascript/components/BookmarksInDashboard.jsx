@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import useSWR, { useSWRConfig } from 'swr'
 import fetcher from '../fetcher'
-import Bootcamp from '../bootcamp'
+import { destroy } from '@rails/request.js'
 import userIcon from '../user-icon.js'
 import { toast } from '../toast_react'
+import { formatDateToJapanese } from '../dateFormatter'
 
 export default function BookmarksInDashboard() {
   const [editable, setEditable] = useState(false)
@@ -96,17 +97,20 @@ const Bookmark = ({ bookmark, editable, bookmarksUrl }) => {
   }, [bookmark.user])
 
   const date = bookmark.reported_on || bookmark.created_at
-  const createdAt = Bootcamp.iso8601ToFullTime(date)
+  const createdAt = formatDateToJapanese(date)
   const { mutate } = useSWRConfig()
-  const afterDelete = (id) => {
-    Bootcamp.delete(`/api/bookmarks/${id}.json`)
-      .then((_response) => {
+  const afterDelete = async (id) => {
+    try {
+      const response = await destroy(`/api/bookmarks/${id}.json`)
+      if (response.ok) {
         mutate(bookmarksUrl)
         toast('ブックマークを削除しました。')
-      })
-      .catch((error) => {
-        console.warn(error)
-      })
+      } else {
+        console.warn('削除に失敗しました。')
+      }
+    } catch (error) {
+      console.warn(error)
+    }
   }
 
   return (
