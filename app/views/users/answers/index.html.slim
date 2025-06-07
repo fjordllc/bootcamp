@@ -6,4 +6,19 @@
 
 .page-body
   .container.is-md
-    div(data-vue="UsersAnswers" data-vue-user-id:number="#{params[:user_id]}")
+    - if @answers.total_pages > 1
+      nav.pagination
+        = paginate @answers
+    - if @answers.present?
+      .card-list.a-card
+        - @answers.each do |answer|
+          = render Users::UsersAnswerComponent.new(answer:)
+    - else
+      .o-empty-message
+        .o-empty-message__icon
+          i.fa-regular.fa-sad-tear
+        p.o-empty-message__text
+          | 回答はまだありません。
+    - if @answers.total_pages > 1
+      nav.pagination
+        = paginate @answers
