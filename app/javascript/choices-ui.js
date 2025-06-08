@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
       shouldSort: false
     })
   }
-  $('.js-add-choice').on('cocoon:after-insert', () => {
+  $('.js-add-choice').on('cocooned:after-insert', () => {
     const elements = document.querySelectorAll('.js-choices-added-select')
     const element = elements[elements.length - 1]
     if (element) {

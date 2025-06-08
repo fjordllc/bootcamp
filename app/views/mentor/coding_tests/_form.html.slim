@@ -45,13 +45,14 @@
 
   .form__items
     .test-cases
-      = f.fields_for :coding_test_cases do |coding_test_case|
-        = render 'coding_test_case_fields', f: coding_test_case
-      .test-cases__add.mt-6
-        = link_to_add_association f, :coding_test_cases, class: 'a-button is-md is-primary' do
-          i.fa-regular.fa-plus
-          span
-            | テストケースを追加
+      = cocooned_container do
+        = f.fields_for :coding_test_cases do |coding_test_case|
+          = render 'coding_test_case_fields', f: coding_test_case
+        .test-cases__add.mt-6
+          = cocooned_add_item_link f, :coding_test_cases, class: 'a-button is-md is-primary' do
+            i.fa-regular.fa-plus
+            span
+              | テストケースを追加
 
   .form-actions
     ul.form-actions__items
