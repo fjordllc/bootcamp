@@ -78,6 +78,7 @@ import '../coding_tests_sort.js'
 import '../watches.js'
 import '../watch-toggle.js'
 import '../diploma-upload.js'
+import Cocooned from '@notus.sh/cocooned'
 
 import VueMounter from '../VueMounter.js'
 import Questions from '../components/questions.vue'
@@ -96,3 +97,5 @@ mounter.mount()
 const componentRequireContext = require.context('components', true)
 const ReactRailsUJS = require('react_ujs')
 ReactRailsUJS.useContext(componentRequireContext)
+
+Cocooned.start()
