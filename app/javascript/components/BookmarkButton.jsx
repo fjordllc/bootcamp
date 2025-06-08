@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import useSWR from 'swr'
 import fetcher from '../fetcher'
-import Bootcamp from '../bootcamp'
+import { post, destroy } from '@rails/request.js'
 import toast from '../toast'
 
 export default function BookmarkButton({ bookmarkableId, bookmarkableType }) {
@@ -44,25 +44,33 @@ export default function BookmarkButton({ bookmarkableId, bookmarkableType }) {
     }
   }
 
-  const bookmark = () => {
-    Bootcamp.post(bookmarkUrl)
-      .then(() => {
+  const bookmark = async () => {
+    try {
+      const response = await post(bookmarkUrl, {
+        contentType: 'application/json'
+      })
+      if (response.ok) {
         setIsBookmark(true)
         toast.methods.toast('Bookmarkしました！')
-      })
-      .catch((error) => {
-        console.warn(error)
-      })
+      } else {
+        console.warn('Bookmarkに失敗しました。')
+      }
+    } catch (error) {
+      console.warn(error)
+    }
   }
-  const unbookmark = () => {
-    Bootcamp.delete(`/api/bookmarks/${bookmarkId}`)
-      .then(() => {
+  const unbookmark = async () => {
+    try {
+      const response = await destroy(`/api/bookmarks/${bookmarkId}`)
+      if (response.ok) {
         setIsBookmark(false)
         toast.methods.toast('ブックマークを削除しました')
-      })
-      .catch((error) => {
-        console.warn(error)
-      })
+      } else {
+        console.warn('ブックマーク削除に失敗しました。')
+      }
+    } catch (error) {
+      console.warn(error)
+    }
   }
   return (
     <div
