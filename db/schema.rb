@@ -77,8 +77,8 @@ ActiveRecord::Schema.define(version: 2025_06_18_144325) do
     t.datetime "published_at"
     t.text "summary"
     t.integer "thumbnail_type", default: 0, null: false
-    t.boolean "display_thumbnail_in_body", default: true, null: false
     t.string "token"
+    t.boolean "display_thumbnail_in_body", default: true, null: false
     t.integer "target"
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
@@ -249,11 +249,11 @@ ActiveRecord::Schema.define(version: 2025_06_18_144325) do
   create_table "courses", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
-    t.text "summary"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "published", default: false, null: false
     t.boolean "grant", default: false, null: false
+    t.text "summary"
   end
 
   create_table "courses_categories", force: :cascade do |t|
@@ -350,7 +350,7 @@ ActiveRecord::Schema.define(version: 2025_06_18_144325) do
     t.index ["user_id"], name: "index_footprints_on_user_id"
   end
 
-  create_table "good_job_batches", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "description"
@@ -365,13 +365,13 @@ ActiveRecord::Schema.define(version: 2025_06_18_144325) do
     t.datetime "finished_at"
   end
 
-  create_table "good_job_processes", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "good_job_processes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.jsonb "state"
   end
 
-  create_table "good_job_settings", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "good_job_settings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "key"
@@ -379,7 +379,7 @@ ActiveRecord::Schema.define(version: 2025_06_18_144325) do
     t.index ["key"], name: "index_good_job_settings_on_key", unique: true
   end
 
-  create_table "good_jobs", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "good_jobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "queue_name"
     t.integer "priority"
     t.jsonb "serialized_params"
@@ -931,9 +931,8 @@ ActiveRecord::Schema.define(version: 2025_06_18_144325) do
     t.string "organization"
     t.integer "os"
     t.integer "experience"
-    t.boolean "trainee", default: false, null: false
     t.text "retire_reason"
-    t.boolean "job_seeking", default: false, null: false
+    t.boolean "trainee", default: false, null: false
     t.string "customer_id"
     t.string "subscription_id"
     t.boolean "mail_notification", default: true, null: false
@@ -964,6 +963,7 @@ ActiveRecord::Schema.define(version: 2025_06_18_144325) do
     t.boolean "invoice_payment", default: false, null: false
     t.integer "editor"
     t.string "other_editor"
+    t.boolean "invoice_payment", default: false, null: false
     t.boolean "show_mentor_profile", default: true, null: false
     t.integer "experiences", default: 0, null: false
     t.integer "referral_source"
