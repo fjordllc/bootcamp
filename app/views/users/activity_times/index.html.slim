@@ -19,11 +19,11 @@ main.page-main
       .page-main-header__inner
         h1.page-main-header__title
           ruby:
-            day_names = day_of_the_week.map { |d| "#{d}曜日" }
-            day_index = @target_day_of_week.to_i.clamp(0, 6)
-            hour_display = @target_hour.to_i.clamp(0, 23)
+            day_names = day_names_with_suffix
+            day_index = clamp_day_index(@target_day_of_week)
+            hour_display = clamp_hour(@target_hour)
             count = @users.respond_to?(:total_count) ? @users.total_count : 0
-          | (#{day_names[day_index]})#{hour_display}:00-#{(hour_display + 1) % 24}:00(#{count})
+          | (#{day_names[day_index]})#{format_time_range(hour_display)}(#{count})
   hr.a-border
   .page-body.is-users
     .page-body__inner
