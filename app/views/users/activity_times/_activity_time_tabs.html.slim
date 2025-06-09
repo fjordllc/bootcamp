@@ -5,23 +5,22 @@
         .dropdown-group
           .dropdown-wrapper
             button.dropdown-button type="button" data-target="day-dropdown"
-              - day_names = day_of_the_week.map { |d| "#{d}曜日" }
-              span.dropdown-button__text = day_names[@target_day_of_week.to_i]
+              span.dropdown-button__text = day_names_with_suffix[clamp_day_index(@target_day_of_week)]
               i.fas.fa-chevron-down.dropdown-button__icon
             .dropdown-menu id="day-dropdown"
-              - day_names.each_with_index do |day_name, _index|
+              - day_names_with_suffix.each_with_index do |day_name, _index|
                 .dropdown-item data-value=_index
                   = day_name
             = hidden_field_tag :day_of_week, @target_day_of_week, id: 'selected-day'
 
           .dropdown-wrapper
             button.dropdown-button type="button" data-target="hour-dropdown"
-              span.dropdown-button__text = "#{@target_hour}:00-#{(@target_hour.to_i + 1) % 24}:00"
+              span.dropdown-button__text = format_time_range(@target_hour)
               i.fas.fa-chevron-down.dropdown-button__icon
             .dropdown-menu id="hour-dropdown"
-              - 24.times do |hour|
+              - ActivityTimesHelper::HOURS_PER_DAY.times do |hour|
                 .dropdown-item data-value=hour
-                  = "#{hour}:00-#{(hour + 1) % 24}:00"
+                  = format_time_range(hour)
             = hidden_field_tag :hour, @target_hour, id: 'selected-hour'
 
         button.search-button type="submit"
