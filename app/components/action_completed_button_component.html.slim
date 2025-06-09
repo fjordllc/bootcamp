@@ -1,0 +1,29 @@
+.thread-comment-form.is-action-completed
+  .thread-action-completed-form__form
+    - if is_action_completed
+      .action-completed
+        .action-completed__action
+          button.a-button.is-sm.is-block.check-button.is-muted-borderd(
+            data-commentable-id='#{commentable_id}'
+          )
+            i.fas.fa-check
+            | 対応済です
+        .action-completed__description
+          p
+            | お疲れ様でした！
+            | 相談者から次のアクションがあった際は、自動で未対応のステータスに変更されます。
+            | 再度このボタンをクリックすると、未対応にステータスに戻ります。
+
+    - else
+      .action-complete
+        .action-completed__action
+          button.a-button.is-sm.is-block.check-button.is-warning(
+            data-commentable-id='#{commentable_id}'
+          )
+            i.fas.fa-redo
+            | 対応済にする
+        .action-completed__description
+          p
+            | 返信が完了し次は相談者からのアクションの待ちの状態になったとき、
+            | もしくは、相談者とのやりとりが一通り完了した際は、
+            | このボタンをクリックして対応済のステータスに変更してください。
