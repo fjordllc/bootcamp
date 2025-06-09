@@ -12,6 +12,6 @@ class AttachmentsTest < ApplicationSystemTestCase
   test 'attachment company-logo in reports' do
     report = reports(:report11)
     visit_with_auth "/reports/#{report.id}", 'kensyu'
-    assert_includes ['2.png', 'default.png'], File.basename(find('img.page-content-header__company-logo-image')['src'])
+    assert_includes ['2.webp', 'default.png'], File.basename(find('img.page-content-header__company-logo-image')['src'])
   end
 end
