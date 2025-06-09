@@ -61,7 +61,7 @@
                             = member.login_name
         #js-comments(data-commentable-id="#{@talk.id}" data-commentable-type='Talk' data-current-user-id="#{current_user.id}")
         - if current_user.admin?
-          = render(ActionCompletedButtonComponent.new(@talk.action_completed, @talk.id))
+          = render(ActionCompletedButtonComponent.new(is_initial_action_completed: @talk.action_completed, commentable_id: @talk.id))
 
       - if current_user.admin?
         .col-xl-5.col-xs-12
