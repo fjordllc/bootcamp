@@ -2,6 +2,8 @@
 
 class Users::ActivityTimesController < ApplicationController
   PAGER_NUMBER = 24
+  VALID_DAY_OF_WEEK_REGEX = /\A[0-6]\z/
+  VALID_HOUR_REGEX = /\A(?:[0-9]|1[0-9]|2[0-3])\z/
 
   def index
     set_current_time
@@ -25,11 +27,11 @@ class Users::ActivityTimesController < ApplicationController
   end
 
   def fetch_users_by_activity_time(day_of_week, hour)
-    return User.none unless day_of_week.to_s.match?(/\A[0-6]\z/) && hour.to_s.match?(/\A(?:[0-9]|1[0-9]|2[0-3])\z/)
+    return User.none unless day_of_week.to_s.match?(VALID_DAY_OF_WEEK_REGEX) && hour.to_s.match?(VALID_HOUR_REGEX)
 
     week_day_name = helpers.day_of_the_week[day_of_week.to_i]
 
-    User.joins(learning_time_frames_users: :learning_time_frame)
+    User.joins(:learning_time_frames)
         .where(learning_time_frames: { week_day: week_day_name, activity_time: hour.to_i })
         .students_trainees_mentors_and_admins
         .distinct
