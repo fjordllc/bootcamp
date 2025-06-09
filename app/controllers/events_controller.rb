@@ -11,6 +11,7 @@ class EventsController < ApplicationController
     @event = Event.with_avatar.find(params[:id])
     Footprint.find_or_create_for(@event, current_user)
     @footprints = Footprint.fetch_for_resource(@event)
+    @comments = @event.comments.order(:created_at)
   end
 
   def new
