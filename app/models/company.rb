@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Company < ApplicationRecord
+  include ActionView::Helpers::AssetUrlHelper
+
   LOGO_SIZE = [88, 88].freeze
   has_many :users, dependent: :nullify
   validates :name, presence: true
