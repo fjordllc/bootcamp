@@ -245,6 +245,7 @@ class ArticleTest < ActiveSupport::TestCase
       assert_not alumni_voice.wip
     end
   end
+
   test '.alumni_voices orders by published_at in descending order' do
     three_days_ago_alumni_voice = Article.create(
       title: '3日前に公開された卒業生の声',
@@ -284,51 +285,8 @@ class ArticleTest < ActiveSupport::TestCase
 
     alumni_voices = Article.alumni_voices
     assert_equal [one_day_ago_alumni_voice, two_days_ago_alumni_voice, three_days_ago_alumni_voice], alumni_voices
-  test 'featured scope returns articles tagged with "注目の記事" in descending order and limited to 6' do
-    7.times do |i|
-      article = Article.create!(
-        wip: false,
-        published_at: Date.parse('2024-02-01') + i,
-        created_at: Date.parse('2024-02-01') + i,
-        title: '注目の記事#{i}',
-        body: '注目の記事#{i}本文',
-        user: users(:komagata)
-      )
-      article.tag_list.add('注目の記事')
-      article.save!
-    end
+  end
 
-    2.times do |i|
-      Article.create!(
-        wip: false,
-        published_at: Date.parse('2024-02-01') + i,
-        created_at: Date.parse('2024-02-01') + i,
-        title: '通常の記事#{i}',
-        body: '通常の記事#{i}本文',
-        user: users(:komagata)
-      )
-    end
-
-    articles = Article.featured
-    assert_equal 6, articles.size
-
-    articles.each do |article|
-      assert_not article.wip?
-      assert_includes article.tag_list, '注目の記事'
-    end
-
-    published_dates = articles.map(&:published_at)
-    assert_equal published_dates.sort.reverse, published_dates
-  test 'articles are sorted by published_at descending' do
-    articles = [
-      articles(:article27),
-      articles(:article26),
-      articles(:article25),
-      articles(:article24),
-      articles(:article23),
-      articles(:article22),
-      articles(:article21)
-    ]
   test 'featured scope returns articles tagged with "注目の記事" in descending order and limited to 6' do
     articles = Article.featured
     assert_equal articles.sort_by(&:published_at).reverse, articles
@@ -339,5 +297,4 @@ class ArticleTest < ActiveSupport::TestCase
       assert_includes article.tag_list, '注目の記事'
     end
   end
-
 end
