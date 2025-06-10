@@ -17,11 +17,7 @@ class ProductsController < ApplicationController
     @learning = @product.learning # decoratorメソッド用にcontrollerでインスタンス変数化
     @tweet_url = @practice.tweet_url(practice_completion_url(@practice.id))
     @recent_reports = Report.list.where(user_id: @product.user.id).limit(10)
-    @user_products = @product.user
-                             .products
-                             .includes(:practice, :user, :comments, :checks, comments: :user)
-                             .not_wip
-                             .order(published_at: :DESC)
+    @user_products = user_products(@product)
     Footprint.find_or_create_for(@product, current_user)
     @footprints = Footprint.fetch_for_resource(@product)
     @comments = @product.comments.order(:created_at)
@@ -143,5 +139,13 @@ class ProductsController < ApplicationController
     return unless @checker_id && admin_or_mentor_login? && (@checker_id != current_user.id) && !@product.wip?
 
     ActivityDelivery.with(product: @product, receiver: User.find(@checker_id)).notify(:assigned_as_checker)
+  end
+
+  def user_products(product)
+    product.user
+           .products
+           .includes(:practice, :user, :comments, :checks, comments: :user)
+           .not_wip
+           .order(published_at: :desc)
   end
 end
