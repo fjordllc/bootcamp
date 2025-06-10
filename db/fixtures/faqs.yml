@@ -215,3 +215,26 @@ faq26:
   answer: |-
     「Railsエンジニアコース」、「フロントエンドエンジニアコース」間のコース変更は可能です。メンターからレビューを受けている途中の課題がないキリのいいタイミングであれば、好きなタイミングで変更をすることができます。変更の回数制限もありません。
   faq_category: faq_categories1
+
+faq27:
+  position: 27
+  question: 専門実践教育訓練給付制度とはどのような制度ですか？
+  answer: |-
+    専門実線共育訓練給付制度とは、働く方々の主体的な能力開発やキャリア形成を支援し、雇用の安定と就職の促進を図ることを目的に、厚生労働大臣が指定する教育訓練を修了した際に、教育訓練経費の一部が支給される制度です。
+
+    詳しくは厚生労働省のホームページ(https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/jinzaikaihatsu/kyouiku.html)をご確認ください。
+  faq_category: faq_categories8
+
+faq28:
+  position: 28
+  question: 誰でもこの給付金制度を利用できますか？
+  answer: |-
+    雇用保険の被保険者期間が2年以上など、一定の条件を満たす方が対象となります。ご自身が対象となるかどうかの正式な確認は、お手数ですがお近くのハローワークにてお願いいたします。
+  faq_category: faq_categories8
+
+faq29:
+  position: 29
+  question: プログラミングは全くの未経験ですが、このコースについていけますか？
+  answer: |-
+    はい、問題ありません。本コースは、プログラミング未経験から自律したWebエンジニアとして就職・転職することを目指す方々を対象にカリキュラムが設計されていますので、ご安心ください。
+  faq_category: faq_categories8
