@@ -60,6 +60,6 @@ module MarkdownHelper
     return '' if markdown_content.blank?
 
     html_content = md2html(markdown_content)
-    strip_tags(html_content).gsub(/[\r\n]/, '').strip
+    strip_tags(html_content).strip
   end
 end
