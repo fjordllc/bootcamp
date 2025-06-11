@@ -106,4 +106,8 @@ module UsersHelper
   def day_of_the_week
     %w[日 月 火 水 木 金 土]
   end
+
+  def user_role_status_span(user, &)
+    tag.span(class: ['a-user-role', "is-#{user.primary_role}", "is-#{user.joining_status}"], &)
+  end
 end
