@@ -14,10 +14,9 @@ import '../learning-status.js'
 import '../check.js'
 import '../check-stamp.js'
 import '../unconfirmed-links-open.js'
-import '../comments.js'
-import '../comments_at_inquiry.js'
 import '../new-comment.js'
 import '../category-select.js'
+import '../comments.js'
 import '../fileinput.js'
 import '../reaction.js'
 import '../practice_memo.js'
@@ -78,25 +77,23 @@ import '../coding_tests_sort.js'
 import '../watches.js'
 import '../watch-toggle.js'
 import '../diploma-upload.js'
+import Cocooned from '@notus.sh/cocooned'
+import '../action_completed_button.js'
 
 import VueMounter from '../VueMounter.js'
 import Questions from '../components/questions.vue'
-import UsersAnswers from '../components/users-answers.vue'
-import User from '../components/user.vue'
 import UserProducts from '../components/user-products.vue'
-import ActionCompletedButton from '../components/action-completed-button.vue'
 
 import '../stylesheets/application'
 
 const mounter = new VueMounter()
 mounter.addComponent(Questions)
-mounter.addComponent(UsersAnswers)
-mounter.addComponent(User)
 mounter.addComponent(UserProducts)
-mounter.addComponent(ActionCompletedButton)
 mounter.mount()
 
 // Support component names relative to this directory:
 const componentRequireContext = require.context('components', true)
 const ReactRailsUJS = require('react_ujs')
 ReactRailsUJS.useContext(componentRequireContext)
+
+Cocooned.start()

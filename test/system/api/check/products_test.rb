@@ -35,9 +35,10 @@ class Check::ProductsTest < ApplicationSystemTestCase
   test 'comment and check product' do
     visit_with_auth "/products/#{products(:product1).id}", 'komagata'
     fill_in 'new_comment[description]', with: '提出物でcomment+合格にするtest'
-    page.accept_confirm do
+    accept_confirm do
       click_on '合格にする'
     end
+    accept_alert '提出物の担当になりました。'
     assert_text '合格'
     assert_text '提出物でcomment+合格にするtest'
   end
@@ -45,9 +46,10 @@ class Check::ProductsTest < ApplicationSystemTestCase
   test 'comment and check product by mentor' do
     visit_with_auth "/products/#{products(:product1).id}", 'mentormentaro'
     fill_in 'new_comment[description]', with: '提出物でcomment+合格にするtest'
-    page.accept_confirm do
+    accept_confirm do
       click_on '合格にする'
     end
+    accept_alert '提出物の担当になりました。'
     assert_text '合格'
     assert_text '提出物でcomment+合格にするtest'
   end

@@ -1,0 +1,17 @@
+.card-list.a-card
+  .card-header.is-sm
+    h2.card-header__title
+      | 提出物
+    hr.a-border
+  - if products?
+    .card-list__items
+      - products.each do |product|
+        = render Products::ProductComponent.new(**product_component_params(product))
+  - else
+    .card-body
+      .card-body__description
+        .o-empty-message
+          .o-empty-message__icon
+            i.fa-regular.fa-sad-tear
+          .o-empty-message__text
+            | 提出物はまだありません。

@@ -86,7 +86,7 @@ hr.a-border
                     = link_to announcement_path(@announcement), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
                       span#delete
                       | 削除する
-      #js-comments(data-commentable-id="#{@announcement.id}" data-commentable-type='Announcement' data-current-user-id="#{current_user.id}")
+      = render 'comments/comments', commentable: @announcement, commentable_type: 'Announcement'
       .user-icons
         ul.user-icons__items
           = render '/footprints/footprints', footprints: @footprints

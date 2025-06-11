@@ -1,4 +1,46 @@
+=blocks
+  video,
+  canvas,
+  iframe,
+  textarea,
+  figure,
+  details,
+  blockquote,
+  div,
+  p,
+  img,
+  dl,
+  ol,
+  ul,
+  table,
+  pre,
+  .speak,
+  .message
+    max-width: 100%
+    margin-block: 1.75em
+  hr
+    max-width: 100%
+    margin-block: 2.5em
+
 =list
+  ul,
+  ol
+    list-style-position: outside
+    margin-left: 1.75em
+  li
+    +text-block(1em 1.86)
+    margin-block: .5em
+    &:first-child
+      margin-top: 0
+    &:last-child
+      margin-bottom: 0
+    input
+      margin-right: .25rem
+    p:last-of-type
+      margin-bottom: 0
+  > p + ul,
+  > p + ol
+    margin-top: 1em
   ol
     list-style-type: decimal
     &.is-aiu
@@ -23,7 +65,6 @@
 
 =speak
   .speak
-    margin-block: 1.5em 2em
     &.is-mc
       font-weight: 700
   .speak__speaker
@@ -45,11 +86,7 @@
   .speak__body
     margin-top: .5rem
 
-=long-text-style($pc-font-size: 1rem, $mobile-font-size: .8125rem, $background: $base, $font: $default-text)
-  font-size: $pc-font-size
-  word-wrap: break-word
-  +media-breakpoint-down(sm)
-    font-size: $mobile-font-size
+=headdings
   h1
     +text-block(1.875em 1.466 0 .75em, 600)
     color: var(--main-text)
@@ -88,11 +125,118 @@
     margin-bottom: .625em
     & + *
       margin-top: 0 !important
-  >img
-    margin-block: 1.5em
+
+=header-anchor
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6
+    scroll-snap-align: start
+    scroll-snap-stop: always
+    position: relative
+    outline-style: none
+    &:hover
+      .header-anchor
+        opacity: 1
+  .header-anchor
+    display: flex
+    +text-block(.75rem, 400)
+    float: left
+    +position(absolute)
+    margin-left: -1.5rem
+    text-decoration: none !important
+    +size(1.5rem 100%)
+    align-items: center
+    justify-content: center
+    transition: all .2s ease-out
+    opacity: 0
+    &:link,
+    &:visited
+      color: var(--main)
+
+=table
+  table
+    width: 100%
+    background-color: var(--base)
+  th,
+  td
+    border: solid 1px var(--border-shade)
+    padding: .5em .625em
+    +text-block(.875em 1.6, left)
+  th
+    background-color: var(--background)
+  tbody tr
+    &:nth-child(even)
+      background-color: mix($default-text, $background, 2%)
+
+=figure
+  figure:has(figcaption) > *:first-child
+    margin-bottom: 0
+  figcaption
+    +text-block(.875em 1.6)
+    margin-top: .75em
+    text-align: center
+
+
+=message
+  .message
+    padding: 1em 1.25em 1em 2.75em
+    border-radius: .25rem
+    background-color: var(--warning-tint)
+    color: var(--warning-text)
+    &::before
+      +fa(fas '\f06a')
+      +position(absolute, left .25em, top .25em)
+      font-size: 1.5em
+      color: var(--warning)
+    &.alert,
+    &.danger
+      background-color: var(--danger-tint)
+      color: var(--danger-text)
+      &::before
+        color: var(--danger)
+    &.warning
+      background-color: var(--warning-tint)
+      color: var(--warning-text)
+      &::before
+        color: var(--warning)
+    &.info
+      background-color: var(--info-tint)
+      color: var(--info-text)
+      &::before
+        color: var(--info)
+    &.primary
+      background-color: var(--primary-tint)
+      color: var(--primary-text)
+      &::before
+        color: var(--primary)
+    &.success
+      background-color: var(--success-tint)
+      color: var(--success-text)
+      &::before
+        color: var(--success)
+
+=task-list
+  ul.contains-task-list
+    list-style: none
+    margin-left: 0
+  li.task-list-item
+    position: relative
+    padding-left: 1.375em
+    .task-list-item-checkbox
+      +position(absolute, top .5em, left 0)
+
+=long-text-style($pc-font-size: 1rem, $mobile-font-size: .8125rem, $background: $base, $font: $default-text)
+  word-wrap: break-word
+  +media-breakpoint-up(md)
+    font-size: $pc-font-size
+  +media-breakpoint-down(sm)
+    font-size: $mobile-font-size
+  +headdings
   p
     +text-block(1em 1.86)
-    margin-block: 1.5em
   a
     +hover-link-reversal
     +default-link
@@ -107,7 +251,6 @@
     code
       text-decoration: none !important
   dl
-    margin-block: 1.5em
     border: 1px solid mix($font, $background, 20%)
     padding: 1em
     border-radius: .25rem
@@ -124,7 +267,6 @@
     hyphens: none
   pre
     padding: 0
-    margin-block: 1.5em
     code
       border: none
       +text-block(.9375em 1.5)
@@ -166,69 +308,29 @@
     display: block
     height: .25rem
     background-color: #dadbdc
-    margin-block: 2em
     border: none
   img
-    max-width: 100%
     height: auto
     display: block
     margin-inline: auto
     border: 1px solid mix($font, $background, 10%)
-    +media-breakpoint-down(sm)
-      max-width: 100% !important
     &.is-xs
       max-width: 10em
     &.is-sm
       max-width: 20em
     &.is-md
       max-width: 30em
+    +media-breakpoint-down(sm)
+      max-width: 100% !important
   br + img
     margin-block: 1em
+  +figure
   +list
-  ul,
-  ol
-    list-style-position: outside
-    margin-left: 1.75em
-    margin-block: 1.5em
-  li
-    +text-block(1em 1.86)
-    margin-block: .5em
-    &:first-child
-      margin-top: 0
-    &:last-child
-      margin-bottom: 0
-    input
-      margin-right: .25rem
-    p:last-of-type
-      margin-bottom: 0
-  > p + ul,
-  > p + ol
-    margin-top: 1em
-
   div
     +list
 
-  table
-    width: 100%
-    background-color: var(--base)
-    margin-block: 2em
-
-  th,
-  td
-    border: solid 1px var(--border-shade)
-    padding: .5em .625em
-    +text-block(.875em 1.6, left)
-
-  th
-    background-color: var(--background)
-
-  tbody tr
-    &:nth-child(even)
-      background-color: mix($font, $background, 2%)
-
   blockquote
     padding-left: 1.5em
-    margin-block: 1.5em 2em
     +position(relative)
     border-left: solid .25em var(--border-tint)
     +list
@@ -240,13 +342,14 @@
       margin-bottom: 0 !important
 
   details
-    +text-block(.875rem 1.8 0 1.5em)
+    +text-block(.875rem 1.8)
+    margin-bottom: 1.5em
     border: solid 1px var(--border)
     padding: .5em 1em
     border-radius: .25rem
     +list
     summary
-      +text-block(1em 1.8 0 0)
+      +text-block(1em 1.8)
       cursor: pointer
       outline: none
       +hover-link
@@ -257,8 +360,6 @@
 
   iframe
     display: block
-    max-width: 100%
-    margin-block: 1.5em
     margin-inline: auto
 
   code
@@ -270,106 +371,18 @@
   b
     font-weight: 700
 
-  details
-    *:not(:first-child)
-      margin-top: 1em
-    *:last-child
-      margin-bottom: 0
-
   div
     position: relative
+    width: 100%
     +list
 
-  .message
-    padding: 1em 1.25em 1em 2.75em
-    border-radius: .25rem
-    margin-block: 1.5em 2em
-    background-color: var(--warning-tint)
-    color: var(--warning-text)
-    &::before
-      +fa(fas '\f06a')
-      +position(absolute, left .25em, top .25em)
-      font-size: 1.5em
-      color: var(--warning)
-    &.alert,
-    &.danger
-      background-color: var(--danger-tint)
-      color: var(--danger-text)
-      &::before
-        color: var(--danger)
-    &.warning
-      background-color: var(--warning-tint)
-      color: var(--warning-text)
-      &::before
-        color: var(--warning)
-    &.info
-      background-color: var(--info-tint)
-      color: var(--info-text)
-      &::before
-        color: var(--info)
-    &.primary
-      background-color: var(--primary-tint)
-      color: var(--primary-text)
-      &::before
-        color: var(--primary)
-    &.success
-      background-color: var(--success-tint)
-      color: var(--success-text)
-      &::before
-        color: var(--success)
-
-  ul.contains-task-list
-    list-style: none
-    margin-left: 0
-
-  li.task-list-item
-    position: relative
-    padding-left: 1.375em
-    .task-list-item-checkbox
-      +position(absolute, top .5em, left 0)
-
+  +message
+  +table
+  +task-list
   +speak
+  +header-anchor
+  +blocks
 
-  // header-anchor
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6
-    scroll-snap-align: start
-    scroll-snap-stop: always
-    position: relative
-    outline-style: none
-    &:hover
-      .header-anchor
-        opacity: 1
-
-  .header-anchor
-    display: flex
-    +text-block(.75rem, 400)
-    float: left
-    +position(absolute)
-    margin-left: -1.5rem
-    text-decoration: none !important
-    +size(1.5rem 100%)
-    align-items: center
-    justify-content: center
-    transition: all .2s ease-out
-    opacity: 0
-    &:link,
-    &:visited
-      color: var(--main)
-
-  video,
-  canvas,
-  iframe,
-  textarea,
-  div
-    max-width: 100%
-    margin-block: 1.5em
-  div
-    width: 100%
   textarea
     background-color: var(--input-background)
     width: 100%
@@ -404,14 +417,13 @@
     border-radius: 2px
     display: inline-block !important
     border: none !important
-    margin-left: 0 !important
-    margin-right: 0 !important
+    margin-inline: 0 !important
     vertical-align: middle
   body.articles & .a-user-emoji-link,
   body.buzz & .a-user-emoji-link
     pointer-events: none
 
   *:first-child
-    margin-top: 0
+    margin-top: 0 !important
   *:last-child
-    margin-bottom: 0
+    margin-bottom: 0 !important

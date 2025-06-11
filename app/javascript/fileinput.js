@@ -78,9 +78,14 @@ function extractField(elements) {
 document.addEventListener('DOMContentLoaded', () => {
   const ref = document.querySelector('#reference_books')
   if (ref) {
-    $(ref).on('cocoon:after-insert', (_, target) => {
-      const added = extractField(target)
-      initializeFileInput(added)
+    ref.addEventListener('cocooned:after-insert', (e) => {
+      const addedField = e.detail?.node
+      if (addedField) {
+        const added = extractField([addedField])
+        if (added) {
+          initializeFileInput(added)
+        }
+      }
     })
   }
   initializeFileInput(document)

@@ -36,13 +36,14 @@
         label.a-form-label
           | 学習時間
         .form-item__lerning-times#js-learning-times
-          = f.fields_for :learning_times do |learning_time|
-            = render 'learning_time_fields', f: learning_time
-          .form-item__add-times
-            = link_to_add_association f, :learning_times, class: 'a-button is-md is-primary' do
-              i.fa-regular.fa-plus
-              span
-                | 学習時間追加
+          = cocooned_container do
+            = f.fields_for :learning_times do |learning_time|
+              = render 'learning_time_fields', f: learning_time
+            .form-item__add-times
+              = cocooned_add_item_link f, :learning_times, class: 'a-button is-md is-primary' do
+                i.fa-regular.fa-plus
+                span
+                  | 学習時間追加
 
         .checkboxes
           .checkboxes__items

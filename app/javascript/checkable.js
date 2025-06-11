@@ -2,7 +2,7 @@ import checkStamp from 'check-stamp.js'
 
 export default {
   computed: {
-    isUnassignedAndUnchekedProduct() {
+    isUnassignedAndUncheckedProduct() {
       return (
         this.commentableType === 'Product' &&
         this.productCheckerId === null &&
@@ -45,11 +45,16 @@ export default {
           } else {
             checkStamp()
             if (!this.checkId) {
+              const event = new Event('checked')
+              document.dispatchEvent(event)
               if (checkableType === 'Product') {
                 this.toast('提出物を合格にしました。')
               } else if (checkableType === 'Report') {
                 this.toast('日報を確認済みにしました。')
               }
+            } else {
+              const event = new Event('unchecked')
+              document.dispatchEvent(event)
             }
           }
         })
