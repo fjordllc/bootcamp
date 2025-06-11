@@ -5,7 +5,8 @@ class WelcomeController < ApplicationController
   skip_before_action :require_active_user_login, raise: false
   layout 'lp'
   DEFAULT_COURSE = 'Railsエンジニア'
-  FAQ_CATEGORY_NAME = '法人利用について'
+  FAQ_CATEGORY_NAME_FOR_CORPORATE = '法人利用について'
+  FAQ_CATEGORY_NAME_FOR_GRANT_COURSE = '給付制度対象講座について'
 
   def index
     @mentors = current_user ? User.mentors_sorted_by_created_at : User.visible_sorted_mentors
@@ -33,7 +34,7 @@ class WelcomeController < ApplicationController
   end
 
   def training
-    @faqs = FAQCategory.find_by(name: FAQ_CATEGORY_NAME).faqs
+    @faqs = FAQCategory.find_by(name: FAQ_CATEGORY_NAME_FOR_CORPORATE).faqs
   end
 
   def practices; end
@@ -53,6 +54,7 @@ class WelcomeController < ApplicationController
   def logo; end
 
   def rails_developer_course
+    @faqs = FAQCategory.find_by(name: FAQ_CATEGORY_NAME_FOR_GRANT_COURSE).faqs
     render template: 'welcome/certified_reskill_courses/rails_developer_course/index'
   end
 
