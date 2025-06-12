@@ -1,0 +1,22 @@
+section.lp-content.is-lp-bg-1.is-left-title.lp-faqs
+  .l-container.is-lg
+    .lp-content__inner
+      .lp-content__start
+        header.lp-content__header
+           h3.lp-content-title.is-vertical.is-border-left
+            | 給付制度対象講座について
+            br
+            strong
+              | よくある質問
+      .lp-content__end
+        .lp-faqs__items
+          - @faqs.each do |faq|
+            section.lp-faq
+              .lp-faq__inner
+                header.lp-faq__header
+                  h4.lp-faq__title
+                    = faq.question
+                .lp-faq__body
+                  .a-short-text.js-markdown-view
+                    = faq.answer
+            hr.a-border
