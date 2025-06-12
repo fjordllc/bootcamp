@@ -83,6 +83,22 @@ module UsersHelper
     user_jobs.prepend(%w[全員 all])
   end
 
+  def job_seekings_for_select
+    [
+      %w[全員 all],
+      %w[希望する true],
+      %w[希望しない false]
+    ]
+  end
+
+  def payment_methods_for_select
+    [
+      %w[全員 all],
+      %w[クレジットカード払い card],
+      %w[請求書払い invoice]
+    ]
+  end
+
   def visible_learning_time_frames?(user)
     !user.graduated? && user.learning_time_frames.exists?
   end

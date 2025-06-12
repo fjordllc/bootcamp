@@ -51,6 +51,24 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert_no_text 'sotugyou（卒業 太郎）'
   end
 
+  test 'filter users by job seeking: true' do
+    visit_with_auth '/admin/users?job_seeking=true', 'komagata'
+    assert_text 'jobseeker（就活 のぞむ）'
+    assert_no_text 'kensyu（Kensyu Seiko）'
+  end
+
+  test 'filter users by payment method: card' do
+    visit_with_auth '/admin/users?payment_method=card', 'komagata'
+    assert_text 'kensyu（Kensyu Seiko）'
+    assert_no_text 'kensyu-invoice（請求書払いの研修生）'
+  end
+
+  test 'filter users by payment method: invoice' do
+    visit_with_auth '/admin/users?payment_method=invoice', 'komagata'
+    assert_text 'kensyu-invoice（請求書払いの研修生）'
+    assert_no_text 'kensyu（Kensyu Seiko）'
+  end
+
   test 'exclude hibernated and retired users from year-end-party email list' do
     visit_with_auth '/admin/users?target=year_end_party', 'komagata'
     assert_equal '管理ページ | FBC', title
