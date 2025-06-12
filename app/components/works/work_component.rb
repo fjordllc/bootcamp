@@ -17,6 +17,10 @@ class Works::WorkComponent < ViewComponent::Base
     image_tag work.user.avatar_url, title: work.user.icon_title, class: 'a-user-icons__item-icon a-user-icon'
   end
 
+  def user_role_status_span(user, &)
+    tag.span(class: ['a-user-role', "is-#{user.primary_role}", "is-#{user.joining_status}"], &)
+  end
+
   private
 
   attr_reader :work
