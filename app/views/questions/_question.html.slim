@@ -16,7 +16,6 @@
           h1.card-list-item-title__title itemprop='name'
             = link_to question, class: 'card-list-item-title__link a-text-link', itemprop: 'url' do
               = question.title
-
       - if question.practice
         .card-list-item__row
           .card-list-item-meta
@@ -25,7 +24,6 @@
                 = link_to question.practice, class: 'a-meta is-practice'
                   - if !question.practice_id.nil?
                     = question.practice.title
-
       .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items
@@ -36,7 +34,6 @@
             .card-list-item-meta__item
               = link_to question.user, class: 'a-user-name'
                 = question.user.long_name
-
       .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items
