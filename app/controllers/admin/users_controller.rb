@@ -15,10 +15,10 @@ class Admin::UsersController < AdminController
                  end
     @job = params[:job]
     user_scope = user_scope.users_job(@job) if @job.present?
-    @job_seeking = params[:job_seeking]
-    user_scope = apply_job_seeking_filter(user_scope, @job_seeking)
-    @payment_method = params[:payment_method]
-    user_scope = apply_payment_method_filter(user_scope, @payment_method)
+    job_seeking = params[:job_seeking]
+    user_scope = apply_job_seeking_filter(user_scope, job_seeking)
+    payment_method = params[:payment_method]
+    user_scope = apply_payment_method_filter(user_scope, payment_method)
     @users = user_scope.with_attached_avatar
                        .preload(:company, :course)
                        .order_by_counts(params[:order_by] || 'id', @direction)
