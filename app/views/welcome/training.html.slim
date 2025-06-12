@@ -32,6 +32,10 @@ article.lp
           .lp-hero-visual
             = image_tag('training/training_main.svg', class: 'lp-hero-visual__image', alt: 'フィヨルドブートキャンプの企業研修代行イメージイラスト')
 
+    .lp-content-divider.is-lp-bg-1
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+
   //
     section.lp-content.is-lp-bg-1.is-top-title.corporate-training-clients
       .l-container.is-lg
@@ -261,7 +265,11 @@ article.lp
                         .lp-capture-section__body
                           .a-short-text
                             p
+<<<<<<< HEAD
                               | 企業研修代行他、法人でのご利用の場合は、社内メンターのアカウントを無料で発行します。
+=======
+                              | 企業研修代行の場合は、社内メンターのアカウントを無料で発行します。
+>>>>>>> 689f28d37 (/training以下で表示される法人利用の文言を企業研修代行に修正)
                               | 社内メンターは研修生のように日報を提出したり、課題を提出することはできませんが、
                               | メンターと同じように研修生の日報や提出物にコメントをすることができます。
                               | FBCのメンターだけでなく、社内のメンターもたまにコメントをすることが、
@@ -305,7 +313,11 @@ article.lp
         .lp-content__start
           header.lp-content__header
             h2.lp-content-title.text-center.is-border-bottom
+<<<<<<< HEAD
               | 法人でのご利用料金
+=======
+              | 企業研修代行料
+>>>>>>> 689f28d37 (/training以下で表示される法人利用の文言を企業研修代行に修正)
         .lp-content__end
           .lp-content-stack
             .lp-content-stack__item
@@ -337,7 +349,7 @@ article.lp
                 | 一般利用の場合は、月額 29,800円（税込）
             .lp-content-stack__item
               h3.lp-content-sub-title.text-center
-                | 一般利用と法人利用の違い
+                | 一般利用と企業研修代行の違い
             .lp-content-stack__item
               .lp-content__description
                 .a-long-text
@@ -705,7 +717,36 @@ article.lp
                         dd
                           | aaaaaa
 
+<<<<<<< HEAD
   - if @faqs.present?
     = render 'welcome/training/faqs', faqs: @faqs
   - elsif current_user&.admin?
     = render 'welcome/faqs/faqs_empty'
+=======
+      .lp-content-divider.is-lp-bg-1
+        svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+          path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+
+  section.lp-content.is-lp-bg-1.is-left-title.lp-faqs
+    .l-container.is-lg
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h3.lp-content-title.is-vertical.is-border-left
+              | 企業研修代行について
+              br
+              strong
+                | よくある質問
+        .lp-content__end
+          .lp-faqs__items
+            - @faqs.each do |faq|
+              section.lp-faq
+                .lp-faq__inner
+                  header.lp-faq__header
+                    h4.lp-faq__title
+                      = faq.question
+                  .lp-faq__body
+                    .a-short-text.js-markdown-view
+                      = faq.answer
+              hr.a-border
+>>>>>>> 689f28d37 (/training以下で表示される法人利用の文言を企業研修代行に修正)
