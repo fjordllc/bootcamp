@@ -50,6 +50,7 @@ json.comments do
       json.url user_path(user)
       json.icon_title user.icon_title
       json.primary_role user.primary_role
+      json.joining_status user.joining_status
     end
   end
 end
