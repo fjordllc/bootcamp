@@ -87,7 +87,7 @@ Rails.configuration.after_initialize do
   Newspaper.subscribe(:pair_work_create, pair_work_notifier)
   Newspaper.subscribe(:pair_work_update, pair_work_notifier)
 
-  Newspaper.subscribe(:pair_work_create, PairWorkScheduleCreator.new)
+  # Newspaper.subscribe(:pair_work_create, PairWorkScheduleCreator.new)
 
   Newspaper.subscribe(:pair_work_update, PairWorkMatchingNotifier.new)
 end

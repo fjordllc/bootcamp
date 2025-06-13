@@ -20,6 +20,7 @@ class PairWorksController < ApplicationController
 
   def new
     @pair_work = PairWork.new
+    @pair_work.schedules.build
   end
 
   def create
@@ -27,9 +28,8 @@ class PairWorksController < ApplicationController
     @pair_work.user = current_user
     set_wip
     if @pair_work.save
-      Newspaper.publish(:pair_work_create, { pair_work: @pair_work, schedules: params[:pair_work][:schedules] })
+      Newspaper.publish(:pair_work_create, { pair_work: @pair_work })
       redirect_to @pair_work, notice: @pair_work.generate_notice_message(:create)
-
     else
       render :new
     end
@@ -53,7 +53,8 @@ class PairWorksController < ApplicationController
   private
 
   def pair_work_params
-    params.require(:pair_work).permit(:practice_id, :title, :description, :reserved_at, :buddy_id, :channel)
+    params.require(:pair_work).permit(:practice_id, :title, :description, :reserved_at, :buddy_id, :channel,
+                                      schedules_attributes: %i[id proposed_at _destroy])
   end
 
   def set_pair_work
