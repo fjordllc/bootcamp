@@ -120,7 +120,7 @@ class ProductCommentsTest < ApplicationSystemTestCase
     assert_button '担当する', visible: true
 
     accept_confirm('提出物の担当になりました。') do
-      accept_confirm('提出物を確認済にしてよろしいですか？') do
+      accept_confirm('提出物を合格にしてよろしいですか？') do
         fill_in 'new_comment[description]', with: 'comment test'
         click_button '合格にする'
       end
