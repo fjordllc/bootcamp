@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Course < ApplicationRecord
-  DEFAULT_COURSE = 'Railsエンジニア'
+  RAILS_COURSE = 'Railsエンジニア'
+  DEFAULT_COURSE = RAILS_COURSE
 
   has_many :courses_categories, dependent: :destroy
   has_many :categories, through: :courses_categories
@@ -13,5 +14,9 @@ class Course < ApplicationRecord
 
   def self.default_course
     find_by(title: DEFAULT_COURSE)
+  end
+
+  def self.rails_course
+    find_by(title: RAILS_COURSE)
   end
 end

@@ -7,6 +7,11 @@ Rails.application.routes.draw do
     resources :companies, except: %i(show)
     resources :users, only: %i(index show edit update destroy) do
       resource :password, only: %i(edit update), controller: "users/password"
+      resources :practice_progress, only: %i(index create), controller: "users/practice_progress" do
+        collection do
+          post :bulk_copy
+        end
+      end
     end
     resources :campaigns, only: %i(new create index edit update)
     resources :inquiries, only: %i(index show)
