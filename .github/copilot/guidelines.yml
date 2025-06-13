@@ -1,0 +1,12 @@
+# GitHub Copilot Guidelines
+
+# Pull Request Review Guidelines
+review:
+  language: "ja"
+  description: "Pull Requestのレビューは日本語で行うこと"
+
+# Code Review Standards
+standards:
+  - "コードレビューでは日本語でコメントを記載する"
+  - "技術的な議論も日本語で行う"
+  - "レビューコメントは建設的で丁寧な表現を心がける"
