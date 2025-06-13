@@ -10,7 +10,7 @@ class Company < ApplicationRecord
 
   def logo_url
     if logo.attached?
-      logo.variant(resize_to_limit: LOGO_SIZE).processed.url
+      logo.variant(resize_to_limit: LOGO_SIZE, format: :webp).processed.url
     else
       image_url('/images/companies/logos/default.png')
     end
