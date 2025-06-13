@@ -35,7 +35,7 @@ faq_category6:
   updated_at: <%= Time.current %>
 
 faq_category7:
-  name: 法人利用について
+  name: 企業研修代行について
   position: 7
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
