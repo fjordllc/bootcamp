@@ -2,7 +2,7 @@
 
 class CheckCallbacks
   def after_create(check)
-    if check.receiver && check.sender != check.receiver && check.checkable_type != 'Report' && check.checkable_type != 'Inquiry'
+    if check.receiver && check.sender != check.receiver && check.checkable_type != 'Report'
       ActivityDelivery.with(
         sender: check.sender,
         receiver: check.receiver,
