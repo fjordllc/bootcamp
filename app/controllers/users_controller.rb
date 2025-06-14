@@ -95,6 +95,7 @@ class UsersController < ApplicationController
   def create_free_user!
     logger.info "[Signup] 2. start create free user. #{@user.email}"
     if @user.save
+      @user.attach_custom_avatar if params[:avatar]
       logger.info "[Signup] 3. after save free user. #{@user.email}"
       UserMailer.welcome(@user).deliver_now
       notify_to_mentors(@user)
@@ -141,6 +142,7 @@ class UsersController < ApplicationController
       @user.subscription_id = subscription['id']
 
       if @user.save
+        @user.attach_custom_avatar if params[:avatar]
         logger.info "[Signup] 5. after save user. #{@user.email}"
         UserMailer.welcome(@user).deliver_now
         notify_to_mentors(@user)
