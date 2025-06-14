@@ -106,7 +106,7 @@ class PracticeProgressPresenter
     copied_practice.products.find { |p| p.user == user }
   end
 
-  def has_copy_destination?(practice)
+  def copy_destination?(practice)
     copy_destinations.include?(practice.id)
   end
 
@@ -124,7 +124,7 @@ class PracticeProgressPresenter
 
   def copy_destination_practices
     @copy_destination_practices ||= Practice.where(source_id: completed_practices.pluck(:practice_id))
-                                            .includes(:learnings, :products, learnings: :user, products: [:user, :checks])
+                                            .includes(:learnings, :products, learnings: :user, products: %i[user checks])
                                             .index_by(&:source_id)
   end
 end

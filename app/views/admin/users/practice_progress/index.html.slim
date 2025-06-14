@@ -67,7 +67,7 @@ main.page-main
                   td.admin-table__item-value.text-center
                     = l(learning.updated_at, format: :long)
                   td.admin-table__item-value.text-center
-                    - if @presenter.has_copy_destination?(practice)
+                    - if @presenter.copy_destination?(practice)
                       = link_to admin_user_practice_progress_index_path(@user, practice_id: learning.practice.id), method: :post, class: 'a-button is-sm is-primary', data: { confirm: '進捗をコピーしますか？' } do
                         | 進捗コピー
                         i.fa-solid.fa-arrow-circle-right.ml-1

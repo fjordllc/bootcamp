@@ -336,9 +336,9 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     visit_with_auth admin_user_practice_progress_index_path(user), 'komagata'
 
     assert_text original_practice.title
-    
+
     # Look for link within the specific row
-    within("tbody tr", text: original_practice.title) do
+    within('tbody tr', text: original_practice.title) do
       assert_link '進捗コピー'
     end
   end
@@ -390,7 +390,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     visit_with_auth admin_user_practice_progress_index_path(user), 'komagata'
 
     # Click the copy button with confirmation
-    within("tbody tr", text: original_practice.title) do
+    within('tbody tr', text: original_practice.title) do
       accept_confirm do
         click_link '進捗コピー'
       end
@@ -467,7 +467,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     visit_with_auth admin_user_practice_progress_index_path(user), 'komagata'
 
     # Click the copy button with confirmation
-    within("tbody tr", text: original_practice.title) do
+    within('tbody tr', text: original_practice.title) do
       accept_confirm do
         click_link '進捗コピー'
       end
