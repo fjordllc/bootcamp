@@ -89,9 +89,6 @@ class Practice < ApplicationRecord
       end
     end
 
-    def copied_practices_indexed_by_source_id(practice_ids)
-      Practice.where(source_id: practice_ids).index_by(&:source_id)
-    end
   end
 
   def status(user)
