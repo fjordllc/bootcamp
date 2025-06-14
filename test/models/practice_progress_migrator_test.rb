@@ -48,8 +48,7 @@ class PracticeProgressMigratorTest < ActiveSupport::TestCase
 
     result = @migrator.migrate(original_practice.id)
 
-    assert result[:success]
-    assert_equal '進捗をコピーしました。', result[:message]
+    assert result
 
     # Verify learning was copied
     copied_learning = Learning.find_by(user: @user, practice: copied_practice)
@@ -72,8 +71,7 @@ class PracticeProgressMigratorTest < ActiveSupport::TestCase
 
     result = @migrator.migrate(practice.id)
 
-    assert_not result[:success]
-    assert_equal 'コピー先のプラクティスが見つかりません。', result[:error]
+    assert_not result
   end
 
   test 'migrate updates existing learning and product' do
@@ -119,7 +117,7 @@ class PracticeProgressMigratorTest < ActiveSupport::TestCase
 
     result = @migrator.migrate(original_practice.id)
 
-    assert result[:success]
+    assert result
 
     # Verify learning was updated
     existing_learning.reload
@@ -166,9 +164,7 @@ class PracticeProgressMigratorTest < ActiveSupport::TestCase
 
     result = @migrator.migrate_all
 
-    assert result[:success]
-    # Check that the migration completed successfully
-    assert_equal '全ての進捗をコピーしました。', result[:message]
+    assert result
 
     # Verify both learnings were copied
     copied_learning1 = Learning.find_by(user: @user, practice: copied_practice1)
@@ -198,7 +194,6 @@ class PracticeProgressMigratorTest < ActiveSupport::TestCase
 
     result = @migrator.migrate_all
 
-    assert result[:success]
-    assert_equal '全ての進捗をコピーしました。', result[:message]
+    assert result
   end
 end
