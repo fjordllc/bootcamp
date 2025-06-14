@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       resource :password, only: %i(edit update), controller: "users/password"
       resources :practice_progress, only: %i(index create), controller: "users/practice_progress" do
         collection do
-          post :bulk_copy
+          post :create, action: :create_all
         end
       end
     end

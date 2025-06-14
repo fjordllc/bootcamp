@@ -88,7 +88,6 @@ class Practice < ApplicationRecord
         end
       end
     end
-
   end
 
   def status(user)

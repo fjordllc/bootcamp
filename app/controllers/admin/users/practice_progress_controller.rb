@@ -20,7 +20,7 @@ class Admin::Users::PracticeProgressController < AdminController
     end
   end
 
-  def bulk_copy
+  def create_all
     migrator = PracticeProgressMigrator.new(@user)
     result = migrator.migrate_all
 
