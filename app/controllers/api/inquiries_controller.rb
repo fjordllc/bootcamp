@@ -2,19 +2,18 @@
 
 class API::InquiriesController < API::BaseController
   def update
-    inquiry = Inquiry.find(params[:id])
-    if inquiry.update(inquiry_params)
-      if inquiry.action_completed && inquiry.checks.empty?
-        Check.create!(
-          user: current_user,
-          checkable: inquiry
-        )
-      elsif !inquiry.action_completed
-        inquiry.checks.destroy_all
+    inquiry = Inquiry.lock.find(params[:id])
+    Inquiry.transaction do
+      if inquiry.update(inquiry_params)
+        if inquiry.action_completed
+          Check.find_or_create_by!(user: current_user, checkable: inquiry)
+        else
+          inquiry.checks.destroy_all
+        end
+        head :ok
+      else
+        head :unprocessable_entity
       end
-      head :ok
-    else
-      head :unprocessable_entity
     end
   end
 
