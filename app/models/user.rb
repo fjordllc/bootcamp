@@ -714,11 +714,12 @@ class User < ApplicationRecord
 
   def avatar_url
     default_image_path = '/images/users/avatars/default.png'
-    format = 'webp'
 
     if avatar.attached?
-      avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 },
-                     format:).processed.url(filename: "#{login_name}.#{format}")
+      # 本番環境でavatar登録済みの全ユーザーがattach_custom_avatarの処理が完了した後、
+      # avatar_urlメソッド内のattach_custom_avatarは削除いたします。
+      attach_custom_avatar unless ActiveStorage::Blob.find_by(key: "avatars/#{login_name}.webp")
+      "#{avatar.url}?v=#{avatar.created_at.to_i}"
     else
       image_url default_image_path
     end
