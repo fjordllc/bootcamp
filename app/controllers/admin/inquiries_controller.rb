@@ -5,7 +5,7 @@ class Admin::InquiriesController < AdminController
 
   def index
     per = params[:per] || PAGER_NUMBER
-    @inquiries = Inquiry.order(created_at: :desc).page(params[:page]).per(per)
+    @inquiries = Inquiry.includes(checks: :user).order(created_at: :desc, id: :desc).page(params[:page]).per(per)
   end
 
   def show
