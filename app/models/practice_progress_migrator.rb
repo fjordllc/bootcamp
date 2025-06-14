@@ -23,9 +23,14 @@ class PracticeProgressMigrator
     presenter = PracticeProgressPresenter.new(@user)
     completed_practices = presenter.completed_practices
 
-    process_all_practices(completed_practices)
+    ActiveRecord::Base.transaction do
+      process_all_practices(completed_practices)
+    end
 
     true
+  rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotFound => e
+    Rails.logger.error "PracticeProgressMigrator#migrate_all failed: #{e.message}"
+    false
   end
 
   private
@@ -37,10 +42,8 @@ class PracticeProgressMigrator
 
       next unless copied_practice
 
-      ActiveRecord::Base.transaction do
-        copy_learning_data(practice, copied_practice)
-        copy_product_data(practice, copied_practice)
-      end
+      copy_learning_data(practice, copied_practice)
+      copy_product_data(practice, copied_practice)
     end
   end
 
