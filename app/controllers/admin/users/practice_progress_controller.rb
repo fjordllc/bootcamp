@@ -20,7 +20,6 @@ class Admin::Users::PracticeProgressController < AdminController
     end
   end
 
-
   private
 
   def set_user
