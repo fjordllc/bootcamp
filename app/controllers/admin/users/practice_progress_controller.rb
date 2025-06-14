@@ -10,8 +10,15 @@ class Admin::Users::PracticeProgressController < AdminController
   end
 
   def create
+    practice_id = practice_progress_params[:practice_id]
+    
+    unless practice_id.present? && Practice.exists?(practice_id)
+      redirect_to admin_user_practice_progress_index_path(@user), alert: 'プラクティスが見つかりません'
+      return
+    end
+
     migrator = PracticeProgressMigrator.new(@user)
-    result = migrator.migrate(params[:practice_id])
+    result = migrator.migrate(practice_id)
 
     if result[:success]
       redirect_to admin_user_practice_progress_index_path(@user), notice: result[:message]
@@ -24,5 +31,9 @@ class Admin::Users::PracticeProgressController < AdminController
 
   def set_user
     @user = User.find(params[:user_id])
+  end
+
+  def practice_progress_params
+    params.permit(:practice_id)
   end
 end

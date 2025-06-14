@@ -11,8 +11,10 @@ class PracticeProgressMigrator
 
     return { success: false, error: 'コピー先のプラクティスが見つかりません。' } unless copied_practice
 
-    copy_learning_data(practice, copied_practice)
-    copy_product_data(practice, copied_practice)
+    ActiveRecord::Base.transaction do
+      copy_learning_data(practice, copied_practice)
+      copy_product_data(practice, copied_practice)
+    end
 
     { success: true, message: '進捗をコピーしました。' }
   end
@@ -35,8 +37,10 @@ class PracticeProgressMigrator
 
       next unless copied_practice
 
-      copy_learning_data(practice, copied_practice)
-      copy_product_data(practice, copied_practice)
+      ActiveRecord::Base.transaction do
+        copy_learning_data(practice, copied_practice)
+        copy_product_data(practice, copied_practice)
+      end
     end
   end
 
@@ -83,15 +87,17 @@ class PracticeProgressMigrator
   end
 
   def copy_check_data(original_product, copied_product)
-    original_check = Check.find_by(checkable: original_product)
-    return unless original_check
+    original_product.checks.find_each do |original_check|
+      existing_check = Check.find_by(
+        checkable: copied_product,
+        user: original_check.user
+      )
+      next if existing_check
 
-    existing_check = Check.find_by(checkable: copied_product)
-    return if existing_check
-
-    Check.create!(
-      user: original_check.user,
-      checkable: copied_product
-    )
+      Check.create!(
+        user: original_check.user,
+        checkable: copied_product
+      )
+    end
   end
 end
