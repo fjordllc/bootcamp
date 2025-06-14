@@ -697,7 +697,7 @@ class User < ApplicationRecord
     !staff? && !graduated?
   end
 
-    def attach_custom_avatar
+  def attach_custom_avatar
     variant_avatar = avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }).processed
     io = StringIO.new(variant_avatar.download)
     format = 'webp'
@@ -705,7 +705,7 @@ class User < ApplicationRecord
     custom_blob = ActiveStorage::Blob.create_and_upload!(
       io:,
       key: custom_key,
-      filename: avatar.filename.to_s,
+      filename: "#{avatar.filename.base}.#{format}",
       content_type: "image/#{format}",
       identify: false
     )
