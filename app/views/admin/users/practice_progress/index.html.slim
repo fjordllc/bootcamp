@@ -95,7 +95,7 @@ main.page-main
                     - else
                       span.a-meta なし
         .text-center.mt-8
-          = link_to admin_user_practice_progress_index_path(@user), method: :post, class: 'a-button is-lg is-warning', data: { confirm: '全ての進捗をコピーしますか？' } do
+          = link_to admin_user_practice_progress_batches_path(@user), method: :post, class: 'a-button is-lg is-warning', data: { confirm: '全ての進捗をコピーしますか？' } do
             | 全ての進捗をコピー
             i.fa-solid.fa-copy.ml-1
       - else
