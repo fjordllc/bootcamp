@@ -32,7 +32,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     assert_text '完了日'
     assert_text 'プラクティス（Reスキル）'
     assert_text 'ステータス（Reスキル）'
-    assert_text '提出物（Reスキル）'
+    assert_text '進捗（Reスキル）'
     assert_text '修了'
     assert_selector '.admin-table'
   end
@@ -69,8 +69,8 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     practice.categories.first.courses.clear
     practice.categories.first.courses << frontend_course
 
-    # Clear existing learning to avoid uniqueness conflicts
-    Learning.where(user:, practice:).destroy_all
+    # Clear all existing learnings for this user to ensure clean state
+    Learning.where(user:).destroy_all
 
     # Create a completed learning for the user
     Learning.create!(
@@ -120,8 +120,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     assert_text original_practice.title
     assert_text original_practice.id.to_s
     assert_text copied_practice.title
-    assert_text "ID: #{copied_practice.id}"
-    assert_text "(元ID: #{copied_practice.source_id})"
+    assert_text copied_practice.id.to_s
   end
 
   test "shows 'なし' when no copied practice exists" do
@@ -257,8 +256,8 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     assert_text original_practice.title
     assert_text copied_practice.title
 
-    # Check Reスキル status and product
-    within 'tr', text: original_practice.title do
+    # Check Reスキル status and product in the data row containing original practice ID
+    within 'tbody tr', text: original_practice.id.to_s do
       assert_text '修了' # Status for Reスキル
       assert_link '提出物' # Product link for Reスキル
     end
@@ -305,7 +304,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     end
   end
 
-  test 'shows 成果物コピー button when copied practice exists' do
+  test 'shows 進捗コピー button when copied practice exists' do
     user = users(:kimura)
     rails_course = courses(:course1) # Railsエンジニアコース
 
@@ -337,11 +336,14 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     visit_with_auth admin_user_practice_progress_index_path(user), 'komagata'
 
     assert_text original_practice.title
-    assert_text '成果物コピー'
-    assert_button '成果物コピー'
+    
+    # Look for link within the specific row
+    within("tbody tr", text: original_practice.title) do
+      assert_link '進捗コピー'
+    end
   end
 
-  test 'copies learning and product data when 成果物コピー button is clicked' do
+  test 'copies learning and product data when 進捗コピー button is clicked' do
     user = users(:kimura)
     rails_course = courses(:course1) # Railsエンジニアコース
 
@@ -388,11 +390,13 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     visit_with_auth admin_user_practice_progress_index_path(user), 'komagata'
 
     # Click the copy button with confirmation
-    accept_confirm do
-      click_button '成果物コピー'
+    within("tbody tr", text: original_practice.title) do
+      accept_confirm do
+        click_link '進捗コピー'
+      end
     end
 
-    assert_text '成果物をコピーしました。'
+    assert_text '進捗をコピーしました。'
 
     # Verify learning was copied
     copied_learning = Learning.find_by(user:, practice: copied_practice)
@@ -463,11 +467,13 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     visit_with_auth admin_user_practice_progress_index_path(user), 'komagata'
 
     # Click the copy button with confirmation
-    accept_confirm do
-      click_button '成果物コピー'
+    within("tbody tr", text: original_practice.title) do
+      accept_confirm do
+        click_link '進捗コピー'
+      end
     end
 
-    assert_text '成果物をコピーしました。'
+    assert_text '進捗をコピーしました。'
 
     # Verify learning was updated
     existing_learning.reload
@@ -487,7 +493,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     assert_current_path admin_users_path
   end
 
-  test 'shows 全ての成果物をコピー button when user has completed practices' do
+  test 'shows 全ての進捗をコピー button when user has completed practices' do
     user = users(:kimura)
     rails_course = courses(:course1) # Railsエンジニアコース
     practice = practices(:practice1)
@@ -507,11 +513,11 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
 
     visit_with_auth admin_user_practice_progress_index_path(user), 'komagata'
 
-    assert_text '全ての成果物をコピー'
-    assert_button '全ての成果物をコピー'
+    assert_text '全ての進捗をコピー'
+    assert_link '全ての進捗をコピー'
   end
 
-  test 'copies all completed practices when 全ての成果物をコピー button is clicked' do
+  test 'copies all completed practices when 全ての進捗をコピー button is clicked' do
     user = users(:kimura)
     rails_course = courses(:course1) # Railsエンジニアコース
 
@@ -558,10 +564,10 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
 
     # Click the bulk copy button with confirmation
     accept_confirm do
-      click_button '全ての成果物をコピー'
+      click_link '全ての進捗をコピー'
     end
 
-    assert_text '全ての成果をコピーしました（2/2件）。'
+    assert_text '全ての進捗をコピーしました。'
 
     # Verify both learnings were copied
     copied_learning1 = Learning.find_by(user:, practice: copied_practice1)

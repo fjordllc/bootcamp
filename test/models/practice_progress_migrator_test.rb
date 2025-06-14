@@ -49,7 +49,7 @@ class PracticeProgressMigratorTest < ActiveSupport::TestCase
     result = @migrator.migrate(original_practice.id)
 
     assert result[:success]
-    assert_equal '成果物をコピーしました。', result[:message]
+    assert_equal '進捗をコピーしました。', result[:message]
 
     # Verify learning was copied
     copied_learning = Learning.find_by(user: @user, practice: copied_practice)
@@ -167,10 +167,8 @@ class PracticeProgressMigratorTest < ActiveSupport::TestCase
     result = @migrator.migrate_all
 
     assert result[:success]
-    # Check how many completed practices exist for this course
-    rails_course = Course.find_by(title: 'Railsエンジニア')
-    completed_count = @user.completed_practices_by(rails_course).count
-    assert_equal "全ての成果をコピーしました（2/#{completed_count}件）。", result[:message]
+    # Check that the migration completed successfully
+    assert_equal '全ての進捗をコピーしました。', result[:message]
 
     # Verify both learnings were copied
     copied_learning1 = Learning.find_by(user: @user, practice: copied_practice1)
@@ -201,6 +199,6 @@ class PracticeProgressMigratorTest < ActiveSupport::TestCase
     result = @migrator.migrate_all
 
     assert result[:success]
-    assert_equal '全ての成果をコピーしました（0/1件）。', result[:message]
+    assert_equal '全ての進捗をコピーしました。', result[:message]
   end
 end
