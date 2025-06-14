@@ -90,7 +90,7 @@ class Practice < ApplicationRecord
     end
 
     def copied_practices_indexed_by_source_id(practice_ids)
-      copied_from(practice_ids).index_by(&:source_id)
+      Practice.where(source_id: practice_ids).index_by(&:source_id)
     end
   end
 
