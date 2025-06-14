@@ -3,7 +3,7 @@
 class Admin::Users::PracticeProgressController < AdminController
   before_action :set_user
 
-  def index
+  def show
     @presenter = PracticeProgressPresenter.new(@user)
     @current_course = @user.course
     @rails_course = Course.rails_course
@@ -13,16 +13,16 @@ class Admin::Users::PracticeProgressController < AdminController
     practice_id = practice_progress_params[:practice_id]
 
     unless practice_id.present? && Practice.exists?(practice_id)
-      redirect_to admin_user_practice_progress_index_path(@user), alert: 'プラクティスが見つかりません'
+      redirect_to admin_user_practice_progress_path(@user), alert: 'プラクティスが見つかりません'
       return
     end
 
     migrator = PracticeProgressMigrator.new(@user)
 
     if migrator.migrate(practice_id)
-      redirect_to admin_user_practice_progress_index_path(@user), notice: '進捗をコピーしました。'
+      redirect_to admin_user_practice_progress_path(@user), notice: '進捗をコピーしました。'
     else
-      redirect_to admin_user_practice_progress_index_path(@user), alert: 'コピー先のプラクティスが見つかりません。'
+      redirect_to admin_user_practice_progress_path(@user), alert: 'コピー先のプラクティスが見つかりません。'
     end
   end
 

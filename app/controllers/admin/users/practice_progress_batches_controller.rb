@@ -7,9 +7,9 @@ class Admin::Users::PracticeProgressBatchesController < AdminController
     migrator = PracticeProgressMigrator.new(@user)
 
     if migrator.migrate_all
-      redirect_to admin_user_practice_progress_index_path(@user), notice: '全ての進捗をコピーしました。'
+      redirect_to admin_user_practice_progress_path(@user), notice: '全ての進捗をコピーしました。'
     else
-      redirect_to admin_user_practice_progress_index_path(@user), alert: '進捗のコピーに失敗しました。'
+      redirect_to admin_user_practice_progress_path(@user), alert: '進捗のコピーに失敗しました。'
     end
   end
 

@@ -21,7 +21,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
       status: 'complete'
     )
 
-    visit_with_auth admin_user_practice_progress_index_path(user), 'komagata'
+    visit_with_auth admin_user_practice_progress_path(user), 'komagata'
 
     assert_text "#{user.login_name}さんのRailsエンジニアコース完了プラクティス一覧"
     assert_text practice.title
@@ -42,7 +42,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     course = courses(:course1)
     user.update!(course:)
 
-    visit_with_auth admin_user_practice_progress_index_path(user), 'komagata'
+    visit_with_auth admin_user_practice_progress_path(user), 'komagata'
 
     # NOTE: Current course information is not displayed in the current view
     # assert_text "現在のコース: #{course.title}"
@@ -54,7 +54,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     # Ensure user has no completed learnings
     user.learnings.destroy_all
 
-    visit_with_auth admin_user_practice_progress_index_path(user), 'komagata'
+    visit_with_auth admin_user_practice_progress_path(user), 'komagata'
 
     assert_text "#{user.login_name}さんのRailsエンジニアコース完了プラクティス一覧"
     assert_text 'Railsエンジニアコースで完了したプラクティスがありません。'
@@ -79,7 +79,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
       status: 'complete'
     )
 
-    visit_with_auth admin_user_practice_progress_index_path(user), 'komagata'
+    visit_with_auth admin_user_practice_progress_path(user), 'komagata'
 
     assert_text "#{user.login_name}さんのRailsエンジニアコース完了プラクティス一覧"
     assert_no_text practice.title
@@ -115,7 +115,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
       status: 'complete'
     )
 
-    visit_with_auth admin_user_practice_progress_index_path(user), 'komagata'
+    visit_with_auth admin_user_practice_progress_path(user), 'komagata'
 
     assert_text original_practice.title
     assert_text original_practice.id.to_s
@@ -141,7 +141,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
       status: 'complete'
     )
 
-    visit_with_auth admin_user_practice_progress_index_path(user), 'komagata'
+    visit_with_auth admin_user_practice_progress_path(user), 'komagata'
 
     assert_text practice.title
     assert_text 'なし'
@@ -173,7 +173,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
       body: 'Test submission'
     )
 
-    visit_with_auth admin_user_practice_progress_index_path(user), 'komagata'
+    visit_with_auth admin_user_practice_progress_path(user), 'komagata'
 
     assert_text practice.title
     assert_text '修了'
@@ -198,7 +198,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
       status: 'complete'
     )
 
-    visit_with_auth admin_user_practice_progress_index_path(user), 'komagata'
+    visit_with_auth admin_user_practice_progress_path(user), 'komagata'
 
     assert_text practice.title
     assert_text '修了'
@@ -251,7 +251,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
       body: 'Reスキル submission'
     )
 
-    visit_with_auth admin_user_practice_progress_index_path(user), 'komagata'
+    visit_with_auth admin_user_practice_progress_path(user), 'komagata'
 
     assert_text original_practice.title
     assert_text copied_practice.title
@@ -292,7 +292,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
       status: 'complete'
     )
 
-    visit_with_auth admin_user_practice_progress_index_path(user), 'komagata'
+    visit_with_auth admin_user_practice_progress_path(user), 'komagata'
 
     assert_text original_practice.title
     assert_text copied_practice.title
@@ -333,7 +333,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
       status: 'complete'
     )
 
-    visit_with_auth admin_user_practice_progress_index_path(user), 'komagata'
+    visit_with_auth admin_user_practice_progress_path(user), 'komagata'
 
     assert_text original_practice.title
 
@@ -387,7 +387,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
       checkable: original_product
     )
 
-    visit_with_auth admin_user_practice_progress_index_path(user), 'komagata'
+    visit_with_auth admin_user_practice_progress_path(user), 'komagata'
 
     # Click the copy button with confirmation
     within('tbody tr', text: original_practice.title) do
@@ -464,7 +464,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
       body: 'Old submission'
     )
 
-    visit_with_auth admin_user_practice_progress_index_path(user), 'komagata'
+    visit_with_auth admin_user_practice_progress_path(user), 'komagata'
 
     # Click the copy button with confirmation
     within('tbody tr', text: original_practice.title) do
@@ -487,7 +487,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
   test 'admin can navigate back to users list' do
     user = users(:kimura)
 
-    visit_with_auth admin_user_practice_progress_index_path(user), 'komagata'
+    visit_with_auth admin_user_practice_progress_path(user), 'komagata'
 
     click_on 'ユーザー一覧'
     assert_current_path admin_users_path
@@ -511,7 +511,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
       status: 'complete'
     )
 
-    visit_with_auth admin_user_practice_progress_index_path(user), 'komagata'
+    visit_with_auth admin_user_practice_progress_path(user), 'komagata'
 
     assert_text '全ての進捗をコピー'
     assert_link '全ての進捗をコピー'
@@ -560,7 +560,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     Product.create!(user:, practice: original_practice1, body: 'Submission 1')
     Product.create!(user:, practice: original_practice2, body: 'Submission 2')
 
-    visit_with_auth admin_user_practice_progress_index_path(user), 'komagata'
+    visit_with_auth admin_user_practice_progress_path(user), 'komagata'
 
     # Click the bulk copy button with confirmation
     accept_confirm do
