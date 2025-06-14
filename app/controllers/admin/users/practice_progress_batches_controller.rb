@@ -5,9 +5,9 @@ class Admin::Users::PracticeProgressBatchesController < AdminController
 
   def create
     migrator = PracticeProgressMigrator.new(@user)
-    result = migrator.migrate_all
+    migrator.migrate_all
 
-    redirect_to admin_user_practice_progress_index_path(@user), notice: result[:message]
+    redirect_to admin_user_practice_progress_index_path(@user), notice: '全ての進捗をコピーしました。'
   end
 
   private

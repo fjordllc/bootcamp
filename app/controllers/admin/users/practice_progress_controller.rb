@@ -11,19 +11,18 @@ class Admin::Users::PracticeProgressController < AdminController
 
   def create
     practice_id = practice_progress_params[:practice_id]
-    
+
     unless practice_id.present? && Practice.exists?(practice_id)
       redirect_to admin_user_practice_progress_index_path(@user), alert: 'プラクティスが見つかりません'
       return
     end
 
     migrator = PracticeProgressMigrator.new(@user)
-    result = migrator.migrate(practice_id)
 
-    if result[:success]
-      redirect_to admin_user_practice_progress_index_path(@user), notice: result[:message]
+    if migrator.migrate(practice_id)
+      redirect_to admin_user_practice_progress_index_path(@user), notice: '進捗をコピーしました。'
     else
-      redirect_to admin_user_practice_progress_index_path(@user), alert: result[:error]
+      redirect_to admin_user_practice_progress_index_path(@user), alert: 'コピー先のプラクティスが見つかりません。'
     end
   end
 

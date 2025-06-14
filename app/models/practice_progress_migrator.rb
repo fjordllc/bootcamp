@@ -9,14 +9,14 @@ class PracticeProgressMigrator
     practice = Practice.find(practice_id)
     copied_practice = Practice.find_by(source_id: practice_id)
 
-    return { success: false, error: 'コピー先のプラクティスが見つかりません。' } unless copied_practice
+    return false unless copied_practice
 
     ActiveRecord::Base.transaction do
       copy_learning_data(practice, copied_practice)
       copy_product_data(practice, copied_practice)
     end
 
-    { success: true, message: '進捗をコピーしました。' }
+    true
   end
 
   def migrate_all
@@ -25,7 +25,7 @@ class PracticeProgressMigrator
 
     process_all_practices(completed_practices)
 
-    { success: true, message: '全ての進捗をコピーしました。' }
+    true
   end
 
   private
