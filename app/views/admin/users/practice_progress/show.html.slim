@@ -50,8 +50,8 @@ main.page-main
                   practice = learning.practice
                   user_product = @presenter.product_for(learning)
                   copy_destination_practice = @presenter.copy_destination_practice_for(practice)
-                  copied_practice_learning = copy_destination_practice&.learnings&.find { |l| l.user == @presenter.user }
-                  copied_practice_product = copy_destination_practice&.products&.find { |p| p.user == @presenter.user }
+                  copied_practice_learning = @presenter.copied_practice_learning_for(copy_destination_practice)
+                  copied_practice_product = @presenter.copied_practice_product_for(copy_destination_practice)
                 tr.admin-table__item
                   td.admin-table__item-value.text-center
                     = learning.practice.id

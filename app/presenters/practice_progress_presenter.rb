@@ -37,10 +37,9 @@ class PracticeProgressPresenter
   end
 
   def migration_candidates
-    completed_practice_ids = completed_practices.pluck(:practice_id)
-    completed_practices.joins(:practice)
-                       .where(practices: { source_id: nil })
-                       .where.not(practice_id: Practice.where(source_id: completed_practice_ids).pluck(:source_id))
+    ids = completed_practices.pluck(:practice_id)
+    completed_practices.joins(:practice).where(practices: { source_id: nil })
+                       .where.not(practice_id: Practice.where(source_id: ids).pluck(:source_id))
   end
 
   def copied_practice_learnings_for(copied_practice_ids)
@@ -53,7 +52,6 @@ class PracticeProgressPresenter
         .includes(:practice, :checks)
   end
 
-  # Presenter helper methods
   delegate :count, to: :completed_practices, prefix: true
 
   def migration_progress_percentage
@@ -68,16 +66,12 @@ class PracticeProgressPresenter
   end
 
   def practice_status_for(practice)
-    if practice.source_id.present?
-      'copied'
-    elsif copied_practices_for([practice.id]).exists?
-      'has_copy'
-    else
-      'original'
-    end
+    return 'copied' if practice.source_id.present?
+    return 'has_copy' if copied_practices_for([practice.id]).exists?
+
+    'original'
   end
 
-  # View helper methods
   def product_for(learning)
     @products_cache ||= user.products.where(practice_id: completed_practices.pluck(:practice_id))
                             .includes(:practice, :checks)
@@ -105,6 +99,9 @@ class PracticeProgressPresenter
 
     copied_practice.products.find { |p| p.user == user }
   end
+
+  alias copied_practice_learning_for copied_learning_for
+  alias copied_practice_product_for copied_product_for
 
   def copy_destination?(practice)
     copy_destinations.include?(practice.id)
