@@ -51,6 +51,7 @@ export default {
       return this.isActionCompleted ? '対応済み' : '未対応'
     },
     changeCompleted() {
+      const prev = this.isActionCompleted
       this.isActionCompleted = !this.isActionCompleted
       const params = {}
       params[this.modelName] = { action_completed: this.isActionCompleted }
@@ -61,6 +62,8 @@ export default {
         })
         .catch((error) => {
           console.warn(error)
+          this.isActionCompleted = prev // ロールバック
+          this.toast('更新に失敗しました。再度お試しください。')
         })
     }
   }
