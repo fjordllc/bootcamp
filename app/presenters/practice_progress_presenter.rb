@@ -3,7 +3,7 @@
 class PracticeProgressPresenter
   include ActionView::Helpers
 
-  attr_reader :user, :course
+  attr_reader :user
 
   def initialize(user, course: Course.rails_course)
     @user = user
@@ -12,7 +12,7 @@ class PracticeProgressPresenter
 
   def completed_practices
     @completed_practices ||= CompletedLearningsQuery
-                             .new(user.learnings, course:)
+                             .new(user.learnings, course: @course)
                              .call
                              .includes(
                                :practice,
