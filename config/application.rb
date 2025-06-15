@@ -22,6 +22,7 @@ module Bootcamp
     config.i18n.default_locale = :ja
 
     config.paths.add "lib", eager_load: true
+    config.paths.add "app/presenters", eager_load: true
 
     config.action_view.field_error_proc = Proc.new do |html_tag, instance|
       html_tag.html_safe
