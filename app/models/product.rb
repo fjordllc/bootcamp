@@ -13,6 +13,7 @@ class Product < ApplicationRecord
   include Searchable
   include Bookmarkable
   include Taskable
+  include SearchHelper
 
   belongs_to :practice
   belongs_to :user, touch: true

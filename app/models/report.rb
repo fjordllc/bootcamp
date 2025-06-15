@@ -11,6 +11,7 @@ class Report < ApplicationRecord
   include Mentioner
   include Bookmarkable
   include Taskable
+  include SearchHelper
 
   enum emotion: {
     sad: 1,

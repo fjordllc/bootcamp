@@ -1,4 +1,4 @@
-document = matched_document(searchable)
+document = SearchHelper.matched_document(searchable)
 json.title document.title
 json.url searchable_url(searchable)
 json.model_name document.class.to_s.tableize.singularize
