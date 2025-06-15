@@ -51,6 +51,10 @@ class Practice < ApplicationRecord
            through: :coding_tests,
            source: :coding_test_submissions
 
+  # Practice copy relationships
+  has_many :copied_practices, class_name: 'Practice', foreign_key: 'source_id', dependent: :nullify, inverse_of: :source_practice
+  belongs_to :source_practice, class_name: 'Practice', foreign_key: 'source_id', optional: true, inverse_of: :copied_practices
+
   validates :title, presence: true
   validates :description, presence: true
   validates :goal, presence: true
