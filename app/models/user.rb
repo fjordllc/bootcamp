@@ -588,6 +588,10 @@ class User < ApplicationRecord
     Practice.where(products: products.checked)
   end
 
+  def practice_ids_skipped
+    skipped_practices.pluck(:practice_id)
+  end
+
   def total_learning_time
     sql = <<~SQL
       SELECT
@@ -634,10 +638,6 @@ class User < ApplicationRecord
     return unless subscription?
 
     Subscription.new.retrieve(subscription_id)
-  end
-
-  def practice_ids_skipped
-    skipped_practices.pluck(:practice_id)
   end
 
   def student?
