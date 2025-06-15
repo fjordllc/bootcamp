@@ -1,0 +1,54 @@
+- title '研修終了手続き'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        .page-header__title
+          = title
+hr.a-border
+.auth-form.is-lg
+  .a-card
+    header.auth-form__header
+      h1.auth-form__title 研修終了手続き
+    .auth-form__body
+      - if current_user.errors.any?
+        = render 'errors', object: current_user
+      = form_with model: current_user, local: true, url: training_completion_path, method: :post, class: 'form' do |f|
+        .form__items
+          - if current_user.regular_events.any?
+            .form-item
+              .important-message
+                .important-message__body
+                  .a-short-text.is-sm
+                    p
+                      |ご自身が主催者である定期イベントがあります。
+                      br
+                      | 研修を修了される場合、イベントの進行に影響がないよう、任意で他の参加者に主催を引き継ぐことを推奨します。
+                      | 退会手続きを完了する前に、
+                      | 以下のリンク先でイベント設定変更を行なってください。
+                    ul
+                      - current_user.regular_events.each do |event|
+                        li
+                          = link_to edit_regular_event_path(event), target: '_blank', rel: 'noopener' do
+                            | 定期イベント「#{event.title}」の設定変更
+
+          .form-item
+            = f.label :satisfaction, '全体の満足度を教えてください', class: 'a-form-label is-required'
+            ul.block-checks.is-2-items
+              = f.collection_radio_buttons :satisfaction, User.satisfactions, :first, :first do |b|
+                li.block-checks__item
+                  .a-block-check.is-radio
+                    = b.radio_button(class: 'a-toggle-checkbox')
+                    label.a-block-check__label(for="user_satisfaction_#{b.value}")
+                      = t("activerecord.enums.user.satisfaction.#{b.text}")
+          .form-item
+            = f.label :opinion, 'ご意見や改善すべきと感じた点がございましたらご自由にご記載ください', class: 'a-form-label'
+            = f.text_area :opinion, class: 'a-text-input is-md', placeholder: 'ご意見や改善すべきと感じた点がございましたらご自由にご記載ください'
+
+        .form-actions
+          ul.form-actions__items
+            li.form-actions__item.is-main
+              = link_to 'キャンセル', :back, class: 'a-button is-md is-secondary is-block'
+            li.form-actions__item.is-main
+              = f.submit '研修を終了する', class: 'a-button is-md is-danger is-block', data: { confirm: '本当によろしいですか？' }
