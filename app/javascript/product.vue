@@ -3,11 +3,7 @@
   .card-list-item__inner
     .card-list-item__user(v-if='displayUserIcon')
       a.card-list-item__user-link(:href='product.user.url')
-        span(:class='["a-user-role", roleClass, joiningStatusClass]')
-          img.card-list-item__user-icon.a-user-icon(
-            :title='product.user.icon_title',
-            :alt='product.user.icon_title',
-            :src='product.user.avatar_url')
+        UserRoleStatusSpan(:user='product.user')
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
@@ -126,12 +122,6 @@ export default {
     displayUserIcon: { type: Boolean }
   },
   computed: {
-    roleClass() {
-      return `is-${this.product.user.primary_role}`
-    },
-    joiningStatusClass() {
-      return `is-${this.product.user.joining_status}`
-    },
     practiceTitle() {
       return `${this.product.practice.title}の提出物`
     },
