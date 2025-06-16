@@ -62,11 +62,7 @@ class CopyCheck
   end
 
   def update_completion_message(results)
-    context.message = if products_available?
-                        'Learning, product, and checks copied successfully'
-                      else
-                        build_summary_message(results)
-                      end
+    context.message = build_summary_message(results)
   end
 
   def products_available?

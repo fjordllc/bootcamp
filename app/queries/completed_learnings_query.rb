@@ -8,7 +8,8 @@ class CompletedLearningsQuery < Patterns::Query
   def query
     relation
       .joins(practice: { categories: :courses_categories })
-      .where(status: 'complete', courses_categories: { course: @course })
+      .where(status: Learning.statuses[:complete], courses_categories: { course: @course })
+      .distinct
       .includes(:practice)
       .order('learnings.updated_at asc')
   end
