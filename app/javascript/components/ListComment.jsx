@@ -1,5 +1,5 @@
 import React from 'react'
-import CommentUserIcon from './CommentUserIcon'
+import UserRoleStatusSpan from './UserRoleStatusSpan'
 
 export default function ListComment({ report }) {
   return (
@@ -17,7 +17,17 @@ export default function ListComment({ report }) {
               <div className="card-list-item__user-icons">
                 {report.comments.map((comment) => {
                   return (
-                    <CommentUserIcon comment={comment} key={comment.user_id} />
+                    <a
+                      className="card-list-item__user-icons-icon"
+                      href={`/users/${comment.user_id}`}>
+                      <UserRoleStatusSpan
+                        user={comment}
+                        className="a-user-icon"
+                        src={comment.user_icon}
+                        comment={comment}
+                        key={comment.user_id}
+                      />
+                    </a>
                   )
                 })}
               </div>
