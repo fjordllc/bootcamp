@@ -38,7 +38,7 @@ class CopyCheckTest < ActiveSupport::TestCase
     )
 
     assert result.success?
-    assert_equal 'Learning, product, and checks copied successfully', result.message
+    assert_equal 'Copied 2 check(s), skipped 0 existing check(s)', result.message
     assert_equal 2, result.copied_checks_count
     assert_equal 0, result.skipped_checks_count
 
@@ -63,7 +63,7 @@ class CopyCheckTest < ActiveSupport::TestCase
     )
 
     assert result.success?
-    assert_equal 'Learning, product, and checks copied successfully', result.message
+    assert_equal 'Copied 1 check(s), skipped 1 existing check(s)', result.message
     assert_equal 1, result.copied_checks_count
     assert_equal 1, result.skipped_checks_count
 
