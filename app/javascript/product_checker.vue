@@ -16,7 +16,7 @@ button(
 </template>
 <script>
 import CSRF from 'csrf'
-import toast from 'toast'
+import { toast } from 'vanillaToast'
 import checkable from './checkable.js'
 
 export default {
