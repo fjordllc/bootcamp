@@ -36,7 +36,7 @@ import 'whatwg-fetch'
 import CSRF from 'csrf'
 import ProductChecker from 'product_checker'
 import checkable from 'checkable.js'
-import toast from './toast'
+import { toast } from 'vanillaToast.js'
 
 export default {
   components: {
