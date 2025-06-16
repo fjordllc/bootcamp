@@ -6,11 +6,11 @@ class Admin::Users::PracticeProgressBatchesController < AdminController
   def create
     migrator = PracticeProgressMigrator.new(@user)
 
-    context = migrator.migrate_all
-    if context.success?
+    result = migrator.migrate_all
+    if result
       redirect_to admin_user_practice_progress_path(@user), notice: '全ての進捗をコピーしました。'
     else
-      redirect_to admin_user_practice_progress_path(@user), alert: context.error || '進捗のコピーに失敗しました。'
+      redirect_to admin_user_practice_progress_path(@user), alert: '進捗のコピーに失敗しました。'
     end
   end
 
