@@ -27,7 +27,7 @@
       .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items
-            - if question.wip
+            - if question.wip?
               .card-list-item-meta__item
                 .a-meta
                   | 質問作成中
@@ -37,7 +37,7 @@
       .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items
-            - if !question.wip
+            - if !question.wip?
               .card-list-item-meta__item
                 time.a-meta
                   span.a-meta__label
