@@ -6,10 +6,19 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
   test "admin can view user's completed Rails practices only" do
     user = users(:kimura)
     rails_course = courses(:course1) # Railsエンジニアコース
-    practice = practices(:practice1)
-
-    # Ensure practice belongs to Rails course
-    practice.categories.first.courses << rails_course unless practice.categories.first.courses.include?(rails_course)
+    
+    # Create a dedicated category and practice for this test
+    category = Category.create!(name: 'Test Category', slug: 'test-category')
+    category.courses << rails_course
+    
+    practice = Practice.new(
+      title: 'Test Practice',
+      description: 'Test practice for system test',
+      goal: 'Test goal',
+      submission: 'product'
+    )
+    practice.categories << category
+    practice.save!
 
     # Clear existing learning to avoid uniqueness conflicts
     Learning.where(user:, practice:).destroy_all
@@ -63,11 +72,19 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
   test 'does not show practices from other courses' do
     user = users(:kimura)
     frontend_course = courses(:course4) # フロントエンドエンジニアコース
-    practice = practices(:practice1)
-
-    # Ensure practice belongs only to frontend course (not Rails course)
-    practice.categories.first.courses.clear
-    practice.categories.first.courses << frontend_course
+    
+    # Create a dedicated category and practice for frontend course
+    category = Category.create!(name: 'Frontend Test Category', slug: 'frontend-test-category')
+    category.courses << frontend_course
+    
+    practice = Practice.new(
+      title: 'Frontend Test Practice',
+      description: 'Frontend practice for system test',
+      goal: 'Frontend goal',
+      submission: 'product'
+    )
+    practice.categories << category
+    practice.save!
 
     # Clear all existing learnings for this user to ensure clean state
     Learning.where(user:).destroy_all
@@ -90,9 +107,18 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     user = users(:kimura)
     rails_course = courses(:course1) # Railsエンジニアコース
 
-    # Create original practice
-    original_practice = practices(:practice1)
-    original_practice.categories.first.courses << rails_course unless original_practice.categories.first.courses.include?(rails_course)
+    # Create dedicated category and original practice for this test
+    category = Category.create!(name: 'Test Category Copy Source Match', slug: 'test-category-copy-source-match')
+    category.courses << rails_course
+    
+    original_practice = Practice.new(
+      title: 'Test Practice Copy Source Match',
+      description: 'Test practice for system test',
+      goal: 'Test goal',
+      submission: 'product'
+    )
+    original_practice.categories << category
+    original_practice.save!
 
     # Create copied practice with source_id pointing to original
     timestamp = Time.current.to_i
@@ -102,7 +128,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
       goal: original_practice.goal,
       source_id: original_practice.id
     )
-    copied_practice.categories << original_practice.categories.first
+    copied_practice.categories << category
     copied_practice.save!
 
     # Clear existing learning to avoid uniqueness conflicts
@@ -126,10 +152,19 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
   test "shows 'なし' when no copied practice exists" do
     user = users(:kimura)
     rails_course = courses(:course1) # Railsエンジニアコース
-    practice = practices(:practice1)
-
-    # Ensure practice belongs to Rails course and has no copied practice
-    practice.categories.first.courses << rails_course unless practice.categories.first.courses.include?(rails_course)
+    
+    # Create dedicated category and practice for this test
+    category = Category.create!(name: 'Test Category No Copy', slug: 'test-category-no-copy')
+    category.courses << rails_course
+    
+    practice = Practice.new(
+      title: 'Test Practice No Copy',
+      description: 'Test practice for system test',
+      goal: 'Test goal',
+      submission: 'product'
+    )
+    practice.categories << category
+    practice.save!
 
     # Clear existing learning to avoid uniqueness conflicts
     Learning.where(user:, practice:).destroy_all
@@ -150,10 +185,19 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
   test 'shows product link when user has submitted work' do
     user = users(:kimura)
     rails_course = courses(:course1) # Railsエンジニアコース
-    practice = practices(:practice1)
-
-    # Ensure practice belongs to Rails course
-    practice.categories.first.courses << rails_course unless practice.categories.first.courses.include?(rails_course)
+    
+    # Create dedicated category and practice for this test
+    category = Category.create!(name: 'Test Category Product Link', slug: 'test-category-product-link')
+    category.courses << rails_course
+    
+    practice = Practice.new(
+      title: 'Test Practice Product Link',
+      description: 'Test practice for system test',
+      goal: 'Test goal',
+      submission: 'product'
+    )
+    practice.categories << category
+    practice.save!
 
     # Clear existing learning and product to avoid uniqueness conflicts
     Learning.where(user:, practice:).destroy_all
@@ -183,10 +227,19 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
   test "shows 'なし' when user has no product for practice" do
     user = users(:kimura)
     rails_course = courses(:course1) # Railsエンジニアコース
-    practice = practices(:practice1)
-
-    # Ensure practice belongs to Rails course
-    practice.categories.first.courses << rails_course unless practice.categories.first.courses.include?(rails_course)
+    
+    # Create dedicated category and practice for this test
+    category = Category.create!(name: 'Test Category No Product', slug: 'test-category-no-product')
+    category.courses << rails_course
+    
+    practice = Practice.new(
+      title: 'Test Practice No Product',
+      description: 'Test practice for system test',
+      goal: 'Test goal',
+      submission: 'product'
+    )
+    practice.categories << category
+    practice.save!
 
     # Clear existing learning to avoid uniqueness conflicts
     Learning.where(user:, practice:).destroy_all
@@ -211,9 +264,18 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     user = users(:kimura)
     rails_course = courses(:course1) # Railsエンジニアコース
 
-    # Create original practice
-    original_practice = practices(:practice1)
-    original_practice.categories.first.courses << rails_course unless original_practice.categories.first.courses.include?(rails_course)
+    # Create dedicated category and original practice for this test
+    category = Category.create!(name: 'Test Category Reskill Status', slug: 'test-category-reskill-status')
+    category.courses << rails_course
+    
+    original_practice = Practice.new(
+      title: 'Test Practice Reskill Status',
+      description: 'Test practice for system test',
+      goal: 'Test goal',
+      submission: 'product'
+    )
+    original_practice.categories << category
+    original_practice.save!
 
     # Create copied practice with source_id pointing to original
     timestamp = Time.current.to_i
@@ -223,7 +285,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
       goal: original_practice.goal,
       source_id: original_practice.id
     )
-    copied_practice.categories << original_practice.categories.first
+    copied_practice.categories << category
     copied_practice.save!
 
     # Clear existing learning and product to avoid uniqueness conflicts
@@ -267,9 +329,18 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     user = users(:kimura)
     rails_course = courses(:course1) # Railsエンジニアコース
 
-    # Create original practice
-    original_practice = practices(:practice1)
-    original_practice.categories.first.courses << rails_course unless original_practice.categories.first.courses.include?(rails_course)
+    # Create dedicated category and original practice for this test
+    category = Category.create!(name: 'Test Category Reskill Unstarted', slug: 'test-category-reskill-unstarted')
+    category.courses << rails_course
+    
+    original_practice = Practice.new(
+      title: 'Test Practice Reskill Unstarted',
+      description: 'Test practice for system test',
+      goal: 'Test goal',
+      submission: 'product'
+    )
+    original_practice.categories << category
+    original_practice.save!
 
     # Create copied practice with source_id pointing to original
     timestamp = Time.current.to_i
@@ -279,7 +350,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
       goal: original_practice.goal,
       source_id: original_practice.id
     )
-    copied_practice.categories << original_practice.categories.first
+    copied_practice.categories << category
     copied_practice.save!
 
     # Clear existing learning to avoid uniqueness conflicts
@@ -308,9 +379,18 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     user = users(:kimura)
     rails_course = courses(:course1) # Railsエンジニアコース
 
-    # Create original practice
-    original_practice = practices(:practice1)
-    original_practice.categories.first.courses << rails_course unless original_practice.categories.first.courses.include?(rails_course)
+    # Create dedicated category and original practice for this test
+    category = Category.create!(name: 'Test Category Copy Button', slug: 'test-category-copy-button')
+    category.courses << rails_course
+    
+    original_practice = Practice.new(
+      title: 'Test Practice Copy Button',
+      description: 'Test practice for system test',
+      goal: 'Test goal',
+      submission: 'product'
+    )
+    original_practice.categories << category
+    original_practice.save!
 
     # Create copied practice with source_id pointing to original
     timestamp = Time.current.to_i
@@ -320,7 +400,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
       goal: original_practice.goal,
       source_id: original_practice.id
     )
-    copied_practice.categories << original_practice.categories.first
+    copied_practice.categories << category
     copied_practice.save!
 
     # Clear existing learning to avoid uniqueness conflicts
@@ -347,9 +427,18 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     user = users(:kimura)
     rails_course = courses(:course1) # Railsエンジニアコース
 
-    # Create original practice
-    original_practice = practices(:practice1)
-    original_practice.categories.first.courses << rails_course unless original_practice.categories.first.courses.include?(rails_course)
+    # Create dedicated category and original practice for this test
+    category = Category.create!(name: 'Test Category Copy Data', slug: 'test-category-copy-data')
+    category.courses << rails_course
+    
+    original_practice = Practice.new(
+      title: 'Test Practice Copy Data',
+      description: 'Test practice for system test',
+      goal: 'Test goal',
+      submission: 'product'
+    )
+    original_practice.categories << category
+    original_practice.save!
 
     # Create copied practice with source_id pointing to original
     timestamp = Time.current.to_i
@@ -359,7 +448,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
       goal: original_practice.goal,
       source_id: original_practice.id
     )
-    copied_practice.categories << original_practice.categories.first
+    copied_practice.categories << category
     copied_practice.save!
 
     # Clear existing learning and product to avoid uniqueness conflicts
@@ -418,9 +507,18 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     user = users(:kimura)
     rails_course = courses(:course1) # Railsエンジニアコース
 
-    # Create original practice
-    original_practice = practices(:practice1)
-    original_practice.categories.first.courses << rails_course unless original_practice.categories.first.courses.include?(rails_course)
+    # Create dedicated category and original practice for this test
+    category = Category.create!(name: 'Test Category Skip Existing', slug: 'test-category-skip-existing')
+    category.courses << rails_course
+    
+    original_practice = Practice.new(
+      title: 'Test Practice Skip Existing',
+      description: 'Test practice for system test',
+      goal: 'Test goal',
+      submission: 'product'
+    )
+    original_practice.categories << category
+    original_practice.save!
 
     # Create copied practice with source_id pointing to original
     timestamp = Time.current.to_i
@@ -430,7 +528,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
       goal: original_practice.goal,
       source_id: original_practice.id
     )
-    copied_practice.categories << original_practice.categories.first
+    copied_practice.categories << category
     copied_practice.save!
 
     # Clear existing learning and product to avoid uniqueness conflicts
@@ -496,10 +594,19 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
   test 'shows 全ての進捗をコピー button when user has completed practices' do
     user = users(:kimura)
     rails_course = courses(:course1) # Railsエンジニアコース
-    practice = practices(:practice1)
-
-    # Ensure practice belongs to Rails course
-    practice.categories.first.courses << rails_course unless practice.categories.first.courses.include?(rails_course)
+    
+    # Create dedicated category and practice for this test
+    category = Category.create!(name: 'Test Category Bulk Copy Button', slug: 'test-category-bulk-copy-button')
+    category.courses << rails_course
+    
+    practice = Practice.new(
+      title: 'Test Practice Bulk Copy Button',
+      description: 'Test practice for system test',
+      goal: 'Test goal',
+      submission: 'product'
+    )
+    practice.categories << category
+    practice.save!
 
     # Clear existing learning to avoid uniqueness conflicts
     Learning.where(user:, practice:).destroy_all
@@ -521,12 +628,28 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     user = users(:kimura)
     rails_course = courses(:course1) # Railsエンジニアコース
 
+    # Create dedicated category for this test
+    category = Category.create!(name: 'Test Category Bulk Copy All', slug: 'test-category-bulk-copy-all')
+    category.courses << rails_course
+    
     # Create multiple original practices
-    original_practice1 = practices(:practice1)
-    original_practice1.categories.first.courses << rails_course unless original_practice1.categories.first.courses.include?(rails_course)
+    original_practice1 = Practice.new(
+      title: 'Test Practice Bulk Copy All 1',
+      description: 'Test practice for system test',
+      goal: 'Test goal',
+      submission: 'product'
+    )
+    original_practice1.categories << category
+    original_practice1.save!
 
-    original_practice2 = practices(:practice2)
-    original_practice2.categories.first.courses << rails_course unless original_practice2.categories.first.courses.include?(rails_course)
+    original_practice2 = Practice.new(
+      title: 'Test Practice Bulk Copy All 2',
+      description: 'Test practice for system test',
+      goal: 'Test goal',
+      submission: 'product'
+    )
+    original_practice2.categories << category
+    original_practice2.save!
 
     # Create copied practices with source_id pointing to originals
     timestamp = Time.current.to_i
@@ -536,7 +659,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
       goal: original_practice1.goal,
       source_id: original_practice1.id
     )
-    copied_practice1.categories << original_practice1.categories.first
+    copied_practice1.categories << category
     copied_practice1.save!
 
     copied_practice2 = Practice.new(
@@ -545,7 +668,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
       goal: original_practice2.goal,
       source_id: original_practice2.id
     )
-    copied_practice2.categories << original_practice2.categories.first
+    copied_practice2.categories << category
     copied_practice2.save!
 
     # Clear existing learning and product to avoid uniqueness conflicts
