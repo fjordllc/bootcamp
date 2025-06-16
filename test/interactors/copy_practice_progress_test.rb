@@ -12,9 +12,7 @@ class CopyPracticeProgressTest < ActiveSupport::TestCase
     # Clear any existing data
     @user.learnings.destroy_all
     @user.products.destroy_all
-    Check.joins(:checkable)
-         .where(checkable: { user_id: @user.id, practice_id: @from_practice.id })
-         .destroy_all
+    Check.where(checkable: @user.products).destroy_all
   end
 
   test 'successfully copies learning, product, and checks when everything exists' do
@@ -35,7 +33,8 @@ class CopyPracticeProgressTest < ActiveSupport::TestCase
     )
 
     assert result.success?
-    assert_equal 'Learning, product, and checks copied successfully', result.message
+    # Message comes from the last successful interactor (CopyCheck)
+    assert_equal 'Copied 1 check(s), skipped 0 existing check(s)', result.message
 
     # Verify learning was copied
     copied_learning = Learning.find_by(user: @user, practice: @to_practice)
@@ -63,6 +62,8 @@ class CopyPracticeProgressTest < ActiveSupport::TestCase
     )
 
     assert result.success?
+    # Message comes from CopyCheck when no product is available
+    assert_equal 'No product available for check copying, skipping', result.message
 
     # Verify learning was copied
     copied_learning = Learning.find_by(user: @user, practice: @to_practice)
@@ -90,6 +91,8 @@ class CopyPracticeProgressTest < ActiveSupport::TestCase
     )
 
     assert result.success?
+    # Message comes from CopyCheck when no checks are found
+    assert_equal 'No checks found to copy', result.message
 
     # Verify existing data was not modified
     copied_learning = Learning.find_by(user: @user, practice: @to_practice)

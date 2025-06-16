@@ -24,14 +24,19 @@ class PracticeProgressMigrator
     presenter = PracticeProgressPresenter.new(@user)
     completed_practices = presenter.completed_practices
 
+    context = Interactor::Context.new
+
     ActiveRecord::Base.transaction do
-      raise ActiveRecord::Rollback unless process_all_practices(completed_practices)
+      unless process_all_practices(completed_practices)
+        context.fail!(error: 'Failed to migrate all practice progress')
+        raise ActiveRecord::Rollback
+      end
     end
 
-    true
+    context
   rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotFound => e
     Rails.logger.error "PracticeProgressMigrator#migrate_all failed: #{e.message}"
-    false
+    context.fail!(error: e.message)
   end
 
   private
