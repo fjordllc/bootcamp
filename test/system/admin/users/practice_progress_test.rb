@@ -414,7 +414,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     assert_equal checker.id, copied_check.user_id
   end
 
-  test 'updates existing learning and product when they already exist' do
+  test 'skips existing learning and product when they already exist' do
     user = users(:kimura)
     rails_course = courses(:course1) # Railsエンジニアコース
 
@@ -475,13 +475,13 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
 
     assert_text '進捗をコピーしました。'
 
-    # Verify learning was updated
+    # Verify learning was NOT updated (skipped)
     existing_learning.reload
-    assert_equal 'complete', existing_learning.status
+    assert_equal 'started', existing_learning.status
 
-    # Verify product was updated
+    # Verify product was NOT updated (skipped)
     existing_product.reload
-    assert_equal 'Updated submission', existing_product.body
+    assert_equal 'Old submission', existing_product.body
   end
 
   test 'admin can navigate back to users list' do
