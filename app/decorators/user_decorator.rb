@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module UserDecorator
+  NEW_USER_DAYS = 7
+
   include Role
   include Retire
 
@@ -90,5 +92,9 @@ module UserDecorator
     blanks = Array.new(first_wday) { { date: nil } }
 
     [*blanks, *dates_and_reports].each_slice(7).to_a
+  end
+
+  def joining_status
+    elapsed_days <= NEW_USER_DAYS ? 'new-user' : 'standard-user'
   end
 end

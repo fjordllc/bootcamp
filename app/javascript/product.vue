@@ -3,11 +3,7 @@
   .card-list-item__inner
     .card-list-item__user(v-if='displayUserIcon')
       a.card-list-item__user-link(:href='product.user.url')
-        span(:class='["a-user-role", roleClass]')
-          img.card-list-item__user-icon.a-user-icon(
-            :title='product.user.icon_title',
-            :alt='product.user.icon_title',
-            :src='product.user.avatar_url')
+        UserRoleStatusSpan(:user='product.user')
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
@@ -69,7 +65,7 @@
                     :title='user.icon_title',
                     :alt='user.icon_title',
                     :src='user.avatar_url',
-                    :class='[`is-${user.primary_role}`]')
+                    :class='[`is-${user.primary_role} is-${user.joining_status}`]')
 
             .card-list-item-meta__item(
               v-if='product.self_last_commented_at_date_time && product.mentor_last_commented_at_date_time')
@@ -126,9 +122,6 @@ export default {
     displayUserIcon: { type: Boolean }
   },
   computed: {
-    roleClass() {
-      return `is-${this.product.user.primary_role}`
-    },
     practiceTitle() {
       return `${this.product.practice.title}の提出物`
     },

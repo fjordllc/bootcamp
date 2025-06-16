@@ -3,11 +3,7 @@
   .card-list-item__inner
     .card-list-item__user
       a.card-list-item__user-link(:href='question.user.url')
-        span(:class='["a-user-role", roleClass]')
-          img.card-list-item__user-icon.a-user-icon(
-            :title='question.user.icon_title',
-            :alt='question.user.icon_title',
-            :src='question.user.avatar_url')
+        UserRoleStatusSpan(:user='question.user')
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
@@ -80,9 +76,6 @@ export default {
     },
     hasAnswers() {
       return this.question.answers.size > 0
-    },
-    roleClass() {
-      return `is-${this.question.user.primary_role}`
     },
     urgentClass() {
       return {
