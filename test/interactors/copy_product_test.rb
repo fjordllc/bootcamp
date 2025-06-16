@@ -67,7 +67,7 @@ class CopyProductTest < ActiveSupport::TestCase
     )
 
     assert result.success?
-    assert_equal 'No product to copy', result.message
+    assert_equal 'Product not found – skipping copy', result.message
   end
 
   test 'fails when required parameters are missing' do
