@@ -12,7 +12,9 @@ class CopyPracticeProgressTest < ActiveSupport::TestCase
     # Clear any existing data
     @user.learnings.destroy_all
     @user.products.destroy_all
-    Check.where(checkable_type: 'Product').destroy_all
+    Check.joins(:checkable)
+         .where(checkable: { user_id: @user.id, practice_id: @from_practice.id })
+         .destroy_all
   end
 
   test 'successfully copies learning, product, and checks when everything exists' do
