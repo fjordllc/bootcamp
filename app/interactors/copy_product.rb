@@ -33,7 +33,7 @@ class CopyProduct
     return if context.original_product
 
     # Set message but don't fail - let the Organizer continue
-    context.message = 'Learning copied successfully (no product to copy)'
+    context.message = 'Product not found – skipping copy'
   end
 
   def check_existing_product

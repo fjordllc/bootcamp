@@ -25,7 +25,7 @@ class PracticeProgressMigrator
     completed_practices = presenter.completed_practices
 
     ActiveRecord::Base.transaction do
-      return false unless process_all_practices(completed_practices)
+      raise ActiveRecord::Rollback unless process_all_practices(completed_practices)
     end
 
     true
