@@ -83,8 +83,10 @@ import '../tag-shortcut.js'
 import Cocooned from '@notus.sh/cocooned'
 import '../action_completed_button.js'
 import '../toast.js'
-import '../tag.js'
-import '../tag_edit.js'
+
+import VueMounter from '../VueMounter.js'
+import Questions from '../components/questions.vue'
+import UserProducts from '../components/user-products.vue'
 
 import '../stylesheets/application'
 
