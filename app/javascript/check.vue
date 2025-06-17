@@ -42,7 +42,7 @@ export default {
   components: {
     'product-checker': ProductChecker
   },
-  mixins: [checkable, toast],
+  mixins: [checkable],
   props: {
     checkableId: { type: Number, required: true },
     checkableType: { type: String, required: true },
@@ -87,6 +87,9 @@ export default {
     }
   },
   methods: {
+    toast(...args) {
+      toast(...args)
+    },
     checkSad() {
       if (this.checkHasSadEmotion && !this.checkHasComment && !this.checkId) {
         if (
