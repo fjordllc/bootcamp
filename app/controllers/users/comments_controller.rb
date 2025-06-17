@@ -15,7 +15,7 @@ class Users::CommentsController < ApplicationController
   def set_comments
     @comments =
       Comment
-      .where.not(commentable_type: %w[Talk Inquiry])
+      .where.not(commentable_type: %w[Talk Inquiry CorporateTrainingInquiry])
       .preload(commentable: { user: { avatar_attachment: :blob } })
       .eager_load(:user)
       .where(user_id: user)
