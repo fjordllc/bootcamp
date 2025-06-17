@@ -72,7 +72,7 @@ class Searcher
 
     def delete_private_comment!(searchables)
       searchables.reject do |searchable|
-        searchable.instance_of?(Comment) && searchable.commentable.class.in?([Talk, Inquiry CorporateTrainingInquiry])
+        searchable.instance_of?(Comment) && searchable.commentable.class.in?([Talk, Inquiry, CorporateTrainingInquiry])
       end
     end
   end
