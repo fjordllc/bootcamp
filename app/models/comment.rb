@@ -18,7 +18,7 @@ class Comment < ApplicationRecord
 
   mentionable_as :description, hook_name: :after_commit
 
-  scope :without_private_comment, -> { where.not(commentable_type: %w[Talk Inquiry]) }
+  scope :without_private_comment, -> { where.not(commentable_type: %w[Talk Inquiry CorporateTrainingInquiry]) }
 
   class << self
     def commented_users
