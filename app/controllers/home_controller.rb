@@ -51,6 +51,8 @@ class HomeController < ApplicationController
     @product_deadline_day = Product::PRODUCT_DEADLINE
     @colleagues = current_user.colleagues_other_than_self
     @calendar = NicoNicoCalendar.new(current_user, params[:niconico_calendar])
+    @target_end_date = params[:end_date] ? Date.parse(params[:end_date]) : Date.current
+    @times = Grass.times(current_user, @target_end_date)
   end
 
   def display_events_on_dashboard
