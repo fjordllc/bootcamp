@@ -1,0 +1,23 @@
+.a-card
+  header.card-header.is-sm
+    h2.card-header__title
+      | 学習時間
+    - if user.graduated? && request.path == '/'
+      button.js-hide-grass.a-button.is-xs.is-muted-bordered type='button'
+        | 非表示
+  hr.a-border-tint
+  .card-body
+    .card-body__description
+      .user-grass-nav
+        = link_to prev_year_path do
+          .user-grass.nav__previous
+            i.fa-solid.fa-angle-left
+        .user-grass-nav__year--month
+          = "#{@target_end_date.prev_year.year}年#{@target_end_date.prev_year.month}月 ～ #{@target_end_date.year}年#{@target_end_date.month}月"
+        - if next_year?
+          = link_to next_year_path do
+            .user-grass-nav__next
+              i.fa-solid.fa-angle-right
+        - else
+          .user-grass-nav__next.is-blank
+  .user-grass

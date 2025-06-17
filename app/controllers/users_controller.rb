@@ -39,6 +39,9 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
 
     @calendar = NicoNicoCalendar.new(@user, params[:niconico_calendar])
 
+    @target_end_date = params[:end_date] ? Date.parse(params[:end_date]) : Date.current
+    @times = Grass.times(@user, @target_end_date)
+
     if logged_in?
       render :show
     else
