@@ -59,6 +59,7 @@ class Practice < ApplicationRecord
   validates :description, presence: true
   validates :goal, presence: true
   validates :categories, presence: true
+  validate :source_id_cannot_be_self
 
   columns_for_keyword_search :title, :description, :goal
 
@@ -220,5 +221,13 @@ class Practice < ApplicationRecord
     else
       "#{converted_hour}時間#{converted_minute}分"
     end
+  end
+
+  private
+
+  def source_id_cannot_be_self
+    return unless source_id && id
+
+    errors.add(:source_id, 'cannot reference itself') if source_id == id
   end
 end
