@@ -81,10 +81,10 @@ class PracticeTest < ActiveSupport::TestCase
 
   test 'foreign key constraint prevents invalid source_id references' do
     practice = practices(:practice1)
-    
+
     # Try to set a non-existent practice ID
     assert_raises(ActiveRecord::InvalidForeignKey) do
-      practice.update!(source_id: 99999)
+      practice.update!(source_id: 99_999)
     end
   end
 end
