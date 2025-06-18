@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_04_11_103935) do
+ActiveRecord::Schema.define(version: 2025_06_18_142946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -249,11 +249,11 @@ ActiveRecord::Schema.define(version: 2025_04_11_103935) do
   create_table "courses", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
-    t.text "summary"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "published", default: false, null: false
     t.boolean "grant", default: false, null: false
+    t.text "summary"
   end
 
   create_table "courses_categories", force: :cascade do |t|
@@ -635,6 +635,7 @@ ActiveRecord::Schema.define(version: 2025_04_11_103935) do
     t.text "summary"
     t.integer "source_id"
     t.index ["category_id"], name: "index_practices_on_category_id"
+    t.index ["source_id"], name: "index_practices_on_source_id"
   end
 
   create_table "practices_books", force: :cascade do |t|
@@ -969,9 +970,7 @@ ActiveRecord::Schema.define(version: 2025_04_11_103935) do
     t.text "career_memo"
     t.boolean "sent_student_before_auto_retire_mail", default: false
     t.index ["course_id"], name: "index_users_on_course_id"
-    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true
-    t.index ["login_name"], name: "index_users_on_login_name", unique: true
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
