@@ -1,0 +1,102 @@
+- title '管理ページ'
+
+header.page-header
+  .container
+    .page-header__inner
+      h1.page-header__title
+        = title
+
+= render 'admin/admin_page_tabs'
+
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            = @user.login_name
+            | さんのRailsエンジニアコース完了プラクティス一覧
+        .page-main-header__end
+          .page-main-header-actions
+            .page-main-header-actions__items
+              .page-main-header-actions__item
+                = link_to admin_users_path, class: 'a-button is-md is-secondary is-block is-back' do
+                  | ユーザー一覧
+  hr.a-border
+  .page-body
+    .container
+      - if @presenter.completed_practices.any?
+        .admin-table
+          table.admin-table__table
+            thead.admin-table__header
+              tr.admin-table__labels
+                th.admin-table__label(colspan="5") Railsエンジニア
+                th.admin-table__label(colspan="1")
+                th.admin-table__label(colspan="4") Railsエンジニア（Reスキル講座認定）
+              tr.admin-table__labels
+                th.admin-table__label ID
+                th.admin-table__label プラクティス名
+                th.admin-table__label ステータス
+                th.admin-table__label 進捗
+                th.admin-table__label 完了日
+                th.admin-table__label 操作
+                th.admin-table__label ID（Reスキル）
+                th.admin-table__label プラクティス（Reスキル）
+                th.admin-table__label ステータス（Reスキル）
+                th.admin-table__label 進捗（Reスキル）
+            tbody.admin-table__items
+              - @presenter.completed_practices.each do |learning|
+                ruby:
+                  practice = learning.practice
+                  user_product = @presenter.product_for(learning)
+                  copy_destination_practice = @presenter.copy_destination_practice_for(practice)
+                  copied_practice_learning = @presenter.copied_practice_learning_for(copy_destination_practice)
+                  copied_practice_product = @presenter.copied_practice_product_for(copy_destination_practice)
+                tr.admin-table__item
+                  td.admin-table__item-value.text-center
+                    = learning.practice.id
+                  td.admin-table__item-value.text-left
+                    = link_to learning.practice.title, practice_path(learning.practice), target: '_blank', rel: 'noopener', class: 'a-link'
+                  td.admin-table__item-value.text-center
+                    = t("activerecord.enums.learning.status.#{learning.status}")
+                  td.admin-table__item-value.text-center
+                    - if user_product
+                      = link_to '提出物', product_path(user_product), target: '_blank', rel: 'noopener', class: 'a-link'
+                    - else
+                      span.a-meta なし
+                  td.admin-table__item-value.text-center
+                    = l(learning.updated_at, format: :long)
+                  td.admin-table__item-value.text-center
+                    - if @presenter.copy_destination?(practice)
+                      = link_to admin_user_practice_progress_path(@user, practice_id: learning.practice.id), method: :post, class: 'a-button is-sm is-primary', data: { confirm: '進捗をコピーしますか？' } do
+                        | 進捗コピー
+                        i.fa-solid.fa-arrow-circle-right.ml-1
+                    - else
+                      span.a-meta なし
+                  td.admin-table__item-value.text-center
+                    = copy_destination_practice&.id || 'なし'
+                  td.admin-table__item-value.text-left
+                    - if copy_destination_practice
+                      = link_to copy_destination_practice.title, practice_path(copy_destination_practice), target: '_blank', rel: 'noopener', class: 'a-link'
+                    - else
+                      span.a-meta なし
+                  td.admin-table__item-value.text-center
+                    - if copied_practice_learning
+                      = t("activerecord.enums.learning.status.#{copied_practice_learning.status}")
+                    - elsif copy_destination_practice
+                      span.a-meta 未着手
+                    - else
+                      span.a-meta なし
+                  td.admin-table__item-value.text-center
+                    - if copied_practice_product
+                      = link_to '提出物', product_path(copied_practice_product), target: '_blank', rel: 'noopener', class: 'a-link'
+                    - elsif copy_destination_practice
+                      span.a-meta なし
+                    - else
+                      span.a-meta なし
+        .text-center.mt-8
+          = link_to admin_user_practice_progress_batches_path(@user), method: :post, class: 'a-button is-lg is-warning', data: { confirm: '全ての進捗をコピーしますか？' } do
+            | 全ての進捗をコピー
+            i.fa-solid.fa-copy.ml-1
+      - else
+          p Railsエンジニアコースで完了したプラクティスがありません。

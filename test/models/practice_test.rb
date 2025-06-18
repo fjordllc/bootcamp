@@ -55,4 +55,36 @@ class PracticeTest < ActiveSupport::TestCase
 
     assert_equal category, practice.category(course)
   end
+
+  test 'source_id_cannot_be_self validation prevents self-reference' do
+    practice = practices(:practice1)
+    practice.source_id = practice.id
+
+    assert_not practice.valid?
+    assert_includes practice.errors[:source_id], 'cannot reference itself'
+  end
+
+  test 'source_id_cannot_be_self validation allows nil source_id' do
+    practice = practices(:practice1)
+    practice.source_id = nil
+
+    assert practice.valid?
+  end
+
+  test 'source_id_cannot_be_self validation allows different practice reference' do
+    practice1 = practices(:practice1)
+    practice2 = practices(:practice2)
+    practice1.source_id = practice2.id
+
+    assert practice1.valid?
+  end
+
+  test 'foreign key constraint prevents invalid source_id references' do
+    practice = practices(:practice1)
+
+    # Try to set a non-existent practice ID
+    assert_raises(ActiveRecord::InvalidForeignKey) do
+      practice.update!(source_id: 99_999)
+    end
+  end
 end

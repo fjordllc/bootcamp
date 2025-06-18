@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_04_11_103935) do
+ActiveRecord::Schema.define(version: 2025_06_18_144325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -249,11 +249,11 @@ ActiveRecord::Schema.define(version: 2025_04_11_103935) do
   create_table "courses", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
-    t.text "summary"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "published", default: false, null: false
     t.boolean "grant", default: false, null: false
+    t.text "summary"
   end
 
   create_table "courses_categories", force: :cascade do |t|
@@ -635,6 +635,7 @@ ActiveRecord::Schema.define(version: 2025_04_11_103935) do
     t.text "summary"
     t.integer "source_id"
     t.index ["category_id"], name: "index_practices_on_category_id"
+    t.index ["source_id"], name: "index_practices_on_source_id"
   end
 
   create_table "practices_books", force: :cascade do |t|
@@ -1037,6 +1038,7 @@ ActiveRecord::Schema.define(version: 2025_04_11_103935) do
   add_foreign_key "pages", "users"
   add_foreign_key "participations", "events"
   add_foreign_key "participations", "users"
+  add_foreign_key "practices", "practices", column: "source_id"
   add_foreign_key "practices_books", "books"
   add_foreign_key "practices_books", "practices"
   add_foreign_key "practices_movies", "movies"
