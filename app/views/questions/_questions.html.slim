@@ -12,6 +12,6 @@
     .card-list.a-card
       .card-list__items
         - questions.each do |question|
-          = render 'questions/question', question:
+          = render 'questions/question', question: question
   nav.pagination
     = paginate questions
