@@ -6,11 +6,11 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
   test "admin can view user's completed Rails practices only" do
     user = users(:kimura)
     rails_course = courses(:course1) # Railsエンジニアコース
-    
+
     # Create a dedicated category and practice for this test
     category = Category.create!(name: 'Test Category', slug: 'test-category')
     category.courses << rails_course
-    
+
     practice = Practice.new(
       title: 'Test Practice',
       description: 'Test practice for system test',
@@ -72,11 +72,11 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
   test 'does not show practices from other courses' do
     user = users(:kimura)
     frontend_course = courses(:course4) # フロントエンドエンジニアコース
-    
+
     # Create a dedicated category and practice for frontend course
     category = Category.create!(name: 'Frontend Test Category', slug: 'frontend-test-category')
     category.courses << frontend_course
-    
+
     practice = Practice.new(
       title: 'Frontend Test Practice',
       description: 'Frontend practice for system test',
@@ -110,7 +110,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     # Create dedicated category and original practice for this test
     category = Category.create!(name: 'Test Category Copy Source Match', slug: 'test-category-copy-source-match')
     category.courses << rails_course
-    
+
     original_practice = Practice.new(
       title: 'Test Practice Copy Source Match',
       description: 'Test practice for system test',
@@ -152,11 +152,11 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
   test "shows 'なし' when no copied practice exists" do
     user = users(:kimura)
     rails_course = courses(:course1) # Railsエンジニアコース
-    
+
     # Create dedicated category and practice for this test
     category = Category.create!(name: 'Test Category No Copy', slug: 'test-category-no-copy')
     category.courses << rails_course
-    
+
     practice = Practice.new(
       title: 'Test Practice No Copy',
       description: 'Test practice for system test',
@@ -185,11 +185,11 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
   test 'shows product link when user has submitted work' do
     user = users(:kimura)
     rails_course = courses(:course1) # Railsエンジニアコース
-    
+
     # Create dedicated category and practice for this test
     category = Category.create!(name: 'Test Category Product Link', slug: 'test-category-product-link')
     category.courses << rails_course
-    
+
     practice = Practice.new(
       title: 'Test Practice Product Link',
       description: 'Test practice for system test',
@@ -227,11 +227,11 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
   test "shows 'なし' when user has no product for practice" do
     user = users(:kimura)
     rails_course = courses(:course1) # Railsエンジニアコース
-    
+
     # Create dedicated category and practice for this test
     category = Category.create!(name: 'Test Category No Product', slug: 'test-category-no-product')
     category.courses << rails_course
-    
+
     practice = Practice.new(
       title: 'Test Practice No Product',
       description: 'Test practice for system test',
@@ -267,7 +267,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     # Create dedicated category and original practice for this test
     category = Category.create!(name: 'Test Category Reskill Status', slug: 'test-category-reskill-status')
     category.courses << rails_course
-    
+
     original_practice = Practice.new(
       title: 'Test Practice Reskill Status',
       description: 'Test practice for system test',
@@ -332,7 +332,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     # Create dedicated category and original practice for this test
     category = Category.create!(name: 'Test Category Reskill Unstarted', slug: 'test-category-reskill-unstarted')
     category.courses << rails_course
-    
+
     original_practice = Practice.new(
       title: 'Test Practice Reskill Unstarted',
       description: 'Test practice for system test',
@@ -382,7 +382,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     # Create dedicated category and original practice for this test
     category = Category.create!(name: 'Test Category Copy Button', slug: 'test-category-copy-button')
     category.courses << rails_course
-    
+
     original_practice = Practice.new(
       title: 'Test Practice Copy Button',
       description: 'Test practice for system test',
@@ -430,7 +430,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     # Create dedicated category and original practice for this test
     category = Category.create!(name: 'Test Category Copy Data', slug: 'test-category-copy-data')
     category.courses << rails_course
-    
+
     original_practice = Practice.new(
       title: 'Test Practice Copy Data',
       description: 'Test practice for system test',
@@ -510,7 +510,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     # Create dedicated category and original practice for this test
     category = Category.create!(name: 'Test Category Skip Existing', slug: 'test-category-skip-existing')
     category.courses << rails_course
-    
+
     original_practice = Practice.new(
       title: 'Test Practice Skip Existing',
       description: 'Test practice for system test',
@@ -594,11 +594,11 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
   test 'shows 全ての進捗をコピー button when user has completed practices' do
     user = users(:kimura)
     rails_course = courses(:course1) # Railsエンジニアコース
-    
+
     # Create dedicated category and practice for this test
     category = Category.create!(name: 'Test Category Bulk Copy Button', slug: 'test-category-bulk-copy-button')
     category.courses << rails_course
-    
+
     practice = Practice.new(
       title: 'Test Practice Bulk Copy Button',
       description: 'Test practice for system test',
@@ -631,7 +631,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     # Create dedicated category for this test
     category = Category.create!(name: 'Test Category Bulk Copy All', slug: 'test-category-bulk-copy-all')
     category.courses << rails_course
-    
+
     # Create multiple original practices
     original_practice1 = Practice.new(
       title: 'Test Practice Bulk Copy All 1',
