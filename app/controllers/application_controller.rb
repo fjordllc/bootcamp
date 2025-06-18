@@ -3,6 +3,7 @@
 class ApplicationController < ActionController::Base
   include Authentication
   include TestAuthentication if Rails.env.test?
+  include FeatureToggle
   include PolicyHelper
   helper_method :staging?
   protect_from_forgery with: :exception
