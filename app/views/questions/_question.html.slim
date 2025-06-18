@@ -1,6 +1,4 @@
-- question_class = 'is-solved' if question.correct_answer.present?
-- question_class = 'is-wip' if question.wip?
-.card-list-item.(class="#{question_class}")
+.card-list-item.(class="#{(question.correct_answer.present? && 'is-solved') || (question.wip? && 'is-wip')}")
   .card-list-item__inner
     .card-list-item__user
       = link_to question.user, class: 'card-list-item__user-link'
