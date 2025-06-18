@@ -53,7 +53,6 @@ header.page-header
         .page-body__columns
           .page-body__column.is-main
             = render 'questions/questions', questions: @questions, empty_message: @questions_property.empty_message
-
       - if @tags.any?
         nav.a-side-nav
           .a-side-nav__inner
