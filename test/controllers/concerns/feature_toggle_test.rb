@@ -35,4 +35,13 @@ class FeatureToggleTest < ActionDispatch::IntegrationTest
     Flipper.enable(:some_feature, @user)
     assert_nil @controller.authorized_feature!(:some_feature)
   end
+
+  test 'authorize_feature' do
+    @controller.authorize_feature(:some_feature, [users(:kensyu), User.admins, User.mentor])
+
+    assert_not Flipper[:some_feature].enabled?(@controller.current_user)
+    assert Flipper[:some_feature].enabled?(users(:kensyu))
+    assert Flipper[:some_feature].enabled?(User.admins.to_a.sample)
+    assert Flipper[:some_feature].enabled?(User.mentor.to_a.sample)
+  end
 end
