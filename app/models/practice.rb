@@ -223,8 +223,6 @@ class Practice < ApplicationRecord
     end
   end
 
-  private
-
   def source_id_cannot_be_self
     return unless source_id && id
 
