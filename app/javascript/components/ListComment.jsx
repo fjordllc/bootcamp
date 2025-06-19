@@ -19,13 +19,13 @@ export default function ListComment({ report }) {
                   return (
                     <a
                       className="card-list-item__user-icons-icon"
-                      href={`/users/${comment.user_id}`}>
+                      href={`/users/${comment.user_id}`}
+                      key={comment.user_id}>
                       <UserRoleStatusSpan
                         user={comment}
                         className="a-user-icon"
                         src={comment.user_icon}
                         comment={comment}
-                        key={comment.user_id}
                       />
                     </a>
                   )
