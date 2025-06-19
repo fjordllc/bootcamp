@@ -35,3 +35,6 @@ ignore_unreachable_actions:
   - .*#recaptcha_enabled?
   - .*#valid_recaptcha?
   - .*#system_test_entrypoint
+  - .*#authorize_feature
+  - .*#authorized_feature?
+  - .*#authorized_feature!
