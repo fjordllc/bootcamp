@@ -9,7 +9,8 @@ export default function UserRoleStatusSpan({
   alt
 }) {
   const roleClass = `is-${user.primary_role}`
-  const joiningStatusClass = `is-${user.joining_status}`
+  const joiningStatusClass =
+    user.joining_status === 'new-user' ? 'is-new-user' : ''
   return (
     <span
       className={`a-user-role ${spanClassName} ${roleClass} ${joiningStatusClass}`}>
