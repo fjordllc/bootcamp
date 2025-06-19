@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ActivityNotifier < ApplicationNotifier
+class ActivityNotifier < ApplicationNotifier # rubocop:todo Metrics/ClassLength
   self.driver = ActivityDriver.new
   self.async_adapter = ActivityAsyncAdapter.new
 

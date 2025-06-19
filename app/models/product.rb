@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Product < ApplicationRecord
+class Product < ApplicationRecord # rubocop:todo Metrics/ClassLength
   PRODUCT_DEADLINE = 4
 
   include Commentable

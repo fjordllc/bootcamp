@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Practice < ApplicationRecord
+class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include Watchable
   include Searchable
 
