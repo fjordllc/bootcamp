@@ -16,7 +16,7 @@ class Products::ProductComponent < ViewComponent::Base
   end
 
   def joining_status_class
-    "is-#{@product.user.joining_status}"
+    @product.user.joining_status == 'new-user' ? 'is-new-user' : ''
   end
 
   def practice_title
