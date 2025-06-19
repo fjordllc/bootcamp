@@ -108,6 +108,8 @@ module UsersHelper
   end
 
   def user_role_status_span(user, &)
-    tag.span(class: ['a-user-role', "is-#{user.primary_role}", "is-#{user.joining_status}"], &)
+    classes = ['a-user-role', "is-#{user.primary_role}"]
+    classes << 'is-new-user' if user.joining_status == 'new-user'
+    tag.span(class: classes, &)
   end
 end
