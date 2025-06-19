@@ -1,17 +1,18 @@
-.form-times
-  .nested-fields.form-times__inner
-    .form-times__items.regular-event-repeat-rule
-      .form-times__time
-        = f.label :frequency, class: 'form-times__time-label'
-        .form-selects.regular-event-repeat-rule__frequency
-          .form-selects__item
-            .a-button.is-md.is-secondary.is-select.is-block
-              = f.select :frequency, RegularEvent::FREQUENCY_LIST, {}, class: 'js-warning-form'
-      .form-times__time
-        = f.label :day_of_the_week, class: 'form-times__time-label'
-        .form-selects.regular-event-repeat-rule__day-of-the-week
-          .form-selects__item
-            .a-button.is-md.is-secondary.is-select.is-block
-              = f.select :day_of_the_week, RegularEvent::DAY_OF_THE_WEEK_LIST, {}, class: 'js-warning-form'
-    .form-times__action
-      = link_to_remove_association '削除', f, class: 'a-button is-sm is-text'
+= cocooned_item do
+  .form-times
+    .form-times__inner
+      .form-times__items.regular-event-repeat-rule
+        .form-times__time
+          = f.label :frequency, class: 'form-times__time-label'
+          .form-selects.regular-event-repeat-rule__frequency
+            .form-selects__item
+              .a-button.is-md.is-secondary.is-select.is-block
+                = f.select :frequency, RegularEvent::FREQUENCY_LIST, {}, class: 'js-warning-form'
+        .form-times__time
+          = f.label :day_of_the_week, class: 'form-times__time-label'
+          .form-selects.regular-event-repeat-rule__day-of-the-week
+            .form-selects__item
+              .a-button.is-md.is-secondary.is-select.is-block
+                = f.select :day_of_the_week, RegularEvent::DAY_OF_THE_WEEK_LIST, {}, class: 'js-warning-form'
+      .form-times__action
+        = cocooned_remove_item_link '削除', f, class: 'a-button is-sm is-text'

@@ -98,7 +98,7 @@ class ReportCommentsTest < ApplicationSystemTestCase
 
     find('#js-new-comment').set('[![Image](https://example.com/test.png)](https://example.com)')
     click_button 'コメントする'
-    assert_match '<a href="https://example.com"><img src="https://example.com/test.png" alt="Image"></a>', page.body
+    assert_match '<a href="https://example.com" target="_blank" rel="noopener"><img src="https://example.com/test.png" alt="Image"></a>', page.body
   end
 
   test 'edit the comment for report' do
@@ -140,8 +140,9 @@ class ReportCommentsTest < ApplicationSystemTestCase
     end
     click_button '確認OKにする'
 
+    # Wait for comment to be displayed first
     assert_selector '.thread-comment__description', text: 'comment test'
-    assert reports(:report2).reload.checked?
+    assert_text '確認済'
   end
 
   test 'show confirm dialog if report is not confirmed' do

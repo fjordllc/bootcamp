@@ -16,6 +16,7 @@ import MarkDownItContainerSpeak from 'markdown-it-container-speak'
 import CSRF from 'csrf'
 import TextareaMarkdownLinkify from 'textarea-markdown-linkify'
 import ReplaceLinkToCard from 'replace-link-to-card'
+import MarkDownItContainerFigure from 'markdown-it-container-figure'
 
 export default class {
   static initialize(selector) {
@@ -46,7 +47,13 @@ export default class {
       const tribute = new Tribute({
         collection: collection
       })
-      tribute.attach(textareas)
+
+      textareas.forEach((textarea) => {
+        if (!textarea.dataset.tribute) {
+          tribute.attach(textarea)
+          textarea.dataset.tribute = 'true'
+        }
+      })
     })
 
     // markdown
@@ -77,7 +84,8 @@ export default class {
           MarkDownItContainerMessage,
           MarkDownItContainerDetails,
           MarkDownItLinkAttributes,
-          MarkDownItContainerSpeak
+          MarkDownItContainerSpeak,
+          MarkDownItContainerFigure
         ],
         markdownOptions: MarkdownOption
       })

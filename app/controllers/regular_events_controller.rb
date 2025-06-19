@@ -11,6 +11,7 @@ class RegularEventsController < ApplicationController
     @regular_event = RegularEvent.find(params[:id])
     Footprint.find_or_create_for(@regular_event, current_user)
     @footprints = Footprint.fetch_for_resource(@regular_event)
+    @comments = @regular_event.comments.order(:created_at)
   end
 
   def new

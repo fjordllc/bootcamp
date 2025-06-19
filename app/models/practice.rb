@@ -51,10 +51,15 @@ class Practice < ApplicationRecord
            through: :coding_tests,
            source: :coding_test_submissions
 
+  # Practice copy relationships
+  has_many :copied_practices, class_name: 'Practice', foreign_key: 'source_id', dependent: :nullify, inverse_of: :source_practice
+  belongs_to :source_practice, class_name: 'Practice', foreign_key: 'source_id', optional: true, inverse_of: :copied_practices
+
   validates :title, presence: true
   validates :description, presence: true
   validates :goal, presence: true
   validates :categories, presence: true
+  validate :source_id_cannot_be_self
 
   columns_for_keyword_search :title, :description, :goal
 
@@ -216,5 +221,11 @@ class Practice < ApplicationRecord
     else
       "#{converted_hour}時間#{converted_minute}分"
     end
+  end
+
+  def source_id_cannot_be_self
+    return unless source_id && id
+
+    errors.add(:source_id, 'cannot reference itself') if source_id == id
   end
 end

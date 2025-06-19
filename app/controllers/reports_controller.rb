@@ -20,6 +20,7 @@ class ReportsController < ApplicationController
 
   def show
     @products = @report.user.products.not_wip.order(published_at: :desc)
+    @comments = @report.comments.order(:created_at)
     @recent_reports = Report.list.where(user_id: @report.user.id).limit(10)
     Footprint.find_or_create_for(@report, current_user)
     @footprints = Footprint.fetch_for_resource(@report)
@@ -70,6 +71,7 @@ class ReportsController < ApplicationController
     set_wip
     @report.practice_ids = nil if params[:report][:practice_ids].nil?
     @report.assign_attributes(report_params)
+    @report.learning_times.each(&:mark_for_destruction) if @report.no_learn
     canonicalize_learning_times(@report)
 
     if @report.save_uniquely

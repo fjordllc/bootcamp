@@ -178,7 +178,8 @@ class UsersController < ApplicationController
       :tag_list, :after_graduation_hope, :feed_url,
       :country_code, :subdivision_code, :invoice_payment,
       :credit_card_payment, :role,
-      :referral_source, :other_referral_source
+      :referral_source, :other_referral_source,
+      authored_books_attributes: %i[id cover title url _destroy]
     )
   end
 

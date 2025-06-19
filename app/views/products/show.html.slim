@@ -60,7 +60,7 @@ header.page-header
             .page-body__row
               = render 'product_body', product: @product
 
-        #js-comments(data-commentable-id="#{@product.id}" data-commentable-type='Product' data-current-user-id="#{current_user.id}")
+        = render 'comments/comments', commentable: @product, commentable_type: 'Product'
         .user-icons
           ul.user-icons__items
             = render '/footprints/footprints', footprints: @footprints
@@ -115,7 +115,10 @@ header.page-header
                                     span.category-practices-item__title-link-label
                                       = display_practice.title
               .side-tabs-contents__item#side-tabs-content-4
-                div(data-vue="UserProducts" data-vue-user-id:number="#{@product.user.id}" data-vue-is-mentor:boolean="#{false}" data-vue-current-user-id:number="#{current_user.id}" data-vue-display-user-icon:boolean="false")
+                = render Products::UserProductsComponent.new(\
+                  products: @user_products,
+                  current_user: current_user,
+                  is_mentor: current_user.mentor? || current_user.admin?)
 
 - if !current_user.adviser? && @product.practice.open_product?
   .sticky-message

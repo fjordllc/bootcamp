@@ -70,7 +70,7 @@ class API::CommentsTest < ActionDispatch::IntegrationTest
 
   test 'can create comment with read, write scope' do
     assert_difference('Comment.count') do
-      post api_comments_url(format: :json, commentable_type: 'Report', commentable_id: @comment.commentable_id),
+      post api_comments_url(commentable_type: 'Report', commentable_id: @comment.commentable_id),
            headers: { Authorization: "Bearer #{@write_token.token}" },
            params: { comment: { description: 'New comment' } }
       assert_response :created

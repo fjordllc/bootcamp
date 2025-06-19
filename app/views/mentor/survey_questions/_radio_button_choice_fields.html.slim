@@ -1,17 +1,18 @@
-.form-added-choice.nested-fields
-  .form-added-choice__inner
-    .form-added-choice__col.is-main
-      .form-item__items
-        .form-item
-          = f.text_field :choices, class: 'a-text-input js-warning-form', placeholder: 'とても楽しく学習できている'
-          .form-item__option
-            .checkboxes
-              ul.checkboxes__items
-                li.checkboxes__item
-                  = f.check_box :reason_for_choice_required, class: 'a-toggle-checkbox js-warning-form'
-                  = f.label :reason_for_choice_required do
-                    | 選択した理由が必要な場合はチェック
+= cocooned_item do
+  .form-added-choice.mt-4
+    .form-added-choice__inner
+      .form-added-choice__col.is-main
+        .form-item__items
+          .form-item
+            = f.text_field :choices, class: 'a-text-input js-warning-form', placeholder: 'とても楽しく学習できている'
+            .form-item__option
+              .checkboxes
+                ul.checkboxes__items
+                  li.checkboxes__item
+                    = f.check_box :reason_for_choice_required, class: 'a-toggle-checkbox js-warning-form'
+                    = f.label :reason_for_choice_required do
+                      | 選択した理由が必要な場合はチェック
 
-    .form-added-choice__col
-      .form-added-choice__action
-        = link_to_remove_association '削除', f, class: 'a-button is-sm is-text'
+      .form-added-choice__col
+        .form-added-choice__action
+          = cocooned_remove_item_link '削除', f, class: 'a-button is-sm is-text'

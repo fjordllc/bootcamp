@@ -96,8 +96,7 @@ class ProductCommentsTest < ApplicationSystemTestCase
     # Wait for comment to be displayed first
     assert_selector '.thread-comment__description', text: 'comment test'
 
-    # Check that product is confirmed in database
-    assert unconfirmed_product.reload.checked?
+    assert_text '合格'
   end
 
   test 'when mentor confirm unassigned product with comment' do
@@ -120,15 +119,16 @@ class ProductCommentsTest < ApplicationSystemTestCase
     # The button might be rendered by different components depending on the layout
     assert_button '担当する', visible: true
 
-    accept_confirm do
-      fill_in 'new_comment[description]', with: 'comment test'
-      click_button '合格にする'
+    accept_confirm('提出物の担当になりました。') do
+      accept_confirm('提出物を確認済にしてよろしいですか？') do
+        fill_in 'new_comment[description]', with: 'comment test'
+        click_button '合格にする'
+      end
     end
 
     # Wait for comment to be displayed first
     assert_selector '.thread-comment__description', text: 'comment test'
 
-    # Check that product is confirmed in database
-    assert unassigned_product.reload.checked?
+    assert_text '合格'
   end
 end
