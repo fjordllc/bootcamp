@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UsersController < ApplicationController
+class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
   skip_before_action :require_active_user_login, raise: false, only: %i[new create show]
   before_action :require_token, only: %i[new] if Rails.env.production?
   before_action :set_user, only: %w[show]
