@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Event < ApplicationRecord
+class Event < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include WithAvatar
   include Commentable
   include Footprintable

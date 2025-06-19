@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class User < ApplicationRecord
+class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include ActionView::Helpers::AssetUrlHelper
   include Taggable
   include Searchable
