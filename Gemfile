@@ -84,6 +84,7 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
 
   # not default
+  gem 'dotenv-rails'
   gem 'pry-byebug'
   gem 'traceroute'
 end
@@ -95,7 +96,6 @@ group :development do
   gem 'web-console', '>= 4.1.0'
 
   # not default
-  gem 'dotenv-rails'
   gem 'bullet'
   gem 'foreman'
   gem 'letter_opener_web', '~> 2.0'
