@@ -6,8 +6,8 @@ class MailNotificationsTest < ApplicationSystemTestCase
   test "update user's mail_notification" do
     visit "/users/#{users(:kimura).id}/mail_notification/edit?token=#{users(:kimura).unsubscribe_email_token}"
 
-    # Ensure the page loads completely by waiting for title
-    assert_selector 'title', text: 'メール通知解除の確認', visible: false
+    # Wait for the correct page to be loaded by checking the <title>
+    assert page.has_title?('メール通知解除の確認')
 
     # Wait for page body to load first
     assert_selector '.page-body'
