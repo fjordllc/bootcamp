@@ -29,7 +29,7 @@
                 button#js-shortcut-post-comment.a-button.is-sm.is-primary.is-block disabled=true
                   | コメントする
               - if mentor_login? && (commentable_type == 'Report' || commentable_type == 'Product') && !commentable.try(:checked?)
-                .card-main-actions__item.is-only-mentor.is-hidden
+                .card-main-actions__item.is-only-mentor
                   button.a-button.is-sm.is-danger.is-block disabled=true
                     i.fa-solid.fa-check
                     - if commentable_type == 'Report'
