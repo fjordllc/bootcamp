@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     resources :questions, only: %i(index), controller: "users/questions"
     resources :answers, only: %i(index), controller: "users/answers"
     resources :micro_reports, only: %i[index create destroy], controller: "users/micro_reports"
+    resources :events, only: %i(index), controller: "users/events"
     get "portfolio" => "users/works#index", as: :portfolio
     patch "graduation", to: "graduation#update", as: :graduation
     resource :mail_notification, only: %i(edit update), controller: "users/mail_notification"
