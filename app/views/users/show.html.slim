@@ -88,8 +88,6 @@
             - if admin_or_mentor_login?
               = render 'users/user_mentor_memo', user_id: @user.id
             - unless @user.total_learning_time.zero? || @user.mentor?
-              = react_component 'Grass', { userId: @user.id }, { class: 'a-card' }
-            - unless @user.total_learning_time.zero? || @user.mentor?
               = render(Grass::GrassComponent.new(user: @user, times: @times, target_end_date: @target_end_date, path: :root_path))
             - if @user.student_or_trainee?
               = render(Calendar::NicoNicoCalendarComponent.new(user: @user, path: :niconico_calendar_date_in_profile_path, current_date: @calendar.current_date, current_calendar: @calendar.with_reports))
