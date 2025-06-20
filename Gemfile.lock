@@ -175,6 +175,10 @@ GEM
     domain_name (0.6.20240107)
     doorkeeper (5.8.2)
       railties (>= 5)
+    dotenv (3.1.8)
+    dotenv-rails (3.1.8)
+      dotenv (= 3.1.8)
+      railties (>= 6.1)
     erubi (1.13.1)
     et-orbi (1.2.11)
       tzinfo
@@ -674,6 +678,7 @@ DEPENDENCIES
   discord-notifier
   discordrb (~> 3.5)
   doorkeeper
+  dotenv-rails
   ffi (= 1.17.1)
   foreman
   good_job (~> 3.14)!
