@@ -9,8 +9,12 @@ function initializeComment(comment) {
   const commentEditor = comment.querySelector('.comment-editor')
   if (!commentEditor) return
 
-  const commentEditorPreview = commentEditor.querySelector('.a-markdown-input__preview')
-  const editorTextarea = commentEditor.querySelector('.a-markdown-input__textarea')
+  const commentEditorPreview = commentEditor.querySelector(
+    '.a-markdown-input__preview'
+  )
+  const editorTextarea = commentEditor.querySelector(
+    '.a-markdown-input__textarea'
+  )
   if (!commentEditorPreview || !editorTextarea) return
 
   let savedComment = ''
