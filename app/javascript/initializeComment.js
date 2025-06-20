@@ -6,27 +6,27 @@ function initializeComment(comment) {
   const commentId = comment.dataset.comment_id
   const commentDescription = comment.dataset.comment_description
 
-  let savedComment = ''
-  TextareaInitializer.initialize(`#js-comment-${commentId}`)
-  const markdownInitializer = new MarkdownInitializer()
-
   const commentEditor = comment.querySelector('.comment-editor')
+  if (!commentEditor) return
+
   const commentEditorPreview = commentEditor.querySelector(
     '.a-markdown-input__preview'
   )
   const editorTextarea = commentEditor.querySelector(
     '.a-markdown-input__textarea'
   )
+  if (!commentEditorPreview || !editorTextarea) return
+
+  let savedComment = ''
+  TextareaInitializer.initialize(`#js-comment-${commentId}`)
+  const markdownInitializer = new MarkdownInitializer()
 
   const commentDisplay = comment.querySelector('.comment-display')
-  const commentDisplayContent = commentDisplay.querySelector('.a-long-text')
-  commentDisplayContent.innerHTML =
-    markdownInitializer.render(commentDescription)
-  if (commentDescription) {
-    commentDisplayContent.innerHTML =
-      markdownInitializer.render(commentDescription)
-    commentEditorPreview.innerHTML =
-      markdownInitializer.render(commentDescription)
+  const commentDisplayContent = commentDisplay?.querySelector('.a-long-text')
+  if (commentDescription && commentDisplayContent) {
+    const rendered = markdownInitializer.render(commentDescription)
+    commentDisplayContent.innerHTML = rendered
+    commentEditorPreview.innerHTML = rendered
   }
 
   const editButton = commentDisplay.querySelector('.card-main-actions__action')
