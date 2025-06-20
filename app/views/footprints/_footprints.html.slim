@@ -10,7 +10,7 @@
         = render 'footprints/footprint', footprint: footprint
       - if footprints.size > 10
         li.user-icons__more data-remaining-count=(footprints.size - 10) その他#{footprints.size - 10}人
-    ul.user-icons__items#remaining-footprints(style="display: none;")
+    ul.user-icons__items#remaining-footprints.is-hidden
       - if footprints.size > 10
         - footprints[10..].each do |footprint|
           = render 'footprints/footprint', footprint: footprint
