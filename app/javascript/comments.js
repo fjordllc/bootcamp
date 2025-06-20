@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     '#comments.thread-comments.loaded'
   )
   if (comments) {
-    loadingContent.style.display = 'none'
-    commentContent.style.display = 'block'
+    loadingContent.classList.add('is-hidden')
+    commentContent.classList.remove('is-hidden')
   }
 
   const initialComments = []
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     )
     const moreComments = document.querySelector('.thread-comments-more')
     if (commentRemaining > 0) {
-      moreComments.style.display = 'block'
+      moreComments.classList.remove('is-hidden')
     }
     displayMoreComments(commentRemaining, nextCommentAmount, moreCommentButton)
   }
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function setComments(comments) {
     comments.forEach((comment) => {
-      comment.style.display = ''
+      comment.classList.remove('is-hidden')
       initializeComment(comment)
     })
   }
