@@ -95,6 +95,7 @@ group :development do
   gem 'web-console', '>= 4.1.0'
 
   # not default
+  gem 'dotenv-rails'
   gem 'bullet'
   gem 'foreman'
   gem 'letter_opener_web', '~> 2.0'
