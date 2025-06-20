@@ -1,8 +1,8 @@
 .loading-content
   - 3.times do
     = render 'comments/comment_placeholder'
-#comments.thread-comments.loaded style='display: none;'
-  .thread-comments-more style='display: none;'
+#comments.thread-comments.loaded.is-hidden
+  .thread-comments-more.is-hidden
     .thread-comments-more__inner
       .thread-comments-more__action
         button.a-button.is-lg.is-text.is-block

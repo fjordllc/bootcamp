@@ -16,8 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const answerContent = document.querySelector('.answer-content')
 
   if (loadingContent && answerContent) {
-    loadingContent.style.display = 'none'
-    answerContent.style.display = 'block'
+    loadingContent.classList.add('is-hidden')
+    answerContent.classList.remove('is-hidden')
   }
 
   if (answers.length > 0) {
