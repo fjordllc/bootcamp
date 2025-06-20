@@ -5,7 +5,8 @@ class WelcomeController < ApplicationController
   skip_before_action :require_active_user_login, raise: false
   layout 'lp'
   DEFAULT_COURSE = 'Railsエンジニア'
-  FAQ_CATEGORY_NAME = '法人利用について'
+  FAQ_CATEGORY_NAME_FOR_TRAINING = '法人利用について'
+  FAQ_CATEGORY_NAME_FOR_JOB_SUPPORT = '就職について'
 
   def index
     @mentors = current_user ? User.mentors_sorted_by_created_at : User.visible_sorted_mentors
@@ -15,7 +16,10 @@ class WelcomeController < ApplicationController
     @articles = Article.alumni_voices.page(params[:page])
   end
 
-  def job_support; end
+  def job_support
+    category = FAQCategory.find_by(name: FAQ_CATEGORY_NAME_FOR_JOB_SUPPORT)
+    @faqs = category&.faqs || FAQ.none
+  end
 
   def pricing; end
 
@@ -33,7 +37,7 @@ class WelcomeController < ApplicationController
   end
 
   def training
-    @faqs = FAQCategory.find_by(name: FAQ_CATEGORY_NAME).faqs
+    @faqs = FAQCategory.find_by(name: FAQ_CATEGORY_NAME_FOR_TRAINING).faqs
   end
 
   def practices; end
