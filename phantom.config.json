@@ -4,13 +4,13 @@
       "CLAUDE.md"
     ],
     "commands": [
-      "branch=$(git rev-parse --abbrev-ref HEAD); if [ \"$branch\" != \"main\" ]; then suffix=\"_$(echo $branch | tr '/' '_' | tr '-' '_')\"; echo \"BRANCH_DB_SUFFIX=$suffix\" > .env.local; echo \"Set BRANCH_DB_SUFFIX=$suffix for branch $branch\"; else echo \"Main branch detected, no DB suffix needed\"; fi",
+      "branch=$(git rev-parse --abbrev-ref HEAD); if [ \"$branch\" != \"main\" ]; then suffix=\"_$(echo $branch | tr '/' '_' | tr '-' '_')\"; if [ -f .env.local ] && grep -q '^BRANCH_DB_SUFFIX=' .env.local; then sed -i.bak \"s/^BRANCH_DB_SUFFIX=.*/BRANCH_DB_SUFFIX=$suffix/\" .env.local && rm .env.local.bak; else echo \"BRANCH_DB_SUFFIX=$suffix\" >> .env.local; fi; echo \"Set BRANCH_DB_SUFFIX=$suffix for branch $branch\"; else echo \"Main branch detected, no DB suffix needed\"; fi",
       "bin/setup"
     ]
   },
   "preDelete": {
     "commands": [
-      "branch=$(git rev-parse --abbrev-ref HEAD); if [ \"$branch\" != \"main\" ]; then suffix=\"_$(echo $branch | tr '/' '_' | tr '-' '_')\"; dev_db=\"bootcamp_development$suffix\"; test_db=\"bootcamp_test$suffix\"; echo \"Dropping databases: $dev_db and $test_db\"; dropdb \"$dev_db\" 2>/dev/null || echo \"Database $dev_db not found (already deleted?)\"; dropdb \"$test_db\" 2>/dev/null || echo \"Database $test_db not found (already deleted?)\"; else echo \"Main branch detected, no DB cleanup needed\"; fi"
+      "set +e; branch=$(git rev-parse --abbrev-ref HEAD); if [ \"$branch\" != \"main\" ]; then suffix=\"_$(echo $branch | tr '/' '_' | tr '-' '_')\"; dev_db=\"bootcamp_development$suffix\"; test_db=\"bootcamp_test$suffix\"; echo \"Dropping databases: $dev_db and $test_db\"; dropdb \"$dev_db\" || true; dropdb \"$test_db\" || true; else echo \"Main branch detected, no DB cleanup needed\"; fi; set -e"
     ]
   }
 }
