@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-Rails.configuration.after_initialize do
+Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('answer.create', AnswererWatcher.new)
 end
