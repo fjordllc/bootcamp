@@ -10,7 +10,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const canvas = document.querySelector('.grass')
-  const grasses = JSON.parse(canvas.dataset.times)
+  if (!canvas) return
+
+  let grasses
+  try {
+    grasses = JSON.parse(canvas.dataset.times)
+  } catch (error) {
+    console.error('Failed to parse grass data:', error)
+    return
+  }
 
   if (grasses) {
     const startX = 16
