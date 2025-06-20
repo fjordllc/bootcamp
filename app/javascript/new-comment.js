@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const getToastMessage = (checkAfterSave, assigned) => {
     if (checkAfterSave) {
       return commentableType === 'Product'
-        ? '提出物を確認済みにしました。'
+        ? '提出物を合格にしました。'
         : '日報を確認済みにしました。'
     } else if (assigned) {
       return '担当になりました。'
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
     saveAndCheckButton.addEventListener('click', () => {
       if (
         commentableType === 'Product' &&
-        !window.confirm('提出物を確認済にしてよろしいですか？')
+        !window.confirm('提出物を合格にしてよろしいですか？')
       ) {
         return
       }
