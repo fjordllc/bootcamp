@@ -17,7 +17,8 @@ class WelcomeController < ApplicationController
   end
 
   def job_support
-    @faqs = FAQCategory.find_by(name: FAQ_CATEGORY_NAME_FOR_JOB_SUPPORT).faqs
+    category = FAQCategory.find_by(name: FAQ_CATEGORY_NAME_FOR_JOB_SUPPORT)
+    @faqs = category&.faqs || FAQ.none
   end
 
   def pricing; end
