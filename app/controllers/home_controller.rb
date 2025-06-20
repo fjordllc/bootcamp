@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class HomeController < ApplicationController
+  include DateParsable
   skip_before_action :require_active_user_login, raise: false
 
   def index
@@ -51,6 +52,8 @@ class HomeController < ApplicationController
     @product_deadline_day = Product::PRODUCT_DEADLINE
     @colleagues = current_user.colleagues_other_than_self
     @calendar = NicoNicoCalendar.new(current_user, params[:niconico_calendar])
+    @target_end_date = parse_target_end_date
+    @times = Grass.times(current_user, @target_end_date)
   end
 
   def display_events_on_dashboard
