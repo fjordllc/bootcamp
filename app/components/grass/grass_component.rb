@@ -9,7 +9,7 @@ class Grass::GrassComponent < ViewComponent::Base
   end
 
   def next_year?
-    @target_end_date.next_year < Date.current
+    @target_end_date.next_year <= Date.current
   end
 
   def prev_year_path
@@ -23,5 +23,4 @@ class Grass::GrassComponent < ViewComponent::Base
   private
 
   attr_reader :user, :times, :target_end_date, :path
-
 end

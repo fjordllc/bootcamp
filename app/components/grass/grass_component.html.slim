@@ -3,7 +3,7 @@
     h2.card-header__title
       | 学習時間
     - if user.graduated? && request.path == '/'
-      button.js-hide-grass.a-button.is-xs.is-muted-bordered type='button'
+      button.hide-grass.a-button.is-xs.is-muted-bordered type='button'
         | 非表示
   hr.a-border-tint
   .card-body
@@ -20,4 +20,4 @@
               i.fa-solid.fa-angle-right
         - else
           .user-grass-nav__next.is-blank
-  .user-grass
+      canvas.grass.a-grass data-times="#{times.to_json}" width="650" height="130"
