@@ -37,4 +37,5 @@ storage/
 /config/master.key
 
 .envrc
+.env.local
 /test/reports
