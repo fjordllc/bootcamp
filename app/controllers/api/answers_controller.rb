@@ -29,7 +29,7 @@ class API::AnswersController < API::BaseController
     @answer = question.answers.new(answer_params)
     @answer.user = current_user
     if @answer.save
-      Newspaper.publish(:answer_create, { answer: @answer })
+      ActiveSupport::Notifications.instrument('answer.create', answer: @answer)
       Newspaper.publish(:answer_save, { answer: @answer })
       render partial: 'questions/answer', locals: { question:, answer: @answer, user: current_user }, status: :created
     else
