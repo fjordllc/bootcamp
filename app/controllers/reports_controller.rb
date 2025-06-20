@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ReportsController < ApplicationController
+class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLength
   PAGER_NUMBER = 25
 
   include Rails.application.routes.url_helpers

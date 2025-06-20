@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const saveButton = commentEditor.querySelector('.is-primary')
   const saveAndCheckButton = commentEditor.querySelector('.is-danger')
+  const saveAndCheckWrapper = saveAndCheckButton?.parentElement
 
   const disableButtons = () => {
     saveButton.disabled = true
@@ -67,9 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const hideSaveAndCheckButton = () => {
-    if (saveAndCheckButton && saveAndCheckButton.parentNode) {
-      saveAndCheckButton.parentNode.style.display = 'none'
-    }
+    saveAndCheckWrapper?.classList.add('is-hidden')
   }
 
   const validateBeforeSave = async (checkAfterSave) => {
@@ -127,8 +126,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const addCommentToDOM = (html) => {
     const comments = document.querySelector('.thread-comments__items')
     const commentDiv = document.createElement('div')
-    commentDiv.innerHTML = html.replace('style="display: none;', '')
+    commentDiv.innerHTML = html
     const newCommentElement = commentDiv.firstElementChild
+    newCommentElement.classList.remove('is-hidden')
     comments.appendChild(newCommentElement)
     initializeComment(newCommentElement)
 
@@ -208,14 +208,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   document.addEventListener('checked', () => {
-    if (saveAndCheckButton && saveAndCheckButton.parentNode) {
-      saveAndCheckButton.parentNode.style.display = 'none'
-    }
+    saveAndCheckWrapper?.classList.add('is-hidden')
   })
 
   document.addEventListener('unchecked', () => {
-    if (saveAndCheckButton && saveAndCheckButton.parentNode) {
-      saveAndCheckButton.parentNode.style.display = 'block'
-    }
+    saveAndCheckWrapper?.classList.remove('is-hidden')
   })
 })
