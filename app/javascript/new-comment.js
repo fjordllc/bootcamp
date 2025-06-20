@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const hideSaveAndCheckButton = () => {
     if (saveAndCheckButton && saveAndCheckButton.parentNode) {
-      saveAndCheckButton.parentNode.style.display = 'none'
+      saveAndCheckButton.parentNode.classList.add('is-hidden')
     }
   }
 
@@ -209,13 +209,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.addEventListener('checked', () => {
     if (saveAndCheckButton && saveAndCheckButton.parentNode) {
-      saveAndCheckButton.parentNode.style.display = 'none'
+      saveAndCheckButton.parentNode.classList.add('is-hidden')
     }
   })
 
   document.addEventListener('unchecked', () => {
     if (saveAndCheckButton && saveAndCheckButton.parentNode) {
-      saveAndCheckButton.parentNode.style.display = 'block'
+      saveAndCheckButton.parentNode.classList.remove('is-hidden')
     }
   })
 })
