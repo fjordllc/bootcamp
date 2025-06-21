@@ -15,4 +15,12 @@ module PairWorkHelper
     end
     sorted_wdays
   end
+
+  def disabled(value)
+    value < Time.current
+  end
+
+  def checked(value, id)
+    !disabled(value) && current_user.learning_time_frame_ids.include?(id)
+  end
 end
