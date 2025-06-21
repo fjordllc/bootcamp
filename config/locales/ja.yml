@@ -361,6 +361,7 @@ ja:
         practice: プラクティス
         title: タイトル
         description: 内容
+        schedules: 希望日時
     enums:
       user:
         job:
