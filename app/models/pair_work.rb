@@ -19,6 +19,7 @@ class PairWork < ApplicationRecord
 
   validates :title, presence: true, length: { maximum: 256 }
   validates :description, presence: true
+  validates :schedules, presence: true
   before_validation :set_published_at, if: :will_be_published?
 
   scope :solved, -> { where.not(reserved_at: nil) }
