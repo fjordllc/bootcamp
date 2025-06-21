@@ -28,6 +28,11 @@ class UsersController < ApplicationController
     @random_tags = User.tags.sample(20)
     @top3_tags_counts = User.tags.limit(3).map(&:count).uniq
     @tag = ActsAsTaggableOn::Tag.find_by(name: params[:tag])
+
+    #画像登録済みの全ユーザーがattach_custom_avatarの処理を完了後、32〜35行は削除します。
+    @users.each do |user|
+      user.attach_custom_avatar if user.avatar.attached? && !ActiveStorage::Blob.find_by(key: "avatars/#{user.login_name}.webp")
+    end
   end
 
   def show
