@@ -12,7 +12,7 @@ class User::CoursesTest < ApplicationSystemTestCase
   test 'show users sorted by rails course' do
     visit_with_auth '/users/courses', 'kimura'
     assert_selector('a.tab-nav__item-link.is-active', text: 'Rails')
-    assert_text 'Railsエンジニアコース（30）'
+    assert_text 'Railsエンジニアコース（31）'
     assert_selector '.users-item', count: 24
     assert_link 'kimuramitai'
     assert_text 'Kimura Mitai'
