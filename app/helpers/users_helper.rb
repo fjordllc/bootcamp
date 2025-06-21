@@ -90,4 +90,10 @@ module UsersHelper
   def day_of_the_week
     %w[日 月 火 水 木 金 土]
   end
+
+  def user_role_status_span(user, &)
+    classes = ['a-user-role', "is-#{user.primary_role}"]
+    classes << 'is-new-user' if user.joining_status == 'new-user'
+    tag.span(class: classes, &)
+  end
 end
