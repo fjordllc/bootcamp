@@ -65,7 +65,9 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     @user.build_discord_profile
     @user.credit_card_payment = params[:credit_card_payment]
     @user.uploaded_avatar = user_params[:avatar]
-    @user.unsubscribe_email_token = SecureRandom.urlsafe_base64
+    attach_and_upload_custom_avatar if user_params[:avatar]
+
+    Newspaper.publish(:user_create, { user: @user })
 
     if @user.staff? || @user.trainee?
       create_free_user!
@@ -213,15 +215,15 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     end
   end
 
-  def determine_user_role(user)
-    if user.adviser?
-      'adviser'
-    elsif user.trainee?
-      'trainee'
-    elsif user.mentor?
-      'mentor'
-    else
-      'student'
-    end
+  def attach_and_upload_custom_avatar
+    attach_and_upload_avatar
+    @user.attach_custom_avatar
+  end
+
+  def attach_and_upload_avatar
+    io = StringIO.new(user_params[:avatar].read)
+    filename = user_params[:avatar].original_filename
+    blob = ActiveStorage::Blob.create_and_upload!(io:, filename:)
+    @user.avatar.attach(blob)
   end
 end
