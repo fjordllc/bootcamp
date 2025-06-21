@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function UserRoleStatusSpan({
+export default function UserIconFrameClass({
   user,
   spanClassName,
   className,
@@ -19,6 +19,6 @@ export default function UserRoleStatusSpan({
   )
 }
 
-export function getUserRoleStatusClass(user) {
+export function getIconFrameClass(user) {
   return `is-${user.primary_role} is-${user.joining_status}`
 }
