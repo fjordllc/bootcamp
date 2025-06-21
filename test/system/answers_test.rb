@@ -118,7 +118,7 @@ class AnswersTest < ApplicationSystemTestCase
     page.all('.a-form-tabs__tab.js-tabs__tab')[1].click
     click_button 'コメントする'
     assert_text 'test'
-    assert_includes ['2.png', 'default.png'], File.basename(find('img.thread-comment__company-logo')['src'])
+    assert_includes ['2.webp', 'default.png'], File.basename(find('img.thread-comment__company-logo')['src'])
   end
 
   test 'using file uploading by file selection dialogue in textarea' do
