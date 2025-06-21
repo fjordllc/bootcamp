@@ -30,6 +30,7 @@ class Admin::UsersController < AdminController
   def update
     @user.diploma_file = nil if params[:user][:remove_diploma] == '1'
     if @user.update(user_params)
+      @user.attach_custom_avatar if user_params[:avatar]
       destroy_subscription(@user)
       Newspaper.publish(:retirement_create, { user: @user }) if @user.saved_change_to_retired_on?
       redirect_to user_url(@user), notice: 'ユーザー情報を更新しました。'

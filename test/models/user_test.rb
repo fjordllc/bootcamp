@@ -63,12 +63,21 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  test '#attach_custom_avatar' do
+    user_with_avatar = users(:komagata)
+    user_with_avatar.attach_custom_avatar
+    custom_avatar = user_with_avatar.avatar.blob
+    assert_equal custom_avatar.key, "avatars/#{user_with_avatar.login_name}.webp"
+    assert_includes custom_avatar.filename.to_s, "#{user_with_avatar.login_name}.webp"
+    assert_equal 'image/webp', custom_avatar.content_type
+  end
+
   test '#avatar_url' do
     user_with_default_avatar = users(:kimura)
     assert_equal '/images/users/avatars/default.png', user_with_default_avatar.avatar_url
 
     user_with_custom_avatar = users(:komagata)
-    assert_includes user_with_custom_avatar.avatar_url, "#{user_with_custom_avatar.login_name}.webp"
+    assert_includes user_with_custom_avatar.avatar_url, "#{user_with_custom_avatar.login_name}.jpg"
   end
 
   test '#generation' do
