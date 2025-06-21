@@ -697,13 +697,26 @@ class User < ApplicationRecord
     !staff? && !graduated?
   end
 
+  def attach_custom_avatar
+    variant_avatar = avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }).processed
+    io = StringIO.new(variant_avatar.download)
+    format = 'webp'
+    custom_key = "avatars/#{login_name}.#{format}"
+    custom_blob = ActiveStorage::Blob.create_and_upload!(
+      io:,
+      key: custom_key,
+      filename: "#{login_name}.#{format}",
+      content_type: "image/#{format}",
+      identify: false
+    )
+    avatar.attach(custom_blob)
+  end
+
   def avatar_url
     default_image_path = '/images/users/avatars/default.png'
-    format = 'webp'
 
     if avatar.attached?
-      avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 },
-                     format:).processed.url(filename: "#{login_name}.#{format}")
+      "#{avatar.url}?v=#{avatar.created_at.to_i}"
     else
       image_url default_image_path
     end
