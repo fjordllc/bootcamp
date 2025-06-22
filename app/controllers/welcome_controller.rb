@@ -37,7 +37,8 @@ class WelcomeController < ApplicationController
   end
 
   def training
-    @faqs = FAQCategory.find_by(name: FAQ_CATEGORY_NAME_FOR_TRAINING).faqs
+    category = FAQCategory.find_by(name: FAQ_CATEGORY_NAME_FOR_TRAINING)
+    @faqs = category&.faqs || FAQ.none
   end
 
   def practices; end
