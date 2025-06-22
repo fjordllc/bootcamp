@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Products::ProductComponent < ViewComponent::Base
+  include UsersHelper
+  
   def initialize(product:, is_mentor:, is_admin:, current_user_id:, reply_deadline_days:, display_until_next_elapsed_days: false, display_user_icon: true) # rubocop:disable Metrics/ParameterLists
     @product = product
     @is_mentor = is_mentor
