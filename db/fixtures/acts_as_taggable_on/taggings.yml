@@ -131,33 +131,3 @@ article<%= id %>_tag_press_release:
   context: tags
   tag: press_release
 <% end %>
-
-article22_tag_注目の記事:
-  taggable: article22 (Article)
-  context: tags
-  tag: 注目の記事
-
-article23_tag_注目の記事:
-  taggable: article23 (Article)
-  context: tags
-  tag: 注目の記事
-
-article24_tag_注目の記事:
-  taggable: article24 (Article)
-  context: tags
-  tag: 注目の記事
-
-article25_tag_注目の記事:
-  taggable: article25 (Article)
-  context: tags
-  tag: 注目の記事
-
-article26_tag_注目の記事:
-  taggable: article26 (Article)
-  context: tags
-  tag: 注目の記事
-
-article27_tag_注目の記事:
-  taggable: article27 (Article)
-  context: tags
-  tag: 注目の記事
