@@ -130,8 +130,6 @@ article<%= id %>_tag_press_release:
   context: tags
   tag: press_release
 <% end %>
-  tag: feature
-  tag: 注目の記事
 
 article22_tag_注目の記事:
   taggable: article22 (Article)
@@ -162,5 +160,4 @@ article27_tag_注目の記事:
   taggable: article27 (Article)
   context: tags
   tag: 注目の記事
-  tag: feature
 <% end %>
