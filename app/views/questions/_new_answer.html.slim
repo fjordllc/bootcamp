@@ -1,6 +1,6 @@
 .thread-comment-form.new-answer data-question_id="#{question.id}"
   .thread-comment__start
-    = user_role_status_span(user) do
+    span class=user_icon_frame_class(user)
       img.thread-comment__user-icon.a-user-icon src="#{user.avatar_url}" alt="#{current_user.icon_title}"
   .thread-comment__end
     .answer-editor
