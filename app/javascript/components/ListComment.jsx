@@ -1,5 +1,5 @@
 import React from 'react'
-import UserRoleStatusSpan from './UserRoleStatusSpan'
+import { UserIconFrameClass } from './UserIconFrameClass'
 
 export default function ListComment({ report }) {
   return (
@@ -21,12 +21,9 @@ export default function ListComment({ report }) {
                       className="card-list-item__user-icons-icon"
                       href={`/users/${comment.user_id}`}
                       key={comment.user_id}>
-                      <UserRoleStatusSpan
-                        user={comment}
-                        className="a-user-icon"
-                        src={comment.user_icon}
-                        comment={comment}
-                      />
+                      <span className={UserIconFrameClass(comment)}>
+                        <img className="a-user-icon" src={comment.user_icon} />
+                      </span>
                     </a>
                   )
                 })}

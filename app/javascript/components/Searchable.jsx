@@ -1,7 +1,7 @@
 import React from 'react'
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
-import UserRoleStatusSpan from './UserRoleStatusSpan'
+import { UserIconFrameClass } from './UserIconFrameClass'
 dayjs.locale(ja)
 
 export default function Searchable({ searchable, word }) {
@@ -80,13 +80,14 @@ export default function Searchable({ searchable, word }) {
         {searchable.is_user && (
           <div className="card-list-item__user">
             <a className="card-list-item__user-link" href={searchable.url}>
-              <UserRoleStatusSpan
-                user={searchable}
-                className="card-list-item__user-icon a-user-icon"
-                src={searchable.avatar_url}
-                title={searchable.title}
-                alt={searchable.title}
-              />
+              <span className={UserIconFrameClass(searchable)}>
+                <img
+                  className="card-list-item__user-icon a-user-icon"
+                  src={searchable.avatar_url}
+                  title={searchable.title}
+                  alt={searchable.title}
+                />
+              </span>
             </a>
           </div>
         )}
@@ -122,13 +123,14 @@ export default function Searchable({ searchable, word }) {
                       <a
                         className="card-list-item-meta__icon-link"
                         href={userUrl}>
-                        <UserRoleStatusSpan
-                          user={searchable}
-                          className="card-list-item-meta__icon a-user-icon"
-                          src={searchable.avatar_url}
-                          title={searchable.icon_title}
-                          alt={searchable.icon_title}
-                        />
+                        <span className={UserIconFrameClass(searchable)}>
+                          <img
+                            className="card-list-item-meta__icon a-user-icon"
+                            src={searchable.avatar_url}
+                            title={searchable.icon_title}
+                            alt={searchable.icon_title}
+                          />
+                        </span>
                       </a>
                       <a className="a-user-name" href={userUrl}>
                         {searchable.login_name}
