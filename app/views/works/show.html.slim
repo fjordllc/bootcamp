@@ -25,7 +25,7 @@ hr.a-border
           .page-content-header__user
             .page-content-header__user-icon
               = link_to user_portfolio_path(@work.user), itemprop: 'url', class: 'page-content-header__user-link' do
-                = user_role_status_span(@work.user) do
+                span class=user_icon_frame_class(@work.user)
                   = image_tag @work.user.avatar_url, title: @work.user.icon_title, class: 'page-content-header__user-icon a-user-icon'
         .page-content-header__end
           .page-content-header__row
