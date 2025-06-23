@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Products::ProductComponent < ViewComponent::Base
+  include UsersHelper
   def initialize(product:, is_mentor:, is_admin:, current_user_id:, reply_deadline_days:, display_until_next_elapsed_days: false, display_user_icon: true) # rubocop:disable Metrics/ParameterLists
     @product = product
     @is_mentor = is_mentor
@@ -13,6 +14,10 @@ class Products::ProductComponent < ViewComponent::Base
 
   def role_class
     "is-#{@product.user.primary_role}"
+  end
+
+  def joining_status_class
+    @product.user.joining_status == 'new-user' ? 'is-new-user' : ''
   end
 
   def practice_title
