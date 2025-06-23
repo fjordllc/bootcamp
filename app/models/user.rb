@@ -10,6 +10,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w[id login_name company_id last_activity_at created_at report comment asc desc].freeze
   AVATAR_SIZE = [120, 120].freeze
+  DEFAULT_IMAGE_PATH = '/images/users/avatars/default.png'
   RESERVED_LOGIN_NAMES = %w[adviser all graduate inactive job_seeking mentor retired student student_and_trainee trainee year_end_party].freeze
   MAX_PERCENTAGE = 100
   DEPRESSED_SIZE = 2
@@ -697,30 +698,44 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     !staff? && !graduated?
   end
 
-  def avatar_url
-    default_image_path = '/images/users/avatars/default.png'
+  def attach_custom_avatar
+    variant_avatar = avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }).processed
+    io = StringIO.new(variant_avatar.download)
     format = 'webp'
+    custom_key = "avatars/#{login_name}.#{format}"
+    custom_blob = ActiveStorage::Blob.create_and_upload!(
+      io:,
+      key: custom_key,
+      filename: "#{login_name}.#{format}",
+      content_type: "image/#{format}",
+      identify: false
+    )
+    avatar.attach(custom_blob)
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError, Vips::Error => e
+    log_avatar_error('attach_custom_avatar', e)
+    image_url DEFAULT_IMAGE_PATH
+  end
 
+  def avatar_url
     if avatar.attached?
-      avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 },
-                     format:).processed.url(filename: "#{login_name}.#{format}")
+      "#{avatar.url}?v=#{avatar.created_at.to_i}"
     else
-      image_url default_image_path
+      image_url DEFAULT_IMAGE_PATH
     end
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError, Vips::Error
-    image_url default_image_path
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError => e
+    log_avatar_error('avatar_url', e)
+    image_url DEFAULT_IMAGE_PATH
   end
 
   def profile_image_url
-    default_image_path = '/images/users/avatars/default.png'
-
     if profile_image.attached?
       profile_image
     else
-      image_url default_image_path
+      image_url DEFAULT_IMAGE_PATH
     end
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError
-    image_url default_image_path
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError => e
+    log_avatar_error('profile_image_url', e)
+    image_url DEFAULT_IMAGE_PATH
   end
 
   def generation
@@ -946,5 +961,9 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   def convert_blank_of_address_to_nil
     self.country_code = nil if country_code.blank?
     self.subdivision_code = nil if subdivision_code.blank?
+  end
+
+  def log_avatar_error(context, error)
+    Rails.logger.error "[#{context}] Avatar processing failed for user #{login_name}: #{error.message}"
   end
 end

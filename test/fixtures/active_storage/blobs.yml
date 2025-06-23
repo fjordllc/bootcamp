@@ -17,7 +17,7 @@ komagata_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/k
 
 machida_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/machida.jpg", service_name: "test_fixtures" %>
 
-mentormentaro_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/mentormentaro.jpg", service_name: "test_fixtures" %>
+mentormentaro_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/mentormentaro.webp", service_name: "test_fixtures" %>
 
 mineo_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/mineo.jpg", service_name: "test_fixtures" %>
 
