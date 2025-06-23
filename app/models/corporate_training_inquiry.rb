@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CorporateTrainingInquiry < ApplicationRecord
+  include Commentable
+
   validates :company_name, presence: true
   validates :name, presence: true
   validates :email, presence: true,

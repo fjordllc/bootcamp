@@ -9,5 +9,6 @@ class Admin::CorporateTrainingInquiriesController < AdminController
 
   def show
     @corporate_training_inquiry = CorporateTrainingInquiry.find(params[:id])
+    @comments = @corporate_training_inquiry.comments.order(:created_at)
   end
 end
