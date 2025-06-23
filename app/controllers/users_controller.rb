@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 
   PAGER_NUMBER = 24
 
+  # rubocop:disable Metrics/MethodLength
   def index
     @target = params[:target]
     @target = 'student_and_trainee' unless target_allowlist.include?(@target)
@@ -29,11 +30,20 @@ class UsersController < ApplicationController
     @top3_tags_counts = User.tags.limit(3).map(&:count).uniq
     @tag = ActsAsTaggableOn::Tag.find_by(name: params[:tag])
 
-    # 画像登録済みの全ユーザーがattach_custom_avatarの処理を完了後、32〜35行は削除します。
+    # TODO: 2025年7月末までに、全てのユーザーの avatar に対して WebP・URL 変換、が完了したら
+    #       このループと rubocop:(disable and enable) Metrics/MethodLength を削除予定。
+    # 削除条件1：ブラウザ上でimageタグのsrc属性が https://storage.googleapis.com/bootcamp-fjord-jp/login_name.webp に変換されていることを確認。
+    # 削除条件2：ユーザーアイコンの画像形式が webp に変換されていることを確認。
+    processed_count = 0
     @users.each do |user|
-      user.attach_custom_avatar if user.avatar.attached? && !ActiveStorage::Blob.find_by(key: "avatars/#{user.login_name}.webp")
+      if user.avatar.attached? && !ActiveStorage::Blob.find_by(key: "avatars/#{user.login_name}.webp")
+        user.attach_custom_avatar
+        processed_count += 1
+      end
     end
+    Rails.logger.info "Processed #{processed_count} users for custom avatar attachment" if processed_count.positive?
   end
+  # rubocop:enable Metrics/MethodLength
 
   def show
     @completed_learnings = @user
