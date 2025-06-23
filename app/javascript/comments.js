@@ -1,7 +1,7 @@
 import { initializeComment } from './initializeComment.js'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const comments = document.querySelectorAll('.comment')
+  const comments = document.querySelectorAll('.thread-comment:not(.loading)')
   const loadingContent = document.querySelector('.loading-content')
   if (!loadingContent) {
     return
