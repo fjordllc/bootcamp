@@ -716,7 +716,8 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
       identify: false
     )
     avatar.attach(custom_blob)
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError, Vips::Error
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError, Vips::Error => e
+    log_avatar_error('attach_custom_avatar', e)
     image_url DEFAULT_IMAGE_PATH
   end
 
@@ -726,7 +727,8 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     else
       image_url DEFAULT_IMAGE_PATH
     end
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError => e
+    log_avatar_error('avatar_url', e)
     image_url DEFAULT_IMAGE_PATH
   end
 
@@ -736,7 +738,8 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     else
       image_url DEFAULT_IMAGE_PATH
     end
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError => e
+    log_avatar_error('profile_image_url', e)
     image_url DEFAULT_IMAGE_PATH
   end
 
@@ -963,5 +966,9 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   def convert_blank_of_address_to_nil
     self.country_code = nil if country_code.blank?
     self.subdivision_code = nil if subdivision_code.blank?
+  end
+
+  def log_avatar_error(context, error)
+    Rails.logger.error "[#{context}] Avatar processing failed for user #{login_name}: #{error.message}"
   end
 end
