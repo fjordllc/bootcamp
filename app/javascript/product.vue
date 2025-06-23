@@ -130,7 +130,9 @@ export default {
       return `is-${this.product.user.primary_role}`
     },
     joiningStatusClass() {
-      return `is-${this.product.user.joining_status}`
+      return this.product.user.joining_status === 'new-user'
+        ? 'is-new-user'
+        : ''
     },
     practiceTitle() {
       return `${this.product.practice.title}の提出物`

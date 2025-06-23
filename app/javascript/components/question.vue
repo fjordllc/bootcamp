@@ -85,7 +85,9 @@ export default {
       return `is-${this.question.user.primary_role}`
     },
     joiningStatusClass() {
-      return `is-${this.question.user.joining_status}`
+      return this.question.user.joining_status === 'new-user'
+        ? 'is-new-user'
+        : ''
     },
     urgentClass() {
       return {
