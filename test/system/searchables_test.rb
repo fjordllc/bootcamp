@@ -157,17 +157,8 @@ class SearchablesTest < ApplicationSystemTestCase
       select 'すべて'
       fill_in 'word', with: '提出物のコメントです。'
     end
-<<<<<<< HEAD
     find('#test-search-modal').click
     assert_text 'komagata'
-=======
-    find('#test-search').click
-<<<<<<< HEAD
-    assert_text 'mentormentaro'
->>>>>>> 8bdf34510 (テストの修正)
-=======
-    assert_text 'komagata'
->>>>>>> 2c69a6dde (avatar_urlメソッド内で画像変換処理を行うようにした)
     assert_text 'kimura'
     assert_no_text 'machida'
   end
@@ -195,27 +186,15 @@ class SearchablesTest < ApplicationSystemTestCase
   end
 
   test 'show icon and go profile page when click icon' do
+    reset_avatar(users(:komagata))
     visit_with_auth '/', 'hatsuno'
     find('.js-modal-search-shown-trigger').click
     within('form[name=search]') do
       select 'すべて'
       fill_in 'word', with: '提出物のコメントです。'
     end
-<<<<<<< HEAD
     find('#test-search-modal').click
     assert_includes find('img.card-list-item-meta__icon.a-user-icon')['src'], 'komagata.webp'
-=======
-    find('#test-search').click
-<<<<<<< HEAD
-<<<<<<< HEAD
-    assert_includes find('img.card-list-item-meta__icon.a-user-icon')['src'], 'komagata.jpg'
->>>>>>> b817631f0 (testの追加・修正、フォーマットを調整)
-=======
-    assert_includes find('img.card-list-item-meta__icon.a-user-icon')['src'], 'mentormentaro.webp'
->>>>>>> 8bdf34510 (テストの修正)
-=======
-    assert_includes find('img.card-list-item-meta__icon.a-user-icon')['src'], 'komagata.webp'
->>>>>>> 2c69a6dde (avatar_urlメソッド内で画像変換処理を行うようにした)
 
     find('img.card-list-item-meta__icon.a-user-icon').click
     assert_selector 'h1.page-content-header__title', text: 'komagata'
