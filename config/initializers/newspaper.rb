@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 Rails.configuration.after_initialize do
-  Newspaper.subscribe(:event_create, EventOrganizerWatcher.new)
-  Newspaper.subscribe(:answer_create, AnswerNotifier.new)
-  Newspaper.subscribe(:answer_create, NotifierToWatchingUser.new)
   Newspaper.subscribe(:announcement_destroy, AnnouncementNotificationDestroyer.new)
 
   announcement_notifier = AnnouncementNotifier.new
