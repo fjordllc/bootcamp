@@ -193,17 +193,8 @@ class SearchablesTest < ApplicationSystemTestCase
       select 'すべて'
       fill_in 'word', with: '提出物のコメントです。'
     end
-<<<<<<< HEAD
     find('#test-search-modal').click
     assert_includes find('img.card-list-item-meta__icon.a-user-icon')['src'], 'komagata.webp'
-=======
-    find('#test-search').click
-<<<<<<< HEAD
-    assert_includes find('img.card-list-item-meta__icon.a-user-icon')['src'], 'mentormentaro.webp'
->>>>>>> 8bdf34510 (テストの修正)
-=======
-    assert_includes find('img.card-list-item-meta__icon.a-user-icon')['src'], 'komagata.webp'
->>>>>>> 2c69a6dde (avatar_urlメソッド内で画像変換処理を行うようにした)
 
     find('img.card-list-item-meta__icon.a-user-icon').click
     assert_selector 'h1.page-content-header__title', text: 'komagata'
