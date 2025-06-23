@@ -99,7 +99,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     reset_avatar(user)
     visit_with_auth "/users/#{user.id}", 'komagata'
     icon_before = find('img.user-profile__user-icon-image', visible: false)
-    before_src = icon_before.native['src']
+    assert_includes icon_before.native['src'], 'hatsuno.jpg'
 
     visit "/admin/users/#{user.id}/edit"
     within 'form[name=user]' do
@@ -111,12 +111,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert_text 'ユーザー情報を更新しました。'
     visit "/users/#{user.id}"
     icon_after = find('img.user-profile__user-icon-image', visible: false)
-    after_src = icon_after.native['src']
-
-    # アバターが更新されたことを確認（URLが変わったことで確認）
-    assert_not_equal before_src, after_src
-    # タイムスタンプパラメータが含まれていることを確認
-    assert_match(/\?v=\d+/, after_src)
+    assert_includes icon_after.native['src'], 'hatsuno.webp'
   end
 
   test 'update user with company' do
