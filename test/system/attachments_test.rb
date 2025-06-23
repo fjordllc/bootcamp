@@ -5,8 +5,8 @@ require 'application_system_test_case'
 
 class AttachmentsTest < ApplicationSystemTestCase
   test 'attachment user avatar' do
-    visit_with_auth "/users/#{users(:komagata).id}", 'komagata'
-    assert_includes find('img.user-profile__user-icon-image')['src'], 'komagata.jpg'
+    visit_with_auth "/users/#{users(:mentormentaro).id}", 'mentormentaro'
+    assert_includes find('img.user-profile__user-icon-image')['src'], 'mentormentaro.webp'
   end
 
   test 'attachment company-logo in reports' do
