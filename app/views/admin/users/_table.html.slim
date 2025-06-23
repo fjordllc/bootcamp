@@ -12,6 +12,7 @@
           | 企業
           = render 'sort_column', order_by: 'company_id', direction: direction, target: @target, job: @job
         th.admin-table__label 職業
+        th.admin-table__label 就職希望
         th.admin-table__label Discord
         th.admin-table__label
           |
@@ -21,6 +22,7 @@
           | 登録日時
           = render 'sort_column', order_by: 'created_at', direction: direction, target: @target, job: @job
         th.admin-table__label 相談部屋
+        th.admin-table__label 決済方法
         th.admin-table__label カード登録
         th.admin-table__label サブスク
         th.admin-table__label 操作
@@ -88,6 +90,11 @@
               - else
                 | 回答なし
           td.admin-table__item-value.text-center
+            - if user.job_seeker?
+              | 希望する
+            - else
+              | 希望しない
+          td.admin-table__item-value.text-center
             - if user.discord_profile.present?
               = user.discord_profile.account_name || '-'
           td.admin-table__item-value.text-center
@@ -98,6 +105,13 @@
           td.admin-table__item-value.text-center
             - if user.talk
               = link_to '相談部屋', talk_url(user.talk, anchor: 'latest-comment'), class: 'whitespace-nowrap'
+            - else
+              | -
+          td.admin-table__item-value.text-center
+            - if user.trainee && !user.invoice_payment
+              | クレジットカード払い
+            - elsif user.trainee && user.invoice_payment
+              | 請求書払い
             - else
               | -
           td.admin-table__item-value.text-center
