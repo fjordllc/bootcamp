@@ -157,8 +157,13 @@ class SearchablesTest < ApplicationSystemTestCase
       select 'すべて'
       fill_in 'word', with: '提出物のコメントです。'
     end
+<<<<<<< HEAD
     find('#test-search-modal').click
     assert_text 'komagata'
+=======
+    find('#test-search').click
+    assert_text 'mentormentaro'
+>>>>>>> 8bdf34510 (テストの修正)
     assert_text 'kimura'
     assert_no_text 'machida'
   end
@@ -197,11 +202,15 @@ class SearchablesTest < ApplicationSystemTestCase
     assert_includes find('img.card-list-item-meta__icon.a-user-icon')['src'], 'komagata.webp'
 =======
     find('#test-search').click
+<<<<<<< HEAD
     assert_includes find('img.card-list-item-meta__icon.a-user-icon')['src'], 'komagata.jpg'
 >>>>>>> b817631f0 (testの追加・修正、フォーマットを調整)
+=======
+    assert_includes find('img.card-list-item-meta__icon.a-user-icon')['src'], 'mentormentaro.webp'
+>>>>>>> 8bdf34510 (テストの修正)
 
     find('img.card-list-item-meta__icon.a-user-icon').click
-    assert_selector 'h1.page-content-header__title', text: 'komagata'
+    assert_selector 'h1.page-content-header__title', text: 'mentormentaro'
   end
 
   test 'disappear icon when search user' do
