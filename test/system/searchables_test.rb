@@ -192,8 +192,13 @@ class SearchablesTest < ApplicationSystemTestCase
       select 'すべて'
       fill_in 'word', with: '提出物のコメントです。'
     end
+<<<<<<< HEAD
     find('#test-search-modal').click
     assert_includes find('img.card-list-item-meta__icon.a-user-icon')['src'], 'komagata.webp'
+=======
+    find('#test-search').click
+    assert_includes find('img.card-list-item-meta__icon.a-user-icon')['src'], 'komagata.jpg'
+>>>>>>> b817631f0 (testの追加・修正、フォーマットを調整)
 
     find('img.card-list-item-meta__icon.a-user-icon').click
     assert_selector 'h1.page-content-header__title', text: 'komagata'
