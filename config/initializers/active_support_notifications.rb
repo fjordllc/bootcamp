@@ -2,4 +2,5 @@
 
 Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('answer.create', AnswererWatcher.new)
+  ActiveSupport::Notifications.subscribe('event.create', EventOrganizerWatcher.new)
 end
