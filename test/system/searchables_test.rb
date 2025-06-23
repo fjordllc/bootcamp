@@ -195,9 +195,20 @@ class SearchablesTest < ApplicationSystemTestCase
     end
     find('#test-search-modal').click
     assert_includes find('img.card-list-item-meta__icon.a-user-icon')['src'], 'komagata.webp'
+<<<<<<< HEAD
+=======
+=======
+    find('#test-search').click
+<<<<<<< HEAD
+    assert_includes find('img.card-list-item-meta__icon.a-user-icon')['src'], 'komagata.jpg'
+>>>>>>> b817631f0 (testの追加・修正、フォーマットを調整)
+=======
+    assert_includes find('img.card-list-item-meta__icon.a-user-icon')['src'], 'mentormentaro.webp'
+>>>>>>> 8bdf34510 (テストの修正)
+>>>>>>> 6a6a205bc (テストの修正)
 
     find('img.card-list-item-meta__icon.a-user-icon').click
-    assert_selector 'h1.page-content-header__title', text: 'komagata'
+    assert_selector 'h1.page-content-header__title', text: 'mentormentaro'
   end
 
   test 'disappear icon when search user' do
