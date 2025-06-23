@@ -80,7 +80,7 @@ article4:
   user: komagata
   wip: true
 
-<% (5..20).each_with_index do |id, i| %>
+<% (5..20).each_with_index do |id, i| -%>
 article<%= id %>:
   title: test title<%= id %>
   body: |-
@@ -89,9 +89,9 @@ article<%= id %>:
   wip: false
   published_at: "<%= Date.parse('2024-01-01') + i %>"
   created_at: "<%= Date.parse('2024-01-01') + i %>"
-<% end %>
+<% end -%>
 
-<% (21..27).each_with_index do |id, i| %>
+<% (21..27).each_with_index do |id, i| -%>
 article<%= id %>:
   title: test with 注目の記事 tag <%= id %>
   body: |-
@@ -100,7 +100,7 @@ article<%= id %>:
   wip: false
   published_at: "<%= Date.parse('2024-02-01') + i %>"
   created_at: "<%= Date.parse('2024-02-01') + i %>"
-<% end %>
+<% end -%>
 
 article56:
   title: 卒業生の声のタグを持つ最新の記事です
