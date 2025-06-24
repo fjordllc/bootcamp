@@ -21,7 +21,7 @@
               .card-list-item-meta__item
                 .a-meta
                   span.a-meta__label 確認者
-                  span.a-meta__value = inquiry.checks.first.user.login_name
+                  span.a-meta__value = inquiry.checks.loaded? ? inquiry.checks.first.user.login_name : ''
       .card-list-item__row
         .a-meta
           p = inquiry.body.truncate(100)
