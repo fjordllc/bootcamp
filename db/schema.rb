@@ -249,11 +249,11 @@ ActiveRecord::Schema.define(version: 2025_06_18_144325) do
   create_table "courses", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
+    t.text "summary"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "published", default: false, null: false
     t.boolean "grant", default: false, null: false
-    t.text "summary"
   end
 
   create_table "courses_categories", force: :cascade do |t|
@@ -451,6 +451,8 @@ ActiveRecord::Schema.define(version: 2025_06_18_144325) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "action_completed", default: false, null: false
+    t.index ["action_completed"], name: "index_inquiries_on_action_completed"
   end
 
   create_table "learning_minute_statistics", force: :cascade do |t|
