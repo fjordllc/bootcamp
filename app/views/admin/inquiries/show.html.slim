@@ -30,7 +30,7 @@ main.page-main
           - if @inquiry.checked?
             .stamp.stamp-approve.is-sm
               .stamp__content.is-title
-                | 確認済
+                | 対応済
           .page-content-header__end
             .page-content-header__row
               h1.page-content-header__title
@@ -43,15 +43,16 @@ main.page-main
                       span.a-meta__label 受信日
                       span.a-meta__value = l @inquiry.created_at
         .page-content__body
-           .a-card
+          .a-card
             .card-body
               .card-body__description
                 .a-long-text.is-md
                   = auto_link(simple_format(@inquiry.body), html: { target: '_blank' })
-                  .mt-4.inquiry-action
-           div(data-vue="ActionCompletedButton"
-                data-vue-commentable-id:number="#{@inquiry.id}"
-                data-vue-is-initial-action-completed:boolean="#{@inquiry.action_completed || false}"
-                data-vue-model-name:string="inquiry"
-                data-vue-api-path:string="/api/inquiries")
+          .mt-4.inquiry-action
+            = react_component('ActionCompletedButton', { \
+              isInitialActionCompleted: @inquiry.action_completed || false, \
+              commentableId: @inquiry.id, \
+              modelName: 'inquiry', \
+              apiPath: '/api/inquiries' \
+            })
       = render 'comments/comments', commentable: @inquiry, commentable_type: 'Inquiry'
