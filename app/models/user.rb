@@ -428,7 +428,12 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   }
   scope :admins, -> { where(admin: true) }
   scope :admins_and_mentors, -> { admins.or(mentor) }
-  scope :trainees, -> { where(trainee: true) }
+  scope :trainees, lambda {
+    where(
+      trainee: true,
+      retired_on: nil
+    )
+  }
   scope :job_seeking, -> { where(career_path: 'job_seeking') }
   scope :job_seekers, lambda {
     where(
