@@ -53,6 +53,9 @@ class Article::TagsTest < ApplicationSystemTestCase
       click_on '公開する'
     end
     assert_text '記事を作成しました'
-    assert_text '注目の記事'
+
+    assert_selector('a.a-badge') do
+      assert_text '注目の記事'
+    end
   end
 end
