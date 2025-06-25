@@ -948,7 +948,7 @@ class ActivityMailerTest < ActionMailer::TestCase
       course: courses(:course4),
       job: 'unemployed',
       os: 'mac',
-      experience: 'ruby'
+      experiences: 2
     )
     mentor = users(:komagata)
 
