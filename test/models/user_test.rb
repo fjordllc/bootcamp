@@ -524,7 +524,7 @@ class UserTest < ActiveSupport::TestCase
       course: courses(:course1),
       job: 'student',
       os: 'mac',
-      experience: 'ruby',
+      experiences: 2,
       created_at: Time.current - 30.days,
       sent_student_followup_message: false
     )
@@ -538,7 +538,7 @@ class UserTest < ActiveSupport::TestCase
       course: courses(:course1),
       job: 'student',
       os: 'mac',
-      experience: 'ruby',
+      experiences: 2,
       created_at: Time.current,
       sent_student_followup_message: false
     )
@@ -558,7 +558,7 @@ class UserTest < ActiveSupport::TestCase
       course: courses(:course1),
       job: 'student',
       os: 'mac',
-      experience: 'ruby',
+      experiences: 2,
       hibernated_at: nil,
       created_at: Time.current - 30.days,
       sent_student_followup_message: false
@@ -590,7 +590,7 @@ class UserTest < ActiveSupport::TestCase
       course: courses(:course1),
       job: 'student',
       os: 'mac',
-      experience: 'ruby',
+      experiences: 2,
       hibernated_at: nil,
       created_at: Time.current - 30.days,
       sent_student_followup_message: false
