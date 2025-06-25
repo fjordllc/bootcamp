@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
+  include DateParsable
   skip_before_action :require_active_user_login, raise: false, only: %i[new create show]
   before_action :require_token, only: %i[new] if Rails.env.production?
   before_action :set_user, only: %w[show]
@@ -38,6 +39,9 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
                            .order(updated_at: :desc)
 
     @calendar = NicoNicoCalendar.new(@user, params[:niconico_calendar])
+
+    @target_end_date = parse_target_end_date
+    @times = Grass.times(@user, @target_end_date)
 
     if logged_in?
       render :show
