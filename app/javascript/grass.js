@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (hideGrass && grassContainer) {
     hideGrass.addEventListener('click', () => {
-      document.cookie = `user_grass=hidden; path=/;`
+      document.cookie = `user_grass=${hideGrass.dataset.userId}; path=/;`
       grassContainer.style.display = 'none'
     })
   }
