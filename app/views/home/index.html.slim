@@ -38,7 +38,7 @@
                 = render 'required_field', user: current_user
               - if current_user.after_graduation_hope?
                 = render 'after_graduation_hope', user: current_user
-              - if current_user.student_or_trainee? && !cookies[:user_grass]
+              - if current_user.student_or_trainee? && cookies[:user_grass] != current_user.id.to_s
                 = render(Grass::GrassComponent.new(user: current_user, times: @times, target_end_date: @target_end_date, path: :root_path))
               - if current_user.github_account.present?
                 = render 'users/github_grass', user: current_user
