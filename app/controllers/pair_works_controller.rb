@@ -27,7 +27,7 @@ class PairWorksController < ApplicationController
     @pair_work.user = current_user
     set_wip
     if @pair_work.save
-      Newspaper.publish(:pair_work_create, { pair_work: @pair_work })
+      ActiveSupport::Notifications.instrument('pair_work.create', pair_work: @pair_work)
       redirect_to @pair_work, notice: @pair_work.generate_notice_message(:create)
     else
       render :new
@@ -37,7 +37,7 @@ class PairWorksController < ApplicationController
   def update
     set_wip
     if @pair_work.update(pair_work_params)
-      Newspaper.publish(:pair_work_update, { pair_work: @pair_work })
+      ActiveSupport::Notifications.instrument('pair_work.update', pair_work: @pair_work)
       redirect_to @pair_work, notice: @pair_work.generate_notice_message(:update)
     else
       render :edit
