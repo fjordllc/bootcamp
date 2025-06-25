@@ -38,4 +38,9 @@ Rails.application.reloader.to_prepare do
   learning_cache_destroyer = LearningCacheDestroyer.new
   ActiveSupport::Notifications.subscribe('learning.create', learning_cache_destroyer)
   ActiveSupport::Notifications.subscribe('learning.destroy', learning_cache_destroyer)
+  ActiveSupport::Notifications.subscribe('pair_work.create', WatchForPairWorkCreator.new)
+  ActiveSupport::Notifications.subscribe('pair_work.update', WatchForPairWorkCreator.new)
+  ActiveSupport::Notifications.subscribe('pair_work.create', PairWorkNotifier.new)
+  ActiveSupport::Notifications.subscribe('pair_work.update', PairWorkNotifier.new)
+  ActiveSupport::Notifications.subscribe('pair_work.update', PairWorkMatchingNotifier.new)
 end
