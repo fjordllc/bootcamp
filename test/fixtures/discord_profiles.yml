@@ -210,32 +210,37 @@ discord_profile_marumarushain<%= i %>:
   times_url:
 <% end %>
 
-discord_profire_harikirio:
+discord_profile_harikirio:
   user: harikirio
   account_name:
   times_url:
 
-discord_profire_rails-course:
+discord_profile_rails-course:
   user: rails-course
   account_name:
   times_url:
 
-discord_profire_front-end-course:
+discord_profile_front-end-course:
   user: front-end-course
   account_name:
   times_url:
 
-discord_profire_unity-course:
+discord_profile_unity-course:
   user: unity-course
   account_name:
   times_url:
 
-discord_profire_ios-course:
+discord_profile_ios-course:
   user: ios-course
   account_name:
   times_url:
 
 discord_profile_jobseeking:
   user: jobseeking
+  account_name:
+  times_url:
+
+discord_profile_kensyu-invoice:
+  user: kensyu-invoice
   account_name:
   times_url:

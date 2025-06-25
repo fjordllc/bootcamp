@@ -23,7 +23,7 @@ class MentionAndInteractionTest < ApplicationSystemTestCase
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
     assert_text 'test'
-    assert_includes ['2.png', 'default.png'], File.basename(find('img.thread-comment__company-logo')['src'])
+    assert_includes ['2.webp', 'default.png'], File.basename(find('img.thread-comment__company-logo')['src'])
   end
 
   test 'using file uploading by file selection dialogue in textarea' do

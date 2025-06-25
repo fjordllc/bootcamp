@@ -5,6 +5,7 @@
     ],
     "commands": [
       "branch=$(git rev-parse --abbrev-ref HEAD); if [ \"$branch\" != \"main\" ]; then suffix=\"_$(echo $branch | tr '/' '_' | tr '-' '_')\"; if [ -f .env.local ] && grep -q '^BRANCH_DB_SUFFIX=' .env.local; then sed -i.bak \"s/^BRANCH_DB_SUFFIX=.*/BRANCH_DB_SUFFIX=$suffix/\" .env.local && rm .env.local.bak; else echo \"BRANCH_DB_SUFFIX=$suffix\" >> .env.local; fi; echo \"Set BRANCH_DB_SUFFIX=$suffix for branch $branch\"; else echo \"Main branch detected, no DB suffix needed\"; fi",
+      "mise trust",
       "bin/setup"
     ]
   },

@@ -26,12 +26,7 @@
                   = l event.updated_at
           .page-content-header-metas__end
             .page-content-header-metas__meta
-              - length = event.comments.length
-              a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
-                | コメント（
-                span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
-                  = length
-                | ）
+              = event_comment_count(event, styled: true)
 
       .page-content-header__row
         .page-content-header-actions
@@ -75,7 +70,7 @@
     .a-card.participants
       header.card-header.is-sm
         h2.card-header__title
-          | 参加者（#{event.participants.count}名/#{event.capacity}名）
+          = event_participant_count(event)
       hr.a-border-tint
       .card-body
         .card-body__description
@@ -97,7 +92,7 @@
     .a-card.waitlist
       header.card-header.is-sm
         h2.card-header__title
-          | 補欠者（#{event.waitlist.count}名）
+          = event_waitlist_count(event)
       hr.a-border-tint
       .card-body
         .card-body__description

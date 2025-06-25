@@ -5,7 +5,6 @@ Rails.configuration.after_initialize do
   Newspaper.subscribe(:answer_create, AnswerNotifier.new)
   Newspaper.subscribe(:answer_create, NotifierToWatchingUser.new)
   Newspaper.subscribe(:announcement_destroy, AnnouncementNotificationDestroyer.new)
-  Newspaper.subscribe(:answer_create, AnswererWatcher.new)
 
   announcement_notifier = AnnouncementNotifier.new
   Newspaper.subscribe(:announcement_create, announcement_notifier)
