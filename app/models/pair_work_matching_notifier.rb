@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PairWorkMatchingNotifier
-  def call(payload)
+  def call(_name, _started, _finished, _unique_id, payload)
     pair_work = payload[:pair_work]
     return if pair_work.wip?
     return if !pair_work.saved_change_to_attribute?(:reserved_at, from: nil, to: pair_work.reserved_at)
