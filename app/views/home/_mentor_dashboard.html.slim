@@ -52,9 +52,9 @@
               .dashboard-category__body
                 .a-panels
                   .a-panels__items
-                    - unless cookies[:user_grass]
+                    - unless cookies[:user_grass] == current_user.id.to_s
                       .a-panels__item
-                        = render(Grass::GrassComponent.new(user: @user, times: @times, target_end_date: @target_end_date, path: :root_path))
+                        = render(Grass::GrassComponent.new(user: current_user, times: @times, target_end_date: @target_end_date, path: :root_path))
                     - if current_user.github_account.present?
                       .a-panels__item
                         = render 'users/github_grass', user: current_user
