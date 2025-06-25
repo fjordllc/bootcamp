@@ -28,7 +28,7 @@ class PairWorksController < ApplicationController
     set_wip
     if @pair_work.save
       ActiveSupport::Notifications.instrument('pair_work.create', pair_work: @pair_work)
-      redirect_to @pair_work, notice: @pair_work.generate_notice_message(:create)
+      redirect_to Redirection.determin_url(self, @pair_work), notice: @pair_work.generate_notice_message(:create)
     else
       render :new
     end
@@ -38,7 +38,7 @@ class PairWorksController < ApplicationController
     set_wip
     if @pair_work.update(pair_work_params)
       ActiveSupport::Notifications.instrument('pair_work.update', pair_work: @pair_work)
-      redirect_to @pair_work, notice: @pair_work.generate_notice_message(:update)
+      redirect_to Redirection.determin_url(self, @pair_work), notice: @pair_work.generate_notice_message(:update)
     else
       render :edit
     end
