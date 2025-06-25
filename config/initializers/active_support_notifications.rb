@@ -68,4 +68,12 @@ Rails.application.reloader.to_prepare do
   times_channel_destroyer = TimesChannelDestroyer.new
   ActiveSupport::Notifications.subscribe('retirement.create', times_channel_destroyer)
   ActiveSupport::Notifications.subscribe('training_completion.create', times_channel_destroyer)
+  ActiveSupport::Notifications.subscribe('student_or_trainee.create', TimesChannelCreator.new)
+  ActiveSupport::Notifications.subscribe('user.create', SignUpNotifier.new)
+  ActiveSupport::Notifications.subscribe('regular_event.update', RegularEventUpdateNotifier.new)
+  ActiveSupport::Notifications.subscribe('pair_work.create', WatchForPairWorkCreator.new)
+  ActiveSupport::Notifications.subscribe('pair_work.update', WatchForPairWorkCreator.new)
+  ActiveSupport::Notifications.subscribe('pair_work.create', PairWorkNotifier.new)
+  ActiveSupport::Notifications.subscribe('pair_work.update', PairWorkNotifier.new)
+  ActiveSupport::Notifications.subscribe('pair_work.update', PairWorkMatchingNotifier.new)
 end
