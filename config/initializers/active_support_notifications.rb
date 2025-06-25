@@ -30,7 +30,7 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('product.update', ProductUpdateNotifierForWatcher.new)
   ActiveSupport::Notifications.subscribe('product.update', ProductUpdateNotifierForChecker.new)
   ActiveSupport::Notifications.subscribe('came.comment', CommentNotifier.new)
-  
+
   learning_status_updater = LearningStatusUpdater.new
   ActiveSupport::Notifications.subscribe('product.save', learning_status_updater)
   ActiveSupport::Notifications.subscribe('check.create', learning_status_updater)
@@ -55,4 +55,12 @@ Rails.application.reloader.to_prepare do
   question_notifier = QuestionNotifier.new
   ActiveSupport::Notifications.subscribe('question.create', question_notifier)
   ActiveSupport::Notifications.subscribe('question.update', question_notifier)
+  ActiveSupport::Notifications.subscribe('student_or_trainee.create', TimesChannelCreator.new)
+  ActiveSupport::Notifications.subscribe('user.create', SignUpNotifier.new)
+  ActiveSupport::Notifications.subscribe('regular_event.update', RegularEventUpdateNotifier.new)
+  ActiveSupport::Notifications.subscribe('pair_work.create', WatchForPairWorkCreator.new)
+  ActiveSupport::Notifications.subscribe('pair_work.update', WatchForPairWorkCreator.new)
+  ActiveSupport::Notifications.subscribe('pair_work.create', PairWorkNotifier.new)
+  ActiveSupport::Notifications.subscribe('pair_work.update', PairWorkNotifier.new)
+  ActiveSupport::Notifications.subscribe('pair_work.update', PairWorkMatchingNotifier.new)
 end
