@@ -55,12 +55,11 @@ class PairWork < ApplicationRecord
   def generate_notice_message(action_name)
     return 'ペアワークをWIPとして保存しました。' if wip?
 
-    case action_name
-    when :create
-      'ペアワークを作成しました。'
-    when :update
-      'ペアワークを更新しました。'
-    end
+    {
+      create: 'ペアワークを作成しました。',
+      update: 'ペアワークを更新しました。',
+      destroy: 'ペアワークを削除しました。'
+    }[action_name]
   end
 
   def solved?
