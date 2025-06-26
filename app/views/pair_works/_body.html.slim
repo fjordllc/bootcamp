@@ -106,13 +106,12 @@
                           | #{hour}:00
                         - 7.times do |day|
                           - value = pair_work.created_at.beginning_of_day + hour.hour + day.day
-                          - disabled = value < Time.current || pair_work.user_id == current_user.id || pair_work.reserved_at.present?
                           - if pair_work.schedules.map(&:proposed_at).include?(value)
                             td.p-0.h-6.relative
                               = form_with model: pair_work, method: :patch, local: true do
                                 = hidden_field_tag 'pair_work[reserved_at]', value
                                 = hidden_field_tag 'pair_work[buddy_id]', current_user.id
-                                = button_tag type: 'submit', disabled: disabled,
+                                = button_tag type: 'submit', disabled: disabled(value, pair_work: pair_work),
                                   class: "absolute top-0 flex w-full h-full text-center justify-center items-center p-1 border border-solid rounded text-[var(--main)] bg-[var(--input-selected-background)] border-[var(--main)] #{value}",
                                   data: { confirm: "#{l value, format: :mdw_and_time} にペアワークを申し込みますか？" } do
                                     i.fa-duotone.fa-solid.fa-check
