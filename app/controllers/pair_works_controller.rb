@@ -46,7 +46,7 @@ class PairWorksController < ApplicationController
 
   def destroy
     @pair_work.destroy
-    redirect_to pair_works_url, notice: 'ペアワークを削除しました。'
+    redirect_to pair_works_url, notice: @pair_work.generate_notice_message(:destroy)
   end
 
   private
