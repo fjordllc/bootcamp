@@ -16,8 +16,12 @@ module PairWorkHelper
     sorted_wdays
   end
 
-  def disabled(value)
-    value < Time.current
+  def disabled(value, pair_work: nil)
+    if pair_work
+      value < Time.current || pair_work.user_id == current_user.id || pair_work.reserved_at.present?
+    else
+      value < Time.current
+    end
   end
 
   def checked(value, id)
