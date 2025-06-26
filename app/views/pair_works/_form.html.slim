@@ -64,12 +64,12 @@
                           th
                             | #{hour}:00
                           - sorted_wdays(Time.current).each_with_index do |wday, day|
-                            - date = Time.current.beginning_of_day + hour.hour + day.day
+                            - datetime = Time.current.beginning_of_day + hour.hour + day.day
                             - id = wday * 24 + hour + 1
                             td.form-table__check
-                              = f.label 'schedules_attributes[][proposed_at]', for: "schedule_ids_#{date}" do
+                              = f.label 'schedules_attributes[][proposed_at]', for: "schedule_ids_#{datetime}" do
                                 span
-                                  = f.check_box 'schedules_attributes[][proposed_at]', { id: "schedule_ids_#{date}", disabled: disabled(date), checked: checked(date, id) }, date, false
+                                  = f.check_box 'schedules_attributes[][proposed_at]', { id: "schedule_ids_#{datetime}", disabled: disabled(datetime), checked: checked(datetime, id) }, datetime, false
       .form-item
         .row.js-markdown-parent
           .col-md-6.col-xs-12
