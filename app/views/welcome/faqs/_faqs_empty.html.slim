@@ -1,0 +1,19 @@
+section.lp-content.is-top-title.is-lp-bg-3
+  .l-container.is-sm
+    .lp-content__inner
+      section.lp-top-image-section
+        .lp-top-image-section__inner.a-card
+          .o-empty-message
+            .o-empty-message__icon
+              i.fa-regular.fa-sad-tear
+          h3.lp-card-title.text-center
+            | よくある質問はまだありません
+          .lp-card-description
+            .a-short-text
+              p
+                | このメッセージは管理者にのみ表示されています。
+                | 下記のリンク先からよくある質問を追加しましょう。
+          .lp-card-actions
+            .lp-card-actions__items
+              .lp-card-actions__item
+                = link_to 'よくある質問を追加する', new_admin_faq_path, class: 'a-button is-md is-secondary is-block'
