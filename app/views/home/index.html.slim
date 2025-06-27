@@ -17,12 +17,12 @@
     - elsif current_user.mentor?
       = render 'mentor_dashboard', products: @products, products_grouped_by_elapsed_days: @products_grouped_by_elapsed_days
     - else
+      - if @users_for_time_slot.present?
+        = render Users::CurrentUserIconListComponent.new(users: @users_for_time_slot)
       .columns
         .container.is-xl
           .row
             .col-xs-12.col-xl-6.col-xxl-6
-              - if @users_for_time_slot.present?
-                = render UserIconListComponent.new(users: @users_for_time_slot)
               - if @upcoming_events_groups.present?
                 = render 'upcoming_events_groups', upcoming_events_groups: @upcoming_events_groups
               - if @announcements.present?

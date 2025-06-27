@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class UserIconListComponentTest < ViewComponent::TestCase
+class CurrentUserIconListComponentTest < ViewComponent::TestCase
   fixtures :users, :learning_time_frames
 
   test 'shows user icons if multiple users have active learning time now' do
