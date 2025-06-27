@@ -70,7 +70,7 @@ class RequireLoginTest < ApplicationSystemTestCase
     assert_no_login_required('/welcome', 'プラス戦力のスキルを身につける')
     assert_no_login_required('/pricing', '料金')
     assert_no_login_required('/faq', 'FAQ')
-    assert_no_login_required('/training', '研修利用')
+    assert_no_login_required('/training', 'FBCの法人向けプログラミング研修')
     assert_no_login_required('/practices', '学習内容')
     assert_no_login_required('/tos', '利用規約')
     assert_no_login_required('/pp', 'プライバシーポリシー')
