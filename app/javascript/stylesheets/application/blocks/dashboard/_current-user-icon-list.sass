@@ -1,0 +1,31 @@
+.current-user-icon-list
+  margin-bottom: 1rem
+  background-color: #eaeaf1
+  padding-block: .5rem
+  overflow-y: auto
+
+.current-user-icon-list__inner
+  display: flex
+  align-items: center
+  gap: .5rem
+
+.current-user-icon-list__items
+  display: flex
+  align-items: center
+  width: 100%
+  gap: .25rem
+
+.current-user-icon-list__item
+  +media-breakpoint-up(md)
+    flex: 0 0 3rem
+  +media-breakpoint-down(sm)
+    flex: 0 0 2rem
+
+.current-user-icon-list__title-label
+  +text-block(.875rem 1.4)
+  font-weight: 700
+  white-space: nowrap
+
+.current-user-icon-list__title-time
+  +text-block(.75rem 1.4)
+  white-space: nowrap
