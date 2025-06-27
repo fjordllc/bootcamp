@@ -1,0 +1,17 @@
+.current-user-icon-list
+  .l-container
+    .current-user-icon-list__inner
+      h2.current-user-icon-list__title
+        span.current-user-icon-list__title-label
+          | 現在学習中
+        br
+        span.current-user-icon-list__title-time
+          = time_range(Time.zone.now)
+      ul.current-user-icon-list__items
+        - @users.each do |user|
+          li.current-user-icon-list__item
+            //= render UserIconComponent.new(user: user)
+            = render 'users/icon',
+              user: user,
+              link_class: 'current-users__item-link',
+              image_class: 'current-users__item-icon'
