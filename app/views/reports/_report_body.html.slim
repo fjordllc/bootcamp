@@ -7,50 +7,14 @@
       .a-long-text.is-md.js-markdown-view(data-taskable-id="#{report.id}" data-taskable-type='Report' data-taskable="#{report.taskable?(current_user).to_s}")
         = report.description
     - if staff_login?
-      // 1件〜4件の場合
-      .card-body-main-actions.is-primary(class="#{mentor_login? ? 'is-only-mentor' : ''}")
+      - count = Cache.user_unchecked_report_count(report.user)
+      .card-body-main-actions(class="#{user_report_count_class(count)} #{mentor_login? ? 'is-only-mentor' : ''}")
         .card-body-main-actions__description
           p
-            == "#{report.user.login_name}さんの未チェックの日報が#{Cache.user_unchecked_report_count(report.user)}件あります。"
+            = unchecked_report_message(count, report.user)
         ul.card-body-main-actions__items
           li.card-body-main-actions__item
-            = link_to user_reports_path(report.user), class: 'card-body-main-actions__action a-button is-sm is-primary is-block' do
-              | #{report.user.login_name}さんの日報一覧へ
-      // 5件〜9件の場合
-      .card-body-main-actions.is-warning(class="#{mentor_login? ? 'is-only-mentor' : ''}")
-        .card-body-main-actions__description
-          p
-            == "#{report.user.login_name}さんの未チェックの日報が#{Cache.user_unchecked_report_count(report.user)}件あります。"
-        ul.card-body-main-actions__items
-          li.card-body-main-actions__item
-            = link_to user_reports_path(report.user), class: 'card-body-main-actions__action a-button is-sm is-warning is-block' do
-              | #{report.user.login_name}さんの日報一覧へ
-      // 10件以上の場合
-      .card-body-main-actions.is-danger(class="#{mentor_login? ? 'is-only-mentor' : ''}")
-        .card-body-main-actions__description
-          p
-            == "#{report.user.login_name}さんの未チェックの日報が#{Cache.user_unchecked_report_count(report.user)}件あります。"
-        ul.card-body-main-actions__items
-          li.card-body-main-actions__item
-            = link_to user_reports_path(report.user), class: 'card-body-main-actions__action a-button is-sm is-danger is-block' do
-              | #{report.user.login_name}さんの日報一覧へ
-      // 1件でかつそれがこの日報の場合
-      .card-body-main-actions.is-success(class="#{mentor_login? ? 'is-only-mentor' : ''}")
-        .card-body-main-actions__description
-          p
-            == "#{report.user.login_name}さんの未チェックの日報はこれで最後です。"
-        ul.card-body-main-actions__items
-          li.card-body-main-actions__item
-            = link_to user_reports_path(report.user), class: 'card-body-main-actions__action a-button is-sm is-success is-block' do
-              | #{report.user.login_name}さんの日報一覧へ
-      // 0の場合
-      .card-body-main-actions.is-success(class="#{mentor_login? ? 'is-only-mentor' : ''}")
-        .card-body-main-actions__description
-          p
-            == "#{report.user.login_name}さんの日報へ"
-        ul.card-body-main-actions__items
-          li.card-body-main-actions__item
-            = link_to user_reports_path(report.user), class: 'card-body-main-actions__action a-button is-sm is-success is-block' do
+            = link_to user_reports_path(report.user), class: "card-body-main-actions__action a-button is-sm #{user_report_count_class(count)} is-block" do
               | #{report.user.login_name}さんの日報一覧へ
     - else
       .card-body-main-actions.p-0
