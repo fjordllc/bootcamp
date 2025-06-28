@@ -39,4 +39,17 @@ module ReportsHelper
   def category_practices(report)
     report.practices.eager_load(:categories).order('categories_practices.position')
   end
+
+  def user_report_count_class(count)
+    case count
+    when SUCCESS
+      'is-success'
+    when PRIMARY
+      'is-primary'
+    when WARNING
+      'is-warning'
+    else
+      'is-danger'
+    end
+  end
 end
