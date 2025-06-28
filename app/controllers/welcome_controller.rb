@@ -7,6 +7,8 @@ class WelcomeController < ApplicationController
   DEFAULT_COURSE = 'Railsエンジニア'
   FAQ_CATEGORY_NAME = '企業研修代行について'
 
+  ##
+  # Assigns a list of mentors to @mentors, showing all mentors for logged-in users or only visible mentors for guests.
   def index
     @mentors = current_user ? User.mentors_sorted_by_created_at : User.visible_sorted_mentors
   end
@@ -19,6 +21,9 @@ class WelcomeController < ApplicationController
 
   def pricing; end
 
+  ##
+  # Loads FAQ categories that have associated FAQs and retrieves FAQs for a selected category or all FAQs if no category is specified.
+  # If a category parameter is provided, only FAQs from that category are loaded; otherwise, all FAQs are loaded and ordered by position.
   def faq
     @faq_categories = FAQCategory.order(:position).select do |faq_category|
       faq_category.faqs.present?
@@ -32,11 +37,15 @@ class WelcomeController < ApplicationController
     end
   end
 
+  ##
+  # Loads FAQs related to the training FAQ category into @faqs, or an empty array if the category is not found.
   def training
     @faqs = FAQCategory.find_by(name: FAQ_CATEGORY_NAME)&.faqs || []
   end
 
-  def practices; end
+  ##
+# Renders the practices page.
+def practices; end
 
   def tos; end
 
