@@ -42,7 +42,9 @@ class Notification < ApplicationRecord
     comebacked: 23,
     create_article: 24,
     added_work: 25,
-    came_inquiry: 26
+    came_inquiry: 26,
+    came_pair_work: 27,
+    matching_pair_work: 28
   }
 
   scope :unreads, -> { where(read: false) }

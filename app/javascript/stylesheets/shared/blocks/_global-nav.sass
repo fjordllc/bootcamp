@@ -30,7 +30,9 @@
   width: 100%
   +media-breakpoint-up(md)
     flex-direction: column
-    height: 4.125rem
+    gap: .25rem
+    height: 4.5rem
+    justify-content: center
   +media-breakpoint-down(sm)
     flex-direction: row
     height: 2.75rem
@@ -44,22 +46,18 @@
 
 .global-nav-links__link-icon
   +media-breakpoint-up(md)
-    +text-block(1.125rem 1 0 .25rem, center)
+    +text-block(1.25rem 1, center)
+    display: flex
+    align-items: center
   +media-breakpoint-down(sm)
     +text-block(1rem 1, center)
     margin-right: .5rem
-  .fa-rocket
-    font-size: 1.15em
 
 .global-nav-links__link-label
-  +text-block(.625rem 1.4, center)
   +media-breakpoint-down(sm)
     font-size: .875rem
   +media-breakpoint-up(md)
-    &.is-sm
-      transform: scale(.875)
-      margin-top: -.125rem
-      line-height: 1.4
+    +text-block(.625rem 1.4, center)
 
 .global-nav__item-count
   +position(right .25rem, top .25rem)
