@@ -66,6 +66,16 @@ class PairWorksTest < ApplicationSystemTestCase
     end
   end
 
+  test 'cannot create a pair_work matching with a past date' do
+    travel_to Time.zone.local(2025, 1, 10, 0, 0, 0) do
+      pair_work = pair_works(:pair_work1)
+      visit_with_auth pair_work_path(pair_work), 'komagata'
+      within '.a-table' do
+        find_button(class: '2025-01-02 01:00:00 +0900', disabled: true)
+      end
+    end
+  end
+
   test 'update a pair_work' do
     pair_work = pair_works(:pair_work1)
     visit_with_auth pair_work_path(pair_work), 'kimura'
