@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 module ReportsHelper
+  SUCCESS = (0..1)
+  LAST_UNCHECKED_REPORT_COUNT = 1
+  PRIMARY = (2..4)
+  WARNING = (5..9)
+  DANGER = (10..)
+
   def practice_options(categories)
     categories.flat_map do |category|
       category.practices.map do |practice|
