@@ -14,4 +14,18 @@ class ReportsHelperTest < ActionView::TestCase
       CategoriesPractice.create!(category_id: categories(:category2).id, practice_id: practices(:practice2).id, position: 7)
     end
   end
+
+  test 'user_report_count_class' do
+    assert_equal 'is-success', user_report_count_class(0)
+    assert_equal 'is-success', user_report_count_class(1)
+
+    assert_equal 'is-primary', user_report_count_class(2)
+    assert_equal 'is-primary', user_report_count_class(4)
+
+    assert_equal 'is-warning', user_report_count_class(5)
+    assert_equal 'is-warning', user_report_count_class(9)
+
+    assert_equal 'is-danger', user_report_count_class(10)
+    assert_equal 'is-danger', user_report_count_class(100)
+  end
 end
