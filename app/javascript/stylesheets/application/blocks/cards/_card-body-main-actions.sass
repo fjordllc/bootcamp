@@ -1,4 +1,4 @@
-.event-main-actions
+.card-body-main-actions
   +position(relative, 1)
   padding-block: .75rem
   margin-inline: 1rem
@@ -9,39 +9,39 @@
   +media-breakpoint-down(sm)
     padding-inline: .75rem
     margin-bottom: 1rem
-  &.is-participationed
+  &.is-success
     background-color: #f8fff2
     border: 1px solid var(--success)
-    color: #4e732e
-  &.is-unparticipationed.is-available
+    color: var(--success-text)
+  &.is-primary
     border: 1px solid var(--primary)
     background-color: #f5f5ff
-    color: #28248c
-  &.is-unparticipationed.is-capacity-over
+    color: var(--primary-text)
+  &.is-warning
     border: 1px solid var(--warning)
     background-color: #fff9e7
-    color: #6f5819
-  &.is-non-participationed
+    color: var(--warning-text)
+  &.is-danger
     border: 1px solid var(--danger)
     background-color: var(--danger-tint)
-    color: var(--danger)
+    color: var(--danger-text)
 
-.event-main-actions__description
+.card-body-main-actions__description
   +text-block(.875rem 1.4)
   margin-bottom: .75em
   text-align: center
 
-.event-main-actions__items
+.card-body-main-actions__items
   display: flex
   justify-content: center
 
-.event-main-actions__item
+.card-body-main-actions__item
   text-align: center
   flex: 1
   +media-breakpoint-up(md)
     max-width: 16rem
 
-.event-main-actions__item-cancel
+.card-body-main-actions__item-cancel
   +hover-link-reversal
   color: var(--muted-text)
   font-size: .8125rem
