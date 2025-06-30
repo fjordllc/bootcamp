@@ -5,7 +5,12 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
   before_action :require_staff_login, only: :index
   before_action :set_watch, only: %i[show]
 
-  def index; end
+  def index
+    @products = Product.list
+                       .order(:id)
+                       .page(params[:page])
+                       .per(50)
+  end
 
   def show
     @product = find_product
@@ -73,6 +78,18 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     @product = find_my_product
     @product.destroy
     redirect_to @product.practice, notice: '提出物を削除しました。'
+  end
+
+  def assign_checker
+    @product = find_product
+    @product.update!(checker: current_user)
+    redirect_back(fallback_location: @product, notice: '担当になりました。')
+  end
+
+  def unassign_checker
+    @product = find_product
+    @product.update!(checker: nil)
+    redirect_back(fallback_location: @product, notice: '担当から外れました。')
   end
 
   private
