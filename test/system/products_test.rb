@@ -52,7 +52,8 @@ class ProductsTest < ApplicationSystemTestCase
   test 'not display learning completion message when a user of the completed product visits after the second time' do
     visit_with_auth "/products/#{products(:product65).id}", 'komagata'
     click_button '提出物を合格にする'
-    assert_text '提出物の合格を取り消す'
+    assert page.has_button?('提出物の合格を取り消す')
+
     visit_with_auth "/products/#{products(:product65).id}", 'kimura'
     first('label.card-main-actions__muted-action.is-closer').click
     assert_no_text '喜びをXにポストする！'
@@ -368,8 +369,7 @@ class ProductsTest < ApplicationSystemTestCase
     accept_alert '提出物の担当になりました。'
     assert_text 'コメントしたら担当になるテスト'
     visit current_path
-    wait_for_javascript_components
-    assert_text '担当から外れる'
+    assert page.has_button?('担当から外れる')
     assert_no_text '担当する'
   end
 
@@ -377,7 +377,7 @@ class ProductsTest < ApplicationSystemTestCase
     login_user 'komagata', 'testtest'
     visit '/products'
     within first('.pagination') do
-      find('button', text: '2').click
+      find('a', text: '2').click
     end
 
     all('.pagination .is-active').each do |active_button|
@@ -399,7 +399,7 @@ class ProductsTest < ApplicationSystemTestCase
     login_user 'komagata', 'testtest'
     visit '/products?page=2'
     within first('.pagination') do
-      find('button', text: '1').click
+      find('a', text: '1').click
     end
     assert_current_path('/products')
     assert_text '「プログラミング入門 - Rubyを使って」をやるの提出物'
