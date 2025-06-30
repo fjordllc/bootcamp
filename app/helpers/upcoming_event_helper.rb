@@ -3,7 +3,9 @@
 module UpcomingEventHelper
   def scheduled_on_pair_works(date_key)
     date = UpcomingEvent::TARGET_TO_DATE[date_key]
-    pair_works = PairWork.where(user_id: current_user.id).or(PairWork.where(buddy_id: current_user.id))
-    pair_works.solved.filter { |pair_work| (date.midnight...(date + 1.day).midnight).cover?(pair_work.reserved_at) }
+    within_day = date.midnight...(date + 1.day).midnight
+    PairWork.where(user_id: current_user.id).or(PairWork.where(buddy_id: current_user.id))
+            .solved
+            .where(reserved_at: within_day)
   end
 end
