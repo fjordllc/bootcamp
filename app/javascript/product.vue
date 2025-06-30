@@ -93,16 +93,6 @@
               time.a-meta(
                 v-else-if='product.mentor_last_commented_at_date_time')
                 | 〜 {{ product.mentor_last_commented_at }}（メンター）
-      .card-list-item__row.is-only-mentor(
-        v-if='isMentor && product.checks.size == 0')
-        .card-list-item__assignee
-          product-checker(
-            :checkerId='product.checker_id',
-            :checkerName='product.checker_name',
-            :checkerAvatar='product.checker_avatar',
-            :currentUserId='currentUserId',
-            :productId='product.id',
-            :parentComponent='"product"')
 
     .stamp.stamp-approve(v-if='product.checks.size > 0')
       h2.stamp__content.is-title
@@ -114,11 +104,7 @@
           | {{ product.checks.last_user_login_name }}
 </template>
 <script>
-import ProductChecker from 'product_checker'
 export default {
-  components: {
-    'product-checker': ProductChecker
-  },
   props: {
     product: { type: Object, required: true },
     isMentor: { type: Boolean, required: true },
