@@ -59,6 +59,7 @@ class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLeng
     canonicalize_learning_times(@report)
 
     if @report.save_uniquely
+      ActiveSupport::Notifications.instrument('report.create', report: @report)
       Newspaper.publish(:report_save, { report: @report })
       redirect_to redirect_url(@report), notice: notice_message(@report), flash: flash_contents(@report)
     else
@@ -75,6 +76,7 @@ class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLeng
     canonicalize_learning_times(@report)
 
     if @report.save_uniquely
+      ActiveSupport::Notifications.instrument('report.update', report: @report)
       Newspaper.publish(:report_save, { report: @report })
       redirect_to redirect_url(@report), notice: notice_message(@report), flash: flash_contents(@report)
     else
