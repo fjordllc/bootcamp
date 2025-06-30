@@ -51,5 +51,5 @@ hr.a-border
   = render partial: 'welcome/process', locals: { is_certified_reskill_courses_page: true }
   - if @faqs.present?
     = render 'welcome/certified_reskill_courses/rails_developer_course/faq', faqs: @faqs
-  - elsif current_user && current_user.admin?
+  - elsif current_user&.admin?
     = render 'welcome/faqs/faqs_empty'
