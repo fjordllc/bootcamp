@@ -7,5 +7,11 @@ Rails.application.routes.draw do
     resources :self_assigned, only: %i(index)
   end
 
-  resources :products
+  resources :products do
+    member do
+      patch :assign_checker
+      delete :unassign_checker
+    end
+    resources :checks, only: %i[create destroy]
+  end
 end
