@@ -33,12 +33,12 @@
   margin-top: 1rem;
 }
 
-.pair-work-schedule-dates__cansel {
+.pair-work-schedule-dates__cancel {
   display: flex;
   justify-content: center;
   margin-bottom: 1rem;
 }
 
-.pair-work-schedule-dates__cansel-action {
+.pair-work-schedule-dates__cancel-action {
   min-width: 20rem;
 }
