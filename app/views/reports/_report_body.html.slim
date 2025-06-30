@@ -41,5 +41,4 @@
                 span#delete
                   | 削除する
 
-  - if admin_or_mentor_login?
-    #js-check(data-checkable-id="#{report.id}" data-checkable-type='Report' data-checkable-label="#{Report.model_name.human}")
+  = render 'shared/check_actions', checkable: report, checkable_type: 'Report', checkable_label: Report.model_name.human

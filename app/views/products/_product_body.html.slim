@@ -33,14 +33,7 @@
               label.card-main-actions__muted-action(for='modal-delete-request')
                 | 削除申請
 
-    - if admin_or_mentor_login?
-      #js-check(data-checkable-id="#{product.id}"
-                data-checkable-type='Product'
-                data-checkable-label="#{Product.model_name.human}"
-                data-checker-id="#{product.checker_id}"
-                data-checker-name="#{product.checker_name}"
-                data-checker-avatar="#{product.checker_avatar}"
-                data-current-user-id="#{current_user.id}")
+    = render 'shared/check_actions', checkable: product, checkable_type: 'Product', checkable_label: Product.model_name.human
 
 .page-content-prev-next
   .page-content-prev-next__item
