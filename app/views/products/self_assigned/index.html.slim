@@ -14,4 +14,5 @@ header.page-header
 
 .page-body
   .container.is-md
-    = react_component('Products', title:, selectedTab: 'self_assigned', isMentor: mentor_login?, isAdmin: admin_login?, currentUserId: current_user.id)
+    = render 'products/product_list'
+    = paginate @products if @products.respond_to?(:current_page)
