@@ -377,7 +377,7 @@ class ProductsTest < ApplicationSystemTestCase
     login_user 'komagata', 'testtest'
     visit '/products'
     within first('.pagination') do
-      find('a', text: '2').click
+      find('button', text: '2').click
     end
 
     all('.pagination .is-active').each do |active_button|
@@ -399,7 +399,7 @@ class ProductsTest < ApplicationSystemTestCase
     login_user 'komagata', 'testtest'
     visit '/products?page=2'
     within first('.pagination') do
-      find('a', text: '1').click
+      find('button', text: '1').click
     end
     assert_current_path('/products')
     assert_text '「プログラミング入門 - Rubyを使って」をやるの提出物'
