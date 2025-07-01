@@ -52,6 +52,12 @@ class PairWork < ApplicationRecord
     end
   end
 
+  def self.unsolved_badge(current_user:)
+    return nil if !current_user.admin_or_mentor?
+
+    PairWork.not_solved.not_wip.size
+  end
+
   def generate_notice_message(action_name)
     return 'ペアワークをWIPとして保存しました。' if wip?
 
