@@ -70,7 +70,7 @@ class AnnouncementsController < ApplicationController
 
   def destroy
     @announcement.destroy
-    Newspaper.publish(:announcement_destroy, { announcement: @announcement })
+    ActiveSupport::Notifications.instrument('announcement.destroy', announcement: @announcement)
     redirect_to announcements_path, notice: 'お知らせを削除しました'
   end
 
