@@ -21,4 +21,4 @@ header.page-header
   hr.a-border
 .page-body
   .container.is-md
-    = render 'products/product_list'
+    = react_component('Products', title: title, selectedTab: 'unchecked', isMentor: mentor_login?, isAdmin: admin_login?, currentUserId: current_user.id)
