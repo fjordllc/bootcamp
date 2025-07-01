@@ -54,6 +54,8 @@
                                          tagsTypeId: @user.id.to_s,
                                          tagsEditable: @user.id == current_user.id }
                         = react_component('Tags/Tags', tags_props)
+                      .user-data__tags
+                        = render(Tag::TagComponent.new(initial_tags: @user.tag_list.join(','), param_name: 'user[tag_list]', input_id: 'user_tag_list', taggable_type: 'User', taggable_id: @user.id.to_s, editable: (@user.id == current_user.id)))
                   - if admin_or_mentor_login? && @user.hibernated?
                     .user-data__row
                       = render 'users/hibernation_info', user: @user
