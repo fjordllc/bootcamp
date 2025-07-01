@@ -4,7 +4,6 @@ Rails.configuration.after_initialize do
   Newspaper.subscribe(:event_create, EventOrganizerWatcher.new)
   Newspaper.subscribe(:answer_create, AnswerNotifier.new)
   Newspaper.subscribe(:answer_create, NotifierToWatchingUser.new)
-  Newspaper.subscribe(:announcement_destroy, AnnouncementNotificationDestroyer.new)
 
   sad_streak_updater = SadStreakUpdater.new
   Newspaper.subscribe(:report_save, sad_streak_updater)
