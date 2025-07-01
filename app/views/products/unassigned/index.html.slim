@@ -12,5 +12,4 @@ header.page-header
 
 .page-body
   .container.is-lg
-    = render 'products/product_list'
-    = paginate @products if @products.respond_to?(:current_page)
+    = react_component('Products', title: title, selectedTab: 'unassigned', isMentor: mentor_login?, isAdmin: admin_login?, currentUserId: current_user.id, productDeadlineDay: @product_deadline_day)

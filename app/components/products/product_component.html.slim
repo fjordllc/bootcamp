@@ -92,17 +92,12 @@
       - if @is_mentor && @product.checks.empty?
         .card-list-item__row.is-only-mentor
           .card-list-item__assignee
-            - if @product.checker_id.nil?
-              = form_with url: assign_checker_product_path(@product), method: :patch, local: true do |f|
-                = f.submit '担当する', class: 'a-button is-sm is-secondary is-block'
-            - elsif @product.checker_id == @current_user_id
-              = form_with url: unassign_checker_product_path(@product), method: :delete, local: true do |f|
-                = f.submit '担当から外れる', class: 'a-button is-sm is-warning is-block'
-            - else
-              .a-button.is-sm.is-block.card-list-item__assignee-button.is-only-mentor
-                span.card-list-item__assignee-image
-                  = image_tag @product.checker.avatar_url, class: 'a-user-icon', width: 20, height: 20
-                span.card-list-item__assignee-name = @product.checker.login_name
+            = render(Products::ProductCheckerComponent.new( \
+              checker_id: @product.checker_id,
+              checker_name: @product.checker_name,
+              checker_avatar: @product.checker_avatar,
+              current_user_id: @current_user_id,
+              product_id: @product.id))
 
     - if @product.checks.any?
       .stamp.stamp-approve
