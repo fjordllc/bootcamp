@@ -32,7 +32,7 @@
         .o-empty-message__icon
           i.fa-regular.fa-sad-tear
         .o-empty-message__text
-          | ペアワーク募集はまだありません。
+          = @pair_works_property.empty_message
     - else
       .container.is-md
         .page_content.pair_works
