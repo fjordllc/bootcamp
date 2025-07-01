@@ -6,7 +6,7 @@ class ChecksController < ApplicationController
   def create
     @checkable = find_checkable
 
-    if @checkable.checks.exists?(user: current_user)
+    if @checkable.checks.exists?
       checkable_name = @checkable.is_a?(Product) ? '提出物' : '日報'
       redirect_back(fallback_location: @checkable, alert: "この#{checkable_name}は確認済です。")
       return
