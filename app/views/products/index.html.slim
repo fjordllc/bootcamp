@@ -12,7 +12,5 @@ header.page-header
   = render 'products/tabs'
 
   .page-body
-    .container.is-md.is-products.loaded
-      = render 'products/product_list', products: @products
-
-      = paginate @products
+    .container.is-md
+      = react_component('Products', title: title, selectedTab: 'all', isMentor: mentor_login?, isAdmin: admin_login?, currentUserId: current_user.id)
