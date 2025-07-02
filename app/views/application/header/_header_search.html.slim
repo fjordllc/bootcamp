@@ -13,7 +13,7 @@
           .block-checks.is-1-item.is-centered
             .block-checks__item
               label.a-block-check.is-checkbox
-                = check_box_tag 'only_logged_in_user', '1', params[:only_logged_in_user].present?, id: 'only_logged_in_user', class: 'a-toggle-checkbox'
+                = check_box_tag 'only_me', '1', params[:only_me].present?, id: 'only_me', class: 'a-toggle-checkbox'
                 .a-block-check__label
                   | 自分の投稿のみに絞る
       .form-item
