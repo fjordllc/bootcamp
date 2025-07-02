@@ -9,7 +9,7 @@ class SearchablesController < ApplicationController
 
     searchables = Searcher.search(@word, document_type: @document_type, current_user:)
 
-    if params[:only_logged_in_user] && %i[all practices users].exclude?(document_type_param)
+    if params[:only_me] && %i[all practices users].exclude?(document_type_param)
       searchables = searchables.select do |searchable|
         searchable.user_id == current_user.id
       end
