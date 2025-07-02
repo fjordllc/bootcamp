@@ -42,7 +42,7 @@ header.page-header
               td.admin-table__item-value.w-32
                 = link_to course.title, course_practices_path(course.id)
               td.admin-table__item-value = course.description
-              td.admin-table__item-value.admin-table__item-value.is-text-align-center
+              td.admin-table__item-value.is-text-align-center
                 ul.is-inline-buttons
                   li
                     = link_to edit_mentor_course_path(course.id), class: 'a-button is-sm is-secondary is-icon is-block' do
