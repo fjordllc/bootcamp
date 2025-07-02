@@ -107,7 +107,7 @@ page13_tag_net_framework:
 article<%= id %>_tag_feature:
   taggable: article<%= id %> (Article)
   context: tags
-  tag: feature
+  tag: 注目の記事
 <% end %>
 
 article56_tag_alumni_voice:

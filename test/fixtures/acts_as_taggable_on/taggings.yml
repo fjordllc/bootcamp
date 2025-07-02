@@ -102,9 +102,9 @@ tagging_2:
   context: tags
   tag: FJORD
 
-<% (21..27).each do |id| -%>
+<% (21..27).each do |id| %>
 article<%= id %>_tag_feature:
   taggable: article<%= id %> (Article)
   context: tags
-  tag: feature
-<% end -%>
+  tag: 注目の記事
+<% end %>
