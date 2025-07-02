@@ -2,6 +2,10 @@ document.addEventListener('DOMContentLoaded', function () {
   const dropdownButtons = document.querySelectorAll('.dropdown-button')
   const dropdownMenus = document.querySelectorAll('.dropdown-menu')
 
+  if (dropdownButtons.length === 0 || dropdownMenus.length === 0) {
+    return
+  }
+
   // プルダウンメニューの開閉
   dropdownButtons.forEach((button) => {
     button.addEventListener('click', function (e) {
