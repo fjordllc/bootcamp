@@ -106,5 +106,5 @@ tagging_2:
 article<%= id %>_tag_feature:
   taggable: article<%= id %> (Article)
   context: tags
-  tag: 注目の記事
+  tag: feature
 <% end %>
