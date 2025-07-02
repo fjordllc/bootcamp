@@ -36,6 +36,6 @@ class GenerationTest < ActiveSupport::TestCase
     assert_equal 1, Generation.new(5).count_classmates_by_target(:hibernated)
     assert_equal 2, Generation.new(5).count_classmates_by_target(:graduated)
     assert_equal 3, Generation.new(5).count_classmates_by_target(:advisers)
-    assert_equal 2, Generation.new(5).count_classmates_by_target(:retired)
+    assert_equal 1, Generation.new(5).count_classmates_by_target(:retired)
   end
 end

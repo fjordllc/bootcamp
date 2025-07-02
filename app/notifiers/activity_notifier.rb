@@ -126,6 +126,21 @@ class ActivityNotifier < ApplicationNotifier # rubocop:todo Metrics/ClassLength
     )
   end
 
+  def training_completed(params = {})
+    params.merge!(@params)
+    sender = params[:sender]
+    receiver = params[:receiver]
+
+    notification(
+      body: "#{sender.login_name}さんの研修が終了しました。",
+      kind: :training_completed,
+      sender:,
+      receiver:,
+      link: Rails.application.routes.url_helpers.polymorphic_path(sender),
+      read: false
+    )
+  end
+
   def retired(params = {})
     params.merge!(@params)
     sender = params[:sender]
