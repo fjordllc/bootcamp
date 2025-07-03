@@ -17,6 +17,8 @@ class WelcomeController < ApplicationController
 
   def job_support; end
 
+  def team_development; end
+
   def pricing; end
 
   def faq
