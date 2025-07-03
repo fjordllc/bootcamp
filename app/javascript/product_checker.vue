@@ -16,11 +16,11 @@ button(
 </template>
 <script>
 import CSRF from 'csrf'
-import toast from 'toast'
+import { toast } from 'vanillaToast'
 import checkable from './checkable.js'
 
 export default {
-  mixins: [toast, checkable],
+  mixins: [checkable],
   props: {
     checkerId: { type: Number, required: false, default: null },
     checkerName: { type: String, required: false, default: null },
@@ -64,6 +64,9 @@ export default {
     window.removeEventListener('checkerAssigned', this.handleCheckerAssigned)
   },
   methods: {
+    toast(...args) {
+      toast(...args)
+    },
     checkInCharge() {
       this.checkProduct(
         this.productId,
