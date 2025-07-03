@@ -1,24 +1,16 @@
-import CSRF from 'csrf'
+import { get } from '@rails/request.js'
 
 export async function setWatchable(watchableId, watchableType) {
   try {
-    const response = await fetch(
-      `/api/watches/toggle?watchable_id=${watchableId}&watchable_type=${watchableType}`,
-      {
-        method: 'GET',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': CSRF.getToken()
-        },
-        credentials: 'same-origin'
-      }
+    const response = await get(
+      `/api/watches/toggle?watchable_id=${watchableId}&watchable_type=${watchableType}`
     )
 
     if (!response.ok) {
       throw new Error(`${response.error}`)
     }
 
-    const json = await response.json()
+    const json = await response.json
     const watch = document.querySelector('.watch-toggle')
     watch.classList.remove('is-inactive', 'is-muted')
     watch.classList.add('is-active', 'is-main')
