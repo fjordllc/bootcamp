@@ -15,6 +15,10 @@ class Products::ProductComponent < ViewComponent::Base
     "is-#{@product.user.primary_role}"
   end
 
+  def role_class_for_user(user)
+    "is-#{user.primary_role}"
+  end
+
   def practice_title
     "#{@product.practice.title}の提出物"
   end
