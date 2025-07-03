@@ -9,7 +9,7 @@ class Tag::TagComponent < ViewComponent::Base
     @taggable_id = taggable_id
     @editable = editable
   end
-  
+
   def editable?
     @editable
   end
