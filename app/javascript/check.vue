@@ -88,7 +88,11 @@ export default {
   },
   methods: {
     checkNegative() {
-      if (this.checkHasNegativeEmotion && !this.checkHasComment && !this.checkId) {
+      if (
+        this.checkHasNegativeEmotion &&
+        !this.checkHasComment &&
+        !this.checkId
+      ) {
         if (
           window.confirm(
             '今日の気分は「negative」ですが、コメント無しで確認しますか？'
