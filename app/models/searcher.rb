@@ -13,7 +13,7 @@ class Searcher
   class << self
     include SearchHelper
 
-    def search(word, only_me, current_user:, document_type: :all)
+    def search(word:, current_user:, only_me: false, document_type: :all)
       words = word.split(/[[:blank:]]+/).reject(&:blank?)
       searchables = fetch_results(words, document_type) || []
       searchables = filter_results!(searchables, current_user)
