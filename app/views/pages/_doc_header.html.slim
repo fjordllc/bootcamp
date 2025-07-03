@@ -76,10 +76,4 @@ header.page-content-header
 
     .page-content-header__row
       .page-content-header__tags
-        = react_component('Tags/Tags', { tagsInitialValue: page.tag_list.join(',').to_s,
-                                         tagsParamName: 'page[tag_list]',
-                                         tagsInputId: 'page_tag_list',
-                                         tagsType: 'Page',
-                                         tagsTypeId: page.id.to_s })
-      .page-content-header__tags
         = render(Tag::TagComponent.new(initial_tags: page.tag_list.join(','), param_name: 'page[tag_list]', input_id: 'page_tag_list', taggable_type: 'Page', taggable_id: @page.id.to_s))
