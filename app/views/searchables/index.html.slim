@@ -1,4 +1,4 @@
-- title("#{@word} の検索結果")
+- title("#{@word} の検索結果#{' 自分の投稿のみ' if params[:only_me]}")
 - set_meta_tags({ description: "#{@word}の検索結果一覧ページです。" })
 
 header.page-header
