@@ -17,7 +17,7 @@ class Searcher
   AVAILABLE_TYPES = DOCUMENT_TYPES.map(&:second) - %i[all] + %i[comments answers]
 
   class << self
-    def search(word, only_me, current_user, document_type: :all)
+    def search(word:, only_me: false, current_user: nil, document_type: :all)
       searchables =
         case document_type
         when :all
