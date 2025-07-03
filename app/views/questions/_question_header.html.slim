@@ -76,3 +76,5 @@ header.page-content-header
                                          tagsInputId: 'question_tag_list',
                                          tagsType: 'Question',
                                          tagsTypeId: question.id.to_s })
+      .page-content-header__tags
+        = render(Tag::TagComponent.new(initial_tags: @question.tag_list.join(','), param_name: 'question[tag_list]', input_id: 'question_tag_list', taggable_type: 'Question', taggable_id: @question.id.to_s))

@@ -8,7 +8,7 @@ import headIsSharpOrOctothorpe from './head-is-sharp-or-octothorpe'
 import parseTags from './parse_tags'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const tagsContainer = document.querySelector('.tag-links')
+  const tagsContainer = document.querySelector('.tag-component')
   const tagsDisplay = tagsContainer.querySelector('.tags-display')
   const tagListItems = tagsDisplay.querySelector('.tag-links__items')
   const editButton = tagListItems.querySelector('.tag-links__item-edit')
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     tags.forEach((tag) => {
       const li = document.createElement('li')
       li.className = 'tag-links__item'
-      li.innerHTML = `<a class="tag-links__item-link" href="/users/tags/${encodeURIComponent(
+      li.innerHTML = `<a class="tag-links__item-link" href="/${tagsType.toLowerCase()}s/tags/${encodeURIComponent(
         tag
       )}">${tag}</a>`
       const editBtnLi = editButton?.parentElement
