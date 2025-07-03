@@ -1,5 +1,23 @@
-.tag-links data-tags-initial-value=@initial_tags
-  ul.tag-links__items
-  - if editable?
-    .tag-links__item-edit
-      | タグ編集
+.tag-links[
+  data-tags-initial-value=@initial_tags
+  data-tags-type=@taggable_type
+  data-tags-type-id=@taggable_id
+]
+  .tags-display
+    ul.tag-links__items
+      - if editable?
+        li.tag-links__item
+          .tag-links__item-edit
+            | タグ編集
+  form.tags-form.hidden
+    input.tags-form__input name=@param_name id=@input_id value=@initial_tags
+    .sharp-warning.hidden
+      | 先頭の記号は無視されます
+    .form-actions
+      ul.form-actions__items
+        li.form-actions__item.is-main
+          button.save-button.a-button.is-primary.is-sm.is-block type="submit"
+            | 保存する
+        li.form-actions__item
+          button.cancel-button.a-button.is-sm.is-text type="button"
+            | キャンセル
