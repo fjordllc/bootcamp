@@ -44,6 +44,7 @@ comment6:
   commentable: report4 (Report)
   description: "失礼しました。 report_id を id と typo してました💦"
   created_at: "2019-01-02 18:00:01"
+
 comment7:
   user: komagata
   commentable: report4 (Report)
@@ -176,26 +177,7 @@ comment<%= i + 66 %>:
   updated_at: <%= Time.current + i.minute %>
 <% end %>
 
-comment65:
-  user: komagata
-  commentable: corporate_training_inquiry1 (CorporateTrainingInquiry)
-  description: "テスト用 corporate_training_inquiry1へのコメント"
-
-comment66:
-  user: komagata
-  commentable: corporate_training_inquiry2 (CorporateTrainingInquiry)
-  description: "corporate_training_inquiryにて削除するコメント"
-
-<% (1..20).each do |i| %>
-comment<%= i + 66 %>:
-  user: komagata
-  commentable: corporate_training_inquiry3 (CorporateTrainingInquiry)
-  description: <%= "テスト用 corporate_training_inquiry3へのコメント。No.#{i}" %>
-  created_at: <%= Time.current + i.minute %>
-  updated_at: <%= Time.current + i.minute %>
-<% end %>
-
-comment88:
+comment87:
   user: mentormentaro
   commentable: product9 (Product)
   description: "テスト用 product9へのコメント"
