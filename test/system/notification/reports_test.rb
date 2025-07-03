@@ -243,7 +243,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     )
   end
 
-  test 'notify to mentors when a student submitted reports with sad icon at twice in a row' do
+  test 'notify to mentors when a student submitted reports with negative icon at twice in a row' do
     student = 'kimura'
     mentor = 'mentormentaro'
 
@@ -254,7 +254,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
       fill_in('report[title]', with: 'test title 1')
       fill_in('report[description]', with: 'test 1')
       fill_in('report[reported_on]', with: Date.current.prev_day)
-      find('#sad').click
+      find('#negative').click
     end
     all('.learning-time')[0].all('.learning-time__started-at select')[0].select('07')
     all('.learning-time')[0].all('.learning-time__started-at select')[1].select('30')
@@ -270,7 +270,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
       fill_in('report[title]', with: 'test title 2')
       fill_in('report[description]', with: 'test 2')
       fill_in('report[reported_on]', with: Date.current)
-      find('#sad').click
+      find('#negative').click
     end
     all('.learning-time')[0].all('.learning-time__started-at select')[0].select('07')
     all('.learning-time')[0].all('.learning-time__started-at select')[1].select('30')
@@ -282,7 +282,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     visit_with_auth '/notifications', mentor
 
     within first('.card-list-item.is-unread') do
-      assert_text "#{student}さんが2回連続でsadアイコンの日報を提出しました。"
+      assert_text "#{student}さんが2回連続でnegativeアイコンの日報を提出しました。"
     end
   end
 

@@ -314,16 +314,16 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
   end
 
   # required params: report, receiver
-  def consecutive_sad_report(args = {})
+  def consecutive_negative_report(args = {})
     @receiver ||= args[:receiver]
     @report ||= args[:report]
 
     @user = @receiver
     @link_url = notification_redirector_url(
       link: "/reports/#{@report.id}",
-      kind: Notification.kinds[:consecutive_sad_report]
+      kind: Notification.kinds[:consecutive_negative_report]
     )
-    subject = "[FBC] #{@report.user.login_name}さんが#{User::DEPRESSED_SIZE}回連続でsadアイコンの日報を提出しました。"
+    subject = "[FBC] #{@report.user.login_name}さんが#{User::DEPRESSED_SIZE}回連続でnegativeアイコンの日報を提出しました。"
     message = mail(to: @user.email, subject:)
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
 
