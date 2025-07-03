@@ -79,3 +79,5 @@ header.page-content-header
                                          tagsInputId: 'movie_tag_list',
                                          tagsType: 'Movie',
                                          tagsTypeId: movie.id.to_s })
+      .page-content-header__tags
+        = render(Tag::TagComponent.new(initial_tags: movie.tag_list.join(',').to_s, param_name: 'movie[tag_list]', input_id: 'movie_tag_list', taggable_type: 'Movie', taggable_id: movie.id.to_s))
