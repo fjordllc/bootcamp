@@ -430,7 +430,7 @@ ja:
           all: 全員（退会者を除く）
           students: 現役生のみ
           job_seekers: 就職希望者のみ
-          none: 通知しない  
+          none: 通知しない
     errors:
       models:
         campaign:
