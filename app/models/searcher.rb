@@ -11,7 +11,8 @@ class Searcher
     ['Docs', :pages],
     ['イベント', :events],
     ['定期イベント', :regular_events],
-    ['ユーザー', :users]
+    ['ユーザー', :users],
+    ['ペアワーク', :pair_works]
   ].freeze
 
   AVAILABLE_TYPES = DOCUMENT_TYPES.map(&:second) - %i[all] + %i[comments answers]
