@@ -299,7 +299,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_includes(result.map do |r|
                       [strip_html(r.formatted_summary), r.login_name]
                     end, [comments(:comment16).description, comments(:comment16).user.login_name])
-    assert_equal(74, result.size)
+    assert_equal(75, result.size)
   end
 
   test 'can not search a comment of talk' do
