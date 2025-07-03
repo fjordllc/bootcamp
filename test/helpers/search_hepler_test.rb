@@ -9,7 +9,7 @@ class SearchHelperTest < ActionView::TestCase
     @user_komagata = users(:komagata)
     @user_muryou = users(:muryou)
     @comment = comments(:comment1)
-    @unfinished_product_comment = comments(:comment88)
+    @unfinished_product_comment = comments(:comment87)
     @answer = answers(:answer1)
     @report = reports(:report1)
     @page = pages(:page1)
