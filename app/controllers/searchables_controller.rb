@@ -7,14 +7,7 @@ class SearchablesController < ApplicationController
     @word = params[:word].to_s
     @document_type = params[:document_type]&.to_sym || :all
 
-    searchables = Searcher.search(@word, document_type: @document_type, current_user:)
-
-    if params[:only_me] && %i[all practices users].exclude?(document_type_param)
-      searchables = searchables.select do |searchable|
-        searchable.user_id == current_user.id
-      end
-    end
-
+    searchables = Searcher.search(@word, params[:only_me], document_type: @document_type, current_user:)
     @searchables = Kaminari.paginate_array(searchables.uniq).page(params[:page]).per(PER_PAGE)
 
     user_ids = @searchables.map(&:user_id).compact.uniq
