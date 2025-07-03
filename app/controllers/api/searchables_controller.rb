@@ -4,13 +4,7 @@ class API::SearchablesController < API::BaseController
   PAGER_NUMBER = 50
 
   def index
-    result = Searcher.search(params[:word], document_type: document_type_param)
-
-    if params[:only_me] && %i[all practices users].exclude?(document_type_param)
-      result = result.select do |record|
-        record.user_id == current_user.id
-      end
-    end
+    result = Searcher.search(params[:word], params[:only_me], current_user, document_type: document_type_param)
 
     @searchables = Kaminari.paginate_array(result).page(params[:page]).per(PAGER_NUMBER)
   end

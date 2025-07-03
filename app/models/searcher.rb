@@ -17,7 +17,7 @@ class Searcher
   AVAILABLE_TYPES = DOCUMENT_TYPES.map(&:second) - %i[all] + %i[comments answers]
 
   class << self
-    def search(word, document_type: :all)
+    def search(word, only_me, current_user, document_type: :all)
       searchables =
         case document_type
         when :all
@@ -29,6 +29,8 @@ class Searcher
         else
           result_for(document_type, word).sort_by(&:updated_at).reverse
         end
+
+      searchables = searchables.select { |searchable| searchable.user_id == current_user.id } if only_me && %i[all practices users].exclude?(document_type)
 
       delete_private_comment!(searchables) # 相談部屋とお問い合わせ、企業研修のコメント内容は検索できないようにする
     end
