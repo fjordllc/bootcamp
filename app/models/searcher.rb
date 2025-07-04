@@ -49,13 +49,11 @@ class Searcher
     def result_for(type, words)
       raise ArgumentError, "#{type} is not available" unless type.in?(AVAILABLE_TYPES)
 
-        user = User.find_by(id: result.last_updated_user_id)
-        return user&.login_name == username
+      return search_users(words) if type == :users
+      return model(type).all if words.blank?
 
+      filter_by_keywords(model(type).search_by_keywords(words:), words)
     end
-    searchable_fields = [result.try(:title), result.try(:body), result.try(:description)]
-    searchable_fields.any? { |field| field.to_s.include?(word) }
-  end
 
     def result_for_comments(document_type, words)
       results = result_for(document_type, words) || []
@@ -63,30 +61,13 @@ class Searcher
         comment.commentable_type == search_model_name(document_type)
       end || []
 
-  def self.commentable?(document_type)
-    model(document_type).include?(Commentable)
-  end
-
-  def self.delete_comment_of_talk_and_inquiry!(searchables, current_user)
-    searchables.reject! do |searchable|
-      searchable.commentable.user_id != current_user.id && !current_user.admin? if searchable.instance_of?(Comment) && searchable.commentable.instance_of?(Talk) && searchable.commentable.instance_of?(Inquiry)
+      (results + comment_results).sort_by(&:updated_at).reverse
     end
 
-    def visible_to_user?(searchable, current_user)
-      case searchable
-      when Talk
-        current_user.admin? || searchable.user_id == current_user.id
-      when Comment
-        if searchable.commentable.is_a?(Talk)
-          current_user.admin? || searchable.commentable.user_id == current_user.id
-        else
-          true
-        end
-      when User, Practice, Page, Event, RegularEvent, Announcement, Report, Product, Question, Answer
-        true
-      else
-        false
-      end
+    def result_for_questions(document_type, words)
+      (result_for(document_type, words) || []) + (result_for(:answers, words) || [])
+                                                 .sort_by(&:updated_at)
+                                                 .reverse
     end
 
     def filter_results!(searchables, current_user)
@@ -169,12 +150,5 @@ class Searcher
 
       false
     end
-  end
-
-  def self.highlight_word(text, word)
-    return text unless text.present? && word.present?
-
-    sanitized_word = Regexp.escape(word)
-    text.gsub(/(#{sanitized_word})/i, '<strong class="matched_word">\1</strong>')
   end
 end
