@@ -97,4 +97,10 @@ module UserDecorator
   def joining_status
     elapsed_days <= NEW_USER_DAYS ? 'new-user' : ''
   end
+
+  def user_icon_frame_class
+    classes = ['a-user-role', "is-#{primary_role}"]
+    classes << 'is-new-user' if joining_status == 'new-user'
+    classes.join(' ')
+  end
 end
