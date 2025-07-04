@@ -34,7 +34,7 @@ class SearchHelperTest < ActionView::TestCase
   end
 
   test 'filtered_message returns summary for SearchResult' do
-    searchable_result = SearchResult.new(@report, 'test', @user_komagata)
+    searchable_result = SearchResult.new(@report, 'ruby', @user_komagata)
     filtered_message = filtered_message(searchable_result)
     assert_equal searchable_result.summary, filtered_message
   end
