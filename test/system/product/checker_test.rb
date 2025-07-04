@@ -16,11 +16,11 @@ class Product::CheckerTest < ApplicationSystemTestCase
     post_comment('担当者がいない提出物の場合、担当者になる')
     accept_alert '提出物の担当になりました。'
     assert_text '担当になりました。'
-    assert_text '担当から外れる'
+    assert_button '担当から外れる'
 
     post_comment('自分が担当者の場合、担当者のまま')
     assert_text 'コメントを投稿しました！'
-    assert_text '担当から外れる'
+    assert_button '担当から外れる'
 
     visit '/products/unchecked?target=unchecked_no_replied'
     assert_equal before_comment + 1, assigned_product_count
