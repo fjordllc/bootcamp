@@ -16,7 +16,9 @@ class Searcher
     def search(word, current_user:, document_type: :all)
       words = word.split(/[[:blank:]]+/).reject(&:blank?)
       searchables = fetch_results(words, document_type) || []
-      filter_results!(searchables, current_user).map do |searchable|
+      searchables = filter_results!(searchables, current_user)
+      searchables = delete_private_comment!(searchables)
+      searchables.map do |searchable|
         SearchResult.new(searchable, word, current_user)
       end
     end
@@ -89,6 +91,12 @@ class Searcher
 
     def filter_results!(searchables, current_user)
       searchables&.select { |searchable| visible_to_user?(searchable, current_user) }
+    end
+
+    def delete_private_comment!(searchables)
+      searchables.reject do |searchable|
+        searchable.instance_of?(Comment) && searchable.commentable.class.in?([Talk, Inquiry, CorporateTrainingInquiry])
+      end
     end
 
     def visible_to_user?(searchable, current_user)
