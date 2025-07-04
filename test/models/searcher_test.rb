@@ -321,8 +321,14 @@ class SearchableTest < ActiveSupport::TestCase
 
   test 'search only myself' do
     current_user = users(:komagata)
+    other_user = users(:kimura)
 
-    result = Searcher.search(word: '', only_me: true, current_user:, document_type: :reports)
+    result = Searcher.search(word: 'テスト', only_me: true, current_user:, document_type: :reports)
     assert(result.all? { |searchable| searchable.user_id == current_user.id })
+
+    # 他のユーザーの投稿が除外されていることを確認
+    all_results = Searcher.search(word: 'テスト', only_me: false, current_user:, document_type: :reports)
+    other_user_results = all_results.select { |searchable| searchable.user_id == other_user.id }
+    assert_not_includes result, other_user_results
   end
 end
