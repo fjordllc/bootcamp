@@ -1,7 +1,7 @@
 .tag-links.tag-component[
-  data-tags-initial-value=@initial_tags
-  data-tags-type=@taggable_type
-  data-tags-type-id=@taggable_id
+  data-tags-initial-value=initial_tags
+  data-tags-type=taggable_type
+  data-tags-type-id=taggable_id
 ]
   .tags-display
     ul.tag-links__items
@@ -10,7 +10,7 @@
           .tag-links__item-edit
             | タグ編集
   form.tags-form.hidden
-    input.tags-form__input name=@param_name id=@input_id value=@initial_tags
+    input.tags-form__input name=@param_name id=@input_id value=initial_tags
     .sharp-warning.hidden
       | 先頭の記号は無視されます
     .form-actions
