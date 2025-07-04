@@ -963,7 +963,6 @@ ActiveRecord::Schema.define(version: 2025_06_18_144325) do
     t.boolean "invoice_payment", default: false, null: false
     t.integer "editor"
     t.string "other_editor"
-    t.boolean "invoice_payment", default: false, null: false
     t.boolean "show_mentor_profile", default: true, null: false
     t.integer "experiences", default: 0, null: false
     t.integer "referral_source"

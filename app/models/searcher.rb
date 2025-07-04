@@ -37,7 +37,7 @@ class Searcher
       user_filter = words.find { |word| word.match(/^user:(\w+)$/) }&.delete_prefix('user:')
       return search_by_user_filter(user_filter, words) if user_filter
 
-      AVAILABLE_TYPES.map { |type| result_for(type, words) }
+      AVAILABLE_TYPES.filter_map { |type| result_for(type, words) }
                      .flatten
                      .uniq
                      .sort_by(&:updated_at)
@@ -73,13 +73,20 @@ class Searcher
     end
 
     def visible_to_user?(searchable, current_user)
-      return true unless searchable.is_a?(Talk) || searchable.is_a?(Comment)
-
-      return current_user.admin? || searchable.user_id == current_user.id if searchable.is_a?(Talk)
-
-      return current_user.admin? || searchable.commentable.user_id == current_user.id if searchable.is_a?(Comment) && searchable.commentable.is_a?(Talk)
-
-      true
+      case searchable
+      when Talk
+        current_user.admin? || searchable.user_id == current_user.id
+      when Comment
+        if searchable.commentable.is_a?(Talk)
+          current_user.admin? || searchable.commentable.user_id == current_user.id
+        else
+          true
+        end
+      when User, Practice, Page, Event, RegularEvent, Announcement, Report, Product, Question, Answer
+        true
+      else
+        false
+      end
     end
 
     def model(type)
@@ -112,6 +119,8 @@ class Searcher
     end
 
     def filter_by_keywords(results, words)
+      return results if words.empty?
+
       (results || []).select { |result| words.all? { |word| result_matches_keyword?(result, word) } }
                      .sort_by(&:updated_at)
                      .reverse
@@ -127,7 +136,9 @@ class Searcher
     def extract_user_id_match(result, word)
       user_id = word.delete_prefix('user:')
       return result.user&.login_name&.casecmp?(user_id) if result.respond_to?(:user) && result.user.present?
-      return User.find_by(id: result.last_updated_user_id)&.login_name&.casecmp?(user_id) if result.respond_to?(:last_updated_user_id)
+        if result.respond_to?(:last_updated_user_id) && result.last_updated_user_id.present?
+          return User.find_by(id: result.last_updated_user_id)&.login_name&.casecmp?(user_id)
+        end
 
       false
     end
