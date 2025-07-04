@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class GrassDateParamater
+class GrassDateParameter
   def initialize(params)
     @params = params
   end
