@@ -37,7 +37,7 @@ class Searcher
       user_filter = words.find { |word| word.match(/^user:(\w+)$/) }&.delete_prefix('user:')
       return search_by_user_filter(user_filter, words) if user_filter
 
-      AVAILABLE_TYPES.map { |type| result_for(type, words) }
+      AVAILABLE_TYPES.filter_map { |type| result_for(type, words) }
                      .flatten
                      .uniq
                      .sort_by(&:updated_at)
@@ -92,13 +92,20 @@ class Searcher
     end
 
     def visible_to_user?(searchable, current_user)
-      return true unless searchable.is_a?(Talk) || searchable.is_a?(Comment)
-
-      return current_user.admin? || searchable.user_id == current_user.id if searchable.is_a?(Talk)
-
-      return current_user.admin? || searchable.commentable.user_id == current_user.id if searchable.is_a?(Comment) && searchable.commentable.is_a?(Talk)
-
-      true
+      case searchable
+      when Talk
+        current_user.admin? || searchable.user_id == current_user.id
+      when Comment
+        if searchable.commentable.is_a?(Talk)
+          current_user.admin? || searchable.commentable.user_id == current_user.id
+        else
+          true
+        end
+      when User, Practice, Page, Event, RegularEvent, Announcement, Report, Product, Question, Answer
+        true
+      else
+        false
+      end
     end
 
     def model(type)

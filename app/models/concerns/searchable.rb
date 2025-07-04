@@ -16,7 +16,11 @@ module Searchable
     end
 
     def columns_for_keyword_search(*column_names)
-      define_singleton_method(:_join_column_names) { "#{(column_names + %i[kana_name]).join('_or_')}_cont_any" }
+      define_singleton_method(:_join_column_names) do
+        cols = column_names.dup
+        cols << :kana_name if has_attribute?(:kana_name)
+        "#{cols.join('_or_')}_cont_any"
+      end
     end
 
     private
