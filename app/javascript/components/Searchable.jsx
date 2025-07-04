@@ -1,10 +1,10 @@
 import React from 'react'
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
+import { UserIconFrameClass } from './UserIconFrameClass'
 dayjs.locale(ja)
 
 export default function Searchable({ searchable, word }) {
-  const roleClass = `is-${searchable.primary_role}`
   const searchableClass = searchable.wip
     ? `is-wip is-${searchable.model_name}`
     : `is-${searchable.model_name}`
@@ -80,12 +80,13 @@ export default function Searchable({ searchable, word }) {
         {searchable.is_user && (
           <div className="card-list-item__user">
             <a className="card-list-item__user-link" href={searchable.url}>
-              <span className={`a-user-role ${roleClass}`}>
+              <span className={UserIconFrameClass(searchable)}>
                 <img
                   className="card-list-item__user-icon a-user-icon"
                   src={searchable.avatar_url}
                   title={searchable.title}
-                  alt={searchable.title}></img>
+                  alt={searchable.title}
+                />
               </span>
             </a>
           </div>
@@ -122,12 +123,13 @@ export default function Searchable({ searchable, word }) {
                       <a
                         className="card-list-item-meta__icon-link"
                         href={userUrl}>
-                        <span className={`a-user-role ${roleClass}`}>
+                        <span className={UserIconFrameClass(searchable)}>
                           <img
                             className="card-list-item-meta__icon a-user-icon"
                             src={searchable.avatar_url}
                             title={searchable.icon_title}
-                            alt={searchable.icon_title}></img>
+                            alt={searchable.icon_title}
+                          />
                         </span>
                       </a>
                       <a className="a-user-name" href={userUrl}>
