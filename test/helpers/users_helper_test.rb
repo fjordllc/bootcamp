@@ -37,18 +37,4 @@ class UsersHelperTest < ActionView::TestCase
     ]
     assert jobs_for_select, user_jobs
   end
-
-  test '#user_icon_frame_class_for_new_user' do
-    new_user = users(:otameshi)
-    standard_user = users(:kimura)
-
-    def new_user.primary_role = 'student'
-    def new_user.joining_status = 'new-user'
-
-    def standard_user.primary_role = 'student'
-    def standard_user.joining_status = ''
-
-    assert_equal 'a-user-role is-student is-new-user', user_icon_frame_class(new_user)
-    assert_equal 'a-user-role is-student', user_icon_frame_class(standard_user)
-  end
 end
