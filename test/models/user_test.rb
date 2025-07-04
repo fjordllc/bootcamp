@@ -330,7 +330,7 @@ class UserTest < ActiveSupport::TestCase
 
   test 'return not retired user data' do
     hajime = users(:hajime)
-    result = Searcher.search(hajime.name)
+    result = Searcher.search(word: hajime.name)
     assert_includes(result, hajime)
   end
 
