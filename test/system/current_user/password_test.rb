@@ -15,7 +15,7 @@ class CurrentUser::PasswordTest < ApplicationSystemTestCase
     end
     assert_text 'パスワードを更新しました。'
 
-    find('.test-show-menu').click
+    find('.test-show-menu', text: 'Me').click
     click_link 'ログアウト'
 
     visit login_url
