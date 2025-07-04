@@ -9,6 +9,7 @@ import parseTags from './parse_tags'
 
 document.addEventListener('DOMContentLoaded', () => {
   const tagsContainer = document.querySelector('.tag-component')
+  if (!tagsContainer) return
   const tagsDisplay = tagsContainer.querySelector('.tags-display')
   const tagListItems = tagsDisplay.querySelector('.tag-links__items')
   const editButton = tagListItems.querySelector('.tag-links__item-edit')
