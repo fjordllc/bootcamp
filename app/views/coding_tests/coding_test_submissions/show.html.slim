@@ -37,7 +37,7 @@ ruby:
                 = link_to cts.user,
                   itemprop: 'url',
                   class: 'page-content-header__user-link' do
-                    span class=user_icon_frame_class(cts.user)
+                    span class=cts.user.user_icon_frame_class
                       = image_tag cts.user.avatar_url,
                         title: cts.user.icon_title,
                         class: 'page-content-header__user-icon-image a-user-icon'

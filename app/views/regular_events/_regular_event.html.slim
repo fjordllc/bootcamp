@@ -84,7 +84,7 @@
               - regular_event.participants.each do |participant|
                 li.user-icons-item
                   = link_to participant do
-                    span class=user_icon_frame_class(participant)
+                    span class=participant.user_icon_frame_class
                       = image_tag participant.avatar_url, title: participant.icon_title, class: "a-user-icon is-sm is-#{participant.login_name}", alt: participant.login_name
                   - if admin_login?
                     = link_to regular_event_participation_path(regular_event_id: regular_event, participant_id: participant),
