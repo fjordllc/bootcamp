@@ -125,3 +125,4 @@ main.page-main
                         = CorporateTrainingInquiry.human_attribute_name(:how_did_you_hear)
                       .a-short-text
                         = simple_format(@corporate_training_inquiry.how_did_you_hear)
+      = render 'comments/comments', commentable: @corporate_training_inquiry, commentable_type: 'CorporateTrainingInquiry'

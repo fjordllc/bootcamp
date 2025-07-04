@@ -6,14 +6,16 @@ dl.card-counts__items
       { name: 'コメント', count: user.comments.without_private_comment.size, url: user_comments_path(user) },
       { name: '質問', count: user.questions.size, url: user_questions_path(user) },
       { name: '回答', count: user.answers.size, url: user_answers_path(user) },
-      { name: 'ポートフォリオ', count: user.works.size, url: user_portfolio_path(user) }
+      { name: 'ポートフォリオ', count: user.works.size, url: user_portfolio_path(user) },
+      { name: '特別イベント', count: user.participations.size, url: nil },
+      { name: '定期イベント', count: user.regular_event_participations.size, url: nil }
     ]
   - activities.each do |activity|
     .card-counts__item
       .card-counts__item-inner
         dt.card-counts__item-label = activity[:name]
-        dd.card-counts__item-value class=('is-empty' if activity[:count].zero?)
-          - if activity[:count].zero?
-            span = activity[:count]
+        dd.card-counts__item-value class=('is-empty' if activity[:count].zero? || activity[:url].nil?)
+          - if activity[:count].zero? || activity[:url].nil?
+            = activity[:count]
           - else
             = link_to activity[:count], activity[:url], class: 'a-text-link'
