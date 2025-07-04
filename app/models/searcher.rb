@@ -16,7 +16,9 @@ class Searcher
     def search(word, current_user:, document_type: :all)
       words = word.split(/[[:blank:]]+/).reject(&:blank?)
       searchables = fetch_results(words, document_type) || []
-      filter_results!(searchables, current_user).map do |searchable|
+      searchables = filter_results!(searchables, current_user)
+      searchables = delete_private_comment!(searchables)
+      searchables.map do |searchable|
         SearchResult.new(searchable, word, current_user)
       end
     end
@@ -70,6 +72,12 @@ class Searcher
 
     def filter_results!(searchables, current_user)
       searchables&.select { |searchable| visible_to_user?(searchable, current_user) }
+    end
+
+    def delete_private_comment!(searchables)
+      searchables.reject do |searchable|
+        searchable.instance_of?(Comment) && searchable.commentable.class.in?([Talk, Inquiry, CorporateTrainingInquiry])
+      end
     end
 
     def visible_to_user?(searchable, current_user)
@@ -136,9 +144,9 @@ class Searcher
     def extract_user_id_match(result, word)
       user_id = word.delete_prefix('user:')
       return result.user&.login_name&.casecmp?(user_id) if result.respond_to?(:user) && result.user.present?
-        if result.respond_to?(:last_updated_user_id) && result.last_updated_user_id.present?
-          return User.find_by(id: result.last_updated_user_id)&.login_name&.casecmp?(user_id)
-        end
+      if result.respond_to?(:last_updated_user_id) && result.last_updated_user_id.present?
+        return User.find_by(id: result.last_updated_user_id)&.login_name&.casecmp?(user_id)
+      end
 
       false
     end
