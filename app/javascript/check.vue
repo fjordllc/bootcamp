@@ -33,7 +33,6 @@ div
 </template>
 <script>
 import 'whatwg-fetch'
-import CSRF from 'csrf'
 import ProductChecker from 'product_checker'
 import checkable from 'checkable.js'
 import { toast } from 'vanillaToast.js'
@@ -101,18 +100,11 @@ export default {
             this.checkableType,
             this.checkableId,
             this.url,
-            this.method,
-            CSRF.getToken()
+            this.method
           )
         }
       } else {
-        this.check(
-          this.checkableType,
-          this.checkableId,
-          this.url,
-          this.method,
-          CSRF.getToken()
-        )
+        this.check(this.checkableType, this.checkableId, this.url, this.method)
       }
     }
   }
