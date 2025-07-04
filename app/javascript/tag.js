@@ -45,9 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
     tags.forEach((tag) => {
       const li = document.createElement('li')
       li.className = 'tag-links__item'
-      li.innerHTML = `<a class="tag-links__item-link" href="/${tagsType.toLowerCase()}s/tags/${encodeURIComponent(
-        tag
-      )}">${tag}</a>`
+      const link = document.createElement('a')
+      link.className = 'tag-links__item-link'
+      link.href = `/${tagsType.toLowerCase()}s/tags/${encodeURIComponent(tag)}`
+      link.textContent = tag
+      li.appendChild(link)
       const editBtnLi = editButton?.parentElement
       tagListItems.insertBefore(li, editBtnLi || null)
     })
