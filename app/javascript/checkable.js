@@ -1,4 +1,5 @@
 import checkStamp from 'check-stamp.js'
+import { FetchRequest } from '@rails/request.js'
 
 export default {
   computed: {
@@ -11,30 +12,24 @@ export default {
     }
   },
   methods: {
-    check(checkableType, checkableId, url, method, token) {
+    check(checkableType, checkableId, url, method) {
       const params = {
         checkable_type: checkableType,
         checkable_id: checkableId
       }
-
-      fetch(url, {
-        method: method,
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': token
-        },
-        credentials: 'same-origin',
+      new FetchRequest(method, url, {
         redirect: 'manual',
         body: JSON.stringify(params)
       })
+        .perform()
         .then((response) => {
           this.$store.dispatch('setCheckable', {
             checkableId: checkableId,
             checkableType: checkableType
           })
           if (!response.ok) {
-            return response.json()
+            // return response.json()
+            return response.json
           } else {
             return response
           }
@@ -62,32 +57,19 @@ export default {
           console.warn(error)
         })
     },
-    checkProduct(
-      productId,
-      currentUserId,
-      url,
-      method,
-      token,
-      isChargeFromComment
-    ) {
+    checkProduct(productId, currentUserId, url, method, isChargeFromComment) {
       const params = {
         product_id: productId,
         current_user_id: currentUserId
       }
 
-      fetch(url, {
-        method: method,
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': token
-        },
-        credentials: 'same-origin',
+      new FetchRequest(method, url, {
         redirect: 'manual',
         body: JSON.stringify(params)
       })
+        .perform()
         .then((response) => {
-          return response.json()
+          return response.json
         })
         .then((json) => {
           if (json.message) {
