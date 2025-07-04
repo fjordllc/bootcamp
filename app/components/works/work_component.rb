@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Works::WorkComponent < ViewComponent::Base
-  include UsersHelper
-  
   def initialize(work:)
     @work = work
   end
