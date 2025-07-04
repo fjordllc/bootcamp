@@ -41,34 +41,12 @@ module SearchHelper
   end
 
   def filtered_message(searchable)
-    case searchable
-    when SearchResult
-      searchable.summary
-    when Comment
-      if searchable.instance_of?(Comment) && searchable.commentable_type == 'Product'
-        commentable = searchable.commentable_type.constantize.find(searchable.commentable_id)
-        if policy(commentable).show? || (commentable.is_a?(Practice) && commentable.open_product?)
-          searchable.body
-        else
-          '該当プラクティスを修了するまで他の人の提出物へのコメントは見れません。'
-        end
-      else
-        searchable.description
-      end
-    when Product
-      searchable.body
-    else
-      searchable.try(:description)
-    end
-  end
-
     if searchable.is_a?(Comment) && searchable.commentable_type == 'Product'
       commentable = searchable.commentable
       return '該当プラクティスを修了するまで他の人の提出物へのコメントは見れません。' unless policy(commentable).show? || commentable.practice.open_product?
 
       return markdown_to_plain_text(searchable.body)
     end
-  end
 
     description_or_body = searchable.try(:description) || searchable.try(:body) || ''
     markdown_to_plain_text(description_or_body)
