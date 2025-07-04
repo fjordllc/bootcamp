@@ -60,6 +60,8 @@ export default {
         toast(data.message, 'error')
       } else {
         checkStamp()
+        sessionStorage.setItem('showCheckToast', 'true')
+        location.reload()
       }
     } catch (error) {
       console.warn(error)
@@ -82,6 +84,10 @@ export default {
 
         const event = new Event('checkerAssigned')
         window.dispatchEvent(event)
+
+        sessionStorage.setItem('showAssignedToast', 'true')
+
+        location.reload()
       }
     } catch (error) {
       console.warn(error)

@@ -9,6 +9,22 @@ import { setWatchable } from './setWatchable.js'
 import commentCheckable from './comment-checkable.js'
 
 document.addEventListener('DOMContentLoaded', () => {
+  if (sessionStorage.getItem('showAssignedToast') === 'true') {
+    sessionStorage.removeItem('showAssignedToast')
+    toast('担当になりました。')
+  }
+
+  if (sessionStorage.getItem('showCheckToast') === 'true') {
+    sessionStorage.removeItem('showCheckToast')
+    const commentableType =
+      document.querySelector('.new-comment')?.dataset.commentable_type
+    if (commentableType === 'Product') {
+      toast('提出物を確認済みにしました。')
+    } else {
+      toast('日報を確認済みにしました。')
+    }
+  }
+
   const newComment = document.querySelector('.new-comment')
   if (!newComment) return
 
@@ -190,7 +206,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       resetEditor()
-      toast(getToastMessage(checkAfterSave, assigned))
+
+      if (!assigned && !checkAfterSave) {
+        toast(getToastMessage(checkAfterSave, assigned))
+      }
     } catch (error) {
       console.warn(error)
     }
