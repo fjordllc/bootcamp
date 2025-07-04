@@ -17,7 +17,10 @@ class Searcher
       words = word.split(/[[:blank:]]+/).reject(&:blank?)
       searchables = fetch_results(words, document_type) || []
       searchables = filter_results!(searchables, current_user)
+
+      # only_me=true の場合、user_id カラムを持たない :practices および :users は除外してフィルタリング
       searchables = searchables.select { |searchable| searchable.user_id == current_user.id } if only_me && %i[all practices users].exclude?(document_type)
+
       searchables = delete_private_comment!(searchables) # 相談部屋とお問い合わせ、企業研修のコメント内容は検索できないようにする
       searchables.map do |searchable|
         SearchResult.new(searchable, word, current_user)
