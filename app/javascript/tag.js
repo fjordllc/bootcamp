@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     tags = e.detail.tagify.value
       .filter((tag) => tag.__isValid)
       .map((tag) => tag.value)
+    sharpWarning.classList.add('hidden')
   })
 
   tagify.on('input', (e) => {
@@ -84,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
   editButton?.addEventListener('click', () => {
     tagify.removeAllTags()
     tagify.addTags(tags, true)
+    sharpWarning.classList.add('hidden')
     setEditing(true)
   })
 
