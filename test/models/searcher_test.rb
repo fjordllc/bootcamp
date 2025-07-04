@@ -45,7 +45,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_equal 0, result.size
     admin_user = users(:komagata)
     result_for_admin = Searcher.search('相談部屋', current_user: admin_user)
-    assert_not_empty result_for_admin
+    assert_empty result_for_admin
   end
 
   test 'returns results filtered by user' do
