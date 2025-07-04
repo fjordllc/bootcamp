@@ -1,6 +1,6 @@
 export default function validateTagName(tagData) {
   const text = tagData.value
-  if (/ |　/.test(text)) {
+  if (/ |\u3000/.test(text)) {
     return 'スペースを含むタグは作成できません' // eslint-disable-line no-undef
   } else if (text === '.') {
     return 'ドット1つだけのタグは作成できません' // eslint-disable-line no-undef
