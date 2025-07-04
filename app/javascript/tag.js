@@ -108,17 +108,24 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     try {
-      await fetch(`/api/${tagsType.toLowerCase()}s/${tagsTypeId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': CSRF.getToken()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual',
-        body: JSON.stringify(params)
-      })
+      const response = await fetch(
+        `/api/${tagsType.toLowerCase()}s/${tagsTypeId}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-Token': CSRF.getToken()
+          },
+          credentials: 'same-origin',
+          redirect: 'manual',
+          body: JSON.stringify(params)
+        }
+      )
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
       tagsInitialValue = [...tags]
       renderTags(tags)
       setEditing(false)
