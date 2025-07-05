@@ -44,6 +44,7 @@ comment6:
   commentable: report4 (Report)
   description: "失礼しました。 report_id を id と typo してました :sweat_drops:"
   created_at: "2019-01-02 18:00:01"
+
 comment7:
   user: komagata
   commentable: report4 (Report)
@@ -51,7 +52,7 @@ comment7:
   created_at: "2019-01-04 00:00:01"
 
 comment8:
-  user: komagata
+  user: mentormentaro
   commentable: product10 (Product)
   description: "提出物のコメントです。"
 

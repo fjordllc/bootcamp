@@ -99,7 +99,7 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                   ))
 
     assert_selector '.a-meta', text: 'コメント（1）'
-    assert_selector "img.a-user-icon[title='komagata (Komagata Masaki): 管理者、メンター']"
+    assert_selector "img.a-user-icon[title='mentormentaro (メンタ 麺太郎): メンター']"
   end
 
   def test_render_published_at_when_product_is_published
