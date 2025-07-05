@@ -31,7 +31,7 @@ module Searchable
   end
 
   def formatted_updated_at
-    return formatted_updated_at if is_a?(SearchResult)
+    return @formatted_updated_at if is_a?(SearchResult)
 
     weekdays = %w[日 月 火 水 木 金 土]
     updated_at.strftime("%Y年%m月%d日(#{weekdays[updated_at.wday]}) %H:%M")
