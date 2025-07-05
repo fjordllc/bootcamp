@@ -2,6 +2,8 @@
 
 class SearchResult
   include SearchHelper
+  include ActionView::Helpers::SanitizeHelper
+  include ERB::Util
 
   attr_accessor :url, :title, :summary, :formatted_summary, :user_id,
                 :login_name, :formatted_updated_at, :model_name, :label,
@@ -69,18 +71,19 @@ class SearchResult
 
     escaped_text = ERB::Util.html_escape(text)
     words = word.split(/[[:blank:]]+/).reject(&:blank?)
-    words.each do |w|
-      escaped_text = escaped_text.gsub(/(#{Regexp.escape(w)})/i, '<strong class="matched_word">\1</strong>')
+    highlighted_fragments = words.reduce(escaped_text) do |text_fragment, w|
+      text_fragment.gsub(/(#{Regexp.escape(w)})/i, '<strong class="matched_word">\1</strong>')
     end
 
-    escaped_text.html_safe
+    sanitize(highlighted_fragments, tags: %w[strong], attributes: %w[class])
   end
 
   def fetch_commentable_type(searchable)
     return '' unless searchable.try(:commentable)
+
     model_name = searchable.commentable.model_name.name.underscore
     I18n.t("activerecord.models.#{model_name}", default: '')
-  rescue => e
+  rescue StandardError => e
     Rails.logger.warn "Failed to fetch commentable type: #{e.message}"
     ''
   end

@@ -6,13 +6,12 @@ module Searchable
   COLUMN_NAMES_FOR_SEARCH_USER_ID = %i[user_id last_updated_user_id].freeze
 
   included do
-    # 拡張する場合はこのスコープを上書きする
     scope :search_by_keywords_scope, -> { all } if self < ActiveRecord::Base
   end
 
   class_methods do
     def search_by_keywords(searched_values = {})
-      ransack(**params_for_keyword_search(searched_values)).result.search_by_keywords_scope
+      ransack(**KeywordSearchBuilder.params_for_keyword_search(self, searched_values)).result.search_by_keywords_scope
     end
 
     def columns_for_keyword_search(*column_names)
@@ -21,30 +20,6 @@ module Searchable
         cols << :kana_name if has_attribute?(:kana_name)
         "#{cols.join('_or_')}_cont_any"
       end
-    end
-
-    private
-
-    def params_for_keyword_search(searched_values = {})
-      word = searched_values[:word].to_s.strip
-      return {} if word.blank?
-
-      { combinator: 'or', groupings: [word_to_groupings(word)] }
-    end
-
-    def word_to_groupings(word)
-      return { _join_column_names => word } unless contains_user_id_column?
-
-      word.start_with?('user:') ? search_user_id(word.delete_prefix('user:')) : { _join_column_names => word }
-    end
-
-    def contains_user_id_column?
-      COLUMN_NAMES_FOR_SEARCH_USER_ID.any? { |column_name| has_attribute?(column_name) }
-    end
-
-    def search_user_id(username)
-      user = User.find_by(login_name: username)
-      { "#{COLUMN_NAMES_FOR_SEARCH_USER_ID.join('_or_')}_eq" => user&.id || 0 }
     end
   end
 
@@ -99,6 +74,34 @@ module Searchable
     when 'Event' then "特別\nイベント"
     when 'RegularEvent' then "定期\nイベント"
     else 'コメント'
+    end
+  end
+
+  module KeywordSearchBuilder
+    module_function
+
+    def params_for_keyword_search(klass, searched_values = {})
+      word = searched_values[:word].to_s.strip
+      return {} if word.blank?
+
+      { combinator: 'or', groupings: [build_groupings(klass, word)] }
+    end
+
+    def build_groupings(klass, word)
+      return { klass._join_column_names => word } unless contains_user_id_column?(klass)
+      return search_user_id_group(word.delete_prefix('user:')) if word.start_with?('user:')
+
+      { klass._join_column_names => word }
+    end
+
+    def contains_user_id_column?(klass)
+      column_names = klass.column_names
+      COLUMN_NAMES_FOR_SEARCH_USER_ID.any? { |column_name| column_names.include?(column_name.to_s) }
+    end
+
+    def search_user_id_group(username)
+      user = User.find_by(login_name: username)
+      { "#{COLUMN_NAMES_FOR_SEARCH_USER_ID.join('_or_')}_eq" => user&.id || 0 }
     end
   end
 end
