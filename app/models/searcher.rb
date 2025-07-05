@@ -19,8 +19,13 @@ class Searcher
       searchables = filter_results!(searchables, current_user)
       searchables = delete_private_comment!(searchables)
 
-      # only_me=true の場合、user_id カラムを持たない :practices および :users は除外してフィルタリング
-      searchables = searchables.select { |searchable| searchable.user_id == current_user.id } if only_me && %i[all practices users].exclude?(document_type)
+      # only_me=true の場合、user_id カラムを持たないPracticeおよびUserはすべて対象とする
+      if only_me
+        searchables = searchables.select do |searchable|
+          %w[User Practice].include?(searchable.class.name) ? true : searchable.user_id == current_user.id
+        end
+      end
+
       searchables.map do |searchable|
         SearchResult.new(searchable, word, current_user)
       end
