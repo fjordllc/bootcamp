@@ -1,3 +1,4 @@
+import autosize from 'autosize'
 import CSRF from 'csrf'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
@@ -64,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
       toggleVisibility(tabElements, 'is-active')
     }
     editorTextarea.value = ''
+    autosize.update(editorTextarea)
     updatePreviewAndButtonState()
   }
 
