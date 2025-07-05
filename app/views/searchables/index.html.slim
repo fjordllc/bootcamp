@@ -16,7 +16,7 @@ header.page-header
           - next if searchable.model_name == 'talk'
           span class="card-list-item is-#{searchable.model_name}"
             .card-list-item__inner
-              - searchable_user = User.find_by(id: searchable.user_id)
+              - searchable_user = @users_by_id[searchable.user_id]
               - if searchable.model_name == 'user'
                 .card-list-item__user
                   = link_to "/users/#{searchable_user.id}", class: 'card-list-item__user-link' do
