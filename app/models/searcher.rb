@@ -18,10 +18,10 @@ class Searcher
       searchables = fetch_results(words, document_type) || []
       searchables = filter_results!(searchables, current_user)
 
-      # only_me=true の場合、user_id カラムを持たないPracticeおよびUserはすべて対象とする
+      # only_me=true の場合、user_id カラムを持たないプラクティスとユーザーは対象外とする
       if only_me
         searchables = searchables.select do |searchable|
-          %w[User Practice].include?(searchable.class.name) ? true : searchable.user_id == current_user.id
+          %w[User Practice].include?(searchable.class.name) ? false : searchable.user_id == current_user.id
         end
       end
 
