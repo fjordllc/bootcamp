@@ -115,7 +115,9 @@ module SearchHelper
   def result_matches_keyword?(result, word)
     return extract_user_id_match(result, word) if word.match?(/^user:/)
 
+    word_downcase = word.downcase
     [result.try(:title), result.try(:body), result.try(:description)]
-      .any? { |field| field.to_s.downcase.include?(word.downcase) }
+      .compact
+      .any? { |field| field.downcase.include?(word_downcase) }
   end
 end
