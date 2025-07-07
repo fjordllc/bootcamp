@@ -44,8 +44,8 @@
                     | 提出
                   = l(@product.created_at)
 
-            - if @product.updated_at.present?
-              .card-list-item-meta__item
+            .card-list-item-meta__item
+              - if @product.updated_at.present?
                 time.a-meta
                   span.a-meta__label
                     | 更新
@@ -66,7 +66,7 @@
           .card-list-item-meta
             .card-list-item-meta__items
               .card-list-item-meta__item
-                .a-meta = "コメント（#{@product.comments.size}）"
+                .a-meta  コメント（#{@product.comments.size}
               .card-list-item-meta__item
                 .card-list-item__user-icons
                   - @product.commented_users.distinct.each do |user|
@@ -86,19 +86,19 @@
                     | 研修終了日
                   span.a-meta__value
                     = l(@product.user.training_ends_on)
-                - case @product.user.training_remaining_days
-                - when 0
-                  span.a-meta__value.is-danger
-                    | （本日研修最終日）
-                - when ..-1
-                  span.a-meta__value
-                    | （研修終了）
-                - when 1..6
-                  span.a-meta__value.is-danger
-                    | （あと#{@product.user.training_remaining_days}日）
-                - else
-                  span.a-meta__value
-                    | （あと#{@product.user.training_remaining_days}日）
+                  - case @product.user.training_remaining_days
+                  - when 0
+                    span.a-meta__value.is-danger
+                      | （本日研修最終日）
+                  - when ..-1
+                    span.a-meta__value
+                      | （研修終了）
+                  - when 1..6
+                    span.a-meta__value.is-danger
+                      | （あと#{@product.user.training_remaining_days}日）
+                  - else
+                    span.a-meta__value
+                      | （あと#{@product.user.training_remaining_days}日）
               - else
                 .a-meta
                   span.a-meta__label
@@ -122,12 +122,12 @@
                 span.card-list-item__assignee-name
                   = @product.checker.login_name
 
-  - if @product.checks.size > 0
-    .stamp.stamp-approve
-      h2.stamp__content.is-title
-        | 合格
-      time.stamp__content.is-created-at
-        = last_checked_at
-      .stamp__content.is-user-name
-        .stamp__content-inner
-          = last_checked_user_login_name
+    - if @product.checks.size > 0
+      .stamp.stamp-approve
+        h2.stamp__content.is-title
+          | 合格
+        time.stamp__content.is-created-at
+          = last_checked_at
+        .stamp__content.is-user-name
+          .stamp__content-inner
+            = last_checked_user_login_name
