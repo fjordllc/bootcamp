@@ -10,7 +10,7 @@
     .card-body__description
       .user-grass-nav
         = link_to prev_year_path do
-          .user-grass.nav__previous
+          .user-grass-nav__previous
             i.fa-solid.fa-angle-left
         .user-grass-nav__year--month
           = "#{@target_end_date.prev_year.year}年#{@target_end_date.prev_year.month}月 ～ #{@target_end_date.year}年#{@target_end_date.month}月"
