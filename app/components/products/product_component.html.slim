@@ -66,7 +66,7 @@
           .card-list-item-meta
             .card-list-item-meta__items
               .card-list-item-meta__item
-                .a-meta  コメント（#{@product.comments.size}
+                .a-meta コメント(#{@product.comments.size})
               .card-list-item-meta__item
                 .card-list-item__user-icons
                   - @product.commented_users.distinct.each do |user|
