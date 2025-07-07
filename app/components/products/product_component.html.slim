@@ -29,34 +29,38 @@
           .card-list-item-meta__items
             - if @product.wip?
               .card-list-item-meta__item
-                .a-meta 提出物作成中
-            - elsif @product.published_at.present?
+                .a-meta
+                  | 提出物作成中
+            - elsif @product.published_at
               .card-list-item-meta__item
                 time.a-meta
-                  span.a-meta__label 提出
-                  span.a-meta__value = l(@product.published_at)
+                  span.a-meta__label
+                    | 提出
+                  = l(@product.published_at)
             - else
               .card-list-item-meta__item
                 time.a-meta
-                  span.a-meta__label 提出
-                  span.a-meta__value = l(@product.created_at)
+                  span.a-meta__label
+                    | 提出
+                  = l(@product.created_at)
 
             - if @product.updated_at.present?
               .card-list-item-meta__item
                 time.a-meta
-                  span.a-meta__label 更新
-                  span.a-meta__value = l(@product.updated_at)
+                  span.a-meta__label
+                    | 更新
+                  = l(@product.updated_at)
 
             - if @display_until_next_elapsed_days && elapsed_days < @reply_deadline_days
-              .card-list-item-meta__item
-                time.a-meta
-                  span.a-meta__label 次の経過日数まで
-                  - if until_next_elapsed_days < 1
-                    span.a-meta__value 1時間未満
-                  - else
-                    span.a-meta__value = "約#{until_next_elapsed_days}時間"
+              time.a-meta
+                span.a-meta__label
+                  | 次の経過日数まで
+                - if until_next_elapsed_days < 1
+                  | 1時間未満
+                - else
+                  | 約#{until_next_elapsed_days}時間
 
-      - if @product.comments.any?
+      - if @product.comments.size > 0
         hr.card-list-item__row-separator
         .card-list-item__row
           .card-list-item-meta
@@ -69,39 +73,63 @@
                     = link_to user, class: 'card-list-item__user-icons-icon' do
                       = image_tag user.avatar_url, class: "a-user-icon #{role_class_for_user(user)}", title: user.icon_title, alt: user.icon_title
               .card-list-item-meta__item
-                time.a-meta = "〜 #{l @product.comments.last.created_at, format: :date_and_time}"
+                time.a-meta
+                  = "〜 #{l @product.comments.last.created_at, format: :date_and_time}"
 
       - if (@is_mentor || @is_admin) && @product.user.primary_role == 'trainee' && @product.user.training_ends_on
         .card-list-item__row
-          .card-list-item-meta
-            .card-list-item-meta__items
-              .card-list-item-meta__item
-                time.a-meta dateTime=@product.user.training_ends_on
-                  span.a-meta__label 研修終了日
-                  span.a-meta__value = l(@product.user.training_ends_on)
-                  - case @product.user.training_remaining_days
-                  - when 0
-                    span.a-meta__value.is-danger （本日研修最終日）
-                  - when ..-1
-                    span.a-meta__value （研修終了）
-                  - when 1..6
-                    span.a-meta__value.is-danger = "（あと#{@product.user.training_remaining_days}日）"
-                  - else
-                    span.a-meta__value = "（あと#{@product.user.training_remaining_days}日）"
+          .card-list-item-meta__items
+            .card-list-item-meta__item
+              time.a-meta dateTime=@product.user.training_ends_on
+                span.a-meta__label
+                  | 研修終了日
+                span.a-meta__value
+                  = l(@product.user.training_ends_on)
+              - case @product.user.training_remaining_days
+              - when 0
+                span.a-meta__value.is-danger
+                  | （本日研修最終日）
+              - when ..-1
+                span.a-meta__value
+                  | （研修終了）
+              - when 1..6
+                span.a-meta__value.is-danger
+                  | （あと#{@product.user.training_remaining_days}日）
+              - else
+                span.a-meta__value
+                  | （あと#{@product.user.training_remaining_days}日）
+      - else
+        .card-list-item__row
+          .card-list-item-meta__items
+            .card-list-item-meta__item
+              .a-meta
+                span.a-meta__label
+                  | 研修終了日
+                span.a-meta__value
+                  | 未入力
 
-      - if @is_mentor && @product.checks.empty?
+      - if @is_mentor && @product.checks.size == 0
         .card-list-item__row.is-only-mentor
           .card-list-item__assignee
-            = render(Products::ProductCheckerComponent.new( \
-              checker_id: @product.checker_id,
-              checker_name: @product.checker_name,
-              checker_avatar: @product.checker_avatar,
-              current_user_id: @current_user_id,
-              product_id: @product.id))
+            - if @product.checker_id.nil?
+              = form_with url: assign_checker_product_path(@product), method: :patch, local: true do |f|
+                = f.submit '担当する', class: 'a-button is-sm is-secondary is-block'
+            - elsif @product.checker_id == @current_user_id
+              = form_with url: unassign_checker_product_path(@product), method: :delete, local: true do |f|
+                = f.submit '担当から外れる', class: 'a-button is-sm is-warning is-block'
+            - else
+              .a-button.is-sm.is-block.card-list-item__assignee-button.is-only-mentor
+                span.card-list-item__assignee-image
+                  = image_tag @product.checker.avatar_url, class: 'a-user-icon', width: 20, height: 20
+                span.card-list-item__assignee-name
+                  = @product.checker.login_name
 
-    - if @product.checks.any?
-      .stamp.stamp-approve
-        h2.stamp__content.is-title 合格
-        time.stamp__content.is-created-at = last_checked_at
-        .stamp__content.is-user-name
-          .stamp__content-inner = last_checked_user_login_name
+  - if @product.checks.size > 0
+    .stamp.stamp-approve
+      h2.stamp__content.is-title
+        | 合格
+      time.stamp__content.is-created-at
+        = last_checked_at
+      .stamp__content.is-user-name
+        .stamp__content-inner
+          = last_checked_user_login_name
