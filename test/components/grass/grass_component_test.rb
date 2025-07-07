@@ -40,6 +40,6 @@ class Grass::GrassComponentTest < ViewComponent::TestCase
                     target_end_date: @target_end_date,
                     path: :root_path
                   ))
-    assert_selector '.user-grass-nav__next.is-blank' if @target_end_date.next_year <= Date.current
+    assert_selector '.user-grass-nav__next.is-blank'
   end
 end
