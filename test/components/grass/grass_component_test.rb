@@ -33,7 +33,13 @@ class Grass::GrassComponentTest < ViewComponent::TestCase
     assert_selector "a[href='#{expected_path}'] .user-grass-nav__next i.fa-solid.fa-angle-right"
   end
 
-  def test_next_year?
+  def test_next_year_navigation_disabled_when_current_year
+    render_inline(Grass::GrassComponent.new(
+                    user: @user,
+                    times: Grass.times(@user, @target_end_date),
+                    target_end_date: @target_end_date,
+                    path: :root_path
+                  ))
     assert_selector '.user-grass-nav__next.is-blank' if @target_end_date.next_year <= Date.current
   end
 end
