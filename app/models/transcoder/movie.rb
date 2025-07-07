@@ -28,7 +28,10 @@ module Transcoder
 
     def default_bucket_name
       service_name = ActiveStorage::Blob.service.name.to_s
-      Rails.application.config.active_storage.service_configurations[service_name]['bucket']
+      config = Rails.application.config.active_storage.service_configurations[service_name]
+      raise "ActiveStorage service configuration not found: #{service_name}" unless config
+      raise "Bucket not configured for service: #{service_name}" unless config['bucket']
+      config['bucket']
     end
 
     def default_path
