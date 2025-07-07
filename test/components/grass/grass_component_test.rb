@@ -17,7 +17,8 @@ class Grass::GrassComponentTest < ViewComponent::TestCase
                     target_end_date: @target_end_date,
                     path: :root_path
                   ))
-    expected_path = "/?end_date=#{@prev_year.to_s}"
+    prev_year_str = @prev_year.to_s
+    expected_path = "/?end_date=#{prev_year_str}"
     assert_selector "a[href='#{expected_path}'] .user-grass-nav__previous i.fa-solid.fa-angle-left"
   end
 
@@ -28,8 +29,8 @@ class Grass::GrassComponentTest < ViewComponent::TestCase
                     target_end_date: @prev_year,
                     path: :root_path
                   ))
-    next_year = @prev_year.next_year
-    expected_path = "/?end_date=#{next_year.to_s}"
+    next_year_str = @prev_year.next_year.to_s
+    expected_path = "/?end_date=#{next_year_str}"
     assert_selector "a[href='#{expected_path}'] .user-grass-nav__next i.fa-solid.fa-angle-right"
   end
 
