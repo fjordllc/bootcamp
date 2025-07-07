@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
   const hideGrass = document.querySelector('.hide-grass')
-  const grassContainer = hideGrass?.closest('.a-card')
+  if (hideGrass) {
+    const grassContainer = hideGrass?.closest('.a-card')
+    if (!grassContainer) return
 
-  if (hideGrass && grassContainer) {
     hideGrass.addEventListener('click', () => {
       document.cookie = `user_grass=${hideGrass.dataset.userId}; path=/;`
       grassContainer.style.display = 'none'
