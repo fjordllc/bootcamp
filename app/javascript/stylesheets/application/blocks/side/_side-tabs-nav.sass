@@ -1,6 +1,9 @@
 .side-tabs-nav__items
   display: flex
   +position(relative, 2)
+  overflow-y: hidden
+  overflow-x: auto
+  transform: translateY(1px)
 
 .side-tabs-nav__item
   min-width: 6.5rem
@@ -14,6 +17,7 @@
 
 .side-tabs-nav__item-link
   +text-block(.8125rem 1.4, flex 600 center)
+  white-space: nowrap
   justify-content: center
   cursor: pointer
   padding: .75em 1em
