@@ -43,7 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
   )
 
   const saveButton = commentEditor.querySelector('.js-comment-save-button')
-  const saveAndCheckButton = commentEditor.querySelector('.js-comment-check-button')
+  const saveAndCheckButton = commentEditor.querySelector(
+    '.js-comment-check-button'
+  )
   const saveAndCheckWrapper = saveAndCheckButton?.parentElement
 
   const disableButtons = () => {
