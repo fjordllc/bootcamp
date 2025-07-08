@@ -147,7 +147,7 @@ class BaseCommentsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'comment in markdown is displayed when raw button is clicked' do
+  test 'displays raw markdown comment when raw button is clicked' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
 
     # Wait for comments to load completely
