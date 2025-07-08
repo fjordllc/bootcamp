@@ -52,7 +52,7 @@ class ProductsTest < ApplicationSystemTestCase
   test 'not display learning completion message when a user of the completed product visits after the second time' do
     visit_with_auth "/products/#{products(:product65).id}", 'komagata'
     click_button '提出物を合格にする'
-    assert page.has_button?('提出物の合格を取り消す')
+    assert_button '提出物の合格を取り消す'
 
     visit_with_auth "/products/#{products(:product65).id}", 'kimura'
     first('label.card-main-actions__muted-action.is-closer').click
@@ -369,7 +369,7 @@ class ProductsTest < ApplicationSystemTestCase
     accept_alert '提出物の担当になりました。'
     assert_text 'コメントしたら担当になるテスト'
     visit current_path
-    assert page.has_button?('担当から外れる')
+    assert_button '担当から外れる'
     assert_no_text '担当する'
   end
 
