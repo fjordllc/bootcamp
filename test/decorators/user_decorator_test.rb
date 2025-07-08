@@ -71,7 +71,7 @@ class UserDecoratorTest < ActiveDecoratorTestCase
 
     assert_nil @japanese_user.editor
     assert_equal @admin_mentor_user.editor_or_other_editor, 'textbringer'
-    assert_equal @student_user.editor_or_other_editor, 'VSCode'
+    assert_equal 'VSCode', @student_user.editor_or_other_editor
   end
 
   test '#niconico_calendar' do
