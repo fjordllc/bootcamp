@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: "ja-JP"
+reviews:
+  path_instructions:
+    - path: "**/*.rb"
+      instructions: |
+      "# refactoring
+      - まずFat Controllerを避け、次にFat Modelを避ける。
+      - Serviceクラスの乱用を避ける。
+      - controller concernを作ろうとしたらPORO(Plain Old Ruby Object)やActiveRecordモデルでの実装で代替できないか検討する。
+      # Rails Patterns
+      - ViewHelperにメソッドを実装する時にはまずDecoratorパターンを使うことを検討する。（active_decorator gemを導入しているのでそれを使う）
+      - 複雑なActiveRecordクエリがあり、再利用できそうな場合はQueryObjectパターンを検討する。（rails-patterns gemを導入しているのでそれのQuery機能を使う）
+      - Viewにpartialを作る場合はViewComponentを使うことを検討する。
+      - 複数のActiveRecordモデルを操作する１つの責務がある時や外部APIとやりとりする処理がある場合にはInteractorオブジェクトパターンを検討する。（interactor gemを導入しているのでそれを使う）
+      - 複数のInteractorを実行するような処理がある場合Organizerオブジェクトパターンを検討する。（interactor gemを導入しており、その中にOrganizerの機能があるので使う）"
+    - path: "**/*.js"
+      instructions: |
+      "- どうしても避けられない時以外に新規にVue.js, Reactのコードを追加しない。
+      - fetchメソッドの代わりに[request.js](https://github.com/rails/request.js)を使う。"
+    - path: "test/**/*"
+      instructions: |
+      "# Test
+      - TestCase名は英語で書く。
+      - どうしても避けられない時以外にsystem testでsleepは使わない。
+      # Unit Test
+      model, helper, decorator, view_componentについてはメソッドを追加した場合は必ず対応したUnit TestのTestCaseを1つは書く。"
