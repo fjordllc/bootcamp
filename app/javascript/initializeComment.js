@@ -7,6 +7,7 @@ function initializeComment(comment) {
   const commentDescription = comment.dataset.comment_description
 
   const commentEditor = comment.querySelector('.js-comment-editor')
+  const commentEditor = comment.querySelector('.js-comment-editor')
   if (!commentEditor) return
 
   const commentEditorPreview = commentEditor.querySelector(
@@ -79,6 +80,7 @@ function initializeComment(comment) {
       savedComment = editorTextarea.value
       updateComment(commentId, savedComment)
       commentDisplayContent.innerHTML = markdownInitializer.render(savedComment)
+      commentRaw.textContent = editorTextarea.value
     })
   }
 
