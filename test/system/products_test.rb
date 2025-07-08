@@ -53,7 +53,6 @@ class ProductsTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{products(:product65).id}", 'komagata'
     click_button '提出物を合格にする'
     assert_button '提出物の合格を取り消す'
-
     visit_with_auth "/products/#{products(:product65).id}", 'kimura'
     first('label.card-main-actions__muted-action.is-closer').click
     assert_no_text '喜びをXにポストする！'
