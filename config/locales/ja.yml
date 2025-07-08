@@ -353,12 +353,6 @@ ja:
         output: 出力
       doorkeeper/application:
         redirect_uri: Redirect URL
-    enums:
-      report:
-        emotion:
-          negative: Negative
-          neutral: Neutral
-          positive: Positive
       user:
         job:
           student: 学生
@@ -486,6 +480,11 @@ ja:
       create: 登録する
       update: 更新する
   enums:
+    report:
+      emotion:
+        negative: Negative
+        neutral: Neutral
+        positive: Positive
     subscription_status:
       active: 有効
       canceled: キャンセル
