@@ -29,6 +29,22 @@ function initializeComment(comment) {
     commentEditorPreview.innerHTML = rendered
   }
 
+  const rawTextarea = commentDisplay.querySelector(
+    '.a-markdown-input__textarea'
+  )
+  const longText = commentDisplay.querySelector('.a-long-text')
+  const rawButton = commentDisplay.querySelector('.is-secondary')
+  const textareaElements = [longText, rawTextarea]
+  if (rawButton) {
+    rawButton.addEventListener('click', () => {
+      if (rawTextarea) {
+        rawTextarea.textContent = editorTextarea.value
+      }
+      toggleVisibility(textareaElements, 'is-hidden')
+      toggleVisibility([rawButton], 'is-active')
+    })
+  }
+
   const editButton = commentDisplay.querySelector('.card-main-actions__action')
   const modalElements = [commentDisplay, commentEditor]
   if (editButton) {
@@ -60,6 +76,7 @@ function initializeComment(comment) {
       savedComment = editorTextarea.value
       updateComment(commentId, savedComment)
       commentDisplayContent.innerHTML = markdownInitializer.render(savedComment)
+      rawTextarea.textContent = editorTextarea.value
     })
   }
 

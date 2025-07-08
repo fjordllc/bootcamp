@@ -17,12 +17,17 @@
             = comment.user.login_name
         time.thread-comment__created-at
           = l(comment.created_at)
+        .raw-button
+          button.a-button.is-sm.is-secondary.is-block
+            | Raw
       hr.a-border-tint
       .thread-comment__description
         - if comment.user.company && comment.user.adviser
           a.thread-comment__company-link.is-hidden-md-up href="#{company_path(comment.user.company)}"
             img.thread-comment__company-logo src="#{comment.user.company.logo_url}"
         .a-long-text.is-md
+          = comment.description
+        pre.a-text-input.a-markdown-input__textarea.is-hidden
           = comment.description
       hr.a-border-tint
       .thread-comment__reactions
