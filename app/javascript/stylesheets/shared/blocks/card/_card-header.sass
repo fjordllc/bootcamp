@@ -15,8 +15,15 @@
   & + .a-form-tabs
     margin-top: -1px
 
+.card-header__inner
+  display: flex
+  align-items: center
+  width: 100%
+  gap: 1rem
+
 .card-header__title
   +text-block(1em 1.4, 600)
+  flex: 1
   +media-breakpoint-up(md)
     font-size: 1rem
   +media-breakpoint-down(sm)
