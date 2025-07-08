@@ -45,7 +45,7 @@
                   = l(@product.created_at)
 
             .card-list-item-meta__item
-              - if @product.updated_at.present?
+              - if @product.updated_at
                 time.a-meta
                   span.a-meta__label
                     | 更新
