@@ -6,7 +6,7 @@ function initializeComment(comment) {
   const commentId = comment.dataset.comment_id
   const commentDescription = comment.dataset.comment_description
 
-  const commentEditor = comment.querySelector('.comment-editor')
+  const commentEditor = comment.querySelector('.js-comment-editor')
   if (!commentEditor) return
 
   const commentEditorPreview = commentEditor.querySelector(
@@ -21,24 +21,24 @@ function initializeComment(comment) {
   TextareaInitializer.initialize(`#js-comment-${commentId}`)
   const markdownInitializer = new MarkdownInitializer()
 
-  const commentDisplay = comment.querySelector('.comment-display')
-  const commentDisplayContent = commentDisplay?.querySelector('.a-long-text')
+  const commentDisplay = comment.querySelector('.js-comment-display')
+  const commentDisplayContent = commentDisplay?.querySelector('.js-comment-html')
   if (commentDescription && commentDisplayContent) {
     const rendered = markdownInitializer.render(commentDescription)
     commentDisplayContent.innerHTML = rendered
     commentEditorPreview.innerHTML = rendered
   }
 
-  const rawTextarea = commentDisplay.querySelector(
-    '.a-markdown-input__textarea'
+  const commentRaw = commentDisplay.querySelector(
+    '.js-comment-raw'
   )
-  const longText = commentDisplay.querySelector('.a-long-text')
-  const rawButton = commentDisplay.querySelector('.is-secondary')
-  const textareaElements = [longText, rawTextarea]
+  const commentHtml = commentDisplay.querySelector('.js-comment-html')
+  const rawButton = commentDisplay.querySelector('.js-raw-button')
+  const textareaElements = [commentHtml, commentRaw]
   if (rawButton) {
     rawButton.addEventListener('click', () => {
-      if (rawTextarea) {
-        rawTextarea.textContent = editorTextarea.value
+      if (commentRaw) {
+        commentRaw.textContent = editorTextarea.value
       }
       toggleVisibility(textareaElements, 'is-hidden')
       toggleVisibility([rawButton], 'is-active')
@@ -68,7 +68,7 @@ function initializeComment(comment) {
     toggleVisibility(tabElements, 'is-active')
   )
 
-  const saveButton = commentEditor.querySelector('.is-primary')
+  const saveButton = commentEditor.querySelector('.js-comment-save-button')
   if (saveButton) {
     saveButton.addEventListener('click', () => {
       TextareaInitializer.initialize(`#js-comment-${commentId}`)
@@ -76,7 +76,7 @@ function initializeComment(comment) {
       savedComment = editorTextarea.value
       updateComment(commentId, savedComment)
       commentDisplayContent.innerHTML = markdownInitializer.render(savedComment)
-      rawTextarea.textContent = editorTextarea.value
+      commentRaw.textContent = editorTextarea.value
     })
   }
 
