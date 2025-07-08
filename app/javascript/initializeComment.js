@@ -22,16 +22,15 @@ function initializeComment(comment) {
   const markdownInitializer = new MarkdownInitializer()
 
   const commentDisplay = comment.querySelector('.js-comment-display')
-  const commentDisplayContent = commentDisplay?.querySelector('.js-comment-html')
+  const commentDisplayContent =
+    commentDisplay?.querySelector('.js-comment-html')
   if (commentDescription && commentDisplayContent) {
     const rendered = markdownInitializer.render(commentDescription)
     commentDisplayContent.innerHTML = rendered
     commentEditorPreview.innerHTML = rendered
   }
 
-  const commentRaw = commentDisplay.querySelector(
-    '.js-comment-raw'
-  )
+  const commentRaw = commentDisplay.querySelector('.js-comment-raw')
   const commentHtml = commentDisplay.querySelector('.js-comment-html')
   const rawButton = commentDisplay.querySelector('.js-raw-button')
   const textareaElements = [commentHtml, commentRaw]
