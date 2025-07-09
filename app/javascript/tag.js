@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const url = `/api/tags.json?taggable_type=${tagsType}`
       const data = await fetcher(url)
-      tagify.settings.whitelist = data.map((tag) => tag.value)
+      tagify.whitelist = data.map((tag) => tag.value)
     } catch (error) {
       console.warn('使われているタグリストの読み込みに失敗しました', error)
     }
