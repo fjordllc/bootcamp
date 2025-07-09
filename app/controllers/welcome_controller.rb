@@ -6,7 +6,7 @@ class WelcomeController < ApplicationController
   layout 'lp'
   DEFAULT_COURSE = 'Railsエンジニア'
   FAQ_CATEGORY_NAME_FOR_CORPORATE = '法人利用について'
-  FAQ_CATEGORY_NAME_FOR_GRANT_COURSE = '給付制度対象講座について'
+  FAQ_CATEGORY_NAME_FOR_CERTIFIED_RESKILL_COURSES = '給付制度対象講座について'
 
   def index
     @mentors = current_user ? User.mentors_sorted_by_created_at : User.visible_sorted_mentors
