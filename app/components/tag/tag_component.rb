@@ -9,19 +9,19 @@ class Tag::TagComponent < ViewComponent::Base
   end
 
   def initial_tags
-    @taggable.tag_list.join(',')
+    taggable.tag_list.join(',')
   end
 
   def taggable_type
-    @taggable.class.to_s
+    taggable.class.to_s
   end
 
   def taggable_id
-    @taggable.id.to_s
+    taggable.id.to_s
   end
 
   def editable?
-    @editable
+    editable
   end
 
   private
