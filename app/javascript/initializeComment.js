@@ -75,7 +75,9 @@ function initializeComment(comment) {
       savedComment = editorTextarea.value
       updateComment(commentId, savedComment)
       commentDisplayContent.innerHTML = markdownInitializer.render(savedComment)
-      commentRaw.textContent = editorTextarea.value
+      if (commentRaw) {
+        commentRaw.textContent = editorTextarea.value
+      }
     })
   }
 
