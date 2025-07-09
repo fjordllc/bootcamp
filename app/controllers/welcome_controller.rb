@@ -55,7 +55,8 @@ class WelcomeController < ApplicationController
   def logo; end
 
   def rails_developer_course
-    @faqs = FAQCategory.find_by(name: FAQ_CATEGORY_NAME_FOR_GRANT_COURSE).faqs
+    category = FAQCategory.find_by(name: FAQ_CATEGORY_NAME_FOR_CERTIFIED_RESKILL_COURSES)
+    @faqs = category&.faqs || FAQ.none
     render template: 'welcome/certified_reskill_courses/rails_developer_course/index'
   end
 
