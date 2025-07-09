@@ -6,6 +6,7 @@ module TagHelper
     sleep 1
     tag_input.set name
     tag_input.native.send_keys :return
+    assert_selector('.tagify__tag', text: name, wait: 2)
   end
 
   def fill_in_tag_with_alert(name, selector = '.tagify__input')
