@@ -20,7 +20,7 @@ class Notification::RetirementTest < ApplicationSystemTestCase
     end
 
     visit_with_auth new_retirement_path, 'kimura'
-    find('label', text: 'とても良い').click
+    find('label', text: 'Excellent').click
     click_on '退会する'
     page.driver.browser.switch_to.alert.accept
     assert_text '退会処理が完了しました'
