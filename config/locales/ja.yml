@@ -360,6 +360,7 @@ ja:
           part_time_worker: フリーター
           vacation: 休職中
           unemployed: 働いていない
+          other: その他
         os:
           windows_wsl2: Windows(WSL2)
           mac: Mac（Intel チップ）
