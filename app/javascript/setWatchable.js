@@ -1,9 +1,9 @@
 import { get } from '@rails/request.js'
-
 export async function setWatchable(watchableId, watchableType) {
   try {
     const response = await get(
-      `/api/watches/toggle?watchable_id=${watchableId}&watchable_type=${watchableType}`
+      `/api/watches/toggle?watchable_id=${watchableId}&watchable_type=${watchableType}`,
+      { responseKind: 'json' }
     )
 
     if (!response.ok) {

@@ -6,7 +6,6 @@ class API::Watches::ToggleController < API::BaseController
       user: current_user,
       watchable:
     )
-    render json: @watches
   end
 
   private
