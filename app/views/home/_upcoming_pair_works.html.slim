@@ -1,0 +1,7 @@
+.a-card
+  header.card-header.is-sm.has-no-border
+    h2.card-header__title
+      | 近日開催のペアワーク
+  .card-list.has-scroll
+    - upcoming_pair_works.each do |pair_work|
+      = render 'upcoming_pair_work', pair_work: pair_work
