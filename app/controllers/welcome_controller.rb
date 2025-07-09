@@ -5,7 +5,7 @@ class WelcomeController < ApplicationController
   skip_before_action :require_active_user_login, raise: false
   layout 'lp'
   DEFAULT_COURSE = 'Railsエンジニア'
-  FAQ_CATEGORY_NAME_FOR_CORPORATE = '法人利用について'
+  FAQ_CATEGORY_NAME_FOR_TRAINING = '法人利用について'
   FAQ_CATEGORY_NAME_FOR_CERTIFIED_RESKILL_COURSES = '給付制度対象講座について'
 
   def index
@@ -34,7 +34,7 @@ class WelcomeController < ApplicationController
   end
 
   def training
-    category = FAQCategory.find_by(name: FAQ_CATEGORY_NAME_FOR_CORPORATE)
+    category = FAQCategory.find_by(name: FAQ_CATEGORY_NAME_FOR_TRAINING)
     @faqs = category&.faqs || FAQ.none
   end
 
