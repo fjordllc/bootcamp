@@ -1,6 +1,5 @@
 import store from 'check-store.js'
 import { get } from '@rails/request.js'
-import 'whatwg-fetch'
 
 document.addEventListener('DOMContentLoaded', () => {
   loadCheckStamp()
