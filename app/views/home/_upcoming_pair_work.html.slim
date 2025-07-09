@@ -1,3 +1,5 @@
+- important = pair_work.reserved_at.beginning_of_day == Time.current.beginning_of_day
+
 .card-list-item
   .card-list-item__inner
     .card-list-item__label
@@ -15,7 +17,7 @@
           .card-list-item-meta__items
             .card-list-item-meta__item
               time.a-meta
-                span.a-meta__label
+                span(class="#{important ? 'a-meta__label is-important' : 'a-meta__label'}")
                   | 開催日時
-                span.a-meta__value
+                span(class="#{important ? 'a-meta__label is-important' : 'a-meta__value'}")
                   = I18n.localize(pair_work.reserved_at)
