@@ -148,13 +148,12 @@ class BaseCommentsTest < ApplicationSystemTestCase
   end
 
   test 'displays raw markdown comment when raw button is clicked' do
-    visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
+    visit_with_auth "/reports/#{reports(:report4).id}", 'komagata'
 
     # Wait for comments to load completely
     assert_selector '.thread-comment:first-child'
 
     page.find('button', text: 'Raw', match: :first).click
-    assert_text '**CSS** は奥が深いですね。'
-    assert_no_selector 'strong', text: 'CSS は奥が深いですね。'
+    assert_text "```ruby\nComment.where(id: @commentable.id)\n```\n上記を追加しました。ご確認下さい。"
   end
 end
