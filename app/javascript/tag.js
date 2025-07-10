@@ -102,6 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   tagsForm.addEventListener('submit', async (e) => {
     e.preventDefault()
+    tags = tagify.value.filter((tag) => tag.__isValid).map((tag) => tag.value)
     const params = {
       [tagsType.toLowerCase()]: {
         tag_list: tags.join(',')
