@@ -29,7 +29,7 @@ export default function initializeAnswer(answer) {
       markdownInitializer.render(answerDescription)
   }
 
-  const editButton = answerDisplay.querySelector('.card-main-actions__action')
+  const editButton = answerDisplay.querySelector('.is-secondary')
   const modalElements = [answerDisplay, answerEditor]
   if (editButton) {
     editButton.addEventListener('click', () => {
