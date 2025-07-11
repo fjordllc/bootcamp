@@ -7,10 +7,6 @@ inherit_gem:
     - config/rubocop.yml
     - config/rails.yml
 
-Metrics/ModuleLength:
-  Exclude:
-    - app/decorators/user_decorator.rb
-
 Lint/MissingSuper:
   Exclude:
     - 'app/components/**/*'
