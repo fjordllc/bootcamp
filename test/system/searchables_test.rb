@@ -158,7 +158,7 @@ class SearchablesTest < ApplicationSystemTestCase
       fill_in 'word', with: '提出物のコメントです。'
     end
     find('#test-search-modal').click
-    assert_text 'mentormentaro'
+    assert_text 'komagata'
     assert_text 'kimura'
     assert_no_text 'machida'
   end
@@ -194,10 +194,10 @@ class SearchablesTest < ApplicationSystemTestCase
       fill_in 'word', with: '提出物のコメントです。'
     end
     find('#test-search-modal').click
-    assert_includes find('img.card-list-item-meta__icon.a-user-icon')['src'], 'mentormentaro.webp'
+    assert_includes find('img.card-list-item-meta__icon.a-user-icon')['src'], 'komagata.webp'
 
     find('img.card-list-item-meta__icon.a-user-icon').click
-    assert_selector 'h1.page-content-header__title', text: 'mentormentaro'
+    assert_selector 'h1.page-content-header__title', text: 'komagata'
   end
 
   test 'disappear icon when search user' do

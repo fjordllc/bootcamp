@@ -28,11 +28,6 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     @random_tags = User.tags.sample(20)
     @top3_tags_counts = User.tags.limit(3).map(&:count).uniq
     @tag = ActsAsTaggableOn::Tag.find_by(name: params[:tag])
-
-    # 画像登録済みの全ユーザーがattach_custom_avatarの処理を完了後、32〜35行は削除します。
-    @users.each do |user|
-      user.attach_custom_avatar if user.avatar.attached? && !ActiveStorage::Blob.find_by(key: "avatars/#{user.login_name}.webp")
-    end
   end
 
   def show
@@ -70,7 +65,6 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     @user.build_discord_profile
     @user.credit_card_payment = params[:credit_card_payment]
     @user.uploaded_avatar = user_params[:avatar]
-    attach_and_upload_custom_avatar if user_params[:avatar]
 
     ActiveSupport::Notifications.instrument('user.create', user: @user)
 
@@ -215,17 +209,5 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     when 'mentor'
       user.mentor = true
     end
-  end
-
-  def attach_and_upload_custom_avatar
-    attach_and_upload_avatar
-    @user.attach_custom_avatar
-  end
-
-  def attach_and_upload_avatar
-    io = StringIO.new(user_params[:avatar].read)
-    filename = user_params[:avatar].original_filename
-    blob = ActiveStorage::Blob.create_and_upload!(io:, filename:)
-    @user.avatar.attach(blob)
   end
 end
