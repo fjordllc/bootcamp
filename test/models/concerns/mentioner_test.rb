@@ -28,6 +28,6 @@ class MentionerTest < ActiveSupport::TestCase
       description: markdown
     )
 
-    assert %w[komagata machida], report.notify_all_mention_user
+    assert_equal %w[komagata machida], report.notify_all_mention_user.map(&:login_name).sort
   end
 end
