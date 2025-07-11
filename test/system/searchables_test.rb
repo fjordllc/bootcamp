@@ -197,7 +197,7 @@ class SearchablesTest < ApplicationSystemTestCase
     assert_includes find('img.card-list-item-meta__icon.a-user-icon')['src'], 'komagata.webp'
 
     find('img.card-list-item-meta__icon.a-user-icon').click
-    assert_selector 'h1.page-content-header__title', text: 'mentormentaro'
+    assert_selector 'h1.page-content-header__title', text: 'komagata'
   end
 
   test 'disappear icon when search user' do
