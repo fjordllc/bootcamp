@@ -10,6 +10,7 @@ class WelcomeController < ApplicationController
 
   def index
     @mentors = current_user ? User.mentors_sorted_by_created_at : User.visible_sorted_mentors
+    @featured_articles = Article.featured
   end
 
   def alumni_voices
