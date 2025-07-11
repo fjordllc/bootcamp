@@ -135,12 +135,12 @@ class ActivityMailerPreview < ActionMailer::Preview
     ActivityMailer.with(report:, receiver:).first_report
   end
 
-  def consecutive_sad_report
+  def consecutive_negative_report
     report = Report.find(ActiveRecord::FixtureSet.identify(:report16))
-    notification = Notification.find(ActiveRecord::FixtureSet.identify(:notification_consecutive_sad_report))
+    notification = Notification.find(ActiveRecord::FixtureSet.identify(:notification_consecutive_negative_report))
     receiver = notification.user
 
-    ActivityMailer.with(report:, receiver:).consecutive_sad_report
+    ActivityMailer.with(report:, receiver:).consecutive_negative_report
   end
 
   def update_regular_event

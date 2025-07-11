@@ -485,7 +485,7 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'display recently reports' do
     visit_with_auth report_path(reports(:report10)), 'mentormentaro'
-    assert_selector 'img[alt="happy"]'
+    assert_selector 'img[alt="positive"]'
     assert_text '今日は頑張りました'
   end
 
@@ -602,7 +602,7 @@ class ReportsTest < ApplicationSystemTestCase
         user_id: user.id,
         title: "日報タイトル #{i + 1}",
         reported_on: (99 - i).days.ago,
-        emotion: 'happy',
+        emotion: 'positive',
         no_learn: true,
         wip: false,
         description: "日報の内容 #{i + 1}"
@@ -773,7 +773,7 @@ class ReportsTest < ApplicationSystemTestCase
       user: users(:yameo),
       title: '退会済みユーザーの日報',
       reported_on: '2022-01-03',
-      emotion: 'happy',
+      emotion: 'positive',
       no_learn: true,
       wip: false,
       description: 'お世話になりました'

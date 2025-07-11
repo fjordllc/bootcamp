@@ -28,7 +28,7 @@ div
         li.card-main-actions__item(:class='checkId ? "is-sub" : ""')
           button#js-shortcut-check.is-block(
             :class='checkId ? "card-main-actions__muted-action" : "a-button is-sm is-danger"',
-            @click='checkSad')
+            @click='checkNegative')
             | {{ buttonLabel }}
 </template>
 <script>
@@ -75,9 +75,9 @@ export default {
     method() {
       return this.checkId ? 'DELETE' : 'POST'
     },
-    checkHasSadEmotion() {
-      const sadEmotion = document.querySelector('#sad')
-      return sadEmotion !== null
+    checkHasNegativeEmotion() {
+      const negativeEmotion = document.querySelector('#negative')
+      return negativeEmotion !== null
     },
     checkHasComment() {
       const numberOfComments = parseInt(
@@ -87,11 +87,15 @@ export default {
     }
   },
   methods: {
-    checkSad() {
-      if (this.checkHasSadEmotion && !this.checkHasComment && !this.checkId) {
+    checkNegative() {
+      if (
+        this.checkHasNegativeEmotion &&
+        !this.checkHasComment &&
+        !this.checkId
+      ) {
         if (
           window.confirm(
-            '今日の気分は「sad」ですが、コメント無しで確認しますか？'
+            '今日の気分は「negative」ですが、コメント無しで確認しますか？'
           )
         ) {
           this.check(

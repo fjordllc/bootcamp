@@ -14,9 +14,9 @@ class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include SearchHelper
 
   enum emotion: {
-    sad: 1,
-    soso: 0,
-    happy: 2
+    negative: 1,
+    neutral: 0,
+    positive: 2
   }
 
   attribute :no_learn, :boolean
@@ -63,7 +63,7 @@ class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
   class << self
     def faces
       @faces ||= emotions.keys
-                         .zip(%w[emotion/sad.svg emotion/soso.svg emotion/happy.svg])
+                         .zip(%w[emotion/negative.svg emotion/neutral.svg emotion/positive.svg])
                          .to_h
                          .with_indifferent_access
     end
