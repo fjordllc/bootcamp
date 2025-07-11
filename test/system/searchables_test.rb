@@ -162,8 +162,12 @@ class SearchablesTest < ApplicationSystemTestCase
     assert_text 'komagata'
 =======
     find('#test-search').click
+<<<<<<< HEAD
     assert_text 'mentormentaro'
 >>>>>>> 8bdf34510 (テストの修正)
+=======
+    assert_text 'komagata'
+>>>>>>> 2c69a6dde (avatar_urlメソッド内で画像変換処理を行うようにした)
     assert_text 'kimura'
     assert_no_text 'machida'
   end
@@ -203,14 +207,18 @@ class SearchablesTest < ApplicationSystemTestCase
 =======
     find('#test-search').click
 <<<<<<< HEAD
+<<<<<<< HEAD
     assert_includes find('img.card-list-item-meta__icon.a-user-icon')['src'], 'komagata.jpg'
 >>>>>>> b817631f0 (testの追加・修正、フォーマットを調整)
 =======
     assert_includes find('img.card-list-item-meta__icon.a-user-icon')['src'], 'mentormentaro.webp'
 >>>>>>> 8bdf34510 (テストの修正)
+=======
+    assert_includes find('img.card-list-item-meta__icon.a-user-icon')['src'], 'komagata.webp'
+>>>>>>> 2c69a6dde (avatar_urlメソッド内で画像変換処理を行うようにした)
 
     find('img.card-list-item-meta__icon.a-user-icon').click
-    assert_selector 'h1.page-content-header__title', text: 'mentormentaro'
+    assert_selector 'h1.page-content-header__title', text: 'komagata'
   end
 
   test 'disappear icon when search user' do
