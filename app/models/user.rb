@@ -953,6 +953,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   end
 
   def attach_custom_avatar
+<<<<<<< HEAD
     variant_avatar = avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }, format: AVATAR_FORMAT).processed
     io = StringIO.new(variant_avatar.download)
     custom_blob = ActiveStorage::Blob.create_and_upload!(
@@ -960,6 +961,16 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
       key: "avatars/#{login_name}.#{AVATAR_FORMAT}",
       filename: "#{login_name}.#{AVATAR_FORMAT}",
       content_type: "image/#{AVATAR_FORMAT}",
+=======
+    format = 'webp'
+    variant_avatar = avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }, format:).processed
+    io = StringIO.new(variant_avatar.download)
+    custom_blob = ActiveStorage::Blob.create_and_upload!(
+      io:,
+      key: "avatars/#{login_name}.#{format}",
+      filename: "#{login_name}.#{format}",
+      content_type: "image/#{format}",
+>>>>>>> 2c69a6dde (avatar_urlメソッド内で画像変換処理を行うようにした)
       identify: false
     )
     avatar.attach(custom_blob)
