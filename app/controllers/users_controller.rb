@@ -7,7 +7,6 @@ class UsersController < ApplicationController
 
   PAGER_NUMBER = 24
 
-  # rubocop:disable Metrics/MethodLength
   def index
     @target = params[:target]
     @target = 'student_and_trainee' unless target_allowlist.include?(@target)
@@ -29,21 +28,7 @@ class UsersController < ApplicationController
     @random_tags = User.tags.sample(20)
     @top3_tags_counts = User.tags.limit(3).map(&:count).uniq
     @tag = ActsAsTaggableOn::Tag.find_by(name: params[:tag])
-
-    # TODO: 2025年7月末までに、全てのユーザーの avatar に対して WebP・URL 変換、が完了したら
-    #       このループと rubocop:(disable and enable) Metrics/MethodLength を削除予定。
-    # 削除条件1：ブラウザ上でimageタグのsrc属性が https://storage.googleapis.com/bootcamp-fjord-jp/login_name.webp に変換されていることを確認。
-    # 削除条件2：ユーザーアイコンの画像形式が webp に変換されていることを確認。
-    processed_count = 0
-    @users.each do |user|
-      if user.avatar.attached? && !ActiveStorage::Blob.find_by(key: "avatars/#{user.login_name}.webp")
-        user.attach_custom_avatar
-        processed_count += 1
-      end
-    end
-    Rails.logger.info "Processed #{processed_count} users for custom avatar attachment" if processed_count.positive?
   end
-  # rubocop:enable Metrics/MethodLength
 
   def show
     @completed_learnings = @user
@@ -77,7 +62,6 @@ class UsersController < ApplicationController
     @user.build_discord_profile
     @user.credit_card_payment = params[:credit_card_payment]
     @user.uploaded_avatar = user_params[:avatar]
-    attach_and_upload_custom_avatar if user_params[:avatar]
 
     Newspaper.publish(:user_create, { user: @user })
 
@@ -221,17 +205,5 @@ class UsersController < ApplicationController
     when 'mentor'
       user.mentor = true
     end
-  end
-
-  def attach_and_upload_custom_avatar
-    attach_and_upload_avatar
-    @user.attach_custom_avatar
-  end
-
-  def attach_and_upload_avatar
-    io = StringIO.new(user_params[:avatar].read)
-    filename = user_params[:avatar].original_filename
-    blob = ActiveStorage::Blob.create_and_upload!(io:, filename:)
-    @user.avatar.attach(blob)
   end
 end
