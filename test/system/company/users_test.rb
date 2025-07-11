@@ -34,7 +34,7 @@ class Company::UsersTest < ApplicationSystemTestCase
         job: 'student',
         os: 'mac',
         company: companies(:company1),
-        experience: 'ruby'
+        experiences: 2
       )
 
       DiscordProfile.create!(

@@ -330,8 +330,9 @@ class UserTest < ActiveSupport::TestCase
 
   test 'return not retired user data' do
     hajime = users(:hajime)
-    result = Searcher.search(hajime.name)
-    assert_includes(result, hajime)
+    result = Searcher.search(hajime.name, current_user: hajime)
+    users = result.map { |search_result| User.find(search_result.user_id) }
+    assert_includes(users, hajime)
   end
 
   test 'columns_for_keyword_searchの設定がsearch_by_keywordsに反映されていることを確認' do
@@ -524,7 +525,7 @@ class UserTest < ActiveSupport::TestCase
       course: courses(:course1),
       job: 'student',
       os: 'mac',
-      experience: 'ruby',
+      experiences: 2,
       created_at: Time.current - 30.days,
       sent_student_followup_message: false
     )
@@ -538,7 +539,7 @@ class UserTest < ActiveSupport::TestCase
       course: courses(:course1),
       job: 'student',
       os: 'mac',
-      experience: 'ruby',
+      experiences: 2,
       created_at: Time.current,
       sent_student_followup_message: false
     )
@@ -558,7 +559,7 @@ class UserTest < ActiveSupport::TestCase
       course: courses(:course1),
       job: 'student',
       os: 'mac',
-      experience: 'ruby',
+      experiences: 2,
       hibernated_at: nil,
       created_at: Time.current - 30.days,
       sent_student_followup_message: false
@@ -590,7 +591,7 @@ class UserTest < ActiveSupport::TestCase
       course: courses(:course1),
       job: 'student',
       os: 'mac',
-      experience: 'ruby',
+      experiences: 2,
       hibernated_at: nil,
       created_at: Time.current - 30.days,
       sent_student_followup_message: false
