@@ -25,15 +25,14 @@ function setupCheckConfirmation() {
 
     const isNewCheck = newCheckButton.dataset.hasCheck !== 'true'
 
-    if (hasSadEmotion && !hasComment && isNewCheck) {
-      if (
-        !window.confirm(
-          '今日の気分は「sad」ですが、コメント無しで確認しますか？'
-        )
-      ) {
-        event.preventDefault()
-        return false
-      }
+    if (
+      hasSadEmotion &&
+      !hasComment &&
+      isNewCheck &&
+      !window.confirm('今日の気分は「sad」ですが、コメント無しで確認しますか？')
+    ) {
+      event.preventDefault()
+      return false
     }
   })
 }
