@@ -7,6 +7,7 @@ class ReportCallbacks
 
   def after_destroy(report)
     Cache.delete_unchecked_report_count
+    Cache.delete_user_unchecked_report_count(report.user_id)
     delete_notification(report)
   end
 
