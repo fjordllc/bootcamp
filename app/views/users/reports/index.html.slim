@@ -11,6 +11,6 @@
         - targets = %w[all_reports unchecked_reports]
         - targets.each do |target|
           li.tab-nav__item
-            = link_to t("target.#{target}"), user_reports_path(@user, target: target), class: (@target == target ? ['is-active'] : []) << 'tab-nav__item-link'
+            = link_to t("target.#{target}"), user_reports_path(@user, target:), class: (@target == target ? ['is-active'] : []) << 'tab-nav__item-link'
 
-= react_component('Reports', userId: @user.id, practices: @current_user_practice.sorted_practices)
+= react_component('Reports', userId: @user.id, practices: @current_user_practice.sorted_practices, unchecked: (@target == 'unchecked_reports'))
