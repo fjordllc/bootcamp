@@ -24,7 +24,9 @@ class CheckCallbacks
   def delete_report_cache(check)
     return unless check.checkable_type == 'Report'
 
+    report = check.checkable
     Cache.delete_unchecked_report_count
+    Cache.delete_user_unchecked_report_count(report.user_id)
   end
 
   def delete_product_cache(check)
