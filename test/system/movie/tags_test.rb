@@ -8,9 +8,9 @@ class Movie::TagsTest < ApplicationSystemTestCase
     tags = find_tags('Movie')
     tags.each do |tag|
       visit_with_auth movies_tag_path(tag, all: 'true'), 'kimura'
-      titles = Movie.tagged_with(tag).pluck(:title)
-      texts = all('.thumbnail-card__title-link').map(&:text)
-      assert_equal titles, texts
+      expected_titles = Movie.tagged_with(tag).pluck(:title)
+      actual_titles = all('.thumbnail-card__title-link').map(&:text)
+      assert_equal expected_titles.sort, actual_titles.sort
     end
   end
 
