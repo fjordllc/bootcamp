@@ -11,7 +11,7 @@ module SearchHelper
 
     return process_special_case(comment, word) if comment.is_a?(String) && comment.include?('|') && !comment.include?('```')
 
-    summary = markdown_to_plain_text(comment)
+    summary = md2plain_text(comment)
     find_match_in_text(summary, word)
   end
 
@@ -42,11 +42,11 @@ module SearchHelper
       commentable = searchable.commentable
       return '該当プラクティスを修了するまで他の人の提出物へのコメントは見れません。' unless policy(commentable).show? || commentable.practice.open_product?
 
-      return markdown_to_plain_text(searchable.body)
+      return md2plain_text(searchable.body)
     end
 
     description_or_body = searchable.try(:description) || searchable.try(:body) || ''
-    markdown_to_plain_text(description_or_body)
+    md2plain_text(description_or_body)
   end
 
   def created_user(searchable)
