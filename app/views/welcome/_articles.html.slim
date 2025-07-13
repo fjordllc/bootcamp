@@ -39,7 +39,7 @@ section.lp-content.is-lp-bg-1.is-top-title.is-articles#articles
                                 - if article.summary.present?
                                   = simple_format(article.summary)
                                 - else
-                                  = simple_format(markdown_to_plain_text(article.body).truncate(100))
+                                  = simple_format(md2plain_text(article.body).truncate(100))
                             .articles-item__row
                               .articles-item__metas
                                 .articles-item__meta
