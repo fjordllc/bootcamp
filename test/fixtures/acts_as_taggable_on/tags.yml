@@ -34,3 +34,6 @@ Ruby:
   name: Ruby
 FJORD:
   name: FJORD
+
+feature:
+  name: 注目の記事
