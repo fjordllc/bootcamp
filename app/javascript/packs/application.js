@@ -97,4 +97,6 @@ const componentRequireContext = require.context('components', true)
 const ReactRailsUJS = require('react_ujs')
 ReactRailsUJS.useContext(componentRequireContext)
 
-Cocooned.start()
+document.addEventListener('DOMContentLoaded', () => {
+  Cocooned.start()
+})
