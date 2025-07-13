@@ -38,6 +38,12 @@ module Commentable
       Rails.application.routes.url_helpers.event_path(self)
     when Report
       Rails.application.routes.url_helpers.report_path(self)
+    when Talk
+      Rails.application.routes.url_helpers.talk_path(self)
+    when RegularEvent
+      Rails.application.routes.url_helpers.regular_event_path(self)
+    when Movie
+      Rails.application.routes.url_helpers.movie_path(self)
     else
       raise NotImplementedError, "#{self.class} does not have a defined URL path"
     end

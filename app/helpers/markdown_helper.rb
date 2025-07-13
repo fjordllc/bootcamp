@@ -58,7 +58,7 @@ module MarkdownHelper
     text[begin_offset...].strip
   end
 
-  def markdown_to_plain_text(markdown_content)
+  def md2plain_text(markdown_content)
     return '' if markdown_content.blank?
 
     html_content = md2html(markdown_content)
