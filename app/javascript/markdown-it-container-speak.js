@@ -14,7 +14,7 @@ export default (md) => {
 
       if (parenMatch) {
         const speakerName = escapeHTML(parenMatch[1].trim())
-        const avatarUrl = parenMatch[2].trim()
+        const avatarUrl = escapeHTML(parenMatch[2].trim())
 
         if (tokens[idx].nesting === 1) {
           return `<div class="speak">
