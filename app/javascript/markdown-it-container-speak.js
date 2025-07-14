@@ -27,14 +27,13 @@ export default (md) => {
                     <div class="speak__body">`
         }
       } else {
-        const speakerName = escapeHTML(info)
-          .replace('speak @', '')
-          .replace('speak', '')
-          .trim()
-          .replace(/^\*\*@?/, '')
-          .replace(/\*\*$/, '')
-          .trim()
-
+        const speakerName = escapeHTML(
+          info
+            .replace(/^speak\s*@?/, '')
+            .replace(/^\*\*/, '')
+            .replace(/\*\*$/, '')
+            .trim()
+        )
         if (tokens[idx].nesting === 1) {
           if (info.includes('@')) {
             return `<div class="speak">
