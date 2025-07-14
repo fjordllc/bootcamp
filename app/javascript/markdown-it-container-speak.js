@@ -19,8 +19,10 @@ export default (md) => {
         if (tokens[idx].nesting === 1) {
           return `<div class="speak">
                     <div class="speak__speaker">
-                      <img src="${avatarUrl}" alt="${speakerName}" title="@${speakerName}" class="a-user-emoji speak__speaker-avatar">
-                      <span class="speak__speaker-name">${speakerName}</span>
+                      <a class="a-user-emoji-link">
+                        <img src="${avatarUrl}" alt="${speakerName}" title="@${speakerName}" class="a-user-emoji speak__speaker-avatar">
+                        <span class="speak__speaker-name">${speakerName}</span>
+                      </a>
                     </div>
                     <div class="speak__body">`
         }
@@ -46,8 +48,10 @@ export default (md) => {
           } else {
             return `<div class="speak">
                       <div class="speak__speaker">
-                        <img src="/images/users/avatars/default.png" alt="${speakerName}" title="${speakerName}" class="a-user-emoji speak__speaker-avatar">
-                        <span class="speak__speaker-name">${speakerName}</span>
+                        <a class="a-user-emoji-link">
+                          <img src="/images/users/avatars/default.png" alt="${speakerName}" title="${speakerName}" class="a-user-emoji speak__speaker-avatar">
+                          <span class="speak__speaker-name">${speakerName}</span>
+                        </a>
                       </div>
                       <div class="speak__body">`
           }
