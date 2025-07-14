@@ -228,6 +228,25 @@ ja:
         body: 本文
         user: ユーザー
         summary: サマリー
+        thumbnail_type:
+          prepared_thumbnail: prepared_thumbnail
+          ruby: Ruby
+          ruby_on_rails: Ruby on Rails
+          javascript: JavaScript
+          wsl2: WSL2
+          linux: Linux
+          pc: PC
+          sponsorship: Sponsorship
+          green: Green
+          purple: Purple
+          orange: Orange
+          brown: Brown
+          blue: Blue
+        target:
+          all: 全員（退会者を除く）
+          students: 現役生のみ
+          job_seekers: 就職希望者のみ
+          none: 通知しない
       work:
         title: タイトル
         description: 説明
@@ -404,26 +423,6 @@ ja:
           started: 着手
           submitted: 提出
           complete: 修了
-      article:
-        thumbnail_type:
-          prepared_thumbnail: prepared_thumbnail
-          ruby: Ruby
-          ruby_on_rails: Ruby on Rails
-          javascript: JavaScript
-          wsl2: WSL2
-          linux: Linux
-          pc: PC
-          sponsorship: Sponsorship
-          green: Green
-          purple: Purple
-          orange: Orange
-          brown: Brown
-          blue: Blue
-        target:
-          all: 全員（退会者を除く）
-          students: 現役生のみ
-          job_seekers: 就職希望者のみ
-          none: 通知しない
     enums:
       regular_event:
         category:

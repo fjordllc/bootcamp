@@ -15,8 +15,8 @@ class Article::TagsTest < ApplicationSystemTestCase
 
   test 'can add tag to article' do
     visit_with_auth new_article_url, 'komagata'
-    fill_in 'Title', with: 'タグ追加のテスト記事'
-    fill_in 'Body', with: '2つタグが付与された記事です'
+    fill_in 'タイトル', with: 'タグ追加のテスト記事'
+    fill_in '本文', with: '2つタグが付与された記事です'
     tags = %w[FirstTag SecondTag]
     tags.each do |tag|
       fill_in_tag tag
