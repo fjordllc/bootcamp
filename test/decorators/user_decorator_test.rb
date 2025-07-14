@@ -85,7 +85,7 @@ class UserDecoratorTest < ActiveDecoratorTestCase
     assert_equal(5, calendar.first.count { |set| set[:date].nil? })
   end
 
-  test '#user_icon_frame_class_for_new_user' do
+  test '#user_icon_frame_class' do
     new_user = decorate(users(:otameshi))
     standard_user = decorate(users(:kimura))
 
