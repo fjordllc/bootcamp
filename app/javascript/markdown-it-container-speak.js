@@ -5,7 +5,9 @@ export default (md) => {
   md.use(MarkdownItContainer, 'speak', {
     marker: ':',
     validate: function (params) {
-      return params.trim().match(/^speak(\s|$|(\s*\([^)]+\)\s*$))/)
+      return params
+        .trim()
+        .match(/^speak(?:\s(?![(])|$|\s*\([^,]+,\s*[^)]+\)\s*$)/)
     },
     render: (tokens, idx) => {
       const info = tokens[idx].info.trim()
