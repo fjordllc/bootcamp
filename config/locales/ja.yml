@@ -403,12 +403,12 @@ ja:
           blog: ブログ記事
           web_ad: Web広告
           other: その他
-        satisfaction:
-          excellent: とても良い
-          good: 良い
-          average: どちらでもない
-          poor: 悪い
-          very_poor: とても悪い
+        # satisfaction:
+        #   excellent: とても良い
+        #   good: 良い
+        #   average: どちらでもない
+        #   poor: 悪い
+        #   very_poor: とても悪い
         career_path:
           unset: 未設定
           job_seeking: 就職活動中
@@ -448,6 +448,12 @@ ja:
           vim: Vim
           emacs: Emacs
           other_editor: その他
+        satisfaction:
+          excellent: とても良い
+          good: 良い
+          average: どちらでもない
+          poor: 悪い
+          very_poor: とても悪い
     errors:
       models:
         campaign:

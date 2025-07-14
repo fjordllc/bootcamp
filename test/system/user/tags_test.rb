@@ -204,7 +204,7 @@ class User::TagsTest < ApplicationSystemTestCase
     assert_selector ".a-user-icons__items img[title='#{user.login_name} (#{user.name})']"
 
     visit_with_auth new_retirement_path, 'kensyu'
-    find('label', text: 'Excellent').click
+    find('label', text: 'とても良い').click
     click_on '退会する'
     page.driver.browser.switch_to.alert.accept
     assert_text '退会処理が完了しました'
