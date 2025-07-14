@@ -74,4 +74,4 @@ header.page-content-header
 
     .page-content-header__row
       .page-content-header__tags
-        = render(Tag::TagComponent.new(taggable: movie, param_name: 'movie[tag_list]', input_id: 'movie_tag_list'))
+        = render(Tag::FormComponent.new(taggable: movie, param_name: 'movie[tag_list]', input_id: 'movie_tag_list'))

@@ -71,4 +71,4 @@ header.page-content-header
 
     .page-content-header__row
       .page-content-header__tags
-        = render(Tag::TagComponent.new(taggable: @question, param_name: 'question[tag_list]', input_id: 'question_tag_list'))
+        = render(Tag::FormComponent.new(taggable: @question, param_name: 'question[tag_list]', input_id: 'question_tag_list'))
