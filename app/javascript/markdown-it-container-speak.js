@@ -19,10 +19,8 @@ export default (md) => {
         if (tokens[idx].nesting === 1) {
           return `<div class="speak">
                     <div class="speak__speaker">
-                      <a href="/users/${speakerName}" class="a-user-emoji-link">
-                        <img src="${avatarUrl}" alt="${speakerName}" title="@${speakerName}" class="a-user-emoji speak__speaker-avatar">
-                        <span class="speak__speaker-name">${speakerName}</span>
-                      </a>
+                      <img src="${avatarUrl}" alt="${speakerName}" title="@${speakerName}" class="a-user-emoji speak__speaker-avatar">
+                      <span class="speak__speaker-name">${speakerName}</span>
                     </div>
                     <div class="speak__body">`
         }
