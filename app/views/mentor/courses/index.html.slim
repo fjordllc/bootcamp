@@ -37,7 +37,7 @@ header.page-header
               td.admin-table__label
                 | 操作
           tbody.admin-table__items
-          - @courses.each do |course|
+            - @courses.each do |course|
             tr.admin-table__item
               td.admin-table__item-value.w-32
                 = link_to course.title, course_practices_path(course.id)
