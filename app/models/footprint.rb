@@ -22,7 +22,9 @@ class Footprint < ApplicationRecord
     return if footprintable.user == user
 
     transaction do
-      create_or_find_by(footprintable:, user:)
+      find_or_create_by(footprintable:, user:)
     end
+  rescue ActiveRecord::RecordNotUnique
+    find_by(footprintable:, user:)
   end
 end
