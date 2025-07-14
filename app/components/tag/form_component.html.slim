@@ -10,8 +10,10 @@
           .tag-links__item-edit
             | タグ編集
   form.tags-form.hidden
+    label.sr-only for=input_id
+      | タグ入力
     input.tags-form__input name=param_name id=input_id value=initial_tags
-    .sharp-warning.hidden
+    .sharp-warning.hidden[aria-live="polite" role="alert"]
       | 先頭の記号は無視されます
     .form-actions
       ul.form-actions__items
