@@ -39,7 +39,9 @@ export default (md) => {
           if (info.includes('@')) {
             return `<div class="speak">
                       <div class="speak__speaker">
-                        <a href="/users/${speakerName}" class="a-user-emoji-link">
+                        <a href="/users/${encodeURIComponent(
+                          speakerName
+                        )}" class="a-user-emoji-link">
                           <img title="@${speakerName}" class="js-user-icon a-user-emoji" data-user="${speakerName}">
                           <span class="speak__speaker-name">${speakerName}</span>
                         </a>
