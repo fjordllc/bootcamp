@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Tag::TagComponent < ViewComponent::Base
+class Tag::FormComponent < ViewComponent::Base
   def initialize(taggable:, param_name:, input_id:, editable: true)
     @taggable = taggable
     @param_name = param_name
