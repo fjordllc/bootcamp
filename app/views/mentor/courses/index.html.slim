@@ -38,15 +38,15 @@ header.page-header
                 | 操作
           tbody.admin-table__items
             - @courses.each do |course|
-            tr.admin-table__item
-              td.admin-table__item-value.w-32
-                = link_to course.title, course_practices_path(course.id)
-              td.admin-table__item-value = course.description
-              td.admin-table__item-value.is-text-align-center
-                ul.is-inline-buttons
-                  li
-                    = link_to edit_mentor_course_path(course.id), class: 'a-button is-sm is-secondary is-icon is-block' do
-                      i.fa.fa-solid.fa-pen
-                  li
-                    = link_to mentor_course_categories_path(course.id), class: 'a-button is-sm is-secondary is-icon is-block' do
-                      i.fa-solid.fa-align-justify
+              tr.admin-table__item
+                td.admin-table__item-value.w-32
+                  = link_to course.title, course_practices_path(course.id)
+                td.admin-table__item-value = course.description
+                td.admin-table__item-value.is-text-align-center
+                  ul.is-inline-buttons
+                    li
+                      = link_to edit_mentor_course_path(course.id), class: 'a-button is-sm is-secondary is-icon is-block' do
+                        i.fa.fa-solid.fa-pen
+                    li
+                      = link_to mentor_course_categories_path(course.id), class: 'a-button is-sm is-secondary is-icon is-block' do
+                        i.fa-solid.fa-align-justify
