@@ -100,7 +100,7 @@ class TrainingCompletionTest < ApplicationSystemTestCase
     assert_text '研修終了情報（非公開）'
   end
 
-  test 'amdins can see training completion info' do
+  test 'admins can see training completion info' do
     visit_with_auth "/users/#{users(:kensyuowata).id}", 'komagata'
     assert_text '研修終了情報（非公開）'
   end
