@@ -58,7 +58,7 @@
                     .user-data__row
                       = render 'users/hibernation_info', user: @user
                   - if admin_or_mentor_login? && @user.training_completed?
-                    .user_data__row
+                    .user-data__row
                       = render 'users/training_completion_info', user: @user
                   - if admin_or_mentor_login? && @user.retired?
                     .user-data__row
