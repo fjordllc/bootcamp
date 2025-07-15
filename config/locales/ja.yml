@@ -373,18 +373,6 @@ ja:
       doorkeeper/application:
         redirect_uri: Redirect URL
       user:
-        job:
-          student: 学生
-          office_worker: 会社員
-          part_time_worker: フリーター
-          vacation: 休職中
-          unemployed: 働いていない
-          other: その他
-        os:
-          windows_wsl2: Windows(WSL2)
-          mac: Mac（Intel チップ）
-          linux: Linux
-          mac_apple: Mac（Apple チップ）
         study_place:
           local: フィヨルドブートキャンプオフィス
           remote: 自宅
@@ -403,12 +391,6 @@ ja:
           blog: ブログ記事
           web_ad: Web広告
           other: その他
-        # satisfaction:
-        #   excellent: とても良い
-        #   good: 良い
-        #   average: どちらでもない
-        #   poor: 悪い
-        #   very_poor: とても悪い
         career_path:
           unset: 未設定
           job_seeking: 就職活動中
@@ -437,6 +419,18 @@ ja:
           neutral: Neutral
           positive: Positive
       user:
+        job:
+          student: 学生
+          office_worker: 会社員
+          part_time_worker: フリーター
+          vacation: 休職中
+          unemployed: 働いていない
+          other: その他
+        os:
+          windows_wsl2: Windows(WSL2)
+          mac: Mac（Intel チップ）
+          linux: Linux
+          mac_apple: Mac（Apple チップ）
         subscription_status:
           active: 有効
           canceled: キャンセル
