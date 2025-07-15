@@ -242,11 +242,6 @@ ja:
           orange: Orange
           brown: Brown
           blue: Blue
-        target:
-          all: 全員（退会者を除く）
-          students: 現役生のみ
-          job_seekers: 就職希望者のみ
-          none: 通知しない
       work:
         title: タイトル
         description: 説明
@@ -406,6 +401,12 @@ ja:
           submitted: 提出
           complete: 修了
     enums:
+      article:
+        target:
+          all: "全員（退会者を除く）"
+          students: "現役生のみ"
+          job_seekers: "就職希望者のみ"
+          none: "通知しない"
       regular_event:
         category:
           reading_circle: 輪読会
