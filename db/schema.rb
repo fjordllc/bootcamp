@@ -627,6 +627,23 @@ ActiveRecord::Schema.define(version: 2025_06_24_141527) do
     t.index ["user_id"], name: "index_pages_on_user_id"
   end
 
+  create_table "pair_works", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description", null: false
+    t.datetime "reserved_at"
+    t.bigint "user_id", null: false
+    t.bigint "practice_id"
+    t.bigint "buddy_id"
+    t.datetime "published_at"
+    t.boolean "wip", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "channel", default: "ペアワーク・モブワーク1", null: false
+    t.index ["buddy_id"], name: "index_pair_works_on_buddy_id"
+    t.index ["practice_id"], name: "index_pair_works_on_practice_id"
+    t.index ["user_id"], name: "index_pair_works_on_user_id"
+  end
+
   create_table "participations", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "event_id", null: false
@@ -813,6 +830,14 @@ ActiveRecord::Schema.define(version: 2025_06_24_141527) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["target_user_id"], name: "index_request_retirements_on_target_user_id", unique: true
     t.index ["user_id"], name: "index_request_retirements_on_user_id"
+  end
+
+  create_table "schedules", force: :cascade do |t|
+    t.bigint "pair_work_id", null: false
+    t.datetime "proposed_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["pair_work_id"], name: "index_schedules_on_pair_work_id"
   end
 
   create_table "skipped_practices", force: :cascade do |t|
@@ -1053,6 +1078,9 @@ ActiveRecord::Schema.define(version: 2025_06_24_141527) do
   add_foreign_key "organizers", "users"
   add_foreign_key "pages", "practices"
   add_foreign_key "pages", "users"
+  add_foreign_key "pair_works", "practices"
+  add_foreign_key "pair_works", "users"
+  add_foreign_key "pair_works", "users", column: "buddy_id"
   add_foreign_key "participations", "events"
   add_foreign_key "participations", "users"
   add_foreign_key "practices", "practices", column: "source_id"
@@ -1073,6 +1101,7 @@ ActiveRecord::Schema.define(version: 2025_06_24_141527) do
   add_foreign_key "report_templates", "users"
   add_foreign_key "request_retirements", "users"
   add_foreign_key "request_retirements", "users", column: "target_user_id"
+  add_foreign_key "schedules", "pair_works"
   add_foreign_key "submission_answers", "practices"
   add_foreign_key "survey_answers", "surveys"
   add_foreign_key "survey_answers", "users"
