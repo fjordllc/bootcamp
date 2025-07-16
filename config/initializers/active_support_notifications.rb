@@ -21,4 +21,9 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('product.create', ProductNotifierForColleague.new)
   ActiveSupport::Notifications.subscribe('product.create', ProductNotifierForPracticeWatcher.new)
   ActiveSupport::Notifications.subscribe('came.inquiry', InquiryNotifier.new)
+  
+  learning_status_updater = LearningStatusUpdater.new
+  ActiveSupport::Notifications.subscribe('product.save', learning_status_updater)
+  ActiveSupport::Notifications.subscribe('check.create', learning_status_updater)
+  ActiveSupport::Notifications.subscribe('check.cancel', learning_status_updater)
 end
