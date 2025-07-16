@@ -4,6 +4,7 @@ import UserActivityCounts from './UserActivityCounts.jsx'
 import UserSns from './UserSns.jsx'
 import UserTags from './UserTags.jsx'
 import UserPracticeProgress from './UserPracticeProgress.jsx'
+import { UserIconFrameClass } from './UserIconFrameClass.jsx'
 
 export default function User({ user, currentUser }) {
   const userDescParagraphs = () => {
@@ -21,12 +22,10 @@ export default function User({ user, currentUser }) {
     return paragraphs
   }
 
-  const roleClass = () => `is-${user.primary_role}`
-
   return (
     <div className="col-xxxl-2 col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-xs-12">
       <div className="users-item is-react">
-        <div className={`users-item__inner a-card ${roleClass()}`}>
+        <div className={`users-item__inner a-card ${UserIconFrameClass(user)}`}>
           {currentUser &&
             (currentUser.mentor || currentUser.admin) &&
             user.student_or_trainee && (
@@ -54,12 +53,12 @@ export default function User({ user, currentUser }) {
               <div className="users-item__header-start">
                 <div className="users-item__icon">
                   <a href={user.url}>
-                    <span className={`a-user-role ${roleClass()}`}>
+                    <span className={UserIconFrameClass(user)}>
                       <img
                         className="users-item__user-icon-image a-user-icon"
+                        src={user.avatar_url}
                         title={user.icon_title}
                         alt={user.icon_title}
-                        src={user.avatar_url}
                       />
                     </span>
                   </a>
