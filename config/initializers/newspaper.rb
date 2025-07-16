@@ -23,11 +23,6 @@ Rails.configuration.after_initialize do
 
   Newspaper.subscribe(:comeback_update, ComebackNotifier.new)
 
-  learning_status_updater = LearningStatusUpdater.new
-  Newspaper.subscribe(:check_create, learning_status_updater)
-  Newspaper.subscribe(:product_save, learning_status_updater)
-  Newspaper.subscribe(:check_cancel, learning_status_updater)
-
   page_notifier = PageNotifier.new
   Newspaper.subscribe(:page_create, page_notifier)
   Newspaper.subscribe(:page_update, page_notifier)
