@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class LearningStatusUpdater
-  def call(payload)
+  def call(_name, _started, _finished, _id, payload)
     product_or_associated_object = payload[:product] || payload[:check]
     case product_or_associated_object
     when Product
