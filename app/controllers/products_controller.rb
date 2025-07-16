@@ -46,6 +46,7 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     update_published_at
     if @product.save
       Newspaper.publish(:product_create, { product: @product })
+      ActiveSupport::Notifications.instrument('product.save', product: @product)
       Newspaper.publish(:product_save, { product: @product })
       redirect_to Redirection.determin_url(self, @product), notice: notice_message(@product, :create)
     else
@@ -61,6 +62,7 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     update_published_at
     if @product.update(product_params)
       Newspaper.publish(:product_update, { product: @product, current_user: })
+      ActiveSupport::Notifications.instrument('product.save', product: @product)
       Newspaper.publish(:product_save, { product: @product })
       notice_another_mentor_assigned_as_checker
       redirect_to Redirection.determin_url(self, @product), notice: notice_message(@product, :update)
