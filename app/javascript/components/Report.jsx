@@ -1,5 +1,6 @@
 import React from 'react'
 import ListComment from './ListComment'
+import { UserIconFrameClass } from './UserIconFrameClass'
 
 export default function Report({ report, currentUserId, displayUserIcon }) {
   return (
@@ -66,12 +67,10 @@ export default function Report({ report, currentUserId, displayUserIcon }) {
 }
 
 const DisplayUserIcon = ({ report }) => {
-  const roleClass = `is-${report.user.primary_role}`
-
   return (
     <div className="card-list-item__user">
       <a href={report.user.url} className="card-list-item__user-link">
-        <span className={`a-user-role ${roleClass}`}>
+        <span className={UserIconFrameClass(report.user)}>
           <img
             className="card-list-item__user-icon a-user-icon"
             src={report.user.avatar_url}

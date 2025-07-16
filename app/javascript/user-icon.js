@@ -10,6 +10,9 @@ export default function userIcon({
 
   const span = document.createElement('span')
   span.classList.add('a-user-role', `is-${user.primary_role}`)
+  if (user.joining_status === 'new-user') {
+    span.classList.add('is-new-user')
+  }
 
   const img = document.createElement('img')
   img.src = user.avatar_url

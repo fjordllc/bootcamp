@@ -37,10 +37,10 @@ ruby:
                 = link_to cts.user,
                   itemprop: 'url',
                   class: 'page-content-header__user-link' do
-                  span class="a-user-role is-#{cts.user.primary_role}"
-                    = image_tag cts.user.avatar_url,
-                      title: cts.user.icon_title,
-                      class: 'page-content-header__user-icon-image a-user-icon'
+                    span class=cts.user.user_icon_frame_class
+                      = image_tag cts.user.avatar_url,
+                        title: cts.user.icon_title,
+                        class: 'page-content-header__user-icon-image a-user-icon'
           .page-content-header__end
             .page-content-header__row
               .page-content-header__before-title

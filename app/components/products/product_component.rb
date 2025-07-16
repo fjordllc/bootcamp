@@ -15,6 +15,10 @@ class Products::ProductComponent < ViewComponent::Base
     "is-#{@product.user.primary_role}"
   end
 
+  def joining_status_class
+    @product.user.joining_status == 'new-user' ? 'is-new-user' : ''
+  end
+
   def practice_title
     "#{@product.practice.title}の提出物"
   end
