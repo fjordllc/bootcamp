@@ -15,7 +15,7 @@ class API::ChecksController < API::BaseController
         user: current_user,
         checkable:
       )
-      Newspaper.publish(:check_create, { check: @check })
+      ActiveSupport::Notifications.instrument('check.create', check: @check)
       head :created
     else
       render json: { message: "この#{checkable.class.model_name.human}は確認済です。" }, status: :unprocessable_entity
@@ -24,7 +24,7 @@ class API::ChecksController < API::BaseController
 
   def destroy
     @check = Check.find(params[:id]).destroy
-    Newspaper.publish(:check_cancel, { check: @check })
+    ActiveSupport::Notifications.instrument('check.cancel', check: @check)
 
     head :no_content
   end
