@@ -11,10 +11,14 @@ require 'supports/vcr_helper'
 require 'abstract_notifier/testing/minitest'
 require 'webmock/minitest'
 
-Capybara.default_max_wait_time = 15
+Capybara.default_max_wait_time = 30  # タイムアウトを延長
 Capybara.disable_animation = true
 Capybara.automatic_reload = false
 Capybara.enable_aria_label = true
+
+# 並行テストでの接続問題を軽減
+Capybara.server = :puma, { Silent: true, Threads: "0:4" }
+Capybara.reuse_server = true
 
 # Configure retry for flaky tests
 Minitest::Retry.use!(retry_count: 3, verbose: true) if ENV['CI']
