@@ -8,11 +8,23 @@ header.page-header
         .page-header__title
           | 日報・ブログ
       .page-header__end
-        = render 'reports/new_report'
 
 = report_page_tabs(active_tab: '日報')
 
 .page-main
+  / タイトルと日報作成ボタンは全員に表示
+  .user-reports__header
+    .user-reports__title
+      | 日報
+    .user-reports__new-report-button
+      = render 'reports/new_report'
+
+  hr.a-border
+
+  - if admin_or_mentor_login?
+    .user-reports__filters
+      = link_to '全て', reports_path, class: "user-reports__filter#{' is-active' unless params[:unchecked]}"
+      = link_to '未チェック', reports_path(unchecked: true), class: "user-reports__filter#{' is-active' if params[:unchecked]}"
   nav.page-filter.form
     .container.is-md
       = form_with url: reports_path, local: true, method: 'get'
