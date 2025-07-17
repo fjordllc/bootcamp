@@ -52,6 +52,10 @@ function initializeComment(comment) {
         savedComment = editorTextarea.value
       }
       toggleVisibility(modalElements, 'is-hidden')
+      if (rawButton.classList.contains('is-active')) {
+        toggleVisibility(textareaElements, 'is-hidden')
+        toggleVisibility([rawButton], 'is-active')
+      }
     })
   }
 
@@ -75,9 +79,6 @@ function initializeComment(comment) {
       savedComment = editorTextarea.value
       updateComment(commentId, savedComment)
       commentDisplayContent.innerHTML = markdownInitializer.render(savedComment)
-      if (commentRaw) {
-        commentRaw.textContent = editorTextarea.value
-      }
     })
   }
 
