@@ -8,9 +8,10 @@ environment.loaders.prepend('vue', vue)
 environment.loaders.prepend('pug', pug)
 
 // Add resolve alias for images
+const path = require('path')
 environment.config.resolve.alias = {
   ...environment.config.resolve.alias,
-  'images': 'app/assets/images'
+  'images': path.resolve(__dirname, '../../app/assets/images')
 }
 
 // Fix sass-loader to handle Rails asset helpers
