@@ -80,17 +80,6 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     redirect_to @product.practice, notice: '提出物を削除しました。'
   end
 
-  def assign_checker
-    @product = find_product
-    @product.update!(checker: current_user)
-    redirect_back(fallback_location: @product, notice: '担当になりました。')
-  end
-
-  def unassign_checker
-    @product = find_product
-    @product.update!(checker: nil)
-    redirect_back(fallback_location: @product, notice: '担当から外れました。')
-  end
 
   private
 
