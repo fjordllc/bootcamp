@@ -15,13 +15,11 @@ module LoginAssertHelper
       assert_selector 'h1', text: 'プラス戦力のスキルを身につける'
     rescue Net::ReadTimeout, Errno::ECONNRESET, Capybara::ElementNotFound => e
       retry_count += 1
-      if retry_count <= max_retries
-        puts "Retrying due to #{e.class}: #{e.message} (attempt #{retry_count}/#{max_retries})"
-        sleep(retry_count * 0.5) # Exponential backoff
-        retry
-      else
-        raise e
-      end
+      raise e unless retry_count <= max_retries
+
+      puts "Retrying due to #{e.class}: #{e.message} (attempt #{retry_count}/#{max_retries})"
+      sleep(retry_count * 0.5) # Exponential backoff
+      retry
     end
   end
 
@@ -39,13 +37,11 @@ module LoginAssertHelper
       assert_no_text 'ログインしてください'
     rescue Net::ReadTimeout, Errno::ECONNRESET, Capybara::ElementNotFound => e
       retry_count += 1
-      if retry_count <= max_retries
-        puts "Retrying due to #{e.class}: #{e.message} (attempt #{retry_count}/#{max_retries})"
-        sleep(retry_count * 0.5) # Exponential backoff
-        retry
-      else
-        raise e
-      end
+      raise e unless retry_count <= max_retries
+
+      puts "Retrying due to #{e.class}: #{e.message} (attempt #{retry_count}/#{max_retries})"
+      sleep(retry_count * 0.5) # Exponential backoff
+      retry
     end
   end
 end

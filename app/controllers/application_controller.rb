@@ -78,7 +78,7 @@ class ApplicationController < ActionController::Base
 
   def handle_active_storage_file_not_found(exception)
     Rails.logger.debug "ActiveStorage file not found in test: #{exception.message}"
-    
+
     # In tests, render a 404 instead of raising the error to prevent flaky test failures
     if request.xhr?
       render json: { error: 'File not found' }, status: :not_found

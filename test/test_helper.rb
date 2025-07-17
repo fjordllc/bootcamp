@@ -11,13 +11,13 @@ require 'supports/vcr_helper'
 require 'abstract_notifier/testing/minitest'
 require 'webmock/minitest'
 
-Capybara.default_max_wait_time = 30  # タイムアウトを延長
+Capybara.default_max_wait_time = 30 # タイムアウトを延長
 Capybara.disable_animation = true
 Capybara.automatic_reload = false
 Capybara.enable_aria_label = true
 
 # 並行テストでの接続問題を軽減
-Capybara.server = :puma, { Silent: true, Threads: "0:4" }
+Capybara.server = :puma, { Silent: true, Threads: '0:4' }
 Capybara.reuse_server = true
 
 # Configure retry for flaky tests
@@ -35,7 +35,7 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
   setup do
     ActiveStorage::Current.host = 'http://localhost:3000' # https://github.com/rails/rails/issues/40855
-    
+
     # Ensure ActiveStorage directories exist before each test
     FileUtils.mkdir_p(ActiveStorage::Blob.service.root) unless Dir.exist?(ActiveStorage::Blob.service.root)
     FileUtils.mkdir_p(ActiveStorage::Blob.services.fetch(:test_fixtures).root) unless Dir.exist?(ActiveStorage::Blob.services.fetch(:test_fixtures).root)
@@ -43,15 +43,15 @@ class ActiveSupport::TestCase
 
   teardown do
     ActiveStorage::Current.host = nil
-    
+
     # Clean up ActiveStorage files created during this specific test
     begin
       # Only clean up files created in the last minute to avoid interfering with other concurrent tests
       cleanup_recent_files(ActiveStorage::Blob.service.root)
       cleanup_recent_files(ActiveStorage::Blob.services.fetch(:test_fixtures).root)
-    rescue => e
+    rescue StandardError => e
       # Ignore cleanup errors to prevent flaky test failures
-      Rails.logger.debug "ActiveStorage cleanup warning: #{e.message}" if Rails.logger
+      Rails.logger&.debug "ActiveStorage cleanup warning: #{e.message}"
     end
   end
 
@@ -59,25 +59,26 @@ class ActiveSupport::TestCase
 
   def cleanup_recent_files(directory)
     return unless Dir.exist?(directory)
-    
+
     # Use a more conservative approach - only clean up very recent files
     cutoff_time = 30.seconds.ago
-    
+
     Dir.glob("#{directory}/**/*").each do |file|
       next unless File.file?(file)
       next unless File.mtime(file) > cutoff_time
-      
+
       begin
         File.delete(file) if File.exist?(file)
       rescue Errno::ENOENT, Errno::EACCES => e
         # File already deleted or permission denied, ignore
-        Rails.logger.debug "Could not delete #{file}: #{e.message}" if Rails.logger
+        Rails.logger&.debug "Could not delete #{file}: #{e.message}"
       end
     end
-    
+
     # Clean up empty directories
     Dir.glob("#{directory}/**/").reverse_each do |dir|
       next if dir == directory
+
       begin
         Dir.rmdir(dir) if Dir.exist?(dir) && Dir.empty?(dir)
       rescue Errno::ENOENT, Errno::ENOTEMPTY, Errno::EACCES
@@ -100,11 +101,11 @@ class ActiveSupport::TestCase
   Minitest.after_run do
     # Add delay to ensure all tests have completed file operations
     sleep 0.1
-    
+
     begin
       FileUtils.rm_rf(ActiveStorage::Blob.service.root) if Dir.exist?(ActiveStorage::Blob.service.root)
       FileUtils.rm_rf(ActiveStorage::Blob.services.fetch(:test_fixtures).root) if Dir.exist?(ActiveStorage::Blob.services.fetch(:test_fixtures).root)
-    rescue => e
+    rescue StandardError => e
       # Ignore final cleanup errors to prevent test suite failures
       puts "Warning: ActiveStorage final cleanup failed: #{e.message}"
     end
