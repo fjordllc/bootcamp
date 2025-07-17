@@ -15,12 +15,8 @@ export default function initializeAnswer(answer) {
   const answerEditor = answer.querySelector('.answer-editor')
   const answerDisplayContent = answerDisplay.querySelector('.answer-text')
 
-  const answerEditorPreview = answerEditor.querySelector(
-    '.markdown-preview'
-  )
-  const editorTextarea = answerEditor.querySelector(
-    '.markdown-textarea'
-  )
+  const answerEditorPreview = answerEditor.querySelector('.markdown-preview')
+  const editorTextarea = answerEditor.querySelector('.markdown-textarea')
 
   if (answerDescription) {
     answerDisplayContent.innerHTML =
@@ -64,7 +60,9 @@ export default function initializeAnswer(answer) {
   })
 
   const makeBestAnswerButton = answerDisplay.querySelector('.make-best-answer')
-  const cancelBestAnswerButton = answerDisplay.querySelector('.cancel-best-answer')
+  const cancelBestAnswerButton = answerDisplay.querySelector(
+    '.cancel-best-answer'
+  )
   const answerBadgeElement = answerDisplay.querySelector('.best-answer-badge')
   if (makeBestAnswerButton) {
     makeBestAnswerButton.addEventListener('click', () => {
@@ -111,9 +109,7 @@ export default function initializeAnswer(answer) {
     })
   }
 
-  const deleteButton = answerDisplay.querySelector(
-    '.delete-button'
-  )
+  const deleteButton = answerDisplay.querySelector('.delete-button')
   if (deleteButton) {
     deleteButton.addEventListener('click', () => {
       if (window.confirm('本当に宜しいですか？')) {
