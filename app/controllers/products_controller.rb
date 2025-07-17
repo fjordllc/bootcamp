@@ -80,7 +80,6 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     redirect_to @product.practice, notice: '提出物を削除しました。'
   end
 
-
   private
 
   def update_published_at
