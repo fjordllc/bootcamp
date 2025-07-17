@@ -2,6 +2,7 @@
 
 class Products::CheckerAssignmentsController < ApplicationController
   before_action :find_product
+  before_action :require_staff_login
 
   def create
     @product.update!(checker: current_user)
