@@ -49,6 +49,9 @@
           .col-md-6.col-xs-12
             = f.label :tag_list, 'タグを入力してください', class: 'a-form-label'
             = render partial: 'tags_input', locals: { taggable: @question }
+            .a-form-help
+              p
+                | タグは、質問の内容を示すキーワードです。関連するトピックや技術でタグを付けることで、質問が見つけやすくなります（例: Ruby, CSS, ボーリング）。入力してエンターキーを押すとタグになります。
 
       - if admin_or_mentor_login?
         .form-item.is-only-mentor
