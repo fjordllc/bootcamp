@@ -26,8 +26,8 @@ Minitest::Retry.use!(retry_count: 3, verbose: true) if ENV['CI']
 class ActiveSupport::TestCase
   include VCRHelper
 
-  # Run tests in parallel with specified workers
-  parallelize(workers: :number_of_processors)
+  # Run tests in parallel with specified workers (reduced for stability)
+  parallelize(workers: ENV['CI'] ? 2 : :number_of_processors)
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
@@ -60,14 +60,28 @@ class ActiveSupport::TestCase
   def cleanup_recent_files(directory)
     return unless Dir.exist?(directory)
     
+    # Use a more conservative approach - only clean up very recent files
+    cutoff_time = 30.seconds.ago
+    
     Dir.glob("#{directory}/**/*").each do |file|
       next unless File.file?(file)
-      next unless File.mtime(file) > 1.minute.ago
+      next unless File.mtime(file) > cutoff_time
       
       begin
-        File.delete(file)
-      rescue Errno::ENOENT
-        # File already deleted, ignore
+        File.delete(file) if File.exist?(file)
+      rescue Errno::ENOENT, Errno::EACCES => e
+        # File already deleted or permission denied, ignore
+        Rails.logger.debug "Could not delete #{file}: #{e.message}" if Rails.logger
+      end
+    end
+    
+    # Clean up empty directories
+    Dir.glob("#{directory}/**/").reverse_each do |dir|
+      next if dir == directory
+      begin
+        Dir.rmdir(dir) if Dir.exist?(dir) && Dir.empty?(dir)
+      rescue Errno::ENOENT, Errno::ENOTEMPTY, Errno::EACCES
+        # Directory not empty, doesn't exist, or permission denied - ignore
       end
     end
   end
