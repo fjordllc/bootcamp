@@ -27,7 +27,8 @@ if (sassLoaderConfig) {
     'image-url($path)': function(path) {
       const sass = require('sass')
       const pathValue = path.getValue().replace(/['"]/g, '')
-      return new sass.types.String(`url("~images/${pathValue}")`)
+      const publicPath = process.env.RAILS_ENV === 'test' ? '/packs-test/' : '/packs/'
+      return new sass.types.String(`url("${publicPath}media/${pathValue}")`)
     }
   }
 }
