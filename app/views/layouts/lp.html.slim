@@ -10,6 +10,7 @@ html.is-lp lang='ja'
     = render 'layouts/common/common_head'
     = stylesheet_pack_tag 'lp', media: 'all'
     = render 'layouts/lp/lp_web_fonts'
+    = render 'x' if Rails.env.production?
     = content_for(:head_last) if content_for?(:head_last)
   body.is-lp#body class="#{body_class}"
     .wrapper
