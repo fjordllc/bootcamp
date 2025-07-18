@@ -13,14 +13,10 @@ export default function initializeAnswer(answer) {
 
   const answerDisplay = answer.querySelector('.answer-display')
   const answerEditor = answer.querySelector('.answer-editor')
-  const answerDisplayContent = answerDisplay.querySelector('.a-long-text')
+  const answerDisplayContent = answerDisplay.querySelector('.answer-text')
 
-  const answerEditorPreview = answerEditor.querySelector(
-    '.a-markdown-input__preview'
-  )
-  const editorTextarea = answerEditor.querySelector(
-    '.a-markdown-input__textarea'
-  )
+  const answerEditorPreview = answerEditor.querySelector('.markdown-preview')
+  const editorTextarea = answerEditor.querySelector('.markdown-textarea')
 
   if (answerDescription) {
     answerDisplayContent.innerHTML =
@@ -29,7 +25,7 @@ export default function initializeAnswer(answer) {
       markdownInitializer.render(answerDescription)
   }
 
-  const editButton = answerDisplay.querySelector('.card-main-actions__action')
+  const editButton = answerDisplay.querySelector('.edit-button')
   const modalElements = [answerDisplay, answerEditor]
   if (editButton) {
     editButton.addEventListener('click', () => {
@@ -40,7 +36,7 @@ export default function initializeAnswer(answer) {
     })
   }
 
-  const saveButton = answerEditor.querySelector('.is-primary')
+  const saveButton = answerEditor.querySelector('.save-button')
   if (saveButton) {
     saveButton.addEventListener('click', () => {
       toggleVisibility(modalElements, 'is-hidden')
@@ -50,7 +46,7 @@ export default function initializeAnswer(answer) {
     })
   }
 
-  const cancelButton = answerEditor.querySelector('.is-secondary')
+  const cancelButton = answerEditor.querySelector('.cancel-button')
   cancelButton.addEventListener('click', () => {
     toggleVisibility(modalElements, 'is-hidden')
     editorTextarea.value = savedAnswer
@@ -63,9 +59,11 @@ export default function initializeAnswer(answer) {
     )
   })
 
-  const makeBestAnswerButton = answerDisplay.querySelector('.is-warning')
-  const cancelBestAnswerButton = answerDisplay.querySelector('.is-muted')
-  const answerBadgeElement = answerDisplay.querySelector('.answer-badge')
+  const makeBestAnswerButton = answerDisplay.querySelector('.make-best-answer')
+  const cancelBestAnswerButton = answerDisplay.querySelector(
+    '.cancel-best-answer'
+  )
+  const answerBadgeElement = answerDisplay.querySelector('.best-answer-badge')
   if (makeBestAnswerButton) {
     makeBestAnswerButton.addEventListener('click', () => {
       if (window.confirm('本当に宜しいですか？')) {
@@ -99,10 +97,10 @@ export default function initializeAnswer(answer) {
           cancelBestAnswerButton.parentNode
         ]
         toggleVisibility(parentElements, 'is-hidden')
-        const otherCancelBestAnswerButtons = document.querySelectorAll(
+        const otherMakeBestAnswerButtons = document.querySelectorAll(
           '.make-best-answer-button'
         )
-        otherCancelBestAnswerButtons.forEach((button) => {
+        otherMakeBestAnswerButtons.forEach((button) => {
           if (button.closest('.answer').dataset.answer_id !== answerId) {
             button.classList.remove('is-hidden')
           }
@@ -111,9 +109,7 @@ export default function initializeAnswer(answer) {
     })
   }
 
-  const deleteButton = answerDisplay.querySelector(
-    '.card-main-actions__muted-action'
-  )
+  const deleteButton = answerDisplay.querySelector('.delete-button')
   if (deleteButton) {
     deleteButton.addEventListener('click', () => {
       if (window.confirm('本当に宜しいですか？')) {
@@ -136,7 +132,7 @@ export default function initializeAnswer(answer) {
   const editTab = answerEditor.querySelector('.edit-answer-tab')
   const editorTabContent = answerEditor.querySelector('.is-editor')
   const previewTab = answerEditor.querySelector('.answer-preview-tab')
-  const previewTabContent = answerEditor.querySelector('.is-preview')
+  const previewTabContent = answerEditor.querySelector('.preview-content')
 
   const tabElements = [editTab, editorTabContent, previewTab, previewTabContent]
   editTab.addEventListener('click', () =>
@@ -147,7 +143,7 @@ export default function initializeAnswer(answer) {
     toggleVisibility(tabElements, 'is-active')
   )
 
-  const createdAtElement = answer.querySelector('.thread-comment__created-at')
+  const createdAtElement = answer.querySelector('.created-at')
   if (createdAtElement && navigator.clipboard) {
     createdAtElement.addEventListener('click', () => {
       const answerURL = location.href.split('#')[0] + '#answer_' + answerId

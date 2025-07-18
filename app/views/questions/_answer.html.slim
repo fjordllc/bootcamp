@@ -8,7 +8,7 @@
         img.thread-comment__company-logo src="#{answer.user.company.logo_url}"
   .thread-comment__end
     .a-card.is-answer.answer-display
-      .answer-badge class=(answer.type == 'CorrectAnswer' ? 'correct-answer' : 'is-hidden')
+      .answer-badge.best-answer-badge class=(answer.type == 'CorrectAnswer' ? 'correct-answer' : 'is-hidden')
         .answer-badge__icon
           i.fa-solid.fa-star
         .answer-badge__label
@@ -21,14 +21,14 @@
             img.thread-comment__title-user-icon.a-user-icon src="#{answer.user.avatar_url}"
           a.thread-comment__title-link.a-text-link href="#{answer.user.url}"
             = answer.user.login_name
-        time.thread-comment__created-at
+        time.thread-comment__created-at.created-at
           = l(answer.created_at)
       hr.a-border-tint
       .thread-comment__description
         - if answer.user.company && answer.user.adviser
           a.thread-comment__company-link.is-hidden-md-up href="#{company_path(answer.user.company)}"
             img.thread-comment__company-logo src="#{answer.user.company.logo_url}"
-        .a-long-text.is-md
+        .a-long-text.is-md.answer-text
           = answer.description
       hr.a-border-tint
       .thread-comment__reactions
@@ -39,21 +39,21 @@
           ul.card-main-actions__items
             - if answer.user.id == user.id || user.admin?
               li.card-main-actions__item
-                button.card-main-actions__action.a-button.is-sm.is-secondary.is-block
+                button.card-main-actions__action.a-button.is-sm.is-secondary.is-block.edit-button
                   i.fa-solid.fa-pen
                   | 内容修正
             - if user.mentor? || user.id == question.user.id
               - make_button_hidden = (question.correct_answer && answer.type != 'CorrectAnswer') || (answer.type == 'CorrectAnswer')
               - cancel_button_hidden = (question.correct_answer && answer.type != 'CorrectAnswer') || !question.correct_answer
               li.card-main-actions__item.make-best-answer-button class=(make_button_hidden ? 'is-hidden' : '')
-                button.card-main-actions__action.a-button.is-sm.is-warning.is-block
+                button.card-main-actions__action.a-button.is-sm.is-warning.is-block.make-best-answer
                   | ベストアンサーにする
               li.card-main-actions__item.cancel-best-answer-button class=(cancel_button_hidden ? 'is-hidden' : '')
-                button.card-main-actions__action.a-button.is-sm.is-muted.is-block
+                button.card-main-actions__action.a-button.is-sm.is-muted.is-block.cancel-best-answer
                   | ベストアンサーを取り消す
             - if answer.user.id == user.id || user.mentor?
               li.card-main-actions__item.is-sub
-                button.card-main-actions__muted-action
+                button.card-main-actions__muted-action.delete-button
                   | 削除する
     .a-card.is-answer.answer-editor.is-hidden
       .thread-comment-form__form
@@ -66,21 +66,21 @@
           .a-markdown-input__inner.is-editor.js-tabs__content.is-active
             .form-textarea
               .form-textarea__body
-                textarea.a-text-input.a-markdown-input__textarea id="js-comment-#{answer.id}" data-preview="#js-comment-preview-#{answer.id}" data-input=".js-comment-file-input-#{answer.id}" name='answer[description]'
+                textarea.a-text-input.a-markdown-input__textarea.markdown-textarea id="js-comment-#{answer.id}" data-preview="#js-comment-preview-#{answer.id}" data-input=".js-comment-file-input-#{answer.id}" name='answer[description]'
                   = answer.description
               .form-textarea__footer
                 .form-textarea__insert
                   label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
                     | ファイルを挿入
                     input(class="js-comment-file-input-#{answer.id}" type='file' multiple)
-          .a-markdown-input__inner.is-preview.js-tabs__content
-            .js-preview.a-long-text.is-md.a-markdown-input__preview id="js-comment-preview-#{answer.id}"
+          .a-markdown-input__inner.is-preview.js-tabs__content.preview-content
+            .js-preview.a-long-text.is-md.a-markdown-input__preview.markdown-preview id="js-comment-preview-#{answer.id}"
         .card-footer
           .card-main-actions
             .card-main-actions__items
               .card-main-actions__item
-                button.a-button.is-sm.is-primary.is-block
+                button.a-button.is-sm.is-primary.is-block.save-button
                   | 保存する
               .card-main-actions__item
-                button.a-button.is-sm.is-secondary.is-block
+                button.a-button.is-sm.is-secondary.is-block.cancel-button
                   | キャンセル
