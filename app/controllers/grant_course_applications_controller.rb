@@ -12,7 +12,7 @@ class GrantCourseApplicationsController < ApplicationController
 
     if @grant_course_application.save
       GrantCourseApplicationMailer.incoming(@grant_course_application).deliver_later
-      flash[:x_conversion_signup] = true
+      flash[:x_conversion] = 'grant'
       redirect_to created_grant_course_applications_url
     else
       render :new
