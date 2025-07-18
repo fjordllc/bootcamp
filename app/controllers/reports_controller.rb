@@ -16,7 +16,7 @@ class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLeng
   def index
     @reports = Report.list.page(params[:page]).per(PAGER_NUMBER)
     @reports = @reports.joins(:practices).where(practices: { id: params[:practice_id] }) if params[:practice_id].present?
-    @reports = @reports.where(checked: false) if params[:unchecked].present? && admin_or_mentor_login?
+    @reports = @reports.unchecked.not_wip if params[:unchecked].present? && admin_or_mentor_login?
   end
 
   def show
