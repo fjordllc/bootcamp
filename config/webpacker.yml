@@ -96,3 +96,6 @@ production:
 
   # Cache manifest.json for performance
   cache_manifest: true
+
+  # Use relative URLs for assets
+  public_path: /packs/
