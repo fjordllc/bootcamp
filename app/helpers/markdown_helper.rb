@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module MarkdownHelper
+  include ActionView::Helpers::OutputSafetyHelper
+
   def md2html(text)
     return '' if text.nil?
 
@@ -15,7 +17,7 @@ module MarkdownHelper
   end
 
   def md_summary(comment, word_count)
-    summary = strip_tags(md2html(comment)).gsub(/[\r\n]/, '')
+    summary = ActionView::Base.full_sanitizer.sanitize(md2html(comment)).gsub(/[\r\n]/, '')
     simple_format(truncate(summary, length: word_count))
   end
 
@@ -38,7 +40,7 @@ module MarkdownHelper
                         end
 
     html_content = md2html(processed_comment)
-    strip_tags(html_content).gsub(/[\r\n]/, '')
+    ActionView::Base.full_sanitizer.sanitize(html_content).gsub(/[\r\n]/, '')
   end
 
   def find_match_in_text(text, word)
@@ -54,5 +56,12 @@ module MarkdownHelper
 
     begin_offset = (match.begin(0) - 50).clamp(0, Float::INFINITY)
     text[begin_offset...].strip
+  end
+
+  def md2plain_text(markdown_content)
+    return '' if markdown_content.blank?
+
+    html_content = md2html(markdown_content)
+    ActionView::Base.full_sanitizer.sanitize(html_content).strip
   end
 end

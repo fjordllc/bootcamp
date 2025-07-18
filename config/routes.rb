@@ -132,4 +132,7 @@ Rails.application.routes.draw do
   resources :movies
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   mount GoodJob::Engine => 'good_job'
+
+  # routes for testing feature toggle on staging env
+  resources :test_feature_toggle, only: %i(index)
 end

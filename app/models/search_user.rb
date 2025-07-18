@@ -10,7 +10,12 @@ class SearchUser
 
   def search
     validated_search_word = validate_search_word
-    searched_user = @users ? @users.search_by_keywords(word: validated_search_word) : User.search_by_keywords({ word: validated_search_word })
+
+    searched_user = if @users
+                      @users.merge(User.search_by_keywords(word: validated_search_word, exact_match: true))
+                    else
+                      User.search_by_keywords(word: validated_search_word, exact_match: true)
+                    end
 
     if @target == 'retired'
       searched_user.unscope(where: :retired_on).retired
@@ -22,9 +27,13 @@ class SearchUser
   end
 
   def validate_search_word
+    return '' if @word.nil?
+
     stripped_word = @word.strip
+    return nil if stripped_word.blank?
+
     if stripped_word.match?(/^[\w-]+$/)
-      stripped_word if stripped_word.length >= 3
+      stripped_word.length >= 3 ? stripped_word : nil
     elsif stripped_word.length >= 2
       stripped_word
     end

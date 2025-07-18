@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AnswerNotifier
-  def call(payload)
+  def call(_name, _started, _finished, _unique_id, payload)
     answer = payload[:answer]
     return if answer.sender == answer.receiver
 

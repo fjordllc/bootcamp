@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :courses, only: %i(index)
     resources :companies, only: %i(index)
     resources :areas, only: %i(index)
+    resources :activity_times, only: %i(index)
     get "areas/:area", to: "areas#show", as: :area
   end
 

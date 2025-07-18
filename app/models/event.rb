@@ -7,6 +7,7 @@ class Event < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include Reactionable
   include Watchable
   include Searchable
+  include SearchHelper
 
   validates :title, presence: true
   validates :description, presence: true

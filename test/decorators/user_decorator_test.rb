@@ -84,4 +84,18 @@ class UserDecoratorTest < ActiveDecoratorTestCase
 
     assert_equal(5, calendar.first.count { |set| set[:date].nil? })
   end
+
+  test '#user_icon_frame_class' do
+    new_user = decorate(users(:otameshi))
+    standard_user = decorate(users(:kimura))
+
+    def new_user.primary_role = 'student'
+    def new_user.joining_status = 'new-user'
+
+    def standard_user.primary_role = 'student'
+    def standard_user.joining_status = ''
+
+    assert_equal 'a-user-role is-student is-new-user', new_user.user_icon_frame_class
+    assert_equal 'a-user-role is-student', standard_user.user_icon_frame_class
+  end
 end

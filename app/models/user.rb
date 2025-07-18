@@ -4,6 +4,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include ActionView::Helpers::AssetUrlHelper
   include Taggable
   include Searchable
+  include SearchHelper
 
   attr_accessor :credit_card_payment, :role, :uploaded_avatar
 
@@ -49,14 +50,6 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     mac_apple: 2,
     linux: 1,
     windows_wsl2: 3
-  }, _prefix: true
-
-  enum experience: {
-    inexperienced: 0,
-    html_css: 1,
-    other_ruby: 2,
-    ruby: 3,
-    rails: 4
   }, _prefix: true
 
   enum editor: {

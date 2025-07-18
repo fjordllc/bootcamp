@@ -30,7 +30,7 @@ class RegularEventsController < ApplicationController
     if @regular_event.save
       update_published_at
       Organizer.create(user_id: current_user.id, regular_event_id: @regular_event.id)
-      Newspaper.publish(:event_create, { event: @regular_event })
+      ActiveSupport::Notifications.instrument('regular_event.create', regular_event: @regular_event)
       set_all_user_participants_and_watchers
       select_redirect_path
     else
