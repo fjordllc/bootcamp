@@ -1,0 +1,36 @@
+- if admin_or_mentor_login?
+  hr.a-border-tint
+  .card-footer.is-only-mentor
+    .card-main-actions
+      ul.card-main-actions__items
+        - check = checkable.checks.find_by(user: current_user)
+        - if checkable_type == 'Product' && check.nil?
+          li.card-main-actions__item
+            - if !checkable.checker_id || checkable.checker_id == current_user.id
+              - if checkable.checker_id
+                = form_with url: products_checker_assignment_path(id: checkable.id), method: :delete, local: true do |f|
+                  = f.submit '担当から外れる', class: 'a-button is-sm is-warning is-block'
+              - else
+                = form_with url: products_checker_assignments_path, method: :post, local: true do |f|
+                  = f.hidden_field :product_id, value: checkable.id
+                  = f.submit '担当する', class: 'a-button is-sm is-secondary is-block'
+            - else
+              .a-button.is-sm.is-block.card-list-item__assignee-button.is-only-mentor
+                span.card-list-item__assignee-image
+                  = image_tag checkable.checker.avatar_url, class: 'a-user-icon', width: 20, height: 20
+                span.card-list-item__assignee-name
+                  = checkable.checker.login_name
+
+        li.card-main-actions__item class=(checkable.checks.any? ? 'is-sub' : '')
+          - if check
+            = form_with url: polymorphic_path([checkable, check]), method: :delete, local: true do |f|
+              - if checkable_type == 'Product'
+                = f.submit "#{checkable_label}の合格を取り消す", class: 'card-main-actions__muted-action'
+              - else
+                = f.submit "#{checkable_label}の確認を取り消す", class: 'card-main-actions__muted-action'
+          - else
+            = form_with url: polymorphic_path([checkable, :checks]), method: :post, local: true do |f|
+              - if checkable_type == 'Product'
+                = f.submit "#{checkable_label}を合格にする", class: 'a-button is-sm is-danger is-block', id: 'js-shortcut-check', data: { has_check: false }
+              - else
+                = f.submit "#{checkable_label}を確認", class: 'a-button is-sm is-danger is-block', id: 'js-shortcut-check', data: { has_check: false }

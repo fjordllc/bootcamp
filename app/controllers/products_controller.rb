@@ -5,7 +5,12 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
   before_action :require_staff_login, only: :index
   before_action :set_watch, only: %i[show]
 
-  def index; end
+  def index
+    @products = Product.list
+                       .order(:id)
+                       .page(params[:page])
+                       .per(50)
+  end
 
   def show
     @product = find_product
