@@ -15,6 +15,7 @@ html.is-application lang='ja'
     = render 'x' if Rails.env.production?
     = content_for(:head_last) if content_for?(:head_last)
   body.is-application#body(class="#{body_class}")
+    = render 'x_event_tracking' if Rails.env.production?
     - if display_global_nav?
       .is-hidden-sm-down
         = render 'global_nav'
