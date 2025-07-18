@@ -12,6 +12,7 @@ html.is-application lang='ja'
       = render 'available_emojis'
       = render 'stripe'
       = stylesheet_pack_tag 'application', media: 'all'
+    = render 'x' if Rails.env.production?
     = content_for(:head_last) if content_for?(:head_last)
   body.is-application#body(class="#{body_class}")
     - if display_global_nav?
