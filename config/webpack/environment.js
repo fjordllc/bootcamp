@@ -14,10 +14,8 @@ environment.config.resolve.alias = {
   'images': path.resolve(__dirname, '../../app/assets/images')
 }
 
-// Configure public path for CSS assets
-environment.config.output.publicPath = process.env.NODE_ENV === 'production' 
-  ? `https://${process.env.APP_HOST_NAME}/packs/`
-  : '/packs/'
+// Configure public path for CSS assets - use relative path in production
+environment.config.output.publicPath = '/packs/'
 
 // Fix sass-loader to handle Rails asset helpers
 const sassLoader = environment.loaders.get('sass')
