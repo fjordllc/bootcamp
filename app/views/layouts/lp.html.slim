@@ -13,6 +13,7 @@ html.is-lp lang='ja'
     = render 'x' if Rails.env.production?
     = content_for(:head_last) if content_for?(:head_last)
   body.is-lp#body class="#{body_class}"
+    = render 'x_event_tracking' if Rails.env.production?
     .wrapper
       .wrapper__main
         = render 'layouts/lp/lp_header'
