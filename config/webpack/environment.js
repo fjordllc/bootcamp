@@ -27,8 +27,8 @@ if (sassLoaderConfig) {
     'image-url($path)': function(path) {
       const sass = require('sass')
       const pathValue = path.getValue().replace(/['"]/g, '')
-      const publicPath = process.env.RAILS_ENV === 'test' ? '/packs-test/' : '/packs/'
-      return new sass.types.String(`url("${publicPath}media/${pathValue}")`)
+      // Use relative path to let Rails asset host handle the domain
+      return new sass.types.String(`url("/packs/media/${pathValue}")`)
     }
   }
 }
