@@ -34,7 +34,7 @@ jobs:
       - ruby/install-deps
       - run:
           name: Inspecting with Rubocop
-          command: bundle exec rubocop --format documentation
+          command: bundle exec rubocop --format simple
       - run:
           name: Slim Lint
           command: bundle exec slim-lint app/views -c config/slim_lint.yml
