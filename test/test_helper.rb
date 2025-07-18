@@ -57,7 +57,7 @@ class ActiveSupport::TestCase
 
   private
 
-  def cleanup_recent_files(directory)
+  def cleanup_recent_files(directory) # rubocop:disable Metrics/PerceivedComplexity
     return unless Dir.exist?(directory)
 
     # Use a more conservative approach - only clean up very recent files
