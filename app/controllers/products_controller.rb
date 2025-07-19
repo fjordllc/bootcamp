@@ -45,6 +45,7 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     set_wip
     update_published_at
     if @product.save
+      ActiveSupport::notifications.instrument('product.create', product: @product)
       Newspaper.publish(:product_create, { product: @product })
       Newspaper.publish(:product_save, { product: @product })
       redirect_to Redirection.determin_url(self, @product), notice: notice_message(@product, :create)
