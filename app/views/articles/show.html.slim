@@ -87,6 +87,8 @@ hr.a-border-tint
                     p
                       = link_to "#{article_path(@article)}?token=#{@article.token}", target: '_blank', rel: 'noopener' do
                         | プレビューをブラウザで開く
+                = link_to root_path, class: 'a-button is-secondary is-md is-block' do
+                  | フィヨルドブートキャンプへ
             - if admin_or_mentor_login?
               hr.a-border
               .card-footer
