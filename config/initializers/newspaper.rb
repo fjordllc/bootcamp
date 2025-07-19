@@ -34,8 +34,6 @@ Rails.configuration.after_initialize do
   Newspaper.subscribe(:page_create, page_notifier)
   Newspaper.subscribe(:page_update, page_notifier)
 
-  Newspaper.subscribe(:product_save, ProductNotifierForColleague.new)
-
   Newspaper.subscribe(:product_save, ProductNotifierForPracticeWatcher.new)
 
   mentors_watch_for_question_creator = MentorsWatchForQuestionCreator.new
