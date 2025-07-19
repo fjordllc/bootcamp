@@ -34,7 +34,7 @@ class SearchHelperTest < ActionView::TestCase
   end
 
   test 'filtered_message returns summary for SearchResult' do
-    searchable_result = Searcher.search('ruby', current_user: @user_komagata, document_type: :all)
+    searchable_result = Searcher.search(word: 'ruby', current_user: @user_komagata, document_type: :all)
     report_result = searchable_result.find { |r| r.model_name == 'report' && r.title == @report.title }
     assert_equal report_result.summary, filtered_message(@report)
   end
