@@ -321,7 +321,6 @@ class SearchableTest < ActiveSupport::TestCase
 
   test 'search only myself' do
     current_user = users(:komagata)
-    other_user = users(:kimura)
 
     my_reports = Searcher.search(word: 'テスト', only_me: true, current_user:, document_type: :reports)
     assert(my_reports.all? { |searchable| searchable.user_id == current_user.id && searchable.description.include?('テスト') })
