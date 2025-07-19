@@ -44,7 +44,7 @@ class WorksController < ApplicationController
 
   def destroy
     @work.destroy
-    Newspaper.publish(:work_destroy, { work: @work })
+    ActiveSupport::Notifications.instrument('work.destroy', work: @work)
     redirect_to user_portfolio_url(@work.user), notice: 'ポートフォリオから作品を削除しました。'
   end
 
