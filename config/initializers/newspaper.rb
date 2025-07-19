@@ -51,8 +51,5 @@ Rails.configuration.after_initialize do
   Newspaper.subscribe(:product_update, ProductUpdateNotifierForChecker.new)
   Newspaper.subscribe(:came_comment, CommentNotifier.new)
   Newspaper.subscribe(:came_comment_in_talk, CommentNotifierForAdmin.new)
-
-  Newspaper.subscribe(:work_destroy, WorkNotificationDestroyer.new)
-
   Newspaper.subscribe(:came_inquiry, InquiryNotifier.new)
 end
