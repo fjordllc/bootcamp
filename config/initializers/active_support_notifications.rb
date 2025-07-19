@@ -6,4 +6,7 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('answer.create', NotifierToWatchingUser.new)
   ActiveSupport::Notifications.subscribe('event.create', EventOrganizerWatcher.new)
   ActiveSupport::Notifications.subscribe('regular_event.create', RegularEventOrganizerWatcher.new)
+  ActiveSupport::Notifications.subscribe('product.create', ProductAuthorWatcher.new)
+  ActiveSupport::Notifications.subscribe('product.create', ProductNotifierForColleague.new)
+  ActiveSupport::Notifications.subscribe('product.create', ProductNotifierForPracticeWatcher.new)
 end
