@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import useSWR from 'swr'
 import fetcher from '../fetcher'
 import { post, destroy } from '@rails/request.js'
-import toast from '../toast'
+import { toast } from '../vanillaToast'
 
 export default function BookmarkButton({ bookmarkableId, bookmarkableType }) {
   const [isBookmark, setIsBookmark] = useState('')
@@ -51,7 +51,7 @@ export default function BookmarkButton({ bookmarkableId, bookmarkableType }) {
       })
       if (response.ok) {
         setIsBookmark(true)
-        toast.methods.toast('Bookmarkしました！')
+        toast('Bookmarkしました！')
       } else {
         console.warn('Bookmarkに失敗しました。')
       }
@@ -64,7 +64,7 @@ export default function BookmarkButton({ bookmarkableId, bookmarkableType }) {
       const response = await destroy(`/api/bookmarks/${bookmarkId}`)
       if (response.ok) {
         setIsBookmark(false)
-        toast.methods.toast('ブックマークを削除しました')
+        toast('ブックマークを削除しました')
       } else {
         console.warn('ブックマーク削除に失敗しました。')
       }
