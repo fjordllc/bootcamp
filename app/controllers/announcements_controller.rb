@@ -49,7 +49,7 @@ class AnnouncementsController < ApplicationController
     set_wip
 
     if @announcement.update(announcement_params)
-      Newspaper.publish(:announcement_update, { announcement: @announcement })
+      ActiveSupport::Notifications.instrument('announcement.update', announcement: @announcement)
       redirect_to Redirection.determin_url(self, @announcement), notice: notice_message(@announcement)
     else
       render :edit
@@ -61,7 +61,7 @@ class AnnouncementsController < ApplicationController
     @announcement.user_id = current_user.id
     set_wip
     if @announcement.save
-      Newspaper.publish(:announcement_create, { announcement: @announcement })
+      ActiveSupport::Notifications.instrument('announcement.create', announcement: @announcement)
       redirect_to Redirection.determin_url(self, @announcement), notice: notice_message(@announcement)
     else
       render :new
@@ -70,7 +70,7 @@ class AnnouncementsController < ApplicationController
 
   def destroy
     @announcement.destroy
-    Newspaper.publish(:announcement_destroy, { announcement: @announcement })
+    ActiveSupport::Notifications.instrument('announcement.destroy', announcement: @announcement)
     redirect_to announcements_path, notice: 'お知らせを削除しました'
   end
 
