@@ -228,6 +228,20 @@ ja:
         body: 本文
         user: ユーザー
         summary: サマリー
+        thumbnail_type:
+          prepared_thumbnail: prepared_thumbnail
+          ruby: Ruby
+          ruby_on_rails: Ruby on Rails
+          javascript: JavaScript
+          wsl2: WSL2
+          linux: Linux
+          pc: PC
+          sponsorship: Sponsorship
+          green: Green
+          purple: Purple
+          orange: Orange
+          brown: Brown
+          blue: Blue
       work:
         title: タイトル
         description: 説明
@@ -353,28 +367,16 @@ ja:
         output: 出力
       doorkeeper/application:
         redirect_uri: Redirect URL
-    enums:
       user:
-        job:
-          student: 学生
-          office_worker: 会社員
-          part_time_worker: フリーター
-          vacation: 休職中
-          unemployed: 働いていない
-        os:
-          windows_wsl2: Windows(WSL2)
-          mac: Mac（Intel チップ）
-          linux: Linux
-          mac_apple: Mac（Apple チップ）
         study_place:
           local: フィヨルドブートキャンプオフィス
           remote: 自宅
-        editor:
-          vscode: VSCode
-          ruby_mine: RubyMine
-          vim: Vim
-          emacs: Emacs
-          other_editor: その他
+        experience:
+          inexperienced: 未経験
+          html_css: HTML/CSS経験あり
+          other_ruby: Ruby以外の言語経験あり
+          ruby: Ruby経験あり
+          rails: Rails経験あり
         referral_source:
           search_engine: 検索エンジン
           referral: 知人の紹介
@@ -384,12 +386,6 @@ ja:
           blog: ブログ記事
           web_ad: Web広告
           other: その他
-        satisfaction:
-          excellent: とても良い
-          good: 良い
-          average: どちらでもない
-          poor: 悪い
-          very_poor: とても悪い
         career_path:
           unset: 未設定
           job_seeking: 就職活動中
@@ -398,12 +394,19 @@ ja:
           employed_non_it: IT系以外に就職した
           internal_transfer_to_programmer: 社内転職でプログラマーになった
           not_employed: 就職していない
+    enums:
       learning:
         status:
           unstarted: 未着手
           started: 着手
           submitted: 提出
           complete: 修了
+      article:
+        target:
+          all: "全員（退会者を除く）"
+          students: "現役生のみ"
+          job_seekers: "就職希望者のみ"
+          none: "通知しない"
       regular_event:
         category:
           reading_circle: 輪読会
@@ -411,26 +414,41 @@ ja:
           question: 質問
           meeting: MTG
           others: その他
-      article:
-        thumbnail_type:
-          prepared_thumbnail: prepared_thumbnail
-          ruby: Ruby
-          ruby_on_rails: Ruby on Rails
-          javascript: JavaScript
-          wsl2: WSL2
+      report:
+        emotion:
+          negative: Negative
+          neutral: Neutral
+          positive: Positive
+      user:
+        job:
+          student: 学生
+          office_worker: 会社員
+          part_time_worker: フリーター
+          vacation: 休職中
+          unemployed: 働いていない
+          other: その他
+        os:
+          windows_wsl2: Windows(WSL2)
+          mac: Mac（Intel チップ）
           linux: Linux
-          pc: PC
-          sponsorship: Sponsorship
-          green: Green
-          purple: Purple
-          orange: Orange
-          brown: Brown
-          blue: Blue
-        target:
-          all: 全員（退会者を除く）
-          students: 現役生のみ
-          job_seekers: 就職希望者のみ
-          none: 通知しない
+          mac_apple: Mac（Apple チップ）
+        subscription_status:
+          active: 有効
+          canceled: キャンセル
+          past_due: 期日経過
+          trialing: お試し中
+        editor:
+          vscode: VSCode
+          ruby_mine: RubyMine
+          vim: Vim
+          emacs: Emacs
+          other_editor: その他
+        satisfaction:
+          excellent: とても良い
+          good: 良い
+          average: どちらでもない
+          poor: 悪い
+          very_poor: とても悪い
     errors:
       models:
         campaign:
@@ -480,12 +498,6 @@ ja:
     submit:
       create: 登録する
       update: 更新する
-  enums:
-    subscription_status:
-      active: 有効
-      canceled: キャンセル
-      past_due: 期日経過
-      trialing: お試し中
   active_flag:
     user:
       retire_reasons:
