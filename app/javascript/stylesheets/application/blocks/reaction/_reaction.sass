@@ -100,3 +100,21 @@
 .reactions__dropdown-toggle-plus
   font-size: .4em
   margin-right: .3em
+
+.reactions__actions
+  display: flex
+  gap: 4px
+  align-items: center
+
+.reactions__inspector-toggle
+  +size(2.8125rem calc(2.8125rem - 1px))
+  +text-block(1.25rem 1, flex)
+  color: var(--main)
+  cursor: pointer
+  align-items: center
+  justify-content: center
+  border-left: 1px solid var(--border-tint)
+  transition: all .2s ease-out
+  &:hover
+    color: var(--hover-text)
+    background: var(--background-more-tint)
