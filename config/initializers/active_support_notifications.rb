@@ -8,6 +8,8 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('regular_event.create', RegularEventOrganizerWatcher.new)
   ActiveSupport::Notifications.subscribe('report.create', FirstReportNotifier.new)
   ActiveSupport::Notifications.subscribe('report.update', FirstReportNotifier.new)
+  ActiveSupport::Notifications.subscribe('report.create', ReportNotifier.new)
+  ActiveSupport::Notifications.subscribe('report.update', ReportNotifier.new)
   ActiveSupport::Notifications.subscribe('announcement.create', AnnouncementNotifier.new)
   ActiveSupport::Notifications.subscribe('announcement.update', AnnouncementNotifier.new)
   ActiveSupport::Notifications.subscribe('announcement.destroy', AnnouncementNotificationDestroyer.new)
