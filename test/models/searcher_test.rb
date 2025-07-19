@@ -26,7 +26,7 @@ class SearchableTest < ActiveSupport::TestCase
   end
 
   test 'returns results for all types when no user filter is applied' do
-    results = Searcher.search('テスト', current_user:, document_type: :all)
+    results = Searcher.search(word: 'テスト', current_user:, document_type: :all)
     actual_classes = results.map(&:model_name).uniq
     expected_classes = %w[report page practice question announcement event regular_event comment answer correct_answer user]
     expected_classes.each do |klass|
@@ -35,27 +35,27 @@ class SearchableTest < ActiveSupport::TestCase
   end
 
   test 'filters results by user when user filter is applied' do
-    results = Searcher.search('user:kimura', current_user:, document_type: :all)
+    results = Searcher.search(word: 'user:kimura', current_user:, document_type: :all)
     assert_includes results.map(&:login_name), 'kimura'
     assert_not_includes results.map(&:login_name), 'komagata'
   end
 
   test 'filters results based on user visibility' do
-    result = Searcher.search('相談部屋', current_user:)
+    result = Searcher.search(word: '相談部屋', current_user:)
     assert_equal 0, result.size
     admin_user = users(:komagata)
-    result_for_admin = Searcher.search('相談部屋', current_user: admin_user)
+    result_for_admin = Searcher.search(word: '相談部屋', current_user: admin_user)
     assert_empty result_for_admin
   end
 
   test 'returns results filtered by user' do
-    result = Searcher.search('user:kimura', current_user:, document_type: :reports)
+    result = Searcher.search(word: 'user:kimura', current_user:, document_type: :reports)
     assert_includes result.map(&:login_name), 'kimura'
     assert_not_includes result.map(&:login_name), 'komagata'
   end
 
   test 'filters results by all keywords' do
-    result = Searcher.search('OS クリーンインストール', document_type: :practices, current_user:)
+    result = Searcher.search(word: 'OS クリーンインストール', document_type: :practices, current_user:)
     titles = result.map(&:title)
     assert_includes titles, practices(:practice1).title
     assert_not_includes titles, practices(:practice3).title
@@ -323,7 +323,7 @@ class SearchableTest < ActiveSupport::TestCase
     current_user = users(:komagata)
 
     my_reports = Searcher.search(word: 'テスト', only_me: true, current_user:, document_type: :reports)
-    assert(my_reports.all? { |searchable| searchable.user_id == current_user.id && searchable.description.include?('テスト') })
+    assert(my_reports.all? { |searchable| searchable.user_id == current_user.id && searchable.summary.include?('テスト') })
 
     # 検索結果にPracticeとUserを含まないことを確認
     all_my_results = Searcher.search(word: '', only_me: true, current_user:)
