@@ -16,6 +16,7 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('article.create', ArticleNotifier.new)
   ActiveSupport::Notifications.subscribe('article.destroy', ArticleNotificationDestroyer.new)
   ActiveSupport::Notifications.subscribe('work.create', WorkNotifier.new)
+  ActiveSupport::Notifications.subscribe('work.destroy', WorkNotificationDestroyer.new)
   ActiveSupport::Notifications.subscribe('product.create', ProductAuthorWatcher.new)
   ActiveSupport::Notifications.subscribe('product.create', ProductNotifierForColleague.new)
   ActiveSupport::Notifications.subscribe('product.create', ProductNotifierForPracticeWatcher.new)
