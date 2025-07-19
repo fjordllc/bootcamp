@@ -3,7 +3,7 @@
     span class="a-user-role is-#{user.primary_role}"
       img.thread-comment__user-icon.a-user-icon src="#{user.avatar_url}" alt="#{current_user.icon_title}"
   .thread-comment__end
-    .comment-editor
+    .comment-editor.js-comment-editor
       .thread-comment-form__form.a-card
         .a-form-tabs.js-tabs
           .a-form-tabs__tab.js-tabs__tab.edit-comment-tab.is-active
@@ -26,11 +26,11 @@
           .card-main-actions
             .card-main-actions__items
               .card-main-actions__item
-                button#js-shortcut-post-comment.a-button.is-sm.is-primary.is-block disabled=true
+                button#js-shortcut-post-comment.a-button.is-sm.is-primary.is-block.js-comment-save-button(disabled=true)
                   | コメントする
               - if mentor_login? && (commentable_type == 'Report' || commentable_type == 'Product') && !commentable.try(:checked?)
                 .card-main-actions__item.is-only-mentor
-                  button.a-button.is-sm.is-danger.is-block disabled=true
+                  button.a-button.is-sm.is-danger.is-block.js-comment-check-button(disabled=true)
                     i.fa-solid.fa-check
                     - if commentable_type == 'Report'
                       | 確認OKにする
