@@ -34,6 +34,7 @@ gem 'discordrb', '~> 3.5', require: false
 gem 'doorkeeper'
 gem 'flipper-active_record', '~> 1.3'
 gem 'good_job', '~> 3.14', github: 'komagata/good_job'
+gem 'google-cloud-ai_platform', '~> 1.0', require: false
 gem 'google-cloud-storage', '~> 1.25', require: false
 gem 'holiday_jp'
 gem 'icalendar', '~> 2.8'
@@ -47,6 +48,7 @@ gem 'mentionable', '~> 0.3.0'
 gem 'meta-tags'
 gem 'mini_magick'
 gem 'mutex_m', '0.1.1'
+gem 'neighbor'
 gem 'net-imap', require: false
 gem 'net-pop', require: false
 gem 'net-smtp', require: false # TODO: Remove it if you use rails 7.0.1
@@ -59,6 +61,7 @@ gem 'omniauth-rails_csrf_protection'
 gem 'opengraph_parser'
 gem 'parser', '3.2.2.4'
 gem 'pg', '~> 1.4.6'
+gem 'pgvector'
 gem 'postmark-rails'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rack-user_agent'

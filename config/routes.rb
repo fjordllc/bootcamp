@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     resource :password, only: %i(edit update), controller: "current_user/password"
   end
   resources :searchables, only: %i(index)
+  resources :smart_searchables, only: %i(index)
   resources :user_sessions, only: %i(new create destroy)
   resources :password_resets, only: %i(create edit update)
   resources :courses, only: %i(index) do
