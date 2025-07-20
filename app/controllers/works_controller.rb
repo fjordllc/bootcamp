@@ -27,7 +27,7 @@ class WorksController < ApplicationController
     @work = Work.new(work_params)
     @work.user = current_user
     if @work.save
-      Newspaper.publish(:work_create, { work: @work })
+      ActiveSupport::Notifications.instrument('work.create', work: @work)
       redirect_to @work, notice: 'ポートフォリオに作品を追加しました。'
     else
       render :new
