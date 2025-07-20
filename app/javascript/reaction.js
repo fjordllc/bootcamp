@@ -34,6 +34,15 @@ export function initializeReaction(reaction) {
       }
     })
   })
+
+  const inspectorToggle = reaction.querySelector('.js-reactions-inspector-toggle')
+  if (inspectorToggle) {
+    inspectorToggle.addEventListener('click', () => {
+      fetchAllReactions(reactionableId, (data) => {
+        console.log('全リアクション一覧:', data);
+      });
+    })
+  }
 }
 
 function requestReaction(url, method, callback) {
@@ -116,4 +125,9 @@ function destroyReaction(reaction, kind, loginName, reactionId) {
         updateReactionLoginNames(element, loginName)
       })
   })
+}
+
+function fetchAllReactions(reactionableId, callback) {
+  const url = `/api/reactions?reactionable_id=${reactionableId}`;
+  requestReaction(url, 'GET', callback);
 }
