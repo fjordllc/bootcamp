@@ -7,6 +7,7 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('event.create', EventOrganizerWatcher.new)
   ActiveSupport::Notifications.subscribe('regular_event.create', RegularEventOrganizerWatcher.new)
 
+  ActiveSupport::Notifications.subscribe('product.update', ProductUpdateNotifierForWatcher.new)
   ActiveSupport::Notifications.subscribe('product.update', ProductUpdateNotifierForChecker.new)
   ActiveSupport::Notifications.subscribe('came.comment', CommentNotifier.new)
 end

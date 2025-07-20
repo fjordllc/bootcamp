@@ -62,7 +62,6 @@ Rails.configuration.after_initialize do
   Newspaper.subscribe(:question_create, question_notifier)
   Newspaper.subscribe(:question_update, question_notifier)
 
-  Newspaper.subscribe(:product_update, ProductUpdateNotifierForWatcher.new)
   Newspaper.subscribe(:came_comment_in_talk, CommentNotifierForAdmin.new)
 
   Newspaper.subscribe(:create_article, ArticleNotifier.new)
