@@ -38,7 +38,7 @@ class ArticlesController < ApplicationController
     @article.user = current_user if @article.user.nil?
     set_wip
     if @article.save
-      Newspaper.publish(:create_article, { article: @article })
+      ActiveSupport::Notifications.instrument('article.create', article: @article)
 
       redirect_to redirect_url(@article), notice: notice_message(@article)
     else
@@ -49,7 +49,7 @@ class ArticlesController < ApplicationController
   def update
     set_wip
     if @article.update(article_params)
-      Newspaper.publish(:create_article, { article: @article })
+      ActiveSupport::Notifications.instrument('article.create', article: @article)
       redirect_to redirect_url(@article), notice: notice_message(@article)
     else
       render :edit
