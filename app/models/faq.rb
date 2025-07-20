@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
 class FAQ < ApplicationRecord
+  include Searchable
+
   validates :answer, presence: true, uniqueness: { scope: :question }
   validates :question, presence: true, uniqueness: true
   default_scope -> { order(:position) }
   belongs_to :faq_category
   acts_as_list scope: :faq_category
+
+  columns_for_keyword_search :question, :answer
 end
