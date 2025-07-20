@@ -11,4 +11,5 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('announcement.create', AnnouncementNotifier.new)
   ActiveSupport::Notifications.subscribe('announcement.update', AnnouncementNotifier.new)
   ActiveSupport::Notifications.subscribe('announcement.destroy', AnnouncementNotificationDestroyer.new)
+  ActiveSupport::Notifications.subscribe('article.create', ArticleNotifier.new)
 end
