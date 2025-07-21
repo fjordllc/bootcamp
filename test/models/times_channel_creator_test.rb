@@ -10,14 +10,14 @@ class TimesChannelCreatorTest < ActiveSupport::TestCase
 
     Rails.logger.stub(:warn, ->(message) { logs << message }) do
       Discord::TimesChannel.stub(:new, ->(_) { InvalidTimesChannel.new }) do
-        TimesChannelCreator.new.call({ user: })
+        TimesChannelCreator.new.call(nil, nil, nil, nil, user:)
       end
       assert_nil user.discord_profile.times_id
       assert_nil user.discord_profile.times_url
       assert_equal "[Discord API] #{user.login_name}の分報チャンネルが作成できませんでした。", logs.pop
 
       Discord::TimesChannel.stub(:new, ->(_) { ValidTimesChannel.new }) do
-        TimesChannelCreator.new.call({ user: })
+        TimesChannelCreator.new.call(nil, nil, nil, nil, user:)
       end
       assert_equal '1234567890123456789', user.discord_profile.times_id
       expected_url = "https://discord.com/channels/#{ENV['DISCORD_GUILD_ID']}/1234567890123456789"
@@ -30,21 +30,21 @@ class TimesChannelCreatorTest < ActiveSupport::TestCase
     user = users(:adminonly)
     assert user.admin?
     assert_raise ArgumentError do
-      TimesChannelCreator.new.call({ user: })
+      TimesChannelCreator.new.call(nil, nil, nil, nil, user:)
     end
     assert_not user.student_or_trainee?
 
     user = users(:mentormentaro)
     assert user.mentor?
     assert_raise ArgumentError do
-      TimesChannelCreator.new.call({ user: })
+      TimesChannelCreator.new.call(nil, nil, nil, nil, user:)
     end
     assert_not user.student_or_trainee?
 
     user = users(:senpai)
     assert user.adviser?
     assert_raise ArgumentError do
-      TimesChannelCreator.new.call({ user: })
+      TimesChannelCreator.new.call(nil, nil, nil, nil, user:)
     end
     assert_not user.student_or_trainee?
   end
