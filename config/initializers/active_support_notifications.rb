@@ -4,6 +4,7 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('answer.create', AnswererWatcher.new)
   ActiveSupport::Notifications.subscribe('answer.create', AnswerNotifier.new)
   ActiveSupport::Notifications.subscribe('answer.create', NotifierToWatchingUser.new)
+  ActiveSupport::Notifications.subscribe('correct_answer.save', CorrectAnswerNotifier.new)
   ActiveSupport::Notifications.subscribe('event.create', EventOrganizerWatcher.new)
   ActiveSupport::Notifications.subscribe('regular_event.create', RegularEventOrganizerWatcher.new)
   sad_streak_updater = SadStreakUpdater.new
