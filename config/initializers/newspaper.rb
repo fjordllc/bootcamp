@@ -7,7 +7,6 @@ Rails.configuration.after_initialize do
   Newspaper.subscribe(:correct_answer_save, CorrectAnswerNotifier.new)
 
   Newspaper.subscribe(:user_create, SignUpNotifier.new)
-  Newspaper.subscribe(:student_or_trainee_create, TimesChannelCreator.new)
 
   Newspaper.subscribe(:regular_event_update, RegularEventUpdateNotifier.new)
 
