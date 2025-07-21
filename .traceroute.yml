@@ -19,6 +19,7 @@ ignore_unreachable_actions:
   - .*#staff_or_paid_login\?
   - .*#hibernated_login\?
   - .*#training_completed_login\?
+  - .*#trainee_login\?
   - .*#inactive_login\?
   - .*#retired_login\?
   - .*#policy
@@ -27,6 +28,7 @@ ignore_unreachable_actions:
   - .*#require_mentor_login
   - .*#require_admin_or_mentor_login
   - .*#require_staff_login
+  - .*#require_trainee_login
   - mails#welcome
   - reports#convert_to_hour_minute
   - reports#convert_to_ceiled_hour

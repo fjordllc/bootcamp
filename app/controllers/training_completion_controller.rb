@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class TrainingCompletionController < ApplicationController
+  before_action :require_trainee_login, only: %i[new create]
   skip_before_action :require_active_user_login, raise: false, only: %i[show]
 
   def show; end
