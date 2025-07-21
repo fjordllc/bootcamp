@@ -8,7 +8,7 @@ class API::CorrectAnswersController < API::BaseController
     @answer.type = 'CorrectAnswer'
     if @answer.save
       Newspaper.publish(:answer_save, { answer: @answer })
-      Newspaper.publish(:correct_answer_save, { answer: @answer })
+      ActiveSupport::Notifications.instrument('correct_answer.save', answer: @answer)
       head :ok
     else
       head :bad_request
