@@ -152,7 +152,6 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
         notify_to_mentors(@user)
         notify_to_chat(@user)
         ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.student?
-        flash[:x_conversion] = 'signup'
         logger.info "[Signup] 8. after create times channel. #{@user.email}"
         redirect_to created_users_path(role: determine_user_role(@user))
       else
