@@ -39,6 +39,11 @@ class TrainingCompletionTest < ApplicationSystemTestCase
     assert_text '研修終了したユーザーです'
   end
 
+  test 'non-trainee user cannot access training completion page' do
+    visit_with_auth new_training_completion_path, 'hajime'
+    assert_text '研修生としてログインしてください'
+  end
+
   test 'fails to send email when user completes training due to postmark error' do
     logs = []
     stub_warn_logger = ->(message) { logs << message }

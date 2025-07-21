@@ -18,7 +18,7 @@ module Authentication::LoginHelpers
                   :inactive_login?
   end
 
-  %i[admin mentor adviser staff student paid hibernated training_completed retired].each do |user_type|
+  %i[admin mentor adviser staff student paid hibernated training_completed trainee retired].each do |user_type|
     define_method("#{user_type}_login?") do
       logged_in? && current_user.public_send("#{user_type}?")
     end

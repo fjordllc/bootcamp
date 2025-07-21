@@ -35,6 +35,12 @@ module Authentication::AccessRequirements
     redirect_to root_path, alert: '管理者・アドバイザー・メンターとしてログインしてください'
   end
 
+  def require_trainee_login
+    return if trainee_login?
+
+    redirect_to root_path, alert: '研修生としてログインしてください'
+  end
+
   protected
 
   def require_admin_or_adviser_login
