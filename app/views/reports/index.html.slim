@@ -25,7 +25,7 @@ header.page-header
       = link_to '全て', reports_path, class: "user-reports__filter#{' is-active' unless params[:unchecked]}"
       = link_to '未チェック', reports_path(unchecked: true), class: "user-reports__filter#{' is-active' if params[:unchecked]}"
   nav.page-filter.form
-    - unless params[:unchecked].present?
+    - if params[:unchecked].blank?
       .container.is-md
         = form_with url: reports_path, local: true, method: 'get'
         .form-item.is-inline-md-up
