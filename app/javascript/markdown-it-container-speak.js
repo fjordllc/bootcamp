@@ -31,7 +31,7 @@ export default (md) => {
       } else {
         const speakerName = escapeHTML(
           info
-            .replace(/^speak\s*@?/, '')
+            .replace(/^speak[\s\n]*@?/, '')
             .replace(/^\*\*/, '')
             .replace(/\*\*$/, '')
             .trim()
