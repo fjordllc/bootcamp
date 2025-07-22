@@ -426,7 +426,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   scope :trainees, lambda {
     where(
       trainee: true,
-      retired_on: nil
+      training_completed_at: nil
     )
   }
   scope :job_seeking, -> { where(career_path: 'job_seeking') }
