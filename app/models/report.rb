@@ -60,6 +60,8 @@ class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
       .default_order
   }
 
+  scope :recent, -> { order(reported_on: :desc) }
+
   class << self
     def faces
       @faces ||= emotions.keys
