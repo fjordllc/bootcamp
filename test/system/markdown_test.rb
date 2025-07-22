@@ -157,4 +157,39 @@ class MarkdownTest < ApplicationSystemTestCase
     assert_selector '.twitter-tweet'
     assert_no_selector 'a.before-replacement-link-card[href="https://x.com/fjordbootcamp/status/1866097842483503117"]', visible: true
   end
+
+  test 'speak block with arguments test' do
+    visit_with_auth new_page_path, 'machida'
+    fill_in 'page[title]', with: 'インタビュー'
+    fill_in 'page[body]', with: ":::speak(machida, https://avatars.githubusercontent.com/u/168265?v=4)\n## (名前, 画像URL)ver\n:::"
+
+    click_button 'Docを公開'
+
+    assert_css '.a-long-text.is-md.js-markdown-view'
+    assert_css '.speak'
+    assert_no_css "a[href='/users/machida']"
+
+    img = find('.speak__speaker img')
+    assert_includes img['src'], 'https://avatars.githubusercontent.com/u/168265?v=4'
+    assert_includes img['title'], 'machida'
+
+    name_span = find('.speak__speaker-name')
+    assert_includes name_span.text, 'machida'
+  end
+
+  test 'speak block without @ test' do
+    visit_with_auth new_page_path, 'machida'
+    fill_in 'page[title]', with: 'インタビュー'
+    fill_in 'page[body]', with: ":::speak username\n## 名前のみver\n:::"
+
+    click_button 'Docを公開'
+
+    assert_css '.a-long-text.is-md.js-markdown-view'
+    assert_css '.speak'
+    assert_no_css "a[href='/users/username']"
+
+    img = find('.speak__speaker img')
+    assert_includes img['src'], '/images/users/avatars/default.png'
+    assert_includes img['title'], 'username'
+  end
 end
