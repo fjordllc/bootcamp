@@ -20,4 +20,21 @@ class API::ReactionsController < API::BaseController
     reaction.destroy
     render json: {}, status: :ok
   end
+
+  def index
+    reactionables = params[:reactionable_id].split('_')
+    reactionable_id = reactionables.pop
+    reactionable_type = reactionables.join('_')
+    reactionable = reactionable_type.camelcase.constantize.find(reactionable_id)
+
+    reactions = reactionable.reactions.includes(:user)
+    result = Reaction.emojis.each_with_object({}) do |(kind, emoji), hash|
+      users = reactions
+              .select { |r| r.kind == kind.to_s }
+              .map { |r| r.user.login_name }
+      hash[kind] = { emoji:, users: } unless users.empty?
+    end
+
+    render json: result
+  end
 end
