@@ -22,7 +22,7 @@ export default (md) => {
           return `<div class="speak">
                     <div class="speak__speaker">
                       <span class="a-user-emoji-link">
-                        <img src="${avatarUrl}" alt="${speakerName}" title="@${speakerName}" class="a-user-emoji speak__speaker-avatar">
+                        <img src="${avatarUrl}" alt="${speakerName}" title="${speakerName}" class="a-user-emoji speak__speaker-avatar">
                         <span class="speak__speaker-name">${speakerName}</span>
                       </span>
                     </div>
