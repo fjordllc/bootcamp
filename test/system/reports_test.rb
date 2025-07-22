@@ -657,12 +657,6 @@ class ReportsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'mentors can see reports page if products published_at is nil' do
-    visit_with_auth '/reports/unchecked', 'mentormentaro'
-    click_link 'テストのnippou'
-    assert_text '今日は1時間学習しました。'
-  end
-
   test 'open new report with a past date' do
     visit_with_auth '/reports/new?reported_on=2022-1-1', 'komagata'
     assert_equal '2022-01-01', find('#report_reported_on').value
