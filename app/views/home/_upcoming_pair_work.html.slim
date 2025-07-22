@@ -4,7 +4,7 @@
   .card-list-item__inner
     .card-list-item__label
       span
-        | ペアワーク
+        | ペア<br>ワーク
     .card-list-item__rows
       .card-list-item__row
         header.card-list-item-title
@@ -19,5 +19,5 @@
               time.a-meta
                 span(class="#{important ? 'a-meta__label is-important' : 'a-meta__label'}")
                   | 開催日時
-                span(class="#{important ? 'a-meta__label is-important' : 'a-meta__value'}")
+                span(class="#{important ? 'a-meta__value is-important' : 'a-meta__value'}")
                   = I18n.localize(pair_work.reserved_at)
