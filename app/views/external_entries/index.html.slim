@@ -8,19 +8,25 @@ header.page-header
         .page-header__title
           | 日報・ブログ
       .page-header__end
-        = render 'reports/new_report'
 
 = report_page_tabs(active_tab: 'みんなのブログ')
 
-- if current_user.feed_url.blank?
-  .a-page-notice.is-danger
-    .container.is-lg
-      .a-page-notice__inner
-        p
-          | #{current_user.login_name}さんのブログは
-          | まだ登録されていません。
-          = link_to edit_current_user_path(anchor: 'form-blog-feed') do
-            | ブログのフィード URL の登録
-          | をしてください。
+.page-main
+  .user-reports__header
+    .user-reports__title
+      | みんなのブログ
+
+  hr.a-border
+
+  - if current_user.feed_url.blank?
+    .a-page-notice.is-danger
+      .container.is-lg
+        .a-page-notice__inner
+          p
+            | #{current_user.login_name}さんのブログは
+            | まだ登録されていません。
+            = link_to edit_current_user_path(anchor: 'form-blog-feed') do
+              | ブログのフィード URL の登録
+            | をしてください。
 
 = render('external_entries')
