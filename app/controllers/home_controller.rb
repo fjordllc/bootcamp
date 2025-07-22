@@ -46,8 +46,7 @@ class HomeController < ApplicationController
     @inactive_students = User.with_attached_avatar.inactive_students_and_trainees.order(last_activity_at: :desc)
     @job_seeking_users = User.with_attached_avatar.job_seeking.includes(:reports, :products, :works, :course, :company)
     @colleague_trainees = current_user.colleague_trainees.with_attached_avatar.includes(:reports, :products, :comments)
-    colleague_trainees_reports = Report.with_avatar.where(wip: false).where(user: current_user.colleague_trainees.with_attached_avatar)
-    @colleague_trainees_recent_reports = colleague_trainees_reports.order(reported_on: :desc).limit(10)
+    @colleague_trainees_recent_reports = ColleagueTraineesRecentReportsQuery.new(current_user:).call.limit(10)
     @recent_reports = Report.with_avatar.where(wip: false).order(reported_on: :desc, created_at: :desc).limit(10)
     @product_deadline_day = Product::PRODUCT_DEADLINE
     @colleagues = current_user.colleagues_other_than_self
