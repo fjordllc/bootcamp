@@ -11,12 +11,18 @@ header.page-header
 
 = report_page_tabs(active_tab: '日報')
 
-.page-main
-  .user-reports__header
-    .user-reports__title
-      | 日報
-    .user-reports__new-report-button
-      = render 'reports/new_report'
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | 日報
+        .page-main-header__end
+          .page-header-actions
+            ul.page-header-actions__items
+              li.page-header-actions__item
+                = render 'reports/new_report'
 
   hr.a-border
 
