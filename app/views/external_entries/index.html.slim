@@ -11,10 +11,15 @@ header.page-header
 
 = report_page_tabs(active_tab: 'みんなのブログ')
 
-.page-main
-  .user-reports__header
-    .user-reports__title
-      | みんなのブログ
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | みんなのブログ
+        .page-main-header__end
+          .page-header-actions
 
   hr.a-border
 
