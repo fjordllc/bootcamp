@@ -60,6 +60,7 @@ class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLeng
 
     if @report.save_uniquely
       Newspaper.publish(:report_save, { report: @report })
+      ActiveSupport::Notifications.instrument('report.save', report: @report)
       redirect_to redirect_url(@report), notice: notice_message(@report), flash: flash_contents(@report)
     else
       render :new
@@ -76,6 +77,7 @@ class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLeng
 
     if @report.save_uniquely
       Newspaper.publish(:report_save, { report: @report })
+      ActiveSupport::Notifications.instrument('report.save', report: @report)
       redirect_to redirect_url(@report), notice: notice_message(@report), flash: flash_contents(@report)
     else
       @report.wip = before_wip_status
@@ -85,7 +87,7 @@ class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLeng
 
   def destroy
     @report.destroy
-    Newspaper.publish(:report_destroy, { report: @report })
+    ActiveSupport::Notifications.instrument('report.destroy', report: @report)
     redirect_to reports_url, notice: '日報を削除しました。'
   end
 
