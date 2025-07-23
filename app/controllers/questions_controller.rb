@@ -57,6 +57,7 @@ class QuestionsController < ApplicationController
     @question.user = current_user if !admin_or_mentor_login?
     set_wip
     if @question.save
+      ActiveSupport::Notifications.instrument('question.create', { question: @question })
       Newspaper.publish(:question_create, { question: @question })
       redirect_to Redirection.determin_url(self, @question), notice: @question.generate_notice_message(:create)
     else
@@ -67,7 +68,9 @@ class QuestionsController < ApplicationController
   def update
     set_wip
     if @question.update(question_params)
-      Newspaper.publish(:question_update, { question: @question }) if @question.saved_change_to_wip?
+      wip_changed = @question.saved_change_to_wip?
+      ActiveSupport::Notifications.instrument('question.update', { question: @question }) if wip_changed
+      Newspaper.publish(:question_update, { question: @question }) if wip_changed
       redirect_to Redirection.determin_url(self, @question), notice: @question.generate_notice_message(:update)
     else
       render :edit
