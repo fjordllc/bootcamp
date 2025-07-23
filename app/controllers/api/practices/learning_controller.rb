@@ -14,6 +14,9 @@ class API::Practices::LearningController < API::BaseController
     @learning.status = :unstarted
   end
 
+  ##
+  # Creates or updates a Learning record for the current user and specified practice, setting its status and triggering notifications as appropriate.
+  # Responds with the appropriate HTTP status or validation errors.
   def update
     learning = Learning.find_or_initialize_by(
       user_id: current_user.id,

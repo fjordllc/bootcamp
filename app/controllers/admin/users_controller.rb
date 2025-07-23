@@ -42,6 +42,10 @@ class Admin::UsersController < AdminController
     end
   end
 
+  ##
+  # Deletes a user record unless the current user attempts to delete themselves.
+  #
+  # Prevents self-deletion by redirecting with an alert. Triggers a 'learning.destroy' event before removing the user and redirects to the users index with a confirmation notice.
   def destroy
     # 今後本人退会時に処理が増えることを想定し、自分自身は削除できないよう
     # 制限をかけておく

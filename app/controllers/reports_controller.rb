@@ -52,6 +52,9 @@ class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLeng
     @report.no_learn = true if @report.learning_times.empty?
   end
 
+  ##
+  # Creates a new report for the current user and saves it with associated learning times and WIP status.
+  # On successful save, publishes notifications and redirects to the appropriate page; otherwise, re-renders the new report form.
   def create
     @report = Report.new(report_params)
     @report.user = current_user
@@ -67,6 +70,10 @@ class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLeng
     end
   end
 
+  ##
+  # Updates an existing report with new attributes and learning times.
+  #
+  # If the update is successful, publishes notifications and redirects to the appropriate page with a notice and flash messages. If the update fails, restores the previous WIP status and renders the edit form again.
   def update
     before_wip_status = @report.wip
     set_wip
@@ -85,6 +92,8 @@ class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLeng
     end
   end
 
+  ##
+  # Deletes the current user's report and redirects to the reports index with a deletion notice.
   def destroy
     @report.destroy
     ActiveSupport::Notifications.instrument('report.destroy', report: @report)
