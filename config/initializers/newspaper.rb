@@ -1,17 +1,10 @@
 # frozen_string_literal: true
 
 Rails.configuration.after_initialize do
-  Newspaper.subscribe(:announcement_destroy, AnnouncementNotificationDestroyer.new)
-
-  announcement_notifier = AnnouncementNotifier.new
-  Newspaper.subscribe(:announcement_create, announcement_notifier)
-  Newspaper.subscribe(:announcement_update, announcement_notifier)
-
   sad_streak_updater = SadStreakUpdater.new
   Newspaper.subscribe(:report_save, sad_streak_updater)
   Newspaper.subscribe(:report_destroy, sad_streak_updater)
 
-  Newspaper.subscribe(:report_save, FirstReportNotifier.new)
   Newspaper.subscribe(:report_save, ReportNotifier.new)
 
   learning_cache_destroyer = LearningCacheDestroyer.new
