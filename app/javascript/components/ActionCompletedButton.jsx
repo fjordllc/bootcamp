@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { patch } from '@rails/request.js'
-import toast from '../toast'
+import { toast } from '../vanillaToast'
 
 export default function ActionCompletedButton({
   isInitialActionCompleted,
@@ -29,14 +29,14 @@ export default function ActionCompletedButton({
       })
 
       if (response.ok) {
-        toast.methods.toast(`${newState ? '対応済み' : '未対応'}にしました`)
+        toast(`${newState ? '対応済み' : '未対応'}にしました`)
       } else {
         throw new Error('Update failed')
       }
     } catch (error) {
       console.warn(error)
       setIsActionCompleted(previousState) // ロールバック
-      toast.methods.toast('更新に失敗しました。再度お試しください。')
+      toast('更新に失敗しました。再度お試しください。')
     } finally {
       setIsLoading(false)
     }
