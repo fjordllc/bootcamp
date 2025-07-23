@@ -57,9 +57,8 @@ function Notification({ notification }) {
         href={notification.path}
         className="header-dropdown__item-link unconfirmed_link">
         <div className="header-notifications-item__body">
-          <span className={UserIconFrameClass(notification.sender)}>
+          <span className={`${UserIconFrameClass(notification.sender)} header-notifications-item__user-icon`}>
             <img
-              spanClassName="header-notifications-item__user-icon"
               src={notification.sender.avatar_url}
               className="a-user-icon"
               alt="User Icon"
