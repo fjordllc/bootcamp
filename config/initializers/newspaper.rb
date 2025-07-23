@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 Rails.configuration.after_initialize do
-  learning_cache_destroyer = LearningCacheDestroyer.new
-  Newspaper.subscribe(:learning_create, learning_cache_destroyer)
-  Newspaper.subscribe(:learning_destroy, learning_cache_destroyer)
-
   answer_cache_destroyer = AnswerCacheDestroyer.new
   Newspaper.subscribe(:answer_save, answer_cache_destroyer)
   Newspaper.subscribe(:answer_destroy, answer_cache_destroyer)
