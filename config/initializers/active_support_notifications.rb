@@ -34,4 +34,8 @@ Rails.application.reloader.to_prepare do
   page_notifier = PageNotifier.new
   ActiveSupport::Notifications.subscribe('page.create', page_notifier)
   ActiveSupport::Notifications.subscribe('page.update', page_notifier)
+
+  learning_cache_destroyer = LearningCacheDestroyer.new
+  ActiveSupport::Notifications.subscribe('learning.create', learning_cache_destroyer)
+  ActiveSupport::Notifications.subscribe('learning.destroy', learning_cache_destroyer)
 end
