@@ -10,4 +10,8 @@ Rails.application.reloader.to_prepare do
   sad_streak_updater = SadStreakUpdater.new
   ActiveSupport::Notifications.subscribe('report.save', sad_streak_updater)
   ActiveSupport::Notifications.subscribe('report.destroy', sad_streak_updater)
+
+  learning_cache_destroyer = LearningCacheDestroyer.new
+  ActiveSupport::Notifications.subscribe('learning.create', learning_cache_destroyer)
+  ActiveSupport::Notifications.subscribe('learning.destroy', learning_cache_destroyer)
 end

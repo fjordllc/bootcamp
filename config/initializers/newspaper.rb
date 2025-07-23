@@ -10,10 +10,6 @@ Rails.configuration.after_initialize do
   Newspaper.subscribe(:report_save, FirstReportNotifier.new)
   Newspaper.subscribe(:report_save, ReportNotifier.new)
 
-  learning_cache_destroyer = LearningCacheDestroyer.new
-  Newspaper.subscribe(:learning_create, learning_cache_destroyer)
-  Newspaper.subscribe(:learning_destroy, learning_cache_destroyer)
-
   answer_cache_destroyer = AnswerCacheDestroyer.new
   Newspaper.subscribe(:answer_save, answer_cache_destroyer)
   Newspaper.subscribe(:answer_destroy, answer_cache_destroyer)
