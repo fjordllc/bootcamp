@@ -21,4 +21,8 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('product.create', ProductAuthorWatcher.new)
   ActiveSupport::Notifications.subscribe('product.create', ProductNotifierForColleague.new)
   ActiveSupport::Notifications.subscribe('product.create', ProductNotifierForPracticeWatcher.new)
+
+  learning_cache_destroyer = LearningCacheDestroyer.new
+  ActiveSupport::Notifications.subscribe('learning.create', learning_cache_destroyer)
+  ActiveSupport::Notifications.subscribe('learning.destroy', learning_cache_destroyer)
 end
