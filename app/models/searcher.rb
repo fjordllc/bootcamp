@@ -13,11 +13,19 @@ class Searcher
   class << self
     include SearchHelper
 
-    def search(word, current_user:, document_type: :all)
+    def search(word:, current_user:, only_me: false, document_type: :all)
       words = word.split(/[[:blank:]]+/).reject(&:blank?)
       searchables = fetch_results(words, document_type) || []
       searchables = filter_results!(searchables, current_user)
-      searchables = delete_private_comment!(searchables)
+
+      if only_me
+        classes_without_user_id = %w[Practice User]
+        searchables = searchables
+                      .reject { |searchable| searchable.class.name.in?(classes_without_user_id) }
+                      .select { |searchable| searchable.user_id == current_user.id }
+      end
+
+      searchables = delete_private_comment!(searchables) # 相談部屋とお問い合わせ、企業研修のコメント内容は検索できないようにする
       searchables.map do |searchable|
         SearchResult.new(searchable, word, current_user)
       end
