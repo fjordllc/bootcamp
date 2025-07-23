@@ -3,7 +3,7 @@ import useSWR, { useSWRConfig } from 'swr'
 import fetcher from '../fetcher'
 import { destroy } from '@rails/request.js'
 import userIcon from '../user-icon.js'
-import { toast } from '../toast_react'
+import { toast } from '../vanillaToast.js'
 import { formatDateToJapanese } from '../dateFormatter'
 
 export default function BookmarksInDashboard() {

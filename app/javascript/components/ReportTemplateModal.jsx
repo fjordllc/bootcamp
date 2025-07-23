@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import TextareaInitializer from '../textarea-initializer'
 import CSRF from '../csrf'
-import { toast } from '../toast_react'
+import { toast } from '../vanillaToast'
 
 export default function ReportTemplateModal({
   registeredTemplate,

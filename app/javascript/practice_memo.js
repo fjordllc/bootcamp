@@ -1,7 +1,7 @@
 import CSRF from 'csrf'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
-import { toast } from 'toast_react'
+import { toast } from 'vanillaToast'
 
 document.addEventListener('DOMContentLoaded', () => {
   const practiceMemo = document.querySelector('.practice-memo')
