@@ -9,9 +9,9 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'ffi', '1.17.1'
 gem 'image_processing', '~> 1.12'
 gem 'jbuilder', '~> 2.7'
+gem 'jsbundling-rails', '~> 1.1'
 gem 'puma', '~> 6.0'
 gem 'rails', '~> 7.2.0'
-gem 'jsbundling-rails', '~> 1.1'
 
 # not default
 gem 'abstract_notifier', '~> 0.3.2'

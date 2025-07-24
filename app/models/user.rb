@@ -918,12 +918,33 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     save(validate: false)
   end
 
-  def self.ransackable_attributes(auth_object = nil)
-    ["accessed_at", "admin", "adviser", "after_graduation_hope", "auto_retire", "blog_url", "career_memo", "career_path", "company_id", "country_code", "course_id", "created_at", "crypted_password", "customer_id", "description", "editor", "email", "experiences", "facebook_url", "feed_url", "github_account", "github_collaborator", "github_id", "graduated_on", "hibernated_at", "id", "id_value", "invoice_payment", "job", "job_seeker", "job_seeking", "last_activity_at", "last_sad_report_id", "login_name", "mail_notification", "mentor", "mentor_memo", "name", "name_kana", "nda", "opinion", "organization", "os", "other_editor", "other_referral_source", "profile_job", "profile_name", "profile_text", "referral_source", "remember_me_token", "remember_me_token_expires_at", "reset_password_email_sent_at", "reset_password_token", "reset_password_token_expires_at", "retire_reason", "retire_reasons", "retired_on", "sad_streak", "salt", "satisfaction", "sent_student_before_auto_retire_mail", "sent_student_followup_message", "show_mentor_profile", "subdivision_code", "subscription_id", "trainee", "training_ends_on", "twitter_account", "unsubscribe_email_token", "updated_at"]
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[
+      accessed_at admin adviser after_graduation_hope auto_retire blog_url career_memo career_path company_id country_code
+      course_id created_at crypted_password customer_id description editor email experiences facebook_url feed_url
+      github_account github_collaborator github_id graduated_on hibernated_at id id_value invoice_payment job job_seeker
+      job_seeking last_activity_at last_sad_report_id login_name mail_notification mentor mentor_memo name name_kana
+      nda opinion organization os other_editor other_referral_source profile_job profile_name profile_text
+      referral_source remember_me_token remember_me_token_expires_at reset_password_email_sent_at reset_password_token
+      reset_password_token_expires_at retire_reason retire_reasons retired_on sad_streak salt satisfaction
+      sent_student_before_auto_retire_mail sent_student_followup_message show_mentor_profile subdivision_code
+      subscription_id trainee training_ends_on twitter_account unsubscribe_email_token updated_at
+    ]
   end
 
-  def self.ransackable_associations(auth_object = nil)
-    ["active_learnings", "active_practices", "active_relationships", "announcements", "answers", "articles", "authored_books", "avatar_attachment", "avatar_blob", "base_tags", "bookmarks", "checks", "coding_test_submissions", "coding_tests", "comments", "company", "completed_learnings", "completed_practices", "course", "diploma_file_attachment", "diploma_file_blob", "discord_profile", "events", "external_entries", "followees", "followers", "footprints", "hibernations", "images", "learning_time_frames", "learning_time_frames_users", "learnings", "micro_reports", "movies", "notifications", "oauth_access_grants", "oauth_access_tokens", "organize_regular_events", "organizers", "pages", "participate_events", "participate_regular_events", "participations", "passive_relationships", "practices", "products", "profile_image_attachment", "profile_image_blob", "questions", "reactions", "regular_event_participations", "regular_events", "report_template", "reports", "request_retirements", "send_notifications", "skipped_practices", "survey_questions", "surveys", "tag_taggings", "taggings", "tags", "talk", "targeted_request_retirement", "watches", "works"]
+  def self.ransackable_associations(_auth_object = nil)
+    %w[
+      active_learnings active_practices active_relationships announcements answers articles authored_books
+      avatar_attachment avatar_blob base_tags bookmarks checks coding_test_submissions coding_tests comments company
+      completed_learnings completed_practices course diploma_file_attachment diploma_file_blob discord_profile events
+      external_entries followees followers footprints hibernations images learning_time_frames
+      learning_time_frames_users learnings micro_reports movies notifications oauth_access_grants oauth_access_tokens
+      organize_regular_events organizers pages participate_events participate_regular_events participations
+      passive_relationships practices products profile_image_attachment profile_image_blob questions reactions
+      regular_event_participations regular_events report_template reports request_retirements send_notifications
+      skipped_practices survey_questions surveys tag_taggings taggings tags talk targeted_request_retirement watches
+      works
+    ]
   end
 
   private

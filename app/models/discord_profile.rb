@@ -20,8 +20,8 @@ class DiscordProfile < ApplicationRecord
     validate :no_consecutive_periods
   end
 
-  def self.ransackable_attributes(auth_object = nil)
-    ["account_name", "created_at", "id", "times_id", "times_url", "updated_at", "user_id"]
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[account_name created_at id times_id times_url updated_at user_id]
   end
 
   private

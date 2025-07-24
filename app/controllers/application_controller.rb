@@ -43,10 +43,10 @@ class ApplicationController < ActionController::Base
 
     # Rails 7.1+: ActiveStorage::Current.host= is deprecated, use url_options= instead
     uri = URI.parse(request.base_url)
-    ActiveStorage::Current.url_options = { 
-      host: uri.host, 
-      port: uri.port, 
-      protocol: uri.scheme 
+    ActiveStorage::Current.url_options = {
+      host: uri.host,
+      port: uri.port,
+      protocol: uri.scheme
     }
   end
 
