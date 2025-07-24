@@ -74,8 +74,4 @@ header.page-content-header
 
     .page-content-header__row
       .page-content-header__tags
-        = react_component('Tags/Tags', { tagsInitialValue: movie.tag_list.join(',').to_s,
-                                         tagsParamName: 'movie[tag_list]',
-                                         tagsInputId: 'movie_tag_list',
-                                         tagsType: 'Movie',
-                                         tagsTypeId: movie.id.to_s })
+        = render(Tag::FormComponent.new(taggable: movie, param_name: 'movie[tag_list]', input_id: 'movie_tag_list'))
