@@ -26,10 +26,6 @@ Rails.configuration.after_initialize do
   Newspaper.subscribe(:retirement_create, times_channel_destroyer)
   Newspaper.subscribe(:training_completion_create, times_channel_destroyer)
 
-  question_notifier = QuestionNotifier.new
-  Newspaper.subscribe(:question_create, question_notifier)
-  Newspaper.subscribe(:question_update, question_notifier)
-
   Newspaper.subscribe(:product_update, ProductUpdateNotifierForWatcher.new)
   Newspaper.subscribe(:product_update, ProductUpdateNotifierForChecker.new)
   Newspaper.subscribe(:came_comment, CommentNotifier.new)
