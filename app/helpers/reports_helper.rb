@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module ReportsHelper
-
   def practice_options(categories)
     categories.flat_map do |category|
       category.practices.map do |practice|
@@ -34,6 +33,4 @@ module ReportsHelper
   def category_practices(report)
     report.practices.eager_load(:categories).order('categories_practices.position')
   end
-
-
 end

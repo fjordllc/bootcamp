@@ -5,12 +5,7 @@ module UserDecorator
 
   include Role
   include Retire
-
-  SUCCESS = (0..1)
-  LAST_UNCHECKED_REPORT_COUNT = 1
-  PRIMARY = (2..4)
-  WARNING = (5..9)
-  DANGER = (10..)
+  include ReportStatus
 
   def twitter_url
     "https://twitter.com/#{twitter_account}"
@@ -48,19 +43,6 @@ module UserDecorator
 
   def private_name
     "#{name} (#{name_kana})"
-  end
-
-  def user_report_count_class(count)
-    case count
-    when SUCCESS
-      'is-success'
-    when PRIMARY
-      'is-primary'
-    when WARNING
-      'is-warning'
-    else
-      'is-danger'
-    end
   end
 
   def enrollment_period
@@ -121,15 +103,5 @@ module UserDecorator
     classes = ['a-user-role', "is-#{primary_role}"]
     classes << 'is-new-user' if joining_status == 'new-user'
     classes.join(' ')
-  end
-
-  def unchecked_report_message(count, user)
-    if count.zero?
-      "#{user.login_name}さんの日報へ"
-    elsif count == LAST_UNCHECKED_REPORT_COUNT
-      "#{user.login_name}さんの未チェックの日報はこれで最後です。"
-    else
-      "#{user.login_name}さんの未チェックの日報が#{count}件あります。"
-    end
   end
 end
