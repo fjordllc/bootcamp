@@ -46,4 +46,42 @@ class PairWorkTest < ActiveSupport::TestCase
     assert_equal 'ペアワークを作成しました。', published_pair_work.generate_notice_message(:create)
     assert_equal 'ペアワークを更新しました。', published_pair_work.generate_notice_message(:update)
   end
+
+  test '.unsolved_badge' do
+    assert_equal 1, PairWork.unsolved_badge(current_user: users(:komagata))
+
+    assert_nil PairWork.unsolved_badge(current_user: users(:hatsuno))
+  end
+
+  test '.upcoming_pair_works' do
+    user = users(:hajime)
+
+    pair_work_attributes = {
+      user:,
+      title: 'ペアが確定していて、近日開催されるペアワーク',
+      description: 'ペアが確定していて、近日開催されるペアワーク',
+      buddy_id: users(:komagata),
+      channel: 'ペアワーク・モブワーク1',
+      wip: false
+    }
+    upcoming_pair_work_today = PairWork.create!(pair_work_attributes.merge(
+                                                  reserved_at: Time.current.beginning_of_day,
+                                                  schedules_attributes: [{ proposed_at: Time.current.beginning_of_day }]
+                                                ))
+    upcoming_pair_work_tomorrow = PairWork.create!(pair_work_attributes.merge(
+                                                     reserved_at: Time.current.beginning_of_day + 1.day,
+                                                     schedules_attributes: [{ proposed_at: Time.current.beginning_of_day + 1.day }]
+                                                   ))
+    upcoming_pair_work_day_after_tomorrow = PairWork.create!(pair_work_attributes.merge(
+                                                               reserved_at: Time.current.beginning_of_day + 2.days,
+                                                               schedules_attributes: [{ proposed_at: Time.current.beginning_of_day + 2.days }]
+                                                             ))
+
+    assert_includes PairWork.upcoming_pair_works(user), upcoming_pair_work_today
+    assert_includes PairWork.upcoming_pair_works(user), upcoming_pair_work_tomorrow
+    assert_includes PairWork.upcoming_pair_works(user), upcoming_pair_work_day_after_tomorrow
+
+    unrelated_pair_work = pair_works(:pair_work2)
+    assert_not_includes PairWork.upcoming_pair_works(user), unrelated_pair_work
+  end
 end
