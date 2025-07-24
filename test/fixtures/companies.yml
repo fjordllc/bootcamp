@@ -99,3 +99,4 @@ oldest_company:
   description: "/admin/companies で最後に表示される会社です"
   website: "http://example.com/test"
   created_at: <%= Time.zone.parse('1900-01-01 00:00:00') %>
+
