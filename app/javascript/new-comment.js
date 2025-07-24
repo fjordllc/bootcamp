@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   TextareaInitializer.initialize('#js-new-comment')
   const markdownInitializer = new MarkdownInitializer()
 
-  const commentEditor = newComment.querySelector('.comment-editor')
+  const commentEditor = newComment.querySelector('.js-comment-editor')
   const commentEditorPreview = commentEditor.querySelector(
     '.a-markdown-input__preview'
   )
@@ -42,8 +42,10 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleVisibility(tabElements, 'is-active')
   )
 
-  const saveButton = commentEditor.querySelector('.is-primary')
-  const saveAndCheckButton = commentEditor.querySelector('.is-danger')
+  const saveButton = commentEditor.querySelector('.js-comment-save-button')
+  const saveAndCheckButton = commentEditor.querySelector(
+    '.js-comment-check-button'
+  )
   const saveAndCheckWrapper = saveAndCheckButton?.parentElement
 
   const disableButtons = () => {

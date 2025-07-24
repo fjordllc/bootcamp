@@ -6,7 +6,7 @@ function initializeComment(comment) {
   const commentId = comment.dataset.comment_id
   const commentDescription = comment.dataset.comment_description
 
-  const commentEditor = comment.querySelector('.comment-editor')
+  const commentEditor = comment.querySelector('.js-comment-editor')
   if (!commentEditor) return
 
   const commentEditorPreview = commentEditor.querySelector(
@@ -21,12 +21,27 @@ function initializeComment(comment) {
   TextareaInitializer.initialize(`#js-comment-${commentId}`)
   const markdownInitializer = new MarkdownInitializer()
 
-  const commentDisplay = comment.querySelector('.comment-display')
-  const commentDisplayContent = commentDisplay?.querySelector('.a-long-text')
+  const commentDisplay = comment.querySelector('.js-comment-display')
+  const commentDisplayContent =
+    commentDisplay?.querySelector('.js-comment-html')
   if (commentDescription && commentDisplayContent) {
     const rendered = markdownInitializer.render(commentDescription)
     commentDisplayContent.innerHTML = rendered
     commentEditorPreview.innerHTML = rendered
+  }
+
+  const commentRaw = commentDisplay.querySelector('.js-comment-raw')
+  const commentHtml = commentDisplay.querySelector('.js-comment-html')
+  const rawButton = commentDisplay.querySelector('.js-raw-button')
+  const textareaElements = [commentHtml, commentRaw]
+  if (rawButton) {
+    rawButton.addEventListener('click', () => {
+      if (commentRaw) {
+        commentRaw.textContent = editorTextarea.value
+      }
+      toggleVisibility(textareaElements, 'is-hidden')
+      toggleVisibility([rawButton], 'is-active')
+    })
   }
 
   const editButton = commentDisplay.querySelector('.card-main-actions__action')
@@ -37,6 +52,10 @@ function initializeComment(comment) {
         savedComment = editorTextarea.value
       }
       toggleVisibility(modalElements, 'is-hidden')
+      if (rawButton.classList.contains('is-active')) {
+        toggleVisibility(textareaElements, 'is-hidden')
+        toggleVisibility([rawButton], 'is-active')
+      }
     })
   }
 
@@ -52,7 +71,7 @@ function initializeComment(comment) {
     toggleVisibility(tabElements, 'is-active')
   )
 
-  const saveButton = commentEditor.querySelector('.is-primary')
+  const saveButton = commentEditor.querySelector('.js-comment-save-button')
   if (saveButton) {
     saveButton.addEventListener('click', () => {
       TextareaInitializer.initialize(`#js-comment-${commentId}`)
