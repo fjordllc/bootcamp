@@ -49,7 +49,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     # Clean up any uploaded test files
     if defined?(ActiveStorage::Blob)
       begin
-        ActiveStorage::Blob.unattached.where('created_at < ?', 1.hour.ago).find_each(&:purge)
+        ActiveStorage::Blob.unattached.where('active_storage_blobs.created_at < ?', 1.hour.ago).find_each(&:purge)
       rescue StandardError
         # Ignore cleanup errors in tests
       end
