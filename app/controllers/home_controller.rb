@@ -59,8 +59,7 @@ class HomeController < ApplicationController
   end
 
   def display_pair_works_on_dashboard
-    presenter = DashboardPairWorkPresenter.new(current_user)
-    @upcoming_pair_works = presenter.upcoming_pair_works
+    @upcoming_pair_works = PairWork.upcoming_pair_works(current_user)
   end
 
   def display_welcome_message_for_adviser
