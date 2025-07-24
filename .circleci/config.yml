@@ -7,7 +7,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/ruby:3.1.6-node
+      - image: cimg/ruby:3.2.7-node
     steps:
       - checkout
       - run:
@@ -18,12 +18,12 @@ jobs:
       - ruby/install-deps
       - node/install:
           install-yarn: true
-          node-version: '20.9.0'
+          node-version: '20.18.0'
       - node/install-packages:
           pkg-manager: yarn
   check:
     docker:
-      - image: 'cimg/ruby:3.1.6-node'
+      - image: 'cimg/ruby:3.2.7-node'
     steps:
       - checkout
       - run:
@@ -49,7 +49,7 @@ jobs:
           command: FAIL_ON_ERROR=1 bundle exec rake traceroute
       - node/install:
           install-yarn: true
-          node-version: '20.9.0'
+          node-version: '20.18.0'
       - node/install-packages:
           pkg-manager: yarn
       - run:
@@ -57,7 +57,7 @@ jobs:
           command: bin/yarn lint
   test:
     docker:
-      - image: cimg/ruby:3.1.6-browsers
+      - image: cimg/ruby:3.2.7-browsers
         environment:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -95,7 +95,7 @@ jobs:
           clean-bundle: true
       - node/install:
           install-yarn: true
-          node-version: '20.9.0'
+          node-version: '20.18.0'
       - node/install-packages:
           pkg-manager: yarn
       - run:
