@@ -11,7 +11,7 @@ class DiscordAsyncAdapterTest < ActiveSupport::TestCase
       body: 'test message',
       sender: users(:kimura),
       name: 'bob',
-      webhook_url: Rails.application.secrets[:webhook][:admin]
+      webhook_url: ENV['DISCORD_ADMIN_WEBHOOK_URL']
     }
 
     assert_enqueued_with(job: DiscordJob) do

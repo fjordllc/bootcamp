@@ -16,7 +16,7 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
 
   def hibernated(params = {})
     params.merge!(@params)
-    webhook_url = params[:webhook_url] || Rails.application.secrets[:webhook][:admin]
+    webhook_url = params[:webhook_url] || ENV['DISCORD_ADMIN_WEBHOOK_URL']
 
     notification(
       body: "#{params[:sender].login_name}さんが休会しました。",
@@ -27,7 +27,7 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
 
   def announced(params = {})
     params.merge!(@params)
-    webhook_url = params[:webhook_url] || Rails.application.secrets[:webhook][:all]
+    webhook_url = params[:webhook_url] || ENV['DISCORD_ALL_WEBHOOK_URL']
 
     path = Rails.application.routes.url_helpers.polymorphic_path(params[:announce])
     url = "https://bootcamp.fjord.jp#{path}"
@@ -41,7 +41,7 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
 
   def coming_soon_regular_events(params = {})
     params.merge!(@params)
-    webhook_url = params[:webhook_url] || Rails.application.secrets[:webhook][:all]
+    webhook_url = params[:webhook_url] || ENV['DISCORD_ALL_WEBHOOK_URL']
     today_events = params[:today_events].sort_by { |event| event.start_at.strftime('%H%M') }
     tomorrow_events = params[:tomorrow_events].sort_by { |event| event.start_at.strftime('%H%M') }
     today = Time.current
@@ -85,7 +85,7 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
 
   def invalid_user(params = {})
     params.merge!(@params)
-    webhook_url = params[:webhook_url] || Rails.application.secrets[:webhook][:admin]
+    webhook_url = params[:webhook_url] || ENV['DISCORD_ADMIN_WEBHOOK_URL']
     body = params[:body].slice(0, 2000) # Discord API restriction
 
     notification(
@@ -97,7 +97,7 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
 
   def payment_failed(params = {})
     params.merge!(@params)
-    webhook_url = params[:webhook_url] || Rails.application.secrets[:webhook][:admin]
+    webhook_url = params[:webhook_url] || ENV['DISCORD_ADMIN_WEBHOOK_URL']
 
     notification(
       body: params[:body],
@@ -108,7 +108,7 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
 
   def product_review_not_completed(params = {})
     params.merge!(@params)
-    webhook_url = params[:webhook_url] || Rails.application.secrets[:webhook][:mentor]
+    webhook_url = params[:webhook_url] || ENV['DISCORD_MENTOR_WEBHOOK_URL']
 
     comment = params[:comment]
     product_checker_name = comment.commentable.checker.discord_profile&.account_name
@@ -131,7 +131,7 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
 
   def first_report(params = {})
     params.merge!(@params)
-    webhook_url = params[:webhook_url] || Rails.application.secrets[:webhook][:introduction]
+    webhook_url = params[:webhook_url] || ENV['DISCORD_INTRODUCTION_WEBHOOK_URL']
     report = params[:report]
     body = <<~TEXT.chomp
       🎉 #{report.user.login_name}さんがはじめての日報を書きました！

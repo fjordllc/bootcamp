@@ -39,3 +39,6 @@ storage/
 .envrc
 .env.local
 /test/reports
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

@@ -1,6 +1,7 @@
-<template lang="pug">
-.card-list.a-card.is-loading
-  loadingListItemPlaceholder(v-for='num in itemCount', :key='num')
+<template>
+  <div class="card-list a-card is-loading">
+    <loadingListItemPlaceholder v-for='num in itemCount' :key='num'></loadingListItemPlaceholder>
+  </div>
 </template>
 
 <script>

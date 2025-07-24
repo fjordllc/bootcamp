@@ -9,12 +9,12 @@ class GraduationNotifier
 
     DiscordNotifier.graduated(
       sender: user,
-      webhook_url: Rails.application.secrets[:webhook][:admin]
+      webhook_url: ENV['DISCORD_ADMIN_WEBHOOK_URL']
     ).notify_now
 
     DiscordNotifier.graduated(
       sender: user,
-      webhook_url: Rails.application.secrets[:webhook][:mentor]
+      webhook_url: ENV['DISCORD_MENTOR_WEBHOOK_URL']
     ).notify_now
   end
 end

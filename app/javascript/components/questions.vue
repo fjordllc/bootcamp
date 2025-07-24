@@ -1,22 +1,31 @@
-<template lang="pug">
-div
-  nav.pagination(v-if='totalPages > 1')
-    pager(v-bind='pagerProps')
-  div(v-if='questions === null')
-    loadingListPlaceholder
-  .o-empty-message(v-else-if='questions.length === 0')
-    .o-empty-message__icon
-      i.fa-regular.fa-sad-tear
-    p.o-empty-message__text
-      | {{ emptyMessage }}
-  .card-list.a-card(v-else)
-    .card-list__items
-      question(
-        v-for='question in questions',
-        :key='question.id',
-        :question='question')
-  nav.pagination(v-if='totalPages > 1')
-    pager(v-bind='pagerProps')
+<template>
+  <div>
+    <nav class="pagination" v-if='totalPages > 1'>
+      <pager v-bind='pagerProps'></pager>
+    </nav>
+    <div v-if='questions === null'>
+      <loadingListPlaceholder></loadingListPlaceholder>
+    </div>
+    <div class="o-empty-message" v-else-if='questions.length === 0'>
+      <div class="o-empty-message__icon">
+        <i class="fa-regular fa-sad-tear"></i>
+      </div>
+      <p class="o-empty-message__text">
+        {{ emptyMessage }}
+      </p>
+    </div>
+    <div class="card-list a-card" v-else>
+      <div class="card-list__items">
+        <question
+          v-for='question in questions'
+          :key='question.id'
+          :question='question'></question>
+      </div>
+    </div>
+    <nav class="pagination" v-if='totalPages > 1'>
+      <pager v-bind='pagerProps'></pager>
+    </nav>
+  </div>
 </template>
 
 <script>
