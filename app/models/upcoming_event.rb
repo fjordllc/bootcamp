@@ -5,12 +5,6 @@ class UpcomingEvent
 
   delegate :participants, to: :original_event
 
-  TARGET_TO_DATE = {
-    today: Date.current,
-    tomorrow: Date.current + 1,
-    day_after_tomorrow: Date.current + 2
-  }.freeze
-
   def initialize(event, scheduled_date)
     @original_event = event
     @scheduled_date = scheduled_date
@@ -53,7 +47,7 @@ class UpcomingEvent
 
   class << self
     def build_group(date_key)
-      date = TARGET_TO_DATE[date_key]
+      date = date_key_to_date_class(date_key)
       Rails.logger.debug("build_group date: #{date}")
       upcoming_events = original_events_scheduled_on(date).map { |e| UpcomingEvent.new(e, date) }
 
@@ -80,6 +74,16 @@ class UpcomingEvent
     end
 
     private
+
+    def date_key_to_date_class(date_key)
+      table = {
+        today: Time.zone.today,
+        tomorrow: Time.zone.today + 1.day,
+        day_after_tomorrow: Time.zone.today + 2.days
+      }
+
+      table[date_key.to_sym]
+    end
 
     def original_events_scheduled_on(date)
       [Event, RegularEvent].map do |model|
