@@ -58,6 +58,7 @@ class QuestionsController < ApplicationController
     set_wip
     if @question.save
       ActiveSupport::Notifications.instrument('question.create', question: @question)
+      Newspaper.publish(:question_create, { question: @question })
       redirect_to Redirection.determin_url(self, @question), notice: @question.generate_notice_message(:create)
     else
       render :new
@@ -67,7 +68,10 @@ class QuestionsController < ApplicationController
   def update
     set_wip
     if @question.update(question_params)
-      ActiveSupport::Notifications.instrument('question.update', question: @question) if @question.saved_change_to_wip?
+      if @question.saved_change_to_wip?
+        ActiveSupport::Notifications.instrument('question.update', question: @question)
+        Newspaper.publish(:question_create, { question: @question })
+      end
       redirect_to Redirection.determin_url(self, @question), notice: @question.generate_notice_message(:update)
     else
       render :edit
