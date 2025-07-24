@@ -102,8 +102,16 @@ ReactRailsUJS.useContext(componentRequireContext)
 
 document.addEventListener('DOMContentLoaded', () => {
   Cocooned.start()
-  
+
   // Debug React components
-  console.log('React UJS mounted components:', document.querySelectorAll('[data-react-component]').length)
-  console.log('Found react components:', Array.from(document.querySelectorAll('[data-react-component]')).map(el => el.getAttribute('data-react-component')))
+  console.log(
+    'React UJS mounted components:',
+    document.querySelectorAll('[data-react-component]').length
+  )
+  console.log(
+    'Found react components:',
+    Array.from(document.querySelectorAll('[data-react-component]')).map((el) =>
+      el.getAttribute('data-react-component')
+    )
+  )
 })

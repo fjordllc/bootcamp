@@ -1,10 +1,12 @@
 <template>
   <div>
-    <hr class="a-border-tint">
+    <hr class="a-border-tint" />
     <div class="card-footer is-only-mentor">
       <div class="card-main-actions">
         <ul class="card-main-actions__items">
-          <li class="card-main-actions__item" v-if='checkableType === "Product"'>
+          <li
+            class="card-main-actions__item"
+            v-if="checkableType === 'Product'">
             <!--
               v-showではなくv-ifだと "提出物を確認" => "取り消し" した際、
               担当ボタンの表示はページ読み込み時に戻る。
@@ -17,19 +19,25 @@
               現状のcheckerIdを参照すれば、v-ifでも大丈夫と推測
             -->
             <product-checker
-              v-show='checkId === null'
-              :checkerId='checkerId'
-              :checkerName='checkerName'
-              :checkerAvatar='checkerAvatar'
-              :currentUserId='currentUserId'
-              :productId='checkableId'
-              :checkableType='checkableType'
-              :parentComponent='"check"'></product-checker>
+              v-show="checkId === null"
+              :checkerId="checkerId"
+              :checkerName="checkerName"
+              :checkerAvatar="checkerAvatar"
+              :currentUserId="currentUserId"
+              :productId="checkableId"
+              :checkableType="checkableType"
+              :parentComponent="'check'"></product-checker>
           </li>
-          <li class="card-main-actions__item" :class='checkId ? "is-sub" : ""'>
-            <button id="js-shortcut-check" class="is-block"
-              :class='checkId ? "card-main-actions__muted-action" : "a-button is-sm is-danger"'
-              @click='checkSad'>
+          <li class="card-main-actions__item" :class="checkId ? 'is-sub' : ''">
+            <button
+              id="js-shortcut-check"
+              class="is-block"
+              :class="
+                checkId
+                  ? 'card-main-actions__muted-action'
+                  : 'a-button is-sm is-danger'
+              "
+              @click="checkSad">
               {{ buttonLabel }}
             </button>
           </li>

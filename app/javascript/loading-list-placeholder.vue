@@ -1,6 +1,8 @@
 <template>
   <div class="card-list a-card is-loading">
-    <loadingListItemPlaceholder v-for='num in itemCount' :key='num'></loadingListItemPlaceholder>
+    <loadingListItemPlaceholder
+      v-for="num in itemCount"
+      :key="num"></loadingListItemPlaceholder>
   </div>
 </template>
 

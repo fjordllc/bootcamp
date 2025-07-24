@@ -1,12 +1,12 @@
 <template>
   <div>
-    <nav class="pagination" v-if='totalPages > 1'>
-      <pager v-bind='pagerProps'></pager>
+    <nav class="pagination" v-if="totalPages > 1">
+      <pager v-bind="pagerProps"></pager>
     </nav>
-    <div v-if='questions === null'>
+    <div v-if="questions === null">
       <loadingListPlaceholder></loadingListPlaceholder>
     </div>
-    <div class="o-empty-message" v-else-if='questions.length === 0'>
+    <div class="o-empty-message" v-else-if="questions.length === 0">
       <div class="o-empty-message__icon">
         <i class="fa-regular fa-sad-tear"></i>
       </div>
@@ -17,13 +17,13 @@
     <div class="card-list a-card" v-else>
       <div class="card-list__items">
         <question
-          v-for='question in questions'
-          :key='question.id'
-          :question='question'></question>
+          v-for="question in questions"
+          :key="question.id"
+          :question="question"></question>
       </div>
     </div>
-    <nav class="pagination" v-if='totalPages > 1'>
-      <pager v-bind='pagerProps'></pager>
+    <nav class="pagination" v-if="totalPages > 1">
+      <pager v-bind="pagerProps"></pager>
     </nav>
   </div>
 </template>
