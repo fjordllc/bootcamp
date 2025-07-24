@@ -1,12 +1,16 @@
 const path = require("path")
 const webpack = require("webpack")
 const { VueLoaderPlugin } = require('vue-loader')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   mode: process.env.NODE_ENV === "production" ? "production" : "development",
   devtool: "source-map",
   entry: {
-    application: "./app/javascript/application.js"
+    application: "./app/javascript/application.js",
+    "not-logged-in": "./app/javascript/stylesheets/not-logged-in.sass",
+    paper: "./app/javascript/stylesheets/paper.sass",
+    lp: "./app/assets/stylesheets/lp.scss"
   },
   output: {
     filename: "[name].js",
@@ -43,7 +47,15 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: [MiniCssExtractPlugin.loader, "css-loader"]
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "sass-loader"
+        ]
       },
       {
         test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
@@ -61,6 +73,7 @@ module.exports = {
     extensions: [".js", ".jsx", ".vue"],
     modules: [
       path.resolve(__dirname, "app/javascript"),
+      path.resolve(__dirname, "app/assets"),
       "node_modules"
     ],
     alias: {
@@ -80,6 +93,9 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
+    new MiniCssExtractPlugin({
+      filename: '[name].css'
+    }),
     new webpack.ProvidePlugin({
       Buffer: ['buffer', 'Buffer'],
       process: 'process/browser',

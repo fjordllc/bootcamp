@@ -88,7 +88,8 @@ import './toast.js'
 import VueMounter from './VueMounter.js'
 import Questions from './components/questions.vue'
 
-// CSS is handled by Rails asset pipeline
+// Import stylesheets
+import './stylesheets/application.sass'
 
 const mounter = new VueMounter()
 mounter.addComponent(Questions)
