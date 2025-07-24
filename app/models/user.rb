@@ -130,6 +130,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   has_one :targeted_request_retirement, class_name: 'RequestRetirement', foreign_key: 'target_user_id', dependent: :destroy, inverse_of: :target_user
   has_many :micro_reports, dependent: :destroy
   has_many :learning_time_frames_users, dependent: :destroy
+  has_many :pair_works, dependent: :destroy
 
   has_many :participate_events,
            through: :participations,
