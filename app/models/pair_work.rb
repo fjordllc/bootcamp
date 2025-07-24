@@ -36,6 +36,13 @@ class PairWork < ApplicationRecord
       all
     end
   }
+  scope :upcoming_pair_works, lambda { |user|
+                                today = Date.current
+                                within_day = today.midnight...(today + 3).midnight
+                                PairWork.where(user_id: user.id).or(PairWork.where(buddy_id: user.id))
+                                        .solved
+                                        .where(reserved_at: within_day)
+                              }
 
   columns_for_keyword_search :title, :description
 
