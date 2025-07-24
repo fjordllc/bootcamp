@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class PairWorkTest < ActiveSupport::TestCase
-  test 'by_target' do
+  test '.by_target' do
     solved_pair_work = pair_works(:pair_work2)
     not_solved_pair_work = pair_works(:pair_work1)
     assert_includes PairWork.by_target('solved'), solved_pair_work
@@ -16,7 +16,7 @@ class PairWorkTest < ActiveSupport::TestCase
     assert_includes PairWork.by_target(nil), not_solved_pair_work
   end
 
-  test 'generate_pair_works_property' do
+  test '.generate_pair_works_property' do
     solved_pair_works_property = PairWork.generate_pair_works_property('solved')
     assert_equal 'ペア確定済みのペアワーク', solved_pair_works_property.title
     assert_equal 'ペア確定済みのペアワークはありません。', solved_pair_works_property.empty_message
@@ -30,7 +30,7 @@ class PairWorkTest < ActiveSupport::TestCase
     assert_equal 'ペアワークはありません。', all_pair_works_property.empty_message
   end
 
-  test 'generate_notice_message' do
+  test '.generate_notice_message' do
     wip_pair_work = PairWork.create!(
       title: 'wipのペアワーク',
       description: 'wipのペアワーク',
