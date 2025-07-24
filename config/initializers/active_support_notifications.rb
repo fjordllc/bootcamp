@@ -51,4 +51,8 @@ Rails.application.reloader.to_prepare do
   ai_answer_creator = AIAnswerCreator.new
   ActiveSupport::Notifications.subscribe('question.create', ai_answer_creator)
   ActiveSupport::Notifications.subscribe('question.update', ai_answer_creator)
+
+  question_notifier = QuestionNotifier.new
+  ActiveSupport::Notifications.subscribe('question.create', question_notifier)
+  ActiveSupport::Notifications.subscribe('question.update', question_notifier)
 end
