@@ -34,10 +34,6 @@ Rails.configuration.after_initialize do
   Newspaper.subscribe(:page_create, page_notifier)
   Newspaper.subscribe(:page_update, page_notifier)
 
-  ai_answer_creator = AIAnswerCreator.new
-  Newspaper.subscribe(:question_create, ai_answer_creator)
-  Newspaper.subscribe(:question_update, ai_answer_creator)
-
   Newspaper.subscribe(:retirement_create, UnfinishedDataDestroyer.new)
   Newspaper.subscribe(:retirement_create, TimesChannelDestroyer.new)
 

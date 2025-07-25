@@ -19,4 +19,6 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('product.create', ProductNotifierForPracticeWatcher.new)
   ActiveSupport::Notifications.subscribe('question.create', MentorsWatchForQuestionCreator.new)
   ActiveSupport::Notifications.subscribe('question.update', MentorsWatchForQuestionCreator.new)
+  ActiveSupport::Notifications.subscribe('question.create', AIAnswerCreator.new)
+  ActiveSupport::Notifications.subscribe('question.update', AIAnswerCreator.new)
 end
