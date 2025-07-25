@@ -44,7 +44,11 @@ class RegularEventsController < ApplicationController
     set_wip
     if @regular_event.update(regular_event_params)
       update_published_at
+<<<<<<< HEAD
       ActiveSupport::Notifications.instrument('regular_event.update', regular_event: @regular_event, sender: current_user)
+=======
+      ActiveSupport::Notifications.instrument('regular_event.update', { regular_event: @regular_event, sender: current_user })
+>>>>>>> 6a44c5801 (定期イベント更新時の通知をNewsPaperからActiveSupport::Notificationに変更)
       set_all_user_participants_and_watchers
       select_redirect_path
     else
