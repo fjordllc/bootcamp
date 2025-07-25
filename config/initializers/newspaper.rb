@@ -5,8 +5,6 @@ Rails.configuration.after_initialize do
   Newspaper.subscribe(:report_save, sad_streak_updater)
   Newspaper.subscribe(:report_destroy, sad_streak_updater)
 
-  Newspaper.subscribe(:report_save, ReportNotifier.new)
-
   learning_cache_destroyer = LearningCacheDestroyer.new
   Newspaper.subscribe(:learning_create, learning_cache_destroyer)
   Newspaper.subscribe(:learning_destroy, learning_cache_destroyer)
@@ -53,8 +51,4 @@ Rails.configuration.after_initialize do
   Newspaper.subscribe(:product_update, ProductUpdateNotifierForChecker.new)
   Newspaper.subscribe(:came_comment, CommentNotifier.new)
   Newspaper.subscribe(:came_comment_in_talk, CommentNotifierForAdmin.new)
-
-  Newspaper.subscribe(:work_destroy, WorkNotificationDestroyer.new)
-
-  Newspaper.subscribe(:came_inquiry, InquiryNotifier.new)
 end
