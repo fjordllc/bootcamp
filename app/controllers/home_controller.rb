@@ -10,9 +10,10 @@ class HomeController < ApplicationController
       display_welcome_message_for_adviser
       set_required_fields
       display_products_for_mentor
-      render aciton: :index
+      render action: :index
     else
       @mentors = User.visible_sorted_mentors
+      @featured_articles = Article.featured
       render template: 'welcome/index', layout: 'lp'
     end
   end
@@ -51,6 +52,8 @@ class HomeController < ApplicationController
     @product_deadline_day = Product::PRODUCT_DEADLINE
     @colleagues = current_user.colleagues_other_than_self
     @calendar = NicoNicoCalendar.new(current_user, params[:niconico_calendar])
+    @target_end_date = GrassDateParameter.new(params[:end_date]).target_end_date
+    @times = Grass.times(current_user, @target_end_date)
   end
 
   def display_events_on_dashboard

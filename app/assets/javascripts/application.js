@@ -12,6 +12,5 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require cocoon
 //= require select2/dist/js/select2.full.js
 //= require activestorage

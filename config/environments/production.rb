@@ -124,6 +124,9 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: ENV["APP_HOST_NAME"], protocol: "https" }
   config.action_mailer.asset_host = "https://#{ENV["APP_HOST_NAME"]}"
   config.action_controller.asset_host = "https://#{ENV["APP_HOST_NAME"]}"
+  
+  # Set asset host for webpacker
+  config.webpacker.check_yarn_integrity = false if respond_to?(:webpacker)
 
   config.action_mailer.delivery_method = :postmark
   config.action_mailer.postmark_settings = { api_token: ENV["POSTMARK_API_TOKEN"] }

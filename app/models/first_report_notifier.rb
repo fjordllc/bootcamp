@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class FirstReportNotifier
-  def call(payload)
+  def call(_name, _started, _finished, _unique_id, payload)
     report = payload[:report]
     return if report.wip || !report.first? || Notification.find_by(kind: :first_report, sender_id: report.user.id).present?
 

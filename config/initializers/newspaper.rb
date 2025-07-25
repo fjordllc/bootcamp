@@ -1,20 +1,10 @@
 # frozen_string_literal: true
 
 Rails.configuration.after_initialize do
-  Newspaper.subscribe(:event_create, EventOrganizerWatcher.new)
-  Newspaper.subscribe(:answer_create, AnswerNotifier.new)
-  Newspaper.subscribe(:answer_create, NotifierToWatchingUser.new)
-  Newspaper.subscribe(:announcement_destroy, AnnouncementNotificationDestroyer.new)
-
-  announcement_notifier = AnnouncementNotifier.new
-  Newspaper.subscribe(:announcement_create, announcement_notifier)
-  Newspaper.subscribe(:announcement_update, announcement_notifier)
-
   sad_streak_updater = SadStreakUpdater.new
   Newspaper.subscribe(:report_save, sad_streak_updater)
   Newspaper.subscribe(:report_destroy, sad_streak_updater)
 
-  Newspaper.subscribe(:report_save, FirstReportNotifier.new)
   Newspaper.subscribe(:report_save, ReportNotifier.new)
 
   learning_cache_destroyer = LearningCacheDestroyer.new
@@ -35,8 +25,6 @@ Rails.configuration.after_initialize do
 
   Newspaper.subscribe(:comeback_update, ComebackNotifier.new)
 
-  Newspaper.subscribe(:product_create, ProductAuthorWatcher.new)
-
   learning_status_updater = LearningStatusUpdater.new
   Newspaper.subscribe(:check_create, learning_status_updater)
   Newspaper.subscribe(:product_save, learning_status_updater)
@@ -45,10 +33,6 @@ Rails.configuration.after_initialize do
   page_notifier = PageNotifier.new
   Newspaper.subscribe(:page_create, page_notifier)
   Newspaper.subscribe(:page_update, page_notifier)
-
-  Newspaper.subscribe(:product_save, ProductNotifierForColleague.new)
-
-  Newspaper.subscribe(:product_save, ProductNotifierForPracticeWatcher.new)
 
   mentors_watch_for_question_creator = MentorsWatchForQuestionCreator.new
   Newspaper.subscribe(:question_create, mentors_watch_for_question_creator)
@@ -70,10 +54,6 @@ Rails.configuration.after_initialize do
   Newspaper.subscribe(:came_comment, CommentNotifier.new)
   Newspaper.subscribe(:came_comment_in_talk, CommentNotifierForAdmin.new)
 
-  Newspaper.subscribe(:create_article, ArticleNotifier.new)
-  Newspaper.subscribe(:destroy_article, ArticleNotificationDestroyer.new)
-
-  Newspaper.subscribe(:work_create, WorkNotifier.new)
   Newspaper.subscribe(:work_destroy, WorkNotificationDestroyer.new)
 
   Newspaper.subscribe(:came_inquiry, InquiryNotifier.new)

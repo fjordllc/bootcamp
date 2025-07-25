@@ -13,7 +13,7 @@ export default (md) => {
                   <div class="speak__speaker">
                     <a href="/users/${speakerName}" class="a-user-emoji-link">
                       <img title="@${speakerName}" class="js-user-icon a-user-emoji" data-user="${speakerName}">
-                      <spanv class="speak__speaker-name">${speakerName}</span>
+                      <span class="speak__speaker-name">${speakerName}</span>
                     </a>
                   </div>
                   <div class="speak__body">`

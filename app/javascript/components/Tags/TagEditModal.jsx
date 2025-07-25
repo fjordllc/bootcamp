@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import toast from '../../toast'
+import { toast } from '../../vanillaToast.js'
 import CSRF from '../../csrf'
 
 export default function TagEditModal({ tagId, initialTagName, setShowModal }) {
@@ -32,7 +32,7 @@ export default function TagEditModal({ tagId, initialTagName, setShowModal }) {
       body: JSON.stringify({ tag: { name: tagName } })
     })
       .then(() => {
-        toast.methods.toast('タグ名を変更しました')
+        toast('タグ名を変更しました')
         updateTagList()
       })
       .catch((error) => {
