@@ -6,6 +6,23 @@
     .card-body__description
       .a-long-text.is-md.js-markdown-view(data-taskable-id="#{report.id}" data-taskable-type='Report' data-taskable="#{report.taskable?(current_user).to_s}")
         = report.description
+    - if staff_login?
+      - count = Cache.user_unchecked_report_count(report.user)
+      .card-body-main-actions(class="#{report.user.user_report_count_class(count)} #{mentor_login? ? 'is-only-mentor' : ''}")
+        .card-body-main-actions__description
+          p
+            = report.user.unchecked_report_message(count, report.user)
+        ul.card-body-main-actions__items
+          li.card-body-main-actions__item
+            = link_to user_reports_path(report.user), class: "card-body-main-actions__action a-button is-sm #{report.user.user_report_count_class(count)} is-block", target: '_blank', rel: 'noopener' do
+              | #{report.user.login_name}さんの日報一覧へ
+    - else
+      .card-body-main-actions.p-0
+        ul.card-body-main-actions__items
+          li.card-body-main-actions__item
+            = link_to user_reports_path(report.user), class: 'card-body-main-actions__action a-button is-sm is-secondary is-block', target: '_blank', rel: 'noopener' do
+              | #{report.user.login_name}さんの日報一覧へ
+
   hr.a-border-tint
   = render 'reactions/reactions', reactionable: report
 
