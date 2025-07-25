@@ -29,6 +29,8 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('student_or_trainee.create', TimesChannelCreator.new)
   ActiveSupport::Notifications.subscribe('question.create', MentorsWatchForQuestionCreator.new)
   ActiveSupport::Notifications.subscribe('question.update', MentorsWatchForQuestionCreator.new)
+  ActiveSupport::Notifications.subscribe('question.create', AIAnswerCreator.new)
+  ActiveSupport::Notifications.subscribe('question.update', AIAnswerCreator.new)
 
   learning_status_updater = LearningStatusUpdater.new
   ActiveSupport::Notifications.subscribe('product.save', learning_status_updater)
