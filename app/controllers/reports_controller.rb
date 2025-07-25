@@ -87,7 +87,7 @@ class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLeng
 
   def destroy
     @report.destroy
-    Newspaper.publish(:report_destroy, { report: @report })
+    ActiveSupport::Notifications.instrument('report.destroy', report: @report)
     redirect_to reports_url, notice: '日報を削除しました。'
   end
 

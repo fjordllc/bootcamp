@@ -6,6 +6,10 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('answer.create', NotifierToWatchingUser.new)
   ActiveSupport::Notifications.subscribe('event.create', EventOrganizerWatcher.new)
   ActiveSupport::Notifications.subscribe('regular_event.create', RegularEventOrganizerWatcher.new)
+  sad_streak_updater = SadStreakUpdater.new
+  ActiveSupport::Notifications.subscribe('report.create', sad_streak_updater)
+  ActiveSupport::Notifications.subscribe('report.update', sad_streak_updater)
+  ActiveSupport::Notifications.subscribe('report.destroy', sad_streak_updater)
   ActiveSupport::Notifications.subscribe('report.create', FirstReportNotifier.new)
   ActiveSupport::Notifications.subscribe('report.update', FirstReportNotifier.new)
   ActiveSupport::Notifications.subscribe('announcement.create', AnnouncementNotifier.new)
@@ -17,4 +21,8 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('product.create', ProductAuthorWatcher.new)
   ActiveSupport::Notifications.subscribe('product.create', ProductNotifierForColleague.new)
   ActiveSupport::Notifications.subscribe('product.create', ProductNotifierForPracticeWatcher.new)
+
+  learning_cache_destroyer = LearningCacheDestroyer.new
+  ActiveSupport::Notifications.subscribe('learning.create', learning_cache_destroyer)
+  ActiveSupport::Notifications.subscribe('learning.destroy', learning_cache_destroyer)
 end
