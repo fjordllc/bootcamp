@@ -42,7 +42,7 @@
               .a-card
                 .user-data
                   .user-data__row
-                    .user-data__description
+                    .user-data__description.a-short-text.is-md
                       = auto_link simple_format h @user.description
                   - if @user.tag_list.present? || current_user == @user
                     .user-data__row
@@ -51,6 +51,9 @@
                   - if admin_or_mentor_login? && @user.hibernated?
                     .user-data__row
                       = render 'users/hibernation_info', user: @user
+                  - if admin_or_mentor_login? && @user.training_completed?
+                    .user-data__row
+                      = render 'users/training_completion_info', user: @user
                   - if admin_or_mentor_login? && @user.retired?
                     .user-data__row
                       = render 'users/retire_info', user: @user
