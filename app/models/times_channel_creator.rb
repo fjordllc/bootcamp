@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TimesChannelCreator
-  def call(payload)
+  def call(_name, _started, _finished, _unique_id, payload)
     user = payload[:user]
     raise ArgumentError, "#{user.login_name}は現役生または研修生ではありません。" unless user.student_or_trainee?
 
