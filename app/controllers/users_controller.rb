@@ -148,11 +148,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
         UserMailer.welcome(@user).deliver_now
         notify_to_mentors(@user)
         notify_to_chat(@user)
-<<<<<<< HEAD
         ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.student?
-=======
-        ActiveSupport::Notifications.instrument('student.or.trainee.create', user: @user) if @user.student?
->>>>>>> 060725718 (分報作成時の通知をNewsPaperからActiveSupport::Notificationに変更)
         logger.info "[Signup] 8. after create times channel. #{@user.email}"
         redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
       else
