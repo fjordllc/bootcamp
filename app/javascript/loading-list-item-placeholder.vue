@@ -1,13 +1,20 @@
-<template lang="pug">
-.card-list-item
-  .card-list-item__inner
-    .card-list-item__user
-      .card-list-item__user-icon.a-user-icon.a-placeholder
-    .card-list-item__rows
-      .card-list-item__row
-        .card-list-item-title.a-placeholder
-      .card-list-item__row
-        .card-list-item-meta__items.a-placeholder
-          .card-list-item-meta__item
-          .card-list-item-meta__item
+<template>
+  <div class="card-list-item">
+    <div class="card-list-item__inner">
+      <div class="card-list-item__user">
+        <div class="card-list-item__user-icon a-user-icon a-placeholder"></div>
+      </div>
+      <div class="card-list-item__rows">
+        <div class="card-list-item__row">
+          <div class="card-list-item-title a-placeholder"></div>
+        </div>
+        <div class="card-list-item__row">
+          <div class="card-list-item-meta__items a-placeholder">
+            <div class="card-list-item-meta__item"></div>
+            <div class="card-list-item-meta__item"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>

@@ -38,17 +38,18 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   setup do
     # Ensure ActiveStorage is properly configured for system tests
-    ActiveStorage::Current.host = 'http://localhost:3000'
+    # Rails 7.1+: ActiveStorage::Current.host= is deprecated, use url_options= instead
+    ActiveStorage::Current.url_options = { host: 'localhost:3000', protocol: 'http' }
   end
 
   teardown do
     ActionMailer::Base.deliveries.clear
-    ActiveStorage::Current.host = nil
+    ActiveStorage::Current.url_options = nil
 
     # Clean up any uploaded test files
     if defined?(ActiveStorage::Blob)
       begin
-        ActiveStorage::Blob.unattached.where('created_at < ?', 1.hour.ago).find_each(&:purge)
+        ActiveStorage::Blob.unattached.where('active_storage_blobs.created_at < ?', 1.hour.ago).find_each(&:purge)
       rescue StandardError
         # Ignore cleanup errors in tests
       end

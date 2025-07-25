@@ -3,7 +3,7 @@ html lang='ja'
   head
     = display_meta_tags default_meta_tags
     = render 'layouts/common/common_head'
-    = stylesheet_pack_tag 'not-logged-in', media: 'all'
+    = stylesheet_link_tag 'not-logged-in', media: 'all'
     = content_for(:head_last) if content_for?(:head_last)
   body.is-not-logged-in(class="#{body_class}")
     .not-logged-in-wrapper

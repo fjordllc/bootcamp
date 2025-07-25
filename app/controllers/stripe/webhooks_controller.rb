@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Stripe::WebhooksController < ApplicationController
-  SECRET = Rails.application.secrets['stripe'][:endpoint_secret]
+  SECRET = ENV['STRIPE_ENDPOINT_SECRET']
   ERROR_EVENTS = %w[
     payment_intent.payment_failed
     payment_intent.requires_payment_method

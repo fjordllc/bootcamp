@@ -30,11 +30,12 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
   setup do
-    ActiveStorage::Current.host = 'http://localhost:3000' # https://github.com/rails/rails/issues/40855
+    # Rails 7.1+: ActiveStorage::Current.host= is deprecated, use url_options= instead
+    ActiveStorage::Current.url_options = { host: 'localhost:3000', protocol: 'http' }
   end
 
   teardown do
-    ActiveStorage::Current.host = nil
+    ActiveStorage::Current.url_options = nil
   end
 
   # Rails7になったら以下のように修正する

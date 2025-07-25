@@ -2,7 +2,7 @@
 
 class Webhook
   class << self
-    SECREDT = Rails.application.secrets['stripe'][:endpoint_secret]
+    SECRET = ENV['STRIPE_ENDPOINT_SECRET']
 
     def construct_event(
       payload:,

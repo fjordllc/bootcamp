@@ -5,7 +5,7 @@ require 'test_helper'
 module AI
   class AnswerGeneratorTest < ActiveSupport::TestCase
     test '#call' do
-      token = Rails.application.secrets[:open_ai][:access_token]
+      token = ENV['OPEN_AI_ACCESS_TOKEN']
       generator = AnswerGenerator.new(open_ai_access_token: token)
 
       VCR.use_cassette 'ai/answer_generator' do
