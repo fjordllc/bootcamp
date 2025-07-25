@@ -355,8 +355,6 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
       link: "/regular_events/#{@regular_event.id}",
       kind: Notification.kinds[:regular_event_updated]
     )
-
-    p 'called update mail'
     subject = "[FBC] 定期イベント【#{@regular_event.title}】が更新されました。"
     message = mail(to: @user.email, subject:)
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
