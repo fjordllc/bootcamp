@@ -4,13 +4,25 @@
   = f.hidden_field :adviser
   = f.hidden_field :trainee
   = f.hidden_field :mentor
-  = f.hidden_field :company_id
-  = f.hidden_field :course_id
+  - unless request.path.start_with?('/admin/')
+    = f.hidden_field :company_id
+  - if admin_login?
+    ' '
+  - else
+    = f.hidden_field :course_id
   = hidden_field_tag :idempotency_token, SecureRandom.uuid
   = render 'errors', object: user
   - if !current_user && !@user.adviser? && !@user.trainee? && Campaign.today_campaign?
     = render 'checked_campaign'
-  - unless @user.adviser? || @user.mentor?
+  - if request.path.start_with?('/admin/')
+    .form__items
+      .form-item
+        = f.label :course_id, 'コース', class: 'a-form-label'
+        = f.select :course_id, options_from_collection_for_select(Course.all, :id, :title, @user.course_id), {}, { class: 'form-item-group__form-control' }
+      .form-item
+        = f.label :company_id, '所属企業', class: 'a-form-label'
+        = f.collection_select :company_id, Company.all, :id, :name, { include_blank: '企業を選択してください' }, { id: 'js-choices-single-select' }
+  - elsif !@user.adviser? && !@user.mentor?
     .form__items
       = render 'users/form/course_select', f: f, user: @user
   .form__items
@@ -112,13 +124,21 @@
         = f.hidden_field :remove_diploma, value: '0', id: 'js-remove-pdf-flag'
         = f.label :diploma_file, class: 'a-form-label'
         .a-pdf-input
-          - if @user.diploma_file.attached?
-            = link_to url_for(@user.diploma_file), class: 'a-pdf-input__inner', id: 'js-pdf-file-link', target: '_blank', rel: 'noopener' do
-              .a-pdf-input__file
-                span.a-pdf-input__file-name
-                  = @user.diploma_file.filename
-              .a-pdf-input__upload.a-button.is-md.is-secondary
-                | PDFを確認
+          - if @user.diploma_file.attached? && @user.persisted?
+            - begin
+              = link_to url_for(@user.diploma_file), class: 'a-pdf-input__inner', id: 'js-pdf-file-link', target: '_blank', rel: 'noopener' do
+                .a-pdf-input__file
+                  span.a-pdf-input__file-name
+                    = @user.diploma_file.filename
+                .a-pdf-input__upload.a-button.is-md.is-secondary
+                  | PDFを確認
+            - rescue => e
+              .a-pdf-input__inner
+                .a-pdf-input__file
+                  span.a-pdf-input__file-name
+                    | 添付済み: #{@user.diploma_file.filename}
+                .a-pdf-input__upload.a-button.is-md.is-secondary
+                  | PDF添付済み
           label.a-pdf-input__inner#js-pdf-upload-field
             = f.file_field :diploma_file
             .a-pdf-input__file

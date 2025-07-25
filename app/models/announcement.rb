@@ -9,11 +9,11 @@ class Announcement < ApplicationRecord
   include Watchable
   include SearchHelper
 
-  enum target: {
+  enum :target, {
     all: 0,
     students: 1,
     job_seekers: 2
-  }, _prefix: true
+  }, prefix: true
 
   has_many :watches, as: :watchable, dependent: :destroy
   has_many :footprints, as: :footprintable, dependent: :destroy

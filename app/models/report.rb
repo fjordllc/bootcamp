@@ -13,7 +13,7 @@ class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include Taskable
   include SearchHelper
 
-  enum emotion: {
+  enum :emotion, {
     sad: 1,
     soso: 0,
     happy: 2
