@@ -10,6 +10,7 @@ class User < ApplicationRecord
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w[id login_name company_id last_activity_at created_at report comment asc desc].freeze
   AVATAR_SIZE = [120, 120].freeze
+  AVATAR_FORMAT = 'webp'
   DEFAULT_IMAGE_PATH = '/images/users/avatars/default.png'
   RESERVED_LOGIN_NAMES = %w[adviser all graduate inactive job_seeking mentor retired student student_and_trainee trainee year_end_party].freeze
   MAX_PERCENTAGE = 100
@@ -700,7 +701,7 @@ class User < ApplicationRecord
 
   def avatar_url
     if avatar.attached? && avatar.blob.present?
-      attach_custom_avatar if !ActiveStorage::Blob.find_by(key: "avatars/#{login_name}.webp")
+      attach_custom_avatar if !ActiveStorage::Blob.find_by(key: "avatars/#{login_name}.#{AVATAR_FORMAT}")
       "#{avatar.url}?v=#{avatar.created_at.to_i}"
     else
       image_url DEFAULT_IMAGE_PATH
@@ -947,14 +948,13 @@ class User < ApplicationRecord
   end
 
   def attach_custom_avatar
-    format = 'webp'
-    variant_avatar = avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }, format:).processed
+    variant_avatar = avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }, format: AVATAR_FORMAT).processed
     io = StringIO.new(variant_avatar.download)
     custom_blob = ActiveStorage::Blob.create_and_upload!(
       io:,
-      key: "avatars/#{login_name}.#{format}",
-      filename: "#{login_name}.#{format}",
-      content_type: "image/#{format}",
+      key: "avatars/#{login_name}.#{AVATAR_FORMAT}",
+      filename: "#{login_name}.#{AVATAR_FORMAT}",
+      content_type: "image/#{AVATAR_FORMAT}",
       identify: false
     )
     avatar.attach(custom_blob)
