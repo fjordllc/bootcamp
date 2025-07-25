@@ -17,6 +17,7 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('product.create', ProductAuthorWatcher.new)
   ActiveSupport::Notifications.subscribe('product.create', ProductNotifierForColleague.new)
   ActiveSupport::Notifications.subscribe('product.create', ProductNotifierForPracticeWatcher.new)
+  ActiveSupport::Notifications.subscribe('regular_event.update', RegularEventUpdateNotifier.new)
   ActiveSupport::Notifications.subscribe('student.or.trainee.create', TimesChannelCreator.new)
   ActiveSupport::Notifications.subscribe('user.create', SignUpNotifier.new)
 end
