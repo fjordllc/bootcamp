@@ -1,6 +1,5 @@
 import store from 'check-store.js'
-import CSRF from 'csrf'
-import 'whatwg-fetch'
+import { get } from '@rails/request.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   loadCheckStamp()
@@ -16,19 +15,11 @@ const loadCheckStamp = () => {
     checkableId: checkableId,
     checkableType: checkableType
   })
-  fetch(
-    `/api/checks.json/?checkable_type=${checkableType}&checkable_id=${checkableId}`,
-    {
-      method: 'GET',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': CSRF.getToken()
-      },
-      credentials: 'same-origin'
-    }
+  get(
+    `/api/checks.json/?checkable_type=${checkableType}&checkable_id=${checkableId}`
   )
     .then((response) => {
-      return response.json()
+      return response.json
     })
     .then((json) => {
       const notChecked = !json[0]

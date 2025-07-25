@@ -15,7 +15,6 @@ button(
     | {{ this.name }}
 </template>
 <script>
-import CSRF from 'csrf'
 import { toast } from 'vanillaToast'
 import checkable from './checkable.js'
 
@@ -73,7 +72,6 @@ export default {
         this.currentUserId,
         '/api/products/checker',
         this.productCheckerId ? 'DELETE' : 'PATCH',
-        CSRF.getToken(),
         false
       )
     },
