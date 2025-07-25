@@ -1,12 +1,12 @@
 <template>
   <div>
-    <nav class="pagination" v-if="totalPages > 1">
+    <nav v-if="totalPages > 1" class="pagination">
       <pager v-bind="pagerProps"></pager>
     </nav>
     <div v-if="questions === null">
       <loadingListPlaceholder></loadingListPlaceholder>
     </div>
-    <div class="o-empty-message" v-else-if="questions.length === 0">
+    <div v-else-if="questions.length === 0" class="o-empty-message">
       <div class="o-empty-message__icon">
         <i class="fa-regular fa-sad-tear"></i>
       </div>
@@ -14,7 +14,7 @@
         {{ emptyMessage }}
       </p>
     </div>
-    <div class="card-list a-card" v-else>
+    <div v-else class="card-list a-card">
       <div class="card-list__items">
         <question
           v-for="question in questions"
@@ -22,7 +22,7 @@
           :question="question"></question>
       </div>
     </div>
-    <nav class="pagination" v-if="totalPages > 1">
+    <nav v-if="totalPages > 1" class="pagination">
       <pager v-bind="pagerProps"></pager>
     </nav>
   </div>

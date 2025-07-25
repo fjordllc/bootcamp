@@ -5,8 +5,8 @@
       <div class="card-main-actions">
         <ul class="card-main-actions__items">
           <li
-            class="card-main-actions__item"
-            v-if="checkableType === 'Product'">
+            v-if="checkableType === 'Product'"
+            class="card-main-actions__item">
             <!--
               v-showではなくv-ifだと "提出物を確認" => "取り消し" した際、
               担当ボタンの表示はページ読み込み時に戻る。
@@ -20,13 +20,13 @@
             -->
             <product-checker
               v-show="checkId === null"
-              :checkerId="checkerId"
-              :checkerName="checkerName"
-              :checkerAvatar="checkerAvatar"
-              :currentUserId="currentUserId"
-              :productId="checkableId"
-              :checkableType="checkableType"
-              :parentComponent="'check'"></product-checker>
+              :checker-id="checkerId"
+              :checker-name="checkerName"
+              :checker-avatar="checkerAvatar"
+              :current-user-id="currentUserId"
+              :product-id="checkableId"
+              :checkable-type="checkableType"
+              :parent-component="'check'"></product-checker>
           </li>
           <li class="card-main-actions__item" :class="checkId ? 'is-sub' : ''">
             <button

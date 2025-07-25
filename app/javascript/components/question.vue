@@ -15,7 +15,7 @@
       <div class="card-list-item__rows">
         <div class="card-list-item__row">
           <div class="card-list-item-title">
-            <div class="a-list-item-badge is-wip" v-if="question.wip">
+            <div v-if="question.wip" class="a-list-item-badge is-wip">
               <span>WIP</span>
             </div>
             <h1 class="card-list-item-title__title" itemprop="name">
@@ -29,14 +29,14 @@
           </div>
         </div>
 
-        <div class="card-list-item__row" v-if="question.practice">
+        <div v-if="question.practice" class="card-list-item__row">
           <div class="card-list-item-meta">
             <div class="card-list-item-meta__items">
               <div class="card-list-item-meta__item">
                 <a
+                  v-if="practiceUrl !== null"
                   class="a-meta is-practice"
-                  :href="practiceUrl"
-                  v-if="practiceUrl !== null">
+                  :href="practiceUrl">
                   {{ question.practice.title }}
                 </a>
               </div>
@@ -47,7 +47,7 @@
         <div class="card-list-item__row">
           <div class="card-list-item-meta">
             <div class="card-list-item-meta__items">
-              <div class="card-list-item-meta__item" v-if="question.wip">
+              <div v-if="question.wip" class="card-list-item-meta__item">
                 <div class="a-meta">質問作成中</div>
               </div>
               <div class="card-list-item-meta__item">
@@ -62,13 +62,13 @@
         <div class="card-list-item__row">
           <div class="card-list-item-meta">
             <div class="card-list-item-meta__items">
-              <div class="card-list-item-meta__item" v-if="!question.wip">
+              <div v-if="!question.wip" class="card-list-item-meta__item">
                 <time class="a-meta">
                   <span class="a-meta__label">公開</span>
                   <span class="a-meta__value">{{ publishedAt }}</span>
                 </time>
               </div>
-              <div class="card-list-item-meta__item" v-if="!question.wip">
+              <div v-if="!question.wip" class="card-list-item-meta__item">
                 <time class="a-meta">
                   <span class="a-meta__label">更新</span>
                   <span class="a-meta__value">{{ updatedAt }}</span>
@@ -83,7 +83,7 @@
           </div>
         </div>
       </div>
-      <div class="stamp is-circle is-solved" v-if="question.has_correct_answer">
+      <div v-if="question.has_correct_answer" class="stamp is-circle is-solved">
         <div class="stamp__content is-icon">解</div>
         <div class="stamp__content is-icon">決</div>
       </div>
