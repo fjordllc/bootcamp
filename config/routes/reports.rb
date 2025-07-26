@@ -5,5 +5,7 @@ Rails.application.routes.draw do
     resources :unchecked, only: %i(index)
   end
 
-  resources :reports
+  resources :reports do
+    resources :checks, only: %i[create destroy]
+  end
 end

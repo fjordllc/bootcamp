@@ -15,7 +15,7 @@ class User::ProductsTest < ApplicationSystemTestCase
 
     visit_with_auth "/products/#{products(:product16).id}", 'komagata'
     click_button '担当する'
-    assert_text '担当から外れる'
+    assert_button '担当から外れる'
 
     visit_with_auth self_assigned_products_url, 'komagata'
     assert_text products(:product16).practice.title
