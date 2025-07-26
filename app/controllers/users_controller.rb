@@ -65,8 +65,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     @user.build_discord_profile
     @user.credit_card_payment = params[:credit_card_payment]
     @user.uploaded_avatar = user_params[:avatar]
-
-    Newspaper.publish(:user_create, { user: @user })
+    @user.unsubscribe_email_token = SecureRandom.urlsafe_base64
 
     if @user.staff? || @user.trainee?
       create_free_user!
@@ -102,7 +101,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
       UserMailer.welcome(@user).deliver_now
       notify_to_mentors(@user)
       notify_to_chat(@user)
-      Newspaper.publish(:student_or_trainee_create, { user: @user }) if @user.trainee?
+      ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.trainee?
       logger.info "[Signup] 4. after create times channel for free user. #{@user.email}"
       redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
     else
@@ -148,7 +147,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
         UserMailer.welcome(@user).deliver_now
         notify_to_mentors(@user)
         notify_to_chat(@user)
-        Newspaper.publish(:student_or_trainee_create, { user: @user }) if @user.student?
+        ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.student?
         logger.info "[Signup] 8. after create times channel. #{@user.email}"
         redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
       else
