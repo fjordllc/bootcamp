@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PageNotifier
-  def call(payload)
+  def call(_name, _started, _finished, _unique_id, payload)
     page = payload[:page]
     send_notification(page)
     notify_to_chat(page)
