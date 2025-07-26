@@ -62,7 +62,6 @@ class PairWorksController < ApplicationController
   end
 
   def set_my_pair_work
-    # current_user.pair_works　ができない？
     @pair_work = current_user.admin? ? PairWork.find(params[:id]) : current_user.pair_works.find(params[:id])
   end
 
