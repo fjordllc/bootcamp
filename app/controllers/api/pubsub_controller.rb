@@ -24,17 +24,21 @@ class API::PubsubController < API::BaseController
 
   def parse_pubsub_message(body)
     message = JSON.parse(body)
-    data = JSON.parse(Base64.decode64(message['message']['data']))
+    encoded_data = message.dig('message', 'data')
+    raise 'Invalid Pub/Sub message format' unless encoded_data
+    
+    data = JSON.parse(Base64.decode64(encoded_data))
 
     {
       job_name: data.dig('job', 'name'),
       job_state: data.dig('job', 'state')
     }
+  rescue JSON::ParserError, ArgumentError => e
+    Rails.logger.error("Failed to parse Pub/Sub message: #{e.message}")
+    raise
   end
 
   def find_movie(job_name)
-    movie_id = Transcoder::Client.new.get_movie_id(job_name)
-    Movie.find_by(id: movie_id)
     movie_id = Transcoder::Client.new.get_movie_id(job_name)
     Movie.find_by(id: movie_id) if movie_id
   rescue Google::Cloud::Error => e
