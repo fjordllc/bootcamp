@@ -9,7 +9,8 @@ module Transcoder
     end
 
     def data
-      raise "Transcoded file not found" unless file&.exists?
+      raise 'Transcoded file not found' unless file&.exists?
+
       StringIO.new(file.download.string)
     rescue Google::Cloud::Storage::FileVerificationError => e
       Rails.logger.error "File verification failed: #{e.message}"
@@ -21,7 +22,7 @@ module Transcoder
 
     def cleanup
       return unless file&.exists?
-      
+
       file.delete
     rescue Google::Cloud::Storage::FileVerificationError => e
       Rails.logger.error "File verification failed during cleanup: #{e.message}"
@@ -46,6 +47,7 @@ module Transcoder
       config = Rails.application.config.active_storage.service_configurations[service_name]
       raise "ActiveStorage service configuration not found: #{service_name}" unless config
       raise "Bucket not configured for service: #{service_name}" unless config['bucket']
+
       config['bucket']
     end
 

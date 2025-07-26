@@ -26,7 +26,7 @@ class API::PubsubController < API::BaseController
     message = JSON.parse(body)
     encoded_data = message.dig('message', 'data')
     raise 'Invalid Pub/Sub message format' unless encoded_data
-    
+
     data = JSON.parse(Base64.decode64(encoded_data))
 
     {

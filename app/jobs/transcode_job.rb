@@ -12,6 +12,7 @@ class TranscodeJob < ApplicationJob
     Rails.logger.error("Transcoding failed for Movie #{movie.id}: #{e.message}")
     # API エラーの場合は再試行しない
     raise e unless e.respond_to?(:code) && [429, 503].include?(e.code)
+
     retry_job(wait: 30.seconds)
   rescue StandardError => e
     Rails.logger.error("Unexpected error during transcoding for Movie #{movie.id}: #{e.message}")
