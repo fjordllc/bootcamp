@@ -35,6 +35,11 @@ class API::PubsubController < API::BaseController
   def find_movie(job_name)
     movie_id = Transcoder::Client.new.get_movie_id(job_name)
     Movie.find_by(id: movie_id)
+    movie_id = Transcoder::Client.new.get_movie_id(job_name)
+    Movie.find_by(id: movie_id) if movie_id
+  rescue Google::Cloud::Error => e
+    Rails.logger.error("Failed to get movie_id for job #{job_name}: #{e.message}")
+    nil
   end
 
   def handle_job_state(movie, job_name, job_state)
