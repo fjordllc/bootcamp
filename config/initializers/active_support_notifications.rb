@@ -17,4 +17,7 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('product.create', ProductAuthorWatcher.new)
   ActiveSupport::Notifications.subscribe('product.create', ProductNotifierForColleague.new)
   ActiveSupport::Notifications.subscribe('product.create', ProductNotifierForPracticeWatcher.new)
+  page_notifier = PageNotifier.new
+  ActiveSupport::Notifications.subscribe('page.create', page_notifier)
+  ActiveSupport::Notifications.subscribe('page.update', page_notifier)
 end

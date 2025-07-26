@@ -30,10 +30,6 @@ Rails.configuration.after_initialize do
   Newspaper.subscribe(:product_save, learning_status_updater)
   Newspaper.subscribe(:check_cancel, learning_status_updater)
 
-  page_notifier = PageNotifier.new
-  Newspaper.subscribe(:page_create, page_notifier)
-  Newspaper.subscribe(:page_update, page_notifier)
-
   mentors_watch_for_question_creator = MentorsWatchForQuestionCreator.new
   Newspaper.subscribe(:question_create, mentors_watch_for_question_creator)
   Newspaper.subscribe(:question_update, mentors_watch_for_question_creator)
