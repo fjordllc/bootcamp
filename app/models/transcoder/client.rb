@@ -11,19 +11,24 @@ module Transcoder
 
     def transcode
       # 処理完了後にAPI::PubsubControllerへPub/Subで通知を送る
-      transcoder_service.create_job(
-        parent: parent_path,
-        job: {
-          input_uri:,
-          output_uri:,
-          config: {
-            elementary_streams:,
-            mux_streams:,
-            pubsub_destination: { topic: pubsub_topic_path }
-          },
-          labels: { movie_id: @movie.id.to_s }
-        }
-      )
+      begin
+        transcoder_service.create_job(
+          parent: parent_path,
+          job: {
+            input_uri:,
+            output_uri:,
+            config: {
+              elementary_streams:,  
+              mux_streams:,
+              pubsub_destination: { topic: pubsub_topic_path }
+            },
+            labels: { movie_id: @movie.id.to_s }
+          }
+        )
+      rescue Google::Cloud::Error => e
+        Rails.logger.error("Failed to create transcoding job for Movie #{@movie.id}: #{e.message}")
+        raise
+      end
     end
 
     def get_movie_id(job_name)
