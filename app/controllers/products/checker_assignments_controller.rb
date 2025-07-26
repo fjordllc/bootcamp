@@ -6,7 +6,7 @@ class Products::CheckerAssignmentsController < ApplicationController
 
   def create
     return redirect_back(fallback_location: @product, alert: '既に担当者がいます。') if @product.checker.present?
-    return redirect_back(fallback_location: @product, alert: '担当者になる権限がありません。') unless can_be_checker
+    return redirect_back(fallback_location: @product, alert: '担当者になる権限がありません。') unless can_be_checker?
 
     @product.update!(checker: current_user)
     redirect_back(fallback_location: @product, notice: '担当になりました。')
