@@ -7,6 +7,8 @@ module Transcoder
       @config = config || default_config
       @bucket_name = bucket_name || default_storage_config['bucket']
       @project_id = project_id || default_storage_config['project']
+
+      validate_configuration
     end
 
     def transcode
@@ -37,6 +39,13 @@ module Transcoder
     end
 
     private
+
+    def validate_configuration
+      raise ArgumentError, 'bucket_name is required' if @bucket_name.blank?
+      raise ArgumentError, 'project_id is required' if @project_id.blank?
+      raise ArgumentError, 'location is required' if @config['location'].blank?
+      raise ArgumentError, 'pubsub_topic is required' if @config['pubsub_topic'].blank?
+    end
 
     def elementary_streams
       [
