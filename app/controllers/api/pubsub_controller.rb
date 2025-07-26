@@ -50,8 +50,15 @@ class API::PubsubController < API::BaseController
 
   def attach_transcoded_file(movie)
     file = Transcoder::Movie.new(movie)
-    movie.movie_data.attach(io: file.data, filename: "#{movie.id}.mp4")
-    movie.save
-    file.cleanup
+    begin
+      movie.movie_data.attach(io: file.data, filename: "#{movie.id}.mp4")
+      movie.save!
+      Rails.logger.info("Successfully attached transcoded file for Movie #{movie.id}")
+    rescue StandardError => e
+      Rails.logger.error("Failed to attach transcoded file for Movie #{movie.id}: #{e.message}")
+      raise
+    ensure
+      file.cleanup if file.respond_to?(:cleanup)
+    end
   end
 end
