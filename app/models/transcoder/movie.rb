@@ -9,11 +9,26 @@ module Transcoder
     end
 
     def data
+      raise "Transcoded file not found" unless file&.exists?
       StringIO.new(file.download.string)
+    rescue Google::Cloud::Storage::FileVerificationError => e
+      Rails.logger.error "File verification failed: #{e.message}"
+      raise
+    rescue Google::Cloud::Error => e
+      Rails.logger.error "Failed to download transcoded file: #{e.message}"
+      raise
     end
 
     def cleanup
-      file&.delete
+      return unless file&.exists?
+      
+      file.delete
+    rescue Google::Cloud::Storage::FileVerificationError => e
+      Rails.logger.error "File verification failed during cleanup: #{e.message}"
+      raise
+    rescue Google::Cloud::Error => e
+      Rails.logger.error "Failed to delete transcoded file: #{e.message}"
+      raise
     end
 
     private
