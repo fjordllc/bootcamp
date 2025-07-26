@@ -8,6 +8,7 @@ jobs:
   build:
     docker:
       - image: cimg/ruby:3.1.6-node
+    resource_class: xlarge
     steps:
       - checkout
       - run:
@@ -24,6 +25,7 @@ jobs:
   check:
     docker:
       - image: 'cimg/ruby:3.1.6-node'
+    resource_class: xlarge
     steps:
       - checkout
       - run:
