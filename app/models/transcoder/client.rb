@@ -88,10 +88,12 @@ module Transcoder
     end
 
     def input_uri
+      raise ArgumentError, 'Movie and movie_data are required' unless @movie&.movie_data&.key
       "gs://#{@bucket_name}/#{@movie.movie_data.key}"
     end
 
     def output_uri
+      raise ArgumentError, 'Movie ID is required' unless @movie&.id
       "gs://#{@bucket_name}/#{@movie.id}/"
     end
 
