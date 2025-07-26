@@ -27,5 +27,8 @@ class Movie < ApplicationRecord
 
   def start_transcode_job
     TranscodeJob.perform_later(self)
+  rescue StandardError => e
+    Rails.logger.error("Failed to enqueue TranscodeJob for Movie #{id}: #{e.message}")
+    raise
   end
 end
