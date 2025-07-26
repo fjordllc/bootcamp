@@ -13,32 +13,31 @@ module Transcoder
 
     def transcode
       # 処理完了後にAPI::PubsubControllerへPub/Subで通知を送る
-      begin
-        transcoder_service.create_job(
-          parent: parent_path,
-          job: {
-            input_uri:,
-            output_uri:,
-            config: {
-              elementary_streams:,  
-              mux_streams:,
-              pubsub_destination: { topic: pubsub_topic_path }
-            },
-            labels: { movie_id: @movie.id.to_s }
-          }
-        )
-      rescue Google::Cloud::Error => e
-        Rails.logger.error("Failed to create transcoding job for Movie #{@movie.id}: #{e.message}")
-        raise
-      end
+
+      transcoder_service.create_job(
+        parent: parent_path,
+        job: {
+          input_uri:,
+          output_uri:,
+          config: {
+            elementary_streams:,
+            mux_streams:,
+            pubsub_destination: { topic: pubsub_topic_path }
+          },
+          labels: { movie_id: @movie.id.to_s }
+        }
+      )
+    rescue Google::Cloud::Error => e
+      Rails.logger.error("Failed to create transcoding job for Movie #{@movie.id}: #{e.message}")
+      raise
     end
 
     def get_movie_id(job_name)
-      return nil if job_name.blank? 
-      
+      return nil if job_name.blank?
+
       job = transcoder_service.get_job(name: job_name)
       job&.labels&.fetch('movie_id', nil)
-      rescue Google::Cloud::Error => e
+    rescue Google::Cloud::Error => e
       Rails.logger.error("Failed to get job #{job_name}: #{e.message}")
       nil
     end
@@ -103,11 +102,13 @@ module Transcoder
 
     def input_uri
       raise ArgumentError, 'Movie and movie_data are required' unless @movie&.movie_data&.key
+
       "gs://#{@bucket_name}/#{@movie.movie_data.key}"
     end
 
     def output_uri
       raise ArgumentError, 'Movie ID is required' unless @movie&.id
+
       "gs://#{@bucket_name}/#{@movie.id}/"
     end
 
