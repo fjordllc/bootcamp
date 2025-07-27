@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 ENV['RAILS_ENV'] ||= 'test'
+# Set dummy Stripe API keys for tests (matching VCR cassettes)
+ENV['STRIPE_SECRET_KEY'] ||= 'sk_test_XLP1Ajz1JvT9jUt5uKGvL0Wd'
+ENV['STRIPE_PUBLIC_KEY'] ||= 'pk_test_fake_key_for_testing'
 require_relative '../config/environment'
 require 'rails/test_help'
 require 'capybara/rails'

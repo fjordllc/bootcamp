@@ -4,25 +4,12 @@
   = f.hidden_field :adviser
   = f.hidden_field :trainee
   = f.hidden_field :mentor
-  - unless request.path.start_with?('/admin/')
-    = f.hidden_field :company_id
-  - if admin_login?
-    ' '
-  - else
-    = f.hidden_field :course_id
+  = f.hidden_field :company_id
   = hidden_field_tag :idempotency_token, SecureRandom.uuid
   = render 'errors', object: user
   - if !current_user && !@user.adviser? && !@user.trainee? && Campaign.today_campaign?
     = render 'checked_campaign'
-  - if request.path.start_with?('/admin/')
-    .form__items
-      .form-item
-        = f.label :course_id, 'コース', class: 'a-form-label'
-        = f.select :course_id, options_from_collection_for_select(Course.all, :id, :title, @user.course_id), {}, { class: 'form-item-group__form-control' }
-      .form-item
-        = f.label :company_id, '所属企業', class: 'a-form-label'
-        = f.collection_select :company_id, Company.all, :id, :name, { include_blank: '企業を選択してください' }, { id: 'js-choices-single-select' }
-  - elsif !@user.adviser? && !@user.mentor?
+  - unless @user.adviser? || @user.mentor?
     .form__items
       = render 'users/form/course_select', f: f, user: @user
   .form__items

@@ -1,6 +1,6 @@
 import Choices from 'choices.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+function initializeChoices() {
   const element = document.getElementById('js-choices-single-select')
   if (element) {
     return new Choices(element, {
@@ -80,4 +80,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })
   })
-})
+}
+
+// Initialize on different events for Rails 7.2 compatibility
+document.addEventListener('DOMContentLoaded', initializeChoices)
+document.addEventListener('turbo:load', initializeChoices)
+document.addEventListener('turbo:frame-load', initializeChoices)
+// For older Turbolinks compatibility
+document.addEventListener('turbolinks:load', initializeChoices)
