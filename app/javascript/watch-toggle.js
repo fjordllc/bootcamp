@@ -1,5 +1,5 @@
-import CSRF from 'csrf'
 import { toast } from './vanillaToast.js'
+import { post, destroy } from '@rails/request.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const watchToggle = document.querySelector('.watch-toggle')
@@ -25,14 +25,8 @@ async function watch(element) {
   }
 
   try {
-    const response = await fetch(`/api/watches`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': CSRF.getToken()
-      },
-      credentials: 'same-origin',
+    const response = await post(`/api/watches`, {
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
       redirect: 'manual',
       body: JSON.stringify(params)
     })
@@ -41,7 +35,7 @@ async function watch(element) {
       throw new Error(`${response.error}`)
     }
 
-    const json = await response.json()
+    const json = await response.json
     if (json.message) {
       toast(json.message, 'error')
     } else {
@@ -60,14 +54,8 @@ async function unWatch(element) {
   const watchId = element.dataset.watch_id
 
   try {
-    const response = await fetch(`/api/watches/${watchId}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': CSRF.getToken()
-      },
-      credentials: 'same-origin',
+    const response = await destroy(`/api/watches/${watchId}`, {
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
       redirect: 'manual'
     })
 
