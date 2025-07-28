@@ -1,4 +1,4 @@
-import CSRF from 'csrf'
+import { get, destroy } from '@rails/request.js'
 import { toast } from './vanillaToast.js'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -49,14 +49,8 @@ function toggleDeleteButtonsVisibility(shouldHide) {
 async function unWatchInList(element) {
   const watchId = element.dataset.watch_id
   try {
-    const response = await fetch(`/api/watches/${watchId}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': CSRF.getToken()
-      },
-      credentials: 'same-origin',
+    const response = await destroy(`/api/watches/${watchId}`, {
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
       redirect: 'manual'
     })
 
@@ -73,12 +67,7 @@ async function unWatchInList(element) {
 
 async function getWatches(currentPage) {
   try {
-    const response = await fetch(`/api/watches?page=${currentPage}`, {
-      method: 'GET',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      },
-      credentials: 'same-origin',
+    const response = await get(`/api/watches?page=${currentPage}`, {
       redirect: 'manual'
     })
 
@@ -86,7 +75,7 @@ async function getWatches(currentPage) {
       throw new Error(`${response.error}`)
     }
 
-    const html = await response.text()
+    const html = await response.text
     const watchesContainer = document.querySelector('#watches')
     watchesContainer.innerHTML = html
     const deleteButtonContainers = watchesContainer.querySelectorAll(
