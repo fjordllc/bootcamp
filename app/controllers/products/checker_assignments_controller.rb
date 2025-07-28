@@ -33,10 +33,13 @@ class Products::CheckerAssignmentsController < ApplicationController
 
   def validate_assignment
     return redirect_back(fallback_location: @product, alert: '既に担当者がいます。') if @product.checker.present?
-    return redirect_back(fallback_location: @product, alert: '担当者になる権限がありません。') unless can_be_checker?
+
+    redirect_back(fallback_location: @product, alert: '担当者になる権限がありません。') unless can_be_checker?
   end
 
   def validate_removal
     return redirect_back(fallback_location: @product, alert: '担当者が設定されていません。') if @product.checker.blank?
-    return redirect_back(fallback_location: @product, alert: '担当者を削除する権限がありません。') unless can_remove_checker?
+
+    redirect_back(fallback_location: @product, alert: '担当者を削除する権限がありません。') unless can_remove_checker?
+  end
 end
