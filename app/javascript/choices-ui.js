@@ -2,16 +2,23 @@ import Choices from 'choices.js'
 
 function initializeChoices() {
   const element = document.getElementById('js-choices-single-select')
-  if (element) {
-    return new Choices(element, {
-      removeItemButton: true,
-      allowHTML: true,
-      searchResultLimit: 20,
-      searchPlaceholderValue: '検索ワード',
-      noResultsText: '一致する情報は見つかりません',
-      itemSelectText: '選択',
-      shouldSort: false
-    })
+  if (element && !element.choices) {
+    try {
+      const choices = new Choices(element, {
+        removeItemButton: true,
+        allowHTML: true,
+        searchResultLimit: 20,
+        searchPlaceholderValue: '検索ワード',
+        noResultsText: '一致する情報は見つかりません',
+        itemSelectText: '選択',
+        shouldSort: false
+      })
+      element.choices = choices
+      return choices
+    } catch (error) {
+      console.error('Failed to initialize Choices.js:', error)
+      return null
+    }
   }
 
   const elementMultipleSelect = document.getElementById(

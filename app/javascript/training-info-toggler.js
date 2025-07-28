@@ -10,8 +10,11 @@ function initializeTrainingInfoToggler() {
     if (!dateInput) return null
     if (!trainingInfoBlock) return null
 
+    // Initial state - hide if unchecked
     if (checkbox.checked === false) {
       trainingInfoBlock.style.display = 'none'
+    } else {
+      trainingInfoBlock.style.display = 'block'
     }
 
     checkbox.addEventListener('change', () => {
