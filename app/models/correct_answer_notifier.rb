@@ -3,7 +3,7 @@
 class CorrectAnswerNotifier
   def call(payload)
     answer = payload[:answer]
-    notify_correct_answer(answer) if answer.saved_change_to_attribute?('type', to: 'CorrectAnswer')
+    notify_correct_answer(answer)
   end
 
   private
