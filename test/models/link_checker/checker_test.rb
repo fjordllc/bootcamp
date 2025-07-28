@@ -95,7 +95,10 @@ module LinkChecker
     end
 
     test '.valid_domain? returns false with invalid domain' do
-      assert_not Checker.valid_domain?('invalid-domain.co')
+      # Mock DNS resolution to simulate resolution failure
+      Resolv.stub(:getaddress, ->(_domain) { raise Resolv::ResolvError }) do
+        assert_not Checker.valid_domain?('non-existent-domain.com')
+      end
       assert_not Checker.valid_domain?('')
     end
 

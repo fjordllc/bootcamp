@@ -4,6 +4,11 @@ ENV['RAILS_ENV'] ||= 'test'
 # Set dummy Stripe API keys for tests (matching VCR cassettes)
 ENV['STRIPE_SECRET_KEY'] ||= 'sk_test_XLP1Ajz1JvT9jUt5uKGvL0Wd'
 ENV['STRIPE_PUBLIC_KEY'] ||= 'pk_test_fake_key_for_testing'
+# Set dummy Discord webhook URLs for tests
+ENV['DISCORD_ALL_WEBHOOK_URL'] ||= 'https://discord.com/api/webhooks/0123456789/all'
+ENV['DISCORD_ADMIN_WEBHOOK_URL'] ||= 'https://discord.com/api/webhooks/0123456789/admin'
+ENV['DISCORD_MENTOR_WEBHOOK_URL'] ||= 'https://discord.com/api/webhooks/0123456789/mentor'
+ENV['DISCORD_INTRODUCTION_WEBHOOK_URL'] ||= 'https://discord.com/api/webhooks/0123456789/introduction'
 require_relative '../config/environment'
 require 'rails/test_help'
 require 'capybara/rails'

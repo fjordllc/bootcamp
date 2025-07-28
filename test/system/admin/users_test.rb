@@ -114,25 +114,25 @@ class Admin::UsersTest < ApplicationSystemTestCase
   end
 
   test 'update user with company' do
-    user = users(:komagata)  # Use admin user who can see company form
+    user = users(:komagata) # Use admin user who can see company form
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     within 'form[name=user]' do
       # Debug: Check what company-related elements exist
-      puts "=== DEBUG: Company form elements ==="
+      puts '=== DEBUG: Company form elements ==='
       puts "Has #js-choices-single-select? #{has_selector?('#js-choices-single-select', visible: :all)}"
       puts "Has user_company_id select? #{has_selector?('select[name*=\"company_id\"]', visible: :all)}"
       puts "Has .choices? #{has_selector?('.choices', visible: :all)}"
-      puts "================================="
-      
+      puts '================================='
+
       # Wait for JavaScript to initialize
       sleep 2
-      
+
       # Try to use the select directly since Choices.js might not be working
       if has_selector?('select[name*="company_id"]', visible: :all)
         select 'Lokka Inc.', from: 'user_company_id'
       else
         # Skip this test for now - company form not available
-        skip "Company form not available for this user"
+        skip 'Company form not available for this user'
       end
       click_on '更新する'
     end
@@ -406,7 +406,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     uncheck 'user_show_mentor_profile', allow_label_click: true, visible: false
     assert_no_checked_field('user_show_mentor_profile', visible: false)
     click_on '更新する'
-    # The update should redirect successfully  
+    # The update should redirect successfully
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     assert_no_checked_field('user_show_mentor_profile', visible: false)
   end
