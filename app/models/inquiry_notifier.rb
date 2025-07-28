@@ -3,7 +3,7 @@
 class InquiryNotifier
   NOTIFICATION_SENDER_NAME = 'pjord'
 
-  def call(payload)
+  def call(_name, _started, _finished, _unique_id, payload)
     inquiry = payload[:inquiry]
     return if inquiry.nil?
 
