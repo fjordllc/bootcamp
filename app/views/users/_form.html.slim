@@ -119,7 +119,7 @@
                     = @user.diploma_file.filename
                 .a-pdf-input__upload.a-button.is-md.is-secondary
                   | PDFを確認
-            - rescue => e
+            - rescue StandardError
               .a-pdf-input__inner
                 .a-pdf-input__file
                   span.a-pdf-input__file-name
