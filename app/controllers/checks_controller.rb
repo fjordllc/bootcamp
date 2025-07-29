@@ -17,6 +17,7 @@ class ChecksController < ApplicationController
     if @check.save
       Newspaper.publish(:check_create, { check: @check })
       if @checkable.is_a?(Product)
+        @checkable.change_learning_status(:complete)
         redirect_back(fallback_location: @checkable, notice: '提出物を合格にしました。')
       else
         redirect_back(fallback_location: @checkable, notice: '日報を確認済みにしました。')
@@ -32,6 +33,7 @@ class ChecksController < ApplicationController
 
     @check.destroy
     Newspaper.publish(:check_cancel, { check: @check })
+    @checkable.change_learning_status(:submitted) if @checkable.is_a?(Product)
     redirect_back(fallback_location: @checkable)
   end
 
