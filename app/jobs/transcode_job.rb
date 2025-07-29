@@ -10,7 +10,7 @@ class TranscodeJob < ApplicationJob
     client.transcode
   rescue Google::Cloud::Error => e
     Rails.logger.error("Transcoding failed for Movie #{movie.id}: #{e.message}")
-    # API エラーの場合は再試行しない
+    # 429（Rate Limit）や 503（Service Unavailable）以外のエラーは再試行しない
     raise e unless e.respond_to?(:code) && [429, 503].include?(e.code)
 
     retry_job(wait: 30.seconds)
