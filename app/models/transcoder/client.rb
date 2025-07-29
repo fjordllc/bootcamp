@@ -12,7 +12,7 @@ module Transcoder
     end
 
     def transcode
-      # 処理完了後にAPI::PubsubControllerへPub/Subで通知を送る
+      # 処理完了後にAPI::PubSubControllerへPub/Subで通知を送る
 
       transcoder_service.create_job(
         parent: parent_path,
