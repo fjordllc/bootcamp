@@ -31,8 +31,13 @@ Rails.configuration.after_initialize do
   Newspaper.subscribe(:question_create, ai_answer_creator)
   Newspaper.subscribe(:question_update, ai_answer_creator)
 
-  Newspaper.subscribe(:retirement_create, UnfinishedDataDestroyer.new)
-  Newspaper.subscribe(:retirement_create, TimesChannelDestroyer.new)
+  unfinished_data_destroyer = UnfinishedDataDestroyer.new
+  Newspaper.subscribe(:retirement_create, unfinished_data_destroyer)
+  Newspaper.subscribe(:training_completion_create, unfinished_data_destroyer)
+
+  times_channel_destroyer = TimesChannelDestroyer.new
+  Newspaper.subscribe(:retirement_create, times_channel_destroyer)
+  Newspaper.subscribe(:training_completion_create, times_channel_destroyer)
 
   question_notifier = QuestionNotifier.new
   Newspaper.subscribe(:question_create, question_notifier)
