@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::PubsubController < API::BaseController
+class API::PubSubController < API::BaseController
   skip_before_action :verify_authenticity_token
   skip_before_action :require_login_for_api
 
