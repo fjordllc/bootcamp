@@ -87,6 +87,17 @@ hr.a-border-tint
                     p
                       = link_to "#{article_path(@article)}?token=#{@article.token}", target: '_blank', rel: 'noopener' do
                         | プレビューをブラウザで開く
+              .article__actions
+                .article__ad
+                  .a-short-text
+                    h3
+                      | 現場のプラス戦力になれるプログラミングスクール
+                    p
+                      | フィヨルドブートキャンプは、就職ができるスキルを身につけるのは当然、卒業をした時点ですでに、「現場にとって、プラスの戦力として数えられる」の実力を身につけることを目標とした、オンラインプログラミングスクールです。プログラミング未経験からスタートして、HTML、CSS、Linux、Ruby、Rails、JavaScript、チーム開発を経て、最終的に自作サービスを公開するまでのカリキュラムを用意しています。
+                ul.article__actions-items.mt-4
+                  li.article__actions-item
+                    = link_to root_path, class: 'a-button is-primary is-lg is-block' do
+                      | フィヨルドブートキャンプへ
             - if admin_or_mentor_login?
               hr.a-border
               .card-footer
@@ -102,4 +113,3 @@ hr.a-border-tint
           - if @mentor.mentor?
             = render 'welcome/author', mentor: @mentor, page: 'articles-show'
           = render 'recent_articles'
-          = render 'ad'
