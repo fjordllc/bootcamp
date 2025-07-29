@@ -5,6 +5,7 @@ module UserDecorator
 
   include Role
   include Retire
+  include ReportStatus
 
   def twitter_url
     "https://twitter.com/#{twitter_account}"
