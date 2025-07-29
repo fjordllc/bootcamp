@@ -36,7 +36,7 @@ module Transcoder
       return nil if job_name.blank?
 
       job = transcoder_service.get_job(name: job_name)
-      job&.labels&.fetch('movie_id', nil)
+      job&.labels&.[]('movie_id')
     rescue Google::Cloud::Error => e
       Rails.logger.error("Failed to get job #{job_name}: #{e.message}")
       nil
