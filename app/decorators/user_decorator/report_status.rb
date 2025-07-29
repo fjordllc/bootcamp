@@ -2,25 +2,16 @@
 
 module UserDecorator
   module ReportStatus
-    # 色分けのための定数
-    SUCCESS = (0..1)
-    PRIMARY = (2..4)
-    WARNING = (5..9)
-    DANGER = (10..)
+    REPORT_COUNT_LEVELS = {
+      'is-success' => 0..1,
+      'is-primary' => 2..4,
+      'is-warning' => 5..9
+    }.freeze
 
-    LAST_UNCHECKED_REPORT_COUNT = 1 # unchecked_report_messageのための定数
+    LAST_UNCHECKED_REPORT_COUNT = 1
 
     def user_report_count_class(count)
-      case count
-      when SUCCESS
-        'is-success'
-      when PRIMARY
-        'is-primary'
-      when WARNING
-        'is-warning'
-      else
-        'is-danger'
-      end
+      REPORT_COUNT_LEVELS.find { |_, range| range.include?(count) }&.first || 'is-danger'
     end
 
     def unchecked_report_message(count, user)
