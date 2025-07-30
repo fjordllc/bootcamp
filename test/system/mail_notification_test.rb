@@ -9,7 +9,7 @@ class MailNotificationsTest < ApplicationSystemTestCase
     # Wait for page body to load first before checking title
     assert_selector '.page-body'
     assert_selector 'article.unauthorized'
-    
+
     # Now check the title after ensuring the page is loaded
     assert page.has_title?('メール通知解除の確認')
     assert_text 'メール通知をオフにしますか？'
