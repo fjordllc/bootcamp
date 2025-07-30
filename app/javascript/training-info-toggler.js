@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+function initializeTrainingInfoToggler() {
   const checkbox = document.querySelector(
     'input.js-training-info-toggler-checkbox'
   )
@@ -10,8 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!dateInput) return null
     if (!trainingInfoBlock) return null
 
+    // Initial state - hide if unchecked
     if (checkbox.checked === false) {
       trainingInfoBlock.style.display = 'none'
+    } else {
+      trainingInfoBlock.style.display = 'block'
     }
 
     checkbox.addEventListener('change', () => {
@@ -23,4 +26,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })
   }
-})
+}
+
+// Initialize on different events for Rails 7.2 compatibility
+document.addEventListener('DOMContentLoaded', initializeTrainingInfoToggler)
+document.addEventListener('turbo:load', initializeTrainingInfoToggler)
+document.addEventListener('turbo:frame-load', initializeTrainingInfoToggler)
+// For older Turbolinks compatibility
+document.addEventListener('turbolinks:load', initializeTrainingInfoToggler)

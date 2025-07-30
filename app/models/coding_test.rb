@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class CodingTest < ApplicationRecord
-  enum language: {
+  enum :language, {
     ruby: 1,
     javascript: 2
-  }, _prefix: true
+  }, prefix: true
 
   belongs_to :practice
   belongs_to :user

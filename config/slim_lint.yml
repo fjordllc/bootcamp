@@ -33,6 +33,7 @@ linters:
       - Layout/ParameterAlignment
       - Layout/TrailingEmptyLines
       - Layout/TrailingWhitespace
+      - Lint/Syntax
       - Lint/Void
       - Metrics/BlockLength
       - Metrics/BlockNesting

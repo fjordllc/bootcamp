@@ -1,7 +1,7 @@
 .block-checks.is-1-item
   .block-checks__item
     .a-block-check.is-checkbox.js-date-input-toggler
-      = check_box_tag :graduation_checkbox, 1, false, class: 'a-toggle-checkbox js-date-input-toggler-checkbox'
+      = check_box_tag :graduation_checkbox, 1, @user.graduated_on?, class: 'a-toggle-checkbox js-date-input-toggler-checkbox'
       .a-block-check__label.is-ta-left.has-input
         = f.label :graduated_on, class: '', for: 'graduation_checkbox' do
           | 卒業済

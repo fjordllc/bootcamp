@@ -5,13 +5,13 @@ html.is-application lang='ja'
     = display_meta_tags default_meta_tags
     = render 'layouts/common/common_head'
     - if page_classes.include?('welcome')
-      = stylesheet_pack_tag 'lp', media: 'all'
+      = stylesheet_link_tag 'lp', media: 'all'
       - if page_classes.include?('welcome-home')
         link(rel='canonical' href='https://bootcamp.fjord.jp/')
     - else
       = render 'available_emojis'
       = render 'stripe'
-      = stylesheet_pack_tag 'application', media: 'all'
+      = stylesheet_link_tag 'application', media: 'all'
     = render 'x' if Rails.env.production?
     = content_for(:head_last) if content_for?(:head_last)
   body.is-application#body(class="#{body_class}")

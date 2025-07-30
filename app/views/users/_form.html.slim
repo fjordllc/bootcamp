@@ -1,14 +1,15 @@
 - if from == :new
   = javascript_include_tag 'https://js.stripe.com/v3/'
-= form_with model: user, url: url, local: true, class: 'form', id: 'payment-form', html: { name: 'user', autocomplete: 'address-line3' } do |f|
+= form_with model: user, url: url, local: true, class: 'form', id: 'payment-form', \
+    html: { name: 'user', autocomplete: 'address-line3' } do |f|
   = f.hidden_field :adviser
   = f.hidden_field :trainee
   = f.hidden_field :mentor
   = f.hidden_field :company_id
-  = f.hidden_field :course_id
   = hidden_field_tag :idempotency_token, SecureRandom.uuid
   = render 'errors', object: user
-  - if !current_user && !@user.adviser? && !@user.trainee? && Campaign.today_campaign?
+  - if !current_user && !@user.adviser? && !@user.trainee? && \
+      Campaign.today_campaign?
     = render 'checked_campaign'
   - unless @user.adviser? || @user.mentor?
     .form__items
@@ -60,9 +61,13 @@
       .form-item
         .form-item__button
           - if admin_login? && (url != current_user_path)
-            = link_to '管理者としてパスワードを変更', edit_admin_user_password_path(@user), class: 'a-button is-md is-secondary'
+            = link_to '管理者としてパスワードを変更', \
+                edit_admin_user_password_path(@user), \
+                class: 'a-button is-md is-secondary'
           - else
-            = link_to 'パスワード変更はこちらから', edit_current_user_password_path, class: 'a-button is-md is-secondary'
+            = link_to 'パスワード変更はこちらから', \
+                edit_current_user_password_path, \
+                class: 'a-button is-md is-secondary'
     .form__items
       h3.form__items-title SNSアカウント
       = render 'users/form/sns', f: f
@@ -112,13 +117,23 @@
         = f.hidden_field :remove_diploma, value: '0', id: 'js-remove-pdf-flag'
         = f.label :diploma_file, class: 'a-form-label'
         .a-pdf-input
-          - if @user.diploma_file.attached?
-            = link_to url_for(@user.diploma_file), class: 'a-pdf-input__inner', id: 'js-pdf-file-link', target: '_blank', rel: 'noopener' do
-              .a-pdf-input__file
-                span.a-pdf-input__file-name
-                  = @user.diploma_file.filename
-              .a-pdf-input__upload.a-button.is-md.is-secondary
-                | PDFを確認
+          - if @user.diploma_file.attached? && @user.persisted?
+            - begin
+              = link_to url_for(@user.diploma_file), \
+                  class: 'a-pdf-input__inner', id: 'js-pdf-file-link', \
+                  target: '_blank', rel: 'noopener' do
+                .a-pdf-input__file
+                  span.a-pdf-input__file-name
+                    = @user.diploma_file.filename
+                .a-pdf-input__upload.a-button.is-md.is-secondary
+                  | PDFを確認
+            - rescue StandardError
+              .a-pdf-input__inner
+                .a-pdf-input__file
+                  span.a-pdf-input__file-name
+                    | 添付済み: #{@user.diploma_file.filename}
+                .a-pdf-input__upload.a-button.is-md.is-secondary
+                  | PDF添付済み
           label.a-pdf-input__inner#js-pdf-upload-field
             = f.file_field :diploma_file
             .a-pdf-input__file
@@ -231,9 +246,11 @@
     .form-actions
       ul.form-actions__items
         li.form-actions__item.is-main
-          = f.submit user_submit_label(user, from), id: 'user_submit', class: 'a-button is-lg is-primary is-block is-disabled js-agreements-submit'
+          = f.submit user_submit_label(user, from), id: 'user_submit', \
+              class: 'a-button is-lg is-primary is-block is-disabled js-agreements-submit'
   - else
     .form-actions
       ul.form-actions__items
         li.form-actions__item.is-main
-          = f.submit user_submit_label(user, from), id: 'user_submit', class: 'a-button is-lg is-primary is-block'
+          = f.submit user_submit_label(user, from), id: 'user_submit', \
+              class: 'a-button is-lg is-primary is-block'

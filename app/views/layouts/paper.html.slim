@@ -1,8 +1,7 @@
 doctype html
 html(lang='ja')
   head
-    = javascript_include_tag 'application'
-    = javascript_pack_tag 'application'
-    = stylesheet_pack_tag 'paper', media: 'all'
+    = javascript_include_tag 'application', 'data-turbo-track': 'reload', type: 'module'
+    = stylesheet_link_tag 'paper', media: 'all'
   body
     = yield

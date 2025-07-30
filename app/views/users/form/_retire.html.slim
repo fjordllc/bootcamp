@@ -1,9 +1,9 @@
 .block-checks.is-1-item
   .block-checks__item
     .a-block-check.is-checkbox.js-date-input-toggler
-      = check_box_tag :retire_checkbox, 1, false, class: 'a-toggle-checkbox js-date-input-toggler-checkbox'
+      = check_box_tag :retire_checkbox, 1, @user.retired_on?, class: 'a-toggle-checkbox js-date-input-toggler-checkbox'
       .a-block-check__label.is-ta-left.has-input
-        = f.label :graduated_on, class: '', for: 'retire_checkbox' do
+        = f.label :retired_on, class: '', for: 'retire_checkbox' do
           | 退会済
         .form-item__inline-form-item.js-date-input-toggler-date-area
           = f.date_field :retired_on, class: 'a-text-input js-date-input-toggler-date'

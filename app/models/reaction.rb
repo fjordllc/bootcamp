@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Reaction < ApplicationRecord
-  enum kind: {
+  enum :kind, {
     thumbsup: 0,
     thumbsdown: 1,
     smile: 2,

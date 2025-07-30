@@ -1,4 +1,4 @@
-import plugin from 'markdown-it-anchor'
+import * as plugin from 'markdown-it-anchor'
 
 const options = {
   permalink: plugin.permalink.linkInsideHeader({

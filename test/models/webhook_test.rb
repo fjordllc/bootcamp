@@ -10,7 +10,7 @@ class WebhookTest < ActiveSupport::TestCase
       event = Webhook.construct_event(
         payload: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         signature: 'xxxxxxxxxxxxxx',
-        endpoint_secret: Rails.application.secrets[:stripe][:endpoint_secret]
+        endpoint_secret: ENV['STRIPE_ENDPOINT_SECRET']
       )
 
       assert_equal expected, event['id']

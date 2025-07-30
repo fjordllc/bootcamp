@@ -5,8 +5,7 @@ meta content='IE=edge' http-equiv='X-UA-Compatible'
 = render 'pwa'
 
 // JavaScripts
-= javascript_include_tag 'application'
-= javascript_pack_tag 'application'
+= javascript_include_tag 'application', 'data-turbo-track': 'reload', type: 'module'
 
 // WebFonts
 script(src='https://kit.fontawesome.com/8f04dd61ff.js' crossorigin='anonymous')
