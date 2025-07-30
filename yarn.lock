@@ -4950,6 +4950,11 @@ jp-postal@^3.2.0:
   resolved "https://registry.npmjs.org/jp-postal/-/jp-postal-3.2.0.tgz"
   integrity sha512-3/qJFDeTkg7smwBKvwTc5YoG5tC2ntM7MssSu1T3FKRWA4nI4k+4zMyUKfWCxCt4YVpSVtDuMUbRiOs5HnX2nw==
 
+jquery@^3.7.1:
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.7.1.tgz#083ef98927c9a6a74d05a6af02806566d16274de"
+  integrity sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==
+
 js-stringify@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/js-stringify/-/js-stringify-1.0.2.tgz"

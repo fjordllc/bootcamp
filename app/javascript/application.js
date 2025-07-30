@@ -7,6 +7,15 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
+// Rails 7 core imports - temporarily disabled to debug
+// import * as ActiveStorage from '@rails/activestorage'
+
+// jQuery setup for Rails 7
+import jquery from 'jquery'
+if (typeof window !== 'undefined') {
+  window.$ = window.jQuery = jquery
+}
+
 import './textarea.js'
 import './markdown.js'
 import './shortcut.js'
@@ -101,17 +110,23 @@ const ReactRailsUJS = require('react_ujs')
 ReactRailsUJS.useContext(componentRequireContext)
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Initialize ActiveStorage - temporarily disabled to debug
+  // if (typeof window !== 'undefined') {
+  //   window.ActiveStorage = ActiveStorage
+  //   ActiveStorage.start()
+  // }
+  
   Cocooned.start()
 
   // Debug React components
   console.log(
     'React UJS mounted components:',
-    document.querySelectorAll('[data-react-component]').length
+    document.querySelectorAll('[data-react-class]').length
   )
   console.log(
     'Found react components:',
-    Array.from(document.querySelectorAll('[data-react-component]')).map((el) =>
-      el.getAttribute('data-react-component')
+    Array.from(document.querySelectorAll('[data-react-class]')).map((el) =>
+      el.getAttribute('data-react-class')
     )
   )
 })

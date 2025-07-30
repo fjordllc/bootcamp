@@ -12,6 +12,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'jsbundling-rails', '~> 1.1'
 gem 'puma', '~> 6.0'
 gem 'rails', '~> 7.2.0'
+gem 'sprockets-rails', '~> 3.4'
 
 # not default
 gem 'abstract_notifier', '~> 0.3.2'

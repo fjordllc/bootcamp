@@ -1,3 +1,6 @@
+import 'select2'
+import 'select2/dist/css/select2.css'
+
 function initializeSelect2() {
   $('.js-select2').select2({
     closeOnSelect: true
