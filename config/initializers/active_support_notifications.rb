@@ -25,6 +25,8 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('product.create', ProductNotifierForColleague.new)
   ActiveSupport::Notifications.subscribe('product.create', ProductNotifierForPracticeWatcher.new)
   ActiveSupport::Notifications.subscribe('came.inquiry', InquiryNotifier.new)
+  ActiveSupport::Notifications.subscribe('regular_event.update', RegularEventUpdateNotifier.new)
+  ActiveSupport::Notifications.subscribe('student_or_trainee.create', TimesChannelCreator.new)
 
   learning_status_updater = LearningStatusUpdater.new
   ActiveSupport::Notifications.subscribe('product.save', learning_status_updater)
@@ -36,5 +38,6 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('page.update', page_notifier)
 
   learning_cache_destroyer = LearningCacheDestroyer.new
-  ActiveSupport::Notifications.subscribe('regular_event.update', RegularEventUpdateNotifier.new)
+  ActiveSupport::Notifications.subscribe('learning.create', learning_cache_destroyer)
+  ActiveSupport::Notifications.subscribe('learning.destroy', learning_cache_destroyer)
 end
