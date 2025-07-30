@@ -267,4 +267,23 @@ class Products::ProductComponentTest < ViewComponent::TestCase
 
     assert_no_selector '.a-meta__label', text: '次の経過日数まで'
   end
+
+  def test_role_class_for_user_returns_correct_class_for_different_roles
+    product = products(:product6)
+    component = Products::ProductComponent.new(
+      product:,
+      is_mentor: @is_mentor,
+      is_admin: @is_admin,
+      current_user_id: @current_user_id,
+      reply_deadline_days: @reply_deadline_days
+    )
+
+    student_user = users(:kimura)
+    mentor_user = users(:mentormentaro)
+    admin_user = users(:komagata)
+
+    assert_equal 'is-student', component.role_class_for_user(student_user)
+    assert_equal 'is-mentor', component.role_class_for_user(mentor_user)
+    assert_equal "is-#{admin_user.primary_role}", component.role_class_for_user(admin_user)
+  end
 end
