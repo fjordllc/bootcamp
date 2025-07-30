@@ -21,7 +21,7 @@ function initializeDateInputToggler() {
     }
 
     // Define the event handler function
-    const handleCheckboxChange = function() {
+    const handleCheckboxChange = function () {
       if (checkbox.checked === true) {
         dateInputArea.style.display = 'flex'
         dateInputArea.classList.remove('is-hidden')
