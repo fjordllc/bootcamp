@@ -64,14 +64,14 @@ class ProcessTranscodingNotification
   end
 
   def attach_transcoded_file(movie)
-    file = Transcoder::Movie.new(movie)
-    movie.movie_data.attach(io: file.data, filename: "#{movie.id}.mp4")
+    transcoded_movie = Transcoder::Movie.new(movie)
+    movie.movie_data.attach(io: transcoded_movie.data, filename: "#{movie.id}.mp4")
     movie.save!
-    Rails.logger.info("Successfully attached transcoded file for Movie #{movie.id}")
+    Rails.logger.info("Successfully attached transcoded movie for Movie #{movie.id}")
   rescue => e
-    Rails.logger.error("Failed to attach transcoded file for Movie #{movie.id}: #{e.message}")
+    Rails.logger.error("Failed to attach transcoded movie for Movie #{movie.id}: #{e.message}")
     raise
   ensure
-    file.cleanup if file.respond_to?(:cleanup)
+    transcoded_movie.cleanup if transcoded_movie.respond_to?(:cleanup)
   end
 end
