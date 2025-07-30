@@ -27,10 +27,6 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('came.inquiry', InquiryNotifier.new)
   ActiveSupport::Notifications.subscribe('regular_event.update', RegularEventUpdateNotifier.new)
   ActiveSupport::Notifications.subscribe('student_or_trainee.create', TimesChannelCreator.new)
-  ActiveSupport::Notifications.subscribe('question.create', MentorsWatchForQuestionCreator.new)
-  ActiveSupport::Notifications.subscribe('question.update', MentorsWatchForQuestionCreator.new)
-  ActiveSupport::Notifications.subscribe('question.create', AIAnswerCreator.new)
-  ActiveSupport::Notifications.subscribe('question.update', AIAnswerCreator.new)
 
   learning_status_updater = LearningStatusUpdater.new
   ActiveSupport::Notifications.subscribe('product.save', learning_status_updater)
@@ -44,4 +40,12 @@ Rails.application.reloader.to_prepare do
   learning_cache_destroyer = LearningCacheDestroyer.new
   ActiveSupport::Notifications.subscribe('learning.create', learning_cache_destroyer)
   ActiveSupport::Notifications.subscribe('learning.destroy', learning_cache_destroyer)
+
+  mentors_watch_for_question_creator = MentorsWatchForQuestionCreator.new
+  ActiveSupport::Notifications.subscribe('question.create', mentors_watch_for_question_creator)
+  ActiveSupport::Notifications.subscribe('question.update', mentors_watch_for_question_creator)
+
+  ai_answer_creator = AIAnswerCreator.new
+  ActiveSupport::Notifications.subscribe('question.create', ai_answer_creator)
+  ActiveSupport::Notifications.subscribe('question.update', ai_answer_creator)
 end
