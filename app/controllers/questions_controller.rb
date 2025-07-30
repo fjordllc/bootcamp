@@ -68,9 +68,10 @@ class QuestionsController < ApplicationController
   def update
     set_wip
     if @question.update(question_params)
-      wip_changed = @question.saved_change_to_wip?
-      ActiveSupport::Notifications.instrument('question.update', { question: @question }) if wip_changed
-      Newspaper.publish(:question_update, { question: @question }) if wip_changed
+      if @question.saved_change_to_wip?
+        ActiveSupport::Notifications.instrument('question.update', { question: @question })
+        Newspaper.publish(:question_update, { question: @question })
+      end
       redirect_to Redirection.determin_url(self, @question), notice: @question.generate_notice_message(:update)
     else
       render :edit
