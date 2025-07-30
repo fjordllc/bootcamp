@@ -27,11 +27,14 @@ main.page-main
   hr.a-border
 
   - if admin_or_mentor_login?
-    .user-reports__filters
-      = link_to '全て', reports_path, class: "user-reports__filter#{' is-active' unless params[:unchecked]}"
-      = link_to '未チェック', reports_path(unchecked: true), class: "user-reports__filter#{' is-active' if params[:unchecked]}"
-  nav.page-filter.form
-    - if params[:unchecked].blank?
+    nav.pill-nav
+      ul.pill-nav__items
+        li.pill-nav__item
+          = link_to '全て', reports_path, class: "pill-nav__item-link#{' is-active' unless params[:unchecked]}"
+        li.pill-nav__item
+          = link_to '未チェック', reports_path(unchecked: true), class: "pill-nav__item-link#{' is-active' if params[:unchecked]}"
+  - if params[:unchecked].blank?
+    nav.page-filter.form.pb-0
       .container.is-md
         = form_with url: reports_path, local: true, method: 'get'
         .form-item.is-inline-md-up
