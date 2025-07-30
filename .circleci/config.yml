@@ -73,13 +73,13 @@ jobs:
       RAILS_ENV: test
       DATABASE_URL: "postgres://postgres:postgres@localhost/ci_test"
       TZ: Asia/Tokyo
-      PARALLEL_WORKERS: 2
-    parallelism: 3
+      PARALLEL_WORKERS: 1
+      NODE_OPTIONS: "--max-old-space-size=4096"
+    parallelism: 1
     steps:
       - checkout
       - browser-tools/install-chrome:
           replace-existing: true
-          chrome-version: 130.0.6723.116
       - browser-tools/install-chromedriver
       - run:
           command: |
@@ -112,13 +112,13 @@ jobs:
           command: 'bundle exec rails db:setup'
       - run:
           name: Assets precompile
-          command: 'bundle exec rails javascript:clobber javascript:build NODE_OPTIONS=--openssl-legacy-provider'
+          command: 'NODE_OPTIONS="--max-old-space-size=4096" bundle exec rails javascript:clobber javascript:build'
       - run:
           name: Test
           command: |
             TEST_FILES=$(circleci tests glob "test/**/*_test.rb")
-            echo "$TEST_FILES" | circleci tests run --command="xargs bundle exec rails test $TESTFILES" --verbose --split-by=timings
-          no_output_timeout: 30m
+            echo "$TEST_FILES" | circleci tests run --command="xargs bundle exec rails test" --verbose --split-by=timings
+          no_output_timeout: 45m
           when: always
       - store_test_results:
           path: test/reports
