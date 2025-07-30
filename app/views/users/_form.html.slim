@@ -1,6 +1,6 @@
 - if from == :new
   = javascript_include_tag 'https://js.stripe.com/v3/'
-= form_with model: user, url:, local: true, class: 'form', id: 'payment-form', \
+= form_with model: user, url: url, local: true, class: 'form', id: 'payment-form', \
     html: { name: 'user', autocomplete: 'address-line3' } do |f|
   = f.hidden_field :adviser
   = f.hidden_field :trainee
@@ -13,26 +13,26 @@
     = render 'checked_campaign'
   - unless @user.adviser? || @user.mentor?
     .form__items
-      = render 'users/form/course_select', f:, user: @user
+      = render 'users/form/course_select', f: f, user: @user
   .form__items
-    = render 'users/form/login_name', f:
-    = render 'users/form/email', f:, user:
+    = render 'users/form/login_name', f: f
+    = render 'users/form/email', f: f, user: user
     - if from == :edit
-      = render 'users/form/mail_notification', f:
-    = render 'users/form/name', f:, user:
-    = render 'users/form/kana_name', f:, user:
-    = render 'users/form/avatar', f:, user:
-    = render 'users/form/description', f:, user:
-    = render 'users/form/tags', f:, user:
+      = render 'users/form/mail_notification', f: f
+    = render 'users/form/name', f: f, user: user
+    = render 'users/form/kana_name', f: f, user: user
+    = render 'users/form/avatar', f: f, user: user
+    = render 'users/form/description', f: f, user: user
+    = render 'users/form/tags', f: f, user: user
     - if from == :edit && !@user.graduated? && !@user.adviser?
-      = render 'users/form/learning_time_frames', f:, user:
+      = render 'users/form/learning_time_frames', f: f, user: user
     - unless user.adviser?
       - unless user.mentor?
-        = render 'users/form/after_graduation_hope', f:, user:
-        = render 'users/form/job', f:
-      = render 'users/form/os', f:, user:
+        = render 'users/form/after_graduation_hope', f: f, user: user
+        = render 'users/form/job', f: f
+      = render 'users/form/os', f: f, user: user
     - unless user.adviser? || user.mentor?
-      = render 'users/form/experiences', f:
+      = render 'users/form/experiences', f: f
 
     - if user.trainee? && from == :new && !user.grant_course?
       .form-item
@@ -42,7 +42,7 @@
               .form-item-block__title
                 | 支払い方法
             .form-item-block__item
-              = render 'users/form/payment_methods_check_boxes', f:, user:
+              = render 'users/form/payment_methods_check_boxes', f: f, user: user
       - if user.role == 'trainee_credit_card_payment'
         #card
           = render 'users/form/card'
@@ -51,10 +51,10 @@
           = render 'users/form/card'
 
     - if from == :edit
-      = render 'users/form/editor', f:, user:
+      = render 'users/form/editor', f: f, user: user
     - if user.student?
-      = render 'users/form/job_seeker', f:
-    = render 'users/form/register_address', f:, user:
+      = render 'users/form/job_seeker', f: f
+    = render 'users/form/register_address', f: f, user: user
   - if from == :edit
     .form__items
       h3.form__items-title パスワードの変更
@@ -70,16 +70,16 @@
                 class: 'a-button is-md is-secondary'
     .form__items
       h3.form__items-title SNSアカウント
-      = render 'users/form/sns', f:
+      = render 'users/form/sns', f: f
   - else
     .form__items
       h3.form__items-title パスワード
-      = render 'users/form/password', f:, from:
+      = render 'users/form/password', f: f, from: from
 
   - if user.mentor? || user.adviser? || user.graduated_on? || user.admin?
     .form__items
       h3.form__items-title 所属企業情報
-      = render 'users/form/company', f:, user:
+      = render 'users/form/company', f: f, user: user
 
   - if from == :new && user.student? && !user.grant_course?
     .form__items
@@ -89,18 +89,18 @@
   - if user.mentor?
     .form__items
       h3.form__items-title メンター紹介用公開プロフィール
-      = render 'users/form/show_mentor_profile', f:
-      = render 'users/form/profile_image', f:
-      = render 'users/form/profile_name', f:
-      = render 'users/form/profile_job', f:
-      = render 'users/form/profile_text', f:
-      = render 'users/form/authored_book', f:
+      = render 'users/form/show_mentor_profile', f: f
+      = render 'users/form/profile_image', f: f
+      = render 'users/form/profile_name', f: f
+      = render 'users/form/profile_job', f: f
+      = render 'users/form/profile_text', f: f
+      = render 'users/form/authored_book', f: f
 
   - if admin_login?
     .form__items
       h3.form__items-title
         | 以下管理者のみ操作ができます
-      = render 'users/form/course', f:
+      = render 'users/form/course', f: f
 
       .form-item-block
         .form-item-block__inner
@@ -109,9 +109,9 @@
               | ユーザーステータス
           .form-item-block__items
             .form-item-block__item
-              = render 'users/form/retire', f:
+              = render 'users/form/retire', f: f
             .form-item-block__item
-              = render 'users/form/graduate', f:
+              = render 'users/form/graduate', f: f
 
       .form-item
         = f.hidden_field :remove_diploma, value: '0', id: 'js-remove-pdf-flag'
@@ -155,7 +155,7 @@
                 = f.label :career_path, for: career_path, class: 'a-block-check__label has-icon is-ta-left' do
                   = t("activerecord.enums.user.career_path.#{career_path}")
       .form-item
-        = render 'users/form/career_memo', f:, user:
+        = render 'users/form/career_memo', f: f, user: user
 
       .form-item-block
         .form-item-block__inner
@@ -163,7 +163,7 @@
             .form-item-block__title
               | 自動退会設定
           .form-item-block__item
-            = render 'users/form/auto_retire', f:, user:
+            = render 'users/form/auto_retire', f: f, user: user
 
       .form-item
         = f.label :subscription_id, class: 'a-form-label'
@@ -176,11 +176,11 @@
               | 特殊ユーザー属性
           .form-item-block__items
             .form-item-block__item
-              = render 'users/form/adviser', f:
+              = render 'users/form/adviser', f: f
             .form-item-block__item
-              = render 'users/form/trainee', f:
+              = render 'users/form/trainee', f: f
             .form-item-block__item
-              = render 'users/form/mentor', f:
+              = render 'users/form/mentor', f: f
 
       .form-item-block#external-services
         .form-item-block__inner
@@ -189,7 +189,7 @@
               | 外部サービス
           .form-item-block__items
             .form-item-block__item
-              = render 'users/form/github_collaborator', f:, user:
+              = render 'users/form/github_collaborator', f: f, user: user
         .a-form-help
           ul
             li
@@ -199,8 +199,8 @@
   - if (admin_login? && user.current_student?) || user.trainee?
     .form__items.js-training-info-block
       h3.form__items-title 研修情報
-      = render 'users/form/training_end', f:
-      = render 'users/form/company', f:, user:
+      = render 'users/form/training_end', f: f
+      = render 'users/form/company', f: f, user: user
 
       - if admin_login? && user.course
         .form-item
@@ -210,7 +210,7 @@
             p
               | 複数のカテゴリに所属するプラクティスは、所属するいずれかのカテゴリに一度しか表示されません（数値には反映されます）。
           // 選択したコースに紐づくカテゴリーを表示させる。
-          = render SkippedPracticeComponent.new(form: f, user:)
+          = render SkippedPracticeComponent.new(form: f, user: user)
 
   - if from == :new
     .form__items
@@ -240,7 +240,7 @@
     .form__items
       h3.form__items-title
         | アンケートのご協力をお願いします
-      = render 'users/form/referral_source', f:
+      = render 'users/form/referral_source', f: f
 
   - if from == :new
     .form-actions
