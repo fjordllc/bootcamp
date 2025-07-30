@@ -7,9 +7,7 @@ class API::PubSubController < API::BaseController
   def create
     result = ProcessTranscodingNotification.call(body: request.body.read)
 
-    unless result.success?
-      Rails.logger.error("Failed to process transcoding notification: #{result.error}")
-    end
+    Rails.logger.error("Failed to process transcoding notification: #{result.error}") unless result.success?
 
     head :ok
   end
