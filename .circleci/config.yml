@@ -65,17 +65,17 @@ jobs:
       - image: cimg/postgres:14.4
     resource_class: large
     environment:
-      BUNDLE_JOBS: "3"
-      BUNDLE_RETRY: "3"
+      BUNDLE_JOBS: "4"
+      BUNDLE_RETRY: "2"
       PGHOST: 127.0.0.1
       PGUSER: postgres
       PGPASSWORD: "postgres"
       RAILS_ENV: test
       DATABASE_URL: "postgres://postgres:postgres@localhost/ci_test"
       TZ: Asia/Tokyo
-      PARALLEL_WORKERS: 1
-      NODE_OPTIONS: "--max-old-space-size=4096"
-    parallelism: 1
+      PARALLEL_WORKERS: 2
+      NODE_OPTIONS: "--max-old-space-size=2048"
+    parallelism: 2
     steps:
       - checkout
       - browser-tools/install-chrome:
@@ -112,13 +112,13 @@ jobs:
           command: 'bundle exec rails db:setup'
       - run:
           name: Assets precompile
-          command: 'NODE_OPTIONS="--max-old-space-size=4096" bundle exec rails javascript:clobber javascript:build'
+          command: 'NODE_OPTIONS="--max-old-space-size=2048" bundle exec rails javascript:clobber javascript:build'
       - run:
           name: Test
           command: |
             TEST_FILES=$(circleci tests glob "test/**/*_test.rb")
             echo "$TEST_FILES" | circleci tests run --command="xargs bundle exec rails test" --verbose --split-by=timings
-          no_output_timeout: 45m
+          no_output_timeout: 30m
           when: always
       - store_test_results:
           path: test/reports
