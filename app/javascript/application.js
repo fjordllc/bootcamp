@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
   //   window.ActiveStorage = ActiveStorage
   //   ActiveStorage.start()
   // }
-  
+
   Cocooned.start()
 
   // Debug React components
