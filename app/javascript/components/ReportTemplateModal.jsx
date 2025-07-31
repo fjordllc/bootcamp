@@ -142,7 +142,7 @@ export default function ReportTemplateModal({
               name="report_template[description]"></textarea>
           </div>
           <div
-            className={`a-markdown-input__inner js-tabs__content a-long-text is-md a-markdown-input__preview ${
+            className={`a-markdown-input__inner js-tabs__content a-long-text is-md a-markdown-input__preview has-max-height ${
               isEditing ? '' : 'is-active'
             }`}
             id="js-template-preview"></div>
