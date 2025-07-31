@@ -1296,7 +1296,7 @@ class ActivityMailerTest < ActionMailer::TestCase
 
     assert_not ActionMailer::Base.deliveries.empty?
     email = ActionMailer::Base.deliveries.last
-    query = CGI.escapeHTML({ kind: 27, link: "/pair_works/#{pair_work.id}" }.to_param)
+    query = CGI.escapeHTML({ kind: 28, link: "/pair_works/#{pair_work.id}" }.to_param)
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
     assert_equal '[FBC] kimuraさんからペアワーク依頼「募集中のペアワークです(タイトル)」が投稿されました。', email.subject
@@ -1318,7 +1318,7 @@ class ActivityMailerTest < ActionMailer::TestCase
 
     assert_not ActionMailer::Base.deliveries.empty?
     email = ActionMailer::Base.deliveries.last
-    query = CGI.escapeHTML({ kind: 27, link: "/pair_works/#{pair_work.id}" }.to_param)
+    query = CGI.escapeHTML({ kind: 28, link: "/pair_works/#{pair_work.id}" }.to_param)
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
     assert_equal '[FBC] kimuraさんからペアワーク依頼「募集中のペアワークです(タイトル)」が投稿されました。', email.subject
@@ -1336,7 +1336,7 @@ class ActivityMailerTest < ActionMailer::TestCase
 
     assert_not ActionMailer::Base.deliveries.empty?
     email = ActionMailer::Base.deliveries.last
-    query = CGI.escapeHTML({ kind: 28, link: "/pair_works/#{pair_work.id}" }.to_param)
+    query = CGI.escapeHTML({ kind: 29, link: "/pair_works/#{pair_work.id}" }.to_param)
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
     assert_equal '[FBC] kimuraさんのペアワーク【 ペア確定済みのペアワークです(タイトル) 】のペアがsotugyouさんに決定しました。', email.subject
@@ -1358,7 +1358,7 @@ class ActivityMailerTest < ActionMailer::TestCase
 
     assert_not ActionMailer::Base.deliveries.empty?
     email = ActionMailer::Base.deliveries.last
-    query = CGI.escapeHTML({ kind: 28, link: "/pair_works/#{pair_work.id}" }.to_param)
+    query = CGI.escapeHTML({ kind: 29, link: "/pair_works/#{pair_work.id}" }.to_param)
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
     assert_equal '[FBC] kimuraさんのペアワーク【 ペア確定済みのペアワークです(タイトル) 】のペアがsotugyouさんに決定しました。', email.subject
