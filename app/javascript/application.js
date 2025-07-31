@@ -12,10 +12,6 @@
 
 // jQuery setup for Rails 7
 import jquery from 'jquery'
-if (typeof window !== 'undefined') {
-  window.$ = window.jQuery = jquery
-}
-
 import './textarea.js'
 import './markdown.js'
 import './shortcut.js'
@@ -93,12 +89,15 @@ import './tag-shortcut.js'
 import Cocooned from '@notus.sh/cocooned'
 import './action_completed_button.js'
 import './toast.js'
-
 import VueMounter from './VueMounter.js'
 import Questions from './components/questions.vue'
-
 // Import stylesheets
 import './stylesheets/application.sass'
+
+// jQuery setup for Rails 7
+if (typeof window !== 'undefined') {
+  window.$ = window.jQuery = jquery
+}
 
 const mounter = new VueMounter()
 mounter.addComponent(Questions)
