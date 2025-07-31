@@ -205,7 +205,7 @@ class ProductTest < ActiveSupport::TestCase
 
     only_self_replied_product = products(:product1)
     checked_product = products(:product2)
-    unchecked_replied_product = products(:product3)
+    unchecked_replied_product = products(:product10)
 
     assert_includes unchecked_no_replied_products, only_self_replied_product
     assert_not_includes unchecked_no_replied_products, checked_product
