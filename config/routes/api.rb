@@ -11,7 +11,6 @@ Rails.application.routes.draw do
     end
     resource :session, controller: "session", only: %i(create)
     resource :image, controller: "image", only: %i(create)
-    resources :grasses, only: %i(show)
     resources :courses, only: %i() do
       resources :practices, only: %i(index), controller: "/api/courses/practices"
     end
@@ -72,7 +71,6 @@ Rails.application.routes.draw do
       resource :passed, only: %i(show), controller: 'passed'
     end
     resources :products, only: %i(index show)
-    resources :searchables, only: %i(index)
     resources :bookmarks, only: %i(index create destroy)
     resources :events, only: %i(index)
     resources :report_templates, only: %i(create update)
@@ -86,7 +84,6 @@ Rails.application.routes.draw do
     end
     resources :regular_events, only: %i(index)
     resources :books, only: %i(index)
-    resources :courses, only: %i(index)
     resources :inquiries, only: %i(update)
     resources :survey_question_listings, only: %i() do
       resource :position, only: %i(update), controller: "survey_question_listings/position"

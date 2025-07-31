@@ -101,3 +101,10 @@ tagging_2:
   taggable: article_2 (Article)
   context: tags
   tag: FJORD
+
+<% (21..27).each do |id| %>
+article<%= id %>_tag_feature:
+  taggable: article<%= id %> (Article)
+  context: tags
+  tag: feature
+<% end %>

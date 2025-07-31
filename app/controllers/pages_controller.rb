@@ -46,7 +46,7 @@ class PagesController < ApplicationController
     if @page.save
       url = Redirection.determin_url(self, @page)
       if !@page.wip?
-        Newspaper.publish(:page_create, { page: @page })
+        ActiveSupport::Notifications.instrument('page.create', page: @page)
         url = new_announcement_url(page_id: @page.id) if @page.announcement_of_publication?
       end
 
@@ -65,7 +65,7 @@ class PagesController < ApplicationController
     if @page.update(page_params)
       url = Redirection.determin_url(self, @page)
       if @page.saved_change_to_attribute?(:wip, from: true, to: false) && @page.published_at.nil?
-        Newspaper.publish(:page_update, { page: @page })
+        ActiveSupport::Notifications.instrument('page.update', page: @page)
         url = new_announcement_path(page_id: @page.id) if @page.announcement_of_publication?
       end
 

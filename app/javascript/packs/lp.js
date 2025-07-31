@@ -8,3 +8,6 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import '../stylesheets/lp'
+
+// Import images to ensure they are copied by webpack
+import '../../assets/images/background/people.png'

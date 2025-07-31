@@ -5,7 +5,7 @@ class Footprint < ApplicationRecord
 
   belongs_to :user
   belongs_to :footprintable, polymorphic: true
-  validates :user_id, presence: true
+  validates :user_id, presence: true, uniqueness: { scope: %i[footprintable_id footprintable_type] }
 
   def self.fetch_for_resource(resource)
     where(footprintable: resource)

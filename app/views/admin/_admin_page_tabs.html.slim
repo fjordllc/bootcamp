@@ -18,6 +18,10 @@
           admin_faq_categories_path,
           class: "page-tabs__item-link #{current_link(/^admin-faq_categories|^admin-faqs/)}"
       li.page-tabs__item
+        = link_to 'お試し延長',
+          admin_campaigns_path,
+          class: "page-tabs__item-link #{current_link(/^admin-campaigns/)}"
+      li.page-tabs__item
         = link_to 'お問い合わせ',
           admin_inquiries_path,
           class: "page-tabs__item-link #{current_link(/^admin-inquiries/)}"
@@ -25,10 +29,6 @@
         = link_to '企業研修',
           admin_corporate_training_inquiries_path,
           class: "page-tabs__item-link #{current_link(/^admin-corporate_training_inquiries/)}"
-      li.page-tabs__item
-        = link_to 'お試し延長',
-          admin_campaigns_path,
-          class: "page-tabs__item-link #{current_link(/^admin-campaigns/)}"
       li.page-tabs__item
         = link_to '給付金対応コース受講申請',
           admin_grant_course_applications_path,

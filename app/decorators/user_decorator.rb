@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 module UserDecorator
+  NEW_USER_DAYS = 7
+
   include Role
   include Retire
+  include ReportStatus
 
   def twitter_url
     "https://twitter.com/#{twitter_account}"
@@ -90,5 +93,15 @@ module UserDecorator
     blanks = Array.new(first_wday) { { date: nil } }
 
     [*blanks, *dates_and_reports].each_slice(7).to_a
+  end
+
+  def joining_status
+    elapsed_days <= NEW_USER_DAYS ? 'new-user' : ''
+  end
+
+  def user_icon_frame_class
+    classes = ['a-user-role', "is-#{primary_role}"]
+    classes << 'is-new-user' if joining_status == 'new-user'
+    classes.join(' ')
   end
 end

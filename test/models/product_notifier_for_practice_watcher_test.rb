@@ -23,8 +23,15 @@ class ProductNotifierForPracticeWatcherTest < ActiveSupport::TestCase
     )
     product.save!
 
+    payload = { product: }
     perform_enqueued_jobs do
-      ProductNotifierForPracticeWatcher.new.call({ product: })
+      ProductNotifierForPracticeWatcher.new.call(
+        'product_create',
+        Time.current,
+        Time.current,
+        'unique_id',
+        payload
+      )
     end
     assert Notification.where(user_id: watch.user_id, sender_id: product.user_id,
                               message: "#{product.user.login_name}さんが「#{product.practice.title}」の提出物を提出しました。").exists?

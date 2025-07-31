@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     saveButton.addEventListener('click', async () => {
+      saveButton.disabled = true
       savedAnswer = editorTextarea.value
       const answerCreated = await createAnswer(savedAnswer, questionId)
       if (answerCreated) {
@@ -41,13 +42,14 @@ document.addEventListener('DOMContentLoaded', () => {
         answerEditorPreview.innerHTML = markdownInitializer.render(
           editorTextarea.value
         )
-        saveButton.disabled = true
         updateAnswerCount(true)
         setWatchable(questionId, 'Question')
         if (previewTab.classList.contains('is-active')) {
           toggleVisibility(tabElements, 'is-active')
         }
         resizeTextarea(editorTextarea, defaultTextareaSize)
+      } else {
+        saveButton.disabled = false
       }
     })
 

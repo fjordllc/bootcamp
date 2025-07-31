@@ -12,7 +12,17 @@
   &.is-trainee
     .a-user-icon
       border: solid 2px rgba($main, .7)
-  body.is-mentor-mode &.is-retired
+  body.is-mentor-mode &.is-retired,
+  body.is-mentor-mode &.is-training_completed
     background-color: black
     .a-user-icon
-     opacity: .7
+      opacity: .7
+  body.is-mentor-mode &.is-new-user
+    .a-user-icon
+      box-shadow: 0 0 1px 2px var(--warning)
+    &.is-student
+      .a-user-icon
+        border: dashed 2px var(--danger)
+    &.is-trainee
+      .a-user-icon
+        border: dashed 2px var(--main)

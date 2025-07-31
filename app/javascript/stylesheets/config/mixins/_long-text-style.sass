@@ -69,7 +69,8 @@
       font-weight: 700
   .speak__speaker
     margin-bottom: .75em
-    >a
+    & > a,
+    & > span
       display: flex
       align-items: center
       gap: .5rem
@@ -78,6 +79,8 @@
     >a:hover
       .speak__speaker-name
         text-decoration: underline
+    img
+      margin-bottom: 0
   .speak__speaker-name
     flex: 1
     +text-block(1em 1.6, 700)

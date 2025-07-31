@@ -1,8 +1,6 @@
-export default {
-  methods: {
-    headIsSharpOrOctothorpe(text) {
-      const regex = /^(#|＃|♯).*/
-      return regex.test(text)
-    }
+export default function headIsSharpOrOctothorpe(text) {
+  if (!text) {
+    return false
   }
+  return /^(#|＃|♯)/.test(text)
 }

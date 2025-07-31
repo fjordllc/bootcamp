@@ -14,7 +14,7 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
       course: courses(:course1),
       job: 'office_worker',
       os: 'mac',
-      experience: 'inexperienced'
+      experiences: 0
     )
     visit_with_auth '/current_user/bookmarks', user_without_bookmark.login_name
     assert_text 'ブックマークはまだありません。'
@@ -30,7 +30,7 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
 
     assert_text '作業週1日目'
     assert_selector '.card-list-item__label', text: '日報'
-    assert_text '今日はローカルで怖話を動かしてみました。rbenv で ruby を動かすのは初めてだったので、色々手間取りました。'
+    assert_text '今日はローカルで怖話を動かしてみました。 rbenv で ruby を動かすのは初めてだったので、色々手間取りました。'
     assert_text 'komagata(コマガタ マサキ)'
     assert_text '2017年01月01日(日) 00:00'
   end
@@ -66,7 +66,7 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
       course: courses(:course1),
       job: 'office_worker',
       os: 'mac',
-      experience: 'inexperienced'
+      experiences: 0
     )
     user_with_one_bookmark.bookmarks.create!(bookmarkable_id: reports(:report1).id, bookmarkable_type: 'Report')
     visit_with_auth '/current_user/bookmarks', user_with_one_bookmark.login_name
@@ -91,7 +91,7 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
       course: courses(:course1),
       job: 'office_worker',
       os: 'mac',
-      experience: 'inexperienced'
+      experiences: 0
     )
     (1..20).each do |n|
       user_with_some_bookmarks.bookmarks.create!(bookmarkable_id: reports("report#{n}".to_sym).id, bookmarkable_type: 'Report')
@@ -114,7 +114,7 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
       course: courses(:course1),
       job: 'office_worker',
       os: 'mac',
-      experience: 'inexperienced'
+      experiences: 0
     )
     (1..21).each do |n|
       user_with_many_bookmarks.bookmarks.create!(bookmarkable_id: reports("report#{n}".to_sym).id, bookmarkable_type: 'Report')

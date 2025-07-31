@@ -1,3 +1,4 @@
+import autosize from 'autosize'
 import CSRF from 'csrf'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
@@ -20,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   TextareaInitializer.initialize('#js-new-comment')
   const markdownInitializer = new MarkdownInitializer()
 
-  const commentEditor = newComment.querySelector('.comment-editor')
+  const commentEditor = newComment.querySelector('.js-comment-editor')
   const commentEditorPreview = commentEditor.querySelector(
     '.a-markdown-input__preview'
   )
@@ -41,8 +42,10 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleVisibility(tabElements, 'is-active')
   )
 
-  const saveButton = commentEditor.querySelector('.is-primary')
-  const saveAndCheckButton = commentEditor.querySelector('.is-danger')
+  const saveButton = commentEditor.querySelector('.js-comment-save-button')
+  const saveAndCheckButton = commentEditor.querySelector(
+    '.js-comment-check-button'
+  )
   const saveAndCheckWrapper = saveAndCheckButton?.parentElement
 
   const disableButtons = () => {
@@ -64,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
       toggleVisibility(tabElements, 'is-active')
     }
     editorTextarea.value = ''
+    autosize.update(editorTextarea)
     updatePreviewAndButtonState()
   }
 
@@ -149,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const getToastMessage = (checkAfterSave, assigned) => {
     if (checkAfterSave) {
       return commentableType === 'Product'
-        ? '提出物を確認済みにしました。'
+        ? '提出物を合格にしました。'
         : '日報を確認済みにしました。'
     } else if (assigned) {
       return '担当になりました。'
@@ -199,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
     saveAndCheckButton.addEventListener('click', () => {
       if (
         commentableType === 'Product' &&
-        !window.confirm('提出物を確認済にしてよろしいですか？')
+        !window.confirm('提出物を合格にしてよろしいですか？')
       ) {
         return
       }

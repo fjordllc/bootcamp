@@ -11,6 +11,7 @@ class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include Mentioner
   include Bookmarkable
   include Taskable
+  include SearchHelper
 
   enum emotion: {
     sad: 1,
@@ -58,6 +59,8 @@ class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
       .preload([:comments, { checks: { user: { avatar_attachment: :blob } } }])
       .default_order
   }
+
+  scope :user, ->(user) { where(user_id: user.id) }
 
   class << self
     def faces

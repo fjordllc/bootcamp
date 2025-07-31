@@ -17,7 +17,7 @@
           .users-item__header-start
             .users-item__icon
               = link_to user.url
-                span class="a-user-role is-#{user.primary_role}"
+                span class=user.user_icon_frame_class
                   img.users-item__user-icon-image.a-user-icon title=user.icon_title alt=user.icon_title src=user.avatar_url
             - if user.company&.logo_url
               .users-item__company
