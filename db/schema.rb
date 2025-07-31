@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_07_31_030719) do
+ActiveRecord::Schema.define(version: 2025_07_31_051002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -1037,6 +1037,7 @@ ActiveRecord::Schema.define(version: 2025_07_31_030719) do
   add_foreign_key "pages", "users"
   add_foreign_key "participations", "events"
   add_foreign_key "participations", "users"
+  add_foreign_key "practices", "practices", column: "source_id"
   add_foreign_key "practices_books", "books"
   add_foreign_key "practices_books", "practices"
   add_foreign_key "practices_movies", "movies"
