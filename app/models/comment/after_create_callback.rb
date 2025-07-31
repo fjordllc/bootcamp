@@ -6,7 +6,7 @@ class Comment::AfterCreateCallback
       create_watch(comment)
       notify_to_watching_user(comment)
     elsif comment.receiver.present? && comment.receiver != comment.sender
-      Newspaper.publish(:came_comment, { comment: })
+      ActiveSupport::Notifications.instrument('came.comment', comment:)
     end
 
     if comment.commentable.instance_of?(Talk)
