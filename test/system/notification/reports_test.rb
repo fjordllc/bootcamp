@@ -123,7 +123,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     assert_no_text 'kimuraさんがはじめての日報を書きました！'
   end
 
-  test '複数の日報が投稿されているときは通知が飛ばない' do
+  test 'no notification if report already posted' do
     # 他のテストの通知に影響を受けないよう、テスト実行前に通知を削除する
     visit_with_auth '/notifications', 'muryou'
     click_link '全て既読にする'
@@ -180,7 +180,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     end
   end
 
-  test '研修生が日報を作成し提出した時、企業のアドバイザーに通知する' do
+  test 'notify company advisor only on first report posted' do
     kensyu_login_name = 'kensyu'
     advisor_login_name = 'senpai'
     title = '研修生が日報を作成し提出した時'
@@ -197,7 +197,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     )
   end
 
-  test '初めて提出した時だけ、フォローされているユーザーに通知する' do
+  test 'notify follower only on first report posted' do
     following = Following.first
     followed_user_login_name = User.find(following.followed_id).login_name
     follower_user_login_name = User.find(following.follower_id).login_name
@@ -215,7 +215,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     )
   end
 
-  test '初めて提出した時だけ、メンション通知する' do
+  test 'notify mention target only on first report posted' do
     mention_target_login_name = 'kimura'
     author_login_name = 'machida'
     title = '初めて提出したら、'
@@ -229,7 +229,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     )
   end
 
-  test '初日報は初めて公開した時だけ通知する' do
+  test 'notify user only on first report posted' do
     check_notification_login_name = 'machida'
     author_login_name = 'nippounashi'
     title = '初めての日報を提出したら'
