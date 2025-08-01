@@ -17,7 +17,8 @@ import MarkDownItContainerFigure from 'markdown-it-container-figure'
 import MarkdownItPurifier from 'markdown-it-purifier'
 import {
   ALLOWED_TAGS,
-  ALLOWED_ATTR
+  ALLOWED_ATTR,
+  ALLOWED_CSS_PROPERTIES
 } from './config/markdown-it-purifier-config'
 
 export default class {
@@ -64,7 +65,8 @@ export default class {
     md.use(MarkDownItContainerFigure)
     md.use(MarkdownItPurifier, {
       ALLOWED_TAGS,
-      ALLOWED_ATTR
+      ALLOWED_ATTR,
+      ALLOWED_CSS_PROPERTIES
     })
     return md.render(text)
   }
