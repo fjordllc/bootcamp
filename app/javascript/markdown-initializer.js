@@ -66,7 +66,6 @@ export default class {
       ALLOWED_TAGS,
       ALLOWED_ATTR
     })
-    console.log(md.render(text))
     return md.render(text)
   }
 }
