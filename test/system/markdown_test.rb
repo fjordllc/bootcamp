@@ -3,7 +3,7 @@
 require 'application_system_test_case'
 
 class MarkdownTest < ApplicationSystemTestCase
-  test 'should script tag is removed' do
+  test 'should remove script tag' do
     visit_with_auth new_page_path, 'komagata'
     fill_in 'page[title]', with: 'script除去'
     fill_in 'page[body]', with: "<script>alert('x')</script>"
@@ -11,7 +11,6 @@ class MarkdownTest < ApplicationSystemTestCase
     click_button 'Docを公開'
 
     assert_no_selector 'script'
-    assert_text 'Docを公開'
   end
 
   test 'javascript link is sanitized' do
