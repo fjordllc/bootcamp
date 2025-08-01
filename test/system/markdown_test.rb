@@ -3,6 +3,50 @@
 require 'application_system_test_case'
 
 class MarkdownTest < ApplicationSystemTestCase
+  test 'should script tag is removed' do
+    visit_with_auth new_page_path, 'komagata'
+    fill_in 'page[title]', with: 'script除去'
+    fill_in 'page[body]', with: "<script>alert('x')</script>"
+
+    click_button 'Docを公開'
+
+    assert_no_selector 'script'
+    assert_text 'Docを公開'
+  end
+
+  test 'javascript link is sanitized' do
+    visit_with_auth new_page_path, 'komagata'
+    fill_in 'page[title]', with: 'リンク除去'
+    fill_in 'page[body]', with: '<a href="javascript:alert(1)">リンク</a>'
+
+    click_button 'Docを公開'
+
+    assert_no_selector 'a[href^="javascript:"]'
+    assert_text 'リンク'
+  end
+
+  test 'blockquote tag is preserved when written as raw HTML' do
+    visit_with_auth new_page_path, 'komagata'
+    fill_in 'page[title]', with: 'blockquoteテスト'
+    fill_in 'page[body]', with: '<blockquote>引用です</blockquote>'
+
+    click_button 'Docを公開'
+
+    assert_selector 'blockquote'
+    assert_text '引用です'
+  end
+
+  test 'style attribute is preserved on allowed tags' do
+    visit_with_auth new_page_path, 'komagata'
+    fill_in 'page[title]', with: 'style許可テスト'
+    fill_in 'page[body]', with: '<p style="color: red;">赤文字</p>'
+
+    click_button 'Docを公開'
+
+    assert_selector 'p[style*="color"]'
+    assert_text '赤文字'
+  end
+
   test 'speak block test' do
     reset_avatar(users(:mentormentaro))
     visit_with_auth new_page_path, 'komagata'
