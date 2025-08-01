@@ -83,3 +83,30 @@ export const ALLOWED_ATTR = [
   'width',
   'rel'
 ]
+
+export const ALLOWED_CSS_PROPERTIES = [
+  'color',
+  'background-color',
+  'font-size',
+  'font-weight',
+  'font-style',
+  'text-decoration',
+  'text-align',
+  'line-height',
+  'margin-left',
+  'margin-right',
+  'padding-left',
+  'padding-right',
+  'border',
+  'border-color',
+  'border-width',
+  'border-style',
+  'border-radius',
+  'width',
+  'height',
+  'max-width',
+  'display',
+  'vertical-align',
+  'white-space',
+  'overflow-wrap',
+]
