@@ -108,5 +108,5 @@ export const ALLOWED_CSS_PROPERTIES = [
   'display',
   'vertical-align',
   'white-space',
-  'overflow-wrap',
+  'overflow-wrap'
 ]
