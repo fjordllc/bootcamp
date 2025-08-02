@@ -38,4 +38,7 @@ Rails.application.reloader.to_prepare do
   learning_cache_destroyer = LearningCacheDestroyer.new
   ActiveSupport::Notifications.subscribe('learning.create', learning_cache_destroyer)
   ActiveSupport::Notifications.subscribe('learning.destroy', learning_cache_destroyer)
+  ActiveSupport::Notifications.subscribe('student_or_trainee.create', TimesChannelCreator.new)
+  ActiveSupport::Notifications.subscribe('user.create', SignUpNotifier.new)
+  ActiveSupport::Notifications.subscribe('regular_event.update', RegularEventUpdateNotifier.new)
 end

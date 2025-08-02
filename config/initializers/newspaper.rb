@@ -6,11 +6,6 @@ Rails.configuration.after_initialize do
   Newspaper.subscribe(:answer_destroy, answer_cache_destroyer)
   Newspaper.subscribe(:correct_answer_save, CorrectAnswerNotifier.new)
 
-  Newspaper.subscribe(:user_create, SignUpNotifier.new)
-  Newspaper.subscribe(:student_or_trainee_create, TimesChannelCreator.new)
-
-  Newspaper.subscribe(:regular_event_update, RegularEventUpdateNotifier.new)
-
   Newspaper.subscribe(:graduation_update, GraduationNotifier.new)
 
   Newspaper.subscribe(:comeback_update, ComebackNotifier.new)
