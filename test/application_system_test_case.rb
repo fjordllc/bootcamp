@@ -54,4 +54,12 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       end
     end
   end
+
+  parallelize_setup do |worker|
+    ENV['ACTIVE_STORAGE_TEST_ROOT'] = "#{ActiveStorage::Blob.service.root}-#{worker}"
+  end
+
+  parallelize_teardown do |_|
+    FileUtils.rm_rf(ENV['ACTIVE_STORAGE_TEST_ROOT'])
+  end
 end

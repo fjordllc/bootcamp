@@ -610,7 +610,7 @@ class UsersTest < ApplicationSystemTestCase
 
     assert_text 'ユーザー情報を更新しました。'
     img = find('img.user-profile__user-icon-image', visible: false)
-    assert_match(/hajime\.webp$/, img.native['src'])
+    assert_includes img.native['src'], 'hajime.webp'
   end
 
   test 'mentor can see retired and hibernated tabs' do
