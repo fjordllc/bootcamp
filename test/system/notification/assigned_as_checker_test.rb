@@ -38,7 +38,7 @@ class Notification::AssignedAsCheckerTest < ApplicationSystemTestCase
     click_link '内容修正'
     select 'komagata', from: 'product_checker_id'
     click_button '提出する'
-    assert_text '担当から外れる'
+    assert_button '担当から外れる'
 
     visit_with_auth '/notifications?status=unread', 'komagata'
     assert_no_text "mentormentaroさんの提出物#{products(:product1).title}の担当になりました。"
