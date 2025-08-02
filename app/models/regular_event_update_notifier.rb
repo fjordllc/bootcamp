@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class RegularEventUpdateNotifier
-  def call(payload)
+  def call(_name, _started, _finished, _unique_id, payload)
     regular_event = payload[:regular_event]
     sender = payload[:sender]
     participants = regular_event.participants
