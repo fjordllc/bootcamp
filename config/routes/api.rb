@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     namespace 'mentor' do
       resources :practices, only: %i(index)
     end
+    resource :pubsub, controller:"pub_sub", only: %i(create)
     resource :session, controller: "session", only: %i(create)
     resource :image, controller: "image", only: %i(create)
     resources :courses, only: %i() do
