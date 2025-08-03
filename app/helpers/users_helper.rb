@@ -106,14 +106,4 @@ module UsersHelper
   def day_of_the_week
     %w[日 月 火 水 木 金 土]
   end
-
-  def activity_empty_class(activity)
-    name, count, url = activity.values_at(:name, :count, :url)
-
-    if %w[特別イベント 定期イベント].include?(name)
-      count.zero? ? 'is-empty' : ''
-    else
-      count.zero? || url.nil? ? 'is-empty' : ''
-    end
-  end
 end
