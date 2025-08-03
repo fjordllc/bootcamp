@@ -19,9 +19,8 @@ import ReplaceLinkToCard from 'replace-link-to-card'
 import MarkDownItContainerFigure from 'markdown-it-container-figure'
 import MarkdownItPurifier from 'markdown-it-purifier'
 import {
-  ALLOWED_TAGS,
-  ALLOWED_ATTR,
-  ALLOWED_CSS_PROPERTIES
+  ADD_TAGS,
+  ADD_ATTR
 } from './config/markdown-it-purifier-config'
 
 export default class {
@@ -95,9 +94,8 @@ export default class {
           [
             MarkdownItPurifier,
             {
-              ALLOWED_TAGS,
-              ALLOWED_ATTR,
-              ALLOWED_CSS_PROPERTIES
+              ADD_TAGS,
+              ADD_ATTR
             }
           ]
         ],
