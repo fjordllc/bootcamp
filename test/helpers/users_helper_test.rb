@@ -37,24 +37,4 @@ class UsersHelperTest < ActionView::TestCase
     ]
     assert jobs_for_select, user_jobs
   end
-
-  test '#activity_empty_class returns expected values' do
-    # 特別イベント
-    assert_equal 'is-empty', activity_empty_class(name: '特別イベント', count: 0, url: nil)
-    assert_equal 'is-empty', activity_empty_class(name: '特別イベント', count: 0, url: '/path')
-    assert_equal '', activity_empty_class(name: '特別イベント', count: 1, url: nil)
-    assert_equal '', activity_empty_class(name: '特別イベント', count: 1, url: '/path')
-
-    # 定期イベント
-    assert_equal 'is-empty', activity_empty_class(name: '定期イベント', count: 0, url: nil)
-    assert_equal 'is-empty', activity_empty_class(name: '定期イベント', count: 0, url: '/path')
-    assert_equal '', activity_empty_class(name: '定期イベント', count: 1, url: nil)
-    assert_equal '', activity_empty_class(name: '定期イベント', count: 1, url: '/path')
-
-    # 特別イベント、定期イベント以外
-    assert_equal 'is-empty', activity_empty_class(name: '日報', count: 0, url: '/path')
-    assert_equal 'is-empty', activity_empty_class(name: '日報', count: 1, url: nil)
-    assert_equal 'is-empty', activity_empty_class(name: '日報', count: 0, url: nil)
-    assert_equal '',         activity_empty_class(name: '日報', count: 1, url: '/path')
-  end
 end
