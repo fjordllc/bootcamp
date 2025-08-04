@@ -35,14 +35,7 @@ export function initializeReaction(reaction) {
     })
   })
 
-  const inspectorToggle = reaction.querySelector('.js-reactions-inspector-toggle')
-  if (inspectorToggle) {
-    inspectorToggle.addEventListener('click', () => {
-      fetchAllReactions(reactionableId, (data) => {
-        console.log('全リアクション一覧:', data);
-      });
-    })
-  }
+  setupInspectorToggle(reaction, reactionableId)
 }
 
 function requestReaction(url, method, callback) {
@@ -127,7 +120,58 @@ function destroyReaction(reaction, kind, loginName, reactionId) {
   })
 }
 
+function setupInspectorToggle(reaction, reactionableId) {
+  const inspectorToggle = reaction.querySelector(
+    '.js-reactions-inspector-toggle'
+  )
+  const inspectorDropdown = reaction.querySelector(
+    '.js-reactions-inspector-dropdown'
+  )
+
+  if (inspectorToggle && inspectorDropdown) {
+    inspectorToggle.addEventListener('click', () => {
+      const isHidden = inspectorDropdown.classList.contains('hidden')
+      if (isHidden) {
+        fetchAllReactions(reactionableId, (data) => {
+          if (Object.keys(data).length === 0) {
+            return
+          }
+          renderAllReactions(data, inspectorDropdown)
+          inspectorDropdown.classList.remove('hidden')
+        })
+      } else {
+        inspectorDropdown.classList.add('hidden')
+      }
+    })
+  }
+}
+
 function fetchAllReactions(reactionableId, callback) {
-  const url = `/api/reactions?reactionable_id=${reactionableId}`;
-  requestReaction(url, 'GET', callback);
+  const url = `/api/reactions?reactionable_id=${reactionableId}`
+  requestReaction(url, 'GET', callback)
+}
+
+function renderAllReactions(data, content) {
+  content.innerHTML = ''
+
+  if (Object.keys(data).length === 0) {
+    return
+  }
+
+  Object.entries(data).forEach(([_kind, { emoji, users }]) => {
+    const emojiLine = document.createElement('div')
+    emojiLine.classList.add('reaction-inspector-line')
+
+    const emojiSpan = document.createElement('span')
+    emojiSpan.classList.add('reaction-emoji')
+    emojiSpan.textContent = emoji
+    emojiLine.appendChild(emojiSpan)
+
+    const usersSpan = document.createElement('span')
+    usersSpan.classList.add('reaction-users')
+    usersSpan.textContent = users.join(', ')
+    emojiLine.appendChild(usersSpan)
+
+    content.appendChild(emojiLine)
+  })
 }
