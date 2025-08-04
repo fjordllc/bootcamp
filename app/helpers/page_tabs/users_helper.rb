@@ -7,7 +7,7 @@ module PageTabs
       tabs = []
       tabs << { name: 'プロフィール', link: user_path(user) }
       tabs << { name: 'ポートフォリオ', link: user_portfolio_path(user) }
-      tabs << { name: '日報', link: user_reports_path(user), count: user.reports.length }
+      tabs << { name: '日報', link: user_reports_path(user), count: user.reports.length, badge: unchecked_report_badge(current_user:, user:) }
       tabs << { name: 'コメント', link: user_comments_path(user), count: comment_count }
       tabs << { name: '提出物', link: user_products_path(user), count: user.products.length }
       tabs << { name: '質問', link: user_questions_path(user), count: user.questions.length }
@@ -33,6 +33,12 @@ module PageTabs
       tabs << { name: '企業別', link: users_companies_path }
       tabs << { name: '都道府県別', link: users_areas_path }
       render PageTabsComponent.new(tabs:, active_tab:)
+    end
+
+    def unchecked_report_badge(current_user:, user:)
+      return nil unless current_user.admin_or_mentor?
+
+      Cache.user_unchecked_report_count(user)
     end
   end
 end
