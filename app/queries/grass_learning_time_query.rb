@@ -3,11 +3,11 @@
 class GrassLearningTimeQuery < Patterns::Query
   queries LearningTime
 
-  def initialize(user, end_date, relation = LearningTime.all)
+  def initialize(user, end_date, relation = LearningTime.all, start_date: nil)
     super(relation)
     @user = user
     @end_date = end_date
-    @start_date = end_date.prev_year.sunday
+    @start_date = start_date || end_date.prev_year.sunday
   end
 
   private
