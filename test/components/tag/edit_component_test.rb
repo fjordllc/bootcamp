@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class Tag::FormComponentTest < ViewComponent::TestCase
+class Tag::EditComponentTest < ViewComponent::TestCase
   setup do
     @tag = acts_as_taggable_on_tags('cat')
     @component = Tag::EditComponent.new(
