@@ -14,7 +14,7 @@ dl.card-counts__items
     .card-counts__item
       .card-counts__item-inner
         dt.card-counts__item-label = activity[:name]
-        dd.card-counts__item-value class=('is-empty' if activity[:count].zero? || activity[:url].nil?)
+        dd.card-counts__item-value class=('is-empty' if activity[:count].zero?)
           - if activity[:count].zero? || activity[:url].nil?
             = activity[:count]
           - else
