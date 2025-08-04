@@ -44,7 +44,7 @@ class RegularEventsController < ApplicationController
     set_wip
     if @regular_event.update(regular_event_params)
       update_published_at
-      ActiveSupport::Notifications.instrument('regular_event.update', { regular_event: @regular_event, sender: current_user })
+      ActiveSupport::Notifications.instrument('regular_event.update', regular_event: @regular_event, sender: current_user)
       set_all_user_participants_and_watchers
       select_redirect_path
     else
