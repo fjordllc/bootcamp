@@ -18,10 +18,6 @@ import TextareaMarkdownLinkify from 'textarea-markdown-linkify'
 import ReplaceLinkToCard from 'replace-link-to-card'
 import MarkDownItContainerFigure from 'markdown-it-container-figure'
 import MarkdownItPurifier from 'markdown-it-purifier'
-import {
-  ADD_TAGS,
-  ADD_ATTR
-} from './config/markdown-it-purifier-config'
 
 export default class {
   static initialize(selector) {
@@ -91,13 +87,7 @@ export default class {
           MarkDownItLinkAttributes,
           MarkDownItContainerSpeak,
           MarkDownItContainerFigure,
-          [
-            MarkdownItPurifier,
-            {
-              ADD_TAGS,
-              ADD_ATTR
-            }
-          ]
+          MarkdownItPurifier
         ],
         markdownOptions: MarkdownOption
       })
