@@ -102,7 +102,9 @@ class UserCoursePractice
   end
 
   def category_having_active_practice
-    @user.active_practices&.first&.categories&.first
+    @user.active_practices.joins(categories: :courses_categories)
+         .select('categories.*').order('courses_categories.position ASC')
+         .first
   end
 
   def category_having_unstarted_practice
