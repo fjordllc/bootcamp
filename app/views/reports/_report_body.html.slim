@@ -14,7 +14,7 @@
             = report.user.unchecked_report_message(count, report.user)
         ul.card-body-main-actions__items
           li.card-body-main-actions__item
-            = link_to user_reports_path(report.user), class: "card-body-main-actions__action a-button is-sm #{report.user.user_report_count_class(count)} is-block", target: '_blank', rel: 'noopener' do
+            = link_to user_reports_path(report.user, target: 'unchecked_reports'), class: "card-body-main-actions__action a-button is-sm #{report.user.user_report_count_class(count)} is-block", target: '_blank', rel: 'noopener' do
               | #{report.user.login_name}さんの日報一覧へ
     - else
       .card-body-main-actions.p-0
