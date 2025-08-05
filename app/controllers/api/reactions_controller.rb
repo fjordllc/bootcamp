@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
 class API::ReactionsController < API::BaseController
+  before_action :set_reactionable, only: %i[create index]
+
   def create
-    reactionables = params[:reactionable_id].split('_')
-    reactionable_id = reactionables.pop
-    reactionable_type = reactionables.join('_')
-    reactionable = reactionable_type.camelcase.constantize.find(reactionable_id)
-    reaction = reactionable.reactions.build(user: current_user, kind: params[:kind])
+    reaction = @reactionable.reactions.build(user: current_user, kind: params[:kind])
 
     if reaction.save
       render json: { id: reaction.id }, status: :created
@@ -22,12 +20,7 @@ class API::ReactionsController < API::BaseController
   end
 
   def index
-    reactionables = params[:reactionable_id].split('_')
-    reactionable_id = reactionables.pop
-    reactionable_type = reactionables.join('_')
-    reactionable = reactionable_type.camelcase.constantize.find(reactionable_id)
-
-    reactions = reactionable.reactions.includes(:user)
+    reactions = @reactionable.reactions.includes(:user)
     result = Reaction.emojis.each_with_object({}) do |(kind, emoji), hash|
       users = reactions
               .select { |r| r.kind == kind.to_s }
@@ -36,5 +29,14 @@ class API::ReactionsController < API::BaseController
     end
 
     render json: result
+  end
+
+  private
+
+  def set_reactionable
+    type_and_id = params[:reactionable_id].to_s.split('_')
+    id = type_and_id.pop
+    type = type_and_id.join('_')
+    @reactionable = type.camelcase.constantize.find(id)
   end
 end
