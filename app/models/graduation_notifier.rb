@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class GraduationNotifier
-  def call(payload)
+  def call(_name, _started, _finished, _unique_id, payload)
     user = payload[:user]
     User.mentor.each do |mentor|
       ActivityDelivery.with(sender: user, receiver: mentor).notify(:graduated)
