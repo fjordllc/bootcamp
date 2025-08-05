@@ -109,6 +109,8 @@ class Admin::UsersTest < ApplicationSystemTestCase
     end
 
     assert_text 'ユーザー情報を更新しました。'
+    # ページをリロードして最新の画像URLを取得
+    visit "/users/#{user.id}"
     icon_after = find('img.user-profile__user-icon-image', visible: false)
     assert_includes icon_after.native['src'], 'hatsuno.webp'
   end
