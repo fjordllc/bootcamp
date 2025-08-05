@@ -21,7 +21,7 @@ module NotificationHelper
   # 戻り値が変更されるため、これを作成
   def exists_unread_notification?(message)
     visit notifications_path(status: 'unread')
-    wait_for_vuejs_再利用禁止 # 通知一覧はVueでREST APIを利用して表示しているため # rubocop:disable Naming/AsciiIdentifiers
+    assert_selector 'h2.page-header__title', text: '通知'
     exists = page.has_selector?('span.card-list-item-title__link-label',
                                 text: message)
     go_back

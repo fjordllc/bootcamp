@@ -3,6 +3,7 @@
 module ReportHelper
   def create_report(title, description, wip)
     visit new_report_path
+    assert_selector 'h2.page-header__title', text: '日報作成'
 
     edit_report(title, description)
 
@@ -19,6 +20,7 @@ module ReportHelper
 
   def update_report(id, title, description, wip)
     visit edit_report_path(id)
+    assert_selector 'h2.page-header__title', text: '日報編集'
 
     edit_report(title, description)
 
