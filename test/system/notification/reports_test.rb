@@ -216,7 +216,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
   end
 
   test 'notify mention target only on first report posted' do
-    mention_target_login_name = 'kimura'
+    mention_target_login_name = 'komagata'
     author_login_name = 'machida'
     title = '初めて提出したら、'
     description = "@#{mention_target_login_name} に通知する"
