@@ -2,6 +2,7 @@
 
 module ReportHelper
   def create_report(title, description, wip)
+    before_count = Report.count
     visit new_report_path
     assert_selector 'h2.page-header__title', text: '日報作成'
 
@@ -14,7 +15,7 @@ module ReportHelper
 
     click_button(wip ? 'WIP' : '提出')
 
-    # 作成した日報のidを返す
+    wait_for_report_created(before_count, timeout: 5)
     Report.last.id
   end
 
@@ -36,5 +37,13 @@ module ReportHelper
   def edit_report(title, description)
     fill_in('report[title]', with: title)
     fill_in('report[description]', with: description)
+  end
+
+  def wait_for_report_created(before_count, timeout: 5)
+    (timeout * 10).times do
+      return if Report.count > before_count
+
+      sleep 0.1
+    end
   end
 end
