@@ -5,8 +5,6 @@ Rails.configuration.after_initialize do
   Newspaper.subscribe(:answer_save, answer_cache_destroyer)
   Newspaper.subscribe(:answer_destroy, answer_cache_destroyer)
 
-  Newspaper.subscribe(:graduation_update, GraduationNotifier.new)
-
   Newspaper.subscribe(:comeback_update, ComebackNotifier.new)
 
   unfinished_data_destroyer = UnfinishedDataDestroyer.new
