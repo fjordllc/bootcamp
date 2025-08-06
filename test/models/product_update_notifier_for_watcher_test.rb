@@ -10,7 +10,7 @@ class ProductUpdateNotifierForWatcherTest < ActiveSupport::TestCase
     product = products(:product6)
 
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
-      ProductUpdateNotifierForWatcher.new.call({ product:, current_user: product.user })
+      ProductUpdateNotifierForWatcher.new.call(nil, nil, nil, nil, { product:, current_user: product.user })
     end
   end
 
@@ -19,7 +19,7 @@ class ProductUpdateNotifierForWatcherTest < ActiveSupport::TestCase
     product = products(:product5)
 
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 0 do
-      ProductUpdateNotifierForWatcher.new.call({ product:, current_user: product.user })
+      ProductUpdateNotifierForWatcher.new.call(nil, nil, nil, nil, { product:, current_user: product.user })
     end
   end
 
@@ -28,7 +28,7 @@ class ProductUpdateNotifierForWatcherTest < ActiveSupport::TestCase
     product = products(:product73)
 
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 0 do
-      ProductUpdateNotifierForWatcher.new.call({ product:, current_user: product.user })
+      ProductUpdateNotifierForWatcher.new.call(nil, nil, nil, nil, { product:, current_user: product.user })
     end
   end
 
@@ -37,7 +37,7 @@ class ProductUpdateNotifierForWatcherTest < ActiveSupport::TestCase
     product = products(:product6)
 
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 0 do
-      ProductUpdateNotifierForWatcher.new.call({ product:, current_user: users(:mentormentaro) })
+      ProductUpdateNotifierForWatcher.new.call(nil, nil, nil, nil, { product:, current_user: users(:mentormentaro) })
     end
   end
 end
