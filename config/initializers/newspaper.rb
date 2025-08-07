@@ -10,14 +10,6 @@ Rails.configuration.after_initialize do
 
   Newspaper.subscribe(:comeback_update, ComebackNotifier.new)
 
-  mentors_watch_for_question_creator = MentorsWatchForQuestionCreator.new
-  Newspaper.subscribe(:question_create, mentors_watch_for_question_creator)
-  Newspaper.subscribe(:question_update, mentors_watch_for_question_creator)
-
-  ai_answer_creator = AIAnswerCreator.new
-  Newspaper.subscribe(:question_create, ai_answer_creator)
-  Newspaper.subscribe(:question_update, ai_answer_creator)
-
   unfinished_data_destroyer = UnfinishedDataDestroyer.new
   Newspaper.subscribe(:retirement_create, unfinished_data_destroyer)
   Newspaper.subscribe(:training_completion_create, unfinished_data_destroyer)
