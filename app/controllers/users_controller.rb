@@ -65,8 +65,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     @user.build_discord_profile
     @user.credit_card_payment = params[:credit_card_payment]
     @user.uploaded_avatar = user_params[:avatar]
-
-    ActiveSupport::Notifications.instrument('user.create', user: @user)
+    @user.unsubscribe_email_token = SecureRandom.urlsafe_base64
 
     if @user.staff? || @user.trainee?
       create_free_user!
