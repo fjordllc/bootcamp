@@ -97,6 +97,10 @@ class Admin::UsersTest < ApplicationSystemTestCase
   test 'update user' do
     user = users(:hatsuno)
 
+    # ユーザーアイコンがwebpに変換されていることを確認するテストは、対象となるavatarをresetする。
+    # （テスト環境では、複数のテストでavatarを共有する影響で、avatarに不具合が生じ画像変換処理が出来ない可能性があるため。）
+    reset_avatar(user)
+
     visit_with_auth "/users/#{user.id}", 'komagata'
     icon_before = find('img.user-profile__user-icon-image', visible: false)
     assert_includes icon_before.native['src'], 'hatsuno.webp'

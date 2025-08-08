@@ -12,6 +12,7 @@ require 'supports/mock_env_helper'
 require 'supports/article_helper'
 require 'supports/javascript_helper'
 require 'supports/product_helper'
+require 'supports/avatar_helper'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include LoginHelper
@@ -25,6 +26,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include ArticleHelper
   include JavascriptHelper
   include ProductHelper
+  include AvatarHelper
 
   if ENV['HEADFUL']
     driven_by :selenium, using: :chrome
@@ -53,13 +55,5 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
         # Ignore cleanup errors in tests
       end
     end
-  end
-
-  parallelize_setup do |worker|
-    ENV['ACTIVE_STORAGE_TEST_ROOT'] = "#{ActiveStorage::Blob.service.root}-#{worker}"
-  end
-
-  parallelize_teardown do |_|
-    FileUtils.rm_rf(ENV['ACTIVE_STORAGE_TEST_ROOT'])
   end
 end
