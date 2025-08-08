@@ -75,7 +75,9 @@ class UserTest < ActiveSupport::TestCase
     assert_equal '/images/users/avatars/default.png', user_with_default_avatar.avatar_url
 
     user_with_custom_avatar = users(:komagata)
-    user_with_custom_avatar.avatar_url
+    # ユーザーアイコンがwebpに変換されていることを確認するテストは、対象となるavatarをresetする。
+    # （テスト環境では、複数のテストでavatarを共有する影響で、avatarに不具合が生じ画像変換処理が出来ない可能性があるため。）
+    reset_avatar(user_with_custom_avatar)
     assert_includes user_with_custom_avatar.avatar_url, "#{user_with_custom_avatar.login_name}.webp"
   end
 
