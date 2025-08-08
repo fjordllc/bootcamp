@@ -186,6 +186,9 @@ class SearchablesTest < ApplicationSystemTestCase
   end
 
   test 'show icon and go profile page when click icon' do
+    user = users(:komagata)
+    user.send(:attach_custom_avatar)
+
     visit_with_auth '/', 'hatsuno'
     find('.js-modal-search-shown-trigger').click
     within('form[name=search]') do
