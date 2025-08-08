@@ -97,6 +97,9 @@ class Admin::UsersTest < ApplicationSystemTestCase
   test 'update user' do
     user = users(:hatsuno)
 
+    # ActiveStorageによるwebp生成を強制して、テストが失敗しないようにする
+    user.send(:attach_custom_avatar)
+
     visit_with_auth "/users/#{user.id}", 'komagata'
     icon_before = find('img.user-profile__user-icon-image', visible: false)
     assert_includes icon_before.native['src'], 'hatsuno.webp'
@@ -107,6 +110,11 @@ class Admin::UsersTest < ApplicationSystemTestCase
       attach_file 'user[avatar]', 'test/fixtures/files/users/avatars/komagata.jpg', make_visible: true
       click_on '更新する'
     end
+
+    user.reload.send(:attach_custom_avatar)
+
+    # ページリロードしてから検証
+    visit current_path
 
     assert_text 'ユーザー情報を更新しました。'
     icon_after = find('img.user-profile__user-icon-image', visible: false)

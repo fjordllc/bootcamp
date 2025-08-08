@@ -73,6 +73,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal '/images/users/avatars/default.png', user_with_default_avatar.avatar_url
 
     user_with_custom_avatar = users(:komagata)
+    user_with_custom_avatar.send(:attach_custom_avatar)
     assert_includes user_with_custom_avatar.avatar_url, "#{user_with_custom_avatar.login_name}.webp"
   end
 

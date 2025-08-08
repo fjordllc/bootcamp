@@ -5,6 +5,8 @@ require 'application_system_test_case'
 
 class AttachmentsTest < ApplicationSystemTestCase
   test 'attachment user avatar' do
+    user = users(:komagata)
+    user.send(:attach_custom_avatar)
     visit_with_auth "/users/#{users(:komagata).id}", 'komagata'
     assert_includes find('img.user-profile__user-icon-image')['src'], 'komagata.webp'
   end
