@@ -186,6 +186,10 @@ class SearchablesTest < ApplicationSystemTestCase
   end
 
   test 'show icon and go profile page when click icon' do
+    # ユーザーアイコンがwebpに変換されていることを確認するテストは、対象となるavatarをresetする。
+    # （テスト環境では、複数のテストでavatarを共有する影響で、avatarに不具合が生じ画像変換処理が出来ない可能性があるため。）
+    reset_avatar(users(:komagata))
+
     visit_with_auth '/', 'hatsuno'
     find('.js-modal-search-shown-trigger').click
     within('form[name=search]') do
