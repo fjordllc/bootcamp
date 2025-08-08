@@ -953,18 +953,36 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   end
 
   def attach_custom_avatar
+    key = "avatars/#{login_name}.#{AVATAR_FORMAT}"
+    if (existing = ActiveStorage::Blob.find_by(key:))
+      avatar.attach(existing)
+      return
+    end
+
     variant_avatar = avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }, format: AVATAR_FORMAT).processed
     io = StringIO.new(variant_avatar.download)
-    custom_blob = ActiveStorage::Blob.create_and_upload!(
-      io:,
-      key: "avatars/#{login_name}.#{AVATAR_FORMAT}",
-      filename: "#{login_name}.#{AVATAR_FORMAT}",
-      content_type: "image/#{AVATAR_FORMAT}",
-      identify: false
-    )
+    custom_blob = create_or_find_custom_blob(key, io)
     avatar.attach(custom_blob)
   rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError, Vips::Error => e
     log_avatar_error('attach_custom_avatar', e)
+  end
+
+  def create_or_find_custom_blob(key, io)
+    custom_blob = nil
+    begin
+      ActiveRecord::Base.transaction(requires_new: true) do
+        custom_blob = ActiveStorage::Blob.create_and_upload!(
+          io:,
+          key:,
+          filename: "#{login_name}.#{AVATAR_FORMAT}",
+          content_type: "image/#{AVATAR_FORMAT}",
+          identify: false
+        )
+      end
+    rescue ActiveRecord::RecordNotUnique, PG::UniqueViolation
+      custom_blob = ActiveStorage::Blob.find_by!(key:)
+    end
+    custom_blob
   end
 
   def log_avatar_error(context, error)

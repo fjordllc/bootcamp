@@ -94,7 +94,7 @@ class UserCoursePractice
   private
 
   def unstarted_practices
-    practices = @user.course.practices
+    practices = @user.course.practices.reorder('courses_categories.position ASC', 'categories_practices.position ASC')
     @unstarted_practices ||= practices -
                              practices.joins(:learnings).where(learnings: { user_id: @user.id, status: :started })
                                       .or(practices.joins(:learnings).where(learnings: { user_id: @user.id, status: :submitted }))
@@ -102,7 +102,9 @@ class UserCoursePractice
   end
 
   def category_having_active_practice
-    @user.active_practices&.first&.categories&.first
+    @user.active_practices.joins(categories: :courses_categories)
+         .select('categories.*').order('courses_categories.position ASC')
+         .first
   end
 
   def category_having_unstarted_practice
