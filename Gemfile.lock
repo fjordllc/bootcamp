@@ -198,11 +198,6 @@ GEM
     ffi (1.17.1)
     ffi (1.17.1-arm64-darwin)
     ffi (1.17.1-x86_64-linux-gnu)
-    flipper (1.3.4)
-      concurrent-ruby (< 2)
-    flipper-active_record (1.3.4)
-      activerecord (>= 4.2, < 9)
-      flipper (~> 1.3.4)
     foreman (0.88.1)
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
@@ -632,6 +627,8 @@ GEM
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
+    streamio-ffmpeg (3.0.2)
+      multi_json (~> 1.8)
     stringio (3.0.1.2)
     stripe (13.5.0)
     temple (0.10.3)
@@ -723,7 +720,6 @@ DEPENDENCIES
   doorkeeper
   dotenv-rails
   ffi (= 1.17.1)
-  flipper-active_record (~> 1.3)
   foreman
   good_job (~> 3.14)!
   google-cloud-storage (~> 1.25)
@@ -790,6 +786,7 @@ DEPENDENCIES
   sorcery-jwt
   spring
   spring-watcher-listen (~> 2.0.0)
+  streamio-ffmpeg
   stringio (= 3.0.1.2)
   stripe
   stripe-i18n!

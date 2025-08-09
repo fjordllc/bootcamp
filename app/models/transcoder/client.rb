@@ -52,7 +52,7 @@ module Transcoder
     end
 
     def elementary_streams
-      [
+      streams = [
         {
           key: 'video-stream',
           video_stream: {
@@ -63,23 +63,31 @@ module Transcoder
               frame_rate: @config['video_frame_rate']
             }
           }
-        },
-        {
+        }
+      ]
+
+      if @movie.has_audio?
+        streams << {
           key: 'audio-stream',
           audio_stream: {
             codec: @config['audio_codec'],
             bitrate_bps: @config['audio_bitrate']
           }
         }
-      ]
+      end
+
+      streams
     end
 
     def mux_streams
+      elementary_keys = ['video-stream']
+      elementary_keys << 'audio-stream' if @movie.has_audio?
+
       [
         {
           key: 'muxed-stream',
           container: @config['container'],
-          elementary_streams: %w[video-stream audio-stream]
+          elementary_streams: elementary_keys
         }
       ]
     end

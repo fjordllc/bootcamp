@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+require 'open3'
+require 'tempfile'
+require 'shellwords'
 
 class Movie < ApplicationRecord
   include Searchable
@@ -22,6 +25,27 @@ class Movie < ApplicationRecord
   scope :wip, -> { where(wip: true) }
 
   after_create_commit :start_transcode_job, on: :create
+
+  def has_audio?
+    return @has_audio unless @has_audio.nil?
+
+    return false unless movie_data.attached?
+
+    temp_file = Tempfile.new(['movie', File.extname(movie_data.filename.to_s)])
+    temp_file.binmode
+    temp_file.write(movie_data.download)
+    temp_file.close
+
+    begin
+      movie = FFMPEG::Movie.new(temp_file.path)
+      @has_audio = movie.audio_streams.any?
+    rescue => e
+      Rails.logger.error("has_audio? error: #{e.message}")
+      @has_audio = false
+    ensure
+      temp_file.unlink
+    end
+  end
 
   private
 
