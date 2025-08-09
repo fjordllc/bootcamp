@@ -1,6 +1,6 @@
 test:
   service: Disk
-  root: <%= ENV['ACTIVE_STORAGE_TEST_ROOT'] || Rails.root.join("tmp/storage") %>
+  root: <%= Rails.root.join("tmp/storage") %>
   public: true
 
 local:
