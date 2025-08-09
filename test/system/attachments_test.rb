@@ -6,11 +6,7 @@ require 'application_system_test_case'
 class AttachmentsTest < ApplicationSystemTestCase
   test 'attachment user avatar' do
     user = users(:komagata)
-
-    # ユーザーアイコンがwebpに変換されていることを確認するテストは、対象となるavatarをresetする。
-    # （テスト環境では、複数のテストでavatarを共有する影響で、avatarに不具合が生じ画像変換処理が出来ない可能性があるため。）
     reset_avatar(user)
-
     visit_with_auth "/users/#{user.id}", 'komagata'
     assert_includes find('img.user-profile__user-icon-image')['src'], 'komagata.webp'
   end
