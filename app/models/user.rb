@@ -953,28 +953,21 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   end
 
   def attach_custom_avatar
-    target_key = "avatars/#{login_name}.#{AVATAR_FORMAT}"
+    custom_key = "avatars/#{login_name}.#{AVATAR_FORMAT}"
+    variant_avatar = avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }, format: AVATAR_FORMAT).processed
+    io = StringIO.new(variant_avatar.download)
+
     with_lock do
-      existing = ActiveStorage::Blob.find_by(key: target_key)
-      if existing
-        avatar.attach(existing) unless avatar.blob_id == existing.id
-      else
-        variant_avatar = avatar.variant(
-          resize_to_fill: AVATAR_SIZE,
-          autorot: true,
-          saver: { strip: true, quality: 60 },
-          format: AVATAR_FORMAT
-        ).processed
-        io = StringIO.new(variant_avatar.download)
-        custom_blob = ActiveStorage::Blob.create_and_upload!(
-          io: io,
-          key: target_key,
-          filename: "#{login_name}.#{AVATAR_FORMAT}",
-          content_type: "image/#{AVATAR_FORMAT}",
-          identify: false
-        )
-        avatar.attach(custom_blob)
-      end
+      return if ActiveStorage::Blob.find_by(key: custom_key)
+
+      custom_blob = ActiveStorage::Blob.create_and_upload!(
+        io:,
+        key: custom_key,
+        filename: "#{login_name}.#{AVATAR_FORMAT}",
+        content_type: "image/#{AVATAR_FORMAT}",
+        identify: false
+      )
+      avatar.attach(custom_blob)
     end
   rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError, Vips::Error => e
     log_avatar_error('attach_custom_avatar', e)
