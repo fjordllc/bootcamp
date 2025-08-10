@@ -52,44 +52,35 @@ module Transcoder
     end
 
     def elementary_streams
-      streams = [
-        {
-          key: 'video-stream',
-          video_stream: {
-            h264: {
-              height_pixels: @config['video_height'],
-              width_pixels: @config['video_width'],
-              bitrate_bps: @config['video_bitrate'],
-              frame_rate: @config['video_frame_rate']
-            }
+      [video_stream_config, @movie.audio? && audio_stream_config].compact
+    end
+
+    def video_stream_config
+      {
+        key: 'video-stream',
+        video_stream: {
+          h264: {
+            height_pixels: @config['video_height'],
+            width_pixels: @config['video_width'],
+            bitrate_bps: @config['video_bitrate'],
+            frame_rate: @config['video_frame_rate']
           }
         }
-      ]
+      }
+    end
 
-      if @movie.has_audio?
-        streams << {
-          key: 'audio-stream',
-          audio_stream: {
-            codec: @config['audio_codec'],
-            bitrate_bps: @config['audio_bitrate']
-          }
+    def audio_stream_config
+      {
+        key: 'audio-stream',
+        audio_stream: {
+          codec: @config['audio_codec'],
+          bitrate_bps: @config['audio_bitrate']
         }
-      end
-
-      streams
+      }
     end
 
     def mux_streams
-      elementary_keys = ['video-stream']
-      elementary_keys << 'audio-stream' if @movie.has_audio?
-
-      [
-        {
-          key: 'muxed-stream',
-          container: @config['container'],
-          elementary_streams: elementary_keys
-        }
-      ]
+      [{ key: 'muxed-stream', container: @config['container'], elementary_streams: ['video-stream', ('audio-stream' if @movie.audio?)].compact }]
     end
 
     def transcoder_service

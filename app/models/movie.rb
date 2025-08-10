@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'tempfile'
 
 class Movie < ApplicationRecord
@@ -24,8 +25,8 @@ class Movie < ApplicationRecord
 
   after_create_commit :start_transcode_job, on: :create
 
-  def has_audio?
-    return @has_audio unless @has_audio.nil?
+  def audio?
+    return @audio unless @audio.nil?
 
     return false unless movie_data.attached?
 
@@ -36,10 +37,10 @@ class Movie < ApplicationRecord
 
     begin
       movie = FFMPEG::Movie.new(temp_file.path)
-      @has_audio = movie.audio_streams.any?
-    rescue => e
+      @audio = movie.audio_streams.any?
+    rescue StandardError => e
       Rails.logger.error("has_audio? error: #{e.message}")
-      @has_audio = false
+      @audio = false
     ensure
       temp_file.unlink
     end
