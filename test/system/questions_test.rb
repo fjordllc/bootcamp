@@ -124,26 +124,30 @@ class QuestionsTest < ApplicationSystemTestCase
     visit_with_auth new_question_path, 'kimura'
     ['半角スペースは 使えない', '全角スペースも　使えない'].each do |tag|
       fill_in_tag_with_alert tag
+      assert_no_selector('.tagify__tag')
     end
     fill_in_tag 'foo'
+    assert_selector('input[name="question[tag_list]"][value="foo"]', visible: false)
     within 'form[name=question]' do
       fill_in 'question[title]', with: 'test title'
       fill_in 'question[description]', with: 'test body'
       click_button '登録する'
     end
-    assert_equal ['foo'], all('.tag-links__item-link').map(&:text)
+    assert_selector('.tag-links__item-link', text: 'foo', count: 1)
   end
 
   test 'alert when enter one dot only tag on creation question' do
     visit_with_auth new_question_path, 'kimura'
     fill_in_tag_with_alert '.'
+    assert_no_selector('.tagify__tag')
     fill_in_tag 'foo'
+    assert_selector('input[name="question[tag_list]"][value="foo"]', visible: false)
     within 'form[name=question]' do
       fill_in 'question[title]', with: 'test title'
       fill_in 'question[description]', with: 'test body'
       click_button '登録する'
     end
-    assert_equal ['foo'], all('.tag-links__item-link').map(&:text)
+    assert_selector('.tag-links__item-link', text: 'foo', count: 1)
   end
 
   test 'alert when enter tag with space on update question' do
