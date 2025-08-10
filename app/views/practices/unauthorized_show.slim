@@ -4,7 +4,7 @@
 
 ruby:
   if @practice.ogp_image.attached?
-    practice_ogp_meta_tags(image_url: practice_ogp_image_url(@practice.ogp_image))
+    practice_ogp_meta_tags(practice_ogp_image_url(@practice.ogp_image))
   end
 
 .page-body
