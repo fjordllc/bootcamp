@@ -52,36 +52,35 @@ module Transcoder
     end
 
     def elementary_streams
-      [
-        {
-          key: 'video-stream',
-          video_stream: {
-            h264: {
-              height_pixels: @config['video_height'],
-              width_pixels: @config['video_width'],
-              bitrate_bps: @config['video_bitrate'],
-              frame_rate: @config['video_frame_rate']
-            }
-          }
-        },
-        {
-          key: 'audio-stream',
-          audio_stream: {
-            codec: @config['audio_codec'],
-            bitrate_bps: @config['audio_bitrate']
+      [video_stream_config, @movie.audio? && audio_stream_config].compact
+    end
+
+    def video_stream_config
+      {
+        key: 'video-stream',
+        video_stream: {
+          h264: {
+            height_pixels: @config['video_height'],
+            width_pixels: @config['video_width'],
+            bitrate_bps: @config['video_bitrate'],
+            frame_rate: @config['video_frame_rate']
           }
         }
-      ]
+      }
+    end
+
+    def audio_stream_config
+      {
+        key: 'audio-stream',
+        audio_stream: {
+          codec: @config['audio_codec'],
+          bitrate_bps: @config['audio_bitrate']
+        }
+      }
     end
 
     def mux_streams
-      [
-        {
-          key: 'muxed-stream',
-          container: @config['container'],
-          elementary_streams: %w[video-stream audio-stream]
-        }
-      ]
+      [{ key: 'muxed-stream', container: @config['container'], elementary_streams: ['video-stream', ('audio-stream' if @movie.audio?)].compact }]
     end
 
     def transcoder_service
