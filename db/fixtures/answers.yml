@@ -41,3 +41,10 @@ answer<%= i %>:
   user: komagata
   question: question1
 <% end %>
+
+answer51:
+  description: このQ&Aは1ヶ月間コメントがありませんでした。1週間後に自動的にクローズされます。
+  user: pjord
+  question: question51
+  created_at: <%= Time.current - 1.week %>
+  updated_at: <%= Time.current - 1.week %>
