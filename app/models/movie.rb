@@ -1,7 +1,5 @@
 # frozen_string_literal: true
-require 'open3'
 require 'tempfile'
-require 'shellwords'
 
 class Movie < ApplicationRecord
   include Searchable
