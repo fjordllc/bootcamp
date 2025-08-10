@@ -3,7 +3,7 @@ ruby:
   content_for :extra_body_classes, 'is-completion'
   set_meta_tags description: "オンラインプログラミングスクールフィヨルドブートキャンプの「#{@practice.title}」修了おめでとうページです。"
   if @practice.ogp_image.attached?
-    practice_ogp_meta_tags(image_url: ogp_image_url(@practice.ogp_image))
+    practice_ogp_meta_tags(image_url: practice_ogp_image_url(@practice.ogp_image))
   else
     set_meta_tags(og: { image: image_url('completion/completion_default.png'), url: request.url })
     set_meta_tags(twitter: { image: image_url('completion/completion_default.png'), url: request.url })
