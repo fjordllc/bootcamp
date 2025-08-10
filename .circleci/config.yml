@@ -102,6 +102,9 @@ jobs:
           name: Install libvips
           command: sudo apt-get install -y libvips
       - run:
+          name: Install ffmpeg (includes ffprobe)
+          command: sudo apt-get install -y ffmpeg
+      - run:
           name: Wait for DB
           command: 'dockerize -wait tcp://localhost:5432 -timeout 1m'
       - run:
