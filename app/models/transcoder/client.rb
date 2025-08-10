@@ -52,7 +52,7 @@ module Transcoder
     end
 
     def elementary_streams
-      [video_stream_config, @movie.audio? && audio_stream_config].compact
+      [video_stream_config, (@movie.audio? ? audio_stream_config : nil)].compact
     end
 
     def video_stream_config
