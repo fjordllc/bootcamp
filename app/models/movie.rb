@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'tempfile'
-
 class Movie < ApplicationRecord
   include Searchable
   include WithAvatar
@@ -26,24 +24,13 @@ class Movie < ApplicationRecord
   after_create_commit :start_transcode_job, on: :create
 
   def audio?
-    return @audio unless @audio.nil?
-
-    return false unless movie_data.attached?
-
-    temp_file = Tempfile.new(['movie', File.extname(movie_data.filename.to_s)])
-    temp_file.binmode
-    temp_file.write(movie_data.download)
-    temp_file.close
-
-    begin
-      movie = FFMPEG::Movie.new(temp_file.path)
+    movie_data.blob.open(tmpdir: Dir.tmpdir) do |file|
+      movie = FFMPEG::Movie.new(file.path)
       @audio = movie.audio_streams.any?
-    rescue StandardError => e
-      Rails.logger.error("has_audio? error: #{e.message}")
-      @audio = false
-    ensure
-      temp_file.unlink
     end
+  rescue StandardError => e
+    Rails.logger.error("audio? error: #{e.message}")
+    @audio = false
   end
 
   private
