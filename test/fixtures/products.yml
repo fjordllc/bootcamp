@@ -3,6 +3,7 @@ product1: # 自分のコメントあり(2つ)
   user: mentormentaro
   body: テストの提出物1です。
   checker_id: nil
+  commented_at: <%= 1.day.ago %>
 
 product2: # チェック済
   practice: practice1
