@@ -956,16 +956,14 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     custom_key = "avatars/#{login_name}.#{AVATAR_FORMAT}"
     variant_avatar = avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }, format: AVATAR_FORMAT).processed
     io = StringIO.new(variant_avatar.download)
-    created = false
     custom_blob = ActiveStorage::Blob.create_or_find_by!(key: custom_key) do |blob|
       blob.filename = "#{login_name}.#{AVATAR_FORMAT}"
       blob.content_type = "image/#{AVATAR_FORMAT}"
       blob.byte_size = io.size
       blob.checksum = Digest::MD5.base64digest(io.read)
       io.rewind
-      created = true
     end
-    return unless created
+    return if custom_blob.id_previously_was.present?
 
     custom_blob.upload(io, identify: false)
     avatar.attach(custom_blob)
