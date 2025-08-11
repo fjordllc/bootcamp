@@ -2,9 +2,11 @@
 
 require 'test_helper'
 require 'supports/product_helper'
+require 'supports/avatar_helper'
 
 class UserTest < ActiveSupport::TestCase
   include ProductHelper
+  include AvatarHelper
 
   test '#admin?' do
     assert users(:komagata).admin?
@@ -73,6 +75,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal '/images/users/avatars/default.png', user_with_default_avatar.avatar_url
 
     user_with_custom_avatar = users(:komagata)
+    reset_avatar(user_with_custom_avatar)
     assert_includes user_with_custom_avatar.avatar_url, "#{user_with_custom_avatar.login_name}.webp"
   end
 

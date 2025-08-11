@@ -96,7 +96,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
 
   test 'update user' do
     user = users(:hatsuno)
-
+    reset_avatar(user)
     visit_with_auth "/users/#{user.id}", 'komagata'
     icon_before = find('img.user-profile__user-icon-image', visible: false)
     assert_includes icon_before.native['src'], 'hatsuno.webp'

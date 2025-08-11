@@ -953,15 +953,19 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   end
 
   def attach_custom_avatar
+    custom_key = "avatars/#{login_name}.#{AVATAR_FORMAT}"
     variant_avatar = avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }, format: AVATAR_FORMAT).processed
     io = StringIO.new(variant_avatar.download)
-    custom_blob = ActiveStorage::Blob.create_and_upload!(
-      io:,
-      key: "avatars/#{login_name}.#{AVATAR_FORMAT}",
-      filename: "#{login_name}.#{AVATAR_FORMAT}",
-      content_type: "image/#{AVATAR_FORMAT}",
-      identify: false
-    )
+    custom_blob = ActiveStorage::Blob.create_or_find_by!(key: custom_key) do |blob|
+      blob.filename = "#{login_name}.#{AVATAR_FORMAT}"
+      blob.content_type = "image/#{AVATAR_FORMAT}"
+      blob.byte_size = io.size
+      blob.checksum = Digest::MD5.base64digest(io.read)
+      io.rewind
+    end
+    return if custom_blob.id_previously_was.present?
+
+    custom_blob.upload(io, identify: false)
     avatar.attach(custom_blob)
   rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError, Vips::Error => e
     log_avatar_error('attach_custom_avatar', e)
