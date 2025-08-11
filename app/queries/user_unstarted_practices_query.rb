@@ -8,13 +8,13 @@ class UserUnstartedPracticesQuery < Patterns::Query
   def initialize(relation = Practice.all, user:)
     super(relation)
     @user = user
-    @course = user.course
+    @course_id = user.course_id
   end
 
   def query
     relation
       .joins(categories: :courses_categories)
-      .where(courses_categories: { course_id: @course.id })
+      .where(courses_categories: { course_id: @course_id })
       .where.not(id: learned_practice_ids)
       .select('practices.*')
       .order('categories_practices.position ASC, courses_categories.position ASC')
