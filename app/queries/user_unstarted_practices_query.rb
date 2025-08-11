@@ -13,7 +13,7 @@ class UserUnstartedPracticesQuery < Patterns::Query
 
   def query
     relation
-      .joins(categories: :courses_categories)
+      .joins(categories_practices: { category: :courses_categories })
       .where(courses_categories: { course_id: @course_id })
       .where.not(id: learned_practice_ids)
       .select('practices.*')
