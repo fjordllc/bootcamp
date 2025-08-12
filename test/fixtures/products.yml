@@ -1,8 +1,9 @@
-product1: # 自分のコメントあり(2つ)
+product1: # 自分(メンター)のコメントあり(2つ)
   practice: practice1
   user: mentormentaro
   body: テストの提出物1です。
   checker_id: nil
+  mentor_last_commented_at: <%= 1.day.ago %>
   commented_at: <%= 1.day.ago %>
 
 product2: # チェック済
@@ -14,13 +15,15 @@ product2: # チェック済
   published_at: <%= 1.day.ago %>
   checker_id: "<%= ActiveRecord::FixtureSet.identify(:komagata) %>"
 
-product3: # チェック済, 他者のコメントあり
+product3: # チェック済, 他者(メンター)からのコメントあり
   practice: practice2
   user: sotugyou
   body: 確認済みの提出物
   created_at: <%= 2.day.ago %>
   updated_at: <%= 2.day.ago %>
   published_at: <%= 2.day.ago %>
+  commented_at: <%= 2.day.ago %>
+  mentor_last_commented_at: <%= 2.day.ago %>
 
 product4: # チェック済
   practice: practice2
@@ -63,15 +66,17 @@ product8:
   updated_at: <%= 7.day.ago %>
   published_at: <%= 7.day.ago %>
 
-product9: # チェック済
+product9: # チェック済, 他者(メンター)からのコメントあり
   practice: practice4
   user: mentormentaro
   body: テストの提出物9です。
   created_at: <%= 8.day.ago %>
   updated_at: <%= 8.day.ago %>
   published_at: <%= 8.day.ago %>
+  commented_at: <%= 8.day.ago %>
+  mentor_last_commented_at: <%= 8.day.ago %>
 
-product10: # 他者のコメントあり
+product10: # 他者(メンター)のコメントあり
   practice: practice4
   user: kimura
   body: テストの提出物10です。
@@ -79,14 +84,17 @@ product10: # 他者のコメントあり
   updated_at: <%= 9.day.ago %>
   published_at: <%= 9.day.ago %>
   commented_at: <%= 9.day.ago %>
+  mentor_last_commented_at: <%= 9.day.ago %>
 
-product11:
+product11: # 他者(メンター)のコメントあり
   practice: practice2
   user: hatsuno
   body: テストの提出物11です。
   created_at: <%= 10.day.ago %>
   updated_at: <%= 10.day.ago %>
   published_at: <%= 10.day.ago %>
+  commented_at: <%= 10.day.ago %>
+  mentor_last_commented_at: <%= 10.day.ago %>
 
 product12:
   practice: practice5
@@ -373,6 +381,8 @@ product63:
   published_at: <%= 2.day.ago %>
   wip: false
   checker_id: <%= ActiveRecord::FixtureSet.identify(:machida) %>
+  commented_at: <%= 2.day.ago %>
+  mentor_last_commented_at: <%= 2.day.ago %>
 
 product64:
   practice: practice10
@@ -394,11 +404,13 @@ product66:
   body: publish_atがnilの提出物です。
   published_at: nil
 
-product67:
+product67: # チェック済, 他者(メンター)からのコメントあり
   practice: practice3
   user: kimuramitai
   body: 確認済みの提出物67です。
   checker_id: "<%= ActiveRecord::FixtureSet.identify(:'long-id-mentor') %>"
+  commented_at: <%= 1.day.ago %>
+  mentor_last_commented_at: <%= 1.day.ago %>
 
 product68:
   practice: practice5
