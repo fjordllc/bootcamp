@@ -727,6 +727,13 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     image_url DEFAULT_IMAGE_PATH
   end
 
+  def avatar_attach_with_filename
+    return unless avatar.attached?
+
+    icon = open_avatar_uri
+    avatar.attach(io: icon, filename: id) if icon
+  end
+
   def generation
     (created_at.year - 2013) * 4 + (created_at.month + 2) / 3
   end
@@ -973,5 +980,9 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   def log_avatar_error(context, error)
     Rails.logger.error "[#{context}] Avatar processing failed for user #{login_name}: #{error.message}"
+  end
+
+  def open_avatar_uri
+    avatar_url == '/images/users/avatars/default.png' ? nil : URI.parse(avatar_url).open
   end
 end
