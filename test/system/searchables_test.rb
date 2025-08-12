@@ -189,6 +189,7 @@ class SearchablesTest < ApplicationSystemTestCase
     user = users(:komagata)
     reset_avatar(user)
     user.reload
+    assert user.avatar.attached?, 'アバターのテスト用フィクスチャがアタッチできませんでした（komagata）'
     visit_with_auth '/', 'hatsuno'
     find('.js-modal-search-shown-trigger').click
     within('form[name=search]') do
