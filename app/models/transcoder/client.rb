@@ -2,12 +2,12 @@
 
 module Transcoder
   class Client
-    def initialize(movie = nil, config: nil, bucket_name: nil, project_id: nil, include_audio: true)
+    def initialize(movie = nil, config: nil, bucket_name: nil, project_id: nil, force_video_only: false)
       @movie = movie
       @config = config || default_config
       @bucket_name = bucket_name || default_storage_config['bucket']
       @project_id = project_id || default_storage_config['project']
-      @include_audio = include_audio
+      @force_video_only = force_video_only
 
       validate_configuration
     end
@@ -53,7 +53,7 @@ module Transcoder
     end
 
     def elementary_streams
-      [video_stream_config, (@include_audio ? audio_stream_config : nil)].compact
+      [video_stream_config, (!@force_video_only ? audio_stream_config : nil)].compact
     end
 
     def video_stream_config
@@ -81,7 +81,7 @@ module Transcoder
     end
 
     def mux_streams
-      [{ key: 'muxed-stream', container: @config['container'], elementary_streams: ['video-stream', ('audio-stream' if @include_audio)].compact }]
+      [{ key: 'muxed-stream', container: @config['container'], elementary_streams: ['video-stream', ('audio-stream' unless @force_video_only)].compact }]
     end
 
     def transcoder_service

@@ -3,10 +3,10 @@
 class TranscodeJob < ApplicationJob
   queue_as :default
 
-  def perform(movie, include_audio: true)
+  def perform(movie, force_video_only: false)
     return unless Rails.application.config.transcoder['enable']
 
-    client = Transcoder::Client.new(movie, include_audio:)
+    client = Transcoder::Client.new(movie, force_video_only:)
     client.transcode
   rescue Google::Cloud::Error => e
     Rails.logger.error("Transcoding failed for Movie #{movie.id}: #{e.message}")
