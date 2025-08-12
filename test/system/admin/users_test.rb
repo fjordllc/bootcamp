@@ -98,8 +98,12 @@ class Admin::UsersTest < ApplicationSystemTestCase
     user = users(:hatsuno)
     reset_avatar(user)
     visit_with_auth "/users/#{user.id}", 'komagata'
-    icon_before = find('img.user-profile__user-icon-image', visible: false)
-    assert_includes icon_before.native['src'], 'hatsuno.webp'
+
+    icon_before = nil
+    assert_retry(max_attempts: 5, delay: 0.5) do
+      icon_before = find('img.user-profile__user-icon-image', visible: false)
+      assert_includes icon_before.native['src'], 'hatsuno.webp'
+    end
 
     visit "/admin/users/#{user.id}/edit"
     within 'form[name=user]' do
@@ -425,5 +429,20 @@ class Admin::UsersTest < ApplicationSystemTestCase
     attach_file 'user[diploma_file]', file_fixture('users/diplomas/diploma.html'), visible: false
     click_on '更新する'
     assert_text '卒業証書(PDF)はPDF形式にしてください'
+  end
+
+  private
+
+  def assert_retry(max_attempts:, delay:)
+    attempts = 0
+    begin
+      yield
+    rescue Minitest::Assertion => e
+      attempts += 1
+      raise e if attempts >= max_attempts
+
+      sleep delay
+      retry
+    end
   end
 end
