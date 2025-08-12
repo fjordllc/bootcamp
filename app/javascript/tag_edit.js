@@ -1,11 +1,13 @@
-import CSRF from './csrf'
+import { patch } from '@rails/request.js'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const tagForm = document.getElementById('tag_name')
   const tagChangeButton = document.querySelector('.change-tag-name-button')
+  if (!tagChangeButton) return
+
   const tagEditModal = document.querySelector('.edit-tag-modal')
-  const cancelButton = document.querySelector('.cancel-change-tag-button')
-  const tagSaveButton = document.querySelector('.save-tag-button')
+  const tagForm = tagEditModal.querySelector('.a-text-input')
+  const cancelButton = tagEditModal.querySelector('.cancel-change-tag-button')
+  const tagSaveButton = tagEditModal.querySelector('.save-tag-button')
 
   const initialTagName = tagForm.dataset.initialTagName
   const tagId = tagForm.dataset.tagId
@@ -49,23 +51,16 @@ document.addEventListener('DOMContentLoaded', () => {
     )
   }
 
-  const updateTag = (tagName) => {
-    fetch(`/api/tags/${tagId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': CSRF.getToken()
-      },
-      credentials: 'same-origin',
-      redirect: 'manual',
-      body: JSON.stringify({ tag: { name: tagName } })
+  const updateTag = async (tagName) => {
+    await patch(`/api/tags/${tagId}`, {
+      body: JSON.stringify({ tag: { name: tagName } }),
+      contentType: 'application/json'
     })
-      .then(() => {
-        updateTagList(tagName)
-      })
-      .catch((error) => {
-        console.warn(error)
-      })
+    .then(() => {
+      updateTagList(tagName)
+    })
+    .catch((error) => {
+      console.warn(error)
+    })
   }
 })
