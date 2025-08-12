@@ -57,7 +57,7 @@ class ProcessTranscodingNotification
     when 'FAILED', 'CANCELLED'
       if audio_missing_error?(error)
         Rails.logger.warn("Audio missing error detected for Movie #{movie.id}. Retrying without audio.")
-        TranscodeJob.perform_later(movie, include_audio: false)
+        TranscodeJob.perform_later(movie, force_video_only: true)
       else
         Rails.logger.error("Transcoding job #{job_name} for Movie #{movie.id} failed or cancelled.")
       end
@@ -84,7 +84,10 @@ class ProcessTranscodingNotification
     details = error['details'] || []
     details.any? do |detail|
       field_violations = detail['fieldViolations'] || []
-      field_violations.any? { |fv| fv['description'] == 'AudioMissing' }
+      field_violations.any? do |fv|
+        description = fv['description'].to_s
+        description.match?(/AudioMissing|audio.*not.*found|no.*audio.*stream/i)
+      end
     end
   rescue StandardError => e
     Rails.logger.error("Failed to check audio missing error: #{e.message}")
