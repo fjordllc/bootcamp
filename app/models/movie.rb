@@ -23,16 +23,6 @@ class Movie < ApplicationRecord
 
   after_create_commit :start_transcode_job, on: :create
 
-  def audio?
-    movie_data.blob.open(tmpdir: Dir.tmpdir) do |file|
-      movie = FFMPEG::Movie.new(file.path)
-      @audio = movie.audio_streams.any?
-    end
-  rescue StandardError => e
-    Rails.logger.error("audio? error: #{e.message}")
-    @audio = false
-  end
-
   private
 
   def start_transcode_job
