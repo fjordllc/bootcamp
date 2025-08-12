@@ -22,4 +22,16 @@ class ExternalEntriesTest < ApplicationSystemTestCase
       end
     end
   end
+
+  test 'does not show "New Report" button on External Entries page' do
+    visit_with_auth external_entries_url, 'komagata'
+    assert_no_link '日報作成'
+    assert_no_selector 'a.btn', text: '日報作成'
+  end
+
+  test 'does not show "New Report" button on External Entries page for general user' do
+    visit_with_auth external_entries_url, 'muryou'
+    assert_no_link '日報作成'
+    assert_no_selector 'a.btn', text: '日報作成'
+  end
 end
