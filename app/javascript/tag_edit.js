@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!tagChangeButton) return
 
   const tagEditModal = document.querySelector('.edit-tag-modal')
+  if (!tagEditModal) return
   const tagForm = tagEditModal.querySelector('.a-text-input')
   const cancelButton = tagEditModal.querySelector('.cancel-change-tag-button')
   const tagSaveButton = tagEditModal.querySelector('.save-tag-button')
@@ -56,8 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
       body: JSON.stringify({ tag: { name: tagName } }),
       contentType: 'application/json'
     })
-      .then(() => {
-        updateTagList(tagName)
+      .then((res) => {
+        if (res?.ok) {
+          updateTagList(tagName)
+        } else {
+          console.warn('Failed to update tag:', res?.status, res?.statusText)
+        }
       })
       .catch((error) => {
         console.warn(error)
