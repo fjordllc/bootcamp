@@ -56,11 +56,11 @@ document.addEventListener('DOMContentLoaded', () => {
       body: JSON.stringify({ tag: { name: tagName } }),
       contentType: 'application/json'
     })
-    .then(() => {
-      updateTagList(tagName)
-    })
-    .catch((error) => {
-      console.warn(error)
-    })
+      .then(() => {
+        updateTagList(tagName)
+      })
+      .catch((error) => {
+        console.warn(error)
+      })
   }
 })
