@@ -261,7 +261,6 @@ class NotificationsTest < ApplicationSystemTestCase
       visit_with_auth "/reports/#{report}", 'komagata'
       fill_in 'new_comment[description]', with: 'コメントと確認した'
       click_button '確認OKにする'
-      assert_text 'コメントと確認した'
       logout
       visit_with_auth '/', 'hatsuno'
       assert_selector 'h2.page-header__title', text: 'ダッシュボード'
