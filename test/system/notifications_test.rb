@@ -259,7 +259,6 @@ class NotificationsTest < ApplicationSystemTestCase
 
     perform_enqueued_jobs do
       visit_with_auth "/reports/#{report}", 'komagata'
-      visit "/reports/#{report}"
       fill_in 'new_comment[description]', with: 'コメントと確認した'
       click_button '確認OKにする'
       assert_text 'コメントと確認した'
