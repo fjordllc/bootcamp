@@ -180,7 +180,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'notify company advisor only on first report posted' do
+  test 'notify company advisor only when report is initially posted' do
     kensyu_login_name = 'kensyu'
     advisor_login_name = 'senpai'
     title = '研修生が日報を作成し提出した時'
@@ -197,7 +197,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     )
   end
 
-  test 'notify follower only on first report posted' do
+  test 'notify follower only when report is initially posted' do
     following = Following.first
     followed_user_login_name = User.find(following.followed_id).login_name
     follower_user_login_name = User.find(following.follower_id).login_name
@@ -215,7 +215,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     )
   end
 
-  test 'notify mention target only on first report posted' do
+  test 'notify mention target only when report is initially posted' do
     mention_target_login_name = 'kimura'
     author_login_name = 'machida'
     title = '初めて提出したら、'
@@ -229,7 +229,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     )
   end
 
-  test 'notify user only on first report posted' do
+  test 'notify user only when report is initially posted' do
     check_notification_login_name = 'machida'
     author_login_name = 'nippounashi'
     title = '初めての日報を提出したら'
