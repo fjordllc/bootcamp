@@ -12,14 +12,12 @@ class ProcessTranscodingNotification
 
     job_name = message[:job_name]
     job_state = message[:job_state]
+    error = message[:error]
 
     movie = find_movie(job_name)
-    unless movie
-      context.fail!(error: "Movie not found for job_name: #{job_name}")
-      return
-    end
+    context.fail!(error: "Movie not found for job_name: #{job_name}") unless movie
 
-    handle_job_state(movie, job_name, job_state)
+    handle_job_state(movie, job_name, job_state, error)
   rescue StandardError => e
     Rails.logger.error("Unhandled error in ProcessTranscodingNotification: #{e.message}")
     context.fail!(error: e.message)
@@ -36,7 +34,8 @@ class ProcessTranscodingNotification
 
     {
       job_name: data.dig('job', 'name'),
-      job_state: data.dig('job', 'state')
+      job_state: data.dig('job', 'state'),
+      error: data.dig('job', 'error')
     }
   rescue JSON::ParserError, ArgumentError => e
     Rails.logger.error("Failed to parse Pub/Sub message: #{e.message}")
@@ -51,12 +50,17 @@ class ProcessTranscodingNotification
     nil
   end
 
-  def handle_job_state(movie, job_name, job_state)
+  def handle_job_state(movie, job_name, job_state, error)
     case job_state
     when 'SUCCEEDED'
       attach_transcoded_file(movie)
     when 'FAILED', 'CANCELLED'
-      Rails.logger.error("Transcoding job #{job_name} for Movie #{movie.id} failed or cancelled.")
+      if audio_missing_error?(error)
+        Rails.logger.warn("Audio missing error detected for Movie #{movie.id}. Retrying without audio.")
+        TranscodeJob.perform_later(movie, force_video_only: true)
+      else
+        Rails.logger.error("Transcoding job #{job_name} for Movie #{movie.id} failed or cancelled.")
+      end
     else
       Rails.logger.warn("Unknown job state: #{job_state} for Movie #{movie.id}")
     end
@@ -72,5 +76,21 @@ class ProcessTranscodingNotification
     raise
   ensure
     transcoded_movie.cleanup if transcoded_movie.respond_to?(:cleanup)
+  end
+
+  def audio_missing_error?(error)
+    return false if error.blank?
+
+    details = error['details'] || []
+    details.any? do |detail|
+      field_violations = detail['fieldViolations'] || []
+      field_violations.any? do |fv|
+        description = fv['description'].to_s
+        description.match?(/AudioMissing|audio.*not.*found|no.*audio.*stream/i)
+      end
+    end
+  rescue StandardError => e
+    Rails.logger.error("Failed to check audio missing error: #{e.message}")
+    false
   end
 end
