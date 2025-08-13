@@ -4,6 +4,7 @@ module ReportHelper
   def create_report(title, description, wip)
     before_count = Report.count
     visit new_report_path
+    assert_selector 'h2.page-header__title', text: '日報作成'
 
     edit_report(title, description)
 
