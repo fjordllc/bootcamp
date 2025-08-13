@@ -2,11 +2,12 @@
 
 module Transcoder
   class Client
-    def initialize(movie = nil, config: nil, bucket_name: nil, project_id: nil)
+    def initialize(movie = nil, config: nil, bucket_name: nil, project_id: nil, force_video_only: false)
       @movie = movie
       @config = config || default_config
       @bucket_name = bucket_name || default_storage_config['bucket']
       @project_id = project_id || default_storage_config['project']
+      @force_video_only = force_video_only
 
       validate_configuration
     end
@@ -52,36 +53,35 @@ module Transcoder
     end
 
     def elementary_streams
-      [
-        {
-          key: 'video-stream',
-          video_stream: {
-            h264: {
-              height_pixels: @config['video_height'],
-              width_pixels: @config['video_width'],
-              bitrate_bps: @config['video_bitrate'],
-              frame_rate: @config['video_frame_rate']
-            }
-          }
-        },
-        {
-          key: 'audio-stream',
-          audio_stream: {
-            codec: @config['audio_codec'],
-            bitrate_bps: @config['audio_bitrate']
+      [video_stream_config, (!@force_video_only ? audio_stream_config : nil)].compact
+    end
+
+    def video_stream_config
+      {
+        key: 'video-stream',
+        video_stream: {
+          h264: {
+            height_pixels: @config['video_height'],
+            width_pixels: @config['video_width'],
+            bitrate_bps: @config['video_bitrate'],
+            frame_rate: @config['video_frame_rate']
           }
         }
-      ]
+      }
+    end
+
+    def audio_stream_config
+      {
+        key: 'audio-stream',
+        audio_stream: {
+          codec: @config['audio_codec'],
+          bitrate_bps: @config['audio_bitrate']
+        }
+      }
     end
 
     def mux_streams
-      [
-        {
-          key: 'muxed-stream',
-          container: @config['container'],
-          elementary_streams: %w[video-stream audio-stream]
-        }
-      ]
+      [{ key: 'muxed-stream', container: @config['container'], elementary_streams: ['video-stream', ('audio-stream' unless @force_video_only)].compact }]
     end
 
     def transcoder_service
