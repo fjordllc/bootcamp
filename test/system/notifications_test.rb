@@ -256,10 +256,10 @@ class NotificationsTest < ApplicationSystemTestCase
   test 'notify comment and check' do
     login_user 'hatsuno', 'testtest'
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
-    report = create_report 'コメントと', '確認があった', false
+    report_id = create_report 'コメントと', '確認があった', false
 
     perform_enqueued_jobs do
-      visit_with_auth "/reports/#{report}", 'komagata'
+      visit_with_auth "/reports/#{report_id}", 'komagata'
       assert_selector 'h1.page-content-header__title', text: 'コメントと'
       fill_in 'new_comment[description]', with: 'コメントと確認した'
       click_button '確認OKにする'
