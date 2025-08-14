@@ -99,14 +99,16 @@ class Page::TagsTest < ApplicationSystemTestCase
     visit_with_auth new_page_path, 'kimura'
     ['半角スペースは 使えない', '全角スペースも　使えない'].each do |tag|
       fill_in_tag_with_alert tag
+      assert_no_selector('.tagify__tag')
     end
     fill_in_tag 'foo'
+    assert_selector('input[name="page[tag_list]"][value="foo"]', visible: false)
     within('form[name=page]') do
       fill_in('page[title]', with: 'test title')
       fill_in('page[body]', with: 'test body')
       click_button 'Docを公開'
     end
-    assert_equal ['foo'], all('.tag-links__item-link').map(&:text).sort
+    assert_selector('.tag-links__item-link', text: 'foo', count: 1)
   end
 
   test 'alert when enter one dot only tag on creation page' do
