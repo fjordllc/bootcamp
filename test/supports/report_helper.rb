@@ -20,6 +20,7 @@ module ReportHelper
       assert_selector 'h1.page-content-header__title', text: title
     end
 
+    # 作成した日報のpathからidを返す
     report_match_id = current_path.match(%r{^/reports/(\d+)(/edit)?$})
     assert report_match_id, "Unexpected path after creating report: #{current_path}"
     report_match_id[1].to_i
