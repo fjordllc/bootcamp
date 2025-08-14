@@ -264,7 +264,7 @@ class NotificationsTest < ApplicationSystemTestCase
       fill_in 'new_comment[description]', with: 'コメントと確認した'
       click_button '確認OKにする'
       logout
-      visit_with_auth '/', 'hatsuno'
+      visit_with_auth root_path, 'hatsuno'
       assert_selector 'h2.page-header__title', text: 'ダッシュボード'
       find('.header-links__link.test-show-notifications').click
       assert_text 'hatsunoさんの日報「コメントと」にkomagataさんがコメントしました。'
