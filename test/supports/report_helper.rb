@@ -14,10 +14,11 @@ module ReportHelper
 
     click_button(wip ? 'WIP' : '提出')
 
-    assert(
-      page.has_selector?('h1.page-content-header__title', text: title, wait: 5) ||
-        page.has_selector?('h2.page-header__title', text: '日報編集')
-    )
+    if wip
+      assert_selector 'h2.page-header__title', text: '日報編集', wait: 5
+    else
+      assert_selector 'h1.page-content-header__title', text: title
+    end
 
     current_path.match(%r{^/reports/(\d+)(/edit|)$})[1].to_i
   end
