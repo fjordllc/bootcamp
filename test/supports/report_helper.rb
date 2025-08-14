@@ -20,7 +20,7 @@ module ReportHelper
       assert_selector 'h1.page-content-header__title', text: title
     end
 
-    report_match_id = current_path.match(%r{^/reports/(\d+)(/edit|)$})
+    report_match_id = current_path.match(%r{^/reports/(\d+)(/edit)?$})
     assert report_match_id, "Unexpected path after creating report: #{current_path}"
     report_match_id[1].to_i
   end
