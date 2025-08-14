@@ -229,7 +229,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     )
   end
 
-  test 'notify user only when report is initially posted' do
+  test 'notify user only when first report is initially posted' do
     check_notification_login_name = 'machida'
     author_login_name = 'nippounashi'
     title = '初めての日報を提出したら'
