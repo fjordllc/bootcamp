@@ -69,16 +69,10 @@ class QuestionAutoCloser
 
     def close_with_best_answer(question, system_user)
       ActiveRecord::Base.transaction do
-        remove_existing_best_answer(question)
         close_answer = create_close_message(question, system_user)
         select_as_best_answer(close_answer)
         publish_events(close_answer)
       end
-    end
-
-    def remove_existing_best_answer(question)
-      existing_correct = CorrectAnswer.find_by(question_id: question.id)
-      existing_correct&.destroy
     end
 
     def create_close_message(question, system_user)

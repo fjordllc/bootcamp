@@ -41,3 +41,10 @@ answer<%= i %>:
   user: komagata
   question: question1
 <% end %>
+
+answer51:
+  description: <%= QuestionAutoCloser::AUTO_CLOSE_WARNING_MESSAGE %>
+  user: pjord
+  question: question51
+  created_at: <%= Time.current - 1.week %>
+  updated_at: <%= Time.current - 1.week %>
