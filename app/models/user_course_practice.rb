@@ -94,11 +94,7 @@ class UserCoursePractice
   private
 
   def unstarted_practices
-    practices = @user.course.practices
-    @unstarted_practices ||= practices -
-                             practices.joins(:learnings).where(learnings: { user_id: @user.id, status: :started })
-                                      .or(practices.joins(:learnings).where(learnings: { user_id: @user.id, status: :submitted }))
-                                      .or(practices.joins(:learnings).where(learnings: { user_id: @user.id, status: :complete }))
+    @unstarted_practices ||= UserUnstartedPracticesQuery.new(user: @user).call
   end
 
   def category_having_active_practice
