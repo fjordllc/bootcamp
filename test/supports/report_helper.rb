@@ -3,6 +3,7 @@
 module ReportHelper
   def create_report(title, description, wip)
     visit new_report_path
+    assert_selector 'h2.page-header__title', text: '日報作成'
 
     edit_report(title, description)
 
@@ -13,8 +14,16 @@ module ReportHelper
 
     click_button(wip ? 'WIP' : '提出')
 
-    # 作成した日報のidを返す
-    Report.last.id
+    if wip
+      assert_selector 'h2.page-header__title', text: '日報編集'
+    else
+      assert_selector 'h1.page-content-header__title', text: title
+    end
+
+    # 作成した日報のpathからidを返す
+    path_match = current_path.match(%r{^/reports/(\d+)(/edit)?$})
+    assert path_match, "Unexpected path after creating report: #{current_path}"
+    path_match[1].to_i
   end
 
   def update_report(id, title, description, wip)
