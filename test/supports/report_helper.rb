@@ -15,7 +15,7 @@ module ReportHelper
     click_button(wip ? 'WIP' : '提出')
 
     if wip
-      assert_selector 'h2.page-header__title', text: '日報編集', wait: 5
+      assert_selector 'h2.page-header__title', text: '日報編集'
     else
       assert_selector 'h1.page-content-header__title', text: title
     end
