@@ -9,7 +9,7 @@ class GraduationController < ApplicationController
   def update
     if @user.update(graduated_on: Date.current)
       Subscription.new.destroy(@user.subscription_id) if @user.subscription_id
-      Newspaper.publish(:graduation_update, { user: @user })
+      ActiveSupport::Notifications.instrument('graduation.update', user: @user)
       redirect_to @redirect_url, notice: 'ユーザー情報を更新しました。'
     else
       redirect_to @redirect_url, alert: 'ユーザー情報の更新に失敗しました'

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CorrectAnswerNotifier
-  def call(payload)
+  def call(_name, _started, _finished, _unique_id, payload)
     answer = payload[:answer]
     notify_correct_answer(answer)
     notify_to_chat(answer)
