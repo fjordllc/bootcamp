@@ -2,7 +2,7 @@ import React from 'react'
 import LoadingListPlaceholder from '../LoadingListPlaceholder'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import { UserIconFrameClass } from '../UserIconFrameClass'
+import userIconFrameClass from '../../user-icon-frame-class.js'
 dayjs.extend(relativeTime)
 
 export default function Notifications({ notifications, targetStatus }) {
@@ -58,7 +58,7 @@ function Notification({ notification }) {
         className="header-dropdown__item-link unconfirmed_link">
         <div className="header-notifications-item__body">
           <span
-            className={`${UserIconFrameClass(
+            className={`${userIconFrameClass(
               notification.sender
             )} header-notifications-item__user-icon`}>
             <img

@@ -1,4 +1,4 @@
-export function UserIconFrameClass(user) {
+export default function userIconFrameClass(user) {
   return `a-user-role is-${user.primary_role} ${
     user.joining_status === 'new-user' ? 'is-new-user' : ''
   }`
