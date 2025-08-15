@@ -25,8 +25,13 @@ class API::PubSubController < API::BaseController
 
   def valid_pubsub_token?(token)
     validator = GoogleIDToken::Validator.new
-    current_audience = request.original_url
-    validator.check(token, current_audience)
+    expected_audience = ENV['PUBSUB_AUDIENCE'].presence
+    payload = validator.check(token, expected_audience)
+
+    expected_sa_email = ENV['PUBSUB_SERVICE_ACCOUNT_EMAIL'].presence
+
+    sa_email_claim = payload['email']
+    sa_email_claim == expected_sa_email
   rescue GoogleIDToken::ValidationError => e
     Rails.logger.warn("Invalid JWT: #{e.message}")
     false
