@@ -21,9 +21,9 @@ module ReportHelper
     end
 
     # 作成した日報のpathからidを返す
-    report_match_id = current_path.match(%r{^/reports/(\d+)(/edit)?$})
-    assert report_match_id, "Unexpected path after creating report: #{current_path}"
-    report_match_id[1].to_i
+    path_match = current_path.match(%r{^/reports/(\d+)(/edit)?$})
+    assert path_match, "Unexpected path after creating report: #{current_path}"
+    path_match[1].to_i
   end
 
   def update_report(id, title, description, wip)
