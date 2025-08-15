@@ -41,4 +41,12 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('student_or_trainee.create', TimesChannelCreator.new)
   ActiveSupport::Notifications.subscribe('user.create', SignUpNotifier.new)
   ActiveSupport::Notifications.subscribe('regular_event.update', RegularEventUpdateNotifier.new)
+
+  mentors_watch_for_question_creator = MentorsWatchForQuestionCreator.new
+  ActiveSupport::Notifications.subscribe('question.create', mentors_watch_for_question_creator)
+  ActiveSupport::Notifications.subscribe('question.update', mentors_watch_for_question_creator)
+
+  ai_answer_creator = AIAnswerCreator.new
+  ActiveSupport::Notifications.subscribe('question.create', ai_answer_creator)
+  ActiveSupport::Notifications.subscribe('question.update', ai_answer_creator)
 end
