@@ -59,7 +59,7 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
     get api_products_self_assigned_index_path(format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
 
-    expected = products(:product15, :product63, :product62, :product64).map { |product| product.practice.title }
+    expected = products(:product15, :product62, :product64, :product63).map { |product| product.practice.title }
     actual = response.parsed_body['products'].map { |product| product['practice']['title'] }
     assert_equal expected, actual
   end
