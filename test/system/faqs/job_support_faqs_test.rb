@@ -8,7 +8,7 @@ class JobSupportFAQsTest < ApplicationSystemTestCase
   test 'shows FAQs' do
     category = FAQCategory.find_by(name: FAQ_CATEGORY_NAME)
     visit job_support_path
-    assert_selector 'h3.lp-content-title', text: "#{FAQ_CATEGORY_NAME}\nよくある質問"
+    assert_selector 'h3.lp-content-title', text: /#{Regexp.escape(FAQ_CATEGORY_NAME)}\s*よくある質問/
     assert_selector '.lp-faq', count: category.faqs.size
   end
 
