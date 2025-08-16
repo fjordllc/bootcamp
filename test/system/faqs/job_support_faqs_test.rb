@@ -3,7 +3,7 @@
 require 'application_system_test_case'
 
 class JobSupportFAQsTest < ApplicationSystemTestCase
-  FAQ_CATEGORY_NAME = '就職について'
+  FAQ_CATEGORY_NAME = WelcomeController::FAQ_CATEGORY_NAME_FOR_JOB_SUPPORT
 
   test 'shows FAQs' do
     category = FAQCategory.find_by(name: FAQ_CATEGORY_NAME)
