@@ -24,6 +24,6 @@ class JobSupportFAQsTest < ApplicationSystemTestCase
     category = FAQCategory.find_by(name: FAQ_CATEGORY_NAME)
     category.faqs.destroy_all
     visit_with_auth job_support_path, 'komagata'
-    assert_selector '.a-button', text: 'よくある質問を追加する'
+    assert_link 'よくある質問を追加する', href: '/admin/faqs/new'
   end
 end
