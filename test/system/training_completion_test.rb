@@ -86,12 +86,13 @@ class TrainingCompletionTest < ApplicationSystemTestCase
 
     visit new_training_completion_path
     find('label', text: 'とても良い').click
-    assert_difference '@user.reports.wip.count', -1 do
-      page.accept_confirm '本当によろしいですか？' do
-        click_on '研修を終了する'
-      end
-      assert_text '研修終了手続きが完了しました'
+
+    page.accept_confirm '本当によろしいですか？' do
+      click_on '研修を終了する'
     end
+
+    assert_text '研修終了手続きが完了しました'
+    assert_not @user.reports.wip.exists?
     assert_equal Time.current, @user.reload.training_completed_at
   end
 
