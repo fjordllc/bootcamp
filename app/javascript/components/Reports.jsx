@@ -9,7 +9,6 @@ import UnconfirmedLink from './UnconfirmedLink'
 import usePage from './hooks/usePage'
 
 export default function Reports({
-  all = false,
   userId = '',
   practices = false,
   unchecked = false,
@@ -26,22 +25,14 @@ export default function Reports({
     setUserPracticeId(userPracticeId)
   }, [userPracticeId])
 
-  const { data, error } = useSWR(
-    practices
-      ? `/api/reports.json?user_id=${userId}&page=${page}&practice_id=${userPracticeId}`
-      : unchecked
-      ? `/api/reports/unchecked.json?page=${page}&user_id=${userId}`
-      : userId !== ''
-      ? `/api/reports.json?page=${page}&user_id=${userId}`
-      : practiceId !== ''
-      ? `/api/reports.json?page=${page}&practice_id=${practiceId}`
-      : companyId !== ''
-      ? `/api/reports.json?page=${page}&company_id=${companyId}`
-      : all === true
-      ? `/api/reports.json?page=${page}&practice_id=${userPracticeId}`
-      : console.log('data_fetched!'),
-    fetcher
-  )
+  let reportsUrl = `/api/reports.json?page=${page}`
+  if (userId) reportsUrl += `&user_id=${userId}`
+  if (practiceId) reportsUrl += `&practice_id=${practiceId}`
+  if (companyId) reportsUrl += `&company_id=${companyId}`
+  if (userPracticeId) reportsUrl += `&practice_id=${userPracticeId}`
+  if (unchecked) reportsUrl += `&target=unchecked_reports`
+
+  const { data, error } = useSWR(reportsUrl, fetcher)
 
   if (error) return <>エラーが発生しました。</>
   if (!data) {
