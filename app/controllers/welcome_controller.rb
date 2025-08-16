@@ -19,8 +19,7 @@ class WelcomeController < ApplicationController
   end
 
   def job_support
-    category = FAQCategory.find_by(name: FAQ_CATEGORY_NAME_FOR_JOB_SUPPORT)
-    @faqs = category&.faqs || FAQ.none
+    @faqs = faqs_for(FAQ_CATEGORY_NAME_FOR_JOB_SUPPORT)
   end
 
   def pricing; end
@@ -39,8 +38,7 @@ class WelcomeController < ApplicationController
   end
 
   def training
-    category = FAQCategory.find_by(name: FAQ_CATEGORY_NAME_FOR_TRAINING)
-    @faqs = category&.faqs || FAQ.none
+    @faqs = faqs_for(FAQ_CATEGORY_NAME_FOR_TRAINING)
   end
 
   def practices; end
@@ -60,8 +58,7 @@ class WelcomeController < ApplicationController
   def logo; end
 
   def rails_developer_course
-    category = FAQCategory.find_by(name: FAQ_CATEGORY_NAME_FOR_CERTIFIED_RESKILL_COURSES)
-    @faqs = category&.faqs || FAQ.none
+    @faqs = faqs_for(FAQ_CATEGORY_NAME_FOR_CERTIFIED_RESKILL_COURSES)
     render template: 'welcome/certified_reskill_courses/rails_developer_course/index'
   end
 
@@ -77,5 +74,9 @@ class WelcomeController < ApplicationController
     return if current_user&.admin?
 
     redirect_to root_path, alert: 'ページのアクセス権限がありませんでした。'
+  end
+
+  def faqs_for(category_name)
+    FAQCategory.find_by(name: category_name)&.faqs&.order(:position) || FAQ.none
   end
 end
