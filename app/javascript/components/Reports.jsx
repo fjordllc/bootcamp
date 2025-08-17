@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import useSWR from 'swr'
 import fetcher from '../fetcher'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
@@ -20,10 +20,6 @@ export default function Reports({
   const per = 20
   const { page, setPage } = usePage()
   const [userPracticeId, setUserPracticeId] = useState('')
-
-  useEffect(() => {
-    setUserPracticeId(userPracticeId)
-  }, [userPracticeId])
 
   let reportsUrl = `/api/reports.json?page=${page}`
   if (userId) reportsUrl += `&user_id=${userId}`
