@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import Following from './Following.jsx'
 import UserActivityCounts from './UserActivityCounts.jsx'
-import UserSns from './UserSns.jsx'
 import UserTags from './UserTags.jsx'
 import UserPracticeProgress from './UserPracticeProgress.jsx'
 import { UserIconFrameClass } from './UserIconFrameClass.jsx'
+import userSns from '../user-sns.js'
 
 export default function User({ user, currentUser }) {
   const userDescParagraphs = () => {
@@ -21,6 +21,15 @@ export default function User({ user, currentUser }) {
     })
     return paragraphs
   }
+
+  const userSnsRef = useRef(null)
+  useEffect(() => {
+    const userSnsElement = userSns(user)
+    if (userSnsRef.current) {
+      userSnsRef.current.innerHTML = ''
+      userSnsRef.current.appendChild(userSnsElement)
+    }
+  }, [user])
 
   return (
     <div className="col-xxxl-2 col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-xs-12">
@@ -102,7 +111,7 @@ export default function User({ user, currentUser }) {
                     </div>
                   </div>
                 </div>
-                <UserSns user={user} />
+                <div className="sns-links" ref={userSnsRef}></div>
               </div>
             </div>
             <UserActivityCounts user={user} />
