@@ -23,9 +23,9 @@ export default function Reports({
 
   let reportsUrl = `/api/reports.json?page=${page}`
   if (userId) reportsUrl += `&user_id=${userId}`
-  if (practiceId) reportsUrl += `&practice_id=${practiceId}`
   if (companyId) reportsUrl += `&company_id=${companyId}`
-  if (userPracticeId) reportsUrl += `&practice_id=${userPracticeId}`
+  const pid = userPracticeId || practiceId
+  if (pid) reportsUrl += `&practice_id=${pid}`
   if (unchecked) reportsUrl += `&target=unchecked_reports`
 
   const { data, error } = useSWR(reportsUrl, fetcher)
