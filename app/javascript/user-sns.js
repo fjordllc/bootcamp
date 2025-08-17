@@ -1,105 +1,55 @@
 export default function userSns(user) {
-  const githubUrl = `https://github.com/${user.github_account}`
-  const twitterUrl = `https://twitter.com/${user.twitter_account}`
+  const snsAccounts = [
+    {
+      baseUrl: 'https://github.com/',
+      url: user.github_account,
+      iconClass: 'fa-brands fa-github-alt'
+    },
+    {
+      baseUrl: 'https://twitter.com/',
+      url: user.twitter_account,
+      iconClass: 'fa-brands fa-x-twitter'
+    },
+    {
+      url: user.facebook_url,
+      iconClass: 'fa-brands fa-facebook-square'
+    },
+    {
+      url: user.blog_url,
+      iconClass: 'fa-solid fa-blog'
+    },
+    {
+      url: user.discord_profile?.times_url,
+      iconClass: 'fa-solid fa-clock'
+    }
+  ]
 
   const fragment = document.createDocumentFragment()
 
   const ul = document.createElement('ul')
   ul.className = 'sns-links__items is-button-group'
 
-  // GitHub
-  const liGithub = document.createElement('li')
-  liGithub.className = 'sns-links__item'
+  snsAccounts.forEach((account) => {
+    const li = document.createElement('li')
+    li.className = 'sns-links__item'
 
-  if (user.github_account) {
-    const a = document.createElement('a')
-    a.className = 'sns-links__item-link a-button is-sm is-secondary is-icon'
-    a.href = githubUrl
-    a.innerHTML = '<i class="fa-brands fa-github-alt"></i>'
-    liGithub.appendChild(a)
-  } else {
-    const div = document.createElement('div')
-    div.className = 'sns-links__item-link a-button is-sm is-disabled is-icon'
-    div.innerHTML = '<i class="fa-brands fa-github-alt"></i>'
-    liGithub.appendChild(div)
-  }
-  ul.appendChild(liGithub)
+    const isAvailable = Boolean(account.url)
+    const tag = isAvailable ? 'a' : 'div'
+    const statusClass = isAvailable ? 'is-secondary' : 'is-disabled'
+    const url = account.baseUrl ? account.baseUrl + account.url : account.url
 
-  // Twitter
-  const liTwitter = document.createElement('li')
-  liTwitter.className = 'sns-links__item'
+    const snsLink = document.createElement(tag)
+    snsLink.className = `sns-links__item-link a-button is-sm ${statusClass} is-icon`
+    isAvailable && (snsLink.href = url)
+    const icon = document.createElement('i')
+    icon.className = account.iconClass
 
-  if (user.twitter_account) {
-    const a = document.createElement('a')
-    a.className = 'sns-links__item-link a-button is-sm is-secondary is-icon'
-    a.href = twitterUrl
-    a.innerHTML = '<i class="fa-brands fa-x-twitter"></i>'
-    liTwitter.appendChild(a)
-  } else {
-    const div = document.createElement('div')
-    div.className = 'sns-links__item-link a-button is-sm is-disabled is-icon'
-    div.innerHTML = '<i class="fa-brands fa-x-twitter"></i>'
-    liTwitter.appendChild(div)
-  }
-  ul.appendChild(liTwitter)
-
-  // facebook
-  const liFacebook = document.createElement('li')
-  liFacebook.className = 'sns-links__item'
-
-  if (user.facebook_url) {
-    const a = document.createElement('a')
-    a.className = 'sns-links__item-link a-button is-sm is-secondary is-icon'
-    a.href = user.facebook_url
-    a.innerHTML = '<i class="fa-brands fa-facebook-square"></i>'
-    liFacebook.appendChild(a)
-  } else {
-    const div = document.createElement('div')
-    div.className = 'sns-links__item-link a-button is-sm is-disabled is-icon'
-    div.innerHTML = '<i class="fa-brands fa-facebook-square"></i>'
-    liFacebook.appendChild(div)
-  }
-  ul.appendChild(liFacebook)
-
-  // Blog
-  const liBlog = document.createElement('li')
-  liBlog.className = 'sns-links__item'
-
-  if (user.blog_url) {
-    const a = document.createElement('a')
-    a.className = 'sns-links__item-link a-button is-sm is-secondary is-icon'
-    a.href = user.blog_url
-    a.innerHTML = '<i class="fa-solid fa-blog"></i>'
-    liBlog.appendChild(a)
-  } else {
-    const div = document.createElement('div')
-    div.className = 'sns-links__item-link a-button is-sm is-disabled is-icon'
-    div.innerHTML = '<i class="fa-solid fa-blog"></i>'
-    liBlog.appendChild(div)
-  }
-  ul.appendChild(liBlog)
-
-  // Discrod
-  const liDiscord = document.createElement('li')
-  liDiscord.className = 'sns-links__item'
-
-  if (user.discord_profile.times_url) {
-    const a = document.createElement('a')
-    a.className = 'sns-links__item-link a-button is-sm is-secondary is-icon'
-    a.href = user.discord_profile.times_url
-    a.innerHTML = '<i class="fa-solid fa-clock"></i>'
-    liDiscord.appendChild(a)
-  } else {
-    const div = document.createElement('div')
-    div.className = 'sns-links__item-link a-button is-sm is-disabled is-icon'
-    div.innerHTML = '<i class="fa-solid fa-clock"></i>'
-    liDiscord.appendChild(div)
-  }
-  ul.appendChild(liDiscord)
-
+    snsLink.appendChild(icon)
+    li.appendChild(snsLink)
+    ul.appendChild(li)
+  })
   fragment.append(ul)
 
-  // Company
   if (user.company && user.company.logo_url) {
     const a = document.createElement('a')
     a.href = user.company.url
@@ -107,6 +57,7 @@ export default function userSns(user) {
     const img = document.createElement('img')
     img.className = 'user-item__company-logo-image'
     img.src = user.company.logo_url
+
     a.appendChild(img)
     fragment.append(a)
   }
