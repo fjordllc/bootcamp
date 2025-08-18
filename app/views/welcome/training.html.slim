@@ -1,7 +1,7 @@
 - content_for :extra_body_classes, 'welcome no-forms'
 - title '企業研修代行'
 - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
-  description: 'フィヨルドブートキャンプのカリキュラムは「ソフトウェアエンジニアとして就職するためのカリキュラム」ではなく「現場のプラスの戦力になるためのカリキュラム」なので、法人の研修にも最適です。料金は月額99,800円です。')
+  description: 'フィヨルドブートキャンプのカリキュラムは「ソフトウェアエンジニアとして就職するためのカリキュラム」ではなく「現場のプラスの戦力になるためのカリキュラム」なので、法人の研修にも最適です。')
 
 article.lp
   header.lp-content.is-lp-bg-main.is-hero
@@ -343,6 +343,15 @@ article.lp
                     | /
                   span.lp-price__per-person
                     | 人
+              .new-price-info.text-center.a-notice-block.is-danger.mt-4
+                p.text-base
+                  | 2023年10月1日より、価格改定を行います。
+                  br
+                  | 価格改定後は月額 税抜99,800円（税込109,780円）
+                  br
+                  = link_to 'https://bootcamp.fjord.jp/articles/177', class: 'a-link is-primary', target: '_blank', rel: 'noopener' do
+                    | 価格改定の詳細はこちら
+
               p.lp-price-note.text-center.mt-4
                 | 一般利用の場合は、月額 29,800円（税込）
             .lp-content-stack__item
@@ -728,25 +737,26 @@ article.lp
         svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
           path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
 
-  section.lp-content.is-lp-bg-1.is-left-title.lp-faqs
-    .l-container.is-lg
-      .lp-content__inner
-        .lp-content__start
-          header.lp-content__header
-            h3.lp-content-title.is-vertical.is-border-left
-              | 企業研修代行について
-              br
-              strong
-                | よくある質問
-        .lp-content__end
-          .lp-faqs__items
-            - @faqs.each do |faq|
-              section.lp-faq
-                .lp-faq__inner
-                  header.lp-faq__header
-                    h4.lp-faq__title
-                      = faq.question
-                  .lp-faq__body
-                    .a-short-text.js-markdown-view
-                      = faq.answer
-              hr.a-border
+  - if @faqs.present?
+    section.lp-content.is-lp-bg-1.is-left-title.lp-faqs
+      .l-container.is-lg
+        .lp-content__inner
+          .lp-content__start
+            header.lp-content__header
+              h3.lp-content-title.is-vertical.is-border-left
+                | 法人利用について
+                br
+                strong
+                  | よくある質問
+          .lp-content__end
+            .lp-faqs__items
+              - @faqs.each do |faq|
+                section.lp-faq
+                  .lp-faq__inner
+                    header.lp-faq__header
+                      h4.lp-faq__title
+                        = faq.question
+                    .lp-faq__body
+                      .a-short-text.js-markdown-view
+                        = faq.answer
+                hr.a-border
