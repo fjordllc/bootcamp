@@ -51,6 +51,29 @@ steps:
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     args:
       - sql
+      - connect
+      - bootcamp
+      - '--user=$_DB_USER'
+      - '--database=postgres'
+    id: TerminateDBConnections
+    waitFor:
+      - StopService
+    entrypoint: bash
+    script: |
+      gcloud sql connect bootcamp --user=$_DB_USER --database=postgres <<EOF
+      SELECT pg_terminate_backend(pid) 
+      FROM pg_stat_activity 
+      WHERE datname = 'bootcamp_staging' 
+      AND pid <> pg_backend_pid();
+      \q
+      EOF
+    volumes:
+      - name: db
+        path: /cloudsql
+    continueOnError: true
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    args:
+      - sql
       - databases
       - delete
       - bootcamp_staging
@@ -58,7 +81,7 @@ steps:
       - '--quiet'
     id: DeleteDB
     waitFor:
-      - StopService
+      - TerminateDBConnections
     entrypoint: gcloud
     volumes:
       - name: db
