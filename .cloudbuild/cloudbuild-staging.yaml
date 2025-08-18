@@ -36,6 +36,20 @@ steps:
         path: /cloudsql
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     args:
+      - run
+      - services
+      - delete
+      - $_SERVICE_NAME
+      - '--platform=managed'
+      - '--region=asia-northeast1'
+      - '--quiet'
+    id: StopService
+    waitFor:
+      - Push
+    entrypoint: gcloud
+    continueOnError: true
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    args:
       - sql
       - databases
       - delete
@@ -44,7 +58,7 @@ steps:
       - '--quiet'
     id: DeleteDB
     waitFor:
-      - Push
+      - StopService
     entrypoint: gcloud
     volumes:
       - name: db
