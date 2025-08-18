@@ -36,7 +36,5 @@ module Bootcamp
     config.to_prepare do
       Doorkeeper::AuthorizationsController.layout "authorization"
     end
-    
-    config.transcoder = config_for(:transcoder)
   end
 end
