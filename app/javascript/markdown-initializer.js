@@ -14,6 +14,7 @@ import MarkDownItLinkAttributes from 'markdown-it-link-attributes'
 import MarkDownItContainerSpeak from 'markdown-it-container-speak'
 import ReplaceLinkToCard from 'replace-link-to-card'
 import MarkDownItContainerFigure from 'markdown-it-container-figure'
+import MarkdownItPurifier from 'markdown-it-purifier'
 
 export default class {
   replace(selector) {
@@ -57,6 +58,7 @@ export default class {
     })
     md.use(MarkDownItContainerSpeak)
     md.use(MarkDownItContainerFigure)
+    md.use(MarkdownItPurifier)
     return md.render(text)
   }
 }
