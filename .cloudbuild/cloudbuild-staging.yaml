@@ -44,31 +44,26 @@ steps:
         
         # Cloud SQL Proxyの起動を待つ（最大60秒）
         echo "Waiting for Cloud SQL Proxy to be ready..."
-        SOCKET_PATH="/cloudsql/$_CLOUD_SQL_HOST"
         TIMEOUT=60
         ELAPSED=0
         
         while [ $ELAPSED -lt $TIMEOUT ]; do
-          if [ -S "$SOCKET_PATH" ]; then
-            echo "Cloud SQL Proxy socket found at $SOCKET_PATH"
-            # ソケットが存在してもすぐには使えない場合があるため、実際に接続を試みる
-            if cat <<'TESTEOF' | bin/rails runner - 2>/dev/null
+          echo "Attempting database connection... ($ELAPSED/$TIMEOUT seconds)"
+          if cat <<'TESTEOF' | bin/rails runner - 2>/dev/null
         begin
           ActiveRecord::Base.connection.execute("SELECT 1")
           puts "Database connection successful"
           exit 0
         rescue => e
+          puts "Connection failed: #{e.message}"
           exit 1
         end
         TESTEOF
-            then
-              echo "Database connection verified, proceeding to terminate connections..."
-              break
-            else
-              echo "Socket exists but connection not ready yet, waiting..."
-            fi
+          then
+            echo "Database connection verified, proceeding to terminate connections..."
+            break
           else
-            echo "Waiting for Cloud SQL Proxy socket at $SOCKET_PATH... ($ELAPSED/$TIMEOUT seconds)"
+            echo "Database not ready yet, waiting..."
           fi
           sleep 2
           ELAPSED=$((ELAPSED + 2))
@@ -101,7 +96,7 @@ steps:
       - RAILS_ENV=production
       - DISABLE_DATABASE_ENVIRONMENT_CHECK=1
       - DB_HOST=/cloudsql/$_CLOUD_SQL_HOST
-      - DB_NAME=bootcamp_production
+      - DB_NAME=postgres
       - DB_PASS=$_DB_PASS
       - DB_USER=$_DB_USER
       - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
