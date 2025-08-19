@@ -25,7 +25,11 @@ export default function User({ user, currentUser }) {
   return (
     <div className="col-xxxl-2 col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-xs-12">
       <div className="users-item is-react">
-        <div className={`users-item__inner a-card ${userIconFrameClass(user)}`}>
+        <div
+          className={`users-item__inner a-card ${userIconFrameClass(
+            user.primary_role,
+            user.joining_status
+          )}`}>
           {currentUser &&
             (currentUser.mentor || currentUser.admin) &&
             user.student_or_trainee && (
@@ -53,7 +57,11 @@ export default function User({ user, currentUser }) {
               <div className="users-item__header-start">
                 <div className="users-item__icon">
                   <a href={user.url}>
-                    <span className={userIconFrameClass(user)}>
+                    <span
+                      className={userIconFrameClass(
+                        user.primary_role,
+                        user.joining_status
+                      )}>
                       <img
                         className="users-item__user-icon-image a-user-icon"
                         src={user.avatar_url}
