@@ -34,6 +34,35 @@ steps:
     volumes:
       - name: db
         path: /cloudsql
+  # 既存の接続を強制的に切断
+  - name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
+    args:
+      - bash
+      - '-c'
+      - |
+        cat <<'EOF' | bin/rails runner -
+        ActiveRecord::Base.connection.execute("
+          SELECT pg_terminate_backend(pid)
+          FROM pg_stat_activity
+          WHERE datname = 'bootcamp_staging'
+            AND pid <> pg_backend_pid()
+        ")
+        EOF
+    id: TerminateConnections
+    waitFor:
+      - Push
+    volumes:
+      - name: db
+        path: /cloudsql
+    env:
+      - RAILS_ENV=production
+      - DISABLE_DATABASE_ENVIRONMENT_CHECK=1
+      - DB_HOST=/cloudsql/$_CLOUD_SQL_HOST
+      - DB_NAME=bootcamp_production
+      - DB_PASS=$_DB_PASS
+      - DB_USER=$_DB_USER
+      - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
+  # データベースを削除
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     args:
       - sql
@@ -44,7 +73,7 @@ steps:
       - '--quiet'
     id: DeleteDB
     waitFor:
-      - Push
+      - TerminateConnections
     entrypoint: gcloud
     volumes:
       - name: db
