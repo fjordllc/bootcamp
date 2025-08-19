@@ -1,5 +1,5 @@
-export default function userIconFrameClass(user) {
-  return `a-user-role is-${user.primary_role} ${
-    user.joining_status === 'new-user' ? 'is-new-user' : ''
-  }`
+export default function userIconFrameClass(primaryRole, joiningStatus) {
+  const primaryRoleClass = primaryRole ? `is-${primaryRole}` : '';
+  const newUserClass = joiningStatus === 'new-user' ? 'is-new-user' : ''
+  return ['a-user-role', primaryRoleClass, newUserClass].filter(Boolean).join(' ');
 }

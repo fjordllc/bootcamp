@@ -70,7 +70,11 @@ const DisplayUserIcon = ({ report }) => {
   return (
     <div className="card-list-item__user">
       <a href={report.user.url} className="card-list-item__user-link">
-        <span className={userIconFrameClass(report.user)}>
+        <span
+          className={userIconFrameClass(
+            report.user.primary_role,
+            report.user.joining_status
+          )}>
           <img
             className="card-list-item__user-icon a-user-icon"
             src={report.user.avatar_url}

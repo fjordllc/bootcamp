@@ -21,8 +21,12 @@ export default function ListComment({ report }) {
                       className="card-list-item__user-icons-icon"
                       href={`/users/${comment.user_id}`}
                       key={comment.user_id}>
-                      <span className={userIconFrameClass(comment)}>
-                        <img className="a-user-icon" src={comment.user_icon}/>
+                      <span
+                        className={userIconFrameClass(
+                          comment.primary_role,
+                          comment.joining_status
+                        )}>
+                        <img className="a-user-icon" src={comment.user_icon} />
                       </span>
                     </a>
                   )

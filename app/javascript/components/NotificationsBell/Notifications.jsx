@@ -59,7 +59,8 @@ function Notification({ notification }) {
         <div className="header-notifications-item__body">
           <span
             className={`${userIconFrameClass(
-              notification.sender
+              notification.sender.primary_role,
+              notification.sender.joining_status
             )} header-notifications-item__user-icon`}>
             <img
               src={notification.sender.avatar_url}
