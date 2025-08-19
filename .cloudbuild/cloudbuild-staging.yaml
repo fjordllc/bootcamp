@@ -40,13 +40,56 @@ steps:
       - bash
       - '-c'
       - |
+        set -euo pipefail
+        
+        # Cloud SQL Proxyの起動を待つ（最大60秒）
+        echo "Waiting for Cloud SQL Proxy to be ready..."
+        SOCKET_PATH="/cloudsql/$_CLOUD_SQL_HOST"
+        TIMEOUT=60
+        ELAPSED=0
+        
+        while [ $ELAPSED -lt $TIMEOUT ]; do
+          if [ -S "$SOCKET_PATH" ]; then
+            echo "Cloud SQL Proxy socket found at $SOCKET_PATH"
+            # ソケットが存在してもすぐには使えない場合があるため、実際に接続を試みる
+            if cat <<'TESTEOF' | bin/rails runner - 2>/dev/null
+        begin
+          ActiveRecord::Base.connection.execute("SELECT 1")
+          puts "Database connection successful"
+          exit 0
+        rescue => e
+          exit 1
+        end
+        TESTEOF
+            then
+              echo "Database connection verified, proceeding to terminate connections..."
+              break
+            else
+              echo "Socket exists but connection not ready yet, waiting..."
+            fi
+          else
+            echo "Waiting for Cloud SQL Proxy socket at $SOCKET_PATH... ($ELAPSED/$TIMEOUT seconds)"
+          fi
+          sleep 2
+          ELAPSED=$((ELAPSED + 2))
+        done
+        
+        if [ $ELAPSED -ge $TIMEOUT ]; then
+          echo "ERROR: Timeout waiting for Cloud SQL Proxy to be ready after $TIMEOUT seconds"
+          exit 1
+        fi
+        
+        # 接続を強制切断
+        echo "Terminating existing connections to bootcamp_staging database..."
         cat <<'EOF' | bin/rails runner -
-        ActiveRecord::Base.connection.execute("
+        result = ActiveRecord::Base.connection.execute("
           SELECT pg_terminate_backend(pid)
           FROM pg_stat_activity
           WHERE datname = 'bootcamp_staging'
             AND pid <> pg_backend_pid()
         ")
+        terminated_count = result.ntuples
+        puts "Terminated #{terminated_count} connection(s) to bootcamp_staging database"
         EOF
     id: TerminateConnections
     waitFor:
