@@ -2,6 +2,7 @@
 
 class Products::SelfAssignedController < ApplicationController
   before_action :require_staff_login
+  before_action :set_target
   def index
     @target = params[:target].presence_in(target_allowlist) || 'self_assigned_all'
     @products = build_self_assigned_products
@@ -27,5 +28,9 @@ class Products::SelfAssignedController < ApplicationController
     when 'self_assigned_no_replied'
       base_scope.self_assigned_no_replied_products(current_user.id)
     end
+  end
+
+  def set_target
+    @target = 'self_assigned'
   end
 end

@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
         '.card-list-item .js-unconfirmed-link'
       )
       links.forEach((link) => {
-        window.open(link.href, '_target', 'noopener')
+        window.open(link.href, '_blank', 'noopener')
       })
     })
   }

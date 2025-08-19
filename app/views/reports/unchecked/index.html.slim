@@ -1,0 +1,30 @@
+- title '未チェックの日報'
+- set_meta_tags description: '未チェックの日報一覧ページです。'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title
+          | 日報・ブログ
+      = render 'reports/new_report'
+
+= report_page_tabs(active_tab: '未チェックの日報')
+
+.page-body
+  - if @reports.empty?
+    .o-empty-message
+      .o-empty-message__icon
+        i.fa-regular.fa-smile
+        p.o-empty-message__text
+          | 未チェックの日報はありません
+  - else
+    .container.is-md
+      .page-content.reports
+        = paginate @reports
+        .card-list.a-card
+          .card-list__items
+            = render partial: 'reports/report', collection: @reports, as: :report, locals: { user_icon_display: true, actions_display: true }
+          - if mentor_login? && @unchecked
+            = render partial: 'unconfirmed_links_open', locals: { label: '未チェックの日報を一括で開く' }
+        = paginate @reports
