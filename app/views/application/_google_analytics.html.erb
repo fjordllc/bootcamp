@@ -1,16 +1,32 @@
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-EYY9JK69GX"></script>
-<script>
-  const userStatus = signedIn ? 'logged_in' : 'guest';
+<% if current_user %>
+  <!-- Google tag (gtag.js) ログイン中 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EYY9JK69GX"></script>
+  <script>
+    const userStatus = true ? 'logged_in' : 'guest'; // current_userがあるのでlogged_in固定
 
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-EYY9JK69GX');
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-EYY9JK69GX');
 
-  document.addEventListener('DOMContentLoaded', function () {
-    gtag('event', 'login_status_check', {
-      user_status: userStatus
+    document.addEventListener('DOMContentLoaded', function () {
+      gtag('event', 'login_status_check', {
+        user_status: userStatus
+      });
     });
-  });
-</script>
+  </script>
+<% else %>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17419900911"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-17419900911'); </script>
+
+  <!-- Google tag (gtag.js) ログイン前 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WWN96PXWSW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-WWN96PXWSW');
+    gtag('config', 'AW-17419900911');
+  </script>
+<% end %>
