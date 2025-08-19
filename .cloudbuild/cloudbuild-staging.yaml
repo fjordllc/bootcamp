@@ -48,29 +48,24 @@ steps:
       - Push
     entrypoint: gcloud
     continueOnError: true
-  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
-    args:
-      - sql
-      - connect
-      - bootcamp
-      - '--user=$_DB_USER'
-      - '--database=postgres'
+  - name: postgres:15
     id: TerminateDBConnections
     waitFor:
       - StopService
     entrypoint: bash
-    script: |
-      gcloud sql connect bootcamp --user=$_DB_USER --database=postgres <<EOF
-      SELECT pg_terminate_backend(pid) 
-      FROM pg_stat_activity 
-      WHERE datname = 'bootcamp_staging' 
-      AND pid <> pg_backend_pid();
-      \q
-      EOF
+    args:
+      - -lc
+      - |
+        psql -h /cloudsql/$_CLOUD_SQL_HOST -U $_DB_USER -d postgres -c "
+        SELECT pg_terminate_backend(pid) 
+        FROM pg_stat_activity 
+        WHERE datname = '$_DB_NAME' 
+        AND pid <> pg_backend_pid();"
     volumes:
       - name: db
         path: /cloudsql
-    continueOnError: true
+    env:
+      - PGPASSWORD=$_DB_PASS
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     args:
       - sql
