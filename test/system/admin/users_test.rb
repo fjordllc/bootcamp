@@ -96,21 +96,27 @@ class Admin::UsersTest < ApplicationSystemTestCase
 
   test 'update user' do
     user = users(:hatsuno)
-
+    reset_avatar(user)
     visit_with_auth "/users/#{user.id}", 'komagata'
     icon_before = find('img.user-profile__user-icon-image', visible: false)
-    assert icon_before.native['src'].end_with?('hatsuno.webp')
+    before_src = icon_before.native['src']
 
     visit "/admin/users/#{user.id}/edit"
     within 'form[name=user]' do
-      fill_in 'user[login_name]', with: 'hatsuno-1'
+      fill_in 'user[login_name]', with: 'hatsuno'
       attach_file 'user[avatar]', 'test/fixtures/files/users/avatars/komagata.jpg', make_visible: true
       click_on '更新する'
     end
 
     assert_text 'ユーザー情報を更新しました。'
+    visit "/users/#{user.id}"
     icon_after = find('img.user-profile__user-icon-image', visible: false)
-    assert_includes icon_after.native['src'], 'hatsuno'
+    after_src = icon_after.native['src']
+
+    # アバターが更新されたことを確認（URLが変わったことで確認）
+    assert_not_equal before_src, after_src
+    # タイムスタンプパラメータが含まれていることを確認
+    assert_match(/\?v=\d+/, after_src)
   end
 
   test 'update user with company' do

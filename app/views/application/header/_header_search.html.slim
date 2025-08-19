@@ -1,8 +1,29 @@
-= form_with url: searchables_path, local: true, method: 'get', html: { name: 'search', class: 'header-search' }
-  .header-search__select.a-button.is-sm.is-secondary.is-select.is-block
-    = select_tag 'document_type', options_for_select(Searcher::DOCUMENT_TYPES, params[:document_type]), id: select_id
-  = text_field_tag 'word', params[:word], class: 'a-xs-text-input header-search__text-input', id: text_field_id, placeholder: '検索ワード'
-  button.a-button.is-sm.is-secondary.is-icon.header-search__submit(id="#{submit_id}" type='submit')
-    i.fa-solid.fa-search
-    span
-      | 検索
+= form_with url: searchables_path, local: true, method: 'get', html: { name: 'search', class: 'form' }
+  .form__items
+    .form__items-inner
+      .form-item
+        label.a-form-label
+          | カテゴリー
+        .a-button.is-md.is-secondary.is-select.is-block
+          = select_tag 'document_type', options_for_select(Searcher::DOCUMENT_TYPES, params[:document_type]), id: select_id
+      .form-item
+        label.a-form-label
+          | 絞り込み条件
+        .header-search__checkbox
+          .block-checks.is-1-item.is-centered
+            .block-checks__item
+              label.a-block-check.is-checkbox
+                = check_box_tag 'only_me', '1', params[:only_me].present?, id: 'only_me', class: 'a-toggle-checkbox'
+                .a-block-check__label
+                  | 自分の投稿のみに絞る
+      .form-item
+        label.a-form-label
+          | 検索ワード
+        = text_field_tag 'word', params[:word], class: 'a-text-input', id: text_field_id, placeholder: '就職が心配な方へ'
+  .form-actions
+    .form-actions__items
+      .form-actions__item.is-main
+        button.a-button.is-md.is-secondary.is-block(id="#{submit_id}" type='submit')
+          i.fa-solid.fa-search
+          span
+            | 検索

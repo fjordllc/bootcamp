@@ -28,7 +28,7 @@ class EventsController < ApplicationController
     set_wip
     if @event.save
       update_published_at
-      Newspaper.publish(:event_create, { event: @event })
+      ActiveSupport::Notifications.instrument('event.create', event: @event)
       url = publish_with_announcement? ? new_announcement_path(event_id: @event.id) : Redirection.determin_url(self, @event)
       redirect_to url, notice: notice_message(@event)
     else

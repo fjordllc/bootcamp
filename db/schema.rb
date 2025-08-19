@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_06_18_144325) do
+ActiveRecord::Schema.define(version: 2025_07_18_134145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -930,7 +930,6 @@ ActiveRecord::Schema.define(version: 2025_06_18_144325) do
     t.integer "job"
     t.string "organization"
     t.integer "os"
-    t.integer "experience"
     t.boolean "trainee", default: false, null: false
     t.text "retire_reason"
     t.boolean "job_seeking", default: false, null: false
@@ -971,6 +970,7 @@ ActiveRecord::Schema.define(version: 2025_06_18_144325) do
     t.integer "career_path", default: 0, null: false
     t.text "career_memo"
     t.boolean "sent_student_before_auto_retire_mail", default: false
+    t.datetime "training_completed_at"
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true

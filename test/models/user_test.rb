@@ -2,9 +2,11 @@
 
 require 'test_helper'
 require 'supports/product_helper'
+require 'supports/avatar_helper'
 
 class UserTest < ActiveSupport::TestCase
   include ProductHelper
+  include AvatarHelper
 
   test '#admin?' do
     assert users(:komagata).admin?
@@ -14,6 +16,11 @@ class UserTest < ActiveSupport::TestCase
   test '#hibernated?' do
     assert users(:kyuukai).hibernated?
     assert_not users(:hatsuno).hibernated?
+  end
+
+  test '#training_completed?' do
+    assert users(:kensyuowata).training_completed?
+    assert_not users(:kensyu).training_completed?
   end
 
   test '#retired?' do
@@ -68,6 +75,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal '/images/users/avatars/default.png', user_with_default_avatar.avatar_url
 
     user_with_custom_avatar = users(:komagata)
+    reset_avatar(user_with_custom_avatar)
     assert_includes user_with_custom_avatar.avatar_url, "#{user_with_custom_avatar.login_name}.webp"
   end
 
@@ -330,8 +338,9 @@ class UserTest < ActiveSupport::TestCase
 
   test 'return not retired user data' do
     hajime = users(:hajime)
-    result = Searcher.search(hajime.name)
-    assert_includes(result, hajime)
+    result = Searcher.search(word: hajime.name, current_user: hajime)
+    users = result.map { |search_result| User.find(search_result.user_id) }
+    assert_includes(users, hajime)
   end
 
   test 'columns_for_keyword_searchの設定がsearch_by_keywordsに反映されていることを確認' do
@@ -524,7 +533,7 @@ class UserTest < ActiveSupport::TestCase
       course: courses(:course1),
       job: 'student',
       os: 'mac',
-      experience: 'ruby',
+      experiences: 2,
       created_at: Time.current - 30.days,
       sent_student_followup_message: false
     )
@@ -538,7 +547,7 @@ class UserTest < ActiveSupport::TestCase
       course: courses(:course1),
       job: 'student',
       os: 'mac',
-      experience: 'ruby',
+      experiences: 2,
       created_at: Time.current,
       sent_student_followup_message: false
     )
@@ -558,7 +567,7 @@ class UserTest < ActiveSupport::TestCase
       course: courses(:course1),
       job: 'student',
       os: 'mac',
-      experience: 'ruby',
+      experiences: 2,
       hibernated_at: nil,
       created_at: Time.current - 30.days,
       sent_student_followup_message: false
@@ -590,7 +599,7 @@ class UserTest < ActiveSupport::TestCase
       course: courses(:course1),
       job: 'student',
       os: 'mac',
-      experience: 'ruby',
+      experiences: 2,
       hibernated_at: nil,
       created_at: Time.current - 30.days,
       sent_student_followup_message: false

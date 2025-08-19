@@ -11,8 +11,8 @@ import '../markdown.js'
 import '../shortcut.js'
 import '../learning.js'
 import '../learning-status.js'
-import '../check.js'
 import '../check-stamp.js'
+import '../check_confirmation.js'
 import '../unconfirmed-links-open.js'
 import '../new-comment.js'
 import '../category-select.js'
@@ -24,6 +24,7 @@ import '../card.js'
 import '../js-select2.js'
 import '../warning.js'
 import '../date-input-toggler'
+import '../grass.js'
 import '../github_grass'
 import '../following.js'
 import '../hide-user.js'
@@ -47,6 +48,7 @@ import '../hibernation_agreements.js'
 import '../current-date-time-setter.js'
 import '../modal-switcher.js'
 import '../survey-question-listings.js'
+import '../activity-time-filter.js'
 import '../change-subdivisions.js'
 import '../register-address.js'
 import '../upload-image-to-article.js'
@@ -77,18 +79,19 @@ import '../coding_tests_sort.js'
 import '../watches.js'
 import '../watch-toggle.js'
 import '../diploma-upload.js'
+import '../tag-shortcut.js'
 import Cocooned from '@notus.sh/cocooned'
 import '../action_completed_button.js'
+import '../toast.js'
+import '../tag.js'
 
 import VueMounter from '../VueMounter.js'
 import Questions from '../components/questions.vue'
-import UserProducts from '../components/user-products.vue'
 
 import '../stylesheets/application'
 
 const mounter = new VueMounter()
 mounter.addComponent(Questions)
-mounter.addComponent(UserProducts)
 mounter.mount()
 
 // Support component names relative to this directory:
@@ -96,4 +99,6 @@ const componentRequireContext = require.context('components', true)
 const ReactRailsUJS = require('react_ujs')
 ReactRailsUJS.useContext(componentRequireContext)
 
-Cocooned.start()
+document.addEventListener('DOMContentLoaded', () => {
+  Cocooned.start()
+})

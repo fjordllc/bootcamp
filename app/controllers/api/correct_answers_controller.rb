@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class API::CorrectAnswersController < API::BaseController
-  include Rails.application.routes.url_helpers
   before_action :set_question, only: %i[create update]
 
   def create
@@ -10,7 +9,6 @@ class API::CorrectAnswersController < API::BaseController
     if @answer.save
       Newspaper.publish(:answer_save, { answer: @answer })
       Newspaper.publish(:correct_answer_save, { answer: @answer })
-      ChatNotifier.message("質問：「#{@answer.question.title}」のベストアンサーが選ばれました。\r#{url_for(@answer.question)}")
       head :ok
     else
       head :bad_request

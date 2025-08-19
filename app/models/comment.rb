@@ -4,6 +4,7 @@ class Comment < ApplicationRecord
   include Reactionable
   include Searchable
   include Mentioner
+  include SearchHelper
 
   belongs_to :user, touch: true
   belongs_to :commentable, polymorphic: true
@@ -54,6 +55,10 @@ class Comment < ApplicationRecord
 
   def certain_period_passed_since_the_last_comment_by_submitter?(certain_period)
     (created_at.since(certain_period).to_date == Date.current) && latest? && (user == receiver)
+  end
+
+  def title
+    commentable.title if commentable.respond_to?(:title)
   end
 
   private

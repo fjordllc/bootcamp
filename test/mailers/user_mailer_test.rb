@@ -27,6 +27,18 @@ class UserMailerTest < ActionMailer::TestCase
     assert_match("#{user.name}様の今後のご活躍を心からお祈り申し上げます。", email.body.to_s)
   end
 
+  test 'training_complete' do
+    user = users(:kensyu)
+    email = UserMailer.training_complete(user).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['kensyu@fjord.jp'], email.to
+    assert_equal ['info@lokka.jp'], email.bcc
+    assert_equal '[FBC] 研修終了手続きが完了しました', email.subject
+    assert_match("#{user.name}様の今後のご活躍を心からお祈り申し上げます。", email.body.to_s)
+  end
+
   test 'request_retirement' do
     requester = users(:senpai)
     target_user = users(:kensyuowata)

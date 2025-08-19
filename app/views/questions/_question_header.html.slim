@@ -71,8 +71,4 @@ header.page-content-header
 
     .page-content-header__row
       .page-content-header__tags
-        = react_component('Tags/Tags', { tagsInitialValue: question.tag_list.join(','),
-                                         tagsParamName: 'question[tag_list]',
-                                         tagsInputId: 'question_tag_list',
-                                         tagsType: 'Question',
-                                         tagsTypeId: question.id.to_s })
+        = render(Tag::FormComponent.new(taggable: @question, param_name: 'question[tag_list]', input_id: 'question_tag_list'))

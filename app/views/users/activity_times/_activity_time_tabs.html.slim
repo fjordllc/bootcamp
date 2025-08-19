@@ -1,0 +1,28 @@
+.activity-time-filter
+  .container
+    = form_with url: users_activity_times_path, method: 'get', local: true, class: 'activity-time-filter__form' do
+      .activity-time-filter__controls
+        .dropdown-group
+          .dropdown-wrapper
+            button.dropdown-button type="button" data-target="day-dropdown"
+              span.dropdown-button__text = day_names_with_suffix[clamp_day_index(@target_day_of_week)]
+              i.fas.fa-chevron-down.dropdown-button__icon
+            .dropdown-menu id="day-dropdown"
+              - day_names_with_suffix.each_with_index do |day_name, _index|
+                .dropdown-item data-value=_index
+                  = day_name
+            = hidden_field_tag :day_of_week, @target_day_of_week, id: 'selected-day'
+
+          .dropdown-wrapper
+            button.dropdown-button type="button" data-target="hour-dropdown"
+              span.dropdown-button__text = format_time_range(@target_hour)
+              i.fas.fa-chevron-down.dropdown-button__icon
+            .dropdown-menu id="hour-dropdown"
+              - ActivityTimesHelper::HOURS_PER_DAY.times do |hour|
+                .dropdown-item data-value=hour
+                  = format_time_range(hour)
+            = hidden_field_tag :hour, @target_hour, id: 'selected-hour'
+
+        button.search-button type="submit"
+          i.fas.fa-search
+          span 検索

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import TextareaInitializer from '../textarea-initializer'
 import CSRF from '../csrf'
-import { toast } from '../toast_react'
+import { toast } from '../vanillaToast'
 
 export default function ReportTemplateModal({
   registeredTemplate,
@@ -142,7 +142,7 @@ export default function ReportTemplateModal({
               name="report_template[description]"></textarea>
           </div>
           <div
-            className={`a-markdown-input__inner js-tabs__content a-long-text is-md a-markdown-input__preview ${
+            className={`a-markdown-input__inner js-tabs__content a-long-text is-md a-markdown-input__preview has-max-height ${
               isEditing ? '' : 'is-active'
             }`}
             id="js-template-preview"></div>

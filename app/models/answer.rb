@@ -4,6 +4,7 @@ class Answer < ApplicationRecord
   include Reactionable
   include Searchable
   include Mentioner
+  include SearchHelper
 
   belongs_to :user, touch: true
   belongs_to :question, touch: false

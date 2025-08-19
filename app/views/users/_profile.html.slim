@@ -2,7 +2,7 @@ header.page-content-header
   .page-content-header__start
     .page-content-header__user
       = link_to user, class: 'page-content-header__user-link' do
-        span class="a-user-role is-#{user.primary_role}"
+        span class=user.user_icon_frame_class
           = image_tag user.avatar_url, title: user.icon_title, class: 'user-profile__user-icon-image a-user-icon'
     - if user.company.present?
       .user-profile__company-logo

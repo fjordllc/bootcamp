@@ -821,7 +821,9 @@ kensyuowata:
   experiences: 6
   organization: 研修大学
   trainee: true
-  retired_on: "2015-01-01"
+  training_completed_at: "2015-01-01 00:00:00"
+  satisfaction: 0
+  opinion: "研修終了の自由感想です。"
   unsubscribe_email_token: Vb3zzFj5oO4zcwOURn14qW
   updated_at: "2014-01-01 00:00:11"
   created_at: "2014-01-01 00:00:11"

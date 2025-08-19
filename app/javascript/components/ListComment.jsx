@@ -1,5 +1,5 @@
 import React from 'react'
-import CommentUserIcon from './CommentUserIcon'
+import { UserIconFrameClass } from './UserIconFrameClass'
 
 export default function ListComment({ report }) {
   return (
@@ -17,7 +17,14 @@ export default function ListComment({ report }) {
               <div className="card-list-item__user-icons">
                 {report.comments.map((comment) => {
                   return (
-                    <CommentUserIcon comment={comment} key={comment.user_id} />
+                    <a
+                      className="card-list-item__user-icons-icon"
+                      href={`/users/${comment.user_id}`}
+                      key={comment.user_id}>
+                      <span className={UserIconFrameClass(comment)}>
+                        <img className="a-user-icon" src={comment.user_icon} />
+                      </span>
+                    </a>
                   )
                 })}
               </div>

@@ -39,6 +39,9 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
 
     @calendar = NicoNicoCalendar.new(@user, params[:niconico_calendar])
 
+    @target_end_date = GrassDateParameter.new(params[:end_date]).target_end_date
+    @times = Grass.times(@user, @target_end_date)
+
     if logged_in?
       render :show
     else
@@ -63,7 +66,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     @user.credit_card_payment = params[:credit_card_payment]
     @user.uploaded_avatar = user_params[:avatar]
 
-    Newspaper.publish(:user_create, { user: @user })
+    ActiveSupport::Notifications.instrument('user.create', user: @user)
 
     if @user.staff? || @user.trainee?
       create_free_user!
@@ -99,7 +102,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
       UserMailer.welcome(@user).deliver_now
       notify_to_mentors(@user)
       notify_to_chat(@user)
-      Newspaper.publish(:student_or_trainee_create, { user: @user }) if @user.trainee?
+      ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.trainee?
       logger.info "[Signup] 4. after create times channel for free user. #{@user.email}"
       redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
     else
@@ -145,7 +148,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
         UserMailer.welcome(@user).deliver_now
         notify_to_mentors(@user)
         notify_to_chat(@user)
-        Newspaper.publish(:student_or_trainee_create, { user: @user }) if @user.student?
+        ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.student?
         flash[:x_conversion] = 'signup'
         logger.info "[Signup] 8. after create times channel. #{@user.email}"
         redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'

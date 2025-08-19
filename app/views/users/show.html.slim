@@ -42,21 +42,18 @@
               .a-card
                 .user-data
                   .user-data__row
-                    .user-data__description
+                    .user-data__description.a-short-text.is-md
                       = auto_link simple_format h @user.description
                   - if @user.tag_list.present? || current_user == @user
                     .user-data__row
                       .user-data__tags
-                        - tags_props = { tagsInitialValue: @user.tag_list.join(',').to_s,
-                                         tagsParamName: 'user[tag_list]',
-                                         tagsInputId: 'user_tag_list',
-                                         tagsType: 'User',
-                                         tagsTypeId: @user.id.to_s,
-                                         tagsEditable: @user.id == current_user.id }
-                        = react_component('Tags/Tags', tags_props)
+                        = render(Tag::FormComponent.new(taggable: @user, param_name: 'user[tag_list]', input_id: 'user_tag_list', editable: (@user.id == current_user.id)))
                   - if admin_or_mentor_login? && @user.hibernated?
                     .user-data__row
                       = render 'users/hibernation_info', user: @user
+                  - if admin_or_mentor_login? && @user.training_completed?
+                    .user-data__row
+                      = render 'users/training_completion_info', user: @user
                   - if admin_or_mentor_login? && @user.retired?
                     .user-data__row
                       = render 'users/retire_info', user: @user
@@ -88,7 +85,7 @@
             - if admin_or_mentor_login?
               = render 'users/user_mentor_memo', user_id: @user.id
             - unless @user.total_learning_time.zero? || @user.mentor?
-              = react_component 'Grass', { userId: @user.id }, { class: 'a-card' }
+              = render(Grass::GrassComponent.new(user: @user, times: @times, target_end_date: @target_end_date, path: :user_path))
             - if @user.student_or_trainee?
               = render(Calendar::NicoNicoCalendarComponent.new(user: @user, path: :niconico_calendar_date_in_profile_path, current_date: @calendar.current_date, current_calendar: @calendar.with_reports))
             - if @user.github_account.present?

@@ -8,22 +8,29 @@
         a.thread-comment__company-link href="#{company_path(comment.user.company)}"
           img.thread-comment__company-logo src="#{comment.user.company.logo_url}"
   .thread-comment__end
-    .a-card.is-comment.comment-display
-      header.card-header
-        h2.thread-comment__title
-          a.thread-comment__title-user-link.is-hidden-md-up href="#{comment.user.url}"
-            img.thread-comment__title-user-icon.a-user-icon src="#{comment.user.avatar_url}"
-          a.thread-comment__title-link.a-text-link href="#{comment.user.url}"
-            = comment.user.login_name
-        time.thread-comment__created-at
-          = l(comment.created_at)
+    .a-card.is-comment.js-comment-display
+      header.card-header.is-sm
+        .card-header__inner
+          h2.thread-comment__title
+            a.thread-comment__title-user-link.is-hidden-md-up href="#{comment.user.url}"
+              img.thread-comment__title-user-icon.a-user-icon src="#{comment.user.avatar_url}"
+            a.thread-comment__title-link.a-text-link href="#{comment.user.url}"
+              = comment.user.login_name
+          time.thread-comment__created-at
+            = l(comment.created_at)
+          .raw-button
+            button.a-button.is-sm.is-secondary.js-raw-button
+              | Raw
       hr.a-border-tint
       .thread-comment__description
         - if comment.user.company && comment.user.adviser
           a.thread-comment__company-link.is-hidden-md-up href="#{company_path(comment.user.company)}"
             img.thread-comment__company-logo src="#{comment.user.company.logo_url}"
-        .a-long-text.is-md
+        .a-long-text.is-md.js-comment-html
           = comment.description
+        pre.a-raw.language-md.is-hidden.js-comment-raw
+          code
+            = comment.description
       hr.a-border-tint
       .thread-comment__reactions
         = render 'reactions/reactions', reactionable: comment
@@ -40,7 +47,7 @@
               li.card-main-actions__item.is-sub
                 button.card-main-actions__muted-action
                   | 削除する
-    .a-card.is-comment.comment-editor.is-hidden
+    .a-card.is-comment.comment-editor.js-comment-editor.is-hidden
       .thread-comment-form__form
         .a-form-tabs.js-tabs
           .a-form-tabs__tab.js-tabs__tab.edit-comment-tab.is-active
@@ -65,7 +72,7 @@
           .card-main-actions
             .card-main-actions__items
               .card-main-actions__item
-                button.a-button.is-sm.is-primary.is-block
+                button.a-button.is-sm.is-primary.is-block.js-comment-save-button
                   | 保存する
               .card-main-actions__item
                 button.a-button.is-sm.is-secondary.is-block

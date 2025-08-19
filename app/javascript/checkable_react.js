@@ -1,4 +1,4 @@
-import { toast } from './toast_react'
+import { toast } from './vanillaToast'
 
 export const checkProduct = (productId, currentUserId, url, method, token) => {
   const params = {

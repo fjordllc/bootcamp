@@ -4,12 +4,15 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include ActionView::Helpers::AssetUrlHelper
   include Taggable
   include Searchable
+  include SearchHelper
 
   attr_accessor :credit_card_payment, :role, :uploaded_avatar
 
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w[id login_name company_id last_activity_at created_at report comment asc desc].freeze
   AVATAR_SIZE = [120, 120].freeze
+  AVATAR_FORMAT = 'webp'
+  DEFAULT_IMAGE_PATH = '/images/users/avatars/default.png'
   RESERVED_LOGIN_NAMES = %w[adviser all graduate inactive job_seeking mentor retired student student_and_trainee trainee year_end_party].freeze
   MAX_PERCENTAGE = 100
   DEPRESSED_SIZE = 2
@@ -49,14 +52,6 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     mac_apple: 2,
     linux: 1,
     windows_wsl2: 3
-  }, _prefix: true
-
-  enum experience: {
-    inexperienced: 0,
-    html_css: 1,
-    other_ruby: 2,
-    ruby: 3,
-    rails: 4
   }, _prefix: true
 
   enum editor: {
@@ -268,7 +263,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
                            }
   end
 
-  with_options if: -> { validation_context != :reset_password && validation_context != :retirement } do
+  with_options if: -> { !validation_context.in?(%i[reset_password retirement training_completion]) } do
     validates :name_kana, presence: true,
                           format: {
                             with: /\A[\p{katakana}\p{blank}ー－]+\z/,
@@ -276,15 +271,15 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
                           }
   end
 
-  with_options if: -> { !staff? && validation_context != :reset_password && validation_context != :retirement } do
+  with_options if: -> { !staff? && !validation_context.in?(%i[reset_password retirement training_completion]) } do
     validates :job, presence: true
   end
 
-  with_options if: -> { !adviser? && validation_context != :reset_password && validation_context != :retirement } do
+  with_options if: -> { !adviser? && !validation_context.in?(%i[reset_password retirement training_completion]) } do
     validates :os, presence: true
   end
 
-  with_options if: -> { validation_context == :retirement } do
+  with_options if: -> { validation_context.in?(%i[retirement training_completion]) } do
     validates :satisfaction, presence: true
   end
 
@@ -292,7 +287,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     validates :company_id, presence: true
   end
 
-  with_options if: -> { validation_context != :retirement } do
+  with_options if: -> { !validation_context.in?(%i[retirement training_completion]) } do
     validates :twitter_account,
               length: { maximum: 15 },
               allow_blank: true,
@@ -343,7 +338,8 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
       adviser: false,
       graduated_on: nil,
       hibernated_at: nil,
-      retired_on: nil
+      retired_on: nil,
+      training_completed_at: nil
     )
   }
   scope :students_trainees_mentors_and_admins, lambda {
@@ -395,6 +391,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
       adviser: false,
       hibernated_at: nil,
       retired_on: nil,
+      training_completed_at: nil,
       graduated_on: nil
     )
   }
@@ -431,7 +428,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   scope :trainees, lambda {
     where(
       trainee: true,
-      retired_on: nil
+      training_completed_at: nil
     )
   }
   scope :job_seeking, -> { where(career_path: 'job_seeking') }
@@ -533,6 +530,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     def depressed_reports
       ids = User.where(
         hibernated_at: nil,
+        training_completed_at: nil,
         retired_on: nil,
         graduated_on: nil,
         sad_streak: true
@@ -682,12 +680,16 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     current_student? && !hibernated? && after_twenty_nine_days_registration? && !sent_student_followup_message
   end
 
+  def training_completed?
+    training_completed_at?
+  end
+
   def retired?
     retired_on?
   end
 
-  def hibernated_or_retired?
-    hibernated_at? || retired_on?
+  def inactive?
+    hibernated_at? || training_completed_at? || retired_on?
   end
 
   def graduated?
@@ -703,29 +705,26 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   end
 
   def avatar_url
-    default_image_path = '/images/users/avatars/default.png'
-    format = 'webp'
-
-    if avatar.attached?
-      avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 },
-                     format:).processed.url(filename: "#{login_name}.#{format}")
+    if avatar.attached? && avatar.blob.present?
+      attach_custom_avatar if !ActiveStorage::Blob.find_by(key: "avatars/#{login_name}.#{AVATAR_FORMAT}")
+      "#{avatar.url}?v=#{avatar.created_at.to_i}"
     else
-      image_url default_image_path
+      image_url DEFAULT_IMAGE_PATH
     end
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError, Vips::Error
-    image_url default_image_path
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError => e
+    log_avatar_error('avatar_url', e)
+    image_url DEFAULT_IMAGE_PATH
   end
 
   def profile_image_url
-    default_image_path = '/images/users/avatars/default.png'
-
     if profile_image.attached?
       profile_image
     else
-      image_url default_image_path
+      image_url DEFAULT_IMAGE_PATH
     end
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError
-    image_url default_image_path
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError => e
+    log_avatar_error('profile_image_url', e)
+    image_url DEFAULT_IMAGE_PATH
   end
 
   def generation
@@ -951,5 +950,28 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   def convert_blank_of_address_to_nil
     self.country_code = nil if country_code.blank?
     self.subdivision_code = nil if subdivision_code.blank?
+  end
+
+  def attach_custom_avatar
+    custom_key = "avatars/#{login_name}.#{AVATAR_FORMAT}"
+    variant_avatar = avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }, format: AVATAR_FORMAT).processed
+    io = StringIO.new(variant_avatar.download)
+    custom_blob = ActiveStorage::Blob.create_or_find_by!(key: custom_key) do |blob|
+      blob.filename = "#{login_name}.#{AVATAR_FORMAT}"
+      blob.content_type = "image/#{AVATAR_FORMAT}"
+      blob.byte_size = io.size
+      blob.checksum = Digest::MD5.base64digest(io.read)
+      io.rewind
+    end
+    return if custom_blob.id_previously_was.present?
+
+    custom_blob.upload(io, identify: false)
+    avatar.attach(custom_blob)
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError, Vips::Error => e
+    log_avatar_error('attach_custom_avatar', e)
+  end
+
+  def log_avatar_error(context, error)
+    Rails.logger.error "[#{context}] Avatar processing failed for user #{login_name}: #{error.message}"
   end
 end

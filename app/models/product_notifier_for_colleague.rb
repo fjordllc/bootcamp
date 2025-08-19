@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ProductNotifierForColleague
-  def call(payload)
+  def call(_name, _started, _finished, _unique_id, payload)
     product = payload[:product]
     return if product.wip
 

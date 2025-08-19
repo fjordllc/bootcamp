@@ -3,23 +3,63 @@ import escapeHTML from './escapeHtml.js'
 
 export default (md) => {
   md.use(MarkdownItContainer, 'speak', {
-    render: (tokens, idx) => {
-      const speakerName = escapeHTML(tokens[idx].info)
-        .replace('speak @', '')
+    marker: ':',
+    validate: function (params) {
+      return params
         .trim()
+        .match(/^speak(?:\s(?![(])|$|\s*\([^,]+,\s*[^)]+\)\s*$)/)
+    },
+    render: (tokens, idx) => {
+      const info = tokens[idx].info.trim()
 
-      if (tokens[idx].nesting === 1) {
+      if (tokens[idx].nesting !== 1) {
+        return '</div></div>\n'
+      }
+
+      const parenMatch = info.match(/^speak\s*\(\s*([^,]+)\s*,\s*([^)]+)\s*\)$/)
+      if (parenMatch) {
+        const speakerName = escapeHTML(parenMatch[1].trim())
+        const avatarUrl = escapeHTML(parenMatch[2].trim())
+
         return `<div class="speak">
                   <div class="speak__speaker">
-                    <a href="/users/${speakerName}" class="a-user-emoji-link">
+                    <span class="a-user-emoji-link">
+                      <img src="${avatarUrl}" alt="${speakerName}" title="@${speakerName}" class="a-user-emoji speak__speaker-avatar">
+                      <span class="speak__speaker-name">${speakerName}</span>
+                    </span>
+                  </div>
+                  <div class="speak__body">`
+      }
+
+      const speakerName = escapeHTML(
+        info
+          .replace(/^speak[\s\n]*@?/, '')
+          .replace(/^\*\*/, '')
+          .replace(/\*\*$/, '')
+          .trim()
+      )
+
+      if (info.includes('@')) {
+        return `<div class="speak">
+                  <div class="speak__speaker">
+                    <a href="/users/${encodeURIComponent(
+                      speakerName
+                    )}" class="a-user-emoji-link">
                       <img title="@${speakerName}" class="js-user-icon a-user-emoji" data-user="${speakerName}">
-                      <spanv class="speak__speaker-name">${speakerName}</span>
+                      <span class="speak__speaker-name">${speakerName}</span>
                     </a>
                   </div>
                   <div class="speak__body">`
-      } else {
-        return '</div></div>\n'
       }
+
+      return `<div class="speak">
+                <div class="speak__speaker">
+                  <span class="a-user-emoji-link">
+                    <img src="/images/users/avatars/default.png" alt="${speakerName}" title="${speakerName}" class="a-user-emoji speak__speaker-avatar">
+                    <span class="speak__speaker-name">${speakerName}</span>
+                  </span>
+                </div>
+                <div class="speak__body">`
     }
   })
 }
