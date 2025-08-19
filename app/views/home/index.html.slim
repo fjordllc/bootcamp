@@ -17,6 +17,8 @@
     - elsif current_user.mentor?
       = render 'mentor_dashboard', products: @products, products_grouped_by_elapsed_days: @products_grouped_by_elapsed_days
     - else
+      - if @users_for_time_slot.present?
+        = render Users::CurrentUserIconListComponent.new(users: @users_for_time_slot)
       .columns
         .container.is-xl
           .row
