@@ -4,11 +4,6 @@ Rails.configuration.after_initialize do
   answer_cache_destroyer = AnswerCacheDestroyer.new
   Newspaper.subscribe(:answer_save, answer_cache_destroyer)
   Newspaper.subscribe(:answer_destroy, answer_cache_destroyer)
-  Newspaper.subscribe(:correct_answer_save, CorrectAnswerNotifier.new)
-
-  Newspaper.subscribe(:graduation_update, GraduationNotifier.new)
-
-  Newspaper.subscribe(:comeback_update, ComebackNotifier.new)
 
   mentors_watch_for_question_creator = MentorsWatchForQuestionCreator.new
   Newspaper.subscribe(:question_create, mentors_watch_for_question_creator)

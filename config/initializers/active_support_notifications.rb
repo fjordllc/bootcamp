@@ -3,6 +3,7 @@
 Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('answer.create', AnswererWatcher.new)
   ActiveSupport::Notifications.subscribe('answer.create', AnswerNotifier.new)
+  ActiveSupport::Notifications.subscribe('correct_answer.save', CorrectAnswerNotifier.new)
   ActiveSupport::Notifications.subscribe('answer.create', NotifierToWatchingUser.new)
   ActiveSupport::Notifications.subscribe('event.create', EventOrganizerWatcher.new)
   ActiveSupport::Notifications.subscribe('regular_event.create', RegularEventOrganizerWatcher.new)
@@ -25,6 +26,8 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('product.create', ProductNotifierForColleague.new)
   ActiveSupport::Notifications.subscribe('product.create', ProductNotifierForPracticeWatcher.new)
   ActiveSupport::Notifications.subscribe('came.inquiry', InquiryNotifier.new)
+  ActiveSupport::Notifications.subscribe('graduation.update', GraduationNotifier.new)
+  ActiveSupport::Notifications.subscribe('comeback.update', ComebackNotifier.new)
 
   learning_status_updater = LearningStatusUpdater.new
   ActiveSupport::Notifications.subscribe('product.save', learning_status_updater)
