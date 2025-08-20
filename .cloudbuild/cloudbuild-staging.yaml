@@ -47,8 +47,8 @@ steps:
         TIMEOUT=60
         ELAPSED=0
         
-        while [ $ELAPSED -lt $TIMEOUT ]; do
-          echo "Attempting database connection... ($ELAPSED/$TIMEOUT seconds)"
+        while [ $$ELAPSED -lt $$TIMEOUT ]; do
+          echo "Attempting database connection... ($$ELAPSED/$$TIMEOUT seconds)"
           if cat <<'TESTEOF' | bin/rails runner - 2>/dev/null
         begin
           ActiveRecord::Base.connection.execute("SELECT 1")
@@ -66,11 +66,11 @@ steps:
             echo "Database not ready yet, waiting..."
           fi
           sleep 2
-          ELAPSED=$((ELAPSED + 2))
+          ELAPSED=$$(($$ELAPSED + 2))
         done
         
-        if [ $ELAPSED -ge $TIMEOUT ]; then
-          echo "ERROR: Timeout waiting for Cloud SQL Proxy to be ready after $TIMEOUT seconds"
+        if [ $$ELAPSED -ge $$TIMEOUT ]; then
+          echo "ERROR: Timeout waiting for Cloud SQL Proxy to be ready after $$TIMEOUT seconds"
           exit 1
         fi
         
