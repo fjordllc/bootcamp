@@ -108,8 +108,16 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
       notify_to_chat(@user)
       ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.trainee?
       logger.info "[Signup] 4. after create times channel for free user. #{@user.email}"
-      role = @user.adviser? ? 'adviser' : (@user.trainee? ? 'trainee' : (@user.mentor? ? 'mentor' : 'student'))
-      redirect_to created_users_path(role: role)
+      role = if @user.adviser?
+               'adviser'
+             elsif @user.trainee?
+               'trainee'
+             elsif @user.mentor?
+               'mentor'
+             else
+               'student'
+             end
+      redirect_to created_users_path(role:)
     else
       render 'new', locals: { user: @user }
     end
@@ -156,8 +164,16 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
         ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.student?
         flash[:x_conversion] = 'signup'
         logger.info "[Signup] 8. after create times channel. #{@user.email}"
-        role = @user.adviser? ? 'adviser' : (@user.trainee? ? 'trainee' : (@user.mentor? ? 'mentor' : 'student'))
-      redirect_to created_users_path(role: role)
+        role = if @user.adviser?
+                 'adviser'
+               elsif @user.trainee?
+                 'trainee'
+               elsif @user.mentor?
+                 'mentor'
+               else
+                 'student'
+               end
+        redirect_to created_users_path(role:)
       else
         render 'new'
       end
