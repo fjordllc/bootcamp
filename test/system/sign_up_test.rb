@@ -36,7 +36,7 @@ class SignUpTest < ApplicationSystemTestCase
 
     VCR.use_cassette 'sign_up/valid-card', record: :once, match_requests_on: %i[method uri] do
       click_button '参加する'
-      assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
+      assert_text '参加登録が完了しました'
     end
   end
 
@@ -136,7 +136,7 @@ class SignUpTest < ApplicationSystemTestCase
     end
 
     click_button 'アドバイザー登録'
-    assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
+    assert_text 'アドバイザー登録が完了しました'
     assert User.find_by(email:).adviser?
   end
 
@@ -162,7 +162,7 @@ class SignUpTest < ApplicationSystemTestCase
     end
 
     click_button 'メンター登録'
-    assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
+    assert_text 'メンター登録が完了しました'
     assert User.find_by(email:).mentor?
   end
 
@@ -191,7 +191,7 @@ class SignUpTest < ApplicationSystemTestCase
     end
 
     click_button '参加する'
-    assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
+    assert_text '研修生登録が完了しました'
     assert User.find_by(email:).trainee?
   end
 
@@ -223,7 +223,7 @@ class SignUpTest < ApplicationSystemTestCase
 
     VCR.use_cassette 'sign_up/valid-card', record: :once, match_requests_on: %i[method uri] do
       click_button '参加する'
-      assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
+      assert_text '研修生登録が完了しました'
     end
     assert User.find_by(email:).trainee?
   end
@@ -254,7 +254,7 @@ class SignUpTest < ApplicationSystemTestCase
     end
 
     click_button '参加する'
-    assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
+    assert_text '研修生登録が完了しました'
     assert User.find_by(email:).trainee?
   end
 
@@ -286,7 +286,7 @@ class SignUpTest < ApplicationSystemTestCase
     fill_stripe_element('4242 4242 4242 4242', '12 / 50', '111')
 
     click_button '参加する'
-    assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
+    assert_text '研修生登録が完了しました'
     assert User.find_by(email:).trainee?
   end
 
@@ -363,7 +363,7 @@ class SignUpTest < ApplicationSystemTestCase
     end
 
     click_button 'アドバイザー登録'
-    assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
+    assert_text 'アドバイザー登録が完了しました'
     assert_equal User.find_by(email:).company_id, companies(:company2).id
   end
 
@@ -445,7 +445,7 @@ class SignUpTest < ApplicationSystemTestCase
 
     VCR.use_cassette 'sign_up/tag', record: :once, match_requests_on: %i[method uri] do
       click_button '参加する'
-      assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
+      assert_text '参加登録が完了しました'
       user = User.find_by(email:)
       visit_with_auth user_path(user), 'taguo'
       assert_text 'タグ夫'
