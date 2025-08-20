@@ -4,13 +4,12 @@ ruby:
   set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）')
 - if Rails.env.production? && !staging?
   - content_for :head_last do
-    <!-- Event snippet for 助成金コース受講 conversion page -->
-    <script>
+    | <!-- Event snippet for 助成金コース受講 conversion page -->
+    javascript:
       gtag('event', 'conversion', {
           'send_to': 'AW-17419900911/A410CJ_x7okbEO-vuvJA',
           'transaction_id': ''
       });
-    </script>
 
 .thanks-message
   .container.is-xs
