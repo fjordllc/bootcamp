@@ -34,7 +34,7 @@ class Notification::SignedUpTest < ApplicationSystemTestCase
     end
 
     click_button 'アドバイザー登録'
-    assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
+    assert_text 'アドバイザー登録が完了しました'
     assert User.find_by(email:).adviser?
 
     visit_with_auth notifications_path, 'komagata'
@@ -65,7 +65,7 @@ class Notification::SignedUpTest < ApplicationSystemTestCase
     end
 
     click_button 'メンター登録'
-    assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
+    assert_text 'メンター登録が完了しました'
     assert User.find_by(email:).mentor?
 
     visit_with_auth notifications_path, 'komagata'
@@ -99,7 +99,7 @@ class Notification::SignedUpTest < ApplicationSystemTestCase
     end
 
     click_button '参加する'
-    assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
+    assert_text '研修生登録が完了しました'
     assert User.find_by(email:).trainee?
 
     visit_with_auth notifications_path, 'komagata'
@@ -130,7 +130,7 @@ class Notification::SignedUpTest < ApplicationSystemTestCase
 
     VCR.use_cassette 'sign_up/valid-card', vcr_options do
       click_button '参加する'
-      assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
+      assert_text '参加登録が完了しました'
     end
 
     visit_with_auth notifications_path, 'komagata'
