@@ -108,16 +108,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
       notify_to_chat(@user)
       ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.trainee?
       logger.info "[Signup] 4. after create times channel for free user. #{@user.email}"
-      role = if @user.adviser?
-               'adviser'
-             elsif @user.trainee?
-               'trainee'
-             elsif @user.mentor?
-               'mentor'
-             else
-               'student'
-             end
-      redirect_to created_users_path(role:)
+      redirect_to created_users_path(role: determine_user_role(@user))
     else
       render 'new', locals: { user: @user }
     end
@@ -164,16 +155,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
         ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.student?
         flash[:x_conversion] = 'signup'
         logger.info "[Signup] 8. after create times channel. #{@user.email}"
-        role = if @user.adviser?
-                 'adviser'
-               elsif @user.trainee?
-                 'trainee'
-               elsif @user.mentor?
-                 'mentor'
-               else
-                 'student'
-               end
-        redirect_to created_users_path(role:)
+        redirect_to created_users_path(role: determine_user_role(@user))
       else
         render 'new'
       end
@@ -230,6 +212,18 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
       user.trainee = true
     when 'mentor'
       user.mentor = true
+    end
+  end
+
+  def determine_user_role(user)
+    if user.adviser?
+      'adviser'
+    elsif user.trainee?
+      'trainee'
+    elsif user.mentor?
+      'mentor'
+    else
+      'student'
     end
   end
 end
