@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
-  skip_before_action :require_active_user_login, raise: false, only: %i[new create show]
+  skip_before_action :require_active_user_login, raise: false, only: %i[new create show created]
   before_action :require_token, only: %i[new] if Rails.env.production?
   before_action :set_user, only: %w[show]
 
@@ -75,6 +75,10 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     end
   end
 
+  def created
+    @role = params[:role] || 'student'
+  end
+
   private
 
   def fetch_target_users
@@ -104,7 +108,8 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
       notify_to_chat(@user)
       ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.trainee?
       logger.info "[Signup] 4. after create times channel for free user. #{@user.email}"
-      redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
+      role = @user.adviser? ? 'adviser' : (@user.trainee? ? 'trainee' : (@user.mentor? ? 'mentor' : 'student'))
+      redirect_to created_users_path(role: role)
     else
       render 'new', locals: { user: @user }
     end
@@ -151,7 +156,8 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
         ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.student?
         flash[:x_conversion] = 'signup'
         logger.info "[Signup] 8. after create times channel. #{@user.email}"
-        redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
+        role = @user.adviser? ? 'adviser' : (@user.trainee? ? 'trainee' : (@user.mentor? ? 'mentor' : 'student'))
+      redirect_to created_users_path(role: role)
       else
         render 'new'
       end
