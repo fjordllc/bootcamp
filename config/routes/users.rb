@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: %i(index show new create) do
+    collection do
+      get :created
+    end
     resources :reports, only: %i(index), controller: "users/reports"
     resources :comments, only: %i(index), controller: "users/comments"
     resources :products, only: %i(index), controller: "users/products"
