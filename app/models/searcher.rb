@@ -2,9 +2,16 @@
 
 class Searcher
   DOCUMENT_TYPES = [
-    ['すべて', :all], ['お知らせ', :announcements], ['プラクティス', :practices],
-    ['日報', :reports], ['提出物', :products], ['Q&A', :questions],
-    ['Docs', :pages], ['イベント', :events], ['定期イベント', :regular_events],
+    ['すべて', :all],
+    ['お知らせ', :announcements],
+    ['プラクティス', :practices],
+    ['日報', :reports],
+    ['提出物', :products],
+    ['Q&A', :questions],
+    ['Docs', :pages],
+    ['FAQ', :faqs],
+    ['イベント', :events],
+    ['定期イベント', :regular_events],
     ['ユーザー', :users]
   ].freeze
 

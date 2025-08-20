@@ -1,0 +1,72 @@
+- title 'Embedding'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title
+          | 管理ページ
+
+= render 'admin/admin_page_tabs'
+
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | Embedding
+  hr.a-border
+  .page-body
+    .container.is-lg
+      .admin-table
+        .admin-table__content
+          table.admin-table__table
+            thead.admin-table__header
+              tr.admin-table__labels
+                th.admin-table__label.is-text-align-center モデル名
+                th.admin-table__label.is-text-align-center 進捗率
+                th.admin-table__label.is-text-align-center 完了数
+                th.admin-table__label.is-text-align-center 残り数
+                th.admin-table__label.is-text-align-center 総数
+                th.admin-table__label.is-text-align-center 最終更新
+                th.admin-table__label.is-text-align-center アクション
+            tbody.admin-table__items#model-stats
+              - @embedding_status_presenter.statuses.each do |status|
+                tr.admin-table__item class="#{'admin-table__total-row' if status.total_row?}" data-model=status.name
+                  td.admin-table__item-value
+                    strong = status.name
+                  td.admin-table__item-value.is-text-align-right
+                    .progress-wrapper
+                      .progress-bar
+                        .progress-bar__track
+                          .progress-bar__fill style="width: #{status.percentage}%"
+                      .progress-text #{status.percentage}%
+                  td.admin-table__item-value.is-text-align-right
+                    span.text-success = status.with_embedding
+                  td.admin-table__item-value.is-text-align-right
+                    span.text-danger = status.without_embedding
+                  td.admin-table__item-value.is-text-align-right
+                    = status.total
+                  td.admin-table__item-value.is-text-align-center
+                    - if status.total_row?
+                      | -
+                    - else
+                      = l(status.last_updated, format: :short) if status.last_updated
+                  td.admin-table__item-value.is-text-align-center
+                    - if status.total_row?
+                      = form_with url: admin_generate_all_embeddings_path, method: :post, local: false, html: { class: 'inline-form' } do |f|
+                        = f.submit '全て生成', class: 'btn is-primary is-sm generate-embedding-btn', 
+                                  data: { confirm: '全モデルのembedding生成を開始します。よろしいですか？' },
+                                  disabled: !@credentials_available
+                    - else
+                      = form_with url: admin_generate_embeddings_path, method: :post, local: false, html: { class: 'inline-form' } do |f|
+                        = f.hidden_field :model_name, value: status.name
+                        = f.submit status.without_embedding > 0 ? "生成 (#{status.without_embedding}件)" : '再生成', 
+                                  class: "btn is-sm #{status.without_embedding > 0 ? 'is-warning' : 'is-secondary'} generate-embedding-btn",
+                                  data: { confirm: "#{status.name}のembedding生成を開始します。よろしいですか？" },
+                                  disabled: !@credentials_available
+
+
+
+

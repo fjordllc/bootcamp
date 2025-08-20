@@ -20,5 +20,8 @@ Rails.application.routes.draw do
     end
     resources :grant_course_applications, only: %i(index show)
     resources :course_diffs, only: %i(index show)
+    resources :embedding_status, only: %i(index)
+    post :generate_embeddings, to: 'embedding_status#generate_embeddings'
+    post :generate_all_embeddings, to: 'embedding_status#generate_all_embeddings'
   end
 end

@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 2025_07_18_134145) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+  enable_extension "vector"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -53,6 +54,7 @@ ActiveRecord::Schema.define(version: 2025_07_18_134145) do
     t.integer "target", default: 0, null: false
     t.boolean "wip", default: false, null: false
     t.datetime "published_at"
+    t.vector "embedding"
     t.index ["user_id"], name: "index_announcements_on_user_id"
   end
 
@@ -249,11 +251,11 @@ ActiveRecord::Schema.define(version: 2025_07_18_134145) do
   create_table "courses", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
-    t.text "summary"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "published", default: false, null: false
     t.boolean "grant", default: false, null: false
+    t.text "summary"
   end
 
   create_table "courses_categories", force: :cascade do |t|
@@ -293,6 +295,7 @@ ActiveRecord::Schema.define(version: 2025_07_18_134145) do
     t.boolean "wip", default: false, null: false
     t.boolean "job_hunting", default: false, null: false
     t.datetime "published_at"
+    t.vector "embedding"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
@@ -323,6 +326,7 @@ ActiveRecord::Schema.define(version: 2025_07_18_134145) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "position"
     t.bigint "faq_category_id", null: false
+    t.vector "embedding"
     t.index ["answer", "question"], name: "index_faqs_on_answer_and_question", unique: true
     t.index ["faq_category_id"], name: "index_faqs_on_faq_category_id"
     t.index ["question"], name: "index_faqs_on_question", unique: true
@@ -605,6 +609,7 @@ ActiveRecord::Schema.define(version: 2025_07_18_134145) do
     t.integer "last_updated_user_id"
     t.bigint "practice_id"
     t.string "slug", limit: 200
+    t.vector "embedding"
     t.index ["practice_id"], name: "index_pages_on_practice_id"
     t.index ["slug"], name: "index_pages_on_slug", unique: true
     t.index ["updated_at"], name: "index_pages_on_updated_at"
@@ -636,6 +641,7 @@ ActiveRecord::Schema.define(version: 2025_07_18_134145) do
     t.integer "last_updated_user_id"
     t.text "summary"
     t.integer "source_id"
+    t.vector "embedding"
     t.index ["category_id"], name: "index_practices_on_category_id"
     t.index ["source_id"], name: "index_practices_on_source_id"
   end
@@ -678,6 +684,7 @@ ActiveRecord::Schema.define(version: 2025_07_18_134145) do
     t.datetime "self_last_commented_at"
     t.datetime "mentor_last_commented_at"
     t.datetime "commented_at"
+    t.vector "embedding"
     t.index ["commented_at"], name: "index_products_on_commented_at"
     t.index ["practice_id"], name: "index_products_on_practice_id"
     t.index ["user_id", "practice_id"], name: "index_products_on_user_id_and_practice_id", unique: true
@@ -694,6 +701,7 @@ ActiveRecord::Schema.define(version: 2025_07_18_134145) do
     t.boolean "wip", default: false, null: false
     t.datetime "published_at"
     t.text "ai_answer"
+    t.vector "embedding"
     t.index ["practice_id"], name: "index_questions_on_practice_id"
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
@@ -761,6 +769,7 @@ ActiveRecord::Schema.define(version: 2025_07_18_134145) do
     t.integer "category", default: 0, null: false
     t.boolean "all", default: false, null: false
     t.datetime "published_at"
+    t.vector "embedding"
     t.index ["user_id"], name: "index_regular_events_on_user_id"
   end
 
@@ -782,6 +791,7 @@ ActiveRecord::Schema.define(version: 2025_07_18_134145) do
     t.boolean "wip", default: false, null: false
     t.integer "emotion"
     t.datetime "published_at"
+    t.vector "embedding"
     t.index ["created_at"], name: "index_reports_on_created_at"
     t.index ["user_id", "reported_on"], name: "index_reports_on_user_id_and_reported_on", unique: true
     t.index ["user_id", "title"], name: "index_reports_on_user_id_and_title", unique: true
@@ -812,6 +822,7 @@ ActiveRecord::Schema.define(version: 2025_07_18_134145) do
     t.text "description", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.vector "embedding", limit: 768
     t.index ["practice_id"], name: "index_submission_answers_on_practice_id"
   end
 
@@ -932,7 +943,6 @@ ActiveRecord::Schema.define(version: 2025_07_18_134145) do
     t.integer "os"
     t.boolean "trainee", default: false, null: false
     t.text "retire_reason"
-    t.boolean "job_seeking", default: false, null: false
     t.string "customer_id"
     t.string "subscription_id"
     t.boolean "mail_notification", default: true, null: false

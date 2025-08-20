@@ -6,7 +6,14 @@ module Searchable
   COLUMN_NAMES_FOR_SEARCH_USER_ID = %i[user_id last_updated_user_id].freeze
 
   included do
-    scope :search_by_keywords_scope, -> { all } if self < ActiveRecord::Base
+    # 拡張する場合はこのスコープを上書きする
+    scope :search_by_keywords_scope, -> { all }
+
+    # neighbor gem: embeddingカラムをvectorとして設定
+    has_neighbors :embedding
+
+    # embedding自動生成のコールバック
+    after_commit :schedule_embedding_generation, on: %i[create update], if: :should_generate_embedding?
   end
 
   class_methods do
@@ -103,5 +110,56 @@ module Searchable
       user = User.find_by(login_name: username)
       { "#{COLUMN_NAMES_FOR_SEARCH_USER_ID.join('_or_')}_eq" => user&.id || 0 }
     end
+  end
+
+  def description
+    case self
+    when Page, Product
+      self[:body]
+    else
+      self[:description]
+    end
+  end
+
+  def should_generate_embedding?
+    return false unless respond_to?(:embedding)
+    return false if Rails.env.test? # テスト環境では無効化
+
+    # embeddingカラムが存在し、内容が変更された場合のみ生成
+    embedding_text_changed?
+  end
+
+  def embedding_text_changed?
+    case self
+    when Practice
+      title_changed? || description_changed?
+    when Report
+      title_changed? || description_changed?
+    when Product
+      body_changed?
+    when Page
+      title_changed? || body_changed?
+    when Question
+      title_changed? || body_changed? || description_changed?
+    when Announcement
+      title_changed? || description_changed?
+    when Event
+      title_changed? || description_changed?
+    when RegularEvent
+      name_changed? || description_changed?
+    when FAQ
+      question_changed? || answer_changed?
+    when Answer
+      description_changed?
+    else
+      false
+    end
+  end
+
+  def schedule_embedding_generation
+    EmbeddingGenerateJob.perform_later(
+      model_name: self.class.name,
+      record_id: id
+    )
   end
 end
