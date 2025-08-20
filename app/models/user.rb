@@ -971,4 +971,12 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   def log_avatar_error(context, error)
     Rails.logger.error "[#{context}] Avatar processing failed for user #{login_name}: #{error.message}"
   end
+
+  def role_for_thanks_page
+    return 'adviser' if adviser?
+    return 'trainee' if trainee?
+    return 'mentor' if mentor?
+
+    'student'
+  end
 end
