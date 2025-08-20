@@ -37,5 +37,12 @@ storage/
 /config/master.key
 
 .envrc
+.env
 .env.local
 /test/reports
+
+# Google Cloud認証ファイル（使用非推奨）
+/config/smart-search-dev-key.json
+service-account.json
+*-credentials.json
+encoded-credentials.txt

@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const markdownInitializer = new MarkdownInitializer()
 
   const commentEditor = newComment.querySelector('.js-comment-editor')
+  const commentEditor = newComment.querySelector('.js-comment-editor')
   const commentEditorPreview = commentEditor.querySelector(
     '.a-markdown-input__preview'
   )
@@ -59,9 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
   )
 
   const saveButton = commentEditor.querySelector('.js-comment-save-button')
-  const saveAndCheckButton = commentEditor.querySelector(
-    '.js-comment-check-button'
-  )
+  const saveAndCheckButton = commentEditor.querySelector('.js-comment-check-button')
   const saveAndCheckWrapper = saveAndCheckButton?.parentElement
 
   const disableButtons = () => {

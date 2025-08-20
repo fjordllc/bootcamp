@@ -158,7 +158,7 @@ class SearchablesTest < ApplicationSystemTestCase
       fill_in 'word', with: '提出物のコメントです。'
     end
     find('#test-search-modal').click
-    assert_text 'komagata'
+    assert_text 'mentormentaro'
     assert_text 'kimura'
     assert_no_text 'machida'
   end
