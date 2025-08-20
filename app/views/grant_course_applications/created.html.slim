@@ -2,6 +2,14 @@ ruby:
   title '給付金対応コース受講申請完了'
   content_for(:extra_body_classes, 'no-header no-footer no-global-nav is-error-page is-piyo-background')
   set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）')
+- if Rails.env.production? && !staging?
+  - content_for :head_last do
+    | <!-- Event snippet for 助成金コース受講 conversion page -->
+    javascript:
+      gtag('event', 'conversion', {
+          'send_to': 'AW-17419900911/A410CJ_x7okbEO-vuvJA',
+          'transaction_id': ''
+      });
 
 .thanks-message
   .container.is-xs

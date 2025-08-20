@@ -38,7 +38,7 @@ module Discord
           end
         end
       end
-      assert_redirected_to root_url
+      assert_redirected_to created_users_url(role: 'student')
 
       student = User.find_by(login_name: 'Piyopiyo-student')
       assert_not_nil student.discord_profile.times_id
@@ -71,7 +71,7 @@ module Discord
           end
         end
       end
-      assert_redirected_to root_url
+      assert_redirected_to created_users_url(role: 'trainee')
 
       trainee = User.find_by(login_name: 'Piyopiyo-trainee')
       assert_not_nil trainee.discord_profile.times_id
@@ -99,10 +99,45 @@ module Discord
                }
         end
       end
-      assert_redirected_to root_url
+      assert_redirected_to created_users_url(role: 'adviser')
 
       adviser = User.find_by(login_name: 'Piyopiyo-adviser')
       assert_nil adviser.discord_profile.times_id
+    end
+
+    test 'GET created for student' do
+      get created_users_path(role: 'student')
+      assert_response :success
+      assert_includes response.body, 'FBC参加登録完了'
+      assert_includes response.body, '参加登録が完了しました'
+    end
+
+    test 'GET created for adviser' do
+      get created_users_path(role: 'adviser')
+      assert_response :success
+      assert_includes response.body, 'FBCアドバイザー参加登録完了'
+      assert_includes response.body, 'アドバイザー登録が完了しました'
+    end
+
+    test 'GET created for trainee' do
+      get created_users_path(role: 'trainee')
+      assert_response :success
+      assert_includes response.body, 'FBC研修生参加登録完了'
+      assert_includes response.body, '研修生登録が完了しました'
+    end
+
+    test 'GET created for mentor' do
+      get created_users_path(role: 'mentor')
+      assert_response :success
+      assert_includes response.body, 'FBCメンター参加登録完了'
+      assert_includes response.body, 'メンター登録が完了しました'
+    end
+
+    test 'GET created without role defaults to student' do
+      get created_users_path
+      assert_response :success
+      assert_includes response.body, 'FBC参加登録完了'
+      assert_includes response.body, '参加登録が完了しました'
     end
 
     class FakeCard

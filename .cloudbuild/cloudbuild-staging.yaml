@@ -34,6 +34,73 @@ steps:
     volumes:
       - name: db
         path: /cloudsql
+  # 既存の接続を強制的に切断
+  - name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
+    args:
+      - bash
+      - '-c'
+      - |
+        set -euo pipefail
+        
+        # Cloud SQL Proxyの起動を待つ（最大60秒）
+        echo "Waiting for Cloud SQL Proxy to be ready..."
+        TIMEOUT=60
+        ELAPSED=0
+        
+        while [ $$ELAPSED -lt $$TIMEOUT ]; do
+          echo "Attempting database connection... ($$ELAPSED/$$TIMEOUT seconds)"
+          if cat <<'TESTEOF' | bin/rails runner - 2>/dev/null
+        begin
+          ActiveRecord::Base.connection.execute("SELECT 1")
+          puts "Database connection successful"
+          exit 0
+        rescue => e
+          puts "Connection failed: #{e.message}"
+          exit 1
+        end
+        TESTEOF
+          then
+            echo "Database connection verified, proceeding to terminate connections..."
+            break
+          else
+            echo "Database not ready yet, waiting..."
+          fi
+          sleep 2
+          ELAPSED=$$(($$ELAPSED + 2))
+        done
+        
+        if [ $$ELAPSED -ge $$TIMEOUT ]; then
+          echo "ERROR: Timeout waiting for Cloud SQL Proxy to be ready after $$TIMEOUT seconds"
+          exit 1
+        fi
+        
+        # 接続を強制切断
+        echo "Terminating existing connections to bootcamp_staging database..."
+        cat <<'EOF' | bin/rails runner -
+        result = ActiveRecord::Base.connection.execute("
+          SELECT pg_terminate_backend(pid)
+          FROM pg_stat_activity
+          WHERE datname = 'bootcamp_staging'
+            AND pid <> pg_backend_pid()
+        ")
+        terminated_count = result.ntuples
+        puts "Terminated #{terminated_count} connection(s) to bootcamp_staging database"
+        EOF
+    id: TerminateConnections
+    waitFor:
+      - Push
+    volumes:
+      - name: db
+        path: /cloudsql
+    env:
+      - RAILS_ENV=production
+      - DISABLE_DATABASE_ENVIRONMENT_CHECK=1
+      - DB_HOST=/cloudsql/$_CLOUD_SQL_HOST
+      - DB_NAME=postgres
+      - DB_PASS=$_DB_PASS
+      - DB_USER=$_DB_USER
+      - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
+  # データベースを削除
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     args:
       - sql
@@ -44,7 +111,7 @@ steps:
       - '--quiet'
     id: DeleteDB
     waitFor:
-      - Push
+      - TerminateConnections
     entrypoint: gcloud
     volumes:
       - name: db
