@@ -46,8 +46,9 @@ class Searcher
         return search_by_user_filter(user_filter, words)
       end
 
-      (AVAILABLE_TYPES.filter_map { |type| result_for(type, words) }.flatten + search_users(words))
-        .uniq.sort_by(&:updated_at).reverse
+      results = AVAILABLE_TYPES.flat_map { |type| result_for(type, words).to_a }
+      users = search_users(words).to_a
+      (results + users).uniq.sort_by(&:updated_at).reverse
     end
 
     def result_for(type, words)
@@ -60,12 +61,12 @@ class Searcher
     end
 
     def result_for_comments(document_type, words)
-      (result_for(document_type, words) + comments_for(document_type, words))
+      (result_for(document_type, words).to_a + comments_for(document_type, words))
         .sort_by(&:updated_at).reverse
     end
 
     def result_for_questions(document_type, words)
-      (result_for(document_type, words) + result_for(:answers, words))
+      (result_for(document_type, words).to_a + result_for(:answers, words).to_a)
         .sort_by(&:updated_at).reverse
     end
 
@@ -82,6 +83,8 @@ class Searcher
 
     def apply_column_filter(query, klass, word)
       cols = klass.column_names & %w[title body description]
+      return query if cols.empty?
+
       query.where(cols.map { |c| "#{c} ILIKE :word" }.join(' OR '), word: "%#{word}%")
     end
 
@@ -114,7 +117,7 @@ class Searcher
 
     def search_by_user_id(user_id)
       AVAILABLE_TYPES.reject { |t| t == :users }.flat_map do |t|
-        model(t).where(user_filter_condition(t, user_id))
+        model(t).where(user_filter_condition(t, user_id)).to_a
       end
     end
 
