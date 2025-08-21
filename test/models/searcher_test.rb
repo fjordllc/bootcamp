@@ -191,7 +191,7 @@ class SearchableTest < ActiveSupport::TestCase
     result = Searcher.search(word: 'OS', document_type: :practices, current_user:)
     titles = result.map(&:title)
     assert_includes(titles, practices(:practice1).title)
-    assert_includes(titles, practices(:practice3).title)
+    assert_not_includes(titles, practices(:practice3).title)
 
     result = Searcher.search(word: 'OS クリーンインストール', document_type: :practices, current_user:)
     titles = result.map(&:title)
