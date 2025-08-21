@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_07_18_134145) do
+ActiveRecord::Schema.define(version: 2025_08_20_212112) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -866,6 +866,15 @@ ActiveRecord::Schema.define(version: 2025_07_18_134145) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_surveys_on_user_id"
+  end
+
+  create_table "switchlet_flags", force: :cascade do |t|
+    t.string "name", null: false
+    t.boolean "enabled", default: false, null: false
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_switchlet_flags_on_name", unique: true
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
