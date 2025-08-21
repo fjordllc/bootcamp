@@ -248,6 +248,8 @@ GEM
     google-cloud-video-transcoder-v1 (2.2.0)
       gapic-common (~> 1.0)
       google-cloud-errors (~> 1.0)
+    google-id-token (1.4.2)
+      jwt (>= 1)
     google-logging-utils (0.1.0)
     google-protobuf (4.32.0)
       bigdecimal
@@ -725,6 +727,7 @@ DEPENDENCIES
   good_job (~> 3.14)!
   google-cloud-storage (~> 1.25)
   google-cloud-video-transcoder
+  google-id-token
   holiday_jp
   icalendar (~> 2.8)
   image_processing (~> 1.12)
