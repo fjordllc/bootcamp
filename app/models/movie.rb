@@ -22,11 +22,21 @@ class Movie < ApplicationRecord
   scope :wip, -> { where(wip: true) }
   scope :by_tag, ->(tag) { tag.present? ? tagged_with(tag) : all }
 
+  after_create_commit :start_transcode_job, on: :create
+
   def self.ransackable_attributes(_auth_object = nil)
     %w[title description wip created_at updated_at user_id]
   end
 
   def self.ransackable_associations(_auth_object = nil)
     %w[user practices comments reactions watches bookmarks]
+
+  private
+
+  def start_transcode_job
+    TranscodeJob.perform_later(self)
+  rescue StandardError => e
+    Rails.logger.error("Failed to enqueue TranscodeJob for Movie #{id}: #{e.message}")
+    raise
   end
 end
