@@ -3,6 +3,7 @@
 class API::PubSubController < API::BaseController
   skip_before_action :verify_authenticity_token
   skip_before_action :require_login_for_api
+  skip_before_action :basic_auth
   before_action :authenticate_pubsub_token
 
   def create
