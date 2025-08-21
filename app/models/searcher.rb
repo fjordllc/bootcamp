@@ -24,9 +24,7 @@ class Searcher
                       .select { |s| s.user_id == current_user.id }
       end
 
-      delete_private_comment!(searchables).map do |s|
-        SearchResult.new(s, word, current_user)
-      end
+      delete_private_comment!(searchables).map { |s| SearchResult.new(s, word, current_user) }
     end
 
     private
@@ -53,6 +51,9 @@ class Searcher
 
     def result_for(type, words)
       raise ArgumentError, "#{type} is not available" unless type.in?(AVAILABLE_TYPES)
+      if type == :users
+        return words.blank? ? User.all : search_users(words)
+      end
 
       klass = model(type)
       return klass.all if words.blank?
@@ -61,13 +62,11 @@ class Searcher
     end
 
     def result_for_comments(document_type, words)
-      (result_for(document_type, words).to_a + comments_for(document_type, words))
-        .sort_by(&:updated_at).reverse
+      (result_for(document_type, words).to_a + comments_for(document_type, words)).sort_by(&:updated_at).reverse
     end
 
     def result_for_questions(document_type, words)
-      (result_for(document_type, words).to_a + result_for(:answers, words).to_a)
-        .sort_by(&:updated_at).reverse
+      (result_for(document_type, words).to_a + result_for(:answers, words).to_a).sort_by(&:updated_at).reverse
     end
 
     def apply_word_filters(query, klass, words)
@@ -102,13 +101,9 @@ class Searcher
       end
     end
 
-    def model(type)
-      search_model_name(type)&.constantize
-    end
+    def model(type) = search_model_name(type)&.constantize
 
-    def extract_user_filter(words)
-      words.find { |w| w.match(/^user:(\w+)$/) }&.delete_prefix('user:')
-    end
+    def extract_user_filter(words) = words.find { |w| w.match(/^user:(\w+)$/) }&.delete_prefix('user:')
 
     def search_by_user_filter(username, words)
       user = User.find_by(login_name: username) or return []
@@ -116,18 +111,16 @@ class Searcher
     end
 
     def search_by_user_id(user_id)
-      AVAILABLE_TYPES.reject { |t| t == :users }.flat_map do |t|
-        model(t).where(user_filter_condition(t, user_id)).to_a
-      end
+      AVAILABLE_TYPES.reject { |t| t == :users }.flat_map { |t| model(t).where(user_filter_condition(t, user_id)).to_a }
     end
 
-    def user_filter_condition(type, user_id)
-      type == :practices ? { last_updated_user_id: user_id } : { user_id: }
-    end
+    def user_filter_condition(type, user_id) = (type == :practices ? { last_updated_user_id: user_id } : { user_id: })
 
     def search_users(words)
-      User.where(words.map { |_w| 'login_name ILIKE ? OR name ILIKE ? OR description ILIKE ?' }.join(' AND '),
-                 *words.flat_map { |w| ["%#{w}%"] * 3 })
+      User.where(
+        words.map { |_w| 'login_name ILIKE ? OR name ILIKE ? OR description ILIKE ?' }.join(' AND '),
+        *words.flat_map { |w| ["%#{w}%"] * 3 }
+      )
     end
   end
 end
