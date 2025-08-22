@@ -18,8 +18,10 @@ class ProcessTranscodingNotification
     context.fail!(error: "Movie not found for job_name: #{job_name}") unless movie
 
     handle_job_state(movie, job_name, job_state, error)
+  rescue Interactor::Failure
+    raise
   rescue StandardError => e
-    Rails.logger.error("Unhandled error in ProcessTranscodingNotification: #{e.message}")
+    Rails.logger.error("Unhandled error in ProcessTranscodingNotification: #{e.class}: #{e.message}")
     context.fail!(error: e.message)
   end
 
