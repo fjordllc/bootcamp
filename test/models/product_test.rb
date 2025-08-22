@@ -201,7 +201,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test '.unchecked_no_replied_products' do
-    unchecked_no_replied_products = Product.unchecked_no_replied_products
+    unchecked_no_replied_products = UncheckedNoRepliedProductsQuery.new.call
 
     unchecked_no_replied_product = products(:product6)
     unchecked_only_self_replied_product = products(:product1)
