@@ -1,13 +1,5 @@
-- title '日報'
+- content_for :title, '日報'
 - set_meta_tags description: '日報の一覧ページです。'
-
-header.page-header
-  .container
-    .page-header__inner
-      .page-header__start
-        .page-header__title
-          | 日報・ブログ
-      .page-header__end
 
 = report_page_tabs(active_tab: '日報')
 
