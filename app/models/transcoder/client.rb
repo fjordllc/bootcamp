@@ -97,7 +97,9 @@ module Transcoder
     end
 
     def default_storage_config
-      Rails.application.config.active_storage.service_configurations[service_name]
+      cfg = Rails.application.config.active_storage.service_configurations[service_name]
+      raise ArgumentError, "ActiveStorage service not found for: #{service_name}" if cfg.nil?
+      cfg
     end
 
     def input_uri
