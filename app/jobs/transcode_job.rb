@@ -9,7 +9,7 @@ class TranscodeJob < ApplicationJob
     client = Transcoder::Client.new(movie, force_video_only:)
     client.transcode
   rescue Google::Cloud::Error => e
-    code_str = e.respond_to?(:code) ? e.code.to_s.downcase : ""
+    code_str = e.respond_to?(:code) ? e.code.to_s.downcase : ''
     retryable_codes = %w[429 503 8 14 resource_exhausted unavailable]
     if retryable_codes.include?(code_str)
       if executions < 5
