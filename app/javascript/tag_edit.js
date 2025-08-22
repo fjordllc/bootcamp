@@ -6,7 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const tagEditModal = document.querySelector('.edit-tag-modal')
   if (!tagEditModal) return
+
   const tagForm = tagEditModal.querySelector('.a-text-input')
+  if (!tagForm) return
+
   const cancelButton = tagEditModal.querySelector('.cancel-change-tag-button')
   const tagSaveButton = tagEditModal.querySelector('.save-tag-button')
 
