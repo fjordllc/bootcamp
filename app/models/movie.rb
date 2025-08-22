@@ -20,5 +20,5 @@ class Movie < ApplicationRecord
   validates :movie_data, presence: true
 
   scope :wip, -> { where(wip: true) }
-  scope :by_tag, ->(tag) { tagged_with(tag) if tag }
+  scope :by_tag, ->(tag) { tag.present? ? tagged_with(tag) : all }
 end
