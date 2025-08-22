@@ -26,7 +26,7 @@ class API::PubSubController < API::BaseController
 
   def valid_pubsub_token?(token)
     validator = GoogleIDToken::Validator.new
-    expected_audience = request.base_url
+    expected_audience = "#{request.base_url}#{request.path}"
     payload = validator.check(token, expected_audience)
     
     expected_sa_email = ENV['PUBSUB_SERVICE_ACCOUNT_EMAIL']
