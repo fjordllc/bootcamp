@@ -26,11 +26,10 @@ class API::PubSubController < API::BaseController
 
   def valid_pubsub_token?(token)
     validator = GoogleIDToken::Validator.new
-    expected_audience = ENV['PUBSUB_AUDIENCE'].presence
+    expected_audience = request.base_url
     payload = validator.check(token, expected_audience)
-
-    expected_sa_email = ENV['PUBSUB_SERVICE_ACCOUNT_EMAIL'].presence
-
+    
+    expected_sa_email = ENV['PUBSUB_SERVICE_ACCOUNT_EMAIL']
     sa_email_claim = payload['email']
     sa_email_claim == expected_sa_email
   rescue GoogleIDToken::ValidationError => e
