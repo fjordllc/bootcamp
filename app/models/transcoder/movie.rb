@@ -35,7 +35,11 @@ module Transcoder
     private
 
     def file
-      @file ||= storage.bucket(@bucket_name).file(@path)
+      return @file if defined?(@file) && @file
+      
+      bucket = storage.bucket(@bucket_name)
+      raise "Bucket not found or inaccessible: #{@bucket_name}" unless bucket
+      @file = bucket.file(@path)
     end
 
     def storage
