@@ -39,6 +39,16 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
     assert_response :ok
   end
 
+  test 'GET /api/products/unchecked.json?target=unchecked_no_replied' do
+    get api_products_unchecked_index_path(target: 'unchecked_no_replied', format: :json)
+    assert_response :unauthorized
+
+    token = create_token('mentormentaro', 'testtest')
+    get api_products_unchecked_index_path(target: 'unchecked_no_replied', format: :json),
+        headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :ok
+  end
+
   test 'GET /api/products/self_assigned.json' do
     get api_products_self_assigned_index_path(format: :json)
     assert_response :unauthorized
