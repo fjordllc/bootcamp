@@ -4,7 +4,7 @@ class TranscodeJob < ApplicationJob
   queue_as :default
 
   def perform(movie, force_video_only: false)
-    return unless Rails.application.config.transcoder['enable']
+    return unless Rails.application.config.transcoder['enabled']
 
     client = Transcoder::Client.new(movie, force_video_only:)
     client.transcode
