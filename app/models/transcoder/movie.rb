@@ -42,6 +42,7 @@ module Transcoder
       @bucket ||= begin
         bucket_obj = storage.bucket(@bucket_name)
         raise "Bucket not found or inaccessible: #{@bucket_name}" unless bucket_obj
+
         bucket_obj
       end
     end
