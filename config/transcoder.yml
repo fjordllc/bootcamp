@@ -1,5 +1,5 @@
 default: &default
-  enable: false
+  enabled: false
   video_height: 1080
   video_width: 1920
   video_bitrate: 12000000
@@ -12,7 +12,7 @@ default: &default
 
 production:
   <<: *default
-  enable: true
+  enabled: true
 
 development:
   <<: *default
