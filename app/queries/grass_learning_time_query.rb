@@ -25,7 +25,7 @@ class GrassLearningTimeQuery < Patterns::Query
   def sql_template
     <<~SQL
       WITH series AS (
-        SELECT date FROM generate_series(:start_date::DATE, :end_date, '1 day') AS series(date)
+        SELECT date FROM generate_series(:start_date::DATE, :end_date::DATE, '1 day') AS series(date)
       ), summary AS (
         SELECT
           reported_on AS date,
@@ -33,6 +33,7 @@ class GrassLearningTimeQuery < Patterns::Query
         FROM learning_times
         JOIN reports ON learning_times.report_id = reports.id
         WHERE reports.user_id = :user_id
+          AND reports.reported_on BETWEEN :start_date AND :end_date
         GROUP BY reported_on
       )
       SELECT
@@ -46,6 +47,7 @@ class GrassLearningTimeQuery < Patterns::Query
         END AS velocity
       FROM series
       LEFT JOIN summary ON series.date = summary.date
+      ORDER BY series.date
     SQL
   end
 
