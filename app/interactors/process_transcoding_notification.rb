@@ -6,7 +6,7 @@ class ProcessTranscodingNotification
   def call
     message = parse_pubsub_message(context.body)
     unless message
-      context.fail!(error: 'Invalid message format')
+      context.fail!(error_type: :invalid_message, error: 'Invalid message format')
       return
     end
 
@@ -15,14 +15,14 @@ class ProcessTranscodingNotification
     error = message[:error]
 
     movie = find_movie(job_name)
-    context.fail!(error: "Movie not found for job_name: #{job_name}") unless movie
+    context.fail!(error_type: :not_found, error: "Movie not found for job_name: #{message[:job_name]}") unless movie
 
     handle_job_state(movie, job_name, job_state, error)
   rescue Interactor::Failure
     raise
   rescue StandardError => e
     Rails.logger.error("Unhandled error in ProcessTranscodingNotification: #{e.class}: #{e.message}")
-    context.fail!(error: e.message)
+    context.fail!(error_type: :internal_error, error: e.message)
   end
 
   private
