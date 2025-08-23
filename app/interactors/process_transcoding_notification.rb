@@ -12,12 +12,12 @@ class ProcessTranscodingNotification
 
     job_name = message[:job_name]
     job_state = message[:job_state]
-    error = message[:error]
+    job_error = message[:job_error]
 
     movie = find_movie(job_name)
     context.fail!(error_type: :not_found, error: "Movie not found for job_name: #{message[:job_name]}") unless movie
 
-    handle_job_state(movie, job_name, job_state, error)
+    handle_job_state(movie, job_name, job_state, job_error)
   rescue Interactor::Failure
     raise
   rescue StandardError => e
@@ -30,18 +30,18 @@ class ProcessTranscodingNotification
   def parse_pubsub_message(body)
     message = JSON.parse(body)
     encoded_data = message.dig('message', 'data')
-    return nil unless encoded_data
+    context.fail!(error_type: :invalid_message, error: "Missing 'data' field in Pub/Sub message") unless encoded_data
 
     data = JSON.parse(Base64.decode64(encoded_data))
+    job_name, job_state, job_error = data.fetch('job', {}).values_at('name', 'state', 'error')
 
-    {
-      job_name: data.dig('job', 'name'),
-      job_state: data.dig('job', 'state'),
-      error: data.dig('job', 'error')
-    }
+    if job_name.blank? || job_state.blank?
+      context.fail!(error_type: :invalid_message,
+                    error: "Pub/Sub message missing required job fields: name=#{job_name}, state=#{job_state}")
+    end
+    { job_name:, job_state:, job_error: }
   rescue JSON::ParserError, ArgumentError => e
-    Rails.logger.error("Failed to parse Pub/Sub message: #{e.message}")
-    nil
+    context.fail!(error_type: :invalid_message, error: "Invalid JSON/base64: #{e.message}")
   end
 
   def find_movie(job_name)
@@ -52,12 +52,12 @@ class ProcessTranscodingNotification
     nil
   end
 
-  def handle_job_state(movie, job_name, job_state, error)
+  def handle_job_state(movie, job_name, job_state, job_error)
     case job_state
     when 'SUCCEEDED'
       attach_transcoded_file(movie)
     when 'FAILED', 'CANCELLED'
-      if audio_missing_error?(error)
+      if audio_missing_error?(job_error)
         Rails.logger.warn("Audio missing error detected for Movie #{movie.id}. Retrying without audio.")
         TranscodeJob.perform_later(movie, force_video_only: true)
       else
