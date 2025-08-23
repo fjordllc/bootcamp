@@ -28,7 +28,8 @@ class API::PubSubController < API::BaseController
   private
 
   def authenticate_pubsub_token
-    token = request.headers['Authorization']&.delete_prefix('Bearer ')
+    authz = request.headers['Authorization'].to_s
+    token = authz[/\ABearer\s+(.+)\z/i, 1]
     return if token && valid_pubsub_token?(token)
 
     Rails.logger.warn('Unauthorized Pub/Sub request')
