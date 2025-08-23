@@ -15,14 +15,14 @@ class ProcessTranscodingNotification
     job_error = message[:job_error]
 
     movie = find_movie(job_name)
-    context.fail!(error_type: :not_found, error: "Movie not found for job_name: #{message[:job_name]}") unless movie
+    context.fail!(retryable: false, error: "Movie not found for job_name: #{message[:job_name]}") unless movie
 
     handle_job_state(movie, job_name, job_state, job_error)
   rescue Interactor::Failure
     raise
   rescue StandardError => e
     Rails.logger.error("Unhandled error in ProcessTranscodingNotification: #{e.class}: #{e.message}")
-    context.fail!(error_type: :internal_error, error: e.message)
+    context.fail!(retryable: true, error: e.message)
   end
 
   private
@@ -30,18 +30,18 @@ class ProcessTranscodingNotification
   def parse_pubsub_message(body)
     message = JSON.parse(body)
     encoded_data = message.dig('message', 'data')
-    context.fail!(error_type: :invalid_message, error: "Missing 'data' field in Pub/Sub message") unless encoded_data
+    context.fail!(retryable: false, error: "Missing 'data' field in Pub/Sub message") unless encoded_data
 
     data = JSON.parse(Base64.decode64(encoded_data))
     job_name, job_state, job_error = data.fetch('job', {}).values_at('name', 'state', 'error')
 
     if job_name.blank? || job_state.blank?
-      context.fail!(error_type: :invalid_message,
+      context.fail!(retryable: false,
                     error: "Pub/Sub message missing required job fields: name=#{job_name}, state=#{job_state}")
     end
     { job_name:, job_state:, job_error: }
   rescue JSON::ParserError, ArgumentError => e
-    context.fail!(error_type: :invalid_message, error: "Invalid JSON/base64: #{e.message}")
+    context.fail!(retryable: false, error: "Invalid JSON/base64: #{e.message}")
   end
 
   def find_movie(job_name)

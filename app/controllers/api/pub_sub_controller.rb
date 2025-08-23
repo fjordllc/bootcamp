@@ -14,11 +14,8 @@ class API::PubSubController < API::BaseController
     else
       Rails.logger.error("Failed to process transcoding notification: #{result.error}")
 
-      case result.error_type
-      when :invalid_message
-        head :bad_request
-      when :not_found
-        head :not_found
+      if result.retryable == false
+        head :ok # 200系のステータスコードを返すとPub/Subは再送しない
       else
         head :internal_server_error
       end
