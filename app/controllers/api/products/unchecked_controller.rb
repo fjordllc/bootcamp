@@ -19,6 +19,7 @@ class API::Products::UncheckedController < API::BaseController
                                                  .unhibernated_user_products
                                                  .not_wip
                                                  .list
+                                                 .ascending_by_date_of_publishing_and_id
                                                  .page(params[:page])
                 end
     @products = @products.where(checker_id:) if checker_id.present?
