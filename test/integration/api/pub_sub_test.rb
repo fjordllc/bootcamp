@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'ostruct'
 
 class API::PubSubTest < ActionDispatch::IntegrationTest
   test 'POST /api/pubsub returns ok' do
