@@ -49,12 +49,12 @@ module Transcoder
 
     def existing_job
       transcoder_service.list_jobs(parent: parent_path).find do |job|
-        job.labels['movie_id'] == @movie.id.to_s &&
-          %w[PENDING RUNNING].include?(job.state)
+        job.labels&.[]('movie_id') == @movie.id.to_s &&
+          %w[PENDING RUNNING].include?(job.state.to_s)
       end
     rescue Google::Cloud::Error => e
-      Rails.logger.error("Failed to list transcoding jobs for Movie #{@movie.id}: #{e.message}")
-      nil # リストに失敗した場合は新規作成を許可
+      Rails.logger.error("Failed to check existing jobs for Movie #{@movie.id}: #{e.message}")
+      nil
     end
 
     def validate_configuration
