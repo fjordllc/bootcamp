@@ -37,12 +37,9 @@ module Transcoder
       return unless file&.exists?
 
       file.delete
-    rescue Google::Cloud::Storage::FileVerificationError => e
-      Rails.logger.error "File verification failed during cleanup: #{e.message}"
-      raise
-    rescue Google::Cloud::Error => e
-      Rails.logger.error "Failed to delete transcoded file: #{e.message}"
-      raise
+    rescue Google::Cloud::Storage::FileVerificationError, Google::Cloud::Error => e
+      # クリーンアップ失敗は処理結果に影響させない
+      Rails.logger.warn "Cleanup skipped (GCS): #{e.class}: #{e.message}"
     end
 
     def cleanup_tempfile
@@ -50,6 +47,9 @@ module Transcoder
 
       @tempfile.close!
       @tempfile = nil
+    rescue StandardError => e
+      # クリーンアップ失敗は処理結果に影響させない
+      Rails.logger.warn "Cleanup skipped (Tempfile): #{e.class}: #{e.message}"
     end
 
     def file
