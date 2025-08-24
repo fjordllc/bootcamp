@@ -13,6 +13,8 @@ module Transcoder
     end
 
     def transcode
+      return existing_job if existing_job
+
       # 処理完了後にAPI::PubSubControllerへPub/Subで通知を送る
 
       transcoder_service.create_job(
@@ -44,6 +46,16 @@ module Transcoder
     end
 
     private
+
+    def existing_job
+      transcoder_service.list_jobs(parent: parent_path).find do |job|
+        job.labels['movie_id'] == @movie.id.to_s &&
+          %w[PENDING RUNNING].include?(job.state)
+      end
+    rescue Google::Cloud::Error => e
+      Rails.logger.error("Failed to list transcoding jobs for Movie #{@movie.id}: #{e.message}")
+      nil # リストに失敗した場合は新規作成を許可
+    end
 
     def validate_configuration
       raise ArgumentError, 'bucket_name is required' if @bucket_name.blank?
