@@ -6,21 +6,22 @@ class UncheckedNoRepliedProductsQuery < Patterns::Query
   private
 
   def query
-    self_last_commented_products = relation
-                                   .includes(:user, :comments)
-                                   .where.not(commented_at: nil)
-                                   .find_each.filter do |product|
-      product.comments.last.user_id == product.user.id
-    end
-
-    no_comments_products = relation.where(commented_at: nil)
-
-    no_replied_products_ids = (self_last_commented_products + no_comments_products).map(&:id)
+    last_comment_join_sql = <<~SQL.squish
+      LEFT JOIN comments AS last_comments
+        ON last_comments.id = (
+          SELECT cs.id
+          FROM comments cs
+          WHERE cs.commentable_type = 'Product'
+            AND cs.commentable_id = products.id
+          ORDER BY cs.created_at DESC, cs.id DESC
+          LIMIT 1
+        )
+    SQL
 
     relation
       .unchecked
-      .where(id: no_replied_products_ids)
-      .order(published_at: :asc, id: :asc)
+      .joins(last_comment_join_sql)
+      .where('last_comments.id IS NULL OR last_comments.user_id = products.user_id')
   end
 
   def initialize(relation = Product.all)
