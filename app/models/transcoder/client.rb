@@ -68,7 +68,9 @@ module Transcoder
     end
 
     def video_stream_config
-      { key: 'video-stream', video_stream: { h264: { height_pixels: @config['video_height'], width_pixels: @config['video_width'], bitrate_bps: @config['video_bitrate'], frame_rate: @config['video_frame_rate'] } } }
+      { key: 'video-stream',
+        video_stream: { h264: { height_pixels: @config['video_height'], width_pixels: @config['video_width'], bitrate_bps: @config['video_bitrate'],
+                                frame_rate: @config['video_frame_rate'] } } }
     end
 
     def audio_stream_config
@@ -92,7 +94,7 @@ module Transcoder
     end
 
     def default_storage_config
-      Rails.application.config.active_storage.service_configurations[ActiveStorage::Blob.service.name.to_s] || raise("ActiveStorage service not found")
+      Rails.application.config.active_storage.service_configurations[ActiveStorage::Blob.service.name.to_s] || raise('ActiveStorage service not found')
     end
 
     def input_uri
