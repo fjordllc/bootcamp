@@ -58,8 +58,11 @@ module Transcoder
     end
 
     def validate_configuration
-      %w[bucket_name project_id location pubsub_topic].each do |key|
-        raise ArgumentError, "#{key} is required" if instance_variable_get("@#{key}")&.blank? && @config[key].blank?
+      raise ArgumentError, 'bucket_name is required' if @bucket_name.blank?
+      raise ArgumentError, 'project_id is required' if @project_id.blank?
+
+      %w[location pubsub_topic].each do |key|
+        raise ArgumentError, "#{key} is required" if @config[key].blank?
       end
     end
 
