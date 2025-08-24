@@ -100,3 +100,39 @@
 .reactions__dropdown-toggle-plus
   font-size: .4em
   margin-right: .3em
+
+.reactions__actions
+  display: flex
+  gap: 4px
+  align-items: center
+
+.reactions__inspector-toggle
+  +size(2.8125rem calc(2.8125rem - 1px))
+  +text-block(1.25rem 1, flex)
+  color: var(--main)
+  cursor: pointer
+  align-items: center
+  justify-content: center
+  border-left: 1px solid var(--border-tint)
+  transition: all .2s ease-out
+  &:hover
+    color: var(--hover-text)
+    background: var(--background-more-tint)
+
+.reactions__inspector
+  position: relative
+
+.reactions__inspector-dropdown
+  position: absolute
+  top: 100%
+  right: 0
+  background-color: #fff
+  border: 1px solid #ddd
+  padding: 0.5rem
+  z-index: 100
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1)
+  min-width: 150px
+  border-radius: 4px
+
+.reaction-emoji
+  margin-right: 0.25rem
