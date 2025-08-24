@@ -58,10 +58,9 @@ module Transcoder
     end
 
     def validate_configuration
-      raise ArgumentError, 'bucket_name is required' if @bucket_name.blank?
-      raise ArgumentError, 'project_id is required' if @project_id.blank?
-      raise ArgumentError, 'location is required' if @config['location'].blank?
-      raise ArgumentError, 'pubsub_topic is required' if @config['pubsub_topic'].blank?
+      %w[bucket_name project_id location pubsub_topic].each do |key|
+        raise ArgumentError, "#{key} is required" if instance_variable_get("@#{key}")&.blank? && @config[key].blank?
+      end
     end
 
     def elementary_streams
@@ -69,27 +68,11 @@ module Transcoder
     end
 
     def video_stream_config
-      {
-        key: 'video-stream',
-        video_stream: {
-          h264: {
-            height_pixels: @config['video_height'],
-            width_pixels: @config['video_width'],
-            bitrate_bps: @config['video_bitrate'],
-            frame_rate: @config['video_frame_rate']
-          }
-        }
-      }
+      { key: 'video-stream', video_stream: { h264: { height_pixels: @config['video_height'], width_pixels: @config['video_width'], bitrate_bps: @config['video_bitrate'], frame_rate: @config['video_frame_rate'] } } }
     end
 
     def audio_stream_config
-      {
-        key: 'audio-stream',
-        audio_stream: {
-          codec: @config['audio_codec'],
-          bitrate_bps: @config['audio_bitrate']
-        }
-      }
+      { key: 'audio-stream', audio_stream: { codec: @config['audio_codec'], bitrate_bps: @config['audio_bitrate'] } }
     end
 
     def mux_streams
@@ -109,10 +92,7 @@ module Transcoder
     end
 
     def default_storage_config
-      cfg = Rails.application.config.active_storage.service_configurations[service_name]
-      raise ArgumentError, "ActiveStorage service not found for: #{service_name}" if cfg.nil?
-
-      cfg
+      Rails.application.config.active_storage.service_configurations[ActiveStorage::Blob.service.name.to_s] || raise("ActiveStorage service not found")
     end
 
     def input_uri
