@@ -5,10 +5,6 @@ class ProcessTranscodingNotification
 
   def call
     message = parse_pubsub_message(context.body)
-    unless message
-      context.fail!(error_type: :invalid_message, error: 'Invalid message format')
-      return
-    end
 
     job_name = message[:job_name]
     job_state = message[:job_state]
