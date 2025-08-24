@@ -13,7 +13,7 @@ module Transcoder
     end
 
     def transcode
-      return existing_job if existing_job
+      return if existing_job
 
       # 処理完了後にAPI::PubSubControllerへPub/Subで通知を送る
 
