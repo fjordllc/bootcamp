@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 2025_08_20_212112) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
@@ -53,6 +54,8 @@ ActiveRecord::Schema.define(version: 2025_08_20_212112) do
     t.integer "target", default: 0, null: false
     t.boolean "wip", default: false, null: false
     t.datetime "published_at"
+    t.index ["title"], name: "index_announcements_on_title", opclass: :gin_trgm_ops, using: :gin
+    t.index ["title"], name: "index_announcements_on_title_trgm", opclass: :gin_trgm_ops, using: :gin
     t.index ["user_id"], name: "index_announcements_on_user_id"
   end
 
@@ -293,6 +296,8 @@ ActiveRecord::Schema.define(version: 2025_08_20_212112) do
     t.boolean "wip", default: false, null: false
     t.boolean "job_hunting", default: false, null: false
     t.datetime "published_at"
+    t.index ["description"], name: "index_events_on_description_trgm", opclass: :gin_trgm_ops, using: :gin
+    t.index ["title"], name: "index_events_on_title_trgm", opclass: :gin_trgm_ops, using: :gin
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
@@ -605,8 +610,10 @@ ActiveRecord::Schema.define(version: 2025_08_20_212112) do
     t.integer "last_updated_user_id"
     t.bigint "practice_id"
     t.string "slug", limit: 200
+    t.index ["body"], name: "index_pages_on_body_trgm", opclass: :gin_trgm_ops, using: :gin
     t.index ["practice_id"], name: "index_pages_on_practice_id"
     t.index ["slug"], name: "index_pages_on_slug", unique: true
+    t.index ["title"], name: "index_pages_on_title_trgm", opclass: :gin_trgm_ops, using: :gin
     t.index ["updated_at"], name: "index_pages_on_updated_at"
     t.index ["user_id"], name: "index_pages_on_user_id"
   end
@@ -637,7 +644,9 @@ ActiveRecord::Schema.define(version: 2025_08_20_212112) do
     t.text "summary"
     t.integer "source_id"
     t.index ["category_id"], name: "index_practices_on_category_id"
+    t.index ["description"], name: "index_practices_on_description_trgm", opclass: :gin_trgm_ops, using: :gin
     t.index ["source_id"], name: "index_practices_on_source_id"
+    t.index ["title"], name: "index_practices_on_title_trgm", opclass: :gin_trgm_ops, using: :gin
   end
 
   create_table "practices_books", force: :cascade do |t|
@@ -678,6 +687,7 @@ ActiveRecord::Schema.define(version: 2025_08_20_212112) do
     t.datetime "self_last_commented_at"
     t.datetime "mentor_last_commented_at"
     t.datetime "commented_at"
+    t.index ["body"], name: "index_products_on_body_trgm", opclass: :gin_trgm_ops, using: :gin
     t.index ["commented_at"], name: "index_products_on_commented_at"
     t.index ["practice_id"], name: "index_products_on_practice_id"
     t.index ["user_id", "practice_id"], name: "index_products_on_user_id_and_practice_id", unique: true
@@ -694,7 +704,9 @@ ActiveRecord::Schema.define(version: 2025_08_20_212112) do
     t.boolean "wip", default: false, null: false
     t.datetime "published_at"
     t.text "ai_answer"
+    t.index ["description"], name: "index_questions_on_description_trgm", opclass: :gin_trgm_ops, using: :gin
     t.index ["practice_id"], name: "index_questions_on_practice_id"
+    t.index ["title"], name: "index_questions_on_title_trgm", opclass: :gin_trgm_ops, using: :gin
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
@@ -761,6 +773,8 @@ ActiveRecord::Schema.define(version: 2025_08_20_212112) do
     t.integer "category", default: 0, null: false
     t.boolean "all", default: false, null: false
     t.datetime "published_at"
+    t.index ["description"], name: "index_regular_events_on_description_trgm", opclass: :gin_trgm_ops, using: :gin
+    t.index ["title"], name: "index_regular_events_on_title_trgm", opclass: :gin_trgm_ops, using: :gin
     t.index ["user_id"], name: "index_regular_events_on_user_id"
   end
 
@@ -783,6 +797,8 @@ ActiveRecord::Schema.define(version: 2025_08_20_212112) do
     t.integer "emotion"
     t.datetime "published_at"
     t.index ["created_at"], name: "index_reports_on_created_at"
+    t.index ["description"], name: "index_reports_on_description_trgm", opclass: :gin_trgm_ops, using: :gin
+    t.index ["title"], name: "index_reports_on_title_trgm", opclass: :gin_trgm_ops, using: :gin
     t.index ["user_id", "reported_on"], name: "index_reports_on_user_id_and_reported_on", unique: true
     t.index ["user_id", "title"], name: "index_reports_on_user_id_and_title", unique: true
     t.index ["user_id"], name: "reports_user_id"
@@ -981,9 +997,12 @@ ActiveRecord::Schema.define(version: 2025_08_20_212112) do
     t.boolean "sent_student_before_auto_retire_mail", default: false
     t.datetime "training_completed_at"
     t.index ["course_id"], name: "index_users_on_course_id"
+    t.index ["description"], name: "index_users_on_description_trgm", opclass: :gin_trgm_ops, using: :gin
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true
     t.index ["login_name"], name: "index_users_on_login_name", unique: true
+    t.index ["login_name"], name: "index_users_on_login_name_trgm", opclass: :gin_trgm_ops, using: :gin
+    t.index ["name"], name: "index_users_on_name_trgm", opclass: :gin_trgm_ops, using: :gin
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end

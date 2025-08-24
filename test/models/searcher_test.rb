@@ -26,7 +26,7 @@ class SearchableTest < ActiveSupport::TestCase
   end
 
   test 'returns results for all types when no user filter is applied' do
-    results = Searcher.search(word: 'テスト', current_user:, document_type: :all)
+    results = Searcher.search(word: 'テスト', current_user:, document_type: :all, all: true)
     actual_classes = results.map(&:model_name).uniq
     expected_classes = %w[report page practice question announcement event regular_event comment answer correct_answer user]
     expected_classes.each do |klass|
@@ -62,7 +62,7 @@ class SearchableTest < ActiveSupport::TestCase
   end
 
   test "returns all types when document_type argument isn't specified" do
-    results = Searcher.search(word: 'テスト', current_user:)
+    results = Searcher.search(word: 'テスト', current_user:, all: true)
     actual_classes = results.map(&:model_name).uniq
     expected_classes = %w[report page practice question announcement event regular_event comment answer correct_answer user]
     expected_classes.each do |klass|
@@ -71,7 +71,7 @@ class SearchableTest < ActiveSupport::TestCase
   end
 
   test 'returns all types when document_type argument is :all' do
-    results = Searcher.search(word: 'テスト', document_type: :all, current_user:)
+    results = Searcher.search(word: 'テスト', current_user:, document_type: :all, all: true)
     actual_classes = results.map(&:model_name).uniq
     expected_classes = %w[report page practice question announcement event regular_event comment answer correct_answer user]
     expected_classes.each do |klass|
@@ -222,7 +222,6 @@ class SearchableTest < ActiveSupport::TestCase
     result = Searcher.search(word: 'です', document_type: :questions, current_user:)
     assert_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [answers(:answer1).description, answers(:answer1).user.login_name])
     assert_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [answers(:answer5).description, answers(:answer5).user.login_name])
-
     result = Searcher.search(word: 'です atom', document_type: :questions, current_user:)
     assert_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [answers(:answer1).description, answers(:answer1).user.login_name])
     assert_not_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [answers(:answer5).description, answers(:answer5).user.login_name])
@@ -278,8 +277,8 @@ class SearchableTest < ActiveSupport::TestCase
   end
 
   test 'returns all comments when document_type is not specified' do
-    current_user = users(:komagata)
-    result = Searcher.search(word: 'コメント', current_user:)
+    current_user = User.find_by(login_name: 'komagata') || User.first
+    result = Searcher.search(word: 'コメント', current_user:, page: nil, all: true)
     assert_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [comments(:comment8).description, comments(:comment8).user.login_name])
     assert_includes(result.map do |r|
                       [strip_html(r.formatted_summary), r.login_name]

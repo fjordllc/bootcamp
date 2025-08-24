@@ -29,8 +29,21 @@ module SearchHelper
     case searchable
     when Comment
       "#{Rails.application.routes.url_helpers.polymorphic_path(searchable.commentable)}#comment_#{searchable.id}"
-    when CorrectAnswer, Answer
+
+    when Searcher::SearchRow
+      case searchable.record_type
+      when 'comments'
+        "#{Rails.application.routes.url_helpers.polymorphic_path(searchable.commentable)}#comment_#{searchable.id}"
+      when 'answers', 'correct_answers'
+        Rails.application.routes.url_helpers.question_path(searchable.commentable_id, anchor: "answer_#{searchable.id}")
+      else
+        helper_method = "#{searchable.record_type.singularize}_path"
+        Rails.application.routes.url_helpers.send(helper_method, searchable.id)
+      end
+
+    when Answer, CorrectAnswer
       Rails.application.routes.url_helpers.question_path(searchable.question, anchor: "answer_#{searchable.id}")
+
     else
       helper_method = "#{searchable.class.name.underscore}_path"
       Rails.application.routes.url_helpers.send(helper_method, searchable)
@@ -38,20 +51,57 @@ module SearchHelper
   end
 
   def filtered_message(searchable)
-    if searchable.is_a?(Comment) && searchable.commentable_type == 'Product'
-      commentable = searchable.commentable
-      return '該当プラクティスを修了するまで他の人の提出物へのコメントは見れません。' unless policy(commentable).show? || commentable.practice.open_product?
+    if defined?(Searcher::SearchRow) && searchable.is_a?(Searcher::SearchRow)
+      case searchable.record_type
+      when 'answers', 'correct_answers'
+        content = searchable.body.presence || searchable.description.presence
+        if content.blank?
+          answer = Answer.find_by(id: searchable.id)
+          content = answer.body.presence || answer.description.presence if answer
+        end
 
-      return md2plain_text(searchable.body)
+        if content.blank? && (q = searchable.commentable)
+          content = q.try(:description).presence || q.try(:body).presence || q.try(:title).presence
+        end
+
+      when 'comments'
+        if searchable.commentable_type == 'Product'
+          prod = searchable.commentable
+          return '該当プラクティスを修了するまで他の人の提出物へのコメントは見れません。' unless prod && (policy(prod).show? || prod.try(:practice)&.open_product?)
+
+          return md2plain_text(searchable.body.to_s)
+        end
+
+        content = searchable.body.presence || searchable.commentable&.try(:title).presence || ''
+
+      else
+        content = searchable.description.presence || searchable.body.presence || ''
+      end
+      return md2plain_text(content.to_s)
     end
 
-    description_or_body = searchable.try(:description) || searchable.try(:body) || ''
-    md2plain_text(description_or_body)
+    case searchable
+    when Answer, CorrectAnswer
+      searchable.body || ''
+    when Comment
+      if searchable.commentable_type == 'Product'
+        commentable = searchable.commentable
+        return '該当プラクティスを修了するまで他の人の提出物へのコメントは見れません。' unless policy(commentable).show? || commentable.practice.open_product?
+
+        return md2plain_text(searchable.body)
+      end
+      md2plain_text(searchable.body || searchable.commentable&.title || '')
+    else
+      description_or_body = searchable.try(:description) || searchable.try(:body) || ''
+      md2plain_text(description_or_body)
+    end
   end
 
   def created_user(searchable)
     if searchable.is_a?(SearchResult)
-      User.find_by(id: searchable.user_id)
+      return nil if searchable.user_id.blank?
+
+      searchable.users_by_id_map[searchable.user_id]
     else
       searchable.respond_to?(:user) ? searchable.user : nil
     end

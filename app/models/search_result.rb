@@ -9,8 +9,12 @@ class SearchResult
                 :login_name, :formatted_updated_at, :model_name, :label,
                 :wip, :commentable_user, :commentable_type, :primary_role, :current_user
 
-  def initialize(searchable, word, current_user)
+  attr_reader :users_by_id_map
+
+  def initialize(searchable, word, current_user, users_by_id: {})
     @current_user = current_user
+    @users_by_id_map = users_by_id || {}
+
     initialize_basic_attributes(searchable)
     initialize_content_attributes(searchable, word)
     initialize_user_attributes(searchable)
@@ -32,14 +36,26 @@ class SearchResult
   end
 
   def initialize_user_attributes(searchable)
-    @user_id = searchable.is_a?(User) ? searchable.id : searchable.try(:user_id)
-    @login_name = fetch_login_name(searchable)
-    @commentable_user = fetch_commentable_user(searchable)
-    @primary_role = created_user(searchable)&.primary_role
+    @user_id = if searchable.is_a?(User)
+                 searchable.id
+               elsif searchable.respond_to?(:user_id) && searchable.user_id.present?
+                 searchable.user_id
+               elsif searchable.respond_to?(:user) && searchable.user.present?
+                 searchable.user.id
+               end
+
+    if @user_id && (u = @users_by_id_map[@user_id])
+      @login_name = u.login_name
+      @primary_role = u.primary_role
+    else
+      @login_name = searchable.respond_to?(:login_name) ? searchable.login_name : nil
+      @primary_role = nil
+    end
   end
 
   def initialize_metadata_attributes(searchable)
-    @formatted_updated_at = searchable.respond_to?(:formatted_updated_at) ? searchable.formatted_updated_at : searchable.updated_at.strftime('%Y年%m月%d日 %H:%M')
+    @formatted_updated_at =
+      searchable.respond_to?(:formatted_updated_at) ? searchable.formatted_updated_at : searchable.updated_at.strftime('%Y年%m月%d日 %H:%M')
     @label = fetch_label(searchable)
     @commentable_type = fetch_commentable_type(searchable)
   end
@@ -48,21 +64,57 @@ class SearchResult
     return searchable.question&.title if searchable.is_a?(Answer)
     return searchable.login_name if searchable.is_a?(User)
 
+    if searchable.is_a?(Comment)
+      commentable = searchable.commentable
+      return title_from_commentable(commentable)
+    end
+
+    if searchable.is_a?(Searcher::SearchRow) && searchable.record_type == 'comments'
+      commentable = searchable.commentable
+      return title_from_commentable(commentable)
+    end
+
     searchable.try(:title)
   end
 
   def fetch_login_name(searchable)
-    User.find_by(id: searchable.try(:user_id))&.login_name
-  end
+    uid = searchable.try(:user_id)
+    return nil if uid.blank?
 
-  def fetch_commentable_user(searchable)
-    return searchable.question&.user if searchable.is_a?(Answer) || searchable.is_a?(CorrectAnswer)
-
-    searchable.try(:commentable)&.try(:user)
+    @users_by_id_map[uid]&.login_name
   end
 
   def fetch_label(searchable)
-    searchable.is_a?(User) ? searchable.avatar_url : searchable.try(:label)
+    return searchable.avatar_url if searchable.is_a?(User)
+
+    if searchable.is_a?(Searcher::SearchRow) && searchable.record_type == 'comments'
+      searchable.comment_label
+    else
+      searchable.try(:label)
+    end
+  end
+
+  def determine_commentable_user(searchable)
+    if searchable.is_a?(Answer) || searchable.is_a?(CorrectAnswer)
+      qid = searchable.try(:question_id)
+      return nil if qid.nil?
+
+      owner_id = @__commentable_owner_map[:"Question_#{qid}"]
+      return @__users_by_id[owner_id] if owner_id && @__users_by_id[owner_id]
+      return searchable.question&.user
+    end
+
+    if searchable.is_a?(Comment) && searchable.commentable_type.present?
+      owner_id = @__commentable_owner_map[:"#{searchable.commentable_type}_#{searchable.commentable_id}"]
+      return @__users_by_id[owner_id] if owner_id && @__users_by_id[owner_id]
+      return searchable.try(:commentable)&.try(:user)
+    end
+
+    nil
+  end
+
+  def fetch_commentable_user(searchable)
+    @commentable_user
   end
 
   def highlight_word(text, word)
@@ -86,5 +138,16 @@ class SearchResult
   rescue StandardError => e
     Rails.logger.warn "Failed to fetch commentable type: #{e.message}"
     ''
+  end
+
+  def title_from_commentable(commentable)
+    return nil unless commentable
+
+    case commentable
+    when Product
+      commentable.practice&.title.presence
+    else
+      commentable.title.presence
+    end
   end
 end
