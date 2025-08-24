@@ -26,7 +26,10 @@ class TranscodeJob < ApplicationJob
       end
     end
     Rails.logger.error("Transcoding failed for Movie #{movie.id}: #{e.message} (code=#{e.respond_to?(:code) ? e.code : 'n/a'})")
-    raise
+    # 捕まえた例外は Rollbar に自動送信されないため、明示的に通知する。
+    # エンコードジョブの失敗でアプリケーション全体を停止させないため、例外は再送出しない
+    Rollbar.error(e, movie_id: movie.id) if defined?(Rollbar)
+    nil
   end
 
   private
