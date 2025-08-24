@@ -13,9 +13,9 @@ module Transcoder
       raise 'Transcoded file not found' unless file&.exists?
 
       @tempfile = Tempfile.new([@movie.id.to_s, '.mp4'], binmode: true)
-      file.download do |chunk|
-        @tempfile.write(chunk)
-      end
+
+      file.download @tempfile.path
+
       @tempfile.rewind
       @tempfile
     rescue Google::Cloud::Storage::FileVerificationError => e
