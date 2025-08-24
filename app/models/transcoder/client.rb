@@ -99,7 +99,7 @@ module Transcoder
     def default_storage_config
       Rails.application.config.active_storage.service_configurations[ActiveStorage::Blob.service.name.to_s] || raise('ActiveStorage service not found')
     end
-    
+
     def input_uri
       raise ArgumentError, 'Movie and movie_data are required' unless @movie.movie_data.blob.key
 
