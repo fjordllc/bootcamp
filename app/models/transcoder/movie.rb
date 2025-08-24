@@ -6,12 +6,18 @@ module Transcoder
       @movie = movie
       @bucket_name = bucket_name || default_bucket_name
       @path = path || default_path
+      @tempfile = nil
     end
 
     def data
       raise 'Transcoded file not found' unless file&.exists?
 
-      StringIO.new(file.download.string)
+      @tempfile = Tempfile.new([@movie.id.to_s, '.mp4'], binmode: true)
+      file.download do |chunk|
+        @tempfile.write(chunk)
+      end
+      @tempfile.rewind
+      @tempfile
     rescue Google::Cloud::Storage::FileVerificationError => e
       Rails.logger.error "File verification failed: #{e.message}"
       raise
@@ -21,6 +27,13 @@ module Transcoder
     end
 
     def cleanup
+      cleanup_gcs
+      cleanup_tempfile
+    end
+
+    private
+
+    def cleanup_gcs
       return unless file&.exists?
 
       file.delete
@@ -32,7 +45,13 @@ module Transcoder
       raise
     end
 
-    private
+    def cleanup_tempfile
+      return unless @tempfile
+
+      @tempfile.close!
+      @tempfile.unlink
+      @tempfile = nil
+    end
 
     def file
       @file ||= bucket.file(@path)
