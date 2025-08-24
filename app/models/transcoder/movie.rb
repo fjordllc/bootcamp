@@ -49,7 +49,6 @@ module Transcoder
       return unless @tempfile
 
       @tempfile.close!
-      @tempfile.unlink
       @tempfile = nil
     end
 
