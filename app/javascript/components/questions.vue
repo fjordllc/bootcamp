@@ -1,7 +1,5 @@
 <template lang="pug">
 div
-  nav.pagination(v-if='totalPages > 1')
-    pager(v-bind='pagerProps')
   div(v-if='questions === null')
     loadingListPlaceholder
   .o-empty-message(v-else-if='questions.length === 0')
@@ -15,20 +13,16 @@ div
         v-for='question in questions',
         :key='question.id',
         :question='question')
-  nav.pagination(v-if='totalPages > 1')
-    pager(v-bind='pagerProps')
 </template>
 
 <script>
 import LoadingListPlaceholder from 'loading-list-placeholder.vue'
-import Pager from 'pager.vue'
 import Question from 'components/question.vue'
 
 export default {
   name: 'Questions',
   components: {
     loadingListPlaceholder: LoadingListPlaceholder,
-    pager: Pager,
     question: Question
   },
   props: {
@@ -59,14 +53,6 @@ export default {
     questionsAPI() {
       const params = this.newParams
       return `/api/questions.json?${params}`
-    },
-    pagerProps() {
-      return {
-        initialPageNumber: this.currentPage,
-        pageCount: this.totalPages,
-        pageRange: 9,
-        clickHandle: this.clickCallback
-      }
     }
   },
   created() {
