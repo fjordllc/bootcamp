@@ -350,3 +350,11 @@ report74:
   description: 休会します
   wip: true
   reported_on: "2019-12-31"
+
+report75:
+  user: kensyu
+  title: WIPの日報
+  emotion: 1
+  description: WIPです
+  wip: true
+  reported_on: "2022-04-02"
