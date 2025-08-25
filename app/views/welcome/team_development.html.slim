@@ -1,6 +1,6 @@
 - title '就職支援'
 - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
-  description: 'FBCの就職支援は、現役エンジニアの徹底サポート付き。履歴書・ポートフォリオ添削から面接対策、企業紹介まで、エンジニア就職を最後まで伴走します。')
+  description: '「特定商取引に関する法律」第11条（通信販売についての広告）に基づきこのページに明示いたします。オンラインプログラミングスクールのフィヨルドブートキャンプは月額29,800円、全機能が使えるお試し期間付き。')
 
 article.lp
   header.lp-content.is-lp-bg-main.is-hero
@@ -10,17 +10,15 @@ article.lp
           .lp-hero-info
             hgrounp.lp-hero-info__titles
               h1.lp-hero-info__title
-                | FBCの就職支援
+                | FBCのチーム開発
               h2.lp-hero-info__catchcopy
-                | カウンセリングも
+                | 業務とほぼ同じ
                 br
-                | 選考対策も
+                | チーム開発を経験
             .lp-hero-info__description
               p
-                | キャリアカウンセリング、就職相談、
-                | 提携企業による企業説明会、
-                | 業務でも採用試験を行っているメンターによる技術面接対策など、
-                | FBCには手厚い就職支援があります。
+                | チーム開発を経験できることがFBCの最大の特徴の一つです。
+                | チーム開発を経験することによって実際の業務にスムーズに入ることができます。
 
             .lp-actions
               ul.lp-actions__items
@@ -33,7 +31,7 @@ article.lp
 
         .lp-content__end
           .lp-hero-visual
-            = image_tag('job_supports/job_supports_main.svg', class: 'lp-hero-visual__image', alt: 'フィヨルドブートキャンプの就職支援のイメージイラスト')
+            = image_tag('team_development/team_development_main.svg', class: 'lp-hero-visual__image', alt: 'フィヨルドブートキャンプの就職支援のイメージイラスト')
 
   section.lp-content.is-lp-bg-1.is-top-title
     .l-container.is-xl
@@ -176,6 +174,7 @@ article.lp
                         | 最終課題でリリースした自作サービスなど、
                         | 学習中のアウトプットは選考を申し込んだ企業が見れる状態にします。
                         | メンターから企業へ推薦文も提出します。
+
   section.lp-content.is-lp-bg-3.is-right-title
     .l-container.is-lg
       .lp-content__inner
@@ -344,8 +343,3 @@ article.lp
                               | 現在の状況を確認します。
                               | もし、職場で何か働きづらい問題などが発生していた場合は、
                               | 企業へ状況を確認しに行ったり、改善の提案をします。
-
-  - if @faqs.present?
-    = render 'welcome/job_support/faqs', faqs: @faqs
-  - elsif current_user&.admin?
-    = render 'welcome/faqs/faqs_empty'
