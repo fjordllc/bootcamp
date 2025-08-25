@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 require 'test_helper'
-require 'google/cloud/storage'
+require 'ostruct'
+require 'google/cloud/errors'
 
 module Transcoder
   class MovieTest < ActiveSupport::TestCase
