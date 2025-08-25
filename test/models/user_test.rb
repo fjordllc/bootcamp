@@ -338,7 +338,7 @@ class UserTest < ActiveSupport::TestCase
 
   test 'return not retired user data' do
     hajime = users(:hajime)
-    result = Searcher.search(word: hajime.name, current_user: hajime)
+    result = Searcher.search(word: "hajime", current_user: hajime)
     users = result.map { |search_result| User.find(search_result.user_id) }
     assert_includes(users, hajime)
   end
