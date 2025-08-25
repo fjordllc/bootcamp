@@ -42,7 +42,6 @@ Rails.application.reloader.to_prepare do
 
   learning_cache_destroyer = LearningCacheDestroyer.new
   ActiveSupport::Notifications.subscribe('learning.create', learning_cache_destroyer)
-  ActiveSupport::Notifications.subscribe('learning.destroy', learning_cache_destroyer)
 
   mentors_watch_for_question_creator = MentorsWatchForQuestionCreator.new
   ActiveSupport::Notifications.subscribe('question.create', mentors_watch_for_question_creator)
