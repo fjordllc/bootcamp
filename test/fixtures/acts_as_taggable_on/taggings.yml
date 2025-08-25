@@ -108,3 +108,18 @@ article<%= id %>_tag_feature:
   context: tags
   tag: feature
 <% end %>
+
+movie1_tag_game:
+  taggable: movie1 (Movie)
+  context: tags
+  tag: game
+
+movie2_tag_beginner:
+  taggable: movie2 (Movie)
+  context: tags
+  tag: beginner
+
+movie2_tag_cat:
+  taggable: movie2 (Movie)
+  context: tags
+  tag: cat
