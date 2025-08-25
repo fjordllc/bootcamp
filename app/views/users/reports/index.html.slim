@@ -4,4 +4,13 @@
 = render 'users/page_title', user: @user
 = user_page_tabs(@user, active_tab: '日報')
 
-= react_component('Reports', userId: @user.id, practices: @current_user_practice.sorted_practices)
+- if admin_or_mentor_login?
+  nav.tab-nav(class="#{mentor_login? ? 'is-only-mentor' : ''}")
+    .container
+      ul.tab-nav__items
+        - targets = %w[all_reports unchecked_reports]
+        - targets.each do |target|
+          li.tab-nav__item
+            = link_to t("target.#{target}"), user_reports_path(@user, target:), class: (@target == target ? ['is-active'] : []) << 'tab-nav__item-link'
+
+= react_component('Reports', userId: @user.id, practices: @current_user_practice.sorted_practices, unchecked: (@target == 'unchecked_reports'))

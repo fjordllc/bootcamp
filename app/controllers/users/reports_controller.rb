@@ -2,6 +2,8 @@
 
 class Users::ReportsController < ApplicationController
   before_action :set_user
+  before_action :set_target
+  before_action :require_admin_or_mentor_login, if: -> { params[:target] == 'unchecked_reports' }
   before_action :set_reports
   before_action :set_report
   before_action :set_export
@@ -30,11 +32,19 @@ class Users::ReportsController < ApplicationController
   end
 
   def set_reports
-    @reports = user.reports.list.page(params[:page])
+    @reports = if @target == 'unchecked_reports'
+                 @user.reports.unchecked.not_wip.list.page(params[:page])
+               else
+                 @user.reports.list.page(params[:page])
+               end
   end
 
   def set_report
     @report = @reports[0]
+  end
+
+  def set_target
+    @target = params[:target] || 'all_reports'
   end
 
   def user

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import useSWR from 'swr'
 import fetcher from '../fetcher'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
@@ -9,7 +9,6 @@ import UnconfirmedLink from './UnconfirmedLink'
 import usePage from './hooks/usePage'
 
 export default function Reports({
-  all = false,
   userId = '',
   practices = false,
   unchecked = false,
@@ -22,26 +21,14 @@ export default function Reports({
   const { page, setPage } = usePage()
   const [userPracticeId, setUserPracticeId] = useState('')
 
-  useEffect(() => {
-    setUserPracticeId(userPracticeId)
-  }, [userPracticeId])
+  let reportsUrl = `/api/reports.json?page=${page}`
+  if (userId) reportsUrl += `&user_id=${userId}`
+  if (companyId) reportsUrl += `&company_id=${companyId}`
+  const pid = userPracticeId || practiceId
+  if (pid) reportsUrl += `&practice_id=${pid}`
+  if (unchecked) reportsUrl += `&target=unchecked_reports`
 
-  const { data, error } = useSWR(
-    practices
-      ? `/api/reports.json?user_id=${userId}&page=${page}&practice_id=${userPracticeId}`
-      : unchecked
-      ? `/api/reports/unchecked.json?page=${page}&user_id=${userId}`
-      : userId !== ''
-      ? `/api/reports.json?page=${page}&user_id=${userId}`
-      : practiceId !== ''
-      ? `/api/reports.json?page=${page}&practice_id=${practiceId}`
-      : companyId !== ''
-      ? `/api/reports.json?page=${page}&company_id=${companyId}`
-      : all === true
-      ? `/api/reports.json?page=${page}&practice_id=${userPracticeId}`
-      : console.log('data_fetched!'),
-    fetcher
-  )
+  const { data, error } = useSWR(reportsUrl, fetcher)
 
   if (error) return <>エラーが発生しました。</>
   if (!data) {

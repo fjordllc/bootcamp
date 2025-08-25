@@ -467,6 +467,8 @@ ja:
     rails_course: Rails
     front_end_course: フロントエンド
     other_courses: その他
+    all_reports: 全て
+    unchecked_reports: 未チェック
   invitation_role:
     adviser: アドバイザー
     trainee: 研修生(%{payment_method})
