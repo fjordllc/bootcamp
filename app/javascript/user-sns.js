@@ -57,6 +57,7 @@ export default function userSns(user) {
     const img = document.createElement('img')
     img.className = 'user-item__company-logo-image'
     img.src = user.company.logo_url
+    img.alt = '会社ロゴ'
 
     a.appendChild(img)
     fragment.append(a)
