@@ -1,6 +1,7 @@
 # frozen_string_literal: true
-require "test_helper"
-require "ostruct"
+
+require 'test_helper'
+require 'ostruct'
 
 class TranscodeJobTest < ActiveJob::TestCase
   setup do
@@ -8,25 +9,25 @@ class TranscodeJobTest < ActiveJob::TestCase
     Rails.application.config.transcoder['enabled'] = true
   end
 
-  test "calls transcode on Transcoder::Client" do
+  test 'calls transcode on Transcoder::Client' do
     Transcoder::Client.stub :new, OpenStruct.new(transcode: nil) do
       TranscodeJob.perform_now(@movie, force_video_only: true)
     end
   end
 
-  test "does not perform when transcoder is disabled" do
+  test 'does not perform when transcoder is disabled' do
     Rails.application.config.transcoder['enabled'] = false
 
-    Transcoder::Client.stub :new, ->(*) { flunk "should not be called" } do
+    Transcoder::Client.stub :new, ->(*) { flunk 'should not be called' } do
       TranscodeJob.perform_now(@movie)
     end
 
     Rails.application.config.transcoder['enabled'] = true
   end
 
-  test "retries on retryable Google::Cloud::Error" do
-    error = Google::Cloud::Error.new("temporary failure")
-    def error.code; 429; end
+  test 'retries on retryable Google::Cloud::Error' do
+    error = Google::Cloud::Error.new('temporary failure')
+    def code = 429
 
     job = TranscodeJob.new(@movie)
     job.stub :executions, 0 do
@@ -37,17 +38,17 @@ class TranscodeJobTest < ActiveJob::TestCase
       end
     end
 
-    assert @retry_called.present?, "retry_job should be called"
+    assert @retry_called.present?, 'retry_job should be called'
   end
 
-  test "logs and notifies on non-retryable error" do
-    error = StandardError.new("permanent failure")
+  test 'logs and notifies on non-retryable error' do
+    error = StandardError.new('permanent failure')
 
     logged = []
     Rails.logger.stub :error, ->(msg) { logged << msg } do
       @notified = false
       if defined?(Rollbar)
-        Rollbar.stub :error, ->(e, opts) { @notified = true } do
+        Rollbar.stub :error, ->(_e, _opts) { @notified = true } do
           TranscodeJob.new(@movie).send(:handle_transcode_error, error, @movie)
         end
       else
@@ -56,10 +57,10 @@ class TranscodeJobTest < ActiveJob::TestCase
     end
 
     assert @notified if defined?(Rollbar)
-    assert logged.any? { |msg| msg.include?("Transcoding failed") }
+    assert(logged.any? { |msg| msg.include?('Transcoding failed') })
   end
 
-  test "calculate_retry_wait returns value within jittered range" do
+  test 'calculate_retry_wait returns value within jittered range' do
     job = TranscodeJob.new(@movie)
     wait = job.send(:calculate_retry_wait, 0)
     # BASE_WAIT = 30秒, ±10% jitter
