@@ -94,27 +94,9 @@ class SearchResult
     end
   end
 
-  def determine_commentable_user(searchable)
-    if searchable.is_a?(Answer) || searchable.is_a?(CorrectAnswer)
-      qid = searchable.try(:question_id)
-      return nil if qid.nil?
-
-      owner_id = @__commentable_owner_map[:"Question_#{qid}"]
-      return @__users_by_id[owner_id] if owner_id && @__users_by_id[owner_id]
-      return searchable.question&.user
-    end
-
-    if searchable.is_a?(Comment) && searchable.commentable_type.present?
-      owner_id = @__commentable_owner_map[:"#{searchable.commentable_type}_#{searchable.commentable_id}"]
-      return @__users_by_id[owner_id] if owner_id && @__users_by_id[owner_id]
-      return searchable.try(:commentable)&.try(:user)
-    end
-
-    nil
-  end
-
   def fetch_commentable_user(searchable)
-    @commentable_user
+    return searchable.question&.user if searchable.is_a?(Answer) || searchable.is_a?(CorrectAnswer)
+    searchable.try(:commentable)&.try(:user)
   end
 
   def highlight_word(text, word)

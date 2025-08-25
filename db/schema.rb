@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_08_20_212112) do
+ActiveRecord::Schema.define(version: 2025_08_25_132121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -54,7 +54,6 @@ ActiveRecord::Schema.define(version: 2025_08_20_212112) do
     t.integer "target", default: 0, null: false
     t.boolean "wip", default: false, null: false
     t.datetime "published_at"
-    t.index ["title"], name: "index_announcements_on_title", opclass: :gin_trgm_ops, using: :gin
     t.index ["title"], name: "index_announcements_on_title_trgm", opclass: :gin_trgm_ops, using: :gin
     t.index ["user_id"], name: "index_announcements_on_user_id"
   end

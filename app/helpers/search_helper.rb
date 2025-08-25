@@ -35,10 +35,16 @@ module SearchHelper
       when 'comments'
         "#{Rails.application.routes.url_helpers.polymorphic_path(searchable.commentable)}#comment_#{searchable.id}"
       when 'answers', 'correct_answers'
+        return nil if searchable.commentable_id.blank?
         Rails.application.routes.url_helpers.question_path(searchable.commentable_id, anchor: "answer_#{searchable.id}")
       else
         helper_method = "#{searchable.record_type.singularize}_path"
-        Rails.application.routes.url_helpers.send(helper_method, searchable.id)
+        if Rails.application.routes.url_helpers.respond_to?(helper_method)
+          Rails.application.routes.url_helpers.send(helper_method, searchable.id)
+        else
+          Rails.logger.warn "Unknown helper method: #{helper_method} for record_type: #{searchable.record_type}"
+          nil
+        end
       end
 
     when Answer, CorrectAnswer
@@ -55,10 +61,6 @@ module SearchHelper
       case searchable.record_type
       when 'answers', 'correct_answers'
         content = searchable.body.presence || searchable.description.presence
-        if content.blank?
-          answer = Answer.find_by(id: searchable.id)
-          content = answer.body.presence || answer.description.presence if answer
-        end
 
         if content.blank? && (q = searchable.commentable)
           content = q.try(:description).presence || q.try(:body).presence || q.try(:title).presence
