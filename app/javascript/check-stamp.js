@@ -1,4 +1,3 @@
-import store from 'check-store.js'
 import { get } from '@rails/request.js'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -11,10 +10,6 @@ const loadCheckStamp = () => {
 
   const checkableType = checkStamp.getAttribute('data-checkable-type')
   const checkableId = checkStamp.getAttribute('data-checkable-id')
-  store.dispatch('setCheckable', {
-    checkableId: checkableId,
-    checkableType: checkableType
-  })
   get(
     `/api/checks.json/?checkable_type=${checkableType}&checkable_id=${checkableId}`
   )
