@@ -5,7 +5,7 @@ require 'ostruct'
 
 class TranscodeJobTest < ActiveJob::TestCase
   setup do
-    @movie = OpenStruct.new(id: 1)
+    @movie = movies(:movie1)
     Rails.application.config.transcoder['enabled'] = true
   end
 
