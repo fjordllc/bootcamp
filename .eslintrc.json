@@ -2,7 +2,6 @@
   "extends": [
     "eslint:recommended",
     "standard",
-    "plugin:vue/recommended",
     "plugin:react/jsx-runtime",
     "prettier"
   ],
@@ -10,6 +9,7 @@
     "react"
   ],
   "env": {
+    "browser": true,
     "jquery": true,
     "node": true
   },
