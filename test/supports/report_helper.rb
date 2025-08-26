@@ -28,6 +28,7 @@ module ReportHelper
 
   def update_report(id, title, description, wip)
     visit edit_report_path(id)
+    assert_selector 'h2.page-header__title', text: '日報編集'
 
     edit_report(title, description)
 
@@ -37,7 +38,7 @@ module ReportHelper
     end
 
     # click_buttonでは正規表現使えない
-    click_button(page.has_button?('提出') ? '提出' : '内容変更')
+    click_button(page.has_button?('提出', wait: 3) ? '提出' : '内容変更')
   end
 
   def edit_report(title, description)
