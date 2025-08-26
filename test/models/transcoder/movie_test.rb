@@ -2,7 +2,7 @@
 
 require 'test_helper'
 require 'ostruct'
-require 'google/cloud/errors'
+require 'google/cloud/storage'
 
 module Transcoder
   class MovieTest < ActiveSupport::TestCase
