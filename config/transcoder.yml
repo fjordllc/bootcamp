@@ -8,7 +8,7 @@ default: &default
   audio_bitrate: 128000
   container: 'mp4'
   location: 'asia-northeast1'
-  pubsub_topic: 'bootcamp-transcoder-job-topic'
+  pubsub_topic: <%= ENV['PUBSUB_TOPIC'] %>
 
 production:
   <<: *default
