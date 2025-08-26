@@ -33,5 +33,6 @@ hr.a-border-tint
                             = press_release.user.login_name
                         .thumbnail-card__meta
                           .thumbnail-card__date
-                              = l(press_release.published_at)
+                              time(datetime="#{press_release.published_at.iso8601}")
+                                = l(press_release.published_at)
         = paginate press_releases

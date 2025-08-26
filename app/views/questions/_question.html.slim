@@ -36,13 +36,13 @@
           .card-list-item-meta__items
             - if !question.wip?
               .card-list-item-meta__item
-                time.a-meta
+                time.a-meta(datetime="#{question.published_at.iso8601}")
                   span.a-meta__label
                     | 公開
                   span.a-meta__value
                     = l question.published_at, format: :default
               .card-list-item-meta__item
-                time.a-meta
+                time.a-meta(datetime="#{question.updated_at.iso8601}")
                   span.a-meta__label
                     | 更新
                   span.a-meta__value

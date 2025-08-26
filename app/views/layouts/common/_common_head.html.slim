@@ -19,6 +19,48 @@ link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=true
 // Feed
 = auto_discovery_link_tag(:atom, 'https://bootcamp.fjord.jp/articles.atom', { title: 'フィヨルドブートキャンプブログ' })
 
+// Structured Data - Organization
+script type="application/ld+json"
+  | {
+  |   "@context": "https://schema.org",
+  |   "@type": "EducationalOrganization",
+  |   "name": "FJORD BOOT CAMP",
+  |   "alternateName": "FBC",
+  |   "url": "#{root_url}",
+  |   "logo": "#{ogp_image_url('/ogp/ogp.png')}",
+  |   "description": "月額29,800円、全機能が使えるお試し期間付き。現場の即戦力になるためのスキルとプログラミングの楽しさを伝える、現役ソフトウェアエンジニアが考える理想のプログラミングスクールです。",
+  |   "educationalCredentialAwarded": "プログラミング修了証書",
+  |   "hasOfferCatalog": {
+  |     "@type": "OfferCatalog",
+  |     "name": "プログラミングコース",
+  |     "itemListElement": [
+  |       {
+  |         "@type": "Course",
+  |         "name": "Railsエンジニアコース",
+  |         "description": "Ruby on Railsを中心としたWebアプリケーション開発コース",
+  |         "provider": {
+  |           "@type": "Organization",
+  |           "name": "FJORD BOOT CAMP"
+  |         }
+  |       },
+  |       {
+  |         "@type": "Course", 
+  |         "name": "Railsエンジニア（就職特化）コース",
+  |         "description": "就職に特化したRuby on Rails開発コース",
+  |         "provider": {
+  |           "@type": "Organization",
+  |           "name": "FJORD BOOT CAMP"
+  |         }
+  |       }
+  |     ]
+  |   },
+  |   "contactPoint": {
+  |     "@type": "ContactPoint",
+  |     "contactType": "customer service",
+  |     "url": "#{new_inquiry_url}"
+  |   }
+  | }
+
 // Dev
 = render 'current_user'
 = render 'google_analytics' if Rails.env.production? && !staging?

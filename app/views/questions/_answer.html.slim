@@ -21,7 +21,7 @@
             img.thread-comment__title-user-icon.a-user-icon src="#{answer.user.avatar_url}"
           a.thread-comment__title-link.a-text-link href="#{answer.user.url}"
             = answer.user.login_name
-        time.thread-comment__created-at.created-at
+        time.thread-comment__created-at.created-at(datetime="#{answer.created_at.iso8601}")
           = l(answer.created_at)
       hr.a-border-tint
       .thread-comment__description

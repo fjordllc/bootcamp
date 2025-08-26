@@ -6,7 +6,12 @@
       .user-metas__item-label
         = User.human_attribute_name :training_completed_at
       .user-metas__item-value
-        | #{l user.training_completed_at}(開始日: #{l user.created_at.to_date})
+        time(datetime="#{user.training_completed_at.iso8601}")
+          = l user.training_completed_at
+        | (開始日: 
+        time(datetime="#{user.created_at.iso8601}")
+          = l user.created_at.to_date
+        | )
     .user-metas__item
       .user-metas__item-label
         | 選択入力の研修感想

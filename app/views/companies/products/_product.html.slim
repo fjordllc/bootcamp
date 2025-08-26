@@ -25,7 +25,7 @@
                 .a-meta 提出物作成中
             - elsif product.published_at
               .card-list-item-meta__item
-                time.a-meta
+                time.a-meta(datetime="#{product.published_at.iso8601}")
                   span.a-meta__label 提出
                   | #{product.published_at.year}年
                     #{product.published_at.mon}月
@@ -34,7 +34,7 @@
                     #{product.published_at.strftime('%R')}
             - else
               .card-list-item-meta__item
-                time.a-meta
+                time.a-meta(datetime="#{product.created_at.iso8601}")
                   span.a-meta__label 提出
                   | #{product.created_at.year}年
                     #{product.created_at.mon}月
@@ -43,7 +43,7 @@
                     #{product.created_at.strftime('%R')}
               .card-list-item-meta__item
                 - if product.updated_at
-                  time.a-meta
+                  time.a-meta(datetime="#{product.updated_at.iso8601}")
                     span.a-meta__label 更新
                     | #{product.updated_at.year}年
                       #{product.updated_at.mon}月
@@ -112,7 +112,7 @@
       .stamp.stamp-approve
         h2.stamp__content.is-title
           | 確認済
-        time.stamp__content.is-created-at
+        time.stamp__content.is-created-at(datetime="#{product.checks.last.created_at.iso8601}")
           | #{product.checks.last.created_at.to_date.strftime('%Y/%m/%d')}
         .stamp__content.is-user-name
           .stamp__content-inner

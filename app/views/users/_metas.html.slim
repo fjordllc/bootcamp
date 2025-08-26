@@ -6,7 +6,9 @@
       .user-metas__item-label
         = User.human_attribute_name :created_at
       .user-metas__item-value
-        | #{l user.created_at.to_date}（#{user.enrollment_period}）
+        time(datetime="#{user.created_at.iso8601}")
+          = l user.created_at.to_date
+        | （#{user.enrollment_period}）
     .user-metas__item
       .user-metas__item-label
         | お住まい
@@ -50,7 +52,11 @@
                 | （#{user.company.name}）
               - if admin_or_mentor_login?
                 span.is-only-mentor
-                  = "（休会から#{(Time.current.to_date - user.hibernated_at.to_date).to_i}日目）" if role == 'hibernationed'
+                  - if role == 'hibernationed'
+                    | （休会から
+                    time(datetime="#{user.hibernated_at.iso8601}")
+                      | #{(Time.current.to_date - user.hibernated_at.to_date).to_i}日目
+                    | ）
     - if user.trainee? && user.training_ends_on?
       .user-metas__item
         .user-metas__item-label

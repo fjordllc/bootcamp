@@ -71,9 +71,11 @@ header.lp-page-header
                             - if article.wip?
                               = '執筆中'
                             - elsif article.published_at.nil?
-                              = l(article.created_at)
+                              time(datetime="#{article.created_at.iso8601}")
+                                = l(article.created_at)
                             - else
-                              = l(article.published_at)
+                              time(datetime="#{article.published_at.iso8601}")
+                                = l(article.published_at)
                     .thumbnail-card__row
                       .a-tags
                         ul.a-tags__items

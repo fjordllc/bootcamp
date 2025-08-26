@@ -59,7 +59,9 @@
                       .a-meta__label
                         | 更新
                       .a-meta__value
-                        | #{l @practice.updated_at} by
+                        time(datetime="#{@practice.updated_at.iso8601}")
+                          = l @practice.updated_at
+                        |  by
                         = render 'users/icon',
                           user: @practice.last_updated_user,
                           link_class: 'thread-header__user-icon-link',

@@ -30,7 +30,8 @@
         .thumbnail-card__metas
           .thumbnail-card__meta
             .thumbnail-card__date
-              = l(movie.created_at)
+              time(datetime="#{movie.created_at.iso8601}")
+                = l(movie.created_at)
       .thumbnail-card__row
         .thumbnail-card__tags
           .tag-links

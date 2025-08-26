@@ -2,6 +2,40 @@
 - set_meta_tags description: @article.summary if @article.summary.present?
 - set_meta_tags site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）'
 
+- content_for :head_last do
+  script type="application/ld+json"
+    | {
+    |   "@context": "https://schema.org",
+    |   "@type": "BlogPosting",
+    |   "headline": "#{@article.title}",
+    |   "description": "#{@article.summary.present? ? @article.summary : strip_tags(truncate(@article.body, length: 160))}",
+    |   "image": {
+    |     "@type": "ImageObject",
+    |     "url": "#{@article.prepared_thumbnail? ? @article.prepared_thumbnail_url : ogp_image_url(@article.selected_thumbnail_url || '/ogp/ogp.png')}"
+    |   },
+    |   "author": {
+    |     "@type": "Person",
+    |     "name": "#{@article.user.name}",
+    |     "url": "#{user_url(@article.user)}"
+    |   },
+    |   "publisher": {
+    |     "@type": "Organization",
+    |     "name": "FJORD BOOT CAMP",
+    |     "logo": {
+    |       "@type": "ImageObject",
+    |       "url": "#{ogp_image_url('/ogp/ogp.png')}"
+    |     },
+    |     "url": "#{root_url}"
+    |   },
+    |   "datePublished": "#{@article.published_at&.iso8601 || @article.created_at.iso8601}",
+    |   "dateModified": "#{@article.updated_at.iso8601}",
+    |   "url": "#{request.url}",
+    |   "mainEntityOfPage": {
+    |     "@type": "WebPage",
+    |     "@id": "#{request.url}"
+    |   }
+    | }
+
 ruby:
   if thumbnail_blank?(@article)
     set_meta_tags(og: { image: ogp_image_url('/ogp/ogp.png'), url: request.url })
@@ -53,9 +87,11 @@ hr.a-border-tint
                         - if @article.wip?
                           = '執筆中'
                         - elsif @article.published_at.nil?
-                          = l(@article.created_at)
+                          time(datetime="#{@article.created_at.iso8601}")
+                            = l(@article.created_at)
                         - else
-                          = l(@article.published_at)
+                          time(datetime="#{@article.published_at.iso8601}")
+                            = l(@article.published_at)
                 .article__header-row
                   .a-tags
                     ul.a-tags__items
