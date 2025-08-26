@@ -37,13 +37,15 @@ export function initializeReaction(reaction) {
 }
 
 function requestReaction(url, method, callback) {
-  const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
-  
+  const csrfToken = document
+    .querySelector('meta[name="csrf-token"]')
+    ?.getAttribute('content')
+
   if (!csrfToken) {
     console.error('CSRF token not found in meta tags')
     return
   }
-  
+
   fetch(url, {
     method: method,
     credentials: 'same-origin',
