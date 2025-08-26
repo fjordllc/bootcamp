@@ -17,7 +17,7 @@ class UserUnstartedPracticesQuery < Patterns::Query
       .where(courses_categories: { course_id: @course_id })
       .where.not(id: learned_practice_ids)
       .select('practices.*')
-      .order('categories_practices.position ASC, courses_categories.position ASC')
+      .order('courses_categories.position ASC, categories_practices.position ASC')
   end
 
   def learned_practice_ids
