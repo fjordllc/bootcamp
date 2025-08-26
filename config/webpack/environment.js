@@ -1,7 +1,4 @@
 const { environment } = require('@rails/webpacker')
-const pug = require('./loaders/pug')
-
-environment.loaders.prepend('pug', pug)
 
 // Add resolve alias for images
 const path = require('path')
