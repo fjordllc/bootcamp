@@ -7,7 +7,7 @@ require 'google/cloud/storage'
 module Transcoder
   class MovieTest < ActiveSupport::TestCase
     def build_movie(file_exists: true, fail_gcs_delete: false, fail_gcs_download: false)
-      movie = OpenStruct.new(id: 1)
+      movie = movies(:movie1)
       movie_obj = Transcoder::Movie.new(movie, bucket_name: 'dummy', path: 'dummy/path')
 
       movie_obj.define_singleton_method(:file) do
