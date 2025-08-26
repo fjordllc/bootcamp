@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-  $('.js-select2').select2({
-    closeOnSelect: true
+  const select2Elements = document.querySelectorAll('.js-select2')
+  select2Elements.forEach(element => {
+    window.$(element).select2({
+      closeOnSelect: true
+    })
   })
 })

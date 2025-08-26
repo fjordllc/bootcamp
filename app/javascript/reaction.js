@@ -37,12 +37,14 @@ export function initializeReaction(reaction) {
 }
 
 function requestReaction(url, method, callback) {
+  const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+  
   fetch(url, {
     method: method,
     credentials: 'same-origin',
     headers: {
       'X-Requested-With': 'XMLHttpRequest',
-      'X-CSRF-Token': $.rails.csrfToken()
+      'X-CSRF-Token': csrfToken
     }
   })
     .then((response) => response.json())
