@@ -61,7 +61,7 @@ class Product < ApplicationRecord # rubocop:todo Metrics/ClassLength
     end
     no_comments_products = where(commented_at: nil)
     no_replied_products_ids = (self_last_commented_products + no_comments_products).map(&:id)
-    where(id: no_replied_products_ids).order(published_at: :asc, id: :asc)
+    unchecked.where(id: no_replied_products_ids).order(published_at: :asc, id: :asc)
   }
   scope :unhibernated_user_products, -> { joins(:user).where(user: { hibernated_at: nil }) }
 

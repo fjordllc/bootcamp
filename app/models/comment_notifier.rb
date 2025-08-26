@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CommentNotifier
-  def call(payload)
+  def call(_name, _started, _finished, _id, payload)
     comment = payload[:comment]
     return if comment.nil?
 

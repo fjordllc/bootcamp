@@ -122,6 +122,7 @@ Rails.application.routes.draw do
   get 'sponsorships', to: 'articles/sponsorships#index'
   get "pages/tags/:tag", to: "pages#index", as: :pages_tag, tag: /.+/, format: "html"
   get "questions/tags/:tag", to: "questions#index", as: :questions_tag, tag: /.+/, format: "html"
+  get "movies/tags/:tag", to: "movies#index", as: :movies_tag, tag: /.+/, format: "html"
   get "login" => "user_sessions#new", as: :login
   get "auth/:provider/callback" => "user_sessions#callback"
   get 'auth/failure', to: "user_sessions#failure"

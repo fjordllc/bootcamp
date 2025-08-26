@@ -5,7 +5,7 @@
   hr.a-border-tint
   .card-body.is-practice
     - if practice.ogp_image.attached?
-      = image_tag practice.ogp_image
+      = practice_ogp_image_tag(practice.ogp_image)
     .card-body__description
       .a-long-text.is-md
         = simple_format h(practice.summary)

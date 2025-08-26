@@ -1,10 +1,13 @@
 .corporate-training-example__header
-  height: 9rem
   display: flex
   justify-content: center
   align-items: center
   color: var(--main)
   border: solid 1px var(--main)
+  +media-breakpoint-up(md)
+    height: 9rem
+  +media-breakpoint-down(sm)
+    height: 6rem
 
 .corporate-training-example__title
   +text-block(1rem 1.4)
@@ -40,12 +43,19 @@
 .corporate-training-example-content__header
   background-color:  var(--main)
   color: var(--reversal-text)
-  font-size: 1.125rem
   display: flex
   justify-content: center
   align-items: center
   height: 3rem
   border-radius: .1875rem
+
+.corporate-training-example-content__title
+  line-height: 1.4
+  text-align: center
+  +media-breakpoint-up(md)
+    font-size: 1.125rem
+  +media-breakpoint-down(sm)
+    font-size: .875rem
 
 .corporate-training-example-content__body
   margin-top: 1.5rem
