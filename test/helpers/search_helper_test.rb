@@ -15,9 +15,7 @@ class SearchHelperTest < ActionView::TestCase
     @page = pages(:page1)
   end
 
-  def model_name
-    @model_name
-  end
+  attr_reader :model_name
 
   test 'searchable_url returns correct URL for Comment' do
     url = searchable_url(@comment)
