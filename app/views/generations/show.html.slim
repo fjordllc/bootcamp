@@ -26,6 +26,9 @@ main.page-main
               li.page-main-header-actions__item
                 = link_to generations_path, class: 'a-button is-sm is-block is-secondary is-back' do
                   | 期一覧
+
+  div[id="loading-screen"]
+    | Loading...
   hr.a-border
     .page-body
       = paginate @users
