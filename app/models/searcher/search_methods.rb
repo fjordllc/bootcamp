@@ -78,5 +78,5 @@ module Searcher::SearchMethods
 
   private :union_target?, :union_search, :compute_pagination, :execute_union_query
 
-  include SearchMethodsFetching::Fetching
+  include Searcher::SearchMethodsFetching::Fetching
 end

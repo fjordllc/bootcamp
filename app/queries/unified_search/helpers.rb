@@ -3,7 +3,11 @@
 require_relative 'exprs'
 require_relative 'sql_blocks'
 
-module UnifiedSearchHelpers
-  include UnifiedSearch::Exprs
-  include UnifiedSearch::SqlBlocks
+module UnifiedSearch
+  module Helpers
+    include UnifiedSearch::Exprs
+    include UnifiedSearch::SqlBlocks
+  end
 end
+
+UnifiedSearchHelpers = UnifiedSearch::Helpers
