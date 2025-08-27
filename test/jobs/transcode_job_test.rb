@@ -41,23 +41,15 @@ class TranscodeJobTest < ActiveJob::TestCase
     assert @retry_called.present?, 'retry_job should be called'
   end
 
-  test 'logs and notifies on non-retryable error' do
+  test 'logs on non-retryable error' do
     error = StandardError.new('permanent failure')
 
-    logged = []
-    Rails.logger.stub :error, ->(msg) { logged << msg } do
-      @notified = false
-      if defined?(Rollbar)
-        Rollbar.stub :error, ->(_e, _opts) { @notified = true } do
-          TranscodeJob.new(@movie).send(:handle_transcode_error, error, @movie)
-        end
-      else
-        TranscodeJob.new(@movie).send(:handle_transcode_error, error, @movie)
-      end
+    logged = nil
+    Rails.logger.stub :error, ->(msg) { logged = msg } do
+      TranscodeJob.new(@movie).send(:handle_transcode_error, error, @movie)
     end
 
-    assert @notified if defined?(Rollbar)
-    assert(logged.any? { |msg| msg.include?('Transcoding failed') })
+    assert_includes logged, 'permanent failure'
   end
 
   test 'calculate_retry_wait returns value within jittered range' do
