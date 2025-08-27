@@ -8,13 +8,14 @@ module UnifiedSearch
 
     def where_sql_for(columns, user_id_column:)
       filters = []
-      filters << "#{user_id_column} = #{@current_user_id}" if @only_me
+      user_words, keywords = Array(@words).partition { |w| w.start_with?('user:') }
 
-      user_words, = @words.partition { |w| w.start_with?('user:') }
+      filters << "#{user_id_column} = #{quote(@current_user_id)}" if @only_me && @current_user_id.present?
+
       user_filter = build_user_filter(user_words, user_id_column)
       filters << user_filter if user_filter.present?
 
-      keyword_filters = build_keyword_filters(columns)
+      keyword_filters = build_keyword_filters(columns, keywords)
       filters.concat(keyword_filters) if keyword_filters.any?
 
       filters.empty? ? '' : "WHERE #{filters.join(' AND ')}"
@@ -27,25 +28,31 @@ module UnifiedSearch
       "#{user_id_column} IN (SELECT id FROM users WHERE login_name IN (#{logins.join(', ')}))"
     end
 
-    def build_keyword_filters(columns)
-      keywords = @words.reject { |w| w.start_with?('user:') }
+    def build_keyword_filters(columns, _keywords)
+      kws = @words.reject { |w| w.start_with?('user:') }
       filters = []
-      keywords.each do |w|
+
+      kws.each do |w|
         esc = quote("%#{w}%")
         cols = columns.reject { |c| c =~ /\ANULL::/i }
         next if cols.empty?
 
         filters << "(#{cols.map { |col| "#{col} ILIKE #{esc}" }.join(' OR ')})"
       end
+
       filters
+    end
+
+    def cache
+      @cache ||= {}
     end
 
     def user_id_expr(table, prefer_last_updated: false)
       cache_key = "uid:#{table}:#{prefer_last_updated}"
-      return @cache[cache_key] if @cache.key?(cache_key)
+      return cache[cache_key] if cache.key?(cache_key)
 
       expr = compute_user_id_expr(table, prefer_last_updated)
-      @cache[cache_key] = expr
+      cache[cache_key] = expr
     end
 
     def compute_user_id_expr(table, prefer_last_updated)
@@ -67,14 +74,14 @@ module UnifiedSearch
 
     def column_expr(table, candidates)
       cache_key = "col:#{table}:#{Array(candidates).join(',')}"
-      return @cache[cache_key] if @cache.key?(cache_key)
+      return cache[cache_key] if cache.key?(cache_key)
 
       expr = with_conn do |conn|
         found = Array(candidates).find { |c| conn.column_exists?(table, c) }
         found ? "#{table}.#{found}" : 'NULL::text'
       end
 
-      @cache[cache_key] = expr
+      cache[cache_key] = expr
     end
 
     def column_exists?(table, col)
