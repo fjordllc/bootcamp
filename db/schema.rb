@@ -1046,6 +1046,7 @@ ActiveRecord::Schema.define(version: 2025_08_20_212112) do
   add_foreign_key "pages", "users"
   add_foreign_key "participations", "events"
   add_foreign_key "participations", "users"
+  add_foreign_key "practices", "practices", column: "source_id"
   add_foreign_key "practices_books", "books"
   add_foreign_key "practices_books", "practices"
   add_foreign_key "practices_movies", "movies"
