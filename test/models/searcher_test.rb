@@ -328,4 +328,29 @@ class SearchableTest < ActiveSupport::TestCase
     all_my_results = Searcher.search(word: '', only_me: true, current_user:)
     assert(all_my_results.all? { |result| !result.class.name.in?(%w[Practice User]) })
   end
+
+  test 'delegates to union_search when document_type is :all' do
+    called = false
+
+    Searcher.stub :union_search, lambda { |*_args|
+                                   called = true
+                                   Kaminari.paginate_array([]).page(1).per(50)
+                                 } do
+      response = Searcher.search(word: 'テスト', current_user:, document_type: :all)
+      assert called, 'expected union_search to be called for document_type :all'
+      assert_respond_to response, :current_page
+    end
+  end
+
+  test 'search returns SearchResult objects for specific document_type' do
+    results = Searcher.search(word: 'テスト', current_user:, document_type: :reports)
+    assert results.all? { |r| r.is_a?(SearchResult) }, 'expected all results to be SearchResult instances'
+  end
+
+  test 'only_me excludes Practice and User and keeps only own records' do
+    owner = users(:komagata)
+    results = Searcher.search(word: '', only_me: true, current_user: owner)
+    assert results.none? { |r| %w[practice user].include?(r.model_name) }, 'expected no Practice/User results when only_me is true'
+    assert results.all? { |r| r.user_id.nil? || r.user_id == owner.id }, 'expected all returned items to belong to owner'
+  end
 end
