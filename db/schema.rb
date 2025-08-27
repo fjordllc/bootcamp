@@ -957,8 +957,6 @@ ActiveRecord::Schema.define(version: 2025_09_05_025850) do
     t.text "mentor_memo"
     t.text "after_graduation_hope"
     t.date "training_ends_on"
-    t.boolean "negative_streak", default: false, null: false
-    t.integer "last_negative_report_id"
     t.datetime "last_activity_at"
     t.datetime "hibernated_at"
     t.string "profile_name"
@@ -979,7 +977,8 @@ ActiveRecord::Schema.define(version: 2025_09_05_025850) do
     t.integer "career_path", default: 0, null: false
     t.text "career_memo"
     t.boolean "sent_student_before_auto_retire_mail", default: false
-    t.datetime "training_completed_at"
+    t.integer "last_sad_report_id"
+    t.boolean "sad_streak", default: false, null: false
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true
