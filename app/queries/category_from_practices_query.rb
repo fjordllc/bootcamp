@@ -14,13 +14,21 @@ class CategoryFromPracticesQuery < Patterns::Query
   def query
     return relation.none if @practices.blank?
 
-    practice_ids = @practices.pluck(:id)
-
     relation
       .joins(:courses_categories)
-      .joins(practices: :categories_practices)
-      .where(practices: { id: practice_ids })
       .where(courses_categories: { course_id: @user.course_id })
-      .order('courses_categories.position ASC, categories_practices.position ASC')
+      .where(id: category_ids_with_practices)
+      .order('courses_categories.position ASC')
+  end
+
+  def category_ids_with_practices
+    Category
+      .joins(:practices)
+      .where(practices: { id: practice_ids })
+      .select('DISTINCT categories.id')
+  end
+
+  def practice_ids
+    @practices.pluck(:id)
   end
 end
