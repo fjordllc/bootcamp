@@ -1,25 +1,37 @@
-- title '日報'
+- content_for :title, '日報'
 - set_meta_tags description: '日報の一覧ページです。'
-
-header.page-header
-  .container
-    .page-header__inner
-      .page-header__start
-        .page-header__title
-          | 日報・ブログ
-      .page-header__end
-        = render 'reports/new_report'
 
 = report_page_tabs(active_tab: '日報')
 
-.page-main
-  nav.page-filter.form
-    .container.is-md
-      = form_with url: reports_path, local: true, method: 'get'
-      .form-item.is-inline-md-up
-        = label_tag :practice_id, 'プラクティスで絞り込む', class: 'a-form-label'
-        = select_tag :practice_id, options_from_collection_for_select(@current_user_practice.sorted_practices, :id, :title, selected: params[:practice_id]), include_blank: '全ての日報を表示', onchange: 'this.form.submit()', id: 'js-choices-single-select'
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | 日報
+        .page-main-header__end
+          .page-header-actions
+            ul.page-header-actions__items
+              li.page-header-actions__item
+                = render 'reports/new_report'
+
   hr.a-border
+
+  - if admin_or_mentor_login?
+    nav.pill-nav
+      ul.pill-nav__items
+        li.pill-nav__item
+          = link_to '全て', reports_path, class: "pill-nav__item-link#{' is-active' unless params[:unchecked]}"
+        li.pill-nav__item
+          = link_to '未チェック', reports_path(unchecked: true), class: "pill-nav__item-link#{' is-active' if params[:unchecked]}"
+  - if params[:unchecked].blank?
+    nav.page-filter.form.pb-0
+      .container.is-md
+        = form_with url: reports_path, local: true, method: :get do
+        .form-item.is-inline-md-up
+          = label_tag :practice_id, 'プラクティスで絞り込む', class: 'a-form-label'
+          = select_tag :practice_id, options_from_collection_for_select(@current_user_practice.sorted_practices, :id, :title, selected: params[:practice_id]), include_blank: '全ての日報を表示', onchange: 'this.form.submit()', id: 'js-choices-single-select'
   .page-body
     - if @reports.empty?
       .o-empty-message
