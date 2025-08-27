@@ -104,7 +104,7 @@ module Transcoder
       key = @movie&.movie_data&.blob&.key
       raise ArgumentError, 'Movie and movie_data blob.key are required' if key.blank?
 
-      "gs://#{@bucket_name}/#{@movie.key}"
+      "gs://#{@bucket_name}/#{key}"
     end
 
     def output_uri
