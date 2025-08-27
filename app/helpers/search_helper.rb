@@ -37,7 +37,6 @@ module SearchHelper
 
   private
 
-  # extracted from the original case in `filtered_message` to reduce perceived complexity
   def message_by_type(searchable)
     case searchable
     when Answer, CorrectAnswer
@@ -62,7 +61,6 @@ module SearchHelper
     end
   end
 
-  # 以下は既存のまま...
   def extract_user_id_match(result, word)
     user_id = word.delete_prefix('user:')
     return match_by_user_object(result, user_id) if result.respond_to?(:user) && result.user.present?
