@@ -2,6 +2,7 @@
 
 require 'test_helper'
 require 'ostruct'
+require 'google/cloud/errors'
 
 class TranscodeJobTest < ActiveJob::TestCase
   setup do
