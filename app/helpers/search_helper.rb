@@ -30,6 +30,15 @@ module SearchHelper
   def filtered_message(searchable)
     return filtered_message_for_stub(searchable) if defined?(Searcher::SearchRow) && searchable.is_a?(Searcher::SearchRow)
 
+    return searchable.summary.to_s if defined?(SearchResult) && searchable.is_a?(SearchResult)
+
+    message_by_type(searchable)
+  end
+
+  private
+
+  # extracted from the original case in `filtered_message` to reduce perceived complexity
+  def message_by_type(searchable)
     case searchable
     when Answer, CorrectAnswer
       searchable.body || ''
@@ -41,6 +50,8 @@ module SearchHelper
     end
   end
 
+  public
+
   def created_user(searchable)
     if searchable.is_a?(SearchResult)
       return nil if searchable.user_id.blank?
@@ -51,6 +62,7 @@ module SearchHelper
     end
   end
 
+  # 以下は既存のまま...
   def extract_user_id_match(result, word)
     user_id = word.delete_prefix('user:')
     return match_by_user_object(result, user_id) if result.respond_to?(:user) && result.user.present?

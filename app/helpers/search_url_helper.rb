@@ -17,6 +17,8 @@ module SearchUrlHelper
   private
 
   def comment_url(comment)
+    return nil if comment.commentable.blank?
+
     "#{Rails.application.routes.url_helpers.polymorphic_path(comment.commentable)}#comment_#{comment.id}"
   end
 

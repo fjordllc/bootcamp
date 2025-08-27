@@ -15,7 +15,7 @@ module Searcher::FilterMethods
 
   def delete_private_comment!(searchables)
     (searchables || []).reject do |s|
-      s.instance_of?(Comment) && s.commentable.class.in?([Talk, Inquiry, CorporateTrainingInquiry])
+      s.instance_of?(Comment) && s.commentable&.class&.in?([Talk, Inquiry, CorporateTrainingInquiry])
     end
   end
 end

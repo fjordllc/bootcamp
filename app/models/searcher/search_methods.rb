@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require Rails.root.join('app/queries/unified_search/query').to_s
+require_relative 'search_methods_fetching'
 
 module Searcher::SearchMethods
   def search(word:, current_user:, **options)
@@ -75,29 +76,5 @@ module Searcher::SearchMethods
     [rows, total]
   end
 
-  def fetch_results(words, document_type)
-    return results_for_all(words) if document_type == :all
-
-    model(document_type)
-    return result_for_questions(document_type, words) if document_type == :questions
-
-    base_results = result_for(document_type, words).to_a
-    comment_results = comments_for(document_type, words) || []
-
-    (base_results + comment_results).uniq.sort_by(&:updated_at).reverse
-  end
-
-  def results_for_all(words)
-    if (user_filter = extract_user_filter(words))
-      content_words = words.reject { |w| w.start_with?('user:') }
-      return search_by_user_filter(user_filter, content_words)
-    end
-
-    results = AVAILABLE_TYPES.flat_map { |type| result_for(type, words).to_a }
-    users = search_users(words).to_a
-    (results + users).uniq.sort_by(&:updated_at).reverse
-  end
-
-  private :union_target?, :union_search, :compute_pagination, :execute_union_query,
-          :fetch_results, :results_for_all
+  private :union_target?, :union_search, :compute_pagination, :execute_union_query
 end

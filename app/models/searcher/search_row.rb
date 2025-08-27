@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'ostruct'
 class Searcher::SearchRow
   attr_reader :id, :record_type, :title, :body, :description, :user_id,
               :updated_at, :wip, :commentable_type, :commentable_id
@@ -35,10 +36,6 @@ class Searcher::SearchRow
     @wip = attrs['wip']
     @commentable_type = attrs['commentable_type']
     @commentable_id   = attrs['commentable_id']
-  end
-
-  def class
-    OpenStruct.new(name: record_type.classify)
   end
 
   def try(sym)

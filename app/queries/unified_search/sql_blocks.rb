@@ -3,18 +3,20 @@
 module UnifiedSearch
   module SqlBlocks
     def products_block
-      prod_title = column_expr('products', %w[title name])
-      pract_title = column_expr('practices', %w[title name])
-      coalesced = "COALESCE(NULLIF(#{prod_title}, ''), NULLIF(#{pract_title}, ''))"
+      pract_title_expr = column_expr('practices', %w[title name])
+      prod_title_expr  = column_expr('products',  %w[title name])
+
+      coalesced_title = "COALESCE(#{pract_title_expr}, #{prod_title_expr})"
+
       body = column_expr('products', %w[body description])
-      uid = user_id_expr('products')
+      uid  = user_id_expr('products')
 
       <<~SQL
-        SELECT products.id, 'products' AS record_type, #{coalesced} AS title, #{body} AS body,
+        SELECT products.id, 'products' AS record_type, #{coalesced_title} AS title, #{body} AS body,
                NULL::text AS description, #{uid} AS user_id, products.updated_at AS updated_at,
                FALSE AS wip, NULL::text AS commentable_type, NULL::bigint AS commentable_id
         FROM products LEFT JOIN practices ON practices.id = products.practice_id
-        #{where_sql_for([coalesced, body], user_id_column: uid)}
+        #{where_sql_for([coalesced_title, body], user_id_column: uid)}
       SQL
     end
 
@@ -38,30 +40,35 @@ module UnifiedSearch
       a_body = column_expr('answers', %w[description body])
       a_uid = user_id_expr('answers')
       kws = @words.reject { |w| w.start_with?('user:') }
-      filters = kws.map { |w| "(#{a_body} ILIKE #{quote("%#{w}%")})" }.compact
-      where_answers = filters.empty? ? 'WHERE FALSE' : "WHERE (answers.type IS NULL OR answers.type != 'CorrectAnswer') AND (#{filters.join(' AND ')})"
 
-      answers_sql = <<~SQL
-        SELECT answers.id, 'answers' AS record_type, #{q_title} AS title, #{a_body} AS body, NULL::text AS description,
-               #{a_uid} AS user_id, answers.updated_at AS updated_at, FALSE AS wip, 'Question' AS commentable_type,
-               answers.question_id AS commentable_id
-        FROM answers JOIN questions ON questions.id = answers.question_id
-        #{where_answers}
-      SQL
-
-      correct_body = column_expr('answers', %w[description body])
-      correct_filters = kws.map { |w| "(#{correct_body} ILIKE #{quote("%#{w}%")})" }.compact
-      where_correct = correct_filters.empty? ? 'WHERE FALSE' : "WHERE answers.type = 'CorrectAnswer' AND (#{correct_filters.join(' AND ')})"
-
-      correct_sql = <<~SQL
-        SELECT answers.id, 'correct_answers' AS record_type, #{q_title} AS title, #{correct_body} AS body, NULL::text AS description,
-               #{a_uid} AS user_id, answers.updated_at AS updated_at, FALSE AS wip, 'Question' AS commentable_type,
-               answers.question_id AS commentable_id
-        FROM answers JOIN questions ON questions.id = answers.question_id
-        #{where_correct}
-      SQL
+      answers_sql = build_answers_query(q_title, a_body, a_uid, kws, false)
+      correct_sql = build_answers_query(q_title, a_body, a_uid, kws, true)
 
       "#{answers_sql}\nUNION ALL\n#{correct_sql}"
+    end
+
+    private
+
+    def build_answers_query(q_title, a_body, a_uid, keywords, is_correct)
+      record_type = is_correct ? 'correct_answers' : 'answers'
+      where_clause = build_answers_where_clause(a_body, keywords, is_correct)
+
+      <<~SQL
+        SELECT answers.id, '#{record_type}' AS record_type, #{q_title} AS title, #{a_body} AS body, NULL::text AS description,
+               #{a_uid} AS user_id, answers.updated_at AS updated_at, FALSE AS wip, 'Question' AS commentable_type,
+               answers.question_id AS commentable_id
+        FROM answers JOIN questions ON questions.id = answers.question_id
+        #{where_clause}
+      SQL
+    end
+
+    def build_answers_where_clause(body_column, keywords, is_correct)
+      return 'WHERE FALSE' if keywords.empty?
+
+      filters = keywords.map { |w| "(#{body_column} ILIKE #{quote("%#{w}%")})" }
+      type_condition = is_correct ? "answers.type = 'CorrectAnswer'" : "(answers.type IS NULL OR answers.type != 'CorrectAnswer')"
+
+      "WHERE #{type_condition} AND (#{filters.join(' AND ')})"
     end
 
     def comments_block
@@ -78,7 +85,8 @@ module UnifiedSearch
       exclude = "comments.commentable_type NOT IN ('Talk','Inquiry','CorporateTrainingInquiry')"
       combined = basic.blank? ? "WHERE #{exclude}" : "#{basic} AND #{exclude}"
 
-      product_title = "COALESCE(#{column_expr('products', %w[title name])}, '提出物')"
+      product_title_expr = column_expr('products', %w[title name])
+      product_title = "COALESCE(#{product_title_expr}, '提出物')"
 
       <<~SQL
         SELECT comments.id, 'comments' AS record_type,

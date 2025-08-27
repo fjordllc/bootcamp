@@ -24,8 +24,8 @@ module Searcher::FetchMethods
 
   def search_users(words)
     User.where(
-      words.map { |_w| 'login_name ILIKE ? OR name ILIKE ? OR description ILIKE ?' }.join(' AND '),
-      *words.flat_map { |w| ["%#{w}%"] * 3 }
+      words.map { '(login_name ILIKE ? OR name ILIKE ? OR description ILIKE ?)' }.join(' AND '),
+      *words.flat_map { |w| ["%#{w}%", "%#{w}%", "%#{w}%"] }
     )
   end
 

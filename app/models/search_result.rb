@@ -27,7 +27,13 @@ class SearchResult
   def initialize_basic_attributes(searchable)
     @url = searchable_url(searchable)
     @title = fetch_title(searchable)
-    @model_name = searchable.class.name.underscore
+
+    @model_name = if defined?(Searcher::SearchRow) && searchable.is_a?(Searcher::SearchRow)
+                    searchable.record_type.to_s.singularize
+                  else
+                    searchable.class.name.underscore
+                  end
+
     @wip = searchable.try(:wip)
   end
 
