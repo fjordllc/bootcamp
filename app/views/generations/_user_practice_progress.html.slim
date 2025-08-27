@@ -1,0 +1,19 @@
+- user_course_practice = ActiveDecorator::Decorator.instance.decorate(UserCoursePractice.new(user))
+.completed-practices-progress
+  .completed-practices-progress__bar-container
+    .completed-practices-progress__bar
+    div[class="completed-practices-progress__percentage-bar"
+        aria-valuemax="100"
+        aria-valuemin="0"
+        aria-valuenow="#{user.graduated_on ? 100 : user_course_practice.cached_completed_percentage}"
+        role="progressbar"
+        style="width: #{user.graduated_on ? '100%' : "#{user_course_practice.cached_completed_percentage.round}%"}"]
+  .completed-practices-progress__counts
+    input[class="a-toggle-checkbox"
+          type="checkbox"
+          id="userid_#{user.id}"]
+    label[class="completed-practices-progress__counts-inner" for="userid_#{user.id}"]
+      .completed-practices-progress__percentage
+        | #{user.graduated_on ? '100%' : "#{user_course_practice.cached_completed_percentage.round}%"}
+      .completed-practices-progress__number
+        | #{user.graduated_on ? '卒業' : user_course_practice.cached_completed_fraction}
