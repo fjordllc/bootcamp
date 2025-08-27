@@ -6,11 +6,13 @@ class MarkdownTest < ApplicationSystemTestCase
   test 'should remove script tag' do
     visit_with_auth new_page_path, 'komagata'
     fill_in 'page[title]', with: 'script除去'
-    fill_in 'page[body]', with: "<script>alert('x')</script>"
+    fill_in 'page[body]', with: "scriptタグは削除される\n<script>alert('x')</script>"
 
     click_button 'Docを公開'
 
-    assert_no_selector 'script'
+    within '.a-long-text.is-md.js-markdown-view' do
+      assert_no_selector 'script'
+    end
   end
 
   test 'javascript link is sanitized' do
@@ -20,8 +22,10 @@ class MarkdownTest < ApplicationSystemTestCase
 
     click_button 'Docを公開'
 
-    assert_no_selector 'a[href^="javascript:"]'
-    assert_text 'リンク'
+    within '.a-long-text.is-md.js-markdown-view' do
+      assert_no_selector 'a[href^="javascript:"]'
+      assert_text 'リンク'
+    end
   end
 
   test 'blockquote tag is preserved when written as raw HTML' do
@@ -31,8 +35,10 @@ class MarkdownTest < ApplicationSystemTestCase
 
     click_button 'Docを公開'
 
-    assert_selector 'blockquote'
-    assert_text '引用です'
+    within '.a-long-text.is-md.js-markdown-view' do
+      assert_selector 'blockquote'
+      assert_text '引用です'
+    end
   end
 
   test 'style attribute is preserved on allowed tags' do
@@ -42,8 +48,9 @@ class MarkdownTest < ApplicationSystemTestCase
 
     click_button 'Docを公開'
 
-    assert_selector 'p[style*="color"]'
-    assert_text '赤文字'
+    within '.a-long-text.is-md.js-markdown-view' do
+      assert_selector 'p[style*="color"]', text: '赤文字'
+    end
   end
 
   test 'speak block test' do
