@@ -6,6 +6,7 @@ class GenerationsController < ApplicationController
 
   def show
     @generation = params[:id].to_i
+    @users = Generation.new(@generation).classmates.page(params[:page]).per(PAGER_NUMBER)
   end
 
   def index

@@ -1,0 +1,58 @@
+- if user.student_or_trainee?
+  .card-counts.is-users.mt-3
+    dl.card-counts__items
+      .card-counts__item
+        .card-counts__item-inner
+          dt.card-counts__item-label
+            | 日報
+          - if user.reports.empty?
+            dd.card-counts__item-value.is-empty
+              span #{user.reports.size}
+          - else
+            dd.card-counts__item-value
+              a[href="#{user.url}/reports"]
+                | #{user.reports.size}
+      .card-counts__item
+        .card-counts__item-inner
+          dt.card-counts__item-label
+            | 提出物
+          - if user.products.empty?
+            dd.card-counts__item-value.is-empty
+              span #{user.products.size}
+          - else
+            dd.card-counts__item-value
+              a[href="#{user.url}/reports"]
+                | #{user.products.size}
+      .card-counts__item
+        .card-counts__item-inner
+          dt.card-counts__item-label
+            | コメント
+          - if user.comments.where.not(commentable_type: 'Talk').empty?
+            dd.card-counts__item-value.is-empty
+              span #{user.comments.where.not(commentable_type: 'Talk').size}
+          - else
+            dd.card-counts__item-value
+              a[href="#{user.url}/reports"]
+                | #{user.comments.where.not(commentable_type: 'Talk').size}
+      .card-counts__item
+        .card-counts__item-inner
+          dt.card-counts__item-label
+            | 質問
+          - if user.questions.empty?
+            dd.card-counts__item-value.is-empty
+              span #{user.questions.size}
+          - else
+            dd.card-counts__item-value
+              a[href="#{user.url}/reports"]
+                | #{user.questions.size}
+      .card-counts__item
+        .card-counts__item-inner
+          dt.card-counts__item-label
+            | 回答
+          - if user.answers.empty?
+            dd.card-counts__item-value.is-empty
+              span #{user.answers.size}
+          - else
+            dd.card-counts__item-value
+              a[href="#{user.url}/reports"]
+                | #{user.answers.size}

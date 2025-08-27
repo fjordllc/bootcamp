@@ -1,0 +1,8 @@
+- if !tags.empty?
+  .tag-links
+    ul.tag-links__items
+      - tags.each do |tag|
+        li.tag-links__item
+          a[class="tag-links__item-link"
+            href="/users/tags/#{tag}"]
+            | #{tag}
