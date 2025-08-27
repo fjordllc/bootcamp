@@ -98,15 +98,11 @@ class UserCoursePractice
   end
 
   def category_having_active_practice
-    @user.active_practices
-         .joins(categories_practices: { category: :courses_categories })
-         .select('categories.*')
-         .order('courses_categories.position ASC')
-         .first
+    CategoryFromPracticesQuery.new(user: @user, practices: @user.active_practices).call.first
   end
 
   def category_having_unstarted_practice
-    unstarted_practices&.first&.categories&.first
+    CategoryFromPracticesQuery.new(user: @user, practices: unstarted_practices).call.first
   end
 
   def filter_category_by_practice_ids(category, practice_ids)
