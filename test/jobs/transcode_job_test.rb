@@ -18,12 +18,13 @@ class TranscodeJobTest < ActiveJob::TestCase
 
   test 'does not perform when transcoder is disabled' do
     Rails.application.config.transcoder['enabled'] = false
-
-    Transcoder::Client.stub :new, ->(*) { flunk 'should not be called' } do
-      TranscodeJob.perform_now(@movie)
+    begin
+      Transcoder::Client.stub :new, ->(*) { flunk 'should not be called' } do
+        TranscodeJob.perform_now(@movie)
+      end
+    ensure
+      Rails.application.config.transcoder['enabled'] = true
     end
-
-    Rails.application.config.transcoder['enabled'] = true
   end
 
   test 'retries on retryable Google::Cloud::Error' do
