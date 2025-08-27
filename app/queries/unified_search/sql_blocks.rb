@@ -63,12 +63,33 @@ module UnifiedSearch
     end
 
     def build_answers_where_clause(body_column, keywords, is_correct)
-      return 'WHERE FALSE' if keywords.empty?
+      conditions = [
+        answer_type_condition(is_correct),
+        *user_conditions,
+        *keyword_filters(body_column, keywords)
+      ].compact
 
-      filters = keywords.map { |w| "(#{body_column} ILIKE #{quote("%#{w}%")})" }
-      type_condition = is_correct ? "answers.type = 'CorrectAnswer'" : "(answers.type IS NULL OR answers.type != 'CorrectAnswer')"
+      "WHERE #{conditions.join(' AND ')}"
+    end
 
-      "WHERE #{type_condition} AND (#{filters.join(' AND ')})"
+    def answer_type_condition(is_correct)
+      is_correct ? "answers.type = 'CorrectAnswer'" : "(answers.type IS NULL OR answers.type != 'CorrectAnswer')"
+    end
+
+    def user_conditions
+      user_words = @words.select { |w| w.start_with?('user:') }
+      return nil if user_words.empty?
+
+      user_ids = user_words.map { |w| User.find_by(login_name: w.delete_prefix('user:'))&.id }.compact
+      if user_ids.any?
+        "answers.user_id IN (#{user_ids.join(',')})"
+      else
+        '1=0'
+      end
+    end
+
+    def keyword_filters(body_column, keywords)
+      keywords.map { |w| "(#{body_column} ILIKE #{quote("%#{w}%")})" }
     end
 
     def comments_block
