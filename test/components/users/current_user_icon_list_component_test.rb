@@ -19,8 +19,7 @@ class CurrentUserIconListComponentTest < ViewComponent::TestCase
     end
   end
 
-  # ログインユーザー自身は除外されることを確認するテスト
-  test 'does not show login user icon even if login user have active learning time now' do
+  test 'excludes current user from the list even when they have active learning time' do
     travel_to Time.zone.local(2025, 5, 28, 12, 0, 0) do
       kimura = users(:kimura)
       kensyu = users(:kensyu)
