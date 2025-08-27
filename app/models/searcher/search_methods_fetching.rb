@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Searcher::SearchMethods
+module SearchMethodsFetching
   module Fetching
     private
 
@@ -75,6 +75,4 @@ module Searcher::SearchMethods
       end.compact
     end
   end
-
-  include Fetching
 end
