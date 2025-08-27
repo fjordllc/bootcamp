@@ -344,6 +344,7 @@ class SearchableTest < ActiveSupport::TestCase
 
   test 'search returns SearchResult objects for specific document_type' do
     results = Searcher.search(word: 'テスト', current_user:, document_type: :reports)
+    assert_not_empty results, 'expected some results for :reports search'
     assert results.all? { |r| r.is_a?(SearchResult) }, 'expected all results to be SearchResult instances'
   end
 
@@ -351,6 +352,7 @@ class SearchableTest < ActiveSupport::TestCase
     owner = users(:komagata)
     results = Searcher.search(word: '', only_me: true, current_user: owner)
     assert results.none? { |r| %w[practice user].include?(r.model_name) }, 'expected no Practice/User results when only_me is true'
-    assert results.all? { |r| r.user_id.nil? || r.user_id == owner.id }, 'expected all returned items to belong to owner'
+    assert results.all? { |r| r.user_id == owner.id }, 'expected all returned items to belong to owner'
+    assert results.none? { |r| r.user_id.nil? }, 'should not include records without an owner under only_me'
   end
 end
