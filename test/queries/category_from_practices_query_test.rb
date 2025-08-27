@@ -63,4 +63,17 @@ class CategoryFromPracticesQueryTest < ActiveSupport::TestCase
     assert result1.count.positive?
     assert result2.count.zero?
   end
+
+  test 'should return unique categories from multiple practices' do
+    user = users(:komagata)
+    practices = [practices(:practice2), practices(:practice4), practices(:practice9)]
+
+    result = CategoryFromPracticesQuery.new(user:, practices:).call
+
+    category_ids = result.pluck(:id)
+    assert_equal category_ids.uniq.size, category_ids.size
+
+    assert_equal 1, result.count
+    assert_equal categories(:category4).id, result.first.id
+  end
 end
