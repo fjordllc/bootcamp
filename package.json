@@ -61,7 +61,7 @@
     "textarea-markdown": "^1.6.1",
     "tributejs": "^5.1.3",
     "use-sync-external-store": "^1.2.0",
-    "vue": "^2.6.10",
+    "vue": "^3.0.0",
     "vue-loader": "^15.9.6",
     "vue-multiselect": "^2.1.6",
     "vue-template-compiler": "^2.6.10",
