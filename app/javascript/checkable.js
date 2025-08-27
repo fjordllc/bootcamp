@@ -23,10 +23,6 @@ export default {
       })
         .perform()
         .then((response) => {
-          this.$store.dispatch('setCheckable', {
-            checkableId: checkableId,
-            checkableType: checkableType
-          })
           if (!response.ok) {
             // return response.json()
             return response.json
@@ -85,9 +81,6 @@ export default {
             } else {
               this.toast('担当から外れました。')
             }
-            this.$store.dispatch('setProduct', {
-              productId: productId
-            })
           }
         })
         .catch((error) => {
