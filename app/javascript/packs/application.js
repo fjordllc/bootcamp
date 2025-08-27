@@ -85,6 +85,10 @@ import '../action_completed_button.js'
 import '../toast.js'
 import '../tag.js'
 import '../tag_edit.js'
+import '../loading.js'
+
+import VueMounter from '../VueMounter.js'
+import Questions from '../components/questions.vue'
 
 import '../stylesheets/application'
 
