@@ -112,9 +112,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_19_100001) do
   end
 
   create_table "buzzes", force: :cascade do |t|
-    t.text "body", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "url", default: "", null: false
+    t.string "title", default: "", null: false
+    t.date "published_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.text "memo", default: ""
   end
 
   create_table "campaigns", force: :cascade do |t|
