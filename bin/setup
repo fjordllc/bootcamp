@@ -17,6 +17,18 @@ FileUtils.chdir APP_ROOT do
   system! "gem install bundler --conservative"
   system("bundle check") || system!("bundle install")
 
+  # Install JavaScript dependencies
+  puts "\n== Installing JavaScript dependencies =="
+  if File.exist?("bin/yarn") && File.executable?("bin/yarn")
+    system!("bin/yarn install")
+  elsif system("yarn --version", out: File::NULL, err: File::NULL)
+    system!("yarn install")
+  else
+    puts "ERROR: yarn is not available. Please install yarn to continue."
+    puts "Visit https://yarnpkg.com/getting-started/install for installation instructions."
+    exit 1
+  end
+
   # puts "\n== Copying sample files =="
   # unless File.exist?("config/database.yml")
   #   FileUtils.cp "config/database.yml.sample", "config/database.yml"
