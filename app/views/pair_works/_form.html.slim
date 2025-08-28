@@ -64,9 +64,10 @@
                           th
                             | #{hour}:00
                           - sorted_wdays(Time.current).each_with_index do |wday, day|
-                            - target_date = Time.zone.now.beginning_of_day + day.days + hour.hours
-                            - target_id = wday * 24 + hour + 1
-                            - check_box_id = "schedule_ids_#{target_date.strftime('%Y%m%d%H%M')}"
+                            ruby:
+                              target_date = Time.zone.now.beginning_of_day + day.days + hour.hours
+                              target_id = wday * 24 + hour + 1
+                              check_box_id = "schedule_ids_#{target_date.strftime('%Y%m%d%H%M')}"
                             td.form-table__check
                               = label_tag check_box_id do
                                 span
