@@ -626,6 +626,14 @@ GEM
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
       spring (>= 1.2, < 3.0)
+    sprockets (4.2.2)
+      concurrent-ruby (~> 1.0)
+      logger
+      rack (>= 2.2.4, < 4)
+    sprockets-rails (3.5.2)
+      actionpack (>= 6.1)
+      activesupport (>= 6.1)
+      sprockets (>= 3.0.0)
     stringio (3.0.1.2)
     stripe (13.5.0)
     switchlet (0.3.1)
@@ -781,6 +789,7 @@ DEPENDENCIES
   sorcery-jwt
   spring
   spring-watcher-listen (~> 2.0.0)
+  sprockets-rails (>= 2.0.0)
   stringio (= 3.0.1.2)
   stripe
   stripe-i18n!
