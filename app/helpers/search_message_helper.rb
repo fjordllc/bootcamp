@@ -19,19 +19,10 @@ module SearchMessageHelper
     return false unless product
 
     policy(product).show? || product.try(:practice)&.open_product?
-  rescue Pundit::NotDefinedError => e
-    Rails.logger.warn "Policy check failed for product: #{e.message}"
   end
 
   def message_for_comment(searchable)
-    if searchable.commentable_type == 'Product'
-      prod = searchable.commentable
-      return '該当プラクティスを修了するまで他の人の提出物へのコメントは見れません。' unless product_comment_visible?(prod)
-
-      return md2plain_text(searchable.body || '')
-    end
-
-    md2plain_text(searchable.body || searchable.commentable&.title || '')
+    md2plain_text(content_from_comment(searchable))
   end
 
   private
