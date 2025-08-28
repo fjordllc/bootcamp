@@ -16,15 +16,15 @@ module PairWorkHelper
     sorted_wdays
   end
 
-  def disabled(value, pair_work: nil)
+  def disabled?(target_date, pair_work: nil)
     if pair_work
-      value < Time.current || pair_work.user_id == current_user.id || pair_work.reserved_at.present?
+      target_date < Time.current || pair_work.user_id == current_user.id || pair_work.reserved_at.present?
     else
-      value < Time.current
+      target_date < Time.current
     end
   end
 
-  def checked(value, id)
-    !disabled(value) && current_user.learning_time_frame_ids.include?(id)
+  def checked?(target_date, id)
+    !disabled?(target_date) && current_user.learning_time_frame_ids.include?(id)
   end
 end
