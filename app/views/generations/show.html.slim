@@ -30,7 +30,7 @@ main.page-main
   div[id="loading-screen"]
     | Loading...
   hr.a-border
-    .page-body
+    div[id="loading-body" class="page-body" style="display: none;"]
       = paginate @users
       .container
         .users.row
