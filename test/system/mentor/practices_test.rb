@@ -5,6 +5,7 @@ require 'application_system_test_case'
 class Mentor::PracticesTest < ApplicationSystemTestCase
   test 'show listing practices' do
     visit_with_auth mentor_practices_path, 'mentormentaro'
+    puts page.body if title.include?('Exception')
     assert_equal 'プラクティス | FBC', title
   end
 

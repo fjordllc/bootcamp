@@ -30,11 +30,13 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
   setup do
-    ActiveStorage::Current.host = 'http://localhost:3000' # https://github.com/rails/rails/issues/40855
+    Rails.application.routes.default_url_options[:host] = 'localhost'
+    Rails.application.routes.default_url_options[:port] = 3000
   end
 
   teardown do
-    ActiveStorage::Current.host = nil
+    Rails.application.routes.default_url_options.delete(:host)
+    Rails.application.routes.default_url_options.delete(:port)
   end
 
   # Rails7になったら以下のように修正する
