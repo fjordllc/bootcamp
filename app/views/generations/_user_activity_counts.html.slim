@@ -5,54 +5,59 @@
         .card-counts__item-inner
           dt.card-counts__item-label
             | 日報
-          - if user.reports.empty?
+          - reports_count = user.reports.count
+          - if reports_count.zero?
             dd.card-counts__item-value.is-empty
-              span #{user.reports.size}
+              span #{reports_count}
           - else
             dd.card-counts__item-value
-              a[href="#{user.url}/reports"]
-                | #{user.reports.size}
+              = link_to user_reports_path(user) do
+                | #{reports_count}
       .card-counts__item
         .card-counts__item-inner
           dt.card-counts__item-label
             | 提出物
-          - if user.products.empty?
+          - products_count = user.products.count
+          - if products_count.zero?
             dd.card-counts__item-value.is-empty
-              span #{user.products.size}
+              span #{products_count}
           - else
             dd.card-counts__item-value
-              a[href="#{user.url}/reports"]
-                | #{user.products.size}
+              = link_to user_products_path(user) do
+                | #{products_count}
       .card-counts__item
         .card-counts__item-inner
           dt.card-counts__item-label
             | コメント
-          - if user.comments.where.not(commentable_type: 'Talk').empty?
+          - comments_count = user.comments.where.not(commentable_type: 'Talk').count
+          - if comments_count.zero?
             dd.card-counts__item-value.is-empty
-              span #{user.comments.where.not(commentable_type: 'Talk').size}
+              span #{comments_count}
           - else
             dd.card-counts__item-value
-              a[href="#{user.url}/reports"]
-                | #{user.comments.where.not(commentable_type: 'Talk').size}
+              = link_to user_comments_path(user) do
+                | #{comments_count}
       .card-counts__item
         .card-counts__item-inner
           dt.card-counts__item-label
             | 質問
-          - if user.questions.empty?
+          - questions_count = user.questions.count
+          - if questions_count.zero?
             dd.card-counts__item-value.is-empty
-              span #{user.questions.size}
+              span #{questions_count}
           - else
             dd.card-counts__item-value
-              a[href="#{user.url}/reports"]
-                | #{user.questions.size}
+              = link_to user_questions_path(user) do
+                | #{questions_count}
       .card-counts__item
         .card-counts__item-inner
           dt.card-counts__item-label
             | 回答
-          - if user.answers.empty?
+          - answers_count = user.answers.count
+          - if answers_count.zero?
             dd.card-counts__item-value.is-empty
-              span #{user.answers.size}
+              span #{answers_count}
           - else
             dd.card-counts__item-value
-              a[href="#{user.url}/reports"]
-                | #{user.answers.size}
+              = link_to user_answers_path(user) do
+                | #{answers_count}
