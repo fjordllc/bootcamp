@@ -1,45 +1,42 @@
-.sns-links
-  ul.sns-links__items.is-button-group
-    li.sns-links__item
-      - if user.github_account
-        a[class="sns-links__item-link a-button is-sm is-secondary is-icon"
-          href="https://github.com/#{user.github_account}"]
-          i.fa-brands.fa-github-alt
-      - else
-        .sns-links__item-link.a-button.is-sm.is-disabled.is-icon
-          i.fa-brands.fa-github-alt
-    li.sns-links__item
-      - if user.twitter_account
-        a[class="sns-links__item-link a-button is-sm is-secondary is-icon"
-          href="https://twitter.com/#{user.twitter_account}"]
-          i.fa-brands.fa-x-twitter
-      - else
-        .sns-links__item-link.a-button.is-sm.is-disabled.is-icon
-          i.fa-brands.fa-x-twitter
-    li.sns-links__item
-      - if user.facebook_url
-        a[class="ns-links__item-link a-button is-sm is-secondary is-icon"
-          href="#{user.facebook_url}"]
-          i.fa-brands.fa-facebook-square
-      - else
-        .sns-links__item-link.a-button.is-sm.is-disabled.is-icon
-          i.fa-brands.fa-facebook-square
-    li.sns-links__item
-      - if user.blog_url
-        a[class="sns-links__item-link a-button is-sm is-secondary is-icon"
-          href="#{user.blog_url}"]
-          i.fa-solid.fa-blog
-      - else
-        .sns-links__item-link.a-button.is-sm.is-disabled.is-icon
-          i.fa-solid.fa-blog
-    li.sns-links__item
-      - if user.discord_profile.times_url
-        a[class="sns-links__item-link a-button is-sm is-secondary is-icon"
-          href="#{user.discord_profile.times_url}"]
-          i.fa-solid.fa-clock
-      - else
-        .sns-links__item-link.a-button.is-sm.is-disabled.is-icon
-          i.fa-solid.fa-clock
-  - if user.company&.logo_url
-    a[href="/companies/#{user.company.id}"]
-      img[class="user-item__company-logo-image" src="#{user.company.logo_url}"]
+ul.sns-links__items.is-button-group
+  li.sns-links__item
+    - if user.github_account
+      a[class="sns-links__item-link a-button is-sm is-secondary is-icon"
+        href="https://github.com/#{user.github_account}"]
+        i.fa-brands.fa-github-alt
+    - else
+      .sns-links__item-link.a-button.is-sm.is-disabled.is-icon
+        i.fa-brands.fa-github-alt
+  li.sns-links__item
+    - if user.twitter_account
+      a[class="sns-links__item-link a-button is-sm is-secondary is-icon"
+        href="https://twitter.com/#{user.twitter_account}"]
+        i.fa-brands.fa-x-twitter
+    - else
+      .sns-links__item-link.a-button.is-sm.is-disabled.is-icon
+        i.fa-brands.fa-x-twitter
+  li.sns-links__item
+    - if user.facebook_url
+      a[class="sns-links__item-link a-button is-sm is-secondary is-icon"
+        href="#{user.facebook_url}"]
+        i.fa-brands.fa-facebook-square
+    - else
+      .sns-links__item-link.a-button.is-sm.is-disabled.is-icon
+        i.fa-brands.fa-facebook-square
+  li.sns-links__item
+    - if user.blog_url
+      a[class="sns-links__item-link a-button is-sm is-secondary is-icon"
+        href="#{user.blog_url}"]
+        i.fa-solid.fa-blog
+    - else
+      .sns-links__item-link.a-button.is-sm.is-disabled.is-icon
+        i.fa-solid.fa-blog
+  li.sns-links__item
+    - if user.discord_profile.times_url
+      a[class="sns-links__item-link a-button is-sm is-secondary is-icon"
+        href="#{user.discord_profile.times_url}"]
+        i.fa-solid.fa-clock
+    - else
+      .sns-links__item-link.a-button.is-sm.is-disabled.is-icon
+        i.fa-solid.fa-clock
+  

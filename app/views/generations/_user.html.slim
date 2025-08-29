@@ -1,5 +1,5 @@
 .col-xxxl-2.col-xxl-3.col-xl-4.col-lg-4.col-md-6.col-xs-12
-  .users-item.is-react
+  .users-item
     .users-item__inner.a-card
       - if current_user&.admin_or_mentor? && user.student_or_trainee?
         .users-item__inactive-message-container.is-only-mentor
@@ -42,16 +42,15 @@
                         a[class="a-meta"]
                           i.fa-brands.fa-discord
                             | #{profile.account_name}
-            = render partial: 'generations/user_sns', locals: { user: }
+            .sns-links
+              = render partial: 'generations/user_sns', locals: { user: }
+              - if user.company&.logo_url
+                = link_to company_path(user.company) do
+                  img[class="user-item__company-logo-image" src="#{user.company.logo_url}"]
         = render partial: 'generations/user_activity_counts', locals: { user: }
       .users-item__body
         .users-item__description.a-short-text
-          - if user.description.length <= 200
-            - user.description.split(/\n|\r\n/).each do |paragraph|
-              p #{paragraph}
-          - else
-            - "#{user.description[0..200]}...".split(/\n|\r\n/).each do |paragraph|
-              p #{paragraph}
+          = simple_format(truncate(user.description.to_s, length: 200, omission: '…'), wrapper_tag: 'p')
         .users-item__tags
           = render partial: 'generations/user_tags', locals: { tags: user.tag_list }
       = render partial: 'generations/user_practice_progress', locals: { user: }
@@ -59,8 +58,8 @@
       footer.card-footer.users-item__footer
         .card-main-actions
           ul.card-main-actions__items
-            - if current_user.id != user.id
-              - if current_user.adviser && user.company && (current_user.company_id == user.company.id)
+            - if current_user&.id != user.id
+              - if current_user&.adviser && user.company && (current_user.company_id == user.company.id)
                 li.card-main-actions__item
                   .a-button.is-disabled.is-sm.is-block
                     i.fa-solid.fa-check
@@ -68,7 +67,7 @@
               - else
                 li.card-main-actions__item
                   = render partial: 'users/following', locals: { user:, current_user: }
-            - if current_user.admin && user.talk.present? && talk_path(user.talk)
+            - if current_user&.admin && user.talk.present?
               li.card-main-actions__item.is-only-mentor
                 a[class="a-button is-secondary is-sm is-block" href="#{talk_path(user.talk)}"]
                   | 相談部屋
