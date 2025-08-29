@@ -34,19 +34,22 @@
                         | #{user.name}
                     .card-list-item-meta__item
                       - profile = user.discord_profile
-                      - if profile.times_url
+                      - name = profile&.account_name
+                      - if profile&.times_url
                         a[class="a-meta" href="#{profile.times_url}"]
                           i.fa-brands.fa-discord
-                            | #{profile.account_name}
-                      - else
+                            | #{name}
+                      - elsif name.present?
                         a[class="a-meta"]
                           i.fa-brands.fa-discord
-                            | #{profile.account_name}
+                            | #{name}
             .sns-links
               = render partial: 'generations/user_sns', locals: { user: }
               - if user.company&.logo_url
                 = link_to company_path(user.company) do
-                  img[class="user-item__company-logo-image" src="#{user.company.logo_url}"]
+                  = image_tag user.company.logo_url, 
+                      class: "user-item__company-logo-image",
+                      alt: "#{user.company&.name}のロゴ"
         = render partial: 'generations/user_activity_counts', locals: { user: }
       .users-item__body
         .users-item__description.a-short-text
