@@ -35,7 +35,7 @@ export function initializeReaction(reaction) {
     })
   })
 
-  setupInspectorToggle(reaction, reactionableId)
+  setupInspectorDropdown(reaction, reactionableId)
 }
 
 function requestReaction(url, method, callback) {
@@ -120,7 +120,7 @@ function destroyReaction(reaction, kind, loginName, reactionId) {
   })
 }
 
-function setupInspectorToggle(reaction, reactionableId) {
+function setupInspectorDropdown(reaction, reactionableId) {
   const inspectorToggle = reaction.querySelector(
     '.js-reactions-inspector-toggle'
   )
@@ -128,21 +128,50 @@ function setupInspectorToggle(reaction, reactionableId) {
     '.js-reactions-inspector-dropdown'
   )
 
-  if (inspectorToggle && inspectorDropdown) {
-    inspectorToggle.addEventListener('click', () => {
-      const isHidden = inspectorDropdown.classList.contains('hidden')
-      if (isHidden) {
-        fetchAllReactions(reactionableId, (data) => {
-          if (Object.keys(data).length === 0) {
-            return
-          }
-          renderAllReactions(data, inspectorDropdown)
-          inspectorDropdown.classList.remove('hidden')
-        })
-      } else {
-        inspectorDropdown.classList.add('hidden')
-      }
-    })
+  if (!inspectorToggle || !inspectorDropdown) {
+    return
+  }
+
+  inspectorToggle.addEventListener('click', (e) => {
+    e.stopPropagation()
+    const isHidden = inspectorDropdown.classList.contains('hidden')
+    if (isHidden) {
+      fetchAllReactions(reactionableId, (data) => {
+        if (Object.keys(data).length === 0) {
+          return
+        }
+        renderAllReactions(data, inspectorDropdown)
+        open()
+      })
+    } else {
+      close()
+    }
+  })
+
+  document.addEventListener('click', (e) => {
+    const isHidden = inspectorDropdown.classList.contains('hidden')
+    if (
+      !isHidden &&
+      !inspectorDropdown.contains(e.target) &&
+      !inspectorToggle.contains(e.target)
+    ) {
+      close()
+    }
+  })
+
+  function open() {
+    document
+      .querySelectorAll('.js-reactions-inspector-dropdown')
+      .forEach((element) => {
+        if (!element.classList.contains('hidden')) {
+          element.classList.add('hidden')
+        }
+      })
+    inspectorDropdown.classList.remove('hidden')
+  }
+
+  function close() {
+    inspectorDropdown.classList.add('hidden')
   }
 }
 
