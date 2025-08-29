@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 class Mentor::BuzzesController < ApplicationController
-  def index; end
+  PER_PAGE = 50
+
+  def index
+    @buzzes = Buzz.all.page(params[:page]).per(PER_PAGE)
+  end
 
   def new; end
 
