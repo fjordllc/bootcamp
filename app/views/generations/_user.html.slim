@@ -47,8 +47,8 @@
               = render partial: 'generations/user_sns', locals: { user: }
               - if user.company&.logo_url
                 = link_to company_path(user.company) do
-                  = image_tag user.company.logo_url, 
-                      class: "user-item__company-logo-image",
+                  = image_tag user.company.logo_url,
+                      class: 'user-item__company-logo-image',
                       alt: "#{user.company&.name}のロゴ"
         = render partial: 'generations/user_activity_counts', locals: { user: }
       .users-item__body
