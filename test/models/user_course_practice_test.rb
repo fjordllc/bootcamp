@@ -44,8 +44,8 @@ class UserCoursePracticeTest < ActiveSupport::TestCase
   test '#category_active_or_unstarted_practice: returns the first started practice category if multiple started practices exist' do
     user = users(:komagata)
     user.learnings.destroy_all
-    first_category_practice = practices(:practice1)
-    second_category_practice = practices(:practice2)
+    first_category_practice = practices(:practice1) # category2のプラクティス
+    second_category_practice = practices(:practice2) # category4のプラクティス
 
     set_learning_status(user, first_category_practice, :started)
     set_learning_status(user, second_category_practice, :started)
