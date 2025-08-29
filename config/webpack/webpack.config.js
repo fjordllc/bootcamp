@@ -1,6 +1,7 @@
 // See the shakacode/shakapacker README and docs directory for advice on customizing your webpackConfig.
 const { generateWebpackConfig } = require('shakapacker')
 const webpack = require('webpack')
+const path = require('path')
 
 const webpackConfig = generateWebpackConfig()
 
@@ -16,8 +17,14 @@ webpackConfig.module.rules.push({
   }
 })
 
-// Add fallback for react-dom/client (React 17 doesn't have this module)
+// Add resolve alias for images
 webpackConfig.resolve = webpackConfig.resolve || {}
+webpackConfig.resolve.alias = {
+  ...webpackConfig.resolve.alias,
+  'images': path.resolve(__dirname, '../../app/assets/images')
+}
+
+// Add fallback for react-dom/client (React 17 doesn't have this module)
 webpackConfig.resolve.fallback = {
   ...webpackConfig.resolve.fallback,
   'react-dom/client': false
