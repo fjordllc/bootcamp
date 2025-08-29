@@ -51,20 +51,20 @@ class UserCoursePracticeTest < ActiveSupport::TestCase
     set_learning_status(user, second_category_practice, :started)
 
     user_course_practice = UserCoursePractice.new(user)
-    assert_equal 917_504_053, user_course_practice.category_active_or_unstarted_practice.id
+    assert_equal categories(:category2).id, user_course_practice.category_active_or_unstarted_practice.id
   end
 
   test '#category_active_or_unstarted_practice: returns the next category when all practices in a specific category are complete' do
     user = users(:machida)
     user.learnings.destroy_all
     user_course_practice = @user_course_practice_machida
-    assert_equal 917_504_053, user_course_practice.category_active_or_unstarted_practice.id
+    assert_equal categories(:category2).id, user_course_practice.category_active_or_unstarted_practice.id
 
     current_category = user_course_practice.category_active_or_unstarted_practice
     complete_all_practices_in_category(user, current_category)
     user_course_practice = UserCoursePractice.new(user)
 
-    assert_equal 533_964_039, user_course_practice.category_active_or_unstarted_practice.id
+    assert_equal categories(:category4).id, user_course_practice.category_active_or_unstarted_practice.id
   end
 
   test '#required_practices' do
