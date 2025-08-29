@@ -6,4 +6,4 @@ window.addEventListener('load', function () {
     loading.style.display = 'none'
     body.style.removeProperty('display')
   }
-});
+})
