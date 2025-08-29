@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module Bootcamp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.1
+    config.load_defaults 7.2
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
@@ -33,7 +33,6 @@ module Bootcamp
       html_tag.html_safe
     end
 
-    config.active_storage.resolve_model_to_route = :rails_storage_proxy
     config.active_storage.variant_processor = :vips
 
     config.view_component.capture_compatibility_patch_enabled = true

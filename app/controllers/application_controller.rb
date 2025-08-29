@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  include ActiveStorage::SetCurrent
   include Authentication
   include TestAuthentication if Rails.env.test?
   include PolicyHelper
