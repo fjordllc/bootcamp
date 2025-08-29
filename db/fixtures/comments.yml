@@ -154,3 +154,10 @@ comment45:
   description: "提出者の5日前にコメントしたコメントです。"
   created_at: <%= now - 5.days%>
   updated_at: <%= now - 5.days%>
+
+comment46:
+  user: komagata
+  commentable: report90 (Report)
+  description: "たくさんスタンプがついてすごい!!"
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
