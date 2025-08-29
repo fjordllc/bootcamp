@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_host_for_disk_storage
-    return unless %i[local test].include? Rails.application.config.active_storage.service
+    nil unless %i[local test].include? Rails.application.config.active_storage.service
 
     # Rails 7: ActiveStorage::Current.host is no longer available
     # URL generation is handled automatically by Rails.application.routes.default_url_options

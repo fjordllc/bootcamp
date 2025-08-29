@@ -63,21 +63,14 @@ end
 
 # Rails 7用のActiveStorage::Blob.fixture メソッドを実装
 module BlobFixtureSet
-  def fixture(filename:, service_name: nil, **attributes)
+  def fixture(filename:, service_name: nil, **attributes) # rubocop:disable Lint/UnusedMethodArgument
     blob = new(
       filename:,
       key: generate_unique_secure_token
     )
-    
-    service = service_name ? ActiveStorage::Blob.service : ActiveStorage::Blob.service
-    service = ActiveStorage::Blob.services.fetch(service_name) if service_name
 
-    file_path = if service_name == "test_fixtures"
-                  Rails.root.join("test/fixtures/files/#{filename}")
-                else
-                  Rails.root.join("test/fixtures/files/#{filename}")
-                end
-    
+    file_path = Rails.root.join("test/fixtures/files/#{filename}")
+
     io = file_path.open
     blob.unfurl(io)
     blob.assign_attributes(attributes)
