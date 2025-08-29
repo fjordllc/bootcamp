@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_08_28_090839) do
+ActiveRecord::Schema.define(version: 2025_08_29_035446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -112,7 +112,6 @@ ActiveRecord::Schema.define(version: 2025_08_28_090839) do
   end
 
   create_table "buzzes", force: :cascade do |t|
-    t.text "body", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "url", default: "", null: false
