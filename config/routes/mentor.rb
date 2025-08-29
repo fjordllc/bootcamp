@@ -20,5 +20,6 @@ Rails.application.routes.draw do
     resources :survey_answers, only: %i(index show), controller: "surveys/survey_answers"
     resource :survey_result, only: %i(show), controller: "surveys/survey_result"
   end
+    resources :buzzes, only: %i[index new edit create update destroy]
   end
 end
