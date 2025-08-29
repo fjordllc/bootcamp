@@ -32,7 +32,7 @@ ul.sns-links__items.is-button-group
       .sns-links__item-link.a-button.is-sm.is-disabled.is-icon
         i.fa-solid.fa-blog
   li.sns-links__item
-    - if user.discord_profile.times_url
+    - if user.discord_profile&.times_url
       a[class="sns-links__item-link a-button is-sm is-secondary is-icon"
         href="#{user.discord_profile.times_url}"]
         i.fa-solid.fa-clock
