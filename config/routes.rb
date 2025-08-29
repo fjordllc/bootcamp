@@ -132,6 +132,7 @@ Rails.application.routes.draw do
   get '/', to: 'home#index', as: :niconico_calendar_date, constraints: niconico_calendar_constraints
   get '/users/:id', to: 'users#show', as: :niconico_calendar_date_in_profile, constraints: niconico_calendar_constraints
   resource :buzz, only: %i(show edit update), controller: "buzz"
+  resources :buzzes, only: %i[index]
   resources :movies
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   mount MissionControl::Jobs::Engine, at: "/jobs"
