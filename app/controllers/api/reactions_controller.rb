@@ -26,10 +26,9 @@ class API::ReactionsController < API::BaseController
     result = Reaction.emojis.each_with_object({}) do |(kind, emoji), hash|
       users = reactions
               .select { |r| r.kind == kind.to_s }
-              .map { |r| r.user.login_name }
+              .map { |r| user_payload(r.user) }
       hash[kind] = { emoji:, users: } unless users.empty?
     end
-
     render json: result
   end
 
@@ -40,5 +39,13 @@ class API::ReactionsController < API::BaseController
     id = type_and_id.pop
     type = type_and_id.join('_')
     @reactionable = type.camelcase.constantize&.find_by(id:)
+  end
+
+  def user_payload(user)
+    {
+      id: user.id,
+      login_name: user.login_name,
+      avatar_url: user.avatar_url
+    }
   end
 end
