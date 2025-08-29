@@ -497,3 +497,11 @@ report89:
     * @[card](https://bootcamp.fjord.jp)
 
   reported_on: <%= Time.now %>
+
+report90:
+  user: machida
+  title: たくさんのスタンプがついた日報
+  emotion: 2
+  description: |-
+    たくさんのスタンプがつきました。
+  reported_on: "2025-10-01 01:00:00"
