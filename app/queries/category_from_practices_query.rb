@@ -18,14 +18,15 @@ class CategoryFromPracticesQuery < Patterns::Query
       .joins(:courses_categories)
       .where(courses_categories: { course_id: @user.course_id })
       .where(id: category_ids_with_practices)
-      .order('courses_categories.position ASC')
+      .order('courses_categories.position ASC, categories.id ASC')
   end
 
   def category_ids_with_practices
     Category
       .joins(:practices)
       .where(practices: { id: practice_ids })
-      .select('DISTINCT categories.id')
+      .select(:id)
+      .distinct
   end
 
   def practice_ids

@@ -9,7 +9,7 @@ class CategoryFromPracticesQueryTest < ActiveSupport::TestCase
 
     result = CategoryFromPracticesQuery.new(user:, practices:).call
 
-    assert result.is_a?(ActiveRecord::Relation)
+    assert_kind_of ActiveRecord::Relation, result
     assert result.count.positive?
 
     category_ids = result.pluck(:id)
@@ -24,7 +24,7 @@ class CategoryFromPracticesQueryTest < ActiveSupport::TestCase
     result = CategoryFromPracticesQuery.new(user:, practices: empty_practices).call
 
     assert_equal 0, result.count
-    assert result.is_a?(ActiveRecord::Relation)
+    assert_kind_of ActiveRecord::Relation, result
   end
 
   test 'should return empty relation when practices are nil' do
@@ -33,7 +33,7 @@ class CategoryFromPracticesQueryTest < ActiveSupport::TestCase
     result = CategoryFromPracticesQuery.new(user:, practices: nil).call
 
     assert_equal 0, result.count
-    assert result.is_a?(ActiveRecord::Relation)
+    assert_kind_of ActiveRecord::Relation, result
   end
 
   test 'should order results by courses_categories position' do
@@ -44,12 +44,7 @@ class CategoryFromPracticesQueryTest < ActiveSupport::TestCase
 
     assert_equal 2, result.count
 
-    categories_array = result.to_a
-    first_category = categories_array.first
-    second_category = categories_array.second
-
-    assert_equal categories(:category2).id, first_category.id
-    assert_equal categories(:category4).id, second_category.id
+    assert_equal [categories(:category2).id, categories(:category4).id], result.pluck(:id)
   end
 
   test 'should only return categories for user course' do
