@@ -2,7 +2,9 @@
   margin-bottom: 1rem
   background-color: #eaeaf1
   padding-block: .5rem
-  overflow-y: auto
+  // fallback for older UA
+  padding-top: .5rem
+  padding-bottom: .5rem
 
 .current-user-icon-list__inner
   display: flex
@@ -12,10 +14,15 @@
 .current-user-icon-list__items
   display: flex
   align-items: center
-  width: 100%
   gap: .25rem
+  flex: 1 1 auto
+  min-width: 0
+  flex-wrap: nowrap
+  overflow-x: auto
+  scrollbar-gutter: stable both-edges
 
 .current-user-icon-list__item
+  flex: 0 0 2.5rem
   +media-breakpoint-up(md)
     flex: 0 0 3rem
   +media-breakpoint-down(sm)
