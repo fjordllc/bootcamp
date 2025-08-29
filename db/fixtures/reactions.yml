@@ -32,3 +32,28 @@ reaction7:
   user: komagata
   reactionable: product12 (Product)
   kind: eyes
+
+# reaction8~47まで一括で作成
+<% login_names = %w[
+  komagata machida sotugyou_with_job sotugyou advijirou
+  yameo mentormentaro kimura hatsuno hajime
+  muryou kensyu kensyu-end-within-24-hour kensyu-end-within-1-week kensyu-end-over-1-week
+  kensyu-not-setting-end-date senpai kananashi osnashi jobseeker
+  nippounashi with_hyphen sumi nobu rie
+  take kunimi tomo akiyosi tomomi
+  ogaoga take8 fujiyasu adminonly kensyuowata
+  unadmentor tatenoicon thuynga sotugyou-adviser marumarushain1
+  marumarushain2 marumarushain3 marumarushain4 marumarushain5
+] %>
+
+<% (8..47).each do |i| %>
+reaction<%= i %>:
+  user: <%= login_names[i - 8] %>
+  reactionable: report90 (Report)
+  kind: thumbsup
+<% end %>
+
+reaction48:
+  user: komagata
+  reactionable: report90 (Report)
+  kind: heart
