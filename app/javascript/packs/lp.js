@@ -10,4 +10,7 @@
 import '../stylesheets/lp.sass'
 
 // Import images to ensure they are copied by webpack
-import '../../assets/images/background/people.png'
+import peopleImage from '../../assets/images/background/people.png'
+
+// Set CSS custom property for the background image
+document.documentElement.style.setProperty('--people-bg-image', `url(${peopleImage})`)

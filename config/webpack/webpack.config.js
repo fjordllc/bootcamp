@@ -17,12 +17,14 @@ webpackConfig.module.rules.push({
   }
 })
 
-// Add resolve alias for images
-webpackConfig.resolve = webpackConfig.resolve || {}
-webpackConfig.resolve.alias = {
-  ...webpackConfig.resolve.alias,
-  'images': path.resolve(__dirname, '../../app/assets/images')
-}
+// Add file loader for image assets
+webpackConfig.module.rules.push({
+  test: /\.(png|jpg|jpeg|gif|svg)$/,
+  type: 'asset/resource',
+  generator: {
+    filename: 'images/[hash][ext][query]'
+  }
+})
 
 // Add fallback for react-dom/client (React 17 doesn't have this module)
 webpackConfig.resolve.fallback = {
