@@ -42,6 +42,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     # Ensure URL options are properly configured for system tests
     Rails.application.routes.default_url_options[:host] = 'localhost'
     Rails.application.routes.default_url_options[:port] = 3000
+    ActiveStorage::Current.url_options = { host: 'localhost', port: 3000 }
   end
 
   teardown do
