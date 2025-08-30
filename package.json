@@ -46,6 +46,8 @@
     "markdown-it-task-lists": "^2.1.1",
     "mem": "^4.0.0",
     "postcss": "^8.4.31",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-import": "^15.1.0",
     "postcss-loader": "4",
     "postcss-preset-env": "7",
     "prettier-config-standard": "^5.0.0",
