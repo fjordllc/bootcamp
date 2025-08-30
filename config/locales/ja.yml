@@ -459,10 +459,6 @@ ja:
           students: 現役生のみ
           job_seekers: 就職希望者のみ
           none: 通知しない
-      pair_work:
-        practice: プラクティス
-        title: タイトル
-        description: 内容
     errors:
       models:
         campaign:
