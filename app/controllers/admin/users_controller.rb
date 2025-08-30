@@ -34,8 +34,7 @@ class Admin::UsersController < AdminController
   def update
     @user.diploma_file = nil if params[:user][:remove_diploma] == '1'
     if @user.update(user_params)
-      destroy_subscription(@user)
-      Newspaper.publish(:retirement_create, { user: @user }) if @user.saved_change_to_retired_on?
+      complete_graduation_or_retirement(@user)
       redirect_to user_url(@user), notice: 'ユーザー情報を更新しました。'
     else
       render :edit
@@ -101,9 +100,14 @@ class Admin::UsersController < AdminController
     )
   end
 
+  def complete_graduation_or_retirement(user)
+    return AfterUserRetirement.new(user, triggered_by: 'admin').call if user.saved_change_to_retired_on?
+
+    destroy_subscription(user) if user.saved_change_to_graduated_on?
+  end
+
   def destroy_subscription(user)
     return if user.subscription_id.blank?
-    return unless user.saved_change_to_retired_on? || user.saved_change_to_graduated_on?
 
     Subscription.new.destroy(user.subscription_id)
   end
