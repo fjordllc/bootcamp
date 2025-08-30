@@ -1,0 +1,27 @@
+.admin-table.is-grab id='mentor-practices'
+  table.admin-table__table
+    thead.admin-table__header
+      tr.admin-table__labels
+        th.admin-table__label
+          | プラクティス
+        th.admin-table__label
+          | 投稿日
+        th.admin-table__label
+          | メモ
+        th.admin-table__label.actions
+          | 編集
+    tbody.admin-table__items
+      - buzzes.each do |buzz|
+        tr.admin-table__item
+          td.admin-table__item-value
+            = link_to buzz.url, target: '_blank', rel: 'noopener noreferrer'
+              = buzz.title
+          td.admin-table__item-value
+            = buzz.published_at
+          td.admin-table__item-value
+            = buzz.memo
+          td.admin-table__item-value.is-text-align-center
+            ul.is-inline-buttons
+              li
+                = link_to edit_mentor_buzz_path(buzz), class: 'a-button is-sm is-secondary is-icon'
+                  i.fa-solid.fa-pen
