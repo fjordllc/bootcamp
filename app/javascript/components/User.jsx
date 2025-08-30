@@ -4,7 +4,7 @@ import UserActivityCounts from './UserActivityCounts.jsx'
 import UserTags from './UserTags.jsx'
 import UserPracticeProgress from './UserPracticeProgress.jsx'
 import { UserIconFrameClass } from './UserIconFrameClass.jsx'
-import userSns from '../user-sns.js'
+import createUserSns from '../create-user-sns.js'
 
 export default function User({ user, currentUser }) {
   const userDescParagraphs = () => {
@@ -24,7 +24,7 @@ export default function User({ user, currentUser }) {
 
   const userSnsRef = useRef(null)
   useEffect(() => {
-    const userSnsElement = userSns(user)
+    const userSnsElement = createUserSns(user)
     if (userSnsRef.current) {
       userSnsRef.current.innerHTML = ''
       userSnsRef.current.appendChild(userSnsElement)

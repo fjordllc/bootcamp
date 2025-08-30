@@ -1,4 +1,4 @@
-export default function userSns(user) {
+export default function createUserSns(user) {
   const snsAccounts = [
     {
       baseUrl: 'https://github.com/',
