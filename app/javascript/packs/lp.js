@@ -13,4 +13,7 @@ import '../stylesheets/lp.sass'
 import peopleImage from '../../assets/images/background/people.png'
 
 // Set CSS custom property for the background image
-document.documentElement.style.setProperty('--people-bg-image', `url(${peopleImage})`)
+document.documentElement.style.setProperty(
+  '--people-bg-image',
+  `url(${peopleImage})`
+)
