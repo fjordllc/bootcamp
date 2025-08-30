@@ -5,6 +5,8 @@ class Buzz < ApplicationRecord
   validates :published_at, presence: true
   require 'open-uri'
 
+  ALLOWED_SCHEMES = %w[http https].freeze
+
   class << self
     def for_year(year)
       start_date = start_of_year(year)
@@ -21,7 +23,11 @@ class Buzz < ApplicationRecord
     end
 
     def doc_from_url(url)
-      Nokogiri::HTML(URI.parse(url))
+      uri = URI.parse(url)
+      raise ArgumentError, 'HTTP/HTTPS URLs only' unless %w[http https].include?(uri.scheme&.downcase)
+
+      html = Net::HTTP.open(uri) { |io| io&.read }
+      Nokogiri::HTML.parse(html)
     end
 
     def title_from_doc(doc)
