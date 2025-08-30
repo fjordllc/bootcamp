@@ -137,7 +137,7 @@ class QuestionTest < ActiveSupport::TestCase
   end
 
   test '.post_warning' do
-    question_create_date = 2.month.ago.floor
+    question_create_date = 2.months.ago.floor
 
     question = Question.create!(
       title: '自動クローズテスト',
