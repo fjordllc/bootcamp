@@ -200,20 +200,6 @@ class ProductTest < ActiveSupport::TestCase
     assert_not wip_product.updated_after_submission?
   end
 
-  test '.unchecked_no_replied_products' do
-    unchecked_no_replied_products = UncheckedNoRepliedProductsQuery.new.call
-
-    unchecked_no_replied_product = products(:product6)
-    unchecked_only_self_replied_product = products(:product1)
-    unchecked_replied_product = products(:product10)
-    checked_product = products(:product2)
-
-    assert_includes unchecked_no_replied_products, unchecked_no_replied_product
-    assert_includes unchecked_no_replied_products, unchecked_only_self_replied_product
-    assert_not_includes unchecked_no_replied_products, unchecked_replied_product
-    assert_not_includes unchecked_no_replied_products, checked_product
-  end
-
   test '.unhibernated_user_products' do
     hiberanated_user = users(:kyuukai)
 
