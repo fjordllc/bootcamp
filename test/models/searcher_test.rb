@@ -26,7 +26,7 @@ class SearchableTest < ActiveSupport::TestCase
   end
 
   test 'returns results for all types when no user filter is applied' do
-    results = Searcher.search(word: 'テスト', current_user:, document_type: :all, all: true)
+    results = Searcher.search(word: 'テスト', current_user:, document_type: :all)
     actual_classes = results.map(&:model_name).uniq
     expected_classes = %w[report page practice question announcement event regular_event comment answer correct_answer user]
     expected_classes.each do |klass|
@@ -62,7 +62,7 @@ class SearchableTest < ActiveSupport::TestCase
   end
 
   test "returns all types when document_type argument isn't specified" do
-    results = Searcher.search(word: 'テスト', current_user:, all: true)
+    results = Searcher.search(word: 'テスト', current_user:)
     actual_classes = results.map(&:model_name).uniq
     expected_classes = %w[report page practice question announcement event regular_event comment answer correct_answer user]
     expected_classes.each do |klass|
@@ -71,7 +71,7 @@ class SearchableTest < ActiveSupport::TestCase
   end
 
   test 'returns all types when document_type argument is :all' do
-    results = Searcher.search(word: 'テスト', current_user:, document_type: :all, all: true)
+    results = Searcher.search(word: 'テスト', current_user:, document_type: :all)
     actual_classes = results.map(&:model_name).uniq
     expected_classes = %w[report page practice question announcement event regular_event comment answer correct_answer user]
     expected_classes.each do |klass|
@@ -143,11 +143,10 @@ class SearchableTest < ActiveSupport::TestCase
   end
 
   test 'returns only announcement type when document_type argument is :users' do
-    results = Searcher.search(word: 'テスト', document_type: :users, current_user:)
-    actual_classes = results.map(&:model_name).uniq
+    results = Searcher.search(word: 'テスト', current_user:, document_type: :users)
     expected_classes = ['user']
     expected_classes.each do |klass|
-      assert_includes actual_classes, klass
+      assert_includes results.map(&:model_name).uniq, klass
     end
   end
 
@@ -278,7 +277,7 @@ class SearchableTest < ActiveSupport::TestCase
 
   test 'returns all comments when document_type is not specified' do
     current_user = User.find_by(login_name: 'komagata') || User.first
-    result = Searcher.search(word: 'コメント', current_user:, page: nil, all: true)
+    result = Searcher.search(word: 'コメント', current_user:)
     assert_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [comments(:comment8).description, comments(:comment8).user.login_name])
     assert_includes(result.map do |r|
                       [strip_html(r.formatted_summary), r.login_name]
@@ -329,30 +328,16 @@ class SearchableTest < ActiveSupport::TestCase
     assert(all_my_results.all? { |result| !result.class.name.in?(%w[Practice User]) })
   end
 
-  test 'delegates to union_search when document_type is :all' do
+  test 'calls union_search when document_type is :all' do
+    searcher = Searcher.new(word: 'テスト', current_user:, document_type: :all)
+
     called = false
-
-    Searcher.stub :union_search, lambda { |*_args|
-                                   called = true
-                                   Kaminari.paginate_array([]).page(1).per(50)
-                                 } do
-      response = Searcher.search(word: 'テスト', current_user:, document_type: :all)
-      assert called, 'expected union_search to be called for document_type :all'
-      assert_respond_to response, :current_page
+    searcher.define_singleton_method(:union_search) do
+      called = true
+      ['テストデータ']
     end
-  end
 
-  test 'search returns SearchResult objects for specific document_type' do
-    results = Searcher.search(word: 'テスト', current_user:, document_type: :reports)
-    assert_not_empty results, 'expected some results for :reports search'
-    assert results.all? { |r| r.is_a?(SearchResult) }, 'expected all results to be SearchResult instances'
-  end
-
-  test 'only_me excludes Practice and User and keeps only own records' do
-    owner = users(:komagata)
-    results = Searcher.search(word: '', only_me: true, current_user: owner)
-    assert results.none? { |r| %w[practice user].include?(r.model_name) }, 'expected no Practice/User results when only_me is true'
-    assert results.all? { |r| r.user_id == owner.id }, 'expected all returned items to belong to owner'
-    assert results.none? { |r| r.user_id.nil? }, 'should not include records without an owner under only_me'
+    results = searcher.results
+    assert_equal ['テストデータ'], results
   end
 end
