@@ -65,6 +65,12 @@ class PairWork < ApplicationRecord
     PairWork.not_solved.not_wip.size
   end
 
+  def self.update_permission?(current_user:, matching:)
+    return true if current_user.admin?
+
+    true if matching && current_user.mentor?
+  end
+
   def generate_notice_message(action_name)
     return 'ペアワークをWIPとして保存しました。' if wip?
 
