@@ -26,10 +26,11 @@ webpackConfig.module.rules.push({
   }
 })
 
-// Add fallback for react-dom/client (React 17 doesn't have this module)
+// Add fallbacks for Node.js core modules
 webpackConfig.resolve.fallback = {
   ...webpackConfig.resolve.fallback,
-  'react-dom/client': false
+  'react-dom/client': false,
+  'util': require.resolve('util/')
 }
 
 // Ignore the warning for react-dom/client
