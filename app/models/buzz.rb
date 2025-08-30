@@ -15,7 +15,7 @@ class Buzz < ApplicationRecord
     end
 
     def latest_year
-      muximum('published_at')&.year
+      maximum('published_at')&.year
     end
 
     def years
