@@ -63,7 +63,7 @@ class AfterUserRetirement
   end
 
   def notify_mentors
-    User.mentor.each do |mentor_user|
+    User.mentors_excluding_admins.each do |mentor_user|
       ActivityDelivery.with(sender: @user, receiver: mentor_user).notify(:retired)
     end
   end
