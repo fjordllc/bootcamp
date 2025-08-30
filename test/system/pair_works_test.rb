@@ -46,7 +46,7 @@ class PairWorksTest < ApplicationSystemTestCase
   test 'create a pair_work matching' do
     travel_to Time.zone.local(2025, 1, 1, 0, 0, 0) do
       pair_work = pair_works(:pair_work1)
-      visit_with_auth pair_work_path(pair_work), 'komagata'
+      visit_with_auth pair_work_path(pair_work), 'mentormentaro'
       within '.a-table' do
         accept_alert do
           find_button(class: '2025-01-02 01:00:00 +0900').click
@@ -58,8 +58,8 @@ class PairWorksTest < ApplicationSystemTestCase
         assert_selector 'a', text: 'カレンダーに登録'
       end
       within '.event-main-actions__body' do
-        assert_selector "img[title*='komagata']"
-        assert_selector 'a', text: 'komagata (コマガタ マサキ)'
+        assert_selector "img[title*='mentormentaro']"
+        assert_selector 'a', text: 'mentormentaro (メンタ メンタロウ)'
         assert_text '2025年01月02日(木) 01:00'
         assert_text 'ペアワーク・モブワーク1'
       end
