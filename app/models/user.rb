@@ -924,6 +924,21 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     save(validate: false)
   end
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[
+      id login_name name name_kana email twitter_account facebook_url
+      blog_url github_account description job_seeking profile_text
+      created_at updated_at last_activity_at
+      company_id course_id graduated_on retired_on
+      admin mentor adviser trainee job_seeker hibernated_at
+      experiences career_path job os editor subdivision_code country_code
+    ]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[company course]
+  end
+
   private
 
   def password_required?

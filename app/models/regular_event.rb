@@ -76,6 +76,14 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   columns_for_keyword_search :title, :description
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[id title description category start_at end_at finished hold_national_holiday created_at updated_at user_id]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[user organizers users regular_event_repeat_rules participants comments reactions watches]
+  end
+
   def scheduled_on?(date)
     all_scheduled_dates.include?(date)
   end

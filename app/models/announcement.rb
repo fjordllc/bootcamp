@@ -28,6 +28,14 @@ class Announcement < ApplicationRecord
 
   scope :wip, -> { where(wip: true) }
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[id title description target wip created_at updated_at user_id]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[user comments reactions watches]
+  end
+
   def self.copy_announcement(announcement_id)
     original = find(announcement_id)
     new(title: original.title, description: original.description, target: original.target)

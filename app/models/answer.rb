@@ -17,6 +17,14 @@ class Answer < ApplicationRecord
 
   mentionable_as :description
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[id description created_at updated_at user_id question_id]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[user question reactions]
+  end
+
   def receiver
     question.user
   end
