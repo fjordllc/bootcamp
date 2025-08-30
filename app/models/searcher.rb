@@ -42,7 +42,8 @@ class Searcher
       collection = Searcher::SearchableCollection.new(
         words:,
         document_type:,
-        current_user:
+        current_user:,
+        only_me:
       )
       collection.results
     end
@@ -53,7 +54,7 @@ class Searcher
   def union_target?
     %i[
       announcements practices reports products questions answers
-      pages events regular_events comments
+      pages events regular_events comments correct_answers
     ].include?(document_type) || document_type == :all
   end
 
@@ -76,7 +77,8 @@ class Searcher
 
   def execute_union_query(query)
     conn = ActiveRecord::Base.connection
-    rows = conn.exec_query(query.page_sql(limit: 10_000, offset: 0)).to_a
+    page_limit = ENV.fetch('SEARCH_MAX_ROWS', '500').to_i.clamp(1, 10_000)
+    rows = conn.exec_query(query.page_sql(limit: page_limit, offset: 0)).to_a
     total_count = conn.select_value(query.count_sql).to_i
     [rows, total_count]
   end
