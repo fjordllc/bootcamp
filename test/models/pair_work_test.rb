@@ -53,6 +53,14 @@ class PairWorkTest < ActiveSupport::TestCase
     assert_nil PairWork.unsolved_badge(current_user: users(:hatsuno))
   end
 
+  test '.update_permission?' do
+    assert PairWork.update_permission?(current_user: users(:komagata), matching: false)
+    assert PairWork.update_permission?(current_user: users(:mentormentaro), matching: true)
+
+    unrelated_user = users(:kimura)
+    assert_nil PairWork.update_permission?(current_user: unrelated_user, matching: false)
+  end
+
   test '.upcoming_pair_works' do
     user = users(:hajime)
 
