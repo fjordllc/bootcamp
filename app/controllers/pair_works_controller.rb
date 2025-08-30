@@ -2,7 +2,8 @@
 
 class PairWorksController < ApplicationController
   before_action :set_pair_work, only: %i[show edit]
-  before_action :set_my_pair_work, only: %i[update destroy]
+  before_action :set_my_pair_work, only: %i[destroy]
+  before_action :set_accessible_pair_work, only: %i[update]
 
   PAGER_NUMBER = 10
   def index
@@ -63,6 +64,14 @@ class PairWorksController < ApplicationController
 
   def set_my_pair_work
     @pair_work = current_user.admin? ? PairWork.find(params[:id]) : current_user.pair_works.find(params[:id])
+  end
+
+  def set_accessible_pair_work
+    @pair_work = if PairWork.update_permission?(current_user:, matching: !!pair_work_params[:buddy_id])
+                   PairWork.find(params[:id])
+                 else
+                   current_user.pair_works.find(params[:id])
+                 end
   end
 
   def set_wip
