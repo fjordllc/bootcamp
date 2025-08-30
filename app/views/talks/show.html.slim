@@ -35,7 +35,8 @@
                   .page-content-header-actions
                     .page-content-header-actions__start
                       .page-content-header-actions__action
-                        = react_component('BookmarkButton', bookmarkableId: @talk.id, bookmarkableType: 'Talk')
+                        button(type="button" id="bookmark-button" data-bookmarkable-id="#{@talk.id}" data-bookmarkable-type="Talk" class="a-bookmark-button a-button is-sm is-block is-inactive is-muted" disabled aria-pressed="false" aria-busy="true")
+                          | Bookmark
               .page-content-header__row
                 .page-content-header__description
                   .a-long-text.is-md
