@@ -137,12 +137,14 @@ class QuestionTest < ActiveSupport::TestCase
   end
 
   test '.post_warning' do
+    question_create_date = 2.month.ago.floor
+
     question = Question.create!(
       title: '自動クローズテスト',
       description: 'テスト',
       user: users(:kimura),
-      created_at: 2.months.ago,
-      updated_at: 2.months.ago
+      created_at: question_create_date,
+      updated_at: question_create_date
     )
     travel_to 1.month.ago + 1.day do
       assert_difference -> { question.answers.count }, 1 do
