@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_08_20_212112) do
+ActiveRecord::Schema.define(version: 2025_08_30_033632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -619,12 +619,13 @@ ActiveRecord::Schema.define(version: 2025_08_20_212112) do
     t.bigint "practice_id"
     t.bigint "buddy_id"
     t.datetime "published_at"
-    t.boolean "wip", null: false
+    t.boolean "wip", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "channel", default: "ペアワーク・モブワーク1", null: false
     t.index ["buddy_id"], name: "index_pair_works_on_buddy_id"
     t.index ["practice_id"], name: "index_pair_works_on_practice_id"
+    t.index ["published_at"], name: "index_pair_works_on_published_at"
     t.index ["user_id"], name: "index_pair_works_on_user_id"
   end
 
