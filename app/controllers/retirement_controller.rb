@@ -14,8 +14,8 @@ class RetirementController < ApplicationController
       user = current_user
       current_user.cancel_participation_from_regular_events
       current_user.delete_and_assign_new_organizer
-      Newspaper.publish(:retirement_create, { user: })
-      UserRetirement.new(user).execute
+
+      AfterUserRetirement.new(user, triggered_by: 'user').call
 
       logout
       redirect_to retirement_url
