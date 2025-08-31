@@ -14,7 +14,7 @@ class PairWork < ApplicationRecord
   belongs_to :user
   belongs_to :practice, optional: true
   belongs_to :buddy, class_name: 'User', optional: true
-  accepts_nested_attributes_for :schedules
+  accepts_nested_attributes_for :schedules, allow_destroy: true
   alias sender user
 
   validates :title, presence: true, length: { maximum: 256 }
