@@ -177,4 +177,108 @@ class GenerationsTest < ApplicationSystemTestCase
       end
     end
   end
+
+  test 'kensyu user has all sns links' do
+    visit_with_auth generation_path(5), 'kimura'
+
+    user = users(:kensyu)
+    within('.users-item', text: user.name) do
+      assert_selector 'ul.sns-links__items'
+      assert_selector 'li.sns-links__item', count: 5
+      assert_selector "a.is-secondary[href='https://github.com/#{user.github_account}'] i.fa-github-alt", visible: :all
+      assert_selector "a.is-secondary[href='https://twitter.com/#{user.twitter_account}'] i.fa-x-twitter", visible: :all
+      assert_selector "a.is-secondary[href='#{user.facebook_url}'] i.fa-facebook-square", visible: :all
+      assert_selector "a.is-secondary[href='#{user.blog_url}'] i.fa-blog", visible: :all
+      assert_selector "a.is-secondary[href='#{user.discord_profile.times_url}'] i.fa-clock", visible: :all
+    end
+  end
+
+  test 'kensyu user has company link' do
+    visit_with_auth generation_path(5), 'kimura'
+
+    user = users(:kensyu)
+    within('.users-item', text: user.name) do
+      find("a[href*='/companies/#{user.company.id}']").click
+    end
+    assert_selector 'h1', text: 'Fjord inc.'
+  end
+
+  test 'hajime user has no github, discord and company link' do
+    visit_with_auth generation_path(5), 'kimura'
+
+    user = users(:hajime)
+    within('.users-item', text: user.name) do
+      assert_selector 'ul.sns-links__items'
+      assert_selector 'li.sns-links__item', count: 5
+      assert_selector 'div.is-disabled  i.fa-github-alt', visible: :all
+      assert_selector 'div.is-disabled  i.fa-clock', visible: :all
+      assert_no_selector "a[href*='/companies/']"
+    end
+  end
+
+  test 'show user tags in generation page' do
+    user = users(:kimura)
+    visit_with_auth generation_path(user.generation), 'kimura'
+
+    within('.users-item', text: user.name) do
+      user.tag_list.each do |tag|
+        assert_text tag
+      end
+    end
+  end
+
+  test 'user tag links work in generation page' do
+    user = users(:kimura)
+    visit_with_auth generation_path(user.generation), 'kimura'
+
+    tag_name = user.tag_list.first
+    assert_text user.name
+    within('.users-item', text: user.name) do
+      click_link tag_name
+    end
+    assert_text "タグ「#{tag_name}」のユーザー"
+  end
+
+  test 'user tags display with correct CSS classes in generation page' do
+    user = users(:kimura)
+    visit_with_auth generation_path(user.generation), 'kimura'
+
+    within('.users-item', text: user.name) do
+      assert_selector '.tag-links'
+      assert_selector '.tag-links__items'
+      assert_selector '.tag-links__item'
+      assert_selector '.tag-links__item-link'
+    end
+  end
+
+  test 'user without tags does not show tag-links in generation page' do
+    user = users(:otameshi)
+    assert_empty user.tag_list
+
+    visit_with_auth generation_path(user.generation), 'otameshi'
+
+    within('.users-item', text: user.name) do
+      assert_no_selector '.tag-links'
+    end
+  end
+
+  test 'progress bar for graduated students should be 100%' do
+    user = users(:sotugyou)
+
+    visit_with_auth generation_path(user.generation), 'sotugyou'
+
+    within('.users-item', text: user.name) do
+      assert_text first('.completed-practices-progress__percentage'), '100%'
+    end
+  end
+
+  test 'no activity count is displayed except for students and trainees' do
+    user = users(:komagata)
+
+    visit_with_auth generation_path(user.generation), 'komagata'
+
+    within('.users-item', text: user.name) do
+      assert_no_selector '.card-counts'
+    end
+  end
 end
