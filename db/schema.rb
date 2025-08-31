@@ -117,6 +117,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_11_162031) do
     t.string "title", null: false
     t.date "published_at", null: false
     t.text "memo"
+    t.index ["title"], name: "index_buzzes_on_title", unique: true
+    t.index ["url"], name: "index_buzzes_on_url", unique: true
   end
 
   create_table "campaigns", force: :cascade do |t|
