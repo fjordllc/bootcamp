@@ -64,7 +64,7 @@
         - if pair_work.solved?
           .pair-work-schedule-dates__action
             .pair-work-schedule-dates__action-items
-              - if user == current_user
+              - if pair_work.buddy == current_user
                 .pair-work-schedule-dates__action-item
                   label.a-button.is-md.is-secondary.is-block(for='show-schedule-dates')
                     | 日時の変更、ペアをキャンセル
@@ -82,7 +82,7 @@
           .pair-work-schedule-dates__table-container
             input.a-toggle-checkbox#show-schedule-dates(type="checkbox")
             .pair-work-schedule-dates__table
-              - if user == current_user
+              - if pair_work.buddy == current_user
                 h3.pair-work-schedule-dates__title
                   | 日時の変更、もしくはキャンセル
                 .pair-work-schedule-dates__cancel
