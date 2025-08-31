@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Mentor::BuzzesController < ApplicationController
+  before_action :require_admin_or_mentor_login, only: %i[index new create edit update destroy]
   before_action :set_buzz, only: %i[edit update destroy]
   PER_PAGE = 50
 
