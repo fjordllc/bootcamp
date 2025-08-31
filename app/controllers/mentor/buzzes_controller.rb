@@ -40,9 +40,9 @@ class Mentor::BuzzesController < ApplicationController
 
   def update
     if @buzz.update(buzz_params)
-      redirect_to mentor_buzzes_path, status: :see_other
+      redirect_to mentor_buzzes_path, notice: '更新しました', status: :see_other
     else
-      render 'edit'
+      render :edit, status: :unprocessable_entity
     end
   end
 
