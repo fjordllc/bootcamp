@@ -494,7 +494,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
 
     @user = @receiver
     @title = @pair_work.practice.present? ? "「#{@pair_work.practice.title}」についてのペアワークのペアが見つかりました。" : 'ペアワークのペアが見つかりました。'
-    matched_user = User.find(@pair_work.buddy_id)
+    matched_user = @pair_work.buddy
     @user_name = @receiver == matched_user ? 'あなた' : "#{matched_user.login_name}さん"
 
     @link_url = notification_redirector_url(
