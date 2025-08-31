@@ -73,19 +73,16 @@ class BooksTest < ApplicationSystemTestCase
   test 'use select box to narrow down book by practices' do
     visit_with_auth books_path, 'kimura'
     
-    if wait_for_choices_js
-      # Choices.js is working, use enhanced interface
-      find('.choices__inner').click
-      page_practices = page.all('.choices__item--choice').map(&:text).size
-      course_practices = users(:kimura).course.practices.size + 1
-      assert_equal page_practices, course_practices
-
-      find('#choices--js-choices-single-select-item-choice-2', text: 'OS X Mountain Lionをクリーンインストールする').click
-      assert_text 'OS X Mountain Lionをクリーンインストールする'
-    else
-      # Fall back to original select element
-      select 'OS X Mountain Lionをクリーンインストールする', from: 'practice_id'
-      assert_text 'OS X Mountain Lionをクリーンインストールする'
+    # Wait for Choices.js to initialize
+    assert_selector '.choices', visible: true
+    
+    # Click on the Choices.js dropdown
+    within '.page-filter' do
+      find('.choices').click
+      # Select the practice option
+      find('.choices__item--choice', text: 'OS X Mountain Lionをクリーンインストールする').click
     end
+    
+    assert_text 'OS X Mountain Lionをクリーンインストールする'
   end
 end

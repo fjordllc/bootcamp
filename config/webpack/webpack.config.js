@@ -1,7 +1,6 @@
 // See the shakacode/shakapacker README and docs directory for advice on customizing your webpackConfig.
 const { generateWebpackConfig } = require('shakapacker')
 const webpack = require('webpack')
-const path = require('path')
 
 const webpackConfig = generateWebpackConfig()
 
@@ -26,19 +25,11 @@ webpackConfig.module.rules.push({
   }
 })
 
-// Add fallbacks for Node.js core modules
-webpackConfig.resolve.fallback = {
-  ...webpackConfig.resolve.fallback,
-  'react-dom/client': false,
-  'util': require.resolve('util/')
-}
-
-// Ignore the warning for react-dom/client
+// Fix process is not defined error for browser environment
 webpackConfig.plugins = webpackConfig.plugins || []
 webpackConfig.plugins.push(
-  new webpack.IgnorePlugin({
-    resourceRegExp: /react-dom\/client$/,
-    contextRegExp: /react_ujs/
+  new webpack.DefinePlugin({
+    'process.env': JSON.stringify(process.env || {})
   })
 )
 

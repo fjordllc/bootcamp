@@ -35,6 +35,8 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       driver_option.add_argument('--no-sandbox')
       driver_option.add_argument('--disable-dev-shm-usage')
       driver_option.add_argument('enable-blink-features=Clipboard')
+      # Enable JavaScript console logging for debugging
+      driver_option.add_preference(:loggingPrefs, { browser: 'ALL' })
     end
   end
 
