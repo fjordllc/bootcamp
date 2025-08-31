@@ -9,7 +9,7 @@ class Buzz < ApplicationRecord
     'URLに誤りがあります'
   }
 
-  require 'open-uri'
+  require 'net/http'
 
   ALLOWED_SCHEMES = %w[http https].freeze
 
