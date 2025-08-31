@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Mentor::BuzzesController < ApplicationController
+  before_action :set_buzz, only: %i[edit update destroy]
   PER_PAGE = 50
 
   def index
@@ -36,11 +37,24 @@ class Mentor::BuzzesController < ApplicationController
     end
   end
 
-  def update; end
+  def update
+    if @buzz.update(buzz_params)
+      redirect_to mentor_buzzes_path, status: :see_other
+    else
+      render 'edit'
+    end
+  end
 
-  def destroy; end
+  def destroy
+    @buzz.destroy
+    redirect_to mentor_buzzes_path, status: :see_other
+  end
 
   private
+
+  def set_buzz
+    @buzz = Buzz.find(params[:id])
+  end
 
   def buzz_params
     keys = %i[title memo published_at]
