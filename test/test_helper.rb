@@ -32,7 +32,7 @@ class ActiveSupport::TestCase
   setup do
     Rails.application.routes.default_url_options[:host] = 'localhost'
     Rails.application.routes.default_url_options[:port] = 3000
-    ActiveStorage::Current.url_options = { host: 'localhost', port: 3000 }
+    Rails.application.config.active_storage.default_url_options = { host: 'localhost', port: 3000 }
   end
 
   teardown do
