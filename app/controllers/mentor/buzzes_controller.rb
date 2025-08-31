@@ -21,13 +21,14 @@ class Mentor::BuzzesController < ApplicationController
     doc = Buzz.doc_from_url(buzz_params[:url])
     date = Buzz.date_from_doc(doc)
 
-    @buzz.title = Buzz.title_from_doc(doc) if buzz_params[:title].empty?
+    @buzz.title = Buzz.title_from_doc(doc) if @buzz.title.blank?
 
-    if buzz_params[:published_at].empty?
-      if date.nil?
-        flash.now[:alert] = '日付を入力してください'
-      else
+    if @buzz.published_at.blank?
+      if date.present?
         @buzz.published_at = date
+      else
+        @buzz.errors.add(:published_at, '日付を入力してください')
+        return render :new, status: :unprocessable_entity
       end
     end
 
