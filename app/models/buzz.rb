@@ -32,7 +32,11 @@ class Buzz < ApplicationRecord
       uri = URI.parse(url)
       raise ArgumentError, 'HTTP/HTTPS URLs only' unless %w[http https].include?(uri.scheme&.downcase)
 
-      html = Net::HTTP.get(uri) { |io| io&.read }
+      begin
+        html = Net::HTTP.get(uri) { |io| io&.read }
+      rescue StandardError => e
+        logger.warn("#{url}: #{e.message}")
+      end
       Nokogiri::HTML.parse(html)
     end
 
