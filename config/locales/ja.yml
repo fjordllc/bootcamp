@@ -376,7 +376,8 @@ ja:
         practice: プラクティス
         title: タイトル
         description: 内容
-        schedules: 希望日時
+        schedules: スケジュール
+        reserved_at: 希望した日時
     enums:
       emotion:
           negative: Negative
