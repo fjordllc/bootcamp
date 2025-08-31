@@ -1,7 +1,7 @@
 .a-card
   .card-body
     - if pair_work.solved?
-      - user = User.find(pair_work.buddy_id)
+      - user = pair_work.buddy
       .event-main-actions.is-participationed
         header.event-main-actions__header
           h2.event-main-actions__title
