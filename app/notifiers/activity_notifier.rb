@@ -374,7 +374,7 @@ class ActivityNotifier < ApplicationNotifier # rubocop:todo Metrics/ClassLength
     pair_work = params[:pair_work]
     sender = pair_work.user
     receiver = params[:receiver]
-    matched_user = User.find(pair_work.buddy_id)
+    matched_user = pair_work.buddy
     user_name = receiver == matched_user ? 'あなた' : "#{matched_user.login_name}さん"
 
     notification(
