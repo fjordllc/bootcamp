@@ -29,7 +29,7 @@ class PairWorksTest < ApplicationSystemTestCase
         fill_in 'pair_work[title]', with: 'テストのペアワーク募集'
         fill_in 'pair_work[description]', with: 'テストのペアワーク募集です。'
         within '.form-table' do
-          check 'schedule_ids_2025-03-03 00:00:00 +0900', allow_label_click: true
+          check 'schedule_ids_202503030000', allow_label_click: true
         end
         click_button '登録する'
       end
@@ -49,7 +49,7 @@ class PairWorksTest < ApplicationSystemTestCase
       visit_with_auth pair_work_path(pair_work), 'mentormentaro'
       within '.a-table' do
         accept_alert do
-          find_button(class: '2025-01-02 01:00:00 +0900').click
+          find_button(id: '2025-01-02T01:00:00+09:00').click
         end
       end
       assert_selector '.a-title-label.is-solved.is-success', text: 'ペア確定'
@@ -71,7 +71,7 @@ class PairWorksTest < ApplicationSystemTestCase
       pair_work = pair_works(:pair_work1)
       visit_with_auth pair_work_path(pair_work), 'komagata'
       within '.a-table' do
-        find_button(class: '2025-01-02 01:00:00 +0900', disabled: true)
+        find_button(id: '2025-01-02T01:00:00+09:00', disabled: true)
       end
     end
   end
@@ -131,7 +131,7 @@ class PairWorksTest < ApplicationSystemTestCase
         fill_in 'pair_work[title]', with: 'テストのペアワーク募集'
         fill_in 'pair_work[description]', with: 'テストのペアワーク募集です。'
         within '.form-table' do
-          check 'schedule_ids_2025-03-03 00:00:00 +0900', allow_label_click: true
+          check 'schedule_ids_202503030000', allow_label_click: true
         end
       end
       mock_log = []
