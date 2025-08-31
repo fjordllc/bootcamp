@@ -1,8 +1,14 @@
 # frozen_string_literal: true
 
 class Buzz < ApplicationRecord
-  # validates :body, presence: true
+  validates :title, presence: true, uniqueness: true
   validates :published_at, presence: true
+  validates :url, presence: true, uniqueness: true, format: {
+    with: URI::DEFAULT_PARSER.make_regexp(%w[http https]),
+    message:
+    'URLに誤りがあります'
+  }
+
   require 'open-uri'
 
   ALLOWED_SCHEMES = %w[http https].freeze
