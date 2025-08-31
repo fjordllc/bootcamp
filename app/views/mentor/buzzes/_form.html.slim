@@ -8,8 +8,9 @@
   .form-item
     .row
       .col-md-6.col-xs-12
-        = f.label :url, class: 'a-form-label is-required'
-        = f.text_field :url, class: 'a-text-input js-warning-form', placeholder: '紹介・言及記事のurlを貼り付け'
+        - if f.object.new_record?
+          = f.label :url, class: 'a-form-label is-required'
+          = f.text_field :url, class: 'a-text-input js-warning-form', placeholder: '紹介・言及記事のurlを貼り付け'
   .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12
