@@ -268,7 +268,7 @@ class GenerationsTest < ApplicationSystemTestCase
     visit_with_auth generation_path(user.generation), 'sotugyou'
 
     within('.users-item', text: user.name) do
-      assert_text first('.completed-practices-progress__percentage'), '100%'
+      assert_text '100%'
     end
   end
 
