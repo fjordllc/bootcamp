@@ -1,8 +1,37 @@
-h1 Buzzes#index
-p Find me in app/views/buzzes/index.html.slim
+- title '紹介・言及記事'
+- set_meta_tags site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）'
+
+header.lp-page-header
+  .l-container
+    .lp-page-header__inner
+      .lp-page-header__start
+        h1.lp-page-header__title
+          = title
+      .lp-page-header__end
+hr.a-border-tint
+.lp
+  section.lp-content.is-lp-bg-1.is-top-title
+    .l-container.is-lg
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-border-bottom
+              | 紹介・言及記事
+        .lp-content__end
 
 - @years.each do |year|
   h2 = link_to year, buzzes_year_path(year:)
 
-- @buzzes.each do |buzz|
-  h3 = link_to buzz.title, buzz.url, target: '_blank', rel: 'noopener noreferrer'
+hr.a-border
+  .page-body
+    .container.is-lg
+      = render 'buzzes', buzzes: @buzzes
+
+- if admin_or_mentor_login?
+  hr.a-border-tint
+  .card-footer
+    .card-main-actions
+      ul.card-main-actions__items
+        li.card-main-actions__item
+          = link_to mentor_buzzes_path, class: 'a-button is-secondary is-md is-block' do
+                        | 内容修正
