@@ -1,6 +1,6 @@
 import fetcher from './fetcher'
 import { toast } from './vanillaToast'
-import csrf from './csrf'
+import { post, destroy } from '@rails/request.js'
 
 class BookmarkButton {
   constructor(element) {
@@ -84,18 +84,13 @@ class BookmarkButton {
   async bookmark() {
     try {
       this.setLoadingState(true)
-
-      const response = await fetch(this.bookmarkUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': csrf.getToken()
-        }
+      const response = await post(this.bookmarkUrl, {
+        contentType: 'application/json'
       })
 
       if (response.ok) {
         this.isBookmark = true
-        const data = await response.json()
+        const data = await response.json
         this.bookmarkId = data.id
         toast('Bookmarkしました！')
       } else {
@@ -114,13 +109,7 @@ class BookmarkButton {
     try {
       this.setLoadingState(true)
 
-      const response = await fetch(`/api/bookmarks/${this.bookmarkId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': csrf.getToken()
-        }
-      })
+      const response = await destroy(`/api/bookmarks/${this.bookmarkId}`)
 
       if (response.ok) {
         this.isBookmark = false
