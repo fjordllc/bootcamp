@@ -6,5 +6,6 @@ class BuzzesController < ApplicationController
     year = params[:year] || Buzz.latest_year
     @year = year
     @buzzes = Buzz.for_year(year)
+    render layout: 'lp'
   end
 end
