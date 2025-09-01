@@ -45,15 +45,15 @@ class BookmarkButton {
 
   setLoadingState(loading) {
     this.isLoading = loading
+    this.element.disabled = loading
+    this.element.setAttribute('aria-busy', String(loading))
     if (loading) {
       this.element.dataset.loading = 'true'
       this.element.className =
         'a-bookmark-button a-button is-sm is-block is-inactive is-muted'
       this.element.textContent = 'Bookmark'
-      this.element.style.pointerEvents = 'none'
     } else {
       delete this.element.dataset.loading
-      this.element.style.pointerEvents = 'auto'
       this.updateUI()
     }
   }
@@ -68,6 +68,7 @@ class BookmarkButton {
 
     this.element.className = classes
     this.element.textContent = bookmarkLabel
+    this.element.setAttribute('aria-pressed', String(this.isBookmark))
   }
 
   async handleClick(e) {
