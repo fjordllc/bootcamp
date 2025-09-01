@@ -10,10 +10,10 @@ class PairWork < ApplicationRecord
 
   PairWorksProperty = Struct.new(:title, :empty_message)
 
-  has_many :schedules, dependent: :destroy
+  has_many :schedules, dependent: :destroy, inverse_of: :pair_work
   belongs_to :user
   belongs_to :practice, optional: true
-  belongs_to :buddy, class_name: 'User', optional: true
+  belongs_to :buddy, class_name: 'User', optional: true, inverse_of: :pair_works
   accepts_nested_attributes_for :schedules, allow_destroy: true
   alias sender user
 
