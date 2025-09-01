@@ -1,2 +1,6 @@
-- @buzzes.each do |buzz|
-  h3 = link_to buzz.title, buzz.url, target: '_blank', rel: 'noopener noreferrer'
+h1 = "#{buzzes[0].published_at.year}年"
+- buzzes.group_by { |b| b.published_at.month }.each do |month, articles|
+  h2 = "#{month}月"
+  ul
+  - articles.each do |article|
+    li = link_to article.title, article.url, target: '_blank', rel: 'noopener noreferrer'
