@@ -23,9 +23,11 @@ hr.a-border-tint
   h2 = link_to year, buzzes_year_path(year:)
 
 hr.a-border
-  .page-body
-    .container.is-lg
-      = render 'buzzes', buzzes: @buzzes
+  .a-card
+    .article__inner
+      .article__body
+        .buzzes.a-long-text.is_md
+          = render 'buzzes', buzzes: @buzzes
 
 - if admin_or_mentor_login?
   hr.a-border-tint
