@@ -33,11 +33,14 @@ class ActiveSupport::TestCase
     Rails.application.routes.default_url_options[:host] = 'localhost'
     Rails.application.routes.default_url_options[:port] = 3000
     Rails.application.config.active_storage.default_url_options = { host: 'localhost', port: 3000 }
+    # Rails 7.2でActiveStorage::Currentにurl_optionsを設定
+    ActiveStorage::Current.url_options = { host: 'localhost', port: 3000 }
   end
 
   teardown do
     Rails.application.routes.default_url_options.delete(:host)
     Rails.application.routes.default_url_options.delete(:port)
+    ActiveStorage::Current.url_options = nil
   end
 
   # Rails 7 Active Storage test setup
