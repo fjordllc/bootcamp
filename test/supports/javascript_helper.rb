@@ -46,8 +46,18 @@ module JavascriptHelper
 
   def debug_javascript_state
     puts "\n=== JavaScript Debug Information ==="
+    debug_library_availability
+    debug_dom_elements
+    debug_page_load_status
+    debug_console_errors
+    puts "=====================================\n"
+  rescue StandardError => e
+    puts "Could not get JavaScript debug info: #{e.message}"
+  end
 
-    # Check if required libraries are available in window
+  private
+
+  def debug_library_availability
     tagify_available = page.evaluate_script('typeof window.Tagify !== "undefined"')
     choices_available = page.evaluate_script('typeof window.Choices !== "undefined"')
     react_available = page.evaluate_script('typeof window.React !== "undefined"')
@@ -57,8 +67,9 @@ module JavascriptHelper
     puts "Choices available: #{choices_available}"
     puts "React available: #{react_available}"
     puts "Stripe available: #{stripe_available}"
+  end
 
-    # Check if DOM elements exist
+  def debug_dom_elements
     tagify_elements = page.all('.tagify', visible: :all).count
     choices_elements = page.all('.choices', visible: :all).count
     stripe_frames = page.all('iframe[name^="__privateStripeFrame"]', visible: :all).count
@@ -68,30 +79,26 @@ module JavascriptHelper
     puts "Choices elements found: #{choices_elements}"
     puts "Stripe frames found: #{stripe_frames}"
     puts "Select elements found: #{select_elements}"
+  end
 
-    # Check page load status
+  def debug_page_load_status
     ready_state = page.evaluate_script('document.readyState')
     puts "Document ready state: #{ready_state}"
+  end
 
-    # Check for JavaScript errors in console
-    begin
-      console_logs = page.driver.browser.logs.get(:browser)
-      error_logs = console_logs.select { |log| %w[SEVERE WARNING].include?(log.level) }
+  def debug_console_errors
+    console_logs = page.driver.browser.logs.get(:browser)
+    error_logs = console_logs.select { |log| %w[SEVERE WARNING].include?(log.level) }
 
-      if error_logs.any?
-        puts "\nBrowser console errors/warnings:"
-        error_logs.each do |log|
-          puts "  [#{log.level}] #{log.message}"
-        end
-      else
-        puts "\nNo severe browser console errors found"
+    if error_logs.any?
+      puts "\nBrowser console errors/warnings:"
+      error_logs.each do |log|
+        puts "  [#{log.level}] #{log.message}"
       end
-    rescue StandardError => e
-      puts "\nCould not check console logs: #{e.message}"
+    else
+      puts "\nNo severe browser console errors found"
     end
-
-    puts "=====================================\n"
   rescue StandardError => e
-    puts "Could not get JavaScript debug info: #{e.message}"
+    puts "\nCould not check console logs: #{e.message}"
   end
 end

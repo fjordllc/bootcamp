@@ -23,45 +23,58 @@ module StripeHelper
   private
 
   def wait_and_fill_field(field_name, value)
-    # Wait for Stripe elements to fully load and become visible
-    field = nil
-    10.times do |attempt|
-      # First wait for field to exist
-      sleep 1
+    field = wait_for_visible_field(field_name)
+    fill_field_slowly(field, value)
+  end
 
-      # Try to find visible field
-      begin
-        field = find_field(field_name, visible: true, wait: 1)
-        break if field
-      rescue Capybara::ElementNotFound
-        # Field exists but might not be visible yet, check all fields
-        available_fields = all("input[name=\"#{field_name}\"]", visible: :all)
-
-        if available_fields.any?
-          puts "Attempt #{attempt + 1}: Field '#{field_name}' found but not visible yet, waiting..."
-        else
-          puts "Attempt #{attempt + 1}: Field '#{field_name}' not found at all, waiting..."
-        end
-
-        next if attempt < 9 # Continue trying
-      end
-    end
-
-    unless field
-      puts "Field '#{field_name}' not found or not visible after 10 attempts. Available fields:"
-      all('input', visible: :all).each_with_index do |input, index|
-        puts "  #{index}: name='#{input[:name]}' id='#{input[:id]}' placeholder='#{input[:placeholder]}' type='#{input[:type]}' visible='#{input.visible?}'"
-      end
-      raise Capybara::ElementNotFound, "Field '#{field_name}' not found or not visible"
-    end
+  def wait_for_visible_field(field_name)
+    field = find_visible_field_with_retry(field_name)
+    raise_field_not_found_error(field_name) unless field
 
     wait_until_field_ready(field)
+    field
+  end
 
+  def find_visible_field_with_retry(field_name)
+    field = nil
+    10.times do |attempt|
+      sleep 1
+      field = try_find_visible_field(field_name, attempt)
+      break if field
+    end
+    field
+  end
+
+  def try_find_visible_field(field_name, attempt)
+    find_field(field_name, visible: true, wait: 1)
+  rescue Capybara::ElementNotFound
+    log_field_search_attempt(field_name, attempt)
+    nil
+  end
+
+  def log_field_search_attempt(field_name, attempt)
+    available_fields = all("input[name=\"#{field_name}\"]", visible: :all)
+
+    if available_fields.any?
+      puts "Attempt #{attempt + 1}: Field '#{field_name}' found but not visible yet, waiting..."
+    else
+      puts "Attempt #{attempt + 1}: Field '#{field_name}' not found at all, waiting..."
+    end
+  end
+
+  def raise_field_not_found_error(field_name)
+    puts "Field '#{field_name}' not found or not visible after 10 attempts. Available fields:"
+    all('input', visible: :all).each_with_index do |input, index|
+      puts "  #{index}: name='#{input[:name]}' id='#{input[:id]}' placeholder='#{input[:placeholder]}' type='#{input[:type]}' visible='#{input.visible?}'"
+    end
+    raise Capybara::ElementNotFound, "Field '#{field_name}' not found or not visible"
+  end
+
+  def fill_field_slowly(field, value)
     value.chars.each do |char|
       field.send_keys(char)
       sleep 0.05
     end
-
     sleep 0.2
   end
 
