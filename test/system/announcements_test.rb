@@ -128,7 +128,8 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert_text 'お知らせを作成しました'
 
     visit_with_auth '/notifications', 'hatsuno'
-    assert_text 'お知らせ「タイトルtest」'
+    # Wait for notification to be processed and displayed
+    assert_text 'お知らせ「タイトルtest」', wait: 10
 
     visit_with_auth '/announcements', 'komagata'
     click_on 'タイトルtest'

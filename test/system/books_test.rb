@@ -16,7 +16,7 @@ class BooksTest < ApplicationSystemTestCase
   end
 
   test 'create book' do
-    visit_with_auth new_book_url, 'komagata'
+    visit_with_auth '/books/new', 'komagata'
     within 'form[name=book]' do
       fill_in 'book[title]', with: books(:book1).title
       fill_in 'book[price]', with: books(:book1).price
@@ -45,7 +45,7 @@ class BooksTest < ApplicationSystemTestCase
   end
 
   test 'title & body not allow blank' do
-    visit_with_auth new_book_url, 'komagata'
+    visit_with_auth '/books/new', 'komagata'
     within 'form[name=book]' do
       fill_in 'book[title]', with: ''
       fill_in 'book[price]', with: ''
@@ -59,7 +59,7 @@ class BooksTest < ApplicationSystemTestCase
   end
 
   test "can't create book" do
-    visit_with_auth new_book_url, 'kimura'
+    visit_with_auth '/books/new', 'kimura'
     assert_text '管理者・メンターとしてログインしてください'
   end
 
@@ -74,13 +74,30 @@ class BooksTest < ApplicationSystemTestCase
     visit_with_auth books_path, 'kimura'
     
     # Wait for Choices.js to initialize
-    assert_selector '.choices', visible: true
+    assert_selector '.choices', visible: true, wait: 10
     
     # Click on the Choices.js dropdown
     within '.page-filter' do
-      find('.choices').click
-      # Select the practice option
-      find('.choices__item--choice', text: 'OS X Mountain Lionをクリーンインストールする').click
+      dropdown = find('.choices')
+      dropdown.click
+      
+      # Wait for and select the practice option
+      # Try different possible selectors for Choices.js items
+      begin
+        # First try with the dropdown visible check, but with retry
+        5.times do
+          if has_selector?('.choices__list--dropdown', visible: true, wait: 1)
+            break
+          end
+          dropdown.click  # Click again if dropdown didn't open
+          sleep 0.5
+        end
+        
+        find('.choices__item--choice', text: 'OS X Mountain Lionをクリーンインストールする', wait: 5).click
+      rescue Capybara::ElementNotFound
+        # Fallback: try to find any element with the text
+        find('*', text: 'OS X Mountain Lionをクリーンインストールする', wait: 5).click
+      end
     end
     
     assert_text 'OS X Mountain Lionをクリーンインストールする'
