@@ -1,6 +1,9 @@
-h1 = "#{buzzes[0].published_at.year}年"
-- buzzes.group_by { |b| b.published_at.month }.each do |month, articles|
+- year = buzzes_year(buzzes)
+- month_buzzes = group_buzzes_by_month(buzzes)
+
+h1 = year
+- month_buzzes.each do |month, buzzes|
   h2 = "#{month}月"
   ul
-  - articles.each do |article|
-    li = link_to article.title, article.url, target: '_blank', rel: 'noopener noreferrer'
+    - buzzes.each do |buzz|
+      li = link_to buzz.title, buzz.url, target: '_blank', rel: 'noopener noreferrer'
