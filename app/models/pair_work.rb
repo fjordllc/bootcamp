@@ -13,7 +13,7 @@ class PairWork < ApplicationRecord
   has_many :schedules, dependent: :destroy, inverse_of: :pair_work
   belongs_to :user
   belongs_to :practice, optional: true
-  belongs_to :buddy, class_name: 'User', optional: true, inverse_of: :pair_works
+  belongs_to :buddy, class_name: 'User', optional: true
   accepts_nested_attributes_for :schedules, allow_destroy: true
   alias sender user
 
