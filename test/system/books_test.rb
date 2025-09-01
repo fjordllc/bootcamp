@@ -72,34 +72,33 @@ class BooksTest < ApplicationSystemTestCase
 
   test 'use select box to narrow down book by practices' do
     visit_with_auth books_path, 'kimura'
-    
+
     # Wait for Choices.js to initialize
     assert_selector '.choices', visible: true, wait: 10
-    
+
     # Click on the Choices.js dropdown
     within '.page-filter' do
       dropdown = find('.choices')
       dropdown.click
-      
+
       # Wait for and select the practice option
       # Try different possible selectors for Choices.js items
       begin
         # First try with the dropdown visible check, but with retry
         5.times do
-          if has_selector?('.choices__list--dropdown', visible: true, wait: 1)
-            break
-          end
-          dropdown.click  # Click again if dropdown didn't open
+          break if has_selector?('.choices__list--dropdown', visible: true, wait: 1)
+
+          dropdown.click # Click again if dropdown didn't open
           sleep 0.5
         end
-        
+
         find('.choices__item--choice', text: 'OS X Mountain Lionをクリーンインストールする', wait: 5).click
       rescue Capybara::ElementNotFound
         # Fallback: try to find any element with the text
         find('*', text: 'OS X Mountain Lionをクリーンインストールする', wait: 5).click
       end
     end
-    
+
     assert_text 'OS X Mountain Lionをクリーンインストールする'
   end
 end

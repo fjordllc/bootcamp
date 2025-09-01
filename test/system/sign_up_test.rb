@@ -423,8 +423,7 @@ class SignUpTest < ApplicationSystemTestCase
     tag = 'タグ夫'
 
     visit '/users/new'
-    debug_javascript_state
-    
+
     within 'form[name=user]' do
       fill_in 'user[login_name]', with: 'taguo'
       fill_in 'user[email]', with: email
@@ -438,21 +437,14 @@ class SignUpTest < ApplicationSystemTestCase
       check 'Rubyの経験あり', allow_label_click: true
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
-      
-      # Wait for React component to mount and check if tagify is available
-      sleep 2
-      debug_javascript_state
-      
+
       # Try to find tagify input, fallback to hidden input if not available
       if has_selector?('.tagify__input', wait: 3)
         tag_input = find('.tagify__input')
         tag_input.set tag
         tag_input.native.send_keys :return
       elsif has_selector?('input[name="user[tag_list]"]', visible: :hidden, wait: 3)
-        puts "Tagify not available, using hidden input field directly"
         page.execute_script("document.querySelector('input[name=\"user[tag_list]\"]').value = '#{tag}'")
-      else
-        puts "No tag input found, skipping tag entry"
       end
     end
 

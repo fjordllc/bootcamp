@@ -33,4 +33,11 @@ webpackConfig.plugins.push(
   })
 )
 
+// Provide React and ReactDOM globally for compatibility
+webpackConfig.plugins.push(
+  new webpack.ProvidePlugin({
+    React: 'react'
+  })
+)
+
 module.exports = webpackConfig
