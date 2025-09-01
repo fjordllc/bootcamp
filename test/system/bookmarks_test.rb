@@ -7,6 +7,12 @@ class BookmarksTest < ApplicationSystemTestCase
     @report = reports(:report1)
     @question = questions(:question1)
     @announcement = announcements(:announcement1)
+    @movie = movies(:movie1)
+    @movie.movie_data.attach(
+      io: File.open(Rails.root.join('test/fixtures/files/movies/movie.mp4')),
+      filename: 'movie.mp4',
+      content_type: 'video/mp4'
+    )
   end
 
   test 'show my bookmark report' do
@@ -25,7 +31,7 @@ class BookmarksTest < ApplicationSystemTestCase
     assert_selector '[data-bookmark-button]', text: 'Bookmark'
   end
 
-  test 'bookmark' do
+  test 'bookmark report' do
     visit_with_auth "/reports/#{@report.id}", 'machida'
     wait_for_bookmark_button_loading
     assert_selector '[data-bookmark-button].is-inactive', text: 'Bookmark'
@@ -39,7 +45,7 @@ class BookmarksTest < ApplicationSystemTestCase
     assert_text @report.title
   end
 
-  test 'unbookmark' do
+  test 'unbookmark report' do
     visit_with_auth "/reports/#{@report.id}", 'komagata'
     wait_for_bookmark_button_loading
     assert_selector '[data-bookmark-button].is-active', text: 'Bookmark中'
@@ -131,5 +137,33 @@ class BookmarksTest < ApplicationSystemTestCase
 
     visit '/current_user/bookmarks'
     assert_no_text @announcement.title
+  end
+
+  test 'bookmark movie' do
+    visit_with_auth "/movies/#{@movie.id}", 'hatsuno'
+    wait_for_bookmark_button_loading
+    assert_selector '[data-bookmark-button].is-inactive', text: 'Bookmark'
+    find('[data-bookmark-button]').click
+    wait_for_bookmark_button_loading
+    assert_selector '[data-bookmark-button].is-active'
+    assert_no_selector '[data-bookmark-button].is-inactive'
+    assert_selector '[data-bookmark-button]', text: 'Bookmark中'
+
+    visit '/current_user/bookmarks'
+    assert_text @movie.title
+  end
+
+  test 'unbookmark movie' do
+    visit_with_auth "/movies/#{@movie.id}", 'kimura'
+    wait_for_bookmark_button_loading
+    assert_selector '[data-bookmark-button].is-active', text: 'Bookmark中'
+    find('[data-bookmark-button]').click
+    wait_for_bookmark_button_loading
+    assert_selector '[data-bookmark-button].is-inactive'
+    assert_no_selector '[data-bookmark-button].is-active'
+    assert_selector '[data-bookmark-button]', text: 'Bookmark'
+
+    visit '/current_user/bookmarks'
+    assert_no_text @movie.title
   end
 end
