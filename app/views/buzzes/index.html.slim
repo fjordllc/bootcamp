@@ -19,8 +19,11 @@ hr.a-border-tint
               | 紹介・言及記事
         .lp-content__end
 
-- @years.each do |year|
-  h2 = link_to year, buzzes_year_path(year:)
+nav.mx-auto.max-w-5xl.mt-4
+  ul.flex.flex-wrap.justify-center.gap-6.pb-4.text-2xl
+    - @years.each do |year|
+      li
+        = link_to year, buzzes_year_path(year:), class: 'font-bold'
 
 hr.a-border
   .a-card
