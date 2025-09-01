@@ -196,11 +196,38 @@ function renderAllReactions(data, content) {
     emojiSpan.textContent = emoji
     emojiLine.appendChild(emojiSpan)
 
-    const usersSpan = document.createElement('span')
-    usersSpan.classList.add('reaction-users')
-    usersSpan.textContent = users.join(', ')
-    emojiLine.appendChild(usersSpan)
+    const reactionList = document.createElement('ul')
+    reactionList.classList.add('reaction-users', 'a-user-icons__items')
+    users.forEach((user) => {
+      const li = document.createElement('li')
+      li.classList.add('reaction-user', 'a-user-icons__item')
 
+      if (user.id && user.login_name && user.avatar_url) {
+        const link = document.createElement('a')
+        link.classList.add('reaction-user-link', 'a-user-icons__item-link')
+        link.href = `/users/${user.id}`
+
+        const frame = document.createElement('span')
+        frame.className = user.user_icon_frame_class
+
+        const img = document.createElement('img')
+        img.classList.add(
+          'reaction-user-avatar',
+          'a-user-icon',
+          'a-user-icons__item-icon'
+        )
+        img.src = user.avatar_url
+        img.alt = user.login_name
+
+        frame.appendChild(img)
+        link.appendChild(frame)
+        li.appendChild(link)
+      }
+
+      reactionList.appendChild(li)
+    })
+
+    emojiLine.appendChild(reactionList)
     content.appendChild(emojiLine)
   })
 }

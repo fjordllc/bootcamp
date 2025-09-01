@@ -42,10 +42,12 @@ class API::ReactionsController < API::BaseController
   end
 
   def user_payload(user)
+    user = ActiveDecorator::Decorator.instance.decorate(user)
     {
       id: user.id,
       login_name: user.login_name,
-      avatar_url: user.avatar_url
+      avatar_url: user.avatar_url,
+      user_icon_frame_class: user.user_icon_frame_class
     }
   end
 end
