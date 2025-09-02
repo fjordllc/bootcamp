@@ -18,7 +18,7 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
     )
     visit_with_auth '/current_user/bookmarks', user_without_bookmark.login_name
     assert_text 'ブックマークはまだありません。'
-    assert_selector 'i.fa-regular.fa-face-sad-tear', visible: false
+    assert_selector 'i.fa-regular.fa-face-negative-tear', visible: false
     assert_no_selector 'input#card-list-tools__action', visible: false
   end
 
@@ -76,7 +76,7 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
     first('.bookmark-delete-button').click
 
     assert_text 'ブックマークはまだありません。'
-    assert_selector 'i.fa-regular.fa-face-sad-tear', visible: false
+    assert_selector 'i.fa-regular.fa-face-negative-tear', visible: false
     assert_no_selector 'input#card-list-tools__action', visible: false
   end
 
