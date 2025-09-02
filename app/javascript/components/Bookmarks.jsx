@@ -109,7 +109,7 @@ const NoBookmarks = () => {
       <div className="page-body">
         <div className="o-empty-message">
           <div className="o-empty-message__icon">
-            <i className="fa-regular fa-face-sad-tear" />
+            <i className="fa-regular fa-face-negative-tear" />
             <p className="o-empty-message__text">
               ブックマークはまだありません。
             </p>

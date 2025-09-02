@@ -141,7 +141,7 @@ const NoReports = ({ unchecked }) => {
               <div className="card-body__description">
                 <div className="o-empty-message">
                   <div className="o-empty-message__icon">
-                    <i className="fa-regular fa-sad-tear" />
+                      <i className="fa-regular fa-negative-tear" />
                   </div>
                   <p className="o-empty-message__text">
                     日報はまだありません。

@@ -12,7 +12,7 @@ function setupCheckConfirmation() {
   checkButton.parentNode.replaceChild(newCheckButton, checkButton)
 
   newCheckButton.addEventListener('click', (event) => {
-    const hasSadEmotion = document.querySelector('#sad') !== null
+    const hasNegativeEmotion = document.querySelector('#negative') !== null
 
     const commentCountElement = document.querySelector(
       'a[href="#comments"] > span'
@@ -26,10 +26,10 @@ function setupCheckConfirmation() {
     const isNewCheck = newCheckButton.dataset.hasCheck !== 'true'
 
     if (
-      hasSadEmotion &&
+      hasNegativeEmotion &&
       !hasComment &&
       isNewCheck &&
-      !window.confirm('今日の気分は「sad」ですが、コメント無しで確認しますか？')
+      !window.confirm('今日の気分は「negative」ですが、コメント無しで確認しますか？')
     ) {
       event.preventDefault()
       return false
