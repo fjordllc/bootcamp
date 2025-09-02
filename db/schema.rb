@@ -62,6 +62,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_11_162031) do
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.string "type"
+    t.index ["question_id", "type"], name: "index_answers_on_question_id_and_type", unique: true
     t.index ["question_id"], name: "index_answers_on_question_id"
     t.index ["user_id"], name: "index_answers_on_user_id"
   end
