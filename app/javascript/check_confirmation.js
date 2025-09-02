@@ -29,7 +29,9 @@ function setupCheckConfirmation() {
       hasNegativeEmotion &&
       !hasComment &&
       isNewCheck &&
-      !window.confirm('今日の気分は「negative」ですが、コメント無しで確認しますか？')
+      !window.confirm(
+        '今日の気分は「negative」ですが、コメント無しで確認しますか？'
+      )
     ) {
       event.preventDefault()
       return false
