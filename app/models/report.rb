@@ -14,7 +14,7 @@ class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   enum emotion: {
     sad: 1,
-    soso: 0,
+    neutral: 0,
     positive: 2
   }
 
@@ -64,7 +64,7 @@ class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
   class << self
     def faces
       @faces ||= emotions.keys
-                         .zip(%w[emotion/sad.svg emotion/soso.svg emotion/positive.svg])
+                         .zip(%w[emotion/sad.svg emotion/neutral.svg emotion/positive.svg])
                          .to_h
                          .with_indifferent_access
     end
