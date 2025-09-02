@@ -107,7 +107,7 @@ class UserTest < ActiveSupport::TestCase
     assert user.depressed?
 
     report = user.reports.find_by(reported_on: Date.current)
-    report.emotion = 'happy'
+    report.emotion = 'positive'
     report.save!
     assert_not user.depressed?
   end
