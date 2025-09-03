@@ -13,7 +13,8 @@
         .card-header__inner
           h2.thread-comment__title
             a.thread-comment__title-user-link.is-hidden-md-up href="#{comment.user.url}"
-              img.thread-comment__title-user-icon.a-user-icon src="#{comment.user.avatar_url}"
+              span class="a-user-role is-#{comment.user.primary_role}"
+                img.thread-comment__title-user-icon.a-user-icon src="#{comment.user.avatar_url}"
             a.thread-comment__title-link.a-text-link href="#{comment.user.url}"
               = comment.user.login_name
           time.thread-comment__created-at
