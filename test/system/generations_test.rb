@@ -272,6 +272,16 @@ class GenerationsTest < ApplicationSystemTestCase
     end
   end
 
+  test 'progress bar for students who have not completed a single practice is 0%' do
+    user = users(:hatsuno)
+
+    visit_with_auth generation_path(user.generation), 'hatsuno'
+
+    within('.users-item', text: user.name) do
+      assert_text '0%'
+    end
+  end
+
   test 'no activity count is displayed except for students and trainees' do
     user = users(:komagata)
 
@@ -279,6 +289,32 @@ class GenerationsTest < ApplicationSystemTestCase
 
     within('.users-item', text: user.name) do
       assert_no_selector '.card-counts'
+    end
+  end
+
+  test 'click the activity count link to navigate to the related page' do
+    user = users(:kimura)
+    activities = { reports: { name: '日報', count: user.reports.count },
+                   products: { name: '提出物', count: user.products.count },
+                   comments: { name: 'コメント', count: user.comments.where.not(commentable_type: 'Talk').count },
+                   questions: { name: '質問', count: user.questions.count },
+                   answers: { name: '回答', count: user.answers.count } }
+
+    visit_with_auth generation_path(user.generation), 'kimura'
+
+    activities.each do |key, activity|
+      within('.users-item', text: user.name) do
+        within('.card-counts__item-inner', text: activity[:name]) do
+          if activity[:count].zero?
+            assert_selector '.is-empty'
+          else
+            click_link activity[:count].to_s
+            assert_current_path("/users/#{user.id}/#{key}")
+          end
+        end
+      end
+
+      visit generation_path(user.generation)
     end
   end
 end
