@@ -35,17 +35,22 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       driver_option.add_argument('--no-sandbox')
       driver_option.add_argument('--disable-dev-shm-usage')
       driver_option.add_argument('enable-blink-features=Clipboard')
+      # Enable JavaScript console logging for debugging
+      driver_option.add_preference(:loggingPrefs, { browser: 'ALL' })
     end
   end
 
   setup do
-    # Ensure ActiveStorage is properly configured for system tests
-    ActiveStorage::Current.host = 'http://localhost:3000'
+    # Ensure URL options are properly configured for system tests
+    Rails.application.routes.default_url_options[:host] = 'localhost'
+    Rails.application.routes.default_url_options[:port] = 3000
+    Rails.application.config.active_storage.default_url_options = { host: 'localhost', port: 3000 }
   end
 
   teardown do
     ActionMailer::Base.deliveries.clear
-    ActiveStorage::Current.host = nil
+    Rails.application.routes.default_url_options.delete(:host)
+    Rails.application.routes.default_url_options.delete(:port)
 
     # Clean up any uploaded test files
     if defined?(ActiveStorage::Blob)
