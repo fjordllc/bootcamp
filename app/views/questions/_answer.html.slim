@@ -1,7 +1,7 @@
 .thread-comment.answer id="answer_#{answer.id}" data-question_id="#{question.id}" data-answer_id="#{answer.id}" data-answer_description="#{answer.description}"
   .thread-comment__start
     a.thread-comment__user-link href="#{answer.user.url}"
-      span class=answer.user.user_icon_frame_class
+      span class="#{answer.user.user_icon_frame_class}"
         img.thread-comment__user-icon.a-user-icon src="#{answer.user.avatar_url}"
     - if answer.user.company && (answer.user.adviser? || answer.user.trainee?)
       a.thread-comment__company-link href="#{company_path(answer.user.company)}"
@@ -18,7 +18,8 @@
       header.card-header
         h2.thread-comment__title
           a.thread-comment__title-user-link.is-hidden-md-up href="#{answer.user.url}"
-            img.thread-comment__title-user-icon.a-user-icon src="#{answer.user.avatar_url}"
+            span class="#{answer.user.user_icon_frame_class}"
+              img.thread-comment__title-user-icon.a-user-icon src="#{answer.user.avatar_url}"
           a.thread-comment__title-link.a-text-link href="#{answer.user.url}"
             = answer.user.login_name
         time.thread-comment__created-at.created-at
