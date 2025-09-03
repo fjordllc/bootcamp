@@ -56,7 +56,8 @@
           = simple_format(truncate(user.description.to_s, length: 200, omission: '…'), wrapper_tag: 'p')
         .users-item__tags
           = render partial: 'generations/user_tags', locals: { tags: user.tag_list }
-      = render partial: 'generations/user_practice_progress', locals: { user: }
+      = render partial: 'generations/user_practice_progress', locals: { user:,
+        user_course_practice: ActiveDecorator::Decorator.instance.decorate(UserCoursePractice.new(user)) }
       hr.a-border-tint
       footer.card-footer.users-item__footer
         .card-main-actions
