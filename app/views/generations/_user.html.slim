@@ -35,8 +35,8 @@
                     .card-list-item-meta__item
                       - profile = user.discord_profile
                       - name = profile&.account_name
-                      - if profile&.times_url
-                        a[class="a-meta" href="#{profile.times_url}"]
+                      - if profile&.times_url.present?
+                        = link_to profile.times_url, class: 'a-meta' do
                           i.fa-brands.fa-discord
                             | #{name}
                       - elsif name.present?
