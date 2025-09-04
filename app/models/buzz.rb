@@ -33,7 +33,16 @@ class Buzz < ApplicationRecord
       raise ArgumentError, 'HTTP/HTTPS URLs only' unless %w[http https].include?(uri.scheme&.downcase)
 
       begin
-        html = Net::HTTP.get(uri) { |io| io&.read }
+        html = Net::HTTP.start(
+          uri.host,
+          uri.port,
+          use_ssl: (uri.scheme == 'https'),
+          open_timeout: 5,
+          read_timeout: 10,
+          write_timeout: 10
+        ) do |http|
+          http.get(uri).body
+        end
       rescue StandardError => e
         logger.warn("#{url}: #{e.message}")
       end
