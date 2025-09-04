@@ -23,8 +23,7 @@ module NotificationHelper
     visit notifications_path(status: 'unread')
     assert_selector 'h2.page-header__title', text: '通知'
     exists = page.has_selector?('span.card-list-item-title__link-label',
-                                text: message,
-                                wait: 5)
+                                text: message)
     go_back
     exists
   end

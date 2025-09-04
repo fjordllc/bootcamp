@@ -10,8 +10,8 @@ module LoginHelper
     end
     click_button 'ログイン'
     assert(
-      has_selector?('h2.page-header__title', text: 'ダッシュボード', wait: 3) ||
-        has_selector?('h1.auth-form__title', text: 'ログイン', wait: 3)
+      has_selector?('h2.page-header__title', text: 'ダッシュボード') ||
+        has_selector?('h1.auth-form__title', text: 'ログイン')
     )
   end
 
