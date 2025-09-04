@@ -18,16 +18,25 @@ hr.a-border-tint
             h2.lp-content-title.text-center.is-border-bottom
               | 紹介・言及記事
         .lp-content__end
-          .a-card
-            .article__inner
-              .article__body
-                .js-markdown-view.a-long-text.is-md
-                  = @buzz.body
-            - if admin_or_mentor_login?
-              hr.a-border-tint
-              .card-footer
-                .card-main-actions
-                  ul.card-main-actions__items
-                    li.card-main-actions__item
-                      = link_to edit_buzz_path, class: 'a-button is-secondary is-md is-block' do
+
+nav.mx-auto.max-w-5xl.mt-4
+  ul.flex.flex-wrap.justify-center.gap-6.pb-4.text-2xl
+    - @years.each do |year|
+      li
+        = link_to year, buzzes_year_path(year:), class: 'font-bold'
+
+hr.a-border
+  .a-card
+    .article__inner
+      .article__body
+        .buzzes.a-long-text.is_md
+          = render 'buzzes', buzzes: @buzzes, year: @year
+
+- if admin_or_mentor_login?
+  hr.a-border-tint
+  .card-footer
+    .card-main-actions
+      ul.card-main-actions__items
+        li.card-main-actions__item
+          = link_to mentor_buzzes_path, class: 'a-button is-secondary is-md is-block' do
                         | 内容修正
