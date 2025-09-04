@@ -36,18 +36,19 @@
       .thread-comment__reactions
         = render 'reactions/reactions', reactionable: comment
       hr.a-border-tint
-      footer.card-footer
-        .card-main-actions
-          ul.card-main-actions__items
-            - if comment.user.id == user.id || user.admin?
-              li.card-main-actions__item
-                button.card-main-actions__action.a-button.is-sm.is-secondary.is-block
-                  i.fa-solid.fa-pen
-                  | 編集
-            - if comment.user.id == user.id || user.mentor?
-              li.card-main-actions__item.is-sub
-                button.card-main-actions__muted-action
-                  | 削除する
+      - if comment.user == user || user.admin? || user.mentor?
+        footer.card-footer
+          .card-main-actions
+            ul.card-main-actions__items
+              - if comment.user == user || user.admin?
+                li.card-main-actions__item
+                  button.card-main-actions__action.a-button.is-sm.is-secondary.is-block
+                    i.fa-solid.fa-pen
+                    | 編集
+              - if comment.user == user || user.mentor?
+                li.card-main-actions__item.is-sub
+                  button.card-main-actions__muted-action
+                    | 削除する
     .a-card.is-comment.comment-editor.js-comment-editor.is-hidden
       .thread-comment-form__form
         .a-form-tabs.js-tabs
