@@ -30,7 +30,7 @@ hr.a-border
     .article__inner
       .article__body
         .buzzes.a-long-text.is_md
-          = render 'buzzes', buzzes: @buzzes
+          = render 'buzzes', buzzes: @buzzes, year: @year
 
 - if admin_or_mentor_login?
   hr.a-border-tint
