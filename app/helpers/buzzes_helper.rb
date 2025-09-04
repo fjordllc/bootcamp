@@ -2,7 +2,7 @@
 
 module BuzzesHelper
   def buzzes_year(buzzes)
-    buzzes[0].published_at.year
+    buzzes.first&.published_at&.year
   end
 
   def group_buzzes_by_month(buzzes)
