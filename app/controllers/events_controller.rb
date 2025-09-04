@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 class EventsController < ApplicationController
+  PAGER_NUMBER = 20
+
   before_action :set_event, only: %i[edit update destroy]
 
   def index
+    @events = Event.with_avatar.includes(:comments, :users).order(start_at: :desc).page(params[:page]).per(PAGER_NUMBER)
     @upcoming_events_groups = UpcomingEvent.upcoming_events_groups
   end
 
