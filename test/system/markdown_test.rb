@@ -53,6 +53,21 @@ class MarkdownTest < ApplicationSystemTestCase
     end
   end
 
+  test 'iframe tag is preserved when allowed' do
+    visit_with_auth new_page_path, 'komagata'
+    fill_in 'page[title]', with: 'iframe許可テスト'
+
+    fill_in 'page[body]', with: <<~HTML
+      <iframe src="https://example.com" width="300" height="200" frameborder="0" allowfullscreen></iframe>
+    HTML
+
+    click_button 'Docを公開'
+
+    within '.a-long-text.is-md.js-markdown-view' do
+      assert_selector 'iframe[src="https://example.com"]', visible: :all
+    end
+  end
+
   test 'speak block test' do
     reset_avatar(users(:mentormentaro))
     visit_with_auth new_page_path, 'komagata'
