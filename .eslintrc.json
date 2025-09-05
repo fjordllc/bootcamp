@@ -2,7 +2,6 @@
   "extends": [
     "eslint:recommended",
     "standard",
-    "plugin:vue/recommended",
     "plugin:react/jsx-runtime",
     "prettier"
   ],
@@ -10,15 +9,13 @@
     "react"
   ],
   "env": {
+    "browser": true,
     "jquery": true,
     "node": true
   },
   "globals": {
-    "window": true,
-    "fetch": true,
-    "FileReader": true,
-    "Event": true,
-    "FormData": true
+    "Worker": true,
+    "IntersectionObserver": true
   },
   "root": true,
   "parserOptions": {

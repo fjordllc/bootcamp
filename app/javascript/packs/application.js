@@ -84,15 +84,9 @@ import Cocooned from '@notus.sh/cocooned'
 import '../action_completed_button.js'
 import '../toast.js'
 import '../tag.js'
-
-import VueMounter from '../VueMounter.js'
-import Questions from '../components/questions.vue'
+import '../tag_edit.js'
 
 import '../stylesheets/application'
-
-const mounter = new VueMounter()
-mounter.addComponent(Questions)
-mounter.mount()
 
 // Support component names relative to this directory:
 const componentRequireContext = require.context('components', true)

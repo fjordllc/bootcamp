@@ -3,6 +3,56 @@
 require 'application_system_test_case'
 
 class MarkdownTest < ApplicationSystemTestCase
+  test 'should remove script tag' do
+    visit_with_auth new_page_path, 'komagata'
+    fill_in 'page[title]', with: 'script除去'
+    fill_in 'page[body]', with: "scriptタグは削除される\n<script>alert('x')</script>"
+
+    click_button 'Docを公開'
+
+    within '.a-long-text.is-md.js-markdown-view' do
+      assert_no_selector 'script'
+    end
+  end
+
+  test 'javascript link is sanitized' do
+    visit_with_auth new_page_path, 'komagata'
+    fill_in 'page[title]', with: 'リンク除去'
+    fill_in 'page[body]', with: '<a href="javascript:alert(1)">リンク</a>'
+
+    click_button 'Docを公開'
+
+    within '.a-long-text.is-md.js-markdown-view' do
+      assert_no_selector 'a[href^="javascript:"]'
+      assert_text 'リンク'
+    end
+  end
+
+  test 'blockquote tag is preserved when written as raw HTML' do
+    visit_with_auth new_page_path, 'komagata'
+    fill_in 'page[title]', with: 'blockquoteテスト'
+    fill_in 'page[body]', with: '<blockquote>引用です</blockquote>'
+
+    click_button 'Docを公開'
+
+    within '.a-long-text.is-md.js-markdown-view' do
+      assert_selector 'blockquote'
+      assert_text '引用です'
+    end
+  end
+
+  test 'style attribute is preserved on allowed tags' do
+    visit_with_auth new_page_path, 'komagata'
+    fill_in 'page[title]', with: 'style許可テスト'
+    fill_in 'page[body]', with: '<p style="color: red;">赤文字</p>'
+
+    click_button 'Docを公開'
+
+    within '.a-long-text.is-md.js-markdown-view' do
+      assert_selector 'p[style*="color"]', text: '赤文字'
+    end
+  end
+
   test 'speak block test' do
     reset_avatar(users(:mentormentaro))
     visit_with_auth new_page_path, 'komagata'

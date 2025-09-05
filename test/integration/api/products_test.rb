@@ -39,6 +39,16 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
     assert_response :ok
   end
 
+  test 'GET /api/products/unchecked.json?target=unchecked_no_replied' do
+    get api_products_unchecked_index_path(target: 'unchecked_no_replied', format: :json)
+    assert_response :unauthorized
+
+    token = create_token('mentormentaro', 'testtest')
+    get api_products_unchecked_index_path(target: 'unchecked_no_replied', format: :json),
+        headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :ok
+  end
+
   test 'GET /api/products/self_assigned.json' do
     get api_products_self_assigned_index_path(format: :json)
     assert_response :unauthorized
@@ -59,7 +69,7 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
     get api_products_self_assigned_index_path(format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
 
-    expected = products(:product15, :product63, :product62, :product64).map { |product| product.practice.title }
+    expected = products(:product15, :product62, :product64, :product63).map { |product| product.practice.title }
     actual = response.parsed_body['products'].map { |product| product['practice']['title'] }
     assert_equal expected, actual
   end

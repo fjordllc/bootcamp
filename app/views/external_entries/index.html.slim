@@ -1,26 +1,29 @@
-- title 'みんなのブログ'
+- content_for :title, 'みんなのブログ'
 - set_meta_tags description: 'みんなのブログ一覧ページです。'
-
-header.page-header
-  .container
-    .page-header__inner
-      .page-header__start
-        .page-header__title
-          | 日報・ブログ
-      .page-header__end
-        = render 'reports/new_report'
 
 = report_page_tabs(active_tab: 'みんなのブログ')
 
-- if current_user.feed_url.blank?
-  .a-page-notice.is-danger
-    .container.is-lg
-      .a-page-notice__inner
-        p
-          | #{current_user.login_name}さんのブログは
-          | まだ登録されていません。
-          = link_to edit_current_user_path(anchor: 'form-blog-feed') do
-            | ブログのフィード URL の登録
-          | をしてください。
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | みんなのブログ
+        .page-main-header__end
+          .page-header-actions
+
+  hr.a-border
+
+  - if current_user.feed_url.blank?
+    .a-page-notice.is-danger
+      .container.is-lg
+        .a-page-notice__inner
+          p
+            | #{current_user.login_name}さんのブログは
+            | まだ登録されていません。
+            = link_to edit_current_user_path(anchor: 'form-blog-feed') do
+              | ブログのフィード URL の登録
+            | をしてください。
 
 = render('external_entries')

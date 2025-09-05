@@ -1,0 +1,28 @@
+.w-full
+  button.change-tag-name-button.a-button.is-md.is-secondary.is-block
+    i.fa-solid.fa-cog
+    | タグ名変更
+  .edit-tag-modal.a-overlay.is-js.hidden
+    .a-card.is-modal
+      header.card-header.is-sm
+        h2.card-header__title
+          | タグ名変更
+      hr.a-border
+      .card-body
+          .card-body__description
+            label.a-form-label for="tag_name"
+              | タグ名
+            input#tag_name.a-text-input[
+              value=@tag_name name="tag[name]"
+              data-tag-id=@tag_id
+              data-initial-tag-name=@tag_name
+            ]
+      footer.card-footer
+        .card-main-actions
+          ul.card-main-actions__items
+            li.card-main-actions__item.is-main
+              button.save-tag-button.a-button.is-primary.is-sm.is-block(disabled=true)
+                | 変更
+            li.card-main-actions__item.is-sub
+              .cancel-change-tag-button.card-main-actions__muted-action
+                | キャンセル
