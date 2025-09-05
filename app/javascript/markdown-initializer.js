@@ -15,6 +15,7 @@ import MarkDownItContainerSpeak from 'markdown-it-container-speak'
 import MarkdownItPurifier from 'markdown-it-purifier'
 import ReplaceLinkToCard from 'replace-link-to-card'
 import MarkDownItContainerFigure from 'markdown-it-container-figure'
+import ADD_TAGS from './config/markdown-it-purifier'
 
 export default class {
   replace(selector) {
@@ -58,7 +59,7 @@ export default class {
     })
     md.use(MarkDownItContainerSpeak)
     md.use(MarkDownItContainerFigure)
-    md.use(MarkdownItPurifier)
+    md.use(MarkdownItPurifier, {ADD_TAGS:ADD_TAGS})
     return md.render(text)
   }
 }
