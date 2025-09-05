@@ -64,7 +64,7 @@ class MarkdownTest < ApplicationSystemTestCase
     click_button 'Docを公開'
 
     within '.a-long-text.is-md.js-markdown-view' do
-      assert_selector 'iframe[src="https://example.com"]', visible: :all
+      assert_selector 'iframe[src="https://example.com"]'
     end
   end
 
