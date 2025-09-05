@@ -3,7 +3,6 @@
 class Talk < ApplicationRecord
   include Commentable
   include Bookmarkable
-  include SearchHelper
 
   belongs_to :user
 

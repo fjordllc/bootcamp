@@ -3,7 +3,6 @@
 class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include Watchable
   include Searchable
-  include SearchHelper
 
   has_many :learnings, dependent: :destroy
   has_and_belongs_to_many :reports # rubocop:disable Rails/HasAndBelongsToMany
