@@ -19,6 +19,7 @@ import ReplaceLinkToCard from 'replace-link-to-card'
 import MarkDownItContainerFigure from 'markdown-it-container-figure'
 import MarkdownItPurifier from 'markdown-it-purifier'
 import MarkdownItVimeo from 'markdown-it-vimeo'
+import MarkdownItYoutube from 'markdown-it-youtube'
 
 export default class {
   static initialize(selector) {
@@ -89,6 +90,7 @@ export default class {
           MarkDownItContainerSpeak,
           MarkDownItContainerFigure,
           MarkdownItVimeo,
+          MarkdownItYoutube,
           MarkdownItPurifier
         ],
         markdownOptions: MarkdownOption
