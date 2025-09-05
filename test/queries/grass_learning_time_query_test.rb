@@ -44,8 +44,7 @@ class GrassLearningTimeQueryTest < ActiveSupport::TestCase
     assert_equal 0, result_by_date[Date.new(2025, 1, 4)].velocity
   end
 
-  test 'returns series with correct start_date and length' do
-    # デフォルト start_date（end_date.prev_year.sunday）から end_date までの series の開始日と件数が正しいことを確認
+  test 'rreturns series from the Sunday of end_date.prev_year to end_date with correct length' do
     end_date = Date.new(2025, 1, 3)
     results = GrassLearningTimeQuery.new(@user, end_date, LearningTime.all).call
     dates = results.map { |r| r.date.to_date }
