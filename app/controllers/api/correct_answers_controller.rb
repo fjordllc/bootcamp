@@ -18,7 +18,7 @@ class API::CorrectAnswersController < API::BaseController
   def update
     answer = @question.answers.find(params[:answer_id])
     answer.update!(type: nil)
-    Newspaper.publish(:answer_save, { answer: @answer })
+    Newspaper.publish(:answer_save, { answer: })
   end
 
   private
