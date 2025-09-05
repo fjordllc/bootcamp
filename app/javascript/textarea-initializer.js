@@ -18,6 +18,7 @@ import TextareaMarkdownLinkify from 'textarea-markdown-linkify'
 import ReplaceLinkToCard from 'replace-link-to-card'
 import MarkDownItContainerFigure from 'markdown-it-container-figure'
 import MarkdownItPurifier from 'markdown-it-purifier'
+import MarkdownItVimeo from 'markdown-it-vimeo'
 
 export default class {
   static initialize(selector) {
@@ -87,6 +88,7 @@ export default class {
           MarkDownItLinkAttributes,
           MarkDownItContainerSpeak,
           MarkDownItContainerFigure,
+          MarkdownItVimeo,
           MarkdownItPurifier
         ],
         markdownOptions: MarkdownOption
