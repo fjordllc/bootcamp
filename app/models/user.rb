@@ -4,7 +4,6 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include ActionView::Helpers::AssetUrlHelper
   include Taggable
   include Searchable
-  include SearchHelper
 
   attr_accessor :credit_card_payment, :role, :uploaded_avatar
 
@@ -477,17 +476,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
       .where('completed_at <= ?', 2.weeks.ago.end_of_day)
   }
   scope :campaign, -> { where(created_at: Campaign.recently_campaign) }
-  columns_for_keyword_search(
-    :login_name,
-    :name,
-    :name_kana,
-    :twitter_account,
-    :facebook_url,
-    :blog_url,
-    :github_account,
-    :discord_profile_account_name,
-    :description
-  )
+  columns_for_keyword_search :login_name, :name, :name_kana, :twitter_account, :facebook_url, :blog_url, :github_account, :description
 
   class << self
     def notification_receiver(target)

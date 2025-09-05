@@ -21,14 +21,15 @@ class SearchablesTest < ApplicationSystemTestCase
   test 'search with document_type' do
     visit_with_auth '/', 'hatsuno'
     document_type = '日報'
+    search_word = '検索結果テスト用'
     find('.js-modal-search-shown-trigger').click
     within('form[name=search]') do
       select document_type
+      fill_in 'word', with: search_word
     end
     find('#test-search-modal').click
     labels = all('.card-list-item__label')
-    assert_equal labels.count, 50
-    assert_equal labels[3].text, document_type
+    assert_equal 1, labels.count
     labels.each do |label|
       assert_equal label.text, document_type
     end

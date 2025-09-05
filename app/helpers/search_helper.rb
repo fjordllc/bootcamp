@@ -49,75 +49,30 @@ module SearchHelper
     md2plain_text(description_or_body)
   end
 
-  def created_user(searchable)
-    if searchable.is_a?(SearchResult)
-      User.find_by(id: searchable.user_id)
+  private
+
+  def process_special_case(comment, word)
+    summary = md2plain_text(comment)
+    find_match_in_text(summary, word)
+  end
+
+  def find_match_in_text(text, word)
+    return text[0, EXTRACTING_CHARACTERS * 2] if word.blank?
+
+    words = word.split(/[[:blank:]]+/).reject(&:blank?)
+    first_match_position = nil
+
+    words.each do |w|
+      position = text.downcase.index(w.downcase)
+      first_match_position = position if position && (first_match_position.nil? || position < first_match_position)
+    end
+
+    if first_match_position
+      start_pos = [0, first_match_position - EXTRACTING_CHARACTERS].max
+      end_pos = [text.length, first_match_position + EXTRACTING_CHARACTERS].min
+      text[start_pos...end_pos].strip
     else
-      searchable.respond_to?(:user) ? searchable.user : nil
+      text[0, EXTRACTING_CHARACTERS * 2]
     end
-  end
-
-  def extract_user_id_match(result, word)
-    user_id = word.delete_prefix('user:')
-    return match_by_user_object(result, user_id) if result.respond_to?(:user) && result.user.present?
-
-    match_by_last_updated_user_id(result, user_id)
-  end
-
-  def match_by_user_object(result, user_id)
-    result.user&.login_name&.casecmp?(user_id)
-  end
-
-  def match_by_last_updated_user_id(result, user_id)
-    return false unless result.respond_to?(:last_updated_user_id) && result.last_updated_user_id.present?
-
-    user = User.find_by(id: result.last_updated_user_id)
-    user&.login_name&.casecmp?(user_id)
-  end
-
-  def visible_to_user?(searchable, current_user)
-    case searchable
-    when Talk
-      current_user.admin? || searchable.user_id == current_user.id
-    when Comment
-      if searchable.commentable.is_a?(Talk)
-        current_user.admin? || searchable.commentable.user_id == current_user.id
-      else
-        true
-      end
-    when User, Practice, Page, Event, RegularEvent, Announcement, Report, Product, Question, Answer
-      true
-    else
-      false
-    end
-  end
-
-  def delete_private_comment!(searchables)
-    searchables.reject do |searchable|
-      searchable.instance_of?(Comment) && searchable.commentable.class.in?([Talk, Inquiry, CorporateTrainingInquiry])
-    end
-  end
-
-  def search_model_name(type)
-    return nil if type == :all
-
-    type.to_s.camelize.singularize
-  end
-
-  def filter_by_keywords(results, words)
-    return results if words.empty?
-
-    (results || []).select { |result| words.all? { |word| result_matches_keyword?(result, word) } }
-                   .sort_by(&:updated_at)
-                   .reverse
-  end
-
-  def result_matches_keyword?(result, word)
-    return extract_user_id_match(result, word) if word.match?(/^user:/)
-
-    word_downcase = word.downcase
-    [result.try(:title), result.try(:body), result.try(:description)]
-      .compact
-      .any? { |field| field.downcase.include?(word_downcase) }
   end
 end
