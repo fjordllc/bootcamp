@@ -16,7 +16,7 @@ import MarkdownItPurifier from 'markdown-it-purifier'
 import ReplaceLinkToCard from 'replace-link-to-card'
 import MarkDownItContainerFigure from 'markdown-it-container-figure'
 import MarkdownItVimeo from 'markdown-it-vimeo'
-import ADD_TAGS from './config/markdown-it-purifier'
+import PURIFIER_OPTIONS from './config/markdown-it-purifier'
 
 export default class {
   replace(selector) {
@@ -61,7 +61,7 @@ export default class {
     md.use(MarkDownItContainerSpeak)
     md.use(MarkDownItContainerFigure)
     md.use(MarkdownItVimeo)
-    md.use(MarkdownItPurifier, { ADD_TAGS: ADD_TAGS })
+    md.use(MarkdownItPurifier, PURIFIER_OPTIONS)
     return md.render(text)
   }
 }

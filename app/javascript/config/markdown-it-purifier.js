@@ -1,3 +1,5 @@
-const ADD_TAGS = ['iframe']
+const PURIFIER_OPTIONS = {
+  ADD_TAGS: ['iframe']
+}
 
-export default ADD_TAGS
+export default PURIFIER_OPTIONS
