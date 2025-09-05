@@ -1,4 +1,4 @@
-- if !tags.empty?
+- if tags.present?
   .tag-links
     ul.tag-links__items
       - tags.each do |tag|
