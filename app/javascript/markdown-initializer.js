@@ -16,6 +16,7 @@ import MarkdownItPurifier from 'markdown-it-purifier'
 import ReplaceLinkToCard from 'replace-link-to-card'
 import MarkDownItContainerFigure from 'markdown-it-container-figure'
 import MarkdownItVimeo from 'markdown-it-vimeo'
+import MarkdownItYoutube from 'markdown-it-youtube'
 
 export default class {
   replace(selector) {
@@ -60,6 +61,7 @@ export default class {
     md.use(MarkDownItContainerSpeak)
     md.use(MarkDownItContainerFigure)
     md.use(MarkdownItVimeo)
+    md.use(MarkdownItYoutube)
     md.use(MarkdownItPurifier)
     return md.render(text)
   }
