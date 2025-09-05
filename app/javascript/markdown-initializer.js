@@ -59,7 +59,7 @@ export default class {
     })
     md.use(MarkDownItContainerSpeak)
     md.use(MarkDownItContainerFigure)
-    md.use(MarkdownItPurifier, {ADD_TAGS:ADD_TAGS})
+    md.use(MarkdownItPurifier, { ADD_TAGS: ADD_TAGS })
     return md.render(text)
   }
 }
