@@ -244,4 +244,75 @@ class MarkdownTest < ApplicationSystemTestCase
     assert_includes img['src'], '/images/users/avatars/default.png'
     assert_includes img['title'], 'username'
   end
+
+  test 'Vimeo iframe is preserved through JavaScript processing' do
+    visit_with_auth new_page_path, 'komagata'
+    fill_in 'page[title]', with: 'Vimeo動画テスト'
+    fill_in 'page[body]', with: '<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1099582089?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="A Taste For Music"></iframe></div>'
+
+    click_button 'Docを公開'
+
+    within '.a-long-text.is-md.js-markdown-view' do
+      assert_selector 'iframe[src^="https://player.vimeo.com/video/1099582089"]', wait: 3
+      assert_no_selector 'script' # Scripts should not be allowed
+    end
+  end
+
+  test 'non-Vimeo iframe is removed, Vimeo with wrapper div is preserved' do
+    visit_with_auth new_page_path, 'komagata'
+    fill_in 'page[title]', with: '不正iframe除去テスト'
+    fill_in 'page[body]', with: '<iframe src="https://evil.example.com/malicious" frameborder="0"></iframe><div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1099582089"></iframe></div>'
+
+    click_button 'Docを公開'
+
+    within '.a-long-text.is-md.js-markdown-view' do
+      assert_no_selector 'iframe[src^="https://evil.example.com"]'
+      assert_selector 'iframe[src^="https://player.vimeo.com/video/1099582089"]', wait: 3
+    end
+  end
+
+  test 'YouTube iframe is preserved through JavaScript processing' do
+    visit_with_auth new_page_path, 'komagata'
+    fill_in 'page[title]', with: 'YouTube動画テスト'
+    fill_in 'page[body]', with: '<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe></div>'
+
+    click_button 'Docを公開'
+
+    within '.a-long-text.is-md.js-markdown-view' do
+      assert_selector 'iframe[src*="youtube-nocookie.com/embed/dQw4w9WgXcQ"]', wait: 3
+      assert_no_selector 'script' # Scripts should not be allowed
+    end
+  end
+
+  test 'non-YouTube iframe is removed, YouTube with wrapper div is preserved' do
+    visit_with_auth new_page_path, 'komagata'
+    fill_in 'page[title]', with: '不正iframe除去テスト'
+    fill_in 'page[body]', with: '<iframe src="https://evil.example.com/malicious" frameborder="0"></iframe><div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe></div>'
+
+    click_button 'Docを公開'
+
+    within '.a-long-text.is-md.js-markdown-view' do
+      assert_no_selector 'iframe[src^="https://evil.example.com"]'
+      assert_selector 'iframe[src*="youtube-nocookie.com/embed/dQw4w9WgXcQ"]', wait: 3
+    end
+  end
+
+  test 'video embeds are idempotent - no duplicates on reload' do
+    visit_with_auth new_page_path, 'komagata'
+    fill_in 'page[title]', with: 'アイデンポテンステスト'
+    fill_in 'page[body]', with: '<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1099582089"></iframe></div>'
+
+    click_button 'Docを公開'
+
+    within '.a-long-text.is-md.js-markdown-view' do
+      assert_selector 'iframe[src^="https://player.vimeo.com/video/1099582089"]', count: 1, wait: 3
+    end
+
+    # Refresh page to test idempotency
+    refresh
+
+    within '.a-long-text.is-md.js-markdown-view' do
+      assert_selector 'iframe[src^="https://player.vimeo.com/video/1099582089"]', count: 1, wait: 3
+    end
+  end
 end
