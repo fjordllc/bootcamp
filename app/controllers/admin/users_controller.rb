@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Admin::UsersController < AdminController
+class Admin::UsersController < AdminController # rubocop:disable Metrics/ClassLength
   before_action :set_user, only: %i[show edit update]
   ALLOWED_TARGETS = %w[all student_and_trainee inactive hibernated retired graduate adviser mentor trainee year_end_party campaign].freeze
 
@@ -34,8 +34,7 @@ class Admin::UsersController < AdminController
   def update
     @user.diploma_file = nil if params[:user][:remove_diploma] == '1'
     if @user.update(user_params)
-      destroy_subscription(@user)
-      Newspaper.publish(:retirement_create, { user: @user }) if @user.saved_change_to_retired_on?
+      complete_graduation_or_retirement(@user)
       redirect_to user_url(@user), notice: 'ユーザー情報を更新しました。'
     else
       render :edit
@@ -43,13 +42,16 @@ class Admin::UsersController < AdminController
   end
 
   def destroy
-    # 今後本人退会時に処理が増えることを想定し、自分自身は削除できないよう
-    # 制限をかけておく
-    redirect_to admin_users_url, alert: '自分自身を削除する場合、退会から処理を行ってください。' if current_user.id == params[:id]
-    user = User.find(params[:id])
-    ActiveSupport::Notifications.instrument('learning.destroy', user:)
-    user.destroy
-    redirect_to admin_users_url, notice: "#{user.name} さんを削除しました。"
+    # すでにUI上で自分自身を削除できないようになっているが、
+    # コード上でも防止することによって設計上の意図を明確にする
+    if current_user.id == params[:id].to_i
+      redirect_to admin_users_url, alert: '自分自身を削除する場合、退会から処理を行ってください。'
+    else
+      user = User.find(params[:id])
+      ActiveSupport::Notifications.instrument('learning.destroy', user:)
+      user.destroy
+      redirect_to admin_users_url, notice: "#{user.name} さんを削除しました。"
+    end
   end
 
   private
@@ -101,9 +103,18 @@ class Admin::UsersController < AdminController
     )
   end
 
+  def complete_graduation_or_retirement(user)
+    return if user.retired_on_before_last_save.present?
+
+    if user.saved_change_to_retired_on?
+      AfterUserRetirement.new(user, triggered_by: 'admin').call
+    elsif user.saved_change_to_graduated_on?
+      destroy_subscription(user) if user.graduated_on_before_last_save.nil?
+    end
+  end
+
   def destroy_subscription(user)
     return if user.subscription_id.blank?
-    return unless user.saved_change_to_retired_on? || user.saved_change_to_graduated_on?
 
     Subscription.new.destroy(user.subscription_id)
   end

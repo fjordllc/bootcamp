@@ -15,32 +15,7 @@ class Scheduler::Daily::AutoRetireController < SchedulerController
       user.hibernated_at = nil
       user.save!(validate: false)
 
-      Newspaper.publish(:retirement_create, { user: })
-      begin
-        UserMailer.auto_retire(user).deliver_now
-      rescue Postmark::InactiveRecipientError => e
-        logger.warn "[Postmark] 受信者由来のエラーのためメールを送信できませんでした。：#{e.message}"
-      end
-
-      destroy_subscription(user)
-      notify_to_admins(user)
-      notify_to_mentors(user)
-    end
-  end
-
-  def destroy_subscription(user)
-    Subscription.new.destroy(user.subscription_id) if user.subscription_id.present?
-  end
-
-  def notify_to_admins(user)
-    User.admins.each do |admin_user|
-      ActivityDelivery.with(sender: user, receiver: admin_user).notify(:retired)
-    end
-  end
-
-  def notify_to_mentors(user)
-    User.mentor.each do |mentor_user|
-      ActivityDelivery.with(sender: user, receiver: mentor_user).notify(:retired)
+      AfterUserRetirement.new(user, triggered_by: 'hibernation').call
     end
   end
 end

@@ -2,10 +2,10 @@
 
 require 'test_helper'
 
-class UserRetirementTest < ActiveSupport::TestCase
-  test 'execute method performs all retirement steps' do
+class AfterUserRetirementTest < ActiveSupport::TestCase
+  test 'call method performs all retirement steps' do
     user = users(:kimura)
-    retirement = UserRetirement.new(user)
+    retirement = AfterUserRetirement.new(user, triggered_by: 'user')
 
     methods_called = []
 
@@ -13,21 +13,23 @@ class UserRetirementTest < ActiveSupport::TestCase
       methods_called << :clear_github_data
     end
 
-    %i[destroy_subscription destroy_card notify_to_user notify_to_admins notify_to_mentors].each do |method_name|
+    %i[destroy_subscription destroy_card].each do |method_name|
       retirement.define_singleton_method(method_name) do
         methods_called << method_name
       end
     end
 
-    retirement.execute
+    retirement.define_singleton_method(:notify_all) do |_event|
+      methods_called << :notify_all
+    end
+
+    retirement.call
 
     expected_methods = %i[
-      clear_github_data
       destroy_subscription
+      notify_all
       destroy_card
-      notify_to_user
-      notify_to_admins
-      notify_to_mentors
+      clear_github_data
     ]
 
     assert_equal expected_methods, methods_called
