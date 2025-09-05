@@ -72,7 +72,6 @@ Rails.application.routes.draw do
     end
     resources :products, only: %i(index show)
     resources :bookmarks, only: %i(index create destroy)
-    resources :events, only: %i(index)
     resources :report_templates, only: %i(create update)
     resources :markdown_tasks, only: %i(create)
     namespace :talks do
