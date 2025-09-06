@@ -18,7 +18,7 @@ class ReportNotifier
 
   def notify_users(report)
     notify_advisers(report) if report.user.trainee? && report.user.company_id?
-    notify_consecutive_sad_report(report) if report.user.depressed?
+    notify_consecutive_negative_report(report) if report.user.depressed?
     notify_followers(report)
     report.notify_all_mention_user
   end
@@ -38,9 +38,9 @@ class ReportNotifier
     end
   end
 
-  def notify_consecutive_sad_report(report)
+  def notify_consecutive_negative_report(report)
     User.mentor.each do |receiver|
-      ActivityDelivery.with(report:, receiver:).notify(:consecutive_sad_report)
+      ActivityDelivery.with(report:, receiver:).notify(:consecutive_negative_report)
     end
   end
 

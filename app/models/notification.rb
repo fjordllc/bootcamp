@@ -31,7 +31,7 @@ class Notification < ApplicationRecord
     create_pages: 12,
     following_report: 13,
     chose_correct_answer: 14,
-    consecutive_sad_report: 15,
+    consecutive_negative_report: 15,
     assigned_as_checker: 16,
     product_update: 17,
     graduated: 18,
