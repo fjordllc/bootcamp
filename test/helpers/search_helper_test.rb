@@ -15,6 +15,8 @@ class SearchHelperTest < ActionView::TestCase
     @page = pages(:page1)
   end
 
+  attr_reader :model_name
+
   test 'searchable_url returns correct URL for Comment' do
     url = searchable_url(@comment)
     expected_url = "#{Rails.application.routes.url_helpers.polymorphic_path(@comment.commentable)}#comment_#{@comment.id}"
@@ -57,7 +59,12 @@ class SearchHelperTest < ActionView::TestCase
   end
 
   test 'created_user returns the correct user for SearchResult' do
-    searchable_result = SearchResult.new(@report, 'test', @user_komagata)
+    searchable_result = SearchResult.new(
+      @report,
+      'test',
+      @user_komagata,
+      users_by_id: { @user_komagata.id => @user_komagata }
+    )
     created_user = created_user(searchable_result)
     assert_equal @user_komagata, created_user
   end

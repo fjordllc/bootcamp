@@ -3,6 +3,8 @@
 module SearchHelper
   include MarkdownHelper
   include PolicyHelper
+  include SearchUrlHelper
+  include SearchMessageHelper
 
   EXTRACTING_CHARACTERS = 50
 
@@ -25,33 +27,35 @@ module SearchHelper
     end
   end
 
-  def searchable_url(searchable)
-    case searchable
-    when Comment
-      "#{Rails.application.routes.url_helpers.polymorphic_path(searchable.commentable)}#comment_#{searchable.id}"
-    when CorrectAnswer, Answer
-      Rails.application.routes.url_helpers.question_path(searchable.question, anchor: "answer_#{searchable.id}")
-    else
-      helper_method = "#{searchable.class.name.underscore}_path"
-      Rails.application.routes.url_helpers.send(helper_method, searchable)
-    end
-  end
-
   def filtered_message(searchable)
-    if searchable.is_a?(Comment) && searchable.commentable_type == 'Product'
-      commentable = searchable.commentable
-      return '該当プラクティスを修了するまで他の人の提出物へのコメントは見れません。' unless policy(commentable).show? || commentable.practice.open_product?
+    return filtered_message_for_stub(searchable) if defined?(Searcher::SearchRow) && searchable.is_a?(Searcher::SearchRow)
 
-      return md2plain_text(searchable.body)
-    end
+    return searchable.summary.to_s if defined?(SearchResult) && searchable.is_a?(SearchResult)
 
-    description_or_body = searchable.try(:description) || searchable.try(:body) || ''
-    md2plain_text(description_or_body)
+    message_by_type(searchable)
   end
+
+  private
+
+  def message_by_type(searchable)
+    case searchable
+    when Answer, CorrectAnswer
+      searchable.body || ''
+    when Comment
+      message_for_comment(searchable)
+    else
+      description_or_body = searchable.try(:description) || searchable.try(:body) || ''
+      md2plain_text(description_or_body)
+    end
+  end
+
+  public
 
   def created_user(searchable)
     if searchable.is_a?(SearchResult)
-      User.find_by(id: searchable.user_id)
+      return nil if searchable.user_id.blank?
+
+      searchable.users_by_id_map[searchable.user_id]
     else
       searchable.respond_to?(:user) ? searchable.user : nil
     end
