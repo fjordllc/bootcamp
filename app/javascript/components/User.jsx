@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import Following from './Following.jsx'
 import UserActivityCounts from './UserActivityCounts.jsx'
 import UserSns from './UserSns.jsx'
-import UserTags from './UserTags.jsx'
+import createUserTagLinks from '../create-user-tag-links.js'
 import UserPracticeProgress from './UserPracticeProgress.jsx'
 import { UserIconFrameClass } from './UserIconFrameClass.jsx'
 
@@ -21,6 +21,26 @@ export default function User({ user, currentUser }) {
     })
     return paragraphs
   }
+
+  const tagsContainerRef = useRef(null)
+
+  useEffect(() => {
+    const el = tagsContainerRef.current
+    if (!el) return
+
+    const tagsList = createUserTagLinks(user)
+    if (tagsList) {
+      el.replaceChildren(tagsList)
+    } else {
+      el.replaceChildren()
+    }
+
+    return () => {
+      if (el) {
+        el.replaceChildren()
+      }
+    }
+  }, [user])
 
   return (
     <div className="col-xxxl-2 col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-xs-12">
@@ -113,9 +133,7 @@ export default function User({ user, currentUser }) {
                 <p key={paragraph.id}>{paragraph.text}</p>
               ))}
             </div>
-            <div className="users-item__tags">
-              <UserTags user={user} />
-            </div>
+            <div className="users-item__tags" ref={tagsContainerRef}></div>
           </div>
           <UserPracticeProgress user={user} />
           <hr className="a-border-tint" />
