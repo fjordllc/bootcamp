@@ -14,21 +14,24 @@ class Bookmark::ProductTest < ApplicationSystemTestCase
 
   test 'show active button when bookmarked product' do
     visit_with_auth "/products/#{@product.id}", 'kimura'
-    assert_selector '#bookmark-button.is-active'
-    assert_no_selector '#bookmark-button.is-inactive'
+    wait_for_bookmark_button_loading
+    assert_selector '[data-bookmark-button].is-active'
+    assert_no_selector '[data-bookmark-button].is-inactive'
   end
 
   test 'show inactive button when not bookmarked product' do
     visit_with_auth "/products/#{@product.id}", 'komagata'
-    assert_selector '#bookmark-button.is-inactive'
-    assert_no_selector '#bookmark-button.is-active'
+    wait_for_bookmark_button_loading
+    assert_selector '[data-bookmark-button].is-inactive'
+    assert_no_selector '[data-bookmark-button].is-active'
   end
 
   test 'bookmark product' do
     visit_with_auth "/products/#{@product.id}", 'komagata'
-    find('#bookmark-button').click
-    assert_selector '#bookmark-button.is-active'
-    assert_no_selector '#bookmark-button.is-inactive'
+    find('[data-bookmark-button]').click
+    wait_for_bookmark_button_loading
+    assert_selector '[data-bookmark-button].is-active'
+    assert_no_selector '[data-bookmark-button].is-inactive'
 
     visit '/current_user/bookmarks'
     assert_text @product.title
@@ -36,10 +39,10 @@ class Bookmark::ProductTest < ApplicationSystemTestCase
 
   test 'unbookmark product' do
     visit_with_auth "/products/#{@product.id}", 'kimura'
-    assert_selector '#bookmark-button.is-active'
-    find('#bookmark-button').click
-    assert_selector '#bookmark-button.is-inactive'
-    assert_no_selector '#bookmark-button.is-active'
+    find('[data-bookmark-button]').click
+    wait_for_bookmark_button_loading
+    assert_selector '[data-bookmark-button].is-inactive'
+    assert_no_selector '[data-bookmark-button].is-active'
 
     visit '/current_user/bookmarks'
     assert_no_text @product.title
