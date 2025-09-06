@@ -57,7 +57,7 @@
         .users-item__tags
           = render partial: 'generations/user_tags', locals: { tags: user.tag_list }
       = render partial: 'generations/user_practice_progress', locals: { user:,
-        user_course_practice: ActiveDecorator::Decorator.instance.decorate(UserCoursePractice.new(user)) }
+        user_course_practice: UserCoursePractice.new(user) }
       hr.a-border-tint
       footer.card-footer.users-item__footer
         .card-main-actions
