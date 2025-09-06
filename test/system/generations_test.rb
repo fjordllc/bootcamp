@@ -292,29 +292,21 @@ class GenerationsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'click the activity count link to navigate to the related page' do
+  test 'a link will appear if there is activity' do
     user = users(:kimura)
-    activities = { reports: { name: '日報', count: user.reports.count },
-                   products: { name: '提出物', count: user.products.count },
-                   comments: { name: 'コメント', count: user.comments.where.not(commentable_type: 'Talk').count },
-                   questions: { name: '質問', count: user.questions.count },
-                   answers: { name: '回答', count: user.answers.count } }
 
     visit_with_auth generation_path(user.generation), 'kimura'
 
-    activities.each do |key, activity|
-      within('.users-item', text: user.name) do
-        within('.card-counts__item-inner', text: activity[:name]) do
-          if activity[:count].zero?
-            assert_selector '.is-empty'
-          else
-            click_link activity[:count].to_s
-            assert_current_path("/users/#{user.id}/#{key}")
-          end
-        end
+    within('.users-item', text: user.name) do
+      assert_selector "a[href='/users/#{user.id}/reports']", text: '1'
+      assert_selector "a[href='/users/#{user.id}/products']", text: '11'
+      within('.card-counts__item-inner', text: 'コメント') do
+        assert_selector '.is-empty'
       end
-
-      visit generation_path(user.generation)
+      assert_selector "a[href='/users/#{user.id}/questions']", text: '4'
+      within('.card-counts__item-inner', text: '回答') do
+        assert_selector '.is-empty'
+      end
     end
   end
 end
