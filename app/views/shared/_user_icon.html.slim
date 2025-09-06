@@ -1,0 +1,6 @@
+= link_to user_path(user), class: link_class
+  span class="a-user-role is-#{user.primary_role} #{'is-new-user' if user.joining_status == 'new-user'}"
+    - if defined?(login_name) && login_name.present?
+      = image_tag user.avatar_url, alt: user.icon_title, title: user.icon_title, class: img_classes, data: { 'login-name': login_name }
+    - else
+      = image_tag user.avatar_url, alt: user.icon_title, title: user.icon_title, class: img_classes
