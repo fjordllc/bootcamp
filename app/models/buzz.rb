@@ -45,6 +45,7 @@ class Buzz < ApplicationRecord
         end
       rescue StandardError => e
         logger.warn("#{url}: #{e.message}")
+        return
       end
       Nokogiri::HTML.parse(html)
     end
