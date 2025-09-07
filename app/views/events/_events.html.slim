@@ -16,10 +16,12 @@ ul.card-list.a-card
                 .a-list-item-badge.is-ended
                   span
                     | 終了
-              h2.card-list-item-title__title itemProp="name"
-                  = link_to event.title, event_path(event), class: 'card-list-item-title__link a-text-link', itemProp: 'url'
+              h2.card-list-item-title__title(itemprop='name')
+                = link_to event, itemprop: 'url', class: 'card-list-item-title__link a-text-link' do
+                  = event.title
           .card-list-item__row
-            = link_to event.user.long_name, user_path(event.user), class: 'a-user-name'
+            = link_to user_path(event.user), class: 'a-user-name' do
+              = event.user.long_name
           .card-list-item__row
             .card-list-item-meta
               .card-list-item-meta__items
