@@ -451,7 +451,7 @@ class EventsTest < ApplicationSystemTestCase
     assert_text 'イベントを作成しました'
     within 'form[name=announcement]' do
       assert has_field? 'announcement[title]', with: /#{event[:title]}/
-      assert has_field? 'announcement[description]', with: /#{event[:desription]}/
+      assert has_field? 'announcement[description]', with: /#{event[:description]}/
     end
   end
 
@@ -481,7 +481,7 @@ class EventsTest < ApplicationSystemTestCase
     assert_text 'イベントを更新しました'
     within 'form[name=announcement]' do
       assert has_field? 'announcement[title]', with: /#{event[:title]}/
-      assert has_field? 'announcement[description]', with: /#{event[:desription]}/
+      assert has_field? 'announcement[description]', with: /#{event[:description]}/
     end
   end
 
