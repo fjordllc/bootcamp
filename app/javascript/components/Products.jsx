@@ -161,38 +161,36 @@ export default function Products({
         <div className="page-content is-products loaded">
           <div className="page-body__columns">
             <div className="page-body__column is-main">
-              <div className="container is-md">
-                {data.total_pages > 1 && (
-                  <Pagination
-                    sum={data.total_pages * per}
-                    per={per}
-                    page={page}
-                    setPage={setPage}
-                  />
-                )}
-                <ul className="card-list a-card">
-                  {data.products.map((product) => {
-                    return (
-                      <Product
-                        product={product}
-                        key={product.id}
-                        isMentor={isMentor}
-                        isAdmin={isAdmin}
-                        currentUserId={currentUserId}
-                      />
-                    )
-                  })}
-                </ul>
-                {data.total_pages > 1 && (
-                  <Pagination
-                    sum={data.total_pages * per}
-                    per={per}
-                    page={page}
-                    setPage={setPage}
-                  />
-                )}
-                <UnconfirmedLink label={unconfirmedLinksName()} />
-              </div>
+              {data.total_pages > 1 && (
+                <Pagination
+                  sum={data.total_pages * per}
+                  per={per}
+                  page={page}
+                  setPage={setPage}
+                />
+              )}
+              <ul className="card-list a-card">
+                {data.products.map((product) => {
+                  return (
+                    <Product
+                      product={product}
+                      key={product.id}
+                      isMentor={isMentor}
+                      isAdmin={isAdmin}
+                      currentUserId={currentUserId}
+                    />
+                  )
+                })}
+              </ul>
+              {data.total_pages > 1 && (
+                <Pagination
+                  sum={data.total_pages * per}
+                  per={per}
+                  page={page}
+                  setPage={setPage}
+                />
+              )}
+              <UnconfirmedLink label={unconfirmedLinksName()} />
             </div>
           </div>
         </div>
