@@ -11,7 +11,7 @@
       .user-metas__item-label
         | 選択入力の研修感想
       .user-metas__item-value
-        = t("activerecord.enums.user.satisfaction.#{user.satisfaction}")
+        = user.satisfaction.nil? ? "未入力" : t("activerecord.enums.user.satisfaction.#{user.satisfaction}")
     .user-metas__item
       .user-metas__item-label
         | 自由記入の研修感想
