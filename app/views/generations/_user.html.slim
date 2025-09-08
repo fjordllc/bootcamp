@@ -17,8 +17,8 @@
           .users-item__header-start
             .users-item__icon
               = link_to user_path(user) do
-                span[class="a-user-role is-#{user.primary_role} #{user.joining_status == 'new-user' ? 'is-new-user' : ''}"]
-                  img[class="users-item__user-icon-image a-user-icon" src="#{user.avatar_url}" title="#{user.icon_title}" alt="#{user.icon_title}"]
+                span class=(user.user_icon_frame_class)
+                  = image_tag(user.avatar_url.to_s, class: 'users-item__user-icon-image a-user-icon', title: user.icon_title.to_s, alt: user.icon_title.to_s)
           .users-item__header-end
             .card-list-item__rows
               .card-list-item__row
