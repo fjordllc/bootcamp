@@ -47,6 +47,6 @@ class ProductSelfAssignedNoRepliedQueryTest < ActiveSupport::TestCase
 
     result = ProductSelfAssignedNoRepliedQuery.new(user_id: mentor.id).call
 
-    assert_equal result, result.sort_by(&:published_at)
+    assert_equal(result, result.sort_by { |p| [p.published_at, p.id] })
   end
 end
