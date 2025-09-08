@@ -42,7 +42,7 @@ class Product < ApplicationRecord # rubocop:todo Metrics/ClassLength
   scope :self_assigned_product, ->(user_id) { where(checker_id: user_id) }
   scope :self_assigned_and_replied_products, lambda { |user_id|
                                                self_assigned_product(user_id)
-                                                 .where.not(id: ProductSelfAssignedNoRepliedQuery.new(user_id:).call.select(:id))
+                                                 .where.not(id: ProductSelfAssignedNoRepliedQuery.new(user_id:).call.select(:id).reorder(nil))
                                              }
 
   scope :wip, -> { where(wip: true) }
