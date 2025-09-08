@@ -4,7 +4,6 @@ class Comment < ApplicationRecord
   include Reactionable
   include Searchable
   include Mentioner
-  include SearchHelper
 
   belongs_to :user, touch: true
   belongs_to :commentable, polymorphic: true
@@ -59,6 +58,23 @@ class Comment < ApplicationRecord
 
   def title
     commentable.title if commentable.respond_to?(:title)
+  end
+
+  def search_title
+    title || commentable&.title || 'Comment'
+  end
+
+  def search_url
+    Rails.application.routes.url_helpers.polymorphic_path(commentable, anchor: "comment_#{id}")
+  end
+
+  # 検索での可視性チェック: Talk関連コメントは管理者または相談者のみ表示
+  def visible_to_user?(user)
+    if commentable.is_a?(Talk)
+      user&.admin? || commentable.user_id == user&.id
+    else
+      true
+    end
   end
 
   private

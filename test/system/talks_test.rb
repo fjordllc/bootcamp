@@ -177,7 +177,7 @@ class TalksTest < ApplicationSystemTestCase
     end
   end
 
-  test 'incremental search by login_name' do
+  test 'search by login_name' do
     visit_with_auth '/talks', 'komagata'
     assert_text 'さんの相談部屋', count: 20
     fill_in 'js-talk-search-input', with: 'kimura'
@@ -188,7 +188,7 @@ class TalksTest < ApplicationSystemTestCase
     assert_text 'さんの相談部屋', count: 1
   end
 
-  test 'incremental search by name' do
+  test 'search by name' do
     visit_with_auth '/talks', 'komagata'
     assert_text 'さんの相談部屋', count: 20
     fill_in 'js-talk-search-input', with: 'Kimura'
@@ -199,7 +199,7 @@ class TalksTest < ApplicationSystemTestCase
     assert_text 'さんの相談部屋', count: 1
   end
 
-  test 'incremental search by name_kana' do
+  test 'search by name_kana' do
     visit_with_auth '/talks', 'komagata'
     assert_text 'さんの相談部屋', count: 20
     fill_in 'js-talk-search-input', with: 'キムラ'
@@ -210,7 +210,7 @@ class TalksTest < ApplicationSystemTestCase
     assert_text 'さんの相談部屋', count: 1
   end
 
-  test 'incremental search by twitter_account' do
+  test 'search by twitter_account' do
     visit_with_auth '/talks', 'komagata'
     assert_text 'さんの相談部屋', count: 20
     fill_in 'js-talk-search-input', with: 'kimura'
@@ -221,7 +221,7 @@ class TalksTest < ApplicationSystemTestCase
     assert_text 'さんの相談部屋', count: 1
   end
 
-  test 'incremental search by facebook_url' do
+  test 'search by facebook_url' do
     visit_with_auth '/talks', 'komagata'
     assert_text 'さんの相談部屋', count: 20
     fill_in 'js-talk-search-input', with: 'kimura'
@@ -232,7 +232,7 @@ class TalksTest < ApplicationSystemTestCase
     assert_text 'さんの相談部屋', count: 1
   end
 
-  test 'incremental search by blog_url' do
+  test 'search by blog_url' do
     visit_with_auth '/talks', 'komagata'
     assert_text 'さんの相談部屋', count: 20
     fill_in 'js-talk-search-input', with: 'kimura'
@@ -243,7 +243,7 @@ class TalksTest < ApplicationSystemTestCase
     assert_text 'さんの相談部屋', count: 1
   end
 
-  test 'incremental search by github_account' do
+  test 'search by github_account' do
     visit_with_auth '/talks', 'komagata'
     assert_text 'さんの相談部屋', count: 20
     fill_in 'js-talk-search-input', with: 'kimura'
@@ -254,7 +254,7 @@ class TalksTest < ApplicationSystemTestCase
     assert_text 'さんの相談部屋', count: 1
   end
 
-  test 'incremental search by discord_account' do
+  test 'search by discord_account' do
     visit_with_auth '/talks', 'komagata'
     assert_text 'さんの相談部屋', count: 20
     fill_in 'js-talk-search-input', with: 'kimura'
@@ -265,7 +265,7 @@ class TalksTest < ApplicationSystemTestCase
     assert_text 'さんの相談部屋', count: 1
   end
 
-  test 'incremental search by description' do
+  test 'search by description' do
     visit_with_auth '/talks', 'komagata'
     assert_text 'さんの相談部屋', count: 20
     fill_in 'js-talk-search-input', with: 'kimura'
@@ -276,7 +276,7 @@ class TalksTest < ApplicationSystemTestCase
     assert_text 'さんの相談部屋', count: 1
   end
 
-  test 'incremental search for student_or_trainee' do
+  test 'search for student_or_trainee' do
     users(:kimuramitai).update!(mentor: true)
     visit_with_auth '/talks', 'komagata'
     fill_in 'js-talk-search-input', with: 'kimura'
@@ -289,7 +289,7 @@ class TalksTest < ApplicationSystemTestCase
     assert_text 'さんの相談部屋', count: 1 # users(:kimura)
   end
 
-  test 'incremental search for mentor' do
+  test 'search for mentor' do
     users(:kimuramitai).update!(login_name: 'mentorkimura')
     visit_with_auth '/talks', 'komagata'
     fill_in 'js-talk-search-input', with: 'mentor'
@@ -302,7 +302,7 @@ class TalksTest < ApplicationSystemTestCase
     assert_text 'さんの相談部屋', count: 2 # users(:mentormentaro) users(:'long-id-mentor')
   end
 
-  test 'incremental search for graduated' do
+  test 'search for graduated' do
     users(:kimuramitai).update!(login_name: 'sotugyoukimura')
     visit_with_auth '/talks', 'komagata'
     fill_in 'js-talk-search-input', with: 'sotugyou'
@@ -315,7 +315,7 @@ class TalksTest < ApplicationSystemTestCase
     assert_text 'さんの相談部屋', count: 2 # users(:sotugyou, :sotugyou_with_job)
   end
 
-  test 'incremental search for adviser' do
+  test 'search for adviser' do
     users(:kimuramitai).update!(login_name: 'advikimura')
     visit_with_auth '/talks', 'komagata'
     fill_in 'js-talk-search-input', with: 'advi'
@@ -328,7 +328,7 @@ class TalksTest < ApplicationSystemTestCase
     assert_text 'さんの相談部屋', count: 2 # users(:advijirou)
   end
 
-  test 'incremental search for trainee' do
+  test 'search for trainee' do
     users(:kimuramitai).update!(login_name: 'kensyukimura')
     visit_with_auth '/talks', 'komagata'
     fill_in 'js-talk-search-input', with: 'kensyu'
@@ -341,7 +341,7 @@ class TalksTest < ApplicationSystemTestCase
     assert_text 'さんの相談部屋', count: 3 # users(:nocompanykensyu, :kensyu, :kensyu-invoice)
   end
 
-  test 'incremental search for retired' do
+  test 'search for retired' do
     users(:kimuramitai).update!(login_name: 'yameokimura')
     visit_with_auth '/talks', 'komagata'
     fill_in 'js-talk-search-input', with: 'yameo'
@@ -354,7 +354,7 @@ class TalksTest < ApplicationSystemTestCase
     assert_text 'さんの相談部屋', count: 1 # users(:yameo)
   end
 
-  test 'incremental search for action uncompleted' do
+  test 'search for action uncompleted' do
     users(:kimura).talk.update!(action_completed: false)
     visit_with_auth '/talks', 'komagata'
     fill_in 'js-talk-search-input', with: 'kimura'
@@ -372,26 +372,28 @@ class TalksTest < ApplicationSystemTestCase
     assert_selector '.talk-list'
     assert_no_selector '.searched-talk-list'
 
-    # /^[\w-]+$/ の場合は3文字以上、それ以外は2文字以上で検索結果を表示
+    # すべての長さの検索語で検索結果を表示
     fill_in 'js-talk-search-input', with: 'kim'
     find('#js-talk-search-input').send_keys :return
     assert_no_selector '.talk-list'
     assert_selector '.searched-talk-list'
 
+    # 短い検索語でも検索結果を表示
     fill_in 'js-talk-search-input', with: 'ki'
     find('#js-talk-search-input').send_keys :return
-    assert_selector '.talk-list'
-    assert_no_selector '.searched-talk-list'
+    assert_no_selector '.talk-list'
+    assert_selector '.searched-talk-list'
 
     fill_in 'js-talk-search-input', with: 'キム'
     find('#js-talk-search-input').send_keys :return
     assert_no_selector '.talk-list'
     assert_selector '.searched-talk-list'
 
+    # 1文字の日本語検索でも検索結果を表示
     fill_in 'js-talk-search-input', with: 'キ'
     find('#js-talk-search-input').send_keys :return
-    assert_selector '.talk-list'
-    assert_no_selector '.searched-talk-list'
+    assert_no_selector '.talk-list'
+    assert_selector '.searched-talk-list'
   end
 
   test 'show no talks message when no talks found' do

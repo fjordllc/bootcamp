@@ -582,20 +582,26 @@ class UsersTest < ApplicationSystemTestCase
     assert has_no_field? 'js-user-search-input'
   end
 
-  test 'incremental search needs more than two characters for Japanese and three for others' do
+  test 'incremental search works with short search words' do
     visit_with_auth '/users', 'komagata'
     assert_selector '.users-item', count: 24
-    fill_in 'js-user-search-input', with: 'ki'
+
+    # 2文字の英数字検索で絞り込み結果が表示される
+    fill_in 'js-user-search-input', with: 'mu'
     find('#js-user-search-input').send_keys :return
-    assert_selector '.users-item', count: 24
+    assert_text 'Kimura', count: 2
+
+    # 3文字の英数字検索でも正常に動作
     fill_in 'js-user-search-input', with: 'kim'
     find('#js-user-search-input').send_keys :return
     assert_text 'Kimura', count: 2
 
-    fill_in 'js-user-search-input', with: 'キ'
+    # 1文字の日本語検索で絞り込み結果が表示される
+    fill_in 'js-user-search-input', with: 'ム'
     find('#js-user-search-input').send_keys :return
-    assert_selector '.user-list'
-    assert_no_selector '.searched-user-list'
+    assert_text 'Kimura', count: 2
+
+    # 2文字の日本語検索でも正常に動作
     fill_in 'js-user-search-input', with: 'キム'
     find('#js-user-search-input').send_keys :return
     assert_text 'Kimura', count: 2

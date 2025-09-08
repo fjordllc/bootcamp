@@ -10,11 +10,18 @@ class SearchUser
 
   def search
     validated_search_word = validate_search_word
+    # 検索ワードが短すぎる場合はユーザー一覧をそのまま返す
+    return @users || User.all if validated_search_word.nil?
+
+    # Searcherを使ってユーザーを検索
+    query_builder = Searcher::QueryBuilder.new(validated_search_word)
+    config = Searcher::Configuration.get(:user)
+    params = query_builder.build_params(config[:columns])
 
     searched_user = if @users
-                      @users.merge(User.search_by_keywords(word: validated_search_word, exact_match: true))
+                      @users.ransack(params).result.includes(config[:includes]).distinct
                     else
-                      User.search_by_keywords(word: validated_search_word, exact_match: true)
+                      User.ransack(params).result.includes(config[:includes]).distinct
                     end
 
     if @target == 'retired'
@@ -32,10 +39,6 @@ class SearchUser
     stripped_word = @word.strip
     return nil if stripped_word.blank?
 
-    if stripped_word.match?(/^[\w-]+$/)
-      stripped_word.length >= 3 ? stripped_word : nil
-    elsif stripped_word.length >= 2
-      stripped_word
-    end
+    stripped_word
   end
 end

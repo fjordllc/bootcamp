@@ -7,7 +7,6 @@ class Announcement < ApplicationRecord
   include Reactionable
   include WithAvatar
   include Watchable
-  include SearchHelper
 
   enum target: {
     all: 0,

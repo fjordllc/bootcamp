@@ -3,26 +3,74 @@
 module Searchable
   extend ActiveSupport::Concern
 
-  COLUMN_NAMES_FOR_SEARCH_USER_ID = %i[user_id last_updated_user_id].freeze
-
-  included do
-    scope :search_by_keywords_scope, -> { all } if self < ActiveRecord::Base
-  end
+  REQUIRED_SEARCH_METHODS = %i[search_title search_label search_url].freeze
 
   class_methods do
-    def search_by_keywords(searched_values = {})
-      ransack(**KeywordSearchBuilder.params_for_keyword_search(self, searched_values)).result.search_by_keywords_scope
-    end
-
-    def columns_for_keyword_search(*column_names)
-      define_singleton_method(:_join_column_names) do
-        cols = column_names.dup
-        cols << :kana_name if has_attribute?(:kana_name)
-        "#{cols.join('_or_')}_cont_any"
+    def columns_for_keyword_search(*columns)
+      define_singleton_method :ransackable_attributes do |_auth_object = nil|
+        columns.map(&:to_s)
       end
     end
   end
 
+  def search_title
+    try(:title) || self.class.model_name.human
+  end
+
+  def search_label
+    I18n.t("activerecord.search_labels.#{self.class.model_name.i18n_key}", default: -> { self.class.model_name.human })
+  end
+
+  def search_thumbnail
+    return avatar_url if is_a?(User)
+
+    nil
+  end
+
+  def search_url
+    url_helpers = Rails.application.routes.url_helpers
+    url_helpers.polymorphic_path(self)
+  rescue ActionController::UrlGenerationError, NoMethodError
+    '#'
+  end
+
+  def search_user_id
+    is_a?(User) ? id : try(:user_id)
+  end
+
+  # リソースのアンダースコア形式のクラス名を返す
+  # CSSクラスやテンプレート選択に使用
+  def search_model_name
+    self.class.name.underscore
+  end
+
+  # コメント可能オブジェクトに関連するユーザーを返す
+  def search_commentable_user
+    return question&.user if is_a?(Answer) || is_a?(CorrectAnswer)
+
+    try(:commentable)&.try(:user)
+  end
+
+  # コメント可能オブジェクトのローカライズされたモデル名を返す
+  # 検索結果での人間が読みやすいタイプラベル表示に使用
+  def search_commentable_type
+    return '' unless try(:commentable)
+
+    model_name = commentable.model_name.name.underscore
+    I18n.t("activerecord.models.#{model_name}", default: '')
+  end
+
+  # 検索対象となる基本コンテンツを返す
+  def search_content
+    try(:description) || try(:body) || ''
+  end
+
+  # 検索での可視性チェック（デフォルト実装、各モデルでオーバーライド可能）
+  def visible_to_user?(_user)
+    true
+  end
+
+  # 検索結果に表示するプライマリロールを返す
   def primary_role
     return user_role if is_a?(User)
     return user_role(user) if respond_to?(:user) && user.present?
@@ -30,27 +78,7 @@ module Searchable
     nil
   end
 
-  def formatted_updated_at
-    return @formatted_updated_at if is_a?(SearchResult)
-
-    weekdays = %w[日 月 火 水 木 金 土]
-    updated_at.strftime("%Y年%m月%d日(#{weekdays[updated_at.wday]}) %H:%M")
-  end
-
-  def label
-    return avatar_url if model_name.name.casecmp?('User')
-
-    case model_name.name.downcase
-    when 'regularevent' then "定期\nイベント"
-    when 'event' then "特別\nイベント"
-    when 'practice' then "プラク\nティス"
-    when 'correctanswer', 'answer' then 'Q&A'
-    when 'comment' then comment_label
-    else
-      I18n.t("activerecord.models.#{model_name.name.underscore}")
-    end
-  end
-
+  # ユーザーのロールを判定して文字列で返す
   def user_role(user = self)
     return 'admin' if user.admin?
     return 'mentor' if user.mentor?
@@ -59,49 +87,5 @@ module Searchable
     return 'graduate' if user.graduated?
 
     'student' if user.student?
-  end
-
-  def comment_label
-    return 'コメント' unless respond_to?(:commentable) && commentable.present?
-
-    case commentable_type
-    when 'Announcement' then 'お知らせ'
-    when 'Practice' then "プラク\nティス"
-    when 'Report' then '日報'
-    when 'Product' then '提出物'
-    when 'Question' then 'Q&A'
-    when 'Page' then 'Docs'
-    when 'Event' then "特別\nイベント"
-    when 'RegularEvent' then "定期\nイベント"
-    else 'コメント'
-    end
-  end
-
-  module KeywordSearchBuilder
-    module_function
-
-    def params_for_keyword_search(klass, searched_values = {})
-      word = searched_values[:word].to_s.strip
-      return {} if word.blank?
-
-      { combinator: 'or', groupings: [build_groupings(klass, word)] }
-    end
-
-    def build_groupings(klass, word)
-      return { klass._join_column_names => word } unless contains_user_id_column?(klass)
-      return search_user_id_group(word.delete_prefix('user:')) if word.start_with?('user:')
-
-      { klass._join_column_names => word }
-    end
-
-    def contains_user_id_column?(klass)
-      column_names = klass.column_names
-      COLUMN_NAMES_FOR_SEARCH_USER_ID.any? { |column_name| column_names.include?(column_name.to_s) }
-    end
-
-    def search_user_id_group(username)
-      user = User.find_by(login_name: username)
-      { "#{COLUMN_NAMES_FOR_SEARCH_USER_ID.join('_or_')}_eq" => user&.id || 0 }
-    end
   end
 end

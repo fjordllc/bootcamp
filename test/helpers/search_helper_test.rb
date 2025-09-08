@@ -15,30 +15,6 @@ class SearchHelperTest < ActionView::TestCase
     @page = pages(:page1)
   end
 
-  test 'searchable_url returns correct URL for Comment' do
-    url = searchable_url(@comment)
-    expected_url = "#{Rails.application.routes.url_helpers.polymorphic_path(@comment.commentable)}#comment_#{@comment.id}"
-    assert_equal expected_url, url
-  end
-
-  test 'searchable_url returns correct URL for Answer' do
-    url = searchable_url(@answer)
-    expected_url = Rails.application.routes.url_helpers.question_path(@answer.question, anchor: "answer_#{@answer.id}")
-    assert_equal expected_url, url
-  end
-
-  test 'searchable_url returns correct URL for Report' do
-    url = searchable_url(@report)
-    expected_url = Rails.application.routes.url_helpers.report_path(@report)
-    assert_equal expected_url, url
-  end
-
-  test 'filtered_message returns summary for SearchResult' do
-    searchable_result = Searcher.search(word: 'ruby', current_user: @user_komagata, document_type: :all)
-    report_result = searchable_result.find { |r| r.model_name == 'report' && r.title == @report.title }
-    assert_equal report_result.summary, filtered_message(@report)
-  end
-
   test 'filtered_message returns body for Comment when policy allows' do
     searchable_message = filtered_message(@comment)
     assert_equal @comment.body, searchable_message
@@ -56,14 +32,62 @@ class SearchHelperTest < ActionView::TestCase
     policy_mock.verify
   end
 
-  test 'created_user returns the correct user for SearchResult' do
-    searchable_result = SearchResult.new(@report, 'test', @user_komagata)
-    created_user = created_user(searchable_result)
-    assert_equal @user_komagata, created_user
+  test 'search_summary, comment = word' do
+    comment = '検索ワード'
+    word = '検索ワード'
+    resource = Minitest::Mock.new
+    resource.expect(:is_a?, false, [Comment])
+    resource.expect(:search_content, comment)
+
+    assert_equal '検索ワード', search_summary(resource, word)
+    resource.verify
   end
 
-  test 'created_user returns the correct user for Comment' do
-    created_user = created_user(@comment)
-    assert_equal @comment.user, created_user
+  test 'search_summary, word is ""' do
+    comment = '0987654321検索ワード1234567890'
+    word = ''
+    resource = Minitest::Mock.new
+    resource.expect(:is_a?, false, [Comment])
+    resource.expect(:search_content, comment)
+
+    result = search_summary(resource, word)
+    assert_equal comment.length, result.length
+    resource.verify
+  end
+
+  test 'search_summary, word is space' do
+    comment = '0987654321検索ワード1234567890'
+    word = ' '
+    resource = Minitest::Mock.new
+    resource.expect(:is_a?, false, [Comment])
+    resource.expect(:search_content, comment)
+
+    result = search_summary(resource, word)
+    assert_equal comment.length, result.length
+    resource.verify
+  end
+
+  test 'search_summary, word is multiple' do
+    comment = '09876543210987654321098765432109876543210987654321検索ワード検索単語キーワード12345678901234567890'
+    word = 'キーワード　検索ワード　単語　'
+    resource = Minitest::Mock.new
+    resource.expect(:is_a?, false, [Comment])
+    resource.expect(:search_content, comment)
+
+    result = search_summary(resource, word)
+    assert_includes result, '検索ワード'
+    resource.verify
+  end
+
+  test 'regexp in search_summary' do
+    comment = 'テスト! " # $ \' % & ( ) = ~ | - ^ ¥ ` { @ [ + * } ; : ] < > ? _ , . / 　テスト'
+    word = '% テスト'
+    resource = Minitest::Mock.new
+    resource.expect(:is_a?, false, [Comment])
+    resource.expect(:search_content, comment)
+
+    result = search_summary(resource, word)
+    assert_includes result, 'テスト'
+    resource.verify
   end
 end
