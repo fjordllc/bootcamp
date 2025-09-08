@@ -10,7 +10,8 @@ class ProductSelfAssignedNoRepliedQueryTest < ActiveSupport::TestCase
       user: users(:kimura),
       practice: practices(:practice5),
       checker_id: mentor.id,
-      published_at: Time.current.to_formatted_s(:db)
+      published_at: Time.current,
+      wip: false
     )
 
     result = ProductSelfAssignedNoRepliedQuery.new(user_id: mentor.id).call
@@ -26,7 +27,8 @@ class ProductSelfAssignedNoRepliedQueryTest < ActiveSupport::TestCase
       user: users(:kimura),
       practice: practices(:practice5),
       checker_id: mentor.id,
-      published_at: Time.current
+      published_at: Time.current,
+      wip: false
     )
 
     Comment.create!(
