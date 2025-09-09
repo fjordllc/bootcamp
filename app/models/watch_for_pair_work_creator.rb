@@ -10,28 +10,16 @@ class WatchForPairWorkCreator
   end
 
   def watch_records(pair_work)
-    watch_records_by_mentors(pair_work) << watch_record_by_pair_work_user(pair_work)
-  end
-
-  def watch_records_by_mentors(pair_work)
-    User.mentor.map do |mentor|
+    mentors = User.mentor.to_a
+    watching_users = mentors << pair_work.user
+    watching_users.map do |user|
       {
         watchable_type: 'PairWork',
         watchable_id: pair_work.id,
         created_at: Time.current,
         updated_at: Time.current,
-        user_id: mentor.id
+        user_id: user.id
       }
     end
-  end
-
-  def watch_record_by_pair_work_user(pair_work)
-    {
-      watchable_type: 'PairWork',
-      watchable_id: pair_work.id,
-      created_at: Time.current,
-      updated_at: Time.current,
-      user_id: pair_work.user_id
-    }
   end
 end
