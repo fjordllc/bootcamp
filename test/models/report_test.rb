@@ -61,4 +61,16 @@ class ReportTest < ActiveSupport::TestCase
     assert_not duplicate_report.save_uniquely
     assert_includes duplicate_report.errors.full_messages, '学習日はすでに存在します'
   end
+
+  test 'unchecked scope returns reports without checks' do
+    unchecked_report = Report.create!(
+      user: users(:kimura),
+      reported_on: Time.zone.today,
+      title: 'テスト未チェックレポート',
+      description: '本文'
+    )
+
+    assert_empty unchecked_report.checks
+    assert_includes Report.unchecked, unchecked_report
+  end
 end
