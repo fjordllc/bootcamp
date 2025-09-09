@@ -21,14 +21,15 @@ class SearchablesTest < ApplicationSystemTestCase
   test 'search with document_type' do
     visit_with_auth '/', 'hatsuno'
     document_type = '日報'
+    search_word = '検索結果テスト用'
     find('.js-modal-search-shown-trigger').click
     within('form[name=search]') do
       select document_type
+      fill_in 'word', with: search_word
     end
     find('#test-search-modal').click
     labels = all('.card-list-item__label')
-    assert_equal labels.count, 50
-    assert_equal labels[3].text, document_type
+    assert_equal 1, labels.count
     labels.each do |label|
       assert_equal label.text, document_type
     end
@@ -174,12 +175,23 @@ class SearchablesTest < ApplicationSystemTestCase
     assert_no_text '相談部屋'
   end
 
-  test 'administrator will see link to consultation room' do
+  test 'empty keyword search returns no results' do
     visit_with_auth '/', 'komagata'
     find('.js-modal-search-shown-trigger').click
     within('form[name=search]') do
       select 'ユーザー'
       fill_in 'word', with: ''
+    end
+    find('#test-search-modal').click
+    assert_text 'に一致する情報は見つかりませんでした。'
+  end
+
+  test 'administrator will see link to consultation room' do
+    visit_with_auth '/', 'komagata'
+    find('.js-modal-search-shown-trigger').click
+    within('form[name=search]') do
+      select 'ユーザー'
+      fill_in 'word', with: 'komagata'
     end
     find('#test-search-modal').click
     assert_text '相談部屋'

@@ -4,7 +4,6 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include ActionView::Helpers::AssetUrlHelper
   include Taggable
   include Searchable
-  include SearchHelper
 
   attr_accessor :credit_card_payment, :role, :uploaded_avatar
 
@@ -485,7 +484,6 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     :facebook_url,
     :blog_url,
     :github_account,
-    :discord_profile_account_name,
     :description
   )
 
@@ -922,6 +920,10 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   def mark_mail_as_sent_before_auto_retire
     self.sent_student_before_auto_retire_mail = true
     save(validate: false)
+  end
+
+  def search_title
+    login_name
   end
 
   private

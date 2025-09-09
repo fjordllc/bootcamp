@@ -4,7 +4,6 @@ class Answer < ApplicationRecord
   include Reactionable
   include Searchable
   include Mentioner
-  include SearchHelper
 
   belongs_to :user, touch: true
   belongs_to :question, touch: false
@@ -27,5 +26,15 @@ class Answer < ApplicationRecord
 
   def certain_period_has_passed?
     created_at.since(1.week).to_date == Date.current
+  end
+
+  def search_title
+    question&.title || 'Q&A回答'
+  end
+
+  def search_url
+    return Rails.application.routes.url_helpers.questions_path unless question.presence
+
+    Rails.application.routes.url_helpers.question_path(question, anchor: "answer_#{id}")
   end
 end

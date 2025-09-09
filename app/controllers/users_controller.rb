@@ -15,14 +15,17 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
 
     target_users = fetch_target_users
 
-    @users = target_users
-             .page(params[:page]).per(PAGER_NUMBER)
-             .preload(:avatar_attachment, :course, :taggings)
-             .order(updated_at: :desc)
-
     if params[:search_word]
-      search_user = SearchUser.new(word: params[:search_word], users: @users, target: @target)
+      search_user = SearchUser.new(word: params[:search_word], users: target_users, target: @target)
       @users = search_user.search
+                          .page(params[:page]).per(PAGER_NUMBER)
+                          .preload(:avatar_attachment, :course, :taggings)
+                          .order(updated_at: :desc)
+    else
+      @users = target_users
+               .page(params[:page]).per(PAGER_NUMBER)
+               .preload(:avatar_attachment, :course, :taggings)
+               .order(updated_at: :desc)
     end
 
     @random_tags = User.tags.sample(20)

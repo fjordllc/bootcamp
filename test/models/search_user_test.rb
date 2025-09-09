@@ -52,23 +52,40 @@ class SearchUserTest < ActiveSupport::TestCase
     assert_includes search_user.search, mentor
   end
 
-  test 'search word is invalid when it is 2 half-width characters' do
+  test 'search word is valid when it is 2 half-width characters' do
     search_user = SearchUser.new(word: 'ki')
-    assert_nil search_user.validate_search_word
+    assert_equal 'ki', search_user.validate_search_word
   end
 
-  test 'search word is invalid when it is 1 full-width character' do
+  test 'search word is valid when it is 1 full-width character' do
     search_user = SearchUser.new(word: 'キ')
-    assert_nil search_user.validate_search_word
+    assert_equal 'キ', search_user.validate_search_word
   end
 
   test 'search word is valid when it is 3 half-width characters' do
     search_user = SearchUser.new(word: 'kim')
-    assert_equal search_user.validate_search_word, 'kim'
+    assert_equal 'kim', search_user.validate_search_word
   end
 
   test 'search word is valid when it is 2 full-width characters' do
     search_user = SearchUser.new(word: 'キム')
-    assert_equal search_user.validate_search_word, 'キム'
+    assert_equal 'キム', search_user.validate_search_word
+  end
+
+  test 'short search words return filtered results' do
+    kimura = users(:kimura)
+    komagata = users(:komagata)
+
+    # 2文字の英数字検索（kimuraにマッチしてkomagataにマッチしない語句）
+    search_user = SearchUser.new(word: 'mu')
+    searched_users = search_user.search
+    assert_includes searched_users, kimura
+    assert_not_includes searched_users, komagata
+
+    # 1文字の日本語検索（キムラにマッチしてコマガタにマッチしない文字）
+    search_user = SearchUser.new(word: 'ム')
+    searched_users = search_user.search
+    assert_includes searched_users, kimura
+    assert_not_includes searched_users, komagata
   end
 end
