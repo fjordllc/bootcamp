@@ -169,19 +169,21 @@ export default function Products({
                   setPage={setPage}
                 />
               )}
-              <ul className="card-list a-card">
-                {data.products.map((product) => {
-                  return (
-                    <Product
-                      product={product}
-                      key={product.id}
-                      isMentor={isMentor}
-                      isAdmin={isAdmin}
-                      currentUserId={currentUserId}
-                    />
-                  )
-                })}
-              </ul>
+              <div className="card-list a-card">
+                <div className="card-list__items">
+                  {data.products.map((product) => {
+                    return (
+                      <Product
+                        product={product}
+                        key={product.id}
+                        isMentor={isMentor}
+                        isAdmin={isAdmin}
+                        currentUserId={currentUserId}
+                      />
+                    )
+                  })}
+                </div>
+              </div>
               {data.total_pages > 1 && (
                 <Pagination
                   sum={data.total_pages * per}
