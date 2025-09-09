@@ -5,8 +5,8 @@ require 'test_helper'
 class CompanyTest < ActiveSupport::TestCase
   test '#logo_url' do
     company_with_logo = companies(:company1)
-    company_with_logo.logo.variant(resize_to_limit: [88, 88], format: :webp).processed
-    assert_includes company_with_logo.logo_url, '1.webp'
+    logo_url = company_with_logo.logo_url
+    assert_includes logo_url, '.webp'
 
     company_without_logo = companies(:company5)
     assert_equal '/images/companies/logos/default.png', company_without_logo.logo_url

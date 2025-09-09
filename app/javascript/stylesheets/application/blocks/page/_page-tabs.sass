@@ -1,6 +1,9 @@
 .page-tabs
   background-color: var(--base)
   border-bottom: solid 1px var(--border)
+  +media-breakpoint-down(sm)
+    .page-header + &
+      margin-top: -.5rem
 
 .page-tabs__items
   display: flex
@@ -11,7 +14,6 @@
   margin-inline: -1rem
   padding-inline: 1rem
   padding-top: .5rem
-  margin-top: -.5rem
 
 .page-tabs__item
   +media-breakpoint-up(md)

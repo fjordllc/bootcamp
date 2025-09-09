@@ -9,8 +9,11 @@
 .thumbnail-card__inner
   display: flex
   flex-direction: column
-  gap: 1rem
   position: relative
+  +media-breakpoint-down(sm)
+    gap: .5rem
+  +media-breakpoint-up(md)
+    gap: .75rem
 
 a.thumbnail-card__inner
   +flex-link
@@ -54,7 +57,7 @@ a.thumbnail-card__inner
 .thumbnail-card__author
   display: flex
   align-items: center
-  +text-block(.8125rem 1.4)
+  font-size: .875rem
   color: var(--default-text)
   img
     +size(1.125rem)

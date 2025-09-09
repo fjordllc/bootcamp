@@ -161,16 +161,16 @@ export default function Products({
         <div className="page-content is-products loaded">
           <div className="page-body__columns">
             <div className="page-body__column is-main">
-              <div className="container is-md">
-                {data.total_pages > 1 && (
-                  <Pagination
-                    sum={data.total_pages * per}
-                    per={per}
-                    page={page}
-                    setPage={setPage}
-                  />
-                )}
-                <ul className="card-list a-card">
+              {data.total_pages > 1 && (
+                <Pagination
+                  sum={data.total_pages * per}
+                  per={per}
+                  page={page}
+                  setPage={setPage}
+                />
+              )}
+              <div className="card-list a-card">
+                <div className="card-list__items">
                   {data.products.map((product) => {
                     return (
                       <Product
@@ -182,17 +182,17 @@ export default function Products({
                       />
                     )
                   })}
-                </ul>
-                {data.total_pages > 1 && (
-                  <Pagination
-                    sum={data.total_pages * per}
-                    per={per}
-                    page={page}
-                    setPage={setPage}
-                  />
-                )}
-                <UnconfirmedLink label={unconfirmedLinksName()} />
+                </div>
               </div>
+              {data.total_pages > 1 && (
+                <Pagination
+                  sum={data.total_pages * per}
+                  per={per}
+                  page={page}
+                  setPage={setPage}
+                />
+              )}
+              <UnconfirmedLink label={unconfirmedLinksName()} />
             </div>
           </div>
         </div>

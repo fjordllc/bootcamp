@@ -27,11 +27,13 @@ export default function Events() {
           setPage={setPage}
         />
       )}
-      <ul className="card-list a-card">
-        {data.events.map((event) => {
-          return <Event event={event} key={event.id} />
-        })}
-      </ul>
+      <div className="card-list a-card">
+        <div className="card-list__items">
+          {data.events.map((event) => {
+            return <Event event={event} key={event.id} />
+          })}
+        </div>
+      </div>
       {data.total_pages > 1 && (
         <Pagination
           sum={data.total_pages * per}

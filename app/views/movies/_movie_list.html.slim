@@ -31,12 +31,13 @@
           .thumbnail-card__meta
             .thumbnail-card__date
               = l(movie.created_at)
-      .thumbnail-card__row
-        .thumbnail-card__tags
-          .tag-links
-            ul.tag-links__items
-              - movie.tag_list.each do |tag|
-                li.tag-links__item
-                  = link_to tag, '', class: 'tag-links__item-link'
-                  // ToDo リンクを実装
-                  //= link_to tag, movies_tag_path(tag), class: 'tag-links__item-link'
+      - if movie.tag_list.present?
+        .thumbnail-card__row
+          .thumbnail-card__tags
+            .tag-links
+              ul.tag-links__items
+                - movie.tag_list.each do |tag|
+                  li.tag-links__item
+                    = link_to tag, '', class: 'tag-links__item-link'
+                    // ToDo リンクを実装
+                    //= link_to tag, movies_tag_path(tag), class: 'tag-links__item-link'
