@@ -66,7 +66,7 @@ function Event({ event }) {
   }, [event.user])
 
   return (
-    <li className="card-list-item">
+    <div className="card-list-item">
       <div className="card-list-item__inner">
         <div className="card-list-item__user" ref={userIconRef}></div>
         <div className="card-list-item__rows">
@@ -133,6 +133,6 @@ function Event({ event }) {
           </div>
         </div>
       </div>
-    </li>
+    </div>
   )
 }
