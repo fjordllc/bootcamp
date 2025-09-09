@@ -2,9 +2,8 @@
 
 class Products::UncheckedController < ApplicationController
   before_action :require_staff_login
+  before_action :set_target
   def index
-    @target = params[:target]
-    @target = 'unchecked_all' unless target_allowlist.include?(@target)
     @checker_id = params[:checker_id]
 
     products_scope = Product.unchecked.list
@@ -19,5 +18,10 @@ class Products::UncheckedController < ApplicationController
 
   def target_allowlist
     %w[unchecked_all unchecked_no_replied]
+  end
+
+  def set_target
+    @target = params[:target]
+    @target = 'unchecked_all' unless target_allowlist.include?(@target)
   end
 end

@@ -47,3 +47,5 @@ main.page-main
           - if mentor_login? && controller_path == 'reports/unchecked'
             = render partial: 'unconfirmed_links_open', locals: { label: '未チェックの日報を一括で開く' }
         = paginate @reports
+        - if mentor_login? && params[:unchecked].present?
+            = render partial: 'unconfirmed_links_open', locals: { label: '未チェックの日報を一括で開く' }

@@ -68,7 +68,7 @@ export default function Product({
               </div>
               <h2 className="card-list-item-title__title" itemProp="name">
                 <a
-                  className="card-list-item-title__link a-text-link"
+                  className="card-list-item-title__link a-text-link js-unconfirmed-link"
                   href={product.url}
                   itemProp="url">
                   {product.practice.title}の提出物

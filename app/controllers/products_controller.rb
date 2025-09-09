@@ -4,6 +4,7 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
   before_action :check_permission!, only: %i[show]
   before_action :require_staff_login, only: :index
   before_action :set_watch, only: %i[show]
+  before_action :set_target, only: %i[index]
 
   def index
     @products = Product.list
@@ -152,5 +153,9 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
            .includes(:practice, :user, :comments, :checks, comments: :user)
            .not_wip
            .order(published_at: :desc)
+  end
+
+  def set_target
+    @target = 'all'
   end
 end
