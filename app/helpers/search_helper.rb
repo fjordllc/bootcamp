@@ -1,20 +1,16 @@
 # frozen_string_literal: true
 
 module SearchHelper
+  include ActionView::Helpers::SanitizeHelper
+  include ERB::Util
   include MarkdownHelper
   include PolicyHelper
 
   EXTRACTING_CHARACTERS = 50
 
-  def searchable_summary(comment, word = '')
-    return '' if comment.nil?
-
-    return process_special_case(comment, word) if comment.is_a?(String) && comment.include?('|') && !comment.include?('```')
-
-    summary = md2plain_text(comment)
-    find_match_in_text(summary, word)
-  end
-
+  # コメントや回答の検索結果に対して実際のドキュメントを返す
+  # コメントの場合：コメント先のオブジェクト（日報、提出物など）
+  # 回答の場合：関連する質問、その他の場合：リソース自体
   def matched_document(searchable)
     if searchable.instance_of?(Comment)
       searchable.commentable_type.constantize.find(searchable.commentable_id)
@@ -25,99 +21,90 @@ module SearchHelper
     end
   end
 
-  def searchable_url(searchable)
-    case searchable
-    when Comment
-      "#{Rails.application.routes.url_helpers.polymorphic_path(searchable.commentable)}#comment_#{searchable.id}"
-    when CorrectAnswer, Answer
-      Rails.application.routes.url_helpers.question_path(searchable.question, anchor: "answer_#{searchable.id}")
-    else
-      helper_method = "#{searchable.class.name.underscore}_path"
-      Rails.application.routes.url_helpers.send(helper_method, searchable)
-    end
+  # 検索可能リソースから権限チェック付きでコンテンツを抽出・フィルタリング
+  # 提出物コメントのプラクティス修了要件などの特殊ケースを処理
+  # convert_markdown: trueの場合Markdown変換済みテキスト、falseの場合生コンテンツを返す
+  def filtered_message(searchable, convert_markdown: true)
+    content = extract_filtered_content(searchable)
+    convert_markdown ? md2plain_text(content) : content
   end
 
-  def filtered_message(searchable)
-    if searchable.is_a?(Comment) && searchable.commentable_type == 'Product'
-      commentable = searchable.commentable
+  # リソースコンテンツからキーワードマッチをハイライトしたテキスト要約を生成
+  # 権限に基づいてコンテンツをフィルタリングし、関連するテキストスニペットを抽出
+  # テーブル形式などの特殊ケースも処理
+  def search_summary(resource, keyword)
+    content = filtered_message(resource, convert_markdown: false)
+    return '' if content.nil? || content.blank?
+
+    return process_special_case(content, keyword) if content.is_a?(String) && content.include?('|') && !content.include?('```')
+
+    plain_content = md2plain_text(content)
+    result = find_match_in_text(plain_content, keyword)
+    result || ''
+  end
+
+  # キーワードハイライト付きのHTML形式検索要約を返す
+  # マッチした単語をスタイリング用のCSSクラス付き<strong>タグで囲む
+  def formatted_search_summary(resource, keyword)
+    summary_text = search_summary(resource, keyword)
+    highlight_word(summary_text, keyword)
+  end
+
+  private
+
+  # 権限フィルタリング付きでリソースから生コンテンツを抽出する内部メソッド
+  def extract_filtered_content(resource)
+    if resource.is_a?(Comment) && resource.commentable_type == 'Product'
+      commentable = resource.commentable
       return '該当プラクティスを修了するまで他の人の提出物へのコメントは見れません。' unless policy(commentable).show? || commentable.practice.open_product?
 
-      return md2plain_text(searchable.body)
+      return resource.description
     end
 
-    description_or_body = searchable.try(:description) || searchable.try(:body) || ''
-    md2plain_text(description_or_body)
+    # 基本的なコンテンツ抽出はSearchableのメソッドを使用
+    resource.search_content
   end
 
-  def created_user(searchable)
-    if searchable.is_a?(SearchResult)
-      User.find_by(id: searchable.user_id)
+  # マッチしたキーワードをハイライト用のHTML <strong>タグで囲む
+  # セキュリティのためHTMLエスケープと出力のサニタイズを実行
+  def highlight_word(text, word)
+    return text unless text.present? && word.present?
+
+    escaped_text = ERB::Util.html_escape(text)
+    words = Searcher.split_keywords(word)
+    highlighted_text = words.reduce(escaped_text) do |text_fragment, w|
+      text_fragment.gsub(/(#{Regexp.escape(w)})/i, '<strong class="matched_word">\1</strong>')
+    end
+
+    ActionController::Base.helpers.sanitize(highlighted_text, tags: %w[strong], attributes: %w[class])
+  end
+
+  # パイプ文字を含むテーブルコンテンツなどの特殊フォーマットケースを処理
+  # 処理前にMarkdownをプレーンテキストに変換
+  def process_special_case(comment, word)
+    summary = md2plain_text(comment)
+    find_match_in_text(summary, word)
+  end
+
+  # テキスト内でキーワードマッチを検索し、周辺のコンテキストを抽出
+  # 最初のキーワードマッチを中心としたテキストスニペットを返す
+  def find_match_in_text(text, word)
+    return text[0, EXTRACTING_CHARACTERS * 2] if word.blank?
+
+    words = Searcher.split_keywords(word)
+    first_match_position = nil
+
+    words.each do |w|
+      position = text.downcase.index(w.downcase)
+      first_match_position = position if position && (first_match_position.nil? || position < first_match_position)
+    end
+
+    if first_match_position
+      start_pos = [0, first_match_position - EXTRACTING_CHARACTERS].max
+      end_pos = [text.length, first_match_position + EXTRACTING_CHARACTERS].min
+      text[start_pos...end_pos].strip
     else
-      searchable.respond_to?(:user) ? searchable.user : nil
+      text[0, EXTRACTING_CHARACTERS * 2]
     end
-  end
-
-  def extract_user_id_match(result, word)
-    user_id = word.delete_prefix('user:')
-    return match_by_user_object(result, user_id) if result.respond_to?(:user) && result.user.present?
-
-    match_by_last_updated_user_id(result, user_id)
-  end
-
-  def match_by_user_object(result, user_id)
-    result.user&.login_name&.casecmp?(user_id)
-  end
-
-  def match_by_last_updated_user_id(result, user_id)
-    return false unless result.respond_to?(:last_updated_user_id) && result.last_updated_user_id.present?
-
-    user = User.find_by(id: result.last_updated_user_id)
-    user&.login_name&.casecmp?(user_id)
-  end
-
-  def visible_to_user?(searchable, current_user)
-    case searchable
-    when Talk
-      current_user.admin? || searchable.user_id == current_user.id
-    when Comment
-      if searchable.commentable.is_a?(Talk)
-        current_user.admin? || searchable.commentable.user_id == current_user.id
-      else
-        true
-      end
-    when User, Practice, Page, Event, RegularEvent, Announcement, Report, Product, Question, Answer
-      true
-    else
-      false
-    end
-  end
-
-  def delete_private_comment!(searchables)
-    searchables.reject do |searchable|
-      searchable.instance_of?(Comment) && searchable.commentable.class.in?([Talk, Inquiry, CorporateTrainingInquiry])
-    end
-  end
-
-  def search_model_name(type)
-    return nil if type == :all
-
-    type.to_s.camelize.singularize
-  end
-
-  def filter_by_keywords(results, words)
-    return results if words.empty?
-
-    (results || []).select { |result| words.all? { |word| result_matches_keyword?(result, word) } }
-                   .sort_by(&:updated_at)
-                   .reverse
-  end
-
-  def result_matches_keyword?(result, word)
-    return extract_user_id_match(result, word) if word.match?(/^user:/)
-
-    word_downcase = word.downcase
-    [result.try(:title), result.try(:body), result.try(:description)]
-      .compact
-      .any? { |field| field.downcase.include?(word_downcase) }
   end
 end

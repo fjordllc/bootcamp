@@ -1,6 +1,7 @@
 - content_for :title, '日報'
 - set_meta_tags description: '日報の一覧ページです。'
 
+= render '/reports/report_blog_header'
 = report_page_tabs(active_tab: '日報')
 
 main.page-main
@@ -11,10 +12,7 @@ main.page-main
           h1.page-main-header__title
             | 日報
         .page-main-header__end
-          .page-header-actions
-            ul.page-header-actions__items
-              li.page-header-actions__item
-                = render 'reports/new_report'
+          = render 'reports/new_report'
 
   hr.a-border
 

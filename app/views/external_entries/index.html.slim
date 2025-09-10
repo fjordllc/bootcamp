@@ -1,6 +1,7 @@
 - content_for :title, 'みんなのブログ'
 - set_meta_tags description: 'みんなのブログ一覧ページです。'
 
+= render '/reports/report_blog_header'
 = report_page_tabs(active_tab: 'みんなのブログ')
 
 main.page-main
@@ -10,8 +11,6 @@ main.page-main
         .page-main-header__start
           h1.page-main-header__title
             | みんなのブログ
-        .page-main-header__end
-          .page-header-actions
 
   hr.a-border
 

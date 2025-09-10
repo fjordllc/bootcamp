@@ -11,7 +11,6 @@ class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include Mentioner
   include Bookmarkable
   include Taskable
-  include SearchHelper
 
   enum emotion: {
     sad: 1,

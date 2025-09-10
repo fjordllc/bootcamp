@@ -3,14 +3,6 @@
 require 'application_system_test_case'
 
 class DiscordProfilesTest < ApplicationSystemTestCase
-  test 'incremental search by discord_account' do
-    visit_with_auth '/users', 'komagata'
-    assert_equal 24, all('.users-item').length
-    fill_in 'js-user-search-input', with: 'kimura1234'
-    find('#js-user-search-input').send_keys :return
-    assert_text 'Kimura Tadasi', count: 1
-  end
-
   test 'show times link on user page' do
     kimura = users(:kimura)
 

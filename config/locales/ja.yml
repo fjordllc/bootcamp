@@ -48,6 +48,21 @@ ja:
       regular_event: 定期イベント
       request_retirement: 退会申請
       faq: FAQ
+      answer: 回答
+      correct_answer: 模範回答
+    search_labels:
+      practice: "プラク\nティス"
+      event: "特別\nイベント"
+      regular_event: "定期\nイベント"
+      user: ユーザー
+      report: 日報
+      product: 提出物
+      announcement: お知らせ
+      page: Docs
+      question: Q&A
+      answer: Q&A
+      correct_answer: Q&A
+      comment: コメント
       faq_category: FAQカテゴリ
       coding_test: コーディングテスト
       movie: 動画

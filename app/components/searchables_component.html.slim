@@ -1,0 +1,11 @@
+- if searchables.any?
+  .container.is-md
+    .card-list.a-card
+      - searchables.each do |resource|
+        = render SearchableComponent.new(resource: resource, users: users, word: word, talks: talks)
+- else
+  .o-empty-message
+    .o-empty-message__icon
+      i.fa-regular.fa-sad-tear
+    p.o-empty-message__text
+      | #{word} に一致する情報は見つかりませんでした。
