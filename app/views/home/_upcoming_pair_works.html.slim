@@ -4,5 +4,4 @@
       | ペアワークの予定があります！
   hr.a-border-tint
   .card-list.has-scroll
-    - upcoming_pair_works.each do |pair_work|
-      = render 'upcoming_pair_work', pair_work: pair_work
+    = render partial: 'upcoming_pair_work', collection: upcoming_pair_works
