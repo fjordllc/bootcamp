@@ -1,8 +1,9 @@
 - month_buzzes = group_buzzes_by_month(buzzes)
 
-h2 = year
+h2 class='selected-year' = year
 - month_buzzes.each do |month, buzzes|
-  h3 = "#{month}月"
-  ul
-    - buzzes.each do |buzz|
-      li = link_to buzz.title, buzz.url, target: '_blank', rel: 'noopener noreferrer'
+  div class="buzzes-in-#{format('%02d', month )}"
+    h3 "#{month}月"
+    ul
+      - buzzes.each do |buzz|
+        li = link_to buzz.title, buzz.url, target: '_blank', rel: 'noopener noreferrer'
