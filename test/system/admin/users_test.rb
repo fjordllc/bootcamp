@@ -8,7 +8,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert_equal '管理ページ | FBC', title
   end
 
-  test 'show listing students' do
+  test 'show listing users without parameters' do
     visit_with_auth '/admin/users', 'komagata'
     assert_equal '管理ページ | FBC', title
   end
