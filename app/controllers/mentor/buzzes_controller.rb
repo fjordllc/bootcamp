@@ -18,6 +18,11 @@ class Mentor::BuzzesController < ApplicationController
   def create
     @buzz = Buzz.new(buzz_params)
 
+    if @buzz.url.blank?
+      @buzz.errors.add(:url, 'を入力してください')
+      return render :new, status: :unprocessable_entity
+    end
+
     doc = Buzz.doc_from_url(buzz_params[:url])
     date = Buzz.date_from_doc(doc)
 
@@ -27,7 +32,7 @@ class Mentor::BuzzesController < ApplicationController
       if date.present?
         @buzz.published_at = date
       else
-        @buzz.errors.add(:published_at, '日付を入力してください')
+        @buzz.errors.add(:published_at, 'を入力してください')
         return render :new, status: :unprocessable_entity
       end
     end
