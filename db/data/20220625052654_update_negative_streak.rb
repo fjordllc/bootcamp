@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class UpdateSadStreak < ActiveRecord::Migration[6.1]
+class UpdateNegativeStreak < ActiveRecord::Migration[6.1]
   def up
-    User.order(:id).each(&:update_sad_streak)
+    User.order(:id).each(&:update_negative_streak)
   end
 
   def down

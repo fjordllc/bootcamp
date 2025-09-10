@@ -370,6 +370,10 @@ ja:
       doorkeeper/application:
         redirect_uri: Redirect URL
     enums:
+      emotion:
+          negative: Negative
+          neutral: Neutral
+          positive: Positive
       user:
         job:
           student: 学生

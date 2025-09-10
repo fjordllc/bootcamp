@@ -19,14 +19,14 @@ class ActivityNotifier < ApplicationNotifier # rubocop:todo Metrics/ClassLength
     )
   end
 
-  def consecutive_sad_report(params = {})
+  def consecutive_negative_report(params = {})
     params.merge!(@params)
     report = params[:report]
     receiver = params[:receiver]
 
     notification(
-      body: "#{report.user.login_name}さんが#{User::DEPRESSED_SIZE}回連続でsadアイコンの日報を提出しました。",
-      kind: :consecutive_sad_report,
+      body: "#{report.user.login_name}さんが#{User::DEPRESSED_SIZE}回連続でnegativeアイコンの日報を提出しました。",
+      kind: :consecutive_negative_report,
       sender: report.sender,
       receiver:,
       link: Rails.application.routes.url_helpers.polymorphic_path(report),
