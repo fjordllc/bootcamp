@@ -1,5 +1,4 @@
-# Pull Request #4182(https://github.com/fjordllc/bootcamp/pull/4182) で Rails 7 への移行完了後、
-# ActiveStorage::FixtureSet.blob を使うように変更する
+# Rails 7 migration completed - using ActiveStorage::FixtureSet.blob
 
 # companies
 company1_logo_blob: <%= ActiveStorage::Blob.fixture filename: "companies/logos/1.jpg", service_name: "test_fixtures" %>

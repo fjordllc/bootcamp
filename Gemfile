@@ -9,9 +9,10 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'ffi', '1.17.1'
 gem 'image_processing', '~> 1.12'
 gem 'jbuilder', '~> 2.7'
-gem 'puma', '~> 5.0'
-gem 'rails', '~> 6.1.7.10'
-gem 'webpacker', '~> 5.0'
+gem 'puma', '~> 6.0'
+gem 'rails', '7.2.2.2'
+gem 'shakapacker', '~> 7.0'
+gem 'sprockets-rails', '>= 2.0.0'
 
 # not default
 gem 'abstract_notifier', '~> 0.3.2'
@@ -32,7 +33,7 @@ gem 'diffy'
 gem 'discord-notifier'
 gem 'discordrb', '~> 3.5', require: false
 gem 'doorkeeper'
-gem 'good_job', '~> 3.14', github: 'komagata/good_job'
+gem 'good_job', '~> 4.5'
 gem 'google-cloud-storage', '~> 1.25', require: false
 gem 'holiday_jp'
 gem 'icalendar', '~> 2.8'
@@ -62,9 +63,9 @@ gem 'postmark-rails'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rack-user_agent'
 gem 'rails_autolink'
-gem 'rails-i18n', '~> 6.0.0'
+gem 'rails-i18n', '~> 7.0.0'
 gem 'rails-patterns', '~> 0.2'
-gem 'ransack', '3.1.0'
+gem 'ransack', '~> 4.3'
 gem 'react-rails'
 gem 'recaptcha', '~> 5.12'
 gem 'rollbar'
@@ -92,8 +93,6 @@ end
 
 group :development do
   gem 'listen', '~> 3.3'
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 4.1.0'
 
   # not default

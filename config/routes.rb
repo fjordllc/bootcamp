@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   
   root to: "home#index"
 
-  get "test", to: "home#test", as: "test"
   get "welcome", to: "welcome#index", as: "welcome"
   get "practices", to: "welcome#practices", as: "practices"
   get "pricing", to: "welcome#pricing", as: "pricing"
