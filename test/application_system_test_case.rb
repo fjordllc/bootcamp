@@ -34,18 +34,37 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     driven_by(:selenium, using: :headless_chrome) do |driver_option|
       driver_option.add_argument('--no-sandbox')
       driver_option.add_argument('--disable-dev-shm-usage')
+      driver_option.add_argument('--disable-gpu')
+      driver_option.add_argument('--remote-debugging-port=9222')
+      driver_option.add_argument('--disable-web-security')
+      driver_option.add_argument('--disable-features=VizDisplayCompositor')
+      driver_option.add_argument('--window-size=1400,900')
       driver_option.add_argument('enable-blink-features=Clipboard')
+      # Enable JavaScript console logging for debugging
+      driver_option.add_preference(:loggingPrefs, { browser: 'ALL' })
     end
   end
 
   setup do
-    # Ensure ActiveStorage is properly configured for system tests
-    ActiveStorage::Current.host = 'http://localhost:3000'
+    # Ensure URL options are properly configured for system tests
+    host = ENV['CI'] ? '127.0.0.1' : 'localhost'
+    port = Capybara.server_port || 3000
+
+    Rails.application.routes.default_url_options[:host] = host
+    Rails.application.routes.default_url_options[:port] = port
+    Rails.application.config.active_storage.default_url_options = { host:, port: }
+
+    # Configure Capybara for CI environment
+    if ENV['CI']
+      Capybara.server_host = '127.0.0.1'
+      Capybara.app_host = "http://127.0.0.1:#{port}"
+    end
   end
 
   teardown do
     ActionMailer::Base.deliveries.clear
-    ActiveStorage::Current.host = nil
+    Rails.application.routes.default_url_options.delete(:host)
+    Rails.application.routes.default_url_options.delete(:port)
 
     # Clean up any uploaded test files
     if defined?(ActiveStorage::Blob)

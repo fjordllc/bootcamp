@@ -10,8 +10,8 @@ class SearchUser
 
   def search
     validated_search_word = validate_search_word
-    # 検索ワードが短すぎる場合はユーザー一覧をそのまま返す
-    return @users || User.all if validated_search_word.nil?
+    # 検索ワードが無効な場合は空の結果を返す
+    return User.none if validated_search_word.nil?
 
     # Searcherを使ってユーザーを検索
     query_builder = Searcher::QueryBuilder.new(validated_search_word)
@@ -34,7 +34,7 @@ class SearchUser
   end
 
   def validate_search_word
-    return '' if @word.nil?
+    return nil if @word.nil?
 
     stripped_word = @word.strip
     return nil if stripped_word.blank?
