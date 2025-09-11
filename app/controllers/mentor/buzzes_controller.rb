@@ -18,10 +18,7 @@ class Mentor::BuzzesController < ApplicationController
   def create
     @buzz = Buzz.new(buzz_params)
 
-    if @buzz.url.blank?
-      @buzz.errors.add(:url, 'を入力してください')
-      return render :new, status: :unprocessable_entity
-    end
+    return render :new, status: :unprocessable_entity unless validate_url_presence
 
     doc = Buzz.doc_from_url(buzz_params[:url])
     date = Buzz.date_from_doc(doc)
@@ -58,6 +55,15 @@ class Mentor::BuzzesController < ApplicationController
   end
 
   private
+
+  def validate_url_presence
+    if @buzz.url.present?
+      true
+    else
+      @buzz.errors.add(:url, 'を入力してください')
+      false
+    end
+  end
 
   def set_buzz
     @buzz = Buzz.find(params[:id])
