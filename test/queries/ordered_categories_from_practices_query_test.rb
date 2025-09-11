@@ -9,7 +9,7 @@ class OrderedCategoriesFromPracticesQueryTest < ActiveSupport::TestCase
     result = OrderedCategoriesFromPracticesQuery.new(user:, practices:).call
 
     assert_kind_of ActiveRecord::Relation, result
-    assert result.count.positive?
+    assert result.exists?
 
     # practice1はcategory2に、practice2はcategory4に関連付けられている
     # komagataのcourse1にはcategory2とcategory4の両方が含まれている
@@ -24,7 +24,7 @@ class OrderedCategoriesFromPracticesQueryTest < ActiveSupport::TestCase
 
     result = OrderedCategoriesFromPracticesQuery.new(user:, practices: empty_practices).call
 
-    assert_equal 0, result.count
+    assert_empty result, '空であるべき結果にカテゴリが含まれています。'
     assert_kind_of ActiveRecord::Relation, result
   end
 
@@ -33,7 +33,7 @@ class OrderedCategoriesFromPracticesQueryTest < ActiveSupport::TestCase
 
     result = OrderedCategoriesFromPracticesQuery.new(user:, practices: nil).call
 
-    assert_equal 0, result.count
+    assert_empty result, '空であるべき結果にカテゴリが含まれています。'
     assert_kind_of ActiveRecord::Relation, result
   end
 
@@ -43,7 +43,7 @@ class OrderedCategoriesFromPracticesQueryTest < ActiveSupport::TestCase
 
     result = OrderedCategoriesFromPracticesQuery.new(user:, practices:).call
 
-    assert_equal 2, result.count
+    assert_equal 2, result.size
 
     # course1では category2(position: 2) < category4(position: 4) の順序
     assert_equal [categories(:category2).id, categories(:category4).id], result.pluck(:id)
@@ -58,8 +58,8 @@ class OrderedCategoriesFromPracticesQueryTest < ActiveSupport::TestCase
     result2 = OrderedCategoriesFromPracticesQuery.new(user: user2, practices:).call
 
     # course1にはcategory2が含まれているが、course2には含まれていない
-    assert result1.count.positive?
-    assert result2.count.zero?
+    assert result1.exists?
+    assert_not result2.exists?
   end
 
   test 'should return unique categories from multiple practices' do
@@ -71,7 +71,7 @@ class OrderedCategoriesFromPracticesQueryTest < ActiveSupport::TestCase
     category_ids = result.pluck(:id)
     assert_equal category_ids.uniq.size, category_ids.size
 
-    assert_equal 1, result.count
-    assert_equal categories(:category4).id, result.first.id
+    assert_equal 1, category_ids.size
+    assert_equal categories(:category4).id, category_ids.first
   end
 end
