@@ -37,9 +37,9 @@ class Buzz < ApplicationRecord
           uri.host,
           uri.port,
           use_ssl: (uri.scheme == 'https'),
-          open_timeout: 5,
-          read_timeout: 10,
-          write_timeout: 10
+          open_timeout: 1,
+          read_timeout: 5,
+          write_timeout: 5
         ) do |http|
           http.get(uri).body
         end
