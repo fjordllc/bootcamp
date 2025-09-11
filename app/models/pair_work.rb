@@ -99,7 +99,7 @@ class PairWork < ApplicationRecord
   end
 
   def reserved_at_in_schedules?
-    return if reserved_at.blank?
+    return if reserved_at.nil?
 
     errors.add(:reserved_at, 'は提案されたスケジュールに含まれていません。') unless schedules.map(&:proposed_at).include?(reserved_at)
   end
