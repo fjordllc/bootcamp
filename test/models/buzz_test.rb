@@ -6,26 +6,29 @@ require 'webmock'
 
 class BuzzTest < ActiveSupport::TestCase
   test '.for_year returns buzzes within given year' do
-    year = 2025
-    start_date = Date.new(year, 1, 1)
-    end_date = Date.new(year + 1, 1, 1)
-    buzzes_for_year = Buzz.where('published_at >= ? AND published_at < ?', start_date, end_date)
-    assert_equal buzzes_for_year, Buzz.for_year(year)
+    buzz1 = create_buzz('2023-12-31')
+    buzz2 = create_buzz('2024-01-01')
+    buzz3 = create_buzz('2024-12-31')
+    buzz4 = create_buzz('2025-01-01')
+
+    result = Buzz.for_year(2024)
+    assert_not_includes result, buzz1
+    assert_includes result, buzz2
+    assert_includes result, buzz3
+    assert_not_includes result, buzz4
   end
 
   test '.latest_year' do
-    Buzz.delete_all
-    Buzz.create!(title: 'buzz1', url: 'https://www.example.com', published_at: '2023-01-01')
-    Buzz.create!(title: 'buzz2', url: 'https://www.example.com', published_at: '2024-01-01')
-    Buzz.create!(title: 'buzz3', url: 'https://www.example.com', published_at: '2025-01-01')
+    create_buzz('2023-01-01')
+    create_buzz('2024-01-01')
+    create_buzz('2025-01-01')
     latest_year = 2025
     assert_equal latest_year, Buzz.latest_year
   end
 
   test '.years' do
-    Buzz.delete_all
-    Buzz.create!(title: 'buzz1', url: 'https://www.example.com', published_at: '2024-01-01')
-    Buzz.create!(title: 'buzz2', url: 'https://www.example.com', published_at: '2025-01-01')
+    create_buzz('2024-01-01')
+    create_buzz('2025-01-01')
     years = [2025, 2024]
     assert_equal years, Buzz.years
   end
@@ -54,7 +57,7 @@ class BuzzTest < ActiveSupport::TestCase
     end
   end
 
-  test '.title_from_doc extract title when from title tag' do
+  test '.title_from_doc extracts title from title tag' do
     html = <<~BODY
       <title>buzz1</title>
     BODY
@@ -70,7 +73,7 @@ class BuzzTest < ActiveSupport::TestCase
     assert_nil Buzz.title_from_doc(doc)
   end
 
-  test '.date_from_doc extract date from meta published_time tag' do
+  test '.date_from_doc extracts date from meta published_time tag' do
     html = <<~BODY
       <meta property="article:published_time" content="2025-08-06T02:21:55Z" />
     BODY
@@ -84,5 +87,15 @@ class BuzzTest < ActiveSupport::TestCase
     BODY
     doc = Nokogiri::HTML.parse(html)
     assert_nil Buzz.date_from_doc(doc)
+  end
+
+  private
+
+  def create_buzz(date)
+    Buzz.create!(
+      title: "#{date}の記事",
+      url: 'https://www.example.com',
+      published_at: date
+    )
   end
 end
