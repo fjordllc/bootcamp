@@ -38,7 +38,7 @@ class Mentor::BuzzesController < ApplicationController
     end
 
     if @buzz.save
-      redirect_to mentor_buzzes_path, notice: 'Buzz was successfully created.'
+      redirect_to mentor_buzzes_path, notice: '記事を登録しました'
     else
       render :new, status: :unprocessable_entity
     end
@@ -46,7 +46,7 @@ class Mentor::BuzzesController < ApplicationController
 
   def update
     if @buzz.update(buzz_params)
-      redirect_to mentor_buzzes_path, notice: '更新しました', status: :see_other
+      redirect_to mentor_buzzes_path, notice: '記事を更新しました', status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
