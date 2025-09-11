@@ -81,7 +81,7 @@ class PairWork < ApplicationRecord
   end
 
   def solved?
-    !!reserved_at
+    !reserved_at.nil?
   end
 
   def important?
