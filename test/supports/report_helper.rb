@@ -28,6 +28,7 @@ module ReportHelper
 
   def update_report(id, title, description, wip)
     visit edit_report_path(id)
+    assert_selector 'h2.page-header__title', text: '日報編集'
 
     edit_report(title, description)
 
