@@ -2,11 +2,11 @@
 
 require 'test_helper'
 
-class CategoryFromPracticesQueryTest < ActiveSupport::TestCase
+class OrderedCategoriesFromPracticesQueryTest < ActiveSupport::TestCase
   test 'should return categories associated with practices and user course' do
     user = users(:komagata) # course1のユーザー
     practices = Practice.where(id: [practices(:practice1).id, practices(:practice2).id])
-    result = CategoryFromPracticesQuery.new(user:, practices:).call
+    result = OrderedCategoriesFromPracticesQuery.new(user:, practices:).call
 
     assert_kind_of ActiveRecord::Relation, result
     assert result.count.positive?
@@ -22,7 +22,7 @@ class CategoryFromPracticesQueryTest < ActiveSupport::TestCase
     user = users(:komagata)
     empty_practices = Practice.none
 
-    result = CategoryFromPracticesQuery.new(user:, practices: empty_practices).call
+    result = OrderedCategoriesFromPracticesQuery.new(user:, practices: empty_practices).call
 
     assert_equal 0, result.count
     assert_kind_of ActiveRecord::Relation, result
@@ -31,7 +31,7 @@ class CategoryFromPracticesQueryTest < ActiveSupport::TestCase
   test 'should return empty relation when practices are nil' do
     user = users(:komagata)
 
-    result = CategoryFromPracticesQuery.new(user:, practices: nil).call
+    result = OrderedCategoriesFromPracticesQuery.new(user:, practices: nil).call
 
     assert_equal 0, result.count
     assert_kind_of ActiveRecord::Relation, result
@@ -41,7 +41,7 @@ class CategoryFromPracticesQueryTest < ActiveSupport::TestCase
     user = users(:komagata)
     practices = Practice.where(id: [practices(:practice1).id, practices(:practice9).id])
 
-    result = CategoryFromPracticesQuery.new(user:, practices:).call
+    result = OrderedCategoriesFromPracticesQuery.new(user:, practices:).call
 
     assert_equal 2, result.count
 
@@ -54,8 +54,8 @@ class CategoryFromPracticesQueryTest < ActiveSupport::TestCase
     user2 = users(:'unity-course') # course2のユーザー
     practices = Practice.where(id: practices(:practice1).id) # category2に関連
 
-    result1 = CategoryFromPracticesQuery.new(user: user1, practices:).call
-    result2 = CategoryFromPracticesQuery.new(user: user2, practices:).call
+    result1 = OrderedCategoriesFromPracticesQuery.new(user: user1, practices:).call
+    result2 = OrderedCategoriesFromPracticesQuery.new(user: user2, practices:).call
 
     # course1にはcategory2が含まれているが、course2には含まれていない
     assert result1.count.positive?
@@ -66,7 +66,7 @@ class CategoryFromPracticesQueryTest < ActiveSupport::TestCase
     user = users(:komagata)
     practices = Practice.where(id: [practices(:practice2).id, practices(:practice4).id, practices(:practice9).id]) # 全てcategory4
 
-    result = CategoryFromPracticesQuery.new(user:, practices:).call
+    result = OrderedCategoriesFromPracticesQuery.new(user:, practices:).call
 
     category_ids = result.pluck(:id)
     assert_equal category_ids.uniq.size, category_ids.size
