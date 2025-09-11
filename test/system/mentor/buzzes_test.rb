@@ -10,9 +10,8 @@ class Mentor::BuzzesTest < ApplicationSystemTestCase
   end
 
   test 'buzzes are listed in descending order of published_at' do
-    Buzz.delete_all
     dates = %w[2024-12-25 2025-04-01 2025-09-10]
-    dates.each { |date| create_buzz_for(date) }
+    dates.each { |date| create_buzz(date) }
     visit_with_auth mentor_buzzes_path, 'machida'
     buzz_titles = all('.admin-table__item').map { |row| row.find('td:first-child a').text }
     expected_order = %w[2025-09-10の記事 2025-04-01の記事 2024-12-25の記事]
@@ -46,7 +45,6 @@ class Mentor::BuzzesTest < ApplicationSystemTestCase
   end
 
   test 'url field is now shown in buzz edit form' do
-    Buzz.delete_all
     buzz = Buzz.create!(title: '新しいBuzz', url: 'https://www.example.com', memo: '新しいBuzzです', published_at: '2025-09-10')
     visit_with_auth edit_mentor_buzz_path(buzz.id), 'machida'
     within 'form[name=buzz]' do
@@ -75,7 +73,6 @@ class Mentor::BuzzesTest < ApplicationSystemTestCase
   end
 
   test 'user can update title memo and published date' do
-    Buzz.delete_all
     buzz = Buzz.create!(title: '新しいBuzz', url: 'https://www.example.com', memo: '新しいBuzzです', published_at: '2025-09-10')
     visit_with_auth edit_mentor_buzz_path(buzz.id), 'machida'
     within 'form[name=buzz]' do
@@ -93,18 +90,11 @@ class Mentor::BuzzesTest < ApplicationSystemTestCase
   end
 
   test 'user can destroy buzz' do
-    Buzz.delete_all
     buzz = Buzz.create!(title: '新しいBuzz', url: 'https://www.example.com', published_at: '2025-09-10')
     visit_with_auth edit_mentor_buzz_path(buzz.id), 'machida'
     accept_confirm do
       click_link '削除する'
     end
     assert_no_text '新しいBuzz'
-  end
-
-  private
-
-  def create_buzz_for(date)
-    Buzz.create!(title: "#{date}の記事", url: 'https://www.example.com', published_at: date)
   end
 end
