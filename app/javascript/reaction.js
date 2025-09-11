@@ -34,6 +34,8 @@ export function initializeReaction(reaction) {
       }
     })
   })
+
+  setupInspectorDropdown(reaction, reactionableId)
 }
 
 function requestReaction(url, method, callback) {
@@ -115,5 +117,105 @@ function destroyReaction(reaction, kind, loginName, reactionId) {
         updateReactionCount(element, -1)
         updateReactionLoginNames(element, loginName)
       })
+  })
+}
+
+function setupInspectorDropdown(reaction, reactionableId) {
+  const inspectorToggle = reaction.querySelector(
+    '.js-reactions-inspector-toggle'
+  )
+  const inspectorDropdown = reaction.querySelector(
+    '.js-reactions-inspector-dropdown'
+  )
+
+  if (!inspectorToggle || !inspectorDropdown) return
+
+  inspectorToggle.addEventListener('click', (e) => {
+    e.stopPropagation()
+    const isHidden = inspectorDropdown.classList.contains('hidden')
+    if (isHidden) {
+      fetchAllReactions(reactionableId, (data) => {
+        if (Object.keys(data).length === 0) return
+        renderAllReactions(data, inspectorDropdown)
+        open()
+      })
+    } else {
+      close()
+    }
+  })
+
+  document.addEventListener('click', (e) => {
+    const isHidden = inspectorDropdown.classList.contains('hidden')
+    if (
+      !isHidden &&
+      !inspectorDropdown.contains(e.target) &&
+      !inspectorToggle.contains(e.target)
+    ) {
+      close()
+    }
+  })
+
+  function open() {
+    document
+      .querySelectorAll('.js-reactions-inspector-dropdown')
+      .forEach((element) => {
+        if (!element.classList.contains('hidden')) {
+          element.classList.add('hidden')
+        }
+      })
+    inspectorDropdown.classList.remove('hidden')
+  }
+
+  function close() {
+    inspectorDropdown.classList.add('hidden')
+  }
+}
+
+function fetchAllReactions(reactionableId, callback) {
+  const url = `/api/reactions?reactionable_id=${reactionableId}`
+  requestReaction(url, 'GET', callback)
+}
+
+function renderAllReactions(data, content) {
+  content.innerHTML = ''
+
+  if (Object.keys(data).length === 0) {
+    return
+  }
+
+  Object.entries(data).forEach(([_kind, { emoji, users }]) => {
+    const emojiLine = document.createElement('div')
+    emojiLine.classList.add('reaction-inspector-line')
+
+    const emojiSpan = document.createElement('span')
+    emojiSpan.classList.add('reaction-emoji')
+    emojiSpan.textContent = emoji
+    emojiLine.appendChild(emojiSpan)
+
+    const reactionList = document.createElement('ul')
+    reactionList.className = 'reaction-users-list'
+    users.forEach((user) => {
+      const li = document.createElement('li')
+      li.className = 'reaction-user'
+
+      if (user.id && user.login_name && user.avatar_url) {
+        const link = document.createElement('a')
+        link.className = 'reaction-user-link'
+        link.href = `/users/${user.id}`
+
+        const img = document.createElement('img')
+        img.className = 'reaction-user-avatar'
+        img.src = user.avatar_url
+        img.alt = user.login_name
+        link.appendChild(img)
+
+        li.appendChild(link)
+      }
+
+      reactionList.appendChild(li)
+    })
+
+    emojiLine.appendChild(reactionList)
+    content.appendChild(emojiLine)
   })
 }

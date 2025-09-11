@@ -358,3 +358,12 @@ report75:
   description: WIPです
   wip: true
   reported_on: "2022-04-02"
+
+report76:
+  user: machida
+  title: リアクション確認のための日報
+  emotion: 1
+  description: |-
+    リアクションの確認用です
+  reported_on: '2025-01-01'
+

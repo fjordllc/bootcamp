@@ -33,6 +33,11 @@ reaction7:
   reactionable: product12 (Product)
   kind: eyes
 
+reaction8:
+  user: komagata
+  reactionable: report76 (Report)
+  kind: thumbsup
+
 micro_report_reaction1:
   user: hatsuno
   reactionable: hajime_first_micro_report (MicroReport)
