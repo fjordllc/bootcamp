@@ -409,15 +409,15 @@ class HomeTest < ApplicationSystemTestCase
 
   test 'show the five latest bookmarks on dashboard' do
     visit_with_auth "/questions/#{questions(:question1).id}", 'machida'
-    find('#bookmark-button').click
+    find('[data-bookmark-button]').click
     visit "/pages/#{pages(:page1).id}"
-    find('#bookmark-button').click
+    find('[data-bookmark-button]').click
     visit "/talks/#{talks(:talk1).id}"
-    find('#bookmark-button').click
+    find('[data-bookmark-button]').click
     reports = %i[report68 report69 report70]
     reports.each do |report|
       visit "/reports/#{reports(report).id}"
-      find('#bookmark-button').click
+      find('[data-bookmark-button]').click
     end
     assert_text 'Bookmarkしました！'
 
@@ -492,7 +492,7 @@ class HomeTest < ApplicationSystemTestCase
     reports = %i[report68 report69 report70 report71]
     reports.each do |report|
       visit "/reports/#{reports(report).id}"
-      find('#bookmark-button').click
+      find('[data-bookmark-button]').click
     end
     assert_text 'Bookmarkしました！'
 
