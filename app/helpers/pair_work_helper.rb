@@ -18,7 +18,7 @@ module PairWorkHelper
 
   def disabled?(target_date, pair_work: nil)
     if pair_work
-      target_date < Time.current || pair_work.user_id == current_user.id || pair_work.reserved_at.present?
+      target_date < Time.current || pair_work.user_id == current_user.id
     else
       target_date < Time.current
     end
