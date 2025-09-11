@@ -31,14 +31,7 @@ class PairWorkTest < ActiveSupport::TestCase
   end
 
   test '.generate_notice_message' do
-    wip_pair_work = PairWork.create!(
-      title: 'wipのペアワーク',
-      description: 'wipのペアワーク',
-      user: users(:kimura),
-      channel: 'ペアワーク・モブワーク1',
-      wip: true,
-      schedules_attributes: [{ proposed_at: Time.current + 1.day }]
-    )
+    wip_pair_work = pair_works(:pair_work3)
     assert_equal 'ペアワークをWIPとして保存しました。', wip_pair_work.generate_notice_message(:create)
     assert_equal 'ペアワークをWIPとして保存しました。', wip_pair_work.generate_notice_message(:update)
 
