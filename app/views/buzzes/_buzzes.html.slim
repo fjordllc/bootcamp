@@ -2,7 +2,7 @@
 
 h2 class='selected-year' = year
 - month_buzzes.each do |month, buzzes|
-  div class="buzzes-in-#{format('%02d', month )}"
+  div class="buzzes-in-#{format('%02d', month)}"
     h3 "#{month}月"
     ul
       - buzzes.each do |buzz|
