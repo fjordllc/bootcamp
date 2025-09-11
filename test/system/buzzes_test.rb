@@ -20,14 +20,9 @@ class BuzzesTest < ApplicationSystemTestCase
   end
 
   test 'user can switch year and see buzzes grouped by month' do
-    Buzz.delete_all
-    dates = %w[2025-02-01
-               2025-01-31
-               2025-01-01
-               2024-12-31
-               2024-12-01
-               2024-11-30]
-    dates.each { |date| create_buzz_for(date) }
+    dates = %w[2025-02-01 2025-01-31 2025-01-01 2024-12-31 2024-12-01 2024-11-30]
+    # create_buzzはsuppurts/buzz_helper.rbに定義
+    dates.each { |date| create_buzz(date) }
 
     # デフォルトで最も新しい年を表示
     visit_with_auth buzzes_path, 'kimura'
@@ -50,25 +45,13 @@ class BuzzesTest < ApplicationSystemTestCase
   end
 
   test 'buzzes are shown in descending order within month' do
-    Buzz.delete_all
-    dates = %w[2025-01-01
-               2025-01-10
-               2025-01-20
-               2025-01-31]
-    dates.each { |date| create_buzz_for(date) }
+    dates = %w[2025-01-01 2025-01-10 2025-01-20 2025-01-31]
+    dates.each { |date| create_buzz(date) }
 
     visit_with_auth buzzes_path, 'kimura'
     assert_selector '.selected-year', text: '2025'
     buzzes = all('.buzzes-in-01 li').map(&:text)
-    assert_equal %w[2025-01-31の記事
-                    2025-01-20の記事
-                    2025-01-10の記事
-                    2025-01-01の記事], buzzes
-  end
-
-  private
-
-  def create_buzz_for(date)
-    Buzz.create!(title: "#{date}の記事", url: 'https://www.example.com', published_at: date)
+    expected = %w[2025-01-31の記事 2025-01-20の記事 2025-01-10の記事 2025-01-01の記事]
+    assert_equal expected, buzzes
   end
 end
