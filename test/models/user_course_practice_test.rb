@@ -61,10 +61,10 @@ class UserCoursePracticeTest < ActiveSupport::TestCase
     assert_equal categories(:category2).id, user_course_practice.category_active_or_unstarted_practice.id
 
     current_category = user_course_practice.category_active_or_unstarted_practice
-    complete_all_practices_in_category(user, current_category)
-    user_course_practice = UserCoursePractice.new(user)
-
-    assert_equal categories(:category4).id, user_course_practice.category_active_or_unstarted_practice.id
+    assert_changes -> { UserCoursePractice.new(user).category_active_or_unstarted_practice.id },
+                   from: current_category.id, to: categories(:category4).id do # category2の次はcategory4に進む
+      complete_all_practices_in_category(user, current_category)
+    end
   end
 
   test '#required_practices' do
