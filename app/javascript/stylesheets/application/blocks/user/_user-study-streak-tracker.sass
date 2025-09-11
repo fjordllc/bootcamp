@@ -1,0 +1,83 @@
+.streak-card
+  margin-bottom: 1.5rem
+
+.streak-container
+  display: grid
+  grid-template-columns: 1fr 1fr
+  gap: 2rem
+
+  @media (max-width: 700px)
+    grid-template-columns: 1fr
+    gap: 1.5rem
+
+  &__item
+    display: flex
+    justify-content: center
+    align-items: center
+
+.streak-item
+  position: relative
+  text-align: center
+  width: 100%
+
+  // 共通の円形アクセント（どちらのアイテムにも適用）
+  //&::before
+  //  content: ''
+  //  position: absolute
+  //  top: 50%
+  //  left: 50%
+  //  transform: translate(-50%, -50%)
+  //  width: 120px
+  //  height: 120px
+  //  border: 3px solid #f7941d
+  //  border-radius: 50%
+  //  opacity: 0.2
+  //  z-index: -1
+
+  //&::after
+  //  content: ''
+  //  position: absolute
+  //  top: 50%
+  //  left: 50%
+  //  transform: translate(-50%, -50%)
+  //  width: 100px
+  //  height: 100px
+
+  &__content
+    display: flex
+    flex-direction: column
+    align-items: center
+    position: relative
+
+  &__number
+    font-size: 2.5rem
+    font-weight: 700
+    color: #f7941d
+    line-height: 1
+    margin-bottom: 0.5rem
+
+    //&.is-large
+    //  font-size: 3.5rem
+    //  margin-bottom: 0.25rem
+
+  &__label
+    font-size: 1rem
+    font-weight: 600
+    color: #333
+    margin-bottom: 0.25rem
+    text-transform: uppercase
+    letter-spacing: 0.5px
+
+  &__unit
+    font-size: 0.875rem
+    color: #8b8b8b
+    margin-bottom: 0.75rem
+    text-transform: lowercase
+
+  &__period
+    font-size: 0.75rem
+    color: #8b8b8b
+    padding: 0.25rem 0.5rem
+    background-color: #f8f9fa
+    border-radius: 0.25rem
+    border: 1px solid #e9ecef
