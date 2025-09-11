@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CategoryFromPracticesQuery < Patterns::Query
+class OrderedCategoriesFromPracticesQuery < Patterns::Query
   queries Category
 
   private
