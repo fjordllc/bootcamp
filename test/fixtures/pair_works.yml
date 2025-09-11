@@ -19,3 +19,14 @@ pair_work2:
   published_at: <%= Time.zone.parse('2025-01-01 00:00:00') %>
   created_at: <%= Time.zone.parse('2025-01-01 00:00:00') %>
   wip: false
+
+pair_work3:
+  title: wipのペアワークです(タイトル)
+  description: wipのペアワークです(詳細)
+  reserved_at: null
+  user: kimura
+  practice: null
+  buddy: null
+  published_at: null
+  created_at: <%= Time.zone.parse('2025-01-01 00:00:00') %>
+  wip: true
