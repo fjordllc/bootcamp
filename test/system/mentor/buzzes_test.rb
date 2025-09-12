@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'application_system_test_case'
-require 'webmock'
+require 'test_helper'
 
 class Mentor::BuzzesTest < ApplicationSystemTestCase
   test 'show listing buzzes' do
