@@ -1,0 +1,6 @@
+.page-body
+  .container.is-lg
+    .card-list
+      - companies.each do |company|
+        - next if company.users.empty?
+        = render 'company', company: company, target: target, allowed_targets: allowed_targets
