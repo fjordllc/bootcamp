@@ -926,6 +926,10 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     login_name
   end
 
+  def reports_with_learning_times
+    reports.joins(:learning_times).distinct.order(reported_on: :asc)
+  end
+
   private
 
   def password_required?
