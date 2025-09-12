@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'test_helper'
-require 'net/http'
-require 'webmock'
 
 class BuzzTest < ActiveSupport::TestCase
   test '.for_year returns buzzes within given year' do
