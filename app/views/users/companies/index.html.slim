@@ -21,4 +21,4 @@ main.page-main
           = '企業別'
           | （#{t("target.#{@target}")}）
   hr.a-border
-  = react_component('Companies', target: @target)
+  = render 'companies', target: @target, companies: @companies
