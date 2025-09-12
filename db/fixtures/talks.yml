@@ -231,3 +231,7 @@ talk_kensyu-not-setting-end-date:
 talk_pjord:
   user: pjord
   action_completed: true
+
+talk_new-mentor:
+  user: new-mentor
+  action_completed: true
