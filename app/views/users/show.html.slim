@@ -88,6 +88,8 @@
               = render(Grass::GrassComponent.new(user: @user, times: @times, target_end_date: @target_end_date, path: :user_path))
             - if @user.student_or_trainee?
               = render(Calendar::NicoNicoCalendarComponent.new(user: @user, path: :niconico_calendar_date_in_profile_path, current_date: @calendar.current_date, current_calendar: @calendar.with_reports))
+              - if @user.total_learning_time.positive?
+                = render(StudyStreak::UserStudyStreakTrackerComponent.new(user: @user, study_streak: @study_streak))
             - if @user.github_account.present?
                 = render 'users/github_grass', user: @user
             - if @user.completed_practices.present?
