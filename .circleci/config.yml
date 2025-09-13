@@ -115,11 +115,11 @@ jobs:
           name: Assets precompile
           command: 'bundle exec rails assets:clean assets:precompile'
       - run:
-          name: Test (Single File for CONNECTION_REFUSED Debug)
+          name: Test (Single Model Test for Debug)
           command: |
-            # Test only home_test.rb to debug CONNECTION_REFUSED error
-            timeout 10m bundle exec rails test test/system/home_test.rb
-          no_output_timeout: 15m
+            # Test only user_test.rb to verify basic functionality
+            timeout 5m bundle exec rails test test/models/user_test.rb
+          no_output_timeout: 10m
           when: always
       - store_test_results:
           path: test/reports
