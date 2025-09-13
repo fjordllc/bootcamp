@@ -63,7 +63,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: ci_test
       - image: cimg/postgres:14.4
-    resource_class: xlarge
+    resource_class: large  # Reduced from xlarge for single test debugging
     environment:
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
@@ -75,7 +75,7 @@ jobs:
       TZ: Asia/Tokyo
       PARALLEL_WORKERS: 1
       CI: true
-    parallelism: 1
+    # parallelism: 1  # Disabled for single test debugging
     steps:
       - checkout
       - browser-tools/install-chrome:
@@ -115,11 +115,11 @@ jobs:
           name: Assets precompile
           command: 'bundle exec rails assets:clean assets:precompile'
       - run:
-          name: Test
+          name: Test (Single File for CONNECTION_REFUSED Debug)
           command: |
-            TEST_FILES=$(circleci tests glob "test/**/*_test.rb")
-            echo "$TEST_FILES" | circleci tests run --command="xargs timeout 30m bundle exec rails test" --verbose --split-by=timings
-          no_output_timeout: 35m
+            # Test only home_test.rb to debug CONNECTION_REFUSED error
+            timeout 10m bundle exec rails test test/system/home_test.rb
+          no_output_timeout: 15m
           when: always
       - store_test_results:
           path: test/reports
