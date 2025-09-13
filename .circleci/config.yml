@@ -73,9 +73,9 @@ jobs:
       RAILS_ENV: test
       DATABASE_URL: "postgres://postgres:postgres@localhost/ci_test"
       TZ: Asia/Tokyo
-      PARALLEL_WORKERS: 2
+      PARALLEL_WORKERS: 1
       CI: true
-    parallelism: 3
+    parallelism: 2
     steps:
       - checkout
       - browser-tools/install-chrome:
@@ -118,8 +118,8 @@ jobs:
           name: Test
           command: |
             TEST_FILES=$(circleci tests glob "test/**/*_test.rb")
-            echo "$TEST_FILES" | circleci tests run --command="xargs bundle exec rails test $TESTFILES" --verbose --split-by=timings
-          no_output_timeout: 30m
+            echo "$TEST_FILES" | circleci tests run --command="xargs timeout 20m bundle exec rails test $TESTFILES" --verbose --split-by=timings
+          no_output_timeout: 25m
           when: always
       - store_test_results:
           path: test/reports

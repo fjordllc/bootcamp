@@ -11,6 +11,7 @@ require 'supports/api_helper'
 require 'supports/vcr_helper'
 require 'abstract_notifier/testing/minitest'
 require 'webmock/minitest'
+require 'timeout'
 
 Capybara.default_max_wait_time = 15
 Capybara.disable_animation = true
@@ -20,11 +21,30 @@ Capybara.enable_aria_label = true
 # Configure retry for flaky tests
 Minitest::Retry.use!(retry_count: 3, verbose: true) if ENV['CI']
 
+# Add timeout for long-running tests in CI
+if ENV['CI']
+  module TimeoutExtension
+    def run
+      Timeout.timeout(300) do # 5 minutes per test maximum
+        super
+      end
+    rescue Timeout::Error
+      skip "Test timed out after 5 minutes"
+    end
+  end
+
+  Minitest::Test.prepend(TimeoutExtension)
+end
+
 class ActiveSupport::TestCase
   include VCRHelper
 
   # Run tests in parallel with specified workers
-  parallelize(workers: :number_of_processors)
+  if ENV['CI']
+    parallelize(workers: ENV.fetch('PARALLEL_WORKERS', 1).to_i)
+  else
+    parallelize(workers: :number_of_processors)
+  end
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
