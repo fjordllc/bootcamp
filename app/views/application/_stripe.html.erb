@@ -1,3 +1,13 @@
 <script>
-  var stripePublicKey = '<%= Rails.application.secrets[:stripe][:public_key] %>';
+  <%
+    secrets = Rails.application.config_for(:secrets)
+    # Try both string and symbol keys for compatibility
+    stripe_public_key = secrets.dig('stripe', 'public_key') || secrets.dig(:stripe, :public_key)
+  %>
+  <% if stripe_public_key.present? %>
+    var stripePublicKey = '<%= j(stripe_public_key) %>';
+  <% else %>
+    console.warn('Stripe public key not configured');
+    var stripePublicKey = null;
+  <% end %>
 </script>
