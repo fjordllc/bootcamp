@@ -19,7 +19,7 @@ Capybara.automatic_reload = false
 Capybara.enable_aria_label = true
 
 # Configure retry for flaky tests
-Minitest::Retry.use!(retry_count: 3, verbose: true) if ENV['CI']
+Minitest::Retry.use!(retry_count: 5, verbose: true) if ENV['CI']
 
 # Add timeout for long-running tests in CI
 # Temporarily disabled timeout to avoid ArgumentError

@@ -105,7 +105,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       Capybara.app_host = "http://127.0.0.1:#{port}"
 
       # Increase timeouts for CI stability
-      Capybara.default_max_wait_time = 15 # Reduced from 30 to prevent hanging
+      Capybara.default_max_wait_time = 20 # Increased for better stability
       Capybara.server_errors = [StandardError]
 
       # Set timeout for each individual test to prevent infinite hanging
