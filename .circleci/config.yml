@@ -63,7 +63,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: ci_test
       - image: cimg/postgres:14.4
-    resource_class: large
+    resource_class: xlarge
     environment:
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
@@ -118,8 +118,8 @@ jobs:
           name: Test
           command: |
             TEST_FILES=$(circleci tests glob "test/**/*_test.rb")
-            echo "$TEST_FILES" | circleci tests run --command="xargs timeout 20m bundle exec rails test" --verbose --split-by=timings
-          no_output_timeout: 25m
+            echo "$TEST_FILES" | circleci tests run --command="xargs timeout 30m bundle exec rails test" --verbose --split-by=timings
+          no_output_timeout: 35m
           when: always
       - store_test_results:
           path: test/reports
