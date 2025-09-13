@@ -13,6 +13,6 @@ survey_question_answer2:
 
 survey_question_answer3:
   survey_answer: survey_answer2
-  survey_question: survey_question3
+  survey_question: survey_question1
   answer: "Answer 3"
   reason: "Reason 3"
