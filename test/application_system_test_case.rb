@@ -102,7 +102,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       Capybara.app_host = "http://127.0.0.1:#{port}"
 
       # Increase timeouts for CI stability
-      Capybara.default_max_wait_time = 15  # Reduced from 30 to prevent hanging
+      Capybara.default_max_wait_time = 15 # Reduced from 30 to prevent hanging
       Capybara.server_errors = [StandardError]
 
       # Set timeout for each individual test to prevent infinite hanging
@@ -113,9 +113,9 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       # Wait for server to be ready with timeout
       server_ready = false
       timeout = 30 # 30 seconds timeout for server startup
-      start_time = Time.now
+      start_time = Time.current
 
-      while !server_ready && (Time.now - start_time) < timeout
+      while !server_ready && (Time.current - start_time) < timeout
         begin
           Net::HTTP.get_response(URI("http://127.0.0.1:#{port}/"))
           server_ready = true
@@ -124,9 +124,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
         end
       end
 
-      unless server_ready
-        raise "Server failed to start within #{timeout} seconds"
-      end
+      raise "Server failed to start within #{timeout} seconds" unless server_ready
     else
       # Local development timeouts
       Capybara.default_max_wait_time = 5

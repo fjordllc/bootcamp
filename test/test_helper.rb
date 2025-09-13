@@ -29,7 +29,7 @@ if ENV['CI']
         super
       end
     rescue Timeout::Error
-      skip "Test timed out after 5 minutes"
+      skip 'Test timed out after 5 minutes'
     end
   end
 
