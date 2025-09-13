@@ -65,6 +65,11 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       driver_option.add_argument('--no-first-run')
       driver_option.add_argument('--safebrowsing-disable-auto-update')
       driver_option.add_argument("--user-data-dir=/tmp/chrome-user-data-#{Process.pid}")
+      # Memory optimization flags for CI stability
+      driver_option.add_argument('--memory-pressure-off')
+      driver_option.add_argument('--max_old_space_size=4096')
+      driver_option.add_argument('--aggressive-cache-discard')
+      driver_option.add_argument('--disable-background-media-suspend')
       # Removed --single-process as it can cause memory issues in CI
 
       # CI specific options

@@ -42,7 +42,8 @@ class ActiveSupport::TestCase
 
   # Run tests in parallel with specified workers
   if ENV['CI']
-    parallelize(workers: ENV.fetch('PARALLEL_WORKERS', 1).to_i)
+    # Further reduce parallelism for stability
+    parallelize(workers: 1)
   else
     parallelize(workers: :number_of_processors)
   end
