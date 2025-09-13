@@ -3,7 +3,7 @@
 h2 class='selected-year' = year
 - month_buzzes.each do |month, buzzes|
   div class="buzzes-in-#{format('%02d', month)}"
-    h3 "#{month}月"
+    h3 = "#{month}月"
     ul
       - buzzes.each do |buzz|
         li = link_to buzz.title, buzz.url, target: '_blank', rel: 'noopener noreferrer'
