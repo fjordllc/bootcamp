@@ -21,4 +21,15 @@ class Movie < ApplicationRecord
 
   scope :wip, -> { where(wip: true) }
   scope :by_tag, ->(tag) { tag.present? ? tagged_with(tag) : all }
+
+  after_create_commit :start_transcode_job, on: :create
+
+  private
+
+  def start_transcode_job
+    TranscodeJob.perform_later(self)
+  rescue StandardError => e
+    Rails.logger.error("Failed to enqueue TranscodeJob for Movie #{id}: #{e.message}")
+    raise
+  end
 end
