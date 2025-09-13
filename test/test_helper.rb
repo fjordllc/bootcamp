@@ -22,19 +22,20 @@ Capybara.enable_aria_label = true
 Minitest::Retry.use!(retry_count: 3, verbose: true) if ENV['CI']
 
 # Add timeout for long-running tests in CI
-if ENV['CI']
-  module TimeoutExtension
-    def run
-      Timeout.timeout(300) do # 5 minutes per test maximum
-        super
-      end
-    rescue Timeout::Error
-      skip 'Test timed out after 5 minutes'
-    end
-  end
-
-  Minitest::Test.prepend(TimeoutExtension)
-end
+# Temporarily disabled timeout to avoid ArgumentError
+# if ENV['CI']
+#   module TimeoutExtension
+#     def run
+#       Timeout.timeout(300) do # 5 minutes per test maximum
+#         super
+#       end
+#     rescue Timeout::Error
+#       skip 'Test timed out after 5 minutes'
+#     end
+#   end
+#
+#   Minitest::Test.prepend(TimeoutExtension)
+# end
 
 class ActiveSupport::TestCase
   include VCRHelper

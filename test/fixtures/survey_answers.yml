@@ -6,7 +6,3 @@ survey_answer1:
 survey_answer2:
   survey: survey2
   user: komagata
-
-survey_answer3:
-  survey: survey3
-  user: machida
