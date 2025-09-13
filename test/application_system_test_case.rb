@@ -47,7 +47,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       driver_option.add_argument('--enable-logging')
       driver_option.add_argument('--log-level=0')
       driver_option.add_argument('enable-blink-features=Clipboard')
-      
+
       # CI specific options
       if ENV['CI']
         driver_option.add_argument('--remote-debugging-port=9222')
@@ -55,7 +55,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
         driver_option.add_argument('--disable-background-networking')
         driver_option.add_argument('--enable-features=NetworkService,NetworkServiceLogging')
       end
-      
+
       # Enable JavaScript console logging for debugging
       driver_option.add_preference(:loggingPrefs, { browser: 'ALL' })
     end
