@@ -35,11 +35,27 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       driver_option.add_argument('--no-sandbox')
       driver_option.add_argument('--disable-dev-shm-usage')
       driver_option.add_argument('--disable-gpu')
-      driver_option.add_argument('--remote-debugging-port=9222')
       driver_option.add_argument('--disable-web-security')
       driver_option.add_argument('--disable-features=VizDisplayCompositor')
+      driver_option.add_argument('--disable-background-timer-throttling')
+      driver_option.add_argument('--disable-backgrounding-occluded-windows')
+      driver_option.add_argument('--disable-renderer-backgrounding')
+      driver_option.add_argument('--disable-extensions')
+      driver_option.add_argument('--disable-plugins')
+      driver_option.add_argument('--disable-ipc-flooding-protection')
       driver_option.add_argument('--window-size=1400,900')
+      driver_option.add_argument('--enable-logging')
+      driver_option.add_argument('--log-level=0')
       driver_option.add_argument('enable-blink-features=Clipboard')
+      
+      # CI specific options
+      if ENV['CI']
+        driver_option.add_argument('--remote-debugging-port=9222')
+        driver_option.add_argument('--disable-features=TranslateUI')
+        driver_option.add_argument('--disable-background-networking')
+        driver_option.add_argument('--enable-features=NetworkService,NetworkServiceLogging')
+      end
+      
       # Enable JavaScript console logging for debugging
       driver_option.add_preference(:loggingPrefs, { browser: 'ALL' })
     end
