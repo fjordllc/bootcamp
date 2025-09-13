@@ -64,8 +64,8 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       driver_option.add_argument('--mute-audio')
       driver_option.add_argument('--no-first-run')
       driver_option.add_argument('--safebrowsing-disable-auto-update')
-      driver_option.add_argument('--user-data-dir=/tmp/chrome-user-data')
-      driver_option.add_argument('--single-process')
+      driver_option.add_argument("--user-data-dir=/tmp/chrome-user-data-#{Process.pid}")
+      # Removed --single-process as it can cause memory issues in CI
 
       # CI specific options
       if ENV['CI']
