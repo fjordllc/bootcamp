@@ -82,10 +82,13 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
         driver_option.add_argument('--ignore-ssl-errors')
         driver_option.add_argument('--ignore-certificate-errors-spki-list')
         driver_option.add_argument('--ignore-urlfetcher-cert-requests')
-        # Remove problematic host rules that may cause connection issues
-        # driver_option.add_argument('--host-rules=MAP * 127.0.0.1')
         driver_option.add_argument('--disable-web-security')
         driver_option.add_argument('--disable-features=VizDisplayCompositor,AudioServiceOutOfProcess')
+        # Explicitly allow localhost connections
+        driver_option.add_argument('--allow-running-insecure-content')
+        driver_option.add_argument('--disable-features=VizDisplayCompositor')
+        # Force use of specific server port
+        driver_option.add_argument('--explicitly-allowed-ports=3001')
       end
 
       # Enable JavaScript console logging for debugging
@@ -94,38 +97,38 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   end
 
   setup do
-    # Ensure URL options are properly configured for system tests
+    # Configure Capybara for CI environment early
+    if ENV['CI']
+      # Force specific host and port configuration for CI
+      Capybara.server_host = '127.0.0.1'  # Use loopback only in CI
+      Capybara.server_port = 3001  # Use specific port to avoid conflicts
+      Capybara.app_host = "http://127.0.0.1:3001"
+
+      # Increase timeouts for CI stability
+      Capybara.default_max_wait_time = 30 # Much longer timeout for CI
+      Capybara.server_errors = [StandardError]
+
+      # Ensure server is ready before tests run
+      Capybara.server = :puma, { Silent: true, Port: 3001, Host: '127.0.0.1' }
+      Capybara.always_include_port = true
+
+      # Wait for server to be ready
+      Capybara.using_wait_time(30) do
+        # This block ensures server startup completion
+      end
+    else
+      # Local development settings
+      Capybara.default_max_wait_time = 5
+      Capybara.server_host = 'localhost'
+    end
+
+    # Set URL options after Capybara configuration
     host = ENV['CI'] ? '127.0.0.1' : 'localhost'
-    port = Capybara.server_port || 3000
+    port = ENV['CI'] ? 3001 : (Capybara.server_port || 3000)
 
     Rails.application.routes.default_url_options[:host] = host
     Rails.application.routes.default_url_options[:port] = port
     Rails.application.config.active_storage.default_url_options = { host:, port: }
-
-    # Configure Capybara for CI environment
-    if ENV['CI']
-      Capybara.server_host = '0.0.0.0'  # Listen on all interfaces for CI
-      Capybara.app_host = "http://127.0.0.1:#{port}"
-
-      # Increase timeouts for CI stability
-      Capybara.default_max_wait_time = 20 # Increased for better stability
-      Capybara.server_errors = [StandardError]
-
-      # Ensure server is ready before tests run
-      Capybara.server = :puma, { Silent: true }
-      Capybara.always_include_port = true
-
-      # Set timeout for each individual test to prevent infinite hanging
-      Minitest.after_run do
-        # Cleanup after all tests
-      end
-
-      # Server readiness check disabled in CI - causes issues with test server startup
-      # The test server starts automatically and doesn't need this check
-    else
-      # Local development timeouts
-      Capybara.default_max_wait_time = 5
-    end
   end
 
   teardown do
