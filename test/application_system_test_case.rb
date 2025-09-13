@@ -77,12 +77,15 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
         driver_option.add_argument('--remote-debugging-port=9222')
         driver_option.add_argument('--disable-background-networking')
         driver_option.add_argument('--enable-features=NetworkService,NetworkServiceLogging')
-        # Force localhost for consistency in CI
-        driver_option.add_argument('--host-rules=MAP * 127.0.0.1')
+        # Network stability improvements for CI
         driver_option.add_argument('--ignore-certificate-errors')
         driver_option.add_argument('--ignore-ssl-errors')
         driver_option.add_argument('--ignore-certificate-errors-spki-list')
         driver_option.add_argument('--ignore-urlfetcher-cert-requests')
+        # Remove problematic host rules that may cause connection issues
+        # driver_option.add_argument('--host-rules=MAP * 127.0.0.1')
+        driver_option.add_argument('--disable-web-security')
+        driver_option.add_argument('--disable-features=VizDisplayCompositor,AudioServiceOutOfProcess')
       end
 
       # Enable JavaScript console logging for debugging
@@ -101,12 +104,16 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
     # Configure Capybara for CI environment
     if ENV['CI']
-      Capybara.server_host = '127.0.0.1'
+      Capybara.server_host = '0.0.0.0'  # Listen on all interfaces for CI
       Capybara.app_host = "http://127.0.0.1:#{port}"
 
       # Increase timeouts for CI stability
       Capybara.default_max_wait_time = 20 # Increased for better stability
       Capybara.server_errors = [StandardError]
+
+      # Ensure server is ready before tests run
+      Capybara.server = :puma, { Silent: true }
+      Capybara.always_include_port = true
 
       # Set timeout for each individual test to prevent infinite hanging
       Minitest.after_run do
