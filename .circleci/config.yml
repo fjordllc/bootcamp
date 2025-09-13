@@ -75,7 +75,7 @@ jobs:
       TZ: Asia/Tokyo
       PARALLEL_WORKERS: 1
       CI: true
-    parallelism: 2
+    parallelism: 1
     steps:
       - checkout
       - browser-tools/install-chrome:
@@ -118,7 +118,7 @@ jobs:
           name: Test
           command: |
             TEST_FILES=$(circleci tests glob "test/**/*_test.rb")
-            echo "$TEST_FILES" | circleci tests run --command="xargs timeout 20m bundle exec rails test $TESTFILES" --verbose --split-by=timings
+            echo "$TEST_FILES" | circleci tests run --command="xargs timeout 20m bundle exec rails test" --verbose --split-by=timings
           no_output_timeout: 25m
           when: always
       - store_test_results:
