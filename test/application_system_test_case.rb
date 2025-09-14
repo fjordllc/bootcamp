@@ -52,22 +52,32 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   setup do
     if ENV['CI']
-      # Simple CI configuration
-      Capybara.server_host = '127.0.0.1'
-      Capybara.default_max_wait_time = 15
+      # CI configuration with explicit server setup
+      Capybara.server_host = '0.0.0.0'  # Listen on all interfaces
+      Capybara.app_host = 'http://127.0.0.1'  # Connect via loopback
+      Capybara.default_max_wait_time = 30
       Capybara.server_errors = [StandardError]
+
+      # Explicitly set Puma as server
+      Capybara.server = :puma, { Silent: true }
+      Capybara.always_include_port = true
     else
       # Local development settings
       Capybara.default_max_wait_time = 5
     end
 
-    # Basic URL configuration
+    # URL configuration
     host = ENV['CI'] ? '127.0.0.1' : 'localhost'
     port = Capybara.server_port || 3000
 
     Rails.application.routes.default_url_options[:host] = host
     Rails.application.routes.default_url_options[:port] = port
     Rails.application.config.active_storage.default_url_options = { host:, port: }
+
+    # Ensure ActiveStorage URL options are set for Rails 7.2
+    if ENV['CI']
+      ActiveStorage::Current.url_options = { host: '127.0.0.1', port: }
+    end
   end
 
   teardown do
