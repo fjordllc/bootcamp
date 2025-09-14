@@ -32,99 +32,38 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     driven_by :selenium, using: :chrome
   else
     driven_by(:selenium, using: :headless_chrome) do |driver_option|
-      # Essential Chrome flags for CI stability
+      # Minimal essential Chrome flags for CI
       driver_option.add_argument('--no-sandbox')
       driver_option.add_argument('--disable-dev-shm-usage')
       driver_option.add_argument('--disable-gpu')
-      driver_option.add_argument('--disable-web-security')
-      driver_option.add_argument('--disable-features=VizDisplayCompositor')
-      driver_option.add_argument('--disable-background-timer-throttling')
-      driver_option.add_argument('--disable-backgrounding-occluded-windows')
-      driver_option.add_argument('--disable-renderer-backgrounding')
-      driver_option.add_argument('--disable-extensions')
-      driver_option.add_argument('--disable-plugins')
-      driver_option.add_argument('--disable-ipc-flooding-protection')
+      driver_option.add_argument('--headless')
       driver_option.add_argument('--window-size=1400,900')
-      driver_option.add_argument('--enable-logging')
-      driver_option.add_argument('--log-level=0')
-      driver_option.add_argument('--enable-blink-features=Clipboard')
 
-      # Additional Chrome 130+ stability flags for CI
-      driver_option.add_argument('--disable-blink-features=AutomationControlled')
-      driver_option.add_argument('--disable-component-extensions-with-background-pages')
-      driver_option.add_argument('--disable-default-apps')
-      driver_option.add_argument('--disable-device-discovery-notifications')
-      driver_option.add_argument('--disable-domain-reliability')
-      driver_option.add_argument('--disable-features=MediaRouter,OptimizationHints,Translate,TranslateUI')
-      driver_option.add_argument('--disable-hang-monitor')
-      driver_option.add_argument('--disable-prompt-on-repost')
-      driver_option.add_argument('--disable-sync')
-      driver_option.add_argument('--disable-web-resources')
-      driver_option.add_argument('--metrics-recording-only')
-      driver_option.add_argument('--mute-audio')
-      driver_option.add_argument('--no-first-run')
-      driver_option.add_argument('--safebrowsing-disable-auto-update')
-      driver_option.add_argument("--user-data-dir=/tmp/chrome-user-data-#{Process.pid}")
-      # Memory optimization flags for CI stability
-      driver_option.add_argument('--memory-pressure-off')
-      driver_option.add_argument('--max_old_space_size=4096')
-      driver_option.add_argument('--aggressive-cache-discard')
-      driver_option.add_argument('--disable-background-media-suspend')
-      # Removed --single-process as it can cause memory issues in CI
-
-      # CI specific options
       if ENV['CI']
-        driver_option.add_argument('--remote-debugging-port=9222')
-        driver_option.add_argument('--disable-background-networking')
-        driver_option.add_argument('--enable-features=NetworkService,NetworkServiceLogging')
-        # Network stability improvements for CI
-        driver_option.add_argument('--ignore-certificate-errors')
-        driver_option.add_argument('--ignore-ssl-errors')
-        driver_option.add_argument('--ignore-certificate-errors-spki-list')
-        driver_option.add_argument('--ignore-urlfetcher-cert-requests')
+        # Additional CI-specific flags
         driver_option.add_argument('--disable-web-security')
-        driver_option.add_argument('--disable-features=VizDisplayCompositor,AudioServiceOutOfProcess')
-        # Explicitly allow localhost connections
-        driver_option.add_argument('--allow-running-insecure-content')
-        driver_option.add_argument('--disable-features=VizDisplayCompositor')
-        # Force use of specific server port
-        driver_option.add_argument('--explicitly-allowed-ports=3001')
+        driver_option.add_argument('--ignore-certificate-errors')
+        driver_option.add_argument('--disable-extensions')
+        driver_option.add_argument('--no-first-run')
+        driver_option.add_argument('--disable-default-apps')
       end
-
-      # Enable JavaScript console logging for debugging
-      driver_option.add_preference(:loggingPrefs, { browser: 'ALL' })
     end
   end
 
   setup do
-    # Configure Capybara for CI environment early
     if ENV['CI']
-      # Force specific host and port configuration for CI
-      Capybara.server_host = '127.0.0.1'  # Use loopback only in CI
-      Capybara.server_port = 3001  # Use specific port to avoid conflicts
-      Capybara.app_host = "http://127.0.0.1:3001"
-
-      # Increase timeouts for CI stability
-      Capybara.default_max_wait_time = 30 # Much longer timeout for CI
+      # Simple CI configuration
+      Capybara.server_host = '127.0.0.1'
+      Capybara.default_max_wait_time = 15
       Capybara.server_errors = [StandardError]
-
-      # Ensure server is ready before tests run
-      Capybara.server = :puma, { Silent: true, Port: 3001, Host: '127.0.0.1' }
-      Capybara.always_include_port = true
-
-      # Wait for server to be ready
-      Capybara.using_wait_time(30) do
-        # This block ensures server startup completion
-      end
     else
       # Local development settings
       Capybara.default_max_wait_time = 5
-      Capybara.server_host = 'localhost'
     end
 
-    # Set URL options after Capybara configuration
+    # Basic URL configuration
     host = ENV['CI'] ? '127.0.0.1' : 'localhost'
-    port = ENV['CI'] ? 3001 : (Capybara.server_port || 3000)
+    port = Capybara.server_port || 3000
 
     Rails.application.routes.default_url_options[:host] = host
     Rails.application.routes.default_url_options[:port] = port
