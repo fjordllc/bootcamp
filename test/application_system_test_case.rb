@@ -53,8 +53,8 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   setup do
     if ENV['CI']
       # CI configuration with explicit server setup
-      Capybara.server_host = '0.0.0.0'  # Listen on all interfaces
-      Capybara.app_host = 'http://127.0.0.1'  # Connect via loopback
+      Capybara.server_host = '0.0.0.0' # Listen on all interfaces
+      Capybara.app_host = 'http://127.0.0.1' # Connect via loopback
       Capybara.default_max_wait_time = 30
       Capybara.server_errors = [StandardError]
 
@@ -75,9 +75,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     Rails.application.config.active_storage.default_url_options = { host:, port: }
 
     # Ensure ActiveStorage URL options are set for Rails 7.2
-    if ENV['CI']
-      ActiveStorage::Current.url_options = { host: '127.0.0.1', port: }
-    end
+    ActiveStorage::Current.url_options({ host: '127.0.0.1', port: }) if ENV['CI']
   end
 
   teardown do

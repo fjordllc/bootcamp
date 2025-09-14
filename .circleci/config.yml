@@ -1,9 +1,9 @@
 version: 2.1
 
 orbs:
-  ruby: circleci/ruby@2.5.0
-  node: circleci/node@7.1.0
-  browser-tools: circleci/browser-tools@1.4.8
+  ruby: circleci/ruby@2.1.4
+  node: circleci/node@5.2.0
+  browser-tools: circleci/browser-tools@1.4.9
 jobs:
   build:
     docker:
@@ -62,7 +62,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: ci_test
-      - image: cimg/postgres:14.4
+      - image: cimg/postgres:14.10
     resource_class: large  # Reduced from xlarge for single test debugging
     environment:
       BUNDLE_JOBS: "3"
@@ -80,8 +80,9 @@ jobs:
       - checkout
       - browser-tools/install-chrome:
           replace-existing: true
-          chrome-version: 130.0.6723.116
-      - browser-tools/install-chromedriver
+          chrome-version: latest
+      - browser-tools/install-chromedriver:
+          cache-key: chromedriver-latest
       - run:
           command: |
             google-chrome --version
