@@ -3,7 +3,7 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@2.0.0
   node: circleci/node@5.1.0
-  browser-tools: circleci/browser-tools@2.0.0
+  browser-tools: circleci/browser-tools@1.4.8
 jobs:
   build:
     docker:
@@ -78,10 +78,10 @@ jobs:
     # parallelism: 1  # Disabled for single test debugging
     steps:
       - checkout
-      - browser-tools/install_chrome:
+      - browser-tools/install-chrome:
           replace-existing: true
           chrome-version: latest
-      - browser-tools/install_chromedriver:
+      - browser-tools/install-chromedriver:
           cache-key: chromedriver-latest
       - run:
           command: |
