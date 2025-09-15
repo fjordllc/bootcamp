@@ -1,7 +1,7 @@
 .a-card
   .card-body
     - if pair_work.solved?
-      - user = pair_work.buddy
+      - buddy = pair_work.buddy
       .event-main-actions.is-participationed
         header.event-main-actions__header
           h2.event-main-actions__title
@@ -14,7 +14,7 @@
         .event-main-actions__body
           .pair-work-info
             .pair-work-info__start
-              = render 'users/icon', user:, link_class: 'pair-work-info__user-link', image_class: 'pair-work-info__user-icon'
+              = render 'users/icon', user: buddy, link_class: 'pair-work-info__user-link', image_class: 'pair-work-info__user-icon'
             .pair-work-info__end
               .event-meta
                 .event-meta__items
@@ -22,7 +22,7 @@
                     dt.event-meta__item-label
                       | ペア
                     dd.event-meta__item-value
-                      = link_to user.long_name, user_path(user), class: ''
+                      = link_to buddy.long_name, user_path(buddy), class: ''
                   .event-meta__item
                     dt.event-meta__item-label
                       | 日時
