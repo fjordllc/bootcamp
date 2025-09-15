@@ -69,7 +69,7 @@
         .col-md-6.col-xs-12
           .form-item__header
             = f.label :description, class: 'a-form-label'
-            = react_component('ReportTemplate', templateDescription: current_user.report_template&.description, templateId: current_user.report_template&.id)
+            = render 'reports/report_template',
           .form-textarea
             .form-textarea__body
               = f.text_area :description,
