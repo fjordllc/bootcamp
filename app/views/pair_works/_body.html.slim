@@ -49,14 +49,17 @@
           = link_to edit_pair_work_path(pair_work), class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
             i#new.fa-solid.fa-pen
             | 内容修正
-        li.card-main-actions__item.is-sub.is-only-metor class=(current_user.admin? || pair_work.user == current_user ? '' : 'is-hidden')
+        li.card-main-actions__item.is-sub.is-only-metor class=(current_user.admin? || pair_work_user?(pair_work, current_user) ? '' : 'is-hidden')
           = link_to '削除', pair_work_path(pair_work),
             data: { confirm: '本当に削除しますか？' }, method: :delete, class: 'card-main-actions__muted-action'
 
 .a-card
   header.card-header
     h2.card-header__title
-      | ペアを希望する
+      - if pair_work_user?(pair_work, current_user)
+        | 希望日時
+      - else
+        | ペアを希望する
   hr.a-border-tint
   .card-body
     .card-body__description
@@ -92,33 +95,11 @@
               - else
                 h3.pair-work-schedule-dates__title
                   | ペアを希望する場合、以下のスケジュールから都合のいい日時を選択してください。
-              .a-table.is-sm.text-center
-                table.min-w-full
-                  thead
-                    tr
-                      th
-                      - schedule_dates(pair_work.created_at).each do |date|
-                        th = l date, format: :mdw_unique
-                  tbody
-                    - 24.times do |hour|
-                      tr(class='hover:bg-[var(--background-more-tint)]')
-                        th
-                          | #{hour}:00
-                        - 7.times do |day|
-                          - target_date = pair_work.created_at.beginning_of_day + hour.hour + day.day
-                          - if pair_work.schedules.map(&:proposed_at).include?(target_date)
-                            td.p-0.h-6.relative
-                              = form_with model: pair_work, method: :patch, local: true do
-                                = hidden_field_tag 'pair_work[reserved_at]', target_date
-                                = hidden_field_tag 'pair_work[buddy_id]', current_user.id
-                                = button_tag type: 'submit', disabled: disabled?(target_date, pair_work:),
-                                  class: 'absolute top-0 flex w-full h-full text-center justify-center items-center p-1 border border-solid rounded text-[var(--main)] bg-[var(--input-selected-background)] border-[var(--main)]',
-                                  id: target_date.iso8601,
-                                  data: { confirm: "#{l target_date, format: :mdw_and_time} にペアワークを申し込みますか？" } do
-                                    i.fa-duotone.fa-solid.fa-check
-                          - else
-                            td.p-0.h-6
-                              span ✖️
+              = render 'schedule', pair_work:
+        - elsif pair_work_user?(pair_work, current_user)
+          .pair-work-schedule-dates__table-container
+            .pair-work-schedule-dates__table
+              = render 'schedule', pair_work:
         - else
           .a-long-text.is-md
             .message.danger
