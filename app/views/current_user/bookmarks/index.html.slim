@@ -4,4 +4,4 @@
 = render 'home/page_header'
 = dashboard_page_tabs(active_tab: 'ブックマーク')
 
-= react_component 'Bookmarks'
+= render 'current_user/bookmarks/list', bookmarks: @bookmarks
