@@ -86,13 +86,22 @@ jobs:
       - run:
           name: Setup ChromeDriver
           command: |
-            CHROME_VERSION=$(google-chrome --version | cut -d " " -f3 | cut -d "." -f1)
-            CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION}")
-            wget -O chromedriver.zip "https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
+            CHROME_VERSION=$(google-chrome --version | cut -d " " -f3)
+            echo "Chrome version: $CHROME_VERSION"
+            # Use Chrome for Testing API for M115+
+            CHROMEDRIVER_URL=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json" | \
+              jq -r --arg version "$CHROME_VERSION" '.versions[] | select(.version == $version) | .downloads.chromedriver[] | select(.platform == "linux64") | .url' | head -1)
+            if [ -z "$CHROMEDRIVER_URL" ]; then
+              # Fallback to latest stable if exact version not found
+              CHROMEDRIVER_URL=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions.json" | \
+                jq -r '.channels.Stable.downloads.chromedriver[] | select(.platform == "linux64") | .url')
+            fi
+            echo "ChromeDriver URL: $CHROMEDRIVER_URL"
+            wget -O chromedriver.zip "$CHROMEDRIVER_URL"
             unzip chromedriver.zip
-            sudo mv chromedriver /usr/local/bin/
+            sudo mv chromedriver-linux64/chromedriver /usr/local/bin/
             sudo chmod +x /usr/local/bin/chromedriver
-            rm chromedriver.zip
+            rm -rf chromedriver.zip chromedriver-linux64
       - run:
           command: |
             google-chrome --version
