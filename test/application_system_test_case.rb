@@ -32,49 +32,20 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     driven_by :selenium, using: :chrome
   else
     driven_by(:selenium, using: :headless_chrome) do |driver_option|
-      # Minimal essential Chrome flags for CI
       driver_option.add_argument('--no-sandbox')
       driver_option.add_argument('--disable-dev-shm-usage')
-      driver_option.add_argument('--disable-gpu')
-      driver_option.add_argument('--headless')
-      driver_option.add_argument('--window-size=1400,900')
-
-      if ENV['CI']
-        # Additional CI-specific flags
-        driver_option.add_argument('--disable-web-security')
-        driver_option.add_argument('--ignore-certificate-errors')
-        driver_option.add_argument('--disable-extensions')
-        driver_option.add_argument('--no-first-run')
-        driver_option.add_argument('--disable-default-apps')
-      end
+      driver_option.add_argument('enable-blink-features=Clipboard')
     end
   end
 
   setup do
-    if ENV['CI']
-      # Simple CI configuration
-      Capybara.server = :puma, { Silent: true }
-      Capybara.server_host = '127.0.0.1'
-      Capybara.app_host = 'http://127.0.0.1'
-      Capybara.default_max_wait_time = 30
-    else
-      # Local development settings
-      Capybara.default_max_wait_time = 5
-    end
-
-    # URL configuration
-    host = ENV['CI'] ? '127.0.0.1' : 'localhost'
-    port = Capybara.server_port || 3000
-
-    Rails.application.routes.default_url_options[:host] = host
-    Rails.application.routes.default_url_options[:port] = port
-    Rails.application.config.active_storage.default_url_options = { host:, port: }
+    # Ensure ActiveStorage is properly configured for system tests
+    ActiveStorage::Current.host = 'http://localhost:3000'
   end
 
   teardown do
     ActionMailer::Base.deliveries.clear
-    Rails.application.routes.default_url_options.delete(:host)
-    Rails.application.routes.default_url_options.delete(:port)
+    ActiveStorage::Current.host = nil
 
     # Clean up any uploaded test files
     if defined?(ActiveStorage::Blob)

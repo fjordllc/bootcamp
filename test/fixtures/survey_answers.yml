@@ -1,8 +1,0 @@
-# survey_answers fixtures
-survey_answer1:
-  survey: survey1
-  user: hajime
-
-survey_answer2:
-  survey: survey2
-  user: komagata

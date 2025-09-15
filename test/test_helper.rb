@@ -2,7 +2,6 @@
 
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
-require 'active_support/core_ext/string'
 require 'rails/test_help'
 require 'capybara/rails'
 require 'minitest/mock'
@@ -11,7 +10,6 @@ require 'supports/api_helper'
 require 'supports/vcr_helper'
 require 'abstract_notifier/testing/minitest'
 require 'webmock/minitest'
-require 'timeout'
 
 Capybara.default_max_wait_time = 15
 Capybara.disable_animation = true
@@ -19,61 +17,35 @@ Capybara.automatic_reload = false
 Capybara.enable_aria_label = true
 
 # Configure retry for flaky tests
-Minitest::Retry.use!(retry_count: 5, verbose: true) if ENV['CI']
-
-# Add timeout for long-running tests in CI
-# Temporarily disabled timeout to avoid ArgumentError
-# if ENV['CI']
-#   module TimeoutExtension
-#     def run
-#       Timeout.timeout(300) do # 5 minutes per test maximum
-#         super
-#       end
-#     rescue Timeout::Error
-#       skip 'Test timed out after 5 minutes'
-#     end
-#   end
-#
-#   Minitest::Test.prepend(TimeoutExtension)
-# end
+Minitest::Retry.use!(retry_count: 3, verbose: true) if ENV['CI']
 
 class ActiveSupport::TestCase
   include VCRHelper
 
   # Run tests in parallel with specified workers
-  if ENV['CI']
-    # Further reduce parallelism for stability
-    parallelize(workers: 1)
-  else
-    parallelize(workers: :number_of_processors)
-  end
+  parallelize(workers: :number_of_processors)
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
   setup do
-    Rails.application.routes.default_url_options[:host] = 'localhost'
-    Rails.application.routes.default_url_options[:port] = 3000
-    Rails.application.config.active_storage.default_url_options = { host: 'localhost', port: 3000 }
-    # Rails 7.2でActiveStorage::Currentにurl_optionsを設定（ポートは固定しない）
-    ActiveStorage::Current.url_options = { host: 'localhost', port: 3000 }
+    ActiveStorage::Current.host = 'http://localhost:3000' # https://github.com/rails/rails/issues/40855
   end
 
   teardown do
-    Rails.application.routes.default_url_options.delete(:host)
-    Rails.application.routes.default_url_options.delete(:port)
-    ActiveStorage::Current.url_options = nil
+    ActiveStorage::Current.host = nil
   end
 
-  # Rails 7 Active Storage test setup
+  # Rails7になったら以下のように修正する
+  #   parallelize_setup do |i|
+  #     ActiveStorage::Blob.service.root = "#{ActiveStorage::Blob.service.root}/storage-#{i}"
+  #     ActiveStorage::Blob.services.fetch(:test_fixtures).root = "#{ActiveStorage::Blob.services.fetch(:test_fixtures).root}/fixtures-#{i}"
+  #   end
   # 参考： https://guides.rubyonrails.org/active_storage_overview.html#discarding-files-created-during-tests
-  base_blob_root = ActiveStorage::Blob.service.root.to_s
-  base_fixtures_root = ActiveStorage::Blob.services.fetch(:test_fixtures).root.to_s
-
   parallelize_setup do |i|
-    ActiveStorage::Blob.service.root = File.join(base_blob_root, "storage-#{i}")
-    ActiveStorage::Blob.services.fetch(:test_fixtures).root = File.join(base_fixtures_root, "fixtures-#{i}")
+    ActiveStorage::Blob.service.instance_variable_set(:@root, "#{ActiveStorage::Blob.service.root}/storage-#{i}")
+    ActiveStorage::Blob.services.fetch(:test_fixtures).instance_variable_set(:@root, "#{ActiveStorage::Blob.services.fetch(:test_fixtures).root}/fixtures-#{i}")
   end
 
   Minitest.after_run do
@@ -91,21 +63,19 @@ ActiveSupport.on_load(:action_dispatch_system_test_case) do
   ActionDispatch::SystemTesting::Server.silence_puma = true
 end
 
-# Rails 7用のActiveStorage::Blob.fixture メソッドを実装
+# Rails 7 の ActiveStorage::FixtureSet.blob と同様の機能を実装
+# Pull Request #4182(https://github.com/fjordllc/bootcamp/pull/4182) でRails 7 への移行完了後に削除する
+# => test/fixtures/active_storage/blobs.yml でActiveStorage::FixtureSet.blob を使うように変更する
 module BlobFixtureSet
-  def fixture(filename:, service_name: nil, **attributes) # rubocop:disable Lint/UnusedMethodArgument
+  def fixture(filename:, **attributes)
     blob = new(
       filename:,
       key: generate_unique_secure_token
     )
-
-    file_path = Rails.root.join("test/fixtures/files/#{filename}")
-
-    io = file_path.open
+    io = Rails.root.join("test/fixtures/files/#{filename}").open
     blob.unfurl(io)
     blob.assign_attributes(attributes)
     blob.upload_without_unfurling(io)
-    io.close
 
     blob.attributes.transform_values { |values| values.is_a?(Hash) ? values.to_json : values }.compact.to_json
   end
