@@ -1,8 +1,9 @@
 version: 2.1
 
 orbs:
-  ruby: circleci/ruby@2.0.0
-  node: circleci/node@5.1.0
+  ruby: circleci/ruby@2.5.0
+  node: circleci/node@7.1.0
+  browser-tools: circleci/browser-tools@1.5.2
 jobs:
   build:
     docker:
@@ -61,8 +62,8 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: ci_test
-      - image: cimg/postgres:14.10
-    resource_class: large  # Reduced from xlarge for single test debugging
+      - image: cimg/postgres:14.4
+    resource_class: large
     environment:
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
@@ -72,36 +73,14 @@ jobs:
       RAILS_ENV: test
       DATABASE_URL: "postgres://postgres:postgres@localhost/ci_test"
       TZ: Asia/Tokyo
-      PARALLEL_WORKERS: 1
-      CI: true
-    # parallelism: 1  # Disabled for single test debugging
+      PARALLEL_WORKERS: 2
+    parallelism: 3
     steps:
       - checkout
-      - run:
-          name: Setup Chrome
-          command: |
-            wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-            sudo apt install -y ./google-chrome-stable_current_amd64.deb
-            rm google-chrome-stable_current_amd64.deb
-      - run:
-          name: Setup ChromeDriver
-          command: |
-            CHROME_VERSION=$(google-chrome --version | cut -d " " -f3)
-            echo "Chrome version: $CHROME_VERSION"
-            # Use Chrome for Testing API for M115+
-            CHROMEDRIVER_URL=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json" | \
-              jq -r --arg version "$CHROME_VERSION" '.versions[] | select(.version == $version) | .downloads.chromedriver[] | select(.platform == "linux64") | .url' | head -1)
-            if [ -z "$CHROMEDRIVER_URL" ]; then
-              # Fallback to latest stable if exact version not found
-              CHROMEDRIVER_URL=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions.json" | \
-                jq -r '.channels.Stable.downloads.chromedriver[] | select(.platform == "linux64") | .url')
-            fi
-            echo "ChromeDriver URL: $CHROMEDRIVER_URL"
-            wget -O chromedriver.zip "$CHROMEDRIVER_URL"
-            unzip chromedriver.zip
-            sudo mv chromedriver-linux64/chromedriver /usr/local/bin/
-            sudo chmod +x /usr/local/bin/chromedriver
-            rm -rf chromedriver.zip chromedriver-linux64
+      - browser-tools/install-chrome:
+          replace-existing: true
+          chrome-version: 130.0.6723.116
+      - browser-tools/install-chromedriver
       - run:
           command: |
             google-chrome --version
@@ -120,11 +99,11 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
       - run:
-          name: Install system dependencies
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y libvips
-            sudo apt-get install -y fonts-noto-cjk-extra || sudo apt-get install -y fonts-noto-cjk || echo "Japanese font installation failed, proceeding without it"
+          name: Install japanese font
+          command: sudo apt-get install -y fonts-noto-cjk
+      - run:
+          name: Install libvips
+          command: sudo apt-get install -y libvips
       - run:
           name: Wait for DB
           command: 'dockerize -wait tcp://localhost:5432 -timeout 1m'
@@ -133,13 +112,13 @@ jobs:
           command: 'bundle exec rails db:setup'
       - run:
           name: Assets precompile
-          command: 'bundle exec rails assets:clean assets:precompile'
+          command: 'bundle exec rails assets:clean assets:precompile NODE_OPTIONS=--openssl-legacy-provider'
       - run:
-          name: Test (Single System Test for CONNECTION_REFUSED Debug)
+          name: Test
           command: |
-            # Test specific method from home_test.rb to debug CONNECTION_REFUSED
-            timeout 10m bundle exec rails test test/system/home_test.rb -n test_GET_/_without_sign_in
-          no_output_timeout: 15m
+            TEST_FILES=$(circleci tests glob "test/**/*_test.rb")
+            echo "$TEST_FILES" | circleci tests run --command="xargs bundle exec rails test $TESTFILES" --verbose --split-by=timings
+          no_output_timeout: 30m
           when: always
       - store_test_results:
           path: test/reports
