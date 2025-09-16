@@ -70,4 +70,4 @@
 
                   .card-list-item__option
                     .js-bookmark-delete-button
-                      = link_to '削除', '#', class: 'bookmark-delete-button a-bookmark-button a-button is-sm is-block is-main', data: { url: api_bookmark_path(bookmark) }
+                      = link_to '削除', '#', class: 'bookmark-delete-button a-bookmark-button a-button is-sm is-block is-main', data: { url: current_user_bookmark_path(bookmark) }
