@@ -23,7 +23,7 @@ class ProductSelfAssignedNoRepliedQueryTest < ActiveSupport::TestCase
     mentor = users(:mentormentaro)
 
     product = Product.create!(
-      body: 'already replied',
+      body: 'test',
       user: users(:kimura),
       practice: practices(:practice5),
       checker_id: mentor.id,
