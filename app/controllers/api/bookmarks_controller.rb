@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class API::BookmarksController < API::BaseController
-  PAGER_NUMBER = 20
+  PAGER_NUMBER = 25
 
   def index
     per = params[:per] || PAGER_NUMBER
@@ -30,15 +30,7 @@ class API::BookmarksController < API::BaseController
 
   def destroy
     Bookmark.find(params[:id]).destroy
-    @bookmarks = current_user.bookmarks.includes(:bookmarkable).order(created_at: :desc, id: :desc).page(params[:page]).per(PAGER_NUMBER)
-
-    respond_to do |format|
-      format.json do
-        render partial: 'current_user/bookmarks/list',
-               formats: [:html],
-               locals: { bookmarks: @bookmarks }
-      end
-    end
+    head :no_content
   end
 
   private
