@@ -42,8 +42,62 @@ class ProductSelfAssignedNoRepliedQueryTest < ActiveSupport::TestCase
     assert_not_includes result, product
   end
 
+  test 'test should include products where last comment is not by checker' do
+    mentor = users(:mentormentaro)
+    user = users(:kimura)
+
+    product = Product.create!(
+      body: 'test',
+      user:,
+      practice: practices(:practice5),
+      checker_id: mentor.id,
+      published_at: Time.current,
+      wip: false
+    )
+
+    Comment.create!(
+      commentable: product,
+      user:,
+      description: '生徒からの返信コメント'
+    )
+
+    result = ProductSelfAssignedNoRepliedQuery.new(user_id: mentor.id).call
+
+    assert_includes result, product
+  end
+
   test 'should be ordered by published_at asc' do
     mentor = users(:mentormentaro)
+    user = users(:hajime)
+
+    time = Time.current
+
+    Product.create!(
+      body: 'test',
+      user:,
+      practice: practices(:practice1),
+      checker_id: mentor.id,
+      published_at: time,
+      wip: false
+    )
+
+    Product.create!(
+      body: 'test',
+      user:,
+      practice: practices(:practice2),
+      checker_id: mentor.id,
+      published_at: time,
+      wip: false
+    )
+
+    Product.create!(
+      body: 'test',
+      user:,
+      practice: practices(:practice3),
+      checker_id: mentor.id,
+      published_at: time,
+      wip: false
+    )
 
     result = ProductSelfAssignedNoRepliedQuery.new(user_id: mentor.id).call
 
