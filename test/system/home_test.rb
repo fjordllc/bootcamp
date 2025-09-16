@@ -4,7 +4,7 @@ require 'application_system_test_case'
 
 class HomeTest < ApplicationSystemTestCase
   test 'GET / without sign in' do
-    logout
+    # logout
     visit '/'
     assert_equal 'プログラミングスクール FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
