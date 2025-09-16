@@ -42,7 +42,7 @@ class ProductSelfAssignedNoRepliedQueryTest < ActiveSupport::TestCase
     assert_not_includes result, product
   end
 
-  test 'test should include products where last comment is not by checker' do
+  test 'should include products where last comment is not by checker' do
     mentor = users(:mentormentaro)
     user = users(:kimura)
 
