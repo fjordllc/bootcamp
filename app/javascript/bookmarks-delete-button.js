@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
       headers: {
         'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')
           .content,
-        Accept: 'application/json'
+        Accept: 'text/html'
       }
     })
       .then((response) => response.text())
