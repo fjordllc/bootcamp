@@ -5,6 +5,7 @@ class Users::CompaniesController < ApplicationController
 
   def index
     @target = ALLOWED_TARGETS.include?(params[:target]) ? params[:target] : ALLOWED_TARGETS.first
+    @allowed_targets = ALLOWED_TARGETS
     @companies = Company.with_attached_logo.order(:created_at).reverse_order
   end
 end
