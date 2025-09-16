@@ -8,12 +8,12 @@ class CurrentUser::BookmarksController < ApplicationController
     @bookmarks = current_user.bookmarks.includes(:bookmarkable).order(created_at: :desc, id: :desc).page(params[:page]).per(PAGER_NUMBER)
   end
 
-    def destroy
+  def destroy
     Bookmark.find(params[:id]).destroy
     @bookmarks = current_user.bookmarks.includes(:bookmarkable).order(created_at: :desc, id: :desc).page(params[:page]).per(PAGER_NUMBER)
 
-      render partial: 'current_user/bookmarks/list',
-         formats: [:html],
-         locals: { bookmarks: @bookmarks }
+    render partial: 'current_user/bookmarks/list',
+           formats: [:html],
+           locals: { bookmarks: @bookmarks }
   end
 end
