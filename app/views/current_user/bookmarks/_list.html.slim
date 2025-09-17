@@ -43,13 +43,13 @@
                   - if bookmark.bookmarkable_type == 'Talk'
                     = image_tag bookmark.bookmarkable.user.avatar_url, class: 'card-list-item__user-icon a-user-icon'
                   - else
-                    .card-list-item__label = t("activerecord.models.#{bookmark.bookmarkable.class.to_s.tableize.singularize}")
+                    .card-list-item__label = bookmark.bookmarkable.model_name.human
 
                   .card-list-item__rows
                     .card-list-item__row
                       .card-list-item-title
                         .card-list-item-title__title
-                           = link_to polymorphic_url(bookmark.bookmarkable), class: 'card-list-item-title__link a-text-link' do
+                           = link_to polymorphic_path(bookmark.bookmarkable), class: 'card-list-item-title__link a-text-link' do
                             = bookmark.bookmarkable_type == 'Talk' ? "#{bookmark.bookmarkable.user.long_name} さんの相談部屋" : bookmark.bookmarkable.title
 
                     - if bookmark.bookmarkable_type != 'Talk'
