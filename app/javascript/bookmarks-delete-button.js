@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('click', (event) => {
     const deleteButton = event.target.closest('.bookmark-delete-button')
