@@ -19,7 +19,7 @@ async function deleteBookmark(deleteButton) {
     })
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
+      throw new Error(`${response.error}`)
     }
 
     const cardListItems = document.querySelectorAll('.card-list-item')
