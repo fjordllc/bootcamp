@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class API::BookmarksController < API::BaseController
-  PAGER_NUMBER = 25
+  PAGER_NUMBER = 20
 
   def index
     per = params[:per] || PAGER_NUMBER
