@@ -14,7 +14,7 @@ class Bookmark::TalkTest < ApplicationSystemTestCase
     assert_text "#{@decorated_user.long_name} さんの相談部屋" if page.has_text?(@decorated_user.long_name)
 
     assert_selector 'a.pagination__item-link', text: '2'
-    find('a.pagination__item-link', text: '2').click
+    first('a.pagination__item-link', text: '2').click
     assert_text "#{@decorated_user.long_name} さんの相談部屋"
   end
 
