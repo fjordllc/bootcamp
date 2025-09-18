@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_09_08_044551) do
+ActiveRecord::Schema.define(version: 2025_09_18_051542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -485,7 +485,7 @@ ActiveRecord::Schema.define(version: 2025_09_08_044551) do
 
   create_table "learnings", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "practice_id", null: false
+    t.bigint "practice_id", null: false
     t.integer "status", default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -620,7 +620,7 @@ ActiveRecord::Schema.define(version: 2025_09_08_044551) do
     t.index ["user_id"], name: "index_participations_on_user_id"
   end
 
-  create_table "practices", id: :serial, force: :cascade do |t|
+  create_table "practices", force: :cascade do |t|
     t.string "title", limit: 255, null: false
     t.text "description"
     t.datetime "created_at"
@@ -633,7 +633,7 @@ ActiveRecord::Schema.define(version: 2025_09_08_044551) do
     t.text "memo"
     t.integer "last_updated_user_id"
     t.text "summary"
-    t.integer "source_id"
+    t.bigint "source_id"
     t.index ["category_id"], name: "index_practices_on_category_id"
   end
 
@@ -657,7 +657,7 @@ ActiveRecord::Schema.define(version: 2025_09_08_044551) do
   end
 
   create_table "practices_reports", id: false, force: :cascade do |t|
-    t.integer "practice_id", null: false
+    t.bigint "practice_id", null: false
     t.integer "report_id", null: false
     t.index ["practice_id", "report_id"], name: "index_practices_reports_on_practice_id_and_report_id", unique: true
     t.index ["report_id", "practice_id"], name: "index_practices_reports_on_report_id_and_practice_id"
@@ -797,7 +797,7 @@ ActiveRecord::Schema.define(version: 2025_09_08_044551) do
 
   create_table "skipped_practices", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "practice_id", null: false
+    t.bigint "practice_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id", "practice_id"], name: "index_skipped_practices_on_user_id_and_practice_id", unique: true
@@ -1029,6 +1029,7 @@ ActiveRecord::Schema.define(version: 2025_09_08_044551) do
   add_foreign_key "learning_time_frames_users", "learning_time_frames"
   add_foreign_key "learning_time_frames_users", "users"
   add_foreign_key "learning_times", "reports"
+  add_foreign_key "learnings", "practices"
   add_foreign_key "linear_scales", "survey_questions"
   add_foreign_key "micro_reports", "users"
   add_foreign_key "movies", "practices"
@@ -1050,6 +1051,7 @@ ActiveRecord::Schema.define(version: 2025_09_08_044551) do
   add_foreign_key "practices_books", "practices"
   add_foreign_key "practices_movies", "movies"
   add_foreign_key "practices_movies", "practices"
+  add_foreign_key "practices_reports", "practices"
   add_foreign_key "products", "practices"
   add_foreign_key "products", "users"
   add_foreign_key "questions", "practices"
@@ -1063,6 +1065,7 @@ ActiveRecord::Schema.define(version: 2025_09_08_044551) do
   add_foreign_key "report_templates", "users"
   add_foreign_key "request_retirements", "users"
   add_foreign_key "request_retirements", "users", column: "target_user_id"
+  add_foreign_key "skipped_practices", "practices"
   add_foreign_key "submission_answers", "practices"
   add_foreign_key "survey_answers", "surveys"
   add_foreign_key "survey_answers", "users"
