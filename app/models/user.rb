@@ -492,6 +492,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
       .joins(:learning_time_frames)
       .merge(LearningTimeFrame.active_now)
       .where.not(id: user.id)
+      .with_attached_avatar
   }
 
   class << self
