@@ -15,18 +15,19 @@ async function deleteBookmark(deleteButton) {
   const url = deleteButton.dataset.url
   try {
     const response = await destroy(url, {
+      responseKind: 'html',
       headers: { Accept: 'text/html' }
     })
 
     if (!response.ok) {
-      throw new Error(`${response.error}`)
+      throw new Error(`削除に失敗しました。`)
     }
 
     const cardListItems = document.querySelectorAll('.card-list-item')
+    const cardListItem = deleteButton.closest('.card-list-item')
 
     if (cardListItems.length === 1) {
-      deleteButton.closest('.card-list-item').remove()
-
+      cardListItem.remove()
       const pageBody = document.querySelector('.page-body')
       if (pageBody) {
         pageBody.innerHTML = `
@@ -39,7 +40,7 @@ async function deleteBookmark(deleteButton) {
         `
       }
     } else {
-      deleteButton.closest('.card-list-item').remove()
+      cardListItem.remove()
     }
   } catch (error) {
     console.warn(error)
