@@ -6,19 +6,9 @@ class LearningTimeFrame < ApplicationRecord
 
   validates :week_day, :activity_time, presence: true
 
-  WEEKDAY_MAPPING = {
-    'sunday' => '日',
-    'monday' => '月',
-    'tuesday' => '火',
-    'wednesday' => '水',
-    'thursday' => '木',
-    'friday' => '金',
-    'saturday' => '土'
-  }.freeze
-
   scope :active_now, lambda {
     now = Time.zone.now
-    weekday = WEEKDAY_MAPPING[now.strftime('%A').downcase]
+    weekday = I18n.t('date.abbr_day_names')[now.wday]
     hour = now.hour
 
     where(week_day: weekday, activity_time: hour)
