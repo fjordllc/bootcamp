@@ -98,7 +98,7 @@ class QuestionAutoCloser
     end
 
     def publish_events(correct_answer)
-      Newspaper.publish(:answer_save, { answer: correct_answer })
+      ActiveSupport::Notifications.instrument('answer.save', answer: correct_answer)
       Newspaper.publish(:correct_answer_save, { answer: correct_answer })
     end
   end
