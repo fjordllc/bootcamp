@@ -46,12 +46,7 @@ class API::AnswersController < API::BaseController
 
   def destroy
     @answer.destroy
-    return unless @answer.is_a?(CorrectAnswer)
-
-    Newspaper.publish(:answer_destroy, {
-                        answer: @answer,
-                        action: "#{self.class.name}##{action_name}"
-                      })
+    ActiveSupport::Notifications.instrument('answer.destroy', answer: @answer, action: "#{self.class.name}##{action_name}") if @answer.type == 'CorrectAnswer'
   end
 
   private
