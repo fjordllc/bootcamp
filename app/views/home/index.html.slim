@@ -20,8 +20,7 @@
       = render 'adviser_dashboard'
     - elsif current_user.mentor?
       = render 'mentor_dashboard', products: @products, products_grouped_by_elapsed_days: @products_grouped_by_elapsed_days
-    
-    - if current_user.student_or_trainee?
+    - else
       .columns
         .container.is-xl
           .row
