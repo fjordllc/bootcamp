@@ -15,10 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
         headers: { Accept: 'text/html' }
       })
 
-      console.log(response)
-
       if (!response.ok) {
-        throw new Error(`削除に失敗しました。`)
+        throw new Error(`削除に失敗しました。(ステータス: ${response.status})`)
       }
 
       const html = await response.text
