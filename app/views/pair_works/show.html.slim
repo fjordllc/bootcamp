@@ -32,4 +32,4 @@
         .page-content.pair-work
           = render 'header', pair_work: @pair_work
           = render 'body', pair_work: @pair_work
-        #js-comments(data-commentable-id="#{@pair_work.id}" data-commentable-type='PairWork' data-current-user-id="#{current_user.id}")
+        = render 'comments/comments', commentable: @pair_work, commentable_type: 'PairWork'
