@@ -16,7 +16,9 @@ class PairWorksController < ApplicationController
     @pair_works_property = PairWork.generate_pair_works_property(params[:target])
   end
 
-  def show; end
+  def show
+    @comments = @pair_work.comments.order(:created_at)
+  end
 
   def edit; end
 
