@@ -49,7 +49,7 @@
                     .card-list-item__row
                       .card-list-item-title
                         .card-list-item-title__title
-                           = link_to polymorphic_path(bookmark.bookmarkable), class: 'card-list-item-title__link a-text-link' do
+                          = link_to polymorphic_path(bookmark.bookmarkable), class: 'card-list-item-title__link a-text-link' do
                             = bookmark.bookmarkable_type == 'Talk' ? "#{bookmark.bookmarkable.user.long_name} さんの相談部屋" : bookmark.bookmarkable.title
 
                     - if bookmark.bookmarkable_type != 'Talk'
@@ -70,7 +70,7 @@
 
                   .card-list-item__option
                     .js-bookmark-delete-button
-                      = link_to '削除', '#', class: 'bookmark-delete-button a-bookmark-button a-button is-sm is-block is-main', data: { url: current_user_bookmark_path(bookmark) }
+                       button.bookmark-delete-button.a-bookmark-button.a-button.is-sm.is-block.is-main[type="button" data-url=current_user_bookmark_path(bookmark)] 削除
 
         - if @bookmarks.total_pages > 1
           = paginate @bookmarks
