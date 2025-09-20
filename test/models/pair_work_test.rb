@@ -51,7 +51,7 @@ class PairWorkTest < ActiveSupport::TestCase
     assert PairWork.update_permission?(current_user: users(:mentormentaro), matching: true)
 
     unrelated_user = users(:kimura)
-    assert_nil PairWork.update_permission?(current_user: unrelated_user, matching: false)
+    assert_not PairWork.update_permission?(current_user: unrelated_user, matching: false)
   end
 
   test '.upcoming_pair_works' do
