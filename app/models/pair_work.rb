@@ -27,6 +27,7 @@ class PairWork < ApplicationRecord
   scope :not_solved, -> { where(reserved_at: nil) }
   scope :wip, -> { where(wip: true) }
   scope :not_wip, -> { where(wip: false) }
+  scope :not_held, -> { not_solved.or(where('reserved_at > ?', Date.current)) }
   scope :by_target, lambda { |target|
     case target
     when 'solved'
