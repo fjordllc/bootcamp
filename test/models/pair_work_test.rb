@@ -85,4 +85,27 @@ class PairWorkTest < ActiveSupport::TestCase
     unrelated_pair_work = pair_works(:pair_work2)
     assert_not_includes PairWork.upcoming_pair_works(user), unrelated_pair_work
   end
+
+  test '.not_held' do
+    not_held_pair_work = PairWork.create!({
+                                            user: users(:kimura),
+                                            title: 'ペア確定したけどまだ実施されてないペアワーク',
+                                            description: 'ペア確定したけどまだ実施されてないペアワーク',
+                                            buddy_id: users(:komagata),
+                                            channel: 'ペアワーク・モブワーク1',
+                                            wip: false,
+                                            reserved_at: Time.current.beginning_of_day + 1.day,
+                                            schedules_attributes: [{ proposed_at: Time.current.beginning_of_day + 1.day }]
+                                          })
+    not_solved_pair_work = pair_works(:pair_work1)
+    wip_pair_work = pair_works(:pair_work3)
+
+    held_on_pair_work = pair_works(:pair_work2)
+
+    assert_includes PairWork.not_held, not_held_pair_work
+    assert_includes PairWork.not_held, not_solved_pair_work
+    assert_includes PairWork.not_held, wip_pair_work
+
+    assert_not_includes PairWork.not_held, held_on_pair_work
+  end
 end
