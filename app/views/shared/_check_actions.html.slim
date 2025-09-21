@@ -22,8 +22,9 @@
                   = checkable.checker.login_name
 
         li.card-main-actions__item class=(checkable.checks.any? ? 'is-sub' : '')
-          - if check
-            = form_with url: polymorphic_path([checkable, check]), method: :delete, local: true do |f|
+          - checked_checkable = checkable.checks.first
+          - if checked_checkable
+            = form_with url: polymorphic_path([checkable, checked_checkable]), method: :delete, local: true do |f|
               - if checkable_type == 'Product'
                 = f.submit "#{checkable_label}の合格を取り消す", class: 'card-main-actions__muted-action'
               - else
