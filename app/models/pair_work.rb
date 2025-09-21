@@ -67,8 +67,9 @@ class PairWork < ApplicationRecord
     PairWork.not_solved.not_wip.size
   end
 
-  def self.update_permission?(current_user:, matching:)
-    current_user.admin? || (matching && current_user.mentor?)
+  def self.matching_permission?(user, params)
+    matching = params[:buddy_id] && params[:reserved_at] && !params.key?(:title) && !params.key?(:description)
+    matching && user.mentor?
   end
 
   def generate_notice_message(action_name)
