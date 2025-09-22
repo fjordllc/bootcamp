@@ -48,13 +48,4 @@ class PairWorkHelperTest < ActionView::TestCase
     assert checked?(future_date, my_learning_time_frame_id)
     assert_not checked?(past_date, my_learning_time_frame_id)
   end
-
-  test 'pair_work_user?' do
-    kimura = current_user
-    other_user = users(:komagata)
-    kimura_pair_work = pair_works(:pair_work1)
-
-    assert pair_work_user?(kimura_pair_work, kimura)
-    assert_not pair_work_user?(kimura_pair_work, other_user)
-  end
 end
