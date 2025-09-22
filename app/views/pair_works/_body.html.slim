@@ -49,7 +49,7 @@
           = link_to edit_pair_work_path(pair_work), class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
             i#new.fa-solid.fa-pen
             | 内容修正
-        li.card-main-actions__item.is-sub.is-only-metor class=(current_user.admin? || pair_work.user == current_user ? '' : 'is-hidden')
+        li.card-main-actions__item.is-sub.is-only-mentor class=(current_user.admin? || pair_work.user == current_user ? '' : 'is-hidden')
           = link_to '削除', pair_work_path(pair_work),
             data: { confirm: '本当に削除しますか？' }, method: :delete, class: 'card-main-actions__muted-action'
 
@@ -63,7 +63,7 @@
   hr.a-border-tint
   .card-body
     .card-body__description
-      .pair-work-schedule-dates(class="#{(pair_work.solved? && pair_work.user != current_user) ? 'is-solved' : ''}")
+      .pair-work-schedule-dates class=(pair_work.solved? && pair_work.user != current_user ? 'is-solved' : '')
         - if pair_work.solved?
           .pair-work-schedule-dates__action
             .pair-work-schedule-dates__action-items
