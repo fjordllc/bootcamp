@@ -35,7 +35,7 @@
       .thread-comment__reactions
         = render 'reactions/reactions', reactionable: answer
       hr.a-border-tint
-        - if (user == answer.user || user == question.user) || user.admin? || user.mentor?
+        - if [answer.user, question.user].include?(user) || user.admin? || user.mentor?
           footer.card-footer
             .card-main-actions
               ul.card-main-actions__items
