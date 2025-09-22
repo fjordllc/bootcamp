@@ -84,9 +84,6 @@ export default {
         alert(json.message)
       } else {
         alert('提出物の担当になりました。')
-
-        const event = new Event('checkerAssigned')
-        window.dispatchEvent(event)
         sessionStorage.setItem('showToast', '担当になりました。')
       }
     } catch (error) {
