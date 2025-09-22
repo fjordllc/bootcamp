@@ -27,8 +27,4 @@ module PairWorkHelper
   def checked?(target_date, id)
     !disabled?(target_date) && current_user.learning_time_frame_ids.include?(id)
   end
-
-  def pair_work_user?(pair_work, current_user)
-    pair_work.user == current_user
-  end
 end
