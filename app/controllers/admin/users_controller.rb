@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Admin::UsersController < AdminController # rubocop:disable Metrics/ClassLength
+class Admin::UsersController < AdminController
   before_action :set_user, only: %i[show edit update]
   ALLOWED_TARGETS = %w[all student_and_trainee inactive hibernated retired graduate adviser mentor trainee year_end_party campaign].freeze
 
@@ -104,22 +104,10 @@ class Admin::UsersController < AdminController # rubocop:disable Metrics/ClassLe
   end
 
   def complete_graduation_or_retirement(user)
-    if user.saved_change_to_retired_on? &&
-       user.retired_on_before_last_save.nil?
+    if user.saved_change_to_retired_on? && user.retired_on_before_last_save.nil?
       AfterUserRetirement.new(user, triggered_by: 'admin').call
-
-      return
+    elsif user.saved_change_to_graduated_on? && user.graduated_on_before_last_save.nil?
+      Subscription.new.destroy(user.subscription_id) if user.subscription_id?
     end
-
-    if user.saved_change_to_graduated_on? &&
-       user.graduated_on_before_last_save.nil?
-      destroy_subscription(user)
-    end
-  end
-
-  def destroy_subscription(user)
-    return if user.subscription_id.blank?
-
-    Subscription.new.destroy(user.subscription_id)
   end
 end
