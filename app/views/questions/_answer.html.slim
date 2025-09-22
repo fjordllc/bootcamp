@@ -39,12 +39,12 @@
           footer.card-footer
             .card-main-actions
               ul.card-main-actions__items
-                - if user == answer.user || user.admin?
+                - if answer.user == user || user.admin?
                   li.card-main-actions__item
                     button.card-main-actions__action.a-button.is-sm.is-secondary.is-block.edit-button
                       i.fa-solid.fa-pen
                       | 内容修正
-                - if user == question.user || user.mentor?
+                - if question.user == user || user.mentor?
                   - make_button_hidden = (question.correct_answer && answer.type != 'CorrectAnswer') || (answer.type == 'CorrectAnswer')
                   - cancel_button_hidden = (question.correct_answer && answer.type != 'CorrectAnswer') || !question.correct_answer
                   li.card-main-actions__item.make-best-answer-button class=(make_button_hidden ? 'is-hidden' : '')
@@ -53,7 +53,7 @@
                   li.card-main-actions__item.cancel-best-answer-button class=(cancel_button_hidden ? 'is-hidden' : '')
                     button.card-main-actions__action.a-button.is-sm.is-muted.is-block.cancel-best-answer
                       | ベストアンサーを取り消す
-                - if user == answer.user || user.mentor?
+                - if answer.user == user || user.mentor?
                   li.card-main-actions__item.is-sub
                     button.card-main-actions__muted-action.delete-button
                       | 削除する
