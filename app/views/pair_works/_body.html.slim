@@ -42,7 +42,7 @@
   = render 'reactions/reactions', reactionable: pair_work
 
   hr.a-border-tint
-  footer.card-footer class=(current_user.id == pair_work.user.id || current_user.admin ? '' : 'is-hidden')
+  footer.card-footer class=(current_user == pair_work.user || current_user.admin? ? '' : 'is-hidden')
     .card-main-actions
       ul.card-main-actions__items
         li.card-main-actions__item
