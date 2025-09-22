@@ -46,12 +46,11 @@ class PairWorkTest < ActiveSupport::TestCase
     assert_nil PairWork.unsolved_badge(current_user: users(:hatsuno))
   end
 
-  test '.update_permission?' do
-    assert PairWork.update_permission?(current_user: users(:komagata), matching: false)
-    assert PairWork.update_permission?(current_user: users(:mentormentaro), matching: true)
-
-    unrelated_user = users(:kimura)
-    assert_not PairWork.update_permission?(current_user: unrelated_user, matching: false)
+  test '.matching_permission?' do
+    valid_params = { buddy_id: 1, reserved_at: 1 }
+    invalid_params = { buddy_id: 1, reserved_at: 1, title: '不正に改変しようとしているtitle', description: '不正に改変しようとしているdescription' }
+    assert PairWork.matching_permission?(users(:mentormentaro), valid_params)
+    assert_not PairWork.matching_permission?(users(:mentormentaro), invalid_params)
   end
 
   test '.upcoming_pair_works' do
