@@ -63,7 +63,7 @@
   hr.a-border-tint
   .card-body
     .card-body__description
-      .pair-work-schedule-dates(class="#{pair_work.solved? ? 'is-solved' : ''}")
+      .pair-work-schedule-dates(class="#{(pair_work.solved? && !pair_work_user?(pair_work, current_user)) ? 'is-solved' : ''}")
         - if pair_work.solved?
           .pair-work-schedule-dates__action
             .pair-work-schedule-dates__action-items
