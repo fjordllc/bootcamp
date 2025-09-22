@@ -9,22 +9,6 @@ import { setWatchable } from './setWatchable.js'
 import commentCheckable from './comment-checkable.js'
 
 document.addEventListener('DOMContentLoaded', () => {
-  if (sessionStorage.getItem('showAssignedToast') === 'true') {
-    sessionStorage.removeItem('showAssignedToast')
-    toast('担当になりました。')
-  }
-
-  if (sessionStorage.getItem('showCheckToast') === 'true') {
-    sessionStorage.removeItem('showCheckToast')
-    const commentableType =
-      document.querySelector('.new-comment')?.dataset.commentable_type
-    if (commentableType === 'Product') {
-      toast('提出物を確認済みにしました。')
-    } else {
-      toast('日報を確認済みにしました。')
-    }
-  }
-
   const newComment = document.querySelector('.new-comment')
   if (!newComment) return
 
@@ -50,6 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const previewTab = commentEditor.querySelector('.comment-preview-tab')
   const previewTabContent = commentEditor.querySelector('.is-preview')
   const tabElements = [editTab, editorTabContent, previewTab, previewTabContent]
+
+  const message = sessionStorage.getItem('showToast')
+  if (message) {
+    sessionStorage.removeItem('showToast')
+    toast(message)
+  }
 
   editTab.addEventListener('click', () =>
     toggleVisibility(tabElements, 'is-active')
@@ -166,17 +156,6 @@ document.addEventListener('DOMContentLoaded', () => {
     addCommentToDOM(html)
   }
 
-  const getToastMessage = (checkAfterSave, assigned) => {
-    if (checkAfterSave) {
-      return commentableType === 'Product'
-        ? '提出物を合格にしました。'
-        : '日報を確認済みにしました。'
-    } else if (assigned) {
-      return '担当になりました。'
-    }
-    return 'コメントを投稿しました！'
-  }
-
   const performCheck = async () => {
     await commentCheckable.check(
       commentableType,
@@ -207,8 +186,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       resetEditor()
 
-      if (!assigned && !checkAfterSave) {
-        toast(getToastMessage(checkAfterSave, assigned))
+      if (assigned || checkAfterSave) {
+        location.reload()
+      } else {
+        toast('コメントを投稿しました！')
       }
     } catch (error) {
       console.warn(error)
