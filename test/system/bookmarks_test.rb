@@ -91,7 +91,10 @@ class BookmarksTest < ApplicationSystemTestCase
   end
 
   test 'unbookmark announcement' do
-    visit_with_auth "/announcements/#{@announcement.id}", 'kimura'
+    user = users(:kimura)
+    user.bookmarks.create!(bookmarkable: @announcement)
+
+    visit_with_auth "/announcements/#{@announcement.id}", user.login_name
     assert_selector '#bookmark-button.is-active'
     find('#bookmark-button').click
     assert_selector '#bookmark-button.is-inactive'
