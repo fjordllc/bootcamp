@@ -72,9 +72,9 @@ class ReactionsTest < ApplicationSystemTestCase
     visit_with_auth report_path(reports(:report1)), 'komagata'
 
     within('.report') do
-      assert_no_selector '.js-reactions-inspector-dropdown', visible: :visible
-      find('.reactions__inspector-toggle').click
-      assert_no_selector '.js-reactions-inspector-dropdown', visible: :visible
+      assert_no_selector '.js-reactions-users-list', visible: :visible
+      find('.reactions__users-toggle').click
+      assert_no_selector '.js-reactions-users-list', visible: :visible
     end
   end
 
@@ -86,12 +86,12 @@ class ReactionsTest < ApplicationSystemTestCase
       first('.js-reaction-dropdown-toggle').click
       first(".js-reaction-dropdown li[data-reaction-kind='smile']").click
 
-      assert_no_selector '.js-reactions-inspector-dropdown', visible: :visible
-      find('.reactions__inspector-toggle').click
-      assert_selector '.js-reactions-inspector-dropdown', visible: :visible
+      assert_no_selector '.js-reactions-users-list', visible: :visible
+      find('.reactions__users-toggle').click
+      assert_selector '.js-reactions-users-list', visible: :visible
 
-      within('.js-reactions-inspector-dropdown') do
-        within('.reaction-inspector-line') do
+      within('.js-reactions-users-list') do
+        within('.reaction-users-line') do
           assert_selector 'span.reaction-emoji', text: '😄'
           click_link href: user_path(users(:machida))
         end
@@ -107,11 +107,11 @@ class ReactionsTest < ApplicationSystemTestCase
       first('.js-reaction-dropdown-toggle').click
       first(".js-reaction-dropdown li[data-reaction-kind='smile']").click
 
-      assert_no_selector '.js-reactions-inspector-dropdown', visible: :visible
-      find('.reactions__inspector-toggle').click
-      assert_selector '.js-reactions-inspector-dropdown', visible: :visible
-      find('.reactions__inspector-toggle').click
-      assert_no_selector '.js-reactions-inspector-dropdown', visible: :visible
+      assert_no_selector '.js-reactions-users-list', visible: :visible
+      find('.reactions__users-toggle').click
+      assert_selector '.js-reactions-users-list', visible: :visible
+      find('.reactions__users-toggle').click
+      assert_no_selector '.js-reactions-users-list', visible: :visible
     end
   end
 
@@ -122,12 +122,11 @@ class ReactionsTest < ApplicationSystemTestCase
       first('.js-reaction-dropdown-toggle').click
       first(".js-reaction-dropdown li[data-reaction-kind='smile']").click
 
-
-      find('.reactions__inspector-toggle').click
-      assert_selector '.js-reactions-inspector-dropdown', visible: :visible
+      find('.reactions__users-toggle').click
+      assert_selector '.js-reactions-users-list', visible: :visible
 
       find('.a-long-text').click
-      assert_no_selector '.js-reactions-inspector-dropdown', visible: :visible
+      assert_no_selector '.js-reactions-users-list', visible: :visible
     end
   end
 
@@ -138,11 +137,11 @@ class ReactionsTest < ApplicationSystemTestCase
       first('.js-reaction-dropdown-toggle').click
       first(".js-reaction-dropdown li[data-reaction-kind='smile']").click
 
-      find('.reactions__inspector-toggle').click
-      assert_selector '.js-reactions-inspector-dropdown', visible: :visible
+      find('.reactions__users-toggle').click
+      assert_selector '.js-reactions-users-list', visible: :visible
 
       find('.reactions__users-list').click
-      assert_selector '.js-reactions-inspector-dropdown', visible: :visible
+      assert_selector '.js-reactions-users-list', visible: :visible
     end
   end
 end
