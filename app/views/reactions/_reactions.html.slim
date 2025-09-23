@@ -8,10 +8,10 @@
           - reactionable.reaction_login_names_by(kind).each do |login_name|
             li = login_name
   .reactions__actions
-    .reactions__inspector.js-reactions-inspector
-      .reactions__inspector-toggle.js-reactions-inspector-toggle
+    .reactions__users.js-reactions-users
+      .reactions__users-toggle.js-reactions-users-toggle
         i.fa-solid.fa-eye
-    .reactions__inspector-dropdown.js-reactions-inspector-dropdown.hidden
+      .reactions__users-list.js-reactions-users-list.hidden
     .reactions__dropdown.js-reaction-dropdown
       .reactions__dropdown-toggle.js-reaction-dropdown-toggle
         i.fa-regular.fa-plus.reactions__dropdown-toggle-plus
