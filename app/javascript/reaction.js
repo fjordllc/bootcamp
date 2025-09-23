@@ -35,7 +35,7 @@ export function initializeReaction(reaction) {
     })
   })
 
-  setupInspectorDropdown(reaction, reactionableId)
+  setupUsersList(reaction, reactionableId)
 }
 
 function requestReaction(url, method, callback) {
@@ -120,27 +120,23 @@ function destroyReaction(reaction, kind, loginName, reactionId) {
   })
 }
 
-function setupInspectorDropdown(reaction, reactionableId) {
-  const inspectorToggle = reaction.querySelector(
-    '.js-reactions-inspector-toggle'
-  )
-  const inspectorDropdown = reaction.querySelector(
-    '.js-reactions-inspector-dropdown'
-  )
+function setupUsersList(reaction, reactionableId) {
+  const usersToggle = reaction.querySelector('.js-reactions-users-toggle')
+  const usersList = reaction.querySelector('.js-reactions-users-list')
 
-  if (!inspectorToggle || !inspectorDropdown) {
+  if (!usersToggle || !usersList) {
     return
   }
 
-  inspectorToggle.addEventListener('click', (e) => {
+  usersToggle.addEventListener('click', (e) => {
     e.stopPropagation()
-    const isHidden = inspectorDropdown.classList.contains('hidden')
+    const isHidden = usersList.classList.contains('hidden')
     if (isHidden) {
       fetchAllReactions(reactionableId, (data) => {
         if (Object.keys(data).length === 0) {
           return
         }
-        renderAllReactions(data, inspectorDropdown)
+        renderAllReactions(data, usersList)
         open()
       })
     } else {
@@ -149,29 +145,27 @@ function setupInspectorDropdown(reaction, reactionableId) {
   })
 
   document.addEventListener('click', (e) => {
-    const isHidden = inspectorDropdown.classList.contains('hidden')
+    const isHidden = usersList.classList.contains('hidden')
     if (
       !isHidden &&
-      !inspectorDropdown.contains(e.target) &&
-      !inspectorToggle.contains(e.target)
+      !usersList.contains(e.target) &&
+      !usersToggle.contains(e.target)
     ) {
       close()
     }
   })
 
   function open() {
-    document
-      .querySelectorAll('.js-reactions-inspector-dropdown')
-      .forEach((element) => {
-        if (!element.classList.contains('hidden')) {
-          element.classList.add('hidden')
-        }
-      })
-    inspectorDropdown.classList.remove('hidden')
+    document.querySelectorAll('.js-reactions-users-list').forEach((element) => {
+      if (!element.classList.contains('hidden')) {
+        element.classList.add('hidden')
+      }
+    })
+    usersList.classList.remove('hidden')
   }
 
   function close() {
-    inspectorDropdown.classList.add('hidden')
+    usersList.classList.add('hidden')
   }
 }
 
@@ -189,7 +183,7 @@ function renderAllReactions(data, content) {
 
   Object.entries(data).forEach(([_kind, { emoji, users }]) => {
     const emojiLine = document.createElement('div')
-    emojiLine.classList.add('reaction-inspector-line')
+    emojiLine.classList.add('reaction-users-line')
 
     const emojiSpan = document.createElement('span')
     emojiSpan.classList.add('reaction-emoji')

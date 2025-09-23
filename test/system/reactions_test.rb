@@ -70,26 +70,24 @@ class ReactionsTest < ApplicationSystemTestCase
   test 'does not show reaction users list when there are no reactions' do
     reports(:report1).reactions.destroy_all
     visit_with_auth report_path(reports(:report1)), 'komagata'
-
     within('.report.page-content') do
-      assert_no_selector('.js-reactions-inspector-dropdown', visible: :visible)
-      find('.js-reactions-inspector-toggle').click
-      assert_no_selector('.js-reactions-inspector-dropdown', visible: :visible)
+      assert_no_selector('.js-reactions-users-list', visible: :visible)
+      find('.js-reactions-users-toggle').click
+      assert_no_selector('.js-reactions-users-list', visible: :visible)
     end
   end
 
   test 'show reactions and links to user profile when clicking avatar' do
     reports(:report1).reactions.destroy_all
     visit_with_auth report_path(reports(:report1)), 'machida'
-
     within('.report.page-content') do
       find('.js-reaction-dropdown-toggle').click
       find(".js-reaction-dropdown li[data-reaction-kind='smile']").click
 
-      find('.js-reactions-inspector-toggle').click
-      assert_selector('.js-reactions-inspector-dropdown', visible: :visible)
+      find('.js-reactions-users-toggle').click
+      assert_selector('.js-reactions-users-list', visible: :visible)
 
-      within('.js-reactions-inspector-dropdown') do
+      within('.js-reactions-users-list') do
         assert_selector('span.reaction-emoji', text: '😄')
         click_link href: user_path(users(:machida))
       end
@@ -104,10 +102,10 @@ class ReactionsTest < ApplicationSystemTestCase
       find('.js-reaction-dropdown-toggle').click
       find(".js-reaction-dropdown li[data-reaction-kind='smile']").click
 
-      find('.js-reactions-inspector-toggle').click
-      assert_selector('.js-reactions-inspector-dropdown', visible: :visible)
-      find('.js-reactions-inspector-toggle').click
-      assert_no_selector('.js-reactions-inspector-dropdown', visible: :visible)
+      find('.js-reactions-users-toggle').click
+      assert_selector('.js-reactions-users-list', visible: :visible)
+      find('.js-reactions-users-toggle').click
+      assert_no_selector('.js-reactions-users-list', visible: :visible)
     end
   end
 
@@ -118,10 +116,10 @@ class ReactionsTest < ApplicationSystemTestCase
       find('.js-reaction-dropdown-toggle').click
       find(".js-reaction-dropdown li[data-reaction-kind='smile']").click
 
-      find('.js-reactions-inspector-toggle').click
-      assert_selector('.js-reactions-inspector-dropdown', visible: :visible)
+      find('.js-reactions-users-toggle').click
+      assert_selector('.js-reactions-users-list', visible: :visible)
       find('.a-long-text').click
-      assert_no_selector('.js-reactions-inspector-dropdown', visible: :visible)
+      assert_no_selector('.js-reactions-users-list', visible: :visible)
     end
   end
 
@@ -132,10 +130,10 @@ class ReactionsTest < ApplicationSystemTestCase
       find('.js-reaction-dropdown-toggle').click
       find(".js-reaction-dropdown li[data-reaction-kind='smile']").click
 
-      find('.js-reactions-inspector-toggle').click
-      assert_selector('.js-reactions-inspector-dropdown', visible: :visible)
-      find('.js-reactions-inspector-dropdown').click
-      assert_selector('.js-reactions-inspector-dropdown', visible: :visible)
+      find('.js-reactions-users-toggle').click
+      assert_selector('.js-reactions-users-list', visible: :visible)
+      find('.js-reactions-users-list').click
+      assert_selector('.js-reactions-users-list', visible: :visible)
     end
   end
 end
