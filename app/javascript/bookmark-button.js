@@ -12,8 +12,6 @@ class BookmarkButton {
     this.isBookmark = false
     this.bookmarkId = null
     this.isLoading = false
-
-    this.init()
   }
 
   async init() {
@@ -131,6 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const bookmarkButtons = document.querySelectorAll('[data-bookmark-button]')
   bookmarkButtons.forEach((button) => {
     const bookmarkButton = new BookmarkButton(button)
-    button._bookmarkButtonInstance = bookmarkButton
+    bookmarkButton.init()
   })
 })
