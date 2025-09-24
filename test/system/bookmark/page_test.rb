@@ -28,6 +28,7 @@ class Bookmark::PageTest < ApplicationSystemTestCase
 
   test 'bookmark page' do
     visit_with_auth "/pages/#{@page.id}", 'komagata'
+    wait_for_bookmark_button_loading
     find('[data-bookmark-button]').click
     wait_for_bookmark_button_loading
     assert_selector '[data-bookmark-button].is-active'

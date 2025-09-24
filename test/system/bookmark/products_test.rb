@@ -28,6 +28,7 @@ class Bookmark::ProductTest < ApplicationSystemTestCase
 
   test 'bookmark product' do
     visit_with_auth "/products/#{@product.id}", 'komagata'
+    wait_for_bookmark_button_loading
     find('[data-bookmark-button]').click
     wait_for_bookmark_button_loading
     assert_selector '[data-bookmark-button].is-active'
@@ -39,6 +40,7 @@ class Bookmark::ProductTest < ApplicationSystemTestCase
 
   test 'unbookmark product' do
     visit_with_auth "/products/#{@product.id}", 'kimura'
+    wait_for_bookmark_button_loading
     find('[data-bookmark-button]').click
     wait_for_bookmark_button_loading
     assert_selector '[data-bookmark-button].is-inactive'

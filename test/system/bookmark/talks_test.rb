@@ -30,6 +30,7 @@ class Bookmark::TalkTest < ApplicationSystemTestCase
 
   test 'bookmark talk' do
     visit_with_auth "/talks/#{@talk.id}", 'machida'
+    wait_for_bookmark_button_loading
     find('[data-bookmark-button]').click
     wait_for_bookmark_button_loading
     assert_selector '[data-bookmark-button].is-active'
