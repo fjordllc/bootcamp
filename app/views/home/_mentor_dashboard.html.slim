@@ -37,7 +37,7 @@
                       = render 'wip_items'
                   - if User.depressed_reports.present?
                     .a-panels__item.is-only-mentor
-                      = render 'users/sad_emotion_report', reports: User.depressed_reports
+                      = render 'users/negative_emotion_report', reports: User.depressed_reports
                   - if @inactive_students.present?
                     .a-panels__item.is-only-mentor
                       = render 'users/inactive_users', users: @inactive_students
