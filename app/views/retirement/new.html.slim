@@ -16,7 +16,8 @@ hr.a-border
         = render 'errors', object: current_user
       = form_with model: current_user, local: true, url: retirement_path, method: :post, class: 'form' do |f|
         .form__items
-          - if RegularEvent.organizer_event(current_user).holding.any?
+          - holding_regular_events = RegularEvent.organizer_event(current_user).holding
+          - if holding_regular_events.any?
             .form-item
               .important-message
                 .important-message__body
@@ -28,7 +29,7 @@ hr.a-border
                       | 退会手続きを完了する前に、
                       | 以下のリンク先でイベント設定変更を行なってください。
                     ul
-                      - RegularEvent.organizer_event(current_user).holding.each do |event|
+                      - holding_regular_events.each do |event|
                         li
                           = link_to edit_regular_event_path(event), target: '_blank', rel: 'noopener' do
                             | 定期イベント「#{event.title}」の設定変更

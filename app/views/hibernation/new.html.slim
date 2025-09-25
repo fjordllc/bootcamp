@@ -70,7 +70,8 @@ hr.a-border
                         | こちら
                       | のページの「分報 URL」欄に分報チャンネルの URL を登録してください。
 
-          - if RegularEvent.organizer_event(current_user).holding.any?
+          - holding_regular_events = RegularEvent.organizer_event(current_user).holding
+          - if holding_regular_events.any?
             .form-item
               label.a-form-label
                 | 定期イベント
@@ -83,7 +84,7 @@ hr.a-border
                       | 休会をお考えの場合、イベントの進行に影響がないよう、任意で他の参加者に主催を引き継ぐことを推奨します。
                       | 休会手続きを完了する前に、以下のリンク先でイベント設定変更を行なってください。
                     ul
-                      - RegularEvent.organizer_event(current_user).holding.each do |event|
+                      - holding_regular_events.holding.each do |event|
                         li
                           = link_to edit_regular_event_path(event), target: '_blank', rel: 'noopener' do
                             | 定期イベント「#{event.title}」の設定変更
