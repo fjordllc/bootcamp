@@ -94,31 +94,9 @@ class HibernationTest < ApplicationSystemTestCase
   end
 
   test 'do not show warning for finished regular events' do
-    user = users(:hatsuno)
+    regular_event = regular_events(:regular_event39)
 
-    regular_event = RegularEvent.new(
-      user:,
-      title: '定期イベントテスト',
-      description: 'テスト',
-      finished: true,
-      hold_national_holiday: false,
-      start_at: Time.zone.local(2025, 1, 1, 10, 0, 0),
-      end_at: Time.zone.local(2025, 1, 1, 11, 0, 0),
-      wip: false,
-      category: :chat,
-      published_at: '2025-01-05 00:00:00'
-    )
-
-    regular_event.regular_event_repeat_rules.build(
-      frequency: 0,
-      day_of_the_week: 3
-    )
-
-    regular_event.users << user
-
-    regular_event.save!
-
-    visit_with_auth new_hibernation_path, user.login_name
+    visit_with_auth new_hibernation_path, regular_event.user.login_name
     assert_no_text 'ご自身が主催者である定期イベントがあります。'
   end
 end
