@@ -36,7 +36,7 @@ class ReportsPracticeFilterTest < ApplicationSystemTestCase
   end
 
   test 'practice filter is hidden when unchecked parameter is present' do
-    visit reports_path(unchecked: true)
+    visit unchecked_reports_path
     assert_no_selector 'select#js-choices-single-select', wait: 5
   end
 end
