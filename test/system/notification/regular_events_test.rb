@@ -28,6 +28,7 @@ class Notification::RegularEventsTest < ApplicationSystemTestCase
   end
 
   test 'notify_coming_soon_regular_events' do
+    helpers = Rails.application.routes.url_helpers
     event_info = <<~TEXT.chomp
       ⚡️⚡️⚡️イベントのお知らせ⚡️⚡️⚡️
 
@@ -43,19 +44,19 @@ class Notification::RegularEventsTest < ApplicationSystemTestCase
 
       Discord通知確認用イベント(土曜日午前8時から開催)
       時間: 08:00〜09:00
-      詳細: <http://localhost:3000/regular_events/507245517>
+      詳細: <#{helpers.regular_event_url(regular_events(:regular_event28))}>
 
       Discord通知確認用イベント(土曜日 + 日曜日開催)
       時間: 09:00〜10:00
-      詳細: <http://localhost:3000/regular_events/670378901>
+      詳細: <#{helpers.regular_event_url(regular_events(:regular_event29))}>
 
       Discord通知確認用イベント(土曜日開催)
       時間: 10:00〜11:00
-      詳細: <http://localhost:3000/regular_events/284302086>
+      詳細: <#{helpers.regular_event_url(regular_events(:regular_event31))}>
 
       Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
       時間: 11:00〜12:00
-      詳細: <http://localhost:3000/regular_events/808817380>
+      詳細: <#{helpers.regular_event_url(regular_events(:regular_event33))}>
 
       ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
     TEXT

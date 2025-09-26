@@ -2,7 +2,15 @@
 
 class Webhook
   class << self
-    SECREDT = Rails.application.secrets['stripe'][:endpoint_secret]
+    # Prefer ENV variable, fall back to config file
+    secret_value = ENV['STRIPE_ENDPOINT_SECRET'].presence ||
+                   Rails.application.config_for(:secrets).deep_symbolize_keys.dig(:stripe, :endpoint_secret)
+
+    # Fail fast if secret is not configured
+    raise KeyError, 'Stripeの:endpoint_secretが未設定です' if secret_value.blank?
+
+    SECRET = secret_value.freeze
+    private_constant :SECRET
 
     def construct_event(
       payload:,

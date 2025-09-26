@@ -14,7 +14,7 @@ class Article::TagsTest < ApplicationSystemTestCase
   end
 
   test 'can add tag to article' do
-    visit_with_auth new_article_url, 'komagata'
+    visit_with_auth '/articles/new', 'komagata'
     fill_in 'タイトル', with: 'タグ追加のテスト記事'
     fill_in '本文', with: '2つタグが付与された記事です'
     tags = %w[FirstTag SecondTag]
@@ -44,7 +44,7 @@ class Article::TagsTest < ApplicationSystemTestCase
   end
 
   test 'can add tag using shortcut buttons' do
-    visit_with_auth new_article_url, 'komagata'
+    visit_with_auth '/articles/new', 'komagata'
     fill_in 'タイトル', with: 'ショートカットボタンからのタグ追加テスト'
     fill_in '本文', with: 'タグショートカットボタンのテストです'
     find('button.js-tag-input-button', text: '注目の記事').click
