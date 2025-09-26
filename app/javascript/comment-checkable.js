@@ -60,8 +60,11 @@ export default {
         toast(data.message, 'error')
       } else {
         checkStamp()
-        sessionStorage.setItem('showCheckToast', 'true')
-        location.reload()
+        const message =
+          checkableType === 'Product'
+            ? '提出物を合格にしました。'
+            : '日報を確認済みにしました。'
+        sessionStorage.setItem('showToast', message)
       }
     } catch (error) {
       console.warn(error)
@@ -81,13 +84,7 @@ export default {
         alert(json.message)
       } else {
         alert('提出物の担当になりました。')
-
-        const event = new Event('checkerAssigned')
-        window.dispatchEvent(event)
-
-        sessionStorage.setItem('showAssignedToast', 'true')
-
-        location.reload()
+        sessionStorage.setItem('showToast', '担当になりました。')
       }
     } catch (error) {
       console.warn(error)
