@@ -235,7 +235,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
                                            message: 'か「クレジットカード払い」のいずれかを選択してください。' },
                               if: -> { role == 'trainee_select_a_payment_method' && !credit_card_payment }
 
-  validates :feed_url,
+  validates :facebook_url, :feed_url, :blog_url,
             format: {
               allow_blank: true,
               with: URI::DEFAULT_PARSER.make_regexp(%w[http https]),
