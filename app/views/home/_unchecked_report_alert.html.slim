@@ -7,7 +7,7 @@
       .unchecked-report-alert__icon
         i.fa-regular.fa-triangle-exclamation
       .unchecked-report-alert__message
-        = link_to '/reports/unchecked', class: 'unchecked-report-alert__message-link' do
+        = link_to reports_unchecked_index_path, class: 'unchecked-report-alert__message-link' do
           | 未チェックの日報が
           strong.unchecked-report-alert__count
             span.unchecked-report-alert__count-number

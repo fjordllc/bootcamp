@@ -20,10 +20,10 @@ main.page-main
     nav.pill-nav
       ul.pill-nav__items
         li.pill-nav__item
-          = link_to '全て', reports_path, class: "pill-nav__item-link#{' is-active' if action_name == 'index'}"
+          = link_to '全て', reports_path, class: "pill-nav__item-link#{' is-active' if controller_path == 'reports'}"
         li.pill-nav__item
-          = link_to '未チェック', unchecked_reports_path, class: "pill-nav__item-link#{' is-active' if action_name == 'unchecked'}"
-  - if action_name != 'unchecked'
+          = link_to '未チェック', reports_unchecked_index_path, class: "pill-nav__item-link#{' is-active' if controller_path == 'reports/unchecked'}"
+  - if controller_path != 'reports/unchecked'
     nav.page-filter.form.pb-0
       .container.is-md
         = form_with url: reports_path, local: true, method: :get do
