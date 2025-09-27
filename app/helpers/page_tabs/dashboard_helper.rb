@@ -11,7 +11,7 @@ module PageTabs
       tabs << { name: 'Watch中', link: current_user_watches_path }
       if Rails.env.in? %w[development test]
         tabs << { name: '分報',
-                  link: "#{user_micro_reports_path(current_user, page: current_user.latest_micro_report_page)}#latest-micro-report",
+                  link: "#{current_user_micro_reports_path(page: current_user.latest_micro_report_page)}#latest-micro-report",
                   count: current_user.micro_reports.length }
       end
       render PageTabsComponent.new(tabs:, active_tab:)
