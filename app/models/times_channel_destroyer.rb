@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TimesChannelDestroyer
-  def call(payload)
+  def call(_name, _started, _finished, _id, payload)
     user = payload[:user]
     return unless user.discord_profile.times_id
 
