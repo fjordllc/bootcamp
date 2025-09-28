@@ -17,11 +17,9 @@
             - if @micro_reports.empty?
               .o-empty-message
                 .o-empty-message__icon
-                  .o-empty-message
-                    .o-empty-message__icon
-                      i.fa-regular.fa-sad-tear
-                    .o-empty-message__text
-                      | 分報の投稿はまだありません。
+                  i.fa-regular.fa-sad-tear
+                .o-empty-message__text
+                  | 分報の投稿はまだありません。
             - else
               = paginate @micro_reports
               - @micro_reports.each_with_index do |micro_report, index|
