@@ -60,4 +60,10 @@ Rails.application.reloader.to_prepare do
   question_notifier = QuestionNotifier.new
   ActiveSupport::Notifications.subscribe('question.create', question_notifier)
   ActiveSupport::Notifications.subscribe('question.update', question_notifier)
+
+  unfinished_data_destroyer = UnfinishedDataDestroyer.new
+  ActiveSupport::Notifications.subscribe('retirement.create', unfinished_data_destroyer)
+
+  times_channel_destroyer = TimesChannelDestroyer.new
+  ActiveSupport::Notifications.subscribe('retirement.create', times_channel_destroyer)
 end
