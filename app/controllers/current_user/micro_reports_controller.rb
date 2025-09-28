@@ -50,9 +50,11 @@ class CurrentUser::MicroReportsController < ApplicationController
   end
 
   def page_out_of_range?(referer_path)
+    return true if referer_path.blank?
+
     matched_page_number = referer_path.match(/page=(\d+)/)
     page_number = matched_page_number ? matched_page_number[1] : FIRST_PAGE
 
-    MicroReport.page(page_number).out_of_range?
+    @user.micro_reports.page(page_number).out_of_range?
   end
 end
