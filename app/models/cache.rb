@@ -54,7 +54,7 @@ class Cache
 
     def not_solved_question_count
       Rails.cache.fetch 'not_solved_question_count' do
-        Question.not_solved.count
+        Question.not_solved.not_wip.count
       end
     end
 
