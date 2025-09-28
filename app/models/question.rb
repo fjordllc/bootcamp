@@ -82,7 +82,7 @@ class Question < ApplicationRecord
       if practice_id.present?
         Question.not_solved.not_wip.where(practice_id:).size
       else
-        Question.not_solved.not_wip.size
+        ::Cache.not_solved_question_count
       end
     end
   end
