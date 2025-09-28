@@ -33,7 +33,7 @@ class Retirement
     remove_as_event_organizer
     clear_github_info
     destroy_cards
-    publish_to_newspaper
+    instrument_create_event
     notify
     true
   rescue ActiveRecord::RecordInvalid => e
@@ -82,8 +82,8 @@ class Retirement
     @user.delete_and_assign_new_organizer
   end
 
-  def publish_to_newspaper
-    Newspaper.publish(:retirement_create, { user: @user })
+  def instrument_create_event
+    ActiveSupport::Notifications.instrument('retirement.create', user: @user)
   end
 
   def notify
