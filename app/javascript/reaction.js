@@ -28,7 +28,7 @@ export function initializeReaction(reaction) {
       const reactionId = e.currentTarget.dataset.reactionId
 
       if (reactionId) {
-        destroyReaction(reaction, kind, loginName, reactionId)
+        destroyReaction(reaction, kind, loginName, reactionId, reactionableId)
       } else {
         createReaction(reaction, kind, loginName, reactionableId)
       }
@@ -102,10 +102,17 @@ function createReaction(reaction, kind, loginName, reactionableId) {
         updateReactionCount(element, 1)
         updateReactionLoginNames(element, loginName)
       })
+    updateUsersToggleState(reaction, reactionableId)
   })
 }
 
-function destroyReaction(reaction, kind, loginName, reactionId) {
+function destroyReaction(
+  reaction,
+  kind,
+  loginName,
+  reactionId,
+  reactionableId
+) {
   const url = `/api/reactions/${reactionId}`
 
   requestReaction(url, 'DELETE', () => {
@@ -117,6 +124,7 @@ function destroyReaction(reaction, kind, loginName, reactionId) {
         updateReactionCount(element, -1)
         updateReactionLoginNames(element, loginName)
       })
+    updateUsersToggleState(reaction, reactionableId)
   })
 }
 
@@ -128,7 +136,12 @@ function setupUsersList(reaction, reactionableId) {
     return
   }
 
+  updateUsersToggleState(reaction, reactionableId)
+
   usersToggle.addEventListener('click', (e) => {
+    if (usersToggle.classList.contains('is-disabled')) {
+      return
+    }
     e.stopPropagation()
     const isHidden = usersList.classList.contains('hidden')
     if (isHidden) {
@@ -223,5 +236,17 @@ function renderAllReactions(data, content) {
 
     emojiLine.appendChild(reactionList)
     content.appendChild(emojiLine)
+  })
+}
+
+function updateUsersToggleState(reaction, reactionableId) {
+  const usersToggle = reaction.querySelector('.js-reactions-users-toggle')
+
+  fetchAllReactions(reactionableId, (data) => {
+    if (Object.keys(data).length === 0) {
+      usersToggle.classList.add('is-disabled')
+    } else {
+      usersToggle.classList.remove('is-disabled')
+    }
   })
 }
