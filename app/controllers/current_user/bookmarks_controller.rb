@@ -3,13 +3,17 @@
 class CurrentUser::BookmarksController < ApplicationController
   PAGER_NUMBER = 20
 
-  def index
-    @bookmarks = current_user.bookmarks.includes(bookmarkable: :user).order(created_at: :desc, id: :desc).page(params[:page]).per(PAGER_NUMBER)
-  end
+  before_action :set_bookmarks, only: [:index]
+
+  def index; end
 
   def destroy
     current_user.bookmarks.find(params[:id]).destroy
-    @bookmarks = current_user.bookmarks.includes(bookmarkable: :user).order(created_at: :desc, id: :desc).page(params[:page]).per(PAGER_NUMBER)
+    set_bookmarks
     render partial: 'current_user/bookmarks/list'
+  end
+
+  def set_bookmarks
+    @bookmarks = current_user.bookmarks.includes(bookmarkable: :user).order(created_at: :desc, id: :desc).page(params[:page]).per(PAGER_NUMBER)
   end
 end
