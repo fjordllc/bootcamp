@@ -449,7 +449,22 @@ Rails.application.config.sorcery.configure do |config|
     # user.provider_uid_attribute_name =
 
     # -- jwt --
-    user.jwt_secret = Rails.application.secrets.secret_key_base || "dummy"
+    # Read JWT secret from secrets configuration
+    jwt_secret = Rails.application.config_for(:secrets).dig('jwt', 'secret') ||
+                 Rails.application.credentials.dig(:jwt, :secret) ||
+                 ENV['JWT_SECRET']
+    
+    # Allow fallback only in development/test environments
+    if jwt_secret.blank?
+      if Rails.env.production?
+        raise 'JWT secret is not configured. Set jwt.secret in secrets or JWT_SECRET environment variable.'
+      else
+        # Development/test fallback - document this requirement in ops guide
+        jwt_secret = Rails.application.secret_key_base
+      end
+    end
+    
+    user.jwt_secret = jwt_secret
     # user.jwt_algorithm = "HS256" # HS256 is used by default.
     # user.session_expiry = 60 * 60 * 24 * 7 * 2 # 2 weeks is used by default.
   end

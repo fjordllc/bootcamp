@@ -13,11 +13,19 @@ class Subscription
   end
 
   def create(customer_id, idempotency_key = SecureRandom.uuid, trial: 3)
+    # Safely read tax_rate_id with string/symbol fallback
+    config = Rails.application.config_for(:secrets)
+    tax_rate_id = config.dig('stripe', 'tax_rate_id') ||
+                  config.dig(:stripe, :tax_rate_id)
+
+    # Validate presence and fail fast with clear error
+    raise KeyError, 'Stripe tax_rate_id is not configured. Set stripe.tax_rate_id in secrets configuration.' if tax_rate_id.blank?
+
     options = {
       customer: customer_id,
       items: [{
         plan: Plan.standard_plan.id,
-        tax_rates: [Rails.application.secrets[:stripe][:tax_rate_id]]
+        tax_rates: [tax_rate_id]
       }]
     }
     options[:trial_end] = trial.days.since.to_i if trial.positive?

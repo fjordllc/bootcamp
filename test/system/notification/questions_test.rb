@@ -3,12 +3,27 @@
 require 'application_system_test_case'
 
 class Notification::QuestionsTest < ApplicationSystemTestCase
+  include ActiveJob::TestHelper
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
     @notice_kind = Notification.kinds['came_question']
     @notified_count = Notification.where(kind: @notice_kind).size
     @mentor_count = User.mentor.size
+
+    # Mock OpenAI API response to prevent authentication errors
+    stub_request(:post, 'https://api.openai.com/v1/chat/completions')
+      .to_return(
+        status: 200,
+        body: {
+          choices: [{
+            message: {
+              content: 'Test AI answer for the question'
+            }
+          }]
+        }.to_json,
+        headers: { 'Content-Type' => 'application/json' }
+      )
   end
 
   teardown do
@@ -21,8 +36,11 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
       fill_in('question[title]', with: 'メンターに質問！！')
       fill_in('question[description]', with: '通知行ってますか？')
     end
-    click_button '登録する'
-    assert_text '質問を作成しました。'
+
+    perform_enqueued_jobs do
+      click_button '登録する'
+      assert_text '質問を作成しました。'
+    end
 
     visit_with_auth '/notifications', 'mentormentaro'
     within first('.card-list-item.is-unread') do

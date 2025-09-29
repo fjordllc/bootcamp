@@ -86,7 +86,7 @@ import '../toast.js'
 import '../tag.js'
 import '../tag_edit.js'
 
-import '../stylesheets/application'
+import '../stylesheets/application.sass'
 
 // Support component names relative to this directory:
 const componentRequireContext = require.context('components', true)
