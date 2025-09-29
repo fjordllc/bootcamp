@@ -20,6 +20,8 @@ class API::ReactionsController < API::BaseController
   end
 
   def index
+    return render json: {} unless @reactionable
+
     reactions = @reactionable.reactions.includes(:user)
     result = Reaction.emojis.each_with_object({}) do |(kind, emoji), hash|
       users = reactions
@@ -36,7 +38,7 @@ class API::ReactionsController < API::BaseController
     type_and_id = params[:reactionable_id].to_s.split('_')
     id = type_and_id.pop
     type = type_and_id.join('_')
-    @reactionable = type.camelcase.constantize.find(id)
+    @reactionable = type.camelcase.constantize&.find_by(id:)
   end
 
   def user_payload(user)
