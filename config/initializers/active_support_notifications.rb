@@ -63,7 +63,9 @@ Rails.application.reloader.to_prepare do
 
   unfinished_data_destroyer = UnfinishedDataDestroyer.new
   ActiveSupport::Notifications.subscribe('retirement.create', unfinished_data_destroyer)
+  ActiveSupport::Notifications.subscribe('training_completion.create', unfinished_data_destroyer)
 
   times_channel_destroyer = TimesChannelDestroyer.new
   ActiveSupport::Notifications.subscribe('retirement.create', times_channel_destroyer)
+  ActiveSupport::Notifications.subscribe('training_completion.create', times_channel_destroyer)
 end

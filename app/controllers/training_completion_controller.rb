@@ -15,7 +15,7 @@ class TrainingCompletionController < ApplicationController
       user = current_user
       current_user.cancel_participation_from_regular_events
       current_user.delete_and_assign_new_organizer
-      Newspaper.publish(:training_completion_create, { user: })
+      ActiveSupport::Notifications.instrument('training_completion.create', user:)
       user.clear_github_data
       notify_to_user(user)
       notify_to_admins(user)
