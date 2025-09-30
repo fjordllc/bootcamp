@@ -5,18 +5,12 @@ class OrderedCategoriesFromPracticesQuery < Patterns::Query
 
   private
 
-  def initialize(relation = Category.all, user:, practices:)
-    super(relation)
-    @user = user
-    @practices = practices
-  end
-
   def query
-    return relation.none if @practices.blank?
+    return relation.none if practices.blank?
 
     relation
       .joins(:courses_categories)
-      .where(courses_categories: { course_id: @user.course_id })
+      .where(courses_categories: { course_id: user.course_id })
       .where(id: category_ids_with_practices)
       .order('courses_categories.position ASC, categories.id ASC')
   end
@@ -30,6 +24,17 @@ class OrderedCategoriesFromPracticesQuery < Patterns::Query
   end
 
   def practice_ids
-    @practices.pluck(:id)
+    practices.pluck(:id)
+  end
+
+  def user
+    # userは必須引数なので空の場合はエラーを出す
+    raise ArgumentError, 'user is required' if options[:user].blank?
+
+    options[:user]
+  end
+
+  def practices
+    options[:practices]
   end
 end
