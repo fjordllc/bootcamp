@@ -20,7 +20,31 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const html = await response.text
-      document.querySelector('.page-main').outerHTML = html
+      console.log(html)
+      document.querySelector('.page-main').innerHTML = html
+
+      const bookMarksEditButton = document.getElementById('bookmark_edit')
+      const bookmarkDeleteButton = document.getElementsByClassName(
+        'js-bookmark-delete-button'
+      )
+      bookMarksEditButton.checked = true
+      if (bookMarksEditButton && bookmarkDeleteButton) {
+        for (let i = 0; i < bookmarkDeleteButton.length; i++) {
+          bookmarkDeleteButton[i].style.display = 'block'
+        }
+
+        bookMarksEditButton.addEventListener('click', () => {
+          if (bookMarksEditButton.checked) {
+            for (let i = 0; i < bookmarkDeleteButton.length; i++) {
+              bookmarkDeleteButton[i].style.display = 'block'
+            }
+          } else {
+            for (let i = 0; i < bookmarkDeleteButton.length; i++) {
+              bookmarkDeleteButton[i].style.display = 'none'
+            }
+          }
+        })
+      }
     } catch (error) {
       console.warn(error)
     }
