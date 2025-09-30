@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 export function initializeReaction(reaction) {
   const loginName = reaction.dataset.reactionLoginName
-  const reactionableId = reaction.dataset.reactionReactionableId
+  const reactionableGid = reaction.dataset.reactionReactionableGid
 
   const dropdown = reaction.querySelector('.js-reaction-dropdown')
   if (dropdown) {
@@ -28,14 +28,14 @@ export function initializeReaction(reaction) {
       const reactionId = e.currentTarget.dataset.reactionId
 
       if (reactionId) {
-        destroyReaction(reaction, kind, loginName, reactionId, reactionableId)
+        destroyReaction(reaction, kind, loginName, reactionId, reactionableGid)
       } else {
-        createReaction(reaction, kind, loginName, reactionableId)
+        createReaction(reaction, kind, loginName, reactionableGid)
       }
     })
   })
 
-  setupUsersList(reaction, reactionableId)
+  setupUsersList(reaction, reactionableGid)
 }
 
 function requestReaction(url, method, callback) {
@@ -90,8 +90,8 @@ function updateReactionLoginNames(element, loginName) {
   }
 }
 
-function createReaction(reaction, kind, loginName, reactionableId) {
-  const url = `/api/reactions?reactionable_id=${reactionableId}&kind=${kind}`
+function createReaction(reaction, kind, loginName, reactionableGid) {
+  const url = `/api/reactions?reactionable_gid=${reactionableGid}&kind=${kind}`
 
   requestReaction(url, 'POST', (json) => {
     reaction
@@ -102,7 +102,7 @@ function createReaction(reaction, kind, loginName, reactionableId) {
         updateReactionCount(element, 1)
         updateReactionLoginNames(element, loginName)
       })
-    updateUsersToggleState(reaction, reactionableId)
+    updateUsersToggleState(reaction, reactionableGid)
   })
 }
 
@@ -111,7 +111,7 @@ function destroyReaction(
   kind,
   loginName,
   reactionId,
-  reactionableId
+  reactionableGid
 ) {
   const url = `/api/reactions/${reactionId}`
 
@@ -124,11 +124,11 @@ function destroyReaction(
         updateReactionCount(element, -1)
         updateReactionLoginNames(element, loginName)
       })
-    updateUsersToggleState(reaction, reactionableId)
+    updateUsersToggleState(reaction, reactionableGid)
   })
 }
 
-function setupUsersList(reaction, reactionableId) {
+function setupUsersList(reaction, reactionableGid) {
   const usersToggle = reaction.querySelector('.js-reactions-users-toggle')
   const usersList = reaction.querySelector('.js-reactions-users-list')
 
@@ -136,7 +136,7 @@ function setupUsersList(reaction, reactionableId) {
     return
   }
 
-  updateUsersToggleState(reaction, reactionableId)
+  updateUsersToggleState(reaction, reactionableGid)
 
   usersToggle.addEventListener('click', (e) => {
     if (usersToggle.classList.contains('is-disabled')) {
@@ -145,7 +145,7 @@ function setupUsersList(reaction, reactionableId) {
     e.stopPropagation()
     const isHidden = usersList.classList.contains('hidden')
     if (isHidden) {
-      fetchAllReactions(reactionableId, (data) => {
+      fetchAllReactions(reactionableGid, (data) => {
         if (Object.keys(data).length === 0) {
           return
         }
@@ -182,8 +182,8 @@ function setupUsersList(reaction, reactionableId) {
   }
 }
 
-function fetchAllReactions(reactionableId, callback) {
-  const url = `/api/reactions?reactionable_id=${reactionableId}`
+function fetchAllReactions(reactionableGid, callback) {
+  const url = `/api/reactions?reactionable_gid=${reactionableGid}`
   requestReaction(url, 'GET', callback)
 }
 
@@ -239,10 +239,10 @@ function renderAllReactions(data, content) {
   })
 }
 
-function updateUsersToggleState(reaction, reactionableId) {
+function updateUsersToggleState(reaction, reactionableGid) {
   const usersToggle = reaction.querySelector('.js-reactions-users-toggle')
 
-  fetchAllReactions(reactionableId, (data) => {
+  fetchAllReactions(reactionableGid, (data) => {
     if (Object.keys(data).length === 0) {
       usersToggle.classList.add('is-disabled')
     } else {

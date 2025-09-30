@@ -11,7 +11,7 @@ class Reactions::ReactionsComponent < ViewComponent::Base
       data: {
         reaction: {
           login: { name: @current_user.login_name },
-          reactionable: { id: dom_id(@reactionable) }
+          reactionable: { gid: @reactionable.to_global_id.to_s }
         }
       }
     }
