@@ -16,6 +16,6 @@ class CurrentUser::BookmarksController < ApplicationController
   private
 
   def set_bookmarks
-    @bookmarks = current_user.bookmarks.includes(bookmarkable: :user).order(created_at: :desc, id: :desc).page(params[:page]).per(PAGER_NUMBER)
+    @bookmarks = current_user.bookmarks.preload(bookmarkable: :user).order(created_at: :desc, id: :desc).page(params[:page]).per(PAGER_NUMBER)
   end
 end
