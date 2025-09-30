@@ -8,10 +8,10 @@ class API::ReactionTest < ActionDispatch::IntegrationTest
     komagata = users(:komagata)
 
     token = create_token('komagata', 'testtest')
-    post api_reactions_path(reactionable_id: "Report_#{report.id}", kind: 'thumbsup'), as: :json,
-                                                                                       headers: { 'Authorization' => "Bearer #{token}" }
-    get api_reactions_path(reactionable_id: "Report_#{report.id}"), as: :json,
-                                                                    headers: { 'Authorization' => "Bearer #{token}" }
+    post api_reactions_path(reactionable_gid: report.to_global_id.to_s, kind: 'thumbsup'), as: :json,
+                                                                                           headers: { 'Authorization' => "Bearer #{token}" }
+    get api_reactions_path(reactionable_gid: report.to_global_id.to_s), as: :json,
+                                                                        headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :success
 
     actual = JSON.parse(response.body)
