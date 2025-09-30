@@ -54,6 +54,7 @@ class Cache
 
     def not_solved_question_count
       Rails.cache.fetch 'not_solved_question_count' do
+        Rails.logger.info '[CACHE MISS] Executing DB query for not_solved_question_count'
         Question.not_solved.not_wip.count
       end
     end
