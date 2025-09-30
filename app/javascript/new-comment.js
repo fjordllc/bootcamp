@@ -1,5 +1,4 @@
 import autosize from 'autosize'
-import CSRF from 'csrf'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
 import { initializeComment, toggleVisibility } from './initializeComment.js'
@@ -7,6 +6,7 @@ import { initializeReaction } from './reaction.js'
 import { toast } from './vanillaToast.js'
 import { setWatchable } from './setWatchable.js'
 import commentCheckable from './comment-checkable.js'
+import { post } from '@rails/request.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const newComment = document.querySelector('.new-comment')
@@ -113,24 +113,18 @@ document.addEventListener('DOMContentLoaded', () => {
       comment: { description: savedComment }
     }
 
-    const response = await fetch('/api/comments', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': CSRF.getToken()
-      },
-      credentials: 'same-origin',
+    const response = await post('/api/comments', {
+      headers: { 'X-Requested-With': 'XMLHttpRequest' },
       redirect: 'manual',
-      body: JSON.stringify(params)
+      body: params
     })
 
     if (!response.ok) {
-      const data = await response.json()
+      const data = await response.json
       throw new Error(data.errors.join(', '))
     }
 
-    return await response.text()
+    return await response.text
   }
 
   const addCommentToDOM = (html) => {
@@ -161,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
       commentableType,
       commentableId,
       '/api/checks',
-      'POST'
+      'post'
     )
   }
 
