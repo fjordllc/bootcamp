@@ -10,7 +10,7 @@ class UserUnstartedPracticesQueryTest < ActiveSupport::TestCase
     submitted_practice = practices(:practice4)
     unstarted_practice = practices(:practice9)
 
-    result = UserUnstartedPracticesQuery.new(user:).call
+    result = UserUnstartedPracticesQuery.call(user:)
 
     assert_not_includes result, started_practice
     assert_not_includes result, completed_practice
@@ -22,7 +22,7 @@ class UserUnstartedPracticesQueryTest < ActiveSupport::TestCase
     user = users(:komagata)
     started_practice = practices(:practice1)
 
-    result = UserUnstartedPracticesQuery.new(user:).call
+    result = UserUnstartedPracticesQuery.call(user:)
 
     assert_not_includes result, started_practice
   end
@@ -31,7 +31,7 @@ class UserUnstartedPracticesQueryTest < ActiveSupport::TestCase
     user = users(:komagata)
     submitted_practice = practices(:practice4)
 
-    result = UserUnstartedPracticesQuery.new(user:).call
+    result = UserUnstartedPracticesQuery.call(user:)
 
     assert_not_includes result, submitted_practice
   end
@@ -40,7 +40,7 @@ class UserUnstartedPracticesQueryTest < ActiveSupport::TestCase
     user = users(:komagata)
     completed_practice = practices(:practice2)
 
-    result = UserUnstartedPracticesQuery.new(user:).call
+    result = UserUnstartedPracticesQuery.call(user:)
 
     assert_not_includes result, completed_practice
   end
@@ -49,8 +49,8 @@ class UserUnstartedPracticesQueryTest < ActiveSupport::TestCase
     user1 = users(:komagata)
     user2 = users(:machida)
 
-    result1 = UserUnstartedPracticesQuery.new(user: user1).call
-    result2 = UserUnstartedPracticesQuery.new(user: user2).call
+    result1 = UserUnstartedPracticesQuery.call(user: user1)
+    result2 = UserUnstartedPracticesQuery.call(user: user2)
 
     assert_not_equal result1.to_a.sort, result2.to_a.sort
   end

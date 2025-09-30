@@ -6,7 +6,7 @@ class OrderedCategoriesFromPracticesQueryTest < ActiveSupport::TestCase
   test 'should return categories associated with practices and user course' do
     user = users(:komagata) # course1のユーザー
     practices = Practice.where(id: [practices(:practice1).id, practices(:practice2).id])
-    result = OrderedCategoriesFromPracticesQuery.new(user:, practices:).call
+    result = OrderedCategoriesFromPracticesQuery.call(user:, practices:)
 
     assert_kind_of ActiveRecord::Relation, result
     assert result.exists?
@@ -22,7 +22,7 @@ class OrderedCategoriesFromPracticesQueryTest < ActiveSupport::TestCase
     user = users(:komagata)
     empty_practices = Practice.none
 
-    result = OrderedCategoriesFromPracticesQuery.new(user:, practices: empty_practices).call
+    result = OrderedCategoriesFromPracticesQuery.call(user:, practices: empty_practices)
 
     assert_empty result, '空であるべき結果にカテゴリが含まれています。'
     assert_kind_of ActiveRecord::Relation, result
@@ -31,7 +31,7 @@ class OrderedCategoriesFromPracticesQueryTest < ActiveSupport::TestCase
   test 'should return empty relation when practices are nil' do
     user = users(:komagata)
 
-    result = OrderedCategoriesFromPracticesQuery.new(user:, practices: nil).call
+    result = OrderedCategoriesFromPracticesQuery.call(user:, practices: nil)
 
     assert_empty result, '空であるべき結果にカテゴリが含まれています。'
     assert_kind_of ActiveRecord::Relation, result
@@ -41,7 +41,7 @@ class OrderedCategoriesFromPracticesQueryTest < ActiveSupport::TestCase
     user = users(:komagata)
     practices = Practice.where(id: [practices(:practice1).id, practices(:practice9).id])
 
-    result = OrderedCategoriesFromPracticesQuery.new(user:, practices:).call
+    result = OrderedCategoriesFromPracticesQuery.call(user:, practices:)
 
     assert_equal 2, result.size
 
@@ -54,8 +54,8 @@ class OrderedCategoriesFromPracticesQueryTest < ActiveSupport::TestCase
     user2 = users(:'unity-course') # course2のユーザー
     practices = Practice.where(id: practices(:practice1).id) # category2に関連
 
-    result1 = OrderedCategoriesFromPracticesQuery.new(user: user1, practices:).call
-    result2 = OrderedCategoriesFromPracticesQuery.new(user: user2, practices:).call
+    result1 = OrderedCategoriesFromPracticesQuery.call(user: user1, practices:)
+    result2 = OrderedCategoriesFromPracticesQuery.call(user: user2, practices:)
 
     # course1にはcategory2が含まれているが、course2には含まれていない
     assert result1.exists?
@@ -66,7 +66,7 @@ class OrderedCategoriesFromPracticesQueryTest < ActiveSupport::TestCase
     user = users(:komagata)
     practices = Practice.where(id: [practices(:practice2).id, practices(:practice4).id, practices(:practice9).id]) # 全てcategory4
 
-    result = OrderedCategoriesFromPracticesQuery.new(user:, practices:).call
+    result = OrderedCategoriesFromPracticesQuery.call(user:, practices:)
 
     category_ids = result.pluck(:id)
     assert_equal category_ids.uniq.size, category_ids.size
