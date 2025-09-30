@@ -22,11 +22,12 @@ class API::ReactionsController < API::BaseController
   def index
     return render json: {} unless @reactionable
 
-    reactions = @reactionable.reactions.includes(:user)
+    reactions = @reactionable
+                .reactions
+                .includes(user: { avatar_attachment: :blob })
+    grouped = reactions.group_by(&:kind)
     result = Reaction.emojis.each_with_object({}) do |(kind, emoji), hash|
-      users = reactions
-              .select { |r| r.kind == kind.to_s }
-              .map { |r| user_payload(r.user) }
+      users = Array(grouped[kind.to_s]).map { |r| user_payload(r.user) }
       hash[kind] = { emoji:, users: } unless users.empty?
     end
     render json: result
