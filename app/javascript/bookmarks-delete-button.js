@@ -1,4 +1,5 @@
 import { destroy } from '@rails/request.js'
+import { toggleDeleteButton } from './bookmarks-utils'
 
 document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('click', async (event) => {
@@ -27,23 +28,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const bookmarkDeleteButton = document.getElementsByClassName(
         'js-bookmark-delete-button'
       )
-      bookMarksEditButton.checked = true
       if (bookMarksEditButton && bookmarkDeleteButton) {
+        bookMarksEditButton.checked = true
+
         for (let i = 0; i < bookmarkDeleteButton.length; i++) {
           bookmarkDeleteButton[i].style.display = 'block'
         }
-
-        bookMarksEditButton.addEventListener('click', () => {
-          if (bookMarksEditButton.checked) {
-            for (let i = 0; i < bookmarkDeleteButton.length; i++) {
-              bookmarkDeleteButton[i].style.display = 'block'
-            }
-          } else {
-            for (let i = 0; i < bookmarkDeleteButton.length; i++) {
-              bookmarkDeleteButton[i].style.display = 'none'
-            }
-          }
-        })
+        toggleDeleteButton(bookMarksEditButton, bookmarkDeleteButton)
       }
     } catch (error) {
       console.warn(error)
