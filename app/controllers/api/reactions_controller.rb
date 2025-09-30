@@ -37,10 +37,8 @@ class API::ReactionsController < API::BaseController
   private
 
   def set_reactionable
-    type_and_id = params[:reactionable_id].to_s.split('_')
-    id = type_and_id.pop
-    type = type_and_id.join('_')
-    @reactionable = type.camelcase.constantize&.find_by(id:)
+    gid = params[:reactionable_gid]
+    @reactionable = GlobalID::Locator.locate(gid)
   end
 
   def user_payload(user)
