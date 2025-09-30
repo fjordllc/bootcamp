@@ -13,6 +13,8 @@ class CurrentUser::BookmarksController < ApplicationController
     render partial: 'current_user/bookmarks/list'
   end
 
+  private
+
   def set_bookmarks
     @bookmarks = current_user.bookmarks.includes(bookmarkable: :user).order(created_at: :desc, id: :desc).page(params[:page]).per(PAGER_NUMBER)
   end
