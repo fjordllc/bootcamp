@@ -5,9 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const bookmarkDeleteButton = document.getElementsByClassName(
     'js-bookmark-delete-button'
   )
-  if (bookMarksEditButton && bookmarkDeleteButton) {
-    for (let i = 0; i < bookmarkDeleteButton.length; i++) {
-      bookmarkDeleteButton[i].style.display = 'none'
+
+  if (bookMarksEditButton && bookmarkDeleteButton.length > 0) {
+    for (const button of bookmarkDeleteButton) {
+      button.style.display = 'none'
     }
 
     toggleDeleteButton(bookMarksEditButton, bookmarkDeleteButton)
