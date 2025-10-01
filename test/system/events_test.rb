@@ -249,7 +249,9 @@ class EventsTest < ApplicationSystemTestCase
     assert_text '参加登録しました'
 
     visit_with_auth events_path, 'hatsuno'
-    click_link '先着順のイベント'
+    within 'ul.card-list' do
+      click_link '先着順のイベント'
+    end
     accept_confirm do
       click_link '参加申込'
     end
@@ -279,7 +281,9 @@ class EventsTest < ApplicationSystemTestCase
     assert_text '参加登録しました'
 
     visit_with_auth events_path, 'hatsuno'
-    click_link '補欠者のいるイベント'
+    within 'ul.card-list' do
+      click_link '補欠者のいるイベント'
+    end
     accept_confirm do
       click_link '補欠登録'
     end
@@ -309,7 +313,9 @@ class EventsTest < ApplicationSystemTestCase
     assert_text '参加登録しました'
 
     visit_with_auth events_path, 'hatsuno'
-    click_link '補欠者が繰り上がるイベント'
+    within 'ul.card-list' do
+      click_link '補欠者が繰り上がるイベント'
+    end
     accept_confirm do
       click_link '補欠登録'
     end
@@ -320,7 +326,9 @@ class EventsTest < ApplicationSystemTestCase
     end
 
     visit_with_auth events_path, 'kimura'
-    click_link '補欠者が繰り上がるイベント'
+    within 'ul.card-list' do
+      click_link '補欠者が繰り上がるイベント'
+    end
     accept_confirm do
       click_link '参加を取り消す'
     end
@@ -443,7 +451,7 @@ class EventsTest < ApplicationSystemTestCase
     assert_text 'イベントを作成しました'
     within 'form[name=announcement]' do
       assert has_field? 'announcement[title]', with: /#{event[:title]}/
-      assert has_field? 'announcement[description]', with: /#{event[:desription]}/
+      assert has_field? 'announcement[description]', with: /#{event[:description]}/
     end
   end
 
@@ -473,7 +481,7 @@ class EventsTest < ApplicationSystemTestCase
     assert_text 'イベントを更新しました'
     within 'form[name=announcement]' do
       assert has_field? 'announcement[title]', with: /#{event[:title]}/
-      assert has_field? 'announcement[description]', with: /#{event[:desription]}/
+      assert has_field? 'announcement[description]', with: /#{event[:description]}/
     end
   end
 
