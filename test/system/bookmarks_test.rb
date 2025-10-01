@@ -6,6 +6,7 @@ class BookmarksTest < ApplicationSystemTestCase
   setup do
     @report = reports(:report1)
     @question = questions(:question1)
+    @announcement = announcements(:announcement1)
   end
 
   test 'show my bookmark report' do
@@ -77,5 +78,29 @@ class BookmarksTest < ApplicationSystemTestCase
 
     visit '/current_user/bookmarks'
     assert_no_text @question.title
+  end
+
+  test 'bookmark announcement' do
+    visit_with_auth "/announcements/#{@announcement.id}", 'hatsuno'
+    find('#bookmark-button').click
+    assert_selector '#bookmark-button.is-active'
+    assert_no_selector '#bookmark-button.is-inactive'
+
+    visit '/current_user/bookmarks'
+    assert_text @announcement.title
+  end
+
+  test 'unbookmark announcement' do
+    user = users(:kimura)
+    user.bookmarks.create!(bookmarkable: @announcement)
+
+    visit_with_auth "/announcements/#{@announcement.id}", user.login_name
+    assert_selector '#bookmark-button.is-active'
+    find('#bookmark-button').click
+    assert_selector '#bookmark-button.is-inactive'
+    assert_no_selector '#bookmark-button.is-active'
+
+    visit '/current_user/bookmarks'
+    assert_no_text @announcement.title
   end
 end
