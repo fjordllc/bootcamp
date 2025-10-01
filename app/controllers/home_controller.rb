@@ -10,6 +10,7 @@ class HomeController < ApplicationController
       display_welcome_message_for_adviser
       set_required_fields
       display_products_for_mentor
+      @study_streak = UserStudyStreak.new(current_user.reports_with_learning_times, include_wip: false)
       render action: :index
     else
       @mentors = User.visible_sorted_mentors
