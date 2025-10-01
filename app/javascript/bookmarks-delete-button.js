@@ -21,8 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const html = await response.text
-      console.log(html)
-      document.querySelector('.page-main').innerHTML = html
+      document.querySelector('.page-main').outerHTML = html
 
       const bookMarksEditButton = document.getElementById('bookmark_edit')
       const bookmarkDeleteButton = document.getElementsByClassName(
