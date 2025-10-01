@@ -43,9 +43,9 @@ class StudyStreak::UserStudyStreakTrackerComponent < ViewComponent::Base
     return '' if days.to_i.zero? || start_on.blank? || end_on.blank?
 
     if start_on.year == end_on.year
-      "#{start_on.strftime('%b %-d')} - #{end_on.strftime('%b %-d')}"
+      "#{start_on.strftime('%m/%d')} 〜 #{end_on.strftime('%m/%d')}"
     else
-      "#{start_on.strftime('%b %-d, %Y')} - #{end_on.strftime('%b %-d, %Y')}"
+      "#{start_on.strftime('%Y/%m/%d')} 〜 #{end_on.strftime('%Y/%m/%d')}"
     end
   end
 end
