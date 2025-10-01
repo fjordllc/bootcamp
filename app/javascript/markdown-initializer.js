@@ -12,7 +12,6 @@ import MarkDownItContainerMessage from 'markdown-it-container-message'
 import MarkDownItContainerDetails from 'markdown-it-container-details'
 import MarkDownItLinkAttributes from 'markdown-it-link-attributes'
 import MarkDownItContainerSpeak from 'markdown-it-container-speak'
-import MarkdownItPurifier from 'markdown-it-purifier'
 import ReplaceLinkToCard from 'replace-link-to-card'
 import MarkDownItContainerFigure from 'markdown-it-container-figure'
 import MarkdownItVimeo from 'markdown-it-vimeo'
@@ -62,7 +61,6 @@ export default class {
     md.use(MarkDownItContainerFigure)
     md.use(MarkdownItVimeo)
     md.use(MarkdownItYoutube)
-    md.use(MarkdownItPurifier)
     return md.render(text)
   }
 }
