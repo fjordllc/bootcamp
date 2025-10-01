@@ -28,7 +28,7 @@ export function initializeReaction(reaction) {
       const reactionId = e.currentTarget.dataset.reactionId
 
       if (reactionId) {
-        destroyReaction(reaction, kind, loginName, reactionId, reactionableGid)
+        destroyReaction(reaction, kind, loginName, reactionId)
       } else {
         createReaction(reaction, kind, loginName, reactionableGid)
       }
@@ -102,17 +102,11 @@ function createReaction(reaction, kind, loginName, reactionableGid) {
         updateReactionCount(element, 1)
         updateReactionLoginNames(element, loginName)
       })
-    updateUsersToggleState(reaction, reactionableGid)
+    updateUsersToggleState(reaction)
   })
 }
 
-function destroyReaction(
-  reaction,
-  kind,
-  loginName,
-  reactionId,
-  reactionableGid
-) {
+function destroyReaction(reaction, kind, loginName, reactionId) {
   const url = `/api/reactions/${reactionId}`
 
   requestReaction(url, 'DELETE', () => {
@@ -124,7 +118,7 @@ function destroyReaction(
         updateReactionCount(element, -1)
         updateReactionLoginNames(element, loginName)
       })
-    updateUsersToggleState(reaction, reactionableGid)
+    updateUsersToggleState(reaction)
   })
 }
 
@@ -136,7 +130,7 @@ function setupUsersList(reaction, reactionableGid) {
     return
   }
 
-  updateUsersToggleState(reaction, reactionableGid)
+  updateUsersToggleState(reaction)
 
   usersToggle.addEventListener('click', (e) => {
     if (usersToggle.classList.contains('is-disabled')) {
@@ -239,14 +233,21 @@ function renderAllReactions(data, content) {
   })
 }
 
-function updateUsersToggleState(reaction, reactionableGid) {
+function updateUsersToggleState(reaction) {
   const usersToggle = reaction.querySelector('.js-reactions-users-toggle')
+  if (!usersToggle) {
+    return
+  }
 
-  fetchAllReactions(reactionableGid, (data) => {
-    if (Object.keys(data).length === 0) {
-      usersToggle.classList.add('is-disabled')
-    } else {
-      usersToggle.classList.remove('is-disabled')
-    }
-  })
+  const totalReactionCount = [
+    ...reaction.querySelectorAll('.js-reaction-count')
+  ].reduce(
+    (total, element) => total + (parseInt(element.textContent, 10) || 0),
+    0
+  )
+  if (totalReactionCount === 0) {
+    usersToggle.classList.add('is-disabled')
+  } else {
+    usersToggle.classList.remove('is-disabled')
+  }
 }
