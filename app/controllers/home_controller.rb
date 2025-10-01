@@ -50,6 +50,7 @@ class HomeController < ApplicationController
     @target_end_date = GrassDateParameter.new(params[:end_date]).target_end_date
     @times = Grass.times(current_user, @target_end_date)
     @users_for_time_slot = User.currently_learning_except(current_user)
+    @study_streak = UserStudyStreak.new(current_user.reports_with_learning_times, include_wip: false)
   end
 
   def display_events_on_dashboard
