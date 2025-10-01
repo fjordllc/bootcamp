@@ -7,7 +7,7 @@ class API::CorrectAnswersController < API::BaseController
     @answer = @question.answers.find(params[:answer_id])
     @answer.type = 'CorrectAnswer'
     if @answer.save
-      Newspaper.publish(:answer_save, { answer: @answer })
+      ActiveSupport::Notifications.instrument('answer.save', answer: @answer)
       Newspaper.publish(:correct_answer_save, { answer: @answer })
       head :ok
     else
@@ -18,7 +18,7 @@ class API::CorrectAnswersController < API::BaseController
   def update
     answer = @question.answers.find(params[:answer_id])
     answer.update!(type: '')
-    Newspaper.publish(:answer_save, { answer: @answer })
+    ActiveSupport::Notifications.instrument('answer.save', answer:)
   end
 
   private
