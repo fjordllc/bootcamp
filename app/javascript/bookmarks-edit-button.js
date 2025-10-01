@@ -10,6 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
       bookmarkDeleteButton[i].style.display = 'none'
     }
 
-   toggleDeleteButton(bookMarksEditButton, bookmarkDeleteButton)
-      }
+    toggleDeleteButton(bookMarksEditButton, bookmarkDeleteButton)
+  }
 })
