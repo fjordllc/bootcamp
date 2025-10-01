@@ -124,7 +124,7 @@ class TrainingCompletionTest < ApplicationSystemTestCase
     assert_not @user.github_collaborator
   end
 
-  test 'shows 未入力 when satisfaction is nil' do
+  test 'shows not entered when satisfaction is nil' do
     user = users(:kensyuowata)
     user.update!(satisfaction: nil)
 
@@ -132,5 +132,4 @@ class TrainingCompletionTest < ApplicationSystemTestCase
     assert_text '研修終了情報（非公開）'
     assert_text '未入力'
   end
-  
 end
