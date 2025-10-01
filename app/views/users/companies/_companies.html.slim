@@ -2,5 +2,5 @@
   .container.is-lg
     .card-list
       - companies.each do |company|
-        - next if company.users.empty?
-        = render 'company', company: company, target: target, allowed_targets: allowed_targets
+        - next if company_users[company.id].blank?
+        = render 'company', company: company, company_users: company_users[company.id]

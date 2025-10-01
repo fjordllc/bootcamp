@@ -11,5 +11,5 @@
             = company.description
   .a-user-icons
     .a-user-icons__items
-      - company.users.users_role(target, allowed_targets: allowed_targets).each do |user|
-        = render 'user_icon', user: user
+      - company_users.each do |company_user|
+        = render 'user_icon', company_user: company_user

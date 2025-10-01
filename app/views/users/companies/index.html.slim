@@ -21,4 +21,4 @@ main.page-main
           = '企業別'
           | （#{t("target.#{@target}")}）
   hr.a-border
-  = render 'companies', target: @target, allowed_targets: @allowed_targets, companies: @companies
+  = render 'companies', companies: @companies, company_users: @company_users, target: @target, allowed_targets: @allowed_targets
