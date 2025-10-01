@@ -27,14 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const bookmarkDeleteButton = document.getElementsByClassName(
         'js-bookmark-delete-button'
       )
-      if (bookMarksEditButton && bookmarkDeleteButton) {
-        bookMarksEditButton.checked = true
-
-        for (let i = 0; i < bookmarkDeleteButton.length; i++) {
-          bookmarkDeleteButton[i].style.display = 'block'
-        }
-        toggleDeleteButton(bookMarksEditButton, bookmarkDeleteButton)
-      }
+      bookMarksEditButton.checked = true
+      toggleDeleteButton(bookMarksEditButton, bookmarkDeleteButton)
     } catch (error) {
       console.warn(error)
     }
