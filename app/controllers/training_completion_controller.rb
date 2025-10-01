@@ -7,7 +7,7 @@ class TrainingCompletionController < ApplicationController
   def show; end
 
   def new
-   current_user.satisfaction ||= 'good'
+    current_user.satisfaction ||= 'good'
   end
 
   def create
