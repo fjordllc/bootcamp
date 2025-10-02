@@ -7,7 +7,7 @@ class LearningTimeFrame < ApplicationRecord
   validates :week_day, :activity_time, presence: true
 
   scope :active_now, lambda {
-    now = Time.zone.now
+    now = Time.current
     weekday = I18n.t('date.abbr_day_names')[now.wday]
     hour = now.hour
 
