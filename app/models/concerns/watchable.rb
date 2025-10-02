@@ -33,12 +33,14 @@ module Watchable
       "Docs「#{self[:title]}」"
     when Announcement
       "お知らせ「#{self[:title]}」"
+    when PairWork
+      "ペアワーク「#{self[:title]}」"
     end
   end
 
   def body
     case self
-    when Question, Event, RegularEvent, Report, Announcement
+    when Question, Event, RegularEvent, Report, Announcement, PairWork
       self[:description]
     else
       self[:body]
