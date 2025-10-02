@@ -265,7 +265,7 @@ class ArticlesTest < ApplicationSystemTestCase
     end
 
     assert_text '記事を作成しました'
-    meta_description = '月額29,800円、全機能が使えるお試し期間付き。FBCは現場の即戦力になるためのスキルとプログラミングの楽しさを伝える、現役ソフトウェアエンジニアが考える理想のプログラミングスクールの実現に励んでいます。'
+    meta_description = '月額32,780円（税込）、全機能が使えるお試し期間付き。FBCは現場の即戦力になるためのスキルとプログラミングの楽しさを伝える、現役ソフトウェアエンジニアが考える理想のプログラミングスクールの実現に励んでいます。'
     assert_selector "meta[name='description'][content='#{meta_description}']", visible: false
     assert_selector "meta[property='og:description'][content='#{meta_description}']", visible: false
     assert_selector "meta[name='twitter:description'][content='#{meta_description}']", visible: false
