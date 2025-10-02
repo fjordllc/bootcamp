@@ -1,0 +1,4 @@
+// ESLintの構文エラー回避のため、一時的に追加しています
+// ecmaVersion: 2020ではstaticに対応していないため、
+// 別issueでecmaVersion: 2022に対応してもらいます
+app/javascript/controllers/report_template_controller.js
