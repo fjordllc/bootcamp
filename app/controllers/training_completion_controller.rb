@@ -6,9 +6,7 @@ class TrainingCompletionController < ApplicationController
 
   def show; end
 
-  def new
-    current_user.satisfaction ||= 'good'
-  end
+  def new; end
 
   def create
     current_user.assign_attributes(training_complete_params)

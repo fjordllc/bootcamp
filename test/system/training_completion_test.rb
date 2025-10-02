@@ -162,9 +162,4 @@ class TrainingCompletionTest < ApplicationSystemTestCase
     assert_text '研修終了情報（非公開）'
     assert_text '未入力'
   end
-
-  test 'sets satisfaction to good when form is displayed for the first time' do
-    visit_with_auth new_training_completion_path, 'kensyu'
-    assert_checked_field('user_satisfaction_good', visible: :all)
-  end
 end
