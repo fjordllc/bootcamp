@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  namespace :reports do
+    resources :unchecked, only: %i[index]
+  end
   resources :reports do
-    collection do
-      get :unchecked
-    end
     resources :checks, only: [:create, :destroy]
   end
 end

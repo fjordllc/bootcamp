@@ -34,9 +34,4 @@ class ReportsPracticeFilterTest < ApplicationSystemTestCase
     assert_text 'レポート1', wait: 5
     assert_no_text 'レポート2', wait: 5
   end
-
-  test 'practice filter is hidden when unchecked parameter is present' do
-    visit unchecked_reports_path
-    assert_no_selector 'select#js-choices-single-select', wait: 5
-  end
 end

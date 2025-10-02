@@ -14,19 +14,8 @@ class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLeng
   before_action :set_watch, only: %i[show]
 
   def index
-    # Backward compatibility: redirect old query param URL to the new path
-    return redirect_to unchecked_reports_path if params[:unchecked].present?
-
     @reports = Report.list.page(params[:page]).per(PAGER_NUMBER)
     @reports = @reports.joins(:practices).where(practices: { id: params[:practice_id] }) if params[:practice_id].present?
-  end
-
-  def unchecked
-    return redirect_to reports_path unless admin_or_mentor_login?
-
-    @reports = Report.list.page(params[:page]).per(PAGER_NUMBER)
-    @reports = @reports.unchecked.not_wip
-    render :index
   end
 
   def show
