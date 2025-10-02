@@ -92,4 +92,11 @@ class HibernationTest < ApplicationSystemTestCase
     assert_no_selector '.is-kimura'
     assert_selector '.is-komagata'
   end
+
+  test 'do not show warning for finished regular events' do
+    regular_event = regular_events(:regular_event39)
+
+    visit_with_auth new_hibernation_path, regular_event.user.login_name
+    assert_no_text 'ご自身が主催者である定期イベントがあります。'
+  end
 end
