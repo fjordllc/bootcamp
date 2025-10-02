@@ -2,9 +2,11 @@
 
 require 'test_helper'
 require 'supports/product_helper'
+require 'supports/learning_helper'
 
 class UserCoursePracticeTest < ActiveSupport::TestCase
   include ProductHelper
+  include LearningHelper
   setup do
     @user_course_practice_kensyu = UserCoursePractice.new(users(:kensyu))
     @user_course_practice_kimura = UserCoursePractice.new(users(:kimura))
@@ -39,19 +41,30 @@ class UserCoursePracticeTest < ActiveSupport::TestCase
     assert_includes(@user_course_practice_kensyu.skipped_practice_ids, practices(:practice8).id)
   end
 
-  test 'get category active or unstarted practice' do
-    komagata = @user_course_practice_komagata
-    assert_equal 917_504_053, komagata.category_active_or_unstarted_practice.id
-    machida = @user_course_practice_machida
-    practice1 = practices(:practice1)
+  test '#category_active_or_unstarted_practice: returns the first started practice category if multiple started practices exist' do
+    user = users(:komagata)
+    user.learnings.destroy_all
+    first_category_practice = practices(:practice1) # category2のプラクティス
+    second_category_practice = practices(:practice2) # category4のプラクティス
+
+    set_learning_status(user, first_category_practice, :started)
+    set_learning_status(user, second_category_practice, :started)
+
+    user_course_practice = UserCoursePractice.new(user)
+    assert_equal categories(:category2).id, user_course_practice.category_active_or_unstarted_practice.id
+  end
+
+  test '#category_active_or_unstarted_practice: returns the next category when all practices in a specific category are complete' do
     user = users(:machida)
-    create_checked_product(user, practices(:practice1))
-    Learning.create!(
-      user: users(:machida),
-      practice: practice1,
-      status: :complete
-    )
-    assert_equal 685_020_562, machida.category_active_or_unstarted_practice.id
+    user.learnings.destroy_all
+    user_course_practice = @user_course_practice_machida
+    assert_equal categories(:category2).id, user_course_practice.category_active_or_unstarted_practice.id
+
+    current_category = user_course_practice.category_active_or_unstarted_practice
+    assert_changes -> { UserCoursePractice.new(user).category_active_or_unstarted_practice.id },
+                   from: current_category.id, to: categories(:category4).id do # category2の次はcategory4に進む
+      complete_all_practices_in_category(user, current_category)
+    end
   end
 
   test '#required_practices' do
