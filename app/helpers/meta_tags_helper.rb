@@ -7,7 +7,7 @@ module MetaTagsHelper
       site: 'FBC',
       reverse: true,
       charset: 'utf-8',
-      description: '月額29,800円、全機能が使えるお試し期間付き。FBCは現場の即戦力になるためのスキルとプログラミングの楽しさを伝える、現役ソフトウェアエンジニアが考える理想のプログラミングスクールの実現に励んでいます。',
+      description: '月額32,780円（税込）、全機能が使えるお試し期間付き。FBCは現場の即戦力になるためのスキルとプログラミングの楽しさを伝える、現役ソフトウェアエンジニアが考える理想のプログラミングスクールの実現に励んでいます。',
       viewport: 'width=device-width, initial-scale=1.0',
       og: {
         title: :title,
@@ -31,7 +31,7 @@ module MetaTagsHelper
   def welcome_meta_tags
     default_meta_tags.deep_merge({
                                    title:,
-                                   description: '月額29,800円、全機能が使えるお試し期間付き。FBCは現場の即戦力になるためのスキルとプログラミングの楽しさを伝える、現役ソフトウェアエンジニアが考える理想のプログラミングスクールの実現に励んでいます。',
+                                   description: '月額32,780円（税込）、全機能が使えるお試し期間付き。FBCは現場の即戦力になるためのスキルとプログラミングの楽しさを伝える、現役ソフトウェアエンジニアが考える理想のプログラミングスクールの実現に励んでいます。',
                                    og: {
                                      title: title || 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
                                      description: :description
