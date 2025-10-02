@@ -9,20 +9,22 @@
     font-size: .875rem
   +media-breakpoint-down(sm)
     font-size: .5625rem
+  &.is-total
+    gap: .25em
   &.is-sm
     justify-content: flex-start
     +media-breakpoint-up(lg)
       font-size: .5625em
       .lp-price__tax
-        font-size: 1rem
+        font-size: 1.5rem
     +media-breakpoint-only(md)
       font-size: .5em
       .lp-price__tax
-        font-size: .875rem
+        font-size: 1rem
     +media-breakpoint-down(sm)
       font-size: .375em
       .lp-price__tax
-        font-size: .75rem
+        font-size: .875rem
 
 .lp-price__label
   +text-block(1.25em 1, 700)
@@ -40,6 +42,7 @@
   display: flex
   align-self: baseline
   gap: .5em
+  flex-wrap: wrap
 
 .lp-price__amount
   +text-block(6.25em 1, 900)
@@ -51,14 +54,28 @@
   align-self: baseline
 
 .lp-price__details
-  +text-block(1.25em 1, 800)
+  +text-block(2.25em 1, 800)
   display: flex
   align-self: baseline
   gap: .125em
 
 .lp-price__separator
   font-weight: 100
+  align-self: baseline
+
+.lp-price__per-person
+  align-self: baseline
+
+.lp-price__tax
+  font-size: 1.25em
+  align-self: baseline
+
+.lp-price__total-value
+  display: flex
+  align-self: baseline
+  gap: .25em
+  font-size: 1.5em
+  font-weight: 600
 
 .lp-price-note
-  +media-breakpoint-down(sm)
-    font-size: .75rem
+  line-height: 1.4

@@ -3,7 +3,7 @@ ruby:
   title '料金'
   trial_period = Campaign.current_trial_period
 - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
-  description: 'フィヨルドブートキャンプの利用料は月額29,800円です。クレジットカードでのお支払いになります。初期費用、入会金は一切ありません。')
+  description: 'フィヨルドブートキャンプの利用料は月額32,780円（税込）です。クレジットカードでのお支払いになります。初期費用、入会金は一切ありません。')
 
 article.lp
   header.lp-content.is-lp-bg-main.is-hero
@@ -45,24 +45,16 @@ article.lp
                 | 月額
               span.lp-price__value
                 span.lp-price__amount
-                  | 29,800
+                  | 32,780
                 span.lp-price__currency
                   | 円
               span.lp-price__details
                 span.lp-price__tax
                   | （税込）
-            .new-price-info.text-center.a-notice-block.is-danger.mt-4
-              p.text-base
-                | 2023年10月1日より、価格改定を行います。
-                br
-                | 価格改定後は月額 税抜29,800円（税込32,780円）
-                br
-                = link_to 'https://bootcamp.fjord.jp/articles/177', class: 'a-link is-primary', target: '_blank', rel: 'noopener' do
-                  | 価格改定の詳細はこちら
             p.lp-price-note.text-center.mt-4
               = link_to training_path do
                 | 法人でのご利用の場合
-              | 、月額 99,800円（税込）
+              | 、月額 109,780円（税込）
         .lp-content__end
           .lp-content__description.mb-12
             .l-inner-container.is-md

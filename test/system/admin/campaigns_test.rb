@@ -85,7 +85,7 @@ class CampaignsTest < ApplicationSystemTestCase
   #     example_end_at = (TODAY + 3.days).strftime('%-m月%-d日10時10分9秒')
   #     example_pay_at = (TODAY + 3.days).strftime('%-m月%-d日10時10分10秒')
 
-  #     assert_text "3日間のお試し期間\n月額29,800円は決して安い金額ではありません。"
+  #     assert_text "3日間のお試し期間\n月額32,780円（税込）は決して安い金額ではありません。"
   #     assert_text 'フィヨルドブートキャンプを使うべきかを判断するために3日間のお試し期間を用意'
   #     assert_text 'その3日間、がっつりフィヨルドブートキャンプを見たり使ったりして判断してください。'
 

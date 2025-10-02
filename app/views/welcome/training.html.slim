@@ -300,7 +300,7 @@ article.lp
                               | 研修の成果も向上します。
 
   section.lp-content.is-lp-bg-1.is-top-title.corporate-training-fee
-    .l-container.is-md
+    .l-container.is-lg
       .lp-content__inner
         .lp-content__start
           header.lp-content__header
@@ -309,32 +309,22 @@ article.lp
         .lp-content__end
           .lp-content-stack
             .lp-content-stack__item
+              p.lp-price.mb-2
+                span.lp-price__total-value
+                  | 1名につき月額
               p.lp-price
-                span.lp-price__label
-                  | 月額
                 span.lp-price__value
                   span.lp-price__amount
-                    | 99,800
+                    | 109,780
                   span.lp-price__currency
                     | 円
-                span.lp-price__details
-                  span.lp-price__tax
-                    | （税込）
-                  span.lp-price__separator
-                    | /
-                  span.lp-price__per-person
-                    | 人
-              .new-price-info.text-center.a-notice-block.is-danger.mt-4
-                p.text-base
-                  | 2023年10月1日より、価格改定を行います。
-                  br
-                  | 価格改定後は月額 税抜99,800円（税込109,780円）
-                  br
-                  = link_to 'https://bootcamp.fjord.jp/articles/177', class: 'a-link is-primary', target: '_blank', rel: 'noopener' do
-                    | 価格改定の詳細はこちら
-
+                  span.lp-price__details
+                    span.lp-price__tax
+                      | （税込）
               p.lp-price-note.text-center.mt-4
-                | 一般利用の場合は、月額 29,800円（税込）
+                = link_to pricing_path do
+                  | 一般利用の場合
+                | 、月額 32,780円（税込）
             .lp-content-stack__item
               h3.lp-content-sub-title.text-center
                 | 一般利用と法人利用の違い
