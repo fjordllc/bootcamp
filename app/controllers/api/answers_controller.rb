@@ -45,8 +45,8 @@ class API::AnswersController < API::BaseController
   end
 
   def destroy
+    Newspaper.publish(:answer_destroy, { answer: @answer }) if @answer.is_a?(CorrectAnswer)
     @answer.destroy
-    Newspaper.publish(:answer_destroy, { answer: @answer })
   end
 
   private
