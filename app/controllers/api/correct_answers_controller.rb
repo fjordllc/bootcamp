@@ -22,7 +22,7 @@ class API::CorrectAnswersController < API::BaseController
     answer = @question.answers.find(params[:answer_id])
     answer.update!(type: '')
     Newspaper.publish(:answer_save, {
-                        answer: @answer,
+                        answer:,
                         action: "#{self.class.name}##{action_name}"
                       })
   end
