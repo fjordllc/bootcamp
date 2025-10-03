@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 export function initializeReaction(reaction) {
   const loginName = reaction.dataset.reactionLoginName
-  const reactionableId = reaction.dataset.reactionReactionableId
+  const reactionableGid = reaction.dataset.reactionReactionableGid
 
   const dropdown = reaction.querySelector('.js-reaction-dropdown')
   if (dropdown) {
@@ -28,12 +28,14 @@ export function initializeReaction(reaction) {
       const reactionId = e.currentTarget.dataset.reactionId
 
       if (reactionId) {
-        destroyReaction(reaction, kind, loginName, reactionId)
+        destroyReaction(reaction, kind, loginName, reactionId, reactionableGid)
       } else {
-        createReaction(reaction, kind, loginName, reactionableId)
+        createReaction(reaction, kind, loginName, reactionableGid)
       }
     })
   })
+
+  setupUsersList(reaction, reactionableGid)
 }
 
 function requestReaction(url, method, callback) {
@@ -88,8 +90,8 @@ function updateReactionLoginNames(element, loginName) {
   }
 }
 
-function createReaction(reaction, kind, loginName, reactionableId) {
-  const url = `/api/reactions?reactionable_id=${reactionableId}&kind=${kind}`
+function createReaction(reaction, kind, loginName, reactionableGid) {
+  const url = `/api/reactions?reactionable_gid=${reactionableGid}&kind=${kind}`
 
   requestReaction(url, 'POST', (json) => {
     reaction
@@ -100,6 +102,7 @@ function createReaction(reaction, kind, loginName, reactionableId) {
         updateReactionCount(element, 1)
         updateReactionLoginNames(element, loginName)
       })
+    updateUsersToggleState(reaction)
   })
 }
 
@@ -115,5 +118,153 @@ function destroyReaction(reaction, kind, loginName, reactionId) {
         updateReactionCount(element, -1)
         updateReactionLoginNames(element, loginName)
       })
+    updateUsersToggleState(reaction)
   })
+}
+
+function setupUsersList(reaction, reactionableGid) {
+  const usersToggle = reaction.querySelector('.js-reactions-users-toggle')
+  const usersList = reaction.querySelector('.js-reactions-users-list')
+
+  if (!usersToggle || !usersList) {
+    return
+  }
+
+  updateUsersToggleState(reaction)
+
+  usersToggle.addEventListener('click', (e) => {
+    if (usersToggle.classList.contains('is-disabled')) {
+      return
+    }
+    e.stopPropagation()
+    const isHidden = usersList.classList.contains('hidden')
+    if (isHidden) {
+      fetchAllReactions(reactionableGid, (data) => {
+        if (Object.keys(data).length === 0) {
+          return
+        }
+        renderAllReactions(data, usersList)
+        open()
+      })
+    } else {
+      close()
+    }
+  })
+
+  document.addEventListener('click', (e) => {
+    const isHidden = usersList.classList.contains('hidden')
+    if (
+      !isHidden &&
+      !usersList.contains(e.target) &&
+      !usersToggle.contains(e.target)
+    ) {
+      close()
+    }
+  })
+
+  function open() {
+    document.querySelectorAll('.js-reactions-users-list').forEach((element) => {
+      if (!element.classList.contains('hidden')) {
+        element.classList.add('hidden')
+      }
+    })
+    usersList.classList.remove('hidden')
+  }
+
+  function close() {
+    usersList.classList.add('hidden')
+  }
+}
+
+function fetchAllReactions(reactionableGid, callback) {
+  const url = `/api/reactions?reactionable_gid=${reactionableGid}`
+  requestReaction(url, 'GET', callback)
+}
+
+function renderAllReactions(data, content) {
+  content.innerHTML = ''
+
+  if (Object.keys(data).length === 0) {
+    return
+  }
+
+  Object.entries(data).forEach(([_kind, { emoji, users }]) => {
+    const emojiLine = createEmojiLine(emoji, users)
+    content.appendChild(emojiLine)
+  })
+}
+
+function createEmojiLine(emoji, users) {
+  const emojiLine = document.createElement('div')
+  emojiLine.classList.add('reaction-users-line')
+
+  const emojiSpan = document.createElement('span')
+  emojiSpan.classList.add('reaction-emoji')
+  emojiSpan.textContent = emoji
+  emojiLine.appendChild(emojiSpan)
+
+  const reactionList = createUsersList(users)
+  emojiLine.appendChild(reactionList)
+
+  return emojiLine
+}
+
+function createUsersList(users) {
+  const usersList = document.createElement('ul')
+  usersList.classList.add('reaction-users', 'a-user-icons__items')
+
+  users.forEach((user) => {
+    const li = createUserItem(user)
+    usersList.appendChild(li)
+  })
+
+  return usersList
+}
+
+function createUserItem(user) {
+  const li = document.createElement('li')
+  li.classList.add('reaction-user', 'a-user-icons__item')
+
+  if (user.id && user.login_name && user.avatar_url) {
+    const link = createUserLink(user)
+    li.appendChild(link)
+  }
+
+  return li
+}
+
+function createUserLink(user) {
+  const link = document.createElement('a')
+  link.classList.add('reaction-user-link', 'a-user-icons__item-link')
+  link.href = `/users/${user.id}`
+
+  const frame = document.createElement('span')
+  frame.className = user.user_icon_frame_class
+
+  const img = document.createElement('img')
+  img.classList.add(
+    'reaction-user-avatar',
+    'a-user-icon',
+    'a-user-icons__item-icon'
+  )
+  img.src = user.avatar_url
+  img.alt = user.login_name
+
+  frame.appendChild(img)
+  link.appendChild(frame)
+
+  return link
+}
+
+function updateUsersToggleState(reaction) {
+  const usersToggle = reaction.querySelector('.js-reactions-users-toggle')
+
+  const sum = Array.from(
+    reaction.querySelectorAll('.js-reaction-count')
+  ).reduce((total, element) => total + Number(element.textContent || 0), 0)
+  if (sum === 0) {
+    usersToggle.classList.add('is-disabled')
+  } else {
+    usersToggle.classList.remove('is-disabled')
+  }
 }

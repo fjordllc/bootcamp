@@ -66,4 +66,99 @@ class ReactionsTest < ApplicationSystemTestCase
       assert_text '❤️1'
     end
   end
+
+  test 'does not show reaction users list when there are no reactions' do
+    report = reports(:report1)
+    clear_reactions_for(report)
+    visit_with_auth report_path(report), 'komagata'
+    within('.report.page-content') do
+      assert_no_selector('.js-reactions-users-list', visible: :visible)
+      find('.js-reactions-users-toggle').click
+      assert_no_selector('.js-reactions-users-list', visible: :visible)
+    end
+  end
+
+  test 'show reactions and links to user profile when clicking avatar' do
+    machida = users(:machida)
+    report = reports(:report1)
+    clear_reactions_for(report)
+    visit_with_auth report_path(report), 'machida'
+    within('.report.page-content') do
+      add_reaction('smile')
+      assert_selector('li.reactions__item.is-reacted')
+      assert_selector('.js-reactions-users-toggle:not(.is-disabled)')
+
+      open_reaction_users_list
+      assert_selector('.js-reactions-users-list', visible: :visible)
+      within('.js-reactions-users-list') do
+        assert_selector('span.reaction-emoji', text: '😄')
+        click_link href: user_path(machida)
+      end
+    end
+    assert_current_path user_path(machida)
+  end
+
+  test 'closes reaction users list when clicking toggle again' do
+    report = reports(:report1)
+    clear_reactions_for(report)
+    visit_with_auth report_path(report), 'machida'
+    within('.report.page-content') do
+      add_reaction('smile')
+      assert_selector('li.reactions__item.is-reacted')
+      assert_selector('.js-reactions-users-toggle:not(.is-disabled)')
+
+      open_reaction_users_list
+      assert_selector('.js-reactions-users-list', visible: :visible)
+      find('.js-reactions-users-toggle').click
+      assert_no_selector('.js-reactions-users-list', visible: :visible)
+    end
+  end
+
+  test 'closes reaction users list when clicking outside' do
+    report = reports(:report1)
+    clear_reactions_for(report)
+    visit_with_auth report_path(report), 'machida'
+    within('.report.page-content') do
+      add_reaction('smile')
+      assert_selector('li.reactions__item.is-reacted')
+      assert_selector('.js-reactions-users-toggle:not(.is-disabled)')
+
+      open_reaction_users_list
+      assert_selector('.js-reactions-users-list', visible: :visible)
+      outside = find('.a-long-text')
+      outside.click
+      assert_no_selector('.js-reactions-users-list', visible: :visible)
+    end
+  end
+
+  test 'does not close reaction users list when clicking inside' do
+    report = reports(:report1)
+    clear_reactions_for(report)
+    visit_with_auth report_path(report), 'machida'
+    within('.report.page-content') do
+      add_reaction('smile')
+      assert_selector('li.reactions__item.is-reacted')
+      assert_selector('.js-reactions-users-toggle:not(.is-disabled)')
+
+      open_reaction_users_list
+      assert_selector('.js-reactions-users-list', visible: :visible)
+      inside = find('.js-reactions-users-list')
+      inside.click
+      assert_selector('.js-reactions-users-list', visible: :visible)
+    end
+  end
+
+  test 'toggle has is-disabled when reactions not exist' do
+    report = reports(:report1)
+    clear_reactions_for(report)
+    visit_with_auth report_path(report), 'machida'
+    within('.report.page-content') do
+      assert_selector('.reactions__users-toggle.is-disabled')
+      add_reaction('smile')
+      assert_selector('.js-reactions-users-toggle:not(.is-disabled)')
+
+      find("li[data-reaction-kind='smile'].is-reacted").click
+      assert_selector('.js-reactions-users-toggle.is-disabled')
+    end
+  end
 end
