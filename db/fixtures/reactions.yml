@@ -57,3 +57,15 @@ reaction48:
   user: komagata
   reactionable: report90 (Report)
   kind: heart
+
+<% (49..88).each do |i| %>
+reaction<%= i %>:
+  user: <%= login_names[i - 49] %>
+  reactionable: micro_report29 (MicroReport)
+  kind: thumbsup
+<% end %>
+
+reaction89:
+  user: machida
+  reactionable: micro_report29 (MicroReport)
+  kind: heart
