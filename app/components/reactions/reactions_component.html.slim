@@ -7,11 +7,16 @@
         ul.reactions__item-login-names.js-reaction-login-names
           - @reactionable.reaction_login_names_by(kind).each do |login_name|
             li = login_name
-  .reactions__dropdown.js-reaction-dropdown
-    .reactions__dropdown-toggle.js-reaction-dropdown-toggle
-      i.fa-regular.fa-plus.reactions__dropdown-toggle-plus
-      i.fa-solid.fa-smile
-    ul.reactions__items.is-dropdown.test-inline-block.js-reaction(hidden=true)
-      - Reaction.emojis.each do |kind, emoji|
-        li.reactions__item.test-inline-block[*reaction_attribute(kind)]
-          span.reactions__item-emoji.js-reaction-emoji = emoji
+  .reactions__actions
+    .reactions__users.js-reactions-users
+      .reactions__users-toggle.js-reactions-users-toggle
+        i.fa-solid.fa-eye
+      .reactions__users-list.js-reactions-users-list.hidden
+    .reactions__dropdown.js-reaction-dropdown
+      .reactions__dropdown-toggle.js-reaction-dropdown-toggle
+        i.fa-regular.fa-plus.reactions__dropdown-toggle-plus
+        i.fa-solid.fa-smile
+      ul.reactions__items.is-dropdown.test-inline-block.js-reaction(hidden=true)
+        - Reaction.emojis.each do |kind, emoji|
+          li.reactions__item.test-inline-block[*reaction_attribute(kind)]
+            span.reactions__item-emoji.js-reaction-emoji = emoji
