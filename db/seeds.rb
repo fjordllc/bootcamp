@@ -30,6 +30,7 @@ tables = %i[
   faqs
   followings
   reports
+  micro_reports
   learning_times
   learning_time_frames
   learnings
