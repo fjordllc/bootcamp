@@ -1,4 +1,4 @@
-window.addEventListener('load', function () {
+const hideLoading = () => {
   const loading = document.getElementById('loading-screen')
   const body = document.getElementById('loading-body')
 
@@ -6,4 +6,7 @@ window.addEventListener('load', function () {
     loading.style.display = 'none'
     body.style.removeProperty('display')
   }
-})
+}
+
+window.addEventListener('load', hideLoading)
+document.addEventListener('turbo:load', hideLoading)
