@@ -78,9 +78,6 @@ Rails.application.routes.draw do
       resources :action_uncompleted, only: %i(index)
     end
     resources :talks, only: %i(index update)
-    resources :generations, only: %i(index show) do
-      resources :users, only: %i(index), controller: "/api/generations/users"
-    end
     resources :regular_events, only: %i(index)
     resources :books, only: %i(index)
     resources :inquiries, only: %i(update)
