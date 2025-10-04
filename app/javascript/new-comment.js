@@ -1,5 +1,4 @@
 import autosize from 'autosize'
-import CSRF from 'csrf'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
 import { initializeComment, toggleVisibility } from './initializeComment.js'
@@ -7,24 +6,9 @@ import { initializeReaction } from './reaction.js'
 import { toast } from './vanillaToast.js'
 import { setWatchable } from './setWatchable.js'
 import commentCheckable from './comment-checkable.js'
+import { post } from '@rails/request.js'
 
 document.addEventListener('DOMContentLoaded', () => {
-  if (sessionStorage.getItem('showAssignedToast') === 'true') {
-    sessionStorage.removeItem('showAssignedToast')
-    toast('担当になりました。')
-  }
-
-  if (sessionStorage.getItem('showCheckToast') === 'true') {
-    sessionStorage.removeItem('showCheckToast')
-    const commentableType =
-      document.querySelector('.new-comment')?.dataset.commentable_type
-    if (commentableType === 'Product') {
-      toast('提出物を確認済みにしました。')
-    } else {
-      toast('日報を確認済みにしました。')
-    }
-  }
-
   const newComment = document.querySelector('.new-comment')
   if (!newComment) return
 
@@ -50,6 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const previewTab = commentEditor.querySelector('.comment-preview-tab')
   const previewTabContent = commentEditor.querySelector('.is-preview')
   const tabElements = [editTab, editorTabContent, previewTab, previewTabContent]
+
+  const message = sessionStorage.getItem('showToast')
+  if (message) {
+    sessionStorage.removeItem('showToast')
+    toast(message)
+  }
 
   editTab.addEventListener('click', () =>
     toggleVisibility(tabElements, 'is-active')
@@ -123,24 +113,18 @@ document.addEventListener('DOMContentLoaded', () => {
       comment: { description: savedComment }
     }
 
-    const response = await fetch('/api/comments', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': CSRF.getToken()
-      },
-      credentials: 'same-origin',
+    const response = await post('/api/comments', {
+      headers: { 'X-Requested-With': 'XMLHttpRequest' },
       redirect: 'manual',
-      body: JSON.stringify(params)
+      body: params
     })
 
     if (!response.ok) {
-      const data = await response.json()
+      const data = await response.json
       throw new Error(data.errors.join(', '))
     }
 
-    return await response.text()
+    return await response.text
   }
 
   const addCommentToDOM = (html) => {
@@ -166,23 +150,12 @@ document.addEventListener('DOMContentLoaded', () => {
     addCommentToDOM(html)
   }
 
-  const getToastMessage = (checkAfterSave, assigned) => {
-    if (checkAfterSave) {
-      return commentableType === 'Product'
-        ? '提出物を合格にしました。'
-        : '日報を確認済みにしました。'
-    } else if (assigned) {
-      return '担当になりました。'
-    }
-    return 'コメントを投稿しました！'
-  }
-
   const performCheck = async () => {
     await commentCheckable.check(
       commentableType,
       commentableId,
       '/api/checks',
-      'POST'
+      'post'
     )
   }
 
@@ -207,8 +180,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       resetEditor()
 
-      if (!assigned && !checkAfterSave) {
-        toast(getToastMessage(checkAfterSave, assigned))
+      if (assigned || checkAfterSave) {
+        location.reload()
+      } else {
+        toast('コメントを投稿しました！')
       }
     } catch (error) {
       console.warn(error)
