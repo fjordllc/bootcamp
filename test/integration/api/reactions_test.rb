@@ -3,12 +3,35 @@
 require 'test_helper'
 
 class API::ReactionTest < ActionDispatch::IntegrationTest
+  test 'POST /api/reactions returns created' do
+    report = reports(:report4)
+
+    token = create_token('komagata', 'testtest')
+    post api_reactions_path(reactionable_gid: report.to_global_id.to_s, kind: 'smile'), as: :json,
+                                                                                        headers: { 'Authorization' => "Bearer #{token}" }
+
+    assert_response :created
+  end
+
   test 'POST /api/reactions with unknown reactionable returns not_found' do
     token = create_token('komagata', 'testtest')
     post api_reactions_path(reactionable_gid: 'unknownReactionable'), as: :json,
                                                                       headers: { 'Authorization' => "Bearer #{token}" }
 
     assert_response :not_found
+  end
+
+  test 'DELETE /api/reactions/reactionID returns ok' do
+    komagata = users(:komagata)
+    report   = reports(:report1)
+    reaction = Reaction.create!(user_id: komagata.id, reactionable_type: 'Report', reactionable_id: report.id, kind: 'heart')
+
+    token = create_token('komagata', 'testtest')
+    delete api_reaction_path(reaction), as: :json,
+                                        headers: { 'Authorization' => "Bearer #{token}" }
+
+    assert_response :ok
+    assert_nil Reaction.find_by(id: reaction.id)
   end
 
   test 'GET /api/reactions returns reactions' do
