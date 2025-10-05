@@ -4,6 +4,8 @@ class API::ReactionsController < API::BaseController
   before_action :set_reactionable, only: %i[create index]
 
   def create
+    return head :not_found unless @reactionable
+
     reaction = @reactionable.reactions.build(user: current_user, kind: params[:kind])
 
     if reaction.save
@@ -20,7 +22,7 @@ class API::ReactionsController < API::BaseController
   end
 
   def index
-    return render json: {} unless @reactionable
+    return head :not_found unless @reactionable
 
     reactions = @reactionable
                 .reactions
