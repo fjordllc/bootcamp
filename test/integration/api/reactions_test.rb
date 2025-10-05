@@ -3,6 +3,14 @@
 require 'test_helper'
 
 class API::ReactionTest < ActionDispatch::IntegrationTest
+  test 'POST /api/reactions with unknown reactionable returns not_found' do
+    token = create_token('komagata', 'testtest')
+    post api_reactions_path(reactionable_gid: 'unknownReactionable'), as: :json,
+                                                                      headers: { 'Authorization' => "Bearer #{token}" }
+
+    assert_response :not_found
+  end
+
   test 'GET /api/reactions returns reactions' do
     report = reports(:report4)
     komagata = users(:komagata)
@@ -40,5 +48,13 @@ class API::ReactionTest < ActionDispatch::IntegrationTest
     } }
 
     assert_equal expected, actual_without_avatar
+  end
+
+  test 'GET /api/reactions with unknown reactionable returns not_found' do
+    token = create_token('komagata', 'testtest')
+    get api_reactions_path(reactionable_gid: 'unknownReactionable'), as: :json,
+                                                                     headers: { 'Authorization' => "Bearer #{token}" }
+
+    assert_response :not_found
   end
 end
