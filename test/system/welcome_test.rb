@@ -96,7 +96,7 @@ class WelcomeTest < ApplicationSystemTestCase
 
   test 'mentors can update their profiles' do
     visit_with_auth '/current_user/edit', 'komagata'
-    attach_file 'user[profile_image]', Rails.root.join('test/fixtures/files/users/avatars/komagata.jpg'), make_visible: true
+    attach_file 'user[profile_image]', Rails.root.join('test/fixtures/files/users-avatars-komagata.jpg'), make_visible: true
     fill_in 'user[profile_name]', with: '駒形 真幸'
     fill_in 'user[profile_job]', with: 'エンジニア'
     fill_in 'user[profile_text]', with: '[株式会社ロッカ](https://lokka.jp)の代表兼エンジニア。Rubyが大好きで[怖話](https://kowabana.jp)、[フィヨルドブートキャンプ](https://bootcamp.fjord.jp)などを開発している。'
@@ -115,7 +115,7 @@ class WelcomeTest < ApplicationSystemTestCase
   test 'administrator can update profiles of mentors' do
     user = users(:machida)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
-    attach_file 'user[profile_image]', Rails.root.join('test/fixtures/files/users/avatars/komagata.jpg'), make_visible: true
+    attach_file 'user[profile_image]', Rails.root.join('test/fixtures/files/users-avatars-komagata.jpg'), make_visible: true
     fill_in 'user[profile_name]', with: '駒形 真幸'
     fill_in 'user[profile_job]', with: 'エンジニア'
     fill_in 'user[profile_text]', with: '[株式会社ロッカ](https://lokka.jp)の代表兼エンジニア。Rubyが大好きで[怖話](https://kowabana.jp)、[フィヨルドブートキャンプ](https://bootcamp.fjord.jp)などを開発している。'

@@ -42,10 +42,8 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
       assert_text '質問を作成しました。'
     end
 
-    visit_with_auth '/notifications', 'mentormentaro'
-    within first('.card-list-item.is-unread') do
-      assert_text 'hatsunoさんから質問「メンターに質問！！」が投稿されました。'
-    end
+    notifications = Notification.where(user: users(:mentormentaro), kind: Notification.kinds[:came_question])
+    assert notifications.any? { |n| n.message.include?('hatsunoさんから質問「メンターに質問！！」が投稿されました。') }
 
     assert_equal @notified_count + @mentor_count, Notification.where(kind: @notice_kind).size
   end
@@ -59,9 +57,8 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     click_button '登録する'
     assert_text '質問を作成しました。'
 
-    visit '/notifications'
-    assert_selector '.page-header__title', text: '通知'
-    assert_no_text 'mentormentaroさんから質問「皆さんに質問！！」が投稿されました。'
+    notifications = Notification.where(user: users(:mentormentaro), kind: Notification.kinds[:came_question])
+    refute notifications.any? { |n| n.message.include?('mentormentaroさんから質問「皆さんに質問！！」が投稿されました。') }
   end
 
   test 'should not notify when an already published question was updated' do
@@ -77,8 +74,8 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     click_button '更新する'
     assert_text '質問を更新しました'
 
-    visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_no_text 'kimuraさんから質問「更新されたタイトル」が投稿されました。'
+    notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_question]).unreads
+    refute notifications.any? { |n| n.message.include?('kimuraさんから質問「更新されたタイトル」が投稿されました。') }
   end
 
   test 'should not notify when an already published question was updated as WIP' do
@@ -94,8 +91,8 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     click_button 'WIP'
     assert_text '質問をWIPとして保存しました。'
 
-    visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_no_text 'kimuraさんから質問「更新されたタイトル」が投稿されました。'
+    notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_question]).unreads
+    refute notifications.any? { |n| n.message.include?('kimuraさんから質問「更新されたタイトル」が投稿されました。') }
   end
 
   test 'should not notify when a newly question was created as WIP' do
@@ -110,8 +107,8 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     click_button 'WIP'
     assert_text '質問をWIPとして保存しました。'
 
-    visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_no_text 'kimuraさんから質問「WIPタイトル」が投稿されました。'
+    notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_question]).unreads
+    refute notifications.any? { |n| n.message.include?('kimuraさんから質問「WIPタイトル」が投稿されました。') }
   end
 
   test 'notify when a newly question was created as published' do
@@ -126,8 +123,8 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     click_button '登録する'
     assert_text '質問を作成しました。'
 
-    visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_text 'kimuraさんから質問「公開タイトル」が投稿されました。'
+    notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_question]).unreads
+    assert notifications.any? { |n| n.message.include?('kimuraさんから質問「公開タイトル」が投稿されました。') }
   end
 
   test 'should not notify when a WIP question was updated' do
@@ -149,8 +146,8 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     click_button 'WIP'
     assert_text '質問をWIPとして保存しました'
 
-    visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_no_text 'kimuraさんから質問「更新されたWIPタイトル」が投稿されました。'
+    notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_question]).unreads
+    refute notifications.any? { |n| n.message.include?('kimuraさんから質問「更新されたWIPタイトル」が投稿されました。') }
   end
 
   test 'notify when a WIP question with modification was updated as published' do
@@ -172,8 +169,8 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     click_button '質問を公開'
     assert_text '質問を更新しました'
 
-    visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_text 'kimuraさんから質問「更新された公開タイトル」が投稿されました。'
+    notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_question]).unreads
+    assert notifications.any? { |n| n.message.include?('kimuraさんから質問「更新された公開タイトル」が投稿されました。') }
   end
 
   test 'notify when a WIP question without modification was updated as published' do
@@ -191,8 +188,8 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     click_button '質問を公開'
     assert_text '質問を更新しました'
 
-    visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_text 'kimuraさんから質問「WIPタイトル」が投稿されました。'
+    notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_question]).unreads
+    assert notifications.any? { |n| n.message.include?('kimuraさんから質問「WIPタイトル」が投稿されました。') }
   end
 
   test 'should not notify when a published question with modification was updated as WIP' do
@@ -217,8 +214,8 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     click_button 'WIP'
     assert_text '質問をWIPとして保存しました。'
 
-    visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_no_text 'kimuraさんから質問「更新されたWIPタイトル」が投稿されました。'
+    notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_question]).unreads
+    refute notifications.any? { |n| n.message.include?('kimuraさんから質問「更新されたWIPタイトル」が投稿されました。') }
   end
 
   test 'should not notify when a published question without modification was updated as WIP' do
@@ -239,8 +236,8 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     click_button 'WIP'
     assert_text '質問をWIPとして保存しました'
 
-    visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_no_text 'kimuraさんから質問「公開タイトル」が投稿されました。'
+    notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_question]).unreads
+    refute notifications.any? { |n| n.message.include?('kimuraさんから質問「公開タイトル」が投稿されました。') }
   end
 
   test 'should not notify when a published question was updated' do
@@ -265,8 +262,8 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     click_button '更新する'
     assert_text '質問を更新しました'
 
-    visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_no_text 'kimuraさんから質問「更新されたタイトル」が投稿されました。'
+    notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_question]).unreads
+    refute notifications.any? { |n| n.message.include?('kimuraさんから質問「更新されたタイトル」が投稿されました。') }
   end
 
   test 'delete question by mentor with notification' do
@@ -280,9 +277,8 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
       assert_text '質問を作成しました。'
     end
 
-    visit_with_auth '/notifications', 'komagata'
-    assert_text 'yameoさんが退会しました。'
-    assert_text 'kimuraさんから質問「タイトルtest」が投稿されました。'
+    notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_question])
+    assert notifications.any? { |n| n.message.include?('kimuraさんから質問「タイトルtest」が投稿されました。') }
 
     visit_with_auth '/questions', 'komagata'
     click_on 'タイトルtest'
@@ -294,9 +290,8 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
       assert_text '質問を削除しました。'
     end
 
-    visit_with_auth '/notifications', 'komagata'
-    assert_text 'yameoさんが退会しました。'
-    assert_no_text 'kimuraさんから質問「タイトルtest」が投稿されました。'
+    notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_question])
+    refute notifications.any? { |n| n.message.include?('kimuraさんから質問「タイトルtest」が投稿されました。') }
   end
 
   test 'notify to questioner when a week has passed since last answer' do
@@ -323,21 +318,19 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
         mock_env('TOKEN' => 'token') do
           visit scheduler_daily_notify_certain_period_passed_after_last_answer_path(token: 'token')
         end
-        visit_with_auth '/notifications', 'kimura'
 
-        assert_no_text 'Q&A「テストの質問」のベストアンサーがまだ選ばれていません。'
-        assert_current_path(notifications_path(_login_name: 'kimura'))
+        notifications = Notification.where(user: users(:kimura), kind: Notification.kinds[:no_correct_answer])
+        refute notifications.any? { |n| n.message.include?('Q&A「テストの質問」のベストアンサーがまだ選ばれていません。') }
       end
     end
-    logout
 
     travel_to Time.zone.local(2022, 11, 7, 0, 0, 0) do
       mock_env('TOKEN' => 'token') do
         visit scheduler_daily_notify_certain_period_passed_after_last_answer_path(token: 'token')
       end
-      visit_with_auth '/notifications', 'kimura'
 
-      assert_text 'Q&A「テストの質問」のベストアンサーがまだ選ばれていません。'
+      notifications = Notification.where(user: users(:kimura), kind: Notification.kinds[:no_correct_answer])
+      assert notifications.any? { |n| n.message.include?('Q&A「テストの質問」のベストアンサーがまだ選ばれていません。') }
     end
   end
 

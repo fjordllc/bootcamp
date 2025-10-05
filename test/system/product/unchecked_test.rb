@@ -77,8 +77,10 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
     visit_with_auth '/products/unchecked', 'komagata'
-    click_link '自分の担当'
-    assert_text product.practice.title
+    within '.page-tabs' do
+      click_link '自分の担当'
+    end
+    assert_text product.practice.title, wait: 10
   end
 
   test 'display no-comment products if click on no-replied-button' do

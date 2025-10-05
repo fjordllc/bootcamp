@@ -8,30 +8,30 @@ company3_logo_blob: <%= ActiveStorage::FixtureSet.blob filename: "companies-logo
 company4_logo_blob: <%= ActiveStorage::FixtureSet.blob filename: "companies-logos-4.jpg" %>
 
 # users
-hatsuno_avatar_blob: <%= ActiveStorage::FixtureSet.blob filename: "users/avatars/hatsuno.jpg" %>
+hatsuno_avatar_blob: <%= ActiveStorage::FixtureSet.blob filename: "users-avatars-hatsuno.jpg" %>
 
-komagata_avatar_blob: <%= ActiveStorage::FixtureSet.blob filename: "users/avatars/komagata.jpg" %>
+komagata_avatar_blob: <%= ActiveStorage::FixtureSet.blob filename: "users-avatars-komagata.jpg" %>
 
-machida_avatar_blob: <%= ActiveStorage::FixtureSet.blob filename: "users/avatars/machida.jpg" %>
+machida_avatar_blob: <%= ActiveStorage::FixtureSet.blob filename: "users-avatars-machida.jpg" %>
 
-mentormentaro_avatar_blob: <%= ActiveStorage::FixtureSet.blob filename: "users/avatars/mentormentaro.jpg" %>
+mentormentaro_avatar_blob: <%= ActiveStorage::FixtureSet.blob filename: "users-avatars-mentormentaro.jpg" %>
 
-mineo_avatar_blob: <%= ActiveStorage::FixtureSet.blob filename: "users/avatars/mineo.jpg" %>
+mineo_avatar_blob: <%= ActiveStorage::FixtureSet.blob filename: "users-avatars-mineo.jpg" %>
 
-tanaka_avatar_blob: <%= ActiveStorage::FixtureSet.blob filename: "users/avatars/tanaka.jpg" %>
+tanaka_avatar_blob: <%= ActiveStorage::FixtureSet.blob filename: "users-avatars-tanaka.jpg" %>
 
-yameo_avatar_blob: <%= ActiveStorage::FixtureSet.blob filename: "users/avatars/yameo.jpg" %>
+yameo_avatar_blob: <%= ActiveStorage::FixtureSet.blob filename: "users-avatars-yameo.jpg" %>
 
-komagata_profile_image_blob: <%= ActiveStorage::FixtureSet.blob filename: "users/avatars/komagata.jpg" %>
+komagata_profile_image_blob: <%= ActiveStorage::FixtureSet.blob filename: "users-avatars-komagata.jpg" %>
 
-machida_profile_image_blob: <%= ActiveStorage::FixtureSet.blob filename: "users/avatars/machida.jpg" %>
+machida_profile_image_blob: <%= ActiveStorage::FixtureSet.blob filename: "users-avatars-machida.jpg" %>
 
-kimuramitai_profile_image_blob: <%= ActiveStorage::FixtureSet.blob filename: "users/avatars/default.jpg" %>
+kimuramitai_profile_image_blob: <%= ActiveStorage::FixtureSet.blob filename: "users-avatars-default.jpg" %>
 
-mp4_movie_blob: <%= ActiveStorage::FixtureSet.blob filename: "movies/movie.mp4" %>
+mp4_movie_blob: <%= ActiveStorage::FixtureSet.blob filename: "movies-movie.mp4" %>
 
-mov_movie_blob: <%= ActiveStorage::FixtureSet.blob filename: "movies/movie.mov" %>
+mov_movie_blob: <%= ActiveStorage::FixtureSet.blob filename: "movies-movie.mov" %>
 
-wip_movie_blob: <%= ActiveStorage::FixtureSet.blob filename: "movies/movie.mp4" %>
+wip_movie_blob: <%= ActiveStorage::FixtureSet.blob filename: "movies-movie.mp4" %>
 
-destroy_movie_blob: <%= ActiveStorage::FixtureSet.blob filename: "movies/movie.mov" %>
+destroy_movie_blob: <%= ActiveStorage::FixtureSet.blob filename: "movies-movie.mov" %>

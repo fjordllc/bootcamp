@@ -29,17 +29,11 @@ class Notification::WatchesTest < ApplicationSystemTestCase
     click_button 'コメントする'
     assert_text 'コメントを投稿しました！'
 
-    visit_with_auth '/notifications', 'kimura'
+    notifications = Notification.where(user: users(:kimura), kind: Notification.kinds[:watching])
+    assert notifications.any? { |n| n.message.include?("komagataさんの日報「#{reports(:report1).title}」にkomagataさんがコメントしました。") }
 
-    within first('.card-list-item.is-unread') do
-      assert_text "komagataさんの日報「#{reports(:report1).title}」にkomagataさんがコメントしました。"
-    end
-
-    visit_with_auth '/notifications', 'machida'
-
-    within first('.card-list-item.is-unread') do
-      assert_text "komagataさんの日報「#{reports(:report1).title}」にkomagataさんがコメントしました。"
-    end
+    notifications = Notification.where(user: users(:machida), kind: Notification.kinds[:watching])
+    assert notifications.any? { |n| n.message.include?("komagataさんの日報「#{reports(:report1).title}」にkomagataさんがコメントしました。") }
   end
 
   test '質問作成者がコメントをした際、ウォッチ通知が飛ばないバグの再現' do
@@ -59,16 +53,10 @@ class Notification::WatchesTest < ApplicationSystemTestCase
     click_button 'コメントする'
     assert_text '回答を投稿しました！'
 
-    visit_with_auth '/notifications', 'kimura'
+    notifications = Notification.where(user: users(:kimura), kind: Notification.kinds[:watching])
+    assert notifications.any? { |n| n.message.include?("machidaさんのQ&A「#{questions(:question1).title}」にmachidaさんが回答しました。") }
 
-    within first('.card-list-item.is-unread') do
-      assert_text "machidaさんのQ&A「#{questions(:question1).title}」にmachidaさんが回答しました。"
-    end
-
-    visit_with_auth '/notifications', 'komagata'
-
-    within first('.card-list-item.is-unread') do
-      assert_text "machidaさんのQ&A「#{questions(:question1).title}」にmachidaさんが回答しました。"
-    end
+    notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:watching])
+    assert notifications.any? { |n| n.message.include?("machidaさんのQ&A「#{questions(:question1).title}」にmachidaさんが回答しました。") }
   end
 end

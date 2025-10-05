@@ -390,8 +390,10 @@ class SignUpTest < ApplicationSystemTestCase
     end
 
     click_button '参加する'
-    assert_equal User.find_by(email:).course_id, course.id
-    assert_equal User.find_by(email:).company_id, company.id
+    assert_text 'メールからサインアップを完了させてください。'
+    user = User.find_by(email:)
+    assert_equal user.course_id, course.id
+    assert_equal user.company_id, company.id
   end
 
   test 'sign up with empty description ' do
