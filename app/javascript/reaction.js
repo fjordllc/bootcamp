@@ -47,7 +47,16 @@ function requestReaction(url, method, callback) {
       'X-CSRF-Token': $.rails.csrfToken()
     }
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.status === 404) {
+        console.warn(`Reactionable not found: ${url}`)
+        return {}
+      } else if (!response.ok) {
+        throw new Error(`API error: ${response.status}`)
+      } else {
+        return response.json()
+      }
+    })
     .then((json) => callback(json))
     .catch((error) => console.warn(error))
 }
@@ -94,6 +103,9 @@ function createReaction(reaction, kind, loginName, reactionableGid) {
   const url = `/api/reactions?reactionable_gid=${reactionableGid}&kind=${kind}`
 
   requestReaction(url, 'POST', (json) => {
+    if (!json || !json.id) {
+      return
+    }
     reaction
       .querySelectorAll(`[data-reaction-kind="${kind}"]`)
       .forEach((element) => {
