@@ -117,6 +117,7 @@ class PracticesTest < ApplicationSystemTestCase
       click_link '書籍を選択'
     end
     click_button '更新する'
+    assert_text 'プラクティスを更新しました'
   end
 
   test 'update a book' do

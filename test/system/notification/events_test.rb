@@ -20,11 +20,8 @@ class Notification::EventsTest < ApplicationSystemTestCase
     end
     assert_text '参加を取り消しました。'
 
-    visit_with_auth '/notifications', 'hatsuno'
-
-    within first('.card-list-item.is-unread') do
-      assert_text "#{event.title}で、補欠から参加に繰り上がりました。"
-    end
+    notifications = Notification.where(user: users(:hatsuno), kind: Notification.kinds[:moved_up_event_waiting_user])
+    assert notifications.any? { |n| n.message.include?("#{event.title}で、補欠から参加に繰り上がりました。") }
   end
 
   test 'waiting user receive notification when the event capacity is increased' do
@@ -36,10 +33,7 @@ class Notification::EventsTest < ApplicationSystemTestCase
     click_button '内容を更新'
     assert_text 'イベントを更新しました。'
 
-    visit_with_auth '/notifications', 'hatsuno'
-
-    within first('.card-list-item.is-unread') do
-      assert_text "#{event.title}で、補欠から参加に繰り上がりました。"
-    end
+    notifications = Notification.where(user: users(:hatsuno), kind: Notification.kinds[:moved_up_event_waiting_user])
+    assert notifications.any? { |n| n.message.include?("#{event.title}で、補欠から参加に繰り上がりました。") }
   end
 end

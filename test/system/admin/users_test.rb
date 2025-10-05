@@ -104,7 +104,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     visit "/admin/users/#{user.id}/edit"
     within 'form[name=user]' do
       fill_in 'user[login_name]', with: 'hatsuno'
-      attach_file 'user[avatar]', 'test/fixtures/files/users/avatars/komagata.jpg', make_visible: true
+      attach_file 'user[avatar]', 'test/fixtures/files/users-avatars-komagata.jpg', make_visible: true
       click_on '更新する'
     end
 

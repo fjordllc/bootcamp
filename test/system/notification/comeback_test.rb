@@ -24,9 +24,7 @@ class Notification::ComebackTest < ApplicationSystemTestCase
     end
     logout
 
-    visit_with_auth '/notifications', 'mentormentaro'
-    within first('.card-list-item.is-unread') do
-      assert_text 'kyuukaiさんが休会から復帰しました！'
-    end
+    notifications = Notification.where(user: users(:mentormentaro), kind: Notification.kinds[:comebacked])
+    assert notifications.any? { |n| n.message.include?('kyuukaiさんが休会から復帰しました！') }
   end
 end

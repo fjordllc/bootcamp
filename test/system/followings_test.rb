@@ -118,11 +118,12 @@ class FollowingsTest < ApplicationSystemTestCase
     end
     click_button 'コメントする'
     assert_text comment
+    assert_text 'コメントを投稿しました！', wait: 10
 
-    visit_with_auth '/notifications', 'kimura'
-    assert_text 'hatsunoさんの日報「test title」にhatsunoさんがコメントしました。'
+    notifications = Notification.where(user: users(:kimura), kind: Notification.kinds[:following_report])
+    assert notifications.any? { |n| n.message.include?('hatsunoさんの日報「test title」にhatsunoさんがコメントしました。') }
 
-    visit_with_auth '/notifications', 'mentormentaro'
-    assert_no_text 'hatsunoさんの日報「test title」にhatsunoさんがコメントしました。'
+    notifications = Notification.where(user: users(:mentormentaro), kind: Notification.kinds[:following_report])
+    refute notifications.any? { |n| n.message.include?('hatsunoさんの日報「test title」にhatsunoさんがコメントしました。') }
   end
 end

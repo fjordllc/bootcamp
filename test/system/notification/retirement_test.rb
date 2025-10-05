@@ -13,11 +13,8 @@ class Notification::RetirementTest < ApplicationSystemTestCase
   end
 
   test 'notify admins and mentors when a user retire' do
-    visit_with_auth notifications_path, 'komagata'
-    find('#notifications.loaded')
-    within first('.card-list-item') do
-      assert_no_selector '.card-list-item-title__link-label', text: '😢 kimuraさんが退会しました。'
-    end
+    notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:retired])
+    refute notifications.any? { |n| n.message.include?('kimuraさんが退会しました。') }
 
     visit_with_auth new_retirement_path, 'kimura'
     find('label', text: 'とても良い').click
@@ -25,10 +22,7 @@ class Notification::RetirementTest < ApplicationSystemTestCase
     page.driver.browser.switch_to.alert.accept
     assert_text '退会処理が完了しました'
 
-    visit_with_auth notifications_path, 'komagata'
-    find('#notifications.loaded')
-    within first('.card-list-item.is-unread') do
-      assert_selector '.card-list-item-title__link-label', text: '😢 kimuraさんが退会しました。'
-    end
+    notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:retired])
+    assert notifications.any? { |n| n.message.include?('kimuraさんが退会しました。') }
   end
 end

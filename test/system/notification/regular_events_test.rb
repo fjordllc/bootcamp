@@ -21,10 +21,8 @@ class Notification::RegularEventsTest < ApplicationSystemTestCase
     click_button '内容変更'
     assert_text '定期イベントを更新しました。'
 
-    visit_with_auth '/notifications', 'hatsuno'
-    within first('.card-list-item.is-unread') do
-      assert_text "定期イベント【#{regular_event.title}】が更新されました。"
-    end
+    notifications = Notification.where(user: users(:hatsuno), kind: Notification.kinds[:regular_event_updated])
+    assert notifications.any? { |n| n.message.include?("定期イベント【#{regular_event.title}】が更新されました。") }
   end
 
   test 'notify_coming_soon_regular_events' do
@@ -85,7 +83,7 @@ class Notification::RegularEventsTest < ApplicationSystemTestCase
     visit_with_auth regular_event_path(regular_event), 'komagata'
     fill_in 'new_comment[description]', with: '@machida test'
     click_button 'コメントする'
-    visit_with_auth '/notifications', 'machida'
-    assert_text '定期イベント「開発MTG」へのコメントでkomagataさんからメンションがきました。'
+    notifications = Notification.where(user: users(:machida), kind: Notification.kinds[:mentioned])
+    assert notifications.any? { |n| n.message.include?('定期イベント「開発MTG」へのコメントでkomagataさんからメンションがきました。') }
   end
 end

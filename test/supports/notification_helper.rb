@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 module NotificationHelper
+  def notifications(user:, target:, status:)
+    UserNotificationsQuery.new(user: user, target: target, status: status).call
+  end
+
   def notification_message
     first('.test-notification-message').text
   end

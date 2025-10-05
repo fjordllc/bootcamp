@@ -26,8 +26,8 @@ class SearchablesTest < ApplicationSystemTestCase
     within('form[name=search]') do
       select document_type
       fill_in 'word', with: search_word
+      click_button '検索'
     end
-    find('#test-search-modal').click
     labels = all('.card-list-item__label')
     assert_equal 1, labels.count
     labels.each do |label|
