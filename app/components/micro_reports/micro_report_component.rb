@@ -18,5 +18,14 @@ class MicroReports::MicroReportComponent < ViewComponent::Base
     end
   end
 
+  def delete_path
+    case controller.class.name
+    when 'Users::MicroReportsController'
+      helpers.user_micro_report_path(@user, @micro_report)
+    when 'CurrentUser::MicroReportsController'
+      helpers.current_user_micro_report_path(@micro_report)
+    end
+  end
+
   delegate :admin_login?, to: :helpers
 end

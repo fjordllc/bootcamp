@@ -20,7 +20,7 @@
                 button.micro-report-actions__action.is-edit.js-editor-button
                   | 内容修正
               li.micro-report-actions__item
-                = link_to user_micro_report_path(@user, @micro_report), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'micro-report-actions__action is-delete' do
+                = link_to delete_path, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'micro-report-actions__action is-delete' do
                   span#delete
                   | 削除する
         = render(Reactions::ReactionsComponent.new(reactionable: @micro_report, current_user: @current_user))
