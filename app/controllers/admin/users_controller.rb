@@ -7,7 +7,7 @@ class Admin::UsersController < AdminController
   def index
     @direction = params[:direction] || 'desc'
     @target = params[:target]
-    user_scope = User.users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'student_and_trainee')
+    user_scope = User.users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'all')
     user_scope = if @target == 'retired'
                    user_scope.where.not(retired_on: nil)
                  else
