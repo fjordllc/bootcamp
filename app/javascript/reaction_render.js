@@ -30,12 +30,14 @@ function createUsersList(users) {
   const usersList = document.createElement('ul')
   usersList.classList.add('reaction-users', 'a-user-icons__items')
 
+  const fragment = document.createDocumentFragment()
   users.forEach((user) => {
     const li = createUserItem(user)
     if (li) {
-      usersList.appendChild(li)
+      fragment.appendChild(li)
     }
   })
+  usersList.appendChild(fragment)
 
   return usersList
 }
