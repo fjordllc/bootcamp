@@ -61,7 +61,7 @@ function createUserLink(user) {
   link.href = `/users/${user.id}`
 
   const frame = document.createElement('span')
-  frame.className = user.user_icon_frame_class
+  frame.className = user.user_icon_frame_class || ''
 
   const img = document.createElement('img')
   img.classList.add(
