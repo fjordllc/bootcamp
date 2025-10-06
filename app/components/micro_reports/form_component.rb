@@ -12,6 +12,8 @@ class MicroReports::FormComponent < ViewComponent::Base
       helpers.user_micro_reports_path(@user, anchor: 'latest-micro-report')
     when 'CurrentUser::MicroReportsController'
       helpers.current_user_micro_reports_path(anchor: 'latest-micro-report')
+    else
+      raise "Unsupported controller: #{controller.class.name}"
     end
   end
 end

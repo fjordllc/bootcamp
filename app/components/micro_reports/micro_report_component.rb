@@ -24,6 +24,8 @@ class MicroReports::MicroReportComponent < ViewComponent::Base
       helpers.user_micro_report_path(@user, @micro_report)
     when 'CurrentUser::MicroReportsController'
       helpers.current_user_micro_report_path(@micro_report)
+    else
+      raise "Unsupported controller: #{controller.class.name}"
     end
   end
 
