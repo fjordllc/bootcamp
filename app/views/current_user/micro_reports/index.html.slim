@@ -5,4 +5,10 @@
 = render 'home/page_header'
 = dashboard_page_tabs(active_tab: '分報')
 
-= render 'shared/micro_reports_body', user: current_user, micro_reports: @micro_reports, show_form: true
+.page-body.pb-0
+  .page-content
+    .micro-reports__end
+      = render(MicroReports::FormComponent.new(user:@user))
+    - micro_reports_class = 'micro-reports-with-form'
+
+    = render 'shared/micro_reports_list', user: @user, current_user: current_user, micro_reports: @micro_reports, micro_reports_class: micro_reports_class
