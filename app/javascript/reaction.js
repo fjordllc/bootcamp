@@ -211,6 +211,9 @@ function fetchAllReactions(reactionableGid, callback) {
 
 function updateUsersToggleState(reaction) {
   const usersToggle = reaction.querySelector('.js-reactions-users-toggle')
+  if (!usersToggle) {
+    return
+  }
 
   const sum = Array.from(
     reaction.querySelectorAll('.js-reaction-count')
