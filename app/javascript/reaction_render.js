@@ -32,20 +32,23 @@ function createUsersList(users) {
 
   users.forEach((user) => {
     const li = createUserItem(user)
-    usersList.appendChild(li)
+    if (li) {
+      usersList.appendChild(li)
+    }
   })
 
   return usersList
 }
 
 function createUserItem(user) {
+  if (!user.id || !user.login_name || !user.avatar_url) {
+    return null
+  }
   const li = document.createElement('li')
   li.classList.add('reaction-user', 'a-user-icons__item')
 
-  if (user.id && user.login_name && user.avatar_url) {
-    const link = createUserLink(user)
-    li.appendChild(link)
-  }
+  const link = createUserLink(user)
+  li.appendChild(link)
 
   return li
 }
