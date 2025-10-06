@@ -1,5 +1,7 @@
 import { renderAllReactions } from './reaction_render'
 
+let isOutsideClickListenerRegistered = false
+
 document.addEventListener('DOMContentLoaded', () => {
   const reactions = document.querySelectorAll('.js-reactions')
 
@@ -10,6 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
   reactions.forEach((reaction) => {
     initializeReaction(reaction)
   })
+  if (!isOutsideClickListenerRegistered) {
+    registerOutsideClickListener()
+    isOutsideClickListenerRegistered = true
+  }
 })
 
 export function initializeReaction(reaction) {
@@ -158,36 +164,44 @@ function setupUsersList(reaction, reactionableGid) {
           return
         }
         renderAllReactions(data, usersList)
-        open()
+        open(usersList)
       })
     } else {
-      close()
+      close(usersList)
     }
   })
+}
 
+function registerOutsideClickListener() {
   document.addEventListener('click', (e) => {
-    const isHidden = usersList.classList.contains('hidden')
-    if (
-      !isHidden &&
-      !usersList.contains(e.target) &&
-      !usersToggle.contains(e.target)
-    ) {
-      close()
+    document
+      .querySelectorAll('.js-reactions-users-list')
+      .forEach((usersList) => {
+        const usersToggle = usersList
+          .closest('.js-reactions')
+          ?.querySelector('.js-reactions-users-toggle')
+
+        const isOpen = !usersList.classList.contains('hidden')
+        const clickedOutside =
+          !usersList.contains(e.target) && !usersToggle?.contains(e.target)
+        if (isOpen && clickedOutside) {
+          close(usersList)
+        }
+      })
+  })
+}
+
+function open(usersList) {
+  document.querySelectorAll('.js-reactions-users-list').forEach((element) => {
+    if (!element.classList.contains('hidden')) {
+      element.classList.add('hidden')
     }
   })
+  usersList.classList.remove('hidden')
+}
 
-  function open() {
-    document.querySelectorAll('.js-reactions-users-list').forEach((element) => {
-      if (!element.classList.contains('hidden')) {
-        element.classList.add('hidden')
-      }
-    })
-    usersList.classList.remove('hidden')
-  }
-
-  function close() {
-    usersList.classList.add('hidden')
-  }
+function close(usersList) {
+  usersList.classList.add('hidden')
 }
 
 function fetchAllReactions(reactionableGid, callback) {
