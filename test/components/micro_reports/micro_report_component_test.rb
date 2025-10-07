@@ -21,24 +21,27 @@ class MicroReports::MicroReportComponentTest < ViewComponent::TestCase
   end
 
   def test_posted_datetime_today
-    micro_report = @user.micro_reports.create(content: '今日の分報', created_at: Time.zone.now)
+    now = Time.zone.now
+    micro_report = @user.micro_reports.create(content: '今日の分報', created_at: now)
     render_component(micro_report)
 
-    assert_includes page.text, "今日 #{I18n.l(Time.zone.now, format: :time_only)}"
+    assert_includes page.text, "今日 #{I18n.l(now, format: :time_only)}"
   end
 
   def test_posted_datetime_yesterday
-    micro_report = @user.micro_reports.create(content: '昨日の分報', created_at: 1.day.ago)
+    yesterday = 1.day.ago
+    micro_report = @user.micro_reports.create(content: '昨日の分報', created_at: yesterday)
     render_component(micro_report)
 
-    assert_includes page.text, "昨日 #{I18n.l(1.day.ago, format: :time_only)}"
+    assert_includes page.text, "昨日 #{I18n.l(yesterday, format: :time_only)}"
   end
 
   def test_posted_datetime_older_than_two_days
-    micro_report = @user.micro_reports.create(content: '2日前の分報', created_at: 2.days.ago)
+    two_days_ago = 2.days.ago
+    micro_report = @user.micro_reports.create(content: '2日前の分報', created_at: two_days_ago)
     render_component(micro_report)
 
-    assert_includes page.text, I18n.l(2.days.ago, format: :date_and_time)
+    assert_includes page.text, I18n.l(two_days_ago, format: :date_and_time)
   end
 
   test 'returns correct delete_path for Users::MicroReportsController' do
