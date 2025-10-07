@@ -24,11 +24,11 @@ class Product::UnassignedTest < ApplicationSystemTestCase
   test 'unassigned products links are rendered correctly' do
     delete_most_unassigned_products!
     newest_product = Product
-                      .unassigned
-                      .unchecked
-                      .not_wip
-                      .ascending_by_date_of_publishing_and_id
-                      .first
+                     .unassigned
+                     .unchecked
+                     .not_wip
+                     .ascending_by_date_of_publishing_and_id
+                     .first
 
     visit_with_auth '/products/unassigned', 'komagata'
 
