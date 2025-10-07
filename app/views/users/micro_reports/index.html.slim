@@ -10,7 +10,7 @@
   .page-content
     - if current_user == @user
       .micro-reports__end
-        = render(MicroReports::FormComponent.new(user: @user))
+        = render(MicroReports::FormComponent.new(user: @user, controller_name: controller.class.name))
       - micro_reports_class = 'micro-reports-with-form'
     - else
       - micro_reports_class = 'micro-reports-without-form'
@@ -29,5 +29,5 @@
               - @micro_reports.each_with_index do |micro_report, index|
                 - if index == @micro_reports.size - 1
                   #latest-micro-report
-                = render(MicroReports::MicroReportComponent.new(user: @user, current_user: current_user, micro_report: micro_report))
+                = render(MicroReports::MicroReportComponent.new(user: @user, current_user: current_user, micro_report: micro_report, controller_name: controller.class.name))
               = paginate @micro_reports, params: { anchor: 'latest-micro-report' }
