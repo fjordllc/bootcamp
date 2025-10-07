@@ -88,6 +88,22 @@ class MicroReports::MicroReportComponentTest < ViewComponent::TestCase
     assert_equal 'Unsupported controller: UnknownController', error.message
   end
 
+  test 'raises error when controller_name is nil' do
+    user = users(:hajime)
+    error = assert_raises(RuntimeError) do
+      render_inline(
+        MicroReports::MicroReportComponent.new(
+          user:,
+          current_user: user,
+          micro_report: @micro_report,
+          controller_name: nil
+        )
+      )
+    end
+
+    assert_match(/controller/, error.message)
+  end
+
   private
 
   def render_component(micro_report)
