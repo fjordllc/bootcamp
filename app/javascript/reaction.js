@@ -1,3 +1,5 @@
+import { get, post, destroy } from '@rails/request.js'
+
 document.addEventListener('DOMContentLoaded', () => {
   const reactions = document.querySelectorAll('.js-reactions')
 
@@ -39,15 +41,16 @@ export function initializeReaction(reaction) {
 }
 
 function requestReaction(url, method, callback) {
-  fetch(url, {
-    method: method,
-    credentials: 'same-origin',
-    headers: {
-      'X-Requested-With': 'XMLHttpRequest',
-      'X-CSRF-Token': $.rails.csrfToken()
-    }
+  const methodMap = {
+    GET: get,
+    POST: post,
+    DELETE: destroy
+  }
+
+  methodMap[method](url, {
+    responseKind: 'json'
   })
-    .then((response) => response.json())
+    .then((response) => response.json)
     .then((json) => callback(json))
     .catch((error) => console.warn(error))
 }
