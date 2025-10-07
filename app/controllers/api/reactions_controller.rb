@@ -22,7 +22,9 @@ class API::ReactionsController < API::BaseController
   def index
     return render json: {} unless @reactionable
 
-    reactions = @reactionable.reactions.includes(:user)
+    reactions = @reactionable
+                .reactions
+                .includes(user: { avatar_attachment: :blob }).order(created_at: :asc)
     result = Reaction.emojis.each_with_object({}) do |(kind, emoji), hash|
       users = reactions
               .select { |r| r.kind == kind.to_s }
