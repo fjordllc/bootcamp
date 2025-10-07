@@ -6,7 +6,7 @@ import useSWR from 'swr'
 import fetcher from '../fetcher'
 import usePage from './hooks/usePage'
 
-export default function Notifications({ isMentor }) {
+export default function Notifications() {
   const per = 20
   const isUnreadPage = () => {
     const params = new URLSearchParams(location.search)
