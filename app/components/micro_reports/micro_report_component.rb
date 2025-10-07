@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class MicroReports::MicroReportComponent < ViewComponent::Base
-  def initialize(user:, current_user:, micro_report:)
+  def initialize(user:, current_user:, micro_report:, controller_name: nil)
     @user = user
     @current_user = current_user
     @micro_report = micro_report
+    @controller_name = controller_name
   end
 
   def posted_datetime
@@ -19,13 +20,13 @@ class MicroReports::MicroReportComponent < ViewComponent::Base
   end
 
   def delete_path
-    case controller.class.name
+    case @controller_name
     when 'Users::MicroReportsController'
       helpers.user_micro_report_path(@user, @micro_report)
     when 'CurrentUser::MicroReportsController'
       helpers.current_user_micro_report_path(@micro_report)
     else
-      raise "Unsupported controller: #{controller.class.name}"
+      raise "Unsupported controller: #{@controller_name}"
     end
   end
 
