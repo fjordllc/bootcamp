@@ -48,4 +48,15 @@ class MicroReports::FormComponentTest < ViewComponent::TestCase
 
     assert_equal 'Unsupported controller: UnknownController', error.message
   end
+
+  test 'raises error when controller_name is nil' do
+    error = assert_raises(RuntimeError) do
+      render_inline(MicroReports::FormComponent.new(
+                      user: @user,
+                      controller_name: nil
+                    ))
+    end
+
+    assert_match(/controller/, error.message)
+  end
 end
