@@ -44,7 +44,7 @@ class MicroReports::MicroReportComponentTest < ViewComponent::TestCase
     assert_includes page.text, I18n.l(two_days_ago, format: :date_and_time)
   end
 
-  test 'returns correct delete_path for Users::MicroReportsController' do
+  def test_delete_path_returns_correct_path_for_users_controller
     user = users(:hajime)
     render_inline(
       MicroReports::MicroReportComponent.new(
@@ -58,7 +58,7 @@ class MicroReports::MicroReportComponentTest < ViewComponent::TestCase
     assert_selector "a.micro-report-actions__action.is-delete[href='/users/#{user.id}/micro_reports/#{@micro_report.id}']"
   end
 
-  test 'returns correct delete_path for CurrentUser::MicroReportsController' do
+  def test_delete_path_returns_correct_path_for_current_user_controller
     user = users(:hajime)
     render_inline(
       MicroReports::MicroReportComponent.new(
@@ -72,7 +72,7 @@ class MicroReports::MicroReportComponentTest < ViewComponent::TestCase
     assert_selector "a.micro-report-actions__action.is-delete[href='/current_user/micro_reports/#{@micro_report.id}']"
   end
 
-  test 'raises error for unsupported controller' do
+  def test_delete_path_raises_error_when_unsupported_controller
     user = users(:hajime)
     error = assert_raises(RuntimeError) do
       render_inline(
@@ -88,7 +88,7 @@ class MicroReports::MicroReportComponentTest < ViewComponent::TestCase
     assert_equal 'Unsupported controller: UnknownController', error.message
   end
 
-  test 'raises error when controller_name is nil' do
+  def test_delete_path_raises_error_when_controller_name_is_nil
     user = users(:hajime)
     error = assert_raises(RuntimeError) do
       render_inline(
