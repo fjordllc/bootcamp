@@ -24,7 +24,7 @@ class MicroReports::FormComponentTest < ViewComponent::TestCase
       )
     )
 
-    assert_selector "form[action='/users/#{users(:hatsuno).id}/micro_reports#latest-micro-report']"
+    assert_selector "form[action='/users/#{@user.id}/micro_reports#latest-micro-report']"
   end
 
   test 'returns correct form_action_path for CurrentUser::MicroReportsController' do
