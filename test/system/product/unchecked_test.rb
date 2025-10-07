@@ -24,10 +24,10 @@ class Product::UncheckedTest < ApplicationSystemTestCase
   test 'unchecked products links are rendered correctly' do
     delete_most_unchecked_products!
     newest_product = Product
-                      .unchecked
-                      .not_wip
-                      .ascending_by_date_of_publishing_and_id
-                      .first
+                     .unchecked
+                     .not_wip
+                     .ascending_by_date_of_publishing_and_id
+                     .first
 
     visit_with_auth '/products/unchecked', 'komagata'
 

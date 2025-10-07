@@ -263,7 +263,7 @@ class ProductTest < ActiveSupport::TestCase
 
     assert_includes Product.self_assigned_no_replied_products(mentor.id), product
 
-    comment = Comment.create!(
+    Comment.create!(
       commentable: product,
       user: mentor,
       description: '返信済み',
@@ -271,7 +271,7 @@ class ProductTest < ActiveSupport::TestCase
       updated_at: Time.current
     )
 
-    refute_includes Product.self_assigned_no_replied_products(mentor.id), product
+    assert_not_includes Product.self_assigned_no_replied_products(mentor.id), product
   end
 
   test 'unassigned scope returns products without checker' do
