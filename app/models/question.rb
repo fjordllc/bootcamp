@@ -111,4 +111,12 @@ class Question < ApplicationRecord
   def set_published_at
     self.published_at = Time.zone.now
   end
+
+  def not_wip?
+    wip == false
+  end
+
+  def unsolved?
+    !answers.exists?(type: 'CorrectAnswer')
+  end
 end

@@ -5,12 +5,12 @@ class QuestionCallbacks
     return unless question.saved_change_to_attribute?(:published_at, from: nil)
 
     send_notification_to_mentors(question)
+    Rails.logger.info '[after_save] Cache destroyed for unsolved question count.'
     Cache.delete_not_solved_question_count
   end
 
   def after_destroy(question)
     delete_notification(question)
-    Cache.delete_not_solved_question_count
   end
 
   private
