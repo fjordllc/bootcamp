@@ -292,31 +292,31 @@ class SignUpTest < ApplicationSystemTestCase
 
   test 'job seeker option is shown for student' do
     visit '/users/new'
-    assert_selector 'form'
+    assert_selector 'form[name=user]'
     assert_selector "input[name='user[job_seeker]']", visible: :all
   end
 
   test 'job seeker option is hidden for adviser' do
     visit '/users/new?role=adviser'
-    assert_selector 'form'
+    assert_selector 'form[name=user]'
     assert has_no_selector? "input[name='user[job_seeker]']", visible: :all
   end
 
   test 'job seeker option is hidden for trainee invoice payment' do
     visit '/users/new?role=trainee_invoice_payment'
-    assert_selector 'form'
+    assert_selector 'form[name=user]'
     assert has_no_selector? "input[name='user[job_seeker]']", visible: :all
   end
 
   test 'job seeker option is hidden for trainee credit card payment' do
     visit '/users/new?role=trainee_credit_card_payment'
-    assert_selector 'form'
+    assert_selector 'form[name=user]'
     assert has_no_selector? "input[name='user[job_seeker]']", visible: :all
   end
 
   test 'job seeker option is hidden for trainee select a payment method' do
     visit '/users/new?role=trainee_select_a_payment_method'
-    assert_selector 'form'
+    assert_selector 'form[name=user]'
     assert has_no_selector? "input[name='user[job_seeker]']", visible: :all
   end
 
