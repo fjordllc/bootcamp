@@ -15,7 +15,7 @@ class ChecksController < ApplicationController
     @check = @checkable.checks.build(user: current_user)
 
     if @check.save
-      Newspaper.publish(:check_create, { check: @check })
+      ActiveSupport::Notifications.instrument('check.create', check: @check)
       if @checkable.is_a?(Product)
         @checkable.change_learning_status(:complete)
         redirect_back(fallback_location: @checkable, notice: '提出物を合格にしました。')
@@ -32,7 +32,7 @@ class ChecksController < ApplicationController
     @checkable = @check.checkable
 
     @check.destroy
-    Newspaper.publish(:check_cancel, { check: @check })
+    ActiveSupport::Notifications.instrument('check.cancel', check: @check)
     @checkable.change_learning_status(:submitted) if @checkable.is_a?(Product)
     redirect_back(fallback_location: @checkable)
   end
