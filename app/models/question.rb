@@ -49,8 +49,11 @@ class Question < ApplicationRecord
 
   mentionable_as :description
 
-  def clear_cache_not_wip_unsolved_question
-    Cache.delete_not_solved_question_count if not_wip? && unsolved?
+  def clear_question_cache
+    return unless not_wip? && unsolved?
+
+    Cache.delete_not_solved_question_count
+    Rails.logger.info '[before_destroy] Cache destroyed for unsolved question count.'
   end
 
   class << self
