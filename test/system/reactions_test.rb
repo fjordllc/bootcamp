@@ -96,7 +96,7 @@ class ReactionsTest < ApplicationSystemTestCase
     assert_current_path user_path(machida)
   end
 
-  test 'closes reaction users list when clicking toggle or outside' do
+  test 'closes reaction users list when clicking toggle or outside but not inside' do
     report = clear_reactions_from(reports(:report1))
 
     visit_with_auth report_path(report), 'machida'
@@ -111,7 +111,7 @@ class ReactionsTest < ApplicationSystemTestCase
 
       toggle_reaction_users_list
       assert_selector('.js-reactions-users-list', visible: :visible)
-      outside = find('.a-long-text')
+      outside = find('.card-body')
       outside.click
       assert_no_selector('.js-reactions-users-list', visible: :visible)
 
