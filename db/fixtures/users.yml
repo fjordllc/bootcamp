@@ -1532,3 +1532,26 @@ kensyu-invoice:
   last_activity_at: "2014-01-01 00:00:11"
   sent_student_followup_message: true
   training_ends_on: <%= Time.current.next_year %>
+
+new-mentor:
+  login_name: new-mentor
+  email: new-mentor@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: ニューメンター
+  name_kana: ニューメンター
+  github_account: new-mentor
+  twitter_account: new-mentor
+  facebook_url: https://www.facebook.com/fjordllc/new-mentor
+  blog_url: http://new-mentor.com
+  company: company1
+  description: "新しいメンターです。"
+  course: course1
+  job: office_worker
+  os: mac
+  experiences: 30
+  mentor: true
+  updated_at: <%= Time.current %>
+  created_at: <%= Time.current %>
+  sent_student_followup_message: true
+  last_activity_at: <%= Time.current %>

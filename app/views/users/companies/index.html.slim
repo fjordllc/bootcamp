@@ -11,7 +11,7 @@ header.page-header
           ul.page-header-actions__items
 
 = users_page_tabs(active_tab: '企業別')
-= render 'users_tabs'
+= render 'users_tabs', target: @target, allowed_targets: @allowed_targets
 
 main.page-main
   header.page-main-header
@@ -21,4 +21,4 @@ main.page-main
           = '企業別'
           | （#{t("target.#{@target}")}）
   hr.a-border
-  = react_component('Companies', target: @target)
+  = render 'companies', companies: @companies, company_users: @company_users, target: @target, allowed_targets: @allowed_targets
