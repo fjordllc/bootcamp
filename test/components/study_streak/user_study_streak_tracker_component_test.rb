@@ -26,9 +26,9 @@ class StudyStreak::UserStudyStreakTrackerComponentTest < ViewComponent::TestCase
 
     # 現在の連続学習日数と期間を表示する
     assert_selector '.streak-container'
-    assert_text 'days'
+    assert_text '日'
     assert_selector '.streak-item__number', text: '3', count: 2
-    assert_selector '.streak-item__period', text: 'Aug 20 - Aug 22'
+    assert_selector '.streak-item__period', text: '08/20 〜 08/22'
   end
 
   test 'renders longest streak information (ties resolved by most recent)' do
@@ -36,7 +36,7 @@ class StudyStreak::UserStudyStreakTrackerComponentTest < ViewComponent::TestCase
 
     # 最長連続日数も3日で、同率の場合は最新の期間を選ぶ
     assert_selector '.streak-item__number', text: '3'
-    assert_selector '.streak-item__period', text: 'Aug 20 - Aug 22'
+    assert_selector '.streak-item__period', text: '08/20 〜 08/22'
   end
 
   test 'renders zero streak when no learning days' do
@@ -56,17 +56,16 @@ class StudyStreak::UserStudyStreakTrackerComponentTest < ViewComponent::TestCase
     render_inline(StudyStreak::UserStudyStreakTrackerComponent.new(study_streak: @study_streak))
 
     assert_selector '.streak-container'
-    assert_selector '.streak-container__item', count: 2
     assert_selector '.streak-item', count: 2
     assert_selector '.streak-item__content', count: 2
     assert_selector '.streak-item__number', count: 2
-    assert_selector '.streak-item__unit', text: 'days', count: 2
+    assert_selector '.streak-item__unit', text: '日', count: 2
     assert_selector '.streak-item__label', count: 2
   end
 
-  test 'date format follows "Aug d - Aug d" pattern for same year' do
+  test 'date format follows "mm/dd 〜 mm/dd" pattern for same year' do
     render_inline(StudyStreak::UserStudyStreakTrackerComponent.new(study_streak: @study_streak))
 
-    assert_selector '.streak-item__period', text: /Aug \d{1,2} - Aug \d{1,2}/
+    assert_selector '.streak-item__period', text: %r{\d{2}/\d{2} 〜 \d{2}/\d{2}}
   end
 end
