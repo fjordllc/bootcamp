@@ -94,15 +94,15 @@ class UserCoursePractice
   private
 
   def unstarted_practices
-    @unstarted_practices ||= UserUnstartedPracticesQuery.new(user: @user).call
+    @unstarted_practices ||= UserUnstartedPracticesQuery.call(user: @user)
   end
 
   def category_having_active_practice
-    @user.active_practices&.first&.categories&.first
+    OrderedCategoriesFromPracticesQuery.call(user: @user, practices: @user.active_practices).first
   end
 
   def category_having_unstarted_practice
-    unstarted_practices&.first&.categories&.first
+    OrderedCategoriesFromPracticesQuery.call(user: @user, practices: unstarted_practices).first
   end
 
   def filter_category_by_practice_ids(category, practice_ids)
