@@ -1,19 +1,15 @@
-- title "#{@user.login_name}の分報一覧"
-- set_meta_tags description: "#{@user.login_name}さんの分報一覧ページです。"
+- title '自分の分報一覧'
+- set_meta_tags description: "#{current_user.login_name}さんの分報一覧ページです。"
 - content_for(:extra_body_classes, 'no-footer no-scroll')
 
-= render 'users/page_title', user: @user
-
-= user_page_tabs(@user, active_tab: '分報')
+= render 'home/page_header'
+= dashboard_page_tabs(active_tab: '分報')
 
 .page-body.pb-0
   .page-content
-    - if current_user == @user
-      .micro-reports__end
-        = render(MicroReports::FormComponent.new(user: @user, controller_name: controller.class.name))
-      - micro_reports_class = 'micro-reports-with-form'
-    - else
-      - micro_reports_class = 'micro-reports-without-form'
+    .micro-reports__end
+      = render(MicroReports::FormComponent.new(user: @user, controller_name: controller.class.name))
+    - micro_reports_class = 'micro-reports-with-form'
     .micro-reports#js-micro-reports class=micro_reports_class
       .micro-reports__start
         .container.is-md

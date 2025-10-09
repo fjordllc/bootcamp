@@ -6,5 +6,6 @@ Rails.application.routes.draw do
     resources :products, only: %i(index)
     resources :watches, only: %i(index)
     resources :bookmarks, only: %i(index)
+    resources :micro_reports, only: %i[index create destroy]
   end
 end
