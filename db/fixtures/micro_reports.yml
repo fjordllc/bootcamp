@@ -19,3 +19,8 @@ micro_report<%= id %>:
   content: <%= id %>個目の分報です。
   created_at: '2022-01-04 00:00:00'
 <% end %>
+
+micro_report29:
+  user: machida
+  content: スタンプがたくさんついた分報です。
+  created_at: '2025-10-01 01:00:00'

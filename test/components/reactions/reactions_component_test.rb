@@ -11,7 +11,7 @@ class Reactions::ReactionsComponentTest < ViewComponent::TestCase
 
   def test_reactions_attributes
     assert_selector ".js-reactions[data-reaction-login-name='#{@current_user.login_name}']"
-    assert_selector ".js-reactions[data-reaction-reactionable-id='comment_#{@reacted_comment.id}']"
+    assert_selector ".js-reactions[data-reaction-reactionable-gid='#{@reacted_comment.to_global_id}']"
   end
 
   def test_display_reaction
