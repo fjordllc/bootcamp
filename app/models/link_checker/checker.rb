@@ -35,6 +35,8 @@ module LinkChecker
     end
 
     def valid_domain?(domain)
+      return false if domain.blank?
+
       Resolv.getaddress(domain)
       true
     rescue Resolv::ResolvError
