@@ -128,7 +128,7 @@ class ReactionsTest < ApplicationSystemTestCase
 
     visit_with_auth report_path(report), 'machida'
     within('.report.page-content') do
-      assert_selector('.reactions__users-toggle.is-disabled')
+      assert_selector('.reactions__dropdown-toggle.is-disabled')
       add_reaction('smile')
       assert_selector('.js-reactions-users-toggle:not(.is-disabled)')
 
