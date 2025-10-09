@@ -71,3 +71,9 @@ nav.global-nav
               .global-nav__item-count.a-notification-count.is-only-mentor
                 = Talk.action_uncompleted.count
             .global-nav-links__link-label 相談
+        - if Switchlet.enabled?(:micro_report) && (admin_or_mentor_login? || (Rails.env.in? %w[development test]))
+          li.global-nav-links__item
+            = link_to "#{user_micro_reports_path(current_user, page: current_user.latest_micro_report_page)}#latest-micro-report", class: "global-nav-links__link #{current_link(/micro_reports/)}" do
+              .global-nav-links__link-icon
+                i.fa-solid.fa-clock
+              .global-nav-links__link-label 分報
