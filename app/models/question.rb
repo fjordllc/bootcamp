@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Question < ApplicationRecord
+class Question < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include Searchable
   include Reactionable
   include Watchable
