@@ -55,7 +55,7 @@ function createUserItem(user) {
 
 function createUserLink(user) {
   const link = document.createElement('a')
-  link.classList.add('reaction-user-link', 'a-user-icons__item-link')
+  link.classList.add('reaction-user__link', 'a-user-icons__item-link')
   link.href = `/users/${user.id}`
 
   const frame = document.createElement('span')
@@ -63,7 +63,7 @@ function createUserLink(user) {
 
   const img = document.createElement('img')
   img.classList.add(
-    'reaction-user-avatar',
+    'reaction-user__avatar',
     'a-user-icon',
     'a-user-icons__item-icon'
   )

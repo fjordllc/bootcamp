@@ -3,57 +3,47 @@
   justify-content: space-between
   position: relative
   user-select: none
+  padding: .5rem
   .card-body + &
      border-top: none
 
 .reactions__items
   display: flex
   flex-wrap: wrap
-  +border-radius(bottom, .25rem)
+  gap: .5rem
   +media-breakpoint-down(sm)
     overflow: hidden
-    margin-right: -1px
-    margin-bottom: -1px
-    width: 100%
   .reactions__dropdown &
-    +position(absolute, top 2.375rem, 1)
-    width: 181px
-    border-top: 1px solid var(--border)
-    border-left: 1px solid var(--border)
-    border-right: 1px solid var(--border)
-    +media-breakpoint-up(md)
-      right: -1px
-    +media-breakpoint-down(sm)
-      right: 0
+    +position(absolute, top 100%, left -1px, right -1px, 1)
+    border: 1px solid var(--border)
+    background-color: var(--background)
+    padding: .5rem
+    justify-content: flex-end
+    border-radius: 0 0 .25rem .25rem
 
 .reactions__item
   cursor: pointer
   display: inline-flex
   align-items: center
   justify-content: center
-  padding: 0 9px
+  height: 2.375rem
+  padding-inline: .5rem
+  border-radius: .25rem
   background-color: var(--base)
-  border-right: 1px solid var(--border-tint)
+  border: 1px solid var(--border)
   transition: all .2s ease-out
   position: relative
-  +media-breakpoint-down(sm)
-    width: 20%
-    height: 2.75rem
-    border-bottom: 1px solid var(--border-tint)
   &.is-reacted
-    background-color: var(--background-more-tint)
+    background-color: #f1f1ff
+    border-color: #dad9ff
   &:hover
     background-color: var(--background-more-tint)
   @media (pointer: fine)
     &:hover .reactions__item-login-names
       display: block
   .reactions__dropdown &
-    border-right: 1px solid var(--border)
-    border-bottom: 1px solid var(--border)
-    +size(2.8125rem)
-  .reactions__dropdown &:nth-child(4n)
-    border-right: none
-    width: calc(2.8125rem - 1px)
+    width: 2.75rem
+    border-color: var(--border-shade)
 
 .reactions__item-count
   margin-left: .25rem
@@ -85,17 +75,22 @@
     line-height: 1.4
 
 .reactions__dropdown-toggle
-  +size(2.8125rem calc(2.8125rem - 1px))
+  +size(2.8125rem 2.375rem)
   +text-block(1.25rem 1, flex)
   color: var(--main)
   cursor: pointer
   align-items: center
   justify-content: center
-  border-left: 1px solid var(--border-tint)
+  border: 1px solid var(--border)
+  border-radius: .25rem
   transition: all .2s ease-out
   &:hover
     color: var(--hover-text)
     background: var(--background-more-tint)
+  &.is-disabled
+    cursor: not-allowed
+    color: var(--disabled)
+    background: var(--background)
 
 .reactions__dropdown-toggle-plus
   font-size: .4em
@@ -103,34 +98,29 @@
 
 .reactions__actions
   display: flex
-
-.reactions__users-toggle
-  +size(2.8125rem calc(2.8125rem - 1px))
-  +text-block(1.25rem 1, flex)
-  color: var(--main)
-  cursor: pointer
-  align-items: center
-  justify-content: center
-  border-left: 1px solid var(--border-tint)
-  transition: all .2s ease-out
-  &:hover
-    color: var(--hover-text)
-    background: var(--background-more-tint)
+  gap: .5rem
 
 .reactions__users-list
   position: absolute
   top: 100%
-  right: 0
-  background-color: #fff
-  border: 1px solid #ddd
+  right: -1px
+  left: -1px
+  background-color: var(--background)
+  border: 1px solid var(--border)
   padding: 0.5rem
-  z-index: 100
-  min-width: 150px
+  z-index: 1
+  border-radius: 0 0 .25rem .25rem
+  display: flex
+  flex-direction: column
+  gap: .5rem
 
 .reaction-users-line
   display: flex
   align-items: center
-  margin-bottom: 0.5rem
+  gap: .5rem
+  &:not(:last-child)
+    border-bottom: 1px dashed var(--border)
+    padding-bottom: .5rem
 
-.reaction-emoji
-  margin-right: 0.25rem
+.reaction-user__avatar
+  +size(1.75rem)
