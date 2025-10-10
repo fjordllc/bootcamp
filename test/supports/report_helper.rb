@@ -61,4 +61,9 @@ module ReportHelper
   def notification_selector
     'span.card-list-item-title__link-label'
   end
+
+  def delete_all_report(user_login_name)
+    user = User.find_by(login_name: user_login_name)
+    user.reports.delete_all
+  end
 end

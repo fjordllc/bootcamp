@@ -266,17 +266,31 @@ class Notification::ReportsTest < ApplicationSystemTestCase
   end
 
   test 'notify user only when first report is initially posted' do
-    check_notification_login_name = 'machida'
+    checker_login_name = 'machida'
     author_login_name = 'nippounashi'
-    title = '初めての日報を提出したら'
+    title = '初めての日報を提出した時'
     description = 'ユーザーに通知をする'
-    assert_notify_only_at_first_published_of_report(
-      "#{author_login_name}さんがはじめての日報を書きました！",
-      author_login_name,
-      check_notification_login_name,
-      title,
-      description
-    )
+    message = first_report_message(author_login_name)
+
+    delete_all_report(author_login_name)
+    report_id = create_report_as(author_login_name, title, description, true)
+    visit_with_auth notifications_path(status: 'unread'), checker_login_name
+    assert_no_selector(notification_selector,
+                       text: message)
+    logout
+
+    update_report_as(report_id, author_login_name, title, description, false)
+    visit_with_auth notifications_path(status: 'unread'), checker_login_name
+    assert_selector(notification_selector,
+                    text: message)
+    click_link(message)
+    assert_equal current_path, report_path(report_id)
+    logout
+
+    update_report_as(report_id, author_login_name, title, description, false)
+    visit_with_auth notifications_path(status: 'unread'), checker_login_name
+    assert_no_selector(notification_selector,
+                       text: message)
   end
 
   test 'notify to mentors when a student submitted reports with sad icon at twice in a row' do
