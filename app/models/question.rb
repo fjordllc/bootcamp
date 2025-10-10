@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Question < ApplicationRecord # rubocop:todo Metrics/ClassLength
+class Question < ApplicationRecord
   include Searchable
   include Reactionable
   include Watchable
@@ -20,7 +20,8 @@ class Question < ApplicationRecord # rubocop:todo Metrics/ClassLength
   before_validation :set_published_at, if: :will_be_published?
 
   after_save QuestionCallbacks.new
-  before_destroy :clear_question_cache, prepend: true
+  # before_destroy :clear_question_cache, prepend: true
+  before_destroy QuestionCallbacks.new, prepend: true
   after_destroy QuestionCallbacks.new
 
   validates :title, presence: true, length: { maximum: 256 }
@@ -49,11 +50,12 @@ class Question < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   mentionable_as :description
 
-  def clear_question_cache
-    return unless not_wip? && unsolved?
+  def not_wip?
+    wip == false
+  end
 
-    Cache.delete_not_solved_question_count
-    Rails.logger.info '[CACHE CLEARED#before_destroy] Cache destroyed for unsolved question count.'
+  def unsolved?
+    !answers.exists?(type: 'CorrectAnswer')
   end
 
   class << self
@@ -118,13 +120,5 @@ class Question < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   def set_published_at
     self.published_at = Time.zone.now
-  end
-
-  def not_wip?
-    wip == false
-  end
-
-  def unsolved?
-    !answers.exists?(type: 'CorrectAnswer')
   end
 end

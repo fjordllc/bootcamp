@@ -9,6 +9,13 @@ class QuestionCallbacks
     Cache.delete_not_solved_question_count
   end
 
+  def before_destroy(question)
+    return unless question.not_wip? && question.unsolved?
+
+    Cache.delete_not_solved_question_count
+    Rails.logger.info '[CACHE CLEARED#before_destroy] Cache destroyed for unsolved question count.'
+  end
+
   def after_destroy(question)
     delete_notification(question)
   end
