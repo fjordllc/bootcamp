@@ -808,12 +808,12 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_match(/はじめて/, email.body.to_s)
   end
 
-  test 'consecutive_sad_report' do
+  test 'consecutive_negative_report' do
     report = reports(:report16)
-    consecutive_sad_report = notifications(:notification_consecutive_sad_report)
-    ActivityMailer.consecutive_sad_report(
+    consecutive_negative_report = notifications(:notification_consecutive_negative_report)
+    ActivityMailer.consecutive_negative_report(
       report:,
-      receiver: consecutive_sad_report.user
+      receiver: consecutive_negative_report.user
     ).deliver_now
 
     assert_not ActionMailer::Base.deliveries.empty?
@@ -821,17 +821,17 @@ class ActivityMailerTest < ActionMailer::TestCase
     query = CGI.escapeHTML({ kind: 15, link: "/reports/#{report.id}" }.to_param)
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal '[FBC] hajimeさんが2回連続でsadアイコンの日報を提出しました。', email.subject
+    assert_equal '[FBC] hajimeさんが2回連続でnegativeアイコンの日報を提出しました。', email.subject
     assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">この日報へ</a>}, email.body.to_s)
   end
 
-  test 'consecutive_sad_report with params' do
+  test 'consecutive_negative_report with params' do
     report = reports(:report16)
-    consecutive_sad_report = notifications(:notification_consecutive_sad_report)
+    consecutive_negative_report = notifications(:notification_consecutive_negative_report)
     mailer = ActivityMailer.with(
       report:,
-      receiver: consecutive_sad_report.user
-    ).consecutive_sad_report
+      receiver: consecutive_negative_report.user
+    ).consecutive_negative_report
 
     perform_enqueued_jobs do
       mailer.deliver_later
@@ -842,7 +842,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     query = CGI.escapeHTML({ kind: 15, link: "/reports/#{report.id}" }.to_param)
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal '[FBC] hajimeさんが2回連続でsadアイコンの日報を提出しました。', email.subject
+    assert_equal '[FBC] hajimeさんが2回連続でnegativeアイコンの日報を提出しました。', email.subject
     assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">この日報へ</a>}, email.body.to_s)
   end
 

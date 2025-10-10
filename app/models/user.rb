@@ -531,8 +531,8 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
         training_completed_at: nil,
         retired_on: nil,
         graduated_on: nil,
-        sad_streak: true
-      ).pluck(:last_sad_report_id)
+        negative_streak: true
+      ).pluck(:last_negative_report_id)
       Report.joins(:user).where(id: ids).order(reported_on: :desc)
     end
 
@@ -736,20 +736,20 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   def depressed?
     reported_reports = reports.order(reported_on: :desc).limit(DEPRESSED_SIZE)
-    reported_reports.size == DEPRESSED_SIZE && reported_reports.all?(&:sad?)
+    reported_reports.size == DEPRESSED_SIZE && reported_reports.all?(&:negative?)
   end
 
-  def raw_last_sad_report_id
-    reports.where(emotion: 'sad')
+  def raw_last_negative_report_id
+    reports.where(emotion: 'negative')
            .order(reported_on: :desc)
            .limit(1)
            .pluck(:id)
            .try(:first)
   end
 
-  def update_sad_streak
-    self.sad_streak = depressed?
-    self.last_sad_report_id = raw_last_sad_report_id
+  def update_negative_streak
+    self.negative_streak = depressed?
+    self.last_negative_report_id = raw_last_negative_report_id
     save!(validate: false)
   end
 

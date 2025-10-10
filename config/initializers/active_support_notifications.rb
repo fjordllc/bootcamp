@@ -7,10 +7,10 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('correct_answer.save', CorrectAnswerNotifier.new)
   ActiveSupport::Notifications.subscribe('event.create', EventOrganizerWatcher.new)
   ActiveSupport::Notifications.subscribe('regular_event.create', RegularEventOrganizerWatcher.new)
-  sad_streak_updater = SadStreakUpdater.new
-  ActiveSupport::Notifications.subscribe('report.create', sad_streak_updater)
-  ActiveSupport::Notifications.subscribe('report.update', sad_streak_updater)
-  ActiveSupport::Notifications.subscribe('report.destroy', sad_streak_updater)
+  negative_streak_updater = NegativeStreakUpdater.new
+  ActiveSupport::Notifications.subscribe('report.create', negative_streak_updater)
+  ActiveSupport::Notifications.subscribe('report.update', negative_streak_updater)
+  ActiveSupport::Notifications.subscribe('report.destroy', negative_streak_updater)
   ActiveSupport::Notifications.subscribe('report.create', FirstReportNotifier.new)
   ActiveSupport::Notifications.subscribe('report.update', FirstReportNotifier.new)
   ActiveSupport::Notifications.subscribe('report.create', ReportNotifier.new)
