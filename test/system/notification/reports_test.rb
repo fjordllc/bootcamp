@@ -216,17 +216,29 @@ class Notification::ReportsTest < ApplicationSystemTestCase
   end
 
   test 'notify mention target only when report is initially posted' do
-    mention_target_login_name = 'kimura'
-    author_login_name = 'machida'
-    title = '初めて提出したら、'
-    description = "@#{mention_target_login_name} に通知する"
-    assert_notify_only_at_first_published_of_report(
-      make_mention_notification_message(author_login_name),
-      author_login_name,
-      mention_target_login_name,
-      title,
-      description
-    )
+    mention_target_name = 'kimura'
+    author_name = 'machida'
+    description = "@#{mention_target_name} に通知する"
+    message = make_mention_notification_message(author_name)
+
+    report_id = create_report_as(author_name, 'Step1:wipで保存', description, true)
+    visit_with_auth notifications_path(status: 'unread'), mention_target_name
+    assert_no_selector(notification_selector,
+                       text: message)
+    logout
+
+    update_report_as(report_id, author_name, 'Step2:提出ボタン押す', description, false)
+    visit_with_auth notifications_path(status: 'unread'), mention_target_name
+    assert_selector(notification_selector,
+                    text: message)
+    click_link(message)
+    assert_equal current_path, report_path(report_id)
+    logout
+
+    update_report_as(report_id, author_name, 'Step3:再度提出ボタン押す', description, false)
+    visit_with_auth notifications_path(status: 'unread'), mention_target_name
+    assert_no_selector(notification_selector,
+                       text: message)
   end
 
   test 'notify user only when first report is initially posted' do

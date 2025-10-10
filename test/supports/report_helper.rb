@@ -26,8 +26,13 @@ module ReportHelper
     path_match[1].to_i
   end
 
-  def update_report(id, title, description, wip)
-    visit edit_report_path(id)
+  def create_report_as(author_name, title, description, wip)
+    visit_with_auth new_report_path, author_name
+    assert_selector 'h2.page-header__title', text: '日報作成'
+    id = create_report(title, description, wip)
+    logout
+    id
+  end
 
     edit_report(title, description)
 
@@ -36,12 +41,19 @@ module ReportHelper
       return
     end
 
-    # click_buttonでは正規表現使えない
-    click_button(page.has_button?('提出') ? '提出' : '内容変更')
+  def update_report_as(id, author_name, title, description, save_as_wip)
+    visit_with_auth edit_report_path(id), author_name
+    assert_selector 'h2.page-header__title', text: '日報編集'
+    update_report(id, title, description, save_as_wip)
+    logout
   end
 
   def edit_report(title, description)
     fill_in('report[title]', with: title)
     fill_in('report[description]', with: description)
+  end
+
+  def notification_selector
+    'span.card-list-item-title__link-label'
   end
 end
