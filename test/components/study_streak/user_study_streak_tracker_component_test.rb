@@ -6,6 +6,8 @@ require 'supports/report_helper'
 class StudyStreak::UserStudyStreakTrackerComponentTest < ViewComponent::TestCase
   include ReportHelper
   setup do
+    travel_to Time.zone.local(2024, 9, 1)
+
     @user = users(:kimura)
 
     LearningTime.joins(:report).where(reports: { user_id: @user.id }).delete_all
@@ -17,6 +19,10 @@ class StudyStreak::UserStudyStreakTrackerComponentTest < ViewComponent::TestCase
     ].each { |d| create_report_data_with_learning_times(user: @user, on: d) }
     reports = @user.reports_with_learning_times
     @study_streak = UserStudyStreak.new(reports)
+  end
+
+  teardown do
+    travel_back
   end
 
   test 'renders current streak information' do
@@ -61,9 +67,27 @@ class StudyStreak::UserStudyStreakTrackerComponentTest < ViewComponent::TestCase
     assert_selector '.streak-item__label', count: 2
   end
 
-  test 'date format follows "mm/dd 〜 mm/dd" pattern for same year' do
+  test 'date format follows "mm/dd 〜 mm/dd" pattern for the current year' do
     render_inline(StudyStreak::UserStudyStreakTrackerComponent.new(study_streak: @study_streak))
 
-    assert_selector '.streak-item__period', text: %r{\d{2}/\d{2} 〜 \d{2}/\d{2}}
+    assert_selector '.streak-item__period', text: '08/20 〜 08/22'
+  end
+
+  test 'date format follows "yyyy/mm/dd 〜 yyyy/mm/dd" pattern for a past year' do
+    travel_to Time.zone.local(2025, 1, 1)
+    render_inline(StudyStreak::UserStudyStreakTrackerComponent.new(study_streak: @study_streak))
+    assert_selector '.streak-item__period', text: '2024/08/20 〜 2024/08/22'
+  end
+
+  test 'date format follows "yyyy/mm/dd 〜 yyyy/mm/dd" pattern across different years' do
+    user = users(:machida)
+    LearningTime.joins(:report).where(reports: { user_id: user.id }).delete_all
+    Report.where(user:).delete_all
+    %w[2023-12-30 2023-12-31 2024-01-01 2024-01-02].each { |d| create_report_data_with_learning_times(user:, on: d) }
+    reports = user.reports_with_learning_times
+    study_streak = UserStudyStreak.new(reports)
+
+    render_inline(StudyStreak::UserStudyStreakTrackerComponent.new(study_streak:))
+    assert_selector '.streak-item__period', text: '2023/12/30 〜 2024/01/02'
   end
 end
