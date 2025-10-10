@@ -53,7 +53,7 @@ class Question < ApplicationRecord # rubocop:todo Metrics/ClassLength
     return unless not_wip? && unsolved?
 
     Cache.delete_not_solved_question_count
-    Rails.logger.info '[before_destroy] Cache destroyed for unsolved question count.'
+    Rails.logger.info '[CACHE CLEARED#before_destroy] Cache destroyed for unsolved question count.'
   end
 
   class << self
