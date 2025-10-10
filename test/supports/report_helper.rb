@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
 module ReportHelper
-  def create_report(title, description, wip)
-    visit new_report_path
-    assert_selector 'h2.page-header__title', text: '日報作成'
-
+  def create_report(title, description, save_as_wip)
     edit_report(title, description)
 
     all('.learning-time')[0].all('.learning-time__started-at select')[0].select('07')
@@ -12,9 +9,9 @@ module ReportHelper
     all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('08')
     all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
 
-    click_button(wip ? 'WIP' : '提出')
+    click_button(save_as_wip ? 'WIP' : '提出')
 
-    if wip
+    if save_as_wip
       assert_selector 'h2.page-header__title', text: '日報編集'
     else
       assert_selector 'h1.page-content-header__title', text: title
@@ -34,17 +31,25 @@ module ReportHelper
     id
   end
 
+  def update_report(title, description, save_as_wip)
     edit_report(title, description)
 
-    if wip
+    if save_as_wip
       click_button 'WIP'
-      return
+      assert_selector 'h2.page-header__title', text: '日報編集'
+    elsif page.has_button?('提出')
+      click_button '提出'
+      assert_selector 'h1.page-content-header__title', text: title
+    else
+      click_button '内容変更'
+      assert_selector 'h1.page-content-header__title', text: title
     end
+  end
 
   def update_report_as(id, author_name, title, description, save_as_wip)
     visit_with_auth edit_report_path(id), author_name
     assert_selector 'h2.page-header__title', text: '日報編集'
-    update_report(id, title, description, save_as_wip)
+    update_report(title, description, save_as_wip)
     logout
   end
 
