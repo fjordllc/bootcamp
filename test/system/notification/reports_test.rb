@@ -181,20 +181,32 @@ class Notification::ReportsTest < ApplicationSystemTestCase
   end
 
   test 'notify company advisor only when report is initially posted' do
-    kensyu_login_name = 'kensyu'
-    advisor_login_name = 'senpai'
+    training_student_name = 'kensyu'
+    advisor_name = 'senpai'
     title = '研修生が日報を作成し提出した時'
     description = 'アドバイザーに通知を飛ばす'
-    notification_message = make_write_report_notification_message(
-      kensyu_login_name, title
+    message = make_write_report_notification_message(
+      training_student_name, title
     )
-    assert_notify_only_at_first_published_of_report(
-      notification_message,
-      kensyu_login_name,
-      advisor_login_name,
-      title,
-      description
-    )
+
+    report_id = create_report_as(training_student_name, title, description, true)
+    visit_with_auth notifications_path(status: 'unread'), advisor_name
+    assert_no_selector(notification_selector,
+                       text: message)
+    logout
+
+    update_report_as(report_id, training_student_name, title, description, false)
+    visit_with_auth notifications_path(status: 'unread'), advisor_name
+    assert_selector(notification_selector,
+                    text: message)
+    click_link(message)
+    assert_equal current_path, report_path(report_id)
+    logout
+
+    update_report_as(report_id, training_student_name, title, description, false)
+    visit_with_auth notifications_path(status: 'unread'), advisor_name
+    assert_no_selector(notification_selector,
+                       text: message)
   end
 
   test 'notify follower only when report is initially posted' do
