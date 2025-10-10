@@ -210,21 +210,33 @@ class Notification::ReportsTest < ApplicationSystemTestCase
   end
 
   test 'notify follower only when report is initially posted' do
-    following = Following.first
-    followed_user_login_name = User.find(following.followed_id).login_name
-    follower_user_login_name = User.find(following.follower_id).login_name
-    title = '初めて提出した時だけ'
-    description = 'フォローされているユーザーに通知を飛ばす'
-    notification_message = make_write_report_notification_message(
-      followed_user_login_name, title
+    following = followings(:following1)
+    followed_login_name = User.find(following.followed_id).login_name
+    follower_login_name = User.find(following.follower_id).login_name
+    title = 'followedが初めて日報を提出した時'
+    description = 'フォローしているユーザーに通知を飛ばす'
+    message = make_write_report_notification_message(
+      followed_login_name, title
     )
-    assert_notify_only_at_first_published_of_report(
-      notification_message,
-      followed_user_login_name,
-      follower_user_login_name,
-      title,
-      description
-    )
+
+    report_id = create_report_as(followed_login_name, title, description, true)
+    visit_with_auth notifications_path(status: 'unread'), follower_login_name
+    assert_no_selector(notification_selector,
+                       text: message)
+    logout
+
+    update_report_as(report_id, followed_login_name, title, description, false)
+    visit_with_auth notifications_path(status: 'unread'), follower_login_name
+    assert_selector(notification_selector,
+                    text: message)
+    click_link(message)
+    assert_equal current_path, report_path(report_id)
+    logout
+
+    update_report_as(report_id, followed_login_name, title, description, false)
+    visit_with_auth notifications_path(status: 'unread'), follower_login_name
+    assert_no_selector(notification_selector,
+                       text: message)
   end
 
   test 'notify mention target only when report is initially posted' do
