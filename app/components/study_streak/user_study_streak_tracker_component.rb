@@ -42,7 +42,7 @@ class StudyStreak::UserStudyStreakTrackerComponent < ViewComponent::Base
   def format_period(days:, start_on:, end_on:)
     return '' if days.to_i.zero? || start_on.blank? || end_on.blank?
 
-    if start_on.year == end_on.year
+    if start_on.year == end_on.year && start_on.year == Time.zone.today.year
       "#{start_on.strftime('%m/%d')} 〜 #{end_on.strftime('%m/%d')}"
     else
       "#{start_on.strftime('%Y/%m/%d')} 〜 #{end_on.strftime('%Y/%m/%d')}"
