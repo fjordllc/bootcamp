@@ -27,10 +27,8 @@ main.page-main
                 = link_to generations_path, class: 'a-button is-sm is-block is-secondary is-back' do
                   | 期一覧
 
-  div[id="loading-screen"]
-    | Loading...
   hr.a-border
-    div[id="loading-body" class="page-body" style="display: none;"]
+    .page-body
       = paginate @users
       .container
         .users.row
