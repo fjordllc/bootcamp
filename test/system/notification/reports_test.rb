@@ -307,28 +307,12 @@ class Notification::ReportsTest < ApplicationSystemTestCase
 
   test 'mentioning in code blocks and inline code does not work' do
     visit_with_auth '/notifications', 'komagata'
-    click_link '全て既読にする'
+    find('a', text: '全て既読にする').click
 
-    visit_with_auth '/reports', 'kimura'
-    click_link '日報作成'
+    title = 'コードブロック内でメンション'
+    mention_in_code_block = '```@mentor```, ` @mentor `'
 
-    mention_in_code = '```@mentor```, ` @mentor `'
-    within('form[name=report]') do
-      fill_in('report[title]', with: 'コードブロック内でメンション')
-      fill_in('report[description]', with: mention_in_code)
-    end
-
-    within('.learning-time__started-at') do
-      select '07'
-      select '30'
-    end
-    within('.learning-time__finished-at') do
-      select '08'
-      select '30'
-    end
-
-    click_button '提出'
-    logout
+    create_report_as('kimura', title, mention_in_code_block, false)
 
     visit_with_auth '/notifications?status=unread', 'komagata'
     assert_text '未読の通知はありません'
