@@ -30,9 +30,12 @@ class ChecksController < ApplicationController
     @check = Check.find(params[:id])
     @checkable = @check.checkable
 
-    @check.destroy
-    ActiveSupport::Notifications.instrument('check.cancel', check: @check)
-    redirect_back(fallback_location: @checkable)
+    if @check.destroy
+      ActiveSupport::Notifications.instrument('check.cancel', check: @check)
+      redirect_back(fallback_location: @checkable)
+    else
+      redirect_back(fallback_location: @checkable, alert: 'エラーが発生しました。')
+    end
   end
 
   private
