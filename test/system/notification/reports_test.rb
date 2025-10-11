@@ -112,13 +112,13 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     )
 
     visit_with_auth "/reports/#{report.id}", 'kimura'
-
     find 'h2', text: 'コメント'
     find 'div.container div.user-icons > ul.user-icons__items', visible: :all
-    accept_confirm do
-      click_link '削除'
+    assert_changes -> { Report.exists?(report.id) }, from: true, to: false do
+      accept_confirm { click_link '削除する' }
+      assert_current_path reports_path
     end
-    assert_text '日報を削除しました。'
+    logout
 
     visit_with_auth '/notifications', 'komagata'
     assert_no_text 'kimuraさんがはじめての日報を書きました！'
