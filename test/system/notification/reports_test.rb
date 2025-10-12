@@ -302,9 +302,10 @@ class Notification::ReportsTest < ApplicationSystemTestCase
   test 'mentioning in code blocks and inline code does not work' do
     visit_with_auth '/notifications', 'komagata'
     click_link '全て既読にする'
+    logout
 
-    visit_with_auth '/reports', 'kimura'
-    click_link '日報作成'
+    visit_with_auth new_report_path, 'kimura'
+    assert_selector 'h2.page-header__title', text: '日報作成'
 
     mention_in_code = '```@mentor```, ` @mentor `'
     within('form[name=report]') do
