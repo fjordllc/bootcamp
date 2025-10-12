@@ -13,22 +13,23 @@ class Notification::ReportsTest < ApplicationSystemTestCase
   end
 
   test 'the first daily report notification is sent only to mentors' do
-    login_user 'muryou', 'testtest'
-    create_report('初日報です', '初日報の内容です', false)
-    logout
+    create_report_as('muryou', '初日報です', '初日報の内容です', save_as_wip: false)
 
     notification_message = 'muryouさんがはじめての日報を書きました！'
     visit_with_auth '/notifications', 'machida'
     find('#notifications.loaded')
     assert_text notification_message
+    logout
 
     visit_with_auth '/notifications', 'kimura'
     find('#notifications.loaded')
     assert_no_text notification_message
+    logout
 
     visit_with_auth '/notifications', 'advijirou'
     find('#notifications.loaded')
     assert_no_text notification_message
+    logout
 
     visit_with_auth '/notifications', 'sotugyou'
     find('#notifications.loaded')
