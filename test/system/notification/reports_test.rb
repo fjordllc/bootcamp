@@ -150,6 +150,30 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     assert_text '未読の通知はありません'
   end
 
+  test 'does not notify when editing the first report' do
+    author_login_name = 'kimura'
+    mentor_login_name = 'komagata'
+    title = '初日報です'
+    description = 'test'
+    notification_message = first_report_message(author_login_name)
+
+    delete_all_reports(author_login_name)
+    report_id = create_report_as(author_login_name, title, description, save_as_wip: false)
+
+    visit_with_auth notifications_path(status: 'unread'), mentor_login_name
+    assert_selector(notification_selector,
+                    text: notification_message)
+    click_link(notification_message)
+    assert_equal current_path, report_path(report_id)
+    logout
+
+    update_report(report_id, title, description, save_as_wip: false)
+
+    visit_with_auth notifications_path(status: 'unread'), mentor_login_name
+    assert_no_selector(notification_selector,
+                       text: notification_message)
+  end
+
   def assert_notify_only_when_report_is_initially_posted(
     notification_message,
     author_login_name,
@@ -227,21 +251,6 @@ class Notification::ReportsTest < ApplicationSystemTestCase
       make_mention_notification_message(author_login_name),
       author_login_name,
       mention_target_login_name,
-      title,
-      description
-    )
-  end
-
-  test 'notify user only when first report is initially posted' do
-    check_notification_login_name = 'machida'
-    author_login_name = 'nippounashi'
-    title = '初めての日報を提出したら'
-    description = 'ユーザーに通知をする'
-
-    assert_notify_only_when_report_is_initially_posted(
-      "#{author_login_name}さんがはじめての日報を書きました！",
-      author_login_name,
-      check_notification_login_name,
       title,
       description
     )
