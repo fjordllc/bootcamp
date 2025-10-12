@@ -126,11 +126,12 @@ class Notification::ReportsTest < ApplicationSystemTestCase
 
   test 'no notification if report already posted' do
     # 他のテストの通知に影響を受けないよう、テスト実行前に通知を削除する
-    visit_with_auth '/notifications', 'muryou'
+    visit_with_auth '/notifications', 'komagata'
     click_link '全て既読にする'
+    logout
 
-    visit_with_auth '/reports', 'komagata'
-    click_link '日報作成'
+    visit_with_auth new_report_path, 'kimura'
+    assert_selector 'h2.page-header__title', text: '日報作成'
 
     within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
@@ -145,7 +146,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     click_button '提出'
     logout
 
-    visit_with_auth '/notifications?status=unread', 'muryou'
+    visit_with_auth '/notifications?status=unread', 'komagata'
     assert_text '未読の通知はありません'
   end
 
