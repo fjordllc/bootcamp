@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
 module ReportHelper
-  def create_report(title, description, wip)
-    visit new_report_path
-    assert_selector 'h2.page-header__title', text: '日報作成'
-
+  def create_report(title, description, save_as_wip)
     edit_report(title, description)
 
     all('.learning-time')[0].all('.learning-time__started-at select')[0].select('07')
@@ -12,11 +9,11 @@ module ReportHelper
     all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('08')
     all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
 
-    click_button(wip ? 'WIP' : '提出')
-
-    if wip
+    if save_as_wip
+      click_button('WIP')
       assert_selector 'h2.page-header__title', text: '日報編集'
     else
+      click_button('提出')
       assert_selector 'h1.page-content-header__title', text: title
     end
 
@@ -26,22 +23,43 @@ module ReportHelper
     path_match[1].to_i
   end
 
-  def update_report(id, title, description, wip)
-    visit edit_report_path(id)
+  def create_report_as(author_login_name, title, description, save_as_wip:)
+    visit_with_auth new_report_path, author_login_name
+    assert_selector 'h2.page-header__title', text: '日報作成'
+    report_id = create_report(title, description, save_as_wip)
+    logout
+    report_id
+  end
 
+  def update_report(report_id, title, description, save_as_wip:)
+    author_login_name = Report.find(report_id).user.login_name
+    visit_with_auth edit_report_path(report_id), author_login_name
     edit_report(title, description)
 
-    if wip
+    if save_as_wip
       click_button 'WIP'
-      return
+      assert_selector 'h2.page-header__title', text: '日報編集'
+    elsif page.has_button?('提出')
+      click_button '提出'
+      assert_selector 'h1.page-content-header__title', text: title
+    else
+      click_button '内容変更'
+      assert_selector 'h1.page-content-header__title', text: title
     end
-
-    # click_buttonでは正規表現使えない
-    click_button(page.has_button?('提出') ? '提出' : '内容変更')
+    logout
   end
 
   def edit_report(title, description)
     fill_in('report[title]', with: title)
     fill_in('report[description]', with: description)
+  end
+
+  def notification_selector
+    'span.card-list-item-title__link-label'
+  end
+
+  def delete_all_reports(user_login_name)
+    user = User.find_by(login_name: user_login_name)
+    user.reports.delete_all
   end
 end
