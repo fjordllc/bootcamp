@@ -150,36 +150,34 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     assert_text '未読の通知はありません'
   end
 
-  def assert_notify_only_at_first_published_of_report(
+  def assert_notify_only_when_report_is_initially_posted(
     notification_message,
     author_login_name,
-    recived_user_login_name,
+    received_user_login_name,
     title,
     description
   )
-    exists_notification_in_unread = -> { exists_unread_notification?(notification_message) }
-    report_id = nil # injectで書く方法もあるがそうすると読み辛い
 
-    3.times do |time|
-      login_user author_login_name, 'testtest'
-      # WIP => 提出 => 提出のように日報を書く
-      if time.zero?
-        report_id = create_report(title, description, true)
-      else
-        update_report(report_id, title, description, false)
-      end
-      logout
+    report_id = create_report_as(author_login_name, title, description, save_as_wip: true)
 
-      login_user recived_user_login_name, 'testtest'
-      if time == 1
-        assert exists_notification_in_unread.call
-        link_to_page_by_unread_notification(notification_message)
-        assert_equal current_path, report_path(report_id)
-      else
-        assert_not exists_notification_in_unread.call
-      end
-      logout
-    end
+    # 日報を WIP -> 提出 -> 内容変更 の流れで作成・更新し通知の有無を確認する
+    visit_with_auth notifications_path(status: 'unread'), received_user_login_name
+    assert_no_selector(notification_selector,
+                       text: notification_message)
+    logout
+
+    update_report(report_id, title, description, save_as_wip: false)
+    visit_with_auth notifications_path(status: 'unread'), received_user_login_name
+    assert_selector(notification_selector,
+                    text: notification_message)
+    click_link(notification_message)
+    assert_equal current_path, report_path(report_id)
+    logout
+
+    update_report(report_id, title, description, save_as_wip: false)
+    visit_with_auth notifications_path(status: 'unread'), received_user_login_name
+    assert_no_selector(notification_selector,
+                       text: notification_message)
   end
 
   test 'notify company advisor only when report is initially posted' do
@@ -190,7 +188,8 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     notification_message = make_write_report_notification_message(
       kensyu_login_name, title
     )
-    assert_notify_only_at_first_published_of_report(
+
+    assert_notify_only_when_report_is_initially_posted(
       notification_message,
       kensyu_login_name,
       advisor_login_name,
@@ -208,7 +207,8 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     notification_message = make_write_report_notification_message(
       followed_user_login_name, title
     )
-    assert_notify_only_at_first_published_of_report(
+
+    assert_notify_only_when_report_is_initially_posted(
       notification_message,
       followed_user_login_name,
       follower_user_login_name,
@@ -222,7 +222,8 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     author_login_name = 'machida'
     title = '初めて提出したら、'
     description = "@#{mention_target_login_name} に通知する"
-    assert_notify_only_at_first_published_of_report(
+
+    assert_notify_only_when_report_is_initially_posted(
       make_mention_notification_message(author_login_name),
       author_login_name,
       mention_target_login_name,
@@ -236,7 +237,8 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     author_login_name = 'nippounashi'
     title = '初めての日報を提出したら'
     description = 'ユーザーに通知をする'
-    assert_notify_only_at_first_published_of_report(
+
+    assert_notify_only_when_report_is_initially_posted(
       "#{author_login_name}さんがはじめての日報を書きました！",
       author_login_name,
       check_notification_login_name,
