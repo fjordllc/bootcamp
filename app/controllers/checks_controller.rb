@@ -15,12 +15,9 @@ class ChecksController < ApplicationController
     @check = @checkable.checks.build(user: current_user)
 
     if @check.save
-      ActiveSupport::Notifications.instrument('check.create', check: @check)
-      if @checkable.is_a?(Product)
-        redirect_back(fallback_location: @checkable, notice: '提出物を合格にしました。')
-      else
-        redirect_back(fallback_location: @checkable, notice: '日報を確認済みにしました。')
-      end
+      safe_instrument('check.create', check: @check)
+      notice = @checkable.is_a?(Product) ? '提出物を合格にしました。' : '日報を確認済みにしました。'
+      redirect_back(fallback_location: @checkable, notice:)
     else
       redirect_back(fallback_location: @checkable, alert: 'エラーが発生しました。')
     end
@@ -31,7 +28,7 @@ class ChecksController < ApplicationController
     @checkable = @check.checkable
 
     if @check.destroy
-      ActiveSupport::Notifications.instrument('check.cancel', check: @check)
+      safe_instrument('check.cancel', check: @check)
       redirect_back(fallback_location: @checkable)
     else
       redirect_back(fallback_location: @checkable, alert: 'エラーが発生しました。')
@@ -48,5 +45,11 @@ class ChecksController < ApplicationController
     else
       raise ActionController::ParameterMissing, 'product_id or report_id is required'
     end
+  end
+
+  def safe_instrument(event, check)
+    ActiveSupport::Notifications.instrument(event, check)
+  rescue StandardError => e
+    Rails.logger.warn "[Notifications] '#{event}'サブスクライブ処理でエラーが発生しました。：#{e.message}"
   end
 end
