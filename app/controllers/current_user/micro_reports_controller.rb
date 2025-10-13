@@ -30,7 +30,7 @@ class CurrentUser::MicroReportsController < ApplicationController
     if page_out_of_range?(referer_path)
       redirect_to current_user_micro_reports_path(page: @user.latest_micro_report_page)
     else
-      redirect_to referer_path
+      redirect_back fallback_location: current_user_micro_reports_path(page: @user.latest_micro_report_page)
     end
     flash[:notice] = '分報を削除しました。'
   end
@@ -53,8 +53,8 @@ class CurrentUser::MicroReportsController < ApplicationController
     return true if referer_path.blank?
 
     matched_page_number = referer_path.match(/page=(\d+)/)
-    page_number = matched_page_number ? matched_page_number[1] : FIRST_PAGE
+    page_number = matched_page_number ? matched_page_number[1].to_i : FIRST_PAGE
 
-    @user.micro_reports.page(page_number).out_of_range?
+    @user.micro_reports.page(page_number).per(PAGER_NUMBER).out_of_range?
   end
 end
