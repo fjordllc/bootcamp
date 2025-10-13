@@ -80,7 +80,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     within '.page-tabs' do
       click_link '自分の担当'
     end
-    assert_text product.practice.title, wait: 10
+    assert_text product.practice.title
   end
 
   test 'display no-comment products if click on no-replied-button' do

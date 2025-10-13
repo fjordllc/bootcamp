@@ -26,7 +26,7 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
       choose '全員（退会者を除く）', allow_label_click: true
       click_button '作成'
     end
-    assert_text 'お知らせを作成しました。', wait: 10
+    assert_text 'お知らせを作成しました。'
 
     sotugyou = users(:sotugyou)
     # 直接Notificationテーブルから確認
@@ -35,7 +35,7 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
 
     komagata = users(:komagata)
     komagata_announced_notifications = Notification.where(user: komagata, kind: @notice_kind)
-    refute komagata_announced_notifications.any? { |n| n.message.include?(@notice_text) }, 'komagata should not have announced notification'
+    assert_not komagata_announced_notifications.any? { |n| n.message.include?(@notice_text) }, 'komagata should not have announced notification'
 
     expected = @notified_count + @receiver_count
     actual = Notification.where(kind: @notice_kind).size
@@ -50,22 +50,22 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     find('label', text: '現役生のみ').click
 
     click_button '作成'
-    assert_text 'お知らせを作成しました', wait: 10
+    assert_text 'お知らせを作成しました'
 
     message = 'お知らせ「現役生にのみお知らせtest」'
 
     notified_users = %w[kimura komagata mentormentaro]
     notified_users.each do |user_name|
       user = users(user_name.to_sym)
-      user_notifications = Notification.where(user: user, kind: Notification.kinds[:announced])
+      user_notifications = Notification.where(user:, kind: Notification.kinds[:announced])
       assert user_notifications.any? { |n| n.message.include?(message) }, "#{user_name} should have notification"
     end
 
     not_notified_users = %w[sotugyou advijirou yameo kensyu]
     not_notified_users.each do |user_name|
       user = users(user_name.to_sym)
-      user_notifications = Notification.where(user: user, kind: Notification.kinds[:announced])
-      refute user_notifications.any? { |n| n.message.include?(message) }, "#{user_name} should not have notification"
+      user_notifications = Notification.where(user:, kind: Notification.kinds[:announced])
+      assert_not user_notifications.any? { |n| n.message.include?(message) }, "#{user_name} should not have notification"
     end
   end
 
@@ -77,22 +77,22 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     find('label', text: '就職希望者のみ').click
 
     click_button '作成'
-    assert_text 'お知らせを作成しました', wait: 10
+    assert_text 'お知らせを作成しました'
 
     message = 'お知らせ「就活希望者のみお知らせします」'
 
     notified_users = %w[jobseeker komagata mentormentaro]
     notified_users.each do |user_name|
       user = users(user_name.to_sym)
-      user_notifications = Notification.where(user: user, kind: Notification.kinds[:announced])
+      user_notifications = Notification.where(user:, kind: Notification.kinds[:announced])
       assert user_notifications.any? { |n| n.message.include?(message) }, "#{user_name} should have notification"
     end
 
     not_notified_users = %w[kimura]
     not_notified_users.each do |user_name|
       user = users(user_name.to_sym)
-      user_notifications = Notification.where(user: user, kind: Notification.kinds[:announced])
-      refute user_notifications.any? { |n| n.message.include?(message) }, "#{user_name} should not have notification"
+      user_notifications = Notification.where(user:, kind: Notification.kinds[:announced])
+      assert_not user_notifications.any? { |n| n.message.include?(message) }, "#{user_name} should not have notification"
     end
   end
 end

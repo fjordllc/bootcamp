@@ -118,15 +118,15 @@ class FollowingsTest < ApplicationSystemTestCase
     end
     click_button 'コメントする'
     assert_text comment
-    assert_text 'コメントを投稿しました！', wait: 10
+    assert_text 'コメントを投稿しました！'
 
     # Wait for background job to complete
     sleep 1
 
     notifications = Notification.where(user: users(:kimura), kind: Notification.kinds[:following_report])
-    assert notifications.any? { |n| n.message.include?('hatsunoさんの日報「test title」にhatsunoさんがコメントしました。') }
+    assert(notifications.any? { |n| n.message.include?('hatsunoさんの日報「test title」にhatsunoさんがコメントしました。') })
 
     notifications = Notification.where(user: users(:mentormentaro), kind: Notification.kinds[:following_report])
-    refute notifications.any? { |n| n.message.include?('hatsunoさんの日報「test title」にhatsunoさんがコメントしました。') }
+    assert_not(notifications.any? { |n| n.message.include?('hatsunoさんの日報「test title」にhatsunoさんがコメントしました。') })
   end
 end
