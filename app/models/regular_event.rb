@@ -100,7 +100,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def organizers
-    users.with_attached_avatar.order('organizers.created_at')
+    users.preload(avatar_attachment: :blob).order('organizers.created_at')
   end
 
   def cancel_participation(user)

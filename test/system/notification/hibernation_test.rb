@@ -6,6 +6,7 @@ class Notification::HibernationTest < ApplicationSystemTestCase
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/admin')
   end
 
   teardown do

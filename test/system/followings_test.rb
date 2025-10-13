@@ -120,6 +120,9 @@ class FollowingsTest < ApplicationSystemTestCase
     assert_text comment
     assert_text 'コメントを投稿しました！', wait: 10
 
+    # Wait for background job to complete
+    sleep 1
+
     notifications = Notification.where(user: users(:kimura), kind: Notification.kinds[:following_report])
     assert notifications.any? { |n| n.message.include?('hatsunoさんの日報「test title」にhatsunoさんがコメントしました。') }
 
