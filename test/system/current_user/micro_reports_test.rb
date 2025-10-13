@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class  CurrentUser::MicroReportsTest < ApplicationSystemTestCase
+class CurrentUser::MicroReportsTest < ApplicationSystemTestCase
   test 'show current_user micro reports page' do
     visit_with_auth '/current_user/micro_reports', 'kimura'
     assert_equal '自分の分報一覧 | FBC', title
