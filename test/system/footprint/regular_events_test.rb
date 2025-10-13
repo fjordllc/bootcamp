@@ -38,7 +38,7 @@ class Footprint::RegularEventsTest < ApplicationSystemTestCase
   end
 
   test 'has no link if there are less than ten footprints' do
-    user_data = User.unhibernated.unretired.last(10)
+    user_data = User.unhibernated.unretired.last(9)
     user_data.map do |user|
       Footprint.create(
         user_id: user.id,

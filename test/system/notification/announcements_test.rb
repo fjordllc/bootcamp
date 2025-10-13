@@ -10,6 +10,7 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     @notice_kind = Notification.kinds['announced']
     @notified_count = Notification.where(kind: @notice_kind).size
     @receiver_count = User.where(retired_on: nil).size - 1 # 送信者は除くため-1
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/all')
   end
 
   teardown do

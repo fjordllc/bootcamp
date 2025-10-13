@@ -6,6 +6,13 @@ require 'supports/tag_helper'
 class QuestionsTest < ApplicationSystemTestCase
   include TagHelper
 
+  setup do
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/all')
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/mentor')
+    stub_request(:post, 'https://api.openai.com/v1/chat/completions')
+      .to_return(status: 200, body: { choices: [{ message: { content: 'Test AI response' } }] }.to_json, headers: { 'Content-Type' => 'application/json' })
+  end
+
   test 'show listing unsolved questions' do
     visit_with_auth questions_path(target: 'not_solved'), 'kimura'
     assert_equal '未解決のQ&A | FBC', title
