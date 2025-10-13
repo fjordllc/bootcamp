@@ -254,8 +254,8 @@ class NotificationsTest < ApplicationSystemTestCase
   end
 
   test 'notify comment and check' do
-    login_user 'hatsuno', 'testtest'
-    assert_selector 'h2.page-header__title', text: 'ダッシュボード'
+    visit_with_auth new_report_path, 'hatsuno'
+    assert_selector 'h2.page-header__title', text: '日報作成'
     report_id = create_report 'コメントと', '確認があった', false
 
     perform_enqueued_jobs do
