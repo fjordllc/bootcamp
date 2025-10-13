@@ -11,22 +11,28 @@ class API::ChecksController < API::BaseController
 
   def create
     if checkable.checks.empty?
-      @check = Check.create!(
-        user: current_user,
-        checkable:
-      )
-      ActiveSupport::Notifications.instrument('check.create', check: @check)
-      head :created
+      begin
+        Check.transaction do
+          @check = Check.create!(user: current_user, checkable:)
+          ActiveSupport::Notifications.instrument('check.create', check: @check)
+        end
+        head :created
+      rescue StandardError
+        render json: { message: 'エラーが発生しました。' }
+      end
     else
       render json: { message: "この#{checkable.class.model_name.human}は確認済です。" }, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @check = Check.find(params[:id]).destroy
-    ActiveSupport::Notifications.instrument('check.cancel', check: @check)
-
+    Check.transaction do
+      @check = Check.find(params[:id]).destroy!
+      ActiveSupport::Notifications.instrument('check.cancel', check: @check)
+    end
     head :no_content
+  rescue StandardError
+    render json: { message: 'エラーが発生しました。' }
   end
 
   private
