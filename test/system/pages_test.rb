@@ -246,12 +246,12 @@ class PagesTest < ApplicationSystemTestCase
     visit edit_page_path(pages(:page1))
     click_button '内容を更新'
     assert_text 'ドキュメントを更新しました'
-    assert_text 'Watch中', wait: 10
+    assert_text 'Watch中'
 
     visit edit_page_path(pages(:page2))
     click_button 'WIP'
     visit page_path(pages(:page2))
-    assert_text 'Watch中', wait: 10
+    assert_text 'Watch中'
   end
 
   test 'author becomes watcher' do
@@ -285,9 +285,9 @@ class PagesTest < ApplicationSystemTestCase
     logout
 
     visit_with_auth page_path(pages(:page1)), author
-    assert_text 'Watch中', wait: 10
+    assert_text 'Watch中'
     visit page_path(pages(:page2))
-    assert_text 'Watch中', wait: 10
+    assert_text 'Watch中'
   end
 
   test 'Check the list of columns on the right of the document' do

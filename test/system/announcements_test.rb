@@ -77,10 +77,10 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert_difference 'Announcement.count', 1 do
       click_button '作成'
     end
-    assert_text 'お知らせを作成しました。', wait: 10
+    assert_text 'お知らせを作成しました。'
 
     notifications = Notification.where(user: users(:hatsuno), kind: Notification.kinds[:announced])
-    assert notifications.any? { |n| n.message.include?('お知らせ「公開お知らせ」') }
+    assert(notifications.any? { |n| n.message.include?('お知らせ「公開お知らせ」') })
   end
 
   test 'publish wip announcement with notification' do
@@ -90,10 +90,10 @@ class AnnouncementsTest < ApplicationSystemTestCase
       click_link '内容修正'
     end
     click_button '公開'
-    assert_text 'お知らせを更新しました。', wait: 10
+    assert_text 'お知らせを更新しました。'
 
     notifications = Notification.where(user: users(:hatsuno), kind: Notification.kinds[:announced])
-    assert notifications.any? { |n| n.message.include?('お知らせ「wipのお知らせ」') }
+    assert(notifications.any? { |n| n.message.include?('お知らせ「wipのお知らせ」') })
   end
 
   test 'update published announcement without notification' do
@@ -105,7 +105,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     click_button '公開'
 
     notifications = Notification.where(user: users(:hatsuno), kind: Notification.kinds[:announced])
-    refute notifications.any? { |n| n.message.include?('お知らせ「お知らせ1」') }
+    assert_not(notifications.any? { |n| n.message.include?('お知らせ「お知らせ1」') })
   end
 
   test 'create wip announcement without notification' do
@@ -117,7 +117,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     end
 
     notifications = Notification.where(user: users(:hatsuno), kind: Notification.kinds[:announced])
-    refute notifications.any? { |n| n.message.include?('お知らせ「仮のお知らせ」') }
+    assert_not(notifications.any? { |n| n.message.include?('お知らせ「仮のお知らせ」') })
   end
 
   test 'delete announcement with notification' do
@@ -131,7 +131,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert_text 'お知らせを作成しました'
 
     notifications = Notification.where(user: users(:hatsuno), kind: Notification.kinds[:announced])
-    assert notifications.any? { |n| n.message.include?('お知らせ「タイトルtest」') }
+    assert(notifications.any? { |n| n.message.include?('お知らせ「タイトルtest」') })
 
     visit_with_auth '/announcements', 'komagata'
     click_on 'タイトルtest'
@@ -141,7 +141,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert_text 'お知らせを削除しました'
 
     notifications = Notification.where(user: users(:hatsuno), kind: Notification.kinds[:announced])
-    refute notifications.any? { |n| n.message.include?('お知らせ「タイトルtest」') }
+    assert_not(notifications.any? { |n| n.message.include?('お知らせ「タイトルtest」') })
   end
 
   test 'general user can create announcement' do
