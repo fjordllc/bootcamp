@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react'
 import userIcon from '../user-icon.js'
-import { ProductChecker } from '../product-checker.js'
 
 export default function Product({
   product,
@@ -27,12 +26,17 @@ export default function Product({
     }
   }, [product.user])
 
+  const updateProductCheckerView = async (checkerElement) => {
+    const { ProductChecker } = await import('../product-checker.js')
+    new ProductChecker(checkerElement).initProductChecker()
+  }
+
   // ProductCheckerの非React化により、useEffectを導入している。
   useEffect(() => {
     const checkerElement = document.querySelector(
       `[data-product-id="${product.id}"]`
     )
-    new ProductChecker(checkerElement).initProductChecker()
+    updateProductCheckerView(checkerElement)
   }, [product.id])
 
   const notRespondedSign = () => {
