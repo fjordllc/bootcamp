@@ -9,8 +9,7 @@ class CurrentUser::BookmarksController < ApplicationController
 
   def destroy
     current_user.bookmarks.find(params[:id]).destroy
-    set_bookmarks
-    render partial: 'current_user/bookmarks/list'
+    head :no_content
   end
 
   private
