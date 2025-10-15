@@ -517,7 +517,7 @@ ActiveRecord::Schema.define(version: 2025_09_08_044551) do
   create_table "movies", force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.bigint "practice_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -952,8 +952,8 @@ ActiveRecord::Schema.define(version: 2025_09_08_044551) do
     t.text "mentor_memo"
     t.text "after_graduation_hope"
     t.date "training_ends_on"
-    t.boolean "sad_streak", default: false, null: false
-    t.integer "last_sad_report_id"
+    t.boolean "negative_streak", default: false, null: false
+    t.integer "last_negative_report_id"
     t.datetime "last_activity_at"
     t.datetime "hibernated_at"
     t.string "profile_name"
