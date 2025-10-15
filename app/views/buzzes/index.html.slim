@@ -9,34 +9,46 @@ header.lp-page-header
           = title
       .lp-page-header__end
 hr.a-border-tint
-.lp
-  section.lp-content.is-lp-bg-1.is-top-title
-    .l-container.is-lg
-      .lp-content__inner
-        .lp-content__start
-          header.lp-content__header
-            h2.lp-content-title.text-center.is-border-bottom
-              | 紹介・言及記事
-        .lp-content__end
+section.lp-content.is-lp-bg-1.is-top-title
+  .l-container.is-xl
+    .lp-content__inner
+      .lp-content__start
+        header.lp-content__header
+          h2.lp-content-title.text-center.is-border-bottom
+            | 紹介・言及記事
+      .lp-content__end
+        .lp-content-stack
+          .lp-content-stack__item
+            .lp-content__description
+              .a-short-text
+                p.text-center
+                  | FBCに関する紹介記事や言及記事を掲載しています。
+                  br
+                  | 受講生の活動や成果を知ることができる記事が多数ありますので、ぜひご覧ください。
+            #buzz
+          .lp-content-stack
+            .lp-buzz
+              .row.is-gutter-width-32
+                .col-lg-3.col-xs-12
+                  = render partial: 'buzz_mobile_filter',
+                    locals: { years: @years }
+                  = render partial: 'buzz_pc_filter',
+                    locals: { years: @years }
 
-nav.mx-auto.max-w-5xl.mt-4
-  ul.flex.flex-wrap.justify-center.gap-6.pb-4.text-2xl
-    - @years.each do |year|
-      li
-        = link_to year, buzzes_year_path(year:), class: 'font-bold'
+                .col-xl-9.col-lg-9.col-xs-12
+                  .lp-content-stack
+                    .lp-content-stack__item
+                      section.a-card
+                        .article__inner
+                          .article__body
+                            .a-long-text.is_md
+                              = render 'buzzes', buzzes: @buzzes, year: @year
 
-hr.a-border
-  .a-card
-    .article__inner
-      .article__body
-        .buzzes.a-long-text.is_md
-          = render 'buzzes', buzzes: @buzzes, year: @year
-
-- if admin_or_mentor_login?
-  hr.a-border-tint
-  .card-footer
-    .card-main-actions
-      ul.card-main-actions__items
-        li.card-main-actions__item
-          = link_to mentor_buzzes_path, class: 'a-button is-secondary is-md is-block' do
-                        | 内容修正
+                        - if admin_or_mentor_login?
+                          hr.a-border-tint
+                          .card-footer
+                            .card-main-actions
+                              ul.card-main-actions__items
+                                li.card-main-actions__item
+                                  = link_to mentor_buzzes_path, class: 'a-button is-secondary is-md is-block' do
+                                    | 内容修正
