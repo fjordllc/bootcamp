@@ -15,14 +15,14 @@ class EmotionsTest < ApplicationSystemTestCase
     all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('08')
     all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
 
-    find('#happy').click
+    find('#positive').click
 
     click_button '提出'
     assert_text '日報を保存しました。'
-    assert_selector 'img#happy'
+    assert_selector 'img#positive'
   end
 
-  test 'create a report with the sad emotion' do
+  test 'create a report with the negative emotion' do
     visit_with_auth '/reports/new', 'komagata'
     within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
@@ -34,11 +34,11 @@ class EmotionsTest < ApplicationSystemTestCase
     all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('08')
     all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
 
-    find('#sad').click
+    find('#negative').click
 
     click_button '提出'
     assert_text '日報を保存しました。'
-    assert_selector 'img#sad'
+    assert_selector 'img#negative'
     assert_text '困った時は'
   end
 end

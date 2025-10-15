@@ -13,7 +13,7 @@ class GrassLearningTimeQueryTest < ActiveSupport::TestCase
       reported_on: Date.new(2025, 1, 3),
       title: '同日の複数記録',
       description: '午前と午後に勉強',
-      emotion: :happy
+      emotion: :positive
     )
 
     LearningTime.create!(
@@ -61,7 +61,7 @@ class GrassLearningTimeQueryTest < ActiveSupport::TestCase
       reported_on: Date.new(2025, 1, 5),
       title: '2時間テスト',
       description: 'テスト用ダミー内容',
-      emotion: :happy
+      emotion: :positive
     )
     LearningTime.create!(
       report:,
@@ -81,7 +81,7 @@ class GrassLearningTimeQueryTest < ActiveSupport::TestCase
       reported_on: Date.new(2025, 1, 6),
       title: '4時間テスト',
       description: 'テスト用ダミー内容',
-      emotion: :happy
+      emotion: :positive
     )
     LearningTime.create!(
       report:,
@@ -101,7 +101,7 @@ class GrassLearningTimeQueryTest < ActiveSupport::TestCase
       reported_on: Date.new(2025, 1, 7),
       title: '6時間テスト',
       description: 'テスト用ダミー内容',
-      emotion: :happy
+      emotion: :positive
     )
     LearningTime.create!(
       report:,

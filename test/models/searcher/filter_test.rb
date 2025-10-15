@@ -38,7 +38,7 @@ class Searcher::FilterTest < ActiveSupport::TestCase
       title: 'Test report',
       description: 'Test description',
       reported_on: Date.current,
-      emotion: 'happy'
+      emotion: 'positive'
     )
     other_user_report = reports(:report10) # hajimeのレポート
     results = [user_report, other_user_report]
