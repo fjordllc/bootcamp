@@ -1,4 +1,4 @@
-import { destroy } from '@rails/request.js'
+import { FetchRequest, destroy } from '@rails/request.js'
 import { toggleDeleteButtonVisibility } from './bookmarks-delete-button-visibility'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -24,20 +24,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
       let pageToShow = newPageMain
       if (currentPage > 1 && newPageMain.querySelector('.o-empty-message')) {
-          pageToShow = await fetchPageMain(currentPage - 1)
-        }
+        pageToShow = await fetchPageMain(currentPage - 1)
+      }
       document.querySelector('.page-main').replaceWith(pageToShow)
 
       initializer(true)
     } catch (error) {
       console.warn(error)
+      deleteButton.disabled = false
     }
   })
 })
 
 const fetchPageMain = async (page) => {
   const bookmarkUrl = `/current_user/bookmarks?page=${page}`
-  const html = await fetch(bookmarkUrl).then((res) => res.text())
+  const request = new FetchRequest('get', bookmarkUrl, { responseKind: 'html' })
+  const response = await request.perform()
+  const html = await response.text()
   const parser = new DOMParser()
   const parsedDocument = parser.parseFromString(html, 'text/html')
   return parsedDocument.querySelector('.page-main')
@@ -45,7 +48,9 @@ const fetchPageMain = async (page) => {
 
 const initializer = (deleteMode = false) => {
   const editButton = document.getElementById('bookmark_edit')
-  const deleteButtons = document.getElementsByClassName('js-bookmark-delete-button')
+  const deleteButtons = document.getElementsByClassName(
+    'js-bookmark-delete-button'
+  )
 
   if (editButton && deleteButtons.length > 0) {
     editButton.checked = deleteMode
