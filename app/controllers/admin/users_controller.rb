@@ -105,7 +105,7 @@ class Admin::UsersController < AdminController
 
   def complete_graduation_or_retirement(user)
     if user.saved_change_to_retired_on? && user.retired_on_before_last_save.nil?
-      AfterUserRetirement.new(user, triggered_by: 'admin').call
+      Retirement.new(user, triggered_by: 'admin').notify_and_cleanup
     elsif user.saved_change_to_graduated_on? && user.graduated_on_before_last_save.nil?
       Subscription.new.destroy(user.subscription_id) if user.subscription_id?
     end
