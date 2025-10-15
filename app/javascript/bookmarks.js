@@ -1,7 +1,8 @@
 import { destroy } from '@rails/request.js'
-import { toggleDeleteButton } from './bookmarks-utils'
+import { toggleDeleteButtonVisibility } from './bookmarks-delete-button-visibility'
 
 document.addEventListener('DOMContentLoaded', () => {
+  initializer()
 
   document.body.addEventListener('click', async (event) => {
     const deleteButton = event.target.closest('.bookmark-delete-button')
@@ -27,15 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       document.querySelector('.page-main').replaceWith(pageToShow)
 
-      const bookMarksEditButton = document.getElementById('bookmark_edit')
-      const bookmarkDeleteButton = document.getElementsByClassName(
-        'js-bookmark-delete-button'
-      )
-
-      if (bookMarksEditButton && bookmarkDeleteButton.length > 0) {
-        bookMarksEditButton.checked = true
-        toggleDeleteButton(bookMarksEditButton, bookmarkDeleteButton)
-      }
+      initializer(true)
     } catch (error) {
       console.warn(error)
     }
@@ -48,4 +41,25 @@ const fetchPageMain = async (page) => {
   const parser = new DOMParser()
   const parsedDocument = parser.parseFromString(html, 'text/html')
   return parsedDocument.querySelector('.page-main')
+}
+
+const initializer = (deleteMode = false) => {
+  const editButton = document.getElementById('bookmark_edit')
+  const deleteButtons = document.getElementsByClassName('js-bookmark-delete-button')
+
+  if (editButton && deleteButtons.length > 0) {
+    editButton.checked = deleteMode
+    toggleDeleteButtonVisibility(editButton, deleteButtons)
+
+    editButton.removeEventListener('change', handleEditToggleChange)
+    editButton.addEventListener('change', handleEditToggleChange)
+  }
+}
+
+const handleEditToggleChange = () => {
+  const editButton = document.getElementById('bookmark_edit')
+  const deleteButtons = document.getElementsByClassName(
+    'js-bookmark-delete-button'
+  )
+  toggleDeleteButtonVisibility(editButton, deleteButtons)
 }
