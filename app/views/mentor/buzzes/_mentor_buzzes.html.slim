@@ -16,8 +16,8 @@
           td.admin-table__item-value
             = link_to buzz.url, target: '_blank', rel: 'noopener noreferrer'
               = buzz.title
-          td.admin-table__item-value
-            = buzz.published_at
+          td.admin-table__item-value.whitespace-nowrap
+            = l(buzz.published_at)
           td.admin-table__item-value
             = buzz.memo
           td.admin-table__item-value.is-text-align-center
