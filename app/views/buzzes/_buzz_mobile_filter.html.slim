@@ -1,0 +1,17 @@
+.buzz__filter.is-hidden-lg-up
+  .container.is-xs
+    .form-item.is-inline
+      .a-form-label
+        | 年を選択
+      = form_with url: buzzes_path,
+        method: :get,
+        local: true,
+        html: { class: 'a-button is-md is-secondary is-select is-block' } do
+        select(name="year" onchange="this.form.submit()")
+          - years.each do |year|
+            - if params[:year] == year
+              option(value="#{year}" selected=true)
+                = year
+            - else
+              option(value="#{year}")
+                = year
