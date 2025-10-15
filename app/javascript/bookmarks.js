@@ -1,4 +1,4 @@
-import { FetchRequest, destroy } from '@rails/request.js'
+import { get, destroy } from '@rails/request.js'
 import { toggleDeleteButtonVisibility } from './bookmarks-delete-button-visibility'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -38,9 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const fetchPageMain = async (page) => {
   const bookmarkUrl = `/current_user/bookmarks?page=${page}`
-  const request = new FetchRequest('get', bookmarkUrl, { responseKind: 'html' })
-  const response = await request.perform()
-  const html = await response.text()
+  const response = await get(bookmarkUrl, { responseKind: 'html' })
+  const html = await response.text
   const parser = new DOMParser()
   const parsedDocument = parser.parseFromString(html, 'text/html')
   return parsedDocument.querySelector('.page-main')
