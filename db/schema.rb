@@ -543,8 +543,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_20_000001) do
   create_table "micro_reports", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.text "content", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "comment_user_id"
     t.index ["user_id"], name: "index_micro_reports_on_user_id"
   end
 
@@ -1069,6 +1070,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_20_000001) do
   add_foreign_key "learning_times", "reports"
   add_foreign_key "linear_scales", "survey_questions"
   add_foreign_key "micro_reports", "users"
+  add_foreign_key "micro_reports", "users", column: "comment_user_id"
   add_foreign_key "movies", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "sender_id"
