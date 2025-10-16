@@ -3,8 +3,6 @@
 require 'test_helper'
 
 class MicroReports::MicroReportComponentTest < ViewComponent::TestCase
-  include Rails.application.routes.url_helpers
-
   def setup
     @user = users(:hatsuno)
     @micro_report = micro_reports(:hajime_first_micro_report)
