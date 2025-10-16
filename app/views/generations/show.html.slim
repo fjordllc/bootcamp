@@ -26,5 +26,18 @@ main.page-main
               li.page-main-header-actions__item
                 = link_to generations_path, class: 'a-button is-sm is-block is-secondary is-back' do
                   | 期一覧
+
   hr.a-border
-  = react_component 'GenerationUsers', generationID: @generation
+    .page-body
+      = paginate @users
+      .container
+        .users.row
+          - if @users.empty?
+            .row
+              .o-empty-message
+                .o-empty-message__icon
+                  i.fa-regular.fa-smile
+                p.o-empty-message_text "#{@generation}期のユーザー一覧はありません"
+          - else
+            = render partial: 'generations/user', collection: @users, locals: { current_user: }
+      = paginate @users

@@ -1,0 +1,7 @@
+- if tags.present?
+  .tag-links
+    ul.tag-links__items
+      - tags.each do |tag|
+        li.tag-links__item
+          = link_to users_tag_path(tag), class: 'tag-links__item-link' do
+            = tag
