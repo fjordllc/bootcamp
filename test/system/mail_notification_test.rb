@@ -6,9 +6,10 @@ class MailNotificationsTest < ApplicationSystemTestCase
   test "update user's mail_notification" do
     visit "/users/#{users(:kimura).id}/mail_notification/edit?token=#{users(:kimura).unsubscribe_email_token}"
 
+    refute_text 'ユーザーIDもしくはTOKENが違います。'
+    assert_selector 'article.unauthorized'
     assert_text 'メール通知をオフにしますか？'
     assert_title 'メール通知解除の確認'
-    assert_selector 'article.unauthorized'
     assert_selector '.unauthorized-actions a', text: 'オフにする'
 
     click_link 'オフにする'
