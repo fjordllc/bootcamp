@@ -39,45 +39,6 @@ class QuestionTest < ActiveSupport::TestCase
     end
   end
 
-  test '#unsolved?_returns_false_when_question_is_solved' do
-    questioner = users(:kimura)
-    answerer = users(:komagata)
-    solved_question = Question.create!(
-      title: '解決済みの質問',
-      description: 'テスト',
-      user: questioner,
-      wip: false
-    )
-
-    Answer.create!(
-      description: 'ベストアンサー',
-      user: answerer,
-      question: solved_question,
-      type: 'CorrectAnswer'
-    )
-
-    assert_not solved_question.unsolved?
-  end
-
-  test '#unsolved?_returns_true_when_question_is_not_solved' do
-    questioner = users(:kimura)
-    answerer = users(:komagata)
-    unsolved_question = Question.create!(
-      title: '未解決の質問',
-      description: 'テスト',
-      user: questioner,
-      wip: false
-    )
-    Answer.create!(
-      description: '通常の回答',
-      user: answerer,
-      question: unsolved_question,
-      type: ''
-    )
-
-    assert unsolved_question.unsolved?
-  end
-
   test '.by_target' do
     solved_question = questions(:question3)
     not_solved_question = questions(:question1)

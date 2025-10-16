@@ -49,14 +49,6 @@ class Question < ApplicationRecord
 
   mentionable_as :description
 
-  def not_wip?
-    wip == false
-  end
-
-  def unsolved?
-    !answers.exists?(type: 'CorrectAnswer')
-  end
-
   class << self
     def notify_certain_period_passed_after_last_answer
       return if Question.not_solved_and_certain_period_has_passed.blank?
