@@ -2,6 +2,6 @@ nav.side-filter(aria-label="年別フィルター")
   .a-card
     - active_year = params[:year].present? ? params[:year].to_i : years.max
     ul.side-filter__items
-      - years.sort.reverse.each do |year|
+      - years.sort.reverse_each do |year|
         li.side-filter__item
           = link_to year, buzzes_year_path(year:, anchor: 'buzz'), class: ['side-filter__item-link', ('is-active' if active_year == year)]
