@@ -95,7 +95,7 @@ module LinkChecker
     end
 
     test '.valid_domain? returns false with invalid domain' do
-      assert_not Checker.valid_domain?('invalid.invalid')  # RFC 2606で予約済み
+      assert_not Checker.valid_domain?('invalid.invalid') # RFC 2606で予約済み
       assert_not Checker.valid_domain?('')
     end
 
