@@ -27,4 +27,4 @@ main.page-main
   .page-body
     .container.is-xxl
       = render 'form', buzz: @buzz
-      = link_to '削除する', mentor_buzz_path(@buzz), class: 'a-button is-sm is-text', data: { confirm: '本当によろしいですか？' }, method: :delete
+      = button_to '削除する', mentor_buzz_path(@buzz), class: 'a-button is-sm is-text', form: { data: { turbo_confirm: '本当によろしいですか？' } }, method: :delete
