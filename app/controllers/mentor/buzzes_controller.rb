@@ -21,6 +21,12 @@ class Mentor::BuzzesController < ApplicationController
     return render :new, status: :unprocessable_entity unless validate_url_presence
 
     doc = Buzz.doc_from_url(buzz_params[:url])
+
+    unless doc.present?
+      @buzz.errors.add(:url, 'から情報を取得できませんでした。URLが正しいか、またはサイトがアクセス可能か確認してください')
+      return render :new, status: :unprocessable_entity
+    end
+
     date = Buzz.date_from_doc(doc)
 
     @buzz.title = Buzz.title_from_doc(doc) if @buzz.title.blank?
