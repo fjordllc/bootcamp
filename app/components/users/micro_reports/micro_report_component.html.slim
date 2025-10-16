@@ -13,8 +13,8 @@
         .a-short-text.is-sm.js-markdown-view
           = @micro_report.content
       .micro-report__footer
-        - if @micro_report.user == @current_user || @micro_report.comment_user == @current_user || admin_login?
-          .micro-report-actions
+        .micro-report-actions
+          - if @micro_report.comment_user == @current_user || admin_login?
             ul.micro-report-actions__items
               li.micro-report-actions__item
                 button.micro-report-actions__action.is-edit.js-editor-button
