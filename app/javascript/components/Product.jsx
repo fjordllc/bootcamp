@@ -36,7 +36,9 @@ export default function Product({
     const checkerElement = document.querySelector(
       `[data-product-id="${product.id}"]`
     )
-    updateProductCheckerView(checkerElement)
+    if (checkerElement) {
+      updateProductCheckerView(checkerElement)
+    }
   }, [product.id])
 
   const notRespondedSign = () => {
