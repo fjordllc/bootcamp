@@ -2,15 +2,15 @@
 
 module TagHelper
   def fill_in_tag(name, selector = '.tagify__input')
+    find('.tagify', wait: 10)
     tag_input = find(selector)
-    sleep 1
     tag_input.set name
     tag_input.native.send_keys :return
   end
 
   def fill_in_tag_with_alert(name, selector = '.tagify__input')
+    find('.tagify', wait: 10)
     tag_input = find(selector)
-    sleep 1
     tag_input.set name
     accept_alert do
       tag_input.native.send_keys :return
