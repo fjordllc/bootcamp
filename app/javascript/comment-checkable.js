@@ -1,34 +1,26 @@
-import CSRF from 'csrf'
 import { toast } from './vanillaToast.js'
 import checkStamp from 'check-stamp.js'
+import { FetchRequest } from '@rails/request.js'
 
-async function sendRequest(url, method = 'GET', body = null) {
-  const options = {
-    method,
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      'X-Requested-With': 'XMLHttpRequest',
-      'X-CSRF-Token': CSRF.getToken()
-    },
-    credentials: 'same-origin',
-    redirect: 'manual'
-  }
+async function sendRequest(url, method = 'get', body = null) {
+  const options = { redirect: 'manual' }
   if (body) {
-    options.body = JSON.stringify(body)
+    options.body = body
   }
 
-  const response = await fetch(url, options)
+  const request = new FetchRequest(method, url, options)
+  const response = await request.perform()
 
   let data
   if (response.ok) {
     try {
-      data = await response.json()
+      data = await response.json
     } catch {
       data = response
     }
   } else {
     try {
-      data = await response.json()
+      data = await response.json
     } catch {
       throw new Error(`HTTP error! status: ${response.status}`)
     }
@@ -60,8 +52,11 @@ export default {
         toast(data.message, 'error')
       } else {
         checkStamp()
-        sessionStorage.setItem('showCheckToast', 'true')
-        location.reload()
+        const message =
+          checkableType === 'Product'
+            ? '提出物を合格にしました。'
+            : '日報を確認済みにしました。'
+        sessionStorage.setItem('showToast', message)
       }
     } catch (error) {
       console.warn(error)
@@ -75,19 +70,13 @@ export default {
     }
 
     try {
-      const json = await sendRequest('/api/products/checker', 'PATCH', params)
+      const json = await sendRequest('/api/products/checker', 'patch', params)
 
       if (json.message) {
         alert(json.message)
       } else {
         alert('提出物の担当になりました。')
-
-        const event = new Event('checkerAssigned')
-        window.dispatchEvent(event)
-
-        sessionStorage.setItem('showAssignedToast', 'true')
-
-        location.reload()
+        sessionStorage.setItem('showToast', '担当になりました。')
       }
     } catch (error) {
       console.warn(error)
