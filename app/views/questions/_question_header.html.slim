@@ -61,7 +61,8 @@ header.page-content-header
         .page-content-header-actions__start
           = render 'watches/watch_toggle', type: question.class.to_s, id: question.id, watch: question.watch_by(current_user)
           .page-content-header-actions__action
-            = react_component('BookmarkButton', bookmarkableId: question.id, bookmarkableType: 'Question')
+            button(type="button" id="bookmark-button" data-bookmarkable-id="#{question.id}" data-bookmarkable-type="Question" class="a-bookmark-button a-button is-sm is-block is-inactive is-muted" disabled aria-pressed="false" aria-busy="true")
+              | Bookmark
           = render 'application/url_copy_button'
 
         .page-content-header-actions__end

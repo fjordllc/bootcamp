@@ -86,6 +86,7 @@ import '../action_completed_button.js'
 import '../toast.js'
 import '../tag.js'
 import '../tag_edit.js'
+import '../bookmark-button.js'
 
 import '../stylesheets/application'
 
