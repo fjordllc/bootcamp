@@ -22,23 +22,12 @@ class Mentor::BuzzesController < ApplicationController
 
     doc = Buzz.doc_from_url(buzz_params[:url])
 
-    unless doc.present?
+    if doc.blank?
       @buzz.errors.add(:url, 'から情報を取得できませんでした。URLが正しいか、またはサイトがアクセス可能か確認してください')
       return render :new, status: :unprocessable_entity
     end
 
-    date = Buzz.date_from_doc(doc)
-
-    @buzz.title = Buzz.title_from_doc(doc) if @buzz.title.blank?
-
-    if @buzz.published_at.blank?
-      if date.present?
-        @buzz.published_at = date
-      else
-        @buzz.errors.add(:published_at, 'を入力してください')
-        return render :new, status: :unprocessable_entity
-      end
-    end
+    return render :new, status: :unprocessable_entity unless populate_buzz_from_doc(doc)
 
     if @buzz.save
       redirect_to mentor_buzzes_path, notice: '記事を登録しました'
@@ -61,6 +50,23 @@ class Mentor::BuzzesController < ApplicationController
   end
 
   private
+
+  def populate_buzz_from_doc(doc)
+    date = Buzz.date_from_doc(doc)
+
+    @buzz.title = Buzz.title_from_doc(doc) if @buzz.title.blank?
+
+    if @buzz.published_at.blank?
+      if date.present?
+        @buzz.published_at = date
+      else
+        @buzz.errors.add(:published_at, 'を入力してください')
+        return false
+      end
+    end
+
+    true
+  end
 
   def validate_url_presence
     if @buzz.url.present?
