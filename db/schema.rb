@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_09_05_025850) do
+ActiveRecord::Schema.define(version: 2025_09_08_044551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -77,8 +77,8 @@ ActiveRecord::Schema.define(version: 2025_09_05_025850) do
     t.datetime "published_at"
     t.text "summary"
     t.integer "thumbnail_type", default: 0, null: false
-    t.boolean "display_thumbnail_in_body", default: true, null: false
     t.string "token"
+    t.boolean "display_thumbnail_in_body", default: true, null: false
     t.integer "target"
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
@@ -216,7 +216,6 @@ ActiveRecord::Schema.define(version: 2025_09_05_025850) do
     t.datetime "updated_at"
     t.string "commentable_type", default: "Report"
     t.index ["commentable_id"], name: "index_comments_on_commentable_id"
-    t.index ["user_id"], name: "comment_user_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -249,10 +248,10 @@ ActiveRecord::Schema.define(version: 2025_09_05_025850) do
   create_table "courses", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
-    t.text "summary"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "published", default: false, null: false
+    t.text "summary"
     t.boolean "grant", default: false, null: false
   end
 
@@ -263,9 +262,6 @@ ActiveRecord::Schema.define(version: 2025_09_05_025850) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["course_id", "category_id"], name: "index_courses_categories_on_course_id_and_category_id", unique: true
-  end
-
-  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
   end
 
   create_table "discord_profiles", force: :cascade do |t|
@@ -350,7 +346,7 @@ ActiveRecord::Schema.define(version: 2025_09_05_025850) do
     t.index ["user_id"], name: "index_footprints_on_user_id"
   end
 
-  create_table "good_job_batches", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "description"
@@ -365,13 +361,13 @@ ActiveRecord::Schema.define(version: 2025_09_05_025850) do
     t.datetime "finished_at"
   end
 
-  create_table "good_job_processes", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "good_job_processes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.jsonb "state"
   end
 
-  create_table "good_job_settings", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "good_job_settings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "key"
@@ -379,7 +375,7 @@ ActiveRecord::Schema.define(version: 2025_09_05_025850) do
     t.index ["key"], name: "index_good_job_settings_on_key", unique: true
   end
 
-  create_table "good_jobs", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
+  create_table "good_jobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "queue_name"
     t.integer "priority"
     t.jsonb "serialized_params"
@@ -521,11 +517,13 @@ ActiveRecord::Schema.define(version: 2025_09_05_025850) do
   create_table "movies", force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
+    t.bigint "practice_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "wip", default: false, null: false
     t.datetime "published_at"
+    t.index ["practice_id"], name: "index_movies_on_practice_id"
     t.index ["user_id"], name: "index_movies_on_user_id"
   end
 
@@ -637,7 +635,6 @@ ActiveRecord::Schema.define(version: 2025_09_05_025850) do
     t.text "summary"
     t.integer "source_id"
     t.index ["category_id"], name: "index_practices_on_category_id"
-    t.index ["source_id"], name: "index_practices_on_source_id"
   end
 
   create_table "practices_books", force: :cascade do |t|
@@ -724,7 +721,7 @@ ActiveRecord::Schema.define(version: 2025_09_05_025850) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reactionable_type", "reactionable_id"], name: "index_reactions_on_reactionable_type_and_reactionable_id"
-    t.index ["user_id", "reactionable_id", "reactionable_type", "kind"], name: "index_reactions_on_reactionable", unique: true
+    t.index ["user_id", "reactionable_id", "reactionable_type", "kind"], name: "index_reactions_on_reactionable_u_k", unique: true
     t.index ["user_id"], name: "index_reactions_on_user_id"
   end
 
@@ -785,7 +782,6 @@ ActiveRecord::Schema.define(version: 2025_09_05_025850) do
     t.index ["created_at"], name: "index_reports_on_created_at"
     t.index ["user_id", "reported_on"], name: "index_reports_on_user_id_and_reported_on", unique: true
     t.index ["user_id", "title"], name: "index_reports_on_user_id_and_title", unique: true
-    t.index ["user_id"], name: "reports_user_id"
   end
 
   create_table "request_retirements", force: :cascade do |t|
@@ -939,20 +935,19 @@ ActiveRecord::Schema.define(version: 2025_09_05_025850) do
     t.integer "job"
     t.string "organization"
     t.integer "os"
-    t.boolean "trainee", default: false, null: false
     t.text "retire_reason"
-    t.boolean "job_seeking", default: false, null: false
+    t.boolean "trainee", default: false, null: false
     t.string "customer_id"
     t.string "subscription_id"
     t.boolean "mail_notification", default: true, null: false
     t.boolean "job_seeker", default: false, null: false
-    t.boolean "github_collaborator", default: false, null: false
     t.string "github_id"
+    t.boolean "github_collaborator", default: false, null: false
+    t.string "name", default: "", null: false
+    t.string "name_kana", default: "", null: false
     t.integer "satisfaction"
     t.text "opinion"
     t.bigint "retire_reasons", default: 0, null: false
-    t.string "name", default: "", null: false
-    t.string "name_kana", default: "", null: false
     t.string "unsubscribe_email_token"
     t.text "mentor_memo"
     t.text "after_graduation_hope"
@@ -969,17 +964,17 @@ ActiveRecord::Schema.define(version: 2025_09_05_025850) do
     t.string "country_code"
     t.string "subdivision_code"
     t.boolean "auto_retire", default: true
-    t.boolean "invoice_payment", default: false, null: false
     t.integer "editor"
     t.string "other_editor"
+    t.boolean "invoice_payment", default: false, null: false
     t.boolean "show_mentor_profile", default: true, null: false
     t.integer "experiences", default: 0, null: false
+    t.datetime "training_completed_at"
     t.integer "referral_source"
     t.text "other_referral_source"
     t.integer "career_path", default: 0, null: false
     t.text "career_memo"
     t.boolean "sent_student_before_auto_retire_mail", default: false
-    t.datetime "training_completed_at"
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true
@@ -1036,6 +1031,7 @@ ActiveRecord::Schema.define(version: 2025_09_05_025850) do
   add_foreign_key "learning_times", "reports"
   add_foreign_key "linear_scales", "survey_questions"
   add_foreign_key "micro_reports", "users"
+  add_foreign_key "movies", "practices"
   add_foreign_key "movies", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "sender_id"

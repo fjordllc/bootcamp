@@ -487,6 +487,14 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     :description
   )
 
+  scope :currently_learning_except, lambda { |user|
+    students_and_trainees
+      .joins(:learning_time_frames)
+      .merge(LearningTimeFrame.active_now)
+      .where.not(id: user.id)
+      .with_attached_avatar
+  }
+
   class << self
     def notification_receiver(target)
       case target
