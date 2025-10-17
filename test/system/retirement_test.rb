@@ -249,4 +249,11 @@ class RetirementTest < ApplicationSystemTestCase
     assert_nil user.github_account
     assert_not user.github_collaborator
   end
+
+  test 'do not show warning for finished regular events' do
+    regular_event = regular_events(:regular_event39)
+
+    visit_with_auth new_retirement_path, regular_event.user.login_name
+    assert_no_text 'ご自身が主催者である定期イベントがあります。'
+  end
 end

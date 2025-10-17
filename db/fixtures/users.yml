@@ -1305,7 +1305,7 @@ sotsugyoukigyoshozoku:
   subdivision_code: QC
   graduated_on: "2022-07-04"
   unsubscribe_email_token: YnhyqxqalslEkTCM2jyVwg
-  sad_streak: true
+  negative_streak: true
   updated_at: "2022-07-01 00:00:00"
   created_at: "2022-07-01 00:00:00"
   sent_student_followup_message: true

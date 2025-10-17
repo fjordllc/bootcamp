@@ -31,7 +31,7 @@
                 label.a-block-check__label.has-icon for="report_emotion_#{b.value}"
                   = image_tag b.text, id: b.value, alt: b.value, class: 'a-block-check__image'
                   span.a-block-check__name
-                    = b.value
+                    = t("activerecord.enums.report.emotion.#{b.value}")
       .form-item
         label.a-form-label
           | 学習時間
@@ -65,16 +65,25 @@
           .a-page-notice__inner
             p
               | この日報はすでに提出済みです。
-      .row.js-markdown-parent
+      .row.js-markdown-parent(data-controller="report-template")
         .col-md-6.col-xs-12
+          - registered_template = current_user.report_template&.description
+          - registered_template_id = current_user.report_template&.id
           .form-item__header
             = f.label :description, class: 'a-form-label'
-            = react_component('ReportTemplate', templateDescription: current_user.report_template&.description, templateId: current_user.report_template&.id)
+            = render 'reports/report_template',
+              template_description: registered_template,
+              template_id: registered_template_id,
+              editingValue: true,
+              is_editing_template_valid: true,
+              data: { 'registered-template-value': registered_template }
           .form-textarea
             .form-textarea__body
+              - value_option = registered_template.present? ? { value: registered_template } : {}
               = f.text_area :description,
+                **value_option,
                 class: "a-text-input js-warning-form js-report-content markdown-form__text-area #{params[:action] == 'new' && params[:id].blank? ? '' : 'js-markdown'}",
-                data: { 'preview': '.js-preview', 'input': '.file-input' }
+                data: { 'report-template-target': 'report', 'preview': '.js-preview', 'input': '.file-input' }
             .form-textarea__footer
               .form-textarea__insert
                 label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
@@ -85,7 +94,7 @@
         .col-md-6.col-xs-12
           .a-form-label
             | プレビュー
-          .js-preview.a-long-text.is-md.markdown-form__preview
+          .js-preview.a-long-text.is-md.markdown-form__preview(data-report-template-target="previewContent")
 
   .form-actions.is-report
     ul.form-actions__items
