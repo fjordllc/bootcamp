@@ -40,7 +40,11 @@ class BuzzesTest < ApplicationSystemTestCase
       assert_no_text '2025-01-01の記事'
       assert_text '2024-12-31の記事'
       assert_text '2024-12-01の記事'
+      assert_no_text '2024-11-30の記事'
+    end
+    within('.buzzes-in-11') do
       assert_text '2024-11-30の記事'
+      assert_no_text '2024-12-01の記事'
     end
   end
 
