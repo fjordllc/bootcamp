@@ -67,9 +67,9 @@ class Mentor::BuzzesTest < ApplicationSystemTestCase
       click_button '登録する'
     end
     assert_text '最新の記事'
-    assert_text '2025-10-01'
+    assert_text '2025年10月01日'
     assert_no_text '2025-09-10の記事'
-    assert_no_text '2025-09-10'
+    assert_no_text '2025年09月10日'
   end
 
   test 'user can update title memo and published date' do
@@ -83,17 +83,17 @@ class Mentor::BuzzesTest < ApplicationSystemTestCase
     end
     assert_text '編集後のBuzz'
     assert_text '編集しました'
-    assert_text '2025-09-11'
+    assert_text '2025年09月11日'
     assert_no_text '新しいBuzz'
     assert_no_text '新しいBuzzです'
-    assert_no_text '2025-09-10'
+    assert_no_text '2025年09月10日'
   end
 
   test 'user can destroy buzz' do
     buzz = Buzz.create!(title: '新しいBuzz', url: 'https://www.example.com', published_at: '2025-09-10')
     visit_with_auth edit_mentor_buzz_path(buzz.id), 'machida'
     accept_confirm do
-      click_link '削除する'
+      click_button '削除する'
     end
     assert_no_text '新しいBuzz'
   end
