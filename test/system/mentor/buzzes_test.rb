@@ -44,7 +44,7 @@ class Mentor::BuzzesTest < ApplicationSystemTestCase
     assert_text 'Urlを入力してください'
   end
 
-  test 'url field is now shown in buzz edit form' do
+  test 'url field is not shown in buzz edit form' do
     buzz = Buzz.create!(title: '新しいBuzz', url: 'https://www.example.com', memo: '新しいBuzzです', published_at: '2025-09-10')
     visit_with_auth edit_mentor_buzz_path(buzz.id), 'machida'
     within 'form[name=buzz]' do
