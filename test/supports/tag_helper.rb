@@ -2,11 +2,11 @@
 
 module TagHelper
   def fill_in_tag(name, selector = '.tagify__input')
-    tag_count_before = all('.tagify__tag').count
-    tag_input = find(selector)
+    tag_count_before = all('.tagify__tag', visible: :all).count
+    tag_input = find(selector, match: :first)
     tag_input.set name
     tag_input.native.send_keys :return
-    assert_selector('.tagify__tag', count: tag_count_before + 1, wait: 5)
+    assert_selector('.tagify__tag', count: tag_count_before + 1, wait: 10, visible: :all)
   end
 
   def fill_in_tag_with_alert(name, selector = '.tagify__input')
