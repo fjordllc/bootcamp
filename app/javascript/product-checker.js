@@ -1,4 +1,3 @@
-import CSRF from 'csrf'
 import { checkProduct } from './checkable_react'
 
 export class ProductChecker {
@@ -45,8 +44,7 @@ export class ProductChecker {
       this.productId,
       this.currentUserId,
       '/api/products/checker',
-      this.isAssigned ? 'DELETE' : 'PATCH',
-      CSRF.getToken()
+      this.isAssigned ? 'delete' : 'patch'
     )
 
     this.isAssigned = nextIsAssigned
