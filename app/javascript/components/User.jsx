@@ -4,7 +4,7 @@ import UserActivityCounts from './UserActivityCounts.jsx'
 import UserSns from './UserSns.jsx'
 import UserTags from './UserTags.jsx'
 import UserPracticeProgress from './UserPracticeProgress.jsx'
-import { UserIconFrameClass } from './UserIconFrameClass.jsx'
+import userIconFrameClass from '../user-icon-frame-class.js'
 
 export default function User({ user, currentUser }) {
   const userDescParagraphs = () => {
@@ -53,7 +53,11 @@ export default function User({ user, currentUser }) {
               <div className="users-item__header-start">
                 <div className="users-item__icon">
                   <a href={user.url}>
-                    <span className={UserIconFrameClass(user)}>
+                    <span
+                      className={userIconFrameClass(
+                        user.primary_role,
+                        user.joining_status
+                      )}>
                       <img
                         className="users-item__user-icon-image a-user-icon"
                         src={user.avatar_url}
