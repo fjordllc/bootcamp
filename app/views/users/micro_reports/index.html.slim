@@ -8,7 +8,7 @@
 
 .page-body.pb-0
   .page-content
-    - if current_user
+    - if current_user == @user
       .micro-reports__end
         = render(Users::MicroReports::FormComponent.new(user: @user))
       - micro_reports_class = 'micro-reports-with-form'

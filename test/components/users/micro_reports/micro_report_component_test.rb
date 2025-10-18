@@ -13,7 +13,7 @@ class Users::MicroReports::MicroReportComponentTest < ViewComponent::TestCase
     micro_report.comment_user ||= micro_report.user
     render_component(micro_report)
 
-    assert_selector "img.micro-report_user-icon[title='#{micro_report.user.icon_title}']"
+    assert_selector "img.micro-report_user-icon[title='#{micro_report.comment_user.icon_title}']"
     assert_selector '.micro-report__body', text: micro_report.content
     assert_selector 'time.micro-report__created-at', text: I18n.l(micro_report.created_at, format: :date_and_time)
     assert_text '👍1'
