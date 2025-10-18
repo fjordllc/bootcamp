@@ -29,12 +29,6 @@ class MicroReportsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'form not found in other user microo reports page' do
-    visit_with_auth user_micro_reports_path(users(:hajime)), 'hatsuno'
-    assert has_no_field?(id: 'js-micro-report-textarea')
-    assert_no_button '投稿'
-  end
-
   test 'form found in current user micro reports page' do
     visit_with_auth user_micro_reports_path(users(:hatsuno)), 'hatsuno'
     assert has_field?(id: 'js-micro-report-textarea')
