@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
 class NotificationsController < ApplicationController
+  ALLOWED_TARGETS = %i[announcement mention comment check watching following_report].freeze
+  PER_PAGE = 20
+
   before_action :set_my_notification, only: %i[show]
 
   def index
     @target = params[:target]
     target = params[:target].presence&.to_sym
+    target = nil unless ALLOWED_TARGETS.include?(target)
     status = params[:status]
 
     latest_notifications = current_user.notifications
@@ -17,7 +21,7 @@ class NotificationsController < ApplicationController
                                  .from(latest_notifications, :notifications)
                                  .order(created_at: :desc)
                                  .page(params[:page])
-                                 .per(20)
+                                 .per(PER_PAGE)
   end
 
   def show
