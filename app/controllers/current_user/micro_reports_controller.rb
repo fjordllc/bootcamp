@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Users::MicroReportsController < ApplicationController
+class CurrentUser::MicroReportsController < ApplicationController
   PAGER_NUMBER = 25
   FIRST_PAGE = 1
 
@@ -14,13 +14,13 @@ class Users::MicroReportsController < ApplicationController
   def create
     @micro_report = @user.micro_reports.build(micro_report_params)
 
-    if current_user == @user && @micro_report.save
+    if @micro_report.save
       flash[:notice] = '分報を投稿しました。'
     else
       flash[:alert] = '分報の投稿に失敗しました。'
     end
 
-    redirect_to user_micro_reports_path(@user, page: @user.latest_micro_report_page)
+    redirect_to current_user_micro_reports_path(page: @user.latest_micro_report_page)
   end
 
   def destroy
@@ -28,9 +28,9 @@ class Users::MicroReportsController < ApplicationController
 
     referer_path = request.referer
     if page_out_of_range?(referer_path)
-      redirect_to user_micro_reports_path(@user, page: @user.latest_micro_report_page)
+      redirect_to current_user_micro_reports_path(page: @user.latest_micro_report_page)
     else
-      redirect_back fallback_location: user_micro_reports_path(@user, page: @user.latest_micro_report_page)
+      redirect_back fallback_location: current_user_micro_reports_path(page: @user.latest_micro_report_page)
     end
     flash[:notice] = '分報を削除しました。'
   end
@@ -38,7 +38,7 @@ class Users::MicroReportsController < ApplicationController
   private
 
   def set_user
-    @user = User.find(params[:user_id])
+    @user = current_user
   end
 
   def set_micro_report
