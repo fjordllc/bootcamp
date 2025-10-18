@@ -6,6 +6,7 @@ class Users::MicroReportsController < ApplicationController
 
   before_action :set_user
   before_action :set_micro_report, only: %i[destroy]
+  before_action :authorize_micro_report!, only: %i[destroy]
 
   def index
     @micro_reports = @user.micro_reports.order(created_at: :asc).page(params[:page]).per(PAGER_NUMBER)
@@ -13,8 +14,9 @@ class Users::MicroReportsController < ApplicationController
 
   def create
     @micro_report = @user.micro_reports.build(micro_report_params)
+    @micro_report.comment_user = current_user
 
-    if current_user == @user && @micro_report.save
+    if @micro_report.save
       flash[:notice] = '分報を投稿しました。'
     else
       flash[:alert] = '分報の投稿に失敗しました。'
@@ -43,6 +45,12 @@ class Users::MicroReportsController < ApplicationController
 
   def set_micro_report
     @micro_report = current_user.admin? ? MicroReport.find(params[:id]) : current_user.micro_reports.find(params[:id])
+  end
+
+  def authorize_micro_report!
+    return if current_user.admin? || @micro_report.comment_user == current_user
+
+    false
   end
 
   def micro_report_params
