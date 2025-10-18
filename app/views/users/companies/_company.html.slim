@@ -1,0 +1,15 @@
+.a-card.user-group
+  header.user-group__header
+    h2.group-company-name
+      a.group-company-name__link href=company_users_url(company)
+        span.group-company-name__icon
+          img.group-company-name__icon-image title=company.name alt=company.name src=company.logo_url
+        span.group-company-name__name
+          span.group-company-name__label
+            = company.name
+          span.group-company-name__label-option
+            = company.description
+  .a-user-icons
+    .a-user-icons__items
+      - company_users.each do |company_user|
+        = render 'user_icon', company_user: company_user
