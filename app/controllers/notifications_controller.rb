@@ -2,7 +2,7 @@
 
 class NotificationsController < ApplicationController
   ALLOWED_TARGETS = %i[mention comment following_report check product watch].freeze
-  PER_PAGE = 3
+  PER_PAGE = 20
 
   before_action :set_my_notification, only: %i[show]
 
