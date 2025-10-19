@@ -53,7 +53,7 @@ main.page-main
             = params[:status] == 'unread' ? '未読の通知はありません' : '通知はありません'
       - else
         = render 'filter_button'
-        .page-content[data-controller="notifications"]
+        .page-content.loaded[data-controller="notifications"]
           - if @notifications.total_pages > 1
             nav.pagination
               = paginate @notifications
