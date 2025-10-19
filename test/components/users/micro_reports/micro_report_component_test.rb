@@ -45,6 +45,7 @@ class Users::MicroReports::MicroReportComponentTest < ViewComponent::TestCase
     micro_report = MicroReport.create!(user: @user, comment_user: @other_user, content: '他人のコメント')
     render_component(micro_report)
 
+    assert_selector "img.micro-report_user-icon[title='#{@other_user.icon_title}']"
     assert_selector '.micro-report__body', text: '他人のコメント'
   end
 
