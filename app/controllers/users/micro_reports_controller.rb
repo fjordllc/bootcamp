@@ -50,7 +50,7 @@ class Users::MicroReportsController < ApplicationController
   def authorize_micro_report!
     return if current_user.admin? || @micro_report.comment_user == current_user
 
-    false
+    redirect_to user_micro_reports_path(@user), alert: '権限がありません。'
   end
 
   def micro_report_params
