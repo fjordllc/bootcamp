@@ -58,6 +58,11 @@ class Users::MicroReports::MicroReportComponentTest < ViewComponent::TestCase
     render_component(micro_report, current_user: @other_user)
     assert_selector '.micro-report__footer .micro-report-actions .is-edit'
     assert_selector '.micro-report__footer .micro-report-actions .is-delete'
+
+    admin_user = users(:komagata)
+    render_component(micro_report, current_user: admin_user)
+    assert_selector '.micro-report__footer .micro-report-actions .is-edit'
+    assert_selector '.micro-report__footer .micro-report-actions .is-delete'
   end
 
   private

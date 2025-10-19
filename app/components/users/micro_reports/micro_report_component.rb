@@ -25,6 +25,4 @@ class Users::MicroReports::MicroReportComponent < ViewComponent::Base
   def owner_post?
     comment_user == @user
   end
-
-  delegate :admin_login?, to: :helpers
 end
