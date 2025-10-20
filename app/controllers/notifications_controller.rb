@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class NotificationsController < ApplicationController
-  ALLOWED_TARGETS = %i[mention comment following_report check product watch].freeze
+  ALLOWED_TARGETS = %i[announcement mention comment check watching following_report].freeze
   PER_PAGE = 20
 
   before_action :set_my_notification, only: %i[show]
