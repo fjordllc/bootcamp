@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function updateMemo(memo, practiceId) {
   const params = {
     practice: {
-      memo: memo
+      memo
     }
   }
   fetch(`/api/practices/${practiceId}`, {
