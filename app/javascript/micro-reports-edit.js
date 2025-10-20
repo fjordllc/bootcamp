@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const params = {
       id: microReportId,
-      micro_report: { content: content }
+      micro_report: { content }
     }
     const url = `/api/micro_reports/${microReportId}`
     return Bootcamp.patch(url, params).catch((error) => {
