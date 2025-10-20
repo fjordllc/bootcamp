@@ -22,6 +22,8 @@ export class ProductChecker {
     } else {
       this.generateAssigneeDisplay()
     }
+    event.currentTarget.children[0].className = 'fas fa-times'
+    event.currentTarget.children[0].textContent = '担当から外れる'
   }
 
   updateButton(button, isAssigned) {
