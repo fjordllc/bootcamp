@@ -1,27 +1,20 @@
 # frozen_string_literal: true
 
 class NotificationsController < ApplicationController
-  ALLOWED_TARGETS = %i[announcement mention comment check watching following_report].freeze
-  PER_PAGE = 20
-
   before_action :set_my_notification, only: %i[show]
 
   def index
     @target = params[:target]
-    target = params[:target].presence&.to_sym
-    target = nil unless ALLOWED_TARGETS.include?(target)
-    status = params[:status]
 
-    latest_notifications = current_user.notifications
-                                       .by_target(target)
-                                       .by_read_status(status)
-                                       .latest_of_each_link
-
+    latest_notifications = Notification.for_user_by_target_and_status(
+      user: current_user,
+      target: params[:target],
+      status: params[:status]
+    )
     @notifications = Notification.with_avatar
                                  .from(latest_notifications, :notifications)
                                  .order(created_at: :desc)
                                  .page(params[:page])
-                                 .per(PER_PAGE)
   end
 
   def show
