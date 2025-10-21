@@ -6,7 +6,7 @@ export const checkProduct = (productId, currentUserId, url, method, token) => {
     current_user_id: currentUserId
   }
   fetch(url, {
-    method: method,
+    method,
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
       'X-Requested-With': 'XMLHttpRequest',

@@ -30,7 +30,7 @@ function checkInCharge(event, productId, currentUserId) {
     })
     .then((method) => {
       fetch(url, {
-        method: method,
+        method,
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',

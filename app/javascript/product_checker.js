@@ -11,7 +11,7 @@ export default class ProductChecker {
 
   toast(title, status = 'success') {
     Swal.fire({
-      title: title,
+      title,
       toast: true,
       position: 'top-end',
       showConfirmButton: false,
