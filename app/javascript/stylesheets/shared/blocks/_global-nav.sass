@@ -31,6 +31,7 @@
   +media-breakpoint-up(md)
     flex-direction: column
     height: 4.125rem
+    gap: .25rem
   +media-breakpoint-down(sm)
     flex-direction: row
     height: 2.75rem
@@ -52,14 +53,14 @@
     font-size: 1.15em
 
 .global-nav-links__link-label
-  +text-block(.625rem 1.4, center)
+  +text-block(.625rem 1.2, center)
   +media-breakpoint-down(sm)
     font-size: .875rem
   +media-breakpoint-up(md)
     &.is-sm
       transform: scale(.875)
       margin-top: -.125rem
-      line-height: 1.4
+      line-height: 1.2
 
 .global-nav__item-count
   +position(right .25rem, top .25rem)
