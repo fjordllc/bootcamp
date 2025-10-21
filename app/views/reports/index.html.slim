@@ -1,4 +1,4 @@
-- content_for :title, '日報'
+- title '日報'
 - set_meta_tags description: '日報の一覧ページです。'
 
 = render '/reports/report_blog_header'
@@ -27,9 +27,9 @@ main.page-main
     nav.page-filter.form.pb-0
       .container.is-md
         = form_with url: reports_path, local: true, method: :get do
-        .form-item.is-inline-md-up
-          = label_tag :practice_id, 'プラクティスで絞り込む', class: 'a-form-label'
-          = select_tag :practice_id, options_from_collection_for_select(@current_user_practice.sorted_practices, :id, :title, selected: params[:practice_id]), include_blank: '全ての日報を表示', onchange: 'this.form.submit()', id: 'js-choices-single-select'
+          .form-item.is-inline-md-up
+            = label_tag :practice_id, 'プラクティスで絞り込む', class: 'a-form-label'
+            = select_tag :practice_id, options_from_collection_for_select(@current_user_practice.sorted_practices, :id, :title, selected: params[:practice_id]), include_blank: '全ての日報を表示', onchange: 'this.form.submit()', id: 'js-choices-single-select'
   .page-body
     - if @reports.empty?
       .o-empty-message
