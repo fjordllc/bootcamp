@@ -20,6 +20,7 @@ class Question < ApplicationRecord
   before_validation :set_published_at, if: :will_be_published?
 
   after_save QuestionCallbacks.new
+  before_destroy QuestionCallbacks.new, prepend: true
   after_destroy QuestionCallbacks.new
 
   validates :title, presence: true, length: { maximum: 256 }
@@ -82,7 +83,7 @@ class Question < ApplicationRecord
       if practice_id.present?
         Question.not_solved.not_wip.where(practice_id:).size
       else
-        Question.not_solved.not_wip.size
+        ::Cache.not_solved_question_count
       end
     end
   end
