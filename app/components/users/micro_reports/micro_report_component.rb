@@ -7,6 +7,10 @@ class Users::MicroReports::MicroReportComponent < ViewComponent::Base
     @micro_report = micro_report
   end
 
+  def comment_user
+    @micro_report.comment_user
+  end
+
   def posted_datetime
     time = @micro_report.created_at
     if time.to_date == Time.zone.today
@@ -18,5 +22,7 @@ class Users::MicroReports::MicroReportComponent < ViewComponent::Base
     end
   end
 
-  delegate :admin_login?, to: :helpers
+  def owner_post?
+    comment_user == @user
+  end
 end
