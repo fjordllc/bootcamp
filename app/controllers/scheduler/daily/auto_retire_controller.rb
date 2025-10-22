@@ -10,9 +10,7 @@ class Scheduler::Daily::AutoRetireController < SchedulerController
 
   def auto_retire
     User.unretired.hibernated_for(User::HIBERNATION_LIMIT).auto_retire.each do |user|
-      retirement = Retirement.new(user, triggered_by: 'hibernation')
-
-      retirement.call
+      Retirement.auto(user:).execute
     end
   end
 end

@@ -8,12 +8,9 @@ class RetirementController < ApplicationController
   def new; end
 
   def create
-    retirement = Retirement.new(current_user, triggered_by: 'user')
+    retirement = Retirement.by_self(retire_reason_params, user: current_user)
 
-    if retirement.call(retire_reason_params)
-      current_user.cancel_participation_from_regular_events
-      current_user.delete_and_assign_new_organizer
-
+    if retirement.execute
       logout
       redirect_to retirement_url
     else
