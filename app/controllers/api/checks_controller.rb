@@ -17,7 +17,8 @@ class API::ChecksController < API::BaseController
           ActiveSupport::Notifications.instrument('check.create', check: @check)
         end
         head :created
-      rescue StandardError
+      rescue StandardError => e
+        Rails.logger.error("[API::ChecksController#create] チェック作成でエラー: #{e.message}")
         render json: { message: 'エラーが発生しました。' }
       end
     else
@@ -31,7 +32,8 @@ class API::ChecksController < API::BaseController
       ActiveSupport::Notifications.instrument('check.cancel', check: @check)
     end
     head :no_content
-  rescue StandardError
+  rescue StandardError => e
+    Rails.logger.error("[API::ChecksController#destroy] チェック削除でエラー: #{e.message}")
     render json: { message: 'エラーが発生しました。' }
   end
 
