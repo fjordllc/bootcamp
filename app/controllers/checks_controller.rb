@@ -21,7 +21,8 @@ class ChecksController < ApplicationController
       end
       notice = @checkable.is_a?(Product) ? '提出物を合格にしました。' : '日報を確認済みにしました。'
       redirect_back(fallback_location: @checkable, notice:)
-    rescue StandardError
+    rescue StandardError => e
+      Rails.logger.error("[ChecksController#create] チェック作成でエラー: #{e.message}")
       redirect_back(fallback_location: @checkable, alert: 'エラーが発生しました。')
     end
   end
@@ -36,7 +37,8 @@ class ChecksController < ApplicationController
         ActiveSupport::Notifications.instrument('check.cancel', check: @check)
       end
       redirect_back(fallback_location: @checkable)
-    rescue StandardError
+    rescue StandardError => e
+      Rails.logger.error("[ChecksController#destroy] チェック削除でエラー: #{e.message}")
       redirect_back(fallback_location: @checkable, alert: 'エラーが発生しました。')
     end
   end
