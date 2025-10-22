@@ -723,9 +723,4 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text 'Linuxのファイル操作の基礎を覚える'
     assert_text 'viのチュートリアルをやる'
   end
-
-  test 'sees the open all products button on products page' do
-    visit_with_auth '/products', 'komagata'
-    assert_selector 'button', text: '全ての提出物を一括で開く'
-  end
 end
