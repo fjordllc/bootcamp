@@ -10,33 +10,27 @@ class UnfinishedDataDestroyerTest < ActiveSupport::TestCase
         user: @user,
         title: "wipの日報#{i}",
         description: 'テスト日報',
-        wip: true, reported_on: Date.current - i
+        wip: true,
+        reported_on: Date.current - i
       )
     end
     @payload = { user: @user }
   end
-  test '#call' do
-    @user.update(career_path: 1)
-    product = products(:product5)
-    report = @reports.first
+  test '#call deletes all wip reports and all unchecked products' do
+    @user.update!(career_path: 1)
 
     UnfinishedDataDestroyer.new.call(nil, nil, nil, nil, @payload)
-    assert_not Report.exists?(report.id)
-    assert_not Product.exists?(product.id)
+
+    assert_equal 0, Product.unchecked.where(user: @user).count
+    assert_equal 0, Report.wip.where(user: @user).count
     assert_equal 'unset', @user.reload.career_path
   end
 
-  test 'deletes all wip reports and unchecked products for user but other users remain unaffected' do
-    user_unchecked_products = [products(:product5), products(:product8), products(:product10)]
-    user_wip_reports = @reports
-
+  test 'does not delete other users wip report and unchecked product' do
     other_unchecked_product = products(:product1)
     other_wip_report = reports(:report9)
 
     UnfinishedDataDestroyer.new.call(nil, nil, nil, nil, @payload)
-
-    assert_not Product.where(id: user_unchecked_products).exists?
-    assert_not Report.where(id: user_wip_reports).exists?
 
     assert Product.exists?(other_unchecked_product.id)
     assert Report.exists?(other_wip_report.id)
