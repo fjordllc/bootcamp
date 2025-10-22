@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_09_11_162031) do
+ActiveRecord::Schema.define(version: 2025_10_22_075147) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -117,6 +118,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_11_162031) do
     t.string "title", null: false
     t.date "published_at", null: false
     t.text "memo"
+    t.index ["url"], name: "index_buzzes_on_url", unique: true
   end
 
   create_table "campaigns", force: :cascade do |t|
