@@ -254,9 +254,7 @@ class NotificationsTest < ApplicationSystemTestCase
   end
 
   test 'notify comment and check' do
-    visit_with_auth new_report_path, 'hatsuno'
-    assert_selector 'h2.page-header__title', text: '日報作成'
-    report_id = create_report 'コメントと', '確認があった', false
+    report_id = create_report_as('hatsuno', 'コメントと', '確認があった', save_as_wip: false)
 
     perform_enqueued_jobs do
       visit_with_auth "/reports/#{report_id}", 'komagata'
