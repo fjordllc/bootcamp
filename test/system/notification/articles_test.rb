@@ -30,7 +30,7 @@ class ArticlesTest < ApplicationSystemTestCase
     assert(hajime_notifications.any? { |n| n.message.include?('komagataさんがブログに「通知テスト1回目」を投稿しました。') })
 
     # Mark notifications as read
-    hajime_notifications.update_all(read: true)
+    hajime_notifications.update_attributes(read: true)
 
     visit_with_auth edit_article_path(@article), 'komagata'
     fill_in('article_title', with: '通知テスト2回目')
