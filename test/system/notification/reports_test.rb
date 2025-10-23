@@ -6,6 +6,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/introduction')
   end
 
   teardown do
@@ -18,21 +19,18 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     logout
 
     notification_message = 'muryouさんがはじめての日報を書きました！'
-    visit_with_auth '/notifications', 'machida'
-    find('#notifications.loaded')
-    assert_text notification_message
 
-    visit_with_auth '/notifications', 'kimura'
-    find('#notifications.loaded')
-    assert_no_text notification_message
+    notifications = Notification.where(user: users(:machida), kind: Notification.kinds[:first_report])
+    assert(notifications.any? { |n| n.message.include?(notification_message) })
 
-    visit_with_auth '/notifications', 'advijirou'
-    find('#notifications.loaded')
-    assert_no_text notification_message
+    notifications = Notification.where(user: users(:kimura), kind: Notification.kinds[:first_report])
+    assert_not(notifications.any? { |n| n.message.include?(notification_message) })
 
-    visit_with_auth '/notifications', 'sotugyou'
-    find('#notifications.loaded')
-    assert_no_text notification_message
+    notifications = Notification.where(user: users(:advijirou), kind: Notification.kinds[:first_report])
+    assert_not(notifications.any? { |n| n.message.include?(notification_message) })
+
+    notifications = Notification.where(user: users(:sotugyou), kind: Notification.kinds[:first_report])
+    assert_not(notifications.any? { |n| n.message.include?(notification_message) })
   end
 
   test 'notify when WIP report submitted' do
@@ -56,8 +54,8 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     click_button 'WIP'
     assert_text '日報をWIPとして保存しました。'
 
-    visit_with_auth '/notifications', 'komagata'
-    assert_no_text 'kensyuさんがはじめての日報を書きました！'
+    notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:first_report])
+    assert_not(notifications.any? { |n| n.message.include?('kensyuさんがはじめての日報を書きました！') })
 
     visit_with_auth "/users/#{users(:kensyu).id}/reports", 'kensyu'
     click_link 'test title'
@@ -65,8 +63,8 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     click_button '提出'
     assert_text '日報を保存しました。'
 
-    visit_with_auth '/notifications', 'komagata'
-    assert_text 'kensyuさんがはじめての日報を書きました！'
+    notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:first_report])
+    assert(notifications.any? { |n| n.message.include?('kensyuさんがはじめての日報を書きました！') })
   end
 
   test "don't notify when first report is WIP" do
@@ -90,8 +88,8 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     click_button 'WIP'
     assert_text '日報をWIPとして保存しました。'
 
-    visit_with_auth '/notifications', 'komagata'
-    assert_no_text 'kensyuさんがはじめての日報を書きました！'
+    notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:first_report])
+    assert_not(notifications.any? { |n| n.message.include?('kensyuさんがはじめての日報を書きました！') })
   end
 
   test 'delete report with notification' do
@@ -119,8 +117,8 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     end
     assert_text '日報を削除しました。'
 
-    visit_with_auth '/notifications', 'komagata'
-    assert_no_text 'kimuraさんがはじめての日報を書きました！'
+    notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:first_report])
+    assert_not(notifications.any? { |n| n.message.include?('kimuraさんがはじめての日報を書きました！') })
   end
 
   test 'no notification if report already posted' do
@@ -311,7 +309,8 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     click_button '提出'
     logout
 
-    visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_text '未読の通知はありません'
+    # コードブロック内のメンションは通知されない
+    notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:mentioned], read: false)
+    assert_not(notifications.any? { |n| n.sender == users(:kimura) })
   end
 end

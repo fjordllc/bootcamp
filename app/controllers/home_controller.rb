@@ -20,10 +20,6 @@ class HomeController < ApplicationController
 
   def pricing; end
 
-  def test
-    render :test, layout: false
-  end
-
   private
 
   def set_required_fields

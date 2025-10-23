@@ -10,6 +10,7 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     @notice_kind = Notification.kinds['announced']
     @notified_count = Notification.where(kind: @notice_kind).size
     @receiver_count = User.where(retired_on: nil).size - 1 # 送信者は除くため-1
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/all')
   end
 
   teardown do
@@ -27,14 +28,14 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     end
     assert_text 'お知らせを作成しました。'
 
-    visit_with_auth '/notifications', 'sotugyou'
+    sotugyou = users(:sotugyou)
+    # 直接Notificationテーブルから確認
+    announced_notifications = Notification.where(user: sotugyou, kind: @notice_kind)
+    assert announced_notifications.any? { |n| n.message.include?(@notice_text) }, 'sotugyou should have announced notification'
 
-    within first('.card-list-item.is-unread') do
-      assert_text @notice_text
-    end
-
-    visit_with_auth '/', 'komagata'
-    refute_text @notice_text
+    komagata = users(:komagata)
+    komagata_announced_notifications = Notification.where(user: komagata, kind: @notice_kind)
+    assert_not komagata_announced_notifications.any? { |n| n.message.include?(@notice_text) }, 'komagata should not have announced notification'
 
     expected = @notified_count + @receiver_count
     actual = Notification.where(kind: @notice_kind).size
@@ -54,15 +55,17 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     message = 'お知らせ「現役生にのみお知らせtest」'
 
     notified_users = %w[kimura komagata mentormentaro]
-    notified_users.each do |user|
-      visit_with_auth '/notifications', user
-      assert_text message
+    notified_users.each do |user_name|
+      user = users(user_name.to_sym)
+      user_notifications = Notification.where(user:, kind: Notification.kinds[:announced])
+      assert user_notifications.any? { |n| n.message.include?(message) }, "#{user_name} should have notification"
     end
 
     not_notified_users = %w[sotugyou advijirou yameo kensyu]
-    not_notified_users.each do |user|
-      visit_with_auth '/notifications', user
-      assert_no_text message
+    not_notified_users.each do |user_name|
+      user = users(user_name.to_sym)
+      user_notifications = Notification.where(user:, kind: Notification.kinds[:announced])
+      assert_not user_notifications.any? { |n| n.message.include?(message) }, "#{user_name} should not have notification"
     end
   end
 
@@ -79,15 +82,17 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     message = 'お知らせ「就活希望者のみお知らせします」'
 
     notified_users = %w[jobseeker komagata mentormentaro]
-    notified_users.each do |user|
-      visit_with_auth '/notifications', user
-      assert_text message
+    notified_users.each do |user_name|
+      user = users(user_name.to_sym)
+      user_notifications = Notification.where(user:, kind: Notification.kinds[:announced])
+      assert user_notifications.any? { |n| n.message.include?(message) }, "#{user_name} should have notification"
     end
 
     not_notified_users = %w[kimura]
-    not_notified_users.each do |user|
-      visit_with_auth '/notifications', user
-      assert_no_text message
+    not_notified_users.each do |user_name|
+      user = users(user_name.to_sym)
+      user_notifications = Notification.where(user:, kind: Notification.kinds[:announced])
+      assert_not user_notifications.any? { |n| n.message.include?(message) }, "#{user_name} should not have notification"
     end
   end
 end

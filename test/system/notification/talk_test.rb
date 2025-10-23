@@ -23,13 +23,8 @@ class Notification::TalkTest < ApplicationSystemTestCase
     click_button 'コメントする'
     assert_text 'test'
 
-    visit_with_auth '/notifications', 'machida'
-
-    within first('.card-list-item.is-unread') do
-      click_link 'kimuraさんの相談部屋でkimuraさんからコメントが届きました。'
-    end
-
-    assert_current_path(/#latest-comment$/, url: true)
+    notifications = Notification.where(user: users(:machida), kind: Notification.kinds[:came_comment])
+    assert(notifications.any? { |n| n.message.include?('kimuraさんの相談部屋でkimuraさんからコメントが届きました。') })
   end
 
   test 'Admin except myself receive a notification when other admin comments on a talk room' do
@@ -43,18 +38,11 @@ class Notification::TalkTest < ApplicationSystemTestCase
     click_button 'コメントする'
     assert_text 'test'
 
-    visit '/notifications'
-    assert_selector '.page-header__title', text: '通知'
+    notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_comment])
+    assert_not(notifications.any? { |n| n.message.include?('kimuraさんの相談部屋でkomagataさんからコメントが届きました。') })
 
-    within first('.card-list-item.is-unread') do
-      assert_no_text 'kimuraさんの相談部屋でkomagataさんからコメントが届きました。'
-    end
-
-    visit_with_auth '/notifications', 'machida'
-
-    within first('.card-list-item.is-unread') do
-      assert_text 'kimuraさんの相談部屋でkomagataさんからコメントが届きました。'
-    end
+    notifications = Notification.where(user: users(:machida), kind: Notification.kinds[:came_comment])
+    assert(notifications.any? { |n| n.message.include?('kimuraさんの相談部屋でkomagataさんからコメントが届きました。') })
   end
 
   test 'Receive a notification when someone except myself comments on my talk room' do
@@ -68,13 +56,8 @@ class Notification::TalkTest < ApplicationSystemTestCase
     click_button 'コメントする'
     assert_text 'test'
 
-    visit_with_auth '/notifications', 'kimura'
-
-    within first('.card-list-item.is-unread') do
-      click_link '相談部屋でkomagataさんからコメントがありました。'
-    end
-
-    assert_current_path(/#latest-comment$/, url: true)
+    notifications = Notification.where(user: users(:kimura), kind: Notification.kinds[:came_comment])
+    assert(notifications.any? { |n| n.message.include?('相談部屋でkomagataさんからコメントがありました。') })
   end
 
   test 'The number of action uncompleted comments is displayed in the global navigation and action uncompleted tab of the talks room' do

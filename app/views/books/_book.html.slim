@@ -26,7 +26,7 @@
                     | #{book.title}
             .card-books-item__row
               p.card-books-item__price
-                | #{book.price.to_s(:delimited)}円（税込）
+                | #{number_with_delimiter(book.price)}円（税込）
           - if book.description
             .card-books-item__row
               .card-books-item__description

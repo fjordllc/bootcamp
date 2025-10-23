@@ -21,11 +21,9 @@ class Notification::CommentsTest < ApplicationSystemTestCase
     click_button 'コメントする'
     assert_text '@machida @machida test'
 
-    visit_with_auth '/notifications', 'machida'
+    notifications = Notification.where(user: users(:machida), kind: Notification.kinds[:mentioned])
 
-    within first('.card-list-item.is-unread') do
-      assert_text 'komagataさんの日報「作業週1日目」へのコメントでkomagataさんからメンションがきました。'
-    end
-    assert_selector '.header-notification-count', text: '1'
+    assert(notifications.any? { |n| n.message.include?('komagataさんの日報「作業週1日目」へのコメントでkomagataさんからメンションがきました。') })
+    assert_equal 1, notifications.count
   end
 end

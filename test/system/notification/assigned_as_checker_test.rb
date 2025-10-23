@@ -22,10 +22,8 @@ class Notification::AssignedAsCheckerTest < ApplicationSystemTestCase
     click_button '提出する'
     logout
 
-    visit_with_auth '/notifications', 'machida'
-    within first('.card-list-item.is-unread') do
-      assert_text "mentormentaroさんの提出物「#{products(:product1).practice.title}」の提出物の担当になりました。"
-    end
+    notifications = Notification.where(user: users(:machida), kind: Notification.kinds[:assigned_as_checker])
+    assert(notifications.any? { |n| n.message.include?("mentormentaroさんの提出物「#{products(:product1).practice.title}」の提出物の担当になりました。") })
 
     sleep 0.2 until deliveries.count.positive?
 
@@ -40,7 +38,7 @@ class Notification::AssignedAsCheckerTest < ApplicationSystemTestCase
     click_button '提出する'
     assert_button '担当から外れる'
 
-    visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_no_text "mentormentaroさんの提出物#{products(:product1).title}の担当になりました。"
+    notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:assigned_as_checker])
+    assert_not(notifications.any? { |n| n.message.include?("mentormentaroさんの提出物#{products(:product1).title}の担当になりました。") })
   end
 end

@@ -6,6 +6,10 @@ class ReportsTest < ApplicationSystemTestCase
   setup do
     @komagata = users(:komagata)
     @kimura = users(:kimura)
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/all')
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/introduction')
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/mentor')
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/admin')
   end
 
   test 'create report as WIP' do

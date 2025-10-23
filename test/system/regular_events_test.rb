@@ -5,6 +5,9 @@ require 'application_system_test_case'
 class RegularEventsTest < ApplicationSystemTestCase
   setup do
     @raise_server_errors = Capybara.raise_server_errors
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/all')
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/admin')
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/mentor')
   end
 
   teardown do
@@ -19,6 +22,8 @@ class RegularEventsTest < ApplicationSystemTestCase
       find('#choices--js-choices-multiple-select-item-choice-1').click
       find('label', text: '主催者').click
       find('label', text: '質問').click
+      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__frequency select').select('毎週')
+      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select('月曜日')
       fill_in 'regular_event[start_at]', with: Time.zone.parse('16:00')
       fill_in 'regular_event[end_at]', with: Time.zone.parse('17:00')
       fill_in 'regular_event[description]', with: '質問相談タイムです'
