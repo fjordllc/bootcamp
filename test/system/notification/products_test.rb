@@ -22,7 +22,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     assert_text "6日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、6日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
 
     notifications = Notification.where(user: users(:senpai), kind: Notification.kinds[:submitted])
-    assert notifications.any? { |n| n.message.include?("kensyuさんが「#{practices(:practice5).title}」の提出物を提出しました。") }
+    assert(notifications.any? { |n| n.message.include?("kensyuさんが「#{practices(:practice5).title}」の提出物を提出しました。") })
   end
 
   test 'update product notification message for checker' do
@@ -36,7 +36,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     assert_text '提出物を更新しました。'
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:product_update])
-    assert notifications.any? { |n| n.message.include?("kimuraさんの「#{product.practice.title}」の提出物が更新されました。") }
+    assert(notifications.any? { |n| n.message.include?("kimuraさんの「#{product.practice.title}」の提出物が更新されました。") })
   end
 
   test 'update product notification message for watcher' do
@@ -56,7 +56,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     assert_text '提出物を更新しました。'
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:product_update])
-    assert notifications.any? { |n| n.message.include?("hajimeさんの「#{product.practice.title}」の提出物が更新されました。") }
+    assert(notifications.any? { |n| n.message.include?("hajimeさんの「#{product.practice.title}」の提出物が更新されました。") })
   end
 
   test 'checked product notification message' do
@@ -74,7 +74,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     assert_text '提出物を合格にしました。'
 
     notifications = Notification.where(user: users(:kimura), kind: Notification.kinds[:checked])
-    assert notifications.any? { |n| n.message.include?("#{checker.login_name}さんが「#{practices(:practice47).title}」の提出物を確認しました。") }
+    assert(notifications.any? { |n| n.message.include?("#{checker.login_name}さんが「#{practices(:practice47).title}」の提出物を確認しました。") })
   end
 
   test 'send the notification of practices mentor is watching' do
@@ -90,6 +90,6 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     click_button '提出する'
 
     notifications = Notification.where(user: users(:mentormentaro), kind: Notification.kinds[:watching])
-    assert notifications.any? { |n| n.message.include?("#{users(:hatsuno).login_name}さんが「#{practice.title}」の提出物を提出しました。") }
+    assert(notifications.any? { |n| n.message.include?("#{users(:hatsuno).login_name}さんが「#{practice.title}」の提出物を提出しました。") })
   end
 end

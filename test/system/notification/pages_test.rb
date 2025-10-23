@@ -24,16 +24,16 @@ class Notification::PagesTest < ApplicationSystemTestCase
     assert_text 'ドキュメントを作成しました。'
 
     notifications = Notification.where(user: users(:mentormentaro), kind: Notification.kinds[:create_pages])
-    assert notifications.any? { |n| n.message.include?('komagataさんがDocsにDocsTestを投稿しました。') }
+    assert(notifications.any? { |n| n.message.include?('komagataさんがDocsにDocsTestを投稿しました。') })
 
     notifications = Notification.where(user: users(:machida), kind: Notification.kinds[:create_pages])
-    assert notifications.any? { |n| n.message.include?('komagataさんがDocsにDocsTestを投稿しました。') }
+    assert(notifications.any? { |n| n.message.include?('komagataさんがDocsにDocsTestを投稿しました。') })
 
     notifications = Notification.where(user: users(:hatsuno), kind: Notification.kinds[:create_pages])
-    refute notifications.any? { |n| n.message.include?('komagataさんがDocsにDocsTestを投稿しました。') }
+    assert_not(notifications.any? { |n| n.message.include?('komagataさんがDocsにDocsTestを投稿しました。') })
 
     notifications = Notification.where(user: users(:yameo), kind: Notification.kinds[:create_pages])
-    refute notifications.any? { |n| n.message.include?('komagataさんがDocsにDocsTestを投稿しました。') }
+    assert_not(notifications.any? { |n| n.message.include?('komagataさんがDocsにDocsTestを投稿しました。') })
   end
 
   test "don't notify when page is WIP" do
@@ -48,7 +48,7 @@ class Notification::PagesTest < ApplicationSystemTestCase
     assert_text 'ドキュメントをWIPとして保存しました。'
 
     notifications = Notification.where(user: users(:hatsuno), kind: Notification.kinds[:create_pages])
-    refute notifications.any? { |n| n.message.include?('komagataさんがDocsにDocsTestを投稿しました。') }
+    assert_not(notifications.any? { |n| n.message.include?('komagataさんがDocsにDocsTestを投稿しました。') })
   end
 
   test 'Notify Docs updated from WIP' do
@@ -60,6 +60,6 @@ class Notification::PagesTest < ApplicationSystemTestCase
     assert_text 'ドキュメントを作成しました。'
 
     notifications = Notification.where(user: users(:machida), kind: Notification.kinds[:create_pages])
-    assert notifications.any? { |n| n.message.include?('komagataさんがDocsにWIPのテストを投稿しました。') }
+    assert(notifications.any? { |n| n.message.include?('komagataさんがDocsにWIPのテストを投稿しました。') })
   end
 end

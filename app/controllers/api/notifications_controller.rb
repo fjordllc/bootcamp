@@ -5,7 +5,7 @@ class API::NotificationsController < API::BaseController
     target = params[:target].presence&.to_sym
     status = params[:status]
 
-    @notifications = UserNotificationsQuery.new(user: current_user, target: target, status: status).call
+    @notifications = UserNotificationsQuery.new(user: current_user, target:, status:).call
 
     page = params[:page]
     return @notifications unless page

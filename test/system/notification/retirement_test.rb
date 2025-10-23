@@ -14,7 +14,7 @@ class Notification::RetirementTest < ApplicationSystemTestCase
 
   test 'notify admins and mentors when a user retire' do
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:retired])
-    refute notifications.any? { |n| n.message.include?('kimuraさんが退会しました。') }
+    assert_not(notifications.any? { |n| n.message.include?('kimuraさんが退会しました。') })
 
     visit_with_auth new_retirement_path, 'kimura'
     find('label', text: 'とても良い').click
@@ -23,6 +23,6 @@ class Notification::RetirementTest < ApplicationSystemTestCase
     assert_text '退会処理が完了しました'
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:retired])
-    assert notifications.any? { |n| n.message.include?('kimuraさんが退会しました。') }
+    assert(notifications.any? { |n| n.message.include?('kimuraさんが退会しました。') })
   end
 end

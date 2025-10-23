@@ -23,6 +23,6 @@ class Notification::GraduationTest < ApplicationSystemTestCase
     logout
 
     notifications = Notification.where(user: users(:mentormentaro), kind: Notification.kinds[:graduated])
-    assert notifications.any? { |n| n.message.include?('kimuraさんが卒業しました！') }
+    assert(notifications.any? { |n| n.message.include?('kimuraさんが卒業しました！') })
   end
 end

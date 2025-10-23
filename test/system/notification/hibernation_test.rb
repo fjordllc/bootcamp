@@ -15,7 +15,7 @@ class Notification::HibernationTest < ApplicationSystemTestCase
 
   test 'notify admins and mentors when a student hibernate' do
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:hibernated])
-    refute notifications.any? { |n| n.message.include?('kimuraさんが休会しました。') }
+    assert_not(notifications.any? { |n| n.message.include?('kimuraさんが休会しました。') })
 
     visit_with_auth new_hibernation_path, 'kimura'
     fill_in 'hibernation[scheduled_return_on]', with: Time.current.next_month
@@ -27,12 +27,12 @@ class Notification::HibernationTest < ApplicationSystemTestCase
     assert_text '休会手続きが完了しました'
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:hibernated])
-    assert notifications.any? { |n| n.message.include?('kimuraさんが休会しました。') }
+    assert(notifications.any? { |n| n.message.include?('kimuraさんが休会しました。') })
   end
 
   test 'notify admins and mentors when a trainee hibernate' do
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:hibernated])
-    refute notifications.any? { |n| n.message.include?('kensyuさんが休会しました。') }
+    assert_not(notifications.any? { |n| n.message.include?('kensyuさんが休会しました。') })
 
     visit_with_auth new_hibernation_path, 'kensyu'
     fill_in 'hibernation[scheduled_return_on]', with: Time.current.next_month
@@ -44,12 +44,12 @@ class Notification::HibernationTest < ApplicationSystemTestCase
     assert_text '休会手続きが完了しました'
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:hibernated])
-    assert notifications.any? { |n| n.message.include?('kensyuさんが休会しました。') }
+    assert(notifications.any? { |n| n.message.include?('kensyuさんが休会しました。') })
   end
 
   test 'notify admins and mentors when a adviser hibernate' do
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:hibernated])
-    refute notifications.any? { |n| n.message.include?('senpaiさんが休会しました。') }
+    assert_not(notifications.any? { |n| n.message.include?('senpaiさんが休会しました。') })
 
     visit_with_auth new_hibernation_path, 'senpai'
     fill_in 'hibernation[scheduled_return_on]', with: Time.current.next_month
@@ -61,6 +61,6 @@ class Notification::HibernationTest < ApplicationSystemTestCase
     assert_text '休会手続きが完了しました'
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:hibernated])
-    assert notifications.any? { |n| n.message.include?('senpaiさんが休会しました。') }
+    assert(notifications.any? { |n| n.message.include?('senpaiさんが休会しました。') })
   end
 end

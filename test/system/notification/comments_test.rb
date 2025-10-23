@@ -23,7 +23,7 @@ class Notification::CommentsTest < ApplicationSystemTestCase
 
     notifications = Notification.where(user: users(:machida), kind: Notification.kinds[:mentioned])
 
-    assert notifications.any? { |n| n.message.include?('komagataさんの日報「作業週1日目」へのコメントでkomagataさんからメンションがきました。') }
+    assert(notifications.any? { |n| n.message.include?('komagataさんの日報「作業週1日目」へのコメントでkomagataさんからメンションがきました。') })
     assert_equal 1, notifications.count
   end
 end

@@ -14,9 +14,9 @@ class UserNotificationsQuery < Patterns::Query
 
   def query
     latest_notifications = @user.notifications
-                                 .by_target(@target)
-                                 .by_read_status(@status)
-                                 .latest_of_each_link
+                                .by_target(@target)
+                                .by_read_status(@status)
+                                .latest_of_each_link
 
     Notification.with_avatar
                 .from(latest_notifications, :notifications)

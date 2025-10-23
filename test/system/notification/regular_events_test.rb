@@ -25,7 +25,7 @@ class Notification::RegularEventsTest < ApplicationSystemTestCase
     assert_text '定期イベントを更新しました。'
 
     notifications = Notification.where(user: users(:hatsuno), kind: Notification.kinds[:regular_event_updated])
-    assert notifications.any? { |n| n.message.include?("定期イベント【#{regular_event.title}】が更新されました。") }
+    assert(notifications.any? { |n| n.message.include?("定期イベント【#{regular_event.title}】が更新されました。") })
   end
 
   test 'notify_coming_soon_regular_events' do
@@ -60,6 +60,6 @@ class Notification::RegularEventsTest < ApplicationSystemTestCase
     click_button 'コメントする'
     assert_text '@machida test'
     notifications = Notification.where(user: users(:machida), kind: Notification.kinds[:mentioned])
-    assert notifications.any? { |n| n.message.include?('定期イベント「開発MTG」へのコメントでkomagataさんからメンションがきました。') }
+    assert(notifications.any? { |n| n.message.include?('定期イベント「開発MTG」へのコメントでkomagataさんからメンションがきました。') })
   end
 end

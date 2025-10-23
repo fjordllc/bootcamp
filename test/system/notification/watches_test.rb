@@ -30,10 +30,10 @@ class Notification::WatchesTest < ApplicationSystemTestCase
     assert_text 'コメントを投稿しました！'
 
     notifications = Notification.where(user: users(:kimura), kind: Notification.kinds[:watching])
-    assert notifications.any? { |n| n.message.include?("komagataさんの日報「#{reports(:report1).title}」にkomagataさんがコメントしました。") }
+    assert(notifications.any? { |n| n.message.include?("komagataさんの日報「#{reports(:report1).title}」にkomagataさんがコメントしました。") })
 
     notifications = Notification.where(user: users(:machida), kind: Notification.kinds[:watching])
-    assert notifications.any? { |n| n.message.include?("komagataさんの日報「#{reports(:report1).title}」にkomagataさんがコメントしました。") }
+    assert(notifications.any? { |n| n.message.include?("komagataさんの日報「#{reports(:report1).title}」にkomagataさんがコメントしました。") })
   end
 
   test '質問作成者がコメントをした際、ウォッチ通知が飛ばないバグの再現' do
@@ -54,9 +54,9 @@ class Notification::WatchesTest < ApplicationSystemTestCase
     assert_text '回答を投稿しました！'
 
     notifications = Notification.where(user: users(:kimura), kind: Notification.kinds[:watching])
-    assert notifications.any? { |n| n.message.include?("machidaさんのQ&A「#{questions(:question1).title}」にmachidaさんが回答しました。") }
+    assert(notifications.any? { |n| n.message.include?("machidaさんのQ&A「#{questions(:question1).title}」にmachidaさんが回答しました。") })
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:watching])
-    assert notifications.any? { |n| n.message.include?("machidaさんのQ&A「#{questions(:question1).title}」にmachidaさんが回答しました。") }
+    assert(notifications.any? { |n| n.message.include?("machidaさんのQ&A「#{questions(:question1).title}」にmachidaさんが回答しました。") })
   end
 end

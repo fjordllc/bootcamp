@@ -23,7 +23,7 @@ class Notification::AssignedAsCheckerTest < ApplicationSystemTestCase
     logout
 
     notifications = Notification.where(user: users(:machida), kind: Notification.kinds[:assigned_as_checker])
-    assert notifications.any? { |n| n.message.include?("mentormentaroさんの提出物「#{products(:product1).practice.title}」の提出物の担当になりました。") }
+    assert(notifications.any? { |n| n.message.include?("mentormentaroさんの提出物「#{products(:product1).practice.title}」の提出物の担当になりました。") })
 
     sleep 0.2 until deliveries.count.positive?
 
@@ -39,6 +39,6 @@ class Notification::AssignedAsCheckerTest < ApplicationSystemTestCase
     assert_button '担当から外れる'
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:assigned_as_checker])
-    refute notifications.any? { |n| n.message.include?("mentormentaroさんの提出物#{products(:product1).title}の担当になりました。") }
+    assert_not(notifications.any? { |n| n.message.include?("mentormentaroさんの提出物#{products(:product1).title}の担当になりました。") })
   end
 end

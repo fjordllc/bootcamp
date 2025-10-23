@@ -27,6 +27,6 @@ class Notification::AnswersTest < ApplicationSystemTestCase
 
     komagata = users(:komagata)
     komagata_notifications = Notification.where(user: komagata, kind: Notification.kinds[:answered])
-    refute komagata_notifications.any? { |n| n.message.include?(@notice_text) }, 'komagata should not have answered notification'
+    assert_not komagata_notifications.any? { |n| n.message.include?(@notice_text) }, 'komagata should not have answered notification'
   end
 end

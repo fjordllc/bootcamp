@@ -2,7 +2,7 @@
 
 module NotificationHelper
   def notifications(user:, target:, status:)
-    UserNotificationsQuery.new(user: user, target: target, status: status).call
+    UserNotificationsQuery.new(user:, target:, status:).call
   end
 
   def notification_message

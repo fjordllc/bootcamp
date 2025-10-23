@@ -21,16 +21,16 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     notification_message = 'muryouさんがはじめての日報を書きました！'
 
     notifications = Notification.where(user: users(:machida), kind: Notification.kinds[:first_report])
-    assert notifications.any? { |n| n.message.include?(notification_message) }
+    assert(notifications.any? { |n| n.message.include?(notification_message) })
 
     notifications = Notification.where(user: users(:kimura), kind: Notification.kinds[:first_report])
-    refute notifications.any? { |n| n.message.include?(notification_message) }
+    assert_not(notifications.any? { |n| n.message.include?(notification_message) })
 
     notifications = Notification.where(user: users(:advijirou), kind: Notification.kinds[:first_report])
-    refute notifications.any? { |n| n.message.include?(notification_message) }
+    assert_not(notifications.any? { |n| n.message.include?(notification_message) })
 
     notifications = Notification.where(user: users(:sotugyou), kind: Notification.kinds[:first_report])
-    refute notifications.any? { |n| n.message.include?(notification_message) }
+    assert_not(notifications.any? { |n| n.message.include?(notification_message) })
   end
 
   test 'notify when WIP report submitted' do
@@ -55,7 +55,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     assert_text '日報をWIPとして保存しました。'
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:first_report])
-    refute notifications.any? { |n| n.message.include?('kensyuさんがはじめての日報を書きました！') }
+    assert_not(notifications.any? { |n| n.message.include?('kensyuさんがはじめての日報を書きました！') })
 
     visit_with_auth "/users/#{users(:kensyu).id}/reports", 'kensyu'
     click_link 'test title'
@@ -64,7 +64,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     assert_text '日報を保存しました。'
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:first_report])
-    assert notifications.any? { |n| n.message.include?('kensyuさんがはじめての日報を書きました！') }
+    assert(notifications.any? { |n| n.message.include?('kensyuさんがはじめての日報を書きました！') })
   end
 
   test "don't notify when first report is WIP" do
@@ -89,7 +89,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     assert_text '日報をWIPとして保存しました。'
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:first_report])
-    refute notifications.any? { |n| n.message.include?('kensyuさんがはじめての日報を書きました！') }
+    assert_not(notifications.any? { |n| n.message.include?('kensyuさんがはじめての日報を書きました！') })
   end
 
   test 'delete report with notification' do
@@ -118,7 +118,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     assert_text '日報を削除しました。'
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:first_report])
-    refute notifications.any? { |n| n.message.include?('kimuraさんがはじめての日報を書きました！') }
+    assert_not(notifications.any? { |n| n.message.include?('kimuraさんがはじめての日報を書きました！') })
   end
 
   test 'no notification if report already posted' do
@@ -311,6 +311,6 @@ class Notification::ReportsTest < ApplicationSystemTestCase
 
     # コードブロック内のメンションは通知されない
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:mentioned], read: false)
-    refute notifications.any? { |n| n.sender == users(:kimura) }
+    assert_not(notifications.any? { |n| n.sender == users(:kimura) })
   end
 end

@@ -38,7 +38,7 @@ class Notification::SignedUpTest < ApplicationSystemTestCase
     assert User.find_by(email:).adviser?
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:signed_up])
-    assert notifications.any? { |n| n.message.include?('harukoさん(アドバイザー)が新しく入会しました！') }
+    assert(notifications.any? { |n| n.message.include?('harukoさん(アドバイザー)が新しく入会しました！') })
   end
 
   test 'notify mentors when signed up as mentor' do
@@ -67,7 +67,7 @@ class Notification::SignedUpTest < ApplicationSystemTestCase
     assert User.find_by(email:).mentor?
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:signed_up])
-    assert notifications.any? { |n| n.message.include?('shunkaさん(メンター)が新しく入会しました！') }
+    assert(notifications.any? { |n| n.message.include?('shunkaさん(メンター)が新しく入会しました！') })
   end
 
   test 'notify mentors when signed up as trainee' do
@@ -99,7 +99,7 @@ class Notification::SignedUpTest < ApplicationSystemTestCase
     assert User.find_by(email:).trainee?
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:signed_up])
-    assert notifications.any? { |n| n.message.include?('natsumiさん(研修生)が新しく入会しました！') }
+    assert(notifications.any? { |n| n.message.include?('natsumiさん(研修生)が新しく入会しました！') })
   end
 
   test 'notify mentors when signed up as normal user' do
@@ -128,6 +128,6 @@ class Notification::SignedUpTest < ApplicationSystemTestCase
     end
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:signed_up])
-    assert notifications.any? { |n| n.message.include?('taroさんが新しく入会しました！') }
+    assert(notifications.any? { |n| n.message.include?('taroさんが新しく入会しました！') })
   end
 end

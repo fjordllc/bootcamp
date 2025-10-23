@@ -25,6 +25,6 @@ class Notification::ComebackTest < ApplicationSystemTestCase
     logout
 
     notifications = Notification.where(user: users(:mentormentaro), kind: Notification.kinds[:comebacked])
-    assert notifications.any? { |n| n.message.include?('kyuukaiさんが休会から復帰しました！') }
+    assert(notifications.any? { |n| n.message.include?('kyuukaiさんが休会から復帰しました！') })
   end
 end

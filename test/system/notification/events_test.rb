@@ -21,7 +21,7 @@ class Notification::EventsTest < ApplicationSystemTestCase
     assert_text '参加を取り消しました。'
 
     notifications = Notification.where(user: users(:hatsuno), kind: Notification.kinds[:moved_up_event_waiting_user])
-    assert notifications.any? { |n| n.message.include?("#{event.title}で、補欠から参加に繰り上がりました。") }
+    assert(notifications.any? { |n| n.message.include?("#{event.title}で、補欠から参加に繰り上がりました。") })
   end
 
   test 'waiting user receive notification when the event capacity is increased' do
@@ -34,6 +34,6 @@ class Notification::EventsTest < ApplicationSystemTestCase
     assert_text 'イベントを更新しました。'
 
     notifications = Notification.where(user: users(:hatsuno), kind: Notification.kinds[:moved_up_event_waiting_user])
-    assert notifications.any? { |n| n.message.include?("#{event.title}で、補欠から参加に繰り上がりました。") }
+    assert(notifications.any? { |n| n.message.include?("#{event.title}で、補欠から参加に繰り上がりました。") })
   end
 end

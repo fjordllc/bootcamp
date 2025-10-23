@@ -24,7 +24,7 @@ class Notification::TalkTest < ApplicationSystemTestCase
     assert_text 'test'
 
     notifications = Notification.where(user: users(:machida), kind: Notification.kinds[:came_comment])
-    assert notifications.any? { |n| n.message.include?('kimuraさんの相談部屋でkimuraさんからコメントが届きました。') }
+    assert(notifications.any? { |n| n.message.include?('kimuraさんの相談部屋でkimuraさんからコメントが届きました。') })
   end
 
   test 'Admin except myself receive a notification when other admin comments on a talk room' do
@@ -39,10 +39,10 @@ class Notification::TalkTest < ApplicationSystemTestCase
     assert_text 'test'
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_comment])
-    refute notifications.any? { |n| n.message.include?('kimuraさんの相談部屋でkomagataさんからコメントが届きました。') }
+    assert_not(notifications.any? { |n| n.message.include?('kimuraさんの相談部屋でkomagataさんからコメントが届きました。') })
 
     notifications = Notification.where(user: users(:machida), kind: Notification.kinds[:came_comment])
-    assert notifications.any? { |n| n.message.include?('kimuraさんの相談部屋でkomagataさんからコメントが届きました。') }
+    assert(notifications.any? { |n| n.message.include?('kimuraさんの相談部屋でkomagataさんからコメントが届きました。') })
   end
 
   test 'Receive a notification when someone except myself comments on my talk room' do
@@ -57,7 +57,7 @@ class Notification::TalkTest < ApplicationSystemTestCase
     assert_text 'test'
 
     notifications = Notification.where(user: users(:kimura), kind: Notification.kinds[:came_comment])
-    assert notifications.any? { |n| n.message.include?('相談部屋でkomagataさんからコメントがありました。') }
+    assert(notifications.any? { |n| n.message.include?('相談部屋でkomagataさんからコメントがありました。') })
   end
 
   test 'The number of action uncompleted comments is displayed in the global navigation and action uncompleted tab of the talks room' do

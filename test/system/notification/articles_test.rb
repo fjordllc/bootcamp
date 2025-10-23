@@ -27,7 +27,7 @@ class ArticlesTest < ApplicationSystemTestCase
 
     hajime = users(:hajime)
     hajime_notifications = Notification.where(user: hajime, kind: @notice_kind, read: false)
-    assert hajime_notifications.any? { |n| n.message.include?('komagataさんがブログに「通知テスト1回目」を投稿しました。') }
+    assert(hajime_notifications.any? { |n| n.message.include?('komagataさんがブログに「通知テスト1回目」を投稿しました。') })
 
     # Mark notifications as read
     hajime_notifications.update_all(read: true)
@@ -38,7 +38,7 @@ class ArticlesTest < ApplicationSystemTestCase
 
     hajime_unread_notifications = Notification.where(user: hajime, kind: @notice_kind, read: false)
     assert_empty hajime_unread_notifications
-    refute hajime_notifications.reload.any? { |n| n.message.include?('komagataさんがブログに「通知テスト2回目」を投稿しました。') }
+    assert_not(hajime_notifications.reload.any? { |n| n.message.include?('komagataさんがブログに「通知テスト2回目」を投稿しました。') })
   end
 
   test 'the notification is not sent when the article with WIP is saved' do
@@ -51,7 +51,7 @@ class ArticlesTest < ApplicationSystemTestCase
     hajime = users(:hajime)
     hajime_unread_notifications = Notification.where(user: hajime, kind: @notice_kind, read: false)
     assert_empty hajime_unread_notifications
-    refute hajime_unread_notifications.any? { |n| n.message.include?('komagataさんがブログに「通知テストwip」を投稿しました。') }
+    assert_not(hajime_unread_notifications.any? { |n| n.message.include?('komagataさんがブログに「通知テストwip」を投稿しました。') })
   end
 
   test 'all member recieve a notification when the article posted' do
@@ -74,7 +74,7 @@ class ArticlesTest < ApplicationSystemTestCase
 
     komagata = users(:komagata)
     komagata_notifications = Notification.where(user: komagata, kind: @notice_kind)
-    refute komagata_notifications.any? { |n| n.message.include?(message) }, 'komagata should not have article notification'
+    assert_not komagata_notifications.any? { |n| n.message.include?(message) }, 'komagata should not have article notification'
 
     expected = @notified_count + @receiver_count
     actual = Notification.where(kind: @notice_kind).size
@@ -99,15 +99,15 @@ class ArticlesTest < ApplicationSystemTestCase
     notified_users = %w[kimura machida mentormentaro]
     notified_users.each do |user_name|
       user = users(user_name.to_sym)
-      user_notifications = Notification.where(user: user, kind: @notice_kind)
+      user_notifications = Notification.where(user:, kind: @notice_kind)
       assert user_notifications.any? { |n| n.message.include?(message) }, "#{user_name} should have notification"
     end
 
     not_notified_users = %w[sotugyou advijirou yameo kensyu]
     not_notified_users.each do |user_name|
       user = users(user_name.to_sym)
-      user_notifications = Notification.where(user: user, kind: @notice_kind)
-      refute user_notifications.any? { |n| n.message.include?(message) }, "#{user_name} should not have notification"
+      user_notifications = Notification.where(user:, kind: @notice_kind)
+      assert_not user_notifications.any? { |n| n.message.include?(message) }, "#{user_name} should not have notification"
     end
   end
 
@@ -128,15 +128,15 @@ class ArticlesTest < ApplicationSystemTestCase
     notified_users = %w[jobseeker machida mentormentaro]
     notified_users.each do |user_name|
       user = users(user_name.to_sym)
-      user_notifications = Notification.where(user: user, kind: @notice_kind)
+      user_notifications = Notification.where(user:, kind: @notice_kind)
       assert user_notifications.any? { |n| n.message.include?(message) }, "#{user_name} should have notification"
     end
 
     not_notified_users = %w[kimura]
     not_notified_users.each do |user_name|
       user = users(user_name.to_sym)
-      user_notifications = Notification.where(user: user, kind: @notice_kind)
-      refute user_notifications.any? { |n| n.message.include?(message) }, "#{user_name} should not have notification"
+      user_notifications = Notification.where(user:, kind: @notice_kind)
+      assert_not user_notifications.any? { |n| n.message.include?(message) }, "#{user_name} should not have notification"
     end
   end
 
@@ -154,7 +154,7 @@ class ArticlesTest < ApplicationSystemTestCase
     hajime = users(:hajime)
     hajime_unread_notifications = Notification.where(user: hajime, kind: @notice_kind, read: false)
     assert_empty hajime_unread_notifications
-    refute hajime_unread_notifications.any? { |n| n.message.include?('komagataさんがブログに「通知をしない記事」を投稿しました。') }
+    assert_not(hajime_unread_notifications.any? { |n| n.message.include?('komagataさんがブログに「通知をしない記事」を投稿しました。') })
   end
 
   test 'notification targets can be selected only when first published' do

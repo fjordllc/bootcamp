@@ -286,7 +286,7 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text '提出物をWIPとして保存しました。'
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:watching])
-    refute notifications.any? { |n| n.message.include?("kensyuさんが「#{practices(:practice3).title}」の提出物を提出しました。") }
+    assert_not(notifications.any? { |n| n.message.include?("kensyuさんが「#{practices(:practice3).title}」の提出物を提出しました。") })
   end
 
   test "Don't notify if update product as WIP" do
@@ -302,7 +302,7 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text '提出物をWIPとして保存しました。'
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:watching])
-    refute notifications.any? { |n| n.message.include?("kensyuさんが「#{practices(:practice3).title}」の提出物を提出しました。") }
+    assert_not(notifications.any? { |n| n.message.include?("kensyuさんが「#{practices(:practice3).title}」の提出物を提出しました。") })
   end
 
   test "should add to trainer's watching list when trainee submits product" do

@@ -43,7 +43,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     end
 
     notifications = Notification.where(user: users(:mentormentaro), kind: Notification.kinds[:came_question])
-    assert notifications.any? { |n| n.message.include?('hatsunoさんから質問「メンターに質問！！」が投稿されました。') }
+    assert(notifications.any? { |n| n.message.include?('hatsunoさんから質問「メンターに質問！！」が投稿されました。') })
 
     assert_equal @notified_count + @mentor_count, Notification.where(kind: @notice_kind).size
   end
@@ -58,7 +58,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text '質問を作成しました。'
 
     notifications = Notification.where(user: users(:mentormentaro), kind: Notification.kinds[:came_question])
-    refute notifications.any? { |n| n.message.include?('mentormentaroさんから質問「皆さんに質問！！」が投稿されました。') }
+    assert_not(notifications.any? { |n| n.message.include?('mentormentaroさんから質問「皆さんに質問！！」が投稿されました。') })
   end
 
   test 'should not notify when an already published question was updated' do
@@ -75,7 +75,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text '質問を更新しました'
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_question]).unreads
-    refute notifications.any? { |n| n.message.include?('kimuraさんから質問「更新されたタイトル」が投稿されました。') }
+    assert_not(notifications.any? { |n| n.message.include?('kimuraさんから質問「更新されたタイトル」が投稿されました。') })
   end
 
   test 'should not notify when an already published question was updated as WIP' do
@@ -92,7 +92,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text '質問をWIPとして保存しました。'
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_question]).unreads
-    refute notifications.any? { |n| n.message.include?('kimuraさんから質問「更新されたタイトル」が投稿されました。') }
+    assert_not(notifications.any? { |n| n.message.include?('kimuraさんから質問「更新されたタイトル」が投稿されました。') })
   end
 
   test 'should not notify when a newly question was created as WIP' do
@@ -108,7 +108,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text '質問をWIPとして保存しました。'
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_question]).unreads
-    refute notifications.any? { |n| n.message.include?('kimuraさんから質問「WIPタイトル」が投稿されました。') }
+    assert_not(notifications.any? { |n| n.message.include?('kimuraさんから質問「WIPタイトル」が投稿されました。') })
   end
 
   test 'notify when a newly question was created as published' do
@@ -124,7 +124,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text '質問を作成しました。'
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_question]).unreads
-    assert notifications.any? { |n| n.message.include?('kimuraさんから質問「公開タイトル」が投稿されました。') }
+    assert(notifications.any? { |n| n.message.include?('kimuraさんから質問「公開タイトル」が投稿されました。') })
   end
 
   test 'should not notify when a WIP question was updated' do
@@ -147,7 +147,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text '質問をWIPとして保存しました'
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_question]).unreads
-    refute notifications.any? { |n| n.message.include?('kimuraさんから質問「更新されたWIPタイトル」が投稿されました。') }
+    assert_not(notifications.any? { |n| n.message.include?('kimuraさんから質問「更新されたWIPタイトル」が投稿されました。') })
   end
 
   test 'notify when a WIP question with modification was updated as published' do
@@ -170,7 +170,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text '質問を更新しました'
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_question]).unreads
-    assert notifications.any? { |n| n.message.include?('kimuraさんから質問「更新された公開タイトル」が投稿されました。') }
+    assert(notifications.any? { |n| n.message.include?('kimuraさんから質問「更新された公開タイトル」が投稿されました。') })
   end
 
   test 'notify when a WIP question without modification was updated as published' do
@@ -189,7 +189,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text '質問を更新しました'
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_question]).unreads
-    assert notifications.any? { |n| n.message.include?('kimuraさんから質問「WIPタイトル」が投稿されました。') }
+    assert(notifications.any? { |n| n.message.include?('kimuraさんから質問「WIPタイトル」が投稿されました。') })
   end
 
   test 'should not notify when a published question with modification was updated as WIP' do
@@ -215,7 +215,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text '質問をWIPとして保存しました。'
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_question]).unreads
-    refute notifications.any? { |n| n.message.include?('kimuraさんから質問「更新されたWIPタイトル」が投稿されました。') }
+    assert_not(notifications.any? { |n| n.message.include?('kimuraさんから質問「更新されたWIPタイトル」が投稿されました。') })
   end
 
   test 'should not notify when a published question without modification was updated as WIP' do
@@ -237,7 +237,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text '質問をWIPとして保存しました'
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_question]).unreads
-    refute notifications.any? { |n| n.message.include?('kimuraさんから質問「公開タイトル」が投稿されました。') }
+    assert_not(notifications.any? { |n| n.message.include?('kimuraさんから質問「公開タイトル」が投稿されました。') })
   end
 
   test 'should not notify when a published question was updated' do
@@ -263,7 +263,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text '質問を更新しました'
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_question]).unreads
-    refute notifications.any? { |n| n.message.include?('kimuraさんから質問「更新されたタイトル」が投稿されました。') }
+    assert_not(notifications.any? { |n| n.message.include?('kimuraさんから質問「更新されたタイトル」が投稿されました。') })
   end
 
   test 'delete question by mentor with notification' do
@@ -278,7 +278,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     end
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_question])
-    assert notifications.any? { |n| n.message.include?('kimuraさんから質問「タイトルtest」が投稿されました。') }
+    assert(notifications.any? { |n| n.message.include?('kimuraさんから質問「タイトルtest」が投稿されました。') })
 
     visit_with_auth '/questions', 'komagata'
     click_on 'タイトルtest'
@@ -291,7 +291,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     end
 
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:came_question])
-    refute notifications.any? { |n| n.message.include?('kimuraさんから質問「タイトルtest」が投稿されました。') }
+    assert_not(notifications.any? { |n| n.message.include?('kimuraさんから質問「タイトルtest」が投稿されました。') })
   end
 
   test 'notify to questioner when a week has passed since last answer' do
@@ -320,7 +320,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
         end
 
         notifications = Notification.where(user: users(:kimura), kind: Notification.kinds[:no_correct_answer])
-        refute notifications.any? { |n| n.message.include?('Q&A「テストの質問」のベストアンサーがまだ選ばれていません。') }
+        assert_not(notifications.any? { |n| n.message.include?('Q&A「テストの質問」のベストアンサーがまだ選ばれていません。') })
       end
     end
 
@@ -330,7 +330,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
       end
 
       notifications = Notification.where(user: users(:kimura), kind: Notification.kinds[:no_correct_answer])
-      assert notifications.any? { |n| n.message.include?('Q&A「テストの質問」のベストアンサーがまだ選ばれていません。') }
+      assert(notifications.any? { |n| n.message.include?('Q&A「テストの質問」のベストアンサーがまだ選ばれていません。') })
     end
   end
 

@@ -37,9 +37,9 @@ class Notification::FollowingsTest < ApplicationSystemTestCase
     assert_text '日報を保存しました。'
 
     notifications = Notification.where(user: users(:kimura), kind: Notification.kinds[:following_report])
-    assert notifications.any? { |n| n.message.include?('hatsunoさんが日報【 test title 】を書きました！') }
+    assert(notifications.any? { |n| n.message.include?('hatsunoさんが日報【 test title 】を書きました！') })
 
     notifications = Notification.where(user: users(:mentormentaro), kind: Notification.kinds[:following_report])
-    assert notifications.any? { |n| n.message.include?('hatsunoさんが日報【 test title 】を書きました！') }
+    assert(notifications.any? { |n| n.message.include?('hatsunoさんが日報【 test title 】を書きました！') })
   end
 end
