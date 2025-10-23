@@ -414,7 +414,6 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
       .order(:created_at)
       .where(show_mentor_profile: true)
   }
-  scope :mentors_excluding_admins, -> { mentor.where(admin: false) }
   scope :working, lambda {
     active.where(
       adviser: false,
