@@ -188,6 +188,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     visit_with_auth notifications_path(status: 'unread'), received_user_login_name
     assert_no_selector(notification_selector,
                        text: notification_message)
+    logout
   end
 
   test 'notify company advisor only when report is initially posted' do
