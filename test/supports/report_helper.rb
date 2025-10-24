@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ReportHelper
-  def create_report(title, description, save_as_wip)
+  def create_report(title, description, save_as_wip:)
     visit new_report_path
     assert_selector 'h2.page-header__title', text: '日報作成'
 
@@ -28,7 +28,7 @@ module ReportHelper
 
   def create_report_as(author_login_name, title, description, save_as_wip:)
     as_user(author_login_name) do
-      create_report(title, description, save_as_wip)
+      create_report(title, description, save_as_wip:)
     end
   end
 
