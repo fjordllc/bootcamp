@@ -34,6 +34,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     visit_with_auth '/notifications', 'sotugyou'
     find('#notifications.loaded')
     assert_no_text notification_message
+    logout
   end
 
   test 'delete report with notification' do
@@ -63,6 +64,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
 
     visit_with_auth '/notifications', 'komagata'
     assert_no_text 'kimuraさんがはじめての日報を書きました！'
+    logout
   end
 
   test 'no notification if report already posted' do
@@ -75,6 +77,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
 
     visit_with_auth '/notifications?status=unread', 'komagata'
     assert_text '未読の通知はありません'
+    logout
   end
 
   def assert_notify_only_when_report_is_initially_posted(
@@ -193,6 +196,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
     click_button '提出'
     find('.modal-header__close').click
+    logout
 
     visit_with_auth '/reports', student
 
@@ -209,12 +213,14 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
     click_button '提出'
     find('.modal-header__close').click
+    logout
 
     visit_with_auth '/notifications', mentor
 
     within first('.card-list-item.is-unread') do
       assert_text "#{student}さんが2回連続でsadアイコンの日報を提出しました。"
     end
+    logout
   end
 
   test 'mentioning in code blocks and inline code does not work' do
@@ -227,5 +233,6 @@ class Notification::ReportsTest < ApplicationSystemTestCase
 
     visit_with_auth '/notifications?status=unread', 'komagata'
     assert_text '未読の通知はありません'
+    logout
   end
 end
