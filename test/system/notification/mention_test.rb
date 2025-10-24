@@ -68,7 +68,7 @@ class Notification::MentionTest < ApplicationSystemTestCase
 
   test 'mention from a report' do
     post_mention = lambda { |description|
-      create_report('メンション通知が送信されるかのテスト', description, false)
+      create_report('メンション通知が送信されるかのテスト', description, save_as_wip: false)
     }
 
     %w[hatsuno with-hyphen].each do |mention_target_login_name|
