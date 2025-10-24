@@ -153,7 +153,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     assert_equal current_path, report_path(report_id)
     logout
 
-    update_report(report_id, title, description, save_as_wip: false)
+    update_report_as_author(report_id, title, description, save_as_wip: false)
 
     visit_with_auth notifications_path(status: 'unread'), mentor_login_name
     assert_no_selector(notification_selector,
@@ -176,7 +176,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
                        text: notification_message)
     logout
 
-    update_report(report_id, title, description, save_as_wip: false)
+    update_report_as_author(report_id, title, description, save_as_wip: false)
     visit_with_auth notifications_path(status: 'unread'), received_user_login_name
     assert_selector(notification_selector,
                     text: notification_message)
@@ -184,7 +184,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     assert_equal current_path, report_path(report_id)
     logout
 
-    update_report(report_id, title, description, save_as_wip: false)
+    update_report_as_author(report_id, title, description, save_as_wip: false)
     visit_with_auth notifications_path(status: 'unread'), received_user_login_name
     assert_no_selector(notification_selector,
                        text: notification_message)

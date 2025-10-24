@@ -33,8 +33,9 @@ module ReportHelper
   end
 
   def update_report(report_id, title, description, save_as_wip:)
-    author_login_name = Report.find(report_id).user.login_name
-    visit_with_auth edit_report_path(report_id), author_login_name
+    visit edit_report_path(report_id)
+    assert_selector 'h2.page-header__title', text: '日報編集'
+
     edit_report(title, description)
 
     if save_as_wip
@@ -47,7 +48,12 @@ module ReportHelper
       click_button '内容変更'
       assert_selector 'h1.page-content-header__title', text: title
     end
-    logout
+  end
+
+  def update_report_as_author(report_id, title, description, save_as_wip:)
+    as_user(Report.find(report_id).user.login_name) do
+      update_report(report_id, title, description, save_as_wip:)
+    end
   end
 
   def edit_report(title, description)
