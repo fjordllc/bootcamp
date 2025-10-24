@@ -73,8 +73,8 @@ module ReportHelper
   def as_user(login_name)
     visit_with_auth root_path, login_name
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
-    yield.tap do
-      logout
-    end
+    yield
+  ensure
+    logout
   end
 end
