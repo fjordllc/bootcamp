@@ -10,8 +10,7 @@ module MentionHelper
   def exists_unread_mention_notification_after_posting_mention?(
     writer_login_name, mention_target_login_name, post_mention
   )
-    visit_with_auth new_report_path, writer_login_name
-    assert_selector 'h2.page-header__title', text: '日報作成'
+    login_user writer_login_name, 'testtest'
     post_mention.call("@#{mention_target_login_name} にメンション通知がいくかのテスト")
     logout
 

@@ -2,6 +2,9 @@
 
 module ReportHelper
   def create_report(title, description, save_as_wip)
+    visit new_report_path
+    assert_selector 'h2.page-header__title', text: '日報作成'
+
     edit_report(title, description)
 
     all('.learning-time')[0].all('.learning-time__started-at select')[0].select('07')
@@ -24,11 +27,9 @@ module ReportHelper
   end
 
   def create_report_as(author_login_name, title, description, save_as_wip:)
-    visit_with_auth new_report_path, author_login_name
-    assert_selector 'h2.page-header__title', text: '日報作成'
-    report_id = create_report(title, description, save_as_wip)
-    logout
-    report_id
+    as_user(author_login_name) do
+      create_report(title, description, save_as_wip)
+    end
   end
 
   def update_report(report_id, title, description, save_as_wip:)
@@ -61,5 +62,13 @@ module ReportHelper
   def delete_all_reports(user_login_name)
     user = User.find_by(login_name: user_login_name)
     user.reports.delete_all
+  end
+
+  def as_user(login_name)
+    visit_with_auth root_path, login_name
+    assert_selector 'h2.page-header__title', text: 'ダッシュボード'
+    yield.tap do
+      logout
+    end
   end
 end
