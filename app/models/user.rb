@@ -709,7 +709,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     else
       image_url DEFAULT_IMAGE_PATH
     end
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError => e
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::Error => e
     log_avatar_error('avatar_url', e)
     image_url DEFAULT_IMAGE_PATH
   end
@@ -720,7 +720,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     else
       image_url DEFAULT_IMAGE_PATH
     end
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError => e
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::Error => e
     log_avatar_error('profile_image_url', e)
     image_url DEFAULT_IMAGE_PATH
   end
@@ -991,7 +991,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
       )
       avatar.attach(custom_blob)
     end
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError, Vips::Error => e
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::Error => e
     log_avatar_error('attach_custom_avatar', e)
   end
 
