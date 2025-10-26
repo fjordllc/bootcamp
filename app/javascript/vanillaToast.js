@@ -2,7 +2,7 @@ import Swal from 'sweetalert2'
 
 export function toast(title, status = 'success') {
   Swal.fire({
-    title: title,
+    title,
     toast: true,
     position: 'top-end',
     showConfirmButton: false,
