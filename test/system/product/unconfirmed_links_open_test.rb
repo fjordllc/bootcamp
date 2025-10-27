@@ -25,9 +25,9 @@ class Product::UnconfirmedLinksOpenTest < ApplicationSystemTestCase
   end
 
   # リンク存在を確認するテスト
-  test 'mentor sees unchecked_no_replied products links' do
-    visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'komagata'
+  test 'mentor sees self-assigned no-replied product links' do
+    visit_with_auth '/products/self_assigned?target=self_assigned_no_replied', 'komagata'
 
-    assert_selector "a.js-unconfirmed-link[href$='#{@self_assigned_no_replied_product.id}']", count: 1, wait: 5
+    assert_selector "a.js-unconfirmed-link[href$='#{@self_assigned_no_replied_product.id}']", count: 1
   end
 end
