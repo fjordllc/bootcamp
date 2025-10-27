@@ -28,7 +28,7 @@ class ActiveSupport::TestCase
   parallelize(workers: :number_of_processors)
 
   # Setup for each parallel process
-  parallelize_setup do |worker|
+  parallelize_setup do |_worker|
     ActiveStorage::Current.url_options = {
       protocol: 'http', host: 'localhost', port: '3000'
     }
