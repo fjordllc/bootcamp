@@ -67,6 +67,10 @@ module NotificationHelper
     "#{writer_login_name}さんからメンションがきました。"
   end
 
+  def notification_message_for_mention(owner_login_name, comment_user_login_name)
+    "#{owner_login_name}さんの分報で#{comment_user_login_name}さんからメンションがきました。"
+  end
+
   def first_report_message(login_name)
     "#{login_name}さんがはじめての日報を書きました！"
   end
