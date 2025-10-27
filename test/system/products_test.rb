@@ -282,7 +282,7 @@ class ProductsTest < ApplicationSystemTestCase
     click_link '全て既読にする'
 
     visit_with_auth "/products/new?practice_id=#{practices(:practice3).id}", 'kensyu'
-    assert_selector 'form[name=product]', wait: 5
+    assert_selector 'form[name=product]'
 
     within('form[name=product]') do
       fill_in('product[body]', with: 'test')
@@ -299,7 +299,7 @@ class ProductsTest < ApplicationSystemTestCase
     click_link '全て既読にする'
 
     visit_with_auth "/products/new?practice_id=#{practices(:practice3).id}", 'kensyu'
-    assert_selector 'form[name=product]', wait: 5
+    assert_selector 'form[name=product]'
 
     within('form[name=product]') do
       fill_in('product[body]', with: 'test')
