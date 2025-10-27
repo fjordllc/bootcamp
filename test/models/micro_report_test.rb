@@ -21,4 +21,9 @@ class MicroReportTest < ActiveSupport::TestCase
     micro_report.save
     assert_equal other_user, micro_report.comment_user
   end
+
+  test '#path' do
+    micro_report = users(:komagata).micro_reports.create!(content: 'test')
+    assert_equal micro_report.path, "/users/#{users(:komagata).id}/micro_reports"
+  end
 end
