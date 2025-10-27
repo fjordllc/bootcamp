@@ -133,7 +133,7 @@ class ProductTest < ActiveSupport::TestCase
 
   test '.self_assigned_no_replied_products' do
     mentor = users(:mentormentaro)
-    no_replied_product = Product.create!(
+    product = Product.create!(
       body: 'test',
       user: users(:kimura),
       practice: practices(:practice5),
@@ -142,7 +142,18 @@ class ProductTest < ActiveSupport::TestCase
     )
 
     product_id_list = Product.self_assigned_no_replied_products(mentor.id).pluck(:id)
-    assert_includes product_id_list, no_replied_product.id
+    assert_includes product_id_list, product.id
+
+    # メンターがコメントすると self_assigned_no_replied_products から除外されることを確認
+    Comment.create!(
+      commentable: product,
+      user: mentor,
+      description: '返信済み',
+      created_at: Time.current,
+      updated_at: Time.current
+    )
+
+    assert_not_includes Product.self_assigned_no_replied_products(mentor.id), product
   end
 
   test '.self_assigned_no_replied_products not include wip products' do
@@ -255,23 +266,6 @@ class ProductTest < ActiveSupport::TestCase
     product = Product.create!(user: users(:hajime), practice: practices(:practice1), body: '未チェック提出物')
     assert_empty product.checks
     assert_includes Product.unchecked, product
-  end
-
-  test 'self_assigned_no_replied_products returns products assigned to user with no reply' do
-    mentor = users(:komagata)
-    product = Product.create!(user: users(:hajime), practice: practices(:practice2), body: '提出物', checker_id: mentor.id)
-
-    assert_includes Product.self_assigned_no_replied_products(mentor.id), product
-
-    Comment.create!(
-      commentable: product,
-      user: mentor,
-      description: '返信済み',
-      created_at: Time.current,
-      updated_at: Time.current
-    )
-
-    assert_not_includes Product.self_assigned_no_replied_products(mentor.id), product
   end
 
   test 'unassigned scope returns products without checker' do
