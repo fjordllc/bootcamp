@@ -8,10 +8,6 @@ class UserTest < ActiveSupport::TestCase
   include ProductHelper
   include AvatarHelper
 
-  setup do
-    ActiveStorage::Current.url_options = { protocol: 'http', host: 'localhost', port: '3000' }
-  end
-
   test '#admin?' do
     assert users(:komagata).admin?
     assert users(:machida).admin?

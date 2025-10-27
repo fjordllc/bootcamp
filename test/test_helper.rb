@@ -29,18 +29,16 @@ class ActiveSupport::TestCase
 
   # Setup for each parallel process
   parallelize_setup do |_worker|
-    ActiveStorage::Current.url_options = {
-      protocol: 'http', host: 'localhost', port: '3000'
-    }
+    ActiveStorage::Current.url_options = { protocol: 'http', host: 'localhost', port: '3000' }
+    ActiveJob::Base.queue_adapter = :test
   end
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
   setup do
-    ActiveStorage::Current.url_options = {
-      protocol: 'http', host: 'localhost', port: '3000'
-    }
+    ActiveStorage::Current.url_options = { protocol: 'http', host: 'localhost', port: '3000' }
+    ActiveJob::Base.queue_adapter = :test
   end
 end
 

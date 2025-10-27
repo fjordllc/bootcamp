@@ -5,17 +5,6 @@ require 'test_helper'
 class DiscordAsyncAdapterTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
-  def setup
-    super
-    @previous_adapter = ActiveJob::Base.queue_adapter
-    ActiveJob::Base.queue_adapter = :test
-  end
-
-  def teardown
-    ActiveJob::Base.queue_adapter = @previous_adapter
-    super
-  end
-
   test '#enqueue' do
     params = {
       kind: :graduated,

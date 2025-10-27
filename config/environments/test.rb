@@ -34,6 +34,7 @@ Rails.application.configure do
 
   # Store uploaded files on the local file system in a temporary directory.
   config.active_storage.service = :test
+  config.active_storage.url_options = { protocol: 'http', host: 'localhost', port: '3000' }
 
   # Disable caching for Action Mailer templates even if Action Controller
   # caching is enabled.
