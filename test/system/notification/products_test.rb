@@ -18,10 +18,11 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
+
     click_button '提出する'
     assert_text "6日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、6日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
 
-    notifications = Notification.where(user: users(:senpai), kind: Notification.kinds[:submitted])
+    notifications = Notification.where(user: users(:senpai), kind: Notification.kinds[:watching])
     assert(notifications.any? { |n| n.message.include?("kensyuさんが「#{practices(:practice5).title}」の提出物を提出しました。") })
   end
 
@@ -32,6 +33,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
+
     click_button '提出する'
     assert_text '提出物を更新しました。'
 
@@ -52,6 +54,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
+
     click_button '提出する'
     assert_text '提出物を更新しました。'
 
@@ -70,6 +73,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
       checker_id: checker.id
     )
     visit_with_auth "/products/#{product.id}", 'komagata'
+
     click_button '提出物を合格にする'
     assert_text '提出物を合格にしました。'
 
