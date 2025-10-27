@@ -7,25 +7,21 @@ class Report::UnconfirmedLinksOpenTest < ApplicationSystemTestCase
     @mentor = users(:komagata)
     @student = users(:kimura)
 
-    Notification.stub(:create!, nil) do
-      Watch.stub(:create!, nil) do
-        @unchecked_report1 = Report.create!(
-          user: @student,
-          title: '未チェックレポート1',
-          description: 'テスト用レポート1',
-          reported_on: Time.zone.today - 2,
-          published_at: 2.days.ago
-        )
+    @unchecked_report1 = Report.create!(
+      user: @student,
+      title: '未チェックレポート1',
+      description: 'テスト用レポート1',
+      reported_on: Time.zone.today - 2,
+      published_at: 2.days.ago
+    )
 
-        @unchecked_report2 = Report.create!(
-          user: @student,
-          title: '未チェックレポート2',
-          description: 'テスト用レポート2',
-          reported_on: Time.zone.today - 1,
-          published_at: 1.day.ago
-        )
-      end
-    end
+    @unchecked_report2 = Report.create!(
+      user: @student,
+      title: '未チェックレポート2',
+      description: 'テスト用レポート2',
+      reported_on: Time.zone.today - 1,
+      published_at: 1.day.ago
+    )
   end
 
   test 'mentor sees bulk open button when unchecked reports exist' do
