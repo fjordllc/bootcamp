@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 ENV['RAILS_ENV'] ||= 'test'
+# Suppress VIPS/GLib warnings in test environment
+ENV['G_MESSAGES_DEBUG'] = ''
 require_relative '../config/environment'
 require 'rails/test_help'
 require 'capybara/rails'
@@ -24,6 +26,13 @@ class ActiveSupport::TestCase
 
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)
+
+  # Setup for each parallel process
+  parallelize_setup do |worker|
+    ActiveStorage::Current.url_options = {
+      protocol: 'http', host: 'localhost', port: '3000'
+    }
+  end
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all

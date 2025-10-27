@@ -3,8 +3,16 @@
 require 'test_helper'
 
 class PostAnnouncementJobTest < ActiveJob::TestCase
-  teardown do
+  def setup
+    super
+    @previous_adapter = ActiveJob::Base.queue_adapter
+    ActiveJob::Base.queue_adapter = :test
+  end
+
+  def teardown
     ActionMailer::Base.deliveries.clear
+    ActiveJob::Base.queue_adapter = @previous_adapter
+    super
   end
 
   test '#perform' do
