@@ -4,10 +4,11 @@ class Buzz < ApplicationRecord
   validates :title, presence: true
   validates :published_at, presence: true
   validates :url, presence: true, format: {
-    with: URI::DEFAULT_PARSER.make_regexp(%w[http https]),
-    message:
+                                    with: URI::DEFAULT_PARSER.make_regexp(%w[http https]),
+                                    message:
     'URLに誤りがあります'
-  }
+                                  },
+                  uniqueness: { message: 'このURLはすでに登録されています' }
 
   require 'net/http'
 
@@ -16,7 +17,7 @@ class Buzz < ApplicationRecord
   class << self
     def for_year(year)
       start_date = start_of_year(year)
-      end_date = end_of_year(year)
+      end_date = start_of_next_year(year)
       Buzz.where('published_at >= ? AND published_at < ?', start_date, end_date)
     end
 
@@ -30,7 +31,7 @@ class Buzz < ApplicationRecord
 
     def doc_from_url(url)
       uri = URI.parse(url)
-      raise ArgumentError, 'HTTP/HTTPS URLs only' unless %w[http https].include?(uri.scheme&.downcase)
+      raise ArgumentError, 'HTTP/HTTPS URLs only' unless ALLOWED_SCHEMES.include?(uri.scheme&.downcase)
 
       begin
         html = Net::HTTP.start(
@@ -65,7 +66,7 @@ class Buzz < ApplicationRecord
       Date.parse("#{year}-01-01")
     end
 
-    def end_of_year(year)
+    def start_of_next_year(year)
       next_year = year.to_i + 1
       Date.parse("#{next_year}-01-01")
     end
