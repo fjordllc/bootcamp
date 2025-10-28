@@ -61,7 +61,7 @@ class PairWorkTest < ActiveSupport::TestCase
         user:,
         title: 'ペアが確定していて、近日開催されるペアワーク',
         description: 'ペアが確定していて、近日開催されるペアワーク',
-        buddy_id: users(:komagata),
+        buddy: users(:komagata),
         channel: 'ペアワーク・モブワーク1',
         wip: false
       }
