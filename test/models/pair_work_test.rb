@@ -56,33 +56,35 @@ class PairWorkTest < ActiveSupport::TestCase
   test '.upcoming_pair_works' do
     user = users(:hajime)
 
-    pair_work_attributes = {
-      user:,
-      title: 'ペアが確定していて、近日開催されるペアワーク',
-      description: 'ペアが確定していて、近日開催されるペアワーク',
-      buddy_id: users(:komagata),
-      channel: 'ペアワーク・モブワーク1',
-      wip: false
-    }
-    upcoming_pair_work_today = PairWork.create!(pair_work_attributes.merge(
-                                                  reserved_at: Time.current.beginning_of_day,
-                                                  schedules_attributes: [{ proposed_at: Time.current.beginning_of_day }]
-                                                ))
-    upcoming_pair_work_tomorrow = PairWork.create!(pair_work_attributes.merge(
-                                                     reserved_at: Time.current.beginning_of_day + 1.day,
-                                                     schedules_attributes: [{ proposed_at: Time.current.beginning_of_day + 1.day }]
-                                                   ))
-    upcoming_pair_work_day_after_tomorrow = PairWork.create!(pair_work_attributes.merge(
-                                                               reserved_at: Time.current.beginning_of_day + 2.days,
-                                                               schedules_attributes: [{ proposed_at: Time.current.beginning_of_day + 2.days }]
-                                                             ))
+    travel_to Time.zone.local(2025, 1, 15, 12, 0, 0) do
+      pair_work_attributes = {
+        user:,
+        title: 'ペアが確定していて、近日開催されるペアワーク',
+        description: 'ペアが確定していて、近日開催されるペアワーク',
+        buddy_id: users(:komagata),
+        channel: 'ペアワーク・モブワーク1',
+        wip: false
+      }
+      upcoming_pair_work_today = PairWork.create!(pair_work_attributes.merge(
+                                                    reserved_at: Time.current.beginning_of_day,
+                                                    schedules_attributes: [{ proposed_at: Time.current.beginning_of_day }]
+                                                  ))
+      upcoming_pair_work_tomorrow = PairWork.create!(pair_work_attributes.merge(
+                                                       reserved_at: Time.current.beginning_of_day + 1.day,
+                                                       schedules_attributes: [{ proposed_at: Time.current.beginning_of_day + 1.day }]
+                                                     ))
+      upcoming_pair_work_day_after_tomorrow = PairWork.create!(pair_work_attributes.merge(
+                                                                 reserved_at: Time.current.beginning_of_day + 2.days,
+                                                                 schedules_attributes: [{ proposed_at: Time.current.beginning_of_day + 2.days }]
+                                                               ))
 
-    assert_includes PairWork.upcoming_pair_works(user), upcoming_pair_work_today
-    assert_includes PairWork.upcoming_pair_works(user), upcoming_pair_work_tomorrow
-    assert_includes PairWork.upcoming_pair_works(user), upcoming_pair_work_day_after_tomorrow
+      assert_includes PairWork.upcoming_pair_works(user), upcoming_pair_work_today
+      assert_includes PairWork.upcoming_pair_works(user), upcoming_pair_work_tomorrow
+      assert_includes PairWork.upcoming_pair_works(user), upcoming_pair_work_day_after_tomorrow
 
-    unrelated_pair_work = pair_works(:pair_work2)
-    assert_not_includes PairWork.upcoming_pair_works(user), unrelated_pair_work
+      unrelated_pair_work = pair_works(:pair_work2)
+      assert_not_includes PairWork.upcoming_pair_works(user), unrelated_pair_work
+    end
   end
 
   test '.not_held' do
