@@ -107,4 +107,33 @@ class PairWorkTest < ActiveSupport::TestCase
 
     assert_not_includes PairWork.not_held, held_on_pair_work
   end
+
+  test '#solved? returns true when reserved_at is set' do
+    solved_pair_work = pair_works(:pair_work2)
+    assert solved_pair_work.solved?
+  end
+
+  test '#solved? returns false when reserved_at is nil' do
+    not_solved_pair_work = pair_works(:pair_work1)
+    assert_not not_solved_pair_work.solved?
+  end
+
+  test '#important? returns true when comments are blank and not solved' do
+    not_solved_pair_work = pair_works(:pair_work1)
+    assert not_solved_pair_work.important?
+  end
+
+  test '#important? returns false when there are comments' do
+    not_solved_pair_work = pair_works(:pair_work1)
+    not_solved_pair_work.comments.create!(
+      user: users(:komagata),
+      description: 'コメント'
+    )
+    assert_not not_solved_pair_work.important?
+  end
+
+  test '#important? returns false when solved' do
+    solved_pair_work = pair_works(:pair_work2)
+    assert_not solved_pair_work.important?
+  end
 end
