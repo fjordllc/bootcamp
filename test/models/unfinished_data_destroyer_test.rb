@@ -5,7 +5,7 @@ require 'test_helper'
 class UnfinishedDataDestroyerTest < ActiveSupport::TestCase
   setup do
     @user = users(:kimura)
-    @reports = 3.times.map do |i|
+    3.times do |i|
       Report.create!(
         user: @user,
         title: "wipの日報#{i}",
