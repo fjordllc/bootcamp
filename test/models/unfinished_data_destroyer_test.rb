@@ -14,6 +14,17 @@ class UnfinishedDataDestroyerTest < ActiveSupport::TestCase
         reported_on: Date.current - i
       )
     end
+
+    practices = Practice.where.not(id: @user.products.pluck(:practice_id)).take(3)
+    practices.each do |practice|
+      Product.create!(
+        user: @user,
+        practice:,
+        body: '提出物',
+        wip: false
+      )
+    end
+
     @payload = { user: @user }
   end
 
