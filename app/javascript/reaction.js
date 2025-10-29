@@ -218,9 +218,5 @@ function updateUsersToggleState(reaction) {
     (total, element) => total + (parseInt(element.textContent, 10) || 0),
     0
   )
-  if (totalReactionCount === 0) {
-    usersToggle.classList.add('is-disabled')
-  } else {
-    usersToggle.classList.remove('is-disabled')
-  }
+  usersToggle.classList.toggle('is-disabled', totalReactionCount === 0)
 }
