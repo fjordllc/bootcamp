@@ -1,8 +1,6 @@
 import { get, post, destroy } from '@rails/request.js'
 import { renderAllReactions } from './reaction_render.js'
 
-let isOutsideClickListenerRegistered = false
-
 document.addEventListener('DOMContentLoaded', () => {
   const reactions = document.querySelectorAll('.js-reactions')
 
@@ -13,10 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   reactions.forEach((reaction) => {
     initializeReaction(reaction)
   })
-  if (!isOutsideClickListenerRegistered) {
-    registerOutsideClickListener()
-    isOutsideClickListenerRegistered = true
-  }
+  registerOutsideClickListener()
 })
 
 export function initializeReaction(reaction) {
