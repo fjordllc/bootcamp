@@ -5,6 +5,12 @@ require 'test_helper'
 class UnfinishedDataDestroyerTest < ActiveSupport::TestCase
   setup do
     @user = users(:kimura)
+    @payload = { user: @user }
+  end
+
+  test '#call deletes user wip reports and unchecked products and resets career_path' do
+    @user.update!(career_path: 1)
+
     3.times do |i|
       Report.create!(
         user: @user,
@@ -24,12 +30,6 @@ class UnfinishedDataDestroyerTest < ActiveSupport::TestCase
         wip: false
       )
     end
-
-    @payload = { user: @user }
-  end
-
-  test '#call deletes user wip reports and unchecked products and resets career_path' do
-    @user.update!(career_path: 1)
 
     UnfinishedDataDestroyer.new.call(nil, nil, nil, nil, @payload)
 
