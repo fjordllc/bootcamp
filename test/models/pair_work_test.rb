@@ -30,7 +30,7 @@ class PairWorkTest < ActiveSupport::TestCase
     assert_equal 'ペアワークはありません。', all_pair_works_property.empty_message
   end
 
-  test '.generate_notice_message' do
+  test '#generate_notice_message' do
     wip_pair_work = pair_works(:pair_work3)
     assert_equal 'ペアワークをWIPとして保存しました。', wip_pair_work.generate_notice_message(:create)
     assert_equal 'ペアワークをWIPとして保存しました。', wip_pair_work.generate_notice_message(:update)
