@@ -4,16 +4,16 @@ require 'test_helper'
 
 class UnfinishedDataDestroyerTest < ActiveSupport::TestCase
   setup do
-    @user = users(:kimura)
-    @payload = { user: @user }
+    @payload = { user: users(:kimura) }
   end
 
   test '#call deletes user wip reports and unchecked products and resets career_path' do
-    @user.update!(career_path: 1)
+    user = @payload[:user]
+    user.update!(career_path: 1)
 
     3.times do |i|
       Report.create!(
-        user: @user,
+        user:,
         title: "wipの日報#{i}",
         description: 'テスト日報',
         wip: true,
@@ -21,10 +21,10 @@ class UnfinishedDataDestroyerTest < ActiveSupport::TestCase
       )
     end
 
-    practices = Practice.where.not(id: @user.products.pluck(:practice_id)).take(3)
+    practices = Practice.where.not(id: user.products.pluck(:practice_id)).take(3)
     practices.each do |practice|
       Product.create!(
-        user: @user,
+        user:,
         practice:,
         body: '提出物',
         wip: false
@@ -33,9 +33,9 @@ class UnfinishedDataDestroyerTest < ActiveSupport::TestCase
 
     UnfinishedDataDestroyer.new.call(nil, nil, nil, nil, @payload)
 
-    assert_equal 0, Product.unchecked.where(user: @user).count
-    assert_equal 0, Report.wip.where(user: @user).count
-    assert_equal 'unset', @user.reload.career_path
+    assert_equal 0, Product.unchecked.where(user:).count
+    assert_equal 0, Report.wip.where(user:).count
+    assert_equal 'unset', user.reload.career_path
   end
 
   test 'does not delete other users wip report and unchecked product' do
