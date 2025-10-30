@@ -54,7 +54,7 @@ function requestReaction(url, method, callback) {
         console.warn(`Reactionable not found: ${url}`)
         return {}
       } else if (!response.ok) {
-        throw new Error(`API error: ${response.status}`)
+        throw new Error(`API error: ${response.statusCode}`)
       } else {
         return response.json
       }
