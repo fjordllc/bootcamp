@@ -1,4 +1,4 @@
-import { get, post, destroy } from '@rails/request.js'
+import { FetchRequest } from '@rails/request.js'
 import { renderAllReactions } from './reaction_render.js'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -43,15 +43,12 @@ export function initializeReaction(reaction) {
 }
 
 function requestReaction(url, method, callback) {
-  const methodMap = {
-    GET: get,
-    POST: post,
-    DELETE: destroy
-  }
-
-  methodMap[method](url, {
+  const request = new FetchRequest(method, url, {
     responseKind: 'json'
   })
+
+  request
+    .perform()
     .then((response) => {
       if (response.status === 404) {
         console.warn(`Reactionable not found: ${url}`)
