@@ -7,16 +7,18 @@ class API::ReactionTest < ActionDispatch::IntegrationTest
     report = reports(:report4)
 
     token = create_token('komagata', 'testtest')
-    post api_reactions_path(reactionable_gid: report.to_global_id.to_s, kind: 'smile'), as: :json,
-                                                                                        headers: { 'Authorization' => "Bearer #{token}" }
+    post api_reactions_path, params: { reactionable_gid: report.to_global_id.to_s, kind: 'smile' },
+                             as: :json,
+                             headers: { 'Authorization' => "Bearer #{token}" }
 
     assert_response :created
   end
 
   test 'POST /api/reactions with unknown reactionable returns not_found' do
     token = create_token('komagata', 'testtest')
-    post api_reactions_path(reactionable_gid: 'unknownReactionable'), as: :json,
-                                                                      headers: { 'Authorization' => "Bearer #{token}" }
+    post api_reactions_path, params: { reactionable_gid: 'unknownReactionable' },
+                             as: :json,
+                             headers: { 'Authorization' => "Bearer #{token}" }
 
     assert_response :not_found
   end
@@ -39,10 +41,12 @@ class API::ReactionTest < ActionDispatch::IntegrationTest
     komagata = users(:komagata)
 
     token = create_token('komagata', 'testtest')
-    post api_reactions_path(reactionable_gid: report.to_global_id.to_s, kind: 'thumbsup'), as: :json,
-                                                                                           headers: { 'Authorization' => "Bearer #{token}" }
-    get api_reactions_path(reactionable_gid: report.to_global_id.to_s), as: :json,
-                                                                        headers: { 'Authorization' => "Bearer #{token}" }
+    post api_reactions_path, params: { reactionable_gid: report.to_global_id.to_s, kind: 'thumbsup' },
+                             as: :json,
+                             headers: { 'Authorization' => "Bearer #{token}" }
+    get api_reactions_path, params: { reactionable_gid: report.to_global_id.to_s },
+                            as: :json,
+                            headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :success
 
     actual = JSON.parse(response.body)
@@ -75,8 +79,9 @@ class API::ReactionTest < ActionDispatch::IntegrationTest
 
   test 'GET /api/reactions with unknown reactionable returns not_found' do
     token = create_token('komagata', 'testtest')
-    get api_reactions_path(reactionable_gid: 'unknownReactionable'), as: :json,
-                                                                     headers: { 'Authorization' => "Bearer #{token}" }
+    get api_reactions_path, params: { reactionable_gid: 'unknownReactionable' },
+                            as: :json,
+                            headers: { 'Authorization' => "Bearer #{token}" }
 
     assert_response :not_found
   end
