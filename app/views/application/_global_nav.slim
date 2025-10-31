@@ -51,12 +51,12 @@ nav.global-nav
               i.fa-solid.fa-comment-question
             // TODO ペアワークを本番リリースしたらこの分岐は削除
             - if Rails.env.production?
-              - if Question.not_solved.not_wip.count.positive?
+              - if Cache.not_solved_question_count.positive?
                 .global-nav__item-count.a-notification-count
-                  = Question.not_solved.not_wip.count
-            - elsif Question.not_solved.not_wip.count.positive? || PairWork.not_solved.not_wip.count.positive?
+                  = Cache.not_solved_question_count
+            - elsif Cache.not_solved_question_count.positive? || Cache.not_solved_pair_work_count.positive?
               .global-nav__item-count.a-notification-count
-                = Question.not_solved.not_wip.count + PairWork.not_solved.not_wip.count
+                = Cache.not_solved_question_count + Cache.not_solved_pair_work_count
             // TODO ペアワークを本番リリースしたらこの分岐は削除
             - if Rails.env.production?
               .global-nav-links__link-label
