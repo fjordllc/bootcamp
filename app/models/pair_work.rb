@@ -17,6 +17,10 @@ class PairWork < ApplicationRecord
   accepts_nested_attributes_for :schedules, allow_destroy: true
   alias sender user
 
+  after_save PairWorkCallbacks.new
+  before_destroy PairWorkCallbacks.new, prepend: true
+  after_destroy PairWorkCallbacks.new
+
   validates :title, presence: true, length: { maximum: 256 }
   validates :description, presence: true
   validates :schedules, presence: true
@@ -64,7 +68,7 @@ class PairWork < ApplicationRecord
   def self.unsolved_badge(current_user:)
     return nil if !current_user.admin_or_mentor?
 
-    PairWork.not_solved.not_wip.size
+    ::Cache.not_solved_pair_work_count
   end
 
   def self.update_permission?(current_user, params)
