@@ -151,7 +151,7 @@ function setupUsersList(reaction, reactionableGid) {
     const isHidden = usersList.classList.contains('hidden')
     if (isHidden) {
       fetchAllReactions(reactionableGid, (data) => {
-        if (Object.keys(data).length === 0) {
+        if (!data || Object.keys(data).length === 0) {
           return
         }
         renderAllReactions(data, usersList)
