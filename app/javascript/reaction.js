@@ -50,13 +50,10 @@ function requestReaction(url, method, callback) {
   request
     .perform()
     .then((response) => {
-      if (response.status === 404) {
-        console.warn(`Reactionable not found: ${url}`)
-        return {}
-      } else if (!response.ok) {
-        throw new Error(`API error: ${response.statusCode}`)
-      } else {
+      if (response.ok) {
         return response.json
+      } else {
+        throw new Error(`API error: ${url} (status: ${response.statusCode})`)
       }
     })
     .then((json) => callback(json))
