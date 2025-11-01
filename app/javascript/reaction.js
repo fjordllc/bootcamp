@@ -196,7 +196,9 @@ function close(usersList) {
 }
 
 function fetchAllReactions(reactionableGid, callback) {
-  const url = `/api/reactions?reactionable_gid=${reactionableGid}`
+  const url = `/api/reactions?reactionable_gid=${encodeURIComponent(
+    reactionableGid
+  )}`
   requestReaction(url, 'GET', callback)
 }
 
