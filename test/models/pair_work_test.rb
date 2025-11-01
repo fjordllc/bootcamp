@@ -47,10 +47,29 @@ class PairWorkTest < ActiveSupport::TestCase
   end
 
   test '.update_permission?' do
-    valid_params = { buddy_id: 1, reserved_at: 1 }
-    invalid_params = { buddy_id: 1, reserved_at: 1, title: '不正に改変しようとしているtitle', description: '不正に改変しようとしているdescription' }
-    assert PairWork.update_permission?(users(:mentormentaro), valid_params)
-    assert_not PairWork.update_permission?(users(:mentormentaro), invalid_params)
+    admin = users(:komagata)
+    mentor = users(:mentormentaro)
+    matching_params = { buddy_id: 1, reserved_at: '2025-01-20' }
+    update_params = {
+      title: 'タイトル', description: '詳細',
+      practice_id: 1, channel: 'チャンネル', schedules_attributes: {}
+    }
+
+    assert PairWork.update_permission?(admin, update_params)
+    assert_not PairWork.update_permission?(mentor, update_params)
+
+    assert PairWork.update_permission?(admin, matching_params)
+    assert PairWork.update_permission?(mentor, matching_params)
+  end
+
+  test '.matching_params?' do
+    matching_params = { buddy_id: 1, reserved_at: '2025-01-20' }
+    update_params = {
+      title: 'タイトル', description: '詳細',
+      practice_id: 1, channel: 'チャンネル', schedules_attributes: {}
+    }
+    assert PairWork.matching_params?(matching_params)
+    assert_not PairWork.matching_params?(update_params)
   end
 
   test '.upcoming_pair_works' do

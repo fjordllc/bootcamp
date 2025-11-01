@@ -74,8 +74,13 @@ class PairWork < ApplicationRecord
   def self.update_permission?(current_user, params)
     return true if current_user.admin?
 
-    matching = params[:buddy_id] && params[:reserved_at] && !params.key?(:title) && !params.key?(:description)
-    matching && current_user.mentor?
+    matching_params?(params) && current_user.mentor?
+  end
+
+  def self.matching_params?(params)
+    params[:buddy_id] && params[:reserved_at] &&
+      !params.key?(:title) && !params.key?(:description) &&
+      !params.key?(:practice_id) && !params.key?(:channel) && !params.key?(:schedules_attributes)
   end
 
   def generate_notice_message(action_name)
