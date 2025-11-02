@@ -7,8 +7,9 @@ class API::BuzzesController < API::BaseController
   def check
     return render json: { error: 'URLパラメータが必要です' }, status: :bad_request if params[:url].blank?
 
-    if Buzz.find_by(url: params[:url])
-      render json: { exists: true }
+    @buzz = set_buzz
+    if @buzz
+      render json: { exists: true, buzz: @buzz }
     else
       render json: { exists: false }
     end
