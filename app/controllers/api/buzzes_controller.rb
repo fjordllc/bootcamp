@@ -28,11 +28,25 @@ class API::BuzzesController < API::BaseController
     elsif @buzz.update(buzz_params)
       render json: @buzz, status: :ok
     else
-      render json: { errors: @buzz.errors.full_message }, status: :unprocessable_entity
+      render json: { errors: @buzz.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @buzz = set_buzz
+    if @buzz
+      @buzz.destroy
+      render json: @buzz, status: :ok
+    else
+      render json: { error: 'Buzzが見つかりません', status: :not_found }
     end
   end
 
   private
+
+  def set_buzz
+    Buzz.find_by(url: params[:url])
+  end
 
   def require_admin_or_mentor_login_for_api
     return if current_user.admin_or_mentor?
