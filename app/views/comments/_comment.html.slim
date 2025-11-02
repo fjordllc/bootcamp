@@ -40,15 +40,13 @@
         footer.card-footer
           .card-main-actions
             ul.card-main-actions__items
-              - if comment.user == user || user.admin?
-                li.card-main-actions__item
-                  button.card-main-actions__action.a-button.is-sm.is-secondary.is-block
-                    i.fa-solid.fa-pen
-                    | 編集
-              - if comment.user == user || user.mentor?
-                li.card-main-actions__item.is-sub
-                  button.card-main-actions__muted-action
-                    | 削除する
+              li.card-main-actions__item
+                button.card-main-actions__action.a-button.is-sm.is-secondary.is-block
+                  i.fa-solid.fa-pen
+                  | 編集
+              li.card-main-actions__item.is-sub
+                button.card-main-actions__muted-action
+                  | 削除する
     .a-card.is-comment.comment-editor.js-comment-editor.is-hidden
       .thread-comment-form__form
         .a-form-tabs.js-tabs
