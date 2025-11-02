@@ -86,6 +86,7 @@ Rails.application.routes.draw do
     resources :micro_reports, only: %i(update)
     resources :trainee_progresses, only: %i(index)
     resources :buzzes, only: %i(create)
+    resources :buzzes, only: %i(create destroy)
     get 'buzzes/check', to: 'buzzes#check'
   end
 end
