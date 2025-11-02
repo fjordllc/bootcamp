@@ -145,6 +145,24 @@ class MicroReportsTest < ApplicationSystemTestCase
     within(".micro-report#micro_report_#{micro_report.id}") { assert_no_selector 'a', text: '削除する' }
   end
 
+  test 'comment_user can delete their own comment on another user micro_report' do
+    user = users(:hatsuno)
+    comment_user = users(:kimura)
+
+    micro_report = user.micro_reports.create!(content: '他人の分報にコメント', comment_user:)
+
+    visit_with_auth user_micro_reports_path(user), 'kimura'
+
+    within(".micro-report#micro_report_#{micro_report.id}") do
+      assert_selector 'a', text: '削除する'
+      click_link_or_button '削除する'
+      page.accept_alert
+    end
+
+    assert_text '分報を削除しました。'
+    assert_no_text '他人の分報にコメント'
+  end
+
   test 'update micro_report through comment tab form' do
     micro_report = micro_reports(:hajime_first_micro_report)
     visit_with_auth user_micro_reports_path(users(:hajime)), 'hajime'
