@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'notification_system_test_case'
 
-class Notification::QuestionsTest < ApplicationSystemTestCase
+class Notification::QuestionsTest < NotificationSystemTestCase
   include ActiveJob::TestHelper
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode

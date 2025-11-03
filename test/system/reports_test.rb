@@ -14,6 +14,8 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'create report as WIP' do
     visit_with_auth '/reports/new', 'komagata'
+    # Wait for the form to be fully loaded and enabled
+    assert_selector 'input[name="report[title]"]:not([disabled])', wait: 10
     within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
@@ -24,6 +26,8 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'create a report' do
     visit_with_auth '/reports/new', 'komagata'
+    # Wait for the form to be fully loaded and enabled
+    assert_selector 'input[name="report[title]"]:not([disabled])', wait: 10
     within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
@@ -43,6 +47,8 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'create a report without learning time' do
     visit_with_auth '/reports/new', 'komagata'
+    # Wait for the form to be fully loaded and enabled
+    assert_selector 'input[name="report[title]"]:not([disabled])', wait: 10
     within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
@@ -84,6 +90,8 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'create and update learning times in a report' do
     visit_with_auth '/reports/new', 'komagata'
+    # Wait for the form to be fully loaded and enabled
+    assert_selector 'input[name="report[title]"]:not([disabled])', wait: 10
     within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
@@ -575,6 +583,8 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'notify to chat after create a report' do
     visit_with_auth '/reports/new', 'kimura'
+    # Wait for the form to be fully loaded and enabled
+    assert_selector 'input[name="report[title]"]:not([disabled])', wait: 10
     within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')

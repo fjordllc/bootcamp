@@ -1,17 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'notification_system_test_case'
 
-class Notification::RetirementTest < ApplicationSystemTestCase
-  setup do
-    @delivery_mode = AbstractNotifier.delivery_mode
-    AbstractNotifier.delivery_mode = :normal
-  end
-
-  teardown do
-    AbstractNotifier.delivery_mode = @delivery_mode
-  end
-
+class Notification::RetirementTest < NotificationSystemTestCase
   test 'notify admins and mentors when a user retire' do
     notifications = Notification.where(user: users(:komagata), kind: Notification.kinds[:retired])
     assert_not(notifications.any? { |n| n.message.include?('kimuraさんが退会しました。') })

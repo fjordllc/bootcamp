@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'notification_system_test_case'
 
-class Notification::ReportsTest < ApplicationSystemTestCase
+class Notification::ReportsTest < NotificationSystemTestCase
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
@@ -196,7 +196,8 @@ class Notification::ReportsTest < ApplicationSystemTestCase
   end
 
   test 'notify follower only when report is initially posted' do
-    following = Following.first
+    # Use non-trainee user to avoid edit restrictions
+    following = Following.find_by(follower: users(:kensyu), followed: users(:muryou))
     followed_user_login_name = User.find(following.followed_id).login_name
     follower_user_login_name = User.find(following.follower_id).login_name
     title = '初めて提出した時だけ'

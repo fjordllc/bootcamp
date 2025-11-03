@@ -62,6 +62,8 @@ class AnnouncementsTest < ApplicationSystemTestCase
 
   test 'create a new announcement as wip' do
     visit_with_auth new_announcement_path, 'kimura'
+    # Wait for the form to be fully loaded and enabled
+    assert_selector 'input[name="announcement[title]"]:not([disabled])', wait: 10
     fill_in 'announcement[title]', with: '仮のお知らせ'
     fill_in 'announcement[description]', with: 'まだWIPです。'
     assert_difference 'Announcement.count', 1 do
@@ -72,6 +74,8 @@ class AnnouncementsTest < ApplicationSystemTestCase
 
   test 'create announcement with notification' do
     visit_with_auth new_announcement_path, 'komagata'
+    # Wait for the form to be fully loaded and enabled
+    assert_selector 'input[name="announcement[title]"]:not([disabled])', wait: 10
     fill_in 'announcement[title]', with: '公開お知らせ'
     fill_in 'announcement[description]', with: '公開されるお知らせです。'
     assert_difference 'Announcement.count', 1 do
@@ -89,6 +93,8 @@ class AnnouncementsTest < ApplicationSystemTestCase
     within '.announcement' do
       click_link '内容修正'
     end
+    # Wait for the form to be fully loaded and enabled
+    assert_selector 'input[name="announcement[title]"]:not([disabled])', wait: 10
     click_button '公開'
     assert_text 'お知らせを更新しました。'
 
@@ -110,6 +116,8 @@ class AnnouncementsTest < ApplicationSystemTestCase
 
   test 'create wip announcement without notification' do
     visit_with_auth new_announcement_path, 'komagata'
+    # Wait for the form to be fully loaded and enabled
+    assert_selector 'input[name="announcement[title]"]:not([disabled])', wait: 10
     fill_in 'announcement[title]', with: '仮のお知らせ'
     fill_in 'announcement[description]', with: 'まだWIPです。'
     assert_difference 'Announcement.count', 1 do
@@ -123,6 +131,8 @@ class AnnouncementsTest < ApplicationSystemTestCase
   test 'delete announcement with notification' do
     visit_with_auth '/announcements', 'komagata'
     click_link 'お知らせ作成'
+    # Wait for the form to be fully loaded and enabled
+    assert_selector 'input[name="announcement[title]"]:not([disabled])', wait: 10
     fill_in 'announcement[title]', with: 'タイトルtest'
     fill_in 'announcement[description]', with: '内容test'
 
@@ -235,7 +245,8 @@ class AnnouncementsTest < ApplicationSystemTestCase
 
   test 'watching is automatically displayed when admin create new announcement' do
     visit_with_auth new_announcement_path, 'komagata'
-
+    # Wait for the form to be fully loaded and enabled
+    assert_selector 'input[name="announcement[title]"]:not([disabled])', wait: 10
     fill_in 'announcement[title]', with: 'Watch中になるかのテスト'
     fill_in 'announcement[description]', with: 'お知らせ作成時にWatch中になるかのテストです。'
     click_button '作成'
@@ -266,6 +277,8 @@ class AnnouncementsTest < ApplicationSystemTestCase
 
   test 'using file uploading by file selection dialogue in textarea' do
     visit_with_auth new_announcement_path, 'komagata'
+    # Wait for the form to be fully loaded and enabled
+    assert_selector 'input[name="announcement[title]"]:not([disabled])', wait: 10
     within(:css, '.a-file-insert') do
       assert_selector 'input.file-input', visible: false
     end

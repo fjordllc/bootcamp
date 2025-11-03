@@ -16,7 +16,7 @@ module NotificationHelper
   # TODO: このモジュール以外では使用禁止。いつかなくしたい
   # 本来であればsleepは使いたくないが、テストコードがロジカルすぎてすぐに修正できないため、やむを得ず残したままにする
   def wait_for_vuejs_再利用禁止 # rubocop:disable Naming/MethodName, Naming/AsciiIdentifiers
-    sleep 2
+    sleep 10
   end
 
   # notification_messages.include?(text)

@@ -16,20 +16,29 @@ class RegularEventsTest < ApplicationSystemTestCase
 
   test 'create regular event as WIP' do
     visit_with_auth new_regular_event_path, 'komagata'
+    # Wait for the form to be fully loaded and enabled
+    assert_selector 'input[name="regular_event[title]"]:not([disabled])', wait: 15
+    # Wait for all form elements to be ready
+    assert_selector 'form[name=regular_event]', wait: 15
+    assert_selector '.choices__inner', wait: 15
     within 'form[name=regular_event]' do
       fill_in 'regular_event[title]', with: '質問相談タイム'
       first('.choices__inner').click
       find('#choices--js-choices-multiple-select-item-choice-1').click
       find('label', text: '主催者').click
       find('label', text: '質問').click
+      # selectフィールドが準備できるまで待つ
+      assert_selector '.regular-event-repeat-rule .regular-event-repeat-rule__frequency select', wait: 10
+      assert_selector '.regular-event-repeat-rule .regular-event-repeat-rule__day-of-the-week select', wait: 10
       first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__frequency select').select('毎週')
       first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select('月曜日')
       fill_in 'regular_event[start_at]', with: Time.zone.parse('16:00')
       fill_in 'regular_event[end_at]', with: Time.zone.parse('17:00')
       fill_in 'regular_event[description]', with: '質問相談タイムです'
-      assert_difference 'RegularEvent.count', 1 do
-        click_button 'WIP'
-      end
+    end
+    # WIPボタンはフォームの外にある可能性があるため、withinブロックの外でクリック
+    assert_difference 'RegularEvent.count', 1 do
+      click_button 'WIP'
     end
     assert_text '定期イベントをWIPとして保存しました。'
     assert_text '定期イベント編集'
@@ -37,6 +46,8 @@ class RegularEventsTest < ApplicationSystemTestCase
 
   test 'create regular event' do
     visit_with_auth new_regular_event_path, 'komagata'
+    # Wait for the form to be fully loaded and enabled
+    assert_selector 'input[name="regular_event[title]"]:not([disabled])', wait: 10
     within 'form[name=regular_event]' do
       fill_in 'regular_event[title]', with: 'チェリー本輪読会'
       first('.choices__inner').click

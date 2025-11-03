@@ -208,7 +208,8 @@ class MarkdownTest < ApplicationSystemTestCase
     end
 
     click_button '提出'
-    assert_selector '.twitter-tweet'
+    # Twitterの埋め込みスクリプトの読み込みに時間がかかるため、待機時間を延長
+    assert_selector '.twitter-tweet', wait: 15
     assert_no_selector 'a.before-replacement-link-card[href="https://x.com/fjordbootcamp/status/1866097842483503117"]', visible: true
   end
 
