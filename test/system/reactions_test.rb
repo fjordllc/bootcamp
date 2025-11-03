@@ -14,7 +14,7 @@ class ReactionsTest < ApplicationSystemTestCase
 
   test 'post all new reactions for report' do
     # smileとthumbsupは既にreport1に存在するので除外
-    emojis = Reaction.emojis.filter { |key| !['smile', 'thumbsup'].include?(key) }
+    emojis = Reaction.emojis.filter { |key| !%w[smile thumbsup].include?(key) }
     visit_with_auth report_path(reports(:report1)), 'komagata'
     emojis.each do |key, value|
       using_wait_time 15 do
