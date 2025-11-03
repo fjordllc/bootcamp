@@ -4,5 +4,5 @@ nav.tab-nav
       - allowed_targets.each do |allowed_target|
         li.tab-nav__item
           = link_to t("target.#{allowed_target}"),
-                  users_companies_path(target: allowed_target),
-                  class: (allowed_target == target ? ['is-active'] : []) << 'tab-nav__item-link'
+            users_companies_path(target: allowed_target),
+            class: (allowed_target == target ? ['is-active'] : []) << 'tab-nav__item-link'
