@@ -14,7 +14,12 @@ class API::MicroReportsController < API::BaseController
   private
 
   def set_micro_report
-    @micro_report = current_user.admin? ? MicroReport.find(params[:id]) : current_user.micro_reports.find(params[:id])
+    @micro_report =
+      if current_user.admin?
+        MicroReport.find(params[:id])
+      else
+        current_user.authored_micro_reports.find(params[:id])
+      end
   end
 
   def micro_report_params
