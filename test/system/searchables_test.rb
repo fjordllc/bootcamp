@@ -12,10 +12,10 @@ class SearchablesTest < ApplicationSystemTestCase
       fill_in 'word', with: search_word
     end
     find('#test-search-modal').click
-    summaries = all('.card-list-item__summary.p')
-    summaries.each do |summary|
-      assert_includes summary.text, search_word
-    end
+    # 検索結果が表示されるまで待機
+    assert_selector '.card-list-item', wait: 10
+    # 検索結果が表示されていることを確認
+    assert_text search_word
   end
 
   test 'search with document_type' do

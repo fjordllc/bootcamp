@@ -81,9 +81,9 @@ class Page::TagsTest < ApplicationSystemTestCase
     assert_text "タグ「#{update_tag.name}」のユーザー（2）"
 
     visit_with_auth pages_tag_path(tag.name), 'komagata'
-    has_no_selector?('card-list-item')
+    assert_no_selector '.card-list-item'
     visit_with_auth pages_tag_path(update_tag.name), 'komagata'
-    has_selector?('card-list-item')
+    assert_selector '.card-list-item'
   end
 
   test 'update tag with same value' do
@@ -91,8 +91,12 @@ class Page::TagsTest < ApplicationSystemTestCase
 
     visit_with_auth pages_tag_path(tag.name, all: 'true'), 'komagata'
     click_button 'タグ名変更'
+    # モーダルが表示されていることを確認
+    assert_selector '.a-card.is-modal', visible: true
+    # タグ名フィールドに値を入力（Reactのstateが更新されるまで待機）
     fill_in('tag[name]', with: tag.name)
-    has_field?('変更', disabled: true)
+    # Reactの状態更新とボタンのdisabled状態を待機
+    assert_selector 'button:disabled', text: '変更', wait: 5
   end
 
   test 'alert when enter tag with space on creation page' do

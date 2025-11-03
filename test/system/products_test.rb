@@ -514,6 +514,7 @@ class ProductsTest < ApplicationSystemTestCase
     click_button '編集'
     fill_in 'js-user-mentor-memo', with: '編集後のユーザーメモです。'
     click_button '保存する'
+    assert_text '編集後のユーザーメモです。'
   end
 
   test 'display a list of products in side-column' do
