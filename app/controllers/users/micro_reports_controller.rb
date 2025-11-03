@@ -25,7 +25,7 @@ class Users::MicroReportsController < ApplicationController
   end
 
   def destroy
-    redirect_to user_micro_reports_path(@user), alert: '権限がありません。' and return unless current_user.admin? || @micro_report.comment_user == current_user
+    return redirect_to user_micro_reports_path(@user), alert: '権限がありません。' unless current_user.admin? || @micro_report.comment_user == current_user
 
     @micro_report.destroy!
 
