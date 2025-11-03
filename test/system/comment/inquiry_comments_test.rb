@@ -155,6 +155,8 @@ class InquiryCommentsTest < ApplicationSystemTestCase
       find('.thread-comment-form, .thread-comment')
     end
     first(:css, '.thread-comment__created-at').click
+    # クリップボードへのコピーが完了するまで待機
+    sleep 1
     # 参考：https://gist.github.com/KonnorRogers/5fe937ee60695ff1d227f18fe4b1d5c4
     cdp_permission = {
       origin: page.server_url,
