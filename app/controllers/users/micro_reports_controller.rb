@@ -6,7 +6,6 @@ class Users::MicroReportsController < ApplicationController
 
   before_action :set_user
   before_action :set_micro_report, only: %i[destroy]
-  before_action :authorize_micro_report!, only: %i[destroy]
 
   def index
     @micro_reports = @user.micro_reports.order(created_at: :asc).page(params[:page]).per(PAGER_NUMBER)
@@ -26,6 +25,8 @@ class Users::MicroReportsController < ApplicationController
   end
 
   def destroy
+    redirect_to user_micro_reports_path(@user), alert: '権限がありません。' and return unless current_user.admin? || @micro_report.comment_user == current_user
+
     @micro_report.destroy!
 
     referer_path = request.referer
@@ -50,12 +51,6 @@ class Users::MicroReportsController < ApplicationController
       else
         current_user.authored_micro_reports.find(params[:id])
       end
-  end
-
-  def authorize_micro_report!
-    return if current_user.admin? || @micro_report.comment_user == current_user
-
-    redirect_to user_micro_reports_path(@user), alert: '権限がありません。'
   end
 
   def micro_report_params
