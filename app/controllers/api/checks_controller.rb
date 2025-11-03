@@ -19,7 +19,7 @@ class API::ChecksController < API::BaseController
         head :created
       rescue StandardError => e
         Rails.logger.error("[API::ChecksController#create] チェック作成でエラー: #{e.message}")
-        render json: { message: 'エラーが発生しました。' }
+        render json: { message: 'エラーが発生しました。' }, status: :internal_server_error
       end
     else
       render json: { message: "この#{checkable.class.model_name.human}は確認済です。" }, status: :unprocessable_entity
@@ -34,7 +34,7 @@ class API::ChecksController < API::BaseController
     head :no_content
   rescue StandardError => e
     Rails.logger.error("[API::ChecksController#destroy] チェック削除でエラー: #{e.message}")
-    render json: { message: 'エラーが発生しました。' }
+    render json: { message: 'エラーが発生しました。' }, status: :internal_server_error
   end
 
   private
