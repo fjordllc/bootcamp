@@ -98,8 +98,8 @@ class QuestionAutoCloser
     end
 
     def publish_events(correct_answer)
-      method_name = __method__
-      ActiveSupport::Notifications.instrument('answer.save', answer: correct_answer, action: "#{name}.#{method_name}")
+      action_name = "#{name}.#{__method__}"
+      ActiveSupport::Notifications.instrument('answer.save', answer: correct_answer, action: action_name)
       ActiveSupport::Notifications.instrument('correct_answer.save', answer: correct_answer)
     end
   end

@@ -46,7 +46,7 @@ class API::AnswersController < API::BaseController
 
   def destroy
     @answer.destroy
-    ActiveSupport::Notifications.instrument('answer.destroy', answer: @answer, action: "#{self.class.name}##{action_name}") if @answer.type == 'CorrectAnswer'
+    ActiveSupport::Notifications.instrument('answer.destroy', answer: @answer, action: current_action_name) if @answer.type == 'CorrectAnswer'
   end
 
   private
