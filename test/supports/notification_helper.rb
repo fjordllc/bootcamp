@@ -41,4 +41,8 @@ module NotificationHelper
   def make_mention_notification_message(writer_login_name)
     "#{writer_login_name}さんからメンションがきました。"
   end
+
+  def first_report_message(login_name)
+    "#{login_name}さんがはじめての日報を書きました！"
+  end
 end
