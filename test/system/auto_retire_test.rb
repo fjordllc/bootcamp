@@ -16,8 +16,10 @@ class AutoRetireTest < ApplicationSystemTestCase
     user = users(:kyuukai)
     travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
       VCR.use_cassette 'subscription/update' do
-        mock_env('TOKEN' => 'token') do
-          visit scheduler_daily_auto_retire_path(token: 'token')
+        Card.stub(:destroy_all, true) do
+          mock_env('TOKEN' => 'token') do
+            visit scheduler_daily_auto_retire_path(token: 'token')
+          end
         end
       end
       assert_equal Date.current, user.reload.retired_on
@@ -51,8 +53,10 @@ class AutoRetireTest < ApplicationSystemTestCase
     user = users(:kyuukai)
     travel_to Time.zone.local(2020, 4, 1, 0, 0, 0) do
       VCR.use_cassette 'subscription/update' do
-        mock_env('TOKEN' => 'token') do
-          visit scheduler_daily_auto_retire_path(token: 'token')
+        Card.stub(:destroy_all, true) do
+          mock_env('TOKEN' => 'token') do
+            visit scheduler_daily_auto_retire_path(token: 'token')
+          end
         end
       end
       assert_nil user.reload.retired_on
@@ -97,8 +101,10 @@ class AutoRetireTest < ApplicationSystemTestCase
 
     travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
       VCR.use_cassette 'subscription/update' do
-        mock_env('TOKEN' => 'token') do
-          visit scheduler_daily_auto_retire_path(token: 'token')
+        Card.stub(:destroy_all, true) do
+          mock_env('TOKEN' => 'token') do
+            visit scheduler_daily_auto_retire_path(token: 'token')
+          end
         end
       end
       assert_equal Date.current, user.reload.retired_on
@@ -118,8 +124,10 @@ class AutoRetireTest < ApplicationSystemTestCase
     travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
       Discord::Server.stub(:delete_text_channel, true) do
         VCR.use_cassette 'subscription/update' do
-          mock_env('TOKEN' => 'token') do
-            visit scheduler_daily_auto_retire_path(token: 'token')
+          Card.stub(:destroy_all, true) do
+            mock_env('TOKEN' => 'token') do
+              visit scheduler_daily_auto_retire_path(token: 'token')
+            end
           end
         end
       end
@@ -137,8 +145,10 @@ class AutoRetireTest < ApplicationSystemTestCase
       UserMailer.stub(:auto_retire, stub_postmark_error) do
         travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
           VCR.use_cassette 'subscription/update' do
-            mock_env('TOKEN' => 'token') do
-              visit scheduler_daily_auto_retire_path(token: 'token')
+            Card.stub(:destroy_all, true) do
+              mock_env('TOKEN' => 'token') do
+                visit scheduler_daily_auto_retire_path(token: 'token')
+              end
             end
           end
           assert_equal Date.current, user.reload.retired_on
@@ -156,8 +166,10 @@ class AutoRetireTest < ApplicationSystemTestCase
 
     travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
       VCR.use_cassette 'subscription/update' do
-        mock_env('TOKEN' => 'token') do
-          visit scheduler_daily_auto_retire_path(token: 'token')
+        Card.stub(:destroy_all, true) do
+          mock_env('TOKEN' => 'token') do
+            visit scheduler_daily_auto_retire_path(token: 'token')
+          end
         end
       end
       assert_equal Date.current, user.reload.retired_on

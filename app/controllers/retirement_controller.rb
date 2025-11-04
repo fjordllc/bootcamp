@@ -8,15 +8,9 @@ class RetirementController < ApplicationController
   def new; end
 
   def create
-    current_user.assign_attributes(retire_reason_params)
-    current_user.retired_on = Date.current
-    if current_user.save(context: :retirement)
-      user = current_user
-      current_user.cancel_participation_from_regular_events
-      current_user.delete_and_assign_new_organizer
-      Newspaper.publish(:retirement_create, { user: })
-      UserRetirement.new(user).execute
+    retirement = Retirement.by_self(retire_reason_params, user: current_user)
 
+    if retirement.execute
       logout
       redirect_to retirement_url
     else
