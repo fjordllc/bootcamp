@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'notification_system_test_case'
 
-class Notification::TabsBadgesTest < ApplicationSystemTestCase
+class Notification::TabsBadgesTest < NotificationSystemTestCase
   setup do
     Notification.create!(
       message: 'お知らせ',

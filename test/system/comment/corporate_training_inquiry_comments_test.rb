@@ -133,13 +133,17 @@ class CorporateTrainingInquiryCommentsTest < ApplicationSystemTestCase
     button.click
 
     # Try to click again - should be intercepted or disabled
+    prevented = false
     begin
       button.click
       # If we reach here, the button was clickable twice (bad)
       flunk 'Button should be disabled after first click'
     rescue Selenium::WebDriver::Error::ElementClickInterceptedError, Selenium::WebDriver::Error::ElementNotInteractableError
       # This is expected - button should be disabled/not clickable
+      prevented = true
     end
+
+    assert prevented, 'Button should be disabled after first click to prevent double submission'
   end
 
   test 'comment url is copied when click its updated_time at corporate_training_inquiry' do
@@ -152,6 +156,8 @@ class CorporateTrainingInquiryCommentsTest < ApplicationSystemTestCase
       find('.thread-comment-form, .thread-comment')
     end
     first(:css, '.thread-comment__created-at').click
+    # JavaScriptのクリック処理が実行されるまで待機
+    sleep 1
     # 参考：https://gist.github.com/KonnorRogers/5fe937ee60695ff1d227f18fe4b1d5c4
     cdp_permission = {
       origin: page.server_url,
@@ -159,8 +165,20 @@ class CorporateTrainingInquiryCommentsTest < ApplicationSystemTestCase
       setting: 'granted'
     }
     page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission)
-    clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
-    assert_equal current_url + "#comment_#{comments(:comment65).id}", clip_text
+    # クリップボード権限付与後の処理完了を待機
+    sleep 0.5
+    # クリップボードへのコピーが完了するまで待機（CI環境では処理が遅いため）
+    expected_url = current_url + "#comment_#{comments(:comment65).id}"
+    clip_text = nil
+    using_wait_time 15 do
+      20.times do
+        clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
+        break if clip_text == expected_url
+
+        sleep 0.5
+      end
+    end
+    assert_equal expected_url, clip_text
   end
 
   test 'text change "see more comments" button by remaining comment amount at corporate_training_inquiry' do

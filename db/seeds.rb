@@ -76,4 +76,4 @@ tables = %i[
 ]
 
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', tables
-Bootcamp::Setup.attachment if Rails.env.development?
+# Bootcamp::Setup.attachment if Rails.env.development?

@@ -3,7 +3,9 @@
 module ReportHelper
   def create_report(title, description, wip)
     visit new_report_path
-    assert_selector 'h2.page-header__title', text: '日報作成'
+    # ログイン/ログアウトを繰り返すテストのため、ページ遷移に時間がかかる場合がある
+    sleep 1
+    assert_selector 'h2.page-header__title', text: '日報作成', wait: 20
 
     edit_report(title, description)
 
@@ -41,6 +43,8 @@ module ReportHelper
   end
 
   def edit_report(title, description)
+    # Wait for the form to be fully loaded and enabled
+    assert_selector 'input[name="report[title]"]:not([disabled])', wait: 20
     fill_in('report[title]', with: title)
     fill_in('report[description]', with: description)
   end

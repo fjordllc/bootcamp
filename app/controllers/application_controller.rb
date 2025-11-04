@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  include ActiveStorage::SetCurrent
   include Authentication
   include TestAuthentication if Rails.env.test?
   include PolicyHelper
@@ -39,9 +40,10 @@ class ApplicationController < ActionController::Base
   end
 
   def set_host_for_disk_storage
-    return unless %i[local test].include? Rails.application.config.active_storage.service
+    nil unless %i[local test].include? Rails.application.config.active_storage.service
 
-    ActiveStorage::Current.host = request.base_url
+    # Rails 7: ActiveStorage::Current.host is no longer available
+    # URL generation is handled automatically by Rails.application.routes.default_url_options
   end
 
   def require_card

@@ -39,13 +39,13 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   end
 
   setup do
-    # Ensure ActiveStorage is properly configured for system tests
-    ActiveStorage::Current.host = 'http://localhost:3000'
+    @original_adapter = ActiveJob::Base.queue_adapter
+    ActiveJob::Base.queue_adapter = :inline
   end
 
   teardown do
     ActionMailer::Base.deliveries.clear
-    ActiveStorage::Current.host = nil
+    ActiveJob::Base.queue_adapter = @original_adapter
 
     # Clean up any uploaded test files
     if defined?(ActiveStorage::Blob)

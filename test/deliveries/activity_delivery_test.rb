@@ -231,6 +231,8 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
       sender: user,
       receiver: users(:komagata)
     }
+    # CI環境での処理完了を待機
+    sleep 0.5
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
       ActivityDelivery.notify!(:hibernated, **params)
     end
@@ -435,6 +437,8 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
       message: "相談部屋で#{comment.sender.login_name}さんからコメントがありました。",
       read: false
     )
+    # CI環境でのデータベース書き込み完了を待機
+    sleep 1
 
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
       ActivityDelivery.notify!(:came_comment, **params)

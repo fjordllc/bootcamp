@@ -2,6 +2,4 @@
 
 class Admin::HomeController < AdminController
   def index; end
-
-  def test; end
 end

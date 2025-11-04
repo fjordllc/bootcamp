@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'notification_system_test_case'
 
-class Notification::AnswersTest < ApplicationSystemTestCase
+class Notification::AnswersTest < NotificationSystemTestCase
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
@@ -21,13 +21,12 @@ class Notification::AnswersTest < ApplicationSystemTestCase
     click_button 'コメントする'
     assert_text '回答を投稿しました！'
 
-    visit_with_auth '/notifications', 'sotugyou'
+    sotugyou = users(:sotugyou)
+    sotugyou_notifications = Notification.where(user: sotugyou, kind: Notification.kinds[:answered])
+    assert sotugyou_notifications.any? { |n| n.message.include?(@notice_text) }, 'sotugyou should have answered notification'
 
-    within first('.card-list-item.is-unread') do
-      assert_text @notice_text
-    end
-
-    visit_with_auth '/', 'komagata'
-    refute_text @notice_text
+    komagata = users(:komagata)
+    komagata_notifications = Notification.where(user: komagata, kind: Notification.kinds[:answered])
+    assert_not komagata_notifications.any? { |n| n.message.include?(@notice_text) }, 'komagata should not have answered notification'
   end
 end

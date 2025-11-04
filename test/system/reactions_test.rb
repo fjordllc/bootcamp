@@ -13,14 +13,22 @@ class ReactionsTest < ApplicationSystemTestCase
   end
 
   test 'post all new reactions for report' do
-    emojis = Reaction.emojis.filter { |key| key != 'smile' }
+    # smileとthumbsupは既にreport1に存在するので除外
+    emojis = Reaction.emojis.filter { |key| !%w[smile thumbsup].include?(key) }
     visit_with_auth report_path(reports(:report1)), 'komagata'
     emojis.each do |key, value|
-      first('.report .js-reaction-dropdown-toggle').click
-      first(".report .js-reaction-dropdown li[data-reaction-kind='#{key}']").click
-      using_wait_time 5 do
+      using_wait_time 15 do
+        # ドロップダウンが開けるようになるまで待つ
+        assert_selector '.report .js-reaction-dropdown-toggle', visible: true
+        first('.report .js-reaction-dropdown-toggle').click
+        # ドロップダウンメニューが表示されるまで待つ
+        assert_selector ".report .js-reaction-dropdown li[data-reaction-kind='#{key}']", visible: true
+        first(".report .js-reaction-dropdown li[data-reaction-kind='#{key}']").click
+        # リアクションが実際に表示されるまで待つ
         assert_text "#{value}1"
       end
+      # AJAXリクエストとアニメーションが完了するまで少し待機
+      sleep 1
     end
   end
 

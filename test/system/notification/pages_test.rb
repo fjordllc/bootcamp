@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'notification_system_test_case'
 
-class Notification::PagesTest < ApplicationSystemTestCase
+class Notification::PagesTest < NotificationSystemTestCase
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
@@ -23,25 +23,17 @@ class Notification::PagesTest < ApplicationSystemTestCase
     click_button 'Docを公開'
     assert_text 'ドキュメントを作成しました。'
 
-    visit_with_auth '/notifications', 'mentormentaro'
+    notifications = Notification.where(user: users(:mentormentaro), kind: Notification.kinds[:create_pages])
+    assert(notifications.any? { |n| n.message.include?('komagataさんがDocsにDocsTestを投稿しました。') })
 
-    within first('.card-list-item.is-unread') do
-      assert_text 'komagataさんがDocsにDocsTestを投稿しました。'
-    end
+    notifications = Notification.where(user: users(:machida), kind: Notification.kinds[:create_pages])
+    assert(notifications.any? { |n| n.message.include?('komagataさんがDocsにDocsTestを投稿しました。') })
 
-    visit_with_auth '/notifications', 'machida'
+    notifications = Notification.where(user: users(:hatsuno), kind: Notification.kinds[:create_pages])
+    assert_not(notifications.any? { |n| n.message.include?('komagataさんがDocsにDocsTestを投稿しました。') })
 
-    within first('.card-list-item.is-unread') do
-      assert_text 'komagataさんがDocsにDocsTestを投稿しました。'
-    end
-
-    logout
-    visit_with_auth '/notifications', 'hatsuno'
-    assert_no_text 'komagataさんがDocsにDocsTestを投稿しました。'
-
-    logout
-    visit_with_auth '/notifications', 'yameo'
-    assert_no_text 'komagataさんがDocsにDocsTestを投稿しました。'
+    notifications = Notification.where(user: users(:yameo), kind: Notification.kinds[:create_pages])
+    assert_not(notifications.any? { |n| n.message.include?('komagataさんがDocsにDocsTestを投稿しました。') })
   end
 
   test "don't notify when page is WIP" do
@@ -55,9 +47,8 @@ class Notification::PagesTest < ApplicationSystemTestCase
     click_button 'WIP'
     assert_text 'ドキュメントをWIPとして保存しました。'
 
-    logout
-    visit_with_auth '/notifications', 'hatsuno'
-    assert_no_text 'komagataさんがDocsにDocsTestを投稿しました。'
+    notifications = Notification.where(user: users(:hatsuno), kind: Notification.kinds[:create_pages])
+    assert_not(notifications.any? { |n| n.message.include?('komagataさんがDocsにDocsTestを投稿しました。') })
   end
 
   test 'Notify Docs updated from WIP' do
@@ -68,10 +59,7 @@ class Notification::PagesTest < ApplicationSystemTestCase
     click_button 'Docを公開'
     assert_text 'ドキュメントを作成しました。'
 
-    visit_with_auth '/notifications', 'machida'
-
-    within first('.card-list-item.is-unread') do
-      assert_text 'komagataさんがDocsにWIPのテストを投稿しました。'
-    end
+    notifications = Notification.where(user: users(:machida), kind: Notification.kinds[:create_pages])
+    assert(notifications.any? { |n| n.message.include?('komagataさんがDocsにWIPのテストを投稿しました。') })
   end
 end
