@@ -17,9 +17,7 @@ class Movie::TagsTest < ApplicationSystemTestCase
   test 'update tags without page transitions' do
     visit_with_auth movie_path(movies(:movie2)), 'komagata'
     find('.tag-links__item-edit').click
-    tag_input = find('.tagify__input')
-    tag_input.set '追加タグ'
-    tag_input.native.send_keys :return
+    fill_in_tag '追加タグ'
     click_on '保存'
     assert_text '追加タグ'
   end
