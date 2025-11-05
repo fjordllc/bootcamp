@@ -14,7 +14,10 @@ class MicroReport < ApplicationRecord
   alias sender comment_user
 
   def path
-    Rails.application.routes.url_helpers.user_micro_reports_path(user)
+    Rails.application.routes.url_helpers.user_micro_reports_path(
+      user,
+      micro_report_id: id
+    )
   end
 
   private

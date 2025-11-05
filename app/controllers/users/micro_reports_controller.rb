@@ -8,6 +8,13 @@ class Users::MicroReportsController < ApplicationController
   before_action :set_micro_report, only: %i[destroy]
 
   def index
+    if params[:micro_report_id].present?
+      micro_report = @user.micro_reports.find(params[:micro_report_id])
+      page = @user.page_of_micro_report(micro_report.id, PAGER_NUMBER)
+
+      return redirect_to user_micro_reports_path(@user, page:, anchor: "micro_report_#{micro_report.id}")
+    end
+
     @micro_reports = @user.micro_reports.order(created_at: :asc).page(params[:page]).per(PAGER_NUMBER)
   end
 

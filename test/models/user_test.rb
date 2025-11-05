@@ -772,4 +772,20 @@ class UserTest < ActiveSupport::TestCase
     user.mark_mail_as_sent_before_auto_retire
     assert user.sent_student_before_auto_retire_mail
   end
+
+  test '#page_of_micro_report' do
+    user = users(:kimura)
+
+    per_page = 3
+    reports = [
+      user.micro_reports.create!(content: 'test1'),
+      user.micro_reports.create!(content: 'test2'),
+      user.micro_reports.create!(content: 'test3'),
+      user.micro_reports.create!(content: 'test4')
+    ]
+
+    assert_equal 1, user.page_of_micro_report(reports[0].id, per_page)
+    assert_equal 1, user.page_of_micro_report(reports[2].id, per_page)
+    assert_equal 2, user.page_of_micro_report(reports[3].id, per_page)
+  end
 end
