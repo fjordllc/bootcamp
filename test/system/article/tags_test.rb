@@ -21,8 +21,6 @@ class Article::TagsTest < ApplicationSystemTestCase
     tags.each do |tag|
       fill_in_tag tag
     end
-    assert page.has_text?(tags.first)
-    assert page.has_text?(tags.second)
     page.accept_confirm do
       click_on '公開する'
     end

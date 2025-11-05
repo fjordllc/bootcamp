@@ -2,19 +2,24 @@
 
 module TagHelper
   def fill_in_tag(name, selector = '.tagify__input')
-    tag_input = find(selector)
-    sleep 1
-    tag_input.set name
-    tag_input.native.send_keys :return
+    tag_count_before = all('.tagify__tag', visible: :all).count
+    tag_input = find(selector, match: :first)
+    tag_input.click
+    tag_input.native.send_keys(name, :return)
+    assert_selector('.tagify__tag', count: tag_count_before + 1, wait: 10, visible: :all)
+    # Wait for the hidden input to be updated with the new tag (React components only)
+    return unless has_selector?("input[type='hidden'][name*='tag_list']", visible: :all)
+
+    assert_selector("input[type='hidden'][name*='tag_list'][value*='#{name}']", visible: :all, wait: 10)
   end
 
   def fill_in_tag_with_alert(name, selector = '.tagify__input')
     tag_input = find(selector)
-    sleep 1
-    tag_input.set name
+    tag_input.click
     accept_alert do
-      tag_input.native.send_keys :return
+      tag_input.native.send_keys(name, :return)
     end
+    assert_selector(selector)
   end
 
   def find_tags(taggable_name)
