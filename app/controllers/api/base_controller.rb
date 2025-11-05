@@ -13,4 +13,10 @@ class API::BaseController < ApplicationController
   def current_resource_owner
     User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
   end
+
+  def require_admin_or_mentor_login_for_api
+    return if current_user.admin_or_mentor?
+
+    render json: { error: '権限がありません' }, status: :forbidden
+  end
 end
