@@ -11,6 +11,8 @@ class MicroReport < ApplicationRecord
   alias sender user
 
   def path
-    Rails.application.routes.url_helpers.user_micro_reports_path(user)
+    url = Rails.application.routes.url_helpers.user_micro_reports_path(user)
+    fragment = "#micro_report_#{id}"
+    "#{url}#{fragment}"
   end
 end
