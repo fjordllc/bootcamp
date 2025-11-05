@@ -91,4 +91,68 @@ class API::CommentsTest < ActionDispatch::IntegrationTest
       assert_response :no_content
     end
   end
+
+  test 'mentor can update other user comment' do
+    mentor_user = users(:mentormentaro)
+    mentor_token = Doorkeeper::AccessToken.create!(
+      application: @write_token.application,
+      resource_owner_id: mentor_user.id,
+      scopes: 'read write'
+    )
+    other_user_comment = comments(:comment1) # machida's comment
+
+    patch api_comment_url(other_user_comment.id, format: :json),
+          headers: { Authorization: "Bearer #{mentor_token.token}" },
+          params: { comment: { description: 'Mentor updated this comment' } }
+    assert_response :success
+  end
+
+  test 'admin can delete other user comment' do
+    admin_user = users(:komagata)
+    admin_token = Doorkeeper::AccessToken.create!(
+      application: @write_token.application,
+      resource_owner_id: admin_user.id,
+      scopes: 'read write'
+    )
+    other_user_comment = comments(:comment3) # machida's comment
+
+    assert_difference('Comment.count', -1) do
+      delete api_comment_url(other_user_comment.id, format: :json),
+             headers: { Authorization: "Bearer #{admin_token.token}" }
+      assert_response :no_content
+    end
+  end
+
+  test 'regular user cannot update other user comment' do
+    regular_user = users(:kimura)
+    regular_token = Doorkeeper::AccessToken.create!(
+      application: @write_token.application,
+      resource_owner_id: regular_user.id,
+      scopes: 'read write'
+    )
+    other_user_comment = comments(:comment1) # machida's comment
+
+    assert_raises(ActiveRecord::RecordNotFound) do
+      patch api_comment_url(other_user_comment.id, format: :json),
+            headers: { Authorization: "Bearer #{regular_token.token}" },
+            params: { comment: { description: 'Trying to update' } }
+    end
+  end
+
+  test 'regular user cannot delete other user comment' do
+    regular_user = users(:kimura)
+    regular_token = Doorkeeper::AccessToken.create!(
+      application: @write_token.application,
+      resource_owner_id: regular_user.id,
+      scopes: 'read write'
+    )
+    other_user_comment = comments(:comment1) # machida's comment
+
+    assert_no_difference('Comment.count') do
+      assert_raises(ActiveRecord::RecordNotFound) do
+        delete api_comment_url(other_user_comment.id, format: :json),
+               headers: { Authorization: "Bearer #{regular_token.token}" }
+      end
+    end
+  end
 end
