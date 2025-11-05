@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import useSWR from 'swr'
 import fetcher from '../fetcher'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
 import Report from './Report'
 import Pagination from './Pagination'
-import PracticeFilterDropdown from './PracticeFilterDropdown'
 import UnconfirmedLink from './UnconfirmedLink'
 import usePage from './hooks/usePage'
 
@@ -30,6 +29,30 @@ export default function Reports({
 
   const { data, error } = useSWR(reportsUrl, fetcher)
 
+  useEffect(() => {
+    if (!data || !practices) return
+    let practiceFilterDropdownInstance = null
+    const initPracticeFilterDropdown = async () => {
+      const target = document.querySelector('[data-practice-filter-dropdown]')
+      if (!target) return
+      const { default: PracticeFilterDropdown } = await import(
+        '../practice-filter-dropdown'
+      )
+      practiceFilterDropdownInstance = new PracticeFilterDropdown(
+        practices,
+        setUserPracticeId,
+        userPracticeId
+      )
+      practiceFilterDropdownInstance.render(target)
+    }
+
+    initPracticeFilterDropdown()
+
+    return () => {
+      practiceFilterDropdownInstance.destroy()
+    }
+  }, [data, practices, setUserPracticeId, userPracticeId])
+
   if (error) return <>エラーが発生しました。</>
   if (!data) {
     return (
@@ -47,25 +70,13 @@ export default function Reports({
     <div className="page-main is-react">
       {data.totalPages === 0 && (
         <div>
-          {practices && (
-            <PracticeFilterDropdown
-              practices={practices}
-              setPracticeId={setUserPracticeId}
-              practiceId={userPracticeId}
-            />
-          )}
+          {practices && <div data-practice-filter-dropdown></div>}
           <NoReports unchecked={unchecked} />
         </div>
       )}
       {data.totalPages > 0 && (
         <div>
-          {practices && (
-            <PracticeFilterDropdown
-              practices={practices}
-              setPracticeId={setUserPracticeId}
-              practiceId={userPracticeId}
-            />
-          )}
+          {practices && <div data-practice-filter-dropdown></div>}
           <div className="page-body">
             <div className="container is-md">
               <div className="page-content reports">
