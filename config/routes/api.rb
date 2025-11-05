@@ -87,6 +87,8 @@ Rails.application.routes.draw do
     resources :metadata, only: %i(index)
     resources :micro_reports, only: %i(update)
     resources :buzzes, only: %i(create destroy)
-    get 'buzzes/check', to: 'buzzes#check'
+    namespace 'buzzes' do
+      resource :lookup, only: %i(show)
+    end
   end
 end
