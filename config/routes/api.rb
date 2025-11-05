@@ -87,6 +87,8 @@ Rails.application.routes.draw do
     resources :trainee_progresses, only: %i(index)
     resources :buzzes, only: %i(create)
     resources :buzzes, only: %i(create destroy)
-    get 'buzzes/check', to: 'buzzes#check'
+    namespace 'buzzes' do
+      resource :lookup, only: %i(show)
+    end
   end
 end
