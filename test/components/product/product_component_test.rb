@@ -217,7 +217,7 @@ class Products::ProductComponentTest < ViewComponent::TestCase
 
     assert_selector '.stamp.stamp-approve' do
       assert_text '合格'
-      assert_text I18n.l(Time.zone.today, format: :short)
+      assert_text I18n.l(checked_product.checks.last.created_at.to_date, format: :short)
       assert_text 'komagata'
     end
 
