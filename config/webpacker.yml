@@ -81,8 +81,8 @@ test:
   <<: *default
   compile: true
 
-  # Use same output path as production for consistency
-  # public_output_path: packs-test
+  # Compile to separate directory to avoid conflicts with development
+  public_output_path: packs-test
 
 production:
   <<: *default
