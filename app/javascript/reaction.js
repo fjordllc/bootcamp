@@ -1,3 +1,6 @@
+import { FetchRequest } from '@rails/request.js'
+import { renderAllReactions } from './reaction_render.js'
+
 document.addEventListener('DOMContentLoaded', () => {
   const reactions = document.querySelectorAll('.js-reactions')
 
@@ -8,11 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
   reactions.forEach((reaction) => {
     initializeReaction(reaction)
   })
+  registerOutsideClickListener()
 })
 
 export function initializeReaction(reaction) {
   const loginName = reaction.dataset.reactionLoginName
-  const reactionableId = reaction.dataset.reactionReactionableId
+  const reactionableGid = reaction.dataset.reactionReactionableGid
 
   const dropdown = reaction.querySelector('.js-reaction-dropdown')
   if (dropdown) {
@@ -30,22 +34,28 @@ export function initializeReaction(reaction) {
       if (reactionId) {
         destroyReaction(reaction, kind, loginName, reactionId)
       } else {
-        createReaction(reaction, kind, loginName, reactionableId)
+        createReaction(reaction, kind, loginName, reactionableGid)
       }
     })
   })
+
+  setupUsersList(reaction, reactionableGid)
 }
 
 function requestReaction(url, method, callback) {
-  fetch(url, {
-    method: method,
-    credentials: 'same-origin',
-    headers: {
-      'X-Requested-With': 'XMLHttpRequest',
-      'X-CSRF-Token': $.rails.csrfToken()
-    }
+  const request = new FetchRequest(method, url, {
+    responseKind: 'json'
   })
-    .then((response) => response.json())
+
+  request
+    .perform()
+    .then((response) => {
+      if (response.ok) {
+        return response.json
+      } else {
+        throw new Error(`API error: ${url} (status: ${response.statusCode})`)
+      }
+    })
     .then((json) => callback(json))
     .catch((error) => console.warn(error))
 }
@@ -88,10 +98,13 @@ function updateReactionLoginNames(element, loginName) {
   }
 }
 
-function createReaction(reaction, kind, loginName, reactionableId) {
-  const url = `/api/reactions?reactionable_id=${reactionableId}&kind=${kind}`
+function createReaction(reaction, kind, loginName, reactionableGid) {
+  const url = `/api/reactions?reactionable_gid=${reactionableGid}&kind=${kind}`
 
   requestReaction(url, 'POST', (json) => {
+    if (!json || !json.id) {
+      return
+    }
     reaction
       .querySelectorAll(`[data-reaction-kind="${kind}"]`)
       .forEach((element) => {
@@ -100,6 +113,7 @@ function createReaction(reaction, kind, loginName, reactionableId) {
         updateReactionCount(element, 1)
         updateReactionLoginNames(element, loginName)
       })
+    updateUsersToggleState(reaction)
   })
 }
 
@@ -115,5 +129,90 @@ function destroyReaction(reaction, kind, loginName, reactionId) {
         updateReactionCount(element, -1)
         updateReactionLoginNames(element, loginName)
       })
+    updateUsersToggleState(reaction)
   })
+}
+
+function setupUsersList(reaction, reactionableGid) {
+  const usersToggle = reaction.querySelector('.js-reactions-users-toggle')
+  const usersList = reaction.querySelector('.js-reactions-users-list')
+
+  if (!usersToggle || !usersList) {
+    return
+  }
+
+  updateUsersToggleState(reaction)
+
+  usersToggle.addEventListener('click', (e) => {
+    if (usersToggle.classList.contains('is-disabled')) {
+      return
+    }
+    e.stopPropagation()
+    const isHidden = usersList.classList.contains('hidden')
+    if (isHidden) {
+      fetchAllReactions(reactionableGid, (data) => {
+        if (!data || Object.keys(data).length === 0) {
+          return
+        }
+        renderAllReactions(data, usersList)
+        open(usersList)
+      })
+    } else {
+      close(usersList)
+    }
+  })
+}
+
+function registerOutsideClickListener() {
+  document.addEventListener('click', (e) => {
+    document
+      .querySelectorAll('.js-reactions-users-list')
+      .forEach((usersList) => {
+        const usersToggle = usersList
+          .closest('.js-reactions')
+          ?.querySelector('.js-reactions-users-toggle')
+
+        const isOpen = !usersList.classList.contains('hidden')
+        const clickedOutside =
+          !usersList.contains(e.target) && !usersToggle?.contains(e.target)
+        if (isOpen && clickedOutside) {
+          close(usersList)
+        }
+      })
+  })
+}
+
+function open(usersList) {
+  document.querySelectorAll('.js-reactions-users-list').forEach((element) => {
+    if (!element.classList.contains('hidden')) {
+      element.classList.add('hidden')
+    }
+  })
+  usersList.classList.remove('hidden')
+}
+
+function close(usersList) {
+  usersList.classList.add('hidden')
+}
+
+function fetchAllReactions(reactionableGid, callback) {
+  const url = `/api/reactions?reactionable_gid=${encodeURIComponent(
+    reactionableGid
+  )}`
+  requestReaction(url, 'GET', callback)
+}
+
+function updateUsersToggleState(reaction) {
+  const usersToggle = reaction.querySelector('.js-reactions-users-toggle')
+  if (!usersToggle) {
+    return
+  }
+
+  const totalReactionCount = [
+    ...reaction.querySelectorAll('.js-reaction-count')
+  ].reduce(
+    (total, element) => total + (parseInt(element.textContent, 10) || 0),
+    0
+  )
+  usersToggle.classList.toggle('is-disabled', totalReactionCount === 0)
 }
