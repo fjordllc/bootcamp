@@ -92,8 +92,8 @@ end
 
 group :development do
   gem 'listen', '~> 3.3'
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  # gem 'spring' # Rails 7: Springは非推奨
+  # gem 'spring-watcher-listen', '~> 2.0.0' # Rails 7: Springは非推奨
   gem 'web-console', '>= 4.1.0'
 
   # not default
