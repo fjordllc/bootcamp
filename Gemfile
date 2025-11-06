@@ -10,7 +10,7 @@ gem 'ffi', '1.17.1'
 gem 'image_processing', '~> 1.12'
 gem 'jbuilder', '~> 2.7'
 gem 'puma', '~> 5.0'
-gem 'rails', '~> 6.1.7.10'
+gem 'rails', '~> 7.0.0'
 gem 'webpacker', '~> 5.0'
 
 # not default
@@ -48,7 +48,7 @@ gem 'mini_magick'
 gem 'mutex_m', '0.1.1'
 gem 'net-imap', require: false
 gem 'net-pop', require: false
-gem 'net-smtp', require: false # TODO: Remove it if you use rails 7.0.1
+gem 'net-smtp', require: false
 gem 'newspaper'
 gem 'oauth2'
 gem 'omniauth', '~> 2.1.1'
@@ -62,7 +62,7 @@ gem 'postmark-rails'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rack-user_agent'
 gem 'rails_autolink'
-gem 'rails-i18n', '~> 6.0.0'
+gem 'rails-i18n', '~> 7.0.0'
 gem 'rails-patterns', '~> 0.2'
 gem 'ransack', '3.1.0'
 gem 'react-rails'
