@@ -26,5 +26,7 @@ class API::ImageController < API::BaseController
 
     ext = File.extname(original_image.filename.to_s)
     original_image.attach(io: File.open(copied_image.path), filename: "#{current_user.id}#{ext}")
+  ensure
+    copied_image&.destroy!
   end
 end
