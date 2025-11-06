@@ -11,6 +11,7 @@ gem 'image_processing', '~> 1.12'
 gem 'jbuilder', '~> 2.7'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 7.0.0'
+gem 'sprockets-rails'
 gem 'webpacker', '~> 5.0'
 
 # not default
