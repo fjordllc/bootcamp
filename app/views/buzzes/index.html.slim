@@ -1,0 +1,54 @@
+- title '紹介・言及記事'
+- set_meta_tags site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）'
+
+header.lp-page-header
+  .l-container
+    .lp-page-header__inner
+      .lp-page-header__start
+        h1.lp-page-header__title
+          = title
+      .lp-page-header__end
+hr.a-border-tint
+section.lp-content.is-lp-bg-1.is-top-title
+  .l-container.is-xl
+    .lp-content__inner
+      .lp-content__start
+        header.lp-content__header
+          h2.lp-content-title.text-center.is-border-bottom
+            | 紹介・言及記事
+      .lp-content__end
+        .lp-content-stack
+          .lp-content-stack__item
+            .lp-content__description
+              .a-short-text
+                p.text-center
+                  | FBCに関する紹介記事や言及記事を掲載しています。
+                  br
+                  | 受講生の活動や成果を知ることができる記事が多数ありますので、ぜひご覧ください。
+            #buzz
+          .lp-content-stack
+            .lp-buzz
+              .row.is-gutter-width-32
+                .col-lg-3.col-xs-12
+                  = render partial: 'buzz_mobile_filter',
+                    locals: { years: @years }
+                  = render partial: 'buzz_pc_filter',
+                    locals: { years: @years }
+
+                .col-xl-9.col-lg-9.col-xs-12
+                  .lp-content-stack
+                    .lp-content-stack__item
+                      section.a-card
+                        .article__inner
+                          .article__body
+                            .a-long-text.is_md
+                              = render 'buzzes', buzzes: @buzzes, year: @year
+
+                        - if admin_or_mentor_login?
+                          hr.a-border-tint
+                          .card-footer
+                            .card-main-actions
+                              ul.card-main-actions__items
+                                li.card-main-actions__item
+                                  = link_to mentor_buzzes_path, class: 'a-button is-secondary is-md is-block' do
+                                    | 内容修正
