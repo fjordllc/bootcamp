@@ -184,10 +184,12 @@ class Admin::UsersTest < ApplicationSystemTestCase
     date = Date.current
     Discord::Server.stub(:delete_text_channel, true) do
       VCR.use_cassette 'subscription/update' do
-        visit_with_auth edit_admin_user_path(user.id), 'komagata'
-        check '退会済', allow_label_click: true
-        fill_in 'user_retired_on', with: date
-        click_on '更新する'
+        Card.stub(:destroy_all, true) do
+          visit_with_auth edit_admin_user_path(user.id), 'komagata'
+          check '退会済', allow_label_click: true
+          fill_in 'user_retired_on', with: date
+          click_on '更新する'
+        end
       end
     end
     assert_text 'ユーザー情報を更新しました。'
@@ -233,10 +235,12 @@ class Admin::UsersTest < ApplicationSystemTestCase
     user = users(:hatsuno)
     date = Date.current
     VCR.use_cassette 'subscription/update' do
-      visit_with_auth edit_admin_user_path(user.id), 'komagata'
-      check '卒業済', allow_label_click: true
-      fill_in 'user_graduated_on', with: date
-      click_on '更新する'
+      Card.stub(:destroy_all, true) do
+        visit_with_auth edit_admin_user_path(user.id), 'komagata'
+        check '卒業済', allow_label_click: true
+        fill_in 'user_graduated_on', with: date
+        click_on '更新する'
+      end
     end
     assert_text 'ユーザー情報を更新しました。'
     assert_equal date, user.reload.graduated_on

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react'
 import userIcon from '../user-icon.js'
-import ProductChecker from './ProductChecker'
 
 export default function Product({
   product,
@@ -26,6 +25,21 @@ export default function Product({
       userIconRef.current.appendChild(userIconElement)
     }
   }, [product.user])
+
+  const updateProductCheckerView = async (checkerElement) => {
+    const { ProductChecker } = await import('../product-checker.js')
+    new ProductChecker(checkerElement).initProductChecker()
+  }
+
+  // ProductCheckerの非React化により、useEffectを導入している。
+  useEffect(() => {
+    const checkerElement = document.querySelector(
+      `[data-product-id="${product.id}"]`
+    )
+    if (checkerElement) {
+      updateProductCheckerView(checkerElement)
+    }
+  }, [product.id])
 
   const notRespondedSign = () => {
     return (
@@ -82,15 +96,13 @@ export default function Product({
           )}
           {isMentor && product.checks.size === 0 && (
             <div className="card-list-item__row is-only-mentor">
-              <div className="card-list-item__assignee">
-                <ProductChecker
-                  checkerId={product.checker_id}
-                  checkerName={product.checker_name}
-                  checkerAvatar={product.checker_avatar}
-                  currentUserId={currentUserId}
-                  productId={product.id}
-                />
-              </div>
+              <div
+                className="card-list-item__assignee"
+                data-checker-id={product.checker_id || ''}
+                data-checker-name={product.checker_name || ''}
+                data-checker-avatar={product.checker_avatar || ''}
+                data-current-user-id={currentUserId}
+                data-product-id={product.id}></div>
             </div>
           )}
         </div>

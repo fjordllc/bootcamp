@@ -35,6 +35,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       driver_option.add_argument('--no-sandbox')
       driver_option.add_argument('--disable-dev-shm-usage')
       driver_option.add_argument('enable-blink-features=Clipboard')
+      driver_option.add_preference('profile.password_manager_leak_detection', false)
     end
   end
 

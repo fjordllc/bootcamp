@@ -1,0 +1,63 @@
+- if user.student_or_trainee?
+  .card-counts.is-users.mt-3
+    dl.card-counts__items
+      .card-counts__item
+        .card-counts__item-inner
+          dt.card-counts__item-label
+            | 日報
+          - reports_count = user.reports.count
+          - if reports_count.zero?
+            dd.card-counts__item-value.is-empty
+              span #{reports_count}
+          - else
+            dd.card-counts__item-value
+              = link_to user_reports_path(user) do
+                | #{reports_count}
+      .card-counts__item
+        .card-counts__item-inner
+          dt.card-counts__item-label
+            | 提出物
+          - products_count = user.products.count
+          - if products_count.zero?
+            dd.card-counts__item-value.is-empty
+              span #{products_count}
+          - else
+            dd.card-counts__item-value
+              = link_to user_products_path(user) do
+                | #{products_count}
+      .card-counts__item
+        .card-counts__item-inner
+          dt.card-counts__item-label
+            | コメント
+          - comments_count = user.comments.where.not(commentable_type: 'Talk').count
+          - if comments_count.zero?
+            dd.card-counts__item-value.is-empty
+              span #{comments_count}
+          - else
+            dd.card-counts__item-value
+              = link_to user_comments_path(user) do
+                | #{comments_count}
+      .card-counts__item
+        .card-counts__item-inner
+          dt.card-counts__item-label
+            | 質問
+          - questions_count = user.questions.count
+          - if questions_count.zero?
+            dd.card-counts__item-value.is-empty
+              span #{questions_count}
+          - else
+            dd.card-counts__item-value
+              = link_to user_questions_path(user) do
+                | #{questions_count}
+      .card-counts__item
+        .card-counts__item-inner
+          dt.card-counts__item-label
+            | 回答
+          - answers_count = user.answers.count
+          - if answers_count.zero?
+            dd.card-counts__item-value.is-empty
+              span #{answers_count}
+          - else
+            dd.card-counts__item-value
+              = link_to user_answers_path(user) do
+                | #{answers_count}

@@ -3,6 +3,12 @@ nav.global-nav
     .global-nav-links
       ul.global-nav-links__items
         li.global-nav-links__item
+          = link_to root_path, class: "global-nav-links__link #{current_link(/^home/)}" do
+            .global-nav-links__link-icon
+              i.fa-solid.fa-gauge
+            .global-nav-links__link-label.is-sm
+              | ダッシュボード
+        li.global-nav-links__item
           = link_to announcements_path, class: "global-nav-links__link #{current_link(/^announcements/)}" do
             .global-nav-links__link-icon
               i.fa-solid.fa-bullhorn
@@ -35,9 +41,9 @@ nav.global-nav
           = link_to questions_path(target: 'not_solved'), class: "global-nav-links__link #{current_link(/^questions/)}" do
             .global-nav-links__link-icon
               i.fa-solid.fa-comments-question-check
-            - if Question.not_solved.not_wip.count.positive?
+            - if Cache.not_solved_question_count.positive?
               .global-nav__item-count.a-notification-count
-                = Question.not_solved.not_wip.count
+                = Cache.not_solved_question_count
             .global-nav-links__link-label Q&A
         li.global-nav-links__item
           = link_to '/pages', class: "global-nav-links__link #{(@page&.slug != 'help' && @page&.slug != 'help-adviser') && current_link(/^pages/)}" do
@@ -52,7 +58,8 @@ nav.global-nav
           = link_to portfolios_path, class: "global-nav-links__link #{current_link(/^works/)}" do
             .global-nav-links__link-icon
               i.fa-solid.fa-rocket
-            .global-nav-links__link-label.is-sm ポートフォリオ
+            .global-nav-links__link-label.is-sm
+              | ポートフォリオ
         li.global-nav-links__item
           = link_to users_path, class: "global-nav-links__link #{current_link(/^users-(index|show)/)}" do
             .global-nav-links__link-icon

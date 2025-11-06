@@ -36,22 +36,29 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
   end
 
   test 'can delete bookmarks when edit mode is active' do
-    visit_with_auth page_path(pages(:page1)), 'kimura'
+    page = pages(:page1)
+    visit_with_auth page_path(page), 'kimura'
+    wait_for_javascript_components
     assert_text 'Bookmark中'
 
     visit_with_auth '/current_user/bookmarks', 'kimura'
-    assert_selector '.card-list-item', count: 4
-    assert_text 'test1'
+
+    initial_count = all('.card-list-item').size
+    assert initial_count.positive?, 'ブックマークが表示されていません'
+    assert_text page.title
     assert_no_selector '.bookmark-delete-button'
 
     find('#spec-edit-mode').click
     assert_selector '.bookmark-delete-button'
-    first('.bookmark-delete-button').click
+    within find('.card-list-item', text: page.title) do
+      find('.bookmark-delete-button').click
+    end
 
-    assert_selector '.card-list-item', count: 3
-    assert_no_text 'test1'
+    assert_selector '.card-list-item', count: initial_count - 1
+    assert_no_text page.title
 
-    visit_with_auth page_path(pages(:page1)), 'kimura'
+    visit_with_auth page_path(page), 'kimura'
+    wait_for_javascript_components
     assert_text 'Bookmark'
   end
 

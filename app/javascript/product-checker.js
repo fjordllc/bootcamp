@@ -1,99 +1,84 @@
-import CSRF from 'csrf'
-import { toast } from 'vanillaToast'
+import { checkProduct } from './checkable_react'
 
-function checkInCharge(event, productId, currentUserId) {
-  event.preventDefault()
-  const token = CSRF.getToken()
-  const url = '/api/products/checker'
+export class ProductChecker {
+  constructor(checkerElement) {
+    const { checkerId, checkerName, checkerAvatar, currentUserId, productId } =
+      checkerElement.dataset
 
-  const params = {
-    product_id: productId,
-    current_user_id: currentUserId
+    this.element = checkerElement
+    this.checkerId = checkerId
+    this.checkerName = checkerName
+    this.checkerAvatar = checkerAvatar
+    this.currentUserId = currentUserId
+    this.productId = productId
+    this.isAssigned = Boolean(checkerId)
+    this.isSelfAssigned = checkerId === currentUserId
   }
 
-  const query = new URLSearchParams(params)
-  fetch(url + `?${query}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      'X-Requested-With': 'XMLHttpRequest',
-      'X-CSRF-Token': token
-    },
-    credentials: 'same-origin',
-    redirect: 'manual'
-  })
-    .then((response) => {
-      return response.json()
-    })
-    .then((json) => {
-      return json.checker_id ? 'DELETE' : 'PATCH'
-    })
-    .then((method) => {
-      fetch(url, {
-        method: method,
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': token
-        },
-        credentials: 'same-origin',
-        redirect: 'manual',
-        body: JSON.stringify(params)
-      })
-        .then((response) => {
-          return response.json()
-        })
-        .then((json) => {
-          if (json.message) {
-            alert(json.message)
-          } else {
-            const id = json.checker_id
-            if (id !== null) {
-              toast('担当になりました。')
-            } else {
-              toast('担当から外れました。')
-            }
-          }
-        })
-        .catch((error) => {
-          console.warn(error)
-        })
-    })
+  initProductChecker() {
+    this.element.innerHTML = ''
+    if (!this.checkerId || this.isSelfAssigned) {
+      this.generateActionButton()
+    } else {
+      this.generateAssigneeDisplay()
+    }
+  }
 
-  if (
-    event.currentTarget.className.includes('is-warning') ||
-    event.currentTarget.className === 'product-checker a-button is-block is-sm'
-  ) {
-    if (event.currentTarget.classList.contains('check-product-button')) {
-      event.currentTarget.className =
-        'a-button is-block is-sm check-product-button is-secondary'
-    } else {
-      event.currentTarget.className = 'product-checker a-button is-block is-sm'
-    }
-    event.currentTarget.children[0].className = 'fas fa-hand-paper'
-    event.currentTarget.children[0].textContent = '担当する'
-  } else {
-    if (event.currentTarget.classList.contains('check-product-button')) {
-      event.currentTarget.className =
-        'a-button is-block is-sm check-product-button is-warning'
-    } else {
-      event.currentTarget.className =
-        'product-checker a-button is-block is-warning is-sm'
-    }
-    event.currentTarget.children[0].className = 'fas fa-times'
-    event.currentTarget.children[0].textContent = '担当から外れる'
+  updateButton(button, isAssigned) {
+    button.innerHTML = ''
+    const config = isAssigned
+      ? { class: 'is-warning', icon: 'fa-times', label: '担当から外れる' }
+      : { class: 'is-secondary', icon: 'fa-hand-paper', label: '担当する' }
+    button.className = `a-button is-block ${config.class} is-sm`
+    button.textContent = config.label
+    const icon = document.createElement('i')
+    icon.className = `fas ${config.icon}`
+    button.appendChild(icon)
+  }
+
+  handleCheckerToggle(button) {
+    const nextIsAssigned = !this.isAssigned
+    this.updateButton(button, nextIsAssigned)
+
+    checkProduct(
+      this.productId,
+      this.currentUserId,
+      '/api/products/checker',
+      this.isAssigned ? 'delete' : 'patch'
+    )
+
+    this.isAssigned = nextIsAssigned
+  }
+
+  generateActionButton() {
+    const button = document.createElement('button')
+    this.updateButton(button, this.isAssigned)
+    this.element.appendChild(button)
+
+    button.addEventListener('click', () => this.handleCheckerToggle(button))
+  }
+
+  generateAssigneeDisplay() {
+    const container = document.createElement('div')
+    container.className =
+      'a-button is-sm is-block card-list-item__assignee-button is-only-mentor'
+
+    const imgSpan = document.createElement('span')
+    imgSpan.className = 'card-list-item__assignee-image'
+
+    const img = document.createElement('img')
+    img.className = 'a-user-icon'
+    img.src = this.checkerAvatar
+    img.width = '20'
+    img.height = '20'
+    img.alt = 'Checker Avatar'
+    imgSpan.appendChild(img)
+
+    const nameSpan = document.createElement('span')
+    nameSpan.className = 'card-list-item__assignee-name'
+    nameSpan.textContent = this.checkerName
+
+    container.append(imgSpan, nameSpan)
+    this.element.appendChild(container)
   }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-  const buttons = document.querySelectorAll(
-    '.product-checker, .check-product-button'
-  )
-  buttons.forEach((button) => {
-    button.addEventListener('click', (event) => {
-      const productId = event.currentTarget.dataset.productId
-      const currentUserId = event.currentTarget.dataset.currentUserId
-      checkInCharge(event, productId, currentUserId)
-    })
-  })
-})

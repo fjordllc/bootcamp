@@ -30,7 +30,6 @@ class API::AnswersController < API::BaseController
     @answer.user = current_user
     if @answer.save
       ActiveSupport::Notifications.instrument('answer.create', answer: @answer)
-      Newspaper.publish(:answer_save, { answer: @answer })
       render partial: 'questions/answer', locals: { question:, answer: @answer, user: current_user }, status: :created
     else
       head :bad_request
@@ -39,7 +38,6 @@ class API::AnswersController < API::BaseController
 
   def update
     if @answer.update(answer_params)
-      Newspaper.publish(:answer_save, { answer: @answer })
       head :ok
     else
       head :bad_request
@@ -48,7 +46,12 @@ class API::AnswersController < API::BaseController
 
   def destroy
     @answer.destroy
-    Newspaper.publish(:answer_destroy, { answer: @answer })
+    return unless @answer.is_a?(CorrectAnswer)
+
+    Newspaper.publish(:answer_destroy, {
+                        answer: @answer,
+                        action: "#{self.class.name}##{action_name}"
+                      })
   end
 
   private

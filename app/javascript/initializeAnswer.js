@@ -115,7 +115,6 @@ export default function initializeAnswer(answer) {
       if (window.confirm('本当に宜しいですか？')) {
         deleteAnswer(answerId)
         if (answerBadgeElement.classList.contains('correct-answer')) {
-          cancelBestAnswer(answerId, questionId)
           const otherCancelBestAnswerButtons = document.querySelectorAll(
             '.make-best-answer-button'
           )

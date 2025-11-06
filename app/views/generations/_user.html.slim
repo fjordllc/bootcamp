@@ -1,0 +1,77 @@
+.col-xxxl-2.col-xxl-3.col-xl-4.col-lg-4.col-md-6.col-xs-12
+  .users-item
+    .users-item__inner.a-card
+      - if current_user&.admin_or_mentor? && user.student_or_trainee?
+        .users-item__inactive-message-container.is-only-mentor
+        - if user.retired?
+          .users-item__inactive-message
+            | 退会しました
+        - if user.hibernated?
+          .users-item__inactive-message
+            | 休会中: #{l(user.hibernated_at, format: :year_and_date)}〜(#{user.hibernation_elapsed_days}日経過)
+        - if !user.active?
+          .users-item__inactive-message
+            | 1ヶ月以上ログインがありません
+      header.users-item__header
+        .users-item__header-inner
+          .users-item__header-start
+            .users-item__icon
+              = link_to user_path(user) do
+                span class=(user.user_icon_frame_class)
+                  = image_tag(user.avatar_url.to_s, class: 'users-item__user-icon-image a-user-icon', title: user.icon_title.to_s, alt: user.icon_title.to_s)
+          .users-item__header-end
+            .card-list-item__rows
+              .card-list-item__row
+                .card-list-item-title
+                  .card-list-item-title__end
+                    = link_to user_path(user), class: 'card-list-item-title__title is-lg a-text-link' do
+                      = user.login_name
+              .card-list-item__row
+                .card-list-item-meta
+                  .card-list-item-meta__items
+                    .card-list-item-meta__item
+                      .a-meta
+                        | #{user.name}
+                    .card-list-item-meta__item
+                      - profile = user.discord_profile
+                      - name = profile&.account_name
+                      - if profile&.times_url.present?
+                        = link_to profile.times_url, class: 'a-meta' do
+                          i.fa-brands.fa-discord
+                            | #{name}
+                      - elsif name.present?
+                        .a-meta
+                          i.fa-brands.fa-discord
+                            | #{name}
+            .sns-links
+              = render partial: 'generations/user_sns', locals: { user: }
+              - if user.company&.logo_url
+                = link_to company_path(user.company) do
+                  = image_tag user.company.logo_url,
+                      class: 'user-item__company-logo-image',
+                      alt: "#{user.company.name}のロゴ"
+        = render partial: 'generations/user_activity_counts', locals: { user: }
+      .users-item__body
+        .users-item__description.a-short-text
+          = simple_format(truncate(user.description.to_s, length: 200, omission: '…'), wrapper_tag: 'p')
+        .users-item__tags
+          = render partial: 'generations/user_tags', locals: { tags: user.tag_list }
+      = render partial: 'generations/user_practice_progress', locals: { user:,
+        user_course_practice: UserCoursePractice.new(user) }
+      hr.a-border-tint
+      footer.card-footer.users-item__footer
+        .card-main-actions
+          ul.card-main-actions__items
+            - if current_user&.id != user.id
+              - if current_user&.adviser && user.company && (current_user.company_id == user.company.id)
+                li.card-main-actions__item
+                  .a-button.is-disabled.is-sm.is-block
+                    i.fa-solid.fa-check
+                    span 自社研修生
+              - else
+                li.card-main-actions__item
+                  = render partial: 'users/following', locals: { user:, current_user: }
+            - if current_user&.admin && user.talk.present?
+              li.card-main-actions__item.is-only-mentor
+                = link_to talk_path(user.talk), class: 'a-button is-secondary is-sm is-block' do
+                  | 相談部屋

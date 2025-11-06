@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class RetirementTest < ApplicationSystemTestCase
+class RetirementsTest < ApplicationSystemTestCase
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
