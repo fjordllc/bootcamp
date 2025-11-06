@@ -923,7 +923,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   end
 
   def latest_micro_report_page
-    [micro_reports.page.total_pages, 1].max
+    [micro_reports.order(created_at: :asc).page.total_pages, 1].max
   end
 
   def mark_mail_as_sent_before_auto_retire
