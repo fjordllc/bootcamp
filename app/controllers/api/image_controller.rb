@@ -4,8 +4,14 @@ class API::ImageController < API::BaseController
   def create
     @image = Image.new(user: current_user, image: params[:file])
     if @image.save
-      strip_exif
-      render :create, status: :created
+      begin
+        strip_exif
+        render :create, status: :created
+      rescue StandardError => e
+        Rails.logger.error("Failed to strip EXIF: #{e.message}")
+        @image.destroy
+        render json: { error: '画像処理に失敗しました' }, status: :unprocessable_entity
+      end
     else
       render json: @image.errors, status: :unprocessable_entity
     end
