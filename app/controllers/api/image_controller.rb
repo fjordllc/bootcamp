@@ -26,7 +26,9 @@ class API::ImageController < API::BaseController
 
     ext = File.extname(original_image.filename.to_s)
     timestamp = Time.current.strftime('%Y%m%d%H%M%S%L')
-    original_image.attach(io: File.open(copied_image.path), filename: "#{current_user.id}_#{timestamp}#{ext}")
+    File.open(copied_image.path) do |file|
+      original_image.attach(io: file, filename: "#{current_user.id}_#{timestamp}#{ext}")
+    end
   ensure
     copied_image&.destroy!
   end
