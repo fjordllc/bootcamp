@@ -21,7 +21,7 @@ class Users::MicroReportsController < ApplicationController
       flash[:alert] = '分報の投稿に失敗しました。'
     end
 
-    redirect_to user_micro_reports_path(@user, page: @user.latest_micro_report_page)
+    redirect_to user_micro_reports_path(@user, page: @user.latest_micro_report_page(per_page: PAGER_NUMBER))
   end
 
   def destroy
@@ -34,7 +34,7 @@ class Users::MicroReportsController < ApplicationController
 
     referer_path = request.referer
     if page_out_of_range?(referer_path)
-      redirect_to user_micro_reports_path(@user, page: @user.latest_micro_report_page)
+      redirect_to user_micro_reports_path(@user, page: @user.latest_micro_report_page(per_page: PAGER_NUMBER))
     else
       redirect_to referer_path
     end
