@@ -40,13 +40,16 @@ class ActiveSupport::TestCase
 
   # 参考： https://guides.rubyonrails.org/active_storage_overview.html#discarding-files-created-during-tests
   parallelize_setup do |i|
-    ActiveStorage::Blob.service.root = "#{ActiveStorage::Blob.service.root}/storage-#{i}"
-    ActiveStorage::Blob.services.fetch(:test_fixtures).root = "#{ActiveStorage::Blob.services.fetch(:test_fixtures).root}/fixtures-#{i}"
+    original_root = ActiveStorage::Blob.service.instance_variable_get(:@root)
+    ActiveStorage::Blob.service.instance_variable_set(:@root, "#{original_root}/storage-#{i}")
+
+    original_fixtures_root = ActiveStorage::Blob.services.fetch(:test_fixtures).instance_variable_get(:@root)
+    ActiveStorage::Blob.services.fetch(:test_fixtures).instance_variable_set(:@root, "#{original_fixtures_root}/fixtures-#{i}")
   end
 
   Minitest.after_run do
-    FileUtils.rm_rf(ActiveStorage::Blob.service.root)
-    FileUtils.rm_rf(ActiveStorage::Blob.services.fetch(:test_fixtures).root)
+    FileUtils.rm_rf(ActiveStorage::Blob.service.instance_variable_get(:@root))
+    FileUtils.rm_rf(ActiveStorage::Blob.services.fetch(:test_fixtures).instance_variable_get(:@root))
   end
 end
 
