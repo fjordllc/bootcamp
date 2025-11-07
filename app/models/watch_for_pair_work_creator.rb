@@ -12,7 +12,7 @@ class WatchForPairWorkCreator
   def watch_records(pair_work)
     mentors = User.mentor.to_a
     watching_users = mentors << pair_work.user
-    watching_users.map do |user|
+    watching_users.uniq.map do |user|
       {
         watchable_type: 'PairWork',
         watchable_id: pair_work.id,
