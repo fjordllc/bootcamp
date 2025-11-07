@@ -30,27 +30,26 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
   setup do
-    ActiveStorage::Current.host = 'http://localhost:3000' # https://github.com/rails/rails/issues/40855
+    # Rails 7: ActiveStorage::Current.host= is deprecated, use url_options= instead
+    ActiveStorage::Current.url_options = { host: 'localhost', port: 3000, protocol: 'http' }
   end
 
   teardown do
-    ActiveStorage::Current.host = nil
+    ActiveStorage::Current.url_options = nil
   end
 
-  # Rails7になったら以下のように修正する
-  #   parallelize_setup do |i|
-  #     ActiveStorage::Blob.service.root = "#{ActiveStorage::Blob.service.root}/storage-#{i}"
-  #     ActiveStorage::Blob.services.fetch(:test_fixtures).root = "#{ActiveStorage::Blob.services.fetch(:test_fixtures).root}/fixtures-#{i}"
-  #   end
   # 参考： https://guides.rubyonrails.org/active_storage_overview.html#discarding-files-created-during-tests
   parallelize_setup do |i|
-    ActiveStorage::Blob.service.instance_variable_set(:@root, "#{ActiveStorage::Blob.service.root}/storage-#{i}")
-    ActiveStorage::Blob.services.fetch(:test_fixtures).instance_variable_set(:@root, "#{ActiveStorage::Blob.services.fetch(:test_fixtures).root}/fixtures-#{i}")
+    original_root = ActiveStorage::Blob.service.instance_variable_get(:@root)
+    ActiveStorage::Blob.service.instance_variable_set(:@root, "#{original_root}/storage-#{i}")
+
+    original_fixtures_root = ActiveStorage::Blob.services.fetch(:test_fixtures).instance_variable_get(:@root)
+    ActiveStorage::Blob.services.fetch(:test_fixtures).instance_variable_set(:@root, "#{original_fixtures_root}/fixtures-#{i}")
   end
 
   Minitest.after_run do
-    FileUtils.rm_rf(ActiveStorage::Blob.service.root)
-    FileUtils.rm_rf(ActiveStorage::Blob.services.fetch(:test_fixtures).root)
+    FileUtils.rm_rf(ActiveStorage::Blob.service.instance_variable_get(:@root))
+    FileUtils.rm_rf(ActiveStorage::Blob.services.fetch(:test_fixtures).instance_variable_get(:@root))
   end
 end
 

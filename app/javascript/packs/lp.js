@@ -10,4 +10,4 @@
 import '../stylesheets/lp'
 
 // Import images to ensure they are copied by webpack
-import '../../assets/images/background/people.png'
+import '../images/background/people.png'

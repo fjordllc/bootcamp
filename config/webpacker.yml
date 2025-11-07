@@ -81,9 +81,6 @@ test:
   <<: *default
   compile: true
 
-  # Use same output path as production for consistency
-  # public_output_path: packs-test
-
 production:
   <<: *default
 

@@ -41,7 +41,12 @@ class ApplicationController < ActionController::Base
   def set_host_for_disk_storage
     return unless %i[local test].include? Rails.application.config.active_storage.service
 
-    ActiveStorage::Current.host = request.base_url
+    # Rails 7: ActiveStorage::Current.host= is deprecated, use url_options= instead
+    ActiveStorage::Current.url_options = {
+      host: request.host,
+      port: request.port,
+      protocol: request.protocol.delete_suffix(':')
+    }
   end
 
   def require_card
