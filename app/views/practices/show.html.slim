@@ -124,6 +124,17 @@
           - if @practice.coding_tests.present?
             = render partial: 'coding_tests', locals: { coding_tests: @practice.coding_tests }
 
+          - if @practice.source_id
+            .a-card
+              header.card-header
+                h2.card-header__title 元プラクティス
+              hr.a-border-tint
+              .card-body
+                .card-body__description
+                  = link_to practice_path(@practice.source_id), class: 'a-button is-sm is-secondary' do
+                    i.fa-solid.fa-link
+                    | 元プラクティスを見る
+
           - if current_user.admin_or_mentor?
             = render 'memo', practice: @practice
 
