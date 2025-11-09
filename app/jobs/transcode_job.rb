@@ -2,9 +2,7 @@
 
 class TranscodeJob < ApplicationJob
   MAX_RETRIES = 5
-  BASE_WAIT   = 30.seconds
-  MAX_WAIT    = 5.minutes
-  JITTER_RATE = 0.1
+  RETRY_WAIT  = 1.minute
 
   queue_as :default
 
@@ -21,7 +19,7 @@ class TranscodeJob < ApplicationJob
   def handle_transcode_error(error, movie)
     if retryable?(error) && executions < MAX_RETRIES
       log_retry(movie, error)
-      retry_job(wait: calculate_retry_wait(executions))
+      retry_job(wait: RETRY_WAIT)
       return
     end
 
@@ -54,10 +52,4 @@ class TranscodeJob < ApplicationJob
     Rollbar.error(error, movie_id: movie.id) if defined?(Rollbar)
   end
 
-  def calculate_retry_wait(executions)
-    base     = BASE_WAIT * (2**executions)
-    wait_for = [base, MAX_WAIT].min
-    jitter   = (wait_for * JITTER_RATE).to_i
-    wait_for + rand(-jitter..jitter)
-  end
 end
