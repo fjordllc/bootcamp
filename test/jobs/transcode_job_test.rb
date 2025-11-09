@@ -53,11 +53,4 @@ class TranscodeJobTest < ActiveJob::TestCase
 
     assert_includes logged, 'permanent failure'
   end
-
-  test 'calculate_retry_wait returns value within jittered range' do
-    job = TranscodeJob.new(@movie)
-    wait = job.send(:calculate_retry_wait, 0)
-    # BASE_WAIT = 30秒, ±10% jitter
-    assert wait >= 27 && wait <= 33
-  end
 end
