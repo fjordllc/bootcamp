@@ -51,5 +51,4 @@ class TranscodeJob < ApplicationJob
     # movieの作成は既に完了しているため、ジョブ失敗でユーザー体験を損なわないよう例外は再送出しない
     Rollbar.error(error, movie_id: movie.id) if defined?(Rollbar)
   end
-
 end
