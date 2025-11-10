@@ -31,25 +31,29 @@ export default function Reports({
 
   useEffect(() => {
     if (!data || !practices) return
-    let practiceFilterDropdownInstance = null
-    const initPracticeFilterDropdown = async () => {
-      const target = document.querySelector('[data-practice-filter-dropdown]')
-      if (!target) return
+    let practiceDropdown = null
+    const initDropdown = async () => {
+      const targetElement = document.querySelector(
+        '[data-practice-filter-dropdown]'
+      )
+      if (!targetElement) return
       const { default: PracticeFilterDropdown } = await import(
         '../practice-filter-dropdown'
       )
-      practiceFilterDropdownInstance = new PracticeFilterDropdown(
+      practiceDropdown = new PracticeFilterDropdown(
         practices,
         setUserPracticeId,
         userPracticeId
       )
-      practiceFilterDropdownInstance.render(target)
+      practiceDropdown.render(targetElement)
     }
 
-    initPracticeFilterDropdown()
+    initDropdown()
 
     return () => {
-      practiceFilterDropdownInstance.destroy()
+      if (practiceDropdown) {
+        practiceDropdown.destroy()
+      }
     }
   }, [data, practices, setUserPracticeId, userPracticeId])
 
