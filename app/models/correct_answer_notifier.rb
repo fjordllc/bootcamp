@@ -20,6 +20,8 @@ class CorrectAnswerNotifier
   end
 
   def notify_to_chat(answer)
-    ChatNotifier.message("質問：「#{answer.question.title}」のベストアンサーが選ばれました。\r#{Rails.application.routes.url_helpers.question_url(answer.question)}")
+    url_options = Rails.application.config.action_controller.default_url_options || {}
+    question_url = Rails.application.routes.url_helpers.question_url(answer.question, url_options)
+    ChatNotifier.message("質問：「#{answer.question.title}」のベストアンサーが選ばれました。\r#{question_url}")
   end
 end

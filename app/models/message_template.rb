@@ -12,7 +12,11 @@ class MessageTemplate
   end
 
   def load(params = {})
-    yaml = ERB.new(read_yaml_with_embedded_ruby).result_with_hash(params)
+    # Rails 7.2: ERBテンプレート内でurl_helpersを使えるようにurl_optionsを追加
+    url_options = Rails.application.config.action_controller.default_url_options || {}
+    params_with_url_options = params.merge(url_options:)
+
+    yaml = ERB.new(read_yaml_with_embedded_ruby).result_with_hash(params_with_url_options)
     YAML.load(adjust_indentation(yaml))
   end
 
