@@ -5,6 +5,10 @@ require 'test_helper'
 class Authentication::GithubTest < ActiveSupport::TestCase
   include Rails.application.routes.url_helpers
 
+  def default_url_options
+    { host: 'www.example.com', protocol: 'https' }
+  end
+
   test 'authentication fails when github id does not match' do
     github_authentication = Authentication::Github.new(nil, { info: { nickname: 'kimura_github' }, uid: 'uid_test_data' })
     result = github_authentication.authenticate

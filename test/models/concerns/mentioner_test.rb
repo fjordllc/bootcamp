@@ -23,7 +23,7 @@ class MentionerTest < ActiveSupport::TestCase
 
     report = Report.create!(
       user: users(:hajime),
-      reported_on: Time.zone.today,
+      reported_on: Time.zone.today - rand(1..365).days,
       title: 'メンションテスト',
       description: markdown
     )

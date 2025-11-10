@@ -31,6 +31,9 @@ Rails.application.configure do
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
 
+  # Set default URL options for URL generation in tests
+  config.action_controller.default_url_options = { host: "www.example.com", protocol: "https" }
+
   # Store uploaded files on the local file system in a temporary directory.
   config.active_storage.service = :test
 
