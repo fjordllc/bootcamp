@@ -11,6 +11,34 @@ require 'supports/vcr_helper'
 require 'abstract_notifier/testing/minitest'
 require 'webmock/minitest'
 
+# Rails 7.2: フィクスチャのtimestampsを自動で埋める
+module ActiveRecord
+  module ConnectionAdapters
+    module DatabaseStatements
+      alias_method :original_build_fixture_sql, :build_fixture_sql
+
+      def build_fixture_sql(fixtures, table_name)
+        columns = schema_cache.columns_hash(table_name)
+        timestamp_columns = ['created_at', 'created_on', 'updated_at', 'updated_on']
+        now = Time.current.to_fs(:db)
+
+        # timestampカラムが存在し、fixtureに値が設定されていない場合は現在時刻を設定
+        fixtures = fixtures.map do |fixture|
+          fixture = fixture.stringify_keys
+          timestamp_columns.each do |col|
+            if columns.key?(col) && !fixture.key?(col)
+              fixture[col] = now
+            end
+          end
+          fixture
+        end
+
+        original_build_fixture_sql(fixtures, table_name)
+      end
+    end
+  end
+end
+
 Capybara.default_max_wait_time = 15
 Capybara.disable_animation = true
 Capybara.automatic_reload = false
