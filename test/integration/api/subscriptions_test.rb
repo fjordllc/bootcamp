@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class API::SubscriptionsTest < ActionDispatch::IntegrationTest
+class Api::SubscriptionsTest < ActionDispatch::IntegrationTest
   test 'GET /api/subscriptions.json' do
     get api_subscriptions_path(format: :json)
     assert_response :unauthorized

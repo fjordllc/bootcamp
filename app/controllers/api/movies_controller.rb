@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::MoviesController < API::BaseController
+class Api::MoviesController < Api::BaseController
   before_action :set_movie, only: %i[update]
 
   def index; end

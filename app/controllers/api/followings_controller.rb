@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::FollowingsController < API::BaseController
+class Api::FollowingsController < Api::BaseController
   include Rails.application.routes.url_helpers
 
   def create

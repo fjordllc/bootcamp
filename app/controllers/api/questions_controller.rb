@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::QuestionsController < API::BaseController
+class Api::QuestionsController < Api::BaseController
   include Rails.application.routes.url_helpers
   before_action :set_available_emojis, only: %i[show]
 

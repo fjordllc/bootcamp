@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::UsersController < API::BaseController
+class Api::UsersController < Api::BaseController
   before_action :set_user, only: %i[show update]
   before_action :require_login_for_api
   before_action :require_login_for_api, except: :show

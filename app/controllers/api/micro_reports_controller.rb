@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::MicroReportsController < API::BaseController
+class Api::MicroReportsController < Api::BaseController
   before_action :set_micro_report, only: %i[update]
 
   def update

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::NotificationsController < API::BaseController
+class Api::NotificationsController < Api::BaseController
   def index
     target = params[:target].presence&.to_sym
     status = params[:status]

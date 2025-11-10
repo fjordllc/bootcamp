@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class API::UsersTest < ActionDispatch::IntegrationTest
+class Api::UsersTest < ActionDispatch::IntegrationTest
   fixtures :users
 
   def setup

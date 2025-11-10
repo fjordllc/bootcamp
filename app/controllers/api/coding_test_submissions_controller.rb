@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::CodingTestSubmissionsController < API::BaseController
+class Api::CodingTestSubmissionsController < Api::BaseController
   def create
     cts = CodingTestSubmission.new(coding_test_submission_params)
     cts.user = current_user

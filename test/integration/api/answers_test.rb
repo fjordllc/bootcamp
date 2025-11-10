@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class API::AnswersTest < ActionDispatch::IntegrationTest
+class Api::AnswersTest < ActionDispatch::IntegrationTest
   test 'GET /api/answers.json?user_id=253826460' do
     user = users(:hajime)
     get api_answers_path(user_id: user.id, format: :json)

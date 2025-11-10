@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class API::BookmarksTest < ActionDispatch::IntegrationTest
+class Api::BookmarksTest < ActionDispatch::IntegrationTest
   test 'GET /api/bookmarks.json' do
     get api_bookmarks_path(format: :json)
     assert_response :unauthorized

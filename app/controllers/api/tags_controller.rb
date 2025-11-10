@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::TagsController < API::BaseController
+class Api::TagsController < Api::BaseController
   skip_before_action :require_login_for_api
 
   def index

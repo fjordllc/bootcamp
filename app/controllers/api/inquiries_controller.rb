@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::InquiriesController < API::BaseController
+class Api::InquiriesController < Api::BaseController
   def update
     inquiry = Inquiry.lock.find(params[:id])
     Inquiry.transaction do

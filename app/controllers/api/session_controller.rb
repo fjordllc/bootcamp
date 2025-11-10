@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::SessionController < API::BaseController
+class Api::SessionController < Api::BaseController
   protect_from_forgery except: %i[create]
   skip_before_action :require_login_for_api, only: %i[create]
 

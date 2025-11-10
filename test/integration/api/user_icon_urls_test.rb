@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class API::UserIconUrlsTest < ActionDispatch::IntegrationTest
+class Api::UserIconUrlsTest < ActionDispatch::IntegrationTest
   fixtures :users
 
   test 'GET /api/user_icon_urls.json' do

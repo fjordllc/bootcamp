@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class API::WatchesTest < ActionDispatch::IntegrationTest
+class Api::WatchesTest < ActionDispatch::IntegrationTest
   test 'no duplicate watch for announcement' do
     announcement = announcements(:announcement1)
     token = create_token('komagata', 'testtest')

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::MarkdownTasksController < API::BaseController
+class Api::MarkdownTasksController < Api::BaseController
   before_action :set_taskable, only: :create
 
   def create

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::Reports::RecentsController < API::BaseController
+class Api::Reports::RecentsController < Api::BaseController
   def index
     @reports = Report
                .includes({ user: { avatar_attachment: :blob } }, :checks)

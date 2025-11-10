@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-class API::Talks::ActionUncompletedController < API::BaseController
+class Api::Talks::ActionUncompletedController < Api::BaseController
   def index; end
 end

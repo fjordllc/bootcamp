@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::Watches::ToggleController < API::BaseController
+class Api::Watches::ToggleController < Api::BaseController
   def index
     @watches = Watch.where(
       user: current_user,

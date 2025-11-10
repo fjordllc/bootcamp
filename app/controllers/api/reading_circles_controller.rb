@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::ReadingCirclesController < API::BaseController
+class Api::ReadingCirclesController < Api::BaseController
   def index
     @reading_circles = RegularEvent.category_reading_circle
                                    .where(wip: false)

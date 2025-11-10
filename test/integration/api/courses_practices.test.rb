@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class API::CoursesPracticesTest < ActionDispatch::IntegrationTest
+class Api::CoursesPracticesTest < ActionDispatch::IntegrationTest
   test 'GET /api/courses/1234/practices.json' do
     @courses = courses(:course1)
     get api_course_practices_path(@courses.id, format: :json)

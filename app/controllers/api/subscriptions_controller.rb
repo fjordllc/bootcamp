@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::SubscriptionsController < API::BaseController
+class Api::SubscriptionsController < Api::BaseController
   def index
     @subscriptions = Subscription.new.all
   end

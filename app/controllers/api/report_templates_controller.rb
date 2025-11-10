@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::ReportTemplatesController < API::BaseController
+class Api::ReportTemplatesController < Api::BaseController
   before_action :set_report_template, only: %i[update]
 
   def create

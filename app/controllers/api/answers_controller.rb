@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::AnswersController < API::BaseController
+class Api::AnswersController < Api::BaseController
   include Rails.application.routes.url_helpers
   before_action :set_answer, only: %i[update destroy]
   before_action :set_available_emojis, only: %i[index create]

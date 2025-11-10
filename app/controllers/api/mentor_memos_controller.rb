@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::MentorMemosController < API::BaseController
+class Api::MentorMemosController < Api::BaseController
   before_action :require_mentor_login_for_api
   before_action :set_user, only: %i[update]
 

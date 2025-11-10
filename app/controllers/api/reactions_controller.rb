@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::ReactionsController < API::BaseController
+class Api::ReactionsController < Api::BaseController
   def create
     reactionables = params[:reactionable_id].split('_')
     reactionable_id = reactionables.pop

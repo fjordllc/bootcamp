@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class API::Reports::UncheckedTest < ActionDispatch::IntegrationTest
+class Api::Reports::UncheckedTest < ActionDispatch::IntegrationTest
   fixtures :reports
 
   test 'GET /api/reports/unchecked/counts.txt' do

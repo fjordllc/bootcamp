@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class API::PracticesTest < ActionDispatch::IntegrationTest
+class Api::PracticesTest < ActionDispatch::IntegrationTest
   fixtures :practices
 
   test 'GET /api/practices.json' do

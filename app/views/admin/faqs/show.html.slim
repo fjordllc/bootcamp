@@ -46,7 +46,7 @@ main.page-main
                     .page-content-header-metas__meta
                       .a-meta
                         = link_to admin_faq_category_faqs_path(@faq.faq_category) do
-                          = t("faq.#{FAQCategory.find_by(id: @faq.faq_category_id).name}")
+                          = t("faq.#{FaqCategory.find_by(id: @faq.faq_category_id).name}")
 
           .a-card
             .card-body
@@ -67,7 +67,7 @@ main.page-main
           header.a-side-nav__header
             h2.a-side-nav__title
               = link_to admin_faq_category_faqs_path(@faq.faq_category), class: 'a-hover-link' do
-                = t("faq.#{FAQCategory.find_by(id: @faq.faq_category_id).name}")
+                = t("faq.#{FaqCategory.find_by(id: @faq.faq_category_id).name}")
           hr.a-border
           .a-side-nav__body
             ul.a-side-nav__items

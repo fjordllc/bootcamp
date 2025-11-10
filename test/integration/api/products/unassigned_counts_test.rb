@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class API::Products::UnassignedTextTest < ActionDispatch::IntegrationTest
+class Api::Products::UnassignedTextTest < ActionDispatch::IntegrationTest
   fixtures :products
 
   test 'GET /api/products/unassigned/counts.txt' do

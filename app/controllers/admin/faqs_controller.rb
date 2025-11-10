@@ -47,6 +47,6 @@ class Admin::FaqsController < AdminController
   end
 
   def set_faq_category
-    @faq_categories = FAQCategory.all
+    @faq_categories = FaqCategory.all
   end
 end

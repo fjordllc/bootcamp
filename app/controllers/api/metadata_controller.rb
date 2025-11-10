@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::MetadataController < ApplicationController
+class Api::MetadataController < ApplicationController
   def index
     card = LinkCard::Card.new(params[:url], params[:tweet])
     metadata = card.metadata

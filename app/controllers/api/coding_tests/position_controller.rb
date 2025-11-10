@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::CodingTests::PositionController < API::BaseController
+class Api::CodingTests::PositionController < Api::BaseController
   def update
     @coding_test = CodingTest.find(params[:coding_test_id])
     if @coding_test.insert_at(params[:insert_at])

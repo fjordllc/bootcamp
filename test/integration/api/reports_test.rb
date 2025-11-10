@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class API::ReportsTest < ActionDispatch::IntegrationTest
+class Api::ReportsTest < ActionDispatch::IntegrationTest
   test 'GET /api/reports.json' do
     get api_reports_path(format: :json)
     assert_response :unauthorized

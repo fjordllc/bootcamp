@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::Products::PassedController < API::BaseController
+class Api::Products::PassedController < Api::BaseController
   def show
     products = Product
                .unassigned
