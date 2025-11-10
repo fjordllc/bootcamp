@@ -1,15 +1,17 @@
 import Choices from 'choices.js'
 
 export default class PracticeFilterDropdown {
-  constructor(practices, setPracticeId, practiceId) {
-    this.practices = practices;
-    this.setPracticeId = setPracticeId;
-    this.practiceId = practiceId;
-    this.choicesInstance = null;
+  constructor(practices, setPracticeId, userPracticeId) {
+    this.practices = practices
+    this.setPracticeId = setPracticeId
+    this.userPracticeId = userPracticeId
+    this.choices = null
+    this.selectElement = null
+    this.handleSelectChange = null
   }
 
-  render(targetElement) {
-    targetElement.innerHTML = `
+  render(element) {
+    element.innerHTML = `
         <nav class="page-filter form">
           <div class="container is-md">
             <div class="form-item is-inline-md-up">
@@ -24,21 +26,21 @@ export default class PracticeFilterDropdown {
         <hr class="a-border">
     `
 
-    const selectElement = targetElement.querySelector('#js-choices-single-select');
+    this.selectElement = element.querySelector('#js-choices-single-select')
 
-    const defaultOption = document.createElement("option");
-    defaultOption.value = '';
-    defaultOption.textContent = '全ての日報を表示';
-    selectElement.appendChild(defaultOption);
+    const defaultOption = document.createElement('option')
+    defaultOption.value = ''
+    defaultOption.textContent = '全ての日報を表示'
+    this.selectElement.appendChild(defaultOption)
 
     this.practices.forEach((practice) => {
-      const option = document.createElement("option");
-      option.value = practice.id;
-      option.textContent = practice.title;
-      selectElement.appendChild(option);
+      const option = document.createElement('option')
+      option.value = practice.id
+      option.textContent = practice.title
+      this.selectElement.appendChild(option)
     })
 
-    this.choicesInstance = new Choices(selectElement, {
+    this.choices = new Choices(this.selectElement, {
       searchEnabled: true,
       allowHTML: true,
       searchResultLimit: 20,
@@ -48,20 +50,27 @@ export default class PracticeFilterDropdown {
       shouldSort: false
     })
 
-    if (this.practiceId) {
-      this.choicesInstance.setChoiceByValue(this.practiceId)
+    if (this.userPracticeId) {
+      this.choices.setChoiceByValue(this.userPracticeId)
     }
 
-    selectElement.addEventListener('change', (event) => {
-      const value = event.target.value;
+    this.handleSelectChange = (event) => {
+      const value = event.target.value
       this.setPracticeId(value)
-    })
+    }
+
+    this.selectElement.addEventListener('change', this.handleSelectChange)
   }
 
   destroy() {
-    if (this.choicesInstance) {
-      this.choicesInstance.destroy()
-      this.choicesInstance = null
+    if (this.selectElement && this.handleSelectChange) {
+      this.selectElement.removeEventListener('change', this.handleSelectChange)
     }
+    if (this.choices) {
+      this.choices.destroy()
+      this.choices = null
+    }
+    this.selectElement = null
+    this.handleSelectChange = null
   }
 }
