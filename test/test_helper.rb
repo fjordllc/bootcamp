@@ -29,6 +29,12 @@ Rails.application.routes.default_url_options[:host] = 'localhost'
 Rails.application.routes.default_url_options[:port] = 3000
 Rails.application.routes.default_url_options[:protocol] = 'http'
 
+# Discord Webhook のテスト用ダミーURL（ENV未設定時のフォールバック）
+ENV['WEBHOOK_ALL_URL'] ||= 'https://discord.com/api/webhooks/0123456789/all'
+ENV['WEBHOOK_ADMIN_URL'] ||= 'https://discord.com/api/webhooks/0123456789/admin'
+ENV['WEBHOOK_MENTOR_URL'] ||= 'https://discord.com/api/webhooks/0123456789/mentor'
+ENV['WEBHOOK_INTRODUCTION_URL'] ||= 'https://discord.com/api/webhooks/0123456789/introduction'
+
 class ActiveSupport::TestCase
   include VCRHelper
 
