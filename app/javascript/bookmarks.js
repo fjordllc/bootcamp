@@ -1,10 +1,16 @@
 import { get, destroy } from '@rails/request.js'
 import { toggleDeleteButtonVisibility } from './bookmarks-delete-button-visibility'
 
-document.addEventListener('DOMContentLoaded', () => {
-  initializer()
+const EDIT_MODE_KEY = 'bookmark_edit_mode'
 
-  document.body.addEventListener('click', async (event) => {
+document.addEventListener('DOMContentLoaded', () => {
+  const savedMode = sessionStorage.getItem(EDIT_MODE_KEY) === 'true'
+  initializer(savedMode)
+
+  const pageBody = document.querySelector('.page-body')
+  if (!pageBody) return
+
+  pageBody.addEventListener('click', async (event) => {
     const deleteButton = event.target.closest('.bookmark-delete-button')
     if (!deleteButton) return
 
@@ -26,9 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (currentPage > 1 && newPageMain.querySelector('.o-empty-message')) {
         pageToShow = await fetchPageMain(currentPage - 1)
       }
-      document.querySelector('.page-main').replaceWith(pageToShow)
+      document.querySelector('.page-body').replaceWith(pageToShow)
 
-      initializer(true)
+      const savedModeAfterDelete =sessionStorage.getItem(EDIT_MODE_KEY) === 'true'
+      initializer(savedModeAfterDelete)
     } catch (error) {
       console.warn(error)
       deleteButton.disabled = false
@@ -42,7 +49,7 @@ const fetchPageMain = async (page) => {
   const html = await response.text
   const parser = new DOMParser()
   const parsedDocument = parser.parseFromString(html, 'text/html')
-  return parsedDocument.querySelector('.page-main')
+  return parsedDocument.querySelector('.page-body')
 }
 
 const initializer = (deleteMode = false) => {
@@ -66,4 +73,5 @@ const handleEditToggleChange = () => {
     'js-bookmark-delete-button'
   )
   toggleDeleteButtonVisibility(editButton, deleteButtons)
+  sessionStorage.setItem(EDIT_MODE_KEY, editButton.checked)
 }
