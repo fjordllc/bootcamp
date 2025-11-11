@@ -5850,4 +5850,555 @@ Mentor::Categories::PracticesTest#test_sorting_practices_of_a_category [test/sys
 
 bin/rails test test/system/mentor/categories/practices_test.rb:18
 
-.
+...[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_show_my_wip-s_event_on_dashboard.png
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_not_show_the_grass_for_mentor.png
+E
+
+Error:
+HomeTest#test_not_show_the_grass_for_mentor:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/components/products/product_component.html.slim:77:in `call'
+    app/components/products/unassigned_products_component.html.slim:12:in `block (2 levels) in call'
+    app/components/products/unassigned_products_component.html.slim:11:in `each'
+    app/components/products/unassigned_products_component.html.slim:11:in `block in call'
+    app/components/products/unassigned_products_component.html.slim:2:in `each'
+    app/components/products/unassigned_products_component.html.slim:2:in `call'
+    app/views/home/_mentor_dashboard.html.slim:11
+    app/views/home/index.html.slim:18
+    app/controllers/home_controller.rb:13:in `index'
+
+bin/rails test test/system/home_test.rb:214
+
+E
+
+Error:
+HomeTest#test_show_my_wip's_event_on_dashboard:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "https://www.example.com:52981/events/1051347165/edit", pass allow_other_host: true to redirect anyway.
+    app/controllers/events_controller.rb:36:in `create'
+
+bin/rails test test/system/home_test.rb:386
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_display_error_message_when_checking_confirmed_report.png
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_mentor_can_products_that_are_more_than_4_days-.png
+E
+
+Error:
+HomeTest#test_mentor_can_products_that_are_more_than_4_days.:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/components/products/product_component.html.slim:77:in `call'
+    app/components/products/unassigned_products_component.html.slim:12:in `block (2 levels) in call'
+    app/components/products/unassigned_products_component.html.slim:11:in `each'
+    app/components/products/unassigned_products_component.html.slim:11:in `block in call'
+    app/components/products/unassigned_products_component.html.slim:2:in `each'
+    app/components/products/unassigned_products_component.html.slim:2:in `call'
+    app/views/home/_mentor_dashboard.html.slim:11
+    app/views/home/index.html.slim:18
+    app/controllers/home_controller.rb:13:in `index'
+
+bin/rails test test/system/home_test.rb:350
+
+E
+
+Error:
+Check::ReportsTest#test_display_error_message_when_checking_confirmed_report:
+Capybara::ElementNotFound: Unable to find button "日報を確認" that is not disabled
+    test/system/api/check/reports_test.rb:65:in `block (2 levels) in <class:ReportsTest>'
+    test/system/api/check/reports_test.rb:64:in `block in <class:ReportsTest>'
+
+bin/rails test test/system/api/check/reports_test.rb:55
+
+..E
+
+Error:
+HomeTest#test_not_show_welcome_message:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/components/products/product_component.html.slim:77:in `call'
+    app/components/products/unassigned_products_component.html.slim:12:in `block (2 levels) in call'
+    app/components/products/unassigned_products_component.html.slim:11:in `each'
+    app/components/products/unassigned_products_component.html.slim:11:in `block in call'
+    app/components/products/unassigned_products_component.html.slim:2:in `each'
+    app/components/products/unassigned_products_component.html.slim:2:in `call'
+    app/views/home/_mentor_dashboard.html.slim:11
+    app/views/home/index.html.slim:18
+    app/controllers/home_controller.rb:13:in `index'
+
+bin/rails test test/system/home_test.rb:345
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_display_counts_of_passed_almost_5days.png
+E
+
+Error:
+HomeTest#test_display_counts_of_passed_almost_5days:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/components/products/product_component.html.slim:77:in `call'
+    app/components/products/unassigned_products_component.html.slim:12:in `block (2 levels) in call'
+    app/components/products/unassigned_products_component.html.slim:11:in `each'
+    app/components/products/unassigned_products_component.html.slim:11:in `block in call'
+    app/components/products/unassigned_products_component.html.slim:2:in `each'
+    app/components/products/unassigned_products_component.html.slim:2:in `call'
+    app/views/home/_mentor_dashboard.html.slim:11
+    app/views/home/index.html.slim:18
+    app/controllers/home_controller.rb:13:in `index'
+
+bin/rails test test/system/home_test.rb:357
+
+..[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_GET_-.png
+F
+
+Failure:
+HomeTest#test_GET_/:
+Expected: "ダッシュボード | FBC"
+  Actual: ""
+
+Error:
+HomeTest#test_GET_/:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/components/products/product_component.html.slim:77:in `call'
+    app/components/products/unassigned_products_component.html.slim:12:in `block (2 levels) in call'
+    app/components/products/unassigned_products_component.html.slim:11:in `each'
+    app/components/products/unassigned_products_component.html.slim:11:in `block in call'
+    app/components/products/unassigned_products_component.html.slim:2:in `each'
+    app/components/products/unassigned_products_component.html.slim:2:in `call'
+    app/views/home/_mentor_dashboard.html.slim:11
+    app/views/home/index.html.slim:18
+    app/controllers/home_controller.rb:13:in `index'
+
+bin/rails test test/system/home_test.rb:12
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_work_link_of_passed_almost_5days.png
+E
+
+Error:
+HomeTest#test_work_link_of_passed_almost_5days:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/components/products/product_component.html.slim:77:in `call'
+    app/components/products/unassigned_products_component.html.slim:12:in `block (2 levels) in call'
+    app/components/products/unassigned_products_component.html.slim:11:in `each'
+    app/components/products/unassigned_products_component.html.slim:11:in `block in call'
+    app/components/products/unassigned_products_component.html.slim:2:in `each'
+    app/components/products/unassigned_products_component.html.slim:2:in `call'
+    app/views/home/_mentor_dashboard.html.slim:11
+    app/views/home/index.html.slim:18
+    app/controllers/home_controller.rb:13:in `index'
+
+bin/rails test test/system/home_test.rb:370
+
+Test is missing assertions: `test_show_Nico_Nico_calendar_page_that_matches_URL_params` /Users/machida/dev/bootcamp/test/system/home_test.rb:165
+..[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_show_my_wip-s_question-s_date_on_dashboard.png
+F
+
+Failure:
+HomeTest#test_show_my_wip's_question's_date_on_dashboard [test/system/home_test.rb:465]:
+expected to find text "2025年11月11日(火) 09:58" in "Q&A\nwipテスト用の質問(wip中)\nTue, 11 Nov 2025 00:58:37 +0000"
+
+bin/rails test test/system/home_test.rb:459
+
+.[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_show_and_close_welcome_message.png
+F
+
+Failure:
+HomeTest#test_show_and_close_welcome_message [test/system/home_test.rb:342]:
+expected not to find text "ようこそ" in "ダッシュボード\nお知らせ\nプラクティス\n日報・ブログ\n提出物\n15\nQ&A\nDocs・動画\nポートフォリオ\nユーザー\nイベント\n相談\nアドバイザー\n検索\nヘルプ\nMe\nダッシュボード\nマイプロフィール\nダッシュボード\n自分の日報 （0）\n自分の提出物 （0）\nブックマーク （0）\nWatch中\nフィヨルドブートキャンプへようこそ 🎉\nアドバイ 次郎 さん\nこの度はフィヨルドブートキャンプにアドバイザーとしてご登録いただきありがとうございます🙏\nフィヨルドブートキャンプでは、受講生に何よりも「プログラミングが好きな気持ち」を育てたいと考えています。フィヨルドブートキャンプを卒業するには 1000 時間以上の学習が必要で、その過程には学習がなかなか進まず辛い思いをすることもあります。「高給が欲しい」や「リモートで働きたい」だけでは、それを乗り切るのは難しく、プログラミング自体やコミュニティ、サービスを作る・育てること、チームより強めていくことを「好き」、「楽しい」と思えることが必須になります。「プログラミングが好きな気持ち」を育て、一人でも多くのプログラマーを輩出していきたいと考えています。\nそのためには、受講生、メンター、卒業生、会社所属のプログラマー、フリーランスのプログラマー、イベント主催者、コミュニティ運営者、OSS開発者...様々な立場の人がそれぞれの形でプログラミングやコミュニティやサービス運営を楽しんでいる姿を受講生に見せることが重要だと考えています。また、それを見れる場を受講生に提供できることがフィヨルドブートキャンプの最大の資産であると考えています。\nなので、チャットに参加してフィヨルドブートキャンプコミュニティのみんなとワイワイしながらプログラミングやコミュニティを楽しんでいるところを見せていただきたいです😄日報やチャットやQ&Aで困っている受講生を見かけた際は、お時間のあるときに日報のコメントやチャットの返信でアドバイスをいただけますと幸いです（必須ではありません）🙏\nチャットの参加方法\nプラクティス「チャットを使えるようになる」 に招待リンクが載っています。このリンクから参加をお願いします🙏参加いただきましたら、自己紹介チャンネルから自己紹介を投稿していただけますと助かります。（運用的にはそれを見て、チャットの方にアドバイザー role を設定しております）\nメール通知を止める方法\n登録情報変更ページ にある「メール通知」を「OFF」に設定をお願いします。\nアドバイザーと受講生の違い\nフィヨルドブートキャンプの学習アプリ（今見ているこれです）では、アドバイザーと受講生で以下の違いがあります。\nアドバイザーは課金がされません。\n受講生は自分が修了したプラクティスでないと、自分以外の人の提出物が見れないのですが、アドバイザーは全てのプラクティスの全ての受講生の提出物を見ることができます。\nもし、所属企業がフィヨルドブートキャンプを研修として利用していた場合、所属企業の研修生の日報や提出物が投稿された際に通知が飛びます。\nイベントなどの告知について\n所属企業のイベントの告知や、OSS系のミートアップの告知、登壇されるイベントの告知など、チャットからご遠慮無くしていただけるとありがたいです。\nここで一点お願いがあるのですが、直接受講生が採用に関する企業イベントに参加した場合、フィヨルドブートキャンプの紹介にならなくなってしまうことがあります。そうなると紹介のメリットを受けられなくなってしまいます。もし、フィヨルドブートキャンプ経由で参加した方がおりましたら、フィヨルドブートキャンプ経由での参加であることを担当者の方に伝えていただけますと助かります。受講生にも採用に関する企業イベントに参加する際はフィヨルドに連絡するように伝えているのですが、たまに「忘れていました」という受講生がいるので、念のためお願いさせていただきました。\n閉じる\nお知らせ\n近日開催のイベント\nTranslation missing: en.dates.today開催\nTranslation missing: en.activerecord.enums.regular_event.category.reading_circle\n定期イベントの検索結果テスト用\n開催日時\nTue, 11 Nov 2025 21:00:00 +0000\nTranslation missing: en.dates.tomorrow開催\nTranslation missing: en.activerecord.enums.regular_event.category.reading_circle\nDiscord通知確認用イベント(土曜日午前8時から開催)\n開催日時\nWed, 12 Nov 2025 08:00:00 +0000\nTranslation missing: en.activerecord.enums.regular_event.category.reading_circle\nEveryday Rails輪読会\n開催日時\nWed, 12 Nov 2025 17:00:00 +0000\nTranslation missing: en.activerecord.enums.regular_event.category.reading_circle\n独習Git輪読会\n開催日時\nWed, 12 Nov 2025 21:00:00 +0000\nTranslation missing: en.activerecord.enums.regular_event.category.reading_circle\n参加反映テスト用定期イベント(祝日非開催)\n開催日時\nWed, 12 Nov 2025 21:00:00 +0000\nTranslation missing: en.dates.day_after_tomorrow開催\nTranslation missing: en.dates.day_after_tomorrow開催のイベントはありません。\n全てのイベント（参加登録はこちらから）\n最新のお知らせ\nお知らせの検索結果テスト用\nkomagata (コマガタ マサキ)\nSun, 20 May 2018 00:00:00 +0000\n後から公開されたお知らせ\nkomagata (コマガタ マサキ)\nThu, 11 Jan 2018 00:00:00 +0000\n現役生にのみ通知するお知らせ\nmachida (マチダ テッペイ)\nThu, 04 Jan 2018 00:00:00 +0000\n生徒からのお知らせ\nkimura (キムラ タダシ)\nWed, 03 Jan 2018 00:00:00 +0000\nテストのお知らせ\nmachida (マチダ テッペイ)\nWed, 03 Jan 2018 00:00:00 +0000\n全てのお知らせ\n就職活動中のユーザー\njobseeking （就活 中）\nユーザー一覧\nヘルプ\nアドバイザーヘルプ\nフィヨルドブートキャンプ学習アプリに関する使い方はこちらをご覧ください。\nヘルプ\nFBC運営への連絡\n研修や研修生についてのご相談など、フィヨルドブートキャンプ運営者へのご相談がありましたら、こちらからご連絡をお願いします。\n相談部屋\nホームページ\nブログ\n参考書籍\nbootcampリポジトリ\nbootcampカンバン\nFjord Minutes\nグッズ購入\nフィヨブーファンブック\nアンチハラスメントポリシー\n利用規約\nプライバシーポリシー\n特定商取引法に基づく表記\nコース一覧\n企業一覧\n#fjordbootcamp\nFjord Choice\nFjordContributions\nBuzzcord\nDiscordBotF\nBookRin\nFBC Stack\nフィヨルドブートキャスト\nRouletteTalk\nagentリポジトリ\nagentカンバン\nYouTubeチャンネル\nFBCのXアカウント\nLokka Inc.2012 - 2025"
+
+bin/rails test test/system/home_test.rb:337
+
+Test is missing assertions: `test_show_current_month's_page_of_Nico_Nico_calendar_when_future_date_is_specified_in_URL_params` /Users/machida/dev/bootcamp/test/system/home_test.rb:170
+..[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_show_my_wip-s_report-s_date_on_dashboard.png
+F
+
+Failure:
+HomeTest#test_show_my_wip's_report's_date_on_dashboard [test/system/home_test.rb:455]:
+expected to find text "2025年11月11日(火) 09:58" in "日報\nWIPの日報\nTue, 11 Nov 2025 00:58:37 +0000"
+
+bin/rails test test/system/home_test.rb:451
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_show_all_regular_events_and_special_events_on_dashbord.png
+E
+
+Error:
+HomeTest#test_show_all_regular_events_and_special_events_on_dashbord:
+Capybara::ElementNotFound: Unable to find css ".card-list__label"
+    test/system/home_test.rb:253:in `block (2 levels) in <class:HomeTest>'
+    test/system/home_test.rb:251:in `block in <class:HomeTest>'
+
+bin/rails test test/system/home_test.rb:250
+
+..[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_show_my_wip-s_announcement_on_dashboard.png
+E
+
+Error:
+HomeTest#test_show_my_wip's_announcement_on_dashboard:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/components/products/product_component.html.slim:77:in `call'
+    app/components/products/unassigned_products_component.html.slim:12:in `block (2 levels) in call'
+    app/components/products/unassigned_products_component.html.slim:11:in `each'
+    app/components/products/unassigned_products_component.html.slim:11:in `block in call'
+    app/components/products/unassigned_products_component.html.slim:2:in `each'
+    app/components/products/unassigned_products_component.html.slim:2:in `call'
+    app/views/home/_mentor_dashboard.html.slim:11
+    app/views/home/index.html.slim:18
+    app/controllers/home_controller.rb:13:in `index'
+
+bin/rails test test/system/home_test.rb:376
+
+.[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_delete_bookmark_for_latest_bookmarks_on_dashboard.png
+.E
+
+Error:
+HomeTest#test_delete_bookmark_for_latest_bookmarks_on_dashboard:
+Selenium::WebDriver::Error::ElementClickInterceptedError: element click intercepted: Element <button aria-pressed="false" class="a-bookmark-button a-button is-sm is-block is-inactive is-muted" data-bookmarkable-id="826885868" data-bookmarkable-type="Report" disabled="" id="bookmark-button" type="button">...</button> is not clickable at point (376, 284). Other element would receive the click: <div class="page-content-header-actions__action">...</div>
+  (Session info: chrome=142.0.7444.135)
+    test/system/home_test.rb:495:in `block (2 levels) in <class:HomeTest>'
+    test/system/home_test.rb:493:in `each'
+    test/system/home_test.rb:493:in `block in <class:HomeTest>'
+
+bin/rails test test/system/home_test.rb:489
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_display_message_if_no_product_after_5_days.png
+F
+
+Failure:
+HomeTest#test_display_message_if_no_product_after_5_days [test/system/home_test.rb:528]:
+expected to find text "しばらく4日経過に到達する" in "ダッシュボード\nお知らせ\nプラクティス\n日報・ブログ\n提出物\n15\nQ&A\nDocs・動画\nポートフォリオ\nユーザー\nイベント\n相談\nメンター\n管理者\nメンターモード\n検索\nヘルプ\nMe\nダッシュボード\nマイプロフィール\n日報作成\nダッシュボード\n自分の日報 （4）\n自分の提出物 （0）\nブックマーク （28）\nWatch中\n\nメンター通知\n近日開催のイベント\nTranslation missing: en.dates.today開催\nTranslation missing: en.activerecord.enums.regular_event.category.reading_circle\n定期イベントの検索結果テスト用\n開催日時\nTue, 11 Nov 2025 21:00:00 +0000\nTranslation missing: en.dates.tomorrow開催\nTranslation missing: en.activerecord.enums.regular_event.category.reading_circle\nDiscord通知確認用イベント(土曜日午前8時から開催)\n開催日時\nWed, 12 Nov 2025 08:00:00 +0000\nTranslation missing: en.activerecord.enums.regular_event.category.reading_circle\nEveryday Rails輪読会\n開催日時\nWed, 12 Nov 2025 17:00:00 +0000\nTranslation missing: en.activerecord.enums.regular_event.category.reading_circle\n独習Git輪読会\n開催日時\nWed, 12 Nov 2025 21:00:00 +0000\nTranslation missing: en.activerecord.enums.regular_event.category.reading_circle\n参加反映テスト用定期イベント(祝日非開催)\n開催日時\nWed, 12 Nov 2025 21:00:00 +0000\nTranslation missing: en.dates.day_after_tomorrow開催\nTranslation missing: en.dates.day_after_tomorrow開催のイベントはありません。\n全てのイベント（参加登録はこちらから）\n最新のお知らせ\nお知らせの検索結果テスト用\nkomagata (コマガタ マサキ)\nSun, 20 May 2018 00:00:00 +0000\n後から公開されたお知らせ\nkomagata (コマガタ マサキ)\nThu, 11 Jan 2018 00:00:00 +0000\n現役生にのみ通知するお知らせ\nmachida (マチダ テッペイ)\nThu, 04 Jan 2018 00:00:00 +0000\n生徒からのお知らせ\nkimura (キムラ タダシ)\nWed, 03 Jan 2018 00:00:00 +0000\nテストのお知らせ\nmachida (マチダ テッペイ)\nWed, 03 Jan 2018 00:00:00 +0000\n全てのお知らせ\nWIPで保存中\nDocs\nWIPのテスト\nTue, 11 Nov 2025 00:58:37 +0000\nお知らせ\nwipのお知らせ\nTue, 11 Nov 2025 00:58:37 +0000\nホームページ\nブログ\n参考書籍\nbootcampリポジトリ\nbootcampカンバン\nFjord Minutes\nグッズ購入\nフィヨブーファンブック\nアンチハラスメントポリシー\n利用規約\nプライバシーポリシー\n特定商取引法に基づく表記\nコース一覧\n企業一覧\n#fjordbootcamp\nFjord Choice\nFjordContributions\nBuzzcord\nDiscordBotF\nBookRin\nFBC Stack\nフィヨルドブートキャスト\nRouletteTalk\nagentリポジトリ\nagentカンバン\nYouTubeチャンネル\nFBCのXアカウント\nLokka Inc.2012 - 2025". (However, it was found 1 time including non-visible text.)
+
+bin/rails test test/system/home_test.rb:521
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_can_not_see_tweet_button_when_current_user_does_not_complete_a_practice.png
+E
+
+Error:
+ProductsTest#test_can_not_see_tweet_button_when_current_user_does_not_complete_a_practice:
+Net::ReadTimeout: Net::ReadTimeout with "Net::ReadTimeout with #<TCPSocket:(closed)>"
+    test/supports/test_auth_helper.rb:9:in `visit_with_auth'
+    test/system/products_test.rb:43:in `block in <class:ProductsTest>'
+
+bin/rails test test/system/products_test.rb:42
+
+E
+
+Error:
+HomeTest#test_not_show_bookmarks_on_dashboard_when_the_user_has_no_bookmarks:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/components/products/product_component.html.slim:77:in `call'
+    app/components/products/unassigned_products_component.html.slim:12:in `block (2 levels) in call'
+    app/components/products/unassigned_products_component.html.slim:11:in `each'
+    app/components/products/unassigned_products_component.html.slim:11:in `block in call'
+    app/components/products/unassigned_products_component.html.slim:2:in `each'
+    app/components/products/unassigned_products_component.html.slim:2:in `call'
+    app/views/home/_mentor_dashboard.html.slim:11
+    app/views/home/index.html.slim:18
+    app/controllers/home_controller.rb:13:in `index'
+
+bin/rails test test/system/home_test.rb:437
+
+..[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_not_show_the_grass_for_admin.png
+E
+
+Error:
+HomeTest#test_not_show_the_grass_for_admin:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/components/products/product_component.html.slim:77:in `call'
+    app/components/products/unassigned_products_component.html.slim:12:in `block (2 levels) in call'
+    app/components/products/unassigned_products_component.html.slim:11:in `each'
+    app/components/products/unassigned_products_component.html.slim:11:in `block in call'
+    app/components/products/unassigned_products_component.html.slim:2:in `each'
+    app/components/products/unassigned_products_component.html.slim:2:in `call'
+    app/views/home/_mentor_dashboard.html.slim:11
+    app/views/home/index.html.slim:18
+    app/controllers/home_controller.rb:13:in `index'
+
+bin/rails test test/system/home_test.rb:228
+
+...[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_show_job_hunting_events_on_dashboard_for_all_user.png
+E
+
+Error:
+HomeTest#test_show_job_hunting_events_on_dashboard_for_all_user:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "https://www.example.com:52915/", pass allow_other_host: true to redirect anyway.
+    app/controllers/user_sessions_controller.rb:31:in `destroy'
+
+bin/rails test test/system/home_test.rb:235
+
+..[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_show_grass_hide_button_for_graduates.png
+F
+
+Failure:
+HomeTest#test_show_grass_hide_button_for_graduates [test/system/home_test.rb:334]:
+expected not to find visible css "h2.card-header__title" with text "学習時間", found 1 match: "学習時間"
+
+bin/rails test test/system/home_test.rb:327
+
+................[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_show_the_five_latest_bookmarks_on_dashboard.png
+E
+
+Error:
+HomeTest#test_show_the_five_latest_bookmarks_on_dashboard:
+Selenium::WebDriver::Error::ElementClickInterceptedError: element click intercepted: Element <button aria-busy="true" aria-pressed="false" class="a-bookmark-button a-button is-sm is-block is-inactive is-muted" data-bookmarkable-id="302937193" data-bookmarkable-type="Question" disabled="" id="bookmark-button" type="button">...</button> is not clickable at point (488, 246). Other element would receive the click: <div class="page-content-header-actions__action">...</div>
+  (Session info: chrome=142.0.7444.135)
+    test/system/home_test.rb:412:in `block in <class:HomeTest>'
+
+bin/rails test test/system/home_test.rb:410
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_show_my_wip-s_product-s_date_on_dashboard.png
+F
+
+Failure:
+HomeTest#test_show_my_wip's_product's_date_on_dashboard [test/system/home_test.rb:475]:
+expected to find text "2025年11月07日(金) 09:58" in "提出物\n「Terminalの基礎を覚える」の提出物\nFri, 07 Nov 2025 00:58:37 +0000"
+
+bin/rails test test/system/home_test.rb:469
+
+..........[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_shows_event_status_when_it_is_held_on_weekdays.png
+E
+
+Error:
+HomeTest#test_shows_event_status_when_it_is_held_on_weekdays:
+Capybara::ElementNotFound: Unable to find css ".card-list__label"
+    test/system/home_test.rb:557:in `block (2 levels) in <class:HomeTest>'
+    test/system/home_test.rb:555:in `block in <class:HomeTest>'
+
+bin/rails test test/system/home_test.rb:551
+
+...........[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_update_event.png
+E
+
+Error:
+EventsTest#test_update_event:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "https://www.example.com:52915/events/190150649", pass allow_other_host: true to redirect anyway.
+    app/controllers/events_controller.rb:50:in `update'
+
+bin/rails test test/system/events_test.rb:70
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_participating_is_first-come-first-served.png
+E
+
+Error:
+EventsTest#test_participating_is_first-come-first-served:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "https://www.example.com:52915/events/1051347165", pass allow_other_host: true to redirect anyway.
+    app/controllers/events_controller.rb:36:in `create'
+
+bin/rails test test/system/events_test.rb:233
+
+..[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_display_user_to_waitlist_when_event_participants_are_fulled.png
+E
+
+Error:
+EventsTest#test_display_user_to_waitlist_when_event_participants_are_fulled:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "https://www.example.com:52915/events/1051347166", pass allow_other_host: true to redirect anyway.
+    app/controllers/events_controller.rb:36:in `create'
+
+bin/rails test test/system/events_test.rb:265
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_logged_in_user_as_adviser_requests_retirement.png
+E
+
+Error:
+RequestRetirementsTest#test_logged_in_user_as_adviser_requests_retirement:
+Capybara::ElementNotFound: Unable to find select box "退会をさせる方のアカウント" that is not disabled and Unable to find input box with datalist completion "退会をさせる方のアカウント" that is not disabled
+    test/system/request_retirements_test.rb:11:in `block in <class:RequestRetirementsTest>'
+
+bin/rails test test/system/request_retirements_test.rb:6
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_user_can_cancel_event_even_if_deadline_has_passed.png
+F
+
+Failure:
+EventsTest#test_user_can_cancel_event_even_if_deadline_has_passed [test/system/events_test.rb:209]:
+expected to find text "参加を取り消しました。" in "ダッシュボード\nお知らせ\nプラクティス\n日報・ブログ\n15\nQ&A\nDocs・動画\nポートフォリオ\nユーザー\nイベント\n相談\n検索\nヘルプ\nMe\nイベント\nイベント購読\n特別イベント\n定期イベント\n特別イベント\n特別イベント作成\n特別イベント一覧\n募集受付は終了しました。\n参加者\n0\n募集期間後のイベント\nkimura (キムラ タダシ)\nTue, 11 Nov 2025 00:58:37 +0000\nコメント（\n0\n）\nWatch\nコピー\n会場\nFJORDオフィス（定員 10名）\n開催日時\nTue, 10 Nov 2026 23:58:37 +0000 〜 Wed, 11 Nov 2026 00:58:37 +0000\nGoogleカレンダーに追加\n募集期間\nMon, 10 Nov 2025 00:58:37 +0000 〜 Mon, 10 Nov 2025 01:58:37 +0000\nイベント内容\n参加者（0名/10名）\n参加者はまだいません。\nロード中\n見たよ\nホームページ\nブログ\n参考書籍\nbootcampリポジトリ\nbootcampカンバン\nFjord Minutes\nグッズ購入\nフィヨブーファンブック\nアンチハラスメントポリシー\n利用規約\nプライバシーポリシー\n特定商取引法に基づく表記\nコース一覧\n企業一覧\n#fjordbootcamp\nFjord Choice\nFjordContributions\nBuzzcord\nDiscordBotF\nBookRin\nFBC Stack\nフィヨルドブートキャスト\nRouletteTalk\nagentリポジトリ\nagentカンバン\nYouTubeチャンネル\nFBCのXアカウント\nLokka Inc.2012 - 2025"
+
+bin/rails test test/system/events_test.rb:202
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_autolink_location_when_url_is_included.png
+E
+
+Error:
+EventsTest#test_autolink_location_when_url_is_included:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "https://www.example.com:52915/events/1051347167", pass allow_other_host: true to redirect anyway.
+    app/controllers/events_controller.rb:36:in `create'
+
+bin/rails test test/system/events_test.rb:214
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_waiting_user_moves_up_when_participant_cancels_event.png
+E
+
+Error:
+EventsTest#test_waiting_user_moves_up_when_participant_cancels_event:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "https://www.example.com:52915/events/1051347168", pass allow_other_host: true to redirect anyway.
+    app/controllers/events_controller.rb:36:in `create'
+
+bin/rails test test/system/events_test.rb:297
+
+E
+
+Error:
+EventsTest#test_checkboxes_for_creating_an_announcement_are_display_the_edit_page_of_wip_event:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "https://www.example.com:52915/events/1051347169/edit", pass allow_other_host: true to redirect anyway.
+    app/controllers/events_controller.rb:36:in `create'
+
+bin/rails test test/system/events_test.rb:493
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_when_the_create_announcements_checkbox_is_enabled-_the_user_is_redirected_to_the_new_announcement_page_after_create_a_new_event.png
+.F
+
+Failure:
+EventsTest#test_when_the_create_announcements_checkbox_is_enabled,_the_user_is_redirected_to_the_new_announcement_page_after_create_a_new_event [test/system/events_test.rb:451]:
+expected to find text "イベントを作成しました" in "ダッシュボード\nお知らせ\nプラクティス\n日報・ブログ\n提出物\n15\nQ&A\nDocs・動画\nポートフォリオ\nユーザー\nイベント\n相談\nメンター\n管理者\nメンターモード\n検索\nヘルプ\nMe\nお知らせ作成\nお知らせ一覧\nTitle\nお知らせの内容本文がタイトルから予想できる、具体的なタイトルを付けましょう。\n悪い例: フィヨブーハウス\n良い例: RubyKaigi 2024 フィヨブーハウス宿泊希望者申し込みを開始しました\nDescription\n<!-- このテキストを編集してください -->\n\nチェックボックスを有効にするとお知らせ作成ページにリダイレクトするを開催します🎉\n\n- 開催日時\n  - Wed, 12 Nov 2025 10:24:00 +0000 〜 Wed, 12 Nov 2025 12:24:00 +0000\n- 会場\n  - FJORDオフィス\n- 定員\n  - 10\n- 募集期間\n  - Tue, 11 Nov 2025 10:24:00 +0000 〜 Tue, 11 Nov 2025 12:24:00 +0000\n\n---\n\nお知らせ作成ページには、リダイレクト元のイベント情報が自動入力される\n\n## 参加登録はこちら\nhttps://www.example.com/events/1051347165\n\n---\nファイルを挿入\n途中保存は「command + s」 マメに保存しよう。\nプレビュー\nチェックボックスを有効にするとお知らせ作成ページにリダイレクトするを開催します🎉\n開催日時\nWed, 12 Nov 2025 10:24:00 +0000 〜 Wed, 12 Nov 2025 12:24:00 +0000\n会場\nFJORDオフィス\n定員\n10\n募集期間\nTue, 11 Nov 2025 10:24:00 +0000 〜 Tue, 11 Nov 2025 12:24:00 +0000\nお知らせ作成ページには、リダイレクト元のイベント情報が自動入力される\n参加登録はこちら\nhttps://www.example.com/events/1051347165\n通知ターゲット\n全員（退会者を除く）\n現役生のみ\n就職希望者のみ\nキャンセル\nホームページ\nブログ\n参考書籍\nbootcampリポジトリ\nbootcampカンバン\nFjord Minutes\nグッズ購入\nフィヨブーファンブック\nアンチハラスメントポリシー\n利用規約\nプライバシーポリシー\n特定商取引法に基づく表記\nコース一覧\n企業一覧\n#fjordbootcamp\nFjord Choice\nFjordContributions\nBuzzcord\nDiscordBotF\nBookRin\nFBC Stack\nフィヨルドブートキャスト\nRouletteTalk\nagentリポジトリ\nagentカンバン\nYouTubeチャンネル\nFBCのXアカウント\nLokka Inc.2012 - 2025"
+
+bin/rails test test/system/events_test.rb:431
+
+.[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_create_a_new_event.png
+F
+
+Failure:
+EventsTest#test_create_a_new_event:
+"Event.count" didn't change by 1, but by 0.
+Expected: 37
+  Actual: 36
+
+Error:
+EventsTest#test_create_a_new_event:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "https://www.example.com:53013/events/1051347166", pass allow_other_host: true to redirect anyway.
+    app/controllers/events_controller.rb:36:in `create'
+
+bin/rails test test/system/events_test.rb:33
+
+.[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_create_a_new_event_as_wip.png
+F
+
+Failure:
+EventsTest#test_create_a_new_event_as_wip:
+"Event.count" didn't change by 1, but by 0.
+Expected: 37
+  Actual: 36
+
+Error:
+EventsTest#test_create_a_new_event_as_wip:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "https://www.example.com:53013/events/1051347167/edit", pass allow_other_host: true to redirect anyway.
+    app/controllers/events_controller.rb:36:in `create'
+
+bin/rails test test/system/events_test.rb:14
+
+........[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_user_can_participate_in_an_event.png
+F
+
+Failure:
+EventsTest#test_user_can_participate_in_an_event [test/system/events_test.rb:187]:
+expected to find text "参加登録しました。" in "ダッシュボード\nお知らせ\nプラクティス\n日報・ブログ\n15\nQ&A\nDocs・動画\nポートフォリオ\nユーザー\nイベント\n相談\n検索\nヘルプ\nMe\nイベント\nイベント購読\n特別イベント\n定期イベント\n特別イベント\n特別イベント作成\n特別イベント一覧\n参加者\n3\n募集期間中のイベント(補欠者なし)\nkimura (キムラ タダシ)\nTue, 11 Nov 2025 00:58:37 +0000\nコメント（\n0\n）\nWatch中\nコピー\n会場\nFJORDオフィス（定員 40名）\n開催日時\nTue, 10 Nov 2026 00:58:37 +0000 〜 Wed, 11 Nov 2026 00:58:37 +0000\nGoogleカレンダーに追加\n募集期間\nTue, 11 Nov 2025 00:58:37 +0000 〜 Wed, 11 Nov 2026 00:58:37 +0000\nイベント内容\n参加登録しています。\n参加を取り消す\n内容修正\n削除する\n参加者（3名/40名）\nロード中\nホームページ\nブログ\n参考書籍\nbootcampリポジトリ\nbootcampカンバン\nFjord Minutes\nグッズ購入\nフィヨブーファンブック\nアンチハラスメントポリシー\n利用規約\nプライバシーポリシー\n特定商取引法に基づく表記\nコース一覧\n企業一覧\n#fjordbootcamp\nFjord Choice\nFjordContributions\nBuzzcord\nDiscordBotF\nBookRin\nFBC Stack\nフィヨルドブートキャスト\nRouletteTalk\nagentリポジトリ\nagentカンバン\nYouTubeチャンネル\nFBCのXアカウント\nLokka Inc.2012 - 2025"
+
+bin/rails test test/system/events_test.rb:180
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_dates_of_target_events_get_filled_automatically_only_when_they_are_empty.png
+F
+
+Failure:
+EventsTest#test_dates_of_target_events_get_filled_automatically_only_when_they_are_empty [test/system/events_test.rb:401]:
+Expected: ""
+  Actual: "2050-12-24T23:59"
+
+bin/rails test test/system/events_test.rb:395
+
+.[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_user_can_cancel_event.png
+F
+
+Failure:
+EventsTest#test_user_can_cancel_event [test/system/events_test.rb:198]:
+expected to find text "参加を取り消しました。" in "ダッシュボード\nお知らせ\nプラクティス\n日報・ブログ\n15\nQ&A\nDocs・動画\nポートフォリオ\nユーザー\nイベント\n相談\n検索\nヘルプ\nMe\nイベント\nイベント購読\n特別イベント\n定期イベント\n特別イベント\n特別イベント作成\n特別イベント一覧\n参加者\n1\n募集期間中のイベント(補欠者なし)\nkimura (キムラ タダシ)\nTue, 11 Nov 2025 00:58:37 +0000\nコメント（\n0\n）\nWatch\nコピー\n会場\nFJORDオフィス（定員 40名）\n開催日時\nTue, 10 Nov 2026 00:58:37 +0000 〜 Wed, 11 Nov 2026 00:58:37 +0000\nGoogleカレンダーに追加\n募集期間\nTue, 11 Nov 2025 00:58:37 +0000 〜 Wed, 11 Nov 2026 00:58:37 +0000\nイベント内容\nあと39名が参加できます。\n参加申込\n参加者（1名/40名）\nロード中\n見たよ\nホームページ\nブログ\n参考書籍\nbootcampリポジトリ\nbootcampカンバン\nFjord Minutes\nグッズ購入\nフィヨブーファンブック\nアンチハラスメントポリシー\n利用規約\nプライバシーポリシー\n特定商取引法に基づく表記\nコース一覧\n企業一覧\n#fjordbootcamp\nFjord Choice\nFjordContributions\nBuzzcord\nDiscordBotF\nBookRin\nFBC Stack\nフィヨルドブートキャスト\nRouletteTalk\nagentリポジトリ\nagentカンバン\nYouTubeチャンネル\nFBCのXアカウント\nLokka Inc.2012 - 2025"
+
+bin/rails test test/system/events_test.rb:191
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_create_copy_event.png
+E
+
+Error:
+EventsTest#test_create_copy_event:
+ActionView::Template::Error: Translation missing: en.time.formats.time_only
+    app/decorators/event_decorator.rb:6:in `period'
+    app/views/events/show.html.slim:2
+
+bin/rails test test/system/events_test.rb:52
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_checkboxes_for_creating_an_announcement_are_not_display_the_edit_page_of_published_event.png
+E
+
+Error:
+EventsTest#test_checkboxes_for_creating_an_announcement_are_not_display_the_edit_page_of_published_event:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "https://www.example.com:52915/events/1051347170", pass allow_other_host: true to redirect anyway.
+    app/controllers/events_controller.rb:36:in `create'
+
+bin/rails test test/system/events_test.rb:510
+
+.[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_destroy_event.png
+E
+
+Error:
+EventsTest#test_destroy_event:
+ActionView::Template::Error: Translation missing: en.time.formats.time_only
+    app/decorators/event_decorator.rb:6:in `period'
+    app/views/events/show.html.slim:2
+
+bin/rails test test/system/events_test.rb:86
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_when_the_create_announcements_checkbox_is_enabled-_the_user_is_redirected_to_the_new_announcement_page_after_edit_a_wip_event.png
+E
+
+Error:
+EventsTest#test_when_the_create_announcements_checkbox_is_enabled,_the_user_is_redirected_to_the_new_announcement_page_after_edit_a_wip_event:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "https://www.example.com:52915/events/1051347171/edit", pass allow_other_host: true to redirect anyway.
+    app/controllers/events_controller.rb:36:in `create'
+
+bin/rails test test/system/events_test.rb:458
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_show_message_about_ending_event_after_event_end.png
+E
+
+Error:
+EventsTest#test_show_message_about_ending_event_after_event_end:
+ActionView::Template::Error: Translation missing: en.time.formats.time_only
+    app/decorators/event_decorator.rb:6:in `period'
+    app/views/events/show.html.slim:2
+
+bin/rails test test/system/events_test.rb:175
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_does_not_display_waitlist_card_when_no_users_waiting.png
+E
+
+Error:
+EventsTest#test_does_not_display_waitlist_card_when_no_users_waiting:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "https://www.example.com:52915/events/1051347172", pass allow_other_host: true to redirect anyway.
+    app/controllers/events_controller.rb:36:in `create'
+
+bin/rails test test/system/events_test.rb:342
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_upcoming_events_groups.png
+E
+
+Error:
+EventsTest#test_upcoming_events_groups:
+Capybara::ElementNotFound: Unable to find css ".card-list__items" within #<Capybara::Node::Element tag="div" path="/HTML/BODY[1]/DIV[2]/MAIN[1]/DIV[3]/DIV[1]/DIV[1]/DIV[2]">
+    test/system/events_test.rb:547:in `block (3 levels) in <class:EventsTest>'
+    test/system/events_test.rb:545:in `block (2 levels) in <class:EventsTest>'
+    test/system/events_test.rb:543:in `block in <class:EventsTest>'
+
+bin/rails test test/system/events_test.rb:539
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_toggles_mentor_profile_visibility.png
+E
+
+Error:
+HomeTest#test_toggles_mentor_profile_visibility:
+Net::ReadTimeout: Net::ReadTimeout with "Net::ReadTimeout with #<TCPSocket:(closed)>"
+    test/system/home_test.rb:589:in `block in <class:HomeTest>'
+
+bin/rails test test/system/home_test.rb:587
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_GET_-_without_sign_in.png
+E
+
+Error:
+HomeTest#test_GET_/_without_sign_in:
+Net::ReadTimeout: Net::ReadTimeout with "Net::ReadTimeout with #<TCPSocket:(closed)>"
+    test/supports/login_helper.rb:14:in `logout'
+    test/system/home_test.rb:7:in `block in <class:HomeTest>'
+
+bin/rails test test/system/home_test.rb:6
+

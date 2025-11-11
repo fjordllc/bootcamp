@@ -17,7 +17,17 @@
       "Bash(bundle show:*)",
       "Bash(GIT_SEQUENCE_EDITOR=\"sed -i '''' ''/c481dd43c/d''\" git rebase -i 0b205e740^)",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "WebFetch(domain:rubygems.org)"
+      "WebFetch(domain:rubygems.org)",
+      "Bash(/bashes)",
+      "Bash(while read hash subject)",
+      "Bash(do echo \"=== $subject ===\")",
+      "Bash(for commit in 779af48ba 59e525be3 35efee606 0bd808211 117aeca33 c51434d13)",
+      "Bash(do echo \"=== $commit ===\")",
+      "Bash(bundle exec rake:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(bin/rspec:*)",
+      "Bash(bundle exec rails test:*)"
     ],
     "deny": [],
     "ask": []

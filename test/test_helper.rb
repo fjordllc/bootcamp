@@ -19,6 +19,11 @@ Capybara.enable_aria_label = true
 # Configure retry for flaky tests
 Minitest::Retry.use!(retry_count: 3, verbose: true) if ENV['CI']
 
+# フィクスチャ(ERB)評価前にタイムゾーン/ロケールを明示設定して
+# Time.zone.local 等の評価結果を安定させる（JST基準）。
+I18n.locale = :ja
+Time.zone = 'Asia/Tokyo'
+
 class ActiveSupport::TestCase
   include VCRHelper
 
