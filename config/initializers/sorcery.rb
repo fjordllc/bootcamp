@@ -449,7 +449,18 @@ Rails.application.config.sorcery.configure do |config|
     # user.provider_uid_attribute_name =
 
     # -- jwt --
-    user.jwt_secret = Rails.application.secrets[:secret_key_base] || "dummy"
+    # 本番環境ではsecret_key_baseが必須、開発・テスト環境ではフォールバック可能
+    jwt_secret = Rails.application.secrets[:secret_key_base] || Rails.application.credentials.secret_key_base
+
+    if Rails.env.production?
+      if jwt_secret.blank?
+        raise "secret_key_base must be set in production environment for JWT authentication"
+      end
+      user.jwt_secret = jwt_secret
+    else
+      # 開発・テスト環境ではフォールバック値を許可
+      user.jwt_secret = jwt_secret || "dummy"
+    end
     # user.jwt_algorithm = "HS256" # HS256 is used by default.
     # user.session_expiry = 60 * 60 * 24 * 7 * 2 # 2 weeks is used by default.
   end
