@@ -5341,3 +5341,513 @@ ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
 
 bin/rails test test/system/reaction/micro_reports_test.rb:29
 
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_delete_reaction_of_micro_report_on_dropdown.png
+E
+
+Error:
+Reaction::MicroReportsTest#test_delete_reaction_of_micro_report_on_dropdown:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/components/users/micro_reports/micro_report_component.rb:17:in `posted_datetime'
+    app/components/users/micro_reports/micro_report_component.html.slim:11:in `call'
+    app/views/users/micro_reports/index.html.slim:34
+    app/views/users/micro_reports/index.html.slim:31:in `each_with_index'
+    app/views/users/micro_reports/index.html.slim:31
+
+bin/rails test test/system/reaction/micro_reports_test.rb:20
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_reaction_to_micro_report.png
+E
+
+Error:
+Reaction::MicroReportsTest#test_reaction_to_micro_report:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/components/users/micro_reports/micro_report_component.rb:17:in `posted_datetime'
+    app/components/users/micro_reports/micro_report_component.html.slim:11:in `call'
+    app/views/users/micro_reports/index.html.slim:34
+    app/views/users/micro_reports/index.html.slim:31:in `each_with_index'
+    app/views/users/micro_reports/index.html.slim:31
+
+bin/rails test test/system/reaction/micro_reports_test.rb:12
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_setting_checker.png
+E
+
+Error:
+ProductsTest#test_setting_checker:
+Capybara::ElementNotFound: Unable to find button "担当する" that is not disabled
+    test/system/products_test.rb:352:in `block in <class:ProductsTest>'
+
+bin/rails test test/system/products_test.rb:350
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_click_on_the_link_to_view_the_rest_of_footprints.png
+F
+
+Failure:
+Footprint::AnnouncementsTest#test_click_on_the_link_to_view_the_rest_of_footprints [test/system/footprint/announcements_test.rb:61]:
+expected not to find visible css ".user-icons__more", found 1 match: "その他1人"
+
+bin/rails test test/system/footprint/announcements_test.rb:48
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_receive_a_notification_when_I_got_my_question-s_answer.png
+E
+
+Error:
+Notification::AnswersTest#test_receive_a_notification_when_I_got_my_question's_answer:
+Capybara::ElementNotFound: Unable to find visible css ".thread-comment-form__form"
+    test/system/notification/answers_test.rb:18:in `block in <class:AnswersTest>'
+
+bin/rails test test/system/notification/answers_test.rb:16
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_not_display_products_in_listing_self-assigned_if_self-assigned_products_all_checked.png
+F
+
+Failure:
+Product::SelfAssignedTest#test_not_display_products_in_listing_self-assigned_if_self-assigned_products_all_checked [test/system/product/self_assigned_test.rb:61]:
+expected to find text "提出物はありません" in "ダッシュボード\nお知らせ\nプラクティス\n日報・ブログ\n提出物\n15\nQ&A\nDocs・動画\nポートフォリオ\nユーザー\nイベント\n相談\nメンター\n管理者\nメンターモード\n検索\nヘルプ\nMe\n提出物\n全て\n未完了 （66）\n未アサイン\n62\n自分の担当 （0）\nホームページ\nブログ\n参考書籍\nbootcampリポジトリ\nbootcampカンバン\nFjord Minutes\nグッズ購入\nフィヨブーファンブック\nアンチハラスメントポリシー\n利用規約\nプライバシーポリシー\n特定商取引法に基づく表記\nコース一覧\n企業一覧\n#fjordbootcamp\nFjord Choice\nFjordContributions\nBuzzcord\nDiscordBotF\nBookRin\nFBC Stack\nフィヨルドブートキャスト\nRouletteTalk\nagentリポジトリ\nagentカンバン\nYouTubeチャンネル\nFBCのXアカウント\nLokka Inc.2012 - 2025"
+
+bin/rails test test/system/product/self_assigned_test.rb:55
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_not_display_hibernated_users-_products_in_a_self_assigned_products_list.png
+F
+
+Failure:
+Product::SelfAssignedTest#test_not_display_hibernated_users'_products_in_a_self_assigned_products_list [test/system/product/self_assigned_test.rb:204]:
+expected to find text "kimura (キムラ タダシ)" in "ダッシュボード\nお知らせ\nプラクティス\n日報・ブログ\n提出物\n15\nQ&A\nDocs・動画\nポートフォリオ\nユーザー\nイベント\n相談\nメンター\nメンターモード\n検索\nヘルプ\nMe\n提出物\n全て\n未完了 （67）\n未アサイン\n62\n自分の担当 （1）\nホームページ\nブログ\n参考書籍\nbootcampリポジトリ\nbootcampカンバン\nFjord Minutes\nグッズ購入\nフィヨブーファンブック\nアンチハラスメントポリシー\n利用規約\nプライバシーポリシー\n特定商取引法に基づく表記\nコース一覧\n企業一覧\n#fjordbootcamp\nFjord Choice\nFjordContributions\nBuzzcord\nDiscordBotF\nBookRin\nFBC Stack\nフィヨルドブートキャスト\nRouletteTalk\nagentリポジトリ\nagentカンバン\nYouTubeチャンネル\nFBCのXアカウント\nLokka Inc.2012 - 2025"
+
+bin/rails test test/system/product/self_assigned_test.rb:181
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_the_number_of_products_displayed_in_a_self_assigned_tab_excludes_hibernated_users-_products.png
+F
+
+Failure:
+Product::SelfAssignedTest#test_the_number_of_products_displayed_in_a_self_assigned_tab_excludes_hibernated_users'_products [test/system/product/self_assigned_test.rb:167]:
+expected to find visible css ".page-tabs__item-count.a-notification-count.is-only-mentor" with text "1" but there were no matches. Also found "", which matched the selector but not all filters. 
+
+bin/rails test test/system/product/self_assigned_test.rb:151
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_click_on_open_all_self-assigned_submissions_button.png
+E
+
+Error:
+Product::SelfAssignedTest#test_click_on_open_all_self-assigned_submissions_button:
+Capybara::ElementNotFound: Unable to find button "自分の担当の提出物を一括で開く" that is not disabled
+    test/system/product/self_assigned_test.rb:38:in `block in <class:SelfAssignedTest>'
+
+bin/rails test test/system/product/self_assigned_test.rb:28
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_display_replied_products_if_click_on_self_assigned_all-button.png
+E
+
+Error:
+Product::SelfAssignedTest#test_display_replied_products_if_click_on_self_assigned_all-button:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/components/products/product_component.html.slim:77:in `call'
+    app/components/products/user_products_component.html.slim:9:in `block in call'
+    app/components/products/user_products_component.html.slim:8:in `call'
+    app/views/products/show.html.slim:119
+
+bin/rails test test/system/product/self_assigned_test.rb:126
+
+....[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_display_no_replied_products_if_click_on_no-replied-button.png
+F
+
+Failure:
+Product::SelfAssignedTest#test_display_no_replied_products_if_click_on_no-replied-button [test/system/product/self_assigned_test.rb:96]:
+Expected: ["Linuxのファイル操作の基礎を覚えるの提出物"]
+  Actual: []
+
+bin/rails test test/system/product/self_assigned_test.rb:82
+
+.........[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_cannot_access_users_list_without_login.png
+E
+
+Error:
+UsersLoginTest#test_cannot_access_users_list_without_login:
+Net::ReadTimeout: Net::ReadTimeout with "Net::ReadTimeout with #<TCPSocket:(closed)>"
+    test/supports/login_assert_helper.rb:5:in `assert_login_required'
+    test/system/require_login/users_test.rb:9:in `block in <class:UsersLoginTest>'
+
+bin/rails test test/system/require_login/users_test.rb:8
+
+....[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_mentor_can_see_a_button_to_open_to_open_all_self-assigned_products.png
+F
+
+Failure:
+Product::SelfAssignedTest#test_mentor_can_see_a_button_to_open_to_open_all_self-assigned_products [test/system/product/self_assigned_test.rb:25]:
+expected to find button "自分の担当の提出物を一括で開く" that is not disabled but there were no matches
+
+bin/rails test test/system/product/self_assigned_test.rb:16
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_update_a_coding_test.png
+E
+
+Error:
+Mentor::CodingTestsTest#test_update_a_coding_test:
+Capybara::ElementNotFound: Unable to find button "更新する" that is not disabled within #<Capybara::Node::Element tag="form" path="/HTML/BODY[1]/DIV[2]/MAIN[1]/DIV[2]/DIV[1]/DIV[1]/FORM[1]">
+    test/system/mentor/coding_tests_test.rb:38:in `block (2 levels) in <class:CodingTestsTest>'
+    test/system/mentor/coding_tests_test.rb:36:in `block in <class:CodingTestsTest>'
+
+bin/rails test test/system/mentor/coding_tests_test.rb:33
+
+...............F
+
+Failure:
+EventTest#test_.scheduled_on_without_ended [test/models/event_test.rb:146]:
+Expected #<ActiveRecord::Relation [#<Event id: 580012917, title: "2024/12/1(日)9:00〜12:00開催の特別イベント", description: "本日開催でまだ終了時刻を迎えていない特別イベントの表示テスト用", location: "FJORDオフィス", capacity: 40, start_at: "2024-12-01 18:00:00.000000000 +0900", end_at: "2024-12-01 21:00:00.000000000 +0900", open_start_at: "2024-11-01 18:00:00.000000000 +0900", open_end_at: "2024-12-01 18:00:00.000000000 +0900", user_id: 991528156, created_at: "2025-11-11 09:58:37.579833000 +0900", updated_at: "2025-11-11 09:58:37.579833000 +0900", wip: false, job_hunting: false, published_at: nil, announcement_of_publication: nil>, #<Event id: 1000020681, title: "2024/12/1(日)6:00〜7:00開催の特別イベント", description: "本日開催で終了時刻を過ぎた特別イベントの表示テスト用", location: "FJORDオフィス", capacity: 40, start_at: "2024-12-01 15:00:00.000000000 +0900", end_at: "2024-12-01 16:00:00.000000000 +0900", open_start_at: "2024-11-01 15:00:00.000000000 +0900", open_end_at: "2024-12-01 15:00:00.000000000 +0900", user_id: 991528156, created_at: "2025-11-11 09:58:37.579833000 +0900", updated_at: "2025-11-11 09:58:37.579833000 +0900", wip: false, job_hunting: false, published_at: nil, announcement_of_publication: nil>]> to not include #<Event id: 1000020681, title: "2024/12/1(日)6:00〜7:00開催の特別イベント", description: "本日開催で終了時刻を過ぎた特別イベントの表示テスト用", location: "FJORDオフィス", capacity: 40, start_at: "2024-12-01 15:00:00.000000000 +0900", end_at: "2024-12-01 16:00:00.000000000 +0900", open_start_at: "2024-11-01 15:00:00.000000000 +0900", open_end_at: "2024-12-01 15:00:00.000000000 +0900", user_id: 991528156, created_at: "2025-11-11 09:58:37.579833000 +0900", updated_at: "2025-11-11 09:58:37.579833000 +0900", wip: false, job_hunting: false, published_at: nil, announcement_of_publication: nil>.
+
+bin/rails test test/models/event_test.rb:139
+
+.....[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_create_a_coding_test.png
+E
+
+Error:
+Mentor::CodingTestsTest#test_create_a_coding_test:
+Capybara::ExpectationNotMet: expected to find css ".choices__item--selectable" within #<Capybara::Node::Element tag="form" path="/HTML/BODY[1]/DIV[2]/MAIN[1]/DIV[2]/DIV[1]/DIV[1]/FORM[1]"> at least 1 time but there were no matches
+    test/system/mentor/coding_tests_test.rb:15:in `block (2 levels) in <class:CodingTestsTest>'
+    test/system/mentor/coding_tests_test.rb:13:in `block in <class:CodingTestsTest>'
+
+bin/rails test test/system/mentor/coding_tests_test.rb:11
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_post_new_comment_for_page.png
+E
+
+Error:
+PageCommentsTest#test_post_new_comment_for_page:
+Capybara::ElementNotFound: Unable to find visible css ".thread-comment-form__form"
+    test/system/comment/page_comments_test.rb:8:in `block in <class:PageCommentsTest>'
+
+bin/rails test test/system/comment/page_comments_test.rb:6
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_not_display_learning_completion_message_when_a_user_whom_the_product_does_not_belongs_to_visits_show.png
+E
+
+Error:
+ProductsTest#test_not_display_learning_completion_message_when_a_user_whom_the_product_does_not_belongs_to_visits_show:
+Net::ReadTimeout: Net::ReadTimeout with "Net::ReadTimeout with #<TCPSocket:(closed)>"
+    test/supports/test_auth_helper.rb:9:in `visit_with_auth'
+    test/system/products_test.rb:65:in `block in <class:ProductsTest>'
+
+bin/rails test test/system/products_test.rb:64
+
+Test is missing assertions: `test_display_listing_FaqCategory` /Users/machida/dev/bootcamp/test/system/admin/faq_category_test.rb:6
+.......[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_display_no_replied_products_if_click_on_self-assigned-tab.png
+F
+
+Failure:
+Product::SelfAssignedTest#test_display_no_replied_products_if_click_on_self-assigned-tab [test/system/product/self_assigned_test.rb:78]:
+Expected: ["Linuxのファイル操作の基礎を覚えるの提出物"]
+  Actual: []
+
+bin/rails test test/system/product/self_assigned_test.rb:64
+
+....[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_show_listing_reports.png
+F
+
+Failure:
+Practice::ReportsTest#test_show_listing_reports [test/system/practice/reports_test.rb:9]:
+expected to find css "img[alt=\"positive\"]" 2 times but there were no matches
+
+bin/rails test test/system/practice/reports_test.rb:6
+
+...[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_update_FAQ.png
+E
+
+Error:
+Admin::FaqCategoryest#test_update_FAQ:
+Capybara::ElementNotFound: Unable to find button "更新する" that is not disabled within #<Capybara::Node::Element tag="form" path="/HTML/BODY[1]/DIV[2]/MAIN[1]/MAIN[1]/DIV[1]/DIV[1]/FORM[1]">
+    test/system/admin/faq_category_test.rb:24:in `block (2 levels) in <class:FaqCategoryest>'
+    test/system/admin/faq_category_test.rb:22:in `block in <class:FaqCategoryest>'
+
+bin/rails test test/system/admin/faq_category_test.rb:20
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_comment_and_check_report_by_mentor.png
+E
+
+Error:
+Check::ReportsTest#test_comment_and_check_report_by_mentor:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/views/reports/_product.html.slim:39
+    app/views/reports/show.html.slim:103
+    app/views/reports/show.html.slim:102
+
+bin/rails test test/system/api/check/reports_test.rb:47
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_success_report_checking.png
+E
+
+Error:
+Check::ReportsTest#test_success_report_checking:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/views/reports/_product.html.slim:39
+    app/views/reports/show.html.slim:103
+    app/views/reports/show.html.slim:102
+
+bin/rails test test/system/api/check/reports_test.rb:16
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_success_report_checking_cancel.png
+E
+
+Error:
+Check::ReportsTest#test_success_report_checking_cancel:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/views/reports/_product.html.slim:39
+    app/views/reports/show.html.slim:103
+    app/views/reports/show.html.slim:102
+
+bin/rails test test/system/api/check/reports_test.rb:27
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_comment_and_check_report.png
+E
+
+Error:
+Check::ReportsTest#test_comment_and_check_report:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/views/reports/_product.html.slim:39
+    app/views/reports/show.html.slim:103
+    app/views/reports/show.html.slim:102
+
+bin/rails test test/system/api/check/reports_test.rb:39
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_non_admin_user_is_non_botton.png
+E
+
+Error:
+Check::ReportsTest#test_non_admin_user_is_non_botton:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/views/reports/_report.html.slim:58
+    app/views/reports/_recent_reports.html.slim:10
+    app/views/reports/show.html.slim:113
+
+bin/rails test test/system/api/check/reports_test.rb:6
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_user_can_see_stamp.png
+E
+
+Error:
+Check::ReportsTest#test_user_can_see_stamp:
+ActionView::Template::Error: Translation missing: en.time.formats.time_only
+    app/views/reports/_learning_times.html.slim:13
+    app/views/reports/_learning_times.html.slim:11
+    app/views/reports/_report_body.html.slim:3
+    app/views/reports/show.html.slim:27
+
+bin/rails test test/system/api/check/reports_test.rb:11
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_show_reaction_of_product.png
+E
+
+Error:
+Reaction::ProductsTest#test_show_reaction_of_product:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/components/products/product_component.html.slim:77:in `call'
+    app/components/products/user_products_component.html.slim:9:in `block in call'
+    app/components/products/user_products_component.html.slim:8:in `call'
+    app/views/products/show.html.slim:119
+
+bin/rails test test/system/reaction/product_test.rb:6
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_delete_FAQ.png
+F
+
+Failure:
+Admin::FaqCategoryest#test_delete_FAQ [test/system/admin/faq_category_test.rb:33]:
+expected to find text "FAQカテゴリーを削除しました。" in "ダッシュボード\nお知らせ\nプラクティス\n日報・ブログ\n提出物\n15\nQ&A\nDocs・動画\nポートフォリオ\nユーザー\nイベント\n相談\nメンター\n管理者\nメンターモード\n検索\nヘルプ\nMe\n管理ページ\n管理ページ\nユーザー\n企業\nFAQ\nお試し延長\nお問い合わせ\n企業研修\n給付金対応コース受講申請\nカテゴリー\nFAQ\nFAQカテゴリー一覧（6）\nカテゴリー追加\n名前 (FAQ数) 操作 並び順\n学習環境について (5)\n利用料について (2)\n就職について (3)\n入会について (6)\n退会、休会、卒業について (3)\n企業研修代行について (1)\nホームページ\nブログ\n参考書籍\nbootcampリポジトリ\nbootcampカンバン\nFjord Minutes\nグッズ購入\nフィヨブーファンブック\nアンチハラスメントポリシー\n利用規約\nプライバシーポリシー\n特定商取引法に基づく表記\nコース一覧\n企業一覧\n#fjordbootcamp\nFjord Choice\nFjordContributions\nBuzzcord\nDiscordBotF\nBookRin\nFBC Stack\nフィヨルドブートキャスト\nRouletteTalk\nagentリポジトリ\nagentカンバン\nYouTubeチャンネル\nFBCのXアカウント\nLokka Inc.2012 - 2025"
+
+bin/rails test test/system/admin/faq_category_test.rb:29
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_delete_reaction_of_product_on_fotter.png
+E
+
+Error:
+Reaction::ProductsTest#test_delete_reaction_of_product_on_fotter:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/components/products/product_component.html.slim:77:in `call'
+    app/components/products/user_products_component.html.slim:9:in `block in call'
+    app/components/products/user_products_component.html.slim:8:in `call'
+    app/views/products/show.html.slim:119
+
+bin/rails test test/system/reaction/product_test.rb:32
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_delete_reaction_of_product_on_dropdown.png
+E
+
+Error:
+Reaction::ProductsTest#test_delete_reaction_of_product_on_dropdown:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/components/products/product_component.html.slim:77:in `call'
+    app/components/products/user_products_component.html.slim:9:in `block in call'
+    app/components/products/user_products_component.html.slim:8:in `call'
+    app/views/products/show.html.slim:119
+
+bin/rails test test/system/reaction/product_test.rb:22
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_reaction_to_product.png
+E
+
+Error:
+Reaction::ProductsTest#test_reaction_to_product:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/components/products/product_component.html.slim:77:in `call'
+    app/components/products/user_products_component.html.slim:9:in `block in call'
+    app/components/products/user_products_component.html.slim:8:in `call'
+    app/views/products/show.html.slim:119
+
+bin/rails test test/system/reaction/product_test.rb:12
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_post_new_comment_for_product.png
+E
+
+Error:
+ProductCommentsTest#test_post_new_comment_for_product:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/components/products/product_component.html.slim:77:in `call'
+    app/components/products/user_products_component.html.slim:9:in `block in call'
+    app/components/products/user_products_component.html.slim:8:in `call'
+    app/views/products/show.html.slim:119
+
+bin/rails test test/system/comment/product_comments_test.rb:6
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_when_mentor_confirm_a_product_with_comment.png
+E
+
+Error:
+ProductCommentsTest#test_when_mentor_confirm_a_product_with_comment:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/components/products/product_component.html.slim:77:in `call'
+    app/components/products/user_products_component.html.slim:9:in `block in call'
+    app/components/products/user_products_component.html.slim:8:in `call'
+    app/views/products/show.html.slim:119
+
+bin/rails test test/system/comment/product_comments_test.rb:75
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_comments_added_8_or_within_the_last_8.png
+E
+
+Error:
+ProductCommentsTest#test_comments_added_8_or_within_the_last_8:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/components/products/product_component.html.slim:77:in `call'
+    app/components/products/user_products_component.html.slim:9:in `block in call'
+    app/components/products/user_products_component.html.slim:8:in `call'
+    app/views/products/show.html.slim:119
+
+bin/rails test test/system/comment/product_comments_test.rb:45
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_when_mentor_confirm_unassigned_product_with_comment.png
+E
+
+Error:
+ProductCommentsTest#test_when_mentor_confirm_unassigned_product_with_comment:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/components/products/product_component.html.slim:77:in `call'
+    app/components/products/user_products_component.html.slim:9:in `block in call'
+    app/components/products/user_products_component.html.slim:8:in `call'
+    app/views/products/show.html.slim:119
+
+bin/rails test test/system/comment/product_comments_test.rb:102
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_check_preview_for_product.png
+E
+
+Error:
+ProductCommentsTest#test_check_preview_for_product:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/components/products/product_component.html.slim:77:in `call'
+    app/components/products/user_products_component.html.slim:9:in `block in call'
+    app/components/products/user_products_component.html.slim:8:in `call'
+    app/views/products/show.html.slim:119
+
+bin/rails test test/system/comment/product_comments_test.rb:17
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_create_FaqCategory.png
+E
+
+Error:
+Admin::FaqCategoryest#test_create_FaqCategory:
+Capybara::ElementNotFound: Unable to find button "登録する" that is not disabled within #<Capybara::Node::Element tag="form" path="/HTML/BODY[1]/DIV[2]/MAIN[1]/MAIN[1]/DIV[1]/DIV[1]/FORM[1]">
+    test/system/admin/faq_category_test.rb:15:in `block (2 levels) in <class:FaqCategoryest>'
+    test/system/admin/faq_category_test.rb:13:in `block in <class:FaqCategoryest>'
+
+bin/rails test test/system/admin/faq_category_test.rb:11
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_text_change_-see_more_comments-_button_by_remaining_comment_amount.png
+E
+
+Error:
+ProductCommentsTest#test_text_change_"see_more_comments"_button_by_remaining_comment_amount:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/components/products/product_component.html.slim:77:in `call'
+    app/components/products/user_products_component.html.slim:9:in `block in call'
+    app/components/products/user_products_component.html.slim:8:in `call'
+    app/views/products/show.html.slim:119
+
+bin/rails test test/system/comment/product_comments_test.rb:26
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_shows_event_status_even_if_it_is_not_held_on_holidays.png
+E
+
+Error:
+HomeTest#test_shows_event_status_even_if_it_is_not_held_on_holidays:
+ActionView::Template::Error: Translation missing: en.date.formats.md
+    app/views/events/_upcoming_event.html.slim:39
+    app/views/events/_upcoming_events_group.html.slim:6
+    app/views/events/_upcoming_events_group.html.slim:5:in `each'
+    app/views/events/_upcoming_events_group.html.slim:5
+    app/views/home/_upcoming_events_groups.html.slim:7
+    app/views/home/_upcoming_events_groups.html.slim:6:in `each'
+    app/views/home/_upcoming_events_groups.html.slim:6
+    app/views/home/index.html.slim:25
+    app/controllers/home_controller.rb:13:in `index'
+
+bin/rails test test/system/home_test.rb:533
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_show_my_wip-s_page-s_date_on_dashboard.png
+E
+
+Error:
+HomeTest#test_show_my_wip's_page's_date_on_dashboard:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/components/products/product_component.html.slim:77:in `call'
+    app/components/products/unassigned_products_component.html.slim:12:in `block (2 levels) in call'
+    app/components/products/unassigned_products_component.html.slim:11:in `each'
+    app/components/products/unassigned_products_component.html.slim:11:in `block in call'
+    app/components/products/unassigned_products_component.html.slim:2:in `each'
+    app/components/products/unassigned_products_component.html.slim:2:in `call'
+    app/views/home/_mentor_dashboard.html.slim:11
+    app/views/home/index.html.slim:18
+    app/controllers/home_controller.rb:13:in `index'
+
+bin/rails test test/system/home_test.rb:443
+
+....E
+
+Error:
+HomeTest#test_not_show_the_Nico_Nico_calendar_for_administrators:
+ActionView::Template::Error: Translation missing: en.time.formats.date_and_time
+    app/components/products/product_component.html.slim:77:in `call'
+    app/components/products/unassigned_products_component.html.slim:12:in `block (2 levels) in call'
+    app/components/products/unassigned_products_component.html.slim:11:in `each'
+    app/components/products/unassigned_products_component.html.slim:11:in `block in call'
+    app/components/products/unassigned_products_component.html.slim:2:in `each'
+    app/components/products/unassigned_products_component.html.slim:2:in `call'
+    app/views/home/_mentor_dashboard.html.slim:11
+    app/views/home/index.html.slim:18
+    app/controllers/home_controller.rb:13:in `index'
+
+bin/rails test test/system/home_test.rb:155
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_sorting_practices_of_a_category.png
+F
+
+Failure:
+Mentor::Categories::PracticesTest#test_sorting_practices_of_a_category [test/system/mentor/categories/practices_test.rb:28]:
+--- expected
++++ actual
+@@ -1 +1 @@
+-"OS X Mountain Lionをクリーンインストールする"
++"PC性能の見方を知る"
+
+
+bin/rails test test/system/mentor/categories/practices_test.rb:18
+
+.

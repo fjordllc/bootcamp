@@ -10,7 +10,7 @@ class CurrentUserController < ApplicationController
   def update
     @user.uploaded_avatar = user_params[:avatar]
     if @user.update(user_params)
-      redirect_to @user, notice: 'ユーザー情報を更新しました。'
+      redirect_to @user, notice: 'ユーザー情報を更新しました。', allow_other_host: true
     else
       render 'edit'
     end
