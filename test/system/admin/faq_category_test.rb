@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Admin::FaqCategoryest < ApplicationSystemTestCase
+class Admin::FaqCategoryTest < ApplicationSystemTestCase
   test 'display listing FaqCategory' do
     visit_with_auth '/admin/faq_categories', 'komagata'
     has_css? 'h1.page-main-header__title', text: 'FAQカテゴリー一覧'
