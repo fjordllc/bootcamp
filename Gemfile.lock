@@ -759,7 +759,7 @@ DEPENDENCIES
   rack-mini-profiler (~> 2.0)
   rack-user_agent
   rails (~> 7.2.0)
-  rails-i18n
+  rails-i18n (~> 7.0)
   rails-patterns (~> 0.2)
   rails_autolink
   ransack
