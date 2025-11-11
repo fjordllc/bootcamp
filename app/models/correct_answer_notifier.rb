@@ -20,8 +20,9 @@ class CorrectAnswerNotifier
   end
 
   def notify_to_chat(answer)
-    url_options = Rails.application.config.action_controller.default_url_options || {}
-    question_url = Rails.application.routes.url_helpers.question_url(answer.question, url_options)
-    ChatNotifier.message("質問：「#{answer.question.title}」のベストアンサーが選ばれました。\r#{question_url}")
+    ChatNotifier.message(<<~TEXT)
+      質問：「#{answer.question.title}」のベストアンサーが選ばれました。
+      <https://bootcamp.fjord.jp/questions/#{answer.question.id}>
+    TEXT
   end
 end
