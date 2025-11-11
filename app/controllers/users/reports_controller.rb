@@ -37,6 +37,7 @@ class Users::ReportsController < ApplicationController
                else
                  @user.reports.list.page(params[:page])
                end
+    @unchecked_count = @user.reports.unchecked.not_wip.count if @target == 'unchecked_reports'
   end
 
   def set_report
