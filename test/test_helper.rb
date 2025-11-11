@@ -60,6 +60,10 @@ class ActiveSupport::TestCase
   setup do
     # Rails 7: ActiveStorage::Current.host= is deprecated, use url_options= instead
     ActiveStorage::Current.url_options = { host: 'localhost', port: 3000, protocol: 'http' }
+
+    # Rails 7.2: テスト環境でロケールとタイムゾーンを設定
+    I18n.locale = :ja
+    Time.zone = 'Asia/Tokyo'
   end
 
   teardown do
