@@ -10,11 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
       links.forEach((link) => {
         window.open(link.href, '_blank', 'noopener')
       })
-      if (links.length > 0) {
-        setTimeout(() => {
-          location.reload()
-        }, 100)
-      }
+      setTimeout(() => {
+        location.reload()
+      }, 100)
     })
   }
 })
