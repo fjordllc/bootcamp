@@ -4,7 +4,7 @@
 # The default is nothing which will include only core features (password encryption, login/logout).
 # Available submodules are: :user_activation, :http_basic_auth, :remember_me,
 # :reset_password, :session_timeout, :brute_force_protection, :activity_logging, :external
-Rails.application.config.sorcery.submodules = [:remember_me, :reset_password, :jwt, :activity_logging]
+Rails.application.config.sorcery.submodules = %i[remember_me reset_password jwt activity_logging]
 
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
@@ -197,7 +197,7 @@ Rails.application.config.sorcery.configure do |config|
     # specify username attributes, for example: [:username, :email].
     # Default: `[:email]`
     #
-    user.username_attribute_names = [:login_name, :email]
+    user.username_attribute_names = %i[login_name email]
 
     # change *virtual* password attribute, the one which is used until an encrypted one is generated.
     # Default: `:password`
@@ -453,13 +453,12 @@ Rails.application.config.sorcery.configure do |config|
     jwt_secret = Rails.application.secrets[:secret_key_base] || Rails.application.credentials.secret_key_base
 
     if Rails.env.production?
-      if jwt_secret.blank?
-        raise "secret_key_base must be set in production environment for JWT authentication"
-      end
+      raise 'secret_key_base must be set in production environment for JWT authentication' if jwt_secret.blank?
+
       user.jwt_secret = jwt_secret
     else
       # 開発・テスト環境ではフォールバック値を許可
-      user.jwt_secret = jwt_secret || "dummy"
+      user.jwt_secret = jwt_secret || 'dummy'
     end
     # user.jwt_algorithm = "HS256" # HS256 is used by default.
     # user.session_expiry = 60 * 60 * 24 * 7 * 2 # 2 weeks is used by default.
@@ -467,5 +466,5 @@ Rails.application.config.sorcery.configure do |config|
 
   # This line must come after the 'user config' block.
   # Define which model authenticates with sorcery.
-  config.user_class = "User"
+  config.user_class = 'User'
 end
