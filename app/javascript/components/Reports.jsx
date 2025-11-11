@@ -74,7 +74,7 @@ export default function Reports({
   }
 
   return (
-    <>
+    <div className="page-main is-react">
       {data.totalPages === 0 && (
         <div>
           {practices && <div data-practice-filter-dropdown></div>}
@@ -90,41 +90,45 @@ export default function Reports({
               practiceId={userPracticeId}
             />
           )}
-          <div className="page-content reports">
-            {data.totalPages > 1 && displayPagination && (
-              <Pagination
-                sum={data.totalPages * per}
-                per={per}
-                page={page}
-                setPage={setPage}
-              />
-            )}
-            <div className="card-list a-card">
-              <div className="card-list__items">
-                {data.reports.map((report) => {
-                  return (
-                    <Report
-                      key={report.id}
-                      report={report}
-                      currentUserId={report.currentUserId}
-                      displayUserIcon={displayUserIcon}
-                    />
-                  )
-                })}
+          <div className="page-body">
+            <div className="container is-md">
+              <div className="page-content reports">
+                {data.totalPages > 1 && displayPagination && (
+                  <Pagination
+                    sum={data.totalPages * per}
+                    per={per}
+                    page={page}
+                    setPage={setPage}
+                  />
+                )}
+                <div className="card-list a-card">
+                  <div className="card-list__items">
+                    {data.reports.map((report) => {
+                      return (
+                        <Report
+                          key={report.id}
+                          report={report}
+                          currentUserId={report.currentUserId}
+                          displayUserIcon={displayUserIcon}
+                        />
+                      )
+                    })}
+                  </div>
+                </div>
+                {data.totalPages > 1 && displayPagination && (
+                  <Pagination
+                    sum={data.totalPages * per}
+                    per={per}
+                    page={page}
+                    setPage={setPage}
+                  />
+                )}
               </div>
             </div>
-            {data.totalPages > 1 && displayPagination && (
-              <Pagination
-                sum={data.totalPages * per}
-                per={per}
-                page={page}
-                setPage={setPage}
-              />
-            )}
           </div>
         </div>
       )}
-    </>
+    </div>
   )
 }
 
