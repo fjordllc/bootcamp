@@ -92,7 +92,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def organizers
-    users.with_attached_avatar.order('organizers.created_at')
+    users.with_attached_avatar.merge(Organizer.order(:created_at))
   end
 
   def cancel_participation(user)
