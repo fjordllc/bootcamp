@@ -4,11 +4,23 @@ import { toggleDeleteButtonVisibility } from './bookmarks-delete-button-visibili
 const EDIT_MODE_KEY = 'bookmark_edit_mode'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const savedMode = sessionStorage.getItem(EDIT_MODE_KEY) === 'true'
-  initializer(savedMode)
-
+  const editButton = document.getElementById('bookmark_edit')
   const pageBody = document.querySelector('.page-body')
   if (!pageBody) return
+
+  const savedValue = sessionStorage.getItem(EDIT_MODE_KEY)
+  const savedMode = savedValue ? savedValue === 'true' : false
+  initializer(savedMode)
+
+  if (editButton) {
+    editButton.addEventListener('change', () => {
+      const deleteButtons = document.getElementsByClassName(
+        'js-bookmark-delete-button'
+      )
+      toggleDeleteButtonVisibility(editButton, deleteButtons)
+      sessionStorage.setItem(EDIT_MODE_KEY, editButton.checked)
+    })
+  }
 
   pageBody.addEventListener('click', async (event) => {
     const deleteButton = event.target.closest('.bookmark-delete-button')
@@ -61,17 +73,5 @@ const initializer = (deleteMode = false) => {
   if (editButton && deleteButtons.length > 0) {
     editButton.checked = deleteMode
     toggleDeleteButtonVisibility(editButton, deleteButtons)
-
-    editButton.removeEventListener('change', handleEditToggleChange)
-    editButton.addEventListener('change', handleEditToggleChange)
   }
-}
-
-const handleEditToggleChange = () => {
-  const editButton = document.getElementById('bookmark_edit')
-  const deleteButtons = document.getElementsByClassName(
-    'js-bookmark-delete-button'
-  )
-  toggleDeleteButtonVisibility(editButton, deleteButtons)
-  sessionStorage.setItem(EDIT_MODE_KEY, editButton.checked)
 }
