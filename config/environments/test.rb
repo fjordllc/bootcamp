@@ -46,9 +46,9 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
-  # Unlike controllers, the mailer instance doesn't have any context about the
-  # incoming request so you'll need to provide the :host parameter yourself.
-  config.action_mailer.default_url_options = { host: "www.example.com" }
+  # メールに埋め込むURLはローカル開発想定の http://localhost:3000 を使用
+  # （テストの期待値に合わせるため、プロトコル/ポートも明示）
+  config.action_mailer.default_url_options = { host: "localhost", port: 3000, protocol: "http" }
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
