@@ -2,12 +2,11 @@ import React from 'react'
 import Notification from './Notification'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
 import Pagination from './Pagination'
-import UnconfirmedLink from './UnconfirmedLink'
 import useSWR from 'swr'
 import fetcher from '../fetcher'
 import usePage from './hooks/usePage'
 
-export default function Notifications({ isMentor }) {
+export default function Notifications() {
   const per = 20
   const isUnreadPage = () => {
     const params = new URLSearchParams(location.search)
@@ -84,9 +83,6 @@ export default function Notifications({ isMentor }) {
             )
           })}
         </div>
-        {isMentor && isUnreadPage() && (
-          <UnconfirmedLink label="未読の通知を一括で開く" />
-        )}
         {data.total_pages > 1 && (
           <nav className="pagination">
             <Pagination
