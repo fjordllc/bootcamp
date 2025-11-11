@@ -17,6 +17,9 @@ Rails.application.configure do
   # loading is working properly before deploying your code.
   config.eager_load = ENV["CI"].present?
 
+  # Set default locale for test environment
+  config.i18n.default_locale = :ja
+
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.headers = { "Cache-Control" => "public, max-age=#{1.hour.to_i}" }
 
@@ -32,7 +35,8 @@ Rails.application.configure do
   config.action_controller.allow_forgery_protection = false
 
   # Set default URL options for URL generation in tests
-  config.action_controller.default_url_options = { host: "www.example.com", protocol: "https" }
+  # Use localhost to avoid UnsafeRedirectError in system tests
+  config.action_controller.default_url_options = { host: "localhost", port: 3000, protocol: "http" }
 
   # Store uploaded files on the local file system in a temporary directory.
   config.active_storage.service = :test

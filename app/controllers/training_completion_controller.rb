@@ -22,7 +22,7 @@ class TrainingCompletionController < ApplicationController
       notify_to_mentors(user)
 
       logout
-      redirect_to training_completion_url
+      redirect_to training_completion_path
     else
       current_user.training_completed_at = nil
       render :new
