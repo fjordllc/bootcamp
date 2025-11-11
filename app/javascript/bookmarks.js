@@ -55,6 +55,13 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 })
 
+window.addEventListener('beforeunload', () => {
+  const isBookmarkPage = location.pathname.includes('/current_user/bookmarks')
+  if (!isBookmarkPage) {
+    sessionStorage.removeItem(EDIT_MODE_KEY)
+  }
+})
+
 const fetchPageMain = async (page) => {
   const bookmarkUrl = `/current_user/bookmarks?page=${page}`
   const response = await get(bookmarkUrl, { responseKind: 'html' })
