@@ -40,13 +40,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const currentPage = parseInt(params.get('page') || '1', 10)
       const newPageMain = await fetchPageMain(currentPage)
 
+      // 空ページの場合は1ページ前にフォールバック
       let pageToShow = newPageMain
       if (currentPage > 1 && newPageMain.querySelector('.o-empty-message')) {
         pageToShow = await fetchPageMain(currentPage - 1)
       }
       document.querySelector('.page-body').replaceWith(pageToShow)
 
-      const savedModeAfterDelete =sessionStorage.getItem(EDIT_MODE_KEY) === 'true'
+      const savedModeAfterDelete = sessionStorage.getItem(EDIT_MODE_KEY) === 'true'
       initializer(savedModeAfterDelete)
     } catch (error) {
       console.warn(error)
