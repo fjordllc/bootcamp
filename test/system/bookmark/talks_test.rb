@@ -11,6 +11,7 @@ class Bookmark::TalkTest < ApplicationSystemTestCase
 
   test 'show talk bookmark on lists' do
     visit_with_auth '/current_user/bookmarks', 'komagata'
+    click_link '2'
     assert_text "#{@decorated_user.long_name} さんの相談部屋"
   end
 
