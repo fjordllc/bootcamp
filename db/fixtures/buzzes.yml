@@ -1,2 +1,4 @@
 buzz1:
   body: インターネットで見つけたフィヨルドブートキャンプに関連する記事、フィヨルドブートキャンプに言及いただいた記事を集めています。このページに載せて欲しい記事、掲載NGな記事がありましたら[お問い合わせフォーム](https://bootcamp.fjord.jp/inquiry/new)からご連絡ください。
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>

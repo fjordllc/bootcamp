@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(while read hash msg)",
+      "Bash(do if git show $hash --format=\"%B\" -s)",
+      "Bash(then echo \"$hash: $msg\" fi done)",
+      "Bash(GIT_SEQUENCE_EDITOR=\"sed -i '''' ''/da23a106b/s/^pick/reword/''\" git rebase -i da23a106b^)",
+      "Bash(RAILS_ENV=test NODE_ENV=test bundle exec rails webpacker:clobber:*)",
+      "Bash(NODE_OPTIONS=--openssl-legacy-provider RAILS_ENV=test NODE_ENV=test bundle exec rails webpacker:compile:*)",
+      "Bash(RAILS_ENV=test bundle exec rails:*)",
+      "Bash(test:*)",
+      "Bash(xargs sed:*)",
+      "Bash(bin/rails zeitwerk:check:*)",
+      "WebSearch",
+      "WebFetch(domain:guides.rubyonrails.org)",
+      "WebFetch(domain:github.com)",
+      "Bash(bundle show:*)",
+      "Bash(GIT_SEQUENCE_EDITOR=\"sed -i '''' ''/c481dd43c/d''\" git rebase -i 0b205e740^)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:rubygems.org)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
