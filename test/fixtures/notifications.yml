@@ -1,6 +1,6 @@
 DEFAULTS: &DEFAULTS
-  created_at: <%= Time.current.to_fs(:db) %>
-  updated_at: <%= Time.current.to_fs(:db) %>
+  created_at: <%= 1.day.ago.to_fs(:db) %>
+  updated_at: <%= 1.day.ago.to_fs(:db) %>
 
 notification_commented:
   <<: *DEFAULTS

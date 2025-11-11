@@ -15,6 +15,7 @@ require 'supports/product_helper'
 require 'supports/avatar_helper'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
+  include ActiveJob::TestHelper
   include LoginHelper
   include TestAuthHelper
   include StripeHelper

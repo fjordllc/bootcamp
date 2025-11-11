@@ -23,17 +23,19 @@ class TrainingCompletionTest < ApplicationSystemTestCase
       visit_with_auth new_training_completion_path, 'kensyu'
       find('label', text: 'とても良い').click
       fill_in 'user[opinion]', with: '研修終了の自由感想'
-      page.accept_confirm '本当によろしいですか？' do
-        click_on '研修を終了する'
+      perform_enqueued_jobs do
+        page.accept_confirm '本当によろしいですか？' do
+          click_on '研修を終了する'
+        end
+        assert_text '研修終了手続きが完了しました。'
       end
-      assert_text '研修終了手続きが完了しました。'
     end
     @user.reload
     assert_equal Time.current, @user.training_completed_at
     assert_nil @user.discord_profile.times_id
     assert_nil @user.discord_profile.times_url
-    assert_equal 'kensyuさんの研修が終了しました。', users(:komagata).notifications.last.message
-    assert_equal 'kensyuさんの研修が終了しました。', users(:mentormentaro).notifications.last.message
+    assert_equal 'kensyuさんの研修が終了しました。', users(:komagata).notifications.where(kind: :training_completed).last.message
+    assert_equal 'kensyuさんの研修が終了しました。', users(:mentormentaro).notifications.where(kind: :training_completed).last.message
 
     login_user 'kensyu', 'testtest'
     assert_text '研修終了したユーザーです'
