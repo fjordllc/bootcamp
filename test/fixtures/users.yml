@@ -1,8 +1,13 @@
 # userを増やした場合、以下のymlにも追記する
 # test/fixtures/talks.yml
 # test/fixtures/discord_profiles.yml
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 
 komagata:
+  <<: *DEFAULTS
   login_name: komagata
   email: komagata@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -36,6 +41,7 @@ komagata:
   profile_text: "株式会社ロッカの代表兼エンジニア。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。"
 
 machida:
+  <<: *DEFAULTS
   login_name: machida
   email: machidanohimitsu@gmail.com
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -66,6 +72,7 @@ machida:
   subdivision_code: '13'
 
 adminonly: # adminのroleだけを持ったユーザー
+  <<: *DEFAULTS
   login_name: adminonly
   email: adminonly@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -94,6 +101,7 @@ adminonly: # adminのroleだけを持ったユーザー
 
 
 sotugyou_with_job:
+  <<: *DEFAULTS
   login_name: sotugyou-with-job
   email: sotugyouwithjob@example.com
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -117,6 +125,7 @@ sotugyou_with_job:
   last_activity_at: "2014-01-01 01:00:03"
 
 sotugyou:
+  <<: *DEFAULTS
   login_name: sotugyou
   email: sotugyou@example.com
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -140,6 +149,7 @@ sotugyou:
   last_activity_at: "2014-01-01 00:00:03"
 
 advijirou:
+  <<: *DEFAULTS
   login_name: advijirou
   email: advijirou@example.com
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -158,6 +168,7 @@ advijirou:
   last_activity_at: "2014-01-01 00:00:04"
 
 yameo:
+  <<: *DEFAULTS
   login_name: yameo
   email: yameo@example.com
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -183,6 +194,7 @@ yameo:
   last_activity_at: "2014-01-01 00:00:05"
 
 mentormentaro:
+  <<: *DEFAULTS
   login_name: mentormentaro
   email: mentormentaro@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -204,6 +216,7 @@ mentormentaro:
   last_activity_at: "2014-01-01 00:00:06"
 
 kimura:
+  <<: *DEFAULTS
   login_name: kimura
   email: kimura@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -228,6 +241,7 @@ kimura:
   subdivision_code: '13'
 
 hatsuno:
+  <<: *DEFAULTS
   login_name: hatsuno
   email: hatsuno@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -253,6 +267,7 @@ hatsuno:
   country_code: JP # subdivision_codeがnilでcountry_codeがある場合
 
 hajime:
+  <<: *DEFAULTS
   login_name: hajime
   email: hajime@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -275,6 +290,7 @@ hajime:
   last_activity_at: "2014-01-01 00:00:09"
 
 muryou:
+  <<: *DEFAULTS
   login_name: muryou
   email: muryou@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -295,6 +311,7 @@ muryou:
   last_activity_at: "2014-01-01 00:00:10"
 
 kensyu:
+  <<: *DEFAULTS
   login_name: kensyu
   email: kensyu@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -321,6 +338,7 @@ kensyu:
   sent_student_followup_message: true
 
 senpai:
+  <<: *DEFAULTS
   login_name: senpai
   email: senpai@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -344,6 +362,7 @@ senpai:
   last_activity_at: "2014-01-01 00:00:12"
 
 kananashi: # name_kanaを持たないユーザー
+  <<: *DEFAULTS
   login_name: kananashi
   email: kananashi@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -365,6 +384,7 @@ kananashi: # name_kanaを持たないユーザー
   sent_student_followup_message: true
 
 osnashi: # osを持たないユーザー
+  <<: *DEFAULTS
   login_name: osnashi
   email: osnashi@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -386,6 +406,7 @@ osnashi: # osを持たないユーザー
   sent_student_followup_message: true
 
 discordinvalid: # Discord IDが不正なユーザー
+  <<: *DEFAULTS
   login_name: discordinvalid
   email: discordinvalid@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -407,6 +428,7 @@ discordinvalid: # Discord IDが不正なユーザー
   sent_student_followup_message: true
 
 twitterinvalid: # X（Twitter） IDが不正なユーザー
+  <<: *DEFAULTS
   login_name: twitterinvalid
   email: twitterinvalid@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -428,6 +450,7 @@ twitterinvalid: # X（Twitter） IDが不正なユーザー
   sent_student_followup_message: true
 
 jobseeker: # 就活希望するユーザー
+  <<: *DEFAULTS
   login_name: jobseeker
   email: jobseeker@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -450,6 +473,7 @@ jobseeker: # 就活希望するユーザー
   sent_student_followup_message: true
 
 jobseeking: # 就職活動中の卒業生
+  <<: *DEFAULTS
   login_name: jobseeking
   email: jobseeking@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -474,6 +498,7 @@ jobseeking: # 就職活動中の卒業生
   last_activity_at: "2020-01-01 00:50:12"
 
 nippounashi: # 日報を投稿していないユーザー
+  <<: *DEFAULTS
   login_name: nippounashi
   email: nippounashi@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -495,6 +520,7 @@ nippounashi: # 日報を投稿していないユーザー
   sent_student_followup_message: true
 
 with_hyphen:
+  <<: *DEFAULTS
   login_name: &login_name with-hyphen
   email: with-hyphen@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -517,6 +543,7 @@ with_hyphen:
   sent_student_followup_message: true
 
 kensyuowata: # 研修が終わったユーザー
+  <<: *DEFAULTS
   login_name: kensyuowata
   email: kensyuowata@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -544,6 +571,7 @@ kensyuowata: # 研修が終わったユーザー
   last_activity_at: "2014-01-01 00:00:11"
 
 taikai: # 退会直後のユーザー
+  <<: *DEFAULTS
   login_name: taikai
   email: taikai@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -567,6 +595,7 @@ taikai: # 退会直後のユーザー
   last_activity_at: "2021-12-10 00:00:11"
 
 taikai3: # 退会3ヶ月後のユーザー
+  <<: *DEFAULTS
   login_name: taikai3
   email: taikai3@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -590,6 +619,7 @@ taikai3: # 退会3ヶ月後のユーザー
   last_activity_at: "2021-12-10 00:00:11"
 
 otameshi:
+  <<: *DEFAULTS
   login_name: otameshi
   email: otameshi@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -611,6 +641,7 @@ otameshi:
   last_activity_at: <%= Time.current %>
 
 enchomaemae:
+  <<: *DEFAULTS
   login_name: enchomaemae
   email: enchomaemae@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -633,6 +664,7 @@ enchomaemae:
   sent_student_followup_message: true
 
 enchomaeyo:
+  <<: *DEFAULTS
   login_name: enchomaeyo
   email: enchomaeyo@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -655,6 +687,7 @@ enchomaeyo:
   sent_student_followup_message: true
 
 enchohayashi:
+  <<: *DEFAULTS
   login_name: enchohayashi
   email: enchohayashi@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -677,6 +710,7 @@ enchohayashi:
   sent_student_followup_message: true
 
 enchoososhi:
+  <<: *DEFAULTS
   login_name: enchoososhi
   email: enchoososhi@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -699,6 +733,7 @@ enchoososhi:
   sent_student_followup_message: true
 
 enchoowata:
+  <<: *DEFAULTS
   login_name: enchoowata
   email: enchoowata@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -721,6 +756,7 @@ enchoowata:
   sent_student_followup_message: true
 
 kimuramitai:
+  <<: *DEFAULTS
   login_name: kimuramitai
   email: kimuramitai@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -746,6 +782,7 @@ kimuramitai:
   sent_student_followup_message: true
 
 long-id-mentor:
+  <<: *DEFAULTS
   login_name: long-id-mentor
   email: long-id-mentor@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -767,6 +804,7 @@ long-id-mentor:
   sent_student_followup_message: true
 
 nocompanykensyu: # 所属企業のない研修生
+  <<: *DEFAULTS
   login_name: nocompanykensyu
   email: nocompanykensyu@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -790,6 +828,7 @@ nocompanykensyu: # 所属企業のない研修生
   sent_student_followup_message: true
 
 neverlogin: # 1度もログインしたことがないユーザー
+  <<: *DEFAULTS
   login_name: neverlogin
   email: neverlogin@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -805,6 +844,7 @@ neverlogin: # 1度もログインしたことがないユーザー
   sent_student_followup_message: true
 
 kyuukai:
+  <<: *DEFAULTS
   login_name: kyuukai
   email: kyuukai@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -827,6 +867,7 @@ kyuukai:
   created_at: "2014-01-01 00:00:13"
 
 neverlogin: # 1度もログインしたことがないユーザー
+  <<: *DEFAULTS
   login_name: neverlogin
   email: neverlogin@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -844,6 +885,7 @@ neverlogin: # 1度もログインしたことがないユーザー
   sent_student_followup_message: true
 
 kyuukai:
+  <<: *DEFAULTS
   login_name: kyuukai
   email: kyuukai@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -868,6 +910,7 @@ kyuukai:
   created_at: "2014-01-01 00:00:13"
 
 sotsugyoukigyoshozoku:
+  <<: *DEFAULTS
   login_name: sotsugyoukigyoshozoku
   email: sotsugyoukigyoshozoku@example.com
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -891,6 +934,7 @@ sotsugyoukigyoshozoku:
   last_activity_at: "2022-07-01 00:00:00"
 
 advisernocolleaguetrainee:
+  <<: *DEFAULTS
   login_name: advisernocolleaguetrainee
   email: nocolleagueadvisernocolleagueadviser@example.com
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -911,6 +955,7 @@ advisernocolleaguetrainee:
   last_activity_at: "2022-07-01 00:00:00"
 
 tom: # アメリカ在住のユーザー
+  <<: *DEFAULTS
   login_name: tom
   email: tom@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -929,6 +974,7 @@ tom: # アメリカ在住のユーザー
   last_activity_at: "2023-05-08 00:00:00"
 
 paginataion-taro:
+  <<: *DEFAULTS
   login_name: paginataion-taro
   email: paginataion-taro@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -945,6 +991,7 @@ paginataion-taro:
   last_activity_at: "2014-01-01 00:00:07"
 
 paginataion-jirou:
+  <<: *DEFAULTS
   login_name: paginataion-jirou
   email: paginataion-jirou@example.com
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -961,6 +1008,7 @@ paginataion-jirou:
   last_activity_at: "2014-01-01 00:00:07"
 
 pjord:
+  <<: *DEFAULTS
   login_name: pjord
   email:
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -1012,6 +1060,7 @@ marumarushain<%= i %>: # ページネーション確認のためのユーザー
 <% end %>
 
 harikirio: # 必修でないプラクティスも修了しているユーザー
+  <<: *DEFAULTS
   login_name: harikirio
   email: harikiro@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -1032,6 +1081,7 @@ harikirio: # 必修でないプラクティスも修了しているユーザー
   last_activity_at: "2020-01-01 00:00:12"
 
 pjord:
+  <<: *DEFAULTS
   login_name: pjord
   email: pjord@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -1050,6 +1100,7 @@ pjord:
   last_activity_at: "2014-01-01 00:00:01"
 
 rails-course:
+  <<: *DEFAULTS
   login_name: rails-course
   email: rails-course@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -1070,6 +1121,7 @@ rails-course:
   last_activity_at: "2014-01-01 00:00:07"
 
 front-end-course:
+  <<: *DEFAULTS
   login_name: front-end-course
   email: front-end@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -1090,6 +1142,7 @@ front-end-course:
   last_activity_at: "2014-01-01 00:00:07"
 
 unity-course:
+  <<: *DEFAULTS
   login_name: unity-course
   email: unity-course@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -1110,6 +1163,7 @@ unity-course:
   last_activity_at: "2014-01-01 00:00:07"
 
 ios-course:
+  <<: *DEFAULTS
   login_name: ios-course
   email: ios-course@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
@@ -1130,6 +1184,7 @@ ios-course:
   last_activity_at: "2014-01-01 00:00:07"
 
 kensyu-invoice:
+  <<: *DEFAULTS
   login_name: kensyu-invoice
   email: kensyu-invoice@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest

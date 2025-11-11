@@ -1,44 +1,57 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 reaction1:
+  <<: *DEFAULTS
   user: machida
   reactionable: report1 (Report)
   kind: smile
 
 reaction2:
+  <<: *DEFAULTS
   user: komagata
   reactionable: report1 (Report)
   kind: thumbsup
 
 reaction3:
+  <<: *DEFAULTS
   user: machida
   reactionable: comment2 (Comment)
   kind: heart
 
 reaction4:
+  <<: *DEFAULTS
   user: komagata
   reactionable: comment2 (Comment)
   kind: heart
 
 reaction5:
+  <<: *DEFAULTS
   user: komagata
   reactionable: comment2 (Comment)
   kind: thumbsup
 
 reaction6:
+  <<: *DEFAULTS
   user: machida
   reactionable: product12 (Product)
   kind: tada
 
 reaction7:
+  <<: *DEFAULTS
   user: komagata
   reactionable: product12 (Product)
   kind: eyes
 
 micro_report_reaction1:
+  <<: *DEFAULTS
   user: hatsuno
   reactionable: hajime_first_micro_report (MicroReport)
   kind: thumbsup
 
 micro_report_reaction2:
+  <<: *DEFAULTS
   user: hatsuno
   reactionable: hajime_first_micro_report (MicroReport)
   kind: heart

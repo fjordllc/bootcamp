@@ -1,3 +1,8 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 report_template1:
+  <<: *DEFAULTS
   user_id: 253826460
   description: 'template test hajime'

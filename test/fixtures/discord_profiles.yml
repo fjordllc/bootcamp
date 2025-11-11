@@ -1,204 +1,249 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 discord_profile_komagata:
+  <<: *DEFAULTS
   user: komagata
   account_name: komagata0000
   times_url:
 
 discord_profile_machida:
+  <<: *DEFAULTS
   user: machida
   account_name:
   times_url:
 
 discord_profile_adminonly:
+  <<: *DEFAULTS
   user: adminonly
   account_name:
   times_url:
 
 discord_profile_sotugyou_with_job:
+  <<: *DEFAULTS
   user: sotugyou_with_job
   account_name:
   times_url:
 
 discord_profile_sotugyou:
+  <<: *DEFAULTS
   user: sotugyou
   account_name:
   times_url:
 
 discord_profile_advijirou:
+  <<: *DEFAULTS
   user: advijirou
   account_name:
   times_url:
 
 discord_profile_yameo:
+  <<: *DEFAULTS
   user: yameo
   account_name:
   times_url:
 
 discord_profile_mentormentaro:
+  <<: *DEFAULTS
   user: mentormentaro
   account_name:
   times_url:
 
 discord_profile_kimura:
+  <<: *DEFAULTS
   user: kimura
   account_name: kimura1234
   times_url:
 
 discord_profile_hatsuno:
+  <<: *DEFAULTS
   user: hatsuno
   account_name:
   times_url:
 
 discord_profile_hajime:
+  <<: *DEFAULTS
   user: hajime
   account_name:
   times_url:
 
 discord_profile_muryou:
+  <<: *DEFAULTS
   user: muryou
   account_name: muryou2222
   times_url: https://discord.com/channels/715806612824260640/123456789000000010
 
 discord_profile_kensyu:
+  <<: *DEFAULTS
   user: kensyu
   account_name: kensyu3333
   times_url: https://discord.com/channels/715806612824260640/123456789000000011
 
 discord_profile_senpai:
+  <<: *DEFAULTS
   user: senpai
   account_name: senpai4444
   times_url: https://discord.com/channels/715806612824260640/123456789000000012
 
 discord_profile_kananashi:
+  <<: *DEFAULTS
   user: kananashi
   account_name: kananashi6666
   times_url: https://discord.com/channels/715806612824260640/123456789000000013
 
 discord_profile_osnashi:
+  <<: *DEFAULTS
   user: osnashi
   account_name: osnashi7777
   times_url: https://discord.com/channels/715806612824260640/123456789000000014
 
 discord_profile_discordinvalid:
+  <<: *DEFAULTS
   user: discordinvalid
   account_name: discordinvalid#1234567890
   times_url: https://discord.com/channels/715806612824260640/123456789000000014
 
 discord_profile_twitterinvalid:
+  <<: *DEFAULTS
   user: twitterinvalid
   account_name: twitterinvalid#8888
   times_url: https://discord.com/channels/715806612824260640/123456789000000114
 
 discord_profile_jobseeker:
+  <<: *DEFAULTS
   user: jobseeker
   account_name: jobseeker8888
   times_url: https://discord.com/channels/715806612824260640/123456789000000015
 
 discord_profile_nippounashi:
+  <<: *DEFAULTS
   user: nippounashi
   account_name: nippounashi0001
   times_url:
 
 discord_profile_with_hyphen:
+  <<: *DEFAULTS
   user: with_hyphen
   account_name: with_hyphen1234
   times_url:
 
 discord_profile_kensyuowata:
+  <<: *DEFAULTS
   user: kensyuowata
   account_name: kensyuowata5678
   times_url: https://discord.com/channels/715806612824260640/123456789000000011
 
 discord_profile_taikai:
+  <<: *DEFAULTS
   user: taikai
   account_name: taikai5678
   times_url:
 
 discord_profile_taikai3:
+  <<: *DEFAULTS
   user: taikai3
   account_name: taikai3333
   times_url:
 
 discord_profile_otameshi:
+  <<: *DEFAULTS
   user: otameshi
   account_name: otameshi1234
   times_url:
 
 discord_profile_enchomaemae:
+  <<: *DEFAULTS
   user: enchomaemae
   account_name: enchomaemae1234
   times_url:
 
 discord_profile_enchomaeyo:
+  <<: *DEFAULTS
   user: enchomaeyo
   account_name: enchomaeyo1234
   times_url:
 
 discord_profile_enchohayashi:
+  <<: *DEFAULTS
   user: enchohayashi
   account_name: enchohayashi1234
   times_url:
 
 discord_profile_enchoososhi:
+  <<: *DEFAULTS
   user: enchoososhi
   account_name: enchoososhi1234
   times_url:
 
 discord_profile_enchoowata:
+  <<: *DEFAULTS
   user: enchoowata
   account_name: enchoowata1234
   times_url:
 
 discord_profile_kimuramitai:
+  <<: *DEFAULTS
   user: kimuramitai
   account_name: kimuradiscord1234
   times_url:
 
 discord_profile_long-id-mentor:
+  <<: *DEFAULTS
   user: long-id-mentor
   account_name:
   times_url:
 
 discord_profile_nocompanykensyu:
+  <<: *DEFAULTS
   user: nocompanykensyu
   account_name: nocompanykensyu9999
   times_url:
 
 discord_profile_neverlogin:
+  <<: *DEFAULTS
   user: neverlogin
   account_name:
   times_url:
 
 discord_profile_kyuukai:
+  <<: *DEFAULTS
   user: kyuukai
   account_name:
   times_url:
 
 discord_profile_sotsugyoukigyoshozoku:
+  <<: *DEFAULTS
   user: sotsugyoukigyoshozoku
   account_name:
   times_url:
 
 discord_profile_advisernocolleaguetrainee:
+  <<: *DEFAULTS
   user: advisernocolleaguetrainee
   account_name:
   times_url:
 
 discord_profile_tom:
+  <<: *DEFAULTS
   user: tom
   account_name:
   times_url:
 
 discord_profile_paginataion-taro:
+  <<: *DEFAULTS
   user: paginataion-taro
   account_name:
   times_url:
 
 discord_profile_paginataion-jirou:
+  <<: *DEFAULTS
   user: paginataion-jirou
   account_name:
   times_url:
 
 discord_profile_pjord:
+  <<: *DEFAULTS
   user: pjord
   account_name:
   times_url:
@@ -211,36 +256,43 @@ discord_profile_marumarushain<%= i %>:
 <% end %>
 
 discord_profile_harikirio:
+  <<: *DEFAULTS
   user: harikirio
   account_name:
   times_url:
 
 discord_profile_rails-course:
+  <<: *DEFAULTS
   user: rails-course
   account_name:
   times_url:
 
 discord_profile_front-end-course:
+  <<: *DEFAULTS
   user: front-end-course
   account_name:
   times_url:
 
 discord_profile_unity-course:
+  <<: *DEFAULTS
   user: unity-course
   account_name:
   times_url:
 
 discord_profile_ios-course:
+  <<: *DEFAULTS
   user: ios-course
   account_name:
   times_url:
 
 discord_profile_jobseeking:
+  <<: *DEFAULTS
   user: jobseeking
   account_name:
   times_url:
 
 discord_profile_kensyu-invoice:
+  <<: *DEFAULTS
   user: kensyu-invoice
   account_name:
   times_url:

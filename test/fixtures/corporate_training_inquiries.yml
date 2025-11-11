@@ -1,3 +1,7 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 <% (1..40).each do |i| %>
 corporate_training_inquiry<%= i %>:
   company_name: "株式会社テスト<%= i %>"

@@ -1,7 +1,13 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 skipped_practice1:
+  <<: *DEFAULTS
   user: kensyu
   practice: practice5
 
 skipped_practice2:
+  <<: *DEFAULTS
   user: kensyu
   practice: practice8

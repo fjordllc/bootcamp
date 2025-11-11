@@ -1,147 +1,188 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 talk1:
+  <<: *DEFAULTS
   user: komagata
   action_completed: true
 
 talk2:
+  <<: *DEFAULTS
   user: machida
   action_completed: true
 
 talk3:
+  <<: *DEFAULTS
   user: sotugyou
   action_completed: true
 
 talk4:
+  <<: *DEFAULTS
   user: advijirou
   action_completed: true
 
 talk5:
+  <<: *DEFAULTS
   user: yameo
   action_completed: true
 
 talk6:
+  <<: *DEFAULTS
   user: mentormentaro
   action_completed: true
 
 talk7:
+  <<: *DEFAULTS
   user: kimura
   action_completed: true
 
 talk8:
+  <<: *DEFAULTS
   user: hatsuno
   action_completed: true
 
 talk9:
+  <<: *DEFAULTS
   user: hajime
   action_completed: true
 
 talk10:
+  <<: *DEFAULTS
   user: muryou
   action_completed: true
 
 talk11:
+  <<: *DEFAULTS
   user: kensyu
 
 talk12:
+  <<: *DEFAULTS
   user: senpai
   action_completed: true
 
 talk13:
+  <<: *DEFAULTS
   user: kananashi
   action_completed: true
 
 talk14:
+  <<: *DEFAULTS
   user: osnashi
   action_completed: true
 
 talk15:
+  <<: *DEFAULTS
   user: jobseeker
   action_completed: true
 
 talk16:
+  <<: *DEFAULTS
   user: nippounashi
   action_completed: true
 
 talk17:
+  <<: *DEFAULTS
   user: with_hyphen
   action_completed: false
 
 talk18:
+  <<: *DEFAULTS
   user: kensyuowata
   action_completed: true
 
 talk19:
+  <<: *DEFAULTS
   user: adminonly
   action_completed: true
 
 talk20:
+  <<: *DEFAULTS
   user: otameshi
   action_completed: true
 
 talk21:
+  <<: *DEFAULTS
   user: sotugyou_with_job
   action_completed: true
 
 talk22:
+  <<: *DEFAULTS
   user: discordinvalid
   action_completed: true
 
 talk23:
+  <<: *DEFAULTS
   user: twitterinvalid
   action_completed: true
 
 talk24:
+  <<: *DEFAULTS
   user: enchomaemae
   action_completed: true
 
 talk25:
+  <<: *DEFAULTS
   user: enchomaeyo
   action_completed: true
 
 talk26:
+  <<: *DEFAULTS
   user: enchohayashi
   action_completed: true
 
 talk27:
+  <<: *DEFAULTS
   user: enchoososhi
   action_completed: true
 
 talk28:
+  <<: *DEFAULTS
   user: enchoowata
   action_completed: true
 
 talk29:
+  <<: *DEFAULTS
   user: kimuramitai
   action_completed: true
 
 talk30:
+  <<: *DEFAULTS
   user: long-id-mentor
   action_completed: true
 
 talk31:
+  <<: *DEFAULTS
   user: nocompanykensyu
   action_completed: true
 
 talk32:
+  <<: *DEFAULTS
   user: neverlogin
   action_completed: true
 
 talk33:
+  <<: *DEFAULTS
   user: sotsugyoukigyoshozoku
   action_completed: true
 
 talk34:
+  <<: *DEFAULTS
   user: kyuukai
   action_completed: true
 
 tal35:
+  <<: *DEFAULTS
   user: paginataion-taro
   action_completed: true
 
 talk36:
+  <<: *DEFAULTS
   user: paginataion-jirou
   action_completed: true
 
 talk_advisernocolleaguetrainee:
+  <<: *DEFAULTS
   user: advisernocolleaguetrainee
   action_completed: true
 
@@ -152,29 +193,36 @@ marumarushain<%= i %>: # ページネーション確認のためのユーザー
 <% end %>
 
 talk42:
+  <<: *DEFAULTS
   user: harikirio
   action_completed: true
 
 talk43:
+  <<: *DEFAULTS
   user: rails-course
   action_completed: true
 
 talk44:
+  <<: *DEFAULTS
   user: front-end-course
   action_completed: true
 
 talk45:
+  <<: *DEFAULTS
   user: unity-course
   action_completed: true
 
 talk46:
+  <<: *DEFAULTS
   user: ios-course
   action_completed: true
 
 talk47:
+  <<: *DEFAULTS
   user: jobseeking
   action_completed: true
 
 talk48:
+  <<: *DEFAULTS
   user: kensyu-invoice
   action_completed: true

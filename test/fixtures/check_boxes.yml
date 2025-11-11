@@ -1,4 +1,9 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 check_box1:
+  <<: *DEFAULTS
   survey_question: survey_question3
   title_of_reason: "「その他」と回答された方は、内容をお聞かせください。"
   description_of_reason: "「その他」の内容について、詳しくお聞かせください。"

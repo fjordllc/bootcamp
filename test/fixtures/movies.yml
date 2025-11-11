@@ -1,34 +1,44 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 movie1:
+  <<: *DEFAULTS
   title: mp4動画
   description: mp4の動画です
   user: kimura
   published_at: '2024-04-09 00:00:00'
 
 movie2:
+  <<: *DEFAULTS
   title: mov動画
   description: movの動画です
   user: kimura
   published_at: '2024-04-09 00:00:00'
 
 movie3:
+  <<: *DEFAULTS
   title: WIPのテスト
   description: WIPのテスト用です
   user: kimura
   wip: true
 
 movie4:
+  <<: *DEFAULTS
   title: userが削除された動画
   description: userが削除された動画です
   user: null
   published_at: '2024-04-09 00:00:00'
 
 movie5:
+  <<: *DEFAULTS
   title: OS X Mountain Lionをクリーンインストールするに関連する動画
   description: OS X Mountain Lionをクリーンインストールするに関連する動画です
   user: kimura
   published_at: '2024-04-09 00:00:00'
 
 movie6:
+  <<: *DEFAULTS
   title: 削除のテスト
   description: 削除のテスト用です
   user: kimura

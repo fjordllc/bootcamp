@@ -1,51 +1,68 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 organizer1:
+  <<: *DEFAULTS
   user: komagata
   regular_event: regular_event1
 
 organizer2:
+  <<: *DEFAULTS
   user: machida
   regular_event: regular_event1
 
 organizer3:
+  <<: *DEFAULTS
   user: komagata
   regular_event: regular_event2
 
 organizer4:
+  <<: *DEFAULTS
   user: machida
   regular_event: regular_event2
 
 organizer5:
+  <<: *DEFAULTS
   user: komagata
   regular_event: regular_event3
 
 organizer6:
+  <<: *DEFAULTS
   user: machida
   regular_event: regular_event3
 
 organizer7:
+  <<: *DEFAULTS
   user: kimura
   regular_event: regular_event4
 
 organizer8:
+  <<: *DEFAULTS
   user: kimura
   regular_event: regular_event5
 
 organizer9:
+  <<: *DEFAULTS
   user: kimura
   regular_event: regular_event6
 
 organizer10:
+  <<: *DEFAULTS
   user: kimura
   regular_event: regular_event7
 
 organizer11:
+  <<: *DEFAULTS
   user: kimura
   regular_event: regular_event8
 
 organizer12:
+  <<: *DEFAULTS
   user: hajime
   regular_event: regular_event4
 
 organizer13:
+  <<: *DEFAULTS
   user: hatsuno
   regular_event: regular_event39

@@ -1,4 +1,9 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 notification_commented:
+  <<: *DEFAULTS
   kind: 0
   user: sotugyou
   sender: komagata
@@ -7,6 +12,7 @@ notification_commented:
   read: false
 
 notification_checked:
+  <<: *DEFAULTS
   kind: 1
   user: sotugyou
   sender: machida
@@ -15,6 +21,7 @@ notification_checked:
   read: false
 
 notification_mentioned:
+  <<: *DEFAULTS
   kind: 2
   user: sotugyou
   sender: komagata
@@ -23,6 +30,7 @@ notification_mentioned:
   read: false
 
 notification_mentioned_and_already_read:
+  <<: *DEFAULTS
   kind: 2
   user: kimura
   sender: machida
@@ -31,6 +39,7 @@ notification_mentioned_and_already_read:
   read: true
 
 notification_mentioned_and_unread_1:
+  <<: *DEFAULTS
   kind: 2
   user: kimura
   sender: hajime
@@ -39,6 +48,7 @@ notification_mentioned_and_unread_1:
   read: false
 
 notification_mentioned_and_unread_2:
+  <<: *DEFAULTS
   kind: 2
   user: kimura
   sender: mentormentaro
@@ -47,6 +57,7 @@ notification_mentioned_and_unread_2:
   read: false
 
 notification_read:
+  <<: *DEFAULTS
   kind: 0
   user: sotugyou
   sender: machida
@@ -55,6 +66,7 @@ notification_read:
   read: true
 
 notification_submitted:
+  <<: *DEFAULTS
   kind: 3
   user: komagata
   sender: sotugyou
@@ -63,6 +75,7 @@ notification_submitted:
   read: false
 
 notification_answered:
+  <<: *DEFAULTS
   kind: 4
   user: sotugyou
   sender: komagata
@@ -71,6 +84,7 @@ notification_answered:
   read: false
 
 notification_announced:
+  <<: *DEFAULTS
   kind: 5
   user: sotugyou
   sender: komagata
@@ -79,6 +93,7 @@ notification_announced:
   read: false
 
 notification_questioned:
+  <<: *DEFAULTS
   kind: 6
   user: komagata
   sender: sotugyou
@@ -87,6 +102,7 @@ notification_questioned:
   read: false
 
 notification_first_report:
+  <<: *DEFAULTS
   kind: 7
   user: komagata
   sender: hajime
@@ -95,6 +111,7 @@ notification_first_report:
   read: false
 
 notification_watching:
+  <<: *DEFAULTS
   kind: 8
   user: kimura
   sender: komagata
@@ -103,6 +120,7 @@ notification_watching:
   read: false
 
 notification_retired:
+  <<: *DEFAULTS
   kind: 9
   user: komagata
   sender: yameo
@@ -111,6 +129,7 @@ notification_retired:
   read: false
 
 notification_trainee_report:
+  <<: *DEFAULTS
   kind: 10
   user: senpai
   sender: kensyu
@@ -119,6 +138,7 @@ notification_trainee_report:
   read: false
 
 notification_moved_up_event_waiting_user:
+  <<: *DEFAULTS
   kind: 11
   user: hatsuno
   sender: komagata
@@ -127,6 +147,7 @@ notification_moved_up_event_waiting_user:
   read: false
 
 notification_create_page:
+  <<: *DEFAULTS
   kind: 12
   user: mentormentaro
   sender: komagata
@@ -135,6 +156,7 @@ notification_create_page:
   read: false
 
 notification_following_report:
+  <<: *DEFAULTS
   kind: 13
   user: muryou
   sender: kensyu
@@ -143,6 +165,7 @@ notification_following_report:
   read: false
 
 notification_chose_correct_answer:
+  <<: *DEFAULTS
   kind: 14
   user: advijirou
   sender: hajime
@@ -151,6 +174,7 @@ notification_chose_correct_answer:
   read: false
 
 notification_consecutive_negative_report:
+  <<: *DEFAULTS
   kind: 15
   user: komagata
   sender: hajime
@@ -159,6 +183,7 @@ notification_consecutive_negative_report:
   read: false
 
 notification_graduated:
+  <<: *DEFAULTS
   kind: 18
   user: mentormentaro
   sender: sotugyou
@@ -167,6 +192,7 @@ notification_graduated:
   read: false
 
 notification_regular_event_updated:
+  <<: *DEFAULTS
   kind: 21
   user: hatsuno
   sender: komagata

@@ -1,4 +1,9 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 work1:
+  <<: *DEFAULTS
   title: kimura's app
   description: "木村がつくったアプリです"
   url: https://kimurasapp.com
@@ -6,6 +11,7 @@ work1:
   user: kimura
 
 work2:
+  <<: *DEFAULTS
   title: hatsuno's app
   description: "初野がつくったアプリです"
   url: https://hatsunosapp.com

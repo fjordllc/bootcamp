@@ -1,14 +1,21 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 practices_book1:
+  <<: *DEFAULTS
   practice: practice1
   book: book1
   must_read: true
 
 practices_book2:
+  <<: *DEFAULTS
   practice: practice1
   book: book3
   must_read: false
 
 practices_book3:
+  <<: *DEFAULTS
   practice: practice5
   book: book4
   must_read: true

@@ -1,309 +1,375 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 categories_practice1:
+  <<: *DEFAULTS
   practice: practice1
   category: category2
   position: 1
 
 categories_practice2:
+  <<: *DEFAULTS
   practice: practice2
   category: category4
   position: 1
 
 categories_practice3:
+  <<: *DEFAULTS
   practice: practice3
   category: category2
   position: 2
 
 categories_practice4:
+  <<: *DEFAULTS
   practice: practice4
   category: category4
   position: 2
 
 categories_practice5:
+  <<: *DEFAULTS
   practice: practice5
   category: category4
   position: 3
 
 categories_practice6:
+  <<: *DEFAULTS
   practice: practice6
   category: category4
   position: 4
 
 categories_practice7:
+  <<: *DEFAULTS
   practice: practice7
   category: category8
   position: 1
 
 categories_practice8:
+  <<: *DEFAULTS
   practice: practice8
   category: category8
   position: 2
 
 categories_practice9:
+  <<: *DEFAULTS
   practice: practice9
   category: category4
   position: 5
 
 categories_practice10:
+  <<: *DEFAULTS
   practice: practice10
   category: category4
   position: 6
 
 categories_practice11:
+  <<: *DEFAULTS
   practice: practice11
   category: category4
   position: 7
 
 categories_practice12:
+  <<: *DEFAULTS
   practice: practice12
   category: category4
   position: 8
 
 categories_practice13:
+  <<: *DEFAULTS
   practice: practice13
   category: category4
   position: 9
 
 categories_practice14:
+  <<: *DEFAULTS
   practice: practice14
   category: category16
   position: 1
 
 categories_practice15:
+  <<: *DEFAULTS
   practice: practice15
   category: category16
   position: 2
 
 categories_practice16:
+  <<: *DEFAULTS
   practice: practice16
   category: category15
   position: 1
 
 categories_practice17:
+  <<: *DEFAULTS
   practice: practice17
   category: category15
   position: 2
 
 categories_practice18:
+  <<: *DEFAULTS
   practice: practice18
   category: category16
   position: 3
 
 categories_practice19:
+  <<: *DEFAULTS
   practice: practice19
   category: category15
   position: 3
 
 categories_practice20:
+  <<: *DEFAULTS
   practice: practice20
   category: category7
   position: 1
 
 categories_practice21:
+  <<: *DEFAULTS
   practice: practice21
   category: category7
   position: 2
 
 categories_practice22:
+  <<: *DEFAULTS
   practice: practice22
   category: category7
   position: 3
 
 categories_practice23:
+  <<: *DEFAULTS
   practice: practice23
   category: category5
   position: 1
 
 categories_practice24:
+  <<: *DEFAULTS
   practice: practice24
   category: category5
   position: 2
 
 categories_practice25:
+  <<: *DEFAULTS
   practice: practice25
   category: category5
   position: 3
 
 categories_practice26:
+  <<: *DEFAULTS
   practice: practice26
   category: category5
   position: 4
 
 categories_practice27:
+  <<: *DEFAULTS
   practice: practice27
   category: category11
   position: 1
 
 categories_practice28:
+  <<: *DEFAULTS
   practice: practice28
   category: category9
   position: 1
 
 categories_practice29:
+  <<: *DEFAULTS
   practice: practice29
   category: category5
   position: 5
 
 categories_practice30:
+  <<: *DEFAULTS
   practice: practice30
   category: category5
   position: 6
 
 categories_practice31:
+  <<: *DEFAULTS
   practice: practice31
   category: category5
   position: 7
 
 categories_practice32:
+  <<: *DEFAULTS
   practice: practice32
   category: category5
   position: 8
 
 categories_practice33:
+  <<: *DEFAULTS
   practice: practice33
   category: category6
   position: 1
 
 categories_practice34:
+  <<: *DEFAULTS
   practice: practice34
   category: category6
   position: 2
 
 categories_practice35:
+  <<: *DEFAULTS
   practice: practice35
   category: category6
   position: 3
 
 categories_practice36:
+  <<: *DEFAULTS
   practice: practice36
   category: category6
   position: 4
 
 categories_practice37:
+  <<: *DEFAULTS
   practice: practice37
   category: category6
   position: 5
 
 categories_practice38:
+  <<: *DEFAULTS
   practice: practice38
   category: category6
   position: 6
 
 categories_practice39:
+  <<: *DEFAULTS
   practice: practice39
   category: category6
   position: 7
 
 categories_practice40:
+  <<: *DEFAULTS
   practice: practice40
   category: category6
   position: 8
 
 categories_practice41:
+  <<: *DEFAULTS
   practice: practice41
   category: category6
   position: 9
 
 categories_practice42:
+  <<: *DEFAULTS
   practice: practice42
   category: category6
   position: 10
 
 categories_practice43:
+  <<: *DEFAULTS
   practice: practice43
   category: category6
   position: 11
 
 categories_practice44:
+  <<: *DEFAULTS
   practice: practice44
   category: category9
   position: 2
 
 categories_practice45:
+  <<: *DEFAULTS
   practice: practice45
   category: category9
   position: 3
 
 categories_practice46:
+  <<: *DEFAULTS
   practice: practice46
   category: category9
   position: 4
 
 categories_practice47:
+  <<: *DEFAULTS
   practice: practice47
   category: category9
   position: 5
 
 categories_practice48:
+  <<: *DEFAULTS
   practice: practice48
   category: category11
   position: 2
 
 categories_practice49:
+  <<: *DEFAULTS
   practice: practice49
   category: category6
   position: 12
 
 categories_practice50:
+  <<: *DEFAULTS
   practice: practice50
   category: category6
   position: 13
 
 categories_practice51:
+  <<: *DEFAULTS
   practice: practice51
   category: category13
   position: 1
 
 categories_practice52:
+  <<: *DEFAULTS
   practice: practice52
   category: category17
   position: 1
 
 categories_practice53:
+  <<: *DEFAULTS
   practice: practice53
   category: category18
   position: 1
 
 categories_practice54:
+  <<: *DEFAULTS
   practice: practice54
   category: category19
   position: 1
 
 categories_practice55:
+  <<: *DEFAULTS
   practice: practice55
   category: category20
   position: 1
 
 categories_practice56:
+  <<: *DEFAULTS
   practice: practice56
   category: category21
   position: 1
 
 categories_practice57:
+  <<: *DEFAULTS
   practice: practice57
   category: category2
   position: 3
 
 categories_practice61:
+  <<: *DEFAULTS
   practice: practice61
   category: category22
   position: 1
 
 categories_practice62_1:
+  <<: *DEFAULTS
   practice: practice62
   category: category6
   position: 14
 
 categories_practice62_2:
+  <<: *DEFAULTS
   practice: practice62
   category: category23
   position: 1
 
 categories_practice63_1:
+  <<: *DEFAULTS
   practice: practice63
   category: category6
   position: 15
 
 categories_practice63_2:
+  <<: *DEFAULTS
   practice: practice63
   category: category23
   position: 2

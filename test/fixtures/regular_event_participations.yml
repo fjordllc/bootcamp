@@ -1,28 +1,39 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 regular_event_participation1:
+  <<: *DEFAULTS
   user: hatsuno
   regular_event: regular_event1
 
 regular_event_participation2:
+  <<: *DEFAULTS
   user: kimura
   regular_event: regular_event8
 
 regular_event_participation3:
+  <<: *DEFAULTS
   user: kimura
   regular_event: regular_event9
 
 regular_event_participation4:
+  <<: *DEFAULTS
   user: kimura
   regular_event: regular_event26
 
 regular_event_participation5:
+  <<: *DEFAULTS
   user: hatsuno
   regular_event: regular_event32
 
 regular_event_participation6:
+  <<: *DEFAULTS
   user: kimura
   regular_event: regular_event7
 
 regular_event_participation7:
+  <<: *DEFAULTS
   user: kimura
   regular_event: regular_event34
 
