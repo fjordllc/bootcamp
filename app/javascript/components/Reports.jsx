@@ -31,6 +31,7 @@ export default function Reports({
 
   useEffect(() => {
     if (!data || !practices) return
+    let isMounted = true
     let practiceDropdown = null
     const initDropdown = async () => {
       const targetElement = document.querySelector(
@@ -40,6 +41,7 @@ export default function Reports({
       const { default: PracticeFilterDropdown } = await import(
         '../practice-filter-dropdown'
       )
+      if (!isMounted) return
       practiceDropdown = new PracticeFilterDropdown(
         practices,
         setUserPracticeId,
@@ -51,11 +53,12 @@ export default function Reports({
     initDropdown()
 
     return () => {
+      isMounted = false
       if (practiceDropdown) {
         practiceDropdown.destroy()
       }
     }
-  }, [data, practices, setUserPracticeId, userPracticeId])
+  }, [data, practices, setUserPracticeId])
 
   if (error) return <>エラーが発生しました。</>
   if (!data) {
