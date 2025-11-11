@@ -5,8 +5,9 @@ class Reports::UncheckedController < ApplicationController
   before_action :require_admin_or_mentor!
 
   def index
-    @reports = Report.list.page(params[:page]).per(PAGER_NUMBER)
-    @reports = @reports.unchecked.not_wip
+    @reports = Report.list.unchecked.not_wip
+    @unchecked_count = @reports.count
+    @reports = @reports.page(params[:page]).per(PAGER_NUMBER)
     render 'reports/index'
   end
 
