@@ -24,6 +24,7 @@ class Notification::TalkTest < ApplicationSystemTestCase
     assert_text 'test'
 
     visit_with_auth '/notifications', 'machida'
+    find('#notifications.loaded')
 
     within first('.card-list-item.is-unread') do
       click_link 'kimuraさんの相談部屋でkimuraさんからコメントが届きました。'
@@ -51,6 +52,7 @@ class Notification::TalkTest < ApplicationSystemTestCase
     end
 
     visit_with_auth '/notifications', 'machida'
+    find('#notifications.loaded')
 
     within first('.card-list-item.is-unread') do
       assert_text 'kimuraさんの相談部屋でkomagataさんからコメントが届きました。'
@@ -69,6 +71,7 @@ class Notification::TalkTest < ApplicationSystemTestCase
     assert_text 'test'
 
     visit_with_auth '/notifications', 'kimura'
+    find('#notifications.loaded')
 
     within first('.card-list-item.is-unread') do
       click_link '相談部屋でkomagataさんからコメントがありました。'
