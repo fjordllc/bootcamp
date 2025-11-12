@@ -47,7 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       document.querySelector('.page-body').replaceWith(pageToShow)
 
-      const savedModeAfterDelete = sessionStorage.getItem(EDIT_MODE_KEY) === 'true'
+      const savedModeAfterDelete =
+        sessionStorage.getItem(EDIT_MODE_KEY) === 'true'
       initializer(savedModeAfterDelete)
     } catch (error) {
       console.warn(error)
