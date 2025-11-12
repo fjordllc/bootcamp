@@ -24,11 +24,6 @@ Minitest::Retry.use!(retry_count: 3, verbose: true) if ENV['CI']
 I18n.locale = :ja
 Time.zone = 'Asia/Tokyo'
 
-# URLヘルパーをコントローラ/メーラー以外（Notifier等）から使う際の既定ホスト
-Rails.application.routes.default_url_options[:host] = 'localhost'
-Rails.application.routes.default_url_options[:port] = 3000
-Rails.application.routes.default_url_options[:protocol] = 'http'
-
 # Discord Webhook のテスト用ダミーURL（ENV未設定時のフォールバック）
 ENV['WEBHOOK_ALL_URL'] ||= 'https://discord.com/api/webhooks/0123456789/all'
 ENV['WEBHOOK_ADMIN_URL'] ||= 'https://discord.com/api/webhooks/0123456789/admin'

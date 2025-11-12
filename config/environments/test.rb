@@ -31,10 +31,6 @@ Rails.application.configure do
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
 
-  # Set default URL options for URL generation in tests
-  # Use localhost to avoid UnsafeRedirectError in system tests
-  config.action_controller.default_url_options = { host: "localhost", port: 3000, protocol: "http" }
-
   # Store uploaded files on the local file system in a temporary directory.
   config.active_storage.service = :test
 
