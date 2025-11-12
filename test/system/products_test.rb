@@ -115,6 +115,8 @@ class ProductsTest < ApplicationSystemTestCase
 
     products(:product8).change_learning_status(:started)
     visit "#{product_path}/edit"
+    # フォームが完全に読み込まれるまで待機
+    assert_selector 'textarea[name="product[body]"]:not([disabled])', wait: 10
     click_button 'WIP'
     visit practice_path
 
@@ -124,6 +126,8 @@ class ProductsTest < ApplicationSystemTestCase
     visit product_path
     click_button '提出する'
     visit "#{product_path}/edit"
+    # フォームが完全に読み込まれるまで待機
+    assert_selector 'textarea[name="product[body]"]:not([disabled])', wait: 10
     click_button 'WIP'
     visit practice_path
 

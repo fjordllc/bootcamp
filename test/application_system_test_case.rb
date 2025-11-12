@@ -13,6 +13,7 @@ require 'supports/article_helper'
 require 'supports/javascript_helper'
 require 'supports/product_helper'
 require 'supports/avatar_helper'
+require 'supports/clipboard_helper'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include LoginHelper
@@ -27,6 +28,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include JavascriptHelper
   include ProductHelper
   include AvatarHelper
+  include ClipboardHelper
 
   if ENV['HEADFUL']
     driven_by :selenium, using: :chrome
