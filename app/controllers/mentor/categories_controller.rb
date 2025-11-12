@@ -19,7 +19,7 @@ class Mentor::CategoriesController < MentorController
     @category = Category.new(category_params)
 
     if @category.save
-      redirect_to mentor_categories_url, notice: 'カテゴリーを作成しました。'
+      redirect_to mentor_categories_path, notice: 'カテゴリーを作成しました。'
     else
       render action: 'new'
     end
@@ -35,7 +35,7 @@ class Mentor::CategoriesController < MentorController
 
   def destroy
     @category.destroy
-    redirect_to mentor_categories_url, notice: 'カテゴリーを削除しました。'
+    redirect_to mentor_categories_path, notice: 'カテゴリーを削除しました。'
   end
 
   private
@@ -54,6 +54,6 @@ class Mentor::CategoriesController < MentorController
 
   def return_to
     course_id = params[:category][:course_id]
-    course_id.present? ? course_practices_url(course_id) : mentor_categories_url
+    course_id.present? ? course_practices_path(course_id) : mentor_categories_path
   end
 end
