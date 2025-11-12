@@ -5,6 +5,16 @@ class NotificationsController < ApplicationController
 
   def index
     @target = params[:target]
+
+    latest_notifications = Notification.for_user_by_target_and_status(
+      user: current_user,
+      target: params[:target],
+      status: params[:status]
+    )
+    @notifications = Notification.with_avatar
+                                 .from(latest_notifications, :notifications)
+                                 .order(created_at: :desc)
+                                 .page(params[:page])
   end
 
   def show
