@@ -6,6 +6,7 @@ class PairWorksController < ApplicationController
   before_action :set_updatable_pair_work, only: %i[update]
 
   PAGER_NUMBER = 10
+
   def index
     @pair_works = PairWork.by_target(params[:target])
                           .with_avatar
