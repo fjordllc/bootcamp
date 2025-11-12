@@ -26,7 +26,7 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
     visit_with_auth '/current_user/bookmarks', 'kimura'
 
     assert_selector 'label', text: '編集'
-    assert_selector 'input#card-list-tools__action', visible: false
+    assert_selector 'input#bookmark_edit', visible: false
 
     assert_text '作業週1日目'
     assert_selector '.card-list-item__label', text: '日報'
@@ -104,8 +104,7 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
       user_with_some_bookmarks.bookmarks.create!(bookmarkable_id: reports("report#{n}".to_sym).id, bookmarkable_type: 'Report')
     end
     visit_with_auth '/current_user/bookmarks', user_with_some_bookmarks.login_name
-    # ページ遷移直後なのでreactコンポーネントが表示されるまで待つ
-    within "[data-testid='bookmarks']" do
+    within '.page-main' do
       assert_no_selector 'nav.pagination'
     end
   end
@@ -127,8 +126,7 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
       user_with_many_bookmarks.bookmarks.create!(bookmarkable_id: reports("report#{n}".to_sym).id, bookmarkable_type: 'Report')
     end
     visit_with_auth '/current_user/bookmarks', user_with_many_bookmarks.login_name
-    # ページ遷移直後なのでreactコンポーネントが表示されるまで待つ
-    within "[data-testid='bookmarks']" do
+    within '.page-main' do
       assert_selector 'nav.pagination', count: 2
     end
 
