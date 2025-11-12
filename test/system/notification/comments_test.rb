@@ -22,6 +22,7 @@ class Notification::CommentsTest < ApplicationSystemTestCase
     assert_text '@machida @machida test'
 
     visit_with_auth '/notifications', 'machida'
+    find('#notifications.loaded')
 
     within first('.card-list-item.is-unread') do
       assert_text 'komagataさんの日報「作業週1日目」へのコメントでkomagataさんからメンションがきました。'
