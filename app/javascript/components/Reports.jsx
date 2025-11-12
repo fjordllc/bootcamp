@@ -31,31 +31,32 @@ export default function Reports({
 
   useEffect(() => {
     if (!data || !practices) return
+
     let isMounted = true
-    let practiceDropdown = null
+    let dropdown = null
     const initDropdown = async () => {
       const targetElement = document.querySelector(
         '[data-practice-filter-dropdown]'
       )
-      if (!targetElement) return
-      const { default: PracticeFilterDropdown } = await import(
-        '../practice-filter-dropdown'
-      )
-      if (!isMounted) return
-      practiceDropdown = new PracticeFilterDropdown(
+      if (!targetElement || !isMounted) return
+
+      const PracticeFilterDropdown = (
+        await import('../practice-filter-dropdown')
+      ).default
+      dropdown = new PracticeFilterDropdown(
         practices,
         setUserPracticeId,
         userPracticeId
       )
-      practiceDropdown.render(targetElement)
+      dropdown.render(targetElement)
     }
 
     initDropdown()
 
     return () => {
       isMounted = false
-      if (practiceDropdown) {
-        practiceDropdown.destroy()
+      if (dropdown) {
+        dropdown.destroy()
       }
     }
   }, [data, practices, setUserPracticeId])

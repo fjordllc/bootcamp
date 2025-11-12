@@ -1,6 +1,6 @@
 import Choices from 'choices.js'
 
-export default class PracticeFilterDropdown {
+export default class {
   constructor(practices, setPracticeId, userPracticeId) {
     this.practices = practices
     this.setPracticeId = setPracticeId
