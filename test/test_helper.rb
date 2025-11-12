@@ -44,6 +44,9 @@ class ActiveSupport::TestCase
     # Rails 7: ActiveStorage::Current.host= is deprecated, use url_options= instead
     ActiveStorage::Current.url_options = { host: 'localhost', port: 3000, protocol: 'http' }
 
+    # Set default URL options for routing helpers in tests
+    Rails.application.routes.default_url_options = { host: 'www.example.com', protocol: 'http' }
+
     # Rails 7.2: テスト環境でロケールとタイムゾーンを設定
     I18n.locale = :ja
     Time.zone = 'Asia/Tokyo'
@@ -71,6 +74,10 @@ end
 class ActionDispatch::IntegrationTest
   include Sorcery::TestHelpers::Rails::Integration
   include APIHelper
+
+  setup do
+    host! 'www.example.com'
+  end
 end
 
 ActiveSupport.on_load(:action_dispatch_system_test_case) do
