@@ -74,4 +74,13 @@ class ApplicationController < ActionController::Base
   def test?
     Rails.env.test?
   end
+
+  # Rails 7.2: テスト環境でのリダイレクトにallow_other_hostを追加
+  def redirect_to(options = {}, response_options = {})
+    if Rails.env.test?
+      super(options, response_options.merge(allow_other_host: true))
+    else
+      super(options, response_options)
+    end
+  end
 end

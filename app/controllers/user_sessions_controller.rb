@@ -18,7 +18,7 @@ class UserSessionsController < ApplicationController
         link = view_context.link_to '休会復帰ページ', new_comeback_path, target: '_blank', rel: 'noopener'
         logout_with_alert("休会中です。#{link}から手続きをお願いします。")
       else
-        redirect_back_or_to root_url, notice: 'ログインしました。', allow_other_host: true
+        redirect_back_or_to root_url, notice: 'ログインしました。'
       end
     else
       @user = User.new
