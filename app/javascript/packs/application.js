@@ -86,7 +86,7 @@ import '../action_completed_button.js'
 import '../toast.js'
 import '../tag.js'
 import '../tag_edit.js'
-import '../notifications_remove_after_open'
+import '../notifications_remove_after_open.js'
 
 import '../stylesheets/application'
 

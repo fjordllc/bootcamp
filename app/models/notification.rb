@@ -62,16 +62,6 @@ class Notification < ApplicationRecord
   after_update NotificationCallbacks.new
   after_destroy NotificationCallbacks.new
 
-  def self.for_user_by_target_and_status(user:, target:, status:)
-    target = target.presence&.to_sym
-    target = nil unless TARGETS_TO_KINDS.key?(target)
-
-    user.notifications
-        .by_target(target)
-        .by_read_status(status)
-        .latest_of_each_link
-  end
-
   def unread?
     !read
   end
