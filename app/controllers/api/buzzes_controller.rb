@@ -28,7 +28,7 @@ class API::BuzzesController < API::BaseController
       @buzz.destroy
       render json: @buzz, status: :ok
     else
-      render json: { error: 'Buzzが見つかりません', status: :not_found }
+      render json: { error: 'Buzzが見つかりません' }, status: :not_found
     end
   end
 
