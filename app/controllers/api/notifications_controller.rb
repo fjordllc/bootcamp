@@ -6,7 +6,7 @@ class API::NotificationsController < API::BaseController
       user: current_user,
       target: params[:target],
       status: params[:status]
-    ).call.page(params[:page])
+    ).call
 
     page = params[:page]
     return @notifications unless page
