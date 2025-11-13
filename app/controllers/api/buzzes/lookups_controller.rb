@@ -9,7 +9,7 @@ class API::Buzzes::LookupsController < API::BaseController
 
     @buzz = Buzz.find_by(url: params[:url])
     if @buzz
-      render json: @buzz
+      render json: @buzz, status: :ok
     else
       head :not_found
     end
