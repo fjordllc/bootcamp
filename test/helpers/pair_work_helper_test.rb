@@ -8,6 +8,7 @@ class PairWorkHelperTest < ActionView::TestCase
       users(:kimura)
     end
   end
+
   test 'schedule_dates' do
     created_at = Time.zone.local(2025, 1, 1, 0, 0, 0)
     dates = [
@@ -47,5 +48,23 @@ class PairWorkHelperTest < ActionView::TestCase
 
     assert checked?(future_date, my_learning_time_frame_id)
     assert_not checked?(past_date, my_learning_time_frame_id)
+  end
+  test 'schedule_time' do
+    elapsed_day_count = 1
+    elapsed_time_count = 1
+    now = Time.current.beginning_of_day
+    target_time = now + elapsed_day_count.days + elapsed_time_count.hour
+
+    assert_equal target_time, schedule_time(elapsed_day_count, elapsed_time_count)
+  end
+
+  test 'schedule_check_box_id' do
+    travel_to Time.zone.local(2025, 1, 1, 0, 0, 0) do
+      elapsed_day_count = 1
+      elapsed_time_count = 1
+      target_time = schedule_time(elapsed_day_count, elapsed_time_count)
+
+      assert_equal 'schedule_ids_202501020100', schedule_check_box_id(target_time)
+    end
   end
 end
