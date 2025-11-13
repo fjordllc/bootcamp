@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     allOpenButton.closest('.card-footer')?.remove()
     document.querySelector('.a-border-tint')?.remove()
 
-    const container = document.querySelector('.page-body .container.is-md')
+    const container = document.querySelector('.page-content')
     if (container) {
       container.innerHTML = `
         <div class="o-empty-message">
