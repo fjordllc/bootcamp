@@ -27,4 +27,12 @@ module PairWorkHelper
   def checked?(target_date, id)
     !disabled?(target_date) && current_user.learning_time_frame_ids.include?(id)
   end
+
+  def schedule_time(day_count, hour_count)
+    Time.current.beginning_of_day + day_count.days + hour_count.hour
+  end
+
+  def schedule_check_box_id(target_time)
+    "schedule_ids_#{target_time.strftime('%Y%m%d%H%M')}"
+  end
 end
