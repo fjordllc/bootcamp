@@ -65,16 +65,16 @@
                             | #{hour}:00
                           - sorted_wdays(Time.current).each_with_index do |wday, day|
                             ruby:
-                              target_date = Time.zone.now.beginning_of_day + day.days + hour.hours
-                              target_id = wday * 24 + hour + 1
-                              check_box_id = "schedule_ids_#{target_date.strftime('%Y%m%d%H%M')}"
+                              target_time = schedule_time(day, hour)
+                              check_box_id = schedule_check_box_id(target_time)
+                              learning_time_frame_id = wday * 24 + hour + 1
                             td.form-table__check
                               = label_tag check_box_id do
                                 span
                                   = check_box_tag 'pair_work[schedules_attributes][][proposed_at]',
-                                                  target_date.iso8601,
-                                                  checked?(target_date, target_id),
-                                                  id: check_box_id, disabled: disabled?(target_date)
+                                                  target_time.iso8601,
+                                                  checked?(target_time, learning_time_frame_id),
+                                                  id: check_box_id, disabled: disabled?(target_time)
       .form-item
         .row.js-markdown-parent
           .col-md-6.col-xs-12
