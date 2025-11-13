@@ -17,11 +17,11 @@ class NotificationsController < ApplicationController
                                        .by_read_status(status)
                                        .latest_of_each_link
 
-    @notifications = Notification.with_avatar
-                                 .from(latest_notifications, :notifications)
-                                 .order(created_at: :desc)
-                                 .page(params[:page])
-                                 .per(PER_PAGE)
+    @notifications = UserNotificationsQuery.new(
+      user: current_user,
+      target: params[:target],
+      status: params[:status]
+    ).call.page(params[:page])
   end
 
   def show
