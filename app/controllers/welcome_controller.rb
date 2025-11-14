@@ -31,7 +31,7 @@ class WelcomeController < ApplicationController
     @faqs = if params[:category].present?
               faqs_for(params[:category])
             else
-              FAQ.order(:position)
+              Faq.order(:position)
             end
   end
 
@@ -75,6 +75,6 @@ class WelcomeController < ApplicationController
   end
 
   def faqs_for(category_name)
-    FaqCategory.find_by(name: category_name)&.faqs&.order(:position) || FAQ.none
+    FaqCategory.find_by(name: category_name)&.faqs&.order(:position) || Faq.none
   end
 end
