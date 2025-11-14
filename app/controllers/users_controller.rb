@@ -46,7 +46,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     @times = Grass.times(@user, @target_end_date)
 
     reports = @user.reports_with_learning_times
-    @study_streak = UserStudyStreak.new(reports, include_wip: false)
+    @study_streak = StudyStreak.new(reports, include_wip: false)
 
     if logged_in?
       render :show

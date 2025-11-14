@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UserStudyStreak
+class StudyStreak
   attr_reader :current_start_on, :current_end_on, :current_days, :longest_start_on, :longest_end_on, :longest_days
 
   def initialize(reports, include_wip: false)

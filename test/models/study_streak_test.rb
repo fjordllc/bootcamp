@@ -3,7 +3,7 @@
 require 'test_helper'
 require 'supports/report_helper'
 
-class UserStudyStreakTest < ActiveSupport::TestCase
+class StudyStreakTest < ActiveSupport::TestCase
   include ReportHelper
 
   setup do
@@ -25,7 +25,7 @@ class UserStudyStreakTest < ActiveSupport::TestCase
       create_report_data_with_learning_times(user: @user, on: date, wip: true)
     end
     @reports = @user.reports_with_learning_times
-    @study_streak = UserStudyStreak.new(@reports)
+    @study_streak = StudyStreak.new(@reports)
   end
 
   test 'streak_periods returns correct study_streak periods' do
@@ -49,7 +49,7 @@ class UserStudyStreakTest < ActiveSupport::TestCase
 
   test 'longest_learning_streak returns nil when no learning days' do
     user_without_report = users(:nippounashi)
-    no_streak = UserStudyStreak.new(user_without_report.reports_with_learning_times)
+    no_streak = StudyStreak.new(user_without_report.reports_with_learning_times)
 
     assert_nil no_streak.longest_start_on
     assert_nil no_streak.longest_end_on
@@ -66,7 +66,7 @@ class UserStudyStreakTest < ActiveSupport::TestCase
   end
 
   test 'includes wip report days when include_wip option is true' do
-    study_streak = UserStudyStreak.new(@reports, include_wip: true)
+    study_streak = StudyStreak.new(@reports, include_wip: true)
 
     # WIP(2024-08-23)が反映されて連続日数が 4 日に延びる想定
     assert_equal Date.parse('2024-08-20'), study_streak.current_start_on
