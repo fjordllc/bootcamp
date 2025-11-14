@@ -13,6 +13,6 @@ class Redirection
   end
 
   def determin_url
-    @resource.wip? ? @controller.polymorphic_url(@resource, action: :edit) : @controller.polymorphic_url(@resource)
+    @resource.wip? ? @controller.polymorphic_path(@resource, action: :edit) : @controller.polymorphic_path(@resource)
   end
 end
