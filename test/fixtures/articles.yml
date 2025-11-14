@@ -46,6 +46,6 @@ article<%= id %>:
     test body<%= id %>
   user: komagata
   wip: false
-  published_at: "<%= Date.parse('2024-02-01') + i %>"
-  created_at: "<%= Date.parse('2024-02-01') + i %>"
+  published_at: "<%= Time.zone.local(2024, 2, 1, 9, 0) + i.days %>"
+  created_at: "<%= Time.zone.local(2024, 2, 1, 9, 0) + i.days %>"
 <% end %>
