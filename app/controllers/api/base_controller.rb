@@ -17,10 +17,4 @@ class API::BaseController < ApplicationController
   def current_action_name
     "#{self.class.name}##{action_name}"
   end
-
-  def require_admin_or_mentor_login_for_api
-    return if current_user.admin_or_mentor?
-
-    render json: { error: '権限がありません' }, status: :forbidden
-  end
 end

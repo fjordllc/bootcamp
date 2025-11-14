@@ -45,4 +45,10 @@ module Authentication
     login_from_jwt unless logged_in?
     head :unauthorized unless staff_login?
   end
+
+  def require_admin_or_mentor_login_for_api
+    return if current_user.admin_or_mentor?
+
+    render json: { error: '権限がありません' }, status: :forbidden
+  end
 end
