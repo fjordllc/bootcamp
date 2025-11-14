@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class API::CommentsTest < ActionDispatch::IntegrationTest
+class Api::CommentsTest < ActionDispatch::IntegrationTest
   fixtures :comments, :users
 
   def setup

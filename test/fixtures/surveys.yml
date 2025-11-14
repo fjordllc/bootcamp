@@ -1,4 +1,9 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 survey1:
+  <<: *DEFAULTS
   title: "【第1回】FBCモチベーションに関するアンケート"
   description: "フィヨルドブートキャンプでは満足度向上と質の高いサービスの提供に活かすためアンケートを実施しております。5分程度の簡単なアンケートです。"
   user: komagata
@@ -8,6 +13,7 @@ survey1:
   updated_at: <%= Time.zone.local(2020, 1, 1, 0, 0) %>
 
 survey2:
+  <<: *DEFAULTS
   title: "【第0回】テストに関するアンケート"
   description: "テストに関するアンケート"
   user: komagata

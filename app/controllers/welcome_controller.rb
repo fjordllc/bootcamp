@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency 'faq_category'
 class WelcomeController < ApplicationController
   skip_before_action :require_active_user_login, raise: false
   layout 'lp'
@@ -25,7 +24,7 @@ class WelcomeController < ApplicationController
   def pricing; end
 
   def faq
-    @faq_categories = FAQCategory.order(:position).select do |faq_category|
+    @faq_categories = FaqCategory.order(:position).select do |faq_category|
       faq_category.faqs.present?
     end
 
@@ -76,6 +75,6 @@ class WelcomeController < ApplicationController
   end
 
   def faqs_for(category_name)
-    FAQCategory.find_by(name: category_name)&.faqs&.order(:position) || FAQ.none
+    FaqCategory.find_by(name: category_name)&.faqs&.order(:position) || FAQ.none
   end
 end

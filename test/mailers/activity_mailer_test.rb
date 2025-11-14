@@ -17,7 +17,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['mentormentaro@fjord.jp'], email.to
     assert_equal '[FBC] sotugyouさんが卒業しました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">sotugyouさんのページへ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">sotugyouさんのページへ</a>}, email.body.to_s)
   end
 
   test 'graduated with params' do
@@ -38,7 +38,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['mentormentaro@fjord.jp'], email.to
     assert_equal '[FBC] sotugyouさんが卒業しました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">sotugyouさんのページへ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">sotugyouさんのページへ</a>}, email.body.to_s)
   end
 
   test 'graduated with user who have been denied' do
@@ -64,7 +64,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['mentormentaro@fjord.jp'], email.to
     assert_equal '[FBC] kimuraさんが休会から復帰しました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">kimuraさんのページへ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">kimuraさんのページへ</a>}, email.body.to_s)
   end
 
   test 'comebacked with params' do
@@ -85,7 +85,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['mentormentaro@fjord.jp'], email.to
     assert_equal '[FBC] kimuraさんが休会から復帰しました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">kimuraさんのページへ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">kimuraさんのページへ</a>}, email.body.to_s)
   end
 
   test 'comebacked with user who have been denied' do
@@ -107,7 +107,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['sotugyou@example.com'], email.to
     assert_equal '[FBC] komagataさんから回答がありました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">回答へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">回答へ</a>}, email.body.to_s)
   end
 
   test 'came_answer with params' do
@@ -124,7 +124,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['sotugyou@example.com'], email.to
     assert_equal '[FBC] komagataさんから回答がありました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">回答へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">回答へ</a>}, email.body.to_s)
   end
 
   test 'came_answer to mute email notification or retired user' do
@@ -162,7 +162,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['sotugyou@example.com'], email.to
     assert_equal '[FBC] お知らせ「お知らせ1」', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">このお知らせへ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">このお知らせへ</a>}, email.body.to_s)
   end
 
   test 'post_announcement with params' do
@@ -183,8 +183,8 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['sotugyou@example.com'], email.to
     assert_equal '[FBC] お知らせ「お知らせ1」', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">このお知らせへ</a>}, email.body.to_s)
-    assert_match(%r{<a .+ href="http://localhost:3000/users/#{announce.user.id}">}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">このお知らせへ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/users/#{announce.user.id}">}, email.body.to_s)
   end
 
   test 'post_announcement to mute email notification or retired user' do
@@ -237,7 +237,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
     assert_equal '[FBC] machidaさんから質問「どのエディターを使うのが良いでしょうか」が投稿されました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">質問へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">質問へ</a>}, email.body.to_s)
   end
 
   test 'came_question with params' do
@@ -261,7 +261,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
     assert_equal '[FBC] machidaさんから質問「どのエディターを使うのが良いでしょうか」が投稿されました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">質問へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">質問へ</a>}, email.body.to_s)
   end
 
   test 'came_question with no practice' do
@@ -281,7 +281,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
     assert_equal '[FBC] kimuraさんから質問「プラクティスを選択せずに登録したテストの質問」が投稿されました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">質問へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">質問へ</a>}, email.body.to_s)
   end
 
   test 'mentioned' do
@@ -298,7 +298,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['sotugyou@example.com'], email.to
     assert_equal '[FBC] sotugyouさんの日報「学習週1日目」へのコメントでkomagataさんからメンションがありました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">このメンションへ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">このメンションへ</a>}, email.body.to_s)
   end
 
   test 'mentioned with params' do
@@ -319,7 +319,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['sotugyou@example.com'], email.to
     assert_equal '[FBC] sotugyouさんの日報「学習週1日目」へのコメントでkomagataさんからメンションがありました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">このメンションへ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">このメンションへ</a>}, email.body.to_s)
   end
 
   test 'mentioned to mute email notification or retired user' do
@@ -369,7 +369,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['mentormentaro@fjord.jp'], email.to
     assert_equal '[FBC] yameoさんが退会しました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">yameoさんのページへ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">yameoさんのページへ</a>}, email.body.to_s)
   end
 
   test 'retired with params' do
@@ -390,7 +390,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['mentormentaro@fjord.jp'], email.to
     assert_equal '[FBC] yameoさんが退会しました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">yameoさんのページへ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">yameoさんのページへ</a>}, email.body.to_s)
   end
 
   test 'retired with user who have been denied' do
@@ -466,7 +466,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['mentormentaro@fjord.jp'], email.to
     assert_equal '[FBC] komagataさんがDocsにBootcampの作業のページを投稿しました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">このDocsへ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">このDocsへ</a>}, email.body.to_s)
   end
 
   test 'create_page with params' do
@@ -488,7 +488,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['mentormentaro@fjord.jp'], email.to
     assert_equal '[FBC] komagataさんがDocsにBootcampの作業のページを投稿しました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">このDocsへ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">このDocsへ</a>}, email.body.to_s)
   end
 
   test 'moved_up_event_waiting_user' do
@@ -505,7 +505,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['hatsuno@fjord.jp'], email.to
     assert_equal '[FBC] 募集期間中のイベント(補欠者あり)で、補欠から参加に繰り上がりました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">特別イベント詳細へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">特別イベント詳細へ</a>}, email.body.to_s)
   end
 
   test 'moved_up_event_waiting_user with params' do
@@ -526,7 +526,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['hatsuno@fjord.jp'], email.to
     assert_equal '[FBC] 募集期間中のイベント(補欠者あり)で、補欠から参加に繰り上がりました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">特別イベント詳細へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">特別イベント詳細へ</a>}, email.body.to_s)
   end
 
   test 'submitted' do
@@ -544,7 +544,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['mentormentaro@fjord.jp'], email.to
     assert_equal '[FBC] hatsunoさんが「Terminalの基礎を覚える」の提出物を提出しました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">提出物へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">提出物へ</a>}, email.body.to_s)
   end
 
   test 'submitted with params' do
@@ -566,7 +566,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['mentormentaro@fjord.jp'], email.to
     assert_equal '[FBC] hatsunoさんが「Terminalの基礎を覚える」の提出物を提出しました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">提出物へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">提出物へ</a>}, email.body.to_s)
   end
 
   test 'submitted with user who have been denied' do
@@ -598,7 +598,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['muryou@fjord.jp'], email.to
     assert_equal '[FBC] kensyuさんが日報【 フォローされた日報 】を書きました！', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">この日報へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">この日報へ</a>}, email.body.to_s)
   end
 
   test 'following_report with params' do
@@ -622,7 +622,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['muryou@fjord.jp'], email.to
     assert_equal '[FBC] kensyuさんが日報【 フォローされた日報 】を書きました！', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">この日報へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">この日報へ</a>}, email.body.to_s)
   end
 
   test 'watching_notification' do
@@ -662,7 +662,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['machidanohimitsu@gmail.com'], email.to
     assert_equal '[FBC] kimuraさんの提出物「sshdをインストールする」の提出物の担当になりました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">この提出物へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">この提出物へ</a>}, email.body.to_s)
   end
 
   test 'assigned_as_checker with params' do
@@ -684,7 +684,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['machidanohimitsu@gmail.com'], email.to
     assert_equal '[FBC] kimuraさんの提出物「sshdをインストールする」の提出物の担当になりました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">この提出物へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">この提出物へ</a>}, email.body.to_s)
   end
 
   test 'assigned_as_checker to mute email notification or retired user' do
@@ -822,7 +822,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
     assert_equal '[FBC] hajimeさんが2回連続でnegativeアイコンの日報を提出しました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">この日報へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">この日報へ</a>}, email.body.to_s)
   end
 
   test 'consecutive_negative_report with params' do
@@ -843,7 +843,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
     assert_equal '[FBC] hajimeさんが2回連続でnegativeアイコンの日報を提出しました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">この日報へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">この日報へ</a>}, email.body.to_s)
   end
 
   test 'update_regular_event using synchronous mailer' do
@@ -980,7 +980,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal [receiver.email], email.to
     assert_equal "[FBC] #{answer.receiver.login_name}さんの質問【 #{answer.question.title} 】で#{answer.sender.login_name}さんの回答がベストアンサーに選ばれました。", email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">回答へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">回答へ</a>}, email.body.to_s)
   end
 
   test 'chose_correct_answer with params using asynchronous mailer' do
@@ -1002,7 +1002,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal [receiver.email], email.to
     assert_equal "[FBC] #{answer.receiver.login_name}さんの質問【 #{answer.question.title} 】で#{answer.sender.login_name}さんの回答がベストアンサーに選ばれました。", email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">回答へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">回答へ</a>}, email.body.to_s)
   end
 
   test 'not send chose_correct_answer email to user with mail_notification off' do
@@ -1051,7 +1051,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal [receiver.email], email.to
     assert_equal "[FBC] #{receiver.login_name}さんの質問【 #{question.title} 】のベストアンサーがまだ選ばれていません。", email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">#{receiver.login_name}さんの質問へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">#{receiver.login_name}さんの質問へ</a>}, email.body.to_s)
   end
 
   test 'no_correct_answer with params using asynchronous mailer' do
@@ -1070,7 +1070,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal [receiver.email], email.to
     assert_equal "[FBC] #{receiver.login_name}さんの質問【 #{question.title} 】のベストアンサーがまだ選ばれていません。", email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">#{receiver.login_name}さんの質問へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">#{receiver.login_name}さんの質問へ</a>}, email.body.to_s)
   end
 
   test 'product_update' do
@@ -1088,7 +1088,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
     assert_equal '[FBC] mentormentaroさんが「OS X Mountain Lionをクリーンインストールする」の提出物を更新しました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">提出物へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">提出物へ</a>}, email.body.to_s)
   end
 
   test 'came_comment' do
@@ -1182,7 +1182,7 @@ class ActivityMailerTest < ActionMailer::TestCase
       assert_equal ['noreply@bootcamp.fjord.jp'], email.from
       assert_equal [receiver.email], email.to
       assert_equal "新しいブログ「#{article.title}」を#{article.user.login_name}さんが投稿しました！", email.subject
-      assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">ブログへ</a>}, email.body.to_s)
+      assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">ブログへ</a>}, email.body.to_s)
     end
   end
 
@@ -1208,7 +1208,7 @@ class ActivityMailerTest < ActionMailer::TestCase
       assert_equal ['noreply@bootcamp.fjord.jp'], email.from
       assert_equal [receiver.email], email.to
       assert_equal "新しいブログ「#{article.title}」を#{article.user.login_name}さんが投稿しました！", email.subject
-      assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">ブログへ</a>}, email.body.to_s)
+      assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">ブログへ</a>}, email.body.to_s)
     end
   end
 
@@ -1243,7 +1243,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
     assert_equal "[FBC] kimuraさんがポートフォリオに作品「kimura\'s app」を追加しました。", email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">この作品へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">この作品へ</a>}, email.body.to_s)
   end
 
   test 'added_work with params' do
@@ -1267,7 +1267,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
     assert_equal '[FBC] kimuraさんがポートフォリオに作品「kimura\'s app」を追加しました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">この作品へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="http://www.example.com/notification/redirector\?#{query}">この作品へ</a>}, email.body.to_s)
   end
 
   test 'added_work for admin with mail_notification off' do

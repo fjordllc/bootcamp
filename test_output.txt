@@ -1,0 +1,935 @@
+DEPRECATION WARNING: Support for Ruby versions < 3.2.0 is deprecated and will be removed from ViewComponent 4.0.0 (ViewComponent v4 will remove support for Ruby versions < 3.2.0 no earlier than April 1, 2025) (called from <main> at /Users/machida/dev/bootcamp/config/environment.rb:5)
+2025-11-12 08:58:04 INFO Selenium [:logger_info] Details on how to use and modify Selenium logger:
+  https://selenium.dev/documentation/webdriver/troubleshooting/logging
+
+2025-11-12 08:58:04 WARN Selenium [:selenium_manager] The chromedriver version (141.0.7390.78) detected in PATH at /opt/homebrew/bin/chromedriver might not be compatible with the detected chrome version (142.0.7444.135); currently, chromedriver 142.0.7444.162 is recommended for chrome 142.*, so it is advised to delete the driver in PATH and retry 
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :thumbnail_type, {:prepared_thumbnail=>0, :ruby=>1, :ruby_on_rails=>2, :javascript=>3, :wsl2=>4, :linux=>5, :pc=>6, :sponsorship=>7, :green=>8, :purple=>9, :orange=>10, :brown=>11, :blue=>12}
+ (called from <class:Article> at /Users/machida/dev/bootcamp/app/models/article.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :target, {:all=>0, :students=>1, :job_seekers=>2, :none=>3}
+ (called from <class:Article> at /Users/machida/dev/bootcamp/app/models/article.rb:20)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :kind, {:came_comment=>0, :checked=>1, :mentioned=>2, :submitted=>3, :answered=>4, :announced=>5, :came_question=>6, :first_report=>7, :watching=>8, :retired=>9, :trainee_report=>10, :moved_up_event_waiting_user=>11, :create_pages=>12, :following_report=>13, :chose_correct_answer=>14, :consecutive_negative_report=>15, :assigned_as_checker=>16, :product_update=>17, :graduated=>18, :hibernated=>19, :signed_up=>20, :regular_event_updated=>21, :no_correct_answer=>22, :comebacked=>23, :create_article=>24, :added_work=>25, :came_inquiry=>26, :training_completed=>27}
+ (called from <class:Notification> at /Users/machida/dev/bootcamp/app/models/notification.rb:18)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :kind, {:thumbsup=>0, :thumbsdown=>1, :smile=>2, :confused=>3, :tada=>4, :heart=>5, :rocket=>6, :eyes=>7, :hundred=>8, :flexed=>9, :okwoman=>10, :loudlycrying=>11, :raised_hands=>12, :pray=>13}
+ (called from <class:Reaction> at /Users/machida/dev/bootcamp/app/models/reaction.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :job, {:student=>0, :office_worker=>2, :part_time_worker=>3, :vacation=>4, :unemployed=>5}
+ (called from <class:User> at /Users/machida/dev/bootcamp/app/models/user.rb:41)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :os, {:mac=>0, :mac_apple=>2, :linux=>1, :windows_wsl2=>3}
+ (called from <class:User> at /Users/machida/dev/bootcamp/app/models/user.rb:49)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :editor, {:vscode=>0, :ruby_mine=>1, :vim=>2, :emacs=>3, :other_editor=>99}
+ (called from <class:User> at /Users/machida/dev/bootcamp/app/models/user.rb:56)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :satisfaction, {:excellent=>0, :good=>1, :average=>2, :poor=>3, :very_poor=>4}
+ (called from <class:User> at /Users/machida/dev/bootcamp/app/models/user.rb:64)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :referral_source, {:search_engine=>0, :referral=>1, :event=>2, :x=>3, :facebook=>4, :blog=>5, :web_ad=>6, :other=>99}
+ (called from <class:User> at /Users/machida/dev/bootcamp/app/models/user.rb:72)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :career_path, {:unset=>0, :job_seeking=>1, :employed_via_referral=>2, :employed_without_referral=>3, :employed_non_it=>4, :internal_transfer_to_programmer=>5, :not_employed=>6}
+ (called from <class:User> at /Users/machida/dev/bootcamp/app/models/user.rb:83)
+Running 1473 tests in parallel using 8 processes
+Run options: --seed 25845
+
+# Running:
+
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :target, {:all=>0, :students=>1, :job_seekers=>2}
+ (called from <class:Announcement> at /Users/machida/dev/bootcamp/app/models/announcement.rb:12)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :target, {:all=>0, :students=>1, :job_seekers=>2}
+ (called from <class:Announcement> at /Users/machida/dev/bootcamp/app/models/announcement.rb:12)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :target, {:all=>0, :students=>1, :job_seekers=>2}
+ (called from <class:Announcement> at /Users/machida/dev/bootcamp/app/models/announcement.rb:12)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :target, {:all=>0, :students=>1, :job_seekers=>2}
+ (called from <class:Announcement> at /Users/machida/dev/bootcamp/app/models/announcement.rb:12)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :target, {:all=>0, :students=>1, :job_seekers=>2}
+ (called from <class:Announcement> at /Users/machida/dev/bootcamp/app/models/announcement.rb:12)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :target, {:all=>0, :students=>1, :job_seekers=>2}
+ (called from <class:Announcement> at /Users/machida/dev/bootcamp/app/models/announcement.rb:12)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :target, {:all=>0, :students=>1, :job_seekers=>2}
+ (called from <class:Announcement> at /Users/machida/dev/bootcamp/app/models/announcement.rb:12)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :language, {:ruby=>1, :javascript=>2}
+ (called from <class:CodingTest> at /Users/machida/dev/bootcamp/app/models/coding_test.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :language, {:ruby=>1, :javascript=>2}
+ (called from <class:CodingTest> at /Users/machida/dev/bootcamp/app/models/coding_test.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :language, {:ruby=>1, :javascript=>2}
+ (called from <class:CodingTest> at /Users/machida/dev/bootcamp/app/models/coding_test.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :language, {:ruby=>1, :javascript=>2}
+ (called from <class:CodingTest> at /Users/machida/dev/bootcamp/app/models/coding_test.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :language, {:ruby=>1, :javascript=>2}
+ (called from <class:CodingTest> at /Users/machida/dev/bootcamp/app/models/coding_test.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :language, {:ruby=>1, :javascript=>2}
+ (called from <class:CodingTest> at /Users/machida/dev/bootcamp/app/models/coding_test.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :language, {:ruby=>1, :javascript=>2}
+ (called from <class:CodingTest> at /Users/machida/dev/bootcamp/app/models/coding_test.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :target, {:all=>0, :students=>1, :job_seekers=>2}
+ (called from <class:Announcement> at /Users/machida/dev/bootcamp/app/models/announcement.rb:12)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :language, {:ruby=>1, :javascript=>2}
+ (called from <class:CodingTest> at /Users/machida/dev/bootcamp/app/models/coding_test.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :status, {:unstarted=>0, :started=>1, :submitted=>2, :complete=>3}
+ (called from <class:Learning> at /Users/machida/dev/bootcamp/app/models/learning.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :status, {:unstarted=>0, :started=>1, :submitted=>2, :complete=>3}
+ (called from <class:Learning> at /Users/machida/dev/bootcamp/app/models/learning.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :status, {:unstarted=>0, :started=>1, :submitted=>2, :complete=>3}
+ (called from <class:Learning> at /Users/machida/dev/bootcamp/app/models/learning.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :status, {:unstarted=>0, :started=>1, :submitted=>2, :complete=>3}
+ (called from <class:Learning> at /Users/machida/dev/bootcamp/app/models/learning.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :status, {:unstarted=>0, :started=>1, :submitted=>2, :complete=>3}
+ (called from <class:Learning> at /Users/machida/dev/bootcamp/app/models/learning.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :category, {:reading_circle=>0, :chat=>1, :question=>2, :meeting=>3, :others=>4}
+ (called from <class:RegularEvent> at /Users/machida/dev/bootcamp/app/models/regular_event.rb:33)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :category, {:reading_circle=>0, :chat=>1, :question=>2, :meeting=>3, :others=>4}
+ (called from <class:RegularEvent> at /Users/machida/dev/bootcamp/app/models/regular_event.rb:33)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :category, {:reading_circle=>0, :chat=>1, :question=>2, :meeting=>3, :others=>4}
+ (called from <class:RegularEvent> at /Users/machida/dev/bootcamp/app/models/regular_event.rb:33)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :status, {:unstarted=>0, :started=>1, :submitted=>2, :complete=>3}
+ (called from <class:Learning> at /Users/machida/dev/bootcamp/app/models/learning.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :status, {:unstarted=>0, :started=>1, :submitted=>2, :complete=>3}
+ (called from <class:Learning> at /Users/machida/dev/bootcamp/app/models/learning.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :category, {:reading_circle=>0, :chat=>1, :question=>2, :meeting=>3, :others=>4}
+ (called from <class:RegularEvent> at /Users/machida/dev/bootcamp/app/models/regular_event.rb:33)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :category, {:reading_circle=>0, :chat=>1, :question=>2, :meeting=>3, :others=>4}
+ (called from <class:RegularEvent> at /Users/machida/dev/bootcamp/app/models/regular_event.rb:33)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :status, {:unstarted=>0, :started=>1, :submitted=>2, :complete=>3}
+ (called from <class:Learning> at /Users/machida/dev/bootcamp/app/models/learning.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :category, {:reading_circle=>0, :chat=>1, :question=>2, :meeting=>3, :others=>4}
+ (called from <class:RegularEvent> at /Users/machida/dev/bootcamp/app/models/regular_event.rb:33)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :emotion, {:negative=>1, :neutral=>0, :positive=>2}
+ (called from <class:Report> at /Users/machida/dev/bootcamp/app/models/report.rb:15)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :emotion, {:negative=>1, :neutral=>0, :positive=>2}
+ (called from <class:Report> at /Users/machida/dev/bootcamp/app/models/report.rb:15)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :category, {:reading_circle=>0, :chat=>1, :question=>2, :meeting=>3, :others=>4}
+ (called from <class:RegularEvent> at /Users/machida/dev/bootcamp/app/models/regular_event.rb:33)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :format, {:text_area=>0, :text_field=>1, :radio_button=>2, :check_box=>3, :linear_scale=>4}
+ (called from <class:SurveyQuestion> at /Users/machida/dev/bootcamp/app/models/survey_question.rb:18)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :format, {:text_area=>0, :text_field=>1, :radio_button=>2, :check_box=>3, :linear_scale=>4}
+ (called from <class:SurveyQuestion> at /Users/machida/dev/bootcamp/app/models/survey_question.rb:18)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :emotion, {:negative=>1, :neutral=>0, :positive=>2}
+ (called from <class:Report> at /Users/machida/dev/bootcamp/app/models/report.rb:15)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :category, {:reading_circle=>0, :chat=>1, :question=>2, :meeting=>3, :others=>4}
+ (called from <class:RegularEvent> at /Users/machida/dev/bootcamp/app/models/regular_event.rb:33)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :format, {:text_area=>0, :text_field=>1, :radio_button=>2, :check_box=>3, :linear_scale=>4}
+ (called from <class:SurveyQuestion> at /Users/machida/dev/bootcamp/app/models/survey_question.rb:18)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :emotion, {:negative=>1, :neutral=>0, :positive=>2}
+ (called from <class:Report> at /Users/machida/dev/bootcamp/app/models/report.rb:15)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :emotion, {:negative=>1, :neutral=>0, :positive=>2}
+ (called from <class:Report> at /Users/machida/dev/bootcamp/app/models/report.rb:15)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :format, {:text_area=>0, :text_field=>1, :radio_button=>2, :check_box=>3, :linear_scale=>4}
+ (called from <class:SurveyQuestion> at /Users/machida/dev/bootcamp/app/models/survey_question.rb:18)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :format, {:text_area=>0, :text_field=>1, :radio_button=>2, :check_box=>3, :linear_scale=>4}
+ (called from <class:SurveyQuestion> at /Users/machida/dev/bootcamp/app/models/survey_question.rb:18)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :emotion, {:negative=>1, :neutral=>0, :positive=>2}
+ (called from <class:Report> at /Users/machida/dev/bootcamp/app/models/report.rb:15)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :emotion, {:negative=>1, :neutral=>0, :positive=>2}
+ (called from <class:Report> at /Users/machida/dev/bootcamp/app/models/report.rb:15)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :format, {:text_area=>0, :text_field=>1, :radio_button=>2, :check_box=>3, :linear_scale=>4}
+ (called from <class:SurveyQuestion> at /Users/machida/dev/bootcamp/app/models/survey_question.rb:18)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :format, {:text_area=>0, :text_field=>1, :radio_button=>2, :check_box=>3, :linear_scale=>4}
+ (called from <class:SurveyQuestion> at /Users/machida/dev/bootcamp/app/models/survey_question.rb:18)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :emotion, {:negative=>1, :neutral=>0, :positive=>2}
+ (called from <class:Report> at /Users/machida/dev/bootcamp/app/models/report.rb:15)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :format, {:text_area=>0, :text_field=>1, :radio_button=>2, :check_box=>3, :linear_scale=>4}
+ (called from <class:SurveyQuestion> at /Users/machida/dev/bootcamp/app/models/survey_question.rb:18)
+.[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_GET_-inquiry-new.png
+F
+
+Failure:
+InquiryTest#test_GET_/inquiry/new:
+"ActionMailer::Base.deliveries.count" didn't change by 1, but by 0.
+Expected: 1
+  Actual: 0
+
+Error:
+InquiryTest#test_GET_/inquiry/new:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "http://localhost:3000/inquiry/new", pass allow_other_host: true to redirect anyway.
+    app/controllers/inquiries_controller.rb:18:in `create'
+
+bin/rails test test/system/inquiry_test.rb:19
+
+....[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_show_elapsed_days_links_that_jump_to_elements_on_the_same_page.png
+E
+
+Error:
+Product::UnassignedTest#test_show_elapsed_days_links_that_jump_to_elements_on_the_same_page:
+Capybara::ElementNotFound: Unable to find css ".page-nav__items.elapsed-days"
+    test/system/product/unassigned_test.rb:64:in `block in <class:UnassignedTest>'
+
+bin/rails test test/system/product/unassigned_test.rb:62
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_display_elapsed_days_label_and_number_of_products.png
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_mentor_can_see_a_button_to_open_to_open_all_unassigned_products.png
+E
+
+Error:
+Product::UnassignedTest#test_display_elapsed_days_label_and_number_of_products:
+Capybara::ElementNotFound: Unable to find css ".page-body__column.is-main"
+    test/system/product/unassigned_test.rb:54:in `block in <class:UnassignedTest>'
+
+bin/rails test test/system/product/unassigned_test.rb:50
+
+F
+
+Failure:
+Product::UnassignedTest#test_mentor_can_see_a_button_to_open_to_open_all_unassigned_products [test/system/product/unassigned_test.rb:21]:
+expected to find button "未アサインの提出物を一括で開く" that is not disabled but there were no matches
+
+bin/rails test test/system/product/unassigned_test.rb:19
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_click_on_open_all_unassigned_submissions_button.png
+E
+
+Error:
+Product::UnassignedTest#test_click_on_open_all_unassigned_submissions_button:
+Capybara::ElementNotFound: Unable to find button "未アサインの提出物を一括で開く" that is not disabled
+    test/system/product/unassigned_test.rb:27:in `block in <class:UnassignedTest>'
+
+bin/rails test test/system/product/unassigned_test.rb:24
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_change_selected_course.png
+E
+
+Error:
+Admin::InvitationUrlTest#test_change_selected_course:
+StandardError: execution expired
+    test/system/admin/invitation_url_test.rb:22:in `block in wait_for_invitation_url_with_timeout'
+    test/system/admin/invitation_url_test.rb:21:in `wait_for_invitation_url_with_timeout'
+    test/system/admin/invitation_url_test.rb:70:in `block in <class:InvitationUrlTest>'
+
+bin/rails test test/system/admin/invitation_url_test.rb:61
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_show_invitation-url_page.png
+E
+
+Error:
+Admin::InvitationUrlTest#test_show_invitation-url_page:
+StandardError: execution expired
+    test/system/admin/invitation_url_test.rb:22:in `block in wait_for_invitation_url_with_timeout'
+    test/system/admin/invitation_url_test.rb:21:in `wait_for_invitation_url_with_timeout'
+    test/system/admin/invitation_url_test.rb:33:in `block in <class:InvitationUrlTest>'
+
+bin/rails test test/system/admin/invitation_url_test.rb:26
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_change_selected_role.png
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_change_selected_company.png
+E
+
+Error:
+Admin::InvitationUrlTest#test_change_selected_role:
+StandardError: execution expired
+    test/system/admin/invitation_url_test.rb:22:in `block in wait_for_invitation_url_with_timeout'
+    test/system/admin/invitation_url_test.rb:21:in `wait_for_invitation_url_with_timeout'
+    test/system/admin/invitation_url_test.rb:58:in `block in <class:InvitationUrlTest>'
+
+bin/rails test test/system/admin/invitation_url_test.rb:48
+
+E
+
+Error:
+Admin::InvitationUrlTest#test_change_selected_company:
+StandardError: execution expired
+    test/system/admin/invitation_url_test.rb:22:in `block in wait_for_invitation_url_with_timeout'
+    test/system/admin/invitation_url_test.rb:21:in `wait_for_invitation_url_with_timeout'
+    test/system/admin/invitation_url_test.rb:45:in `block in <class:InvitationUrlTest>'
+
+bin/rails test test/system/admin/invitation_url_test.rb:36
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_search_with_all_scope_includes_retired_user.png
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_returns_document_author_name_when_comment.png
+E
+
+Error:
+SearchablesTest#test_search_with_all_scope_includes_retired_user:
+Capybara::ElementNotFound: Unable to find visible css "form[name=search]"
+    test/system/searchables_test.rb:232:in `block in <class:SearchablesTest>'
+
+bin/rails test test/system/searchables_test.rb:229
+
+E
+
+Error:
+SearchablesTest#test_returns_document_author_name_when_comment:
+Capybara::ElementNotFound: Unable to find visible css "form[name=search]"
+    test/system/searchables_test.rb:157:in `block in <class:SearchablesTest>'
+
+bin/rails test test/system/searchables_test.rb:154
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_matched_word_is_in_bold.png
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_can_not_see_comment_description_if_it_isn-t_permitted.png
+E
+
+Error:
+SearchablesTest#test_matched_word_is_in_bold:
+Capybara::ElementNotFound: Unable to find visible css "form[name=search]"
+    test/system/searchables_test.rb:146:in `block in <class:SearchablesTest>'
+
+bin/rails test test/system/searchables_test.rb:143
+
+E
+
+Error:
+SearchablesTest#test_can_not_see_comment_description_if_it_isn't_permitted:
+Capybara::ElementNotFound: Unable to find visible css "form[name=search]"
+    test/system/searchables_test.rb:96:in `block in <class:SearchablesTest>'
+
+bin/rails test test/system/searchables_test.rb:93
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_search_user.png
+E
+
+Error:
+SearchablesTest#test_search_user:
+Capybara::ElementNotFound: Unable to find visible css "form[name=search]"
+    test/system/searchables_test.rb:121:in `block in <class:SearchablesTest>'
+
+bin/rails test test/system/searchables_test.rb:118
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_advisor_can_see_comment_description.png
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_search_with_all_scope_includes_hibernated_user.png
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_search_regular_events.png
+E
+
+Error:
+SearchablesTest#test_advisor_can_see_comment_description:
+Capybara::ElementNotFound: Unable to find visible css "form[name=search]"
+    test/system/searchables_test.rb:74:in `block in <class:SearchablesTest>'
+
+bin/rails test test/system/searchables_test.rb:71
+
+E
+
+Error:
+SearchablesTest#test_search_with_all_scope_includes_hibernated_user:
+Capybara::ElementNotFound: Unable to find visible css "form[name=search]"
+    test/system/searchables_test.rb:245:in `block in <class:SearchablesTest>'
+
+bin/rails test test/system/searchables_test.rb:242
+
+E
+
+Error:
+SearchablesTest#test_search_regular_events:
+Capybara::ElementNotFound: Unable to find visible css "form[name=search]"
+    test/system/searchables_test.rb:52:in `block in <class:SearchablesTest>'
+
+bin/rails test test/system/searchables_test.rb:49
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_search_with_user_scope_includes_hibernated_user.png
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_disappear_icon_when_search_user.png
+E
+
+Error:
+SearchablesTest#test_search_with_user_scope_includes_hibernated_user:
+Capybara::ElementNotFound: Unable to find visible css "form[name=search]"
+    test/system/searchables_test.rb:271:in `block in <class:SearchablesTest>'
+
+bin/rails test test/system/searchables_test.rb:268
+
+E
+
+Error:
+SearchablesTest#test_disappear_icon_when_search_user:
+Capybara::ElementNotFound: Unable to find visible css "form[name=search]"
+    test/system/searchables_test.rb:221:in `block in <class:SearchablesTest>'
+
+bin/rails test test/system/searchables_test.rb:218
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_search_with_document_type.png
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_admin_can_see_comment_description.png
+E
+
+Error:
+SearchablesTest#test_search_with_document_type:
+Capybara::ElementNotFound: Unable to find visible css "form[name=search]"
+    test/system/searchables_test.rb:26:in `block in <class:SearchablesTest>'
+
+bin/rails test test/system/searchables_test.rb:21
+
+E
+
+Error:
+SearchablesTest#test_admin_can_see_comment_description:
+Capybara::ElementNotFound: Unable to find visible css "form[name=search]"
+    test/system/searchables_test.rb:63:in `block in <class:SearchablesTest>'
+
+bin/rails test test/system/searchables_test.rb:60
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_can_search_user_with_nil_description.png
+E
+
+Error:
+SearchablesTest#test_can_search_user_with_nil_description:
+Capybara::ElementNotFound: Unable to find visible css "form[name=search]"
+    test/system/searchables_test.rb:135:in `block in <class:SearchablesTest>'
+
+bin/rails test test/system/searchables_test.rb:130
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_show_user_icon-_name_and_updated_time_in_report.png
+E
+
+Error:
+SearchablesTest#test_show_user_icon,_name_and_updated_time_in_report:
+Capybara::ElementNotFound: Unable to find visible css "form[name=search]"
+    test/system/searchables_test.rb:107:in `block in <class:SearchablesTest>'
+
+bin/rails test test/system/searchables_test.rb:104
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_can_see_comment_description_if_it_is_permitted.png
+E
+
+Error:
+SearchablesTest#test_can_see_comment_description_if_it_is_permitted:
+Capybara::ElementNotFound: Unable to find visible css "form[name=search]"
+    test/system/searchables_test.rb:85:in `block in <class:SearchablesTest>'
+
+bin/rails test test/system/searchables_test.rb:82
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_show_icon_and_go_profile_page_when_click_icon.png
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_show_activity_time_page_with_users.png
+E
+
+Error:
+Users::ActivityTimesTest#test_show_activity_time_page_with_users:
+StandardError: No fixture named 'sun21' found for fixture set 'learning_time_frames'
+    test/system/users/activity_times_test.rb:8:in `block in <class:ActivityTimesTest>'
+
+bin/rails test test/system/users/activity_times_test.rb:20
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_show_users_with_current_time_as_default.png
+E
+
+Error:
+Users::ActivityTimesTest#test_show_users_with_current_time_as_default:
+StandardError: No fixture named 'sun21' found for fixture set 'learning_time_frames'
+    test/system/users/activity_times_test.rb:8:in `block in <class:ActivityTimesTest>'
+
+bin/rails test test/system/users/activity_times_test.rb:27
+
+E
+
+Error:
+SearchablesTest#test_show_icon_and_go_profile_page_when_click_icon:
+Capybara::ElementNotFound: Unable to find visible css "form[name=search]"
+    test/system/searchables_test.rb:207:in `block in <class:SearchablesTest>'
+
+bin/rails test test/system/searchables_test.rb:200
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_all_member_recieve_a_notification_when_announcement_posted.png
+E
+
+Error:
+Notification::AnnouncementsTest#test_all_member_recieve_a_notification_when_announcement_posted:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "http://localhost:3000/announcements/966683407", pass allow_other_host: true to redirect anyway.
+    app/controllers/announcements_controller.rb:65:in `create'
+
+bin/rails test test/system/notification/announcements_test.rb:19
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_announcement_to_Only_Job_Seekers_notifies_the_job_seekers-_admins-_mentors.png
+E
+
+Error:
+Notification::AnnouncementsTest#test_announcement_to_Only_Job_Seekers_notifies_the_job_seekers,_admins,_mentors:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "http://localhost:3000/announcements/966683407", pass allow_other_host: true to redirect anyway.
+    app/controllers/announcements_controller.rb:65:in `create'
+
+bin/rails test test/system/notification/announcements_test.rb:69
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_announcement_to_Only_Active_Users_notifies_the_active_users-_admins-_mentors.png
+E
+
+Error:
+Notification::AnnouncementsTest#test_announcement_to_Only_Active_Users_notifies_the_active_users,_admins,_mentors:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "http://localhost:3000/announcements/966683408", pass allow_other_host: true to redirect anyway.
+    app/controllers/announcements_controller.rb:65:in `create'
+
+bin/rails test test/system/notification/announcements_test.rb:44
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_sorting_categories_of_a_course.png
+F
+
+Failure:
+Mentor::Courses::CategoriesTest#test_sorting_categories_of_a_course [test/system/mentor/course/categories_test.rb:17]:
+Expected: "Mac OS X"
+  Actual: "UNIX"
+
+bin/rails test test/system/mentor/course/categories_test.rb:6
+
+....Test is missing assertions: `test_unread_badges_are_displayed` /Users/machida/dev/bootcamp/test/system/notification/tabs_badges_test.rb:61
+..[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_search_with_word.png
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_search_with_user_scope_includes_retired_user.png
+E
+
+Error:
+SearchablesTest#test_search_with_word:
+Capybara::ElementNotFound: Unable to find visible css "form[name=search]"
+    test/system/searchables_test.rb:10:in `block in <class:SearchablesTest>'
+
+bin/rails test test/system/searchables_test.rb:6
+
+E
+
+Error:
+SearchablesTest#test_search_with_user_scope_includes_retired_user:
+Capybara::ElementNotFound: Unable to find visible css "form[name=search]"
+    test/system/searchables_test.rb:258:in `block in <class:SearchablesTest>'
+
+bin/rails test test/system/searchables_test.rb:255
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_link_to_consultation_room_does_not_appear_except_for_administrator.png
+E
+
+Error:
+SearchablesTest#test_link_to_consultation_room_does_not_appear_except_for_administrator:
+Capybara::ElementNotFound: Unable to find visible css "form[name=search]"
+    test/system/searchables_test.rb:170:in `block in <class:SearchablesTest>'
+
+bin/rails test test/system/searchables_test.rb:167
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_empty_keyword_search_returns_no_results.png
+E
+
+Error:
+SearchablesTest#test_empty_keyword_search_returns_no_results:
+Capybara::ElementNotFound: Unable to find visible css "form[name=search]"
+    test/system/searchables_test.rb:181:in `block in <class:SearchablesTest>'
+
+bin/rails test test/system/searchables_test.rb:178
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_administrator_will_see_link_to_consultation_room.png
+E
+
+Error:
+SearchablesTest#test_administrator_will_see_link_to_consultation_room:
+Capybara::ElementNotFound: Unable to find visible css "form[name=search]"
+    test/system/searchables_test.rb:192:in `block in <class:SearchablesTest>'
+
+bin/rails test test/system/searchables_test.rb:189
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_search_events.png
+E
+
+Error:
+SearchablesTest#test_search_events:
+Capybara::ElementNotFound: Unable to find visible css "form[name=search]"
+    test/system/searchables_test.rb:41:in `block in <class:SearchablesTest>'
+
+bin/rails test test/system/searchables_test.rb:38
+
+.....[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_using_file_uploading_by_file_selection_dialogue_in_textarea.png
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_company_logo_appear_when_adviser_belongs_to_the_company_post_comment.png
+E
+
+Error:
+MentionAndInteractionTest#test_company_logo_appear_when_adviser_belongs_to_the_company_post_comment:
+Capybara::ElementNotFound: Unable to find visible field "new_comment[description]" that is not disabled
+    test/system/comment/mention_and_interaction_test.rb:23:in `block in <class:MentionAndInteractionTest>'
+
+bin/rails test test/system/comment/mention_and_interaction_test.rb:21
+
+E
+
+Error:
+MentionAndInteractionTest#test_using_file_uploading_by_file_selection_dialogue_in_textarea:
+Capybara::ElementNotFound: Unable to find visible css ".a-file-insert"
+    test/system/comment/mention_and_interaction_test.rb:31:in `block in <class:MentionAndInteractionTest>'
+
+bin/rails test test/system/comment/mention_and_interaction_test.rb:29
+
+.[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_creating_a_survey_which_beginning_of_accepting_and_deadline_is_future.png
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_creating_a_survey_which_beginning_of_accepting_and_deadline_is_current.png
+F
+
+Failure:
+Mentor::SurveysTest#test_creating_a_survey_which_beginning_of_accepting_and_deadline_is_future [test/system/mentor/surveys_test.rb:80]:
+expected to find text "アンケートを受付前として保存しました。" in "ダッシュボード\nお知らせ\nプラクティス\n日報・ブログ\n提出物\n15\nQ&A\nDocs・動画\nポートフォリオ\nユーザー\nイベント\n相談\nメンター\n管理者\nメンターモード\n検索\nヘルプ\nMe\nメンターページ\nメンターページ\nコーディングテスト\nプラクティス\nカテゴリー\nコース\n紹介・言及記事\nブログ\nアンケート\nアンケート\n質問\nアンケート\n新規作成\nステータス 回答期間 アンケート名 回答一覧 集計結果 操作\n受付中\n2019年12月31日(火) 15:00〜2030年01月01日(火) 14:59 【第1回】FBCモチベーションに関するアンケート 詳細 | アンケートフォーム\n受付前\n2026年11月12日(木) 00:00〜2026年11月12日(木) 23:59 【第3回】FBCモチベーションに関するアンケート 詳細 | アンケートフォーム\n受付終了\n2019年12月31日(火) 15:00〜2020年01月01日(水) 14:59 【第0回】テストに関するアンケート 詳細 | アンケートフォーム\nホームページ\nブログ\n参考書籍\nbootcampリポジトリ\nbootcampカンバン\nFjord Minutes\nグッズ購入\nフィヨブーファンブック\nアンチハラスメントポリシー\n利用規約\nプライバシーポリシー\n特定商取引法に基づく表記\nコース一覧\n企業一覧\n#fjordbootcamp\nFjord Choice\nFjordContributions\nBuzzcord\nDiscordBotF\nBookRin\nFBC Stack\nフィヨルドブートキャスト\nRouletteTalk\nagentリポジトリ\nagentカンバン\nYouTubeチャンネル\nFBCのXアカウント\nLokka Inc.2012 - 2025"
+
+bin/rails test test/system/mentor/surveys_test.rb:70
+
+F
+
+Failure:
+Mentor::SurveysTest#test_creating_a_survey_which_beginning_of_accepting_and_deadline_is_current [test/system/mentor/surveys_test.rb:65]:
+expected to find text "アンケートを作成しました。" in "ダッシュボード\nお知らせ\nプラクティス\n日報・ブログ\n提出物\n15\nQ&A\nDocs・動画\nポートフォリオ\nユーザー\nイベント\n相談\nメンター\n管理者\nメンターモード\n検索\nヘルプ\nMe\nメンターページ\nメンターページ\nコーディングテスト\nプラクティス\nカテゴリー\nコース\n紹介・言及記事\nブログ\nアンケート\nアンケート\n質問\nアンケート\n新規作成\nステータス 回答期間 アンケート名 回答一覧 集計結果 操作\n受付中\n2019年12月31日(火) 15:00〜2030年01月01日(火) 14:59 【第1回】FBCモチベーションに関するアンケート 詳細 | アンケートフォーム\n受付前\n2025年11月12日(水) 00:00〜2025年11月12日(水) 23:59 【第2回】FBCモチベーションに関するアンケート 詳細 | アンケートフォーム\n受付終了\n2019年12月31日(火) 15:00〜2020年01月01日(水) 14:59 【第0回】テストに関するアンケート 詳細 | アンケートフォーム\nホームページ\nブログ\n参考書籍\nbootcampリポジトリ\nbootcampカンバン\nFjord Minutes\nグッズ購入\nフィヨブーファンブック\nアンチハラスメントポリシー\n利用規約\nプライバシーポリシー\n特定商取引法に基づく表記\nコース一覧\n企業一覧\n#fjordbootcamp\nFjord Choice\nFjordContributions\nBuzzcord\nDiscordBotF\nBookRin\nFBC Stack\nフィヨルドブートキャスト\nRouletteTalk\nagentリポジトリ\nagentカンバン\nYouTubeチャンネル\nFBCのXアカウント\nLokka Inc.2012 - 2025"
+
+bin/rails test test/system/mentor/surveys_test.rb:55
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_updating_a_survey_by_adding_a_question.png
+F
+
+Failure:
+Mentor::SurveysTest#test_updating_a_survey_by_adding_a_question [test/system/mentor/surveys_test.rb:91]:
+expected to find visible css ".survey-added-question" 6 times, found 5 matches: "フィヨルドブートキャンプの学習を通して、どんなことを学びましたか？\nフィヨルドブートキャンプを最初に知ったきっかけは何ですか？\nフィヨルドブートキャンプを知った後にとった行動は何でしたか？（当てはまるもの全て）\nなぜ、他のスクールではなくフィヨルドブートキャンプを選びましたか？\nフィヨルドブートキャンプの価格設定はどのように思いますか？\nフィヨルドブートキャンプに対してご意見・ご要望がございましたら、ご自由にお書きください。\n削除", "フィヨルドブートキャンプの学習を通して、どんなことを学びましたか？\nフィヨルドブートキャンプを最初に知ったきっかけは何ですか？\nフィヨルドブートキャンプを知った後にとった行動は何でしたか？（当てはまるもの全て）\nなぜ、他のスクールではなくフィヨルドブートキャンプを選びましたか？\nフィヨルドブートキャンプの価格設定はどのように思いますか？\nフィヨルドブートキャンプに対してご意見・ご要望がございましたら、ご自由にお書きください。\n削除", "フィヨルドブートキャンプの学習を通して、どんなことを学びましたか？\nフィヨルドブートキャンプを最初に知ったきっかけは何ですか？\nフィヨルドブートキャンプを知った後にとった行動は何でしたか？（当てはまるもの全て）\nなぜ、他のスクールではなくフィヨルドブートキャンプを選びましたか？\nフィヨルドブートキャンプの価格設定はどのように思いますか？\nフィヨルドブートキャンプに対してご意見・ご要望がございましたら、ご自由にお書きください。\n削除", "フィヨルドブートキャンプの学習を通して、どんなことを学びましたか？\nフィヨルドブートキャンプを最初に知ったきっかけは何ですか？\nフィヨルドブートキャンプを知った後にとった行動は何でしたか？（当てはまるもの全て）\nなぜ、他のスクールではなくフィヨルドブートキャンプを選びましたか？\nフィヨルドブートキャンプの価格設定はどのように思いますか？\nフィヨルドブートキャンプに対してご意見・ご要望がございましたら、ご自由にお書きください。\n削除", "フィヨルドブートキャンプの学習を通して、どんなことを学びましたか？\nフィヨルドブートキャンプを最初に知ったきっかけは何ですか？\nフィヨルドブートキャンプを知った後にとった行動は何でしたか？（当てはまるもの全て）\nなぜ、他のスクールではなくフィヨルドブートキャンプを選びましたか？\nフィヨルドブートキャンプの価格設定はどのように思いますか？\nフィヨルドブートキャンプに対してご意見・ご要望がございましたら、ご自由にお書きください。\n削除"
+
+bin/rails test test/system/mentor/surveys_test.rb:85
+
+.[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_destroying_a_survey.png
+F
+
+Failure:
+Mentor::SurveysTest#test_destroying_a_survey [test/system/mentor/surveys_test.rb:104]:
+expected to find text "アンケートを削除しました。" in "ダッシュボード\nお知らせ\nプラクティス\n日報・ブログ\n提出物\n15\nQ&A\nDocs・動画\nポートフォリオ\nユーザー\nイベント\n相談\nメンター\n管理者\nメンターモード\n検索\nヘルプ\nMe\nメンターページ\nメンターページ\nコーディングテスト\nプラクティス\nカテゴリー\nコース\n紹介・言及記事\nブログ\nアンケート\nアンケート\n質問\nアンケート\n新規作成\nステータス 回答期間 アンケート名 回答一覧 集計結果 操作\n受付終了\n2019年12月31日(火) 15:00〜2020年01月01日(水) 14:59 【第0回】テストに関するアンケート 詳細 | アンケートフォーム\nホームページ\nブログ\n参考書籍\nbootcampリポジトリ\nbootcampカンバン\nFjord Minutes\nグッズ購入\nフィヨブーファンブック\nアンチハラスメントポリシー\n利用規約\nプライバシーポリシー\n特定商取引法に基づく表記\nコース一覧\n企業一覧\n#fjordbootcamp\nFjord Choice\nFjordContributions\nBuzzcord\nDiscordBotF\nBookRin\nFBC Stack\nフィヨルドブートキャスト\nRouletteTalk\nagentリポジトリ\nagentカンバン\nYouTubeチャンネル\nFBCのXアカウント\nLokka Inc.2012 - 2025"
+
+bin/rails test test/system/mentor/surveys_test.rb:96
+
+..[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_displaying_added_question_when_choices_reason_for_answer_are_required_are_choosed.png
+F
+
+Failure:
+Mentor::SurveysTest#test_displaying_added_question_when_choices_reason_for_answer_are_required_are_choosed [test/system/mentor/surveys_test.rb:22]:
+expected to find text "「その他」と回答された方は、内容をお聞かせください。" in "ダッシュボード\nお知らせ\nプラクティス\n日報・ブログ\n提出物\n15\nQ&A\nDocs・動画\nポートフォリオ\nユーザー\nイベント\n相談\nメンター\n管理者\nメンターモード\n検索\nヘルプ\nMe\nメンターページ\nメンターページ\nコーディングテスト\nプラクティス\nカテゴリー\nコース\n紹介・言及記事\nブログ\nアンケート\nアンケート\n質問\n【第1回】FBCモチベーションに関するアンケート\n回答一覧\nアンケート一覧\nフィヨルドブートキャンプでは満足度向上と質の高いサービスの提供に活かすためアンケートを実施しております。5分程度の簡単なアンケートです。\nフィヨルドブートキャンプの学習を通して、どんなことを学びましたか？\nフィヨルドブートキャンプの学習を通して、どんなことを学んだか教えてください。\nフィヨルドブートキャンプを最初に知ったきっかけは何ですか？\nフィヨルドブートキャンプを最初に知ったきっかけを教えてください。\nフィヨルドブートキャンプのケータイサイト（スマホ/携帯）\nフィヨルドブートキャンプのホームページ（パソコン）\nブログ・SNS\n友人・知人・家族のクチコミ\nその他\nフィヨルドブートキャンプを知った後にとった行動は何でしたか？（当てはまるもの全て）\nフィヨルドブートキャンプを知った後にとった行動について、当てはまるもの全てにチェックをしてください。\nフィヨルドブートキャンプのホームページで調べた\nフィヨルドブートキャンプ以外の記事における評価を調べた\nSnsで口コミを調べた\n友人・知人・家族に聞いた\nその他\nなぜ、他のスクールではなくフィヨルドブートキャンプを選びましたか？\n他のスクールではなく、フィヨルドブートキャンプを選んでいただけた理由を詳細に教えてください。\nフィヨルドブートキャンプの価格設定はどのように思いますか？\nフィヨルドブートキャンプの価格設定についてお聞かせください。\n安い\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n高い\n編集\nホームページ\nブログ\n参考書籍\nbootcampリポジトリ\nbootcampカンバン\nFjord Minutes\nグッズ購入\nフィヨブーファンブック\nアンチハラスメントポリシー\n利用規約\nプライバシーポリシー\n特定商取引法に基づく表記\nコース一覧\n企業一覧\n#fjordbootcamp\nFjord Choice\nFjordContributions\nBuzzcord\nDiscordBotF\nBookRin\nFBC Stack\nフィヨルドブートキャスト\nRouletteTalk\nagentリポジトリ\nagentカンバン\nYouTubeチャンネル\nFBCのXアカウント\nLokka Inc.2012 - 2025". (However, it was found 2 times including non-visible text.)
+
+bin/rails test test/system/mentor/surveys_test.rb:17
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_should_remove_script_tag.png
+E
+
+Error:
+MarkdownTest#test_should_remove_script_tag:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "http://localhost:3000/pages/1070268883", pass allow_other_host: true to redirect anyway.
+    app/controllers/pages_controller.rb:55:in `create'
+
+bin/rails test test/system/markdown_test.rb:6
+
+.[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_suggest_mention_to_mentor.png
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_notify_mentors_when_signed_up_as_adviser.png
+E
+
+Error:
+MentionAndInteractionTest#test_suggest_mention_to_mentor:
+Capybara::Ambiguous: Ambiguous match, found 3 elements matching visible css ".thread-comment-form, .thread-comment"
+    test/system/comment/mention_and_interaction_test.rb:13:in `block in <class:MentionAndInteractionTest>'
+
+bin/rails test test/system/comment/mention_and_interaction_test.rb:6
+
+E
+
+Error:
+Notification::SignedUpTest#test_notify_mentors_when_signed_up_as_adviser:
+Selenium::WebDriver::Error::ElementClickInterceptedError: element click intercepted: Element <input type="submit" name="commit" value="アドバイザー登録" id="user_submit" class="a-button is-lg is-primary is-block is-disabled js-agreements-submit" data-disable-with="アドバイザー登録"> is not clickable at point (692, 1130). Other element would receive the click: <li class="form-actions__item is-main">...</li>
+  (Session info: chrome=142.0.7444.135)
+    test/system/notification/signed_up_test.rb:36:in `block in <class:SignedUpTest>'
+
+bin/rails test test/system/notification/signed_up_test.rb:19
+
+.[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_blockquote_tag_is_preserved_when_written_as_raw_HTML.png
+E
+
+Error:
+MarkdownTest#test_blockquote_tag_is_preserved_when_written_as_raw_HTML:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "http://localhost:3000/pages/1070268883", pass allow_other_host: true to redirect anyway.
+    app/controllers/pages_controller.rb:55:in `create'
+
+bin/rails test test/system/markdown_test.rb:33
+
+.[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_style_attribute_is_preserved_on_allowed_tags.png
+.E
+
+Error:
+MarkdownTest#test_style_attribute_is_preserved_on_allowed_tags:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "http://localhost:3000/pages/1070268884", pass allow_other_host: true to redirect anyway.
+    app/controllers/pages_controller.rb:55:in `create'
+
+bin/rails test test/system/markdown_test.rb:46
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_notify_mentors_when_signed_up_as_normal_user.png
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_notify_mentors_when_signed_up_as_mentor.png
+E
+
+Error:
+Notification::SignedUpTest#test_notify_mentors_when_signed_up_as_normal_user:
+Capybara::ElementNotFound: Unable to find css "iframe[name^=\"__privateStripeFrame\"]"
+    test/supports/stripe_helper.rb:5:in `fill_stripe_element'
+    test/system/notification/signed_up_test.rb:129:in `block in <class:SignedUpTest>'
+
+bin/rails test test/system/notification/signed_up_test.rb:111
+
+SE
+
+Error:
+Notification::SignedUpTest#test_notify_mentors_when_signed_up_as_mentor:
+Capybara::ExpectationNotMet: expected to find css ".choices__inner" within #<Capybara::Node::Element tag="form" path="/HTML/BODY[1]/DIV[1]/MAIN[1]/DIV[1]/DIV[1]/DIV[1]/FORM[1]"> at least 1 time but there were no matches
+    test/system/notification/signed_up_test.rb:60:in `block (2 levels) in <class:SignedUpTest>'
+    test/system/notification/signed_up_test.rb:51:in `block in <class:SignedUpTest>'
+
+bin/rails test test/system/notification/signed_up_test.rb:46
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_speak_block_without_-_test.png
+E
+
+Error:
+MarkdownTest#test_speak_block_without_@_test:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "http://localhost:3000/pages/1070268883", pass allow_other_host: true to redirect anyway.
+    app/controllers/pages_controller.rb:55:in `create'
+
+bin/rails test test/system/markdown_test.rb:234
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_notify_mentors_when_signed_up_as_trainee.png
+E
+
+Error:
+Notification::SignedUpTest#test_notify_mentors_when_signed_up_as_trainee:
+Capybara::ExpectationNotMet: expected to find css ".choices__inner" within #<Capybara::Node::Element tag="form" path="/HTML/BODY[1]/DIV[1]/MAIN[1]/DIV[1]/DIV[1]/DIV[1]/FORM[1]"> at least 1 time but there were no matches
+    test/system/notification/signed_up_test.rb:93:in `block (2 levels) in <class:SignedUpTest>'
+    test/system/notification/signed_up_test.rb:82:in `block in <class:SignedUpTest>'
+
+bin/rails test test/system/notification/signed_up_test.rb:77
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_speak_block_test.png
+E
+
+Error:
+MarkdownTest#test_speak_block_test:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "http://localhost:3000/pages/1070268885", pass allow_other_host: true to redirect anyway.
+    app/controllers/pages_controller.rb:55:in `create'
+
+bin/rails test test/system/markdown_test.rb:58
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_user_profile_image_markdown_test.png
+E
+
+Error:
+MarkdownTest#test_user_profile_image_markdown_test:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "http://localhost:3000/pages/1070268884", pass allow_other_host: true to redirect anyway.
+    app/controllers/pages_controller.rb:55:in `create'
+
+bin/rails test test/system/markdown_test.rb:74
+
+...[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_speak_block_with_arguments_test.png
+E
+
+Error:
+MarkdownTest#test_speak_block_with_arguments_test:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "http://localhost:3000/pages/1070268883", pass allow_other_host: true to redirect anyway.
+    app/controllers/pages_controller.rb:55:in `create'
+
+bin/rails test test/system/markdown_test.rb:215
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_should_add_to_trainer-s_watching_list_when_trainee_submits_product.png
+E
+
+Error:
+ProductsTest#test_should_add_to_trainer's_watching_list_when_trainee_submits_product:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "http://localhost:3000/products/1071056610", pass allow_other_host: true to redirect anyway.
+    app/controllers/products_controller.rb:55:in `create'
+
+bin/rails test test/system/products_test.rb:314
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_user_sees_error_messages_when_submitting_invalid_form.png
+E
+
+Error:
+GrantCourseApplicationsTest#test_user_sees_error_messages_when_submitting_invalid_form:
+Selenium::WebDriver::Error::ElementClickInterceptedError: element click intercepted: Element <input type="submit" name="commit" value="申請する" class="a-button is-lg is-primary is-block is-disabled js-agreements-submit" data-disable-with="申請する"> is not clickable at point (692, 1130). Other element would receive the click: <li class="form-actions__item is-main">...</li>
+  (Session info: chrome=142.0.7444.135)
+    test/system/grant_course_applications_test.rb:39:in `block in <class:GrantCourseApplicationsTest>'
+
+bin/rails test test/system/grant_course_applications_test.rb:34
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_user_can_apply_for_grant_course.png
+E
+
+Error:
+GrantCourseApplicationsTest#test_user_can_apply_for_grant_course:
+Selenium::WebDriver::Error::ElementClickInterceptedError: element click intercepted: Element <input type="submit" name="commit" value="申請する" class="a-button is-lg is-primary is-block is-disabled js-agreements-submit" data-disable-with="申請する"> is not clickable at point (692, 1130). Other element would receive the click: <li class="form-actions__item is-main">...</li>
+  (Session info: chrome=142.0.7444.135)
+    test/system/grant_course_applications_test.rb:27:in `block in <class:GrantCourseApplicationsTest>'
+
+bin/rails test test/system/grant_course_applications_test.rb:6
+
+[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_Don-t_notify_if_create_product_as_WIP.png
+E
+
+Error:
+ProductsTest#test_Don't_notify_if_create_product_as_WIP:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "http://localhost:3000/products/1071056610/edit", pass allow_other_host: true to redirect anyway.
+    app/controllers/products_controller.rb:55:in `create'
+
+bin/rails test test/system/products_test.rb:280
+
+E
+
+Error:
+ProductsTest#test_not_update_published_at_when_update_product_content_after_submitted_product:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "http://localhost:3000/products/328700219", pass allow_other_host: true to redirect anyway.
+    app/controllers/products_controller.rb:71:in `update'
+
+bin/rails test test/system/products_test.rb:603
+
+.[Screenshot Image]: /Users/machida/dev/bootcamp/tmp/capybara/failures_test_should_change_messages_when_submit_product.png
+E
+
+Error:
+ProductsTest#test_should_change_messages_when_submit_product:
+ActionController::Redirecting::UnsafeRedirectError: Unsafe redirect to "http://localhost:3000/products/1071056611", pass allow_other_host: true to redirect anyway.
+    app/controllers/products_controller.rb:55:in `create'
+
+bin/rails test test/system/products_test.rb:93
+
+..

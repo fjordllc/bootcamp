@@ -75,7 +75,7 @@ class DiscordNotifierTest < ActiveSupport::TestCase
 
       ダッシュボード表示確認用テスト定期イベント
       時間: 21:00〜22:00
-      詳細: <http://localhost:3000/regular_events/927610372>
+      詳細: <http://www.example.com/regular_events/927610372>
 
       ⚠️ Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
       ⚠️ Discord通知確認用、祝日非開催イベント(金曜日開催)
@@ -87,19 +87,19 @@ class DiscordNotifierTest < ActiveSupport::TestCase
 
       Discord通知確認用イベント(土曜日午前8時から開催)
       時間: 08:00〜09:00
-      詳細: <http://localhost:3000/regular_events/507245517>
+      詳細: <http://www.example.com/regular_events/507245517>
 
       Discord通知確認用イベント(土曜日 + 日曜日開催)
       時間: 09:00〜10:00
-      詳細: <http://localhost:3000/regular_events/670378901>
+      詳細: <http://www.example.com/regular_events/670378901>
 
       Discord通知確認用イベント(土曜日開催)
       時間: 10:00〜11:00
-      詳細: <http://localhost:3000/regular_events/284302086>
+      詳細: <http://www.example.com/regular_events/284302086>
 
       Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
       時間: 11:00〜12:00
-      詳細: <http://localhost:3000/regular_events/808817380>
+      詳細: <http://www.example.com/regular_events/808817380>
 
       ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
     TEXT
@@ -164,7 +164,7 @@ class DiscordNotifierTest < ActiveSupport::TestCase
     body = <<~TEXT.chomp
       ⚠️ kimuraさんの「PC性能の見方を知る」の提出物が、最後のコメントから3日経過しました。
       担当：<@12345>さん
-      URL： <http://localhost:3000/products/313836099>
+      URL： <http://www.example.com/products/313836099>
     TEXT
 
     params = {
@@ -226,7 +226,7 @@ class DiscordNotifierTest < ActiveSupport::TestCase
     body = <<~TEXT.chomp
       🎉 hajimeさんがはじめての日報を書きました！
       タイトル：「初日報です」
-      URL： <http://localhost:3000/reports/819157022>
+      URL： <http://www.example.com/reports/819157022>
     TEXT
     expected = {
       body:,

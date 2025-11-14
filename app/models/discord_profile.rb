@@ -3,6 +3,15 @@
 class DiscordProfile < ApplicationRecord
   belongs_to :user
 
+  # Rails 7.2: Ransackで検索可能な属性を定義
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[id account_name times_url user_id created_at updated_at]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[user]
+  end
+
   validates :times_url,
             format: {
               allow_blank: true,

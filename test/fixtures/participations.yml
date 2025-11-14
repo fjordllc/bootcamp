@@ -1,42 +1,54 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 participation1:
+  <<: *DEFAULTS
   user: hatsuno
   event: event2
   enable: true
 
 participation2:
+  <<: *DEFAULTS
   user: hatsuno
   event: event3
   created_at: <%= Time.current + 1.hour %>
   enable: false
 
 participation3:
+  <<: *DEFAULTS
   user: komagata
   event: event3
   created_at: <%= Time.current %>
   enable: true
 
 participation4:
+  <<: *DEFAULTS
   user: sotugyou
   event: event3
   created_at: <%= Time.current + 2.hour %>
   enable: false
 
 participation5:
+  <<: *DEFAULTS
   user: sotugyou
   event: event2
   enable: true
 
 participation6:
+  <<: *DEFAULTS
   user: hatsuno
   event: event5
   enable: true
 
 participation7:
+  <<: *DEFAULTS
   user: kimura
   event: event33
   enable: true
 
 participation8:
+  <<: *DEFAULTS
   user: kimura
   event: event30
   enable: true

@@ -14,7 +14,7 @@ class ComebackController < ApplicationController
         @user.comeback!
         ActiveSupport::Notifications.instrument('comeback.update', user: @user)
         @user.create_comebacked_comment
-        redirect_to root_url, notice: '休会から復帰しました。'
+        redirect_to root_path, notice: '休会から復帰しました。'
       else
         @user = User.new
         flash.now[:alert] = '休会していないユーザーです。'

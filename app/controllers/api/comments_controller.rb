@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::CommentsController < API::BaseController
+class Api::CommentsController < Api::BaseController
   before_action :set_my_comment, only: %i[update destroy]
   before_action :set_available_emojis, only: %i[index create]
   skip_before_action :verify_authenticity_token, if: -> { doorkeeper_token.present? }

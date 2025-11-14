@@ -1,4 +1,9 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 coding_test1:
+  <<: *DEFAULTS
   practice: practice1
   user: komagata
   language: javascript
@@ -9,6 +14,7 @@ coding_test1:
   position: 1
 
 coding_test2:
+  <<: *DEFAULTS
   practice: practice1
   user: komagata
   language: javascript

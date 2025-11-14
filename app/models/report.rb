@@ -12,7 +12,7 @@ class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include Bookmarkable
   include Taskable
 
-  enum emotion: {
+  enum :emotion, {
     negative: 1,
     neutral: 0,
     positive: 2

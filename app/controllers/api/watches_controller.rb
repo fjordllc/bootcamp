@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::WatchesController < API::BaseController
+class Api::WatchesController < Api::BaseController
   include Rails.application.routes.url_helpers
 
   def index

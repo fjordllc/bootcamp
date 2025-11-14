@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::MentionUsersController < API::BaseController
+class Api::MentionUsersController < Api::BaseController
   def index
     users = User.select(:login_name, :name)
                 .order(updated_at: :desc)

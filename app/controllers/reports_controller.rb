@@ -86,7 +86,7 @@ class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLeng
   def destroy
     @report.destroy
     ActiveSupport::Notifications.instrument('report.destroy', report: @report)
-    redirect_to reports_url, notice: '日報を削除しました。'
+    redirect_to reports_path, notice: '日報を削除しました。'
   end
 
   private
@@ -140,7 +140,7 @@ class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLeng
   end
 
   def redirect_url(report)
-    report.wip? ? edit_report_url(report) : report_url(report)
+    report.wip? ? edit_report_path(report) : report_path(report)
   end
 
   def notice_message(report)

@@ -3,7 +3,7 @@ description: |
   <!--  このテキストを編集してください-->
 
   <%= "ドキュメント「#{page.title}」を公開しました。" %>
-  <%= Rails.application.routes.url_helpers.page_url page %>
+  <%= Rails.application.routes.url_helpers.page_url(page, url_options) %>
 
   <!--  不要な場合以下は削除 -->
   ---

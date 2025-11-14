@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::Products::SelfAssignedController < API::BaseController
+class Api::Products::SelfAssignedController < Api::BaseController
   before_action :require_staff_login_for_api
   def index
     @target = params[:target]

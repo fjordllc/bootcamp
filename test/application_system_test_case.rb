@@ -15,6 +15,7 @@ require 'supports/product_helper'
 require 'supports/avatar_helper'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
+  include ActiveJob::TestHelper
   include LoginHelper
   include TestAuthHelper
   include StripeHelper
@@ -41,12 +42,13 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   setup do
     # Ensure ActiveStorage is properly configured for system tests
-    ActiveStorage::Current.host = 'http://localhost:3000'
+    # Rails 7: ActiveStorage::Current.host= is deprecated, use url_options= instead
+    ActiveStorage::Current.url_options = { host: 'localhost', port: 3000, protocol: 'http' }
   end
 
   teardown do
     ActionMailer::Base.deliveries.clear
-    ActiveStorage::Current.host = nil
+    ActiveStorage::Current.url_options = nil
 
     # Clean up any uploaded test files
     if defined?(ActiveStorage::Blob)

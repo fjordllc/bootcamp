@@ -1,144 +1,177 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 courses_category1:
+  <<: *DEFAULTS
   course: course1
   category: category1
   position: 1
 
 courses_category2:
+  <<: *DEFAULTS
   course: course1
   category: category2
   position: 2
 
 courses_category3:
+  <<: *DEFAULTS
   course: course1
   category: category3
   position: 3
 
 courses_category4:
+  <<: *DEFAULTS
   course: course1
   category: category4
   position: 4
 
 courses_category5:
+  <<: *DEFAULTS
   course: course1
   category: category5
   position: 5
 
 courses_category6:
+  <<: *DEFAULTS
   course: course1
   category: category6
   position: 6
 
 courses_category7:
+  <<: *DEFAULTS
   course: course1
   category: category7
   position: 7
 
 courses_category8:
+  <<: *DEFAULTS
   course: course1
   category: category8
   position: 8
 
 courses_category9:
+  <<: *DEFAULTS
   course: course1
   category: category9
   position: 9
 
 courses_category10:
+  <<: *DEFAULTS
   course: course1
   category: category10
   position: 10
 
 courses_category11:
+  <<: *DEFAULTS
   course: course1
   category: category11
   position: 11
 
 courses_category12:
+  <<: *DEFAULTS
   course: course1
   category: category12
   position: 12
 
 courses_category13:
+  <<: *DEFAULTS
   course: course1
   category: category13
   position: 13
 
 courses_category14:
+  <<: *DEFAULTS
   course: course1
   category: category14
   position: 14
 
 courses_category15:
+  <<: *DEFAULTS
   course: course1
   category: category15
   position: 15
 
 courses_category16:
+  <<: *DEFAULTS
   course: course1
   category: category16
   position: 16
 
 courses_category17:
+  <<: *DEFAULTS
   course: course2
   category: category17
   position: 1
 
 courses_category18:
+  <<: *DEFAULTS
   course: course2
   category: category18
   position: 2
 
 courses_category19:
+  <<: *DEFAULTS
   course: course2
   category: category19
   position: 3
 
 courses_category20:
+  <<: *DEFAULTS
   course: course2
   category: category20
   position: 4
 
 courses_category21:
+  <<: *DEFAULTS
   course: course2
   category: category21
   position: 5
 
 courses_category22:
+  <<: *DEFAULTS
   course: course3
   category: category13
   position: 1
 
 courses_category23:
+  <<: *DEFAULTS
   course: course3
   category: category14
   position: 2
 
 courses_category24:
+  <<: *DEFAULTS
   course: course3
   category: category15
   position: 3
 
 courses_category25:
+  <<: *DEFAULTS
   course: course1
   category: category22
   position: 17
 
 courses_category26:
+  <<: *DEFAULTS
   course: course1
   category: category23
   position: 18
 
 courses_category27:
+  <<: *DEFAULTS
   course: course4
   category: category1
   position: 1
 
 courses_category28:
+  <<: *DEFAULTS
   course: course4
   category: category2
   position: 2
 
 courses_category29:
+  <<: *DEFAULTS
   course: course4
   category: category3
   position: 3

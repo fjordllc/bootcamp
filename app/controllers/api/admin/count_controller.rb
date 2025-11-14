@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::Admin::CountController < API::Admin::BaseController
+class Api::Admin::CountController < Api::Admin::BaseController
   def show
     users_count = User.where(
       admin: false,

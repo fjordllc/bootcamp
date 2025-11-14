@@ -1,20 +1,29 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 bookmark32:
+  <<: *DEFAULTS
   user: kimura
   bookmarkable: movie1 (Movie)
 
 bookmark31:
+  <<: *DEFAULTS
   user: komagata
   bookmarkable: talk1 (Talk)
 
 bookmark30:
+  <<: *DEFAULTS
   user: kimura
   bookmarkable: page1 (Page)
 
 bookmark29:
+  <<: *DEFAULTS
   user: kimura
   bookmarkable: product1 (Product)
 
 bookmark28:
+  <<: *DEFAULTS
   user: kimura
   bookmarkable: question1 (Question)
 
@@ -25,5 +34,6 @@ bookmark<%= id %>:
 <% end %>
 
 bookmark_report:
+  <<: *DEFAULTS
   user: kimura
   bookmarkable: report1 (Report)

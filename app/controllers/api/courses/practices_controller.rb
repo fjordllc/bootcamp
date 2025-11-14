@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::Courses::PracticesController < API::BaseController
+class Api::Courses::PracticesController < Api::BaseController
   before_action :require_login_for_api
 
   def index

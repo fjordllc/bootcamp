@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::ProductsController < API::BaseController
+class Api::ProductsController < Api::BaseController
   before_action :require_login_for_api, only: %i[index show]
 
   def index

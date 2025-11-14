@@ -1,4 +1,9 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 external_entry1:
+  <<: *DEFAULTS
   title: 最新の記事1
   url: http://test1/example
   summary: 最新の記事1です。
@@ -6,6 +11,7 @@ external_entry1:
   user: kimura
 
 external_entry2:
+  <<: *DEFAULTS
   title: 最新の記事2
   url: http://test2/example
   summary: 最新の記事2です。
@@ -13,6 +19,7 @@ external_entry2:
   user: advijirou
 
 external_entry3:
+  <<: *DEFAULTS
   title: 最新の記事3
   url: http://test3/example
   summary: 最新の記事3です。
@@ -20,6 +27,7 @@ external_entry3:
   user: mentormentaro
 
 external_entry4:
+  <<: *DEFAULTS
   title: 最新の記事4
   url: http://test4/example
   summary: 最新の記事4です。
@@ -36,6 +44,7 @@ external_entry<%= i %>:
 <% end %>
 
 external_entry27:
+  <<: *DEFAULTS
   title: 最新の記事2 summaryがHTML
   url: http://test2/example
   summary: |
@@ -45,6 +54,7 @@ external_entry27:
   user: advijirou
 
 external_entry28:
+  <<: *DEFAULTS
   title: 最新の記事3 summaryが長いHTML
   url: http://test3/example
   summary: |

@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class API::Products::PassedTest < ActionDispatch::IntegrationTest
+class Api::Products::PassedTest < ActionDispatch::IntegrationTest
   fixtures :products
 
   test 'GET /api/products/passed.json' do

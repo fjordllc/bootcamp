@@ -1,12 +1,18 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 <% now = Time.current %>
 
 comment1:
+  <<: *DEFAULTS
   user: machida
   commentable: report1 (Report)
   description: |-
     CSSは奥が深いですね。
 
 comment2:
+  <<: *DEFAULTS
   user: komagata
   commentable: report3 (Report)
   description: |-
@@ -15,6 +21,7 @@ comment2:
   updated_at: <%= now %>
 
 comment3:
+  <<: *DEFAULTS
   user: machida
   commentable: report3 (Report)
   description: |-
@@ -23,6 +30,7 @@ comment3:
   updated_at: <%= now + 1.seconds %>
 
 comment4:
+  <<: *DEFAULTS
   user: sotugyou
   commentable: report4 (Report)
   description: |-
@@ -33,6 +41,7 @@ comment4:
   created_at: "2019-01-01 00:00:01"
 
 comment5:
+  <<: *DEFAULTS
   user: komagata
   commentable: report4 (Report)
   description: |-
@@ -40,33 +49,39 @@ comment5:
   created_at: "2019-01-02 00:00:01"
 
 comment6:
+  <<: *DEFAULTS
   user: sotugyou
   commentable: report4 (Report)
   description: "失礼しました。 report_id を id と typo してました💦"
   created_at: "2019-01-02 18:00:01"
 
 comment7:
+  <<: *DEFAULTS
   user: komagata
   commentable: report4 (Report)
   description: ":thumbsup:"
   created_at: "2019-01-04 00:00:01"
 
 comment8:
+  <<: *DEFAULTS
   user: komagata
   commentable: product10 (Product)
   description: "提出物のコメントです。"
 
 comment9:
+  <<: *DEFAULTS
   user: komagata
   commentable: report5 (Report)
   description: "@sotugyou 🎉🎉🎉🎉"
 
 comment10:
+  <<: *DEFAULTS
   user: mentormentaro
   commentable: product1 (Product)
   description: "提出物へのコメント"
 
 comment11:
+  <<: *DEFAULTS
   user: mentormentaro
   commentable: report1 (Report)
   description: "テスト用 report1へのコメント"
@@ -74,42 +89,50 @@ comment11:
   updated_at: <%= now + 2.seconds %>
 
 comment12:
+  <<: *DEFAULTS
   user: mentormentaro
   commentable: announcement1 (Announcement)
   description: "テスト用 announcement1へのコメント"
 
 comment13:
+  <<: *DEFAULTS
   user: mentormentaro
   commentable: product1 (Product)
   description: "テスト用 product1へのコメント"
 
 comment14:
+  <<: *DEFAULTS
   user: mentormentaro
   commentable: product3 (Product)
   description: "テスト用 product3へのコメント"
 
 comment15:
+  <<: *DEFAULTS
   user: machida
   commentable: report4 (Report)
   description: ":thumbsup:"
   created_at: "2019-01-02 12:00:01"
 
 comment16:
+  <<: *DEFAULTS
   user: mentormentaro
   commentable: event1 (Event)
   description: "テスト用 event1へのコメント"
 
 comment17:
+  <<: *DEFAULTS
   user: machida
   commentable: product63 (Product)
   description: "自分が担当する提出物に返信する"
 
 comment18:
+  <<: *DEFAULTS
   user: hajime
   commentable: report7 (Report)
   description: "@kimura 1つ目のメンションありの未読通知を発生させる"
 
 comment19:
+  <<: *DEFAULTS
   user: mentormentaro
   commentable: report7 (Report)
   description: "@kimura 2つ目のメンションありの未読通知を発生させる"
@@ -124,27 +147,32 @@ comment<%= i + 19 %>:
 <% end %>
 
 comment40:
+  <<: *DEFAULTS
   user: long-id-mentor
   commentable: product67 (Product)
   description: "長い名前のメンター"
 
 comment41:
+  <<: *DEFAULTS
   user: long-id-mentor
   commentable: report71 (Report)
   description: "長い名前のメンター"
 
 comment42:
+  <<: *DEFAULTS
   user: mentormentaro
   commentable: regular_event27 (RegularEvent)
   description: "テスト用 regular_event27へのコメント"
 
 comment43:
+  <<: *DEFAULTS
   user: komagata
   commentable: inquiry1 (Inquiry)
   description: "テスト用 inquiry1へのコメント"
   created_at: "2019-01-02 00:00:00 JST"
 
 comment44:
+  <<: *DEFAULTS
   user: komagata
   commentable: inquiry2 (Inquiry)
   description: "inquiryにて削除するコメント"
@@ -159,11 +187,13 @@ comment<%= i + 44 %>:
 <% end %>
 
 comment65:
+  <<: *DEFAULTS
   user: komagata
   commentable: corporate_training_inquiry1 (CorporateTrainingInquiry)
   description: "テスト用 corporate_training_inquiry1へのコメント"
 
 comment66:
+  <<: *DEFAULTS
   user: komagata
   commentable: corporate_training_inquiry2 (CorporateTrainingInquiry)
   description: "corporate_training_inquiryにて削除するコメント"
@@ -178,11 +208,13 @@ comment<%= i + 66 %>:
 <% end %>
 
 comment87:
+  <<: *DEFAULTS
   user: mentormentaro
   commentable: product9 (Product)
   description: "テスト用 product9へのコメント"
 
 commentOfTalk:
+  <<: *DEFAULTS
   user: komagata
   commentable: talk1 (Talk)
   commentable_type: Talk
@@ -190,6 +222,7 @@ commentOfTalk:
   updated_at: "2019-01-02 00:00:00 JST"
 
 commentOfTalk2:
+  <<: *DEFAULTS
   user: hajime
   commentable: talk9 (Talk)
   commentable_type: Talk

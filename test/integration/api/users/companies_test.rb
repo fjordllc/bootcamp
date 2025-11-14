@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class API::Users::CompaniesTest < ActionDispatch::IntegrationTest
+class Api::Users::CompaniesTest < ActionDispatch::IntegrationTest
   test 'should fetch all users belonging to each company' do
     token = create_token('kimura', 'testtest')
     get api_users_companies_path(format: :json, target: 'all'), headers: { 'Authorization' => "Bearer #{token}" }

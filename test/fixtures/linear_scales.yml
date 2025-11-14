@@ -1,4 +1,9 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 linear_scale1:
+  <<: *DEFAULTS
   first: "安い"
   last: "高い"
   reason_for_choice_required: true

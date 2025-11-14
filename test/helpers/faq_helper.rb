@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class FAQHelperTest < ActionView::TestCase
+class FaqHelperTest < ActionView::TestCase
   test '#format_question' do
     faq = faqs(:faq1)
     assert_equal format_question(faq.question), "#{faq.question}？"

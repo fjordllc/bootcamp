@@ -1,47 +1,59 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 <% today = Time.current %>
 learning1:
+  <<: *DEFAULTS
   user: komagata
   practice: practice1
   status: "started"
   completion_message_displayed: false
 
 learning2:
+  <<: *DEFAULTS
   user: komagata
   practice: practice2
   status: "complete"
   completion_message_displayed: true
 
 learning3:
+  <<: *DEFAULTS
   user: komagata
   practice: practice3
   status: "unstarted"
   completion_message_displayed: false
 
 learning4:
+  <<: *DEFAULTS
   user: machida
   practice: practice2
   status: "complete"
   completion_message_displayed: true
 
 learning5:
+  <<: *DEFAULTS
   user: sotugyou
   practice: practice2
   status: "complete"
   completion_message_displayed: true
 
 learning6:
+  <<: *DEFAULTS
   user: kimura
   practice: practice1
   status: "complete"
   completion_message_displayed: true
 
 learning7:
+  <<: *DEFAULTS
   user: komagata
   practice: practice4
   status: "submitted"
   completion_message_displayed: false
 
 learning8:
+  <<: *DEFAULTS
   user: machida
   practice: practice5
   status: "complete"
@@ -50,6 +62,7 @@ learning8:
   updated_at: "2020-04-12 14:05:53.782503"
 
 learning9:
+  <<: *DEFAULTS
   user: machida
   practice: practice6
   status: "complete"
@@ -58,6 +71,7 @@ learning9:
   updated_at: "2020-04-10 14:05:53.782503"
 
 learning10:
+  <<: *DEFAULTS
   user: machida
   practice: practice7
   status: "complete"
@@ -66,6 +80,7 @@ learning10:
   updated_at: "2020-04-19 14:05:53.782503"
 
 learning11:
+  <<: *DEFAULTS
   user: machida
   practice: practice8
   status: "complete"
@@ -74,36 +89,42 @@ learning11:
   updated_at: "2020-04-22 14:05:53.782503"
 
 learning12:
+  <<: *DEFAULTS
   user: hajime
   practice: practice1
   status: "started"
   completion_message_displayed: false
 
 learning13:
+  <<: *DEFAULTS
   user: kananashi
   practice: practice3
   status: "started"
   completion_message_displayed: false
 
 learning14:
+  <<: *DEFAULTS
   user: hajime
   practice: practice27
   status: "complete"
   completion_message_displayed: true
 
 learning15:
+  <<: *DEFAULTS
   user: hajime
   practice: practice48
   status: "complete"
   completion_message_displayed: true
 
 learning16:
+  <<: *DEFAULTS
   user: kimura
   practice: practice6
   status: "complete"
   completion_message_displayed: false
 
 learning17:
+  <<: *DEFAULTS
   user: sotugyou
   practice: practice3
   status: "submitted"
@@ -120,24 +141,28 @@ learning<%= i + 18 %>:
 
 
 learning23:
+  <<: *DEFAULTS
   user: harikirio
   practice: practice5
   status: "complete"
   completion_message_displayed: false
 
 learning24:
+  <<: *DEFAULTS
   user: harikirio
   practice: practice61
   status: "complete"
   completion_message_displayed: false
 
 learning25:
+  <<: *DEFAULTS
   user: harikirio
   practice: practice62
   status: "complete"
   completion_message_displayed: false
 
 learning26:
+  <<: *DEFAULTS
   user: harikirio
   practice: practice63
   status: "complete"

@@ -1,2 +1,7 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 buzz1:
+  <<: *DEFAULTS
   body: 本文1

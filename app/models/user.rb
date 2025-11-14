@@ -38,38 +38,38 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     [I18n.t('invitation_role.mentor'), :mentor]
   ].freeze
 
-  enum job: {
+  enum :job, {
     student: 0,
     office_worker: 2,
     part_time_worker: 3,
     vacation: 4,
     unemployed: 5
-  }, _prefix: true
+  }, prefix: true
 
-  enum os: {
+  enum :os, {
     mac: 0,
     mac_apple: 2,
     linux: 1,
     windows_wsl2: 3
-  }, _prefix: true
+  }, prefix: true
 
-  enum editor: {
+  enum :editor, {
     vscode: 0,
     ruby_mine: 1,
     vim: 2,
     emacs: 3,
     other_editor: 99
-  }, _prefix: true
+  }, prefix: true
 
-  enum satisfaction: {
+  enum :satisfaction, {
     excellent: 0,
     good: 1,
     average: 2,
     poor: 3,
     very_poor: 4
-  }, _prefix: true
+  }, prefix: true
 
-  enum referral_source: {
+  enum :referral_source, {
     search_engine: 0,
     referral: 1,
     event: 2,
@@ -78,9 +78,9 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     blog: 5,
     web_ad: 6,
     other: 99
-  }, _prefix: true
+  }, prefix: true
 
-  enum career_path: {
+  enum :career_path, {
     unset: 0,
     job_seeking: 1,
     employed_via_referral: 2,
@@ -88,7 +88,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     employed_non_it: 4,
     internal_transfer_to_programmer: 5,
     not_employed: 6
-  }, _prefix: true
+  }, prefix: true
 
   belongs_to :company, optional: true
   belongs_to :course

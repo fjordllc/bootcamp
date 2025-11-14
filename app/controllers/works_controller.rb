@@ -45,7 +45,7 @@ class WorksController < ApplicationController
   def destroy
     @work.destroy
     ActiveSupport::Notifications.instrument('work.destroy', work: @work)
-    redirect_to user_portfolio_url(@work.user), notice: 'ポートフォリオから作品を削除しました。'
+    redirect_to user_portfolio_path(@work.user), notice: 'ポートフォリオから作品を削除しました。'
   end
 
   private

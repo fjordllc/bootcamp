@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class API::NotificationsTest < ActionDispatch::IntegrationTest
+class Api::NotificationsTest < ActionDispatch::IntegrationTest
   test 'GET /api/notifications.json' do
     get api_notifications_path(format: :json)
     assert_response :unauthorized

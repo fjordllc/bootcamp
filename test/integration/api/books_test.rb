@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class API::BooksTest < ActionDispatch::IntegrationTest
+class Api::BooksTest < ActionDispatch::IntegrationTest
   test 'GET /api/books.json' do
     get api_books_path(format: :json)
     assert_response :unauthorized

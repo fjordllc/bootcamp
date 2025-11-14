@@ -1,4 +1,9 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 check_box_choice1:
+  <<: *DEFAULTS
   check_box: check_box1
   choices: "フィヨルドブートキャンプのホームページで調べた"
   reason_for_choice_required: false
@@ -6,6 +11,7 @@ check_box_choice1:
   updated_at: <%= Time.current %>
 
 check_box_choice2:
+  <<: *DEFAULTS
   check_box: check_box1
   choices: "フィヨルドブートキャンプ以外の記事における評価を調べた"
   reason_for_choice_required: false
@@ -13,6 +19,7 @@ check_box_choice2:
   updated_at: <%= Time.current %>
 
 check_box_choice3:
+  <<: *DEFAULTS
   check_box: check_box1
   choices: "SNSで口コミを調べた"
   reason_for_choice_required: false
@@ -20,6 +27,7 @@ check_box_choice3:
   updated_at: <%= Time.current %>
 
 check_box_choice4:
+  <<: *DEFAULTS
   check_box: check_box1
   choices: "友人・知人・家族に聞いた"
   reason_for_choice_required: false
@@ -27,6 +35,7 @@ check_box_choice4:
   updated_at: <%= Time.current %>
 
 check_box_choice5:
+  <<: *DEFAULTS
   check_box: check_box1
   choices: "その他"
   reason_for_choice_required: true

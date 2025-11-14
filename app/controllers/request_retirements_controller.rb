@@ -17,7 +17,7 @@ class RequestRetirementsController < ApplicationController
 
     if @request_retirement.save
       UserMailer.request_retirement(@request_retirement).deliver_now
-      redirect_to request_retirement_url(@request_retirement)
+      redirect_to request_retirement_path(@request_retirement)
     else
       render :new, status: :unprocessable_entity
     end

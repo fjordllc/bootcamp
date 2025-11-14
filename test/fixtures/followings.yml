@@ -1,9 +1,15 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 following1:
+  <<: *DEFAULTS
   follower: muryou
   followed: kensyu
   watch: true
 
 following2:
+  <<: *DEFAULTS
   follower: kensyu
   followed: muryou
   watch: false

@@ -1,22 +1,30 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 book1:
+  <<: *DEFAULTS
   title: ゼロからわかるRuby超入門
   price: 2592
   page_url: https://www.amazon.co.jp/dp/B07KQXFF6D
   description: Rubyを始める人にピッタリの本です！
 
 book2:
+  <<: *DEFAULTS
   title: はじめて学ぶソフトウェアのテスト技法
   price: 2640
   page_url: https://www.amazon.co.jp/dp/4822282511
   description: ソフトウェアテストの必修技法を満載した初心者にもわかりやすい解説書です。
 
 book3:
+  <<: *DEFAULTS
   title: パーフェクト Ruby on Rails
   price: 3637
   page_url: https://www.amazon.co.jp/dp/B08D3DW7LP
   description: 通称パRails
 
 book4:
+  <<: *DEFAULTS
   title: 新しいLinuxの教科書
   price: 2822
   page_url: https://www.amazon.co.jp/dp/B072K1NH76

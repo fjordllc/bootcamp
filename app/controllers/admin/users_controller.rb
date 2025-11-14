@@ -35,7 +35,7 @@ class Admin::UsersController < AdminController
     @user.diploma_file = nil if params[:user][:remove_diploma] == '1'
     if @user.update(user_params)
       complete_graduation_or_retirement(@user)
-      redirect_to user_url(@user), notice: 'ユーザー情報を更新しました。'
+      redirect_to user_path(@user), notice: 'ユーザー情報を更新しました。'
     else
       render :edit
     end
@@ -45,12 +45,12 @@ class Admin::UsersController < AdminController
     # すでにUI上で自分自身を削除できないようになっているが、
     # コード上でも防止することによって設計上の意図を明確にする
     if current_user.id == params[:id].to_i
-      redirect_to admin_users_url, alert: '自分自身を削除する場合、退会から処理を行ってください。'
+      redirect_to admin_users_path, alert: '自分自身を削除する場合、退会から処理を行ってください。'
     else
       user = User.find(params[:id])
       ActiveSupport::Notifications.instrument('learning.destroy', user:)
       user.destroy
-      redirect_to admin_users_url, notice: "#{user.name} さんを削除しました。"
+      redirect_to admin_users_path, notice: "#{user.name} さんを削除しました。"
     end
   end
 

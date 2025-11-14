@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class API::ChecksTest < ActionDispatch::IntegrationTest
+class Api::ChecksTest < ActionDispatch::IntegrationTest
   fixtures :checks, :reports
 
   setup do

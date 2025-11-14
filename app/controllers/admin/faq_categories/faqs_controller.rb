@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Admin::FAQCategories::FaqsController < AdminController
+class Admin::FaqCategories::FaqsController < AdminController
   before_action :set_faq_category, only: %i[index update]
 
   def index
@@ -16,6 +16,6 @@ class Admin::FAQCategories::FaqsController < AdminController
   private
 
   def set_faq_category
-    @faq_category = FAQCategory.find(params[:faq_category_id])
+    @faq_category = FaqCategory.find(params[:faq_category_id])
   end
 end

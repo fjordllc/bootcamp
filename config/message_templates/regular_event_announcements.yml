@@ -16,6 +16,6 @@ description: |
   <%= regular_event.description %>
 
   ## 参加登録はこちら
-  <%= Rails.application.routes.url_helpers.regular_event_url(regular_event) %>
+  <%= Rails.application.routes.url_helpers.regular_event_url(regular_event, url_options) %>
 
   ---

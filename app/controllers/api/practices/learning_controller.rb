@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::Practices::LearningController < API::BaseController
+class Api::Practices::LearningController < Api::BaseController
   include Rails.application.routes.url_helpers
 
   def show

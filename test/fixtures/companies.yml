@@ -1,4 +1,9 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 company1:
+  <<: *DEFAULTS
   name: "Lokka Inc."
   description: "株式会社ロッカ"
   website: "https://lokka.jp"
@@ -51,18 +56,21 @@ company1:
   blog_url: "https://tech.sample.com"
 
 company2:
+  <<: *DEFAULTS
   name: "Fjord inc."
   description: "株式会社フィヨルド"
   website: "https://example.com/fjord"
   created_at: 2000-01-01 00:00:02
 
 company3:
+  <<: *DEFAULTS
   name: "esm inc."
   description: "株式会社永和システムマネジメント"
   website: "https://example.com/esm"
   created_at: 2000-01-01 00:00:03
 
 company4:
+  <<: *DEFAULTS
   name: "BatsuBatsu Inc"
   description: "××株式会社"
   website: "https://example.com/ignacio"
@@ -77,24 +85,28 @@ company<%= i %>:
 <% end %>
 
 company26:
+  <<: *DEFAULTS
   name: "ユーザの企業に登録しないで株式会社"
   description: "この企業は user login_name: advisernocolleaguetrainee のユーザにのみ紐づけているので、それ以外のユーザは紐づけないでください。"
   website: "http://example.com/test"
   created_at: 2000-01-01 00:00:06
 
 newest_company:
+  <<: *DEFAULTS
   name: "【created_at降順確認】一番新しい株式会社"
   description: "/admin/companies で一番最初に表示される会社です"
   website: "http://example.com/test"
   created_at: <%= Time.now %>
 
 second_newest_company:
+  <<: *DEFAULTS
   name: "【created_at降順確認】二番目に新しい株式会社"
   description: "/admin/companies で二番目に表示される会社です"
   website: "http://example.com/test"
   created_at: <%= Time.now - 1 %>
 
 oldest_company:
+  <<: *DEFAULTS
   name: "【created_at降順確認】最古株式会社"
   description: "/admin/companies で最後に表示される会社です"
   website: "http://example.com/test"

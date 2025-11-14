@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::Mentor::PracticesController < API::Mentor::BaseController
+class Api::Mentor::PracticesController < Api::Mentor::BaseController
   def index
     @practices = Practice.order(:id)
   end

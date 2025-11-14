@@ -17,7 +17,7 @@ class Mentor::Practices::SubmissionAnswerController < ApplicationController
     @practice = Practice.find(params[:practice_id])
     @submission_answer = @practice.build_submission_answer(submission_answer_params)
     if @submission_answer.save
-      redirect_to practice_submission_answer_url, notice: '模範解答を作成しました。'
+      redirect_to practice_submission_answer_path, notice: '模範解答を作成しました。'
     else
       render :new, status: :unprocessable_entity
     end
@@ -26,7 +26,7 @@ class Mentor::Practices::SubmissionAnswerController < ApplicationController
   def update
     @practice = @submission_answer.practice
     if @submission_answer.update(submission_answer_params)
-      redirect_to practice_submission_answer_url, notice: '模範解答を更新しました。'
+      redirect_to practice_submission_answer_path, notice: '模範解答を更新しました。'
     else
       render :edit, status: :unprocessable_entity
     end

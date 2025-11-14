@@ -1,31 +1,41 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 <% 1.upto(10) do |i| %>
 report<%= i %>_watch_kimura:
-   user: kimura
-   watchable: report<%= i %> (Report)
+  <<: *DEFAULTS
+  user: kimura
+  watchable: report<%= i %> (Report)
 <% end %>
 
 <% 1.upto(8) do |i| %>
 question<%= i %>_watch_kimura:
-   user: kimura
-   watchable: question<%= i %> (Question)
+  <<: *DEFAULTS
+  user: kimura
+  watchable: question<%= i %> (Question)
 <% end %>
 
 <% 1.upto(8) do |i| %>
 product<%= i %>_watch_kimura:
-   user: kimura
-   watchable: product<%= i %> (Product)
+  <<: *DEFAULTS
+  user: kimura
+  watchable: product<%= i %> (Product)
 <% end %>
 
 <% 1.upto(6) do |i|  %>
 event<%= i %>_watch_kimura:
-   user: kimura
-   watchable: event<%= i %> (Event)
+  <<: *DEFAULTS
+  user: kimura
+  watchable: event<%= i %> (Event)
 <% end %>
 
 practice1_watch_mentormentaro:
-   user: mentormentaro
-   watchable: practice1 (Practice)
+  <<: *DEFAULTS
+  user: mentormentaro
+  watchable: practice1 (Practice)
 
 page1_page_mentormentaro:
-   user: mentormentaro
-   watchable: page1 (Page)
+  <<: *DEFAULTS
+  user: mentormentaro
+  watchable: page1 (Page)

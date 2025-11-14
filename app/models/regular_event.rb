@@ -30,13 +30,13 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   include Watchable
   include Searchable
 
-  enum category: {
+  enum :category, {
     reading_circle: 0,
     chat: 1,
     question: 2,
     meeting: 3,
     others: 4
-  }, _prefix: true
+  }, prefix: true
 
   validates :title, presence: true, markdown_prohibited: true
   validates :user_ids, presence: true
@@ -92,7 +92,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def organizers
-    users.with_attached_avatar.order('organizers.created_at')
+    users.with_attached_avatar.merge(Organizer.order(:created_at))
   end
 
   def cancel_participation(user)

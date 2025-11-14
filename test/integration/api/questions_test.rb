@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class API::QuestionsTest < ActionDispatch::IntegrationTest
+class Api::QuestionsTest < ActionDispatch::IntegrationTest
   fixtures :questions
 
   setup do

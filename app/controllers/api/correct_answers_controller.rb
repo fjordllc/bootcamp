@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::CorrectAnswersController < API::BaseController
+class Api::CorrectAnswersController < Api::BaseController
   before_action :set_question, only: %i[create update]
 
   def create

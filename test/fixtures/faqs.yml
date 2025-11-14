@@ -1,4 +1,9 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 faq1:
+  <<: *DEFAULTS
   position: 1
   question: 学習を終えるのにどれくらいの時間がかかりますか？
   answer: "\
@@ -11,6 +16,7 @@ faq1:
   faq_category: faq_category1
 
 faq2:
+  <<: *DEFAULTS
   position: 2
   question: 途中で辞めることは可能ですか？
   answer: "\
@@ -21,6 +27,7 @@ faq2:
   faq_category: faq_category6
 
 faq3:
+  <<: *DEFAULTS
   position: 3
   question: 学習はオンラインだけですか？
   answer: "\
@@ -30,12 +37,14 @@ faq3:
   faq_category: faq_category2
 
 faq4:
+  <<: *DEFAULTS
   position: 4
   question: 休会をすることは可能ですか？
   answer: 最大3ヶ月まで休会をすることが可能です。
   faq_category: faq_category6
 
 faq5:
+  <<: *DEFAULTS
   position: 5
   question: わからないことがあった場合、質問はできますか？
   answer: "\
@@ -47,42 +56,49 @@ faq5:
   faq_category: faq_category2
 
 faq6:
+  <<: *DEFAULTS
   position: 6
   question: 退会した月は料金が日割りで請求されますか？
   answer: 退会した月も、日割りでの請求はなく、その月のご利用料金1ヶ月分をお支払い頂きますことをご了承ください。
   faq_category: faq_category3
 
 faq7:
+  <<: *DEFAULTS
   position: 7
   question: 仕事をしながら学習をしたいのであまり時間が取れないのですがそれでも参加できますか？
   answer: 学習時間の制限はありませんので、自分のできるペースで学習を進めることができます。ただ、卒業までに時間がかかってしまうと、それだけ合計の料金はかかってしまいます。
   faq_category: faq_category5
 
 faq8:
+  <<: *DEFAULTS
   position: 8
   question: 就職先が決まっているのですが、就職までの間学習をしたいです。その場合、参加は可能ですか？
   answer: はい、そのような場合も参加可能です。実際、フィヨルドブートキャンプは企業の新人研修でも利用されています。もし、企業の研修として利用する場合は法人用のプランがございますのでご連絡ください。
   faq_category: faq_category5
 
 faq9:
+  <<: *DEFAULTS
   position: 9
   question: 転職は考えていないのですが、スキルアップのためプログラミングの勉強がしたいです。その場合、参加は可能ですか？
   answer: 可能です。フィヨルドブートキャンプは就職できるためのスキルを身につけることを目標にしていますが、就職を必ずしなくてはいけないという縛りはありません。
   faq_category: faq_category5
 
 faq10:
+  <<: *DEFAULTS
   position: 10
   question: 現在、大学に在学中なのですが、参加できますか？
   answer: 学生でも参加可能です。年齢に制限はありません。
   faq_category: faq_category5
 
 faq11:
+  <<: *DEFAULTS
   position: 11
   question: Linuxで学習をしたいのですが可能ですか？
   answer: Linuxでも可能ですが条件があります。用意しているカリキュラムは Mac を想定して作られています。そのため、Linux でカリキュラムを行う場合は自分自身でMac用のカリキュラムをLinuxに合わせて操作方法などを変える必要があります。それができるだけのLinuxのスキルがある方のみ、Linuxで学習をすることをOKとしています。
   faq_category: faq_category2
 
 faq12:
+  <<: *DEFAULTS
   position: 12
   question: Windowsで学習をしたいのですが可能ですか？
   answer: "\
@@ -93,24 +109,28 @@ faq12:
   faq_category: faq_category2
 
 faq13:
+  <<: *DEFAULTS
   position: 13
   question: 古い OS のままで学習をしたいのですが可能ですか？
   answer: カリキュラムが、最新の Mac の OS を想定して作られています。多少古い場合はどうにかなるかもしれませんが、OS のせいで学習に詰まることが出てくるかもしれません。何かしら事情があってお手持ちの Mac のバージョンが上げられない場合は、それとは別の Mac を用意してから参加されることをおすすめします。
   faq_category: faq_category2
 
 faq14:
+  <<: *DEFAULTS
   position: 14
   question: 転職エージェントを使って就職活動をすることは可能ですか？
   answer: はい、就職活動について制限はありません。希望があれば弊社でもエージェントを紹介することも可能です。
   faq_category: faq_category4
 
 faq15:
+  <<: *DEFAULTS
   position: 15
   question: 卒業生が Ruby 界隈で有名な企業に就職していますが、私もそういった企業に就職できますか？
   answer: 個人によります。弊社と仲良くしてくれてる Ruby 界隈で有名な企業に推薦をする場合もありますが、推薦をする側も責任があるため、誰でも推薦をすることができるとは言えません。ただし、そもそもフィヨルドブートキャンプを卒業することはとても難しく、それを達成できた時点で十分推薦できる人物だと判断することがほとんどです。
   faq_category: faq_category4
 
 faq16:
+  <<: *DEFAULTS
   position: 16
   question: プログラマーは男性が多いと聞いたことがありますが、女性でも大丈夫ですか？
   answer: "\
@@ -121,6 +141,7 @@ faq16:
   faq_category: faq_category5
 
 faq17:
+  <<: *DEFAULTS
   position: 17
   question: 30代なのですが、エンジニアとして就職することは可能ですか？
   answer: "\
@@ -133,6 +154,7 @@ faq17:
   faq_category: faq_category4
 
 faq18:
+  <<: *DEFAULTS
   position: 18
   question: 会社の新人研修など法人での利用はできますか？
   answer: "\
@@ -142,6 +164,7 @@ faq18:
   faq_category: faq_category7
 
 faq19:
+  <<: *DEFAULTS
   position: 19
   question: 何をしたら卒業になりますか？
   answer: "\
@@ -151,6 +174,7 @@ faq19:
   faq_category: faq_category6
 
 faq20:
+  <<: *DEFAULTS
   position: 20
   question: 利用料の領収書は発行してもらえますか？
   answer: "\
@@ -160,6 +184,7 @@ faq20:
   faq_category: faq_category3
 
 faq21:
+  <<: *DEFAULTS
   position: 21
   question: フィヨルドブートキャンプを利用していることを誰にも知られたくないのですが、匿名で参加はできますか？
   answer: "\

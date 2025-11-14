@@ -28,3 +28,14 @@ orm :active_record
   # defalut_scopeとoptional_scopeで定義されたスコープのみ要求できるようになる
   enforce_configured_scopes
 end
+
+# Override redirect_to for Rails 7.2 allow_other_host compatibility
+Rails.application.config.to_prepare do
+  Doorkeeper::ApplicationsController.class_eval do
+    private
+
+    def redirect_to(options = {}, response_options = {})
+      super(options, response_options.merge(allow_other_host: true))
+    end
+  end
+end

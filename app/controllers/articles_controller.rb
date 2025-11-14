@@ -59,7 +59,7 @@ class ArticlesController < ApplicationController
   def destroy
     @article.destroy
     ActiveSupport::Notifications.instrument('article.destroy', article: @article)
-    redirect_to articles_url, notice: '記事を削除しました'
+    redirect_to articles_path, notice: '記事を削除しました'
   end
 
   private
@@ -101,7 +101,7 @@ class ArticlesController < ApplicationController
   end
 
   def redirect_url(article)
-    article.wip? ? edit_article_url(article) : article
+    article.wip? ? edit_article_path(article) : article
   end
 
   def set_wip

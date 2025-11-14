@@ -1,4 +1,9 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 regular_event1:
+  <<: *DEFAULTS
   title: 開発MTG
   description: 開発MTGを開催します
   finished: false
@@ -10,6 +15,7 @@ regular_event1:
   published_at: "2023-08-01 00:00:00"
 
 regular_event2:
+  <<: *DEFAULTS
   title: 質問・雑談タイム
   description: 質問・雑談タイムを開催します
   finished: false
@@ -21,6 +27,7 @@ regular_event2:
   published_at: "2023-08-01 00:00:00"
 
 regular_event3:
+  <<: *DEFAULTS
   title: 自作サービス進捗報告会
   description: 自作サービス進捗報告会を開催します
   finished: false
@@ -33,6 +40,7 @@ regular_event3:
   published_at: "2023-08-01 00:00:00"
 
 regular_event4:
+  <<: *DEFAULTS
   title: チェリー本輪読会
   description: チェリー本輪読会を開催します
   finished: false
@@ -43,6 +51,7 @@ regular_event4:
   published_at: "2023-08-01 00:00:00"
 
 regular_event5:
+  <<: *DEFAULTS
   title: Everyday Rails輪読会
   description: Everyday Rails輪読会を開催します
   finished: false
@@ -53,6 +62,7 @@ regular_event5:
   published_at: "2023-08-01 00:00:00"
 
 regular_event6:
+  <<: *DEFAULTS
   title: Ruby超入門輪読会
   description: Ruby超入門輪読会を開催します
   finished: false
@@ -63,6 +73,7 @@ regular_event6:
   published_at: "2023-08-01 00:00:00"
 
 regular_event7:
+  <<: *DEFAULTS
   title: 独習Git輪読会
   description: 独習Git輪読会を開催します
   finished: false
@@ -86,6 +97,7 @@ regular_event<%= i %>:
 <% end %>
 
 regular_event26:
+  <<: *DEFAULTS
   title: ダッシュボード表示確認用テスト定期イベント
   description: ダッシュボード表示確認用テスト定期イベント
   finished: false
@@ -96,6 +108,7 @@ regular_event26:
   published_at: "2023-08-01 00:00:00"
 
 regular_event27:
+  <<: *DEFAULTS
   title: 定期イベントの検索結果テスト用
   description: 定期イベントの検索結果テスト用
   finished: false
@@ -106,6 +119,7 @@ regular_event27:
   published_at: "2023-08-01 00:00:00"
 
 regular_event28:
+  <<: *DEFAULTS
   title: Discord通知確認用イベント(土曜日開催)
   description: Discord通知確認用イベント(土曜日開催)
   finished: false
@@ -116,6 +130,7 @@ regular_event28:
   published_at: "2023-08-01 00:00:00"
 
 regular_event29:
+  <<: *DEFAULTS
   title: Discord通知確認用イベント(土曜日 + 日曜日開催)
   description: Discord通知確認用イベント(土曜日 + 日曜日開催)
   finished: false
@@ -126,6 +141,7 @@ regular_event29:
   published_at: "2023-08-01 00:00:00"
 
 regular_event30:
+  <<: *DEFAULTS
   title: Discord通知確認用、祝日非開催イベント(金曜日開催)
   description: Discord通知確認用、祝日非開催イベント(金曜日開催)
   finished: false
@@ -136,6 +152,7 @@ regular_event30:
   published_at: "2023-08-01 00:00:00"
 
 regular_event31:
+  <<: *DEFAULTS
   title: Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
   description: Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
   finished: false
@@ -146,6 +163,7 @@ regular_event31:
   published_at: "2023-08-01 00:00:00"
 
 regular_event32:
+  <<: *DEFAULTS
   title: ダッシュボード表示確認用テスト定期イベント(祝日非開催)
   description: ダッシュボード表示確認用テスト定期イベント(祝日非開催)
   finished: false
@@ -157,6 +175,7 @@ regular_event32:
   published_at: "2023-08-01 00:00:00"
 
 regular_event33:
+  <<: *DEFAULTS
   title: Discord通知確認用イベント(土曜日午前8時から開催)
   description: Discord通知確認用、土曜日午前8時開始です
   finished: false
@@ -167,6 +186,7 @@ regular_event33:
   published_at: "2023-08-01 00:00:00"
 
 regular_event34:
+  <<: *DEFAULTS
   title: 参加反映テスト用定期イベント(祝日非開催)
   description: 参加反映テスト用定期イベント(祝日非開催)
   finished: false
@@ -178,6 +198,7 @@ regular_event34:
   published_at: "2023-08-01 00:00:00"
 
 regular_event35:
+  <<: *DEFAULTS
   title: 未参加反映テスト用定期イベント(祝日非開催)
   description: 未参加反映テスト用定期イベント(祝日非開催)
   finished: false
@@ -189,6 +210,7 @@ regular_event35:
   published_at: "2023-08-01 00:00:00"
 
 regular_event36:
+  <<: *DEFAULTS
   title: 日曜日開催で12:00に終了する定期イベント
   description: 日曜日開催で12:00に終了する定期イベントの表示テスト用
   finished: false
@@ -199,6 +221,7 @@ regular_event36:
   published_at: "2024-12-01 00:00:00"
 
 regular_event37:
+  <<: *DEFAULTS
   title: 日曜日開催で10:00に終了する定期イベント
   description: 日曜日開催で10:00に終了する定期イベントの表示テスト用
   finished: false
@@ -209,6 +232,7 @@ regular_event37:
   published_at: "2024-12-01 00:00:00"
 
 regular_event38:
+  <<: *DEFAULTS
   title: 月曜日開催で10:00に終了する定期イベント
   description: 月曜日開催で10:00に終了する定期イベントの表示テスト用
   finished: false
@@ -219,6 +243,7 @@ regular_event38:
   published_at: "2024-12-01 00:00:00"
 
 regular_event39:
+  <<: *DEFAULTS
   title: 終了した定期イベント
   description: 退会休会するユーザーが主催した終了済みイベント
   finished: true

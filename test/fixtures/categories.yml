@@ -1,114 +1,141 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 category1:
+  <<: *DEFAULTS
   name: "学習の準備"
   slug: "ready-for-learn"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
 
 category2:
+  <<: *DEFAULTS
   name: "Mac OS X"
   slug: "mac-os-x"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
 
 category3:
+  <<: *DEFAULTS
   name: "HTML & CSS"
   slug: "html-and-css"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
 
 category4:
+  <<: *DEFAULTS
   name: "UNIX"
   slug: "unix"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
 
 category5:
+  <<: *DEFAULTS
   name: "Ruby"
   slug: "ruby"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
 
 category6:
+  <<: *DEFAULTS
   name: "Ruby on Rails"
   slug: "ruby-on-rails"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
 
 category7:
+  <<: *DEFAULTS
   name: "SQL"
   slug: "sql"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
 
 category8:
+  <<: *DEFAULTS
   name: "Vim"
   slug: "vim"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
 
 category9:
+  <<: *DEFAULTS
   name: "自動テスト"
   slug: "testing"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
 
 category10:
+  <<: *DEFAULTS
   name: "JavaScript"
   slug: "javascript"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
 
 category11:
+  <<: *DEFAULTS
   name: "Git"
   slug: "git"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
 
 category12:
+  <<: *DEFAULTS
   name: "開発手法"
   slug: "development"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
 
 category13:
+  <<: *DEFAULTS
   name: "iOS"
   slug: "ios"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
 
 category14:
+  <<: *DEFAULTS
   name: "Android"
   slug: "android"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
 
 category15:
+  <<: *DEFAULTS
   name: "Nginx"
   slug: "nginx"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
 
 category16:
+  <<: *DEFAULTS
   name: "HTTP"
   slug: "http"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
 
 category17:
+  <<: *DEFAULTS
   name: "Unity"
   slug: "unity"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
 
 category18:
+  <<: *DEFAULTS
   name: "C#"
   slug: "csherp"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
 
 category19:
+  <<: *DEFAULTS
   name: "ゲームのビルド"
   slug: "game-build"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
 
 category20:
+  <<: *DEFAULTS
   name: "Unity発展編"
   slug: "unity-advance"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
 
 category21:
+  <<: *DEFAULTS
   name: "ゲームのテスト"
   slug: "game-test"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
 
 category22:
+  <<: *DEFAULTS
   name: "就職活動"
   slug: "job-hunting"
   description: "就職に向けての準備に入ります。"
 
 category23:
+  <<: *DEFAULTS
   name: "Ruby on Rails(Rails 6.1版)"
   slug: "ruby-on-rails"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"

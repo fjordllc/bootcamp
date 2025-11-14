@@ -1,4 +1,9 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 hibernation1:
+  <<: *DEFAULTS
   user: kyuukai
   reason: I am so busy.
   scheduled_return_on: 2030-01-01

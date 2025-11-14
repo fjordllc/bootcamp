@@ -1,4 +1,9 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 page1:
+  <<: *DEFAULTS
   title: test1
   body: |-
     ## test
@@ -7,6 +12,7 @@ page1:
   published_at: "2018-01-01 00:00:00"
 
 page2:
+  <<: *DEFAULTS
   title: テスト
   body: |-
     ## テスト
@@ -16,6 +22,7 @@ page2:
   published_at: "2019-01-01 00:00:00"
 
 page3:
+  <<: *DEFAULTS
   title: Docsページ
   body: |-
     ## 存在しないDocsページ遷移テスト
@@ -24,6 +31,7 @@ page3:
   published_at: "2020-01-01 00:00:00"
 
 page4:
+  <<: *DEFAULTS
   title: Bootcampの作業のページ
   body: |-
     ## テスト
@@ -32,18 +40,21 @@ page4:
   published_at: "2020-01-01 00:00:00"
 
 page5:
+  <<: *DEFAULTS
   title: WIPのテスト
   body: WIP
   user: komagata
   wip: true # wip の場合は published_at の値が未設定の状態でレコードが作成される
 
 page6:
+  <<: *DEFAULTS
   title: Docsの検索結果テスト用
   body: Docsの検索結果テスト用
   user: komagata
   published_at: "2020-01-01 00:00:00"
 
 page7:
+  <<: *DEFAULTS
   title: プラクティスに紐付いたDocs
   body: プラクティスに紐付いている
   user: komagata
@@ -52,6 +63,7 @@ page7:
   last_updated_user: komagata
 
 page8:
+  <<: *DEFAULTS
   title: apt
   body: |-
     aptとはdebianでソフトウェアをネットワークからインストールするコマンドです。
@@ -73,6 +85,7 @@ page8:
   published_at: "2022-01-01 00:00:00"
 
 page9:
+  <<: *DEFAULTS
   title: プラクティスに紐付いたDocs(kimura更新)
   body: プラクティスに紐付いている(kimura更新)
   user: komagata
@@ -81,6 +94,7 @@ page9:
   last_updated_user: kimura
 
 page10:
+  <<: *DEFAULTS
   title: プラクティス共通の説明
   body: |-
     ## 困った時は
@@ -97,6 +111,7 @@ page10:
   published_at: "2022-03-10 00:00:00"
 
 page11:
+  <<: *DEFAULTS
   title: 長いメンターIDのDOC
   body: test
   user: long-id-mentor

@@ -1,4 +1,9 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 course1:
+  <<: *DEFAULTS
   title: Railsエンジニア
   description: |-
     プログラミング言語「Ruby」を用いたWebアプリケーションフレームワークであるRails(Ruby on Rails)を使ってWebプログラマーになるためのバックエンド・フロントエンドも含めた一通りの技術を学びます。
@@ -31,16 +36,19 @@ course1:
   published: true
 
 course2:
+  <<: *DEFAULTS
   title: Unityゲームエンジニア
   description: "Unity, C#を学んでゲームエンジニアになろう。"
   published: false
 
 course3:
+  <<: *DEFAULTS
   title: iOSエンジニア
   description: "iOS, Swiftを学んでiOSエンジニアになろう。"
   published: false
 
 course4:
+  <<: *DEFAULTS
   title: フロントエンドエンジニア
   description: |-
     HTML、CSSやJavaScript/TypeScriptをつかってWebアプリケーションにおいてユーザーが直接触る部分（ユーザーインターフェース）を作るための技術を習得できます。
@@ -71,6 +79,7 @@ course4:
   published: true
 
 course5:
+  <<: *DEFAULTS
   title: Railsエンジニア（Reスキル講座認定）
   description: "Linux, Web, Ruby, Railsなどを学んでRailsエンジニアになろう。"
   published: true

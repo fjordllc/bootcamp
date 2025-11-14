@@ -1,6 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 
 event1:
+  <<: *DEFAULTS
   title: "ミートアップ"
   description: "ミートアップを開催します。"
   location: "FJORDオフィス"
@@ -12,6 +17,7 @@ event1:
   user: kimura
 
 event2:
+  <<: *DEFAULTS
   title: "募集期間中のイベント(補欠者なし)"
   description: "募集期間中のイベントです。参加申込ができます。補欠者はまだいません。"
   location: "FJORDオフィス"
@@ -23,6 +29,7 @@ event2:
   user: kimura
 
 event3:
+  <<: *DEFAULTS
   title: "募集期間中のイベント(補欠者あり)"
   description: "募集期間中のイベントです。参加申込ができます。補欠者がいます。"
   location: "FJORDオフィス"
@@ -34,6 +41,7 @@ event3:
   user: komagata
 
 event4:
+  <<: *DEFAULTS
   title: "募集期間前のイベント"
   description: "募集期間前のイベントです。"
   location: "FJORDオフィス"
@@ -45,6 +53,7 @@ event4:
   user: kimura
 
 event5:
+  <<: *DEFAULTS
   title: "募集期間後のイベント"
   description: "募集が終了したイベントです。"
   location: "FJORDオフィス"
@@ -56,6 +65,7 @@ event5:
   user: kimura
 
 event6:
+  <<: *DEFAULTS
   title: "終了したイベント"
   description: "終了したイベントです。"
   location: "FJORDオフィス"
@@ -67,6 +77,7 @@ event6:
   user: kimura
 
 event7:
+  <<: *DEFAULTS
   title: "テストのイベント"
   description: "テストのイベントです。"
   location: "FJORDオフィス"
@@ -78,6 +89,7 @@ event7:
   user: kimura
 
 event8:
+  <<: *DEFAULTS
   title: "イベントの検索結果テスト用"
   description: "イベントの検索結果テスト用"
   location: "FJORDオフィス"
@@ -104,6 +116,7 @@ event<%= i %>:
 <% end %>
 
 event27:
+  <<: *DEFAULTS
   title: "直近イベントの表示テスト用(当日)"
   description: "直近イベントの表示テスト用(当日)"
   location: "FJORDオフィス"
@@ -115,6 +128,7 @@ event27:
   user: kimura
 
 event28:
+  <<: *DEFAULTS
   title: "直近イベントの表示テスト用(翌日)"
   description: "直近イベントの表示テスト用(翌日)"
   location: "FJORDオフィス"
@@ -126,6 +140,7 @@ event28:
   user: kimura
 
 event29:
+  <<: *DEFAULTS
   title: "就職関係かつ直近イベントの表示テスト用"
   description: "就職関係かつ直近イベントの表示テスト用"
   location: "FJORDオフィス"
@@ -138,6 +153,7 @@ event29:
   user: kimura
 
 event30:
+  <<: *DEFAULTS
   title: "未来のイベント(参加済)"
   description: "未来のイベント(参加済)"
   location: "FJORDオフィス"
@@ -149,6 +165,7 @@ event30:
   user: kimura
 
 event31:
+  <<: *DEFAULTS
   title: "過去のイベント"
   description: "過去のイベント"
   location: "FJORDオフィス"
@@ -160,6 +177,7 @@ event31:
   user: kimura
 
 event32:
+  <<: *DEFAULTS
   title: "直近イベントの表示テスト用(明後日)"
   description: "直近イベントの表示テスト用(明後日)"
   location: "FJORDオフィス"
@@ -171,6 +189,7 @@ event32:
   user: komagata
 
 event33:
+  <<: *DEFAULTS
   title: "kimura専用イベント"
   description: "kimura専用イベント"
   location: "FJORDオフィス"
@@ -182,6 +201,7 @@ event33:
   user: kimura
 
 event34:
+  <<: *DEFAULTS
   title: "未来のイベント(未参加)"
   description: "未来のイベント(未参加)"
   location: "FJORDオフィス"
@@ -193,6 +213,7 @@ event34:
   user: kimura
 
 event35:
+  <<: *DEFAULTS
   title: "2024/12/1(日)9:00〜12:00開催の特別イベント"
   description: "本日開催でまだ終了時刻を迎えていない特別イベントの表示テスト用"
   location: "FJORDオフィス"
@@ -204,6 +225,7 @@ event35:
   user: kimura
 
 event36:
+  <<: *DEFAULTS
   title: "2024/12/1(日)6:00〜7:00開催の特別イベント"
   description: "本日開催で終了時刻を過ぎた特別イベントの表示テスト用"
   location: "FJORDオフィス"

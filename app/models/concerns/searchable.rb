@@ -11,6 +11,11 @@ module Searchable
         columns.map(&:to_s)
       end
     end
+
+    # Rails 7.2: Ransackで検索可能なassociationsを定義
+    def ransackable_associations(_auth_object = nil)
+      reflect_on_all_associations.map { |a| a.name.to_s }
+    end
   end
 
   def search_title
@@ -18,7 +23,7 @@ module Searchable
   end
 
   def search_label
-    I18n.t("activerecord.search_labels.#{self.class.model_name.i18n_key}", default: -> { self.class.model_name.human })
+    I18n.t("activerecord.search_labels.#{self.class.model_name.i18n_key}", default: self.class.model_name.human)
   end
 
   def search_thumbnail

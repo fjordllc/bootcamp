@@ -1,0 +1,354 @@
+DEPRECATION WARNING: Support for Ruby versions < 3.2.0 is deprecated and will be removed from ViewComponent 4.0.0 (ViewComponent v4 will remove support for Ruby versions < 3.2.0 no earlier than April 1, 2025) (called from <main> at /Users/machida/dev/bootcamp/config/environment.rb:5)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :emotion, {:negative=>1, :neutral=>0, :positive=>2}
+ (called from <class:Report> at /Users/machida/dev/bootcamp/app/models/report.rb:15)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :target, {:all=>0, :students=>1, :job_seekers=>2}
+ (called from <class:Announcement> at /Users/machida/dev/bootcamp/app/models/announcement.rb:12)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :category, {:reading_circle=>0, :chat=>1, :question=>2, :meeting=>3, :others=>4}
+ (called from <class:RegularEvent> at /Users/machida/dev/bootcamp/app/models/regular_event.rb:33)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :job, {:student=>0, :office_worker=>2, :part_time_worker=>3, :vacation=>4, :unemployed=>5}
+ (called from <class:User> at /Users/machida/dev/bootcamp/app/models/user.rb:41)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :os, {:mac=>0, :mac_apple=>2, :linux=>1, :windows_wsl2=>3}
+ (called from <class:User> at /Users/machida/dev/bootcamp/app/models/user.rb:49)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :editor, {:vscode=>0, :ruby_mine=>1, :vim=>2, :emacs=>3, :other_editor=>99}
+ (called from <class:User> at /Users/machida/dev/bootcamp/app/models/user.rb:56)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :satisfaction, {:excellent=>0, :good=>1, :average=>2, :poor=>3, :very_poor=>4}
+ (called from <class:User> at /Users/machida/dev/bootcamp/app/models/user.rb:64)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :referral_source, {:search_engine=>0, :referral=>1, :event=>2, :x=>3, :facebook=>4, :blog=>5, :web_ad=>6, :other=>99}
+ (called from <class:User> at /Users/machida/dev/bootcamp/app/models/user.rb:72)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :career_path, {:unset=>0, :job_seeking=>1, :employed_via_referral=>2, :employed_without_referral=>3, :employed_non_it=>4, :internal_transfer_to_programmer=>5, :not_employed=>6}
+ (called from <class:User> at /Users/machida/dev/bootcamp/app/models/user.rb:83)
+Running 460 tests in parallel using 8 processes
+Run options: --seed 23352
+
+# Running:
+
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :thumbnail_type, {:prepared_thumbnail=>0, :ruby=>1, :ruby_on_rails=>2, :javascript=>3, :wsl2=>4, :linux=>5, :pc=>6, :sponsorship=>7, :green=>8, :purple=>9, :orange=>10, :brown=>11, :blue=>12}
+ (called from <class:Article> at /Users/machida/dev/bootcamp/app/models/article.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :target, {:all=>0, :students=>1, :job_seekers=>2, :none=>3}
+ (called from <class:Article> at /Users/machida/dev/bootcamp/app/models/article.rb:20)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :thumbnail_type, {:prepared_thumbnail=>0, :ruby=>1, :ruby_on_rails=>2, :javascript=>3, :wsl2=>4, :linux=>5, :pc=>6, :sponsorship=>7, :green=>8, :purple=>9, :orange=>10, :brown=>11, :blue=>12}
+ (called from <class:Article> at /Users/machida/dev/bootcamp/app/models/article.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :target, {:all=>0, :students=>1, :job_seekers=>2, :none=>3}
+ (called from <class:Article> at /Users/machida/dev/bootcamp/app/models/article.rb:20)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :language, {:ruby=>1, :javascript=>2}
+ (called from <class:CodingTest> at /Users/machida/dev/bootcamp/app/models/coding_test.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :thumbnail_type, {:prepared_thumbnail=>0, :ruby=>1, :ruby_on_rails=>2, :javascript=>3, :wsl2=>4, :linux=>5, :pc=>6, :sponsorship=>7, :green=>8, :purple=>9, :orange=>10, :brown=>11, :blue=>12}
+ (called from <class:Article> at /Users/machida/dev/bootcamp/app/models/article.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :target, {:all=>0, :students=>1, :job_seekers=>2, :none=>3}
+ (called from <class:Article> at /Users/machida/dev/bootcamp/app/models/article.rb:20)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :thumbnail_type, {:prepared_thumbnail=>0, :ruby=>1, :ruby_on_rails=>2, :javascript=>3, :wsl2=>4, :linux=>5, :pc=>6, :sponsorship=>7, :green=>8, :purple=>9, :orange=>10, :brown=>11, :blue=>12}
+ (called from <class:Article> at /Users/machida/dev/bootcamp/app/models/article.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :target, {:all=>0, :students=>1, :job_seekers=>2, :none=>3}
+ (called from <class:Article> at /Users/machida/dev/bootcamp/app/models/article.rb:20)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :thumbnail_type, {:prepared_thumbnail=>0, :ruby=>1, :ruby_on_rails=>2, :javascript=>3, :wsl2=>4, :linux=>5, :pc=>6, :sponsorship=>7, :green=>8, :purple=>9, :orange=>10, :brown=>11, :blue=>12}
+ (called from <class:Article> at /Users/machida/dev/bootcamp/app/models/article.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :target, {:all=>0, :students=>1, :job_seekers=>2, :none=>3}
+ (called from <class:Article> at /Users/machida/dev/bootcamp/app/models/article.rb:20)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :thumbnail_type, {:prepared_thumbnail=>0, :ruby=>1, :ruby_on_rails=>2, :javascript=>3, :wsl2=>4, :linux=>5, :pc=>6, :sponsorship=>7, :green=>8, :purple=>9, :orange=>10, :brown=>11, :blue=>12}
+ (called from <class:Article> at /Users/machida/dev/bootcamp/app/models/article.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :target, {:all=>0, :students=>1, :job_seekers=>2, :none=>3}
+ (called from <class:Article> at /Users/machida/dev/bootcamp/app/models/article.rb:20)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :language, {:ruby=>1, :javascript=>2}
+ (called from <class:CodingTest> at /Users/machida/dev/bootcamp/app/models/coding_test.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :language, {:ruby=>1, :javascript=>2}
+ (called from <class:CodingTest> at /Users/machida/dev/bootcamp/app/models/coding_test.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :language, {:ruby=>1, :javascript=>2}
+ (called from <class:CodingTest> at /Users/machida/dev/bootcamp/app/models/coding_test.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :language, {:ruby=>1, :javascript=>2}
+ (called from <class:CodingTest> at /Users/machida/dev/bootcamp/app/models/coding_test.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :thumbnail_type, {:prepared_thumbnail=>0, :ruby=>1, :ruby_on_rails=>2, :javascript=>3, :wsl2=>4, :linux=>5, :pc=>6, :sponsorship=>7, :green=>8, :purple=>9, :orange=>10, :brown=>11, :blue=>12}
+ (called from <class:Article> at /Users/machida/dev/bootcamp/app/models/article.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :target, {:all=>0, :students=>1, :job_seekers=>2, :none=>3}
+ (called from <class:Article> at /Users/machida/dev/bootcamp/app/models/article.rb:20)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :language, {:ruby=>1, :javascript=>2}
+ (called from <class:CodingTest> at /Users/machida/dev/bootcamp/app/models/coding_test.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :status, {:unstarted=>0, :started=>1, :submitted=>2, :complete=>3}
+ (called from <class:Learning> at /Users/machida/dev/bootcamp/app/models/learning.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :language, {:ruby=>1, :javascript=>2}
+ (called from <class:CodingTest> at /Users/machida/dev/bootcamp/app/models/coding_test.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :status, {:unstarted=>0, :started=>1, :submitted=>2, :complete=>3}
+ (called from <class:Learning> at /Users/machida/dev/bootcamp/app/models/learning.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :status, {:unstarted=>0, :started=>1, :submitted=>2, :complete=>3}
+ (called from <class:Learning> at /Users/machida/dev/bootcamp/app/models/learning.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :kind, {:came_comment=>0, :checked=>1, :mentioned=>2, :submitted=>3, :answered=>4, :announced=>5, :came_question=>6, :first_report=>7, :watching=>8, :retired=>9, :trainee_report=>10, :moved_up_event_waiting_user=>11, :create_pages=>12, :following_report=>13, :chose_correct_answer=>14, :consecutive_negative_report=>15, :assigned_as_checker=>16, :product_update=>17, :graduated=>18, :hibernated=>19, :signed_up=>20, :regular_event_updated=>21, :no_correct_answer=>22, :comebacked=>23, :create_article=>24, :added_work=>25, :came_inquiry=>26, :training_completed=>27}
+ (called from <class:Notification> at /Users/machida/dev/bootcamp/app/models/notification.rb:18)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :status, {:unstarted=>0, :started=>1, :submitted=>2, :complete=>3}
+ (called from <class:Learning> at /Users/machida/dev/bootcamp/app/models/learning.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :kind, {:came_comment=>0, :checked=>1, :mentioned=>2, :submitted=>3, :answered=>4, :announced=>5, :came_question=>6, :first_report=>7, :watching=>8, :retired=>9, :trainee_report=>10, :moved_up_event_waiting_user=>11, :create_pages=>12, :following_report=>13, :chose_correct_answer=>14, :consecutive_negative_report=>15, :assigned_as_checker=>16, :product_update=>17, :graduated=>18, :hibernated=>19, :signed_up=>20, :regular_event_updated=>21, :no_correct_answer=>22, :comebacked=>23, :create_article=>24, :added_work=>25, :came_inquiry=>26, :training_completed=>27}
+ (called from <class:Notification> at /Users/machida/dev/bootcamp/app/models/notification.rb:18)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :kind, {:came_comment=>0, :checked=>1, :mentioned=>2, :submitted=>3, :answered=>4, :announced=>5, :came_question=>6, :first_report=>7, :watching=>8, :retired=>9, :trainee_report=>10, :moved_up_event_waiting_user=>11, :create_pages=>12, :following_report=>13, :chose_correct_answer=>14, :consecutive_negative_report=>15, :assigned_as_checker=>16, :product_update=>17, :graduated=>18, :hibernated=>19, :signed_up=>20, :regular_event_updated=>21, :no_correct_answer=>22, :comebacked=>23, :create_article=>24, :added_work=>25, :came_inquiry=>26, :training_completed=>27}
+ (called from <class:Notification> at /Users/machida/dev/bootcamp/app/models/notification.rb:18)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :status, {:unstarted=>0, :started=>1, :submitted=>2, :complete=>3}
+ (called from <class:Learning> at /Users/machida/dev/bootcamp/app/models/learning.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :kind, {:came_comment=>0, :checked=>1, :mentioned=>2, :submitted=>3, :answered=>4, :announced=>5, :came_question=>6, :first_report=>7, :watching=>8, :retired=>9, :trainee_report=>10, :moved_up_event_waiting_user=>11, :create_pages=>12, :following_report=>13, :chose_correct_answer=>14, :consecutive_negative_report=>15, :assigned_as_checker=>16, :product_update=>17, :graduated=>18, :hibernated=>19, :signed_up=>20, :regular_event_updated=>21, :no_correct_answer=>22, :comebacked=>23, :create_article=>24, :added_work=>25, :came_inquiry=>26, :training_completed=>27}
+ (called from <class:Notification> at /Users/machida/dev/bootcamp/app/models/notification.rb:18)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :kind, {:thumbsup=>0, :thumbsdown=>1, :smile=>2, :confused=>3, :tada=>4, :heart=>5, :rocket=>6, :eyes=>7, :hundred=>8, :flexed=>9, :okwoman=>10, :loudlycrying=>11, :raised_hands=>12, :pray=>13}
+ (called from <class:Reaction> at /Users/machida/dev/bootcamp/app/models/reaction.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :status, {:unstarted=>0, :started=>1, :submitted=>2, :complete=>3}
+ (called from <class:Learning> at /Users/machida/dev/bootcamp/app/models/learning.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :kind, {:came_comment=>0, :checked=>1, :mentioned=>2, :submitted=>3, :answered=>4, :announced=>5, :came_question=>6, :first_report=>7, :watching=>8, :retired=>9, :trainee_report=>10, :moved_up_event_waiting_user=>11, :create_pages=>12, :following_report=>13, :chose_correct_answer=>14, :consecutive_negative_report=>15, :assigned_as_checker=>16, :product_update=>17, :graduated=>18, :hibernated=>19, :signed_up=>20, :regular_event_updated=>21, :no_correct_answer=>22, :comebacked=>23, :create_article=>24, :added_work=>25, :came_inquiry=>26, :training_completed=>27}
+ (called from <class:Notification> at /Users/machida/dev/bootcamp/app/models/notification.rb:18)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :kind, {:thumbsup=>0, :thumbsdown=>1, :smile=>2, :confused=>3, :tada=>4, :heart=>5, :rocket=>6, :eyes=>7, :hundred=>8, :flexed=>9, :okwoman=>10, :loudlycrying=>11, :raised_hands=>12, :pray=>13}
+ (called from <class:Reaction> at /Users/machida/dev/bootcamp/app/models/reaction.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :kind, {:thumbsup=>0, :thumbsdown=>1, :smile=>2, :confused=>3, :tada=>4, :heart=>5, :rocket=>6, :eyes=>7, :hundred=>8, :flexed=>9, :okwoman=>10, :loudlycrying=>11, :raised_hands=>12, :pray=>13}
+ (called from <class:Reaction> at /Users/machida/dev/bootcamp/app/models/reaction.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :kind, {:came_comment=>0, :checked=>1, :mentioned=>2, :submitted=>3, :answered=>4, :announced=>5, :came_question=>6, :first_report=>7, :watching=>8, :retired=>9, :trainee_report=>10, :moved_up_event_waiting_user=>11, :create_pages=>12, :following_report=>13, :chose_correct_answer=>14, :consecutive_negative_report=>15, :assigned_as_checker=>16, :product_update=>17, :graduated=>18, :hibernated=>19, :signed_up=>20, :regular_event_updated=>21, :no_correct_answer=>22, :comebacked=>23, :create_article=>24, :added_work=>25, :came_inquiry=>26, :training_completed=>27}
+ (called from <class:Notification> at /Users/machida/dev/bootcamp/app/models/notification.rb:18)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :kind, {:thumbsup=>0, :thumbsdown=>1, :smile=>2, :confused=>3, :tada=>4, :heart=>5, :rocket=>6, :eyes=>7, :hundred=>8, :flexed=>9, :okwoman=>10, :loudlycrying=>11, :raised_hands=>12, :pray=>13}
+ (called from <class:Reaction> at /Users/machida/dev/bootcamp/app/models/reaction.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :thumbnail_type, {:prepared_thumbnail=>0, :ruby=>1, :ruby_on_rails=>2, :javascript=>3, :wsl2=>4, :linux=>5, :pc=>6, :sponsorship=>7, :green=>8, :purple=>9, :orange=>10, :brown=>11, :blue=>12}
+ (called from <class:Article> at /Users/machida/dev/bootcamp/app/models/article.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :target, {:all=>0, :students=>1, :job_seekers=>2, :none=>3}
+ (called from <class:Article> at /Users/machida/dev/bootcamp/app/models/article.rb:20)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :status, {:unstarted=>0, :started=>1, :submitted=>2, :complete=>3}
+ (called from <class:Learning> at /Users/machida/dev/bootcamp/app/models/learning.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :kind, {:came_comment=>0, :checked=>1, :mentioned=>2, :submitted=>3, :answered=>4, :announced=>5, :came_question=>6, :first_report=>7, :watching=>8, :retired=>9, :trainee_report=>10, :moved_up_event_waiting_user=>11, :create_pages=>12, :following_report=>13, :chose_correct_answer=>14, :consecutive_negative_report=>15, :assigned_as_checker=>16, :product_update=>17, :graduated=>18, :hibernated=>19, :signed_up=>20, :regular_event_updated=>21, :no_correct_answer=>22, :comebacked=>23, :create_article=>24, :added_work=>25, :came_inquiry=>26, :training_completed=>27}
+ (called from <class:Notification> at /Users/machida/dev/bootcamp/app/models/notification.rb:18)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :kind, {:thumbsup=>0, :thumbsdown=>1, :smile=>2, :confused=>3, :tada=>4, :heart=>5, :rocket=>6, :eyes=>7, :hundred=>8, :flexed=>9, :okwoman=>10, :loudlycrying=>11, :raised_hands=>12, :pray=>13}
+ (called from <class:Reaction> at /Users/machida/dev/bootcamp/app/models/reaction.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :kind, {:thumbsup=>0, :thumbsdown=>1, :smile=>2, :confused=>3, :tada=>4, :heart=>5, :rocket=>6, :eyes=>7, :hundred=>8, :flexed=>9, :okwoman=>10, :loudlycrying=>11, :raised_hands=>12, :pray=>13}
+ (called from <class:Reaction> at /Users/machida/dev/bootcamp/app/models/reaction.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :format, {:text_area=>0, :text_field=>1, :radio_button=>2, :check_box=>3, :linear_scale=>4}
+ (called from <class:SurveyQuestion> at /Users/machida/dev/bootcamp/app/models/survey_question.rb:18)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :language, {:ruby=>1, :javascript=>2}
+ (called from <class:CodingTest> at /Users/machida/dev/bootcamp/app/models/coding_test.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :format, {:text_area=>0, :text_field=>1, :radio_button=>2, :check_box=>3, :linear_scale=>4}
+ (called from <class:SurveyQuestion> at /Users/machida/dev/bootcamp/app/models/survey_question.rb:18)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :format, {:text_area=>0, :text_field=>1, :radio_button=>2, :check_box=>3, :linear_scale=>4}
+ (called from <class:SurveyQuestion> at /Users/machida/dev/bootcamp/app/models/survey_question.rb:18)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :kind, {:thumbsup=>0, :thumbsdown=>1, :smile=>2, :confused=>3, :tada=>4, :heart=>5, :rocket=>6, :eyes=>7, :hundred=>8, :flexed=>9, :okwoman=>10, :loudlycrying=>11, :raised_hands=>12, :pray=>13}
+ (called from <class:Reaction> at /Users/machida/dev/bootcamp/app/models/reaction.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :format, {:text_area=>0, :text_field=>1, :radio_button=>2, :check_box=>3, :linear_scale=>4}
+ (called from <class:SurveyQuestion> at /Users/machida/dev/bootcamp/app/models/survey_question.rb:18)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :format, {:text_area=>0, :text_field=>1, :radio_button=>2, :check_box=>3, :linear_scale=>4}
+ (called from <class:SurveyQuestion> at /Users/machida/dev/bootcamp/app/models/survey_question.rb:18)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :format, {:text_area=>0, :text_field=>1, :radio_button=>2, :check_box=>3, :linear_scale=>4}
+ (called from <class:SurveyQuestion> at /Users/machida/dev/bootcamp/app/models/survey_question.rb:18)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :status, {:unstarted=>0, :started=>1, :submitted=>2, :complete=>3}
+ (called from <class:Learning> at /Users/machida/dev/bootcamp/app/models/learning.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :kind, {:came_comment=>0, :checked=>1, :mentioned=>2, :submitted=>3, :answered=>4, :announced=>5, :came_question=>6, :first_report=>7, :watching=>8, :retired=>9, :trainee_report=>10, :moved_up_event_waiting_user=>11, :create_pages=>12, :following_report=>13, :chose_correct_answer=>14, :consecutive_negative_report=>15, :assigned_as_checker=>16, :product_update=>17, :graduated=>18, :hibernated=>19, :signed_up=>20, :regular_event_updated=>21, :no_correct_answer=>22, :comebacked=>23, :create_article=>24, :added_work=>25, :came_inquiry=>26, :training_completed=>27}
+ (called from <class:Notification> at /Users/machida/dev/bootcamp/app/models/notification.rb:18)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :format, {:text_area=>0, :text_field=>1, :radio_button=>2, :check_box=>3, :linear_scale=>4}
+ (called from <class:SurveyQuestion> at /Users/machida/dev/bootcamp/app/models/survey_question.rb:18)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :kind, {:thumbsup=>0, :thumbsdown=>1, :smile=>2, :confused=>3, :tada=>4, :heart=>5, :rocket=>6, :eyes=>7, :hundred=>8, :flexed=>9, :okwoman=>10, :loudlycrying=>11, :raised_hands=>12, :pray=>13}
+ (called from <class:Reaction> at /Users/machida/dev/bootcamp/app/models/reaction.rb:4)
+DEPRECATION WARNING: Defining enums with keyword arguments is deprecated and will be removed
+in Rails 8.0. Positional arguments should be used instead:
+
+enum :format, {:text_area=>0, :text_field=>1, :radio_button=>2, :check_box=>3, :linear_scale=>4}
+ (called from <class:SurveyQuestion> at /Users/machida/dev/bootcamp/app/models/survey_question.rb:18)
+..........................................Test is missing assertions: `test_url` /Users/machida/.rbenv/versions/3.1.6/lib/ruby/gems/3.1.0/gems/actionpack-7.2.3/lib/action_dispatch/routing/route_set.rb:336
+....Test is missing assertions: `test_path` /Users/machida/.rbenv/versions/3.1.6/lib/ruby/gems/3.1.0/gems/actionpack-7.2.3/lib/action_dispatch/routing/route_set.rb:336
+...E
+
+Error:
+AnnouncementTest#test_.copy_template_by_resource(template_file,_params_=_{}):
+ArgumentError: Missing host to link to! Please provide the :host parameter, set default_url_options[:host], or set :only_path to true
+    (erb):21:in `<main>'
+    app/models/message_template.rb:19:in `load'
+    app/models/message_template.rb:7:in `load'
+    test/models/announcement_test.rb:22:in `block in <class:AnnouncementTest>'
+
+bin/rails test test/models/announcement_test.rb:20
+
+.......Test is missing assertions: `test_url` /Users/machida/.rbenv/versions/3.1.6/lib/ruby/gems/3.1.0/gems/actionpack-7.2.3/lib/action_dispatch/routing/route_set.rb:336
+...Test is missing assertions: `test_path` /Users/machida/.rbenv/versions/3.1.6/lib/ruby/gems/3.1.0/gems/actionpack-7.2.3/lib/action_dispatch/routing/route_set.rb:336
+..................................................................................................................................................................................................................................................................................................................................................Test is missing assertions: `test_returns_results_filtered_by_user` /Users/machida/dev/bootcamp/test/models/searcher_test.rb:53
+..............................................................
+[Minitest::CI] Generating test report in JUnit XML format...
+
+
+Finished in 12.166887s, 37.8075 runs/s, 126.3265 assertions/s.
+460 runs, 1537 assertions, 0 failures, 1 errors, 0 skips

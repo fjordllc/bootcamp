@@ -28,7 +28,7 @@ class UserSessionsController < ApplicationController
 
   def destroy
     logout if current_user
-    redirect_to root_url, notice: 'ログアウトしました。'
+    redirect_to root_path, notice: 'ログアウトしました。'
   end
 
   def callback

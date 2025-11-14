@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::TalksController < API::BaseController
+class Api::TalksController < Api::BaseController
   ALLOWED_TARGETS = %w[all student_and_trainee mentor graduate adviser trainee retired].freeze
 
   def index; end

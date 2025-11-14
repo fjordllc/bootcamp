@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::PagesController < API::BaseController
+class Api::PagesController < Api::BaseController
   before_action :set_page, only: %i[update]
 
   def update

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::BookmarksController < API::BaseController
+class Api::BookmarksController < Api::BaseController
   PAGER_NUMBER = 25
 
   def index

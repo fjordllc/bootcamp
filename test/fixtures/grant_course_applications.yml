@@ -1,4 +1,9 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 grant_course_application1:
+  <<: *DEFAULTS
   last_name: 山田
   first_name: 太郎
   email: yamada@example.com
@@ -15,6 +20,7 @@ grant_course_application1:
   updated_at: "2025-03-13 00:00:00"
 
 grant_course_application2:
+  <<: *DEFAULTS
   last_name: 佐藤
   first_name: 花子
   email: sato@example.com
@@ -31,6 +37,7 @@ grant_course_application2:
   updated_at: "2025-03-16 00:00:00"
 
 grant_course_application3:
+  <<: *DEFAULTS
   last_name: 鈴木
   first_name: 一郎
   email: suzuki@example.com
@@ -47,6 +54,7 @@ grant_course_application3:
   updated_at: "2025-03-20 00:00:00"
 
 grant_course_application4:
+  <<: *DEFAULTS
   last_name: 高橋
   first_name: 美咲
   email: takahashi@example.com
@@ -63,6 +71,7 @@ grant_course_application4:
   updated_at: "2025-03-22 00:00:00"
 
 grant_course_application5:
+  <<: *DEFAULTS
   last_name: 田中
   first_name: 健太
   email: tanaka@example.com

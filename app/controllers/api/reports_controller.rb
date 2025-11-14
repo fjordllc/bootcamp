@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::ReportsController < API::BaseController
+class Api::ReportsController < Api::BaseController
   def index
     @company = Company.find(params[:company_id]) if params[:company_id]
     @reports = Report.list.page(params[:page])

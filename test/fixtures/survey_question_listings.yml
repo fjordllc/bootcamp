@@ -1,49 +1,63 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 survey_question_listing1:
+  <<: *DEFAULTS
   survey: survey1
   survey_question: survey_question1
   position: 1
 
 survey_question_listing2:
+  <<: *DEFAULTS
   survey: survey1
   survey_question: survey_question2
   position: 2
 
 survey_question_listing3:
+  <<: *DEFAULTS
   survey: survey1
   survey_question: survey_question3
   position: 3
 
 survey_question_listing4:
+  <<: *DEFAULTS
   survey: survey1
   survey_question: survey_question4
   position: 4
 
 survey_question_listing5:
+  <<: *DEFAULTS
   survey: survey1
   survey_question: survey_question5
   position: 5
 
 survey_question_listing6:
+  <<: *DEFAULTS
   survey: survey2
   survey_question: survey_question1
   position: 1
 
 survey_question_listing7:
+  <<: *DEFAULTS
   survey: survey2
   survey_question: survey_question2
   position: 2
 
 survey_question_listing8:
+  <<: *DEFAULTS
   survey: survey2
   survey_question: survey_question3
   position: 3
 
 survey_question_listing9:
+  <<: *DEFAULTS
   survey: survey2
   survey_question: survey_question4
   position: 4
 
 survey_question_listing10:
+  <<: *DEFAULTS
   survey: survey2
   survey_question: survey_question5
   position: 5

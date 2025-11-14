@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::ImageController < API::BaseController
+class Api::ImageController < Api::BaseController
   def create
     @image = Image.new(user: current_user, image: params[:file])
 

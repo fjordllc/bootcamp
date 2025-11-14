@@ -1,4 +1,9 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 question1:
+  <<: *DEFAULTS
   title: どのエディターを使うのが良いでしょうか
   description: |-
     vi、emacs、atomと色々エディターがありますが、
@@ -9,6 +14,7 @@ question1:
   published_at: "2022-01-01"
 
 question2:
+  <<: *DEFAULTS
   title: injectとreduce
   description: |-
     injectとreduceはどちらを使うのが一般的でしょうか？
@@ -18,6 +24,7 @@ question2:
   published_at: "2022-01-02"
 
 question3:
+  <<: *DEFAULTS
   title: テストの質問1
   description: テスト1の内容です。
   user: komagata
@@ -26,6 +33,7 @@ question3:
   published_at: "2022-01-03"
 
 question4:
+  <<: *DEFAULTS
   title: テストの質問2
   description: テスト2の内容です。
   user: komagata
@@ -34,6 +42,7 @@ question4:
   published_at: "2022-01-04"
 
 question5:
+  <<: *DEFAULTS
   title: テストの質問3
   description: テスト3の内容です。
   user: komagata
@@ -42,6 +51,7 @@ question5:
   published_at: "2022-01-05"
 
 question6:
+  <<: *DEFAULTS
   title: テストの質問4
   description: テスト1の内容です。
   user: komagata
@@ -50,6 +60,7 @@ question6:
   published_at: "2022-01-06"
 
 question7:
+  <<: *DEFAULTS
   title: テストの質問5
   description: テスト1の内容です。
   user: komagata
@@ -58,6 +69,7 @@ question7:
   published_at: "2022-01-07"
 
 question8:
+  <<: *DEFAULTS
   title: テストの質問
   description: テストの内容です。
   user: kimura
@@ -66,6 +78,7 @@ question8:
   published_at: "2022-01-08"
 
 question9:
+  <<: *DEFAULTS
   title: 質問のタブの作り方
   description: タブをテストする1
   user: hatsuno
@@ -74,6 +87,7 @@ question9:
   published_at: "2022-01-09"
 
 question10:
+  <<: *DEFAULTS
   title: 質問のタブに関して。。。追加質問
   description: タブをテストする2
   user: hatsuno
@@ -82,6 +96,7 @@ question10:
   published_at: "2022-01-10"
 
 question11:
+  <<: *DEFAULTS
   title: Q&Aの検索結果テスト用
   description: Q&Aの検索結果テスト用
   user: komagata
@@ -90,6 +105,7 @@ question11:
   published_at: "2022-01-11"
 
 question12:
+  <<: *DEFAULTS
   title: 解決済みの質問
   description: 解決済みの内容です。
   user: hajime
@@ -98,6 +114,7 @@ question12:
   published_at: "2022-01-12"
 
 question13:
+  <<: *DEFAULTS
   title: 検索ワードが太字で表示されるかのテスト用の質問
   description: こちらの質問は検索ワードの表示に関するテスト用の質問です。検索ワードが太字で表示されるかのテスト。こちらの質問は検索ワードの表示に関するテスト用の質問です。
   user: hajime
@@ -106,6 +123,7 @@ question13:
   published_at: "2022-01-13"
 
 question_for_comment_count:
+  <<: *DEFAULTS
   title: コメント数表示テスト用の質問
   description: こちらの質問はQ&A一覧ページでコメント(回答)がついているものにのみ「回答・コメント（コメント数）」という表示がついているかどうかのテスト用の質問です。
   user: komagata
@@ -114,6 +132,7 @@ question_for_comment_count:
   published_at: "2022-01-14"
 
 question_for_wip:
+  <<: *DEFAULTS
   title: wipテスト用の質問(wip中)
   description: こちらの質問はwipテスト用の「wip中」の質問です。
   user: kimura
@@ -122,6 +141,7 @@ question_for_wip:
   wip: true
 
 question14:
+  <<: *DEFAULTS
   title: プラクティスを選択せずに登録したテストの質問
   description: プラクティスを選択せずに登録したテストの質問。
   user: kimura
@@ -129,6 +149,7 @@ question14:
   published_at: "2022-01-16"
 
 question15:
+  <<: *DEFAULTS
   title: プラクティス「sshdでパスワード認証を禁止にする」に関する質問
   description: 他の質問で、プラクティスを変更した後、この質問が含まれているか確認するための質問。
   user: hajime
@@ -137,6 +158,7 @@ question15:
   published_at: "2022-01-17"
 
 question16:
+  <<: *DEFAULTS
   title: 長いタイトルの質問長いタイトルの質問長いタイトルの質問長いタイトルの質問
   description: タイトルが長い質問のtitleタグの文字数が制限されるかテストするための質問
   user: kimura

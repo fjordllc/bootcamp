@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::RegularEventsController < API::BaseController
+class Api::RegularEventsController < Api::BaseController
   before_action :require_active_user_login
 
   def index

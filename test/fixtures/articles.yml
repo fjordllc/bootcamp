@@ -1,4 +1,9 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 article1:
+  <<: *DEFAULTS
   title: タイトル１
   body: サムネイルは「/public/ogp/」配下にある画像を使っています。
   user: komagata
@@ -7,6 +12,7 @@ article1:
   thumbnail_type: :ruby_on_rails
 
 article2:
+  <<: *DEFAULTS
   title: タイトル２
   body: サムネイルにはデフォルトの画像を使います。
   user: machida
@@ -15,6 +21,7 @@ article2:
   thumbnail_type: :prepared_thumbnail
 
 article3:
+  <<: *DEFAULTS
   title: タイトル３
   body: サムネイルにはデフォルトの画像を使います。
   user: komagata
@@ -24,6 +31,7 @@ article3:
   target: :all
 
 article4:
+  <<: *DEFAULTS
   title: sponsorshipページに表示される記事のタイトルです。
   body: sponsorshipページに表示される記事の本文です。
   user: komagata

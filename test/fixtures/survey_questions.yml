@@ -1,4 +1,9 @@
+DEFAULTS: &DEFAULTS
+  created_at: <%= Time.current.to_fs(:db) %>
+  updated_at: <%= Time.current.to_fs(:db) %>
+
 survey_question1:
+  <<: *DEFAULTS
   title: "フィヨルドブートキャンプの学習を通して、どんなことを学びましたか？"
   description: "フィヨルドブートキャンプの学習を通して、どんなことを学んだか教えてください。"
   format: "text_area"
@@ -8,6 +13,7 @@ survey_question1:
   updated_at: <%= Time.current %>
 
 survey_question2:
+  <<: *DEFAULTS
   title: "フィヨルドブートキャンプを最初に知ったきっかけは何ですか？"
   description: "フィヨルドブートキャンプを最初に知ったきっかけを教えてください。"
   format: "radio_button"
@@ -17,6 +23,7 @@ survey_question2:
   updated_at: <%= Time.current %>
 
 survey_question3:
+  <<: *DEFAULTS
   title: "フィヨルドブートキャンプを知った後にとった行動は何でしたか？（当てはまるもの全て）"
   description: "フィヨルドブートキャンプを知った後にとった行動について、当てはまるもの全てにチェックをしてください。"
   format: "check_box"
@@ -26,6 +33,7 @@ survey_question3:
   updated_at: <%= Time.current %>
 
 survey_question4:
+  <<: *DEFAULTS
   title: "なぜ、他のスクールではなくフィヨルドブートキャンプを選びましたか？"
   description: "他のスクールではなく、フィヨルドブートキャンプを選んでいただけた理由を詳細に教えてください。"
   format: "text_field"
@@ -35,6 +43,7 @@ survey_question4:
   updated_at: <%= Time.current %>
 
 survey_question5:
+  <<: *DEFAULTS
   title: "フィヨルドブートキャンプの価格設定はどのように思いますか？"
   description: "フィヨルドブートキャンプの価格設定についてお聞かせください。"
   format: "linear_scale"
@@ -44,6 +53,7 @@ survey_question5:
   updated_at: <%= Time.current %>
 
 survey_question6:
+  <<: *DEFAULTS
   title: "フィヨルドブートキャンプに対してご意見・ご要望がございましたら、ご自由にお書きください。"
   description: "フィヨルドブートキャンプに対するご意見・ご要望をご自由にお書きください。"
   format: "text_field"
