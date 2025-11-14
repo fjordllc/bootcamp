@@ -4,15 +4,8 @@ require 'test_helper'
 
 class QuestionIntegrationTest < ActionDispatch::IntegrationTest
   test 'regular user cannot delete a question' do
-    token = create_token('kimura', 'testtest')
     user = users(:kimura)
-
-    post user_sessions_path, params: {
-      authenticity_token: token, user: {
-        login: user.login_name, password: 'testtest'
-      }
-    }
-    follow_redirect!
+    post user_sessions_path, params: { user: { login: user.login_name, password: 'testtest' } }
 
     question = questions(:question8)
     delete question_path(question)
@@ -22,15 +15,8 @@ class QuestionIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   test 'admin can delete a question' do
-    token = create_token('adminonly', 'testtest')
     user = users(:adminonly)
-
-    post user_sessions_path, params: {
-      authenticity_token: token, user: {
-        login: user.login_name, password: 'testtest'
-      }
-    }
-    follow_redirect!
+    post user_sessions_path, params: { user: { login: user.login_name, password: 'testtest' } }
 
     question = questions(:question8)
     delete question_path(question)
@@ -40,15 +26,8 @@ class QuestionIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   test 'mentor can delete a question' do
-    token = create_token('mentormentaro', 'testtest')
     user = users(:mentormentaro)
-
-    post user_sessions_path, params: {
-      authenticity_token: token, user: {
-        login: user.login_name, password: 'testtest'
-      }
-    }
-    follow_redirect!
+    post user_sessions_path, params: { user: { login: user.login_name, password: 'testtest' } }
 
     question = questions(:question8)
     delete question_path(question)
