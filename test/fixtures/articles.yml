@@ -46,6 +46,6 @@ article<%= id %>:
     test body<%= id %>
   user: komagata
   wip: false
-  published_at: "<%= Time.zone.local(2024, 2, 1, 9, 0) + i.days %>"
-  created_at: "<%= Time.zone.local(2024, 2, 1, 9, 0) + i.days %>"
+  published_at: "<%= ActiveSupport::TimeZone['Asia/Tokyo'].local(2024, 2, 1, 9, 0) + i.days %>"
+  created_at: "<%= ActiveSupport::TimeZone['Asia/Tokyo'].local(2024, 2, 1, 9, 0) + i.days %>"
 <% end %>
