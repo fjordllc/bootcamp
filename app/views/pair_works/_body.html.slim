@@ -8,8 +8,7 @@
             | ペアが確定しました
           = link_to events_calendars_url(protocol: :webcal, format: :ics, user_id: current_user.id), class: 'a-button is-sm is-secondary' do
             i.fa-regular.fa-plus
-            span
-              | カレンダーに登録
+            span カレンダーに登録
 
         .event-main-actions__body
           .pair-work-info
@@ -72,15 +71,13 @@
                   label.a-button.is-md.is-secondary.is-block(for='show-schedule-dates')
                     | 日時の変更、ペアをキャンセル
                   .pair-work-schedule-dates__action-item-description
-                    p
-                      | あなたがペアとして確定しています。
+                    p あなたがペアとして確定しています。
               - elsif mentor_login?
                 .pair-work-schedule-dates__action-item
                   label.a-button.is-md.is-secondary.is-block(for='show-schedule-dates')
                     | ペア変更、自分がペアになる
                   .pair-work-schedule-dates__action-item-description
-                    p
-                      | 代わりに自分がペアになる場合はこちらから変更。
+                    p 代わりに自分がペアになる場合はこちらから変更。
         - if mentor_login?
           .pair-work-schedule-dates__table-container
             input.a-toggle-checkbox#show-schedule-dates(type="checkbox")
@@ -103,5 +100,4 @@
         - else
           .a-long-text.is-md
             .message.danger
-              p
-                | 現在はテスト運用のため、メンターのみがペアを申し込めます。
+              p 現在はテスト運用のため、メンターのみがペアを申し込めます。
