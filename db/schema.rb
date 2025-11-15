@@ -551,6 +551,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_19_100001) do
     t.index ["user_id"], name: "index_pages_on_user_id"
   end
 
+  create_table "pair_work_schedules", force: :cascade do |t|
+    t.bigint "pair_work_id", null: false
+    t.datetime "proposed_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["pair_work_id"], name: "index_pair_work_schedules_on_pair_work_id"
+  end
+
   create_table "pair_works", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
@@ -758,14 +766,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_19_100001) do
     t.bigint "user_id"
     t.index ["target_user_id"], name: "index_request_retirements_on_target_user_id", unique: true
     t.index ["user_id"], name: "index_request_retirements_on_user_id"
-  end
-
-  create_table "schedules", force: :cascade do |t|
-    t.bigint "pair_work_id", null: false
-    t.datetime "proposed_at", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["pair_work_id"], name: "index_schedules_on_pair_work_id"
   end
 
   create_table "skipped_practices", force: :cascade do |t|
@@ -1149,6 +1149,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_19_100001) do
   add_foreign_key "organizers", "users"
   add_foreign_key "pages", "practices"
   add_foreign_key "pages", "users"
+  add_foreign_key "pair_work_schedules", "pair_works"
   add_foreign_key "pair_works", "practices"
   add_foreign_key "pair_works", "users"
   add_foreign_key "pair_works", "users", column: "buddy_id"
@@ -1178,7 +1179,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_19_100001) do
   add_foreign_key "solid_queue_ready_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_recurring_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_scheduled_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
-  add_foreign_key "schedules", "pair_works"
   add_foreign_key "submission_answers", "practices"
   add_foreign_key "survey_answers", "surveys"
   add_foreign_key "survey_answers", "users"
