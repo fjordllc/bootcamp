@@ -43,10 +43,10 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
-  # メールやテンプレートに埋め込むURLはローカル開発想定の http://localhost:3000 を使用
-  # （テストの期待値に合わせるため、プロトコル/ポートも明示）
-  config.action_mailer.default_url_options = { host: "localhost", port: 3000, protocol: "http" }
-  config.action_controller.default_url_options = { host: "localhost", port: 3000, protocol: "http" }
+  # Rails 7.2: システムテストでCapybaraが127.0.0.1を使用するため、ここも127.0.0.1に統一
+  # ポート番号はCapybaraが動的に割り当てるため、指定しない
+  config.action_mailer.default_url_options = { host: "127.0.0.1", protocol: "http" }
+  config.action_controller.default_url_options = { host: "127.0.0.1", protocol: "http" }
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
