@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_09_05_025850) do
+ActiveRecord::Schema.define(version: 2025_11_15_001156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -611,6 +611,14 @@ ActiveRecord::Schema.define(version: 2025_09_05_025850) do
     t.index ["user_id"], name: "index_pages_on_user_id"
   end
 
+  create_table "pair_work_schedules", force: :cascade do |t|
+    t.bigint "pair_work_id", null: false
+    t.datetime "proposed_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["pair_work_id"], name: "index_pair_work_schedules_on_pair_work_id"
+  end
+
   create_table "pair_works", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
@@ -815,14 +823,6 @@ ActiveRecord::Schema.define(version: 2025_09_05_025850) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["target_user_id"], name: "index_request_retirements_on_target_user_id", unique: true
     t.index ["user_id"], name: "index_request_retirements_on_user_id"
-  end
-
-  create_table "schedules", force: :cascade do |t|
-    t.bigint "pair_work_id", null: false
-    t.datetime "proposed_at", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["pair_work_id"], name: "index_schedules_on_pair_work_id"
   end
 
   create_table "skipped_practices", force: :cascade do |t|
@@ -1073,6 +1073,7 @@ ActiveRecord::Schema.define(version: 2025_09_05_025850) do
   add_foreign_key "organizers", "users"
   add_foreign_key "pages", "practices"
   add_foreign_key "pages", "users"
+  add_foreign_key "pair_work_schedules", "pair_works"
   add_foreign_key "pair_works", "practices"
   add_foreign_key "pair_works", "users"
   add_foreign_key "pair_works", "users", column: "buddy_id"
@@ -1096,7 +1097,6 @@ ActiveRecord::Schema.define(version: 2025_09_05_025850) do
   add_foreign_key "report_templates", "users"
   add_foreign_key "request_retirements", "users"
   add_foreign_key "request_retirements", "users", column: "target_user_id"
-  add_foreign_key "schedules", "pair_works"
   add_foreign_key "submission_answers", "practices"
   add_foreign_key "survey_answers", "surveys"
   add_foreign_key "survey_answers", "users"

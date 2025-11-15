@@ -1,16 +1,15 @@
-schedule_1:
+pair_work_schedule_1:
   pair_work: pair_work1
   proposed_at: <%= Time.zone.parse('2025-01-02 01:00:00') %>
 
-schedule_2:
+pair_work_schedule_2:
   pair_work: pair_work1
   proposed_at: <%= Time.zone.parse('2025-01-07 23:00:00') %>
 
-schedule_3:
+pair_work_schedule_3:
   pair_work: pair_work2
   proposed_at: <%= Time.zone.parse('2025-01-02 01:00:00') %>
 
-schedule_4:
+pair_work_schedule_4:
   pair_work: pair_work3
   proposed_at: <%= Time.zone.parse('2025-01-02 01:00:00') %>
-
