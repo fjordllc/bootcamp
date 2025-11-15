@@ -32,7 +32,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   # Rails 7.2: Configure Capybara to use 127.0.0.1 for system tests
   # This ensures redirects work properly
   Capybara.server_host = '127.0.0.1'
-  Capybara.app_host = 'http://127.0.0.1'
+  Capybara.always_include_port = true
 
   if ENV['HEADFUL']
     driven_by :selenium, using: :chrome, screen_size: [1400, 1400]
