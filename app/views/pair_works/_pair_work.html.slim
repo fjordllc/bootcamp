@@ -7,8 +7,7 @@
         .card-list-item-title
           - if pair_work.wip?
             .a-list-item-badge.is-wip
-              span
-                | WIP
+              span WIP
           h2.card-list-item-title__title(itemprop='name')
             = link_to pair_work, itemprop: 'url', class: 'card-list-item-title__link a-text-link js-unconfirmed-link' do
               = pair_work.title
