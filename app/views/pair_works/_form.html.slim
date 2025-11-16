@@ -73,7 +73,7 @@
                                 span
                                   = check_box_tag 'pair_work[schedules_attributes][][proposed_at]',
                                                   target_time.iso8601,
-                                                  checked?(target_time, learning_time_frame_id),
+                                                  learning_time_frame_checked?(target_time, learning_time_frame_id),
                                                   id: check_box_id, disabled: disabled?(target_time)
       .form-item
         .row.js-markdown-parent

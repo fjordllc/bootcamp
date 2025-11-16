@@ -24,7 +24,7 @@ module PairWorkHelper
     end
   end
 
-  def checked?(target_date, id)
+  def learning_time_frame_checked?(target_date, id)
     !disabled?(target_date) && current_user.learning_time_frame_ids.include?(id)
   end
 
