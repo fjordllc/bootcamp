@@ -41,13 +41,13 @@ class PairWorkHelperTest < ActionView::TestCase
     assert disabled?(future_date, pair_work: my_pair_work)
   end
 
-  test 'checked?' do
+  test 'learning_time_frame_checked?' do
     future_date = Time.current.tomorrow
     past_date = Time.current.yesterday
     my_learning_time_frame_id = LearningTimeFramesUser.create!(user: current_user, learning_time_frame_id: 3).learning_time_frame_id
 
-    assert checked?(future_date, my_learning_time_frame_id)
-    assert_not checked?(past_date, my_learning_time_frame_id)
+    assert learning_time_frame_checked?(future_date, my_learning_time_frame_id)
+    assert_not learning_time_frame_checked?(past_date, my_learning_time_frame_id)
   end
   test 'schedule_time' do
     elapsed_day_count = 1
