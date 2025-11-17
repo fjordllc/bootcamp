@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'notification_system_test_case'
 
-class Notification::SignedUpTest < ApplicationSystemTestCase
+class Notification::SignedUpTest < NotificationSystemTestCase
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
@@ -37,10 +37,7 @@ class Notification::SignedUpTest < ApplicationSystemTestCase
     assert_text 'アドバイザー登録が完了しました'
     assert User.find_by(email:).adviser?
 
-    visit_with_auth notifications_path, 'komagata'
-    within first('.card-list-item.is-unread') do
-      assert_selector '.card-list-item-title__link-label', text: '🎉 harukoさん(アドバイザー)が新しく入会しました！'
-    end
+    assert_user_has_notification(user: users(:komagata), kind: Notification.kinds[:signed_up], text: 'harukoさん(アドバイザー)が新しく入会しました！')
   end
 
   test 'notify mentors when signed up as mentor' do
@@ -68,10 +65,7 @@ class Notification::SignedUpTest < ApplicationSystemTestCase
     assert_text 'メンター登録が完了しました'
     assert User.find_by(email:).mentor?
 
-    visit_with_auth notifications_path, 'komagata'
-    within first('.card-list-item.is-unread') do
-      assert_selector '.card-list-item-title__link-label', text: '🎉 shunkaさん(メンター)が新しく入会しました！'
-    end
+    assert_user_has_notification(user: users(:komagata), kind: Notification.kinds[:signed_up], text: 'shunkaさん(メンター)が新しく入会しました！')
   end
 
   test 'notify mentors when signed up as trainee' do
@@ -102,10 +96,7 @@ class Notification::SignedUpTest < ApplicationSystemTestCase
     assert_text '研修生登録が完了しました'
     assert User.find_by(email:).trainee?
 
-    visit_with_auth notifications_path, 'komagata'
-    within first('.card-list-item.is-unread') do
-      assert_selector '.card-list-item-title__link-label', text: '🎉 natsumiさん(研修生)が新しく入会しました！'
-    end
+    assert_user_has_notification(user: users(:komagata), kind: Notification.kinds[:signed_up], text: 'natsumiさん(研修生)が新しく入会しました！')
   end
 
   test 'notify mentors when signed up as normal user' do
@@ -133,9 +124,6 @@ class Notification::SignedUpTest < ApplicationSystemTestCase
       assert_text '参加登録が完了しました'
     end
 
-    visit_with_auth notifications_path, 'komagata'
-    within first('.card-list-item.is-unread') do
-      assert_selector '.card-list-item-title__link-label', text: '🎉 taroさんが新しく入会しました！'
-    end
+    assert_user_has_notification(user: users(:komagata), kind: Notification.kinds[:signed_up], text: 'taroさんが新しく入会しました！')
   end
 end

@@ -15,7 +15,7 @@ class ActivityAsyncAdapterTest < ActiveSupport::TestCase
       read: false
     }
 
-    assert_enqueued_with(job: ActivityJob) do
+    assert_enqueued_jobs 1, only: ActivityJob do
       ActivityAsyncAdapter.new.enqueue(nil, params)
     end
   end

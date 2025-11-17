@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'notification_system_test_case'
 require 'supports/mention_helper'
 require 'supports/report_helper'
 
-class Notification::MentionTest < ApplicationSystemTestCase
+class Notification::MentionTest < NotificationSystemTestCase
   include MentionHelper
   include ReportHelper
 

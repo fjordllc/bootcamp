@@ -115,6 +115,7 @@ class ProductsTest < ApplicationSystemTestCase
 
     products(:product8).change_learning_status(:started)
     visit "#{product_path}/edit"
+    wait_for_product_form_ready
     click_button 'WIP'
     visit practice_path
 
@@ -124,6 +125,7 @@ class ProductsTest < ApplicationSystemTestCase
     visit product_path
     click_button '提出する'
     visit "#{product_path}/edit"
+    wait_for_product_form_ready
     click_button 'WIP'
     visit practice_path
 
@@ -184,7 +186,7 @@ class ProductsTest < ApplicationSystemTestCase
     accept_confirm do
       click_link '削除'
     end
-    assert_text '提出物を削除しました。'
+    assert_text '提出物を削除しました'
   end
 
   test 'product has a comment form ' do
@@ -278,9 +280,6 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test "Don't notify if create product as WIP" do
-    visit_with_auth '/notifications', 'komagata'
-    click_link '全て既読にする'
-
     visit_with_auth "/products/new?practice_id=#{practices(:practice3).id}", 'kensyu'
     within('form[name=product]') do
       fill_in('product[body]', with: 'test')
@@ -288,14 +287,10 @@ class ProductsTest < ApplicationSystemTestCase
     click_button 'WIP'
     assert_text '提出物をWIPとして保存しました。'
 
-    visit_with_auth '/notifications', 'komagata'
-    assert_no_text "kensyuさんが「#{practices(:practice3).id}」の提出物を提出しました。"
+    assert_user_has_no_notification(user: users(:komagata), kind: Notification.kinds[:watching], text: "kensyuさんが「#{practices(:practice3).title}」の提出物を提出しました。")
   end
 
   test "Don't notify if update product as WIP" do
-    visit_with_auth '/notifications', 'komagata'
-    click_link '全て既読にする'
-
     visit_with_auth "/products/new?practice_id=#{practices(:practice3).id}", 'kensyu'
     within('form[name=product]') do
       fill_in('product[body]', with: 'test')
@@ -307,8 +302,7 @@ class ProductsTest < ApplicationSystemTestCase
     click_button 'WIP'
     assert_text '提出物をWIPとして保存しました。'
 
-    visit_with_auth '/notifications', 'komagata'
-    assert_no_text "kensyuさんが「#{practices(:practice3).title}」の提出物を提出しました。"
+    assert_user_has_no_notification(user: users(:komagata), kind: Notification.kinds[:watching], text: "kensyuさんが「#{practices(:practice3).title}」の提出物を提出しました。")
   end
 
   test "should add to trainer's watching list when trainee submits product" do
@@ -520,6 +514,7 @@ class ProductsTest < ApplicationSystemTestCase
     click_button '編集'
     fill_in 'js-user-mentor-memo', with: '編集後のユーザーメモです。'
     click_button '保存する'
+    assert_text '編集後のユーザーメモです。'
   end
 
   test 'display a list of products in side-column' do
@@ -718,5 +713,11 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text 'スキップするプラクティス一覧'
     assert_text 'Linuxのファイル操作の基礎を覚える'
     assert_text 'viのチュートリアルをやる'
+  end
+
+  private
+
+  def wait_for_product_form_ready
+    assert_selector 'textarea[name="product[body]"]:not([disabled])', wait: 20
   end
 end

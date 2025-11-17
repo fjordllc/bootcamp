@@ -15,7 +15,7 @@ class Notification < ApplicationRecord
 
   paginates_per 20
 
-  enum kind: {
+  enum :kind, {
     came_comment: 0,
     checked: 1,
     mentioned: 2,

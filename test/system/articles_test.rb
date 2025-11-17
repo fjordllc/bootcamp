@@ -16,7 +16,7 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test 'create article' do
-    visit_with_auth new_article_url, 'komagata'
+    visit_with_auth new_article_path, 'komagata'
 
     fill_in 'article[title]', with: @article.title
     fill_in 'article[body]', with: @article.body
@@ -28,7 +28,7 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test 'title & body not allow blank' do
-    visit_with_auth new_article_url, 'komagata'
+    visit_with_auth new_article_path, 'komagata'
 
     fill_in 'article[title]', with: ''
     fill_in 'article[body]', with: ''
@@ -110,7 +110,7 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test 'mentor can create article' do
-    visit_with_auth new_article_url, 'mentormentaro'
+    visit_with_auth new_article_path, 'mentormentaro'
 
     fill_in 'article[title]', with: @article.title
     fill_in 'article[body]', with: @article.body
@@ -240,7 +240,7 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test 'Summary text is used for meta description' do
-    visit_with_auth new_article_url, 'komagata'
+    visit_with_auth new_article_path, 'komagata'
 
     fill_in 'article[title]', with: @article.title
     fill_in 'article[summary]', with: 'サマリー１'
@@ -256,7 +256,7 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test 'If there is no summary text, the fixed text is used for meta description' do
-    visit_with_auth new_article_url, 'komagata'
+    visit_with_auth new_article_path, 'komagata'
 
     fill_in 'article[title]', with: @article.title
     fill_in 'article[body]', with: @article.body
@@ -398,7 +398,7 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test 'items of article shown in atom feed' do
-    visit_with_auth new_article_url, 'komagata'
+    visit_with_auth new_article_path, 'komagata'
 
     fill_in 'article[title]', with: 'エントリーのタイトル（text）'
     fill_in 'article[summary]', with: 'サマリー（HTML）'
@@ -419,7 +419,7 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test 'WIP article is not shown in atom feed' do
-    visit_with_auth new_article_url, 'komagata'
+    visit_with_auth new_article_path, 'komagata'
 
     fill_in 'article[title]', with: 'WIPの記事は atom feed に表示されない'
     fill_in 'article[body]', with: 'WIPの記事は atom feed に表示されない'

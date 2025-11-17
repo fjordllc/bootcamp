@@ -6,10 +6,15 @@ class ReportsTest < ApplicationSystemTestCase
   setup do
     @komagata = users(:komagata)
     @kimura = users(:kimura)
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/all')
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/introduction')
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/mentor')
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/admin')
   end
 
   test 'create report as WIP' do
     visit_with_auth '/reports/new', 'komagata'
+    wait_for_report_form
     within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
@@ -20,6 +25,7 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'create a report' do
     visit_with_auth '/reports/new', 'komagata'
+    wait_for_report_form
     within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
@@ -39,6 +45,7 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'create a report without learning time' do
     visit_with_auth '/reports/new', 'komagata'
+    wait_for_report_form
     within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
@@ -80,6 +87,7 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'create and update learning times in a report' do
     visit_with_auth '/reports/new', 'komagata'
+    wait_for_report_form
     within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
@@ -571,6 +579,7 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'notify to chat after create a report' do
     visit_with_auth '/reports/new', 'kimura'
+    wait_for_report_form
     within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')

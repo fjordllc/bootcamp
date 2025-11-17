@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'notification_system_test_case'
 
-class Notification::EventsTest < ApplicationSystemTestCase
+class Notification::EventsTest < NotificationSystemTestCase
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
@@ -20,11 +20,7 @@ class Notification::EventsTest < ApplicationSystemTestCase
     end
     assert_text '参加を取り消しました。'
 
-    visit_with_auth '/notifications', 'hatsuno'
-
-    within first('.card-list-item.is-unread') do
-      assert_text "#{event.title}で、補欠から参加に繰り上がりました。"
-    end
+    assert_user_has_notification(user: users(:hatsuno), kind: Notification.kinds[:moved_up_event_waiting_user], text: "#{event.title}で、補欠から参加に繰り上がりました。")
   end
 
   test 'waiting user receive notification when the event capacity is increased' do
@@ -36,10 +32,6 @@ class Notification::EventsTest < ApplicationSystemTestCase
     click_button '内容を更新'
     assert_text 'イベントを更新しました。'
 
-    visit_with_auth '/notifications', 'hatsuno'
-
-    within first('.card-list-item.is-unread') do
-      assert_text "#{event.title}で、補欠から参加に繰り上がりました。"
-    end
+    assert_user_has_notification(user: users(:hatsuno), kind: Notification.kinds[:moved_up_event_waiting_user], text: "#{event.title}で、補欠から参加に繰り上がりました。")
   end
 end

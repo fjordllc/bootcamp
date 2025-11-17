@@ -76,6 +76,14 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
       .order(:id)
   }
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[title description goal created_at updated_at last_updated_user_id submission]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[learnings categories products questions pages movies books last_updated_user]
+  end
+
   class << self
     def save_learning_minute_statistics
       Practice.all.find_each do |practice|

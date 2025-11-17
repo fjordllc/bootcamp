@@ -51,7 +51,8 @@ class SearcherTest < ActiveSupport::TestCase
   end
 
   test 'returns results filtered by user' do
-    results = Searcher.new(keyword: 'テスト', document_type: :report, only_me: true, current_user:).search
+    results = Searcher.new(keyword: '検索', document_type: :report, only_me: true, current_user:).search
+    assert_not_empty results, 'Results should not be empty'
     results.each do |result|
       assert_equal current_user.id, result.user_id if result.user_id
     end
