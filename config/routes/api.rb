@@ -27,7 +27,7 @@ Rails.application.routes.draw do
       resource :correct_answer, only: %i(create update)
     end
     resources :available_emojis, only: %i(index)
-    resources :reactions, only: %i(create destroy)
+    resources :reactions, only: %i(create destroy index)
     resources :checks, only: %i(index create destroy)
     resources :mention_users, only: %i(index)
     namespace :users do
