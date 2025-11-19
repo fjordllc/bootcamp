@@ -17,7 +17,7 @@ class Subscription
       customer: customer_id,
       items: [{
         plan: Plan.standard_plan.id,
-        tax_rates: [Rails.application.secrets[:stripe][:tax_rate_id]]
+        tax_rates: [Rails.application.config_for(:secrets)[:stripe][:tax_rate_id]]
       }]
     }
     options[:trial_end] = trial.days.since.to_i if trial.positive?

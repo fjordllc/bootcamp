@@ -38,7 +38,7 @@ export function initializeReaction(reaction) {
 
 function requestReaction(url, method, callback) {
   fetch(url, {
-    method: method,
+    method,
     credentials: 'same-origin',
     headers: {
       'X-Requested-With': 'XMLHttpRequest',

@@ -8,7 +8,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   attr_accessor :credit_card_payment, :role, :uploaded_avatar
 
   authenticates_with_sorcery!
-  VALID_SORT_COLUMNS = %w[id login_name company_id last_activity_at created_at report comment asc desc].freeze
+  VALID_SORT_COLUMNS = %w[login_name company_id last_activity_at created_at report comment asc desc].freeze
   AVATAR_SIZE = [120, 120].freeze
   AVATAR_FORMAT = 'webp'
   DEFAULT_IMAGE_PATH = '/images/users/avatars/default.png'
@@ -38,38 +38,38 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     [I18n.t('invitation_role.mentor'), :mentor]
   ].freeze
 
-  enum job: {
+  enum :job, {
     student: 0,
     office_worker: 2,
     part_time_worker: 3,
     vacation: 4,
     unemployed: 5
-  }, _prefix: true
+  }, prefix: true
 
-  enum os: {
+  enum :os, {
     mac: 0,
     mac_apple: 2,
     linux: 1,
     windows_wsl2: 3
-  }, _prefix: true
+  }, prefix: true
 
-  enum editor: {
+  enum :editor, {
     vscode: 0,
     ruby_mine: 1,
     vim: 2,
     emacs: 3,
     other_editor: 99
-  }, _prefix: true
+  }, prefix: true
 
-  enum satisfaction: {
+  enum :satisfaction, {
     excellent: 0,
     good: 1,
     average: 2,
     poor: 3,
     very_poor: 4
-  }, _prefix: true
+  }, prefix: true
 
-  enum referral_source: {
+  enum :referral_source, {
     search_engine: 0,
     referral: 1,
     event: 2,
@@ -78,9 +78,9 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     blog: 5,
     web_ad: 6,
     other: 99
-  }, _prefix: true
+  }, prefix: true
 
-  enum career_path: {
+  enum :career_path, {
     unset: 0,
     job_seeking: 1,
     employed_via_referral: 2,
@@ -88,7 +88,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     employed_non_it: 4,
     internal_transfer_to_programmer: 5,
     not_employed: 6
-  }, _prefix: true
+  }, prefix: true
 
   belongs_to :company, optional: true
   belongs_to :course
@@ -709,7 +709,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     else
       image_url DEFAULT_IMAGE_PATH
     end
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError => e
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::Error => e
     log_avatar_error('avatar_url', e)
     image_url DEFAULT_IMAGE_PATH
   end
@@ -720,7 +720,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     else
       image_url DEFAULT_IMAGE_PATH
     end
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError => e
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::Error => e
     log_avatar_error('profile_image_url', e)
     image_url DEFAULT_IMAGE_PATH
   end
@@ -926,6 +926,25 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     login_name
   end
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[
+      login_name name name_kana email twitter_account facebook_url
+      blog_url github_account description profile_text
+      created_at updated_at last_activity_at
+      company_id course_id graduated_on retired_on
+      admin mentor adviser trainee job_seeker hibernated_at
+      experiences career_path job os editor subdivision_code country_code
+    ]
+  end
+
+  def self.ransackable_scopes(_auth_object = nil)
+    %i[job_seeking]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[company course discord_profile]
+  end
+
   private
 
   def password_required?
@@ -958,18 +977,21 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     custom_key = "avatars/#{login_name}.#{AVATAR_FORMAT}"
     variant_avatar = avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }, format: AVATAR_FORMAT).processed
     io = StringIO.new(variant_avatar.download)
-    custom_blob = ActiveStorage::Blob.create_or_find_by!(key: custom_key) do |blob|
-      blob.filename = "#{login_name}.#{AVATAR_FORMAT}"
-      blob.content_type = "image/#{AVATAR_FORMAT}"
-      blob.byte_size = io.size
-      blob.checksum = Digest::MD5.base64digest(io.read)
-      io.rewind
-    end
-    return if custom_blob.id_previously_was.present?
 
-    custom_blob.upload(io, identify: false)
-    avatar.attach(custom_blob)
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError, Vips::Error => e
+    # Use ActiveStorage's create_and_upload! for proper checksum handling
+    custom_blob = ActiveStorage::Blob.find_by(key: custom_key)
+
+    unless custom_blob
+      custom_blob = ActiveStorage::Blob.create_and_upload!(
+        io:,
+        filename: "#{login_name}.#{AVATAR_FORMAT}",
+        content_type: "image/#{AVATAR_FORMAT}",
+        key: custom_key,
+        identify: false
+      )
+      avatar.attach(custom_blob)
+    end
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::Error => e
     log_avatar_error('attach_custom_avatar', e)
   end
 

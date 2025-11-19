@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  include ActiveStorage::SetCurrent
   include Authentication
   include TestAuthentication if Rails.env.test?
   include PolicyHelper
@@ -11,7 +12,6 @@ class ApplicationController < ActionController::Base
   before_action :test_login, if: :test?
   before_action :init_user
   before_action :allow_cross_domain_access
-  before_action :set_host_for_disk_storage
   before_action :require_active_user_login
   before_action :set_current_user_practice
 
@@ -36,12 +36,6 @@ class ApplicationController < ActionController::Base
 
   def set_available_emojis
     @available_emojis = Reaction.emojis.map { |key, value| { kind: key, value: } }
-  end
-
-  def set_host_for_disk_storage
-    return unless %i[local test].include? Rails.application.config.active_storage.service
-
-    ActiveStorage::Current.host = request.base_url
   end
 
   def require_card
