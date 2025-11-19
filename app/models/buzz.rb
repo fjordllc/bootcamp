@@ -3,16 +3,20 @@
 class Buzz < ApplicationRecord
   validates :title, presence: true
   validates :published_at, presence: true
-  validates :url, presence: true, format: {
-                                    with: URI::DEFAULT_PARSER.make_regexp(%w[http https]),
-                                    message:
-    'URLに誤りがあります'
-                                  },
-                  uniqueness: { message: 'このURLはすでに登録されています' }
+  validates :url, presence: true, uniqueness: { message: 'はすでに登録されています' }
+  validate :url_format
 
   require 'net/http'
 
   ALLOWED_SCHEMES = %w[http https].freeze
+
+  def url_format
+    return if url.blank?
+
+    return if self.class.valid_scheme?(url)
+
+    errors.add(:url, 'は"http://"か"https://"から始める必要があります')
+  end
 
   class << self
     def for_year(year)
@@ -30,8 +34,9 @@ class Buzz < ApplicationRecord
     end
 
     def doc_from_url(url)
+      return nil unless valid_scheme?(url)
+
       uri = URI.parse(url)
-      raise ArgumentError, 'HTTP/HTTPS URLs only' unless ALLOWED_SCHEMES.include?(uri.scheme&.downcase)
 
       begin
         html = Net::HTTP.start(
@@ -58,6 +63,11 @@ class Buzz < ApplicationRecord
     def date_from_doc(doc)
       date = doc.at_css('meta[property="article:published_time"]')&.[]('content')&.slice(0, 10)
       date ? Date.parse(date) : nil
+    end
+
+    def valid_scheme?(url)
+      uri = URI.parse(url)
+      %w[http https].include?(uri.scheme&.downcase)
     end
 
     private
