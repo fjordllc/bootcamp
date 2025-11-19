@@ -8,8 +8,6 @@ class Buzz < ApplicationRecord
 
   require 'net/http'
 
-  ALLOWED_SCHEMES = %w[http https].freeze
-
   def url_format
     return if url.blank?
 
@@ -34,7 +32,7 @@ class Buzz < ApplicationRecord
     end
 
     def doc_from_url(url)
-      return nil unless valid_scheme?(url)
+      raise ArgumentError, 'HTTP/HTTP URLs only' unless valid_scheme?(url)
 
       uri = URI.parse(url)
 
