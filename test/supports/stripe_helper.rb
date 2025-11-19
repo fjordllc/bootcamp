@@ -38,7 +38,7 @@ module StripeHelper
     field
   end
 
-  def try_find_visible_field(field_name, attempt)
+  def try_find_visible_field(field_name, _attempt)
     find_field(field_name, visible: true)
   rescue Capybara::ElementNotFound
     nil
