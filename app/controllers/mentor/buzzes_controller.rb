@@ -18,12 +18,12 @@ class Mentor::BuzzesController < ApplicationController
   def create
     @buzz = Buzz.new(buzz_params)
 
-    return render :new, status: :unprocessable_entity unless validate_url_presence
+    return render :new, status: :unprocessable_entity unless validate_url
 
     doc = Buzz.doc_from_url(buzz_params[:url])
 
     if doc.blank?
-      @buzz.errors.add(:url, 'から情報を取得できませんでした。URLが正しいか、またはサイトがアクセス可能か確認してください')
+      @buzz.errors.add(:url, 'から情報を取得できませんでした')
       return render :new, status: :unprocessable_entity
     end
 
@@ -68,13 +68,18 @@ class Mentor::BuzzesController < ApplicationController
     true
   end
 
-  def validate_url_presence
-    if @buzz.url.present?
-      true
-    else
+  def validate_url
+    url = @buzz.url
+    if url.blank?
       @buzz.errors.add(:url, 'を入力してください')
-      false
+      return false
     end
+
+    unless Buzz.valid_scheme?(url)
+      @buzz.errors.add(:url, 'は"http://"か"https://"から始める必要があります')
+      return false
+    end
+    true
   end
 
   def set_buzz
