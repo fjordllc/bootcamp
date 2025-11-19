@@ -20,6 +20,14 @@ class Comment < ApplicationRecord
 
   scope :without_private_comment, -> { where.not(commentable_type: %w[Talk Inquiry CorporateTrainingInquiry]) }
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[description commentable_type commentable_id created_at updated_at user_id]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[user commentable reactions]
+  end
+
   class << self
     def commented_users
       User.with_attached_avatar

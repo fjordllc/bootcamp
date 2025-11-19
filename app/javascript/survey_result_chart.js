@@ -320,7 +320,7 @@ function initLinearScaleCharts() {
             }
           },
           annotation: {
-            annotations: annotations
+            annotations
           }
         }
       }

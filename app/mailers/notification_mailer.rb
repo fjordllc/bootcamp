@@ -19,6 +19,7 @@ class NotificationMailer < ApplicationMailer
     @event = params[:event]
     @page = params[:page]
     @regular_event = params[:regular_event]
+    @notification = params[:notification]
   end
 
   # required params: mentionable, receiver
@@ -49,7 +50,7 @@ class NotificationMailer < ApplicationMailer
   # required params: report, receiver
   def trainee_report
     @user = @receiver
-    @notification = @user.notifications.find_by(link: "/reports/#{@report.id}")
+    @notification ||= @user.notifications.find_by(link: "/reports/#{@report.id}")
     subject = "[FBC] #{@report.user.login_name}さんが日報【 #{@report.title} 】を書きました！"
     mail to: @user.email, subject:
   end

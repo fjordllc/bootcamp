@@ -172,7 +172,7 @@ export default function initializeAnswer(answer) {
     }
     const params = {
       id: answerId,
-      answer: { description: description }
+      answer: { description }
     }
     fetch(`/api/answers/${answerId}`, {
       method: 'PUT',

@@ -81,7 +81,7 @@ async function createAnswer(description, questionId) {
   const params = {
     question_id: questionId,
     answer: {
-      description: description
+      description
     }
   }
   try {
