@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const notificationPage = document.querySelector('#notifications')
   if (!notificationPage) return
-  
+
   const allOpenButton = document.querySelector(
     '#js-shortcut-unconfirmed-links-open'
   )
