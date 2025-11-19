@@ -8,7 +8,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   attr_accessor :credit_card_payment, :role, :uploaded_avatar
 
   authenticates_with_sorcery!
-  VALID_SORT_COLUMNS = %w[login_name company_id last_activity_at created_at report comment asc desc].freeze
+  VALID_SORT_COLUMNS = %w[id login_name company_id last_activity_at created_at report comment asc desc].freeze
   AVATAR_SIZE = [120, 120].freeze
   AVATAR_FORMAT = 'webp'
   DEFAULT_IMAGE_PATH = '/images/users/avatars/default.png'
