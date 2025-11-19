@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'notification_system_test_case'
 
-class Notification::ProductsTest < ApplicationSystemTestCase
+class Notification::ProductsTest < NotificationSystemTestCase
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
@@ -18,14 +18,11 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
+
     click_button '提出する'
     assert_text "6日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、6日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
 
-    visit_with_auth '/notifications', 'senpai'
-
-    within first('.card-list-item.is-unread') do
-      assert_text "kensyuさんが「#{practices(:practice5).title}」の提出物を提出しました。"
-    end
+    assert_user_has_notification(user: users(:senpai), kind: Notification.kinds[:watching], text: "kensyuさんが「#{practices(:practice5).title}」の提出物を提出しました。")
   end
 
   test 'update product notification message for checker' do
@@ -35,14 +32,11 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
+
     click_button '提出する'
     assert_text '提出物を更新しました。'
 
-    visit_with_auth '/notifications', 'komagata'
-
-    within first('.card-list-item.is-unread') do
-      assert_text "kimuraさんの「#{product.practice.title}」の提出物が更新されました。"
-    end
+    assert_user_has_notification(user: users(:komagata), kind: Notification.kinds[:product_update], text: "kimuraさんの「#{product.practice.title}」の提出物が更新されました。")
   end
 
   test 'update product notification message for watcher' do
@@ -58,14 +52,11 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
+
     click_button '提出する'
     assert_text '提出物を更新しました。'
 
-    visit_with_auth '/notifications', 'komagata'
-
-    within first('.card-list-item.is-unread') do
-      assert_text "hajimeさんの「#{product.practice.title}」の提出物が更新されました。"
-    end
+    assert_user_has_notification(user: users(:komagata), kind: Notification.kinds[:product_update], text: "hajimeさんの「#{product.practice.title}」の提出物が更新されました。")
   end
 
   test 'checked product notification message' do
@@ -79,14 +70,11 @@ class Notification::ProductsTest < ApplicationSystemTestCase
       checker_id: checker.id
     )
     visit_with_auth "/products/#{product.id}", 'komagata'
+
     click_button '提出物を合格にする'
     assert_text '提出物を合格にしました。'
 
-    visit_with_auth '/notifications', 'kimura'
-
-    within first('.card-list-item.is-unread') do
-      assert_text "#{checker.login_name}さんが「#{practices(:practice47).title}」の提出物を確認しました。"
-    end
+    assert_user_has_notification(user: users(:kimura), kind: Notification.kinds[:checked], text: "#{checker.login_name}さんが「#{practices(:practice47).title}」の提出物を確認しました。")
   end
 
   test 'send the notification of practices mentor is watching' do
@@ -101,9 +89,6 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     fill_in 'product[body]', with: 'test'
     click_button '提出する'
 
-    visit_with_auth '/notifications?status=unread&target=watching', 'mentormentaro'
-    within first('.card-list-item-title__link-label') do
-      assert_text "#{users(:hatsuno).login_name}さんが「#{practice.title}」の提出物を提出しました。"
-    end
+    assert_user_has_notification(user: users(:mentormentaro), kind: Notification.kinds[:watching], text: "#{users(:hatsuno).login_name}さんが「#{practice.title}」の提出物を提出しました。")
   end
 end

@@ -31,6 +31,7 @@ class Admin::InvitationUrlTest < ApplicationSystemTestCase
     expected = "#{@new_user_url}?company_id=#{company.id}&course_id=#{course.id}&role=#{role}&token=token"
 
     wait_for_invitation_url_with_timeout(expected)
+    assert_equal expected, find('.js-invitation-url-text').value
   end
 
   test 'change selected company' do
@@ -43,6 +44,7 @@ class Admin::InvitationUrlTest < ApplicationSystemTestCase
     find('.js-invitation-company').click
     select(company.name)
     wait_for_invitation_url_with_timeout(expected)
+    assert_equal expected, find('.js-invitation-url-text').value
   end
 
   test 'change selected role' do
@@ -56,6 +58,7 @@ class Admin::InvitationUrlTest < ApplicationSystemTestCase
     find('.js-invitation-role').click
     select(role_text)
     wait_for_invitation_url_with_timeout(expected)
+    assert_equal expected, find('.js-invitation-url-text').value
   end
 
   test 'change selected course' do
@@ -68,5 +71,6 @@ class Admin::InvitationUrlTest < ApplicationSystemTestCase
     find('.js-invitation-course')
     select(course.title)
     wait_for_invitation_url_with_timeout(expected)
+    assert_equal expected, find('.js-invitation-url-text').value
   end
 end

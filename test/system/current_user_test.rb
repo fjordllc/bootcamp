@@ -57,7 +57,7 @@ class CurrentUserTest < ApplicationSystemTestCase
     fill_in 'user_training_ends_on', with: training_ends_on
     click_on '更新する'
     visit_with_auth edit_current_user_path, 'kensyu'
-    assert has_field?('user_training_ends_on', with: training_ends_on)
+    assert_field 'user_training_ends_on', with: training_ends_on.to_s
   end
 
   test 'mentors advisors graduates admin can register their companies' do
@@ -135,6 +135,7 @@ class CurrentUserTest < ApplicationSystemTestCase
     uncheck 'GitHubチーム', allow_label_click: true
 
     click_on '更新する'
+    assert_text 'ユーザー情報を更新しました'
 
     assert_not user.reload.github_collaborator
   end
@@ -211,6 +212,7 @@ class CurrentUserTest < ApplicationSystemTestCase
     visit_with_auth '/current_user/edit', 'komagata'
     check '休会三ヶ月後に自動退会しない', allow_label_click: true
     click_on '更新する'
+    assert_text 'ユーザー情報を更新しました'
 
     assert_not users(:komagata).reload.auto_retire
   end

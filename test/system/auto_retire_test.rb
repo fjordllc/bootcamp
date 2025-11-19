@@ -37,8 +37,11 @@ class AutoRetireTest < ApplicationSystemTestCase
     admin = users(:komagata)
     mentor = users(:mentormentaro)
 
-    assert_equal "😢 #{user.login_name}さんが退会しました。", admin.notifications.last.message
-    assert_equal "😢 #{user.login_name}さんが退会しました。", mentor.notifications.last.message
+    admin_retirement_notification = admin.notifications.where(kind: Notification.kinds[:retired]).last
+    mentor_retirement_notification = mentor.notifications.where(kind: Notification.kinds[:retired]).last
+
+    assert_equal "😢 #{user.login_name}さんが退会しました。", admin_retirement_notification.message
+    assert_equal "😢 #{user.login_name}さんが退会しました。", mentor_retirement_notification.message
 
     mails = ActionMailer::Base.deliveries
     mail_to_admin = mails.find { |m| m.to == [admin.email] }

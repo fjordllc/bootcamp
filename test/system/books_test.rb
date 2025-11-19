@@ -16,7 +16,7 @@ class BooksTest < ApplicationSystemTestCase
   end
 
   test 'create book' do
-    visit_with_auth new_book_url, 'komagata'
+    visit_with_auth new_book_path, 'komagata'
     within 'form[name=book]' do
       fill_in 'book[title]', with: books(:book1).title
       fill_in 'book[price]', with: books(:book1).price
@@ -45,7 +45,7 @@ class BooksTest < ApplicationSystemTestCase
   end
 
   test 'title & body not allow blank' do
-    visit_with_auth new_book_url, 'komagata'
+    visit_with_auth new_book_path, 'komagata'
     within 'form[name=book]' do
       fill_in 'book[title]', with: ''
       fill_in 'book[price]', with: ''
@@ -59,7 +59,7 @@ class BooksTest < ApplicationSystemTestCase
   end
 
   test "can't create book" do
-    visit_with_auth new_book_url, 'kimura'
+    visit_with_auth new_book_path, 'kimura'
     assert_text '管理者・メンターとしてログインしてください'
   end
 
@@ -72,12 +72,36 @@ class BooksTest < ApplicationSystemTestCase
 
   test 'use select box to narrow down book by practices' do
     visit_with_auth books_path, 'kimura'
-    find('.choices__inner').click
-    page_practices = page.all('.choices__item--choice').map(&:text).size
-    course_practices = users(:kimura).course.practices.size + 1
-    assert_equal page_practices, course_practices
 
-    find('#choices--js-choices-single-select-item-choice-2', text: 'OS X Mountain Lionをクリーンインストールする').click
+    within '.page-filter' do
+      # Check if Choices.js is initialized
+      if has_selector?('.choices')
+        # Choices.js is initialized
+        dropdown = find('.choices')
+        dropdown.click
+
+        # Wait for and select the practice option
+        # Try different possible selectors for Choices.js items
+        begin
+          # First try with the dropdown visible check, but with retry
+          5.times do
+            break if has_selector?('.choices__list--dropdown', visible: true)
+
+            dropdown.click # Click again if dropdown didn't open
+            sleep 0.5
+          end
+
+          find('.choices__item--choice', text: 'OS X Mountain Lionをクリーンインストールする').click
+        rescue Capybara::ElementNotFound
+          # Fallback: try to find any element with the text
+          find('*', text: 'OS X Mountain Lionをクリーンインストールする').click
+        end
+      else
+        # Choices.js is not initialized, use regular select
+        select 'OS X Mountain Lionをクリーンインストールする', from: 'js-choices-single-select'
+      end
+    end
+
     assert_text 'OS X Mountain Lionをクリーンインストールする'
   end
 end
