@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
 
-  pageBody.addEventListener('click', async (event) => {
+  document.addEventListener('click', async (event) => {
     const deleteButton = event.target.closest('.bookmark-delete-button')
     if (!deleteButton) return
 
