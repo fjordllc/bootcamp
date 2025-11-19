@@ -7,7 +7,7 @@ class StudyStreak
     @include_wip = include_wip
     @study_dates = report_dates(reports)
 
-    current_period = find_current_period
+    current_period = streak_periods.last
     @current_start_on = current_period&.[](:start_on)
     @current_end_on   = current_period&.[](:end_on)
     @current_days     = current_period&.[](:days)
@@ -35,10 +35,6 @@ class StudyStreak
         { start_on: chunk.first, end_on: chunk.last, days: chunk.size }
       end
     end
-  end
-
-  def find_current_period
-    streak_periods.last
   end
 
   def find_longest_period
