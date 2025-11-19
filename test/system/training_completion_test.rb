@@ -8,6 +8,9 @@ class TrainingCompletionTest < ApplicationSystemTestCase
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
     travel_to Time.current
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/all')
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/admin')
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/mentor')
   end
 
   teardown do

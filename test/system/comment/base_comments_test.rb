@@ -59,13 +59,13 @@ class BaseCommentsTest < ApplicationSystemTestCase
     end
 
     find('.a-form-tabs__tab', text: 'プレビュー').click
-    assert_selector '.a-form-tabs__tab.is-active', text: 'プレビュー', wait: 5
+    assert_selector '.a-form-tabs__tab.is-active', text: 'プレビュー'
 
     click_button 'コメントする'
 
     # Wait for comment to be posted and tab to switch back
     assert_text 'test'
-    assert_selector '.a-form-tabs__tab.is-active', text: 'コメント', wait: 5
+    assert_selector '.a-form-tabs__tab.is-active', text: 'コメント'
   end
 
   test 'prevent double submit' do
@@ -119,16 +119,8 @@ class BaseCommentsTest < ApplicationSystemTestCase
       # Fallback: wait for comments section or form to be present
       find('.thread-comment-form, .thread-comment')
     end
-    first(:css, '.thread-comment__created-at').click
-    # 参考：https://gist.github.com/ParamagicDev/5fe937ee60695ff1d227f18fe4b1d5c4
-    cdp_permission = {
-      origin: page.server_url,
-      permission: { name: 'clipboard-read' },
-      setting: 'granted'
-    }
-    page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission)
-    clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
-    assert_equal current_url + "#comment_#{comments(:comment1).id}", clip_text
+    expected_url = current_url + "#comment_#{comments(:comment1).id}"
+    click_and_verify_clipboard_copy('.thread-comment__created-at', expected_url, use_first: true)
   end
 
   test 'clear preview after posting new comment for report' do

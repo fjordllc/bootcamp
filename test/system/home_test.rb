@@ -41,7 +41,7 @@ class HomeTest < ApplicationSystemTestCase
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_text 'ユーザーアイコンを登録してください。'
 
-    path = Rails.root.join('test/fixtures/files/users/avatars/default.jpg')
+    path = Rails.root.join('test/fixtures/files/users-avatars-default.jpg')
     users(:hajime).avatar.attach(io: File.open(path), filename: 'hajime.jpg')
     refresh
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
@@ -127,7 +127,7 @@ class HomeTest < ApplicationSystemTestCase
       tag_list: ['猫'],
       after_graduation_hope: 'ITジェンダーギャップ問題を解決するアプリケーションを作る事業に、プログラマーとして携わる。'
     )
-    path = Rails.root.join('test/fixtures/files/users/avatars/hatsuno.jpg')
+    path = Rails.root.join('test/fixtures/files/users-avatars-hatsuno.jpg')
     user.avatar.attach(io: File.open(path), filename: 'hatsuno.jpg')
     LearningTimeFramesUser.create!(user:, learning_time_frame_id: 1)
 
@@ -164,12 +164,14 @@ class HomeTest < ApplicationSystemTestCase
 
   test 'show Nico Nico calendar page that matches URL params' do
     visit_with_auth '/?niconico_calendar=2020-01', 'hajime'
-    find('.niconico-calendar-nav').assert_text '2020年1月'
+    assert_selector '.niconico-calendar-nav', text: '2020年1月'
   end
 
   test "show current month's page of Nico Nico calendar when future date is specified in URL params" do
     visit_with_auth "/?niconico_calendar=#{Time.current.next_month.strftime('%Y-%m')}", 'hajime'
-    find('.niconico-calendar-nav').assert_text Time.current.strftime('%Y年%-m月')
+    within '.niconico-calendar-nav' do
+      assert_text Time.current.strftime('%Y年%-m月')
+    end
   end
 
   test 'keep Nico Nico calendar page even when leave dashboard' do
