@@ -87,5 +87,4 @@ class FollowingsTest < ApplicationSystemTestCase
     assert_no_text users(:hatsuno).login_name
     assert_text users(:mentormentaro).login_name
   end
-
 end

@@ -29,8 +29,10 @@ class Notification::WatchesTest < NotificationSystemTestCase
     click_button 'コメントする'
     assert_text 'コメントを投稿しました！'
 
-    assert_user_has_notification(user: users(:kimura), kind: Notification.kinds[:watching], text: "komagataさんの日報「#{reports(:report1).title}」にkomagataさんがコメントしました。")
-    assert_user_has_notification(user: users(:machida), kind: Notification.kinds[:watching], text: "komagataさんの日報「#{reports(:report1).title}」にkomagataさんがコメントしました。")
+    assert_user_has_notification(user: users(:kimura), kind: Notification.kinds[:watching],
+                                 text: "komagataさんの日報「#{reports(:report1).title}」にkomagataさんがコメントしました。")
+    assert_user_has_notification(user: users(:machida), kind: Notification.kinds[:watching],
+                                 text: "komagataさんの日報「#{reports(:report1).title}」にkomagataさんがコメントしました。")
   end
 
   test '質問作成者がコメントをした際、ウォッチ通知が飛ばないバグの再現' do
@@ -50,7 +52,9 @@ class Notification::WatchesTest < NotificationSystemTestCase
     click_button 'コメントする'
     assert_text '回答を投稿しました！'
 
-    assert_user_has_notification(user: users(:kimura), kind: Notification.kinds[:watching], text: "machidaさんのQ&A「#{questions(:question1).title}」にmachidaさんが回答しました。")
-    assert_user_has_notification(user: users(:komagata), kind: Notification.kinds[:watching], text: "machidaさんのQ&A「#{questions(:question1).title}」にmachidaさんが回答しました。")
+    assert_user_has_notification(user: users(:kimura), kind: Notification.kinds[:watching],
+                                 text: "machidaさんのQ&A「#{questions(:question1).title}」にmachidaさんが回答しました。")
+    assert_user_has_notification(user: users(:komagata), kind: Notification.kinds[:watching],
+                                 text: "machidaさんのQ&A「#{questions(:question1).title}」にmachidaさんが回答しました。")
   end
 end

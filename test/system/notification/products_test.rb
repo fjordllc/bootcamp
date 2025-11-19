@@ -74,7 +74,8 @@ class Notification::ProductsTest < NotificationSystemTestCase
     click_button '提出物を合格にする'
     assert_text '提出物を合格にしました。'
 
-    assert_user_has_notification(user: users(:kimura), kind: Notification.kinds[:checked], text: "#{checker.login_name}さんが「#{practices(:practice47).title}」の提出物を確認しました。")
+    assert_user_has_notification(user: users(:kimura), kind: Notification.kinds[:checked],
+                                 text: "#{checker.login_name}さんが「#{practices(:practice47).title}」の提出物を確認しました。")
   end
 
   test 'send the notification of practices mentor is watching' do
@@ -89,6 +90,7 @@ class Notification::ProductsTest < NotificationSystemTestCase
     fill_in 'product[body]', with: 'test'
     click_button '提出する'
 
-    assert_user_has_notification(user: users(:mentormentaro), kind: Notification.kinds[:watching], text: "#{users(:hatsuno).login_name}さんが「#{practice.title}」の提出物を提出しました。")
+    assert_user_has_notification(user: users(:mentormentaro), kind: Notification.kinds[:watching],
+                                 text: "#{users(:hatsuno).login_name}さんが「#{practice.title}」の提出物を提出しました。")
   end
 end

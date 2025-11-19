@@ -22,7 +22,8 @@ class Notification::AssignedAsCheckerTest < NotificationSystemTestCase
     click_button '提出する'
     logout
 
-    assert_user_has_notification(user: users(:machida), kind: Notification.kinds[:assigned_as_checker], text: "mentormentaroさんの提出物「#{products(:product1).practice.title}」の提出物の担当になりました。")
+    assert_user_has_notification(user: users(:machida), kind: Notification.kinds[:assigned_as_checker],
+                                 text: "mentormentaroさんの提出物「#{products(:product1).practice.title}」の提出物の担当になりました。")
 
     sleep 0.2 until deliveries.count.positive?
 
@@ -37,6 +38,7 @@ class Notification::AssignedAsCheckerTest < NotificationSystemTestCase
     click_button '提出する'
     assert_button '担当から外れる'
 
-    assert_user_has_no_notification(user: users(:komagata), kind: Notification.kinds[:assigned_as_checker], text: "mentormentaroさんの提出物#{products(:product1).title}の担当になりました。")
+    assert_user_has_no_notification(user: users(:komagata), kind: Notification.kinds[:assigned_as_checker],
+                                    text: "mentormentaroさんの提出物#{products(:product1).title}の担当になりました。")
   end
 end
