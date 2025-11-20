@@ -89,7 +89,7 @@ Rails.application.routes.draw do
     resources :buzzes, only: %i(create destroy)
     resource :buzz, only: %i(create destroy)
     namespace 'buzzes' do
-      resource :lookup, only: %i(show)
+      resource :buzz, only: %i(show), controller: 'buzz'
     end
   end
 end

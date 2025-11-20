@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::Buzzes::LookupsController < API::BaseController
+class API::Buzzes::BuzzController < API::BaseController
   before_action :require_admin_or_mentor_login_for_api
   skip_before_action :verify_authenticity_token
 
