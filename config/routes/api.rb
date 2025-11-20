@@ -88,7 +88,7 @@ Rails.application.routes.draw do
     resources :micro_reports, only: %i(update)
     resource :buzz, only: %i(create destroy)
     namespace 'buzzes' do
-      resource :lookup, only: %i(show)
+      resource :buzz, only: %i(show), controller: 'buzz'
     end
   end
 end
