@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_09_05_025850) do
+ActiveRecord::Schema.define(version: 2025_11_03_053813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -515,6 +515,7 @@ ActiveRecord::Schema.define(version: 2025_09_05_025850) do
     t.text "content", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "comment_user_id"
     t.index ["user_id"], name: "index_micro_reports_on_user_id"
   end
 
@@ -1036,6 +1037,7 @@ ActiveRecord::Schema.define(version: 2025_09_05_025850) do
   add_foreign_key "learning_times", "reports"
   add_foreign_key "linear_scales", "survey_questions"
   add_foreign_key "micro_reports", "users"
+  add_foreign_key "micro_reports", "users", column: "comment_user_id"
   add_foreign_key "movies", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "sender_id"
