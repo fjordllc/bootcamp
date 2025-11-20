@@ -82,7 +82,7 @@
               - value_option = report.description.blank? && registered_template.present? ? { value: registered_template } : {}
               = f.text_area :description,
                 **value_option,
-                class: 'a-text-input js-warning-form js-report-content markdown-form__text-area',
+                class: "a-text-input js-warning-form js-report-content markdown-form__text-area #{params[:action] == 'new' && params[:id].blank? ? '' : 'js-markdown'}",
                 data: { 'report-template-target': 'report', 'preview': '.js-preview', 'input': '.file-input' }
             .form-textarea__footer
               .form-textarea__insert
