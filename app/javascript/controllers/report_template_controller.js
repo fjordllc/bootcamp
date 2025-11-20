@@ -56,7 +56,6 @@ export default class extends Controller {
     e.preventDefault()
     this.modalTarget.classList.remove('is-hidden')
     this.templateInputTarget.value = this.registeredTemplateValue
-    TextareaInitializer.uninitialize('#js-template-content')
     TextareaInitializer.initialize('#js-template-content')
     this.updateSubmitButtonState()
   }
