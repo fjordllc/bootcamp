@@ -42,10 +42,11 @@ class QuestionAutoCloser
     end
 
     def create_warning_message(question, system_user)
-      question.answers.create!(
+      answer = question.answers.create!(
         user: system_user,
         description: AUTO_CLOSE_WARNING_MESSAGE
       )
+      ActiveSupport::Notifications.instrument('answer.create', answer:)
     end
 
     def should_close?(question, system_user)
