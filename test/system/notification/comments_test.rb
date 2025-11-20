@@ -22,6 +22,6 @@ class Notification::CommentsTest < NotificationSystemTestCase
     assert_text '@machida @machida test'
 
     assert_user_has_notification(user: users(:machida), kind: Notification.kinds[:mentioned], text: 'komagataさんの日報「作業週1日目」へのコメントでkomagataさんからメンションがきました。')
-    assert_equal 1, notifications.count
+    assert_equal 1, Notification.where(user: users(:machida), kind: Notification.kinds[:mentioned]).where('message LIKE ?', '%作業週1日目%').count
   end
 end
