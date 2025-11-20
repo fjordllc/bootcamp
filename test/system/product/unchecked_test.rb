@@ -23,7 +23,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
 
   test 'unchecked products links are rendered correctly' do
     delete_most_unchecked_products!
-    newest_product = Product
+    oldest_product = Product
                      .unchecked
                      .not_wip
                      .ascending_by_date_of_publishing_and_id
@@ -31,7 +31,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
 
     visit_with_auth '/products/unchecked', 'komagata'
 
-    assert_selector "a.js-unconfirmed-link[href$='#{newest_product.id}']"
+    assert_selector "a.js-unconfirmed-link[href$='/#{oldest_product.id}']"
   end
 
   test 'products order on unchecked tab' do
