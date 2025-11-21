@@ -5,6 +5,11 @@ module PageTabs
     def dashboard_page_tabs(active_tab:)
       tabs = []
       tabs << { name: 'ダッシュボード', link: '/' }
+      if Rails.env.in? %w[development test]
+        tabs << { name: '自分の分報',
+                  link: "#{user_micro_reports_path(current_user, page: current_user.latest_micro_report_page)}#latest-micro-report",
+                  count: current_user.micro_reports.length }
+      end
       tabs << { name: '自分の日報', link: current_user_reports_path, count: current_user.reports.length }
       tabs << { name: '自分の提出物', link: current_user_products_path, count: current_user.products.length }
       tabs << { name: 'ブックマーク', link: current_user_bookmarks_path, count: current_user.bookmarks.length }
