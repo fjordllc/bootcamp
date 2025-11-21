@@ -68,7 +68,7 @@ module UsersHelper
 
   def all_countries_with_subdivisions
     ISO3166::Country.all
-                    .map { |country| [country.alpha2, country.subdivision_names_with_codes(I18n.locale.to_s)] }
+                    .map { |country| [country.alpha2, country.subdivision_names_with_codes(I18n.locale.to_sym)] }
                     .to_h
                     .to_json
   end

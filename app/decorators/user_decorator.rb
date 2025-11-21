@@ -61,7 +61,7 @@ module UserDecorator
     return if country_code.blank?
 
     country = ISO3166::Country[country_code]
-    country.subdivision_names_with_codes(I18n.locale.to_s)
+    country.subdivision_names_with_codes(I18n.locale.to_sym)
   end
 
   def address

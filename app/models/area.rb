@@ -79,7 +79,7 @@ class Area
       country_subdivision_pairs.map do |country_code, subdivision_code|
         country = ISO3166::Country[country_code]
         subdivision = country.subdivisions[subdivision_code]
-        [country.translations['ja'], subdivision.translations['ja']]
+        [country.translations[:ja], subdivision.translations[:ja]]
       end
     end
 
