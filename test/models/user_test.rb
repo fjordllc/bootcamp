@@ -704,8 +704,8 @@ class UserTest < ActiveSupport::TestCase
     tokyo_user = users(:machida)
     america_user = users(:tom)
     no_area_user = users(:komagata)
-    assert_equal tokyo_user.area, '東京都'
-    assert_equal america_user.area, '米国'
+    assert_equal '東京都', tokyo_user.area
+    assert_equal '米国', america_user.area
     assert_nil no_area_user.area
   end
 
