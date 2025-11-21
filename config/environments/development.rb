@@ -44,8 +44,6 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :letter_opener_web
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
-  config.action_controller.asset_host = "http://localhost:3035"
-  config.action_mailer.asset_host = "http://localhost:3035"
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
