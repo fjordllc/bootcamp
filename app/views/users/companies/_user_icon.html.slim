@@ -1,0 +1,7 @@
+a.a-user-icons__item-link href=company_user.url
+  span class=['a-user-role', "is-#{company_user.primary_role}", ('is-new-user' if company_user.joining_status == 'new-user')]
+    img.a-user-icons__item-icon.a-user-icon(
+    title="#{company_user.icon_title}"
+    alt="#{company_user.icon_title}"
+    src="#{company_user.avatar_url}"
+    data-login-name="#{company_user.login_name}")

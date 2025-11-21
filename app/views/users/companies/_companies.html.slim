@@ -1,0 +1,6 @@
+.page-body
+  .container.is-lg
+    .card-list
+      - companies.each do |company|
+        - next if company_users[company.id].blank?
+        = render 'company', company: company, company_users: company_users[company.id]

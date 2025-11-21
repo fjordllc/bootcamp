@@ -27,12 +27,9 @@ Rails.application.routes.draw do
       resource :correct_answer, only: %i(create update)
     end
     resources :available_emojis, only: %i(index)
-    resources :reactions, only: %i(create destroy)
+    resources :reactions, only: %i(create destroy index)
     resources :checks, only: %i(index create destroy)
     resources :mention_users, only: %i(index)
-    namespace :users do
-      resources :companies, only: %i(index)
-    end
     resources :users, only: %i(index show update)
     resources :user_icon_urls, only: %i(index)
     get "users/tags/:tag", to: "users#index", as: :users_tag, tag: /.+/

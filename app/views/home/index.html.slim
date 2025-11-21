@@ -12,6 +12,10 @@
 
 .page-body.is-dash-board
   .page-body__inner.has-side-nav
+
+    - if @users_for_time_slot.present?
+      = render Users::CurrentUserIconListComponent.new(users: @users_for_time_slot)
+
     - if current_user.adviser?
       = render 'adviser_dashboard'
     - elsif current_user.mentor?

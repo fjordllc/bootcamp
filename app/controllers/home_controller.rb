@@ -53,6 +53,7 @@ class HomeController < ApplicationController
     @calendar = NicoNicoCalendar.new(current_user, params[:niconico_calendar])
     @target_end_date = GrassDateParameter.new(params[:end_date]).target_end_date
     @times = Grass.times(current_user, @target_end_date)
+    @users_for_time_slot = User.currently_learning_except(current_user)
   end
 
   def display_events_on_dashboard
