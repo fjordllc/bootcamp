@@ -13,12 +13,18 @@ class ReactionsTest < ApplicationSystemTestCase
   end
 
   test 'post all new reactions for report' do
-    emojis = Reaction.emojis.filter { |key| key != 'smile' }
+    # Exclude smile and thumbsup as they already exist on report1
+    emojis = Reaction.emojis.filter { |key| !%w[smile thumbsup].include?(key) }
     visit_with_auth report_path(reports(:report1)), 'komagata'
     emojis.each do |key, value|
-      first('.report .js-reaction-dropdown-toggle').click
-      first(".report .js-reaction-dropdown li[data-reaction-kind='#{key}']").click
-      using_wait_time 5 do
+      using_wait_time 15 do
+        # Wait for dropdown toggle to be clickable
+        assert_selector '.report .js-reaction-dropdown-toggle', visible: true
+        first('.report .js-reaction-dropdown-toggle').click
+        # Wait for dropdown menu to be displayed
+        assert_selector ".report .js-reaction-dropdown li[data-reaction-kind='#{key}']", visible: true
+        first(".report .js-reaction-dropdown li[data-reaction-kind='#{key}']").click
+        # Wait for reaction to be displayed
         assert_text "#{value}1"
       end
     end

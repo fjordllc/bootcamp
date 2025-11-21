@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Create an instance of the card Element.
-  const card = elements.create('card', { style: style, hidePostalCode: true })
+  const card = elements.create('card', { style, hidePostalCode: true })
 
   if (!userRole || checkedCreditCardCheckBox) {
     card.mount('#card-element')

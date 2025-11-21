@@ -24,7 +24,7 @@
         = f.label :thumbnail, class: 'a-form-label'
         .form-item-file-input.js-file-input.a-file-input.is-thumbnail
           label.js-file-input__preview
-            - if work.thumbnail.attached?
+            - if work.persisted? && work.thumbnail.attached?
               = image_tag work.thumbnail
               p 画像を変更
             - else

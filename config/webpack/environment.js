@@ -1,4 +1,4 @@
-const { environment } = require('@rails/webpacker')
+const { environment } = require('shakapacker')
 
 // Add resolve alias for images
 const path = require('path')

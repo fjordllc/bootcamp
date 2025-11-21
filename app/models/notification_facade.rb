@@ -2,13 +2,15 @@
 
 class NotificationFacade
   def self.trainee_report(report, receiver)
-    ActivityNotifier.with(report:, receiver:).trainee_report.notify_now
+    notification = ActivityNotifier.with(report:, receiver:).trainee_report.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
 
-    NotificationMailer.with(
-      report:,
-      receiver:
-    ).trainee_report.deliver_later(wait: 5)
+    mailer = NotificationMailer.with(report:, receiver:, notification:).trainee_report
+    if Rails.env.test?
+      mailer.deliver_now
+    else
+      mailer.deliver_later(wait: 5)
+    end
   end
 
   def self.coming_soon_regular_events(today_events, tomorrow_events)

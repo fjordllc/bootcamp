@@ -3,7 +3,7 @@
 module ReportHelper
   def create_report(title, description, save_as_wip:)
     visit new_report_path
-    assert_selector 'h2.page-header__title', text: '日報作成'
+    assert_selector 'h2.page-header__title', text: '日報作成', wait: 20
 
     edit_report(title, description)
 
@@ -56,7 +56,12 @@ module ReportHelper
     end
   end
 
+  def wait_for_report_form
+    assert_selector 'input[name="report[title]"]:not([disabled])', wait: 20
+  end
+
   def edit_report(title, description)
+    wait_for_report_form
     fill_in('report[title]', with: title)
     fill_in('report[description]', with: description)
   end

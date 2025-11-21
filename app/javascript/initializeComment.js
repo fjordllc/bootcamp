@@ -135,7 +135,7 @@ function updateComment(commentId, description) {
   }
   const params = {
     id: commentId,
-    comment: { description: description }
+    comment: { description }
   }
   fetch(`/api/comments/${commentId}`, {
     method: 'PUT',

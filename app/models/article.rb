@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Article < ApplicationRecord
-  enum thumbnail_type: {
+  enum :thumbnail_type, {
     prepared_thumbnail: 0,
     ruby: 1,
     ruby_on_rails: 2,
@@ -17,12 +17,12 @@ class Article < ApplicationRecord
     blue: 12
   }
 
-  enum target: {
+  enum :target, {
     all: 0,
     students: 1,
     job_seekers: 2,
     none: 3
-  }, _prefix: true
+  }, prefix: true
 
   belongs_to :user
   alias sender user

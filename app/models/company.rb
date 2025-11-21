@@ -19,4 +19,12 @@ class Company < ApplicationRecord
   rescue ActiveStorage::FileNotFoundError
     image_url('/images/companies/logos/default.png')
   end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[name description created_at updated_at]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[users]
+  end
 end
