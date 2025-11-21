@@ -13,7 +13,7 @@ class QuestionAutoCloser
       system_user = User.find_by(login_name: SYSTEM_USER_LOGIN)
       return unless system_user
 
-      Question.not_solved.find_each do |question|
+      Question.not_wip.not_solved.find_each do |question|
         next unless should_post_warning?(question, system_user)
 
         create_warning_message(question, system_user)
@@ -24,7 +24,7 @@ class QuestionAutoCloser
       system_user = User.find_by(login_name: SYSTEM_USER_LOGIN)
       return unless system_user
 
-      Question.not_solved.find_each do |question|
+      Question.not_wip.not_solved.find_each do |question|
         next unless should_close?(question, system_user)
 
         close_with_best_answer(question, system_user)
