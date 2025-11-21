@@ -8,6 +8,10 @@ class NotificationsTest < ApplicationSystemTestCase
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/all')
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/admin')
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/introduction')
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/mentor')
   end
 
   teardown do
@@ -31,7 +35,8 @@ class NotificationsTest < ApplicationSystemTestCase
     visit_with_auth '/notifications', 'komagata'
     click_link '全て既読にする'
 
-    visit_with_auth '/reports/new', 'kensyu'
+    visit_with_auth '/reports/new', 'kimura'
+    assert_text '日報作成'
     fill_in 'report_title', with: 'テスト日報'
     fill_in 'report_description', with: 'none'
     select '23', from: :report_learning_times_attributes_0_started_at_4i
@@ -39,6 +44,7 @@ class NotificationsTest < ApplicationSystemTestCase
     select '00', from: :report_learning_times_attributes_0_finished_at_4i
     select '00', from: :report_learning_times_attributes_0_finished_at_5i
     click_button '提出'
+    assert_text '日報を保存しました。'
 
     perform_enqueued_jobs do
       find('#js-new-comment').set("login_nameの補完テスト: @komagata\n")
@@ -48,8 +54,8 @@ class NotificationsTest < ApplicationSystemTestCase
     end
 
     visit_with_auth '/notifications', 'komagata'
-    assert_no_text 'kensyuさんがはじめての日報を書きました！'
-    assert_text 'kensyuさんからメンションがきました。'
+    assert_no_text 'kimuraさんがはじめての日報を書きました！'
+    assert_text 'kimuraさんからメンションがきました。'
   end
 
   test 'do not show read notification on the unread notifications' do

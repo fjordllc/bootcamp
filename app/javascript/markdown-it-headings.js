@@ -9,5 +9,5 @@ const options = {
 }
 
 export default function (md) {
-  return plugin(md, options)
+  return md.use(plugin, options)
 }

@@ -59,6 +59,14 @@ class Product < ApplicationRecord # rubocop:todo Metrics/ClassLength
   scope :order_for_self_assigned_list, -> { order('commented_at asc nulls first, published_at asc') }
   scope :unhibernated_user_products, -> { joins(:user).where(user: { hibernated_at: nil }) }
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[body wip published_at commented_at created_at updated_at user_id practice_id checker_id]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[user practice checker comments reactions checks bookmarks]
+  end
+
   def self.add_latest_commented_at
     Product.all.includes(:comments).find_each do |product|
       next if product.comments.blank?

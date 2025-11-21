@@ -50,7 +50,7 @@ export default class {
   _fetchValues() {
     this.values = Object.keys(emojis)
       .map((key) => {
-        return { key: key, value: emojis[key] }
+        return { key, value: emojis[key] }
       })
       .concat(this.userValues)
   }

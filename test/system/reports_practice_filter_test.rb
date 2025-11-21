@@ -31,7 +31,7 @@ class ReportsPracticeFilterTest < ApplicationSystemTestCase
 
   test 'GET filter by practice works' do
     visit reports_path(practice_id: @practice1.id)
-    assert_text 'レポート1', wait: 5
-    assert_no_text 'レポート2', wait: 5
+    assert_text 'レポート1'
+    assert_no_text 'レポート2'
   end
 end
