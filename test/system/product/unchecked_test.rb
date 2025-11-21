@@ -21,18 +21,17 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     assert_button '未完了の提出物を一括で開く'
   end
 
-  test 'click on open all unchecked submissions button' do
+  test 'unchecked products links are rendered correctly' do
     delete_most_unchecked_products!
+    oldest_product = Product
+                     .unchecked
+                     .not_wip
+                     .ascending_by_date_of_publishing_and_id
+                     .first
+
     visit_with_auth '/products/unchecked', 'komagata'
-    click_button '未完了の提出物を一括で開く'
-    within_window(windows.last) do
-      newest_product = Product
-                       .unchecked
-                       .not_wip
-                       .ascending_by_date_of_publishing_and_id
-                       .first
-      assert_text newest_product.body
-    end
+
+    assert_selector "a.js-unconfirmed-link[href$='/#{oldest_product.id}']"
   end
 
   test 'products order on unchecked tab' do

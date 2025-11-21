@@ -281,6 +281,8 @@ class ProductsTest < ApplicationSystemTestCase
 
   test "Don't notify if create product as WIP" do
     visit_with_auth "/products/new?practice_id=#{practices(:practice3).id}", 'kensyu'
+    assert_selector 'form[name=product]'
+
     within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
@@ -292,6 +294,8 @@ class ProductsTest < ApplicationSystemTestCase
 
   test "Don't notify if update product as WIP" do
     visit_with_auth "/products/new?practice_id=#{practices(:practice3).id}", 'kensyu'
+    assert_selector 'form[name=product]'
+
     within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
