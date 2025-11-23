@@ -4,22 +4,28 @@ require 'test_helper'
 
 class QuestionAutoCloserTest < ActiveSupport::TestCase
   test '.post_warning' do
-    question_create_date = 2.months.ago.floor
-
+    created_at = Time.zone.local(2025, 10, 1, 0, 0, 0)
     question = Question.create!(
       title: '自動クローズテスト',
       description: 'テスト',
       user: users(:kimura),
-      created_at: question_create_date,
-      updated_at: question_create_date
+      created_at:,
+      updated_at: created_at
     )
-    travel_to 1.month.ago + 1.day do
+
+    travel_to created_at.advance(months: 1, days: -1) do
+      assert_no_difference -> { question.answers.count } do
+        QuestionAutoCloser.post_warning
+      end
+    end
+
+    travel_to created_at.advance(months: 1) do
       assert_difference -> { question.answers.count }, 1 do
         QuestionAutoCloser.post_warning
       end
       answer = question.answers.last
       assert_equal users(:pjord), answer.user
-      assert_includes answer.description, '1週間後に自動的にクローズされます'
+      assert_equal 'このQ&Aは1ヶ月間コメントがありませんでした。1週間後に自動的にクローズされます。', answer.description
     end
   end
 
