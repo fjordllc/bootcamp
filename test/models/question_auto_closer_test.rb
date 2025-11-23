@@ -30,35 +30,39 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
   end
 
   test '.close_and_select_best_answer' do
+    created_at = Time.zone.local(2025, 10, 1, 0, 0, 0)
     question = Question.create!(
-      title: '自動クローズテスト2',
+      title: '自動クローズテスト',
       description: 'テスト',
       user: users(:kimura),
-      created_at: 2.months.ago,
-      updated_at: 2.months.ago
+      created_at:,
+      updated_at: created_at
     )
 
-    question.answers.create!(
-      user: users(:kimura),
-      description: 'これは通常のユーザーによる回答です',
-      created_at: 6.weeks.ago
-    )
-
+    warned_at = created_at.advance(months: 1)
     system_user = users(:pjord)
     question.answers.create!(
       user: system_user,
       description: 'このQ&Aは1ヶ月間コメントがありませんでした。1週間後に自動的にクローズされます。',
-      created_at: 8.days.ago
+      created_at: warned_at,
+      updated_at: warned_at
     )
 
-    QuestionAutoCloser.close_and_select_best_answer
+    travel_to warned_at.advance(weeks: 1, days: -1) do
+      assert_no_difference -> { question.answers.count } do
+        QuestionAutoCloser.close_and_select_best_answer
+      end
+    end
 
-    question.reload
-
-    correct_answer = CorrectAnswer.find_by(question_id: question.id)
-    assert_not_nil correct_answer
-    assert_equal system_user, correct_answer.user
-    assert_includes correct_answer.description, '自動的にクローズしました'
+    travel_to warned_at.advance(weeks: 1) do
+      assert_difference -> { question.answers.count }, 1 do
+        QuestionAutoCloser.close_and_select_best_answer
+      end
+      answer = question.answers.last
+      assert_equal system_user, answer.user
+      assert_equal '自動的にクローズしました。', answer.description
+      assert answer.is_a?(CorrectAnswer)
+    end
   end
 
   test 'does not post warning for WIP questions' do
