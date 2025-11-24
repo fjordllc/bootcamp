@@ -1,6 +1,8 @@
 require:
   - rubocop-minitest
   - rubocop-capybara
+  - rubocop-performance
+  - rubocop-rails
 
 inherit_gem:
   rubocop-fjord:
