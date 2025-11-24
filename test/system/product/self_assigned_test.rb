@@ -73,7 +73,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
       checker_id: checker.id
     )
     visit_with_auth '/products/self_assigned', 'mentormentaro'
-    titles = all('.card-list-item-title__title').map { |t| t.text.gsub('★', '') }
+    titles = all('.card-list-item-title__title').map { |t| t.text.delete('★') }
     names = all('.card-list-item-meta .a-user-name').map(&:text)
     assert_equal ["#{practice.title}の提出物"], titles
     assert_equal [decorated_user.long_name], names
@@ -91,7 +91,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
       checker_id: checker.id
     )
     visit_with_auth '/products/self_assigned?target=self_assigned_no_replied', 'mentormentaro'
-    titles = all('.card-list-item-title__title').map { |t| t.text.gsub('★', '') }
+    titles = all('.card-list-item-title__title').map { |t| t.text.delete('★') }
     names = all('.card-list-item-meta .a-user-name').map(&:text)
     assert_equal ["#{practice.title}の提出物"], titles
     assert_equal [decorated_user.long_name], names
@@ -140,7 +140,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     end
     click_button 'コメントする'
     visit_with_auth '/products/self_assigned?target=self_assigned_all', 'mentormentaro'
-    titles = all('.card-list-item-title__title').map { |t| t.text.gsub('★', '') }
+    titles = all('.card-list-item-title__title').map { |t| t.text.delete('★') }
     names = all('.card-list-item-meta .a-user-name').map(&:text)
     assert_equal ["#{practice.title}の提出物"], titles
     assert_equal [decorated_user.long_name], names

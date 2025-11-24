@@ -333,7 +333,7 @@ class ProductsTest < ApplicationSystemTestCase
     visit_with_auth '/products', 'komagata'
 
     # 提出日の新しい順で並んでいることを検証する
-    titles = all('.card-list-item-title__title').map { |t| t.text.gsub('★', '') }
+    titles = all('.card-list-item-title__title').map { |t| t.text.delete('★') }
     names = all('.card-list-item-meta .a-user-name').map(&:text)
     assert_equal "#{newest_product.practice.title}の提出物", titles.first
     assert_equal newest_product_decorated_author.long_name, names.first

@@ -21,7 +21,7 @@ class CurrentUser::ProductsTest < ApplicationSystemTestCase
     visit_with_auth '/current_user/products', user.login_name
 
     # 作成日の降順で並んでいることを検証する
-    titles = all('.card-list-item-title__title').map { |t| t.text.gsub('★', '') }
+    titles = all('.card-list-item-title__title').map { |t| t.text.delete('★') }
     names = all('.card-list-item-meta .a-user-name').map(&:text)
     assert_equal "#{newest_product.practice.title}の提出物", titles.first
     assert_equal newest_product.user.login_name, names.first
