@@ -111,4 +111,25 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
       end
     end
   end
+
+  test 'resets warning countdown when the question is updated' do
+    created_at = Time.zone.local(2025, 10, 1, 0, 0, 0)
+    question = Question.create!(
+      title: '後日公開する質問',
+      description: 'テスト',
+      user: users(:kimura),
+      wip: true,
+      created_at:,
+      updated_at: created_at
+    )
+
+    updated_at = created_at.advance(months: 1)
+    question.update!(wip: false, updated_at:)
+
+    travel_to updated_at do
+      assert_no_difference -> { question.answers.count } do
+        QuestionAutoCloser.post_warning
+      end
+    end
+  end
 end
