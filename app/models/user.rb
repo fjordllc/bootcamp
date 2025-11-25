@@ -953,6 +953,14 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     %w[company course discord_profile]
   end
 
+  def page_of_micro_report(micro_report_id, per_page)
+    ids = micro_reports.order(created_at: :asc).pluck(:id)
+    index = ids.index(micro_report_id)
+    return nil unless index
+
+    index / per_page + 1
+  end
+
   private
 
   def password_required?
