@@ -23,7 +23,7 @@ jobs:
           pkg-manager: yarn
   check:
     docker:
-      - image: 'cimg/ruby:3.1.6-node'
+      - image: 'cimg/ruby:3.4.3-node'
     steps:
       - checkout
       - run:
