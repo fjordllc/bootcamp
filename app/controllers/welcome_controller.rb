@@ -48,6 +48,13 @@ class WelcomeController < ApplicationController
 
   def law; end
 
+  def buzzes
+    @years = Buzz.years
+    year = params[:year] || Buzz.latest_year
+    @year = year
+    @buzzes = Buzz.for_year(year).order(published_at: :desc, id: :desc)
+  end
+
   def coc; end
 
   def press_kit
