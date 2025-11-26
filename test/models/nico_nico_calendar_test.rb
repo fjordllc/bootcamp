@@ -19,6 +19,6 @@ class NicoNicoCalendarTest < ActiveSupport::TestCase
   test 'calendar_with_reports returns a calendar with the users daily reports' do
     hajime = users(:hajime)
     calendar = NicoNicoCalendar.new(hajime, '2019-01')
-    assert_equal calendar.with_reports.select { |set| set[:report] }.count, 1
+    assert_equal calendar.with_reports.count { |set| set[:report] }, 1
   end
 end

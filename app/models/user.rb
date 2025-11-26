@@ -856,13 +856,13 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   def country_name
     country = ISO3166::Country[country_code]
-    country.translations[I18n.locale.to_s]
+    country.translations[I18n.locale.to_sym]
   end
 
   def subdivision_name
     country = ISO3166::Country[country_code]
     subdivision = country.subdivisions[subdivision_code]
-    subdivision.translations[I18n.locale.to_s]
+    subdivision.translations[I18n.locale.to_sym]
   end
 
   def subdivision_codes
@@ -909,10 +909,10 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   def area
     if country_code == 'JP'
       subdivision = ISO3166::Country['JP'].subdivisions[subdivision_code]
-      subdivision ? subdivision.translations['ja'] : nil
+      subdivision ? subdivision.translations[:ja] : nil
     else
       country = ISO3166::Country[country_code]
-      country ? country.translations['ja'] : nil
+      country ? country.translations[:ja] : nil
     end
   end
 

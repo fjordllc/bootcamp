@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.6'
+ruby '3.4.3'
 
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'ffi', '1.17.1'
@@ -28,6 +28,7 @@ gem 'cocooned'
 gem 'concurrent-ruby', '1.3.4'
 gem 'countries', '>= 5.5.0'
 gem 'country_select'
+gem 'csv'
 gem 'data_migrate', '9.2.0'
 gem 'diffy'
 gem 'discord-notifier'
@@ -75,7 +76,7 @@ gem 'rubyzip'
 gem 'slim-rails'
 gem 'sorcery', '~> 0.16.2'
 gem 'sorcery-jwt'
-gem 'stringio', '3.0.1.2'
+gem 'stringio', '>= 3.1.3'
 gem 'stripe'
 gem 'stripe-i18n', git: 'https://github.com/komagata/stripe-i18n', branch: 'update-depencency'
 gem 'switchlet'
@@ -103,7 +104,7 @@ group :development do
   gem 'rack-mini-profiler', '~> 2.0', require: false
   gem 'rubocop', require: false
   gem 'rubocop-capybara', require: false
-  gem 'rubocop-fjord', '~> 0.3.0', require: false
+  gem 'rubocop-fjord', '~> 0.4.0', require: false
   gem 'rubocop-minitest', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false

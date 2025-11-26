@@ -327,9 +327,9 @@ class SearcherTest < ActiveSupport::TestCase
 
   test 'returns only comments having all keywords' do
     result = Searcher.new(keyword: 'report_id', document_type: :report, only_me: false, current_user:).search
-    actual_results = result.map { |r| [strip_html(r.description).strip.gsub('`', ''), r.is_a?(User) ? r.login_name : r.user.login_name] }
-    assert_includes(actual_results, [strip_html(comments(:comment6).description).strip.gsub('`', ''), comments(:comment6).user.login_name])
-    assert_includes(actual_results, [strip_html(comments(:comment5).description).strip.gsub('`', ''), comments(:comment5).user.login_name])
+    actual_results = result.map { |r| [strip_html(r.description).strip.delete('`'), r.is_a?(User) ? r.login_name : r.user.login_name] }
+    assert_includes(actual_results, [strip_html(comments(:comment6).description).strip.delete('`'), comments(:comment6).user.login_name])
+    assert_includes(actual_results, [strip_html(comments(:comment5).description).strip.delete('`'), comments(:comment5).user.login_name])
 
     result = Searcher.new(keyword: 'report_id typo', document_type: :report, only_me: false, current_user:).search
     assert_includes(result.map do |r|
