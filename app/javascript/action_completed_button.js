@@ -1,4 +1,4 @@
-import CSRF from 'csrf'
+import { patch } from '@rails/request.js'
 import { toast } from './vanillaToast'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -13,13 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const isActionCompleted = !isInitialActionCompleted
 
     try {
-      const response = await fetch(`/api/talks/${commentableId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': CSRF.getToken()
-        },
+      const response = await patch(`/api/talks/${commentableId}`, {
         body: JSON.stringify({
           talk: { action_completed: isActionCompleted }
         })
