@@ -7,28 +7,24 @@ document.addEventListener('DOMContentLoaded', () => {
     return
   }
   const commentableId = button.dataset.commentableId
-  button.addEventListener('click', () => {
+  button.addEventListener('click', async () => {
     const isInitialActionCompleted =
       button.classList.contains('is-muted-borderd')
     const isActionCompleted = !isInitialActionCompleted
 
-    fetch(`/api/talks/${commentableId}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': CSRF.getToken()
-      },
-      body: JSON.stringify({
-        talk: { action_completed: isActionCompleted }
+    try {
+      const response = await fetch(`/api/talks/${commentableId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': CSRF.getToken()
+        },
+        body: JSON.stringify({
+          talk: { action_completed: isActionCompleted }
+        })
       })
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok')
-        }
-      })
-      .then(() => {
+      if (response.ok) {
         const newButtonText = isActionCompleted ? '対応済です' : '対応済にする'
         const iconClass = isActionCompleted ? 'fa-check' : 'fa-redo'
         const newMessage = isActionCompleted
@@ -49,9 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
           ? '対応済みにしました'
           : '未対応にしました'
         toast(tostMessage, 'success')
-      })
-      .catch((error) => {
-        console.warn(error)
-      })
+      } else {
+        throw new Error('Network response was not ok')
+      }
+    } catch (error) {
+      console.warn(error)
+    }
   })
 })
