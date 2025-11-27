@@ -1,13 +1,13 @@
 import CSRF from 'csrf'
 import { toast } from './vanillaToast'
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
   const button = document.querySelector('.check-button')
   if (!button) {
     return
   }
   const commentableId = button.dataset.commentableId
-  button.addEventListener('click', function () {
+  button.addEventListener('click', () => {
     const isInitialActionCompleted =
       button.classList.contains('is-muted-borderd')
     const isActionCompleted = !isInitialActionCompleted
