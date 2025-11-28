@@ -40,7 +40,12 @@ document.addEventListener('DOMContentLoaded', () => {
           : '未対応にしました'
         toast(tostMessage, 'success')
       } else {
-        throw new Error('Network response was not ok')
+        toast('更新に失敗しました', 'error')
+        const errorText = await response.text
+        console.warn('update action_completed failed', {
+          status: response.statusCode,
+          body: errorText
+        })
       }
     } catch (error) {
       console.warn(error)
