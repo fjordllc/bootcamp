@@ -6,8 +6,14 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!button) {
     return
   }
+
+  let isLoading = false
   const commentableId = button.dataset.commentableId
   button.addEventListener('click', async () => {
+    if (isLoading) return
+
+    isLoading = true
+    button.disabled = true
     const isInitialActionCompleted =
       button.classList.contains('is-muted-borderd')
     const isActionCompleted = !isInitialActionCompleted
@@ -50,5 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (error) {
       console.warn(error)
     }
+
+    isLoading = false
+    button.disabled = false
   })
 })
