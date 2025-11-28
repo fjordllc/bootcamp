@@ -35,10 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
           description.innerHTML = newMessage
         }
 
-        const tostMessage = isActionCompleted
-          ? '対応済みにしました'
-          : '未対応にしました'
-        toast(tostMessage, 'success')
+        toast(
+          isActionCompleted ? '対応済みにしました' : '未対応にしました',
+          'success'
+        )
       } else {
         toast('更新に失敗しました', 'error')
         const errorText = await response.text
