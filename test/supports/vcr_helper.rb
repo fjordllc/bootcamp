@@ -9,8 +9,10 @@ VCR.configure do |c|
   c.hook_into :webmock
 
   # Ignore Discord webhook requests (handled by AbstractNotifier test mode)
+  # Only webhooks are ignored, not the Discord API used by Discord::Server tests
   c.ignore_request do |request|
-    URI(request.uri).host == 'discord.com'
+    uri = URI(request.uri)
+    uri.host == 'discord.com' && uri.path.start_with?('/api/webhooks/')
   end
 
   c.default_cassette_options = {
