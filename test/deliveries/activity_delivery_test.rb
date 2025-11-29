@@ -3,6 +3,14 @@
 require 'test_helper'
 
 class ActivityDeliveryTest < ActiveSupport::TestCase
+  setup do
+    AbstractNotifier::Testing::Driver.clear
+  end
+
+  teardown do
+    AbstractNotifier::Testing::Driver.clear
+  end
+
   test '.notify(:graduated)' do
     params = {
       kind: :graduated,
