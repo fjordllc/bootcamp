@@ -16,6 +16,13 @@ require 'webmock/minitest'
 # Ensure AbstractNotifier uses test mode
 AbstractNotifier.delivery_mode = :test
 
+# Debug output for CI
+if ENV['CI']
+  puts "[DEBUG] AbstractNotifier.test? = #{AbstractNotifier.test?}"
+  puts "[DEBUG] AbstractNotifier.delivery_mode = #{AbstractNotifier.delivery_mode}"
+  puts "[DEBUG] RAILS_ENV = #{ENV['RAILS_ENV']}"
+end
+
 Capybara.default_max_wait_time = 15
 Capybara.disable_animation = true
 Capybara.automatic_reload = false

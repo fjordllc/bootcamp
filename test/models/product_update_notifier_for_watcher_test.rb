@@ -6,6 +6,7 @@ class ProductUpdateNotifierForWatcherTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
   setup do
+    AbstractNotifier.delivery_mode = :test
     AbstractNotifier::Testing::Driver.clear
   end
 

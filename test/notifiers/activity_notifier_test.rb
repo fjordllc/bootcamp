@@ -4,6 +4,7 @@ require 'test_helper'
 
 class ActivityNotifierTest < ActiveSupport::TestCase
   setup do
+    AbstractNotifier.delivery_mode = :test
     AbstractNotifier::Testing::Driver.clear
   end
 
