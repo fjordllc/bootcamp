@@ -8,6 +8,13 @@ VCR.configure do |c|
   c.cassette_library_dir = 'test/cassettes'
   c.hook_into :webmock
 
+  # Discord Webhookリクエストはテスト環境では無視する
+  # （VCRカセット内で明示的に記録している場合を除く）
+  c.ignore_request do |request|
+    uri = URI(request.uri)
+    uri.host == 'discord.com' && uri.path.start_with?('/api/webhooks/')
+  end
+
   c.default_cassette_options = {
     record: :once,
     match_requests_on: %i[method path query body],
