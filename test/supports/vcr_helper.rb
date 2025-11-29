@@ -10,7 +10,8 @@ VCR.configure do |c|
 
   c.default_cassette_options = {
     record: :once,
-    match_requests_on: %i[method path query body]
+    match_requests_on: %i[method path query body],
+    allow_playback_repeats: true
   }
 
   c.before_record do |i|
@@ -34,7 +35,8 @@ module VCRHelper
       match_requests_on: [
         :method,
         VCR.request_matchers.uri_without_param(:source)
-      ]
+      ],
+      allow_playback_repeats: true
     }
   end
 end
