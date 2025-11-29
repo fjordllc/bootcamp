@@ -8,6 +8,11 @@ VCR.configure do |c|
   c.cassette_library_dir = 'test/cassettes'
   c.hook_into :webmock
 
+  # Ignore Discord webhook requests (handled by AbstractNotifier test mode)
+  c.ignore_request do |request|
+    URI(request.uri).host == 'discord.com'
+  end
+
   c.default_cassette_options = {
     record: :once,
     match_requests_on: %i[method path query body],

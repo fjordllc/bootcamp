@@ -13,6 +13,9 @@ require 'supports/vcr_helper'
 require 'abstract_notifier/testing/minitest'
 require 'webmock/minitest'
 
+# Ensure AbstractNotifier uses test mode
+AbstractNotifier.delivery_mode = :test
+
 Capybara.default_max_wait_time = 15
 Capybara.disable_animation = true
 Capybara.automatic_reload = false
