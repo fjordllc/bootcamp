@@ -13,11 +13,6 @@ require 'supports/vcr_helper'
 require 'abstract_notifier/testing/minitest'
 require 'webmock/minitest'
 
-# テスト環境では AbstractNotifier::Testing::Driver を使用する
-# （実際のHTTPリクエストを発生させないため）
-DiscordNotifier.driver = AbstractNotifier::Testing::Driver
-ActivityNotifier.driver = AbstractNotifier::Testing::Driver
-
 Capybara.default_max_wait_time = 15
 Capybara.disable_animation = true
 Capybara.automatic_reload = false
