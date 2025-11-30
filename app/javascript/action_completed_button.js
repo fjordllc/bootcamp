@@ -8,7 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   let isLoading = false
-  const commentableId = button.dataset.commentableId
+  const updatePath = button.dataset.updatePath
+  const modelName = button.dataset.modelName
   button.addEventListener('click', async () => {
     if (isLoading) return
 
@@ -19,9 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const isActionCompleted = !isInitialActionCompleted
 
     try {
-      const response = await patch(`/api/talks/${commentableId}`, {
+      const response = await patch(updatePath, {
         body: JSON.stringify({
-          talk: { action_completed: isActionCompleted }
+          [modelName]: { action_completed: isActionCompleted }
         })
       })
       if (response.ok) {
