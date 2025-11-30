@@ -88,6 +88,9 @@ class ReportsTest < ApplicationSystemTestCase
   test 'create and update learning times in a report' do
     visit_with_auth '/reports/new', 'komagata'
     wait_for_report_form
+
+    initial_count = LearningTime.count
+
     within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
@@ -99,21 +102,25 @@ class ReportsTest < ApplicationSystemTestCase
     all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('08')
     all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
 
-    assert_difference 'LearningTime.count', 1 do
-      click_button '提出'
-    end
+    click_button '提出'
+    assert_text '日報を保存しました。'
+    assert_text '07:30 〜 08:30'
+    assert_equal initial_count + 1, LearningTime.count
 
     click_link '内容修正'
     click_link '学習時間追加'
+
+    count_before_update = LearningTime.count
 
     all('.learning-time')[1].all('.learning-time__started-at select')[0].select('09')
     all('.learning-time')[1].all('.learning-time__started-at select')[1].select('30')
     all('.learning-time')[1].all('.learning-time__finished-at select')[0].select('10')
     all('.learning-time')[1].all('.learning-time__finished-at select')[1].select('30')
 
-    assert_difference 'LearningTime.count', 1 do
-      click_button '内容変更'
-    end
+    click_button '内容変更'
+    assert_text '日報を保存しました。'
+    assert_text '09:30 〜 10:30'
+    assert_equal count_before_update + 1, LearningTime.count
   end
 
   test 'equal practices order in practices and new report' do
