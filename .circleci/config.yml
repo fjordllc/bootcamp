@@ -115,7 +115,7 @@ jobs:
           name: Test
           command: |
             TEST_FILES=$(circleci tests glob "test/**/*_test.rb")
-            echo "$TEST_FILES" | circleci tests run --command="xargs bundle exec rails test $TESTFILES" --verbose --split-by=timings
+            echo "$TEST_FILES" | circleci tests run --command="xargs bundle exec rails test --verbose" --verbose --split-by=timings
           no_output_timeout: 30m
           when: always
       - store_test_results:
