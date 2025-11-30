@@ -42,6 +42,9 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     driven_by(:selenium, using: :headless_chrome) do |driver_option|
       driver_option.add_argument('--no-sandbox')
       driver_option.add_argument('--disable-dev-shm-usage')
+      driver_option.add_argument('--disable-gpu')
+      driver_option.add_argument('--disable-software-rasterizer')
+      driver_option.add_argument('--window-size=1400,1400')
       driver_option.add_argument('enable-blink-features=Clipboard')
       driver_option.add_preference('profile.password_manager_leak_detection', false)
     end
