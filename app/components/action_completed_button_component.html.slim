@@ -4,7 +4,8 @@
       .action-completed
         .action-completed__action
           button.a-button.is-sm.is-block.check-button.is-muted-borderd(
-            data-commentable-id='#{commentable_id}'
+            data-update-path='#{update_path}'
+            data-model-name='#{model_name}'
           )
             i.fas.fa-check
             | 対応済です
@@ -18,7 +19,8 @@
       .action-complete
         .action-completed__action
           button.a-button.is-sm.is-block.check-button.is-warning(
-            data-commentable-id='#{commentable_id}'
+            data-update-path='#{update_path}'
+            data-model-name='#{model_name}'
           )
             i.fas.fa-redo
             | 対応済にする
