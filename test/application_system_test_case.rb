@@ -58,12 +58,18 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     if ENV['CI']
       page.driver.browser.manage.timeouts.page_load = 60 # 60 seconds
       page.driver.browser.manage.timeouts.script = 30 # 30 seconds
+      page.driver.browser.manage.timeouts.implicit_wait = 10 # 10 seconds for element search
     end
+
+    # Set Capybara default wait time for CI (more strict to catch hangs faster)
+    @original_default_max_wait_time = Capybara.default_max_wait_time
+    Capybara.default_max_wait_time = ENV['CI'] ? 15 : 5
   end
 
   teardown do
     ActionMailer::Base.deliveries.clear
     ActiveJob::Base.queue_adapter = @original_adapter
+    Capybara.default_max_wait_time = @original_default_max_wait_time if @original_default_max_wait_time
 
     # Clean up any uploaded test files
     if defined?(ActiveStorage::Blob)
