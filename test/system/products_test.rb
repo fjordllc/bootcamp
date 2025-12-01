@@ -108,6 +108,7 @@ class ProductsTest < ApplicationSystemTestCase
     practice_path = "/practices/#{product.practice.id}"
 
     visit_with_auth "#{product_path}/edit", 'kimura'
+    wait_for_product_form_ready
     click_button '提出する'
     assert_text '提出物を提出しました。'
     visit practice_path
@@ -125,6 +126,7 @@ class ProductsTest < ApplicationSystemTestCase
 
     product.change_learning_status(:submitted)
     visit product_path
+    assert_selector 'button', text: '提出する', wait: 10
     click_button '提出する'
     assert_text '提出物を提出しました。'
     visit "#{product_path}/edit"
@@ -142,12 +144,15 @@ class ProductsTest < ApplicationSystemTestCase
     practice_path = "/practices/#{product.practice.id}"
 
     visit_with_auth "#{product_path}/edit", 'kimura'
+    wait_for_product_form_ready
     product.change_learning_status(:started)
     visit "#{product_path}/edit"
+    wait_for_product_form_ready
     click_button 'WIP'
+    assert_text '提出物をWIPとして保存しました。'
     visit practice_path
 
-    assert find_button(class: 'is-started', disabled: true).matches_css?('.is-active')
+    assert_selector 'button.is-started.is-active[disabled]'
   end
 
   test 'update product' do
@@ -164,8 +169,11 @@ class ProductsTest < ApplicationSystemTestCase
   test 'update product to publish from WIP' do
     product = products(:product1)
     visit_with_auth "/products/#{product.id}/edit", 'mentormentaro'
+    wait_for_product_form_ready
     click_button 'WIP'
+    assert_text '提出物をWIPとして保存しました。'
     visit "/products/#{product.id}"
+    assert_selector 'button', text: '提出する', wait: 10
     click_button '提出する'
     assert_text Time.zone.now.strftime('%Y年%m月%d日')
     assert_text '提出物を更新しました。'
