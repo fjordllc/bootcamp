@@ -56,6 +56,7 @@ class CurrentUserTest < ApplicationSystemTestCase
     visit_with_auth edit_current_user_path, 'kensyu'
     fill_in 'user_training_ends_on', with: training_ends_on
     click_on '更新する'
+    assert_text 'ユーザー情報を更新しました。'
     visit_with_auth edit_current_user_path, 'kensyu'
     assert_field 'user_training_ends_on', with: training_ends_on.to_s
   end
@@ -111,6 +112,7 @@ class CurrentUserTest < ApplicationSystemTestCase
     fill_in 'user[retired_on]', with: '2022-05-01'.to_date
 
     click_on '更新する'
+    assert_text 'ユーザー情報を更新しました。'
 
     visit_with_auth '/current_user/edit', 'komagata'
 
@@ -124,6 +126,7 @@ class CurrentUserTest < ApplicationSystemTestCase
     check '卒業', allow_label_click: true
     fill_in 'user[graduated_on]', with: '2022-05-01'.to_date
     click_on '更新する'
+    assert_text 'ユーザー情報を更新しました。'
 
     assert_match user.reload.graduated_on.to_s, '2022-05-01'
   end
@@ -181,6 +184,7 @@ class CurrentUserTest < ApplicationSystemTestCase
 
     find('label[for=register_address_no]').click
     click_on '更新する'
+    assert_text 'ユーザー情報を更新しました。'
 
     assert_nil user.reload.country_code
     assert_nil user.reload.subdivision_code
@@ -204,6 +208,7 @@ class CurrentUserTest < ApplicationSystemTestCase
     find('label[for=other_editor]').click
     fill_in 'other_input', with: 'textbringer'
     click_on '更新する'
+    assert_text 'ユーザー情報を更新しました。'
 
     assert_text 'textbringer'
   end
@@ -221,6 +226,7 @@ class CurrentUserTest < ApplicationSystemTestCase
     visit_with_auth '/current_user/edit', 'komagata'
     uncheck 'メンター', allow_label_click: true
     click_on '更新する'
+    assert_text 'ユーザー情報を更新しました。'
 
     assert_not users(:komagata).reload.mentor
   end
@@ -229,6 +235,7 @@ class CurrentUserTest < ApplicationSystemTestCase
     visit_with_auth '/current_user/edit', 'komagata'
     fill_in 'サブスクリプションID', with: 'sub_987654321'
     click_on '更新する'
+    assert_text 'ユーザー情報を更新しました。'
 
     assert_match users(:komagata).reload.subscription_id, 'sub_987654321'
   end
