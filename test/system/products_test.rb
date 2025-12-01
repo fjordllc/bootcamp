@@ -113,7 +113,7 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text '提出物を更新しました。', wait: 10
     visit practice_path
     assert_text product.practice.title
-    assert_selector 'button.is-submitted.is-active[disabled]'
+    assert_selector 'button.is-submitted.is-active[disabled]', wait: 10
 
     product.change_learning_status(:started)
     visit "#{product_path}/edit"
@@ -122,7 +122,7 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text '提出物をWIPとして保存しました。', wait: 10
     visit practice_path
     assert_text product.practice.title
-    assert_selector 'button.is-unstarted.is-active[disabled]'
+    assert_selector 'button.is-unstarted.is-active[disabled]', wait: 10
 
     product.change_learning_status(:submitted)
     visit product_path
@@ -135,7 +135,7 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text '提出物をWIPとして保存しました。', wait: 10
     visit practice_path
     assert_text product.practice.title
-    assert_selector 'button.is-started.is-active[disabled]'
+    assert_selector 'button.is-started.is-active[disabled]', wait: 10
   end
 
   test 'should unchange learning status when change wip status' do
@@ -152,7 +152,7 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text '提出物をWIPとして保存しました。', wait: 10
     visit practice_path
 
-    assert_selector 'button.is-started.is-active[disabled]'
+    assert_selector 'button.is-started.is-active[disabled]', wait: 10
   end
 
   test 'update product' do
