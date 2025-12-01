@@ -110,7 +110,7 @@ class ProductsTest < ApplicationSystemTestCase
     visit_with_auth "#{product_path}/edit", 'kimura'
     wait_for_product_form_ready
     click_button '提出する'
-    assert_text '提出物を提出しました。', wait: 10
+    assert_text '提出物を更新しました。', wait: 10
     visit practice_path
     assert_text product.practice.title
     assert_selector 'button.is-submitted.is-active[disabled]'
@@ -126,9 +126,9 @@ class ProductsTest < ApplicationSystemTestCase
 
     product.change_learning_status(:submitted)
     visit product_path
-    assert_selector 'button', text: '提出する', wait: 10
+    assert_selector 'input[type="submit"][value="提出する"]', wait: 10
     click_button '提出する'
-    assert_text '提出物を提出しました。', wait: 10
+    assert_text '提出物を更新しました。', wait: 10
     visit "#{product_path}/edit"
     wait_for_product_form_ready
     click_button 'WIP'
