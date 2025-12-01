@@ -53,6 +53,12 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   setup do
     @original_adapter = ActiveJob::Base.queue_adapter
     ActiveJob::Base.queue_adapter = :inline
+
+    # Set Selenium timeouts to prevent hanging tests in CI
+    if ENV['CI']
+      page.driver.browser.manage.timeouts.page_load = 60 # 60 seconds
+      page.driver.browser.manage.timeouts.script = 30 # 30 seconds
+    end
   end
 
   teardown do
