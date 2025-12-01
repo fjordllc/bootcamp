@@ -82,6 +82,7 @@ class RegularEventsTest < ApplicationSystemTestCase
   end
 
   test 'show regular event as WIP' do
+    original_count = RegularEvent.count
     visit_with_auth new_regular_event_path, 'komagata'
     within 'form[name=regular_event]' do
       fill_in 'regular_event[title]', with: 'WIPの定期イベント表示確認用'
@@ -92,10 +93,10 @@ class RegularEventsTest < ApplicationSystemTestCase
       fill_in 'regular_event[start_at]', with: Time.zone.parse('21:00')
       fill_in 'regular_event[end_at]', with: Time.zone.parse('22:00')
       fill_in 'regular_event[description]', with: '定期イベントがWIPのときの次回開催日時の表示確認を行うための定期イベント'
-      assert_difference 'RegularEvent.count', 1 do
-        click_button 'WIP'
-      end
+      click_button 'WIP'
     end
+    assert_text '定期イベントをWIPとして保存しました。', wait: 10
+    assert_equal original_count + 1, RegularEvent.count
 
     visit_with_auth regular_event_path(RegularEvent.last), 'komagata'
     assert_equal 'WIPの定期イベント表示確認用 | FBC', title
@@ -364,6 +365,7 @@ class RegularEventsTest < ApplicationSystemTestCase
   end
 
   test 'join event user to organizers automatically' do
+    original_count = RegularEvent.count
     visit_with_auth new_regular_event_path, 'hajime'
     within 'form[name=regular_event]' do
       fill_in 'regular_event[title]', with: 'ブルーベリー本輪読会'
@@ -374,11 +376,10 @@ class RegularEventsTest < ApplicationSystemTestCase
       fill_in 'regular_event[start_at]', with: Time.zone.parse('19:00')
       fill_in 'regular_event[end_at]', with: Time.zone.parse('20:00')
       fill_in 'regular_event[description]', with: '予習不要です'
-      assert_difference 'RegularEvent.count', 1 do
-        click_button '作成'
-      end
+      click_button '作成'
     end
-    assert_text '定期イベントを作成しました。'
+    assert_text '定期イベントを作成しました。', wait: 10
+    assert_equal original_count + 1, RegularEvent.count
     assert_text '毎週金曜日'
     assert_text 'Watch中'
     assert_css '.a-user-icon.is-hajime'
