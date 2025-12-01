@@ -109,30 +109,31 @@ class ProductsTest < ApplicationSystemTestCase
 
     visit_with_auth "#{product_path}/edit", 'kimura'
     click_button '提出する'
+    assert_text '提出物を提出しました。'
     visit practice_path
     assert_text product.practice.title
-
-    assert find_button(class: 'is-submitted', disabled: true).matches_css?('.is-active')
+    assert_selector 'button.is-submitted.is-active[disabled]'
 
     product.change_learning_status(:started)
     visit "#{product_path}/edit"
     wait_for_product_form_ready
     click_button 'WIP'
+    assert_text '提出物をWIPとして保存しました。'
     visit practice_path
     assert_text product.practice.title
-
-    assert find_button(class: 'is-unstarted', disabled: true).matches_css?('.is-active')
+    assert_selector 'button.is-unstarted.is-active[disabled]'
 
     product.change_learning_status(:submitted)
     visit product_path
     click_button '提出する'
+    assert_text '提出物を提出しました。'
     visit "#{product_path}/edit"
     wait_for_product_form_ready
     click_button 'WIP'
+    assert_text '提出物をWIPとして保存しました。'
     visit practice_path
     assert_text product.practice.title
-
-    assert find_button(class: 'is-started', disabled: true).matches_css?('.is-active')
+    assert_selector 'button.is-started.is-active[disabled]'
   end
 
   test 'should unchange learning status when change wip status' do
