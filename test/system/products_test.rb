@@ -102,9 +102,7 @@ class ProductsTest < ApplicationSystemTestCase
     assert_equal first('.test-product').text, '提出物へ'
   end
 
-  # TODO: このテストはLearningStatusUpdaterの複雑な条件に依存しており、フレーキーです。
-  # 安定化のために一時的にスキップしています。
-  test 'should change learning status when change wip status', skip: 'flaky test - depends on complex learning status conditions' do
+  test 'should change learning status when change wip status' do
     product = products(:product5)
     product_path = "/products/#{product.id}"
     practice_path = "/practices/#{product.practice.id}"
@@ -117,6 +115,8 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text product.practice.title
     assert_selector 'button.is-submitted.is-active[disabled]', wait: 10
 
+    # Phase 2: When previous_learning.status == 'started', WIP returns :started
+    # because: started_practice && previous_learning.status != 'started' is false
     product.change_learning_status(:started)
     visit "#{product_path}/edit"
     wait_for_product_form_ready
@@ -124,7 +124,13 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text '提出物をWIPとして保存しました。', wait: 10
     visit practice_path
     assert_text product.practice.title
-    assert_selector 'button.is-unstarted.is-active[disabled]', wait: 10
+    assert_selector 'button.is-started.is-active[disabled]', wait: 10
+
+    # Phase 3: When previous_learning.status == 'submitted' and another started practice exists,
+    # WIP returns :unstarted because: started_practice && previous_learning.status != 'started' is true
+    # Create another started learning for kimura
+    other_product = products(:product8)
+    other_product.change_learning_status(:started)
 
     product.change_learning_status(:submitted)
     visit product_path
@@ -137,7 +143,7 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text '提出物をWIPとして保存しました。', wait: 10
     visit practice_path
     assert_text product.practice.title
-    assert_selector 'button.is-started.is-active[disabled]', wait: 10
+    assert_selector 'button.is-unstarted.is-active[disabled]', wait: 10
   end
 
   test 'should unchange learning status when change wip status' do
