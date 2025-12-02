@@ -47,6 +47,24 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       driver_option.add_argument('--window-size=1400,1400')
       driver_option.add_argument('enable-blink-features=Clipboard')
       driver_option.add_preference('profile.password_manager_leak_detection', false)
+
+      # Additional stability options for CI
+      if ENV['CI']
+        driver_option.add_argument('--disable-extensions')
+        driver_option.add_argument('--disable-background-networking')
+        driver_option.add_argument('--disable-sync')
+        driver_option.add_argument('--disable-translate')
+        driver_option.add_argument('--disable-default-apps')
+        driver_option.add_argument('--disable-hang-monitor')
+        driver_option.add_argument('--disable-popup-blocking')
+        driver_option.add_argument('--disable-prompt-on-repost')
+        driver_option.add_argument('--disable-client-side-phishing-detection')
+        driver_option.add_argument('--disable-component-update')
+        driver_option.add_argument('--metrics-recording-only')
+        driver_option.add_argument('--safebrowsing-disable-auto-update')
+        driver_option.add_argument('--ignore-certificate-errors')
+        driver_option.add_argument('--single-process')
+      end
     end
   end
 
@@ -64,12 +82,37 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     # Set Capybara default wait time for CI (more strict to catch hangs faster)
     @original_default_max_wait_time = Capybara.default_max_wait_time
     Capybara.default_max_wait_time = ENV['CI'] ? 15 : 5
+
+    # Log test start for CI debugging (helps identify hanging tests)
+    puts "[TEST START] #{self.class.name}##{name}" if ENV['CI']
   end
 
   teardown do
+    # Log test completion for CI debugging
+    puts "[TEST END] #{self.class.name}##{name}" if ENV['CI']
+
     ActionMailer::Base.deliveries.clear
     ActiveJob::Base.queue_adapter = @original_adapter
     Capybara.default_max_wait_time = @original_default_max_wait_time if @original_default_max_wait_time
+
+    # Reset browser state to prevent hanging on next test
+    if ENV['CI']
+      begin
+        # Clear browser alerts if present
+        page.driver.browser.switch_to.alert.accept
+      rescue Selenium::WebDriver::Error::NoSuchAlertError
+        # No alert present, ignore
+      rescue StandardError
+        # Ignore other errors
+      end
+
+      begin
+        # Navigate away to ensure clean state
+        visit 'about:blank'
+      rescue StandardError
+        # Ignore navigation errors
+      end
+    end
 
     # Clean up any uploaded test files
     if defined?(ActiveStorage::Blob)
