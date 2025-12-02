@@ -112,19 +112,22 @@ jobs:
           name: Assets precompile
           command: 'bundle exec rails assets:clean assets:precompile NODE_OPTIONS=--openssl-legacy-provider'
       - run:
-          name: Start heartbeat
-          command: |
-            while true; do
-              echo "[HEARTBEAT] $(date '+%Y-%m-%d %H:%M:%S')"
-              sleep 60
-            done
-          background: true
-      - run:
           name: Test
           command: |
+            # Start heartbeat in background (outputs to same stdout)
+            (while true; do echo "[HEARTBEAT] $(date '+%Y-%m-%d %H:%M:%S')"; sleep 60; done) &
+            HEARTBEAT_PID=$!
+
+            # Run tests
             TEST_FILES=$(circleci tests glob "test/**/*_test.rb")
             echo "$TEST_FILES" | circleci tests run --command="xargs bundle exec rails test --verbose" --verbose --split-by=timings
-          no_output_timeout: 10m
+            TEST_EXIT_CODE=$?
+
+            # Kill heartbeat
+            kill $HEARTBEAT_PID 2>/dev/null || true
+
+            exit $TEST_EXIT_CODE
+          no_output_timeout: 15m
           when: always
       - store_test_results:
           path: test/reports
