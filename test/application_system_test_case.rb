@@ -52,18 +52,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       if ENV['CI']
         driver_option.add_argument('--disable-extensions')
         driver_option.add_argument('--disable-background-networking')
-        driver_option.add_argument('--disable-sync')
-        driver_option.add_argument('--disable-translate')
         driver_option.add_argument('--disable-default-apps')
-        driver_option.add_argument('--disable-hang-monitor')
-        driver_option.add_argument('--disable-popup-blocking')
-        driver_option.add_argument('--disable-prompt-on-repost')
-        driver_option.add_argument('--disable-client-side-phishing-detection')
-        driver_option.add_argument('--disable-component-update')
-        driver_option.add_argument('--metrics-recording-only')
-        driver_option.add_argument('--safebrowsing-disable-auto-update')
-        driver_option.add_argument('--ignore-certificate-errors')
-        driver_option.add_argument('--single-process')
       end
     end
   end
