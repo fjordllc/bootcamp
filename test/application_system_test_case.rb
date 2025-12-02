@@ -62,15 +62,11 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     ActiveJob::Base.queue_adapter = :inline
 
     # Set Selenium timeouts to prevent hanging tests in CI
+    # Note: implicit_wait is intentionally set to 0 to use Capybara's wait mechanism instead
     if ENV['CI']
       page.driver.browser.manage.timeouts.page_load = 60 # 60 seconds
       page.driver.browser.manage.timeouts.script = 30 # 30 seconds
-      page.driver.browser.manage.timeouts.implicit_wait = 10 # 10 seconds for element search
     end
-
-    # Set Capybara default wait time for CI (more strict to catch hangs faster)
-    @original_default_max_wait_time = Capybara.default_max_wait_time
-    Capybara.default_max_wait_time = ENV['CI'] ? 15 : 5
 
     # Log test start for CI debugging (helps identify hanging tests)
     puts "[TEST START] #{self.class.name}##{name}" if ENV['CI']
@@ -82,34 +78,5 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
     ActionMailer::Base.deliveries.clear
     ActiveJob::Base.queue_adapter = @original_adapter
-    Capybara.default_max_wait_time = @original_default_max_wait_time if @original_default_max_wait_time
-
-    # Reset browser state to prevent hanging on next test
-    if ENV['CI']
-      begin
-        # Clear browser alerts if present
-        page.driver.browser.switch_to.alert.accept
-      rescue Selenium::WebDriver::Error::NoSuchAlertError
-        # No alert present, ignore
-      rescue StandardError
-        # Ignore other errors
-      end
-
-      begin
-        # Navigate away to ensure clean state
-        visit 'about:blank'
-      rescue StandardError
-        # Ignore navigation errors
-      end
-    end
-
-    # Clean up any uploaded test files
-    if defined?(ActiveStorage::Blob)
-      begin
-        ActiveStorage::Blob.unattached.where('created_at < ?', 1.hour.ago).find_each(&:purge)
-      rescue StandardError
-        # Ignore cleanup errors in tests
-      end
-    end
   end
 end
