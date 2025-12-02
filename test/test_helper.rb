@@ -35,7 +35,8 @@ class ActiveSupport::TestCase
   include VCRHelper
 
   # Run tests in parallel with specified workers
-  parallelize(workers: :number_of_processors)
+  # In CI, use PARALLEL_WORKERS env var; locally use number_of_processors
+  parallelize(workers: ENV['CI'] ? (ENV['PARALLEL_WORKERS']&.to_i || 2) : :number_of_processors)
 
   # Setup for each parallel process
   parallelize_setup do |_worker|
@@ -49,12 +50,27 @@ class ActiveSupport::TestCase
   setup do
     ActiveStorage::Current.url_options = { protocol: 'http', host: 'localhost', port: '3000' }
     ActiveJob::Base.queue_adapter = :test
+    # Log test start for CI debugging (helps identify hanging tests)
+    puts "[TEST START] #{self.class.name}##{name}" if ENV['CI']
+  end
+
+  teardown do
+    # Log test completion for CI debugging
+    puts "[TEST END] #{self.class.name}##{name}" if ENV['CI']
   end
 end
 
 class ActionDispatch::IntegrationTest
   include Sorcery::TestHelpers::Rails::Integration
   include APIHelper
+
+  setup do
+    puts "[TEST START] #{self.class.name}##{name}" if ENV['CI']
+  end
+
+  teardown do
+    puts "[TEST END] #{self.class.name}##{name}" if ENV['CI']
+  end
 end
 
 ActiveSupport.on_load(:action_dispatch_system_test_case) do
