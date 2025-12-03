@@ -18,9 +18,13 @@ class Admin::InvitationUrlTest < ApplicationSystemTestCase
   end
 
   def wait_for_invitation_url_with_timeout(expected)
-    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
-      loop until find('.js-invitation-url-text').value == expected && find('.js-invitation-url')[:href] == expected
+    max_attempts = 30
+    max_attempts.times do
+      return if find('.js-invitation-url-text').value == expected && find('.js-invitation-url')[:href] == expected
+
+      sleep 0.5
     end
+    raise 'Invitation URL did not match expected value within timeout'
   end
 
   test 'show invitation-url page' do

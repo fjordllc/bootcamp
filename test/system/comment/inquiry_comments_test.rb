@@ -46,11 +46,13 @@ class InquiryCommentsTest < ApplicationSystemTestCase
       find('.thread-comment-form, .thread-comment')
     end
 
-    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
-      until find('#js-new-comment').value == '絵文字の補完テスト: 😺 '
-        find('#js-new-comment').set('')
-        find('#js-new-comment').set("絵文字の補完テスト: :cat\n")
-      end
+    max_attempts = 10
+    max_attempts.times do |attempt|
+      find('#js-new-comment').set('')
+      find('#js-new-comment').set("絵文字の補完テスト: :cat\n")
+      break if find('#js-new-comment').value == '絵文字の補完テスト: 😺 '
+
+      sleep 0.5 if attempt < max_attempts - 1
     end
 
     click_button 'コメントする'

@@ -12,8 +12,14 @@ class MentionAndInteractionTest < ApplicationSystemTestCase
       # Fallback: wait for comments section or form to be present
       find('.thread-comment-form, .thread-comment')
     end
-    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
-      find('#js-new-comment').set('@') until has_selector?('span.mention', wait: false)
+    # Type @ and wait for mention suggestion with retry and timeout
+    max_attempts = 10
+    max_attempts.times do |attempt|
+      find('#js-new-comment').set('@')
+      break if has_selector?('span.mention', wait: 2)
+
+      # Clear and retry if mention didn't appear
+      find('#js-new-comment').set('') if attempt < max_attempts - 1
     end
     assert_selector 'span.mention', text: 'mentor'
   end
