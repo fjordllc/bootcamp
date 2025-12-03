@@ -1,5 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/size"
 @use "../../../config/mixins/text"
 
 .company-profile__header
@@ -30,9 +29,11 @@
   object-fit: contain
   border-radius: .25rem
   +break-points.media-breakpoint-up(md)
-    +size.size(4.5rem)
+    width: 4.5rem
+    height: 4.5rem
   +break-points.media-breakpoint-down(sm)
-    +size.size(3.5rem)
+    width: 3.5rem
+    height: 3.5rem
 
 .company-profile__name
   font-weight: 800
