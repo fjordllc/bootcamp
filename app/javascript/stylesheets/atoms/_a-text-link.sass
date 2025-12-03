@@ -1,22 +1,25 @@
+@use "../config/mixins/link"
+@use "../config/variables/colors"
+
 .a-text-link
-  +hover-link-reversal
-  +default-link
+  +link.hover-link-reversal
+  +colors.default-link
   &.has-badge
     text-decoration: none
     .a-text-link__text
-      +hover-link-reversal
-      +default-link
+      +link.hover-link-reversal
+      +colors.default-link
 
 .a-hover-link
-  +hover-link
+  +link.hover-link
 
 .a-hover-link-reversal
-  +hover-link-reversal
+  +link.hover-link-reversal
 
 .a-reversal-text-link
-  +hover-link-reversal
-  +reversal-link
+  +link.hover-link-reversal
+  +colors.reversal-link
 
 .a-muted-text-link
-  +hover-link-reversal
-  +muted-link
+  +link.hover-link-reversal
+  +colors.muted-link

@@ -1,12 +1,16 @@
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/size"
+@use "../../../config/mixins/text"
+
 .company-profile__header
   padding: 1rem
   .company-links__items
     justify-content: flex-start
 
 .company-profile__header-inner
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     display: flex
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     text-align: center
 
 .company-profile__header-start
@@ -16,7 +20,7 @@
   flex: 1
 
 .company-profile__logo
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     position: static
     text-align: center
     margin-bottom: .25rem
@@ -25,24 +29,24 @@
   background-color: var(--base)
   object-fit: contain
   border-radius: .25rem
-  +media-breakpoint-up(md)
-    +size(4.5rem)
-  +media-breakpoint-down(sm)
-    +size(3.5rem)
+  +break-points.media-breakpoint-up(md)
+    +size.size(4.5rem)
+  +break-points.media-breakpoint-down(sm)
+    +size.size(3.5rem)
 
 .company-profile__name
   font-weight: 800
   color: var(--main-text)
-  +media-breakpoint-up(md)
-    +text-block(1.5rem 1.45)
-  +media-breakpoint-down(sm)
-    +text-block(1.25rem 1.45)
+  +break-points.media-breakpoint-up(md)
+    +text.text-block(1.5rem 1.45)
+  +break-points.media-breakpoint-down(sm)
+    +text.text-block(1.25rem 1.45)
 
 .company-profile__body
   padding: 1rem
 
 .company-profile__description
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     font-size: .9375rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     font-size: .8125rem

@@ -1,5 +1,11 @@
+@use "../../config/mixins/break-points"
+@use "../../config/mixins/link"
+@use "../../config/mixins/position"
+@use "../../config/mixins/size"
+@use "../../config/mixins/text"
+
 .global-nav
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     background-color: transparent
 
 .global-nav__background.a-overlay
@@ -12,15 +18,15 @@
     display: block
 
 .global-nav__inner
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     background-color: var(--main)
-    +size(var(--global-nav-width) 100%)
-    +position(fixed, left 0, top 0, bottom 0, 3)
+    +size.size(var(--global-nav-width) 100%)
+    +position.position(fixed, left 0, top 0, bottom 0, 3)
     overflow-y: auto
 
 .global-nav-links__link
   position: relative
-  +flex-link
+  +link.flex-link
   white-space: nowrap
   align-items: center
   justify-content: center
@@ -28,11 +34,11 @@
   color: var(--reversal-text)
   transition: color .2s ease-in, background-color .2s ease-in
   width: 100%
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     flex-direction: column
     height: 4.125rem
     gap: .25rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     flex-direction: row
     height: 2.75rem
     padding-inline: 1rem
@@ -44,23 +50,23 @@
     color: var(--main)
 
 .global-nav-links__link-icon
-  +media-breakpoint-up(md)
-    +text-block(1.125rem 1 0 .25rem, center)
-  +media-breakpoint-down(sm)
-    +text-block(1rem 1, center)
+  +break-points.media-breakpoint-up(md)
+    +text.text-block(1.125rem 1 0 .25rem, center)
+  +break-points.media-breakpoint-down(sm)
+    +text.text-block(1rem 1, center)
     margin-right: .5rem
   .fa-rocket
     font-size: 1.15em
 
 .global-nav-links__link-label
-  +text-block(.625rem 1.2, center)
-  +media-breakpoint-down(sm)
+  +text.text-block(.625rem 1.2, center)
+  +break-points.media-breakpoint-down(sm)
     font-size: .875rem
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     &.is-sm
       transform: scale(.875)
       margin-top: -.125rem
       line-height: 1.2
 
 .global-nav__item-count
-  +position(right .25rem, top .25rem)
+  +position.position(right .25rem, top .25rem)

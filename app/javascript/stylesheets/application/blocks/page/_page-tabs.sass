@@ -1,3 +1,9 @@
+@use "../../../config/mixins/border-radius"
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/link"
+@use "../../../config/mixins/position"
+@use "../../../config/mixins/text"
+
 .page-tabs
   background-color: var(--base)
   border-bottom: solid 1px var(--border)
@@ -12,26 +18,26 @@
   padding-inline: 1rem
 
 .page-tabs__item
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     min-width: 8.5rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     min-width: 7rem
 
 .page-tabs__item-link
-  +flex-link
-  +text-block(.825rem 1, 600 nowrap)
+  +link.flex-link
+  +text.text-block(.825rem 1, 600 nowrap)
   color: var(--muted-text)
   align-items: center
   justify-content: center
   background-color: var(--base)
   padding-inline: 1.25rem
-  +border-radius(top, .25rem)
+  +border-radius.border-radius(top, .25rem)
   border: solid 1px var(--border)
-  +position(relative)
+  +position.position(relative)
   transition: all .2s ease-out
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     height: 2.5rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     height: 2.75rem
     font-size: .75rem
   &:hover
@@ -49,4 +55,4 @@
     background-color: var(--background-semi-shade)
 
 .page-tabs__item-count
-  +position(right .125rem, top .125rem)
+  +position.position(right .125rem, top .125rem)

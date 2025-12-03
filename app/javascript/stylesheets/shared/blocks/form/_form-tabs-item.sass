@@ -1,3 +1,5 @@
+@use "../../../config/mixins/text"
+
 .form-tabs-item__markdown
   height: 100%
   display: none
@@ -10,5 +12,5 @@
 
 .form-tabs-item__preview
   background-color: var(--base)
-  +text-block(.875rem 1.8)
+  +text.text-block(.875rem 1.8)
   min-height: 9rem

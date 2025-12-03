@@ -1,3 +1,10 @@
+@use "../../../config/mixins/border-radius"
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/font-awsome"
+@use "../../../config/mixins/position"
+@use "../../../config/mixins/size"
+@use "../../../config/mixins/text"
+
 .form-item
   &:not(:last-child)
     margin-bottom: 1.75rem
@@ -32,7 +39,7 @@
     &.is-centered
       justify-content: center
   &.is-inline-md-up
-    +media-breakpoint-up(md)
+    +break-points.media-breakpoint-up(md)
       display: flex
       align-items: center
       .a-form-label
@@ -60,15 +67,15 @@
   margin-top: .75rem
 
 .form-item__one-checkbox
-  +text-block(.875rem)
+  +text.text-block(.875rem)
   cursor: pointer
 
 .form-item__pp
   p
-    +text-block(.8125rem 1.8)
+    +text.text-block(.8125rem 1.8)
     margin-bottom: 1em
   h2
-    +text-block(.8125rem 1.8)
+    +text.text-block(.8125rem 1.8)
     margin-bottom: .4em
     font-weight: 700
   ul
@@ -76,7 +83,7 @@
     list-style: disc outside
     margin-left: 1.5rem
   li
-    +text-block(.8125rem 1.8)
+    +text.text-block(.8125rem 1.8)
     margin-bottom: .4em
   *:last-child
     margin-bottom: 0
@@ -85,15 +92,15 @@
   position: relative
   &::before
     content: '@'
-    +fa(far '\f1fa')
-    +text-block(1rem 1)
+    +font-awsome.fa(far '\f1fa')
+    +text.text-block(1rem 1)
     display: flex
     align-items: center
     justify-content: center
-    +size(2rem 100%)
-    +position(absolute, left 0, top 0)
+    +size.size(2rem 100%)
+    +position.position(absolute, left 0, top 0)
     background-color: var(--background)
-    +border-radius(left, .25rem)
+    +border-radius.border-radius(left, .25rem)
     border: solid 1px #c1c5b9
   input
     padding-left: 2.5rem
@@ -127,9 +134,9 @@
   font-weight: 400
 
 .form-item__add-times
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     margin-top: -.125rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     margin-top: -1.25rem
 
 .form-item__add-choice

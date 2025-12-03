@@ -1,3 +1,5 @@
+@use "../../config/mixins/break-points"
+
 html
 
   *[hidden],
@@ -6,23 +8,23 @@ html
 
   body
     .is-hidden-lg-up
-      +media-breakpoint-up(lg)
+      +break-points.media-breakpoint-up(lg)
         display: none
 
     .is-hidden-lg-down
-      +media-breakpoint-down(lg)
+      +break-points.media-breakpoint-down(lg)
         display: none
 
     .is-hidden-md-up
-      +media-breakpoint-up(md)
+      +break-points.media-breakpoint-up(md)
         display: none !important
 
     .is-hidden-md-down
-      +media-breakpoint-down(md)
+      +break-points.media-breakpoint-down(md)
         display: none
 
     .is-hidden-sm-down
-      +media-breakpoint-down(sm)
+      +break-points.media-breakpoint-down(sm)
         display: none
 
 .is-only-mentor

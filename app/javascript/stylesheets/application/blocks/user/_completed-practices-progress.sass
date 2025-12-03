@@ -1,3 +1,7 @@
+@use "../../../config/mixins/position"
+@use "../../../config/mixins/size"
+@use "../../../config/mixins/text"
+
 $bar-height: .75rem
 .completed-practices-progress
   padding: .75rem 1rem
@@ -12,13 +16,13 @@ $bar-height: .75rem
   overflow: hidden
 
 .completed-practices-progress__bar
-  +size(100% $bar-height)
+  +size.size(100% $bar-height)
   background-color: var(--background-semi-shade)
 
 .completed-practices-progress__percentage-bar
   height: $bar-height
   background-color: var(--success)
-  +position(relative, top $bar-height * -1)
+  +position.position(relative, top $bar-height * -1)
   box-shadow: rgba(black, .2) 0 .0625rem .0625rem
 
 .completed-practices-progress__counts
@@ -33,7 +37,7 @@ $bar-height: .75rem
       text-decoration: underline
 
 .completed-practices-progress__percentage
-  +text-block(.8125rem, right nowrap)
+  +text.text-block(.8125rem, right nowrap)
 
 .completed-practices-progress__number
   position: absolute
@@ -42,7 +46,7 @@ $bar-height: .75rem
   background-color: var(--base)
   border: solid 1px var(--border)
   padding: .25rem .5rem
-  +text-block(.8125rem 1.4, right nowrap)
+  +text.text-block(.8125rem 1.4, right nowrap)
   border-radius: .25rem
 
 .completed-practices-progress__counts

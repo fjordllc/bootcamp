@@ -1,7 +1,10 @@
+@use "../config/mixins/size"
+@use "../config/mixins/text"
+
 .a-help
-  +text-block(.75em 1, inline-flex)
+  +text.text-block(.75em 1, inline-flex)
   color: var(--reversal-text)
-  +size(1.75em)
+  +size.size(1.75em)
   text-decoration: none
   background-color: var(--muted-text)
   vertical-align: middle

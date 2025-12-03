@@ -1,3 +1,5 @@
+@use "../../../config/mixins/break-points"
+
 .sns-links
   margin-top: .5rem
   display: flex
@@ -6,7 +8,7 @@
   justify-content: space-between
 
 .sns-links__items
-  +media-breakpoint-down(xs)
+  +break-points.media-breakpoint-down(xs)
     justify-content: center
 
 .sns-links__item-link

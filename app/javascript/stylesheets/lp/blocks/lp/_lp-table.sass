@@ -1,9 +1,11 @@
+@use "../../../config/mixins/text"
+
 .lp-table
   width: 100%
   background-color: var(--base)
   th,
   td
-    +text-block(.8125rem 1.5)
+    +text.text-block(.8125rem 1.5)
     padding: .5rem 1rem
     border: solid 1px var(--border)
     text-align: left

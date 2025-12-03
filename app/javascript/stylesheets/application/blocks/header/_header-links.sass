@@ -1,3 +1,8 @@
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/link"
+@use "../../../config/mixins/position"
+@use "../../../config/mixins/text"
+
 .header-links
   height: 100%
   display: flex
@@ -11,24 +16,24 @@
   display: flex
   height: 100%
   border-left: solid var(--border-tint) .0625rem
-  +position(relative)
+  +position.position(relative)
   transition: color .2s ease-in, background-color .2s ease-in
 
 .header-links__link
-  +flex-link
+  +link.flex-link
   flex-direction: column
   align-items: center
   justify-content: center
   height: 100%
-  +text-block(1em 1)
+  +text.text-block(1em 1)
   color: var(--default-text)
-  +position(relative)
+  +position.position(relative)
   transition: all .2s ease-in
   cursor: pointer
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     font-size: 1.375rem
     width: 3.75rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     font-size: 1.125rem
     width: 2.75rem
   &:hover
@@ -39,24 +44,24 @@
 
 .header-links__link-label
   margin-top: .375em
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     font-size: .6875rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     font-size: .625rem
 
 .header-links__link-count
-  +position(right .25rem, top .25rem)
+  +position.position(right .25rem, top .25rem)
 
 .header-links__image
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     width: 1.5rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     width: 1.125rem
 
 .header-links__link-icon
-  +text-block(1.25rem 1)
+  +text.text-block(1.25rem 1)
   text-align: center
-  +media-breakpoint-down(sm)
-    +text-block(1.125rem 1)
+  +break-points.media-breakpoint-down(sm)
+    +text.text-block(1.125rem 1)
     .has-count &
       color: var(--default-text)

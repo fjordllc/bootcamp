@@ -1,18 +1,24 @@
+@use "../../../config/mixins/border"
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/position"
+@use "../../../config/mixins/size"
+@use "../../../config/mixins/text"
+
 .stamp
   border: solid 1px var(--stamp-color)
   border-radius: .75rem
   pointer-events: none
-  +size(4rem 3.5rem)
-  +position(absolute, right -.25rem, top 0)
+  +size.size(4rem 3.5rem)
+  +position.position(absolute, right -.25rem, top 0)
   transform: rotate(25deg)
-  +text-block(.625rem 1, block center 400)
+  +text.text-block(.625rem 1, block center 400)
   color: var(--stamp-color)
   font-feature-settings: "palt"
   letter-spacing: 0
-  +media-breakpoint-down(sm)
-    +position(right 0, top 0)
+  +break-points.media-breakpoint-down(sm)
+    +position.position(right 0, top 0)
   &.is-circle
-    +size(3.5rem)
+    +size.size(3.5rem)
     border-radius: 50%
   &.is-solved
     display: flex
@@ -29,8 +35,8 @@
     font-family: serif
     justify-content: center
   &.is-sm
-    +size(4.125em 2.25rem)
-    +position(absolute, right .5rem, top .5rem)
+    +size.size(4.125em 2.25rem)
+    +position.position(absolute, right .5rem, top .5rem)
     border-radius: .5rem
     display: flex
     align-items: center
@@ -41,10 +47,10 @@
   justify-content: center
   &.is-title,
   &.is-user-name
-    +size(100% 32%)
+    +size.size(100% 32%)
   &.is-created-at
-    +size(100% 36%)
-    +border(vertical, solid 1px var(--stamp-color))
+    +size.size(100% 36%)
+    +border.border(vertical, solid 1px var(--stamp-color))
 
 .stamp__content-inner
   max-width: 100%

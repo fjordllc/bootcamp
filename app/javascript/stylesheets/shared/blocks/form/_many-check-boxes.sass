@@ -1,3 +1,5 @@
+@use "../../../config/mixins/text"
+
 .many-check-boxes
   max-height: 16rem
   overflow-y: auto
@@ -6,7 +8,7 @@
   border-radius: .25rem
 
 .many-check-boxes__item-label
-  +text-block(.8125rem 1.4)
+  +text.text-block(.8125rem 1.4)
   display: block
   padding: .5rem
   border-bottom: solid 1px #ccc

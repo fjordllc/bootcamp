@@ -1,3 +1,6 @@
+@use "../../../config/mixins/link"
+@use "../../../config/mixins/text"
+
 .micro-report-form-tabs
   background-color: var(--background)
 
@@ -8,9 +11,9 @@
   display: flex
 
 .micro-report-form-tabs__item-link
-  +flex-link
+  +link.flex-link
   padding: .5rem .75rem 1rem
-  +text-block(.875rem 1.4)
+  +text.text-block(.875rem 1.4)
 
 .micro-report-form__preview,
 .micro-report-form__form

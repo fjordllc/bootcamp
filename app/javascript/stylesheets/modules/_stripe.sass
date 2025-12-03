@@ -1,3 +1,5 @@
+@use "../config/mixins/text"
+
 .StripeElement
   background-color: var(--base)
   height: 40px
@@ -17,5 +19,5 @@
 
 #card-errors
   color: var(--danger)
-  +text-block(.875rem 1.4)
+  +text.text-block(.875rem 1.4)
   margin-top: .25em

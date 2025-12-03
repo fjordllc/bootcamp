@@ -1,7 +1,10 @@
+@use "../config/mixins/link"
+@use "../config/mixins/text"
+
 .a-category-link
-  +text-block(.8125rem 1.4)
+  +text.text-block(.8125rem 1.4)
   color: var(--muted-text)
-  +hover-link
+  +link.hover-link
   transition: all .2s ease-out
   &:hover
     color: var(--default-text)

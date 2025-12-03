@@ -1,3 +1,9 @@
+@use "font-awsome"
+@use "link"
+@use "position"
+@use "size"
+@use "text"
+
 =short-text-style
   >*:first-child
     margin-top: 0
@@ -5,16 +11,16 @@
     margin-bottom: 0
   hr
     display: block
-    +size(100% 0)
+    +size.size(100% 0)
     border: none
     border-top: dashed 1px var(--border)
     margin-block: 1.5em
   p
-    +text-block(1em 1.7 0 .75em)
+    +text.text-block(1em 1.7 0 .75em)
   li
-    +text-block(1em 1.7 0 .125em)
+    +text.text-block(1em 1.7 0 .125em)
   a
-    +hover-link-reversal
+    +link.hover-link-reversal
 
   .message
     background: red
@@ -24,8 +30,8 @@
     background-color: var(--warning-tint)
     color: var(--warning-text)
     &::before
-      +fa(fas '\f06a')
-      +position(absolute, left .25em, top .25em)
+      +font-awsome.fa(fas '\f06a')
+      +position.position(absolute, left .25em, top .25em)
       font-size: 1.5em
       color: var(--warning)
     &.alert,
