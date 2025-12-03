@@ -104,7 +104,7 @@ class Product < ApplicationRecord # rubocop:todo Metrics/ClassLength
       user_id: user.id,
       practice_id: practice.id
     )
-    learning.update(status:)
+    learning.update!(status:)
   end
 
   # nilの場合あり

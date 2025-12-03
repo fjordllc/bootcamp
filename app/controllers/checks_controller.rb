@@ -14,15 +14,15 @@ class ChecksController < ApplicationController
 
     @check = @checkable.checks.build(user: current_user)
 
-    if @check.save
-      Newspaper.publish(:check_create, { check: @check })
-      if @checkable.is_a?(Product)
-        @checkable.change_learning_status(:complete)
-        redirect_back(fallback_location: @checkable, notice: '提出物を合格にしました。')
-      else
-        redirect_back(fallback_location: @checkable, notice: '日報を確認済みにしました。')
+    begin
+      Check.transaction do
+        @check.save!
+        ActiveSupport::Notifications.instrument('check.create', check: @check)
       end
-    else
+      notice = @checkable.is_a?(Product) ? '提出物を合格にしました。' : '日報を確認済みにしました。'
+      redirect_back(fallback_location: @checkable, notice:)
+    rescue StandardError => e
+      Rails.logger.error("[ChecksController#create] チェック作成でエラー: #{e.message}")
       redirect_back(fallback_location: @checkable, alert: 'エラーが発生しました。')
     end
   end
@@ -31,10 +31,16 @@ class ChecksController < ApplicationController
     @check = Check.find(params[:id])
     @checkable = @check.checkable
 
-    @check.destroy
-    Newspaper.publish(:check_cancel, { check: @check })
-    @checkable.change_learning_status(:submitted) if @checkable.is_a?(Product)
-    redirect_back(fallback_location: @checkable)
+    begin
+      Check.transaction do
+        @check.destroy!
+        ActiveSupport::Notifications.instrument('check.cancel', check: @check)
+      end
+      redirect_back(fallback_location: @checkable)
+    rescue StandardError => e
+      Rails.logger.error("[ChecksController#destroy] チェック削除でエラー: #{e.message}")
+      redirect_back(fallback_location: @checkable, alert: 'エラーが発生しました。')
+    end
   end
 
   private
