@@ -1,3 +1,8 @@
+@use "../config/mixins/font-awsome"
+@use "../config/mixins/position"
+@use "../config/mixins/size"
+@use "../config/mixins/text"
+
 .a-image-check
   height: 100%
 
@@ -5,7 +10,7 @@
   background-color: var(--input-background)
   height: 100%
   min-height: 2.5rem
-  +text-block(.8125rem 1.4, flex center)
+  +text.text-block(.8125rem 1.4, flex center)
   gap: .5rem
   flex-direction: column
   align-items: center
@@ -29,12 +34,12 @@
       background-color: var(--primary)
   .a-image-check &::before
     display: block
-    +position(absolute, left .75rem, top .75rem, 2)
+    +position.position(absolute, left .75rem, top .75rem, 2)
 
   // radio
   .a-image-check.is-radio &::before
     content: ''
-    +size(.875rem)
+    +size.size(.875rem)
     border: solid 1px var(--input-border)
     border-radius: 50%
     background-color: var(--base)
@@ -45,14 +50,14 @@
   // checkbox
   .a-image-check.is-checkbox &::before
     content: ''
-    +size(.875rem)
+    +size.size(.875rem)
     border: solid 1px var(--input-border)
     border-radius: 3px
     background-color: var(--base)
   .a-image-check.is-checkbox input:checked + &::before
     border-color: var(--primary)
     background-color: var(--primary)
-    +fa(fas "\f00c")
+    +font-awsome.fa(fas "\f00c")
     color: var(--reversal-text)
 
 .a-image-check__start
@@ -63,12 +68,12 @@
   width: 100%
 
 .a-image-check__name
-  +text-block(.875rem 1.4, block center)
+  +text.text-block(.875rem 1.4, block center)
 
 .a-image-check__image
-  +size(2rem)
+  +size.size(2rem)
   .a-image-check__inner.has-icon &
-    +size(1.75rem)
+    +size.size(1.75rem)
     margin-right: .5rem
 
 .a-image-check__upload-image
@@ -78,6 +83,6 @@
   aspect-ratio: 120 / 63
   position: relative
   i
-    +position(absolute, left 50%, top 50%)
+    +position.position(absolute, left 50%, top 50%)
     transform: translate(-50%, -50%)
     font-size: 3rem

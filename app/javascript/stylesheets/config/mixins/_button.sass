@@ -1,3 +1,12 @@
+@use "sass:color"
+@use "../functions/color" as functions-color
+@use "../functions/number"
+@use "../variables/colors"
+@use "font-awsome"
+@use "position"
+@use "size"
+@use "text"
+
 =button-base
   text-transform: none
   font-weight: 600
@@ -30,7 +39,7 @@
       cursor: default
   &.is-select
     select
-      +size(100%)
+      +size.size(100%)
       cursor: pointer
   i
     margin-right: .35em
@@ -38,27 +47,27 @@
     font-size: 1.07em
   &.is-icon
     i
-      +text-block(1.35em 1)
+      +text.text-block(1.35em 1)
       margin-right: 0
   &.is-checkbox
-    +position(relative)
+    +position.position(relative)
     &::before
       content: ""
-      +size(.9375em)
+      +size.size(.9375em)
       border-radius: .1875em
       display: block
       border: solid 1px var(--background-shade)
       background-color: var(--base)
-      +position(absolute, left 1em, top 50%)
+      +position.position(absolute, left 1em, top 50%)
       transform: translate(0, -50%)
     &::after
-      +fa(fas "\f00c")
-      +text-block(1em 1, flex)
+      +font-awsome.fa(fas "\f00c")
+      +text.text-block(1em 1, flex)
       color: var(--reversal-text)
       align-items: center
       justify-content: center
-      +size(.9375em)
-      +position(absolute, left 1em, top 50%)
+      +size.size(.9375em)
+      +position.position(absolute, left 1em, top 50%)
       transform: translate(0, -50%)
       opacity: 0
     input:checked + &::before
@@ -75,8 +84,8 @@
     display: block
 
 =button-color($color)
-  $text-color: if(luma($color) > 50, $default-text, $reversal-text)
-  $border-color: if(luma($color) > 80, saturate(darken($color, 12%), 2%), $color)
+  $text-color: if(functions-color.luma($color) > 50, colors.$default-text, colors.$reversal-text)
+  $border-color: if(functions-color.luma($color) > 80, color.adjust(color.adjust($color, $lightness: -12%), $saturation: 2%), $color)
   background-color: $color
   color: $text-color
   border-color: $border-color
@@ -88,14 +97,14 @@
   &:hover,
   &:focus,
   &:active
-    $button-color: saturate(darken($color, 4%), 2%)
-    $border-color: if(luma($color) > 80, saturate(darken($color, 18%), 2%), $color)
+    $button-color: color.adjust(color.adjust($color, $lightness: -4%), $saturation: 2%)
+    $border-color: if(functions-color.luma($color) > 80, color.adjust(color.adjust($color, $lightness: -18%), $saturation: 2%), $color)
     background-color: $button-color
     border-color: $border-color
   &.is-disabled,
   &:disabled
     color: rgba($text-color, .4)
-    border-color: shade($color, 6%)
+    border-color: functions-color.shade($color, 6%)
     pointer-events: none
 
 =border-button-color($color)
@@ -116,33 +125,33 @@
   &.is-disabled,
   &:disabled
     color: rgba($text-color, .4)
-    border-color: shade($color, 6%)
+    border-color: functions-color.shade($color, 6%)
     pointer-events: none
 
 
 =button-size($font-size: 1rem, $horizontal: .75, $vertical: .625)
   font-size: $font-size
-  padding-inline: #{strip_unit($horizontal * $font-size)}em
-  @if unitless_number($vertical)
-    height: #{strip_unit(($font-size * 1.4) + (($vertical * $font-size) * 2))}em
+  padding-inline: #{number.strip_unit($horizontal * $font-size)}em
+  @if number.unitless_number($vertical)
+    height: #{number.strip_unit(($font-size * 1.4) + (($vertical * $font-size) * 2))}em
   @else
     height: $vertical
   &.is-icon
-    padding-inline: #{strip_unit($horizontal * $font-size * 1)}em
+    padding-inline: #{number.strip_unit($horizontal * $font-size * 1)}em
   &.is-select
     padding-inline: 0
-    +position(relative)
+    +position.position(relative)
     &::before
-      +fa(fas "\f0d7")
-      +size(2em 100%)
-      +position(absolute, right 0, top 0, bottom 0)
-      +text-block(1em 1, flex)
+      +font-awsome.fa(fas "\f0d7")
+      +size.size(2em 100%)
+      +position.position(absolute, right 0, top 0, bottom 0)
+      +text.text-block(1em 1, flex)
       color: var(--muted-text)
       align-items: center
       justify-content: center
     select
       padding-left: 1em
       padding-right: 2em
-      +position(relative, 1)
+      +position.position(relative, 1)
   &.is-checkbox
     padding-left: 2.75em

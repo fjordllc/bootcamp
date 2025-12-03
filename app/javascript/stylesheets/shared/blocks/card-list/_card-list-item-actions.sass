@@ -1,25 +1,32 @@
+@use "../../../config/functions/color"
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/link"
+@use "../../../config/mixins/position"
+@use "../../../config/mixins/size"
+@use "../../../config/variables/colors"
+
 .card-list-item-actions__trigger
-  +size(2.25rem)
+  +size.size(2.25rem)
   display: flex
   align-items: center
   justify-content: center
   cursor: pointer
   color: var(--muted-text)
   align-self: flex-start
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     margin-top: -.5rem
     margin-right: -.5rem
-  +media-breakpoint-down(sm)
-    +position(absolute, left 0, top 2.75rem)
+  +break-points.media-breakpoint-down(sm)
+    +position.position(absolute, left 0, top 2.75rem)
 
 .card-list-item-actions__inner
   display: none
-  +position(absolute, right -.5rem, top -.5rem, 3)
+  +position.position(absolute, right -.5rem, top -.5rem, 3)
   input:checked + &
     display: block
 
 .card-list-item-actions__items
-  +position(relative, 2)
+  +position.position(relative, 2)
   border: solid 1px var(--border)
   width: 10rem
   border-radius: .25rem
@@ -32,7 +39,7 @@
 .card-list-item-actions__action
   font-size: .8125rem
   color: var(--default-text)
-  +flex-link
+  +link.flex-link
   align-items: center
   background-color: var(--base)
   transition: all .2s ease-out
@@ -41,5 +48,5 @@
   i
     margin-right: .5em
   &:hover
-    background-color: tint($main, 95%)
+    background-color: color.tint(colors.$main, 95%)
     color: var(--main-text)

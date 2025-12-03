@@ -1,3 +1,5 @@
+@use "../../../config/mixins/text"
+
 .form-item-group
   .form-item-group + &
     margin-top: .75rem
@@ -9,7 +11,7 @@
     margin-top: .25rem
 
 .form-item-group__title
-  +text-block(.875rem 1.4)
+  +text.text-block(.875rem 1.4)
   font-weight: 700
 
 .form-item-group__help

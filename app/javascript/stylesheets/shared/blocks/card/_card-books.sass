@@ -1,26 +1,31 @@
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/link"
+@use "../../../config/mixins/position"
+@use "../../../config/mixins/text"
+
 .card-books-item
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     height: 100%
 
 .card-books-item__body
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     flex: 1
 
 .card-books-item__inner
   padding: .75rem 1rem
   text-decoration: none
-  +media-breakpoint-up(md)
-    +flex-link
+  +break-points.media-breakpoint-up(md)
+    +link.flex-link
     gap: 1rem
     align-items: flex-start
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     display: block
     overflow: hidden
 
 .card-books-item__start
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     flex: 0 0 4rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     float: left
     margin-right: 1rem
     width: 3.5rem
@@ -47,17 +52,17 @@
   border-radius: 2px
 
 .card-books-item__title
-  +text-block(.875rem 1.4, 600)
+  +text.text-block(.875rem 1.4, 600)
   color: var(--default-text)
   transition: all .2s ease-out
   .a-badge
-    +position(relative, top -.125em)
+    +position.position(relative, top -.125em)
     margin-right: .5em
 
 .card-books-item__title-link
   text-decoration: none
   .card-books-item__title-label
-    +hover-link-reversal
+    +link.hover-link-reversal
     color: var(--main-text)
 
 a.card-books-item__inner:hover
@@ -66,7 +71,7 @@ a.card-books-item__inner:hover
     color: var(--main-text)
 
 .card-books-item__price
-  +text-block(.75rem 1.4)
+  +text.text-block(.75rem 1.4)
   color: var(--default-text)
 
 .card-books-item__description

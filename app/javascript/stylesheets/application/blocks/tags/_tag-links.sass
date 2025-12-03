@@ -1,8 +1,13 @@
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/link"
+@use "../../../config/mixins/text"
+@use "../../../config/variables/colors"
+
 .tag-links
   .form-actions
     margin-top: 1rem
   .form-actions__item.is-main
-    +media-breakpoint-up(md)
+    +break-points.media-breakpoint-up(md)
       min-width: 12rem
 
 .tag-links__items
@@ -12,7 +17,7 @@
   gap: .5rem
 
 .tag-links__item-link
-  +text-block(.6875rem 1.4, block)
+  +text.text-block(.6875rem 1.4, block)
   color: var(--muted-text)
   background-color: transparent
   border: solid 1px var(--muted-text)
@@ -21,12 +26,12 @@
   transition: all .2s ease-in
   text-decoration: none
   &:hover
-    background-color: rgba($base, .7)
+    background-color: rgba(colors.$base, .7)
     color: var(--semi-muted-text)
     border-color: var(--semi-muted-text)
 
 .tag-links__item-edit
-  +text-block(.75rem 1.4, block)
+  +text.text-block(.75rem 1.4, block)
   color: var(--main)
-  +hover-link-reversal
+  +link.hover-link-reversal
   cursor: pointer

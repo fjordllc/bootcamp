@@ -1,23 +1,28 @@
+@use "../../../config/mixins/border-radius"
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/link"
+@use "../../../config/mixins/text"
+
 .card-footer
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     padding: .5rem 1rem
     min-height: 3rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     padding: .5rem .75rem
   &:last-child
-    +border-radius(bottom, .25rem)
+    +border-radius.border-radius(bottom, .25rem)
 
 .card-footer__description
-  +text-block(.75rem 1.4 .5rem, center)
+  +text.text-block(.75rem 1.4 .5rem, center)
   color: var(--muted-text)
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     text-align: left
     font-size: .625rem
     br
       display: none
 
 .card-footer__notice
-  +text-block(.8125rem 1.4 .5rem, center)
+  +text.text-block(.8125rem 1.4 .5rem, center)
   color: var(--success)
 
 .card-footer__footer-link
@@ -27,6 +32,6 @@
   align-items: flex-end
 
 .card-footer__footer-text-link
-  +text-block(.8125rem 1.4)
+  +text.text-block(.8125rem 1.4)
   color: var(--muted-text)
-  +hover-link-reversal
+  +link.hover-link-reversal

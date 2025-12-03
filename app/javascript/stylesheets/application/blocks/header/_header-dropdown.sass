@@ -1,11 +1,18 @@
+@use "../../../config/mixins/border-radius"
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/link"
+@use "../../../config/mixins/position"
+@use "../../../config/mixins/size"
+@use "../../../config/mixins/text"
+
 .header-dropdown
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     display: none
     input:checked + &,
     .is-opened-dropdown &
       display: block
-  +media-breakpoint-down(sm)
-    +position(fixed, left 0, top 0, bottom 0, 100)
+  +break-points.media-breakpoint-down(sm)
+    +position.position(fixed, left 0, top 0, bottom 0, 100)
     background-color: rgba(black, 0)
     width: 0
     cursor: pointer
@@ -19,8 +26,8 @@
 
 .header-dropdown__inner
   overflow-y: auto
-  +media-breakpoint-up(md)
-    +position(absolute, right 0, top 100%, 2)
+  +break-points.media-breakpoint-up(md)
+    +position.position(absolute, right 0, top 100%, 2)
     background-color: var(--base)
     border: solid 1px var(--border-shade)
     width: 14rem
@@ -29,9 +36,9 @@
     max-height: calc(100vh - 6rem)
     &.is-notification
       width: 15rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     background-color: var(--main)
-    +position(fixed, top 0, bottom 0, right auto, 1)
+    +position.position(fixed, top 0, bottom 0, right auto, 1)
     transition: left .2s ease-out
     width: var(--global-nav-width-sm)
     left: calc(var(--global-nav-width-sm) * -1)
@@ -39,7 +46,7 @@
     .is-opened-dropdown &
       left: 0
   &.is-notification
-    +media-breakpoint-down(sm)
+    +break-points.media-breakpoint-down(sm)
       left: 0
       .pill-nav__item-link
         border-color: var(--base)
@@ -53,83 +60,83 @@
 
 .header-dropdown__header
   padding: 1rem
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     border-bottom: solid 1px var(--border-tint)
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     border-bottom: solid 1px var(--main-semi-shade)
 
 .header-dropdown__label
-  +text-block(.625rem 1.4)
+  +text.text-block(.625rem 1.4)
   font-weight: 700
   padding: .25rem .75rem
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     background-color: var(--background-semi-shade)
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     color: var(--reversal-text)
     background-color: var(--main-semi-shade)
 
 .header-dropdown__items
   .header-dropdown__inner.is-notification &
     overflow-y: auto
-    +media-breakpoint-up(md)
+    +break-points.media-breakpoint-up(md)
       max-height: calc(100vh - 16rem)
-    +media-breakpoint-down(sm)
+    +break-points.media-breakpoint-down(sm)
       max-height: calc(100vh - 134px)
       margin-bottom: -1px
 
 .header-dropdown__item-link
-  +text-block(.875rem 1.4)
-  +flex-link
+  +text.text-block(.875rem 1.4)
+  +link.flex-link
   padding: .75rem
   transition: all .2s ease-out
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     color: var(--default-text)
     .header-dropdown__item:not(:last-child) &
       border-bottom: solid 1px var(--border-tint)
     &:hover
       background-color: var(--primary-tint)
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     color: var(--reversal-text)
     border-bottom: solid 1px var(--main-semi-shade)
     &:hover
       background-color: var(--main-shade)
 
 .header-dropdown__footer
-  +border-radius(bottom, .25rem)
+  +border-radius.border-radius(bottom, .25rem)
   overflow: hidden
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     border-top: solid 1px var(--border-tint)
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     border-top: solid 1px var(--main-semi-shade)
 
 .header-dropdown__footer-link
-  +text-block(.875rem 1.4)
-  +flex-link
+  +text.text-block(.875rem 1.4)
+  +link.flex-link
   align-items: center
   justify-content: center
-  +size(100% 2.75rem)
+  +size.size(100% 2.75rem)
   transition: all .2s ease-out
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     color: var(--main-text)
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     color: var(--reversal-text)
   &:hover
-    +media-breakpoint-up(md)
+    +break-points.media-breakpoint-up(md)
       background-color: var(--background-more-tint)
-    +media-breakpoint-down(sm)
+    +break-points.media-breakpoint-down(sm)
       background-color: var(--main-shade)
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     &:not(:last-child)
       border-bottom: solid 1px var(--border-tint)
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     border-bottom: solid 1px var(--main-semi-shade)
 
 .header-dropdown__background
-  +media-breakpoint-up(md)
-    +position(fixed, left 0, top 0, right 0, bottom 0, 2)
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-up(md)
+    +position.position(fixed, left 0, top 0, right 0, bottom 0, 2)
+  +break-points.media-breakpoint-down(sm)
     background-color: rgba(black, .6)
-    +position(fixed, left 0, top 0, bottom 0, 1)
+    +position.position(fixed, left 0, top 0, bottom 0, 1)
     height: 100%
     width: 0
     display: inline
@@ -139,7 +146,7 @@
       width: 100%
       display: block
   &.is-notification
-    +media-breakpoint-down(sm)
+    +break-points.media-breakpoint-down(sm)
       opacity: 1
       width: 100%
 
@@ -151,10 +158,10 @@
   margin-top: 1rem
 
 .header-dropdown__page-link
-  +text-block(.875rem 1.4)
-  +hover-link-reversal
+  +text.text-block(.875rem 1.4)
+  +link.hover-link-reversal
   transition: all .2s ease-out
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     color: var(--main-text)
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     color: var(--reversal-text)

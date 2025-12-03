@@ -1,3 +1,5 @@
+@use "../../../config/mixins/break-points"
+
 .user-group
   padding: 1rem
   &:not(:first-child)
@@ -6,15 +8,15 @@
 .user-group__header
   display: flex
   gap: .5rem
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     justify-content: space-between
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     flex-direction: column
 
 .user-group__title
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     font-size: 1rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     font-size: 1rem
 
 .user-group__title-link
@@ -22,9 +24,9 @@
   color: var(--main-text)
   display: flex
   gap: .5rem
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     align-items: flex-end
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     flex-direction: column
   .user-group__title.is-inline &
     flex-direction: row
@@ -55,7 +57,7 @@
   color: var(--muted-text)
 
 .user-group__counts
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     margin-top: -.5rem
     flex: 1
     max-width: 29rem

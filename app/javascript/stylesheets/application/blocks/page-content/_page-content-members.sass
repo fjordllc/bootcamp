@@ -1,3 +1,7 @@
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/size"
+@use "../../../config/mixins/text"
+
 .page-content-members
   background: var(--base)
   padding: .75rem 1rem
@@ -5,7 +9,7 @@
   border: solid 1px var(--border-shade)
 
 .page-content-members__title
-  +text-block(.8125rem 1.4, 600)
+  +text.text-block(.8125rem 1.4, 600)
 
 .page-content-members__items
   display: flex
@@ -15,16 +19,16 @@
 .page-content-members__item
   display: flex
   gap: .25rem
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     font-size: .875rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     font-size: .75rem
   .a-user-name
-    +text-block(1em 1.4)
+    +text.text-block(1em 1.4)
     color: var(--default-text)
 
 .page-content-members__user-icon
-  +media-breakpoint-up(md)
-    +size(1.5rem)
-  +media-breakpoint-down(sm)
-    +size(1.25rem)
+  +break-points.media-breakpoint-up(md)
+    +size.size(1.5rem)
+  +break-points.media-breakpoint-down(sm)
+    +size.size(1.25rem)

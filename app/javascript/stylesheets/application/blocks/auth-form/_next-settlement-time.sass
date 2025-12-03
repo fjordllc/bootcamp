@@ -1,16 +1,19 @@
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/text"
+
 .next-settlement-time
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     display: flex
     align-items: center
     justify-content: center
 
 .next-settlement-time__title
-  +text-block(.875rem 1.4)
+  +text.text-block(.875rem 1.4)
   font-weight: 400
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     margin-right: .5em
 
 .next-settlement-time__time
-  +text-block(1rem 1.4)
+  +text.text-block(1rem 1.4)
   font-weight: 700
   color: var(--danger)

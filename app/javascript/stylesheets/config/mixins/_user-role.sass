@@ -1,17 +1,19 @@
+@use "../variables/colors"
+
 =icon-role-style
   &.is-admin,
   &.is-mentor
     .a-user-icon
-      border: solid 2px rgba($danger, .7)
+      border: solid 2px rgba(colors.$danger, .7)
   &.is-graduate
     .a-user-icon
-      border: solid 2px rgba($success, .7)
+      border: solid 2px rgba(colors.$success, .7)
   &.is-adviser
     .a-user-icon
-      border: solid 2px rgba($warning, .7)
+      border: solid 2px rgba(colors.$warning, .7)
   &.is-trainee
     .a-user-icon
-      border: solid 2px rgba($main, .7)
+      border: solid 2px rgba(colors.$main, .7)
   body.is-mentor-mode &.is-retired,
   body.is-mentor-mode &.is-training_completed
     background-color: black

@@ -1,3 +1,5 @@
+@use "../../../config/mixins/break-points"
+
 .company-links
   margin-top: .5rem
 
@@ -7,7 +9,7 @@
   flex-wrap: wrap
 
 .company-links__item
-  +media-breakpoint-up(xxl)
+  +break-points.media-breakpoint-up(xxl)
     flex: 0 0 calc((100% - (.5rem * 2)) / 3)
-  +media-breakpoint-down(xl)
+  +break-points.media-breakpoint-down(xl)
     flex: 0 0 calc((100% - (.5rem * 1)) / 2)

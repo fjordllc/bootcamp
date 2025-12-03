@@ -1,9 +1,14 @@
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/link"
+@use "../../../config/mixins/text"
+@use "../../../config/variables/colors"
+
 .auth-form-logo-image
   display: block
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     max-width: 10rem
     margin: 4rem auto 2rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     max-width: 10rem
     margin: 2rem auto
 
@@ -12,15 +17,15 @@
   width: 28rem
   max-width: calc(100vw - 2rem)
   margin-bottom: 2rem
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     margin-inline: auto
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     margin-inline: 1rem
   &.is-lg
     width: 34rem
-    +media-breakpoint-up(md)
+    +break-points.media-breakpoint-up(md)
       margin-top: 3rem
-    +media-breakpoint-down(sm)
+    +break-points.media-breakpoint-down(sm)
       margin-top: 1rem
   .page-header + &
     margin-top: 1.5rem
@@ -30,16 +35,16 @@
   padding: 1rem 1.75rem
 
 .auth-form__body
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     padding: 1.5rem 1.75rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     padding: 1.25rem 1rem
 
 .auth-form__footer
   padding: 1rem 1.75rem
 
 .auth-form__title
-  +text-block(1.25rem 1.4)
+  +text.text-block(1.25rem 1.4)
   text-align: center
   font-weight: 700
 
@@ -48,12 +53,12 @@
 
 .auth-form__alert
   padding: .5rem 1.5rem
-  background-color: $danger
+  background-color: colors.$danger
   text-align: center
-  +text-block(.8125rem 1.4)
+  +text.text-block(.8125rem 1.4)
   color: var(--reversal-text)
   margin: 1rem 1rem 0
   border-radius: .25rem
   a
-    +hover-link-reversal
+    +link.hover-link-reversal
     color: var(--reversal-text)

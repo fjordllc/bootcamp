@@ -1,23 +1,26 @@
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/text"
+
 .form-times
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     display: flex
     align-items: flex-end
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     display: block
 
 .form-times__inner
   margin-bottom: 1rem
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     display: flex
     align-items: flex-end
 
 .form-times__items
   display: flex
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     gap: 1rem
 
 .form-times__action
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     margin-top: .75rem
     display: flex
     justify-content: flex-end
@@ -27,13 +30,13 @@
 .form-times__time
   display: flex
   flex-direction: column
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     margin-right: 1rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     margin-right: 0
     flex-basis: 50%
 
 .form-times__time-label
-  +text-block(.75rem 1.4)
+  +text.text-block(.75rem 1.4)
   margin-bottom: .5em
   display: block

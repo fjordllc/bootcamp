@@ -1,8 +1,41 @@
 // See the shakacode/shakapacker README and docs directory for advice on customizing your webpackConfig.
 const { generateWebpackConfig } = require('shakapacker')
+const sassEmbedded = require('sass-embedded')
 const webpack = require('webpack')
 
 const webpackConfig = generateWebpackConfig()
+
+const normalizeUseEntries = (use) => {
+  if (!use) return []
+  return Array.isArray(use) ? use : [use]
+}
+
+const visitRule = (rule) => {
+  if (!rule) return
+  normalizeUseEntries(rule.use).forEach((loaderConfig, index, array) => {
+    const loaderPath = typeof loaderConfig === 'string' ? loaderConfig : loaderConfig.loader
+    if (!loaderPath || !loaderPath.includes('sass-loader')) return
+
+    if (typeof loaderConfig === 'string') {
+      array[index] = loaderConfig = { loader: loaderPath, options: {} }
+    }
+
+    loaderConfig.options = loaderConfig.options || {}
+    loaderConfig.options.implementation = sassEmbedded
+    loaderConfig.options.api = 'modern'
+    const sassOptions = loaderConfig.options.sassOptions || {}
+    const silence = new Set(sassOptions.silenceDeprecations || [])
+    ;['legacy-js-api', 'import', 'global-builtin'].forEach((id) => silence.add(id))
+    loaderConfig.options.sassOptions = {
+      ...sassOptions,
+      silenceDeprecations: Array.from(silence)
+    }
+  })
+
+  normalizeUseEntries(rule.oneOf).forEach(visitRule)
+}
+
+normalizeUseEntries(webpackConfig.module?.rules).forEach(visitRule)
 
 // Add custom configuration for JSX files
 webpackConfig.module.rules.push({

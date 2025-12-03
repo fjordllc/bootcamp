@@ -1,11 +1,16 @@
+@use "sass:map"
+@use "../../variables/layout"
+@use "../break-points"
+@use "grid-framework"
+
 // Framework grid generation
 //
 // Used only by Bootstrap to generate the correct number of grid classes given
 // any value of `$grid-columns`.
 
-=make-grid-columns($columns: $grid-columns, $gutter: $grid-gutter-width, $breakpoints: $grid-breakpoints)
-  @each $breakpoint in map-keys($breakpoints)
-    +media-breakpoint-up($breakpoint)
+=make-grid-columns($columns: layout.$grid-columns, $gutter: layout.$grid-gutter-width, $breakpoints: layout.$grid-breakpoints)
+  @each $breakpoint in map.keys($breakpoints)
+    +break-points.media-breakpoint-up($breakpoint)
       @for $i from 1 through $columns
         >.col-#{$breakpoint}-#{$i}
-          +make-col-span($i, $columns, $gutter)
+          +grid-framework.make-col-span($i, $columns, $gutter)

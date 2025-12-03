@@ -1,15 +1,20 @@
+@use "../functions/number"
+@use "../variables/layout"
+@use "grid/grid"
+@use "grid/grid-framework"
+
 @use "sass:math"
 .row
-  +make-row
-  +make-grid-columns
+  +grid-framework.make-row
+  +grid.make-grid-columns
 
 =grid($gutter-size)
   &.row
-    gap: px_to_rem($gutter-size)
+    gap: number.px_to_rem($gutter-size)
 
 .row
   @for $i from 0 through 16
     $gutter-size: $i * 4
     &.is-gutter-width-#{$gutter-size}
       gap: #{math.div($gutter-size, 16)}rem
-      +make-grid-columns($grid-columns, #{math.div($gutter-size, 16)}rem)
+      +grid.make-grid-columns(layout.$grid-columns, #{math.div($gutter-size, 16)}rem)

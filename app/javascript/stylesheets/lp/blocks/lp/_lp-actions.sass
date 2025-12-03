@@ -1,6 +1,8 @@
+@use "../../../config/mixins/break-points"
+
 .lp-actions
   align-self: stretch
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     max-width: 42.5rem
     width: 100%
     margin-inline: auto

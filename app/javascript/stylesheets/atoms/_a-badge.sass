@@ -1,51 +1,55 @@
+@use "../config/mixins/badge"
+@use "../config/mixins/button"
+@use "../config/variables/colors"
+
 .a-badge
-  +badge-base
+  +badge.badge-base
 
   // color
   &.is-primary
-    +badge-color($primary)
+    +badge.badge-color(colors.$primary)
   &.is-secondary
-    +badge-color($secondary)
+    +badge.badge-color(colors.$secondary)
   &.is-info
-    +badge-color($info)
+    +badge.badge-color(colors.$info)
   &.is-success
-    +badge-color($success)
+    +badge.badge-color(colors.$success)
   &.is-warning
-    +badge-color($warning)
+    +badge.badge-color(colors.$warning)
   &.is-danger
-    +badge-color($danger)
+    +badge.badge-color(colors.$danger)
   &.is-disabled
-    +badge-color($disabled)
+    +badge.badge-color(colors.$disabled)
   &.is-main
-    +badge-color($main)
+    +badge.badge-color(colors.$main)
   &.is-muted
     border: none
-    color: $muted-text
+    color: colors.$muted-text
     font-weight: 400
-    background-color: $background
+    background-color: colors.$background
   &.is-dark-muted
     border: none
-    color: $semi-muted-text
+    color: colors.$semi-muted-text
     font-weight: 400
     background-color: var(--background-semi-shade)
 
   //size
   &.is-xs
-    +button-size(.625rem, 1, .5)
+    +button.button-size(.625rem, 1, .5)
     font-weight: 500
     &:not(:first-child)
       margin-left: .5em
     &:not(:last-child)
       margin-right: .5em
   &.is-sm
-    +button-size(.6875rem, 1, .5)
+    +button.button-size(.6875rem, 1, .5)
     font-weight: 600
   &.is-md
-    +button-size(.8125rem, 1, .5)
+    +button.button-size(.8125rem, 1, .5)
     font-weight: 600
   &.is-lg
-    +button-size(1rem, 1, .5)
+    +button.button-size(1rem, 1, .5)
     font-weight: 600
   &.is-xl
-    +button-size(1.25rem, 1, .5)
+    +button.button-size(1.25rem, 1, .5)
     font-weight: 800

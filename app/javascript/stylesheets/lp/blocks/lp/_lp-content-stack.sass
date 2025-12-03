@@ -1,7 +1,9 @@
+@use "../../../config/mixins/break-points"
+
 .lp-content-stack
   display: flex
   flex-direction: column
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     gap: 3rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     gap: 1.5rem

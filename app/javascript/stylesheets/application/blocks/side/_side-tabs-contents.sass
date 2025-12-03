@@ -1,5 +1,8 @@
+@use "../../../config/mixins/position"
+@use "../../../config/mixins/text"
+
 .side-tabs-contents
-  +position(relative, 1)
+  +position.position(relative, 1)
 
 #side-tabs-1:checked ~ .side-tabs-contents #side-tabs-content-1
   display: block
@@ -32,7 +35,7 @@
     padding: .25rem .5rem
     font-size: .75rem
   .user-metas__item
-    +text-block(.75rem 1.6)
+    +text.text-block(.75rem 1.6)
     border: solid 1px var(--border)
     margin: -1px
   .user-metas__item-label
