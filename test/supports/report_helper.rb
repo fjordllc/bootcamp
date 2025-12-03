@@ -82,4 +82,16 @@ module ReportHelper
   ensure
     logout
   end
+
+  def create_report_data_with_learning_times(user:, on:, wip: false, no_learn: false, durations: [[9, 12]])
+    report = Report.new(user:, title: "test #{on}", emotion: 2, description: 'desc', reported_on: on, wip:, no_learn:)
+    unless no_learn
+      durations.each do |(s, e)|
+        report.learning_times << LearningTime.new(report:, started_at: Time.zone.parse("#{on} #{format('%02d:00:00', s)}"),
+                                                  finished_at: Time.zone.parse("#{on} #{format('%02d:00:00', e)}"))
+      end
+    end
+    report.save!
+    report
+  end
 end
