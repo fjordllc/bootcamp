@@ -114,6 +114,10 @@ jobs:
       - run:
           name: Test
           command: |
+            # Start heartbeat in background to prevent no_output_timeout
+            (while true; do echo "[HEARTBEAT] $(date '+%Y-%m-%d %H:%M:%S')"; sleep 60; done) &
+            HEARTBEAT_PID=$!
+
             echo "[INFO] Starting tests at $(date '+%Y-%m-%d %H:%M:%S')"
             echo "[INFO] Node index: $CIRCLE_NODE_INDEX / Total nodes: $CIRCLE_NODE_TOTAL"
 
@@ -129,6 +133,9 @@ jobs:
             TEST_EXIT_CODE=$?
 
             echo "[INFO] Tests completed at $(date '+%Y-%m-%d %H:%M:%S') with exit code: $TEST_EXIT_CODE"
+
+            # Kill heartbeat
+            kill $HEARTBEAT_PID 2>/dev/null || true
 
             # Exit code 124 means timeout
             if [ $TEST_EXIT_CODE -eq 124 ]; then
