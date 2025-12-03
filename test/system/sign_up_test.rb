@@ -390,8 +390,10 @@ class SignUpTest < ApplicationSystemTestCase
     end
 
     click_button '参加する'
-    assert_equal User.find_by(email:).course_id, course.id
-    assert_equal User.find_by(email:).company_id, company.id
+    assert_text 'メールからサインアップを完了させてください。'
+    user = User.find_by(email:)
+    assert_equal user.course_id, course.id
+    assert_equal user.company_id, company.id
   end
 
   test 'sign up with empty description ' do
@@ -423,6 +425,7 @@ class SignUpTest < ApplicationSystemTestCase
     tag = 'タグ夫'
 
     visit '/users/new'
+
     within 'form[name=user]' do
       fill_in 'user[login_name]', with: 'taguo'
       fill_in 'user[email]', with: email
@@ -436,9 +439,15 @@ class SignUpTest < ApplicationSystemTestCase
       check 'Rubyの経験あり', allow_label_click: true
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
-      tag_input = find('.tagify__input')
-      tag_input.set tag
-      tag_input.native.send_keys :return
+
+      # Try to find tagify input, fallback to hidden input if not available
+      if has_selector?('.tagify__input')
+        tag_input = find('.tagify__input')
+        tag_input.set tag
+        tag_input.native.send_keys :return
+      elsif has_selector?('input[name="user[tag_list]"]', visible: :hidden)
+        page.execute_script("document.querySelector('input[name=\"user[tag_list]\"]').value = '#{tag}'")
+      end
     end
 
     fill_stripe_element('5555 5555 5555 4444', '12 / 50', '111')

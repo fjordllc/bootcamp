@@ -9,11 +9,11 @@ class Announcement < ApplicationRecord
   include Watchable
   include Bookmarkable
 
-  enum target: {
+  enum :target, {
     all: 0,
     students: 1,
     job_seekers: 2
-  }, _prefix: true
+  }, prefix: true
 
   has_many :watches, as: :watchable, dependent: :destroy
   has_many :footprints, as: :footprintable, dependent: :destroy
@@ -27,6 +27,14 @@ class Announcement < ApplicationRecord
   columns_for_keyword_search :title, :description
 
   scope :wip, -> { where(wip: true) }
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[title description target wip created_at updated_at user_id]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[user comments reactions watches]
+  end
 
   def self.copy_announcement(announcement_id)
     original = find(announcement_id)

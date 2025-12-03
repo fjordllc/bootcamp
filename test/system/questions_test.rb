@@ -2,9 +2,17 @@
 
 require 'application_system_test_case'
 require 'supports/tag_helper'
+require 'supports/mock_helper'
 
 class QuestionsTest < ApplicationSystemTestCase
   include TagHelper
+  include MockHelper
+
+  setup do
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/all')
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/mentor')
+    mock_openai_chat_completion(content: 'Test AI response')
+  end
 
   test 'show listing unsolved questions' do
     visit_with_auth questions_path(target: 'not_solved'), 'kimura'

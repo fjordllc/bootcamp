@@ -6,6 +6,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/all')
   end
 
   teardown do
@@ -61,6 +62,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
 
   test 'create a new announcement as wip' do
     visit_with_auth new_announcement_path, 'kimura'
+    wait_for_announcement_form
     fill_in 'announcement[title]', with: '仮のお知らせ'
     fill_in 'announcement[description]', with: 'まだWIPです。'
     assert_difference 'Announcement.count', 1 do
@@ -71,14 +73,15 @@ class AnnouncementsTest < ApplicationSystemTestCase
 
   test 'create announcement with notification' do
     visit_with_auth new_announcement_path, 'komagata'
+    wait_for_announcement_form
     fill_in 'announcement[title]', with: '公開お知らせ'
     fill_in 'announcement[description]', with: '公開されるお知らせです。'
     assert_difference 'Announcement.count', 1 do
       click_button '作成'
     end
+    assert_text 'お知らせを作成しました。'
 
-    visit_with_auth '/notifications', 'hatsuno'
-    assert_text 'お知らせ「公開お知らせ」'
+    assert_user_has_notification(user: users(:hatsuno), kind: Notification.kinds[:announced], text: 'お知らせ「公開お知らせ」')
   end
 
   test 'publish wip announcement with notification' do
@@ -87,10 +90,11 @@ class AnnouncementsTest < ApplicationSystemTestCase
     within '.announcement' do
       click_link '内容修正'
     end
+    wait_for_announcement_form
     click_button '公開'
+    assert_text 'お知らせを更新しました。'
 
-    visit_with_auth '/notifications', 'hatsuno'
-    assert_text 'お知らせ「wipのお知らせ」'
+    assert_user_has_notification(user: users(:hatsuno), kind: Notification.kinds[:announced], text: 'お知らせ「wipのお知らせ」')
   end
 
   test 'update published announcement without notification' do
@@ -101,25 +105,25 @@ class AnnouncementsTest < ApplicationSystemTestCase
     end
     click_button '公開'
 
-    visit_with_auth '/notifications', 'hatsuno'
-    assert_no_text 'お知らせ「お知らせ1」'
+    assert_user_has_no_notification(user: users(:hatsuno), kind: Notification.kinds[:announced], text: 'お知らせ「お知らせ1」')
   end
 
   test 'create wip announcement without notification' do
     visit_with_auth new_announcement_path, 'komagata'
+    wait_for_announcement_form
     fill_in 'announcement[title]', with: '仮のお知らせ'
     fill_in 'announcement[description]', with: 'まだWIPです。'
     assert_difference 'Announcement.count', 1 do
       click_button 'WIP'
     end
 
-    visit_with_auth '/notifications', 'hatsuno'
-    assert_no_text 'お知らせ「仮のお知らせ」'
+    assert_user_has_no_notification(user: users(:hatsuno), kind: Notification.kinds[:announced], text: 'お知らせ「仮のお知らせ」')
   end
 
   test 'delete announcement with notification' do
     visit_with_auth '/announcements', 'komagata'
     click_link 'お知らせ作成'
+    wait_for_announcement_form
     fill_in 'announcement[title]', with: 'タイトルtest'
     fill_in 'announcement[description]', with: '内容test'
 
@@ -127,8 +131,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     click_button '作成'
     assert_text 'お知らせを作成しました'
 
-    visit_with_auth '/notifications', 'hatsuno'
-    assert_text 'お知らせ「タイトルtest」'
+    assert_user_has_notification(user: users(:hatsuno), kind: Notification.kinds[:announced], text: 'お知らせ「タイトルtest」')
 
     visit_with_auth '/announcements', 'komagata'
     click_on 'タイトルtest'
@@ -137,8 +140,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     end
     assert_text 'お知らせを削除しました'
 
-    visit_with_auth '/notifications', 'hatsuno'
-    assert_no_text 'お知らせ「タイトルtest」'
+    assert_user_has_no_notification(user: users(:hatsuno), kind: Notification.kinds[:announced], text: 'お知らせ「タイトルtest」')
   end
 
   test 'general user can create announcement' do
@@ -232,7 +234,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
 
   test 'watching is automatically displayed when admin create new announcement' do
     visit_with_auth new_announcement_path, 'komagata'
-
+    wait_for_announcement_form
     fill_in 'announcement[title]', with: 'Watch中になるかのテスト'
     fill_in 'announcement[description]', with: 'お知らせ作成時にWatch中になるかのテストです。'
     click_button '作成'
@@ -263,6 +265,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
 
   test 'using file uploading by file selection dialogue in textarea' do
     visit_with_auth new_announcement_path, 'komagata'
+    wait_for_announcement_form
     within(:css, '.a-file-insert') do
       assert_selector 'input.file-input', visible: false
     end

@@ -17,7 +17,7 @@ class UserCoursePracticeTest < ActiveSupport::TestCase
   test '#categories_for_skip_practices' do
     user = users(:kensyu)
     categories = @user_course_practice_kensyu.categories_for_skip_practice
-    category_for_skip_practice = categories.select { |category| category.name == 'Ruby on Rails(Rails 6.1版)' }.first
+    category_for_skip_practice = categories.find { |category| category.name == 'Ruby on Rails(Rails 6.1版)' }
     assert_equal 0, category_for_skip_practice.practices.size
 
     category = user.course.categories.where(name: 'Ruby on Rails(Rails 6.1版)').first

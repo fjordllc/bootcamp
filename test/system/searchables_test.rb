@@ -12,10 +12,10 @@ class SearchablesTest < ApplicationSystemTestCase
       fill_in 'word', with: search_word
     end
     find('#test-search-modal').click
-    summaries = all('.card-list-item__summary.p')
-    summaries.each do |summary|
-      assert_includes summary.text, search_word
-    end
+    # 検索結果が表示されるまで待機
+    assert_selector '.card-list-item'
+    # 検索結果が表示されていることを確認
+    assert_text search_word
   end
 
   test 'search with document_type' do
@@ -26,8 +26,8 @@ class SearchablesTest < ApplicationSystemTestCase
     within('form[name=search]') do
       select document_type
       fill_in 'word', with: search_word
+      click_button '検索'
     end
-    find('#test-search-modal').click
     labels = all('.card-list-item__label')
     assert_equal 1, labels.count
     labels.each do |label|

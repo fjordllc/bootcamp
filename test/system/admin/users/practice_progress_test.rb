@@ -56,6 +56,7 @@ class Admin::Users::PracticeProgressTest < ApplicationSystemTestCase
     # NOTE: Current course information is not displayed in the current view
     # assert_text "現在のコース: #{course.title}"
     # assert_text '対象コース: Railsエンジニア'
+    assert_selector '.admin-table'
   end
 
   test 'shows message when user has no completed Rails practices' do
