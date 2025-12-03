@@ -31,6 +31,20 @@ Capybara.enable_aria_label = true
 # Configure retry for flaky tests
 Minitest::Retry.use!(retry_count: 3, verbose: true) if ENV['CI']
 
+# CI test logging helper - writes directly to fd 2 (stderr) with sync
+# This ensures output is immediately visible in CI logs
+module CITestLogger
+  def self.log(message)
+    return unless ENV['CI']
+
+    timestamp = Time.zone.now.strftime('%H:%M:%S')
+    File.open('/dev/stderr', 'a') do |f|
+      f.sync = true
+      f.puts "[#{timestamp}] #{message}"
+    end
+  end
+end
+
 class ActiveSupport::TestCase
   include VCRHelper
 
@@ -50,19 +64,11 @@ class ActiveSupport::TestCase
   setup do
     ActiveStorage::Current.url_options = { protocol: 'http', host: 'localhost', port: '3000' }
     ActiveJob::Base.queue_adapter = :test
-    # Log test start for CI debugging (helps identify hanging tests)
-    if ENV['CI']
-      warn "[TEST START] #{self.class.name}##{name}"
-      $stderr.flush
-    end
+    CITestLogger.log("[TEST START] #{self.class.name}##{name}")
   end
 
   teardown do
-    # Log test completion for CI debugging
-    if ENV['CI']
-      warn "[TEST END] #{self.class.name}##{name}"
-      $stderr.flush
-    end
+    CITestLogger.log("[TEST END] #{self.class.name}##{name}")
   end
 end
 
@@ -71,17 +77,11 @@ class ActionDispatch::IntegrationTest
   include APIHelper
 
   setup do
-    if ENV['CI']
-      warn "[TEST START] #{self.class.name}##{name}"
-      $stderr.flush
-    end
+    CITestLogger.log("[TEST START] #{self.class.name}##{name}")
   end
 
   teardown do
-    if ENV['CI']
-      warn "[TEST END] #{self.class.name}##{name}"
-      $stderr.flush
-    end
+    CITestLogger.log("[TEST END] #{self.class.name}##{name}")
   end
 end
 

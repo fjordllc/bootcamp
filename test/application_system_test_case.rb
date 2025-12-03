@@ -68,19 +68,11 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       page.driver.browser.manage.timeouts.script = 30 # 30 seconds
     end
 
-    # Log test start for CI debugging (helps identify hanging tests)
-    if ENV['CI']
-      warn "[SYSTEM TEST START] #{self.class.name}##{name}"
-      $stderr.flush
-    end
+    CITestLogger.log("[SYSTEM TEST START] #{self.class.name}##{name}")
   end
 
   teardown do
-    # Log test completion for CI debugging
-    if ENV['CI']
-      warn "[SYSTEM TEST END] #{self.class.name}##{name}"
-      $stderr.flush
-    end
+    CITestLogger.log("[SYSTEM TEST END] #{self.class.name}##{name}")
 
     ActionMailer::Base.deliveries.clear
     ActiveJob::Base.queue_adapter = @original_adapter
