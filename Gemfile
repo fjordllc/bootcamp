@@ -29,7 +29,7 @@ gem 'concurrent-ruby', '1.3.4'
 gem 'countries', '>= 5.5.0'
 gem 'country_select'
 gem 'csv'
-gem 'data_migrate', '9.2.0'
+gem 'data_migrate'
 gem 'diffy'
 gem 'discord-notifier'
 gem 'discordrb', '~> 3.5', require: false
