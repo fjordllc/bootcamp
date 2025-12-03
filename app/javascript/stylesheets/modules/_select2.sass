@@ -1,7 +1,6 @@
 @use "sass:color"
 @use "../config/mixins/break-points"
 @use "../config/mixins/position"
-@use "../config/mixins/size"
 @use "../config/mixins/text"
 @use "../config/variables/colors"
 
@@ -182,7 +181,8 @@ $select2-selection-choice-background: color.mix(colors.$main, colors.$base, 10%)
   border-color: #888 transparent transparent transparent
   border-style: solid
   border-width: 5px 4px 0 4px
-  +size.size(0)
+    width: 0
+  height: 0
   margin-left: -4px
   margin-top: -2px
   +position.position(absolute, left 50%, top 50%)
@@ -247,7 +247,8 @@ $select2-selection-choice-background: color.mix(colors.$main, colors.$base, 10%)
   cursor: pointer
   align-items: center
   justify-content: center
-  +size.size(1.5rem 100%)
+    width: 1.5rem
+  height: 100%
   flex: 0 0 1.5rem
   margin-right: .5rem
   +text.text-block(1.125rem, 700 flex)

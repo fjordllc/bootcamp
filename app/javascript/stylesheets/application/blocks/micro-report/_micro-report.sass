@@ -4,8 +4,9 @@
 @use "../../../config/mixins/size"
 @use "../../../config/mixins/text"
 
+
 .micro-report
-  +position.position(relative)
+  position: relative
   display: flex
   &:not(:last-child)
     margin-top: 1.5rem
@@ -16,7 +17,8 @@
 
 .micro-report__start
   flex: 0 0 2.75rem
-  +size.size(2.75rem 100%)
+  width: 2.75rem
+  height: 100%
 
 .micro-report__end
   flex: 1
@@ -41,7 +43,8 @@
   +break-points.media-breakpoint-up(md)
     display: none
   +break-points.media-breakpoint-down(sm)
-    +size.size(1.5rem)
+      width: 1.5rem
+  height: 1.5rem
     display: inline-block
     vertical-align: middle
     margin-right: .25rem
@@ -62,8 +65,10 @@
     width: 15%
     height: 1.4em
 
+
 .micro-report__title-icon
-  +size.size(1.5rem)
+  width: 1.5rem
+  height: 1.5rem
   margin-right: .5rem
 
 .micro-report__title-label
@@ -78,7 +83,8 @@
     word-wrap: break-word
 
 .micro-report__user-icon
-  +size.size(3.5rem)
+  width: 3.5rem
+  height: 3.5rem
   object-fit: cover
   border-radius: 50%
   +break-points.media-breakpoint-down(sm)
@@ -90,7 +96,7 @@
   color: var(--muted-text)
   +link.hover-link-reversal
   cursor: pointer
-  +position.position(relative)
+  position: relative
   +break-points.media-breakpoint-down(sm)
     font-size: .75rem
   &:active,
@@ -120,7 +126,8 @@
 .micro-report__actions-item-link
   +text.text-block(1.25rem 1, center flex)
   color: var(--muted-text)
-  +size.size(2.375rem)
+  width: 2.375rem
+  height: 2.375rem
   align-items: center
   justify-content: center
   border-radius: 50%
@@ -153,5 +160,7 @@
 .micro-report__reactions
   flex: 1
 
+
 .micro-report_user-icon.a-user-icon
-  +size.size(2.75rem)
+  width: 2.75rem
+  height: 2.75rem

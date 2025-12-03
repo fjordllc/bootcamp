@@ -1,11 +1,8 @@
 @use "../config/mixins/font-awsome"
 @use "../config/mixins/position"
-@use "../config/mixins/size"
 @use "../config/mixins/text"
-
 .a-block-check
   height: 100%
-
 .a-block-check__label
   background-color: var(--input-background)
   height: 100%
@@ -37,18 +34,20 @@
     color: var(--input-selected-text)
   .a-block-check &::before
     display: block
-    +position.position(absolute, left .75rem, top 50%)
+    position: absolute
+    left: .75rem
+    top: 50%
     transform: translateY(-50%)
   .form-item-block__item &
     border: none
     border-radius: none
   &.is-dammy
     pointer-events: none
-
   // radio
   .a-block-check.is-radio &::before
     content: ''
-    +size.size(.875rem)
+    width: .875rem
+    height: .875rem
     border: solid 1px var(--input-border)
     border-radius: 50%
     background-color: var(--base)
@@ -59,7 +58,8 @@
   // checkbox
   .a-block-check.is-checkbox &::before
     content: ''
-    +size.size(.875rem)
+    width: .875rem
+    height: .875rem
     border: solid 1px var(--input-border)
     border-radius: 3px
     background-color: var(--base)
@@ -68,15 +68,15 @@
     background-color: var(--primary)
     +font-awsome.fa(fas "\f00c")
     color: var(--reversal-text)
-
 .a-block-check__name
   +text.text-block(.875rem 1.4, block center)
 
 .a-block-check__image
-  +size.size(2rem)
+  width: 2rem
+  height: 2rem
   .a-block-check__label.has-icon &
-    +size.size(1.5rem)
-
+    width: 1.5rem
+    height: 1.5rem
 .a-block-check__account
   margin-left: .25em
   font-weight: 400
