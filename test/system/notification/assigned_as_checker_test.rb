@@ -25,7 +25,10 @@ class Notification::AssignedAsCheckerTest < NotificationSystemTestCase
     assert_user_has_notification(user: users(:machida), kind: Notification.kinds[:assigned_as_checker],
                                  text: "mentormentaroさんの提出物「#{products(:product1).practice.title}」の提出物の担当になりました。")
 
-    sleep 0.2 until deliveries.count.positive?
+    # Wait for email delivery with timeout
+    Timeout.timeout(30) do
+      sleep 0.2 until deliveries.count.positive?
+    end
 
     expected = "[FBC] mentormentaroさんの提出物#{products(:product1).title}の担当になりました。"
     assert_equal expected, deliveries.last.subject
