@@ -1,5 +1,4 @@
 @use "../config/functions/assign-inputs"
-@use "../config/mixins/placeholder"
 
 *
   font-family: inherit
@@ -47,7 +46,8 @@ ol
 input[type="submit"]
   outline: none
 
-+placeholder.placeholder
+input::placeholder,
+textarea::placeholder
   color: var(--placeholder-text)
   font-weight: 400
 

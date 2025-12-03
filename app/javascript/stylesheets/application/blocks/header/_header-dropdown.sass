@@ -2,7 +2,6 @@
 @use "../../../config/mixins/break-points"
 @use "../../../config/mixins/link"
 @use "../../../config/mixins/position"
-@use "../../../config/mixins/size"
 @use "../../../config/mixins/text"
 
 .header-dropdown
@@ -12,7 +11,11 @@
     .is-opened-dropdown &
       display: block
   +break-points.media-breakpoint-down(sm)
-    +position.position(fixed, left 0, top 0, bottom 0, 100)
+    position: fixed
+    left: 0
+    top: 0
+    bottom: 0
+    z-index: 100
     background-color: rgba(black, 0)
     width: 0
     cursor: pointer
@@ -27,7 +30,10 @@
 .header-dropdown__inner
   overflow-y: auto
   +break-points.media-breakpoint-up(md)
-    +position.position(absolute, right 0, top 100%, 2)
+    position: absolute
+    right: 0
+    top: 100%
+    z-index: 2
     background-color: var(--base)
     border: solid 1px var(--border-shade)
     width: 14rem
@@ -38,7 +44,11 @@
       width: 15rem
   +break-points.media-breakpoint-down(sm)
     background-color: var(--main)
-    +position.position(fixed, top 0, bottom 0, right auto, 1)
+    position: fixed
+      top: 0
+      bottom: 0
+    right: auto
+    z-index: 1
     transition: left .2s ease-out
     width: var(--global-nav-width-sm)
     left: calc(var(--global-nav-width-sm) * -1)
@@ -114,7 +124,8 @@
   +link.flex-link
   align-items: center
   justify-content: center
-  +size.size(100% 2.75rem)
+    width: 100%
+  height: 2.75rem
   transition: all .2s ease-out
   +break-points.media-breakpoint-up(md)
     color: var(--main-text)

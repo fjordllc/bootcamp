@@ -1,6 +1,5 @@
 @use "../config/mixins/break-points"
 @use "../config/mixins/position"
-@use "../config/mixins/size"
 
 .not-logged-in-wrapper
   min-height: 100vh
@@ -10,8 +9,14 @@
     content: ''
     background-image: url(https://bootcamp.fjord.jp/images/background/background.svg)
     background-repeat: repeat
-    +position.position(fixed, left 0, top 0, right 0, bottom 0, 1)
-    +size.size(100%)
+        position: fixed
+    left: 0
+    top: 0
+    right: 0
+    bottom: 0
+    z-index: 1
+        width: 100%
+    height: 100%
     opacity: .075
     +break-points.media-breakpoint-up(md)
       background-size: 22rem auto
@@ -21,8 +26,14 @@
     content: ''
     background-image: url('https://bootcamp.fjord.jp/images/background/completion_background.svg')
     background-repeat: repeat
-    +position.position(fixed, left 0, top 0, right 0, bottom 0, 1)
-    +size.size(100%)
+        position: fixed
+    left: 0
+    top: 0
+    right: 0
+    bottom: 0
+    z-index: 1
+        width: 100%
+    height: 100%
     opacity: .075
     +break-points.media-breakpoint-up(md)
       background-size: 16rem auto
