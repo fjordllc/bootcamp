@@ -119,12 +119,17 @@ jobs:
             HEARTBEAT_PID=$!
 
             echo "[INFO] Starting tests at $(date '+%Y-%m-%d %H:%M:%S')"
+            echo "[INFO] Node index: $CIRCLE_NODE_INDEX / Total nodes: $CIRCLE_NODE_TOTAL"
 
             # Run tests with circleci tests split for parallel execution
             TEST_FILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=timings)
             echo "[INFO] Running $(echo "$TEST_FILES" | wc -l) test files on this node"
+            echo "[INFO] Test files assigned to this node:"
+            echo "$TEST_FILES" | head -20
+            echo "..."
 
-            bundle exec rails test --verbose $TEST_FILES
+            # Disable Ruby output buffering and run tests
+            RUBYOPT="-W0" bundle exec rails test --verbose $TEST_FILES 2>&1
             TEST_EXIT_CODE=$?
 
             echo "[INFO] Tests completed at $(date '+%Y-%m-%d %H:%M:%S') with exit code: $TEST_EXIT_CODE"
@@ -133,7 +138,7 @@ jobs:
             kill $HEARTBEAT_PID 2>/dev/null || true
 
             exit $TEST_EXIT_CODE
-          no_output_timeout: 15m
+          no_output_timeout: 10m
           when: always
       - store_test_results:
           path: test/reports

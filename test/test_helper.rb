@@ -51,12 +51,18 @@ class ActiveSupport::TestCase
     ActiveStorage::Current.url_options = { protocol: 'http', host: 'localhost', port: '3000' }
     ActiveJob::Base.queue_adapter = :test
     # Log test start for CI debugging (helps identify hanging tests)
-    puts "[TEST START] #{self.class.name}##{name}" if ENV['CI']
+    if ENV['CI']
+      $stderr.puts "[TEST START] #{self.class.name}##{name}"
+      $stderr.flush
+    end
   end
 
   teardown do
     # Log test completion for CI debugging
-    puts "[TEST END] #{self.class.name}##{name}" if ENV['CI']
+    if ENV['CI']
+      $stderr.puts "[TEST END] #{self.class.name}##{name}"
+      $stderr.flush
+    end
   end
 end
 
@@ -65,11 +71,17 @@ class ActionDispatch::IntegrationTest
   include APIHelper
 
   setup do
-    puts "[TEST START] #{self.class.name}##{name}" if ENV['CI']
+    if ENV['CI']
+      $stderr.puts "[TEST START] #{self.class.name}##{name}"
+      $stderr.flush
+    end
   end
 
   teardown do
-    puts "[TEST END] #{self.class.name}##{name}" if ENV['CI']
+    if ENV['CI']
+      $stderr.puts "[TEST END] #{self.class.name}##{name}"
+      $stderr.flush
+    end
   end
 end
 
