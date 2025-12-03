@@ -118,10 +118,16 @@ jobs:
             (while true; do echo "[HEARTBEAT] $(date '+%Y-%m-%d %H:%M:%S')"; sleep 60; done) &
             HEARTBEAT_PID=$!
 
-            # Run tests
-            TEST_FILES=$(circleci tests glob "test/**/*_test.rb")
-            echo "$TEST_FILES" | circleci tests run --command="xargs bundle exec rails test --verbose" --verbose --split-by=timings
+            echo "[INFO] Starting tests at $(date '+%Y-%m-%d %H:%M:%S')"
+
+            # Run tests with circleci tests split for parallel execution
+            TEST_FILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=timings)
+            echo "[INFO] Running $(echo "$TEST_FILES" | wc -l) test files on this node"
+
+            bundle exec rails test --verbose $TEST_FILES
             TEST_EXIT_CODE=$?
+
+            echo "[INFO] Tests completed at $(date '+%Y-%m-%d %H:%M:%S') with exit code: $TEST_EXIT_CODE"
 
             # Kill heartbeat
             kill $HEARTBEAT_PID 2>/dev/null || true
