@@ -1,3 +1,5 @@
+@use "../config/mixins/short-text-style"
+
 .a-notice-block
   width: 34rem
   max-width: 100%
@@ -7,7 +9,7 @@
   color: var(--success-text)
   background-color: #f8fff2
   border-radius: 4px
-  +short-text-style
+  +short-text-style.short-text-style
   font-size: .875rem
   &.is-danger
     background-color: var(--danger-tint)

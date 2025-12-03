@@ -1,37 +1,46 @@
+@use "../config/mixins/border-radius"
+@use "../config/mixins/break-points"
+@use "../config/mixins/button"
+@use "../config/mixins/font-awsome"
+@use "../config/mixins/link"
+@use "../config/mixins/position"
+@use "../config/mixins/text"
+@use "../config/variables/colors"
+
 .a-button
-  +button-base
+  +button.button-base
 
   // color
   &.is-primary
-    +button-color($primary)
+    +button.button-color(colors.$primary)
   &.is-secondary
-    +button-color($secondary)
+    +button.button-color(colors.$secondary)
     &.is-active
-      +button-color($primary)
+      +button.button-color(colors.$primary)
   &.is-info
-    +button-color($info)
+    +button.button-color(colors.$info)
   &.is-success
-    +button-color($success)
+    +button.button-color(colors.$success)
   &.is-warning
-    +button-color($warning)
+    +button.button-color(colors.$warning)
   &.is-danger
-    +button-color($danger)
+    +button.button-color(colors.$danger)
   &.is-disabled
-    +button-color($disabled)
+    +button.button-color(colors.$disabled)
   &.is-main
-    +button-color($main)
+    +button.button-color(colors.$main)
   &.is-primary-border
-    +border-button-color($primary)
+    +button.border-button-color(colors.$primary)
   &.is-secondary-border
-    +border-button-color($secondary)
+    +button.border-button-color(colors.$secondary)
   &.is-muted
     border: none
     color: var(--muted-text)
     font-weight: 400 !important
     background-color: var(--background)
   &.is-muted-bordered
-    border-color: $border
-    color: $muted-text
+    border-color: colors.$border
+    color: colors.$muted-text
     font-weight: 400 !important
     background-color: var(--base)
     &:hover
@@ -48,90 +57,90 @@
     background: none
     border: none
     font-weight: 400
-    +hover-link-reversal
-    +default-link
+    +link.hover-link-reversal
+    +colors.default-link
     height: auto !important
     padding: 0 !important
   &.is-text-reversal
     background: none
     border: none
     font-weight: 400
-    +hover-link
-    +muted-link
+    +link.hover-link
+    +colors.muted-link
     height: auto !important
     padding: 0 !important
   &.is-muted-text
     background: none
     border: none
     font-weight: 400
-    +hover-link-reversal
-    +muted-link
+    +link.hover-link-reversal
+    +colors.muted-link
     height: auto !important
     padding: 0 !important
 
   //size
   &.is-xxs,
   &.is-xxs input[type="submit"]
-    +button-size(.625rem, 1, 1.4rem)
+    +button.button-size(.625rem, 1, 1.4rem)
     font-weight: 400
   &.is-xs,
   &.is-xs input[type="submit"]
-    +button-size(.75rem, 1, 1.7rem)
+    +button.button-size(.75rem, 1, 1.7rem)
     font-weight: 400
   &.is-sm,
   &.is-sm input[type="submit"]
-    +button-size(.75rem, 1.25, 2rem)
+    +button.button-size(.75rem, 1.25, 2rem)
   &.is-md,
   &.is-md input[type="submit"]
-    +button-size(.8125rem, 1.4, 2.25rem)
+    +button.button-size(.8125rem, 1.4, 2.25rem)
   &.is-lg,
   &.is-lg input[type="submit"]
-    +button-size(1rem, 1, 2.75rem)
+    +button.button-size(1rem, 1, 2.75rem)
   &.is-xl,
   &.is-xl input[type="submit"]
-    +button-size(1.25rem, 1, 57px)
+    +button.button-size(1.25rem, 1, 57px)
     font-weight: 800
-    +media-breakpoint-down(sm)
-      +button-size(1.125rem, 1, 3rem)
+    +break-points.media-breakpoint-down(sm)
+      +button.button-size(1.125rem, 1, 3rem)
   &.is-submit-input
     padding: 0
     &.is-left-icon,
     &.is-right-icon
-      +position(relative)
+      +position.position(relative)
       i
-        +text-block(1.125em, flex)
+        +text.text-block(1.125em, flex)
         align-items: center
         justify-content: center
-        +position(absolute, top 0, bottom 0)
+        +position.position(absolute, top 0, bottom 0)
     &.is-left-icon
       i
-        +position(left 0)
+        +position.position(left 0)
         margin-left: .45em
       input[type="submit"]
         padding-left: 2.25em
     &.is-right-icon
-      +position(relative)
+      +position.position(relative)
       i
-        +position(right 0)
+        +position.position(right 0)
         margin-right: .45em
       input[type="submit"]
         padding-right: 2.25em
 
   //icon
   &.is-back
-    +position(relative)
+    +position.position(relative)
     padding-left: .75em
     padding-right: 0
     &::before
-      +fa(fas '\f104')
-      +position(absolute, left .75em, top 50%)
+      +font-awsome.fa(fas '\f104')
+      +position.position(absolute, left .75em, top 50%)
       transform: translate(0, -50%)
 
 input[type="submit"],
 input[type="reset"],
 input[type="button"]
   &.a-button
-    +input-button-base
+    +button.input-button-base
 
 .is-button-group
   display: flex
@@ -141,10 +150,10 @@ input[type="button"]
     margin-right: -1px
   li:first-child
     .a-button
-      +border-radius(right, 0)
+      +border-radius.border-radius(right, 0)
   li:last-child
     .a-button
-      +border-radius(left, 0)
+      +border-radius.border-radius(left, 0)
   li:not(:first-child):not(:last-child)
     .a-button
       border-radius: 0

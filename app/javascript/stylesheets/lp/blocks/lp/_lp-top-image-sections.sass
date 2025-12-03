@@ -1,7 +1,10 @@
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/size"
+
 @use "sass:math"
 
 .lp-top-image-sections__title-icon
-  +size(3rem)
+  +size.size(3rem)
   margin-right: .75rem
 
 .lp-top-image-section
@@ -11,10 +14,10 @@
   height: 100%
   display: flex
   flex-direction: column
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     padding: 1.25rem 1.5rem 1.5rem
     gap: 1.25rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     padding: 1rem 1.25rem 1.25rem
     gap: .75rem
 
@@ -24,30 +27,30 @@
   display: flex
   justify-content: center
   align-items: center
-  +media-breakpoint-up(lg)
+  +break-points.media-breakpoint-up(lg)
     width: 8rem
     font-size: 5rem
-  +media-breakpoint-only(md)
+  +break-points.media-breakpoint-only(md)
     width: 6rem
     font-size: 4rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     width: 6rem
     font-size: 4rem
 
 .lp-top-image-section__chart-container
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     aspect-ratio: 5 / 3
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     aspect-ratio: 3 / 4
 
 .lp-top-image-section__float-image
   float: left
   border-radius: .25rem
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     width: 6.75rem
     margin-right: 1.5rem
     margin-bottom: .75rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     width: 4rem
     margin-right: 1rem
     margin-bottom: .75rem

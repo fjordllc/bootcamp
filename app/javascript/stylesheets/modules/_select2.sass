@@ -1,11 +1,18 @@
+@use "sass:color"
+@use "../config/mixins/break-points"
+@use "../config/mixins/position"
+@use "../config/mixins/size"
+@use "../config/mixins/text"
+@use "../config/variables/colors"
+
 $select2-height: 2.25rem
 $select2-font-size: .8125rem
 $select2-border-color: var(--background-shade)
 $select2-option-border-color: var(--background)
-$select2-highlighted-color: rgba($main, .8)
+$select2-highlighted-color: rgba(colors.$main, .8)
 $select2-results-height: 200px
-$select2-selection-choice-border: $main
-$select2-selection-choice-background: mix($main, $base, 10%)
+$select2-selection-choice-border: colors.$main
+$select2-selection-choice-background: color.mix(colors.$main, colors.$base, 10%)
 
 .select2-container
   display: inline-block
@@ -24,11 +31,11 @@ $select2-selection-choice-background: mix($main, $base, 10%)
   overflow: hidden
   text-overflow: ellipsis
   white-space: nowrap
-  +text-block($select2-font-size 1)
+  +text.text-block($select2-font-size 1)
 
 .select2-search
   line-height: 28px
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     flex: 0 0 100%
 
 // single
@@ -80,7 +87,7 @@ $select2-selection-choice-background: mix($main, $base, 10%)
   z-index: 1051
 
 .select2-results__option
-  +text-block($select2-font-size 1.5)
+  +text.text-block($select2-font-size 1.5)
   padding: 6px
   user-select: none
   -webkit-user-select: none
@@ -168,17 +175,17 @@ $select2-selection-choice-background: mix($main, $base, 10%)
 
 .select2-container--default .select2-selection--single .select2-selection__arrow
   height: $select2-height
-  +position(absolute, right 1px, top 1px)
+  +position.position(absolute, right 1px, top 1px)
   width: 2em
 
 .select2-container--default .select2-selection--single .select2-selection__arrow b
   border-color: #888 transparent transparent transparent
   border-style: solid
   border-width: 5px 4px 0 4px
-  +size(0)
+  +size.size(0)
   margin-left: -4px
   margin-top: -2px
-  +position(absolute, left 50%, top 50%)
+  +position.position(absolute, left 50%, top 50%)
 
 .select2-container--default[dir="rtl"] .select2-selection--single .select2-selection__clear
   float: left
@@ -240,14 +247,14 @@ $select2-selection-choice-background: mix($main, $base, 10%)
   cursor: pointer
   align-items: center
   justify-content: center
-  +size(1.5rem 100%)
+  +size.size(1.5rem 100%)
   flex: 0 0 1.5rem
   margin-right: .5rem
-  +text-block(1.125rem, 700 flex)
+  +text.text-block(1.125rem, 700 flex)
   color: var(--reversal-text)
   background-color: $select2-selection-choice-border
   &:hover
-    background-color: mix($select2-selection-choice-border, $base, 80%)
+    background-color: color.mix($select2-selection-choice-border, colors.$base, 80%)
 
 .select2-container--default[dir="rtl"] .select2-selection--multiple .select2-selection__choice, .select2-container--default[dir="rtl"] .select2-selection--multiple .select2-selection__placeholder, .select2-container--default[dir="rtl"] .select2-selection--multiple .select2-search--inline
   float: right

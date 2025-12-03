@@ -1,27 +1,30 @@
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/link"
+
 .footer-nav__items
   display: flex
   line-height: 1.4
   flex-wrap: wrap
   align-items: center
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     font-size: .8125rem
     justify-content: center
     gap: 1.75rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     font-size: .75rem
 
 .footer-nav__item
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     flex: 0 0 50%
     &:nth-child(odd)
       border-right: solid 1px var(--border)
 
 .footer-nav__item-link
   color: var(--semi-muted-text)
-  +media-breakpoint-up(md)
-    +hover-link
-  +media-breakpoint-down(sm)
-    +flex-link
+  +break-points.media-breakpoint-up(md)
+    +link.hover-link
+  +break-points.media-breakpoint-down(sm)
+    +link.flex-link
     padding: .25rem 1rem
     min-height: 2.75rem
     align-items: center

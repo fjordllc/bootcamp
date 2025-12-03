@@ -1,3 +1,8 @@
+@use "../../../config/mixins/link"
+@use "../../../config/mixins/size"
+@use "../../../config/mixins/text"
+@use "../../../config/variables/colors"
+
 .niconico-calendar-nav
   display: flex
   justify-content: center
@@ -7,12 +12,12 @@
 
 .niconico-calendar-nav__previous,
 .niconico-calendar-nav__next
-  +size(2.75rem)
+  +size.size(2.75rem)
   display: flex
   align-items: center
   justify-content: center
   cursor: pointer
-  +hover-link
+  +link.hover-link
   transition: all .2s ease-out
   &:hover
     color: var(--main-text)
@@ -38,7 +43,7 @@
 
 .niconico-calendar__header-day
   width: calc(100% / 7)
-  +text-block(.75rem 1, center)
+  +text.text-block(.75rem 1, center)
   padding-block: .25em
   &.is-sunday
     color: var(--danger)
@@ -62,33 +67,33 @@
       color: var(--success)
 
 .niconico-calendar__day-inner
-  +block-link
+  +link.block-link
   padding-block: .25rem .125rem
-  +size(100%)
+  +size.size(100%)
 
 a.niconico-calendar__day-inner
   transition: all .2s ease-out
   cursor: pointer
   &:hover
-    background-color: rgba($warning, .1)
+    background-color: rgba(colors.$warning, .1)
     box-shadow: var(--warning) 0 0 0 1px inset
     position: relative
 
 .niconico-calendar__day-label
-  +text-block(.625rem 1, center)
+  +text.text-block(.625rem 1, center)
   color: var(--default-text)
   margin-bottom: .125rem
   .niconico-calendar__day.is-blank &
     color: var(--muted-text)
 
 .niconico-calendar__day-value
-  +text-block(1.75rem 1, center flex)
+  +text.text-block(1.75rem 1, center flex)
   align-items: center
   justify-content: center
-  +size(100% 1.875rem)
+  +size.size(100% 1.875rem)
   .niconico-calendar__day.is-blank &
     color: var(--muted-text)
     font-size: 1.25rem
 
 .niconico-calendar__emotion-image
-  +size(1em)
+  +size.size(1em)

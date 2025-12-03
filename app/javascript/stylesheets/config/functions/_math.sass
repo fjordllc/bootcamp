@@ -9,13 +9,13 @@
   @if ($b != 0)
     @return gcd($b, $a % $b)
   @else
-    @return abs($a)
+    @return math.abs($a)
 
 @function pow($base, $exponent, $prec: 12)
   // Handles decimal exponents by trying to convert them into a fraction and then use a nthRoot-algorithm for parts of the calculation
-  @if (floor($exponent) != $exponent)
+  @if (math.floor($exponent) != $exponent)
     $prec2 : pow(10, $prec)
-    $exponent: round($exponent * $prec2)
+    $exponent: math.round($exponent * $prec2)
     $denominator: gcd($exponent, $prec2)
     @return nthRoot(pow($base, math.div($exponent, $denominator)), math.div($prec2, $denominator), $prec)
   $value: $base
@@ -38,10 +38,10 @@
   @return math.div($n2 * $n3, $n1)
 
 @function second_decimal_place_floor($num)
-  @return floor($num * 10) * 0.1
+  @return math.floor($num * 10) * 0.1
 
 @function second_decimal_place_ceil($num)
-  @return ceil($num * 10) * 0.1
+  @return math.ceil($num * 10) * 0.1
 
 @function second_decimal_place_round($num)
-  @return round($num * 10) * 0.1
+  @return math.round($num * 10) * 0.1

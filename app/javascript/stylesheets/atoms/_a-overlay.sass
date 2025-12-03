@@ -1,7 +1,10 @@
+@use "../config/mixins/position"
+@use "../config/mixins/size"
+
 .a-overlay
-  +position(fixed, left 0, top 0, bottom 0, 1)
+  +position.position(fixed, left 0, top 0, bottom 0, 1)
   background-color: rgba(black, .6)
-  +size(100%)
+  +size.size(100%)
   opacity: 0
   &.is-js
     opacity: 1

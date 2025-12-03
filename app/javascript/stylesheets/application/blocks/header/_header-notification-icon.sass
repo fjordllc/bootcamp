@@ -1,17 +1,22 @@
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/position"
+@use "../../../config/mixins/size"
+@use "../../../config/mixins/text"
+
 .header-notification-count
   position: absolute
-  +media-breakpoint-up(md)
-    +position(right .25rem, top .25rem)
-  +media-breakpoint-down(sm)
-    +position(right .125rem, top .125rem)
+  +break-points.media-breakpoint-up(md)
+    +position.position(right .25rem, top .25rem)
+  +break-points.media-breakpoint-down(sm)
+    +position.position(right .125rem, top .125rem)
   &.is-loading.a-notification-count
     background-color: transparent
   &.is-loading::before
     content: ' .'
     color: var(--default-text)
     animation: dots 1s steps(5, end) infinite
-    +text-block(1rem 1)
-    +position(absolute, left .25rem, bottom .25rem)
+    +text.text-block(1rem 1)
+    +position.position(absolute, left .25rem, bottom .25rem)
 
 @keyframes dots
   0%, 20%
@@ -27,14 +32,14 @@
 
 .header-notifications-item__body
   width: 100%
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     color: var(--default-text)
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     color: var(--reversal-text)
 
 .header-notifications-item__user-icon
   float: left
-  +size(2rem)
+  +size.size(2rem)
   margin-right: .5rem
   margin-bottom: .25rem
 
@@ -42,15 +47,15 @@
   p
     line-height: 1.45
     margin-bottom: .375em
-    +media-breakpoint-up(md)
+    +break-points.media-breakpoint-up(md)
       font-size: .8125rem
-    +media-breakpoint-down(sm)
+    +break-points.media-breakpoint-down(sm)
       font-size: .75rem
 
 .header-notifications-item__created-at
   text-align: right
   display: block
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     font-size: .75rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     font-size: .625rem
