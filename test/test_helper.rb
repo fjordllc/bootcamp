@@ -16,13 +16,6 @@ require 'webmock/minitest'
 # Ensure AbstractNotifier uses test mode
 AbstractNotifier.delivery_mode = :test
 
-# Debug output for CI
-if ENV['CI']
-  puts "[DEBUG] AbstractNotifier.test? = #{AbstractNotifier.test?}"
-  puts "[DEBUG] AbstractNotifier.delivery_mode = #{AbstractNotifier.delivery_mode}"
-  puts "[DEBUG] RAILS_ENV = #{ENV['RAILS_ENV']}"
-end
-
 Capybara.default_max_wait_time = 15
 Capybara.disable_animation = true
 Capybara.automatic_reload = false
@@ -48,14 +41,18 @@ end
 class ActiveSupport::TestCase
   include VCRHelper
 
-  # Run tests in parallel with specified workers
-  # In CI, use PARALLEL_WORKERS env var; locally use number_of_processors
-  parallelize(workers: ENV['CI'] ? (ENV['PARALLEL_WORKERS']&.to_i || 2) : :number_of_processors)
+  # Run tests in parallel
+  # In CI: Disable Rails parallelization - CircleCI handles parallelism via parallelism: 3
+  # This avoids DRb/fork complexity that can cause test hangs (Rails issue #55513)
+  # Locally: Use number_of_processors for faster test execution
+  unless ENV['CI']
+    parallelize(workers: :number_of_processors)
 
-  # Setup for each parallel process
-  parallelize_setup do |_worker|
-    ActiveStorage::Current.url_options = { protocol: 'http', host: 'localhost', port: '3000' }
-    ActiveJob::Base.queue_adapter = :test
+    # Setup for each parallel process
+    parallelize_setup do |_worker|
+      ActiveStorage::Current.url_options = { protocol: 'http', host: 'localhost', port: '3000' }
+      ActiveJob::Base.queue_adapter = :test
+    end
   end
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
