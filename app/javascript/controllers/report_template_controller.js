@@ -14,6 +14,7 @@ export default class extends Controller {
     'templateContent',
     'previewContent'
   ]
+
   static values = {
     registeredTemplate: String,
     registeredTemplateId: Number,
