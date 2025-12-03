@@ -114,10 +114,6 @@ jobs:
       - run:
           name: Test
           command: |
-            # Start heartbeat in background (outputs to same stdout)
-            (while true; do echo "[HEARTBEAT] $(date '+%Y-%m-%d %H:%M:%S')"; sleep 60; done) &
-            HEARTBEAT_PID=$!
-
             echo "[INFO] Starting tests at $(date '+%Y-%m-%d %H:%M:%S')"
             echo "[INFO] Node index: $CIRCLE_NODE_INDEX / Total nodes: $CIRCLE_NODE_TOTAL"
 
@@ -128,17 +124,19 @@ jobs:
             echo "$TEST_FILES" | head -20
             echo "..."
 
-            # Disable Ruby output buffering and run tests
-            RUBYOPT="-W0" bundle exec rails test --verbose $TEST_FILES 2>&1
+            # Run tests with timeout (30 minutes max)
+            timeout 1800 bundle exec rails test --verbose $TEST_FILES 2>&1
             TEST_EXIT_CODE=$?
 
             echo "[INFO] Tests completed at $(date '+%Y-%m-%d %H:%M:%S') with exit code: $TEST_EXIT_CODE"
 
-            # Kill heartbeat
-            kill $HEARTBEAT_PID 2>/dev/null || true
+            # Exit code 124 means timeout
+            if [ $TEST_EXIT_CODE -eq 124 ]; then
+              echo "[ERROR] Tests timed out after 30 minutes!"
+            fi
 
             exit $TEST_EXIT_CODE
-          no_output_timeout: 10m
+          no_output_timeout: 5m
           when: always
       - store_test_results:
           path: test/reports
