@@ -3,7 +3,6 @@
 require 'application_system_test_case'
 
 class CampaignsTest < ApplicationSystemTestCase
-  WEEK_DAY = %w[日 月 火 水 木 金 土].freeze
   TODAY = Time.current.beginning_of_day
   PERIOD = 6
 
