@@ -52,7 +52,7 @@ class ActiveSupport::TestCase
     ActiveJob::Base.queue_adapter = :test
     # Log test start for CI debugging (helps identify hanging tests)
     if ENV['CI']
-      $stderr.puts "[TEST START] #{self.class.name}##{name}"
+      warn "[TEST START] #{self.class.name}##{name}"
       $stderr.flush
     end
   end
@@ -60,7 +60,7 @@ class ActiveSupport::TestCase
   teardown do
     # Log test completion for CI debugging
     if ENV['CI']
-      $stderr.puts "[TEST END] #{self.class.name}##{name}"
+      warn "[TEST END] #{self.class.name}##{name}"
       $stderr.flush
     end
   end
@@ -72,14 +72,14 @@ class ActionDispatch::IntegrationTest
 
   setup do
     if ENV['CI']
-      $stderr.puts "[TEST START] #{self.class.name}##{name}"
+      warn "[TEST START] #{self.class.name}##{name}"
       $stderr.flush
     end
   end
 
   teardown do
     if ENV['CI']
-      $stderr.puts "[TEST END] #{self.class.name}##{name}"
+      warn "[TEST END] #{self.class.name}##{name}"
       $stderr.flush
     end
   end

@@ -70,7 +70,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
     # Log test start for CI debugging (helps identify hanging tests)
     if ENV['CI']
-      $stderr.puts "[SYSTEM TEST START] #{self.class.name}##{name}"
+      warn "[SYSTEM TEST START] #{self.class.name}##{name}"
       $stderr.flush
     end
   end
@@ -78,7 +78,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   teardown do
     # Log test completion for CI debugging
     if ENV['CI']
-      $stderr.puts "[SYSTEM TEST END] #{self.class.name}##{name}"
+      warn "[SYSTEM TEST END] #{self.class.name}##{name}"
       $stderr.flush
     end
 
