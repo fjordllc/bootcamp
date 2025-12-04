@@ -1,5 +1,4 @@
 @use "../../config/mixins/break-points"
-@use "../../config/mixins/text"
 
 .errors
   background-color: var(--danger-tint)
@@ -14,13 +13,21 @@
     padding: .875rem 1rem
 
 .errors__title
-  +text.text-block(.875rem 1.45 0 .8em, center 600)
+  font-size: .875rem
+  line-height: 1.45
+  margin-top: 0
+  margin-bottom: .8em
+  text-align: center
+  font-weight: 600
   color: var(--danger-text)
   +break-points.media-breakpoint-down(sm)
     font-size: .8125rem
 
 .errors__item
-  +text.text-block(.8125rem 1.6 0 .2em)
+  font-size: .8125rem
+  line-height: 1.6
+  margin-top: 0
+  margin-bottom: .2em
   color: var(--danger-text)
   +break-points.media-breakpoint-down(sm)
     font-size: .75rem

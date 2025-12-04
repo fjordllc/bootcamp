@@ -1,9 +1,9 @@
 @use "../config/mixins/break-points"
-@use "../config/mixins/position"
-@use "../config/mixins/text"
 
 @mixin text-input-base
-  +text.text-block(1em 1.4, block)
+  font-size: 1em
+  line-height: 1.4
+  display: block
   background-color: var(--input-background)
   width: 100%
   padding: .5rem
@@ -47,7 +47,8 @@ input[type=week].a-text-input
   &::-webkit-inner-spin-button
     -webkit-appearance: none
   &::-webkit-clear-button
-    +position.position(relative, 1)
+    position: relative
+    z-index: 1
   &::-webkit-calendar-picker-indicator
     color: transparent
     background-color: transparent

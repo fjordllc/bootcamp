@@ -1,10 +1,6 @@
 @use "../config/mixins/border-radius"
 @use "../config/mixins/break-points"
 @use "../config/mixins/button"
-@use "../config/mixins/font-awsome"
-@use "../config/mixins/link"
-@use "../config/mixins/position"
-@use "../config/mixins/text"
 @use "../config/variables/colors"
 
 .a-button
@@ -57,7 +53,11 @@
     background: none
     border: none
     font-weight: 400
-    +link.hover-link-reversal
+    text-decoration: none
+    cursor: pointer
+    &:hover,
+    &:active
+      text-decoration: underline
     +colors.default-link
     height: auto !important
     padding: 0 !important
@@ -65,7 +65,11 @@
     background: none
     border: none
     font-weight: 400
-    +link.hover-link
+    text-decoration: none
+    cursor: pointer
+    &:hover,
+    &:active
+      text-decoration: underline
     +colors.muted-link
     height: auto !important
     padding: 0 !important
@@ -73,7 +77,11 @@
     background: none
     border: none
     font-weight: 400
-    +link.hover-link-reversal
+    text-decoration: none
+    cursor: pointer
+    &:hover,
+    &:active
+      text-decoration: underline
     +colors.muted-link
     height: auto !important
     padding: 0 !important
@@ -106,34 +114,47 @@
     padding: 0
     &.is-left-icon,
     &.is-right-icon
-      +position.position(relative)
+      position: relative
       i
-        +text.text-block(1.125em, flex)
+        font-size: 1.125em
+        display: flex
         align-items: center
         justify-content: center
-        +position.position(absolute, top 0, bottom 0)
+        position: absolute
+        top: 0
+        bottom: 0
     &.is-left-icon
       i
-        +position.position(left 0)
+        left: 0
         margin-left: .45em
       input[type="submit"]
         padding-left: 2.25em
     &.is-right-icon
-      +position.position(relative)
+      position: relative
       i
-        +position.position(right 0)
+        right: 0
         margin-right: .45em
       input[type="submit"]
         padding-right: 2.25em
 
   //icon
   &.is-back
-    +position.position(relative)
+    position: relative
     padding-left: .75em
     padding-right: 0
     &::before
-      +font-awsome.fa(fas '\f104')
-      +position.position(absolute, left .75em, top 50%)
+      content: "\f104"
+      font-family: 'Font Awesome 6 Pro'
+      font-style: normal
+      font-weight: 900
+      font-variant: normal
+      text-rendering: auto
+      line-height: 1
+      -moz-osx-font-smoothing: grayscale
+      -webkit-font-smoothing: antialiased
+      left: .75em
+      position: absolute
+      top: 50%
       transform: translate(0, -50%)
 
 input[type="submit"],

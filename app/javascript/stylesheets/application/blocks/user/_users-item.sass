@@ -1,6 +1,5 @@
 @use "../../../config/mixins/border-radius"
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/text"
 
 .users-item
   height: 100%
@@ -8,7 +7,9 @@
 
 .users-item__inactive-message
   background-color: var(--disabled)
-  +text.text-block(.625rem 1.4, center)
+  font-size: .625rem
+  line-height: 1.4
+  text-align: center
   padding: .25rem
   +border-radius.border-radius(top, .1875rem)
   margin: -1px -1px -.25rem
@@ -53,7 +54,10 @@
     width: 2.5rem
 
 .users-item__name
-  +text.text-block(1em 1.4, 600 block)
+  font-size: 1em
+  line-height: 1.4
+  display: block
+  font-weight: 600
   color: var(--main)
   margin-bottom: .125rem
   +break-points.media-breakpoint-up(md)
@@ -72,7 +76,8 @@
 
 .users-item__description
   p
-    +text.text-block(.75rem 1.6)
+    font-size: .75rem
+    line-height: 1.6
 
 .users-item__tags
   margin-top: .75rem

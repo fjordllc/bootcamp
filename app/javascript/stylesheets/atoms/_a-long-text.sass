@@ -1,6 +1,5 @@
 @use "../config/mixins/break-points"
 @use "../config/mixins/long-text-style"
-@use "../config/mixins/text"
 
 .a-long-text
   +long-text-style.long-text-style(1em, 1em)
@@ -21,7 +20,11 @@
     h4,
     h5,
     h6
-      +text.text-block(1em 1.6 0 .625em, 600)
+      font-size: 1em
+      line-height: 1.6
+      margin-top: 0
+      margin-bottom: .625em
+      font-weight: 600
       border: none
       padding: 0
   .a-long-text + &

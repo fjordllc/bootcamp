@@ -1,11 +1,9 @@
 @use "../../../config/mixins/border-radius"
 @use "../../../config/mixins/break-points"
 @use "../../../config/mixins/margin-padding"
-@use "../../../config/mixins/position"
-@use "../../../config/mixins/text"
 
 .form-textarea
-  +position.position(relative)
+  position: relative
   textarea.a-text-input
     padding-bottom: 3rem
 
@@ -15,7 +13,8 @@
 
 +break-points.media-breakpoint-up(lg)
   .form-textarea__bottom-note
-    +text.text-block(.75rem 1.4)
+    font-size: .75rem
+    line-height: 1.4
     text-align: center
 
 .form-textarea__footer
@@ -24,7 +23,10 @@
   gap: 1rem
   align-items: center
   background-color: var(--background)
-  +position.position(absolute, left 1px, bottom 1px, right 1px)
+  position: absolute
+  left: 1px
+  bottom: 1px
+  right: 1px
   +border-radius.border-radius(bottom, 3px)
   +margin-padding.padding(horizontal, .5rem)
   border-top: solid 1px var(--border-shade)
@@ -33,5 +35,6 @@
   +break-points.media-breakpoint-down(md)
     display: none
   +break-points.media-breakpoint-up(lg)
-    +text.text-block(.75rem 1.4)
+    font-size: .75rem
+    line-height: 1.4
     text-align: center

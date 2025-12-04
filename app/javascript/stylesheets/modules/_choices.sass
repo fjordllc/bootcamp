@@ -1,4 +1,3 @@
-@use "../config/mixins/position"
 @use "../config/variables/choices"
 
 body
@@ -56,7 +55,9 @@ body
     background-image: choices.$choices-icon-cross
     margin: 0 0 0 .5rem
     width: 1.75rem
-    +position.position(absolute, right 0, top 0)
+    position: absolute
+    right: 0
+    top: 0
     transition: all .2s ease-out
     &:hover
       background-color: var(--primary-semi-tint)

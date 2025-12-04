@@ -1,5 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/text"
 
 .lp-top-cover
   background-image: var(--people-bg-image)
@@ -48,7 +47,10 @@
     margin-top: .75rem
 
 .lp-top-cover__description
-  +text.text-block(1.5rem 1.4, center 800)
+  font-size: 1.5rem
+  line-height: 1.4
+  text-align: center
+  font-weight: 800
   color: var(--reversal-text)
   font-feature-settings: "palt"
   +break-points.media-breakpoint-down(sm)
@@ -63,8 +65,11 @@
   font-weight: 800
   text-align: center
   +break-points.media-breakpoint-up(lg)
-    +text.text-block(2.5rem 1.4)
+    font-size: 2.5rem
+    line-height: 1.4
   +break-points.media-breakpoint-only(md)
-    +text.text-block(2rem 1.4)
+    font-size: 2rem
+    line-height: 1.4
   +break-points.media-breakpoint-down(sm)
-    +text.text-block(1.25rem 1.4)
+    font-size: 1.25rem
+    line-height: 1.4

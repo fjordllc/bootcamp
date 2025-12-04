@@ -1,7 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/link"
-@use "../../../config/mixins/position"
-@use "../../../config/mixins/text"
 
 
 .micro-report
@@ -31,7 +28,9 @@
   margin-bottom: .25rem
 
 .micro-report__title
-  +text.text-block(.875rem 1.4, 600)
+  font-size: .875rem
+  line-height: 1.4
+  font-weight: 600
   +break-points.media-breakpoint-up(md)
     margin-right: .5rem
     flex: 1
@@ -71,7 +70,9 @@
   margin-right: .5rem
 
 .micro-report__title-label
-  +text.text-block(.8125rem, block 400)
+  font-size: .8125rem
+  display: block
+  font-weight: 400
   color: var(--muted-text)
   margin-bottom: .125rem
   i
@@ -91,9 +92,15 @@
 
 .micro-report__created-at
   display: block
-  +text.text-block(.8125rem 1.4, nowrap)
+  font-size: .8125rem
+  line-height: 1.4
+  white-space: nowrap
   color: var(--muted-text)
-  +link.hover-link-reversal
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
   cursor: pointer
   position: relative
   +break-points.media-breakpoint-down(sm)
@@ -108,9 +115,12 @@
       background-color: rgba(black, .4)
       border-radius: .125rem
       padding: .25rem
-      +text.text-block(.625rem 1)
+      font-size: .625rem
+      line-height: 1
       color: var(--reversal-text)
-      +position.position(absolute, left 0, top 100%)
+      left: 0
+      position: absolute
+      top: 100%
   &.a-placeholder
     width: 30%
     height: 1.4em
@@ -123,7 +133,10 @@
   align-items: center
 
 .micro-report__actions-item-link
-  +text.text-block(1.25rem 1, center flex)
+  font-size: 1.25rem
+  line-height: 1
+  display: flex
+  text-align: center
   color: var(--muted-text)
   width: 2.375rem
   height: 2.375rem

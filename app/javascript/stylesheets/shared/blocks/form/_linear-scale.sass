@@ -1,4 +1,3 @@
-@use "../../../config/mixins/text"
 @use "../../../config/variables/colors"
 
 $radio-size: .875rem
@@ -8,7 +7,8 @@ $radio-size: .875rem
   align-items: center
 
 .linear-scale__label
-  +text.text-block(.8125rem 1.4)
+  font-size: .8125rem
+  line-height: 1.4
   &:first-child
     margin-right: 1rem
   &:last-child
@@ -24,7 +24,8 @@ $radio-size: .875rem
 .linear-scale__point
   display: flex
   flex-direction: column
-  +text.text-block(.875rem 1.4)
+  font-size: .875rem
+  line-height: 1.4
   display: block
   color: var(--semi-muted-text)
   position: relative
@@ -45,7 +46,8 @@ $radio-size: .875rem
     transform: translate(-50%, 0)
     background-color: var(--base)
     border-radius: 50%
-    +text.text-block(.75rem 1)
+    font-size: .75rem
+    line-height: 1
     display: flex
     color: var(--reversal-text)
     align-items: center

@@ -1,5 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/link"
 
 .form-item-actions
   +break-points.media-breakpoint-up(md)
@@ -13,7 +12,11 @@
   gap: .75rem
 
 .form-item-actions__text-link
-  +link.hover-link-reversal
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
   cursor: pointer
   line-height: 1.4
   +break-points.media-breakpoint-up(md)

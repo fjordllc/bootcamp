@@ -1,8 +1,6 @@
 @use "../../../config/functions/color"
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/link"
 @use "../../../config/mixins/practice-color"
-@use "../../../config/mixins/text"
 @use "../../../config/variables/colors"
 
 .category-practices-item
@@ -32,8 +30,11 @@
     top: -3.5rem
 
 .category-practices-item__status
-  +text.text-block(.8125rem 1, 600)
-  +link.flex-link
+  font-size: .8125rem
+  line-height: 1
+  font-weight: 600
+  display: flex
+  text-decoration: none
   align-items: center
   justify-content: center
   height: 2.125rem
@@ -54,7 +55,9 @@
     margin-bottom: .5rem
 
 .category-practices-item__title-link
-  +text.text-block(.875rem 1.4, flex)
+  font-size: .875rem
+  line-height: 1.4
+  display: flex
   color: var(--default-text)
   align-items: center
   min-height: 1.875rem
@@ -71,7 +74,8 @@
     text-decoration: underline
 
 .category-practices-item__learning-time
-  +text.text-block(.75rem 1.4)
+  font-size: .75rem
+  line-height: 1.4
   color: var(--muted-text)
   +break-points.media-breakpoint-up(md)
     margin-top: -.25rem

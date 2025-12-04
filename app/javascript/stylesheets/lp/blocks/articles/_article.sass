@@ -1,5 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/text"
 
 .article
   +break-points.media-breakpoint-up(md)
@@ -54,13 +53,15 @@
   margin-left: .75em
 
 .article__published-at
-  +text.text-block(1em 1.4)
+  font-size: 1em
+  line-height: 1.4
   color: var(--semi-muted-text)
 
 .article__author
   display: flex
   align-items: center
-  +text.text-block(1em 1.4)
+  font-size: 1em
+  line-height: 1.4
   color: var(--default-text)
   img
     width: 1.125rem

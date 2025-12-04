@@ -1,9 +1,9 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/position"
-
 .lp-header
   background-color: var(--base)
-  +position.position(sticky, top 0, 10)
+  position: sticky
+  top: 0
+  z-index: 10
 
 .lp-header__inner
   height: 3.5rem

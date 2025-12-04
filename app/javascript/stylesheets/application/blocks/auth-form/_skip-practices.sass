@@ -1,4 +1,3 @@
-@use "../../../config/mixins/text"
 
 .skip-practices
   .skip-practices + &
@@ -16,7 +15,8 @@
   display: flex
   justify-content: space-between
   height: 2.5rem
-  +text.text-block(.875rem 1.5)
+  font-size: .875rem
+  line-height: 1.5
   padding: .75rem
   align-items: center
   cursor: pointer

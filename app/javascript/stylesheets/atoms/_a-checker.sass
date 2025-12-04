@@ -1,4 +1,3 @@
-@use "../config/mixins/text"
 @use "../config/variables/colors"
 
 .a-checker
@@ -11,5 +10,6 @@
   padding: .125rem .5rem .125rem .25rem
 
 .a-checker__status
-  +text.text-block(.625rem 1, colors.$danger-text)
+  font-size: .625rem
+  line-height: 1
   margin-left: .25rem

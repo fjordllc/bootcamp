@@ -1,7 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/link"
-@use "../../../config/mixins/position"
-@use "../../../config/mixins/text"
 
 .form-actions
   +break-points.media-breakpoint-up(md)
@@ -33,7 +30,7 @@
     flex-direction: column
 
 .form-actions__item
-  +position.position(relative)
+  position: relative
   &.is-sub
     +break-points.media-breakpoint-up(md)
       flex: 0 0 auto
@@ -41,7 +38,9 @@
       text-align: center
   &.is-muted
     +break-points.media-breakpoint-up(md)
-      +position.position(absolute, right 0, bottom 0)
+      position: absolute
+      right: 0
+      bottom: 0
     +break-points.media-breakpoint-down(sm)
       text-align: right
   &.is-help
@@ -69,13 +68,17 @@
       width: auto
 
 .form-actions__item-help
-  +text.text-block(.8125rem 1)
+  font-size: .8125rem
+  line-height: 1
   text-align: center
   padding-top: .5rem
   .a-form-help-link
     margin-left: .5em
   +break-points.media-breakpoint-up(md)
-    +position.position(absolute, left 0, bottom 0, right 0)
+    position: absolute
+    left: 0
+    bottom: 0
+    right: 0
 
 .form-actions__item-checkbox
   margin-bottom: .5rem
@@ -88,8 +91,13 @@
     margin-top: .75rem
 
 .form-actions__delete-link
-  +link.hover-link-reversal
-  +text.text-block(.875rem 1.4)
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
+  font-size: .875rem
+  line-height: 1.4
   color: var(--muted-text)
   &:hover
     color: var(--danger)

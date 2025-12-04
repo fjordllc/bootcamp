@@ -1,6 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/link"
-@use "../../../config/mixins/text"
 
 .courses-item
   height: 100%
@@ -12,10 +10,12 @@
   padding: .75rem 1.25rem 0
 
 .courses-item__title
-  +text.text-block(1.125rem 1.4)
+  font-size: 1.125rem
+  line-height: 1.4
 
 .courses-item__title-icon
-  +text.text-block(.6875rem 1)
+  font-size: .6875rem
+  line-height: 1
   color: var(--semi-muted-text)
   display: inline-flex
   white-space: nowrap
@@ -35,7 +35,8 @@
     background-color: var(--background-tint)
 
 .courses-item__title-link
-  +link.block-link
+  display: block
+  text-decoration: none
 
 .courses-item__title-label
   color: var(--main-text)
@@ -51,4 +52,5 @@
 .courses-item__description
   padding: .5rem 1.25rem .75rem
   p
-    +text.text-block(.8125rem 1.6)
+    font-size: .8125rem
+    line-height: 1.6

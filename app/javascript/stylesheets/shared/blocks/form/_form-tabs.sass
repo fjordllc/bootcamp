@@ -1,5 +1,3 @@
-@use "../../../config/mixins/position"
-@use "../../../config/mixins/text"
 
 .form-tabs
   display: flex
@@ -8,7 +6,9 @@
 .form-tabs__tab
   width: 5.5rem
   padding-block: .75rem 1rem
-  +text.text-block(.8125rem 1, flex)
+  font-size: .8125rem
+  line-height: 1
+  display: flex
   display: flex
   white-space: nowrap
   color: var(--muted-text)
@@ -28,5 +28,8 @@
     content: ''
     display: block
     height: .375rem
-    +position.position(absolute, left 0, bottom 0, right 0)
+    position: absolute
+    left: 0
+    right: 0
+    bottom: 0
     background-color: var(--warning)

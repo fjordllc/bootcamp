@@ -1,7 +1,3 @@
-@use "../../../config/mixins/font-awsome"
-@use "../../../config/mixins/link"
-@use "../../../config/mixins/text"
-
 .active-practices-list__items
   margin-bottom: -.25rem
 
@@ -9,13 +5,27 @@
   border-bottom: dotted .0625rem var(--border-tint)
 
 .active-practices-list-item__link
-  +text.text-block(.875rem 1.55, block)
+  font-size: .875rem
+  line-height: 1.55
+  display: block
   color: var(--main)
   padding-block: .5rem
   padding-inline: 1rem
-  +link.hover-link
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
   &::before
-    +font-awsome.fa(fas '\f060')
+    content: "\f060"
+    font-family: 'Font Awesome 6 Pro'
+    font-style: normal
+    font-weight: 900
+    font-variant: normal
+    text-rendering: auto
+    line-height: 1
+    -moz-osx-font-smoothing: grayscale
+    -webkit-font-smoothing: antialiased
     display: inline-block
     margin-right: .5rem
     color: var(--accent)

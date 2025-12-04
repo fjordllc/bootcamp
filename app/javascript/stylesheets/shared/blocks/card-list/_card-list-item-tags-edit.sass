@@ -1,10 +1,13 @@
-@use "../../../config/mixins/link"
 
 .card-list-item-tags-edit
   width: 100%
 
 .card-list-item-tags__item-edit
-  +link.hover-link-reversal
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
   cursor: pointer
   color: var(--main-text)
 

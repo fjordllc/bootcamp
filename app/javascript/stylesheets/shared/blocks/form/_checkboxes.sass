@@ -1,6 +1,3 @@
-@use "../../../config/mixins/font-awsome"
-@use "../../../config/mixins/link"
-@use "../../../config/mixins/text"
 @use "../../../config/variables/colors"
 
 $checkbox-size: .875rem
@@ -13,11 +10,16 @@ $checkbox-size: .875rem
 
 .checkboxes__item
   label
-    +text.text-block(.875rem 1.4)
+    font-size: .875rem
+    line-height: 1.4
     display: block
     color: var(--semi-muted-text)
     position: relative
-    +link.hover-link
+    text-decoration: none
+    cursor: pointer
+    &:hover,
+    &:active
+      text-decoration: underline
     cursor: pointer
     padding-left: calc(#{$checkbox-size} * 1.4)
     &.is-sm
@@ -35,7 +37,8 @@ $checkbox-size: .875rem
       transform: translate(0, -50%)
       background-color: var(--base)
       border-radius: .1875rem
-      +text.text-block(.75rem 1)
+      font-size: .75rem
+      line-height: 1
       display: flex
       color: var(--reversal-text)
       align-items: center
@@ -53,7 +56,15 @@ $checkbox-size: .875rem
   .is-dammy label::before
     background-color: var(--primary)
     border-color: var(--primary)
-    +font-awsome.fa(fas "\f00c")
+    content: "\f00c"
+    font-family: 'Font Awesome 6 Pro'
+    font-style: normal
+    font-weight: 900
+    font-variant: normal
+    text-rendering: auto
+    line-height: 1
+    -moz-osx-font-smoothing: grayscale
+    -webkit-font-smoothing: antialiased
   input:checked + label:hover::before
     border-color: var(--primary)
   input:checked + label::after,

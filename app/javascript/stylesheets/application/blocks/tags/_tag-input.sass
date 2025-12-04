@@ -1,4 +1,3 @@
-@use "../../../config/mixins/text"
 
 .tag-input
   margin-top: .5rem
@@ -8,7 +7,12 @@
   border: dashed 1px var(--border)
 
 .tag-input__title
-  +text.text-block(.875rem 1.5 0 .5rem, block 600)
+  font-size: .875rem
+  line-height: 1.5
+  margin-top: 0
+  margin-bottom: .5rem
+  display: block
+  font-weight: 600
 
 .tag-input__items
   display: flex

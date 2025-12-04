@@ -1,11 +1,11 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/position"
-
 .header
   background-color: var(--base)
   z-index: 5
   +break-points.media-breakpoint-up(md)
-    +position.position(fixed, top 0, right 0)
+    position: fixed
+    top: 0
+    right: 0
     left: var(--global-nav-width)
     height: var(--header-height__md-up)
   +break-points.media-breakpoint-down(sm)
@@ -49,7 +49,7 @@
   justify-content: center
   align-items: center
   width: 3rem
-  +position.position(relative)
+  position: relative
   display: flex
 
 .header-show-mobile-nav-items

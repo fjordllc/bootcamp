@@ -1,6 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/link"
-@use "../../../config/mixins/text"
 
 .card-list-item
   position: relative
@@ -44,7 +42,8 @@
   gap: 1rem
 
 a.card-list-item__inner
-  +link.flex-link
+  display: flex
+  text-decoration: none
   color: var(--default-text)
   &:hover
     .card-list-item-title__title
@@ -82,7 +81,9 @@ a.card-list-item__inner
   display: flex
   align-items: center
   justify-content: center
-  +text.text-block(.625rem 1.4, center)
+  font-size: .625rem
+  line-height: 1.4
+  text-align: center
   position: relative
   font-feature-settings: "palt"
   +break-points.media-breakpoint-up(md)
@@ -158,11 +159,17 @@ a.card-list-item__inner
 
 .card-list-item__close-user-detail
   margin-top: 1rem
-  +text.text-block(.8125rem 1.4, flex)
+  font-size: .8125rem
+  line-height: 1.4
+  display: flex
   color: var(--main)
   align-items: center
   justify-content: center
-  +link.hover-link-reversal
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
   cursor: pointer
 
 .card-list-item__summary
@@ -172,8 +179,12 @@ a.card-list-item__inner
     word-break: break-all
     overflow-wrap: anywhere
   p
-    +text.text-block(.75rem 1.5)
-    +text.line-clamp(2)
+    font-size: .75rem
+    line-height: 1.5
+    display: -webkit-box
+    -webkit-line-clamp: 2
+    overflow: hidden
+    -webkit-box-orient: vertical
 
 .card-list-item__option
   position: absolute
@@ -210,7 +221,9 @@ a.card-list-item__inner
     margin-top: .5rem
 
 .card-list-item__empty
-  +text.text-block(.8125rem 1.4, center)
+  font-size: .8125rem
+  line-height: 1.4
+  text-align: center
   color: var(--muted-text)
 
 .card-list-item__badge
@@ -218,5 +231,6 @@ a.card-list-item__inner
 
 .card-list-item__small-link
   display: flex
-  +text.text-block(.75rem 1.4)
+  font-size: .75rem
+  line-height: 1.4
   margin-top: .5rem

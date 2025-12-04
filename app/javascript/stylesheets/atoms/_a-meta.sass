@@ -1,9 +1,9 @@
 @use "../config/mixins/break-points"
-@use "../config/mixins/link"
-@use "../config/mixins/text"
 
 .a-meta
-  +text.text-block(1em 1.4, flex)
+  font-size: 1em
+  line-height: 1.4
+  display: flex
   color: var(--muted-text)
   align-items: center
   flex-wrap: wrap
@@ -29,7 +29,11 @@
         content: "）"
 
 a.a-meta
-  +link.hover-link
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
   color: var(--muted-text)
   transition: all .2s ease-out
   &:hover

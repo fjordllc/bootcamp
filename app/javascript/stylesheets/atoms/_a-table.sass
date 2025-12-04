@@ -1,7 +1,6 @@
 @use "../config/mixins/border"
 @use "../config/mixins/border-radius"
 @use "../config/mixins/break-points"
-@use "../config/mixins/text"
 
 .a-table
   +break-points.media-breakpoint-down(sm)
@@ -31,7 +30,10 @@
   +border.border(horizontal, solid 1px var(--border))
 
 .a-table th
-  +text.text-block(.75rem 1.4, center 600)
+  font-size: .75rem
+  line-height: 1.4
+  text-align: center
+  font-weight: 600
   border: solid 1px var(--border-shade)
   white-space: nowrap
   height: 2rem
@@ -42,7 +44,8 @@
   background-color: var(--base)
   padding: .375rem .75rem
   border: solid 1px var(--border)
-  +text.text-block(.8125rem 1.45)
+  font-size: .8125rem
+  line-height: 1.45
 
 .card-body
   >.a-table table

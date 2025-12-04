@@ -1,5 +1,3 @@
-@use "../../config/mixins/link"
-@use "../../config/mixins/text"
 
 .page-tags-nav
   padding: .5rem .75rem
@@ -12,13 +10,16 @@
 .page-tags-nav__item-link
   padding: .3125rem .5rem
   border-radius: 1.5em
-  +text.text-block(.625rem 1.4, nowrap)
+  font-size: .625rem
+  line-height: 1.4
+  white-space: nowrap
   color: var(--main)
   max-width: 8.5rem
   overflow: hidden
   text-overflow: ellipsis
   border: solid 1px var(--main)
-  +link.block-link
+  display: block
+  text-decoration: none
   transition: all .1s ease-in
   background-color: transparent
   &:hover
