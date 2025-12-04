@@ -1,7 +1,5 @@
 @use "../../config/mixins/break-points"
 @use "../../config/mixins/link"
-@use "../../config/mixins/position"
-@use "../../config/mixins/size"
 @use "../../config/mixins/text"
 
 .global-nav
@@ -20,8 +18,13 @@
 .global-nav__inner
   +break-points.media-breakpoint-up(md)
     background-color: var(--main)
-    +size.size(var(--global-nav-width) 100%)
-    +position.position(fixed, left 0, top 0, bottom 0, 3)
+    height: 100%
+    width: var(--global-nav-width)
+    bottom: 0
+    left: 0
+    position: fixed
+    top: 0
+    z-index: 3
     overflow-y: auto
 
 .global-nav-links__link
@@ -69,4 +72,6 @@
       line-height: 1.2
 
 .global-nav__item-count
-  +position.position(right .25rem, top .25rem)
+  position: absolute
+  right: .25rem
+  top: .25rem

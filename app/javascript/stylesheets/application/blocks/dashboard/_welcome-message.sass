@@ -1,7 +1,5 @@
 @use "../../../config/functions/color"
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/position"
-@use "../../../config/mixins/size"
 @use "../../../config/mixins/text"
 @use "../../../config/variables/colors"
 
@@ -16,12 +14,15 @@
     padding: 3.5rem 1rem 1rem
 
 .welcome-message__author
-  +size.size(5rem)
+  height: 5rem
+  width: 5rem
   margin-inline: auto
   padding: .75rem
   border-radius: 50%
   border: solid 1px color.shade(colors.$warning, 10%)
-  +position.position(absolute, top 0, left 50%)
+  left: 50%
+  position: absolute
+  top: 0
   transform: translate(-50%, 0)
   background-color: var(--warning)
 

@@ -1,5 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/size"
 @use "../../../config/mixins/text"
 
 .card-list-item-title
@@ -50,7 +49,8 @@
     vertical-align: middle
 
 .card-list-item-title__emotion-image
-  +size.size(1.125em)
+  height: 1.125em
+  width: 1.125em
   margin-right: .375rem
   transform: translate(0, -.0625em)
 

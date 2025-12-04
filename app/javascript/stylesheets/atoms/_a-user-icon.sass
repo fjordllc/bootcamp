@@ -1,5 +1,4 @@
 @use "../config/mixins/break-points"
-@use "../config/mixins/size"
 @use "../config/mixins/user-role"
 
 .a-user-icon
@@ -7,12 +6,16 @@
   object-fit: cover
   border-radius: 50%
   background-color: var(--base)
-  +size.size(100%)
+  width: 100%
+  height: 100%
   +user-role.icon-role-style
   &.is-sm
-    +size.size(2rem)
+    width: 2rem
+    height: 2rem
   &.is-xs
     +break-points.media-breakpoint-up(md)
-      +size.size(1.5rem)
+      width: 1.5rem
+      height: 1.5rem
     +break-points.media-breakpoint-down(sm)
-      +size.size(1.125rem)
+      width: 1.125rem
+      height: 1.125rem

@@ -1,7 +1,6 @@
 @use "../../../config/mixins/break-points"
 @use "../../../config/mixins/link"
 @use "../../../config/mixins/position"
-@use "../../../config/mixins/size"
 @use "../../../config/mixins/text"
 
 .is-hidden-users .a-user-icons
@@ -29,8 +28,10 @@
       top: -.75rem
       transform: rotate(25deg) scale(.7)
 
+
 .categories-item__show-handle
-  +size.size(2rem)
+  width: 2rem
+  height: 2rem
   display: flex
   align-items: center
   justify-content: center
@@ -52,17 +53,19 @@
   clear: both
 
 .categories-item__description
-  +position.position(relative)
+  position: relative
   margin-bottom: 1rem
 
 .categories-item__edit
   float: right
   margin-left: .5rem
-  +position.position(relative, top -.25rem)
+  position: relative
+  top: -.25rem
   z-index: 2
 
 .categories-item__edit-link
-  +size.size(2rem)
+  width: 2rem
+  height: 2rem
   +link.flex-link
   align-items: center
   justify-content: center

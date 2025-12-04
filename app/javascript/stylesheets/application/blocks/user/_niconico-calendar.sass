@@ -1,5 +1,4 @@
 @use "../../../config/mixins/link"
-@use "../../../config/mixins/size"
 @use "../../../config/mixins/text"
 @use "../../../config/variables/colors"
 
@@ -12,7 +11,8 @@
 
 .niconico-calendar-nav__previous,
 .niconico-calendar-nav__next
-  +size.size(2.75rem)
+  height: 2.75rem
+  width: 2.75rem
   display: flex
   align-items: center
   justify-content: center
@@ -69,7 +69,8 @@
 .niconico-calendar__day-inner
   +link.block-link
   padding-block: .25rem .125rem
-  +size.size(100%)
+  height: 100%
+  width: 100%
 
 a.niconico-calendar__day-inner
   transition: all .2s ease-out
@@ -90,10 +91,12 @@ a.niconico-calendar__day-inner
   +text.text-block(1.75rem 1, center flex)
   align-items: center
   justify-content: center
-  +size.size(100% 1.875rem)
+  height: 1.875rem
+  width: 100%
   .niconico-calendar__day.is-blank &
     color: var(--muted-text)
     font-size: 1.25rem
 
 .niconico-calendar__emotion-image
-  +size.size(1em)
+  height: 1em
+  width: 1em

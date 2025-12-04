@@ -1,6 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/position"
-@use "../../../config/mixins/size"
 @use "../../../config/mixins/text"
 
 .reactions
@@ -19,7 +17,11 @@
   +break-points.media-breakpoint-down(sm)
     overflow: hidden
   .reactions__dropdown &
-    +position.position(absolute, top 100%, left -1px, right -1px, 1)
+    left: -1px
+    position: absolute
+    right: -1px
+    top: 100%
+    z-index: 1
     border: 1px solid var(--border)
     background-color: var(--background)
     padding: .5rem
@@ -80,7 +82,8 @@
     line-height: 1.4
 
 .reactions__dropdown-toggle
-  +size.size(2.8125rem 2.375rem)
+  height: 2.375rem
+  width: 2.8125rem
   +text.text-block(1.25rem 1, flex)
   color: var(--main)
   cursor: pointer
@@ -128,4 +131,5 @@
     padding-bottom: .5rem
 
 .reaction-user__avatar
-  +size.size(1.75rem)
+  height: 1.75rem
+  width: 1.75rem

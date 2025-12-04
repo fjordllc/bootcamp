@@ -1,7 +1,5 @@
 @use "../../../config/mixins/font-awsome"
 @use "../../../config/mixins/link"
-@use "../../../config/mixins/position"
-@use "../../../config/mixins/size"
 @use "../../../config/mixins/text"
 @use "../../../config/variables/colors"
 
@@ -18,7 +16,7 @@ $checkbox-size: .875rem
     +text.text-block(.875rem 1.4)
     display: block
     color: var(--semi-muted-text)
-    +position.position(relative)
+    position: relative
     +link.hover-link
     cursor: pointer
     padding-left: calc(#{$checkbox-size} * 1.4)
@@ -27,10 +25,13 @@ $checkbox-size: .875rem
     &::before
       content: ""
       text-decoration: none
-      +size.size($checkbox-size)
+      height: $checkbox-size
+      width: $checkbox-size
       border: solid 1px var(--input-border)
       display: block
-      +position.position(absolute, left 0, top 50%)
+      left: 0
+      position: absolute
+      top: 50%
       transform: translate(0, -50%)
       background-color: var(--base)
       border-radius: .1875rem

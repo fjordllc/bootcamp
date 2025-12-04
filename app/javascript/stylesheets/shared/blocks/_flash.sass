@@ -1,6 +1,4 @@
 @use "../../config/mixins/link"
-@use "../../config/mixins/position"
-@use "../../config/mixins/size"
 @use "../../config/mixins/text"
 
 .flash
@@ -14,7 +12,7 @@
     display: none
 
 .flash__container
-  +position.position(relative)
+  position: relative
 
 .flash__message
   +text.text-block(.875rem 1.4, center)
@@ -24,11 +22,14 @@
     color: var(--reversal-text)
 
 .flash__close
-  +position.position(absolute, right 0, top 50%)
+  position: absolute
+  right: 0
+  top: 50%
   display: flex
   justify-content: center
   align-items: center
-  +size.size(2.75rem)
+  height: 2.75rem
+  width: 2.75rem
   transform: translate(0, -50%)
   cursor: pointer
   opacity: .7
@@ -37,9 +38,12 @@
   &::after
     content: ""
     display: block
-    +size.size(50% 2px)
+    height: 2px
+    width: 50%
     background-color: var(--reversal-text)
-    +position.position(absolute, left 50%, top 50%)
+    position: absolute
+    left: 50%
+    top: 50%
     border-radius: 2px
   &::before
     transform: translate(-50%, -50%) rotate(45deg)

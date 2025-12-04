@@ -1,17 +1,18 @@
-@use "../config/mixins/position"
-@use "../config/mixins/size"
 @use "../config/mixins/text"
 
 =on-off-checkbox($border-width: 1px, $height: 1.5rem, $width: 4.5rem, $font-size: .8125rem)
   span
-    +size.size($width calc(#{$height} + #{$border-width} * 2))
+    height: calc(#{$height} + #{$border-width} * 2)
+    width: $width
     border: solid $border-width var(--input-border)
     border-radius: $height
     font-size: $font-size
     &::before
-      +size.size($height)
+      height: $height
+      width: $height
     &::after
-      +size.size(100% calc(100% - #{$border-width} * 2))
+      height: calc(100% - #{$border-width} * 2)
+      width: 100%
       padding-left: $height
       padding-right: .75em
   input:checked + span
@@ -20,28 +21,33 @@
       padding-right: $height
 
 .a-on-off-checkbox
-  +position.position(relative)
+  position: relative
   display: block
   cursor: pointer
   padding-block: .5rem
   margin-block: -.5rem
   input
     opacity: 0
-    +position.position(absolute, left -1rem, top 0)
-    +size.size(0)
+    left: -1rem
+    position: absolute
+    top: 0
+    height: 0
+    width: 0
     display: block
     overflow: hidden
   span
     display: block
     background-color: var(--background)
-    +position.position(relative)
+    position: relative
     transition: all .2s ease-out
     &::before
       content: ""
       display: block
       border-radius: 50%
       background-color: var(--base)
-      +position.position(absolute, left 0, top 0)
+      left: 0
+      position: absolute
+      top: 0
       border: solid 1px var(--input-border)
     &::after
       content: "OFF"
@@ -52,7 +58,9 @@
     background-color: var(--danger)
     border-color: var(--danger)
     &::before
-      +position.position(absolute, left auto, right 0)
+      left: auto
+      position: absolute
+      right: 0
     &::after
       content: "ON"
       color: var(--reversal-text)

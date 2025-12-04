@@ -1,6 +1,4 @@
 @use "../../../config/mixins/font-awsome"
-@use "../../../config/mixins/size"
-
 .form-table
   overflow: auto
   max-width: 100%
@@ -30,7 +28,8 @@
         pointer-events: none
       &::after
         content: ""
-        +size.size(.875rem)
+        height: .875rem
+        width: .875rem
         border: solid 1px var(--border-shade)
         border-radius: .25rem
     &:has(:checked)

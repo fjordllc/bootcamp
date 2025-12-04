@@ -1,7 +1,5 @@
 @use "../../../config/mixins/border-radius"
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/position"
-@use "../../../config/mixins/size"
 @use "../../../config/mixins/text"
 
 .users-item
@@ -22,7 +20,7 @@
     flex-direction: column
 
 .users-item__header
-  +position.position(relative)
+  position: relative
   padding: .75rem 1rem
   border-bottom: solid 1px var(--border-tint)
 
@@ -48,9 +46,11 @@
 .users-item__user-icon-image
   background-color: var(--base)
   +break-points.media-breakpoint-up(md)
-    +size.size(3.5rem)
+    height: 3.5rem
+    width: 3.5rem
   +break-points.media-breakpoint-down(sm)
-    +size.size(2.5rem)
+    height: 2.5rem
+    width: 2.5rem
 
 .users-item__name
   +text.text-block(1em 1.4, 600 block)
@@ -83,7 +83,8 @@
   padding-bottom: 1rem
 
 .user-item__company-logo-image
-  +size.size(3.5rem)
+  height: 3.5rem
+  width: 3.5rem
   min-width: 3.5rem
   object-fit: cover
   background-color: var(--base)

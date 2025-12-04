@@ -1,11 +1,9 @@
 @use "../../../config/mixins/break-points"
 @use "../../../config/mixins/link"
-@use "../../../config/mixins/position"
-@use "../../../config/mixins/size"
 @use "../../../config/mixins/text"
 
 .thread-comment
-  +position.position(relative)
+  position: relative
   border-radius: .25rem
   +break-points.media-breakpoint-up(md)
     display: flex
@@ -17,7 +15,8 @@
 .thread-comment__start
   +break-points.media-breakpoint-up(md)
     flex: 0 0 var(--thread-header-author)
-    +size.size(var(--thread-header-author) 100%)
+    height: 100%
+    width: var(--thread-header-author)
   +break-points.media-breakpoint-down(sm)
     display: none
 
@@ -39,7 +38,8 @@
   +break-points.media-breakpoint-up(md)
     display: none
   +break-points.media-breakpoint-down(sm)
-    +size.size(1.5rem)
+    height: 1.5rem
+    width: 1.5rem
     display: inline-block
     vertical-align: middle
     margin-right: .25rem
@@ -61,7 +61,8 @@
     height: 1.4em
 
 .thread-comment__title-icon
-  +size.size(1.5rem)
+  height: 1.5rem
+  width: 1.5rem
   margin-right: .5rem
 
 .thread-comment__title-label
@@ -81,14 +82,16 @@
     word-wrap: break-word
 
 .thread-comment__user-icon
-  +size.size(3.5rem)
+  height: 3.5rem
+  width: 3.5rem
   object-fit: cover
   border-radius: 50%
   +break-points.media-breakpoint-down(sm)
     display: none
 
 .thread-comment__company-logo
-  +size.size(3.5rem)
+  height: 3.5rem
+  width: 3.5rem
   object-fit: cover
   border-radius: .25rem
   border: solid 1px var(--border)
@@ -96,7 +99,8 @@
   +break-points.media-breakpoint-up(md)
     margin-top: .5rem
   +break-points.media-breakpoint-down(sm)
-    +size.size(2.25rem)
+    height: 2.25rem
+    width: 2.25rem
     float: right
     margin-left: .75rem
     margin-bottom: .5rem
@@ -107,7 +111,7 @@
   color: var(--muted-text)
   +link.hover-link-reversal
   cursor: pointer
-  +position.position(relative)
+  position: relative
   +break-points.media-breakpoint-down(sm)
     font-size: .75rem
   &:active,
@@ -122,7 +126,9 @@
       padding: .25rem
       +text.text-block(.625rem 1)
       color: var(--reversal-text)
-      +position.position(absolute, left 0, top 100%)
+      left: 0
+      position: absolute
+      top: 100%
   &.a-placeholder
     width: 30%
     height: 1.4em
@@ -137,7 +143,8 @@
 .thread-comment__actions-item-link
   +text.text-block(1.25rem 1, center flex)
   color: var(--muted-text)
-  +size.size(2.375rem)
+  height: 2.375rem
+  width: 2.375rem
   align-items: center
   justify-content: center
   border-radius: 50%

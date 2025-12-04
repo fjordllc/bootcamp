@@ -1,5 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/size"
 @use "../../../config/mixins/text"
 
 .lp-price
@@ -33,7 +32,8 @@
 .lp-price__label
   +text.text-block(1.25em 1, 700)
   align-self: center
-  +size.size(4em)
+  height: 4em
+  width: 4em
   border: solid 1px
   display: flex
   align-items: center

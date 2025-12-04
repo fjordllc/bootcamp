@@ -1,6 +1,4 @@
 @use "../config/mixins/font-awsome"
-@use "../config/mixins/position"
-@use "../config/mixins/size"
 @use "../config/mixins/text"
 
 .a-form-label
@@ -28,7 +26,7 @@
     margin-bottom: 0
 
 .form-item__label-checkbox
-  +position.position(relative)
+  position: relative
   .a-form-label
     display: inline-block
     margin-bottom: 0
@@ -37,10 +35,13 @@
     &::before
       content: ''
       display: block
-      +size.size(.875rem)
+      height: .875rem
+      width: .875rem
       border: solid 1px var(--muted-text)
       border-radius: .1875rem
-      +position.position(absolute, left 0, top 50%)
+      left: 0
+      position: absolute
+      top: 50%
       margin-top: -.4375rem
       box-shadow: rgba(black, .1) 0 1px 2px inset
       background-color: var(--base)
@@ -48,6 +49,9 @@
     +font-awsome.fa(fas '\f00c')
     +text.text-block(.75rem .875rem, center block)
     color: var(--primary)
-    +size.size(.875rem)
-    +position.position(absolute, left 0, top 50%)
+    height: .875rem
+    width: .875rem
+    left: 0
+    position: absolute
+    top: 50%
     margin-top: -.4375rem
