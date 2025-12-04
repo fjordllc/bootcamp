@@ -1,5 +1,4 @@
 @use "../config/mixins/border"
-@use "../config/mixins/border-radius"
 @use "../config/mixins/break-points"
 
 .a-table
@@ -24,7 +23,8 @@
 .a-table thead
   background-color: var(--background-semi-shade)
   border: solid 1px var(--border-shade)
-  +border-radius.border-radius(top, .25rem)
+  border-top-left-radius: .25rem
+  border-top-right-radius: .25rem
 
 .a-table tr
   +border.border(horizontal, solid 1px var(--border))

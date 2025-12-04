@@ -1,27 +1,55 @@
-@use "../config/mixins/badge"
+@use "../config/functions/color" as color-func
 @use "../config/mixins/button"
 @use "../config/variables/colors"
 
-.a-badge
-  +badge.badge-base
+@function badge-text-color($bg)
+  @if color-func.luma($bg) > 50
+    @return colors.$default-text
+  @else
+    @return colors.$reversal-text
 
-  // color
+@mixin badge-variant($bg)
+  background-color: $bg
+  color: badge-text-color($bg)
+  border-color: if(color-func.luma($bg) > 80, color-func.shade($bg, 18%), $bg)
+
+.a-badge
+  text-transform: none
+  display: inline-flex
+  border: solid 1px
+  border-radius: 1em
+  font-family: var(--sans-serif)
+  white-space: nowrap
+  text-decoration: none
+  align-items: center
+  justify-content: center
+  &:not(:first-child)
+    margin-left: .1875em
+  &:not(:last-child)
+    margin-right: .1875em
+  &.is-block
+    width: 100%
+    display: flex
+    .a-badge__inner
+      overflow: hidden
+      text-overflow: ellipsis
+
   &.is-primary
-    +badge.badge-color(colors.$primary)
+    +badge-variant(colors.$primary)
   &.is-secondary
-    +badge.badge-color(colors.$secondary)
+    +badge-variant(colors.$secondary)
   &.is-info
-    +badge.badge-color(colors.$info)
+    +badge-variant(colors.$info)
   &.is-success
-    +badge.badge-color(colors.$success)
+    +badge-variant(colors.$success)
   &.is-warning
-    +badge.badge-color(colors.$warning)
+    +badge-variant(colors.$warning)
   &.is-danger
-    +badge.badge-color(colors.$danger)
+    +badge-variant(colors.$danger)
   &.is-disabled
-    +badge.badge-color(colors.$disabled)
+    +badge-variant(colors.$disabled)
   &.is-main
-    +badge.badge-color(colors.$main)
+    +badge-variant(colors.$main)
   &.is-muted
     border: none
     color: colors.$muted-text
@@ -33,7 +61,6 @@
     font-weight: 400
     background-color: var(--background-semi-shade)
 
-  //size
   &.is-xs
     +button.button-size(.625rem, 1, .5)
     font-weight: 500
