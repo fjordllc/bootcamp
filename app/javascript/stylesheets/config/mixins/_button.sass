@@ -4,7 +4,6 @@
 @use "../variables/colors"
 @use "font-awsome"
 @use "position"
-@use "size"
 @use "text"
 
 =button-base
@@ -39,7 +38,8 @@
       cursor: default
   &.is-select
     select
-      +size.size(100%)
+      height: 100%
+      width: 100%
       cursor: pointer
   i
     margin-right: .35em
@@ -53,7 +53,8 @@
     +position.position(relative)
     &::before
       content: ""
-      +size.size(.9375em)
+      height: .9375em
+      width: .9375em
       border-radius: .1875em
       display: block
       border: solid 1px var(--background-shade)
@@ -66,7 +67,8 @@
       color: var(--reversal-text)
       align-items: center
       justify-content: center
-      +size.size(.9375em)
+      height: .9375em
+      width: .9375em
       +position.position(absolute, left 1em, top 50%)
       transform: translate(0, -50%)
       opacity: 0
@@ -138,13 +140,14 @@
     height: $vertical
   &.is-icon
     padding-inline: #{number.strip_unit($horizontal * $font-size * 1)}em
-  &.is-select
-    padding-inline: 0
-    +position.position(relative)
-    &::before
-      +font-awsome.fa(fas "\f0d7")
-      +size.size(2em 100%)
-      +position.position(absolute, right 0, top 0, bottom 0)
+    &.is-select
+      padding-inline: 0
+      +position.position(relative)
+      &::before
+        +font-awsome.fa(fas "\f0d7")
+        height: 100%
+        width: 2em
+        +position.position(absolute, right 0, top 0, bottom 0)
       +text.text-block(1em 1, flex)
       color: var(--muted-text)
       align-items: center

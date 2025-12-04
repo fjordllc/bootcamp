@@ -1,5 +1,3 @@
-@use "../../../config/mixins/position"
-@use "../../../config/mixins/size"
 @use "../../../config/mixins/text"
 
 $bar-height: .75rem
@@ -16,13 +14,15 @@ $bar-height: .75rem
   overflow: hidden
 
 .completed-practices-progress__bar
-  +size.size(100% $bar-height)
+  height: $bar-height
+  width: 100%
   background-color: var(--background-semi-shade)
 
 .completed-practices-progress__percentage-bar
   height: $bar-height
   background-color: var(--success)
-  +position.position(relative, top $bar-height * -1)
+  position: relative
+  top: $bar-height * -1
   box-shadow: rgba(black, .2) 0 .0625rem .0625rem
 
 .completed-practices-progress__counts

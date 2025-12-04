@@ -1,12 +1,11 @@
 @use "../config/mixins/link"
-@use "../config/mixins/size"
-
 .a-cancel-button
   margin-left: .5em
   color: var(--background)
   font-size: .875rem
   +link.flex-link
-  +size.size(1.5em)
+  height: 1.5em
+  width: 1.5em
   background-color: var(--muted-text)
   align-items: center
   justify-content: center

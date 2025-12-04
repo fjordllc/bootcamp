@@ -1,6 +1,5 @@
 @use "../../../config/mixins/break-points"
 @use "../../../config/mixins/link"
-@use "../../../config/mixins/size"
 @use "../../../config/mixins/text"
 
 .articles-item
@@ -42,7 +41,8 @@
   +text.text-block(.8125rem 1.4)
   color: var(--default-text)
   img
-    +size.size(1.125rem)
+    width: 1.125rem
+    height: 1.125rem
     object-fit: cover
     margin-right: .25rem
     border-radius: 50%

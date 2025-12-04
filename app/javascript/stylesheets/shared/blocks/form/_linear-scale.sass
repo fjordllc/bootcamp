@@ -1,5 +1,3 @@
-@use "../../../config/mixins/position"
-@use "../../../config/mixins/size"
 @use "../../../config/mixins/text"
 @use "../../../config/variables/colors"
 
@@ -29,7 +27,7 @@ $radio-size: .875rem
   +text.text-block(.875rem 1.4)
   display: block
   color: var(--semi-muted-text)
-  +position.position(relative)
+  position: relative
   cursor: pointer
   padding-bottom: $radio-size
   width: 2.25rem
@@ -37,10 +35,13 @@ $radio-size: .875rem
   &::before
     content: ""
     text-decoration: none
-    +size.size($radio-size)
+    height: $radio-size
+    width: $radio-size
     border: solid 1px var(--input-border)
     display: block
-    +position.position(absolute, left 50%, bottom 0)
+    bottom: 0
+    left: 50%
+    position: absolute
     transform: translate(-50%, 0)
     background-color: var(--base)
     border-radius: 50%

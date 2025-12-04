@@ -1,5 +1,4 @@
 @use "../config/mixins/position"
-@use "../config/mixins/size"
 @use "../config/mixins/text"
 
 .a-list-item-badge
@@ -10,9 +9,12 @@
   align-items: center
   justify-content: center
   position: relative
-  +size.size(3.75rem .8125rem)
+  width: 3.75rem
+  height: .8125rem
   span
-    +position.position(absolute, left 50%, top 50%)
+    position: absolute
+    left: 50%
+    top: 50%
     transform: translate(-50%, -50%) scale(.8)
     letter-spacing: -.05em
   &.is-wip

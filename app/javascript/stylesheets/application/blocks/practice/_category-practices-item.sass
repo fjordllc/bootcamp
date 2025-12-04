@@ -1,15 +1,13 @@
 @use "../../../config/functions/color"
 @use "../../../config/mixins/break-points"
 @use "../../../config/mixins/link"
-@use "../../../config/mixins/position"
 @use "../../../config/mixins/practice-color"
-@use "../../../config/mixins/size"
 @use "../../../config/mixins/text"
 @use "../../../config/variables/colors"
 
 .category-practices-item
   padding: .75rem 1rem
-  +position.position(relative)
+  position: relative
   &:not(:last-child)
     border-bottom: solid 1px var(--border-tint)
   &:nth-child(even)
@@ -30,14 +28,16 @@
 
 .category-practices-item__anchor
   +break-points.media-breakpoint-up(md)
-    +position.position(relative, top -3.5rem)
+    position: relative
+    top: -3.5rem
 
 .category-practices-item__status
   +text.text-block(.8125rem 1, 600)
   +link.flex-link
   align-items: center
   justify-content: center
-  +size.size(4rem 2.125rem)
+  height: 2.125rem
+  width: 4rem
   border-radius: .25rem
   +practice-color.practice-color
 
