@@ -37,8 +37,12 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include RegularEventHelper
 
   # Counter for browser restart in CI (to prevent OOM)
-  @@ci_test_counter = 0
+  @ci_test_counter = 0
   CI_BROWSER_RESTART_INTERVAL = 10 # Restart browser every N tests (more aggressive for OOM prevention)
+
+  class << self
+    attr_accessor :ci_test_counter
+  end
 
   if ENV['HEADFUL']
     driven_by :selenium, using: :chrome
@@ -88,7 +92,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
     # Clean up browser resources to prevent memory buildup in CI
     if ENV['CI']
-      @@ci_test_counter += 1
+      self.class.ci_test_counter += 1
 
       begin
         page.driver.browser.manage.delete_all_cookies
@@ -97,8 +101,9 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       end
 
       # Periodically restart browser to reclaim memory
-      if (@@ci_test_counter % CI_BROWSER_RESTART_INTERVAL).zero?
-        CITestLogger.log("[BROWSER RESTART] Restarting browser after #{@@ci_test_counter} tests")
+      counter = self.class.ci_test_counter
+      if (counter % CI_BROWSER_RESTART_INTERVAL).zero?
+        CITestLogger.log("[BROWSER RESTART] Restarting browser after #{counter} tests")
         begin
           Capybara.current_session.driver.quit
         rescue StandardError => e
