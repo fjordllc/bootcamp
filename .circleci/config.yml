@@ -127,8 +127,8 @@ jobs:
             echo "$TEST_FILES" | head -20
             echo "..."
 
-            # Run tests with timeout (30 minutes max)
-            timeout 1800 bundle exec rails test --verbose $TEST_FILES 2>&1
+            # Run tests (no timeout - let CircleCI handle overall job timeout)
+            bundle exec rails test --verbose $TEST_FILES 2>&1
             TEST_EXIT_CODE=$?
 
             echo "[INFO] Tests completed at $(date '+%Y-%m-%d %H:%M:%S') with exit code: $TEST_EXIT_CODE"
@@ -136,14 +136,8 @@ jobs:
             # Kill heartbeat
             kill $HEARTBEAT_PID 2>/dev/null || true
 
-            # Exit code 124 means timeout
-            if [ $TEST_EXIT_CODE -eq 124 ]; then
-              echo "[ERROR] Tests timed out after 30 minutes!"
-            fi
-
             exit $TEST_EXIT_CODE
           no_output_timeout: 5m
-          when: always
       - store_test_results:
           path: test/reports
       - store_artifacts:
