@@ -1,11 +1,9 @@
 @use "../../../config/mixins/break-points"
 @use "../../../config/mixins/link"
-@use "../../../config/mixins/position"
-@use "../../../config/mixins/size"
 @use "../../../config/mixins/text"
 
 .page-content-header
-  +position.position(relative)
+  position: relative
   +break-points.media-breakpoint-up(md)
     display: flex
     gap: 1rem
@@ -47,7 +45,8 @@
     justify-content: center
 
 .page-content-header__category-icon
-  +size.size(3.5rem)
+  height: 3.5rem
+  width: 3.5rem
   border-radius: 50%
   display: flex
   align-items: center
@@ -74,17 +73,22 @@
   +link.block-link
 
 .page-content-header__user-icon-image
-  +size.size(3.5rem)
+  height: 3.5rem
+  width: 3.5rem
 
 .page-content-header__company-logo-image
   background-color: var(--base)
   object-fit: contain
   border-radius: .25rem
   +break-points.media-breakpoint-up(md)
-    +size.size(3.5rem)
+    height: 3.5rem
+    width: 3.5rem
   +break-points.media-breakpoint-down(sm)
-    +size.size(2.75rem)
-    +position.position(absolute, left 0, top 0)
+    height: 2.75rem
+    width: 2.75rem
+    left: 0
+    position: absolute
+    top: 0
 
 .page-content-header__before-title
   gap: .25rem 1rem
@@ -123,9 +127,11 @@
     display: inline-flex
     vertical-align: top
     +break-points.media-breakpoint-up(md)
-      +position.position(relative, top .75em)
+      position: relative
+      top: .75em
     +break-points.media-breakpoint-down(sm)
-      +position.position(relative, top .5em)
+      position: relative
+      top: .5em
 
 .page-content-header__title-link
   +link.hover-link
@@ -156,8 +162,10 @@
 .page-content-header__emotion
   display: inline-flex
   vertical-align: middle
-  +position.position(relative, top -.125em)
-  +size.size(1em)
+  position: relative
+  top: -.125em
+  height: 1em
+  width: 1em
   +break-points.media-breakpoint-up(md)
     font-size: 1.75rem
     margin-right: .375em
@@ -166,20 +174,27 @@
     margin-right: .25em
 
 .page-content-header__emotion-image
-  +size.size(100%)
+  height: 100%
+  width: 100%
 
 .page-content-header__checker
-  +position.position(absolute, right 0, top -.5rem)
+  position: absolute
+  right: 0
+  top: -.5rem
 
 .user-profile__company-logo-image
   background-color: var(--base)
   object-fit: contain
   border-radius: .25rem
   +break-points.media-breakpoint-up(md)
-    +size.size(4.5rem)
+    height: 4.5rem
+    width: 4.5rem
   +break-points.media-breakpoint-down(sm)
-    +size.size(3.5rem)
-    +position.position(absolute, right 0, top 0)
+    height: 3.5rem
+    width: 3.5rem
+    position: absolute
+    right: 0
+    top: 0
 
 .page-content-header__alert
   background-color: var(--danger-tint)

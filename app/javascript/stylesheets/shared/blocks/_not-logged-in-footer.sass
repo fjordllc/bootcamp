@@ -1,6 +1,5 @@
 @use "../../config/mixins/break-points"
 @use "../../config/mixins/link"
-@use "../../config/mixins/size"
 @use "../../config/mixins/text"
 @use "../../config/variables/colors"
 
@@ -50,7 +49,8 @@
     display: flex
     align-items: center
     padding-inline: 1rem
-    +size.size(100% 2.75rem)
+    height: 2.75rem
+    width: 100%
   i
     font-size: .75em
     position: relative

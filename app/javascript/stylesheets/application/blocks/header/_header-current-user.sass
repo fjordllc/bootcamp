@@ -1,10 +1,11 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/size"
 
 .header-current-user__icon
   display: block
   margin-inline: auto
   +break-points.media-breakpoint-up(md)
-    +size.size(1.5rem)
+    width: 1.5rem
+    height: 1.5rem
   +break-points.media-breakpoint-down(sm)
-    +size.size(1.125rem)
+    width: 1.125rem
+    height: 1.125rem

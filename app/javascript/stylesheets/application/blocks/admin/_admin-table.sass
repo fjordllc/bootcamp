@@ -3,7 +3,6 @@
 @use "../../../config/mixins/border-radius"
 @use "../../../config/mixins/break-points"
 @use "../../../config/mixins/link"
-@use "../../../config/mixins/size"
 @use "../../../config/mixins/text"
 @use "../../../config/variables/colors"
 
@@ -105,7 +104,8 @@
   gap: .25rem .25rem
 
 .admin-table__user-icon
-  +size.size(2.125rem)
+  height: 2.125rem
+  width: 2.125rem
   display: inline-block
   flex: 0 0 2.125rem
   &:not(:last-child)
@@ -121,7 +121,8 @@
   color: var(--main-text)
 
 .is-user-icon-xl
-  +size.size(100% auto)
+  height: auto
+  width: 100%
   margin-inline: auto
   border-radius: .25rem
 

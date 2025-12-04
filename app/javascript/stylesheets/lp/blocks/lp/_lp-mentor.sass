@@ -1,5 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/size"
 @use "../../../config/mixins/text"
 
 .lp-mentor
@@ -95,10 +94,12 @@
   &:hover
     color: var(--welcome-pink)
   +break-points.media-breakpoint-up(md)
-    +size.size(2.25rem)
+    height: 2.25rem
+    width: 2.25rem
     +text.text-block(1.25rem 1.45)
   +break-points.media-breakpoint-down(sm)
-    +size.size(1.75rem)
+    height: 1.75rem
+    width: 1.75rem
     +text.text-block(1rem 1.45)
 
 

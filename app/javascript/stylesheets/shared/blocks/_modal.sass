@@ -1,17 +1,23 @@
 @use "../../config/mixins/break-points"
-@use "../../config/mixins/position"
-@use "../../config/mixins/size"
-
 .modal
   display: none
-  +position.position(fixed, left 0, top 0, right 0, bottom 0, 100)
+  bottom: 0
+  left: 0
+  position: fixed
+  right: 0
+  top: 0
+  z-index: 100
   padding: 1rem
   input:checked + &,
   &.is-shown
     display: block
 
 .modal__overlay
-  +position.position(fixed, left 0, top 0, right 0, bottom 0)
+  bottom: 0
+  left: 0
+  position: fixed
+  right: 0
+  top: 0
   background-color: rgba(black, .8)
 
 .modal__description
@@ -36,7 +42,8 @@
   display: flex
   align-items: center
   justify-content: center
-  +size.size(2.75rem)
+  height: 2.75rem
+  width: 2.75rem
   cursor: pointer
   opacity: .4
   transition: all .2s ease-out
@@ -49,9 +56,12 @@
   &::after
     content: ""
     display: block
-    +size.size(40% 2px)
+    height: 2px
+    width: 40%
     background-color: var(--default-text)
-    +position.position(absolute, left 50%, top 50%)
+    left: 50%
+    position: absolute
+    top: 50%
     border-radius: 2px
   &::before
     transform: translate(-50%, -50%) rotate(45deg)
@@ -61,7 +71,10 @@
     opacity: 1
 
 .modal-content
-  +position.position(absolute, left 50%, top 50%, 1)
+  left: 50%
+  position: absolute
+  top: 50%
+  z-index: 1
   transform: translate(-50%, -50%)
   background-color: var(--base)
   border-radius: .25rem

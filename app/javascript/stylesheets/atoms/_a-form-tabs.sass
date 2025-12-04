@@ -1,6 +1,4 @@
 @use "../config/mixins/border-radius"
-@use "../config/mixins/position"
-@use "../config/mixins/size"
 @use "../config/mixins/text"
 
 .a-form-tabs
@@ -12,7 +10,8 @@
   border-radius: .1875rem .1875rem 0 0
 
 .a-form-tabs__tab
-  +size.size(6.5rem 2.5rem)
+  height: 2.5rem
+  width: 6.5rem
   +text.text-block(.8125rem 1, flex 600)
   color: var(--muted-text)
   align-items: center
@@ -21,7 +20,8 @@
   cursor: pointer
   +border-radius.border-radius(top, .25rem)
   border: solid 1px transparent
-  +position.position(relative, bottom -1px)
+  position: relative
+  bottom: -1px
   transition: all .2s ease-out
   &:hover
     color: var(--default-text)

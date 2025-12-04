@@ -1,7 +1,5 @@
 @use "../../../config/mixins/break-points"
 @use "../../../config/mixins/link"
-@use "../../../config/mixins/position"
-@use "../../../config/mixins/size"
 @use "../../../config/mixins/text"
 
 .practice-books__items
@@ -31,7 +29,8 @@
   padding: .75rem 1rem
   text-decoration: none
   .practice-books &
-    +size.size(100%)
+    height: 100%
+    width: 100%
   +break-points.media-breakpoint-up(md)
     +link.flex-link
     gap: 1rem
@@ -70,7 +69,8 @@
   color: var(--default-text)
   transition: all .2s ease-out
   .a-badge
-    +position.position(relative, top -.125em)
+    position: relative
+    top: -.125em
     margin-right: .5em
 
 a.practice-books-item__inner:hover

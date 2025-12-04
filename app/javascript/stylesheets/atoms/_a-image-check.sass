@@ -1,6 +1,4 @@
 @use "../config/mixins/font-awsome"
-@use "../config/mixins/position"
-@use "../config/mixins/size"
 @use "../config/mixins/text"
 
 .a-image-check
@@ -34,12 +32,16 @@
       background-color: var(--primary)
   .a-image-check &::before
     display: block
-    +position.position(absolute, left .75rem, top .75rem, 2)
+    left: .75rem
+    position: absolute
+    top: .75rem
+    z-index: 2
 
   // radio
   .a-image-check.is-radio &::before
     content: ''
-    +size.size(.875rem)
+    height: .875rem
+    width: .875rem
     border: solid 1px var(--input-border)
     border-radius: 50%
     background-color: var(--base)
@@ -50,7 +52,8 @@
   // checkbox
   .a-image-check.is-checkbox &::before
     content: ''
-    +size.size(.875rem)
+    height: .875rem
+    width: .875rem
     border: solid 1px var(--input-border)
     border-radius: 3px
     background-color: var(--base)
@@ -71,9 +74,11 @@
   +text.text-block(.875rem 1.4, block center)
 
 .a-image-check__image
-  +size.size(2rem)
+  height: 2rem
+  width: 2rem
   .a-image-check__inner.has-icon &
-    +size.size(1.75rem)
+    height: 1.75rem
+    width: 1.75rem
     margin-right: .5rem
 
 .a-image-check__upload-image
@@ -83,6 +88,8 @@
   aspect-ratio: 120 / 63
   position: relative
   i
-    +position.position(absolute, left 50%, top 50%)
+    left: 50%
+    position: absolute
+    top: 50%
     transform: translate(-50%, -50%)
     font-size: 3rem

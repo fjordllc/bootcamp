@@ -1,7 +1,4 @@
 @use "../config/mixins/break-points"
-@use "../config/mixins/position"
-@use "../config/mixins/size"
-
 .a-pdf-input
   display: flex
   gap: .75rem
@@ -14,15 +11,18 @@
   display: flex
   align-items: center
   justify-content: center
-  +position.position(relative)
+  position: relative
   overflow: hidden
   cursor: pointer
   border-radius: .25rem
   height: 2.25rem
   input
     overflow: hidden
-    +size.size(0)
-    +position.position(absolute, left 0, top 0)
+    height: 0
+    width: 0
+    left: 0
+    position: absolute
+    top: 0
     opacity: 0
 
 a.a-pdf-input__inner
