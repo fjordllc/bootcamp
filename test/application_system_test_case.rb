@@ -37,11 +37,14 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include RegularEventHelper
 
   # Counter for browser restart in CI (to prevent OOM)
-  @ci_test_counter = 0
   CI_BROWSER_RESTART_INTERVAL = 10 # Restart browser every N tests (more aggressive for OOM prevention)
 
   class << self
-    attr_accessor :ci_test_counter
+    attr_writer :ci_test_counter
+
+    def ci_test_counter
+      @ci_test_counter ||= 0
+    end
   end
 
   if ENV['HEADFUL']
@@ -92,7 +95,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
     # Clean up browser resources to prevent memory buildup in CI
     if ENV['CI']
-      self.class.ci_test_counter += 1
+      ApplicationSystemTestCase.ci_test_counter += 1
 
       begin
         page.driver.browser.manage.delete_all_cookies
@@ -101,7 +104,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       end
 
       # Periodically restart browser to reclaim memory
-      counter = self.class.ci_test_counter
+      counter = ApplicationSystemTestCase.ci_test_counter
       if (counter % CI_BROWSER_RESTART_INTERVAL).zero?
         CITestLogger.log("[BROWSER RESTART] Restarting browser after #{counter} tests")
         begin
