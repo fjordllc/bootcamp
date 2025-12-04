@@ -53,12 +53,6 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
         driver_option.add_argument('--disable-extensions')
         driver_option.add_argument('--disable-background-networking')
         driver_option.add_argument('--disable-default-apps')
-        # Memory optimization options
-        driver_option.add_argument('--disable-features=VizDisplayCompositor')
-        driver_option.add_argument('--memory-pressure-off')
-        driver_option.add_argument('--single-process')
-        driver_option.add_argument('--renderer-process-limit=1')
-        driver_option.add_argument('--disable-site-isolation-trials')
       end
     end
   end
