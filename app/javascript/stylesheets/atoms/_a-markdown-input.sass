@@ -1,5 +1,4 @@
 @use "../config/mixins/break-points"
-@use "../config/mixins/text"
 
 .a-markdown-input
   padding-inline: 1rem
@@ -21,7 +20,8 @@
 
 .a-markdown-input__preview
   background-color: var(--base)
-  +text.text-block(.875rem 1.8)
+  font-size: .875rem
+  line-height: 1.8
   border-radius: .25rem
   min-height: 10rem
   &.has-max-height

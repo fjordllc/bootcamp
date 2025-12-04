@@ -1,6 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/link"
-@use "../../../config/mixins/text"
 @use "../../../config/variables/colors"
 
 .practice-content
@@ -27,7 +25,8 @@
   +break-points.media-breakpoint-down(sm)
     padding: .375rem .625rem
   p
-    +text.text-block(.875rem 1.5)
+    font-size: .875rem
+    line-height: 1.5
     color: var(--success-text)
     +break-points.media-breakpoint-down(sm)
       font-size: .75rem
@@ -40,9 +39,14 @@
   +break-points.media-breakpoint-down(sm)
     font-size: .75rem
   >a
-    +text.text-block(1em 1.5)
+    font-size: 1em
+    line-height: 1.5
     color: var(--danger)
-    +link.hover-link-reversal
+    text-decoration: none
+    cursor: pointer
+    &:hover,
+    &:active
+      text-decoration: underline
 
 .js-markdown-view
   display: none

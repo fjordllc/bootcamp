@@ -1,7 +1,5 @@
 @use "../config/mixins/border-radius"
 @use "../config/mixins/break-points"
-@use "../config/mixins/link"
-@use "../config/mixins/text"
 
 @mixin anAdjacentCard
   +break-points.media-breakpoint-up(xl)
@@ -68,11 +66,16 @@ table.a-card
   padding: .5rem 1.25rem
   background-color: var(--danger)
   text-align: center
-  +text.text-block(.875rem 1.4)
+  font-size: .875rem
+  line-height: 1.4
   color: var(--reversal-text)
   +border-radius.border-radius(top, .25rem)
   a
-    +link.hover-link-reversal
+    text-decoration: none
+    cursor: pointer
+    &:hover,
+    &:active
+      text-decoration: underline
     color: var(--reversal-text)
 
 .a-card__columns

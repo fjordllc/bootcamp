@@ -1,5 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/link"
 
 .user-grass
   padding: 1rem
@@ -28,7 +27,11 @@
   align-items: center
   justify-content: center
   cursor: pointer
-  +link.hover-link
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
   transition: all .2s ease-out
   &:hover
     color: var(--main-text)

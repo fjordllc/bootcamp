@@ -1,4 +1,3 @@
-@use "../../../config/mixins/text"
 
 .important-message
   border: solid 2px var(--danger)
@@ -13,7 +12,8 @@
   background-color: var(--danger-tint)
 
 .important-message__title
-  +text.text-block(.875rem 1.4)
+  font-size: .875rem
+  line-height: 1.4
   font-weight: 800
   color: var(--danger-text)
 

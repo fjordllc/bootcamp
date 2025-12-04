@@ -1,13 +1,13 @@
-@use "../config/mixins/font-awsome"
-@use "../config/mixins/position"
-@use "../config/mixins/text"
 .a-block-check
   height: 100%
 .a-block-check__label
   background-color: var(--input-background)
   height: 100%
   min-height: 2.5rem
-  +text.text-block(.8125rem 1.4, flex center)
+  font-size: .8125rem
+  line-height: 1.4
+  display: flex
+  text-align: center
   gap: .25rem
   align-items: center
   justify-content: center
@@ -66,10 +66,21 @@
   .a-block-check.is-checkbox input:checked + &::before
     border-color: var(--primary)
     background-color: var(--primary)
-    +font-awsome.fa(fas "\f00c")
+    content: "\f00c"
+    font-family: 'Font Awesome 6 Pro'
+    font-style: normal
+    font-weight: 900
+    font-variant: normal
+    text-rendering: auto
+    line-height: 1
+    -moz-osx-font-smoothing: grayscale
+    -webkit-font-smoothing: antialiased
     color: var(--reversal-text)
 .a-block-check__name
-  +text.text-block(.875rem 1.4, block center)
+  font-size: .875rem
+  line-height: 1.4
+  display: block
+  text-align: center
 
 .a-block-check__image
   width: 2rem

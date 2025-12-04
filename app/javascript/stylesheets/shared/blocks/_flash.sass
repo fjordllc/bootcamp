@@ -1,5 +1,3 @@
-@use "../../config/mixins/link"
-@use "../../config/mixins/text"
 
 .flash
   background-color: var(--danger)
@@ -15,10 +13,16 @@
   position: relative
 
 .flash__message
-  +text.text-block(.875rem 1.4, center)
+  font-size: .875rem
+  line-height: 1.4
+  text-align: center
   color: var(--reversal-text)
   a
-    +link.hover-link-reversal
+    text-decoration: none
+    cursor: pointer
+    &:hover,
+    &:active
+      text-decoration: underline
     color: var(--reversal-text)
 
 .flash__close

@@ -1,4 +1,3 @@
-@use "../config/mixins/text"
 
 .o-empty-message
   max-width: 50rem
@@ -9,9 +8,11 @@
     margin-top: 1.5rem
 
 .o-empty-message__icon
-  +text.text-block(5rem 1)
+  font-size: 5rem
+  line-height: 1
 
 .o-empty-message__text
-  +text.text-block(1rem 1.4)
+  font-size: 1rem
+  line-height: 1.4
   margin-top: 1em
   text-align: center

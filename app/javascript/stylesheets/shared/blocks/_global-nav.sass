@@ -1,6 +1,4 @@
 @use "../../config/mixins/break-points"
-@use "../../config/mixins/link"
-@use "../../config/mixins/text"
 
 .global-nav
   +break-points.media-breakpoint-down(sm)
@@ -29,7 +27,8 @@
 
 .global-nav-links__link
   position: relative
-  +link.flex-link
+  display: flex
+  text-decoration: none
   white-space: nowrap
   align-items: center
   justify-content: center
@@ -54,15 +53,23 @@
 
 .global-nav-links__link-icon
   +break-points.media-breakpoint-up(md)
-    +text.text-block(1.125rem 1 0 .25rem, center)
+    font-size: 1.125rem
+    line-height: 1
+    margin-top: 0
+    margin-bottom: .25rem
+    text-align: center
   +break-points.media-breakpoint-down(sm)
-    +text.text-block(1rem 1, center)
+    font-size: 1rem
+    line-height: 1
+    text-align: center
     margin-right: .5rem
   .fa-rocket
     font-size: 1.15em
 
 .global-nav-links__link-label
-  +text.text-block(.625rem 1.2, center)
+  font-size: .625rem
+  line-height: 1.2
+  text-align: center
   +break-points.media-breakpoint-down(sm)
     font-size: .875rem
   +break-points.media-breakpoint-up(md)

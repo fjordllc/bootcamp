@@ -1,5 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/text"
 
 .card-list-item-title
   display: flex
@@ -31,7 +30,9 @@
     width: 100%
 
 .card-list-item-title__title
-  +text.text-block(.875rem 1.4, 600)
+  font-size: .875rem
+  line-height: 1.4
+  font-weight: 600
   width: 100%
   flex-basis: 100%
   word-break: break-all
@@ -56,7 +57,10 @@
 
 .card-list-item-title__link
   word-break: break-all
-  +text.line-clamp(2)
+  display: -webkit-box
+  -webkit-line-clamp: 2
+  overflow: hidden
+  -webkit-box-orient: vertical
   .card-list-item.is-wip &,
   .card-list-item.is-read &
     color: var(--muted-text)

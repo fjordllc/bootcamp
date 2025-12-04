@@ -1,10 +1,8 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/position"
-@use "../../../config/mixins/text"
 
 .user-data
   padding: 1rem 1.5rem
-  +position.position(relative)
+  position: relative
   display: flex
   flex-direction: column
   +break-points.media-breakpoint-up(md)
@@ -20,7 +18,10 @@
   +break-points.media-breakpoint-down(sm)
     font-size: .8125rem
   p
-    +text.text-block(1em 1.8 0 .8em)
+    font-size: 1em
+    line-height: 1.8
+    margin-top: 0
+    margin-bottom: .8em
     &:last-child
       margin-bottom: 0
 

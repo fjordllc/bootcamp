@@ -1,6 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/position"
-@use "../../../config/mixins/text"
 
 .lp-faq__inner
   display: flex
@@ -12,8 +10,12 @@
   padding-left: 2.5rem
   position: relative
   &::before
-    +position.position(absolute, left 0, top 0)
-    +text.text-block(1.25rem 1, 900)
+    left: 0
+    position: absolute
+    top: 0
+    font-size: 1.25rem
+    line-height: 1
+    font-weight: 900
     color: var(--main)
     font-family: "Lato", sans-serif
 
@@ -26,7 +28,9 @@
     content: 'A.'
 
 .lp-faq__title
-  +text.text-block(1.125rem 1.4, 800)
+  font-size: 1.125rem
+  line-height: 1.4
+  font-weight: 800
 
 .lp-faq__body
   +break-points.media-breakpoint-up(md)
@@ -38,7 +42,8 @@
   margin-top: .75rem
 
 .lp-faq__edit-link
-  +text.text-block(.875rem 1.4)
+  font-size: .875rem
+  line-height: 1.4
   color: var(--muted-text)
   &:hover
     color: var(--main)

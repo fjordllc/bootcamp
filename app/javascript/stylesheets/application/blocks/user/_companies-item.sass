@@ -1,6 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/link"
-@use "../../../config/mixins/text"
 
 .companies-item
   height: 100%
@@ -37,7 +35,10 @@
   flex: 1
 
 .companies-item__name
-  +text.text-block(1em 1.4, 600 block)
+  font-size: 1em
+  line-height: 1.4
+  display: block
+  font-weight: 600
   color: var(--main)
   margin-bottom: .125rem
   +break-points.media-breakpoint-up(md)
@@ -48,7 +49,11 @@
 .companies-item__name-link
   color: var(--main-text)
   display: block
-  +link.hover-link
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
 
 .companies-item__body
   padding: 1rem
@@ -59,4 +64,5 @@
 
 .companies-item__description
   p
-    +text.text-block(.75rem 1.6)
+    font-size: .75rem
+    line-height: 1.6

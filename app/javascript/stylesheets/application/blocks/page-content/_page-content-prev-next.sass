@@ -1,5 +1,3 @@
-@use "../../../config/mixins/link"
-@use "../../../config/mixins/text"
 
 .page-content-prev-next
   display: flex
@@ -11,9 +9,17 @@
   max-width: 33.33%
 
 .page-content-prev-next__item-link
-  +text.text-block(.8125rem 1.4, block center nowrap)
+  font-size: .8125rem
+  line-height: 1.4
+  display: block
+  text-align: center
+  white-space: nowrap
   color: var(--main)
-  +link.hover-link-reversal
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
   &.is-prev
     text-align: left
   &.is-next

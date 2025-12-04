@@ -1,6 +1,4 @@
 @use "../config/mixins/break-points"
-@use "../config/mixins/link"
-@use "../config/mixins/text"
 
 .a-page-notice
   background-color: var(--success)
@@ -31,14 +29,19 @@
     display: flex
     text-align: left
   p
-    +text.text-block(1em 1.5)
+    font-size: 1em
+    line-height: 1.5
     +break-points.media-breakpoint-up(md)
       font-size: .875rem
     +break-points.media-breakpoint-down(sm)
       font-size: .75rem
   a
     color: var(--reversal-text)
-    +link.hover-link-reversal
+    text-decoration: none
+    cursor: pointer
+    &:hover,
+    &:active
+      text-decoration: underline
     &.has-badge
       text-decoration: none
       +break-points.media-breakpoint-down(sm)
@@ -49,7 +52,11 @@
         border: none
         +break-points.media-breakpoint-down(sm)
       .a-page-notice__label
-        +link.hover-link-reversal
+        text-decoration: none
+        cursor: pointer
+        &:hover,
+        &:active
+          text-decoration: underline
         +break-points.media-breakpoint-up(md)
           max-width: 17.5rem
           overflow: hidden

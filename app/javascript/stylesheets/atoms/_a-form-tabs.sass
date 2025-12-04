@@ -1,5 +1,4 @@
 @use "../config/mixins/border-radius"
-@use "../config/mixins/text"
 
 .a-form-tabs
   display: flex
@@ -12,7 +11,10 @@
 .a-form-tabs__tab
   height: 2.5rem
   width: 6.5rem
-  +text.text-block(.8125rem 1, flex 600)
+  font-size: .8125rem
+  line-height: 1
+  display: flex
+  font-weight: 600
   color: var(--muted-text)
   align-items: center
   justify-content: center

@@ -1,11 +1,14 @@
 @use "../config/mixins/break-points"
-@use "../config/mixins/text"
 
 .a-user-role-badge
   border: solid 1px var(--main)
   padding-inline: .75em
   height: 1.75em
-  +text.text-block(.625rem 1, center flex nowrap)
+  font-size: .625rem
+  line-height: 1
+  display: flex
+  text-align: center
+  white-space: nowrap
   color: var(--main)
   align-items: center
   margin-right: .5rem

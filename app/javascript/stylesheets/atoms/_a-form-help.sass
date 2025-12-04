@@ -1,5 +1,3 @@
-@use "../config/mixins/link"
-@use "../config/mixins/text"
 @use "../config/variables/colors"
 
 .a-form-help
@@ -27,16 +25,26 @@
   .form-item-block &
     margin-top: .75em
   p
-    +text.text-block(1em 1.6)
+    font-size: 1em
+    line-height: 1.6
     &:not(:last-child)
       margin-bottom: .75em
   a
-    +link.hover-link-reversal
+    text-decoration: none
+    cursor: pointer
+    &:hover,
+    &:active
+      text-decoration: underline
   *:last-child
     margin-bottom: 0
   a
-    +text.text-block(.75rem 1.6)
-    +link.hover-link-reversal
+    font-size: .75rem
+    line-height: 1.6
+    text-decoration: none
+    cursor: pointer
+    &:hover,
+    &:active
+      text-decoration: underline
     cursor: pointer
     +colors.default-link
   ul
@@ -51,7 +59,8 @@
       margin-top: .125em
 
 .a-form-help-link
-  +text.text-block(.75rem 1.6)
+  font-size: .75rem
+  line-height: 1.6
   cursor: pointer
   +colors.default-link
   .a-form-help &.is-danger
@@ -60,11 +69,19 @@
       color: var(--muted-text)
 
 .a-form-help-link__label
-  +link.hover-link-reversal
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
 
 .a-text-help-link
   cursor: pointer
   +colors.default-link
 
 .a-text-help-link__label
-  +link.hover-link-reversal
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline

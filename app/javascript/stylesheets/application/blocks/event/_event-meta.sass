@@ -1,5 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/link"
 @use "../../../config/variables/colors"
 
 .event-meta
@@ -41,7 +40,11 @@
     align-items: center
   a:not(.a-button)
     +colors.default-link
-    +link.hover-link-reversal
+    text-decoration: none
+    cursor: pointer
+    &:hover,
+    &:active
+      text-decoration: underline
 
 .event-meta__item-value-main
   display: block

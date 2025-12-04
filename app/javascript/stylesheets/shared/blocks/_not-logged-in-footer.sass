@@ -1,6 +1,4 @@
 @use "../../config/mixins/break-points"
-@use "../../config/mixins/link"
-@use "../../config/mixins/text"
 @use "../../config/variables/colors"
 
 .not-logged-in-footer
@@ -40,10 +38,15 @@
 
 
 .not-logged-in-footer__nav-item-link
-  +text.text-block(.875rem 1)
+  font-size: .875rem
+  line-height: 1
   color: var(--reversal-text)
   +break-points.media-breakpoint-up(md)
-    +link.hover-link
+    text-decoration: none
+    cursor: pointer
+    &:hover,
+    &:active
+      text-decoration: underline
   +break-points.media-breakpoint-down(md)
     text-decoration: none
     display: flex
@@ -63,7 +66,9 @@
 .not-logged-in-footer-copyright
   justify-content: center
   align-items: center
-  +text.text-block(.875rem 1.4, flex)
+  font-size: .875rem
+  line-height: 1.4
+  display: flex
   color: var(--reversal-text)
   gap: .25rem
   body.is-lp &
@@ -73,7 +78,11 @@
   display: block
 
 .not-logged-in-footer-copyright__author-link
-  +link.hover-link
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
   color: var(--reversal-text)
   margin-right: .5em
   body.is-lp &

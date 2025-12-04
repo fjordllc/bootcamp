@@ -1,5 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/text"
 
 .form-times
   +break-points.media-breakpoint-up(md)
@@ -37,6 +36,7 @@
     flex-basis: 50%
 
 .form-times__time-label
-  +text.text-block(.75rem 1.4)
+  font-size: .75rem
+  line-height: 1.4
   margin-bottom: .5em
   display: block

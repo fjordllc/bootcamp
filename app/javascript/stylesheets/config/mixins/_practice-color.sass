@@ -1,7 +1,5 @@
 @use "../functions/color"
 @use "../variables/colors"
-@use "position"
-
 =practice-button($color: colors.$background, $border: false, $border-color: false, $text-color: false)
   background-color: $color
   @if $border == true
@@ -39,7 +37,8 @@
     border: solid 1px
 
 =practice-hover-color($border: false)
-  +position.position(relative, 2)
+  position: relative
+  z-index: 2
   $border-status: $border
   @if $border == true
     border: solid 1px

@@ -1,6 +1,5 @@
 @use "../../../config/functions/color"
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/text"
 @use "../../../config/variables/colors"
 
 .welcome-message
@@ -31,7 +30,8 @@
   margin-bottom: 1em
 
 .welcome-message__title
-  +text.text-block(1em 1.4)
+  font-size: 1em
+  line-height: 1.4
   text-align: center
   font-weight: 800
 

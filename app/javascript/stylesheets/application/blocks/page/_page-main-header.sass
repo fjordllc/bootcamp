@@ -1,5 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/text"
 
 .page-main-header__inner
   padding-block: .5rem
@@ -21,6 +20,8 @@
   color: var(--main)
   font-weight: 700
   +break-points.media-breakpoint-up(md)
-    +text.text-block(1.125rem 1.4)
+    font-size: 1.125rem
+    line-height: 1.4
   +break-points.media-breakpoint-down(sm)
-    +text.text-block(1rem 1.4)
+    font-size: 1rem
+    line-height: 1.4

@@ -1,11 +1,13 @@
 @use "../config/mixins/break-points"
-@use "../config/mixins/text"
 
 .completion
   padding-block: 4rem 2rem
 
 .completion__title
-  +text.text-block(1em 1.4, 800 center)
+  font-size: 1em
+  line-height: 1.4
+  text-align: center
+  font-weight: 800
   color: var(--reversal-text)
   font-family: var(--sans-serif)
   +break-points.media-breakpoint-up(md)

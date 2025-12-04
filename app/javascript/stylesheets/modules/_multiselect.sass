@@ -1,20 +1,22 @@
 @use "../atoms/a-text-input" as textInput
 @use "../config/mixins/border-radius"
 @use "../config/mixins/break-points"
-@use "../config/mixins/position"
-
 .multiselect
-  +position.position(absolute, left 0, top 0, right 0)
+  position: absolute
+  left: 0
+  top: 0
+  right: 0
 
 .multiselect.book
-  +position.position(initial)
+  position: initial
 
 .multiselect__single,
 .multiselect__input
   +textInput.text-input-base
 
 .multiselect__single
-  +position.position(relative, 1)
+  position: relative
+  z-index: 1
   white-space: nowrap
   overflow: hidden
   text-overflow: ellipsis

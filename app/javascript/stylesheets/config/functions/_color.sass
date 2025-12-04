@@ -1,9 +1,8 @@
 @use "sass:color"
 @use "sass:list"
-@use "math" as functions-math
-@use "text"
-
 @use "sass:math"
+@use "sass:meta"
+@use "math" as functions-math
 
 @function tint($color, $percentage)
   @return color.mix(white, $color, $percentage)
@@ -13,7 +12,7 @@
 
 // Adapted from: https://gist.github.com/voxpelli/6304812
 @function luma($color)
-  @if text.color($color)
+  @if meta.type-of($color) == color
     $rgba: color.channel($color, 'red', $space: rgb), color.channel($color, 'green', $space: rgb), color.channel($color, 'blue', $space: rgb)
     $rgba2: ()
     @for $i from 1 through 3

@@ -1,5 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/text"
 
 .company-profile__header
   padding: 1rem
@@ -39,9 +38,11 @@
   font-weight: 800
   color: var(--main-text)
   +break-points.media-breakpoint-up(md)
-    +text.text-block(1.5rem 1.45)
+    font-size: 1.5rem
+    line-height: 1.45
   +break-points.media-breakpoint-down(sm)
-    +text.text-block(1.25rem 1.45)
+    font-size: 1.25rem
+    line-height: 1.45
 
 .company-profile__body
   padding: 1rem

@@ -1,5 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/text"
 
 .current-user-icon-list
   margin-bottom: 1rem
@@ -32,10 +31,12 @@
     flex: 0 0 2rem
 
 .current-user-icon-list__title-label
-  +text.text-block(.875rem 1.4)
+  font-size: .875rem
+  line-height: 1.4
   font-weight: 700
   white-space: nowrap
 
 .current-user-icon-list__title-time
-  +text.text-block(.75rem 1.4)
+  font-size: .75rem
+  line-height: 1.4
   white-space: nowrap

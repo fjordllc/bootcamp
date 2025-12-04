@@ -1,6 +1,5 @@
 @use "../../../config/mixins/border-radius"
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/text"
 
 .card-header
   display: flex
@@ -26,7 +25,9 @@
   gap: 1rem
 
 .card-header__title
-  +text.text-block(1em 1.4, 600)
+  font-size: 1em
+  line-height: 1.4
+  font-weight: 600
   flex: 1
   +break-points.media-breakpoint-up(md)
     font-size: 1rem
@@ -52,7 +53,8 @@
   top: -.125em
 
 .card-header__sub-title
-  +text.text-block(.8125rem 1.4)
+  font-size: .8125rem
+  line-height: 1.4
   +break-points.media-breakpoint-down(sm)
     font-size: .75rem
 

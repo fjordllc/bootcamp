@@ -1,5 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/text"
 
 .article-author
   &.is-welcome-index
@@ -45,13 +44,16 @@
   font-weight: 800
   color: var(--main)
   +break-points.media-breakpoint-up(md)
-    +text.text-block(1.5rem 1.2)
+    font-size: 1.5rem
+    line-height: 1.2
   +break-points.media-breakpoint-down(sm)
-    +text.text-block(1.5rem 1.2)
+    font-size: 1.5rem
+    line-height: 1.2
 
 .article-author__job
   font-weight: 400
-  +text.text-block(.875rem 1)
+  font-size: .875rem
+  line-height: 1
   margin-bottom: .125rem
   color: var(--main)
 
@@ -63,7 +65,8 @@
     display: none
 
 .article-author__sns-item-link
-  +text.text-block(1.25rem 1.45)
+  font-size: 1.25rem
+  line-height: 1.45
   color: var(--main)
   display: flex
   height: 2.5rem
@@ -91,7 +94,8 @@
       display: none
 
   &.is-temp
-    +text.text-block(.875rem 1.6)
+    font-size: .875rem
+    line-height: 1.6
     img
       width: 6.25rem
       float: right

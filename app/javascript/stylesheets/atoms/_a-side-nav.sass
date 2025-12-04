@@ -1,7 +1,4 @@
 @use "../config/mixins/break-points"
-@use "../config/mixins/link"
-@use "../config/mixins/position"
-@use "../config/mixins/text"
 
 .page-body__inner.has-side-nav
   +break-points.media-breakpoint-up(lg)
@@ -10,7 +7,10 @@
 .a-side-nav
   background-color: var(--base)
   +break-points.media-breakpoint-up(lg)
-    +position.position(absolute, right 0, top -1.5rem, bottom -1.5rem)
+    position: absolute
+    right: 0
+    top: -1.5rem
+    bottom: -1.5rem
     width: var(--side-nav-width)
     border-left: solid 1px var(--border)
     height: calc(100% + 3rem)
@@ -42,11 +42,14 @@
     padding: .5rem .75rem
 
 .a-side-nav__title
-  +text.text-block(.875rem 1.4, 600)
+  font-size: .875rem
+  line-height: 1.4
+  font-weight: 600
   width: 100%
 
 .a-side-nav__title-link
-  +link.block-link
+  display: block
+  text-decoration: none
   width: 100%
   text-align: center
   color: var(--default-text)
@@ -67,15 +70,21 @@
     padding: .5rem .75rem
 
 .a-side-nav__footer-link
-  +text.text-block(.8125rem 1.4)
+  font-size: .8125rem
+  line-height: 1.4
   color: var(--muted-text)
-  +link.hover-link-reversal
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
 
 .a-side-nav__body
   overflow: auto
 
 =a-side-nav-current($background-color, $border-color, $text-color, $pointer-events-none)
-  +position.position(relative, 1)
+  position: relative
+  z-index: 1
   border: solid 1px $border-color
   background-color: $background-color
   .a-side-nav__item-link
@@ -96,9 +105,11 @@
 
 .a-side-nav__item-link
   padding: .75rem
-  +text.text-block(.8125rem 1.4)
+  font-size: .8125rem
+  line-height: 1.4
   color: var(--semi-muted-text)
-  +link.block-link
+  display: block
+  text-decoration: none
   transition: all .1s ease-in
   background-color: transparent
   &:not(.has-metas):hover
@@ -115,7 +126,10 @@
   margin-right: .25rem
 
 .a-side-nav__item-title
-  +text.text-block(.875rem 1.4, 600 inline)
+  font-size: .875rem
+  line-height: 1.4
+  display: inline
+  font-weight: 600
 
 .a-side-nav-metas
   margin-top: .25rem
