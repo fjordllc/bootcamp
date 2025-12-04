@@ -37,7 +37,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include RegularEventHelper
 
   # Counter for browser restart in CI (to prevent OOM)
-  CI_BROWSER_RESTART_INTERVAL = 10 # Restart browser every N tests (more aggressive for OOM prevention)
+  CI_BROWSER_RESTART_INTERVAL = 5 # Restart browser every N tests (very aggressive for OOM prevention)
 
   class << self
     attr_writer :ci_test_counter
