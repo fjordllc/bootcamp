@@ -1,5 +1,4 @@
 @use "../atoms/a-text-input" as textInput
-@use "../config/mixins/border-radius"
 @use "../config/mixins/break-points"
 .multiselect
   position: absolute
@@ -26,7 +25,8 @@
   overflow-y: scroll
   background-color: var(--base)
   border: solid 1px var(--border)
-  +border-radius.border-radius(bottom, .25rem)
+  border-bottom-left-radius: .25rem
+  border-bottom-right-radius: .25rem
 
 .multiselect--active
   overflow-y: hidden !important

@@ -1,4 +1,3 @@
-@use "../../config/mixins/border-radius"
 
 .pill-nav
   &:not(:first-child)
@@ -12,9 +11,11 @@
 
 .pill-nav__item
   &:first-child .pill-nav__item-link
-    +border-radius.border-radius(left, 10em)
+    border-top-left-radius: 10em
+    border-bottom-left-radius: 10em
   &:last-child .pill-nav__item-link
-    +border-radius.border-radius(right, 10em)
+    border-top-right-radius: 10em
+    border-bottom-right-radius: 10em
   .is-half &
     width: 50%
 

@@ -1,4 +1,3 @@
-@use "../../../config/mixins/border-radius"
 @use "../../../config/mixins/break-points"
 
 .users-item
@@ -11,7 +10,8 @@
   line-height: 1.4
   text-align: center
   padding: .25rem
-  +border-radius.border-radius(top, .1875rem)
+  border-top-left-radius: .1875rem
+  border-top-right-radius: .1875rem
   margin: -1px -1px -.25rem
 
 .users-item__inner

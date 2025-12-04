@@ -1,6 +1,5 @@
 @use "../../../config/functions/color"
 @use "../../../config/mixins/border"
-@use "../../../config/mixins/border-radius"
 @use "../../../config/mixins/break-points"
 @use "../../../config/variables/colors"
 
@@ -22,7 +21,8 @@
 .admin-table__header
   background-color: var(--background-semi-shade)
   border: solid 1px var(--border-shade)
-  +border-radius.border-radius(top, .25rem)
+  border-top-left-radius: .25rem
+  border-top-right-radius: .25rem
 
 .admin-table__items
   +border.border(horizontal, solid 1px var(--border))
@@ -60,7 +60,8 @@
   &.is-retired:hover
     background-color: var(--background)
   &:last-child
-    +border-radius.border-radius(bottom, .25rem)
+    border-bottom-left-radius: .25rem
+    border-bottom-right-radius: .25rem
   &.sortable-chosen
     background-color: color.tint(colors.$warning, 80%)
   &:hover,
