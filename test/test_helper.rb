@@ -3,6 +3,16 @@
 ENV['RAILS_ENV'] ||= 'test'
 # Suppress VIPS/GLib warnings in test environment
 ENV['G_MESSAGES_DEBUG'] = ''
+
+# Aggressive GC settings for CI to prevent OOM
+if ENV['CI']
+  ENV['RUBY_GC_HEAP_GROWTH_FACTOR'] = '1.1'
+  ENV['RUBY_GC_MALLOC_LIMIT'] = '16000000'
+  ENV['RUBY_GC_MALLOC_LIMIT_MAX'] = '32000000'
+  ENV['RUBY_GC_OLDMALLOC_LIMIT'] = '16000000'
+  ENV['RUBY_GC_OLDMALLOC_LIMIT_MAX'] = '32000000'
+end
+
 require_relative '../config/environment'
 require 'rails/test_help'
 require 'capybara/rails'

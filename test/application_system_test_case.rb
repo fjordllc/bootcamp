@@ -38,7 +38,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   # Counter for browser restart in CI (to prevent OOM)
   @@ci_test_counter = 0
-  CI_BROWSER_RESTART_INTERVAL = 20 # Restart browser every N tests
+  CI_BROWSER_RESTART_INTERVAL = 10 # Restart browser every N tests (more aggressive for OOM prevention)
 
   if ENV['HEADFUL']
     driven_by :selenium, using: :chrome
