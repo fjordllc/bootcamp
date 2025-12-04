@@ -76,5 +76,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
     ActionMailer::Base.deliveries.clear
     ActiveJob::Base.queue_adapter = @original_adapter
+    # Force garbage collection in CI to prevent OOM kills
+    GC.start if ENV['CI']
   end
 end

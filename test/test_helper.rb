@@ -66,6 +66,8 @@ class ActiveSupport::TestCase
 
   teardown do
     CITestLogger.log("[TEST END] #{self.class.name}##{name}")
+    # Force garbage collection in CI to prevent OOM kills
+    GC.start if ENV['CI']
   end
 end
 
@@ -79,6 +81,8 @@ class ActionDispatch::IntegrationTest
 
   teardown do
     CITestLogger.log("[TEST END] #{self.class.name}##{name}")
+    # Force garbage collection in CI to prevent OOM kills
+    GC.start if ENV['CI']
   end
 end
 
