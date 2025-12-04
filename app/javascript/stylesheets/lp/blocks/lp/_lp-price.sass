@@ -1,5 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/text"
 
 .lp-price
   color: var(--main)
@@ -30,7 +29,9 @@
         font-size: .875rem
 
 .lp-price__label
-  +text.text-block(1.25em 1, 700)
+  font-size: 1.25em
+  line-height: 1
+  font-weight: 700
   align-self: center
   height: 4em
   width: 4em
@@ -49,16 +50,22 @@
   flex-wrap: wrap
 
 .lp-price__amount
-  +text.text-block(6.25em 1, 900)
+  font-size: 6.25em
+  line-height: 1
+  font-weight: 900
   align-self: baseline
   font-family: 'Lato', sans-serif
 
 .lp-price__currency
-  +text.text-block(3.25em 1, 800)
+  font-size: 3.25em
+  line-height: 1
+  font-weight: 800
   align-self: baseline
 
 .lp-price__details
-  +text.text-block(2.25em 1, 800)
+  font-size: 2.25em
+  line-height: 1
+  font-weight: 800
   display: flex
   align-self: baseline
   gap: .125em

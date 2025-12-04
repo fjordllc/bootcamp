@@ -1,4 +1,3 @@
-@use "../config/mixins/link"
 
 .a-user-name
   color: var(--muted-text)
@@ -8,7 +7,11 @@
   font-weight: 400
 
 a.a-user-name
-  +link.hover-link
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
   display: inline-block
   max-width: 100%
   overflow: hidden

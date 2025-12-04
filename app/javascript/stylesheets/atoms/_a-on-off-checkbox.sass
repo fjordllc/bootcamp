@@ -1,4 +1,3 @@
-@use "../config/mixins/text"
 
 =on-off-checkbox($border-width: 1px, $height: 1.5rem, $width: 4.5rem, $font-size: .8125rem)
   span
@@ -51,7 +50,11 @@
       border: solid 1px var(--input-border)
     &::after
       content: "OFF"
-      +text.text-block(1em 1, flex center 600)
+      font-size: 1em
+      line-height: 1
+      display: flex
+      text-align: center
+      font-weight: 600
       align-items: center
       justify-content: center
   input:checked + span

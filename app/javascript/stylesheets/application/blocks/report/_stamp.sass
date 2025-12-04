@@ -1,6 +1,5 @@
 @use "../../../config/mixins/border"
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/text"
 
 .stamp
   border: solid 1px var(--stamp-color)
@@ -12,7 +11,11 @@
   right: -.25rem
   top: 0
   transform: rotate(25deg)
-  +text.text-block(.625rem 1, block center 400)
+  font-size: .625rem
+  line-height: 1
+  display: block
+  text-align: center
+  font-weight: 400
   color: var(--stamp-color)
   font-feature-settings: "palt"
   letter-spacing: 0

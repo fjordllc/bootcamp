@@ -1,6 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/link"
-@use "../../../config/mixins/text"
 
 .page-content-header
   position: relative
@@ -51,7 +49,9 @@
   display: flex
   align-items: center
   justify-content: center
-  +text.text-block(.875rem 1, 600)
+  font-size: .875rem
+  line-height: 1
+  font-weight: 600
   // regular_events
   &.is-meeting
     background-color: #7f6fb7
@@ -70,7 +70,8 @@
     color: var(--default-text)
 
 .page-content-header__user-link
-  +link.block-link
+  display: block
+  text-decoration: none
 
 .page-content-header__user-icon-image
   height: 3.5rem
@@ -109,7 +110,9 @@
 .page-content-header__title
   font-feature-settings: "palt"
   letter-spacing: .02em
-  +text.text-block(1em 1.4, 700)
+  font-size: 1em
+  line-height: 1.4
+  font-weight: 700
   color: var(--main)
   padding-bottom: .25rem
   border-bottom: solid 1px var(--border-shade)
@@ -134,7 +137,11 @@
       top: .5em
 
 .page-content-header__title-link
-  +link.hover-link
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
   color: var(--main)
   .page-content-header__title.is-wip &
     color: var(--muted-text)
@@ -199,7 +206,8 @@
 .page-content-header__alert
   background-color: var(--danger-tint)
   color: var(--danger-text)
-  +text.text-block(.875rem 1.4)
+  font-size: .875rem
+  line-height: 1.4
   text-align: center
   padding: .5rem 1rem
   border: solid 1px var(--danger)

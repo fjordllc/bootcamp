@@ -1,7 +1,5 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/position"
 @use "../../../config/mixins/practice-color"
-@use "../../../config/mixins/text"
 
 .practice-status-buttons__start
   text-align: center
@@ -11,7 +9,9 @@
 
 .practice-status-buttons__label
   +break-points.media-breakpoint-up(md)
-    +text.text-block(.75rem, 600 nowrap)
+    font-size: .75rem
+    font-weight: 600
+    white-space: nowrap
     margin-right: 1em
   +break-points.media-breakpoint-down(sm)
     display: none
@@ -39,7 +39,8 @@
   &.is-active
     pointer-events: none
     +practice-color.practice-color(true)
-    +position.position(relative, 1)
+    position: relative
+    z-index: 1
 
 .practice-status__buttons-item
   +break-points.media-breakpoint-down(sm)
@@ -48,6 +49,8 @@
       width: 100%
 
 .practice-status-buttons__note
-  +text.text-block(.75rem 1.4, left)
+  font-size: .75rem
+  line-height: 1.4
+  text-align: left
   color: var(--muted-text)
   margin-top: .5em

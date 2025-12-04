@@ -2,9 +2,7 @@
 @use "../functions/color" as functions-color
 @use "../functions/number"
 @use "../variables/colors"
-@use "font-awsome"
 @use "position"
-@use "text"
 
 =button-base
   text-transform: none
@@ -47,10 +45,11 @@
     font-size: 1.07em
   &.is-icon
     i
-      +text.text-block(1.35em 1)
+      font-size: 1.35em
+      line-height: 1
       margin-right: 0
   &.is-checkbox
-    +position.position(relative)
+    position: relative
     &::before
       content: ""
       height: .9375em
@@ -59,17 +58,31 @@
       display: block
       border: solid 1px var(--background-shade)
       background-color: var(--base)
-      +position.position(absolute, left 1em, top 50%)
+      left: 1em
+      position: absolute
+      top: 50%
       transform: translate(0, -50%)
     &::after
-      +font-awsome.fa(fas "\f00c")
-      +text.text-block(1em 1, flex)
+      content: "\f00c"
+      font-family: 'Font Awesome 6 Pro'
+      font-style: normal
+      font-weight: 900
+      font-variant: normal
+      text-rendering: auto
+      line-height: 1
+      -moz-osx-font-smoothing: grayscale
+      -webkit-font-smoothing: antialiased
+      font-size: 1em
+      line-height: 1
+      display: flex
       color: var(--reversal-text)
       align-items: center
       justify-content: center
       height: .9375em
       width: .9375em
-      +position.position(absolute, left 1em, top 50%)
+      left: 1em
+      position: absolute
+      top: 50%
       transform: translate(0, -50%)
       opacity: 0
     input:checked + &::before
@@ -140,21 +153,35 @@
     height: $vertical
   &.is-icon
     padding-inline: #{number.strip_unit($horizontal * $font-size * 1)}em
-    &.is-select
-      padding-inline: 0
-      +position.position(relative)
-      &::before
-        +font-awsome.fa(fas "\f0d7")
-        height: 100%
-        width: 2em
-        +position.position(absolute, right 0, top 0, bottom 0)
-      +text.text-block(1em 1, flex)
-      color: var(--muted-text)
-      align-items: center
-      justify-content: center
-    select
-      padding-left: 1em
-      padding-right: 2em
-      +position.position(relative, 1)
+  &.is-select
+    padding-inline: 0
+    position: relative
+    &::before
+      content: "\f0d7"
+      font-family: 'Font Awesome 6 Pro'
+      font-style: normal
+      font-weight: 900
+      font-variant: normal
+      text-rendering: auto
+      line-height: 1
+      -moz-osx-font-smoothing: grayscale
+      -webkit-font-smoothing: antialiased
+      height: 100%
+      width: 2em
+      right: 0
+      position: absolute
+      top: 0
+      bottom: 0
+    font-size: 1em
+    line-height: 1
+    display: flex
+    color: var(--muted-text)
+    align-items: center
+    justify-content: center
+  select
+    padding-left: 1em
+    padding-right: 2em
+    position: relative
+    z-index: 1
   &.is-checkbox
     padding-left: 2.75em

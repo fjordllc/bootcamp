@@ -1,6 +1,3 @@
-@use "../../../config/mixins/link"
-@use "../../../config/mixins/position"
-@use "../../../config/mixins/text"
 
 .card-main-actions
   container: card-main-actions / inline-size
@@ -13,7 +10,7 @@
   display: flex
   gap: .5rem
   @container card-main-actions (min-width: 20em)
-    +position.position(relative)
+    position: relative
     justify-content: center
     flex-wrap: wrap
     align-items: flex-end
@@ -49,8 +46,13 @@
       flex: 1
 
 .card-main-actions__muted-action
-  +link.hover-link-reversal
-  +text.text-block(.8125rem 1.4)
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
+  font-size: .8125rem
+  line-height: 1.4
   color: var(--muted-text)
   &:hover
     color: var(--danger)

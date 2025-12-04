@@ -1,8 +1,5 @@
-@use "font-awsome"
 @use "link"
-@use "position"
 @use "size"
-@use "text"
 
 =short-text-style
   >*:first-child
@@ -17,11 +14,21 @@
     border-top: dashed 1px var(--border)
     margin-block: 1.5em
   p
-    +text.text-block(1em 1.7 0 .75em)
+    font-size: 1em
+    line-height: 1.7
+    margin-top: 0
+    margin-bottom: .75em
   li
-    +text.text-block(1em 1.7 0 .125em)
+    font-size: 1em
+    line-height: 1.7
+    margin-top: 0
+    margin-bottom: .125em
   a
-    +link.hover-link-reversal
+    text-decoration: none
+    cursor: pointer
+    &:hover,
+    &:active
+      text-decoration: underline
 
   .message
     background: red
@@ -31,8 +38,18 @@
     background-color: var(--warning-tint)
     color: var(--warning-text)
     &::before
-      +font-awsome.fa(fas '\f06a')
-      +position.position(absolute, left .25em, top .25em)
+      content: "\f06a"
+      font-family: 'Font Awesome 6 Pro'
+      font-style: normal
+      font-weight: 900
+      font-variant: normal
+      text-rendering: auto
+      line-height: 1
+      -moz-osx-font-smoothing: grayscale
+      -webkit-font-smoothing: antialiased
+      left: .25em
+      position: absolute
+      top: .25em
       font-size: 1.5em
       color: var(--warning)
     &.alert,

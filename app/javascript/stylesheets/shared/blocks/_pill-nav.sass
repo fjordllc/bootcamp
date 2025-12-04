@@ -1,6 +1,4 @@
 @use "../../config/mixins/border-radius"
-@use "../../config/mixins/link"
-@use "../../config/mixins/text"
 
 .pill-nav
   &:not(:first-child)
@@ -21,8 +19,12 @@
     width: 50%
 
 .pill-nav__item-link
-  +link.block-link
-  +text.text-block(.75rem 2.3, center nowrap)
+  display: block
+  text-decoration: none
+  font-size: .75rem
+  line-height: 2.3
+  text-align: center
+  white-space: nowrap
   color: var(--muted-text)
   border: solid 1px var(--border-shade)
   border-left-width: .5px

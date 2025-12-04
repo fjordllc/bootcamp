@@ -1,6 +1,4 @@
 @use "../config/mixins/break-points"
-@use "../config/mixins/position"
-@use "../config/mixins/text"
 
 .a-switch
   display: flex
@@ -15,11 +13,14 @@
     height: 100%
 
 .a-switch__label
-  +text.text-block(.75rem 1.4, center)
+  font-size: .75rem
+  line-height: 1.4
+  text-align: center
   color: var(--muted-text)
   margin-right: .5em
   .a-help
-    +position.position(relative, top -1px)
+    position: relative
+    top: -1px
   &:hover
     .a-switch__label-text
       color: var(--main-text)

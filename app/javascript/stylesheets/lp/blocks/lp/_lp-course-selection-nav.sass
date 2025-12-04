@@ -1,4 +1,3 @@
-@use "../../../config/mixins/text"
 
 .lp-course-selection-nav
   position: sticky
@@ -17,7 +16,9 @@
 .lp-course-selection-nav__item-link
   border: solid 1px var(--main)
   background-color: var(--base)
-  +text.text-block(.75rem 1.4, center)
+  font-size: .75rem
+  line-height: 1.4
+  text-align: center
   display: flex
   text-decoration: none
   height: 2.75rem

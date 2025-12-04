@@ -1,6 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/position"
-@use "../../../config/mixins/text"
 
 .answer-badge
   border: double .1875rem var(--stamp-color)
@@ -13,7 +11,10 @@
   top: -.125rem
   z-index: 1
   transform: rotate(25deg)
-  +text.text-block(.625rem 1, flex center)
+  font-size: .625rem
+  line-height: 1
+  display: flex
+  text-align: center
   color: var(--stamp-color)
   flex-direction: column
   align-items: center

@@ -1,5 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/link"
 .books-form
   border: solid 1px var(--border)
   background-color: var(--base)
@@ -24,7 +23,8 @@
   color: var(--muted-text)
   height: 100%
   width: 100%
-  +link.flex-link
+  display: flex
+  text-decoration: none
   align-items: center
   justify-content: center
   border-radius: 50%

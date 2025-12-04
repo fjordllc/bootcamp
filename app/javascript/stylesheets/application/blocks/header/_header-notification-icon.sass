@@ -1,5 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/text"
 
 .header-notification-count
   position: absolute
@@ -15,7 +14,8 @@
     content: ' .'
     color: var(--default-text)
     animation: dots 1s steps(5, end) infinite
-    +text.text-block(1rem 1)
+    font-size: 1rem
+    line-height: 1
     position: absolute
     left: .25rem
     bottom: .25rem

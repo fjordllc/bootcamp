@@ -1,11 +1,8 @@
 @use "sass:color"
 @use "../variables/colors"
 @use "break-points"
-@use "font-awsome"
 @use "link"
-@use "position"
 @use "size"
-@use "text"
 
 =blocks
   video,
@@ -37,7 +34,8 @@
     list-style-position: outside
     margin-left: 1.75em
   li
-    +text.text-block(1em 1.86)
+    font-size: 1em
+    line-height: 1.86
     margin-block: .5em
     &:first-child
       margin-top: 0
@@ -92,7 +90,9 @@
       margin-bottom: 0
   .speak__speaker-name
     flex: 1
-    +text.text-block(1em 1.6, 700)
+    font-size: 1em
+    line-height: 1.6
+    font-weight: 700
     text-decoration: none
     white-space: nowrap
   .speak__body
@@ -100,12 +100,20 @@
 
 =headdings
   h1
-    +text.text-block(1.875em 1.466 0 .75em, 600)
+    font-size: 1.875em
+    line-height: 1.466
+    margin-top: 0
+    margin-bottom: .75em
+    font-weight: 600
     color: var(--main-text)
     padding-bottom: .25em
     border-bottom: 3px solid var(--border)
   h2
-    +text.text-block(1.625em 1.4615 0 .75em, 600)
+    font-size: 1.625em
+    line-height: 1.4615
+    margin-top: 0
+    margin-bottom: .75em
+    font-weight: 600
     padding-bottom: .25em
     border-bottom: 1px solid var(--border)
   * + h2
@@ -118,22 +126,30 @@
   * + h5
     margin-top: 1.5em
   h3
-    +text.text-block(1.375em 1.6, 600)
+    font-size: 1.375em
+    line-height: 1.6
+    font-weight: 600
     margin-bottom: .625em
     & + *
       margin-top: 0 !important
   h4
-    +text.text-block(1.25em 1.6, 600)
+    font-size: 1.25em
+    line-height: 1.6
+    font-weight: 600
     margin-bottom: .625em
     & + *
       margin-top: 0 !important
   h5
-    +text.text-block(1.125em 1.6, 600)
+    font-size: 1.125em
+    line-height: 1.6
+    font-weight: 600
     margin-bottom: .625em
     & + *
       margin-top: 0 !important
   h6
-    +text.text-block(1em 1.6, 600)
+    font-size: 1em
+    line-height: 1.6
+    font-weight: 600
     margin-bottom: .625em
     & + *
       margin-top: 0 !important
@@ -154,9 +170,10 @@
         opacity: 1
   .header-anchor
     display: flex
-    +text.text-block(.75rem, 400)
+    font-size: .75rem
+    font-weight: 400
     float: left
-    +position.position(absolute)
+    position: absolute
     margin-left: -1.5rem
     text-decoration: none !important
     height: 100%
@@ -177,7 +194,9 @@
   td
     border: solid 1px var(--border-shade)
     padding: .5em .625em
-    +text.text-block(.875em 1.6, left)
+    font-size: .875em
+    line-height: 1.6
+    text-align: left
   th
     background-color: var(--background)
   tbody tr
@@ -188,7 +207,8 @@
   figure:has(figcaption) > *:first-child
     margin-bottom: 0
   figcaption
-    +text.text-block(.875em 1.6)
+    font-size: .875em
+    line-height: 1.6
     margin-top: .75em
     text-align: center
 
@@ -200,8 +220,18 @@
     background-color: var(--warning-tint)
     color: var(--warning-text)
     &::before
-      +font-awsome.fa(fas '\f06a')
-      +position.position(absolute, left .25em, top .25em)
+      content: "\f06a"
+      font-family: 'Font Awesome 6 Pro'
+      font-style: normal
+      font-weight: 900
+      font-variant: normal
+      text-rendering: auto
+      line-height: 1
+      -moz-osx-font-smoothing: grayscale
+      -webkit-font-smoothing: antialiased
+      left: .25em
+      position: absolute
+      top: .25em
       font-size: 1.5em
       color: var(--warning)
     &.alert,
@@ -239,7 +269,9 @@
     position: relative
     padding-left: 1.375em
     .task-list-item-checkbox
-      +position.position(absolute, top .5em, left 0)
+      left: 0
+      position: absolute
+      top: .5em
 
 =long-text-style($pc-font-size: 1rem, $mobile-font-size: .8125rem, $background: colors.$base, $font: colors.$default-text)
   word-wrap: break-word
@@ -249,9 +281,14 @@
     font-size: $mobile-font-size
   +headdings
   p
-    +text.text-block(1em 1.86)
+    font-size: 1em
+    line-height: 1.86
   a
-    +link.hover-link-reversal
+    text-decoration: none
+    cursor: pointer
+    &:hover,
+    &:active
+      text-decoration: underline
     +colors.default-link
     &:hover
       img
@@ -268,10 +305,13 @@
     padding: 1em
     border-radius: .25rem
   dt
-    +text.text-block(1em 1.6, 600)
+    font-size: 1em
+    line-height: 1.6
+    font-weight: 600
     margin-bottom: .25em
   dd
-    +text.text-block(1em 1.6)
+    font-size: 1em
+    line-height: 1.6
     &:not(:last-child)
       margin-block: 1em
   code
@@ -282,7 +322,8 @@
     padding: 0
     code
       border: none
-      +text.text-block(.9375em 1.5)
+      font-size: .9375em
+      line-height: 1.5
       overflow: auto
       display: block
       width: 100%
@@ -306,7 +347,9 @@
     blockquote + ul
       margin-top: -2em
     >code
-      +text.text-block(.875em 1.7, inline-flex)
+      font-size: .875em
+      line-height: 1.7
+      display: inline-flex
       color: var(--default-text)
       align-items: center
       letter-spacing: 0
@@ -344,7 +387,7 @@
 
   blockquote
     padding-left: 1.5em
-    +position.position(relative)
+    position: relative
     border-left: solid .25em var(--border-tint)
     +list
     p + &
@@ -355,17 +398,23 @@
       margin-bottom: 0 !important
 
   details
-    +text.text-block(.875rem 1.8)
+    font-size: .875rem
+    line-height: 1.8
     margin-bottom: 1.5em
     border: solid 1px var(--border)
     padding: .5em 1em
     border-radius: .25rem
     +list
     summary
-      +text.text-block(1em 1.8)
+      font-size: 1em
+      line-height: 1.8
       cursor: pointer
       outline: none
-      +link.hover-link
+      text-decoration: none
+      cursor: pointer
+      &:hover,
+      &:active
+        text-decoration: underline
     &[open] summary
       border-bottom: solid 1px var(--border)
       padding-bottom: .5em

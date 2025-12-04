@@ -1,10 +1,8 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/link"
-@use "../../../config/mixins/position"
-@use "../../../config/mixins/text"
 
 .card-body-main-actions
-  +position.position(relative, 1)
+  position: relative
+  z-index: 1
   padding-block: .75rem
   margin-inline: 1rem
   border-radius: 4px
@@ -32,7 +30,8 @@
     color: var(--danger-text)
 
 .card-body-main-actions__description
-  +text.text-block(.875rem 1.4)
+  font-size: .875rem
+  line-height: 1.4
   margin-bottom: .75em
   text-align: center
 
@@ -47,6 +46,10 @@
     max-width: 16rem
 
 .card-body-main-actions__item-cancel
-  +link.hover-link-reversal
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
   color: var(--muted-text)
   font-size: .8125rem

@@ -1,6 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/link"
-@use "../../../config/mixins/text"
 @use "../../../config/variables/colors"
 
 .auth-form-logo-image
@@ -44,7 +42,8 @@
   padding: 1rem 1.75rem
 
 .auth-form__title
-  +text.text-block(1.25rem 1.4)
+  font-size: 1.25rem
+  line-height: 1.4
   text-align: center
   font-weight: 700
 
@@ -55,10 +54,15 @@
   padding: .5rem 1.5rem
   background-color: colors.$danger
   text-align: center
-  +text.text-block(.8125rem 1.4)
+  font-size: .8125rem
+  line-height: 1.4
   color: var(--reversal-text)
   margin: 1rem 1rem 0
   border-radius: .25rem
   a
-    +link.hover-link-reversal
+    text-decoration: none
+    cursor: pointer
+    &:hover,
+    &:active
+      text-decoration: underline
     color: var(--reversal-text)

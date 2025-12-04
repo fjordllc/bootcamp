@@ -1,6 +1,4 @@
 @use "../config/mixins/break-points"
-@use "../config/mixins/position"
-@use "../config/mixins/text"
 
 .a-long-text
   .a-link-card,
@@ -32,7 +30,8 @@
       text-overflow: ellipsis
       -webkit-box-orient: vertical
       -webkit-line-clamp: 2
-      +text.text-block(1em 1.4)
+      font-size: 1em
+      line-height: 1.4
 
     .a-link-card__favicon-image
       width: 1em
@@ -46,7 +45,8 @@
         display: none
 
     .a-link-card__body
-      +text.text-block(.875em 1.4)
+      font-size: .875em
+      line-height: 1.4
       color: var(--muted-text)
       display: flex
       gap: 1em
@@ -90,7 +90,8 @@
       align-items: center
 
     .a-link-card__site-title-text
-      +text.text-block(.875em 1.4)
+      font-size: .875em
+      line-height: 1.4
       flex: 1
 
   .twitter-tweet
@@ -107,7 +108,9 @@
       font-weight: 400
       font-size: 1.5em
       content: "\e61b"
-      +position.position(absolute, right .5em, top .5em)
+      position: absolute
+      right: .5em
+      top: .5em
       display: flex
       justify-content: center
       align-items: center

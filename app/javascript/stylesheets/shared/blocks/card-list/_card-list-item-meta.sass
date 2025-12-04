@@ -1,7 +1,8 @@
-@use "../../../config/mixins/text"
 
 .card-list-item-meta__items
-  +text.text-block(.75rem 1.4, flex)
+  font-size: .75rem
+  line-height: 1.4
+  display: flex
   flex-wrap: wrap
   gap: 0 .5rem
 
@@ -15,7 +16,8 @@
     text-overflow: ellipsis
 
 .card-list-item-meta__item-note
-  +text.text-block(.75rem 1.4)
+  font-size: .75rem
+  line-height: 1.4
   color: var(--default-text)
   &::before
     content: "※"
@@ -27,7 +29,8 @@
   margin-left: .75rem
 
 .card-list-item-meta__created-at
-  +text.text-block(.75rem 1.4)
+  font-size: .75rem
+  line-height: 1.4
   color: var(--muted-text)
 
 .card-list-item-meta__user

@@ -1,6 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/position"
-
 .lp-header-nav
   height: 100%
   +break-points.media-breakpoint-down(lg)
@@ -21,7 +19,11 @@
     gap: .25rem
   +break-points.media-breakpoint-down(lg)
     flex-direction: column
-    +position.position(fixed, left 0, top 0, bottom 0, 2)
+    bottom: 0
+    left: 0
+    position: fixed
+    top: 0
+    z-index: 2
     background-color: var(--base)
     width: 20rem
     max-width: calc(100vw - 3rem)
@@ -58,7 +60,12 @@
   +break-points.media-breakpoint-up(xl)
     display: none
   +break-points.media-breakpoint-down(lg)
-    +position.position(fixed, left 0, top 0, right 0, bottom 0, 1)
+    bottom: 0
+    left: 0
+    position: fixed
+    right: 0
+    top: 0
+    z-index: 1
     background-color: #27272ccc
 
 .lp-header__home-link-image

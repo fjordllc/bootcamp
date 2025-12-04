@@ -1,25 +1,48 @@
-@use "../config/mixins/link"
 @use "../config/variables/colors"
 
 .a-text-link
-  +link.hover-link-reversal
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
   +colors.default-link
   &.has-badge
     text-decoration: none
     .a-text-link__text
-      +link.hover-link-reversal
+      text-decoration: none
+      cursor: pointer
+      &:hover,
+      &:active
+        text-decoration: underline
       +colors.default-link
 
 .a-hover-link
-  +link.hover-link
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
 
 .a-hover-link-reversal
-  +link.hover-link-reversal
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
 
 .a-reversal-text-link
-  +link.hover-link-reversal
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
   +colors.reversal-link
 
 .a-muted-text-link
-  +link.hover-link-reversal
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
   +colors.muted-link

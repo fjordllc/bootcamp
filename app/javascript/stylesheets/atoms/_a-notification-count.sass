@@ -1,4 +1,3 @@
-@use "../config/mixins/text"
 
 .a-notification-count
   height: .875rem
@@ -7,7 +6,8 @@
   border-radius: 1rem
   background-color: var(--danger)
   position: absolute
-  +text.text-block(.625rem, flex)
+  font-size: .625rem
+  display: flex
   color: var(--reversal-text)
   align-items: center
   justify-content: center
