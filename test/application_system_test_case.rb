@@ -48,11 +48,15 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       driver_option.add_argument('enable-blink-features=Clipboard')
       driver_option.add_preference('profile.password_manager_leak_detection', false)
 
-      # Additional stability options for CI
+      # Additional stability and memory options for CI
       if ENV['CI']
         driver_option.add_argument('--disable-extensions')
         driver_option.add_argument('--disable-background-networking')
         driver_option.add_argument('--disable-default-apps')
+        # Memory optimization for CI containers
+        driver_option.add_argument('--js-flags=--max-old-space-size=512')
+        driver_option.add_argument('--memory-pressure-off')
+        driver_option.add_argument('--disable-features=TranslateUI')
       end
     end
   end
@@ -76,7 +80,16 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
     ActionMailer::Base.deliveries.clear
     ActiveJob::Base.queue_adapter = @original_adapter
-    # Force garbage collection in CI to prevent OOM kills
-    GC.start if ENV['CI']
+
+    # Clean up browser resources to prevent memory buildup in CI
+    if ENV['CI']
+      begin
+        page.driver.browser.manage.delete_all_cookies
+        Capybara.reset_sessions!
+      rescue StandardError => e
+        CITestLogger.log("[CLEANUP WARNING] #{e.message}")
+      end
+      GC.start
+    end
   end
 end
