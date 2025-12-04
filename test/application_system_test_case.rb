@@ -36,6 +36,10 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include AnnouncementHelper
   include RegularEventHelper
 
+  # Counter for browser restart in CI (to prevent OOM)
+  @@ci_test_counter = 0
+  CI_BROWSER_RESTART_INTERVAL = 20 # Restart browser every N tests
+
   if ENV['HEADFUL']
     driven_by :selenium, using: :chrome
   else
@@ -53,10 +57,11 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
         driver_option.add_argument('--disable-extensions')
         driver_option.add_argument('--disable-background-networking')
         driver_option.add_argument('--disable-default-apps')
-        # Memory optimization for CI containers
-        driver_option.add_argument('--js-flags=--max-old-space-size=512')
-        driver_option.add_argument('--memory-pressure-off')
         driver_option.add_argument('--disable-features=TranslateUI')
+        # Limit renderer memory
+        driver_option.add_argument('--js-flags=--max-old-space-size=256')
+        driver_option.add_argument('--renderer-process-limit=1')
+        driver_option.add_argument('--disable-site-isolation-trials')
       end
     end
   end
@@ -83,12 +88,30 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
     # Clean up browser resources to prevent memory buildup in CI
     if ENV['CI']
+      @@ci_test_counter += 1
+
       begin
         page.driver.browser.manage.delete_all_cookies
-        Capybara.reset_sessions!
       rescue StandardError => e
         CITestLogger.log("[CLEANUP WARNING] #{e.message}")
       end
+
+      # Periodically restart browser to reclaim memory
+      if (@@ci_test_counter % CI_BROWSER_RESTART_INTERVAL).zero?
+        CITestLogger.log("[BROWSER RESTART] Restarting browser after #{@@ci_test_counter} tests")
+        begin
+          Capybara.current_session.driver.quit
+        rescue StandardError => e
+          CITestLogger.log("[BROWSER RESTART WARNING] #{e.message}")
+        end
+      else
+        begin
+          Capybara.reset_sessions!
+        rescue StandardError => e
+          CITestLogger.log("[CLEANUP WARNING] #{e.message}")
+        end
+      end
+
       GC.start
     end
   end
