@@ -1,4 +1,3 @@
-@use "../config/mixins/border-radius"
 @use "../config/mixins/break-points"
 @use "../config/mixins/button"
 @use "../config/variables/colors"
@@ -171,10 +170,12 @@ input[type="button"]
     margin-right: -1px
   li:first-child
     .a-button
-      +border-radius.border-radius(right, 0)
+      border-top-right-radius: 0
+      border-bottom-right-radius: 0
   li:last-child
     .a-button
-      +border-radius.border-radius(left, 0)
+      border-top-left-radius: 0
+      border-bottom-left-radius: 0
   li:not(:first-child):not(:last-child)
     .a-button
       border-radius: 0

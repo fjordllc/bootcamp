@@ -1,4 +1,3 @@
-@use "../../../config/mixins/border-radius"
 @use "../../../config/mixins/break-points"
 
 .header-dropdown
@@ -112,7 +111,8 @@
       background-color: var(--main-shade)
 
 .header-dropdown__footer
-  +border-radius.border-radius(bottom, .25rem)
+  border-bottom-left-radius: .25rem
+  border-bottom-right-radius: .25rem
   overflow: hidden
   +break-points.media-breakpoint-up(md)
     border-top: solid 1px var(--border-tint)

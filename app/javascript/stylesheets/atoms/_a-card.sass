@@ -1,4 +1,3 @@
-@use "../config/mixins/border-radius"
 @use "../config/mixins/break-points"
 
 @mixin anAdjacentCard
@@ -69,7 +68,8 @@ table.a-card
   font-size: .875rem
   line-height: 1.4
   color: var(--reversal-text)
-  +border-radius.border-radius(top, .25rem)
+  border-top-left-radius: .25rem
+  border-top-right-radius: .25rem
   a
     text-decoration: none
     cursor: pointer

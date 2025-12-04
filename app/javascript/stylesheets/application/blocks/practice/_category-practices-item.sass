@@ -1,6 +1,5 @@
 @use "../../../config/functions/color"
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/practice-color"
 @use "../../../config/variables/colors"
 
 .category-practices-item
@@ -40,8 +39,7 @@
   height: 2.125rem
   width: 4rem
   border-radius: .25rem
-  +practice-color.practice-color
-
+  
 .category-practices-item__header
   display: flex
   +break-points.media-breakpoint-down(sm)

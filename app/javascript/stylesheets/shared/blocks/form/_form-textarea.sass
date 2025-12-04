@@ -1,6 +1,4 @@
-@use "../../../config/mixins/border-radius"
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/margin-padding"
 
 .form-textarea
   position: relative
@@ -27,8 +25,10 @@
   left: 1px
   bottom: 1px
   right: 1px
-  +border-radius.border-radius(bottom, 3px)
-  +margin-padding.padding(horizontal, .5rem)
+  border-bottom-left-radius: 3px
+  border-bottom-right-radius: 3px
+  padding-left: .5rem
+  padding-right: .5rem
   border-top: solid 1px var(--border-shade)
 
 .form-textarea__bottom-note

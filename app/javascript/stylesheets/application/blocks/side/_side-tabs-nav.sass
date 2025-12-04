@@ -1,4 +1,3 @@
-@use "../../../config/mixins/border-radius"
 
 .side-tabs-nav__items
   display: flex
@@ -32,7 +31,8 @@
   border-bottom: none
   position: relative
   bottom: -1px
-  +border-radius.border-radius(top, .25rem)
+  border-top-left-radius: .25rem
+  border-top-right-radius: .25rem
   color: var(--muted-text)
   transition: all .2s ease-out
   .side-tabs-nav__item:not(:first-child) &

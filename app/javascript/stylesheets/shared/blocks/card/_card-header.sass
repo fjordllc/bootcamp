@@ -1,4 +1,3 @@
-@use "../../../config/mixins/border-radius"
 @use "../../../config/mixins/break-points"
 
 .card-header
@@ -14,7 +13,8 @@
     .a-button.is-xs
       margin-block: -.25rem
   &:first-child
-    +border-radius.border-radius(top, .25rem)
+    border-top-left-radius: .25rem
+    border-top-right-radius: .25rem
   & + .a-form-tabs
     margin-top: -1px
 

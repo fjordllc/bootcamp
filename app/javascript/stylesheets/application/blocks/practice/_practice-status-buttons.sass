@@ -1,5 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/practice-color"
 
 .practice-status-buttons__start
   text-align: center
@@ -35,10 +34,10 @@
     border-color: var(--background-shade)
     transition: all .2s ease-out
     &:hover
-      +practice-color.practice-hover-color(true)
+        background-color: var(--background-tint)
+        color: var(--default-text)
   &.is-active
     pointer-events: none
-    +practice-color.practice-color(true)
     position: relative
     z-index: 1
 
