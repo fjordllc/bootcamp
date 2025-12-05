@@ -112,16 +112,20 @@ jobs:
       - run:
           name: Test
           command: |
-            # Start heartbeat in background to prevent no_output_timeout
-            (while true; do echo "[HEARTBEAT] $(date '+%Y-%m-%d %H:%M:%S')"; sleep 60; done) &
-            HEARTBEAT_PID=$!
+            # Start memory monitor in background
+            (while true; do
+              MEM_INFO=$(free -m | awk 'NR==2{printf "Memory: %sMB/%sMB (%.0f%%)", $3,$2,$3*100/$2}')
+              echo "[MEMORY] $(date '+%H:%M:%S') $MEM_INFO"
+              sleep 30
+            done) &
+            MONITOR_PID=$!
 
             echo "[INFO] Starting tests at $(date '+%Y-%m-%d %H:%M:%S')"
             echo "[INFO] Node index: $CIRCLE_NODE_INDEX / Total nodes: $CIRCLE_NODE_TOTAL"
 
             # Run tests with circleci tests split for parallel execution
-            # Use timings-based splitting for better load distribution
-            TEST_FILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=timings --timings-type=classname)
+            # Use name-based splitting for more even distribution
+            TEST_FILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=name)
             echo "[INFO] Running $(echo "$TEST_FILES" | wc -l) test files on this node"
             echo "[INFO] Test files assigned to this node:"
             echo "$TEST_FILES" | head -20
@@ -133,8 +137,8 @@ jobs:
 
             echo "[INFO] Tests completed at $(date '+%Y-%m-%d %H:%M:%S') with exit code: $TEST_EXIT_CODE"
 
-            # Kill heartbeat
-            kill $HEARTBEAT_PID 2>/dev/null || true
+            # Kill memory monitor
+            kill $MONITOR_PID 2>/dev/null || true
 
             exit $TEST_EXIT_CODE
           no_output_timeout: 5m
