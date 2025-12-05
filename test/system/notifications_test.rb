@@ -96,23 +96,31 @@ class NotificationsTest < ApplicationSystemTestCase
   end
 
   test 'show notification count' do
+    user = users(:kananashi)
+    sender = users(:machida)
     Notification.create(message: 'machidaさんからメンションが届きました',
                         created_at: '2040-01-18 06:06:42',
                         kind: 'mentioned',
                         link: '/reports/20400118',
-                        user: users(:kananashi),
-                        sender: users(:machida))
+                        user: user,
+                        sender: sender)
 
     visit_with_auth '/notifications', 'kananashi'
     assert_selector '.header-notification-count', text: '1'
 
-    20.times do |n|
-      Notification.create(message: "machidaさんからメンションが届きました#{n}",
-                          kind: 'mentioned',
-                          link: "/reports/#{n}",
-                          user: users(:kananashi),
-                          sender: users(:machida))
+    now = Time.current
+    notifications = 20.times.map do |n|
+      {
+        message: "machidaさんからメンションが届きました#{n}",
+        kind: 'mentioned',
+        link: "/reports/#{n}",
+        user_id: user.id,
+        sender_id: sender.id,
+        created_at: now,
+        updated_at: now
+      }
     end
+    Notification.insert_all(notifications) # rubocop:disable Rails/SkipsModelValidations
     visit_with_auth '/notifications', 'kananashi'
     assert_selector '.header-notification-count', text: '21'
   end

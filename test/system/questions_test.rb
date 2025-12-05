@@ -218,18 +218,20 @@ class QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'Question display 25 items correctly' do
-    visit_with_auth questions_path(target: 'solved'), 'kimura'
-    50.times do |n|
-      q = Question.create(title: "順番ばらつきテスト#{n}", description: "答え#{n}", user_id: 253_826_460, practice_id: 315_059_988)
+    # 既存の解決済み質問数を確認し、26件になるよう必要な数だけ作成
+    existing_count = Question.solved.count
+    needed = [26 - existing_count, 0].max
+
+    needed.times do |n|
+      q = Question.create(title: "ページネーションテスト#{n}", description: "答え#{n}", user_id: 253_826_460, practice_id: 315_059_988)
       Answer.create(description: '正しい答え', user_id: 253_826_460, question_id: q.id, type: 'CorrectAnswer')
-      Answer.create(description: '正しい答え2', user_id: 253_826_460, question_id: q.id)
     end
 
-    visit questions_path(target: 'solved')
+    visit_with_auth questions_path(target: 'solved'), 'kimura'
 
     assert_selector '.card-list-item', count: 25
     first('.pagination__item-link', text: '2').click
-    assert_selector '.card-list-item', count: 25
+    assert_selector '.card-list-item', count: 1
   end
 
   test "mentor's watch-button is automatically on when new question is published" do

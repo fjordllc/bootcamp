@@ -8,6 +8,8 @@ class Notifications::PaginationTest < ApplicationSystemTestCase
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
+    @user = users(:mentormentaro)
+    @sender = users(:machida)
   end
 
   teardown do
@@ -15,34 +17,15 @@ class Notifications::PaginationTest < ApplicationSystemTestCase
   end
 
   test 'click on the pager button' do
-    # 1ページに表示する通知の数は20件なのでtimesメソッドを使って19件作成し、一番新しい通知、古い通知を個別に作成する
-    19.times do |n|
-      Notification.create(message: "machidaさんからメンションが届きました#{n}",
-                          kind: 'mentioned',
-                          link: "/reports/#{n}",
-                          user: users(:mentormentaro),
-                          sender: users(:machida))
-    end
-    Notification.create(message: '1番新しい通知',
-                        created_at: '2040-01-18 06:06:42',
-                        kind: 'mentioned',
-                        link: '/reports/20400118',
-                        user: users(:mentormentaro),
-                        sender: users(:machida))
-    Notification.create(message: '1番古い通知',
-                        created_at: '2000-01-18 06:06:42',
-                        kind: 'mentioned',
-                        link: '/reports/20000118',
-                        user: users(:mentormentaro),
-                        sender: users(:machida))
+    create_pagination_notifications(19)
+    create_boundary_notifications
+
     login_user 'mentormentaro', 'testtest'
     visit '/notifications'
     within first('nav.pagination') do
       find('button', text: '2').click
     end
-    # 2ページ目に1番古い通知が表示されることを確認
     assert_text '1番古い通知'
-    # 2ページ目に1番新しい通知が表示されないことを確認
     assert_no_text '1番新しい通知'
     all('.pagination .is-active').each do |active_button|
       assert active_button.has_text? '2'
@@ -51,19 +34,9 @@ class Notifications::PaginationTest < ApplicationSystemTestCase
   end
 
   test 'show 20 notifications in first page' do
-    25.times do |n|
-      Notification.create(message: "machidaさんからメンションが届きました#{n}",
-                          kind: 'mentioned',
-                          link: "/reports/#{n}",
-                          user: users(:mentormentaro),
-                          sender: users(:machida))
-    end
-    Notification.create(message: '1番新しい通知',
-                        created_at: '2040-01-18 06:06:42',
-                        kind: 'mentioned',
-                        link: '/reports/20400118',
-                        user: users(:mentormentaro),
-                        sender: users(:machida))
+    create_pagination_notifications(25)
+    create_newest_notification
+
     login_user 'mentormentaro', 'testtest'
     visit '/notifications'
     assert_text '1番新しい通知'
@@ -75,25 +48,9 @@ class Notifications::PaginationTest < ApplicationSystemTestCase
   end
 
   test 'click on the pager button with query string' do
-    19.times do |n|
-      Notification.create(message: "machidaさんからメンションが届きました#{n}",
-                          kind: 'mentioned',
-                          link: "/reports/#{n}",
-                          user: users(:mentormentaro),
-                          sender: users(:machida))
-    end
-    Notification.create(message: '1番新しい通知',
-                        created_at: '2040-01-18 06:06:42',
-                        kind: 'mentioned',
-                        link: '/reports/20400118',
-                        user: users(:mentormentaro),
-                        sender: users(:machida))
-    Notification.create(message: '1番古い通知',
-                        created_at: '2000-01-18 06:06:42',
-                        kind: 'mentioned',
-                        link: '/reports/20000118',
-                        user: users(:mentormentaro),
-                        sender: users(:machida))
+    create_pagination_notifications(19)
+    create_boundary_notifications
+
     login_user 'mentormentaro', 'testtest'
     visit '/notifications?status=unread'
     within first('nav.pagination') do
@@ -108,25 +65,9 @@ class Notifications::PaginationTest < ApplicationSystemTestCase
   end
 
   test 'click on the pager button with multiple query string' do
-    19.times do |n|
-      Notification.create(message: "machidaさんからメンションが届きました#{n}",
-                          kind: 'mentioned',
-                          link: "/reports/#{n}",
-                          user: users(:mentormentaro),
-                          sender: users(:machida))
-    end
-    Notification.create(message: '1番新しい通知',
-                        created_at: '2040-01-18 06:06:42',
-                        kind: 'mentioned',
-                        link: '/reports/20400118',
-                        user: users(:mentormentaro),
-                        sender: users(:machida))
-    Notification.create(message: '1番古い通知',
-                        created_at: '2000-01-18 06:06:42',
-                        kind: 'mentioned',
-                        link: '/reports/20000118',
-                        user: users(:mentormentaro),
-                        sender: users(:machida))
+    create_pagination_notifications(19)
+    create_boundary_notifications
+
     login_user 'mentormentaro', 'testtest'
     visit '/notifications?status=unread&target=mention'
     within first('nav.pagination') do
@@ -141,25 +82,9 @@ class Notifications::PaginationTest < ApplicationSystemTestCase
   end
 
   test 'specify the page number in the URL' do
-    19.times do |n|
-      Notification.create(message: "machidaさんからメンションが届きました#{n}",
-                          kind: 'mentioned',
-                          link: "/reports/#{n}",
-                          user: users(:mentormentaro),
-                          sender: users(:machida))
-    end
-    Notification.create(message: '1番新しい通知',
-                        created_at: '2040-01-18 06:06:42',
-                        kind: 'mentioned',
-                        link: '/reports/20400118',
-                        user: users(:mentormentaro),
-                        sender: users(:machida))
-    Notification.create(message: '1番古い通知',
-                        created_at: '2000-01-18 06:06:42',
-                        kind: 'mentioned',
-                        link: '/reports/20000118',
-                        user: users(:mentormentaro),
-                        sender: users(:machida))
+    create_pagination_notifications(19)
+    create_boundary_notifications
+
     login_user 'mentormentaro', 'testtest'
     visit '/notifications?page=2'
     assert_text '1番古い通知'
@@ -170,25 +95,9 @@ class Notifications::PaginationTest < ApplicationSystemTestCase
   end
 
   test 'clicking the browser back button will show the previous page' do
-    19.times do |n|
-      Notification.create(message: "machidaさんからメンションが届きました#{n}",
-                          kind: 'mentioned',
-                          link: "/reports/#{n}",
-                          user: users(:mentormentaro),
-                          sender: users(:machida))
-    end
-    Notification.create(message: '1番新しい通知',
-                        created_at: '2040-01-18 06:06:42',
-                        kind: 'mentioned',
-                        link: '/reports/20400118',
-                        user: users(:mentormentaro),
-                        sender: users(:machida))
-    Notification.create(message: '1番古い通知',
-                        created_at: '2000-01-18 06:06:42',
-                        kind: 'mentioned',
-                        link: '/reports/20000118',
-                        user: users(:mentormentaro),
-                        sender: users(:machida))
+    create_pagination_notifications(19)
+    create_boundary_notifications
+
     login_user 'mentormentaro', 'testtest'
     visit '/notifications?page=2'
     within first('nav.pagination') do
@@ -201,5 +110,46 @@ class Notifications::PaginationTest < ApplicationSystemTestCase
     all('.pagination .is-active').each do |active_button|
       assert active_button.has_text? '2'
     end
+  end
+
+  private
+
+  def create_pagination_notifications(count)
+    now = Time.current
+    notifications = count.times.map do |n|
+      {
+        message: "machidaさんからメンションが届きました#{n}",
+        kind: 'mentioned',
+        link: "/reports/#{n}",
+        user_id: @user.id,
+        sender_id: @sender.id,
+        created_at: now,
+        updated_at: now
+      }
+    end
+    Notification.insert_all(notifications) # rubocop:disable Rails/SkipsModelValidations
+  end
+
+  def create_boundary_notifications
+    create_newest_notification
+    create_oldest_notification
+  end
+
+  def create_newest_notification
+    Notification.create(message: '1番新しい通知',
+                        created_at: '2040-01-18 06:06:42',
+                        kind: 'mentioned',
+                        link: '/reports/20400118',
+                        user: @user,
+                        sender: @sender)
+  end
+
+  def create_oldest_notification
+    Notification.create(message: '1番古い通知',
+                        created_at: '2000-01-18 06:06:42',
+                        kind: 'mentioned',
+                        link: '/reports/20000118',
+                        user: @user,
+                        sender: @sender)
   end
 end
