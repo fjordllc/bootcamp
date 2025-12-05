@@ -321,5 +321,4 @@ class ArticlesTest < ApplicationSystemTestCase
     top_three_titles = all('h2.thumbnail-card__title').take(3).map(&:text)
     assert_equal [one_day_ago_article.title, two_days_ago_article.title, three_days_ago_article.title], top_three_titles
   end
-
 end

@@ -116,7 +116,7 @@ class Notifications::PaginationTest < ApplicationSystemTestCase
 
   def create_pagination_notifications(count)
     now = Time.current
-    notifications = count.times.map do |n|
+    notifications = Array.new(count) do |n|
       {
         message: "machidaさんからメンションが届きました#{n}",
         kind: 'mentioned',

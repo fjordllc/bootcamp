@@ -102,14 +102,14 @@ class NotificationsTest < ApplicationSystemTestCase
                         created_at: '2040-01-18 06:06:42',
                         kind: 'mentioned',
                         link: '/reports/20400118',
-                        user: user,
-                        sender: sender)
+                        user:,
+                        sender:)
 
     visit_with_auth '/notifications', 'kananashi'
     assert_selector '.header-notification-count', text: '1'
 
     now = Time.current
-    notifications = 20.times.map do |n|
+    notifications = Array.new(20) do |n|
       {
         message: "machidaさんからメンションが届きました#{n}",
         kind: 'mentioned',
