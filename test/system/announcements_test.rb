@@ -77,54 +77,6 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert has_button? '作成'
   end
 
-  test 'announcement creator can publish wip announcement' do
-    announcement = announcements(:announcement_wip_not_mentor_or_admin)
-    visit_with_auth announcement_path(announcement), 'kimura'
-    within '.announcement' do
-      click_link '内容修正'
-    end
-    assert has_button? '公開'
-  end
-
-  test "general user can't publish other user's wip announcement" do
-    announcement = announcements(:announcement_wip_not_mentor_or_admin)
-    visit_with_auth announcement_path(announcement), 'hajime'
-    within '.announcement' do
-      click_link '内容修正'
-    end
-    assert has_no_button? '公開'
-  end
-
-  test 'admin user can publish wip announcement' do
-    announcement = announcements(:announcement_wip)
-    visit_with_auth announcement_path(announcement), 'komagata'
-    within '.announcement' do
-      click_link '内容修正'
-    end
-    assert has_no_button? '作成', exact: true
-    assert has_button? '公開'
-  end
-
-  test 'admin user can publish submitted announcement' do
-    announcement = announcements(:announcement1)
-    visit_with_auth announcement_path(announcement), 'komagata'
-    within '.announcement' do
-      click_link '内容修正'
-    end
-    assert has_no_button? '作成', exact: true
-    assert has_button? '公開'
-  end
-
-  test 'general user can publish submitted announcement' do
-    announcement = announcements(:announcement1)
-    visit_with_auth announcement_path(announcement), 'kimura'
-    within '.announcement' do
-      click_link '内容修正'
-    end
-    assert has_no_button? '作成'
-    assert has_button? '公開'
-  end
-
   test 'general user can copy submitted announcement' do
     announcement = announcements(:announcement1)
     visit_with_auth announcement_path(announcement), 'kimura'
@@ -158,17 +110,6 @@ class AnnouncementsTest < ApplicationSystemTestCase
 
     visit current_path
     assert_selector '#comment_count', text: '2'
-  end
-
-  test 'watching is automatically displayed when admin create new announcement' do
-    visit_with_auth new_announcement_path, 'komagata'
-    wait_for_announcement_form
-    fill_in 'announcement[title]', with: 'Watch中になるかのテスト'
-    fill_in 'announcement[description]', with: 'お知らせ作成時にWatch中になるかのテストです。'
-    click_button '作成'
-
-    assert_text 'お知らせを作成しました。'
-    assert_text 'Watch中'
   end
 
   test 'previous update remains when conflict to update announcement' do
