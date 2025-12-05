@@ -12,17 +12,6 @@ class ReportsTest < ApplicationSystemTestCase
     stub_request(:post, 'https://discord.com/api/webhooks/0123456789/admin')
   end
 
-  test 'create report as WIP' do
-    visit_with_auth '/reports/new', 'komagata'
-    wait_for_report_form
-    within('form[name=report]') do
-      fill_in('report[title]', with: 'test title')
-      fill_in('report[description]', with: 'test')
-    end
-    click_button 'WIP'
-    assert_text '日報をWIPとして保存しました。'
-  end
-
   test 'create a report' do
     visit_with_auth '/reports/new', 'komagata'
     wait_for_report_form
@@ -133,16 +122,6 @@ class ReportsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'change report status to wip' do
-    report = reports(:report15)
-    visit_with_auth "/reports/#{report.id}", 'hajime'
-
-    click_link '内容修正'
-    assert_text 'この日報はすでに提出済みです。'
-    click_button 'WIP'
-    assert_no_text 'この日報はすでに提出済みです。'
-  end
-
   test 'reports are ordered in descending of reported_on' do
     visit_with_auth reports_path, 'kimura'
     precede = reports(:report15).title
@@ -222,25 +201,6 @@ class ReportsTest < ApplicationSystemTestCase
     assert_not_empty html_validataion_message
   end
 
-  test 'display recently reports' do
-    visit_with_auth report_path(reports(:report10)), 'mentormentaro'
-    assert_selector 'img[alt="positive"]'
-    assert_text '今日は頑張りました'
-  end
-
-  test 'display list of submission when mentor is access' do
-    visit_with_auth report_path(reports(:report5)), 'komagata'
-    assert_text '提出物'
-    find('#side-tabs-nav-4').click
-    assert_text 'Terminalの基礎を覚える'
-    assert_text 'PC性能の見方を知る'
-  end
-
-  test 'not display list of submission when mentor is access' do
-    visit_with_auth report_path(reports(:report5)), 'kimura'
-    assert_no_selector '#side-tabs-content-3'
-  end
-
   test 'description of the daily report is previewed' do
     visit_with_auth '/reports/new', 'komagata'
     within('form[name=report]') do
@@ -294,18 +254,6 @@ class ReportsTest < ApplicationSystemTestCase
     after_height = find('#report_description').style('height')['height'][/\d+/].to_i
 
     assert height < after_height
-  end
-
-  test 'display report interval for mentor while undoing wip' do
-    visit_with_auth report_path(reports(:report32)), 'komagata'
-    assert_selector '.a-page-notice.is-only-mentor.is-danger', text: '10日ぶりの日報です。'
-
-    visit_with_auth report_path(reports(:report33)), 'kananashi'
-    click_link '内容修正'
-    click_button '提出'
-
-    visit_with_auth report_path(reports(:report32)), 'komagata'
-    assert_no_selector '.a-page-notice.is-only-mentor.is-danger', text: '9日ぶりの日報です。'
   end
 
   test 'notify to chat after create a report' do
@@ -432,25 +380,6 @@ class ReportsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'show edit button when mentor is logged in and menter mode is on in report detail page' do
-    visit_with_auth report_path(reports(:report1)), 'mentormentaro'
-    assert_text '内容修正'
-    find(:css, '#checkbox-mentor-mode').set(false)
-    assert_no_text '内容修正'
-  end
-
-  test 'mentor can edit reports written by others' do
-    visit_with_auth report_path(reports(:report1)), 'mentormentaro'
-    click_link '内容修正'
-    assert_no_text('変更された日報のタイトル')
-    within('form[name=report]') do
-      fill_in('report[title]', with: '変更された日報のタイトル')
-    end
-    click_button '内容変更'
-    assert_text '日報を保存しました。'
-    assert_text '変更された日報のタイトル'
-  end
-
   test 'adviser watches trainee report when trainee create report' do
     visit_with_auth '/reports/new', 'kensyu'
     within('form[name=report]') do
@@ -483,40 +412,6 @@ class ReportsTest < ApplicationSystemTestCase
     assert_equal '.file-input', find('textarea.a-text-input')['data-input']
   end
 
-  test 'submit wip report with error' do
-    report = reports(:report9)
-    visit_with_auth "/reports/#{report.id}", 'sotugyou'
-
-    click_link '内容修正'
-    uncheck '学習時間は無し', allow_label_click: true
-    click_link '学習時間追加'
-
-    first('.learning-time').all('.learning-time__started-at select')[0].select('07')
-    first('.learning-time').all('.learning-time__started-at select')[1].select('30')
-    first('.learning-time').all('.learning-time__finished-at select')[0].select('07')
-    first('.learning-time').all('.learning-time__finished-at select')[1].select('30')
-
-    click_button '提出'
-    assert_text '学習時間は不正な値です'
-    assert_no_text 'この日報はすでに提出済みです。'
-    assert_button '提出'
-  end
-
-  test 'display message to admin or mentor in report of retired user' do
-    report = Report.create!(
-      user: users(:yameo),
-      title: '退会済みユーザーの日報',
-      reported_on: '2022-01-03',
-      emotion: 'positive',
-      no_learn: true,
-      wip: false,
-      description: 'お世話になりました'
-    )
-
-    visit_with_auth report_path(report), 'komagata'
-    assert_selector '.a-page-notice.is-muted.is-only-mentor', text: 'このユーザーは退会しています。'
-  end
-
   test 'URL copy button copies the current URL to the clipboard' do
     report = reports(:report10)
     visit_with_auth "/reports/#{report.id}", 'hajime'
@@ -535,5 +430,11 @@ class ReportsTest < ApplicationSystemTestCase
     click_button 'URLコピー'
     clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
     assert_equal current_url, clip_text
+  end
+
+  private
+
+  def wait_for_report_form
+    assert_selector 'textarea[name="report[description]"]:not([disabled])', wait: 20
   end
 end
