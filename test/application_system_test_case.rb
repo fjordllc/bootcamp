@@ -36,16 +36,6 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include AnnouncementHelper
   include RegularEventHelper
 
-  # Counter for browser restart in CI (to prevent OOM)
-  CI_BROWSER_RESTART_INTERVAL = 5 # Restart browser every N tests (very aggressive for OOM prevention)
-
-  class << self
-    attr_writer :ci_test_counter
-
-    def ci_test_counter
-      @ci_test_counter ||= 0
-    end
-  end
 
   if ENV['HEADFUL']
     driven_by :selenium, using: :chrome
@@ -94,32 +84,13 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     ActiveJob::Base.queue_adapter = @original_adapter
 
     # Clean up browser resources to prevent memory buildup in CI
+    # Restart browser after EVERY test to prevent OOM
     if ENV['CI']
-      ApplicationSystemTestCase.ci_test_counter += 1
-
       begin
-        page.driver.browser.manage.delete_all_cookies
+        Capybara.current_session.driver.quit
       rescue StandardError => e
-        CITestLogger.log("[CLEANUP WARNING] #{e.message}")
+        CITestLogger.log("[BROWSER RESTART WARNING] #{e.message}")
       end
-
-      # Periodically restart browser to reclaim memory
-      counter = ApplicationSystemTestCase.ci_test_counter
-      if (counter % CI_BROWSER_RESTART_INTERVAL).zero?
-        CITestLogger.log("[BROWSER RESTART] Restarting browser after #{counter} tests")
-        begin
-          Capybara.current_session.driver.quit
-        rescue StandardError => e
-          CITestLogger.log("[BROWSER RESTART WARNING] #{e.message}")
-        end
-      else
-        begin
-          Capybara.reset_sessions!
-        rescue StandardError => e
-          CITestLogger.log("[CLEANUP WARNING] #{e.message}")
-        end
-      end
-
       GC.start
     end
   end

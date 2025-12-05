@@ -63,7 +63,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: ci_test
       - image: cimg/postgres:14.4
-    resource_class: xlarge
+    resource_class: large
     environment:
       BUNDLE_JOBS: '3'
       BUNDLE_RETRY: '3'
@@ -73,7 +73,7 @@ jobs:
       RAILS_ENV: test
       DATABASE_URL: 'postgres://postgres:postgres@localhost/ci_test'
       TZ: Asia/Tokyo
-    parallelism: 10
+    parallelism: 4
     steps:
       - checkout
       - browser-tools/install_browser_tools:
