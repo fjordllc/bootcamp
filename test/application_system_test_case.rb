@@ -36,7 +36,6 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include AnnouncementHelper
   include RegularEventHelper
 
-
   if ENV['HEADFUL']
     driven_by :selenium, using: :chrome
   else
