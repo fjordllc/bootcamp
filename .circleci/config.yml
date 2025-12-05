@@ -76,8 +76,7 @@ jobs:
     parallelism: 4
     steps:
       - checkout
-      - browser-tools/install_browser_tools:
-        chrome-version: 130.0.6723.116
+      - browser-tools/install_browser_tools
       - run:
           command: |
             google-chrome --version
