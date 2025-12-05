@@ -156,4 +156,13 @@ class TrainingCompletionTest < ApplicationSystemTestCase
     assert_nil @user.github_account
     assert_not @user.github_collaborator
   end
+
+  test 'shows not entered when satisfaction is nil' do
+    user = users(:kensyuowata)
+    user.update!(satisfaction: nil)
+
+    visit_with_auth "/users/#{user.id}", 'komagata'
+    assert_text '研修終了情報（非公開）'
+    assert_text '未入力'
+  end
 end
