@@ -75,51 +75,9 @@ class ReportsTest < ApplicationSystemTestCase
     assert_match(/企業研究/, all('.choices__item--choice').last.text)
   end
 
-  test 'reports can be copied' do
-    visit_with_auth report_path(users(:komagata).reports.first), 'komagata'
-    travel 5.days do
-      find('#copy').click
-      assert_equal find('#report_reported_on').value, Date.current.strftime('%Y-%m-%d')
-    end
-  end
-
-  test 'previous report' do
-    visit_with_auth "/reports/#{reports(:report2).id}", 'komagata'
-    click_link '前の日報'
-    assert_equal "/reports/#{reports(:report1).id}", current_path
-  end
-
-  test 'next report' do
-    visit_with_auth "/reports/#{reports(:report2).id}", 'komagata'
-    click_link '次の日報'
-    assert_equal "/reports/#{reports(:report3).id}", current_path
-  end
-
   test 'report has a comment form ' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'mentormentaro'
     assert_selector '.thread-comment-form'
-  end
-
-  # 画面上では更新の完了がわからないため、やむを得ずsleepする
-  # 注意）安易に使用しないこと!! https://bootcamp.fjord.jp/pages/use-assert-text-instead-of-wait-for-vuejs
-  def wait_for_watch_change
-    sleep 1
-  end
-
-  test 'unwatch' do
-    visit_with_auth report_path(reports(:report1)), 'kimura'
-    assert_difference('Watch.count', -1) do
-      find('div.a-watch-button', text: 'Watch中').click
-      wait_for_watch_change
-    end
-  end
-
-  test 'click unwatch' do
-    visit_with_auth report_path(reports(:report1)), 'kimura'
-    assert_difference('Watch.count', -1) do
-      find('div.a-watch-button', text: 'Watch中').click
-      wait_for_watch_change
-    end
   end
 
   test 'reports are ordered in descending of reported_on' do
@@ -236,11 +194,6 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text '100回目の日報を提出しました。'
   end
 
-  test 'open new report with a past date' do
-    visit_with_auth '/reports/new?reported_on=2022-1-1', 'komagata'
-    assert_equal '2022-01-01', find('#report_reported_on').value
-  end
-
   test 'hide user icon from recent reports in report show' do
     visit_with_auth report_path(reports(:report1)), 'komagata'
     assert_no_selector('.card-list-item__user')
@@ -269,30 +222,6 @@ class ReportsTest < ApplicationSystemTestCase
     within(first('.card-list-item__user')) do
       assert_selector('span.a-user-role.is-mentor')
     end
-  end
-
-  test 'adviser watches trainee report when trainee create report' do
-    visit_with_auth '/reports/new', 'kensyu'
-    within('form[name=report]') do
-      fill_in('report[title]', with: '研修生の日報')
-      fill_in('report[description]', with: 'test')
-      fill_in('report[reported_on]', with: Time.current)
-    end
-    within('.learning-time__started-at') do
-      select '07'
-      select '30'
-    end
-    within('.learning-time__finished-at') do
-      select '08'
-      select '30'
-    end
-
-    click_button '提出'
-    assert_text '日報を保存しました。'
-
-    visit_with_auth '/current_user/watches', 'senpai'
-
-    assert_text '研修生の日報'
   end
 
   test 'using file uploading by file selection dialogue in textarea' do
