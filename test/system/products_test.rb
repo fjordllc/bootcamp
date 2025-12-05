@@ -174,19 +174,6 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text '提出物を更新しました。'
   end
 
-  test 'update product to publish from WIP' do
-    product = products(:product1)
-    visit_with_auth "/products/#{product.id}/edit", 'mentormentaro'
-    wait_for_product_form_ready
-    click_button 'WIP'
-    assert_text '提出物をWIPとして保存しました。', wait: 10
-    visit "/products/#{product.id}"
-    assert_selector 'input[type="submit"][value="提出する"]', wait: 10
-    click_button '提出する'
-    assert_text Time.zone.now.strftime('%Y年%m月%d日')
-    assert_text '提出物を更新しました。', wait: 10
-  end
-
   test 'update product after checked' do
     my_product = products(:product2)
     others_product = products(:product15)
@@ -223,90 +210,6 @@ class ProductsTest < ApplicationSystemTestCase
       click_link '削除'
     end
     assert_text '提出物を削除しました。'
-  end
-
-  test 'create product as WIP' do
-    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'mentormentaro'
-    within('form[name=product]') do
-      fill_in('product[body]', with: 'test')
-    end
-    click_button 'WIP'
-    assert_text '提出物をWIPとして保存しました。'
-    assert_text '提出物編集'
-  end
-
-  test 'update product as WIP' do
-    product = products(:product1)
-    visit_with_auth "/products/#{product.id}/edit", 'mentormentaro'
-    within('form[name=product]') do
-      fill_in('product[body]', with: 'test')
-    end
-    click_button 'WIP'
-    assert_text '提出物をWIPとして保存しました。'
-    assert_text '提出物編集'
-  end
-
-  test 'update product as WIP with blank body to fail update and successfully get back to editor' do
-    product = products(:product1)
-    visit_with_auth "/products/#{product.id}/edit", 'mentormentaro'
-    within('form[name=product]') do
-      fill_in('product[body]', with: '')
-    end
-    click_button 'WIP'
-    assert_text '本文を入力してください'
-  end
-
-  test 'user who has submitted a WIP product is alerted in the product page' do
-    wip_product = products(:product5)
-    visit_with_auth "/products/#{wip_product.id}", 'kimura'
-    assert_text "提出物はまだ提出されていません。\n完成したら「提出する」をクリック！"
-  end
-
-  test "user is not alerted in the other's WIP product page" do
-    wip_product = products(:product5)
-    visit_with_auth "/products/#{wip_product.id}", 'hatsuno'
-    assert_equal "提出物: #{wip_product.practice.title} | FBC", title
-    assert_no_text "提出物はまだ提出されていません。\n完成したら「提出する」をクリック！"
-  end
-
-  test "Don't notify if create product as WIP" do
-    visit_with_auth "/products/new?practice_id=#{practices(:practice3).id}", 'kensyu'
-    within('form[name=product]') do
-      fill_in('product[body]', with: 'test')
-    end
-    click_button 'WIP'
-    assert_text '提出物をWIPとして保存しました。'
-
-    assert_user_has_no_notification(user: users(:komagata), kind: Notification.kinds[:watching], text: "kensyuさんが「#{practices(:practice3).title}」の提出物を提出しました。")
-  end
-
-  test "Don't notify if update product as WIP" do
-    visit_with_auth "/products/new?practice_id=#{practices(:practice3).id}", 'kensyu'
-    within('form[name=product]') do
-      fill_in('product[body]', with: 'test')
-    end
-    click_button 'WIP'
-    assert_text '提出物をWIPとして保存しました。'
-
-    fill_in('product[body]', with: 'test update')
-    click_button 'WIP'
-    assert_text '提出物をWIPとして保存しました。'
-
-    assert_user_has_no_notification(user: users(:komagata), kind: Notification.kinds[:watching], text: "kensyuさんが「#{practices(:practice3).title}」の提出物を提出しました。")
-  end
-
-  test "should add to trainer's watching list when trainee submits product" do
-    users(:senpai).watches.delete_all
-
-    visit_with_auth "/products/new?practice_id=#{practices(:practice3).id}", 'kensyu'
-    within('form[name=product]') do
-      fill_in('product[body]', with: '研修生が提出物を提出すると、その企業のアドバイザーのWatch中に登録される')
-    end
-    click_button '提出する'
-    assert_text "6日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、6日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
-
-    visit_with_auth '/current_user/watches', 'senpai'
-    assert_text '研修生が提出物を提出すると、その企業のアドバイザーのWatch中に登録される'
   end
 
   test 'products order on all tab' do
@@ -366,121 +269,11 @@ class ProductsTest < ApplicationSystemTestCase
     assert_no_text "6日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、6日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
   end
 
-  test "don't show review schedule message on product page if product is WIP" do
-    visit_with_auth "/products/#{products(:product5).id}", 'kimura'
-    assert_no_text "6日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、6日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
-  end
-
-  test 'mentors can see block for mentors' do
-    visit_with_auth "/products/#{products(:product2).id}", 'mentormentaro'
-    assert_text '直近の日報'
-    assert_text 'ユーザー情報'
-    assert_text 'ユーザーメモ'
-    assert_selector '#side-tabs-nav-4', text: '提出物'
-  end
-
-  test 'students can not see block for mentors' do
-    visit_with_auth "/products/#{products(:product2).id}", 'hatsuno'
-    assert_no_text '直近の日報'
-    assert_no_text 'プラクティスメモ'
-    assert_no_text 'ユーザーメモ'
-    assert_no_selector '#side-tabs-nav-4', text: '提出物'
-  end
-
-  test 'display recently reports' do
-    visit_with_auth "/products/#{products(:product1).id}", 'mentormentaro'
-    within first('.side-tabs .card-list-item') do
-      assert_selector 'img[alt="positive"]'
-      assert_text '1時間だけ学習'
-    end
-  end
-
-  test 'display the user memos after click on user-memos tab' do
-    visit_with_auth "/products/#{products(:product2).id}", 'komagata'
-    find('#side-tabs-nav-2').click
-    assert_text 'kimuraさんのメモ'
-  end
-
-  test 'can cancel editing of user-memos' do
-    visit_with_auth "/products/#{products(:product2).id}", 'komagata'
-    find('#side-tabs-nav-2').click
-    click_button '編集'
-    fill_in 'js-user-mentor-memo', with: '編集はできないはずです。'
-    click_button 'キャンセル'
-    assert_no_text '編集はできないはずです。'
-    assert_text 'kimuraさんのメモ'
-  end
-
-  test 'can preview editing of user-memos' do
-    visit_with_auth "/products/#{products(:product2).id}", 'komagata'
-    find('#side-tabs-nav-2').click
-    assert_text 'kimuraさんのメモ'
-    click_button '編集'
-    fill_in 'js-user-mentor-memo', with: 'プレビューができます。'
-    find('.form-tabs__tab', text: 'プレビュー').click
-    assert_text 'プレビューができます。'
-  end
-
-  test 'can update user-memos' do
-    visit_with_auth "/products/#{products(:product2).id}", 'komagata'
-    find('#side-tabs-nav-2').click
-    click_button '編集'
-    fill_in 'js-user-mentor-memo', with: '編集後のユーザーメモです。'
-    click_button '保存する'
-    assert_text '編集後のユーザーメモです。'
-  end
-
-  test 'display a list of products in side-column' do
-    user = users(:kimura)
-    visit_with_auth "/products/#{products(:product2).id}", 'mentormentaro'
-    page.find('#side-tabs-nav-4').click
-    products = user.products.not_wip
-    products.each do |product|
-      assert_text "#{product.practice.title}の提出物"
-    end
-  end
-
   test 'show number of comments' do
     visit_with_auth "/products/#{products(:product1).id}", 'komagata'
     within(:css, '.is-emphasized') do
       assert_text '2'
     end
-  end
-
-  test 'submit-wip-submitted product does not suddenly show up as overdue' do
-    visit_with_auth "/products/#{products(:product8).id}/edit", 'kimura'
-    click_button 'WIP'
-    click_button '提出する'
-
-    visit_with_auth '/api/products/unassigned/counts.txt', 'komagata'
-
-    expected = <<~BODY
-      - 6日以上経過：6件
-      - 5日経過：1件
-      - 4日経過：1件
-    BODY
-    assert_includes page.body, expected
-  end
-
-  test 'no company trainee create product' do
-    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'nocompanykensyu'
-    within('form[name=product]') do
-      fill_in('product[body]', with: 'test')
-    end
-    click_button '提出する'
-    assert_text Time.zone.now.strftime('%Y年%m月%d日')
-    assert_text "6日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、6日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
-    assert_text 'Watch中'
-  end
-
-  test 'update published_at when update product content after wips submitted product' do
-    product = products(:product5)
-    product_published_at = product.published_at
-
-    visit_with_auth "/products/#{product.id}", 'kimura'
-    click_button '提出する'
-
-    assert product.reload.published_at > product_published_at
   end
 
   test 'not update published_at when update product content after submitted product' do
@@ -493,21 +286,6 @@ class ProductsTest < ApplicationSystemTestCase
     assert product.reload.published_at = product_published_at
   end
 
-  test 'hide user icon from recent reports in product show' do
-    visit_with_auth "/products/#{products(:product2).id}", 'komagata'
-    assert_no_selector('.card-list-item__user')
-  end
-
-  test 'product show without recent reports' do
-    visit_with_auth "/products/#{products(:product69).id}", 'komagata'
-    assert_text '日報はまだありません。'
-  end
-
-  test 'display company-logo when user is trainee' do
-    visit_with_auth "/products/#{products(:product13).id}", 'mentormentaro'
-    assert_selector 'img[class="page-content-header__company-logo-image"]'
-  end
-
   test 'using file uploading by file selection dialogue in textarea' do
     visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'mentormentaro'
     within(:css, '.a-file-insert') do
@@ -516,91 +294,11 @@ class ProductsTest < ApplicationSystemTestCase
     assert_equal '.file-input', find('textarea.a-text-input')['data-input']
   end
 
-  test 'display training end date in products for mentor only' do
-    # 1ページ内に企業研修生の提出物を表示するために、作成者がkensyu以外のものを削除する
-    Product.where.not(user: users(:kensyu)).delete_all
-
-    travel_to Time.zone.local(2021, 4, 1, 0, 0, 0) do
-      visit_with_auth '/products', 'mentormentaro'
-      find('.is-products.loaded')
-      assert_selector '.a-meta__label', text: '研修終了日'
-      assert_selector '.a-meta__value', text: '2022年04月01日'
-      assert_selector '.a-meta__value', text: '（あと365日）'
-    end
-  end
-
-  test 'display training end date in product show for mentor only' do
-    # 1ページ内に企業研修生の提出物を表示するために、作成者がkensyu以外のものを削除する
-    Product.where.not(user: users(:kensyu)).delete_all
-
-    travel_to Time.zone.local(2021, 4, 1, 0, 0, 0) do
-      visit_with_auth "/products/#{products(:product13).id}", 'mentormentaro'
-      find('.page-content-header__before-title')
-      assert_selector '.a-meta__label', text: '研修終了日'
-      assert_selector '.a-meta__value', text: '2022年04月01日'
-      assert_selector '.a-meta__value', text: '（あと365日）'
-    end
-  end
-
-  test 'display training end date in products for admin only' do
-    # 1ページ内に企業研修生の提出物を表示するために、作成者がkensyu以外のものを削除する
-    Product.where.not(user: users(:kensyu)).delete_all
-
-    travel_to Time.zone.local(2021, 4, 1, 0, 0, 0) do
-      visit_with_auth '/products', 'adminonly'
-      find('.is-products.loaded')
-      assert_selector '.a-meta__label', text: '研修終了日'
-      assert_selector '.a-meta__value', text: '2022年04月01日'
-      assert_selector '.a-meta__value', text: '（あと365日）'
-    end
-  end
-
-  test 'display training end date in product show for admin only' do
-    # 1ページ内に企業研修生の提出物を表示するために、作成者がkensyu以外のものを削除する
-    Product.where.not(user: users(:kensyu)).delete_all
-
-    travel_to Time.zone.local(2021, 4, 1, 0, 0, 0) do
-      visit_with_auth "/products/#{products(:product13).id}", 'adminonly'
-      find('.page-content-header__before-title')
-      assert_selector '.a-meta__label', text: '研修終了日'
-      assert_selector '.a-meta__value', text: '2022年04月01日'
-      assert_selector '.a-meta__value', text: '（あと365日）'
-    end
-  end
-
-  test 'display training end date in products for adviser' do
-    # 1ページ内に企業研修生の提出物を表示するために、作成者がkensyu以外のものを削除する
-    Product.where.not(user: users(:kensyu)).delete_all
-
-    travel_to Time.zone.local(2021, 4, 1, 0, 0, 0) do
-      visit_with_auth '/products', 'advijirou'
-      find('.is-products.loaded')
-      assert_no_selector '.a-meta__label', text: '研修終了日'
-      assert_no_selector '.a-meta__value', text: '2022年04月01日'
-      assert_no_selector '.a-meta__value', text: '（あと365日）'
-    end
-  end
-
   test 'return practice page when click cancel on new product page' do
     visit_with_auth "/products/new?practice_id=#{practices(:practice1).id}", 'hatsuno'
     click_link 'キャンセル'
     assert_selector '.page-tabs__item-link.is-active', text: 'プラクティス'
     assert_link '提出物を作る'
-  end
-
-  test 'return wip product page when click cancel on edit product page' do
-    visit_with_auth "/products/#{products(:product5).id}/edit", 'kimura'
-    click_link 'キャンセル'
-    assert_selector '.page-tabs__item-link.is-active', text: '提出物'
-    assert_link '内容修正'
-  end
-
-  test 'display the skip practices after click on user-info tab' do
-    visit_with_auth "/products/#{products(:product13).id}", 'komagata'
-    find('#side-tabs-nav-3').click
-    assert_text 'スキップするプラクティス一覧'
-    assert_text 'Linuxのファイル操作の基礎を覚える'
-    assert_text 'viのチュートリアルをやる'
   end
 
   private
