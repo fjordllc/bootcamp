@@ -280,6 +280,8 @@ class ArticlesTest < ApplicationSystemTestCase
     page.accept_confirm do
       click_on '公開する'
     end
+    assert_text 'エントリーのタイトル（text）'
+    assert_text '本文（HTML）'
 
     visit '/articles.atom'
     assert_text 'エントリーのタイトル（text）'
