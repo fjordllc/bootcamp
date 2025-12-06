@@ -83,6 +83,8 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     within '.page-tabs' do
       click_link '自分の担当'
     end
+    # タブ切り替え後のページ読み込みを待つ
+    assert_selector '.page-content'
     assert_text product.practice.title
   end
 
@@ -139,6 +141,8 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     visit_with_auth '/products/unchecked?target=unchecked_all', 'komagata'
     assert_text '未完了の提出物'
     click_link '自分の担当'
+    # タブ切り替え後のページ読み込みを待つ
+    assert_selector '.page-content'
     assert_text product.practice.title
   end
 
