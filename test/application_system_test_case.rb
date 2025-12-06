@@ -60,11 +60,18 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
         driver_option.add_argument('--disable-features=IsolateOrigins,site-per-process')
         driver_option.add_argument('--disable-renderer-backgrounding')
         driver_option.add_argument('--disable-backgrounding-occluded-windows')
-        # Limit renderer processes to prevent memory bloat (but allow parallelism)
-        driver_option.add_argument('--renderer-process-limit=2')
+        # Limit renderer processes to prevent memory bloat
+        driver_option.add_argument('--renderer-process-limit=1')
         # Aggressive disk cache limits
         driver_option.add_argument('--disk-cache-size=1')
         driver_option.add_argument('--media-cache-size=1')
+        # Single process mode to reduce memory overhead
+        driver_option.add_argument('--single-process')
+        # Disable GPU compositing which can cause memory issues
+        driver_option.add_argument('--disable-accelerated-2d-canvas')
+        driver_option.add_argument('--disable-gpu-compositing')
+        # Reduce JS heap size
+        driver_option.add_argument('--js-flags=--max-old-space-size=256')
       end
     end
   end

@@ -110,6 +110,14 @@ jobs:
           name: Assets precompile
           command: 'bundle exec rails assets:clean assets:precompile NODE_OPTIONS=--openssl-legacy-provider'
       - run:
+          name: Clear memory before tests
+          command: |
+            # Clear system caches to free memory after assets precompile
+            sync
+            echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null || true
+            # Show memory status
+            free -m
+      - run:
           name: Test
           command: |
             # Start memory monitor in background
