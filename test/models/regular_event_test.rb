@@ -139,13 +139,13 @@ class RegularEventTest < ActiveSupport::TestCase
   test '#all_scheduled_dates return odd or even week dates if event held on odd or even week' do
     all_dates_for_year = (Date.current..Date.current.next_year)
 
-    regular_event_held_on_odd_week_mondays = regular_events(:regular_event40)
-    odd_week_mondays_for_year = all_dates_for_year.select { |date| date.cweek.odd? && date.monday? }
-    assert_equal odd_week_mondays_for_year, regular_event_held_on_odd_week_mondays.all_scheduled_dates
+    regular_event_held_on_odd_week_thursdays = regular_events(:regular_event40)
+    odd_week_thursdays_for_year = all_dates_for_year.select { |date| date.cweek.odd? && date.thursday? }
+    assert_equal odd_week_thursdays_for_year, regular_event_held_on_odd_week_thursdays.all_scheduled_dates
 
-    regular_event_held_on_even_week_mondays = regular_events(:regular_event41)
-    even_week_mondays_for_year = all_dates_for_year.select { |date| date.cweek.even? && date.monday? }
-    assert_equal even_week_mondays_for_year, regular_event_held_on_even_week_mondays.all_scheduled_dates
+    regular_event_held_on_even_week_thursdays = regular_events(:regular_event41)
+    even_week_thursdays_for_year = all_dates_for_year.select { |date| date.cweek.even? && date.thursday? }
+    assert_equal even_week_thursdays_for_year, regular_event_held_on_even_week_thursdays.all_scheduled_dates
   end
 
   test '#transform_for_subscription' do
