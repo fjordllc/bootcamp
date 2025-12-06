@@ -1,0 +1,14 @@
+.page-main-filter__inner {
+  display: block;
+  padding-block: 0.75rem;
+}
+
+.page-main-filter__row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.page-main-filter__row .page-main-filter__row {
+  gap: 0.5rem;
+}

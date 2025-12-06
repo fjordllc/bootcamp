@@ -1,0 +1,21 @@
+.lp-company-logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+@media (min-width: 64em) {
+  .lp-company-logos {
+    gap: 1.5rem 2rem;
+  }
+}
+
+.lp-company-logos__item img {
+  height: 3.5rem;
+}
+@media (min-width: 64em) {
+  .lp-company-logos__item img {
+    height: 5rem;
+  }
+}
