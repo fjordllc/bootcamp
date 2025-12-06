@@ -33,14 +33,6 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert_selector 'nav.pagination', count: 2
   end
 
-  test 'show WIP message' do
-    user = users(:komagata)
-    Announcement.create(title: 'test', description: 'test', user:, wip: true)
-    visit_with_auth '/announcements', 'kimura'
-    assert_selector '.a-list-item-badge'
-    assert_text 'お知らせ作成中'
-  end
-
   test 'announcement has a comment form ' do
     visit_with_auth "/announcements/#{announcements(:announcement1).id}", 'kimura'
     assert_selector '.thread-comment-form'
@@ -60,17 +52,6 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert_text 'お知らせをコピーしました。'
   end
 
-  test 'create a new announcement as wip' do
-    visit_with_auth new_announcement_path, 'kimura'
-    wait_for_announcement_form
-    fill_in 'announcement[title]', with: '仮のお知らせ'
-    fill_in 'announcement[description]', with: 'まだWIPです。'
-    assert_difference 'Announcement.count', 1 do
-      click_button 'WIP'
-    end
-    assert_text 'お知らせをWIPとして保存しました。'
-  end
-
   test 'general user can create announcement' do
     visit_with_auth '/announcements', 'kimura'
     click_link 'お知らせ作成'
@@ -79,14 +60,6 @@ class AnnouncementsTest < ApplicationSystemTestCase
 
   test 'general user can copy submitted announcement' do
     announcement = announcements(:announcement1)
-    visit_with_auth announcement_path(announcement), 'kimura'
-    within '.announcement' do
-      assert_text 'コピー'
-    end
-  end
-
-  test 'general user can copy wip announcement' do
-    announcement = announcements(:announcement_wip)
     visit_with_auth announcement_path(announcement), 'kimura'
     within '.announcement' do
       assert_text 'コピー'
@@ -110,26 +83,6 @@ class AnnouncementsTest < ApplicationSystemTestCase
 
     visit current_path
     assert_selector '#comment_count', text: '2'
-  end
-
-  test 'previous update remains when conflict to update announcement' do
-    announcement = announcements(:announcement_wip)
-    visit_with_auth announcement_path(announcement), 'komagata'
-    click_link '内容修正'
-    fill_in 'announcement[description]', with: '先の人が更新'
-
-    Capybara.session_name = :later
-    visit_with_auth announcement_path(announcement), 'kimura'
-    click_link '内容修正'
-    fill_in 'announcement[description]', with: '後の人が更新'
-
-    Capybara.session_name = :default
-    click_button 'WIP'
-    assert_text 'お知らせをWIPとして保存しました。'
-
-    Capybara.session_name = :later
-    click_button 'WIP'
-    assert_text '別の人がお知らせを更新していたので更新できませんでした。'
   end
 
   test 'using file uploading by file selection dialogue in textarea' do
