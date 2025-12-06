@@ -1,19 +1,16 @@
-@use "../../../config/mixins/break-points"
-
 .lp-top-cover
   background-image: var(--people-bg-image)
   background-color: var(--lp-bg-2)
   background-repeat: repeat
   position: relative
-  +break-points.media-breakpoint-up(lg)
-    height: 38rem
-    background-size: 32rem
-  +break-points.media-breakpoint-only(md)
+  height: 24rem
+  background-size: 20rem
+  @media (min-width: 48em)
     height: 28rem
     background-size: 26rem
-  +break-points.media-breakpoint-down(sm)
-    height: 24rem
-    background-size: 20rem
+  @media (min-width: 64em)
+    height: 38rem
+    background-size: 32rem
 
 .lp-top-cover__container
   height: 100%
@@ -24,7 +21,7 @@
   z-index: 2
   display: flex
   align-items: center
-  +break-points.media-breakpoint-down(sm)
+  @media (max-width: 47.9375em)
     padding-block: 1rem 1.5rem
 
 .lp-top-cover__contents
@@ -42,7 +39,7 @@
   display: block
   margin-top: 1.125rem
   margin-inline: auto
-  +break-points.media-breakpoint-down(sm)
+  @media (max-width: 47.9375em)
     max-width: 90%
     margin-top: .75rem
 
@@ -53,7 +50,7 @@
   font-weight: 800
   color: var(--reversal-text)
   font-feature-settings: "palt"
-  +break-points.media-breakpoint-down(sm)
+  @media (max-width: 47.9375em)
     font-size: .875rem
 
 .lp-top-cover__title
@@ -64,12 +61,9 @@
   padding: .5rem 1rem
   font-weight: 800
   text-align: center
-  +break-points.media-breakpoint-up(lg)
-    font-size: 2.5rem
-    line-height: 1.4
-  +break-points.media-breakpoint-only(md)
+  font-size: 1.25rem
+  line-height: 1.4
+  @media (min-width: 48em)
     font-size: 2rem
-    line-height: 1.4
-  +break-points.media-breakpoint-down(sm)
-    font-size: 1.25rem
-    line-height: 1.4
+  @media (min-width: 64em)
+    font-size: 2.5rem

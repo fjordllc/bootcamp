@@ -1,31 +1,21 @@
-@use "../../config/mixins/break-points"
-
 .user-icons,
 .user-icons__wrapper
   margin-top: 1.5rem
-  +break-points.media-breakpoint-up(md)
-    display: flex
-    gap: .75rem
+  display: flex
+  gap: .75rem
 
 .user-icons__title
-  +break-points.media-breakpoint-up(md)
-    text-align: right
-    font-size: .875rem
-    line-height: 2rem
-    font-weight: 600
-    white-space: nowrap
-  +break-points.media-breakpoint-down(sm)
-    font-size: .875rem
-    line-height: 1.4
-    font-weight: 600
-    white-space: nowrap
+  text-align: right
+  font-size: .875rem
+  line-height: 2rem
+  font-weight: 600
+  white-space: nowrap
 
 .user-icons__items
   display: flex
   gap: .5rem
   flex-wrap: wrap
-  +break-points.media-breakpoint-down(sm)
-    margin-top: .75rem
+  margin-top: .75rem
 
 .user-icons-item
   display: flex
@@ -47,7 +37,16 @@
   &:hover,
   &:active
     text-decoration: underline
-  +break-points.media-breakpoint-up(md)
-    align-self: center
-  +break-points.media-breakpoint-down(sm)
+  align-self: center
+
+@media (max-width: 47.9375em)
+  .user-icons,
+  .user-icons__wrapper
+    display: block
+  .user-icons__title
+    text-align: left
+    line-height: 1.4
+  .user-icons__items
+    margin-top: .75rem
+  .user-icons__more
     margin-top: .75rem

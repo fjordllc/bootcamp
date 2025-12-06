@@ -1,5 +1,3 @@
-@use "../../../config/mixins/break-points"
-
 .lp-mentor-books__items
   display: flex
   flex-wrap: wrap
@@ -7,10 +5,9 @@
   align-items: flex-end
 
 .lp-mentor-books__item
-  +break-points.media-breakpoint-up(md)
+  flex: 1
+  @media (min-width: 48em)
     flex: 0 0 4.75rem
-  +break-points.media-breakpoint-down(sm)
-    flex: 1
 
 .lp-mentor-books__item-link
   box-shadow: 0 0 0 1px var(--background)

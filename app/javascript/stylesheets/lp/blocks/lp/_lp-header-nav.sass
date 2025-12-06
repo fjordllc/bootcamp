@@ -1,36 +1,42 @@
-@use "../../../config/mixins/break-points"
 .lp-header-nav
   height: 100%
-  +break-points.media-breakpoint-down(lg)
-    display: none
+  display: none
+  input:checked + &
+    display: block
+  @media (min-width: 64em)
+    display: block
     input:checked + &
       display: block
 
 .lp-header-nav__items
   display: flex
-  +break-points.media-breakpoint-up(xxl)
-    gap: 1rem
-  +break-points.media-breakpoint-up(xl)
-    height: 100%
+  flex-direction: column
+  bottom: 0
+  left: 0
+  position: fixed
+  top: 0
+  z-index: 2
+  background-color: var(--base)
+  width: 20rem
+  max-width: calc(100vw - 3rem)
+  font-size: .875rem
+  @media (min-width: 64em)
+    position: static
+    flex-direction: row
     align-items: center
+    height: 100%
+    max-width: none
+    width: auto
     gap: .5rem
-    font-size: .875rem
-  +break-points.media-breakpoint-only(xl)
+  @media (min-width: 80em)
     gap: .25rem
-  +break-points.media-breakpoint-down(lg)
-    flex-direction: column
-    bottom: 0
-    left: 0
-    position: fixed
-    top: 0
-    z-index: 2
-    background-color: var(--base)
-    width: 20rem
-    max-width: calc(100vw - 3rem)
+  @media (min-width: 96em)
+    gap: 1rem
 
 .lp-header-nav__item
-  +break-points.media-breakpoint-down(lg)
-    border-bottom: solid 1px var(--border-tint)
+  border-bottom: solid 1px var(--border-tint)
+  @media (min-width: 64em)
+    border-bottom: 0
 
 .lp-header-nav__item-link
   text-decoration: none
@@ -43,30 +49,27 @@
   transition: all .2s ease-out
   span
     white-space: nowrap
-  +break-points.media-breakpoint-up(xl)
+  height: 3rem
+  padding-inline: 2rem
+  font-size: .875rem
+  @media (min-width: 64em)
     height: 2.25rem
     padding-inline: .75rem
-    font-size: .875rem
     background-color: var(--base)
     border-radius: .5rem
     &:hover
       background-color: var(--lp-bg-3)
-  +break-points.media-breakpoint-down(lg)
-    height: 3rem
-    padding-inline: 2rem
-    font-size: .875rem
 
 .lp-header-nav__overlay
-  +break-points.media-breakpoint-up(xl)
+  bottom: 0
+  left: 0
+  position: fixed
+  right: 0
+  top: 0
+  z-index: 1
+  background-color: #27272ccc
+  @media (min-width: 64em)
     display: none
-  +break-points.media-breakpoint-down(lg)
-    bottom: 0
-    left: 0
-    position: fixed
-    right: 0
-    top: 0
-    z-index: 1
-    background-color: #27272ccc
 
 .lp-header__home-link-image
   width: 9.75rem
@@ -76,22 +79,23 @@
   display: flex
   height: 100%
   align-items: center
-  +break-points.media-breakpoint-up(md)
+  width: auto
+  .a-button
+    font-size: .6875rem
+  @media (min-width: 48em)
     width: 7.5rem
-  +break-points.media-breakpoint-down(sm)
-    width: auto
+  @media (min-width: 48em)
     .a-button
-      font-size: .6875rem
+      font-size: .875rem
 
 .lp-header__mobile-nav-trigger
-  +break-points.media-breakpoint-up(xl)
+  display: flex
+  width: 2.75rem
+  height: 2.75rem
+  justify-content: center
+  align-items: center
+  @media (min-width: 80em)
     display: none
-  +break-points.media-breakpoint-down(lg)
-    display: flex
-    width: 2.75rem
-    height: 2.75rem
-    justify-content: center
-    align-items: center
 
 
 .lp-header__home

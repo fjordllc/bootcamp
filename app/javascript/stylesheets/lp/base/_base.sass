@@ -1,4 +1,3 @@
-@use "../../config/mixins/break-points"
 @use "../../config/variables/fonts"
 
 html.is-lp
@@ -32,26 +31,29 @@ body.is-lp
   margin-top: 1.25rem
   display: flex
   flex-wrap: wrap
-  +break-points.media-breakpoint-up(md)
-    gap: .75rem .5rem
-  +break-points.media-breakpoint-down(sm)
-    flex-direction: column
+  gap: .75rem .5rem
+  flex-direction: column
 
 .welcome-practices__item
   line-height: 1.6
-  +break-points.media-breakpoint-up(md)
+  font-size: .8125rem
+  padding-block: .5rem
+  .welcome-practices__item + &
+    border-top: solid 1px var(--border-tint)
+  &:first-child
+    padding-top: 0
+  &:last-child
+    padding-bottom: 0
+
+@media (min-width: 48em)
+  .welcome-practices
+    flex-direction: row
+  .welcome-practices__item
     font-size: .875rem
+    padding-block: 0
+    border-top: none !important
     &:not(:last-child)::after
       content: '、'
-  +break-points.media-breakpoint-down(sm)
-    font-size: .8125rem
-    padding-block: .5rem
-    .welcome-practices__item + &
-      border-top: solid 1px var(--border-tint)
-    &:first-child
-      padding-top: 0
-    &:last-child
-      padding-bottom: 0
 
 .faqs-item__header
   padding-bottom: .5rem
