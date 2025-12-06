@@ -120,11 +120,13 @@ jobs:
       - run:
           name: Test
           command: |
-            # Start memory monitor in background
+            # Start memory monitor in background (include timestamps)
             (while true; do
-              MEM_INFO=$(free -m | awk 'NR==2{printf "Memory: %sMB/%sMB (%.0f%%)", $3,$2,$3*100/$2}')
-              echo "[MEMORY] $(date '+%H:%M:%S') $MEM_INFO"
-              sleep 30
+              MEM_USED=$(free -m | awk 'NR==2{print $3}')
+              MEM_TOTAL=$(free -m | awk 'NR==2{print $2}')
+              MEM_PCT=$((MEM_USED * 100 / MEM_TOTAL))
+              echo "[MEMORY] $(date '+%H:%M:%S') Used: ${MEM_USED}MB / ${MEM_TOTAL}MB (${MEM_PCT}%)"
+              sleep 60
             done) &
             MONITOR_PID=$!
 
@@ -132,9 +134,10 @@ jobs:
             echo "[INFO] Node index: $CIRCLE_NODE_INDEX / Total nodes: $CIRCLE_NODE_TOTAL"
 
             # Run tests with circleci tests split for parallel execution
-            # Use filesize-based splitting to avoid timing data issues
-            # (timings-based splitting puts all files without timing data on one node)
-            TEST_FILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=filesize)
+            # Use name-based splitting (round-robin) for even distribution
+            # This avoids both: timing data issues (all unknown on one node) and
+            # filesize issues (system tests have small file size but high memory usage)
+            TEST_FILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=name)
             echo "[INFO] Running $(echo "$TEST_FILES" | wc -l) test files on this node"
             echo "[INFO] Test files assigned to this node:"
             echo "$TEST_FILES" | head -20
