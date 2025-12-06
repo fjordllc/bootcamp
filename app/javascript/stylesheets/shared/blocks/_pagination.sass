@@ -1,15 +1,14 @@
 .pagination
-  +position(relative, 1)
+  position: relative
+  z-index: 1
   &:first-child
-    +media-breakpoint-up(md)
+    margin-bottom: .75rem
+    @media (min-width: 48em)
       margin-bottom: 1.5rem
-    +media-breakpoint-down(sm)
-      margin-bottom: .75rem
   &:not(:first-child)
-    +media-breakpoint-up(md)
+    margin-top: .75rem
+    @media (min-width: 48em)
       margin-top: 1.5rem
-    +media-breakpoint-down(sm)
-      margin-top: .75rem
 
 .pagination__items
   display: flex
@@ -24,12 +23,15 @@
     pointer-events: none
 
 .pagination__item-link
-  +size(2.5rem)
+  height: 2.5rem
+  width: 2.5rem
   border-radius: 50%
   outline: none
-  +text-block(.875rem 1)
+  font-size: .875rem
+  line-height: 1
   color: var(--muted-text)
-  +flex-link
+  display: flex
+  text-decoration: none
   justify-content: center
   align-items: center
   transition: all .2s ease-in

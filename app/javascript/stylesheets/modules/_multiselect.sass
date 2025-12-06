@@ -1,15 +1,15 @@
 .multiselect
-  +position(absolute, left 0, top 0, right 0)
+  position: absolute
+  left: 0
+  top: 0
+  right: 0
 
 .multiselect.book
-  +position(initial)
-
-.multiselect__single,
-.multiselect__input
-  @extend .a-text-input
+  position: initial
 
 .multiselect__single
-  +position(relative, 1)
+  position: relative
+  z-index: 1
   white-space: nowrap
   overflow: hidden
   text-overflow: ellipsis
@@ -19,7 +19,8 @@
   overflow-y: scroll
   background-color: var(--base)
   border: solid 1px var(--border)
-  +border-radius(bottom, .25rem)
+  border-bottom-left-radius: .25rem
+  border-bottom-right-radius: .25rem
 
 .multiselect--active
   overflow-y: hidden !important
@@ -28,10 +29,7 @@
   display: block !important
 
 .multiselect__element
-  +media-breakpoint-up(md)
-    font-size: .875rem
-  +media-breakpoint-down(sm)
-    font-size: 1rem
+  font-size: .875rem
   &:not(:first-child)
     border-top: solid 1px var(--border)
   >span
@@ -54,3 +52,7 @@
   pointer-events: none
   // TODO 変数に
   background-color: #fff5db
+
+@media (max-width: 47.9375em)
+  .multiselect__element
+    font-size: 1rem

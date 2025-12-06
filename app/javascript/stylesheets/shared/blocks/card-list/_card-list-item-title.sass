@@ -1,24 +1,26 @@
+@use "../../../config/mixins/break-points"
+
 .card-list-item-title
   display: flex
   justify-content: space-between
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     align-items: center
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     flex-direction: column
     align-items: flex-start
   .a-list-item-badge
-    +media-breakpoint-up(md)
+    +break-points.media-breakpoint-up(md)
       margin-top: .3125rem
       margin-right: .5rem
-    +media-breakpoint-down(sm)
+    +break-points.media-breakpoint-down(sm)
       margin-bottom: .25rem
 
 .card-list-item-title__start
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     display: flex
     align-items: center
     flex: 1
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     width: 100%
 
 .card-list-item-title__end
@@ -28,7 +30,9 @@
     width: 100%
 
 .card-list-item-title__title
-  +text-block(.875rem 1.4, 600)
+  font-size: .875rem
+  line-height: 1.4
+  font-weight: 600
   width: 100%
   flex-basis: 100%
   word-break: break-all
@@ -46,13 +50,17 @@
     vertical-align: middle
 
 .card-list-item-title__emotion-image
-  +size(1.125em)
+  height: 1.125em
+  width: 1.125em
   margin-right: .375rem
   transform: translate(0, -.0625em)
 
 .card-list-item-title__link
   word-break: break-all
-  +line-clamp(2)
+  display: -webkit-box
+  -webkit-line-clamp: 2
+  overflow: hidden
+  -webkit-box-orient: vertical
   .card-list-item.is-wip &,
   .card-list-item.is-read &
     color: var(--muted-text)

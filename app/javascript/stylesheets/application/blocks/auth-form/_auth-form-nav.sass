@@ -1,3 +1,4 @@
+
 .auth-form-nav
   display: flex
   justify-content: flex-end
@@ -10,6 +11,11 @@
 
 .auth-form-nav__item-link
   cursor: pointer
-  +text-block(.75rem 1.45)
+  font-size: .75rem
+  line-height: 1.45
   color: var(--main)
-  +hover-link
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline

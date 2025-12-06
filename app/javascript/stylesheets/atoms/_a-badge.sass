@@ -1,51 +1,91 @@
-.a-badge
-  +badge-base
+@use "../config/functions/color" as color-func
+@use "../config/variables/colors"
 
-  // color
+@function badge-text-color($bg)
+  @if color-func.luma($bg) > 50
+    @return colors.$default-text
+  @else
+    @return colors.$reversal-text
+
+@mixin badge-variant($bg)
+  background-color: $bg
+  color: badge-text-color($bg)
+  border-color: if(color-func.luma($bg) > 80, color-func.shade($bg, 18%), $bg)
+
+.a-badge
+  text-transform: none
+  display: inline-flex
+  border: solid 1px
+  border-radius: 1em
+  font-family: var(--sans-serif)
+  white-space: nowrap
+  text-decoration: none
+  align-items: center
+  justify-content: center
+  &:not(:first-child)
+    margin-left: .1875em
+  &:not(:last-child)
+    margin-right: .1875em
+  &.is-block
+    width: 100%
+    display: flex
+    .a-badge__inner
+      overflow: hidden
+      text-overflow: ellipsis
+
   &.is-primary
-    +badge-color($primary)
+    +badge-variant(colors.$primary)
   &.is-secondary
-    +badge-color($secondary)
+    +badge-variant(colors.$secondary)
   &.is-info
-    +badge-color($info)
+    +badge-variant(colors.$info)
   &.is-success
-    +badge-color($success)
+    +badge-variant(colors.$success)
   &.is-warning
-    +badge-color($warning)
+    +badge-variant(colors.$warning)
   &.is-danger
-    +badge-color($danger)
+    +badge-variant(colors.$danger)
   &.is-disabled
-    +badge-color($disabled)
+    +badge-variant(colors.$disabled)
   &.is-main
-    +badge-color($main)
+    +badge-variant(colors.$main)
   &.is-muted
     border: none
-    color: $muted-text
+    color: colors.$muted-text
     font-weight: 400
-    background-color: $background
+    background-color: colors.$background
   &.is-dark-muted
     border: none
-    color: $semi-muted-text
+    color: colors.$semi-muted-text
     font-weight: 400
     background-color: var(--background-semi-shade)
 
-  //size
   &.is-xs
-    +button-size(.625rem, 1, .5)
+    font-size: .625rem
+    padding-inline: .625rem
+    height: 1.5rem
     font-weight: 500
     &:not(:first-child)
       margin-left: .5em
     &:not(:last-child)
       margin-right: .5em
   &.is-sm
-    +button-size(.6875rem, 1, .5)
+    font-size: .6875rem
+    padding-inline: .6875rem
+    height: 1.65rem
     font-weight: 600
   &.is-md
-    +button-size(.8125rem, 1, .5)
+    font-size: .8125rem
+    padding-inline: .8125rem
+    height: 1.95rem
     font-weight: 600
   &.is-lg
-    +button-size(1rem, 1, .5)
+    font-size: 1rem
+    padding-inline: 1rem
+    height: 2.4rem
     font-weight: 600
   &.is-xl
-    +button-size(1.25rem, 1, .5)
+    font-size: 1.25rem
+    padding-inline: 1.25rem
+    height: 3rem
     font-weight: 800

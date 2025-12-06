@@ -1,20 +1,24 @@
+@use "../../../config/mixins/break-points"
+
+
 .micro-report
-  +position(relative)
+  position: relative
   display: flex
   &:not(:last-child)
     margin-top: 1.5rem
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     gap: 1rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     gap: .75rem
 
 .micro-report__start
   flex: 0 0 2.75rem
-  +size(2.75rem 100%)
+  width: 2.75rem
+  height: 100%
 
 .micro-report__end
   flex: 1
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     max-width: calc(100% - var(--thread-header-author))
 
 .micro-report__header
@@ -24,28 +28,31 @@
   margin-bottom: .25rem
 
 .micro-report__title
-  +text-block(.875rem 1.4, 600)
-  +media-breakpoint-up(md)
+  font-size: .875rem
+  line-height: 1.4
+  font-weight: 600
+  +break-points.media-breakpoint-up(md)
     margin-right: .5rem
     flex: 1
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     display: flex
 
 .micro-report__title-user-icon
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     display: none
-  +media-breakpoint-down(sm)
-    +size(1.5rem)
+  +break-points.media-breakpoint-down(sm)
+    width: 1.5rem
+    height: 1.5rem
     display: inline-block
     vertical-align: middle
     margin-right: .25rem
 
 .micro-report__title-link
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     height: 100%
     display: inline-flex
     align-items: center
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     display: inline-block
     white-space: nowrap
     max-width: calc(100vw - 15.5rem)
@@ -56,36 +63,47 @@
     width: 15%
     height: 1.4em
 
+
 .micro-report__title-icon
-  +size(1.5rem)
+  width: 1.5rem
+  height: 1.5rem
   margin-right: .5rem
 
 .micro-report__title-label
-  +text-block(.8125rem, block 400)
+  font-size: .8125rem
+  display: block
+  font-weight: 400
   color: var(--muted-text)
   margin-bottom: .125rem
   i
     margin-right: .1875rem
 
 .micro-report__body
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     word-wrap: break-word
 
 .micro-report__user-icon
-  +size(3.5rem)
+  width: 3.5rem
+  height: 3.5rem
   object-fit: cover
   border-radius: 50%
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     display: none
 
 .micro-report__created-at
   display: block
-  +text-block(.8125rem 1.4, nowrap)
+  font-size: .8125rem
+  line-height: 1.4
+  white-space: nowrap
   color: var(--muted-text)
-  +hover-link-reversal
+  text-decoration: none
   cursor: pointer
-  +position(relative)
-  +media-breakpoint-down(sm)
+  &:hover,
+  &:active
+    text-decoration: underline
+  cursor: pointer
+  position: relative
+  +break-points.media-breakpoint-down(sm)
     font-size: .75rem
   &:active,
   &:focus,
@@ -97,9 +115,12 @@
       background-color: rgba(black, .4)
       border-radius: .125rem
       padding: .25rem
-      +text-block(.625rem 1)
+      font-size: .625rem
+      line-height: 1
       color: var(--reversal-text)
-      +position(absolute, left 0, top 100%)
+      left: 0
+      position: absolute
+      top: 100%
   &.a-placeholder
     width: 30%
     height: 1.4em
@@ -112,9 +133,13 @@
   align-items: center
 
 .micro-report__actions-item-link
-  +text-block(1.25rem 1, center flex)
+  font-size: 1.25rem
+  line-height: 1
+  display: flex
+  text-align: center
   color: var(--muted-text)
-  +size(2.375rem)
+  width: 2.375rem
+  height: 2.375rem
   align-items: center
   justify-content: center
   border-radius: 50%
@@ -130,13 +155,13 @@
 
 .micro-report__footer
   display: flex
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     justify-content: space-between
     .reactions
       justify-content: flex-end
     .card-footer
       flex: 1
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     flex-direction: column
     gap: .5rem
     .reactions
@@ -147,5 +172,7 @@
 .micro-report__reactions
   flex: 1
 
+
 .micro-report_user-icon.a-user-icon
-  +size(2.75rem)
+  width: 2.75rem
+  height: 2.75rem

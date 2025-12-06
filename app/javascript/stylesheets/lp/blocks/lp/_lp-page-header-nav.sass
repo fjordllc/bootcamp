@@ -9,13 +9,13 @@
 
 .lp-page-header-nav__item
   position: relative
-  +media-breakpoint-up(md)
-    min-width: 10rem
+  flex: 1
+  max-width: 50%
+  min-width: 10rem
+  &:first-child:last-child
+    max-width: 100%
+  @media (min-width: 48em)
+    flex: none
+    max-width: none
     display: flex
     justify-content: center
-  +media-breakpoint-down(sm)
-    flex: 1
-    max-width: 50%
-    min-width: 10rem
-    &:first-child:last-child
-      max-width: 100%

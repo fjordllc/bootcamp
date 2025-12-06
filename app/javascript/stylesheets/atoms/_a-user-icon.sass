@@ -3,12 +3,16 @@
   object-fit: cover
   border-radius: 50%
   background-color: var(--base)
-  +size(100%)
-  +icon-role-style
+  width: 100%
+  height: 100%
   &.is-sm
-    +size(2rem)
+    width: 2rem
+    height: 2rem
   &.is-xs
-    +media-breakpoint-up(md)
-      +size(1.5rem)
-    +media-breakpoint-down(sm)
-      +size(1.125rem)
+    width: 1.5rem
+    height: 1.5rem
+
+@media (max-width: 47.9375em)
+  .a-user-icon.is-xs
+    width: 1.125rem
+    height: 1.125rem

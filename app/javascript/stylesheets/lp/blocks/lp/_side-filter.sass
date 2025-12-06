@@ -5,13 +5,15 @@
   margin: 0
   .a-card
     overflow: hidden
-  +media-breakpoint-down(md)
-    display: none
+  display: none
+  @media (min-width: 64em)
+    display: block
 
 .side-filter__item-link
   display: flex
   padding: .75rem
-  +text-block(.875rem 1.4)
+  font-size: .875rem
+  line-height: 1.4
   overflow: hidden
   text-decoration: none
   transition: all .2s ease-out

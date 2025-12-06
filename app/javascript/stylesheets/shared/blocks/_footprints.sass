@@ -1,23 +1,21 @@
 .user-icons,
 .user-icons__wrapper
   margin-top: 1.5rem
-  +media-breakpoint-up(md)
-    display: flex
-    gap: .75rem
+  display: flex
+  gap: .75rem
 
 .user-icons__title
-  +media-breakpoint-up(md)
-    text-align: right
-    +text-block(.875rem 2rem, 600 nowrap)
-  +media-breakpoint-down(sm)
-    +text-block(.875rem 1.4, 600 nowrap)
+  text-align: right
+  font-size: .875rem
+  line-height: 2rem
+  font-weight: 600
+  white-space: nowrap
 
 .user-icons__items
   display: flex
   gap: .5rem
   flex-wrap: wrap
-  +media-breakpoint-down(sm)
-    margin-top: .75rem
+  margin-top: .75rem
 
 .user-icons-item
   display: flex
@@ -25,13 +23,30 @@
   gap: .25rem
 
 .user-icons-item__delete
-  +text-block(.75rem 1.4)
+  font-size: .75rem
+  line-height: 1.4
 
 .user-icons__more
-  +text-block(.8125rem 1.4, block nowrap)
+  font-size: .8125rem
+  line-height: 1.4
+  display: block
+  white-space: nowrap
   color: var(--main)
-  +hover-link-reversal
-  +media-breakpoint-up(md)
-    align-self: center
-  +media-breakpoint-down(sm)
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
+  align-self: center
+
+@media (max-width: 47.9375em)
+  .user-icons,
+  .user-icons__wrapper
+    display: block
+  .user-icons__title
+    text-align: left
+    line-height: 1.4
+  .user-icons__items
+    margin-top: .75rem
+  .user-icons__more
     margin-top: .75rem

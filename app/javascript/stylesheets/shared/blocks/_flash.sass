@@ -1,3 +1,4 @@
+
 .flash
   background-color: var(--danger)
   padding-block: .75rem
@@ -9,21 +10,30 @@
     display: none
 
 .flash__container
-  +position(relative)
+  position: relative
 
 .flash__message
-  +text-block(.875rem 1.4, center)
+  font-size: .875rem
+  line-height: 1.4
+  text-align: center
   color: var(--reversal-text)
   a
-    +hover-link-reversal
+    text-decoration: none
+    cursor: pointer
+    &:hover,
+    &:active
+      text-decoration: underline
     color: var(--reversal-text)
 
 .flash__close
-  +position(absolute, right 0, top 50%)
+  position: absolute
+  right: 0
+  top: 50%
   display: flex
   justify-content: center
   align-items: center
-  +size(2.75rem)
+  height: 2.75rem
+  width: 2.75rem
   transform: translate(0, -50%)
   cursor: pointer
   opacity: .7
@@ -32,9 +42,12 @@
   &::after
     content: ""
     display: block
-    +size(50% 2px)
+    height: 2px
+    width: 50%
     background-color: var(--reversal-text)
-    +position(absolute, left 50%, top 50%)
+    position: absolute
+    left: 50%
+    top: 50%
     border-radius: 2px
   &::before
     transform: translate(-50%, -50%) rotate(45deg)

@@ -1,8 +1,12 @@
+@use "../../../config/mixins/break-points"
+
 .congrats-card-body__title
-  +text-block(1.5rem 1.4, 700)
-  +media-breakpoint-up(md)
+  font-size: 1.5rem
+  line-height: 1.4
+  font-weight: 700
+  +break-points.media-breakpoint-up(md)
     font-size: 1.5rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     font-size: 1rem
 
 .congrats-card-body__image-container

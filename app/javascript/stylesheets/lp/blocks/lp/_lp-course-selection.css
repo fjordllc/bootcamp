@@ -1,0 +1,9 @@
+.lp-course-selection__descritpion {
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+@media (min-width: 48em) {
+  .lp-course-selection__descritpion {
+    font-size: 1rem;
+  }
+}

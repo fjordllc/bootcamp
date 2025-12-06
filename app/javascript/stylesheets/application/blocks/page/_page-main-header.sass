@@ -1,10 +1,12 @@
+@use "../../../config/mixins/break-points"
+
 .page-main-header__inner
   padding-block: .5rem
   display: flex
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     min-height: calc(3.5rem - 1px)
     align-items: center
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     flex-direction: column
     gap: .5rem
 
@@ -17,7 +19,9 @@
 .page-main-header__title
   color: var(--main)
   font-weight: 700
-  +media-breakpoint-up(md)
-    +text-block(1.125rem 1.4)
-  +media-breakpoint-down(sm)
-    +text-block(1rem 1.4)
+  +break-points.media-breakpoint-up(md)
+    font-size: 1.125rem
+    line-height: 1.4
+  +break-points.media-breakpoint-down(sm)
+    font-size: 1rem
+    line-height: 1.4

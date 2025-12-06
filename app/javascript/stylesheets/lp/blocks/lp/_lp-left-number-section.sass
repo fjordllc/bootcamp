@@ -5,16 +5,14 @@
   flex-direction: row
   padding: 1.5rem
   display: flex
-  +media-breakpoint-up(md)
+  gap: 1rem
+  @media (min-width: 48em)
     gap: 2rem
-  +media-breakpoint-down(sm)
-    gap: 1rem
 
 .lp-left-number-section__start
-  +media-breakpoint-up(md)
+  flex: 0 0 6rem
+  @media (min-width: 48em)
     flex: 0 0 12rem
-  +media-breakpoint-down(sm)
-    flex: 0 0 6rem
 
 .lp-left-number-section__header
   height: 100%
@@ -26,12 +24,15 @@
 .lp-left-number-section__title
   text-align: center
   color: var(--main)
-  +media-breakpoint-up(md)
-    +text-block(1.5rem 1.4, 800)
-  +media-breakpoint-down(sm)
-    +text-block(1.25rem 1.4, 800)
+  font-size: 1.25rem
+  line-height: 1.4
+  font-weight: 800
+  br
+    display: none
+  @media (min-width: 48em)
+    font-size: 1.5rem
     br
-      display: none
+      display: inline
   &::before
     counter-increment: number 1
     content: '0'counter(number)
@@ -42,10 +43,11 @@
     -webkit-text-stroke-color: var(--main)
     color: #dedef2
     margin-bottom: -.125rem
-    +media-breakpoint-up(md)
-      +text-block(2.5rem 1.4, 900)
-    +media-breakpoint-down(sm)
-      +text-block(2rem 1.4, 900)
+    font-size: 2rem
+    line-height: 1.4
+    font-weight: 900
+    @media (min-width: 48em)
+      font-size: 2.5rem
 
 .lp-left-number-section__end
   display: flex

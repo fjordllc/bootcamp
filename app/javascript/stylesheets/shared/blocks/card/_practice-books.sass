@@ -1,11 +1,14 @@
 .practice-books__items
   margin-top: -1px
-  +media-breakpoint-up(md)
+  display: block
+  @media (min-width: 48em)
     display: flex
     flex-wrap: wrap
 
 .practice-books-item
-  +media-breakpoint-up(md)
+  &:not(:first-child)
+    border-top: solid 1px var(--border-tint)
+  @media (min-width: 48em)
     border-top: solid 1px var(--border-tint)
     flex: 0 0 50%
     height: 100%
@@ -13,34 +16,32 @@
     flex-direction: column
     &:nth-child(odd)
       border-right: solid 1px var(--border-tint)
-  +media-breakpoint-down(sm)
-    &:not(:first-child)
-      border-top: solid 1px var(--border-tint)
 
 .practice-books-item__body
-  +media-breakpoint-up(md)
+  @media (min-width: 48em)
     flex: 1
 
 .practice-books-item__inner
   padding: .75rem 1rem
   text-decoration: none
   .practice-books &
-    +size(100%)
-  +media-breakpoint-up(md)
-    +flex-link
+    height: 100%
+    width: 100%
+  display: block
+  overflow: hidden
+  @media (min-width: 48em)
+    display: flex
     gap: 1rem
     align-items: flex-start
-  +media-breakpoint-down(sm)
-    display: block
-    overflow: hidden
 
 .practice-books-item__start
-  +media-breakpoint-up(md)
+  float: left
+  margin-right: 1rem
+  width: 3.5rem
+  @media (min-width: 48em)
+    float: none
+    margin-right: 0
     flex: 0 0 4rem
-  +media-breakpoint-down(sm)
-    float: left
-    margin-right: 1rem
-    width: 3.5rem
 
 .practice-books-item__end
   flex: 1
@@ -60,11 +61,14 @@
   border-radius: 2px
 
 .practice-books-item__title
-  +text-block(.875rem 1.4, 600)
+  font-size: .875rem
+  line-height: 1.4
+  font-weight: 600
   color: var(--default-text)
   transition: all .2s ease-out
   .a-badge
-    +position(relative, top -.125em)
+    position: relative
+    top: -.125em
     margin-right: .5em
 
 a.practice-books-item__inner:hover
@@ -73,7 +77,8 @@ a.practice-books-item__inner:hover
     color: var(--main-text)
 
 .practice-books-item__price
-  +text-block(.75rem 1.4)
+  font-size: .75rem
+  line-height: 1.4
   color: var(--default-text)
 
 .practice-books-item__description

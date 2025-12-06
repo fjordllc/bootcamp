@@ -1,3 +1,4 @@
+
 .a-user-name
   color: var(--muted-text)
   font-size: .75rem
@@ -6,7 +7,11 @@
   font-weight: 400
 
 a.a-user-name
-  +hover-link
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
   display: inline-block
   max-width: 100%
   overflow: hidden

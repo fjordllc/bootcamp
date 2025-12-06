@@ -1,6 +1,11 @@
+@use "../../config/variables/fonts"
+
 html.is-lp
-  font-family: $sans-serif
+  font-family: fonts.$sans-serif
   color: var(--default-text)
+
+:root
+  --people-bg-image: url("~assets/images/background/people.png")
 
 body.is-lp
   background-color: var(--background)
@@ -15,7 +20,9 @@ body.is-lp
   color: var(--default-text)
 
 .card-body__inner-title
-  +text-block(1.5rem 1.5, 700)
+  font-size: 1.5rem
+  line-height: 1.5
+  font-weight: 700
   padding-bottom: .25rem
   color: var(--main)
   border-bottom: solid 1px var(--border)
@@ -24,26 +31,29 @@ body.is-lp
   margin-top: 1.25rem
   display: flex
   flex-wrap: wrap
-  +media-breakpoint-up(md)
-    gap: .75rem .5rem
-  +media-breakpoint-down(sm)
-    flex-direction: column
+  gap: .75rem .5rem
+  flex-direction: column
 
 .welcome-practices__item
   line-height: 1.6
-  +media-breakpoint-up(md)
+  font-size: .8125rem
+  padding-block: .5rem
+  .welcome-practices__item + &
+    border-top: solid 1px var(--border-tint)
+  &:first-child
+    padding-top: 0
+  &:last-child
+    padding-bottom: 0
+
+@media (min-width: 48em)
+  .welcome-practices
+    flex-direction: row
+  .welcome-practices__item
     font-size: .875rem
+    padding-block: 0
+    border-top: none !important
     &:not(:last-child)::after
       content: '、'
-  +media-breakpoint-down(sm)
-    font-size: .8125rem
-    padding-block: .5rem
-    .welcome-practices__item + &
-      border-top: solid 1px var(--border-tint)
-    &:first-child
-      padding-top: 0
-    &:last-child
-      padding-bottom: 0
 
 .faqs-item__header
   padding-bottom: .5rem
@@ -53,5 +63,7 @@ body.is-lp
   margin-top: 1.5rem
 
 .faqs-item__title
-  +text-block(1.25rem 1.6, 700)
+  font-size: 1.25rem
+  line-height: 1.6
+  font-weight: 700
   color: var(--main)

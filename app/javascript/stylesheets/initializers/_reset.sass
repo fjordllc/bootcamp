@@ -1,3 +1,5 @@
+@use "../config/functions/assign-inputs"
+
 *
   font-family: inherit
   font-size: inherit
@@ -7,7 +9,7 @@ html
   //overflow-y: auto
   line-height: 1
 
-#{$all-text-inputs},
+#{assign-inputs.$all-text-inputs},
 select,
 button
   outline: none
@@ -44,7 +46,8 @@ ol
 input[type="submit"]
   outline: none
 
-+placeholder
+input::placeholder,
+textarea::placeholder
   color: var(--placeholder-text)
   font-weight: 400
 

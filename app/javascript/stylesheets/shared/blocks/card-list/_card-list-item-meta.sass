@@ -1,29 +1,36 @@
+
 .card-list-item-meta__items
-  +text-block(.75rem 1.4, flex)
+  font-size: .75rem
+  line-height: 1.4
+  display: flex
   flex-wrap: wrap
   gap: 0 .5rem
 
 .card-list-item-meta__item
   overflow: hidden
   .a-user-icon
-    +size(1rem)
+    height: 1rem
+    width: 1rem
   a
     overflow: hidden
     text-overflow: ellipsis
 
 .card-list-item-meta__item-note
-  +text-block(.75rem 1.4)
+  font-size: .75rem
+  line-height: 1.4
   color: var(--default-text)
   &::before
     content: "※"
-    +position(relative, top -.0625em)
+    position: relative
+    top: -.0625em
 
 .card-list-item-meta__checkers
   display: inline-block
   margin-left: .75rem
 
 .card-list-item-meta__created-at
-  +text-block(.75rem 1.4)
+  font-size: .75rem
+  line-height: 1.4
   color: var(--muted-text)
 
 .card-list-item-meta__user

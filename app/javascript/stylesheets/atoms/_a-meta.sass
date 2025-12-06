@@ -1,12 +1,10 @@
 .a-meta
-  +text-block(1em 1.4, flex)
+  font-size: 1em
+  line-height: 1.4
+  display: flex
   color: var(--muted-text)
   align-items: center
   flex-wrap: wrap
-  +media-breakpoint-up(md)
-    font-size: .75rem
-  +media-breakpoint-down(sm)
-    font-size: .75rem
   .is-important,
   &.is-important
     color: var(--danger)
@@ -16,16 +14,13 @@
   .is-emphasized
     color: var(--default-text)
     font-weight: 600
-  +media-breakpoint-up(md)
-    .a-meta + &
-      margin-left: .25em
-      &::before
-        content: "（"
-      &::after
-        content: "）"
 
 a.a-meta
-  +hover-link
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
   color: var(--muted-text)
   transition: all .2s ease-out
   &:hover
@@ -58,3 +53,17 @@ a.a-meta
   &:not(:first-child)
     &::before
       content: '、'
+
+@media (min-width: 48em)
+  .a-meta
+    font-size: .75rem
+    .a-meta + &
+      margin-left: .25em
+      &::before
+        content: "（"
+      &::after
+        content: "）"
+
+@media (max-width: 47.9375em)
+  .a-meta
+    font-size: .75rem

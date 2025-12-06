@@ -1,3 +1,4 @@
+
 .activity-time-filter
   padding-block: .875rem
   border-bottom: solid 1px var(--border)
@@ -21,8 +22,12 @@
   display: inline-block
 
 .dropdown-button
-  +block-link
-  +text-block(.75rem 2.3, left nowrap)
+  display: block
+  text-decoration: none
+  font-size: .75rem
+  line-height: 2.3
+  text-align: left
+  white-space: nowrap
   color: var(--semi-muted-text)
   border: solid 1px var(--border-shade)
   border-radius: 20rem
@@ -74,7 +79,10 @@
   padding: .5rem 1rem
   cursor: pointer
   transition: background-color .2s ease-out
-  +text-block(.75rem 1.5, left nowrap)
+  font-size: .75rem
+  line-height: 1.5
+  text-align: left
+  white-space: nowrap
   &:hover
     background-color: var(--background-semi-shade)
   &:first-child
@@ -83,8 +91,12 @@
     border-radius: 0 0 .5rem .5rem
 
 .search-button
-  +block-link
-  +text-block(.75rem 2.3, center nowrap)
+  display: block
+  text-decoration: none
+  font-size: .75rem
+  line-height: 2.3
+  text-align: center
+  white-space: nowrap
   background-color: var(--main)
   border: solid 1px var(--main)
   color: var(--reversal-text)

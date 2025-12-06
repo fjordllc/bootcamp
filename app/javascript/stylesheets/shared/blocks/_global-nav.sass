@@ -1,6 +1,7 @@
 .global-nav
-  +media-breakpoint-down(sm)
-    background-color: transparent
+  background-color: transparent
+  @media (min-width: 48em)
+    background-color: inherit
 
 .global-nav__background.a-overlay
   background-color: rgba(black, .6)
@@ -12,15 +13,21 @@
     display: block
 
 .global-nav__inner
-  +media-breakpoint-up(md)
+  @media (min-width: 48em)
     background-color: var(--main)
-    +size(var(--global-nav-width) 100%)
-    +position(fixed, left 0, top 0, bottom 0, 3)
+    height: 100%
+    width: var(--global-nav-width)
+    bottom: 0
+    left: 0
+    position: fixed
+    top: 0
+    z-index: 3
     overflow-y: auto
 
 .global-nav-links__link
   position: relative
-  +flex-link
+  display: flex
+  text-decoration: none
   white-space: nowrap
   align-items: center
   justify-content: center
@@ -28,15 +35,16 @@
   color: var(--reversal-text)
   transition: color .2s ease-in, background-color .2s ease-in
   width: 100%
-  +media-breakpoint-up(md)
+  flex-direction: row
+  height: 2.75rem
+  padding-inline: 1rem
+  justify-content: flex-start
+  @media (min-width: 48em)
     flex-direction: column
     height: 4.125rem
     gap: .25rem
-  +media-breakpoint-down(sm)
-    flex-direction: row
-    height: 2.75rem
-    padding-inline: 1rem
-    justify-content: flex-start
+    padding-inline: 0
+    justify-content: center
   &:hover
     background-color: var(--main-shade)
   &.is-active
@@ -44,23 +52,29 @@
     color: var(--main)
 
 .global-nav-links__link-icon
-  +media-breakpoint-up(md)
-    +text-block(1.125rem 1 0 .25rem, center)
-  +media-breakpoint-down(sm)
-    +text-block(1rem 1, center)
-    margin-right: .5rem
+  font-size: 1rem
+  line-height: 1
+  text-align: center
+  margin-right: .5rem
+  @media (min-width: 48em)
+    font-size: 1.125rem
+    margin-right: 0
+    margin-bottom: .25rem
   .fa-rocket
     font-size: 1.15em
 
 .global-nav-links__link-label
-  +text-block(.625rem 1.2, center)
-  +media-breakpoint-down(sm)
+  font-size: .625rem
+  line-height: 1.2
+  text-align: center
+  @media (max-width: 47.9375em)
     font-size: .875rem
-  +media-breakpoint-up(md)
+  @media (min-width: 48em)
     &.is-sm
       transform: scale(.875)
       margin-top: -.125rem
-      line-height: 1.2
 
 .global-nav__item-count
-  +position(right .25rem, top .25rem)
+  position: absolute
+  right: .25rem
+  top: .25rem

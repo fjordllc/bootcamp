@@ -1,3 +1,5 @@
+@use "../../../config/mixins/break-points"
+
 .micro-report-actions__items
   display: flex
   gap: .5rem
@@ -19,7 +21,8 @@
     color: var(--reversal-text)
 
 .micro-report-actions__user-link
-  +block-link
+  display: block
+  text-decoration: none
 
 .micro-report__footer
   .reactions__items
@@ -29,10 +32,10 @@
     .reactions__item.is-reacted
       border: 1px solid var(--border)
       border-radius: .25rem
-      +media-breakpoint-down(sm)
+      +break-points.media-breakpoint-down(sm)
         height: 2.25rem
   .reactions__dropdown-toggle
     margin-left: .5rem
     border: none
-    +media-breakpoint-down(sm)
+    +break-points.media-breakpoint-down(sm)
       height: 2.25rem

@@ -1,19 +1,17 @@
 .a-title-label
-  +text-block(.5em 1, inline-flex nowrap 500)
+  font-size: .5em
+  line-height: 1
+  display: inline-flex
+  font-weight: 500
+  white-space: nowrap
   vertical-align: top
   background-color: var(--background-semi-shade)
   padding-inline: 1em
   border-radius: .75rem
   align-items: center
-  +position(relative, top .75em)
+  position: relative
+  top: .75em
   margin-right: .5em
-  +media-breakpoint-up(md)
-    height: 1.5em
-    +position(top .75em)
-  +media-breakpoint-down(sm)
-    font-size: .625rem
-    height: 1.75em
-    +position(top .375em)
   &.is-solved
     color: var(--reversal-text)
   &.is-wip
@@ -25,3 +23,14 @@
   &.is-danger
     color: var(--reversal-text)
     background-color: var(--danger)
+
+@media (min-width: 48em)
+  .a-title-label
+    height: 1.5em
+    top: .75em
+
+@media (max-width: 47.9375em)
+  .a-title-label
+    font-size: .625rem
+    height: 1.75em
+    top: .375em

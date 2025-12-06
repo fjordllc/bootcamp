@@ -1,11 +1,7 @@
 .a-markdown-input
   padding-inline: 1rem
-  +media-breakpoint-down(sm)
-    padding-inline: .75rem
   .card-body__description &
     padding-inline: 0
-    +media-breakpoint-down(sm)
-      padding-inline: 0
 
 .a-markdown-input__inner
   display: none
@@ -18,9 +14,16 @@
 
 .a-markdown-input__preview
   background-color: var(--base)
-  +text-block(.875rem 1.8)
+  font-size: .875rem
+  line-height: 1.8
   border-radius: .25rem
   min-height: 10rem
   &.has-max-height
     max-height: 70vh
     overflow: auto
+
+@media (max-width: 47.9375em)
+  .a-markdown-input
+    padding-inline: .75rem
+    .card-body__description &
+      padding-inline: 0

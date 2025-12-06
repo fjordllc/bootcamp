@@ -1,13 +1,23 @@
+@use "../../config/mixins/break-points"
 .modal
   display: none
-  +position(fixed, left 0, top 0, right 0, bottom 0, 100)
+  bottom: 0
+  left: 0
+  position: fixed
+  right: 0
+  top: 0
+  z-index: 100
   padding: 1rem
   input:checked + &,
   &.is-shown
     display: block
 
 .modal__overlay
-  +position(fixed, left 0, top 0, right 0, bottom 0)
+  bottom: 0
+  left: 0
+  position: fixed
+  right: 0
+  top: 0
   background-color: rgba(black, .8)
 
 .modal__description
@@ -23,31 +33,35 @@
   align-items: center
   justify-content: space-between
   border-bottom: solid 1px var(--border-tint)
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     padding: .25rem 1.5rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     padding: .25rem 1rem
 
 .modal-header__close
   display: flex
   align-items: center
   justify-content: center
-  +size(2.75rem)
+  height: 2.75rem
+  width: 2.75rem
   cursor: pointer
   opacity: .4
   transition: all .2s ease-out
   position: relative
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     margin-right: -1.5rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     margin-right: -1rem
   &::before,
   &::after
     content: ""
     display: block
-    +size(40% 2px)
+    height: 2px
+    width: 40%
     background-color: var(--default-text)
-    +position(absolute, left 50%, top 50%)
+    left: 50%
+    position: absolute
+    top: 50%
     border-radius: 2px
   &::before
     transform: translate(-50%, -50%) rotate(45deg)
@@ -57,7 +71,10 @@
     opacity: 1
 
 .modal-content
-  +position(absolute, left 50%, top 50%, 1)
+  left: 50%
+  position: absolute
+  top: 50%
+  z-index: 1
   transform: translate(-50%, -50%)
   background-color: var(--base)
   border-radius: .25rem
@@ -72,20 +89,20 @@
   max-height: calc(100vh - 11.5rem)
   overflow: auto
   border-bottom: solid 1px var(--border-tint)
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     padding: 1rem 1.5rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     padding: 1rem
 
 .modal-title
   font-weight: 600
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     font-size: 1.25rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     font-size: 1rem
 
 .modal-footer
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     padding: .25rem 1.5rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     padding: .25rem 1rem

@@ -1,11 +1,11 @@
 .lp-capture-section__inner
   display: flex
+  gap: 1rem
   .lp-content-stack__item:nth-child(even) &
     flex-direction: row-reverse
-  +media-breakpoint-up(md)
+  @media (min-width: 48em)
     gap: 3rem
-  +media-breakpoint-down(sm)
-    gap: 1rem
+  @media (max-width: 47.9375em)
     .lp-content-sub-title
       br
         display: none
@@ -16,45 +16,37 @@
   align-items: center
 
 .lp-capture-section__start
-  +media-breakpoint-up(lg)
+  flex: 0 0 40%
+  @media (min-width: 48em)
     flex: 1
-  +media-breakpoint-only(md)
-    flex: 1
-  +media-breakpoint-down(sm)
-    flex: 0 0 40%
-
   &.is-sm
-    +media-breakpoint-up(lg)
-      max-width: 20rem
-    +media-breakpoint-only(md)
+    max-width: 10rem
+    @media (min-width: 48em) and (max-width: 63.9375em)
       max-width: 16rem
-    +media-breakpoint-down(sm)
-      max-width: 10rem
+    @media (min-width: 64em)
+      max-width: 20rem
 
 .lp-capture-section__end
-  +media-breakpoint-up(lg)
-    flex: 1
-  +media-breakpoint-only(md)
+  flex: 1
+  @media (min-width: 48em) and (max-width: 63.9375em)
     flex: 1.5
-  +media-breakpoint-down(sm)
+  @media (min-width: 64em)
     flex: 1
-
 
 .lp-capture-section__content
   display: flex
   flex-direction: column
-  +media-breakpoint-up(lg)
-    gap: 2rem
-  +media-breakpoint-only(md)
+  gap: 1rem
+  @media (min-width: 48em)
     gap: 1.5rem
-  +media-breakpoint-down(sm)
-    gap: 1rem
+  @media (min-width: 64em)
+    gap: 2rem
 
 .lp-capture-section__body
-  +media-breakpoint-up(md)
-    +text-block(1rem 1.6)
-  +media-breakpoint-down(sm)
-    +text-block(.875rem 1.6)
+  font-size: .875rem
+  line-height: 1.6
+  @media (min-width: 48em)
+    font-size: 1rem
 
 .lp-capture-section__border
   height: 1px
@@ -64,7 +56,7 @@
 
 .lp-capture-section__image
   width: 100%
-  +media-breakpoint-down(sm)
+  @media (max-width: 47.9375em)
     max-width: 14rem
     margin-inline: auto
     display: block

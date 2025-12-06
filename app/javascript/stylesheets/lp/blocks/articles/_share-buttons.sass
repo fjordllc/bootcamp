@@ -1,3 +1,4 @@
+
 .share-buttons
   margin-top: .75rem
 
@@ -17,12 +18,15 @@
   width: 5.5rem
   height: 2.5rem
   background-color: white
-  +flex-link
+  display: flex
+  text-decoration: none
   flex-direction: column
   border-radius: .25rem
   align-items: center
   justify-content: center
-  +text-block(.6875rem 1, 700)
+  font-size: .6875rem
+  line-height: 1
+  font-weight: 700
   color: var(--reversal-text)
   border: solid 1px black
   overflow: hidden

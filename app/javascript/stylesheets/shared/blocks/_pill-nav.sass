@@ -1,3 +1,4 @@
+
 .pill-nav
   &:not(:first-child)
     padding-top: 1.25rem
@@ -10,15 +11,21 @@
 
 .pill-nav__item
   &:first-child .pill-nav__item-link
-    +border-radius(left, 10em)
+    border-top-left-radius: 10em
+    border-bottom-left-radius: 10em
   &:last-child .pill-nav__item-link
-    +border-radius(right, 10em)
+    border-top-right-radius: 10em
+    border-bottom-right-radius: 10em
   .is-half &
     width: 50%
 
 .pill-nav__item-link
-  +block-link
-  +text-block(.75rem 2.3, center nowrap)
+  display: block
+  text-decoration: none
+  font-size: .75rem
+  line-height: 2.3
+  text-align: center
+  white-space: nowrap
   color: var(--muted-text)
   border: solid 1px var(--border-shade)
   border-left-width: .5px

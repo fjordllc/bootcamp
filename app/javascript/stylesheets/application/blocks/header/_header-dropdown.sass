@@ -1,147 +1,114 @@
 .header-dropdown
-  +media-breakpoint-up(md)
-    display: none
-    input:checked + &,
-    .is-opened-dropdown &
-      display: block
-  +media-breakpoint-down(sm)
-    +position(fixed, left 0, top 0, bottom 0, 100)
-    background-color: rgba(black, 0)
-    width: 0
-    cursor: pointer
-    transition: background-color .4s ease-in
-    overflow: hidden
-    input:checked + &,
-    .is-opened-dropdown &
-      opacity: 1
-      width: 100%
-      display: block
+  position: fixed
+  left: 0
+  top: 0
+  bottom: 0
+  z-index: 100
+  background-color: rgba(black, 0)
+  width: 0
+  cursor: pointer
+  transition: background-color .4s ease-in
+  overflow: hidden
+  display: block
+  input:checked + &,
+  .is-opened-dropdown &
+    opacity: 1
+    width: 100%
 
 .header-dropdown__inner
   overflow-y: auto
-  +media-breakpoint-up(md)
-    +position(absolute, right 0, top 100%, 2)
-    background-color: var(--base)
-    border: solid 1px var(--border-shade)
-    width: 14rem
-    box-shadow: rgba(black, .2) 0 0 .375rem
-    border-radius: .25rem
-    max-height: calc(100vh - 6rem)
-    &.is-notification
-      width: 15rem
-  +media-breakpoint-down(sm)
-    background-color: var(--main)
-    +position(fixed, top 0, bottom 0, right auto, 1)
-    transition: left .2s ease-out
-    width: var(--global-nav-width-sm)
-    left: calc(var(--global-nav-width-sm) * -1)
-    input:checked + .header-dropdown &,
-    .is-opened-dropdown &
-      left: 0
+  background-color: var(--main)
+  position: fixed
+  top: 0
+  bottom: 0
+  right: auto
+  z-index: 1
+  transition: left .2s ease-out
+  width: var(--global-nav-width-sm)
+  left: calc(var(--global-nav-width-sm) * -1)
+  input:checked + .header-dropdown &,
+  .is-opened-dropdown &
+    left: 0
   &.is-notification
-    +media-breakpoint-down(sm)
-      left: 0
-      .pill-nav__item-link
-        border-color: var(--base)
-        color: var(--reversal-text)
-      .pill-nav__item-link.is-active
-        background-color: var(--base)
-        color: var(--main)
-      .o-empty-message
-        opacity: .7
-        color: var(--reversal-text)
+    left: 0
+    .pill-nav__item-link
+      border-color: var(--base)
+      color: var(--reversal-text)
+    .pill-nav__item-link.is-active
+      background-color: var(--base)
+      color: var(--main)
+    .o-empty-message
+      opacity: .7
+      color: var(--reversal-text)
 
 .header-dropdown__header
   padding: 1rem
-  +media-breakpoint-up(md)
-    border-bottom: solid 1px var(--border-tint)
-  +media-breakpoint-down(sm)
-    border-bottom: solid 1px var(--main-semi-shade)
+  border-bottom: solid 1px var(--main-semi-shade)
 
 .header-dropdown__label
-  +text-block(.625rem 1.4)
+  font-size: .625rem
+  line-height: 1.4
   font-weight: 700
   padding: .25rem .75rem
-  +media-breakpoint-up(md)
-    background-color: var(--background-semi-shade)
-  +media-breakpoint-down(sm)
-    color: var(--reversal-text)
-    background-color: var(--main-semi-shade)
+  color: var(--reversal-text)
+  background-color: var(--main-semi-shade)
 
-.header-dropdown__items
-  .header-dropdown__inner.is-notification &
-    overflow-y: auto
-    +media-breakpoint-up(md)
-      max-height: calc(100vh - 16rem)
-    +media-breakpoint-down(sm)
-      max-height: calc(100vh - 134px)
-      margin-bottom: -1px
+.header-dropdown__inner.is-notification .header-dropdown__items
+  overflow-y: auto
+  max-height: calc(100vh - 134px)
+  margin-bottom: -1px
 
 .header-dropdown__item-link
-  +text-block(.875rem 1.4)
-  +flex-link
+  font-size: .875rem
+  line-height: 1.4
+  display: flex
+  text-decoration: none
   padding: .75rem
   transition: all .2s ease-out
-  +media-breakpoint-up(md)
-    color: var(--default-text)
-    .header-dropdown__item:not(:last-child) &
-      border-bottom: solid 1px var(--border-tint)
-    &:hover
-      background-color: var(--primary-tint)
-  +media-breakpoint-down(sm)
-    color: var(--reversal-text)
-    border-bottom: solid 1px var(--main-semi-shade)
-    &:hover
-      background-color: var(--main-shade)
+  color: var(--reversal-text)
+  border-bottom: solid 1px var(--main-semi-shade)
+  &:hover
+    background-color: var(--main-shade)
 
 .header-dropdown__footer
-  +border-radius(bottom, .25rem)
+  border-bottom-left-radius: .25rem
+  border-bottom-right-radius: .25rem
   overflow: hidden
-  +media-breakpoint-up(md)
-    border-top: solid 1px var(--border-tint)
-  +media-breakpoint-down(sm)
-    border-top: solid 1px var(--main-semi-shade)
+  border-top: solid 1px var(--main-semi-shade)
 
 .header-dropdown__footer-link
-  +text-block(.875rem 1.4)
-  +flex-link
+  font-size: .875rem
+  line-height: 1.4
+  display: flex
+  text-decoration: none
   align-items: center
   justify-content: center
-  +size(100% 2.75rem)
+  width: 100%
+  height: 2.75rem
   transition: all .2s ease-out
-  +media-breakpoint-up(md)
-    color: var(--main-text)
-  +media-breakpoint-down(sm)
-    color: var(--reversal-text)
+  color: var(--reversal-text)
   &:hover
-    +media-breakpoint-up(md)
-      background-color: var(--background-more-tint)
-    +media-breakpoint-down(sm)
-      background-color: var(--main-shade)
-  +media-breakpoint-up(md)
-    &:not(:last-child)
-      border-bottom: solid 1px var(--border-tint)
-  +media-breakpoint-down(sm)
-    border-bottom: solid 1px var(--main-semi-shade)
+    background-color: var(--main-shade)
+  border-bottom: solid 1px var(--main-semi-shade)
 
 .header-dropdown__background
-  +media-breakpoint-up(md)
-    +position(fixed, left 0, top 0, right 0, bottom 0, 2)
-  +media-breakpoint-down(sm)
-    background-color: rgba(black, .6)
-    +position(fixed, left 0, top 0, bottom 0, 1)
-    height: 100%
-    width: 0
-    display: inline
-    opacity: 0
-    input:checked + .header-dropdown &
-      opacity: 1
-      width: 100%
-      display: block
+  background-color: rgba(black, .6)
+  bottom: 0
+  left: 0
+  position: fixed
+  top: 0
+  z-index: 1
+  height: 100%
+  width: 0
+  display: inline
+  opacity: 0
+  input:checked + .header-dropdown &
+    opacity: 1
+    width: 100%
+    display: block
   &.is-notification
-    +media-breakpoint-down(sm)
-      opacity: 1
-      width: 100%
+    opacity: 1
+    width: 100%
 
 .header-dropdown__page-link-container
   display: flex
@@ -151,10 +118,76 @@
   margin-top: 1rem
 
 .header-dropdown__page-link
-  +text-block(.875rem 1.4)
-  +hover-link-reversal
+  font-size: .875rem
+  line-height: 1.4
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
   transition: all .2s ease-out
-  +media-breakpoint-up(md)
+  color: var(--reversal-text)
+
+@media (min-width: 48em)
+  .header-dropdown
+    display: none
+    position: static
+    width: auto
+    background-color: transparent
+    overflow: visible
+    input:checked + &,
+    .is-opened-dropdown &
+      display: block
+  .header-dropdown__inner
+    position: absolute
+    right: 0
+    top: 100%
+    z-index: 2
+    background-color: var(--base)
+    border: solid 1px var(--border-shade)
+    width: 14rem
+    box-shadow: rgba(black, .2) 0 0 .375rem
+    border-radius: .25rem
+    max-height: calc(100vh - 6rem)
+    left: auto
+    &.is-notification
+      width: 15rem
+  .header-dropdown__inner.is-notification
+    left: auto
+    background-color: var(--base)
+    .pill-nav__item-link
+      border-color: var(--border)
+      color: var(--default-text)
+    .pill-nav__item-link.is-active
+      background-color: var(--primary-tint)
+      color: var(--main)
+    .o-empty-message
+      color: var(--muted-text)
+      opacity: 1
+  .header-dropdown__header
+    border-bottom: solid 1px var(--border-tint)
+  .header-dropdown__label
+    color: var(--default-text)
+    background-color: var(--background-semi-shade)
+  .header-dropdown__inner.is-notification .header-dropdown__items
+    max-height: calc(100vh - 16rem)
+    margin-bottom: 0
+  .header-dropdown__item-link
+    color: var(--default-text)
+    border-bottom: none
+    .header-dropdown__item:not(:last-child) &
+      border-bottom: solid 1px var(--border-tint)
+    &:hover
+      background-color: var(--primary-tint)
+  .header-dropdown__footer
+    border-top: solid 1px var(--border-tint)
+  .header-dropdown__footer-link
     color: var(--main-text)
-  +media-breakpoint-down(sm)
-    color: var(--reversal-text)
+    border-bottom: none
+    &:not(:last-child)
+      border-bottom: solid 1px var(--border-tint)
+    &:hover
+      background-color: var(--background-more-tint)
+  .header-dropdown__background
+    background-color: rgba(black, .2)
+    z-index: 2

@@ -1,22 +1,48 @@
+@use "../config/variables/colors"
+
 .a-text-link
-  +hover-link-reversal
-  +default-link
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
+  +colors.default-link
   &.has-badge
     text-decoration: none
     .a-text-link__text
-      +hover-link-reversal
-      +default-link
+      text-decoration: none
+      cursor: pointer
+      &:hover,
+      &:active
+        text-decoration: underline
+      +colors.default-link
 
 .a-hover-link
-  +hover-link
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
 
 .a-hover-link-reversal
-  +hover-link-reversal
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
 
 .a-reversal-text-link
-  +hover-link-reversal
-  +reversal-link
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
+  +colors.reversal-link
 
 .a-muted-text-link
-  +hover-link-reversal
-  +muted-link
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
+  +colors.muted-link

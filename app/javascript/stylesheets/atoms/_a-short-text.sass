@@ -1,15 +1,17 @@
+@use "../config/variables/colors"
+
 .a-short-text
   h3
-    +text-block(1.25em 1.4 .75em)
-  &.is-sm
-    +media-breakpoint-up(md)
-      font-size: .8125rem
-    +media-breakpoint-down(sm)
-      font-size: .75rem
+    font-size: 1.25em
+    line-height: 1.4
+    margin-top: .75em
   p
-    +text-block(1em 1.6 .75em)
+    font-size: 1em
+    line-height: 1.6
+    margin-top: .75em
   li
-    +text-block(1em 1.6)
+    font-size: 1em
+    line-height: 1.6
   ol,
   ul
     margin-left: 1.25em
@@ -34,11 +36,16 @@
         >ul
           list-style-type: square
   a
-    +hover-link-reversal
-    +default-link
+    text-decoration: none
+    cursor: pointer
+    &:hover,
+    &:active
+      text-decoration: underline
+    +colors.default-link
   hr
     display: block
-    +size(100% 0)
+    height: 0
+    width: 100%
     border: none
     border-top: dashed 1px var(--border)
     margin-block: 1.25em
@@ -46,12 +53,20 @@
   b
     font-weight: 700
   h1
-    +text-block(1.75em 1.4 0 .5em, 600)
+    font-size: 1.75em
+    line-height: 1.4
+    margin-top: 0
+    margin-bottom: .5em
+    font-weight: 600
     color: var(--main-text)
     padding-bottom: .25em
     border-bottom: 3px solid var(--border)
   h2
-    +text-block(1.5em 1.4 0 .5em, 600)
+    font-size: 1.5em
+    line-height: 1.4
+    margin-top: 0
+    margin-bottom: .5em
+    font-weight: 600
     padding-bottom: .25em
     border-bottom: 1px solid var(--border)
   * + h2,
@@ -60,22 +75,30 @@
   * + h5
     margin-top: .75em
   h3
-    +text-block(1.25em 1.4, 600)
+    font-size: 1.25em
+    line-height: 1.4
+    font-weight: 600
     margin-bottom: .625em
     & + *
       margin-top: 0 !important
   h4
-    +text-block(1.125em 1.5, 600)
+    font-size: 1.125em
+    line-height: 1.5
+    font-weight: 600
     margin-bottom: .625em
     & + *
       margin-top: 0 !important
   h5
-    +text-block(1em 1.5, 600)
+    font-size: 1em
+    line-height: 1.5
+    font-weight: 600
     margin-bottom: .625em
     & + *
       margin-top: 0 !important
   h6
-    +text-block(.875rem 1.5, 600)
+    font-size: .875rem
+    line-height: 1.5
+    font-weight: 600
     margin-bottom: .625em
     & + *
       margin-top: 0 !important
@@ -97,12 +120,14 @@
 
   .header-anchor
     display: flex
-    +text-block(.75rem, 400)
+    font-size: .75rem
+    font-weight: 400
     float: left
-    +position(absolute)
+    position: absolute
     margin-left: -1.5rem
     text-decoration: none !important
-    +size(1.5rem 100%)
+    height: 100%
+    width: 1.5rem
     align-items: center
     justify-content: center
     transition: all .2s ease-out
@@ -127,7 +152,11 @@
     h4,
     h5,
     h6
-      +text-block(1em 1.6 0 .625em, 700)
+      font-size: 1em
+      line-height: 1.6
+      margin-top: 0
+      margin-bottom: .625em
+      font-weight: 700
       border: none
       padding: 0
 
@@ -162,3 +191,7 @@
     margin-top: 0
   *:last-child
     margin-bottom: 0
+
+@media (max-width: 47.9375em)
+  .a-short-text.is-sm
+    font-size: .75rem

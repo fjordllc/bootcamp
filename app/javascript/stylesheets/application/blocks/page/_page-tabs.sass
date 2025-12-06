@@ -1,3 +1,5 @@
+@use "../../../config/mixins/break-points"
+
 .page-tabs
   background-color: var(--base)
   border-bottom: solid 1px var(--border)
@@ -12,26 +14,31 @@
   padding-inline: 1rem
 
 .page-tabs__item
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     min-width: 8.5rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     min-width: 7rem
 
 .page-tabs__item-link
-  +flex-link
-  +text-block(.825rem 1, 600 nowrap)
+  display: flex
+  text-decoration: none
+  font-size: .825rem
+  line-height: 1
+  font-weight: 600
+  white-space: nowrap
   color: var(--muted-text)
   align-items: center
   justify-content: center
   background-color: var(--base)
   padding-inline: 1.25rem
-  +border-radius(top, .25rem)
+  border-top-left-radius: .25rem
+  border-top-right-radius: .25rem
   border: solid 1px var(--border)
-  +position(relative)
+  position: relative
   transition: all .2s ease-out
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     height: 2.5rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     height: 2.75rem
     font-size: .75rem
   &:hover
@@ -49,4 +56,6 @@
     background-color: var(--background-semi-shade)
 
 .page-tabs__item-count
-  +position(right .125rem, top .125rem)
+  position: absolute
+  right: .125rem
+  top: .125rem

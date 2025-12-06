@@ -1,8 +1,11 @@
 .lp-card-description
-  +media-breakpoint-up(md)
+  font-size: .875rem
+  @media (min-width: 48em)
     font-size: 1rem
-  +media-breakpoint-down(sm)
-    font-size: .875rem
   a
     color: #0098f9
-    +hover-link-reversal
+    text-decoration: none
+    cursor: pointer
+    &:hover,
+    &:active
+      text-decoration: underline

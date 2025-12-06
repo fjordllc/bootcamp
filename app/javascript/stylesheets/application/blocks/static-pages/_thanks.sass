@@ -1,3 +1,5 @@
+@use "../../../config/variables/colors"
+
 .thanks
   max-width: 26rem
   padding-inline: 1rem
@@ -16,15 +18,30 @@
   border-radius: .25rem
 
 .thanks__icon
-  +text-block(4rem 1 0 .5rem, center)
+  font-size: 4rem
+  line-height: 1
+  margin-top: 0
+  margin-bottom: .5rem
+  text-align: center
   color: var(--main)
 
 .thanks__title
-  +text-block(.875rem 1.4 0 .75rem, center 600)
+  font-size: .875rem
+  line-height: 1.4
+  margin-top: 0
+  margin-bottom: .75rem
+  text-align: center
+  font-weight: 600
 
 .thanks__message
   p
-    +text-block(.75rem 1.6, center)
+    font-size: .75rem
+    line-height: 1.6
+    text-align: center
   a
-    +default-link
-    +hover-link-reversal
+    +colors.default-link
+    text-decoration: none
+    cursor: pointer
+    &:hover,
+    &:active
+      text-decoration: underline

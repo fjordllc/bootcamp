@@ -2,16 +2,16 @@
   display: flex
   align-items: center
   justify-content: space-between
-  +media-breakpoint-up(md)
+  padding: .5rem .75rem
+  @media (min-width: 48em)
     padding: .75rem 1rem
-  +media-breakpoint-down(sm)
-    padding: .5rem .75rem
   &.is-sm
     padding-block: .625rem
     .a-button.is-xs
       margin-block: -.25rem
   &:first-child
-    +border-radius(top, .25rem)
+    border-top-left-radius: .25rem
+    border-top-right-radius: .25rem
   & + .a-form-tabs
     margin-top: -1px
 
@@ -22,12 +22,12 @@
   gap: 1rem
 
 .card-header__title
-  +text-block(1em 1.4, 600)
+  line-height: 1.4
+  font-weight: 600
   flex: 1
-  +media-breakpoint-up(md)
+  font-size: .875rem
+  @media (min-width: 48em)
     font-size: 1rem
-  +media-breakpoint-down(sm)
-    font-size: .875rem
   .card-header.is-sm &
     font-size: .875rem
   .card-header.is-lg &
@@ -39,15 +39,18 @@
   margin-left: .125rem
 
 .card-header__title-emotion-image
-  +size(1.25em)
+  height: 1.25em
+  width: 1.25em
   display: inline-block
   vertical-align: middle
   margin-inline: .125em
-  +position(relative, top -.125em)
+  position: relative
+  top: -.125em
 
 .card-header__sub-title
-  +text-block(.8125rem 1.4)
-  +media-breakpoint-down(sm)
+  font-size: .8125rem
+  line-height: 1.4
+  @media (max-width: 47.9375em)
     font-size: .75rem
 
 .card-header__action

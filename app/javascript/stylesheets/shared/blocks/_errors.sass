@@ -5,21 +5,28 @@
   max-width: 30rem
   margin-inline: auto
   border-radius: .25rem
-  +media-breakpoint-up(md)
+  padding: .875rem 1rem
+  @media (min-width: 48em)
     padding: 1rem 1.5rem
-  +media-breakpoint-down(sm)
-    padding: .875rem 1rem
 
 .errors__title
-  +text-block(.875rem 1.45 0 .8em, center 600)
+  font-size: .875rem
+  line-height: 1.45
+  margin-top: 0
+  margin-bottom: .8em
+  text-align: center
+  font-weight: 600
   color: var(--danger-text)
-  +media-breakpoint-down(sm)
+  @media (max-width: 47.9375em)
     font-size: .8125rem
 
 .errors__item
-  +text-block(.8125rem 1.6 0 .2em)
+  font-size: .8125rem
+  line-height: 1.6
+  margin-top: 0
+  margin-bottom: .2em
   color: var(--danger-text)
-  +media-breakpoint-down(sm)
+  @media (max-width: 47.9375em)
     font-size: .75rem
   &:last-child
     margin-bottom: 0

@@ -1,3 +1,4 @@
+
 .card-main-actions
   container: card-main-actions / inline-size
   &:not(:first-child)
@@ -9,7 +10,7 @@
   display: flex
   gap: .5rem
   @container card-main-actions (min-width: 20em)
-    +position(relative)
+    position: relative
     justify-content: center
     flex-wrap: wrap
     align-items: flex-end
@@ -45,8 +46,13 @@
       flex: 1
 
 .card-main-actions__muted-action
-  +hover-link-reversal
-  +text-block(.8125rem 1.4)
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
+  font-size: .8125rem
+  line-height: 1.4
   color: var(--muted-text)
   &:hover
     color: var(--danger)

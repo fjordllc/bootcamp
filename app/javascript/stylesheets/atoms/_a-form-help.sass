@@ -1,3 +1,5 @@
+@use "../config/variables/colors"
+
 .a-form-help
   font-size: .75rem
   color: var(--semi-muted-text)
@@ -23,18 +25,28 @@
   .form-item-block &
     margin-top: .75em
   p
-    +text-block(1em 1.6)
+    font-size: 1em
+    line-height: 1.6
     &:not(:last-child)
       margin-bottom: .75em
   a
-    +hover-link-reversal
+    text-decoration: none
+    cursor: pointer
+    &:hover,
+    &:active
+      text-decoration: underline
   *:last-child
     margin-bottom: 0
   a
-    +text-block(.75rem 1.6)
-    +hover-link-reversal
+    font-size: .75rem
+    line-height: 1.6
+    text-decoration: none
     cursor: pointer
-    +default-link
+    &:hover,
+    &:active
+      text-decoration: underline
+    cursor: pointer
+    +colors.default-link
   ul
     list-style-type: disc
     list-style-position: outside
@@ -47,20 +59,29 @@
       margin-top: .125em
 
 .a-form-help-link
-  +text-block(.75rem 1.6)
+  font-size: .75rem
+  line-height: 1.6
   cursor: pointer
-  +default-link
+  +colors.default-link
   .a-form-help &.is-danger
       color: var(--danger)
   &.is-muted-text
       color: var(--muted-text)
 
 .a-form-help-link__label
-  +hover-link-reversal
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
 
 .a-text-help-link
   cursor: pointer
-  +default-link
+  +colors.default-link
 
 .a-text-help-link__label
-  +hover-link-reversal
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline

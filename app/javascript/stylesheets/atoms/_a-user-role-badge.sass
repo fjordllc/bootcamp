@@ -2,20 +2,18 @@
   border: solid 1px var(--main)
   padding-inline: .75em
   height: 1.75em
-  +text-block(.625rem 1, center flex nowrap)
+  font-size: .625rem
+  line-height: 1
+  display: flex
+  text-align: center
+  white-space: nowrap
   color: var(--main)
   align-items: center
   margin-right: .5rem
   border-radius: 1rem
-  +media-breakpoint-up(md)
-    transform: scale(.9375, .9375)
-  +media-breakpoint-down(sm)
-    transform: scale(.875, .875)
   &.is-header
     margin-left: .5rem
     margin-right: 0
-    +media-breakpoint-down(sm)
-      margin-left: .125rem
 
 .a-user-role-badge__label
   display: inline-block
@@ -23,3 +21,13 @@
     content: "/"
     display: inline-block
     margin-inline: .25em
+
+@media (min-width: 48em)
+  .a-user-role-badge
+    transform: scale(.9375, .9375)
+
+@media (max-width: 47.9375em)
+  .a-user-role-badge
+    transform: scale(.875, .875)
+    &.is-header
+      margin-left: .125rem

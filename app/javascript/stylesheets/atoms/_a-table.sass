@@ -1,6 +1,4 @@
 .a-table
-  +media-breakpoint-down(sm)
-    overflow-x: auto
   overflow-x: auto
   &.is-sm
     font-size: .8125rem
@@ -20,13 +18,18 @@
 .a-table thead
   background-color: var(--background-semi-shade)
   border: solid 1px var(--border-shade)
-  +border-radius(top, .25rem)
+  border-top-left-radius: .25rem
+  border-top-right-radius: .25rem
 
 .a-table tr
-  +border(horizontal, solid 1px var(--border))
+  border-left: solid 1px var(--border)
+  border-right: solid 1px var(--border)
 
 .a-table th
-  +text-block(.75rem 1.4, center 600)
+  font-size: .75rem
+  line-height: 1.4
+  text-align: center
+  font-weight: 600
   border: solid 1px var(--border-shade)
   white-space: nowrap
   height: 2rem
@@ -37,7 +40,8 @@
   background-color: var(--base)
   padding: .375rem .75rem
   border: solid 1px var(--border)
-  +text-block(.8125rem 1.45)
+  font-size: .8125rem
+  line-height: 1.45
 
 .card-body
   >.a-table table

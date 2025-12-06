@@ -1,22 +1,27 @@
+@use "../../../config/mixins/break-points"
+
 .user-data
   padding: 1rem 1.5rem
-  +position(relative)
+  position: relative
   display: flex
   flex-direction: column
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     gap: 1rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     padding: .75rem
     gap: .75rem
 
 .user-data__description
   flex: 0 0 100%
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     font-size: .9375rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     font-size: .8125rem
   p
-    +text-block(1em 1.8 0 .8em)
+    font-size: 1em
+    line-height: 1.8
+    margin-top: 0
+    margin-bottom: .8em
     &:last-child
       margin-bottom: 0
 

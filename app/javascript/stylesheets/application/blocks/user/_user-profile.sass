@@ -1,17 +1,21 @@
+@use "../../../config/mixins/break-points"
+
 .user-profile__icon
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     position: static
     text-align: center
     margin-bottom: .25rem
 
 .user-profile__user-icon-image
-  +media-breakpoint-up(md)
-    +size(5rem)
-  +media-breakpoint-down(sm)
-    +size(4rem)
+  +break-points.media-breakpoint-up(md)
+    height: 5rem
+    width: 5rem
+  +break-points.media-breakpoint-down(sm)
+    height: 4rem
+    width: 4rem
 
 .user-company-profile__description
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     font-size: .9375rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     font-size: .8125rem

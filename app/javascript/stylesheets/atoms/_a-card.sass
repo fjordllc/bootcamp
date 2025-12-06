@@ -1,9 +1,3 @@
-@mixin anAdjacentCard
-  +media-breakpoint-up(xl)
-    margin-top: 1.25rem
-  +media-breakpoint-down(lg)
-    margin-top: 1rem
-
 .a-card
   display: flex
   flex-direction: column
@@ -16,22 +10,19 @@
     border-color: var(--danger)
     color: var(--danger-text)
     background-color: var(--danger-tint)
-  +media-breakpoint-down(lg)
-    &:not(:last-child)
-      margin-bottom: 1rem
+  &:not(:last-child)
+    margin-bottom: 0
   .a-card + &
-    @include anAdjacentCard
+    margin-top: 1rem
   & + .a-card-react
-    @include anAdjacentCard
+    margin-top: 1rem
   .a-card-react + &
-    @include anAdjacentCard
+    margin-top: 1rem
   &.is-borderd
     border: solid 4px var(--default-text)
   &.is-modal
     width: 42.5rem
     max-width: 100%
-    +media-breakpoint-down(sm)
-      margin-inline: 1rem
   &.is-toggle
     label
       cursor: pointer
@@ -63,14 +54,40 @@ table.a-card
   padding: .5rem 1.25rem
   background-color: var(--danger)
   text-align: center
-  +text-block(.875rem 1.4)
+  font-size: .875rem
+  line-height: 1.4
   color: var(--reversal-text)
-  +border-radius(top, .25rem)
+  border-top-left-radius: .25rem
+  border-top-right-radius: .25rem
   a
-    +hover-link-reversal
+    text-decoration: none
+    cursor: pointer
+    &:hover,
+    &:active
+      text-decoration: underline
     color: var(--reversal-text)
 
 .a-card__columns
   display: flex
-  +media-breakpoint-down(md)
+
+@media (max-width: 79.9375em)
+  .a-card:not(:last-child)
+    margin-bottom: 1rem
+  .a-card + .a-card,
+  .a-card + .a-card-react,
+  .a-card-react + .a-card
+    margin-top: 1rem
+
+@media (min-width: 80em)
+  .a-card + .a-card,
+  .a-card + .a-card-react,
+  .a-card-react + .a-card
+    margin-top: 1.25rem
+
+@media (max-width: 47.9375em)
+  .a-card.is-modal
+    margin-inline: 1rem
+
+@media (max-width: 63.9375em)
+  .a-card__columns
     flex-direction: column

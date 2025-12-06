@@ -17,48 +17,42 @@
 .a-page-notice__inner
   padding-block: .5rem
   color: var(--reversal-text)
-  +media-breakpoint-up(md)
-    text-align: center
-    font-size: .875rem
-  +media-breakpoint-down(sm)
-    font-size: .75rem
+  text-align: center
+  font-size: .875rem
   &.has-close
     position: relative
     display: flex
     text-align: left
   p
-    +text-block(1em 1.5)
-    +media-breakpoint-up(md)
-      font-size: .875rem
-    +media-breakpoint-down(sm)
-      font-size: .75rem
+    font-size: 1em
+    line-height: 1.5
+    font-size: .875rem
   a
     color: var(--reversal-text)
-    +hover-link-reversal
+    text-decoration: none
+    cursor: pointer
+    &:hover,
+    &:active
+      text-decoration: underline
     &.has-badge
       text-decoration: none
-      +media-breakpoint-down(sm)
-        display: block
       .a-badge
         margin-right: .75rem
         background-color: rgba(black, .4)
         border: none
-        +media-breakpoint-down(sm)
       .a-page-notice__label
-        +hover-link-reversal
-        +media-breakpoint-up(md)
-          max-width: 17.5rem
-          overflow: hidden
-          text-overflow: ellipsis
-          display: inline-block
-          white-space: nowrap
-          vertical-align: bottom
+        text-decoration: none
+        cursor: pointer
+        &:hover,
+        &:active
+          text-decoration: underline
 
 .a-page-notice__inner-start
   flex: 1
 
 .a-page-notice__close
-  +size(2.75rem)
+  height: 2.75rem
+  width: 2.75rem
   display: flex
   align-items: center
   justify-content: center
@@ -70,3 +64,20 @@
   margin-block:  -.75rem
   &:hover
     opacity: 1
+
+@media (max-width: 47.9375em)
+  .a-page-notice__inner
+    font-size: .75rem
+    text-align: center
+    p
+      font-size: .75rem
+    &.has-close
+      flex-direction: column
+      text-align: left
+    a.has-badge
+      display: block
+      .a-badge
+        display: inline-flex
+  .a-page-notice__close
+    transform: none
+    margin-block: 0

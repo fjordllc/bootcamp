@@ -1,6 +1,8 @@
+@use "../../../config/mixins/break-points"
+
 .user-grass
   padding: 1rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     padding: .75rem
 
 .user-grass__link
@@ -19,12 +21,17 @@
 
 .user-grass-nav__previous,
 .user-grass-nav__next
-  +size(2.75rem)
+  height: 2.75rem
+  width: 2.75rem
   display: flex
   align-items: center
   justify-content: center
   cursor: pointer
-  +hover-link
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
   transition: all .2s ease-out
   &:hover
     color: var(--main-text)

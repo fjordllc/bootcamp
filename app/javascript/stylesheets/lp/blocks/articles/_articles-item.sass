@@ -1,9 +1,10 @@
 .articles-item
-  +media-breakpoint-up(md)
+  @media (min-width: 48em)
     height: 100%
 
 .articles-item__link
-  +block-link
+  display: block
+  text-decoration: none
   padding: 1rem
   &:hover
     .articles-item__title
@@ -20,7 +21,9 @@
   object-fit: cover
 
 .articles-item__title
-  +text-block(1.125rem 1.4, 700)
+  font-size: 1.125rem
+  line-height: 1.4
+  font-weight: 700
   color: var(--default-text)
   .articles-item.is-wip &
     color: var(--muted-text)
@@ -34,18 +37,22 @@
 .articles-item__author
   display: flex
   align-items: center
-  +text-block(.8125rem 1.4)
+  font-size: .8125rem
+  line-height: 1.4
   color: var(--default-text)
   img
-    +size(1.125rem)
+    width: 1.125rem
+    height: 1.125rem
     object-fit: cover
     margin-right: .25rem
     border-radius: 50%
 
 .articles-item__published-at
-  +text-block(.8125rem 1.4)
+  font-size: .8125rem
+  line-height: 1.4
   color: var(--semi-muted-text)
 
 .articles-item__description
-  +text-block(.875rem 1.6)
+  font-size: .875rem
+  line-height: 1.6
   color: var(--semi-muted-text)

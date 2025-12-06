@@ -4,37 +4,43 @@
   align-items: center
   color: var(--main)
   border: solid 1px var(--main)
-  +media-breakpoint-up(md)
+  height: 6rem
+  @media (min-width: 48em)
     height: 9rem
-  +media-breakpoint-down(sm)
-    height: 6rem
 
 .corporate-training-example__title
-  +text-block(1rem 1.4)
+  font-size: 1rem
+  line-height: 1.4
 
 .corporate-training-example__divider
   position: relative
   width: .5rem
   margin: 1.75rem auto
   span
-    +size(.5rem)
+    width: .5rem
+    height: .5rem
     border-radius: 1rem
     background-color: var(--main)
     display: block
   &::before,
   &::after
     content: ''
-    +size(.5rem)
+        width: .5rem
+    height: .5rem
     border-radius: 1rem
     background-color: var(--main)
     display: block
   &::before
-    +position(absolute, left 0, top -1rem)
+    left: 0
+    position: absolute
+    top: -1rem
     opacity: .2
   span
     opacity: .5
   &::after
-    +position(absolute, left 0, bottom -1rem)
+    bottom: -1rem
+    left: 0
+    position: absolute
     opacity: 1
 
 .corporate-training-example-content
@@ -52,10 +58,9 @@
 .corporate-training-example-content__title
   line-height: 1.4
   text-align: center
-  +media-breakpoint-up(md)
+  font-size: .875rem
+  @media (min-width: 48em)
     font-size: 1.125rem
-  +media-breakpoint-down(sm)
-    font-size: .875rem
 
 .corporate-training-example-content__body
   margin-top: 1.5rem
@@ -63,10 +68,13 @@
     list-style: disc outside
     margin-left: 1.5rem
   li
-    +text-block(.875rem 1.4)
+    font-size: .875rem
+    line-height: 1.4
   li + li
     margin-top: .5rem
 
 .corporate-training-example-content__period
-  +text-block(1.25rem 1.4, 800)
+  font-size: 1.25rem
+  line-height: 1.4
+  font-weight: 800
   text-align: center

@@ -1,7 +1,13 @@
+
 .a-category-link
-  +text-block(.8125rem 1.4)
+  font-size: .8125rem
+  line-height: 1.4
   color: var(--muted-text)
-  +hover-link
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
   transition: all .2s ease-out
   &:hover
     color: var(--default-text)
