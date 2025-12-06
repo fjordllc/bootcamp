@@ -1,13 +1,10 @@
-@use "../../../config/mixins/break-points"
-
 .card-header
   display: flex
   align-items: center
   justify-content: space-between
-  +break-points.media-breakpoint-up(md)
+  padding: .5rem .75rem
+  @media (min-width: 48em)
     padding: .75rem 1rem
-  +break-points.media-breakpoint-down(sm)
-    padding: .5rem .75rem
   &.is-sm
     padding-block: .625rem
     .a-button.is-xs
@@ -25,14 +22,12 @@
   gap: 1rem
 
 .card-header__title
-  font-size: 1em
   line-height: 1.4
   font-weight: 600
   flex: 1
-  +break-points.media-breakpoint-up(md)
+  font-size: .875rem
+  @media (min-width: 48em)
     font-size: 1rem
-  +break-points.media-breakpoint-down(sm)
-    font-size: .875rem
   .card-header.is-sm &
     font-size: .875rem
   .card-header.is-lg &
@@ -55,7 +50,7 @@
 .card-header__sub-title
   font-size: .8125rem
   line-height: 1.4
-  +break-points.media-breakpoint-down(sm)
+  @media (max-width: 47.9375em)
     font-size: .75rem
 
 .card-header__action
