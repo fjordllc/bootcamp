@@ -37,10 +37,10 @@ module RegularEvents
         fill_in 'regular_event[description]', with: '質問相談タイムです'
       end
       # Click WIP button outside of within block as it may be outside the form
-      assert_difference 'RegularEvent.count', 1 do
-        click_button 'WIP'
-      end
-      assert_text '定期イベントをWIPとして保存しました。'
+      original_count = RegularEvent.count
+      click_button 'WIP'
+      assert_text '定期イベントをWIPとして保存しました。', wait: 10
+      assert_equal original_count + 1, RegularEvent.count
       assert_text '定期イベント編集'
     end
 
