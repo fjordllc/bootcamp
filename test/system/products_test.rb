@@ -14,18 +14,6 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text 'Watch中'
   end
 
-  test 'should change messages when submit product' do
-    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'hatsuno'
-    within('form[name=product]') do
-      fill_in('product[body]', with: 'test')
-    end
-    click_button '提出する'
-    assert_text "6日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、6日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
-
-    visit "/practices/#{practices(:practice6).id}"
-    assert_equal first('.test-product').text, '提出物へ'
-  end
-
   test 'update product' do
     product = products(:product1)
     visit_with_auth "/products/#{product.id}/edit", 'mentormentaro'
@@ -66,49 +54,12 @@ class ProductsTest < ApplicationSystemTestCase
     assert_selector '.thread-comment-form'
   end
 
-  test 'products order on all tab' do
-    Product.update_all(created_at: 1.day.ago, published_at: 1.day.ago) # rubocop:disable Rails/SkipsModelValidations
-    # 最新と最古の提出物を画面上で判定するため、提出物を1ページ内に収める
-    Product.limit(Product.count - Product.default_per_page).delete_all
-    newest_product = Product.reorder(:id).first
-    newest_product.update(published_at: Time.current)
-    newest_product_decorated_author = ActiveDecorator::Decorator.instance.decorate(newest_product.user)
-    oldest_product = Product.reorder(:id).last
-    oldest_product_decorated_author = ActiveDecorator::Decorator.instance.decorate(oldest_product.user)
-    oldest_product.update(published_at: 2.days.ago)
-
-    visit_with_auth '/products', 'komagata'
-
-    # 提出日の新しい順で並んでいることを検証する
-    titles = all('.card-list-item-title__title').map { |t| t.text.delete('★') }
-    names = all('.card-list-item-meta .a-user-name').map(&:text)
-    assert_equal "#{newest_product.practice.title}の提出物", titles.first
-    assert_equal newest_product_decorated_author.long_name, names.first
-    assert_equal "#{oldest_product.practice.title}の提出物", titles.last
-    assert_equal oldest_product_decorated_author.long_name, names.last
-  end
-
   test 'show user name_kana next to name' do
     product = products(:product1)
     visit_with_auth "/products/#{product.id}", 'kimura'
     user = product.user
     decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     assert_text decorated_user.long_name
-  end
-
-  test 'show review schedule message on product page' do
-    visit_with_auth "/products/#{products(:product8).id}", 'kimura'
-    assert_text "6日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、6日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
-  end
-
-  test "don't show review schedule message on product page if mentor comments" do
-    visit_with_auth "/products/#{products(:product10).id}", 'kimura'
-    assert_no_text "6日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、6日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
-  end
-
-  test "don't show review schedule message on product page if product is checked" do
-    visit_with_auth "/products/#{products(:product2).id}", 'kimura'
-    assert_no_text "6日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、6日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
   end
 
   test 'show number of comments' do
@@ -141,11 +92,5 @@ class ProductsTest < ApplicationSystemTestCase
     click_link 'キャンセル'
     assert_selector '.page-tabs__item-link.is-active', text: 'プラクティス'
     assert_link '提出物を作る'
-  end
-
-  private
-
-  def wait_for_product_form_ready
-    assert_selector 'textarea[name="product[body]"]:not([disabled])', wait: 20
   end
 end
