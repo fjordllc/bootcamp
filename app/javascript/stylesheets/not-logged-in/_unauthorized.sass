@@ -1,16 +1,8 @@
-@use "../config/mixins/break-points"
-
 .unauthorized
-  +break-points.media-breakpoint-up(md)
-    padding-block: 3rem 2rem
-  +break-points.media-breakpoint-down(sm)
-    padding-block: 2rem
+  padding-block: 3rem 2rem
 
 .unauthorized__body
-  +break-points.media-breakpoint-up(md)
-    margin-top: 3rem
-  +break-points.media-breakpoint-down(sm)
-    margin-top: 2rem
+  margin-top: 3rem
 
 .unauthorized__contents
   background-color: rgba(black, 30%)
@@ -18,10 +10,7 @@
 
 .unauthorized__content
   color: var(--reversal-text)
-  +break-points.media-breakpoint-up(md)
-    padding: 1.5rem
-  +break-points.media-breakpoint-down(sm)
-    padding: 1rem
+  padding: 1.5rem
   & + .unauthorized__content
     padding-top: 0
 
@@ -29,13 +18,9 @@
   border-top: dashed 1px rgb(white, 10%)
 
 .must-be-enrolled
-  +break-points.media-breakpoint-up(md)
-    font-size: 1rem
-    line-height: 1.8
-    text-align: center
-  +break-points.media-breakpoint-down(sm)
-    font-size: 1rem
-    line-height: 1.8
+  font-size: 1rem
+  line-height: 1.8
+  text-align: center
 
 .unauthorized-actions__items
   display: flex
@@ -51,3 +36,11 @@
   text-align: center
   .unauthorized-actions.is-vertical &
     width: 100%
+
+@media (max-width: 47.9375em)
+  .unauthorized
+    padding-block: 2rem
+  .unauthorized__body
+    margin-top: 2rem
+  .unauthorized__content
+    padding: 1rem

@@ -1,5 +1,3 @@
-@use "../config/mixins/break-points"
-
 .completion
   padding-block: 4rem 2rem
 
@@ -10,17 +8,17 @@
   font-weight: 800
   color: var(--reversal-text)
   font-family: var(--sans-serif)
-  +break-points.media-breakpoint-up(md)
-    font-size: 2rem
-  +break-points.media-breakpoint-down(sm)
-    font-size: 1.5rem
+  font-size: 2rem
 
 .completion__body
   margin-top: 3rem
 
 .completion__image
   border-radius: 1rem
-  +break-points.media-breakpoint-up(md)
-    border: solid .75rem var(--completion-dark)
-  +break-points.media-breakpoint-down(sm)
+  border: solid .75rem var(--completion-dark)
+
+@media (max-width: 47.9375em)
+  .completion__title
+    font-size: 1.5rem
+  .completion__image
     border: solid .5rem var(--completion-dark)

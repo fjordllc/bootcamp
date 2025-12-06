@@ -1,14 +1,8 @@
-@use "../config/mixins/break-points"
-
 .unauthorized-header__image
   display: block
   margin-inline: auto
-  +break-points.media-breakpoint-up(md)
-    max-width: 6rem
-    margin-bottom: .75rem
-  +break-points.media-breakpoint-down(sm)
-    max-width: 4.5rem
-    margin-bottom: .5rem
+  max-width: 6rem
+  margin-bottom: .75rem
 
 .unauthorized-header__titles
   color: var(--reversal-text)
@@ -18,17 +12,20 @@
 .unauthorized-header__title-label
   display: block
   font-weight: 700
-  +break-points.media-breakpoint-up(md)
-    font-size: 1.25rem
-  +break-points.media-breakpoint-down(sm)
-    font-size: .875rem
+  font-size: 1.25rem
 
 .unauthorized-header__title
   font-size: 1em
   line-height: 1.4
   font-weight: 800
   margin-top: .25em
-  +break-points.media-breakpoint-up(md)
-    font-size: 2rem
-  +break-points.media-breakpoint-down(sm)
+  font-size: 2rem
+
+@media (max-width: 47.9375em)
+  .unauthorized-header__image
+    max-width: 4.5rem
+    margin-bottom: .5rem
+  .unauthorized-header__title-label
+    font-size: .875rem
+  .unauthorized-header__title
     font-size: 1.5rem
