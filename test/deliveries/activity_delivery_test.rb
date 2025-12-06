@@ -3,6 +3,15 @@
 require 'test_helper'
 
 class ActivityDeliveryTest < ActiveSupport::TestCase
+  setup do
+    AbstractNotifier.delivery_mode = :test
+    AbstractNotifier::Testing::Driver.clear
+  end
+
+  teardown do
+    AbstractNotifier::Testing::Driver.clear
+  end
+
   test '.notify(:graduated)' do
     params = {
       kind: :graduated,
@@ -299,7 +308,8 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
     regular_event = regular_events(:regular_event1)
     params = {
       regular_event:,
-      receiver: users(:komagata)
+      receiver: users(:komagata),
+      sender: regular_event.user
     }
 
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do

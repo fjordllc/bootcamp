@@ -1,0 +1,5 @@
+# frozen_string_literal: true
+
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# Empty fixture file - footprints are created dynamically in tests

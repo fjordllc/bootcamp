@@ -5,6 +5,15 @@ require 'test_helper'
 class ProductUpdateNotifierForWatcherTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
+  setup do
+    AbstractNotifier.delivery_mode = :test
+    AbstractNotifier::Testing::Driver.clear
+  end
+
+  teardown do
+    AbstractNotifier::Testing::Driver.clear
+  end
+
   test '#call' do
     # watchされていて、担当のいない提出物
     product = products(:product6)

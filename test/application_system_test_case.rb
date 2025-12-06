@@ -44,6 +44,20 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       driver_option.add_argument('--disable-dev-shm-usage')
       driver_option.add_argument('enable-blink-features=Clipboard')
       driver_option.add_preference('profile.password_manager_leak_detection', false)
+
+      # Memory optimization options for CI to prevent OOM
+      if ENV['CI']
+        driver_option.add_argument('--headless=new') # New headless mode (Chrome 109+)
+        driver_option.add_argument('--disable-gpu')
+        driver_option.add_argument('--disable-extensions')
+        driver_option.add_argument('--disable-software-rasterizer')
+        driver_option.add_argument('--disable-background-networking')
+        driver_option.add_argument('--disable-sync')
+        driver_option.add_argument('--disable-translate')
+        driver_option.add_argument('--disable-default-apps')
+        driver_option.add_argument('--window-size=1400,1400')
+        driver_option.add_argument('--js-flags=--max-old-space-size=512')
+      end
     end
   end
 
@@ -55,14 +69,5 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   teardown do
     ActionMailer::Base.deliveries.clear
     ActiveJob::Base.queue_adapter = @original_adapter
-
-    # Clean up any uploaded test files
-    if defined?(ActiveStorage::Blob)
-      begin
-        ActiveStorage::Blob.unattached.where('created_at < ?', 1.hour.ago).find_each(&:purge)
-      rescue StandardError
-        # Ignore cleanup errors in tests
-      end
-    end
   end
 end

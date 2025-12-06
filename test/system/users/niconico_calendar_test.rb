@@ -1,0 +1,34 @@
+# frozen_string_literal: true
+
+require 'application_system_test_case'
+
+module Users
+  class NiconicoCalendarTest < ApplicationSystemTestCase
+    test 'paging niconico_calendar' do
+      visit_with_auth root_path, 'hatsuno'
+      today = Date.current
+      last_month = today.prev_month
+      visit user_path(users(:hajime).id)
+      assert_text "#{today.year}年#{today.month}月"
+      find('.niconico-calendar-nav__previous').click
+      assert_text "#{last_month.year}年#{last_month.month}月"
+    end
+
+    test 'show mark to today on niconico_calendar' do
+      today = Date.current
+      visit_with_auth root_path, 'hatsuno'
+      visit user_path(users(:hajime).id)
+      assert_selector '.niconico-calendar__day.is-today'
+      target_day = find('.niconico-calendar__day.is-today').text
+      assert_equal today.day.to_s, target_day
+    end
+
+    test 'not show mark to today on niconico_calendar' do
+      visit_with_auth root_path, 'hatsuno'
+      visit user_path(users(:hajime).id)
+      find('.niconico-calendar-nav__previous').click
+      assert_text 'hajime'
+      assert_no_selector '.niconico-calendar__day.is-today'
+    end
+  end
+end
