@@ -18,6 +18,29 @@ require 'supports/clipboard_helper'
 require 'supports/announcement_helper'
 require 'supports/regular_event_helper'
 
+# Counter for browser restart in CI to prevent memory buildup
+module BrowserRestartCounter
+  class << self
+    attr_accessor :test_count
+
+    def increment
+      self.test_count ||= 0
+      self.test_count += 1
+    end
+
+    def should_restart?(threshold = 15)
+      test_count && (test_count % threshold).zero?
+    end
+
+    def restart_browser!
+      return unless Capybara.current_session.driver.browser
+
+      Capybara.current_session.driver.quit
+      GC.start(full_mark: true, immediate_sweep: true)
+    end
+  end
+end
+
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include LoginHelper
   include TestAuthHelper
@@ -55,5 +78,13 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   teardown do
     ActionMailer::Base.deliveries.clear
     ActiveJob::Base.queue_adapter = @original_adapter
+
+    # Restart browser periodically in CI to prevent memory buildup
+    if ENV['CI']
+      BrowserRestartCounter.increment
+      if BrowserRestartCounter.should_restart?(15)
+        BrowserRestartCounter.restart_browser!
+      end
+    end
   end
 end
