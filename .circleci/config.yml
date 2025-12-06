@@ -142,24 +142,65 @@ jobs:
 
             # Run tests with circleci tests split for parallel execution
             # Use name-based splitting (round-robin) for even distribution
-            # This avoids both: timing data issues (all unknown on one node) and
-            # filesize issues (system tests have small file size but high memory usage)
             TEST_FILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=name)
-            echo "[INFO] Running $(echo "$TEST_FILES" | wc -l) test files on this node"
-            echo "[INFO] Test files assigned to this node:"
-            echo "$TEST_FILES" | head -20
-            echo "..."
+            TOTAL_FILES=$(echo "$TEST_FILES" | wc -l)
+            echo "[INFO] Running $TOTAL_FILES test files on this node"
 
-            # Run tests (no timeout - let CircleCI handle overall job timeout)
-            bundle exec rails test --verbose $TEST_FILES 2>&1
-            TEST_EXIT_CODE=$?
+            # Run tests in batches to prevent Chrome memory accumulation
+            # After each batch, clean up Chrome processes
+            BATCH_SIZE=10
+            BATCH_NUM=0
+            TEST_FAILED=0
 
-            echo "[INFO] Tests completed at $(date '+%Y-%m-%d %H:%M:%S') with exit code: $TEST_EXIT_CODE"
+            # Save test files to a temp file for batch processing
+            echo "$TEST_FILES" > /tmp/test_files.txt
+
+            # Process in batches
+            while true; do
+              BATCH_NUM=$((BATCH_NUM + 1))
+              START_LINE=$(( (BATCH_NUM - 1) * BATCH_SIZE + 1 ))
+              END_LINE=$(( BATCH_NUM * BATCH_SIZE ))
+
+              # Get batch of files
+              BATCH=$(sed -n "${START_LINE},${END_LINE}p" /tmp/test_files.txt | tr '\n' ' ')
+
+              # Break if no more files
+              if [ -z "$(echo "$BATCH" | tr -d ' ')" ]; then
+                break
+              fi
+
+              echo "[INFO] Running batch $BATCH_NUM (files $START_LINE-$END_LINE)"
+
+              # Run batch of tests
+              if ! bundle exec rails test $BATCH 2>&1; then
+                echo "[WARN] Some tests failed in batch $BATCH_NUM"
+                TEST_FAILED=1
+              fi
+
+              # Clean up Chrome processes after each batch to prevent memory buildup
+              pkill -9 -f "chrome" 2>/dev/null || true
+              pkill -9 -f "chromedriver" 2>/dev/null || true
+
+              # Force garbage collection
+              ruby -e "GC.start(full_mark: true, immediate_sweep: true)" 2>/dev/null || true
+
+              # Brief pause to let cleanup complete
+              sleep 1
+            done
+
+            echo "[INFO] Tests completed at $(date '+%Y-%m-%d %H:%M:%S')"
 
             # Kill memory monitor
             kill $MONITOR_PID 2>/dev/null || true
 
-            exit $TEST_EXIT_CODE
+            # Check if any tests failed
+            if [ $TEST_FAILED -eq 1 ]; then
+              echo "[ERROR] Some tests failed"
+              exit 1
+            fi
+
+            echo "[INFO] All tests passed!"
+            exit 0
           no_output_timeout: 5m
       - store_test_results:
           path: test/reports
