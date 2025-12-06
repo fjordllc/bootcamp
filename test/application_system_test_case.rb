@@ -54,10 +54,16 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
         driver_option.add_argument('--disable-background-networking')
         driver_option.add_argument('--disable-default-apps')
         driver_option.add_argument('--disable-features=TranslateUI')
-        # Limit renderer memory
-        driver_option.add_argument('--js-flags=--max-old-space-size=256')
-        driver_option.add_argument('--renderer-process-limit=1')
         driver_option.add_argument('--disable-site-isolation-trials')
+        # Memory optimization for CI
+        driver_option.add_argument('--memory-pressure-off')
+        driver_option.add_argument('--disable-features=IsolateOrigins,site-per-process')
+        driver_option.add_argument('--single-process')
+        driver_option.add_argument('--disable-renderer-backgrounding')
+        driver_option.add_argument('--disable-backgrounding-occluded-windows')
+        # Aggressive disk cache limits
+        driver_option.add_argument('--disk-cache-size=1')
+        driver_option.add_argument('--media-cache-size=1')
       end
     end
   end
@@ -83,14 +89,15 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     ActiveJob::Base.queue_adapter = @original_adapter
 
     # Clean up browser resources to prevent memory buildup in CI
-    # Restart browser after EVERY test to prevent OOM
     if ENV['CI']
       begin
-        Capybara.current_session.driver.quit
+        # Reset Capybara session (clears cookies, localStorage, etc.)
+        Capybara.reset_sessions!
       rescue StandardError => e
-        CITestLogger.log("[BROWSER RESTART WARNING] #{e.message}")
+        CITestLogger.log("[SESSION RESET WARNING] #{e.message}")
       end
-      GC.start
+      # Force garbage collection
+      GC.start(full_mark: true, immediate_sweep: true)
     end
   end
 end
