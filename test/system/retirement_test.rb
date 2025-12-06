@@ -79,5 +79,4 @@ class RetirementsTest < ApplicationSystemTestCase
 
     assert_match '[Postmark] 受信者由来のエラーのためメールを送信できませんでした。：', logs.to_s
   end
-
 end
