@@ -97,14 +97,22 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     if ENV['CI']
       begin
         # Trigger JavaScript garbage collection in the browser before reset
-        page.execute_script('if (window.gc) { window.gc(); }') rescue nil
+        begin
+          page.execute_script('if (window.gc) { window.gc(); }')
+        rescue StandardError
+          nil
+        end
         # Clear any pending timeouts/intervals that might hold references
-        page.execute_script('
-          var highestTimeoutId = setTimeout(";");
-          for (var i = 0 ; i < highestTimeoutId ; i++) { clearTimeout(i); }
-          var highestIntervalId = setInterval(";");
-          for (var i = 0 ; i < highestIntervalId ; i++) { clearInterval(i); }
-        ') rescue nil
+        begin
+          page.execute_script('
+            var highestTimeoutId = setTimeout(";");
+            for (var i = 0 ; i < highestTimeoutId ; i++) { clearTimeout(i); }
+            var highestIntervalId = setInterval(";");
+            for (var i = 0 ; i < highestIntervalId ; i++) { clearInterval(i); }
+          ')
+        rescue StandardError
+          nil
+        end
         # Reset Capybara session (clears cookies, localStorage, etc.)
         Capybara.reset_sessions!
       rescue StandardError => e
