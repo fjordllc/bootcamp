@@ -141,8 +141,9 @@ jobs:
             echo "[INFO] Node index: $CIRCLE_NODE_INDEX / Total nodes: $CIRCLE_NODE_TOTAL"
 
             # Run tests with circleci tests split for parallel execution
-            # Use name-based splitting (round-robin) for even distribution
-            TEST_FILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=name)
+            # Use timings-based splitting for better load balancing based on historical data
+            # Falls back to filesize if no timing data available
+            TEST_FILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=timings --timings-type=filename)
             TOTAL_FILES=$(echo "$TEST_FILES" | wc -l)
             echo "[INFO] Running $TOTAL_FILES test files on this node"
 
