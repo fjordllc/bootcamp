@@ -1,0 +1,13 @@
+.a-notification-count {
+  height: 0.875rem;
+  width: 1.25rem;
+  font-family: var(--monospace);
+  border-radius: 1rem;
+  background-color: var(--danger);
+  position: absolute;
+  font-size: 0.625rem;
+  display: flex;
+  color: var(--reversal-text);
+  align-items: center;
+  justify-content: center;
+}
