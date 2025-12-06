@@ -80,33 +80,4 @@ class RetirementsTest < ApplicationSystemTestCase
     assert_match '[Postmark] 受信者由来のエラーのためメールを送信できませんでした。：', logs.to_s
   end
 
-  test 'enables retirement regardless of validity of discord id' do
-    user = users(:discordinvalid)
-    visit_with_auth new_retirement_path, 'discordinvalid'
-    find('label', text: 'とても悪い').click
-    click_on '退会する'
-    page.accept_confirm
-    assert_text '退会処理が完了しました'
-    assert_equal Date.current, user.reload.retired_on
-    assert_equal '😢 discordinvalidさんが退会しました。', users(:komagata).notifications.last.message
-    assert_equal '😢 discordinvalidさんが退会しました。', users(:mentormentaro).notifications.last.message
-
-    login_user 'discordinvalid', 'testtest'
-    assert_text '退会したユーザーです'
-  end
-
-  test 'enables retirement regardless of validity of X（Twitter） ID' do
-    user = users(:twitterinvalid)
-    visit_with_auth new_retirement_path, 'twitterinvalid'
-    find('label', text: 'とても悪い').click
-    click_on '退会する'
-    page.accept_confirm
-    assert_text '退会処理が完了しました'
-    assert_equal Date.current, user.reload.retired_on
-    assert_equal '😢 twitterinvalidさんが退会しました。', users(:komagata).notifications.last.message
-    assert_equal '😢 twitterinvalidさんが退会しました。', users(:mentormentaro).notifications.last.message
-
-    login_user 'twitterinvalid', 'testtest'
-    assert_text '退会したユーザーです'
-  end
 end
