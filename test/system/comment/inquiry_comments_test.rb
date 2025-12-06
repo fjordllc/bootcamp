@@ -46,14 +46,11 @@ class InquiryCommentsTest < ApplicationSystemTestCase
       find('.thread-comment-form, .thread-comment')
     end
 
-    max_attempts = 10
-    max_attempts.times do |attempt|
-      find('#js-new-comment').set('')
-      find('#js-new-comment').set("絵文字の補完テスト: :cat\n")
-      break if find('#js-new-comment').value == '絵文字の補完テスト: 😺 '
-
-      sleep 0.5 if attempt < max_attempts - 1
-    end
+    fill_in_with_autocomplete(
+      '#js-new-comment',
+      input_text: "絵文字の補完テスト: :cat\n",
+      expected_value: '絵文字の補完テスト: 😺 '
+    )
 
     click_button 'コメントする'
     assert_text '絵文字の補完テスト: 😺'
