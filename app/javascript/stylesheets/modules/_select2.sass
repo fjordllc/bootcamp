@@ -1,5 +1,4 @@
 @use "sass:color"
-@use "../config/mixins/break-points"
 @use "../config/variables/colors"
 
 $select2-height: 2.25rem
@@ -33,8 +32,6 @@ $select2-selection-choice-background: color.mix(colors.$main, colors.$base, 10%)
 
 .select2-search
   line-height: 28px
-  +break-points.media-breakpoint-down(sm)
-    flex: 0 0 100%
 
 // single
 
@@ -153,6 +150,10 @@ $select2-selection-choice-background: color.mix(colors.$main, colors.$base, 10%)
   position: absolute !important
   width: 1px !important
   white-space: nowrap !important
+
+@media (max-width: 47.9375em)
+  .select2-search
+    flex: 0 0 100%
 
 .select2-container--default .select2-selection--single
   background-color: #fff
