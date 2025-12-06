@@ -29,6 +29,14 @@ function initializeFileInput(target) {
   if (!inputs) return null
 
   inputs.forEach((input) => {
+    const dropZone = input.closest('.js-file-input')
+    dropZone.addEventListener('dragover', (e) => e.preventDefault())
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault()
+      input.files = e.dataTransfer.files
+      input.dispatchEvent(new Event('change'))
+    })
+
     input.addEventListener('change', async (e) => {
       let file = e.target.files[0]
 
