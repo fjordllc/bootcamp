@@ -146,5 +146,4 @@ class CurrentUserTest < ApplicationSystemTestCase
     assert_no_text 'Rubyの経験あり'
     assert_text 'JavaScriptの経験あり'
   end
-
 end

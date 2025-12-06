@@ -156,5 +156,4 @@ class AutoRetireTest < ApplicationSystemTestCase
       assert_equal Date.current, user.reload.retired_on
     end
   end
-
 end
