@@ -50,16 +50,13 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
         driver_option.add_argument('--headless=new') # New headless mode (Chrome 109+)
         driver_option.add_argument('--disable-gpu')
         driver_option.add_argument('--disable-extensions')
-        driver_option.add_argument('--disable-plugins')
         driver_option.add_argument('--disable-software-rasterizer')
         driver_option.add_argument('--disable-background-networking')
         driver_option.add_argument('--disable-sync')
         driver_option.add_argument('--disable-translate')
         driver_option.add_argument('--disable-default-apps')
-        driver_option.add_argument('--single-process')
-        driver_option.add_argument('--memory-pressure-off')
-        driver_option.add_argument('--max_old_space_size=512')
         driver_option.add_argument('--window-size=1400,1400')
+        driver_option.add_argument('--js-flags=--max-old-space-size=512')
       end
     end
   end
