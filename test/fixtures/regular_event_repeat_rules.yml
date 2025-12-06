@@ -119,3 +119,13 @@ regular_event_repeat_rule41:
   frequency: 0
   day_of_the_week: 1
   regular_event: regular_event39
+
+regular_event_repeat_rule42:
+  frequency: 5
+  day_of_the_week: 1
+  regular_event: regular_event40
+
+regular_event_repeat_rule43:
+  frequency: 6
+  day_of_the_week: 1
+  regular_event: regular_event41

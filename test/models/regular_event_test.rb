@@ -136,6 +136,18 @@ class RegularEventTest < ActiveSupport::TestCase
     assert_equal wednesday_for_year, scheduled_dates
   end
 
+  test '#all_scheduled_dates return odd or even week dates if event held on odd or even week' do
+    all_dates_for_year = (Date.current..Date.current.next_year)
+
+    regular_event_held_on_odd_week_mondays = regular_events(:regular_event40)
+    odd_week_mondays_for_year = all_dates_for_year.select { |date| date.cweek.odd? && date.monday? }
+    assert_equal odd_week_mondays_for_year, regular_event_held_on_odd_week_mondays.all_scheduled_dates
+
+    regular_event_held_on_even_week_mondays = regular_events(:regular_event41)
+    even_week_mondays_for_year = all_dates_for_year.select { |date| date.cweek.even? && date.monday? }
+    assert_equal even_week_mondays_for_year, regular_event_held_on_even_week_mondays.all_scheduled_dates
+  end
+
   test '#transform_for_subscription' do
     travel_to Time.zone.local(2024, 8, 5, 23, 0, 0) do
       regular_event = RegularEvent.new(start_at: '21:00', end_at: '22:00')
