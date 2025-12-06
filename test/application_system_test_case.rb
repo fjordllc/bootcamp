@@ -64,6 +64,11 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
         driver_option.add_argument('--renderer-process-limit=2')
         # Disable GPU compositing which can cause memory issues
         driver_option.add_argument('--disable-accelerated-2d-canvas')
+        # Aggressive memory optimization to prevent OOM
+        driver_option.add_argument('--js-flags=--max-old-space-size=512')
+        driver_option.add_argument('--disk-cache-size=1')
+        driver_option.add_argument('--media-cache-size=1')
+        driver_option.add_argument('--disable-application-cache')
       end
     end
   end
@@ -91,6 +96,15 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     # Clean up browser resources to prevent memory buildup in CI
     if ENV['CI']
       begin
+        # Trigger JavaScript garbage collection in the browser before reset
+        page.execute_script('if (window.gc) { window.gc(); }') rescue nil
+        # Clear any pending timeouts/intervals that might hold references
+        page.execute_script('
+          var highestTimeoutId = setTimeout(";");
+          for (var i = 0 ; i < highestTimeoutId ; i++) { clearTimeout(i); }
+          var highestIntervalId = setInterval(";");
+          for (var i = 0 ; i < highestIntervalId ; i++) { clearInterval(i); }
+        ') rescue nil
         # Reset Capybara session (clears cookies, localStorage, etc.)
         Capybara.reset_sessions!
       rescue StandardError => e
