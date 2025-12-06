@@ -1,13 +1,7 @@
-@use "../config/mixins/break-points"
-
 .a-markdown-input
   padding-inline: 1rem
-  +break-points.media-breakpoint-down(sm)
-    padding-inline: .75rem
   .card-body__description &
     padding-inline: 0
-    +break-points.media-breakpoint-down(sm)
-      padding-inline: 0
 
 .a-markdown-input__inner
   display: none
@@ -27,3 +21,9 @@
   &.has-max-height
     max-height: 70vh
     overflow: auto
+
+@media (max-width: 47.9375em)
+  .a-markdown-input
+    padding-inline: .75rem
+    .card-body__description &
+      padding-inline: 0

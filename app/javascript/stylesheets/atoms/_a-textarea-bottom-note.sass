@@ -10,9 +10,14 @@
 
   .a-textarea-bottom-note__banner
     background-color: var(--background-semi-shade)
-    +position(absolute, left 1px, bottom 1px, right 1px)
+    position: absolute
+    left: 1px
+    right: 1px
+    bottom: 1px
     border-bottom-left-radius: 3px
     border-bottom-right-radius: 3px
     padding: .5rem
-    +text-block(.75rem 1.4, center)
+    font-size: .75rem
+    line-height: 1.4
+    text-align: center
     border-top: solid 1px var(--border-shade)
