@@ -1,5 +1,3 @@
-@use "../../../config/mixins/break-points"
-
 .lp-left-number-sections__items
   counter-reset: number 0
 
@@ -7,16 +5,14 @@
   flex-direction: row
   padding: 1.5rem
   display: flex
-  +break-points.media-breakpoint-up(md)
+  gap: 1rem
+  @media (min-width: 48em)
     gap: 2rem
-  +break-points.media-breakpoint-down(sm)
-    gap: 1rem
 
 .lp-left-number-section__start
-  +break-points.media-breakpoint-up(md)
+  flex: 0 0 6rem
+  @media (min-width: 48em)
     flex: 0 0 12rem
-  +break-points.media-breakpoint-down(sm)
-    flex: 0 0 6rem
 
 .lp-left-number-section__header
   height: 100%
@@ -28,16 +24,15 @@
 .lp-left-number-section__title
   text-align: center
   color: var(--main)
-  +break-points.media-breakpoint-up(md)
+  font-size: 1.25rem
+  line-height: 1.4
+  font-weight: 800
+  br
+    display: none
+  @media (min-width: 48em)
     font-size: 1.5rem
-    line-height: 1.4
-    font-weight: 800
-  +break-points.media-breakpoint-down(sm)
-    font-size: 1.25rem
-    line-height: 1.4
-    font-weight: 800
     br
-      display: none
+      display: inline
   &::before
     counter-increment: number 1
     content: '0'counter(number)
@@ -48,14 +43,11 @@
     -webkit-text-stroke-color: var(--main)
     color: #dedef2
     margin-bottom: -.125rem
-    +break-points.media-breakpoint-up(md)
+    font-size: 2rem
+    line-height: 1.4
+    font-weight: 900
+    @media (min-width: 48em)
       font-size: 2.5rem
-      line-height: 1.4
-      font-weight: 900
-    +break-points.media-breakpoint-down(sm)
-      font-size: 2rem
-      line-height: 1.4
-      font-weight: 900
 
 .lp-left-number-section__end
   display: flex

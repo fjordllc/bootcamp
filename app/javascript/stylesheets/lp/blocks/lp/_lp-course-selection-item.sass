@@ -1,9 +1,7 @@
-@use "../../../config/mixins/break-points"
-
 .lp-course-selection-item__anchor
   position: relative
   top: -4rem
-  +break-points.media-breakpoint-down(sm)
+  @media (max-width: 47.9375em)
     &#front-engineer-course
       margin-top: 4rem
 
@@ -14,12 +12,10 @@
 
 .lp-course-selection-item__title
   font-weight: 700
-  +break-points.media-breakpoint-up(md)
+  font-size: 1.25rem
+  line-height: 1.4
+  @media (min-width: 48em)
     font-size: 1.5rem
-    line-height: 1.4
-  +break-points.media-breakpoint-down(sm)
-    font-size: 1.25rem
-    line-height: 1.4
 
 .lp-course-selection-item__action
   max-width: 20rem

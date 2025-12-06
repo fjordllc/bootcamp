@@ -1,5 +1,3 @@
-@use "../../../config/mixins/break-points"
-
 .header-links
   height: 100%
   display: flex
@@ -29,12 +27,8 @@
   position: relative
   transition: all .2s ease-in
   cursor: pointer
-  +break-points.media-breakpoint-up(md)
-    font-size: 1.375rem
-    width: 3.75rem
-  +break-points.media-breakpoint-down(sm)
-    font-size: 1.125rem
-    width: 2.75rem
+  font-size: 1.125rem
+  width: 2.75rem
   &:hover
     background-color: #f8f8f8
   &.is-active
@@ -43,10 +37,7 @@
 
 .header-links__link-label
   margin-top: .375em
-  +break-points.media-breakpoint-up(md)
-    font-size: .6875rem
-  +break-points.media-breakpoint-down(sm)
-    font-size: .625rem
+  font-size: .625rem
 
 .header-links__link-count
   position: absolute
@@ -54,17 +45,21 @@
   top: .25rem
 
 .header-links__image
-  +break-points.media-breakpoint-up(md)
-    width: 1.5rem
-  +break-points.media-breakpoint-down(sm)
-    width: 1.125rem
+  width: 1.125rem
 
 .header-links__link-icon
   font-size: 1.25rem
   line-height: 1
   text-align: center
-  +break-points.media-breakpoint-down(sm)
-    font-size: 1.125rem
-    line-height: 1
-    .has-count &
-      color: var(--default-text)
+  font-size: 1.125rem
+  .has-count &
+    color: var(--default-text)
+
+@media (min-width: 48em)
+  .header-links__link
+    font-size: 1.375rem
+    width: 3.75rem
+  .header-links__link-label
+    font-size: .6875rem
+  .header-links__image
+    width: 1.5rem

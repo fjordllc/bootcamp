@@ -1,13 +1,8 @@
-@use "../../config/mixins/break-points"
-
 .l-container
   width: 100%
   max-width: 100vw
   margin-inline: auto
-  +break-points.media-breakpoint-up(md)
-    padding-inline: 1.5rem
-  +break-points.media-breakpoint-down(sm)
-    padding-inline: 1rem
+  padding-inline: 1rem
   &.is-xxxl
     max-width: 108rem
   &.is-xxl
@@ -24,3 +19,7 @@
     width: 32rem
   &.is-xxs
     width: 28rem
+
+@media (min-width: 48em)
+  .l-container
+    padding-inline: 1.5rem

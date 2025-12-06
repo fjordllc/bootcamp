@@ -1,51 +1,36 @@
-@use "../../../config/mixins/break-points"
-
 .lp-hero-info__titles
   display: flex
   flex-direction: column
-  +break-points.media-breakpoint-up(md)
+  gap: .75rem
+  @media (min-width: 48em)
     gap: 1rem
-  +break-points.media-breakpoint-down(sm)
-    gap: .75rem
 
 .lp-hero-info__title
-  +break-points.media-breakpoint-up(md)
+  font-size: 1rem
+  line-height: 1.4
+  font-weight: 800
+  @media (min-width: 48em)
     font-size: 1.5rem
-    line-height: 1.4
-    font-weight: 800
-  +break-points.media-breakpoint-down(sm)
-    font-size: 1rem
-    line-height: 1.4
-    font-weight: 800
 
 .lp-hero-info__catchcopy
-  +break-points.media-breakpoint-up(xl)
-    font-size: 4rem
-    line-height: 1.2
-    font-weight: 800
-  +break-points.media-breakpoint-only(lg)
-    font-size: 3.25rem
-    line-height: 1.2
-    font-weight: 800
-  +break-points.media-breakpoint-only(md)
+  font-size: 2rem
+  line-height: 1.2
+  font-weight: 800
+  br
+    display: none
+  @media (min-width: 48em)
     font-size: 2.75rem
-    line-height: 1.2
-    font-weight: 800
-  +break-points.media-breakpoint-down(sm)
-    font-size: 2rem
-    line-height: 1.2
-    font-weight: 800
     br
-      display: none
+      display: inline
+  @media (min-width: 64em)
+    font-size: 3.25rem
+  @media (min-width: 80em)
+    font-size: 4rem
 
 .lp-hero-info__description
-  +break-points.media-breakpoint-up(md)
-    p
+  p
+    font-size: .875rem
+    line-height: 1.5
+    font-weight: 600
+    @media (min-width: 48em)
       font-size: 1rem
-      line-height: 1.5
-      font-weight: 600
-  +break-points.media-breakpoint-down(sm)
-    p
-      font-size: .875rem
-      line-height: 1.5
-      font-weight: 600
