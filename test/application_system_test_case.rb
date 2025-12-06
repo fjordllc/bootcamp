@@ -18,29 +18,6 @@ require 'supports/clipboard_helper'
 require 'supports/announcement_helper'
 require 'supports/regular_event_helper'
 
-# Counter for browser restart in CI to prevent memory buildup
-module BrowserRestartCounter
-  class << self
-    attr_accessor :test_count
-
-    def increment
-      self.test_count ||= 0
-      self.test_count += 1
-    end
-
-    def should_restart?(threshold = 15)
-      test_count && (test_count % threshold).zero?
-    end
-
-    def restart_browser!
-      return unless Capybara.current_session.driver.browser
-
-      Capybara.current_session.driver.quit
-      GC.start(full_mark: true, immediate_sweep: true)
-    end
-  end
-end
-
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include LoginHelper
   include TestAuthHelper
@@ -67,6 +44,23 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       driver_option.add_argument('--disable-dev-shm-usage')
       driver_option.add_argument('enable-blink-features=Clipboard')
       driver_option.add_preference('profile.password_manager_leak_detection', false)
+
+      # Memory optimization options for CI to prevent OOM
+      if ENV['CI']
+        driver_option.add_argument('--headless=new') # New headless mode (Chrome 109+)
+        driver_option.add_argument('--disable-gpu')
+        driver_option.add_argument('--disable-extensions')
+        driver_option.add_argument('--disable-plugins')
+        driver_option.add_argument('--disable-software-rasterizer')
+        driver_option.add_argument('--disable-background-networking')
+        driver_option.add_argument('--disable-sync')
+        driver_option.add_argument('--disable-translate')
+        driver_option.add_argument('--disable-default-apps')
+        driver_option.add_argument('--single-process')
+        driver_option.add_argument('--memory-pressure-off')
+        driver_option.add_argument('--max_old_space_size=512')
+        driver_option.add_argument('--window-size=1400,1400')
+      end
     end
   end
 
@@ -78,11 +72,5 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   teardown do
     ActionMailer::Base.deliveries.clear
     ActiveJob::Base.queue_adapter = @original_adapter
-
-    # Restart browser periodically in CI to prevent memory buildup
-    if ENV['CI']
-      BrowserRestartCounter.increment
-      BrowserRestartCounter.restart_browser! if BrowserRestartCounter.should_restart?(15)
-    end
   end
 end
