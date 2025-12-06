@@ -1,0 +1,15 @@
+.lp-movie {
+  max-width: 40rem;
+  margin-inline: auto;
+}
+
+.lp-movie__inner {
+  width: 100%;
+  padding: 1rem;
+  aspect-ratio: 16/9;
+}
+.lp-movie__inner iframe {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16/9;
+}
