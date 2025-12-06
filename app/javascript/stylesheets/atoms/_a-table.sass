@@ -1,4 +1,3 @@
-@use "../config/mixins/border"
 @use "../config/mixins/break-points"
 
 .a-table
@@ -27,7 +26,8 @@
   border-top-right-radius: .25rem
 
 .a-table tr
-  +border.border(horizontal, solid 1px var(--border))
+  border-left: solid 1px var(--border)
+  border-right: solid 1px var(--border)
 
 .a-table th
   font-size: .75rem

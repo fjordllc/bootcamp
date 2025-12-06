@@ -1,4 +1,3 @@
-@use "../../../config/mixins/border"
 @use "../../../config/mixins/break-points"
 
 .stamp
@@ -61,7 +60,8 @@
   &.is-created-at
     height: 36%
     width: 100%
-    +border.border(vertical, solid 1px var(--stamp-color))
+    border-top: solid 1px var(--stamp-color)
+    border-bottom: solid 1px var(--stamp-color)
 
 .stamp__content-inner
   max-width: 100%
