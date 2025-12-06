@@ -1,5 +1,3 @@
-@use "../config/mixins/break-points"
-
 .a-user-role-badge
   border: solid 1px var(--main)
   padding-inline: .75em
@@ -13,15 +11,9 @@
   align-items: center
   margin-right: .5rem
   border-radius: 1rem
-  +break-points.media-breakpoint-up(md)
-    transform: scale(.9375, .9375)
-  +break-points.media-breakpoint-down(sm)
-    transform: scale(.875, .875)
   &.is-header
     margin-left: .5rem
     margin-right: 0
-    +break-points.media-breakpoint-down(sm)
-      margin-left: .125rem
 
 .a-user-role-badge__label
   display: inline-block
@@ -29,3 +21,13 @@
     content: "/"
     display: inline-block
     margin-inline: .25em
+
+@media (min-width: 48em)
+  .a-user-role-badge
+    transform: scale(.9375, .9375)
+
+@media (max-width: 47.9375em)
+  .a-user-role-badge
+    transform: scale(.875, .875)
+    &.is-header
+      margin-left: .125rem

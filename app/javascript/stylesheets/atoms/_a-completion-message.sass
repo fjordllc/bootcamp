@@ -1,5 +1,3 @@
-@use "../config/mixins/break-points"
-
 .a-completion-message
   background-color: var(--success)
   padding-block: .5rem
@@ -8,13 +6,9 @@
 
 .a-completion-message__inner
   display: flex
-  +break-points.media-breakpoint-up(md)
-    justify-content: center
-    align-items: center
-    gap: 1rem
-  +break-points.media-breakpoint-down(sm)
-    flex-direction: column
-    gap: .75rem
+  justify-content: center
+  align-items: center
+  gap: 1rem
 
 .a-completion-message__title
   font-size: 1em
@@ -22,17 +16,20 @@
   text-align: center
   font-weight: 600
   color: var(--reversal-text)
-  +break-points.media-breakpoint-up(md)
-    font-size: 1rem
-  +break-points.media-breakpoint-down(sm)
-    font-size: .8125rem
+  font-size: 1rem
 
 .a-completion-message__actions-items
   display: flex
   gap: .75rem
 
 .a-completion-message__actions-item
-  +break-points.media-breakpoint-up(md)
-    width: 9rem
-  +break-points.media-breakpoint-down(sm)
-    flex: 1
+  width: 9rem
+
+@media (max-width: 47.9375em)
+  .a-completion-message__inner
+    flex-direction: column
+    gap: .75rem
+  .a-completion-message__title
+    font-size: .8125rem
+  .a-completion-message__actions-item
+    width: 100%

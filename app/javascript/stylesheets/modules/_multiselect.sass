@@ -1,4 +1,3 @@
-@use "../atoms/a-text-input" as textInput
 @use "../config/mixins/break-points"
 .multiselect
   position: absolute
@@ -8,10 +7,6 @@
 
 .multiselect.book
   position: initial
-
-.multiselect__single,
-.multiselect__input
-  +textInput.text-input-base
 
 .multiselect__single
   position: relative

@@ -1,5 +1,3 @@
-@use "../config/mixins/break-points"
-
 .a-long-text
   .a-link-card,
   .twitter-tweet
@@ -68,10 +66,7 @@
       -webkit-line-clamp: 2
 
     .a-link-card__image
-      +break-points.media-breakpoint-up(md)
-        max-width: 12rem
-      +break-points.media-breakpoint-down(sm)
-        max-width: 7.5rem
+      max-width: 12rem
       &.is-blank
         display: none
 
@@ -99,10 +94,7 @@
     line-height: 1.4
     font-size: .875em
     color: var(--muted-text)
-    +break-points.media-breakpoint-up(md)
-      padding: 2em 3em 1em 2em
-    +break-points.media-breakpoint-down(sm)
-      padding: 2em 3em 1em 1em
+    padding: 2em 3em 1em 2em
     &::before
       font-family: "Font Awesome 6 Brands"
       font-weight: 400
@@ -128,3 +120,10 @@
     >a:last-child:hover
       color: var(--hover-text)
       text-decoration: underline
+
+@media (max-width: 47.9375em)
+  .a-long-text
+    .a-link-card__image
+      max-width: 7.5rem
+    .twitter-tweet
+      padding: 2em 3em 1em 1em

@@ -1,5 +1,3 @@
-@use "../config/mixins/break-points"
-
 .a-user-icon
   display: block
   object-fit: cover
@@ -11,9 +9,10 @@
     width: 2rem
     height: 2rem
   &.is-xs
-    +break-points.media-breakpoint-up(md)
-      width: 1.5rem
-      height: 1.5rem
-    +break-points.media-breakpoint-down(sm)
-      width: 1.125rem
-      height: 1.125rem
+    width: 1.5rem
+    height: 1.5rem
+
+@media (max-width: 47.9375em)
+  .a-user-icon.is-xs
+    width: 1.125rem
+    height: 1.125rem
