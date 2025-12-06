@@ -58,9 +58,10 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
         # Memory optimization for CI
         driver_option.add_argument('--memory-pressure-off')
         driver_option.add_argument('--disable-features=IsolateOrigins,site-per-process')
-        driver_option.add_argument('--single-process')
         driver_option.add_argument('--disable-renderer-backgrounding')
         driver_option.add_argument('--disable-backgrounding-occluded-windows')
+        # Limit renderer processes to prevent memory bloat (but allow parallelism)
+        driver_option.add_argument('--renderer-process-limit=2')
         # Aggressive disk cache limits
         driver_option.add_argument('--disk-cache-size=1')
         driver_option.add_argument('--media-cache-size=1')
