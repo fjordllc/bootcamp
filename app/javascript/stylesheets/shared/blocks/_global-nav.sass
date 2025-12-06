@@ -1,8 +1,7 @@
-@use "../../config/mixins/break-points"
-
 .global-nav
-  +break-points.media-breakpoint-down(sm)
-    background-color: transparent
+  background-color: transparent
+  @media (min-width: 48em)
+    background-color: inherit
 
 .global-nav__background.a-overlay
   background-color: rgba(black, .6)
@@ -14,7 +13,7 @@
     display: block
 
 .global-nav__inner
-  +break-points.media-breakpoint-up(md)
+  @media (min-width: 48em)
     background-color: var(--main)
     height: 100%
     width: var(--global-nav-width)
@@ -36,15 +35,16 @@
   color: var(--reversal-text)
   transition: color .2s ease-in, background-color .2s ease-in
   width: 100%
-  +break-points.media-breakpoint-up(md)
+  flex-direction: row
+  height: 2.75rem
+  padding-inline: 1rem
+  justify-content: flex-start
+  @media (min-width: 48em)
     flex-direction: column
     height: 4.125rem
     gap: .25rem
-  +break-points.media-breakpoint-down(sm)
-    flex-direction: row
-    height: 2.75rem
-    padding-inline: 1rem
-    justify-content: flex-start
+    padding-inline: 0
+    justify-content: center
   &:hover
     background-color: var(--main-shade)
   &.is-active
@@ -52,17 +52,14 @@
     color: var(--main)
 
 .global-nav-links__link-icon
-  +break-points.media-breakpoint-up(md)
+  font-size: 1rem
+  line-height: 1
+  text-align: center
+  margin-right: .5rem
+  @media (min-width: 48em)
     font-size: 1.125rem
-    line-height: 1
-    margin-top: 0
+    margin-right: 0
     margin-bottom: .25rem
-    text-align: center
-  +break-points.media-breakpoint-down(sm)
-    font-size: 1rem
-    line-height: 1
-    text-align: center
-    margin-right: .5rem
   .fa-rocket
     font-size: 1.15em
 
@@ -70,13 +67,12 @@
   font-size: .625rem
   line-height: 1.2
   text-align: center
-  +break-points.media-breakpoint-down(sm)
+  @media (max-width: 47.9375em)
     font-size: .875rem
-  +break-points.media-breakpoint-up(md)
+  @media (min-width: 48em)
     &.is-sm
       transform: scale(.875)
       margin-top: -.125rem
-      line-height: 1.2
 
 .global-nav__item-count
   position: absolute

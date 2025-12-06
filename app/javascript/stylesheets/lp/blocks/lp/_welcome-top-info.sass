@@ -1,11 +1,9 @@
-@use "../../../config/mixins/break-points"
-
 .welcome-top-info
   background-color: var(--danger)
 
 .welcome-top-info__inner
   padding-block: .75rem
-  +break-points.media-breakpoint-up(md)
+  @media (min-width: 48em)
     display: flex
     align-items: center
     justify-content: center
@@ -23,12 +21,11 @@
   border-radius: 1rem
   align-items: center
   justify-content: center
-  +break-points.media-breakpoint-up(md)
-    margin-right: .5rem
-  +break-points.media-breakpoint-down(sm)
-    margin-bottom: .5rem
-    width: 10rem
-    margin: -26px auto .5rem
+  width: 10rem
+  margin: -26px auto .5rem
+  @media (min-width: 48em)
+    margin: 0 .5rem 0 0
+    width: auto
 
 .welcome-top-info__link
   color: var(--reversal-text)
@@ -37,9 +34,7 @@
   &:hover,
   &:active
     text-decoration: underline
-  +break-points.media-breakpoint-up(md)
+  font-size: .875rem
+  line-height: 1.5
+  @media (min-width: 48em)
     font-size: 1.125rem
-    line-height: 1.5
-  +break-points.media-breakpoint-down(sm)
-    font-size: .875rem
-    line-height: 1.5

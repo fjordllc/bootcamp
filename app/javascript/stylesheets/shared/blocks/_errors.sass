@@ -1,5 +1,3 @@
-@use "../../config/mixins/break-points"
-
 .errors
   background-color: var(--danger-tint)
   border: solid 1px var(--danger)
@@ -7,10 +5,9 @@
   max-width: 30rem
   margin-inline: auto
   border-radius: .25rem
-  +break-points.media-breakpoint-up(md)
+  padding: .875rem 1rem
+  @media (min-width: 48em)
     padding: 1rem 1.5rem
-  +break-points.media-breakpoint-down(sm)
-    padding: .875rem 1rem
 
 .errors__title
   font-size: .875rem
@@ -20,7 +17,7 @@
   text-align: center
   font-weight: 600
   color: var(--danger-text)
-  +break-points.media-breakpoint-down(sm)
+  @media (max-width: 47.9375em)
     font-size: .8125rem
 
 .errors__item
@@ -29,7 +26,7 @@
   margin-top: 0
   margin-bottom: .2em
   color: var(--danger-text)
-  +break-points.media-breakpoint-down(sm)
+  @media (max-width: 47.9375em)
     font-size: .75rem
   &:last-child
     margin-bottom: 0

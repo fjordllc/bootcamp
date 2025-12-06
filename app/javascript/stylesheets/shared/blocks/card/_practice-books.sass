@@ -1,13 +1,14 @@
-@use "../../../config/mixins/break-points"
-
 .practice-books__items
   margin-top: -1px
-  +break-points.media-breakpoint-up(md)
+  display: block
+  @media (min-width: 48em)
     display: flex
     flex-wrap: wrap
 
 .practice-books-item
-  +break-points.media-breakpoint-up(md)
+  &:not(:first-child)
+    border-top: solid 1px var(--border-tint)
+  @media (min-width: 48em)
     border-top: solid 1px var(--border-tint)
     flex: 0 0 50%
     height: 100%
@@ -15,12 +16,9 @@
     flex-direction: column
     &:nth-child(odd)
       border-right: solid 1px var(--border-tint)
-  +break-points.media-breakpoint-down(sm)
-    &:not(:first-child)
-      border-top: solid 1px var(--border-tint)
 
 .practice-books-item__body
-  +break-points.media-breakpoint-up(md)
+  @media (min-width: 48em)
     flex: 1
 
 .practice-books-item__inner
@@ -29,22 +27,21 @@
   .practice-books &
     height: 100%
     width: 100%
-  +break-points.media-breakpoint-up(md)
+  display: block
+  overflow: hidden
+  @media (min-width: 48em)
     display: flex
-    text-decoration: none
     gap: 1rem
     align-items: flex-start
-  +break-points.media-breakpoint-down(sm)
-    display: block
-    overflow: hidden
 
 .practice-books-item__start
-  +break-points.media-breakpoint-up(md)
+  float: left
+  margin-right: 1rem
+  width: 3.5rem
+  @media (min-width: 48em)
+    float: none
+    margin-right: 0
     flex: 0 0 4rem
-  +break-points.media-breakpoint-down(sm)
-    float: left
-    margin-right: 1rem
-    width: 3.5rem
 
 .practice-books-item__end
   flex: 1
