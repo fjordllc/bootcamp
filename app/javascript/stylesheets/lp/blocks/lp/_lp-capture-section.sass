@@ -1,13 +1,11 @@
-@use "../../../config/mixins/break-points"
-
 .lp-capture-section__inner
   display: flex
+  gap: 1rem
   .lp-content-stack__item:nth-child(even) &
     flex-direction: row-reverse
-  +break-points.media-breakpoint-up(md)
+  @media (min-width: 48em)
     gap: 3rem
-  +break-points.media-breakpoint-down(sm)
-    gap: 1rem
+  @media (max-width: 47.9375em)
     .lp-content-sub-title
       br
         display: none
@@ -18,47 +16,37 @@
   align-items: center
 
 .lp-capture-section__start
-  +break-points.media-breakpoint-up(lg)
+  flex: 0 0 40%
+  @media (min-width: 48em)
     flex: 1
-  +break-points.media-breakpoint-only(md)
-    flex: 1
-  +break-points.media-breakpoint-down(sm)
-    flex: 0 0 40%
-
   &.is-sm
-    +break-points.media-breakpoint-up(lg)
-      max-width: 20rem
-    +break-points.media-breakpoint-only(md)
+    max-width: 10rem
+    @media (min-width: 48em) and (max-width: 63.9375em)
       max-width: 16rem
-    +break-points.media-breakpoint-down(sm)
-      max-width: 10rem
+    @media (min-width: 64em)
+      max-width: 20rem
 
 .lp-capture-section__end
-  +break-points.media-breakpoint-up(lg)
-    flex: 1
-  +break-points.media-breakpoint-only(md)
+  flex: 1
+  @media (min-width: 48em) and (max-width: 63.9375em)
     flex: 1.5
-  +break-points.media-breakpoint-down(sm)
+  @media (min-width: 64em)
     flex: 1
-
 
 .lp-capture-section__content
   display: flex
   flex-direction: column
-  +break-points.media-breakpoint-up(lg)
-    gap: 2rem
-  +break-points.media-breakpoint-only(md)
+  gap: 1rem
+  @media (min-width: 48em)
     gap: 1.5rem
-  +break-points.media-breakpoint-down(sm)
-    gap: 1rem
+  @media (min-width: 64em)
+    gap: 2rem
 
 .lp-capture-section__body
-  +break-points.media-breakpoint-up(md)
+  font-size: .875rem
+  line-height: 1.6
+  @media (min-width: 48em)
     font-size: 1rem
-    line-height: 1.6
-  +break-points.media-breakpoint-down(sm)
-    font-size: .875rem
-    line-height: 1.6
 
 .lp-capture-section__border
   height: 1px
@@ -68,7 +56,7 @@
 
 .lp-capture-section__image
   width: 100%
-  +break-points.media-breakpoint-down(sm)
+  @media (max-width: 47.9375em)
     max-width: 14rem
     margin-inline: auto
     display: block

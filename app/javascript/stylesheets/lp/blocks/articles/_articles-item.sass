@@ -1,7 +1,5 @@
-@use "../../../config/mixins/break-points"
-
 .articles-item
-  +break-points.media-breakpoint-up(md)
+  @media (min-width: 48em)
     height: 100%
 
 .articles-item__link

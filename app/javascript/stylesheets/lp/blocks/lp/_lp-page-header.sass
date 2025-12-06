@@ -1,22 +1,18 @@
-@use "../../../config/mixins/break-points"
-
 .lp-page-header
   background-color: var(--main)
 
 .lp-page-header__title
   color: var(--reversal-text)
-  +break-points.media-breakpoint-up(md)
+  font-size: 1.25rem
+  line-height: 1.4
+  font-weight: 700
+  max-width: calc(100vw - 2rem)
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+  @media (min-width: 48em)
     font-size: 1.5rem
-    line-height: 1.4
-    font-weight: 700
-  +break-points.media-breakpoint-down(sm)
-    font-size: 1.25rem
-    line-height: 1.4
-    font-weight: 700
-    max-width: calc(100vw - 2rem)
-    white-space: nowrap
-    overflow: hidden
-    text-overflow: ellipsis
+    max-width: none
 
 .lp-page-header__inner
   height: 4rem
