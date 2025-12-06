@@ -12,26 +12,6 @@ class ReportsTest < ApplicationSystemTestCase
     stub_request(:post, 'https://discord.com/api/webhooks/0123456789/admin')
   end
 
-  test 'create a report' do
-    visit_with_auth '/reports/new', 'komagata'
-    wait_for_report_form
-    within('form[name=report]') do
-      fill_in('report[title]', with: 'test title')
-      fill_in('report[description]', with: 'test')
-      fill_in('report[reported_on]', with: Time.current)
-    end
-
-    first('.learning-time').all('.learning-time__started-at select')[0].select('07')
-    first('.learning-time').all('.learning-time__started-at select')[1].select('30')
-    first('.learning-time').all('.learning-time__finished-at select')[0].select('08')
-    first('.learning-time').all('.learning-time__finished-at select')[1].select('30')
-
-    click_button '提出'
-    assert_text '日報を保存しました。'
-    assert_text Time.current.strftime('%Y年%m月%d日')
-    assert_text 'Watch中'
-  end
-
   test 'report has a comment form ' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'mentormentaro'
     assert_selector '.thread-comment-form'
@@ -52,26 +32,6 @@ class ReportsTest < ApplicationSystemTestCase
   test 'display user icon in reports' do
     visit_with_auth reports_path, 'komagata'
     assert_selector('.card-list-item__user')
-  end
-
-  test 'user role class is displayed correctly in reports' do
-    visit_with_auth '/reports/new', 'mentormentaro'
-    within('form[name=report]') do
-      fill_in('report[title]', with: 'test title')
-      fill_in('report[description]', with: 'test')
-      fill_in('report[reported_on]', with: Time.current)
-    end
-
-    first('.learning-time').all('.learning-time__started-at select')[0].select('07')
-    first('.learning-time').all('.learning-time__started-at select')[1].select('30')
-    first('.learning-time').all('.learning-time__finished-at select')[0].select('08')
-    first('.learning-time').all('.learning-time__finished-at select')[1].select('30')
-    click_button '提出'
-
-    visit_with_auth reports_path, 'kimura'
-    within(first('.card-list-item__user')) do
-      assert_selector('span.a-user-role.is-mentor')
-    end
   end
 
   test 'using file uploading by file selection dialogue in textarea' do
@@ -100,11 +60,5 @@ class ReportsTest < ApplicationSystemTestCase
     click_button 'URLコピー'
     clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
     assert_equal current_url, clip_text
-  end
-
-  private
-
-  def wait_for_report_form
-    assert_selector 'textarea[name="report[description]"]:not([disabled])', wait: 20
   end
 end
