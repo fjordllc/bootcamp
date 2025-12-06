@@ -115,6 +115,13 @@ jobs:
             # Clear system caches to free memory after assets precompile
             sync
             echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null || true
+            # Run aggressive garbage collection
+            ruby -e "GC.start(full_mark: true, immediate_sweep: true)" || true
+            # Kill any orphaned chrome processes from previous runs
+            pkill -9 chrome || true
+            pkill -9 chromedriver || true
+            # Wait for processes to clean up
+            sleep 2
             # Show memory status
             free -m
       - run:
