@@ -1,45 +1,21 @@
-@use "../config/mixins/break-points"
-
-.page-body__inner.has-side-nav
-  +break-points.media-breakpoint-up(lg)
-    padding-right: var(--side-nav-width)
-
 .a-side-nav
   background-color: var(--base)
-  +break-points.media-breakpoint-up(lg)
-    position: absolute
-    right: 0
-    top: -1.5rem
-    bottom: -1.5rem
-    width: var(--side-nav-width)
-    border-left: solid 1px var(--border)
-    height: calc(100% + 3rem)
-  +break-points.media-breakpoint-down(md)
-    border: solid 1px var(--border)
-    border-radius: .25rem
-    margin-top: 1rem
-  +break-points.media-breakpoint-only(md)
-    margin-inline: 1.5rem
-  +break-points.media-breakpoint-down(sm)
-    margin-inline: 1rem
+  border: solid 1px var(--border)
+  border-radius: .25rem
+  margin-top: 1rem
 
 .a-side-nav__inner
-  +break-points.media-breakpoint-up(lg)
-    max-height: 100%
-    position: sticky
-    top: var(--header-height__md-up)
-    display: flex
-    flex-direction: column
+  display: flex
+  flex-direction: column
+  max-height: none
+  position: static
 
 .a-side-nav__header
   height: 2.5rem
   display: flex
   align-items: center
   justify-content: space-between
-  +break-points.media-breakpoint-up(md)
-    padding: .75rem 1rem
-  +break-points.media-breakpoint-down(sm)
-    padding: .5rem .75rem
+  padding: .5rem .75rem
 
 .a-side-nav__title
   font-size: .875rem
@@ -64,10 +40,7 @@
   display: flex
   align-items: center
   justify-content: flex-end
-  +break-points.media-breakpoint-up(md)
-    padding: .5rem 1.25rem
-  +break-points.media-breakpoint-down(sm)
-    padding: .5rem .75rem
+  padding: .5rem .75rem
 
 .a-side-nav__footer-link
   font-size: .8125rem

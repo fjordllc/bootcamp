@@ -1,5 +1,4 @@
 @use "../config/functions/color" as color-func
-@use "../config/mixins/button"
 @use "../config/variables/colors"
 
 @function badge-text-color($bg)
@@ -62,21 +61,31 @@
     background-color: var(--background-semi-shade)
 
   &.is-xs
-    +button.button-size(.625rem, 1, .5)
+    font-size: .625rem
+    padding-inline: .625rem
+    height: 1.5rem
     font-weight: 500
     &:not(:first-child)
       margin-left: .5em
     &:not(:last-child)
       margin-right: .5em
   &.is-sm
-    +button.button-size(.6875rem, 1, .5)
+    font-size: .6875rem
+    padding-inline: .6875rem
+    height: 1.65rem
     font-weight: 600
   &.is-md
-    +button.button-size(.8125rem, 1, .5)
+    font-size: .8125rem
+    padding-inline: .8125rem
+    height: 1.95rem
     font-weight: 600
   &.is-lg
-    +button.button-size(1rem, 1, .5)
+    font-size: 1rem
+    padding-inline: 1rem
+    height: 2.4rem
     font-weight: 600
   &.is-xl
-    +button.button-size(1.25rem, 1, .5)
+    font-size: 1.25rem
+    padding-inline: 1.25rem
+    height: 3rem
     font-weight: 800

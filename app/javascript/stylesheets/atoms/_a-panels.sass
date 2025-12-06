@@ -1,9 +1,6 @@
-@use "../config/mixins/break-points"
 .a-panels__items
   display: grid
   gap: 1rem
-  +break-points.media-breakpoint-up(lg)
-    grid-template: repeat(auto-fill, minmax(10rem, 1fr))/ repeat(auto-fill, minmax(20rem, 1fr))
 
 
 .a-panels__item
@@ -11,3 +8,6 @@
     width: 100%
     height: 100%
 
+@media (min-width: 64em)
+  .a-panels__items
+    grid-template: repeat(auto-fill, minmax(10rem, 1fr))/ repeat(auto-fill, minmax(20rem, 1fr))

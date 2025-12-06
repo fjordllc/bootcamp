@@ -1,5 +1,4 @@
 @use "../../../config/mixins/break-points"
-@use "../../../config/mixins/short-text-style"
 
 .page-body
   padding-block: 1.5rem
@@ -52,10 +51,84 @@
       flex: 0 0 14rem
 
 .page-body__description
-  +short-text-style.short-text-style
   +break-points.media-breakpoint-up(md)
     font-size: .875rem
   +break-points.media-breakpoint-down(sm)
     font-size: .8125rem
   &:not(:last-child)
     margin-bottom: 1.5em
+  >*:first-child
+    margin-top: 0
+  >*:last-child
+    margin-bottom: 0
+  hr
+    display: block
+    width: 100%
+    height: 0
+    border: none
+    border-top: dashed 1px var(--border)
+    margin-block: 1.5em
+  p
+    font-size: 1em
+    line-height: 1.7
+    margin-top: 0
+    margin-bottom: .75em
+  li
+    font-size: 1em
+    line-height: 1.7
+    margin-top: 0
+    margin-bottom: .125em
+  a
+    text-decoration: none
+    cursor: pointer
+    &:hover,
+    &:active
+      text-decoration: underline
+  .message
+    background: red
+    padding: 1em 1.25em 1em 2.75em
+    border-radius: .25rem
+    margin-block: 1.5em 2em
+    background-color: var(--warning-tint)
+    color: var(--warning-text)
+    &::before
+      content: "\f06a"
+      font-family: 'Font Awesome 6 Pro'
+      font-style: normal
+      font-weight: 900
+      font-variant: normal
+      text-rendering: auto
+      line-height: 1
+      -moz-osx-font-smoothing: grayscale
+      -webkit-font-smoothing: antialiased
+      left: .25em
+      position: absolute
+      top: .25em
+      font-size: 1.5em
+      color: var(--warning)
+    &.alert,
+    &.danger
+      background-color: var(--danger-tint)
+      color: var(--danger-text)
+      &::before
+        color: var(--danger)
+    &.warning
+      background-color: var(--warning-tint)
+      color: var(--warning-text)
+      &::before
+        color: var(--warning)
+    &.info
+      background-color: var(--info-tint)
+      color: var(--info-text)
+      &::before
+        color: var(--info)
+    &.primary
+      background-color: var(--primary-tint)
+      color: var(--primary-text)
+      &::before
+        color: var(--primary)
+    &.success
+      background-color: var(--success-tint)
+      color: var(--success-text)
+      &::before
+        color: var(--success)

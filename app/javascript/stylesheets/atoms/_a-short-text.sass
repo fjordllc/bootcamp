@@ -1,4 +1,3 @@
-@use "../config/mixins/break-points"
 @use "../config/variables/colors"
 
 .a-short-text
@@ -6,11 +5,6 @@
     font-size: 1.25em
     line-height: 1.4
     margin-top: .75em
-  &.is-sm
-    +break-points.media-breakpoint-up(md)
-      font-size: .8125rem
-    +break-points.media-breakpoint-down(sm)
-      font-size: .75rem
   p
     font-size: 1em
     line-height: 1.6
@@ -197,3 +191,7 @@
     margin-top: 0
   *:last-child
     margin-bottom: 0
+
+@media (max-width: 47.9375em)
+  .a-short-text.is-sm
+    font-size: .75rem

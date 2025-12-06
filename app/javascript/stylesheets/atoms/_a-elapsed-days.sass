@@ -1,5 +1,3 @@
-@use "../config/mixins/break-points"
-
 .card-header.a-elapsed-days
   letter-spacing: .125em
   text-indent: .125em
@@ -8,18 +6,6 @@
   border: solid 1px var(--border)
   >*
     width: 100%
-  +break-points.media-breakpoint-up(md)
-    font-size: 1rem
-    line-height: 1.4
-    text-align: center
-    font-weight: 600
-    padding: .375rem 1rem
-  +break-points.media-breakpoint-down(sm)
-    font-size: .875rem
-    line-height: 1.4
-    text-align: center
-    font-weight: 600
-    padding: .375rem .75rem
   &.is-reply-warning
     background-color: var(--reply-warning-background)
     border-color: var(--reply-warning-border)
@@ -31,3 +17,19 @@
     color: var(--reversal-text)
     background-color: var(--reply-deadline-background)
     border-color: var(--reply-deadline-border)
+
+@media (min-width: 48em)
+  .card-header.a-elapsed-days
+    font-size: 1rem
+    line-height: 1.4
+    text-align: center
+    font-weight: 600
+    padding: .375rem 1rem
+
+@media (max-width: 47.9375em)
+  .card-header.a-elapsed-days
+    font-size: .875rem
+    line-height: 1.4
+    text-align: center
+    font-weight: 600
+    padding: .375rem .75rem

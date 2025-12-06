@@ -1,148 +1,64 @@
-@use "../config/mixins/break-points"
-@use "../config/mixins/button"
+@use "sass:color"
 @use "../config/variables/colors"
+@use "../config/functions/color" as color-func
+
+@function button-text-color($bg)
+  @if color-func.luma($bg) > 50
+    @return colors.$default-text
+  @else
+    @return colors.$reversal-text
+
+@function button-border-color($bg)
+  @if color-func.luma($bg) > 80
+    @return color.adjust(color.adjust($bg, $lightness: -12%), $saturation: 2%)
+  @else
+    @return $bg
+
+@function button-hover-color($bg)
+  @return color.adjust(color.adjust($bg, $lightness: -4%), $saturation: 2%)
+
+@function button-hover-border-color($bg)
+  @if color-func.luma($bg) > 80
+    @return color.adjust(color.adjust($bg, $lightness: -18%), $saturation: 2%)
+  @else
+    @return $bg
+
+@function button-disabled-border($bg)
+  @return color-func.shade($bg, 6%)
 
 .a-button
-  +button.button-base
-
-  // color
-  &.is-primary
-    +button.button-color(colors.$primary)
-  &.is-secondary
-    +button.button-color(colors.$secondary)
-    &.is-active
-      +button.button-color(colors.$primary)
-  &.is-info
-    +button.button-color(colors.$info)
-  &.is-success
-    +button.button-color(colors.$success)
-  &.is-warning
-    +button.button-color(colors.$warning)
-  &.is-danger
-    +button.button-color(colors.$danger)
-  &.is-disabled
-    +button.button-color(colors.$disabled)
-  &.is-main
-    +button.button-color(colors.$main)
-  &.is-primary-border
-    +button.border-button-color(colors.$primary)
-  &.is-secondary-border
-    +button.border-button-color(colors.$secondary)
-  &.is-muted
-    border: none
-    color: var(--muted-text)
-    font-weight: 400 !important
-    background-color: var(--background)
-  &.is-muted-bordered
-    border-color: colors.$border
-    color: colors.$muted-text
-    font-weight: 400 !important
-    background-color: var(--base)
-    &:hover
-      background-color: var(--background-more-tint)
-      color: var(--semi-muted-text)
-
-  &.is-sm-text
-    span
-      font-size: .875em
-  &.is-lg-icon
-    i
-      font-size: 1.5em
-  &.is-text
-    background: none
-    border: none
-    font-weight: 400
-    text-decoration: none
-    cursor: pointer
-    &:hover,
-    &:active
-      text-decoration: underline
-    +colors.default-link
-    height: auto !important
-    padding: 0 !important
-  &.is-text-reversal
-    background: none
-    border: none
-    font-weight: 400
-    text-decoration: none
-    cursor: pointer
-    &:hover,
-    &:active
-      text-decoration: underline
-    +colors.muted-link
-    height: auto !important
-    padding: 0 !important
-  &.is-muted-text
-    background: none
-    border: none
-    font-weight: 400
-    text-decoration: none
-    cursor: pointer
-    &:hover,
-    &:active
-      text-decoration: underline
-    +colors.muted-link
-    height: auto !important
-    padding: 0 !important
-
-  //size
-  &.is-xxs,
-  &.is-xxs input[type="submit"]
-    +button.button-size(.625rem, 1, 1.4rem)
-    font-weight: 400
-  &.is-xs,
-  &.is-xs input[type="submit"]
-    +button.button-size(.75rem, 1, 1.7rem)
-    font-weight: 400
-  &.is-sm,
-  &.is-sm input[type="submit"]
-    +button.button-size(.75rem, 1.25, 2rem)
-  &.is-md,
-  &.is-md input[type="submit"]
-    +button.button-size(.8125rem, 1.4, 2.25rem)
-  &.is-lg,
-  &.is-lg input[type="submit"]
-    +button.button-size(1rem, 1, 2.75rem)
-  &.is-xl,
-  &.is-xl input[type="submit"]
-    +button.button-size(1.25rem, 1, 57px)
-    font-weight: 800
-    +break-points.media-breakpoint-down(sm)
-      +button.button-size(1.125rem, 1, 3rem)
-  &.is-submit-input
-    padding: 0
-    &.is-left-icon,
-    &.is-right-icon
-      position: relative
-      i
-        font-size: 1.125em
-        display: flex
-        align-items: center
-        justify-content: center
-        position: absolute
-        top: 0
-        bottom: 0
-    &.is-left-icon
-      i
-        left: 0
-        margin-left: .45em
-      input[type="submit"]
-        padding-left: 2.25em
-    &.is-right-icon
-      position: relative
-      i
-        right: 0
-        margin-right: .45em
-      input[type="submit"]
-        padding-right: 2.25em
-
-  //icon
-  &.is-back
+  text-transform: none
+  font-weight: 600
+  display: inline-flex
+  border: solid 1px
+  border-radius: .25rem
+  font-family: var(--sans-serif)
+  line-height: 1.4
+  white-space: nowrap
+  text-decoration: none
+  cursor: pointer
+  user-select: none
+  align-items: center
+  justify-content: center
+  transition: all .2s ease-out
+  &.is-block
+    display: flex
+    width: 100%
+    max-width: 100%
+    &.is-select
+      margin-inline: 0
+  &:focus
+    outline: none
+  &:disabled
+    cursor: default
+    pointer-events: none
+  &:disabled *
+    cursor: default
+  &.is-select
+    padding-inline: 0
     position: relative
-    padding-left: .75em
-    padding-right: 0
     &::before
-      content: "\f104"
+      content: "\f0d7"
       font-family: 'Font Awesome 6 Pro'
       font-style: normal
       font-weight: 900
@@ -151,16 +67,298 @@
       line-height: 1
       -moz-osx-font-smoothing: grayscale
       -webkit-font-smoothing: antialiased
-      left: .75em
+      height: 100%
+      width: 2em
+      right: 0
+      position: absolute
+      top: 0
+      bottom: 0
+    font-size: 1em
+    line-height: 1
+    display: flex
+    color: var(--muted-text)
+    align-items: center
+    justify-content: center
+  select
+    padding-left: 1em
+    padding-right: 2em
+    position: relative
+    z-index: 1
+  *
+    cursor: pointer
+  i
+    margin-right: .35em
+    margin-top: .02em
+    font-size: 1.07em
+  &.is-icon
+    i
+      font-size: 1.35em
+      line-height: 1
+      margin-right: 0
+  &.is-checkbox
+    position: relative
+    &::before
+      content: ""
+      height: .9375em
+      width: .9375em
+      border-radius: .1875em
+      display: block
+      border: solid 1px var(--background-shade)
+      background-color: var(--base)
+      left: 1em
       position: absolute
       top: 50%
       transform: translate(0, -50%)
+    &::after
+      content: "\f00c"
+      font-family: 'Font Awesome 6 Pro'
+      font-style: normal
+      font-weight: 900
+      font-variant: normal
+      text-rendering: auto
+      line-height: 1
+      -moz-osx-font-smoothing: grayscale
+      -webkit-font-smoothing: antialiased
+      font-size: 1em
+      line-height: 1
+      display: flex
+      color: var(--reversal-text)
+      align-items: center
+      justify-content: center
+      height: .9375em
+      width: .9375em
+      left: 1em
+      position: absolute
+      top: 50%
+      transform: translate(0, -50%)
+      opacity: 0
+    input:checked + &::before
+      border-color: var(--primary)
+      background-color: var(--primary)
+    input:checked + &::after
+      opacity: 1
+
+$button-variants: (
+  "primary": colors.$primary,
+  "secondary": colors.$secondary,
+  "info": colors.$info,
+  "success": colors.$success,
+  "warning": colors.$warning,
+  "danger": colors.$danger,
+  "disabled": colors.$disabled,
+  "main": colors.$main
+)
+
+@each $name, $color in $button-variants
+  .a-button.is-#{$name}
+    $text-color: button-text-color($color)
+    background-color: $color
+    color: $text-color
+    border-color: button-border-color($color)
+    @if $name == "secondary"
+      border-color: var(--input-border)
+    &:focus,
+    &:active
+      box-shadow: 0 0 0 .1875rem rgba($color, .25)
+    &:hover,
+    &:focus,
+    &:active
+      background-color: button-hover-color($color)
+      border-color: button-hover-border-color($color)
+    &.is-disabled,
+    &:disabled
+      color: rgba($text-color, .4)
+      border-color: button-disabled-border($color)
+      pointer-events: none
+
+.a-button.is-secondary.is-active
+  $color: colors.$primary
+  background-color: $color
+  color: button-text-color($color)
+  border-color: button-border-color($color)
+  &:focus,
+  &:active
+    box-shadow: 0 0 0 .1875rem rgba($color, .25)
+  &:hover,
+  &:focus,
+  &:active
+    background-color: button-hover-color($color)
+    border-color: button-hover-border-color($color)
+  &.is-disabled,
+  &:disabled
+    color: rgba(button-text-color($color), .4)
+    border-color: button-disabled-border($color)
+    pointer-events: none
+
+.a-button.is-muted
+  border: none
+  color: var(--muted-text)
+  font-weight: 400 !important
+  background-color: var(--background)
+
+.a-button.is-muted-bordered
+  border-color: colors.$border
+  color: colors.$muted-text
+  font-weight: 400 !important
+  background-color: colors.$base
+  &:hover
+    background-color: var(--background-more-tint)
+    color: var(--semi-muted-text)
+
+.a-button.is-primary-border
+  background-color: rgba(255, 255, 255, .1)
+  color: colors.$primary
+  border-color: colors.$primary
+  &:focus,
+  &:active
+    box-shadow: 0 0 0 .1875rem rgba(colors.$primary, .25)
+  &:hover,
+  &:focus,
+  &:active
+    background-color: rgba(colors.$primary, .25)
+  &.is-disabled,
+  &:disabled
+    color: rgba(colors.$primary, .4)
+    border-color: button-disabled-border(colors.$primary)
+    pointer-events: none
+
+.a-button.is-secondary-border
+  background-color: rgba(255, 255, 255, .1)
+  color: colors.$secondary
+  border-color: colors.$secondary
+  &:focus,
+  &:active
+    box-shadow: 0 0 0 .1875rem rgba(colors.$secondary, .25)
+  &:hover,
+  &:focus,
+  &:active
+    background-color: rgba(colors.$secondary, .25)
+  &.is-disabled,
+  &:disabled
+    color: rgba(colors.$secondary, .4)
+    border-color: button-disabled-border(colors.$secondary)
+    pointer-events: none
+
+.a-button.is-sm-text span
+  font-size: .875em
+
+.a-button.is-lg-icon i
+  font-size: 1.5em
+
+.a-button.is-text,
+.a-button.is-text-reversal,
+.a-button.is-muted-text
+  background: none
+  border: none
+  font-weight: 400
+  text-decoration: none
+  cursor: pointer
+  &:hover,
+  &:active
+    text-decoration: underline
+  height: auto !important
+  padding: 0 !important
+
+.a-button.is-text
+  color: colors.$primary
+
+.a-button.is-text-reversal,
+.a-button.is-muted-text
+  color: colors.$muted-text
+
+.a-button.is-xxs,
+.a-button.is-xxs input[type="submit"]
+  font-size: .625rem
+  padding-inline: .625rem
+  height: 1.4rem
+  font-weight: 400
+
+.a-button.is-xs,
+.a-button.is-xs input[type="submit"]
+  font-size: .75rem
+  padding-inline: .75rem
+  height: 1.7rem
+  font-weight: 400
+
+.a-button.is-sm,
+.a-button.is-sm input[type="submit"]
+  font-size: .75rem
+  padding-inline: .9375rem
+  height: 2rem
+
+.a-button.is-md,
+.a-button.is-md input[type="submit"]
+  font-size: .8125rem
+  padding-inline: 1.1375rem
+  height: 2.25rem
+
+.a-button.is-lg,
+.a-button.is-lg input[type="submit"]
+  font-size: 1rem
+  padding-inline: 1rem
+  height: 2.75rem
+
+.a-button.is-xl,
+.a-button.is-xl input[type="submit"]
+  font-size: 1.25rem
+  padding-inline: 1.25rem
+  height: 57px
+  font-weight: 800
+
+.a-button.is-submit-input
+  padding: 0
+  &.is-left-icon,
+  &.is-right-icon
+    position: relative
+    i
+      font-size: 1.125em
+      display: flex
+      align-items: center
+      justify-content: center
+      position: absolute
+      top: 0
+      bottom: 0
+  &.is-left-icon
+    i
+      left: 0
+      margin-left: .45em
+    input[type="submit"]
+      padding-left: 2.25em
+  &.is-right-icon
+    i
+      right: 0
+      margin-right: .45em
+    input[type="submit"]
+      padding-right: 2.25em
+
+.a-button.is-back
+  position: relative
+  padding-left: .75em
+  padding-right: 0
+  &::before
+    content: "\f104"
+    font-family: 'Font Awesome 6 Pro'
+    font-style: normal
+    font-weight: 900
+    font-variant: normal
+    text-rendering: auto
+    line-height: 1
+    -moz-osx-font-smoothing: grayscale
+    -webkit-font-smoothing: antialiased
+    left: .75em
+    position: absolute
+    top: 50%
+    transform: translate(0, -50%)
 
 input[type="submit"],
 input[type="reset"],
 input[type="button"]
   &.a-button
-    +button.input-button-base
+    display: inline-block
+    vertical-align: middle
+    &.is-block
+      width: 100%
+      display: block
 
 .is-button-group
   display: flex
@@ -193,3 +391,10 @@ input[type="button"]
   &[class*=-primary]:disabled
     background-color: var(--primary)
     cursor: default
+
+@media (max-width: 47.9375em)
+  .a-button.is-xl,
+  .a-button.is-xl input[type="submit"]
+    font-size: 1.125rem
+    padding-inline: 1.125rem
+    height: 3rem

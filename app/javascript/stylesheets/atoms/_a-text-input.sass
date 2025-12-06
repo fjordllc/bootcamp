@@ -1,6 +1,7 @@
-@use "../config/mixins/break-points"
-
-@mixin text-input-base
+.a-text-input,
+.tagify,
+.multiselect__single,
+.multiselect__input
   font-size: 1em
   line-height: 1.4
   display: block
@@ -10,10 +11,6 @@
   border: solid 1px var(--input-border)
   border-radius: .25rem
   transition: border-color .2s ease-in, background-color .2s ease-in, box-shadow .2s ease-in
-  +break-points.media-breakpoint-up(md)
-    font-size: .875rem
-  +break-points.media-breakpoint-down(sm)
-    font-size: 1rem
   .field_with_errors &
     border-color: #e1a7b6
     background-color: #fefafb
@@ -36,9 +33,6 @@
     border: none
     padding: 0
     background-color: transparent
-
-.a-text-input
-  +text-input-base
 
 input[type=date].a-text-input,
 input[type=month].a-text-input,
