@@ -82,9 +82,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     # Restart browser periodically in CI to prevent memory buildup
     if ENV['CI']
       BrowserRestartCounter.increment
-      if BrowserRestartCounter.should_restart?(15)
-        BrowserRestartCounter.restart_browser!
-      end
+      BrowserRestartCounter.restart_browser! if BrowserRestartCounter.should_restart?(15)
     end
   end
 end
