@@ -98,7 +98,7 @@ jobs:
           command: 'bundle exec rails db:setup'
       - run:
           name: Assets precompile
-          command: 'bundle exec rails assets:clean assets:precompile NODE_OPTIONS=--openssl-legacy-provider'
+          command: 'bundle exec rails assets:clean assets:precompile'
       - run:
           name: Test
           command: |

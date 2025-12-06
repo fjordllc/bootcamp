@@ -42,84 +42,18 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     driven_by(:selenium, using: :headless_chrome) do |driver_option|
       driver_option.add_argument('--no-sandbox')
       driver_option.add_argument('--disable-dev-shm-usage')
-      driver_option.add_argument('--disable-gpu')
-      driver_option.add_argument('--disable-software-rasterizer')
-      driver_option.add_argument('--window-size=1400,1400')
       driver_option.add_argument('enable-blink-features=Clipboard')
       driver_option.add_preference('profile.password_manager_leak_detection', false)
-
-      # Additional stability and memory options for CI
-      if ENV['CI']
-        driver_option.add_argument('--disable-extensions')
-        driver_option.add_argument('--disable-background-networking')
-        driver_option.add_argument('--disable-default-apps')
-        driver_option.add_argument('--disable-features=TranslateUI')
-        driver_option.add_argument('--disable-site-isolation-trials')
-        # Memory optimization for CI
-        driver_option.add_argument('--memory-pressure-off')
-        driver_option.add_argument('--disable-features=IsolateOrigins,site-per-process')
-        driver_option.add_argument('--disable-renderer-backgrounding')
-        driver_option.add_argument('--disable-backgrounding-occluded-windows')
-        # Limit renderer processes to prevent memory bloat
-        driver_option.add_argument('--renderer-process-limit=2')
-        # Disable GPU compositing which can cause memory issues
-        driver_option.add_argument('--disable-accelerated-2d-canvas')
-        # Aggressive memory optimization to prevent OOM
-        driver_option.add_argument('--js-flags=--max-old-space-size=512')
-        driver_option.add_argument('--disk-cache-size=1')
-        driver_option.add_argument('--media-cache-size=1')
-        driver_option.add_argument('--disable-application-cache')
-      end
     end
   end
 
   setup do
     @original_adapter = ActiveJob::Base.queue_adapter
     ActiveJob::Base.queue_adapter = :inline
-
-    # Set Selenium timeouts to prevent hanging tests in CI
-    # Note: implicit_wait is intentionally set to 0 to use Capybara's wait mechanism instead
-    if ENV['CI']
-      page.driver.browser.manage.timeouts.page_load = 60 # 60 seconds
-      page.driver.browser.manage.timeouts.script = 30 # 30 seconds
-    end
-
-    CITestLogger.log("[SYSTEM TEST START] #{self.class.name}##{name}")
   end
 
   teardown do
-    CITestLogger.log("[SYSTEM TEST END] #{self.class.name}##{name}")
-
     ActionMailer::Base.deliveries.clear
     ActiveJob::Base.queue_adapter = @original_adapter
-
-    # Clean up browser resources to prevent memory buildup in CI
-    if ENV['CI']
-      begin
-        # Trigger JavaScript garbage collection in the browser before reset
-        begin
-          page.execute_script('if (window.gc) { window.gc(); }')
-        rescue StandardError
-          nil
-        end
-        # Clear any pending timeouts/intervals that might hold references
-        begin
-          page.execute_script('
-            var highestTimeoutId = setTimeout(";");
-            for (var i = 0 ; i < highestTimeoutId ; i++) { clearTimeout(i); }
-            var highestIntervalId = setInterval(";");
-            for (var i = 0 ; i < highestIntervalId ; i++) { clearInterval(i); }
-          ')
-        rescue StandardError
-          nil
-        end
-        # Reset Capybara session (clears cookies, localStorage, etc.)
-        Capybara.reset_sessions!
-      rescue StandardError => e
-        CITestLogger.log("[SESSION RESET WARNING] #{e.message}")
-      end
-      # Force garbage collection
-      GC.start(full_mark: true, immediate_sweep: true)
-    end
   end
 end
