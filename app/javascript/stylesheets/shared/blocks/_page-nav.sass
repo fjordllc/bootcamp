@@ -1,13 +1,10 @@
-@use "../../config/mixins/break-points"
-
 .page-nav
-  +break-points.media-breakpoint-up(lg)
+  position: static
+  @media (min-width: 64em)
     right: 0
     top: 3.5rem
     position: sticky
     overflow: hidden
-  +break-points.media-breakpoint-down(md)
-    position: static
 
 .page-nav__title
   font-size: .875rem
@@ -46,10 +43,9 @@ a.page-nav__title-inner
   overflow-y: auto
   position: relative
   z-index: 1
-  +break-points.media-breakpoint-up(lg)
+  max-height: 12rem
+  @media (min-width: 64em)
     max-height: calc(100vh - 8.5rem)
-  +break-points.media-breakpoint-down(md)
-    max-height: 12rem
 
 =page-nav-current($background-color, $border-color, $text-color, $pointer-events-none)
   position: relative
