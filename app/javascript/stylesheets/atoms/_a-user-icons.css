@@ -1,0 +1,17 @@
+.a-user-icons {
+  padding-top: 0.5rem;
+  margin-top: 0.75rem;
+  border-top: dashed 1px var(--border);
+  margin-bottom: -0.25rem;
+}
+
+.a-user-icons__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.a-user-icons__item-icon {
+  width: 2rem;
+  height: 2rem;
+}
