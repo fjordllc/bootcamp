@@ -1,11 +1,8 @@
-@use "../../config/mixins/break-points"
 @use "../../config/variables/fonts"
 
 html.is-application
   font-family: fonts.$sans-serif
   color: var(--default-text)
-  +break-points.media-breakpoint-up(md)
-    scroll-padding-top: var(--header-height__md-up)
 
 body.is-application
   background-color: var(--background)
@@ -31,19 +28,14 @@ body.is-piyo-background
     background-repeat: repeat
     overflow-y: auto
     opacity: .04
-    +break-points.media-breakpoint-up(md)
-      background-size: 20rem
-    +break-points.media-breakpoint-down(sm)
-      background-size: 4.5rem
+    background-size: 20rem
   .wrapper
     position: relative
     z-index: 1
 
 .wrapper
   &.is-application
-    +break-points.media-breakpoint-up(md)
-      margin-left: var(--global-nav-width)
-      padding-top: var(--header-height__md-up)
+    // styles moved to media queries
   body.no-global-nav &
     margin-left: 0
   body.no-header &
@@ -53,3 +45,14 @@ body.is-piyo-background
     overflow-y: auto
   body.is-thanks-page &
     padding-block: 4rem
+
+@media (min-width: 48em)
+  html.is-application
+    scroll-padding-top: var(--header-height__md-up)
+  .wrapper.is-application
+    margin-left: var(--global-nav-width)
+    padding-top: var(--header-height__md-up)
+
+@media (max-width: 47.9375em)
+  body.is-piyo-background::before
+    background-size: 4.5rem auto

@@ -1,4 +1,3 @@
-@use "../config/mixins/break-points"
 .not-logged-in-wrapper
   min-height: 100vh
   display: flex
@@ -16,10 +15,7 @@
         width: 100%
     height: 100%
     opacity: .075
-    +break-points.media-breakpoint-up(md)
-      background-size: 22rem auto
-    +break-points.media-breakpoint-down(sm)
-      background-size: 16rem auto
+    background-size: 22rem auto
   body.is-completion &::before
     content: ''
     background-image: url('https://bootcamp.fjord.jp/images/background/completion_background.svg')
@@ -33,8 +29,7 @@
         width: 100%
     height: 100%
     opacity: .075
-    +break-points.media-breakpoint-up(md)
-      background-size: 16rem auto
+    background-size: 16rem auto
 
 .not-logged-in-wrapper__start
   flex: 1
@@ -44,3 +39,9 @@
 .not-logged-in-wrapper__end
   position: relative
   z-index: 2
+
+@media (max-width: 47.9375em)
+  .not-logged-in-wrapper::before
+    background-size: 16rem auto
+  body.is-completion .not-logged-in-wrapper::before
+    background-size: auto
