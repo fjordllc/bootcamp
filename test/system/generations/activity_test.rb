@@ -69,8 +69,8 @@ module Generations
     end
 
     test 'shows 0 without link when user has no activity' do
-      user = users(:kimura)
-      visit_with_auth generation_path(user.generation), 'kimura'
+      user = users(:hatsuno)
+      visit_with_auth generation_path(user.generation), 'hatsuno'
 
       within('.users-item', text: user.name) do
         within('.card-counts__item-inner', text: 'コメント') do
