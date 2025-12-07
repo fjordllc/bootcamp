@@ -3,18 +3,13 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@2.5.4
   node: circleci/node@7.1.1
-  browser-tools: circleci/browser-tools@2.3.1
+  browser-tools: circleci/browser-tools@2.3.2
 jobs:
   build:
     docker:
       - image: cimg/ruby:3.4.3-node
     steps:
       - checkout
-      - run:
-          name: Configure Bundler
-          command: |
-            bundle config set --local force_ruby_platform true
-            bundle lock --add-platform ruby
       - ruby/install-deps
       - node/install:
           install-yarn: true
@@ -26,11 +21,6 @@ jobs:
       - image: 'cimg/ruby:3.4.3-node'
     steps:
       - checkout
-      - run:
-          name: Configure Bundler
-          command: |
-            bundle config set --local force_ruby_platform true
-            bundle lock --add-platform ruby
       - ruby/install-deps
       - ruby/rubocop-check:
           format: progress
@@ -73,12 +63,10 @@ jobs:
       RAILS_ENV: test
       DATABASE_URL: 'postgres://postgres:postgres@localhost/ci_test'
       TZ: Asia/Tokyo
-      PARALLEL_WORKERS: 2
-    parallelism: 3
+    parallelism: 8
     steps:
       - checkout
-      - browser-tools/install_browser_tools:
-        chrome-version: 130.0.6723.116
+      - browser-tools/install_browser_tools
       - run:
           command: |
             google-chrome --version
@@ -110,14 +98,12 @@ jobs:
           command: 'bundle exec rails db:setup'
       - run:
           name: Assets precompile
-          command: 'bundle exec rails assets:clean assets:precompile NODE_OPTIONS=--openssl-legacy-provider'
+          command: 'bundle exec rails assets:clean assets:precompile'
       - run:
           name: Test
           command: |
-            TEST_FILES=$(circleci tests glob "test/**/*_test.rb")
-            echo "$TEST_FILES" | circleci tests run --command="xargs bundle exec rails test $TESTFILES" --verbose --split-by=timings
-          no_output_timeout: 30m
-          when: always
+            TEST_FILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=timings --timings-type=filename)
+            bundle exec rails test $TEST_FILES
       - store_test_results:
           path: test/reports
       - store_artifacts:
