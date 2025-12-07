@@ -1,0 +1,4 @@
+# Footprints Fixtures
+#
+# This file is intentionally left empty as footprints are created dynamically
+# in tests rather than through fixtures to avoid complex foreign key dependencies.

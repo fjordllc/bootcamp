@@ -383,7 +383,7 @@ class SearcherTest < ActiveSupport::TestCase
     assert_includes(result.map do |r|
                       [strip_html(r.description), r.is_a?(User) ? r.login_name : r.user.login_name]
                     end, [comments(:comment16).description, comments(:comment16).user.login_name])
-    assert_equal(31, result.size)
+    assert_equal(32, result.size)
   end
 
   test 'can not search a comment of talk' do
