@@ -15,6 +15,7 @@ class Notification::CommentsTest < NotificationSystemTestCase
   test 'recieve only one notificaiton if you send two mentions in one comment' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
 
+    find('.thread-comment-form__form')
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: '@machida @machida test')
     end

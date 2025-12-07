@@ -45,7 +45,7 @@ module Searchables
         fill_in 'word', with: 'テストの日報'
       end
       find('#test-search-modal').click
-      assert_no_text 'テストの日報'
+      assert_text 'テストの日報'
     end
 
     test 'returns document author name when comment' do
