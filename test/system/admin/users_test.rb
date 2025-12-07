@@ -337,6 +337,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
       select 'iOSエンジニア', from: 'user[course_id]'
     end
     click_on '更新する'
+    assert_text 'ユーザー情報を更新しました。'
     assert_equal 'iOSエンジニア', user.reload.course.title
   end
 
