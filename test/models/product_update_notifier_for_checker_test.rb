@@ -5,6 +5,10 @@ require 'test_helper'
 class ProductUpdateNotifierForCheckerTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
+  setup do
+    AbstractNotifier::Testing::Driver.clear
+  end
+
   test '#call' do
     product = Product.new(
       body: 'test',
