@@ -1,0 +1,16 @@
+.a-category-link {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--muted-text);
+  text-decoration: none;
+  cursor: pointer;
+}
+.a-category-link:hover, .a-category-link:active {
+  text-decoration: underline;
+}
+.a-category-link {
+  transition: all 0.2s ease-out;
+}
+.a-category-link:hover {
+  color: var(--default-text);
+}

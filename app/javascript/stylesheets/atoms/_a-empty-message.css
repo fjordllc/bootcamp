@@ -1,0 +1,33 @@
+.a-empty-message {
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: center;
+  margin-inline: auto;
+  max-width: 100%;
+}
+.a-empty-message.is-info {
+  border: solid 1px var(--info);
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.25rem;
+  background-color: var(--info-tint);
+  color: var(--info-text);
+}
+.a-empty-message p {
+  font-size: 0.875em;
+  line-height: 1.6;
+  text-align: left;
+}
+
+@media (min-width: 48em) {
+  .a-empty-message {
+    width: 42.5rem;
+  }
+}
+@media (max-width: 47.9375em) {
+  .a-empty-message {
+    font-size: 0.8125rem;
+  }
+  .a-empty-message.is-info {
+    padding: 0.75rem 1rem;
+  }
+}
