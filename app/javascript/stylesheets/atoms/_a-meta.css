@@ -1,0 +1,99 @@
+.a-meta {
+  font-size: 1em;
+  line-height: 1.4;
+  display: flex;
+  color: var(--muted-text);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.a-meta .is-important,
+.a-meta.is-important {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.a-meta .is-muted {
+  color: var(--muted-text);
+}
+
+.a-meta .is-emphasized {
+  color: var(--default-text);
+  font-weight: 600;
+}
+
+a.a-meta {
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--muted-text);
+  transition: all 0.2s ease-out;
+}
+
+a.a-meta:hover,
+a.a-meta:active {
+  text-decoration: underline;
+}
+
+a.a-meta:hover {
+  color: var(--main-text);
+}
+
+a.a-meta.is-disabled {
+  pointer-events: none;
+}
+
+.a-meta__label::after {
+  content: ":";
+  display: inline-flex;
+  margin-inline: 0.125em;
+}
+
+.a-meta__icon {
+  margin-right: 0.125em;
+}
+
+.a-meta__value {
+  display: flex;
+  align-items: center;
+}
+
+.a-user-icon + .a-meta__value {
+  margin-left: 0.25rem;
+}
+
+.a-meta__value.is-danger {
+  font-weight: 600;
+  color: var(--danger);
+}
+
+.a-meta__list {
+  display: inline-flex;
+}
+
+.a-meta__list-item:not(:first-child)::before {
+  content: "、";
+}
+
+@media (min-width: 48em) {
+  .a-meta {
+    font-size: 0.75rem;
+  }
+
+  .a-meta + .a-meta {
+    margin-left: 0.25em;
+  }
+
+  .a-meta + .a-meta::before {
+    content: "（";
+  }
+
+  .a-meta + .a-meta::after {
+    content: "）";
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .a-meta {
+    font-size: 0.75rem;
+  }
+}
