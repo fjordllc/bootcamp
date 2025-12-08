@@ -14,6 +14,13 @@ class ProductUpdateNotifierForCheckerTest < ActiveSupport::TestCase
     )
     product.save!
 
+    # Debug: Check AbstractNotifier configuration
+    puts "DEBUG: AbstractNotifier.delivery_mode = #{AbstractNotifier.delivery_mode}"
+    puts "DEBUG: AbstractNotifier.test? = #{AbstractNotifier.test?}"
+    puts "DEBUG: AbstractNotifier.noop? = #{AbstractNotifier.noop?}"
+    puts "DEBUG: RAILS_ENV = #{ENV['RAILS_ENV']}"
+    puts "DEBUG: enqueued_deliveries count before = #{AbstractNotifier::Testing::Driver.enqueued_deliveries.count}"
+
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
       ProductUpdateNotifierForChecker.new.call(nil, nil, nil, nil, { product:, current_user: product.user })
     end
