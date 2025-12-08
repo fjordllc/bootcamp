@@ -1,0 +1,65 @@
+.following {
+  position: relative;
+  width: 100%;
+}
+.following summary {
+  display: block;
+}
+.following summary::-webkit-details-marker,
+.following summary::marker {
+  display: none;
+}
+
+.following__dropdown {
+  position: absolute;
+  z-index: 3;
+  width: 18.75rem;
+}
+
+.following-option {
+  cursor: pointer;
+  width: 100%;
+  padding: 0.75rem;
+  display: block;
+  text-align: left;
+  transition: all 0.2s ease-out;
+}
+.following-option:hover {
+  background-color: var(--background-more-tint);
+}
+
+.following-option__inner {
+  position: relative;
+  padding-left: 1.5rem;
+}
+.following-option.is-active .following-option__inner::before {
+  content: "\f00c";
+  font-family: "Font Awesome 6 Pro";
+  font-style: normal;
+  font-weight: 900;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+.following-option__label {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  font-weight: 600;
+  color: var(--semi-muted-text);
+}
+.following-option.is-active .following-option__label {
+  color: var(--default-text);
+}
+
+.following-option__desciption {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--muted-text);
+  margin-top: 0.125rem;
+}

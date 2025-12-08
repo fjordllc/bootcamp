@@ -1,0 +1,18 @@
+.a-cancel-button {
+  margin-left: 0.5em;
+  color: var(--background);
+  font-size: 0.875rem;
+  display: flex;
+  text-decoration: none;
+  height: 1.5em;
+  width: 1.5em;
+  background-color: var(--muted-text);
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease-out;
+}
+.a-cancel-button:hover {
+  background-color: var(--primary);
+  color: var(--reversal-text);
+}
