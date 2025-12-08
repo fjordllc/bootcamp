@@ -1,0 +1,13 @@
+.a-bookmark-button {
+  border: none;
+}
+.a-bookmark-button:hover {
+  border: none;
+}
+.a-bookmark-button.is-inactive {
+  color: var(--semi-muted-text);
+}
+.a-bookmark-button.is-inactive:hover {
+  color: var(--default-text);
+  background-color: var(--background-semi-shade);
+}

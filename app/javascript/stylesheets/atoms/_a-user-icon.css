@@ -1,0 +1,23 @@
+.a-user-icon {
+  display: block;
+  object-fit: cover;
+  border-radius: 50%;
+  background-color: var(--base);
+  width: 100%;
+  height: 100%;
+}
+.a-user-icon.is-sm {
+  width: 2rem;
+  height: 2rem;
+}
+.a-user-icon.is-xs {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+@media (max-width: 47.9375em) {
+  .a-user-icon.is-xs {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+}
