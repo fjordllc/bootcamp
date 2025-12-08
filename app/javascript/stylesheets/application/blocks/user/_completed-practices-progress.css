@@ -1,0 +1,69 @@
+.completed-practices-progress {
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.completed-practices-progress__bar-container {
+  flex: 1;
+  border-radius: 20rem;
+  height: 0.75rem;
+  overflow: hidden;
+}
+
+.completed-practices-progress__bar {
+  height: 0.75rem;
+  width: 100%;
+  background-color: var(--background-semi-shade);
+}
+
+.completed-practices-progress__percentage-bar {
+  height: 0.75rem;
+  background-color: var(--success);
+  position: relative;
+  top: -0.75rem;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 0.0625rem 0.0625rem;
+}
+
+.completed-practices-progress__counts {
+  position: relative;
+  cursor: pointer;
+  display: block;
+}
+
+.completed-practices-progress__counts-inner {
+  cursor: pointer;
+}
+
+.completed-practices-progress__counts-inner:hover .completed-practices-progress__percentage {
+  text-decoration: underline;
+}
+
+.completed-practices-progress__percentage {
+  font-size: 0.8125rem;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.completed-practices-progress__number {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 0.5rem);
+  background-color: var(--base);
+  border: solid 1px var(--border);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  text-align: right;
+  white-space: nowrap;
+  border-radius: 0.25rem;
+}
+
+.completed-practices-progress__counts input:checked ~ label .completed-practices-progress__number {
+  display: block;
+}
+
+.completed-practices-progress__counts input:not(:checked) ~ label .completed-practices-progress__number {
+  display: none;
+}
