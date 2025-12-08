@@ -3,6 +3,7 @@
 ENV['RAILS_ENV'] ||= 'test'
 # Suppress VIPS/GLib warnings in test environment
 ENV['G_MESSAGES_DEBUG'] = ''
+
 require_relative '../config/environment'
 require 'rails/test_help'
 require 'capybara/rails'
@@ -24,14 +25,10 @@ Minitest::Retry.use!(retry_count: 3, verbose: true) if ENV['CI']
 class ActiveSupport::TestCase
   include VCRHelper
 
-  # Run tests in parallel with specified workers
-  parallelize(workers: :number_of_processors)
-
-  # Setup for each parallel process
-  parallelize_setup do |_worker|
-    ActiveStorage::Current.url_options = { protocol: 'http', host: 'localhost', port: '3000' }
-    ActiveJob::Base.queue_adapter = :test
-  end
+  # Run tests in parallel with local execution only
+  # In CI: Disable Rails parallelization - CircleCI handles parallelism via parallelism setting
+  # This avoids DRb/fork complexity that can cause test hangs (Rails issue #55513)
+  parallelize(workers: :number_of_processors) unless ENV['CI']
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
@@ -39,6 +36,8 @@ class ActiveSupport::TestCase
   setup do
     ActiveStorage::Current.url_options = { protocol: 'http', host: 'localhost', port: '3000' }
     ActiveJob::Base.queue_adapter = :test
+    AbstractNotifier.delivery_mode = :test
+    AbstractNotifier::Testing::Driver.clear
   end
 end
 

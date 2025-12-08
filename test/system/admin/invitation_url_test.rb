@@ -17,9 +17,17 @@ class Admin::InvitationUrlTest < ApplicationSystemTestCase
     assert_equal '管理ページ | FBC', title
   end
 
+  # Memory-efficient wait for invitation URL
+  # Uses JavaScript evaluation instead of repeated find() calls to avoid DOM snapshot accumulation
   def wait_for_invitation_url_with_timeout(expected)
-    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
-      loop until find('.js-invitation-url-text').value == expected && find('.js-invitation-url')[:href] == expected
+    Capybara.using_wait_time(15) do
+      page.document.synchronize(15) do
+        text_value = evaluate_script("document.querySelector('.js-invitation-url-text')?.value")
+        href_value = evaluate_script("document.querySelector('.js-invitation-url')?.href")
+        unless text_value == expected && href_value == expected
+          raise Capybara::ElementNotFound, "Expected invitation URL '#{expected}' but got text='#{text_value}', href='#{href_value}'"
+        end
+      end
     end
   end
 

@@ -1,8 +1,8 @@
 - @user_course_practice.categories_for_skip_practice.each do |category|
   .skip-practices
-    input.a-toggle-checkbox(type='checkbox' id="category-#{category}")
+    input.a-toggle-checkbox(type='checkbox' id="category-#{category.id}")
     .skip-practices__inner
-      label.skip-practices__header(for='category-#{category}')
+      label.skip-practices__header(for="category-#{category.id}")
         .skip-practices__start
           .skip-practices__category-name
             | #{category.name}
@@ -12,7 +12,7 @@
           .skip-practices__category-angle-icon
             i.fa-regular.fa-angle-down
       .skip-practices__body
-        = @f.collection_check_boxes :practice_ids, category.practices , :id, :title, include_hidden: false, class: 'label-checkbox' do |b|
+        = @f.collection_check_boxes :practice_ids, category.practices, :id, :title, include_hidden: false, class: 'label-checkbox' do |b|
           .checkboxes
             .checkboxes__items
               .checkboxes__item.is-sm

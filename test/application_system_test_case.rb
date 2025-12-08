@@ -55,14 +55,5 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   teardown do
     ActionMailer::Base.deliveries.clear
     ActiveJob::Base.queue_adapter = @original_adapter
-
-    # Clean up any uploaded test files
-    if defined?(ActiveStorage::Blob)
-      begin
-        ActiveStorage::Blob.unattached.where('created_at < ?', 1.hour.ago).find_each(&:purge)
-      rescue StandardError
-        # Ignore cleanup errors in tests
-      end
-    end
   end
 end

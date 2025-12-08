@@ -106,10 +106,18 @@ class UserCoursePractice
   end
 
   def filter_category_by_practice_ids(category, practice_ids)
-    copied_category = category.dup
+    filtered_practices = []
     category.practices.each do |practice|
-      copied_category.practices << practice if practice_ids.delete(practice.id)
+      filtered_practices << practice if practice_ids.delete(practice.id)
     end
-    [copied_category, practice_ids]
+    # OpenStructを使用してカテゴリのようなオブジェクトを作成
+    # category.dupとhas_many throughの<<の組み合わせはメモリリークを引き起こすため
+    category_proxy = OpenStruct.new(
+      id: category.id,
+      name: category.name,
+      practices: filtered_practices,
+      practice_ids: filtered_practices.map(&:id)
+    )
+    [category_proxy, practice_ids]
   end
 end
