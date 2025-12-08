@@ -36,6 +36,7 @@ class ActiveSupport::TestCase
   setup do
     ActiveStorage::Current.url_options = { protocol: 'http', host: 'localhost', port: '3000' }
     ActiveJob::Base.queue_adapter = :test
+    AbstractNotifier::Testing::Driver.clear
   end
 end
 
