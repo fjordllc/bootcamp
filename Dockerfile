@@ -72,6 +72,7 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
       tzdata \
       curl \
       gnupg2 \
+      git \
       ca-certificates \
       libvips && \
     rm -rf /var/lib/apt/lists/*
