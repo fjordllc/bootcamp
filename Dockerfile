@@ -65,8 +65,9 @@ RUN gem update --system
 RUN printf "install: --no-rdoc --no-ri\nupdate:  --no-rdoc --no-ri" > ~/.gemrc
 RUN gem install --no-document --force bundler -v 2.4.21
 
-# Install only runtime dependencies
+# Install runtime and build dependencies
 RUN apt-get update -qq && apt-get install -y --no-install-recommends \
+      build-essential \
       postgresql-client \
       libpq-dev \
       tzdata \
