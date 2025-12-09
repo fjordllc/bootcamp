@@ -104,15 +104,19 @@ Rails.application.configure do
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
-  # Validate APP_HOST_NAME at boot time
+  # Validate APP_HOST_NAME at boot time (skip during asset precompilation)
   app_host_name = ENV["APP_HOST_NAME"]
-  if app_host_name.nil? || app_host_name.strip.empty?
-    abort "ERROR: APP_HOST_NAME environment variable is required for production but not set or blank"
+  unless ENV["SECRET_KEY_BASE"] == "dummy"
+    if app_host_name.nil? || app_host_name.strip.empty?
+      abort "ERROR: APP_HOST_NAME environment variable is required for production but not set or blank"
+    end
   end
 
-  config.action_mailer.default_url_options = { host: app_host_name, protocol: "https" }
-  config.action_mailer.asset_host = "https://#{app_host_name}"
-  config.action_controller.asset_host = "https://#{app_host_name}"
+  if app_host_name.present?
+    config.action_mailer.default_url_options = { host: app_host_name, protocol: "https" }
+    config.action_mailer.asset_host = "https://#{app_host_name}"
+    config.action_controller.asset_host = "https://#{app_host_name}"
+  end
 
   config.action_mailer.delivery_method = :postmark
   config.action_mailer.postmark_settings = { api_token: ENV["POSTMARK_API_TOKEN"] }
