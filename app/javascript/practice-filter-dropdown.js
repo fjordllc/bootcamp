@@ -1,10 +1,10 @@
 import Choices from 'choices.js'
 
 export default class {
-  constructor(practices, setPracticeId, userPracticeId) {
+  constructor(practices, practiceId, setPracticeId) {
     this.practices = practices
+    this.practiceId = practiceId
     this.setPracticeId = setPracticeId
-    this.userPracticeId = userPracticeId
     this.choices = null
     this.selectElement = null
     this.handleSelectChange = null
@@ -50,8 +50,8 @@ export default class {
       shouldSort: false
     })
 
-    if (this.userPracticeId) {
-      this.choices.setChoiceByValue(this.userPracticeId)
+    if (this.practiceId) {
+      this.choices.setChoiceByValue(this.practiceId)
     }
 
     this.handleSelectChange = (event) => {
