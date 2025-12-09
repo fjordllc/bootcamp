@@ -18,12 +18,12 @@ export default function Reports({
 }) {
   const per = 20
   const { page, setPage } = usePage()
-  const [userPracticeId, setUserPracticeId] = useState('')
+  const [selectedPracticeId, setSelectedPracticeId] = useState('')
 
   let reportsUrl = `/api/reports.json?page=${page}`
   if (userId) reportsUrl += `&user_id=${userId}`
   if (companyId) reportsUrl += `&company_id=${companyId}`
-  const pid = userPracticeId || practiceId
+  const pid = selectedPracticeId || practiceId
   if (pid) reportsUrl += `&practice_id=${pid}`
   if (unchecked) reportsUrl += `&target=unchecked_reports`
 
@@ -45,8 +45,8 @@ export default function Reports({
       ).default
       dropdown = new PracticeFilterDropdown(
         practices,
-        setUserPracticeId,
-        userPracticeId
+        selectedPracticeId,
+        setSelectedPracticeId
       )
       dropdown.render(targetElement)
     }
@@ -59,7 +59,7 @@ export default function Reports({
         dropdown.destroy()
       }
     }
-  }, [data, practices, setUserPracticeId])
+  }, [data, practices, setSelectedPracticeId])
 
   if (error) return <>エラーが発生しました。</>
   if (!data) {
