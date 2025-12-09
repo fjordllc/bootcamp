@@ -23,11 +23,10 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
       libvips-dev && \
     rm -rf /var/lib/apt/lists/*
 
-# Install Node.js 22.19.0
+# Install Node.js 22.x
 RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
     apt-get update && \
-    apt-get install -y --no-install-recommends nodejs=22.19.0-1nodesource1 && \
-    apt-mark hold nodejs && \
+    apt-get install -y --no-install-recommends nodejs && \
     rm -rf /var/lib/apt/lists/*
 
 # Install latest yarn
@@ -71,6 +70,8 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
       postgresql-client \
       libpq-dev \
       tzdata \
+      curl \
+      gnupg2 \
       ca-certificates \
       libvips && \
     rm -rf /var/lib/apt/lists/*
@@ -78,11 +79,10 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
 # Set timezone
 RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
-# Install Node.js 22.19.0 (runtime only)
+# Install Node.js 22.x (runtime only)
 RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
     apt-get update && \
-    apt-get install -y --no-install-recommends nodejs=22.19.0-1nodesource1 && \
-    apt-mark hold nodejs && \
+    apt-get install -y --no-install-recommends nodejs && \
     rm -rf /var/lib/apt/lists/*
 
 # Install yarn for runtime
