@@ -86,7 +86,7 @@ import '../tag.js'
 import '../tag_edit.js'
 import '../bookmark-button.js'
 
-import '../stylesheets/application.sass'
+import '../stylesheets/application.css'
 
 // Support component names relative to this directory:
 const componentRequireContext = require.context('components', true)
