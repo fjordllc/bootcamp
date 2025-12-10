@@ -49,7 +49,7 @@ steps:
         
         while [ $$ELAPSED -lt $$TIMEOUT ]; do
           echo "Attempting database connection... ($$ELAPSED/$$TIMEOUT seconds)"
-          if cat <<'TESTEOF' | bin/rails runner - 2>/dev/null
+          OUTPUT=$$(cat <<'TESTEOF' | bin/rails runner - 2>&1
         begin
           ActiveRecord::Base.connection.execute("SELECT 1")
           puts "Database connection successful"
@@ -59,10 +59,14 @@ steps:
           exit 1
         end
         TESTEOF
-          then
+          )
+          EXITCODE=$$?
+          if [ $$EXITCODE -eq 0 ]; then
+            echo "$$OUTPUT"
             echo "Database connection verified, proceeding to terminate connections..."
             break
           else
+            echo "Rails runner output: $$OUTPUT"
             echo "Database not ready yet, waiting..."
           fi
           sleep 2
