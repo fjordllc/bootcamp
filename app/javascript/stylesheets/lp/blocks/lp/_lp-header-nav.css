@@ -1,0 +1,15 @@
+
+.lp-header-nav {
+  height: 100%;
+  display: none;
+}
+
+input:checked + .lp-header-nav {
+  display: block;
+}
+
+@media (min-width: 64em) {
+  .lp-header-nav {
+    display: block;
+  }
+}
