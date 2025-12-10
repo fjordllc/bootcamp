@@ -16,10 +16,7 @@
 // variables
 ////////////
 @use "config/variables/colors"
-@use "config/variables/welcome-colors"
 @use "config/variables/layout"
-@use "config/variables/fonts"
-@use "config/variables/choices"
 @use "config/variables/css-variables"
 
 ////////////
@@ -32,6 +29,13 @@
 ////////////
 @use "initializers/ress"
 @use "initializers/reset"
+
+////////////
+// css variable overrides
+////////////
+@include meta.load-css("config/variables/fonts")
+@include meta.load-css("config/variables/welcome-colors")
+@include meta.load-css("config/variables/choices")
 
 ////////////
 // modules & utilities
