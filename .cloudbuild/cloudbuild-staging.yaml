@@ -104,6 +104,7 @@ steps:
       - DB_PASS=$_DB_PASS
       - DB_USER=$_DB_USER
       - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
+      - APP_HOST_NAME=$_APP_HOST_NAME
   # データベースを削除
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     args:
