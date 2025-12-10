@@ -70,6 +70,7 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
       build-essential \
       postgresql-client \
       libpq-dev \
+      libyaml-dev \
       tzdata \
       curl \
       gnupg2 \
