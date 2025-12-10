@@ -1,0 +1,88 @@
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+}
+
+@media (min-width: 48em) {
+  .card-header {
+    padding: 0.75rem 1rem;
+  }
+}
+
+.card-header.is-sm {
+  padding-block: 0.625rem;
+}
+
+.card-header.is-sm .a-button.is-xs {
+  margin-block: -0.25rem;
+}
+
+.card-header:first-child {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+
+.card-header + .a-form-tabs {
+  margin-top: -1px;
+}
+
+.card-header__inner {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+.card-header__title {
+  line-height: 1.4;
+  font-weight: 600;
+  flex: 1;
+  font-size: 0.875rem;
+}
+
+@media (min-width: 48em) {
+  .card-header__title {
+    font-size: 1rem;
+  }
+}
+
+.card-header.is-sm .card-header__title {
+  font-size: 0.875rem;
+}
+
+.card-header.is-lg .card-header__title {
+  font-size: 1.5rem;
+}
+
+.card-header__count {
+  font-weight: 400;
+  letter-spacing: 0;
+  margin-left: 0.125rem;
+}
+
+.card-header__title-emotion-image {
+  height: 1.25em;
+  width: 1.25em;
+  display: inline-block;
+  vertical-align: middle;
+  margin-inline: 0.125em;
+  position: relative;
+  top: -0.125em;
+}
+
+.card-header__sub-title {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 47.9375em) {
+  .card-header__sub-title {
+    font-size: 0.75rem;
+  }
+}
+
+.card-header__action {
+  display: flex;
+}
