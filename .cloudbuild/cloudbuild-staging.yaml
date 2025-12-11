@@ -103,7 +103,7 @@ steps:
         echo "ERROR: Timeout waiting for Cloud SQL Proxy after $$TIMEOUT seconds"
         exit 1
     waitFor:
-      - Push
+      - StopCloudRun
     volumes:
       - name: db
         path: /cloudsql
