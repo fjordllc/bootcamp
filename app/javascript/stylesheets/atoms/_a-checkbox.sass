@@ -1,12 +1,17 @@
+@use "../config/mixins/font-awsome"
+@use "../config/mixins/position"
+@use "../config/mixins/size"
+@use "../config/mixins/text"
+
 .a-checkbox
-  +position(relative)
+  +position.position(relative)
   input[type="checkbox"]
-    +position(absolute, left 0, top 0)
+    +position.position(absolute, left 0, top 0)
     visibility: hidden
     opacity: 0
     pointer-events: none
   span
-    +position(relative)
+    +position.position(relative)
     display: inline-block
     margin-bottom: 0
     padding-left: 1.5em
@@ -14,15 +19,15 @@
     &::before
       content: ''
       display: block
-      +size(.875rem)
+      +size.size(.875rem)
       border: solid 1px var(--muted-text)
       border-radius: .1875rem
-      +position(absolute, left 0, top 50%)
+      +position.position(absolute, left 0, top 50%)
       margin-top: -.4375rem
       background-color: var(--base)
   input:checked + span::before
-    +fa(fas '\f00c')
-    +text-block(.75rem .875rem, center flex)
+    +font-awsome.fa(fas '\f00c')
+    +text.text-block(.75rem .875rem, center flex)
     align-items: center
     justify-content: center
     color: var(--reversal-text)
@@ -36,9 +41,9 @@
         text-decoration: none
 
 .a-toggle-checkbox
-  +size(0)
+  +size.size(0)
   display: block
-  +position(fixed, left 0)
+  +position.position(fixed, left 0)
   opacity: 0
   overflow: hidden
   visibility: hidden

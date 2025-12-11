@@ -1,15 +1,17 @@
+@use "../../../config/mixins/break-points"
+
 .lp-company-logos
   display: flex
   flex-wrap: wrap
   justify-content: center
   align-items: center
-  +media-breakpoint-up(lg)
+  +break-points.media-breakpoint-up(lg)
     gap: 1.5rem 2rem
-  +media-breakpoint-down(md)
+  +break-points.media-breakpoint-down(md)
     gap: 1rem 1rem
 
 .lp-company-logos__item img
-  +media-breakpoint-up(lg)
+  +break-points.media-breakpoint-up(lg)
     height: 5rem
-  +media-breakpoint-down(md)
+  +break-points.media-breakpoint-down(md)
     height: 3.5rem

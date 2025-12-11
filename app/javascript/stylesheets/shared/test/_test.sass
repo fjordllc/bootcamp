@@ -1,8 +1,10 @@
+@use "../../config/mixins/position"
+
 html body.is-test
   .wrapper
     height: auto
   .test-fixed-bottom
-    +position(fixed, right 10rem, bottom 10rem)
+    +position.position(fixed, right 10rem, bottom 10rem)
   .test-inline-block
     display: inline-block
   .test-block

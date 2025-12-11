@@ -1,14 +1,18 @@
+@use "../config/mixins/position"
+@use "../config/mixins/size"
+@use "../config/mixins/text"
+
 .a-list-item-badge
-  +text-block(.625rem, inline-flex nowrap 400)
+  +text.text-block(.625rem, inline-flex nowrap 400)
   color: var(--semi-muted-text)
   border-radius: .75rem
   align-self: flex-start
   align-items: center
   justify-content: center
   position: relative
-  +size(3.75rem .8125rem)
+  +size.size(3.75rem .8125rem)
   span
-    +position(absolute, left 50%, top 50%)
+    +position.position(absolute, left 50%, top 50%)
     transform: translate(-50%, -50%) scale(.8)
     letter-spacing: -.05em
   &.is-wip

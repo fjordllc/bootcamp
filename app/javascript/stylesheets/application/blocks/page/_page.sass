@@ -1,8 +1,10 @@
+@use "../../../config/mixins/break-points"
+
 .page
   height: 100%
   display: flex
   flex-direction: column
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     flex: 1
 
 .page-main

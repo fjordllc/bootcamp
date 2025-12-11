@@ -1,5 +1,8 @@
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/position"
+
 .side-tabs
-  +media-breakpoint-up(lg)
-    +position(sticky, top 3.125rem)
-  +media-breakpoint-down(md)
+  +break-points.media-breakpoint-up(lg)
+    +position.position(sticky, top 3.125rem)
+  +break-points.media-breakpoint-down(md)
     margin-top: 1.5rem

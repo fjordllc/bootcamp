@@ -1,3 +1,5 @@
+@use "../../../config/mixins/text"
+
 .form
   margin-inline: auto
   .a-card + &
@@ -12,7 +14,7 @@
     margin-top: 1.75rem
 
 .form__items-title
-  +text-block(.875rem 1.4)
+  +text.text-block(.875rem 1.4)
   margin-bottom: 1.5rem
   font-weight: 700
   color: var(--reversal-text)

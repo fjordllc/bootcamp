@@ -1,3 +1,6 @@
+@use "../../../config/mixins/link"
+@use "../../../config/mixins/text"
+
 .auth-form-nav
   display: flex
   justify-content: flex-end
@@ -10,6 +13,6 @@
 
 .auth-form-nav__item-link
   cursor: pointer
-  +text-block(.75rem 1.45)
+  +text.text-block(.75rem 1.45)
   color: var(--main)
-  +hover-link
+  +link.hover-link

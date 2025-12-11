@@ -1,3 +1,12 @@
+@use "sass:color"
+@use "../variables/colors"
+@use "break-points"
+@use "font-awsome"
+@use "link"
+@use "position"
+@use "size"
+@use "text"
+
 =blocks
   video,
   canvas,
@@ -28,7 +37,7 @@
     list-style-position: outside
     margin-left: 1.75em
   li
-    +text-block(1em 1.86)
+    +text.text-block(1em 1.86)
     margin-block: .5em
     &:first-child
       margin-top: 0
@@ -83,7 +92,7 @@
       margin-bottom: 0
   .speak__speaker-name
     flex: 1
-    +text-block(1em 1.6, 700)
+    +text.text-block(1em 1.6, 700)
     text-decoration: none
     white-space: nowrap
   .speak__body
@@ -91,12 +100,12 @@
 
 =headdings
   h1
-    +text-block(1.875em 1.466 0 .75em, 600)
+    +text.text-block(1.875em 1.466 0 .75em, 600)
     color: var(--main-text)
     padding-bottom: .25em
     border-bottom: 3px solid var(--border)
   h2
-    +text-block(1.625em 1.4615 0 .75em, 600)
+    +text.text-block(1.625em 1.4615 0 .75em, 600)
     padding-bottom: .25em
     border-bottom: 1px solid var(--border)
   * + h2
@@ -109,22 +118,22 @@
   * + h5
     margin-top: 1.5em
   h3
-    +text-block(1.375em 1.6, 600)
+    +text.text-block(1.375em 1.6, 600)
     margin-bottom: .625em
     & + *
       margin-top: 0 !important
   h4
-    +text-block(1.25em 1.6, 600)
+    +text.text-block(1.25em 1.6, 600)
     margin-bottom: .625em
     & + *
       margin-top: 0 !important
   h5
-    +text-block(1.125em 1.6, 600)
+    +text.text-block(1.125em 1.6, 600)
     margin-bottom: .625em
     & + *
       margin-top: 0 !important
   h6
-    +text-block(1em 1.6, 600)
+    +text.text-block(1em 1.6, 600)
     margin-bottom: .625em
     & + *
       margin-top: 0 !important
@@ -145,12 +154,12 @@
         opacity: 1
   .header-anchor
     display: flex
-    +text-block(.75rem, 400)
+    +text.text-block(.75rem, 400)
     float: left
-    +position(absolute)
+    +position.position(absolute)
     margin-left: -1.5rem
     text-decoration: none !important
-    +size(1.5rem 100%)
+    +size.size(1.5rem 100%)
     align-items: center
     justify-content: center
     transition: all .2s ease-out
@@ -167,18 +176,18 @@
   td
     border: solid 1px var(--border-shade)
     padding: .5em .625em
-    +text-block(.875em 1.6, left)
+    +text.text-block(.875em 1.6, left)
   th
     background-color: var(--background)
   tbody tr
     &:nth-child(even)
-      background-color: mix($default-text, $background, 2%)
+      background-color: color.mix(colors.$default-text, colors.$background, 2%)
 
 =figure
   figure:has(figcaption) > *:first-child
     margin-bottom: 0
   figcaption
-    +text-block(.875em 1.6)
+    +text.text-block(.875em 1.6)
     margin-top: .75em
     text-align: center
 
@@ -190,8 +199,8 @@
     background-color: var(--warning-tint)
     color: var(--warning-text)
     &::before
-      +fa(fas '\f06a')
-      +position(absolute, left .25em, top .25em)
+      +font-awsome.fa(fas '\f06a')
+      +position.position(absolute, left .25em, top .25em)
       font-size: 1.5em
       color: var(--warning)
     &.alert,
@@ -229,23 +238,23 @@
     position: relative
     padding-left: 1.375em
     .task-list-item-checkbox
-      +position(absolute, top .5em, left 0)
+      +position.position(absolute, top .5em, left 0)
 
-=long-text-style($pc-font-size: 1rem, $mobile-font-size: .8125rem, $background: $base, $font: $default-text)
+=long-text-style($pc-font-size: 1rem, $mobile-font-size: .8125rem, $background: colors.$base, $font: colors.$default-text)
   word-wrap: break-word
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     font-size: $pc-font-size
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     font-size: $mobile-font-size
   +headdings
   p
-    +text-block(1em 1.86)
+    +text.text-block(1em 1.86)
   a
-    +hover-link-reversal
-    +default-link
+    +link.hover-link-reversal
+    +colors.default-link
     &:hover
       img
-        border-color: mix($font, $background, 16%)
+        border-color: color.mix($font, $background, 16%)
   a,
   a:link,
   a:visited,
@@ -254,14 +263,14 @@
     code
       text-decoration: none !important
   dl
-    border: 1px solid mix($font, $background, 20%)
+    border: 1px solid color.mix($font, $background, 20%)
     padding: 1em
     border-radius: .25rem
   dt
-    +text-block(1em 1.6, 600)
+    +text.text-block(1em 1.6, 600)
     margin-bottom: .25em
   dd
-    +text-block(1em 1.6)
+    +text.text-block(1em 1.6)
     &:not(:last-child)
       margin-block: 1em
   code
@@ -272,7 +281,7 @@
     padding: 0
     code
       border: none
-      +text-block(.9375em 1.5)
+      +text.text-block(.9375em 1.5)
       overflow: auto
       display: block
       width: 100%
@@ -296,13 +305,13 @@
     blockquote + ul
       margin-top: -2em
     >code
-      +text-block(.875em 1.7, inline-flex)
+      +text.text-block(.875em 1.7, inline-flex)
       color: var(--default-text)
       align-items: center
       letter-spacing: 0
       padding-inline: .25rem
       border: solid 1px var(--border)
-      background-color: mix($font, $background, 4%)
+      background-color: color.mix($font, $background, 4%)
       margin-inline: .25rem
       border-radius: .125rem
     pre[class*=language-]
@@ -316,14 +325,14 @@
     height: auto
     display: block
     margin-inline: auto
-    border: 1px solid mix($font, $background, 10%)
+    border: 1px solid color.mix($font, $background, 10%)
     &.is-xs
       max-width: 10em
     &.is-sm
       max-width: 20em
     &.is-md
       max-width: 30em
-    +media-breakpoint-down(sm)
+    +break-points.media-breakpoint-down(sm)
       max-width: 100% !important
   br + img
     margin-block: 1em
@@ -334,7 +343,7 @@
 
   blockquote
     padding-left: 1.5em
-    +position(relative)
+    +position.position(relative)
     border-left: solid .25em var(--border-tint)
     +list
     p + &
@@ -345,17 +354,17 @@
       margin-bottom: 0 !important
 
   details
-    +text-block(.875rem 1.8)
+    +text.text-block(.875rem 1.8)
     margin-bottom: 1.5em
     border: solid 1px var(--border)
     padding: .5em 1em
     border-radius: .25rem
     +list
     summary
-      +text-block(1em 1.8)
+      +text.text-block(1em 1.8)
       cursor: pointer
       outline: none
-      +hover-link
+      +link.hover-link
     &[open] summary
       border-bottom: solid 1px var(--border)
       padding-bottom: .5em
@@ -407,7 +416,7 @@
       pointer-events: none
 
   .a-user-emoji-link
-    +size(2em)
+    +size.size(2em)
     display: inline-block
     &:not(:first-child)
       margin-left: .5em
@@ -416,7 +425,7 @@
   .header-anchor + .a-user-emoji-link
     margin-left: 0
   .a-user-emoji
-    +size(1.8em)
+    +size.size(1.8em)
     object-fit: cover
     background-color: var(--base)
     border-radius: 2px

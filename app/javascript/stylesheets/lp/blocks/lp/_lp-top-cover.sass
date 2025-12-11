@@ -1,15 +1,19 @@
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/size"
+@use "../../../config/mixins/text"
+
 .lp-top-cover
   background-image: var(--people-bg-image)
   background-color: var(--lp-bg-2)
   background-repeat: repeat
   position: relative
-  +media-breakpoint-up(lg)
+  +break-points.media-breakpoint-up(lg)
     height: 38rem
     background-size: 32rem
-  +media-breakpoint-only(md)
+  +break-points.media-breakpoint-only(md)
     height: 28rem
     background-size: 26rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     height: 24rem
     background-size: 20rem
 
@@ -22,7 +26,7 @@
   z-index: 2
   display: flex
   align-items: center
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     padding-block: 1rem 1.5rem
 
 .lp-top-cover__contents
@@ -35,19 +39,19 @@
   align-items:  center
 
 .lp-top-cover__logo
-  +size(38rem auto)
+  +size.size(38rem auto)
   display: block
   margin-top: 1.125rem
   margin-inline: auto
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     max-width: 90%
     margin-top: .75rem
 
 .lp-top-cover__description
-  +text-block(1.5rem 1.4, center 800)
+  +text.text-block(1.5rem 1.4, center 800)
   color: var(--reversal-text)
   font-feature-settings: "palt"
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     font-size: .875rem
 
 .lp-top-cover__title
@@ -58,9 +62,9 @@
   padding: .5rem 1rem
   font-weight: 800
   text-align: center
-  +media-breakpoint-up(lg)
-    +text-block(2.5rem 1.4)
-  +media-breakpoint-only(md)
-    +text-block(2rem 1.4)
-  +media-breakpoint-down(sm)
-    +text-block(1.25rem 1.4)
+  +break-points.media-breakpoint-up(lg)
+    +text.text-block(2.5rem 1.4)
+  +break-points.media-breakpoint-only(md)
+    +text.text-block(2rem 1.4)
+  +break-points.media-breakpoint-down(sm)
+    +text.text-block(1.25rem 1.4)

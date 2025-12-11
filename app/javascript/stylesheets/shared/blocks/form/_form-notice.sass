@@ -1,7 +1,9 @@
+@use "../../../config/mixins/break-points"
+
 .form-notice
   &:not(:first-child)
     margin-top: 1em
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     margin-bottom: 2rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     margin-bottom: 1.5rem

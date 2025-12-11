@@ -1,3 +1,6 @@
+@use "../../../config/mixins/font-awsome"
+@use "../../../config/mixins/size"
+
 .form-table
   overflow: auto
   max-width: 100%
@@ -27,7 +30,7 @@
         pointer-events: none
       &::after
         content: ""
-        +size(.875rem)
+        +size.size(.875rem)
         border: solid 1px var(--border-shade)
         border-radius: .25rem
     &:has(:checked)
@@ -36,7 +39,7 @@
         box-shadow: 0 0 0 1px var(--input-selected-border) inset
       label::after
         border: none
-        +fa(fas '\f00c')
+        +font-awsome.fa(fas '\f00c')
         color: var(--main)
   &.is-sticky
     thead th

@@ -1,3 +1,5 @@
+@use "../config/variables/colors"
+
 $swal2-white: #fff !default
 $swal2-black: #000 !default
 $swal2-outline-color: rgba(100, 150, 200, 0.5) !default
@@ -87,7 +89,7 @@ $swal2-toast-footer-font-size: 0.8em !default
     grid-template-columns: 1fr 99fr 1fr
     padding: $swal2-toast-padding
     overflow-y: hidden
-    background: rgba($success, 0.9)
+    background: rgba(colors.$success, 0.9)
     box-shadow: $swal2-toast-box-shadow
     //pointer-events: all;
     pointer-events: none
@@ -254,6 +256,6 @@ $swal2-toast-footer-font-size: 0.8em !default
         animation: none
 
     &.is-success
-      background: rgba($success, .9)
+      background: rgba(colors.$success, .9)
     &.is-error
-      background: rgba($danger, .9)
+      background: rgba(colors.$danger, .9)

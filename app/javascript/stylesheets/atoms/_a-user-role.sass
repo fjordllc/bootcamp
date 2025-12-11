@@ -1,5 +1,7 @@
+@use "../config/mixins/user-role"
+
 .a-user-role
   display: inline-block
   border-radius: 50%
   background-color: var(--base)
-  +icon-role-style
+  +user-role.icon-role-style

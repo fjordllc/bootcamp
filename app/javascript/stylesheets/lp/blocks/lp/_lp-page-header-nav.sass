@@ -1,3 +1,5 @@
+@use "../../../config/mixins/break-points"
+
 .lp-page-header-nav
   display: flex
   height: 100%
@@ -9,11 +11,11 @@
 
 .lp-page-header-nav__item
   position: relative
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     min-width: 10rem
     display: flex
     justify-content: center
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     flex: 1
     max-width: 50%
     min-width: 10rem

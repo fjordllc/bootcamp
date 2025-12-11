@@ -1,29 +1,33 @@
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/size"
+@use "../../../config/mixins/text"
+
 .lp-card-title
   font-feature-settings: "palt"
   letter-spacing: .02em
   font-weight: 800
   color: var(--main)
-  +media-breakpoint-up(lg)
-    +text-block(1.5rem 1.4)
-  +media-breakpoint-only(md)
-    +text-block(1.25rem 1.4)
-  +media-breakpoint-down(sm)
-    +text-block(1.125rem 1.4)
+  +break-points.media-breakpoint-up(lg)
+    +text.text-block(1.5rem 1.4)
+  +break-points.media-breakpoint-only(md)
+    +text.text-block(1.25rem 1.4)
+  +break-points.media-breakpoint-down(sm)
+    +text.text-block(1.125rem 1.4)
     br
       display: none
   &.is-sm
-    +media-breakpoint-up(md)
-      +text-block(1.125rem 1.4)
-    +media-breakpoint-down(sm)
-      +text-block(1rem 1.4)
+    +break-points.media-breakpoint-up(md)
+      +text.text-block(1.125rem 1.4)
+    +break-points.media-breakpoint-down(sm)
+      +text.text-block(1rem 1.4)
 
 .lp-card-title-number
-  +text-block(.9375rem 1, inline-flex 800)
+  +text.text-block(.9375rem 1, inline-flex 800)
   font-family: 'Roboto Mono', monospace
   align-items: center
   justify-content: center
   border-radius: 50%
-  +size(1.75rem)
+  +size.size(1.75rem)
   background-color: var(--lp-bg-3)
   margin-right: .5rem
   vertical-align: middle

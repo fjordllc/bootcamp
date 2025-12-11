@@ -1,15 +1,17 @@
+@use "../../../config/mixins/break-points"
+
 .dashboard-contents__cols
   display: flex
   gap: 1rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     flex-direction: column
 
 .dashboard-contents__col
   width: 100%
   &.is-sub
-    +media-breakpoint-up(md)
+    +break-points.media-breakpoint-up(md)
       max-width: 20rem
-    +media-breakpoint-up(sm)
+    +break-points.media-breakpoint-up(sm)
       flex: 1
   &.is-main
     flex: 1

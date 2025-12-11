@@ -1,10 +1,13 @@
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/text"
+
 .lp-capture-section__inner
   display: flex
   .lp-content-stack__item:nth-child(even) &
     flex-direction: row-reverse
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     gap: 3rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     gap: 1rem
     .lp-content-sub-title
       br
@@ -16,45 +19,45 @@
   align-items: center
 
 .lp-capture-section__start
-  +media-breakpoint-up(lg)
+  +break-points.media-breakpoint-up(lg)
     flex: 1
-  +media-breakpoint-only(md)
+  +break-points.media-breakpoint-only(md)
     flex: 1
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     flex: 0 0 40%
 
   &.is-sm
-    +media-breakpoint-up(lg)
+    +break-points.media-breakpoint-up(lg)
       max-width: 20rem
-    +media-breakpoint-only(md)
+    +break-points.media-breakpoint-only(md)
       max-width: 16rem
-    +media-breakpoint-down(sm)
+    +break-points.media-breakpoint-down(sm)
       max-width: 10rem
 
 .lp-capture-section__end
-  +media-breakpoint-up(lg)
+  +break-points.media-breakpoint-up(lg)
     flex: 1
-  +media-breakpoint-only(md)
+  +break-points.media-breakpoint-only(md)
     flex: 1.5
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     flex: 1
 
 
 .lp-capture-section__content
   display: flex
   flex-direction: column
-  +media-breakpoint-up(lg)
+  +break-points.media-breakpoint-up(lg)
     gap: 2rem
-  +media-breakpoint-only(md)
+  +break-points.media-breakpoint-only(md)
     gap: 1.5rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     gap: 1rem
 
 .lp-capture-section__body
-  +media-breakpoint-up(md)
-    +text-block(1rem 1.6)
-  +media-breakpoint-down(sm)
-    +text-block(.875rem 1.6)
+  +break-points.media-breakpoint-up(md)
+    +text.text-block(1rem 1.6)
+  +break-points.media-breakpoint-down(sm)
+    +text.text-block(.875rem 1.6)
 
 .lp-capture-section__border
   height: 1px
@@ -64,7 +67,7 @@
 
 .lp-capture-section__image
   width: 100%
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     max-width: 14rem
     margin-inline: auto
     display: block

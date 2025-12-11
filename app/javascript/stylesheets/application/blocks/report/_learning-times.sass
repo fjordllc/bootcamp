@@ -1,3 +1,5 @@
+@use "../../../config/mixins/text"
+
 .learning-times
   flex: 1
   display: flex
@@ -7,7 +9,7 @@
   display: flex
   align-items: center
   white-space: nowrap
-  +text-block(.8125rem 1.4, 600)
+  +text.text-block(.8125rem 1.4, 600)
   gap: .25rem
 
 .learning-times__items
@@ -15,7 +17,7 @@
   flex-wrap: wrap
 
 .learning-times__item
-  +text-block(.8125rem 1.4)
+  +text.text-block(.8125rem 1.4)
   color: var(--semi-muted-text)
   &:not(:last-child)::after
     content: "、"
