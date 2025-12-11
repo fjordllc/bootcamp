@@ -23,9 +23,9 @@ steps:
       - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
     waitFor:
       - Build
-  # Cloud Runサービスを停止してDB接続を切断
+  # Cloud Runサービスを削除してDB接続を切断
   # Cloud SQLでは管理者権限がないためpg_terminate_backendが使えない
-  # 代わりにCloud Runサービスを停止することで接続を確実に切断する
+  # サービスを削除することで接続を確実に切断し、Deployで再作成される
   - id: StopCloudRun
     name: gcr.io/google.com/cloudsdktool/cloud-sdk
     entrypoint: bash
@@ -33,20 +33,18 @@ steps:
       - '-c'
       - |
         set -euo pipefail
-        echo "Stopping Cloud Run service to disconnect database connections..."
+        echo "Deleting Cloud Run service to disconnect database connections..."
 
-        # サービスが存在するか確認
+        # サービスが存在するか確認して削除
         if gcloud run services describe $_SERVICE_NAME --region=asia-northeast1 --quiet 2>/dev/null; then
-          # サービスのインスタンス数を0に設定して接続を切断
-          gcloud run services update $_SERVICE_NAME \
+          gcloud run services delete $_SERVICE_NAME \
             --region=asia-northeast1 \
-            --max-instances=0 \
             --quiet
 
-          echo "Cloud Run service stopped. Waiting 30 seconds for connections to drain..."
-          sleep 30
+          echo "Cloud Run service deleted. Waiting 10 seconds for connections to close..."
+          sleep 10
         else
-          echo "Cloud Run service does not exist yet. Skipping stop."
+          echo "Cloud Run service does not exist yet. Skipping delete."
         fi
     waitFor:
       - Push
