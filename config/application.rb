@@ -34,6 +34,10 @@ module Bootcamp
 
     config.active_storage.variant_processor = :vips
 
+    # Disable foreign key validation for fixtures
+    # Cloud SQL restricts access to pg_constraint system table
+    config.active_record.verify_foreign_keys_for_fixtures = false
+
     config.view_component.capture_compatibility_patch_enabled = true
 
     config.to_prepare do
