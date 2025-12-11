@@ -10,7 +10,9 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     ['第1', 1],
     ['第2', 2],
     ['第3', 3],
-    ['第4', 4]
+    ['第4', 4],
+    ['奇数週', 5],
+    ['偶数週', 6]
   ].freeze
 
   DAY_OF_THE_WEEK_LIST = [
@@ -173,8 +175,13 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def date_match_the_rules?(date, rules)
     rules.any? do |rule|
-      if rule.frequency.zero?
+      case rule.frequency
+      when 0
         rule.day_of_the_week == date.wday
+      when 5
+        date.cweek.odd? && rule.day_of_the_week == date.wday
+      when 6
+        date.cweek.even? && rule.day_of_the_week == date.wday
       else
         rule.frequency == nth_wday(date) && rule.day_of_the_week == date.wday
       end
