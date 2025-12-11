@@ -52,7 +52,7 @@ main.page-main
           p.o-empty-message__text
             = params[:status] == 'unread' ? '未読の通知はありません' : '通知はありません'
       - else
-        .page-content.loaded#notifications
+        .page-content#notifications
           - if @notifications.total_pages > 1
             nav.pagination
               = paginate @notifications
