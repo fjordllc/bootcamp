@@ -1,11 +1,14 @@
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/text"
+
 .practice-content-actions__description
-  +text-block(.75rem 1.5 0 .75rem, center)
+  +text.text-block(.75rem 1.5 0 .75rem, center)
 
 .practice-content-actions__items
   display: flex
   align-items: flex-end
   justify-content: center
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     flex-direction: column
 
 .practice-content-actions__item
@@ -13,7 +16,7 @@
   > *
     width: 10rem
     max-width: 100%
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     width: 100%
     padding-inline: 0
     &:nth-child(2),

@@ -1,3 +1,7 @@
+@use "../../../config/mixins/font-awsome"
+@use "../../../config/mixins/link"
+@use "../../../config/mixins/text"
+
 .active-practices-list__items
   margin-bottom: -.25rem
 
@@ -5,13 +9,13 @@
   border-bottom: dotted .0625rem var(--border-tint)
 
 .active-practices-list-item__link
-  +text-block(.875rem 1.55, block)
+  +text.text-block(.875rem 1.55, block)
   color: var(--main)
   padding-block: .5rem
   padding-inline: 1rem
-  +hover-link
+  +link.hover-link
   &::before
-    +fa(fas '\f060')
+    +font-awsome.fa(fas '\f060')
     display: inline-block
     margin-right: .5rem
     color: var(--accent)

@@ -25,13 +25,12 @@ class InquiryTest < ApplicationSystemTestCase
     fill_in 'お問い合わせ内容', with: "Bot対策が無効な状態でも\n問い合わせができるかのテストです。"
     check '下記の個人情報の取り扱いに同意する', allow_label_click: true
 
-    assert_difference 'ActionMailer::Base.deliveries.count', 1 do
-      click_button '送信'
-    end
+    click_button '送信'
+    assert_text 'お問い合わせを送信しました。'
+
+    assert_equal 1, ActionMailer::Base.deliveries.count
     mail = ActionMailer::Base.deliveries.last
     assert_equal '[FBC] お問い合わせ', mail.subject
-
-    assert_text 'お問い合わせを送信しました。'
     assert_no_text 'Bot対策のため送信を拒否しました。しばらくしてからもう一度送信してください。'
   end
 end

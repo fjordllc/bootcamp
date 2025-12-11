@@ -1,14 +1,19 @@
-.a-text-input
-  +text-block(1em 1.4, block)
+@use "../config/mixins/break-points"
+@use "../config/mixins/position"
+@use "../config/mixins/size"
+@use "../config/mixins/text"
+
+@mixin text-input-base
+  +text.text-block(1em 1.4, block)
   background-color: var(--input-background)
   width: 100%
   padding: .5rem
   border: solid 1px var(--input-border)
   border-radius: .25rem
   transition: border-color .2s ease-in, background-color .2s ease-in, box-shadow .2s ease-in
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     font-size: .875rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     font-size: 1rem
   .field_with_errors &
     border-color: #e1a7b6
@@ -33,6 +38,9 @@
     padding: 0
     background-color: transparent
 
+.a-text-input
+  +text-input-base
+
 input[type=date].a-text-input,
 input[type=month].a-text-input,
 input[type=week].a-text-input
@@ -40,12 +48,12 @@ input[type=week].a-text-input
   &::-webkit-inner-spin-button
     -webkit-appearance: none
   &::-webkit-clear-button
-    +position(relative, 1)
+    +position.position(relative, 1)
   &::-webkit-calendar-picker-indicator
     color: transparent
     background-color: transparent
-    +position(absolute, left 0, right 0, top 0, bottom 0)
-    +size(100%)
+    +position.position(absolute, left 0, right 0, top 0, bottom 0)
+    +size.size(100%)
     cursor: pointer
     opacity: 0
 

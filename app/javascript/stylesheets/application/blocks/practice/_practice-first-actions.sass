@@ -1,15 +1,17 @@
+@use "../../../config/mixins/break-points"
+
 .practice-first-actions
   width: 100%
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     display: flex
 
 .practice-first-actions__start
   flex: 1
 
 .practice-first-actions__end
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     min-width: 6rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     width: 100%
   .is-inactive
     background-color: var(--background-semi-shade)

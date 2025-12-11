@@ -1,13 +1,15 @@
+@use "../../../config/mixins/break-points"
+
 .lp-content-section
   display: flex
   flex-direction: column
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     gap: 1.5rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     gap: 1rem
 
 .lp-content__description
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     font-size: 1rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     font-size: .875rem

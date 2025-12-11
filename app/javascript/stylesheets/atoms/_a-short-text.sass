@@ -1,15 +1,22 @@
+@use "../config/mixins/break-points"
+@use "../config/mixins/link"
+@use "../config/mixins/position"
+@use "../config/mixins/size"
+@use "../config/mixins/text"
+@use "../config/variables/colors"
+
 .a-short-text
   h3
-    +text-block(1.25em 1.4 .75em)
+    +text.text-block(1.25em 1.4 .75em)
   &.is-sm
-    +media-breakpoint-up(md)
+    +break-points.media-breakpoint-up(md)
       font-size: .8125rem
-    +media-breakpoint-down(sm)
+    +break-points.media-breakpoint-down(sm)
       font-size: .75rem
   p
-    +text-block(1em 1.6 .75em)
+    +text.text-block(1em 1.6 .75em)
   li
-    +text-block(1em 1.6)
+    +text.text-block(1em 1.6)
   ol,
   ul
     margin-left: 1.25em
@@ -34,11 +41,11 @@
         >ul
           list-style-type: square
   a
-    +hover-link-reversal
-    +default-link
+    +link.hover-link-reversal
+    +colors.default-link
   hr
     display: block
-    +size(100% 0)
+    +size.size(100% 0)
     border: none
     border-top: dashed 1px var(--border)
     margin-block: 1.25em
@@ -46,12 +53,12 @@
   b
     font-weight: 700
   h1
-    +text-block(1.75em 1.4 0 .5em, 600)
+    +text.text-block(1.75em 1.4 0 .5em, 600)
     color: var(--main-text)
     padding-bottom: .25em
     border-bottom: 3px solid var(--border)
   h2
-    +text-block(1.5em 1.4 0 .5em, 600)
+    +text.text-block(1.5em 1.4 0 .5em, 600)
     padding-bottom: .25em
     border-bottom: 1px solid var(--border)
   * + h2,
@@ -60,22 +67,22 @@
   * + h5
     margin-top: .75em
   h3
-    +text-block(1.25em 1.4, 600)
+    +text.text-block(1.25em 1.4, 600)
     margin-bottom: .625em
     & + *
       margin-top: 0 !important
   h4
-    +text-block(1.125em 1.5, 600)
+    +text.text-block(1.125em 1.5, 600)
     margin-bottom: .625em
     & + *
       margin-top: 0 !important
   h5
-    +text-block(1em 1.5, 600)
+    +text.text-block(1em 1.5, 600)
     margin-bottom: .625em
     & + *
       margin-top: 0 !important
   h6
-    +text-block(.875rem 1.5, 600)
+    +text.text-block(.875rem 1.5, 600)
     margin-bottom: .625em
     & + *
       margin-top: 0 !important
@@ -97,12 +104,12 @@
 
   .header-anchor
     display: flex
-    +text-block(.75rem, 400)
+    +text.text-block(.75rem, 400)
     float: left
-    +position(absolute)
+    +position.position(absolute)
     margin-left: -1.5rem
     text-decoration: none !important
-    +size(1.5rem 100%)
+    +size.size(1.5rem 100%)
     align-items: center
     justify-content: center
     transition: all .2s ease-out
@@ -127,7 +134,7 @@
     h4,
     h5,
     h6
-      +text-block(1em 1.6 0 .625em, 700)
+      +text.text-block(1em 1.6 0 .625em, 700)
       border: none
       padding: 0
 

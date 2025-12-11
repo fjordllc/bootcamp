@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'notification_system_test_case'
 
-class Notification::GraduationTest < ApplicationSystemTestCase
+class Notification::GraduationTest < NotificationSystemTestCase
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
@@ -22,9 +22,6 @@ class Notification::GraduationTest < ApplicationSystemTestCase
     has_css?('p.flash__message', text: 'ユーザー情報を更新しました。')
     logout
 
-    visit_with_auth '/notifications', 'mentormentaro'
-    within first('.card-list-item.is-unread') do
-      assert_text '🎉️ kimuraさんが卒業しました！'
-    end
+    assert_user_has_notification(user: users(:mentormentaro), kind: Notification.kinds[:graduated], text: 'kimuraさんが卒業しました！')
   end
 end

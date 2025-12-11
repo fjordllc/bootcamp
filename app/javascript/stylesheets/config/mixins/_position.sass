@@ -1,11 +1,15 @@
+@use "sass:list"
+@use "../functions/list" as functions-list
+@use "../functions/number"
+
 
 =position-list($value1, $value2, $value3, $value4, $value5, $value6)
   $values: $value1 $value2 $value3 $value4 $value5 $value6
   @each $value in $values
-    @if optional_nth($value, 2)
-      #{nth($value, 1)}: nth($value, 2)
-    @else if unitless_number($value)
-      z-index: nth($value, 1)
+    @if functions-list.optional_nth($value, 2)
+      #{list.nth($value, 1)}: list.nth($value, 2)
+    @else if number.unitless_number($value)
+      z-index: list.nth($value, 1)
     @else
       position: $value
 

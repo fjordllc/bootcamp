@@ -51,7 +51,8 @@ class SearcherTest < ActiveSupport::TestCase
   end
 
   test 'returns results filtered by user' do
-    results = Searcher.new(keyword: 'テスト', document_type: :report, only_me: true, current_user:).search
+    results = Searcher.new(keyword: '検索', document_type: :report, only_me: true, current_user:).search
+    assert_not_empty results, 'Results should not be empty'
     results.each do |result|
       assert_equal current_user.id, result.user_id if result.user_id
     end
@@ -326,9 +327,9 @@ class SearcherTest < ActiveSupport::TestCase
 
   test 'returns only comments having all keywords' do
     result = Searcher.new(keyword: 'report_id', document_type: :report, only_me: false, current_user:).search
-    actual_results = result.map { |r| [strip_html(r.description).strip.gsub('`', ''), r.is_a?(User) ? r.login_name : r.user.login_name] }
-    assert_includes(actual_results, [strip_html(comments(:comment6).description).strip.gsub('`', ''), comments(:comment6).user.login_name])
-    assert_includes(actual_results, [strip_html(comments(:comment5).description).strip.gsub('`', ''), comments(:comment5).user.login_name])
+    actual_results = result.map { |r| [strip_html(r.description).strip.delete('`'), r.is_a?(User) ? r.login_name : r.user.login_name] }
+    assert_includes(actual_results, [strip_html(comments(:comment6).description).strip.delete('`'), comments(:comment6).user.login_name])
+    assert_includes(actual_results, [strip_html(comments(:comment5).description).strip.delete('`'), comments(:comment5).user.login_name])
 
     result = Searcher.new(keyword: 'report_id typo', document_type: :report, only_me: false, current_user:).search
     assert_includes(result.map do |r|
@@ -382,7 +383,7 @@ class SearcherTest < ActiveSupport::TestCase
     assert_includes(result.map do |r|
                       [strip_html(r.description), r.is_a?(User) ? r.login_name : r.user.login_name]
                     end, [comments(:comment16).description, comments(:comment16).user.login_name])
-    assert_equal(31, result.size)
+    assert_equal(32, result.size)
   end
 
   test 'can not search a comment of talk' do

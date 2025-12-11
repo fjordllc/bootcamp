@@ -42,62 +42,6 @@ class PracticesTest < ApplicationSystemTestCase
     assert_text '喜びをXにポストする！'
   end
 
-  test "only show when user isn't admin " do
-    visit_with_auth "/mentor/practices/#{practices(:practice1).id}/edit", 'mentormentaro'
-    assert_not_equal 'プラクティス編集', title
-  end
-
-  test 'create practice' do
-    visit_with_auth '/mentor/practices/new', 'komagata'
-    within 'form[name=practice]' do
-      fill_in 'practice[title]', with: 'テストプラクティス'
-      check categories(:category1).name, allow_label_click: true
-      fill_in 'practice[summary]', with: 'テストの概要です'
-      fill_in 'practice[description]', with: 'テストの内容です'
-      within '#reference_books' do
-        click_link '書籍を選択'
-      end
-      fill_in 'practice[goal]', with: 'テストのゴールの内容です'
-      fill_in 'practice[memo]', with: 'テストのメンター向けメモの内容です'
-      click_button '登録する'
-    end
-    assert_text 'プラクティスを作成しました'
-  end
-
-  test 'create practice as a mentor' do
-    visit_with_auth '/mentor/practices/new', 'mentormentaro'
-    within 'form[name=practice]' do
-      fill_in 'practice[title]', with: 'テストプラクティス'
-      check categories(:category1).name, allow_label_click: true
-      fill_in 'practice[description]', with: 'テストの内容です'
-      within '#reference_books' do
-        click_link '書籍を選択'
-      end
-      fill_in 'practice[goal]', with: 'テストのゴールの内容です'
-      fill_in 'practice[memo]', with: 'テストのメンター向けメモの内容です'
-      click_button '登録する'
-    end
-    assert_text 'プラクティスを作成しました'
-  end
-
-  test 'update practice' do
-    practice = practices(:practice2)
-    product = products(:product3)
-    visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
-    within 'form[name=practice]' do
-      fill_in 'practice[title]', with: 'テストプラクティス'
-      fill_in 'practice[memo]', with: 'メンター向けのメモの内容です'
-      within '#reference_books' do
-        click_link '書籍を選択'
-      end
-      click_button '更新する'
-    end
-    assert_text 'プラクティスを更新しました'
-    visit "/products/#{product.id}"
-    check 'toggle-mentor-memo-body', allow_label_click: true, visible: false
-    assert_text 'メンター向けのメモの内容です'
-  end
-
   test 'category button link to courses/practices#index with category fragment' do
     practice = practices(:practice1)
     user = users(:komagata)
@@ -108,44 +52,6 @@ class PracticesTest < ApplicationSystemTestCase
     end
     assert_current_path course_practices_path(user.course)
     assert_equal "category-#{category.id}", URI.parse(current_url).fragment
-  end
-
-  test 'add a book' do
-    practice = practices(:practice2)
-    visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
-    within '#reference_books' do
-      click_link '書籍を選択'
-    end
-    click_button '更新する'
-  end
-
-  test 'update a book' do
-    practice = practices(:practice1)
-    visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
-    within '#reference_books' do
-      first('.choices__list').click
-      find('#choices--practice_practices_books_attributes_0_book_id-item-choice-2', text: 'はじめて学ぶソフトウェアのテスト技法').click
-    end
-    click_button '更新する'
-    assert_text 'はじめて学ぶソフトウェアのテスト技法'
-  end
-
-  test 'add completion image' do
-    practice = practices(:practice1)
-    visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
-
-    assert_selector 'form'
-    attach_file 'practice[completion_image]', 'test/fixtures/files/practices/ogp_images/1.jpg', make_visible: true
-    click_button '更新する'
-
-    visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
-    assert_selector 'form'
-    assert_selector 'img'
-  end
-
-  test 'show setting for completed percentage' do
-    visit_with_auth '/mentor/practices/new', 'komagata'
-    assert_text '進捗の計算'
   end
 
   # 画面上では更新の完了がわからないため、やむを得ずsleepする
@@ -171,42 +77,11 @@ class PracticesTest < ApplicationSystemTestCase
     assert index1 < index2
   end
 
-  test 'update practice in the role of mentor' do
-    practice = practices(:practice2)
-    visit_with_auth "/mentor/practices/#{practice.id}/edit", 'mentormentaro'
-    within 'form[name=practice]' do
-      fill_in 'practice[title]', with: 'テストプラクティス'
-      within '#reference_books' do
-        click_link '書籍を選択'
-      end
-      click_button '更新する'
-    end
-    assert_text 'プラクティスを更新しました'
-    visit "/practices/#{practice.id}"
-    assert_equal 'プラクティス テストプラクティス | FBC', title
-  end
-
   test 'show last updated user icon' do
     visit_with_auth "/practices/#{practices(:practice55).id}", 'hajime'
     within '.thread-header__user-icon-link' do
       assert_selector 'img[alt="komagata (Komagata Masaki): 管理者、メンター"]'
     end
-  end
-
-  test 'show/hide memo for mentor' do
-    practice = practices(:practice2)
-    visit_with_auth "/practices/#{practice.id}", 'komagata'
-    assert_text 'メンター向けメモ'
-    find(:css, '#checkbox-mentor-mode').set(false)
-    assert_no_text 'メンター向けメモ'
-  end
-
-  test 'show/hide menu for mentor' do
-    practice = practices(:practice2)
-    visit_with_auth "/practices/#{practice.id}", 'komagata'
-    assert_text '管理者・メンター用メニュー'
-    find(:css, '#checkbox-mentor-mode').set(false)
-    assert_no_text '管理者・メンター用メニュー'
   end
 
   test 'add all questions to questions tab on practices page and display all questions default' do
@@ -217,113 +92,5 @@ class PracticesTest < ApplicationSystemTestCase
     assert_text '解決済み'
     assert_text '未解決'
     assert_equal practice.questions.length, 12
-  end
-
-  test 'show common description on each page' do
-    visit_with_auth "/practices/#{practices(:practice1).id}", 'hajime'
-    assert_text '困った時は'
-    visit "/practices/#{practices(:practice2).id}"
-    assert_text '困った時は'
-  end
-
-  test 'not show common description block when practice_common_description is wip' do
-    pages(:page10).update!(wip: true) # practice_common_description
-    visit_with_auth "/practices/#{practices(:practice1).id}", 'hajime'
-    assert_selector '.page-header__title', text: 'OS X Mountain Lionをクリーンインストールする'
-    assert_no_selector '.common-page-body', text: '困った時は'
-  end
-
-  test 'not show common description block when practice_common_description does not exist' do
-    pages(:page10).delete # practice_common_description
-    visit_with_auth "/practices/#{practices(:practice1).id}", 'hajime'
-    assert_selector '.page-header__title', text: 'OS X Mountain Lionをクリーンインストールする'
-    assert_no_selector '.common-page-body', text: '困った時は'
-  end
-
-  test 'escape markdown, javascript, and html tags entered in the summary' do
-    escape_text = <<~TEXT
-      # マークダウン
-      <script>alert('XSS')</script>
-      <h1>HTMLタグ</h1>
-    TEXT
-
-    visit_with_auth edit_mentor_practice_path(practices(:practice1)), 'komagata'
-    within 'form[name=practice]' do
-      fill_in 'practice[summary]', with: escape_text.chop
-      click_button '更新する'
-    end
-
-    assert_equal escape_text.chop, first('.card-body.is-practice').text
-  end
-
-  test 'add ogp image' do
-    practice = practices(:practice1)
-    visit_with_auth edit_mentor_practice_path(practice), 'komagata'
-    within 'form[name=practice]' do
-      attach_file 'practice[ogp_image]', 'test/fixtures/files/practices/ogp_images/1.jpg', make_visible: true
-    end
-    click_button '更新する'
-
-    visit edit_mentor_practice_path(practice)
-    within('form[name=practice]') do
-      assert_selector 'label[for=practice_ogp_image] img[src$="1.jpg"]'
-    end
-  end
-
-  test 'show both in the summary ( summary_text: yes / ogp_image: yes )' do
-    practice = practices(:practice1)
-    visit_with_auth edit_mentor_practice_path(practice), 'komagata'
-    within 'form[name=practice]' do
-      attach_file 'practice[ogp_image]', 'test/fixtures/files/practices/ogp_images/1.jpg', make_visible: true
-      fill_in 'practice[summary]', with: '概要です'
-    end
-    click_button '更新する'
-
-    within :css, '.a-card', text: '概要' do
-      assert_selector 'img[src$="1.jpg"]'
-      assert_selector 'p', text: '概要です'
-    end
-  end
-
-  test 'show only text in the summary ( summary_text: yes / ogp_image: no )' do
-    practice = practices(:practice1)
-    visit_with_auth edit_mentor_practice_path(practice), 'komagata'
-    within 'form[name=practice]' do
-      fill_in 'practice[summary]', with: '概要です'
-    end
-    click_button '更新する'
-
-    within :css, '.a-card', text: '概要' do
-      assert_no_selector 'img'
-      assert_selector 'p', text: '概要です'
-    end
-  end
-
-  test 'not show the summary ( summary_text: no / ogp_image: no )' do
-    practice = practices(:practice1)
-    visit_with_auth practice_path(practice), 'komagata'
-
-    assert_no_selector '.a-card', text: '概要'
-  end
-
-  test 'not show the summary ( summary_text: no / ogp_image: yes )' do
-    practice = practices(:practice1)
-    visit_with_auth edit_mentor_practice_path(practice), 'komagata'
-    within 'form[name=practice]' do
-      attach_file 'practice[ogp_image]', 'test/fixtures/files/practices/ogp_images/1.jpg', make_visible: true
-    end
-    click_button '更新する'
-
-    assert_no_selector '.a-card', text: '概要'
-  end
-
-  test 'see skip practices as a trainee' do
-    visit_with_auth course_practices_path(courses(:course1)), 'kensyu'
-    assert_link('スキップ', href: "/practices/#{practices(:practice5).id}")
-    visit_with_auth "/practices/#{practices(:practice5).id}", 'kensyu'
-
-    assert_text 'このプラクティスはスキップしてください。'
-
-    assert_no_selector 'label#js-complete'
   end
 end

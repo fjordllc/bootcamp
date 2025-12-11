@@ -1,3 +1,8 @@
+@use "../../config/mixins/link"
+@use "../../config/mixins/position"
+@use "../../config/mixins/size"
+@use "../../config/mixins/text"
+
 .flash
   background-color: var(--danger)
   padding-block: .75rem
@@ -9,21 +14,21 @@
     display: none
 
 .flash__container
-  +position(relative)
+  +position.position(relative)
 
 .flash__message
-  +text-block(.875rem 1.4, center)
+  +text.text-block(.875rem 1.4, center)
   color: var(--reversal-text)
   a
-    +hover-link-reversal
+    +link.hover-link-reversal
     color: var(--reversal-text)
 
 .flash__close
-  +position(absolute, right 0, top 50%)
+  +position.position(absolute, right 0, top 50%)
   display: flex
   justify-content: center
   align-items: center
-  +size(2.75rem)
+  +size.size(2.75rem)
   transform: translate(0, -50%)
   cursor: pointer
   opacity: .7
@@ -32,9 +37,9 @@
   &::after
     content: ""
     display: block
-    +size(50% 2px)
+    +size.size(50% 2px)
     background-color: var(--reversal-text)
-    +position(absolute, left 50%, top 50%)
+    +position.position(absolute, left 50%, top 50%)
     border-radius: 2px
   &::before
     transform: translate(-50%, -50%) rotate(45deg)

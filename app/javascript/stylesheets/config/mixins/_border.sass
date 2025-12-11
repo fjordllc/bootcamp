@@ -1,28 +1,33 @@
+@use "sass:list"
+@use "../functions/border"
+@use "../functions/position"
+@use "../variables/layout"
+
 =assign-border-position($border-position, $border-values)
   #{if($border-position, border-#{$border-position}, border)}:
-    @for $i from 1 through length($border-values)
-      @if border-width(nth($border-values, $i))
-        width: nth($border-values, $i)
-      @else if border-style(nth($border-values, $i))
-        style: nth($border-values, $i)
-      @else if border-color(nth($border-values, $i))
-        color: nth($border-values, $i)
+    @for $i from 1 through list.length($border-values)
+      @if border.border-width(list.nth($border-values, $i))
+        width: list.nth($border-values, $i)
+      @else if border.border-style(list.nth($border-values, $i))
+        style: list.nth($border-values, $i)
+      @else if border.border-color(list.nth($border-values, $i))
+        color: list.nth($border-values, $i)
 
 // 使い方
 // +border(vertical left, solid white 4px)
 =border($value1: null, $value2: null)
-  @for $i from 1 through length($value1)
-    @if all(nth($value1, $i))
+  @for $i from 1 through list.length($value1)
+    @if position.all(list.nth($value1, $i))
       +assign-border-position(false, $value2)
-    @else if vertical(nth($value1, $i))
-      $border-positions: $vertical
+    @else if position.vertical(list.nth($value1, $i))
+      $border-positions: layout.$vertical
       @each $border-position in $border-positions
         +assign-border-position($border-position, $value2)
-    @else if horizontal(nth($value1, $i))
-      $border-positions: $horizontal
+    @else if position.horizontal(list.nth($value1, $i))
+      $border-positions: layout.$horizontal
       @each $border-position in $border-positions
         +assign-border-position($border-position, $value2)
-    @else if four_positions(nth($value1, $i))
-      $border-positions: nth($value1, $i)
+    @else if four_positions(list.nth($value1, $i))
+      $border-positions: list.nth($value1, $i)
       @each $border-position in $border-positions
         +assign-border-position($border-position, $value2)

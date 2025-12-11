@@ -24,14 +24,12 @@ class Question::TagsTest < ApplicationSystemTestCase
 
   test 'admin can edit tag' do
     tag = acts_as_taggable_on_tags('game')
-    visit_with_auth questions_tag_path(tag.name, all: 'true'), 'komagata'
-    assert_text('タグ名変更')
+    assert_admin_can_edit_tag(questions_tag_path(tag.name, all: 'true'))
   end
 
   test 'users except admin cannot edit tag' do
     tag = acts_as_taggable_on_tags('game')
-    visit_with_auth questions_tag_path(tag.name, all: 'true'), 'kimura'
-    assert_no_text('タグ名変更')
+    assert_non_admin_cannot_edit_tag(questions_tag_path(tag.name, all: 'true'))
   end
 
   test 'update tag with not existing tag' do
@@ -77,17 +75,13 @@ class Question::TagsTest < ApplicationSystemTestCase
     assert_text "タグ「#{update_tag.name}」のユーザー（2）"
 
     visit_with_auth pages_tag_path(tag.name), 'komagata'
-    has_no_selector?('card-list-item')
+    assert_no_selector '.card-list-item'
     visit_with_auth pages_tag_path(update_tag.name), 'komagata'
-    has_selector?('card-list-item')
+    assert_selector '.card-list-item'
   end
 
   test 'update tag with same value' do
     tag = acts_as_taggable_on_tags('beginner')
-
-    visit_with_auth questions_tag_path(tag.name, all: 'true'), 'komagata'
-    click_button 'タグ名変更'
-    fill_in('tag[name]', with: tag.name)
-    has_field?('変更', disabled: true)
+    assert_tag_update_button_disabled_for_same_value(questions_tag_path(tag.name, all: 'true'), tag.name)
   end
 end

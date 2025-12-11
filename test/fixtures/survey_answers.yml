@@ -1,0 +1,4 @@
+# Survey Answers Fixtures
+#
+# This file is intentionally left empty as survey_answers are created dynamically in tests
+# rather than through fixtures to avoid complex foreign key dependencies.

@@ -1,0 +1,70 @@
+# frozen_string_literal: true
+
+require 'application_system_test_case'
+
+class HibernationRegularEventTest < ApplicationSystemTestCase
+  test 'cancel participation in regular event upon hibernation' do
+    visit_with_auth new_hibernation_path, 'hatsuno'
+    within('form[name=hibernation]') do
+      fill_in(
+        'hibernation[scheduled_return_on]',
+        with: (Date.current + 30)
+      )
+      fill_in('hibernation[reason]', with: 'test')
+    end
+    find('.check-box-to-read').click
+    click_on '休会する'
+    page.driver.browser.switch_to.alert.accept
+    assert_text '休会手続きが完了しました'
+
+    regular_event = regular_events(:regular_event1)
+    visit_with_auth "regular_events/#{regular_event.id}", 'komagata'
+    assert_no_selector '.is-hatsuno'
+  end
+
+  test 'hibernate with event organizer - hajime' do
+    visit_with_auth new_hibernation_path, 'hajime'
+    within('form[name=hibernation]') do
+      fill_in(
+        'hibernation[scheduled_return_on]',
+        with: (Date.current + 30)
+      )
+      fill_in('hibernation[reason]', with: 'test')
+    end
+    find('.check-box-to-read').click
+    click_on '休会する'
+    page.driver.browser.switch_to.alert.accept
+    assert_text '休会手続きが完了しました'
+
+    regular_event = regular_events(:regular_event4)
+    visit_with_auth "regular_events/#{regular_event.id}", 'kimura'
+    assert_no_selector '.is-hajime'
+  end
+
+  test 'hibernate with event organizer - kimura' do
+    visit_with_auth new_hibernation_path, 'kimura'
+    within('form[name=hibernation]') do
+      fill_in(
+        'hibernation[scheduled_return_on]',
+        with: (Date.current + 30)
+      )
+      fill_in('hibernation[reason]', with: 'test')
+    end
+    find('.check-box-to-read').click
+    click_on '休会する'
+    page.driver.browser.switch_to.alert.accept
+    assert_text '休会手続きが完了しました'
+
+    regular_event = regular_events(:regular_event4)
+    visit_with_auth "regular_events/#{regular_event.id}", 'komagata'
+    assert_no_selector '.is-kimura'
+    assert_selector '.is-komagata'
+  end
+
+  test 'do not show warning for finished regular events' do
+    regular_event = regular_events(:regular_event39)
+
+    visit_with_auth new_hibernation_path, regular_event.user.login_name
+    assert_no_text 'ご自身が主催者である定期イベントがあります。'
+  end
+end

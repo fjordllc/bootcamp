@@ -25,12 +25,11 @@ class ReportCommentsTest < ApplicationSystemTestCase
 
     wait_for_comments
 
-    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
-      until find('#js-new-comment').value == 'login_nameの補完テスト: @komagata '
-        find('#js-new-comment').set('')
-        find('#js-new-comment').set("login_nameの補完テスト: @koma\n")
-      end
-    end
+    fill_in_with_autocomplete(
+      '#js-new-comment',
+      input_text: "login_nameの補完テスト: @koma\n",
+      expected_value: 'login_nameの補完テスト: @komagata '
+    )
 
     click_button 'コメントする'
     assert_text 'login_nameの補完テスト: @komagata'
@@ -42,12 +41,11 @@ class ReportCommentsTest < ApplicationSystemTestCase
 
     wait_for_comments
 
-    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
-      until find('#js-new-comment').value == 'login_nameの補完テスト: @mentor '
-        find('#js-new-comment').set('')
-        find('#js-new-comment').set("login_nameの補完テスト: @men\n")
-      end
-    end
+    fill_in_with_autocomplete(
+      '#js-new-comment',
+      input_text: "login_nameの補完テスト: @men\n",
+      expected_value: 'login_nameの補完テスト: @mentor '
+    )
 
     click_button 'コメントする'
     assert_text 'login_nameの補完テスト: @mentor'
@@ -62,12 +60,11 @@ class ReportCommentsTest < ApplicationSystemTestCase
 
     wait_for_comments
 
-    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
-      until find('#js-new-comment').value == '絵文字の補完テスト: 😺 '
-        find('#js-new-comment').set('')
-        find('#js-new-comment').set("絵文字の補完テスト: :cat\n")
-      end
-    end
+    fill_in_with_autocomplete(
+      '#js-new-comment',
+      input_text: "絵文字の補完テスト: :cat\n",
+      expected_value: '絵文字の補完テスト: 😺 '
+    )
 
     click_button 'コメントする'
     assert_text '絵文字の補完テスト: 😺'

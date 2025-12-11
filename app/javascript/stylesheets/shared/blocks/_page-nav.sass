@@ -1,13 +1,18 @@
+@use "../../config/mixins/break-points"
+@use "../../config/mixins/link"
+@use "../../config/mixins/position"
+@use "../../config/mixins/text"
+
 .page-nav
-  +media-breakpoint-up(lg)
-    +position(right 0, top 3.5rem)
+  +break-points.media-breakpoint-up(lg)
+    +position.position(right 0, top 3.5rem)
     position: sticky
     overflow: hidden
-  +media-breakpoint-down(md)
+  +break-points.media-breakpoint-down(md)
     position: static
 
 .page-nav__title
-  +text-block(.875rem 1.4, 600)
+  +text.text-block(.875rem 1.4, 600)
 
 .page-nav__title-inner
   display: block
@@ -24,8 +29,8 @@ a.page-nav__title-inner
     text-decoration: underline
 
 .page-nav__footer-link
-  +block-link
-  +text-block(.8125rem 1.4)
+  +link.block-link
+  +text.text-block(.8125rem 1.4)
   text-align: right
   padding: .5rem .75rem
   color: var(--default-text)
@@ -37,14 +42,14 @@ a.page-nav__title-inner
 
 .page-nav__items
   overflow-y: auto
-  +position(relative, 1)
-  +media-breakpoint-up(lg)
+  +position.position(relative, 1)
+  +break-points.media-breakpoint-up(lg)
     max-height: calc(100vh - 8.5rem)
-  +media-breakpoint-down(md)
+  +break-points.media-breakpoint-down(md)
     max-height: 12rem
 
 =page-nav-current($background-color, $border-color, $text-color, $pointer-events-none)
-  +position(relative, 1)
+  +position.position(relative, 1)
   box-shadow: 0 0 0 1px $border-color inset
   background-color: $background-color
   border-bottom: none
@@ -84,9 +89,9 @@ a.page-nav__title-inner
 
 .page-nav__item-link
   padding: .75rem
-  +text-block(.8125rem 1.4)
+  +text.text-block(.8125rem 1.4)
   color: var(--semi-muted-text)
-  +block-link
+  +link.block-link
   transition: all .1s ease-in
   background-color: transparent
   &:hover
@@ -98,7 +103,7 @@ a.page-nav__title-inner
   margin-right: .25rem
 
 .page-nav__item-title
-  +text-block(.875rem 1.4, 600 inline)
+  +text.text-block(.875rem 1.4, 600 inline)
 
 .page-nav-metas
   margin-top: .25rem
@@ -108,6 +113,6 @@ a.page-nav__title-inner
   gap: .25rem .75rem
 
 .page-nav__item-link-inner
-  +flex-link
+  +link.flex-link
   gap: .5rem
   align-items: center

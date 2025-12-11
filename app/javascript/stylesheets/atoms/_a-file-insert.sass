@@ -1,7 +1,10 @@
+@use "../config/mixins/position"
+@use "../config/mixins/size"
+
 .a-file-insert
   cursor: pointer
   input
-    +position(absolute, left -44px, top 0)
-    +size(44px 20px)
+    +position.position(absolute, left -44px, top 0)
+    +size.size(44px 20px)
     background: red
     opacity: 0

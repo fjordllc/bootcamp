@@ -9,9 +9,7 @@ class CurrentUser::TagsTest < ApplicationSystemTestCase
     tag_input.set ''
     tag_input.set 'タグ1'
     tag_input.native.send_keys :enter
-    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
-      loop until page.has_text?('タグ1')
-    end
+    assert_text 'タグ1'
     find_all('.tagify__tag').map(&:text)
     click_on '更新する'
     assert_text 'タグ1'

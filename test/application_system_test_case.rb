@@ -14,6 +14,9 @@ require 'supports/javascript_helper'
 require 'supports/product_helper'
 require 'supports/avatar_helper'
 require 'supports/reaction_helper'
+require 'supports/clipboard_helper'
+require 'supports/announcement_helper'
+require 'supports/regular_event_helper'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include LoginHelper
@@ -29,6 +32,9 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include ProductHelper
   include AvatarHelper
   include ReactionHelper
+  include ClipboardHelper
+  include AnnouncementHelper
+  include RegularEventHelper
 
   if ENV['HEADFUL']
     driven_by :selenium, using: :chrome
@@ -42,21 +48,12 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   end
 
   setup do
-    # Ensure ActiveStorage is properly configured for system tests
-    ActiveStorage::Current.host = 'http://localhost:3000'
+    @original_adapter = ActiveJob::Base.queue_adapter
+    ActiveJob::Base.queue_adapter = :inline
   end
 
   teardown do
     ActionMailer::Base.deliveries.clear
-    ActiveStorage::Current.host = nil
-
-    # Clean up any uploaded test files
-    if defined?(ActiveStorage::Blob)
-      begin
-        ActiveStorage::Blob.unattached.where('created_at < ?', 1.hour.ago).find_each(&:purge)
-      rescue StandardError
-        # Ignore cleanup errors in tests
-      end
-    end
+    ActiveJob::Base.queue_adapter = @original_adapter
   end
 end

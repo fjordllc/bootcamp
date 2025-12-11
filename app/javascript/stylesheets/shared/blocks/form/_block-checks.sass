@@ -1,3 +1,5 @@
+@use "../../../config/mixins/break-points"
+
 .block-checks
   display: flex
   flex-wrap: wrap
@@ -13,17 +15,17 @@
   .block-checks.is-1-item.is-centered &
     width: 20rem
   .block-checks.is-2-items &
-    +media-breakpoint-up(sm)
+    +break-points.media-breakpoint-up(sm)
       flex: 0 0 calc((100% - .5rem) / 2)
       max-width: calc((100% - .5rem) / 2)
-    +media-breakpoint-down(xs)
+    +break-points.media-breakpoint-down(xs)
       flex: 0 0 100%
       max-width: 100%
   .block-checks.is-3-items &
     width: calc((100% - 1rem) / 3)
     flex: 0 0 calc((100% - 1rem) / 3)
   .block-checks.sm-down\:is-3-items &
-    +media-breakpoint-down(sm)
+    +break-points.media-breakpoint-down(sm)
       width: calc((100% - 1rem) / 3)
       flex: 0 0 calc((100% - 1rem) / 3)
 
@@ -31,6 +33,6 @@
     width: calc((100% - 1.5rem) / 4)
     flex: 0 0 calc((100% - 1.5rem) / 4)
   .block-checks.sm-down\:is-2-items &
-    +media-breakpoint-down(sm)
+    +break-points.media-breakpoint-down(sm)
       width: calc((100% - .5rem) / 2)
       flex: 0 0 calc((100% - .5rem) / 2)

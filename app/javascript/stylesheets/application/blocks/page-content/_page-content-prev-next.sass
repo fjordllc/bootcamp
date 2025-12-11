@@ -1,3 +1,6 @@
+@use "../../../config/mixins/link"
+@use "../../../config/mixins/text"
+
 .page-content-prev-next
   display: flex
   justify-content: space-between
@@ -8,9 +11,9 @@
   max-width: 33.33%
 
 .page-content-prev-next__item-link
-  +text-block(.8125rem 1.4, block center nowrap)
+  +text.text-block(.8125rem 1.4, block center nowrap)
   color: var(--main)
-  +hover-link-reversal
+  +link.hover-link-reversal
   &.is-prev
     text-align: left
   &.is-next

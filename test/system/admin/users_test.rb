@@ -104,7 +104,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     visit "/admin/users/#{user.id}/edit"
     within 'form[name=user]' do
       fill_in 'user[login_name]', with: 'hatsuno'
-      attach_file 'user[avatar]', 'test/fixtures/files/users/avatars/komagata.jpg', make_visible: true
+      attach_file 'user[avatar]', 'test/fixtures/files/users-avatars-komagata.jpg', make_visible: true
       click_on '更新する'
     end
 
@@ -337,6 +337,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
       select 'iOSエンジニア', from: 'user[course_id]'
     end
     click_on '更新する'
+    assert_text 'ユーザー情報を更新しました。'
     assert_equal 'iOSエンジニア', user.reload.course.title
   end
 
@@ -365,7 +366,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert_text 'プロフィール文'
   end
 
-  test 'administrator can set user’s special user attribute to mentor' do
+  test 'administrator can set user\'s special user attribute to mentor' do
     user = users(:advijirou)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     assert_no_text 'メンター紹介用公開プロフィール'

@@ -1,3 +1,6 @@
+@use "../../config/mixins/link"
+@use "../../config/mixins/text"
+
 .tab-nav
   padding-block: .875rem
   border-bottom: solid 1px var(--border)
@@ -17,8 +20,8 @@
   flex: 0 0 7rem
 
 .tab-nav__item-link
-  +block-link
-  +text-block(.75rem 2.3, center nowrap)
+  +link.block-link
+  +text.text-block(.75rem 2.3, center nowrap)
   color: var(--semi-muted-text)
   border: solid 1px var(--border-shade)
   border-radius: 20rem

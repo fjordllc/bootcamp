@@ -1,9 +1,11 @@
+@use "../../config/mixins/break-points"
+
 .l-cards
   display: flex
   flex-direction: column
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     gap: 3rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     gap: 2rem
   &.is-zigzag
     .l-cards__item

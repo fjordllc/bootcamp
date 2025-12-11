@@ -1,5 +1,7 @@
+@use "../../../config/mixins/break-points"
+
 .page-content-header-metas
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     display: flex
     justify-content: space-between
 

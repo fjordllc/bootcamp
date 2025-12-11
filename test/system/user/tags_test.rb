@@ -53,9 +53,7 @@ class User::TagsTest < ApplicationSystemTestCase
     tag_input = find('.tagify__input')
     tag_input.set 'タグタグ'
     tag_input.native.send_keys :return
-    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
-      loop until page.has_text?('タグタグ')
-    end
+    assert_text 'タグタグ'
     find_all('.tagify__tag').map(&:text)
     click_button '保存する'
 
@@ -136,7 +134,7 @@ class User::TagsTest < ApplicationSystemTestCase
     visit_with_auth users_tag_path(tag.name, all: 'true'), 'komagata'
     click_button 'タグ名変更'
     fill_in('tag[name]', with: tag.name)
-    has_field?('変更', disabled: true)
+    assert_button '変更', disabled: true
   end
 
   test 'the first letter is ignored when adding a tag whose name begins with octothorpe' do

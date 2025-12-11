@@ -1,13 +1,18 @@
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/link"
+@use "../../../config/mixins/position"
+@use "../../../config/mixins/text"
+
 .sticky-message
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     background-color: var(--success)
     width: 100%
-    +position(sticky, left 0, bottom 0, 2)
+    +position.position(sticky, left 0, bottom 0, 2)
     padding-block: .5rem
-    +text-block(.875rem 1.4, center)
+    +text.text-block(.875rem 1.4, center)
     color: var(--reversal-text)
     a
-      +hover-link-reversal
+      +link.hover-link-reversal
       color: var(--reversal-text)
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     display: none

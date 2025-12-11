@@ -1,6 +1,9 @@
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/position"
+
 .lp-header
   background-color: var(--base)
-  +position(sticky, top 0, 10)
+  +position.position(sticky, top 0, 10)
 
 .lp-header__inner
   height: 3.5rem
@@ -16,9 +19,9 @@
   height: 100%
   display: flex
   align-items: center
-  +media-breakpoint-down(lg)
+  +break-points.media-breakpoint-down(lg)
     margin-right: -1rem
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     gap: 1rem
-  +media-breakpoint-down(md)
+  +break-points.media-breakpoint-down(md)
     gap: .25rem
