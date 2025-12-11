@@ -121,6 +121,57 @@ class ReportCommentsTest < ApplicationSystemTestCase
     assert_no_text 'どういう教材がいいんでしょうかね？'
   end
 
+  test 'mentor can edit other user comment for report' do
+    visit_with_auth "/reports/#{reports(:report3).id}", 'mentormentaro'
+
+    # Wait for comments to load
+    assert_selector '.thread-comment:first-child'
+
+    # Find komagata's comment and click edit button
+    within(all('.thread-comment').find { |comment| comment.text.include?('どういう教材がいいんでしょうかね？') }) do
+      click_button '編集'
+    end
+
+    fill_in 'comment[description]', with: 'mentor edited this comment'
+    click_button '保存する'
+
+    assert_text 'mentor edited this comment'
+    assert_no_text 'どういう教材がいいんでしょうかね？'
+  end
+
+  test 'admin can destroy other user comment for report' do
+    visit_with_auth "/reports/#{reports(:report3).id}", 'komagata'
+
+    assert_selector '.thread-comment:first-child'
+
+    # Find machida's comment and delete it
+    accept_alert do
+      within(all('.thread-comment').find { |comment| comment.text.include?('https://github.com/fjordllc/csstutorial/tree/master') }) do
+        click_button '削除'
+      end
+    end
+
+    assert_no_text 'https://github.com/fjordllc/csstutorial/tree/master とかですかねー。'
+  end
+
+  test 'regular user cannot see edit/delete buttons for other user comment' do
+    visit_with_auth "/reports/#{reports(:report3).id}", 'kimura'
+
+    # Wait for comments to load
+    assert_selector '.thread-comment:first-child'
+
+    # Check that edit/delete buttons are not visible for other users' comments
+    within(all('.thread-comment').find { |comment| comment.text.include?('どういう教材がいいんでしょうかね？') }) do
+      assert_no_button '編集'
+      assert_no_button '削除'
+    end
+
+    within(all('.thread-comment').find { |comment| comment.text.include?('https://github.com/fjordllc/csstutorial/tree/master') }) do
+      assert_no_button '編集'
+      assert_no_button '削除'
+    end
+  end
+
   test 'when mentor confirm a report with comment' do
     visit_with_auth "/reports/#{reports(:report2).id}", 'machida'
 
