@@ -24,6 +24,7 @@ class UserNotificationsQuery < Patterns::Query
   end
 
   def validated_target
-    Notification::TARGETS_TO_KINDS.key?(@target) ? @target : nil
+    target = @target&.to_sym
+    Notification::TARGETS_TO_KINDS.key?(target) ? target : nil
   end
 end
