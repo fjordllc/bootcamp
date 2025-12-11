@@ -1,0 +1,28 @@
+.practice-first-actions {
+  width: 100%;
+}
+
+@media (min-width: 48em) {
+  .practice-first-actions {
+    display: flex;
+  }
+}
+
+.practice-first-actions__start {
+  flex: 1;
+}
+
+.practice-first-actions__end {
+  width: 100%;
+}
+
+@media (min-width: 48em) {
+  .practice-first-actions__end {
+    min-width: 6rem;
+    width: auto;
+  }
+}
+
+.practice-first-actions__end .is-inactive {
+  background-color: var(--background-semi-shade);
+}

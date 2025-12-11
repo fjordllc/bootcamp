@@ -1,0 +1,108 @@
+.a-notice-block {
+  width: 34rem;
+  max-width: 100%;
+  margin-inline: auto;
+  border: solid var(--success) 2px;
+  padding: 1em 1.25em;
+  color: var(--success-text);
+  background-color: #f8fff2;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+.a-notice-block > *:first-child {
+  margin-top: 0;
+}
+.a-notice-block > *:last-child {
+  margin-bottom: 0;
+}
+.a-notice-block hr {
+  display: block;
+  width: 100%;
+  height: 0;
+  border: none;
+  border-top: dashed 1px var(--border);
+  margin-block: 1.5em;
+}
+.a-notice-block p {
+  font-size: 1em;
+  line-height: 1.7;
+  margin-top: 0;
+  margin-bottom: 0.75em;
+}
+.a-notice-block li {
+  font-size: 1em;
+  line-height: 1.7;
+  margin-top: 0;
+  margin-bottom: 0.125em;
+}
+.a-notice-block a {
+  text-decoration: none;
+  cursor: pointer;
+}
+.a-notice-block a:hover, .a-notice-block a:active {
+  text-decoration: underline;
+}
+.a-notice-block .message {
+  background: red;
+  padding: 1em 1.25em 1em 2.75em;
+  border-radius: 0.25rem;
+  margin-block: 1.5em 2em;
+  background-color: var(--warning-tint);
+  color: var(--warning-text);
+}
+.a-notice-block .message::before {
+  content: "\f06a";
+  font-family: "Font Awesome 6 Pro";
+  font-style: normal;
+  font-weight: 900;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  left: 0.25em;
+  position: absolute;
+  top: 0.25em;
+  font-size: 1.5em;
+  color: var(--warning);
+}
+.a-notice-block .message.alert, .a-notice-block .message.danger {
+  background-color: var(--danger-tint);
+  color: var(--danger-text);
+}
+.a-notice-block .message.alert::before, .a-notice-block .message.danger::before {
+  color: var(--danger);
+}
+.a-notice-block .message.warning {
+  background-color: var(--warning-tint);
+  color: var(--warning-text);
+}
+.a-notice-block .message.warning::before {
+  color: var(--warning);
+}
+.a-notice-block .message.info {
+  background-color: var(--info-tint);
+  color: var(--info-text);
+}
+.a-notice-block .message.info::before {
+  color: var(--info);
+}
+.a-notice-block .message.primary {
+  background-color: var(--primary-tint);
+  color: var(--primary-text);
+}
+.a-notice-block .message.primary::before {
+  color: var(--primary);
+}
+.a-notice-block .message.success {
+  background-color: var(--success-tint);
+  color: var(--success-text);
+}
+.a-notice-block .message.success::before {
+  color: var(--success);
+}
+.a-notice-block.is-danger {
+  background-color: var(--danger-tint);
+  border-color: var(--danger);
+  color: var(--danger-text);
+}

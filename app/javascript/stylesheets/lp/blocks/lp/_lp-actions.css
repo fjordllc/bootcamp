@@ -1,0 +1,21 @@
+.lp-actions {
+  align-self: stretch;
+  width: 100%;
+}
+@media (min-width: 48em) {
+  .lp-actions {
+    max-width: 42.5rem;
+    margin-inline: auto;
+  }
+}
+
+.lp-actions__items {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.lp-actions__item {
+  flex: 1;
+  max-width: 22rem;
+}
