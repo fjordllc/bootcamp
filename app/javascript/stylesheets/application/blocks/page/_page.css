@@ -1,1 +1,14 @@
-/* intentionally left blank */
+
+.page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 48em) {
+    flex: 1;
+
+  }
+}
+.page-main {
+  flex: 1;
+
+}

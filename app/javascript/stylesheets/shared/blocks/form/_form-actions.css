@@ -1,1 +1,147 @@
-/* intentionally left blank */
+
+.form-actions {
+  @media (min-width: 48em) {
+    margin-top: 1.5rem;
+  }
+  @media (max-width: 47.9375em) {
+    margin-top: 1rem;
+  }
+  &.is-report {
+    @media (min-width: 48em) {
+      padding-bottom: 1.5rem;
+    }
+  }
+  .form-actions + & {
+    border-top: dashed 1px var(--border);
+    @media (min-width: 48em) {
+      margin-top: 1rem;
+      padding-top: 1rem;
+    }
+    @media (max-width: 47.9375em) {
+      padding-top: 1rem;
+
+    }
+  }
+}
+.form-actions__items {
+  gap: .75rem;
+  @media (min-width: 48em) {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    max-width: 45em;
+    margin-inline: auto;
+  }
+  @media (max-width: 47.9375em) {
+    flex-direction: column;
+
+  }
+}
+.form-actions__item {
+  position: relative;
+  &.is-sub {
+    @media (min-width: 48em) {
+      flex: 0 0 auto;
+    }
+    @media (max-width: 47.9375em) {
+      text-align: center;
+    }
+  }
+  &.is-muted {
+    @media (min-width: 48em) {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
+    @media (max-width: 47.9375em) {
+      text-align: right;
+    }
+  }
+  &.is-help {
+    @media (max-width: 47.9375em) {
+      margin-bottom: 1rem;
+    }
+  }
+  &.is-main {
+    @media (min-width: 40em) {
+      min-width: 13rem;
+    }
+    @media (max-width: 39.9375em) {
+      width: 100%;
+    }
+  }
+  &.has-help {
+    @media (min-width: 48em) {
+      position: relative;
+      padding-bottom: 1.5rem;
+    }
+  }
+  @media (max-width: 47.9375em) {
+    width: 100%;
+    padding-inline: 0;
+    &:nth-child(2),
+    &:nth-child(3) {
+      margin-top: .75rem;
+    }
+    > * {
+      width: 100%;
+    }
+    .a-button.is-text,
+    .a-button.is-muted-text {
+      width: auto;
+    }
+  }
+}
+.form-actions__item-help {
+  font-size: .8125rem;
+  line-height: 1;
+  text-align: center;
+  padding-top: .5rem;
+  .a-form-help-link {
+    margin-left: .5em;
+  }
+  @media (min-width: 48em) {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+  }
+}
+.form-actions__item-checkbox {
+  margin-bottom: .5rem;
+
+}
+.form-actions__delete {
+  text-align: right;
+  @media (min-width: 48em) {
+    margin-top: .5rem;
+  }
+  @media (max-width: 47.9375em) {
+    margin-top: .75rem;
+
+  }
+}
+.form-actions__delete-link {
+  text-decoration: none;
+  cursor: pointer;
+  font-size: .875rem;
+  line-height: 1.4;
+  color: var(--muted-text);
+  &:hover,
+  &:active {
+    text-decoration: underline;
+  }
+  &:hover {
+    color: var(--danger);
+  }
+}
+.form-action-before-option {
+  margin-bottom: .5rem;
+  &.has-help {
+    display: flex;
+
+  }
+}

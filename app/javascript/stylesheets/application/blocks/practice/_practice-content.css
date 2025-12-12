@@ -1,1 +1,67 @@
-/* intentionally left blank */
+
+.practice-content {
+  position: relative;
+  display: block;
+  margin-bottom: 2rem;
+  &.is-memo {
+    .a-card {
+      height: 100%;
+    }
+    .a-markdown-input__inner {
+      height: 100%;
+      margin-bottom: 0;
+    }
+    .a-markdown-input__inner.is-preview {
+      overflow: auto;
+    }
+    .card-footer {
+      margin-top: 1rem;
+
+    }
+  }
+}
+.practice-content__body-notice {
+  border: solid 1px var(--success);
+  margin-top: 1rem;
+  background-color: rgba(var(--success), .1);
+  @media (min-width: 48em) {
+    padding: .75rem .875rem;
+  }
+  @media (max-width: 47.9375em) {
+    padding: .375rem .625rem;
+  }
+  p {
+    font-size: .875rem;
+    line-height: 1.5;
+    color: var(--success-text);
+    @media (max-width: 47.9375em) {
+      font-size: .75rem;
+
+    }
+  }
+}
+.card-footer__alert {
+  text-align: center;
+  margin-top: 1em;
+  @media (min-width: 48em) {
+    font-size: .875rem;
+  }
+  @media (max-width: 47.9375em) {
+    font-size: .75rem;
+  }
+  >a {
+    font-size: 1em;
+    line-height: 1.5;
+    color: var(--danger);
+    text-decoration: none;
+    cursor: pointer;
+    &:hover,
+    &:active {
+      text-decoration: underline;
+    }
+  }
+}
+.js-markdown-view {
+  display: none;
+
+}

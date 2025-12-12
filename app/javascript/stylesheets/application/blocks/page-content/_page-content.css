@@ -1,1 +1,27 @@
-/* intentionally left blank */
+
+.page-content {
+  &.is-products, {
+  }
+  &.is-questions, {
+  }
+  &.is-books, {
+  }
+  &.is-users {
+    width: 100%;
+  }
+  &:not(:first-child);
+    @media (min-width: 48em) {
+      margin-top: 1.25rem;
+    }
+    @media (max-width: 47.9375em) {
+      margin-top: 1rem;
+    }
+  &:not(:last-child);
+    @media (min-width: 48em) {
+      margin-bottom: 2rem;
+    }
+    @media (max-width: 47.9375em) {
+      margin-bottom: 1rem;
+
+    }
+}
