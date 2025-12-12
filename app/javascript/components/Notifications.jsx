@@ -4,8 +4,10 @@ import LoadingListPlaceholder from './LoadingListPlaceholder'
 import Pagination from './Pagination'
 import UnconfirmedLink from './UnconfirmedLink'
 import useSWR from 'swr'
-import fetcher from '../fetcher'
+import { get } from '@rails/request.js'
 import usePage from './hooks/usePage'
+const fetcher = (url) =>
+  get(url, { responseKind: 'json' }).then((res) => res.json)
 
 export default function Notifications({ isMentor }) {
   const per = 20
