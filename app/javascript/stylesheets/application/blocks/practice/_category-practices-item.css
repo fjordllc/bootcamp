@@ -1,1 +1,100 @@
-/* intentionally left blank */
+
+.category-practices-item {
+  padding: .75rem 1rem;
+  position: relative;
+  &:not(:last-child);
+    border-bottom: solid 1px var(--border-tint);
+  &:nth-child(even);
+    background-color: var(--background-more-tint);
+  @media (max-width: 47.9375em) {
+    flex-wrap: wrap;
+    padding: .5rem .75rem .75rem;
+  }
+  &.sortable-chosen {
+    background-color: color.tint(var(--warning), 90%);
+  }
+  &.is-skip-on {
+    background-color: var(--background-tint);
+  }
+  &[draggable="false"] {
+    background-color: var(--base);
+    animation: grab-background-color 1.25s ease 0s 1 normal none running;
+
+  }
+}
+.category-practices-item__grab {
+  flex: 0 0 2.75rem;
+
+}
+.category-practices-item__anchor {
+  @media (min-width: 48em) {
+    position: relative;
+    top: -3.5rem;
+
+  }
+}
+.category-practices-item__status {
+  font-size: .8125rem;
+  line-height: 1;
+  font-weight: 600;
+  display: flex;
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+  height: 2.125rem;
+  width: 4rem;
+  border-radius: .25rem;
+
+}
+.category-practices-item__header {
+  display: flex;
+  @media (max-width: 47.9375em) {
+    display: block;
+
+  }
+}
+.category-practices-item__title {
+  flex: 1;
+  margin-right: .5rem;
+  @media (max-width: 47.9375em) {
+    margin-right: 0;
+    margin-bottom: .5rem;
+
+  }
+}
+.category-practices-item__title-link {
+  font-size: .875rem;
+  line-height: 1.4;
+  display: flex;
+  color: var(--default-text);
+  align-items: center;
+  min-height: 1.875rem;
+  text-decoration: none;
+  @media (max-width: 47.9375em) {
+    font-size: .8125rem;
+  }
+  .a-badge {
+    margin-right: .25rem;
+  }
+  &.is-skip-on {
+    color: var(--muted-text);
+
+  }
+}
+.category-practices-item__title-link-label {
+  a.category-practices-item__title-link:hover &;
+    text-decoration: underline;
+
+}
+.category-practices-item__learning-time {
+  font-size: .75rem;
+  line-height: 1.4;
+  color: var(--muted-text);
+  @media (min-width: 48em) {
+    margin-top: -.25rem;
+  }
+  @media (max-width: 47.9375em) {
+    margin-top: .5rem;
+
+  }
+}

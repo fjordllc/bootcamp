@@ -1,1 +1,35 @@
-/* intentionally left blank */
+
+.form-item-actions {
+  @media (min-width: 48em) {
+    margin-top: -.75rem;
+  }
+  @media (max-width: 47.9375em) {
+    margin-top: -.5rem;
+
+  }
+}
+.form-item-actions__items {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+
+}
+.form-item-actions__text-link {
+  text-decoration: none;
+  cursor: pointer;
+  line-height: 1.4;
+  @media (min-width: 48em) {
+    font-size: .8125rem;
+  }
+  @media (max-width: 47.9375em) {
+    font-size: .75rem;
+  }
+  &:hover,
+  &:active {
+    text-decoration: underline;
+  }
+  &.is-danger {
+    color: var(--danger);
+    font-weight: 600;
+  }
+}

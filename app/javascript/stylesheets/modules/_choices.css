@@ -75,4 +75,3 @@ body .choices[data-type*=text] .choices__button:hover {
 .choices__list--dropdown .choices__item:not(:first-child), .choices__list[aria-expanded] .choices__item:not(:first-child) {
   border-top: solid 1px var(--border-tint);
 }
-
