@@ -122,19 +122,19 @@
   color: var(--muted-text);
   text-decoration: none;
   cursor: pointer;
-  &:hover,
-  &:active {
-    text-decoration: underline;
-  cursor: pointer;
   position: relative;
   @media (max-width: 47.9375em) {
     font-size: .75rem;
+  }
+  &:hover,
+  &:active {
+    text-decoration: underline;
   }
   &:active,
   &:focus,
   &.is-active {
     color: var(--danger);
-    &::after;
+    &::after {
       content: "Copied!";
       display: block;
       background-color: rgba(black, .4);
@@ -146,11 +146,11 @@
       left: 0;
       position: absolute;
       top: 100%;
+    }
   }
   &.a-placeholder {
     width: 30%;
     height: 1.4em;
-
   }
 }
 .micro-report__actions {

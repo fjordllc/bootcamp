@@ -16,7 +16,7 @@
     height: 7px;
     width: 100%;
     background: repeating-linear-gradient(-45deg, var(--border)-shade, var(--border)-shade 3px, transparent 3px, transparent 6px);
-
+  }
 }
 .thread-comments-more__inner {
   padding-block: 1rem;
