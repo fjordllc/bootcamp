@@ -57,6 +57,21 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 4, user.total_learning_time
   end
 
+  test '#reports_with_learning_times' do
+    user = users(:hatsuno)
+    assert_empty user.reports_with_learning_times
+
+    reports = %w[2018-01-01 2018-01-02].map { |d| Report.new(user_id: user.id, title: "test #{d}", reported_on: d, description: 'test', wip: false) }
+    reports.each do |r|
+      r.learning_times << LearningTime.new(started_at: "#{r.reported_on} 00:00:00", finished_at: "#{r.reported_on} 02:00:00")
+      r.save!
+    end
+    assert_equal reports, user.reports_with_learning_times
+
+    report_without_learning_times = Report.create!(user_id: user.id, title: 'test', reported_on: '2018-01-03', description: 'test', wip: false, no_learn: true)
+    assert_not_includes user.reports_with_learning_times, report_without_learning_times
+  end
+
   test '#elapsed_days' do
     user = users(:komagata)
     user.created_at = Time.zone.local(2019, 1, 1, 0, 0, 0)
