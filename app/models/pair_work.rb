@@ -31,7 +31,7 @@ class PairWork < ApplicationRecord
   scope :not_solved, -> { where(reserved_at: nil) }
   scope :wip, -> { where(wip: true) }
   scope :not_wip, -> { where(wip: false) }
-  scope :not_held, -> { not_solved.or(where('reserved_at > ?', Date.current)) }
+  scope :not_held, -> { not_solved.or(where('reserved_at > ?', Time.current)) }
   scope :by_target, lambda { |target|
     case target
     when 'solved'
@@ -43,8 +43,8 @@ class PairWork < ApplicationRecord
     end
   }
   scope :upcoming_pair_works, lambda { |user|
-                                today = Date.current
-                                within_day = today.midnight...(today + 3).midnight
+                                now = Time.current
+                                within_day = now...(now + 3.days)
                                 PairWork.where(user_id: user.id).or(PairWork.where(buddy_id: user.id))
                                         .solved
                                         .where(reserved_at: within_day)
