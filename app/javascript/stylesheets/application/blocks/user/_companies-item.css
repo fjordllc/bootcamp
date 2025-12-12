@@ -68,15 +68,15 @@
   &:hover,
   &:active {
     text-decoration: underline;
-
+  }
 }
 .companies-item__body {
   padding: 1rem;
-
 }
 .companies-item__body-row {
-  &:not(:first-child);
+  &:not(:first-child) {
     margin-top: .75rem;
+  }
 
 }
 .companies-item__description {
