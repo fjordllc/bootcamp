@@ -28,11 +28,11 @@
   border-radius: 2rem;
   transition: all .2s ease-in;
   text-decoration: none;
-  &:hover;
+  &:hover {
     background-color: rgba(var(--base), .7);
     color: var(--semi-muted-text);
     border-color: var(--semi-muted-text);
-
+  }
 }
 .tag-links__item-edit {
   font-size: .75rem;
@@ -44,6 +44,5 @@
   &:hover,
   &:active {
     text-decoration: underline;
-  cursor: pointer;
-
+  }
 }

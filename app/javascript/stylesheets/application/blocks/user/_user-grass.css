@@ -24,8 +24,7 @@
   margin-top: -1rem;
 
 }
-.user-grass-nav__previous, {
-}
+.user-grass-nav__previous,
 .user-grass-nav__next {
   height: 2.75rem;
   width: 2.75rem;
@@ -34,17 +33,17 @@
   justify-content: center;
   cursor: pointer;
   text-decoration: none;
-  cursor: pointer;
+  transition: all .2s ease-out;
   &:hover,
   &:active {
     text-decoration: underline;
-  transition: all .2s ease-out;
-  &:hover;
+  }
+  &:hover {
     color: var(--main-text);
+  }
   &.is-blank {
     cursor: default;
     pointer-events: none;
-
   }
 }
 .user-grass-nav__year--month {
