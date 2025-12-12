@@ -1,1 +1,19 @@
-/* intentionally left blank */
+
+.page-content-header-metas {
+  @media (min-width: 48em) {
+    display: flex;
+    justify-content: space-between;
+
+  }
+}
+.page-content-header-metas__start {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+}
+.page-content-header-metas__meta {
+  &:not(:last-child);
+    margin-right: .75em;
+
+}

@@ -1,1 +1,39 @@
-/* intentionally left blank */
+.page-header-actions {
+  @media (max-width: 47.9375em) {
+    margin-inline: -1rem;
+
+  }
+}
+.page-header-actions__items {
+  display: flex;
+  gap: .5rem;
+  justify-content: center;
+  @media (max-width: 47.9375em) {
+    padding-inline: 1rem;
+
+  }
+}
+.page-header-actions__item {
+  position: relative;
+  > * {
+    width: 100%;
+  }
+  @media (min-width: 48em) {
+    min-width: 10rem;
+    display: flex;
+    justify-content: center;
+  }
+  @media (max-width: 47.9375em) {
+    flex: 1;
+    max-width: 50%;
+    &:first-child:last-child {
+      max-width: 100%;
+    }
+  }
+}
+.page-header-actions__item-help {
+  position: absolute;
+  right: -.25rem;
+  top: -.25rem;
+
+}
