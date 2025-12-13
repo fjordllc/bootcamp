@@ -85,6 +85,7 @@ import '../toast.js'
 import '../tag.js'
 import '../tag_edit.js'
 import '../bookmark-button.js'
+import '../notifications_remove_after_open.js'
 
 import '../stylesheets/application.sass'
 
