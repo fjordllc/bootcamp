@@ -1,6 +1,6 @@
 import Tagify from '@yaireo/tagify'
 import '@yaireo/tagify/dist/tagify.css' // Tagify CSS
-import fetcher from './fetcher'
+import { get } from '@rails/request.js'
 import CSRF from './csrf'
 import transformHeadSharp from './transform-head-sharp'
 import validateTagName from './validate-tag-name'
@@ -57,8 +57,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const fetchTagsData = async () => {
     try {
-      const url = `/api/tags.json?taggable_type=${tagsType}`
-      const data = await fetcher(url)
+      const response = await get(`/api/tags.json?taggable_type=${tagsType}`, {
+        responseKind: 'json'
+      })
+      const data = await response.json
       tagify.whitelist = data.map((tag) => tag.value)
     } catch (error) {
       console.warn('使われているタグリストの読み込みに失敗しました', error)
