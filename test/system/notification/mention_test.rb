@@ -61,6 +61,7 @@ class Notification::MentionTest < NotificationSystemTestCase
       fill_in 'question_title', with: 'メンション通知が送信されるかのテスト'
       fill_in 'question_description', with: description
       click_button '登録する'
+      assert_text 'メンション通知が送信されるかのテスト'
     }
 
     assert_notify_mention(post_mention)
