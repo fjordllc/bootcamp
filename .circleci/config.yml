@@ -102,8 +102,7 @@ jobs:
       - run:
           name: Test
           command: |
-            TEST_FILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=timings --timings-type=filename)
-            bundle exec rails test $TEST_FILES
+            circleci tests glob "test/**/*_test.rb" | circleci tests run --command="xargs bundle exec rails test" --verbose --split-by=timings --timings-type=filename
       - store_test_results:
           path: test/reports
       - store_artifacts:
