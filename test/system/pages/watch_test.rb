@@ -39,17 +39,19 @@ module Pages
 
       within('.form') do
         find('#select2-page_user_id-container').click
-        select(author, from: 'page[user_id]')
+        find('.select2-results__option', text: author).click
       end
       click_button '内容を更新'
+      assert_text 'ドキュメントを更新しました'
 
       visit edit_page_path(pages(:page2))
 
       within('.form') do
         find('#select2-page_user_id-container').click
-        select(author, from: 'page[user_id]')
+        find('.select2-results__option', text: author).click
       end
       click_button 'WIP'
+      assert_text 'ドキュメントをWIPとして保存しました'
 
       logout
 
