@@ -36,16 +36,27 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include AnnouncementHelper
   include RegularEventHelper
 
-  if ENV['HEADFUL']
-    driven_by :selenium, using: :chrome
-  else
-    driven_by(:selenium, using: :headless_chrome) do |driver_option|
-      driver_option.add_argument('--no-sandbox')
-      driver_option.add_argument('--disable-dev-shm-usage')
-      driver_option.add_argument('enable-blink-features=Clipboard')
-      driver_option.add_preference('profile.password_manager_leak_detection', false)
-    end
+  Capybara.register_driver :custom_headless_chrome do |app|
+    options = Selenium::WebDriver::Chrome::Options.new
+    options.add_argument('--headless=new') unless ENV['HEADFUL']
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('enable-blink-features=Clipboard')
+    options.add_preference('profile.password_manager_leak_detection', false)
+
+    client = Selenium::WebDriver::Remote::Http::Default.new
+    client.read_timeout = 120
+    client.open_timeout = 120
+
+    Capybara::Selenium::Driver.new(
+      app,
+      browser: :chrome,
+      options:,
+      http_client: client
+    )
   end
+
+  driven_by :custom_headless_chrome
 
   setup do
     @original_adapter = ActiveJob::Base.queue_adapter
