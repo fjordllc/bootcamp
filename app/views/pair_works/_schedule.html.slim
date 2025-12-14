@@ -1,3 +1,5 @@
+  - proposed_at_list = pair_work.schedules.map(&:proposed_at)
+
 .a-table.is-sm.text-center
   table.min-w-full
     thead
@@ -12,7 +14,7 @@
             | #{hour}:00
           - 7.times do |day|
             - target_time = pair_work.created_at.beginning_of_day + hour.hour + day.day
-            - if pair_work.schedules.map(&:proposed_at).include?(target_time)
+            - if proposed_at_list.include?(target_time)
               td.p-0.h-6.relative
                 = form_with model: pair_work, method: :patch, local: true do
                   = hidden_field_tag 'pair_work[reserved_at]', target_time
