@@ -227,3 +227,25 @@ regular_event39:
   end_at: <%= Time.zone.local(2020, 1, 2, 22, 0, 0) %>
   user: hatsuno
   published_at: "2023-08-01 00:00:00"
+
+regular_event40:
+  title: 奇数週に開催される定期イベント
+  description: 奇数週に開催される定期イベント
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2020, 1, 1, 15, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 16, 0, 0) %>
+  user: komagata
+  category: 3
+  published_at: "2023-08-01 00:00:00"
+
+regular_event41:
+  title: 偶数週に開催される定期イベント
+  description: 偶数週に開催される定期イベント
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2020, 1, 1, 15, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 16, 0, 0) %>
+  user: komagata
+  category: 3
+  published_at: "2023-08-01 00:00:00"
