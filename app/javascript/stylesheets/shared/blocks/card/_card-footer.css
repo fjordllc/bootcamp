@@ -1,16 +1,22 @@
 
 .card-footer {
-  @media (min-width: 48em) {
+  position: relative;
+  z-index: 1;
+}
+@media (min-width: 48em) {
+  .card-footer {
     padding: .5rem 1rem;
     min-height: 3rem;
   }
-  @media (max-width: 47.9375em) {
+}
+@media (max-width: 47.9375em) {
+  .card-footer {
     padding: .5rem .75rem;
   }
-  &:last-child {
-    border-bottom-left-radius: .25rem;
-    border-bottom-right-radius: .25rem;
-  }
+}
+.card-footer:last-child {
+  border-bottom-left-radius: .25rem;
+  border-bottom-right-radius: .25rem;
 }
 .card-footer__description {
   font-size: .75rem;
