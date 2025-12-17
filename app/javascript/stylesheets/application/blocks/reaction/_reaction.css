@@ -58,6 +58,11 @@
     border-color: var(--border-shade);
   }
 }
+.reactions__item-emoji {
+  font-size: 1.125rem;
+  line-height: 1;
+  vertical-align: middle;
+}
 .reactions__item-count {
   margin-left: .25rem;
   font-size: .75rem;
