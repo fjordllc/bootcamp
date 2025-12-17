@@ -1,0 +1,31 @@
+.a-card.streak-card
+  .card-header.is-sm
+    h2.card-header__title
+      | 学習連続記録
+  hr.a-border-tint
+  .card-body
+    .streak-container
+      .streak-item
+        .streak-item__content
+          .streak-item__label
+            | 現在の連続記録
+          .streak-item__days
+            .streak-item__number
+              = current_streak_days
+            .streak-item__unit
+              | 日
+          - if current_streak?
+            .streak-item__period
+              = current_streak_period
+      .streak-item
+        .streak-item__content
+          .streak-item__label
+            | 連続最高記録
+          .streak-item__days
+            .streak-item__number
+              = longest_streak_days
+            .streak-item__unit
+              | 日
+          - if longest_streak?
+            .streak-item__period
+              = longest_streak_period
