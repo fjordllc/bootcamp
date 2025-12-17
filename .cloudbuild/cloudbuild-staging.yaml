@@ -114,19 +114,36 @@ steps:
       - DB_USER=$_DB_USER
       - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
       - APP_HOST_NAME=$_APP_HOST_NAME
-  # データベースを削除
+  # データベースを削除（リトライ付き）
+  # WaitForProxyの接続がCloud SQL Proxy経由で残っている場合があるため、
+  # 接続が切れるまでリトライする
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
-    args:
-      - sql
-      - databases
-      - delete
-      - bootcamp_staging
-      - '--instance=bootcamp'
-      - '--quiet'
     id: DeleteDB
+    entrypoint: bash
+    args:
+      - '-c'
+      - |
+        set -euo pipefail
+        MAX_RETRIES=5
+        RETRY_DELAY=5
+
+        for i in $$(seq 1 $$MAX_RETRIES); do
+          echo "Attempt $$i/$$MAX_RETRIES: Deleting database bootcamp_staging..."
+          if gcloud sql databases delete bootcamp_staging --instance=bootcamp --quiet 2>&1; then
+            echo "Database deleted successfully."
+            exit 0
+          else
+            if [ $$i -lt $$MAX_RETRIES ]; then
+              echo "Database delete failed (likely still has connections). Waiting $$RETRY_DELAY seconds before retry..."
+              sleep $$RETRY_DELAY
+            fi
+          fi
+        done
+
+        echo "ERROR: Failed to delete database after $$MAX_RETRIES attempts."
+        exit 1
     waitFor:
       - WaitForProxy
-    entrypoint: gcloud
     volumes:
       - name: db
         path: /cloudsql
