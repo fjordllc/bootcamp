@@ -1,3 +1,5 @@
+@use "../../../config/mixins/text"
+
 .pair-work-schedule-dates
   &.is-solved
     .pair-work-schedule-dates__table
@@ -14,10 +16,10 @@
 
 .pair-work-schedule-dates__action-item-description
   margin-top: .25rem
-  +text-block(.75rem 1.4, center)
+  +text.text-block(.75rem 1.4, center)
 
 .pair-work-schedule-dates__title
-  +text-block(1rem 1.4, 600)
+  +text.text-block(1rem 1.4, 600)
   margin-bottom: 1rem
 
 .pair-work-schedule-dates__table
