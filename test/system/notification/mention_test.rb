@@ -76,4 +76,19 @@ class Notification::MentionTest < NotificationSystemTestCase
       Report.last.destroy
     end
   end
+
+  test 'mention from a micro_report' do
+    author = users(:komagata)
+    visit_with_auth user_micro_reports_path(author), author.login_name
+    within('#js-micro-report-form') do
+      fill_in('micro_report[content]', with: '@machida')
+      click_button '投稿'
+    end
+    logout
+
+    receiver = users(:machida)
+    visit_with_auth notifications_path(status: 'unread'), receiver.login_name
+    assert_selector 'span.card-list-item-title__link-label',
+                    text: make_mention_notification_message(author.login_name).to_s
+  end
 end
