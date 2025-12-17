@@ -58,7 +58,7 @@ gem 'omniauth-discord'
 gem 'omniauth-github', '~> 2.0.1'
 gem 'omniauth-rails_csrf_protection'
 gem 'opengraph_parser'
-gem 'parser', '3.2.2.4'
+gem 'parser', '3.3.7.2'
 gem 'pg', '~> 1.4.6'
 gem 'postmark-rails'
 gem 'rack-cors', require: 'rack/cors'
@@ -68,6 +68,8 @@ gem 'rails-i18n', '~> 7.0.0'
 gem 'rails-patterns', '~> 0.2'
 gem 'ransack', '~> 4.3'
 gem 'react-rails'
+# connection_pool3.x以上はreact-railsと非互換のため、サーバー起動時にArgumentErrorが発生します
+gem 'connection_pool', '< 3.0.0'
 gem 'recaptcha', '~> 5.12'
 gem 'rollbar'
 gem 'rss'
@@ -102,7 +104,7 @@ group :development do
   gem 'letter_opener_web', '~> 2.0'
   gem 'rack-dev-mark'
   gem 'rack-mini-profiler', '~> 2.0', require: false
-  gem 'rubocop', require: false
+  gem 'rubocop', '~> 1.81', require: false
   gem 'rubocop-capybara', require: false
   gem 'rubocop-fjord', '~> 0.4.0', require: false
   gem 'rubocop-minitest', require: false
