@@ -71,6 +71,8 @@ gem 'rails-i18n', '~> 7.0.0'
 gem 'rails-patterns', '~> 0.2'
 gem 'ransack', '~> 4.3'
 gem 'react-rails'
+# connection_pool3.x以上はreact-railsと非互換のため、サーバー起動時にArgumentErrorが発生します
+gem 'connection_pool', '< 3.0.0'
 gem 'recaptcha', '~> 5.12'
 gem 'rollbar'
 gem 'rss'
