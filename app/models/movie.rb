@@ -30,6 +30,7 @@ class Movie < ApplicationRecord
 
   def self.ransackable_associations(_auth_object = nil)
     %w[user practices comments reactions watches bookmarks]
+  end
 
   private
 
