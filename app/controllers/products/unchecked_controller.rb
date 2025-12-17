@@ -3,6 +3,7 @@
 class Products::UncheckedController < ApplicationController
   before_action :require_staff_login
   before_action :set_target
+
   def index
     @checker_id = params[:checker_id]
 
