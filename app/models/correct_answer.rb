@@ -2,6 +2,7 @@
 
 class CorrectAnswer < Answer
   belongs_to :question
+  validates :question, uniqueness: true
 
   def search_label
     I18n.t('activerecord.search_labels.correct_answer')
