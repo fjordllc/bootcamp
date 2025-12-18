@@ -5,7 +5,6 @@
   position: relative;
   user-select: none;
   padding: .5rem;
-  z-index: 2;
 }
 .card-body + .reactions {
   border-top: none;
@@ -65,6 +64,7 @@
   font-size: 1.125rem;
   line-height: 1;
   vertical-align: middle;
+  pointer-events: none;
 }
 .reactions__item-count {
   margin-left: .25rem;
