@@ -24,7 +24,7 @@
   position: absolute;
   right: -1px;
   top: 100%;
-  z-index: 1;
+  z-index: 10;
   border: 1px solid var(--border);
   background-color: var(--background);
   padding: .5rem;
@@ -98,6 +98,9 @@
 .reactions__item-login-names li {
   line-height: 1.4;
 }
+.reactions__dropdown {
+  position: relative;
+}
 .reactions__dropdown-toggle {
   height: 2.375rem;
   width: 2.8125rem;
@@ -137,7 +140,7 @@
   background-color: var(--background);
   border: 1px solid var(--border);
   padding: 0.5rem;
-  z-index: 1;
+  z-index: 10;
   border-radius: 0 0 .25rem .25rem;
   display: flex;
   flex-direction: column;

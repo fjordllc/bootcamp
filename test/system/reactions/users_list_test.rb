@@ -69,7 +69,9 @@ module Reactions
         add_reaction('smile')
         assert_selector('.js-reactions-users-toggle:not(.is-disabled)')
 
-        find("li[data-reaction-kind='smile'].is-reacted").click
+        within('.reactions__items.is-selected') do
+          find("li[data-reaction-kind='smile'].is-reacted").click
+        end
         assert_selector('.js-reactions-users-toggle.is-disabled')
       end
     end
