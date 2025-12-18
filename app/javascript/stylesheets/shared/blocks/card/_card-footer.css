@@ -1,5 +1,7 @@
 
 .card-footer {
+  position: relative;
+  z-index: 1;
 }
 @media (min-width: 48em) {
   .card-footer {

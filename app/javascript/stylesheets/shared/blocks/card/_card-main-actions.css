@@ -18,7 +18,6 @@
 @container card-main-actions (min-width: 20em) {
   .card-main-actions__items {
     position: relative;
-    z-index: 1;
     justify-content: center;
     flex-wrap: wrap;
     align-items: flex-end;
