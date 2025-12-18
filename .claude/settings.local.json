@@ -45,7 +45,9 @@
       "Bash(RAILS_ENV=test bin/rails db:migrate:*)",
       "Bash(RAILS_ENV=test bin/rails db:migrate:status:*)",
       "Bash(RAILS_ENV=test bin/rails db:migrate:up:*)",
-      "Bash(RAILS_ENV=test bin/rails runner:*)"
+      "Bash(RAILS_ENV=test bin/rails runner:*)",
+      "Bash(NODE_ENV=test bin/shakapacker:*)",
+      "Bash(RAILS_ENV=test bin/shakapacker:*)"
     ]
   }
 }
