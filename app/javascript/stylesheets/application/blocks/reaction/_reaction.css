@@ -43,6 +43,7 @@
   border: 1px solid var(--border);
   transition: all .2s ease-out;
   position: relative;
+  z-index: 2;
 }
 .reactions__item.is-reacted {
   background-color: #f1f1ff;
