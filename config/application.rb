@@ -34,6 +34,10 @@ module Bootcamp
 
     config.active_storage.variant_processor = :vips
 
+    # Allow reading legacy Active Storage URLs that were signed with Marshal serializer
+    # Rails 7.2 defaults to :json, which cannot read old URLs
+    config.active_support.message_serializer = :json_allow_marshal
+
     # Disable foreign key validation for fixtures
     # Cloud SQL restricts access to pg_constraint system table
     config.active_record.verify_foreign_keys_for_fixtures = false
