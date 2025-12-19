@@ -5,11 +5,11 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.4.3'
 
-gem 'bootsnap', '>= 1.4.4', require: false
+gem 'bootsnap', require: false
 gem 'ffi', '1.17.1'
-gem 'image_processing', '~> 1.12'
-gem 'jbuilder', '~> 2.7'
-gem 'puma', '~> 6.0'
+gem 'image_processing', '~> 1.2'
+gem 'jbuilder'
+gem 'puma', '>= 5.0'
 gem 'rails', '8.1.1'
 gem 'shakapacker', '~> 7.0'
 gem 'sprockets-rails', '>= 2.0.0'
@@ -97,7 +97,7 @@ end
 
 group :development do
   gem 'listen', '~> 3.3'
-  gem 'web-console', '>= 4.1.0'
+  gem 'web-console'
 
   # not default
   gem 'bullet'
@@ -116,12 +116,12 @@ group :development do
 end
 
 group :test do
-  gem 'capybara', '>= 3.26'
+  gem 'capybara'
   gem 'minitest', '< 6.0'
   gem 'minitest-ci'
   gem 'minitest-retry'
   gem 'minitest-stub_any_instance'
-  gem 'selenium-webdriver', '~> 4.17.0'
+  gem 'selenium-webdriver'
   gem 'vcr'
   gem 'webmock'
 end
