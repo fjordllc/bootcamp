@@ -2,6 +2,9 @@
 
 class CreateGoodJobs < ActiveRecord::Migration[7.2]
   def change
+    # Skip if good_jobs table already exists (e.g., created manually before this migration)
+    return if table_exists?(:good_jobs)
+
     # Enable pgcrypto extension for gen_random_uuid() support
     enable_extension 'pgcrypto'
 
