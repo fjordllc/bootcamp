@@ -135,3 +135,5 @@ steps:
 timeout: 7200s
 images:
   - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
+substitutions:
+  _APP_HOST_NAME: bootcamp.fjord.jp
