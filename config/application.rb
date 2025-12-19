@@ -38,6 +38,10 @@ module Bootcamp
     # Rails 7.2 defaults to :json, which cannot read old URLs
     config.active_support.message_serializer = :json_allow_marshal
 
+    # Use SHA1 for key generator to support legacy Active Storage URLs
+    # Old URLs were signed with SHA1-based keys
+    config.active_support.key_generator_hash_digest_class = OpenSSL::Digest::SHA1
+
     # Disable foreign key validation for fixtures
     # Cloud SQL restricts access to pg_constraint system table
     config.active_record.verify_foreign_keys_for_fixtures = false
