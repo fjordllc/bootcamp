@@ -984,7 +984,7 @@ pjord:
 
 
 
-<% trailing_katakana = "ァ" %>
+<% trailing_katakana = +"ァ" %>
 <% 1.upto(4) do |i| %>
 marumarushain<%= i %>: # ページネーション確認のためのユーザー
   login_name: marumarushain<%= i %>

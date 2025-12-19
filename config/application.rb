@@ -9,7 +9,12 @@ Bundler.require(*Rails.groups)
 module Bootcamp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.1
+    config.load_defaults 7.2
+
+    # Please, add to the `ignore` list any other `lib` subdirectories that do
+    # not contain `.rb` files, or that should not be reloaded or eager loaded.
+    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    config.autoload_lib(ignore: %w[assets tasks])
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -21,15 +26,17 @@ module Bootcamp
     config.time_zone = "Tokyo"
     config.i18n.default_locale = :ja
 
-    config.paths.add "lib", eager_load: true
     config.paths.add "app/presenters", eager_load: true
 
     config.action_view.field_error_proc = Proc.new do |html_tag, instance|
       html_tag.html_safe
     end
 
-    config.active_storage.resolve_model_to_route = :rails_storage_proxy
     config.active_storage.variant_processor = :vips
+
+    # Disable foreign key validation for fixtures
+    # Cloud SQL restricts access to pg_constraint system table
+    config.active_record.verify_foreign_keys_for_fixtures = false
 
     config.view_component.capture_compatibility_patch_enabled = true
 

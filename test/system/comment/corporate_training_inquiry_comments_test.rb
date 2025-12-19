@@ -46,12 +46,11 @@ class CorporateTrainingInquiryCommentsTest < ApplicationSystemTestCase
       find('.thread-comment-form, .thread-comment')
     end
 
-    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
-      until find('#js-new-comment').value == '絵文字の補完テスト: 😺 '
-        find('#js-new-comment').set('')
-        find('#js-new-comment').set("絵文字の補完テスト: :cat\n")
-      end
-    end
+    fill_in_with_autocomplete(
+      '#js-new-comment',
+      input_text: "絵文字の補完テスト: :cat\n",
+      expected_value: '絵文字の補完テスト: 😺 '
+    )
 
     click_button 'コメントする'
     assert_text '絵文字の補完テスト: 😺'
@@ -133,13 +132,17 @@ class CorporateTrainingInquiryCommentsTest < ApplicationSystemTestCase
     button.click
 
     # Try to click again - should be intercepted or disabled
+    prevented = false
     begin
       button.click
       # If we reach here, the button was clickable twice (bad)
       flunk 'Button should be disabled after first click'
     rescue Selenium::WebDriver::Error::ElementClickInterceptedError, Selenium::WebDriver::Error::ElementNotInteractableError
       # This is expected - button should be disabled/not clickable
+      prevented = true
     end
+
+    assert prevented, 'Button should be disabled after first click to prevent double submission'
   end
 
   test 'comment url is copied when click its updated_time at corporate_training_inquiry' do
@@ -151,16 +154,8 @@ class CorporateTrainingInquiryCommentsTest < ApplicationSystemTestCase
       # Fallback: wait for comments section or form to be present
       find('.thread-comment-form, .thread-comment')
     end
-    first(:css, '.thread-comment__created-at').click
-    # 参考：https://gist.github.com/KonnorRogers/5fe937ee60695ff1d227f18fe4b1d5c4
-    cdp_permission = {
-      origin: page.server_url,
-      permission: { name: 'clipboard-read' },
-      setting: 'granted'
-    }
-    page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission)
-    clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
-    assert_equal current_url + "#comment_#{comments(:comment65).id}", clip_text
+    expected_url = current_url + "#comment_#{comments(:comment65).id}"
+    click_and_verify_clipboard_copy('.thread-comment__created-at', expected_url, use_first: true)
   end
 
   test 'text change "see more comments" button by remaining comment amount at corporate_training_inquiry' do

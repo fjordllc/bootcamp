@@ -1,9 +1,11 @@
+@use "../../../config/mixins/text"
+
 .unchecked-report-alert__header
   background-color: var(--danger)
   padding: .125rem 1rem
 
 .unchecked-report-alert__header-title
-  +text-block(.75rem 1.4, 700)
+  +text.text-block(.75rem 1.4, 700)
   color: var(--reversal-text)
 
 .unchecked-report-alert__inner
@@ -16,7 +18,7 @@
   font-size: 2rem
 
 .unchecked-report-alert__message
-  +text-block(.8125rem 1.4, center)
+  +text.text-block(.8125rem 1.4, center)
   flex: 1
 
 .unchecked-report-alert__message-link

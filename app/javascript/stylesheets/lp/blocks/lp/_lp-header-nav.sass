@@ -1,30 +1,33 @@
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/position"
+
 .lp-header-nav
   height: 100%
-  +media-breakpoint-down(lg)
+  +break-points.media-breakpoint-down(lg)
     display: none
     input:checked + &
       display: block
 
 .lp-header-nav__items
   display: flex
-  +media-breakpoint-up(xxl)
+  +break-points.media-breakpoint-up(xxl)
     gap: 1rem
-  +media-breakpoint-up(xl)
+  +break-points.media-breakpoint-up(xl)
     height: 100%
     align-items: center
     gap: .5rem
     font-size: .875rem
-  +media-breakpoint-only(xl)
+  +break-points.media-breakpoint-only(xl)
     gap: .25rem
-  +media-breakpoint-down(lg)
+  +break-points.media-breakpoint-down(lg)
     flex-direction: column
-    +position(fixed, left 0, top 0, bottom 0, 2)
+    +position.position(fixed, left 0, top 0, bottom 0, 2)
     background-color: var(--base)
     width: 20rem
     max-width: calc(100vw - 3rem)
 
 .lp-header-nav__item
-  +media-breakpoint-down(lg)
+  +break-points.media-breakpoint-down(lg)
     border-bottom: solid 1px var(--border-tint)
 
 .lp-header-nav__item-link
@@ -38,7 +41,7 @@
   transition: all .2s ease-out
   span
     white-space: nowrap
-  +media-breakpoint-up(xl)
+  +break-points.media-breakpoint-up(xl)
     height: 2.25rem
     padding-inline: .75rem
     font-size: .875rem
@@ -46,16 +49,16 @@
     border-radius: .5rem
     &:hover
       background-color: var(--lp-bg-3)
-  +media-breakpoint-down(lg)
+  +break-points.media-breakpoint-down(lg)
     height: 3rem
     padding-inline: 2rem
     font-size: .875rem
 
 .lp-header-nav__overlay
-  +media-breakpoint-up(xl)
+  +break-points.media-breakpoint-up(xl)
     display: none
-  +media-breakpoint-down(lg)
-    +position(fixed, left 0, top 0, right 0, bottom 0, 1)
+  +break-points.media-breakpoint-down(lg)
+    +position.position(fixed, left 0, top 0, right 0, bottom 0, 1)
     background-color: #27272ccc
 
 .lp-header__home-link-image
@@ -66,17 +69,17 @@
   display: flex
   height: 100%
   align-items: center
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     width: 7.5rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     width: auto
     .a-button
       font-size: .6875rem
 
 .lp-header__mobile-nav-trigger
-  +media-breakpoint-up(xl)
+  +break-points.media-breakpoint-up(xl)
     display: none
-  +media-breakpoint-down(lg)
+  +break-points.media-breakpoint-down(lg)
     display: flex
     width: 2.75rem
     height: 2.75rem

@@ -1,6 +1,10 @@
+@use "../../../config/mixins/border-radius"
+@use "../../../config/mixins/position"
+@use "../../../config/mixins/text"
+
 .side-tabs-nav__items
   display: flex
-  +position(relative, 2)
+  +position.position(relative, 2)
   overflow-y: hidden
   overflow-x: auto
   transform: translateY(1px)
@@ -16,15 +20,15 @@
   color: var(--default-text)
 
 .side-tabs-nav__item-link
-  +text-block(.8125rem 1.4, flex 600 center)
+  +text.text-block(.8125rem 1.4, flex 600 center)
   white-space: nowrap
   justify-content: center
   cursor: pointer
   padding: .75em 1em
   border: solid 1px var(--border)
   border-bottom: none
-  +position(relative, bottom -1px)
-  +border-radius(top, .25rem)
+  +position.position(relative, bottom -1px)
+  +border-radius.border-radius(top, .25rem)
   color: var(--muted-text)
   transition: all .2s ease-out
   .side-tabs-nav__item:not(:first-child) &

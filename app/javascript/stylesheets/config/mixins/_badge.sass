@@ -1,3 +1,7 @@
+@use "../functions/color"
+@use "../functions/number"
+@use "../variables/colors"
+
 =badge-base
   text-transform: none
   display: inline-flex
@@ -21,14 +25,14 @@
 
 =badge-color($color)
   background-color: $color
-  $text-color: if(luma($color) > 50, $default-text, $reversal-text)
+  $text-color: if(color.luma($color) > 50, colors.$default-text, colors.$reversal-text)
   color: $text-color
-  border-color: if(luma($color) > 80, shade($color, 18%), $color)
+  border-color: if(color.luma($color) > 80, color.shade($color, 18%), $color)
 
 =badge-size($font-size: 1rem, $horizontal: .75, $vertical: .625)
   font-size: $font-size
-  padding-inline: #{strip_unit($horizontal * $font-size)}em
-  @if unitless_number($vertical)
-    height: #{strip_unit(($font-size * 1.4) + (($vertical * $font-size) * 2))}em
+  padding-inline: #{number.strip_unit($horizontal * $font-size)}em
+  @if number.unitless_number($vertical)
+    height: #{number.strip_unit(($font-size * 1.4) + (($vertical * $font-size) * 2))}em
   @else
     height: $vertical

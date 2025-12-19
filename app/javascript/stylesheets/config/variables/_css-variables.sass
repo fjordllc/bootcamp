@@ -1,138 +1,142 @@
+@use "colors"
+@use "fonts"
+@use "layout"
+
 \:root
   /////////////////////
   // Colors
   /////////////////////
 
-  --main: #{$main}
-  --accent: #{$accent}
-  --base: #{$base}
+  --main: #{colors.$main}
+  --accent: #{colors.$accent}
+  --base: #{colors.$base}
 
   // completion
-  --completion: #{$completion}
-  --completion-dark: #{$completion-dark}
+  --completion: #{colors.$completion}
+  --completion-dark: #{colors.$completion-dark}
 
   // background
-  --background-shade: #{$background-shade}
-  --background-semi-shade: #{$background-semi-shade}
-  --background: #{$background}
-  --background-tint: #{$background-tint}
-  --background-more-tint: #{$background-more-tint}
+  --background-shade: #{colors.$background-shade}
+  --background-semi-shade: #{colors.$background-semi-shade}
+  --background: #{colors.$background}
+  --background-tint: #{colors.$background-tint}
+  --background-more-tint: #{colors.$background-more-tint}
 
   // nikoniko
-  --positive-background: #{$positive-background}
-  --negative-background: #{$negative-background}
-  --neutral-background: #{$neutral-background}
+  --positive-background: #{colors.$positive-background}
+  --negative-background: #{colors.$negative-background}
+  --neutral-background: #{colors.$neutral-background}
 
   // ranking
-  --gold: #{$gold}
-  --silver: #{$silver}
-  --bronze: #{$bronze}
+  --gold: #{colors.$gold}
+  --silver: #{colors.$silver}
+  --bronze: #{colors.$bronze}
 
   // text
-  --default-text: #{$default-text}
-  --reversal-text: #{$reversal-text}
-  --muted-text: #{$muted-text}
-  --semi-muted-text: #{$semi-muted-text}
-  --link-text: #{$link-text}
-  --hover-text: #{$hover-text}
+  --default-text: #{colors.$default-text}
+  --reversal-text: #{colors.$reversal-text}
+  --muted-text: #{colors.$muted-text}
+  --semi-muted-text: #{colors.$semi-muted-text}
+  --link-text: #{colors.$link-text}
+  --hover-text: #{colors.$hover-text}
   --transparent-text: rgba(0, 0, 0, 0)
 
   // placeholder
-  --placeholder: #{$placeholder}
-  --placeholder-text: #{$placeholder-text}
+  --placeholder: #{colors.$placeholder}
+  --placeholder-text: #{colors.$placeholder-text}
 
   // border
-  --border: #{$border}
-  --border-tint: #{$border-tint}
-  --border-shade: #{$border-shade}
-  --border-more-shade: #{$border-more-shade}
+  --border: #{colors.$border}
+  --border-tint: #{colors.$border-tint}
+  --border-shade: #{colors.$border-shade}
+  --border-more-shade: #{colors.$border-more-shade}
 
   // Welcome Colors
-  --welcome-blue: #{$welcome-blue}
-  --welcome-light-blue: #{$welcome-light-blue}
-  --welcome-yellow: #{$welcome-yellow}
-  --welcome-orange: #{$welcome-orange}
-  --welcome-pink: #{$welcome-pink}
+  --welcome-blue: #{colors.$welcome-blue}
+  --welcome-light-blue: #{colors.$welcome-light-blue}
+  --welcome-yellow: #{colors.$welcome-yellow}
+  --welcome-orange: #{colors.$welcome-orange}
+  --welcome-pink: #{colors.$welcome-pink}
 
   // UI colors
-  --primary: #{$primary}
-  --secondary: #{$secondary}
-  --success: #{$success}
-  --info: #{$info}
-  --warning: #{$warning}
-  --danger: #{$danger}
-  --disabled: #{$disabled}
-  --stamp-color: #{$stamp-color}
+  --primary: #{colors.$primary}
+  --secondary: #{colors.$secondary}
+  --success: #{colors.$success}
+  --info: #{colors.$info}
+  --warning: #{colors.$warning}
+  --danger: #{colors.$danger}
+  --disabled: #{colors.$disabled}
+  --stamp-color: #{colors.$stamp-color}
 
-  --danger-text: #{$danger-text}
-  --danger-tint: #{$danger-tint}
+  --danger-text: #{colors.$danger-text}
+  --danger-tint: #{colors.$danger-tint}
 
-  --success-text: #{$success-text}
-  --success-tint: #{$success-tint}
+  --success-text: #{colors.$success-text}
+  --success-tint: #{colors.$success-tint}
 
-  --info-text: #{$info-text}
-  --info-tint: #{$info-tint}
+  --info-text: #{colors.$info-text}
+  --info-tint: #{colors.$info-tint}
 
-  --primary-text: #{$primary-text}
-  --primary-tint: #{$primary-tint}
-  --primary-semi-tint: #{$primary-semi-tint}
-  --primary-background: #{$primary-background}
+  --primary-text: #{colors.$primary-text}
+  --primary-tint: #{colors.$primary-tint}
+  --primary-semi-tint: #{colors.$primary-semi-tint}
+  --primary-background: #{colors.$primary-background}
 
-  --warning-text: #{$warning-text}
-  --warning-tint: #{$warning-tint}
+  --warning-text: #{colors.$warning-text}
+  --warning-tint: #{colors.$warning-tint}
 
-  --main-text: #{$main-text}
-  --main-tint: #{$main-tint}
-  --main-shade: #{$main-shade}
-  --main-semi-shade: #{$main-semi-shade}
+  --main-text: #{colors.$main-text}
+  --main-tint: #{colors.$main-tint}
+  --main-shade: #{colors.$main-shade}
+  --main-semi-shade: #{colors.$main-semi-shade}
 
   // lp-bg
-  --lp-bg-3: #{$lp-bg-3}
+  --lp-bg-3: #{colors.$lp-bg-3}
   --lp-bg-2: var(--primary-background)
   --lp-bg-1: var(--background)
 
   // reply
-  --reply-warning-background: #{$reply-warning-background}
-  --reply-warning-border: #{$reply-warning-border}
+  --reply-warning-background: #{colors.$reply-warning-background}
+  --reply-warning-border: #{colors.$reply-warning-border}
 
-  --reply-alert-background: #{$reply-alert-background}
-  --reply-alert-border: #{$reply-alert-border}
+  --reply-alert-background: #{colors.$reply-alert-background}
+  --reply-alert-border: #{colors.$reply-alert-border}
 
-  --reply-deadline-background: #{$reply-deadline-background}
-  --reply-deadline-border: #{$reply-deadline-border}
+  --reply-deadline-background: #{colors.$reply-deadline-background}
+  --reply-deadline-border: #{colors.$reply-deadline-border}
 
   // input
-  --input-border: #{$input-border}
-  --input-background: #{$input-background}
+  --input-border: #{colors.$input-border}
+  --input-background: #{colors.$input-background}
 
-  --input-hover-border: #{$input-hover-border}
-  --input-hover-background: #{$input-hover-background}
+  --input-hover-border: #{colors.$input-hover-border}
+  --input-hover-background: #{colors.$input-hover-background}
 
-  --input-selected-background: #{$input-selected-background}
-  --input-selected-border: #{$input-selected-border}
-  --input-selected-text: #{$input-selected-text}
+  --input-selected-background: #{colors.$input-selected-background}
+  --input-selected-border: #{colors.$input-selected-border}
+  --input-selected-text: #{colors.$input-selected-text}
 
-  --input-focus-background: #{$input-focus-background}
-  --input-focus-border: #{$input-focus-border}
-  --input-focus-shadow: #{$input-focus-shadow}
+  --input-focus-background: #{colors.$input-focus-background}
+  --input-focus-border: #{colors.$input-focus-border}
+  --input-focus-shadow: #{colors.$input-focus-shadow}
 
   /////////////////////
   // Layout
   /////////////////////
 
-  --header-height__md-up: #{$header-height__md-up}
-  --header-height__sm-down: #{$header-height__sm-down}
+  --header-height__md-up: #{layout.$header-height__md-up}
+  --header-height__sm-down: #{layout.$header-height__sm-down}
 
-  --global-nav-width: #{$global-nav-width}
-  --global-nav-width-sm: #{$global-nav-width-sm}
+  --global-nav-width: #{layout.$global-nav-width}
+  --global-nav-width-sm: #{layout.$global-nav-width-sm}
 
-  --thread-header-author: #{$thread-header-author}
+  --thread-header-author: #{layout.$thread-header-author}
 
-  --side-nav-width: #{$side-nav-width}
+  --side-nav-width: #{layout.$side-nav-width}
 
   /////////////////////
   // Fonts
   /////////////////////
 
-  --sans-serif: #{$sans-serif}
-  --monospace: #{$monospace}
+  --sans-serif: #{fonts.$sans-serif}
+  --monospace: #{fonts.$monospace}

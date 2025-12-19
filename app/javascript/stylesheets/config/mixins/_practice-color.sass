@@ -1,7 +1,11 @@
-=practice-button($color: $background, $border: false, $border-color: false, $text-color: false)
+@use "../functions/color"
+@use "../variables/colors"
+@use "position"
+
+=practice-button($color: colors.$background, $border: false, $border-color: false, $text-color: false)
   background-color: $color
   @if $border == true
-    border-color: shade($color, 24%)
+    border-color: color.shade($color, 24%)
   @if $border-color
     border-color: $border-color
   @if $text-color
@@ -9,16 +13,16 @@
 
 =practice-color($border: false)
   &.is-not_complete
-    +practice-button($background, $border)
+    +practice-button(colors.$background, $border)
     color: var(--muted-text)
   &.is-started
-    +practice-button($danger, $border)
+    +practice-button(colors.$danger, $border)
     color: var(--reversal-text)
   &.is-submitted
-    +practice-button($warning, $border)
+    +practice-button(colors.$warning, $border)
     color: var(--default-text)
   &.is-complete
-    +practice-button($success, $border)
+    +practice-button(colors.$success, $border)
     color: var(--reversal-text)
   &.is-unstarted
     +practice-button(#fff)
@@ -35,15 +39,15 @@
     border: solid 1px
 
 =practice-hover-color($border: false)
-  +position(relative, 2)
+  +position.position(relative, 2)
   $border-status: $border
   @if $border == true
     border: solid 1px
   &.is-not_complete
-    +practice-button($background, $border-status, shade($background, 24%), $default-text)
+    +practice-button(colors.$background, $border-status, color.shade(colors.$background, 24%), colors.$default-text)
   &.is-started
-    +practice-button(tint($danger, 90%), $border-status, $danger, shade($danger, 20%))
+    +practice-button(color.tint(colors.$danger, 90%), $border-status, colors.$danger, color.shade(colors.$danger, 20%))
   &.is-submitted
-    +practice-button(tint($warning, 90%), $border-status, shade($warning, 20%), shade($warning, 20%))
+    +practice-button(color.tint(colors.$warning, 90%), $border-status, color.shade(colors.$warning, 20%), color.shade(colors.$warning, 20%))
   &.is-complete
-    +practice-button(tint($success, 90%), $border-status, $success, shade($success, 20%))
+    +practice-button(color.tint(colors.$success, 90%), $border-status, colors.$success, color.shade(colors.$success, 20%))

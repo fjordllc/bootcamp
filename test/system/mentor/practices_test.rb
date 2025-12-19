@@ -10,7 +10,9 @@ class Mentor::PracticesTest < ApplicationSystemTestCase
 
   test 'show practice page' do
     visit_with_auth mentor_practices_path, 'mentormentaro'
-    first('.admin-table__item').assert_text 'sshdでパスワード認証を禁止にする'
+    within first('.admin-table__item') do
+      assert_text 'sshdでパスワード認証を禁止にする'
+    end
   end
 
   test 'admin can delete practice' do

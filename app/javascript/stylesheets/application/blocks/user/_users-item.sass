@@ -1,22 +1,28 @@
+@use "../../../config/mixins/border-radius"
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/position"
+@use "../../../config/mixins/size"
+@use "../../../config/mixins/text"
+
 .users-item
   height: 100%
   container: users-item / inline-size
 
 .users-item__inactive-message
   background-color: var(--disabled)
-  +text-block(.625rem 1.4, center)
+  +text.text-block(.625rem 1.4, center)
   padding: .25rem
-  +border-radius(top, .1875rem)
+  +border-radius.border-radius(top, .1875rem)
   margin: -1px -1px -.25rem
 
 .users-item__inner
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     height: 100%
     display: flex
     flex-direction: column
 
 .users-item__header
-  +position(relative)
+  +position.position(relative)
   padding: .75rem 1rem
   border-bottom: solid 1px var(--border-tint)
 
@@ -34,25 +40,25 @@
   flex: 1
 
 .users-item__icon
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     min-width: 3.5rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     min-width: 2.5rem
 
 .users-item__user-icon-image
   background-color: var(--base)
-  +media-breakpoint-up(md)
-    +size(3.5rem)
-  +media-breakpoint-down(sm)
-    +size(2.5rem)
+  +break-points.media-breakpoint-up(md)
+    +size.size(3.5rem)
+  +break-points.media-breakpoint-down(sm)
+    +size.size(2.5rem)
 
 .users-item__name
-  +text-block(1em 1.4, 600 block)
+  +text.text-block(1em 1.4, 600 block)
   color: var(--main)
   margin-bottom: .125rem
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     font-size: 1.125rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     font-size: 1rem
   i
     color: var(--danger)
@@ -61,12 +67,12 @@
 
 .users-item__body
   padding: .75rem 1rem 0
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     flex: 1
 
 .users-item__description
   p
-    +text-block(.75rem 1.6)
+    +text.text-block(.75rem 1.6)
 
 .users-item__tags
   margin-top: .75rem
@@ -77,7 +83,7 @@
   padding-bottom: 1rem
 
 .user-item__company-logo-image
-  +size(3.5rem)
+  +size.size(3.5rem)
   min-width: 3.5rem
   object-fit: cover
   background-color: var(--base)

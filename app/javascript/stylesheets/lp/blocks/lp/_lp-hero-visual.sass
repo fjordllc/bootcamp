@@ -1,3 +1,5 @@
+@use "../../../config/mixins/break-points"
+
 .lp-hero-visual
   width: 100%
   height: 100%
@@ -6,7 +8,7 @@
   align-items: center
 
 .lp-hero-visual__image
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     max-height: 26.25rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     max-height: 12rem

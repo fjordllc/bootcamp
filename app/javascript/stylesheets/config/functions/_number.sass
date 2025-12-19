@@ -1,8 +1,9 @@
+@use "sass:meta"
 @use "sass:math"
 
 // 数字のときにtrue
 @function number($number)
-  @if type-of($number) == number
+  @if meta.type-of($number) == number
     @return true
   @else
     @return null
@@ -15,32 +16,32 @@
 
 // 単位がない数字のときにtrue
 @function unitless_number($number)
-  @if number($number) and unitless($number)
+  @if number($number) and math.is-unitless($number)
     @return true
   @else
     @return null
 
 // 単位がある数字のときにtrue
 @function unit_number($value)
-  @if number($value) and not unitless($value)
+  @if number($value) and not math.is-unitless($value)
     @return true
   @else
     @return null
 
 @function px($value)
-  @if number($value) and unit($value) == "px"
+  @if number($value) and math.unit($value) == "px"
     @return true
   @else
     @return null
 
 @function em($value)
-  @if number($value) and unit($value) == "em"
+  @if number($value) and math.unit($value) == "em"
     @return true
   @else
     @return null
 
 @function percent($value)
-  @if number($value) and unit($value) == "%"
+  @if number($value) and math.unit($value) == "%"
     @return true
   @else
     @return null

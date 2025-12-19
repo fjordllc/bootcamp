@@ -1,3 +1,6 @@
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/text"
+
 .thanks-message__header
   color: var(--reversal-text)
   & + .a-card
@@ -8,9 +11,9 @@
   text-align: center
   font-weight: 800
   color: var(--main)
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     font-size: 1.75rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     font-size: 1.75rem
 
 .thanks-message__body
@@ -19,10 +22,10 @@
   display: flex
   flex-direction: column
   gap: 1rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     font-size: .875rem
   p
-    +text-block(1em 1.6 0 1em)
+    +text.text-block(1em 1.6 0 1em)
     &:last-child
       margin-bottom: 0
   strong
@@ -34,7 +37,7 @@
   margin-inline: 0
 
 .thanks-message__inputed-values-title
-  +text-block(.875rem 1.4, 800)
+  +text.text-block(.875rem 1.4, 800)
   background-color: var(--background-shade)
   padding: .25rem .5rem
   margin-bottom: 1rem

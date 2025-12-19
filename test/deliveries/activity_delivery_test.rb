@@ -299,7 +299,8 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
     regular_event = regular_events(:regular_event1)
     params = {
       regular_event:,
-      receiver: users(:komagata)
+      receiver: users(:komagata),
+      sender: regular_event.user
     }
 
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do

@@ -1,3 +1,6 @@
+@use "../config/mixins/position"
+@use "../config/variables/choices"
+
 body
   .choices.is-open
     z-index: 5
@@ -50,14 +53,14 @@ body
     border-left-color: var(--input-selected-border)
     color: var(--input-selected-text)
     height: 100%
-    background-image: $choices-icon-cross
+    background-image: choices.$choices-icon-cross
     margin: 0 0 0 .5rem
     width: 1.75rem
-    +position(absolute, right 0, top 0)
+    +position.position(absolute, right 0, top 0)
     transition: all .2s ease-out
     &:hover
       background-color: var(--primary-semi-tint)
-      background-image: $choices-icon-cross-inverse
+      background-image: choices.$choices-icon-cross-inverse
 
 .choices__list--dropdown .choices__item, .choices__list[aria-expanded] .choices__item
   line-height: 1.5

@@ -12,10 +12,12 @@ class MentionAndInteractionTest < ApplicationSystemTestCase
       # Fallback: wait for comments section or form to be present
       find('.thread-comment-form, .thread-comment')
     end
-    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
-      find('#js-new-comment').set('@') until has_selector?('span.mention', wait: false)
-    end
-    assert_selector 'span.mention', text: 'mentor'
+
+    # Type @ to trigger mention suggestion
+    find('#js-new-comment').set('@')
+
+    # Wait for mention suggestion to appear using Capybara's built-in wait
+    assert_selector 'span.mention', text: 'mentor', wait: 10
   end
 
   test 'company logo appear when adviser belongs to the company post comment' do
@@ -23,7 +25,7 @@ class MentionAndInteractionTest < ApplicationSystemTestCase
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
     assert_text 'test'
-    assert_includes ['2.webp', 'default.png'], File.basename(find('img.thread-comment__company-logo')['src'])
+    assert_includes ['companies-logos-2.webp', 'default.png'], File.basename(find('img.thread-comment__company-logo')['src'])
   end
 
   test 'using file uploading by file selection dialogue in textarea' do

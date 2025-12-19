@@ -1,20 +1,22 @@
+@use "../../../config/mixins/break-points"
+
 .thread-form
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     padding: 1rem 2rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     padding: .75rem 1rem
 
 .thread-form__actions
   margin-top: 1rem
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     display: flex
     justify-content: center
     gap: .75rem
 
 .thread-form__action
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     flex: 0 0 14rem
     max-width: 50%
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     &:not(:first-child)
       margin-top: .5rem

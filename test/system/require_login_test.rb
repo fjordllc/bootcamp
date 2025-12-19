@@ -54,7 +54,6 @@ class RequireLoginTest < ApplicationSystemTestCase
 
     # app/controllers/home_controller.rb
     assert_no_login_required('/', 'プラス戦力のスキルを身につける')
-    assert_no_login_required('/test', 'TEST')
 
     # app/controllers/inquiries_controller.rb
     assert_no_login_required('/inquiry/new', 'お問い合わせ')

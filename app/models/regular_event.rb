@@ -10,7 +10,9 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     ['第1', 1],
     ['第2', 2],
     ['第3', 3],
-    ['第4', 4]
+    ['第4', 4],
+    ['奇数週', 5],
+    ['偶数週', 6]
   ].freeze
 
   DAY_OF_THE_WEEK_LIST = [
@@ -30,13 +32,13 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   include Watchable
   include Searchable
 
-  enum category: {
+  enum :category, {
     reading_circle: 0,
     chat: 1,
     question: 2,
     meeting: 3,
     others: 4
-  }, _prefix: true
+  }, prefix: true
 
   validates :title, presence: true, markdown_prohibited: true
   validates :user_ids, presence: true
@@ -56,7 +58,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   scope :holding, -> { where(finished: false) }
   scope :participated_by, ->(user) { where(id: all.filter { |e| e.participated_by?(user) }.map(&:id)) }
-  scope :organizer_event, ->(user) { where(id: user.organizers.map(&:regular_event_id)) }
+  scope :organizer_event, ->(user) { joins(:organizers).where(organizers: { user_id: user.id }) }
   scope :scheduled_on, ->(date) { holding.filter { |event| event.scheduled_on?(date) } }
   scope :scheduled_on_without_ended, ->(date) { holding.filter { |event| event.scheduled_on?(date) && !event.ended?(date) } }
 
@@ -75,6 +77,14 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   columns_for_keyword_search :title, :description
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[title description category start_at end_at finished hold_national_holiday created_at updated_at user_id]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[user organizers users regular_event_repeat_rules participants comments reactions watches]
+  end
+
   def scheduled_on?(date)
     all_scheduled_dates.include?(date)
   end
@@ -92,7 +102,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def organizers
-    users.with_attached_avatar.order('organizers.created_at')
+    users.preload(avatar_attachment: :blob).order('organizers.created_at')
   end
 
   def cancel_participation(user)
@@ -165,8 +175,13 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def date_match_the_rules?(date, rules)
     rules.any? do |rule|
-      if rule.frequency.zero?
+      case rule.frequency
+      when 0
         rule.day_of_the_week == date.wday
+      when 5
+        date.cweek.odd? && rule.day_of_the_week == date.wday
+      when 6
+        date.cweek.even? && rule.day_of_the_week == date.wday
       else
         rule.frequency == nth_wday(date) && rule.day_of_the_week == date.wday
       end

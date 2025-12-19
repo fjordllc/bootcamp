@@ -1,3 +1,5 @@
+@use "../../../config/mixins/break-points"
+
 .page-content
   &.is-products,
   &.is-questions,
@@ -5,12 +7,12 @@
   &.is-users
     width: 100%
   &:not(:first-child)
-    +media-breakpoint-up(md)
+    +break-points.media-breakpoint-up(md)
       margin-top: 1.25rem
-    +media-breakpoint-down(sm)
+    +break-points.media-breakpoint-down(sm)
       margin-top: 1rem
   &:not(:last-child)
-    +media-breakpoint-up(md)
+    +break-points.media-breakpoint-up(md)
       margin-bottom: 2rem
-    +media-breakpoint-down(sm)
+    +break-points.media-breakpoint-down(sm)
       margin-bottom: 1rem

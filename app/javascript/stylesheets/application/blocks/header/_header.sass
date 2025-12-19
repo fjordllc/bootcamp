@@ -1,11 +1,14 @@
+@use "../../../config/mixins/break-points"
+@use "../../../config/mixins/position"
+
 .header
   background-color: var(--base)
   z-index: 5
-  +media-breakpoint-up(md)
-    +position(fixed, top 0, right 0)
+  +break-points.media-breakpoint-up(md)
+    +position.position(fixed, top 0, right 0)
     left: var(--global-nav-width)
     height: var(--header-height__md-up)
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     position: relative
     height: var(--header-height__sm-down)
   .a-switch
@@ -34,9 +37,9 @@
     opacity: .8
 
 .header__title-image
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     height: 2.25rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     height: 1.75rem
 
 .header-show-mobile-nav
@@ -46,12 +49,12 @@
   justify-content: center
   align-items: center
   width: 3rem
-  +position(relative)
+  +position.position(relative)
   display: flex
 
 .header-show-mobile-nav-items
   display: none
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     display: flex
     height: 100%
     margin-right: -1rem

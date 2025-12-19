@@ -1,6 +1,8 @@
+@use "../../../config/mixins/break-points"
+
 .lp-course-selection__descritpion
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     font-size: 1rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     font-size: .875rem
     margin-bottom: .5rem

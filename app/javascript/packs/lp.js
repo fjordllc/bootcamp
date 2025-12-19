@@ -7,7 +7,6 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-import '../stylesheets/lp'
+import '../stylesheets/lp.sass'
 
 // Import images to ensure they are copied by webpack
-import '../../assets/images/background/people.png'

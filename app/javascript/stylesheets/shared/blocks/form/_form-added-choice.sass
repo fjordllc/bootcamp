@@ -1,9 +1,11 @@
+@use "../../../config/mixins/break-points"
+
 .form-added-choice
   .form-added-choice + &
     margin-top: 1rem
 
 .form-added-choice__inner
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     display: flex
     align-items: flex-start
     gap: .75rem
@@ -14,11 +16,11 @@
 
 .form-added-choice__items
   display: flex
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     gap: 1rem
 
 .form-added-choice__action
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     margin-top: .75rem
     display: flex
     justify-content: flex-end

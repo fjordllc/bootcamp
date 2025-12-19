@@ -1,3 +1,7 @@
+@use "../../../config/mixins/font-awsome"
+@use "../../../config/mixins/position"
+@use "../../../config/mixins/text"
+
 .following
   position: relative
   width: 100%
@@ -26,16 +30,16 @@
   position: relative
   padding-left: 1.5rem
   .following-option.is-active &::before
-    +fa(fas '\f00c')
-    +position(absolute, left 0, top 0)
+    +font-awsome.fa(fas '\f00c')
+    +position.position(absolute, left 0, top 0)
 
 .following-option__label
-  +text-block(.875rem 1.4, 600)
+  +text.text-block(.875rem 1.4, 600)
   color: var(--semi-muted-text)
   .following-option.is-active &
     color: var(--default-text)
 
 .following-option__desciption
-  +text-block(.75rem 1.5)
+  +text.text-block(.75rem 1.5)
   color: var(--muted-text)
   margin-top: .125rem

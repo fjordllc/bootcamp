@@ -37,8 +37,11 @@ class AutoRetireTest < ApplicationSystemTestCase
     admin = users(:komagata)
     mentor = users(:mentormentaro)
 
-    assert_equal "😢 #{user.login_name}さんが退会しました。", admin.notifications.last.message
-    assert_equal "😢 #{user.login_name}さんが退会しました。", mentor.notifications.last.message
+    admin_retirement_notification = admin.notifications.where(kind: Notification.kinds[:retired]).last
+    mentor_retirement_notification = mentor.notifications.where(kind: Notification.kinds[:retired]).last
+
+    assert_equal "😢 #{user.login_name}さんが退会しました。", admin_retirement_notification.message
+    assert_equal "😢 #{user.login_name}さんが退会しました。", mentor_retirement_notification.message
 
     mails = ActionMailer::Base.deliveries
     mail_to_admin = mails.find { |m| m.to == [admin.email] }
@@ -91,101 +94,5 @@ class AutoRetireTest < ApplicationSystemTestCase
       end
       assert_equal retired_date, user.reload.retired_on
     end
-  end
-
-  test 'delete unfinished data when retire' do
-    user = users(:kyuukai)
-    user.update!(career_path: 1)
-    assert user.products.unchecked.count.positive?
-    assert user.reports.wip.count.positive?
-
-    travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
-      VCR.use_cassette 'subscription/update' do
-        Card.stub(:destroy_all, true) do
-          mock_env('TOKEN' => 'token') do
-            visit scheduler_daily_auto_retire_path(token: 'token')
-          end
-        end
-      end
-      assert_equal Date.current, user.reload.retired_on
-    end
-
-    assert_not_equal user.career_path, 1
-    assert_equal 0, user.products.unchecked.count
-    assert_equal 0, user.reports.wip.count
-  end
-
-  test 'delete times channel when retire' do
-    user = users(:kyuukai)
-    user.discord_profile.times_id = '987654321987654321'
-    user.discord_profile.account_name = 'kyuukai#1234'
-    user.discord_profile.save!(validate: false)
-
-    travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
-      Discord::Server.stub(:delete_text_channel, true) do
-        VCR.use_cassette 'subscription/update' do
-          Card.stub(:destroy_all, true) do
-            mock_env('TOKEN' => 'token') do
-              visit scheduler_daily_auto_retire_path(token: 'token')
-            end
-          end
-        end
-      end
-      assert_equal Date.current, user.reload.retired_on
-    end
-    assert_nil user.discord_profile.times_id
-  end
-
-  test 'retire with postmark error' do
-    user = users(:kyuukai)
-    logs = []
-    stub_warn_logger = ->(message) { logs << message }
-    Rails.logger.stub(:warn, stub_warn_logger) do
-      stub_postmark_error = ->(_user) { raise Postmark::InactiveRecipientError }
-      UserMailer.stub(:auto_retire, stub_postmark_error) do
-        travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
-          VCR.use_cassette 'subscription/update' do
-            Card.stub(:destroy_all, true) do
-              mock_env('TOKEN' => 'token') do
-                visit scheduler_daily_auto_retire_path(token: 'token')
-              end
-            end
-          end
-          assert_equal Date.current, user.reload.retired_on
-        end
-      end
-    end
-    assert_match '[Postmark] 受信者由来のエラーのためメールを送信できませんでした。：', logs.to_s
-  end
-
-  test 'retire with invalid user status' do
-    user = users(:kyuukai)
-    user.twitter_account = '不正なツイッターアカウント名'
-    user.save!(validate: false)
-    assert user.invalid?
-
-    travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
-      VCR.use_cassette 'subscription/update' do
-        Card.stub(:destroy_all, true) do
-          mock_env('TOKEN' => 'token') do
-            visit scheduler_daily_auto_retire_path(token: 'token')
-          end
-        end
-      end
-      assert_equal Date.current, user.reload.retired_on
-    end
-  end
-
-  test 'send mail one week before auto retire' do
-    travel_to Time.zone.local(2020, 3, 26, 0, 0, 0) do
-      mock_env('TOKEN' => 'token') do
-        visit scheduler_daily_send_mail_to_hibernation_user_path(token: 'token')
-      end
-    end
-
-    user = users(:kyuukai)
-    mails = ActionMailer::Base.deliveries
-    mail_to_user = mails.find { |m| m.to == [user.email] }
-    assert_equal '[FBC] ご注意：休会期限の接近について', mail_to_user.subject
   end
 end

@@ -23,6 +23,31 @@ steps:
       - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
     waitFor:
       - Build
+  # Cloud Runサービスを削除してDB接続を切断
+  # Cloud SQLでは管理者権限がないためpg_terminate_backendが使えない
+  # サービスを削除することで接続を確実に切断し、Deployで再作成される
+  - id: StopCloudRun
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: bash
+    args:
+      - '-c'
+      - |
+        set -euo pipefail
+        echo "Deleting Cloud Run service to disconnect database connections..."
+
+        # サービスが存在するか確認して削除
+        if gcloud run services describe $_SERVICE_NAME --region=asia-northeast1 --quiet 2>/dev/null; then
+          gcloud run services delete $_SERVICE_NAME \
+            --region=asia-northeast1 \
+            --quiet
+
+          echo "Cloud Run service deleted. Waiting 10 seconds for connections to close..."
+          sleep 10
+        else
+          echo "Cloud Run service does not exist yet. Skipping delete."
+        fi
+    waitFor:
+      - Push
   - id: SqlProxy
     name: 'gcr.io/cloudsql-docker/gce-proxy:1.16'
     args:
@@ -30,26 +55,26 @@ steps:
       - '-dir=/cloudsql'
       - '-instances=$_CLOUD_SQL_HOST'
     waitFor:
-      - '-'
+      - StopCloudRun
     volumes:
       - name: db
         path: /cloudsql
-  # 既存の接続を強制的に切断
-  - name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
+  # Cloud SQL Proxyの起動を待つ
+  - id: WaitForProxy
+    name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
     args:
       - bash
       - '-c'
       - |
         set -euo pipefail
-        
-        # Cloud SQL Proxyの起動を待つ（最大60秒）
+
         echo "Waiting for Cloud SQL Proxy to be ready..."
         TIMEOUT=60
         ELAPSED=0
-        
+
         while [ $$ELAPSED -lt $$TIMEOUT ]; do
           echo "Attempting database connection... ($$ELAPSED/$$TIMEOUT seconds)"
-          if cat <<'TESTEOF' | bin/rails runner - 2>/dev/null
+          OUTPUT=$$(cat <<'TESTEOF' | bin/rails runner - 2>&1
         begin
           ActiveRecord::Base.connection.execute("SELECT 1")
           puts "Database connection successful"
@@ -59,36 +84,24 @@ steps:
           exit 1
         end
         TESTEOF
-          then
-            echo "Database connection verified, proceeding to terminate connections..."
-            break
+          )
+          EXITCODE=$$?
+          if [ $$EXITCODE -eq 0 ]; then
+            echo "$$OUTPUT"
+            echo "Cloud SQL Proxy is ready."
+            exit 0
           else
+            echo "Rails runner output: $$OUTPUT"
             echo "Database not ready yet, waiting..."
           fi
           sleep 2
           ELAPSED=$$(($$ELAPSED + 2))
         done
-        
-        if [ $$ELAPSED -ge $$TIMEOUT ]; then
-          echo "ERROR: Timeout waiting for Cloud SQL Proxy to be ready after $$TIMEOUT seconds"
-          exit 1
-        fi
-        
-        # 接続を強制切断
-        echo "Terminating existing connections to bootcamp_staging database..."
-        cat <<'EOF' | bin/rails runner -
-        result = ActiveRecord::Base.connection.execute("
-          SELECT pg_terminate_backend(pid)
-          FROM pg_stat_activity
-          WHERE datname = 'bootcamp_staging'
-            AND pid <> pg_backend_pid()
-        ")
-        terminated_count = result.ntuples
-        puts "Terminated #{terminated_count} connection(s) to bootcamp_staging database"
-        EOF
-    id: TerminateConnections
+
+        echo "ERROR: Timeout waiting for Cloud SQL Proxy after $$TIMEOUT seconds"
+        exit 1
     waitFor:
-      - Push
+      - StopCloudRun
     volumes:
       - name: db
         path: /cloudsql
@@ -100,19 +113,37 @@ steps:
       - DB_PASS=$_DB_PASS
       - DB_USER=$_DB_USER
       - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
-  # データベースを削除
+      - APP_HOST_NAME=$_APP_HOST_NAME
+  # データベースを削除（リトライ付き）
+  # WaitForProxyの接続がCloud SQL Proxy経由で残っている場合があるため、
+  # 接続が切れるまでリトライする
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
-    args:
-      - sql
-      - databases
-      - delete
-      - bootcamp_staging
-      - '--instance=bootcamp'
-      - '--quiet'
     id: DeleteDB
+    entrypoint: bash
+    args:
+      - '-c'
+      - |
+        set -euo pipefail
+        MAX_RETRIES=5
+        RETRY_DELAY=5
+
+        for i in $$(seq 1 $$MAX_RETRIES); do
+          echo "Attempt $$i/$$MAX_RETRIES: Deleting database bootcamp_staging..."
+          if gcloud sql databases delete bootcamp_staging --instance=bootcamp --quiet 2>&1; then
+            echo "Database deleted successfully."
+            exit 0
+          else
+            if [ $$i -lt $$MAX_RETRIES ]; then
+              echo "Database delete failed (likely still has connections). Waiting $$RETRY_DELAY seconds before retry..."
+              sleep $$RETRY_DELAY
+            fi
+          fi
+        done
+
+        echo "ERROR: Failed to delete database after $$MAX_RETRIES attempts."
+        exit 1
     waitFor:
-      - TerminateConnections
-    entrypoint: gcloud
+      - WaitForProxy
     volumes:
       - name: db
         path: /cloudsql
@@ -150,6 +181,7 @@ steps:
       - DB_PASS=$_DB_PASS
       - DB_USER=$_DB_USER
       - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
+      - APP_HOST_NAME=$_APP_HOST_NAME
   - id: Kill_SqlProxy
     name: gcr.io/cloud-builders/docker
     entrypoint: sh

@@ -1,35 +1,37 @@
+@use "../../../config/mixins/break-points"
+
 .page-content-header-actions
   padding-top: .25rem
   display: flex
   flex-wrap: wrap
-  +media-breakpoint-up(sm)
+  +break-points.media-breakpoint-up(sm)
     justify-content: space-between
     gap: .5rem
-  +media-breakpoint-down(xs)
+  +break-points.media-breakpoint-down(xs)
     justify-content: center
     gap: .25rem
 
 .page-content-header-actions__start,
 .page-content-header-actions__end
   display: flex
-  +media-breakpoint-up(sm)
+  +break-points.media-breakpoint-up(sm)
     flex: 1
     gap: .5rem
-  +media-breakpoint-down(xs)
+  +break-points.media-breakpoint-down(xs)
     gap: .25rem
 
 .page-content-header-actions__start
   justify-content: flex-start
 
 .page-content-header-actions__end
-  +media-breakpoint-up(sm)
+  +break-points.media-breakpoint-up(sm)
     justify-content: flex-end
 
 .page-content-header-actions__action
   min-width: 5.4rem
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     min-width: 7rem
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     width: 50%
   .a-button
     padding-inline: 0

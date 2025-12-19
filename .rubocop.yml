@@ -1,6 +1,8 @@
 require:
   - rubocop-minitest
   - rubocop-capybara
+  - rubocop-performance
+  - rubocop-rails
 
 inherit_gem:
   rubocop-fjord:
@@ -19,6 +21,8 @@ AllCops:
     - config/**/*
     - config.ru
     - node_modules/**/*
+    - db/data/*
+    - db/data_schema.rb
     - db/migrate/*
     - db/schema.rb
     - storage/**/*

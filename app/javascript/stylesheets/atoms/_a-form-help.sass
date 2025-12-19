@@ -1,3 +1,7 @@
+@use "../config/mixins/link"
+@use "../config/mixins/text"
+@use "../config/variables/colors"
+
 .a-form-help
   font-size: .75rem
   color: var(--semi-muted-text)
@@ -23,18 +27,18 @@
   .form-item-block &
     margin-top: .75em
   p
-    +text-block(1em 1.6)
+    +text.text-block(1em 1.6)
     &:not(:last-child)
       margin-bottom: .75em
   a
-    +hover-link-reversal
+    +link.hover-link-reversal
   *:last-child
     margin-bottom: 0
   a
-    +text-block(.75rem 1.6)
-    +hover-link-reversal
+    +text.text-block(.75rem 1.6)
+    +link.hover-link-reversal
     cursor: pointer
-    +default-link
+    +colors.default-link
   ul
     list-style-type: disc
     list-style-position: outside
@@ -47,20 +51,20 @@
       margin-top: .125em
 
 .a-form-help-link
-  +text-block(.75rem 1.6)
+  +text.text-block(.75rem 1.6)
   cursor: pointer
-  +default-link
+  +colors.default-link
   .a-form-help &.is-danger
       color: var(--danger)
   &.is-muted-text
       color: var(--muted-text)
 
 .a-form-help-link__label
-  +hover-link-reversal
+  +link.hover-link-reversal
 
 .a-text-help-link
   cursor: pointer
-  +default-link
+  +colors.default-link
 
 .a-text-help-link__label
-  +hover-link-reversal
+  +link.hover-link-reversal

@@ -1,6 +1,8 @@
+@use "../atoms/a-text-input" as textInput
+
 body
   .tagify
-    @extend .a-text-input
+    +textInput.text-input-base
     display: flex !important
     align-items: center
     padding: .5rem

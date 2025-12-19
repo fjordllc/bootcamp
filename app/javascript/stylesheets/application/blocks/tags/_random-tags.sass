@@ -1,9 +1,14 @@
+@use "../../../config/mixins/font-awsome"
+@use "../../../config/mixins/link"
+@use "../../../config/mixins/position"
+@use "../../../config/mixins/text"
+
 .random-tags-item
   &:not(:last-child)
     border-bottom: solid 1px var(--border)
 
 .random-tags-item__link
-  +flex-link
+  +link.flex-link
   padding-left: 1rem
   padding-right: .5rem
   padding-block: .5rem
@@ -14,13 +19,13 @@
     background-color: var(--primary-tint)
 
 .random-tags-item__link-inner
-  +position(relative)
+  +position.position(relative)
   flex: 1
   padding-right: 2em
 
 .random-tags-item__count
-  +position(absolute, right 0, top 2px)
-  +text-block(.625rem, flex center)
+  +position.position(absolute, right 0, top 2px)
+  +text.text-block(.625rem, flex center)
   color: var(--default-text)
   justify-content: center
   align-items: center
@@ -30,7 +35,7 @@
   border-radius: 1em
 
 .random-tags-item__name
-  +text-block(.875rem 1.4)
+  +text.text-block(.875rem 1.4)
   color: var(--semi-muted-text)
   .is-first &,
   .is-second &,
@@ -40,7 +45,7 @@
   .is-second &::before,
   .is-third &::before
     margin-right: .5em
-    +fa(fas '\f521')
+    +font-awsome.fa(fas '\f521')
   .is-first &,
   .is-first &::before
     color: var(--gold)

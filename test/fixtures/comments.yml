@@ -195,3 +195,8 @@ commentOfTalk2:
   commentable_type: Talk
   description: "これは相談部屋の会話です。"
   updated_at: "2019-01-02 00:00:00 JST"
+
+comment_for_answer_count:
+  user: kimura
+  commentable: answer_for_comment_count (Answer)
+  description: "コメント数表示テスト用のコメントです。"

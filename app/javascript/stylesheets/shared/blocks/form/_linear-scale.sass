@@ -1,3 +1,8 @@
+@use "../../../config/mixins/position"
+@use "../../../config/mixins/size"
+@use "../../../config/mixins/text"
+@use "../../../config/variables/colors"
+
 $radio-size: .875rem
 
 .linear-scale
@@ -5,7 +10,7 @@ $radio-size: .875rem
   align-items: center
 
 .linear-scale__label
-  +text-block(.8125rem 1.4)
+  +text.text-block(.8125rem 1.4)
   &:first-child
     margin-right: 1rem
   &:last-child
@@ -21,10 +26,10 @@ $radio-size: .875rem
 .linear-scale__point
   display: flex
   flex-direction: column
-  +text-block(.875rem 1.4)
+  +text.text-block(.875rem 1.4)
   display: block
   color: var(--semi-muted-text)
-  +position(relative)
+  +position.position(relative)
   cursor: pointer
   padding-bottom: $radio-size
   width: 2.25rem
@@ -32,21 +37,21 @@ $radio-size: .875rem
   &::before
     content: ""
     text-decoration: none
-    +size($radio-size)
+    +size.size($radio-size)
     border: solid 1px var(--input-border)
     display: block
-    +position(absolute, left 50%, bottom 0)
+    +position.position(absolute, left 50%, bottom 0)
     transform: translate(-50%, 0)
     background-color: var(--base)
     border-radius: 50%
-    +text-block(.75rem 1)
+    +text.text-block(.75rem 1)
     display: flex
     color: var(--reversal-text)
     align-items: center
     justify-content: center
     transition: all .2s ease-out
   &:hover::before
-    background-color: rgba($primary, .4)
+    background-color: rgba(colors.$primary, .4)
     border-color: var(--primary)
   &:hover::after
     text-decoration: none

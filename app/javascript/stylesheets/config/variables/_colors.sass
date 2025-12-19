@@ -1,3 +1,5 @@
+@use "../functions/color"
+
 $main: hsl(242, 51%, 51%)
 $accent: hsl(44, 96%, 54%)
 $base: white
@@ -63,26 +65,26 @@ $danger: hsl(349, 90%, 62%)
 $disabled: $background-shade
 $stamp-color: hsl(0, 80%, 62%)
 
-$danger-text: shade($danger, 40%)
-$danger-tint: tint($danger, 90%)
+$danger-text: color.shade($danger, 40%)
+$danger-tint: color.tint($danger, 90%)
 
-$success-text: shade($success, 60%)
-$success-tint: tint($success, 90%)
+$success-text: color.shade($success, 60%)
+$success-tint: color.tint($success, 90%)
 
-$info-text: shade($info, 60%)
-$info-tint: tint($info, 90%)
+$info-text: color.shade($info, 60%)
+$info-tint: color.tint($info, 90%)
 
-$primary-text: shade($primary, 40%)
-$primary-tint: tint($primary, 90%)
-$primary-semi-tint: tint($primary, 60%)
+$primary-text: color.shade($primary, 40%)
+$primary-tint: color.tint($primary, 90%)
+$primary-semi-tint: color.tint($primary, 60%)
 
 $primary-background: #ebebf7
 
-$warning-text: shade($warning, 60%)
-$warning-tint: tint($warning, 90%)
+$warning-text: color.shade($warning, 60%)
+$warning-tint: color.tint($warning, 90%)
 
-$main-text: shade($main, 10%)
-$main-tint: tint($main, 90%)
+$main-text: color.shade($main, 10%)
+$main-tint: color.tint($main, 90%)
 $main-shade: hsl(254, 60%, 34%)
 $main-semi-shade: hsl(254, 52%, 40%)
 

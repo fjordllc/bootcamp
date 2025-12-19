@@ -1,14 +1,16 @@
+@use "../../../config/mixins/break-points"
+
 .page-main-header-actions__items
   display: flex
   gap: .5rem
   justify-content: center
 
 .page-main-header-actions__item
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     min-width: 10rem
     display: flex
     justify-content: center
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     flex: 1
   &.is-remove
     .is-muted

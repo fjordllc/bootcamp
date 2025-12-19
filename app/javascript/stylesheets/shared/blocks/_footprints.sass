@@ -1,22 +1,26 @@
+@use "../../config/mixins/break-points"
+@use "../../config/mixins/link"
+@use "../../config/mixins/text"
+
 .user-icons,
 .user-icons__wrapper
   margin-top: 1.5rem
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     display: flex
     gap: .75rem
 
 .user-icons__title
-  +media-breakpoint-up(md)
+  +break-points.media-breakpoint-up(md)
     text-align: right
-    +text-block(.875rem 2rem, 600 nowrap)
-  +media-breakpoint-down(sm)
-    +text-block(.875rem 1.4, 600 nowrap)
+    +text.text-block(.875rem 2rem, 600 nowrap)
+  +break-points.media-breakpoint-down(sm)
+    +text.text-block(.875rem 1.4, 600 nowrap)
 
 .user-icons__items
   display: flex
   gap: .5rem
   flex-wrap: wrap
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     margin-top: .75rem
 
 .user-icons-item
@@ -25,13 +29,13 @@
   gap: .25rem
 
 .user-icons-item__delete
-  +text-block(.75rem 1.4)
+  +text.text-block(.75rem 1.4)
 
 .user-icons__more
-  +text-block(.8125rem 1.4, block nowrap)
+  +text.text-block(.8125rem 1.4, block nowrap)
   color: var(--main)
-  +hover-link-reversal
-  +media-breakpoint-up(md)
+  +link.hover-link-reversal
+  +break-points.media-breakpoint-up(md)
     align-self: center
-  +media-breakpoint-down(sm)
+  +break-points.media-breakpoint-down(sm)
     margin-top: .75rem
