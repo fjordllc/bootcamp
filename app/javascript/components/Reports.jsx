@@ -32,13 +32,12 @@ export default function Reports({
   useEffect(() => {
     if (!data || !practices) return
 
-    let isMounted = true
     let dropdown = null
     const initDropdown = async () => {
       const targetElement = document.querySelector(
         '[data-practice-filter-dropdown]'
       )
-      if (!targetElement || !isMounted) return
+      if (!targetElement || dropdown) return
 
       const PracticeFilterDropdown = (
         await import('../practice-filter-dropdown')
@@ -54,9 +53,9 @@ export default function Reports({
     initDropdown()
 
     return () => {
-      isMounted = false
       if (dropdown) {
         dropdown.destroy()
+        dropdown = null
       }
     }
   }, [data, practices, setSelectedPracticeId])
