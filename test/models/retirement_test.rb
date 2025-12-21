@@ -20,7 +20,7 @@ class RetirementTest < ActiveSupport::TestCase
       remove_as_event_organizer
       clear_github_info
       destroy_cards
-      publish_to_newspaper
+      publish
       notify
     ]
 
