@@ -76,7 +76,7 @@ class PairWorkTest < ActiveSupport::TestCase
     user = users(:hajime)
 
     travel_to Time.zone.local(2025, 1, 15, 12, 0, 0) do
-      pair_work_attributes = {
+      pair_work_template = {
         user:,
         title: 'ペアが確定していて、近日開催されるペアワーク',
         description: 'ペアが確定していて、近日開催されるペアワーク',
@@ -84,18 +84,18 @@ class PairWorkTest < ActiveSupport::TestCase
         channel: 'ペアワーク・モブワーク1',
         wip: false
       }
-      upcoming_pair_work_tomorrow = PairWork.create!(pair_work_attributes.merge(
+      upcoming_pair_work_tomorrow = PairWork.create!(pair_work_template.merge(
                                                        reserved_at: Time.current.beginning_of_day + 1.day,
                                                        schedules_attributes: [{ proposed_at: Time.current.beginning_of_day + 1.day }]
                                                      ))
-      upcoming_pair_work_day_after_tomorrow = PairWork.create!(pair_work_attributes.merge(
+      upcoming_pair_work_day_after_tomorrow = PairWork.create!(pair_work_template.merge(
                                                                  reserved_at: Time.current.beginning_of_day + 2.days,
                                                                  schedules_attributes: [{ proposed_at: Time.current.beginning_of_day + 2.days }]
                                                                ))
       assert_includes PairWork.upcoming_pair_works(user), upcoming_pair_work_tomorrow
       assert_includes PairWork.upcoming_pair_works(user), upcoming_pair_work_day_after_tomorrow
 
-      held_today_pair_work = PairWork.create!(pair_work_attributes.merge(
+      held_today_pair_work = PairWork.create!(pair_work_template.merge(
                                                 reserved_at: Time.current.beginning_of_day,
                                                 schedules_attributes: [{ proposed_at: Time.current.beginning_of_day }]
                                               ))
