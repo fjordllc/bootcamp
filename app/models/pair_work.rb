@@ -54,6 +54,14 @@ class PairWork < ApplicationRecord
 
   mentionable_as :description
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[title description wip reserved_at published_at created_at updated_at buddy_id user_id practice_id]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[user buddy practice pair_work_schedules comments reactions watches bookmarks]
+  end
+
   def self.generate_pair_works_property(target)
     case target
     when 'solved'
