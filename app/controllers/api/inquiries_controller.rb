@@ -5,7 +5,7 @@ class API::InquiriesController < API::BaseController
     inquiry = Inquiry.lock.find(params[:id])
     Inquiry.transaction do
       if inquiry.update(inquiry_params)
-        if inquiry.action_completed
+        if inquiry.action_completed?
           Check.find_or_create_by!(user: current_user, checkable: inquiry)
         else
           inquiry.checks.destroy_all
