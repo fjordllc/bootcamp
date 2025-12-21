@@ -2,24 +2,18 @@
 
 class API::InquiriesController < API::BaseController
   def update
-    inquiry = Inquiry.lock.find(params[:id])
-    Inquiry.transaction do
-      if inquiry.update(inquiry_params)
-        if inquiry.action_completed?
-          Check.find_or_create_by!(user: current_user, checkable: inquiry)
-        else
-          inquiry.checks.destroy_all
-        end
-        head :ok
-      else
+    inquiry = Inquiry.find(params[:id])
+    action_completed = params[:inquiry][:action_completed]
+    if action_completed
+      if inquiry.action_completed?
         head :unprocessable_entity
+      else
+        inquiry.update!(action_completed:, completed_by_user: current_user, completed_at: Time.zone.now)
+        head :no_content
       end
+    else
+      inquiry.update!(action_completed:, completed_by_user: nil, completed_at: nil)
+      head :no_content
     end
-  end
-
-  private
-
-  def inquiry_params
-    params.require(:inquiry).permit(:action_completed)
   end
 end
