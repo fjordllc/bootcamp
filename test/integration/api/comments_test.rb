@@ -132,11 +132,10 @@ class API::CommentsTest < ActionDispatch::IntegrationTest
     )
     other_user_comment = comments(:comment1) # machida's comment
 
-    assert_raises(ActiveRecord::RecordNotFound) do
-      patch api_comment_url(other_user_comment.id, format: :json),
-            headers: { Authorization: "Bearer #{regular_token.token}" },
-            params: { comment: { description: 'Trying to update' } }
-    end
+    patch api_comment_url(other_user_comment.id, format: :json),
+          headers: { Authorization: "Bearer #{regular_token.token}" },
+          params: { comment: { description: 'Trying to update' } }
+    assert_response :not_found
   end
 
   test 'regular user cannot delete other user comment' do
@@ -149,10 +148,9 @@ class API::CommentsTest < ActionDispatch::IntegrationTest
     other_user_comment = comments(:comment1) # machida's comment
 
     assert_no_difference('Comment.count') do
-      assert_raises(ActiveRecord::RecordNotFound) do
-        delete api_comment_url(other_user_comment.id, format: :json),
-               headers: { Authorization: "Bearer #{regular_token.token}" }
-      end
+      delete api_comment_url(other_user_comment.id, format: :json),
+             headers: { Authorization: "Bearer #{regular_token.token}" }
+      assert_response :not_found
     end
   end
 end
