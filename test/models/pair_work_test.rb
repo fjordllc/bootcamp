@@ -84,10 +84,6 @@ class PairWorkTest < ActiveSupport::TestCase
         channel: 'ペアワーク・モブワーク1',
         wip: false
       }
-      upcoming_pair_work_today = PairWork.create!(pair_work_attributes.merge(
-                                                    reserved_at: Time.current.beginning_of_day,
-                                                    schedules_attributes: [{ proposed_at: Time.current.beginning_of_day }]
-                                                  ))
       upcoming_pair_work_tomorrow = PairWork.create!(pair_work_attributes.merge(
                                                        reserved_at: Time.current.beginning_of_day + 1.day,
                                                        schedules_attributes: [{ proposed_at: Time.current.beginning_of_day + 1.day }]
@@ -96,10 +92,14 @@ class PairWorkTest < ActiveSupport::TestCase
                                                                  reserved_at: Time.current.beginning_of_day + 2.days,
                                                                  schedules_attributes: [{ proposed_at: Time.current.beginning_of_day + 2.days }]
                                                                ))
-
-      assert_includes PairWork.upcoming_pair_works(user), upcoming_pair_work_today
       assert_includes PairWork.upcoming_pair_works(user), upcoming_pair_work_tomorrow
       assert_includes PairWork.upcoming_pair_works(user), upcoming_pair_work_day_after_tomorrow
+
+      held_today_pair_work = PairWork.create!(pair_work_attributes.merge(
+                                                reserved_at: Time.current.beginning_of_day,
+                                                schedules_attributes: [{ proposed_at: Time.current.beginning_of_day }]
+                                              ))
+      assert_not_includes PairWork.upcoming_pair_works(user), held_today_pair_work
 
       unrelated_pair_work = pair_works(:pair_work2)
       assert_not_includes PairWork.upcoming_pair_works(user), unrelated_pair_work
