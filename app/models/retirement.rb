@@ -33,7 +33,7 @@ class Retirement
     remove_as_event_organizer
     clear_github_info
     destroy_cards
-    trigger_retirement_event
+    publish
     notify
     true
   rescue ActiveRecord::RecordInvalid => e
@@ -82,7 +82,7 @@ class Retirement
     @user.delete_and_assign_new_organizer
   end
 
-  def trigger_retirement_event
+  def publish
     ActiveSupport::Notifications.instrument('retirement.create', user: @user)
   end
 
