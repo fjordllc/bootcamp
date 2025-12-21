@@ -482,7 +482,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_23_000002) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "action_completed", default: false, null: false
+    t.bigint "completed_by_user_id"
+    t.datetime "completed_at"
     t.index ["action_completed"], name: "index_inquiries_on_action_completed"
+    t.index ["completed_by_user_id"], name: "index_inquiries_on_completed_by_user_id"
   end
 
   create_table "learning_minute_statistics", force: :cascade do |t|
@@ -1063,6 +1066,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_23_000002) do
   add_foreign_key "faqs", "faq_categories"
   add_foreign_key "hibernations", "users"
   add_foreign_key "images", "users"
+  add_foreign_key "inquiries", "users", column: "completed_by_user_id", on_delete: :nullify
   add_foreign_key "learning_minute_statistics", "practices"
   add_foreign_key "learning_time_frames_users", "learning_time_frames"
   add_foreign_key "learning_time_frames_users", "users"

@@ -5,6 +5,9 @@ class Inquiry < ApplicationRecord
   scope :action_completed, -> { where(action_completed: true) }
   scope :not_completed, -> { where(action_completed: false) }
   include Commentable
+
+  belongs_to :completed_by_user, class_name: 'User', optional: true
+
   validates :name, presence: true
   validates :email,
             presence: true,
