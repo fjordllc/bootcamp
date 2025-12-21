@@ -1,6 +1,6 @@
 .card-list-item
   .card-list-item__inner.position-relative
-    - if inquiry.checked?
+    - if inquiry.action_completed?
       .stamp.stamp-approve.is-sm
         .stamp__content.is-title
           | 対応済
@@ -17,7 +17,7 @@
               .a-meta
                 span.a-meta__label 受信日
                 span.a-meta__value = l inquiry.created_at
-            - if inquiry.checked?
+            - if inquiry.action_completed?
               .card-list-item-meta__item
                 .a-meta
                   span.a-meta__label 確認者

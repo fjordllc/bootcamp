@@ -27,7 +27,7 @@ main.page-main
     .container.is-md
       .page-content
         header.page-content-header
-          - if @inquiry.checked?
+          - if @inquiry.action_completed?
             .stamp.stamp-approve.is-sm
               .stamp__content.is-title
                 | 対応済
@@ -50,7 +50,7 @@ main.page-main
                   = auto_link(simple_format(@inquiry.body), html: { target: '_blank' })
           .mt-4.inquiry-action
             = react_component('ActionCompletedButton', { \
-              isInitialActionCompleted: @inquiry.action_completed || false, \
+              isInitialActionCompleted: @inquiry.action_completed? || false, \
               commentableId: @inquiry.id, \
               modelName: 'inquiry', \
               apiPath: '/api/inquiries' \
