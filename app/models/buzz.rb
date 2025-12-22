@@ -32,7 +32,7 @@ class Buzz < ApplicationRecord
     end
 
     def doc_from_url(url)
-      raise ArgumentError, 'HTTP/HTTP URLs only' unless valid_scheme?(url)
+      raise ArgumentError, 'HTTP/HTTPS URLs only' unless valid_scheme?(url)
 
       uri = URI.parse(url)
 
@@ -66,6 +66,8 @@ class Buzz < ApplicationRecord
     def valid_scheme?(url)
       uri = URI.parse(url)
       %w[http https].include?(uri.scheme&.downcase)
+    rescue URI::InvalidURIError
+      false
     end
 
     private
