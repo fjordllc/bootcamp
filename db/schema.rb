@@ -112,8 +112,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_19_100001) do
   end
 
   create_table "buzzes", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "url", null: false
     t.string "title", null: false
     t.date "published_at", null: false
