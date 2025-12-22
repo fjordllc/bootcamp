@@ -53,7 +53,6 @@ class Mentor::BuzzesController < ApplicationController
 
   def populate_buzz_from_doc(doc)
     date = Buzz.date_from_doc(doc)
-
     @buzz.title = Buzz.title_from_doc(doc) if @buzz.title.blank?
 
     if @buzz.published_at.blank?
