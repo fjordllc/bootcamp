@@ -49,27 +49,29 @@ class PairWorkTest < ActiveSupport::TestCase
   test '.update_permission?' do
     admin = users(:komagata)
     mentor = users(:mentormentaro)
-    matching_params = { buddy_id: 1, reserved_at: '2025-01-20' }
-    update_params = {
+    dummy_id = 1
+    matching_request = { buddy_id: dummy_id, reserved_at: '2025-01-20' }
+    update_request = {
       title: 'タイトル', description: '詳細',
-      practice_id: 1, channel: 'チャンネル', schedules_attributes: {}
+      practice_id: dummy_id, channel: 'チャンネル', schedules_attributes: {}
     }
 
-    assert PairWork.update_permission?(admin, update_params)
-    assert_not PairWork.update_permission?(mentor, update_params)
+    assert PairWork.update_permission?(admin, update_request)
+    assert_not PairWork.update_permission?(mentor, update_request)
 
-    assert PairWork.update_permission?(admin, matching_params)
-    assert PairWork.update_permission?(mentor, matching_params)
+    assert PairWork.update_permission?(admin, matching_request)
+    assert PairWork.update_permission?(mentor, matching_request)
   end
 
   test '.matching_params?' do
-    matching_params = { buddy_id: 1, reserved_at: '2025-01-20' }
-    update_params = {
+    dummy_id = 1
+    matching_request = { buddy_id: dummy_id, reserved_at: '2025-01-20' }
+    update_request = {
       title: 'タイトル', description: '詳細',
-      practice_id: 1, channel: 'チャンネル', schedules_attributes: {}
+      practice_id: dummy_id, channel: 'チャンネル', schedules_attributes: {}
     }
-    assert PairWork.matching_params?(matching_params)
-    assert_not PairWork.matching_params?(update_params)
+    assert PairWork.matching_params?(matching_request)
+    assert_not PairWork.matching_params?(update_request)
   end
 
   test '.upcoming_pair_works' do
@@ -109,8 +111,8 @@ class PairWorkTest < ActiveSupport::TestCase
   test '.not_held' do
     not_held_pair_work = PairWork.create!({
                                             user: users(:kimura),
-                                            title: 'ペア確定したけどまだ実施されてないペアワーク',
-                                            description: 'ペア確定したけどまだ実施されてないペアワーク',
+                                            title: 'ペア確定したが、まだ実施されてないペアワーク',
+                                            description: 'ペア確定したが、まだ実施されてないペアワーク',
                                             buddy: users(:komagata),
                                             channel: 'ペアワーク・モブワーク1',
                                             wip: false,
