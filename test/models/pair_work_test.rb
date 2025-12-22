@@ -109,26 +109,28 @@ class PairWorkTest < ActiveSupport::TestCase
   end
 
   test '.not_held' do
-    not_held_pair_work = PairWork.create!({
-                                            user: users(:kimura),
-                                            title: 'ペア確定したが、まだ実施されてないペアワーク',
-                                            description: 'ペア確定したが、まだ実施されてないペアワーク',
-                                            buddy: users(:komagata),
-                                            channel: 'ペアワーク・モブワーク1',
-                                            wip: false,
-                                            reserved_at: Time.current.beginning_of_day + 1.day,
-                                            schedules_attributes: [{ proposed_at: Time.current.beginning_of_day + 1.day }]
-                                          })
-    not_solved_pair_work = pair_works(:pair_work1)
-    wip_pair_work = pair_works(:pair_work3)
+    travel_to Time.zone.local(2025, 1, 15, 12, 0, 0) do
+      not_held_pair_work = PairWork.create!({
+                                              user: users(:kimura),
+                                              title: 'ペア確定したが、まだ実施されてないペアワーク',
+                                              description: 'ペア確定したが、まだ実施されてないペアワーク',
+                                              buddy: users(:komagata),
+                                              channel: 'ペアワーク・モブワーク1',
+                                              wip: false,
+                                              reserved_at: Time.current.beginning_of_day + 1.day,
+                                              schedules_attributes: [{ proposed_at: Time.current.beginning_of_day + 1.day }]
+                                            })
+      not_solved_pair_work = pair_works(:pair_work1)
+      wip_pair_work = pair_works(:pair_work3)
 
-    held_on_pair_work = pair_works(:pair_work2)
+      held_on_pair_work = pair_works(:pair_work2)
 
-    assert_includes PairWork.not_held, not_held_pair_work
-    assert_includes PairWork.not_held, not_solved_pair_work
-    assert_includes PairWork.not_held, wip_pair_work
+      assert_includes PairWork.not_held, not_held_pair_work
+      assert_includes PairWork.not_held, not_solved_pair_work
+      assert_includes PairWork.not_held, wip_pair_work
 
-    assert_not_includes PairWork.not_held, held_on_pair_work
+      assert_not_includes PairWork.not_held, held_on_pair_work
+    end
   end
 
   test '#solved?' do
