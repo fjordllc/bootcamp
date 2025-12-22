@@ -394,7 +394,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_07_094500) do
     t.string "email"
     t.string "name"
     t.datetime "updated_at", precision: nil, null: false
-    t.index ["action_completed"], name: "index_inquiries_on_action_completed"
     t.index ["completed_by_user_id"], name: "index_inquiries_on_completed_by_user_id"
   end
 
