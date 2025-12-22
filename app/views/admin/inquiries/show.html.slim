@@ -28,9 +28,14 @@ main.page-main
       .page-content
         header.page-content-header
           - if @inquiry.action_completed?
-            .stamp.stamp-approve.is-sm
+            .stamp.stamp-approve
               .stamp__content.is-title
                 | 対応済
+              time.stamp__content.is-created-at
+                = l @inquiry.completed_at.to_date, format: :short
+              .stamp__content.is-user-name
+                .stamp__content-inner
+                  = @inquiry.completed_by_user.nil? ? '削除されたユーザー' : @inquiry.completed_by_user.login_name
           .page-content-header__end
             .page-content-header__row
               h1.page-content-header__title
