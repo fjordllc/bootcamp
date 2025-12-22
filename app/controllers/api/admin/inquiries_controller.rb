@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::InquiriesController < API::Admin::BaseController
+class API::Admin::InquiriesController < API::Admin::BaseController
   def update
     inquiry = Inquiry.find(params[:id])
     action_completed = params[:inquiry][:action_completed]
