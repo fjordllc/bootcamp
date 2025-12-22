@@ -484,7 +484,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_23_000002) do
     t.boolean "action_completed", default: false, null: false
     t.bigint "completed_by_user_id"
     t.datetime "completed_at"
-    t.index ["action_completed"], name: "index_inquiries_on_action_completed"
     t.index ["completed_by_user_id"], name: "index_inquiries_on_completed_by_user_id"
   end
 
