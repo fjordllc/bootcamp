@@ -111,7 +111,7 @@ class PairWorkTest < ActiveSupport::TestCase
                                             user: users(:kimura),
                                             title: 'ペア確定したけどまだ実施されてないペアワーク',
                                             description: 'ペア確定したけどまだ実施されてないペアワーク',
-                                            buddy_id: users(:komagata),
+                                            buddy: users(:komagata),
                                             channel: 'ペアワーク・モブワーク1',
                                             wip: false,
                                             reserved_at: Time.current.beginning_of_day + 1.day,
