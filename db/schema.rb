@@ -112,9 +112,13 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_20_000001) do
   end
 
   create_table "buzzes", force: :cascade do |t|
-    t.text "body", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "url", null: false
+    t.string "title", null: false
+    t.date "published_at", null: false
+    t.text "memo"
+    t.index ["url"], name: "index_buzzes_on_url", unique: true
   end
 
   create_table "campaigns", force: :cascade do |t|
