@@ -53,6 +53,6 @@ main.page-main
               isInitialActionCompleted: @inquiry.action_completed? || false, \
               commentableId: @inquiry.id, \
               modelName: 'inquiry', \
-              apiPath: '/api/inquiries' \
+              apiPath: '/api/admin/inquiries' \
             })
       = render 'comments/comments', commentable: @inquiry, commentable_type: 'Inquiry'
