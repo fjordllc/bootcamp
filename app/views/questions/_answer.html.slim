@@ -39,19 +39,18 @@
           footer.card-footer
             .card-main-actions
               ul.card-main-actions__items
-                - if answer.user == user || user.admin?
-                  li.card-main-actions__item
-                    button.card-main-actions__action.a-button.is-sm.is-secondary.is-block.edit-button
-                      i.fa-solid.fa-pen
-                      | 内容修正
-                - if question.user == user || user.mentor?
+                - if question.user == user || user.admin? || user.mentor?
                   li.card-main-actions__item.make-best-answer-button class=(question.correct_answer.nil? ? '' : 'is-hidden')
                     button.card-main-actions__action.a-button.is-sm.is-warning.is-block.make-best-answer
                       | ベストアンサーにする
                   li.card-main-actions__item.cancel-best-answer-button class=(answer.type == 'CorrectAnswer' ? '' : 'is-hidden')
                     button.card-main-actions__action.a-button.is-sm.is-muted.is-block.cancel-best-answer
                       | ベストアンサーを取り消す
-                - if answer.user == user || user.mentor?
+                - if comment.user == user || user.admin? || user.mentor?
+                  li.card-main-actions__item
+                    button.card-main-actions__action.a-button.is-sm.is-secondary.is-block.edit-button
+                      i.fa-solid.fa-pen
+                      | 内容修正
                   li.card-main-actions__item.is-sub
                     button.card-main-actions__muted-action.delete-button
                       | 削除する
