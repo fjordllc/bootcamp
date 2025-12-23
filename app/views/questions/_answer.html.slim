@@ -3,7 +3,7 @@
     a.thread-comment__user-link href="#{answer.user.url}"
       span class="#{answer.user.user_icon_frame_class}"
         img.thread-comment__user-icon.a-user-icon src="#{answer.user.avatar_url}"
-    - if answer.user.company && (answer.user.adviser? || answer.user.trainee?)
+    - if answer.user.company && answer.user.adviser?
       a.thread-comment__company-link href="#{company_path(answer.user.company)}"
         img.thread-comment__company-logo src="#{answer.user.company.logo_url}"
   .thread-comment__end
