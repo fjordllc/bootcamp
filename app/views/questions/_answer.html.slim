@@ -26,7 +26,7 @@
           = l(answer.created_at)
       hr.a-border-tint
       .thread-comment__description
-        - if answer.user.company && answer.user.adviser
+        - if answer.user.company && answer.user.adviser?
           a.thread-comment__company-link.is-hidden-md-up href="#{company_path(answer.user.company)}"
             img.thread-comment__company-logo src="#{answer.user.company.logo_url}"
         .a-long-text.is-md.answer-text
