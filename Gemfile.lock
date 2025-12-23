@@ -426,6 +426,7 @@ GEM
     opengraph_parser (0.2.5)
       addressable
       nokogiri
+    openssl (4.0.0)
     opus-ruby (1.0.1)
       ffi
     os (1.1.4)
@@ -772,6 +773,7 @@ DEPENDENCIES
   omniauth-github (~> 2.0.1)
   omniauth-rails_csrf_protection
   opengraph_parser
+  openssl
   parser (= 3.2.2.4)
   pg (~> 1.4.6)
   postmark-rails
