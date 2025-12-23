@@ -46,7 +46,7 @@
                   li.card-main-actions__item.cancel-best-answer-button class=(answer.type == 'CorrectAnswer' ? '' : 'is-hidden')
                     button.card-main-actions__action.a-button.is-sm.is-muted.is-block.cancel-best-answer
                       | ベストアンサーを取り消す
-                - if comment.user == user || user.admin? || user.mentor?
+                - if answer.user == user || user.admin? || user.mentor?
                   li.card-main-actions__item
                     button.card-main-actions__action.a-button.is-sm.is-secondary.is-block.edit-button
                       i.fa-solid.fa-pen
