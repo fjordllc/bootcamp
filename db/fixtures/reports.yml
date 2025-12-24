@@ -505,3 +505,11 @@ report90:
   description: |-
     たくさんのスタンプがつきました。
   reported_on: "2025-10-01 01:00:00"
+
+report91:
+  user: grant-course
+  title: 給付金コースの日報
+  emotion: 2
+  description: |-
+    給付金コースの日報です。
+  reported_on: "2025-12-01 01:00:00"
