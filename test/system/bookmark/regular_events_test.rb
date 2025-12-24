@@ -17,7 +17,7 @@ class Bookmark::RegularEventTest < ApplicationSystemTestCase
 
     visit current_user_bookmarks_path
     assert_selector 'a.card-list-item-title__link', text: @regular_event.title
-    click_link @regular_event.title.to_s
+    click_link @regular_event.title
 
     assert_current_path regular_event_path(@regular_event)
   end
