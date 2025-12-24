@@ -3,7 +3,7 @@
 class API::Admin::InquiriesController < API::Admin::BaseController
   def update
     inquiry = Inquiry.find(params[:id])
-    action_completed = params[:inquiry][:action_completed]
+    action_completed = params.dig(:inquiry, :action_completed)
     if action_completed
       if inquiry.action_completed?
         head :unprocessable_entity
