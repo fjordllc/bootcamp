@@ -102,8 +102,4 @@ module UsersHelper
   def visible_learning_time_frames?(user)
     !user.graduated? && user.learning_time_frames.exists?
   end
-
-  def day_of_the_week
-    %w[日 月 火 水 木 金 土]
-  end
 end
