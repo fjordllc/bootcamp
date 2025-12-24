@@ -23,13 +23,11 @@
       table.niconico-calendar
         thead.niconico-calendar__header
           tr
-            th.niconico-calendar__header-day.is-sunday 日
-            th.niconico-calendar__header-day 月
-            th.niconico-calendar__header-day 火
-            th.niconico-calendar__header-day 水
-            th.niconico-calendar__header-day 木
-            th.niconico-calendar__header-day 金
-            th.niconico-calendar__header-day.is-saturday 土
+            - I18n.t('date.abbr_day_names').each_with_index do |day, i|
+              - classes = ['niconico-calendar__header-day']
+              - classes << 'is-sunday' if i == 0
+              - classes << 'is-saturday' if i == 6
+              th class=classes.join(' ') = day
         tbody.niconico-calendar__body
           - user.niconico_calendar(current_calendar).each do |week|
             tr.niconico-calendar__week
