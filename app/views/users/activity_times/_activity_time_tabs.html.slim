@@ -5,10 +5,10 @@
         .dropdown-group
           .dropdown-wrapper
             button.dropdown-button type="button" data-target="day-dropdown"
-              span.dropdown-button__text = day_names_with_suffix[clamp_day_index(@target_day_of_week)]
+              span.dropdown-button__text = I18n.t('date.day_names')[clamp_day_index(@target_day_of_week)]
               i.fas.fa-chevron-down.dropdown-button__icon
             .dropdown-menu id="day-dropdown"
-              - day_names_with_suffix.each_with_index do |day_name, _index|
+              - I18n.t('date.day_names').each_with_index do |day_name, _index|
                 .dropdown-item data-value=_index
                   = day_name
             = hidden_field_tag :day_of_week, @target_day_of_week, id: 'selected-day'
