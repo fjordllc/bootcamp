@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import useSWR from 'swr'
 import fetcher from '../fetcher'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
@@ -15,11 +15,14 @@ export default function Reports({
   displayUserIcon = true,
   companyId = '',
   practiceId = '',
-  displayPagination = true
+  displayPagination = true,
+  practiceSourceId = null
 }) {
   const per = 20
+  const isGrantCourse = practiceSourceId !== null;
   const { page, setPage } = usePage()
   const [userPracticeId, setUserPracticeId] = useState('')
+  const [courseType, setCourseType] = useState('all')
 
   let reportsUrl = `/api/reports.json?page=${page}`
   if (userId) reportsUrl += `&user_id=${userId}`
@@ -27,8 +30,32 @@ export default function Reports({
   const pid = userPracticeId || practiceId
   if (pid) reportsUrl += `&practice_id=${pid}`
   if (unchecked) reportsUrl += `&target=unchecked_reports`
+  if (isGrantCourse) reportsUrl += `&course_type=${courseType}`
 
   const { data, error } = useSWR(reportsUrl, fetcher)
+
+  useEffect(()=>{
+    if (!isGrantCourse || !data) return
+
+    let courseTypeFilter = null;
+    const initCourseTypeFilter = async () => {
+      const targetElement = document.querySelector('[data-course-type-filter]')
+      const CourseTypeFilter = (
+        await import('../course-type-filter')
+      ).default
+      courseTypeFilter = new CourseTypeFilter(setCourseType);
+      courseTypeFilter.render(targetElement)
+    }
+    initCourseTypeFilter()
+
+    return () => {
+      if (courseTypeFilter) {
+        courseTypeFilter.destroy();
+        courseTypeFilter = null;
+      }
+    }
+
+  },[data])
 
   if (error) return <>エラーが発生しました。</>
   if (!data) {
@@ -59,6 +86,7 @@ export default function Reports({
       )}
       {data.totalPages > 0 && (
         <div>
+          {isGrantCourse && <div data-course-type-filter></div>}
           {practices && (
             <PracticeFilterDropdown
               practices={practices}
@@ -91,7 +119,7 @@ export default function Reports({
                     })}
                   </div>
                   {unchecked && (
-                    <UnconfirmedLink label={'未チェックの日報を一括で開く'} />
+                    <UnconfirmedLink label={'未チェックの日報を一括で開く'}/>
                   )}
                 </div>
                 {data.totalPages > 1 && displayPagination && (
@@ -111,7 +139,7 @@ export default function Reports({
   )
 }
 
-const NoReports = ({ unchecked }) => {
+const NoReports = ({unchecked}) => {
   return (
     <div className="o-empty-message">
       <div className="o-empty-message__icon">
