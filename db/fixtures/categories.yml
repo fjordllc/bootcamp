@@ -112,3 +112,8 @@ category23:
   name: "Ruby on Rails(Rails 6.1版)"
   slug: "ruby-on-rails"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
+
+category24:
+  name: "Mac OS X（Reスキル）"
+  slug: "ready-for-learn"
+  description: "Railsコースのカテゴリをコピーしたカテゴリです。"
