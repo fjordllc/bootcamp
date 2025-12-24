@@ -15,11 +15,14 @@ export default function Reports({
   displayUserIcon = true,
   companyId = '',
   practiceId = '',
-  displayPagination = true
+  displayPagination = true,
+  practiceSourceId = null
 }) {
   const per = 20
+  const isGrantCourse = practiceSourceId !== null;
   const { page, setPage } = usePage()
   const [selectedPracticeId, setSelectedPracticeId] = useState('')
+  const [courseType, setCourseType] = useState('all')
 
   let reportsUrl = `/api/reports.json?page=${page}`
   if (userId) reportsUrl += `&user_id=${userId}`
@@ -27,6 +30,7 @@ export default function Reports({
   const pid = selectedPracticeId || practiceId
   if (pid) reportsUrl += `&practice_id=${pid}`
   if (unchecked) reportsUrl += `&target=unchecked_reports`
+  if (isGrantCourse) reportsUrl += `&course_type=${courseType}`
 
   const { data, error } = useSWR(reportsUrl, fetcher)
 
@@ -61,6 +65,29 @@ export default function Reports({
     }
   }, [data, practices, setSelectedPracticeId])
 
+  useEffect(() => {
+    if (!isGrantCourse || !data) return
+
+    let courseTypeFilter = null;
+    const initCourseTypeFilter = async () => {
+      const targetElement = document.querySelector('[data-course-type-filter]')
+      const CourseTypeFilter = (
+        await import('../course-type-filter')
+      ).default
+      courseTypeFilter = new CourseTypeFilter(setCourseType);
+      courseTypeFilter.render(targetElement)
+    }
+    initCourseTypeFilter()
+
+    return () => {
+      if (courseTypeFilter) {
+        courseTypeFilter.destroy();
+        courseTypeFilter = null;
+      }
+    }
+
+  },[data])
+
   if (error) return <>エラーが発生しました。</>
   if (!data) {
     return (
@@ -84,6 +111,7 @@ export default function Reports({
       )}
       {data.totalPages > 0 && (
         <div>
+          {isGrantCourse && <div data-course-type-filter></div>}
           {practices && <div data-practice-filter-dropdown></div>}
           <div className="page-body">
             <div className="container is-md">
@@ -127,7 +155,7 @@ export default function Reports({
   )
 }
 
-const NoReports = ({ unchecked }) => {
+const NoReports = ({unchecked}) => {
   return (
     <div className="o-empty-message">
       <div className="o-empty-message__icon">
