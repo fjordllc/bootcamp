@@ -19,7 +19,7 @@ export default function Reports({
   practiceSourceId = null
 }) {
   const per = 20
-  const isGrantCourse = practiceSourceId !== null;
+  const isGrantCourse = practiceSourceId !== null
   const { page, setPage } = usePage()
   const [selectedPracticeId, setSelectedPracticeId] = useState('')
   const [courseType, setCourseType] = useState('all')
@@ -68,25 +68,22 @@ export default function Reports({
   useEffect(() => {
     if (!isGrantCourse || !data) return
 
-    let courseTypeFilter = null;
+    let courseTypeFilter = null
     const initCourseTypeFilter = async () => {
       const targetElement = document.querySelector('[data-course-type-filter]')
-      const CourseTypeFilter = (
-        await import('../course-type-filter')
-      ).default
-      courseTypeFilter = new CourseTypeFilter(setCourseType);
+      const CourseTypeFilter = (await import('../course-type-filter')).default
+      courseTypeFilter = new CourseTypeFilter(courseType, setCourseType)
       courseTypeFilter.render(targetElement)
     }
     initCourseTypeFilter()
 
     return () => {
       if (courseTypeFilter) {
-        courseTypeFilter.destroy();
-        courseTypeFilter = null;
+        courseTypeFilter.destroy()
+        courseTypeFilter = null
       }
     }
-
-  },[data])
+  }, [data, courseType])
 
   if (error) return <>エラーが発生しました。</>
   if (!data) {
@@ -155,7 +152,7 @@ export default function Reports({
   )
 }
 
-const NoReports = ({unchecked}) => {
+const NoReports = ({ unchecked }) => {
   return (
     <div className="o-empty-message">
       <div className="o-empty-message__icon">
