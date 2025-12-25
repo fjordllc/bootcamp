@@ -2,12 +2,17 @@
 
 class MigrateActionCompletionDetailsToInquiriesFromChecks < ActiveRecord::Migration[7.2]
   def up
-    Check.where(checkable_type: 'Inquiry').find_each do |check|
-      inquiry = Inquiry.find(check.checkable_id)
+    # 対応情報が誤って重複登録され得るバグがあった
+    # 稀ではあるが重複がある場合`find_each`の仕様上idの古い順に処理し、最後に最も新しいもので上書きする
+    checks = Check.where(checkable_type: 'Inquiry')
+    checks.find_each do |check|
+      inquiry = Inquiry.find_by(id: check.checkable_id)
+      next unless inquiry
+
       inquiry.update!(action_completed: true, completed_by_user_id: check.user_id, completed_at: check.created_at)
     end
 
-    Check.where(checkable_type: 'Inquiry').destroy_all
+    checks.delete_all
   end
 
   def down
