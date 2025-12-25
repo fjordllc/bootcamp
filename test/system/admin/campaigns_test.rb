@@ -3,7 +3,6 @@
 require 'application_system_test_case'
 
 class CampaignsTest < ApplicationSystemTestCase
-  WEEK_DAY = %w[日 月 火 水 木 金 土].freeze
   TODAY = Time.current.beginning_of_day
   PERIOD = 6
 
@@ -134,8 +133,8 @@ class CampaignsTest < ApplicationSystemTestCase
 
   #     start_at = Campaign.recently_campaign.first
   #     end_at = Campaign.recently_campaign.last
-  #     campaign_start = start_at.strftime("%-m/%-d(#{WEEK_DAY[start_at.wday]})")
-  #     campaign_end = end_at.strftime("%-m/%-d(#{WEEK_DAY[end_at.wday]})")
+  #     campaign_start = I18n.l(start_at, format: :mdw_unique)
+  #     campaign_end = I18n.l(end_at, format: :mdw_unique)
 
   #     visit welcome_path
   #     assert_text 'お試し期間が倍以上の延長キャンペーン！！！'
