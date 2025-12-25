@@ -43,7 +43,7 @@ export default function Reports({
       const CourseTypeFilter = (
         await import('../course-type-filter')
       ).default
-      courseTypeFilter = new CourseTypeFilter(setCourseType);
+      courseTypeFilter = new CourseTypeFilter(courseType, setCourseType);
       courseTypeFilter.render(targetElement)
     }
     initCourseTypeFilter()
@@ -55,7 +55,7 @@ export default function Reports({
       }
     }
 
-  },[data])
+  },[data, courseType])
 
   if (error) return <>エラーが発生しました。</>
   if (!data) {
