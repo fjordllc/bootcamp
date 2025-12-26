@@ -13,6 +13,6 @@
           .form-selects.regular-event-repeat-rule__day-of-the-week
             .form-selects__item
               .a-button.is-md.is-secondary.is-select.is-block
-                = f.select :day_of_the_week, weekday_options_for_select(f.object.day_of_the_week, index_as_value: true, day_format: :day_names), {}, class: 'js-warning-form'
+                = f.select :day_of_the_week, weekday_options_for_select(f.object.day_of_the_week, index_as_value: true, day_format: :day_names, beginning_of_week: :sunday), {}, class: 'js-warning-form'
       .form-times__action
         = cocooned_remove_item_link '削除', f, class: 'a-button is-sm is-text'
