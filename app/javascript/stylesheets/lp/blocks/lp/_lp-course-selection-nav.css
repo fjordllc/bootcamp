@@ -1,0 +1,37 @@
+.lp-course-selection-nav {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.lp-course-selection-nav__inner {
+  padding-block: 0.5rem;
+}
+
+.lp-course-selection-nav__items {
+  display: flex;
+}
+
+.lp-course-selection-nav__item {
+  flex: 1;
+}
+
+.lp-course-selection-nav__item-link {
+  border: solid 1px var(--main);
+  background-color: var(--base);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  text-align: center;
+  display: flex;
+  text-decoration: none;
+  height: 2.75rem;
+  justify-content: center;
+  align-items: center;
+}
+.lp-course-selection-nav__item:first-child .lp-course-selection-nav__item-link {
+  border-radius: 0.25rem 0 0 0.25rem;
+  margin-right: -1px;
+}
+.lp-course-selection-nav__item:last-child .lp-course-selection-nav__item-link {
+  border-radius: 0 0.25rem 0.25rem 0;
+}

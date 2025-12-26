@@ -1,0 +1,20 @@
+.join-us-nav__items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.join-us-nav__item {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.join-us-nav__item.is-main .join-us-nav__item-link {
+  width: 22.5rem;
+  max-width: 100%;
+}
+.join-us-nav__item.is-sub {
+  text-align: center;
+}

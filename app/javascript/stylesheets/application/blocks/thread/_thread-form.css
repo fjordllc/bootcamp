@@ -1,0 +1,30 @@
+
+.thread-form {
+  @media (min-width: 48em) {
+    padding: 1rem 2rem;
+  }
+  @media (max-width: 47.9375em) {
+    padding: .75rem 1rem;
+
+  }
+}
+.thread-form__actions {
+  margin-top: 1rem;
+  @media (min-width: 48em) {
+    display: flex;
+    justify-content: center;
+    gap: .75rem;
+
+  }
+}
+.thread-form__action {
+  @media (min-width: 48em) {
+    flex: 0 0 14rem;
+    max-width: 50%;
+  }
+  @media (max-width: 47.9375em) {
+    &:not(:first-child);
+      margin-top: .5rem;
+
+  }
+}

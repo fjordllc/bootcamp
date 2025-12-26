@@ -1,0 +1,45 @@
+.a-completion-message {
+  background-color: var(--success);
+  padding-block: 0.5rem;
+}
+.a-completion-message:not(:last-child) {
+  margin-bottom: 1.25rem;
+}
+
+.a-completion-message__inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.a-completion-message__title {
+  font-size: 1em;
+  line-height: 1.4;
+  text-align: center;
+  font-weight: 600;
+  color: var(--reversal-text);
+  font-size: 1rem;
+}
+
+.a-completion-message__actions-items {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.a-completion-message__actions-item {
+  width: 9rem;
+}
+
+@media (max-width: 47.9375em) {
+  .a-completion-message__inner {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .a-completion-message__title {
+    font-size: 0.8125rem;
+  }
+  .a-completion-message__actions-item {
+    width: 100%;
+  }
+}

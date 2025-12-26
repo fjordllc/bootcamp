@@ -1,0 +1,34 @@
+
+.congrats-card-body__title {
+  font-size: 1.5rem;
+  line-height: 1.4;
+  font-weight: 700;
+  @media (min-width: 48em) {
+    font-size: 1.5rem;
+  }
+  @media (max-width: 47.9375em) {
+    font-size: 1rem;
+
+  }
+}
+.congrats-card-body__image-container {
+  margin-top: 1.25rem;
+
+}
+.congrats-card-body__image-container {
+  width: 100%;
+  max-width: 28rem;
+  margin-inline: auto;
+
+}
+.congrats-card-body__image {
+  border-radius: .75rem;
+  border: solid .5rem var(--border-tint);
+
+}
+.congrats-card-body {
+  .card-main-actions {
+    margin-top: 1.25rem;
+
+  }
+}
