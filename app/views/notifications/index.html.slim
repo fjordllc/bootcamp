@@ -44,4 +44,25 @@ main.page-main
   hr.a-border
   .page-body
     .container.is-md
-      = react_component('Notifications', isMentor: mentor_login?)
+      = render 'filter_button'
+      - if @notifications.empty?
+        .o-empty-message
+          .o-empty-message__icon
+            .i.fa-regular.fa-smile
+          p.o-empty-message__text
+            = params[:status] == 'unread' ? '未読の通知はありません' : '通知はありません'
+      - else
+        .page-content#notifications
+          - if @notifications.total_pages > 1
+            nav.pagination
+              = paginate @notifications
+          .card-list.a-card
+            - @notifications.each do |notification|
+              = render 'notification', notification: notification
+
+          - if current_user.mentor? && params[:status] == 'unread'
+            = render 'application/unconfirmed_links_open', label: '未読の通知を一括で開く'
+
+          - if @notifications.total_pages > 1
+            nav.pagination
+              = paginate @notifications
