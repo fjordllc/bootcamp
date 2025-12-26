@@ -130,6 +130,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   has_many :request_retirements, dependent: :destroy
   has_one :targeted_request_retirement, class_name: 'RequestRetirement', foreign_key: 'target_user_id', dependent: :destroy, inverse_of: :target_user
   has_many :micro_reports, dependent: :destroy
+  has_many :authored_micro_reports, class_name: 'MicroReport', foreign_key: 'comment_user_id', dependent: :destroy, inverse_of: :comment_user
   has_many :learning_time_frames_users, dependent: :destroy
 
   has_many :participate_events,
@@ -921,8 +922,8 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     course_id.present? && course&.grant?
   end
 
-  def latest_micro_report_page
-    [micro_reports.page.total_pages, 1].max
+  def latest_micro_report_page(per_page: 25)
+    [micro_reports.page.per(per_page).total_pages, 1].max
   end
 
   def mark_mail_as_sent_before_auto_retire

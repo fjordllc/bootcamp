@@ -13,22 +13,28 @@ class Users::MicroReportsController < ApplicationController
 
   def create
     @micro_report = @user.micro_reports.build(micro_report_params)
+    @micro_report.comment_user = current_user
 
-    if current_user == @user && @micro_report.save
+    if @micro_report.save
       flash[:notice] = '分報を投稿しました。'
     else
       flash[:alert] = '分報の投稿に失敗しました。'
     end
 
-    redirect_to user_micro_reports_path(@user, page: @user.latest_micro_report_page)
+    redirect_to user_micro_reports_path(@user, page: @user.latest_micro_report_page(per_page: PAGER_NUMBER))
   end
 
   def destroy
+    if !current_user.admin? && @micro_report.comment_user != current_user
+      redirect_to user_micro_reports_path(@user), alert: '権限がありません。'
+      return
+    end
+
     @micro_report.destroy!
 
     referer_path = request.referer
     if page_out_of_range?(referer_path)
-      redirect_to user_micro_reports_path(@user, page: @user.latest_micro_report_page)
+      redirect_to user_micro_reports_path(@user, page: @user.latest_micro_report_page(per_page: PAGER_NUMBER))
     else
       redirect_to referer_path
     end
@@ -42,7 +48,12 @@ class Users::MicroReportsController < ApplicationController
   end
 
   def set_micro_report
-    @micro_report = current_user.admin? ? MicroReport.find(params[:id]) : current_user.micro_reports.find(params[:id])
+    @micro_report =
+      if current_user.admin?
+        MicroReport.find(params[:id])
+      else
+        current_user.authored_micro_reports.find(params[:id])
+      end
   end
 
   def micro_report_params
@@ -53,6 +64,6 @@ class Users::MicroReportsController < ApplicationController
     matched_page_number = referer_path.match(/page=(\d+)/)
     page_number = matched_page_number ? matched_page_number[1] : FIRST_PAGE
 
-    MicroReport.page(page_number).out_of_range?
+    @user.micro_reports.page(page_number).out_of_range?
   end
 end

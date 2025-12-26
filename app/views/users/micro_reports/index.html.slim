@@ -8,13 +8,9 @@
 
 .page-body.pb-0
   .page-content
-    - if current_user == @user
-      .micro-reports__end
-        = render(Users::MicroReports::FormComponent.new(user: @user))
-      - micro_reports_class = 'micro-reports-with-form'
-    - else
-      - micro_reports_class = 'micro-reports-without-form'
-    .micro-reports#js-micro-reports class=micro_reports_class
+    .micro-reports__end
+      = render(Users::MicroReports::FormComponent.new(user: @user))
+    .micro-reports#js-micro-reports.micro-reports-with-form
       .micro-reports__start
         .container.is-md
           .micro-reports__items
