@@ -7,7 +7,7 @@
       thead
         tr
           th
-          - day_of_the_week.each do |day|
+          - I18n.t('date.abbr_day_names').each do |day|
             th = day
       tbody#learning_time_frame
         - 24.times do |hour|
