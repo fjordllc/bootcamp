@@ -11,11 +11,6 @@ section.lp-content.is-top-title.is-campaign
       .lp-content__end
         .lp-content__description
           .a-short-text
-            h3.font-semibold.text-center
-              | お試し期間が
-              = '倍以上に' if trial_period >= 6
-              | 延長、
-              | プレゼントもあります！！
             p.font-semibold
               | #{l Campaign.recently_campaign.first, format: :mdw_unique}〜
               | #{l Campaign.recently_campaign.last, format: :mdw_unique}の期間中にご入会いただくと、
@@ -26,11 +21,11 @@ section.lp-content.is-top-title.is-campaign
               | 日以内に退会すれば受講料はかかりません。
               | この機会にぜひフィヨルドブートキャンプをガッツリお試しください！！
             p.font-semibold
-              = link_to 'https://bootcamp.fjord.jp/articles/176',
+              = link_to 'https://bootcamp.fjord.jp/articles/190',
               class: 'a-text-link is-warning',
               target: '_blank', rel: 'noopener' do
                 | キャンペーンについてくわしくはこちら
         .lp-actions.mt-6
           ul.lp-actions__items
             li.lp-actions__item
-              = link_to '参加登録', choose_courses_path, class: 'a-button is-xl is-danger is-block'
+              = link_to '参加登録', choose_courses_path, class: 'a-button is-xl is-warning is-block'
