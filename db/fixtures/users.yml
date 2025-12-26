@@ -1555,3 +1555,23 @@ new-mentor:
   created_at: <%= Time.current %>
   sent_student_followup_message: true
   last_activity_at: <%= Time.current %>
+
+grant-course:
+  login_name: grant-course
+  email: grant-course@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 給付金コースのユーザー
+  name_kana: 給付金コースのユーザー
+  github_account: grant-course
+  twitter_account: grant-course
+  facebook_url: https://www.facebook.com/fjordllc/grant-course
+  blog_url: http://grant-course.org
+  description: "給付金コースを受講中のユーザーです。"
+  course: course5
+  job: office_worker
+  os: mac
+  organization: Rails大学
+  updated_at: "2025-01-01 00:00:00"
+  created_at: "2025-01-01 00:00:00"
+  last_activity_at: "2025-01-01 00:00:00"
