@@ -3,9 +3,7 @@ import { toast } from './vanillaToast'
 
 document.addEventListener('DOMContentLoaded', () => {
   const button = document.querySelector('.check-button')
-  if (!button) {
-    return
-  }
+  if (!button) return
 
   let isLoading = false
   const updatePath = button.dataset.updatePath
