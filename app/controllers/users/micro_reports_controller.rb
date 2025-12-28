@@ -15,7 +15,7 @@ class Users::MicroReportsController < ApplicationController
       return redirect_to user_micro_reports_path(@user, page:, anchor: "micro_report_#{micro_report.id}")
     end
 
-    @micro_reports = @user.micro_reports.order(created_at: :asc).page(params[:page]).per(PAGER_NUMBER)
+    @micro_reports = @user.ordered_micro_reports.page(params[:page]).per(PAGER_NUMBER)
   end
 
   def create

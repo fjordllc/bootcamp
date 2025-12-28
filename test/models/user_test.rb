@@ -773,6 +773,19 @@ class UserTest < ActiveSupport::TestCase
     assert user.sent_student_before_auto_retire_mail
   end
 
+  test '#ordered_micro_reports' do
+    user = users(:hatsuno)
+
+    MicroReport.create!([{ user_id: user.id,
+                           content: '昨日の分報',
+                           created_at: 1.day.ago },
+                         { user_id: user.id,
+                           content: '今日の分報',
+                           created_at: Time.current }])
+
+    assert_equal '昨日の分報', user.ordered_micro_reports.first.content
+  end
+
   test '#page_of_micro_report' do
     user = users(:kimura)
 
