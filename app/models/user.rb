@@ -958,10 +958,14 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     reports.joins(:learning_times).distinct.order(reported_on: :asc)
   end
 
+  def ordered_micro_reports
+    micro_reports.order(created_at: :asc)
+  end
+
   def page_of_micro_report(micro_report_id, per_page)
     return nil if per_page <= 0
-    
-    ids = micro_reports.order(created_at: :asc).pluck(:id)
+
+    ids = ordered_micro_reports.pluck(:id)
     index = ids.index(micro_report_id)
     return nil unless index
 
