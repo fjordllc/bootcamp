@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import useSWR from 'swr'
-import fetcher from '../fetcher'
+import { get } from '@rails/request.js'
 import queryString from 'query-string'
 import Pagination from './Pagination'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
 import RegularEvent from './RegularEvent'
 import usePage from './hooks/usePage'
+const fetcher = (url) =>
+  get(url, { responseKind: 'json' }).then((res) => res.json)
 
 const RegularEvents = () => {
   const getTargetQueryParam = () => {
