@@ -1,0 +1,22 @@
+- title 'ペア募集作成'
+- set_meta_tags description: 'ペア募集作成ページです。'
+
+= render 'questions_and_pair_works/questions_and_pair_works_header'
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h2.page-main-header__title
+            | ペア募集作成
+        .page-main-header__end
+          .page-header-actions
+            ul.page-header-actions__items
+              li.page-header-actions__item
+                = link_to pair_works_path(target: 'not_solved'), class: 'a-button is-md is-secondary is-block is-back' do
+                  | ペアワーク一覧
+  hr.a-border
+
+  .page-body
+    .container.is-xxl
+      = render 'form', pair_work: @pair_work
