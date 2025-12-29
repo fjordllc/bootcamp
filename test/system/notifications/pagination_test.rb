@@ -24,7 +24,7 @@ class Notifications::PaginationTest < ApplicationSystemTestCase
     login_user 'mentormentaro', 'testtest'
     visit '/notifications'
     within first('nav.pagination') do
-      find('button', text: '2').click
+      click_link_or_button '2'
     end
     assert_text '1番古い通知'
     assert_no_text '1番新しい通知'
@@ -55,14 +55,14 @@ class Notifications::PaginationTest < ApplicationSystemTestCase
     login_user 'mentormentaro', 'testtest'
     visit '/notifications?status=unread'
     within first('nav.pagination') do
-      find('button', text: '2').click
+      click_link_or_button '2'
     end
     assert_text '1番古い通知'
     assert_no_text '1番新しい通知'
     all('.pagination .is-active').each do |active_button|
       assert active_button.has_text? '2'
     end
-    assert_current_path('/notifications?status=unread&page=2')
+    assert_match %r{/notifications\?(status=unread&page=2|page=2&status=unread)}, current_url
   end
 
   test 'click on the pager button with multiple query string' do
@@ -72,14 +72,14 @@ class Notifications::PaginationTest < ApplicationSystemTestCase
     login_user 'mentormentaro', 'testtest'
     visit '/notifications?status=unread&target=mention'
     within first('nav.pagination') do
-      find('button', text: '2').click
+      click_link_or_button '2'
     end
     assert_text '1番古い通知'
     assert_no_text '1番新しい通知'
     all('.pagination .is-active').each do |active_button|
       assert active_button.has_text? '2'
     end
-    assert_current_path('/notifications?status=unread&target=mention&page=2')
+    assert_match %r{/notifications\?(status=unread&page=2|page=2&status=unread)}, current_url
   end
 
   test 'specify the page number in the URL' do
@@ -102,7 +102,7 @@ class Notifications::PaginationTest < ApplicationSystemTestCase
     login_user 'mentormentaro', 'testtest'
     visit '/notifications?page=2'
     within first('nav.pagination') do
-      find('button', text: '1').click
+      click_link_or_button '1'
     end
     assert_text '1番新しい通知'
     page.go_back

@@ -250,6 +250,7 @@ steps:
       - '--set-env-vars=DISCORD_AUTHENTICATION_URL=$_DISCORD_AUTHENTICATION_URL'
       - '--set-env-vars=PUBSUB_AUDIENCE=$_PUBSUB_AUDIENCE'
       - '--set-env-vars=PUBSUB_SERVICE_ACCOUNT_EMAIL=$_PUBSUB_SERVICE_ACCOUNT_EMAIL'
+      - '--set-env-vars=PUBSUB_TOPIC=$_PUBSUB_TOPIC'
       - '--set-env-vars=$_ENVS'
       - >-
         --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID,$_LABELS

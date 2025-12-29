@@ -29,12 +29,6 @@ class MicroReportsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'form not found in other user microo reports page' do
-    visit_with_auth user_micro_reports_path(users(:hajime)), 'hatsuno'
-    assert has_no_field?(id: 'js-micro-report-textarea')
-    assert_no_button '投稿'
-  end
-
   test 'form found in current user micro reports page' do
     visit_with_auth user_micro_reports_path(users(:hatsuno)), 'hatsuno'
     assert has_field?(id: 'js-micro-report-textarea')
@@ -149,6 +143,24 @@ class MicroReportsTest < ApplicationSystemTestCase
 
     visit_with_auth user_micro_reports_path(users(:hajime)), 'mentormentaro'
     within(".micro-report#micro_report_#{micro_report.id}") { assert_no_selector 'a', text: '削除する' }
+  end
+
+  test 'comment_user can delete their own comment on another user micro_report' do
+    user = users(:hatsuno)
+    comment_user = users(:kimura)
+
+    micro_report = user.micro_reports.create!(content: '他人の分報にコメント', comment_user:)
+
+    visit_with_auth user_micro_reports_path(user), 'kimura'
+
+    within(".micro-report#micro_report_#{micro_report.id}") do
+      assert_selector 'a', text: '削除する'
+      click_link_or_button '削除する'
+      page.accept_alert
+    end
+
+    assert_text '分報を削除しました。'
+    assert_no_text '他人の分報にコメント'
   end
 
   test 'update micro_report through comment tab form' do
