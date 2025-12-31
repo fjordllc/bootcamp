@@ -7,7 +7,8 @@ class API::TalksController < API::BaseController
 
   def update
     talk = Talk.find(params[:id])
-    talk.update(talk_params)
+    talk.update!(talk_params)
+    head :no_content
   end
 
   private
