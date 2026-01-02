@@ -9,9 +9,15 @@ class Users::MicroReportsController < ApplicationController
 
   def index
     if params[:micro_report_id].present?
-      micro_report = @user.micro_reports.find(params[:micro_report_id])
-      page = @user.page_of_micro_report(micro_report.id, PAGER_NUMBER)
+      micro_report = @user.micro_reports.find_by(id: params[:micro_report_id])
 
+      unless micro_report
+        redirect_to user_micro_reports_path(@user),
+                    alert: '指定された分報は見つかりませんでした。'
+        return
+      end
+
+      page = @user.page_of_micro_report(micro_report.id, PAGER_NUMBER)
       return redirect_to user_micro_reports_path(@user, page:, anchor: "micro_report_#{micro_report.id}")
     end
 

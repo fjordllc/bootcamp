@@ -245,4 +245,13 @@ class MicroReportsTest < ApplicationSystemTestCase
     assert_current_path user_micro_reports_path(user, page: 2), ignore_query: false
     assert_selector "#micro_report_#{target_micro_report.id}", text: '2ページ目の分報'
   end
+
+  test 'redirects to micro_report index with alert if target micro_report_id does not exist' do
+    user = users(:hatsuno)
+
+    visit_with_auth user_micro_reports_path(user, micro_report_id: -1), user.login_name
+
+    assert_current_path user_micro_reports_path(user)
+    assert_selector '.flash__message', text: '指定された分報は見つかりませんでした。'
+  end
 end
