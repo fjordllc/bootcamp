@@ -7,6 +7,8 @@ class Users::MicroReportsController < ApplicationController
   before_action :set_user
   before_action :set_micro_report, only: %i[destroy]
 
+  layout 'micro_report'
+
   def index
     @micro_reports = @user.micro_reports.order(created_at: :asc).page(params[:page]).per(PAGER_NUMBER)
   end
