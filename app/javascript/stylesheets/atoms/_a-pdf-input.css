@@ -1,0 +1,62 @@
+.a-pdf-input {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.a-pdf-input__inner {
+  flex: 1;
+  background-color: var(--base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  height: 2.25rem;
+}
+.a-pdf-input__inner input {
+  overflow: hidden;
+  height: 0;
+  width: 0;
+  left: 0;
+  position: absolute;
+  top: 0;
+  opacity: 0;
+}
+
+a.a-pdf-input__inner {
+  text-decoration: none;
+  color: var(--default-text);
+}
+
+.a-pdf-input__file {
+  padding: 0.5rem;
+  flex: 1;
+  border-radius: 0.25rem 0 0 0.25rem;
+  border: solid 1px var(--input-border);
+  border-right: none;
+  height: 2.25rem;
+}
+
+.a-pdf-input__file-name {
+  font-size: 0.875rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  max-width: 18rem;
+}
+
+.a-pdf-input__upload.a-button {
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+
+@media (max-width: 47.9375em) {
+  .a-pdf-input {
+    flex-direction: column;
+  }
+  .a-pdf-input__file-name {
+    max-width: 8rem;
+  }
+}

@@ -1,0 +1,59 @@
+.lp-hero-info__titles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+@media (min-width: 48em) {
+  .lp-hero-info__titles {
+    gap: 1rem;
+  }
+}
+
+.lp-hero-info__title {
+  font-size: 1rem;
+  line-height: 1.4;
+  font-weight: 800;
+}
+@media (min-width: 48em) {
+  .lp-hero-info__title {
+    font-size: 1.5rem;
+  }
+}
+
+.lp-hero-info__catchcopy {
+  font-size: 2rem;
+  line-height: 1.2;
+  font-weight: 800;
+}
+.lp-hero-info__catchcopy br {
+  display: none;
+}
+@media (min-width: 48em) {
+  .lp-hero-info__catchcopy {
+    font-size: 2.75rem;
+  }
+  .lp-hero-info__catchcopy br {
+    display: inline;
+  }
+}
+@media (min-width: 64em) {
+  .lp-hero-info__catchcopy {
+    font-size: 3.25rem;
+  }
+}
+@media (min-width: 80em) {
+  .lp-hero-info__catchcopy {
+    font-size: 4rem;
+  }
+}
+
+.lp-hero-info__description p {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-weight: 600;
+}
+@media (min-width: 48em) {
+  .lp-hero-info__description p {
+    font-size: 1rem;
+  }
+}

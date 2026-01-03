@@ -1,0 +1,23 @@
+.corporate-training-testimonials__items {
+  display: flex;
+  width: 100%;
+  gap: 2rem;
+}
+
+.corporate-training-testimonial__inner {
+  padding-inline: 1.5rem;
+}
+.corporate-training-testimonial__inner.a-card {
+  margin-inline: 0;
+}
+
+.corporate-training-testimonial__header,
+.corporate-training-testimonial__body {
+  padding-block: 1.5rem;
+}
+
+.corporate-training-testimonial__title {
+  font-size: 1.25rem;
+  line-height: 1.4;
+  font-weight: 800;
+}

@@ -1,0 +1,21 @@
+.a-user-name {
+  color: var(--muted-text);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  white-space: nowrap;
+  font-weight: 400;
+}
+
+a.a-user-name {
+  text-decoration: none;
+  cursor: pointer;
+}
+a.a-user-name:hover, a.a-user-name:active {
+  text-decoration: underline;
+}
+a.a-user-name {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

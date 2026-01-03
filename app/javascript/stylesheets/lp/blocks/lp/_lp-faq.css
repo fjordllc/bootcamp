@@ -1,0 +1,58 @@
+.lp-faq__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.lp-faq__header,
+.lp-faq__body {
+  padding-left: 2.5rem;
+  position: relative;
+}
+.lp-faq__header::before,
+.lp-faq__body::before {
+  left: 0;
+  position: absolute;
+  top: 0;
+  font-size: 1.25rem;
+  line-height: 1;
+  font-weight: 900;
+  color: var(--main);
+  font-family: "Lato", sans-serif;
+}
+
+.lp-faq__header::before {
+  content: "Q.";
+}
+
+.lp-faq__body::before {
+  content: "A.";
+}
+
+.lp-faq__title {
+  font-size: 1.125rem;
+  line-height: 1.4;
+  font-weight: 800;
+}
+
+.lp-faq__body {
+  font-size: 0.875rem;
+}
+@media (min-width: 48em) {
+  .lp-faq__body {
+    font-size: 1rem;
+  }
+}
+
+.lp-faq__edit {
+  margin-top: 0.75rem;
+}
+
+.lp-faq__edit-link {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--muted-text);
+}
+.lp-faq__edit-link:hover {
+  color: var(--main);
+}

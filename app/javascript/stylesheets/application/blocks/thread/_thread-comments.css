@@ -1,0 +1,50 @@
+
+.thread-comments {
+  position: relative;
+
+}
+.thread-comments__header {
+  @media (min-width: 48em) {
+    margin-bottom: 1.5rem;
+  }
+  @media (max-width: 47.9375em) {
+    margin-bottom: 1rem;
+
+  }
+}
+.thread-comments__title {
+  align-items: center;
+  display: flex;
+  font-weight: 700;
+  @media (min-width: 48em) {
+    font-size: 1.125rem;
+    line-height: 1.45;
+  }
+  @media (max-width: 47.9375em) {
+    font-size: 1rem;
+    line-height: 1.45;
+
+  }
+}
+.thread-comments__title-count {
+  font-size: .875rem;
+  line-height: 1;
+  display: flex;
+  font-weight: 600;
+  align-items: center;
+  height: 1.25rem;
+  width: auto;
+  background-color: var(--base);
+  padding-inline: .5rem;
+  border-radius: 1.5rem;
+  margin-left: .5rem;
+
+}
+.thread-comments {
+  .form-actions {
+    @media (min-width: 48em) {
+      padding-left: var(--thread)-header-author;
+
+    }
+  }
+}

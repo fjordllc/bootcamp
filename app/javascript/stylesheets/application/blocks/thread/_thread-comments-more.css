@@ -1,0 +1,32 @@
+
+.thread-comments-more {
+  position: relative;
+  @media (min-width: 48em) {
+    margin-bottom: 2rem;
+    padding-left: var(--thread-header-author);
+  }
+  @media (max-width: 47.9375em) {
+    padding-left: 0;
+    margin-bottom: 1rem;
+  }
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    height: 7px;
+    width: 100%;
+    background: repeating-linear-gradient(-45deg, var(--border)-shade, var(--border)-shade 3px, transparent 3px, transparent 6px);
+  }
+}
+.thread-comments-more__inner {
+  padding-block: 1rem;
+
+}
+.thread-comments-more__action {
+  @media (min-width: 48em) {
+    max-width: 16rem;
+    padding-inline: .375rem;
+    margin-inline: auto;
+
+  }
+}
