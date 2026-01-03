@@ -27,4 +27,20 @@ class MicroReportTest < ActiveSupport::TestCase
     micro_report = user.micro_reports.create!(content: 'test')
     assert_equal "/users/#{user.id}/micro_reports?micro_report_id=#{micro_report.id}", micro_report.path
   end
+
+  test 'delete notifications when micro_report is deleted' do
+    micro_report = @user.micro_reports.create!(content: 'mentioned')
+
+    Notification.create!(
+      kind: 'mentioned',
+      user: @user,
+      sender: @user,
+      message: 'test',
+      link: micro_report.path
+    )
+
+    assert_difference 'Notification.count', -1 do
+      micro_report.destroy
+    end
+  end
 end
