@@ -10,6 +10,8 @@ class MicroReport < ApplicationRecord
 
   before_validation :set_default_comment_user, on: :create
 
+  after_destroy MicroReportCallbacks.new
+
   mentionable_as :content
   alias sender comment_user
 
