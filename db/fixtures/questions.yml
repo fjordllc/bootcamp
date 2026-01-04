@@ -113,6 +113,7 @@ question15:
   user: kimura
   practice: practice1
   created_at: "2022-01-14"
+  updated_at: "2022-01-14"
   wip: true
 
 question16:
@@ -139,4 +140,14 @@ question51:
   user: kimura
   practice: practice1
   created_at: <%= Time.current - 1.month - 1.week %>
+  updated_at: <%= Time.current - 1.month - 1.week %>
   published_at: <%= Time.current - 1.month - 1.week %>
+
+question52:
+  title: 自動クローズ前に警告される質問
+  description: 自動クローズ前に警告される質問です。
+  user: kimura
+  practice: practice1
+  created_at: <%= Time.current - 1.month %>
+  updated_at: <%= Time.current - 1.month %>
+  published_at: <%= Time.current - 1.month %>
