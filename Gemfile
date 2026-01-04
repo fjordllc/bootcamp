@@ -88,29 +88,10 @@ gem 'tzinfo', '~> 2.0', '>= 2.0.6'
 gem 'view_component'
 
 group :development, :test do
+  gem 'benchmark', require: false
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-
-  # not default
   gem 'dotenv-rails'
   gem 'pry-byebug'
-  gem 'traceroute'
-end
-
-group :development do
-  gem 'listen', '~> 3.3'
-  gem 'web-console'
-
-  # not default
-  gem 'bullet'
-  gem 'foreman'
-  gem 'letter_opener_web', '~> 2.0'
-  gem 'rack-dev-mark'
-  gem 'rack-mini-profiler', '~> 2.0', require: false
-  gem 'view_source_map'
-end
-
-group :development, :test do
-  gem 'benchmark', require: false
   gem 'rubocop', require: false
   gem 'rubocop-capybara', require: false
   gem 'rubocop-fjord', '~> 0.4.0', require: false
@@ -118,6 +99,18 @@ group :development, :test do
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'slim_lint'
+  gem 'traceroute'
+end
+
+group :development do
+  gem 'bullet'
+  gem 'foreman'
+  gem 'letter_opener_web', '~> 2.0'
+  gem 'listen', '~> 3.3'
+  gem 'rack-dev-mark'
+  gem 'rack-mini-profiler', '~> 2.0', require: false
+  gem 'view_source_map'
+  gem 'web-console'
 end
 
 group :test do

@@ -455,7 +455,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_04_051945) do
     t.text "content", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
     t.bigint "comment_user_id"
+    t.index ["comment_user_id"], name: "index_micro_reports_on_comment_user_id"
     t.index ["user_id"], name: "index_micro_reports_on_user_id"
   end
 
