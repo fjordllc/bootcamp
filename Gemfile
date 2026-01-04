@@ -106,6 +106,7 @@ group :development do
   gem 'letter_opener_web', '~> 2.0'
   gem 'rack-dev-mark'
   gem 'rack-mini-profiler', '~> 2.0', require: false
+  gem 'benchmark', require: false
   gem 'rubocop', require: false
   gem 'rubocop-capybara', require: false
   gem 'rubocop-fjord', '~> 0.4.0', require: false
