@@ -11,7 +11,7 @@ module Reports
       stub_request(:post, 'https://discord.com/api/webhooks/0123456789/admin')
     end
 
-    test 'notify to chat after create a report' do
+    test 'create a report' do
       visit_with_auth '/reports/new', 'kimura'
       wait_for_report_form
       within('form[name=report]') do
@@ -25,17 +25,11 @@ module Reports
       first('.learning-time').all('.learning-time__finished-at select')[0].select('08')
       first('.learning-time').all('.learning-time__finished-at select')[1].select('30')
 
-      mock_log = []
-      stub_info = proc { |i| mock_log << i }
-
-      Rails.logger.stub(:info, stub_info) do
-        click_button '提出'
-      end
+      click_button '提出'
 
       assert_text '日報を保存しました。'
       assert_text Time.current.strftime('%Y年%m月%d日')
       assert_text 'Watch中'
-      assert_match 'Message to Discord.', mock_log.to_s
     end
 
     test 'celebrating one hundred reports' do

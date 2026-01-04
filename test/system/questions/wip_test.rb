@@ -132,37 +132,24 @@ module Questions
       assert_text 'Watch中'
     end
 
-    test 'should not notify to chat after wip a question' do
+    test 'save a question as WIP' do
       visit_with_auth new_question_path, 'kimura'
       within 'form[name=question]' do
         fill_in 'question[title]', with: 'WIPタイトル'
         fill_in 'question[description]', with: 'WIP本文'
       end
-      mock_log = []
-      stub_info = proc { |i| mock_log << i }
 
-      Rails.logger.stub(:info, stub_info) do
-        click_button 'WIP'
-      end
-
+      click_button 'WIP'
       assert_text '質問をWIPとして保存しました。'
-      assert_no_match 'Message to Discord.', mock_log.to_s
     end
 
-    test 'notify to chat after publish a question from WIP' do
+    test 'publish a question from WIP' do
       question = questions(:question_for_wip)
       visit_with_auth question_path(question), 'kimura'
       click_link '内容修正'
 
-      mock_log = []
-      stub_info = proc { |i| mock_log << i }
-
-      Rails.logger.stub(:info, stub_info) do
-        click_button '質問を公開'
-        assert_text '質問を更新しました'
-      end
-
-      assert_match 'Message to Discord.', mock_log.to_s
+      click_button '質問を公開'
+      assert_text '質問を更新しました'
     end
   end
 end

@@ -162,7 +162,7 @@ module Users
     end
 
     test 'can upload heic image and converts it to webp with login_name' do
-      skip 'HEICのサポートがないため、CI では実行されません。' if ENV['CI']
+      skip 'HEICのサポートがないため、スキップします。' unless heic_supported?
 
       visit_with_auth '/current_user/edit', 'hajime'
       attach_file 'user[avatar]', 'test/fixtures/files/images/heic-sample-file.heic', make_visible: true
@@ -201,6 +201,15 @@ module Users
       visit_with_auth "/users/#{kensyu.id}", 'kimura'
       assert_selector 'h1.page-main-header__title', text: 'プロフィール'
       assert_selector 'h2.card-header__title', text: '主な活動予定時間'
+    end
+
+    private
+
+    def heic_supported?
+      Vips::Image.new_from_file('test/fixtures/files/images/heic-sample-file.heic')
+      true
+    rescue Vips::Error
+      false
     end
   end
 end

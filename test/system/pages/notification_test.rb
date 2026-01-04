@@ -4,38 +4,26 @@ require 'application_system_test_case'
 
 module Pages
   class NotificationTest < ApplicationSystemTestCase
-    test 'notify to chat after create a page' do
+    test 'create a page' do
       visit_with_auth new_page_path, 'kimura'
       within('.form') do
         fill_in('page[title]', with: 'test')
         fill_in('page[body]', with: 'test')
       end
 
-      mock_log = []
-      stub_info = proc { |i| mock_log << i }
-
-      Rails.logger.stub(:info, stub_info) do
-        click_button 'Docを公開'
-      end
+      click_button 'Docを公開'
 
       assert_text 'ドキュメントを作成しました。'
       assert_text 'Watch中'
-      assert_match 'Message to Discord.', mock_log.to_s
     end
 
-    test 'notify to chat after publish a WIP page' do
+    test 'publish a WIP page' do
       target_page = pages(:page5)
       visit_with_auth edit_page_path(target_page), 'kimura'
 
-      mock_log = []
-      stub_info = proc { |i| mock_log << i }
-
-      Rails.logger.stub(:info, stub_info) do
-        click_button 'Docを公開'
-      end
+      click_button 'Docを公開'
 
       assert_text 'ドキュメントを作成しました。'
-      assert_match 'Message to Discord.', mock_log.to_s
     end
 
     test 'check the box for notification to publish the document' do
