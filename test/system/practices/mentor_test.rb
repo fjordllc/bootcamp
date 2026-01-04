@@ -94,9 +94,10 @@ module Practices
       assert_selector 'form'
       attach_file 'practice[completion_image]', 'test/fixtures/files/practices/ogp_images/1.jpg', make_visible: true
       click_button '更新する'
+      assert_text 'プラクティスを更新しました。'
 
-      visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
-      assert_selector 'form'
+      visit "/mentor/practices/#{practice.id}/edit"
+      assert_selector 'form[name=practice]'
       assert_selector 'img'
     end
 
@@ -109,12 +110,12 @@ module Practices
       practice = practices(:practice2)
       visit_with_auth "/mentor/practices/#{practice.id}/edit", 'mentormentaro'
       within 'form[name=practice]' do
-        fill_in 'practice[title]', with: 'テストプラクティス'
+        fill_in 'practice[title]', with: 'テストプラクティス', fill_options: { clear: :backspace }
         within '#reference_books' do
           click_link '書籍を選択'
         end
-        click_button '更新する'
       end
+      click_button '更新する'
       assert_text 'プラクティスを更新しました'
       visit "/practices/#{practice.id}"
       assert_equal 'プラクティス テストプラクティス | FBC', title

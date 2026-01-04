@@ -19,16 +19,20 @@ Capybara.disable_animation = true
 Capybara.automatic_reload = false
 Capybara.enable_aria_label = true
 
-# Configure retry for flaky tests
-Minitest::Retry.use!(retry_count: 3, verbose: true) if ENV['CI']
+# Configure retry for flaky tests (CI or when MINITEST_RETRY_COUNT is set)
+if ENV['CI'] || ENV['MINITEST_RETRY_COUNT']
+  retry_count = ENV.fetch('MINITEST_RETRY_COUNT', 3).to_i
+  Minitest::Retry.use!(retry_count:, verbose: true)
+end
 
 class ActiveSupport::TestCase
   include VCRHelper
 
-  # Run tests in parallel with local execution only
-  # In CI: Disable Rails parallelization - CircleCI handles parallelism via parallelism setting
-  # This avoids DRb/fork complexity that can cause test hangs (Rails issue #55513)
-  parallelize(workers: :number_of_processors) unless ENV['CI']
+  # Parallel testing configuration:
+  # - CI: Disabled - CircleCI handles parallelism via its own parallelism setting
+  # - Local: Disabled - DRb/fork causes test hangs (Rails issue #55513)
+  # To enable parallel tests locally, use: PARALLEL_WORKERS=4 bin/rails test
+  parallelize(workers: ENV.fetch('PARALLEL_WORKERS', 1).to_i)
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all

@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+# Change to project directory first
+cd "$(dirname "$0")/.."
+
+# Set empty PROMPT_COMMAND to avoid error in non-interactive shell
+export PROMPT_COMMAND="${PROMPT_COMMAND:-}"
+
+# Ensure mise is activated for proper Ruby/Node versions
+eval "$(mise activate bash)"
+
+# Export PATH so it's available to child processes
+export PATH
+
+# Set RAILS_ENV to test
+export RAILS_ENV=test
+
+# Enable system test mode (used by hooks to enforce single-file execution)
+export CLAUDE_SYSTEM_TEST_MODE=1
+
+# System prompt that persists throughout the session (won't be forgotten)
+SYSTEM_PROMPT='あなたは system test 修正専用モードで動作している。
+
+【絶対ルール - 常に守ること】
+1. テストは必ず1ファイルずつ実行する（一括実行禁止）
+2. 流れ: run → fix → rubocop → rerun(pass確認) → 次のファイル
+3. テストの意図を壊さない（assert true / skip / 雑なsleep禁止）
+4. 原則: 実装を直す。テスト変更は「意図をより正確にする場合」のみ
+5. 質問禁止（実行不能 or 不可逆な仕様分岐のときのみ1回許可）'
+
+PROMPT='test/system を1ファイルずつ実行し、全て通るまで修正を続けよ。'
+
+# Use --append-system-prompt to keep instructions persistent
+exec claude --dangerously-skip-permissions --append-system-prompt "$SYSTEM_PROMPT" "$PROMPT"

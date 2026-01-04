@@ -5,12 +5,12 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.4.3'
 
-gem 'bootsnap', '>= 1.4.4', require: false
+gem 'bootsnap', require: false
 gem 'ffi', '1.17.1'
-gem 'image_processing', '~> 1.12'
-gem 'jbuilder', '~> 2.7'
-gem 'puma', '~> 6.0'
-gem 'rails', '7.2.2.2'
+gem 'image_processing', '~> 1.2'
+gem 'jbuilder'
+gem 'puma', '>= 5.0'
+gem 'rails', '8.1.1'
 gem 'shakapacker', '~> 7.0'
 gem 'sprockets-rails', '>= 2.0.0'
 
@@ -34,7 +34,6 @@ gem 'diffy'
 gem 'discord-notifier'
 gem 'discordrb', '~> 3.5', require: false
 gem 'doorkeeper'
-gem 'good_job', '~> 4.5'
 gem 'google-cloud-storage', '~> 1.25', require: false
 gem 'google-cloud-video-transcoder'
 gem 'google-id-token'
@@ -49,6 +48,7 @@ gem 'kramdown-parser-gfm'
 gem 'mentionable', '~> 0.3.0'
 gem 'meta-tags'
 gem 'mini_magick'
+gem 'mission_control-jobs'
 gem 'mutex_m', '0.1.1'
 gem 'net-imap', require: false
 gem 'net-pop', require: false
@@ -67,16 +67,17 @@ gem 'postmark-rails'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rack-user_agent'
 gem 'rails_autolink'
-gem 'rails-i18n', '~> 7.0.0'
+gem 'rails-i18n'
 gem 'rails-patterns', '~> 0.2'
 gem 'ransack', '~> 4.3'
-gem 'react-rails'
+gem 'react-rails', github: 'reactjs/react-rails'
 gem 'recaptcha', '~> 5.12'
 gem 'rollbar'
 gem 'rss'
 gem 'ruby-openai'
 gem 'rubyzip'
 gem 'slim-rails'
+gem 'solid_queue'
 gem 'sorcery', '~> 0.16.2'
 gem 'sorcery-jwt'
 gem 'stringio', '>= 3.1.3'
@@ -87,24 +88,10 @@ gem 'tzinfo', '~> 2.0', '>= 2.0.6'
 gem 'view_component'
 
 group :development, :test do
+  gem 'benchmark', require: false
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-
-  # not default
   gem 'dotenv-rails'
   gem 'pry-byebug'
-  gem 'traceroute'
-end
-
-group :development do
-  gem 'listen', '~> 3.3'
-  gem 'web-console', '>= 4.1.0'
-
-  # not default
-  gem 'bullet'
-  gem 'foreman'
-  gem 'letter_opener_web', '~> 2.0'
-  gem 'rack-dev-mark'
-  gem 'rack-mini-profiler', '~> 2.0', require: false
   gem 'rubocop', require: false
   gem 'rubocop-capybara', require: false
   gem 'rubocop-fjord', '~> 0.4.0', require: false
@@ -112,15 +99,27 @@ group :development do
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'slim_lint'
+  gem 'traceroute'
+end
+
+group :development do
+  gem 'bullet'
+  gem 'foreman'
+  gem 'letter_opener_web', '~> 2.0'
+  gem 'listen', '~> 3.3'
+  gem 'rack-dev-mark'
+  gem 'rack-mini-profiler', '~> 2.0', require: false
   gem 'view_source_map'
+  gem 'web-console'
 end
 
 group :test do
-  gem 'capybara', '>= 3.26'
+  gem 'capybara'
+  gem 'minitest', '< 6.0'
   gem 'minitest-ci'
   gem 'minitest-retry'
   gem 'minitest-stub_any_instance'
-  gem 'selenium-webdriver', '~> 4.17.0'
+  gem 'selenium-webdriver'
   gem 'vcr'
   gem 'webmock'
 end
