@@ -183,7 +183,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     times_channel_id = '987654321987654321'
     user.discord_profile.update!(times_id: times_channel_id)
     # Clear subscription_id and customer_id to avoid Stripe API calls during retirement
-    user.update_columns(subscription_id: nil, customer_id: nil)
+    user.update_columns(subscription_id: nil, customer_id: nil) # rubocop:disable Rails/SkipsModelValidations
     date = Date.current
 
     Discord::Server.stub(:delete_text_channel, true) do
