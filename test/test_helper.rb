@@ -22,7 +22,7 @@ Capybara.enable_aria_label = true
 # Configure retry for flaky tests (CI or when MINITEST_RETRY_COUNT is set)
 if ENV['CI'] || ENV['MINITEST_RETRY_COUNT']
   retry_count = ENV.fetch('MINITEST_RETRY_COUNT', 3).to_i
-  Minitest::Retry.use!(retry_count: retry_count, verbose: true)
+  Minitest::Retry.use!(retry_count:, verbose: true)
 end
 
 class ActiveSupport::TestCase

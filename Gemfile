@@ -34,8 +34,6 @@ gem 'diffy'
 gem 'discord-notifier'
 gem 'discordrb', '~> 3.5', require: false
 gem 'doorkeeper'
-gem 'mission_control-jobs'
-gem 'solid_queue'
 gem 'google-cloud-storage', '~> 1.25', require: false
 gem 'google-cloud-video-transcoder'
 gem 'google-id-token'
@@ -50,6 +48,7 @@ gem 'kramdown-parser-gfm'
 gem 'mentionable', '~> 0.3.0'
 gem 'meta-tags'
 gem 'mini_magick'
+gem 'mission_control-jobs'
 gem 'mutex_m', '0.1.1'
 gem 'net-imap', require: false
 gem 'net-pop', require: false
@@ -78,6 +77,7 @@ gem 'rss'
 gem 'ruby-openai'
 gem 'rubyzip'
 gem 'slim-rails'
+gem 'solid_queue'
 gem 'sorcery', '~> 0.16.2'
 gem 'sorcery-jwt'
 gem 'stringio', '>= 3.1.3'
@@ -106,6 +106,10 @@ group :development do
   gem 'letter_opener_web', '~> 2.0'
   gem 'rack-dev-mark'
   gem 'rack-mini-profiler', '~> 2.0', require: false
+  gem 'view_source_map'
+end
+
+group :development, :test do
   gem 'benchmark', require: false
   gem 'rubocop', require: false
   gem 'rubocop-capybara', require: false
@@ -114,7 +118,6 @@ group :development do
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'slim_lint'
-  gem 'view_source_map'
 end
 
 group :test do
