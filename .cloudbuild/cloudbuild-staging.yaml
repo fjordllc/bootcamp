@@ -124,8 +124,8 @@ steps:
       - '-c'
       - |
         set -euo pipefail
-        MAX_RETRIES=5
-        RETRY_DELAY=5
+        MAX_RETRIES=12
+        RETRY_DELAY=10
 
         for i in $$(seq 1 $$MAX_RETRIES); do
           echo "Attempt $$i/$$MAX_RETRIES: Deleting database bootcamp_staging..."
