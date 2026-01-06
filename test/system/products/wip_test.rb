@@ -115,6 +115,7 @@ module Products
 
       visit_with_auth "/products/#{product.id}", 'kimura'
       click_button '提出する'
+      assert_text '6日以内にメンターがレビューしますので'
 
       assert product.reload.published_at > product_published_at
     end

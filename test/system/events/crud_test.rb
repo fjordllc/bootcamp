@@ -15,11 +15,11 @@ module Events
         fill_in 'event[end_at]', with: Time.zone.parse('2019-12-10 12:00')
         fill_in 'event[open_start_at]', with: Time.zone.parse('2019-12-05 10:00')
         fill_in 'event[open_end_at]', with: Time.zone.parse('2019-12-09 23:59')
-        assert_difference 'Event.count', 1 do
-          click_button 'イベントを公開'
-        end
       end
-      assert_text '特別イベントを作成しました。'
+      assert_difference 'Event.count', 1 do
+        click_button 'イベントを公開'
+        assert_text '特別イベントを作成しました。'
+      end
       assert_text 'Watch中'
     end
 

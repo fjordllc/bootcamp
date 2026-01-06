@@ -137,7 +137,8 @@ module Home
       fill_in 'event[open_start_at]', with: Time.current
       fill_in 'event[open_end_at]', with: Time.current + 20.days
       fill_in 'event[description]', with: 'WIPイベント本文'
-      click_button 'WIP'
+      find('#js-shortcut-wip').click
+      assert_text '特別イベントをWIPとして保存しました。'
 
       visit '/'
       assert_text 'WIPで保存中'

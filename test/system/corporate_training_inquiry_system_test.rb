@@ -9,6 +9,7 @@ class CorporateTrainingInquirySystemTest < ApplicationSystemTestCase
 
     Recaptcha.configuration.site_key = nil
     Recaptcha.configuration.secret_key = nil
+    ActionMailer::Base.deliveries.clear
   end
 
   teardown do
@@ -31,13 +32,11 @@ class CorporateTrainingInquirySystemTest < ApplicationSystemTestCase
     fill_in 'その他伝えておきたいこと', with: 'よろしくお願いします。'
     check '下記の個人情報の取り扱いに同意する', allow_label_click: true
 
-    assert_difference 'ActionMailer::Base.deliveries.count', 1 do
-      click_button '送信'
-    end
+    click_button '送信'
+    assert_text 'フィヨルドブートキャンプの企業研修プログラムへのお申し込みを頂き'
 
+    assert_equal 1, ActionMailer::Base.deliveries.count
     mail = ActionMailer::Base.deliveries.last
     assert_equal '[FBC] 企業研修の申し込み', mail.subject
-
-    assert_includes title, '企業研修申し込み送信完了'
   end
 end

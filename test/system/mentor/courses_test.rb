@@ -34,12 +34,14 @@ class Mentor::CoursesTest < ApplicationSystemTestCase
     visit_with_auth "/mentor/courses/#{courses(:course1).id}/edit", 'mentormentaro'
     uncheck 'course_published', allow_label_click: true, visible: false
     click_button '内容を保存'
+    assert_text 'コースを更新しました。'
     visit "/mentor/courses/#{courses(:course1).id}/edit"
     assert_no_checked_field('course_published', visible: false)
 
     visit_with_auth "/mentor/courses/#{courses(:course2).id}/edit", 'mentormentaro'
     check 'course_published', allow_label_click: true, visible: false
     click_button '内容を保存'
+    assert_text 'コースを更新しました。'
     visit "/mentor/courses/#{courses(:course2).id}/edit"
     assert has_checked_field?('course_published', visible: false)
   end
