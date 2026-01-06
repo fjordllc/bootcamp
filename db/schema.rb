@@ -975,7 +975,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_23_000002) do
     t.integer "os"
     t.boolean "trainee", default: false, null: false
     t.text "retire_reason"
-    t.boolean "job_seeking", default: false, null: false
     t.string "customer_id"
     t.string "subscription_id"
     t.boolean "mail_notification", default: true, null: false
