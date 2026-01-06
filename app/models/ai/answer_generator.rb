@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module AI
+module Ai
   class AnswerGenerator
     PRECONDITION = <<~COND
       私はプログラミングスクールの生徒でプログラミングの学習中です。
