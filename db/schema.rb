@@ -1005,7 +1005,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_07_000002) do
     t.boolean "invoice_payment", default: false, null: false
     t.integer "job"
     t.boolean "job_seeker", default: false, null: false
-    t.boolean "job_seeking", default: false, null: false
     t.datetime "last_activity_at"
     t.integer "last_negative_report_id"
     t.string "login_name", limit: 255, null: false
