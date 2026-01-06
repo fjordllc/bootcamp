@@ -1,0 +1,22 @@
+:root {
+  --choices-selector: "choices";
+  --choices-font-size-lg: 1rem;
+  --choices-font-size-md: 0.875rem;
+  --choices-font-size-sm: 0.75rem;
+  --choices-guttering: 1.5rem;
+  --choices-border-radius: 4px;
+  --choices-border-radius-item: 4px;
+  --choices-bg-color: #f9f9f9;
+  --choices-bg-color-disabled: var(--disabled);
+  --choices-bg-color-dropdown: var(--base);
+  --choices-text-color: var(--main-text);
+  --choices-keyline-color: #ddd;
+  --choices-primary-color: var(--main-tint);
+  --choices-disabled-color: var(--disabled);
+  --choices-highlight-color: var(--main-tint);
+  --choices-button-dimension: 8px;
+  --choices-button-offset: 8px;
+  --choices-icon-cross: url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2021%2021%22%20style%3D%22enable-background%3Anew%200%200%2021%2021%22%20xml%3Aspace%3D%22preserve%22%3E%3Cstyle%3E.st0%7Bfill%3A%233f3290%7D%3C%2Fstyle%3E%3Cpath%20class%3D%22st0%22%20d%3D%22M2.6%200%2021%2018.4%2018.4%2021%200%202.6%202.6%200z%22%2F%3E%3Cpath%20class%3D%22st0%22%20d%3D%22M0%2018.4%2018.4%200l2.5%202.5L2.5%2020.9%200%2018.4z%22%2F%3E%3C%2Fsvg%3E");
+  --choices-icon-cross-inverse: url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2021%2021%22%20style%3D%22enable-background%3Anew%200%200%2021%2021%22%20xml%3Aspace%3D%22preserve%22%3E%3Cstyle%3E.st0%7Bfill%3A%23ffffff%7D%3C%2Fstyle%3E%3Cpath%20class%3D%22st0%22%20d%3D%22M2.6%200%2021%2018.4%2018.4%2021%200%202.6%202.6%200z%22%2F%3E%3Cpath%20class%3D%22st0%22%20d%3D%22M0%2018.4%2018.4%200l2.5%202.5L2.5%2020.9%200%2018.4z%22%2F%3E%3C%2Fsvg%3E");
+  --choices-z-index: 1;
+}

@@ -1,0 +1,150 @@
+.a-form-help {
+  font-size: 0.75rem;
+  color: var(--semi-muted-text);
+}
+.a-form-help:not(:first-child) {
+  margin-top: 0.5rem;
+}
+label + .a-form-help:not(:first-child) {
+  margin-top: 0;
+}
+.a-form-help + input, .a-form-help + textarea {
+  margin-top: 0.5rem;
+}
+.a-form-help em {
+  font-style: normal;
+  font-weight: 600;
+}
+.a-form-help.is-danger,
+.a-form-help .is-danger {
+  color: var(--danger);
+}
+.a-form-help.is-text-align-center {
+  text-align: center;
+}
+[class*=a-button] + .a-form-help {
+  margin-top: 1em;
+}
+[class*=is-select] + .a-form-help {
+  margin-top: 0.5em;
+}
+.form-item-block .a-form-help {
+  margin-top: 0.75em;
+}
+.a-form-help p {
+  font-size: 1em;
+  line-height: 1.6;
+}
+.a-form-help p:not(:last-child) {
+  margin-bottom: 0.75em;
+}
+.a-form-help a {
+  text-decoration: none;
+  cursor: pointer;
+}
+.a-form-help a:hover, .a-form-help a:active {
+  text-decoration: underline;
+}
+.a-form-help *:last-child {
+  margin-bottom: 0;
+}
+.a-form-help a {
+  font-size: 0.75rem;
+  line-height: 1.6;
+  text-decoration: none;
+  cursor: pointer;
+}
+.a-form-help a:hover, .a-form-help a:active {
+  text-decoration: underline;
+}
+.a-form-help a {
+  cursor: pointer;
+  transition: color 0.2s ease-in;
+  color: var(--link-text);
+}
+.a-form-help a:link {
+  color: var(--link-text);
+}
+.a-form-help a:visited {
+  color: hsl(233, 33%, 58%);
+}
+.a-form-help a:hover {
+  color: var(--hover-text);
+}
+.a-form-help a:active {
+  color: var(--hover-text);
+}
+.a-form-help ul {
+  list-style-type: disc;
+  list-style-position: outside;
+  margin-left: 1.5em;
+}
+.a-form-help ul:not(:last-child) {
+  margin-bottom: 0.75em;
+}
+.a-form-help li {
+  line-height: 1.6;
+}
+.a-form-help li:not(:first-child) {
+  margin-top: 0.125em;
+}
+
+.a-form-help-link {
+  font-size: 0.75rem;
+  line-height: 1.6;
+  cursor: pointer;
+  transition: color 0.2s ease-in;
+  color: var(--link-text);
+}
+.a-form-help-link:link {
+  color: var(--link-text);
+}
+.a-form-help-link:visited {
+  color: hsl(233, 33%, 58%);
+}
+.a-form-help-link:hover {
+  color: var(--hover-text);
+}
+.a-form-help-link:active {
+  color: var(--hover-text);
+}
+.a-form-help .a-form-help-link.is-danger {
+  color: var(--danger);
+}
+.a-form-help-link.is-muted-text {
+  color: var(--muted-text);
+}
+
+.a-form-help-link__label {
+  text-decoration: none;
+  cursor: pointer;
+}
+.a-form-help-link__label:hover, .a-form-help-link__label:active {
+  text-decoration: underline;
+}
+
+.a-text-help-link {
+  cursor: pointer;
+  transition: color 0.2s ease-in;
+  color: var(--link-text);
+}
+.a-text-help-link:link {
+  color: var(--link-text);
+}
+.a-text-help-link:visited {
+  color: hsl(233, 33%, 58%);
+}
+.a-text-help-link:hover {
+  color: var(--hover-text);
+}
+.a-text-help-link:active {
+  color: var(--hover-text);
+}
+
+.a-text-help-link__label {
+  text-decoration: none;
+  cursor: pointer;
+}
+.a-text-help-link__label:hover, .a-text-help-link__label:active {
+  text-decoration: underline;
+}

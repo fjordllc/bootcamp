@@ -1,0 +1,43 @@
+
+.card-body {
+  flex: 1;
+  &.has-scroll {
+    max-height: 18rem;
+    overflow-y: auto;
+
+  }
+}
+.card-body__description {
+  @media (min-width: 48em) {
+    padding: 1rem;
+  }
+  @media (max-width: 47.9375em) {
+    padding: .75rem;
+  }
+  &.a-long-text {
+    @media (min-width: 48em) {
+      font-size: .9375rem;
+    }
+    @media (max-width: 47.9375em) {
+      font-size: .8125rem;
+
+    }
+  }
+}
+.card__main-movie {
+  video {
+    border-radius: .25rem .25rem 0 0;
+
+  }
+}
+.card-body__inner {
+  max-width: 100%;
+  width: 100%;
+  @media (min-width: 48em) {
+    padding: 1rem 1.5rem;
+  }
+  @media (max-width: 47.9375em) {
+    padding: 1rem;
+
+  }
+}

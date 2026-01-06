@@ -1,0 +1,113 @@
+.a-on-off-checkbox {
+  position: relative;
+  display: block;
+  cursor: pointer;
+  padding-block: 0.5rem;
+  margin-block: -0.5rem;
+}
+
+.a-on-off-checkbox input {
+  opacity: 0;
+  left: -1rem;
+  position: absolute;
+  top: 0;
+  height: 0;
+  width: 0;
+  display: block;
+  overflow: hidden;
+}
+
+.a-on-off-checkbox span {
+  display: block;
+  background-color: var(--background);
+  position: relative;
+  transition: all 0.2s ease-out;
+}
+
+.a-on-off-checkbox span::before {
+  content: "";
+  display: block;
+  border-radius: 50%;
+  background-color: var(--base);
+  left: 0;
+  position: absolute;
+  top: 0;
+  border: solid 1px var(--input-border);
+}
+
+.a-on-off-checkbox span::after {
+  content: "OFF";
+  font-size: 1em;
+  line-height: 1;
+  display: flex;
+  text-align: center;
+  font-weight: 600;
+  align-items: center;
+  justify-content: center;
+}
+
+.a-on-off-checkbox input:checked + span {
+  background-color: var(--danger);
+  border-color: var(--danger);
+}
+
+.a-on-off-checkbox input:checked + span::before {
+  left: auto;
+  position: absolute;
+  right: 0;
+}
+
+.a-on-off-checkbox input:checked + span::after {
+  content: "ON";
+  color: var(--reversal-text);
+}
+
+.a-on-off-checkbox.is-md span {
+  height: calc(1.5rem + 2px);
+  width: 4.5rem;
+  border: solid 1px var(--input-border);
+  border-radius: 1.5rem;
+  font-size: 0.8125rem;
+}
+
+.a-on-off-checkbox.is-md span::before {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.a-on-off-checkbox.is-md span::after {
+  height: calc(100% - 2px);
+  width: 100%;
+  padding-left: 1.5rem;
+  padding-right: 0.75em;
+}
+
+.a-on-off-checkbox.is-md input:checked + span::after {
+  padding-left: 1em;
+  padding-right: 1.5rem;
+}
+
+.a-on-off-checkbox.is-sm span {
+  height: calc(1.125rem + 2px);
+  width: 3.5rem;
+  border: solid 1px var(--input-border);
+  border-radius: 1.125rem;
+  font-size: 0.75rem;
+}
+
+.a-on-off-checkbox.is-sm span::before {
+  height: 1.125rem;
+  width: 1.125rem;
+}
+
+.a-on-off-checkbox.is-sm span::after {
+  height: calc(100% - 2px);
+  width: 100%;
+  padding-left: 1.125rem;
+  padding-right: 0.75em;
+}
+
+.a-on-off-checkbox.is-sm input:checked + span::after {
+  padding-left: 1em;
+  padding-right: 1.125rem;
+}

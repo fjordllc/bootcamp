@@ -1,0 +1,39 @@
+.side-filter {
+  position: sticky;
+  top: 4rem;
+  max-width: 14rem;
+  margin: 0;
+}
+.side-filter .a-card {
+  overflow: hidden;
+}
+.side-filter {
+  display: none;
+}
+@media (min-width: 64em) {
+  .side-filter {
+    display: block;
+  }
+}
+
+.side-filter__item-link {
+  display: flex;
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  overflow: hidden;
+  text-decoration: none;
+  transition: all 0.2s ease-out;
+}
+.side-filter__item:not(:last-child) .side-filter__item-link {
+  border-bottom: solid 1px var(--border-tint);
+}
+.side-filter__item-link:hover {
+  background-color: var(--primary-tint);
+}
+.side-filter__item-link.is-active {
+  background-color: var(--main);
+  pointer-events: none;
+  text-decoration: none;
+  color: var(--reversal-text);
+}

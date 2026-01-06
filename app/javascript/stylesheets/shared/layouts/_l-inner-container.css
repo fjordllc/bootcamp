@@ -1,0 +1,29 @@
+.l-inner-container {
+  width: 100%;
+  max-width: calc(100vw - 32px);
+  margin-inline: auto;
+}
+.l-inner-container.is-xxxl {
+  max-width: 108rem;
+}
+.l-inner-container.is-xxl {
+  max-width: 96rem;
+}
+.l-inner-container.is-xl {
+  max-width: 80rem;
+}
+.l-inner-container.is-lg {
+  max-width: 64rem;
+}
+.l-inner-container.is-md {
+  max-width: 48rem;
+}
+.l-inner-container.is-sm {
+  width: 40rem;
+}
+.l-inner-container.is-xs {
+  width: 32rem;
+}
+.l-inner-container.is-xxs {
+  width: 28rem;
+}

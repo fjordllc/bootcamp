@@ -1,0 +1,11 @@
+.a-dropdown {
+  overflow: hidden;
+  background-color: var(--base);
+  border: solid 1px var(--border-shade);
+  box-shadow: rgba(0, 0, 0, 0.2) 0 0 0.375rem;
+  border-radius: 0.25rem;
+}
+
+.a-dropdown__item:not(:last-child) {
+  border-bottom: solid 1px var(--border);
+}
