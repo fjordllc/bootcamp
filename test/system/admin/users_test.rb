@@ -317,7 +317,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     training_ends_on = Date.current.next_year
     visit_with_auth edit_admin_user_path(user.id), 'komagata'
     fill_in 'user_training_ends_on', with: training_ends_on
-    find('#user_submit').click
+    click_on '更新する'
     assert_text 'ユーザー情報を更新しました。'
     assert_equal training_ends_on, user.reload.training_ends_on
   end
