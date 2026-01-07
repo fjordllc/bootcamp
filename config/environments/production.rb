@@ -50,8 +50,7 @@ Rails.application.configure do
   config.cache_store = :memory_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
-  config.active_job.queue_adapter = :good_job
-  config.good_job.execution_mode = :async
+  config.active_job.queue_adapter = :solid_queue
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
