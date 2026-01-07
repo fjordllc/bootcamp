@@ -15,3 +15,5 @@ header.page-header
 .page-body
   .container.is-md
     = react_component('Products', title: title, selectedTab: 'self_assigned', isMentor: mentor_login?, isAdmin: admin_login?, currentUserId: current_user.id)
+    - if @products.present?
+      = render 'application/unconfirmed_links_open', label: unconfirmed_links_label(@target)
