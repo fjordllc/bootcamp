@@ -1,7 +1,7 @@
 export default class {
-  constructor(courseType, setCourseType) {
-    this.courseType = courseType
-    this.setCourseType = setCourseType
+  constructor(withGrant, setWithGrant) {
+    this.withGrant = withGrant
+    this.setWithGrant = setWithGrant
     this.tabs = null
     this.handleSelect = null
   }
@@ -11,10 +11,10 @@ export default class {
     <nav class="tab-nav">
       <ul class="tab-nav__items">
         <li class="tab-nav__item">
-          <a class="tab-nav__item-link" href="#" data-course-type="all">全て</a>
+          <a class="tab-nav__item-link" href="#" data-with-grant="false">全て</a>
         </li>
         <li class="tab-nav__item">
-          <a class="tab-nav__item-link" href="#" data-course-type="grant">給付金コース</a>
+          <a class="tab-nav__item-link" href="#" data-with-grant="true">給付金コース</a>
         </li>
       </ul>
     </nav>
@@ -23,7 +23,8 @@ export default class {
     this.tabs = element.querySelectorAll('.tab-nav__item-link')
 
     this.tabs.forEach((tab) => {
-      if (tab.dataset.courseType === this.courseType) {
+      const tabWithGrant = tab.dataset.withGrant === 'true'
+      if (tabWithGrant === this.withGrant) {
         tab.classList.add('is-active')
       }
     })
@@ -35,7 +36,8 @@ export default class {
         tab.classList.remove('is-active')
       })
       selectedTab.classList.add('is-active')
-      this.setCourseType(selectedTab.dataset.courseType)
+      const tabWithGrant = selectedTab.dataset.withGrant === 'true'
+      this.setWithGrant(tabWithGrant)
     }
 
     this.tabs.forEach((tab) => {

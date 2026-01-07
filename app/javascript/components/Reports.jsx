@@ -22,7 +22,7 @@ export default function Reports({
   const isGrantCourse = practiceSourceId !== null
   const { page, setPage } = usePage()
   const [selectedPracticeId, setSelectedPracticeId] = useState('')
-  const [courseType, setCourseType] = useState('all')
+  const [withGrant, setWithGrant] = useState(false)
 
   let reportsUrl = `/api/reports.json?page=${page}`
   if (userId) reportsUrl += `&user_id=${userId}`
@@ -30,7 +30,7 @@ export default function Reports({
   const pid = selectedPracticeId || practiceId
   if (pid) reportsUrl += `&practice_id=${pid}`
   if (unchecked) reportsUrl += `&target=unchecked_reports`
-  if (isGrantCourse) reportsUrl += `&course_type=${courseType}`
+  if (isGrantCourse && withGrant) reportsUrl += `&with_grant=true`
 
   const { data, error } = useSWR(reportsUrl, fetcher)
 
@@ -68,22 +68,22 @@ export default function Reports({
   useEffect(() => {
     if (!isGrantCourse || !data) return
 
-    let courseTypeFilter = null
-    const initCourseTypeFilter = async () => {
-      const targetElement = document.querySelector('[data-course-type-filter]')
-      const CourseTypeFilter = (await import('../course-type-filter')).default
-      courseTypeFilter = new CourseTypeFilter(courseType, setCourseType)
-      courseTypeFilter.render(targetElement)
+    let grantFilter = null
+    const initGrantFilter = async () => {
+      const targetElement = document.querySelector('[data-grant-filter]')
+      const GrantFilter = (await import('../grant-filter')).default
+      grantFilter = new GrantFilter(withGrant, setWithGrant)
+      grantFilter.render(targetElement)
     }
-    initCourseTypeFilter()
+    initGrantFilter()
 
     return () => {
-      if (courseTypeFilter) {
-        courseTypeFilter.destroy()
-        courseTypeFilter = null
+      if (grantFilter) {
+        grantFilter.destroy()
+        grantFilter = null
       }
     }
-  }, [data, courseType])
+  }, [data, withGrant])
 
   if (error) return <>エラーが発生しました。</>
   if (!data) {
@@ -108,7 +108,7 @@ export default function Reports({
       )}
       {data.totalPages > 0 && (
         <div>
-          {isGrantCourse && <div data-course-type-filter></div>}
+          {isGrantCourse && <div data-grant-filter></div>}
           {practices && <div data-practice-filter-dropdown></div>}
           <div className="page-body">
             <div className="container is-md">
