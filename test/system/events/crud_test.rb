@@ -18,8 +18,8 @@ module Events
       end
       assert_difference 'Event.count', 1 do
         click_button 'イベントを公開'
-        assert_text '特別イベントを作成しました。'
       end
+      assert_text '特別イベントを作成しました。'
       assert_text 'Watch中'
     end
 
