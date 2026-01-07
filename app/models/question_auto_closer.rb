@@ -13,7 +13,7 @@ class QuestionAutoCloser
       system_user = User.find_by(login_name: SYSTEM_USER_LOGIN)
       return unless system_user
 
-      Question.not_solved.find_each do |question|
+      Question.not_wip.not_solved.find_each do |question|
         next unless should_post_warning?(question, system_user)
 
         create_warning_message(question, system_user)
@@ -24,7 +24,7 @@ class QuestionAutoCloser
       system_user = User.find_by(login_name: SYSTEM_USER_LOGIN)
       return unless system_user
 
-      Question.not_solved.find_each do |question|
+      Question.not_wip.not_solved.find_each do |question|
         next unless should_close?(question, system_user)
 
         close_with_best_answer(question, system_user)
@@ -34,7 +34,8 @@ class QuestionAutoCloser
     private
 
     def should_post_warning?(question, system_user)
-      last_activity_at = question.answers.order(created_at: :desc).first&.created_at || question.created_at
+      last_updated_answer = question.answers.order(updated_at: :desc, id: :desc).first
+      last_activity_at = [last_updated_answer&.updated_at, question.updated_at].compact.max
       return false unless last_activity_at <= 1.month.ago
 
       !system_message?(question, system_user, ANY_CLOSE_MESSAGE_PATTERN) &&
@@ -42,10 +43,11 @@ class QuestionAutoCloser
     end
 
     def create_warning_message(question, system_user)
-      question.answers.create!(
+      answer = question.answers.create!(
         user: system_user,
         description: AUTO_CLOSE_WARNING_MESSAGE
       )
+      ActiveSupport::Notifications.instrument('answer.create', answer:)
     end
 
     def should_close?(question, system_user)
