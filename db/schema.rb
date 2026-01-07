@@ -265,9 +265,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_23_000002) do
     t.index ["course_id", "category_id"], name: "index_courses_categories_on_course_id_and_category_id", unique: true
   end
 
-  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
-  end
-
   create_table "discord_profiles", force: :cascade do |t|
     t.bigint "user_id"
     t.string "account_name"
@@ -975,7 +972,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_23_000002) do
     t.integer "os"
     t.boolean "trainee", default: false, null: false
     t.text "retire_reason"
-    t.boolean "job_seeking", default: false, null: false
     t.string "customer_id"
     t.string "subscription_id"
     t.boolean "mail_notification", default: true, null: false
