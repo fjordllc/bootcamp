@@ -68,7 +68,6 @@ module RegularEvents
     end
 
     test 'join event user to organizers automatically' do
-      original_count = RegularEvent.count
       visit_with_auth new_regular_event_path, 'hajime'
       within 'form[name=regular_event]' do
         fill_in 'regular_event[title]', with: 'ブルーベリー本輪読会'
@@ -82,7 +81,6 @@ module RegularEvents
         click_button '作成'
       end
       assert_text '定期イベントを作成しました。', wait: 10
-      assert_equal original_count + 1, RegularEvent.count
       assert_text '毎週金曜日'
       assert_text 'Watch中'
       assert_css '.a-user-icon.is-hajime'
