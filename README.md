@@ -8,7 +8,8 @@
 ## インストールと起動
 
 ### 1. 画像処理ライブラリのインストール
-   wiki 内の[画像処理ライブラリのインストール](https://github.com/fjordllc/bootcamp/wiki/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)ページを参照してください。
+
+wiki 内の[画像処理ライブラリのインストール](https://github.com/fjordllc/bootcamp/wiki/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)ページを参照してください。
 
 ### 2. セットアップとサーバーの起動
 
@@ -44,7 +45,7 @@ $ PARALLEL_WORKERS=1 rails test:all
 次のコマンドでlintを実行します。
 
 ```
-$ ./bin/lint
+$ bin/lint
 ```
 
 実行されるlint
@@ -58,13 +59,13 @@ $ ./bin/lint
 * eslintの警告は以下のコマンドで修正されますが、修正されない場合は手動で修正してください。
 
 ```shell
-$ eslint 'app/javascript/**/*.{js,vue,jsx}' --fix
+$ npx eslint 'app/javascript/**/*.{js,vue,jsx}' --fix
 ```
 
 * prettierの警告が出ている場合には、以下のコマンドで修正できます。
 
 ```shell
-$ prettier app/javascript/**/*.{js,vue,jsx} --write
+$ npx prettier app/javascript/**/*.{js,vue,jsx} --write
 ```
 
 ## Profiler
