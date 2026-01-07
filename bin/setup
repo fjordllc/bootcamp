@@ -15,6 +15,15 @@ FileUtils.chdir APP_ROOT do
   puts "== Installing dependencies =="
   system("bundle check") || system!("bundle install")
 
+  if File.exist?("package.json") || File.exist?("yarn.lock") || File.exist?(".node-version")
+    puts "\n== Installing JavaScript dependencies =="
+    if File.exist?("yarn.lock") || system("which yarn > /dev/null 2>&1")
+      system!("yarn install")
+    else
+      system!("npm install")
+    end
+  end
+
   # puts "\n== Copying sample files =="
   # unless File.exist?("config/database.yml")
   #   FileUtils.cp "config/database.yml.sample", "config/database.yml"
