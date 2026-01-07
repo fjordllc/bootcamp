@@ -1,34 +1,29 @@
-import CSRF from 'csrf'
+import { patch } from '@rails/request.js'
 import { toast } from './vanillaToast'
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
   const button = document.querySelector('.check-button')
-  if (!button) {
-    return
-  }
-  const commentableId = button.dataset.commentableId
-  button.addEventListener('click', function () {
+  if (!button) return
+
+  let isLoading = false
+  const updatePath = button.dataset.updatePath
+  const modelName = button.dataset.modelName
+  button.addEventListener('click', async () => {
+    if (isLoading) return
+
+    isLoading = true
+    button.disabled = true
     const isInitialActionCompleted =
       button.classList.contains('is-muted-borderd')
     const isActionCompleted = !isInitialActionCompleted
 
-    fetch(`/api/talks/${commentableId}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': CSRF.getToken()
-      },
-      body: JSON.stringify({
-        talk: { action_completed: isActionCompleted }
+    try {
+      const response = await patch(updatePath, {
+        body: JSON.stringify({
+          [modelName]: { action_completed: isActionCompleted }
+        })
       })
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok')
-        }
-      })
-      .then(() => {
+      if (response.ok) {
         const newButtonText = isActionCompleted ? '対応済です' : '対応済にする'
         const iconClass = isActionCompleted ? 'fa-check' : 'fa-redo'
         const newMessage = isActionCompleted
@@ -45,13 +40,23 @@ document.addEventListener('DOMContentLoaded', function () {
           description.innerHTML = newMessage
         }
 
-        const tostMessage = isActionCompleted
-          ? '対応済みにしました'
-          : '未対応にしました'
-        toast(tostMessage, 'success')
-      })
-      .catch((error) => {
-        console.warn(error)
-      })
+        toast(
+          isActionCompleted ? '対応済みにしました' : '未対応にしました',
+          'success'
+        )
+      } else {
+        toast('更新に失敗しました', 'error')
+        const errorText = await response.text
+        console.warn('update action_completed failed', {
+          status: response.statusCode,
+          body: errorText
+        })
+      }
+    } catch (error) {
+      console.warn(error)
+    }
+
+    isLoading = false
+    button.disabled = false
   })
 })
