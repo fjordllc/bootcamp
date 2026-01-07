@@ -15,13 +15,9 @@ FileUtils.chdir APP_ROOT do
   puts "== Installing dependencies =="
   system("bundle check") || system!("bundle install")
 
-  if File.exist?("package.json") || File.exist?("yarn.lock") || File.exist?(".node-version")
+  if File.exist?("package.json")
     puts "\n== Installing JavaScript dependencies =="
-    if File.exist?("yarn.lock") || system("which yarn > /dev/null 2>&1")
-      system!("yarn install")
-    else
-      system!("npm install")
-    end
+    system!("npm install")
   end
 
   # puts "\n== Copying sample files =="

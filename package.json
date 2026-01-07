@@ -83,8 +83,7 @@
     "webpack-assets-manifest": "^5.2.1",
     "webpack-cli": "^5.1.4",
     "webpack-merge": "^5.10.0",
-    "webpack-sources": "^3.2.3",
-    "yarn": "^1.22.22"
+    "webpack-sources": "^3.2.3"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.18.6",
