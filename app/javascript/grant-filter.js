@@ -8,19 +8,19 @@ export default class {
 
   render(element) {
     element.innerHTML = `
-    <nav class="tab-nav">
-      <ul class="tab-nav__items">
-        <li class="tab-nav__item">
-          <a class="tab-nav__item-link" href="#" data-with-grant="false">全て</a>
+    <nav class="pill-nav">
+      <ul class="pill-nav__items">
+        <li class="pill-nav__item">
+          <button class="pill-nav__item-link" data-with-grant="false">全て</button>
         </li>
-        <li class="tab-nav__item">
-          <a class="tab-nav__item-link" href="#" data-with-grant="true">給付金コース</a>
+        <li class="pill-nav__item">
+          <button class="pill-nav__item-link" data-with-grant="true">給付金コース</button>
         </li>
       </ul>
     </nav>
     `
 
-    this.tabs = element.querySelectorAll('.tab-nav__item-link')
+    this.tabs = element.querySelectorAll('.pill-nav__item-link')
 
     this.tabs.forEach((tab) => {
       const tabWithGrant = tab.dataset.withGrant === 'true'
@@ -30,7 +30,6 @@ export default class {
     })
 
     this.handleSelect = (event) => {
-      event.preventDefault()
       const selectedTab = event.currentTarget
       this.tabs.forEach((tab) => {
         tab.classList.remove('is-active')
