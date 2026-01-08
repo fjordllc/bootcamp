@@ -67,33 +67,8 @@ class QuestionAutoCloser
     end
 
     def close_with_best_answer(question, system_user)
-      ActiveRecord::Base.transaction do
-        close_answer = create_close_message(question, system_user)
-        select_as_best_answer(close_answer)
-        publish_events(close_answer)
-      end
-    end
-
-    def create_close_message(question, system_user)
-      question.answers.create!(
-        user: system_user,
-        description: AUTO_CLOSE_MESSAGE
-      )
-    end
-
-    def select_as_best_answer(close_answer)
-      correct_answer = CorrectAnswer.new(
-        id: close_answer.id,
-        question_id: close_answer.question_id,
-        user_id: close_answer.user_id,
-        description: close_answer.description,
-        created_at: close_answer.created_at,
-        updated_at: Time.current
-      )
-
-      close_answer.destroy
-      correct_answer.save!
-      correct_answer
+      close_answer = CorrectAnswer.create!(question:, user: system_user, description: AUTO_CLOSE_MESSAGE)
+      publish_events(close_answer)
     end
 
     def publish_events(correct_answer)
