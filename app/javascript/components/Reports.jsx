@@ -35,11 +35,13 @@ export default function Reports({
   const { data, error } = useSWR(reportsUrl, fetcher)
 
   useEffect(() => {
-    if (!isGrantCourse || !data) return
+    if (!isGrantCourse) return
 
     let grantFilter = null
     const initGrantFilter = async () => {
       const targetElement = document.querySelector('[data-grant-filter]')
+      if (!targetElement) return
+
       const GrantFilter = (await import('../grant-filter')).default
       grantFilter = new GrantFilter(withGrant, setWithGrant)
       grantFilter.render(targetElement)
@@ -71,6 +73,7 @@ export default function Reports({
     <div className="page-main is-react">
       {data.totalPages === 0 && (
         <div>
+          {isGrantCourse && <div data-grant-filter></div>}
           {practices && (
             <PracticeFilterDropdown
               practices={practices}
