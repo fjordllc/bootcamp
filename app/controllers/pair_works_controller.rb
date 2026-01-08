@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class PairWorksController < ApplicationController
-  before_action :set_pair_work, only: %i[show]
   before_action :set_my_pair_work, only: %i[edit destroy]
   before_action :set_updatable_pair_work, only: %i[update]
 
@@ -18,6 +17,7 @@ class PairWorksController < ApplicationController
   end
 
   def show
+    @pair_work = PairWork.find(params[:id])
     @comments = @pair_work.comments.order(:created_at)
   end
 
@@ -59,10 +59,6 @@ class PairWorksController < ApplicationController
   def pair_work_params
     params.require(:pair_work).permit(:practice_id, :title, :description, :reserved_at, :buddy_id, :channel,
                                       schedules_attributes: %i[id proposed_at _destroy])
-  end
-
-  def set_pair_work
-    @pair_work = PairWork.find(params[:id])
   end
 
   def set_my_pair_work
