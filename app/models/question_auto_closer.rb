@@ -4,9 +4,6 @@ class QuestionAutoCloser
   SYSTEM_USER_LOGIN = 'pjord'
   AUTO_CLOSE_WARNING_MESSAGE = 'このQ&Aは1ヶ月間コメントがありませんでした。1週間後に自動的にクローズされます。'
   AUTO_CLOSE_MESSAGE = '自動的にクローズしました。'
-  WARNING_MESSAGE_PATTERN = /1週間後に自動的にクローズ/
-  CLOSE_MESSAGE_PATTERN = /自動的にクローズしました/
-  ANY_CLOSE_MESSAGE_PATTERN = /自動的にクローズ/
 
   class << self
     def post_warning
@@ -38,8 +35,8 @@ class QuestionAutoCloser
       last_activity_at = [last_updated_answer&.updated_at, question.updated_at].compact.max
       return false unless last_activity_at <= 1.month.ago
 
-      !system_message?(question, system_user, ANY_CLOSE_MESSAGE_PATTERN) &&
-        !system_message?(question, system_user, WARNING_MESSAGE_PATTERN)
+      !system_message?(question, system_user, AUTO_CLOSE_MESSAGE) &&
+        !system_message?(question, system_user, AUTO_CLOSE_WARNING_MESSAGE)
     end
 
     def create_warning_message(question, system_user)
@@ -51,22 +48,22 @@ class QuestionAutoCloser
     end
 
     def should_close?(question, system_user)
-      warning_answer = find_system_message(question, system_user, WARNING_MESSAGE_PATTERN)
+      warning_answer = find_system_message(question, system_user, AUTO_CLOSE_WARNING_MESSAGE)
       return false unless warning_answer
       return false unless warning_answer.created_at <= 1.week.ago
 
-      !system_message?(question, system_user, CLOSE_MESSAGE_PATTERN)
+      !system_message?(question, system_user, AUTO_CLOSE_MESSAGE)
     end
 
-    def find_system_message(question, system_user, pattern)
+    def find_system_message(question, system_user, message)
       warning_answers = question.answers.select do |a|
-        a.user_id == system_user.id && a.description =~ pattern
+        a.user_id == system_user.id && a.description == message
       end
       warning_answers.max_by(&:created_at)
     end
 
-    def system_message?(question, system_user, pattern)
-      question.answers.any? { |a| a.user_id == system_user.id && a.description =~ pattern }
+    def system_message?(question, system_user, message)
+      question.answers.any? { |a| a.user_id == system_user.id && a.description == message }
     end
 
     def close_with_best_answer(question, system_user)
