@@ -1,20 +1,20 @@
 .micro-report(id="micro_report_#{@micro_report.id}" data-micro_report_id="#{@micro_report.id}" data-micro_report_content="#{@micro_report.content}")
   .micro-report__start
-    = render 'users/icon', user: @user, link_class: 'micro-report__user-link', image_class: 'micro-report_user-icon'
+    = render 'users/icon', user: comment_user, link_class: 'micro-report__user-link', image_class: 'micro-report_user-icon'
   .micro-report__end
     .is-micro-report.micro-report-display
       header.micro-report__header
         h2.micro-report__title
-          = link_to user_path(@user), class: 'micro-report__title-link a-text-link' do
-            = @user.login_name
+          = link_to user_path(comment_user), class: 'micro-report__title-link a-text-link' do
+            = comment_user.login_name
         time.micro-report__created-at
           = posted_datetime
       .micro-report__body
         .a-short-text.is-sm.js-markdown-view
           = @micro_report.content
       .micro-report__footer
-        - if @micro_report.user == @current_user || admin_login?
-          .micro-report-actions
+        .micro-report-actions
+          - if @micro_report.comment_user == @current_user || @current_user&.admin?
             ul.micro-report-actions__items
               li.micro-report-actions__item
                 button.micro-report-actions__action.is-edit.js-editor-button

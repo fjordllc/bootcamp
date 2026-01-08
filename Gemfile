@@ -36,6 +36,8 @@ gem 'discordrb', '~> 3.5', require: false
 gem 'doorkeeper'
 gem 'good_job', '~> 4.5'
 gem 'google-cloud-storage', '~> 1.25', require: false
+gem 'google-cloud-video-transcoder'
+gem 'google-id-token'
 gem 'holiday_jp'
 gem 'icalendar', '~> 2.8'
 gem 'interactor', '~> 3.0'

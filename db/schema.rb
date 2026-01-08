@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_09_11_162031) do
+ActiveRecord::Schema[7.2].define(version: 2025_12_23_000002) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -430,6 +430,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_11_162031) do
     t.index ["cron_key", "created_at"], name: "index_good_jobs_on_cron_key_and_created_at"
     t.index ["cron_key", "cron_at"], name: "index_good_jobs_on_cron_key_and_cron_at", unique: true
     t.index ["finished_at"], name: "index_good_jobs_jobs_on_finished_at", where: "((retried_good_job_id IS NULL) AND (finished_at IS NOT NULL))"
+    t.index ["job_class"], name: "index_good_jobs_on_job_class"
     t.index ["labels"], name: "index_good_jobs_on_labels", where: "(labels IS NOT NULL)", using: :gin
     t.index ["locked_by_id"], name: "index_good_jobs_on_locked_by_id", where: "(locked_by_id IS NOT NULL)"
     t.index ["priority", "created_at"], name: "index_good_jobs_jobs_on_priority_created_at_when_unfinished", order: { priority: "DESC NULLS LAST" }, where: "(finished_at IS NULL)"
@@ -542,8 +543,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_11_162031) do
   create_table "micro_reports", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.text "content", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "comment_user_id"
     t.index ["user_id"], name: "index_micro_reports_on_user_id"
   end
 
@@ -1068,6 +1070,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_11_162031) do
   add_foreign_key "learning_times", "reports"
   add_foreign_key "linear_scales", "survey_questions"
   add_foreign_key "micro_reports", "users"
+  add_foreign_key "micro_reports", "users", column: "comment_user_id"
   add_foreign_key "movies", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "sender_id"
