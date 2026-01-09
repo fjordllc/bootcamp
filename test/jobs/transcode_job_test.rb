@@ -11,9 +11,12 @@ class TranscodeJobTest < ActiveJob::TestCase
   end
 
   test 'calls transcode on Transcoder::Client' do
-    Transcoder::Client.stub :new, OpenStruct.new(transcode: nil) do
+    mock_client = Minitest::Mock.new
+    mock_client.expect :transcode, nil
+    Transcoder::Client.stub :new, mock_client do
       TranscodeJob.perform_now(@movie, force_video_only: true)
     end
+    assert_mock mock_client
   end
 
   test 'does not perform when transcoder is disabled' do
