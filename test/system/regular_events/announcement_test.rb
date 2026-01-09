@@ -55,11 +55,11 @@ module RegularEvents
         fill_in 'regular_event[start_at]', with: Time.zone.parse('19:00')
         fill_in 'regular_event[end_at]', with: Time.zone.parse('20:00')
         fill_in 'regular_event[description]', with: 'WIPです'
-        assert_difference 'RegularEvent.count', 1 do
-          click_button 'WIP'
-        end
       end
-      assert_text '定期イベントをWIPとして保存しました。'
+      assert_difference 'RegularEvent.count', 1 do
+        click_button 'WIP'
+        assert_text '定期イベントをWIPとして保存しました。'
+      end
       check '定期イベント公開のお知らせを書く', allow_label_click: true
       click_button '内容変更'
       assert_text '定期イベントを更新しました。'

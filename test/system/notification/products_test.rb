@@ -89,6 +89,7 @@ class Notification::ProductsTest < NotificationSystemTestCase
     visit_with_auth "/products/new?practice_id=#{practice.id}", 'hatsuno'
     fill_in 'product[body]', with: 'test'
     click_button '提出する'
+    assert_text '提出物を提出しました。'
 
     assert_user_has_notification(user: users(:mentormentaro), kind: Notification.kinds[:watching],
                                  text: "#{users(:hatsuno).login_name}さんが「#{practice.title}」の提出物を提出しました。")

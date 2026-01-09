@@ -76,6 +76,7 @@ class WorksTest < ApplicationSystemTestCase
     accept_confirm do
       click_link '削除'
     end
+    assert_text '作品はまだありません。'
     assert_text 'ポートフォリオから作品を削除しました'
   end
 

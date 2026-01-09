@@ -11,6 +11,7 @@ class Notification::MentionTest < NotificationSystemTestCase
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
+    mock_openai_chat_completion
   end
 
   teardown do
@@ -61,6 +62,7 @@ class Notification::MentionTest < NotificationSystemTestCase
       fill_in 'question_title', with: 'メンション通知が送信されるかのテスト'
       fill_in 'question_description', with: description
       click_button '登録する'
+      assert_text '質問を作成しました。'
     }
 
     assert_notify_mention(post_mention)

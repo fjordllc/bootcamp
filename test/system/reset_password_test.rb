@@ -16,6 +16,7 @@ class ResetPasswordTest < ApplicationSystemTestCase
 
     assert_difference 'ActionMailer::Base.deliveries.count' do
       click_button 'パスワード再設定'
+      assert_text 'パスワードの再設定について'
     end
 
     mail = ActionMailer::Base.deliveries.last
@@ -39,6 +40,7 @@ class ResetPasswordTest < ApplicationSystemTestCase
 
     assert_difference 'ActionMailer::Base.deliveries.count' do
       click_button 'パスワード再設定'
+      assert_text 'パスワードの再設定について'
     end
 
     reset_password_token = edit_password_reset_path(User.find_by(email: users(:kananashi).email).reset_password_token)

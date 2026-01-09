@@ -98,15 +98,13 @@ module Products
       visit_with_auth "/products/#{products(:product8).id}/edit", 'kimura'
       click_button 'WIP'
       click_button '提出する'
+      assert_selector '.page-tabs__item-link.is-active', text: '提出物'
 
       visit_with_auth '/api/products/unassigned/counts.txt', 'komagata'
 
-      expected = <<~BODY
-        - 6日以上経過：6件
-        - 5日経過：1件
-        - 4日経過：1件
-      BODY
-      assert_includes page.body, expected
+      assert_selector 'pre', text: '- 6日以上経過：6件'
+      assert_selector 'pre', text: '- 5日経過：1件'
+      assert_selector 'pre', text: '- 4日経過：1件'
     end
 
     test 'update published_at when update product content after wips submitted product' do
@@ -115,6 +113,7 @@ module Products
 
       visit_with_auth "/products/#{product.id}", 'kimura'
       click_button '提出する'
+      assert_text '6日以内にメンターがレビューしますので'
 
       assert product.reload.published_at > product_published_at
     end

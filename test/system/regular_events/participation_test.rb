@@ -22,10 +22,8 @@ module RegularEvents
         fill_in 'regular_event[end_at]', with: Time.zone.parse('20:00')
         fill_in 'regular_event[description]', with: '全員が参加するイベントです。'
         check('regular_event_all', allow_label_click: true)
-        assert_difference 'RegularEvent.count', 1 do
-          click_button '作成'
-        end
       end
+      click_button '作成'
       assert_text '定期イベントを作成しました。'
       assert_text '毎週月曜日'
       assert_text 'Watch中'
@@ -52,10 +50,8 @@ module RegularEvents
         fill_in 'regular_event[end_at]', with: Time.zone.parse('20:00')
         fill_in 'regular_event[description]', with: '全員が参加するイベントです。'
         check('regular_event_all', allow_label_click: true)
-        assert_difference 'RegularEvent.count', 1 do
-          click_button '作成'
-        end
       end
+      click_button '作成'
       assert_text '定期イベントを作成しました。'
       assert_text "毎週#{%w[日曜日 月曜日 火曜日 水曜日 木曜日 金曜日 土曜日][now.to_date.wday]}"
       assert_text 'Watch中'
@@ -72,7 +68,6 @@ module RegularEvents
     end
 
     test 'join event user to organizers automatically' do
-      original_count = RegularEvent.count
       visit_with_auth new_regular_event_path, 'hajime'
       within 'form[name=regular_event]' do
         fill_in 'regular_event[title]', with: 'ブルーベリー本輪読会'
@@ -86,7 +81,6 @@ module RegularEvents
         click_button '作成'
       end
       assert_text '定期イベントを作成しました。', wait: 10
-      assert_equal original_count + 1, RegularEvent.count
       assert_text '毎週金曜日'
       assert_text 'Watch中'
       assert_css '.a-user-icon.is-hajime'

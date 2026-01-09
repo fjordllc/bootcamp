@@ -22,11 +22,11 @@ module RegularEvents
         fill_in 'regular_event[start_at]', with: Time.zone.parse('19:00')
         fill_in 'regular_event[end_at]', with: Time.zone.parse('20:00')
         fill_in 'regular_event[description]', with: '予習不要です'
-        assert_difference 'RegularEvent.count', 1 do
-          click_button '作成'
-        end
       end
-      assert_text '定期イベントを作成しました。'
+      assert_difference 'RegularEvent.count', 1 do
+        click_button '作成'
+        assert_text '定期イベントを作成しました。'
+      end
       assert_text '毎週月曜日'
       assert_text 'Watch中'
     end

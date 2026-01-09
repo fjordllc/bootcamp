@@ -59,6 +59,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     )
     visit_with_auth "/products/#{product.id}", 'komagata'
     click_button '提出物を合格にする'
+    assert_text '提出物を合格にしました。'
     visit_with_auth '/products/unchecked?target=unchecked_all', 'komagata'
     assert_no_text product.practice.title
   end
