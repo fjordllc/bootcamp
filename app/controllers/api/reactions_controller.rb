@@ -29,7 +29,7 @@ class API::ReactionsController < API::BaseController
                 .includes(user: { avatar_attachment: :blob }).order(created_at: :asc)
     grouped_reactions = reactions.group_by(&:kind)
     result = Reaction.emojis.each_with_object({}) do |(kind, emoji), hash|
-      users = (grouped_reactions[kind]&.map { |reaction| user_payload(reaction.user) }) || []
+      users = grouped_reactions[kind]&.map { |reaction| user_payload(reaction.user) } || []
       hash[kind] = { emoji:, users: } unless users.empty?
     end
     render json: result
