@@ -10,6 +10,7 @@ ignore_unused_routes:
 ignore_unreachable_actions:
   - rails\/.*
   - active_storage\/.*
+  - mission_control\/.*
   - .*#admin_login\?
   - .*#mentor_login\?
   - .*#admin_or_mentor_login\?
