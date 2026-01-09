@@ -102,7 +102,7 @@ jobs:
           command: 'dockerize -wait tcp://localhost:5432 -timeout 1m'
       - run:
           name: Database setup
-          command: 'bundle exec rails db:setup'
+          command: 'bundle exec rails db:prepare'
       - run:
           name: Assets precompile
           command: 'bundle exec rails assets:clean assets:precompile'

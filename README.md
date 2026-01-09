@@ -15,7 +15,7 @@ wiki 内の[画像処理ライブラリのインストール](https://github.com
 
 ```
 $ bin/setup
-$ foreman start -f Procfile.dev
+$ bin/dev 
 ```
 
 http://localhost:3000/ にアクセス。

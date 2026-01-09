@@ -34,7 +34,6 @@ gem 'diffy'
 gem 'discord-notifier'
 gem 'discordrb', '~> 3.5', require: false
 gem 'doorkeeper'
-gem 'good_job', '~> 4.5'
 gem 'google-cloud-storage', '~> 1.25', require: false
 gem 'google-cloud-video-transcoder'
 gem 'google-id-token'
@@ -49,6 +48,7 @@ gem 'kramdown-parser-gfm'
 gem 'mentionable', '~> 0.3.0'
 gem 'meta-tags'
 gem 'mini_magick'
+gem 'mission_control-jobs'
 gem 'mutex_m', '0.1.1'
 gem 'net-imap', require: false
 gem 'net-pop', require: false
@@ -70,6 +70,7 @@ gem 'rails_autolink'
 gem 'rails-i18n'
 gem 'rails-patterns', '~> 0.2'
 gem 'ransack', '~> 4.3'
+gem 'solid_queue'
 # TODO: connection_pool互換性が修正された安定版リリース後にgem版に戻す
 gem 'react-rails', github: 'reactjs/react-rails', ref: '224d03b8e04b95e4d16197fc6ecf75601543154a'
 gem 'recaptcha', '~> 5.12'
