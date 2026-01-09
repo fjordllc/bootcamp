@@ -1,15 +1,11 @@
 # frozen_string_literal: true
 
-class DropGoodJobTables < ActiveRecord::Migration[8.0]
-  def up
-    drop_table :good_jobs, if_exists: true
-    drop_table :good_job_executions, if_exists: true
-    drop_table :good_job_processes, if_exists: true
-    drop_table :good_job_settings, if_exists: true
-    drop_table :good_job_batches, if_exists: true
-  end
-
-  def down
-    raise ActiveRecord::IrreversibleMigration
+class DropGoodJobTables < ActiveRecord::Migration[7.2]
+  def change
+    drop_table :good_job_batches if table_exists?(:good_job_batches)
+    drop_table :good_job_executions if table_exists?(:good_job_executions)
+    drop_table :good_job_processes if table_exists?(:good_job_processes)
+    drop_table :good_job_settings if table_exists?(:good_job_settings)
+    drop_table :good_jobs if table_exists?(:good_jobs)
   end
 end
