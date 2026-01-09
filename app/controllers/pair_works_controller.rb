@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class PairWorksController < ApplicationController
-  before_action :set_pair_work, only: %i[show edit]
-  before_action :set_my_pair_work, only: %i[destroy]
+  before_action :set_pair_work, only: %i[show]
+  before_action :set_my_pair_work, only: %i[edit destroy]
   before_action :set_updatable_pair_work, only: %i[update]
 
   PAGER_NUMBER = 10
