@@ -68,7 +68,7 @@
     "sass-loader": "^14.2.1",
     "select2": "^4.0.7-rc.0",
     "set-value": "^4.0.1",
-    "shakapacker": "^7.2.3",
+    "shakapacker": "^9.5.0",
     "sortablejs": "^1.15.0",
     "stimulus": "^3.2.2",
     "sweetalert2": "^11.1.5",
