@@ -8,9 +8,7 @@ class Subscription
     'past_due': 'is-warning'
   }.freeze
 
-  def retrieve(id)
-    Stripe::Subscription.retrieve(id)
-  end
+  delegate :retrieve, to: :'Stripe::Subscription'
 
   def create(customer_id, idempotency_key = SecureRandom.uuid, trial: 3)
     options = {
