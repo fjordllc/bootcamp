@@ -29,19 +29,12 @@ RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
     apt-get install -y --no-install-recommends nodejs && \
     rm -rf /var/lib/apt/lists/*
 
-# Install latest yarn
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends yarn && \
-    rm -rf /var/lib/apt/lists/*
-
 # Set timezone
 RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 # Install ALL npm packages (including devDependencies for asset compilation)
-COPY package.json yarn.lock ./
-RUN yarn install --ignore-engines
+COPY package.json package-lock.json ./
+RUN npm install
 
 # Install gems
 COPY Gemfile Gemfile.lock ./
@@ -88,20 +81,13 @@ RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
     apt-get install -y --no-install-recommends nodejs && \
     rm -rf /var/lib/apt/lists/*
 
-# Install yarn for runtime
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends yarn && \
-    rm -rf /var/lib/apt/lists/*
-
 # Copy gems configuration
 COPY Gemfile Gemfile.lock ./
 RUN bundle install -j4
 
 # Install only production npm packages
-COPY package.json yarn.lock ./
-RUN yarn install --prod --ignore-engines
+COPY package.json package-lock.json ./
+RUN npm install --omit=dev
 
 # Copy application code from builder (excluding large directories)
 COPY --from=builder /app/app ./app
