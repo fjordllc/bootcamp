@@ -98,14 +98,13 @@ module Products
       visit_with_auth "/products/#{products(:product8).id}/edit", 'kimura'
       click_button 'WIP'
       click_button '提出する'
+      assert_selector '.page-tabs__item-link.is-active', text: '提出物'
 
       visit_with_auth '/api/products/unassigned/counts.txt', 'komagata'
 
-      # rubocop:disable Minitest/AssertIncludes
-      assert page.body.include?('- 6日以上経過：6件'), '6日以上経過の件数が正しくない'
-      assert page.body.include?('- 5日経過：1件'), '5日経過の件数が正しくない'
-      assert page.body.include?('- 4日経過：1件'), '4日経過の件数が正しくない'
-      # rubocop:enable Minitest/AssertIncludes
+      assert_selector 'pre', text: '- 6日以上経過：6件'
+      assert_selector 'pre', text: '- 5日経過：1件'
+      assert_selector 'pre', text: '- 4日経過：1件'
     end
 
     test 'update published_at when update product content after wips submitted product' do
