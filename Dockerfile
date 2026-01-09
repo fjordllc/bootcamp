@@ -45,6 +45,7 @@ COPY . ./
 
 # Compile assets (now with devDependencies available)
 ENV RAILS_LOG_TO_STDOUT true
+ENV SHAKAPACKER_NODE_MODULES_BIN_PATH ./node_modules/.bin
 RUN SECRET_KEY_BASE=dummy bundle exec rails assets:precompile
 
 # Production stage - minimal runtime image
