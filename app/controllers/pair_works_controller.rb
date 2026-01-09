@@ -9,7 +9,7 @@ class PairWorksController < ApplicationController
   def index
     @pair_works = PairWork.by_target(params[:target])
                           .with_avatar
-                          .preload(:practice)
+                          .preload(:practice, :comments)
                           .order(:published_at)
                           .page(params[:page])
                           .per(PAGER_NUMBER)
@@ -17,7 +17,7 @@ class PairWorksController < ApplicationController
   end
 
   def show
-    @pair_work = PairWork.find(params[:id])
+    @pair_work = PairWork.find(params[:id]).preload(:schedules)
     @comments = @pair_work.comments.order(:created_at)
   end
 
