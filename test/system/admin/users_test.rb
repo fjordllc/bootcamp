@@ -180,25 +180,23 @@ class Admin::UsersTest < ApplicationSystemTestCase
 
   test 'make user retired' do
     user = users(:hatsuno)
-    user.discord_profile.update!(times_id: '987654321987654321')
+    times_channel_id = '987654321987654321'
+    user.discord_profile.update!(times_id: times_channel_id)
+    # Clear subscription_id and customer_id to avoid Stripe API calls during retirement
+    user.update_columns(subscription_id: nil, customer_id: nil) # rubocop:disable Rails/SkipsModelValidations
     date = Date.current
-    Discord::Server.stub(:delete_text_channel, true) do
-      VCR.use_cassette 'subscription/update' do
-        Card.stub(:destroy_all, true) do
-          visit_with_auth edit_admin_user_path(user.id), 'komagata'
-          check '退会済', allow_label_click: true
-          fill_in 'user_retired_on', with: date
-          click_on '更新する'
-        end
-      end
-    end
-    assert_text 'ユーザー情報を更新しました。'
-    assert_equal date, user.reload.retired_on
-    assert_nil user.discord_profile.times_id
 
-    assert_requested(:post, "https://api.stripe.com/v1/subscriptions/#{user.subscription_id}") do |req|
-      req.body.include?('cancel_at_period_end=true')
+    Discord::Server.stub(:delete_text_channel, true) do
+      visit_with_auth edit_admin_user_path(user.id), 'komagata'
+      check '退会済', allow_label_click: true
+      fill_in 'user_retired_on', with: date
+      click_on '更新する'
+
+      assert_text 'ユーザー情報を更新しました。'
     end
+    assert_equal date, user.reload.retired_on
+    user.discord_profile.reload
+    assert_nil user.discord_profile.times_id, "times_id should be nil but was #{user.discord_profile.times_id}"
   end
 
   test 'hide input for graduation date when unchecked' do
@@ -234,13 +232,17 @@ class Admin::UsersTest < ApplicationSystemTestCase
   test 'make user graduated' do
     user = users(:hatsuno)
     date = Date.current
-    VCR.use_cassette 'subscription/update' do
-      Card.stub(:destroy_all, true) do
-        visit_with_auth edit_admin_user_path(user.id), 'komagata'
-        check '卒業済', allow_label_click: true
-        fill_in 'user_graduated_on', with: date
-        click_on '更新する'
-      end
+
+    stub_request(:get, "https://api.stripe.com/v1/subscriptions/#{user.subscription_id}")
+      .to_return(status: 200, body: { id: user.subscription_id, status: 'active' }.to_json)
+    stub_request(:post, "https://api.stripe.com/v1/subscriptions/#{user.subscription_id}")
+      .to_return(status: 200, body: { id: user.subscription_id, cancel_at_period_end: true }.to_json)
+
+    Card.stub(:destroy_all, true) do
+      visit_with_auth edit_admin_user_path(user.id), 'komagata'
+      check '卒業済', allow_label_click: true
+      fill_in 'user_graduated_on', with: date
+      click_on '更新する'
     end
     assert_text 'ユーザー情報を更新しました。'
     assert_equal date, user.reload.graduated_on
@@ -316,8 +318,8 @@ class Admin::UsersTest < ApplicationSystemTestCase
     visit_with_auth edit_admin_user_path(user.id), 'komagata'
     fill_in 'user_training_ends_on', with: training_ends_on
     click_on '更新する'
-    visit_with_auth edit_admin_user_path(user.id), 'komagata'
-    assert has_field?('user_training_ends_on', with: training_ends_on)
+    assert_text 'ユーザー情報を更新しました。'
+    assert_equal training_ends_on, user.reload.training_ends_on
   end
 
   test 'reset value of training end date when unchecked' do

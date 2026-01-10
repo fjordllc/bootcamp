@@ -162,8 +162,6 @@ module Users
     end
 
     test 'can upload heic image and converts it to webp with login_name' do
-      skip 'HEICのサポートがないため、CI では実行されません。' if ENV['CI']
-
       visit_with_auth '/current_user/edit', 'hajime'
       attach_file 'user[avatar]', 'test/fixtures/files/images/heic-sample-file.heic', make_visible: true
       click_button '更新する'

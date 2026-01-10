@@ -8,7 +8,7 @@
 - `bin/` helper scripts; `Procfile.dev` runs Rails and asset dev server.
 
 ## Build, Test, and Development Commands
-- Setup: `bin/setup` — install gems, prepare DB, yarn, etc.
+- Setup: `bin/setup` — install gems, prepare DB, npm, etc.
 - Run (dev): `foreman start -f Procfile.dev` — Rails on `:3000` + Shakapacker.
 - Tests (headless): `rails test:all`.
 - Tests (browser): `HEADFUL=1 rails test:all`.
@@ -19,7 +19,7 @@
 ## Coding Style & Naming Conventions
 - Ruby: 2-space indent, snake_case methods, CamelCase classes; enforced by RuboCop (`.rubocop.yml`).
 - Views: Slim templates, linted by `config/slim_lint.yml`.
-- JS/TS: Code in `app/javascript/`; ESLint + Prettier via `yarn lint` scripts; React 17 and Shakapacker/Webpack 5.
+- JS/TS: Code in `app/javascript/`; ESLint + Prettier via `npm run lint` scripts; React 18 and Shakapacker/Webpack 5.
 - Files follow Rails conventions (e.g., `app/models/user.rb`, test `test/models/user_test.rb`).
 
 ## Testing Guidelines

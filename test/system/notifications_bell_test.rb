@@ -22,6 +22,7 @@ class NotificationsBellTest < ApplicationSystemTestCase
       sender: users(:machida)
     )
     visit_with_auth '/notifications?status=unread&target=announcement', 'komagata'
+    assert_text 'お知らせのテスト通知'
     click_link 'お知らせを既読にする'
 
     visit '/'

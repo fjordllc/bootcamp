@@ -62,25 +62,25 @@ class Notification::TabsBadgesTest < NotificationSystemTestCase
     visit_with_auth '/notifications', 'sotugyou'
 
     within first('.page-tabs__item:nth-child(1)') do
-      find('.not-solved-count', text: '10')
+      assert_selector '.not-solved-count', text: '10'
     end
     within first('.page-tabs__item:nth-child(2)') do
-      find('.not-solved-count', text: '2')
+      assert_selector '.not-solved-count', text: '2'
     end
     within first('.page-tabs__item:nth-child(3)') do
-      find('.not-solved-count', text: '2')
+      assert_selector '.not-solved-count', text: '2'
     end
     within first('.page-tabs__item:nth-child(4)') do
-      find('.not-solved-count', text: '3')
+      assert_selector '.not-solved-count', text: '3'
     end
     within first('.page-tabs__item:nth-child(5)') do
-      find('.not-solved-count', text: '2')
+      assert_selector '.not-solved-count', text: '2'
     end
     within first('.page-tabs__item:nth-child(6)') do
-      find('.not-solved-count', text: '1')
+      assert_selector '.not-solved-count', text: '1'
     end
     within first('.page-tabs__item:nth-child(7)') do
-      find('.not-solved-count', text: '1')
+      assert_selector '.not-solved-count', text: '1'
     end
   end
 

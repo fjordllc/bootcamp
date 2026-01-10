@@ -24,11 +24,11 @@ class NotificationsTest < ApplicationSystemTestCase
       fill_in('new_comment[description]', with: 'test')
     end
     click_button 'コメントする'
+    assert_selector '.thread-comment__description', text: 'test'
 
-    if ActionMailer::Base.deliveries.present?
-      last_mail = ActionMailer::Base.deliveries.last
-      assert_not_equal '[FBC] kimuraさんからコメントが届きました。', last_mail.subject
-    end
+    denied_mail_subject = '[FBC] kimuraさんからコメントが届きました。'
+    mail_subjects = ActionMailer::Base.deliveries.map(&:subject)
+    assert_not_includes mail_subjects, denied_mail_subject
   end
 
   test "don't notify the same report" do

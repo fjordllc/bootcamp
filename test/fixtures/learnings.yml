@@ -109,14 +109,19 @@ learning17:
   status: "submitted"
   completion_message_displayed: false
 
-<% (0..1).each do |i| %>
-learning<%= i + 18 %>:
-  user: <%= [:jobseeker, :muryou][i] %>
+learning18:
+  user: jobseeker
   practice: practice1
   status: "complete"
-  created_at: <%= (today - (2.weeks - 1.day) - i.day).to_formatted_s(:db) %>
-  updated_at: <%= (today - (2.weeks - 1.day) - i.day).to_formatted_s(:db) %>
-<% end %>
+  created_at: <%= (today - 1.week).to_formatted_s(:db) %>
+  updated_at: <%= (today - 1.week).to_formatted_s(:db) %>
+
+learning19:
+  user: muryou
+  practice: practice1
+  status: "complete"
+  created_at: <%= (today - 3.weeks).to_formatted_s(:db) %>
+  updated_at: <%= (today - 3.weeks).to_formatted_s(:db) %>
 
 
 learning23:

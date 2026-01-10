@@ -27,6 +27,7 @@ module Practices
         attach_file 'practice[ogp_image]', 'test/fixtures/files/practices/ogp_images/1.jpg', make_visible: true
       end
       click_button '更新する'
+      assert_text 'プラクティスを更新しました。'
 
       visit edit_mentor_practice_path(practice)
       within('form[name=practice]') do

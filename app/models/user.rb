@@ -1004,7 +1004,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
       )
       avatar.attach(custom_blob)
     end
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::Error => e
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::Error, Vips::Error => e
     log_avatar_error('attach_custom_avatar', e)
   end
 

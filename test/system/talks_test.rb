@@ -27,12 +27,12 @@ class TalksTest < ApplicationSystemTestCase
   test 'admin can see tabs on user talk page' do
     user = users(:kimura)
     visit_with_auth "/talks/#{user.talk.id}", 'komagata'
-    has_css?('page-tabs')
+    assert_selector '.page-tabs'
   end
 
   test 'non-admin user cannot see tabs on user talk page' do
     user = users(:kimura)
     visit_with_auth "/talks/#{user.talk.id}", 'kimura'
-    has_no_css?('page-tabs')
+    assert_no_selector '.page-tabs'
   end
 end
