@@ -634,7 +634,7 @@ GEM
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
     semantic_range (3.1.0)
-    shakapacker (7.2.3)
+    shakapacker (9.5.0)
       activesupport (>= 5.2)
       package_json
       rack-proxy (>= 0.6.1)
@@ -837,7 +837,7 @@ DEPENDENCIES
   ruby-openai
   rubyzip
   selenium-webdriver
-  shakapacker (~> 7.0)
+  shakapacker (~> 9.0)
   slim-rails
   slim_lint
   solid_queue
