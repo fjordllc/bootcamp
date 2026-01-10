@@ -17,7 +17,7 @@ class PairWorksController < ApplicationController
   end
 
   def show
-    @pair_work = PairWork.find(params[:id]).includes(:schedules)
+    @pair_work = PairWork.includes(:schedules).find(params[:id])
     @comments = @pair_work.comments.order(:created_at)
   end
 
