@@ -26,17 +26,17 @@
               .card-list-item-meta__item
                 time.a-meta
                   span.a-meta__label 提出
-                  | #{l product.published_at, format: :default_with_space}
+                  | #{l product.published_at}
             - else
               .card-list-item-meta__item
                 time.a-meta
                   span.a-meta__label 提出
-                  | #{l product.created_at, format: :default_with_space}
+                  | #{l product.created_at}
               .card-list-item-meta__item
                 - if product.updated_at
                   time.a-meta
                     span.a-meta__label 更新
-                    | #{l product.updated_at, format: :default_with_space}
+                    | #{l product.updated_at}
       - if !product.comments.empty?
         hr.card-list-item__row-separator
         .card-list-item__row
@@ -59,22 +59,22 @@
                 .card-list-item-meta__item
                 - if product.self_last_commented_at > product.mentor_last_commented_at
                   time.a-meta
-                    | 〜 #{l product.self_last_commented_at, format: :default_with_space}（
+                    | 〜 #{l product.self_last_commented_at}（
                     strong 提出者
                     | ）
                 - elsif product.self_last_commented_at < product.mentor_last_commented_at
                   time.a-meta
-                    | 〜 #{l product.mentor_last_commented_at, format: :default_with_space}（メンター）
+                    | 〜 #{l product.mentor_last_commented_at}（メンター）
               - elsif product.self_last_commented_at || product.mentor_last_commented_at
                 .card-list-item-meta__item
                 - if product.self_last_commented_at
                   time.a-meta
-                    | 〜 #{l product.self_last_commented_at, format: :default_with_space}（
+                    | 〜 #{l product.self_last_commented_at}（
                     strong 提出者
                     | ）
                 - elsif product.mentor_last_commented_at
                   time.a-meta
-                    | 〜 #{l product.mentor_last_commented_at, format: :default_with_space}（メンター）
+                    | 〜 #{l product.mentor_last_commented_at}（メンター）
       - if current_user.mentor? && product.checks.empty?
         .card-list-item__row.is-only-mentor
           .card-list-item__assignee
