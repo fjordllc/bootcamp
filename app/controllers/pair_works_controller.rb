@@ -9,7 +9,7 @@ class PairWorksController < ApplicationController
   def index
     @pair_works = PairWork.by_target(params[:target])
                           .with_avatar
-                          .includes(:practice, :comments)
+                          .includes(:practice, :comments, :user)
                           .order(:published_at)
                           .page(params[:page])
                           .per(PAGER_NUMBER)
