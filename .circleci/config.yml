@@ -71,6 +71,7 @@ jobs:
       RAILS_ENV: test
       DATABASE_URL: 'postgres://postgres:postgres@localhost/ci_test'
       TZ: Asia/Tokyo
+      SHAKAPACKER_NODE_MODULES_BIN_PATH: ./node_modules/.bin
     parallelism: 8
     steps:
       - checkout
