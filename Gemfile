@@ -90,7 +90,7 @@ gem 'view_component'
 
 group :development, :test do
   gem 'benchmark', require: false
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'byebug', platforms: :windows
   gem 'dotenv-rails'
   gem 'pry-byebug'
   gem 'rubocop', require: false
