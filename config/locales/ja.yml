@@ -22,7 +22,6 @@ ja:
       mdw_unique: '%-m/%-d(%a)'
       long: '%Y年%m月%d日(%a)'
       mdw: '%m/%d %a'
-      default_with_space: '%Y年 %m月 %d日 （%a） %H:%M'
       day_name: '%A'
   dates:
     today: '今日'
