@@ -11,7 +11,7 @@ gem 'image_processing', '>= 1.12.2', '< 2.0'
 gem 'jbuilder'
 gem 'puma', '>= 5.0'
 gem 'rails', '8.1.1'
-gem 'shakapacker', '~> 7.0'
+gem 'shakapacker', '~> 9.0'
 gem 'sprockets-rails', '>= 2.0.0'
 
 # not default
@@ -90,7 +90,7 @@ gem 'view_component'
 
 group :development, :test do
   gem 'benchmark', require: false
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'byebug', platforms: :windows
   gem 'dotenv-rails'
   gem 'pry-byebug'
   gem 'rubocop', require: false
