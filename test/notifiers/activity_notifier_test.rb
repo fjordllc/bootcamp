@@ -162,4 +162,17 @@ class ActivityNotifierTest < ActiveSupport::TestCase
       notification.notify_later
     end
   end
+
+  test '#create_organizer' do
+    regular_event = regular_events(:regular_event1)
+    notification = ActivityNotifier.with(regular_event:, receiver: users(:hatsuno), sender: users(:hajime)).create_organizer
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      notification.notify_now
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      notification.notify_later
+    end
+  end
 end
