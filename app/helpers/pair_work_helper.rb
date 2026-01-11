@@ -2,7 +2,7 @@
 
 module PairWorkHelper
   def schedule_dates(date)
-    (0..6).map { |i| date.to_date + i.day }
+    (0..6).map { |i| date.to_date + i.days }
   end
 
   def sorted_wdays(date)
@@ -29,7 +29,7 @@ module PairWorkHelper
   end
 
   def schedule_time(day_count, hour_count)
-    Time.current.beginning_of_day + day_count.days + hour_count.hour
+    Time.current.beginning_of_day + day_count.days + hour_count.hours
   end
 
   def schedule_check_box_id(target_time)

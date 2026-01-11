@@ -13,7 +13,7 @@
           th
             | #{hour}:00
           - 7.times do |day|
-            - target_time = pair_work.created_at.beginning_of_day + hour.hour + day.day
+            - target_time = pair_work.created_at.beginning_of_day + hour.hours + day.days
             - if proposed_at_list.include?(target_time)
               td.p-0.h-6.relative
                 = form_with model: pair_work, method: :patch, local: true do
