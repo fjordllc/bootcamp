@@ -1285,6 +1285,26 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_empty ActionMailer::Base.deliveries
   end
 
+  test 'create_organizer' do
+    regular_event = RegularEvent.find(ActiveRecord::FixtureSet.identify(:regular_event1))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))
+    sender = User.find(ActiveRecord::FixtureSet.identify(:kimura))
+    ActivityMailer.with(regular_event:, receiver:, sender:).create_organizer
+
+    ActivityMailer.create_organizer(
+      regular_event:,
+      receiver:,
+      sender:
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] 定期イベント【開発MTG】の主催者に追加されました。', email.subject
+    assert_match(/定期イベント/, email.body.to_s)
+  end
+
   private
 
   def mailer_url_options
