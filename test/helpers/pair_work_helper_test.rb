@@ -53,7 +53,7 @@ class PairWorkHelperTest < ActionView::TestCase
     elapsed_day_count = 1
     elapsed_time_count = 1
     now = Time.current.beginning_of_day
-    target_time = now + elapsed_day_count.days + elapsed_time_count.hour
+    target_time = now + elapsed_day_count.days + elapsed_time_count.hours
 
     assert_equal target_time, schedule_time(elapsed_day_count, elapsed_time_count)
   end
