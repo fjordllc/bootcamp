@@ -2,7 +2,7 @@
   "scripts": {
     "lint": "run-p lint:*",
     "lint:eslint": "eslint 'app/javascript/**/*.{js,jsx}' --max-warnings=0",
-    "lint:prettier": "prettier app/javascript/**/*.{js,jsx} --check"
+    "lint:prettier": "prettier 'app/javascript/**/*.{js,jsx}' --check"
   },
   "dependencies": {
     "@babel/core": "^7.23.7",
