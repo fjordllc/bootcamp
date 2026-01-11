@@ -2,11 +2,13 @@ import React, { useState, useCallback, useRef, useEffect } from 'react'
 import TagifyTags from '@yaireo/tagify/dist/react.tagify'
 import '@yaireo/tagify/dist/tagify.css' // Tagify CSS
 import useSWR from 'swr'
-import fetcher from '../../fetcher'
+import { get } from '@rails/request.js'
 import transformHeadSharp from './transform-head-sharp.js'
 import validateTagName from './validate-tag-name'
 import headIsSharpOrOctothorpe from './head-is-sharp-or-octothorpe'
 import parseTags from './parse_tags'
+const fetcher = (url) =>
+  get(url, { responseKind: 'json' }).then((res) => res.json)
 
 export default function TagsInput({
   tagsInitialValue,
