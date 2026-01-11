@@ -24,7 +24,7 @@
     .event-main-actions__body
       .event-main-actions__description
         - if event.capacity > event.participants.count
-          // TODO helprtにしてわかりやすくしたい↑
+          // TODO helperにしてわかりやすくしたい↑
           p
             | あと#{event.capacity - event.participants.count}名が参加できます。
         - else
@@ -33,7 +33,7 @@
       ul.event-main-actions__items
         li.event-main-actions__item
           - if event.capacity > event.participants.count
-            // TODO helprtにしてわかりやすくしたい↑
+            // TODO helperにしてわかりやすくしたい↑
             = link_to event_participations_path(event_id: event), method: :post,
               data: { confirm: '特別イベント参加申込をします。よろしいですか?' }, class: 'a-button is-primary is-md is-block' do
               | 参加申込
