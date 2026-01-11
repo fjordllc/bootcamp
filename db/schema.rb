@@ -554,6 +554,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_19_100001) do
     t.datetime "proposed_at", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["pair_work_id", "proposed_at"], name: "index_pair_work_schedules_on_pair_work_id_and_proposed_at", unique: true
     t.index ["pair_work_id"], name: "index_pair_work_schedules_on_pair_work_id"
   end
 
