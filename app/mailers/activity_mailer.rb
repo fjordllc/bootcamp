@@ -468,4 +468,22 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
     message
   end
+
+  # required params: regular_event, receiver
+  def create_organizer(args = {})
+    @regular_event ||= args[:regular_event]
+    @receiver ||= args[:receiver]
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: "/regular_events/#{@regular_event.id}",
+      kind: Notification.kinds[:create_organizer]
+    )
+
+    subject = "[FBC] 定期イベント【#{@regular_event.title}】の主催者に追加されました。"
+
+    message = mail(to: @user.email, subject:)
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
+  end
 end
