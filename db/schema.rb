@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_07_094500) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_11_044958) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -557,6 +557,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_07_094500) do
     t.datetime "proposed_at", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["pair_work_id", "proposed_at"], name: "index_pair_work_schedules_on_pair_work_id_and_proposed_at", unique: true
     t.index ["pair_work_id"], name: "index_pair_work_schedules_on_pair_work_id"
   end
 
