@@ -13,7 +13,7 @@ class PairWorkMatchingNotifier
   private
 
   def notify_watchers(pair_work)
-    receivers = User.where(id: pair_work.watches.pluck(:user_id))
+    receivers = User.where(id: pair_work.watches.select(:user_id))
     receivers.each do |receiver|
       ActivityDelivery.with(pair_work:, receiver:).notify(:matching_pair_work)
     end
