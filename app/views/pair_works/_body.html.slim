@@ -46,7 +46,7 @@
       ul.card-main-actions__items
         li.card-main-actions__item
           = link_to edit_pair_work_path(pair_work), class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
-            i#new.fa-solid.fa-pen
+            i.fa-solid.fa-pen
             | 内容修正
         li.card-main-actions__item.is-sub class=(current_user.admin? || pair_work.user == current_user ? '' : 'is-hidden')
           = link_to '削除', pair_work_path(pair_work),
