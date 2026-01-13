@@ -3,7 +3,7 @@
     a.thread-comment__user-link href="#{answer.user.url}"
       span class="#{answer.user.user_icon_frame_class}"
         img.thread-comment__user-icon.a-user-icon src="#{answer.user.avatar_url}"
-    - if answer.user.company && (answer.user.adviser? || answer.user.trainee?)
+    - if answer.user.company && answer.user.adviser?
       a.thread-comment__company-link href="#{company_path(answer.user.company)}"
         img.thread-comment__company-logo src="#{answer.user.company.logo_url}"
   .thread-comment__end
@@ -26,7 +26,7 @@
           = l(answer.created_at)
       hr.a-border-tint
       .thread-comment__description
-        - if answer.user.company && answer.user.adviser
+        - if answer.user.company && answer.user.adviser?
           a.thread-comment__company-link.is-hidden-md-up href="#{company_path(answer.user.company)}"
             img.thread-comment__company-logo src="#{answer.user.company.logo_url}"
         .a-long-text.is-md.answer-text
@@ -35,27 +35,25 @@
       .thread-comment__reactions
         = render 'reactions/reactions', reactionable: answer
       hr.a-border-tint
-      footer.card-footer
-        .card-main-actions
-          ul.card-main-actions__items
-            - if answer.user.id == user.id || user.admin?
-              li.card-main-actions__item
-                button.card-main-actions__action.a-button.is-sm.is-secondary.is-block.edit-button
-                  i.fa-solid.fa-pen
-                  | 内容修正
-            - if user.mentor? || user.id == question.user.id
-              - make_button_hidden = (question.correct_answer && answer.type != 'CorrectAnswer') || (answer.type == 'CorrectAnswer')
-              - cancel_button_hidden = (question.correct_answer && answer.type != 'CorrectAnswer') || !question.correct_answer
-              li.card-main-actions__item.make-best-answer-button class=(make_button_hidden ? 'is-hidden' : '')
-                button.card-main-actions__action.a-button.is-sm.is-warning.is-block.make-best-answer
-                  | ベストアンサーにする
-              li.card-main-actions__item.cancel-best-answer-button class=(cancel_button_hidden ? 'is-hidden' : '')
-                button.card-main-actions__action.a-button.is-sm.is-muted.is-block.cancel-best-answer
-                  | ベストアンサーを取り消す
-            - if answer.user.id == user.id || user.mentor?
-              li.card-main-actions__item.is-sub
-                button.card-main-actions__muted-action.delete-button
-                  | 削除する
+        - if [answer.user, question.user].include?(user) || user.admin? || user.mentor?
+          footer.card-footer
+            .card-main-actions
+              ul.card-main-actions__items
+                - if question.user == user || user.admin? || user.mentor?
+                  li.card-main-actions__item.make-best-answer-button class=(question.correct_answer.nil? ? '' : 'is-hidden')
+                    button.card-main-actions__action.a-button.is-sm.is-warning.is-block.make-best-answer
+                      | ベストアンサーにする
+                  li.card-main-actions__item.cancel-best-answer-button class=(answer.type == 'CorrectAnswer' ? '' : 'is-hidden')
+                    button.card-main-actions__action.a-button.is-sm.is-muted.is-block.cancel-best-answer
+                      | ベストアンサーを取り消す
+                - if answer.user == user || user.admin? || user.mentor?
+                  li.card-main-actions__item
+                    button.card-main-actions__action.a-button.is-sm.is-secondary.is-block.edit-button
+                      i.fa-solid.fa-pen
+                      | 内容修正
+                  li.card-main-actions__item.is-sub
+                    button.card-main-actions__muted-action.delete-button
+                      | 削除する
     .a-card.is-answer.answer-editor.is-hidden
       .thread-comment-form__form
         .a-form-tabs.js-tabs
