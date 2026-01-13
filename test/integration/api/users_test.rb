@@ -146,7 +146,7 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     )
     get api_admin_count_path(format: :json),
         headers: { Authorization: "Bearer #{doorkeeper_token.token}", Accept: 'application/json' }
-    assert_response 401
+    assert_response :unauthorized
   end
 
   test 'returns error when requesting an unauthorized scope' do
@@ -157,7 +157,7 @@ class API::UsersTest < ActionDispatch::IntegrationTest
       scope: 'read write'
     }
 
-    assert_response 400
+    assert_response :bad_request
     response_body = JSON.parse(@response.body)
     assert_equal 'invalid_scope', response_body['error']
   end
