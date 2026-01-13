@@ -11,7 +11,7 @@ class MentionerTest < ActiveSupport::TestCase
       ```
       @hatsuno
       ```
-      `@kananashi`　　
+      `@kananashi`
 
       > @sotugyou\n\n
       > 改行を含む
