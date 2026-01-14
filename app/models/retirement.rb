@@ -29,8 +29,10 @@ class Retirement
       destroy_subscription
     end
 
+    captured_regular_events_and_organizers = @user.capture_before_regular_event_organizers
     cancel_event_subscription
     remove_as_event_organizer
+    notify_to_new_regular_event_organizer(captured_regular_events_and_organizers)
     clear_github_info
     destroy_cards
     publish
@@ -102,6 +104,15 @@ class Retirement
   def notify_admins_and_mentors
     User.admins_and_mentors.each do |admin_user|
       ActivityDelivery.with(sender: @user, receiver: admin_user).notify(:retired)
+    end
+  end
+
+  def notify_to_new_regular_event_organizer(regular_events_and_organizers)
+    regular_events_and_organizers.each do |regular_event_and_organizer|
+      ActiveSupport::Notifications.instrument('organizer.create',
+                                              regular_event: regular_event_and_organizer[:regular_event],
+                                              before_organizer_ids: regular_event_and_organizer[:before_organizer_ids],
+                                              sender: @user)
     end
   end
 end

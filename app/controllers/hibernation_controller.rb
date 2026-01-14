@@ -18,8 +18,10 @@ class HibernationController < ApplicationController
       destroy_subscription!
       notify_to_chat
       notify_to_mentors_and_admins
+      captured_regular_events_and_organizers = current_user.capture_before_regular_event_organizers
       current_user.cancel_participation_from_regular_events
       current_user.delete_and_assign_new_organizer
+      notify_to_new_regular_event_organizer(captured_regular_events_and_organizers)
       logout
       redirect_to hibernation_path
     else
@@ -52,5 +54,14 @@ class HibernationController < ApplicationController
 
   def notify_to_chat
     DiscordNotifier.with(sender: current_user).hibernated.notify_now
+  end
+
+  def notify_to_new_regular_event_organizer(regular_events_and_organizers)
+    regular_events_and_organizers.each do |regular_event_and_organizer|
+      ActiveSupport::Notifications.instrument('organizer.create',
+                                              regular_event: regular_event_and_organizer[:regular_event],
+                                              before_organizer_ids: regular_event_and_organizer[:before_organizer_ids],
+                                              sender: current_user)
+    end
   end
 end
