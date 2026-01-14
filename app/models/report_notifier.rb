@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class ReportNotifier
+  EMOTION_EMOJIS = { 'positive' => '😄',
+                     'neutral' => '🙂',
+                     'negative' => '😰' }.freeze
+
   def call(_name, _started, _finished, _unique_id, payload)
     report = payload[:report]
     Cache.delete_unchecked_report_count
@@ -26,7 +30,7 @@ class ReportNotifier
   def notify_to_chat(report)
     ChatNotifier.message(<<~TEXT, webhook_url: ENV['DISCORD_REPORT_WEBHOOK_URL'])
       #{report.user.login_name}さんが#{I18n.l report.reported_on}の日報を公開しました。
-      タイトル：「#{report.title}」
+      タイトル：#{EMOTION_EMOJIS[report.emotion]}「#{report.title}」
       URL： <https://bootcamp.fjord.jp/reports/#{report.id}>
     TEXT
   end
