@@ -47,7 +47,7 @@ class RegularEventsTest < ApplicationSystemTestCase
     visit_with_auth regular_events_path, 'kimura'
     assert_selector '.card-list.a-card .card-list-item', count: 25
     visit regular_events_path(page: 2)
-    assert_selector '.card-list.a-card .card-list-item', count: 8
+    assert_selector '.card-list.a-card .card-list-item', count: 16
   end
 
   test 'using file uploading by file selection dialogue in textarea' do
