@@ -37,7 +37,7 @@ header.page-content-header
             = link_to pair_work.user.long_name, user_path(pair_work.user), class: 'a-user-name'
           - if !pair_work.wip?
             .page-content-header-metas__meta
-              time.a-meta
+              .a-meta
                 span.a-meta__label
                   | 公開
                 span.a-meta__value
@@ -47,7 +47,7 @@ header.page-content-header
               .a-meta
                 span.a-meta__label
                   | 更新
-                time.a-meta__value
+                span.a-meta__value
                   time(datetime="#{pair_work.updated_at.to_datetime}")
                     | #{l pair_work.updated_at}
 
