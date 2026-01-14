@@ -29,10 +29,8 @@ class Retirement
       destroy_subscription
     end
 
-    captured_regular_events_and_organizers = @user.capture_before_regular_event_organizers
-    cancel_event_subscription
-    remove_as_event_organizer
-    notify_to_new_regular_event_organizer(captured_regular_events_and_organizers)
+    handle_regular_events_on_retirement
+
     clear_github_info
     destroy_cards
     publish
@@ -114,5 +112,12 @@ class Retirement
                                               before_organizer_ids: regular_event_and_organizer[:before_organizer_ids],
                                               sender: @user)
     end
+  end
+
+  def handle_regular_events_on_retirement
+    captured_regular_events_and_organizers = @user.capture_before_regular_event_organizers
+    cancel_event_subscription
+    remove_as_event_organizer
+    notify_to_new_regular_event_organizer(captured_regular_events_and_organizers)
   end
 end

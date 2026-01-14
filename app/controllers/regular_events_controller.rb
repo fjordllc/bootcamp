@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RegularEventsController < ApplicationController
+class RegularEventsController < ApplicationController # rubocop:disable Metrics/ClassLength
   before_action :set_regular_event, only: %i[edit update destroy]
 
   def index
