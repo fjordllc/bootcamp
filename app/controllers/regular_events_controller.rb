@@ -5,19 +5,12 @@ class RegularEventsController < ApplicationController
   before_action :set_regular_event, only: %i[edit update destroy]
 
   def index
-    regular_events =
-      case params[:target]
-      when 'not_finished'
-        RegularEvent.not_finished
-      else
-        RegularEvent.all
-      end
-    @regular_events =
-      regular_events.with_avatar
-                    .includes(:comments, :users)
-                    .order(created_at: :desc)
-                    .page(params[:page])
-                    .per(PAGER_NUMBER)
+    @regular_events = fetch_target_events(params[:target])
+                      .with_avatar
+                      .includes(:comments, :users, :regular_event_repeat_rules)
+                      .order(created_at: :desc)
+                      .page(params[:page])
+                      .per(PAGER_NUMBER)
 
     @upcoming_events_groups = UpcomingEvent.upcoming_events_groups
   end
@@ -136,5 +129,14 @@ class RegularEventsController < ApplicationController
     students_trainees_mentors_and_admins = User.students_trainees_mentors_and_admins.ids
     RegularEvent::ParticipantsCreator.call(regular_event: @regular_event, target: students_trainees_mentors_and_admins)
     RegularEvent::ParticipantsWatcher.call(regular_event: @regular_event, target: students_trainees_mentors_and_admins)
+  end
+
+  def fetch_target_events(target)
+    case target
+    when 'not_finished'
+      RegularEvent.not_finished
+    else
+      RegularEvent.all
+    end
   end
 end
