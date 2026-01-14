@@ -16,8 +16,9 @@
         .card-list-item-meta
           .card-list-item-meta__items
             .card-list-item-meta__item
-              time.a-meta
+              .a-meta
                 span(class="#{important ? 'a-meta__label is-important' : 'a-meta__label'}")
                   | 開催日時
                 span(class="#{important ? 'a-meta__value is-important' : 'a-meta__value'}")
-                  = I18n.localize(upcoming_pair_work.reserved_at)
+                  time(datetime="#{upcoming_pair_work.reserved_at.to_datetime}")
+                    = I18n.localize(upcoming_pair_work.reserved_at)
