@@ -30,8 +30,7 @@ class TrainingCompletionTest < ActionDispatch::IntegrationTest
         user: {
           satisfaction: 'excellent',
           opinion: 'test'
-        },
-        commit: '研修を終了する'
+        }
       }
     end
 
