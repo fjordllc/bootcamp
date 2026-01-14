@@ -249,3 +249,14 @@ regular_event41:
   user: komagata
   category: 3
   published_at: "2023-08-01 00:00:00"
+
+regular_event42:
+  title: 研修生が主催しているイベント
+  description: 研修生が主催しているイベント
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2020, 1, 1, 15, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 16, 0, 0) %>
+  user: komagata
+  category: 3
+  published_at: "2023-08-01 00:00:00"
