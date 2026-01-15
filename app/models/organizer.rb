@@ -8,7 +8,6 @@ class Organizer < ApplicationRecord
 
   def delete_and_assign_new
     event = regular_event
-
     delete
     event.assign_admin_as_organizer_if_none
   end

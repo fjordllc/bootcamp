@@ -30,7 +30,6 @@ class Retirement
     end
 
     handle_regular_events_on_retirement
-
     clear_github_info
     destroy_cards
     publish
