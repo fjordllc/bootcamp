@@ -59,7 +59,7 @@ class PairWork < ApplicationRecord
   end
 
   def self.ransackable_associations(_auth_object = nil)
-    %w[user buddy practice pair_work_schedules comments reactions watches bookmarks]
+    %w[user buddy practice schedules comments reactions watches bookmarks]
   end
 
   def self.generate_pair_works_property(target)
