@@ -41,8 +41,8 @@ steps:
             --region=asia-northeast1 \
             --quiet
 
-          echo "Cloud Run service deleted. Waiting 10 seconds for connections to close..."
-          sleep 10
+          echo "Cloud Run service deleted. Waiting 60 seconds for connections to close..."
+          sleep 60
         else
           echo "Cloud Run service does not exist yet. Skipping delete."
         fi
