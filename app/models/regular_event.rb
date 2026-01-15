@@ -67,6 +67,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_many :users, through: :organizers
   has_many :regular_event_repeat_rules, dependent: :destroy
   accepts_nested_attributes_for :regular_event_repeat_rules, allow_destroy: true
+  has_many :regular_event_skipped_dates, dependent: :destroy
+  accepts_nested_attributes_for :regular_event_skipped_dates, allow_destroy: true
   has_many :regular_event_participations, dependent: :destroy
   has_many :participants,
            through: :regular_event_participations,

@@ -285,6 +285,10 @@ ja:
       regular_event_repeat_rule:
         frequency: 開催頻度
         day_of_the_week: 曜日
+        regular_event_skipped_dates: イベントをスキップする日
+      regular_event_skipped_date:
+        skipped_at: スキップする日
+        reason: 理由
       authored_book:
         title: タイトル
         url: URL
