@@ -130,7 +130,7 @@ regular_event_repeat_rule43:
   day_of_the_week: 4
   regular_event: regular_event41
 
-regular_event_repeat_rule43:
+regular_event_repeat_rule44:
   frequency: 6
   day_of_the_week: 4
   regular_event: regular_event42
