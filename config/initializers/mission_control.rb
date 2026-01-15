@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+# MissionControlはApplicationControllerではなくActionController::Baseを継承する
+# これにより、アプリのログイン認証（require_active_user_login）が適用されない
+MissionControl::Jobs.base_controller_class = 'ActionController::Base'
+
 if Rails.env.production?
   staging = ENV['DB_NAME'] == 'bootcamp_staging'
 
