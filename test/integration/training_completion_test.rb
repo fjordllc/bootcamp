@@ -15,7 +15,7 @@ class TrainingCompletionTest < ActionDispatch::IntegrationTest
   end
 
   # modelで分ける
-  test 'training complite triggers organizer_created notification and enqueues delivery' do
+  test 'training complete triggers organizer_created notification and enqueues delivery' do
     token = create_token('kensyu', 'testtest')
     user = users(:kensyu)
 
