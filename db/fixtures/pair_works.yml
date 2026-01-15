@@ -1,6 +1,6 @@
 pair_work1:
-  title: ペア確定済みのペアワークです(タイトル)
-  description: ペア確定済みのペアワークです(詳細)
+  title: ペア確定済みの動作確認
+  description: ペア確定済みのペアワークです
   reserved_at: <%= Time.current.beginning_of_day + 5.hours %>
   user: kimura
   practice: null
@@ -10,8 +10,8 @@ pair_work1:
   wip: false
 
 pair_work2:
-  title: 募集中のペアワークです(タイトル)
-  description: 募集中のペアワークです(詳細)
+  title: 募集中の動作確認
+  description: 募集中のペアワークです
   reserved_at: null
   user: kimura
   practice: null
@@ -21,8 +21,8 @@ pair_work2:
   wip: false
 
 pair_work3:
-  title: ペア確定済みのペアワークです(タイトル)
-  description: ペア確定済みのペアワークです(詳細)
+  title: 近日開催のペアワークの動作確認
+  description: 近日開催のペア確定済みペアワークです
   reserved_at: <%= Time.current.beginning_of_day + 2.days %>
   user: kimura
   practice: null
