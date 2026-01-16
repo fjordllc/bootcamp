@@ -1,0 +1,11 @@
+@use "../../../config/mixins/text"
+
+.page-body-header__inner
+  display: flex
+  align-items: center
+  gap: 1rem
+  margin-bottom: 1rem
+
+.page-body-header__title
+  +text.text-block(1rem 1.4, 700)
+  color: var(--main)
