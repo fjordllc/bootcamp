@@ -54,6 +54,6 @@ class API::CommentsController < API::BaseController
   end
 
   def set_my_comment
-    @comment = current_user.admin? ? Comment.find(params[:id]) : current_user.comments.find(params[:id])
+    @comment = current_user.admin? || current_user.mentor? ? Comment.find(params[:id]) : current_user.comments.find(params[:id])
   end
 end

@@ -10,8 +10,8 @@ class DiscordDriverTest < ActiveSupport::TestCase
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
 
-    VCR.use_cassette 'discord/message' do
-      assert DiscordDriver.new.call(params)
-    end
+    stub_request(:post, params[:webhook_url]).to_return(status: 204, body: '')
+
+    assert DiscordDriver.new.call(params)
   end
 end

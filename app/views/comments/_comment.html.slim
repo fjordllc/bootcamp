@@ -24,7 +24,7 @@
               | Raw
       hr.a-border-tint
       .thread-comment__description
-        - if comment.user.company && comment.user.adviser
+        - if comment.user.company && comment.user.adviser?
           a.thread-comment__company-link.is-hidden-md-up href="#{company_path(comment.user.company)}"
             img.thread-comment__company-logo src="#{comment.user.company.logo_url}"
         .a-long-text.is-md.js-comment-html
@@ -36,15 +36,14 @@
       .thread-comment__reactions
         = render 'reactions/reactions', reactionable: comment
       hr.a-border-tint
-      footer.card-footer
-        .card-main-actions
-          ul.card-main-actions__items
-            - if comment.user.id == user.id || user.admin?
+      - if comment.user == user || user.admin? || user.mentor?
+        footer.card-footer
+          .card-main-actions
+            ul.card-main-actions__items
               li.card-main-actions__item
                 button.card-main-actions__action.a-button.is-sm.is-secondary.is-block
                   i.fa-solid.fa-pen
                   | 編集
-            - if comment.user.id == user.id || user.mentor?
               li.card-main-actions__item.is-sub
                 button.card-main-actions__muted-action
                   | 削除する

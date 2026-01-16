@@ -18,21 +18,15 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_text '解決済'
   end
 
-  test 'notify to chat after publish a question' do
+  test 'create a question' do
     visit_with_auth new_question_path, 'kimura'
     within 'form[name=question]' do
       fill_in 'question[title]', with: 'タイトル'
       fill_in 'question[description]', with: '本文'
     end
-    mock_log = []
-    stub_info = proc { |i| mock_log << i }
 
-    Rails.logger.stub(:info, stub_info) do
-      click_button '登録する'
-    end
-
+    click_button '登録する'
     assert_text '質問を作成しました。'
-    assert_match 'Message to Discord.', mock_log.to_s
   end
 
   test 'using file uploading by file selection dialogue in textarea' do

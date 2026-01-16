@@ -83,13 +83,13 @@ class BaseCommentsTest < ApplicationSystemTestCase
     button.click
 
     # Try to click again - should be intercepted or disabled
+    button_disabled = false
     begin
       button.click
-      # If we reach here, the button was clickable twice (bad)
-      flunk 'Button should be disabled after first click'
     rescue Selenium::WebDriver::Error::ElementClickInterceptedError, Selenium::WebDriver::Error::ElementNotInteractableError
-      # This is expected - button should be disabled/not clickable
+      button_disabled = true
     end
+    assert button_disabled, 'Button should be disabled after first click'
   end
 
   test 'submit_button is enabled after a post is done' do

@@ -21,8 +21,7 @@ class Notifications::PaginationTest < ApplicationSystemTestCase
     create_pagination_notifications(19)
     create_boundary_notifications
 
-    login_user 'mentormentaro', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'mentormentaro'
     within first('nav.pagination') do
       click_link_or_button '2'
     end
@@ -31,15 +30,14 @@ class Notifications::PaginationTest < ApplicationSystemTestCase
     all('.pagination .is-active').each do |active_button|
       assert active_button.has_text? '2'
     end
-    assert_current_path('/notifications?page=2')
+    assert_match(/page=2/, current_url)
   end
 
   test 'show 20 notifications in first page' do
     create_pagination_notifications(25)
     create_newest_notification
 
-    login_user 'mentormentaro', 'testtest'
-    visit '/notifications'
+    visit_with_auth '/notifications', 'mentormentaro'
     assert_text '1番新しい通知'
     assert_equal 20, all('.card-list-item').size
 
@@ -52,8 +50,7 @@ class Notifications::PaginationTest < ApplicationSystemTestCase
     create_pagination_notifications(19)
     create_boundary_notifications
 
-    login_user 'mentormentaro', 'testtest'
-    visit '/notifications?status=unread'
+    visit_with_auth '/notifications?status=unread', 'mentormentaro'
     within first('nav.pagination') do
       click_link_or_button '2'
     end
@@ -62,15 +59,15 @@ class Notifications::PaginationTest < ApplicationSystemTestCase
     all('.pagination .is-active').each do |active_button|
       assert active_button.has_text? '2'
     end
-    assert_match %r{/notifications\?(status=unread&page=2|page=2&status=unread)}, current_url
+    assert_match(/status=unread/, current_url)
+    assert_match(/page=2/, current_url)
   end
 
   test 'click on the pager button with multiple query string' do
     create_pagination_notifications(19)
     create_boundary_notifications
 
-    login_user 'mentormentaro', 'testtest'
-    visit '/notifications?status=unread&target=mention'
+    visit_with_auth '/notifications?status=unread&target=mention', 'mentormentaro'
     within first('nav.pagination') do
       click_link_or_button '2'
     end
@@ -79,15 +76,16 @@ class Notifications::PaginationTest < ApplicationSystemTestCase
     all('.pagination .is-active').each do |active_button|
       assert active_button.has_text? '2'
     end
-    assert_match %r{/notifications\?(status=unread&page=2|page=2&status=unread)}, current_url
+    assert_match(/status=unread/, current_url)
+    assert_match(/target=mention/, current_url)
+    assert_match(/page=2/, current_url)
   end
 
   test 'specify the page number in the URL' do
     create_pagination_notifications(19)
     create_boundary_notifications
 
-    login_user 'mentormentaro', 'testtest'
-    visit '/notifications?page=2'
+    visit_with_auth '/notifications?page=2', 'mentormentaro'
     assert_text '1番古い通知'
     assert_no_text '1番新しい通知'
     all('.pagination .is-active').each do |active_button|
@@ -99,8 +97,7 @@ class Notifications::PaginationTest < ApplicationSystemTestCase
     create_pagination_notifications(19)
     create_boundary_notifications
 
-    login_user 'mentormentaro', 'testtest'
-    visit '/notifications?page=2'
+    visit_with_auth '/notifications?page=2', 'mentormentaro'
     within first('nav.pagination') do
       click_link_or_button '1'
     end

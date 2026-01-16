@@ -16,10 +16,10 @@ jobs:
             bundle lock --add-platform ruby
       - ruby/install-deps
       - node/install:
-          install-yarn: true
+          install-yarn: false
           node-version: '22.19.0'
       - node/install-packages:
-          pkg-manager: yarn
+          pkg-manager: npm
   check:
     docker:
       - image: 'cimg/ruby:3.4.3-node'
@@ -40,19 +40,19 @@ jobs:
           name: Update package list
           command: sudo apt-get update
       - run:
-          name: Install libvips
-          command: sudo apt-get install -y libvips
+          name: Install libvips and libheif
+          command: sudo apt-get install -y libvips libheif-dev
       - run:
           name: Traceroute
           command: FAIL_ON_ERROR=1 bundle exec rake traceroute
       - node/install:
-          install-yarn: true
+          install-yarn: false
           node-version: '22.19.0'
       - node/install-packages:
-          pkg-manager: yarn
+          pkg-manager: npm
       - run:
           name: Lint
-          command: bin/yarn lint
+          command: npm run lint
   test:
     docker:
       - image: cimg/ruby:3.4.3-browsers
@@ -71,6 +71,7 @@ jobs:
       RAILS_ENV: test
       DATABASE_URL: 'postgres://postgres:postgres@localhost/ci_test'
       TZ: Asia/Tokyo
+      SHAKAPACKER_NODE_MODULES_BIN_PATH: ./node_modules/.bin
     parallelism: 8
     steps:
       - checkout
@@ -87,22 +88,22 @@ jobs:
       - ruby/install-deps:
           clean-bundle: true
       - node/install:
-          install-yarn: true
+          install-yarn: false
           node-version: '22.19.0'
       - node/install-packages:
-          pkg-manager: yarn
+          pkg-manager: npm
       - run:
           name: Install japanese font
           command: sudo apt-get install -y fonts-noto-cjk
       - run:
-          name: Install libvips
-          command: sudo apt-get install -y libvips
+          name: Install libvips and libheif
+          command: sudo apt-get install -y libvips libheif-dev
       - run:
           name: Wait for DB
           command: 'dockerize -wait tcp://localhost:5432 -timeout 1m'
       - run:
           name: Database setup
-          command: 'bundle exec rails db:setup'
+          command: 'bundle exec rails db:prepare'
       - run:
           name: Assets precompile
           command: 'bundle exec rails assets:clean assets:precompile'
