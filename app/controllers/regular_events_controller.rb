@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RegularEventsController < ApplicationController
+class RegularEventsController < ApplicationController # rubocop:disable Metrics/ClassLength
   before_action :set_regular_event, only: %i[edit update destroy]
 
   def index
@@ -42,9 +42,12 @@ class RegularEventsController < ApplicationController
 
   def update
     set_wip
+    before_organizer_ids = @regular_event.organizer_ids
+
     if @regular_event.update(regular_event_params)
       update_published_at
       ActiveSupport::Notifications.instrument('regular_event.update', regular_event: @regular_event, sender: current_user)
+      ActiveSupport::Notifications.instrument('organizer.create', regular_event: @regular_event, before_organizer_ids:, sender: current_user)
       set_all_user_participants_and_watchers
       select_redirect_path
     else

@@ -958,6 +958,15 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     reports.joins(:learning_times).distinct.order(reported_on: :asc)
   end
 
+  def capture_before_regular_event_organizers
+    organize_regular_events.map do |regular_event|
+      {
+        regular_event:,
+        before_organizer_ids: regular_event.organizer_ids
+      }
+    end
+  end
+
   private
 
   def password_required?
