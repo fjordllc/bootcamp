@@ -1,0 +1,75 @@
+.random-tags-item:not(:last-child) {
+  border-bottom: solid 1px var(--border);
+}
+
+.random-tags-item__link {
+  display: flex;
+  text-decoration: none;
+  padding-left: 1rem;
+  padding-right: 0.5rem;
+  padding-block: 0.5rem;
+  min-height: 2.75rem;
+  align-items: center;
+  transition: all 0.2s ease-out;
+}
+.random-tags-item__link:hover {
+  background-color: var(--primary-tint);
+}
+
+.random-tags-item__link-inner {
+  position: relative;
+  flex: 1;
+  padding-right: 2em;
+}
+
+.random-tags-item__count {
+  position: absolute;
+  right: 0;
+  top: 2px;
+  font-size: 0.625rem;
+  display: flex;
+  text-align: center;
+  color: var(--default-text);
+  justify-content: center;
+  align-items: center;
+  padding-inline: 0.75em;
+  background-color: var(--background);
+  height: 1.5em;
+  border-radius: 1em;
+}
+
+.random-tags-item__name {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--semi-muted-text);
+}
+.is-first .random-tags-item__name, .is-second .random-tags-item__name, .is-third .random-tags-item__name {
+  font-weight: 600;
+}
+.is-first .random-tags-item__name::before, .is-second .random-tags-item__name::before, .is-third .random-tags-item__name::before {
+  margin-right: 0.5em;
+  content: "\f521";
+  font-family: "Font Awesome 6 Pro";
+  font-style: normal;
+  font-weight: 900;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+.is-first .random-tags-item__name, .is-first .random-tags-item__name::before {
+  color: var(--gold);
+}
+.is-second .random-tags-item__name, .is-second .random-tags-item__name::before {
+  color: var(--silver);
+}
+.is-third .random-tags-item__name, .is-third .random-tags-item__name::before {
+  color: var(--bronze);
+}
+.is-up .random-tags-item__name {
+  font-size: 1.125em;
+}
+.is-low .random-tags-item__name {
+  font-size: 0.875em;
+}

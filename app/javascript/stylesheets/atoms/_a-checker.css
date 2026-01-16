@@ -1,0 +1,15 @@
+.a-checker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--danger);
+  border-radius: 1rem;
+  background-color: var(--danger-tint);
+  padding: 0.125rem 0.5rem 0.125rem 0.25rem;
+}
+
+.a-checker__status {
+  font-size: 0.625rem;
+  line-height: 1;
+  margin-left: 0.25rem;
+}

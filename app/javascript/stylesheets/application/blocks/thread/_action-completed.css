@@ -1,0 +1,22 @@
+
+.action-completed__action {
+  @media (min-width: 48em) {
+    max-width: 16rem;
+    margin-left: auto;
+    margin-right: auto;
+
+  }
+}
+.action-completed__description {
+  margin-top: .75rem;
+  @media (min-width: 48em) {
+    max-width: 28rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  p {
+    font-size: .75rem;
+    line-height: 1.5;
+
+  }
+}

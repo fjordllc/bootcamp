@@ -1,0 +1,12 @@
+
+.form-notice {
+  &:not(:first-child);
+    margin-top: 1em;
+  @media (min-width: 48em) {
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 47.9375em) {
+    margin-bottom: 1.5rem;
+
+  }
+}

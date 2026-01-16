@@ -1,0 +1,96 @@
+.corporate-training-example__header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--main);
+  border: solid 1px var(--main);
+  height: 6rem;
+  @media (min-width: 48em) {
+    height: 9rem;
+
+  }
+}
+.corporate-training-example__title {
+  font-size: 1rem;
+  line-height: 1.4;
+
+}
+.corporate-training-example__divider {
+  position: relative;
+  width: .5rem;
+  margin: 1.75rem auto;
+  span {
+    width: .5rem;
+    height: .5rem;
+    border-radius: 1rem;
+    background-color: var(--main);
+    display: block;
+    opacity: .5;
+  }
+  &::before,
+  &::after {
+    content: '';
+    width: .5rem;
+    height: .5rem;
+    border-radius: 1rem;
+    background-color: var(--main);
+    display: block;
+  }
+  &::before {
+    left: 0;
+    position: absolute;
+    top: -1rem;
+    opacity: .2;
+  }
+  &::after {
+    bottom: -1rem;
+    left: 0;
+    position: absolute;
+    opacity: 1;
+  }
+}
+.corporate-training-example-content {
+  padding: 1rem;
+
+}
+.corporate-training-example-content__header {
+  background-color:  var(--main);
+  color: var(--reversal-text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  border-radius: .1875rem;
+
+}
+.corporate-training-example-content__title {
+  line-height: 1.4;
+  text-align: center;
+  font-size: .875rem;
+  @media (min-width: 48em) {
+    font-size: 1.125rem;
+
+  }
+}
+.corporate-training-example-content__body {
+  margin-top: 1.5rem;
+  ul {
+    list-style: disc outside;
+    margin-left: 1.5rem;
+  }
+  li {
+    font-size: .875rem;
+    line-height: 1.4;
+  }
+  li + li {
+    margin-top: .5rem;
+
+  }
+}
+.corporate-training-example-content__period {
+  font-size: 1.25rem;
+  line-height: 1.4;
+  font-weight: 800;
+  text-align: center;
+
+}

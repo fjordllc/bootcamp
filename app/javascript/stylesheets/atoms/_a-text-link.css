@@ -1,0 +1,99 @@
+.a-text-link {
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease-in;
+  color: var(--link-text);
+}
+
+.a-text-link:link {
+  color: var(--link-text);
+}
+
+.a-text-link:visited {
+  color: hsl(233, 33%, 58%);
+}
+
+.a-text-link:hover,
+.a-text-link:active {
+  text-decoration: underline;
+  color: var(--hover-text);
+}
+
+.a-text-link.has-badge {
+  text-decoration: none;
+}
+
+.a-text-link.has-badge .a-text-link__text {
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease-in;
+  color: var(--link-text);
+}
+
+.a-text-link.has-badge .a-text-link__text:link {
+  color: var(--link-text);
+}
+
+.a-text-link.has-badge .a-text-link__text:visited {
+  color: hsl(233, 33%, 58%);
+}
+
+.a-text-link.has-badge .a-text-link__text:hover,
+.a-text-link.has-badge .a-text-link__text:active {
+  text-decoration: underline;
+  color: var(--hover-text);
+}
+
+.a-hover-link,
+.a-hover-link-reversal,
+.a-reversal-text-link,
+.a-muted-text-link {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.a-hover-link:hover,
+.a-hover-link:active,
+.a-hover-link-reversal:hover,
+.a-hover-link-reversal:active {
+  text-decoration: underline;
+}
+
+.a-reversal-text-link {
+  transition: color 0.2s ease-in;
+  color: var(--reversal-text);
+}
+
+.a-reversal-text-link:link {
+  color: var(--reversal-text);
+}
+
+.a-reversal-text-link:visited {
+  color: hsl(242, 62%, 74%);
+}
+
+.a-reversal-text-link:hover {
+  text-decoration: underline;
+  color: hsl(210, 100%, 80%);
+}
+
+.a-reversal-text-link:active {
+  text-decoration: underline;
+  color: hsl(316, 90%, 66%);
+}
+
+.a-muted-text-link {
+  transition: color 0.2s ease-in;
+  color: var(--muted-text);
+}
+
+.a-muted-text-link:link,
+.a-muted-text-link:visited {
+  color: var(--muted-text);
+}
+
+.a-muted-text-link:hover,
+.a-muted-text-link:active {
+  text-decoration: underline;
+  color: var(--link-text);
+}

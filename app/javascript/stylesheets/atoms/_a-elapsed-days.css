@@ -1,0 +1,43 @@
+.card-header.a-elapsed-days {
+  letter-spacing: 0.125em;
+  text-indent: 0.125em;
+  margin: -1px -1px 0;
+  background-color: var(--base);
+  border: solid 1px var(--border);
+}
+.card-header.a-elapsed-days > * {
+  width: 100%;
+}
+.card-header.a-elapsed-days.is-reply-warning {
+  background-color: var(--reply-warning-background);
+  border-color: var(--reply-warning-border);
+}
+.card-header.a-elapsed-days.is-reply-alert {
+  color: var(--reversal-text);
+  background-color: var(--reply-alert-background);
+  border-color: var(--reply-alert-border);
+}
+.card-header.a-elapsed-days.is-reply-deadline {
+  color: var(--reversal-text);
+  background-color: var(--reply-deadline-background);
+  border-color: var(--reply-deadline-border);
+}
+
+@media (min-width: 48em) {
+  .card-header.a-elapsed-days {
+    font-size: 1rem;
+    line-height: 1.4;
+    text-align: center;
+    font-weight: 600;
+    padding: 0.375rem 1rem;
+  }
+}
+@media (max-width: 47.9375em) {
+  .card-header.a-elapsed-days {
+    font-size: 0.875rem;
+    line-height: 1.4;
+    text-align: center;
+    font-weight: 600;
+    padding: 0.375rem 0.75rem;
+  }
+}
