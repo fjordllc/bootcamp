@@ -235,3 +235,7 @@ talk_pjord:
 talk_new-mentor:
   user: new-mentor
   action_completed: true
+
+talk_grant_course:
+  user: grant-course
+  action_completed: true

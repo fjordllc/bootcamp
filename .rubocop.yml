@@ -28,3 +28,7 @@ AllCops:
     - storage/**/*
     - tmp/**/*
     - bin/**/*
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - app/controllers/api/reports_controller.rb

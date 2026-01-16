@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import useSWR from 'swr'
 import fetcher from '../fetcher'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
@@ -15,11 +15,14 @@ export default function Reports({
   displayUserIcon = true,
   companyId = '',
   practiceId = '',
-  displayPagination = true
+  displayPagination = true,
+  practiceSourceId = null
 }) {
   const per = 20
+  const isGrantCourse = practiceSourceId !== null
   const { page, setPage } = usePage()
   const [userPracticeId, setUserPracticeId] = useState('')
+  const [withGrant, setWithGrant] = useState(false)
 
   let reportsUrl = `/api/reports.json?page=${page}`
   if (userId) reportsUrl += `&user_id=${userId}`
@@ -27,8 +30,31 @@ export default function Reports({
   const pid = userPracticeId || practiceId
   if (pid) reportsUrl += `&practice_id=${pid}`
   if (unchecked) reportsUrl += `&target=unchecked_reports`
+  if (isGrantCourse && withGrant) reportsUrl += `&with_grant=true`
 
   const { data, error } = useSWR(reportsUrl, fetcher)
+
+  useEffect(() => {
+    if (!isGrantCourse) return
+
+    let grantFilter = null
+    const initGrantFilter = async () => {
+      const targetElement = document.querySelector('[data-grant-filter]')
+      if (!targetElement) return
+
+      const GrantFilter = (await import('../grant-filter')).default
+      grantFilter = new GrantFilter(withGrant, setWithGrant)
+      grantFilter.render(targetElement)
+    }
+    initGrantFilter()
+
+    return () => {
+      if (grantFilter) {
+        grantFilter.destroy()
+        grantFilter = null
+      }
+    }
+  }, [data, withGrant])
 
   if (error) return <>エラーが発生しました。</>
   if (!data) {
@@ -47,6 +73,7 @@ export default function Reports({
     <div className="page-main is-react">
       {data.totalPages === 0 && (
         <div>
+          {isGrantCourse && <div data-grant-filter></div>}
           {practices && (
             <PracticeFilterDropdown
               practices={practices}
@@ -59,6 +86,7 @@ export default function Reports({
       )}
       {data.totalPages > 0 && (
         <div>
+          {isGrantCourse && <div data-grant-filter></div>}
           {practices && (
             <PracticeFilterDropdown
               practices={practices}
