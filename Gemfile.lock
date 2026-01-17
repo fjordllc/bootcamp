@@ -744,10 +744,9 @@ GEM
     zeitwerk (2.7.4)
 
 PLATFORMS
-  arm64-darwin
   ruby
-  x86_64-darwin
   x86_64-linux
+  universal-darwin
 
 DEPENDENCIES
   abstract_notifier (~> 0.3.2)
