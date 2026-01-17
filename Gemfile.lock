@@ -213,6 +213,7 @@ GEM
       net-http (~> 0.5)
     faraday-retry (2.4.0)
       faraday (~> 2.0)
+    ffi (1.17.1)
     ffi (1.17.1-arm64-darwin)
     ffi (1.17.1-x86_64-darwin)
     ffi (1.17.1-x86_64-linux-gnu)
@@ -270,6 +271,9 @@ GEM
     google-id-token (1.4.2)
       jwt (>= 1)
     google-logging-utils (0.2.0)
+    google-protobuf (4.33.3)
+      bigdecimal
+      rake (>= 13)
     google-protobuf (4.33.3-arm64-darwin)
       bigdecimal
       rake (>= 13)
@@ -293,6 +297,9 @@ GEM
       multi_json (~> 1.11)
       os (>= 0.9, < 2.0)
       signet (>= 0.16, < 2.a)
+    grpc (1.76.0)
+      google-protobuf (>= 3.25, < 5.0)
+      googleapis-common-protos-types (~> 1.0)
     grpc (1.76.0-arm64-darwin)
       google-protobuf (>= 3.25, < 5.0)
       googleapis-common-protos-types (~> 1.0)
@@ -399,6 +406,7 @@ GEM
     mini_magick (5.3.1)
       logger
     mini_mime (1.1.5)
+    mini_portile2 (2.8.9)
     minitest (5.27.0)
     minitest-ci (3.4.0)
       minitest (>= 5.0.6)
@@ -435,6 +443,9 @@ GEM
     netrc (0.11.0)
     newspaper (0.2.0)
     nio4r (2.7.5)
+    nokogiri (1.19.0)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
     nokogiri (1.19.0-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.19.0-x86_64-darwin)
@@ -766,6 +777,7 @@ GEM
     zeitwerk (2.7.4)
 
 PLATFORMS
+  ruby
   universal-darwin
   x86_64-linux
 
