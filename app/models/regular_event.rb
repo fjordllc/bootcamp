@@ -157,6 +157,15 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     wants_announcement? && !wip?
   end
 
+  def self.fetch_target_events(target)
+    case target
+    when 'not_finished'
+      RegularEvent.not_finished
+    else
+      RegularEvent.all
+    end
+  end
+
   private
 
   def end_at_be_greater_than_start_at
