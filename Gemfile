@@ -51,7 +51,6 @@ gem 'meta-tags'
 gem 'mini_magick'
 gem 'mission_control-jobs'
 gem 'mutex_m', '0.1.1'
-gem 'neighbor'
 gem 'net-imap', require: false
 gem 'net-pop', require: false
 gem 'net-smtp', require: false # TODO: Remove it if you use rails 7.0.1
