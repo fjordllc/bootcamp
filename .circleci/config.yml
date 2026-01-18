@@ -56,11 +56,11 @@ jobs:
   test:
     docker:
       - image: cimg/ruby:3.4.3-browsers
+      - image: pgvector/pgvector:pg14
         environment:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: ci_test
-      - image: pgvector/pgvector:pg14
     resource_class: large
     environment:
       BUNDLE_JOBS: '3'
