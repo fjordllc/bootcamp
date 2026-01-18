@@ -70,6 +70,7 @@ gem 'rails_autolink'
 gem 'rails-i18n'
 gem 'rails-patterns', '~> 0.2'
 gem 'ransack', '~> 4.3'
+gem 'solid_cache'
 gem 'solid_queue'
 # TODO: connection_pool互換性が修正された安定版リリース後にgem版に戻す
 gem 'react-rails', github: 'reactjs/react-rails', ref: '224d03b8e04b95e4d16197fc6ecf75601543154a'
