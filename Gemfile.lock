@@ -213,7 +213,6 @@ GEM
       net-http (~> 0.5)
     faraday-retry (2.4.0)
       faraday (~> 2.0)
-    ffi (1.17.1)
     ffi (1.17.1-arm64-darwin)
     ffi (1.17.1-x86_64-darwin)
     ffi (1.17.1-x86_64-linux-gnu)
@@ -428,6 +427,8 @@ GEM
       bigdecimal (>= 3.1, < 5)
     multipart-post (2.4.1)
     mutex_m (0.1.1)
+    neighbor (0.6.0)
+      activerecord (>= 7.1)
     net-http (0.9.1)
       uri (>= 0.11.1)
     net-imap (0.6.2)
@@ -650,6 +651,17 @@ GEM
       ffi (~> 1.12)
       logger
     ruby2_keywords (0.0.5)
+    ruby_llm (1.11.0)
+      base64
+      event_stream_parser (~> 1)
+      faraday (>= 1.10.0)
+      faraday-multipart (>= 1)
+      faraday-net_http (>= 1)
+      faraday-retry (>= 1)
+      marcel (~> 1.0)
+      ruby_llm-schema (~> 0.2.1)
+      zeitwerk (~> 2)
+    ruby_llm-schema (0.2.5)
     rubyzip (3.2.2)
     securerandom (0.4.1)
     selenium-webdriver (4.39.0)
@@ -834,6 +846,7 @@ DEPENDENCIES
   minitest-stub_any_instance
   mission_control-jobs
   mutex_m (= 0.1.1)
+  neighbor
   net-imap
   net-pop
   net-smtp
@@ -870,6 +883,7 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   ruby-openai
+  ruby_llm
   rubyzip
   selenium-webdriver
   shakapacker (~> 9.0)
