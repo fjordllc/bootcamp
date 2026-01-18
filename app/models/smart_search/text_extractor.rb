@@ -2,32 +2,33 @@
 
 module SmartSearch
   module TextExtractor
+    TITLE_DESCRIPTION_MODELS = [Report, Page, Question, Announcement, Event, RegularEvent].freeze
+
     module_function
 
     def extract(record)
-      text = case record
-             when Practice
-               [record.title, record.description, record.goal].compact.join("\n\n")
-             when Report
-               [record.title, record.description].compact.join("\n\n")
-             when Product
-               record.body
-             when Page
-               [record.title, record.body].compact.join("\n\n")
-             when Question
-               [record.title, record.description].compact.join("\n\n")
-             when Announcement
-               [record.title, record.description].compact.join("\n\n")
-             when Event, RegularEvent
-               [record.title, record.description].compact.join("\n\n")
-             when Answer, CorrectAnswer, Comment
-               record.description
-             else
-               Rails.logger.warn "[SmartSearch] Unknown model type: #{record.class.name}"
-               nil
-             end
-
+      text = extract_raw_text(record)
       truncate_text(text)
+    end
+
+    def extract_raw_text(record)
+      case record
+      when Practice then extract_practice(record)
+      when Product then record.body
+      when Answer, CorrectAnswer, Comment then record.description
+      when *TITLE_DESCRIPTION_MODELS then extract_title_description(record)
+      else
+        Rails.logger.warn "[SmartSearch] Unknown model type: #{record.class.name}"
+        nil
+      end
+    end
+
+    def extract_practice(record)
+      [record.title, record.description, record.goal].compact.join("\n\n")
+    end
+
+    def extract_title_description(record)
+      [record.title, record.description].compact.join("\n\n")
     end
 
     def truncate_text(text)
