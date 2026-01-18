@@ -44,38 +44,14 @@ class Searcher
   end
 
   def semantic_search
-    searcher = SmartSearch::SemanticSearcher.new
-    searcher.search(keyword, document_type:)
+    # Semantic search is not implemented yet - returns empty results
+    # Will be implemented when SmartSearch module is available
+    []
   end
 
   def hybrid_search
-    keyword_results = keyword_search
-    semantic_results = semantic_search
-
-    merge_results(semantic_results, keyword_results)
-  end
-
-  def merge_results(primary, secondary)
-    seen_ids = {}
-    merged = []
-
-    primary.each do |record|
-      key = "#{record.class.name}-#{record.id}"
-      next if seen_ids[key]
-
-      merged << record
-      seen_ids[key] = true
-    end
-
-    secondary.each do |record|
-      key = "#{record.class.name}-#{record.id}"
-      next if seen_ids[key]
-
-      merged << record
-      seen_ids[key] = true
-    end
-
-    merged
+    # Returns keyword search results only until semantic search is implemented
+    keyword_search
   end
 
   def validate_document_type(document_type)
