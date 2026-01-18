@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-namespace :smart_search do
+namespace :smart_search do # rubocop:disable Metrics/BlockLength
   desc 'Generate embeddings for all searchable models'
   task generate_all: :environment do
     BulkEmbeddingJob.perform_now
@@ -53,10 +53,7 @@ namespace :smart_search do
     text = args[:text] || 'This is a test text for embedding generation'
     generator = SmartSearch::EmbeddingGenerator.new
 
-    unless generator.api_available?
-      puts 'Error: OPENAI_API_KEY is not configured'
-      exit 1
-    end
+    abort 'Error: OPENAI_API_KEY is not configured' unless generator.api_available?
 
     puts "Generating embedding for: #{text.truncate(50)}"
     embedding = generator.generate(text)

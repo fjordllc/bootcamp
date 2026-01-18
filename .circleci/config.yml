@@ -102,6 +102,10 @@ jobs:
           name: Wait for DB
           command: 'dockerize -wait tcp://localhost:5432 -timeout 1m'
       - run:
+          name: Install PostgreSQL client
+          command: |
+            sudo apt-get update && sudo apt-get install -y postgresql-client
+      - run:
           name: Enable pgvector extension
           command: |
             psql -h localhost -U postgres -d ci_test -c "CREATE EXTENSION IF NOT EXISTS vector;"
