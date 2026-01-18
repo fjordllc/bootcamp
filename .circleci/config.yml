@@ -104,7 +104,7 @@ jobs:
       - run:
           name: Enable pgvector extension
           command: |
-            psql -h localhost -U postgres -c "CREATE EXTENSION IF NOT EXISTS vector;"
+            psql -h localhost -U postgres -d ci_test -c "CREATE EXTENSION IF NOT EXISTS vector;"
       - run:
           name: Database setup
           command: 'bundle exec rails db:prepare'
