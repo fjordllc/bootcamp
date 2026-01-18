@@ -78,7 +78,6 @@ gem 'react-rails', github: 'reactjs/react-rails', ref: '224d03b8e04b95e4d16197fc
 gem 'recaptcha', '~> 5.12'
 gem 'rollbar'
 gem 'rss'
-gem 'ruby_llm'
 gem 'ruby-openai'
 gem 'rubyzip'
 gem 'slim-rails'
