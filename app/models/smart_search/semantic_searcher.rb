@@ -49,11 +49,15 @@ module SmartSearch
 
     def search_model(model_class, query_embedding, limit)
       return [] unless model_class.column_names.include?('embedding')
-      return [] unless model_class.respond_to?(:nearest_neighbors)
+
+      # Use raw SQL for vector similarity search to avoid has_neighbors dependency
+      table_name = model_class.table_name
+      embedding_str = "[#{query_embedding.join(',')}]"
 
       model_class
         .where.not(embedding: nil)
-        .nearest_neighbors(:embedding, query_embedding, distance: 'cosine')
+        .select("#{table_name}.*, embedding <=> '#{embedding_str}' AS neighbor_distance")
+        .order(Arel.sql("embedding <=> '#{embedding_str}'"))
         .limit(limit)
         .map { |record| { record:, distance: record.neighbor_distance } }
     rescue StandardError => e
