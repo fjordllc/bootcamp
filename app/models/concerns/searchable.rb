@@ -5,16 +5,8 @@ module Searchable
 
   REQUIRED_SEARCH_METHODS = %i[search_title search_label search_url].freeze
 
-  included do
-    # Configure neighbor gem for vector similarity search if embedding column exists
-    # Embedding generation is triggered manually via rake tasks or jobs
-    embedding_available = ActiveRecord::Base.connection_pool.with_connection do
-      table_exists? && column_names.include?('embedding')
-    end
-    has_neighbors :embedding, dimensions: 1536 if embedding_available
-  rescue ActiveRecord::StatementInvalid, ActiveRecord::NoDatabaseError, ActiveRecord::ConnectionNotEstablished, PG::ConnectionBad
-    # Ignore database connection errors during class loading
-  end
+  # Note: has_neighbors configuration is handled dynamically in SemanticSearcher
+  # to avoid issues with database availability during class loading
 
   class_methods do
     def columns_for_keyword_search(*columns)
