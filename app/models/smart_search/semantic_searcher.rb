@@ -20,6 +20,9 @@ module SmartSearch
                 end
 
       results.sort_by { |r| r[:distance] }.first(limit).map { |r| r[:record] }
+    rescue StandardError => e
+      Rails.logger.error "[SmartSearch] Semantic search failed: #{e.message}"
+      []
     end
 
     private
