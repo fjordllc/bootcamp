@@ -5,6 +5,15 @@ module Searchable
 
   REQUIRED_SEARCH_METHODS = %i[search_title search_label search_url].freeze
 
+  included do
+    if column_names.include?('embedding')
+      has_neighbors :embedding, dimensions: 1536
+
+      after_commit :schedule_embedding_generation, on: %i[create update],
+                                                   if: :should_generate_embedding?
+    end
+  end
+
   class_methods do
     def columns_for_keyword_search(*columns)
       define_singleton_method :ransackable_attributes do |_auth_object = nil|
@@ -87,5 +96,29 @@ module Searchable
     return 'graduate' if user.graduated?
 
     'student' if user.student?
+  end
+
+  private
+
+  def should_generate_embedding?
+    return false unless self.class.column_names.include?('embedding')
+    return false if Rails.env.test? && !ENV['ENABLE_EMBEDDING_IN_TEST']
+
+    embedding_content_changed?
+  end
+
+  def embedding_content_changed?
+    relevant_columns = %i[title description body goal]
+    relevant_columns.any? do |column|
+      respond_to?("#{column}_previously_changed?") &&
+        send("#{column}_previously_changed?")
+    end
+  end
+
+  def schedule_embedding_generation
+    EmbeddingGenerateJob.perform_later(
+      model_name: self.class.name,
+      record_id: id
+    )
   end
 end
