@@ -17,6 +17,8 @@ module SmartSearch
 
     def perform_search(query, document_type, limit)
       return [] if query.blank?
+
+      limit = normalize_limit(limit)
       return [] unless @generator.api_available?
 
       query_embedding = @generator.generate(query)
@@ -24,6 +26,11 @@ module SmartSearch
 
       results = search_by_type(query_embedding, document_type, limit)
       results.sort_by { |r| r[:distance] }.first(limit).map { |r| r[:record] }
+    end
+
+    def normalize_limit(limit)
+      normalized = limit.to_i
+      normalized.positive? ? normalized : Configuration::DEFAULT_LIMIT
     end
 
     def search_by_type(query_embedding, document_type, limit)
@@ -49,15 +56,16 @@ module SmartSearch
 
     def search_model(model_class, query_embedding, limit)
       return [] unless model_class.column_names.include?('embedding')
+      return [] unless valid_embedding?(query_embedding)
 
-      # Use raw SQL for vector similarity search
-      table_name = model_class.table_name
-      embedding_str = "[#{query_embedding.join(',')}]"
+      table_name = model_class.connection.quote_table_name(model_class.table_name)
+      embedding_str = "[#{query_embedding.map(&:to_f).join(',')}]"
+      quoted_embedding = model_class.connection.quote(embedding_str)
 
       model_class
         .where.not(embedding: nil)
-        .select("#{table_name}.*, embedding <=> '#{embedding_str}' AS neighbor_distance")
-        .order(Arel.sql("embedding <=> '#{embedding_str}'"))
+        .select(Arel.sql("#{table_name}.*, embedding <=> #{quoted_embedding} AS neighbor_distance"))
+        .order(Arel.sql("embedding <=> #{quoted_embedding}"))
         .limit(limit)
         .map { |record| { record:, distance: record.neighbor_distance } }
     rescue StandardError => e
@@ -65,7 +73,13 @@ module SmartSearch
       []
     end
 
+    def valid_embedding?(embedding)
+      embedding.is_a?(Array) && embedding.all? { |v| v.is_a?(Numeric) }
+    end
+
     def type_to_model(document_type)
+      return nil if document_type.blank?
+
       config = Searcher::Configuration::CONFIGS[document_type.to_sym]
       config&.dig(:model)
     end

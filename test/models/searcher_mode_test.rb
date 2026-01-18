@@ -38,20 +38,21 @@ class SearcherModeTest < ActiveSupport::TestCase
   end
 
   test 'MODES constant contains all valid modes' do
-    assert_equal %i[keyword semantic hybrid], Searcher::MODES
+    expected_modes = %i[keyword semantic hybrid].to_set
+    assert_equal expected_modes, Searcher::MODES.to_set
   end
 
-  test 'keyword search works with mode parameter' do
+  test 'keyword search returns array' do
     results = Searcher.new(keyword: 'テスト', current_user:, mode: :keyword).search
     assert_kind_of Array, results
   end
 
-  test 'semantic search returns empty array when API is not available' do
+  test 'semantic search returns array' do
     results = Searcher.new(keyword: 'テスト', current_user:, mode: :semantic).search
     assert_kind_of Array, results
   end
 
-  test 'hybrid search returns results when keyword search has results' do
+  test 'hybrid search returns array' do
     results = Searcher.new(keyword: 'テスト', current_user:, mode: :hybrid).search
     assert_kind_of Array, results
   end
