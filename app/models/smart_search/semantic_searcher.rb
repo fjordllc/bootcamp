@@ -7,25 +7,32 @@ module SmartSearch
     end
 
     def search(query, document_type: :all, limit: Configuration::DEFAULT_LIMIT)
-      return [] if query.blank?
-      return [] unless @generator.api_available?
-
-      query_embedding = @generator.generate(query)
-      return [] if query_embedding.blank?
-
-      results = if document_type == :all
-                  search_all_types(query_embedding, limit)
-                else
-                  search_specific_type(query_embedding, document_type, limit)
-                end
-
-      results.sort_by { |r| r[:distance] }.first(limit).map { |r| r[:record] }
+      perform_search(query, document_type, limit)
     rescue StandardError => e
       Rails.logger.error "[SmartSearch] Semantic search failed: #{e.message}"
       []
     end
 
     private
+
+    def perform_search(query, document_type, limit)
+      return [] if query.blank?
+      return [] unless @generator.api_available?
+
+      query_embedding = @generator.generate(query)
+      return [] if query_embedding.blank?
+
+      results = search_by_type(query_embedding, document_type, limit)
+      results.sort_by { |r| r[:distance] }.first(limit).map { |r| r[:record] }
+    end
+
+    def search_by_type(query_embedding, document_type, limit)
+      if document_type == :all
+        search_all_types(query_embedding, limit)
+      else
+        search_specific_type(query_embedding, document_type, limit)
+      end
+    end
 
     def search_all_types(query_embedding, limit)
       Configuration.embedding_models.flat_map do |model_class|
