@@ -5,7 +5,7 @@ module Searchable
 
   REQUIRED_SEARCH_METHODS = %i[search_title search_label search_url].freeze
 
-  # Note: has_neighbors configuration is handled dynamically in SemanticSearcher
+  # Vector similarity search is handled via raw SQL in SemanticSearcher
   # to avoid issues with database availability during class loading
 
   class_methods do
