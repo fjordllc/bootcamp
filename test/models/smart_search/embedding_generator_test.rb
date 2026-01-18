@@ -24,14 +24,14 @@ module SmartSearch
 
     test 'generate_batch returns empty array when API is not available' do
       generator = EmbeddingGenerator.new
-      result = generator.generate_batch(['text1', 'text2'])
-      assert_equal [], result
+      result = generator.generate_batch(%w[text1 text2])
+      assert_empty result
     end
 
     test 'generate_batch returns empty array for blank texts' do
       generator = EmbeddingGenerator.new
-      assert_equal [], generator.generate_batch([])
-      assert_equal [], generator.generate_batch(nil)
+      assert_empty generator.generate_batch([])
+      assert_empty generator.generate_batch(nil)
     end
   end
 end
