@@ -102,6 +102,12 @@ jobs:
           name: Wait for DB
           command: 'dockerize -wait tcp://localhost:5432 -timeout 1m'
       - run:
+          name: Install pgvector extension
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y postgresql-14-pgvector
+            psql -h localhost -U postgres -c "CREATE EXTENSION IF NOT EXISTS vector;"
+      - run:
           name: Database setup
           command: 'bundle exec rails db:prepare'
       - run:
