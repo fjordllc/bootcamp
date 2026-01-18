@@ -6,7 +6,7 @@ module Searchable
   REQUIRED_SEARCH_METHODS = %i[search_title search_label search_url].freeze
 
   included do
-    if column_names.include?('embedding')
+    if table_exists? && column_names.include?('embedding')
       has_neighbors :embedding, dimensions: 1536
 
       after_commit :schedule_embedding_generation, on: %i[create update],
