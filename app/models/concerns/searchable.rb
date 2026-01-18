@@ -6,11 +6,10 @@ module Searchable
   REQUIRED_SEARCH_METHODS = %i[search_title search_label search_url].freeze
 
   included do
-    # Configure neighbor for vector search (always define to ensure method availability)
-    has_neighbors :embedding, dimensions: 1536
-
-    # Only set up embedding generation callback if embedding column exists
+    # Only configure neighbor and callbacks if embedding column exists
     if ActiveRecord::Base.connection_pool.with_connection { table_exists? && column_names.include?('embedding') }
+      has_neighbors :embedding, dimensions: 1536
+
       after_commit :schedule_embedding_generation, on: %i[create update],
                                                    if: :should_generate_embedding?
     end
