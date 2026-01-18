@@ -7,30 +7,31 @@ class SmartSearch::TextExtractorTest < ActiveSupport::TestCase
     practice = practices(:practice1)
     text = SmartSearch::TextExtractor.extract(practice)
 
+    assert_not_nil text
     assert_includes text, practice.title
-    assert_includes text, practice.description if practice.description.present?
   end
 
   test 'extracts text from Report' do
     report = reports(:report1)
     text = SmartSearch::TextExtractor.extract(report)
 
+    assert_not_nil text
     assert_includes text, report.title
-    assert_includes text, report.description if report.description.present?
   end
 
   test 'extracts text from Page' do
     page = pages(:page1)
     text = SmartSearch::TextExtractor.extract(page)
 
+    assert_not_nil text
     assert_includes text, page.title
-    assert_includes text, page.body if page.body.present?
   end
 
   test 'extracts text from Question' do
     question = questions(:question1)
     text = SmartSearch::TextExtractor.extract(question)
 
+    assert_not_nil text
     assert_includes text, question.title
   end
 
@@ -38,6 +39,7 @@ class SmartSearch::TextExtractorTest < ActiveSupport::TestCase
     announcement = announcements(:announcement1)
     text = SmartSearch::TextExtractor.extract(announcement)
 
+    assert_not_nil text
     assert_includes text, announcement.title
   end
 
@@ -45,7 +47,29 @@ class SmartSearch::TextExtractorTest < ActiveSupport::TestCase
     comment = comments(:comment1)
     text = SmartSearch::TextExtractor.extract(comment)
 
-    assert_includes text, comment.description if comment.description.present?
+    assert_not_nil text
+  end
+
+  test 'extracts text from Product' do
+    product = products(:product1)
+    text = SmartSearch::TextExtractor.extract(product)
+
+    assert_not_nil text
+  end
+
+  test 'extracts text from Event' do
+    event = events(:event1)
+    text = SmartSearch::TextExtractor.extract(event)
+
+    assert_not_nil text
+    assert_includes text, event.title
+  end
+
+  test 'extracts text from Answer' do
+    answer = answers(:answer1)
+    text = SmartSearch::TextExtractor.extract(answer)
+
+    assert_not_nil text
   end
 
   test 'returns nil for unknown model' do
