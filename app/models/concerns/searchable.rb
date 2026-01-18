@@ -7,16 +7,15 @@ module Searchable
 
   included do
     # Skip neighbor configuration if database is not ready or column doesn't exist
-    begin
-      if table_exists? && column_names.include?('embedding')
-        has_neighbors :embedding, dimensions: 1536
 
-        after_commit :schedule_embedding_generation, on: %i[create update],
-                                                     if: :should_generate_embedding?
-      end
-    rescue ActiveRecord::StatementInvalid, ActiveRecord::NoDatabaseError
-      # Ignore database connection errors during class loading
+    if table_exists? && column_names.include?('embedding')
+      has_neighbors :embedding, dimensions: 1536
+
+      after_commit :schedule_embedding_generation, on: %i[create update],
+                                                   if: :should_generate_embedding?
     end
+  rescue ActiveRecord::StatementInvalid, ActiveRecord::NoDatabaseError
+    # Ignore database connection errors during class loading
   end
 
   class_methods do
