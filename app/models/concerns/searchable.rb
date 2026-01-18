@@ -6,13 +6,14 @@ module Searchable
   REQUIRED_SEARCH_METHODS = %i[search_title search_label search_url].freeze
 
   included do
-    # Skip neighbor configuration if database is not ready or column doesn't exist
-    next unless ActiveRecord::Base.connection_pool.with_connection { table_exists? && column_names.include?('embedding') }
-
+    # Configure neighbor for vector search (always define to ensure method availability)
     has_neighbors :embedding, dimensions: 1536
 
-    after_commit :schedule_embedding_generation, on: %i[create update],
-                                                 if: :should_generate_embedding?
+    # Only set up embedding generation callback if embedding column exists
+    if ActiveRecord::Base.connection_pool.with_connection { table_exists? && column_names.include?('embedding') }
+      after_commit :schedule_embedding_generation, on: %i[create update],
+                                                   if: :should_generate_embedding?
+    end
   rescue ActiveRecord::StatementInvalid, ActiveRecord::NoDatabaseError, ActiveRecord::ConnectionNotEstablished, PG::ConnectionBad
     # Ignore database connection errors during class loading
   end
