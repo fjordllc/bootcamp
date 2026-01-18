@@ -30,17 +30,33 @@ module SmartSearch
       return [] unless api_available?
       return [] if texts.blank?
 
-      normalized = texts.map { |t| normalize_text(t) }.reject(&:blank?)
-      return [] if normalized.empty?
+      valid_entries = extract_valid_entries(texts)
+      return Array.new(texts.size) if valid_entries.empty?
 
-      response = RubyLLM.embed(normalized, model: MODEL)
-      response.vectors
+      vectors = fetch_embeddings(valid_entries.map(&:first))
+      build_result_array(texts.size, valid_entries, vectors)
     rescue StandardError => e
       Rails.logger.error "[SmartSearch] Batch embedding generation failed: #{e.message}"
       []
     end
 
     private
+
+    def extract_valid_entries(texts)
+      texts.each_with_index.map { |t, i| [normalize_text(t), i] }.reject { |t, _| t.blank? }
+    end
+
+    def fetch_embeddings(valid_texts)
+      RubyLLM.embed(valid_texts, model: MODEL).vectors
+    end
+
+    def build_result_array(size, valid_entries, vectors)
+      result = Array.new(size)
+      valid_entries.each_with_index do |(_, original_index), response_index|
+        result[original_index] = vectors[response_index]
+      end
+      result
+    end
 
     def normalize_text(text)
       return '' if text.blank?

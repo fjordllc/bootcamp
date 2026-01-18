@@ -6,7 +6,10 @@ class EmbeddingGenerateJob < ApplicationJob
   retry_on StandardError, wait: :polynomially_longer, attempts: 3
 
   def perform(model_name:, record_id:)
-    record = model_name.constantize.find_by(id: record_id)
+    model_class = model_name.safe_constantize
+    return if model_class.nil?
+
+    record = model_class.find_by(id: record_id)
     return if record.nil?
 
     generator = SmartSearch::EmbeddingGenerator.new

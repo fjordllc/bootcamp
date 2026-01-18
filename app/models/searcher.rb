@@ -91,6 +91,7 @@ class Searcher
     mode_sym = mode&.to_sym || :keyword
     return mode_sym if MODES.include?(mode_sym)
 
+    Rails.logger.warn "[Searcher] Invalid mode: #{mode.inspect}. Fallback to :keyword"
     :keyword
   end
 end
