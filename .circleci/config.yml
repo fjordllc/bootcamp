@@ -60,7 +60,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: ci_test
-      - image: cimg/postgres:14.4
+      - image: pgvector/pgvector:pg14
     resource_class: large
     environment:
       BUNDLE_JOBS: '3'
@@ -102,10 +102,8 @@ jobs:
           name: Wait for DB
           command: 'dockerize -wait tcp://localhost:5432 -timeout 1m'
       - run:
-          name: Install pgvector extension
+          name: Enable pgvector extension
           command: |
-            sudo apt-get update
-            sudo apt-get install -y postgresql-14-pgvector
             psql -h localhost -U postgres -c "CREATE EXTENSION IF NOT EXISTS vector;"
       - run:
           name: Database setup
