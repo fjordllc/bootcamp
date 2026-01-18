@@ -49,6 +49,7 @@ module SmartSearch
 
     def search_model(model_class, query_embedding, limit)
       return [] unless model_class.column_names.include?('embedding')
+      return [] unless model_class.respond_to?(:nearest_neighbors)
 
       model_class
         .where.not(embedding: nil)
