@@ -11,7 +11,7 @@
           label.a-form-label
             | 検索方法
           .a-button.is-md.is-secondary.is-select.is-block
-            = select_tag 'mode', options_for_select([['キーワード検索', 'keyword'], ['AI検索', 'semantic'], ['ハイブリッド', 'hybrid']], params[:mode] || 'keyword')
+            = select_tag 'mode', options_for_select(Searcher::MODES_FOR_SELECT, params[:mode] || 'keyword')
       .form-item
         label.a-form-label
           | 絞り込み条件
