@@ -61,4 +61,12 @@ class ReportTest < ActiveSupport::TestCase
     assert_not duplicate_report.save_uniquely
     assert_includes duplicate_report.errors.full_messages, '学習日はすでに存在します'
   end
+
+  test '.with_grant_practices returns only grant course reports' do
+    rails_course_report = reports(:report76)
+    grant_course_report = reports(:report77)
+    unrelated_report = reports(:report78)
+    mixed_reports = Report.where(id: [rails_course_report.id, grant_course_report.id, unrelated_report.id])
+    assert_equal [grant_course_report], mixed_reports.with_grant_practices.to_a
+  end
 end
