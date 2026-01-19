@@ -73,4 +73,12 @@ class ReportTest < ActiveSupport::TestCase
     assert_empty unchecked_report.checks
     assert_includes Report.unchecked, unchecked_report
   end
+
+  test '.with_grant_practices returns only grant course reports' do
+    rails_course_report = reports(:report76)
+    grant_course_report = reports(:report77)
+    unrelated_report = reports(:report78)
+    mixed_reports = Report.where(id: [rails_course_report.id, grant_course_report.id, unrelated_report.id])
+    assert_equal [grant_course_report], mixed_reports.with_grant_practices.to_a
+  end
 end
