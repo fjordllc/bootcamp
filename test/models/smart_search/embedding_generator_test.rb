@@ -3,10 +3,6 @@
 require 'test_helper'
 
 class SmartSearch::EmbeddingGeneratorTest < ActiveSupport::TestCase
-  def setup
-    @generator = SmartSearch::EmbeddingGenerator.new
-  end
-
   test 'api_available? returns false when API key is not set' do
     original_key = ENV['OPENAI_API_KEY']
     ENV['OPENAI_API_KEY'] = nil

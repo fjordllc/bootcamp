@@ -11,6 +11,9 @@ namespace :smart_search do # rubocop:disable Metrics/BlockLength
     model_name = args[:model_name]
     abort 'Please specify a model name' if model_name.blank?
 
+    allowed_models = SmartSearch::Configuration::EMBEDDING_MODELS
+    abort "Invalid model: #{model_name}. Allowed models: #{allowed_models.join(', ')}" unless allowed_models.include?(model_name)
+
     BulkEmbeddingJob.perform_now(model_name:)
   end
 
