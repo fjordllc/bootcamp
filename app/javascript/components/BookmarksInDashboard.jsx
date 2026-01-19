@@ -119,7 +119,17 @@ const Bookmark = ({ bookmark, editable, bookmarksUrl }) => {
         {bookmark.modelName === 'Talk' ? (
           <div className="card-list-item__user" ref={userIconRef}></div>
         ) : (
-          <div className="card-list-item__label">{bookmark.modelNameI18n}</div>
+          <div className="card-list-item__label">
+            {bookmark.modelName === 'RegularEvent' ? (
+              <>
+                定期
+                <br />
+                イベント
+              </>
+            ) : (
+              bookmark.modelNameI18n
+            )}
+          </div>
         )}
         <div className="card-list-item__rows">
           <div className="card-list-item__row">
