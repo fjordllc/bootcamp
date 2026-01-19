@@ -2,8 +2,6 @@
 
 module SmartSearch
   module TextExtractor
-    TITLE_DESCRIPTION_MODELS = [Report, Page, Question, Announcement, Event, RegularEvent].freeze
-
     module_function
 
     def extract(record)
@@ -11,12 +9,13 @@ module SmartSearch
       truncate_text(text)
     end
 
-    def extract_raw_text(record)
+    def extract_raw_text(record) # rubocop:disable Metrics/MethodLength
       case record
       when Practice then extract_practice(record)
       when Product then record.body
       when Answer, CorrectAnswer, Comment then record.description
-      when *TITLE_DESCRIPTION_MODELS then extract_title_description(record)
+      when Report, Page, Question, Announcement, Event, RegularEvent
+        extract_title_description(record)
       else
         Rails.logger.warn "[SmartSearch] Unknown model type: #{record.class.name}"
         nil
