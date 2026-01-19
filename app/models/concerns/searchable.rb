@@ -5,6 +5,9 @@ module Searchable
 
   REQUIRED_SEARCH_METHODS = %i[search_title search_label search_url].freeze
 
+  # Vector similarity search is handled via raw SQL in SemanticSearcher
+  # to avoid issues with database availability during class loading
+
   class_methods do
     def columns_for_keyword_search(*columns)
       define_singleton_method :ransackable_attributes do |_auth_object = nil|
