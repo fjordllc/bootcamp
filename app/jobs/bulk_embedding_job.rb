@@ -10,8 +10,16 @@ class BulkEmbeddingJob < ApplicationJob
       return
     end
 
-    models = model_name ? [model_name] : SmartSearch::Configuration::EMBEDDING_MODELS
+    models = model_name ? validate_and_wrap_model(model_name) : SmartSearch::Configuration::EMBEDDING_MODELS
     models.each { |name| process_model(name, force_regenerate, generator) }
+  end
+
+  def validate_and_wrap_model(model_name)
+    unless SmartSearch::Configuration::EMBEDDING_MODELS.include?(model_name)
+      Rails.logger.warn "[SmartSearch] Invalid model_name: #{model_name}. Skipping."
+      return []
+    end
+    [model_name]
   end
 
   private
@@ -27,7 +35,7 @@ class BulkEmbeddingJob < ApplicationJob
 
     scope.find_in_batches(batch_size: SmartSearch::Configuration::BATCH_SIZE) do |batch|
       process_batch(batch, generator)
-      sleep(0.1)
+      sleep(0.1) # Rate limiting to avoid API throttling
     end
 
     Rails.logger.info "[SmartSearch] Completed #{model_name} embedding generation"
