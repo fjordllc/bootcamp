@@ -9,7 +9,7 @@ module SmartSearch
       truncate_text(text)
     end
 
-    def extract_raw_text(record) # rubocop:disable Metrics/MethodLength
+    def extract_raw_text(record)
       case record
       when Practice then extract_practice(record)
       when Product then record.body
