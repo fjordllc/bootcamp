@@ -30,7 +30,7 @@
               - if @announcements.present?
                 = render partial: 'announcements'
               - if current_user.bookmarks.present?
-                = react_component 'BookmarksInDashboard', {}, { class: 'a-card-react', id: 'bookmarks-in-dashboard' }
+                = render(DashboardBookmarksComponent.new(bookmarks: @bookmarks))
               - if current_user.wip_exists?
                 = render 'wip_items'
               - if current_user.active_practices.present?
