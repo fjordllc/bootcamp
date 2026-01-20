@@ -46,7 +46,7 @@ nav.global-nav
                 = Cache.not_solved_question_count
             .global-nav-links__link-label Q&A
         li.global-nav-links__item
-          = link_to '/pages', class: "global-nav-links__link #{(@page&.slug != 'help' && @page&.slug != 'help-adviser') && current_link(/^pages/)}" do
+          = link_to '/pages', class: "global-nav-links__link #{@page&.slug != 'help' && @page&.slug != 'help-adviser' && current_link(/^pages/)}" do
             .global-nav-links__link-icon
               i.fa-solid.fa-file
             .global-nav-links__link-label
