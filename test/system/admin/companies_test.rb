@@ -89,6 +89,7 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
     find('.choices__inner').click
     find('.choices__item--choice', text: own_company.name).click
     click_button '更新する'
+    assert_text 'ユーザー情報を更新しました'
     find('.user-profile__company-link').click
     find('a.card-main-actions__action', text: 'アドバイザーとして編集').click
     within 'form[name=company]' do
@@ -108,6 +109,7 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
     find('.choices__inner').click
     find('.choices__item--choice', text: company.name).click
     click_button '更新する'
+    assert_text 'ユーザー情報を更新しました'
     find('.user-profile__company-link').click
     assert_no_text '管理者として編集'
   end
