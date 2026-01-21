@@ -1,0 +1,42 @@
+.unchecked-report-alert__header {
+  background-color: var(--danger);
+  padding: 0.125rem 1rem;
+}
+
+.unchecked-report-alert__header-title {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  font-weight: 700;
+  color: var(--reversal-text);
+}
+
+.unchecked-report-alert__inner {
+  padding: 0.25rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.unchecked-report-alert__icon {
+  font-size: 2rem;
+}
+
+.unchecked-report-alert__message {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  text-align: center;
+  flex: 1;
+}
+
+.unchecked-report-alert__message-link {
+  color: var(--danger-text);
+}
+
+.unchecked-report-alert__count {
+  margin-inline: 0.125rem;
+}
+
+.unchecked-report-alert__count-number {
+  font-size: 1.25rem;
+  margin-right: 0.0625rem;
+}

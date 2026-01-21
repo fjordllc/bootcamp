@@ -1,0 +1,171 @@
+.modal {
+  display: none;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 100;
+  padding: 1rem;
+}
+
+input:checked + .modal,
+.modal.is-shown {
+  display: block;
+}
+
+.modal__overlay {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, .8);
+}
+
+.modal__description.is-md {
+  font-size: .875rem;
+}
+
+.modal__description + .modal__description {
+  margin-top: 1.25em;
+  padding-top: 1.25em;
+  border-top: dashed 1px var(--border);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: solid 1px var(--border-tint);
+}
+
+@media (min-width: 48em) {
+  .modal-header {
+    padding: .25rem 1.5rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .modal-header {
+    padding: .25rem 1rem;
+  }
+}
+
+.modal-header__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.75rem;
+  width: 2.75rem;
+  cursor: pointer;
+  opacity: .4;
+  transition: all .2s ease-out;
+  position: relative;
+}
+
+@media (min-width: 48em) {
+  .modal-header__close {
+    margin-right: -1.5rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .modal-header__close {
+    margin-right: -1rem;
+  }
+}
+
+.modal-header__close::before,
+.modal-header__close::after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 40%;
+  background-color: var(--default-text);
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  border-radius: 2px;
+}
+
+.modal-header__close::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.modal-header__close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.modal-header__close:hover {
+  opacity: 1;
+}
+
+.modal-content {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  background-color: var(--base);
+  border-radius: .25rem;
+  width: 40rem;
+  max-width: calc(100% - 2rem);
+}
+
+.modal-content.is-sm {
+  width: 24rem;
+}
+
+.modal-content > *:last-child {
+  border-bottom: none;
+}
+
+.modal-body {
+  max-height: calc(100vh - 11.5rem);
+  overflow: auto;
+  border-bottom: solid 1px var(--border-tint);
+}
+
+@media (min-width: 48em) {
+  .modal-body {
+    padding: 1rem 1.5rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .modal-body {
+    padding: 1rem;
+  }
+}
+
+.modal-title {
+  font-weight: 600;
+}
+
+@media (min-width: 48em) {
+  .modal-title {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .modal-title {
+    font-size: 1rem;
+  }
+}
+
+.modal-footer {
+}
+
+@media (min-width: 48em) {
+  .modal-footer {
+    padding: .25rem 1.5rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .modal-footer {
+    padding: .25rem 1rem;
+  }
+}

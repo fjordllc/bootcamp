@@ -1,0 +1,249 @@
+.a-short-text h3 {
+  font-size: 1.25em;
+  line-height: 1.4;
+  margin-top: 0.75em;
+}
+.a-short-text p {
+  font-size: 1em;
+  line-height: 1.6;
+  margin-top: 0.75em;
+}
+.a-short-text li {
+  font-size: 1em;
+  line-height: 1.6;
+}
+.a-short-text ol,
+.a-short-text ul {
+  margin-left: 1.25em;
+  margin-top: 0.75em;
+}
+.a-short-text ol {
+  list-style-type: decimal;
+}
+.a-short-text > ul {
+  list-style-type: disc;
+}
+.a-short-text > ol {
+  list-style-type: decimal;
+}
+.a-short-text li ul,
+.a-short-text li ol {
+  margin-block: 0.375em;
+}
+.a-short-text li ul:first-child,
+.a-short-text li ol:first-child {
+  margin-top: 0.375em;
+}
+.a-short-text li ul:last-child,
+.a-short-text li ol:last-child {
+  margin-bottom: 0.375em;
+}
+.a-short-text li > ul {
+  list-style-type: circle;
+}
+.a-short-text li > ul > li > ul {
+  list-style-type: square;
+}
+.a-short-text a {
+  text-decoration: none;
+  cursor: pointer;
+}
+.a-short-text a:hover, .a-short-text a:active {
+  text-decoration: underline;
+}
+.a-short-text a {
+  transition: color 0.2s ease-in;
+  color: var(--link-text);
+}
+.a-short-text a:link {
+  color: var(--link-text);
+}
+.a-short-text a:visited {
+  color: hsl(233, 33%, 58%);
+}
+.a-short-text a:hover {
+  color: var(--hover-text);
+}
+.a-short-text a:active {
+  color: var(--hover-text);
+}
+.a-short-text hr {
+  display: block;
+  height: 0;
+  width: 100%;
+  border: none;
+  border-top: dashed 1px var(--border);
+  margin-block: 1.25em;
+}
+.a-short-text strong,
+.a-short-text b {
+  font-weight: 700;
+}
+.a-short-text h1 {
+  font-size: 1.75em;
+  line-height: 1.4;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+  color: var(--main-text);
+  padding-bottom: 0.25em;
+  border-bottom: 3px solid var(--border);
+}
+.a-short-text h2 {
+  font-size: 1.5em;
+  line-height: 1.4;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+  padding-bottom: 0.25em;
+  border-bottom: 1px solid var(--border);
+}
+.a-short-text * + h2,
+.a-short-text * + h3,
+.a-short-text * + h4,
+.a-short-text * + h5 {
+  margin-top: 0.75em;
+}
+.a-short-text h3 {
+  font-size: 1.25em;
+  line-height: 1.4;
+  font-weight: 600;
+  margin-bottom: 0.625em;
+}
+.a-short-text h3 + * {
+  margin-top: 0 !important;
+}
+.a-short-text h4 {
+  font-size: 1.125em;
+  line-height: 1.5;
+  font-weight: 600;
+  margin-bottom: 0.625em;
+}
+.a-short-text h4 + * {
+  margin-top: 0 !important;
+}
+.a-short-text h5 {
+  font-size: 1em;
+  line-height: 1.5;
+  font-weight: 600;
+  margin-bottom: 0.625em;
+}
+.a-short-text h5 + * {
+  margin-top: 0 !important;
+}
+.a-short-text h6 {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-weight: 600;
+  margin-bottom: 0.625em;
+}
+.a-short-text h6 + * {
+  margin-top: 0 !important;
+}
+.a-short-text h1,
+.a-short-text h2,
+.a-short-text h3,
+.a-short-text h4,
+.a-short-text h5,
+.a-short-text h6 {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  position: relative;
+  outline-style: none;
+}
+.a-short-text h1:hover .header-anchor,
+.a-short-text h2:hover .header-anchor,
+.a-short-text h3:hover .header-anchor,
+.a-short-text h4:hover .header-anchor,
+.a-short-text h5:hover .header-anchor,
+.a-short-text h6:hover .header-anchor {
+  opacity: 1;
+}
+.a-short-text .header-anchor {
+  display: flex;
+  font-size: 0.75rem;
+  font-weight: 400;
+  float: left;
+  position: absolute;
+  margin-left: -1.5rem;
+  text-decoration: none !important;
+  height: 100%;
+  width: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-out;
+  opacity: 0;
+}
+.a-short-text .header-anchor:link, .a-short-text .header-anchor:visited {
+  color: var(--main);
+}
+.a-short-text .is-danger {
+  color: var(--danger) !important;
+}
+.a-short-text .is-warning {
+  color: var(--warning) !important;
+}
+.a-short-text.is-ta-center,
+.a-short-text .is-ta-center {
+  text-align: center;
+}
+.a-short-text.is-sm {
+  font-size: 0.8125rem;
+}
+.a-short-text.has-no-headding h1,
+.a-short-text.has-no-headding h2,
+.a-short-text.has-no-headding h3,
+.a-short-text.has-no-headding h4,
+.a-short-text.has-no-headding h5,
+.a-short-text.has-no-headding h6 {
+  font-size: 1em;
+  line-height: 1.6;
+  margin-top: 0;
+  margin-bottom: 0.625em;
+  font-weight: 700;
+  border: none;
+  padding: 0;
+}
+.a-short-text .message {
+  padding: 0.875rem 1em;
+  border-radius: 0.25rem;
+  margin-block: 1em 1em;
+  background-color: var(--warning-tint);
+  color: var(--warning-text);
+}
+.a-short-text .message.alert, .a-short-text .message.danger {
+  background-color: var(--danger-tint);
+  color: var(--danger-text);
+}
+.a-short-text .message.warning {
+  background-color: var(--warning-tint);
+  color: var(--warning-text);
+}
+.a-short-text .message.info {
+  background-color: var(--info-tint);
+  color: var(--info-text);
+}
+.a-short-text .message.primary {
+  background-color: var(--primary-tint);
+  color: var(--primary-text);
+}
+.a-short-text .message.success {
+  background-color: var(--success-tint);
+  color: var(--success-text);
+}
+.a-short-text .a-help {
+  width: 1.25em;
+  height: 1.25em;
+}
+.a-short-text *:first-child {
+  margin-top: 0;
+}
+.a-short-text *:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 47.9375em) {
+  .a-short-text.is-sm {
+    font-size: 0.75rem;
+  }
+}

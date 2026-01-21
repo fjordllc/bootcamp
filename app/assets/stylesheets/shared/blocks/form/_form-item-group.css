@@ -1,0 +1,19 @@
+.form-item-group + .form-item-group {
+  margin-top: 0.75rem;
+  border-top: dashed 1px var(--border);
+  padding-top: 0.75rem;
+}
+
+.form-item-group__header + .form-item-group__body {
+  margin-top: 0.25rem;
+}
+
+.form-item-group__title {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.form-item-group__help {
+  margin-top: 0.5rem;
+}

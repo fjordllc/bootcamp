@@ -1,0 +1,41 @@
+.lp-content-sub-title i {
+  margin-right: 0.25em;
+  color: var(--main);
+}
+.lp-content-sub-title strong {
+  color: var(--main);
+}
+.lp-content-sub-title {
+  font-size: 1.375rem;
+  line-height: 1.4;
+  font-weight: 800;
+}
+.lp-content-sub-title.is-course-name {
+  font-size: 0.875rem;
+}
+@media (min-width: 48em) {
+  .lp-content-sub-title {
+    font-size: 1.75rem;
+  }
+}
+@media (min-width: 64em) {
+  .lp-content-sub-title {
+    font-size: 2.125rem;
+  }
+}
+.lp-content-sub-title.is-sm {
+  color: var(--main);
+  font-size: 1.125rem;
+  line-height: 1.4;
+  font-weight: 800;
+}
+@media (min-width: 48em) {
+  .lp-content-sub-title.is-sm {
+    font-size: 1.25rem;
+  }
+}
+@media (min-width: 64em) {
+  .lp-content-sub-title.is-sm {
+    font-size: 1.5rem;
+  }
+}

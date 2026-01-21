@@ -13,6 +13,7 @@ gem 'puma', '>= 5.0'
 gem 'rails', '8.1.1'
 gem 'shakapacker', '~> 9.0'
 gem 'sprockets-rails', '>= 2.0.0'
+gem 'tailwindcss-rails', '~> 4.0'
 
 # not default
 gem 'abstract_notifier', '~> 0.3.2'

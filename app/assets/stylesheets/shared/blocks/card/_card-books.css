@@ -1,0 +1,136 @@
+
+.card-books-item {
+}
+
+@media (min-width: 48em) {
+  .card-books-item {
+    height: 100%;
+  }
+}
+
+.card-books-item__body {
+}
+
+@media (min-width: 48em) {
+  .card-books-item__body {
+    flex: 1;
+  }
+}
+
+.card-books-item__inner {
+  padding: .75rem 1rem;
+  text-decoration: none;
+}
+
+@media (min-width: 48em) {
+  .card-books-item__inner {
+    display: flex;
+    text-decoration: none;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .card-books-item__inner {
+    display: block;
+    overflow: hidden;
+  }
+}
+
+.card-books-item__start {
+}
+
+@media (min-width: 48em) {
+  .card-books-item__start {
+    flex: 0 0 4rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .card-books-item__start {
+    float: left;
+    margin-right: 1rem;
+    width: 3.5rem;
+  }
+}
+
+.card-books-item__end {
+  flex: 1;
+}
+
+.card-books-item__row:not(:first-child) {
+  margin-top: .25rem;
+}
+
+.card-books-item__cover-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-books-item__image {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: 50% 0;
+  border: solid 1px var(--border-tint);
+  border-radius: 2px;
+}
+
+.card-books-item__title {
+  font-size: .875rem;
+  line-height: 1.4;
+  font-weight: 600;
+  color: var(--default-text);
+  transition: all .2s ease-out;
+}
+
+.card-books-item__title .a-badge {
+  position: relative;
+  top: -.125em;
+  margin-right: .5em;
+}
+
+.card-books-item__title-link {
+  text-decoration: none;
+}
+
+.card-books-item__title-link .card-books-item__title-label {
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--main-text);
+}
+
+.card-books-item__title-link .card-books-item__title-label:hover,
+.card-books-item__title-link .card-books-item__title-label:active {
+  text-decoration: underline;
+}
+
+a.card-books-item__inner:hover .card-books-item__title-label {
+  text-decoration: underline;
+  color: var(--main-text);
+}
+
+.card-books-item__price {
+  font-size: .75rem;
+  line-height: 1.4;
+  color: var(--default-text);
+}
+
+.card-books-item__description {
+  font-size: .75rem;
+  color: var(--semi-muted-text);
+}
+
+.card-books-item__practices {
+  padding: 0 1rem .75rem;
+}
+
+.card-books-item__practices .tag-links__item-link {
+  max-width: 9rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}

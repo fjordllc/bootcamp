@@ -1,0 +1,55 @@
+.pill-nav:not(:first-child) {
+  padding-top: 1.25rem;
+}
+
+.pill-nav__items {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  justify-content: center;
+}
+
+.pill-nav__item:first-child .pill-nav__item-link {
+  border-top-left-radius: 10em;
+  border-bottom-left-radius: 10em;
+}
+.pill-nav__item:last-child .pill-nav__item-link {
+  border-top-right-radius: 10em;
+  border-bottom-right-radius: 10em;
+}
+.is-half .pill-nav__item {
+  width: 50%;
+}
+
+.pill-nav__item-link {
+  display: block;
+  text-decoration: none;
+  font-size: 0.75rem;
+  line-height: 2.3;
+  text-align: center;
+  white-space: nowrap;
+  color: var(--muted-text);
+  border: solid 1px var(--border-shade);
+  border-left-width: 0.5px;
+  border-right-width: 0.5px;
+  width: 7rem;
+  transition: all 0.2s ease-out;
+}
+.pill-nav__item:first-child .pill-nav__item-link {
+  border-left-width: 1px;
+}
+.pill-nav__item:last-child .pill-nav__item-link {
+  border-right-width: 1px;
+}
+.pill-nav__item-link:hover {
+  background-color: var(--background-more-tint);
+}
+.pill-nav__item-link.is-active {
+  background-color: var(--main);
+  color: var(--reversal-text);
+  border-color: var(--main);
+}
+
+div.pill-nav__item-link {
+  cursor: pointer;
+}

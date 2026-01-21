@@ -1,0 +1,14 @@
+html body.is-test .wrapper {
+  height: auto;
+}
+html body.is-test .test-fixed-bottom {
+  position: fixed;
+  right: 10rem;
+  bottom: 10rem;
+}
+html body.is-test .test-inline-block {
+  display: inline-block;
+}
+html body.is-test .test-block {
+  display: block;
+}

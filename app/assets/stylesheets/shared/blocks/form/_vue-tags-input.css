@@ -1,0 +1,14 @@
+.vue-tags-input {
+  max-width: 100% !important;
+}
+
+body .vue-tags-input .ti-input {
+  border-radius: 4px;
+  background-color: var(--input-background);
+  border-color: var(--input-border);
+  transition: all 0.2s ease-out;
+}
+body .vue-tags-input .ti-input:hover {
+  background-color: var(--input-hover-background);
+  border-color: var(--input-hover-border);
+}

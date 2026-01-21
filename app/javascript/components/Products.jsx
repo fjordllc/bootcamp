@@ -90,7 +90,7 @@ export default function Products({
   }
 
   const elapsedDaysId = (elapsedDays) => {
-    return `${elapsedDays}days-elapsed`
+    return `elapsed-${elapsedDays}days`
   }
 
   const elapsedDaysRef = useRef(null)

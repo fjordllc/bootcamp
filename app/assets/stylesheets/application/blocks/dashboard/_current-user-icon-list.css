@@ -1,0 +1,55 @@
+
+.current-user-icon-list {
+  margin-bottom: 1rem;
+  background-color: #eaeaf1;
+  padding-block: .5rem;
+  /* fallback for older UA */
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+}
+
+.current-user-icon-list__inner {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.current-user-icon-list__items {
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+  flex: 1 1 auto;
+  min-width: 0;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-gutter: stable both-edges;
+}
+
+.current-user-icon-list__item {
+  flex: 0 0 2.5rem;
+}
+
+@media (min-width: 48em) {
+  .current-user-icon-list__item {
+    flex: 0 0 3rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .current-user-icon-list__item {
+    flex: 0 0 2rem;
+  }
+}
+
+.current-user-icon-list__title-label {
+  font-size: .875rem;
+  line-height: 1.4;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.current-user-icon-list__title-time {
+  font-size: .75rem;
+  line-height: 1.4;
+  white-space: nowrap;
+}

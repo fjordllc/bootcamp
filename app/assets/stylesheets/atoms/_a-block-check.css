@@ -1,0 +1,127 @@
+.a-block-check {
+  height: 100%;
+}
+
+.a-block-check__label {
+  background-color: var(--input-background);
+  height: 100%;
+  min-height: 2.5rem;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  display: flex;
+  text-align: center;
+  gap: 0.25rem;
+  align-items: center;
+  justify-content: center;
+  border: solid 1px var(--input-border);
+  padding: 0.5rem 1.25rem 0.5rem 2.25rem;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease-in;
+  position: relative;
+}
+
+.a-block-check__label.is-ta-left {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.a-block-check__label.has-input {
+  flex-wrap: wrap;
+}
+
+.a-block-check__label.has-input label {
+  flex: 0 0 100%;
+  cursor: pointer;
+}
+
+.a-block-check__label:hover {
+  background-color: var(--input-hover-background);
+  border-color: var(--input-hover-border);
+}
+
+input:checked + .a-block-check__label {
+  background-color: var(--input-selected-background);
+  border-color: var(--input-selected-border);
+  color: var(--input-selected-text);
+}
+
+.a-block-check .a-block-check__label::before {
+  display: block;
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.form-item-block__item .a-block-check__label {
+  border: none;
+  border-radius: none;
+}
+
+.a-block-check__label.is-dammy {
+  pointer-events: none;
+}
+
+/* radio */
+.a-block-check.is-radio .a-block-check__label::before {
+  content: "";
+  width: 0.875rem;
+  height: 0.875rem;
+  border: solid 1px var(--input-border);
+  border-radius: 50%;
+  background-color: var(--base);
+}
+
+.a-block-check.is-radio input:checked + .a-block-check__label::before {
+  border-color: var(--primary);
+  background-color: var(--primary);
+  box-shadow: inset 0 0 0 2px var(--base);
+}
+
+/* checkbox */
+.a-block-check.is-checkbox .a-block-check__label::before {
+  content: "";
+  width: 0.875rem;
+  height: 0.875rem;
+  border: solid 1px var(--input-border);
+  border-radius: 3px;
+  background-color: var(--base);
+}
+
+.a-block-check.is-checkbox input:checked + .a-block-check__label::before {
+  border-color: var(--primary);
+  background-color: var(--primary);
+  content: "\f00c";
+  font-family: "Font Awesome 6 Pro";
+  font-style: normal;
+  font-weight: 900;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  color: var(--reversal-text);
+}
+
+.a-block-check__name {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  display: block;
+  text-align: center;
+}
+
+.a-block-check__image {
+  width: 2rem;
+  height: 2rem;
+}
+
+.a-block-check__label.has-icon .a-block-check__image {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.a-block-check__account {
+  margin-left: 0.25em;
+  font-weight: 400;
+}
