@@ -1,0 +1,113 @@
+.a-badge {
+  text-transform: none;
+  display: inline-flex;
+  border: solid 1px;
+  border-radius: 1em;
+  font-family: var(--sans-serif);
+  white-space: nowrap;
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+}
+.a-badge:not(:first-child) {
+  margin-left: 0.1875em;
+}
+.a-badge:not(:last-child) {
+  margin-right: 0.1875em;
+}
+.a-badge.is-block {
+  width: 100%;
+  display: flex;
+}
+.a-badge.is-block .a-badge__inner {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.a-badge.is-primary {
+  background-color: var(--primary);
+  color: var(--reversal-text);
+  border-color: var(--primary);
+}
+.a-badge.is-secondary {
+  background-color: var(--secondary);
+  color: var(--default-text);
+  border-color: #d1d1d1;
+}
+.a-badge.is-info {
+  background-color: var(--info);
+  color: var(--reversal-text);
+  border-color: var(--info);
+}
+.a-badge.is-success {
+  background-color: var(--success);
+  color: var(--reversal-text);
+  border-color: var(--success);
+}
+.a-badge.is-warning {
+  background-color: var(--warning);
+  color: var(--default-text);
+  border-color: var(--warning);
+}
+.a-badge.is-danger {
+  background-color: var(--danger);
+  color: var(--reversal-text);
+  border-color: var(--danger);
+}
+.a-badge.is-disabled {
+  background-color: var(--disabled);
+  color: var(--default-text);
+  border-color: #d1d1d1;
+}
+.a-badge.is-main {
+  background-color: var(--main);
+  color: var(--reversal-text);
+  border-color: var(--main);
+}
+.a-badge.is-muted {
+  border: none;
+  color: var(--muted-text);
+  font-weight: 400;
+  background-color: var(--background);
+}
+.a-badge.is-dark-muted {
+  border: none;
+  color: var(--semi-muted-text);
+  font-weight: 400;
+  background-color: var(--background-semi-shade);
+}
+.a-badge.is-xs {
+  font-size: 0.625rem;
+  padding-inline: 0.625rem;
+  height: 1.5rem;
+  font-weight: 500;
+}
+.a-badge.is-xs:not(:first-child) {
+  margin-left: 0.5em;
+}
+.a-badge.is-xs:not(:last-child) {
+  margin-right: 0.5em;
+}
+.a-badge.is-sm {
+  font-size: 0.6875rem;
+  padding-inline: 0.6875rem;
+  height: 1.65em;
+  font-weight: 600;
+}
+.a-badge.is-md {
+  font-size: 0.8125rem;
+  padding-inline: 0.8125rem;
+  height: 1.95em;
+  font-weight: 600;
+}
+.a-badge.is-lg {
+  font-size: 1rem;
+  padding-inline: 1rem;
+  height: 2.4em;
+  font-weight: 600;
+}
+.a-badge.is-xl {
+  font-size: 1.25rem;
+  padding-inline: 1.25rem;
+  height: 3em;
+  font-weight: 800;
+}

@@ -1,0 +1,352 @@
+
+.page-content-header {
+  position: relative;
+}
+
+@media (min-width: 48em) {
+  .page-content-header {
+    display: flex;
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 48em) {
+  .page-content-header:not(:last-child) {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .page-content-header {
+    margin-bottom: 1.25rem;
+  }
+}
+
+.page-content-header .a-watch-button.is-inactive {
+}
+
+.page-content-header .a-bookmark-button.is-inactive {
+  color: var(--semi-muted-text);
+  background-color: var(--background-semi-shade);
+}
+
+.page-content-header .a-count-badge {
+  float: right;
+  margin-left: .5rem;
+  margin-top: -.5rem;
+}
+
+.page-content-header__start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+}
+
+.page-content-header__end {
+}
+
+@media (min-width: 48em) {
+  .page-content-header__end {
+    flex: 1;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .page-content-header__start + .page-content-header__end {
+    margin-top: .5rem;
+  }
+}
+
+.page-content-header__user {
+}
+
+@media (max-width: 47.9375em) {
+  .page-content-header__user {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.page-content-header__category {
+}
+
+@media (max-width: 47.9375em) {
+  .page-content-header__category {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.page-content-header__category-icon {
+  height: 3.5rem;
+  width: 3.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .875rem;
+  line-height: 1;
+  font-weight: 600;
+}
+
+.page-content-header__category-icon.is-meeting {
+  background-color: #7f6fb7;
+  color: var(--reversal-text);
+}
+
+.page-content-header__category-icon.is-reading-circle {
+  background-color: #79bcc3;
+  color: var(--reversal-text);
+}
+
+.page-content-header__category-icon.is-question {
+  background-color: #de9172;
+  color: var(--reversal-text);
+}
+
+.page-content-header__category-icon.is-chat {
+  background-color: #56925c;
+  color: var(--reversal-text);
+}
+
+.page-content-header__category-icon.is-others {
+  background-color: #f7cd5b;
+  color: var(--default-text);
+}
+
+.page-content-header__user-link {
+  display: block;
+  text-decoration: none;
+}
+
+.page-content-header__user-icon-image {
+  height: 3.5rem;
+  width: 3.5rem;
+}
+
+.page-content-header__company-logo-image {
+  background-color: var(--base);
+  object-fit: contain;
+  border-radius: .25rem;
+}
+
+@media (min-width: 48em) {
+  .page-content-header__company-logo-image {
+    height: 3.5rem;
+    width: 3.5rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .page-content-header__company-logo-image {
+    height: 2.75rem;
+    width: 2.75rem;
+    left: 0;
+    position: absolute;
+    top: 0;
+  }
+}
+
+.page-content-header__before-title {
+  gap: .25rem 1rem;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 48em) {
+  .page-content-header__before-title {
+    display: inline-flex;
+    margin-bottom: .25rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .page-content-header__before-title {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: .5rem;
+  }
+}
+
+.page-content-header__before-title .a-user-name {
+}
+
+.page-content-header__before-title .a-meta {
+}
+
+.page-content-header__before-title .a-category-link {
+  font-size: .75rem;
+}
+
+.page-content-header__title {
+  font-feature-settings: "palt";
+  letter-spacing: .02em;
+  font-size: 1em;
+  line-height: 1.4;
+  font-weight: 700;
+  color: var(--main);
+  padding-bottom: .25rem;
+  border-bottom: solid 1px var(--border-shade);
+}
+
+@media (min-width: 48em) {
+  .page-content-header__title {
+    font-size: 1.625rem;
+    word-wrap: break-word;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .page-content-header__title {
+    font-size: 1.125rem;
+    word-break: break-all;
+  }
+}
+
+.page-content-header__title.is-wip {
+  color: var(--muted-text);
+}
+
+.page-content-header__title.is-skip-on {
+  color: var(--muted-text);
+}
+
+.page-content-header__title .a-title-label {
+  display: inline-flex;
+  vertical-align: top;
+}
+
+@media (min-width: 48em) {
+  .page-content-header__title .a-title-label {
+    position: relative;
+    top: .75em;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .page-content-header__title .a-title-label {
+    position: relative;
+    top: .5em;
+  }
+}
+
+.page-content-header__title-link {
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--main);
+}
+
+.page-content-header__title-link:hover,
+.page-content-header__title-link:active {
+  text-decoration: underline;
+}
+
+.page-content-header__title.is-wip .page-content-header__title-link {
+  color: var(--muted-text);
+}
+
+.page-content-header__tags {
+  margin-top: .75rem;
+}
+
+.page-content-header__row {
+}
+
+.page-content-header__row:not(:last-child) {
+  margin-bottom: .5rem;
+}
+
+.page-content-header__row .a-horizontal-dashed {
+  margin-bottom: 1rem;
+}
+
+.page-content-header__description {
+}
+
+@media (min-width: 48em) {
+  .page-content-header__description {
+    padding-block: .25rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .page-content-header__description {
+    padding-block: .25rem;
+  }
+}
+
+@media (min-width: 48em) {
+  .page-content-header__description.a-long-text {
+    font-size: .9375rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .page-content-header__description.a-long-text {
+    font-size: .8125rem;
+  }
+}
+
+.page-content-header__emotion {
+  display: inline-flex;
+  vertical-align: middle;
+  position: relative;
+  top: -.125em;
+  height: 1em;
+  width: 1em;
+}
+
+@media (min-width: 48em) {
+  .page-content-header__emotion {
+    font-size: 1.75rem;
+    margin-right: .375em;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .page-content-header__emotion {
+    font-size: 1.25rem;
+    margin-right: .25em;
+  }
+}
+
+.page-content-header__emotion-image {
+  height: 100%;
+  width: 100%;
+}
+
+.page-content-header__checker {
+  position: absolute;
+  right: 0;
+  top: -.5rem;
+}
+
+.user-profile__company-logo-image {
+  background-color: var(--base);
+  object-fit: contain;
+  border-radius: .25rem;
+  height: 4.5rem;
+  width: 4.5rem;
+}
+
+@media (max-width: 47.9375em) {
+  .user-profile__company-logo-image {
+    height: 3.5rem;
+    width: 3.5rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+.page-content-header__alert {
+  background-color: var(--danger-tint);
+  color: var(--danger-text);
+  font-size: .875rem;
+  line-height: 1.4;
+  text-align: center;
+  padding: .5rem 1rem;
+  border: solid 1px var(--danger);
+  border-radius: .25rem;
+}

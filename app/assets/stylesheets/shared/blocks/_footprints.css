@@ -1,0 +1,65 @@
+.user-icons,
+.user-icons__wrapper {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.user-icons__title {
+  text-align: right;
+  font-size: 0.875rem;
+  line-height: 2rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.user-icons__items {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+.user-icons-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.user-icons-item__delete {
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.user-icons__more {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  display: block;
+  white-space: nowrap;
+  color: var(--main);
+  text-decoration: none;
+  cursor: pointer;
+}
+.user-icons__more:hover, .user-icons__more:active {
+  text-decoration: underline;
+}
+.user-icons__more {
+  align-self: center;
+}
+
+@media (max-width: 47.9375em) {
+  .user-icons,
+  .user-icons__wrapper {
+    display: block;
+  }
+  .user-icons__title {
+    text-align: left;
+    line-height: 1.4;
+  }
+  .user-icons__items {
+    margin-top: 0.75rem;
+  }
+  .user-icons__more {
+    margin-top: 0.75rem;
+  }
+}

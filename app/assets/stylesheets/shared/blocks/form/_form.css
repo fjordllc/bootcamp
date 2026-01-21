@@ -1,0 +1,38 @@
+
+.form {
+  margin-inline: auto;
+}
+
+.a-card + .form {
+  margin-top: 1.25rem;
+}
+
+.form + .form {
+  margin-top: 1rem;
+  border-top: dashed 1px var(--border);
+  padding-top: 1rem;
+}
+
+.form__items + .form__items {
+  margin-top: 1.75rem;
+}
+
+.form__items-title {
+  font-size: .875rem;
+  line-height: 1.4;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  color: var(--reversal-text);
+  background-color: var(--main);
+  padding: .625rem 1rem;
+  border-radius: .25rem;
+}
+
+.form__items > .a-form-label {
+  margin-bottom: .875rem;
+}
+
+.form__items-inner {
+  width: 42.5rem;
+  max-width: 100%;
+}

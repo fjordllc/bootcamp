@@ -1,0 +1,67 @@
+.books-form {
+  border: solid 1px var(--border);
+  background-color: var(--base);
+  border-radius: .25rem;
+}
+
+.books-form + .books-form {
+  margin-top: 2rem;
+}
+
+.books-form__header {
+  position: relative;
+}
+
+.books-form__delete {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 2.5rem;
+  width: 2.5rem;
+  transform: translate(25%, -25%);
+}
+
+.books-form__delete-link {
+  border: solid 1px var(--border-shade);
+  font-size: 1.25rem;
+  color: var(--muted-text);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--base);
+  transition: all .2s ease-out;
+}
+
+.books-form__delete-link:hover {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.books-form__items {
+}
+
+@media (min-width: 48em) {
+  .books-form__items {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .books-form__items {
+    padding: .75rem;
+  }
+}
+
+.books-form__add .a-button {
+  min-width: 12rem;
+}
+
+@media (max-width: 47.9375em) {
+  .books-form__add .a-button {
+    width: 100%;
+  }
+}

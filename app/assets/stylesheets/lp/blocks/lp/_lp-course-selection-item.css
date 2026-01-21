@@ -1,0 +1,45 @@
+.lp-course-selection-item__anchor {
+  position: relative;
+  top: -4rem;
+}
+@media (max-width: 47.9375em) {
+  .lp-course-selection-item__anchor#front-engineer-course {
+    margin-top: 4rem;
+  }
+}
+
+.lp-course-selection-item__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.lp-course-selection-item__title {
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.4;
+}
+@media (min-width: 48em) {
+  .lp-course-selection-item__title {
+    font-size: 1.5rem;
+  }
+}
+
+.lp-course-selection-item__action {
+  max-width: 20rem;
+  width: 100%;
+  margin-inline: auto;
+}
+
+.lp-course-selection-item__categories {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.lp-course-selection-item__categories details {
+  background-color: var(--base);
+}
+
+.lp-course-selection-item__body {
+  padding: 1.5rem;
+}

@@ -1,0 +1,75 @@
+.linear-scale {
+  display: flex;
+  align-items: center;
+}
+
+.linear-scale__label {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+.linear-scale__label:first-child {
+  margin-right: 1rem;
+}
+
+.linear-scale__label:last-child {
+  margin-left: 1rem;
+}
+
+.linear-scale__points {
+  flex: 1;
+}
+
+.linear-scale__points-items {
+  display: flex;
+  justify-content: space-between;
+}
+
+.linear-scale__point {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--semi-muted-text);
+  position: relative;
+  cursor: pointer;
+  padding-bottom: 0.875rem;
+  width: 2.25rem;
+  text-align: center;
+  transition: color 0.2s ease-out;
+}
+
+.linear-scale__point::before {
+  content: "";
+  height: 0.875rem;
+  width: 0.875rem;
+  border: solid 1px var(--input-border);
+  bottom: 0;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, 0);
+  background-color: var(--base);
+  border-radius: 50%;
+  font-size: 0.75rem;
+  color: var(--reversal-text);
+  transition: all 0.2s ease-out;
+}
+
+.linear-scale__point:hover::before {
+  background-color: rgba(87, 82, 232, 0.4);
+  border-color: var(--primary);
+}
+
+input:checked + .linear-scale__point {
+  color: var(--default-text);
+}
+
+input:checked + .linear-scale__point::before {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--background);
+}
+
+input:checked + .linear-scale__point:hover::before {
+  border-color: var(--primary);
+}

@@ -1,0 +1,68 @@
+.company-profile__header {
+  padding: 1rem;
+}
+.company-profile__header .company-links__items {
+  justify-content: flex-start;
+}
+
+.company-profile__header-inner {
+  text-align: center;
+}
+
+.company-profile__header-start {
+  margin-right: 1.25rem;
+}
+
+.company-profile__header-end {
+  flex: 1;
+}
+
+.company-profile__logo {
+  position: static;
+  text-align: center;
+  margin-bottom: 0.25rem;
+}
+
+.company-profile__logo-image {
+  background-color: var(--base);
+  object-fit: contain;
+  border-radius: 0.25rem;
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+.company-profile__name {
+  font-weight: 800;
+  color: var(--main-text);
+  font-size: 1.25rem;
+  line-height: 1.45;
+}
+
+.company-profile__body {
+  padding: 1rem;
+}
+
+.company-profile__description {
+  font-size: 0.8125rem;
+}
+
+@media (min-width: 48em) {
+  .company-profile__header-inner {
+    display: flex;
+    text-align: left;
+  }
+  .company-profile__logo {
+    margin-bottom: 0;
+    text-align: left;
+  }
+  .company-profile__logo-image {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+  .company-profile__name {
+    font-size: 1.5rem;
+  }
+  .company-profile__description {
+    font-size: 0.9375rem;
+  }
+}

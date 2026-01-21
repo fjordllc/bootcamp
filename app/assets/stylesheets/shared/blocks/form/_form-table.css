@@ -1,0 +1,68 @@
+.form-table {
+  overflow: auto;
+  max-width: 100%;
+}
+.form-table.is-sm {
+  font-size: 0.8125rem;
+}
+.form-table table {
+  border: solid 1px var(--border);
+}
+.form-table td,
+.form-table th {
+  padding: 0.5rem;
+  border: solid 1px var(--border);
+}
+.form-table th {
+  background-color: var(--background-tint);
+  border: solid 1px var(--border-shade);
+}
+.form-table .form-table__check {
+  padding: 0;
+}
+.form-table .form-table__check label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 0.25rem;
+}
+.form-table .form-table__check label input {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.form-table .form-table__check label::after {
+  content: "";
+  height: 0.875rem;
+  width: 0.875rem;
+  border: solid 1px var(--border-shade);
+  border-radius: 0.25rem;
+}
+.form-table .form-table__check:has(:checked) label {
+  background: var(--input-selected-background);
+  box-shadow: 0 0 0 1px var(--input-selected-border) inset;
+}
+.form-table .form-table__check:has(:checked) label::after {
+  border: none;
+  content: "\f00c";
+  font-family: "Font Awesome 6 Pro";
+  font-style: normal;
+  font-weight: 900;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  color: var(--main);
+}
+.form-table.is-sticky thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.form-table.is-sticky thead th:first-child {
+  position: sticky;
+  left: 0;
+}

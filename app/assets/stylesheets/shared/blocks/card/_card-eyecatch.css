@@ -1,0 +1,19 @@
+
+.card-eyecatch {
+  @media (min-width: 48em) {
+    padding: 1rem 1rem 0;
+  }
+  @media (max-width: 47.9375em) {
+    padding: .75rem .75rem 0;
+
+  }
+}
+.card-eyecatch__image {
+  display: block;
+  border-radius: 4px;
+  aspect-ratio: 1.91 / 1;
+  width: 100%;
+  object-fit: cover;
+  border-radius: .25rem;
+
+}
