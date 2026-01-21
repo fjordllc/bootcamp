@@ -7,7 +7,7 @@
   content: "";
   background-image: url(https://bootcamp.fjord.jp/images/background/background.svg);
   background-repeat: repeat;
-  background-repeat-position: fixed;
+  position: fixed;
   left: 0;
   top: 0;
   right: 0;
