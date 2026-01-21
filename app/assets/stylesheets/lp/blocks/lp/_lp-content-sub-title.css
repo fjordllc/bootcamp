@@ -10,9 +10,13 @@
   line-height: 1.4;
   font-weight: 800;
 }
-.lp-content-sub-title.is-course-name {
-  font-size: 0.875rem;
+
+@media (max-width: 47.9375em) {
+  .lp-content-sub-title.is-course-name {
+    font-size: 0.875rem;
+  }
 }
+
 @media (min-width: 48em) {
   .lp-content-sub-title {
     font-size: 1.75rem;

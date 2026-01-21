@@ -25,13 +25,16 @@
   height: 0.25rem;
 }
 
-.lp-content-title.is-border-bottom {
-  padding-bottom: 1.5rem;
+@media (max-width: 47.9375em) {
+  .lp-content-title {
+    padding-bottom: 1.5rem;
+  }
 }
 
 @media (min-width: 80em) {
   .lp-content-title.is-vertical {
     writing-mode: vertical-rl;
+    text-align: start;
   }
 }
 
@@ -40,11 +43,11 @@
     font-size: 2.25rem;
   }
 
-  .lp-content-title.is-border-bottom {
+  .lp-content-title {
     padding-bottom: 2.25rem;
   }
 
-  .lp-content-title.is-border-bottom::before {
+  .lp-content-title[class*="is-border-"]::before {
     width: 4.5em;
     height: 0.5rem;
   }
