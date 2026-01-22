@@ -1,0 +1,20 @@
+body .tagify {
+  display: flex !important;
+  align-items: center;
+  padding: 0.5rem;
+  gap: 0.5rem;
+  --tag-bg: var(--background-semi-shade);
+  --tag-inset-shadow-size: 2em;
+  --tag-text-color: var(--default-text);
+  --tag-text-color--edit: var(--default-text);
+  --tag-hover: var(--success-tint);
+  --tag-invalid-color: var(--danger-text);
+  --tag-invalid-bg: var(--danger-tint);
+  --tag-remove-bg: var(--danger-tint);
+  --tag-remove-btn-color: var(--muted-text);
+  --tag-remove-btn-bg--hover: var(--danger);
+}
+body .tagify__input,
+body .tagify__tag {
+  margin: 0;
+}

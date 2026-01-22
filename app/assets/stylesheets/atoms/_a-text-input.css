@@ -1,0 +1,127 @@
+.a-text-input,
+.tagify,
+.multiselect__single,
+.multiselect__input {
+  font-size: 1em;
+  line-height: 1.4;
+  display: block;
+  background-color: var(--input-background);
+  width: 100%;
+  padding: 0.5rem;
+  border: solid 1px var(--input-border);
+  border-radius: 0.25rem;
+  transition: border-color 0.2s ease-in, background-color 0.2s ease-in, box-shadow 0.2s ease-in;
+}
+
+.field_with_errors .a-text-input,
+.field_with_errors .tagify,
+.field_with_errors .multiselect__single,
+.field_with_errors .multiselect__input {
+  border-color: #e1a7b6;
+  background-color: #fefafb;
+}
+
+.a-text-input:hover,
+.tagify:hover,
+.multiselect__single:hover,
+.multiselect__input:hover {
+  background-color: var(--input-hover-background);
+  border-color: var(--input-hover-border);
+}
+
+.a-text-input:focus,
+.tagify:focus,
+.multiselect__single:focus,
+.multiselect__input:focus {
+  background-color: var(--input-focus-background);
+  border-color: var(--input-focus-border);
+  box-shadow: var(--input-focus-shadow);
+}
+
+.a-text-input:disabled,
+.tagify:disabled,
+.multiselect__single:disabled,
+.multiselect__input:disabled,
+.a-text-input[readonly],
+.tagify[readonly],
+.multiselect__single[readonly],
+.multiselect__input[readonly] {
+  color: var(--muted-text);
+  background-color: var(--background);
+  pointer-events: none;
+}
+
+.a-text-input.is-stripe,
+.tagify.is-stripe,
+.multiselect__single.is-stripe,
+.multiselect__input.is-stripe {
+  box-shadow: none;
+  padding-top: 0.625rem;
+}
+
+.a-text-input.is-inputed,
+.tagify.is-inputed,
+.multiselect__single.is-inputed,
+.multiselect__input.is-inputed {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+}
+
+input[type="date"].a-text-input,
+input[type="month"].a-text-input,
+input[type="week"].a-text-input {
+  position: relative;
+}
+
+input[type="date"].a-text-input::-webkit-inner-spin-button,
+input[type="month"].a-text-input::-webkit-inner-spin-button,
+input[type="week"].a-text-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type="date"].a-text-input::-webkit-clear-button,
+input[type="month"].a-text-input::-webkit-clear-button,
+input[type="week"].a-text-input::-webkit-clear-button {
+  position: relative;
+  z-index: 1;
+}
+
+input[type="date"].a-text-input::-webkit-calendar-picker-indicator,
+input[type="month"].a-text-input::-webkit-calendar-picker-indicator,
+input[type="week"].a-text-input::-webkit-calendar-picker-indicator {
+  color: transparent;
+  background-color: transparent;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  opacity: 0;
+}
+
+textarea.a-text-input {
+  line-height: 1.5;
+  min-height: 10rem;
+  overflow: hidden;
+}
+
+textarea.a-text-input.is-xs {
+  min-height: 6rem;
+}
+
+textarea.a-text-input.is-sm {
+  min-height: 10rem;
+}
+
+textarea.a-text-input.is-md {
+  min-height: 16rem;
+}
+
+textarea.a-text-input.has-max-height {
+  max-height: 70vh;
+  overflow: auto;
+}

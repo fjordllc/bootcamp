@@ -1,0 +1,78 @@
+.flash {
+  background-color: var(--danger);
+  padding-block: 0.75rem;
+}
+
+.flash.is-alert {
+  background-color: var(--danger);
+}
+
+.flash.is-notice {
+  background-color: var(--success);
+}
+
+input:checked + .flash {
+  display: none;
+}
+
+.flash__container {
+  position: relative;
+}
+
+.flash__message {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  text-align: center;
+  color: var(--reversal-text);
+}
+
+.flash__message a {
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--reversal-text);
+}
+
+.flash__message a:hover,
+.flash__message a:active {
+  text-decoration: underline;
+}
+
+.flash__close {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2.75rem;
+  width: 2.75rem;
+  transform: translate(0, -50%);
+  cursor: pointer;
+  opacity: 0.7;
+  transition: all 0.2s ease-out;
+}
+
+.flash__close::before,
+.flash__close::after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 50%;
+  background-color: var(--reversal-text);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 2px;
+}
+
+.flash__close::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.flash__close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.flash__close:hover {
+  opacity: 1;
+}

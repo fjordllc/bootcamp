@@ -1,0 +1,18 @@
+.wrapper {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  overflow-y: visible;
+  height: auto;
+  display: block;
+}
+
+.wrapper__main {
+  flex: 1;
+}
+
+@media (min-width: 48em) {
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+}

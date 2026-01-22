@@ -1,0 +1,26 @@
+.a-help {
+  font-size: 0.75em;
+  line-height: 1;
+  display: inline-flex;
+  color: var(--reversal-text);
+  width: 1.75em;
+  height: 1.75em;
+  text-decoration: none;
+  background-color: var(--muted-text);
+  vertical-align: middle;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+}
+.a-help:hover {
+  background-color: var(--main);
+  color: var(--reversal-text);
+}
+.a-help:last-child {
+  margin-left: 0.25em;
+}
+.is-danger .a-help {
+  background-color: var(--danger);
+}

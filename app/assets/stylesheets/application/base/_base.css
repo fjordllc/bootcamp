@@ -1,0 +1,67 @@
+html.is-application {
+  font-family: var(--sans-serif);
+  color: var(--default-text);
+}
+
+body.is-application {
+  background-color: var(--background);
+}
+
+body.is-no-scroll {
+  overflow-y: hidden;
+}
+body.is-no-scroll .header {
+  position: static;
+}
+body.is-no-scroll .wrapper {
+  padding-top: 0;
+}
+
+body.is-piyo-background::before {
+  content: "";
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(https://bootcamp.fjord.jp/images/background/background.svg);
+  background-repeat: repeat;
+  overflow-y: auto;
+  opacity: 0.04;
+  background-size: 20rem;
+}
+body.is-piyo-background .wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+body.no-global-nav .wrapper {
+  margin-left: 0;
+}
+body.no-header .wrapper {
+  padding-top: 0;
+}
+body.is-error-page .wrapper {
+  padding-top: 4rem;
+  overflow-y: auto;
+}
+body.is-thanks-page .wrapper {
+  padding-block: 4rem;
+}
+
+@media (min-width: 48em) {
+  html.is-application {
+    scroll-padding-top: var(--header-height__md-up);
+  }
+  .wrapper.is-application {
+    margin-left: var(--global-nav-width);
+    padding-top: var(--header-height__md-up);
+  }
+}
+@media (max-width: 47.9375em) {
+  body.is-piyo-background::before {
+    background-size: 4.5rem auto;
+  }
+}

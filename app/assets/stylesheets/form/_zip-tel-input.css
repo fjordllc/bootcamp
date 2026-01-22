@@ -1,0 +1,22 @@
+.a-zip-input,
+.a-tel-input,
+.a-name-input {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.a-zip-input__label,
+.a-tel-input__label,
+.a-name-input__label {
+  font-size: 1.25rem;
+  color: var(--muted-text);
+}
+
+.a-name-input__field {
+  flex: 1;
+}
+.a-name-input__field .a-form-label {
+  margin-bottom: 0.25rem;
+}
+
+/*# sourceMappingURL=_zip-tel-input.css.map */

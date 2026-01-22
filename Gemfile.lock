@@ -406,7 +406,6 @@ GEM
     mini_magick (5.3.1)
       logger
     mini_mime (1.1.5)
-    mini_portile2 (2.8.9)
     minitest (5.27.0)
     minitest-ci (3.4.0)
       minitest (>= 5.0.6)
@@ -443,9 +442,6 @@ GEM
     netrc (0.11.0)
     newspaper (0.2.0)
     nio4r (2.7.5)
-    nokogiri (1.19.0)
-      mini_portile2 (~> 2.8.2)
-      racc (~> 1.4)
     nokogiri (1.19.0-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.19.0-x86_64-darwin)
@@ -720,6 +716,12 @@ GEM
     stripe (18.1.0)
     switchlet (0.3.1)
       rails (>= 6.1)
+    tailwindcss-rails (4.4.0)
+      railties (>= 7.0.0)
+      tailwindcss-ruby (~> 4.0)
+    tailwindcss-ruby (4.1.18-arm64-darwin)
+    tailwindcss-ruby (4.1.18-x86_64-darwin)
+    tailwindcss-ruby (4.1.18-x86_64-linux-gnu)
     temple (0.10.4)
     thor (1.5.0)
     thread_safe (0.3.6)
@@ -777,7 +779,6 @@ GEM
     zeitwerk (2.7.4)
 
 PLATFORMS
-  ruby
   universal-darwin
   x86_64-linux
 
@@ -883,6 +884,7 @@ DEPENDENCIES
   stripe
   stripe-i18n!
   switchlet
+  tailwindcss-rails (~> 4.0)
   traceroute
   tzinfo (~> 2.0, >= 2.0.6)
   vcr

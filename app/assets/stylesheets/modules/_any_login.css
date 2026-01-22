@@ -1,0 +1,76 @@
+body #any_login {
+  background: black;
+  opacity: 1;
+  overflow: hidden;
+  border-top-right-radius: 0.75rem;
+}
+
+body #any_login #any_login_form_toggle_label {
+  padding-inline: 1rem;
+}
+
+body #any_login #back_to_previous_id {
+  margin-right: 1rem;
+}
+
+body #any_login form {
+  padding: 0;
+  height: 3.25rem;
+  display: flex;
+  align-items: center;
+}
+
+body #any_login form img {
+  cursor: pointer;
+  vertical-align: middle;
+  padding: 1rem;
+  width: 3.25rem;
+  height: 3.25rem;
+  opacity: 1;
+  transition: all 0.2s ease-out;
+}
+
+body #any_login form img:hover {
+  opacity: 0.7;
+}
+
+body #any_login form select,
+body #any_login form input[type="text"],
+body #any_login form input[type="submit"] {
+  background-color: var(--base);
+  height: 2rem;
+  border-radius: 0.25rem;
+  padding-inline: 0.75rem;
+}
+
+body #any_login form select {
+  cursor: pointer;
+  min-width: 10rem;
+}
+
+body #any_login form input[type="text"] {
+  min-width: 6rem;
+}
+
+body #any_login form input[type="submit"] {
+  background-color: var(--danger);
+  color: var(--reversal-text);
+  font-weight: 600;
+  margin-inline: 0.5em;
+  height: 2rem;
+  padding-inline: 0.75em;
+}
+
+body #any_login form .visible_box {
+  padding-right: 0.875rem;
+}
+
+body #any_login form .any_login_user_information {
+  font-size: 0.875rem;
+  padding-left: 0;
+}
+
+body #any_login form #anylogin_back_to_user {
+  padding-inline: 0.5rem;
+  color: var(--reversal-text);
+}

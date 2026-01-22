@@ -1,0 +1,27 @@
+.practice-contents__pub-date {
+  margin-bottom: 0.75rem;
+}
+
+.practice-contents__time {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 0.5em;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+.practice-contents__time .a-meta {
+  font-size: 1em;
+}
+.practice-contents__time .a-help {
+  height: 1rem;
+  width: 1rem;
+  font-size: 0.75em;
+  margin-left: 0.375em;
+  transition: all 0.2s ease-out;
+}
+.practice-contents__time:hover .a-meta {
+  color: var(--main-text);
+}
+.practice-contents__time:hover .a-help {
+  background-color: var(--main);
+}

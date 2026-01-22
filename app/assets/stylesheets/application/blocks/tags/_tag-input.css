@@ -1,0 +1,22 @@
+.tag-input {
+  margin-top: 0.5rem;
+  border-radius: 0.25rem;
+  background-color: var(--background-more-tint);
+  padding: 0.75rem 1rem;
+  border: dashed 1px var(--border);
+}
+
+.tag-input__title {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  display: block;
+  font-weight: 600;
+}
+
+.tag-input__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}

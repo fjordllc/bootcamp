@@ -1,0 +1,17 @@
+.result-table tr.is-wa td, .result-table tr.is-re td {
+  background-color: var(--danger-tint);
+}
+.result-table tr.is-ac td {
+  background-color: var(--success-tint);
+}
+.result-table .status.wa,
+.result-table .status.re {
+  color: var(--danger-text);
+}
+.result-table .status.ac {
+  color: var(--success-text);
+}
+.result-table pre,
+.result-table code {
+  font-family: var(--monospace);
+}

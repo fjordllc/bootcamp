@@ -6,21 +6,25 @@ module Users
   class RegistrationTest < ApplicationSystemTestCase
     test 'GET /users/new' do
       visit '/users/new'
+      assert_selector 'form[name=user]'
       assert_equal 'FBC参加登録 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
     end
 
     test 'GET /users/new as an adviser' do
       visit '/users/new?role=adviser'
+      assert_selector 'form[name=user]'
       assert_equal 'FBCアドバイザー参加登録 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
     end
 
     test 'GET /users/new as a trainee' do
       visit '/users/new?role=trainee_invoice_payment'
+      assert_selector 'form[name=user]'
       assert_equal 'FBC研修生参加登録 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
     end
 
     test 'GET /users/new as a mentor' do
       visit '/users/new?role=mentor'
+      assert_selector 'form[name=user]'
       assert_equal 'FBCメンター参加登録 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
     end
   end

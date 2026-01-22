@@ -1,0 +1,26 @@
+.many-check-boxes {
+  max-height: 16rem;
+  overflow-y: auto;
+  background-color: #f7f7f7;
+  border: solid 1px #c1c5b9;
+  border-radius: 0.25rem;
+}
+
+.many-check-boxes__item-label {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  display: block;
+  padding: 0.5rem;
+  border-bottom: solid 1px #ccc;
+  cursor: pointer;
+}
+.many-check-boxes__item-label.is-checked {
+  background-color: var(--accent);
+  color: var(--main-text);
+}
+.many-check-boxes__item:last-child .many-check-boxes__item-label {
+  border-bottom: none;
+}
+.many-check-boxes__item-label input {
+  margin-right: 0.75rem;
+}

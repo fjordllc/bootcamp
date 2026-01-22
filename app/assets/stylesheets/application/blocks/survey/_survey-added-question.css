@@ -1,0 +1,17 @@
+.survey-added-question + .survey-added-question {
+  margin-top: 1rem;
+}
+
+.survey-added-question__inner {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-end;
+}
+
+.survey-added-question__col.is-main {
+  flex: 1;
+}
+
+.survey-added-question__col.is-main select {
+  width: 100%;
+}
