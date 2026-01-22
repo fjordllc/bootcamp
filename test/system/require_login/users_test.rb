@@ -5,6 +5,13 @@ require 'supports/login_assert_helper'
 
 class UsersLoginTest < ApplicationSystemTestCase
   include LoginAssertHelper
+
+  setup do
+    Capybara.reset_sessions!
+  rescue Net::ReadTimeout
+    # セッションリセット時のタイムアウトは無視して続行
+  end
+
   test 'cannot access users list without login' do
     assert_login_required('/users')
   end
