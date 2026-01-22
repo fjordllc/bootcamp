@@ -23,7 +23,10 @@
 .lp-content.is-campaign {
   background-color: var(--main);
   padding-top: 1.5rem;
-  padding-bottom: 4rem;
+  padding-bottom: 2rem;
+  background-image: var(--campaign-bg-image);
+  background-repeat: repeat;
+  background-size: 40rem;
   color: var(--reversal-text);
 }
 .lp-content.is-lp-bg-1 {
