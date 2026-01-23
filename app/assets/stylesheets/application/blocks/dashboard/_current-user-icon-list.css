@@ -22,6 +22,7 @@
   min-width: 0;
   flex-wrap: nowrap;
   overflow-x: auto;
+  overflow-y: hidden;
   scrollbar-gutter: stable both-edges;
 }
 
