@@ -22,12 +22,10 @@
   }
 }
 
-.page-content-header .a-watch-button.is-inactive {
-}
-
+.page-content-header .a-watch-button.is-inactive,
 .page-content-header .a-bookmark-button.is-inactive {
-  color: var(--semi-muted-text);
-  background-color: var(--background-semi-shade);
+    color: var(--semi-muted-text);
+    background-color: var(--background-semi-shade);
 }
 
 .page-content-header .a-count-badge {
@@ -41,9 +39,6 @@
   flex-direction: column;
   align-items: center;
   gap: .5rem;
-}
-
-.page-content-header__end {
 }
 
 @media (min-width: 48em) {
