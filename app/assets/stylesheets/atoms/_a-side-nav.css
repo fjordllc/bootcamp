@@ -28,7 +28,6 @@
   .a-side-nav__inner {
     max-height: 100%;
     position: sticky;
-    top: 3.125rem;
     top: var(--header-height__md-up);
     display: flex;
     flex-direction: column;
