@@ -5,11 +5,34 @@
   margin-top: 1rem;
 }
 
+@media (min-width: 64em) {
+  .a-side-nav {
+      position: absolute;
+      right: 0px;
+      top: -1.5rem;
+      bottom: -1.5rem;
+      width: var(--side-nav-width);
+      height: calc(100% + 3rem);
+      border-left: solid 1px var(--border);
+  }
+}
+
 .a-side-nav__inner {
   display: flex;
   flex-direction: column;
   max-height: none;
   position: static;
+}
+
+@media (min-width: 64em) {
+  .a-side-nav__inner {
+    max-height: 100%;
+    position: sticky;
+    top: 3.125rem;
+    top: var(--header-height__md-up);
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .a-side-nav__header {
