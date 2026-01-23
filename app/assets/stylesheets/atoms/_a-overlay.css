@@ -17,3 +17,6 @@
   align-items: center;
   justify-content: center;
 }
+.a-overlay.is-js.hidden {
+  display: none;
+}
