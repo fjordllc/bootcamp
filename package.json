@@ -68,7 +68,6 @@
     "stimulus": "^3.2.2",
     "sweetalert2": "^11.1.5",
     "swr": "^1.3.0",
-    "tailwindcss": "^3.1.8",
     "terser-webpack-plugin": "^5.3.10",
     "textarea-markdown": "^1.6.1",
     "tributejs": "^5.1.3",
