@@ -20,13 +20,13 @@
   max-width: 48rem;
 }
 .container.is-sm {
-  width: 40rem;
+  max-width: 40rem;
 }
 .container.is-xs {
   width: 32rem;
 }
 .container.is-xxs {
-  width: 28rem;
+  max-width: 28rem;
 }
 
 @media (min-width: 48em) {

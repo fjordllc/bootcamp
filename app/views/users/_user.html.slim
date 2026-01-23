@@ -53,7 +53,7 @@
               .card-list-item__row
                 = render 'users/sns', user: user
         - if user.student_or_trainee?
-          .card-counts.is-users.mt-3
+          .card-counts.is-users(class='!mt-3')
             = render 'users/activity_counts', user: user
       .users-item__body
         .users-item__description.a-short-text

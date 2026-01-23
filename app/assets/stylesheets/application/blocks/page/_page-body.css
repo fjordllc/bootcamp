@@ -28,6 +28,12 @@
   }
 }
 
+@media (min-width: 64em) {
+  .page-body__inner.has-side-nav {
+    padding-right: var(--side-nav-width);
+  }
+}
+
 .page-body__rows {
   display: flex;
   flex-direction: column;

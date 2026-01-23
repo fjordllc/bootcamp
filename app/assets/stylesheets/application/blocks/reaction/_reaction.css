@@ -14,6 +14,9 @@
   flex-wrap: wrap;
   gap: .5rem;
 }
+.reactions__items[hidden] {
+  display: none;
+}
 @media (max-width: 47.9375em) {
   .reactions__items {
     overflow: hidden;
@@ -145,6 +148,9 @@
   display: flex;
   flex-direction: column;
   gap: .5rem;
+}
+.reactions__users-list.hidden {
+  display: none;
 }
 .reaction-users-line {
   display: flex;

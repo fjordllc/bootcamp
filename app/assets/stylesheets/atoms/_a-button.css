@@ -407,7 +407,7 @@ input:checked + .a-button.is-checkbox::after {
 .a-button.is-sm,
 .a-button.is-sm input[type=submit] {
   font-size: 0.75rem;
-  padding-inline: 0.9375rem;
+  padding-inline: .625rem;
   height: 2rem;
 }
 

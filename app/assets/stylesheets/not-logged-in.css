@@ -2,7 +2,11 @@
 @source "../../views/**/*.slim";
 @source "../../components/**/*.slim";
 @source "../../../app/javascript/**/*.{js,vue,jsx}";
-@config "../../../tailwind.config.js";
+@source "./**/*.css";
+
+@theme {
+  --container-*: initial;
+}
 
 @import "./common-imports.css";
 @import "./not-logged-in/base/_base.css";
