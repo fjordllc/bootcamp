@@ -2,6 +2,7 @@
 @source "../../views/**/*.slim";
 @source "../../components/**/*.slim";
 @source "../../../app/javascript/**/*.{js,vue,jsx}";
+@source "./**/*.css";
 
 @theme {
   --container-*: initial;
