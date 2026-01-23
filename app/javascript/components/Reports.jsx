@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import useSWR from 'swr'
 import fetcher from '../fetcher'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
 import Report from './Report'
 import Pagination from './Pagination'
-import PracticeFilterDropdown from './PracticeFilterDropdown'
 import UnconfirmedLink from './UnconfirmedLink'
 import usePage from './hooks/usePage'
 
@@ -19,16 +18,47 @@ export default function Reports({
 }) {
   const per = 20
   const { page, setPage } = usePage()
-  const [userPracticeId, setUserPracticeId] = useState('')
+  const [selectedPracticeId, setSelectedPracticeId] = useState('')
 
   let reportsUrl = `/api/reports.json?page=${page}`
   if (userId) reportsUrl += `&user_id=${userId}`
   if (companyId) reportsUrl += `&company_id=${companyId}`
-  const pid = userPracticeId || practiceId
+  const pid = selectedPracticeId || practiceId
   if (pid) reportsUrl += `&practice_id=${pid}`
   if (unchecked) reportsUrl += `&target=unchecked_reports`
 
   const { data, error } = useSWR(reportsUrl, fetcher)
+
+  useEffect(() => {
+    if (!data || !practices) return
+
+    let dropdown = null
+    const initDropdown = async () => {
+      const targetElement = document.querySelector(
+        '[data-practice-filter-dropdown]'
+      )
+      if (!targetElement || dropdown) return
+
+      const PracticeFilterDropdown = (
+        await import('../practice-filter-dropdown')
+      ).default
+      dropdown = new PracticeFilterDropdown(
+        practices,
+        selectedPracticeId,
+        setSelectedPracticeId
+      )
+      dropdown.render(targetElement)
+    }
+
+    initDropdown()
+
+    return () => {
+      if (dropdown) {
+        dropdown.destroy()
+        dropdown = null
+      }
+    }
+  }, [data, practices, setSelectedPracticeId])
 
   if (error) return <>エラーが発生しました。</>
   if (!data) {
@@ -47,25 +77,13 @@ export default function Reports({
     <div className="page-main is-react">
       {data.totalPages === 0 && (
         <div>
-          {practices && (
-            <PracticeFilterDropdown
-              practices={practices}
-              setPracticeId={setUserPracticeId}
-              practiceId={userPracticeId}
-            />
-          )}
+          {practices && <div data-practice-filter-dropdown></div>}
           <NoReports unchecked={unchecked} />
         </div>
       )}
       {data.totalPages > 0 && (
         <div>
-          {practices && (
-            <PracticeFilterDropdown
-              practices={practices}
-              setPracticeId={setUserPracticeId}
-              practiceId={userPracticeId}
-            />
-          )}
+          {practices && <div data-practice-filter-dropdown></div>}
           <div className="page-body">
             <div className="container is-md">
               <div className="page-content reports">
