@@ -9,6 +9,7 @@ class SmartSearch::TextExtractorTest < ActiveSupport::TestCase
 
     assert_not_nil text
     assert_includes text, practice.title
+    assert_includes text, practice.goal
   end
 
   test 'extracts text from Report' do
@@ -79,23 +80,8 @@ class SmartSearch::TextExtractorTest < ActiveSupport::TestCase
     assert_nil text
   end
 
-  test 'truncates text to max length' do
-    long_text = 'a' * (SmartSearch::Configuration::MAX_TEXT_LENGTH + 100)
-    truncated = SmartSearch::TextExtractor.truncate_text(long_text)
-
-    assert_equal SmartSearch::Configuration::MAX_TEXT_LENGTH, truncated.length
-  end
-
-  test 'does not truncate short text' do
-    short_text = 'short text'
-    result = SmartSearch::TextExtractor.truncate_text(short_text)
-
-    assert_equal short_text, result
-  end
-
-  test 'returns nil for blank text' do
-    assert_nil SmartSearch::TextExtractor.truncate_text(nil)
-    assert_nil SmartSearch::TextExtractor.truncate_text('')
-    assert_nil SmartSearch::TextExtractor.truncate_text('   ')
+  test 'delegates to model text_for_embedding method' do
+    practice = practices(:practice1)
+    assert_equal practice.text_for_embedding, SmartSearch::TextExtractor.extract(practice)
   end
 end
