@@ -91,4 +91,20 @@ module Searchable
 
     'student' if user.student?
   end
+
+  # embedding生成用のテキストを返す
+  # 各モデルで必要に応じてオーバーライド
+  def text_for_embedding
+    text = [try(:title), try(:description)].compact.join("\n\n")
+    truncate_for_embedding(text)
+  end
+
+  private
+
+  def truncate_for_embedding(text)
+    return nil if text.blank?
+
+    max_length = SmartSearch::Configuration::MAX_TEXT_LENGTH
+    text.length > max_length ? text[0...max_length] : text
+  end
 end
