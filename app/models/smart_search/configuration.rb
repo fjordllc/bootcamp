@@ -7,8 +7,8 @@ module SmartSearch
     MAX_TEXT_LENGTH = 8000
     DEFAULT_LIMIT = 50
 
-    # Models that have embedding column
-    # CorrectAnswer uses Answer's embedding (STI)
+    # embeddingカラムを持つモデル
+    # CorrectAnswerはAnswerのembeddingを使用（STI）
     EMBEDDING_MODELS = %w[
       Practice Report Product Page Question Announcement
       Event RegularEvent Answer Comment
