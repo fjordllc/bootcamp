@@ -5,8 +5,8 @@ module Searchable
 
   REQUIRED_SEARCH_METHODS = %i[search_title search_label search_url].freeze
 
-  # Vector similarity search is handled via raw SQL in SemanticSearcher
-  # to avoid issues with database availability during class loading
+  # ベクトル類似度検索はSemanticSearcherで生SQLを使用して処理
+  # クラスロード時のデータベース利用可否問題を回避するため
 
   class_methods do
     def columns_for_keyword_search(*columns)
