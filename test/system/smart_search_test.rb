@@ -3,11 +3,7 @@
 require 'application_system_test_case'
 
 class SmartSearchTest < ApplicationSystemTestCase
-  setup do
-    Switchlet.enable!(:smart_search)
-  end
-
-  test 'search mode selector is displayed when smart_search is enabled' do
+  test 'search mode selector is displayed' do
     visit_with_auth '/', 'hatsuno'
     find('.js-modal-search-shown-trigger').click
     within('form[name=search]') do
@@ -52,16 +48,6 @@ class SmartSearchTest < ApplicationSystemTestCase
     find('.js-modal-search-shown-trigger').click
     within('form[name=search]') do
       assert_selector 'select[name=mode] option[selected]', text: 'キーワード検索'
-    end
-  end
-
-  test 'search mode selector is not displayed when smart_search is disabled' do
-    Switchlet.disable!(:smart_search)
-    visit_with_auth '/', 'hatsuno'
-    find('.js-modal-search-shown-trigger').click
-    within('form[name=search]') do
-      assert_no_text '検索方法'
-      assert_no_selector 'select[name=mode]'
     end
   end
 end
