@@ -87,20 +87,15 @@ main.page-main
         hr.a-border-tint
         .card-body
           .card-body__description
-            ul.a-list
-              li
-                | 未生成レコードの一括生成:
-                code.ml-2
-                  | rails smart_search:generate_all
-              li
-                | 特定モデルのみ生成:
-                code.ml-2
-                  | rails smart_search:generate[Practice]
-              li
-                | 全レコード再生成:
-                code.ml-2
-                  | rails smart_search:regenerate_all
-              li
-                | 統計表示:
-                code.ml-2
-                  | rails smart_search:stats
+            pre: code
+              | # 未生成レコードの一括生成
+              |  rails smart_search:generate_all
+              |
+              |  # 特定モデルのみ生成
+              |  rails smart_search:generate[Practice]
+              |
+              |  # 全レコード再生成
+              |  rails smart_search:regenerate_all
+              |
+              |  # 統計表示
+              |  rails smart_search:stats
