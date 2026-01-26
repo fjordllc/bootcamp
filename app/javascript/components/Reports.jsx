@@ -4,7 +4,6 @@ import fetcher from '../fetcher'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
 import Report from './Report'
 import Pagination from './Pagination'
-import PracticeFilterDropdown from './PracticeFilterDropdown'
 import usePage from './hooks/usePage'
 
 export default function Reports({
@@ -83,13 +82,7 @@ export default function Reports({
       )}
       {data.totalPages > 0 && (
         <div>
-          {practices && (
-            <PracticeFilterDropdown
-              practices={practices}
-              setPracticeId={setSelectedPracticeId}
-              practiceId={selectedPracticeId}
-            />
-          )}
+          {practices && <div data-practice-filter-dropdown></div>}
           <div className="page-body">
             <div className="container is-md">
               <div className="page-content reports">
