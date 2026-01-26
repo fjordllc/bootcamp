@@ -80,26 +80,27 @@ main.page-main
                 td.admin-table__item-value.text-right
                   = "#{stat[:percentage]}%"
 
-      / ヘルプ情報
       .a-card.mt-8
-        .a-card__body
-          h4.fw-bold.mb-4
-            i.fa-solid.fa-circle-info.mr-2
+        header.card-header
+          h2.card-header__title
             | Embedding生成コマンド
-          ul.a-list
-            li
-              | 未生成レコードの一括生成:
-              code.ml-2
-                | rails smart_search:generate_all
-            li
-              | 特定モデルのみ生成:
-              code.ml-2
-                | rails smart_search:generate[Practice]
-            li
-              | 全レコード再生成:
-              code.ml-2
-                | rails smart_search:regenerate_all
-            li
-              | 統計表示:
-              code.ml-2
-                | rails smart_search:stats
+        hr.a-border-tint
+        .card-body
+          .card-body__description
+            ul.a-list
+              li
+                | 未生成レコードの一括生成:
+                code.ml-2
+                  | rails smart_search:generate_all
+              li
+                | 特定モデルのみ生成:
+                code.ml-2
+                  | rails smart_search:generate[Practice]
+              li
+                | 全レコード再生成:
+                code.ml-2
+                  | rails smart_search:regenerate_all
+              li
+                | 統計表示:
+                code.ml-2
+                  | rails smart_search:stats
