@@ -6,7 +6,7 @@
           | カテゴリー
         .a-button.is-md.is-secondary.is-select.is-block
           = select_tag 'document_type', options_for_select(Searcher::Configuration.available_types_for_select, params[:document_type]), id: select_id
-      - if Switchlet.enabled?('smart_search')
+      - if smart_search_available?
         .form-item
           label.a-form-label
             | 検索方法
