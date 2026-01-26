@@ -20,7 +20,7 @@ module SmartSearch
       return nil if normalized.blank?
 
       response = RubyLLM.embed(normalized, model: MODEL)
-      response.vectors.first
+      response.vectors
     rescue StandardError => e
       Rails.logger.error "[SmartSearch] Embedding generation failed: #{e.message}"
       nil
