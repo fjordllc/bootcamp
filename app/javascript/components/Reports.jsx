@@ -86,8 +86,8 @@ export default function Reports({
           {practices && (
             <PracticeFilterDropdown
               practices={practices}
-              setPracticeId={setUserPracticeId}
-              practiceId={userPracticeId}
+              setPracticeId={setSelectedPracticeId}
+              practiceId={selectedPracticeId}
             />
           )}
           <div className="page-body">
