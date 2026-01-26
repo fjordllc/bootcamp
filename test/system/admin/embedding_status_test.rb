@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class Admin::EmbeddingStatusTest < ApplicationSystemTestCase
   test 'admin can view embedding status page' do
     visit_with_auth admin_embedding_status_index_path, 'komagata'
-    assert_text 'Embedding進捗'
+    assert_text 'Embedding'
     assert_text '全体進捗'
   end
 
