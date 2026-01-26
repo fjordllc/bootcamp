@@ -61,8 +61,8 @@ namespace :smart_search do # rubocop:disable Metrics/BlockLength
     puts "Generating embedding for: #{text.truncate(50)}"
     embedding = generator.generate(text)
 
-    if embedding
-      puts "Success! Generated embedding with #{embedding.length} dimensions"
+    if embedding&.is_a?(Array)
+      puts "Success! Generated embedding with #{embedding.size} dimensions"
       puts "First 5 values: #{embedding.first(5).map { |v| v.round(6) }}"
     else
       puts 'Failed to generate embedding'

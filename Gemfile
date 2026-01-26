@@ -54,6 +54,7 @@ gem 'mutex_m', '0.1.1'
 gem 'net-imap', require: false
 gem 'net-pop', require: false
 gem 'net-smtp', require: false # TODO: Remove it if you use rails 7.0.1
+gem 'neighbor'
 gem 'newspaper'
 gem 'oauth2'
 gem 'omniauth', '~> 2.1.1'
