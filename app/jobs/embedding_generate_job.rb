@@ -15,7 +15,7 @@ class EmbeddingGenerateJob < ApplicationJob
     generator = SmartSearch::EmbeddingGenerator.new
     return unless generator.api_available?
 
-    text = SmartSearch::TextExtractor.extract(record)
+    text = record.text_for_embedding
     return if text.blank?
 
     embedding = generator.generate(text)

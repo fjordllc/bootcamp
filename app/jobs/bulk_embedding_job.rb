@@ -54,7 +54,7 @@ class BulkEmbeddingJob < ApplicationJob
   end
 
   def extract_valid_pairs(records)
-    texts = records.map { |r| SmartSearch::TextExtractor.extract(r) }
+    texts = records.map(&:text_for_embedding)
     records.zip(texts).select { |_, text| text.present? }
   end
 
