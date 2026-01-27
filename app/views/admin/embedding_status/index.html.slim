@@ -1,0 +1,97 @@
+- title 'Embedding'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title
+          | 管理ページ
+
+= render 'admin/admin_page_tabs'
+
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | Embedding
+        .page-main-header__end
+          .page-main-header-actions
+            .page-main-header-actions__items
+              .page-main-header-actions__item
+                = link_to '/jobs', class: 'a-button is-md is-secondary is-block', target: '_blank', rel: 'noopener' do
+                  i.fa-solid.fa-gears
+                  span
+                    | ジョブ管理
+  hr.a-border
+  .page-body
+    .container.is-lg
+      / モデル別進捗
+      .admin-table
+        table.admin-table__table
+          thead.admin-table__header
+            tr.admin-table__labels
+              th.admin-table__label
+                | モデル
+              th.admin-table__label
+                | 進捗
+              th.admin-table__label.text-right
+                | 生成済み
+              th.admin-table__label.text-right
+                | 全件
+              th.admin-table__label.text-right
+                | 進捗率
+          tbody.admin-table__items
+            - @embedding_stats.each do |stat|
+              tr.admin-table__item
+                td.admin-table__item-value
+                  = stat[:model_name]
+                td.admin-table__item-value
+                  .embedding-status-progress
+                    .embedding-status-progress__bar(
+                      style="width: #{stat[:percentage]}%;"
+                      class="#{stat[:percentage] >= 100 ? 'is-complete' : ''}")
+                td.admin-table__item-value.text-right
+                  = number_with_delimiter(stat[:with_embedding])
+                td.admin-table__item-value.text-right
+                  = number_with_delimiter(stat[:total])
+                td.admin-table__item-value.text-right
+                  = "#{stat[:percentage]}%"
+      .a-card.mb-8
+        .a-card__body
+          .completed-practices-progress
+            .completed-practices-progress__bar-container
+              .completed-practices-progress__bar
+              .completed-practices-progress__percentage-bar(
+                aria-valuemax='100'
+                aria-valuemin='0'
+                aria-valuenow="#{@total_stats[:percentage]}"
+                role='progressbar'
+                style="width: #{number_to_percentage @total_stats[:percentage], precision: 0};")
+            .completed-practices-progress__counts
+              .completed-practices-progress__counts-inner
+                .completed-practices-progress__percentage
+                  = "#{@total_stats[:percentage]}%"
+                .completed-practices-progress__number
+                  = "#{@total_stats[:with_embedding]} / #{@total_stats[:total]}"
+
+      .a-card.mt-8
+        header.card-header
+          h2.card-header__title
+            | Embedding生成コマンド
+        hr.a-border-tint
+        .card-body
+          .card-body__description
+            pre: code
+              | # 未生成レコードの一括生成
+              | rails smart_search:generate_all
+              |
+              | # 特定モデルのみ生成
+              | rails smart_search:generate[Practice]
+              |
+              | # 全レコード再生成
+              | rails smart_search:regenerate_all
+              |
+              | # 統計表示
+              | rails smart_search:stats

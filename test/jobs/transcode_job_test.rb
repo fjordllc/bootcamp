@@ -7,7 +7,12 @@ require 'google/cloud/errors'
 class TranscodeJobTest < ActiveJob::TestCase
   setup do
     @movie = movies(:movie1)
+    @original_transcoder_enabled = Rails.application.config.transcoder['enabled']
     Rails.application.config.transcoder['enabled'] = true
+  end
+
+  teardown do
+    Rails.application.config.transcoder['enabled'] = @original_transcoder_enabled
   end
 
   test 'calls transcode on Transcoder::Client' do
@@ -22,12 +27,8 @@ class TranscodeJobTest < ActiveJob::TestCase
   test 'does not perform when transcoder is disabled' do
     Rails.application.config.transcoder['enabled'] = false
     client_called = false
-    begin
-      Transcoder::Client.stub :new, ->(*) { client_called = true } do
-        TranscodeJob.perform_now(@movie)
-      end
-    ensure
-      Rails.application.config.transcoder['enabled'] = true
+    Transcoder::Client.stub :new, ->(*) { client_called = true } do
+      TranscodeJob.perform_now(@movie)
     end
     assert_not client_called, 'Transcoder::Client should not be called when disabled'
   end

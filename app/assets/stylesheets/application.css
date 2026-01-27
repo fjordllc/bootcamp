@@ -12,6 +12,7 @@
 @import "./application/base/_base.css";
 @import "./application/blocks/admin/_admin-table.css";
 @import "./application/blocks/admin/_admin-users.css";
+@import "./application/blocks/admin/_embedding-status.css";
 @import "./application/blocks/auth-form/_auth-form-nav.css";
 @import "./application/blocks/auth-form/_auth-form.css";
 @import "./application/blocks/auth-form/_next-settlement-time.css";
