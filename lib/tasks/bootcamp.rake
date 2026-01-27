@@ -110,7 +110,7 @@ namespace :bootcamp do
     task cloudbuild: :environment do
       puts '== START Cloud Build Task =='
 
-      Rake::Task['bootcamp:copy_practices'].invoke
+      Rake::Task['smart_search:generate_all'].invoke
 
       puts '== END   Cloud Build Task =='
     end
