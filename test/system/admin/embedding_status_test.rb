@@ -6,7 +6,8 @@ class Admin::EmbeddingStatusTest < ApplicationSystemTestCase
   test 'admin can view embedding status page' do
     visit_with_auth admin_embedding_status_index_path, 'komagata'
     assert_text 'Embedding'
-    assert_text '全体進捗'
+    assert_text 'モデル'
+    assert_text '進捗率'
   end
 
   test 'non-admin cannot view embedding status page' do
