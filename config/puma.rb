@@ -35,6 +35,8 @@ port ENV.fetch("PORT", 3000)
 plugin :tmp_restart
 
 # Run solid_queue supervisor within puma
+# Use async mode for Cloud Run compatibility (fork mode doesn't work reliably in containers)
+solid_queue_mode :async
 plugin :solid_queue
 
 # Specify the PID file. Defaults to tmp/pids/server.pid in development.
