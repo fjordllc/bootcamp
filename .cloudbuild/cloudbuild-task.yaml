@@ -31,6 +31,7 @@ steps:
       - 'DB_NAME=$_DB_NAME'
       - 'DB_PASS=$_DB_PASS'
       - 'DB_USER=$_DB_USER'
+      - 'OPEN_AI_ACCESS_TOKEN=$_OPEN_AI_ACCESS_TOKEN'
   - id: Kill_SqlProxy
     name: "gcr.io/cloud-builders/docker"
     waitFor: ["Task"]
@@ -44,6 +45,7 @@ substitutions:
   _DB_NAME: _
   _DB_PASS: _
   _DB_USER: _
+  _OPEN_AI_ACCESS_TOKEN: _
   _RAILS_MASTER_KEY: _
 tags:
   - gcp-cloud-build-task
