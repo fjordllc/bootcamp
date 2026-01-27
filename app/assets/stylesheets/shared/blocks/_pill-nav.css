@@ -4,8 +4,6 @@
 
 .pill-nav__items {
   display: flex;
-  overflow-x: auto;
-  overflow-y: hidden;
   justify-content: center;
 }
 
@@ -18,7 +16,7 @@
   border-bottom-right-radius: 10em;
 }
 .is-half .pill-nav__item {
-  width: 50%;
+  flex: 0 0 50%;
 }
 
 .pill-nav__item-link {
