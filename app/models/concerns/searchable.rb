@@ -8,6 +8,10 @@ module Searchable
   # ベクトル類似度検索はSemanticSearcherで生SQLを使用して処理
   # クラスロード時のデータベース利用可否問題を回避するため
 
+  included do
+    after_commit :schedule_embedding_generation, on: %i[create update], if: :should_generate_embedding?
+  end
+
   class_methods do
     def columns_for_keyword_search(*columns)
       define_singleton_method :ransackable_attributes do |_auth_object = nil|
@@ -106,5 +110,15 @@ module Searchable
 
     max_length = SmartSearch::Configuration::MAX_TEXT_LENGTH
     text.length > max_length ? text[0...max_length] : text
+  end
+
+  def schedule_embedding_generation
+    EmbeddingGenerateJob.perform_later(model_name: self.class.name, record_id: id)
+  end
+
+  def should_generate_embedding?
+    return false unless self.class.column_names.include?('embedding')
+
+    SmartSearch::Configuration::EMBEDDING_MODELS.include?(self.class.name)
   end
 end
