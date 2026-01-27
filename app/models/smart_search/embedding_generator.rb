@@ -5,7 +5,7 @@ module SmartSearch
     MODEL = 'text-embedding-3-small'
 
     def initialize
-      @api_available = ENV['OPENAI_API_KEY'].present?
+      @api_available = ENV['OPEN_AI_ACCESS_TOKEN'].present?
     end
 
     def api_available?
