@@ -4,13 +4,13 @@ require 'test_helper'
 
 class SmartSearch::SemanticSearcherTest < ActiveSupport::TestCase
   def setup
-    @original_key = ENV['OPENAI_API_KEY']
-    ENV['OPENAI_API_KEY'] = nil
+    @original_key = ENV['OPEN_AI_ACCESS_TOKEN']
+    ENV['OPEN_AI_ACCESS_TOKEN'] = nil
     @searcher = SmartSearch::SemanticSearcher.new
   end
 
   def teardown
-    ENV['OPENAI_API_KEY'] = @original_key
+    ENV['OPEN_AI_ACCESS_TOKEN'] = @original_key
   end
 
   test 'search returns empty array for blank query' do

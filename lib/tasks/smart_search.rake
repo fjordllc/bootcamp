@@ -56,7 +56,7 @@ namespace :smart_search do # rubocop:disable Metrics/BlockLength
     text = args[:text] || 'This is a test text for embedding generation'
     generator = SmartSearch::EmbeddingGenerator.new
 
-    abort 'Error: OPENAI_API_KEY is not configured' unless generator.api_available?
+    abort 'Error: OPEN_AI_ACCESS_TOKEN is not configured' unless generator.api_available?
 
     puts "Generating embedding for: #{text.truncate(50)}"
     embedding = generator.generate(text)
