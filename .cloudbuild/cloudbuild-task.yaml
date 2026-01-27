@@ -27,6 +27,7 @@ steps:
     env:
       - 'RAILS_ENV=production'
       - 'RAILS_MASTER_KEY=$_RAILS_MASTER_KEY'
+      - 'APP_HOST_NAME=$_APP_HOST_NAME'
       - 'DB_HOST=/cloudsql/$_CLOUD_SQL_HOST'
       - 'DB_NAME=$_DB_NAME'
       - 'DB_PASS=$_DB_PASS'
@@ -41,6 +42,7 @@ images: ['asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
 options:
   substitutionOption: ALLOW_LOOSE
 substitutions:
+  _APP_HOST_NAME: _
   _CLOUD_SQL_HOST: _
   _DB_NAME: _
   _DB_PASS: _
