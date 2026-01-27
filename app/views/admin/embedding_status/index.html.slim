@@ -76,7 +76,6 @@ main.page-main
                 .completed-practices-progress__number
                   = "#{@total_stats[:with_embedding]} / #{@total_stats[:total]}"
 
-
       .a-card.mt-8
         header.card-header
           h2.card-header__title
@@ -85,15 +84,14 @@ main.page-main
         .card-body
           .card-body__description
             pre: code
+              | # 未生成レコードの一括生成
+              | rails smart_search:generate_all
               |
-                # 未生成レコードの一括生成
-                rails smart_search:generate_all
-              
-                # 特定モデルのみ生成
-                rails smart_search:generate[Practice]
-              
-                # 全レコード再生成
-                rails smart_search:regenerate_all
-              
-                # 統計表示
-                rails smart_search:stats
+              | # 特定モデルのみ生成
+              | rails smart_search:generate[Practice]
+              |
+              | # 全レコード再生成
+              | rails smart_search:regenerate_all
+              |
+              | # 統計表示
+              | rails smart_search:stats
