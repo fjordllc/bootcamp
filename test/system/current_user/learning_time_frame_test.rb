@@ -30,6 +30,7 @@ module CurrentUser
       visit_with_auth '/current_user/edit', 'kimura'
       assert_selector 'h1.auth-form__title', text: '登録情報変更'
       assert_selector 'label.a-form-label', text: '主な活動予定時間'
+      assert_selector '#learning_time_frame'
 
       find('label[for="user_learning_time_frame_ids_1"]').click
       find('label[for="user_learning_time_frame_ids_25"]').click
@@ -41,9 +42,9 @@ module CurrentUser
       assert_selector 'h1.page-main-header__title', text: 'プロフィール'
       assert_selector 'h2.card-header__title', text: '主な活動予定時間'
 
-      assert page.has_selector?('td[name="checked_1"]')
-      assert page.has_selector?('td[name="checked_25"]')
-      assert page.has_selector?('td[name="checked_49"]')
+      assert_selector 'td[name="checked_1"]'
+      assert_selector 'td[name="checked_25"]'
+      assert_selector 'td[name="checked_49"]'
     end
   end
 end

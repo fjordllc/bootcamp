@@ -2,8 +2,8 @@
   .card-header.is-sm
     h2.card-header__title
       | 主な活動予定時間
-  .a-table.is-sm.text-center
-    table.w-full
+  .a-table.is-sm(class='!text-center')
+    table(class='!w-full')
       thead
         tr
           th
@@ -11,16 +11,15 @@
             th = day
       tbody#learning_time_frame
         - 24.times do |hour|
-          tr(class='hover:bg-[var(--background-more-tint)]')
-            th.text-center
+          tr(class='hover:!bg-[var(--background-more-tint)]')
+            th(class='!text-center')
               | #{hour}:00
             - 7.times do |day_index|
               - value = day_index * 24 + hour + 1
-              - name = "checked_#{value}"
               - if user.learning_time_frames.ids.include?(value)
-                td.p-0.h-6 name=name
-                  span.flex.h-full.text-center.justify-center.items-center.p-1.border.border-solid.rounded(class='text-[var(--main)] bg-[var(--input-selected-background)] border-[var(--main)]')
+                td(class='!p-0 !h-6' name="checked_#{value}")
+                  span(class='!flex !h-full !text-center !justify-center !items-center !p-1 !border !border-solid !rounded !text-[var(--main)] !bg-[var(--input-selected-background)] !border-[var(--main)]')
                     i.fa-duotone.fa-solid.fa-check
               - else
-                td.p-0.h-6
-                  span.flex.h-full.text-center.justify-center.items-center.p-1.rounded
+                td(class='!p-0 !h-6')
+                  span(class='!flex !h-full !text-center !justify-center !items-center !p-1 !rounded')

@@ -17,6 +17,8 @@ class UsersLoginTest < ApplicationSystemTestCase
   end
 
   test 'can access user create screen without login' do
-    assert_no_login_required('/users/new', 'FBC参加登録')
+    visit '/users/new'
+    assert_selector 'h1.auth-form__title', text: 'FBC参加登録'
+    assert_no_text 'ログインしてください'
   end
 end
