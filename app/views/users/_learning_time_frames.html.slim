@@ -16,8 +16,8 @@
               | #{hour}:00
             - 7.times do |day_index|
               - value = day_index * 24 + hour + 1
-              - name = "checked_#{value}"
               - if user.learning_time_frames.ids.include?(value)
+                - name = "checked_#{value}"
                 td(class='!p-0 !h-6') name=name
                   span(class='!flex !h-full !text-center !justify-center !items-center !p-1 !border !border-solid !rounded !text-[var(--main)] !bg-[var(--input-selected-background)] !border-[var(--main)]')
                     i.fa-duotone.fa-solid.fa-check
