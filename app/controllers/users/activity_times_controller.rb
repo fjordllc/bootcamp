@@ -29,7 +29,7 @@ class Users::ActivityTimesController < ApplicationController
   def fetch_users_by_activity_time(day_of_week, hour)
     return User.none unless day_of_week.to_s.match?(VALID_DAY_OF_WEEK_REGEX) && hour.to_s.match?(VALID_HOUR_REGEX)
 
-    week_day_name = I18n.t('date.abbr_day_names')[day_of_week.to_i]
+    week_day_name = LearningTimeFrame::WEEK_DAY_NAMES_JA[day_of_week.to_i]
 
     User.joins(:learning_time_frames)
         .where(learning_time_frames: { week_day: week_day_name, activity_time: hour.to_i })
