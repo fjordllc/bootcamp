@@ -17,7 +17,12 @@
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
-  margin-top: 0.75rem;
+}
+
+@media (max-width: 47.9375em) {
+  .user-icons__items {
+    margin-top: 0.75rem;
+  }
 }
 
 .user-icons-item {

@@ -1,6 +1,4 @@
 @import "./config/variables/_css-variables.css";
-@import "./initializers/_ress.css";
-@import "./initializers/_reset.css";
 @import "./config/variables/_fonts.css";
 @import "./config/variables/_welcome-colors.css";
 @import "./config/variables/_choices.css";
