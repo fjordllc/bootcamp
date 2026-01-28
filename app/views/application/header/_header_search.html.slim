@@ -10,8 +10,13 @@
         .form-item
           label.a-form-label
             | 検索方法
-          .a-button.is-md.is-secondary.is-select.is-block
-            = select_tag 'mode', options_for_select(Searcher::MODES_FOR_SELECT, params[:mode] || 'keyword')
+          ul.block-checks.is-vertical
+            - Searcher::MODES_FOR_SELECT.each do |label, value|
+              li.block-checks__item
+                .a-block-check.is-radio
+                  = radio_button_tag 'mode', value, (params[:mode] || 'keyword') == value, id: "#{mode_id_prefix}-#{value}", class: 'a-toggle-checkbox'
+                  label.a-block-check__label(for="#{mode_id_prefix}-#{value}")
+                    = label
       .form-item
         label.a-form-label
           | 絞り込み条件

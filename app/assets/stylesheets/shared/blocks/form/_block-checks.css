@@ -14,6 +14,10 @@
   max-width: 20rem;
 }
 
+.block-checks.is-vertical {
+  flex-direction: column;
+}
+
 .block-checks.is-1-item .block-checks__item {
   max-width: 100%;
 }
