@@ -10,12 +10,12 @@
         .form-item
           label.a-form-label
             | 検索方法
-          .block-checks.is-centered
+          ul.block-checks.is-vertical
             - Searcher::MODES_FOR_SELECT.each do |label, value|
-              .block-checks__item
-                label.a-block-check.is-radio
-                  = radio_button_tag 'mode', value, (params[:mode] || 'keyword') == value
-                  .a-block-check__label
+              li.block-checks__item
+                .a-block-check.is-radio
+                  = radio_button_tag 'mode', value, (params[:mode] || 'keyword') == value, id: "#{mode_id_prefix}-#{value}", class: 'a-toggle-checkbox'
+                  label.a-block-check__label(for="#{mode_id_prefix}-#{value}")
                     = label
       .form-item
         label.a-form-label
