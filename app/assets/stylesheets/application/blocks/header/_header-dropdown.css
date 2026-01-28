@@ -37,14 +37,15 @@ input:checked + .header-dropdown, .is-opened-dropdown .header-dropdown {
 .header-dropdown__inner.is-notification {
   left: 0;
 }
-.header-dropdown__inner.is-notification .pill-nav__item-link {
-  border-color: var(--base);
-  color: var(--reversal-text);
+
+@media (max-width: 47.9375em) {
+  .header-dropdown__inner.is-notification .pill-nav__item-link {
+    border-color: var(--base);
+    color: var(--reversal-text);
+    width: 100%;
+  }
 }
-.header-dropdown__inner.is-notification .pill-nav__item-link.is-active {
-  background-color: var(--base);
-  color: var(--main);
-}
+
 .header-dropdown__inner.is-notification .o-empty-message {
   opacity: 0.7;
   color: var(--reversal-text);
@@ -177,6 +178,7 @@ input:checked + .header-dropdown .header-dropdown__background {
     border-radius: 0.25rem;
     max-height: calc(100vh - 6rem);
     left: auto;
+    overflow: auto;
   }
   .header-dropdown__inner.is-notification {
     width: 15rem;
@@ -184,14 +186,6 @@ input:checked + .header-dropdown .header-dropdown__background {
   .header-dropdown__inner.is-notification {
     left: auto;
     background-color: var(--base);
-  }
-  .header-dropdown__inner.is-notification .pill-nav__item-link {
-    border-color: var(--border);
-    color: var(--default-text);
-  }
-  .header-dropdown__inner.is-notification .pill-nav__item-link.is-active {
-    background-color: var(--primary-tint);
-    color: var(--main);
   }
   .header-dropdown__inner.is-notification .o-empty-message {
     color: var(--muted-text);
@@ -237,4 +231,29 @@ input:checked + .header-dropdown .header-dropdown__background {
   }
 }
 
-/*# sourceMappingURL=_header-dropdown.css.map */
+@media (max-width: 47.9375em) {
+  .header-dropdown__inner.is-notification .pill-nav__item-link {
+      border-color: var(--base);
+      color: var(--reversal-text);
+  }
+}
+
+
+@media (max-width: 47.9375em) {
+  .header-dropdown__inner.is-notification .pill-nav__item-link.is-active {
+    background-color: var(--base);
+    color: var(--main);
+  }
+}
+
+/*
+.header-dropdown__inner.is-notification .pill-nav__item-link.is-active {
+  background-color: var(--base);
+  color: var(--main);
+}
+.header-dropdown__inner.is-notification .pill-nav__item-link {
+  border-color: var(--border);
+  color: var(--default-text);
+}
+
+*/
