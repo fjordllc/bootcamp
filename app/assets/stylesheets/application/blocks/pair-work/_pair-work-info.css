@@ -20,8 +20,6 @@
   height: 3.5rem;
   padding: 0.125rem;
   position: absolute;
-  right: 0;
-  top: -0.125rem;
   z-index: 1;
   transform: rotate(25deg);
   font-size: 1.125rem;
@@ -35,9 +33,15 @@
   pointer-events: none;
 }
 
+@media (min-width: 48em) {
+  .pair-badge {
+    right: 0;
+    top: -0.125rem;
+  }
+}
+
 @media (max-width: 47.9375em) {
   .pair-badge {
-    position: absolute;
     left: 80%;
     top: 0;
   }
