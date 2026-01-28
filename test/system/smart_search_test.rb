@@ -8,7 +8,9 @@ class SmartSearchTest < ApplicationSystemTestCase
     find('.js-modal-search-shown-trigger').click
     within('form[name=search]') do
       assert_text '検索方法'
-      assert_selector 'select[name=mode]'
+      assert_text 'キーワード検索'
+      assert_text 'AI検索'
+      assert_text 'ハイブリッド'
     end
   end
 
@@ -17,7 +19,7 @@ class SmartSearchTest < ApplicationSystemTestCase
     find('.js-modal-search-shown-trigger').click
     within('form[name=search]') do
       select 'すべて'
-      select 'キーワード検索', from: 'mode'
+      choose 'キーワード検索'
       fill_in 'word', with: '検索結果テスト用'
     end
     find('#test-search-modal').click
@@ -25,21 +27,11 @@ class SmartSearchTest < ApplicationSystemTestCase
     assert_text '検索結果テスト用'
   end
 
-  test 'search mode options include AI search and hybrid' do
-    visit_with_auth '/', 'hatsuno'
-    find('.js-modal-search-shown-trigger').click
-    within('form[name=search]') do
-      assert_selector 'select[name=mode] option', text: 'キーワード検索'
-      assert_selector 'select[name=mode] option', text: 'AI検索'
-      assert_selector 'select[name=mode] option', text: 'ハイブリッド'
-    end
-  end
-
   test 'search mode is preserved in search results page' do
     visit_with_auth searchables_path(word: 'テスト', mode: 'semantic'), 'hatsuno'
     find('.js-modal-search-shown-trigger').click
     within('form[name=search]') do
-      assert_selector 'select[name=mode] option[selected]', text: 'AI検索'
+      assert_selector 'input[name=mode][value=semantic][checked]'
     end
   end
 
@@ -47,7 +39,7 @@ class SmartSearchTest < ApplicationSystemTestCase
     visit_with_auth searchables_path(word: 'テスト'), 'hatsuno'
     find('.js-modal-search-shown-trigger').click
     within('form[name=search]') do
-      assert_selector 'select[name=mode] option[selected]', text: 'キーワード検索'
+      assert_selector 'input[name=mode][value=keyword][checked]'
     end
   end
 end
