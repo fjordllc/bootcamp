@@ -4,9 +4,11 @@ import Pagination from './Pagination'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
 import UnconfirmedLink from './UnconfirmedLink'
 import Product from './Product'
-import fetcher from '../fetcher'
+import { get } from '@rails/request.js'
 import elapsedDays from '../elapsed-days.js'
 import usePage from './hooks/usePage'
+const fetcher = (url) =>
+  get(url, { responseKind: 'json' }).then((res) => res.json)
 
 export default function Products({
   title,

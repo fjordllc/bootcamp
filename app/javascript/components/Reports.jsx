@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import useSWR from 'swr'
-import fetcher from '../fetcher'
+import { get } from '@rails/request.js'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
 import Report from './Report'
 import Pagination from './Pagination'
 import UnconfirmedLink from './UnconfirmedLink'
 import usePage from './hooks/usePage'
+const fetcher = (url) =>
+  get(url, { responseKind: 'json' }).then((res) => res.json)
 
 export default function Reports({
   userId = '',
