@@ -46,7 +46,17 @@
               = f.check_box :hold_national_holiday, class: 'a-toggle-checkbox js-warning-form'
               = f.label :hold_national_holiday do
                 | 祝日も開催する場合はチェック
-
+      .form-item
+        label.a-form-label
+          | イベントをスキップする日
+        = cocooned_container do
+          = f.fields_for :regular_event_skipped_dates do |regular_event_skipped_date|
+            = render 'regular_event_skipped_date_fields', f: regular_event_skipped_date
+          .form-item__add-times
+              = cocooned_add_item_link f, :regular_event_skipped_dates, class: 'a-button is-md is-primary' do
+                i.fa-regular.fa-plus
+                span
+                  | スキップしたい日を追加
   .form__items
     .form-item
       .row.js-markdown-parent

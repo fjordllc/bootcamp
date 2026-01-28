@@ -1,0 +1,13 @@
+= cocooned_item do
+  .form__items
+    .form-item
+      = f.label :skipped_at,
+        class: 'a-form-label is-required'
+      = f.datetime_field :skipped_at,
+        class: 'a-text-input'
+    .form-item
+      = f.label :reason, class: 'a-form-label'
+      = f.text_field :reason,
+        placeholder: '主催者都合のため'
+      .form-times__action
+        = cocooned_remove_item_link '削除', f, class: 'a-button is-sm is-text'
