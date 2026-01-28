@@ -43,4 +43,20 @@ class MicroReportTest < ActiveSupport::TestCase
       micro_report.destroy
     end
   end
+
+  test '.page_number_for' do
+    user = users(:kimura)
+    scope = user.micro_reports
+    per_page = 3
+    reports = [
+      user.micro_reports.create!(content: 'test1', created_at: '2026-01-01 00:00:00'),
+      user.micro_reports.create!(content: 'test2', created_at: '2026-01-02 00:00:00'),
+      user.micro_reports.create!(content: 'test3', created_at: '2026-01-03 00:00:00'),
+      user.micro_reports.create!(content: 'test4', created_at: '2026-01-04 00:00:00')
+    ]
+
+    assert_equal 1, MicroReport.page_number_for(scope:, target: reports[0], per_page:)
+    assert_equal 1, MicroReport.page_number_for(scope:, target: reports[2], per_page:)
+    assert_equal 2, MicroReport.page_number_for(scope:, target: reports[3], per_page:)
+  end
 end
