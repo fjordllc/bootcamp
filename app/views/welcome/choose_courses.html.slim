@@ -8,7 +8,7 @@
     .lp-page-header__inner
       h1.lp-page-header__title
         | 参加登録
-        i.fa-solid.fa-right(class='mx-[0.5em]')
+        i.fa-solid.fa-right(class='!mx-[0.5em]')
         = title
 
 .lp
@@ -17,7 +17,7 @@
       .lp-content__inner
         .lp-content__start
           header.lp-content__header
-            h2.lp-content-title.text-center.is-border-bottom
+            h2.lp-content-title.is-border-bottom(class='!text-center')
               | コースを選択してください。
         .lp-content__end
            section.lp-content-stack
@@ -36,8 +36,8 @@
                       | コース選びに迷ったら、まずはRailsエンジニアコースを選んでみてください。
                       | 入会後はメンターに相談ができるので、その時にしっかり考えましょう。
                       | 途中でのコースの変更、卒業後に別コースの必要なカリキュラムだけを受講することも可能です。
-                  .a-notice-block.is-danger.mt-4
-                    p.text-base
+                  .a-notice-block.is-danger(class='!mt-4')
+                    p(class='!text-base')
                       | 受講料の最大80%の給付金が適用される専門実践教育訓練給付制度対象講座
                       | 「給付金対象Railsエンジニアコース」は
                       = link_to certified_reskill_courses_rails_developer_course_root_path do
