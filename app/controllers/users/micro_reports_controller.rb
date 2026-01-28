@@ -17,11 +17,11 @@ class Users::MicroReportsController < ApplicationController
         return
       end
 
-      page = @user.page_of_micro_report(micro_report.id, PAGER_NUMBER)
+      page = MicroReport.page_number_for(scope: @user.micro_reports, target: micro_report, per_page: PAGER_NUMBER)
       return redirect_to user_micro_reports_path(@user, page:, anchor: "micro_report_#{micro_report.id}")
     end
 
-    @micro_reports = @user.ordered_micro_reports.page(params[:page]).per(PAGER_NUMBER)
+    @micro_reports = @user.micro_reports.ordered.page(params[:page]).per(PAGER_NUMBER)
   end
 
   def create
