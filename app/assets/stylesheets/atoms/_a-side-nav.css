@@ -1,8 +1,5 @@
 .a-side-nav {
   background-color: var(--base);
-  border: solid 1px var(--border);
-  border-radius: 0.25rem;
-  margin-top: 1rem;
 }
 
 @media (min-width: 64em) {
@@ -14,6 +11,15 @@
       width: var(--side-nav-width);
       height: calc(100% + 3rem);
       border-left: solid 1px var(--border);
+  }
+}
+
+@media (max-width: 63.9375em) {
+  .a-side-nav {
+    margin-top: 1rem;
+    margin-inline: 1rem;
+    border-radius: 0.25rem;
+    border: solid 1px var(--border);
   }
 }
 
