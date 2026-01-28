@@ -4,7 +4,8 @@
       = render 'application/header/header_search',
         select_id: 'header-search-select',
         text_field_id: 'header-search-word',
-        submit_id: 'test-search'
+        submit_id: 'test-search',
+        mode_id_prefix: 'header-mode'
     li.header-links__item
       button.header-links__link.test-show-menu.js-modal-search-shown-trigger
         .header-links__link-icon
@@ -54,4 +55,5 @@
         = render 'application/header/header_search',
           select_id: 'header-search-select-modal',
           text_field_id: 'header-search-word-modal',
-          submit_id: 'test-search-modal'
+          submit_id: 'test-search-modal',
+          mode_id_prefix: 'modal-mode'

@@ -19,7 +19,7 @@ class SmartSearchTest < ApplicationSystemTestCase
     find('.js-modal-search-shown-trigger').click
     within('form[name=search]') do
       select 'すべて'
-      choose 'キーワード検索'
+      choose 'キーワード検索', allow_label_click: true
       fill_in 'word', with: '検索結果テスト用'
     end
     find('#test-search-modal').click
@@ -31,7 +31,7 @@ class SmartSearchTest < ApplicationSystemTestCase
     visit_with_auth searchables_path(word: 'テスト', mode: 'semantic'), 'hatsuno'
     find('.js-modal-search-shown-trigger').click
     within('form[name=search]') do
-      assert_selector 'input[name=mode][value=semantic][checked]'
+      assert_selector 'input[name=mode][value=semantic][checked]', visible: :all
     end
   end
 
@@ -39,7 +39,7 @@ class SmartSearchTest < ApplicationSystemTestCase
     visit_with_auth searchables_path(word: 'テスト'), 'hatsuno'
     find('.js-modal-search-shown-trigger').click
     within('form[name=search]') do
-      assert_selector 'input[name=mode][value=keyword][checked]'
+      assert_selector 'input[name=mode][value=keyword][checked]', visible: :all
     end
   end
 end
