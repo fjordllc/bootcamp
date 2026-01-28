@@ -81,9 +81,7 @@ input:checked + .global-nav .global-nav__background.a-overlay {
 }
 
 .global-nav-links__link-label {
-  font-size: 0.625rem;
   line-height: 1.2;
-  text-align: center;
 }
 @media (max-width: 47.9375em) {
   .global-nav-links__link-label {
