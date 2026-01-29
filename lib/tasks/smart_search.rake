@@ -3,7 +3,37 @@
 namespace :smart_search do # rubocop:disable Metrics/BlockLength
   desc 'Generate embeddings for all searchable models'
   task generate_all: :environment do
+    generator = SmartSearch::EmbeddingGenerator.new
+    puts "[SmartSearch] OPEN_AI_ACCESS_TOKEN present: #{ENV['OPEN_AI_ACCESS_TOKEN'].present?}"
+    puts "[SmartSearch] API available: #{generator.api_available?}"
+
+    unless generator.api_available?
+      puts '[SmartSearch] Skipped - API key not configured'
+      next
+    end
+
+    SmartSearch::Configuration::EMBEDDING_MODELS.each do |model_name|
+      model_class = model_name.constantize
+      unless model_class.column_names.include?('embedding')
+        puts "[SmartSearch] #{model_name}: embedding column not found, skipping"
+        next
+      end
+      total = model_class.count
+      pending = model_class.where(embedding: nil).count
+      puts "[SmartSearch] #{model_name}: #{pending}/#{total} pending"
+    end
+
     BulkEmbeddingJob.perform_now
+
+    puts '[SmartSearch] Done. Final stats:'
+    SmartSearch::Configuration::EMBEDDING_MODELS.each do |model_name|
+      model_class = model_name.constantize
+      next unless model_class.column_names.include?('embedding')
+
+      total = model_class.count
+      done = model_class.where.not(embedding: nil).count
+      puts "[SmartSearch] #{model_name}: #{done}/#{total} embedded"
+    end
   end
 
   desc 'Generate embeddings for a specific model (e.g., rails smart_search:generate[Practice])'
