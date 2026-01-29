@@ -27,10 +27,15 @@ main.page-main
     .container.is-md
       .page-content
         header.page-content-header
-          - if @inquiry.checked?
-            .stamp.stamp-approve.is-sm
+          - if @inquiry.action_completed?
+            .stamp.stamp-approve
               .stamp__content.is-title
                 | 対応済
+              time.stamp__content.is-created-at
+                = l @inquiry.completed_at.to_date, format: :short
+              .stamp__content.is-user-name
+                .stamp__content-inner
+                  = @inquiry.completed_by_user.nil? ? '削除されたユーザー' : @inquiry.completed_by_user.login_name
           .page-content-header__end
             .page-content-header__row
               h1.page-content-header__title
@@ -50,9 +55,9 @@ main.page-main
                   = auto_link(simple_format(@inquiry.body), html: { target: '_blank' })
           .mt-4.inquiry-action
             = react_component('ActionCompletedButton', { \
-              isInitialActionCompleted: @inquiry.action_completed || false, \
+              isInitialActionCompleted: @inquiry.action_completed?, \
               commentableId: @inquiry.id, \
               modelName: 'inquiry', \
-              apiPath: '/api/inquiries' \
+              apiPath: '/api/admin/inquiries' \
             })
       = render 'comments/comments', commentable: @inquiry, commentable_type: 'Inquiry'
