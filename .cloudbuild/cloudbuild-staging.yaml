@@ -23,9 +23,7 @@ steps:
       - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
     waitFor:
       - Build
-  # Cloud Runサービスを削除してDB接続を切断
-  # Cloud SQLでは管理者権限がないためpg_terminate_backendが使えない
-  # サービスを削除することで接続を確実に切断し、Deployで再作成される
+  # Cloud Runサービスを削除してDB接続を切断し、Deployで再作成される
   - id: StopCloudRun
     name: gcr.io/google.com/cloudsdktool/cloud-sdk
     entrypoint: bash
@@ -114,54 +112,72 @@ steps:
       - DB_USER=$_DB_USER
       - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
       - APP_HOST_NAME=$_APP_HOST_NAME
-  # データベースを削除（リトライ付き）
-  # WaitForProxyの接続がCloud SQL Proxy経由で残っている場合があるため、
-  # 接続が切れるまでリトライする
-  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
-    id: DeleteDB
+  # bootcamp_stagingへの接続を強制切断してからデータベースを削除
+  - id: DeleteDB
+    name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
     entrypoint: bash
     args:
       - '-c'
       - |
         set -euo pipefail
-        MAX_RETRIES=12
-        RETRY_DELAY=10
 
-        for i in $$(seq 1 $$MAX_RETRIES); do
-          echo "Attempt $$i/$$MAX_RETRIES: Deleting database bootcamp_staging..."
-          if gcloud sql databases delete bootcamp_staging --instance=bootcamp --quiet 2>&1; then
-            echo "Database deleted successfully."
-            exit 0
-          else
-            if [ $$i -lt $$MAX_RETRIES ]; then
-              echo "Database delete failed (likely still has connections). Waiting $$RETRY_DELAY seconds before retry..."
-              sleep $$RETRY_DELAY
-            fi
-          fi
-        done
+        echo "Terminating all connections to bootcamp_staging..."
+        cat <<'SQLEOF' | bin/rails runner - 2>&1
+        result = ActiveRecord::Base.connection.execute(<<~SQL)
+          SELECT pg_terminate_backend(pid)
+          FROM pg_stat_activity
+          WHERE datname = 'bootcamp_staging'
+            AND pid <> pg_backend_pid()
+        SQL
+        puts "Terminated #{result.count} connection(s)"
+        SQLEOF
 
-        echo "ERROR: Failed to delete database after $$MAX_RETRIES attempts."
-        exit 1
+        echo "Dropping database bootcamp_staging..."
+        cat <<'SQLEOF' | bin/rails runner - 2>&1
+        ActiveRecord::Base.connection.execute("DROP DATABASE IF EXISTS bootcamp_staging")
+        puts "Database dropped successfully"
+        SQLEOF
     waitFor:
       - WaitForProxy
     volumes:
       - name: db
         path: /cloudsql
-  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    env:
+      - RAILS_ENV=production
+      - DISABLE_DATABASE_ENVIRONMENT_CHECK=1
+      - DB_HOST=/cloudsql/$_CLOUD_SQL_HOST
+      - DB_NAME=postgres
+      - DB_PASS=$_DB_PASS
+      - DB_USER=$_DB_USER
+      - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
+      - APP_HOST_NAME=$_APP_HOST_NAME
+  - id: CreateDB
+    name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
+    entrypoint: bash
     args:
-      - sql
-      - databases
-      - create
-      - bootcamp_staging
-      - '--instance=bootcamp'
-      - '--quiet'
-    id: CreateDB
+      - '-c'
+      - |
+        set -euo pipefail
+
+        echo "Creating database bootcamp_staging..."
+        cat <<'SQLEOF' | bin/rails runner - 2>&1
+        ActiveRecord::Base.connection.execute("CREATE DATABASE bootcamp_staging")
+        puts "Database created successfully"
+        SQLEOF
     waitFor:
       - DeleteDB
-    entrypoint: gcloud
     volumes:
       - name: db
         path: /cloudsql
+    env:
+      - RAILS_ENV=production
+      - DISABLE_DATABASE_ENVIRONMENT_CHECK=1
+      - DB_HOST=/cloudsql/$_CLOUD_SQL_HOST
+      - DB_NAME=postgres
+      - DB_PASS=$_DB_PASS
+      - DB_USER=$_DB_USER
+      - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
+      - APP_HOST_NAME=$_APP_HOST_NAME
   - id: DBMigrate
     name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
     args:
@@ -169,7 +185,7 @@ steps:
       - db:migrate
       - db:seed
     waitFor:
-      - DeleteDB
+      - CreateDB
     volumes:
       - name: db
         path: /cloudsql
