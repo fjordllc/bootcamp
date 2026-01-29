@@ -30,15 +30,15 @@ class Notification::RegularEventsTest < NotificationSystemTestCase
   test 'notify_coming_soon_regular_events' do
     stub_message = stub_request(:post, 'https://discord.com/api/webhooks/0123456789/all')
                    .with(headers: { 'Content-Type' => 'application/json' }) do |request|
-      body = JSON.parse(request.body)
-      body['username'] == 'ピヨルド' &&
-        body['content'].include?('⚡️⚡️⚡️イベントのお知らせ⚡️⚡️⚡️') &&
-        body['content'].include?('< 今日 (05/05 金) 開催 >') &&
-        body['content'].include?('< 明日 (05/06 土) 開催 >') &&
-        body['content'].include?('Discord通知確認用イベント(土曜日午前8時から開催)') &&
-        body['content'].include?('Discord通知確認用イベント(土曜日 + 日曜日開催)') &&
-        body['content'].include?('Discord通知確認用イベント(土曜日開催)') &&
-        body['content'].include?('Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)')
+                     body = JSON.parse(request.body)
+                     body['username'] == 'ピヨルド' &&
+                       body['content'].include?('⚡️⚡️⚡️イベントのお知らせ⚡️⚡️⚡️') &&
+                       body['content'].include?('< 今日 (05/05 金) 開催 >') &&
+                       body['content'].include?('< 明日 (05/06 土) 開催 >') &&
+                       body['content'].include?('Discord通知確認用イベント(土曜日午前8時から開催)') &&
+                       body['content'].include?('Discord通知確認用イベント(土曜日 + 日曜日開催)') &&
+                       body['content'].include?('Discord通知確認用イベント(土曜日開催)') &&
+                       body['content'].include?('Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)')
     end
 
     travel_to Time.zone.local(2023, 5, 5, 6, 0, 0) do
