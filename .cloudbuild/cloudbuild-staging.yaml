@@ -164,6 +164,12 @@ steps:
         ActiveRecord::Base.connection.execute("CREATE DATABASE bootcamp_staging")
         puts "Database created successfully"
         SQLEOF
+
+        echo "Enabling pgvector extension..."
+        cat <<'SQLEOF' | DB_NAME=bootcamp_staging bin/rails runner - 2>&1
+        ActiveRecord::Base.connection.execute("CREATE EXTENSION IF NOT EXISTS vector")
+        puts "pgvector extension enabled"
+        SQLEOF
     waitFor:
       - DeleteDB
     volumes:
