@@ -6,8 +6,8 @@ module Users
   class RegistrationTest < ApplicationSystemTestCase
     test 'GET /users/new' do
       visit '/users/new'
+      assert_selector 'h1.auth-form__title', text: 'FBC参加登録'
       assert_selector 'form[name=user]'
-      assert_equal 'FBC参加登録 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
     end
 
     test 'GET /users/new as an adviser' do
