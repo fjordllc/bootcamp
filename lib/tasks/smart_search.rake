@@ -7,6 +7,26 @@ namespace :smart_search do # rubocop:disable Metrics/BlockLength
     puts "[SmartSearch] OPEN_AI_ACCESS_TOKEN present: #{ENV['OPEN_AI_ACCESS_TOKEN'].present?}"
     puts "[SmartSearch] API available: #{generator.api_available?}"
 
+    # Check pgvector extension status
+    begin
+      result = ActiveRecord::Base.connection.execute("SELECT 1 FROM pg_extension WHERE extname = 'vector'")
+      puts "[SmartSearch] pgvector extension installed: #{result.any?}"
+
+      if result.any?
+        version = ActiveRecord::Base.connection.execute("SELECT extversion FROM pg_extension WHERE extname = 'vector'").first
+        puts "[SmartSearch] pgvector version: #{version['extversion']}" if version
+      end
+    rescue ActiveRecord::StatementInvalid => e
+      puts "[SmartSearch] Error checking pgvector: #{e.message}"
+    end
+
+    # Check migration status for embedding columns
+    migration_name = 'AddEmbeddingToSearchableTables'
+    migration_executed = ActiveRecord::Base.connection.execute(
+      "SELECT version FROM schema_migrations WHERE version = '20260119100001'"
+    ).any?
+    puts "[SmartSearch] Migration #{migration_name} executed: #{migration_executed}"
+
     unless generator.api_available?
       puts '[SmartSearch] Skipped - API key not configured'
       next
