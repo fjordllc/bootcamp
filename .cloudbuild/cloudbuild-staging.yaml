@@ -164,12 +164,6 @@ steps:
         ActiveRecord::Base.connection.execute("CREATE DATABASE bootcamp_staging")
         puts "Database created successfully"
         SQLEOF
-
-        echo "Enabling pgvector extension..."
-        cat <<'SQLEOF' | DB_NAME=bootcamp_staging bin/rails runner - 2>&1
-        ActiveRecord::Base.connection.execute("CREATE EXTENSION IF NOT EXISTS vector")
-        puts "pgvector extension enabled"
-        SQLEOF
     waitFor:
       - DeleteDB
     volumes:
@@ -184,6 +178,33 @@ steps:
       - DB_USER=$_DB_USER
       - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
       - APP_HOST_NAME=$_APP_HOST_NAME
+  - id: EnablePgvector
+    name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
+    entrypoint: bash
+    args:
+      - '-c'
+      - |
+        set -euo pipefail
+
+        echo "Enabling pgvector extension on bootcamp_staging..."
+        cat <<'SQLEOF' | bin/rails runner - 2>&1
+        ActiveRecord::Base.connection.execute("CREATE EXTENSION IF NOT EXISTS vector")
+        puts "pgvector extension enabled"
+        SQLEOF
+    waitFor:
+      - CreateDB
+    volumes:
+      - name: db
+        path: /cloudsql
+    env:
+      - RAILS_ENV=production
+      - DISABLE_DATABASE_ENVIRONMENT_CHECK=1
+      - DB_HOST=/cloudsql/$_CLOUD_SQL_HOST
+      - DB_NAME=$_DB_NAME
+      - DB_PASS=$_DB_PASS
+      - DB_USER=$_DB_USER
+      - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
+      - APP_HOST_NAME=$_APP_HOST_NAME
   - id: DBMigrate
     name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
     args:
@@ -191,7 +212,7 @@ steps:
       - db:migrate
       - db:seed
     waitFor:
-      - CreateDB
+      - EnablePgvector
     volumes:
       - name: db
         path: /cloudsql
