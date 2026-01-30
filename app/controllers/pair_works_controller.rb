@@ -2,7 +2,6 @@
 
 class PairWorksController < ApplicationController
   before_action :set_my_pair_work, only: %i[edit destroy]
-  before_action :set_updatable_pair_work, only: %i[update]
 
   PAGER_NUMBER = 10
 
@@ -40,6 +39,7 @@ class PairWorksController < ApplicationController
   end
 
   def update
+    set_updatable_pair_work
     set_wip
     if @pair_work.update(pair_work_params)
       ActiveSupport::Notifications.instrument('pair_work.update', pair_work: @pair_work)
