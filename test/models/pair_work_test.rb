@@ -46,8 +46,8 @@ class PairWorkTest < ActiveSupport::TestCase
     assert_nil PairWork.unsolved_badge(current_user: users(:hatsuno))
   end
 
-  test '.update_permission?' do
-    admin = users(:komagata)
+  test '.matching?' do
+    student = users(:kimura)
     mentor = users(:mentormentaro)
     dummy_id = 1
     matching_request = { buddy_id: dummy_id, reserved_at: '2025-01-20' }
@@ -56,11 +56,10 @@ class PairWorkTest < ActiveSupport::TestCase
       practice_id: dummy_id, channel: 'チャンネル', schedules_attributes: {}
     }
 
-    assert PairWork.update_permission?(admin, update_request)
-    assert_not PairWork.update_permission?(mentor, update_request)
+    assert_not PairWork.matching?(mentor, update_request)
+    assert_not PairWork.matching?(student, matching_request)
 
-    assert PairWork.update_permission?(admin, matching_request)
-    assert PairWork.update_permission?(mentor, matching_request)
+    assert PairWork.matching?(mentor, matching_request)
   end
 
   test '.matching_params?' do
