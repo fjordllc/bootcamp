@@ -49,11 +49,11 @@ class PairWorkTest < ActiveSupport::TestCase
   test '.matching?' do
     student = users(:kimura)
     mentor = users(:mentormentaro)
-    dummy_id = 1
-    matching_request = { buddy_id: dummy_id, reserved_at: '2025-01-20' }
+    stub_id = 1
+    matching_request = { buddy_id: stub_id, reserved_at: '2025-01-20' }
     update_request = {
       title: 'タイトル', description: '詳細',
-      practice_id: dummy_id, channel: 'チャンネル', schedules_attributes: {}
+      practice_id: stub_id, channel: 'チャンネル', schedules_attributes: {}
     }
 
     assert_not PairWork.matching?(mentor, update_request)
@@ -63,11 +63,11 @@ class PairWorkTest < ActiveSupport::TestCase
   end
 
   test '.matching_params?' do
-    dummy_id = 1
-    matching_request = { buddy_id: dummy_id, reserved_at: '2025-01-20' }
+    stub_id = 1
+    matching_request = { buddy_id: stub_id, reserved_at: '2025-01-20' }
     update_request = {
       title: 'タイトル', description: '詳細',
-      practice_id: dummy_id, channel: 'チャンネル', schedules_attributes: {}
+      practice_id: stub_id, channel: 'チャンネル', schedules_attributes: {}
     }
     assert PairWork.matching_params?(matching_request)
     assert_not PairWork.matching_params?(update_request)
