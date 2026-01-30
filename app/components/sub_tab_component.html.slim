@@ -5,4 +5,5 @@ li.tab-nav__item
       = " （#{count}）"
     - if badge&.positive?
       .page-tabs__item-count.a-notification-count
-        .not-solved-count = badge
+        .not-solved-count
+          = badge
