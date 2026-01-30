@@ -20,7 +20,9 @@ main.page-main
           .page-main-header-actions
             .page-main-header-actions__items
               .page-main-header-actions__item
-                = link_to '/jobs', class: 'a-button is-md is-secondary is-block', target: '_blank', rel: 'noopener' do
+                = link_to '/jobs',
+                  class: 'a-button is-md is-secondary is-block',
+                  target: '_blank', rel: 'noopener' do
                   i.fa-solid.fa-gears
                   span
                     | ジョブ管理
@@ -63,12 +65,14 @@ main.page-main
           .completed-practices-progress
             .completed-practices-progress__bar-container
               .completed-practices-progress__bar
+              - stats_pct = @total_stats[:percentage]
+              - pct = number_to_percentage stats_pct, precision: 0
               .completed-practices-progress__percentage-bar(
                 aria-valuemax='100'
                 aria-valuemin='0'
                 aria-valuenow="#{@total_stats[:percentage]}"
                 role='progressbar'
-                style="width: #{number_to_percentage @total_stats[:percentage], precision: 0};")
+                style="width: #{pct};")
             .completed-practices-progress__counts
               .completed-practices-progress__counts-inner
                 .completed-practices-progress__percentage
