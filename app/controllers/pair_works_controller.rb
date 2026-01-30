@@ -66,7 +66,7 @@ class PairWorksController < ApplicationController
   end
 
   def set_updatable_pair_work
-    @pair_work = if PairWork.update_permission?(current_user, params[:pair_work])
+    @pair_work = if current_user.admin? || PairWork.matching?(current_user, params[:pair_work])
                    PairWork.find(params[:id])
                  else
                    current_user.pair_works.find(params[:id])

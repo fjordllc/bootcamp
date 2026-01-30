@@ -79,9 +79,7 @@ class PairWork < ApplicationRecord
     ::Cache.not_solved_pair_work_count
   end
 
-  def self.update_permission?(current_user, params)
-    return true if current_user.admin?
-
+  def self.matching?(current_user, params)
     matching_params?(params) && current_user.mentor?
   end
 
