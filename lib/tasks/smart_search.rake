@@ -32,6 +32,23 @@ namespace :smart_search do # rubocop:disable Metrics/BlockLength
       next
     end
 
+    # embeddingカラムが存在しない場合、直接追加を試みる
+    conn = ActiveRecord::Base.connection
+    tables = %w[practices reports products pages questions announcements events regular_events answers comments]
+    missing_tables = tables.reject { |t| conn.column_exists?(t, :embedding) }
+    if missing_tables.any?
+      puts "[SmartSearch] Missing embedding column in: #{missing_tables.join(', ')}"
+      puts '[SmartSearch] Attempting to add embedding columns...'
+      missing_tables.each do |table|
+        conn.execute("ALTER TABLE #{table} ADD COLUMN embedding vector(1536)")
+        puts "[SmartSearch] Added embedding column to #{table}"
+      rescue StandardError => e
+        puts "[SmartSearch] Failed to add column to #{table}: #{e.message}"
+      end
+      # カラムキャッシュをリセット
+      SmartSearch::Configuration::EMBEDDING_MODELS.each { |m| m.constantize.reset_column_information }
+    end
+
     SmartSearch::Configuration::EMBEDDING_MODELS.each do |model_name|
       model_class = model_name.constantize
       unless model_class.column_names.include?('embedding')
