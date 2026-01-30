@@ -2,7 +2,7 @@
 
 namespace :smart_search do # rubocop:disable Metrics/BlockLength
   desc 'Generate embeddings for all searchable models'
-  task generate_all: :environment do
+  task generate_all: :environment do # rubocop:disable Metrics/BlockLength
     generator = SmartSearch::EmbeddingGenerator.new
     puts "[SmartSearch] OPEN_AI_ACCESS_TOKEN present: #{ENV['OPEN_AI_ACCESS_TOKEN'].present?}"
     puts "[SmartSearch] API available: #{generator.api_available?}"
