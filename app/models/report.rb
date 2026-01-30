@@ -61,6 +61,10 @@ class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   scope :user, ->(user) { where(user_id: user.id) }
 
+  scope :with_grant_practices, lambda {
+    joins(:practices).where.not(id: Report.joins(:practices).where(practices: { source_id: nil })).distinct
+  }
+
   def self.ransackable_attributes(_auth_object = nil)
     %w[title description reported_on emotion wip created_at updated_at user_id]
   end
