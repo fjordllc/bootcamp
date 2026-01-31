@@ -10,8 +10,7 @@
     tbody
       - 24.times do |hour|
         tr(class='hover:bg-[var(--background-more-tint)]')
-          th
-            | #{hour}:00
+          th #{hour}:00
           - 7.times do |day|
             - target_time = pair_work.created_at.beginning_of_day + hour.hours + day.days
             - if proposed_at_list.include?(target_time)
