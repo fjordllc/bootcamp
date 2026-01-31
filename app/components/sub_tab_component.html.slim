@@ -1,3 +1,9 @@
 li.tab-nav__item
   = link_to link, class: "tab-nav__item-link #{active ? 'is-active' : ''}" do
     = name
+    - if count.present?
+      = " （#{count}）"
+    - if badge&.positive?
+      .page-tabs__item-count.a-notification-count
+        .not-solved-count
+          = badge
