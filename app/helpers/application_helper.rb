@@ -11,4 +11,8 @@ module ApplicationHelper
   def smart_search_available?
     Rails.env.local? || Switchlet.enabled?(:smart_search)
   end
+
+  def movie_available?
+    Rails.env.local? || Switchlet.enabled?(:movie)
+  end
 end
