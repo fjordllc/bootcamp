@@ -80,7 +80,8 @@ module Mentioner
       Event: "特別イベント「#{commentable.title}」",
       RegularEvent: "定期イベント「#{commentable.title}」",
       Page: "Docs「#{commentable.title}」",
-      Announcement: "お知らせ「#{commentable.title}」"
+      Announcement: "お知らせ「#{commentable.title}」",
+      PairWork: "ペアワーク「#{commentable.title}」"
     }[:"#{commentable_class}"]
   end
 end
