@@ -1,0 +1,58 @@
+@import "tailwindcss" source(none);
+@source "../../views/**/*.slim";
+@source "../../components/**/*.slim";
+@source "../../../app/javascript/**/*.{js,vue,jsx}";
+@source "./**/*.css";
+
+@theme {
+  --container-*: initial;
+}
+
+@import "./lp/base/_base.css";
+@import "./common-imports.css";
+@import "./lp/layouts/_l-cards.css";
+@import "./lp/layouts/_l-sections.css";
+@import "./lp/blocks/lp/_lp-header.css";
+@import "./lp/blocks/lp/_lp-header-nav.css";
+@import "./lp/blocks/lp/_welcome-top-info.css";
+@import "./lp/blocks/lp/_lp-top-cover.css";
+@import "./lp/blocks/lp/_lp-content.css";
+@import "./lp/blocks/lp/_lp-content-stack.css";
+@import "./lp/blocks/lp/_lp-hero-info.css";
+@import "./lp/blocks/lp/_lp-hero-visual.css";
+@import "./lp/blocks/lp/_lp-content-section.css";
+@import "./lp/blocks/lp/_lp-content-title.css";
+@import "./lp/blocks/lp/_lp-content-sub-title.css";
+@import "./lp/blocks/lp/_lp-card-title.css";
+@import "./lp/blocks/lp/_lp-card-description.css";
+@import "./lp/blocks/lp/_lp-card-actions.css";
+@import "./lp/blocks/lp/_lp-left-image-section.css";
+@import "./lp/blocks/lp/_lp-left-number-section.css";
+@import "./lp/blocks/lp/_lp-capture-section.css";
+@import "./lp/blocks/lp/_lp-top-image-sections.css";
+@import "./lp/blocks/lp/_lp-supplementary-info.css";
+@import "./lp/blocks/lp/_lp-page-header.css";
+@import "./lp/blocks/lp/_lp-page-header-nav.css";
+@import "./lp/blocks/lp/_lp-price.css";
+@import "./lp/blocks/lp/_lp-actions.css";
+@import "./lp/blocks/lp/_lp-company-logos.css";
+@import "./lp/blocks/lp/_lp-movie.css";
+@import "./lp/blocks/lp/_lp-practices-table.css";
+@import "./lp/blocks/lp/_lp-table.css";
+@import "./lp/blocks/lp/_lp-faqs.css";
+@import "./lp/blocks/lp/_lp-faq.css";
+@import "./lp/blocks/lp/_side-filter.css";
+@import "./lp/blocks/lp/_lp-course-selection.css";
+@import "./lp/blocks/lp/_lp-course-selection-nav.css";
+@import "./lp/blocks/lp/_lp-course-selection-item.css";
+@import "./lp/blocks/lp/_lp-category-practices.css";
+@import "./lp/blocks/lp/_lp-mentor-books.css";
+@import "./lp/blocks/lp/_lp-mentor.css";
+@import "./lp/blocks/articles/_article.css";
+@import "./lp/blocks/articles/_articles.css";
+@import "./lp/blocks/articles/_articles-item.css";
+@import "./lp/blocks/articles/_share-buttons.css";
+@import "./lp/blocks/articles/_article-author.css";
+@import "./lp/corporate-training/_corporate-training-examples.css";
+@import "./lp/corporate-training/_corporate-training-example.css";
+@import "./lp/corporate-training/_corporate-training-testimonial.css";

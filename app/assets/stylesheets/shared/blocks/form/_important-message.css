@@ -1,0 +1,28 @@
+
+.important-message {
+  border: solid 2px var(--danger);
+  border-radius: .25rem;
+  overflow: hidden;
+}
+
+.important-message + form {
+  margin-top: 2rem;
+}
+
+.important-message__header {
+  border-bottom: solid 1px var(--danger);
+  padding: .5rem 1rem;
+  background-color: var(--danger-tint);
+}
+
+.important-message__title {
+  font-size: .875rem;
+  line-height: 1.4;
+  font-weight: 800;
+  color: var(--danger-text);
+}
+
+.important-message__body {
+  padding: .75rem 1rem;
+  background-color: var(--danger-tint);
+}

@@ -44,7 +44,7 @@ class Products::UnassignedProductsComponent < ViewComponent::Base
   end
 
   def elapsed_days_id(elapsed_days)
-    "#{elapsed_days}days-elapsed"
+    "elapsed-#{elapsed_days}days"
   end
 
   def count_almost_passed_reply_warning_days

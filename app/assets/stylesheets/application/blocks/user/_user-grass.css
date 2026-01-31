@@ -1,0 +1,62 @@
+
+.user-grass {
+  padding: 1rem;
+}
+
+@media (max-width: 47.9375em) {
+  .user-grass {
+    padding: .75rem;
+  }
+}
+
+.user-grass__link {
+  position: relative;
+  display: block;
+}
+
+.user-grass__link .user-grass__image.is-loading {
+  animation: loadingNow .5s ease infinite alternate;
+}
+
+.user-grass-nav {
+  font-size: .875rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -1rem;
+}
+
+.user-grass-nav__previous,
+.user-grass-nav__next {
+  height: 2.75rem;
+  width: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all .2s ease-out;
+}
+
+.user-grass-nav__previous:hover,
+.user-grass-nav__previous:active,
+.user-grass-nav__next:hover,
+.user-grass-nav__next:active {
+  text-decoration: underline;
+}
+
+.user-grass-nav__previous:hover,
+.user-grass-nav__next:hover {
+  color: var(--main-text);
+}
+
+.user-grass-nav__previous.is-blank,
+.user-grass-nav__next.is-blank {
+  cursor: default;
+  pointer-events: none;
+}
+
+.user-grass-nav__year--month {
+  width: 13rem;
+  text-align: center;
+}

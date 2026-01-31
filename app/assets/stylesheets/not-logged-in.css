@@ -1,0 +1,17 @@
+@import "tailwindcss" source(none);
+@source "../../views/**/*.slim";
+@source "../../components/**/*.slim";
+@source "../../../app/javascript/**/*.{js,vue,jsx}";
+@source "./**/*.css";
+
+@theme {
+  --container-*: initial;
+}
+
+@import "./common-imports.css";
+@import "./not-logged-in/base/_base.css";
+@import "./not-logged-in/_not-logged-in-wrapper.css";
+@import "./not-logged-in/_completion.css";
+@import "./not-logged-in/_unauthorized.css";
+@import "./not-logged-in/_unauthorized-header.css";
+@import "./not-logged-in/_join-us-nav.css";

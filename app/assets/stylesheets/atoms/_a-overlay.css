@@ -1,0 +1,22 @@
+.a-overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+.a-overlay.is-js {
+  opacity: 1;
+  z-index: 3;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.a-overlay.is-js.hidden {
+  display: none;
+}

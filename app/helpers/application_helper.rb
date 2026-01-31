@@ -6,4 +6,13 @@ module ApplicationHelper
 
     [:everyone, current_user.job].include?(practice.target)
   end
+
+  # development/test環境では常に有効、それ以外はフィーチャーフラグで制御
+  def smart_search_available?
+    Rails.env.local? || Switchlet.enabled?(:smart_search)
+  end
+
+  def movie_available?
+    Rails.env.local? || Switchlet.enabled?(:movie)
+  end
 end

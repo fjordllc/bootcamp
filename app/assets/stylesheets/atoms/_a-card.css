@@ -1,0 +1,141 @@
+.a-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.25rem;
+  width: 100%;
+  margin-inline: auto;
+  background-color: var(--base);
+  border: solid 1px var(--border);
+}
+
+.a-card.is-danger {
+  border-color: var(--danger);
+  color: var(--danger-text);
+  background-color: var(--danger-tint);
+}
+
+.a-card:not(:last-child) {
+  margin-bottom: 0;
+}
+
+.a-card + .a-card {
+  margin-top: 1rem;
+}
+
+.a-card + .a-card-react,
+.a-card-react + .a-card {
+  margin-top: 1rem;
+}
+
+.a-card.is-borderd {
+  border: solid 4px var(--default-text);
+}
+
+.a-card.is-modal {
+  width: 42.5rem;
+  max-width: 100%;
+}
+
+.a-card.is-toggle label {
+  cursor: pointer;
+}
+
+.a-card.is-toggle > input:not(:checked) + * + * {
+  display: none;
+}
+
+.a-card.is-toggle > input:not(:checked) + * {
+  border-bottom: none;
+}
+
+.a-card.is-toggle > input:checked + * + * {
+  display: block;
+}
+
+.a-card.is-toggle > input:not(:checked) + * .is-hidden-then-unchecked {
+  display: none;
+}
+
+.a-card.is-toggle > input:checked + * .is-hidden-then-checked {
+  display: none;
+}
+
+.a-card.is-toggle .card-body {
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.a-card:has(.a-table) {
+  border: none;
+}
+
+.a-card:has(.a-table) .card-header {
+  border: solid 1px var(--border);
+  border-bottom: none;
+}
+
+.a-card.is-danger {
+  border: solid 0.25rem var(--danger);
+}
+
+table.a-card {
+  display: table;
+}
+
+.a-card__alert {
+  padding: 0.5rem 1.25rem;
+  background-color: var(--danger);
+  text-align: center;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--reversal-text);
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+
+.a-card__alert a {
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--reversal-text);
+}
+
+.a-card__alert a:hover,
+.a-card__alert a:active {
+  text-decoration: underline;
+}
+
+.a-card__columns {
+  display: flex;
+}
+
+@media (max-width: 79.9375em) {
+  .a-card:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+
+  .a-card + .a-card,
+  .a-card + .a-card-react,
+  .a-card-react + .a-card {
+    margin-top: 1rem;
+  }
+}
+
+@media (min-width: 80em) {
+  .a-card + .a-card,
+  .a-card + .a-card-react,
+  .a-card-react + .a-card {
+    margin-top: 1.25rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .a-card.is-modal {
+    margin-inline: 1rem;
+  }
+}
+
+@media (max-width: 63.9375em) {
+  .a-card__columns {
+    flex-direction: column;
+  }
+}

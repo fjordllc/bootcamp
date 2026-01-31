@@ -1,0 +1,30 @@
+
+.markdown-form__text-area.a-text-input {
+  min-height: 30rem;
+}
+
+@media (max-width: 47.9375em) {
+  .markdown-form__text-area.a-text-input {
+    margin-bottom: 1rem;
+  }
+}
+
+.markdown-form__preview {
+  background-color: var(--base);
+  font-size: .875rem;
+  line-height: 1.8;
+  border-radius: .25rem;
+  min-height: 30rem;
+}
+
+@media (min-width: 48em) {
+  .markdown-form__preview {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .markdown-form__preview {
+    padding: .5rem;
+  }
+}

@@ -1,0 +1,54 @@
+
+.card-body {
+  flex: 1;
+}
+
+.card-body.has-scroll {
+  max-height: 18rem;
+  overflow-y: auto;
+}
+
+@media (min-width: 48em) {
+  .card-body__description {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .card-body__description {
+    padding: .75rem;
+  }
+}
+
+@media (min-width: 48em) {
+  .card-body__description.a-long-text {
+    font-size: .9375rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .card-body__description.a-long-text {
+    font-size: .8125rem;
+  }
+}
+
+.card__main-movie video {
+  border-radius: .25rem .25rem 0 0;
+}
+
+.card-body__inner {
+  max-width: 100%;
+  width: 100%;
+}
+
+@media (min-width: 48em) {
+  .card-body__inner {
+    padding: 1rem 1.5rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .card-body__inner {
+    padding: 1rem;
+  }
+}

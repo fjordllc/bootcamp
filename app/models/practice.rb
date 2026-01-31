@@ -143,6 +143,11 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
     [description, goal].join("\n")
   end
 
+  def text_for_embedding
+    text = [title, description, goal].compact.join("\n\n")
+    truncate_for_embedding(text)
+  end
+
   def product(user)
     products.find_by(user:)
   end

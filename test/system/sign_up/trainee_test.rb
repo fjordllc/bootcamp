@@ -8,6 +8,8 @@ module SignUp
       @bot_token = Discord::Server.authorize_token
       Discord::Server.authorize_token = nil
       Capybara.reset_sessions!
+    rescue Net::ReadTimeout
+      # セッションリセット時のタイムアウトは無視して続行
     end
 
     teardown do

@@ -115,6 +115,10 @@ class Product < ApplicationRecord # rubocop:todo Metrics/ClassLength
     )
   end
 
+  def text_for_embedding
+    truncate_for_embedding(body)
+  end
+
   def last_commented_user
     Rails.cache.fetch "/model/product/#{id}/last_commented_user" do
       commented_users.last

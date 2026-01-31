@@ -24,6 +24,8 @@ vendor/bundle/
 /public/assets
 /public/packs
 /public/packs-test
+/app/assets/builds/*
+!/app/assets/builds/.gitkeep
 
 /public/system
 yarn-debug.log*

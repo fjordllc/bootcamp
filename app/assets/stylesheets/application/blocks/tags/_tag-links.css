@@ -1,0 +1,50 @@
+
+.tag-links .form-actions {
+  margin-top: 1rem;
+}
+
+@media (min-width: 48em) {
+  .tag-links .form-actions__item.is-main {
+    min-width: 12rem;
+  }
+}
+
+.tag-links__items {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+.tag-links__item-link {
+  font-size: .6875rem;
+  line-height: 1.4;
+  display: block;
+  color: var(--muted-text);
+  background-color: transparent;
+  border: solid 1px var(--muted-text);
+  padding: .1875rem .625rem;
+  border-radius: 2rem;
+  transition: all .2s ease-in;
+  text-decoration: none;
+}
+
+.tag-links__item-link:hover {
+  background-color: rgba(var(--base), .7);
+  color: var(--semi-muted-text);
+  border-color: var(--semi-muted-text);
+}
+
+.tag-links__item-edit {
+  font-size: .75rem;
+  line-height: 1.4;
+  display: block;
+  color: var(--main);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.tag-links__item-edit:hover,
+.tag-links__item-edit:active {
+  text-decoration: underline;
+}

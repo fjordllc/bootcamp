@@ -1,0 +1,19 @@
+/* テーブル内プログレスバー */
+.embedding-status-progress {
+  background-color: var(--background-semi-shade);
+  border-radius: 0.25rem;
+  height: 0.5rem;
+  overflow: hidden;
+  min-width: 8rem;
+}
+
+.embedding-status-progress__bar {
+  height: 100%;
+  background-color: var(--primary);
+  border-radius: 0.25rem;
+  transition: width 0.3s ease;
+}
+
+.embedding-status-progress__bar.is-complete {
+  background-color: var(--success);
+}

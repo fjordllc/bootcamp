@@ -1,2 +1,2 @@
-#!/usr/bin/env ruby
-exec "./bin/rails", "server", *ARGV
+#!/usr/bin/env sh
+exec foreman start -f Procfile.dev "$@"

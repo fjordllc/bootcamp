@@ -1,0 +1,92 @@
+
+.stamp {
+  border: solid 1px var(--stamp-color);
+  border-radius: .75rem;
+  pointer-events: none;
+  height: 3.5rem;
+  width: 4rem;
+  position: absolute;
+  right: -.25rem;
+  top: 0;
+  transform: rotate(25deg);
+  font-size: .625rem;
+  line-height: 1;
+  display: block;
+  text-align: center;
+  font-weight: 400;
+  color: var(--stamp-color);
+  font-feature-settings: "palt";
+  letter-spacing: 0;
+}
+
+@media (max-width: 47.9375em) {
+  .stamp {
+    right: 0;
+    top: 0;
+  }
+}
+
+.stamp.is-circle {
+  height: 3.5rem;
+  width: 3.5rem;
+  border-radius: 50%;
+}
+
+.stamp.is-solved {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  font-weight: 800;
+  font-family: serif;
+  justify-content: center;
+}
+
+.stamp.is-cleared {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.125rem;
+  font-weight: 800;
+  font-family: serif;
+  justify-content: center;
+}
+
+.stamp.is-sm {
+  height: 2.25rem;
+  width: 4.125em;
+  position: absolute;
+  right: .5rem;
+  top: .5rem;
+  border-radius: .5rem;
+  display: flex;
+  align-items: center;
+}
+
+.stamp__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stamp__content.is-title {
+}
+
+.stamp__content.is-user-name {
+  height: 32%;
+  width: 100%;
+}
+
+.stamp__content.is-created-at {
+  height: 36%;
+  width: 100%;
+  border-top: solid 1px var(--stamp-color);
+  border-bottom: solid 1px var(--stamp-color);
+}
+
+.stamp__content-inner {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-inline: .25rem;
+  height: 100%;
+  line-height: 1.55;
+}

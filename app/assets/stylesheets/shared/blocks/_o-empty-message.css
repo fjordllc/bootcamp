@@ -1,0 +1,21 @@
+.o-empty-message {
+  max-width: 50rem;
+  margin-inline: auto;
+  text-align: center;
+  color: var(--semi-muted-text);
+}
+.o-empty-message:not(:first-child) {
+  margin-top: 1.5rem;
+}
+
+.o-empty-message__icon {
+  font-size: 5rem;
+  line-height: 1;
+}
+
+.o-empty-message__text {
+  font-size: 1rem;
+  line-height: 1.4;
+  margin-top: 1em;
+  text-align: center;
+}

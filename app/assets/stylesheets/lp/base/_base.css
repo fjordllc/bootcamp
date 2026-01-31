@@ -1,0 +1,85 @@
+html.is-lp {
+  font-family: var(--sans-serif);
+  color: var(--default-text);
+}
+
+:root {
+  --people-bg-image: url("/images/background/people.png");
+}
+
+body.is-lp {
+  background-color: var(--background);
+}
+
+.not-logged-in-footer {
+  color: var(--default-text);
+}
+
+.not-logged-in-footer__nav-item-link {
+  color: var(--default-text);
+}
+
+.not-logged-in-footer-copyright {
+  color: var(--default-text);
+}
+
+.card-body__inner-title {
+  font-size: 1.5rem;
+  line-height: 1.5;
+  font-weight: 700;
+  padding-bottom: 0.25rem;
+  color: var(--main);
+  border-bottom: solid 1px var(--border);
+}
+
+.welcome-practices {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 0.5rem;
+  flex-direction: column;
+}
+
+.welcome-practices__item {
+  line-height: 1.6;
+  font-size: 0.8125rem;
+  padding-block: 0.5rem;
+}
+.welcome-practices__item + .welcome-practices__item {
+  border-top: solid 1px var(--border-tint);
+}
+.welcome-practices__item:first-child {
+  padding-top: 0;
+}
+.welcome-practices__item:last-child {
+  padding-bottom: 0;
+}
+
+@media (min-width: 48em) {
+  .welcome-practices {
+    flex-direction: row;
+  }
+  .welcome-practices__item {
+    font-size: 0.875rem;
+    padding-block: 0;
+    border-top: none !important;
+  }
+  .welcome-practices__item:not(:last-child)::after {
+    content: "、";
+  }
+}
+.faqs-item__header {
+  padding-bottom: 0.5rem;
+  border-bottom: solid 1px var(--border);
+}
+
+.faqs-item__body {
+  margin-top: 1.5rem;
+}
+
+.faqs-item__title {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  font-weight: 700;
+  color: var(--main);
+}

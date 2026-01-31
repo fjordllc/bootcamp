@@ -32,93 +32,92 @@
               | このページは他のユーザーから見た、あなたのプロフィールページです。
               | （ #{link_to '登録情報変更', edit_current_user_path} ）
     .container(class="#{visible_learning_time_frames?(@user) ? 'is-xxl' : 'is-xl'}")
-      .columns
-        .row
-          .col-xs-12(class="#{visible_learning_time_frames?(@user) ? 'col-lg-4 col-xxl-5' : 'col-lg-6 col-xxl-6'}")
-            .page-content.is-user
-              = render 'users/profile', user: @user
-              .card-counts.is-user
-                = render 'users/activity_counts', user: @user
-              .a-card
-                .user-data
+      .row
+        .col-xs-12(class="#{visible_learning_time_frames?(@user) ? 'col-lg-4 col-xxl-5' : 'col-lg-6 col-xxl-6'}")
+          .page-content.is-user
+            = render 'users/profile', user: @user
+            .card-counts.is-user
+              = render 'users/activity_counts', user: @user
+            .a-card
+              .user-data
+                .user-data__row
+                  .user-data__description.a-short-text.is-md
+                    = auto_link simple_format h @user.description
+                - if @user.tag_list.present? || current_user == @user
                   .user-data__row
-                    .user-data__description.a-short-text.is-md
-                      = auto_link simple_format h @user.description
-                  - if @user.tag_list.present? || current_user == @user
-                    .user-data__row
-                      .user-data__tags
-                        = render(Tag::FormComponent.new(taggable: @user, param_name: 'user[tag_list]', input_id: 'user_tag_list', editable: (@user.id == current_user.id)))
-                  - if admin_or_mentor_login? && @user.hibernated?
-                    .user-data__row
-                      = render 'users/hibernation_info', user: @user
-                  - if admin_or_mentor_login? && @user.training_completed?
-                    .user-data__row
-                      = render 'users/training_completion_info', user: @user
-                  - if admin_or_mentor_login? && @user.retired?
-                    .user-data__row
-                      = render 'users/retire_info', user: @user
-                  - if admin_or_mentor_login? && @user.student_or_trainee_or_retired?
-                    .user-data__row
-                      = render 'users/user_secret_attributes', user: @user
+                    .user-data__tags
+                      = render(Tag::FormComponent.new(taggable: @user, param_name: 'user[tag_list]', input_id: 'user_tag_list', editable: (@user.id == current_user.id)))
+                - if admin_or_mentor_login? && @user.hibernated?
                   .user-data__row
-                    = render 'users/metas', user: @user, user_course_practice: UserCoursePractice.new(@user)
+                    = render 'users/hibernation_info', user: @user
+                - if admin_or_mentor_login? && @user.training_completed?
+                  .user-data__row
+                    = render 'users/training_completion_info', user: @user
+                - if admin_or_mentor_login? && @user.retired?
+                  .user-data__row
+                    = render 'users/retire_info', user: @user
+                - if admin_or_mentor_login? && @user.student_or_trainee_or_retired?
+                  .user-data__row
+                    = render 'users/user_secret_attributes', user: @user
+                .user-data__row
+                  = render 'users/metas', user: @user, user_course_practice: UserCoursePractice.new(@user)
 
-          .col-xs-12(class="#{visible_learning_time_frames?(@user) ? 'col-lg-4 col-xxl-4' : 'col-lg-6 col-xxl-6'}")
-            - if @user.student_or_trainee? && @user.total_learning_time.positive?
-              = render(StudyStreak::StudyStreakTrackerComponent.new(study_streak: @study_streak))
-            - unless @user.total_learning_time.zero? || @user.mentor?
-              = render(Grass::GrassComponent.new(user: @user, times: @times, target_end_date: @target_end_date, path: :user_path))
-            - if @user.student_or_trainee?
-              = render(Calendar::NicoNicoCalendarComponent.new(user: @user, path: :niconico_calendar_date_in_profile_path, current_date: @calendar.current_date, current_calendar: @calendar.with_reports))
-            - if @user.github_account.present?
-                = render 'users/github_grass', user: @user
-            - if @user.completed_practices.present?
-              - cache [@user, @completed_learnings] do
-                = render '/users/practices/completed_practices', user: @user, completed_learnings: @completed_learnings
-            - if admin_login?
-              .a-card.is-only-mentor
-                .card-header.is-sm
-                  h2.card-header__title
-                    | ステータス変更
-                hr.a-border-tint
-                .user-statuses
-                  .user-statuses__items
-                    .user-statuses__item
-                      = link_to '管理者として情報変更', edit_admin_user_path, class: 'card-main-actions__action a-button is-sm is-secondary is-block'
-                    .user-statuses__item
-                      - if @user.graduated?
-                        .a-button.is-sm.is-disabled.is-block
-                          | 卒業済
-                      - else
-                        = link_to '卒業にする', user_graduation_path(@user, redirect_url: "/users/#{@user.id}"),
-                          method: :patch,
-                          data: { confirm: '本当によろしいですか？' },
-                          class: 'a-button is-sm is-danger is-block'
-                  - if @user != current_user
-                    .user-statuses__delete
-                      = link_to 'このユーザーを削除する', admin_user_path(@user), method: :delete, id: "delete-#{@user.id}", class: 'a-muted-text-link',
-                        data: { confirm: '本当によろしいですか？この操作はデータを削除するため元に戻すことができません。' }
-            - if admin_login?
-              .a-card.is-only-mentor
-                .card-header.is-sm
-                  h2.card-header__title
-                    | 卒業後の進路
-                    | （#{t("activerecord.enums.user.career_path.#{@user.career_path}")}）
-                hr.a-border-tint
-                .card-body
-                  .card-body__description
-                    - if @user.career_memo.present?
-                      .a-long-text.is-sm
-                        = simple_format(@user.career_memo)
+        .col-xs-12(class="#{visible_learning_time_frames?(@user) ? 'col-lg-4 col-xxl-4' : 'col-lg-6 col-xxl-6'}")
+          - if @user.student_or_trainee? && @user.total_learning_time.positive?
+            = render(StudyStreak::StudyStreakTrackerComponent.new(study_streak: @study_streak))
+          - unless @user.total_learning_time.zero? || @user.mentor?
+            = render(Grass::GrassComponent.new(user: @user, times: @times, target_end_date: @target_end_date, path: :user_path))
+          - if @user.student_or_trainee?
+            = render(Calendar::NicoNicoCalendarComponent.new(user: @user, path: :niconico_calendar_date_in_profile_path, current_date: @calendar.current_date, current_calendar: @calendar.with_reports))
+          - if @user.github_account.present?
+              = render 'users/github_grass', user: @user
+          - if @user.completed_practices.present?
+            - cache [@user, @completed_learnings] do
+              = render '/users/practices/completed_practices', user: @user, completed_learnings: @completed_learnings
+          - if admin_login?
+            .a-card.is-only-mentor
+              .card-header.is-sm
+                h2.card-header__title
+                  | ステータス変更
+              hr.a-border-tint
+              .user-statuses
+                .user-statuses__items
+                  .user-statuses__item
+                    = link_to '管理者として情報変更', edit_admin_user_path, class: 'card-main-actions__action a-button is-sm is-secondary is-block'
+                  .user-statuses__item
+                    - if @user.graduated?
+                      .a-button.is-sm.is-disabled.is-block
+                        | 卒業済
                     - else
-                      .o-empty-message
-                        .o-empty-message__icon
-                          i.fa-regular.fa-sad-tear
-                        .o-empty-message__text
-                          | 進路メモはまだありません。
-            - if admin_or_mentor_login?
-              = render 'users/user_mentor_memo', user_id: @user.id
+                      = link_to '卒業にする', user_graduation_path(@user, redirect_url: "/users/#{@user.id}"),
+                        method: :patch,
+                        data: { confirm: '本当によろしいですか？' },
+                        class: 'a-button is-sm is-danger is-block'
+                - if @user != current_user
+                  .user-statuses__delete
+                    = link_to 'このユーザーを削除する', admin_user_path(@user), method: :delete, id: "delete-#{@user.id}", class: 'a-muted-text-link',
+                      data: { confirm: '本当によろしいですか？この操作はデータを削除するため元に戻すことができません。' }
+          - if admin_login?
+            .a-card.is-only-mentor
+              .card-header.is-sm
+                h2.card-header__title
+                  | 卒業後の進路
+                  | （#{t("activerecord.enums.user.career_path.#{@user.career_path}")}）
+              hr.a-border-tint
+              .card-body
+                .card-body__description
+                  - if @user.career_memo.present?
+                    .a-long-text.is-sm
+                      = simple_format(@user.career_memo)
+                  - else
+                    .o-empty-message
+                      .o-empty-message__icon
+                        i.fa-regular.fa-sad-tear
+                      .o-empty-message__text
+                        | 進路メモはまだありません。
+          - if admin_or_mentor_login?
+            = render 'users/user_mentor_memo', user_id: @user.id
 
-          - if visible_learning_time_frames?(@user)
-            .col-xs-12.col-lg-4.col-xxl-3
-              = render 'users/learning_time_frames', user: @user
+        - if visible_learning_time_frames?(@user)
+          .col-xs-12.col-lg-4.col-xxl-3
+            = render 'users/learning_time_frames', user: @user

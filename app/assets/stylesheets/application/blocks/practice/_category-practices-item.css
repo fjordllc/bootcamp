@@ -1,0 +1,165 @@
+
+.category-practices-item {
+  padding: .75rem 1rem;
+  position: relative;
+}
+
+.category-practices-item:not(:last-child) {
+  border-bottom: solid 1px var(--border-tint);
+}
+
+.category-practices-item:nth-child(even) {
+  background-color: var(--background-more-tint);
+}
+
+@media (max-width: 47.9375em) {
+  .category-practices-item {
+    flex-wrap: wrap;
+    padding: .5rem .75rem .75rem;
+  }
+}
+
+.category-practices-item.sortable-chosen {
+  background-color: color.tint(var(--warning), 90%);
+}
+
+.category-practices-item.is-skip-on {
+  background-color: var(--background-tint);
+}
+
+.category-practices-item[draggable="false"] {
+  background-color: var(--base);
+  animation: grab-background-color 1.25s ease 0s 1 normal none running;
+}
+
+.category-practices-item__grab {
+  flex: 0 0 2.75rem;
+}
+
+.category-practices-item__anchor {
+}
+
+@media (min-width: 48em) {
+  .category-practices-item__anchor {
+    position: relative;
+    top: -3.5rem;
+  }
+}
+
+.category-practices-item__status {
+  font-size: .8125rem;
+  line-height: 1;
+  font-weight: 600;
+  display: flex;
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+  height: 2.125rem;
+  width: 4rem;
+  border-radius: .25rem;
+}
+
+.category-practices-item__status.is-not_complete {
+  background-color: var(--background);
+  color: var(--muted-text);
+}
+
+.category-practices-item__status.is-started {
+  background-color: var(--danger);
+  color: var(--reversal-text);
+}
+
+.category-practices-item__status.is-submitted {
+  background-color: var(--warning);
+  color: var(--default-text);
+}
+
+.category-practices-item__status.is-complete {
+  background-color: var(--success);
+  color: var(--reversal-text);
+}
+
+.category-practices-item__status.is-unstarted {
+  background-color: #fff;
+  color: var(--muted-text);
+  border: solid 1px var(--border);
+}
+
+.category-practices-item__status.is-unstarted.is-active {
+  color: var(--muted-text);
+  border-color: var(--muted-text);
+  background-color: var(--background-tint);
+}
+
+.category-practices-item__status.is-skip-on {
+  background-color: #dcdcdc;
+  color: var(--muted-text);
+}
+
+.category-practices-item__header {
+  display: flex;
+}
+
+@media (max-width: 47.9375em) {
+  .category-practices-item__header {
+    display: block;
+  }
+}
+
+.category-practices-item__title {
+  flex: 1;
+  margin-right: .5rem;
+}
+
+@media (max-width: 47.9375em) {
+  .category-practices-item__title {
+    margin-right: 0;
+    margin-bottom: .5rem;
+  }
+}
+
+.category-practices-item__title-link {
+  font-size: .875rem;
+  line-height: 1.4;
+  display: flex;
+  color: var(--default-text);
+  align-items: center;
+  min-height: 1.875rem;
+  text-decoration: none;
+}
+
+@media (max-width: 47.9375em) {
+  .category-practices-item__title-link {
+    font-size: .8125rem;
+  }
+}
+
+.category-practices-item__title-link .a-badge {
+  margin-right: .25rem;
+}
+
+.category-practices-item__title-link.is-skip-on {
+  color: var(--muted-text);
+}
+
+a.category-practices-item__title-link:hover .category-practices-item__title-link-label {
+  text-decoration: underline;
+}
+
+.category-practices-item__learning-time {
+  font-size: .75rem;
+  line-height: 1.4;
+  color: var(--muted-text);
+}
+
+@media (min-width: 48em) {
+  .category-practices-item__learning-time {
+    margin-top: -.25rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .category-practices-item__learning-time {
+    margin-top: .5rem;
+  }
+}

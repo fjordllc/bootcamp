@@ -1,0 +1,118 @@
+.a-pdf-input {
+  display: flex;
+  gap: .75rem;
+}
+
+@media (max-width: 47.9375em) {
+  .a-pdf-input {
+    flex-direction: column;
+  }
+}
+
+.a-pdf-input__inner {
+  flex: 1;
+  background-color: var(--base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: .25rem;
+  height: 2.25rem;
+}
+
+.a-file-input label {
+  height: 10rem;
+  max-width: 100%;
+  margin-inline: auto;
+  border: solid 1px var(--input-border);
+  background-color: var(--base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: .25rem;
+  padding: .5rem .5rem 2.75rem .5rem;
+}
+
+.a-file-input.is-movie label {
+  height: auto;
+  aspect-ratio: 16 / 10;
+}
+
+.a-file-input.is-thumbnail label {
+  height: 15rem;
+}
+
+.a-file-input img {
+  max-height: 100%;
+  transition: all .2s ease-out;
+}
+
+.a-file-input img:hover {
+  opacity: .6;
+}
+
+.a-file-input.is-square img {
+  width: 7rem;
+  height: 7rem;
+  object-fit: cover;
+}
+
+.a-file-input.is-book img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  border: solid 1px var(--border-tint);
+}
+
+.a-file-input input {
+  overflow: hidden;
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+a.a-pdf-input__inner {
+  text-decoration: none;
+  color: var(--default-text);
+}
+
+.a-pdf-input__file {
+  padding: .5rem;
+  flex: 1;
+  border-radius: .25rem 0 0 .25rem;
+  border: solid 1px var(--input-border);
+  border-right: none;
+  height: 2.25rem;
+}
+
+.a-pdf-input__file-name {
+  font-size: .875rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+@media (min-width: 48em) {
+  .a-pdf-input__file-name {
+    max-width: 18rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .a-pdf-input__file-name {
+    max-width: 8rem;
+  }
+}
+
+.a-pdf-input__upload.a-button {
+  border-radius: 0 .25rem .25rem 0;
+}

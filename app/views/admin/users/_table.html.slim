@@ -29,7 +29,7 @@
     tbody.admin-table__items
       - users.each do |user|
         - next if params[:target] == 'campaign' && user.adviser?
-        tr.admin-table__item class="text-center #{user.retired_on? ? 'is-retired' : ''} #{user.hibernated? ? 'is-retired' : ''}"
+        tr.admin-table__item class="!text-center #{user.retired_on? ? 'is-retired' : ''} #{user.hibernated? ? 'is-retired' : ''}"
           td.admin-table__item-value
             - if user.admin? && user.mentor?
               span.admin-table__role
@@ -68,7 +68,7 @@
                 br
                 span.a-badge.is-secondary.is-xs
                   | 非ア
-          td.admin-table__item-value.text-left
+          td.admin-table__item-value(class='!text-left')
             = link_to user, class: 'admin-table__user', target: '_blank', rel: 'noopener' do
               span.admin-table__user-icon
                 span class=user.user_icon_frame_class
@@ -76,45 +76,45 @@
               span.admin-table__user-login-name
                 = user.login_name
                 | （#{user.name}）
-          td.admin-table__item-value.text-center
+          td.admin-table__item-value(class='!text-center')
             = user.email
-          td.admin-table__item-value.text-center
+          td.admin-table__item-value(class='!text-center')
             - if user.company.present?
               = user.company.name
             - else
               | -
-          td.admin-table__item-value.text-center
-            span.whitespace-nowrap
+          td.admin-table__item-value(class='!text-center')
+            span(class='!whitespace-nowrap')
               - if user.job
                 = t("activerecord.enums.user.job.#{user.job}")
               - else
                 | 回答なし
-          td.admin-table__item-value.text-center
+          td.admin-table__item-value(class='!text-center')
             - if user.job_seeker?
               | 希望する
             - else
               | 希望しない
-          td.admin-table__item-value.text-center
+          td.admin-table__item-value(class='!text-center')
             - if user.discord_profile.present?
               = user.discord_profile.account_name || '-'
-          td.admin-table__item-value.text-center
+          td.admin-table__item-value(class='!text-center')
             - if user.last_activity_at?
               = l user.last_activity_at
-          td.admin-table__item-value.text-center
+          td.admin-table__item-value(class='!text-center')
             = l user.created_at
-          td.admin-table__item-value.text-center
+          td.admin-table__item-value(class='!text-center')
             - if user.talk
-              = link_to '相談部屋', talk_url(user.talk, anchor: 'latest-comment'), class: 'whitespace-nowrap'
+              = link_to '相談部屋', talk_url(user.talk, anchor: 'latest-comment'), class: '!whitespace-nowrap'
             - else
               | -
-          td.admin-table__item-value.text-center
+          td.admin-table__item-value(class='!text-center')
             - if user.trainee && !user.invoice_payment
               | クレジットカード払い
             - elsif user.trainee && user.invoice_payment
               | 請求書払い
             - else
               | -
-          td.admin-table__item-value.text-center
+          td.admin-table__item-value(class='!text-center')
             - if user.card?
               = link_to user.customer_url,
                 class: 'a-button is-sm is-success is-icon',
@@ -122,7 +122,7 @@
                 i.fa-solid.fa-credit-card
             - else
               | -
-          td.admin-table__item-value.text-center
+          td.admin-table__item-value(class='!text-center')
             - if user.subscription_id?
               = link_to user.subscription_url,
                 class: 'subscription-status',
@@ -132,7 +132,7 @@
                 i.fa-solid.fa-spinner.fa-pulse
             - else
               | -
-          td.admin-table__item-value.text-center
+          td.admin-table__item-value(class='!text-center')
             = link_to edit_admin_user_path(user), id: "edit-#{user.id}", class: 'a-button is-sm is-secondary is-icon' do
               i.fa-solid.fa-pen
 

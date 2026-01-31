@@ -1,0 +1,55 @@
+.not-logged-in-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.not-logged-in-wrapper::before {
+  content: "";
+  background-image: url(https://bootcamp.fjord.jp/images/background/background.svg);
+  background-repeat: repeat;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  z-index-width: 100%;
+  height: 100%;
+  opacity: 0.075;
+  background-size: 22rem auto;
+}
+body.is-completion .not-logged-in-wrapper::before {
+  content: "";
+  background-image: url("https://bootcamp.fjord.jp/images/background/completion_background.svg");
+  background-repeat: repeat;
+  background-repeat-position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  z-index-width: 100%;
+  height: 100%;
+  opacity: 0.075;
+  background-size: 16rem auto;
+}
+
+.not-logged-in-wrapper__start {
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+.not-logged-in-wrapper__end {
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 47.9375em) {
+  .not-logged-in-wrapper::before {
+    background-size: 16rem auto;
+  }
+  body.is-completion .not-logged-in-wrapper::before {
+    background-size: auto;
+  }
+}

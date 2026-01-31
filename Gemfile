@@ -13,6 +13,7 @@ gem 'puma', '>= 5.0'
 gem 'rails', '8.1.1'
 gem 'shakapacker', '~> 9.0'
 gem 'sprockets-rails', '>= 2.0.0'
+gem 'tailwindcss-rails', '~> 4.0'
 
 # not default
 gem 'abstract_notifier', '~> 0.3.2'
@@ -50,6 +51,7 @@ gem 'meta-tags'
 gem 'mini_magick'
 gem 'mission_control-jobs'
 gem 'mutex_m', '0.1.1'
+gem 'neighbor'
 gem 'net-imap', require: false
 gem 'net-pop', require: false
 gem 'net-smtp', require: false # TODO: Remove it if you use rails 7.0.1
@@ -70,12 +72,14 @@ gem 'rails_autolink'
 gem 'rails-i18n'
 gem 'rails-patterns', '~> 0.2'
 gem 'ransack', '~> 4.3'
+gem 'solid_cache'
 gem 'solid_queue'
 # TODO: connection_pool互換性が修正された安定版リリース後にgem版に戻す
 gem 'react-rails', github: 'reactjs/react-rails', ref: '224d03b8e04b95e4d16197fc6ecf75601543154a'
 gem 'recaptcha', '~> 5.12'
 gem 'rollbar'
 gem 'rss'
+gem 'ruby_llm'
 gem 'ruby-openai'
 gem 'rubyzip'
 gem 'slim-rails'

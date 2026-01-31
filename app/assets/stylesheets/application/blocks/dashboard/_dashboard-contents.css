@@ -1,0 +1,32 @@
+.dashboard-contents__cols {
+  display: flex;
+  gap: 1rem;
+}
+@media (max-width: 47.9375em) {
+  .dashboard-contents__cols {
+    flex-direction: column;
+  }
+}
+
+.dashboard-contents__col {
+  width: 100%;
+}
+@media (min-width: 48em) {
+  .dashboard-contents__col.is-sub {
+    max-width: 20rem;
+  }
+}
+@media (min-width: 40em) {
+  .dashboard-contents__col.is-sub {
+    flex: 1;
+  }
+}
+.dashboard-contents__col.is-main {
+  flex: 1;
+}
+
+.dashboard-contents__categories {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

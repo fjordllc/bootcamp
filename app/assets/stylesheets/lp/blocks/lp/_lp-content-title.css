@@ -1,0 +1,151 @@
+.lp-content-title {
+  font-feature-settings: "palt";
+  letter-spacing: 0.02em;
+  position: relative;
+  text-align: center;
+  font-size: 1.75rem;
+  line-height: 1.4;
+  font-weight: 800;
+}
+
+.lp-content-title strong {
+  color: var(--main);
+}
+
+.lp-content-title[class*="is-border-"]::before {
+  content: "";
+  display: block;
+  border-radius: 10rem;
+  background-color: #9b9ace;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%);
+  width: 3.5em;
+  height: 0.25rem;
+}
+
+@media (max-width: 47.9375em) {
+  .lp-content-title {
+    padding-bottom: 1.5rem;
+  }
+}
+
+@media (min-width: 80em) {
+  .lp-content-title.is-vertical {
+    writing-mode: vertical-rl;
+    text-align: start;
+  }
+}
+
+@media (min-width: 48em) {
+  .lp-content-title {
+    font-size: 2.25rem;
+  }
+
+  .lp-content-title {
+    padding-bottom: 2.25rem;
+  }
+
+  .lp-content-title[class*="is-border-"]::before {
+    width: 4.5em;
+    height: 0.5rem;
+  }
+}
+
+@media (min-width: 64em) {
+  .lp-content-title {
+    font-size: 2.75rem;
+  }
+}
+
+@media (min-width: 80em) {
+  .lp-content-title {
+    font-size: 3rem;
+    white-space: nowrap;
+  }
+
+  .lp-content-title.is-border-left {
+    padding-left: 3.5rem;
+  }
+
+  .lp-content-title.is-border-left::before {
+    left: 0;
+    top: 0.25em;
+    width: 0.5rem;
+    height: 3.5em;
+  }
+
+  .lp-content-title.is-vertical.is-border-left::before {
+    top: 0.125em;
+  }
+}
+
+.lp-content-title.is-sm {
+  padding-bottom: 0;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+@media (min-width: 48em) {
+  .lp-content-title.is-sm {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 64em) {
+  .lp-content-title.is-sm {
+    font-size: 2.25rem;
+  }
+}
+
+.lp-content-title.is-xs {
+  font-size: 1.25rem;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+@media (min-width: 48em) {
+  .lp-content-title.is-xs {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 64em) {
+  .lp-content-title.is-xs {
+    font-size: 1.75rem;
+  }
+}
+
+.lp-content-title__option {
+  display: block;
+  color: #6e6d9c;
+  font-size: 1rem;
+  line-height: 1.4;
+  margin-top: -0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+@media (min-width: 48em) {
+  .lp-content-title__option {
+    margin-top: -0.5rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (min-width: 64em) {
+  .lp-content-title__option {
+    font-size: 1.25rem;
+    margin-top: -0.75rem;
+    margin-bottom: 0.75rem;
+  }
+}
+
+@media (min-width: 80em) {
+  .lp-content-title__option {
+    font-size: 1.5rem;
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+  }
+}

@@ -17,31 +17,31 @@ header.page-header
   hr.a-border
     .page-body
       .container.is-lg
-        .invitation.flex.flex-col.gap-4
-          .invitation__elements.flex.gap-4.flex-col(class='md:flex-row')
-            .invitation__element.flex-1
+        .invitation(class='!flex !flex-col !gap-4')
+          .invitation__elements(class='!flex !gap-4 !flex-col md:!flex-row')
+            .invitation__element(class='!flex-1')
               = label_tag :company, '企業', class: 'a-form-label'
               .a-button.is-md.is-secondary.is-select.is-block
                 = select_tag :company, options_from_collection_for_select(Company.order(created_at: :desc), :id, :name), class: 'js-invitation-company'
-            .invitation__element.flex-1
+            .invitation__element(class='!flex-1')
               = label_tag :role, 'ロール', class: 'a-form-label'
               .a-button.is-md.is-secondary.is-select.is-block
                 = select_tag :role, options_for_select(User::INVITATION_ROLES), class: 'js-invitation-role'
-            .invitation__element.flex-1
+            .invitation__element(class='!flex-1')
               = label_tag :course, 'コース', class: 'a-form-label'
               .a-button.is-md.is-secondary.is-select.is-block
                 = select_tag :course, options_from_collection_for_select(Course.order(:created_at), :id, :title), class: 'js-invitation-course'
           .invitation__url data-invitation-url-template=@invitation_url_template
             .a-form-label
               | URL
-            .invitation__url-inner.flex.gap-1
+            .invitation__url-inner(class='!flex !gap-1')
               input.js-invitation-url-text.a-text-input(type="text")
-              a.js-invitation-url.a-button.is-md.is-secondary.is-icon(class='h-[2.375rem]')
+              a.js-invitation-url.a-button.is-md.is-secondary.is-icon(class='!h-[2.375rem]')
                 i.fa-solid.fa-arrow-up-right-from-square
           .grant_invitation_url
             .a-form-label 給金対応コース登録URL
-            .invitation__url-inner.flex.gap-1
+            .invitation__url-inner(class='!flex !gap-1')
               input.a-text-input(type="text" value="#{new_grant_course_user_url}")
               = link_to new_grant_course_user_url,
-                class: 'a-button is-md is-secondary is-icon h-[2.375rem]' do
+                class: 'a-button is-md is-secondary is-icon !h-[2.375rem]' do
                 i.fa-solid.fa-arrow-up-right-from-square

@@ -1,0 +1,8 @@
+.survey-questions {
+  margin-top: 2rem;
+}
+
+.survey-questions-item__description {
+  margin-top: 0.75rem;
+  color: var(--semi-muted-text);
+}

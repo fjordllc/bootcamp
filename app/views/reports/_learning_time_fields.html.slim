@@ -2,7 +2,8 @@
   .form-times
     .form-times__inner
       - tag = '</div></div>'\
-              '<div class="form-selects__item"><div class="a-button is-md is-secondary is-select a-select is-block form-selects__item-select form-item__select">'
+              '<div class="form-selects__item">'\
+              '<div class="a-button is-md is-secondary is-select is-block form-selects__item-select form-item__select">'
       .form-times__items.learning-time
         .form-times__time
           = f.label :started_at, class: 'form-times__time-label'

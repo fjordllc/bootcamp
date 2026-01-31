@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_07_094500) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_19_100001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -262,9 +262,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_07_094500) do
     t.integer "position", null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["course_id", "category_id"], name: "index_courses_categories_on_course_id_and_category_id", unique: true
-  end
-
-  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
   end
 
   create_table "discord_profiles", force: :cascade do |t|
@@ -751,6 +748,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_07_094500) do
     t.index ["user_id", "practice_id"], name: "index_skipped_practices_on_user_id_and_practice_id", unique: true
   end
 
+  create_table "solid_cache_entries", force: :cascade do |t|
+    t.integer "byte_size", null: false
+    t.datetime "created_at", null: false
+    t.binary "key", null: false
+    t.bigint "key_hash", null: false
+    t.binary "value", null: false
+    t.index ["byte_size"], name: "index_solid_cache_entries_on_byte_size"
+    t.index ["key_hash", "byte_size"], name: "index_solid_cache_entries_on_key_hash_and_byte_size"
+    t.index ["key_hash"], name: "index_solid_cache_entries_on_key_hash", unique: true
+  end
+
   create_table "solid_queue_blocked_executions", force: :cascade do |t|
     t.string "concurrency_key", null: false
     t.datetime "created_at", null: false
@@ -1004,7 +1012,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_07_094500) do
     t.boolean "invoice_payment", default: false, null: false
     t.integer "job"
     t.boolean "job_seeker", default: false, null: false
-    t.boolean "job_seeking", default: false, null: false
     t.datetime "last_activity_at"
     t.integer "last_negative_report_id"
     t.string "login_name", limit: 255, null: false
