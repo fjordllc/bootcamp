@@ -28,7 +28,7 @@
               .card-main-actions__item
                 button#js-shortcut-post-comment.a-button.is-sm.is-primary.is-block.js-comment-save-button(disabled=true)
                   | コメントする
-              - if mentor_login? && (commentable_type == 'Report' || commentable_type == 'Product') && !commentable.try(:checked?)
+              - if mentor_login? && %w[Report Product].include?(commentable_type) && !commentable.try(:checked?)
                 .card-main-actions__item.is-only-mentor
                   button.a-button.is-sm.is-danger.is-block.js-comment-check-button(disabled=true)
                     i.fa-solid.fa-check
