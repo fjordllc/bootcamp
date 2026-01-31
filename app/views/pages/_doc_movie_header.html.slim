@@ -3,8 +3,7 @@ header.page-header
     .page-header__inner
       .page-header__start
         h2.page-header__title
-          - if Rails.env.production?
-            // 動画リンクを隠した状態でのリリース。リリース後にDocs・動画に変更する
-            | Docs
-          - else
+          - if movie_available?
             | Docs・動画
+          - else
+            | Docs
