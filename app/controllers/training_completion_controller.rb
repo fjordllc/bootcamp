@@ -13,8 +13,10 @@ class TrainingCompletionController < ApplicationController
     current_user.training_completed_at = Time.current
     if current_user.save(context: :training_completion)
       user = current_user
+      captured_regular_events_and_organizers = user.capture_before_regular_event_organizers
       current_user.cancel_participation_from_regular_events
       current_user.delete_and_assign_new_organizer
+      notify_to_new_regular_event_organizer(captured_regular_events_and_organizers)
       ActiveSupport::Notifications.instrument('training_completion.create', user:)
       user.clear_github_data
       notify_to_user(user)
@@ -50,6 +52,15 @@ class TrainingCompletionController < ApplicationController
   def notify_to_mentors(user)
     User.mentor.each do |mentor_user|
       ActivityDelivery.with(sender: user, receiver: mentor_user).notify(:training_completed)
+    end
+  end
+
+  def notify_to_new_regular_event_organizer(regular_events_and_organizers)
+    regular_events_and_organizers.each do |regular_event_and_organizer|
+      ActiveSupport::Notifications.instrument('organizer.create',
+                                              regular_event: regular_event_and_organizer[:regular_event],
+                                              before_organizer_ids: regular_event_and_organizer[:before_organizer_ids],
+                                              sender: current_user)
     end
   end
 end

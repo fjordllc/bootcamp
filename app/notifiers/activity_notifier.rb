@@ -415,4 +415,20 @@ class ActivityNotifier < ApplicationNotifier # rubocop:todo Metrics/ClassLength
       read: false
     )
   end
+
+  def create_organizer(params = {})
+    params.merge!(@params)
+    regular_event = params[:regular_event]
+    receiver = params[:receiver]
+    sender = params[:sender]
+
+    notification(
+      body: "定期イベント【#{regular_event.title}】の主催者に追加されました。",
+      kind: :create_organizer,
+      receiver:,
+      sender:,
+      link: Rails.application.routes.url_helpers.polymorphic_path(regular_event),
+      read: false
+    )
+  end
 end
