@@ -65,7 +65,7 @@
                             | #{hour}:00
                           - sorted_wdays(Time.current).each_with_index do |wday, day|
                             ruby:
-                              target_time = schedule_time(day, hour)
+                              target_time = schedule_target_time(day, hour)
                               check_box_id = schedule_check_box_id(target_time)
                               learning_time_frame_id = wday * 24 + hour + 1
                             td.form-table__check

@@ -28,7 +28,7 @@ module PairWorkHelper
     !disabled?(target_time) && current_user.learning_time_frame_ids.include?(id)
   end
 
-  def schedule_time(day_count, hour_count)
+  def schedule_target_time(day_count, hour_count)
     Time.current.beginning_of_day + day_count.days + hour_count.hours
   end
 
