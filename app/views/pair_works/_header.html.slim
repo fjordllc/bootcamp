@@ -41,14 +41,14 @@ header.page-content-header
                 span.a-meta__label
                   | 公開
                 span.a-meta__value
-                  time(datetime="#{pair_work.published_at.to_datetime}")
+                  time(datetime="#{pair_work.published_at.iso8601}")
                     | #{l pair_work.published_at}
             .page-content-header-metas__meta
               .a-meta
                 span.a-meta__label
                   | 更新
                 span.a-meta__value
-                  time(datetime="#{pair_work.updated_at.to_datetime}")
+                  time(datetime="#{pair_work.updated_at.iso8601}")
                     | #{l pair_work.updated_at}
 
     .page-content-header__row
