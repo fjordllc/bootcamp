@@ -25,7 +25,7 @@
 .practice-content__body-notice {
   border: solid 1px var(--success);
   margin-top: 1rem;
-  background-color: rgba(var(--success), .1);
+  background-color: color-mix(in srgb, var(--success) 10%, transparent);
 }
 
 @media (min-width: 48em) {
