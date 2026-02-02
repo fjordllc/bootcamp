@@ -248,7 +248,7 @@
   position: relative;
 }
 .a-long-text .message::before {
-  content: "\\f06a";
+  content: "\f06a";
   font-family: "Font Awesome 6 Pro";
   font-style: normal;
   font-weight: 900;
