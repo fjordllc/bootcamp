@@ -108,23 +108,6 @@ class RegularEventTest < ActiveSupport::TestCase
     assert_not regular_event.participated_by?(user)
   end
 
-  test '#assign_admin_as_organizer_if_none' do
-    regular_event = RegularEvent.new(
-      title: '主催者のいないイベント',
-      description: '主催者のいないイベント',
-      finished: false,
-      hold_national_holiday: false,
-      start_at: Time.zone.local(2020, 1, 1, 21, 0, 0),
-      end_at: Time.zone.local(2020, 1, 1, 22, 0, 0),
-      user: users(:kimura),
-      category: 0,
-      published_at: '2023-08-01 00:00:00'
-    )
-    regular_event.save(validate: false)
-    regular_event.assign_admin_as_organizer_if_none
-    assert_equal User.find_by(login_name: User::DEFAULT_REGULAR_EVENT_ORGANIZER), regular_event.organizers.first
-  end
-
   test '#all_scheduled_dates' do
     start_date = Date.current
     end_date = Date.current.next_year
@@ -187,6 +170,26 @@ class RegularEventTest < ActiveSupport::TestCase
       regular_event_scheduled_for_tomorrow = regular_events(:regular_event38)
       assert_includes regular_events, regular_event_scheduled_for_tomorrow
     end
+  end
+
+  test '#delete_and_assign_admin_organizer assigns admin organizer when last organizer is removed' do
+    regular_event = regular_events(:regular_event5)
+    leaving_organizer = organizers(:organizer8)
+    leaving_organizer_user = users(:kimura)
+    regular_event.delete_and_assign_admin_organizer(leaving_organizer)
+
+    assert_not_includes regular_event.organizers, leaving_organizer_user
+    assert_equal User.find_by(login_name: User::DEFAULT_REGULAR_EVENT_ORGANIZER), regular_event.organizers.first
+  end
+
+  test '#delete_and_assign_admin_organizer removes organizer without assigning admin when other organizers remain' do
+    regular_event = regular_events(:regular_event4)
+    leaving_organizer = organizers(:organizer7)
+    leaving_organizer_user = users(:kimura)
+    regular_event.delete_and_assign_admin_organizer(leaving_organizer)
+
+    assert_not_includes regular_event.organizers, leaving_organizer_user
+    assert_not_includes regular_event.organizers, User.find_by(login_name: User::DEFAULT_REGULAR_EVENT_ORGANIZER)
   end
 
   test '#notify_new_organizer sends a notification when a new organizer is added' do
