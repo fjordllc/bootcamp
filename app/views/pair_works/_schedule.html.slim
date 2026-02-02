@@ -1,7 +1,7 @@
 - proposed_at_list = pair_work.schedules.map(&:proposed_at)
 
-.a-table.is-sm.text-center
-  table.min-w-full
+.a-table.is-sm(class='!text-center')
+  table(class='!min-w-full')
     thead
       tr
         th
@@ -9,20 +9,20 @@
           th = l date, format: :mdw_unique
     tbody
       - 24.times do |hour|
-        tr(class='hover:bg-[var(--background-more-tint)]')
+        tr(class='hover:!bg-[var(--background-more-tint)]')
           th #{hour}:00
           - 7.times do |day|
             - target_time = pair_work.created_at.beginning_of_day + hour.hours + day.days
             - if proposed_at_list.include?(target_time)
-              td.p-0.h-6.relative
+              td(class='!p-0 !h-6 !relative')
                 = form_with model: pair_work, method: :patch, local: true do
                   = hidden_field_tag 'pair_work[reserved_at]', target_time
                   = hidden_field_tag 'pair_work[buddy_id]', current_user.id
                   = button_tag type: 'submit', disabled: disabled?(target_time, pair_work:),
-                    class: 'absolute top-0 flex w-full h-full text-center justify-center items-center p-1 border border-solid rounded text-[var(--main)] bg-[var(--input-selected-background)] border-[var(--main)]',
+                    class: '!absolute !top-0 !flex !w-full !h-full !text-center !justify-center !items-center !p-1 !border !border-solid !rounded !text-[var(--main)] !bg-[var(--input-selected-background)] !border-[var(--main)]',
                     id: target_time.iso8601,
                     data: { confirm: "#{l target_time, format: :mdw_and_time} にペアワークを申し込みますか？" } do
                       i.fa-duotone.fa-solid.fa-check
             - else
-              td.p-0.h-6
+              td(class='!p-0 !h-6')
                 span ✖️
