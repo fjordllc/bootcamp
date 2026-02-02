@@ -67,7 +67,7 @@ input:checked + .header-dropdown, .is-opened-dropdown .header-dropdown {
 
 .header-dropdown__inner.is-notification .header-dropdown__items {
   overflow-y: auto;
-  max-height: calc(100vh - 134px);
+  max-height: calc(100vh - 186px);
   margin-bottom: -1px;
 }
 
@@ -182,7 +182,7 @@ input:checked + .header-dropdown .header-dropdown__background {
     width: 14rem;
     box-shadow: rgba(0, 0, 0, 0.2) 0 0 0.375rem;
     border-radius: 0.25rem;
-    max-height: calc(100vh - 6rem);
+    max-height: calc(100vh - 4rem);
     left: auto;
     overflow: auto;
   }
