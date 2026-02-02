@@ -44,15 +44,15 @@
             .row
               .col-md-6.col-xs-12
                 = f.label :schedules, class: 'a-form-label'
-                .a-form-help.mb-2
+                .a-form-help(class='!mb-2')
                   p
                     | ペアワークを実施する希望日時にチェックを入れてください。
                     br
                     = link_to edit_current_user_path(anchor: 'activity-schedule') do
                       | ユーザー情報の「主な活動予定時間」
                     | を登録しておくと、初期設定でその日時が選択されるようになります。
-                .form-table.is-sm.max-h-96.is-sticky
-                  table.min-w-full
+                .form-table.is-sm.is-sticky(class='!max-h-96')
+                  table(class='!min-w-full')
                     thead
                       tr
                         th
@@ -60,7 +60,7 @@
                           th = l day, format: :mdw_unique
                     tbody
                       - 24.times do |hour|
-                        tr(class='hover:bg-[var(--background-more-tint)]')
+                        tr(class='hover:!bg-[var(--background-more-tint)]')
                           th
                             | #{hour}:00
                           - sorted_wdays(Time.current).each_with_index do |wday, day|
@@ -80,7 +80,7 @@
           .col-md-6.col-xs-12
             = f.label :channel, 'ペアワークを行うチャンネル', class: 'a-form-label'
             = f.text_field :channel, class: 'a-text-input js-warning-form', value: 'ペアワーク・モブワーク1'
-            .a-form-help.mb-2
+            .a-form-help(class='!mb-2')
               p
                 | 特に理由がない場合は「ペアワーク・モブワーク1」を登録してください。
                 br
