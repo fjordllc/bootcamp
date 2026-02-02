@@ -883,8 +883,8 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     watches.find_or_create_by!(watchable:)
   end
 
-  def cancel_participation_from_regular_events
-    regular_event_participations.destroy_all
+  def cancel_participation_from_not_finished_regular_events
+    regular_event_participations.not_finished.destroy_all
   end
 
   def scheduled_retire_at

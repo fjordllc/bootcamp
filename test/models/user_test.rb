@@ -682,11 +682,54 @@ class UserTest < ActiveSupport::TestCase
     assert_empty User.users_role(not_scope_name, allowed_targets:)
   end
 
-  test '#cancel_participation_from_regular_events' do
-    user = users(:kimura)
+  test '#cancel_participation_from_not_finished_regular_events' do
+    user = users(:kananashi)
 
-    assert_changes -> { RegularEventParticipation.where(user:).exists? }, from: true, to: false do
-      user.cancel_participation_from_regular_events
+    2.times do |i|
+      not_finished_regular_event = RegularEvent.new(
+        title: "未終了のイベント#{i}",
+        description: '未終了のイベント',
+        finished: false,
+        hold_national_holiday: false,
+        start_at: Time.zone.local(2020, 1, 1, 21, 0, 0),
+        end_at: Time.zone.local(2020, 1, 1, 22, 0, 0),
+        user:,
+        category: 0,
+        published_at: '2023-08-01 00:00:00',
+        regular_event_repeat_rules_attributes: [
+          { frequency: 0, day_of_the_week: 0 }
+        ]
+      )
+      not_finished_regular_event.users << user
+      not_finished_regular_event.participants << user
+      not_finished_regular_event.save!
+    end
+
+    finished_regular_event = RegularEvent.new(
+      title: '終了済みのイベント',
+      description: '終了済みのイベント',
+      finished: true,
+      hold_national_holiday: false,
+      start_at: Time.zone.local(2020, 1, 1, 21, 0, 0),
+      end_at: Time.zone.local(2020, 1, 1, 22, 0, 0),
+      user: users(:kananashi),
+      category: 0,
+      published_at: '2023-08-01 00:00:00',
+      regular_event_repeat_rules_attributes: [
+        { frequency: 0, day_of_the_week: 0 }
+      ]
+    )
+    finished_regular_event.users << user
+    finished_regular_event.participants << user
+    finished_regular_event.save!
+
+    targets = {
+      -> { user.regular_event_participations.not_finished.count } => -2,
+      -> { user.regular_event_participations.joins(:regular_event).merge(RegularEvent.where(finished: true)).count } => 0
+    }
+
+    assert_difference targets do
+      user.cancel_participation_from_not_finished_regular_events
     end
   end
 
