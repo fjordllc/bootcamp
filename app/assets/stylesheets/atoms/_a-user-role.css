@@ -3,3 +3,42 @@
   border-radius: 50%;
   background-color: var(--base);
 }
+
+.a-user-role.is-admin .a-user-icon,
+.a-user-role.is-mentor .a-user-icon {
+  border: solid 2px var(--danger);
+}
+
+.a-user-role.is-graduate .a-user-icon {
+  border: solid 2px var(--success);
+}
+
+.a-user-role.is-adviser .a-user-icon {
+  border: solid 2px var(--warning);
+}
+
+.a-user-role.is-trainee .a-user-icon {
+  border: solid 2px var(--main);
+}
+
+body.is-mentor-mode .a-user-role.is-retired,
+body.is-mentor-mode .a-user-role.is-training_completed {
+  background-color: black;
+}
+
+body.is-mentor-mode .a-user-role.is-retired .a-user-icon,
+body.is-mentor-mode .a-user-role.is-training_completed .a-user-icon {
+  opacity: .7;
+}
+
+body.is-mentor-mode .a-user-role.is-new-user .a-user-icon {
+  box-shadow: 0 0 1px 2px var(--warning);
+}
+
+body.is-mentor-mode .a-user-role.is-new-user.is-student .a-user-icon {
+  border: dashed 2px var(--danger);
+}
+
+body.is-mentor-mode .a-user-role.is-new-user.is-trainee .a-user-icon {
+  border: dashed 2px var(--main);
+}

@@ -30,7 +30,7 @@
 }
 
 .tag-links__item-link:hover {
-  background-color: rgba(var(--base), .7);
+  background-color: color-mix(in srgb, var(--base) 70%, transparent);
   color: var(--semi-muted-text);
   border-color: var(--semi-muted-text);
 }
