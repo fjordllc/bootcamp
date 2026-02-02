@@ -157,6 +157,20 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     wants_announcement? && !wip?
   end
 
+  def notify_new_organizer(sender:, before_user_ids:)
+    new_organizer_ids = (users.pluck(:id) - before_user_ids) - [sender.id]
+    return if new_organizer_ids.blank?
+
+    new_organizer_users = User.where(id: new_organizer_ids)
+
+    ActiveSupport::Notifications.instrument(
+      'organizer.create',
+      regular_event: self,
+      sender:,
+      new_organizer_users:
+    )
+  end
+
   private
 
   def end_at_be_greater_than_start_at

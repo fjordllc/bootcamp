@@ -188,4 +188,70 @@ class RegularEventTest < ActiveSupport::TestCase
       assert_includes regular_events, regular_event_scheduled_for_tomorrow
     end
   end
+
+  test '#notify_new_organizer sends a notification when a new organizer is added' do
+    regular_event = regular_events(:regular_event4)
+    before_user_ids = regular_event.user_ids
+    user = users(:hatsuno)
+    sender = users(:kimura)
+
+    Organizer.create!(user_id: user.id, regular_event_id: regular_event.id)
+
+    assert_notification 'organizer.create', { sender:, new_organizer_users: [user] } do
+      regular_event.notify_new_organizer(sender:, before_user_ids:)
+    end
+  end
+
+  test '#notify_new_organizer does not send a notification when no new organizers are added' do
+    regular_event = regular_events(:regular_event4)
+    before_user_ids = regular_event.user_ids
+    sender = users(:kimura)
+
+    assert_no_notifications('organizer.create') do
+      regular_event.notify_new_organizer(sender:, before_user_ids:)
+    end
+  end
+
+  test '#notify_new_organizer sends notifications when multiple organizers are added' do
+    regular_event = regular_events(:regular_event5)
+    before_user_ids = regular_event.user_ids
+    sender = users(:kimura)
+    new_organizers = [users(:hatsuno), users(:hajime)]
+
+    new_organizers.each do |user|
+      Organizer.create!(user_id: user.id, regular_event_id: regular_event.id)
+    end
+
+    assert_notification 'organizer.create', { sender:, new_organizer_users: new_organizers } do
+      regular_event.notify_new_organizer(sender:, before_user_ids:)
+    end
+  end
+
+  test '#notify_new_organizer sends a notification when an organizer is replaced' do
+    regular_event = regular_events(:regular_event5)
+    before_user_ids = regular_event.user_ids
+    user = users(:hatsuno)
+    sender = users(:kimura)
+
+    Organizer.create!(user_id: user.id, regular_event_id: regular_event.id)
+    Organizer.find_by!(user_id: sender.id, regular_event_id: regular_event.id).destroy!
+
+    assert_notification 'organizer.create', { sender:, new_organizer_users: [user] } do
+      regular_event.notify_new_organizer(sender:, before_user_ids:)
+    end
+  end
+
+  test '#notify_new_organizer does not send a notification when an organizer is sender' do
+    regular_event = regular_events(:regular_event5)
+    before_user_ids = regular_event.user_ids
+    user = users(:hatsuno)
+    sender = users(:hatsuno)
+
+    Organizer.create!(user_id: user.id, regular_event_id: regular_event.id)
+    Organizer.find_by!(user_id: sender.id, regular_event_id: regular_event.id).destroy!
+
+    assert_no_notifications('organizer.create') do
+      regular_event.notify_new_organizer(sender:, before_user_ids:)
+    end
+  end
 end
