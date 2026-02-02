@@ -690,14 +690,6 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  test '#delete_and_assign_new_organizer' do
-    user = users(:hajime)
-
-    assert_changes -> { Organizer.where(user:).exists? }, from: true, to: false do
-      user.delete_and_assign_new_organizer
-    end
-  end
-
   test '#scheduled_retire_at' do
     assert_equal '2020-04-01 09:00:00 +0900', users(:kyuukai).scheduled_retire_at.to_s
     assert_nil users(:hatsuno).scheduled_retire_at
@@ -771,5 +763,62 @@ class UserTest < ActiveSupport::TestCase
     assert_not user.sent_student_before_auto_retire_mail
     user.mark_mail_as_sent_before_auto_retire
     assert user.sent_student_before_auto_retire_mail
+  end
+
+  test '#hand_over_not_finished_regular_event_organizer' do
+    user = users(:hajime)
+    admin_user = users(:komagata)
+
+    one_organizer_not_finished_regular_event = RegularEvent.new(
+      title: '主催者が1人のイベント',
+      description: '主催者が1人のイベント',
+      finished: false,
+      hold_national_holiday: false,
+      start_at: Time.zone.local(2020, 1, 1, 21, 0, 0),
+      end_at: Time.zone.local(2020, 1, 1, 22, 0, 0),
+      user:,
+      category: 0,
+      published_at: '2023-08-01 00:00:00',
+      regular_event_repeat_rules_attributes: [
+        { frequency: 0, day_of_the_week: 0 }
+      ]
+    )
+    one_organizer_not_finished_regular_event.users = [user]
+    one_organizer_not_finished_regular_event.save!
+
+    multiple_organizer_not_finished_regular_event = regular_events(:regular_event4)
+    other_organizer = users(:kimura)
+
+    finished_regular_event = RegularEvent.new(
+      title: '主催者が1人のイベント',
+      description: '主催者が1人のイベント',
+      finished: true,
+      hold_national_holiday: false,
+      start_at: Time.zone.local(2020, 1, 1, 21, 0, 0),
+      end_at: Time.zone.local(2020, 1, 1, 22, 0, 0),
+      user:,
+      category: 0,
+      published_at: '2023-08-01 00:00:00',
+      regular_event_repeat_rules_attributes: [
+        { frequency: 0, day_of_the_week: 0 }
+      ]
+    )
+
+    finished_regular_event.users = [user]
+    finished_regular_event.save!
+
+    user.hand_over_not_finished_regular_event_organizer
+    one_organizer_not_finished_regular_event.reload
+    assert_includes one_organizer_not_finished_regular_event.users, admin_user
+    assert_not_includes one_organizer_not_finished_regular_event.users, user
+
+    multiple_organizer_not_finished_regular_event.reload
+    assert_not_includes multiple_organizer_not_finished_regular_event.users, admin_user
+    assert_not_includes multiple_organizer_not_finished_regular_event.users, user
+    assert_includes multiple_organizer_not_finished_regular_event.users, other_organizer
+
+    finished_regular_event.reload
+    assert_not_includes finished_regular_event.users, admin_user
+    assert_includes finished_regular_event.users, user
   end
 end
