@@ -1,0 +1,39 @@
+.unauthorized-header__image {
+  display: block;
+  margin-inline: auto;
+  max-width: 6rem;
+  margin-bottom: 0.75rem;
+}
+
+.unauthorized-header__titles {
+  color: var(--reversal-text);
+  font-family: var(--sans-serif);
+  text-align: center;
+}
+
+.unauthorized-header__title-label {
+  display: block;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.unauthorized-header__title {
+  font-size: 1em;
+  line-height: 1.4;
+  font-weight: 800;
+  margin-top: 0.25em;
+  font-size: 2rem;
+}
+
+@media (max-width: 47.9375em) {
+  .unauthorized-header__image {
+    max-width: 4.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .unauthorized-header__title-label {
+    font-size: 0.875rem;
+  }
+  .unauthorized-header__title {
+    font-size: 1.5rem;
+  }
+}

@@ -29,7 +29,7 @@ export default function elapsedDays({
   const createAnchor = (elapsedDays) => {
     const a = document.createElement('a')
     a.className = 'page-nav__item-link'
-    a.href = `#${elapsedDays}days-elapsed`
+    a.href = `#elapsed-${elapsedDays}days`
     return a
   }
 

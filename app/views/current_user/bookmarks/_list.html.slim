@@ -27,7 +27,7 @@ hr.a-border
               - if bookmark.bookmarkable_type == 'Talk'
                 = image_tag bookmark.bookmarkable.user.avatar_url, class: 'card-list-item__user-icon a-user-icon'
               - else
-                .card-list-item__label = bookmark.bookmarkable.model_name.human
+                .card-list-item__label = bookmarkable_label(bookmark.bookmarkable)
 
               .card-list-item__rows
                 .card-list-item__row

@@ -1,0 +1,31 @@
+.sticky-message {
+  display: none;
+}
+
+@media (min-width: 48em) {
+  .sticky-message {
+    background-color: var(--success);
+    width: 100%;
+    position: sticky;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+    padding-block: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    text-align: center;
+    color: var(--reversal-text);
+    display: block;
+  }
+
+  .sticky-message a {
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--reversal-text);
+  }
+
+  .sticky-message a:hover,
+  .sticky-message a:active {
+    text-decoration: underline;
+  }
+}

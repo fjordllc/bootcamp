@@ -29,9 +29,9 @@ class Products::UnassignedProductsComponentTest < ViewComponent::TestCase
                     reply_warning_days: @reply_warning_days
                   ))
 
-    assert_selector '.is-reply-deadline#6days-elapsed', text: '6日以上経過（3）'
-    assert_selector '.is-reply-alert#5days-elapsed', text: '5日経過（1）'
-    assert_selector '.is-reply-warning#4days-elapsed', text: '4日経過（1）'
+    assert_selector '.is-reply-deadline#elapsed-6days', text: '6日以上経過（3）'
+    assert_selector '.is-reply-alert#elapsed-5days', text: '5日経過（1）'
+    assert_selector '.is-reply-warning#elapsed-4days', text: '4日経過（1）'
   end
 
   def test_any_products

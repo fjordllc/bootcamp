@@ -1,0 +1,28 @@
+.lp-page-header-nav {
+  display: flex;
+  height: 100%;
+}
+
+.lp-page-header-nav__items {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.lp-page-header-nav__item {
+  position: relative;
+  flex: 1;
+  max-width: 50%;
+  min-width: 10rem;
+}
+.lp-page-header-nav__item:first-child:last-child {
+  max-width: 100%;
+}
+@media (min-width: 48em) {
+  .lp-page-header-nav__item {
+    flex: none;
+    max-width: none;
+    display: flex;
+    justify-content: center;
+  }
+}

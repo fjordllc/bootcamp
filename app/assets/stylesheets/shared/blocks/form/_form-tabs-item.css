@@ -1,0 +1,19 @@
+.form-tabs-item__markdown {
+  height: 100%;
+  display: none;
+}
+.form-tabs-item__markdown.is-active {
+  display: block;
+}
+
+.form-tabs-item__textarea {
+  min-height: 9rem;
+  overflow: hidden;
+}
+
+.form-tabs-item__preview {
+  background-color: var(--base);
+  font-size: 0.875rem;
+  line-height: 1.8;
+  min-height: 9rem;
+}

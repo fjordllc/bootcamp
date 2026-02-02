@@ -1,0 +1,239 @@
+
+.page-body {
+  padding-block: 1.5rem;
+}
+
+@media (min-width: 48em) {
+  .page-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 321px);
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .page-body {
+    padding-block: 1.125rem;
+  }
+}
+
+.page-body__inner {
+  position: relative;
+}
+
+@media (min-width: 64em) {
+  .page-body__inner {
+    flex: 1;
+  }
+}
+
+@media (min-width: 64em) {
+  .page-body__inner.has-side-nav {
+    padding-right: var(--side-nav-width);
+  }
+}
+
+.page-body__rows {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 48em) {
+  .page-body__rows {
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .page-body__rows {
+    gap: 1rem;
+  }
+}
+
+.page-body__rows > * {
+  width: 100%;
+}
+
+.page-body__columns {
+}
+
+@media (min-width: 64em) {
+  .page-body__columns {
+    display: flex;
+    gap: 1.5rem;
+    position: relative;
+  }
+}
+
+.page-body__columns.is-reverse {
+  display: flex;
+}
+
+@media (min-width: 48em) {
+  .page-body__columns.is-reverse {
+    flex-direction: row;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .page-body__columns.is-reverse {
+    flex-direction: column-reverse;
+    gap: 1rem;
+  }
+
+  .page-body__columns.is-reverse .page-body__column {
+    width: 100%;
+  }
+}
+
+.page-body__column {
+}
+
+.page-body__column.is-main {
+  flex: 1;
+  margin-inline: auto;
+}
+
+.page-body__column.is-sub {
+  flex: 0 0 20rem;
+}
+
+.page-body__column.is-sub.is-sm {
+  flex: 0 0 14rem;
+}
+
+.page-body__description {
+}
+
+@media (min-width: 48em) {
+  .page-body__description {
+    font-size: .875rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .page-body__description {
+    font-size: .8125rem;
+  }
+}
+
+.page-body__description:not(:last-child) {
+  margin-bottom: 1.5em;
+}
+
+.page-body__description > *:first-child {
+  margin-top: 0;
+}
+
+.page-body__description > *:last-child {
+  margin-bottom: 0;
+}
+
+.page-body__description hr {
+  display: block;
+  width: 100%;
+  height: 0;
+  border: none;
+  border-top: dashed 1px var(--border);
+  margin-block: 1.5em;
+}
+
+.page-body__description p {
+  font-size: 1em;
+  line-height: 1.7;
+  margin-top: 0;
+  margin-bottom: .75em;
+}
+
+.page-body__description li {
+  font-size: 1em;
+  line-height: 1.7;
+  margin-top: 0;
+  margin-bottom: .125em;
+}
+
+.page-body__description a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.page-body__description a:hover,
+.page-body__description a:active {
+  text-decoration: underline;
+}
+
+.page-body__description .message {
+  background: red;
+  padding: 1em 1.25em 1em 2.75em;
+  border-radius: .25rem;
+  margin-block: 1.5em 2em;
+  background-color: var(--warning-tint);
+  color: var(--warning-text);
+}
+
+.page-body__description .message::before {
+  content: "\f06a";
+  font-family: 'Font Awesome 6 Pro';
+  font-style: normal;
+  font-weight: 900;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  left: .25em;
+  position: absolute;
+  top: .25em;
+  font-size: 1.5em;
+  color: var(--warning);
+}
+
+.page-body__description .message.alert {
+}
+
+.page-body__description .message.danger {
+  background-color: var(--danger-tint);
+  color: var(--danger-text);
+}
+
+.page-body__description .message.danger::before {
+  color: var(--danger);
+}
+
+.page-body__description .message.warning {
+  background-color: var(--warning-tint);
+  color: var(--warning-text);
+}
+
+.page-body__description .message.warning::before {
+  color: var(--warning);
+}
+
+.page-body__description .message.info {
+  background-color: var(--info-tint);
+  color: var(--info-text);
+}
+
+.page-body__description .message.info::before {
+  color: var(--info);
+}
+
+.page-body__description .message.primary {
+  background-color: var(--primary-tint);
+  color: var(--primary-text);
+}
+
+.page-body__description .message.primary::before {
+  color: var(--primary);
+}
+
+.page-body__description .message.success {
+  background-color: var(--success-tint);
+  color: var(--success-text);
+}
+
+.page-body__description .message.success::before {
+  color: var(--success);
+}

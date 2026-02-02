@@ -1,0 +1,11 @@
+.a-raw {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  white-space: pre-line;
+  background-color: var(--input-background);
+  width: 100%;
+  padding: 0.5rem;
+  border: solid 1px var(--input-border);
+  border-radius: 0.25rem;
+  transition: border-color 0.2s ease-in, background-color 0.2s ease-in, box-shadow 0.2s ease-in;
+}

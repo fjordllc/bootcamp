@@ -1,0 +1,138 @@
+# frozen_string_literal: true
+
+namespace :smart_search do # rubocop:disable Metrics/BlockLength
+  desc 'Generate embeddings for all searchable models'
+  task generate_all: :environment do # rubocop:disable Metrics/BlockLength
+    generator = SmartSearch::EmbeddingGenerator.new
+    puts "[SmartSearch] OPEN_AI_ACCESS_TOKEN present: #{ENV['OPEN_AI_ACCESS_TOKEN'].present?}"
+    puts "[SmartSearch] API available: #{generator.api_available?}"
+
+    # Check pgvector extension status
+    begin
+      result = ActiveRecord::Base.connection.execute("SELECT 1 FROM pg_extension WHERE extname = 'vector'")
+      puts "[SmartSearch] pgvector extension installed: #{result.any?}"
+
+      if result.any?
+        version = ActiveRecord::Base.connection.execute("SELECT extversion FROM pg_extension WHERE extname = 'vector'").first
+        puts "[SmartSearch] pgvector version: #{version['extversion']}" if version
+      end
+    rescue ActiveRecord::StatementInvalid => e
+      puts "[SmartSearch] Error checking pgvector: #{e.message}"
+    end
+
+    # Check migration status for embedding columns
+    migration_name = 'AddEmbeddingToSearchableTables'
+    migration_executed = ActiveRecord::Base.connection.execute(
+      "SELECT version FROM schema_migrations WHERE version = '20260119100001'"
+    ).any?
+    puts "[SmartSearch] Migration #{migration_name} executed: #{migration_executed}"
+
+    unless generator.api_available?
+      puts '[SmartSearch] Skipped - API key not configured'
+      next
+    end
+
+    # embeddingカラムが存在しない場合、直接追加を試みる
+    conn = ActiveRecord::Base.connection
+    tables = %w[practices reports products pages questions announcements events regular_events answers comments]
+    missing_tables = tables.reject { |t| conn.column_exists?(t, :embedding) }
+    if missing_tables.any?
+      puts "[SmartSearch] Missing embedding column in: #{missing_tables.join(', ')}"
+      puts '[SmartSearch] Attempting to add embedding columns...'
+      missing_tables.each do |table|
+        conn.execute("ALTER TABLE #{table} ADD COLUMN embedding vector(1536)")
+        puts "[SmartSearch] Added embedding column to #{table}"
+      rescue StandardError => e
+        puts "[SmartSearch] Failed to add column to #{table}: #{e.message}"
+      end
+      # カラムキャッシュをリセット
+      SmartSearch::Configuration::EMBEDDING_MODELS.each { |m| m.constantize.reset_column_information }
+    end
+
+    SmartSearch::Configuration::EMBEDDING_MODELS.each do |model_name|
+      model_class = model_name.constantize
+      unless model_class.column_names.include?('embedding')
+        puts "[SmartSearch] #{model_name}: embedding column not found, skipping"
+        next
+      end
+      total = model_class.count
+      pending = model_class.where(embedding: nil).count
+      puts "[SmartSearch] #{model_name}: #{pending}/#{total} pending"
+    end
+
+    BulkEmbeddingJob.perform_now
+
+    puts '[SmartSearch] Done. Final stats:'
+    SmartSearch::Configuration::EMBEDDING_MODELS.each do |model_name|
+      model_class = model_name.constantize
+      next unless model_class.column_names.include?('embedding')
+
+      total = model_class.count
+      done = model_class.where.not(embedding: nil).count
+      puts "[SmartSearch] #{model_name}: #{done}/#{total} embedded"
+    end
+  end
+
+  desc 'Generate embeddings for a specific model (e.g., rails smart_search:generate[Practice])'
+  task :generate, [:model_name] => :environment do |_, args|
+    model_name = args[:model_name]
+    abort 'Please specify a model name' if model_name.blank?
+
+    allowed_models = SmartSearch::Configuration::EMBEDDING_MODELS
+    abort "Invalid model: #{model_name}. Allowed models: #{allowed_models.join(', ')}" unless allowed_models.include?(model_name)
+
+    BulkEmbeddingJob.perform_now(model_name:)
+  end
+
+  desc 'Regenerate all embeddings (force update)'
+  task regenerate_all: :environment do
+    BulkEmbeddingJob.perform_now(force_regenerate: true)
+  end
+
+  desc 'Show embedding statistics'
+  task stats: :environment do
+    puts 'Embedding Statistics:'
+    puts '-' * 50
+
+    total_all = 0
+    with_embedding_all = 0
+
+    SmartSearch::Configuration::EMBEDDING_MODELS.each do |model_name|
+      model_class = model_name.constantize
+      next unless model_class.column_names.include?('embedding')
+
+      total = model_class.count
+      with_embedding = model_class.where.not(embedding: nil).count
+      percentage = total.positive? ? (with_embedding.to_f / total * 100).round(1) : 0
+
+      puts "#{model_name.ljust(20)}: #{with_embedding}/#{total} (#{percentage}%)"
+
+      total_all += total
+      with_embedding_all += with_embedding
+    rescue NameError, ActiveRecord::StatementInvalid => e
+      puts "#{model_name.ljust(20)}: Error - #{e.message}"
+    end
+
+    puts '-' * 50
+    overall_percentage = total_all.positive? ? (with_embedding_all.to_f / total_all * 100).round(1) : 0
+    puts "Total: #{with_embedding_all}/#{total_all} (#{overall_percentage}%)"
+  end
+
+  desc 'Test embedding generation with a sample text'
+  task :test, [:text] => :environment do |_, args|
+    text = args[:text] || 'This is a test text for embedding generation'
+    generator = SmartSearch::EmbeddingGenerator.new
+
+    abort 'Error: OPEN_AI_ACCESS_TOKEN is not configured' unless generator.api_available?
+
+    puts "Generating embedding for: #{text.truncate(50)}"
+    embedding = generator.generate(text)
+
+    if embedding.is_a?(Array)
+      puts "Success! Generated embedding with #{embedding.size} dimensions"
+      puts "First 5 values: #{embedding.first(5).map { |v| v.round(6) }}"
+    else
+      puts 'Failed to generate embedding'
+    end
+  end
+end
