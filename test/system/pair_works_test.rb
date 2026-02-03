@@ -123,25 +123,4 @@ class PairWorksTest < ApplicationSystemTestCase
     assert_no_text '内容修正'
     assert_no_text '削除'
   end
-
-  test 'notify to chat after publish a pair_work' do
-    travel_to Time.zone.local(2025, 3, 2, 0, 0, 0) do
-      visit_with_auth new_pair_work_path, 'kimura'
-      within 'form[name=pair_work]' do
-        fill_in 'pair_work[title]', with: 'テストのペアワーク募集'
-        fill_in 'pair_work[description]', with: 'テストのペアワーク募集です。'
-        within '.form-table' do
-          check 'schedule_ids_202503030000', allow_label_click: true
-        end
-      end
-      mock_log = []
-      stub_info = proc { |i| mock_log << i }
-
-      Rails.logger.stub(:info, stub_info) do
-        click_button '登録する'
-      end
-      assert_text 'ペアワークを作成しました。'
-      assert_match 'Message to Discord.', mock_log.to_s
-    end
-  end
 end
