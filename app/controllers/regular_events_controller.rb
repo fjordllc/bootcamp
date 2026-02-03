@@ -112,7 +112,7 @@ class RegularEventsController < ApplicationController
     new_event.attributes = regular_event.attributes.slice('title', 'description', 'finished', 'hold_national_holiday', 'start_at', 'end_at', 'category')
     new_event.user_ids = regular_event.organizers.map(&:id)
 
-    flash.now[:notice] = '定期イベントをコピーしました。'
+    flash.now[:notice] = '定期イベントを複製しました。'
   end
 
   def set_all_user_participants_and_watchers

@@ -60,9 +60,7 @@ hr.a-border
                       | Bookmark
                 .page-content-header-actions__end
                   .page-content-header-actions__action
-                    = link_to new_announcement_path(id: @announcement), class: 'a-button is-sm is-secondary is-block', id: 'copy' do
-                      i.fa-solid.fa-copy
-                      | コピー
+                    = link_to '複製', new_announcement_path(id: @announcement), class: 'a-button is-sm is-secondary is-block', id: 'copy'
 
         .a-card
           .card-body
