@@ -954,12 +954,9 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     reports.joins(:learning_times).distinct.order(reported_on: :asc)
   end
 
-  def hand_over_not_finished_regular_event_organizer
+  def hand_over_not_finished_regular_event_organizers
     organizers.not_finished.includes(:regular_event).find_each do |organizer|
-      regular_event = organizer.regular_event
-      before_user_ids = regular_event.user_ids
-      regular_event.delete_and_assign_admin_organizer(organizer)
-      regular_event.notify_new_organizer(sender: self, before_user_ids:)
+      organizer.regular_event.hand_over_organizer(organizer:, sender: self)
     end
   end
 

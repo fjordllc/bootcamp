@@ -79,7 +79,7 @@ class Retirement
   end
 
   def remove_as_event_organizer
-    @user.hand_over_not_finished_regular_event_organizer
+    @user.hand_over_not_finished_regular_event_organizers
   end
 
   def publish

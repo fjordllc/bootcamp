@@ -150,18 +150,20 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     wants_announcement? && !wip?
   end
 
-  def delete_and_assign_admin_organizer(organizer)
-    organizer.delete
-    return if organizers.exists?
+  def hand_over_organizer(organizer:, sender:)
+    before_organizer_user_ids = organizers.pluck(:user_id)
 
+    organizer.delete
     assign_admin_as_organizer_if_none
+
+    notify_new_organizer(sender:, before_organizer_user_ids:)
   end
 
-  def notify_new_organizer(sender:, before_user_ids:)
-    new_organizer_ids = (users.pluck(:id) - before_user_ids) - [sender.id]
-    return if new_organizer_ids.blank?
+  def notify_new_organizer(sender:, before_organizer_user_ids:)
+    new_organizer_user_ids = (organizers.pluck(:user_id) - before_organizer_user_ids) - [sender.id]
+    return if new_organizer_user_ids.blank?
 
-    new_organizer_users = User.where(id: new_organizer_ids)
+    new_organizer_users = User.where(id: new_organizer_user_ids)
 
     ActiveSupport::Notifications.instrument(
       'organizer.create',
@@ -213,6 +215,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def assign_admin_as_organizer_if_none
+    return if organizers.exists?
+
     admin_user = User.find_by(login_name: User::DEFAULT_REGULAR_EVENT_ORGANIZER)
     Organizer.new(user: admin_user, regular_event: self).save if admin_user
   end

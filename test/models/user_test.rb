@@ -808,7 +808,7 @@ class UserTest < ActiveSupport::TestCase
     assert user.sent_student_before_auto_retire_mail
   end
 
-  test '#hand_over_not_finished_regular_event_organizer' do
+  test '#hand_over_not_finished_regular_event_organizers' do
     user = users(:hajime)
     admin_user = users(:komagata)
 
@@ -850,7 +850,7 @@ class UserTest < ActiveSupport::TestCase
     finished_regular_event.users = [user]
     finished_regular_event.save!
 
-    user.hand_over_not_finished_regular_event_organizer
+    user.hand_over_not_finished_regular_event_organizers
     one_organizer_not_finished_regular_event.reload
     assert_includes one_organizer_not_finished_regular_event.users, admin_user
     assert_not_includes one_organizer_not_finished_regular_event.users, user

@@ -19,7 +19,7 @@ class HibernationController < ApplicationController
       notify_to_chat
       notify_to_mentors_and_admins
       current_user.cancel_participation_from_not_finished_regular_events
-      current_user.hand_over_not_finished_regular_event_organizer
+      current_user.hand_over_not_finished_regular_event_organizers
       logout
       redirect_to hibernation_path
     else

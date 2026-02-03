@@ -42,12 +42,12 @@ class RegularEventsController < ApplicationController # rubocop:disable Metrics/
 
   def update
     set_wip
-    before_user_ids = @regular_event.user_ids
+    before_organizer_user_ids = @regular_event.organizers.pluck(:user_id)
 
     if @regular_event.update(regular_event_params)
       update_published_at
       ActiveSupport::Notifications.instrument('regular_event.update', regular_event: @regular_event, sender: current_user)
-      @regular_event.notify_new_organizer(sender: current_user, before_user_ids:)
+      @regular_event.notify_new_organizer(sender: current_user, before_organizer_user_ids:)
       set_all_user_participants_and_watchers
       select_redirect_path
     else
