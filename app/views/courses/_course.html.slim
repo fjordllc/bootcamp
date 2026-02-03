@@ -25,6 +25,4 @@
                   i.fa-solid.fa-align-justify
                   | 並び替え
               li.card-main-actions__item
-                = link_to new_mentor_course_path(course_id: course.id), class: 'a-button is-sm is-secondary is-block' do
-                  i.fa-solid.fa-copy
-                  | コピー
+                = link_to '複製', new_mentor_course_path(course_id: course.id), class: 'a-button is-sm is-secondary is-block'
