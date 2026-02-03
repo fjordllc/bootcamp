@@ -316,7 +316,7 @@
   line-height: 1.86;
 }
 .a-long-text a {
-  text-decoration: none;
+  text-decoration: underline;
   cursor: pointer;
   transition: color 0.2s ease-in;
   color: var(--link-text);
@@ -334,7 +334,7 @@
   color: var(--hover-text);
 }
 .a-long-text a:hover, .a-long-text a:active {
-  text-decoration: underline;
+  text-decoration: none;
 }
 .a-long-text a:hover img {
   border-color: color-mix(in srgb, var(--default-text) 16%, var(--base) 84%);
