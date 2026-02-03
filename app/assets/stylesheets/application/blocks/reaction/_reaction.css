@@ -23,16 +23,16 @@
   }
 }
 .reactions__dropdown .reactions__items {
-  width: 322px;
   position: absolute;
-  right: -9px;
-  top: calc(100% - -8px);
+  right: -1px;
+  top: 100%;
   z-index: 10;
   border: 1px solid var(--border);
   background-color: var(--background);
   padding: .5rem;
   justify-content: flex-end;
   border-radius: 0 0 .25rem .25rem;
+  width: 218px;
 }
 .reactions__item {
   cursor: pointer;
@@ -100,9 +100,6 @@
 }
 .reactions__item-login-names li {
   line-height: 1.4;
-}
-.reactions__dropdown {
-  position: relative;
 }
 .reactions__dropdown-toggle {
   height: 2.375rem;
