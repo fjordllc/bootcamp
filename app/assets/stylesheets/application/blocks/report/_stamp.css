@@ -68,6 +68,7 @@
 }
 
 .stamp__content.is-title {
+  height: 32%;
 }
 
 .stamp__content.is-user-name {
