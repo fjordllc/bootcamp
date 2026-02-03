@@ -360,7 +360,7 @@ class ActivityNotifier < ApplicationNotifier # rubocop:todo Metrics/ClassLength
     receiver = params[:receiver]
 
     notification(
-      body: "#{pair_work.user.login_name}さんからペアワーク「#{pair_work.title}」が投稿されました。",
+      body: "#{pair_work.user.login_name}さんからペアワーク依頼「#{pair_work.title}」が投稿されました。",
       kind: :came_pair_work,
       receiver:,
       sender: pair_work.user,
