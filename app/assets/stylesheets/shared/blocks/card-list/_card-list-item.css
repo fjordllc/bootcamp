@@ -179,6 +179,10 @@ a.card-list-item__inner:hover .card-list-item-title__title {
   opacity: .6;
 }
 
+.card-list-item.is-wip .card-list-item-title__link {
+  color: var(--muted-text);
+}
+
 .card-list-item__row-separator {
   border-top: dashed 1px var(--border);
   height: 1px;

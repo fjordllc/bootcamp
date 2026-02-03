@@ -23,10 +23,10 @@
   }
 }
 .reactions__dropdown .reactions__items {
-  left: -1px;
+  width: 322px;
   position: absolute;
-  right: -1px;
-  top: 100%;
+  right: -9px;
+  top: calc(100% - -8px);
   z-index: 10;
   border: 1px solid var(--border);
   background-color: var(--background);
