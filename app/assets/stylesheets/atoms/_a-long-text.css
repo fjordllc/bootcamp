@@ -372,6 +372,26 @@
   tab-size: 2;
   hyphens: none;
 }
+
+.a-long-text p code,
+.a-long-text li code {
+  background-color: #e9e8e8;
+  padding: 4px 8px;
+  font-size: 0.9375em;
+  color: #000;
+  border-radius: .1875rem;
+}
+
+.a-long-text p code:not(:first-child),
+.a-long-text li code:not(:first-child) {
+  margin-left: 0.25rem;
+}
+
+.a-long-text p code:not(:last-child),
+.a-long-text li code:not(:last-child) {
+  margin-right: 0.25rem;
+}
+
 .a-long-text pre {
   padding: 0;
 }
