@@ -6,7 +6,7 @@ class Organizer < ApplicationRecord
 
   validates :user_id, uniqueness: { scope: :regular_event_id }
 
-  scope :not_finished, lambda {
-    joins(:regular_event).merge(RegularEvent.not_finished)
+  scope :holding, lambda {
+    joins(:regular_event).merge(RegularEvent.holding)
   }
 end

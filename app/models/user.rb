@@ -883,8 +883,8 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     watches.find_or_create_by!(watchable:)
   end
 
-  def cancel_participation_from_not_finished_regular_events
-    regular_event_participations.not_finished.destroy_all
+  def cancel_participation_from_holding_regular_events
+    regular_event_participations.holding.destroy_all
   end
 
   def scheduled_retire_at
@@ -954,8 +954,8 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     reports.joins(:learning_times).distinct.order(reported_on: :asc)
   end
 
-  def hand_over_not_finished_regular_event_organizers
-    organizers.not_finished.includes(:regular_event).find_each do |organizer|
+  def hand_over_organizers_of_holding_regular_events
+    organizers.holding.includes(:regular_event).find_each do |organizer|
       organizer.regular_event.hand_over_organizer(organizer:, sender: self)
     end
   end

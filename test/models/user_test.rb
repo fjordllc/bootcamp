@@ -682,11 +682,11 @@ class UserTest < ActiveSupport::TestCase
     assert_empty User.users_role(not_scope_name, allowed_targets:)
   end
 
-  test '#cancel_participation_from_not_finished_regular_events' do
+  test '#cancel_participation_from_holding_regular_events' do
     user = users(:kananashi)
 
     2.times do |i|
-      not_finished_regular_event = RegularEvent.new(
+      holding_regular_event = RegularEvent.new(
         title: "未終了のイベント#{i}",
         description: '未終了のイベント',
         finished: false,
@@ -700,9 +700,9 @@ class UserTest < ActiveSupport::TestCase
           { frequency: 0, day_of_the_week: 0 }
         ]
       )
-      not_finished_regular_event.users << user
-      not_finished_regular_event.participants << user
-      not_finished_regular_event.save!
+      holding_regular_event.users << user
+      holding_regular_event.participants << user
+      holding_regular_event.save!
     end
 
     finished_regular_event = RegularEvent.new(
@@ -724,12 +724,12 @@ class UserTest < ActiveSupport::TestCase
     finished_regular_event.save!
 
     targets = {
-      -> { user.regular_event_participations.not_finished.count } => -2,
+      -> { user.regular_event_participations.holding.count } => -2,
       -> { user.regular_event_participations.joins(:regular_event).merge(RegularEvent.where(finished: true)).count } => 0
     }
 
     assert_difference targets do
-      user.cancel_participation_from_not_finished_regular_events
+      user.cancel_participation_from_holding_regular_events
     end
   end
 
@@ -808,11 +808,11 @@ class UserTest < ActiveSupport::TestCase
     assert user.sent_student_before_auto_retire_mail
   end
 
-  test '#hand_over_not_finished_regular_event_organizers' do
+  test '#hand_over_organizers_of_holding_regular_events' do
     user = users(:hajime)
     admin_user = users(:komagata)
 
-    one_organizer_not_finished_regular_event = RegularEvent.new(
+    one_organizer_holding_regular_event = RegularEvent.new(
       title: '主催者が1人のイベント',
       description: '主催者が1人のイベント',
       finished: false,
@@ -826,10 +826,10 @@ class UserTest < ActiveSupport::TestCase
         { frequency: 0, day_of_the_week: 0 }
       ]
     )
-    one_organizer_not_finished_regular_event.users = [user]
-    one_organizer_not_finished_regular_event.save!
+    one_organizer_holding_regular_event.users = [user]
+    one_organizer_holding_regular_event.save!
 
-    multiple_organizer_not_finished_regular_event = regular_events(:regular_event4)
+    multiple_organizer_holding_regular_event = regular_events(:regular_event4)
     other_organizer = users(:kimura)
 
     finished_regular_event = RegularEvent.new(
@@ -852,19 +852,19 @@ class UserTest < ActiveSupport::TestCase
 
     # 主催者が1人で管理者が追加されたイベントの分だけ1通のみ通知が飛ぶ
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
-      user.hand_over_not_finished_regular_event_organizers
+      user.hand_over_organizers_of_holding_regular_events
     end
 
     # 主催者が1人の未終了イベント: 管理者が追加され自分は削除される
-    one_organizer_not_finished_regular_event.reload
-    assert_includes one_organizer_not_finished_regular_event.users, admin_user
-    assert_not_includes one_organizer_not_finished_regular_event.users, user
+    one_organizer_holding_regular_event.reload
+    assert_includes one_organizer_holding_regular_event.users, admin_user
+    assert_not_includes one_organizer_holding_regular_event.users, user
 
     # 主催者が複数の未終了イベント: 自分は削除されるが管理者は追加されない
-    multiple_organizer_not_finished_regular_event.reload
-    assert_not_includes multiple_organizer_not_finished_regular_event.users, admin_user
-    assert_not_includes multiple_organizer_not_finished_regular_event.users, user
-    assert_includes multiple_organizer_not_finished_regular_event.users, other_organizer
+    multiple_organizer_holding_regular_event.reload
+    assert_not_includes multiple_organizer_holding_regular_event.users, admin_user
+    assert_not_includes multiple_organizer_holding_regular_event.users, user
+    assert_includes multiple_organizer_holding_regular_event.users, other_organizer
 
     # 終了済みのイベント: 引き継ぎ対象外のため自分が主催者のままになる
     finished_regular_event.reload

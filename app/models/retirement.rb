@@ -75,11 +75,11 @@ class Retirement
   end
 
   def cancel_event_subscription
-    @user.cancel_participation_from_not_finished_regular_events
+    @user.cancel_participation_from_holding_regular_events
   end
 
   def remove_as_event_organizer
-    @user.hand_over_not_finished_regular_event_organizers
+    @user.hand_over_organizers_of_holding_regular_events
   end
 
   def publish
