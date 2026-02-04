@@ -202,7 +202,7 @@ class RegularEventTest < ActiveSupport::TestCase
 
   test '#notify_new_organizer sends a notification when a new organizer is added' do
     regular_event = regular_events(:regular_event4)
-    before_organizer_user_ids = regular_event.user_ids
+    before_organizer_user_ids = regular_event.organizers.pluck(:user_id)
     user = users(:hatsuno)
     sender = users(:kimura)
 
@@ -215,7 +215,7 @@ class RegularEventTest < ActiveSupport::TestCase
 
   test '#notify_new_organizer does not send a notification when no new organizers are added' do
     regular_event = regular_events(:regular_event4)
-    before_organizer_user_ids = regular_event.user_ids
+    before_organizer_user_ids = regular_event.organizers.pluck(:user_id)
     sender = users(:kimura)
 
     assert_no_notifications('organizer.add') do
@@ -225,7 +225,7 @@ class RegularEventTest < ActiveSupport::TestCase
 
   test '#notify_new_organizer sends notifications when multiple organizers are added' do
     regular_event = regular_events(:regular_event5)
-    before_organizer_user_ids = regular_event.user_ids
+    before_organizer_user_ids = regular_event.organizers.pluck(:user_id)
     sender = users(:kimura)
     new_organizers = [users(:hatsuno), users(:hajime)]
 
@@ -240,7 +240,7 @@ class RegularEventTest < ActiveSupport::TestCase
 
   test '#notify_new_organizer sends a notification when an organizer is replaced' do
     regular_event = regular_events(:regular_event5)
-    before_organizer_user_ids = regular_event.user_ids
+    before_organizer_user_ids = regular_event.organizers.pluck(:user_id)
     user = users(:hatsuno)
     sender = users(:kimura)
 
@@ -254,7 +254,7 @@ class RegularEventTest < ActiveSupport::TestCase
 
   test '#notify_new_organizer does not send a notification when an organizer is sender' do
     regular_event = regular_events(:regular_event5)
-    before_organizer_user_ids = regular_event.user_ids
+    before_organizer_user_ids = regular_event.organizers.pluck(:user_id)
     user = users(:hatsuno)
     sender = users(:hatsuno)
 
