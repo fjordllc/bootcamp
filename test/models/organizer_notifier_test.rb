@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class OrganizerAddedNotifierTest < ActiveSupport::TestCase
+class OrganizerNotifierTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
   setup do
@@ -14,7 +14,7 @@ class OrganizerAddedNotifierTest < ActiveSupport::TestCase
     new_organizer_users = [users(:hatsuno)]
 
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
-      OrganizerAddedNotifier.new.call(nil, nil, nil, nil, { regular_event: @regular_event, new_organizer_users:, sender: @sender })
+      OrganizerNotifier.new.call(nil, nil, nil, nil, { regular_event: @regular_event, new_organizer_users:, sender: @sender })
     end
   end
 
@@ -22,7 +22,7 @@ class OrganizerAddedNotifierTest < ActiveSupport::TestCase
     new_organizer_users = []
 
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 0 do
-      OrganizerAddedNotifier.new.call(nil, nil, nil, nil, { regular_event: @regular_event, new_organizer_users:, sender: @sender })
+      OrganizerNotifier.new.call(nil, nil, nil, nil, { regular_event: @regular_event, new_organizer_users:, sender: @sender })
     end
   end
 
@@ -30,7 +30,7 @@ class OrganizerAddedNotifierTest < ActiveSupport::TestCase
     new_organizer_users = [users(:hatsuno), users(:hajime)]
 
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 2 do
-      OrganizerAddedNotifier.new.call(nil, nil, nil, nil, { regular_event: @regular_event, new_organizer_users:, sender: @sender })
+      OrganizerNotifier.new.call(nil, nil, nil, nil, { regular_event: @regular_event, new_organizer_users:, sender: @sender })
     end
   end
 end

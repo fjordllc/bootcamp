@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class OrganizerAddedNotifier
+class OrganizerNotifier
   def call(_name, _started, _finished, _id, payload)
     regular_event = payload[:regular_event]
     sender = payload[:sender]

@@ -166,7 +166,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     new_organizer_users = User.where(id: new_organizer_user_ids)
 
     ActiveSupport::Notifications.instrument(
-      'organizer.create',
+      'organizer.add',
       regular_event: self,
       sender:,
       new_organizer_users:

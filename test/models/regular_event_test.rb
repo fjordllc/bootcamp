@@ -178,7 +178,7 @@ class RegularEventTest < ActiveSupport::TestCase
     organizer_user = users(:kimura)
     admin_user = users(:komagata)
 
-    assert_notification 'organizer.create', { sender: organizer_user, new_organizer_users: [admin_user] } do
+    assert_notification 'organizer.add', { sender: organizer_user, new_organizer_users: [admin_user] } do
       regular_event.hand_over_organizer(organizer:, sender: organizer_user)
     end
 
@@ -192,7 +192,7 @@ class RegularEventTest < ActiveSupport::TestCase
     organizer_user = users(:kimura)
     admin_user = users(:komagata)
 
-    assert_no_notifications('organizer.create') do
+    assert_no_notifications('organizer.add') do
       regular_event.hand_over_organizer(organizer:, sender: organizer_user)
     end
 
@@ -208,7 +208,7 @@ class RegularEventTest < ActiveSupport::TestCase
 
     Organizer.create!(user_id: user.id, regular_event_id: regular_event.id)
 
-    assert_notification 'organizer.create', { sender:, new_organizer_users: [user] } do
+    assert_notification 'organizer.add', { sender:, new_organizer_users: [user] } do
       regular_event.notify_new_organizer(sender:, before_organizer_user_ids:)
     end
   end
@@ -218,7 +218,7 @@ class RegularEventTest < ActiveSupport::TestCase
     before_organizer_user_ids = regular_event.user_ids
     sender = users(:kimura)
 
-    assert_no_notifications('organizer.create') do
+    assert_no_notifications('organizer.add') do
       regular_event.notify_new_organizer(sender:, before_organizer_user_ids:)
     end
   end
@@ -233,7 +233,7 @@ class RegularEventTest < ActiveSupport::TestCase
       Organizer.create!(user_id: user.id, regular_event_id: regular_event.id)
     end
 
-    assert_notification 'organizer.create', { sender:, new_organizer_users: new_organizers } do
+    assert_notification 'organizer.add', { sender:, new_organizer_users: new_organizers } do
       regular_event.notify_new_organizer(sender:, before_organizer_user_ids:)
     end
   end
@@ -247,7 +247,7 @@ class RegularEventTest < ActiveSupport::TestCase
     Organizer.create!(user_id: user.id, regular_event_id: regular_event.id)
     Organizer.find_by!(user_id: sender.id, regular_event_id: regular_event.id).destroy!
 
-    assert_notification 'organizer.create', { sender:, new_organizer_users: [user] } do
+    assert_notification 'organizer.add', { sender:, new_organizer_users: [user] } do
       regular_event.notify_new_organizer(sender:, before_organizer_user_ids:)
     end
   end
@@ -261,7 +261,7 @@ class RegularEventTest < ActiveSupport::TestCase
     Organizer.create!(user_id: user.id, regular_event_id: regular_event.id)
     Organizer.find_by!(user_id: sender.id, regular_event_id: regular_event.id).destroy!
 
-    assert_no_notifications('organizer.create') do
+    assert_no_notifications('organizer.add') do
       regular_event.notify_new_organizer(sender:, before_organizer_user_ids:)
     end
   end
