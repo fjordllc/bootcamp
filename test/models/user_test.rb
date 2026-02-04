@@ -833,8 +833,8 @@ class UserTest < ActiveSupport::TestCase
     other_organizer = users(:kimura)
 
     finished_regular_event = RegularEvent.new(
-      title: '主催者が1人のイベント',
-      description: '主催者が1人のイベント',
+      title: '終了済みのイベント',
+      description: '終了済みのイベント',
       finished: true,
       hold_national_holiday: false,
       start_at: Time.zone.local(2020, 1, 1, 21, 0, 0),
@@ -850,16 +850,23 @@ class UserTest < ActiveSupport::TestCase
     finished_regular_event.users = [user]
     finished_regular_event.save!
 
-    user.hand_over_not_finished_regular_event_organizers
+    # 主催者が1人で管理者が追加されたイベントの分だけ1通のみ通知が飛ぶ
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      user.hand_over_not_finished_regular_event_organizers
+    end
+
+    # 主催者が1人の未終了イベント: 管理者が追加され自分は削除される
     one_organizer_not_finished_regular_event.reload
     assert_includes one_organizer_not_finished_regular_event.users, admin_user
     assert_not_includes one_organizer_not_finished_regular_event.users, user
 
+    # 主催者が複数の未終了イベント: 自分は削除されるが管理者は追加されない
     multiple_organizer_not_finished_regular_event.reload
     assert_not_includes multiple_organizer_not_finished_regular_event.users, admin_user
     assert_not_includes multiple_organizer_not_finished_regular_event.users, user
     assert_includes multiple_organizer_not_finished_regular_event.users, other_organizer
 
+    # 終了済みのイベント: 引き継ぎ対象外のため自分が主催者のままになる
     finished_regular_event.reload
     assert_not_includes finished_regular_event.users, admin_user
     assert_includes finished_regular_event.users, user
