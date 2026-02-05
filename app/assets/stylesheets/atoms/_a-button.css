@@ -357,22 +357,35 @@ input:checked + .a-button.is-checkbox::after {
   font-size: 1.5em;
 }
 
+.a-button.is-text {
+  text-decoration: underline;
+}
+
+.a-button.is-text:hover,
+.a-button.is-text:focus,
+.a-button.is-text:active {
+  text-decoration: none;
+}
+
+.a-button.is-text-reversal {
+  text-decoration: none;
+}
+
+.a-button.is-text-reversal:hover,
+.a-button.is-text-reversal:focus,
+.a-button.is-text-reversal:active {
+  text-decoration: underline;
+}
+
 .a-button.is-text,
 .a-button.is-text-reversal,
 .a-button.is-muted-text {
   background: none;
   border: none;
   font-weight: 400;
-  text-decoration: none;
   cursor: pointer;
 }
-.a-button.is-text:hover, .a-button.is-text:active,
-.a-button.is-text-reversal:hover,
-.a-button.is-text-reversal:active,
-.a-button.is-muted-text:hover,
-.a-button.is-muted-text:active {
-  text-decoration: underline;
-}
+
 .a-button.is-text,
 .a-button.is-text-reversal,
 .a-button.is-muted-text {

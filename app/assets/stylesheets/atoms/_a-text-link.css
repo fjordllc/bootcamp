@@ -3,19 +3,22 @@
   cursor: pointer;
   transition: color 0.2s ease-in;
   color: var(--link-text);
+  text-decoration: underline;
 }
 
 .a-text-link:link {
   color: var(--link-text);
+  text-decoration: underline;
 }
 
 .a-text-link:visited {
   color: hsl(233, 33%, 58%);
+  text-decoration: underline;
 }
 
 .a-text-link:hover,
 .a-text-link:active {
-  text-decoration: underline;
+  text-decoration: none;
   color: var(--hover-text);
 }
 
@@ -44,16 +47,12 @@
   color: var(--hover-text);
 }
 
-.a-hover-link,
 .a-hover-link-reversal,
-.a-reversal-text-link,
-.a-muted-text-link {
+.a-reversal-text-link {
   text-decoration: none;
   cursor: pointer;
 }
 
-.a-hover-link:hover,
-.a-hover-link:active,
 .a-hover-link-reversal:hover,
 .a-hover-link-reversal:active {
   text-decoration: underline;
@@ -62,38 +61,45 @@
 .a-reversal-text-link {
   transition: color 0.2s ease-in;
   color: var(--reversal-text);
+  text-decoration: none;
 }
 
 .a-reversal-text-link:link {
   color: var(--reversal-text);
+  text-decoration: none;
 }
 
 .a-reversal-text-link:visited {
   color: hsl(242, 62%, 74%);
+  text-decoration: none;
 }
 
 .a-reversal-text-link:hover {
   text-decoration: underline;
   color: hsl(210, 100%, 80%);
+  text-decoration: underline;
 }
 
 .a-reversal-text-link:active {
   text-decoration: underline;
   color: hsl(316, 90%, 66%);
+  text-decoration: underline;
 }
 
 .a-muted-text-link {
   transition: color 0.2s ease-in;
   color: var(--muted-text);
+  text-decoration: underline;
 }
 
 .a-muted-text-link:link,
 .a-muted-text-link:visited {
   color: var(--muted-text);
+  text-decoration: underline;
 }
 
 .a-muted-text-link:hover,
 .a-muted-text-link:active {
-  text-decoration: underline;
+  text-decoration: none;
   color: var(--link-text);
 }

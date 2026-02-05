@@ -128,6 +128,12 @@
   text-decoration: none;
 }
 
+.category-practices-item__title-link:hover,
+.category-practices-item__title-link:active,
+.category-practices-item__title-link:focus {
+  text-decoration: none;
+}
+
 @media (max-width: 47.9375em) {
   .category-practices-item__title-link {
     font-size: .8125rem;

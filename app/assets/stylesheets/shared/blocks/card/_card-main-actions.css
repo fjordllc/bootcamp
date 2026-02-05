@@ -84,7 +84,7 @@
 }
 
 .card-main-actions__muted-action {
-  text-decoration: none;
+  text-decoration: underline;
   cursor: pointer;
   font-size: 0.8125rem;
   line-height: 1.4;
@@ -93,7 +93,7 @@
 
 .card-main-actions__muted-action:hover,
 .card-main-actions__muted-action:active {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .card-main-actions__muted-action:hover {

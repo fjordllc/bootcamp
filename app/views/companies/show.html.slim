@@ -18,33 +18,32 @@ header.page-header
 
 .page-body
   .container.is-xl
-    .columns
-      .row
-        .col-xs-12.col-lg-6.col-xxl-6
-          = render 'companies/profile', company: @company
-        .col-xs-12.col-lg-6.col-xxl-6
-          - if current_user.admin?
-            section.a-card.is-memo.is-only-mentor
-              header.card-header.is-sm
-                h2.card-header__title
-                  | 管理者向け企業メモ
-              hr.a-border-tint
-              .card-body
-                .card-body__description
-                  - if @company.memo.present?
-                    .a-long-text.is-md
-                      = simple_format(@company.memo)
-                  - else
-                    .o-empty-message
-                      .o-empty-message__icon
-                        i.fa-regular.fa-sad-tear
-                      .o-empty-message__text
-                        | 企業メモはまだありません。
-              hr.a-border-tint
-              footer.card-footer
-                .card-main-actions
-                  .card-main-actions__items
-                    .card-main-actions__item
-                      = link_to edit_admin_company_path(anchor: 'company_memo'), class: 'card-footer-actions__action a-button is-sm is-secondary is-block' do
-                        i.fa-solid.fa-pen
-                        | 編集
+    .row
+      .col-xs-12.col-lg-6.col-xxl-6
+        = render 'companies/profile', company: @company
+      .col-xs-12.col-lg-6.col-xxl-6
+        - if current_user.admin?
+          section.a-card.is-memo.is-only-mentor
+            header.card-header.is-sm
+              h2.card-header__title
+                | 管理者向け企業メモ
+            hr.a-border-tint
+            .card-body
+              .card-body__description
+                - if @company.memo.present?
+                  .a-long-text.is-md
+                    = simple_format(@company.memo)
+                - else
+                  .o-empty-message
+                    .o-empty-message__icon
+                      i.fa-regular.fa-sad-tear
+                    .o-empty-message__text
+                      | 企業メモはまだありません。
+            hr.a-border-tint
+            footer.card-footer
+              .card-main-actions
+                .card-main-actions__items
+                  .card-main-actions__item
+                    = link_to edit_admin_company_path(anchor: 'company_memo'), class: 'card-footer-actions__action a-button is-sm is-secondary is-block' do
+                      i.fa-solid.fa-pen
+                      | 編集
