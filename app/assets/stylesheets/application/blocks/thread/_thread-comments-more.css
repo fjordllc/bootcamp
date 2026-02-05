@@ -6,7 +6,6 @@
 @media (min-width: 48em) {
   .thread-comments-more {
     margin-bottom: 2rem;
-    padding-left: var(--thread-header-author);
   }
 }
 
@@ -21,13 +20,13 @@
 .thread-comments-more::after {
   content: '';
   display: block;
-  height: 7px;
+  height: 1px;
   width: 100%;
-  background: repeating-linear-gradient(-45deg, var(--border)-shade, var(--border)-shade 3px, transparent 3px, transparent 6px);
+  border-bottom: dashed 1px #c8c8ca;
 }
 
 .thread-comments-more__inner {
-  padding-block: 1rem;
+  padding-block: 1.25rem;
 }
 
 .thread-comments-more__action {

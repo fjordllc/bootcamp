@@ -44,7 +44,7 @@ export default function ActionCompletedButton({
 
   if (isActionCompleted) {
     return (
-      <div className="thread-comment-form is-action-completed">
+      <div className="thread-comment-form is-action-completed !pl-0">
         <div className="thread-action-completed-form__form">
           <div className="action-completed">
             <div className="action-completed__action">
@@ -72,7 +72,7 @@ export default function ActionCompletedButton({
   }
 
   return (
-    <div className="thread-comment-form is-action-completed">
+    <div className="thread-comment-form is-action-completed !pl-0">
       <div className="thread-action-completed-form__form">
         <div className="action-completed">
           <div className="action-completed__action">
