@@ -44,6 +44,6 @@ header.page-header
               .card-main-actions
                 .card-main-actions__items
                   .card-main-actions__item
-                    = link_to edit_admin_company_path(anchor: 'company_memo'), class: 'card-footer-actions__action a-button is-sm is-secondary is-block' do
+                    = link_to edit_admin_company_path(@company, anchor: 'company_memo'), class: 'card-footer-actions__action a-button is-sm is-secondary is-block' do
                       i.fa-solid.fa-pen
                       | 編集
