@@ -75,7 +75,7 @@ module Home
     test 'visible announcement for activity time setup' do
       visit_with_auth '/', 'kimura'
       assert_selector 'h2.page-header__title', text: 'ダッシュボード'
-      assert has_link?('活動時間を登録してください。', href: '/current_user/edit')
+      assert_link '活動時間を登録してください。', href: '/current_user/edit'
       click_on '活動時間を登録してください。'
 
       assert_selector 'h1.auth-form__title', text: '登録情報変更'
@@ -83,13 +83,15 @@ module Home
       find('label[for="user_learning_time_frame_ids_1"]').click
       click_on '更新する'
 
+      assert_text 'ユーザー情報を更新しました。'
+
       visit '/'
       assert_selector 'h2.page-header__title', text: 'ダッシュボード'
-      assert has_no_link?('活動時間を登録してください。', href: '/current_user/edit')
+      assert_no_link '活動時間を登録してください。', href: '/current_user/edit'
 
       visit_with_auth '/', 'kensyu'
       assert_selector 'h2.page-header__title', text: 'ダッシュボード'
-      assert has_link?('活動時間を登録してください。', href: '/current_user/edit')
+      assert_link '活動時間を登録してください。', href: '/current_user/edit'
       click_on '活動時間を登録してください。'
 
       assert_selector 'h1.auth-form__title', text: '登録情報変更'
@@ -97,9 +99,11 @@ module Home
       find('label[for="user_learning_time_frame_ids_1"]').click
       click_on '更新する'
 
+      assert_text 'ユーザー情報を更新しました。'
+
       visit '/'
       assert_selector 'h2.page-header__title', text: 'ダッシュボード'
-      assert has_no_link?('活動時間を登録してください。', href: '/current_user/edit')
+      assert_no_link '活動時間を登録してください。', href: '/current_user/edit'
     end
 
     test 'not show message of after_graduation_hope for graduated user' do
