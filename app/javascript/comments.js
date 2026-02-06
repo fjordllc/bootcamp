@@ -42,6 +42,29 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   setComments(initialComments)
 
+  const commentAnchor = location.hash
+  if (commentAnchor && commentAnchor.startsWith('#comment_')) {
+    const anchorElement = document.getElementById(commentAnchor.slice(1))
+    if (anchorElement && anchorElement.classList.contains('is-hidden')) {
+      const hiddenComments = document.querySelectorAll(
+        '.thread-comment.is-hidden'
+      )
+      setComments(hiddenComments)
+      commentRemaining = 0
+      const moreCommentsSection = document.querySelector(
+        '.thread-comments-more'
+      )
+      if (moreCommentsSection) {
+        moreCommentsSection.style.display = 'none'
+      }
+    }
+    if (anchorElement) {
+      setTimeout(() => {
+        anchorElement.scrollIntoView({ behavior: 'instant' })
+      }, 300)
+    }
+  }
+
   const moreCommentButton = document.querySelector(
     '.a-button.is-lg.is-text.is-block'
   )
