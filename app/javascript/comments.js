@@ -46,16 +46,28 @@ document.addEventListener('DOMContentLoaded', () => {
   if (commentAnchor && commentAnchor.startsWith('#comment_')) {
     const anchorElement = document.getElementById(commentAnchor.slice(1))
     if (anchorElement && anchorElement.classList.contains('is-hidden')) {
-      const hiddenComments = document.querySelectorAll(
-        '.thread-comment.is-hidden'
-      )
-      setComments(hiddenComments)
-      commentRemaining = 0
-      const moreCommentsSection = document.querySelector(
-        '.thread-comments-more'
-      )
-      if (moreCommentsSection) {
-        moreCommentsSection.style.display = 'none'
+      const commentsArray = Array.from(comments)
+      const targetIndex = commentsArray.indexOf(anchorElement)
+      if (targetIndex !== -1) {
+        const commentsToReveal = commentsArray.slice(
+          targetIndex,
+          commentTotalCount - initialLimit
+        )
+        setComments(commentsToReveal)
+        commentRemaining = targetIndex
+        const moreCommentBtn = document.querySelector(
+          '.a-button.is-lg.is-text.is-block'
+        )
+        if (commentRemaining === 0) {
+          const moreCommentsSection = document.querySelector(
+            '.thread-comments-more'
+          )
+          if (moreCommentsSection) {
+            moreCommentsSection.style.display = 'none'
+          }
+        } else if (moreCommentBtn) {
+          displayMoreComments(commentRemaining, 0, moreCommentBtn)
+        }
       }
     }
     if (anchorElement) {
