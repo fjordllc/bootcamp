@@ -10,9 +10,8 @@ class QuestionAutoCloser
       system_user = User.find_by(login_name: SYSTEM_USER_LOGIN)
       return unless system_user
 
-      Question.not_wip.not_solved.find_each do |question|
-        next unless should_post_warning?(question, system_user)
-
+      questions = extract_inactive_questions_to_warn(system_user)
+      questions.each do |question|
         create_warning_message(question, system_user)
       end
     end
@@ -21,14 +20,25 @@ class QuestionAutoCloser
       system_user = User.find_by(login_name: SYSTEM_USER_LOGIN)
       return unless system_user
 
-      Question.not_wip.not_solved.find_each do |question|
-        next unless should_close?(question, system_user)
-
+      questions = extract_inactive_questions_to_close(system_user)
+      questions.each do |question|
         close_with_best_answer(question, system_user)
       end
     end
 
     private
+
+    def extract_inactive_questions_to_warn(system_user)
+      Question.not_wip.not_solved.find_each.filter do |question|
+        should_post_warning?(question, system_user)
+      end
+    end
+
+    def extract_inactive_questions_to_close(system_user)
+      Question.not_wip.not_solved.find_each.filter do |question|
+        should_close?(question, system_user)
+      end
+    end
 
     def should_post_warning?(question, system_user)
       last_updated_answer = question.answers.order(updated_at: :desc, id: :desc).first
