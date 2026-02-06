@@ -71,9 +71,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     if (anchorElement) {
-      setTimeout(() => {
-        anchorElement.scrollIntoView({ behavior: 'instant' })
-      }, 300)
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          anchorElement.scrollIntoView({ behavior: 'instant' })
+        })
+      })
     }
   }
 
