@@ -20,6 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const incrementSize = 8
   let commentRemaining = 0
   const nextCommentAmount = 0
+  const moreCommentButton = document.querySelector(
+    '.a-button.is-lg.is-text.is-block'
+  )
+  const moreComments = document.querySelector('.thread-comments-more')
 
   if (commentTotalCount <= initialLimit) {
     comments.forEach((comment) => {
@@ -31,10 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     commentRemaining = commentTotalCount - initialLimit
 
-    const moreCommentButton = document.querySelector(
-      '.a-button.is-lg.is-text.is-block'
-    )
-    const moreComments = document.querySelector('.thread-comments-more')
     if (commentRemaining > 0) {
       moreComments.classList.remove('is-hidden')
     }
@@ -55,18 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
         )
         setComments(commentsToReveal)
         commentRemaining = targetIndex
-        const moreCommentBtn = document.querySelector(
-          '.a-button.is-lg.is-text.is-block'
-        )
         if (commentRemaining === 0) {
-          const moreCommentsSection = document.querySelector(
-            '.thread-comments-more'
-          )
-          if (moreCommentsSection) {
-            moreCommentsSection.classList.add('is-hidden')
-          }
-        } else if (moreCommentBtn) {
-          displayMoreComments(commentRemaining, 0, moreCommentBtn)
+          moreComments.classList.add('is-hidden')
+        } else {
+          displayMoreComments(commentRemaining, 0, moreCommentButton)
         }
       }
     }
@@ -79,10 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  const moreCommentButton = document.querySelector(
-    '.a-button.is-lg.is-text.is-block'
-  )
-  const moreComments = document.querySelector('.thread-comments-more')
   moreCommentButton.addEventListener('click', () => {
     const nextComments = []
     if (commentRemaining <= incrementSize) {
