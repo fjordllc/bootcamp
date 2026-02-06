@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
             '.thread-comments-more'
           )
           if (moreCommentsSection) {
-            moreCommentsSection.style.display = 'none'
+            moreCommentsSection.classList.add('is-hidden')
           }
         } else if (moreCommentBtn) {
           displayMoreComments(commentRemaining, 0, moreCommentBtn)
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       setComments(nextComments)
       commentRemaining = 0
-      moreComments.style.display = 'none'
+      moreComments.classList.add('is-hidden')
     } else {
       for (let i = 1; i <= incrementSize; i++) {
         nextComments.push(comments[commentRemaining - i])
