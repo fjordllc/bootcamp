@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (answerAnchor) {
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        const anchorElement = document.querySelector(answerAnchor)
+        const anchorElement = document.getElementById(answerAnchor.slice(1))
         if (anchorElement) {
           anchorElement.scrollIntoView({ behavior: 'instant' })
         }
