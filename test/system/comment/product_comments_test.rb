@@ -42,6 +42,33 @@ class ProductCommentsTest < ApplicationSystemTestCase
     assert_no_selector '.a-button.is-lg.is-text.is-block'
   end
 
+  test 'anchor link to folded comment unfolds from target and keeps older comments folded' do
+    product = users(:hatsuno).products.first
+    target_comment = product.comments.order(:created_at).fifth
+
+    visit_with_auth "#{product_path(product)}#comment_#{target_comment.id}", 'komagata'
+
+    wait_for_comments
+
+    assert_text '提出物のコメント5です。'
+    assert_text '提出物のコメント20です'
+    assert_selector '.a-button.is-lg.is-text.is-block', text: '前のコメント（ 4 ）'
+    assert_no_text '提出物のコメント4です。'
+  end
+
+  test 'anchor link to oldest folded comment unfolds all and hides button' do
+    product = users(:hatsuno).products.first
+    oldest_comment = product.comments.order(:created_at).first
+
+    visit_with_auth "#{product_path(product)}#comment_#{oldest_comment.id}", 'komagata'
+
+    wait_for_comments
+
+    assert_text '提出物のコメント1です。'
+    assert_text '提出物のコメント20です'
+    assert_no_selector '.thread-comments-more .a-button.is-lg.is-text.is-block'
+  end
+
   test 'comments added 8 or within the last 8' do
     visit_with_auth product_path(users(:hatsuno).products.first.id), 'komagata'
 

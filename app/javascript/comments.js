@@ -20,6 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const incrementSize = 8
   let commentRemaining = 0
   const nextCommentAmount = 0
+  const moreCommentButton = document.querySelector(
+    '.a-button.is-lg.is-text.is-block'
+  )
+  const moreComments = document.querySelector('.thread-comments-more')
 
   if (commentTotalCount <= initialLimit) {
     comments.forEach((comment) => {
@@ -31,10 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     commentRemaining = commentTotalCount - initialLimit
 
-    const moreCommentButton = document.querySelector(
-      '.a-button.is-lg.is-text.is-block'
-    )
-    const moreComments = document.querySelector('.thread-comments-more')
     if (commentRemaining > 0) {
       moreComments.classList.remove('is-hidden')
     }
@@ -42,10 +42,35 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   setComments(initialComments)
 
-  const moreCommentButton = document.querySelector(
-    '.a-button.is-lg.is-text.is-block'
-  )
-  const moreComments = document.querySelector('.thread-comments-more')
+  const commentAnchor = location.hash
+  if (commentAnchor && commentAnchor.startsWith('#comment_')) {
+    const anchorElement = document.getElementById(commentAnchor.slice(1))
+    if (anchorElement && anchorElement.classList.contains('is-hidden')) {
+      const commentsArray = Array.from(comments)
+      const targetIndex = commentsArray.indexOf(anchorElement)
+      if (targetIndex !== -1) {
+        const commentsToReveal = commentsArray.slice(
+          targetIndex,
+          commentTotalCount - initialLimit
+        )
+        setComments(commentsToReveal)
+        commentRemaining = targetIndex
+        if (commentRemaining === 0) {
+          moreComments.classList.add('is-hidden')
+        } else {
+          displayMoreComments(commentRemaining, 0, moreCommentButton)
+        }
+      }
+    }
+    if (anchorElement) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          anchorElement.scrollIntoView({ behavior: 'instant' })
+        })
+      })
+    }
+  }
+
   moreCommentButton.addEventListener('click', () => {
     const nextComments = []
     if (commentRemaining <= incrementSize) {
@@ -54,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       setComments(nextComments)
       commentRemaining = 0
-      moreComments.style.display = 'none'
+      moreComments.classList.add('is-hidden')
     } else {
       for (let i = 1; i <= incrementSize; i++) {
         nextComments.push(comments[commentRemaining - i])
