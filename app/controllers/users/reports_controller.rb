@@ -7,6 +7,7 @@ class Users::ReportsController < ApplicationController
   before_action :set_reports
   before_action :set_report
   before_action :set_export
+  before_action :set_unchecked_count, if: -> { @target == 'unchecked_reports' }
 
   def index
     respond_to do |format|
@@ -60,5 +61,9 @@ class Users::ReportsController < ApplicationController
       ReportExporter.export(reports, folder_path)
       send_data(File.read("#{folder_path}/reports.zip"), filename: '日報一覧.zip')
     end
+  end
+
+  def set_unchecked_count
+    @unchecked_count = @user.reports.unchecked.not_wip.count
   end
 end

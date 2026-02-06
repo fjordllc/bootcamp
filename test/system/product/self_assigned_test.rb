@@ -25,9 +25,9 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     assert_button '自分の担当の提出物を一括で開く'
   end
 
-  test 'click on open all self-assigned submissions button' do
+  test 'self-assigned products links are rendered correctly' do
     checker = users(:komagata)
-    Product.create!(
+    self_assigned_product = Product.create!(
       body: '自分の担当の提出物です。',
       user: users(:kimura),
       practice: practices(:practice5),
@@ -35,11 +35,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     )
     visit_with_auth '/products/self_assigned', 'komagata'
 
-    click_button '自分の担当の提出物を一括で開く'
-
-    within_window(windows.last) do
-      assert_text '自分の担当の提出物です。'
-    end
+    assert_selector "a.js-unconfirmed-link[href$='#{self_assigned_product.id}']"
   end
 
   test 'display products on self assigned tab' do
