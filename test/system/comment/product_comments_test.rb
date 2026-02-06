@@ -44,7 +44,7 @@ class ProductCommentsTest < ApplicationSystemTestCase
 
   test 'anchor link to folded comment unfolds and scrolls to it' do
     product = users(:hatsuno).products.first
-    oldest_comment = comments(:comment20)
+    oldest_comment = product.comments.order(:created_at).first
 
     visit_with_auth "#{product_path(product)}#comment_#{oldest_comment.id}", 'komagata'
 
