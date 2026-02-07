@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
 import useSWR, { useSWRConfig } from 'swr'
-import fetcher from '../fetcher'
-import { destroy } from '@rails/request.js'
+import { get, destroy } from '@rails/request.js'
 import userIcon from '../user-icon.js'
 import { toast } from '../vanillaToast.js'
 import { formatDateToJapanese } from '../dateFormatter'
+const fetcher = (url) =>
+  get(url, { responseKind: 'json' }).then((res) => res.json)
 
 export default function BookmarksInDashboard() {
   const [editable, setEditable] = useState(false)
