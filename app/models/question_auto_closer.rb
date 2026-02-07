@@ -2,7 +2,7 @@
 
 class QuestionAutoCloser
   SYSTEM_USER_LOGIN = 'pjord'
-  AUTO_CLOSE_WARNING_MESSAGE = 'このQ&Aは1ヶ月間コメントがありませんでした。1週間後に自動的にクローズされます。'
+  AUTO_CLOSE_WARNING_MESSAGE = 'このQ&Aは1ヶ月間更新がありませんでした。このまま更新がなければ1週間後に自動的にクローズされます。'
   AUTO_CLOSE_MESSAGE = '自動的にクローズしました。'
 
   class << self
@@ -10,7 +10,7 @@ class QuestionAutoCloser
       system_user = User.find_by(login_name: SYSTEM_USER_LOGIN)
       return unless system_user
 
-      questions = extract_inactive_questions_to_warn(system_user)
+      questions = extract_inactive_questions_to_warn
       questions.each do |question|
         create_warning_message(question, system_user)
       end
@@ -28,9 +28,9 @@ class QuestionAutoCloser
 
     private
 
-    def extract_inactive_questions_to_warn(system_user)
+    def extract_inactive_questions_to_warn
       Question.not_wip.not_solved.find_each.filter do |question|
-        should_post_warning?(question, system_user)
+        should_post_warning?(question)
       end
     end
 
@@ -40,13 +40,10 @@ class QuestionAutoCloser
       end
     end
 
-    def should_post_warning?(question, system_user)
+    def should_post_warning?(question)
       last_updated_answer = question.answers.order(updated_at: :desc, id: :desc).first
       last_activity_at = [last_updated_answer&.updated_at, question.updated_at].compact.max
-      return false unless last_activity_at <= 1.month.ago
-
-      !system_message?(question, system_user, AUTO_CLOSE_MESSAGE) &&
-        !system_message?(question, system_user, AUTO_CLOSE_WARNING_MESSAGE)
+      last_activity_at <= 1.month.ago
     end
 
     def create_warning_message(question, system_user)
@@ -58,22 +55,12 @@ class QuestionAutoCloser
     end
 
     def should_close?(question, system_user)
-      warning_answer = find_system_message(question, system_user, AUTO_CLOSE_WARNING_MESSAGE)
-      return false unless warning_answer
-      return false unless warning_answer.created_at <= 1.week.ago
+      last_updated_answer = question.answers.order(updated_at: :desc, id: :desc).first
+      return false unless last_updated_answer
+      return false unless last_updated_answer.user_id == system_user.id && last_updated_answer.description == AUTO_CLOSE_WARNING_MESSAGE
 
-      !system_message?(question, system_user, AUTO_CLOSE_MESSAGE)
-    end
-
-    def find_system_message(question, system_user, message)
-      warning_answers = question.answers.select do |a|
-        a.user_id == system_user.id && a.description == message
-      end
-      warning_answers.max_by(&:created_at)
-    end
-
-    def system_message?(question, system_user, message)
-      question.answers.any? { |a| a.user_id == system_user.id && a.description == message }
+      last_warned_at = last_updated_answer.updated_at
+      question.updated_at < last_warned_at && last_warned_at <= 1.week.ago
     end
 
     def close_with_best_answer(question, system_user)
