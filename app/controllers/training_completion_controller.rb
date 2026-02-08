@@ -13,8 +13,8 @@ class TrainingCompletionController < ApplicationController
     current_user.training_completed_at = Time.current
     if current_user.save(context: :training_completion)
       user = current_user
-      current_user.cancel_participation_from_regular_events
-      current_user.delete_and_assign_new_organizer
+      current_user.cancel_participation_from_holding_regular_events
+      current_user.hand_over_organizers_of_holding_regular_events
       ActiveSupport::Notifications.instrument('training_completion.create', user:)
       user.clear_github_data
       notify_to_user(user)
