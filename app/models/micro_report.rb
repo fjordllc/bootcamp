@@ -21,7 +21,7 @@ class MicroReport < ApplicationRecord
     per_page = per_page.to_i
     return nil if per_page <= 0
 
-    ids = scope.ordered.pluck(:id)
+    ids = scope.ordered.ids
     index = ids.index(target.id)
     return nil unless index
 
