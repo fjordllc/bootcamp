@@ -23,7 +23,7 @@ class PairWorksController < ApplicationController
   def edit; end
 
   def new
-    @pair_work = PairWork.new
+    @pair_work = PairWork.new(channel: 'ペアワーク・モブワーク1')
   end
 
   def create

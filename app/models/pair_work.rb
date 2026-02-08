@@ -27,8 +27,6 @@ class PairWork < ApplicationRecord
   before_validation :set_published_at, if: :will_be_published?
   validate :reserved_at_in_schedules?, on: :update
 
-  after_initialize :set_default_channel, if: :new_record?
-
   scope :solved, -> { where.not(reserved_at: nil) }
   scope :not_solved, -> { where(reserved_at: nil) }
   scope :wip, -> { where(wip: true) }
@@ -115,10 +113,6 @@ class PairWork < ApplicationRecord
 
   def set_published_at
     self.published_at = Time.current
-  end
-
-  def set_default_channel
-    self.channel ||= 'ペアワーク・モブワーク1'
   end
 
   def reserved_at_in_schedules?
