@@ -46,7 +46,7 @@ nav.global-nav
               .global-nav-links__link-label
                 | 提出物
         li.global-nav-links__item
-          = link_to questions_path(target: 'not_solved'), class: "global-nav-links__link #{current_link(/^questions/)}" do
+          = link_to questions_path(target: 'not_solved'), class: "global-nav-links__link #{current_link(/^(questions|pair_works)/)}" do
             .global-nav-links__link-icon
               i.fa-solid.fa-comment-question
             // TODO ペアワークを本番リリースしたらこの分岐は削除
