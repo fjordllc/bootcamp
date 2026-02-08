@@ -26,5 +26,14 @@ micro_report<%= id %>:
 
 micro_report29:
   user: machida
+  comment_user: machida
   content: スタンプがたくさんついた分報です。
   created_at: '2025-10-01 01:00:00'
+
+<% (30..54).each do |id| %>
+micro_report<%= id %>:
+  user: kimura
+  comment_user: kimura
+  content: テスト用の分報
+  created_at: "2022-01-04 00:00:00"
+<% end %>
