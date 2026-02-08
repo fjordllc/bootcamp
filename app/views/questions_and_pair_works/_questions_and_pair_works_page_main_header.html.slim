@@ -1,5 +1,5 @@
 // TODO ペアワークを本番リリースしたらこの分岐は削除
-- unless Rails.env.production?
+- if pair_work_available?
   header.page-main-header
     .container
       .page-main-header__inner

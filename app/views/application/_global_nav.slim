@@ -50,24 +50,25 @@ nav.global-nav
             .global-nav-links__link-icon
               i.fa-solid.fa-comment-question
             // TODO ペアワークを本番リリースしたらこの分岐は削除
-            - if Rails.env.production?
+            - if pair_work_available?
+              - if Cache.not_solved_question_count.positive? || Cache.not_solved_pair_work_count.positive?
+                .global-nav__item-count.a-notification-count
+                  = Cache.not_solved_question_count + Cache.not_solved_pair_work_count
+            - else
               - if Cache.not_solved_question_count.positive?
                 .global-nav__item-count.a-notification-count
                   = Cache.not_solved_question_count
-            - elsif Cache.not_solved_question_count.positive? || Cache.not_solved_pair_work_count.positive?
-              .global-nav__item-count.a-notification-count
-                = Cache.not_solved_question_count + Cache.not_solved_pair_work_count
             // TODO ペアワークを本番リリースしたらこの分岐は削除
-            - if Rails.env.production?
-              .global-nav-links__link-label
-                | Q&A
-            - else
+            - if pair_work_available?
               .global-nav-links__link-label
                 | Q&A
                 br.is-hidden-sm-down
                 span.is-hidden-md-up
                   | ・
                 | ペアワーク
+            - else
+              .global-nav-links__link-label
+                | Q&A
         li.global-nav-links__item
           = link_to '/pages', class: "global-nav-links__link #{@page&.slug != 'help' && @page&.slug != 'help-adviser' && current_link(/^pages/)}" do
             .global-nav-links__link-icon
