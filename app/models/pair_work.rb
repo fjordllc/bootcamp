@@ -52,8 +52,6 @@ class PairWork < ApplicationRecord
                                         .where(reserved_at: within_day)
                               }
 
-  columns_for_keyword_search :title, :description
-
   mentionable_as :description
 
   def self.ransackable_attributes(_auth_object = nil)
