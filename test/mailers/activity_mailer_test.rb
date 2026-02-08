@@ -1285,6 +1285,108 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_empty ActionMailer::Base.deliveries
   end
 
+  test 'came_pair_work' do
+    pair_work = pair_works(:pair_work1)
+    mentor = users(:komagata)
+
+    ActivityMailer.came_pair_work(
+      receiver: mentor,
+      pair_work:
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 28, link: "/pair_works/#{pair_work.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] kimuraさんからペアワーク依頼「募集中のペアワークです(タイトル)」が投稿されました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">ペアワークのページへ</a>}, email.body.to_s)
+  end
+
+  test 'came_pair_work with params' do
+    pair_work = pair_works(:pair_work1)
+    mentor = users(:komagata)
+
+    mailer = ActivityMailer.with(
+      receiver: mentor,
+      pair_work:
+    ).came_pair_work
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 28, link: "/pair_works/#{pair_work.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] kimuraさんからペアワーク依頼「募集中のペアワークです(タイトル)」が投稿されました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">ペアワークのページへ</a>}, email.body.to_s)
+  end
+
+  test 'matching_pair_work' do
+    pair_work = pair_works(:pair_work2)
+    mentor = users(:komagata)
+
+    ActivityMailer.matching_pair_work(
+      receiver: mentor,
+      pair_work:
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 29, link: "/pair_works/#{pair_work.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] kimuraさんのペアワーク【 ペア確定済みのペアワークです(タイトル) 】のペアがsotugyouさんに決定しました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">ペアワークのページへ</a>}, email.body.to_s)
+  end
+
+  test 'matching_pair_work with params' do
+    pair_work = pair_works(:pair_work2)
+    mentor = users(:komagata)
+
+    mailer = ActivityMailer.with(
+      receiver: mentor,
+      pair_work:
+    ).matching_pair_work
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 29, link: "/pair_works/#{pair_work.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] kimuraさんのペアワーク【 ペア確定済みのペアワークです(タイトル) 】のペアがsotugyouさんに決定しました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">ペアワークのページへ</a>}, email.body.to_s)
+  end
+
+  test 'matching_pair_work to mute email notification or retired user' do
+    pair_work = pair_works(:pair_work2)
+    receiver = users(:hatsuno)
+    Watch.create!(user: receiver, watchable: pair_work)
+
+    receiver.update_columns(mail_notification: false, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.matching_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
+    assert_empty ActionMailer::Base.deliveries
+
+    receiver.update_columns(mail_notification: false, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.matching_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
+    assert_empty ActionMailer::Base.deliveries
+
+    receiver.update_columns(mail_notification: true, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.matching_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
+    assert_empty ActionMailer::Base.deliveries
+
+    receiver.update_columns(mail_notification: true, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.matching_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
+    assert_not ActionMailer::Base.deliveries.empty?
+  end
+
   private
 
   def mailer_url_options

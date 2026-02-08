@@ -1,0 +1,156 @@
+# frozen_string_literal: true
+
+require 'test_helper'
+
+class PairWorkTest < ActiveSupport::TestCase
+  test '.by_target' do
+    solved_pair_work = pair_works(:pair_work2)
+    not_solved_pair_work = pair_works(:pair_work1)
+    assert_includes PairWork.by_target('solved'), solved_pair_work
+    assert_not_includes PairWork.by_target('solved'), not_solved_pair_work
+
+    assert_includes PairWork.by_target('not_solved'), not_solved_pair_work
+    assert_not_includes PairWork.by_target('not_solved'), solved_pair_work
+
+    assert_includes PairWork.by_target(nil), solved_pair_work
+    assert_includes PairWork.by_target(nil), not_solved_pair_work
+  end
+
+  test '.generate_pair_works_property' do
+    solved_pair_works_property = PairWork.generate_pair_works_property('solved')
+    assert_equal 'ペア確定済みのペアワーク', solved_pair_works_property.title
+    assert_equal 'ペア確定済みのペアワークはありません。', solved_pair_works_property.empty_message
+
+    not_solved_pair_works_property = PairWork.generate_pair_works_property('not_solved')
+    assert_equal '募集中のペアワーク', not_solved_pair_works_property.title
+    assert_equal '募集中のペアワークはありません。', not_solved_pair_works_property.empty_message
+
+    all_pair_works_property = PairWork.generate_pair_works_property(nil)
+    assert_equal '全てのペアワーク', all_pair_works_property.title
+    assert_equal 'ペアワークはありません。', all_pair_works_property.empty_message
+  end
+
+  test '#generate_notice_message' do
+    wip_pair_work = pair_works(:pair_work3)
+    assert_equal 'ペアワークをWIPとして保存しました。', wip_pair_work.generate_notice_message(:create)
+    assert_equal 'ペアワークをWIPとして保存しました。', wip_pair_work.generate_notice_message(:update)
+
+    published_pair_work = pair_works(:pair_work1)
+    assert_equal 'ペアワークを作成しました。', published_pair_work.generate_notice_message(:create)
+    assert_equal 'ペアワークを更新しました。', published_pair_work.generate_notice_message(:update)
+  end
+
+  test '.unsolved_badge' do
+    assert_equal 1, PairWork.unsolved_badge(current_user: users(:komagata))
+
+    assert_nil PairWork.unsolved_badge(current_user: users(:hatsuno))
+  end
+
+  test '.matching?' do
+    student = users(:kimura)
+    mentor = users(:mentormentaro)
+    stub_id = 1
+    matching_request = { buddy_id: stub_id, reserved_at: '2025-01-20' }
+    update_request = {
+      title: 'タイトル', description: '詳細',
+      practice_id: stub_id, channel: 'チャンネル', schedules_attributes: {}
+    }
+
+    assert_not PairWork.matching?(mentor, update_request)
+    assert_not PairWork.matching?(student, matching_request)
+
+    assert PairWork.matching?(mentor, matching_request)
+  end
+
+  test '.matching_params?' do
+    stub_id = 1
+    matching_request = { buddy_id: stub_id, reserved_at: '2025-01-20' }
+    update_request = {
+      title: 'タイトル', description: '詳細',
+      practice_id: stub_id, channel: 'チャンネル', schedules_attributes: {}
+    }
+    assert PairWork.matching_params?(matching_request)
+    assert_not PairWork.matching_params?(update_request)
+  end
+
+  test '.upcoming_pair_works' do
+    user = users(:hajime)
+
+    travel_to Time.zone.local(2025, 1, 15, 12, 0, 0) do
+      pair_work_template = {
+        user:,
+        title: 'ペアが確定していて、近日開催されるペアワーク',
+        description: 'ペアが確定していて、近日開催されるペアワーク',
+        buddy: users(:komagata),
+        channel: 'ペアワーク・モブワーク1',
+        wip: false
+      }
+      upcoming_pair_work_tomorrow = PairWork.create!(pair_work_template.merge(
+                                                       reserved_at: Time.current.beginning_of_day + 1.day,
+                                                       schedules_attributes: [{ proposed_at: Time.current.beginning_of_day + 1.day }]
+                                                     ))
+      upcoming_pair_work_day_after_tomorrow = PairWork.create!(pair_work_template.merge(
+                                                                 reserved_at: Time.current.beginning_of_day + 2.days,
+                                                                 schedules_attributes: [{ proposed_at: Time.current.beginning_of_day + 2.days }]
+                                                               ))
+      assert_includes PairWork.upcoming_pair_works(user), upcoming_pair_work_tomorrow
+      assert_includes PairWork.upcoming_pair_works(user), upcoming_pair_work_day_after_tomorrow
+
+      held_today_pair_work = PairWork.create!(pair_work_template.merge(
+                                                reserved_at: Time.current.beginning_of_day,
+                                                schedules_attributes: [{ proposed_at: Time.current.beginning_of_day }]
+                                              ))
+      assert_not_includes PairWork.upcoming_pair_works(user), held_today_pair_work
+
+      unrelated_pair_work = pair_works(:pair_work2)
+      assert_not_includes PairWork.upcoming_pair_works(user), unrelated_pair_work
+    end
+  end
+
+  test '.not_held' do
+    travel_to Time.zone.local(2025, 1, 15, 12, 0, 0) do
+      not_held_pair_work = PairWork.create!({
+                                              user: users(:kimura),
+                                              title: 'ペア確定したが、まだ実施されてないペアワーク',
+                                              description: 'ペア確定したが、まだ実施されてないペアワーク',
+                                              buddy: users(:komagata),
+                                              channel: 'ペアワーク・モブワーク1',
+                                              wip: false,
+                                              reserved_at: Time.current.beginning_of_day + 1.day,
+                                              schedules_attributes: [{ proposed_at: Time.current.beginning_of_day + 1.day }]
+                                            })
+      not_solved_pair_work = pair_works(:pair_work1)
+      wip_pair_work = pair_works(:pair_work3)
+
+      held_on_pair_work = pair_works(:pair_work2)
+
+      assert_includes PairWork.not_held, not_held_pair_work
+      assert_includes PairWork.not_held, not_solved_pair_work
+      assert_includes PairWork.not_held, wip_pair_work
+
+      assert_not_includes PairWork.not_held, held_on_pair_work
+    end
+  end
+
+  test '#solved?' do
+    solved_pair_work = pair_works(:pair_work2)
+    assert solved_pair_work.solved?
+
+    not_solved_pair_work = pair_works(:pair_work1)
+    assert_not not_solved_pair_work.solved?
+  end
+
+  test '#important?' do
+    not_solved_pair_work = pair_works(:pair_work1)
+    assert not_solved_pair_work.important?
+
+    not_solved_pair_work.comments.create!(
+      user: users(:komagata),
+      description: 'コメント'
+    )
+    assert_not not_solved_pair_work.important?
+
+    solved_pair_work = pair_works(:pair_work2)
+    assert_not solved_pair_work.important?
+  end
+end
