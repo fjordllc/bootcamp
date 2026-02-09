@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class QuestionAutoCloser
-  SYSTEM_USER_LOGIN = 'pjord'
+  SYSTEM_USER_LOGIN_NAME = 'pjord'
   AUTO_CLOSE_WARNING_MESSAGE = 'このQ&Aは1ヶ月間更新がありませんでした。このまま更新がなければ1週間後に自動的にクローズされます。'
   AUTO_CLOSE_MESSAGE = '自動的にクローズしました。'
 
   def initialize
-    @system_user = User.find_by!(login_name: SYSTEM_USER_LOGIN)
+    @system_user = User.find_by!(login_name: SYSTEM_USER_LOGIN_NAME)
   end
 
   def post_warning
