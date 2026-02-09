@@ -4,6 +4,10 @@ require 'application_system_test_case'
 require 'test_helper'
 
 class Mentor::BuzzesTest < ApplicationSystemTestCase
+  setup do
+    Buzz.delete_all
+  end
+
   test 'show listing buzzes' do
     visit_with_auth mentor_buzzes_path, 'machida'
     assert_equal '紹介・言及記事 | FBC', title
