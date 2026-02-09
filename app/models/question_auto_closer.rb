@@ -19,7 +19,7 @@ class QuestionAutoCloser
   def close_inactive_questions
     questions = extract_inactive_questions_to_close
     questions.each do |question|
-      close_with_best_answer(question)
+      create_auto_close_message(question)
     end
   end
 
@@ -60,7 +60,7 @@ class QuestionAutoCloser
     question.updated_at < last_warned_at && last_warned_at <= 1.week.ago
   end
 
-  def close_with_best_answer(question)
+  def create_auto_close_message(question)
     close_answer = CorrectAnswer.create!(question:, user: @system_user, description: AUTO_CLOSE_MESSAGE)
     publish_events(close_answer)
   end
