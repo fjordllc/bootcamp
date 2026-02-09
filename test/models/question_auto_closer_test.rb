@@ -9,7 +9,7 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
   AUTO_CLOSE_WARNING_MESSAGE = 'このQ&Aは1ヶ月間更新がありませんでした。このまま更新がなければ1週間後に自動的にクローズされます。'
   AUTO_CLOSE_MESSAGE = '自動的にクローズしました。'
 
-  test '.post_warning' do
+  test 'posts warning for inactive questions' do
     question = create_question
 
     travel_to question.created_at.advance(months: 1, days: -1) do
@@ -28,7 +28,7 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
     end
   end
 
-  test '.close_and_select_best_answer' do
+  test 'auto-closes inactive questions' do
     question = create_question
 
     warned_at = question.created_at.advance(months: 1)
