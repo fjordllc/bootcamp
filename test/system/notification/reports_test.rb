@@ -128,7 +128,6 @@ class Notification::ReportsTest < NotificationSystemTestCase
     title,
     description
   )
-
     report_id = create_report_as(author_login_name, title, description, save_as_wip: true)
 
     # 日報を WIP -> 提出 -> 内容変更 の流れで作成・更新し通知の有無を確認する

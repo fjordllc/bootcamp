@@ -12,9 +12,7 @@ class Notification::AssignedAsCheckerTest < NotificationSystemTestCase
     AbstractNotifier.delivery_mode = @delivery_mode
   end
 
-  def deliveries
-    ActionMailer::Base.deliveries
-  end
+  delegate :deliveries, to: :'ActionMailer::Base'
 
   test 'notify mentor when assigned as checker' do
     visit_with_auth "/products/#{products(:product1).id}/edit", 'komagata'
