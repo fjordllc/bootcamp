@@ -3,6 +3,10 @@
 require 'application_system_test_case'
 
 class BuzzesTest < ApplicationSystemTestCase
+  setup do
+    Buzz.delete_all
+  end
+
   test 'does not show edit button to users' do
     visit_with_auth buzzes_path, 'kimura'
     assert_no_link '内容修正'
