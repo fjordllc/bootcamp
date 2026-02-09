@@ -232,4 +232,26 @@ class MicroReportsTest < ApplicationSystemTestCase
     assert_text '分報を削除しました。'
     assert_selector '.pagination__item.is-active', text: '1'
   end
+
+  test 'redirects to target micro_report page if micro_report_id is given as a query parameter' do
+    user = users(:hatsuno)
+
+    per_page = Users::MicroReportsController::PAGER_NUMBER
+    user.micro_reports.destroy_all
+    user.micro_reports.create!(Array.new(per_page) { |i| { content: "#{i + 1}個目の分報" } })
+    target_micro_report = user.micro_reports.create!(content: '2ページ目の分報')
+
+    visit_with_auth user_micro_reports_path(user, micro_report_id: target_micro_report.id), user.login_name
+    assert_current_path user_micro_reports_path(user, page: 2), ignore_query: false
+    assert_selector "#micro_report_#{target_micro_report.id}", text: '2ページ目の分報'
+  end
+
+  test 'redirects to micro_report index with alert if target micro_report_id does not exist' do
+    user = users(:hatsuno)
+
+    visit_with_auth user_micro_reports_path(user, micro_report_id: -1), user.login_name
+
+    assert_current_path user_micro_reports_path(user)
+    assert_selector '.flash__message', text: '指定された分報は見つかりませんでした。'
+  end
 end
