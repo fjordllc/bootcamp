@@ -11,16 +11,17 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
 
   test 'posts warning for inactive questions' do
     question = create_question
+    question_auto_closer = QuestionAutoCloser.new
 
     travel_to question.created_at.advance(months: 1, days: -1) do
       assert_no_difference -> { question.answers.count } do
-        QuestionAutoCloser.post_warning
+        question_auto_closer.post_warning
       end
     end
 
     travel_to question.created_at.advance(months: 1) do
       assert_difference -> { question.answers.count }, 1 do
-        QuestionAutoCloser.post_warning
+        question_auto_closer.post_warning
       end
       answer = question.answers.last
       assert_equal users(:pjord), answer.user
@@ -30,6 +31,7 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
 
   test 'auto-closes inactive questions' do
     question = create_question
+    question_auto_closer = QuestionAutoCloser.new
 
     warned_at = question.created_at.advance(months: 1)
     system_user = users(:pjord)
@@ -42,13 +44,13 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
 
     travel_to warned_at.advance(weeks: 1, days: -1) do
       assert_no_difference -> { question.answers.count } do
-        QuestionAutoCloser.close_and_select_best_answer
+        question_auto_closer.close_and_select_best_answer
       end
     end
 
     travel_to warned_at.advance(weeks: 1) do
       assert_difference -> { question.answers.count }, 1 do
-        QuestionAutoCloser.close_and_select_best_answer
+        question_auto_closer.close_and_select_best_answer
       end
       answer = question.answers.last
       assert_equal system_user, answer.user
@@ -59,16 +61,18 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
 
   test 'does not post warning for WIP questions' do
     question = create_question(wip: true)
+    question_auto_closer = QuestionAutoCloser.new
 
     travel_to question.created_at.advance(months: 1) do
       assert_no_difference -> { question.answers.count } do
-        QuestionAutoCloser.post_warning
+        question_auto_closer.post_warning
       end
     end
   end
 
   test 'does not close WIP questions' do
     question = create_question
+    question_auto_closer = QuestionAutoCloser.new
 
     warned_at = question.created_at.advance(months: 1)
     question.answers.create!(
@@ -81,26 +85,28 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
 
     travel_to warned_at.advance(weeks: 1) do
       assert_no_difference -> { question.answers.count } do
-        QuestionAutoCloser.close_and_select_best_answer
+        question_auto_closer.close_and_select_best_answer
       end
     end
   end
 
   test 'resets warning countdown when the question is updated' do
     question = create_question(wip: true)
+    question_auto_closer = QuestionAutoCloser.new
 
     updated_at = question.created_at.advance(months: 1)
     question.update!(wip: false, updated_at:)
 
     travel_to updated_at do
       assert_no_difference -> { question.answers.count } do
-        QuestionAutoCloser.post_warning
+        question_auto_closer.post_warning
       end
     end
   end
 
   test 'resets auto-close countdown when the question is updated' do
     question = create_question
+    question_auto_closer = QuestionAutoCloser.new
 
     warned_at = question.created_at.advance(months: 1)
     question.answers.create!(
@@ -114,13 +120,14 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
 
     travel_to warned_at.advance(weeks: 1) do
       assert_no_difference -> { question.answers.count } do
-        QuestionAutoCloser.close_and_select_best_answer
+        question_auto_closer.close_and_select_best_answer
       end
     end
   end
 
   test 'resets auto-close countdown when a new answer is added' do
     question = create_question
+    question_auto_closer = QuestionAutoCloser.new
 
     warned_at = question.created_at.advance(months: 1)
     question.answers.create!(
@@ -139,13 +146,14 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
 
     travel_to warned_at.advance(weeks: 1) do
       assert_no_difference -> { question.answers.count } do
-        QuestionAutoCloser.close_and_select_best_answer
+        question_auto_closer.close_and_select_best_answer
       end
     end
   end
 
   test 'auto-closes questions that have been reopened after auto-closing' do
     question = create_question
+    question_auto_closer = QuestionAutoCloser.new
 
     warned_at = question.created_at.advance(months: 1)
     system_user = users(:pjord)
@@ -174,14 +182,14 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
 
     travel_to reopened_at.advance(months: 1, days: -1) do
       assert_no_difference -> { question.answers.count } do
-        QuestionAutoCloser.post_warning
+        question_auto_closer.post_warning
       end
     end
 
     again_warned_at = reopened_at.advance(months: 1)
     travel_to again_warned_at do
       assert_difference -> { question.answers.count }, 1 do
-        QuestionAutoCloser.post_warning
+        question_auto_closer.post_warning
       end
       answer = question.answers.last
       assert_equal system_user, answer.user
@@ -190,13 +198,13 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
 
     travel_to again_warned_at.advance(weeks: 1, days: -1) do
       assert_no_difference -> { question.answers.count } do
-        QuestionAutoCloser.close_and_select_best_answer
+        question_auto_closer.close_and_select_best_answer
       end
     end
 
     travel_to again_warned_at.advance(weeks: 1) do
       assert_difference -> { question.answers.count }, 1 do
-        QuestionAutoCloser.close_and_select_best_answer
+        question_auto_closer.close_and_select_best_answer
       end
       answer = question.answers.last
       assert_equal system_user, answer.user
