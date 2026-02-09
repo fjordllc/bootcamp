@@ -6,7 +6,7 @@ require 'supports/question_auto_closer_helper'
 class QuestionAutoCloserTest < ActiveSupport::TestCase
   include QuestionAutoCloserHelper
 
-  AUTO_CLOSE_WARNING_MESSAGE = 'このQ&Aは1ヶ月間更新がありませんでした。このまま更新がなければ1週間後に自動的にクローズされます。'
+  WARNING_MESSAGE = 'このQ&Aは1ヶ月間更新がありませんでした。このまま更新がなければ1週間後に自動的にクローズされます。'
   AUTO_CLOSE_MESSAGE = '自動的にクローズしました。'
 
   test 'posts warning for inactive questions' do
@@ -25,7 +25,7 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
       end
       answer = question.answers.last
       assert_equal users(:pjord), answer.user
-      assert_equal AUTO_CLOSE_WARNING_MESSAGE, answer.description
+      assert_equal WARNING_MESSAGE, answer.description
     end
   end
 
@@ -37,7 +37,7 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
     system_user = users(:pjord)
     question.answers.create!(
       user: system_user,
-      description: AUTO_CLOSE_WARNING_MESSAGE,
+      description: WARNING_MESSAGE,
       created_at: warned_at,
       updated_at: warned_at
     )
@@ -77,7 +77,7 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
     warned_at = question.created_at.advance(months: 1)
     question.answers.create!(
       user: users(:pjord),
-      description: AUTO_CLOSE_WARNING_MESSAGE,
+      description: WARNING_MESSAGE,
       created_at: warned_at,
       updated_at: warned_at
     )
@@ -111,7 +111,7 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
     warned_at = question.created_at.advance(months: 1)
     question.answers.create!(
       user: users(:pjord),
-      description: AUTO_CLOSE_WARNING_MESSAGE,
+      description: WARNING_MESSAGE,
       created_at: warned_at,
       updated_at: warned_at
     )
@@ -132,7 +132,7 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
     warned_at = question.created_at.advance(months: 1)
     question.answers.create!(
       user: users(:pjord),
-      description: AUTO_CLOSE_WARNING_MESSAGE,
+      description: WARNING_MESSAGE,
       created_at: warned_at,
       updated_at: warned_at
     )
@@ -159,7 +159,7 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
     system_user = users(:pjord)
     question.answers.create!(
       user: system_user,
-      description: AUTO_CLOSE_WARNING_MESSAGE,
+      description: WARNING_MESSAGE,
       created_at: warned_at,
       updated_at: warned_at
     )
@@ -193,7 +193,7 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
       end
       answer = question.answers.last
       assert_equal system_user, answer.user
-      assert_equal AUTO_CLOSE_WARNING_MESSAGE, answer.description
+      assert_equal WARNING_MESSAGE, answer.description
     end
 
     travel_to again_warned_at.advance(weeks: 1, days: -1) do

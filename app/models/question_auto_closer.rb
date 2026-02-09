@@ -2,7 +2,7 @@
 
 class QuestionAutoCloser
   SYSTEM_USER_LOGIN_NAME = 'pjord'
-  AUTO_CLOSE_WARNING_MESSAGE = 'このQ&Aは1ヶ月間更新がありませんでした。このまま更新がなければ1週間後に自動的にクローズされます。'
+  WARNING_MESSAGE = 'このQ&Aは1ヶ月間更新がありませんでした。このまま更新がなければ1週間後に自動的にクローズされます。'
   AUTO_CLOSE_MESSAGE = '自動的にクローズしました。'
 
   def initialize
@@ -46,7 +46,7 @@ class QuestionAutoCloser
   def create_warning_message(question)
     answer = question.answers.create!(
       user: @system_user,
-      description: AUTO_CLOSE_WARNING_MESSAGE
+      description: WARNING_MESSAGE
     )
     ActiveSupport::Notifications.instrument('answer.create', answer:)
   end
@@ -54,7 +54,7 @@ class QuestionAutoCloser
   def should_close?(question)
     last_updated_answer = question.answers.order(updated_at: :desc, id: :desc).first
     return false unless last_updated_answer
-    return false unless last_updated_answer.user_id == @system_user.id && last_updated_answer.description == AUTO_CLOSE_WARNING_MESSAGE
+    return false unless last_updated_answer.user_id == @system_user.id && last_updated_answer.description == WARNING_MESSAGE
 
     last_warned_at = last_updated_answer.updated_at
     question.updated_at < last_warned_at && last_warned_at <= 1.week.ago
