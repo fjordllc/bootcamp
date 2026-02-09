@@ -1,28 +1,24 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'supports/question_auto_closer_helper'
 
 class QuestionAutoCloserTest < ActiveSupport::TestCase
+  include QuestionAutoCloserHelper
+
   AUTO_CLOSE_WARNING_MESSAGE = 'このQ&Aは1ヶ月間更新がありませんでした。このまま更新がなければ1週間後に自動的にクローズされます。'
   AUTO_CLOSE_MESSAGE = '自動的にクローズしました。'
 
   test '.post_warning' do
-    created_at = Time.zone.local(2025, 10, 1, 0, 0, 0)
-    question = Question.create!(
-      title: '自動クローズテスト',
-      description: 'テスト',
-      user: users(:kimura),
-      created_at:,
-      updated_at: created_at
-    )
+    question = create_question
 
-    travel_to created_at.advance(months: 1, days: -1) do
+    travel_to question.created_at.advance(months: 1, days: -1) do
       assert_no_difference -> { question.answers.count } do
         QuestionAutoCloser.post_warning
       end
     end
 
-    travel_to created_at.advance(months: 1) do
+    travel_to question.created_at.advance(months: 1) do
       assert_difference -> { question.answers.count }, 1 do
         QuestionAutoCloser.post_warning
       end
@@ -33,16 +29,9 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
   end
 
   test '.close_and_select_best_answer' do
-    created_at = Time.zone.local(2025, 10, 1, 0, 0, 0)
-    question = Question.create!(
-      title: '自動クローズテスト',
-      description: 'テスト',
-      user: users(:kimura),
-      created_at:,
-      updated_at: created_at
-    )
+    question = create_question
 
-    warned_at = created_at.advance(months: 1)
+    warned_at = question.created_at.advance(months: 1)
     system_user = users(:pjord)
     question.answers.create!(
       user: system_user,
@@ -69,17 +58,9 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
   end
 
   test 'does not post warning for WIP questions' do
-    created_at = Time.zone.local(2025, 10, 1, 0, 0, 0)
-    question = Question.create!(
-      title: 'WIPの質問',
-      description: 'テスト',
-      user: users(:kimura),
-      wip: true,
-      created_at:,
-      updated_at: created_at
-    )
+    question = create_question(wip: true)
 
-    travel_to created_at.advance(months: 1) do
+    travel_to question.created_at.advance(months: 1) do
       assert_no_difference -> { question.answers.count } do
         QuestionAutoCloser.post_warning
       end
@@ -87,16 +68,9 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
   end
 
   test 'does not close WIP questions' do
-    created_at = Time.zone.local(2025, 10, 1, 0, 0, 0)
-    question = Question.create!(
-      title: '公開から1ヶ月後WIPにする質問',
-      description: 'テスト',
-      user: users(:kimura),
-      created_at:,
-      updated_at: created_at
-    )
+    question = create_question
 
-    warned_at = created_at.advance(months: 1)
+    warned_at = question.created_at.advance(months: 1)
     question.answers.create!(
       user: users(:pjord),
       description: AUTO_CLOSE_WARNING_MESSAGE,
@@ -113,17 +87,9 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
   end
 
   test 'resets warning countdown when the question is updated' do
-    created_at = Time.zone.local(2025, 10, 1, 0, 0, 0)
-    question = Question.create!(
-      title: '後日公開する質問',
-      description: 'テスト',
-      user: users(:kimura),
-      wip: true,
-      created_at:,
-      updated_at: created_at
-    )
+    question = create_question(wip: true)
 
-    updated_at = created_at.advance(months: 1)
+    updated_at = question.created_at.advance(months: 1)
     question.update!(wip: false, updated_at:)
 
     travel_to updated_at do
@@ -134,16 +100,9 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
   end
 
   test 'resets auto-close countdown when the question is updated' do
-    created_at = Time.zone.local(2025, 10, 1, 0, 0, 0)
-    question = Question.create!(
-      title: '自動クローズテスト',
-      description: 'テスト',
-      user: users(:kimura),
-      created_at:,
-      updated_at: created_at
-    )
+    question = create_question
 
-    warned_at = created_at.advance(months: 1)
+    warned_at = question.created_at.advance(months: 1)
     question.answers.create!(
       user: users(:pjord),
       description: AUTO_CLOSE_WARNING_MESSAGE,
@@ -161,16 +120,9 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
   end
 
   test 'resets auto-close countdown when a new answer is added' do
-    created_at = Time.zone.local(2025, 10, 1, 0, 0, 0)
-    question = Question.create!(
-      title: '自動クローズテスト',
-      description: 'テスト',
-      user: users(:kimura),
-      created_at:,
-      updated_at: created_at
-    )
+    question = create_question
 
-    warned_at = created_at.advance(months: 1)
+    warned_at = question.created_at.advance(months: 1)
     question.answers.create!(
       user: users(:pjord),
       description: AUTO_CLOSE_WARNING_MESSAGE,
@@ -193,16 +145,9 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
   end
 
   test 'auto-closes questions that have been reopened after auto-closing' do
-    created_at = Time.zone.local(2025, 10, 1, 0, 0, 0)
-    question = Question.create!(
-      title: '自動クローズテスト',
-      description: 'テスト',
-      user: users(:kimura),
-      created_at:,
-      updated_at: created_at
-    )
+    question = create_question
 
-    warned_at = created_at.advance(months: 1)
+    warned_at = question.created_at.advance(months: 1)
     system_user = users(:pjord)
     question.answers.create!(
       user: system_user,
