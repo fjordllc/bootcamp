@@ -10,6 +10,7 @@ class CurrentUserController < ApplicationController
   def update
     @user.uploaded_avatar = user_params[:avatar]
     if @user.update(user_params)
+      @user.avatar_attach_with_filename
       redirect_to @user, notice: 'ユーザー情報を更新しました。'
     else
       render 'edit'
