@@ -61,13 +61,8 @@ class QuestionAutoCloser
   end
 
   def create_auto_close_message(question)
-    close_answer = CorrectAnswer.create!(question:, user: @system_user, description: AUTO_CLOSE_MESSAGE)
-    publish_events(close_answer)
-  end
-
-  def publish_events(correct_answer)
-    action_name = "#{self.class.name}##{__method__}"
-    ActiveSupport::Notifications.instrument('answer.save', answer: correct_answer, action: action_name)
-    ActiveSupport::Notifications.instrument('correct_answer.save', answer: correct_answer)
+    answer = CorrectAnswer.create!(question:, user: @system_user, description: AUTO_CLOSE_MESSAGE)
+    ActiveSupport::Notifications.instrument('answer.save', answer:, action: "#{self.class.name}##{__method__}")
+    ActiveSupport::Notifications.instrument('correct_answer.save', answer:)
   end
 end
