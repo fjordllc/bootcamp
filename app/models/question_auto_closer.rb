@@ -16,7 +16,7 @@ class QuestionAutoCloser
     end
   end
 
-  def close_and_select_best_answer
+  def close_inactive_questions
     questions = extract_inactive_questions_to_close
     questions.each do |question|
       close_with_best_answer(question)

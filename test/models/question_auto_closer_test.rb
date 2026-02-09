@@ -44,13 +44,13 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
 
     travel_to warned_at.advance(weeks: 1, days: -1) do
       assert_no_difference -> { question.answers.count } do
-        question_auto_closer.close_and_select_best_answer
+        question_auto_closer.close_inactive_questions
       end
     end
 
     travel_to warned_at.advance(weeks: 1) do
       assert_difference -> { question.answers.count }, 1 do
-        question_auto_closer.close_and_select_best_answer
+        question_auto_closer.close_inactive_questions
       end
       answer = question.answers.last
       assert_equal system_user, answer.user
@@ -85,7 +85,7 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
 
     travel_to warned_at.advance(weeks: 1) do
       assert_no_difference -> { question.answers.count } do
-        question_auto_closer.close_and_select_best_answer
+        question_auto_closer.close_inactive_questions
       end
     end
   end
@@ -120,7 +120,7 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
 
     travel_to warned_at.advance(weeks: 1) do
       assert_no_difference -> { question.answers.count } do
-        question_auto_closer.close_and_select_best_answer
+        question_auto_closer.close_inactive_questions
       end
     end
   end
@@ -146,7 +146,7 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
 
     travel_to warned_at.advance(weeks: 1) do
       assert_no_difference -> { question.answers.count } do
-        question_auto_closer.close_and_select_best_answer
+        question_auto_closer.close_inactive_questions
       end
     end
   end
@@ -198,13 +198,13 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
 
     travel_to again_warned_at.advance(weeks: 1, days: -1) do
       assert_no_difference -> { question.answers.count } do
-        question_auto_closer.close_and_select_best_answer
+        question_auto_closer.close_inactive_questions
       end
     end
 
     travel_to again_warned_at.advance(weeks: 1) do
       assert_difference -> { question.answers.count }, 1 do
-        question_auto_closer.close_and_select_best_answer
+        question_auto_closer.close_inactive_questions
       end
       answer = question.answers.last
       assert_equal system_user, answer.user
