@@ -6,6 +6,10 @@ require 'supports/buzz_helper'
 class BuzzTest < ActiveSupport::TestCase
   include BuzzHelper
 
+  setup do
+    Buzz.delete_all
+  end
+
   test '.for_year returns buzzes within given year' do
     buzz1 = create_buzz('2023-12-31')
     buzz2 = create_buzz('2024-01-01')
