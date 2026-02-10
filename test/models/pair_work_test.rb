@@ -46,33 +46,6 @@ class PairWorkTest < ActiveSupport::TestCase
     assert_nil PairWork.unsolved_badge(current_user: users(:hatsuno))
   end
 
-  test '.matching?' do
-    student = users(:kimura)
-    mentor = users(:mentormentaro)
-    stub_id = 1
-    matching_request = { buddy_id: stub_id, reserved_at: '2025-01-20' }
-    update_request = {
-      title: 'タイトル', description: '詳細',
-      practice_id: stub_id, channel: 'チャンネル', schedules_attributes: {}
-    }
-
-    assert_not PairWork.matching?(mentor, update_request)
-    assert_not PairWork.matching?(student, matching_request)
-
-    assert PairWork.matching?(mentor, matching_request)
-  end
-
-  test '.matching_params?' do
-    stub_id = 1
-    matching_request = { buddy_id: stub_id, reserved_at: '2025-01-20' }
-    update_request = {
-      title: 'タイトル', description: '詳細',
-      practice_id: stub_id, channel: 'チャンネル', schedules_attributes: {}
-    }
-    assert PairWork.matching_params?(matching_request)
-    assert_not PairWork.matching_params?(update_request)
-  end
-
   test '.upcoming_pair_works' do
     user = users(:hajime)
 
@@ -152,5 +125,39 @@ class PairWorkTest < ActiveSupport::TestCase
 
     solved_pair_work = pair_works(:pair_work2)
     assert_not solved_pair_work.important?
+  end
+
+  test '#reserve' do
+    valid_params = {
+      reserved_at: Time.zone.parse('2025-01-02 01:00:00'),
+      buddy_id: users(:komagata).id
+    }
+    pair_work = pair_works(:pair_work1)
+
+    assert pair_work.reserve(valid_params)
+  end
+
+  test '#reserve fails when buddy is self' do
+    pair_work_creator = users(:kimura)
+    invalid_params_buddy_id = {
+      reserved_at: Time.zone.parse('2025-01-02 01:00:00'),
+      buddy_id: pair_work_creator.id
+    }
+    pair_work = pair_works(:pair_work1)
+
+    assert_not pair_work.reserve(invalid_params_buddy_id)
+    assert_includes pair_work.errors.full_messages, 'ペアに自分を指定することはできません。'
+  end
+
+  test '#reserve fails when reserved_at is not in proposed schedules' do
+    unscheduled_reserved_at = Time.zone.parse('2025-01-04 00:00:00')
+    invalid_params_reserved_at = {
+      reserved_at: unscheduled_reserved_at,
+      buddy_id: users(:komagata).id
+    }
+    pair_work = pair_works(:pair_work1)
+
+    assert_not pair_work.reserve(invalid_params_reserved_at)
+    assert_includes pair_work.errors.full_messages, '希望した日時は提案されたスケジュールに含まれていません。'
   end
 end

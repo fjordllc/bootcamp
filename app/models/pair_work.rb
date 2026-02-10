@@ -25,7 +25,8 @@ class PairWork < ApplicationRecord
   validates :description, presence: true
   validates :schedules, presence: true
   before_validation :set_published_at, if: :will_be_published?
-  validate :reserved_at_in_schedules?, on: :update
+  validate :reserved_at_in_schedules?, on: :reserve
+  validate :buddy_is_not_self, on: :reserve
 
   scope :solved, -> { where.not(reserved_at: nil) }
   scope :not_solved, -> { where(reserved_at: nil) }
@@ -77,23 +78,14 @@ class PairWork < ApplicationRecord
     ::Cache.not_solved_pair_work_count
   end
 
-  def self.matching?(current_user, params)
-    matching_params?(params) && current_user.mentor?
-  end
-
-  def self.matching_params?(params)
-    params[:buddy_id] && params[:reserved_at] &&
-      !params.key?(:title) && !params.key?(:description) &&
-      !params.key?(:practice_id) && !params.key?(:channel) && !params.key?(:schedules_attributes)
-  end
-
   def generate_notice_message(action_name)
     return 'ペアワークをWIPとして保存しました。' if wip?
 
     {
       create: 'ペアワークを作成しました。',
       update: 'ペアワークを更新しました。',
-      destroy: 'ペアワークを削除しました。'
+      destroy: 'ペアワークを削除しました。',
+      reserve: 'ペアが確定しました。'
     }[action_name]
   end
 
@@ -103,6 +95,11 @@ class PairWork < ApplicationRecord
 
   def important?
     comments.blank? && !solved?
+  end
+
+  def reserve(params)
+    assign_attributes(params)
+    save(context: :reserve)
   end
 
   private
@@ -119,5 +116,11 @@ class PairWork < ApplicationRecord
     return if reserved_at.nil?
 
     errors.add(:reserved_at, 'は提案されたスケジュールに含まれていません。') unless schedules.map(&:proposed_at).include?(reserved_at)
+  end
+
+  def buddy_is_not_self
+    return if buddy_id.nil?
+
+    errors.add(:buddy, 'に自分を指定することはできません。') if user_id == buddy_id
   end
 end

@@ -77,5 +77,5 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('pair_work.create', pair_work_notifier)
   ActiveSupport::Notifications.subscribe('pair_work.update', pair_work_notifier)
 
-  ActiveSupport::Notifications.subscribe('pair_work.update', PairWorkMatchingNotifier.new)
+  ActiveSupport::Notifications.subscribe('pair_work.reserve', PairWorkMatchingNotifier.new)
 end

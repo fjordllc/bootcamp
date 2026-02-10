@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PairWorksController < ApplicationController
-  before_action :set_my_pair_work, only: %i[edit destroy]
+  before_action :set_my_pair_work, only: %i[edit update destroy]
 
   PAGER_NUMBER = 10
 
@@ -39,7 +39,6 @@ class PairWorksController < ApplicationController
   end
 
   def update
-    set_updatable_pair_work
     set_wip
     if @pair_work.update(pair_work_params)
       ActiveSupport::Notifications.instrument('pair_work.update', pair_work: @pair_work)
@@ -63,14 +62,6 @@ class PairWorksController < ApplicationController
 
   def set_my_pair_work
     @pair_work = current_user.admin? ? PairWork.find(params[:id]) : current_user.pair_works.find(params[:id])
-  end
-
-  def set_updatable_pair_work
-    @pair_work = if current_user.admin? || PairWork.matching?(current_user, params[:pair_work])
-                   PairWork.find(params[:id])
-                 else
-                   current_user.pair_works.find(params[:id])
-                 end
   end
 
   def set_wip

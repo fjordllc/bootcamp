@@ -378,6 +378,7 @@ ja:
         description: 内容
         schedules: スケジュール
         reserved_at: 希望した日時
+        buddy: ペア
     enums:
       emotion:
           negative: Negative
