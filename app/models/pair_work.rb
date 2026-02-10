@@ -25,7 +25,7 @@ class PairWork < ApplicationRecord
   validates :description, presence: true
   validates :schedules, presence: true
   before_validation :set_published_at, if: :will_be_published?
-  validate :reserved_at_in_schedules?, on: :reserve
+  validate :reserved_at_in_schedules, on: :reserve
   validate :buddy_is_not_self, on: :reserve
 
   scope :solved, -> { where.not(reserved_at: nil) }
@@ -112,7 +112,7 @@ class PairWork < ApplicationRecord
     self.published_at = Time.current
   end
 
-  def reserved_at_in_schedules?
+  def reserved_at_in_schedules
     return if reserved_at.nil?
 
     errors.add(:reserved_at, 'は提案されたスケジュールに含まれていません。') unless schedules.map(&:proposed_at).include?(reserved_at)
