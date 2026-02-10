@@ -93,10 +93,6 @@ class PairWork < ApplicationRecord
     !reserved_at.nil?
   end
 
-  def important?
-    comments.blank? && !solved?
-  end
-
   def reserve(params)
     assign_attributes(params)
     save(context: :reserve)

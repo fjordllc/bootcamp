@@ -35,4 +35,8 @@ module PairWorkHelper
   def schedule_check_box_id(target_time)
     "schedule_ids_#{target_time.strftime('%Y%m%d%H%M')}"
   end
+
+  def important?(pair_work)
+    pair_work.comments.blank? && !pair_work.solved?
+  end
 end

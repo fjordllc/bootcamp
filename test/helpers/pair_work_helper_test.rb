@@ -67,4 +67,18 @@ class PairWorkHelperTest < ActionView::TestCase
       assert_equal 'schedule_ids_202501020100', schedule_check_box_id(target_time)
     end
   end
+
+  test '#important?' do
+    not_solved_pair_work = pair_works(:pair_work1)
+    assert important?(not_solved_pair_work)
+
+    not_solved_pair_work.comments.create!(
+      user: users(:komagata),
+      description: 'コメント'
+    )
+    assert_not important?(not_solved_pair_work)
+
+    solved_pair_work = pair_works(:pair_work2)
+    assert_not important?(solved_pair_work)
+  end
 end
