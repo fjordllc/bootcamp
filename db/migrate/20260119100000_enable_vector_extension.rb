@@ -8,8 +8,7 @@ class EnableVectorExtension < ActiveRecord::Migration[8.1]
 
     rescue ActiveRecord::StatementInvalid => e
       Rails.logger.warn "Notice: pgvector extension could not be enabled."
-      Rails.logger.warn  "Error details: #{e.message}"
-    rescue => e
-      Rails.logger.warn  "An unexpected error occurred: #{e.message}"
+      Rails.logger.warn "Error details: #{e.message}"
   end
 end
+
