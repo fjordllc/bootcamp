@@ -48,3 +48,4 @@ storage/
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+.DS_Store
