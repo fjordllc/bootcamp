@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'supports/buzz_helper'
 
 class BuzzTest < ActiveSupport::TestCase
+  include BuzzHelper
+
   test '.for_year returns buzzes within given year' do
     buzz1 = create_buzz('2023-12-31')
     buzz2 = create_buzz('2024-01-01')
@@ -17,16 +20,15 @@ class BuzzTest < ActiveSupport::TestCase
   end
 
   test '.latest_year' do
-    create_buzz('2023-01-01')
-    create_buzz('2024-01-01')
-    create_buzz('2025-01-01')
+    dates = %w[2023-01-01 2024-01-01 2025-01-01]
+    create_buzzes(dates)
     latest_year = 2025
     assert_equal latest_year, Buzz.latest_year
   end
 
   test '.years' do
-    create_buzz('2024-01-01')
-    create_buzz('2025-01-01')
+    dates = %w[2024-01-01 2025-01-01]
+    create_buzzes(dates)
     years = [2025, 2024]
     assert_equal years, Buzz.years
   end
@@ -85,15 +87,5 @@ class BuzzTest < ActiveSupport::TestCase
     BODY
     doc = Nokogiri::HTML.parse(html)
     assert_nil Buzz.date_from_doc(doc)
-  end
-
-  private
-
-  def create_buzz(date)
-    Buzz.create!(
-      title: "#{date}の記事",
-      url: 'https://www.example.com',
-      published_at: date
-    )
   end
 end
