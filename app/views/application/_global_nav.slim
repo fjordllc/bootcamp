@@ -54,10 +54,9 @@ nav.global-nav
               - if Cache.not_solved_question_count.positive? || Cache.not_solved_pair_work_count.positive?
                 .global-nav__item-count.a-notification-count
                   = Cache.not_solved_question_count + Cache.not_solved_pair_work_count
-            - else
-              - if Cache.not_solved_question_count.positive?
-                .global-nav__item-count.a-notification-count
-                  = Cache.not_solved_question_count
+            - elsif Cache.not_solved_question_count.positive?
+              .global-nav__item-count.a-notification-count
+                = Cache.not_solved_question_count
             // TODO ペアワークを本番リリースしたらこの分岐は削除
             - if pair_work_available?
               .global-nav-links__link-label
