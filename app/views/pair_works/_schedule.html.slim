@@ -15,7 +15,7 @@
             - target_time = pair_work.created_at.beginning_of_day + hour.hours + day.days
             - if proposed_at_list.include?(target_time)
               td(class='!p-0 !h-6 !relative')
-                = form_with model: pair_work, url: pair_work_match_path(pair_work), method: :post, local: true do |f|
+                = form_with model: pair_work, url: pair_work_reservations_path(pair_work), method: :post, local: true do |f|
                   = f.hidden_field :reserved_at, value: target_time
                   = f.hidden_field :buddy_id, value: current_user.id
                   = f.button type: :submit,
