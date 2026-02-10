@@ -11,7 +11,7 @@ class Mentor::BuzzesTest < ApplicationSystemTestCase
 
   test 'buzzes are listed in descending order of published_at' do
     dates = %w[2024-12-25 2025-04-01 2025-09-10]
-    dates.each { |date| create_buzz(date) }
+    create_buzzes(dates)
     visit_with_auth mentor_buzzes_path, 'machida'
     buzz_titles = all('.admin-table__item').map { |row| row.find('td:first-child a').text }
     expected_order = %w[2025-09-10の記事 2025-04-01の記事 2024-12-25の記事]
@@ -45,7 +45,7 @@ class Mentor::BuzzesTest < ApplicationSystemTestCase
   end
 
   test 'url field is not shown in buzz edit form' do
-    buzz = Buzz.create!(title: '新しいBuzz', url: 'https://www.example.com', memo: '新しいBuzzです', published_at: '2025-09-10')
+    buzz = create_buzz('2025-09-10')
     visit_with_auth edit_mentor_buzz_path(buzz.id), 'machida'
     within 'form[name=buzz]' do
       assert_no_selector 'input[name="buzz[url]"]'

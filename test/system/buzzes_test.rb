@@ -21,8 +21,8 @@ class BuzzesTest < ApplicationSystemTestCase
 
   test 'user can switch year and see buzzes grouped by month' do
     dates = %w[2025-02-01 2025-01-31 2025-01-01 2024-12-31 2024-12-01 2024-11-30]
-    # create_buzzはsuppurts/buzz_helper.rbに定義
-    dates.each { |date| create_buzz(date) }
+    # create_buzzesはapp/helper/buzz_helper.rbに定義
+    create_buzzes(dates)
 
     # デフォルトで最も新しい年を表示
     visit_with_auth buzzes_path, 'kimura'
@@ -50,12 +50,21 @@ class BuzzesTest < ApplicationSystemTestCase
 
   test 'buzzes are shown in descending order within month' do
     dates = %w[2025-01-01 2025-01-10 2025-01-20 2025-01-31]
-    dates.each { |date| create_buzz(date) }
+    create_buzzes(dates)
 
     visit_with_auth buzzes_path, 'kimura'
     assert_selector '.selected-year', text: '2025'
     buzzes = all('.buzzes-in-01 li').map(&:text)
     expected = %w[2025-01-31の記事 2025-01-20の記事 2025-01-10の記事 2025-01-01の記事]
+    assert_equal expected, buzzes
+  end
+
+  test 'buzzes published on same day use id as tie-breaker in descending order' do
+    create_buzz('2025-10-23', title: 'id1のbuzz')
+    create_buzz('2025-10-23', title: 'id2のbuzz')
+    visit_with_auth buzzes_path, 'kimura'
+    buzzes = all('.buzzes-in-10 li').map(&:text)
+    expected = %w[id2のbuzz id1のbuzz]
     assert_equal expected, buzzes
   end
 end
