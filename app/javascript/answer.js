@@ -3,12 +3,14 @@ import initializeAnswer from './initializeAnswer'
 document.addEventListener('DOMContentLoaded', () => {
   const answerAnchor = location.hash
   if (answerAnchor) {
-    setTimeout(() => {
-      const anchorElement = document.querySelector(answerAnchor)
-      if (anchorElement) {
-        anchorElement.scrollIntoView({ behavior: 'instant' })
-      }
-    }, 300)
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const anchorElement = document.getElementById(answerAnchor.slice(1))
+        if (anchorElement) {
+          anchorElement.scrollIntoView({ behavior: 'instant' })
+        }
+      })
+    })
   }
 
   const answers = document.querySelectorAll('.answer')
