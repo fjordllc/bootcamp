@@ -25,6 +25,8 @@ class PairWork < ApplicationRecord
   validates :description, presence: true
   validates :schedules, presence: true
   before_validation :set_published_at, if: :will_be_published?
+  validates :reserved_at, presence: true, on: :reserve
+  validates :buddy, presence: true, on: :reserve
   validate :reserved_at_in_schedules, on: :reserve
   validate :buddy_is_not_self, on: :reserve
 
