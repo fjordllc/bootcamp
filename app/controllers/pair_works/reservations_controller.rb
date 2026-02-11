@@ -9,6 +9,7 @@ class PairWorks::ReservationsController < ApplicationController
       ActiveSupport::Notifications.instrument('pair_work.reserve', pair_work: @pair_work)
       redirect_to Redirection.determin_url(self, @pair_work), notice: @pair_work.generate_notice_message(:reserve)
     else
+      @comments = @pair_work.comments.order(:created_at)
       render 'pair_works/show'
     end
   end
