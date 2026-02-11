@@ -48,3 +48,66 @@ answer51:
   question: question51
   created_at: <%= Time.current - 1.week %>
   updated_at: <%= Time.current - 1.week %>
+
+answer52:
+  description: <%= QuestionAutoCloser::WARNING_MESSAGE %>
+  user: pjord
+  question: question53
+  created_at: <%= Time.current - 1.week %>
+  updated_at: <%= Time.current - 1.week %>
+
+answer53:
+  description: 回答しました。
+  user: sotugyou
+  question: question53
+  created_at: <%= Time.current - 1.day %>
+  updated_at: <%= Time.current - 1.day %>
+
+answer54:
+  description: <%= QuestionAutoCloser::WARNING_MESSAGE %>
+  user: pjord
+  question: question54
+  created_at: <%= Time.current - 2.month - 1.week %>
+  updated_at: <%= Time.current - 2.month - 1.week %>
+
+answer55:
+  description: <%= QuestionAutoCloser::AUTO_CLOSE_MESSAGE %>
+  user: pjord
+  question: question54
+  created_at: <%= Time.current - 2.month %>
+  updated_at: <%= Time.current - 2.month %>
+
+answer56:
+  description: 回答を再募集します。
+  user: kimura
+  question: question54
+  created_at: <%= Time.current - 1.month - 1.week %>
+  updated_at: <%= Time.current - 1.month - 1.week %>
+
+answer57:
+  description: <%= QuestionAutoCloser::WARNING_MESSAGE %>
+  user: pjord
+  question: question54
+  created_at: <%= Time.current - 1.week %>
+  updated_at: <%= Time.current - 1.week %>
+
+answer58:
+  description: <%= QuestionAutoCloser::WARNING_MESSAGE %>
+  user: pjord
+  question: question55
+  created_at: <%= Time.current - 2.month - 1.week %>
+  updated_at: <%= Time.current - 2.month - 1.week %>
+
+answer59:
+  description: <%= QuestionAutoCloser::AUTO_CLOSE_MESSAGE %>
+  user: pjord
+  question: question55
+  created_at: <%= Time.current - 2.month %>
+  updated_at: <%= Time.current - 2.month %>
+
+answer60:
+  description: 回答を再募集します。
+  user: kimura
+  question: question55
+  created_at: <%= Time.current - 1.month %>
+  updated_at: <%= Time.current - 1.month %>
