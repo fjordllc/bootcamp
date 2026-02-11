@@ -20,7 +20,7 @@
                   = f.hidden_field :buddy_id, value: current_user.id
                   = f.button type: :submit,
                     disabled: disabled?(target_time, pair_work:),
-                    class: '!absolute !top-0 !flex !w-full !h-full !text-center !justify-center !items-center !p-1 !border !border-solid !rounded !text-[var(--main)] !bg-[var(--input-selected-background)] !border-[var(--main)]',
+                    class: '!absolute !top-0 !flex !w-full !h-full !text-center !justify-center !items-center !p-1 !border !border-solid !rounded !text-[var(--main)] !bg-[var(--input-selected-background)] !border-[var(--main)] enabled:!cursor-pointer',
                     id: target_time.iso8601,
                     data: { confirm: "#{l target_time, format: :mdw_and_time} にペアワークを申し込みますか？" } do
                       i.fa-duotone.fa-solid.fa-check
