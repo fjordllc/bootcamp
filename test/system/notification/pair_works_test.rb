@@ -31,24 +31,34 @@ class Notification::PairWorksTest < NotificationSystemTestCase
   end
 
   test 'watcher receive notification when pair_work is matched' do
-    travel_to Time.zone.local(2025, 1, 1, 0, 0, 0) do
-      visit_with_auth '/notifications', 'mentormentaro'
-      click_link '全て既読にする'
-      logout
-
-      pair_work = pair_works(:pair_work1)
-      visit_with_auth pair_work_path(pair_work), 'mentormentaro'
-      within '.a-table' do
-        accept_alert do
-          find_button(id: '2025-01-02T01:00:00+09:00').click
+    travel_to Time.zone.local(2025, 3, 2, 0, 0, 0) do
+      visit_with_auth '/pair_works/new', 'kimura'
+      within 'form[name=pair_work]' do
+        fill_in 'pair_work[title]', with: 'テストのペアワーク募集'
+        fill_in 'pair_work[description]', with: 'テストのペアワーク募集です。'
+        within '.form-table' do
+          check 'schedule_ids_202503030000', allow_label_click: true
         end
       end
-      assert_text 'ペア確定'
+      click_button '登録する'
+      assert_text 'ペアワークを作成しました。'
+      assert_text 'Watch中'
+      logout
+
+      visit_with_auth pair_works_path(target: 'not_solved'), 'mentormentaro'
+      click_on 'テストのペアワーク募集'
+      assert_text 'Watch中'
+      within '.a-table' do
+        accept_alert do
+          find_button(id: '2025-03-03T00:00:00+09:00').click
+        end
+      end
+      assert_text 'ペアが確定しました。'
 
       assert_user_has_notification(user: users(:kimura), kind: Notification.kinds[:matching_pair_work],
-                                   text: 'kimuraさんのペアワーク【 募集中のペアワークです(タイトル) 】のペアがmentormentaroさんに決定しました。')
+                                   text: 'kimuraさんのペアワーク【 テストのペアワーク募集 】のペアがmentormentaroさんに決定しました。')
       assert_user_has_notification(user: users(:mentormentaro), kind: Notification.kinds[:matching_pair_work],
-                                   text: 'kimuraさんのペアワーク【 募集中のペアワークです(タイトル) 】のペアがあなたに決定しました。')
+                                   text: 'kimuraさんのペアワーク【 テストのペアワーク募集 】のペアがあなたに決定しました。')
     end
   end
 
