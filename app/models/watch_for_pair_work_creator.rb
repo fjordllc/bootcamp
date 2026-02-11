@@ -3,7 +3,8 @@
 class WatchForPairWorkCreator
   def call(_name, _started, _finished, _unique_id, payload)
     pair_work = payload[:pair_work]
-    return if pair_work.wip? || pair_work.watched?
+    return if pair_work.wip?
+    return unless pair_work.saved_change_to_attribute?(:published_at, from: nil)
 
     watch_pair_work_records = watch_records(pair_work)
     Watch.insert_all(watch_pair_work_records) # rubocop:disable Rails/SkipsModelValidations
