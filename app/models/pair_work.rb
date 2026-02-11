@@ -111,14 +111,10 @@ class PairWork < ApplicationRecord
   end
 
   def reserved_at_in_schedules
-    return if reserved_at.nil?
-
     errors.add(:reserved_at, 'は提案されたスケジュールに含まれていません。') unless schedules.map(&:proposed_at).include?(reserved_at)
   end
 
   def buddy_is_not_self
-    return if buddy_id.nil?
-
     errors.add(:buddy, 'に自分を指定することはできません。') if user_id == buddy_id
   end
 end
