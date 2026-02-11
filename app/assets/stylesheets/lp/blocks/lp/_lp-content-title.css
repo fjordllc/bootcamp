@@ -67,6 +67,7 @@
 
   .lp-content-title.is-border-left {
     padding-left: 3.5rem;
+    text-align: left;
   }
 
   .lp-content-title.is-border-left::before {
