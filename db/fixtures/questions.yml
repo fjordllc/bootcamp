@@ -12,7 +12,7 @@ question1:
     1. **vi/vim**：多くのUNIX系システムでデフォルトでインストールされているため、どの環境でも使えることがほぼ保証されています。また、キーボードのみで効率的に操作することができ、モード切替による強力な編集機能が特徴です。しかし、その操作性は一見すると複雑で、学習曲線がやや急です。
     2. **Emacs**：高度にカスタマイズ可能で、プログラミングだけでなくメールチェックやタスク管理など、Emacs内部で多くの作業を完結させることができます。しかし、それらの強力な機能をフルに使いこなすには、Emacs Lispという言語を学ぶ必要があり、初学者にはややハードルが高いかもしれません。
     3. **Atom**：GitHubが開発したモダンなエディターで、ビジュアルと操作性に重点が置かれています。パッケージシステムにより機能を追加することが容易で、初心者でも取り組みやすい一方で、比較的重たいという欠点もあります。
-    
+
     その他にも、**Visual Studio Code（VS Code）**や**Sublime Text**、**JetBrainsのIDE**（IntelliJ IDEA、PyCharmなど）など、多くの優れたエディターやIDEがあります。
 
     これらから選ぶ際のポイントは以下の通りです：
@@ -151,3 +151,30 @@ question52:
   created_at: <%= Time.current - 1.month %>
   updated_at: <%= Time.current - 1.month %>
   published_at: <%= Time.current - 1.month %>
+
+question53:
+  title: 警告後に回答があった質問
+  description: 自動クローズのカウントダウンがリセットされる質問です。
+  user: kimura
+  practice: practice1
+  created_at: <%= Time.current - 1.month - 1.week %>
+  updated_at: <%= Time.current - 1.month - 1.week %>
+  published_at: <%= Time.current - 1.month - 1.week %>
+
+question54:
+  title: 自動クローズ後に未解決に戻して1ヶ月と1週間放置した質問
+  description: 再度自動クローズされる質問です。
+  user: kimura
+  practice: practice1
+  created_at: <%= Time.current - 3.month - 1.week %>
+  updated_at: <%= Time.current - 3.month - 1.week %>
+  published_at: <%= Time.current - 3.month - 1.week %>
+
+question55:
+  title: 自動クローズ後に未解決に戻して1ヶ月放置した質問
+  description: 自動クローズ前に再度警告される質問です。
+  user: kimura
+  practice: practice1
+  created_at: <%= Time.current - 3.month %>
+  updated_at: <%= Time.current - 3.month %>
+  published_at: <%= Time.current - 3.month %>
