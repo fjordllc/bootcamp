@@ -10,9 +10,9 @@ class QuestionAutoCloser
   end
 
   def post_warning
-    questions = extract_inactive_questions_to_warn
-    questions.each do |question|
-      create_warning_message(question)
+    question_ids = extract_inactive_questions_to_warn
+    question_ids.each do |question_id|
+      create_warning_message(question_id)
     end
   end
 
@@ -26,9 +26,22 @@ class QuestionAutoCloser
   private
 
   def extract_inactive_questions_to_warn
-    Question.not_wip.not_solved.find_each.filter do |question|
-      should_post_warning?(question)
-    end
+    base_time = 1.month.ago
+    answers_summary = Answer
+                      .select(
+                        :question_id,
+                        'MAX(updated_at) AS last_answer_updated_at',
+                        "BOOL_OR(type = 'CorrectAnswer') AS solved"
+                      )
+                      .group(:question_id)
+    Question
+      .with(answers_summary:)
+      .left_outer_joins(:answers_summary)
+      .where(wip: false)
+      .where('COALESCE(answers_summary.solved, false) = false')
+      .where('questions.updated_at <= ?', base_time)
+      .where('answers_summary.last_answer_updated_at IS NULL OR answers_summary.last_answer_updated_at <= ?', base_time)
+      .ids
   end
 
   def extract_inactive_questions_to_close
@@ -37,14 +50,8 @@ class QuestionAutoCloser
     end
   end
 
-  def should_post_warning?(question)
-    last_updated_answer = question.answers.order(updated_at: :desc, id: :desc).first
-    last_activity_at = [last_updated_answer&.updated_at, question.updated_at].compact.max
-    last_activity_at <= 1.month.ago
-  end
-
-  def create_warning_message(question)
-    answer = question.answers.create!(user: @system_user, description: WARNING_MESSAGE)
+  def create_warning_message(question_id)
+    answer = Answer.create!(question_id:, user: @system_user, description: WARNING_MESSAGE)
     ActiveSupport::Notifications.instrument('answer.create', answer:)
   end
 
