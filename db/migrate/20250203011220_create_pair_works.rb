@@ -1,4 +1,4 @@
-class CreatePairWorks < ActiveRecord::Migration[6.1]
+class CreatePairWorks < ActiveRecord::Migration[8.1]
   def change
     create_table :pair_works do |t|
       t.string :title, null: false

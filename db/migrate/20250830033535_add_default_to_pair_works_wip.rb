@@ -1,4 +1,4 @@
-class AddDefaultToPairWorksWip < ActiveRecord::Migration[6.1]
+class AddDefaultToPairWorksWip < ActiveRecord::Migration[8.1]
   def change
     change_column_default :pair_works, :wip, from: nil, to: false
   end
