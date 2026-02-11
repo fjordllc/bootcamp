@@ -381,3 +381,11 @@ report78:
   emotion: 1
   description: プラクティスに関連付かない日報です。
   reported_on: "2026-01-03"
+
+report79:
+  user: komagata
+  title: "コピー元のRailsコースのプラクティスの日報"
+  emotion: 1
+  description: コピー元のRailsコースのプラクティスの日報です。
+  practices: practice1, practice64
+  reported_on: "2026-01-04"

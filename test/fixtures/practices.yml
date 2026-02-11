@@ -395,3 +395,8 @@ practice64:
   title: "給付金コースのプラクティス"
   description: "Railsコースのプラクティスをコピーしたプラクティスです。"
   source_id: <%= ActiveRecord::FixtureSet.identify(:practice1) %>
+
+practice65:
+  title: "日報が存在しない給付金コースのプラクティス"
+  description: "Railsコースのプラクティスをコピーしたプラクティスです。"
+  source_id: <%= ActiveRecord::FixtureSet.identify(:practice2) %>
