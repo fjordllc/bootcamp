@@ -64,10 +64,6 @@ class Notification::PairWorksTest < NotificationSystemTestCase
 
   test 'notify when a WIP pair_work is published' do
     travel_to Time.zone.local(2025, 3, 2, 0, 0, 0) do
-      visit_with_auth '/notifications', 'mentormentaro'
-      click_link '全て既読にする'
-      logout
-
       visit_with_auth '/pair_works/new', 'kimura'
       within 'form[name=pair_work]' do
         fill_in 'pair_work[title]', with: 'WIPで保存時は通知が飛ばない'
