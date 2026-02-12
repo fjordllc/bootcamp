@@ -93,11 +93,11 @@
               - else
                 h3.pair-work-schedule-dates__title
                   | ペアを希望する場合、以下のスケジュールから都合のいい日時を選択してください。
-              = render 'schedule', pair_work:
+              = render 'pair_works/schedule', pair_work:
         - elsif pair_work.user == current_user
           .pair-work-schedule-dates__table-container
             .pair-work-schedule-dates__table
-              = render 'schedule', pair_work:
+              = render 'pair_works/schedule', pair_work:
         - else
           .a-long-text.is-md
             .message.danger

@@ -29,6 +29,6 @@
     .page-body__inner
       .container.is-md
         .page-content.pair-work
-          = render 'header', pair_work: @pair_work
-          = render 'body', pair_work: @pair_work
+          = render 'pair_works/header', pair_work: @pair_work
+          = render 'pair_works/body', pair_work: @pair_work
         = render 'comments/comments', commentable: @pair_work, commentable_type: 'PairWork'
