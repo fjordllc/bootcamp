@@ -123,6 +123,28 @@ class PairWorkTest < ActiveSupport::TestCase
     assert pair_work.reserve(valid_params)
   end
 
+  test '#reserve fails when buddy_id is nil' do
+    invalid_params = {
+      reserved_at: Time.zone.parse('2025-01-02 01:00:00'),
+      buddy_id: nil
+    }
+    pair_work = pair_works(:pair_work1)
+
+    assert_not pair_work.reserve(invalid_params)
+    assert_includes pair_work.errors.full_messages, 'ペアが選択されていません'
+  end
+
+  test '#reserve fails when buddy_id does not exist' do
+    invalid_params = {
+      reserved_at: Time.zone.parse('2025-01-02 01:00:00'),
+      buddy_id: 999_999
+    }
+    pair_work = pair_works(:pair_work1)
+
+    assert_not pair_work.reserve(invalid_params)
+    assert_includes pair_work.errors.full_messages, 'ペアが選択されていません'
+  end
+
   test '#reserve fails when buddy is self' do
     pair_work_creator = users(:kimura)
     invalid_params_buddy_id = {
@@ -133,6 +155,17 @@ class PairWorkTest < ActiveSupport::TestCase
 
     assert_not pair_work.reserve(invalid_params_buddy_id)
     assert_includes pair_work.errors.full_messages, 'ペアに自分を指定することはできません。'
+  end
+
+  test '#reserve fails when reserved_at is nil' do
+    invalid_params = {
+      reserved_at: nil,
+      buddy_id: users(:komagata).id
+    }
+    pair_work = pair_works(:pair_work1)
+
+    assert_not pair_work.reserve(invalid_params)
+    assert_includes pair_work.errors.full_messages, '希望した日時が選択されていません'
   end
 
   test '#reserve fails when reserved_at is not in proposed schedules' do
