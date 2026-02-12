@@ -13,8 +13,35 @@
           li.tab-nav__item
             = link_to t("target.#{target}"), user_reports_path(@user, target:), class: (@target == target ? ['is-active'] : []) << 'tab-nav__item-link'
 
+nav.page-filter.form.pb-0
+  .container.is-md
+    = form_with url: user_reports_path(@user), local: true, method: :get do
+      - if @target == 'unchecked_reports'
+        = hidden_field_tag :target, 'unchecked_reports'
+      .form-item.is-inline-md-up
+        = label_tag :practice_id, 'プラクティスで絞り込む', class: 'a-form-label'
+        = select_tag :practice_id, options_from_collection_for_select(@current_user_practice.sorted_practices, :id, :title, selected: params[:practice_id]), include_blank: '全ての日報を表示', onchange: 'this.form.submit()', id: 'js-choices-single-select'
+
 .page-body
   .container.is-md
-    = react_component('Reports', userId: @user.id, practices: @current_user_practice.sorted_practices, unchecked: (@target == 'unchecked_reports'))
-    - if mentor_login? && @target == 'unchecked_reports' && @unchecked_count.positive?
-      = render partial: 'unconfirmed_links_open', locals: { label: '未チェックの日報を一括で開く' }
+    - if @reports.empty?
+      .o-empty-message
+        .o-empty-message__icon
+          - if @target == 'unchecked_reports'
+            i.fa-regular.fa-smile
+          - else
+            i.fa-regular.fa-sad-tear
+        .o-empty-message__text
+          - if @target == 'unchecked_reports'
+            | 未チェックの日報はありません
+          - else
+            | 日報はまだありません。
+    - else
+      .page-content.reports
+        = paginate @reports
+        .card-list.a-card
+          .card-list__items
+            = render partial: 'reports/report', collection: @reports, as: :report, locals: { user_icon_display: true, actions_display: true }
+        - if mentor_login? && @target == 'unchecked_reports'
+          = render partial: 'unconfirmed_links_open', locals: { label: '未チェックの日報を一括で開く' }
+      = paginate @reports
