@@ -154,7 +154,7 @@ class PairWorkTest < ActiveSupport::TestCase
     pair_work = pair_works(:pair_work1)
 
     assert_not pair_work.reserve(invalid_params_buddy_id)
-    assert_includes pair_work.errors.full_messages, 'ペアに自分を指定することはできません。'
+    assert_includes pair_work.errors.full_messages, 'ペアに自分を指定することはできません'
   end
 
   test '#reserve fails when reserved_at is nil' do
@@ -177,6 +177,6 @@ class PairWorkTest < ActiveSupport::TestCase
     pair_work = pair_works(:pair_work1)
 
     assert_not pair_work.reserve(invalid_params_reserved_at)
-    assert_includes pair_work.errors.full_messages, '希望した日時は提案されたスケジュールに含まれていません。'
+    assert_includes pair_work.errors.full_messages, '希望した日時は提案されたスケジュールに含まれていません'
   end
 end
