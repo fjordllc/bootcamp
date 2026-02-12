@@ -28,7 +28,6 @@ class PairWork < ApplicationRecord
   validates :reserved_at, presence: { message: 'が選択されていません' }, on: :reserve
   validates :buddy, presence: { message: 'が選択されていません' }, on: :reserve
   validate :reserved_at_in_schedules, on: :reserve
-  validate :buddy_is_not_self, on: :reserve
 
   scope :solved, -> { where.not(reserved_at: nil) }
   scope :not_solved, -> { where(reserved_at: nil) }
@@ -112,9 +111,5 @@ class PairWork < ApplicationRecord
 
   def reserved_at_in_schedules
     errors.add(:reserved_at, 'は提案されたスケジュールに含まれていません') unless schedules.map(&:proposed_at).include?(reserved_at)
-  end
-
-  def buddy_is_not_self
-    errors.add(:buddy, 'に自分を指定することはできません') if user_id == buddy_id
   end
 end

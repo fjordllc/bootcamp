@@ -145,18 +145,6 @@ class PairWorkTest < ActiveSupport::TestCase
     assert_includes pair_work.errors.full_messages, 'ペアが選択されていません'
   end
 
-  test '#reserve fails when buddy is self' do
-    pair_work_creator = users(:kimura)
-    invalid_params_buddy_id = {
-      reserved_at: Time.zone.parse('2025-01-02 01:00:00'),
-      buddy_id: pair_work_creator.id
-    }
-    pair_work = pair_works(:pair_work1)
-
-    assert_not pair_work.reserve(invalid_params_buddy_id)
-    assert_includes pair_work.errors.full_messages, 'ペアに自分を指定することはできません'
-  end
-
   test '#reserve fails when reserved_at is nil' do
     invalid_params = {
       reserved_at: nil,
