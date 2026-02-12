@@ -4,7 +4,7 @@ nav.pill-nav.mb-8
       = link_to regular_events_path(target: :not_finished), class: "pill-nav__item-link#{params[:target] == 'not_finished' ? ' is-active' : ''}" do
         | 開催中
     .pill-nav__item
-      = link_to regular_events_path, class: "pill-nav__item-link#{params[:target].nil? ? ' is-active' : ' '}" do
+      = link_to regular_events_path, class: "pill-nav__item-link#{params[:target].nil? ? ' is-active' : ''}" do
         | 全て
 
 = paginate @regular_events
