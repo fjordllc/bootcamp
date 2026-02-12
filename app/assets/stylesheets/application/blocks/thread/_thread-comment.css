@@ -213,7 +213,7 @@
 .thread-comment__created-at.is-active::after {
   content: "Copied!";
   display: block;
-  background-color: rgba(black, .4);
+  background-color: #00000085;
   border-radius: .125rem;
   padding: .25rem;
   font-size: .625rem;
