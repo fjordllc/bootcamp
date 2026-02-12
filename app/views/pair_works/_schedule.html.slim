@@ -17,7 +17,6 @@
               td(class='!p-0 !h-6 !relative')
                 = form_with model: pair_work, url: pair_work_reservations_path(pair_work), method: :post, local: true do |f|
                   = f.hidden_field :reserved_at, value: target_time
-                  = f.hidden_field :buddy_id, value: current_user.id
                   = f.button type: :submit,
                     disabled: disabled?(target_time, pair_work:),
                     class: '!absolute !top-0 !flex !w-full !h-full !text-center !justify-center !items-center !p-1 !border !border-solid !rounded !text-[var(--main)] !bg-[var(--input-selected-background)] !border-[var(--main)] enabled:!cursor-pointer',

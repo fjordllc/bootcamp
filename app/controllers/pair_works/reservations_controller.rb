@@ -19,6 +19,6 @@ class PairWorks::ReservationsController < ApplicationController
   private
 
   def pair_work_reservation_params
-    params.require(:pair_work).permit(:reserved_at, :buddy_id)
+    params.require(:pair_work).permit(:reserved_at).merge(buddy_id: current_user.id)
   end
 end
