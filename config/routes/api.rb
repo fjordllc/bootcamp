@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   namespace 'api' do
     namespace 'admin' do
       resource :count, controller: 'count', only: %i(show)
+      resources :inquiries, only: %i(update)
     end
     namespace 'mentor' do
       resources :practices, only: %i(index)
@@ -78,7 +79,6 @@ Rails.application.routes.draw do
     resources :talks, only: %i(index update)
     resources :regular_events, only: %i(index)
     resources :books, only: %i(index)
-    resources :inquiries, only: %i(update)
     resources :survey_question_listings, only: %i() do
       resource :position, only: %i(update), controller: "survey_question_listings/position"
     end

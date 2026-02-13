@@ -2,6 +2,7 @@
 
 class Products::SelfAssignedController < ApplicationController
   before_action :require_staff_login
+
   def index
     @target = params[:target].presence_in(target_allowlist) || 'self_assigned_all'
     @products = build_self_assigned_products

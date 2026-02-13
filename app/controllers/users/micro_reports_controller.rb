@@ -8,7 +8,20 @@ class Users::MicroReportsController < ApplicationController
   before_action :set_micro_report, only: %i[destroy]
 
   def index
-    @micro_reports = @user.micro_reports.order(created_at: :asc).page(params[:page]).per(PAGER_NUMBER)
+    if params[:micro_report_id].present?
+      micro_report = @user.micro_reports.find_by(id: params[:micro_report_id])
+
+      unless micro_report
+        redirect_to user_micro_reports_path(@user),
+                    alert: '指定された分報は見つかりませんでした。'
+        return
+      end
+
+      page = MicroReport.page_number_for(scope: @user.micro_reports, target: micro_report, per_page: PAGER_NUMBER)
+      return redirect_to user_micro_reports_path(@user, page:, anchor: "micro_report_#{micro_report.id}")
+    end
+
+    @micro_reports = @user.micro_reports.ordered.page(params[:page]).per(PAGER_NUMBER)
   end
 
   def create

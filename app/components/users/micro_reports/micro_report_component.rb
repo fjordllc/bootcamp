@@ -7,9 +7,7 @@ class Users::MicroReports::MicroReportComponent < ViewComponent::Base
     @micro_report = micro_report
   end
 
-  def comment_user
-    @micro_report.comment_user
-  end
+  delegate :comment_user, to: :@micro_report
 
   def posted_datetime
     time = @micro_report.created_at

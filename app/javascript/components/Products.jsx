@@ -2,11 +2,12 @@ import React, { useRef, useEffect } from 'react'
 import useSWR from 'swr'
 import Pagination from './Pagination'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
-import UnconfirmedLink from './UnconfirmedLink'
 import Product from './Product'
-import fetcher from '../fetcher'
+import { get } from '@rails/request.js'
 import elapsedDays from '../elapsed-days.js'
 import usePage from './hooks/usePage'
+const fetcher = (url) =>
+  get(url, { responseKind: 'json' }).then((res) => res.json)
 
 export default function Products({
   title,
@@ -17,13 +18,6 @@ export default function Products({
   productDeadlineDay
 }) {
   const { page, setPage } = usePage()
-
-  const unconfirmedLinksName = () => {
-    if (selectedTab === 'all') return '全ての提出物を一括で開く'
-    if (selectedTab === 'unchecked') return '未完了の提出物を一括で開く'
-    if (selectedTab === 'unassigned') return '未アサインの提出物を一括で開く'
-    if (selectedTab === 'self_assigned') return '自分の担当の提出物を一括で開く'
-  }
 
   const ApiUrl = () => {
     const path = (() => {
@@ -192,7 +186,6 @@ export default function Products({
                   setPage={setPage}
                 />
               )}
-              <UnconfirmedLink label={unconfirmedLinksName()} />
             </div>
           </div>
         </div>
@@ -235,7 +228,6 @@ export default function Products({
                   </div>
                 )
               })}
-            <UnconfirmedLink label={unconfirmedLinksName()} />
           </div>
 
           <nav className="page-body__column is-sub" ref={elapsedDaysRef}></nav>

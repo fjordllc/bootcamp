@@ -3,8 +3,10 @@ import useSWR from 'swr'
 import Pagination from './Pagination'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
 import userIcon from '../user-icon.js'
-import fetcher from '../fetcher'
+import { get } from '@rails/request.js'
 import usePage from './hooks/usePage'
+const fetcher = (url) =>
+  get(url, { responseKind: 'json' }).then((res) => res.json)
 
 export default function Events() {
   const per = 20

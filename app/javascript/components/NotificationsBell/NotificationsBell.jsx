@@ -4,7 +4,9 @@ import BellButton from './BellButton'
 import Header from './Header'
 import Notifications from './Notifications'
 import Footer from './Footer'
-import fetcher from '../../fetcher'
+import { get } from '@rails/request.js'
+const fetcher = (url) =>
+  get(url, { responseKind: 'json' }).then((res) => res.json)
 
 export function useNotification(status) {
   const baseUrl = '/api/notifications.json'

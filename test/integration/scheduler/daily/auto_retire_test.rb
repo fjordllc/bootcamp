@@ -9,16 +9,16 @@ class Scheduler::Daily::AutoRetireTest < ActionDispatch::IntegrationTest
   test 'token evaluation' do
     mock_env('TOKEN' => '') do
       get scheduler_daily_auto_retire_path(token: '')
-      assert_response 401
+      assert_response :unauthorized
     end
 
     mock_env('TOKEN' => 'token') do
       get scheduler_daily_auto_retire_path(token: 'invalid')
-      assert_response 401
+      assert_response :unauthorized
 
       Scheduler::Daily::AutoRetireController.stub_any_instance(:auto_retire) do
         get scheduler_daily_auto_retire_path(token: 'token')
-        assert_response 200
+        assert_response :ok
       end
     end
   end

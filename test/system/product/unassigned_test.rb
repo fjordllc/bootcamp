@@ -21,19 +21,18 @@ class Product::UnassignedTest < ApplicationSystemTestCase
     assert_button '未アサインの提出物を一括で開く'
   end
 
-  test 'click on open all unassigned submissions button' do
+  test 'unassigned products links are rendered correctly' do
     delete_most_unassigned_products!
+    newest_product = Product
+                     .unassigned
+                     .unchecked
+                     .not_wip
+                     .ascending_by_date_of_publishing_and_id
+                     .first
+
     visit_with_auth '/products/unassigned', 'komagata'
-    click_button '未アサインの提出物を一括で開く'
-    within_window(windows.last) do
-      newest_product = Product
-                       .unassigned
-                       .unchecked
-                       .not_wip
-                       .ascending_by_date_of_publishing_and_id
-                       .first
-      assert_text newest_product.body
-    end
+
+    assert_selector "a.js-unconfirmed-link[href$='#{newest_product.id}']"
   end
 
   test 'products order on unassigned tab' do
