@@ -17,9 +17,9 @@ class QuestionAutoCloser
   end
 
   def close_inactive_questions
-    questions = extract_inactive_questions_to_close
-    questions.each do |question|
-      create_auto_close_message(question)
+    question_ids = extract_inactive_questions_to_close
+    question_ids.each do |question_id|
+      create_auto_close_message(question_id)
     end
   end
 
@@ -45,9 +45,25 @@ class QuestionAutoCloser
   end
 
   def extract_inactive_questions_to_close
-    Question.not_wip.not_solved.find_each.filter do |question|
-      should_close?(question)
-    end
+    answers_summary = Answer
+                      .select(
+                        :question_id,
+                        'MAX(updated_at) AS last_answer_updated_at',
+                        Answer.sanitize_sql_array(['MAX(CASE WHEN user_id = ? AND description = ? THEN updated_at END) AS last_warning_at',
+                                                   @system_user.id, WARNING_MESSAGE]),
+                        "BOOL_OR(type = 'CorrectAnswer') AS solved"
+                      )
+                      .group(:question_id)
+    Question
+      .with(answers_summary:)
+      .left_outer_joins(:answers_summary)
+      .where(wip: false)
+      .where('COALESCE(answers_summary.solved, false) = false')
+      .where('answers_summary.last_warning_at IS NOT NULL')
+      .where('answers_summary.last_warning_at <= ?', 1.week.ago)
+      .where('answers_summary.last_answer_updated_at = answers_summary.last_warning_at')
+      .where('questions.updated_at <= answers_summary.last_warning_at')
+      .ids
   end
 
   def create_warning_message(question_id)
@@ -55,17 +71,8 @@ class QuestionAutoCloser
     ActiveSupport::Notifications.instrument('answer.create', answer:)
   end
 
-  def should_close?(question)
-    last_updated_answer = question.answers.order(updated_at: :desc, id: :desc).first
-    return false unless last_updated_answer
-    return false unless last_updated_answer.user_id == @system_user.id && last_updated_answer.description == WARNING_MESSAGE
-
-    last_warned_at = last_updated_answer.updated_at
-    question.updated_at < last_warned_at && last_warned_at <= 1.week.ago
-  end
-
-  def create_auto_close_message(question)
-    answer = CorrectAnswer.create!(question:, user: @system_user, description: AUTO_CLOSE_MESSAGE)
+  def create_auto_close_message(question_id)
+    answer = CorrectAnswer.create!(question_id:, user: @system_user, description: AUTO_CLOSE_MESSAGE)
     ActiveSupport::Notifications.instrument('answer.save', answer:, action: "#{self.class.name}##{__method__}")
     ActiveSupport::Notifications.instrument('correct_answer.save', answer:)
   end
