@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
 class RegularEventsController < ApplicationController # rubocop:disable Metrics/ClassLength
-  PAGER_NUMBER = 25
   before_action :set_regular_event, only: %i[edit update destroy]
 
   def index
     @regular_events = RegularEvent.list
                                   .fetch_target_events(params[:target])
                                   .page(params[:page])
-                                  .per(PAGER_NUMBER)
 
     @upcoming_events_groups = UpcomingEvent.upcoming_events_groups
   end
