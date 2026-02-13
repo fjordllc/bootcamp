@@ -70,6 +70,7 @@ class PairWorksTest < ApplicationSystemTestCase
     travel_to Time.zone.local(2025, 1, 10, 0, 0, 0) do
       pair_work = pair_works(:pair_work1)
       visit_with_auth pair_work_path(pair_work), 'komagata'
+      assert_text '募集中'
       within '.a-table' do
         find_button(id: '2025-01-02T01:00:00+09:00', disabled: true)
       end
