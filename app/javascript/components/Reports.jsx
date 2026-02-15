@@ -15,11 +15,14 @@ export default function Reports({
   displayUserIcon = true,
   companyId = '',
   practiceId = '',
-  displayPagination = true
+  displayPagination = true,
+  practiceSourceId = null
 }) {
   const per = 20
+  const isGrantCourse = practiceSourceId !== null
   const { page, setPage } = usePage()
   const [selectedPracticeId, setSelectedPracticeId] = useState('')
+  const [withGrant, setWithGrant] = useState(false)
 
   let reportsUrl = `/api/reports.json?page=${page}`
   if (userId) reportsUrl += `&user_id=${userId}`
@@ -27,6 +30,7 @@ export default function Reports({
   const pid = selectedPracticeId || practiceId
   if (pid) reportsUrl += `&practice_id=${pid}`
   if (unchecked) reportsUrl += `&target=unchecked_reports`
+  if (isGrantCourse && withGrant) reportsUrl += `&with_grant=true`
 
   const { data, error } = useSWR(reportsUrl, fetcher)
 
@@ -61,6 +65,28 @@ export default function Reports({
     }
   }, [data, practices, setSelectedPracticeId])
 
+  useEffect(() => {
+    if (!isGrantCourse) return
+
+    let grantFilter = null
+    const initGrantFilter = async () => {
+      const targetElement = document.querySelector('[data-grant-filter]')
+      if (!targetElement) return
+
+      const GrantFilter = (await import('../grant-filter')).default
+      grantFilter = new GrantFilter(withGrant, setWithGrant)
+      grantFilter.render(targetElement)
+    }
+    initGrantFilter()
+
+    return () => {
+      if (grantFilter) {
+        grantFilter.destroy()
+        grantFilter = null
+      }
+    }
+  }, [data, withGrant])
+
   if (error) return <>エラーが発生しました。</>
   if (!data) {
     return (
@@ -78,12 +104,14 @@ export default function Reports({
     <div className="page-main is-react">
       {data.totalPages === 0 && (
         <div>
+          {isGrantCourse && <div data-grant-filter></div>}
           {practices && <div data-practice-filter-dropdown></div>}
           <NoReports unchecked={unchecked} />
         </div>
       )}
       {data.totalPages > 0 && (
         <div>
+          {isGrantCourse && <div data-grant-filter></div>}
           {practices && <div data-practice-filter-dropdown></div>}
           <div className="page-body">
             <div className="container is-md">

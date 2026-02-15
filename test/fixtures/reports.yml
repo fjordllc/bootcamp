@@ -358,3 +358,34 @@ report75:
   description: WIPです
   wip: true
   reported_on: "2022-04-02"
+
+report76:
+  user: komagata
+  title: "Railsコースのプラクティスの日報"
+  emotion: 1
+  description: Railsコースのプラクティスの日報です。
+  practices: practice1
+  reported_on: "2026-01-01"
+
+report77:
+  user: komagata
+  title: "給付金コースのプラクティスの日報"
+  emotion: 1
+  description: 給付金コースのプラクティスの日報です。
+  practices: practice64
+  reported_on: "2026-01-02"
+
+report78:
+  user: komagata
+  title: "プラクティスに関連付かない日報"
+  emotion: 1
+  description: プラクティスに関連付かない日報です。
+  reported_on: "2026-01-03"
+
+report79:
+  user: komagata
+  title: "コピー元のRailsコースのプラクティスの日報"
+  emotion: 1
+  description: コピー元のRailsコースのプラクティスの日報です。
+  practices: practice1, practice64
+  reported_on: "2026-01-04"
