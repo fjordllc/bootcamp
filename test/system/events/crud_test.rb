@@ -26,8 +26,8 @@ module Events
     test 'create copy event' do
       event = events(:event1)
       visit_with_auth event_path(event), 'kimura'
-      click_link 'コピー'
-      assert_text '特別イベントをコピーしました'
+      click_link '複製'
+      assert_text '特別イベントを複製しました'
       within 'form[name=event]' do
         fill_in 'event[start_at]', with: Time.current.next_day
         fill_in 'event[end_at]', with: Time.current.next_day + 2.hours
