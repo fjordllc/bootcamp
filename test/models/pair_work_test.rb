@@ -1,0 +1,170 @@
+# frozen_string_literal: true
+
+require 'test_helper'
+
+class PairWorkTest < ActiveSupport::TestCase
+  test '.by_target' do
+    solved_pair_work = pair_works(:pair_work2)
+    not_solved_pair_work = pair_works(:pair_work1)
+    assert_includes PairWork.by_target('solved'), solved_pair_work
+    assert_not_includes PairWork.by_target('solved'), not_solved_pair_work
+
+    assert_includes PairWork.by_target('not_solved'), not_solved_pair_work
+    assert_not_includes PairWork.by_target('not_solved'), solved_pair_work
+
+    assert_includes PairWork.by_target(nil), solved_pair_work
+    assert_includes PairWork.by_target(nil), not_solved_pair_work
+  end
+
+  test '.generate_pair_works_property' do
+    solved_pair_works_property = PairWork.generate_pair_works_property('solved')
+    assert_equal 'ペア確定済みのペアワーク', solved_pair_works_property.title
+    assert_equal 'ペア確定済みのペアワークはありません。', solved_pair_works_property.empty_message
+
+    not_solved_pair_works_property = PairWork.generate_pair_works_property('not_solved')
+    assert_equal '募集中のペアワーク', not_solved_pair_works_property.title
+    assert_equal '募集中のペアワークはありません。', not_solved_pair_works_property.empty_message
+
+    all_pair_works_property = PairWork.generate_pair_works_property(nil)
+    assert_equal '全てのペアワーク', all_pair_works_property.title
+    assert_equal 'ペアワークはありません。', all_pair_works_property.empty_message
+  end
+
+  test '#generate_notice_message' do
+    wip_pair_work = pair_works(:pair_work3)
+    assert_equal 'ペアワークをWIPとして保存しました。', wip_pair_work.generate_notice_message(:create)
+    assert_equal 'ペアワークをWIPとして保存しました。', wip_pair_work.generate_notice_message(:update)
+
+    published_pair_work = pair_works(:pair_work1)
+    assert_equal 'ペアワークを作成しました。', published_pair_work.generate_notice_message(:create)
+    assert_equal 'ペアワークを更新しました。', published_pair_work.generate_notice_message(:update)
+  end
+
+  test '.unsolved_badge' do
+    assert_equal 1, PairWork.unsolved_badge(current_user: users(:komagata))
+
+    assert_nil PairWork.unsolved_badge(current_user: users(:hatsuno))
+  end
+
+  test '.upcoming_pair_works' do
+    user = users(:hajime)
+
+    travel_to Time.zone.local(2025, 1, 15, 12, 0, 0) do
+      pair_work_template = {
+        user:,
+        title: 'ペアが確定していて、近日開催されるペアワーク',
+        description: 'ペアが確定していて、近日開催されるペアワーク',
+        buddy: users(:komagata),
+        channel: 'ペアワーク・モブワーク1',
+        wip: false
+      }
+      upcoming_pair_work_tomorrow = PairWork.create!(pair_work_template.merge(
+                                                       reserved_at: Time.current.beginning_of_day + 1.day,
+                                                       schedules_attributes: [{ proposed_at: Time.current.beginning_of_day + 1.day }]
+                                                     ))
+      upcoming_pair_work_day_after_tomorrow = PairWork.create!(pair_work_template.merge(
+                                                                 reserved_at: Time.current.beginning_of_day + 2.days,
+                                                                 schedules_attributes: [{ proposed_at: Time.current.beginning_of_day + 2.days }]
+                                                               ))
+      assert_includes PairWork.upcoming_pair_works(user), upcoming_pair_work_tomorrow
+      assert_includes PairWork.upcoming_pair_works(user), upcoming_pair_work_day_after_tomorrow
+
+      held_today_pair_work = PairWork.create!(pair_work_template.merge(
+                                                reserved_at: Time.current.beginning_of_day,
+                                                schedules_attributes: [{ proposed_at: Time.current.beginning_of_day }]
+                                              ))
+      assert_not_includes PairWork.upcoming_pair_works(user), held_today_pair_work
+
+      unrelated_pair_work = pair_works(:pair_work2)
+      assert_not_includes PairWork.upcoming_pair_works(user), unrelated_pair_work
+    end
+  end
+
+  test '.not_held' do
+    travel_to Time.zone.local(2025, 1, 15, 12, 0, 0) do
+      not_held_pair_work = PairWork.create!({
+                                              user: users(:kimura),
+                                              title: 'ペア確定したが、まだ実施されてないペアワーク',
+                                              description: 'ペア確定したが、まだ実施されてないペアワーク',
+                                              buddy: users(:komagata),
+                                              channel: 'ペアワーク・モブワーク1',
+                                              wip: false,
+                                              reserved_at: Time.current.beginning_of_day + 1.day,
+                                              schedules_attributes: [{ proposed_at: Time.current.beginning_of_day + 1.day }]
+                                            })
+      not_solved_pair_work = pair_works(:pair_work1)
+      wip_pair_work = pair_works(:pair_work3)
+
+      held_on_pair_work = pair_works(:pair_work2)
+
+      assert_includes PairWork.not_held, not_held_pair_work
+      assert_includes PairWork.not_held, not_solved_pair_work
+      assert_includes PairWork.not_held, wip_pair_work
+
+      assert_not_includes PairWork.not_held, held_on_pair_work
+    end
+  end
+
+  test '#solved?' do
+    solved_pair_work = pair_works(:pair_work2)
+    assert solved_pair_work.solved?
+
+    not_solved_pair_work = pair_works(:pair_work1)
+    assert_not not_solved_pair_work.solved?
+  end
+
+  test '#reserve' do
+    valid_params = {
+      reserved_at: Time.zone.parse('2025-01-02 01:00:00'),
+      buddy_id: users(:komagata).id
+    }
+    pair_work = pair_works(:pair_work1)
+
+    assert pair_work.reserve(valid_params)
+  end
+
+  test '#reserve fails when buddy_id is nil' do
+    invalid_params = {
+      reserved_at: Time.zone.parse('2025-01-02 01:00:00'),
+      buddy_id: nil
+    }
+    pair_work = pair_works(:pair_work1)
+
+    assert_not pair_work.reserve(invalid_params)
+    assert_includes pair_work.errors.full_messages, 'ペアが選択されていません'
+  end
+
+  test '#reserve fails when buddy_id does not exist' do
+    invalid_params = {
+      reserved_at: Time.zone.parse('2025-01-02 01:00:00'),
+      buddy_id: 999_999
+    }
+    pair_work = pair_works(:pair_work1)
+
+    assert_not pair_work.reserve(invalid_params)
+    assert_includes pair_work.errors.full_messages, 'ペアが選択されていません'
+  end
+
+  test '#reserve fails when reserved_at is nil' do
+    invalid_params = {
+      reserved_at: nil,
+      buddy_id: users(:komagata).id
+    }
+    pair_work = pair_works(:pair_work1)
+
+    assert_not pair_work.reserve(invalid_params)
+    assert_includes pair_work.errors.full_messages, '希望した日時が選択されていません'
+  end
+
+  test '#reserve fails when reserved_at is not in proposed schedules' do
+    unscheduled_reserved_at = Time.zone.parse('2025-01-04 00:00:00')
+    invalid_params_reserved_at = {
+      reserved_at: unscheduled_reserved_at,
+      buddy_id: users(:komagata).id
+    }
+    pair_work = pair_works(:pair_work1)
+
+    assert_not pair_work.reserve(invalid_params_reserved_at)
+    assert_includes pair_work.errors.full_messages, '希望した日時は提案されたスケジュールに含まれていません'
+  end
+end

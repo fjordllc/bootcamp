@@ -5,20 +5,22 @@ nav.global-nav
         li.global-nav-links__item
           = link_to root_path, class: "global-nav-links__link #{current_link(/^home/)}" do
             .global-nav-links__link-icon
-              i.fa-solid.fa-gauge
+              i.fa-solid.fa-home
             .global-nav-links__link-label.is-sm
               | ダッシュボード
         li.global-nav-links__item
           = link_to announcements_path, class: "global-nav-links__link #{current_link(/^announcements/)}" do
             .global-nav-links__link-icon
               i.fa-solid.fa-bullhorn
-            .global-nav-links__link-label お知らせ
+            .global-nav-links__link-label
+              | お知らせ
         li.global-nav-links__item
           - anchor = "category-#{@current_user_practice.category_active_or_unstarted_practice.id}" if @current_user_practice.category_active_or_unstarted_practice.present?
           = link_to course_practices_path(current_user.course, anchor:), class: "global-nav-links__link #{current_link(/^(courses-practices|practices)-/)}" do
             .global-nav-links__link-icon
               i.fa-solid.fa-book
-            .global-nav-links__link-label プラクティス
+            .global-nav-links__link-label
+              | プラクティス
         li.global-nav-links__item
           = link_to reports_path, class: "global-nav-links__link #{current_link(/^(reports|external_entries)/)}" do
             .global-nav-links__link-icon
@@ -26,7 +28,12 @@ nav.global-nav
             - if admin_or_mentor_login? && Cache.unchecked_report_count.positive?
               .global-nav__item-count.a-notification-count.is-only-mentor
                 = Cache.unchecked_report_count
-            .global-nav-links__link-label 日報・ブログ
+            .global-nav-links__link-label
+              | 日報
+              br.is-hidden-sm-down
+              span.is-hidden-md-up
+                | ・
+              | ブログ
         - if staff_login?
           li.global-nav-links__item
             - products_link = admin_or_mentor_login? ? products_unassigned_index_path : products_path
@@ -36,15 +43,31 @@ nav.global-nav
               - if admin_or_mentor_login? && Cache.unassigned_product_count.positive?
                 .global-nav__item-count.a-notification-count.is-only-mentor
                   = Cache.unassigned_product_count
-              .global-nav-links__link-label 提出物
+              .global-nav-links__link-label
+                | 提出物
         li.global-nav-links__item
-          = link_to questions_path(target: 'not_solved'), class: "global-nav-links__link #{current_link(/^questions/)}" do
+          = link_to questions_path(target: 'not_solved'), class: "global-nav-links__link #{current_link(/^(questions|pair_works)/)}" do
             .global-nav-links__link-icon
-              i.fa-solid.fa-comments-question-check
-            - if Cache.not_solved_question_count.positive?
+              i.fa-solid.fa-comment-question
+            // TODO ペアワークを本番リリースしたらこの分岐は削除
+            - if pair_work_available?
+              - if Cache.not_solved_question_count.positive? || Cache.not_solved_pair_work_count.positive?
+                .global-nav__item-count.a-notification-count
+                  = Cache.not_solved_question_count + Cache.not_solved_pair_work_count
+            - elsif Cache.not_solved_question_count.positive?
               .global-nav__item-count.a-notification-count
                 = Cache.not_solved_question_count
-            .global-nav-links__link-label Q&A
+            // TODO ペアワークを本番リリースしたらこの分岐は削除
+            - if pair_work_available?
+              .global-nav-links__link-label
+                | Q&A
+                br.is-hidden-sm-down
+                span.is-hidden-md-up
+                  | ・
+                | ペアワーク
+            - else
+              .global-nav-links__link-label
+                | Q&A
         li.global-nav-links__item
           = link_to '/pages', class: "global-nav-links__link #{@page&.slug != 'help' && @page&.slug != 'help-adviser' && current_link(/^pages/)}" do
             .global-nav-links__link-icon
@@ -58,18 +81,20 @@ nav.global-nav
           = link_to portfolios_path, class: "global-nav-links__link #{current_link(/^works/)}" do
             .global-nav-links__link-icon
               i.fa-solid.fa-rocket
-            .global-nav-links__link-label.is-sm
+            .global-nav-links__link-label
               | ポートフォリオ
         li.global-nav-links__item
           = link_to users_path, class: "global-nav-links__link #{current_link(/^users-(index|show)/)}" do
             .global-nav-links__link-icon
               i.fa-solid.fa-users
-            .global-nav-links__link-label ユーザー
+            .global-nav-links__link-label
+              | ユーザー
         li.global-nav-links__item
           = link_to events_path, class: "global-nav-links__link #{current_link(/^events|^regular_events/)}" do
             .global-nav-links__link-icon
               i.fa-solid.fa-beer
-            .global-nav-links__link-label イベント
+            .global-nav-links__link-label
+              | イベント
         li.global-nav-links__item
           = link_to action_uncompleted_index_path(current_user.talk), class: "global-nav-links__link #{current_link(/talk/)}" do
             .global-nav-links__link-icon
