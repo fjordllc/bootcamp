@@ -9,6 +9,17 @@
 
 = practice_page_tabs(@practice, active_tab: 'Docs')
 
+- if @practice.grant_course?
+  .page-body
+    .container.is-md
+      nav.pill-nav
+        .container
+          ul.pill-nav__items
+            li.pill-nav__item
+              = link_to '全て', practice_pages_path, class: "pill-nav__item-link #{params[:target] == 'with_grant' ? '' : 'is-active'}"
+            li.pill-nav__item
+              = link_to '給付金コース', practice_pages_path(target: 'with_grant'), class: "pill-nav__item-link #{params[:target] == 'with_grant' ? 'is-active' : ''}"
+
 .page-body
   = paginate @pages
   .container.is-md
