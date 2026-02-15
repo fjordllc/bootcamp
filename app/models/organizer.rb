@@ -6,9 +6,7 @@ class Organizer < ApplicationRecord
 
   validates :user_id, uniqueness: { scope: :regular_event_id }
 
-  def delete_and_assign_new
-    event = regular_event
-    delete
-    event.assign_admin_as_organizer_if_none
-  end
+  scope :holding, lambda {
+    joins(:regular_event).merge(RegularEvent.holding)
+  }
 end
