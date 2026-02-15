@@ -390,3 +390,13 @@ practice63:
   goal: "goal..."
   include_progress: true
   memo: "memo for mentors..."
+
+practice64:
+  title: "OS X Mountain Lionをクリーンインストールする（Reスキル）"
+  description: "Railsコースのプラクティスをコピーしたプラクティスです。"
+  source_id: <%= ActiveRecord::FixtureSet.identify(:practice1) %>
+
+practice65:
+  title: "Terminalの基礎を覚える（Reスキル）"
+  description: "Railsコースのプラクティスをコピーしたプラクティスです。"
+  source_id: <%= ActiveRecord::FixtureSet.identify(:practice2) %>

@@ -1,0 +1,9 @@
+.page-body
+  .container.is-md
+    nav.pill-nav
+      .container
+        ul.pill-nav__items
+          li.pill-nav__item
+            = link_to '全て', practice_pages_path, class: "pill-nav__item-link #{params[:target] == 'only_grant_course' ? '' : 'is-active'}"
+          li.pill-nav__item
+            = link_to '給付金コース', practice_pages_path(target: 'only_grant_course'), class: "pill-nav__item-link #{params[:target] == 'only_grant_course' ? 'is-active' : ''}"
