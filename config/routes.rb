@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get "job_support", to: "welcome#job_support", as: "job_support"
   get "tos", to: "welcome#tos", as: "tos"
   get "pp", to: "welcome#pp", as: "pp"
+  get "buzzes", to: "welcome#buzzes", as: "buzzes"
+  get "buzzes/years/:year", to: "welcome#buzzes", as: :buzzes_year, constraints: { year: /\d{4}/ }
   get "law", to: "welcome#law", as: "law"
   get "coc", to: "welcome#coc", as: "coc"
   get "press_kit", to: "welcome#press_kit", as: "press_kit"
@@ -131,7 +133,6 @@ Rails.application.routes.draw do
   niconico_calendar_constraints = { niconico_calendar: /\d{4}-\d{2}/ }
   get '/', to: 'home#index', as: :niconico_calendar_date, constraints: niconico_calendar_constraints
   get '/users/:id', to: 'users#show', as: :niconico_calendar_date_in_profile, constraints: niconico_calendar_constraints
-  resource :buzz, only: %i(show edit update), controller: "buzz"
   resources :movies
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   mount MissionControl::Jobs::Engine, at: "/jobs"
