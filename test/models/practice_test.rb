@@ -56,6 +56,13 @@ class PracticeTest < ActiveSupport::TestCase
     assert_equal category, practice.category(course)
   end
 
+  test '#grant_course?' do
+    assert_equal \
+      practices(:practice64).grant_course?, true
+    assert_equal \
+      practices(:practice1).grant_course?, false
+  end
+
   test 'source_id_cannot_be_self validation prevents self-reference' do
     practice = practices(:practice1)
     practice.source_id = practice.id
