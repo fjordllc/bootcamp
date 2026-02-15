@@ -90,6 +90,50 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
     end
   end
 
+  test 'does not post warning for solved questions' do
+    question = create_question
+    question_auto_closer = QuestionAutoCloser.new
+
+    solved_at = question.created_at.advance(days: 1)
+    CorrectAnswer.create!(
+      question:,
+      user: users(:komagata),
+      description: 'ベストアンサーです',
+      created_at: solved_at,
+      updated_at: solved_at
+    )
+
+    travel_to solved_at.advance(months: 1) do
+      assert_no_difference -> { question.answers.count } do
+        question_auto_closer.post_warning
+      end
+    end
+  end
+
+  test 'does not post auto-close messages for solved questions' do
+    question = create_question
+    question_auto_closer = QuestionAutoCloser.new
+
+    warned_at = question.created_at.advance(months: 1)
+    warning_comment = question.answers.create!(
+      user: users(:pjord),
+      description: WARNING_MESSAGE,
+      created_at: warned_at,
+      updated_at: warned_at
+    )
+    solved_at = warned_at.advance(days: 1)
+    # Q&Aの最後の活動が警告メッセージ投稿でかつそこから一定期間経過後に自動クローズメッセージを投稿する仕様
+    # 通常の回答をベストアンサーにした場合そのQ&Aの最後の活動が警告メッセージ投稿ではなくなるため「解決済みの質問は除外」という条件は不要
+    # 警告メッセージがベストアンサーに選ばれて解決済みになった場合に「解決済みの質問は除外」という条件が必要なため警告メッセージをベストアンサーにしてテストする
+    warning_comment.update!(type: 'CorrectAnswer', updated_at: solved_at)
+
+    travel_to solved_at.advance(weeks: 1) do
+      assert_no_difference -> { question.answers.count } do
+        question_auto_closer.close_inactive_questions
+      end
+    end
+  end
+
   test 'resets warning countdown when the question is updated' do
     question = create_question(wip: true)
     question_auto_closer = QuestionAutoCloser.new
