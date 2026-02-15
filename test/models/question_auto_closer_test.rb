@@ -90,6 +90,69 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
     end
   end
 
+  test 'does not post warning for solved questions' do
+    question = create_question
+    question_auto_closer = QuestionAutoCloser.new
+
+    solved_at = question.created_at.advance(days: 1)
+    CorrectAnswer.create!(
+      question:,
+      user: users(:komagata),
+      description: 'ベストアンサーです',
+      created_at: solved_at,
+      updated_at: solved_at
+    )
+
+    travel_to solved_at.advance(months: 1) do
+      assert_no_difference -> { question.answers.count } do
+        question_auto_closer.post_warning
+      end
+    end
+  end
+
+  test 'does not post auto-close messages for solved questions' do
+    # 警告後に通常のユーザーの回答をベストアンサーにして解決済みにしたQ&Aは「最後の警告後に回答更新」がYesになる
+    # そのため自動クローズの条件から「未解決である」という条件を外しても自動クローズメッセージは投稿されない
+    # ただし「未解決である」という条件は警告メッセージがベストアンサーに選ばれて解決済みになったQ&Aに自動クローズメッセージを投稿しないようにするために必要
+    # よってこのエッジケースをテストする
+    question = create_question
+    question_auto_closer = QuestionAutoCloser.new
+
+    warned_at = question.created_at.advance(months: 1)
+    warning_comment = question.answers.create!(
+      user: users(:pjord),
+      description: WARNING_MESSAGE,
+      created_at: warned_at,
+      updated_at: warned_at
+    )
+    solved_at = warned_at.advance(days: 1)
+    warning_comment.update!(type: 'CorrectAnswer', updated_at: solved_at)
+
+    travel_to solved_at.advance(weeks: 1) do
+      assert_no_difference -> { question.answers.count } do
+        question_auto_closer.close_inactive_questions
+      end
+    end
+  end
+
+  test 'does not auto-close questions without any warning messages' do
+    question = create_question
+    question_auto_closer = QuestionAutoCloser.new
+
+    question.answers.create!(
+      user: users(:komagata),
+      description: '回答しました',
+      created_at: question.created_at,
+      updated_at: question.created_at
+    )
+
+    travel_to question.created_at.advance(weeks: 1) do
+      assert_no_difference -> { question.answers.count } do
+        question_auto_closer.close_inactive_questions
+      end
+    end
+  end
+
   test 'resets warning countdown when the question is updated' do
     question = create_question(wip: true)
     question_auto_closer = QuestionAutoCloser.new
@@ -210,6 +273,69 @@ class QuestionAutoCloserTest < ActiveSupport::TestCase
       assert_equal system_user, answer.user
       assert_equal AUTO_CLOSE_MESSAGE, answer.description
       assert answer.is_a?(CorrectAnswer)
+    end
+  end
+
+  test 'does not auto-close a question when the last updated answer is auto-close message' do
+    # 回答が警告メッセージであることを判定するために回答の作成者がシステムアカウントであることだけを条件に入れるとこのテストが失敗する
+    # 回答の本文が警告メッセージであることも条件に入れる必要がある
+    question = create_question
+    question_auto_closer = QuestionAutoCloser.new
+
+    warned_at = question.created_at.advance(months: 1)
+    system_user = users(:pjord)
+    question.answers.create!(
+      user: system_user,
+      description: WARNING_MESSAGE,
+      created_at: warned_at,
+      updated_at: warned_at
+    )
+    closed_at = warned_at.advance(weeks: 1)
+    auto_close_comment = CorrectAnswer.create!(
+      question:,
+      user: system_user,
+      description: AUTO_CLOSE_MESSAGE,
+      created_at: closed_at,
+      updated_at: closed_at
+    )
+    reopened_at = closed_at.advance(days: 1)
+    auto_close_comment.update!(type: nil, updated_at: reopened_at)
+
+    travel_to reopened_at.advance(weeks: 1) do
+      assert_no_difference -> { question.answers.count } do
+        question_auto_closer.close_inactive_questions
+      end
+    end
+  end
+
+  test 'emits a notification when an warning message is posted' do
+    question = create_question
+    question_auto_closer = QuestionAutoCloser.new
+
+    travel_to question.created_at.advance(months: 1) do
+      assert_notification('answer.create') do
+        question_auto_closer.post_warning
+      end
+    end
+  end
+
+  test 'emits notifications when an auto-close message is posted' do
+    question = create_question
+    question_auto_closer = QuestionAutoCloser.new
+
+    warned_at = question.created_at.advance(months: 1)
+    system_user = users(:pjord)
+    question.answers.create!(
+      user: system_user,
+      description: WARNING_MESSAGE,
+      created_at: warned_at,
+      updated_at: warned_at
+    )
+
+    travel_to warned_at.advance(weeks: 1) do
+      assert_notifications_count(/\w*answer.save/, 2) do
+        question_auto_closer.close_inactive_questions
+      end
     end
   end
 end
