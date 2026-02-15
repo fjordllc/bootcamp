@@ -11,7 +11,7 @@
       thead
         tr
           th
-          - day_of_the_week.each do |day|
+          - I18n.t('date.abbr_day_names').each do |day|
             th = day
       tbody#learning_time_frame
         = hidden_field_tag 'user[learning_time_frame_ids][]', ''
