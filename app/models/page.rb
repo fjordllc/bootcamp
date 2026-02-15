@@ -24,6 +24,8 @@ class Page < ApplicationRecord
 
   before_validation :empty_slug_to_nil
 
+  scope :source_cource_pages, ->(source_id) { where(practice_id: source_id) }
+
   def self.ransackable_attributes(_auth_object = nil)
     %w[title body slug wip created_at updated_at user_id last_updated_user_id practice_id]
   end
