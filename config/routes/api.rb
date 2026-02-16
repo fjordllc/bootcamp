@@ -86,9 +86,6 @@ Rails.application.routes.draw do
     resources :movies, only: %i(index update)
     resources :metadata, only: %i(index)
     resources :micro_reports, only: %i(update)
-    resource :buzz, only: %i(create destroy)
-    namespace 'buzzes' do
-      resource :buzz, only: %i(show), controller: 'buzz'
-    end
+    resource :buzz, only: %i(show create destroy), controller: 'buzzes'
   end
 end

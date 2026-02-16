@@ -4,6 +4,17 @@ class API::BuzzesController < API::BaseController
   before_action :require_admin_or_mentor_login_for_api
   skip_before_action :verify_authenticity_token
 
+  def show
+    return render json: { error: 'URLパラメータが必要です' }, status: :bad_request if params[:url].blank?
+
+    @buzz = Buzz.find_by(url: params[:url])
+    if @buzz
+      render json: @buzz, status: :ok
+    else
+      head :not_found
+    end
+  end
+
   def create
     return render json: { error: 'パラメータが不正です' }, status: :bad_request unless params[:buzz].present? && params[:buzz][:url].present?
 
