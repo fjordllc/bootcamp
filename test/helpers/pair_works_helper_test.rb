@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class PairWorkHelperTest < ActionView::TestCase
+class PairWorksHelperTest < ActionView::TestCase
   setup do
     def current_user
       users(:kimura)

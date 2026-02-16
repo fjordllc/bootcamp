@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module PairWorkHelper
+module PairWorksHelper
   def schedule_dates(date)
     (0..6).map { |i| date.to_date + i.days }
   end
