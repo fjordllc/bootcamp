@@ -91,5 +91,6 @@ Rails.application.routes.draw do
     namespace 'buzzes' do
       resource :buzz, only: %i(show), controller: 'buzz'
     end
+    resource :buzz, only: %i(show create destroy), controller: 'buzzes'
   end
 end
