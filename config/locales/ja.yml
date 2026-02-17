@@ -350,6 +350,8 @@ ja:
         name: 名前
         last_name: 姓
         first_name: 名
+        last_name_kana: セイ
+        first_name_kana: メイ
         email: メールアドレス
         zip: 郵便番号
         zip1: 郵便番号（前半）
