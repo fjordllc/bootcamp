@@ -47,7 +47,7 @@
                   .user-data__row
                     .user-data__tags
                       = render(Tag::FormComponent.new(taggable: @user, param_name: 'user[tag_list]', input_id: 'user_tag_list', editable: (@user.id == current_user.id)))
-                - if admin_or_mentor_login? && @user.hibernated?
+                - if admin_or_mentor_login? && !@user.hibernations.empty?
                   .user-data__row
                     = render 'users/hibernation_info', user: @user
                 - if admin_or_mentor_login? && @user.training_completed?
