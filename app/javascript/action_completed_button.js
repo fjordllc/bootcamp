@@ -5,13 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const button = document.querySelector('.check-button')
   if (!button) return
 
-  let isLoading = false
   const updatePath = button.dataset.updatePath
   const modelName = button.dataset.modelName
   button.addEventListener('click', async () => {
-    if (isLoading) return
-
-    isLoading = true
     button.disabled = true
     const isInitialActionCompleted =
       button.classList.contains('is-muted-borderd')
@@ -56,7 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
       console.warn(error)
     }
 
-    isLoading = false
     button.disabled = false
   })
 })
