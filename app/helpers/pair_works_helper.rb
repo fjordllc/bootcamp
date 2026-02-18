@@ -16,16 +16,17 @@ module PairWorksHelper
     sorted_wdays
   end
 
-  def disabled?(target_time, pair_work: nil)
+  def schedule_check_disabled?(target_time, pair_work: nil)
+    expired = target_time < Time.current
     if pair_work
-      target_time < Time.current || pair_work.user_id == current_user.id
+      expired || pair_work.user_id == current_user.id
     else
-      target_time < Time.current
+      expired
     end
   end
 
   def learning_time_frame_checked?(target_time, id)
-    !disabled?(target_time) && current_user.learning_time_frame_ids.include?(id)
+    !schedule_check_disabled?(target_time) && current_user.learning_time_frame_ids.include?(id)
   end
 
   def schedule_target_time(day_count, hour_count)

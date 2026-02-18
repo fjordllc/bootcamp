@@ -74,7 +74,7 @@
                                 = check_box_tag 'pair_work[schedules_attributes][][proposed_at]',
                                                 target_time.iso8601,
                                                 learning_time_frame_checked?(target_time, learning_time_frame_id),
-                                                id: check_box_id, disabled: disabled?(target_time)
+                                                id: check_box_id, disabled: schedule_check_disabled?(target_time)
       .form-item
         .row.js-markdown-parent
           .col-md-6.col-xs-12

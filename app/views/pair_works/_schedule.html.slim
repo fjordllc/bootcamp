@@ -18,7 +18,7 @@
                 = form_with model: pair_work, url: pair_work_reservations_path(pair_work), method: :post, local: true do |f|
                   = f.hidden_field :reserved_at, value: target_time
                   = f.button type: :submit,
-                    disabled: disabled?(target_time, pair_work:),
+                    disabled: schedule_check_disabled?(target_time, pair_work:),
                     class: ['!absolute',
                       '!top-0',
                       '!flex',

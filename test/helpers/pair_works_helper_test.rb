@@ -31,14 +31,14 @@ class PairWorksHelperTest < ActionView::TestCase
     assert_equal wdays_if_wednesday, sorted_wdays(Date.new(2025, 1, 1))
   end
 
-  test 'disabled?' do
+  test 'schedule_check_disabled?' do
     past_date = Time.current.yesterday
     future_date = Time.current.tomorrow
     my_pair_work = pair_works(:pair_work1)
 
-    assert disabled?(past_date)
-    assert_not disabled?(future_date)
-    assert disabled?(future_date, pair_work: my_pair_work)
+    assert schedule_check_disabled?(past_date)
+    assert_not schedule_check_disabled?(future_date)
+    assert schedule_check_disabled?(future_date, pair_work: my_pair_work)
   end
 
   test 'learning_time_frame_checked?' do
