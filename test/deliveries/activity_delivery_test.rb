@@ -18,7 +18,7 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
       user: users(:komagata),
       sender: users(:kimura),
       link: "/users/#{users(:kimura).id}",
-      message: "#{users(:kimura).login_name}さんがxxxxを確認しました。",
+      message: "#{users(:kimura).login_name}さんがxxxxを合格にしました。",
       read: false
     )
 
@@ -51,7 +51,7 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
       user: check.receiver,
       sender: check.sender,
       link: "/products/#{check.checkable.id}",
-      message: "#{check.sender.login_name}さんが#{check.checkable.title}を確認しました。",
+      message: "#{check.sender.login_name}さんが#{check.checkable.title}を合格にしました。",
       read: false
     )
 

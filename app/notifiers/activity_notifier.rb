@@ -252,7 +252,7 @@ class ActivityNotifier < ApplicationNotifier # rubocop:todo Metrics/ClassLength
     receiver = params[:receiver]
 
     notification(
-      body: "#{check.sender.login_name}さんが#{check.checkable.title}を確認しました。",
+      body: "#{check.sender.login_name}さんが#{check.checkable.title}を合格にしました。",
       kind: :checked,
       receiver:,
       sender: check.sender,
