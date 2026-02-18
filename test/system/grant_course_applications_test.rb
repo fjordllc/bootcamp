@@ -58,7 +58,7 @@ class GrantCourseApplicationsTest < ApplicationSystemTestCase
     assert_text '個人情報の取り扱いを受諾してください'
   end
 
-  test 'user sees error messages when firigana field contains a value other than katakana' do
+  test 'user sees error messages when furigana field contains a value other than katakana' do
     visit new_grant_course_application_path
 
     fill_in 'grant_course_application[last_name_kana]', with: 'やまだ'
