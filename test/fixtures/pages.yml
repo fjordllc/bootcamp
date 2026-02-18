@@ -101,3 +101,19 @@ page11:
   body: test
   user: long-id-mentor
   published_at: "2022-04-15 00:00:00"
+
+page12:
+  title: 給付金コースのプラクティスに紐づいたDocs
+  body: 給付金コースのプラクティスに紐づいたDocs
+  user: komagata
+  practice: practice64
+  published_at: "2022-12-21 00:00:00"
+  last_updated_user: komagata
+
+page13:
+  title: コピー元のRailsコースのプラクティスのDocs
+  body: コピー元のRailsコースのプラクティスのDocs
+  user: komagata
+  practice: practice1
+  published_at: "2022-12-21 00:00:00"
+  last_updated_user: komagata
