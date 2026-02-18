@@ -16,6 +16,7 @@
           - else
             span.user-metas__item-value-text(class=user.countdown_danger_tag)
               = user.retire_deadline
+  | 休会回数：#{user.hibernationCount}
   - user.hibernations.each_with_index do |hibernation, i|
     - number = i + 1
     .user-metas__items
