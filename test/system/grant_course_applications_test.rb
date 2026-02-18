@@ -10,6 +10,8 @@ class GrantCourseApplicationsTest < ApplicationSystemTestCase
 
     fill_in 'grant_course_application[last_name]', with: '山田'
     fill_in 'grant_course_application[first_name]', with: '太郎'
+    fill_in 'grant_course_application[last_name_kana]', with: 'ヤマダ'
+    fill_in 'grant_course_application[first_name_kana]', with: 'タロウ'
     fill_in 'grant_course_application[email]', with: 'test@example.com'
     fill_in 'grant_course_application_zip1', with: '123'
     fill_in 'grant_course_application_zip2', with: '4567'
@@ -41,6 +43,8 @@ class GrantCourseApplicationsTest < ApplicationSystemTestCase
     assert_text '入力内容にエラーがあります'
     assert_text '姓を入力してください'
     assert_text '名を入力してください'
+    assert_text 'セイを入力してください'
+    assert_text 'メイを入力してください'
     assert_text 'メールアドレスを入力してください'
     assert_text '郵便番号（前半）を入力してください'
     assert_text '郵便番号（後半）を入力してください'
