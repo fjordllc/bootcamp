@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Practice::CompletionTest < ApplicationSystemTestCase
+class Practice::PageTabsTest < ApplicationSystemTestCase
   test 'hide empty submissions tab' do
     practice = practices(:practice4)
     visit_with_auth practice_path(practice), 'komagata'
