@@ -678,11 +678,11 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     hibernated_at?
   end
 
-  def hasEverHibernated?
+  def has_ever_hibernated?
     !hibernations.empty?
   end
 
-  def hibernationCount
+  def hibernation_count
     hibernations.count
   end
 

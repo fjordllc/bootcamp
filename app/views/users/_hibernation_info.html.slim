@@ -1,7 +1,7 @@
 .user-metas.is-only-mentor
   h2.user-metas__title
     | 休会情報（非公開）
-    | 休会回数：#{user.hibernationCount}
+    | 休会回数：#{user.hibernation_count}
   - user.hibernations.each_with_index do |hibernation, i|
     - number = i + 1
     .user-metas__items
