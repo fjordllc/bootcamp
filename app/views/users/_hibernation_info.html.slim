@@ -1,22 +1,7 @@
 .user-metas.is-only-mentor
   h2.user-metas__title
     | 休会情報（非公開）
-  .user-metas__items
-    - if user.hibernated?
-      .user-metas__item
-        .user-metas__item-label 最後に休会した日時
-        .user-metas__item-value
-          = l user.hibernated_at
-      .user-metas__item
-        .user-metas__item-label 休会期限日時
-        .user-metas__item-value
-          - if !user.auto_retire
-            span.user-metas__item-value-text
-              | 企業都合休会中(#{user.hibernation_days}日)
-          - else
-            span.user-metas__item-value-text(class=user.countdown_danger_tag)
-              = user.retire_deadline
-  | 休会回数：#{user.hibernationCount}
+    | 休会回数：#{user.hibernationCount}
   - user.hibernations.each_with_index do |hibernation, i|
     - number = i + 1
     .user-metas__items
@@ -24,12 +9,18 @@
         | #{number}回目の休会
       .user-metas__item
         .user-metas__item-label
-          = Hibernation.human_attribute_name :scheduled_return_on
+          = Hibernation.human_attribute_name :period
         .user-metas__item-value
-          = l hibernation.scheduled_return_on
+          | #{l hibernation.created_at.to_date}~
           - if hibernation.returned_at?
-            span
-              | （#{Hibernation.human_attribute_name :returned_at} : #{l hibernation.returned_at}）
+            = l hibernation.returned_at
+          - else
+            - if !user.auto_retire
+              | 企業都合休会中(#{user.hibernation_days}日)
+            - else
+              | 現在休会中 #{user.retire_deadline}
+          br
+          | (#{Hibernation.human_attribute_name :scheduled_return_on} : #{l hibernation.scheduled_return_on})
       .user-metas__item
         .user-metas__item-label
           = Hibernation.human_attribute_name :reason
