@@ -20,11 +20,22 @@ document.addEventListener('DOMContentLoaded', () => {
         })
       })
       if (response.ok) {
-        const newButtonText = isActionCompleted ? '対応済です' : '対応済にする'
-        const iconClass = isActionCompleted ? 'fa-check' : 'fa-redo'
-        const newMessage = isActionCompleted
-          ? 'お疲れ様でした！相談者から次のアクションがあった際は、自動で未対応のステータスに変更されます。再度このボタンをクリックすると、未対応にステータスに戻ります。'
-          : '返信が完了し次は相談者からのアクションの待ちの状態になったとき、もしくは、相談者とのやりとりが一通り完了した際は、このボタンをクリックして対応済のステータスに変更してください。'
+        const forCompleted = {
+          newButtonText: '対応済です',
+          iconClass: 'fa-check',
+          newMessage:
+            'お疲れ様でした！相談者から次のアクションがあった際は、自動で未対応のステータスに変更されます。再度このボタンをクリックすると、未対応にステータスに戻ります。',
+          toastMessage: '対応済みにしました'
+        }
+        const forNotCompleted = {
+          newButtonText: '対応済にする',
+          iconClass: 'fa-redo',
+          newMessage:
+            '返信が完了し次は相談者からのアクションの待ちの状態になったとき、もしくは、相談者とのやりとりが一通り完了した際は、このボタンをクリックして対応済のステータスに変更してください。',
+          toastMessage: '未対応にしました'
+        }
+        const { newButtonText, iconClass, newMessage, toastMessage } =
+          isActionCompleted ? forCompleted : forNotCompleted
         button.innerHTML = `<i class="fas ${iconClass}"></i> ${newButtonText}`
         button.classList.toggle('is-warning', !isActionCompleted)
         button.classList.toggle('is-muted-borderd', isActionCompleted)
@@ -36,10 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
           description.innerHTML = newMessage
         }
 
-        toast(
-          isActionCompleted ? '対応済みにしました' : '未対応にしました',
-          'success'
-        )
+        toast(toastMessage, 'success')
       } else {
         toast('更新に失敗しました', 'error')
         const errorText = await response.text
