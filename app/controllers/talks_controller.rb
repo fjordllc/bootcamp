@@ -31,6 +31,7 @@ class TalksController < ApplicationController
 
   def show
     @comments = @talk.comments.order(:created_at)
+    @reports = @user.reports.list.limit(20)
   end
 
   private
