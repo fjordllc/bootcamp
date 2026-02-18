@@ -16,7 +16,7 @@ module UserDecorator
           "#{retire_countdown.in_days.floor}日"
         end
 
-      "#{l scheduled_retire_at} (自動退会まであと#{countdown})"
+      "(自動退会まであと#{countdown})"
     end
 
     def countdown_danger_tag
