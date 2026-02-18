@@ -149,6 +149,82 @@ module Users
       assert_no_text '卒業 1日'
     end
 
+    test 'show hibernated user information for administrator' do
+      hibernated_user = users(:kyuukai)
+
+      visit_with_auth user_path(hibernated_user), 'komagata'
+
+      assert_text '休会回数'
+      assert_text '1回目の休会'
+      assert_text '休会期間'
+      assert_text '自動退会まであと'
+      assert_text '復帰予定日'
+      assert_text '休会の理由'
+    end
+
+    test 'show hibernated user information for mentor' do
+      hibernated_user = users(:kyuukai)
+
+      visit_with_auth user_path(hibernated_user), 'mentormentaro'
+
+      assert_text '休会回数'
+      assert_text '1回目の休会'
+      assert_text '休会期間'
+      assert_text '自動退会まであと'
+      assert_text '復帰予定日'
+      assert_text '休会の理由'
+    end
+
+    test 'shold not show hibernated user information for regular user' do
+      hibernated_user = users(:kyuukai)
+
+      visit_with_auth user_path(hibernated_user), 'kimura'
+
+      assert_no_text '休会回数'
+      assert_no_text '1回目の休会'
+      assert_no_text '休会期間'
+      assert_no_text '自動退会まであと'
+      assert_no_text '復帰予定日'
+      assert_no_text '休会の理由'
+    end
+
+    test 'show past-hibernated user information for administrator' do
+      hibernated_user = users(:hukki)
+
+      visit_with_auth user_path(hibernated_user), 'komagata'
+
+      assert_text '休会回数'
+      assert_text '1回目の休会'
+      assert_text '休会期間'
+      assert_text '復帰予定日'
+      assert_text '休会の理由'
+    end
+
+    test 'show past-hibernated user information for mentor' do
+      hibernated_user = users(:hukki)
+
+      visit_with_auth user_path(hibernated_user), 'mentormentaro'
+
+      assert_text '休会回数'
+      assert_text '1回目の休会'
+      assert_text '休会期間'
+      assert_text '復帰予定日'
+      assert_text '休会の理由'
+    end
+
+    test 'shold not show past-hibernated user information for regular user' do
+      hibernated_user = users(:hukki)
+
+      visit_with_auth user_path(hibernated_user), 'kimura'
+
+      assert_no_text '休会回数'
+      assert_no_text '1回目の休会'
+      assert_no_text '休会期間'
+      assert_no_text '自動退会まであと'
+      assert_no_text '復帰予定日'
+      assert_no_text '休会の理由'
+    end
+
     test 'show hibernation period in profile' do
       hibernated_user = users(:kyuukai)
       user = users(:hatsuno)
@@ -159,39 +235,6 @@ module Users
       end
       visit_with_auth user_path(user), 'komagata'
       assert_no_text '休会中（休会から'
-    end
-
-    test 'show hibernation-info for user who have returned from hibernation' do
-      returned_user = users(:hukki)
-      user = users(:hatsuno)
-
-      visit_with_auth user_path(returned_user), 'komagata'
-      assert_text '現役生'
-      assert_text '1回目の休会'
-
-      visit_with_auth user_path(user), 'komagata'
-      assert_no_text '1回目の休会'
-    end
-
-    test 'show hibernation count for administrator' do
-      hibernated_user = users(:kyuukai)
-
-      visit_with_auth user_path(hibernated_user), 'komagata'
-      assert_text '休会回数'
-    end
-
-    test 'show hibernation count for mentor' do
-      hibernated_user = users(:kyuukai)
-
-      visit_with_auth user_path(hibernated_user), 'mentormentaro'
-      assert_text '休会回数'
-    end
-
-    test 'not show hibernation count when logined as regular user' do
-      hibernated_user = users(:kyuukai)
-
-      visit_with_auth user_path(hibernated_user), 'kimura'
-      assert_no_text '休会回数'
     end
 
     test 'can upload heic image and converts it to webp with login_name' do
