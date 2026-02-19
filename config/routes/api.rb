@@ -77,7 +77,6 @@ Rails.application.routes.draw do
       resources :action_uncompleted, only: %i(index)
     end
     resources :talks, only: %i(index update)
-    resources :regular_events, only: %i(index)
     resources :books, only: %i(index)
     resources :survey_question_listings, only: %i() do
       resource :position, only: %i(update), controller: "survey_question_listings/position"
