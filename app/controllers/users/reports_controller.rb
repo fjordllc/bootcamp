@@ -4,6 +4,7 @@ class Users::ReportsController < ApplicationController
   before_action :set_user
   before_action :set_target
   before_action :require_admin_or_mentor_login, if: -> { params[:target] == 'unchecked_reports' }
+  before_action :set_current_user_practice
   before_action :set_reports
   before_action :set_report
   before_action :set_export
@@ -38,6 +39,11 @@ class Users::ReportsController < ApplicationController
                else
                  @user.reports.list.page(params[:page])
                end
+    @reports = @reports.joins(:practices).where(practices: { id: params[:practice_id] }) if params[:practice_id].present?
+  end
+
+  def set_current_user_practice
+    @current_user_practice = UserCoursePractice.new(@user || current_user)
   end
 
   def set_report

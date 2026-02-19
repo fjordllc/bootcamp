@@ -103,4 +103,13 @@
                                     data: { confirm: '本当によろしいですか？' },
                                     class: 'a-button is-sm is-danger is-block'
               .side-tabs-contents__item#side-tabs-content-2
-                = react_component('Reports', userId: @user.id, displayUserIcon: false, displayPagination: false)
+                - if @reports.empty?
+                  .o-empty-message
+                    .o-empty-message__icon
+                      i.fa-regular.fa-sad-tear
+                    .o-empty-message__text
+                      | 日報はまだありません。
+                - else
+                  .card-list.a-card
+                    .card-list__items
+                      = render partial: 'reports/report', collection: @reports, as: :report, locals: { user_icon_display: false, actions_display: false }

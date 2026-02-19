@@ -11,4 +11,16 @@
 
 .page-body
   .container.is-md
-    = react_component('Reports', practiceId: @practice.id)
+    - if @reports.empty?
+      .o-empty-message
+        .o-empty-message__icon
+          i.fa-regular.fa-sad-tear
+        .o-empty-message__text
+          | 日報はまだありません。
+    - else
+      .page-content.reports
+        = paginate @reports
+        .card-list.a-card
+          .card-list__items
+            = render partial: 'reports/report', collection: @reports, as: :report, locals: { user_icon_display: true, actions_display: true }
+        = paginate @reports
