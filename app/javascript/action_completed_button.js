@@ -1,39 +1,41 @@
-import CSRF from 'csrf'
+import { patch } from '@rails/request.js'
 import { toast } from './vanillaToast'
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
   const button = document.querySelector('.check-button')
-  if (!button) {
-    return
-  }
-  const commentableId = button.dataset.commentableId
-  button.addEventListener('click', function () {
+  if (!button) return
+
+  const updatePath = button.dataset.updatePath
+  const modelName = button.dataset.modelName
+  button.addEventListener('click', async () => {
+    button.disabled = true
     const isInitialActionCompleted =
       button.classList.contains('is-muted-borderd')
     const isActionCompleted = !isInitialActionCompleted
 
-    fetch(`/api/talks/${commentableId}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': CSRF.getToken()
-      },
-      body: JSON.stringify({
-        talk: { action_completed: isActionCompleted }
+    try {
+      const response = await patch(updatePath, {
+        body: JSON.stringify({
+          [modelName]: { action_completed: isActionCompleted }
+        })
       })
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok')
+      if (response.ok) {
+        const forCompleted = {
+          newButtonText: '対応済です',
+          iconClass: 'fa-check',
+          newMessage:
+            'お疲れ様でした！相談者から次のアクションがあった際は、自動で未対応のステータスに変更されます。再度このボタンをクリックすると、未対応にステータスに戻ります。',
+          toastMessage: '対応済みにしました'
         }
-      })
-      .then(() => {
-        const newButtonText = isActionCompleted ? '対応済です' : '対応済にする'
-        const iconClass = isActionCompleted ? 'fa-check' : 'fa-redo'
-        const newMessage = isActionCompleted
-          ? 'お疲れ様でした！相談者から次のアクションがあった際は、自動で未対応のステータスに変更されます。再度このボタンをクリックすると、未対応にステータスに戻ります。'
-          : '返信が完了し次は相談者からのアクションの待ちの状態になったとき、もしくは、相談者とのやりとりが一通り完了した際は、このボタンをクリックして対応済のステータスに変更してください。'
+        const forNotCompleted = {
+          newButtonText: '対応済にする',
+          iconClass: 'fa-redo',
+          newMessage:
+            '返信が完了し次は相談者からのアクションの待ちの状態になったとき、もしくは、相談者とのやりとりが一通り完了した際は、このボタンをクリックして対応済のステータスに変更してください。',
+          toastMessage: '未対応にしました'
+        }
+        const { newButtonText, iconClass, newMessage, toastMessage } =
+          isActionCompleted ? forCompleted : forNotCompleted
         button.innerHTML = `<i class="fas ${iconClass}"></i> ${newButtonText}`
         button.classList.toggle('is-warning', !isActionCompleted)
         button.classList.toggle('is-muted-borderd', isActionCompleted)
@@ -45,13 +47,19 @@ document.addEventListener('DOMContentLoaded', function () {
           description.innerHTML = newMessage
         }
 
-        const tostMessage = isActionCompleted
-          ? '対応済みにしました'
-          : '未対応にしました'
-        toast(tostMessage, 'success')
-      })
-      .catch((error) => {
-        console.warn(error)
-      })
+        toast(toastMessage, 'success')
+      } else {
+        toast('更新に失敗しました', 'error')
+        const errorText = await response.text
+        console.warn('update action_completed failed', {
+          status: response.statusCode,
+          body: errorText
+        })
+      }
+    } catch (error) {
+      console.warn(error)
+    }
+
+    button.disabled = false
   })
 })

@@ -62,7 +62,7 @@
                             = member.login_name
         = render 'comments/comments', commentable: @talk, commentable_type: 'Talk'
         - if current_user.admin?
-          = render(ActionCompletedButtonComponent.new(is_initial_action_completed: @talk.action_completed, commentable_id: @talk.id))
+          = render(ActionCompletedButtonComponent.new(is_initial_action_completed: @talk.action_completed, update_path: api_talk_path(@talk), model_name: 'talk'))
 
       - if current_user.admin?
         .col-xl-5.col-xs-12
