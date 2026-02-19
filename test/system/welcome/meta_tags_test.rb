@@ -46,8 +46,8 @@ module Welcome
       assert_selector "meta[name='twitter:title'][content='FAQ']", visible: false
     end
 
-    test 'GET /buzz' do
-      visit '/buzz'
+    test 'GET /buzzes' do
+      visit '/buzzes'
       assert_equal '紹介・言及記事 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
       assert_selector "meta[property='og:title'][content='紹介・言及記事']", visible: false
       assert_selector "meta[name='twitter:title'][content='紹介・言及記事']", visible: false

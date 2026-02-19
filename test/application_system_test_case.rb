@@ -17,6 +17,7 @@ require 'supports/reaction_helper'
 require 'supports/clipboard_helper'
 require 'supports/announcement_helper'
 require 'supports/regular_event_helper'
+require 'supports/buzz_helper'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include LoginHelper
@@ -35,6 +36,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include ClipboardHelper
   include AnnouncementHelper
   include RegularEventHelper
+  include BuzzHelper
 
   if ENV['HEADFUL']
     driven_by :selenium, using: :chrome
