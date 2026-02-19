@@ -29,8 +29,12 @@ module PairWorksHelper
     !schedule_check_disabled?(target_time) && current_user.learning_time_frame_ids.include?(id)
   end
 
-  def schedule_target_time(day_count, hour_count)
-    Time.current.beginning_of_day + day_count.days + hour_count.hours
+  def schedule_target_time(day_count, hour_count, pair_work: nil)
+    if pair_work
+      pair_work.created_at.beginning_of_day + day_count.days + hour_count.hours
+    else
+      Time.current.beginning_of_day + day_count.days + hour_count.hours
+    end
   end
 
   def schedule_check_box_id(target_time)

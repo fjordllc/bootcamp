@@ -12,7 +12,7 @@
         tr(class='hover:!bg-[var(--background-more-tint)]')
           th #{hour}:00
           - 7.times do |day|
-            - target_time = pair_work.created_at.beginning_of_day + hour.hours + day.days
+            - target_time = schedule_target_time(day, hour, pair_work:)
             - if proposed_at_list.include?(target_time)
               td(class='!p-0 !h-6 !relative')
                 = form_with model: pair_work, url: pair_work_reservations_path(pair_work), method: :post, local: true do |f|

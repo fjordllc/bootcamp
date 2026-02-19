@@ -52,10 +52,16 @@ class PairWorksHelperTest < ActionView::TestCase
   test 'schedule_target_time' do
     elapsed_day_count = 1
     elapsed_time_count = 1
-    now = Time.current.beginning_of_day
-    target_time = now + elapsed_day_count.days + elapsed_time_count.hours
+    base_time = Time.current.beginning_of_day
+    target_time = base_time + elapsed_day_count.days + elapsed_time_count.hours
 
     assert_equal target_time, schedule_target_time(elapsed_day_count, elapsed_time_count)
+
+    pair_work = pair_works(:pair_work1)
+    base_time = pair_work.created_at
+    target_time = base_time + elapsed_day_count.days + elapsed_time_count.hours
+
+    assert_equal target_time, schedule_target_time(elapsed_day_count, elapsed_time_count, pair_work:)
   end
 
   test 'schedule_check_box_id' do
