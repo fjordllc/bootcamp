@@ -25,6 +25,8 @@
         .container.is-xl
           .row
             .col-xs-12.col-xl-6.col-xxl-6
+              - if current_user.has_ever_hibernated?
+                | あなたの休会回数：#{current_user.hibernation_count}
               - if @upcoming_events_groups.present?
                 = render 'upcoming_events_groups', upcoming_events_groups: @upcoming_events_groups
               - if @announcements.present?

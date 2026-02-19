@@ -828,6 +828,29 @@ kyuukai:
   updated_at: "2014-01-01 00:00:13"
   created_at: "2014-01-01 00:00:13"
 
+hukki:
+  login_name: hukki
+  email: hukki@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: kyuukaikara Hukki
+  name_kana: キュウカイカラ フッキ
+  twitter_account: kyuukai
+  facebook_url: https://www.facebook.com/fjordllc/kyuukai
+  blog_url: https://example.com/kyuukai
+  description: "フッキです。休会から復帰しました。"
+  customer_id: "cus_87654321"
+  subscription_id: "sub_12345678"
+  course: course1
+  job: office_worker
+  os: mac
+  country_code: JP
+  subdivision_code: '09'
+  github_account: hukki
+  unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
+  updated_at: "2014-01-01 00:00:13"
+  created_at: "2014-01-01 00:00:13"
+
 neverlogin: # 1度もログインしたことがないユーザー
   login_name: neverlogin
   email: neverlogin@fjord.jp

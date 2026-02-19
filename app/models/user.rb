@@ -678,6 +678,14 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     hibernated_at?
   end
 
+  def has_ever_hibernated?
+    !hibernations.empty?
+  end
+
+  def hibernation_count
+    hibernations.count
+  end
+
   def after_twenty_nine_days_registration?
     twenty_nine_days = Time.current.ago(29.days).to_date
     created_at.to_date.before? twenty_nine_days
