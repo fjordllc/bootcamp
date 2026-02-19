@@ -26,7 +26,7 @@ class AnnouncementsController < ApplicationController
 
     if params[:id]
       @announcement = Announcement.copy_announcement(params[:id])
-      flash.now[:notice] = 'お知らせをコピーしました。'
+      flash.now[:notice] = 'お知らせを複製しました。'
     elsif params[:page_id]
       page = Page.find(params[:page_id])
       @announcement = Announcement.copy_template_by_resource('page_announcements.yml', page:)

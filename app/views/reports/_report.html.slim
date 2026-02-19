@@ -28,9 +28,7 @@
                         i.fa-solid.fa-pen
                         | 内容変更
                     li.card-list-item-actions__item
-                      = link_to new_report_path(id: report), class: 'card-list-item-actions__action' do
-                        i.fa-solid.fa-copy
-                        | コピー
+                      = link_to '複製', new_report_path(id: report), class: 'card-list-item-actions__action'
                   label.a-overlay(for="#{report.id}")
       .card-list-item__row
         .card-list-item-meta

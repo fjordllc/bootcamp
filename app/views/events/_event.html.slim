@@ -34,9 +34,7 @@
             = render 'watches/watch_toggle', type: event.class.to_s, id: event.id, watch: event.watch_by(current_user)
           .page-content-header-actions__end
             .page-content-header-actions__action
-              = link_to new_event_path(id: event), class: 'a-button is-sm is-secondary is-block', id: 'copy' do
-                i.fa-solid.fa-copy
-                | コピー
+              = link_to '複製', new_event_path(id: event), class: 'a-button is-sm is-secondary is-block', id: 'copy'
 
   = render('event_meta', event:)
 

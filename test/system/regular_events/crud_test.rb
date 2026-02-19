@@ -34,8 +34,8 @@ module RegularEvents
     test 'create copy regular event' do
       regular_event = regular_events(:regular_event1)
       visit_with_auth regular_event_path(regular_event), 'komagata'
-      click_link 'コピー'
-      assert_text '定期イベントをコピーしました'
+      click_link '複製'
+      assert_text '定期イベントを複製しました'
       within 'form[name=regular_event]' do
         first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__frequency select').select('毎週')
         first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select('月曜日')

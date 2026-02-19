@@ -101,7 +101,7 @@ class EventsController < ApplicationController
     new_event.description = event.description
     new_event.job_hunting = event.job_hunting
 
-    flash.now[:notice] = '特別イベントをコピーしました。'
+    flash.now[:notice] = '特別イベントを複製しました。'
   end
 
   def update_published_at
