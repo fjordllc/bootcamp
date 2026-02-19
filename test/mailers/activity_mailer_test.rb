@@ -416,7 +416,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['kimura@fjord.jp'], email.to
     assert_equal '[FBC] kimuraさんの「OS X Mountain Lionをクリーンインストールする」の提出物を合格にしました。', email.subject
-    assert_match(/確認/, email.body.to_s)
+    assert_match(/合格/, email.body.to_s)
   end
 
   test 'checked with params' do
@@ -437,7 +437,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['kimura@fjord.jp'], email.to
     assert_equal '[FBC] kimuraさんの「OS X Mountain Lionをクリーンインストールする」の提出物を合格にしました。', email.subject
-    assert_match(/確認/, email.body.to_s)
+    assert_match(/合格/, email.body.to_s)
   end
 
   test 'checked with user who have been denied' do
