@@ -16,10 +16,9 @@ export default function Reports({
   companyId = '',
   practiceId = '',
   displayPagination = true,
-  practiceSourceId = null
+  isGrantCourse = false
 }) {
   const per = 20
-  const isGrantCourse = practiceSourceId !== null
   const { page, setPage } = usePage()
   const [selectedPracticeId, setSelectedPracticeId] = useState('')
   const [withGrant, setWithGrant] = useState(false)

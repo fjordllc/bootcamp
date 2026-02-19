@@ -87,4 +87,9 @@ class PracticeTest < ActiveSupport::TestCase
       practice.update!(source_id: 99_999)
     end
   end
+
+  test '#grant_course? returns true when practice has source' do
+    assert Practice.new(source_id: 1).grant_course?
+    assert_not Practice.new(source_id: nil).grant_course?
+  end
 end

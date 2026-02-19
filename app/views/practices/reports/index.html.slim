@@ -11,4 +11,4 @@
 
 .page-body
   .container.is-md
-    = react_component('Reports', practiceId: @practice.id, practiceSourceId: @practice.source_id)
+    = react_component('Reports', practiceId: @practice.id, isGrantCourse: @practice.grant_course?)
