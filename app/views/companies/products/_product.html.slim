@@ -1,4 +1,3 @@
-- day_of_the_week = %w[日 月 火 水 木 金 土]
 .card-list-item class="#{product.wip ? 'is-wip' : 'has-assigned'}"
   .card-list-item__inner
     .card-list-item__rows
@@ -27,29 +26,17 @@
               .card-list-item-meta__item
                 time.a-meta
                   span.a-meta__label 提出
-                  | #{product.published_at.year}年
-                    #{product.published_at.mon}月
-                    #{product.published_at.day}日
-                    （#{day_of_the_week[product.published_at.wday]}）
-                    #{product.published_at.strftime('%R')}
+                  | #{l product.published_at}
             - else
               .card-list-item-meta__item
                 time.a-meta
                   span.a-meta__label 提出
-                  | #{product.created_at.year}年
-                    #{product.created_at.mon}月
-                    #{product.created_at.day}日
-                    （#{day_of_the_week[product.created_at.wday]}）
-                    #{product.created_at.strftime('%R')}
+                  | #{l product.created_at}
               .card-list-item-meta__item
                 - if product.updated_at
                   time.a-meta
                     span.a-meta__label 更新
-                    | #{product.updated_at.year}年
-                      #{product.updated_at.mon}月
-                      #{product.updated_at.day}日
-                      （#{day_of_the_week[product.updated_at.wday]}）
-                      #{product.updated_at.strftime('%R')}
+                    | #{l product.updated_at}
       - if !product.comments.empty?
         hr.card-list-item__row-separator
         .card-list-item__row
@@ -72,38 +59,22 @@
                 .card-list-item-meta__item
                 - if product.self_last_commented_at > product.mentor_last_commented_at
                   time.a-meta
-                    | 〜 #{product.self_last_commented_at.year}年
-                      #{product.self_last_commented_at.mon}月
-                      #{product.self_last_commented_at.day}日
-                      （#{day_of_the_week[product.self_last_commented_at.wday]}）
-                      #{product.self_last_commented_at.strftime('%R')}（
+                    | 〜 #{l product.self_last_commented_at}（
                     strong 提出者
                     | ）
                 - elsif product.self_last_commented_at < product.mentor_last_commented_at
                   time.a-meta
-                    | 〜 #{product.mentor_last_commented_at.year}年
-                      #{product.mentor_last_commented_at.mon}月
-                      #{product.mentor_last_commented_at.day}日
-                      （#{day_of_the_week[product.mentor_last_commented_at.wday]}）
-                      #{product.mentor_last_commented_at.strftime('%R')}（メンター）
+                    | 〜 #{l product.mentor_last_commented_at}（メンター）
               - elsif product.self_last_commented_at || product.mentor_last_commented_at
                 .card-list-item-meta__item
                 - if product.self_last_commented_at
                   time.a-meta
-                    | 〜 #{product.self_last_commented_at.year}年
-                      #{product.self_last_commented_at.mon}月
-                      #{product.self_last_commented_at.day}日
-                      （#{day_of_the_week[product.self_last_commented_at.wday]}）
-                      #{product.self_last_commented_at.strftime('%R')}（
+                    | 〜 #{l product.self_last_commented_at}（
                     strong 提出者
                     | ）
                 - elsif product.mentor_last_commented_at
                   time.a-meta
-                    | 〜 #{product.mentor_last_commented_at.year}年
-                      #{product.mentor_last_commented_at.mon}月
-                      #{product.mentor_last_commented_at.day}日
-                      （#{day_of_the_week[product.mentor_last_commented_at.wday]}）
-                      #{product.mentor_last_commented_at.strftime('%R')}（メンター）
+                    | 〜 #{l product.mentor_last_commented_at}（メンター）
       - if current_user.mentor? && product.checks.empty?
         .card-list-item__row.is-only-mentor
           .card-list-item__assignee
