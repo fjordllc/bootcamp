@@ -61,6 +61,12 @@ class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   scope :user, ->(user) { where(user_id: user.id) }
 
+  scope :by_practice_with_source, lambda { |practice_id|
+    source_id = Practice.find_by(id: practice_id)&.source_id
+    ids = [practice_id, source_id].compact
+    joins(:practices).where(practices: { id: ids }).distinct
+  }
+
   scope :with_grant_practices, lambda {
     joins(:practices).where.not(id: Report.joins(:practices).where(practices: { source_id: nil })).distinct
   }
