@@ -51,9 +51,9 @@ class Mentor::SurveyQuestionsController < ApplicationController
                                               %i[title_of_reason description_of_reason],
                                             radio_button_attributes:
                                               %i[id title_of_reason description_of_reason] +
-                                              [radio_button_choices_attributes: %i[id choices reason_for_choice_required _destroy]],
+                                              [{ radio_button_choices_attributes: %i[id choices reason_for_choice_required _destroy] }],
                                             check_box_attributes:
                                               %i[id title_of_reason description_of_reason] +
-                                              [check_box_choices_attributes: %i[id choices reason_for_choice_required _destroy]])
+                                              [{ check_box_choices_attributes: %i[id choices reason_for_choice_required _destroy] }])
   end
 end
