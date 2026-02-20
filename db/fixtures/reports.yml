@@ -5,7 +5,7 @@ report1:
   description: |-
     今日はローカルで怖話を動かしてみました。
     rbenv で ruby を動かすのは初めてだったので、色々手間取りました。
-  practices: practice1, practice113
+  practices: practice1
   reported_on: "2017-01-01"
   created_at: "2017-01-01 00:00:00"
 
@@ -508,9 +508,35 @@ report90:
 
 report91:
   user: grant-course
-  title: 給付金コースの日報
+  title: 給付金コースのプラクティスの日報
   emotion: 2
   description: |-
-    給付金コースの日報です。
+    給付金コースのプラクティスの日報です。
   practices: practice113
   reported_on: "2026-01-01"
+
+report92:
+  user: komagata
+  title: 元コースのプラクティスの日報
+  emotion: 2
+  description: |-
+    元コースのプラクティスの日報です。
+  practices: practice1
+  reported_on: "2026-01-02"
+
+report93:
+  user: komagata
+  title: コピーされた元コースのプラクティスの日報
+  emotion: 2
+  description: |-
+    コピーされた元コースのプラクティスの日報です。
+  practices: practice1, practice113
+  reported_on: "2026-01-03"
+
+report94:
+  user: komagata
+  title: プラクティスに関連付かない日報
+  emotion: 2
+  description: |-
+    プラクティスに関連付かない日報
+  reported_on: "2026-01-04"
