@@ -52,8 +52,7 @@ header.page-content-header.is-report
         .page-content-header-actions__start
           = render 'watches/watch_toggle', type: report.class.to_s, id: report.id, watch: report.watch_by(current_user)
           .page-content-header-actions__action
-            button(type="button" id="bookmark-button" data-bookmarkable-id="#{report.id}" data-bookmarkable-type="Report" class="a-bookmark-button a-button is-sm is-block is-inactive is-muted" aria-pressed="false" disabled)
-              | Bookmark
+              = render 'bookmarks/button', bookmarkable: report
           = render 'application/url_copy_button'
 
         .page-content-header-actions__end

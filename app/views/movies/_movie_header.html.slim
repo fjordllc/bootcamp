@@ -69,8 +69,7 @@ header.page-content-header
           .page-content-header-actions__action
             div(data-vue="WatchToggle" data-vue-watchable-id:number="#{movie.id}" data-vue-watchable-type='Movie')
           .page-content-header-actions__action
-            button(type="button" id="bookmark-button" data-bookmarkable-id="#{movie.id}" data-bookmarkable-type="Movie" class="a-bookmark-button a-button is-sm is-block is-inactive is-muted" aria-pressed="false" disabled)
-              | Bookmark
+            = render 'bookmarks/button', bookmarkable: movie
           = render 'application/url_copy_button'
 
     .page-content-header__row
