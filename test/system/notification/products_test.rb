@@ -75,7 +75,7 @@ class Notification::ProductsTest < NotificationSystemTestCase
     assert_text '提出物を合格にしました。'
 
     assert_user_has_notification(user: users(:kimura), kind: Notification.kinds[:checked],
-                                 text: "#{checker.login_name}さんが「#{practices(:practice47).title}」の提出物を確認しました。")
+                                 text: "#{checker.login_name}さんが「#{practices(:practice47).title}」の提出物を合格にしました。")
   end
 
   test 'send the notification of practices mentor is watching' do
