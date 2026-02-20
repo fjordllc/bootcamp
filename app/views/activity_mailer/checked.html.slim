@@ -1,8 +1,6 @@
-- action_name = @check.checkable_type == "Product" ? "合格に" : "確認"
-
 = render '/notification_mailer/notification_mailer_template',
-  title: "#{@check.checkable.title}が#{action_name}されました",
+  title: "#{@check.checkable.title}が#{@check.action_label}されました",
   link_url: @link_url,
   link_text: "この#{@check.checkable.model_name.human}へ"
   do
-    p #{link_to @check.checkable.title, @link_url} が#{@check.user.login_name}さんに#{action_name}されました。
+    p #{link_to @check.checkable.title, @link_url} が#{@check.user.login_name}さんに#{@check.action_label}されました。

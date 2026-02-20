@@ -35,8 +35,7 @@ class NotificationMailer < ApplicationMailer
     @user = @check.receiver
     link = "/#{@check.checkable_type.downcase.pluralize}/#{@check.checkable.id}"
     @notification = @user.notifications.find_by(link:)
-    action_name = @check.checkable_type == "Product" ? "合格に" : "確認"
-    subject = "[FBC] #{@user.login_name}さんの#{@check.checkable.title}を#{action_name}しました。"
+    subject = "[FBC] #{@user.login_name}さんの#{@check.checkable.title}を#{@check.action_label}しました。"
     mail to: @user.email, subject:
   end
 
