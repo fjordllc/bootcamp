@@ -16,14 +16,14 @@ pair_work2:
   user: kimura
   practice: null
   buddy: null
-  published_at: <%= Time.zone.parse('2025-01-01 00:00:00') %>
-  created_at: <%= Time.zone.parse('2025-01-01 00:00:00') %>
+  published_at: <%= Time.current %>
+  created_at: <%= Time.current %>
   wip: false
 
 pair_work3:
   title: 近日開催のペアワークの動作確認
   description: 近日開催のペア確定済みペアワークです
-  reserved_at: <%= Time.current.beginning_of_day + 2.days %>
+  reserved_at: <%= Time.current.beginning_of_day + 23.hours %>
   user: kimura
   practice: null
   buddy: sotugyou

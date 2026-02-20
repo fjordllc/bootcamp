@@ -4,8 +4,8 @@ pair_work_schedule1:
 
 pair_work_schedule2:
   pair_work: pair_work2
-  proposed_at: <%= Time.zone.parse('2025-01-02 01:00:00') %>
+  proposed_at: <%= Time.current.beginning_of_day + 6.days + 23.hours %>
 
 pair_work_schedule3:
   pair_work: pair_work3
-  proposed_at: <%= Time.current.beginning_of_day + 2.days %>
+  proposed_at: <%= Time.current.beginning_of_day + 23.hours %>
