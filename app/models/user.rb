@@ -883,12 +883,8 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     watches.find_or_create_by!(watchable:)
   end
 
-  def cancel_participation_from_regular_events
-    regular_event_participations.destroy_all
-  end
-
-  def delete_and_assign_new_organizer
-    organizers.each(&:delete_and_assign_new)
+  def cancel_participation_from_holding_regular_events
+    regular_event_participations.holding.destroy_all
   end
 
   def scheduled_retire_at
@@ -956,6 +952,12 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   def reports_with_learning_times
     reports.joins(:learning_times).distinct.order(reported_on: :asc)
+  end
+
+  def hand_over_organizers_of_holding_regular_events
+    organizers.holding.includes(:regular_event).find_each do |organizer|
+      organizer.regular_event.hand_over_organizer(organizer:, sender: self)
+    end
   end
 
   private

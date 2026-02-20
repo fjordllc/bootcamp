@@ -186,4 +186,11 @@ class ActivityMailerPreview < ActionMailer::Preview
 
     ActivityMailer.with(work:, sender: user, receiver:).added_work
   end
+
+  def added_organizer
+    regular_event = RegularEvent.find(ActiveRecord::FixtureSet.identify(:regular_event1))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))
+    sender = User.find(ActiveRecord::FixtureSet.identify(:kimura))
+    ActivityMailer.with(regular_event:, receiver:, sender:).added_organizer
+  end
 end

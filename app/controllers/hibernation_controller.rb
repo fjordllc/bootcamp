@@ -18,8 +18,8 @@ class HibernationController < ApplicationController
       destroy_subscription!
       notify_to_chat
       notify_to_mentors_and_admins
-      current_user.cancel_participation_from_regular_events
-      current_user.delete_and_assign_new_organizer
+      current_user.cancel_participation_from_holding_regular_events
+      current_user.hand_over_organizers_of_holding_regular_events
       logout
       redirect_to hibernation_path
     else

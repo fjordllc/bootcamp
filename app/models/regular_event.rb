@@ -118,13 +118,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     regular_event_participations.find_by(user_id: user.id).present?
   end
 
-  def assign_admin_as_organizer_if_none
-    return if organizers.exists?
-
-    admin_user = User.find_by(login_name: User::DEFAULT_REGULAR_EVENT_ORGANIZER)
-    Organizer.new(user: admin_user, regular_event: self).save if admin_user
-  end
-
   def all_scheduled_dates(
     from: Date.current,
     to: Date.current.next_year
@@ -155,6 +148,29 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def publish_with_announcement?
     wants_announcement? && !wip?
+  end
+
+  def hand_over_organizer(organizer:, sender:)
+    before_organizer_user_ids = organizers.pluck(:user_id)
+
+    organizer.delete
+    assign_admin_as_organizer_if_none
+
+    notify_new_organizer(sender:, before_organizer_user_ids:)
+  end
+
+  def notify_new_organizer(sender:, before_organizer_user_ids:)
+    new_organizer_user_ids = (organizers.pluck(:user_id) - before_organizer_user_ids) - [sender.id]
+    return if new_organizer_user_ids.blank?
+
+    new_organizer_users = User.where(id: new_organizer_user_ids)
+
+    ActiveSupport::Notifications.instrument(
+      'organizer.add',
+      regular_event: self,
+      sender:,
+      new_organizer_users:
+    )
   end
 
   private
@@ -196,5 +212,12 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     str_date = event_date.strftime('%F')
     str_time = event_time.strftime('%R')
     Time.zone.parse([str_date, str_time].join(' '))
+  end
+
+  def assign_admin_as_organizer_if_none
+    return if organizers.exists?
+
+    admin_user = User.find_by(login_name: User::DEFAULT_REGULAR_EVENT_ORGANIZER)
+    Organizer.new(user: admin_user, regular_event: self).save if admin_user
   end
 end

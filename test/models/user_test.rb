@@ -682,19 +682,54 @@ class UserTest < ActiveSupport::TestCase
     assert_empty User.users_role(not_scope_name, allowed_targets:)
   end
 
-  test '#cancel_participation_from_regular_events' do
-    user = users(:kimura)
+  test '#cancel_participation_from_holding_regular_events' do
+    user = users(:kananashi)
 
-    assert_changes -> { RegularEventParticipation.where(user:).exists? }, from: true, to: false do
-      user.cancel_participation_from_regular_events
+    2.times do |i|
+      holding_regular_event = RegularEvent.new(
+        title: "未終了のイベント#{i}",
+        description: '未終了のイベント',
+        finished: false,
+        hold_national_holiday: false,
+        start_at: Time.zone.local(2020, 1, 1, 21, 0, 0),
+        end_at: Time.zone.local(2020, 1, 1, 22, 0, 0),
+        user:,
+        category: 0,
+        published_at: '2023-08-01 00:00:00',
+        regular_event_repeat_rules_attributes: [
+          { frequency: 0, day_of_the_week: 0 }
+        ]
+      )
+      holding_regular_event.users << user
+      holding_regular_event.participants << user
+      holding_regular_event.save!
     end
-  end
 
-  test '#delete_and_assign_new_organizer' do
-    user = users(:hajime)
+    finished_regular_event = RegularEvent.new(
+      title: '終了済みのイベント',
+      description: '終了済みのイベント',
+      finished: true,
+      hold_national_holiday: false,
+      start_at: Time.zone.local(2020, 1, 1, 21, 0, 0),
+      end_at: Time.zone.local(2020, 1, 1, 22, 0, 0),
+      user: users(:kananashi),
+      category: 0,
+      published_at: '2023-08-01 00:00:00',
+      regular_event_repeat_rules_attributes: [
+        { frequency: 0, day_of_the_week: 0 }
+      ]
+    )
+    finished_regular_event.users << user
+    finished_regular_event.participants << user
+    finished_regular_event.save!
 
-    assert_changes -> { Organizer.where(user:).exists? }, from: true, to: false do
-      user.delete_and_assign_new_organizer
+    targets = {
+      -> { user.regular_event_participations.holding.count } => -2,
+      -> { user.regular_event_participations.joins(:regular_event).merge(RegularEvent.where(finished: true)).count } => 0
+    }
+
+    assert_difference targets do
+      user.cancel_participation_from_holding_regular_events
     end
   end
 
@@ -771,5 +806,69 @@ class UserTest < ActiveSupport::TestCase
     assert_not user.sent_student_before_auto_retire_mail
     user.mark_mail_as_sent_before_auto_retire
     assert user.sent_student_before_auto_retire_mail
+  end
+
+  test '#hand_over_organizers_of_holding_regular_events' do
+    user = users(:hajime)
+    admin_user = users(:komagata)
+
+    one_organizer_holding_regular_event = RegularEvent.new(
+      title: '主催者が1人のイベント',
+      description: '主催者が1人のイベント',
+      finished: false,
+      hold_national_holiday: false,
+      start_at: Time.zone.local(2020, 1, 1, 21, 0, 0),
+      end_at: Time.zone.local(2020, 1, 1, 22, 0, 0),
+      user:,
+      category: 0,
+      published_at: '2023-08-01 00:00:00',
+      regular_event_repeat_rules_attributes: [
+        { frequency: 0, day_of_the_week: 0 }
+      ]
+    )
+    one_organizer_holding_regular_event.users = [user]
+    one_organizer_holding_regular_event.save!
+
+    multiple_organizer_holding_regular_event = regular_events(:regular_event4)
+    other_organizer = users(:kimura)
+
+    finished_regular_event = RegularEvent.new(
+      title: '終了済みのイベント',
+      description: '終了済みのイベント',
+      finished: true,
+      hold_national_holiday: false,
+      start_at: Time.zone.local(2020, 1, 1, 21, 0, 0),
+      end_at: Time.zone.local(2020, 1, 1, 22, 0, 0),
+      user:,
+      category: 0,
+      published_at: '2023-08-01 00:00:00',
+      regular_event_repeat_rules_attributes: [
+        { frequency: 0, day_of_the_week: 0 }
+      ]
+    )
+
+    finished_regular_event.users = [user]
+    finished_regular_event.save!
+
+    # 主催者が1人で管理者が追加されたイベントの分だけ1通のみ通知が飛ぶ
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      user.hand_over_organizers_of_holding_regular_events
+    end
+
+    # 主催者が1人の未終了イベント: 管理者が追加され自分は削除される
+    one_organizer_holding_regular_event.reload
+    assert_includes one_organizer_holding_regular_event.users, admin_user
+    assert_not_includes one_organizer_holding_regular_event.users, user
+
+    # 主催者が複数の未終了イベント: 自分は削除されるが管理者は追加されない
+    multiple_organizer_holding_regular_event.reload
+    assert_not_includes multiple_organizer_holding_regular_event.users, admin_user
+    assert_not_includes multiple_organizer_holding_regular_event.users, user
+    assert_includes multiple_organizer_holding_regular_event.users, other_organizer
+
+    # 終了済みのイベント: 引き継ぎ対象外のため自分が主催者のままになる
+    finished_regular_event.reload
+    assert_not_includes finished_regular_event.users, admin_user
+    assert_includes finished_regular_event.users, user
   end
 end

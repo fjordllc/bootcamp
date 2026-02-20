@@ -108,23 +108,6 @@ class RegularEventTest < ActiveSupport::TestCase
     assert_not regular_event.participated_by?(user)
   end
 
-  test '#assign_admin_as_organizer_if_none' do
-    regular_event = RegularEvent.new(
-      title: '主催者のいないイベント',
-      description: '主催者のいないイベント',
-      finished: false,
-      hold_national_holiday: false,
-      start_at: Time.zone.local(2020, 1, 1, 21, 0, 0),
-      end_at: Time.zone.local(2020, 1, 1, 22, 0, 0),
-      user: users(:kimura),
-      category: 0,
-      published_at: '2023-08-01 00:00:00'
-    )
-    regular_event.save(validate: false)
-    regular_event.assign_admin_as_organizer_if_none
-    assert_equal User.find_by(login_name: User::DEFAULT_REGULAR_EVENT_ORGANIZER), regular_event.organizers.first
-  end
-
   test '#all_scheduled_dates' do
     start_date = Date.current
     end_date = Date.current.next_year
@@ -186,6 +169,100 @@ class RegularEventTest < ActiveSupport::TestCase
       regular_events = RegularEvent.scheduled_on_without_ended(tomorrow)
       regular_event_scheduled_for_tomorrow = regular_events(:regular_event38)
       assert_includes regular_events, regular_event_scheduled_for_tomorrow
+    end
+  end
+
+  test '#hand_over_organizer assigns admin organizer when last organizer is removed' do
+    regular_event = regular_events(:regular_event5)
+    organizer = organizers(:organizer8)
+    organizer_user = users(:kimura)
+    admin_user = users(:komagata)
+
+    assert_notification 'organizer.add', { sender: organizer_user, new_organizer_users: [admin_user] } do
+      regular_event.hand_over_organizer(organizer:, sender: organizer_user)
+    end
+
+    assert_not_includes regular_event.users, organizer_user
+    assert_includes regular_event.users, admin_user
+  end
+
+  test '#hand_over_organizer removes organizer without assigning admin when other organizers remain' do
+    regular_event = regular_events(:regular_event4)
+    organizer = organizers(:organizer7)
+    organizer_user = users(:kimura)
+    admin_user = users(:komagata)
+
+    assert_no_notifications('organizer.add') do
+      regular_event.hand_over_organizer(organizer:, sender: organizer_user)
+    end
+
+    assert_not_includes regular_event.users, organizer_user
+    assert_not_includes regular_event.users, admin_user
+  end
+
+  test '#notify_new_organizer sends a notification when a new organizer is added' do
+    regular_event = regular_events(:regular_event4)
+    before_organizer_user_ids = regular_event.organizers.pluck(:user_id)
+    user = users(:hatsuno)
+    sender = users(:kimura)
+
+    Organizer.create!(user_id: user.id, regular_event_id: regular_event.id)
+
+    assert_notification 'organizer.add', { sender:, new_organizer_users: [user] } do
+      regular_event.notify_new_organizer(sender:, before_organizer_user_ids:)
+    end
+  end
+
+  test '#notify_new_organizer does not send a notification when no new organizers are added' do
+    regular_event = regular_events(:regular_event4)
+    before_organizer_user_ids = regular_event.organizers.pluck(:user_id)
+    sender = users(:kimura)
+
+    assert_no_notifications('organizer.add') do
+      regular_event.notify_new_organizer(sender:, before_organizer_user_ids:)
+    end
+  end
+
+  test '#notify_new_organizer sends notifications when multiple organizers are added' do
+    regular_event = regular_events(:regular_event5)
+    before_organizer_user_ids = regular_event.organizers.pluck(:user_id)
+    sender = users(:kimura)
+    new_organizers = [users(:hatsuno), users(:hajime)]
+
+    new_organizers.each do |user|
+      Organizer.create!(user_id: user.id, regular_event_id: regular_event.id)
+    end
+
+    assert_notification 'organizer.add', { sender:, new_organizer_users: new_organizers } do
+      regular_event.notify_new_organizer(sender:, before_organizer_user_ids:)
+    end
+  end
+
+  test '#notify_new_organizer sends a notification when an organizer is replaced' do
+    regular_event = regular_events(:regular_event5)
+    before_organizer_user_ids = regular_event.organizers.pluck(:user_id)
+    user = users(:hatsuno)
+    sender = users(:kimura)
+
+    Organizer.create!(user_id: user.id, regular_event_id: regular_event.id)
+    Organizer.find_by!(user_id: sender.id, regular_event_id: regular_event.id).destroy!
+
+    assert_notification 'organizer.add', { sender:, new_organizer_users: [user] } do
+      regular_event.notify_new_organizer(sender:, before_organizer_user_ids:)
+    end
+  end
+
+  test '#notify_new_organizer does not send a notification when an organizer is sender' do
+    regular_event = regular_events(:regular_event5)
+    before_organizer_user_ids = regular_event.organizers.pluck(:user_id)
+    user = users(:hatsuno)
+    sender = users(:hatsuno)
+
+    Organizer.create!(user_id: user.id, regular_event_id: regular_event.id)
+    Organizer.find_by!(user_id: sender.id, regular_event_id: regular_event.id).destroy!
+
+    assert_no_notifications('organizer.add') do
+      regular_event.notify_new_organizer(sender:, before_organizer_user_ids:)
     end
   end
 end
