@@ -40,4 +40,9 @@ module PairWorksHelper
   def schedule_check_box_id(target_time)
     "schedule_ids_#{target_time.strftime('%Y%m%d%H%M')}"
   end
+
+  def meta_label_by_status(upcoming_pair_work)
+    today = upcoming_pair_work.reserved_at.to_date == Time.current.to_date
+    today ? 'a-meta__label is-important' : 'a-meta__label'
+  end
 end

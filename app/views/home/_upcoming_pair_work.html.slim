@@ -1,5 +1,3 @@
-- important = upcoming_pair_work.reserved_at.beginning_of_day == Time.current.beginning_of_day
-
 .card-list-item
   .card-list-item__inner
     .card-list-item__label
@@ -16,8 +14,8 @@
           .card-list-item-meta__items
             .card-list-item-meta__item
               .a-meta
-                span(class="#{important ? 'a-meta__label is-important' : 'a-meta__label'}")
+                span class=meta_label_by_status(upcoming_pair_work)
                   | 開催日時
-                span(class="#{important ? 'a-meta__value is-important' : 'a-meta__value'}")
+                span class=meta_label_by_status(upcoming_pair_work)
                   time(datetime="#{upcoming_pair_work.reserved_at.to_datetime}")
                     = I18n.localize(upcoming_pair_work.reserved_at)
