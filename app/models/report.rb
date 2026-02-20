@@ -67,8 +67,8 @@ class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
     joins(:practices).where(practices: { id: ids }).distinct
   }
 
-  scope :with_grant_practices, lambda {
-    joins(:practices).where.not(id: Report.joins(:practices).where(practices: { source_id: nil })).distinct
+  scope :by_grant_practice, lambda {
+    where.not(id: Report.joins(:practices).where(practices: { source_id: nil }).select(:id))
   }
 
   def self.ransackable_attributes(_auth_object = nil)

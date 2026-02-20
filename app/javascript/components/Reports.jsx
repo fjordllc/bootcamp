@@ -29,7 +29,7 @@ export default function Reports({
   const pid = selectedPracticeId || practiceId
   if (pid) reportsUrl += `&practice_id=${pid}`
   if (unchecked) reportsUrl += `&target=unchecked_reports`
-  if (isGrantCourse && withGrant) reportsUrl += `&with_grant=true`
+  if (isGrantCourse && withGrant) reportsUrl += `&grant_only=true`
 
   const { data, error } = useSWR(reportsUrl, fetcher)
 
