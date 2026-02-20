@@ -164,7 +164,8 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
       link: "/users/#{@user.id}",
       kind: Notification.kinds[:checked]
     )
-    subject = "[FBC] #{@user.login_name}さんの#{@check.checkable.title}を合格にしました。"
+    action_name = @check.checkable_type == "Product" ? "合格に" : "確認"
+    subject = "[FBC] #{@user.login_name}さんの#{@check.checkable.title}を#{action_name}しました。"
     message = mail(to: @user.email, subject:)
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
 
