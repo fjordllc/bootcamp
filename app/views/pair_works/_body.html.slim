@@ -26,8 +26,8 @@
                     dt.event-meta__item-label
                       | 日時
                     dd.event-meta__item-value
-                      time.pair-work-info__datetime(datetime="#{pair_work.reserved_at.iso8601}")
-                        | #{l pair_work.reserved_at}
+                      time.pair-work-info__datetime datetime=pair_work.reserved_at.iso8601
+                        = l pair_work.reserved_at
                   .event-meta__item
                     dt.event-meta__item-label
                       | チャンネル

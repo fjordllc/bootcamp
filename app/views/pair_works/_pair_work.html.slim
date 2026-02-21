@@ -36,10 +36,10 @@
                   | 投稿日時
                 - if pair_work.wip?
                   span.a-meta__value
-                    | #{l pair_work.created_at}
+                    = l pair_work.created_at
                 - else
                   span.a-meta__value
-                    | #{l pair_work.published_at}
+                    = l pair_work.published_at
             .card-list-item-meta__item
               .a-meta(class="#{pair_work.important? ? 'is-important' : ''}")
                 | コメント（#{pair_work.comments.length}）

@@ -17,5 +17,5 @@
                 span class=meta_label_by_status(upcoming_pair_work)
                   | 開催日時
                 span class=meta_label_by_status(upcoming_pair_work)
-                  time(datetime="#{upcoming_pair_work.reserved_at.to_datetime}")
-                    = I18n.localize(upcoming_pair_work.reserved_at)
+                  time datetime=upcoming_pair_work.reserved_at.iso8601
+                    = l upcoming_pair_work.reserved_at
