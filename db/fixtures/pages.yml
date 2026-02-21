@@ -293,3 +293,19 @@ page35:
   slug: help-adviser
   user: komagata
   published_at: "2023-02-05 00:00:00"
+
+page36:
+  title: 給付金コースのプラクティスに紐づいたDocs
+  body: 給付金コースのプラクティスに紐づいたDocs
+  user: komagata
+  practice: practice113
+  published_at: "2022-12-21 00:00:00"
+  last_updated_user: komagata
+
+page37:
+  title: コピー元のRailsコースのプラクティスのDocs
+  body: コピー元のRailsコースのプラクティスのDocs
+  user: komagata
+  practice: practice1
+  published_at: "2022-12-21 00:00:00"
+  last_updated_user: komagata
