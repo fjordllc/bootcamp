@@ -7,6 +7,7 @@ class HomeController < ApplicationController
     if current_user
       display_dashboard
       display_events_on_dashboard
+      display_pair_works_on_dashboard
       display_welcome_message_for_adviser
       set_required_fields
       display_products_for_mentor
@@ -55,6 +56,10 @@ class HomeController < ApplicationController
 
   def display_events_on_dashboard
     @upcoming_events_groups = UpcomingEvent.upcoming_events_groups
+  end
+
+  def display_pair_works_on_dashboard
+    @upcoming_pair_works = PairWork.upcoming_pair_works(current_user)
   end
 
   def display_welcome_message_for_adviser

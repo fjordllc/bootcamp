@@ -1,0 +1,104 @@
+.a-card
+  .card-body
+    - if pair_work.solved?
+      - buddy = pair_work.buddy
+      .event-main-actions.is-participationed
+        header.event-main-actions__header
+          h2.event-main-actions__title
+            | ペアが確定しました
+          = link_to events_calendars_url(protocol: :webcal, format: :ics, user_id: current_user.id), class: 'a-button is-sm is-secondary' do
+            i.fa-regular.fa-plus
+            span カレンダーに登録
+
+        .event-main-actions__body
+          .pair-work-info
+            .pair-work-info__start
+              = render 'users/icon', user: buddy, link_class: 'pair-work-info__user-link', image_class: 'pair-work-info__user-icon'
+            .pair-work-info__end
+              .event-meta
+                .event-meta__items
+                  .event-meta__item
+                    dt.event-meta__item-label
+                      | ペア
+                    dd.event-meta__item-value
+                      = link_to buddy.long_name, user_path(buddy)
+                  .event-meta__item
+                    dt.event-meta__item-label
+                      | 日時
+                    dd.event-meta__item-value
+                      time.pair-work-info__datetime datetime=pair_work.reserved_at.iso8601
+                        = l pair_work.reserved_at
+                  .event-meta__item
+                    dt.event-meta__item-label
+                      | チャンネル
+                    dd.event-meta__item-value
+                      = pair_work.channel
+
+    .card-body__description
+      .a-long-text.is-md.js-markdown-view
+        = pair_work.description
+  hr.a-border-tint
+  = render 'reactions/reactions', reactionable: pair_work
+
+  hr.a-border-tint
+  footer.card-footer class=(current_user == pair_work.user || current_user.admin? ? '' : 'is-hidden')
+    .card-main-actions
+      ul.card-main-actions__items
+        li.card-main-actions__item
+          = link_to edit_pair_work_path(pair_work), class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
+            i.fa-solid.fa-pen
+            | 内容修正
+        li.card-main-actions__item.is-sub class=(current_user.admin? || pair_work.user == current_user ? '' : 'is-hidden')
+          = link_to '削除', pair_work_path(pair_work),
+            data: { confirm: '本当に削除しますか？' }, method: :delete, class: 'card-main-actions__muted-action'
+
+.a-card
+  header.card-header
+    h2.card-header__title
+      - if pair_work.user == current_user
+        | 希望日時
+      - else
+        | ペアを希望する
+  hr.a-border-tint
+  .card-body
+    .card-body__description
+      .pair-work-schedule-dates class=(pair_work.solved? && pair_work.user != current_user ? 'is-solved' : '')
+        - if pair_work.solved?
+          .pair-work-schedule-dates__action
+            .pair-work-schedule-dates__action-items
+              - if pair_work.buddy == current_user
+                .pair-work-schedule-dates__action-item
+                  label.a-button.is-md.is-secondary.is-block(for='show-schedule-dates')
+                    | 日時の変更、ペアをキャンセル
+                  .pair-work-schedule-dates__action-item-description
+                    p あなたがペアとして確定しています。
+              - elsif mentor_login?
+                .pair-work-schedule-dates__action-item
+                  label.a-button.is-md.is-secondary.is-block(for='show-schedule-dates')
+                    | ペア変更、自分がペアになる
+                  .pair-work-schedule-dates__action-item-description
+                    p 代わりに自分がペアになる場合はこちらから変更。
+        - if mentor_login?
+          .pair-work-schedule-dates__table-container
+            input.a-toggle-checkbox#show-schedule-dates(type="checkbox")
+            .pair-work-schedule-dates__table
+              - if pair_work.buddy == current_user
+                h3.pair-work-schedule-dates__title
+                  | 日時の変更、もしくはキャンセル
+                .pair-work-schedule-dates__cancel
+                  .pair-work-schedule-dates__cancel-action
+                    // TODO: ペア確定の取り消し機能実装後にリンク先を修正
+                    .a-button.is-md.is-danger.is-block
+                      | ペア確定を取り消す
+              - else
+                h3.pair-work-schedule-dates__title
+                  | ペアを希望する場合、以下のスケジュールから都合のいい日時を選択してください。
+              = render 'pair_works/schedule', pair_work:
+        - elsif pair_work.user == current_user
+          .pair-work-schedule-dates__table-container
+            .pair-work-schedule-dates__table
+              = render 'pair_works/schedule', pair_work:
+        - else
+          .a-long-text.is-md
+            .message.danger
+              p 現在はテスト運用のため、メンターのみがペアを申し込めます。

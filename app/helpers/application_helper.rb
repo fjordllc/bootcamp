@@ -15,4 +15,8 @@ module ApplicationHelper
   def movie_available?
     Rails.env.local? || Switchlet.enabled?(:movie)
   end
+
+  def pair_work_available?
+    Rails.env.local? || Switchlet.enabled?(:pair_work)
+  end
 end

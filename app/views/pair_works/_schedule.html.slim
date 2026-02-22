@@ -1,0 +1,43 @@
+- proposed_at_list = pair_work.schedules.map(&:proposed_at)
+
+.a-table.is-sm(class='!text-center')
+  table(class='!min-w-full')
+    thead
+      tr
+        th
+        - schedule_dates(pair_work.created_at).each do |date|
+          th = l date, format: :mdw_unique
+    tbody
+      - 24.times do |hour|
+        tr(class='hover:!bg-[var(--background-more-tint)]')
+          th #{hour}:00
+          - 7.times do |day|
+            - target_time = schedule_target_time(day, hour, pair_work:)
+            - if proposed_at_list.include?(target_time)
+              td(class='!p-0 !h-6 !relative')
+                = form_with model: pair_work, url: pair_work_reservations_path(pair_work), method: :post, local: true do |f|
+                  = f.hidden_field :reserved_at, value: target_time
+                  = f.button type: :submit,
+                    disabled: schedule_check_disabled?(target_time, pair_work:),
+                    class: ['!absolute',
+                      '!top-0',
+                      '!flex',
+                      '!w-full',
+                      '!h-full',
+                      '!text-center',
+                      '!justify-center',
+                      '!items-center',
+                      '!p-1',
+                      '!border',
+                      '!border-solid',
+                      '!rounded',
+                      '!text-[var(--main)]',
+                      '!bg-[var(--input-selected-background)]',
+                      '!border-[var(--main)]',
+                      'enabled:!cursor-pointer'].join(' '),
+                    id: target_time.iso8601,
+                    data: { confirm: "#{l target_time, format: :mdw_and_time} にペアワークを申し込みますか？" } do
+                      i.fa-duotone.fa-solid.fa-check
+            - else
+              td(class='!p-0 !h-6')
+                span ✖️

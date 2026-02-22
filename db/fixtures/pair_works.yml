@@ -1,0 +1,32 @@
+pair_work1:
+  title: ペア確定済みの動作確認
+  description: ペア確定済みのペアワークです
+  reserved_at: <%= Time.current.beginning_of_day + 5.hours %>
+  user: kimura
+  practice: null
+  buddy: sotugyou
+  published_at: <%= Time.current %>
+  created_at: <%= Time.current %>
+  wip: false
+
+pair_work2:
+  title: 募集中の動作確認
+  description: 募集中のペアワークです
+  reserved_at: null
+  user: kimura
+  practice: null
+  buddy: null
+  published_at: <%= Time.current %>
+  created_at: <%= Time.current %>
+  wip: false
+
+pair_work3:
+  title: 近日開催のペアワークの動作確認
+  description: 近日開催のペア確定済みペアワークです
+  reserved_at: <%= Time.current.beginning_of_day + 23.hours %>
+  user: kimura
+  practice: null
+  buddy: sotugyou
+  published_at: <%= Time.current %>
+  created_at: <%= Time.current %>
+  wip: false

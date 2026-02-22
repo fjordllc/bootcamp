@@ -1,0 +1,44 @@
+.pair-work-schedule-dates.is-solved .pair-work-schedule-dates__table {
+  display: none;
+}
+
+.pair-work-schedule-dates.is-solved input:checked + .pair-work-schedule-dates__table {
+  display: block;
+}
+
+.pair-work-schedule-dates__action-items {
+  display: flex;
+  justify-content: center;
+}
+
+.pair-work-schedule-dates__action-item {
+  min-width: 20rem;
+}
+
+.pair-work-schedule-dates__action-item-description {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.pair-work-schedule-dates__title {
+  font-size: 1rem;
+  line-height: 1.4;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.pair-work-schedule-dates__action + .pair-work-schedule-dates__table-container .pair-work-schedule-dates__table {
+  margin-top: 1rem;
+}
+
+.pair-work-schedule-dates__cancel {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.pair-work-schedule-dates__cancel-action {
+  min-width: 20rem;
+}

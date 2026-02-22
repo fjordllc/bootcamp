@@ -1,0 +1,7 @@
+.a-card
+  header.card-header.is-sm.has-no-border
+    h2.card-header__title
+      | ペアワークの予定があります！
+  hr.a-border-tint
+  .card-list.has-scroll
+    = render partial: 'upcoming_pair_work', collection: upcoming_pair_works

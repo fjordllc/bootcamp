@@ -1,0 +1,11 @@
+pair_work_schedule1:
+  pair_work: pair_work1
+  proposed_at: <%= Time.current.beginning_of_day + 1.days %>
+
+pair_work_schedule2:
+  pair_work: pair_work2
+  proposed_at: <%= Time.current.beginning_of_day + 6.days + 23.hours %>
+
+pair_work_schedule3:
+  pair_work: pair_work3
+  proposed_at: <%= Time.current.beginning_of_day + 23.hours %>

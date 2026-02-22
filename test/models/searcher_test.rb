@@ -411,7 +411,7 @@ class SearcherTest < ActiveSupport::TestCase
   end
 
   test 'available_types returns all configured types' do
-    expected_types = %i[practice user report product announcement page question answer correct_answer comment event regular_event]
+    expected_types = %i[practice user report product announcement page question answer correct_answer comment event regular_event pair_work]
     assert_equal expected_types.sort, Searcher::Configuration.available_types.sort
   end
 
