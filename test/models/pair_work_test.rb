@@ -115,7 +115,7 @@ class PairWorkTest < ActiveSupport::TestCase
 
   test '#reserve' do
     valid_params = {
-      reserved_at: Time.zone.parse('2025-01-02 01:00:00'),
+      reserved_at: Time.zone.parse('2025-01-01 00:00:00'),
       buddy_id: users(:komagata).id
     }
     pair_work = pair_works(:pair_work1)

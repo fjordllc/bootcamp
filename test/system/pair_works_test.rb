@@ -49,7 +49,7 @@ class PairWorksTest < ApplicationSystemTestCase
       visit_with_auth pair_work_path(pair_work), 'mentormentaro'
       within '.a-table' do
         accept_alert do
-          find_button(id: '2025-01-02T01:00:00+09:00').click
+          find_button(id: '2025-01-01T00:00:00+09:00').click
         end
       end
       assert_selector '.a-title-label.is-solved.is-success', text: 'ペア確定'
@@ -60,7 +60,7 @@ class PairWorksTest < ApplicationSystemTestCase
       within '.event-main-actions__body' do
         assert_selector "img[title*='mentormentaro']"
         assert_selector 'a', text: 'mentormentaro (メンタ メンタロウ)'
-        assert_text '2025年01月02日(木) 01:00'
+        assert_text '2025年01月01日(水) 00:00'
         assert_text 'ペアワーク・モブワーク1'
       end
     end
@@ -72,7 +72,7 @@ class PairWorksTest < ApplicationSystemTestCase
       visit_with_auth pair_work_path(pair_work), 'komagata'
       assert_text '募集中'
       within '.a-table' do
-        find_button(id: '2025-01-02T01:00:00+09:00', disabled: true)
+        find_button(id: '2025-01-01T00:00:00+09:00', disabled: true)
       end
     end
   end
