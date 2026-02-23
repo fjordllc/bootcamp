@@ -59,9 +59,7 @@ header.page-content-header.is-report
         .page-content-header-actions__end
           - if report.user_id == current_user.id
             .page-content-header-actions__action
-              = link_to new_report_path(id: report), class: 'a-button is-sm is-secondary is-block', id: 'copy' do
-                i.fa-solid.fa-copy
-                | コピー
+              = link_to '複製', new_report_path(id: report), class: 'a-button is-sm is-secondary is-block', id: 'copy'
           .page-content-header-actions__action
             = link_to 'Raw', report_path(format: :md), class: 'a-button is-sm is-secondary is-block', target: '_blank', rel: 'noopener'
 

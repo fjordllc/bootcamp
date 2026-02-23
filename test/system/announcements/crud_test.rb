@@ -32,23 +32,23 @@ module Announcements
 
     test 'announcement has a copy form when user is admin' do
       visit_with_auth "/announcements/#{announcements(:announcement4).id}", 'komagata'
-      click_link 'コピー'
+      click_link '複製'
 
-      assert_text 'お知らせをコピーしました。'
+      assert_text 'お知らせを複製しました。'
     end
 
     test 'announcement has a copy form when user is author' do
       visit_with_auth "/announcements/#{announcements(:announcement4).id}", 'kimura'
-      click_link 'コピー'
+      click_link '複製'
 
-      assert_text 'お知らせをコピーしました。'
+      assert_text 'お知らせを複製しました。'
     end
 
     test 'general user can copy submitted announcement' do
       announcement = announcements(:announcement1)
       visit_with_auth announcement_path(announcement), 'kimura'
       within '.announcement' do
-        assert_text 'コピー'
+        assert_text '複製'
       end
     end
   end
