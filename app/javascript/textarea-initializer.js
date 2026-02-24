@@ -60,6 +60,8 @@ export default class {
 
     // markdown
     Array.from(textareas).forEach((textarea) => {
+      if (textarea.dataset.textareaMarkdownInitialized) return
+      textarea.dataset.textareaMarkdownInitialized = 'true'
       /* eslint-disable no-new */
       new TextareaMarkdown(textarea, {
         endPoint: '/api/image.json',
@@ -109,6 +111,7 @@ export default class {
     const textareas = document.querySelectorAll(selector)
     textareas.forEach((textarea) => {
       const cloneTextarea = textarea.cloneNode(true)
+      delete cloneTextarea.dataset.textareaMarkdownInitialized
       textarea.parentNode.replaceChild(cloneTextarea, textarea)
     })
   }
