@@ -12,8 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const memoDisplay = mentorMemo.querySelector('.memo-display')
     const memoEditor = mentorMemo.querySelector('.memo-editor')
 
-    const placeholder = memoDisplay.querySelector('.a-placeholder')
-    const emptyMessage = memoDisplay.querySelector('.o-empty-message')
     const memoDisplayContent = memoDisplay.querySelector(
       '.user-mentor-memo-content'
     )
@@ -24,36 +22,14 @@ document.addEventListener('DOMContentLoaded', () => {
       '.a-markdown-input__textarea'
     )
 
-    fetch(`/api/users/${userId}.json`, {
-      method: 'GET',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      },
-      credentials: 'same-origin',
-      redirect: 'manual'
+    const memos = document.querySelectorAll('.mentor-memo')
+    memos.forEach((memo) => {
+      const memoDisplayContent = memo.querySelector('.memo-text')
+      const memoBody = memo.dataset.memo_body
+      if (!memoBody) return
+
+      memoDisplayContent.innerHTML = markdownInitializer.render(memoBody)
     })
-      .then((response) => {
-        return response.json()
-      })
-      .then((json) => {
-        if (json.mentor_memo) {
-          savedMemo = json.mentor_memo
-        }
-        placeholder.classList.add('is-hidden')
-        if (savedMemo.length === 0) {
-          emptyMessage.classList.remove('is-hidden')
-        } else {
-          memoDisplayContent.classList.remove('is-hidden')
-          editorTextarea.value = savedMemo
-          switchMemoDisplay(memoDisplay, savedMemo)
-          TextareaInitializer.initialize('#js-user-mentor-memo')
-          memoDisplayContent.innerHTML = markdownInitializer.render(savedMemo)
-          memoEditorPreview.innerHTML = markdownInitializer.render(savedMemo)
-        }
-      })
-      .catch((error) => {
-        console.warn(error)
-      })
 
     const editButton = memoDisplay.querySelector('.card-footer-actions__action')
     const modalElements = [memoDisplay, memoEditor]

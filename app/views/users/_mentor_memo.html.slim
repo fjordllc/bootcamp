@@ -1,0 +1,12 @@
+.mentor-memo data-memo_body="#{memo.body}"
+  a href="#{memo.writer.url}"
+    = memo.writer.login_name
+  div
+    = l memo.created_at
+  div.a-long-text.is-sm.memo-text
+    = memo.body
+  - if memo.writer == current_user || current_user.admin?
+    button.js-edit-memo
+      | 編集
+    button.js-delete-memo
+      | 削除

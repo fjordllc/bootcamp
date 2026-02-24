@@ -7,19 +7,15 @@ section.a-card.is-memo.is-only-mentor.user-mentor-memo data-user_id=user_id
       hr.a-border-tint
     .card-body
       .card-body__description
-        .a-long-text.is-sm.a-placeholder
-          p
-          p
-          p
-          p
-          p
-          p
-        .o-empty-message.is-hidden
-          .o-empty-message__icon
-            i.fa-regular.fa-sad-tear
-          .o-empty-message__text
-            | ユーザーメモはまだありません。
-        .a-long-text.is-sm.user-mentor-memo-content.is-hidden
+        .a-long-text.is-sm.mentor-memo-list
+          - memos.each do |memo|
+            = render partial: 'users/mentor_memo', locals: { memo: memo }
+        - if memos.empty?
+          .o-empty-message
+            .o-empty-message__icon
+              i.fa-regular.fa-sad-tear
+            .o-empty-message__text
+              | ユーザーメモはまだありません。
     hr.a-border-tint
     footer.card-footer
       .card-main-actions
