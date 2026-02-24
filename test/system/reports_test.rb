@@ -68,7 +68,7 @@ class ReportsTest < ApplicationSystemTestCase
 
     textarea = find('textarea.js-report-content')
     assert textarea['data-textarea-markdown-initialized'],
-      'textarea should be marked as initialized'
+           'textarea should be marked as initialized'
 
     event_listener_count = page.evaluate_async_script(<<~JS)
       const callback = arguments[arguments.length - 1];
@@ -98,7 +98,7 @@ class ReportsTest < ApplicationSystemTestCase
     JS
 
     assert_equal 1, event_listener_count,
-      "Expected 1 upload request from drop event, but got #{event_listener_count}. " \
-      'TextareaMarkdown may be initialized multiple times.'
+                 "Expected 1 upload request from drop event, but got #{event_listener_count}. " \
+                 'TextareaMarkdown may be initialized multiple times.'
   end
 end
