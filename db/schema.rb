@@ -352,9 +352,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_17_092056) do
     t.datetime "created_at", null: false
     t.string "email", null: false
     t.string "first_name", null: false
-    t.string "first_name_kana", default: "", null: false
+    t.string "first_name_kana", null: false
     t.string "last_name", null: false
-    t.string "last_name_kana", default: "", null: false
+    t.string "last_name_kana", null: false
     t.integer "prefecture_code", null: false
     t.string "tel1", null: false
     t.string "tel2", null: false

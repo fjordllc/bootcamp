@@ -1,6 +1,8 @@
 grant_course_application1:
   last_name: 山田
   first_name: 太郎
+  last_name_kana: ヤマダ
+  first_name_kana: タロウ
   email: yamada@example.com
   zip1: '150'
   zip2: '0002'
@@ -17,6 +19,8 @@ grant_course_application1:
 grant_course_application2:
   last_name: 佐藤
   first_name: 花子
+  last_name_kana: サトウ
+  first_name_kana: ハナコ
   email: sato@example.com
   zip1: '530'
   zip2: '0001'
@@ -33,6 +37,8 @@ grant_course_application2:
 grant_course_application3:
   last_name: 鈴木
   first_name: 一郎
+  last_name_kana: スズキ
+  first_name_kana: イチロウ
   email: suzuki@example.com
   zip1: '812'
   zip2: '0011'
@@ -49,6 +55,8 @@ grant_course_application3:
 grant_course_application4:
   last_name: 高橋
   first_name: 美咲
+  last_name_kana: タカハシ
+  first_name_kana: ミサキ
   email: takahashi@example.com
   zip1: '060'
   zip2: '0004'
@@ -65,6 +73,8 @@ grant_course_application4:
 grant_course_application5:
   last_name: 田中
   first_name: 健太
+  last_name_kana: タナカ
+  first_name_kana: ケンタ
   email: tanaka@example.com
   zip1: '460'
   zip2: '0008'
