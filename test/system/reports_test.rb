@@ -61,4 +61,44 @@ class ReportsTest < ApplicationSystemTestCase
     clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
     assert_equal current_url, clip_text
   end
+
+  test 'textarea is not initialized twice on report edit page' do
+    report = reports(:report1)
+    visit_with_auth "/reports/#{report.id}/edit", 'komagata'
+
+    textarea = find('textarea.js-report-content')
+    assert textarea['data-textarea-markdown-initialized'],
+      'textarea should be marked as initialized'
+
+    event_listener_count = page.evaluate_async_script(<<~JS)
+      const callback = arguments[arguments.length - 1];
+      const textarea = document.querySelector('textarea.js-report-content');
+      const originalValue = textarea.value;
+      let dropCount = 0;
+      const originalFetch = window.fetch;
+      window.fetch = function(...args) {
+        dropCount++;
+        return Promise.resolve(new Response(JSON.stringify({ url: 'http://example.com/test.png' })));
+      };
+
+      const dataTransfer = new DataTransfer();
+      const file = new File(['test'], 'test.png', { type: 'image/png' });
+      dataTransfer.items.add(file);
+      const dropEvent = new DragEvent('drop', {
+        bubbles: true,
+        dataTransfer: dataTransfer
+      });
+      textarea.dispatchEvent(dropEvent);
+
+      setTimeout(() => {
+        window.fetch = originalFetch;
+        textarea.value = originalValue;
+        callback(dropCount);
+      }, 1000);
+    JS
+
+    assert_equal 1, event_listener_count,
+      "Expected 1 upload request from drop event, but got #{event_listener_count}. " \
+      'TextareaMarkdown may be initialized multiple times.'
+  end
 end
