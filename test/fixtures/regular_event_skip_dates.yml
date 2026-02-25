@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  skip_on: 2026-02-12
+  reason: MyText
+  regular_event: one
+
+two:
+  skip_on: 2026-02-12
+  reason: MyText
+  regular_event: two

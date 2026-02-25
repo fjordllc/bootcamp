@@ -50,6 +50,17 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validates :description, presence: true
   validates :regular_event_repeat_rules, presence: true
   validates_associated :regular_event_repeat_rules
+  validates_associated :regular_event_skip_dates
+  validate lambda {
+    errors.add(:base, 'スキップ日は同じ日付は登録できません') if regular_event_skip_dates.map(&:skip_on).size != regular_event_skip_dates.map(&:skip_on).uniq.size
+  }
+  validate :validate_skip_on_matches_repeat_rules
+
+  def validate_skip_on_matches_repeat_rules
+    wdays = regular_event_skip_dates.map { |s| s.skip_on.wday }.uniq
+    repeat_rules_wday = regular_event_repeat_rules.map(&:day_of_the_week).uniq
+    errors.add(:skip_on, 'は定期開催曜日のみ登録してください') unless (wdays - repeat_rules_wday).empty?
+  end
 
   scope :not_finished, -> { where(finished: false) }
 
@@ -68,8 +79,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_many :users, through: :organizers
   has_many :regular_event_repeat_rules, dependent: :destroy
   accepts_nested_attributes_for :regular_event_repeat_rules, allow_destroy: true
-  has_many :regular_event_skipped_dates, dependent: :destroy
-  accepts_nested_attributes_for :regular_event_skipped_dates, allow_destroy: true
+  has_many :regular_event_skip_dates, dependent: :destroy
+  accepts_nested_attributes_for :regular_event_skip_dates, allow_destroy: true
   has_many :regular_event_participations, dependent: :destroy
   has_many :participants,
            through: :regular_event_participations,
@@ -101,7 +112,9 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     event_dates =
       hold_national_holiday ? upcoming_scheduled_dates : upcoming_scheduled_dates.reject { |d| HolidayJp.holiday?(d) }
 
-    event_dates.min
+    skip_ons = regular_event_skip_dates.map(&:skip_on)
+    event_dates_reject_skip_date = event_dates.reject { |d| skip_ons.include?(d) }
+    event_dates_reject_skip_date.min
   end
 
   def organizers
@@ -129,6 +142,12 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     to: Date.current.next_year
   )
     (from..to).filter { |d| date_match_the_rules?(d, regular_event_repeat_rules) }
+  end
+
+  def all_scheduled_holidays(holidays: holidays)
+    return [] if holidays.blank?
+
+    holidays.filter { |d| date_match_the_rules?(d.date, regular_event_repeat_rules) }
   end
 
   def transform_for_subscription(event_date)

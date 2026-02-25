@@ -95,4 +95,13 @@ Rails.application.configure do
   config.rack_dev_mark.theme = [:title, Rack::DevMark::Theme::GithubForkRibbon.new(position: 'right-bottom')]
 
   Rails.application.routes.default_url_options[:host] = 'localhost:3000'
+
+  # config.after_initialize do
+  #   Bullet.enable        = true
+  #   Bullet.alert         = true
+  #   Bullet.bullet_logger = true
+  #   Bullet.console       = true
+  #   Bullet.rails_logger  = true
+  #   Bullet.add_footer    = true
+  # end
 end

@@ -8,7 +8,7 @@ class RegularEventsController < ApplicationController
   end
 
   def show
-    @regular_event = RegularEvent.find(params[:id])
+    @regular_event = RegularEvent.includes(:regular_event_repeat_rules, :regular_event_skip_dates).find(params[:id])
     Footprint.find_or_create_for(@regular_event, current_user)
     @footprints = Footprint.fetch_for_resource(@regular_event)
     @comments = @regular_event.comments.order(:created_at)
@@ -94,7 +94,7 @@ class RegularEventsController < ApplicationController
       :wants_announcement,
       user_ids: [],
       regular_event_repeat_rules_attributes: %i[id regular_event_id frequency day_of_the_week _destroy],
-      regular_event_skipped_dates_attributes: %i[id reason skipped_at _destroy]
+      regular_event_skip_dates_attributes: %i[id reason skip_on _destroy]
     )
   end
 
