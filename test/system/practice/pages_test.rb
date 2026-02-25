@@ -31,19 +31,19 @@ class Practice::PagesTest < ApplicationSystemTestCase
   end
 
   test 'grant filter is present on grant course practice' do
-    visit_with_auth "/practices/#{practices(:practice64).id}/pages", 'komagata'
+    visit_with_auth "/practices/#{practices(:copy_practice1).id}/pages", 'komagata'
     assert_selector '.pill-nav__items'
   end
 
   test 'grant filter shows both copied and grant course docs when "全て" is selected' do
-    visit_with_auth "/practices/#{practices(:practice64).id}/pages", 'komagata'
+    visit_with_auth "/practices/#{practices(:copy_practice1).id}/pages", 'komagata'
     assert_selector '.pill-nav__item-link.is-active', text: '全て'
     assert_selector '.card-list-item-title__link.a-text-link', text: 'コピー元のRailsコースのプラクティスのDocs'
     assert_selector '.card-list-item-title__link.a-text-link', text: '給付金コースのプラクティスに紐づいたDocs'
   end
 
   test 'grant filter shows only grant course reports when "給付金コース" is selected' do
-    visit_with_auth "/practices/#{practices(:practice64).id}/pages", 'komagata'
+    visit_with_auth "/practices/#{practices(:copy_practice1).id}/pages", 'komagata'
     find('.pill-nav__item-link', text: '給付金コース').click
     assert_selector '.pill-nav__item-link.is-active', text: '給付金コース'
     assert_no_selector '.card-list-item-title__link.a-text-link', text: 'コピー元のRailsコースのプラクティスのDocs'
@@ -51,7 +51,7 @@ class Practice::PagesTest < ApplicationSystemTestCase
   end
 
   test 'grant filter shows empty message when no reports exist' do
-    visit_with_auth "/practices/#{practices(:practice65).id}/pages", 'komagata'
+    visit_with_auth "/practices/#{practices(:copy_practice2).id}/pages", 'komagata'
     assert_selector '.pill-nav__items'
     find('.pill-nav__item-link', text: '給付金コース').click
     assert_selector '.pill-nav__item-link.is-active', text: '給付金コース'

@@ -58,7 +58,7 @@ class PracticeTest < ActiveSupport::TestCase
 
   test '#grant_course?' do
     assert_equal \
-      practices(:practice64).grant_course?, true
+      practices(:copy_practice1).grant_course?, true
     assert_equal \
       practices(:practice1).grant_course?, false
   end
