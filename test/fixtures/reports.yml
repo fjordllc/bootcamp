@@ -377,15 +377,31 @@ report77:
 
 report78:
   user: komagata
-  title: "プラクティスに関連付かない日報"
+  title: "プラクティスに関連する日報"
   emotion: 1
-  description: プラクティスに関連付かない日報です。
+  description: プラクティスに関連する日報です。
+  practices: practice1
   reported_on: "2026-01-03"
 
 report79:
   user: komagata
-  title: "コピー元のRailsコースのプラクティスの日報"
+  title: "コピー元のプラクティスの日報"
   emotion: 1
-  description: コピー元のRailsコースのプラクティスの日報です。
+  description: コピー元のプラクティスの日報です。
   practices: practice1, practice64
   reported_on: "2026-01-04"
+
+report80:
+  user: komagata
+  title: "異なるプラクティスに関連する日報"
+  emotion: 1
+  description: 異なるプラクティスに関連する日報です。
+  practices: practice2
+  reported_on: "2026-01-05"
+
+report81:
+  user: komagata
+  title: "プラクティスに関連していない日報"
+  emotion: 1
+  description: プラクティスに関連付かない日報です。
+  reported_on: "2026-01-06"

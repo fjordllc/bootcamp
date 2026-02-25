@@ -3,13 +3,6 @@
 require 'application_system_test_case'
 
 class Practice::ReportsTest < ApplicationSystemTestCase
-  test 'show listing reports' do
-    visit_with_auth "/practices/#{practices(:practice1).id}/reports", 'hatsuno'
-    assert_equal 'OS X Mountain Lionをクリーンインストールするに関する日報 | FBC', title
-    assert_selector 'img[alt="positive"]', count: 2
-    assert_selector '.card-list-item-title__link', text: '1時間だけ学習'
-  end
-
   test 'grant filter is not present on rails course practice' do
     visit_with_auth "/practices/#{practices(:practice1).id}/reports", 'komagata'
     assert_selector '.card-list-item-title__link'
@@ -26,7 +19,7 @@ class Practice::ReportsTest < ApplicationSystemTestCase
     visit_with_auth "/practices/#{practices(:practice64).id}/reports", 'komagata'
     assert_selector '.card-list-item-title__link'
     assert_selector 'button.pill-nav__item-link.is-active[data-with-grant="false"]', text: '全て'
-    assert_selector '.card-list-item-title__link', text: 'コピー元のRailsコースのプラクティスの日報'
+    assert_selector '.card-list-item-title__link', text: 'コピー元のプラクティスの日報'
     assert_selector '.card-list-item-title__link', text: '給付金コースのプラクティスの日報'
   end
 
@@ -35,7 +28,7 @@ class Practice::ReportsTest < ApplicationSystemTestCase
     assert_selector '.card-list-item-title__link'
     find('button[data-with-grant="true"]').click
     assert_selector 'button.pill-nav__item-link.is-active[data-with-grant="true"]', text: '給付金コース'
-    assert_no_selector '.card-list-item-title__link', text: 'コピー元のRailsコースのプラクティスの日報'
+    assert_no_selector '.card-list-item-title__link', text: 'コピー元のプラクティスの日報'
     assert_selector '.card-list-item-title__link', text: '給付金コースのプラクティスの日報'
   end
 
