@@ -149,37 +149,43 @@ module Users
       assert_no_text '卒業 1日'
     end
 
-    test 'show hibernated user information for administrator' do
+    test 'show hibernation information if logined as admin or mentor' do
       hibernated_user = users(:kyuukai)
 
-      visit_with_auth user_path(hibernated_user), 'komagata'
-
-      assert_text '休会回数'
-      assert_text '1回目の休会'
-      assert_text '休会期間'
-      assert_text '自動退会まであと'
-      assert_text '復帰予定日'
-      assert_text '休会の理由'
+      %w[komagata mentormentaro].each do |login_user|
+        visit_with_auth user_path(hibernated_user), login_user
+        within(find('.user-data__row', text: '休会情報')) do
+          assert_text '休会回数'
+          assert_text '1回目の休会'
+          assert_text '休会期間'
+          assert_text '現在休会中'
+          assert_text '復帰予定日'
+          assert_text '休会の理由'
+        end
+      end
     end
 
-    test 'show hibernated user information for mentor' do
-      hibernated_user = users(:kyuukai)
+    test 'show past-hibernated user if logined as admin or mentor' do
+      returned_user = users(:hukki)
 
-      visit_with_auth user_path(hibernated_user), 'mentormentaro'
-
-      assert_text '休会回数'
-      assert_text '1回目の休会'
-      assert_text '休会期間'
-      assert_text '自動退会まであと'
-      assert_text '復帰予定日'
-      assert_text '休会の理由'
+      %w[komagata mentormentaro].each do |login_user|
+        visit_with_auth user_path(returned_user), login_user
+        within(find('.user-data__row', text: '休会情報')) do
+          assert_text '休会回数'
+          assert_text '1回目の休会'
+          assert_text '休会期間'
+          assert_text '復帰予定日'
+          assert_text '休会の理由'
+        end
+      end
     end
 
-    test 'shold not show hibernated user information for regular user' do
+    test 'shold not show hibernated user information if logined as regular user' do
       hibernated_user = users(:kyuukai)
 
       visit_with_auth user_path(hibernated_user), 'kimura'
 
+      assert_no_text '休会情報'
       assert_no_text '休会回数'
       assert_no_text '1回目の休会'
       assert_no_text '休会期間'
@@ -188,39 +194,14 @@ module Users
       assert_no_text '休会の理由'
     end
 
-    test 'show past-hibernated user information for administrator' do
-      hibernated_user = users(:hukki)
-
-      visit_with_auth user_path(hibernated_user), 'komagata'
-
-      assert_text '休会回数'
-      assert_text '1回目の休会'
-      assert_text '休会期間'
-      assert_text '復帰予定日'
-      assert_text '休会の理由'
-    end
-
-    test 'show past-hibernated user information for mentor' do
-      hibernated_user = users(:hukki)
-
-      visit_with_auth user_path(hibernated_user), 'mentormentaro'
-
-      assert_text '休会回数'
-      assert_text '1回目の休会'
-      assert_text '休会期間'
-      assert_text '復帰予定日'
-      assert_text '休会の理由'
-    end
-
     test 'shold not show past-hibernated user information for regular user' do
-      hibernated_user = users(:hukki)
+      returned_user = users(:hukki)
 
-      visit_with_auth user_path(hibernated_user), 'kimura'
+      visit_with_auth user_path(returned_user), 'kimura'
 
       assert_no_text '休会回数'
       assert_no_text '1回目の休会'
       assert_no_text '休会期間'
-      assert_no_text '自動退会まであと'
       assert_no_text '復帰予定日'
       assert_no_text '休会の理由'
     end
