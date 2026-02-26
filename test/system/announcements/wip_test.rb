@@ -37,7 +37,7 @@ module Announcements
       announcement = announcements(:announcement_wip)
       visit_with_auth announcement_path(announcement), 'kimura'
       within '.announcement' do
-        assert_text 'コピー'
+        assert_text '複製'
       end
     end
 

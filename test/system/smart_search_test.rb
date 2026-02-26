@@ -9,7 +9,7 @@ class SmartSearchTest < ApplicationSystemTestCase
     within('form[name=search]') do
       assert_text '検索方法'
       assert_text 'キーワード検索'
-      assert_text 'AI検索'
+      assert_text '意味検索'
       assert_text 'ハイブリッド'
     end
   end

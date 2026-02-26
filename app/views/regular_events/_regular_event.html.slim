@@ -49,9 +49,7 @@
                 | Bookmark
           .page-content-header-actions__end
             .page-content-header-actions__action
-              = link_to new_regular_event_path(id: regular_event), class: 'a-button is-sm is-secondary is-block', id: 'copy' do
-                i.fa-solid.fa-copy
-                | コピー
+              = link_to '複製', new_regular_event_path(id: regular_event), class: 'a-button is-sm is-secondary is-block', id: 'copy'
 
   = render('regular_event_meta', regular_event:)
 

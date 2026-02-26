@@ -4,7 +4,7 @@ class Searcher
   MODES = %i[keyword semantic hybrid].freeze
   MODES_FOR_SELECT = [
     %w[キーワード検索 keyword],
-    %w[AI検索 semantic],
+    %w[意味検索 semantic],
     %w[ハイブリッド hybrid]
   ].freeze
 
