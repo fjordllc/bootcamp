@@ -173,6 +173,27 @@ module Users
       assert_no_text '1回目の休会'
     end
 
+    test 'show hibernation count for administrator' do
+      hibernated_user = users(:kyuukai)
+
+      visit_with_auth user_path(hibernated_user), 'komagata'
+      assert_text '休会回数'
+    end
+
+    test 'show hibernation count for mentor' do
+      hibernated_user = users(:kyuukai)
+
+      visit_with_auth user_path(hibernated_user), 'mentormentaro'
+      assert_text '休会回数'
+    end
+
+    test 'not show hibernation count when logined as regular user' do
+      hibernated_user = users(:kyuukai)
+
+      visit_with_auth user_path(hibernated_user), 'kimura'
+      assert_no_text '休会回数'
+    end
+
     test 'can upload heic image and converts it to webp with login_name' do
       visit_with_auth '/current_user/edit', 'hajime'
       attach_file 'user[avatar]', 'test/fixtures/files/images/heic-sample-file.heic', make_visible: true
