@@ -161,6 +161,18 @@ module Users
       assert_no_text '休会中（休会から'
     end
 
+    test 'show hibernation-info for user who have returned from hibernation' do
+      returned_user = users(:hukki)
+      user = users(:hatsuno)
+
+      visit_with_auth user_path(returned_user), 'komagata'
+      assert_text '現役生'
+      assert_text '1回目の休会'
+
+      visit_with_auth user_path(user), 'komagata'
+      assert_no_text '1回目の休会'
+    end
+
     test 'can upload heic image and converts it to webp with login_name' do
       visit_with_auth '/current_user/edit', 'hajime'
       attach_file 'user[avatar]', 'test/fixtures/files/images/heic-sample-file.heic', make_visible: true
