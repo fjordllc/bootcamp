@@ -211,6 +211,10 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
      source_id.present?
   end
 
+  def own_and_source_practice_pages_length
+    pages.length + source_practice.pages.length
+  end
+
   private
 
   def total_learning_minute(report)

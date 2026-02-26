@@ -63,6 +63,10 @@ class PracticeTest < ActiveSupport::TestCase
       practices(:practice1).grant_course?, false
   end
 
+  test '#own_and_source_practice_pages_length' do
+    assert_equal 2, practices(:copy_practice1).own_and_source_practice_pages_length
+  end
+
   test 'source_id_cannot_be_self validation prevents self-reference' do
     practice = practices(:practice1)
     practice.source_id = practice.id
