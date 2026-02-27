@@ -117,3 +117,11 @@ page13:
   practice: source_practice1
   published_at: "2022-12-21 00:00:00"
   last_updated_user: komagata
+
+page14:
+  title: 元プラクティスに紐づいたDocsがない場合の、給付金コースのプラクティスに紐づいたDocs
+  body: 元プラクティスに紐づいたDocsがない場合の、給付金コースのプラクティスに紐づいたDocs
+  user: komagata
+  practice: copy_practice3
+  published_at: "2022-12-21 00:00:00"
+  last_updated_user: komagata

@@ -208,11 +208,15 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
   end
 
   def grant_course?
-     source_id.present?
+    source_id.present?
   end
 
   def own_and_source_practice_pages_length
-    pages.length + source_practice.pages.length
+    if source_practice.pages.present?
+      pages.length + source_practice.pages.length
+    else
+      pages.length
+    end
   end
 
   private

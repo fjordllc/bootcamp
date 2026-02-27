@@ -50,6 +50,13 @@ class Practice::PagesTest < ApplicationSystemTestCase
     assert_selector '.card-list-item-title__link.a-text-link', text: '給付金コースのプラクティスに紐づいたDocs'
   end
 
+  test 'grant filter shows only grant course pages when "給付金コース" is selected but source practice has no pages' do
+    visit_with_auth "/practices/#{practices(:copy_practice3).id}/pages", 'komagata'
+    find('.pill-nav__item-link', text: '給付金コース').click
+    assert_selector '.pill-nav__item-link.is-active', text: '給付金コース'
+    assert_selector '.card-list-item-title__link.a-text-link', text: '給付金コースのプラクティスに紐づいたDocs'
+  end
+
   test 'grant filter shows empty message when no pages exist' do
     visit_with_auth "/practices/#{practices(:copy_practice2).id}/pages", 'komagata'
     assert_selector '.pill-nav__items'
