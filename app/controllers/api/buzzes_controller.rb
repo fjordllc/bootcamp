@@ -34,9 +34,8 @@ class API::BuzzesController < API::BaseController
   end
 
   def destroy
-    @buzz = set_buzz
-    if @buzz
-      @buzz.destroy
+    @buzz = Buzz.find_by(url: params[:url])
+    if @buzz&.destroy
       render json: @buzz, status: :ok
     else
       render json: { error: 'Buzzが見つかりません' }, status: :not_found
@@ -44,10 +43,6 @@ class API::BuzzesController < API::BaseController
   end
 
   private
-
-  def set_buzz
-    Buzz.find_by(url: params[:url])
-  end
 
   def buzz_params
     params.require(:buzz).permit(:title, :url, :published_at, :memo)
