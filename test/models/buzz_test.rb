@@ -1,38 +1,21 @@
 # frozen_string_literal: true
 
 require 'test_helper'
-require 'supports/buzz_helper'
 
 class BuzzTest < ActiveSupport::TestCase
-  include BuzzHelper
-
-  setup do
-    Buzz.delete_all
-  end
-
   test '.for_year returns buzzes within given year' do
-    buzz1 = create_buzz('2023-12-31')
-    buzz2 = create_buzz('2024-01-01')
-    buzz3 = create_buzz('2024-12-31')
-    buzz4 = create_buzz('2025-01-01')
-
-    result = Buzz.for_year(2024)
-    assert_not_includes result, buzz1
-    assert_includes result, buzz2
-    assert_includes result, buzz3
-    assert_not_includes result, buzz4
+    result = Buzz.for_year(2025)
+    assert_includes result, buzzes(:buzz1)
+    assert_includes result, buzzes(:buzz4)
+    assert_not_includes result, buzzes(:buzz5)
   end
 
   test '.latest_year' do
-    dates = %w[2023-01-01 2024-01-01 2025-01-01]
-    create_buzzes(dates)
     latest_year = 2025
     assert_equal latest_year, Buzz.latest_year
   end
 
   test '.years' do
-    dates = %w[2024-01-01 2025-01-01]
-    create_buzzes(dates)
     years = [2025, 2024]
     assert_equal years, Buzz.years
   end

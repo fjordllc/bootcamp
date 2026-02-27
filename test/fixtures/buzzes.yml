@@ -1,0 +1,29 @@
+buzz1:
+  title: "2025-12-31の記事"
+  url: "https://www.example-2025-12-31.com"
+  memo: "buzz1です"
+  published_at: "2025-12-31"
+
+buzz2:
+  title: "2025-02-01の記事"
+  url: "https://www.example-2025-02-01.com"
+  memo: "buzz2です"
+  published_at: "2025-02-01"
+
+buzz3:
+  title: "2025-01-31の記事"
+  url: "https://www.example-2025-01-31.com"
+  memo: "buzz3です"
+  published_at: "2025-01-31"
+
+buzz4:
+  title: "2025-01-01の記事"
+  url: "https://www.example-2025-01-01.com"
+  memo: "buzz4です"
+  published_at: "2025-01-01"
+
+buzz5:
+  title: "2024-12-31の記事"
+  url: "https://www.example-2024-12-31.com"
+  memo: "buzz5です"
+  published_at: "2024-12-31"

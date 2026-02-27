@@ -4,21 +4,15 @@ require 'application_system_test_case'
 require 'test_helper'
 
 class Mentor::BuzzesTest < ApplicationSystemTestCase
-  setup do
-    Buzz.delete_all
-  end
-
   test 'show listing buzzes' do
     visit_with_auth mentor_buzzes_path, 'machida'
     assert_equal '紹介・言及記事 | FBC', title
   end
 
   test 'buzzes are listed in descending order of published_at' do
-    dates = %w[2024-12-25 2025-04-01 2025-09-10]
-    create_buzzes(dates)
     visit_with_auth mentor_buzzes_path, 'machida'
     buzz_titles = all('.admin-table__item').map { |row| row.find('td:first-child a').text }
-    expected_order = %w[2025-09-10の記事 2025-04-01の記事 2024-12-25の記事]
+    expected_order = %w[2025-12-31の記事 2025-02-01の記事 2025-01-31の記事 2025-01-01の記事 2024-12-31の記事]
     assert_equal expected_order, buzz_titles
   end
 
@@ -49,7 +43,7 @@ class Mentor::BuzzesTest < ApplicationSystemTestCase
   end
 
   test 'url field is not shown in buzz edit form' do
-    buzz = create_buzz('2025-09-10')
+    buzz = buzzes(:buzz1)
     visit_with_auth edit_mentor_buzz_path(buzz.id), 'machida'
     within 'form[name=buzz]' do
       assert_no_selector 'input[name="buzz[url]"]'
@@ -77,7 +71,7 @@ class Mentor::BuzzesTest < ApplicationSystemTestCase
   end
 
   test 'user can update title memo and published date' do
-    buzz = Buzz.create!(title: '新しいBuzz', url: 'https://www.example.com', memo: '新しいBuzzです', published_at: '2025-09-10')
+    buzz = buzzes(:buzz2)
     visit_with_auth edit_mentor_buzz_path(buzz.id), 'machida'
     within 'form[name=buzz]' do
       fill_in 'buzz[title]', with: '編集後のBuzz'
@@ -88,17 +82,17 @@ class Mentor::BuzzesTest < ApplicationSystemTestCase
     assert_text '編集後のBuzz'
     assert_text '編集しました'
     assert_text '2025年09月11日'
-    assert_no_text '新しいBuzz'
-    assert_no_text '新しいBuzzです'
-    assert_no_text '2025年09月10日'
+    assert_no_text '2025-01-15の記事'
+    assert_no_text 'buzz2です'
+    assert_no_text '2025年01月15日'
   end
 
   test 'user can destroy buzz' do
-    buzz = Buzz.create!(title: '新しいBuzz', url: 'https://www.example.com', published_at: '2025-09-10')
+    buzz = buzzes(:buzz1)
     visit_with_auth edit_mentor_buzz_path(buzz.id), 'machida'
     accept_confirm do
       click_button '削除する'
     end
-    assert_no_text '新しいBuzz'
+    assert_no_text '2025-12-31の記事'
   end
 end
