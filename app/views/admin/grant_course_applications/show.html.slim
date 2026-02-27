@@ -43,6 +43,7 @@ main.page-main
               .card-body__description
                 .a-long-text.is-md
                   h2 氏名
+                  p = "#{@grant_course_application.last_name_kana} #{@grant_course_application.first_name_kana}"
                   p = "#{@grant_course_application.last_name} #{@grant_course_application.first_name}"
                   h2 住所（書籍の送付先）
                   p
