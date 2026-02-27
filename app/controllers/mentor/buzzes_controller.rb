@@ -18,7 +18,7 @@ class Mentor::BuzzesController < ApplicationController
   def create
     @buzz = Buzz.new(buzz_params)
 
-    return render :new, status: :unprocessable_entity unless validate_url
+    return render :new, status: :unprocessable_entity unless Buzz.validate_url(@buzz)
 
     doc = Buzz.doc_from_url(buzz_params[:url])
 
@@ -27,7 +27,7 @@ class Mentor::BuzzesController < ApplicationController
       return render :new, status: :unprocessable_entity
     end
 
-    return render :new, status: :unprocessable_entity unless populate_buzz_from_doc(doc)
+    return render :new, status: :unprocessable_entity unless Buzz.populate_buzz_from_doc(doc, @buzz)
 
     if @buzz.save
       redirect_to mentor_buzzes_path, notice: '記事を登録しました'
@@ -50,36 +50,6 @@ class Mentor::BuzzesController < ApplicationController
   end
 
   private
-
-  def populate_buzz_from_doc(doc)
-    date = Buzz.date_from_doc(doc)
-    @buzz.title = Buzz.title_from_doc(doc) if @buzz.title.blank?
-
-    if @buzz.published_at.blank?
-      if date.present?
-        @buzz.published_at = date
-      else
-        @buzz.errors.add(:published_at, 'を入力してください')
-        return false
-      end
-    end
-
-    true
-  end
-
-  def validate_url
-    url = @buzz.url
-    if url.blank?
-      @buzz.errors.add(:url, 'を入力してください')
-      return false
-    end
-
-    unless Buzz.valid_scheme?(url)
-      @buzz.errors.add(:url, 'は"http://"か"https://"から始める必要があります')
-      return false
-    end
-    true
-  end
 
   def set_buzz
     @buzz = Buzz.find(params[:id])
