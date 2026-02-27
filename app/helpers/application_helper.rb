@@ -8,6 +8,6 @@ module ApplicationHelper
   end
 
   def movie_available?
-    Rails.env.local? || Switchlet.enabled?(:movie)
+    Rails.env.local? || current_user&.admin? || Switchlet.enabled?(:movie)
   end
 end
