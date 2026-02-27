@@ -8,7 +8,7 @@ module UserDecorator
       'is-warning' => 5..9
     }.freeze
 
-    LAST_UNCHECKED_REPORT_COUNT = 1
+    SINGLE_UNCHECKED_REPORT_COUNT = 1
 
     def user_report_count_class(count)
       REPORT_COUNT_LEVELS.find { |_, range| range.include?(count) }&.first || 'is-danger'
@@ -17,8 +17,8 @@ module UserDecorator
     def unchecked_report_message(count, user)
       if count.zero?
         "#{user.login_name}さんの日報へ"
-      elsif count == LAST_UNCHECKED_REPORT_COUNT
-        "#{user.login_name}さんの未チェックの日報はこれで最後です。"
+      elsif count == SINGLE_UNCHECKED_REPORT_COUNT
+        "#{user.login_name}さんの未チェックの日報は残り1つです。"
       else
         "#{user.login_name}さんの未チェックの日報が#{count}件あります。"
       end
