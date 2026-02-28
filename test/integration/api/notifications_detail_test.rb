@@ -5,64 +5,64 @@ require 'test_helper'
 class API::NotificationsDetailTest < ActionDispatch::IntegrationTest
   fixtures :users, :notifications
 
-  test 'unread notifications response has all required fields with correct types' do
+  test '未読通知のレスポンスが正しいフィールドと型を持つこと' do
     token = create_token('hatsuno', 'testtest')
     get api_notifications_path(status: 'unread', format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
 
     json = JSON.parse(response.body)
-    assert json.key?('notifications'), 'Missing top-level notifications key'
-    assert json.key?('total_pages'), 'Missing top-level total_pages key'
+    assert json.key?('notifications'), 'トップレベルにnotificationsキーがない'
+    assert json.key?('total_pages'), 'トップレベルにtotal_pagesキーがない'
     assert_kind_of Array, json['notifications']
     assert_kind_of Integer, json['total_pages']
-    assert json['total_pages'].positive?, 'total_pages should be >= 1'
-    assert json['notifications'].size.positive?, 'Should have at least one unread notification'
+    assert json['total_pages'].positive?, 'total_pagesは1以上であること'
+    assert json['notifications'].size.positive?, '未読通知が1件以上あること'
 
     json['notifications'].each_with_index do |n, i|
-      ctx = "Notification ##{i} (id=#{n['id']})"
+      ctx = "通知##{i} (id=#{n['id']})"
 
-      # Required fields with type checks
-      assert_kind_of Integer, n['id'], "#{ctx}: id should be Integer"
-      assert_kind_of String, n['kind'], "#{ctx}: kind should be String"
-      assert_includes Notification.kinds.keys, n['kind'], "#{ctx}: kind '#{n['kind']}' is not a valid enum value"
-      assert_kind_of String, n['message'], "#{ctx}: message should be String"
-      assert n['message'].present?, "#{ctx}: message should not be blank"
-      assert_kind_of String, n['path'], "#{ctx}: path should be String"
-      assert n['path'].start_with?('/'), "#{ctx}: path should start with /"
-      assert_not n['read'], "#{ctx}: read should be false for unread"
-      assert_kind_of String, n['created_at'], "#{ctx}: created_at should be String"
+      # 必須フィールドの型チェック
+      assert_kind_of Integer, n['id'], "#{ctx}: idはIntegerであること"
+      assert_kind_of String, n['kind'], "#{ctx}: kindはStringであること"
+      assert_includes Notification.kinds.keys, n['kind'], "#{ctx}: kind '#{n['kind']}'は有効なenum値でない"
+      assert_kind_of String, n['message'], "#{ctx}: messageはStringであること"
+      assert n['message'].present?, "#{ctx}: messageは空でないこと"
+      assert_kind_of String, n['path'], "#{ctx}: pathはStringであること"
+      assert n['path'].start_with?('/'), "#{ctx}: pathは/で始まること"
+      assert_not n['read'], "#{ctx}: 未読通知のreadはfalseであること"
+      assert_kind_of String, n['created_at'], "#{ctx}: created_atはStringであること"
       assert_nothing_raised { Time.zone.parse(n['created_at']) }
 
-      # Sender validation
+      # 送信者の検証
       sender = n['sender']
-      assert sender.present?, "#{ctx}: sender should not be nil"
-      sender_ctx = "#{ctx} sender (#{sender['login_name']})"
+      assert sender.present?, "#{ctx}: senderがnilでないこと"
+      sender_ctx = "#{ctx} 送信者(#{sender['login_name']})"
 
-      assert_kind_of Integer, sender['id'], "#{sender_ctx}: id should be Integer"
-      assert_kind_of String, sender['login_name'], "#{sender_ctx}: login_name should be String"
-      assert sender['login_name'].present?, "#{sender_ctx}: login_name should not be blank"
-      assert_match(/\A[a-zA-Z0-9_-]+\z/, sender['login_name'], "#{sender_ctx}: login_name has invalid chars")
-      assert_kind_of String, sender['avatar_url'], "#{sender_ctx}: avatar_url should be String"
-      assert sender['avatar_url'].present?, "#{sender_ctx}: avatar_url should not be blank"
-      assert sender.key?('company'), "#{sender_ctx}: company key should exist"
+      assert_kind_of Integer, sender['id'], "#{sender_ctx}: idはIntegerであること"
+      assert_kind_of String, sender['login_name'], "#{sender_ctx}: login_nameはStringであること"
+      assert sender['login_name'].present?, "#{sender_ctx}: login_nameは空でないこと"
+      assert_match(/\A[a-zA-Z0-9_-]+\z/, sender['login_name'], "#{sender_ctx}: login_nameに不正な文字が含まれている")
+      assert_kind_of String, sender['avatar_url'], "#{sender_ctx}: avatar_urlはStringであること"
+      assert sender['avatar_url'].present?, "#{sender_ctx}: avatar_urlは空でないこと"
+      assert sender.key?('company'), "#{sender_ctx}: companyキーが存在すること"
 
-      # Company validation (can be null but structure must be correct when present)
+      # 企業情報の検証（nullの場合もあるが、存在する場合は構造が正しいこと）
       company = sender['company']
       if company.present?
-        assert company.key?('logo_url'), "#{sender_ctx}: company should have logo_url"
-        assert company.key?('url'), "#{sender_ctx}: company should have url"
-        assert_kind_of String, company['url'], "#{sender_ctx}: company url should be String"
+        assert company.key?('logo_url'), "#{sender_ctx}: companyにlogo_urlがあること"
+        assert company.key?('url'), "#{sender_ctx}: companyにurlがあること"
+        assert_kind_of String, company['url'], "#{sender_ctx}: company urlはStringであること"
       end
 
-      # Verify sender references a real user
+      # 送信者が実在するユーザーであること
       user = User.find_by(id: sender['id'])
-      assert user.present?, "#{sender_ctx}: sender id #{sender['id']} not found in DB"
-      assert_equal user.login_name, sender['login_name'], "#{sender_ctx}: login_name mismatch with DB"
+      assert user.present?, "#{sender_ctx}: sender id #{sender['id']}がDBに存在しない"
+      assert_equal user.login_name, sender['login_name'], "#{sender_ctx}: login_nameがDBと一致しない"
     end
   end
 
-  test 'all notifications (read + unread) response is valid' do
+  test '全通知（既読＋未読）のレスポンスが正しいこと' do
     token = create_token('hatsuno', 'testtest')
     get api_notifications_path(format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
@@ -71,21 +71,21 @@ class API::NotificationsDetailTest < ActionDispatch::IntegrationTest
     json = JSON.parse(response.body)
     notifications = json['notifications']
     assert_kind_of Array, notifications
-    assert notifications.size.positive?, 'Should have notifications'
+    assert notifications.size.positive?, '通知が1件以上あること'
 
-    # Verify ordering: should be newest first
+    # 新しい順にソートされていること
     timestamps = notifications.map { |n| Time.zone.parse(n['created_at']) }
-    assert_equal timestamps, timestamps.sort.reverse, 'Notifications should be ordered newest first'
+    assert_equal timestamps, timestamps.sort.reverse, '通知は新しい順にソートされていること'
 
-    # All notifications should have complete sender data
+    # 全通知にsenderデータが含まれていること
     notifications.each_with_index do |n, i|
-      assert n['sender'].present?, "Notification ##{i} missing sender"
-      assert n['sender']['login_name'].present?, "Notification ##{i} sender missing login_name"
-      assert n['sender']['avatar_url'].present?, "Notification ##{i} sender missing avatar_url"
+      assert n['sender'].present?, "通知##{i}: senderがないこと"
+      assert n['sender']['login_name'].present?, "通知##{i}: senderのlogin_nameがないこと"
+      assert n['sender']['avatar_url'].present?, "通知##{i}: senderのavatar_urlがないこと"
     end
   end
 
-  test 'notifications with target filter returns only matching kinds' do
+  test 'targetフィルタで対応するkindのみ返ること' do
     token = create_token('hatsuno', 'testtest')
 
     Notification::TARGETS_TO_KINDS.each do |target, expected_kinds|
@@ -96,37 +96,37 @@ class API::NotificationsDetailTest < ActionDispatch::IntegrationTest
       json = JSON.parse(response.body)
       json['notifications'].each do |n|
         assert_includes expected_kinds.map(&:to_s), n['kind'],
-                        "target=#{target} returned unexpected kind '#{n['kind']}'"
+                        "target=#{target}で予期しないkind '#{n['kind']}'が返された"
       end
     end
   end
 
-  test 'notifications with pagination returns correct pages' do
+  test 'ページネーションが正しく動作すること' do
     token = create_token('hatsuno', 'testtest')
     get api_notifications_path(page: 1, per: 5, format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
 
     json = JSON.parse(response.body)
-    assert json['notifications'].size <= 5, 'Should respect per-page limit'
+    assert json['notifications'].size <= 5, 'per指定のページサイズを超えないこと'
     assert json['total_pages'].positive?
 
-    # Page 2 should also work
+    # 2ページ目も取得できること
     get api_notifications_path(page: 2, per: 5, format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
     json2 = JSON.parse(response.body)
     assert_kind_of Array, json2['notifications']
 
-    # Page 1 and 2 should have different notifications (if enough data)
+    # 1ページ目と2ページ目の通知が重複しないこと
     if json['notifications'].size == 5 && json2['notifications'].size.positive?
       ids1 = json['notifications'].map { |n| n['id'] }
       ids2 = json2['notifications'].map { |n| n['id'] }
-      assert_empty ids1 & ids2, 'Page 1 and 2 should not overlap'
+      assert_empty ids1 & ids2, '1ページ目と2ページ目の通知が重複しないこと'
     end
   end
 
-  test 'notification sender with company has logo_url and url' do
+  test '企業所属の送信者にlogo_urlとurlがあること' do
     token = create_token('hatsuno', 'testtest')
     get api_notifications_path(status: 'unread', format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
@@ -134,18 +134,18 @@ class API::NotificationsDetailTest < ActionDispatch::IntegrationTest
 
     json = JSON.parse(response.body)
     with_company = json['notifications'].select { |n| n['sender']['company'].present? }
-    assert with_company.size.positive?, 'Should have at least one notification from sender with company'
+    assert with_company.size.positive?, '企業所属の送信者からの通知が1件以上あること'
 
     with_company.each do |n|
       company = n['sender']['company']
       sender_name = n['sender']['login_name']
-      assert company['logo_url'].present?, "#{sender_name}'s company should have logo_url"
-      assert company['url'].present?, "#{sender_name}'s company should have url"
-      assert_includes company['url'], '/companies/', "#{sender_name}'s company url should be a company path"
+      assert company['logo_url'].present?, "#{sender_name}の企業にlogo_urlがあること"
+      assert company['url'].present?, "#{sender_name}の企業にurlがあること"
+      assert_includes company['url'], '/companies/', "#{sender_name}の企業urlが企業パスであること"
     end
   end
 
-  test 'notification sender without company has null company' do
+  test '企業未所属の送信者のcompanyがnullであること' do
     token = create_token('hatsuno', 'testtest')
     get api_notifications_path(format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
@@ -154,13 +154,13 @@ class API::NotificationsDetailTest < ActionDispatch::IntegrationTest
     json = JSON.parse(response.body)
     without_company = json['notifications'].select { |n| n['sender']['company'].blank? }
 
-    # We just verify the field exists and is empty/null (not an error)
+    # companyキー自体は存在し、値がnull/空であることを確認
     without_company.each do |n|
-      assert n['sender'].key?('company'), "#{n['sender']['login_name']} should still have company key"
+      assert n['sender'].key?('company'), "#{n['sender']['login_name']}のsenderにcompanyキーが存在すること"
     end
   end
 
-  test 'unauthorized access returns 401' do
+  test '認証なしのアクセスは401を返すこと' do
     get api_notifications_path(format: :json)
     assert_response :unauthorized
 
