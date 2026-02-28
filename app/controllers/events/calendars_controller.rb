@@ -4,8 +4,12 @@ class Events::CalendarsController < ApplicationController
   skip_before_action :require_active_user_login, raise: false, only: :index
 
   def index
-    user_id = params[:user_id]
-    user = User.find_by(id: user_id)
+    user = User.find_by(id: params[:user_id])
+
+    unless user
+      head :not_found
+      return
+    end
 
     events_calendar = EventsCalendar.new
     events_calendar.fetch_events(user)
