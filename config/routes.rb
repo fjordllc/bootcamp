@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     to: 'welcome#rails_developer_course',
     as: :certified_reskill_courses_rails_developer_course_root
   get 'choose_courses', to: "welcome#choose_courses", as: "choose_courses"
+  get '/@:login_name', to: 'user_icons#show', as: :user_icon, constraints: { login_name: /[a-zA-Z0-9_-]+/ }, defaults: { format: :webp }
   draw :scheduler
   draw :api
   draw :paper
