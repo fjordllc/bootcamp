@@ -5,7 +5,6 @@ import MarkdownItMention from 'markdown-it-mention'
 import MarkdownItUserIcon from 'markdown-it-user-icon'
 import MarkdownItLinkingImage from 'markdown-it-linking-image'
 import MarkdownOption from 'markdown-it-option'
-import UserIconRenderer from 'user-icon-renderer'
 import MarkdownItTaskListsInitializer from 'markdown-it-task-lists-initializer'
 import MarkdownItHeadings from 'markdown-it-headings'
 import MarkDownItContainerMessage from 'markdown-it-container-message'
@@ -29,7 +28,6 @@ export default class {
       element.innerHTML = this.render(element.textContent)
     })
 
-    new UserIconRenderer().render(selector)
     MarkdownItTaskListsInitializer.initialize()
     ReplaceLinkToCard(selector)
   }
