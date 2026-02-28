@@ -11,4 +11,4 @@ json.notifications do
     end
   end
 end
-json.total_pages @notifications.page(1).total_pages
+json.total_pages @notifications.respond_to?(:total_pages) ? @notifications.total_pages : @notifications.page(1).total_pages
