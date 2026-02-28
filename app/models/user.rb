@@ -713,7 +713,8 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   def avatar_url
     if avatar.attached? && avatar.blob.present?
-      attach_custom_avatar if !ActiveStorage::Blob.find_by(key: "avatars/#{login_name}.#{AVATAR_FORMAT}")
+      custom_key = "avatars/#{login_name}.#{AVATAR_FORMAT}"
+      attach_custom_avatar if avatar.blob.key != custom_key
       "#{avatar.url}?v=#{avatar.created_at.to_i}"
     else
       image_url DEFAULT_IMAGE_PATH
