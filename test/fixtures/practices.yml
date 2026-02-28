@@ -412,14 +412,17 @@ source_practice3:
 copy_practice1:
   title: "コピー先のプラクティス1"
   description: "copy1..."
+  goal: "goal..."
   source_practice: source_practice1
 
 copy_practice2:
   title: "コピー先のプラクティス2"
   description: "copy2..."
+  goal: "goal..."
   source_practice: source_practice2
 
 copy_practice3:
   title: "コピー先のプラクティス3"
   description: "copy3..."
+  goal: "goal..."
   source_practice: source_practice3
