@@ -15,9 +15,9 @@ module Markdown
       assert_css '.a-long-text.is-md.js-markdown-view'
       assert_css '.speak'
       assert_css "a[href='/users/mentormentaro']"
-      emoji = find('.js-user-icon.a-user-emoji')
+      emoji = find('.a-user-emoji')
       assert_includes emoji['title'], '@mentormentaro'
-      assert_includes emoji['data-user'], 'mentormentaro'
+      assert_includes emoji['src'], '/@mentormentaro.webp'
     end
 
     test 'user profile image markdown test' do
@@ -30,9 +30,9 @@ module Markdown
 
       assert_css '.a-long-text.is-md.js-markdown-view'
       assert_css "a[href='/users/mentormentaro']"
-      emoji = find('.js-user-icon.a-user-emoji')
+      emoji = find('.a-user-emoji')
       assert_includes emoji['title'], '@mentormentaro'
-      assert_includes emoji['data-user'], 'mentormentaro'
+      assert_includes emoji['src'], '/@mentormentaro.webp'
     end
 
     test 'speak block with arguments test' do

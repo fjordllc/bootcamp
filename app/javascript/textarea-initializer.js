@@ -7,7 +7,6 @@ import MarkdownItTaskLists from 'markdown-it-task-lists'
 import MarkdownItMention from 'markdown-it-mention'
 import MarkdownItUserIcon from 'markdown-it-user-icon'
 import MarkdownOption from 'markdown-it-option'
-import UserIconRenderer from 'user-icon-renderer'
 import autosize from 'autosize'
 import MarkDownItContainerMessage from 'markdown-it-container-message'
 import MarkDownItContainerDetails from 'markdown-it-container-details'
@@ -95,9 +94,6 @@ export default class {
       })
       /* eslint-enable no-new */
     })
-
-    // user-icon
-    new UserIconRenderer().render(selector)
 
     // Convert selected text to markdown link on URL paste
     new TextareaMarkdownLinkify().linkify(selector)
