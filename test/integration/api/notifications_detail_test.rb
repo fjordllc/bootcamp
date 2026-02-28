@@ -5,7 +5,7 @@ require 'test_helper'
 class API::NotificationsDetailTest < ActionDispatch::IntegrationTest
   fixtures :users, :notifications
 
-  test '未読通知のレスポンスが正しいフィールドと型を持つこと' do
+  test 'unread notifications response has all required fields with correct types' do
     token = create_token('hatsuno', 'testtest')
     get api_notifications_path(status: 'unread', format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
@@ -62,7 +62,7 @@ class API::NotificationsDetailTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test '全通知（既読＋未読）のレスポンスが正しいこと' do
+  test 'all notifications response is valid with correct order' do
     token = create_token('hatsuno', 'testtest')
     get api_notifications_path(format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
@@ -79,13 +79,13 @@ class API::NotificationsDetailTest < ActionDispatch::IntegrationTest
 
     # 全通知にsenderデータが含まれていること
     notifications.each_with_index do |n, i|
-      assert n['sender'].present?, "通知##{i}: senderがないこと"
-      assert n['sender']['login_name'].present?, "通知##{i}: senderのlogin_nameがないこと"
-      assert n['sender']['avatar_url'].present?, "通知##{i}: senderのavatar_urlがないこと"
+      assert n['sender'].present?, "通知##{i}: senderがない"
+      assert n['sender']['login_name'].present?, "通知##{i}: senderのlogin_nameがない"
+      assert n['sender']['avatar_url'].present?, "通知##{i}: senderのavatar_urlがない"
     end
   end
 
-  test 'targetフィルタで対応するkindのみ返ること' do
+  test 'target filter returns only matching kinds' do
     token = create_token('hatsuno', 'testtest')
 
     Notification::TARGETS_TO_KINDS.each do |target, expected_kinds|
@@ -101,7 +101,7 @@ class API::NotificationsDetailTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'ページネーションが正しく動作すること' do
+  test 'pagination returns correct pages without overlap' do
     token = create_token('hatsuno', 'testtest')
     get api_notifications_path(page: 1, per: 5, format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
@@ -126,7 +126,7 @@ class API::NotificationsDetailTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test '企業所属の送信者にlogo_urlとurlがあること' do
+  test 'sender with company has logo_url and url' do
     token = create_token('hatsuno', 'testtest')
     get api_notifications_path(status: 'unread', format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
@@ -145,7 +145,7 @@ class API::NotificationsDetailTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test '企業未所属の送信者のcompanyがnullであること' do
+  test 'sender without company has null company' do
     token = create_token('hatsuno', 'testtest')
     get api_notifications_path(format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
@@ -160,7 +160,7 @@ class API::NotificationsDetailTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test '認証なしのアクセスは401を返すこと' do
+  test 'unauthorized access returns 401' do
     get api_notifications_path(format: :json)
     assert_response :unauthorized
 
