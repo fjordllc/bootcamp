@@ -49,6 +49,7 @@ class PairWorksHelperTest < ActionView::TestCase
     assert learning_time_frame_checked?(future_date, my_learning_time_frame_id)
     assert_not learning_time_frame_checked?(past_date, my_learning_time_frame_id)
   end
+
   test 'schedule_target_time' do
     elapsed_day_count = 1
     elapsed_time_count = 1
