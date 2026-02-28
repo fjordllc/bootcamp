@@ -33,7 +33,6 @@ Rails.application.routes.draw do
     resources :checks, only: %i(index create destroy)
     resources :mention_users, only: %i(index)
     resources :users, only: %i(index show update)
-    resources :user_icon_urls, only: %i(index)
     get "users/tags/:tag", to: "users#index", as: :users_tag, tag: /.+/
     resources :practices, only: %i(index show update) do
       resource :learning, only: %i(show update), controller: "practices/learning" do

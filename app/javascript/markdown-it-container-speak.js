@@ -45,7 +45,7 @@ export default (md) => {
                     <a href="/users/${encodeURIComponent(
                       speakerName
                     )}" class="a-user-emoji-link">
-                      <img title="@${speakerName}" class="js-user-icon a-user-emoji" data-user="${speakerName}">
+                      <img title="@${speakerName}" class="a-user-emoji" src="/@${speakerName}.webp">
                       <span class="speak__speaker-name">${speakerName}</span>
                     </a>
                   </div>
