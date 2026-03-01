@@ -27,6 +27,7 @@ class RegularEventsController < ApplicationController
     @regular_event = RegularEvent.new(regular_event_params)
     @regular_event.user = current_user
     set_wip
+    debugger
     if @regular_event.save
       update_published_at
       Organizer.create(user_id: current_user.id, regular_event_id: @regular_event.id)

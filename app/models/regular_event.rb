@@ -51,15 +51,28 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validates :regular_event_repeat_rules, presence: true
   validates_associated :regular_event_repeat_rules
   validates_associated :regular_event_skip_dates
+
   validate lambda {
-    errors.add(:base, 'スキップ日は同じ日付は登録できません') if regular_event_skip_dates.map(&:skip_on).size != regular_event_skip_dates.map(&:skip_on).uniq.size
+    # 曜日も表示できるように
+    errors.add(:base, 'スキップ日に重複した日付が含まれています') if regular_event_skip_dates.map(&:skip_on).size != regular_event_skip_dates.map(&:skip_on).uniq.size
   }
+
   validate :validate_skip_on_matches_repeat_rules
+  validate :validate_skip_on_matches_holiday
 
   def validate_skip_on_matches_repeat_rules
     wdays = regular_event_skip_dates.map { |s| s.skip_on.wday }.uniq
     repeat_rules_wday = regular_event_repeat_rules.map(&:day_of_the_week).uniq
+    # 曜日も表示できるように
     errors.add(:skip_on, 'は定期開催曜日のみ登録してください') unless (wdays - repeat_rules_wday).empty?
+  end
+
+  def validate_skip_on_matches_holiday
+    debugger
+    return if hold_national_holiday
+    dates = regular_event_skip_dates.map{|s|s.skip_on}.filter{|d| HolidayJp.holiday?(d)}
+
+    errors.add(:skip_on, "は祝日のため登録できません (#{dates.join(",")})") if dates.any?
   end
 
   scope :not_finished, -> { where(finished: false) }
@@ -80,7 +93,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_many :regular_event_repeat_rules, dependent: :destroy
   accepts_nested_attributes_for :regular_event_repeat_rules, allow_destroy: true
   has_many :regular_event_skip_dates, dependent: :destroy
-  accepts_nested_attributes_for :regular_event_skip_dates, allow_destroy: true
+  accepts_nested_attributes_for :regular_event_skip_dates, allow_destroy: true, reject_if: :all_blank
   has_many :regular_event_participations, dependent: :destroy
   has_many :participants,
            through: :regular_event_participations,
