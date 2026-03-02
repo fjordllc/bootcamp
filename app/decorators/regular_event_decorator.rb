@@ -19,12 +19,6 @@ module RegularEventDecorator
     end
   end
 
-  def holding?(date)
-    return true unless HolidayJp.holiday?(date)
-
-    hold_national_holiday
-  end
-
   def upcoming_closed_days
     # - イベント休みの日(祝日＋任意)直近5件取得
     #    - 祝日を1年分(仮)取得
