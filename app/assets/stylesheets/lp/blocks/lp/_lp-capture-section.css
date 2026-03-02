@@ -16,6 +16,12 @@
   }
 }
 
+.lp-content-stack__item .lp-capture-section__inner.is-sm-block {
+  @media (max-width: 47.9375em) {
+    flex-direction: column-reverse;
+  }
+}
+
 .lp-capture-section__start,
 .lp-capture-section__end {
   display: flex;
