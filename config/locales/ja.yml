@@ -10,6 +10,7 @@ ja:
       md: '%m月%d日'
       sm: '%m/%d'
       long: '%Y年%m月%d日(%a)'
+      mdw_unique: '%-m/%-d(%a)'
   time:
     formats:
       default: '%Y年%m月%d日(%a) %H:%M'
@@ -21,6 +22,7 @@ ja:
       year_only: '%Y'
       mdw_unique: '%-m/%-d(%a)'
       long: '%Y年%m月%d日(%a)'
+      mdw_and_time: '%-m月%-d日(%a)%H:%M'
   dates:
     today: '今日'
     tomorrow: '明日'
@@ -67,6 +69,7 @@ ja:
       coding_test: コーディングテスト
       movie: 動画
       grant_course_application: 給付金対応コース受講申請
+      pair_work: ペアワーク
     attributes:
       user:
         login_name: アカウント
@@ -369,6 +372,13 @@ ja:
         output: 出力
       doorkeeper/application:
         redirect_uri: Redirect URL
+      pair_work:
+        practice: プラクティス
+        title: タイトル
+        description: 内容
+        schedules: スケジュール
+        reserved_at: 希望した日時
+        buddy: ペア
     enums:
       emotion:
           negative: Negative
