@@ -1,7 +1,17 @@
 class RegularEventSkipDate < ApplicationRecord
   belongs_to :regular_event
-  validates :skip_on, presence: true, unless: :marked_for_destruction?
-  validates :skip_on, comparison: { greater_than_or_equal_to: Time.zone.today, message: 'は本日以降の日付を入力してください' }
+  before_validation do
+    Rails.logger.debug "[SkipDate before_validation] id=#{id.inspect} skip_on=#{skip_on.inspect} today=#{Time.zone.today}"
+  end
+
+  after_validation do
+    Rails.logger.debug "[SkipDate after_validation] id=#{id.inspect} errors=#{errors.full_messages}"
+  end
+  # validates :skip_on, presence: true, unless: :marked_for_destruction?
+  validates :skip_on, comparison: { greater_than_or_equal_to: -> { Time.zone.today } , message: 'は本日以降の日付を入力してください' }, if: :will_save_change_to_skip_on?
+
+  scope :from_today, -> { where('skip_on >= ?', Time.zone.today) }
+
   # validates :skip_on,
   #           uniqueness: { scope: :regular_event_id, message: 'は既に登録されています' },
   #           allow_blank: true

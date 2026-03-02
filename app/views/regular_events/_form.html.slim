@@ -50,7 +50,7 @@
         label.a-form-label
           | イベントをスキップしたい日
         = cocooned_container do
-          = f.fields_for :regular_event_skip_dates do |regular_event_skip_date|
+          = f.fields_for :regular_event_skip_dates, regular_event.regular_event_skip_dates.from_today do |regular_event_skip_date|
             = render 'regular_event_skip_date_fields', f: regular_event_skip_date
           .form-item__add-times
               = cocooned_add_item_link f, :regular_event_skip_dates, class: 'a-button is-md is-primary' do

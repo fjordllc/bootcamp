@@ -54,23 +54,31 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   validate lambda {
     # 曜日も表示できるように
-    errors.add(:base, 'スキップ日に重複した日付が含まれています') if regular_event_skip_dates.map(&:skip_on).size != regular_event_skip_dates.map(&:skip_on).uniq.size
+    param_skip_ons = regular_event_skip_dates.map(&:skip_on).compact
+    errors.add(:base, 'スキップ日に重複した日付が含まれています') if param_skip_ons.size != param_skip_ons.uniq.size
   }
 
   validate :validate_skip_on_matches_repeat_rules
   validate :validate_skip_on_matches_holiday
 
   def validate_skip_on_matches_repeat_rules
-    wdays = regular_event_skip_dates.map { |s| s.skip_on.wday }.uniq
-    repeat_rules_wday = regular_event_repeat_rules.map(&:day_of_the_week).uniq
+    dates = regular_event_skip_dates
+          .reject(&:marked_for_destruction?)
+          .map(&:skip_on)
+          .compact
+    #wdays = regular_event_skip_dates.map { |s| s.skip_on.wday }.uniq
+    repeat_rules_wday = regular_event_repeat_rules.map(&:day_of_the_week)
     # 曜日も表示できるように
-    errors.add(:skip_on, 'は定期開催曜日のみ登録してください') unless (wdays - repeat_rules_wday).empty?
+    #errors.add(:skip_on, 'は定期開催曜日のみ登録してください') unless (wdays - repeat_rules_wday).empty?
+    invalid_dates = dates.reject { |d| repeat_rules_wday.include?(d.wday) }
+    if invalid_dates.any?
+      errors.add(:skip_on, 'は定期開催曜日のみ登録してください')
+    end
   end
 
   def validate_skip_on_matches_holiday
-    debugger
     return if hold_national_holiday
-    dates = regular_event_skip_dates.map{|s|s.skip_on}.filter{|d| HolidayJp.holiday?(d)}
+    dates = regular_event_skip_dates.reject(&:marked_for_destruction?).map{|s|s.skip_on}.filter{|d| HolidayJp.holiday?(d)}
 
     errors.add(:skip_on, "は祝日のため登録できません (#{dates.join(",")})") if dates.any?
   end
@@ -93,7 +101,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_many :regular_event_repeat_rules, dependent: :destroy
   accepts_nested_attributes_for :regular_event_repeat_rules, allow_destroy: true
   has_many :regular_event_skip_dates, dependent: :destroy
-  accepts_nested_attributes_for :regular_event_skip_dates, allow_destroy: true, reject_if: :all_blank
+  #accepts_nested_attributes_for :regular_event_skip_dates, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :regular_event_skip_dates, allow_destroy: true, reject_if: lambda { |attributes| attributes["skip_on"].blank? }
   has_many :regular_event_participations, dependent: :destroy
   has_many :participants,
            through: :regular_event_participations,
