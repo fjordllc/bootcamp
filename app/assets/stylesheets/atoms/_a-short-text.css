@@ -45,11 +45,11 @@
   list-style-type: square;
 }
 .a-short-text a {
-  text-decoration: none;
+  text-decoration: underline;
   cursor: pointer;
 }
 .a-short-text a:hover, .a-short-text a:active {
-  text-decoration: underline;
+  text-decoration: none;
 }
 .a-short-text a {
   transition: color 0.2s ease-in;

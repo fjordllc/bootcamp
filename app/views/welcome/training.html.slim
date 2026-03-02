@@ -99,101 +99,359 @@ article.lp
           header.lp-content__header
             .lp-capture-sections-header__start
               h2.lp-content-title.is-border-bottom.text-center
-                | 「人材開発支援助成金」の活用で、
+                | 助成金を活用して、
                 br
-                | 研修費用の最大
                 strong
-                  | 〇〇％が戻ります
+                  | 研修コストを最大75％削減
             .lp-capture-sections-header__end
         .lp-content__end
           .lp-content-stack
             .lp-content-stack__item
-              .l-inner-container.is-lg
-                section.lp-capture-section
-                  .lp-capture-section__inner
-                    .lp-capture-section__start.is-sm
-                      .lp-left-image-section__image
-                        = image_tag('practices/practices_main.svg', class: 'lp-capture-section__image', alt: 'フィヨルドブートキャンプのカリキュラム作成のイメージイラスト')
-                    .lp-capture-section__end
-                      .lp-capture-section__content
-                        header.lp-capture-section__header
-                          h3.lp-content-sub-title
-                            | 助成金を活用した
-                            | 研修実績があります
-                        hr.lp-capture-section__border
-                        .lp-capture-section__body
+
+              .lp-content-section
+                .row.is-gutter-width-32
+                  .col-xs-12.col-md-6
+                    section.lp-top-image-section
+                      .lp-top-image-section__inner.a-card
+                        = image_tag('money-2.svg', class: 'lp-top-image-section__icon', alt: '助成金のイメージイラスト')
+                        h3.lp-card-title.text-center
+                          | 受講料 + 研修期間中の賃金が助成対象
+                        .lp-card-description
                           .a-short-text
                             p
-                              | フィヨルドブートキャンプでは、
-                              | 助成金を活用してエンジニア研修を実施された企業様の実績があります。
-                              | 制度を活用することで、
-                              | 企業様の負担を抑えながら、
-                              | 実践的なエンジニア教育を実現することが可能です。
+                              | 厚生労働省の「人材開発支援助成金」を活用すると、
+                              | FBCの研修にかかる以下の費用が助成の対象になります。
+                            ul
+                              li
+                                strong
+                                  | 研修の受講料
+                              li
+                                strong
+                                  | 研修期間中の受講者の賃金
+                            p
+                              | 受講料だけでなく、研修中に発生する人件費も対象になるため、
+                              | 企業様の実質的な負担を大きく抑えることができます。
+
+                  .col-xs-12.col-md-6
+                    section.lp-top-image-section
+                      .lp-top-image-section__inner.a-card
+                        = image_tag('practice.svg', class: 'lp-top-image-section__icon', alt: '提携社労士のイメージイラスト')
+                        h3.lp-card-title.text-center
+                          | 申請は提携社労士がサポートも可能
+                        .lp-card-description
+                          .a-short-text
+                            p
+                              | 「助成金は気になるけど、申請が面倒そう」という方もご安心ください。
+                              | FBCでは助成金申請の実績が豊富な提携社労士をご紹介できます。
+                              | 制度選定から計画書作成、申請手続き、実施後の報告まで、
+                              | 専門家がサポートします。
+                          .a-notice-block.is-danger.mt-4
+                            p
+                              | 助成金は「研修開始前」の申請が必須です。
+                              | 原則、研修開始の1ヶ月前までに計画届の提出が必要です。
+                              br
+                              | 提携社労士を利用される場合は、
+                              | 研修開始の1ヶ月半前までにご相談ください。
 
             .lp-content-stack__item
               .l-inner-container.is-lg
                 section.lp-capture-section
-                  .lp-capture-section__inner
+                  .lp-capture-section__inner.is-sm-block
                     .lp-capture-section__start.is-sm
-                      .lp-left-image-section__image
-                        = image_tag('practices/practices_main.svg', class: 'lp-capture-section__image', alt: 'フィヨルドブートキャンプのカリキュラム作成のイメージイラスト')
+                      = link_to '', target:'_blank' do
+                        = image_tag('logic.png', class: '', alt: 'ロジック社労士事務所のロゴ')
                     .lp-capture-section__end
-                      .lp-capture-section__content
+                      .lp-capture-section__content(class='!gap-4' )
                         header.lp-capture-section__header
-                          h3.lp-content-sub-title
-                            | 助成金制度の概要
-                        hr.lp-capture-section__border
+                          h3.lp-content-sub-title.is-sm
+                            | 提携社労士事務所のご紹介
                         .lp-capture-section__body
                           .a-short-text
                             p
-                              | 企業の人材育成を支援する制度として、
-                              | 厚生労働省の助成金制度などがあり、
-                              | 条件を満たすことで研修費用の一部が助成される場合があります。
+                              = link_to 'ロジック社労士事務所', 'https://www.namba-office.osaka.jp/', target: '_blank', rel: 'noopener'
+                              | は、「わかりやすく、ともに歩む」をコンセプトに、
+                              | 中小企業の労務課題に寄り添うサポートを行っている社労士事務所です。
                             p
-                              | 一般的には以下のような内容が対象となるケースがあります。
-                            ul
-                              li
-                                | 研修費用の一部補助
-                              li
-                                | 研修期間中の賃金の一部補助
-                              li
-                                | IT・デジタル分野の人材育成支援
-                            p
-                              | 助成率や上限額は制度・申請区分・企業規模によって異なります。
+                              | 複雑な助成金制度もわかりやすく説明し、
+                              | 「自社が対象になるかわからない」という段階から相談に乗ってもらえます。
+                              | まずはお気軽に社労士の紹介についてお問い合わせください。
 
             .lp-content-stack__item
-              .l-inner-container.is-lg
-                section.lp-capture-section
-                  .lp-capture-section__inner
-                    .lp-capture-section__start.is-sm
-                      .lp-left-image-section__image
-                        = image_tag('practices/practices_main.svg', class: 'lp-capture-section__image', alt: 'フィヨルドブートキャンプのカリキュラム作成のイメージイラスト')
-                    .lp-capture-section__end
-                      .lp-capture-section__content
-                        header.lp-capture-section__header
-                          h3.lp-content-sub-title
-                            | 助成金に強い社労士をご紹介できます
-                        hr.lp-capture-section__border
-                        .lp-capture-section__body
-                          .a-short-text
-                            p
-                              | 助成金の申請は、
-                            ul
-                              li
-                                | 制度選定
-                              li
-                                | 計画書作成
-                              li
-                                | 申請手続き
-                              li
-                                | 実施後の報告
-                            p
-                              | など、専門的な対応が必要になります。
-                            p
-                              | フィヨルドブートキャンプでは、
-                              | 助成金申請に強い提携社労士のご紹介が可能です。
-                              | 制度の相談から申請実務まで、安心して進めていただけます。
+              .lp-actions
+                ul.lp-actions__items
+                  li.lp-actions__item
+                    = link_to new_inquiry_path, class: 'a-button is-xl is-primary-border is-block' do
+                      | お問い合わせ
+                  li.lp-actions__item
+                    = link_to new_corporate_training_inquiry_path, class: 'a-button is-xl is-warning is-block' do
+                      | 研修を申し込む
 
+  section.lp-content.is-lp-bg-1.is-top-title
+    .l-container.is-xl
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-border-bottom
+              | 目的・期間に応じて
+              br
+              | 研修メニューをカスタマイズ
+
+        .lp-content__end
+          .lp-content-stack
+            .lp-content-stack__item
+              .lp-content__description
+                .l-inner-container.is-sm
+                  .a-short-text
+                    p
+                      | ビデオチャットで現在のスキルや、研修期間、研修の目的をヒヤリングし、それらに合わせた学習内容を選択したそれぞれの研修生のための独自のカリキュラムを作成します。Railsエンジニアコース、フロントエンドエンジニアコースをまたいだ学習項目の選択も可能です。
+
+            .lp-content-stack__item
+              .lp-course-selection__items
+                .l-inner-container.is-xl
+
+                  .lp-course-selection-grid
+                    .lp-course-selection-grid__item
+                      dl.lp-category-tiles
+                        dt.lp-category-tiles__category 学習の準備
+                        .lp-category-tiles__practices
+                          dd.lp-category-tiles__practice フィヨルドブートキャンプへようこそ！
+                          dd.lp-category-tiles__practice 学習の進め方を知る
+                          dd.lp-category-tiles__practice チャットを使えるようになる
+                          dd.lp-category-tiles__practice ブログを作る
+                          dd.lp-category-tiles__practice GitHubアカウントの登録
+                          dd.lp-category-tiles__practice SNSの登録
+                          dd.lp-category-tiles__practice 日報を書く
+                          dd.lp-category-tiles__practice 質問をする力をつける
+
+                      dl.lp-category-tiles
+                        dt.lp-category-tiles__category 開発環境
+                        .lp-category-tiles__practices
+                          dd.lp-category-tiles__practice 開発環境を作る
+                          dd.lp-category-tiles__practice Terminalの基本を知る
+
+                      dl.lp-category-tiles
+                        dt.lp-category-tiles__category HTML & CSS
+                        .lp-category-tiles__practices
+                          dd.lp-category-tiles__practice HTMLの基本を理解する
+                          dd.lp-category-tiles__practice Markdownを使ってHTMLを書く
+                          dd.lp-category-tiles__practice CSS初級
+
+                      dl.lp-category-tiles
+                        dt.lp-category-tiles__category Vi
+                        .lp-category-tiles__practices
+                          dd.lp-category-tiles__practice vi の基本を理解する
+
+                      dl.lp-category-tiles
+                        dt.lp-category-tiles__category Linux
+                        .lp-category-tiles__practices
+                          dd.lp-category-tiles__practice Linux をインストールする
+                          dd.lp-category-tiles__practice UNIX・Linux について知る
+                          dd.lp-category-tiles__practice Linux のファイル操作の基本を理解する
+                          dd.lp-category-tiles__practice apt の基本を理解する
+                          dd.lp-category-tiles__practice sudo をインストールする
+                          dd.lp-category-tiles__practice SSH の基本を理解する
+                          dd.lp-category-tiles__practice 標準入出力・リダイレクション・パイプを理解する
+                          dd.lp-category-tiles__practice SSL/TLS の基本を理解する
+
+                      dl.lp-category-tiles
+                        dt.lp-category-tiles__category Git & GitHub
+                        .lp-category-tiles__practices
+                          dd.lp-category-tiles__practice Git の基本を理解する
+                          dd.lp-category-tiles__practice GitHub の基本を理解する
+                          dd.lp-category-tiles__practice Pull Request を行う
+
+                      dl.lp-category-tiles
+                        dt.lp-category-tiles__category HTTP
+                        .lp-category-tiles__practices
+                          dd.lp-category-tiles__practice HTTP の基本について理解する
+                          dd.lp-category-tiles__practice Cookie について理解する
+
+                      dl.lp-category-tiles
+                        dt.lp-category-tiles__category Nginx
+                        .lp-category-tiles__practices
+                          dd.lp-category-tiles__practice nginx の基本を理解する
+                          dd.lp-category-tiles__practice nginx で VirtualHost を使って 1 つのサーバーで複数のサイトを立ち上げる
+                          dd.lp-category-tiles__practice nginx で SSL 対応サイトを作る
+
+                      dl.lp-category-tiles
+                        dt.lp-category-tiles__category データベース
+                        .lp-category-tiles__practices
+                          dd.lp-category-tiles__practice SQL の基本を理解する
+                          dd.lp-category-tiles__practice PostgreSQLの基本を理解する
+                          dd.lp-category-tiles__practice データベース設計の基本を理解する
+
+
+                      dl.lp-category-tiles
+                        dt.lp-category-tiles__category Webアプリケーション
+                        .lp-category-tiles__practices
+                          dd.lp-category-tiles__practice REST の考え方を理解する
+                          dd.lp-category-tiles__practice Sinatra を使ってWebアプリケーションの基本を理解する
+                          dd.lp-category-tiles__practice WebアプリからのDB利用
+
+                      dl.lp-category-tiles
+                        dt.lp-category-tiles__category Ruby
+                        .lp-category-tiles__practices
+                          dd.lp-category-tiles__practice rbenv
+                          dd.lp-category-tiles__practice Ruby初級
+                          dd.lp-category-tiles__practice FizzBuzz問題(Ruby)
+                          dd.lp-category-tiles__practice カレンダーのプログラム(Ruby)
+                          dd.lp-category-tiles__practice rubygems の基本を理解する
+                          dd.lp-category-tiles__practice プログラムの修正
+                          dd.lp-category-tiles__practice Bundler の基本を理解する
+                          dd.lp-category-tiles__practice rubocop の使い方を知る
+                          dd.lp-category-tiles__practice ボウリングのスコア計算プログラム
+                          dd.lp-category-tiles__practice Ruby中級
+                          dd.lp-category-tiles__practice プログラムの修正（リバーシ編）
+                          dd.lp-category-tiles__practice lsコマンドを作る1
+                          dd.lp-category-tiles__practice lsコマンドを作る2
+                          dd.lp-category-tiles__practice lsコマンドを作る3
+                          dd.lp-category-tiles__practice lsコマンドを作る4
+                          dd.lp-category-tiles__practice ls コマンドを作る5
+                          dd.lp-category-tiles__practice wc コマンドを作る
+
+                      dl.lp-category-tiles
+                        dt.lp-category-tiles__category Ruby on Rails
+                        .lp-category-tiles__practices
+                          dd.lp-category-tiles__practice Rails の基本を理解する
+                          dd.lp-category-tiles__practice Rails の i18n を理解する
+                          dd.lp-category-tiles__practice kaminari を使ってページング処理を実装する
+                          dd.lp-category-tiles__practice devise を使ってユーザー認証を実装する
+                          dd.lp-category-tiles__practice ActiveStorage で画像アップロードを実装する
+                          dd.lp-category-tiles__practice コメントを付けられるようにする
+                          dd.lp-category-tiles__practice 日報の言及機能を作る
+
+                      dl.lp-category-tiles
+                        dt.lp-category-tiles__category 自動テスト（Ruby）
+                        .lp-category-tiles__practices
+                          dd.lp-category-tiles__practice テスト技法
+                          dd.lp-category-tiles__practice TDD の基本を理解する
+                          dd.lp-category-tiles__practice test-unit の基本を理解する
+                          dd.lp-category-tiles__practice Railsでテストを書く
+
+                      dl.lp-category-tiles
+                        dt.lp-category-tiles__category オブジェクト指向プログラミング(Ruby)
+                        .lp-category-tiles__practices
+                          dd.lp-category-tiles__practice オブジェクト指向プログラミング
+                          dd.lp-category-tiles__practice ボウリングのスコア計算プログラムオブジェクト指向版
+                          dd.lp-category-tiles__practice ls コマンドを作るオブジェクト指向版
+
+                      dl.lp-category-tiles
+                        dt.lp-category-tiles__category Webセキュリティ
+                        .lp-category-tiles__practices
+                          dd.lp-category-tiles__practice Webセキュリティ
+
+                      dl.lp-category-tiles
+                        dt.lp-category-tiles__category JavaScript（フロントエンド向け）
+                        .lp-category-tiles__practices
+                          dd.lp-category-tiles__practice JavaScript入門
+                          dd.lp-category-tiles__practice JavaScript初級1
+                          dd.lp-category-tiles__practice node.js（nvm）のインストール
+                          dd.lp-category-tiles__practice node.jsプログラム
+                          dd.lp-category-tiles__practice FizzBuzz問題(JavaScript)
+                          dd.lp-category-tiles__practice JavaScript初級2
+                          dd.lp-category-tiles__practice npm
+                          dd.lp-category-tiles__practice Linter (ESLint) と Formatter (Prettier)
+                          dd.lp-category-tiles__practice カレンダーのプログラム(JavaScript)
+                          dd.lp-category-tiles__practice JavaScript初級3
+                          dd.lp-category-tiles__practice JavaScript中級1
+                          dd.lp-category-tiles__practice 非同期処理(JavaScript)
+                          dd.lp-category-tiles__practice クラス(JavaScript)
+                          dd.lp-category-tiles__practice JavaScript中級2
+                          dd.lp-category-tiles__practice JavaScript中級3
+                          dd.lp-category-tiles__practice JavaScript上級
+                          dd.lp-category-tiles__practice npm パッケージの作成
+
+                      dl.lp-category-tiles
+                        dt.lp-category-tiles__category TypeScript
+                        .lp-category-tiles__practices
+                          dd.lp-category-tiles__practice TypeScript入門
+                          dd.lp-category-tiles__practice 基本的な文法・型
+                          dd.lp-category-tiles__practice オブジェクトの基本
+                          dd.lp-category-tiles__practice 関数の基本
+                          dd.lp-category-tiles__practice TypeScript のクラス
+                          dd.lp-category-tiles__practice 高度な型
+                          dd.lp-category-tiles__practice ユーティリティ型
+                          dd.lp-category-tiles__practice モジュールシステムの基本
+
+                      dl.lp-category-tiles
+                        dt.lp-category-tiles__category React
+                        .lp-category-tiles__practices
+                          dd.lp-category-tiles__practice Reactチュートリアル
+                          dd.lp-category-tiles__practice Reactを学ぶ
+                          dd.lp-category-tiles__practice React Hooks
+                          dd.lp-category-tiles__practice ReactでSPAを作る
+                          dd.lp-category-tiles__practice Contextを使ってグローバルなstateを管理する
+                          dd.lp-category-tiles__practice SWRを使ってAPIをコールする
+
+                      dl.lp-category-tiles
+                        dt.lp-category-tiles__category Next.js
+                        .lp-category-tiles__practices
+                          dd.lp-category-tiles__practice Next.js の基本
+                          dd.lp-category-tiles__practice アプリケーションを作成する
+                          dd.lp-category-tiles__practice ルーティングとページの作成
+                          dd.lp-category-tiles__practice 画像、レイアウト、CSSを扱う
+                          dd.lp-category-tiles__practice プリレンダリングとデータの取得方法を理解する
+                          dd.lp-category-tiles__practice API を作成する
+                          dd.lp-category-tiles__practice Vercel にデプロイする
+                          dd.lp-category-tiles__practice Next.jsのテスト
+                          dd.lp-category-tiles__practice 状態管理
+                          dd.lp-category-tiles__practice フォーム
+
+                      dl.lp-category-tiles
+                        dt.lp-category-tiles__category 自動テスト(JavaScript/TypeScript)
+                        .lp-category-tiles__practices
+                          dd.lp-category-tiles__practice テスト技法
+                          dd.lp-category-tiles__practice TDD の基本を理解する
+                          dd.lp-category-tiles__practice Jestによるテスト
+                          dd.lp-category-tiles__practice Reactのテスト
+
+                      dl.lp-category-tiles
+                        dt.lp-category-tiles__category Supabase
+                        .lp-category-tiles__practices
+                          dd.lp-category-tiles__practice Supabase入門
+
+                      dl.lp-category-tiles
+                        dt.lp-category-tiles__category チーム開発
+                        .lp-category-tiles__practices
+                          dd.lp-category-tiles__practice アジャイル開発 ／スクラム を理解する
+                          dd.lp-category-tiles__practice ビデオチャットを使えるようになる
+                          dd.lp-category-tiles__practice チーム開発に参加する準備をする
+                          dd.lp-category-tiles__practice 開発に参加してPRを送りマージする
+
+                      dl.lp-category-tiles
+                        dt.lp-category-tiles__category Webサービスを作って公開する
+                        .lp-category-tiles__practices
+                          dd.lp-category-tiles__practice どんなサービスを作るかを考える
+                          dd.lp-category-tiles__practice ペーパープロトタイプを作る
+                          dd.lp-category-tiles__practice カンバンを作る
+                          dd.lp-category-tiles__practice 技術検証をする
+                          dd.lp-category-tiles__practice リソース・データ設計
+                          dd.lp-category-tiles__practice Web サービスを作る
+                          dd.lp-category-tiles__practice CI/CD
+                          dd.lp-category-tiles__practice デプロイ
+                          dd.lp-category-tiles__practice 自分で作った Web サービスのデザインレビューを受ける
+                          dd.lp-category-tiles__practice 自分で作った Web サービスのコードレビューを受ける
+                          dd.lp-category-tiles__practice Web サービスをリリースする
+
+                      dl.lp-category-tiles
+                        dt.lp-category-tiles__category 発展編
+                        .lp-category-tiles__practices
+                          dd.lp-category-tiles__practice rake
+                          dd.lp-category-tiles__practice rubygemを作る
+                          dd.lp-category-tiles__practice omniauth を使って GitHub 認証を実装する
+                          dd.lp-category-tiles__practice CSS上級
+                          dd.lp-category-tiles__practice UMLの基本を理解する
+                          dd.lp-category-tiles__practice チーム開発おかわり
+                          dd.lp-category-tiles__practice wc コマンドを作るオブジェクト指向版
+                          dd.lp-category-tiles__practice プロトタイプチェーン
+                          dd.lp-category-tiles__practice RSpec の基本
+                          dd.lp-category-tiles__practice RSpec を使って Rails アプリのテストを書く
+
+                      dl.lp-category-tiles
+                        dt.lp-category-tiles__category デプロイ
+                        .lp-category-tiles__practices
+                          dd.lp-category-tiles__practice CI/CD
+                          dd.lp-category-tiles__practice Kamalでのデプロイ
 
 
   section.lp-content.is-lp-bg-3.is-top-title.lp-left-image-sections

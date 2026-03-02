@@ -1,0 +1,36 @@
+.lp-category-tiles {
+  width: 100%;
+}
+
+.lp-category-tiles__category {
+  font-size: 1rem;
+  line-height: 1.4;
+  font-weight: 800;
+  background-color: var(--main);
+  color: var(--reversal-text);
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem 0.25rem 0 0;
+}
+
+.lp-category-tiles__practices {
+  border: solid 1px var(--border);
+  background-color: var(--base);
+  border-radius: 0 0 0.25rem 0.25rem;
+  padding: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.lp-category-tiles__practice {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  background-color: var(--background-more-tint);
+  border: solid 1px var(--border);
+  border-radius: 0.25rem;
+}

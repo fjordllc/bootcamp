@@ -46,6 +46,8 @@
 @import "./lp/blocks/lp/_lp-course-selection-nav.css";
 @import "./lp/blocks/lp/_lp-course-selection-item.css";
 @import "./lp/blocks/lp/_lp-category-practices.css";
+@import "./lp/blocks/lp/_lp-category-tiles.css";
+@import "./lp/blocks/lp/_lp-course-selection-grid.css";
 @import "./lp/blocks/lp/_lp-mentor-books.css";
 @import "./lp/blocks/lp/_lp-mentor.css";
 @import "./lp/blocks/articles/_article.css";

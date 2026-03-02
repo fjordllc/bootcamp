@@ -5,6 +5,7 @@
   position: relative;
   user-select: none;
   padding: .5rem;
+  z-index: 2;
 }
 .card-body + .reactions {
   border-top: none;
