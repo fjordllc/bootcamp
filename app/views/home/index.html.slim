@@ -27,8 +27,6 @@
             .col-xs-12.col-xl-6.col-xxl-6
               - if @upcoming_pair_works.present?
                 = render 'upcoming_pair_works', upcoming_pair_works: @upcoming_pair_works
-              - if current_user.ever_hibernated?
-                | あなたの休会回数：#{current_user.hibernation_count}
               - if @upcoming_events_groups.present?
                 = render 'upcoming_events_groups', upcoming_events_groups: @upcoming_events_groups
               - if @announcements.present?
@@ -41,6 +39,8 @@
                 = render '/users/practices/active_practices', user: current_user
               - if current_user.completed_practices.present?
                 = render '/users/practices/completed_practices', user: current_user, completed_learnings: @completed_learnings
+              - if current_user.ever_hibernated?
+                | あなたの休会回数：#{current_user.hibernation_count}
             .col-xs-12.col-xl-6.col-xxl-6
               - if current_user.student_or_trainee?
                 = render 'required_field', user: current_user
