@@ -16,6 +16,6 @@
             = link_to user_path(report.user), class: 'a-user-name' do
               = report.user.long_name
           .card-list-item-meta__item
-            time.a-meta(datetime="#{report.reported_on.to_datetime}")
+            time.a-meta(datetime="#{report.reported_on.to_time.iso8601}")
               = l report.reported_on
               | の日報

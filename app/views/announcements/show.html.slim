@@ -30,7 +30,7 @@ hr.a-border
           .page-content-header__end
             .page-content-header__row
               .page-content-header__before-title
-                time.a-meta(datetime="#{@announcement.created_at.to_datetime}" pubdate='pubdate')
+                time.a-meta(datetime="#{@announcement.created_at.iso8601}" pubdate='pubdate')
                   = l @announcement.updated_at
               h1.page-content-header__title(class="#{@announcement.wip? ? 'is-wip' : ''}")
                 - if @announcement.wip?
