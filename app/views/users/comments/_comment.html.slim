@@ -29,7 +29,7 @@
         .card-list-item-meta
           .card-list-item-meta__items
             .card-list-item-meta__item
-              time.a-meta(datetime="#{commentable.created_at.to_datetime}" pubdate='pubdate')
+              time.a-meta(datetime="#{commentable.created_at.iso8601}" pubdate='pubdate')
                 = l comment.updated_at
       .card-list-item__row
         .card-list-item__summary

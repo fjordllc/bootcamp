@@ -41,7 +41,7 @@ hr.a-border
                   .a-meta
                     .a-meta__label
                       | 登録日
-                    time.a-meta__value(datetime="#{@work.created_at.to_datetime}" pubdate='pubdate')
+                    time.a-meta__value(datetime="#{@work.created_at.iso8601}" pubdate='pubdate')
                       = l @work.created_at
 
       .a-card
