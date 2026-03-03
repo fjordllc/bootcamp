@@ -693,7 +693,7 @@ class UserTest < ActiveSupport::TestCase
   test '#delete_and_assign_new_organizer' do
     user = users(:hajime)
 
-    assert_changes -> { Organizer.where(user:).exists? }, from: true, to: false do
+    assert_changes -> { RegularEventOrganizer.where(user:).exists? }, from: true, to: false do
       user.delete_and_assign_new_organizer
     end
   end

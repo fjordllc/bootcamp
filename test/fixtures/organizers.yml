@@ -1,3 +1,7 @@
+# TODO: テーブル名変えたら消す
+_fixture:
+  model_class: RegularEventOrganizer
+
 organizer1:
   user: komagata
   regular_event: regular_event1

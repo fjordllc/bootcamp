@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
-class Organizer < ApplicationRecord
+class RegularEventOrganizer < ApplicationRecord
+  # TODO: テーブル名変えたら消す
+  self.table_name = 'organizers'
+
   belongs_to :user
   belongs_to :regular_event
 
