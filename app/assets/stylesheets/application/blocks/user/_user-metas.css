@@ -2,6 +2,10 @@
   background-color: var(--base);
 }
 
+.user-metas + .user-metas {
+  margin-top: 1rem;
+}
+
 .user-metas__title {
   border: solid 1px var(--border);
   margin-bottom: -1px;
