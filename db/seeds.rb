@@ -51,7 +51,7 @@ tables = %i[
   regular_events
   regular_event_repeat_rules
   regular_event_participations
-  organizers
+  regular_event_organizers
   hibernations
   footprints
   authored_books

@@ -102,8 +102,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def organizers
-    # TODO: order内のorganizersをテーブル名を変えた時にregular_event_organizersに変更する
-    users.preload(avatar_attachment: :blob).order('organizers.created_at')
+    users.preload(avatar_attachment: :blob).order('regular_event_organizers.created_at')
   end
 
   def cancel_participation(user)

@@ -1,6 +1,3 @@
-# TODO: テーブル名変えたら消す
-_fixture:
-  model_class: RegularEventOrganizer
 
 organizer1:
   user: komagata
@@ -49,3 +46,7 @@ organizer11:
 organizer12:
   user: hajime
   regular_event: regular_event4
+
+organizer13:
+  user: hatsuno
+  regular_event: regular_event39
