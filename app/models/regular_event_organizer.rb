@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class Organizer < ApplicationRecord
+class RegularEventOrganizer < ApplicationRecord
+  self.table_name = "organizers"
+
   belongs_to :user
   belongs_to :regular_event
 

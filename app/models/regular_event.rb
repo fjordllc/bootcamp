@@ -58,13 +58,16 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   scope :holding, -> { where(finished: false) }
   scope :participated_by, ->(user) { where(id: all.filter { |e| e.participated_by?(user) }.map(&:id)) }
-  scope :organizer_event, ->(user) { joins(:organizers).where(organizers: { user_id: user.id }) }
+  scope :organizer_event, ->(user) { joins(:regular_event_organizers).where(regular_event_organizers: { user_id: user.id }) }
   scope :scheduled_on, ->(date) { holding.filter { |event| event.scheduled_on?(date) } }
   scope :scheduled_on_without_ended, ->(date) { holding.filter { |event| event.scheduled_on?(date) && !event.ended?(date) } }
 
   belongs_to :user
-  has_many :organizers, dependent: :destroy
-  has_many :users, through: :organizers
+  has_many :regular_event_organizers, dependent: :destroy
+  has_many :regular_event_organizer_users,
+           through: :regular_event_organizers,
+           source: :user
+  has_many :users, through: :regular_event_organizers
   has_many :regular_event_repeat_rules, dependent: :destroy
   accepts_nested_attributes_for :regular_event_repeat_rules, allow_destroy: true
   has_many :regular_event_participations, dependent: :destroy
@@ -102,6 +105,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def organizers
+    # ToDo: order内のorganizersをテーブル名を変えた時にregular_event_organizersに変更する
     users.preload(avatar_attachment: :blob).order('organizers.created_at')
   end
 
