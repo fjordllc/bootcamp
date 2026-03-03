@@ -104,7 +104,7 @@ function Event({ event }) {
             <div className="card-list-item-meta">
               <div className="card-list-item-meta__items">
                 <div className="card-list-item-meta__item">
-                  <time className="a-meta" dateTime={event.start_at}>
+                  <time className="a-meta" dateTime={event.start_at.iso8601}>
                     <span className="a-meta__label">開催日時</span>
                     <span className="a-meta__value">
                       {event.start_at_localized}
