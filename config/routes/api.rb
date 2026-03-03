@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     resources :mention_users, only: %i(index)
     resources :users, only: %i(index show update) do
       resource :support_context, only: %i(show), controller: 'users/support_contexts'
+      resources :mentor_memos, only: %i(create)
     end
     get "users/tags/:tag", to: "users#index", as: :users_tag, tag: /.+/
     resources :practices, only: %i(index show update) do

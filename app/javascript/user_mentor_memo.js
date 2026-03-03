@@ -3,18 +3,16 @@ import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const mentorMemo = document.querySelector('.user-mentor-memo')
+  const mentorMemo = document.querySelector('.mentor-memos')
   if (mentorMemo) {
+    TextareaInitializer.initialize('#js-new-memo')
     const markdownInitializer = new MarkdownInitializer()
     const userId = mentorMemo.dataset.user_id
-    let savedMemo = ''
+    const savedMemo = ''
 
-    const memoDisplay = mentorMemo.querySelector('.memo-display')
-    const memoEditor = mentorMemo.querySelector('.memo-editor')
+    const memoDisplay = mentorMemo.querySelector('.memos-display')
+    const memoEditor = mentorMemo.querySelector('.new-memo-editor')
 
-    const memoDisplayContent = memoDisplay.querySelector(
-      '.user-mentor-memo-content'
-    )
     const memoEditorPreview = memoEditor.querySelector(
       '.a-markdown-input__preview'
     )
@@ -31,35 +29,51 @@ document.addEventListener('DOMContentLoaded', () => {
       memoDisplayContent.innerHTML = markdownInitializer.render(memoBody)
     })
 
-    const editButton = memoDisplay.querySelector('.card-footer-actions__action')
-    const modalElements = [memoDisplay, memoEditor]
-    editButton.addEventListener('click', () =>
+    const addButton = memoDisplay.querySelector('.js-add-memo')
+    const addContainer = memoDisplay.querySelector('.js-add-action')
+    const modalElements = [addContainer, memoEditor]
+    addButton.addEventListener('click', () => {
       toggleClass(modalElements, 'is-hidden')
-    )
-
-    const saveButton = memoEditor.querySelector('.is-primary')
-    saveButton.addEventListener('click', () => {
-      toggleClass(modalElements, 'is-hidden')
-      savedMemo = editorTextarea.value
-      updateMemo(savedMemo, userId)
-      memoDisplayContent.innerHTML = markdownInitializer.render(savedMemo)
-      TextareaInitializer.initialize('#js-user-mentor-memo')
-      switchMemoDisplay(memoDisplay, savedMemo)
+      editorTextarea.focus()
     })
 
-    const cancelButton = memoEditor.querySelector('.is-secondary')
+    const saveButton = memoEditor.querySelector('.js-save-memo')
+    saveButton.disabled = true
+    editorTextarea.addEventListener('input', () => {
+      saveButton.disabled = editorTextarea.value.trim().length === 0
+    })
+
+    saveButton.addEventListener('click', async () => {
+      const memoContent = editorTextarea.value
+      const html = await createMemo(memoContent, userId)
+      if (!html) return
+
+      const newMemo = initializeNewMemo(html, markdownInitializer)
+      newMemo.scrollIntoView()
+      toggleClass(modalElements, 'is-hidden')
+      editorTextarea.value = ''
+      memoEditorPreview.innerHTML = ''
+      TextareaInitializer.initialize('#js-new-memo')
+
+      const emptyMessage = mentorMemo.querySelector('.o-empty-message')
+      if (emptyMessage) {
+        emptyMessage.classList.add('is-hidden')
+      }
+    })
+
+    const cancelButton = memoEditor.querySelector('.js-cancel-memo')
     cancelButton.addEventListener('click', () => {
       toggleClass(modalElements, 'is-hidden')
       editorTextarea.value = savedMemo
       memoEditorPreview.innerHTML = markdownInitializer.render(savedMemo)
-      TextareaInitializer.initialize('#js-user-mentor-memo')
+      TextareaInitializer.initialize('#js-new-memo')
     })
 
     editorTextarea.addEventListener('change', () => {
       memoEditorPreview.innerHTML = markdownInitializer.render(
         editorTextarea.value
       )
-      TextareaInitializer.initialize('#js-user-mentor-memo')
+      TextareaInitializer.initialize('#js-new-memo')
     })
 
     const editorTab = memoEditor.querySelector('.editor-tab')
@@ -82,38 +96,45 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 })
 
-function updateMemo(memo, userId) {
+async function createMemo(memo, userId) {
   const params = {
-    user: {
-      mentor_memo: memo
+    mentor_memo: {
+      body: memo
     }
   }
-  fetch(`/api/mentor_memos/${userId}`, {
-    method: 'PUT',
-    headers: {
-      'X-Requested-With': 'XMLHttpRequest',
-      'Content-Type': 'application/json; charset=utf-8',
-      'X-CSRF-Token': CSRF.getToken()
-    },
-    credentials: 'same-origin',
-    redirect: 'manual',
-    body: JSON.stringify(params)
-  })
-    .then((response) => {
-      return response
+  try {
+    const response = await fetch(`/api/users/${userId}/mentor_memos/`, {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Content-Type': 'application/json; charset=utf-8',
+        'X-CSRF-Token': CSRF.getToken()
+      },
+      credentials: 'same-origin',
+      redirect: 'manual',
+      body: JSON.stringify(params)
     })
-    .catch((error) => {
-      console.warn(error)
-    })
+
+    if (!response.ok) throw new Error('Failed to fetch')
+
+    return response.text()
+  } catch (error) {
+    console.warn(error)
+    return false
+  }
 }
 
-function switchMemoDisplay(memoDisplay, memo) {
-  const memoDisplayContent = memoDisplay.querySelector(
-    '.user-mentor-memo-content'
-  )
-  const emptyMessage = memoDisplay.querySelector('.o-empty-message')
-  memoDisplayContent.classList.toggle('is-hidden', memo.length === 0)
-  emptyMessage.classList.toggle('is-hidden', memo.length !== 0)
+function initializeNewMemo(html, markdownInitializer) {
+  const memoList = document.querySelector('.mentor-memo-list')
+  const memoDiv = document.createElement('div')
+  memoDiv.innerHTML = html
+  const newMemoElement = memoDiv.firstElementChild
+  memoList.prepend(newMemoElement)
+  const memoBody = newMemoElement.dataset.memo_body
+  const memoDisplayContent = newMemoElement.querySelector('.memo-text')
+  memoDisplayContent.innerHTML = markdownInitializer.render(memoBody)
+
+  return newMemoElement
 }
 
 function toggleClass(elements, className) {
