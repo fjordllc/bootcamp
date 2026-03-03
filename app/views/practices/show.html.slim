@@ -12,6 +12,15 @@
 = practice_page_tabs(@practice, active_tab: 'プラクティス')
 
 .page-body
+  - if current_user.grant_course?
+    - if @practice.source_practice.present?
+      = link_to practice_path(@practice.source_practice),
+        class: 'a-button is-md is-secondary is-block is-back' do
+        | 元のプラクティス
+    - else
+      = link_to practice_path(Practice.find_by(source_id: @practice.id)),
+        class: 'a-button is-md is-secondary is-block is-back' do
+        | 給付金コースのプラクティス
   - if @practice.learning(current_user)&.complete?
     = render '/products/completion_message', practice: @practice
   .container.is-xl
