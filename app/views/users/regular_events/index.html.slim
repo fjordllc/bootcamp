@@ -41,15 +41,15 @@
                     .card-list-item__row
                       .card-list-item-meta
                         .card-list-item-meta__items
-                          - if event.organizers.count.positive?
+                          - if event.users.count.positive?
                             .card-list-item-meta__item
                               .a-meta
                                 .a-meta__label
                                   = '主催'
                                 .card-list-item__user-icons
-                                  - event.organizers.each do |organizer|
+                                  - event.users.each do |organizer_user|
                                     = render 'users/icon',
-                                      user: organizer,
+                                      user: organizer_user,
                                       link_class: 'card-list-item__user-link',
                                       image_class: 'card-list-item__user-icon'
                           .card-list-item-meta__item
