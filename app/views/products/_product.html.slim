@@ -59,7 +59,7 @@
                     as: :user,
                     cached: true
               .card-list-item-meta__item
-                time.a-meta(datetime="#{product.commented_users.last.created_at.iso8601}")
+                time.a-meta(datetime="#{product.comments.last.created_at.iso8601}")
                   | 〜 #{l product.comments.last.created_at, format: :date_and_time}
       - if !current_user.adviser? && product.practice.open_product?
         .card-list-item__row
