@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_19_100001) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_03_150647) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -524,16 +524,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_19_100001) do
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
 
-  create_table "organizers", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.bigint "regular_event_id", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
-    t.index ["regular_event_id"], name: "index_organizers_on_regular_event_id"
-    t.index ["user_id", "regular_event_id"], name: "index_organizers_on_user_id_and_regular_event_id", unique: true
-    t.index ["user_id"], name: "index_organizers_on_user_id"
-  end
-
   create_table "pages", id: :serial, force: :cascade do |t|
     t.text "body", null: false
     t.datetime "created_at", precision: nil, null: false
@@ -552,26 +542,26 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_19_100001) do
   end
 
   create_table "pair_work_schedules", force: :cascade do |t|
+    t.datetime "created_at", null: false
     t.bigint "pair_work_id", null: false
     t.datetime "proposed_at", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["pair_work_id", "proposed_at"], name: "index_pair_work_schedules_on_pair_work_id_and_proposed_at", unique: true
     t.index ["pair_work_id"], name: "index_pair_work_schedules_on_pair_work_id"
   end
 
   create_table "pair_works", force: :cascade do |t|
-    t.string "title", null: false
-    t.text "description", null: false
-    t.datetime "reserved_at"
-    t.bigint "user_id", null: false
-    t.bigint "practice_id"
     t.bigint "buddy_id"
-    t.datetime "published_at"
-    t.boolean "wip", default: false, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.string "channel", default: "ペアワーク・モブワーク1", null: false
+    t.datetime "created_at", null: false
+    t.text "description", null: false
+    t.bigint "practice_id"
+    t.datetime "published_at"
+    t.datetime "reserved_at"
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.boolean "wip", default: false, null: false
     t.index ["buddy_id"], name: "index_pair_works_on_buddy_id"
     t.index ["practice_id"], name: "index_pair_works_on_practice_id"
     t.index ["published_at"], name: "index_pair_works_on_published_at"
@@ -693,6 +683,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_19_100001) do
     t.index ["reactionable_type", "reactionable_id"], name: "index_reactions_on_reactionable_type_and_reactionable_id"
     t.index ["user_id", "reactionable_id", "reactionable_type", "kind"], name: "index_reactions_on_reactionable", unique: true
     t.index ["user_id"], name: "index_reactions_on_user_id"
+  end
+
+  create_table "regular_event_organizers", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "regular_event_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["regular_event_id"], name: "index_regular_event_organizers_on_regular_event_id"
+    t.index ["user_id", "regular_event_id"], name: "index_regular_event_organizers_on_user_id_and_regular_event_id", unique: true
+    t.index ["user_id"], name: "index_regular_event_organizers_on_user_id"
   end
 
   create_table "regular_event_participations", force: :cascade do |t|
@@ -1146,8 +1146,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_19_100001) do
   add_foreign_key "oauth_access_grants", "users", column: "resource_owner_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "users", column: "resource_owner_id"
-  add_foreign_key "organizers", "regular_events"
-  add_foreign_key "organizers", "users"
   add_foreign_key "pages", "practices"
   add_foreign_key "pages", "users"
   add_foreign_key "pair_work_schedules", "pair_works"
@@ -1167,6 +1165,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_19_100001) do
   add_foreign_key "radio_button_choices", "radio_buttons"
   add_foreign_key "radio_buttons", "survey_questions"
   add_foreign_key "reactions", "users"
+  add_foreign_key "regular_event_organizers", "regular_events"
+  add_foreign_key "regular_event_organizers", "users"
   add_foreign_key "regular_event_participations", "regular_events"
   add_foreign_key "regular_event_participations", "users"
   add_foreign_key "regular_event_repeat_rules", "regular_events"

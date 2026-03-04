@@ -58,13 +58,13 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   scope :holding, -> { where(finished: false) }
   scope :participated_by, ->(user) { where(id: all.filter { |e| e.participated_by?(user) }.map(&:id)) }
-  scope :organizer_event, ->(user) { joins(:organizers).where(organizers: { user_id: user.id }) }
+  scope :organizer_event, ->(user) { joins(:regular_event_organizers).where(regular_event_organizers: { user_id: user.id }) }
   scope :scheduled_on, ->(date) { holding.filter { |event| event.scheduled_on?(date) } }
   scope :scheduled_on_without_ended, ->(date) { holding.filter { |event| event.scheduled_on?(date) && !event.ended?(date) } }
 
   belongs_to :user
-  has_many :organizers, dependent: :destroy
-  has_many :users, through: :organizers
+  has_many :regular_event_organizers, dependent: :destroy
+  has_many :users, through: :regular_event_organizers
   has_many :regular_event_repeat_rules, dependent: :destroy
   accepts_nested_attributes_for :regular_event_repeat_rules, allow_destroy: true
   has_many :regular_event_participations, dependent: :destroy
@@ -102,7 +102,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def organizers
-    users.preload(avatar_attachment: :blob).order('organizers.created_at')
+    users.preload(avatar_attachment: :blob).order('regular_event_organizers.created_at')
   end
 
   def cancel_participation(user)
@@ -122,7 +122,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     return if organizers.exists?
 
     admin_user = User.find_by(login_name: User::DEFAULT_REGULAR_EVENT_ORGANIZER)
-    Organizer.new(user: admin_user, regular_event: self).save if admin_user
+    RegularEventOrganizer.new(user: admin_user, regular_event: self).save if admin_user
   end
 
   def all_scheduled_dates(
