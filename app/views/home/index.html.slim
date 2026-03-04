@@ -40,7 +40,41 @@
               - if current_user.completed_practices.present?
                 = render '/users/practices/completed_practices', user: current_user, completed_learnings: @completed_learnings
               - if current_user.ever_hibernated?
-                | あなたの休会回数：#{current_user.hibernation_count}
+                .a-card
+                  header.card-header.is-sm
+                    h2.card-header__title
+                      | 休会履歴
+                      | （#{[current_user.hibernations.count, current_user.hibernated? ? 1 : 0].max}回）
+                  hr.a-border-tint
+                  .user-data
+                    .user-data__row
+                      .user-metas
+                        - total = current_user.hibernations.count
+                        - current_user.hibernations.order(created_at: :desc).each_with_index do |hibernation, i|
+                          - number = total - i
+                          h2.user-metas__title
+                            | #{number}回目の休会
+                          .user-metas__items
+                            .user-metas__item
+                              .user-metas__item-label
+                                - if hibernation.returned_at?
+                                  | 休会期間
+                                - else
+                                  | 休会予定期間
+                              .user-metas__item-value
+                                = l hibernation.created_at
+                                | &nbsp;〜&nbsp;
+                                - if hibernation.returned_at?
+                                  = l hibernation.returned_at
+                                - else
+                                  = l hibernation.scheduled_return_on
+                                  | 予定
+                            .user-metas__item
+                              .user-metas__item-label
+                                = Hibernation.human_attribute_name :reason
+                              .user-metas__item-value
+                                .a-short-text
+                                  = simple_format(hibernation.reason)
             .col-xs-12.col-xl-6.col-xxl-6
               - if current_user.student_or_trainee?
                 = render 'required_field', user: current_user
