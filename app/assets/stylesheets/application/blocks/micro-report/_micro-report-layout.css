@@ -1,0 +1,221 @@
+.is-micro-report {
+  background-color: var(--background);
+}
+
+/* =============================================
+   Layout shell (Twitter-like 2-column)
+============================================= */
+
+.mr-layout {
+  display: flex;
+  min-height: 100vh;
+  max-width: 75rem;
+  margin: 0 auto;
+}
+
+/* =============================================
+   Sidebar
+============================================= */
+
+.mr-sidebar {
+  flex: 0 0 15rem;
+  width: 15rem;
+  border-right: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.mr-sidebar__inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1rem 0.75rem;
+}
+
+.mr-sidebar__logo {
+  margin-bottom: 1.25rem;
+  padding: 0 0.5rem;
+}
+
+.mr-sidebar__logo-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.mr-sidebar__logo-link:hover {
+  background-color: var(--main-tint);
+}
+
+.mr-sidebar__logo-image {
+  width: 2rem;
+  height: 2rem;
+  object-fit: contain;
+}
+
+.mr-sidebar__nav-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.mr-sidebar__nav-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 9999px;
+  text-decoration: none;
+  color: var(--default-text);
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.mr-sidebar__nav-link:hover {
+  background-color: var(--main-tint);
+  color: var(--main);
+}
+
+.mr-sidebar__nav-link i {
+  font-size: 1.25rem;
+  width: 1.5rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.mr-sidebar__footer {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.mr-sidebar__user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  cursor: default;
+  transition: background-color 0.2s;
+}
+
+.mr-sidebar__user:hover {
+  background-color: var(--background-tint);
+}
+
+.mr-sidebar__user-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.mr-sidebar__user-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.mr-sidebar__user-name {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--default-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mr-sidebar__user-login {
+  font-size: 0.8125rem;
+  color: var(--muted-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =============================================
+   Main content
+============================================= */
+
+.mr-main {
+  flex: 1;
+  min-width: 0;
+  max-width: 40rem;
+  border-right: 1px solid var(--border);
+}
+
+/* =============================================
+   Bottom nav (mobile only)
+============================================= */
+
+.mr-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--background);
+  border-top: 1px solid var(--border);
+  z-index: 100;
+}
+
+.mr-bottom-nav__items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.mr-bottom-nav__item {
+  flex: 1;
+}
+
+.mr-bottom-nav__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3.25rem;
+  font-size: 1.25rem;
+  color: var(--default-text);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.mr-bottom-nav__link:hover {
+  color: var(--main);
+}
+
+/* =============================================
+   Responsive
+============================================= */
+
+@media (max-width: 47.9375em) {
+  .mr-layout {
+    flex-direction: column;
+  }
+
+  .mr-sidebar {
+    display: none;
+  }
+
+  .mr-main {
+    max-width: 100%;
+    border-right: none;
+    padding-bottom: 3.25rem;
+  }
+
+  .mr-bottom-nav {
+    display: block;
+  }
+}
