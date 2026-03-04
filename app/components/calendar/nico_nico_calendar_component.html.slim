@@ -24,10 +24,10 @@
         thead.niconico-calendar__header
           tr
             - I18n.t('date.abbr_day_names').each_with_index do |day, i|
-              - classes = ['niconico-calendar__header-day']
-              - classes << 'is-sunday' if i == 0
-              - classes << 'is-saturday' if i == 6
-              th class=classes.join(' ') = day
+              - c = 'niconico-calendar__header-day'
+              - c += ' is-sunday' if i == 0
+              - c += ' is-saturday' if i == 6
+              th class=c = day
         tbody.niconico-calendar__body
           - user.niconico_calendar(current_calendar).each do |week|
             tr.niconico-calendar__week
