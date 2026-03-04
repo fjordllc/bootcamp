@@ -121,4 +121,5 @@
 @import "./application/blocks/micro-report/_micro-report-form.css";
 @import "./application/blocks/micro-report/_micro-report-form-tabs.css";
 @import "./application/blocks/micro-report/_micro-report-actions.css";
+@import "./application/blocks/micro-report/_micro-report-layout.css";
 @import "./form/_zip-tel-input.css";
