@@ -10,10 +10,6 @@ module ActivityTimesHelper
     "#{hour_int}:00-#{next_hour}:00"
   end
 
-  def day_names_with_suffix
-    day_of_the_week.map { |d| "#{d}曜日" }
-  end
-
   def clamp_day_index(day_of_week)
     day_of_week.to_i.clamp(0, DAYS_PER_WEEK - 1)
   end
