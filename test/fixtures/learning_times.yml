@@ -37,3 +37,8 @@ learning_time8:
   report: report10
   started_at: 2020-09-10 12:00:00
   finished_at: 2020-09-10 13:15:00
+
+learning_time9:
+  report: report77
+  started_at: 2026-01-02 00:00:00
+  finished_at: 2026-01-02 02:00:00
