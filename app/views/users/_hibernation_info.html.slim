@@ -1,95 +1,108 @@
-- is_hibernating = user.roles.include?('hibernationed')
-- if is_hibernating && user.hibernations.empty?
-  .user-metas.is-only-mentor
-    h2.user-metas__title
-      | 現在1回目の休会中
-    .user-metas__items
-      .user-metas__item
-        .user-metas__item-label 休会開始日時
-        .user-metas__item-value
-          = l user.hibernated_at
-      .user-metas__item
-        .user-metas__item-label 復帰予定日時
-        .user-metas__item-value
-          | 未登録
-      .user-metas__item
-        .user-metas__item-label 休会期限日時
-        .user-metas__item-value
-          - if !user.auto_retire
-            span.user-metas__item-value-text
-              | 企業都合休会中(#{user.hibernation_days}日)
-          - else
-            span.user-metas__item-value-text(class=user.countdown_danger_tag)
-              = user.retire_deadline
-      .user-metas__item
-        .user-metas__item-label
-          = Hibernation.human_attribute_name :reason
-        .user-metas__item-value
-          .a-short-text
-            | 未登録
-- total = user.hibernations.count
-- user.hibernations.order(created_at: :desc).each_with_index do |hibernation, i|
-  - number = total - i
-  - if i == 0 && is_hibernating
-    .user-metas.is-only-mentor
-      h2.user-metas__title
-        | 現在
-        | #{number}回目の
-        | 休会中
-      .user-metas__items
-        .user-metas__item
-          .user-metas__item-label 休会開始日時
-          .user-metas__item-value
-            = l user.hibernated_at
-        .user-metas__item
-          .user-metas__item-label 復帰予定日時
-          .user-metas__item-value
-            - if hibernation.scheduled_return_on.present?
-              = l hibernation.scheduled_return_on
-            - else
-              | 未登録
+- is_hibernating = user.hibernated? 
+- is_self = user.equal?(current_user)
 
-        .user-metas__item
-          .user-metas__item-label 休会期限日時
-          .user-metas__item-value
-            - if !user.auto_retire
-              span.user-metas__item-value-text
-                | 企業都合休会中(#{user.hibernation_days}日)
-            - else
-              span.user-metas__item-value-text(class=user.countdown_danger_tag)
-                = user.retire_deadline
-
-        .user-metas__item
-          .user-metas__item-label
-            = Hibernation.human_attribute_name :reason
-          .user-metas__item-value
-            .a-short-text
-              - if hibernation.reason.present?
-                = simple_format(hibernation.reason)
-              - else
+.a-card class=("is-only-mentor" unless is_self)
+  header.card-header.is-sm
+    h2.card-header__title
+      |  休会履歴
+      | （#{[user.hibernations.count, user.hibernated? ? 1 : 0].max}回）
+  hr.a-border-tint
+  .user-data
+    .user-data__row
+      - if is_hibernating && user.hibernations.empty?
+        .user-metas.is-only-mentor
+          h2.user-metas__title
+            | 現在1回目の休会中
+          .user-metas__items
+            .user-metas__item
+              .user-metas__item-label 休会開始日時
+              .user-metas__item-value
+                = l user.hibernated_at
+            .user-metas__item
+              .user-metas__item-label 復帰予定日時
+              .user-metas__item-value
                 | 未登録
-  - else
-    .user-metas.is-only-mentor
-      h2.user-metas__title
-        | #{number}回目の休会
-      .user-metas__items
-        .user-metas__item
-          .user-metas__item-label
-            - if hibernation.returned_at?
-              | 休会期間
-            - else
-              | 休会予定期間
-          .user-metas__item-value
-            = l hibernation.created_at
-            | &nbsp;〜&nbsp;
-            - if hibernation.returned_at?
-              = l hibernation.returned_at
-            - else
-              = l hibernation.scheduled_return_on
-              | 予定
-        .user-metas__item
-          .user-metas__item-label
-            = Hibernation.human_attribute_name :reason
-          .user-metas__item-value
-            .a-short-text
-              = simple_format(hibernation.reason)
+            .user-metas__item
+              .user-metas__item-label 休会期限日時
+              .user-metas__item-value
+                - if !user.auto_retire
+                  span.user-metas__item-value-text
+                    | 企業都合休会中(#{user.hibernation_days}日)
+                - else
+                  span.user-metas__item-value-text(class=user.countdown_danger_tag)
+                    = user.retire_deadline
+            .user-metas__item
+              .user-metas__item-label
+                = Hibernation.human_attribute_name :reason
+              .user-metas__item-value
+                .a-short-text
+                  | 未登録
+
+      - total = user.hibernations.count
+      - user.hibernations.order(created_at: :desc).each_with_index do |hibernation, i|
+        - number = total - i
+        - if i == 0 && is_hibernating
+          .user-metas.is-only-mentor
+            h2.user-metas__title
+              | 現在
+              | #{number}回目の
+              | 休会中
+            .user-metas__items
+              .user-metas__item
+                .user-metas__item-label 休会開始日時
+                .user-metas__item-value
+                  = l user.hibernated_at
+              .user-metas__item
+                .user-metas__item-label 復帰予定日時
+                .user-metas__item-value
+                  - if hibernation.scheduled_return_on.present?
+                    = l hibernation.scheduled_return_on
+                  - else
+                    | 未登録
+
+              .user-metas__item
+                .user-metas__item-label 休会期限日時
+                .user-metas__item-value
+                  - if !user.auto_retire
+                    span.user-metas__item-value-text
+                      | 企業都合休会中(#{user.hibernation_days}日)
+                  - else
+                    span.user-metas__item-value-text(class=user.countdown_danger_tag)
+                      = user.retire_deadline
+
+              .user-metas__item
+                .user-metas__item-label
+                  = Hibernation.human_attribute_name :reason
+                .user-metas__item-value
+                  .a-short-text
+                    - if hibernation.reason.present?
+                      = simple_format(hibernation.reason)
+                    - else
+                      | 未登録
+        - else
+          .user-metas class=("is-only-mentor" unless is_self)
+            h2.user-metas__title
+              | #{number}回目の休会
+            .user-metas__items
+              .user-metas__item
+                .user-metas__item-label
+                  - if hibernation.returned_at?
+                    | 休会期間
+                  - else
+                    | 休会予定期間
+                    
+                .user-metas__item-value
+                  = l hibernation.created_at
+                  | &nbsp;〜&nbsp;
+                  - if hibernation.returned_at?
+                    = l hibernation.returned_at
+                  - else
+                    = l hibernation.scheduled_return_on
+                    | 予定
+
+              .user-metas__item
+                .user-metas__item-label
+                  = Hibernation.human_attribute_name :reason
+                .user-metas__item-value
+                  .a-short-text
+                    = simple_format(hibernation.reason)
