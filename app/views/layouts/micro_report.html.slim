@@ -20,7 +20,7 @@ html.is-micro-report lang='ja'
                 span.mr-sidebar__nav-label ホーム
             - if current_user
               li.mr-sidebar__nav-item
-                = link_to user_micro_reports_path(current_user), class: 'mr-sidebar__nav-link' do
+                = link_to "#{user_micro_reports_path(current_user, page: current_user.latest_micro_report_page)}#latest-micro-report", class: 'mr-sidebar__nav-link' do
                   i.fa-solid.fa-comment-dots
                   span.mr-sidebar__nav-label 自分の分報
               li.mr-sidebar__nav-item
