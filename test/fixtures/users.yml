@@ -1132,3 +1132,35 @@ kensyu-invoice:
   last_activity_at: "2014-01-01 00:00:11"
   sent_student_followup_message: true
   training_ends_on: "2022-04-01"
+
+regular_event_organizer_user1:
+  login_name: regular_event_organizer_user1
+  email: regular_event_organizer_user1@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 定期イベントの主催ユーザー1
+  name_kana: テイキイベントノシュサイユーザー1
+  description: "定期イベントの主催ユーザー1です。"
+  course: course1
+  job: office_worker
+  os: 回答なし
+  updated_at: "2026-03-05 00:00:00"
+  created_at: "2026-03-05 00:00:00"
+  last_activity_at: "2026-03-05 00:00:00"
+  sent_student_followup_message: true
+
+regular_event_organizer_user2:
+  login_name: regular_event_organizer_user2
+  email: regular_event_organizer_user2@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 定期イベントの主催ユーザー2
+  name_kana: テイキイベントノシュサイユーザー2
+  description: "定期イベントの主催ユーザー2です。"
+  course: course1
+  job: office_worker
+  os: 回答なし
+  updated_at: "2026-03-05 00:00:00"
+  created_at: "2026-03-05 00:00:00"
+  last_activity_at: "2026-03-05 00:00:00"
+  sent_student_followup_message: true

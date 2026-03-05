@@ -178,3 +178,11 @@ talk47:
 talk48:
   user: kensyu-invoice
   action_completed: true
+
+talk49:
+  user: regular_event_organizer_user1
+  action_completed: true
+
+talk50:
+  user: regular_event_organizer_user2
+  action_completed: true
