@@ -54,6 +54,6 @@ class TrainingCompletionController < ApplicationController
   end
 
   def set_holding_regular_events
-    @holding_regular_events = RegularEvent.organizer_event(current_user).holding
+    @holding_regular_events = current_user.organize_regular_events.holding
   end
 end
