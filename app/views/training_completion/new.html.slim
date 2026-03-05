@@ -16,22 +16,12 @@ hr.a-border
         = render 'errors', object: current_user
       = form_with model: current_user, local: true, url: training_completion_path, method: :post, class: 'form' do |f|
         .form__items
-          - if current_user.regular_events.any?
+          - if @holding_regular_events.any?
             .form-item
-              .important-message
-                .important-message__body
-                  .a-short-text.is-sm
-                    p
-                      |ご自身が主催者である定期イベントがあります。
-                      br
-                      | 研修を修了される場合、イベントの進行に影響がないよう、任意で他の参加者に主催を引き継ぐことを推奨します。
-                      | 退会手続きを完了する前に、
-                      | 以下のリンク先でイベント設定変更を行なってください。
-                    ul
-                      - current_user.regular_events.each do |event|
-                        li
-                          = link_to edit_regular_event_path(event), target: '_blank', rel: 'noopener' do
-                            | 定期イベント「#{event.title}」の設定変更
+              = render 'shared/regular_events_warning',
+              events: @holding_regular_events,
+              case_text: '研修を終了される',
+              action_text: '研修終了'
 
           .form-item
             = f.label :satisfaction, '全体の満足度を教えてください', class: 'a-form-label is-required'
