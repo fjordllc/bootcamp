@@ -29,7 +29,7 @@ class RegularEventsController < ApplicationController
     set_wip
     if @regular_event.save
       update_published_at
-      Organizer.create(user_id: current_user.id, regular_event_id: @regular_event.id)
+      @regular_event.regular_event_organizers.find_or_create_by(user: current_user)
       ActiveSupport::Notifications.instrument('regular_event.create', regular_event: @regular_event)
       set_all_user_participants_and_watchers
       select_redirect_path
