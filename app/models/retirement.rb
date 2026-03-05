@@ -29,8 +29,7 @@ class Retirement
       destroy_subscription
     end
 
-    cancel_event_subscription
-    remove_as_event_organizer
+    clean_up_regular_events
     clear_github_info
     destroy_cards
     publish
@@ -74,12 +73,8 @@ class Retirement
     Card.destroy_all(@user.customer_id) if @user.customer_id?
   end
 
-  def cancel_event_subscription
-    @user.cancel_participation_from_regular_events
-  end
-
-  def remove_as_event_organizer
-    @user.delete_and_assign_new_organizer
+  def clean_up_regular_events
+    @user.clean_up_regular_events
   end
 
   def publish

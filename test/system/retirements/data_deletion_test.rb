@@ -97,8 +97,8 @@ module Retirements
       assert_text '退会処理が完了しました'
 
       visit_with_auth "regular_events/#{regular_event.id}", 'komagata'
-      assert_no_selector '.is-kimura'
-      assert_selector '.is-komagata'
+      assert_selector '.is-kimura'
+      assert_text '定期イベントは終了しました。'
     end
 
     test 'should clear github data on account deletion' do
