@@ -122,13 +122,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     regular_event_participations.find_by(user_id: user.id).present?
   end
 
-  def assign_admin_as_organizer_if_none
-    return if organizers.exists?
-
-    admin_user = User.find_by(login_name: User::DEFAULT_REGULAR_EVENT_ORGANIZER)
-    Organizer.new(user: admin_user, regular_event: self).save if admin_user
-  end
-
   def all_scheduled_dates(
     from: Date.current,
     to: Date.current.next_year
@@ -159,6 +152,15 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def publish_with_announcement?
     wants_announcement? && !wip?
+  end
+
+  def close_or_destroy_organizer(user)
+    if regular_event_organizers.count == 1
+      update(finished: true)
+    else
+      organizer = regular_event_organizers.find_by(user:)
+      organizer.destroy
+    end
   end
 
   private
