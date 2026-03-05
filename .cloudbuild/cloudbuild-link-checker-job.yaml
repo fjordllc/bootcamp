@@ -1,0 +1,45 @@
+steps:
+  - id: CreateOrUpdateJob
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: bash
+    args:
+      - '-c'
+      - |
+        # Cloud Run Jobが存在するか確認
+        if gcloud run jobs describe link-checker --region=asia-northeast1 --project=$PROJECT_ID --quiet 2>/dev/null; then
+          echo "既存のジョブを更新"
+          gcloud run jobs update link-checker \
+            --region=asia-northeast1 \
+            --image=$_DOCKER_IMAGE \
+            --args="bin/rails,link_checker:run" \
+            --set-cloudsql-instances=$_CLOUD_SQL_HOST \
+            --memory=2G \
+            --cpu=1 \
+            --task-timeout=30m \
+            --max-retries=1 \
+            --set-env-vars="RAILS_ENV=production,RAILS_MASTER_KEY=$_RAILS_MASTER_KEY,APP_HOST_NAME=$_APP_HOST_NAME,DB_HOST=/cloudsql/$_CLOUD_SQL_HOST,DB_NAME=$_DB_NAME,DB_PASS=$_DB_PASS,DB_USER=$_DB_USER,DISCORD_BUG_WEBHOOK_URL=$_DISCORD_BUG_WEBHOOK_URL,RAILS_LOG_TO_STDOUT=true"
+        else
+          echo "新規ジョブを作成"
+          gcloud run jobs create link-checker \
+            --region=asia-northeast1 \
+            --image=$_DOCKER_IMAGE \
+            --args="bin/rails,link_checker:run" \
+            --set-cloudsql-instances=$_CLOUD_SQL_HOST \
+            --memory=2G \
+            --cpu=1 \
+            --task-timeout=30m \
+            --max-retries=1 \
+            --set-env-vars="RAILS_ENV=production,RAILS_MASTER_KEY=$_RAILS_MASTER_KEY,APP_HOST_NAME=$_APP_HOST_NAME,DB_HOST=/cloudsql/$_CLOUD_SQL_HOST,DB_NAME=$_DB_NAME,DB_PASS=$_DB_PASS,DB_USER=$_DB_USER,DISCORD_BUG_WEBHOOK_URL=$_DISCORD_BUG_WEBHOOK_URL,RAILS_LOG_TO_STDOUT=true"
+        fi
+options:
+  substitutionOption: ALLOW_LOOSE
+substitutions:
+  _APP_HOST_NAME: bootcamp.fjord.jp
+  _CLOUD_SQL_HOST: bootcamp-224405:asia-northeast1:bootcamp
+  _DB_NAME: _
+  _DB_PASS: _
+  _DB_USER: _
+  _DISCORD_BUG_WEBHOOK_URL: _
+  _DOCKER_IMAGE: _
+  _RAILS_MASTER_KEY: _
+timeout: 600s
