@@ -49,3 +49,19 @@ organizer12:
 organizer13:
   user: hatsuno
   regular_event: regular_event39
+
+organizer14:
+  user: regular_event_organizer_user1
+  regular_event: regular_event42
+
+organizer15:
+  user: regular_event_organizer_user1
+  regular_event: regular_event43
+
+organizer16:
+  user: regular_event_organizer_user2
+  regular_event: regular_event43
+
+organizer17:
+  user: regular_event_organizer_user1
+  regular_event: regular_event44
