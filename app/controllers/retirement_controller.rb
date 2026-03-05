@@ -2,6 +2,7 @@
 
 class RetirementController < ApplicationController
   skip_before_action :require_active_user_login, raise: false, only: %i[show]
+  before_action :set_holding_regular_events, only: %i[new create]
 
   def show; end
 
@@ -23,5 +24,9 @@ class RetirementController < ApplicationController
 
   def retire_reason_params
     params.require(:user).permit(:retire_reason, :satisfaction, :opinion, retire_reasons: [])
+  end
+
+  def set_holding_regular_events
+    @holding_regular_events = RegularEvent.organizer_event(current_user).holding
   end
 end
