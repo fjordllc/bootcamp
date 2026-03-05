@@ -64,6 +64,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   belongs_to :user
   has_many :organizers, dependent: :destroy
+  # TODO: テーブル名を変更したら修正する
+  has_many :regular_event_organizers, class_name: 'Organizer', dependent: :destroy
   has_many :users, through: :organizers
   has_many :regular_event_repeat_rules, dependent: :destroy
   accepts_nested_attributes_for :regular_event_repeat_rules, allow_destroy: true
