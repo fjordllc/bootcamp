@@ -154,9 +154,7 @@ const Bookmark = ({ bookmark, editable, bookmarksUrl }) => {
                     </a>
                   </div>
                   <div className="card-list-item-meta__item">
-                    <time
-                      className="a-meta"
-                      dateTime={bookmark.updated_at.iso8601}>
+                    <time className="a-meta" dateTime={bookmark.updated_at}>
                       {createdAt}
                     </time>
                   </div>

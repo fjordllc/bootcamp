@@ -110,7 +110,7 @@ const EventOrganizers = ({ event }) => {
 const EventDatetime = ({ event }) => {
   return (
     <div className="card-list-item-meta__item">
-      <time className="a-meta" dateTime={event.start_at.iso8601}>
+      <time className="a-meta" dateTime={event.start_at}>
         <span className="a-meta__label">開催日時</span>
         <span className="a-meta__value">
           {event.holding_cycles} {event.start_at_localized} 〜{' '}

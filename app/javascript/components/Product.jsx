@@ -154,13 +154,17 @@ const TimeInfo = ({ product, elapsedDays }) => {
           <div className="card-list-item-meta">
             <div className="card-list-item-meta__items">
               <div className="card-list-item-meta__item">
-                <time className="a-meta" dateTime={product.created_at.iso8601}>
+                <time
+                  className="a-meta"
+                  dateTime={product.created_at_date_time}>
                   <span className="a-meta__label">提出</span>
                   <span className="a-meta__value">{product.created_at}</span>
                 </time>
               </div>
               <div className="card-list-item-meta__item">
-                <time className="a-meta" dateTime={product.updated_at.iso8601}>
+                <time
+                  className="a-meta"
+                  dateTime={product.updated_at_date_time}>
                   <span className="a-meta__label">更新</span>
                   <span className="a-meta__value">{product.updated_at}</span>
                 </time>
@@ -271,9 +275,7 @@ const TrainingEndDateInfo = ({ product }) => {
       <div className="card-list-item-meta__items">
         <div className="card-list-item-meta__item">
           {product.user.training_ends_on ? (
-            <time
-              className="a-meta"
-              dateTime={product.user.training_ends_on.iso8601}>
+            <time className="a-meta" dateTime={product.user.training_ends_on}>
               <span className="a-meta__label">研修終了日</span>
               <span className="a-meta__value">
                 {product.user.training_ends_on}
