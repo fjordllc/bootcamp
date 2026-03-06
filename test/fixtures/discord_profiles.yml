@@ -244,3 +244,13 @@ discord_profile_kensyu-invoice:
   user: kensyu-invoice
   account_name:
   times_url:
+
+discord_profile_regular_event_organizer_user1:
+  user: regular_event_organizer_user1
+  account_name:
+  times_url:
+
+discord_profile_regular_event_organizer_user2:
+  user: regular_event_organizer_user2
+  account_name:
+  times_url:
