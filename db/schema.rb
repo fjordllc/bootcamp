@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_17_092056) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -730,9 +730,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_17_092056) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.boolean "wip", default: false, null: false
-    t.index ["end_at"], name: "index_regular_events_on_end_at"
-    t.index ["finished"], name: "index_regular_events_on_finished"
-    t.index ["start_at"], name: "index_regular_events_on_start_at"
     t.index ["user_id"], name: "index_regular_events_on_user_id"
   end
 
