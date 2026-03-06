@@ -18,6 +18,18 @@
           = f.text_field :first_name,
             class: 'a-text-input',
             placeholder: '太郎'
+    .form-item
+      .a-name-input
+        .a-name-input__field
+          label.a-form-label.is-required セイ
+          = f.text_field :last_name_kana,
+            class: 'a-text-input',
+            placeholder: 'ヤマダ'
+        .a-name-input__field
+          label.a-form-label.is-required メイ
+          = f.text_field :first_name_kana,
+            class: 'a-text-input',
+            placeholder: 'タロウ'
       .a-form-help
         p
           | 給付金を受けるには、申し込みと受講料の支払いは、本人名義で行うことが必須です。
