@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_19_100001) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_06_053749) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -233,6 +233,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_19_100001) do
   create_table "corporate_training_inquiries", force: :cascade do |t|
     t.text "additional_information"
     t.string "company_name", null: false
+    t.boolean "consultation", default: false, null: false
     t.datetime "created_at", null: false
     t.string "email", null: false
     t.string "how_did_you_hear", null: false
@@ -552,26 +553,26 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_19_100001) do
   end
 
   create_table "pair_work_schedules", force: :cascade do |t|
+    t.datetime "created_at", null: false
     t.bigint "pair_work_id", null: false
     t.datetime "proposed_at", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "updated_at", null: false
     t.index ["pair_work_id", "proposed_at"], name: "index_pair_work_schedules_on_pair_work_id_and_proposed_at", unique: true
     t.index ["pair_work_id"], name: "index_pair_work_schedules_on_pair_work_id"
   end
 
   create_table "pair_works", force: :cascade do |t|
-    t.string "title", null: false
-    t.text "description", null: false
-    t.datetime "reserved_at"
-    t.bigint "user_id", null: false
-    t.bigint "practice_id"
     t.bigint "buddy_id"
-    t.datetime "published_at"
-    t.boolean "wip", default: false, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.string "channel", default: "ペアワーク・モブワーク1", null: false
+    t.datetime "created_at", null: false
+    t.text "description", null: false
+    t.bigint "practice_id"
+    t.datetime "published_at"
+    t.datetime "reserved_at"
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.boolean "wip", default: false, null: false
     t.index ["buddy_id"], name: "index_pair_works_on_buddy_id"
     t.index ["practice_id"], name: "index_pair_works_on_practice_id"
     t.index ["published_at"], name: "index_pair_works_on_published_at"
