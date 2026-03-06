@@ -47,20 +47,37 @@
                   .user-data__row
                     .user-data__tags
                       = render(Tag::FormComponent.new(taggable: @user, param_name: 'user[tag_list]', input_id: 'user_tag_list', editable: (@user.id == current_user.id)))
-                - if admin_or_mentor_login? && @user.hibernated?
-                  .user-data__row
-                    = render 'users/hibernation_info', user: @user
-                - if admin_or_mentor_login? && @user.training_completed?
-                  .user-data__row
-                    = render 'users/training_completion_info', user: @user
-                - if admin_or_mentor_login? && @user.retired?
-                  .user-data__row
-                    = render 'users/retire_info', user: @user
-                - if admin_or_mentor_login? && @user.student_or_trainee_or_retired?
-                  .user-data__row
-                    = render 'users/user_secret_attributes', user: @user
                 .user-data__row
                   = render 'users/metas', user: @user, user_course_practice: UserCoursePractice.new(@user)
+
+            - if admin_or_mentor_login?
+              .a-card.is-only-mentor
+                header.card-header.is-sm
+                  h2.card-header__title
+                    | ユーザー非公開情報
+                hr.a-border-tint
+                .user-data
+                  - if @user.training_completed?
+                    .user-data__row
+                      = render 'users/training_completion_info', user: @user
+                  - if @user.retired?
+                    .user-data__row
+                      = render 'users/retire_info', user: @user
+                  - if @user.student_or_trainee_or_retired?
+                    .user-data__row
+                      = render 'users/user_secret_attributes', user: @user
+
+            - if admin_or_mentor_login? && (@user.hibernated? || @user.hibernations.present?)
+              .a-card.is-only-mentor
+                header.card-header.is-sm
+                  h2.card-header__title
+                    | 休会情報
+                    | （#{[@user.hibernations.count, @user.hibernated? ? 1 : 0].max}回）
+                hr.a-border-tint
+                .user-data
+                  .user-data__row
+                    = render 'users/hibernation_info', user: @user
+
 
         .col-xs-12(class="#{visible_learning_time_frames?(@user) ? 'col-lg-4 col-xxl-4' : 'col-lg-6 col-xxl-6'}")
           - if @user.student_or_trainee? && @user.total_learning_time.positive?
