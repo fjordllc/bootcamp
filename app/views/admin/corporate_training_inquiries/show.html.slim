@@ -108,6 +108,15 @@ main.page-main
                           = @corporate_training_inquiry.training_duration
                     .form-item
                       .a-form-label
+                        = CorporateTrainingInquiry.human_attribute_name(:consultation)
+                      .a-short-text
+                        p
+                        - if @corporate_training_inquiry.consultation
+                          | 希望する
+                        - else
+                          | 希望しない
+                    .form-item
+                      .a-form-label
                         = CorporateTrainingInquiry.human_attribute_name(:additional_information)
                       .a-short-text
                         = simple_format(@corporate_training_inquiry.additional_information)
