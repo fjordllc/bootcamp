@@ -1,5 +1,9 @@
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v18.0" nonce="eqECzFUd"></script>
+<% unless content_for?(:facebook_sdk) %>
+  <% content_for :facebook_sdk do %>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v18.0" nonce="eqECzFUd"></script>
+  <% end %>
+<% end %>
 <div class="fb-share-button" data-href="https://bootcamp.fjord.jp/articles/<%= article_id %>" data-layout="box_count" data-size="small">
   <a class="fb-xfbml-parse-ignore"
     href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbootcamp.fjord.jp%2Farticles%2F<%= article_id %>&amp;src=sdkpreparse"
