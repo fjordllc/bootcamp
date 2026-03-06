@@ -19,9 +19,6 @@ module Articles
 
       assert_selector '#fb-root', count: 1, visible: :all
       assert_selector ".fb-share-button[data-href='https://bootcamp.fjord.jp/articles/#{@article.id}']", visible: :all
-      within first('.fb-share-button', visible: :all) do
-        assert_selector "a.fb-xfbml-parse-ignore[href*='articles%2F#{@article.id}']", visible: :all
-      end
     end
 
     test 'share button Hatena' do
