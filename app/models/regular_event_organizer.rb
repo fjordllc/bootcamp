@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Organizer < ApplicationRecord
+class RegularEventOrganizer < ApplicationRecord
   belongs_to :user
   belongs_to :regular_event
 
