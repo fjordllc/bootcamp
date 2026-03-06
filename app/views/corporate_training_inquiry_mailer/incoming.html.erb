@@ -42,6 +42,14 @@
           <b style="font-weight: bold">＜予定している研修期間＞</b><br>
           <%= @corporate_training_inquiry.training_duration %>
         </p>
+        <p>
+          <b style="font-weight: bold">＜助成金の相談について＞</b><br>
+          <% if @corporate_training_inquiry.consultation %>
+            希望する
+          <% else %>
+            希望しない
+          <% end %>
+        </p>
         <p><b style="font-weight: bold">＜どこでフィヨルドブートキャンプを知りましたか？＞</b></p>
         <%= simple_format @corporate_training_inquiry.how_did_you_hear %>
         <p><b style="font-weight: bold">＜その他伝えておきたいこと＞</b></p>
