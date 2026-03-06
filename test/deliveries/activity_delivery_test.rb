@@ -51,7 +51,7 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
       user: check.receiver,
       sender: check.sender,
       link: "/products/#{check.checkable.id}",
-      message: "#{check.sender.login_name}さんが#{check.checkable.title}を確認しました。",
+      message: "#{check.sender.login_name}さんが#{check.checkable.title}を合格にしました。",
       read: false
     )
 

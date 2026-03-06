@@ -12,4 +12,8 @@ class Check < ApplicationRecord
   def receiver
     checkable.user
   end
+
+  def action_label
+    checkable_type == 'Product' ? '合格に' : '確認'
+  end
 end
