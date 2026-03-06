@@ -17,10 +17,9 @@ module Articles
     test 'share button Facebook' do
       visit "/articles/#{@article.id}"
 
-      within first('.fb-share-button') do
-        within_frame do
-          assert_selector "a[href*='u=https%3A%2F%2Fbootcamp.fjord.jp%2Farticles%2F#{@article.id}']"
-        end
+      assert_selector ".fb-share-button[data-href='https://bootcamp.fjord.jp/articles/#{@article.id}']", visible: :all
+      within first('.fb-share-button', visible: :all) do
+        assert_selector "a.fb-xfbml-parse-ignore[href*='articles%2F#{@article.id}']", visible: :all
       end
     end
 
