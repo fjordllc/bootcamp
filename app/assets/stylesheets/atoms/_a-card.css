@@ -65,15 +65,6 @@
   overflow-y: auto;
 }
 
-.a-card:has(.a-table) {
-  border: none;
-}
-
-.a-card:has(.a-table) .card-header {
-  border: solid 1px var(--border);
-  border-bottom: none;
-}
-
 .a-card.is-danger {
   border: solid 0.25rem var(--danger);
 }

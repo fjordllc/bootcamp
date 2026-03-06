@@ -1,0 +1,32 @@
+pair_work1:
+  title: 募集中のペアワークです(タイトル)
+  description: 募集中のペアワークです(詳細)
+  reserved_at: null
+  user: kimura
+  practice: practice1
+  buddy: null
+  published_at: <%= Time.zone.parse('2025-01-01 00:00:00') %>
+  created_at: <%= Time.zone.parse('2025-01-01 00:00:00') %>
+  wip: false
+
+pair_work2:
+  title: ペア確定済みのペアワークです(タイトル)
+  description: ペア確定済みのペアワークです(詳細)
+  reserved_at: <%= Time.zone.parse('2025-01-02 01:00:00') %>
+  user: kimura
+  practice: practice1
+  buddy: sotugyou
+  published_at: <%= Time.zone.parse('2025-01-01 00:00:00') %>
+  created_at: <%= Time.zone.parse('2025-01-01 00:00:00') %>
+  wip: false
+
+pair_work3:
+  title: wipのペアワークです(タイトル)
+  description: wipのペアワークです(詳細)
+  reserved_at: null
+  user: kimura
+  practice: null
+  buddy: null
+  published_at: null
+  created_at: <%= Time.zone.parse('2025-01-01 00:00:00') %>
+  wip: true

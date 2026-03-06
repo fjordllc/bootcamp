@@ -22,7 +22,7 @@ module UserDecorator
     test 'unchecked_report_message' do
       user = users(:hajime)
       assert_equal "#{user.login_name}さんの日報へ", unchecked_report_message(0, user)
-      assert_equal "#{user.login_name}さんの未チェックの日報はこれで最後です。", unchecked_report_message(1, user)
+      assert_equal "#{user.login_name}さんの未チェックの日報は残り1つです。", unchecked_report_message(1, user)
       assert_equal "#{user.login_name}さんの未チェックの日報が2件あります。", unchecked_report_message(2, user)
     end
   end

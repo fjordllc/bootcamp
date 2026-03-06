@@ -132,6 +132,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   has_many :micro_reports, dependent: :destroy
   has_many :authored_micro_reports, class_name: 'MicroReport', foreign_key: 'comment_user_id', dependent: :destroy, inverse_of: :comment_user
   has_many :learning_time_frames_users, dependent: :destroy
+  has_many :pair_works, dependent: :destroy
 
   has_many :participate_events,
            through: :participations,
@@ -713,7 +714,8 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   def avatar_url
     if avatar.attached? && avatar.blob.present?
-      attach_custom_avatar if !ActiveStorage::Blob.find_by(key: "avatars/#{login_name}.#{AVATAR_FORMAT}")
+      custom_key = "avatars/#{login_name}.#{AVATAR_FORMAT}"
+      attach_custom_avatar if avatar.blob.key != custom_key
       "#{avatar.url}?v=#{avatar.created_at.to_i}"
     else
       image_url DEFAULT_IMAGE_PATH

@@ -43,11 +43,13 @@ class Notification < ApplicationRecord
     create_article: 24,
     added_work: 25,
     came_inquiry: 26,
-    training_completed: 27
+    training_completed: 27,
+    came_pair_work: 28,
+    matching_pair_work: 29
   }
 
   scope :unreads, -> { where(read: false) }
-  scope :with_avatar, -> { preload(sender: { avatar_attachment: :blob }) }
+  scope :with_avatar, -> { preload(sender: [{ company: { logo_attachment: :blob } }, { avatar_attachment: :blob }]) }
   scope :by_read_status, ->(status) { status == 'unread' ? unreads.with_avatar : with_avatar }
 
   scope :by_target, lambda { |target|

@@ -63,6 +63,17 @@ class Cache
       Rails.cache.delete 'not_solved_question_count'
     end
 
+    def not_solved_pair_work_count
+      Rails.cache.fetch 'not_solved_pair_work_count' do
+        Rails.logger.info '[CACHE MISS] Executing DB query for not_solved_pair_work_count'
+        PairWork.not_solved.not_wip.count
+      end
+    end
+
+    def delete_not_solved_pair_work_count
+      Rails.cache.delete 'not_solved_pair_work_count'
+    end
+
     def mentioned_notification_count(user)
       Rails.cache.fetch "#{user.id}-mentioned_notification_count" do
         user.notifications.by_target(:mention).latest_of_each_link.size
