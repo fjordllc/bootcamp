@@ -16,7 +16,7 @@
               = link_to cts.user, class: 'a-user-name' do
                 = cts.user.long_name
             .card-list-item-meta__item
-              time.a-meta(datetime="#{cts.updated_at}")
+              time.a-meta(datetime="#{cts.updated_at.iso8601}")
                 = l cts.updated_at
       .card-list-item__row
         .a-long-text

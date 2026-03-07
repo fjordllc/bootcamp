@@ -154,13 +154,17 @@ const TimeInfo = ({ product, elapsedDays }) => {
           <div className="card-list-item-meta">
             <div className="card-list-item-meta__items">
               <div className="card-list-item-meta__item">
-                <time className="a-meta" dateTime={product.created_at}>
+                <time
+                  className="a-meta"
+                  dateTime={product.created_at_date_time}>
                   <span className="a-meta__label">提出</span>
                   <span className="a-meta__value">{product.created_at}</span>
                 </time>
               </div>
               <div className="card-list-item-meta__item">
-                <time className="a-meta" dateTime={product.updated_at}>
+                <time
+                  className="a-meta"
+                  dateTime={product.updated_at_date_time}>
                   <span className="a-meta__label">更新</span>
                   <span className="a-meta__value">{product.updated_at}</span>
                 </time>

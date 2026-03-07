@@ -24,13 +24,13 @@
                 .a-meta
                   | 提出物作成中
               - elsif product.published_at.present?
-                time.a-meta(datetime="#{product.published_at.to_datetime}")
+                time.a-meta(datetime="#{product.published_at.iso8601}")
                   span.a-meta__label
                     | 提出
                   span.a-meta__value
                     = l product.published_at
               - else
-                time.a-meta(datetime="#{product.created_at.to_datetime}")
+                time.a-meta(datetime="#{product.created_at.iso8601}")
                   span.a-meta__label
                     | 提出
                   span.a-meta__value
@@ -38,7 +38,7 @@
 
             - if product.updated_at.present?
               .card-list-item-meta__item
-                time.a-meta(datetime="#{product.updated_at.to_datetime}")
+                time.a-meta(datetime="#{product.updated_at.iso8601}")
                   span.a-meta__label
                     | 更新
                   span.a-meta__value
@@ -59,7 +59,7 @@
                     as: :user,
                     cached: true
               .card-list-item-meta__item
-                time.a-meta(datetime="#{product.commented_users.last.created_at.to_datetime}")
+                time.a-meta(datetime="#{product.comments.last.created_at.iso8601}")
                   | 〜 #{l product.comments.last.created_at, format: :date_and_time}
       - if !current_user.adviser? && product.practice.open_product?
         .card-list-item__row
