@@ -390,3 +390,39 @@ practice63:
   goal: "goal..."
   include_progress: true
   memo: "memo for mentors..."
+
+source_practice1:
+  title: "コピー元のプラクティス1"
+  description: "description..."
+  goal: "goal..."
+  memo: "memo for mentors..."
+
+source_practice2:
+  title: "コピー元のプラクティス2"
+  description: "description..."
+  goal: "goal..."
+  memo: "memo for mentors..."
+
+source_practice3:
+  title: "コピー元のプラクティス3"
+  description: "description..."
+  goal: "goal..."
+  memo: "memo for mentors..."
+
+copy_practice1:
+  title: "コピー先のプラクティス1"
+  description: "copy1..."
+  goal: "goal..."
+  source_practice: source_practice1
+
+copy_practice2:
+  title: "コピー先のプラクティス2"
+  description: "copy2..."
+  goal: "goal..."
+  source_practice: source_practice2
+
+copy_practice3:
+  title: "コピー先のプラクティス3"
+  description: "copy3..."
+  goal: "goal..."
+  source_practice: source_practice3
