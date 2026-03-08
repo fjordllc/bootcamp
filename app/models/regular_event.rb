@@ -71,8 +71,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_many :participants,
            through: :regular_event_participations,
            source: :user
-  has_many :watches, as: :watchable, dependent: :destroy
-  has_many :footprints, as: :footprintable, dependent: :destroy
   attribute :wants_announcement, :boolean
 
   columns_for_keyword_search :title, :description
