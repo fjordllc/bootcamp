@@ -9,6 +9,18 @@
 
 = practice_page_tabs(@practice, active_tab: '日報')
 
+- if @practice.grant_course?
+  nav.pill-nav
+    ul.pill-nav__items
+      li.pill-nav__item
+        = link_to '全て',
+          practice_reports_path(@practice),
+          class: ['pill-nav__item-link', ('is-active' unless params[:grant_only])]
+      li.pill-nav__item
+        = link_to '給付金コース',
+          practice_reports_path(@practice, params: { grant_only: true }),
+          class: ['pill-nav__item-link', ('is-active' if params[:grant_only])]
+
 .page-body
   .container.is-md
     - if @reports.empty?
