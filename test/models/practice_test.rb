@@ -92,4 +92,49 @@ class PracticeTest < ActiveSupport::TestCase
     assert Practice.new(source_id: 1).grant_course?
     assert_not Practice.new(source_id: nil).grant_course?
   end
+
+  test '#reports_count_with_source returns reports count' do
+    practice = practices(:practice66)
+    Report.create!(
+      user: users(:komagata),
+      title: '日報が存在しないプラクティスの日報',
+      description: '日報が存在しないプラクティスの日報です。',
+      practices: [practice],
+      reported_on: Time.zone.today
+    )
+    assert_equal 1, practice.reports_count_with_source
+  end
+
+  test '#reports_count_with_source returns reports count including source' do
+    source = practices(:practice67)
+    practice = practices(:practice68)
+    Report.create!(
+      user: users(:komagata),
+      title: '日報が存在しないプラクティスの日報',
+      description: '日報が存在しないプラクティスの日報です。',
+      practices: [source],
+      reported_on: Time.zone.today
+    )
+    Report.create!(
+      user: users(:komagata),
+      title: 'source_idを持っている日報が存在しないプラクティスの日報',
+      description: 'source_idを持っている日報が存在しないプラクティスの日報です。',
+      practices: [practice],
+      reported_on: Time.zone.today - 1
+    )
+    assert_equal 2, practice.reports_count_with_source
+  end
+
+  test '#reports_count_with_source does not double count reports when associated with both source and practice' do
+    source = practices(:practice67)
+    practice = practices(:practice68)
+    Report.create!(
+      user: users(:komagata),
+      title: '複数のプラクティスに関連する日報',
+      description: '複数のプラクティスに関連する日報です。',
+      practices: [source, practice],
+      reported_on: Time.zone.today
+    )
+    assert_equal 1, practice.reports_count_with_source
+  end
 end
