@@ -218,10 +218,6 @@ a:active  { text-decoration: none; }
 		order: 2;
 	}
 
-	.fvMv {
-
-	}
-
 	#fv .inner {
 		display: flex;
 		align-items: center;
@@ -292,9 +288,7 @@ a:active  { text-decoration: none; }
 	}
 
 	.fv_bg {
-		/*display: none!important;*/
 		background: none;
-
 		height: auto;
 	}
 
