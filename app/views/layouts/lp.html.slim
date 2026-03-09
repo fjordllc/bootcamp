@@ -15,6 +15,7 @@ html.is-lp lang='ja'
   body.is-lp#body class="#{body_class}"
     = yield :facebook_sdk
     = render 'x_event_tracking' if Rails.env.production?
+    = render 'layouts/lp/lp_google_ads_conversion' if Rails.env.production?
     .wrapper
       .wrapper__main
         = render 'layouts/lp/lp_header'

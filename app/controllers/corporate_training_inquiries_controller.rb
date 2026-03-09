@@ -8,13 +8,15 @@ class CorporateTrainingInquiriesController < ApplicationController
     @corporate_training_inquiry = CorporateTrainingInquiry.new
   end
 
+  def created; end
+
   def create
     @corporate_training_inquiry = CorporateTrainingInquiry.new(corporate_training_inquiry_params)
 
     result = valid_recaptcha?('inquiry')
     if result && @corporate_training_inquiry.save
       CorporateTrainingInquiryMailer.incoming(@corporate_training_inquiry).deliver_later
-      render :complete
+      redirect_to created_corporate_training_inquiry_url
     else
       flash.now[:alert] = 'Bot対策のため送信を拒否しました。しばらくしてからもう一度送信してください。' unless result
       render :new

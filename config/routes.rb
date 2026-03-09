@@ -82,8 +82,12 @@ Rails.application.routes.draw do
   resources :talks, only: %i(index show)
   resources :questions
   resources :courses, only: :index
-  resource :inquiry, only: %i(new create)
-  resource :corporate_training_inquiry, only: %i(new create)
+  resource :inquiry, only: %i(new create) do
+    get :created
+  end
+  resource :corporate_training_inquiry, only: %i(new create) do
+    get :created
+  end
   namespace :articles do
     resources :wips, only: %i(index), controller: "wips"
   end
