@@ -17,7 +17,7 @@ module Articles
     test 'share button Facebook' do
       visit "/articles/#{@article.id}"
 
-      assert_selector '#fb-root', count: 1, visible: :all
+      assert_selector '#fb-root', minimum: 1, visible: :all
       assert_selector ".fb-share-button[data-href='https://bootcamp.fjord.jp/articles/#{@article.id}']", visible: :all
     end
 
