@@ -8,6 +8,8 @@ class InquiriesController < ApplicationController
     @inquiry = Inquiry.new
   end
 
+  def created; end
+
   def create
     @inquiry = Inquiry.new(inquiry_params)
     result = valid_recaptcha?('inquiry')
@@ -15,7 +17,7 @@ class InquiriesController < ApplicationController
     if result && @inquiry.save
       ActiveSupport::Notifications.instrument('came.inquiry', inquiry: @inquiry)
       InquiryMailer.incoming(@inquiry).deliver_later
-      redirect_to new_inquiry_url, notice: 'お問い合わせを送信しました。'
+      redirect_to created_inquiry_url
     else
       flash.now[:alert] = 'Bot対策のため送信を拒否しました。しばらくしてからもう一度送信してください。' unless result
       render :new
