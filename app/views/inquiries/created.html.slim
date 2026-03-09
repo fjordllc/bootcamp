@@ -1,0 +1,34 @@
+- content_for(:extra_body_classes, 'no-header no-footer no-global-nav is-error-page is-piyo-background')
+- title 'お問い合わせ送信完了'
+- set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）')
+- if Rails.env.production? && !staging?
+  - content_for :head_last do
+    | <!-- Event snippet for お問い合わせ完了 conversion page -->
+    javascript:
+      gtag('event', 'conversion', {
+          'send_to': 'AW-17419900911/2wIbCKL3iYUcEO-vuvJA',
+          'value': 1.0,
+          'currency': 'JPY'
+      });
+
+.thanks-message
+  .container.is-xs
+    .thanks-message__header
+      h1.thanks-message__title
+        | お問い合わせ
+        br
+        | ありがとうございます。
+    .a-card
+      .card-body.thanks-message__body
+        .a-long-text
+          p
+            | お問い合わせを受け付けました。
+            br
+            | 担当者より折り返しご連絡いたします。
+      hr.a-border-tint
+      footer.card-footer
+        .card-main-actions
+          ul.card-main-actions__items
+            li.card-main-actions__item
+              = link_to root_path, class: 'a-button is-secondary is-sm is-block' do
+                | フィヨルドブートキャンプ
