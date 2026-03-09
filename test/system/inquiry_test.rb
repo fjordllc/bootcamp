@@ -26,7 +26,7 @@ class InquiryTest < ApplicationSystemTestCase
     check '下記の個人情報の取り扱いに同意する', allow_label_click: true
 
     click_button '送信'
-    assert_text 'お問い合わせを送信しました。'
+    assert_text 'お問い合わせを受け付けました。'
 
     assert_equal 1, ActionMailer::Base.deliveries.count
     mail = ActionMailer::Base.deliveries.last

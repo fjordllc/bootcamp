@@ -1,6 +1,7 @@
-- content_for(:extra_body_classes, 'no-header no-footer no-global-nav is-error-page is-piyo-background')
-- title 'お問い合わせ送信完了'
-- set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）')
+ruby:
+  content_for(:extra_body_classes, 'no-header no-footer no-global-nav is-error-page is-piyo-background')
+  title 'お問い合わせ送信完了'
+  set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）')
 - if Rails.env.production? && !staging?
   - content_for :head_last do
     | <!-- Event snippet for お問い合わせ完了 conversion page -->
