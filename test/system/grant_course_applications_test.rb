@@ -10,6 +10,8 @@ class GrantCourseApplicationsTest < ApplicationSystemTestCase
 
     fill_in 'grant_course_application[last_name]', with: '山田'
     fill_in 'grant_course_application[first_name]', with: '太郎'
+    fill_in 'grant_course_application[last_name_kana]', with: 'ヤマダ'
+    fill_in 'grant_course_application[first_name_kana]', with: 'タロウ'
     fill_in 'grant_course_application[email]', with: 'test@example.com'
     fill_in 'grant_course_application_zip1', with: '123'
     fill_in 'grant_course_application_zip2', with: '4567'
@@ -41,6 +43,10 @@ class GrantCourseApplicationsTest < ApplicationSystemTestCase
     assert_text '入力内容にエラーがあります'
     assert_text '姓を入力してください'
     assert_text '名を入力してください'
+    assert_text 'セイを入力してください'
+    assert_text 'メイを入力してください'
+    assert_no_text 'セイにはカタカナのみ入力してください'
+    assert_no_text 'メイにはカタカナのみ入力してください'
     assert_text 'メールアドレスを入力してください'
     assert_text '郵便番号（前半）を入力してください'
     assert_text '郵便番号（後半）を入力してください'
@@ -50,5 +56,20 @@ class GrantCourseApplicationsTest < ApplicationSystemTestCase
     assert_text '電話番号（中央）を入力してください'
     assert_text '電話番号（後半）を入力してください'
     assert_text '個人情報の取り扱いを受諾してください'
+  end
+
+  test 'user sees error messages when furigana field contains a value other than katakana' do
+    visit new_grant_course_application_path
+
+    fill_in 'grant_course_application[last_name_kana]', with: 'やまだ'
+    fill_in 'grant_course_application[first_name_kana]', with: 'たろう'
+
+    check 'notes', allow_label_click: true, visible: false
+    click_button '申請する'
+
+    assert_no_text 'セイを入力してください'
+    assert_no_text 'メイを入力してください'
+    assert_text 'セイにはカタカナのみ入力してください'
+    assert_text 'メイにはカタカナのみ入力してください'
   end
 end
