@@ -45,11 +45,14 @@ class QuestionAutoCloser
   end
 
   def extract_inactive_questions_to_close
+    # 警告投稿日を基準とするため`last_warned_at`の計算には`updated_at`ではなく`created_at`を使用する
+    # 最後の更新が自動クローズメッセージ投稿であれば解決済みになっているため「未解決である」の条件と警告の文言のチェックのいずれか一方はなくても機能する
+    # ただし可読性と安全性のために両方の条件を残しておく
     answers_summary = Answer
                       .select(
                         :question_id,
                         'MAX(updated_at) AS last_answer_updated_at',
-                        Answer.sanitize_sql_array(['MAX(CASE WHEN user_id = ? AND description = ? THEN updated_at END) AS last_warned_at',
+                        Answer.sanitize_sql_array(['MAX(CASE WHEN user_id = ? AND description = ? THEN created_at END) AS last_warned_at',
                                                    @system_user.id, WARNING_MESSAGE]),
                         "BOOL_OR(type = 'CorrectAnswer') AS solved"
                       )
@@ -61,8 +64,8 @@ class QuestionAutoCloser
       .where('COALESCE(answers_summary.solved, false) = false') # 質問が未解決
       .where('answers_summary.last_warned_at IS NOT NULL')
       .where('answers_summary.last_warned_at <= ?', 1.week.ago)
-      .where('answers_summary.last_answer_updated_at = answers_summary.last_warned_at')
-      .where('questions.updated_at <= answers_summary.last_warned_at')
+      .where('answers_summary.last_answer_updated_at = answers_summary.last_warned_at') # 最後の警告投稿以後に回答更新がない
+      .where('questions.updated_at <= answers_summary.last_warned_at') # 最後の警告投稿以後に質問更新がない
       .ids
   end
 
