@@ -23,28 +23,52 @@
 }
 
 .a-file-input label {
-  height: 10rem;
+  height: 12rem;
   max-width: 100%;
   margin-inline: auto;
   border: solid 1px var(--input-border);
   background-color: var(--base);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
   cursor: pointer;
   border-radius: .25rem;
-  padding: .5rem .5rem 2.75rem .5rem;
+  padding: .5rem .5rem 2.5rem;
 }
 
-.a-file-input.is-movie label {
-  height: auto;
+.a-file-input label p {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: .5rem;
+  font-size: .875rem;
+  background-color: var(--background-tint);
+  border-top: solid 1px var(--input-border);
+}
+
+.a-file-input label p:hover {
+  background-color: var(--input-selected-background);
+}
+
+.a-file-input.is-movie .a-file-input__preview {
+  height: 16rem;
   aspect-ratio: 16 / 10;
+  overflow: hidden;
 }
 
 .a-file-input.is-thumbnail label {
   height: 15rem;
+  padding-bottom: 3rem;
+}
+
+.a-file-input.is-movie label {
+  height: 20rem;
+  padding-bottom: 3rem;
 }
 
 .a-file-input img {
