@@ -275,7 +275,9 @@ const TrainingEndDateInfo = ({ product }) => {
       <div className="card-list-item-meta__items">
         <div className="card-list-item-meta__item">
           {product.user.training_ends_on ? (
-            <time className="a-meta" dateTime={product.user.training_ends_on}>
+            <time
+              className="a-meta"
+              dateTime={product.user.training_ends_on_date_time}>
               <span className="a-meta__label">研修終了日</span>
               <span className="a-meta__value">
                 {product.user.training_ends_on}
