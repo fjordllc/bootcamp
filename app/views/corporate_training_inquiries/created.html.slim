@@ -1,7 +1,8 @@
-- content_for(:extra_body_classes, 'no-header no-footer no-global-nav is-error-page is-piyo-background')
-- title '企業研修申し込み送信完了'
-- set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
-  description: '企業研修のお申し込みありがとうございます。')
+ruby:
+  content_for(:extra_body_classes, 'no-header no-footer no-global-nav is-error-page is-piyo-background')
+  title '企業研修申し込み送信完了'
+  set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
+                description: '企業研修のお申し込みありがとうございます。')
 - if Rails.env.production? && !staging?
   - content_for :head_last do
     | <!-- Event snippet for 企業研修申し込みへの遷移 conversion page -->
