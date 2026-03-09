@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_19_100001) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_06_053749) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -233,6 +233,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_19_100001) do
   create_table "corporate_training_inquiries", force: :cascade do |t|
     t.text "additional_information"
     t.string "company_name", null: false
+    t.boolean "consultation", default: false, null: false
     t.datetime "created_at", null: false
     t.string "email", null: false
     t.string "how_did_you_hear", null: false

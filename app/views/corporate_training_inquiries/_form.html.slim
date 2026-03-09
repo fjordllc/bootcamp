@@ -46,6 +46,19 @@
           br
           | 例: ３ヶ月から5ヶ月くらい
     .form-item
+      .a-form-label
+        | 助成金の相談について
+      label.form-item__one-checkbox.a-checkbox
+        = f.check_box :consultation
+        span
+          | 希望する
+      .a-form-help(class='!mt-2')
+        p
+          | フィヨルドブートキャンプと提携している社労士に助成金の相談、手続き代行を依頼できます。
+          | 助成金の申請は研修開始の1ヶ月前までに計画届の提出が必要です。
+          | 提携社労士を利用される場合は、研修開始の1ヶ月半前までにご相談ください。
+          | 手続代行には別途費用がかかります。
+    .form-item
       = f.label :how_did_you_hear, class: 'a-form-label is-required'
       = f.text_area :how_did_you_hear, class: 'a-text-input is-sm', placeholder: '知り合いの会社である株式会社〇〇の△△さんに薦められて。'
     .form-item
