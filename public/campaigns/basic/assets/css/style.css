@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 html {
-	overflow-y: scroll;	
+	overflow-y: scroll;
 	min-height: 100vh;
 	height: -webkit-fill-available;
 }
@@ -27,12 +27,12 @@ body {
 @media screen and (max-width:767px)  {
 	body {
 		padding-top: 60px;
-	}	
+	}
 }
 
-img { 
+img {
 	max-width: 100%;
-	height: auto; 
+	height: auto;
 }
 
 a         { color: #222; }
@@ -106,7 +106,7 @@ a:active  { text-decoration: none; }
 
 	.headerBtn {
 		display: none;
-	}	
+	}
 }
 
 #wrapper {
@@ -190,7 +190,7 @@ a:active  { text-decoration: none; }
 }
 
 @media screen and (max-width:1440px)  {
-	
+
 	.fvCta {
 		width: 50%;
 		position: relative;
@@ -200,28 +200,28 @@ a:active  { text-decoration: none; }
 		box-sizing: border-box;
 		order: 1;
 	}
-	
+
 	.fvFbc {
 		width: 80%;
 		bottom: 2%;
 		left: 10%;
 	}
-	
+
 	.fvMv.big {
 		display: none!important;
 	}
-	
+
 	.fvMv.middle {
 		display: block!important;
 		width: 50%;
 		position: relative;
 		order: 2;
 	}
-	
+
 	.fvMv {
-	
-	}	
-	
+
+	}
+
 	#fv .inner {
 		display: flex;
 		align-items: center;
@@ -229,11 +229,11 @@ a:active  { text-decoration: none; }
 		padding-bottom: 50px;
 		position: relative;
 	}
-	
+
 	.fv_bg {
 		height: auto;
 	}
-	
+
 	.fvNotes {
 		margin: -25px auto 0;
 		z-index: 4;
@@ -241,21 +241,21 @@ a:active  { text-decoration: none; }
 }
 
 @media screen and (max-width:767px)  {
-	
+
 	.spCopy {
 		position: relative;
 	}
-	
+
 	.spCopy .fvCopy {
 		position: absolute;
 		top: 0;
 		right: 0;
 	}
-	
+
 	.fvMv.middle {
 		display: none!important;
 	}
-	
+
 	#fv {
 		width: 100%;
 		background: #F8F8F8;
@@ -289,15 +289,15 @@ a:active  { text-decoration: none; }
 
 	.fvNotes {
 		display: none;
-	}	
-	
+	}
+
 	.fv_bg {
 		/*display: none!important;*/
 		background: none;
-		
+
 		height: auto;
 	}
-	
+
 	.fvIllust {
 		text-align: center;
 		margin: -25% auto 0;
@@ -374,7 +374,7 @@ a:active  { text-decoration: none; }
 	position: absolute;
 	top: 7px;
 	left: 7px;
-		
+
 }
 
 @media screen and (max-width:767px)  {
@@ -394,7 +394,7 @@ a:active  { text-decoration: none; }
 		box-sizing: border-box;
 		padding: 0 16px;
 	}
-	
+
 	.awardBox:not(:last-child){
 		margin-bottom: 24px;
 	}
@@ -655,7 +655,7 @@ a:active  { text-decoration: none; }
 		margin: 0 auto;
 		max-width: 1040px;
 		box-sizing: border-box;
-	}	
+	}
 }
 
 .reasonList {
@@ -710,7 +710,7 @@ a:active  { text-decoration: none; }
 }
 
 .reasonList03 .reasonListText {
-	margin: 0 0 40px;	
+	margin: 0 0 40px;
 }
 
 .reasonListIndex {
@@ -779,7 +779,7 @@ a:active  { text-decoration: none; }
 		top: -40px;
 		left: 16px;
 	}
-	
+
 	.reasonNumber img {
 		width: 70px;
 		height: auto;
@@ -843,12 +843,12 @@ a:active  { text-decoration: none; }
 
 	.reasonListIndexList > li:not(:last-child){
 		margin-bottom: 5px;
-	}	
-	
+	}
+
 	.center {
 		text-align: center;
 	}
-	
+
 	.spStep {
 		background: #4843C2;
 		display: inline-block;
@@ -930,7 +930,7 @@ a:active  { text-decoration: none; }
 .reasonFlowList > li .reasonFlowListBox{
 	background: #fff;
 	border-radius: 24px;
-	border: 2px solid #4843C2;	
+	border: 2px solid #4843C2;
 	padding: 40px;
 	box-sizing: border-box;
 	position: relative;
@@ -978,7 +978,7 @@ a:active  { text-decoration: none; }
 }
 
 .reasonFlowList > li .b {
-	margin: 40px 0 0; 
+	margin: 40px 0 0;
 }
 
 @media screen and (max-width:767px)  {
@@ -1081,7 +1081,7 @@ a:active  { text-decoration: none; }
 
 	.reasonFlowList > li .b {
 		display: none
-	}	
+	}
 }
 
 .reasonList02 .reasonPoint {
@@ -1167,7 +1167,7 @@ a:active  { text-decoration: none; }
 		margin-right: 0;
 		margin-bottom: 24px;
 	}
-	
+
 	.reasonPoint .l img {
 		border-radius: 24px;
 	}
@@ -1209,7 +1209,7 @@ a:active  { text-decoration: none; }
 	.reasonIllust {
 		margin-bottom: -50px;
 		text-align: center;
-	}	
+	}
 }
 
 .reasonDetailList {
@@ -1388,7 +1388,7 @@ a:active  { text-decoration: none; }
 		position: relative;
 		background: #21239A;
 	}
-	
+
 	.reasonDetailList > li .l img {
 		width: 50%;
 	}
@@ -1406,7 +1406,7 @@ a:active  { text-decoration: none; }
 		margin: 30px auto -30px;
 		padding: 0 20px;
 	}
-	
+
 	.reasonList02 .reasonPoint {
 		padding-top: 60px;
 	}
@@ -1527,8 +1527,8 @@ a:active  { text-decoration: none; }
 
 	.reasonPlotText:not(:last-child) {
 		margin: 0 0 24px;
-	}	
-	
+	}
+
 }
 
 /*=========================================================
@@ -1684,7 +1684,7 @@ a:active  { text-decoration: none; }
 		margin: 0 8px;
 		width: 150px;
 	}
-	
+
 	.reviewsImage {
 		margin: 0 0 24px;
 	}
@@ -1721,13 +1721,13 @@ a:active  { text-decoration: none; }
 		padding: 0;
 		list-style: none;
 	}
-	
+
 	.slick-dots li button,
 	.slick-dots li {
 		width: 12px;
 		height: 12px;
 	}
-	
+
 	.slick-dots li {
 		margin: 0 2px;
 	}
@@ -1755,7 +1755,7 @@ a:active  { text-decoration: none; }
 	.slick-arrow:hover {
 		cursor: pointer;
 		opacity: 0.7;
-	}	
+	}
 }
 
 /*=========================================================
@@ -1823,7 +1823,7 @@ CTA
      height: 0;
      overflow: hidden;
 }
- 
+
 .movieBox iframe {
      position: absolute;
      top: 0;
@@ -1848,7 +1848,7 @@ CTA
 		padding: 0 10px;
 		text-align: center;
 	}
-	
+
 	.cta02 img {
 		max-width: 320px;
 		width: 100%;
@@ -1880,7 +1880,7 @@ CTA
 		background: #fff;
 		max-width: 730px;
 		margin: 0 auto;
-	}	
+	}
 }
 
 /*=========================================================
@@ -1930,7 +1930,7 @@ CTA
 
 .structureList02 .structureListTitle,
 .structureList03 .structureListTitle {
-	margin: -35px 0 30px;	
+	margin: -35px 0 30px;
 }
 
 .structureList03 {
@@ -1971,12 +1971,12 @@ CTA
 }
 
 .structureEasyList > li .image{
-	width: 255px;	
+	width: 255px;
 }
 
 
 .structureEasyList > li .info {
-	width: calc(100% - 280px);	
+	width: calc(100% - 280px);
 	text-align: left;
 }
 
@@ -2133,7 +2133,7 @@ CTA
 
 .structureMerit {
 	border: 1px solid #4843C2;
-	padding: 50px;
+	padding: 30px 50px 50px;
 	background: #fff;
 }
 
@@ -2279,41 +2279,41 @@ CTA
 	.structureListTitle {
 		margin: -25px 0 20px;
 	}
-	
+
 	.structureList01 .structureListTitle img {
 		width: 319px;
 		height: auto;
 	}
-	
+
 	.structureList02 .structureListTitle img {
 		width: 318px;
 		height: auto;
 	}
-	
+
 	.structureList03 .structureListTitle img {
 		width: 318px;
 		height: auto;
 	}
 
 	.structureList02 .structureListTitle {
-		margin: -18px 16px 20px;	
+		margin: -18px 16px 20px;
 	}
-	
+
 	.structureList02 .reasonPointTitle {
 		margin-bottom: 16px;
 	}
-	
+
 	.structureList02 .reasonPoint {
 		padding-bottom: 32px;
 	}
-	
+
 	.structureList02 .reasonPoint .l img {
 		border-radius: 0;
 	}
 	.structureList02 .reasonPoint .l {
 		margin-bottom: 12px;
 	}
-	
+
 	.structureList03 .structureListTitle {
 		margin: -18px 16px 20px;
 	}
@@ -2357,18 +2357,18 @@ CTA
 	.structureEasyList > li:not(:last-child){
 		margin: 0 0 40px;
 	}
-	
+
 	.structureEasyList > li .image img {
 		width: 80px;
 		height: 80px;
 	}
 
 	.structureEasyList > li .image{
-		width: 80px;	
+		width: 80px;
 	}
 
 	.structureEasyList > li .info {
-		width: calc(100% - 80px);	
+		width: calc(100% - 80px);
 		text-align: left;
 	}
 
@@ -2393,11 +2393,11 @@ CTA
 	.structureEasyList > li .info p {
 		font-size: 16px;
 	}
-	
+
 	.spText {
 		order: 3;
 		text-align: left;
-			
+
 	}
 
 	.structureList02 .reasonPoint .l {
@@ -2407,7 +2407,7 @@ CTA
 	.structureList02 .reasonPoint .r {
 		width: 100%;
 	}
-	
+
 	.structureList02 .reasonPoint .r em {
 		font-size: 14px;
 	}
@@ -2563,12 +2563,12 @@ CTA
 	.structurePortfolioList li .text {
 		font-size: 16px;
 	}
-	
+
 	.structurePortfolioList li::after {
 		top: 5px;
 		left: 5px;
 	}
-	
+
 	.structureList04 .structureListTitle {
 		padding: 0 16px;
 		margin-top: -28px;
@@ -2585,7 +2585,7 @@ CTA
 		margin: 0 auto 20px;
 		justify-content: space-between;
 	}
-	
+
 	.structureIcons li {
 		padding: 0 9px;
 	}
@@ -2611,7 +2611,7 @@ CTA
 		margin: 0 16px;
 		text-align: center;
 	}
-	
+
 }
 
 /*=========================================================
@@ -2859,7 +2859,7 @@ CTA
 		width: 100%;
 		padding: 16px 24px;
 	}
-	
+
 	.coursesList li:not(:last-child){
 		margin-bottom: 16px;
 	}
@@ -2868,7 +2868,7 @@ CTA
 		margin: 0 0 16px;
 		text-align: center;
 	}
-	
+
 	.coursesListImage img {
 		max-width: 461px;
 		width: 100%;
@@ -2922,18 +2922,18 @@ CTA
 		margin: 0 auto 32px;
 		box-sizing: border-box;
 	}
-	
+
 	.courseFlow03 img {
 		margin: 0 auto;
 		width: 230px;
 		height: auto;
 	}
-	
+
 	.courseHeading  {
 		border-top: 4px solid #4843C2;
 		margin: 0 0 24px;
 	}
-	
+
 	.courseHeading img {
 		width: 129px;
 		height: auto;
@@ -2944,11 +2944,11 @@ CTA
 		text-align: center;
 		padding: 50px 16px 0;
 	}
-	
+
 	.courseUses .courseHeading {
 		margin: 0;
 	}
-	
+
 
 	.courseUsesList {
 		display: block;
@@ -2958,7 +2958,7 @@ CTA
 		width: 100%;
 		padding: 25px 10px 25px;
 	}
-	
+
 	.courseUsesList > li:not(:last-child){
 		margin-bottom: 20px;
 	}
@@ -3063,7 +3063,7 @@ CTA
 		line-height: 1.4;
 		display: flex;
 			border-top: solid 1px #ccc;
-	}	
+	}
 }
 
 /*=========================================================
@@ -3145,7 +3145,7 @@ CTA
 		padding: 16px;
 		font-size: 14px;
 		margin:  0 16px;
-	}	
+	}
 }
 
 /*=========================================================
@@ -3217,7 +3217,7 @@ CTA
 }
 
 @media screen and (max-width:767px)  {
-	
+
 	#qanda {
 		padding: 40px 0 40px;
 		text-align: center;
@@ -3231,7 +3231,7 @@ CTA
 	.qandaTitle {
 		margin:  0 0 32px;
 	}
-	
+
 	.qandaList {
 		margin: 0 16px;
 	}
@@ -3239,7 +3239,7 @@ CTA
 	.qandaList > li {
 		font-size: 16px;
 	}
-	
+
 	.qandaList > li .title {
 		width: calc(100% - 50px);
 	}
@@ -3275,8 +3275,8 @@ CTA
 	.qaA {
 		padding: 16px;
 		font-size: 18px;
-	}	
-	
+	}
+
 }
 
 /*=========================================================
@@ -3296,7 +3296,7 @@ CTA
 @media screen and (max-width:767px)  {
 	#footer {
 		padding: 20px 0 40px;
-	}	
+	}
 }
 
 /*=========================================================
@@ -3328,7 +3328,7 @@ CTA
 #article h2 {
 	font-weight: bold;
 	font-size: 24px;
-	margin: 0 0 10px;	
+	margin: 0 0 10px;
 }
 
 #article h3 {
@@ -3452,12 +3452,12 @@ CTA
 	#article p:not(:last-child){
 		margin:  0 0 15px;
 	}
-	
+
 	#article h2 {
 		font-size: 20px;
-		margin: 0 0 10px;	
+		margin: 0 0 10px;
 	}
-	
+
 	#article h3 {
 		font-size: 16px;
 	}
@@ -3493,7 +3493,7 @@ CTA
 		font-size: 18px;
 		font-weight: bold;
 	}
-	
+
 	.profile .time {
 		font-size: 14px!important;
 	}
@@ -3516,15 +3516,15 @@ CTA
 	.arrow img {
 		width: 30px;
 		height: 30px;
-	}	
-	
+	}
+
 	.closeBtn input {
 		width: 111px;
 		height: 30px;
 		background-size: 111px 30px;
 		margin-top: -28px;
 	}
-	
+
 	.closeBtn {
 		text-align: center;
 	}
