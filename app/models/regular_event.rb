@@ -31,6 +31,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   include Reactionable
   include Watchable
   include Searchable
+  include Bookmarkable
 
   enum :category, {
     reading_circle: 0,
