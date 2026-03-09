@@ -110,10 +110,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     regular_event_participation.destroy
   end
 
-  def watched_by?(user)
-    watches.exists?(user_id: user.id)
-  end
-
   def participated_by?(user)
     regular_event_participations.find_by(user_id: user.id).present?
   end
