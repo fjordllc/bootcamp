@@ -18,7 +18,7 @@ class Mentor::BuzzesController < ApplicationController
   def create
     @buzz = Buzz.new(buzz_params)
 
-    return render :new, status: :unprocessable_entity unless Buzz.validate_url(@buzz)
+    return render :new, status: :unprocessable_entity unless @buzz.validate_url
 
     doc = Buzz.doc_from_url(buzz_params[:url])
 
@@ -27,7 +27,7 @@ class Mentor::BuzzesController < ApplicationController
       return render :new, status: :unprocessable_entity
     end
 
-    return render :new, status: :unprocessable_entity unless Buzz.populate_buzz_from_doc(doc, @buzz)
+    return render :new, status: :unprocessable_entity unless @buzz.populate_buzz_from_doc(doc)
 
     if @buzz.save
       redirect_to mentor_buzzes_path, notice: '記事を登録しました'
