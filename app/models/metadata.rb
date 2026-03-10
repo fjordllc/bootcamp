@@ -34,7 +34,7 @@ class Metadata
 
   def favicon(site_url, html)
     doc = Nokogiri::HTML(html)
-    favicon_path = doc.at_css('link[rel="icon"]')['href']
+    favicon_path = doc.at_css('link[rel="icon"]')&.attr('href')
     return '' if favicon_path.nil?
 
     absolute_regexp = URI::DEFAULT_PARSER.make_regexp
