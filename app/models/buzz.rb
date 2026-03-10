@@ -16,6 +16,35 @@ class Buzz < ApplicationRecord
     errors.add(:url, 'は"http://"か"https://"から始める必要があります')
   end
 
+  def populate_buzz_from_doc(doc)
+    date = Buzz.date_from_doc(doc)
+    self.title = Buzz.title_from_doc(doc) if title.blank?
+
+    if published_at.blank?
+      if date.present?
+        self.published_at = date
+      else
+        errors.add(:published_at, '(記事の投稿日)の値が取得できませんでした。任意の日付を入力してください')
+        return false
+      end
+    end
+
+    true
+  end
+
+  def validate_url
+    if url.blank?
+      errors.add(:url, 'を入力してください')
+      return false
+    end
+
+    unless Buzz.valid_scheme?(url)
+      errors.add(:url, 'は"http://"か"https://"から始める必要があります')
+      return false
+    end
+    true
+  end
+
   class << self
     def for_year(year)
       start_date = start_of_year(year)
@@ -68,36 +97,6 @@ class Buzz < ApplicationRecord
       %w[http https].include?(uri.scheme&.downcase)
     rescue URI::InvalidURIError
       false
-    end
-
-    def populate_buzz_from_doc(doc, buzz)
-      date = Buzz.date_from_doc(doc)
-      buzz.title = Buzz.title_from_doc(doc) if buzz.title.blank?
-
-      if buzz.published_at.blank?
-        if date.present?
-          buzz.published_at = date
-        else
-          buzz.errors.add(:published_at, '(記事の投稿日)の値が取得できませんでした。任意の日付を入力してください')
-          return false
-        end
-      end
-
-      true
-    end
-
-    def validate_url(buzz)
-      url = buzz.url
-      if url.blank?
-        buzz.errors.add(:url, 'を入力してください')
-        return false
-      end
-
-      unless Buzz.valid_scheme?(url)
-        buzz.errors.add(:url, 'は"http://"か"https://"から始める必要があります')
-        return false
-      end
-      true
     end
 
     private
