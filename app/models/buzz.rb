@@ -28,7 +28,7 @@ class Buzz < ApplicationRecord
     end
 
     def years
-      pluck('published_at').map { |date| date&.year }.uniq.sort.reverse
+      pluck('published_at').map(&:year).uniq.sort.reverse
     end
 
     def doc_from_url(url)
