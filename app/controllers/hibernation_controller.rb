@@ -2,12 +2,12 @@
 
 class HibernationController < ApplicationController
   skip_before_action :require_active_user_login, raise: false, only: %i[show]
-  before_action :set_holding_regular_events, only: %i[new create]
 
   def show; end
 
   def new
     @hibernation = Hibernation.new
+    @holding_regular_events = RegularEvent.organizer_event(current_user).holding
   end
 
   def create
@@ -23,6 +23,7 @@ class HibernationController < ApplicationController
       logout
       redirect_to hibernation_path
     else
+      @holding_regular_events = RegularEvent.organizer_event(current_user).holding
       render :new
     end
   end
@@ -52,9 +53,5 @@ class HibernationController < ApplicationController
 
   def notify_to_chat
     DiscordNotifier.with(sender: current_user).hibernated.notify_now
-  end
-
-  def set_holding_regular_events
-    @holding_regular_events = RegularEvent.organizer_event(current_user).holding
   end
 end
