@@ -14,14 +14,14 @@ class Metadata
   private
 
   def parse(html)
-    og = OpenGraph.new(html)
+    object = OpenGraphReader.parse(html)
     metadata_keys = %i[site_name site_url favicon url title description images]
     metadata_keys.map do |metadata_key|
       content = case metadata_key
                 when :site_url then site_url
                 when :favicon then favicon(site_url, html)
-                when :site_name then og.metadata[:site_name][0][:_value]
-                else og.public_send(metadata_key)
+                when :images then object.og.image.url
+                else object.og.public_send(metadata_key)
                 end
       [metadata_key, content]
     end.to_h
