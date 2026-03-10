@@ -3,11 +3,12 @@
 class TrainingCompletionController < ApplicationController
   before_action :require_trainee_login, only: %i[new create]
   skip_before_action :require_active_user_login, raise: false, only: %i[show]
-  before_action :set_holding_regular_events, only: %i[new create]
 
   def show; end
 
-  def new; end
+  def new
+    @holding_regular_events = RegularEvent.organizer_event(current_user).holding
+  end
 
   def create
     current_user.assign_attributes(training_complete_params)
@@ -25,6 +26,7 @@ class TrainingCompletionController < ApplicationController
       redirect_to training_completion_url
     else
       current_user.training_completed_at = nil
+      @holding_regular_events = RegularEvent.organizer_event(current_user).holding
       render :new
     end
   end
@@ -51,9 +53,5 @@ class TrainingCompletionController < ApplicationController
     User.mentor.each do |mentor_user|
       ActivityDelivery.with(sender: user, receiver: mentor_user).notify(:training_completed)
     end
-  end
-
-  def set_holding_regular_events
-    @holding_regular_events = RegularEvent.organizer_event(current_user).holding
   end
 end
