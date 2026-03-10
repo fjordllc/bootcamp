@@ -3,11 +3,11 @@
 class Metadata
   def initialize(url)
     @url = url
+    @uri = Addressable::URI.parse(url).normalize
   end
 
   def fetch
-    uri = Addressable::URI.parse(@url).normalize
-    response = Net::HTTP.get_response(uri)
+    response = Net::HTTP.get_response(@uri)
     response.message == 'OK' ? parse(response.body) : nil
   end
 
@@ -28,8 +28,7 @@ class Metadata
   end
 
   def site_url
-    uri = Addressable::URI.parse(@url).normalize
-    "#{uri.scheme}://#{uri.host}"
+    "#{@uri.scheme}://#{@uri.host}"
   end
 
   def favicon(site_url, html)
