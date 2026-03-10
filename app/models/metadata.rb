@@ -21,6 +21,7 @@ class Metadata
                 when :site_url then site_url
                 when :favicon then favicon(site_url, html)
                 when :images then object.og.image.url
+                when :site_name then object.og.site_name || @uri.host
                 else object.og.public_send(metadata_key)
                 end
       [metadata_key, content]
