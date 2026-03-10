@@ -21,6 +21,7 @@ class Metadata
     metadata_keys.map do |metadata_key|
       content = case metadata_key
                 when :site_url then site_url
+                when :url then @url
                 when :favicon then favicon(site_url, html)
                 when :images then object.og.image&.url || ''
                 when :site_name then object.og.site_name || @uri.host
