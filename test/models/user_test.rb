@@ -683,9 +683,12 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '#clean_up_regular_events removes participant from holding regular event' do
-    user = users(:regular_event_organizer_user1)
-    holding_paticipated_event = regular_events(:regular_event42)
-    finished_paticipated_event = regular_events(:regular_event44)
+    user = users(:kimura)
+    holding_paticipated_event = regular_events(:regular_event1)
+    holding_paticipated_event.regular_event_participations.create!(user: user)
+    finished_paticipated_event = regular_events(:regular_event2)
+    finished_paticipated_event.update!(finished: true)
+    finished_paticipated_event.regular_event_participations.create!(user: user)
 
     assert holding_paticipated_event.regular_event_participations.exists?(user:)
     assert finished_paticipated_event.regular_event_participations.exists?(user:)
@@ -697,9 +700,11 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '#clean_up_regular_events removes organizer from holding regular event' do
-    user = users(:regular_event_organizer_user1)
-    holding_organized_event = regular_events(:regular_event43)
-    finished_organized_event = regular_events(:regular_event44)
+    user = users(:kimura)
+    # kimuraが主催しているイベント
+    holding_organized_event = regular_events(:regular_event4)
+    finished_organized_event = regular_events(:regular_event5)
+    finished_organized_event.update!(finished: true)
 
     assert holding_organized_event.regular_event_organizers.exists?(user:)
     assert finished_organized_event.regular_event_organizers.exists?(user:)

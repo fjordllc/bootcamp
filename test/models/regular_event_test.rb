@@ -99,8 +99,8 @@ class RegularEventTest < ActiveSupport::TestCase
   end
 
   test '#close_or_destroy_organizer closes the event when only one organizer exists' do
-    regular_event = regular_events(:regular_event42)
-    user = users(:regular_event_organizer_user1)
+    user = users(:kimura)
+    regular_event = regular_events(:regular_event5) # kimuraが1人で主催しているイベント
 
     assert_no_difference -> { regular_event.regular_event_organizers.count },
                          -> { regular_event.regular_event_organizers.where(user: user).count } do
@@ -111,8 +111,9 @@ class RegularEventTest < ActiveSupport::TestCase
   end
 
   test '#close_or_destroy_organizer removes the organizer when multiple organizers exist' do
-    regular_event = regular_events(:regular_event43)
-    user = users(:regular_event_organizer_user1)
+    user = users(:kimura)
+    regular_event = regular_events(:regular_event5) # kimuraが1人で主催しているイベント
+    regular_event.regular_event_organizers.create!(user: users(:hatsuno))
 
     assert_difference -> { regular_event.regular_event_organizers.count } => -1,
                       -> { regular_event.regular_event_organizers.where(user: user).count } => -1 do
