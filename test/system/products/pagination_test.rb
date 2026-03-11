@@ -10,7 +10,7 @@ class Products::PaginationTest < ApplicationSystemTestCase
       click_link '2'
     end
 
-    all('.pagination .current').each do |active_link|
+    all('.pagination__item.is-active').each do |active_link|
       assert active_link.has_text? '2'
     end
     assert_current_path('/products?page=2')
@@ -19,7 +19,7 @@ class Products::PaginationTest < ApplicationSystemTestCase
   test 'specify the page number in the URL' do
     login_user 'komagata', 'testtest'
     visit '/products?page=2'
-    all('.pagination .current').each do |active_link|
+    all('.pagination__item.is-active').each do |active_link|
       assert active_link.has_text? '2'
     end
     assert_current_path('/products?page=2')
@@ -36,7 +36,7 @@ class Products::PaginationTest < ApplicationSystemTestCase
     assert_text '「プログラミング入門 - Rubyを使って」をやるの提出物'
     page.go_back
     assert_current_path('/products?page=2')
-    all('.pagination .current').each do |active_link|
+    all('.pagination__item.is-active').each do |active_link|
       assert active_link.has_text? '2'
     end
   end
