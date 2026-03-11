@@ -35,6 +35,10 @@ module RegularEventDecorator
         end
       end
       .take(5)
-      .map { |h| "#{l(h[:date], format: :long)} : #{h[:reason]}" }
+      .map do |h|
+        text = l(h[:date], format: :long)
+        text += " : #{h[:reason]}" if h[:reason].present?
+        text
+      end
   end
 end
