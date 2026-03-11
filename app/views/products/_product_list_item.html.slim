@@ -1,8 +1,9 @@
-- show_training_end_date ||= false
-- elapsed_days ||= nil
-- product_deadline_day ||= Product::PRODUCT_DEADLINE
-- is_unassigned_page = request.path == '/products/unassigned'
-- is_dashboard_page = request.path == '/'
+ruby:
+  show_training_end_date ||= false
+  elapsed_days ||= nil
+  product_deadline_day ||= Product::PRODUCT_DEADLINE
+  is_unassigned_page = request.path == '/products/unassigned'
+  is_dashboard_page = request.path == '/'
 
 .card-list-item(class="#{product.wip? ? 'is-wip' : ''} has-assigned")
   .card-list-item__inner
@@ -47,7 +48,7 @@
                     .card-list-item-meta__item
                       .a-meta
                         | 次の経過日数まで #{until_next_elapsed_days(product)}
-      - if product.comments.size > 0
+      - if product.comments.any?
         hr.card-list-item__row-separator
         .card-list-item-meta__items
           .card-list-item-meta__item
@@ -70,9 +71,9 @@
                   span.a-meta__label 研修終了日
                   span.a-meta__value = product.user.training_ends_on
                   - remaining_days = (product.user.training_ends_on.to_date - Date.current).to_i
-                  - if remaining_days == 0
+                  - if remaining_days.zero?
                     span.a-meta__value.is-danger （本日研修最終日）
-                  - elsif remaining_days < 0
+                  - elsif remaining_days.negative?
                     span.a-meta__value （研修終了）
                   - elsif remaining_days < 7
                     span.a-meta__value.is-danger （あと#{remaining_days}日）
@@ -91,7 +92,7 @@
             data-current-user-id="#{current_user.id}"
             data-product-id="#{product.id}"
           )
-    - if product.checks.size > 0
+    - if product.checks.any?
       .stamp.stamp-approve
         h2.stamp__content.is-title 合格
         time.stamp__content.is-created-at

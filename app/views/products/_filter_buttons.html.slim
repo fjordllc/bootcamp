@@ -1,10 +1,6 @@
 - selected_tab ||= 'unchecked'
 - current_target ||= params[:target]
-
-- if selected_tab == 'self_assigned'
-  - targets = %w[self_assigned_all self_assigned_no_replied]
-- else
-  - targets = %w[unchecked_all unchecked_no_replied]
+- targets = selected_tab == 'self_assigned' ? %w[self_assigned_all self_assigned_no_replied] : %w[unchecked_all unchecked_no_replied]
 
 nav.pill-nav
   ul.pill-nav__items
