@@ -5,4 +5,6 @@ class RegularEventParticipation < ApplicationRecord
   belongs_to :regular_event
 
   validates :user_id, uniqueness: { scope: :regular_event_id }
+
+  scope :for_holding_events, -> { joins(:regular_event).merge(RegularEvent.holding) }
 end
