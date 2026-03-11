@@ -26,7 +26,7 @@ header.page-header
                 = paginate @products
               .card-list.a-card
                 .card-list__items
-                  = render partial: 'products/product_list_item', collection: @products, as: :product, locals: { show_training_end_date: true }
+                  = render partial: 'products/product_list_item', collection: @products, as: :product, locals: { show_training_end_date: current_user.mentor? || current_user.admin? }
               - if @products.total_pages > 1
                 = paginate @products
               = render 'application/unconfirmed_links_open', label: unconfirmed_links_label(@target)

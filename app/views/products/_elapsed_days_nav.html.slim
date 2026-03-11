@@ -1,13 +1,15 @@
 ruby:
   product_deadline_day ||= Product::PRODUCT_DEADLINE
   products_grouped_by_elapsed_days ||= {}
-  sorted_groups = products_grouped_by_elapsed_days.sort_by { |days, _| -days }
+  all_days = [product_deadline_day + 2] + (product_deadline_day + 1).downto(0).to_a
 
 nav.page-nav.a-card
   ol.page-nav__items.elapsed-days
-    - sorted_groups.each do |elapsed_days, products|
-      - item_class = elapsed_days_nav_item_class(elapsed_days, product_deadline_day)
-      - active_class = products.any? ? 'is-active' : 'is-inactive'
+    - all_days.each do |elapsed_days|
+      ruby:
+        products = products_grouped_by_elapsed_days[elapsed_days] || []
+        item_class = elapsed_days_nav_item_class(elapsed_days, product_deadline_day)
+        active_class = products.any? ? 'is-active' : 'is-inactive'
       li.page-nav__item(class="#{item_class} #{active_class}")
         a.page-nav__item-link(href="#elapsed-#{elapsed_days}days")
           span.page-nav__item-link-inner

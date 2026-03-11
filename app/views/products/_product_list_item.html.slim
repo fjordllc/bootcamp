@@ -69,7 +69,7 @@ ruby:
               - if product.user.training_ends_on.present?
                 time.a-meta(datetime="#{product.user.training_ends_on}")
                   span.a-meta__label 研修終了日
-                  span.a-meta__value = product.user.training_ends_on
+                  span.a-meta__value = l(product.user.training_ends_on)
                   - remaining_days = (product.user.training_ends_on.to_date - Date.current).to_i
                   - if remaining_days.zero?
                     span.a-meta__value.is-danger （本日研修最終日）
