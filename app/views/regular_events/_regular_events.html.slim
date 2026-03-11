@@ -21,12 +21,10 @@ ul.card-list.a-card
             .card-list-item-title
               - if event.wip
                 .a-list-item-badge.is-wip
-                  span
-                    | WIP
+                  span WIP
               - elsif event.finished?
                 .a-list-item-badge.is-ended
-                  span
-                    | 終了
+                  span 終了
               h2.card-list-item-title__title(itemprop='name')
                 = link_to event, itemprop: 'url', class: 'card-list-item-title__link a-text-link' do
                   = event.title
