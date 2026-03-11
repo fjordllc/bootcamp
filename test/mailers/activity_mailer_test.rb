@@ -419,6 +419,41 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_match(/合格/, email.body.to_s)
   end
 
+  test 'trainee and advisers receive different wording in their acceptance emails' do
+    check = checks(:procuct75_check_komagata)
+
+    ActivityMailer.checked(
+      sender: check.sender,
+      receiver: check.receiver,
+      check:
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['kensyu@fjord.jp'], email.to
+    assert_equal '[FBC] kensyuさんの「aptの基礎を覚える」の提出物を合格にしました。', email.subject
+    assert_match(/「aptの基礎を覚える」の提出物/, email.body.to_s)
+    assert_no_match(/kensyuさんの「aptの基礎を覚える」の提出物/, email.body.to_s)
+    assert_match(/合格/, email.body.to_s)
+
+    assert_includes(check.receiver.company.advisers, users(:senpai))
+
+    ActivityMailer.checked(
+      sender: check.sender,
+      receiver: users(:senpai),
+      check:
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['senpai@fjord.jp'], email.to
+    assert_equal '[FBC] kensyuさんの「aptの基礎を覚える」の提出物を合格にしました。', email.subject
+    assert_match(/kensyuさんの「aptの基礎を覚える」の提出物/, email.body.to_s)
+    assert_match(/合格/, email.body.to_s)
+  end
+
   test 'checked with params' do
     check = checks(:procuct2_check_komagata)
 

@@ -49,3 +49,7 @@ procuct9_check_komagata:
 procuct67_check_long-id-mentor:
   user: long-id-mentor
   checkable: product67 (Product)
+
+procuct75_check_komagata:
+  user: komagata
+  checkable: product75 (Product)
