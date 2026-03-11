@@ -25,15 +25,3 @@ regular_event_participation6:
 regular_event_participation7:
   user: kimura
   regular_event: regular_event34
-
-regular_event_participation8:
-  user: regular_event_organizer_user1
-  regular_event: regular_event42
-
-regular_event_participation9:
-  user: regular_event_organizer_user1
-  regular_event: regular_event43
-
-regular_event_participation10:
-  user: regular_event_organizer_user1
-  regular_event: regular_event44
