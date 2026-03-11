@@ -119,10 +119,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     regular_event_participation.destroy
   end
 
-  def watched_by?(user)
-    watches.exists?(user_id: user.id)
-  end
-
   def assign_admin_as_organizer_if_none
     return if organizers.exists?
 
@@ -165,6 +161,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   def skip_event?(date)
     skip_date?(date) || skip_holiday?(date)
   end
+
+  private
 
   def skip_date?(date)
     regular_event_skip_dates.any? { |s| s.skip_on == date }
@@ -213,8 +211,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     Time.zone.parse([str_date, str_time].join(' '))
   end
 
-  private
-
   def validate_skip_on_uniqueness
     active_skip_ons = regular_event_skip_dates
                       .reject(&:marked_for_destruction?)
@@ -231,11 +227,12 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
             .reject(&:marked_for_destruction?)
             .map(&:skip_on)
             .compact
-    repeat_rules_wday = regular_event_repeat_rules.map(&:day_of_the_week)
-    invalid_dates = dates.reject { |d| repeat_rules_wday.include?(d.wday) }
-    return unless invalid_dates.any?
 
-    errors.add(:skip_on, 'は定期開催曜日のみ登録してください')
+    invalid_dates = dates.reject { |date| date_match_the_rules?(date, regular_event_repeat_rules) }
+
+    return if invalid_dates.empty?
+
+    errors.add(:skip_on, 'は定期開催ルールに一致している日付のみ登録してください')
   end
 
   def validate_skip_on_matches_holiday
