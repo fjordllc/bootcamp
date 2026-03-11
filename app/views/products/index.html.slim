@@ -13,6 +13,20 @@ header.page-header
 
   .page-body
     .container.is-md
-      = react_component('Products', title: title, selectedTab: 'all', isMentor: mentor_login?, isAdmin: admin_login?, currentUserId: current_user.id)
-      - if @products.present?
-        = render 'application/unconfirmed_links_open', label: unconfirmed_links_label(@target)
+      .page-content.is-products.loaded
+        .page-body__columns
+          .page-body__column.is-main
+            - if @products.empty?
+              .o-empty-message.loaded
+                .o-empty-message__icon
+                  i.fa-regular.fa-smile
+                p.o-empty-message__text 提出物はありません
+            - else
+              - if @products.total_pages > 1
+                = paginate @products
+              .card-list.a-card
+                .card-list__items
+                  = render partial: 'products/product_list_item', collection: @products, as: :product
+              - if @products.total_pages > 1
+                = paginate @products
+              = render 'application/unconfirmed_links_open', label: unconfirmed_links_label(@target)

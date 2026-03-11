@@ -12,4 +12,85 @@ module ProductsHelper
     else ''
     end
   end
+
+  def not_responded_sign?(product)
+    return true if product.comments.empty?
+
+    product.self_last_commented_at.present? &&
+      (product.mentor_last_commented_at.blank? ||
+       product.self_last_commented_at > product.mentor_last_commented_at)
+  end
+
+  def until_next_elapsed_days(product)
+    time = product.published_at || product.created_at
+    elapsed_times = (Time.current - time) / 1.day
+    hours = ((elapsed_times.ceil - elapsed_times) * 24).floor
+
+    if hours < 1
+      '1時間未満'
+    else
+      "約 #{hours} 時間"
+    end
+  end
+
+  def last_commented_time_label(product)
+    self_last = product.self_last_commented_at
+    mentor_last = product.mentor_last_commented_at
+
+    if self_last.present? && mentor_last.present?
+      if self_last > mentor_last
+        content_tag(:div, class: 'a-meta') do
+          "〜 #{l(self_last, format: :short)}（".html_safe +
+            content_tag(:strong, '提出者') +
+            '）'.html_safe
+        end
+      else
+        content_tag(:div, "〜 #{l(mentor_last, format: :short)}（メンター）", class: 'a-meta')
+      end
+    elsif self_last.present?
+      content_tag(:div, class: 'a-meta') do
+        "〜 #{l(self_last, format: :short)}（".html_safe +
+          content_tag(:strong, '提出者') +
+          '）'.html_safe
+      end
+    elsif mentor_last.present?
+      content_tag(:div, "〜 #{l(mentor_last, format: :short)}（メンター）", class: 'a-meta')
+    end
+  end
+
+  def elapsed_days_label(elapsed_days, product_deadline_day)
+    if elapsed_days.zero?
+      '今日提出'
+    elsif elapsed_days >= product_deadline_day + 2
+      "#{elapsed_days}日以上経過"
+    else
+      "#{elapsed_days}日経過"
+    end
+  end
+
+  def filter_button_class(target, current_target)
+    if current_target.blank?
+      (target.end_with?('_all') ? 'is-active' : '')
+    elsif target == current_target
+      'is-active'
+    else
+      ''
+    end
+  end
+
+  def filter_button_url(selected_tab, target)
+    params_hash = { target: target }
+    params_hash[:checker_id] = params[:checker_id] if params[:checker_id].present?
+
+    case selected_tab
+    when 'self_assigned'
+      products_self_assigned_index_path(params_hash)
+    else
+      products_unchecked_index_path(params_hash)
+    end
+  end
+
+  def filter_button_label(target)
+    target.end_with?('_no_replied') ? '未返信' : '全て'
+  end
 end

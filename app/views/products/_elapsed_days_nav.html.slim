@@ -1,0 +1,40 @@
+- product_deadline_day ||= Product::PRODUCT_DEADLINE
+- products_grouped_by_elapsed_days ||= {}
+
+nav.page-nav.a-card
+  ol.page-nav__items.elapsed-days
+    / 締切超過（6日以上経過）
+    - count = products_grouped_by_elapsed_days[product_deadline_day + 2]&.size || 0
+    li.page-nav__item.is-reply-deadline.border-b-0(class="#{count > 0 ? 'is-active' : 'is-inactive'}")
+      a.page-nav__item-link(href="#elapsed-#{product_deadline_day + 2}days")
+        span.page-nav__item-link-inner
+          | #{product_deadline_day + 2}日以上経過 (#{count})
+
+    / 締切翌日（5日経過）
+    - count = products_grouped_by_elapsed_days[product_deadline_day + 1]&.size || 0
+    li.page-nav__item.is-reply-alert.border-b-0(class="#{count > 0 ? 'is-active' : 'is-inactive'}")
+      a.page-nav__item-link(href="#elapsed-#{product_deadline_day + 1}days")
+        span.page-nav__item-link-inner
+          | #{product_deadline_day + 1}日経過 (#{count})
+
+    / 締切日（4日経過）
+    - count = products_grouped_by_elapsed_days[product_deadline_day]&.size || 0
+    li.page-nav__item.is-reply-warning.border-b-0(class="#{count > 0 ? 'is-active' : 'is-inactive'}")
+      a.page-nav__item-link(href="#elapsed-#{product_deadline_day}days")
+        span.page-nav__item-link-inner
+          | #{product_deadline_day}日経過 (#{count})
+
+    / 通常（1〜3日経過）
+    - (product_deadline_day - 1).downto(1).each do |days|
+      - count = products_grouped_by_elapsed_days[days]&.size || 0
+      li.page-nav__item(class="#{count > 0 ? 'is-active' : 'is-inactive'}")
+        a.page-nav__item-link(href="#elapsed-#{days}days")
+          span.page-nav__item-link-inner
+            | #{days}日経過 (#{count})
+
+    / 今日提出
+    - count = products_grouped_by_elapsed_days[0]&.size || 0
+    li.page-nav__item(class="#{count > 0 ? 'is-active' : 'is-inactive'}")
+      a.page-nav__item-link(href="#elapsed-0days")
+        span.page-nav__item-link-inner
+          | 今日提出 (#{count})
