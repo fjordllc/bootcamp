@@ -37,24 +37,16 @@ module ProductsHelper
     self_last = product.self_last_commented_at
     mentor_last = product.mentor_last_commented_at
 
-    if self_last.present? && mentor_last.present?
-      if self_last > mentor_last
-        content_tag(:div, class: 'a-meta') do
-          "〜 #{l(self_last, format: :short)}（".html_safe +
-            content_tag(:strong, '提出者') +
-            '）'.html_safe
-        end
-      else
-        content_tag(:div, "〜 #{l(mentor_last, format: :short)}（メンター）", class: 'a-meta')
-      end
-    elsif self_last.present?
-      content_tag(:div, class: 'a-meta') do
-        "〜 #{l(self_last, format: :short)}（".html_safe +
-          content_tag(:strong, '提出者') +
-          '）'.html_safe
-      end
+    if self_last.present? && (mentor_last.blank? || self_last > mentor_last)
+      submitter_comment_label(self_last)
     elsif mentor_last.present?
       content_tag(:div, "〜 #{l(mentor_last, format: :short)}（メンター）", class: 'a-meta')
+    end
+  end
+
+  def submitter_comment_label(time)
+    content_tag(:div, class: 'a-meta') do
+      safe_join(["〜 #{l(time, format: :short)}（", content_tag(:strong, '提出者'), '）'])
     end
   end
 
