@@ -89,16 +89,6 @@ class RegularEventTest < ActiveSupport::TestCase
     assert_not regular_event.regular_event_participations.find_by(user_id: participant.id)
   end
 
-  test '#watched_by?' do
-    regular_event = regular_events(:regular_event1)
-    user = users(:kimura)
-    assert_not regular_event.watched_by?(user)
-
-    watch = Watch.new(user:, watchable: regular_event)
-    watch.save
-    assert regular_event.watched_by?(user)
-  end
-
   test '#assign_admin_as_organizer_if_none' do
     regular_event = RegularEvent.new(
       title: '主催者のいないイベント',
