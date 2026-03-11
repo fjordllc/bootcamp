@@ -23,7 +23,6 @@ header.page-header
           .page-body__column.is-main
             - sorted_groups = @products_grouped_by_elapsed_days.sort_by { |days, _| -days }
             - sorted_groups.each do |elapsed_days, products|
-              - next if elapsed_days == 8
               .a-card
                 = render 'products/elapsed_days_header', elapsed_days: elapsed_days, products_count: products.size, product_deadline_day: @product_deadline_day
                 .card-list

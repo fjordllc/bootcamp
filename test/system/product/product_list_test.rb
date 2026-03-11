@@ -179,11 +179,13 @@ class Product::ProductListTest < ApplicationSystemTestCase
   test 'pagination works on unchecked page' do
     visit_with_auth '/products/unchecked', 'komagata'
 
-    if Product.unchecked.not_wip.count > 50
+    if Product.unhibernated_user_products.unchecked.not_wip.count > 50
       assert_selector '.pagination'
       within '.pagination' do
         assert_link '2'
       end
+    else
+      assert_no_selector '.pagination'
     end
   end
 
