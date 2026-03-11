@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get "training", to: "welcome#training", as: "training"
   get "faq", to: "welcome#faq", as: "faq"
   get "job_support", to: "welcome#job_support", as: "job_support"
+  get "team_development", to: "welcome#team_development", as: "team_development"
   get "tos", to: "welcome#tos", as: "tos"
   get "pp", to: "welcome#pp", as: "pp"
   get "law", to: "welcome#law", as: "law"
