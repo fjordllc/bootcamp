@@ -52,37 +52,10 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validates_associated :regular_event_repeat_rules
   validates_associated :regular_event_skip_dates
 
-  validate lambda {
-    # 曜日も表示できるように
-    param_skip_ons = regular_event_skip_dates.map(&:skip_on).compact
-    errors.add(:base, 'スキップ日に重複した日付が含まれています') if param_skip_ons.size != param_skip_ons.uniq.size
-  }
-
+  validate :validate_skip_on_uniqueness
   validate :validate_skip_on_matches_repeat_rules
   validate :validate_skip_on_matches_holiday
 
-  def validate_skip_on_matches_repeat_rules
-    dates = regular_event_skip_dates
-            .reject(&:marked_for_destruction?)
-            .map(&:skip_on)
-            .compact
-    # wdays = regular_event_skip_dates.map { |s| s.skip_on.wday }.uniq
-    repeat_rules_wday = regular_event_repeat_rules.map(&:day_of_the_week)
-    # 曜日も表示できるように
-    # errors.add(:skip_on, 'は定期開催曜日のみ登録してください') unless (wdays - repeat_rules_wday).empty?
-    invalid_dates = dates.reject { |d| repeat_rules_wday.include?(d.wday) }
-    return unless invalid_dates.any?
-
-    errors.add(:skip_on, 'は定期開催曜日のみ登録してください')
-  end
-
-  def validate_skip_on_matches_holiday
-    return if hold_national_holiday
-
-    dates = regular_event_skip_dates.reject(&:marked_for_destruction?).map { |s| s.skip_on }.filter { |d| HolidayJp.holiday?(d) }
-
-    errors.add(:skip_on, "は祝日のため登録できません (#{dates.join(',')})") if dates.any?
-  end
 
   scope :not_finished, -> { where(finished: false) }
 
@@ -235,5 +208,43 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     str_date = event_date.strftime('%F')
     str_time = event_time.strftime('%R')
     Time.zone.parse([str_date, str_time].join(' '))
+  end
+
+  private
+
+  def validate_skip_on_uniqueness
+    active_skip_ons = regular_event_skip_dates
+                        .reject(&:marked_for_destruction?)
+                        .map(&:skip_on)
+                        .compact
+
+    if active_skip_ons.size != active_skip_ons.uniq.size
+      errors.add(:base, 'スキップ日に重複した日付が含まれています')
+    end
+  end
+
+  def validate_skip_on_matches_repeat_rules
+    dates = regular_event_skip_dates
+            .reject(&:marked_for_destruction?)
+            .map(&:skip_on)
+            .compact
+    repeat_rules_wday = regular_event_repeat_rules.map(&:day_of_the_week)
+    invalid_dates = dates.reject { |d| repeat_rules_wday.include?(d.wday) }
+    return unless invalid_dates.any?
+
+    errors.add(:skip_on, 'は定期開催曜日のみ登録してください')
+  end
+
+  def validate_skip_on_matches_holiday
+    invalid_dates = regular_event_skip_dates
+                      .reject(&:marked_for_destruction?)
+                      .map(&:skip_on)
+                      .compact
+                      .select { |date| skip_holiday?(date) }
+
+    if invalid_dates.any?
+      formatted_dates = invalid_dates.map { |d| I18n.l(d, format: :short) }.join(', ')
+      errors.add(:base, "祝日（#{formatted_dates}）は自動的にお休みになるため登録は不要です")
+    end
   end
 end
