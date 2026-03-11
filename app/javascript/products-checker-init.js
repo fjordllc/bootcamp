@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initProductCheckers()
 })
 
-// Turbolinks/Turbo 対応
+// Turbolinks/Turbo support
 document.addEventListener('turbolinks:load', () => {
   initProductCheckers()
 })
@@ -15,7 +15,7 @@ document.addEventListener('turbo:load', () => {
 
 function initProductCheckers() {
   document.querySelectorAll('.card-list-item__assignee').forEach((el) => {
-    // 既に初期化済みの場合はスキップ
+    // Skip if already initialized
     if (el.dataset.initialized) return
 
     new ProductChecker(el).initProductChecker()
