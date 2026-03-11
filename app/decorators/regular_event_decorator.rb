@@ -24,12 +24,12 @@ module RegularEventDecorator
     to = from.next_year
 
     scheduled_dates = all_scheduled_dates(from:, to:)
-    skip_dates = regular_event_skip_dates.where(skip_on: from..to).pluck(:skip_on, :reason).to_h
+    skip_reasons = regular_event_skip_dates.where(skip_on: from..to).pluck(:skip_on, :reason).to_h
 
     scheduled_dates
       .filter_map do |date|
-        if (reason = skip_dates[date])
-          { date:, reason: reason.presence || '理由なし' }
+        if skip_reasons.key?(date)
+          { date:, reason: skip_reasons[date] }
         elsif skip_holiday?(date)
           { date:, reason: '祝日のため' }
         end

@@ -91,10 +91,9 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   scope :holding, -> { where(finished: false) }
-  scope :participated_by, ->(user) { where(id: all.filter { |e| e.participated_by?(user) }.map(&:id)) }
   scope :organizer_event, ->(user) { joins(:organizers).where(organizers: { user_id: user.id }) }
-  scope :scheduled_on, ->(date) { holding.preload(:regular_event_repeat_rules).filter { |event| event.scheduled_on?(date) } }
-  scope :scheduled_on_without_ended, ->(date) { holding.preload(:regular_event_repeat_rules).filter { |event| event.scheduled_on?(date) && !event.ended?(date) } }
+  scope :scheduled_on, ->(date) { holding.filter { |event| event.scheduled_on?(date) } }
+  scope :scheduled_on_without_ended, ->(date) { holding.eager_load(:participants).preload(:regular_event_repeat_rules, :regular_event_skip_dates).filter { |event| event.scheduled_on?(date) && !event.ended?(date) } }
 
   belongs_to :user
   has_many :organizers, dependent: :destroy
@@ -144,8 +143,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     regular_event_participation.destroy
   end
 
-  def participated_by?(user)
-    regular_event_participations.find_by(user_id: user.id).present?
+  def watched_by?(user)
+    watches.exists?(user_id: user.id)
   end
 
   def assign_admin_as_organizer_if_none
@@ -192,7 +191,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def skip_date?(date)
-    regular_event_skip_dates.exists?(skip_on: date)
+    regular_event_skip_dates.any? { |s| s.skip_on == date }
   end
 
   def skip_holiday?(date)
