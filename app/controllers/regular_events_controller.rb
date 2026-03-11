@@ -8,7 +8,7 @@ class RegularEventsController < ApplicationController
   end
 
   def show
-    @regular_event = RegularEvent.includes(:regular_event_repeat_rules, :regular_event_skip_dates).find(params[:id])
+    @regular_event = RegularEvent.preload(:regular_event_repeat_rules, :regular_event_skip_dates).find(params[:id])
     Footprint.find_or_create_for(@regular_event, current_user)
     @footprints = Footprint.fetch_for_resource(@regular_event)
     @comments = @regular_event.comments.order(:created_at)
