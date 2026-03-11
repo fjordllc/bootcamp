@@ -3,15 +3,15 @@
 require 'application_system_test_case'
 
 class Products::PaginationTest < ApplicationSystemTestCase
-  test 'click on the pager button' do
+  test 'click on the pager link' do
     login_user 'komagata', 'testtest'
     visit '/products'
     within first('.pagination') do
-      find('button', text: '2').click
+      click_link '2'
     end
 
-    all('.pagination .is-active').each do |active_button|
-      assert active_button.has_text? '2'
+    all('.pagination .current').each do |active_link|
+      assert active_link.has_text? '2'
     end
     assert_current_path('/products?page=2')
   end
@@ -19,8 +19,8 @@ class Products::PaginationTest < ApplicationSystemTestCase
   test 'specify the page number in the URL' do
     login_user 'komagata', 'testtest'
     visit '/products?page=2'
-    all('.pagination .is-active').each do |active_button|
-      assert active_button.has_text? '2'
+    all('.pagination .current').each do |active_link|
+      assert active_link.has_text? '2'
     end
     assert_current_path('/products?page=2')
   end
@@ -29,14 +29,14 @@ class Products::PaginationTest < ApplicationSystemTestCase
     login_user 'komagata', 'testtest'
     visit '/products?page=2'
     within first('.pagination') do
-      find('button', text: '1').click
+      click_link '1'
     end
-    assert_current_path('/products')
+    assert_current_path('/products?page=1')
     assert_text '「プログラミング入門 - Rubyを使って」をやるの提出物'
     page.go_back
     assert_current_path('/products?page=2')
-    all('.pagination .is-active').each do |active_button|
-      assert active_button.has_text? '2'
+    all('.pagination .current').each do |active_link|
+      assert active_link.has_text? '2'
     end
   end
 

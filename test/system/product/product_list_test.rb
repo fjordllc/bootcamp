@@ -42,7 +42,7 @@ class Product::ProductListTest < ApplicationSystemTestCase
     end
   end
 
-  test 'display not-responded sign when last comment is from submitter' do
+  test 'display submitter label when last comment is from submitter' do
     product = products(:product8)
     # Ensure product has comment from submitter
     Comment.create!(
@@ -55,7 +55,7 @@ class Product::ProductListTest < ApplicationSystemTestCase
     visit_with_auth '/products/unchecked', 'komagata'
     product_item = find("a[href='/products/#{product.id}']").ancestor('.card-list-item')
     within product_item do
-      assert_selector '.card-list-item__notresponded'
+      assert_selector '.card-list-item-meta__item', text: '提出者'
     end
   end
 
@@ -78,12 +78,14 @@ class Product::ProductListTest < ApplicationSystemTestCase
     within '.pill-nav' do
       assert_link '全て'
       assert_link '未返信'
-    end
 
-    click_link '未返信'
+      click_link '未返信'
+    end
     assert_current_path(%r{/products/unchecked\?target=unchecked_no_replied})
 
-    click_link '全て'
+    within '.pill-nav' do
+      click_link '全て'
+    end
     assert_current_path(%r{/products/unchecked\?target=unchecked_all})
   end
 
@@ -101,12 +103,14 @@ class Product::ProductListTest < ApplicationSystemTestCase
     within '.pill-nav' do
       assert_link '全て'
       assert_link '未返信'
-    end
 
-    click_link '未返信'
+      click_link '未返信'
+    end
     assert_current_path(%r{/products/self_assigned\?target=self_assigned_no_replied})
 
-    click_link '全て'
+    within '.pill-nav' do
+      click_link '全て'
+    end
     assert_current_path(%r{/products/self_assigned\?target=self_assigned_all})
   end
 
@@ -180,8 +184,7 @@ class Product::ProductListTest < ApplicationSystemTestCase
     visit_with_auth '/products/unchecked', 'komagata'
 
     if Product.unhibernated_user_products.unchecked.not_wip.count > 50
-      assert_selector '.pagination'
-      within '.pagination' do
+      within first('.pagination') do
         assert_link '2'
       end
     else
