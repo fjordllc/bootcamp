@@ -20,7 +20,7 @@ class Metadata
     {
       title: object.og.title,
       description: object.og.description,
-      images: object.og.image&.url || '',
+      images: object.og.image&.url,
       site_name: object.og.site_name || @uri.host,
       favicon: favicon(site_url, html),
       url: @url,
@@ -35,7 +35,7 @@ class Metadata
   def favicon(site_url, html)
     doc = Nokogiri::HTML(html)
     favicon_path = doc.at_css('link[rel="icon"], link[rel="shortcut icon"]')&.attr('href')
-    return '' if favicon_path.nil?
+    return unless favicon_path
 
     absolute_regexp = URI::DEFAULT_PARSER.make_regexp
 
