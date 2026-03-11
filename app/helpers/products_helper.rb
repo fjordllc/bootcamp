@@ -24,7 +24,8 @@ module ProductsHelper
   def until_next_elapsed_days(product)
     time = product.published_at || product.created_at
     elapsed_times = (Time.current - time) / 1.day
-    hours = ((elapsed_times.ceil - elapsed_times) * 24).floor
+    next_boundary = elapsed_times.floor + 1
+    hours = ((next_boundary - elapsed_times) * 24).floor
 
     if hours < 1
       '1時間未満'
