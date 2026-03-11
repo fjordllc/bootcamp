@@ -48,7 +48,7 @@
                 | 祝日も開催する場合はチェック
       .form-item
         label.a-form-label
-          | イベントをスキップしたい日
+          | イベントをスキップする日
         = cocooned_container do
           = f.fields_for :regular_event_skip_dates, regular_event.regular_event_skip_dates.from_today do |regular_event_skip_date|
             = render 'regular_event_skip_date_fields', f: regular_event_skip_date
