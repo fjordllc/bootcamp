@@ -13,7 +13,7 @@ class Products::UnassignedController < ApplicationController
                .list
                .ascending_by_date_of_publishing_and_id
 
-    @products = products.page(params[:page]).per(50)
+    @products = products
     @products_grouped_by_elapsed_days = group_and_merge_by_elapsed_days(products)
   end
 
