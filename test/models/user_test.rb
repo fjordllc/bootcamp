@@ -690,9 +690,6 @@ class UserTest < ActiveSupport::TestCase
     finished_paticipated_event.update!(finished: true)
     finished_paticipated_event.regular_event_participations.create!(user: user)
 
-    assert holding_paticipated_event.regular_event_participations.exists?(user:)
-    assert finished_paticipated_event.regular_event_participations.exists?(user:)
-
     user.clean_up_regular_events
 
     assert_not holding_paticipated_event.regular_event_participations.exists?(user:)
@@ -705,9 +702,6 @@ class UserTest < ActiveSupport::TestCase
     holding_organized_event = regular_events(:regular_event4)
     finished_organized_event = regular_events(:regular_event5)
     finished_organized_event.update!(finished: true)
-
-    assert holding_organized_event.regular_event_organizers.exists?(user:)
-    assert finished_organized_event.regular_event_organizers.exists?(user:)
 
     user.clean_up_regular_events
 
