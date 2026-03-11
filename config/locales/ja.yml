@@ -145,7 +145,6 @@ ja:
         times_url: 分報URL
       hibernation:
         reason: 休会の理由
-        period: 休会期間
         scheduled_return_on: 復帰予定日
         returned_at: 復帰日時
       course:
