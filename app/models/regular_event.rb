@@ -56,7 +56,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validate :validate_skip_on_matches_repeat_rules
   validate :validate_skip_on_matches_holiday
 
-
   scope :not_finished, -> { where(finished: false) }
 
   with_options if: -> { start_at && end_at } do
@@ -66,7 +65,11 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   scope :holding, -> { where(finished: false) }
   scope :organizer_event, ->(user) { joins(:organizers).where(organizers: { user_id: user.id }) }
   scope :scheduled_on, ->(date) { holding.filter { |event| event.scheduled_on?(date) } }
-  scope :scheduled_on_without_ended, ->(date) { holding.eager_load(:participants).preload(:regular_event_repeat_rules, :regular_event_skip_dates).filter { |event| event.scheduled_on?(date) && !event.ended?(date) } }
+  scope :scheduled_on_without_ended, lambda { |date|
+    holding.eager_load(:participants).preload(:regular_event_repeat_rules, :regular_event_skip_dates).filter do |event|
+      event.scheduled_on?(date) && !event.ended?(date)
+    end
+  }
 
   belongs_to :user
   has_many :organizers, dependent: :destroy
@@ -214,13 +217,13 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def validate_skip_on_uniqueness
     active_skip_ons = regular_event_skip_dates
-                        .reject(&:marked_for_destruction?)
-                        .map(&:skip_on)
-                        .compact
+                      .reject(&:marked_for_destruction?)
+                      .map(&:skip_on)
+                      .compact
 
-    if active_skip_ons.size != active_skip_ons.uniq.size
-      errors.add(:base, 'スキップ日に重複した日付が含まれています')
-    end
+    return unless active_skip_ons.size != active_skip_ons.uniq.size
+
+    errors.add(:base, 'スキップ日に重複した日付が含まれています')
   end
 
   def validate_skip_on_matches_repeat_rules
@@ -237,14 +240,14 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def validate_skip_on_matches_holiday
     invalid_dates = regular_event_skip_dates
-                      .reject(&:marked_for_destruction?)
-                      .map(&:skip_on)
-                      .compact
-                      .select { |date| skip_holiday?(date) }
+                    .reject(&:marked_for_destruction?)
+                    .map(&:skip_on)
+                    .compact
+                    .select { |date| skip_holiday?(date) }
 
-    if invalid_dates.any?
-      formatted_dates = invalid_dates.map { |d| I18n.l(d, format: :short) }.join(', ')
-      errors.add(:base, "祝日（#{formatted_dates}）は自動的にお休みになるため登録は不要です")
-    end
+    return unless invalid_dates.any?
+
+    formatted_dates = invalid_dates.map { |d| I18n.l(d, format: :short) }.join(', ')
+    errors.add(:base, "祝日（#{formatted_dates}）は自動的にお休みになるため登録は不要です")
   end
 end
