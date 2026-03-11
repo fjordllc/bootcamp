@@ -1,5 +1,6 @@
 - show_training_end_date ||= false
 - elapsed_days ||= nil
+- product_deadline_day ||= Product::PRODUCT_DEADLINE
 - is_unassigned_page = request.path == '/products/unassigned'
 - is_dashboard_page = request.path == '/'
 
@@ -42,7 +43,7 @@
                     time.a-meta(datetime="#{product.updated_at.to_datetime}")
                       span.a-meta__label 更新
                       span.a-meta__value = l product.updated_at
-                  - if (elapsed_days != 7 && is_unassigned_page) || is_dashboard_page
+                  - if (elapsed_days != product_deadline_day + 3 && is_unassigned_page) || is_dashboard_page
                     .card-list-item-meta__item
                       .a-meta
                         | 次の経過日数まで #{until_next_elapsed_days(product)}
