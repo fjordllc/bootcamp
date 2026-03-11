@@ -22,7 +22,7 @@ class Metadata
       description: object.og.description,
       images: object.og.image&.url,
       site_name: object.og.site_name || @uri.host,
-      favicon: favicon(site_url, html),
+      favicon: favicon(html),
       url: @url,
       site_url: site_url
     }
@@ -32,7 +32,7 @@ class Metadata
     "#{@uri.scheme}://#{@uri.host}"
   end
 
-  def favicon(site_url, html)
+  def favicon(html)
     doc = Nokogiri::HTML(html)
     favicon_path = doc.at_css('link[rel="icon"], link[rel="shortcut icon"]')&.attr('href')
     return unless favicon_path
@@ -43,7 +43,7 @@ class Metadata
     if absolute_regexp.match?(favicon_path)
       favicon_path
     else
-      URI.join(site_url, favicon_path).to_s
+      URI.join(@url, favicon_path).to_s
     end
   end
 end
