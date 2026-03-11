@@ -125,6 +125,37 @@ steps:
       - '--set-env-vars=$_ENVS'
       - >-
         --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID,$_LABELS
+  - id: UpdateLinkCheckerJob
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: bash
+    waitFor:
+      - Deploy
+    args:
+      - '-c'
+      - |
+        if gcloud run jobs describe link-checker --region=asia-northeast1 --quiet 2>/dev/null; then
+          gcloud run jobs update link-checker \
+            --region=asia-northeast1 \
+            --image=asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA \
+            --args="bin/rails,link_checker:run" \
+            --set-cloudsql-instances=$_CLOUD_SQL_HOST \
+            --memory=2G \
+            --cpu=1 \
+            --task-timeout=30m \
+            --max-retries=1 \
+            --set-env-vars="RAILS_ENV=production,RAILS_MASTER_KEY=$_RAILS_MASTER_KEY,APP_HOST_NAME=$_APP_HOST_NAME,DB_HOST=/cloudsql/$_CLOUD_SQL_HOST,DB_NAME=$_DB_NAME,DB_PASS=$_DB_PASS,DB_USER=$_DB_USER,DISCORD_BUG_WEBHOOK_URL=$_DISCORD_BUG_WEBHOOK_URL,RAILS_LOG_TO_STDOUT=true"
+        else
+          gcloud run jobs create link-checker \
+            --region=asia-northeast1 \
+            --image=asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA \
+            --args="bin/rails,link_checker:run" \
+            --set-cloudsql-instances=$_CLOUD_SQL_HOST \
+            --memory=2G \
+            --cpu=1 \
+            --task-timeout=30m \
+            --max-retries=1 \
+            --set-env-vars="RAILS_ENV=production,RAILS_MASTER_KEY=$_RAILS_MASTER_KEY,APP_HOST_NAME=$_APP_HOST_NAME,DB_HOST=/cloudsql/$_CLOUD_SQL_HOST,DB_NAME=$_DB_NAME,DB_PASS=$_DB_PASS,DB_USER=$_DB_USER,DISCORD_BUG_WEBHOOK_URL=$_DISCORD_BUG_WEBHOOK_URL,RAILS_LOG_TO_STDOUT=true"
+        fi
   - id: Notify
     name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
     args:
