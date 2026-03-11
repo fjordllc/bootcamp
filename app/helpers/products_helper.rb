@@ -86,4 +86,16 @@ module ProductsHelper
   def filter_button_label(target)
     target.end_with?('_no_replied') ? '未返信' : '全て'
   end
+
+  def elapsed_days_nav_item_class(elapsed_days, product_deadline_day)
+    if elapsed_days >= product_deadline_day + 2
+      'is-reply-deadline border-b-0'
+    elsif elapsed_days == product_deadline_day + 1
+      'is-reply-alert border-b-0'
+    elsif elapsed_days == product_deadline_day
+      'is-reply-warning border-b-0'
+    else
+      ''
+    end
+  end
 end
