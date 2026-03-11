@@ -291,9 +291,13 @@ ja:
         open_end_at: 募集終了日時
         organizer: 主催者
         regular_event_repeat_rules: 定期開催日
+        regular_event_skip_dates: イベントスキップ日
       regular_event_repeat_rule:
         frequency: 開催頻度
         day_of_the_week: 曜日
+      regular_event_skip_date:
+        skip_on: スキップする日
+        reason: 理由
       authored_book:
         title: タイトル
         url: URL

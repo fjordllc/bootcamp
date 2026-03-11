@@ -26,3 +26,11 @@
             | イベント編集中のため次回開催日は未定です
           - else
             = regular_event.next_holding_date
+        - if regular_event.regular_event_skip_dates.present?
+          .event-meta__item
+            dt.event-meta__item-label
+              | 今後のイベント休み予定
+            dd.event-meta__item-value
+              - @regular_event.regular_event_skip_dates.each do |skip_date|
+                = "#{l(skip_date.skip_on, format: :long)} #{": " + skip_date.reason if skip_date.reason.present?}"
+                br
