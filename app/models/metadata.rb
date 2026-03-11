@@ -17,18 +17,15 @@ class Metadata
     object = OpenGraphReader.parse(html)
     return nil unless object
 
-    metadata_keys = %i[site_name site_url favicon url title description images]
-    metadata_keys.map do |metadata_key|
-      content = case metadata_key
-                when :site_url then site_url
-                when :url then @url
-                when :favicon then favicon(site_url, html)
-                when :images then object.og.image&.url || ''
-                when :site_name then object.og.site_name || @uri.host
-                else object.og.public_send(metadata_key) || ''
-                end
-      [metadata_key, content]
-    end.to_h
+    {
+      title: object.og.title,
+      description: object.og.description,
+      images: object.og.image&.url || '',
+      site_name: object.og.site_name || @uri.host,
+      favicon: favicon(site_url, html),
+      url: @url,
+      site_url: site_url
+    }
   end
 
   def site_url
