@@ -19,9 +19,9 @@ hr.a-border
           - if @holding_regular_events.any?
             .form-item
               = render 'shared/regular_events_warning',
-              events: @holding_regular_events,
-              case_text: '研修を終了される',
-              action_text: '研修終了'
+                events: @holding_regular_events,
+                case_text: '研修を終了される',
+                action_text: '研修終了'
 
           .form-item
             = f.label :satisfaction, '全体の満足度を教えてください', class: 'a-form-label is-required'

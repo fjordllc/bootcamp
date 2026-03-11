@@ -73,9 +73,9 @@ hr.a-border
           - if @holding_regular_events.any?
             .form-item
               = render 'shared/regular_events_warning',
-              events: @holding_regular_events,
-              case_text: '休会をお考えの',
-              action_text: '休会'
+                events: @holding_regular_events,
+                case_text: '休会をお考えの',
+                action_text: '休会'
 
           .form-item
             label.a-form-label.is-required
