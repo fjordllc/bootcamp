@@ -119,8 +119,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
       assert_text 'test'
     end
     visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'komagata'
-    assert_no_text product.practice.title
-    assert_no_selector '.card-list-item-meta__item', text: 'メンター'
+    assert_no_selector "a[href='/products/#{product.id}']"
   end
 
   test 'display no-replied products if click on unchecked-all-button' do
