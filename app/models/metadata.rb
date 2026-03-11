@@ -15,7 +15,7 @@ class Metadata
 
   def parse(html)
     object = OpenGraphReader.parse(html)
-    return nil unless object
+    return unless object
 
     {
       title: object.og.title,
