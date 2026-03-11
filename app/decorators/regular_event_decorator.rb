@@ -19,7 +19,7 @@ module RegularEventDecorator
     end
   end
 
-  def upcoming_closed_days(today: Time.zone.today)
+  def upcoming_skip_event_dates(today: Time.zone.today)
     from = today
     to = from.next_year
 
