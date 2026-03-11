@@ -63,24 +63,25 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def validate_skip_on_matches_repeat_rules
     dates = regular_event_skip_dates
-          .reject(&:marked_for_destruction?)
-          .map(&:skip_on)
-          .compact
-    #wdays = regular_event_skip_dates.map { |s| s.skip_on.wday }.uniq
+            .reject(&:marked_for_destruction?)
+            .map(&:skip_on)
+            .compact
+    # wdays = regular_event_skip_dates.map { |s| s.skip_on.wday }.uniq
     repeat_rules_wday = regular_event_repeat_rules.map(&:day_of_the_week)
     # 曜日も表示できるように
-    #errors.add(:skip_on, 'は定期開催曜日のみ登録してください') unless (wdays - repeat_rules_wday).empty?
+    # errors.add(:skip_on, 'は定期開催曜日のみ登録してください') unless (wdays - repeat_rules_wday).empty?
     invalid_dates = dates.reject { |d| repeat_rules_wday.include?(d.wday) }
-    if invalid_dates.any?
-      errors.add(:skip_on, 'は定期開催曜日のみ登録してください')
-    end
+    return unless invalid_dates.any?
+
+    errors.add(:skip_on, 'は定期開催曜日のみ登録してください')
   end
 
   def validate_skip_on_matches_holiday
     return if hold_national_holiday
-    dates = regular_event_skip_dates.reject(&:marked_for_destruction?).map{|s|s.skip_on}.filter{|d| HolidayJp.holiday?(d)}
 
-    errors.add(:skip_on, "は祝日のため登録できません (#{dates.join(",")})") if dates.any?
+    dates = regular_event_skip_dates.reject(&:marked_for_destruction?).map { |s| s.skip_on }.filter { |d| HolidayJp.holiday?(d) }
+
+    errors.add(:skip_on, "は祝日のため登録できません (#{dates.join(',')})") if dates.any?
   end
 
   scope :not_finished, -> { where(finished: false) }
@@ -92,8 +93,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   scope :holding, -> { where(finished: false) }
   scope :participated_by, ->(user) { where(id: all.filter { |e| e.participated_by?(user) }.map(&:id)) }
   scope :organizer_event, ->(user) { joins(:organizers).where(organizers: { user_id: user.id }) }
-  scope :scheduled_on, ->(date) { holding.filter { |event| event.scheduled_on?(date) } }
-  scope :scheduled_on_without_ended, ->(date) { holding.filter { |event| event.scheduled_on?(date) && !event.ended?(date) } }
+  scope :scheduled_on, ->(date) { holding.preload(:regular_event_repeat_rules).filter { |event| event.scheduled_on?(date) } }
+  scope :scheduled_on_without_ended, ->(date) { holding.preload(:regular_event_repeat_rules).filter { |event| event.scheduled_on?(date) && !event.ended?(date) } }
 
   belongs_to :user
   has_many :organizers, dependent: :destroy
@@ -101,8 +102,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_many :regular_event_repeat_rules, dependent: :destroy
   accepts_nested_attributes_for :regular_event_repeat_rules, allow_destroy: true
   has_many :regular_event_skip_dates, dependent: :destroy
-  #accepts_nested_attributes_for :regular_event_skip_dates, allow_destroy: true, reject_if: :all_blank
-  accepts_nested_attributes_for :regular_event_skip_dates, allow_destroy: true, reject_if: lambda { |attributes| attributes["skip_on"].blank? }
+  # accepts_nested_attributes_for :regular_event_skip_dates, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :regular_event_skip_dates, allow_destroy: true, reject_if: ->(attributes) { attributes['skip_on'].blank? }
   has_many :regular_event_participations, dependent: :destroy
   has_many :participants,
            through: :regular_event_participations,
@@ -122,7 +123,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def scheduled_on?(date)
-    all_scheduled_dates.include?(date)
+    date_match_the_rules?(date, regular_event_repeat_rules)
   end
 
   def ended?(date)
@@ -131,12 +132,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def next_event_date
-    event_dates =
-      hold_national_holiday ? upcoming_scheduled_dates : upcoming_scheduled_dates.reject { |d| HolidayJp.holiday?(d) }
-
-    skip_ons = regular_event_skip_dates.map(&:skip_on)
-    event_dates_reject_skip_date = event_dates.reject { |d| skip_ons.include?(d) }
-    event_dates_reject_skip_date.min
+    upcoming_scheduled_dates.reject { |date| skip_event?(date) }.min
   end
 
   def organizers
@@ -166,12 +162,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     (from..to).filter { |d| date_match_the_rules?(d, regular_event_repeat_rules) }
   end
 
-  def all_scheduled_holidays(holidays: holidays)
-    return [] if holidays.blank?
-
-    holidays.filter { |d| date_match_the_rules?(d.date, regular_event_repeat_rules) }
-  end
-
   def transform_for_subscription(event_date)
     regular_event = dup
 
@@ -197,7 +187,17 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     wants_announcement? && !wip?
   end
 
-  private
+  def skip_event?(date)
+    skip_date?(date) || skip_holiday?(date)
+  end
+
+  def skip_date?(date)
+    regular_event_skip_dates.exists?(skip_on: date)
+  end
+
+  def skip_holiday?(date)
+    HolidayJp.holiday?(date) && !hold_national_holiday
+  end
 
   def end_at_be_greater_than_start_at
     diff = end_at - start_at
