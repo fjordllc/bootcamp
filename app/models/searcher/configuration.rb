@@ -74,6 +74,12 @@ class Searcher
         columns: %i[title description],
         includes: [:user],
         label: '定期イベント'
+      },
+      pair_work: {
+        model: PairWork,
+        columns: %i[title description],
+        includes: [:user],
+        label: 'ペアワーク'
       }
     }.freeze
 

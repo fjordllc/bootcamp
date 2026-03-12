@@ -19,6 +19,7 @@ class Searcher::ConfigurationTest < ActiveSupport::TestCase
     assert_includes configs.keys, :comment
     assert_includes configs.keys, :event
     assert_includes configs.keys, :regular_event
+    assert_includes configs.keys, :pair_work
   end
 
   test 'get returns specific configuration' do
@@ -50,7 +51,7 @@ class Searcher::ConfigurationTest < ActiveSupport::TestCase
   test 'available_types returns all configuration keys' do
     types = Searcher::Configuration.available_types
 
-    expected_types = %i[practice user report product announcement page question answer correct_answer comment event regular_event]
+    expected_types = %i[practice user report product announcement page question answer correct_answer comment event regular_event pair_work]
     assert_equal expected_types.sort, types.sort
   end
 
@@ -74,6 +75,7 @@ class Searcher::ConfigurationTest < ActiveSupport::TestCase
     assert_includes options, ['コメント', :comment]
     assert_includes options, ['イベント', :event]
     assert_includes options, ['定期イベント', :regular_event]
+    assert_includes options, ['ペアワーク', :pair_work]
   end
 
   test 'configurations have required keys' do

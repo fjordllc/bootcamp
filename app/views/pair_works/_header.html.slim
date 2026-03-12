@@ -1,0 +1,57 @@
+header.page-content-header
+  .page-content-header__start
+    .page-content-header__user
+      = render 'users/icon', user: pair_work.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon-image'
+      - if pair_work.solved?
+        .pair-badge
+          .pair-badge__label
+            | ペア
+            br
+            | 確定
+  .page-content-header__end
+    .page-content-header__row
+      .page-content-header__before-title
+        - if pair_work.practice_id.present?
+          = link_to pair_work.practice.title, practice_path(pair_work.practice_id), class: 'a-category-link'
+      h1.page-content-header__title class=(pair_work.wip ? 'is-wip' : '')
+        - if pair_work.wip?
+          span.a-title-label.is-wip
+            | WIP
+        - elsif pair_work.solved?
+          span.a-title-label.is-solved.is-success.js-solved-status
+            | ペア確定
+        - else
+          span.a-title-label.is-solved.is-danger.js-solved-status
+            | 募集中
+        | #{pair_work.title}
+
+    .page-content-header__row
+      .page-content-header-metas
+        .page-content-header-metas__start
+          - if pair_work.wip?
+            .page-content-header-metas__meta
+              .a-meta
+                span.a-meta__value
+                  | ペアワーク作成中
+          .page-content-header-metas__meta
+            = link_to pair_work.user.long_name, user_path(pair_work.user), class: 'a-user-name'
+          - if !pair_work.wip?
+            .page-content-header-metas__meta
+              .a-meta
+                span.a-meta__label
+                  | 公開
+                span.a-meta__value
+                  time datetime=pair_work.published_at.iso8601
+                    = l pair_work.published_at
+            .page-content-header-metas__meta
+              .a-meta
+                span.a-meta__label
+                  | 更新
+                span.a-meta__value
+                  time datetime=pair_work.updated_at.iso8601
+                    = l pair_work.updated_at
+
+    .page-content-header__row
+      .page-content-header-actions
+        .page-content-header-actions__start
+          = render 'watches/watch_toggle', type: pair_work.class.to_s, id: pair_work.id, watch: pair_work.watch_by(current_user)

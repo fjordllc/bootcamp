@@ -252,7 +252,7 @@ class ActivityNotifier < ApplicationNotifier # rubocop:todo Metrics/ClassLength
     receiver = params[:receiver]
 
     notification(
-      body: "#{check.sender.login_name}さんが#{check.checkable.title}を確認しました。",
+      body: "#{check.sender.login_name}さんが#{check.checkable.title}を#{check.action_label}しました。",
       kind: :checked,
       receiver:,
       sender: check.sender,
@@ -350,6 +350,39 @@ class ActivityNotifier < ApplicationNotifier # rubocop:todo Metrics/ClassLength
       receiver:,
       sender: answer.receiver,
       link: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
+      read: false
+    )
+  end
+
+  def came_pair_work(params = {})
+    params.merge!(@params)
+    pair_work = params[:pair_work]
+    receiver = params[:receiver]
+
+    notification(
+      body: "#{pair_work.user.login_name}さんからペアワーク依頼「#{pair_work.title}」が投稿されました。",
+      kind: :came_pair_work,
+      receiver:,
+      sender: pair_work.user,
+      link: Rails.application.routes.url_helpers.polymorphic_path(pair_work),
+      read: false
+    )
+  end
+
+  def matching_pair_work(params = {})
+    params.merge!(@params)
+    pair_work = params[:pair_work]
+    sender = pair_work.user
+    receiver = params[:receiver]
+    matched_user = pair_work.buddy
+    user_name = receiver == matched_user ? 'あなた' : "#{matched_user.login_name}さん"
+
+    notification(
+      body: "#{sender.login_name}さんのペアワーク【 #{pair_work.title} 】のペアが#{user_name}に決定しました。",
+      kind: :matching_pair_work,
+      receiver:,
+      sender:,
+      link: Rails.application.routes.url_helpers.polymorphic_path(pair_work),
       read: false
     )
   end

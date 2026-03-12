@@ -1,4 +1,4 @@
-.form-item
+.form-item#activity-schedule
   = f.label :learning_time_frames, '主な活動予定時間', class: 'a-form-label'
   .a-form-help
     p
@@ -11,7 +11,7 @@
       thead
         tr
           th
-          - day_of_the_week.each do |day|
+          - I18n.t('date.abbr_day_names').each do |day|
             th = day
       tbody#learning_time_frame
         = hidden_field_tag 'user[learning_time_frame_ids][]', ''

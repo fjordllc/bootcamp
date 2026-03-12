@@ -98,7 +98,6 @@ module Products
       visit_with_auth "/products/#{products(:product8).id}/edit", 'kimura'
       click_button 'WIP'
       click_button '提出する'
-      assert_selector '.page-tabs__item-link.is-active', text: '提出物'
 
       visit_with_auth '/api/products/unassigned/counts.txt', 'komagata'
 

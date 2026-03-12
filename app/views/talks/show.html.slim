@@ -35,8 +35,7 @@
                   .page-content-header-actions
                     .page-content-header-actions__start
                       .page-content-header-actions__action
-                        button(type="button" id="bookmark-button" data-bookmarkable-id="#{@talk.id}" data-bookmarkable-type="Talk" class="a-bookmark-button a-button is-sm is-block is-inactive is-muted" disabled aria-pressed="false" aria-busy="true")
-                          | Bookmark
+                        = render 'bookmarks/button', bookmarkable: @talk
               .page-content-header__row
                 .page-content-header__description
                   .a-long-text.is-md
@@ -62,7 +61,7 @@
                             = member.login_name
         = render 'comments/comments', commentable: @talk, commentable_type: 'Talk'
         - if current_user.admin?
-          = render(ActionCompletedButtonComponent.new(is_initial_action_completed: @talk.action_completed, commentable_id: @talk.id))
+          = render(ActionCompletedButtonComponent.new(is_initial_action_completed: @talk.action_completed, update_path: api_talk_path(@talk), model_name: 'talk'))
 
       - if current_user.admin?
         .col-xl-5.col-xs-12
