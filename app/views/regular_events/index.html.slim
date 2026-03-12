@@ -23,5 +23,12 @@
   .page-body
     .page-body__inner.has-side-nav
       .container.is-md
-        = react_component 'RegularEvents'
+        - if @regular_events.empty?
+          .o-empty-message
+            .o-empty-message__icon
+              i.fa-regular.fa-sad-tear
+            p.o-empty-message__text
+              | 登録されている定期イベントはありません。
+        - else
+          = render 'regular_events/regular_events'
       = render 'events/upcoming_events_groups', upcoming_events_groups: @upcoming_events_groups
