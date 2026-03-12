@@ -56,6 +56,21 @@ class PracticeTest < ActiveSupport::TestCase
     assert_equal category, practice.category(course)
   end
 
+  test '#grant_course?' do
+    assert_equal \
+      practices(:copy_practice1).grant_course?, true
+    assert_equal \
+      practices(:practice1).grant_course?, false
+  end
+
+  test '#own_and_source_practice_pages_length' do
+    assert_equal 2, practices(:copy_practice1).own_and_source_practice_pages_length
+  end
+
+  test '#own_and_source_practice_pages_length can return when source practice has no pages' do
+    assert_equal 1, practices(:copy_practice3).own_and_source_practice_pages_length
+  end
+
   test 'source_id_cannot_be_self validation prevents self-reference' do
     practice = practices(:practice1)
     practice.source_id = practice.id
