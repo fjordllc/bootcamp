@@ -460,3 +460,8 @@ product74:
   created_at: <%= 5.day.ago + 8.hours %>
   updated_at: <%= 5.day.ago + 8.hours %>
   published_at: <%= 5.day.ago + 8.hours %>
+
+product75:
+  practice: practice6
+  user: kensyu
+  body: 研修の提出物です

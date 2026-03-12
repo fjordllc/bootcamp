@@ -78,6 +78,27 @@ class Notification::ProductsTest < NotificationSystemTestCase
                                  text: "#{checker.login_name}さんが「#{practices(:practice47).title}」の提出物を合格にしました。")
   end
 
+  test 'trainee and advisers receive different wording in acceptance notification' do
+    checker = users(:komagata)
+    practice = practices(:practice47)
+    user = users(:kensyu)
+    product = Product.create!(
+      body: 'test',
+      user:,
+      practice:,
+      checker_id: checker.id
+    )
+    visit_with_auth "/products/#{product.id}", 'komagata'
+
+    click_button '提出物を合格にする'
+    assert_text '提出物を合格にしました。'
+
+    assert_user_has_notification(user: users(:kensyu), kind: Notification.kinds[:checked],
+                                 text: "#{checker.login_name}さんが「#{practices(:practice47).title}」の提出物を合格にしました。")
+    assert_user_has_notification(user: users(:senpai), kind: Notification.kinds[:checked],
+                                 text: "#{checker.login_name}さんが#{user.login_name}さんの「#{practices(:practice47).title}」の提出物を合格にしました。")
+  end
+
   test 'send the notification of practices mentor is watching' do
     practice = practices(:practice5)
 
