@@ -390,3 +390,22 @@ practice63:
   goal: "goal..."
   include_progress: true
   memo: "memo for mentors..."
+
+practice64:
+  title: "給付金コースのプラクティス"
+  description: "Railsコースのプラクティスをコピーしたプラクティスです。"
+  source_id: <%= ActiveRecord::FixtureSet.identify(:practice3) %> # PracticeProgressMigratorTestで使用しないpracticeを指定
+
+practice65:
+  title: "日報が存在しない給付金コースのプラクティス"
+  description: "Railsコースのプラクティスをコピーしたプラクティスです。"
+  source_id: <%= ActiveRecord::FixtureSet.identify(:practice4) %> # PracticeProgressMigratorTestで使用しないpracticeを指定
+
+practice66:
+  title: "日報が存在しないプラクティス"
+  description: "日報が存在しないプラクティスです。"
+
+practice67:
+  title: "source_idを持っている日報が存在しないプラクティス"
+  description: "source_idを持っている日報が存在しないプラクティスです。"
+  source_id: <%= ActiveRecord::FixtureSet.identify(:practice66) %>

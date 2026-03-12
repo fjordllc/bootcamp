@@ -335,3 +335,8 @@ discord_profile_new-mentor:
   user: new-mentor
   account_name: new-mentor
   times_url:
+
+discord_profile_grant-course:
+  user: grant-course
+  account_name: grant-course
+  times_url:
