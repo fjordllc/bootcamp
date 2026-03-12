@@ -58,6 +58,8 @@
 @media (pointer: fine) {
   .reactions__item:hover .reactions__item-login-names {
     display: block;
+    position: absolute;
+    z-index: 2;
   }
 }
 .reactions__dropdown .reactions__item {
