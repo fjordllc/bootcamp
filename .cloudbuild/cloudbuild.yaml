@@ -78,9 +78,12 @@ steps:
       - $_CLOUD_SQL_HOST
       - '--memory'
       - $_MEMORY
+      - '--concurrency'
+      - '5'
       - '--timeout'
       - '10m'
       - '--set-env-vars=LANG=ja_JP.UTF-8'
+      - '--set-env-vars=RAILS_MAX_THREADS=5'
       - '--set-env-vars=TZ=Asia/Tokyo'
       - '--set-env-vars=RAILS_SERVE_STATIC_FILES=true'
       - '--set-env-vars=RAILS_LOG_TO_STDOUT=true'

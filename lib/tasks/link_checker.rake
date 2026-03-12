@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 namespace :link_checker do
-  desc 'リンク切れチェックを実行し、結果をDiscordに通知する'
+  desc 'Run broken link checker and notify results to Discord'
   task run: :environment do
     Rails.logger.info '[LinkChecker] リンクチェック開始'
 
