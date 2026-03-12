@@ -180,36 +180,31 @@ module Users
       visit_with_auth user_path(returned_user), 'kensyuowata'
       assert_selector '.page-main-header__title', text: 'プロフィール'
       assert_selector '.page-content-header__title', text: 'hukki'
-      assert_no_selector '.card-header__title', text: '休会履歴（1回）'
-      assert_no_selector '.user-metas__title', text: '1回目の休会'
+      assert_no_selector '.card-header__title', text: /^休会履歴/
 
       # 研修中
       visit_with_auth user_path(returned_user), 'kensyu'
       assert_selector '.page-main-header__title', text: 'プロフィール'
       assert_selector '.page-content-header__title', text: 'hukki'
-      assert_no_selector '.card-header__title', text: '休会履歴（1回）'
-      assert_no_selector '.user-metas__title', text: '1回目の休会'
+      assert_no_selector '.card-header__title', text: /^休会履歴/
 
       # アドバイザー
       visit_with_auth user_path(returned_user), 'advijirou'
       assert_selector '.page-main-header__title', text: 'プロフィール'
       assert_selector '.page-content-header__title', text: 'hukki'
-      assert_no_selector '.card-header__title', text: '休会履歴（1回）'
-      assert_no_selector '.user-metas__title', text: '1回目の休会'
+      assert_no_selector '.card-header__title', text: /^休会履歴/
 
       # 一般受講生
       visit_with_auth user_path(returned_user), 'hatsuno'
       assert_selector '.page-main-header__title', text: 'プロフィール'
       assert_selector '.page-content-header__title', text: 'hukki'
-      assert_no_selector '.card-header__title', text: '休会履歴（1回）'
-      assert_no_selector '.user-metas__title', text: '1回目の休会'
+      assert_no_selector '.card-header__title', text: /^休会履歴/
 
       # 卒業生
       visit_with_auth user_path(returned_user), 'sotugyou'
       assert_selector '.page-main-header__title', text: 'プロフィール'
       assert_selector '.page-content-header__title', text: 'hukki'
-      assert_no_selector '.card-header__title', text: '休会履歴（1回）'
-      assert_no_selector '.user-metas__title', text: '1回目の休会'
+      assert_no_selector '.card-header__title', text: /^休会履歴/
     end
 
     test 'should not show hibernation history on user profile when user has never hibernated' do
@@ -219,8 +214,7 @@ module Users
 
       assert_selector '.page-main-header__title', text: 'プロフィール'
       assert_selector '.page-content-header__title', text: 'hatsuno'
-      assert_no_selector '.card-header__title', text: '休会履歴（1回）'
-      assert_no_selector '.user-metas__title', text: '1回目の休会'
+      assert_no_selector '.card-header__title', text: /^休会履歴/
     end
 
     test 'show hibernation period in profile' do
