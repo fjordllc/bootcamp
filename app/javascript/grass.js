@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx.clearRect(0, 0, 650, 130)
 
     const colors = ['#e2e5ec', '#98A5DA', '#5D72C4', '#223FAF', '#06063e']
-    const dotw = ['日', '月', '火', '水', '木', '金', '土']
+    const dotw = JSON.parse(canvas.dataset.dotw)
     for (let i = 0; i < dotw.length; i++) {
       ctx.strokeText(dotw[i], 0, startY + 8 + (height + spanY) * i)
     }
