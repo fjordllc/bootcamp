@@ -22,7 +22,7 @@
                 = event.user.long_name
             .page-content-header-metas__meta
               .a-meta
-                time.a-meta__value(datetime="#{event.created_at.to_datetime}" pubdate='pubdate')
+                time.a-meta__value(datetime="#{event.updated_at.iso8601}" pubdate='pubdate')
                   = l event.updated_at
           .page-content-header-metas__end
             .page-content-header-metas__meta

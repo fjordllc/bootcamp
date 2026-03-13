@@ -37,7 +37,7 @@
               = link_to report.user, class: 'a-user-name' do
                 = report.user.long_name
             .card-list-item-meta__item
-              time.a-meta(datetime="#{report.reported_on.to_datetime}")
+              time.a-meta(datetime="#{report.reported_on.in_time_zone.iso8601}")
                 = l report.reported_on
                 | の日報
       - if report.comments.any?
@@ -52,7 +52,7 @@
                 .card-list-item__user-icons
                   = render partial: 'comments/user_icons', collection: report.comments.commented_users, as: :user
               .card-list-item-meta__item
-                time.a-meta(datetime="#{report.comments.last.updated_at.to_datetime}" pubdate='pubdate')
+                time.a-meta(datetime="#{report.comments.last.updated_at.iso8601}" pubdate='pubdate')
                   | 〜 #{l report.comments.last.updated_at, format: :date_and_time}
 
     - if report.checks.any?

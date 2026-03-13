@@ -31,6 +31,7 @@ json.user do
   json.partial! "api/users/user", user: product.user
   if product.user.training_ends_on
     json.training_ends_on l(product.user.training_ends_on)
+    json.training_ends_on_date_time product.user.training_ends_on.in_time_zone.iso8601
     json.training_remaining_days product.user.training_remaining_days
   end
 end

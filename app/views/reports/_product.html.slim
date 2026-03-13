@@ -18,9 +18,9 @@
           .card-list-item-meta__items
             .card-list-item-meta__item
               - if product.published_at.nil?
-                time.a-meta(datetime="#{product.created_at.to_datetime}")
+                time.a-meta(datetime="#{product.created_at.iso8601}")
               - else
-                time.a-meta(datetime="#{product.published_at.to_datetime}")
+                time.a-meta(datetime="#{product.published_at.iso8601}")
                 = l product.published_at
                 = 'の提出物'
       - if product.comments.any?
@@ -35,7 +35,7 @@
                 .card-list-item__user-icons
                   = render partial: 'comments/user_icons', collection: product.comments.commented_users, as: :user
               .card-list-item-meta__item
-                time.a-meta(datetime="#{product.comments.last.updated_at.to_datetime}" pubdate='pubdate')
+                time.a-meta(datetime="#{product.comments.last.updated_at.iso8601}" pubdate='pubdate')
                   | 〜 #{l product.comments.last.updated_at, format: :date_and_time}
 
     - if product.checks.any?
