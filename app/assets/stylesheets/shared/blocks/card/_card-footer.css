@@ -6,7 +6,6 @@
 @media (min-width: 48em) {
   .card-footer {
     padding: .5rem 1rem;
-    min-height: 3rem;
   }
 }
 @media (max-width: 47.9375em) {
@@ -47,8 +46,8 @@
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-
 }
+
 .card-footer__footer-text-link {
   font-size: .8125rem;
   line-height: 1.4;
