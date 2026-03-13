@@ -31,30 +31,17 @@ class GenerationTest < ActiveSupport::TestCase
   end
 
   test '#count_classmates_by_target' do
-    fifth_generation_users = User.where(created_at: '2014-01-01 00:00:00'..'2014-03-31 23:59:59')
-    fifth_generation_students_count = fifth_generation_users.where(
-      admin: false,
-      mentor: false,
-      adviser: false,
-      trainee: false,
-      hibernated_at: nil,
-      retired_on: nil,
-      graduated_on: nil
-    ).count
-    fifth_generation_trainees_count = fifth_generation_users.where(
-      trainee: true,
-      training_completed_at: nil
-    ).count
-    fifth_generation_hibernated_users_count = fifth_generation_users.where.not(hibernated_at: nil).count
-    fifth_generation_graduated_users_count = fifth_generation_users.where.not(graduated_on: nil).count
-    fifth_generation_advisers_count = fifth_generation_users.where(adviser: true).count
-    fifth_generation_retired_users_count = fifth_generation_users.where.not(retired_on: nil).count
-
-    assert_equal fifth_generation_students_count, Generation.new(5).count_classmates_by_target(:students)
-    assert_equal fifth_generation_trainees_count, Generation.new(5).count_classmates_by_target(:trainees)
-    assert_equal fifth_generation_hibernated_users_count, Generation.new(5).count_classmates_by_target(:hibernated)
-    assert_equal fifth_generation_graduated_users_count, Generation.new(5).count_classmates_by_target(:graduated)
-    assert_equal fifth_generation_advisers_count, Generation.new(5).count_classmates_by_target(:advisers)
-    assert_equal fifth_generation_retired_users_count, Generation.new(5).count_classmates_by_target(:retired)
+    expected = {
+      students: 18,
+      trainees: 3,
+      hibernated: 1,
+      graduated: 2,
+      advisers: 3,
+      retired: 1
+    }
+    generation = Generation.new(5)
+    expected.each do |target, count|
+      assert_equal count, generation.count_classmates_by_target(target), "#{target} of 5th generation count mismatch"
+    end
   end
 end
