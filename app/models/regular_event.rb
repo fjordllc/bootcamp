@@ -15,16 +15,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     ['偶数週', 6]
   ].freeze
 
-  DAY_OF_THE_WEEK_LIST = [
-    ['日曜日', 0],
-    ['月曜日', 1],
-    ['火曜日', 2],
-    ['水曜日', 3],
-    ['木曜日', 4],
-    ['金曜日', 5],
-    ['土曜日', 6]
-  ].freeze
-
   include WithAvatar
   include Commentable
   include Footprintable
@@ -62,6 +52,21 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   scope :organizer_event, ->(user) { joins(:organizers).where(organizers: { user_id: user.id }) }
   scope :scheduled_on, ->(date) { holding.filter { |event| event.scheduled_on?(date) } }
   scope :scheduled_on_without_ended, ->(date) { holding.filter { |event| event.scheduled_on?(date) && !event.ended?(date) } }
+
+  scope :fetch_target_events, lambda { |target|
+    case target
+    when 'not_finished'
+      not_finished
+    else
+      all
+    end
+  }
+
+  scope :list, lambda {
+    with_avatar
+      .includes(:comments, :users, :regular_event_repeat_rules)
+      .order(created_at: :desc)
+  }
 
   belongs_to :user
   has_many :organizers, dependent: :destroy
