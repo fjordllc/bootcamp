@@ -620,7 +620,7 @@ GEM
     rollbar (3.7.0)
     rss (0.3.2)
       rexml
-    rubocop (1.85.0)
+    rubocop (1.85.1)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
