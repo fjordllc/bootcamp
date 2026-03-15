@@ -3,11 +3,18 @@
 class Metadata
   def initialize(url)
     @url = url
+    @uri = Addressable::URI.parse(url).normalize
   end
 
   def fetch
-    uri = Addressable::URI.parse(@url).normalize
-    response = Net::HTTP.get_response(uri)
+    http = Net::HTTP.new(@uri.host, @uri.inferred_port)
+    if @uri.scheme == 'https'
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+    end
+    http.response_body_encoding = true
+
+    response = http.request_get(@uri.request_uri)
     response.message == 'OK' ? parse(response.body) : nil
   end
 
