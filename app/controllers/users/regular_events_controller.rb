@@ -6,7 +6,7 @@ class Users::RegularEventsController < ApplicationController
     @regular_events = @user.participate_regular_events
                            .includes(:comments, :regular_event_repeat_rules, :user,
                                      { users: { avatar_attachment: :blob } })
-                           .order(start_at: :desc)
+                           .order(:finished, created_at: :desc, id: :desc)
                            .page(params[:page])
   end
 end
