@@ -12,6 +12,23 @@ header.page-header
 
 .page-body
   .container.is-lg
-    = react_component('Products', title: title, selectedTab: 'unassigned', isMentor: mentor_login?, isAdmin: admin_login?, currentUserId: current_user.id, productDeadlineDay: @product_deadline_day)
-    - if @products.present?
-      = render 'application/unconfirmed_links_open', label: unconfirmed_links_label(@target)
+    - if @products_grouped_by_elapsed_days.empty?
+      .o-empty-message.loaded
+        .o-empty-message__icon
+          i.fa-regular.fa-smile
+        p.o-empty-message__text #{title}はありません
+    - else
+      .page-content.is-products.loaded
+        .page-body__columns
+          .page-body__column.is-main
+            - sorted_groups = @products_grouped_by_elapsed_days.sort_by { |days, _| -days }
+            - sorted_groups.each do |elapsed_days, products|
+              .a-card
+                = render 'products/elapsed_days_header', elapsed_days: elapsed_days, products_count: products.size, product_deadline_day: @product_deadline_day
+                .card-list
+                  .card-list__items
+                    = render partial: 'products/product_list_item', collection: products, as: :product, locals: { show_training_end_date: true, elapsed_days: elapsed_days }
+          nav.page-body__column.is-sub
+            = render 'products/elapsed_days_nav', products_grouped_by_elapsed_days: @products_grouped_by_elapsed_days, product_deadline_day: @product_deadline_day
+      - if @products.present?
+        = render 'application/unconfirmed_links_open', label: unconfirmed_links_label(@target)

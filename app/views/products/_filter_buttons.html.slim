@@ -1,0 +1,10 @@
+- selected_tab ||= 'unchecked'
+- current_target ||= params[:target]
+- targets = selected_tab == 'self_assigned' ? %w[self_assigned_all self_assigned_no_replied] : %w[unchecked_all unchecked_no_replied]
+
+nav.pill-nav
+  ul.pill-nav__items
+    - targets.each do |target|
+      li.pill-nav__item
+        = link_to filter_button_url(selected_tab, target), class: "pill-nav__item-link #{filter_button_class(target, current_target)}" do
+          = filter_button_label(target)

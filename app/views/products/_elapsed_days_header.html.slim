@@ -1,0 +1,15 @@
+- product_deadline_day ||= Product::PRODUCT_DEADLINE
+
+- header_class = 'card-header a-elapsed-days'
+- if elapsed_days == product_deadline_day
+  - header_class += ' is-reply-warning'
+- elsif elapsed_days == product_deadline_day + 1
+  - header_class += ' is-reply-alert'
+- elsif elapsed_days >= product_deadline_day + 2
+  - header_class += ' is-reply-deadline'
+
+header(class=header_class id="elapsed-#{elapsed_days}days")
+  h2.card-header__title
+    = elapsed_days_label(elapsed_days, product_deadline_day)
+    span.card-header__count
+      | （#{products_count}）

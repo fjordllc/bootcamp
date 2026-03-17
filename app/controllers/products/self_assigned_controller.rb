@@ -7,6 +7,7 @@ class Products::SelfAssignedController < ApplicationController
     @target = params[:target].presence_in(target_allowlist) || 'self_assigned_all'
     @products = build_self_assigned_products
                 .unchecked
+                .not_wip
                 .list
                 .page(params[:page])
                 .per(50)
