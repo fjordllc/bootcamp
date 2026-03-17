@@ -3,8 +3,21 @@
 class Practices::ReportsController < ApplicationController
   def index
     @practice = Practice.find(params[:practice_id])
-    @reports = Report.list.page(params[:page])
-    @reports = @reports.with_practice_and_source(params[:practice_id]) if params[:practice_id].present?
-    @reports = @reports.without_original_practice if params[:practice_id].present? && params[:grant_only] == 'true'
+    @include_source = include_source?
+    @reports =
+      if @include_source
+        Report.for_practice_including_source(@practice)
+      else
+        @practice.reports
+      end
+    @reports = @reports.list.page(params[:page])
+  end
+
+  private
+
+  def include_source?
+    return false unless @practice.grant_course?
+
+    params.fetch(:include_source, 'true') == 'true'
   end
 end
