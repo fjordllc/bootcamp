@@ -223,7 +223,7 @@ event37:
   end_at: <%= Time.zone.local(2024, 12, 1, 12, 0, 0) %>
   open_start_at: <%= Time.zone.local(2024, 11, 1, 9, 0, 0) %>
   open_end_at: <%= Time.zone.local(2024, 12, 1, 9, 0, 0) %>
-  user: kimura
+  user: hatsuno
   wip: true
 
 event38:
