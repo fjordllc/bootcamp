@@ -37,7 +37,10 @@
                       'enabled:!cursor-pointer'].join(' '),
                     id: target_time.iso8601,
                     data: { confirm: "#{l target_time, format: :mdw_and_time} にペアワークを申し込みますか？" } do
-                      i.fa-duotone.fa-solid.fa-check
+                      - if pair_work.reserved_at == target_time
+                        | 確定
+                      - else
+                        i.fa-duotone.fa-solid.fa-check
             - else
               td(class='!p-0 !h-6')
                 span ✖️
