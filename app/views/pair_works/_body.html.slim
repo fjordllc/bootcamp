@@ -87,9 +87,11 @@
                   | 日時の変更、もしくはキャンセル
                 .pair-work-schedule-dates__cancel
                   .pair-work-schedule-dates__cancel-action
-                    // TODO: ペア確定の取り消し機能実装後にリンク先を修正
-                    .a-button.is-md.is-danger.is-block
-                      | ペア確定を取り消す
+                    = button_to 'ペア確定を取り消す',
+                      pair_work_reservations_path(pair_work),
+                      method: :delete,
+                      class: 'a-button is-md is-danger is-block',
+                      data: { confirm:"本当に取り消しますか？取り消す場合はコメントにて理由を記入してください。" }
               - else
                 h3.pair-work-schedule-dates__title
                   | ペアを希望する場合、以下のスケジュールから都合のいい日時を選択してください。

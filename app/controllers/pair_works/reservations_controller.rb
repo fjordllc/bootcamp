@@ -22,7 +22,16 @@ class PairWorks::ReservationsController < ApplicationController
     end
   end
 
-  def destroy; end
+  def destroy
+    @pair_work = PairWork.find(params[:pair_work_id])
+    return if current_user != @pair_work.buddy
+    if @pair_work.update(buddy_id: nil, reserved_at: nil)
+      redirect_to Redirection.determin_url(self, @pair_work), notice: @pair_work.generate_notice_message(:cancel)
+    else
+      @comments = @pair_work.comments.order(:created_at)
+      render 'pair_works/show'
+    end
+  end
 
   private
 
