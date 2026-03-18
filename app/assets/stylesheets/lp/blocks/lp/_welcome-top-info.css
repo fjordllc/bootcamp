@@ -38,11 +38,11 @@
 
 .welcome-top-info__link {
   color: var(--reversal-text);
-  text-decoration: none;
+  text-decoration: underline;
   cursor: pointer;
 }
 .welcome-top-info__link:hover, .welcome-top-info__link:active {
-  text-decoration: underline;
+  text-decoration: none;
 }
 .welcome-top-info__link {
   font-size: 0.875rem;
