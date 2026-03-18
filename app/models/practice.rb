@@ -211,7 +211,9 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
     source_id.present?
   end
 
-  def reports_count_with_source
+  def reports_count(include_source: false)
+    return reports.count unless include_source
+
     ids = [id, source_id].compact
     Report.joins(:practices).where(practices: { id: ids }).distinct.count
   end

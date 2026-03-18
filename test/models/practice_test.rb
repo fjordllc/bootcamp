@@ -93,21 +93,11 @@ class PracticeTest < ActiveSupport::TestCase
     assert_not Practice.new(source_id: nil).grant_course?
   end
 
-  test '#reports_count_with_source returns reports count' do
-    practice = practices(:practice66)
-    Report.create!(
-      user: users(:komagata),
-      title: '日報が存在しないプラクティスの日報',
-      description: '日報が存在しないプラクティスの日報です。',
-      practices: [practice],
-      reported_on: Time.zone.today
-    )
-    assert_equal 1, practice.reports_count_with_source
-  end
-
-  test '#reports_count_with_source returns reports count including source' do
+  test '#reports_count sums reports of self and source when include_source is true' do
     source = practices(:practice67)
     practice = practices(:practice68)
+
+    assert_equal 0, practice.reports_count(include_source: true)
     Report.create!(
       user: users(:komagata),
       title: '日報が存在しないプラクティスの日報',
@@ -117,24 +107,43 @@ class PracticeTest < ActiveSupport::TestCase
     )
     Report.create!(
       user: users(:komagata),
-      title: 'source_idを持っている日報が存在しないプラクティスの日報',
-      description: 'source_idを持っている日報が存在しないプラクティスの日報です。',
+      title: '日報が存在しないプラクティスをコピーしたプラクティスの日報',
+      description: '日報が存在しないプラクティスをコピーしたプラクティスの日報です。',
       practices: [practice],
       reported_on: Time.zone.today - 1
     )
-    assert_equal 2, practice.reports_count_with_source
+
+    assert_equal 1, practice.reports_count(include_source: false)
+    assert_equal 2, practice.reports_count(include_source: true)
   end
 
-  test '#reports_count_with_source does not double count reports when associated with both source and practice' do
+  test '#reports_count counts only self reports when include_source is false' do
+    practice = practices(:practice67)
+
+    assert_equal 0, practice.reports_count(include_source: false)
+    Report.create!(
+      user: users(:komagata),
+      title: '日報が存在しないプラクティスの日報',
+      description: '日報が存在しないプラクティスの日報です。',
+      practices: [practice],
+      reported_on: Time.zone.today
+    )
+
+    assert_equal 1, practice.reports_count(include_source: false)
+  end
+
+  test '#reports_count does not double count reports when associated with both source and practice' do
     source = practices(:practice67)
     practice = practices(:practice68)
     Report.create!(
       user: users(:komagata),
-      title: '複数のプラクティスに関連する日報',
-      description: '複数のプラクティスに関連する日報です。',
+      title: '日報が存在しないプラクティス、日報が存在しないプラクティスをコピーしたプラクティスの両方に関連する日報',
+      description: '日報が存在しないプラクティス、日報が存在しないプラクティスをコピーしたプラクティスの両方に関連する日報です。',
       practices: [source, practice],
       reported_on: Time.zone.today
     )
-    assert_equal 1, practice.reports_count_with_source
+
+    assert_equal 1, practice.reports_count(include_source: false)
+    assert_equal 1, practice.reports_count(include_source: true)
   end
 end

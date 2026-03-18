@@ -2,10 +2,10 @@
 
 module PageTabs
   module PracticesHelper
-    def practice_page_tabs(practice, active_tab:)
+    def practice_page_tabs(practice, active_tab:, include_source: false)
       tabs = []
       tabs << { name: 'プラクティス', link: practice_path(practice) }
-      tabs << { name: '日報', link: practice_reports_path(practice), count: practice.reports_count_with_source }
+      tabs << { name: '日報', link: practice_reports_path(practice), count: practice.reports_count(include_source:) }
       tabs << { name: '質問', link: practice_questions_path(practice), count: practice.questions.length }
       tabs << { name: 'Docs', link: practice_pages_path(practice), count: practice.pages.length }
       tabs << { name: '動画', link: practice_movies_path(practice), count: practice.movies.length } if movie_available?
