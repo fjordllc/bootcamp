@@ -32,11 +32,10 @@
               .page-body-header__start
                 h1.page-body-header__title
                   | タグ「#{@tag.name}」のQ&A（#{@questions.total_count}）
-              - if admin_login?
-                .page-body-header__end
-                  .page-body-header-actions
-                    .page-body-header-actions__items
-                      = react_component('Tags/TagEditButton', tagId: @tag.id, tagName: @tag.name)
+              .page-body-header__end
+                .page-body-header-actions
+                  .page-body-header-actions__items
+                    = render 'shared/tag_edit_button', tag_id: @tag.id, tag_name: @tag.name
 
       .container.is-md
         .page-body__columns

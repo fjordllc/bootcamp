@@ -17,9 +17,8 @@ main.page-main
           .page-main-header__end
               .page-main-header-actions
                 ul.page-main-header-actions__items
-                  - if admin_login?
-                    li.page-header-actions__item
-                      = react_component('Tags/TagEditButton', tagId: @tag.id, tagName: @tag.name)
+                  li.page-header-actions__item
+                    = render 'shared/tag_edit_button', tag_id: @tag.id, tag_name: @tag.name
                   li.page-header-actions__item
                     = link_to :pages, class: 'a-button is-md is-secondary is-block is-back' do
                       | Docs
