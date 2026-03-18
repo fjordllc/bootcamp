@@ -1577,9 +1577,43 @@ a:active  { text-decoration: none; }
 
 .reviewsBox:hover {
 	transform: scale(1.1);
+	position: relative;
+	z-index: 2;
 }
 
 .reviewsBox a:hover {opacity: 1}
+
+.reviewPreview {
+	display: block;
+	width: 100%;
+	aspect-ratio: 676 / 792;
+	overflow: clip;
+	position: relative;
+	box-sizing: border-box;
+	border: solid 2px #4843c2;
+	background: #ffffff;
+	box-shadow: 8px 8px 0 2px #4843c2;
+}
+
+.reviewPreviewLink {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+}
+
+.reviewPreviewContent {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 676px;
+	padding: 30px;
+	box-sizing: border-box;
+	transform-origin: top left;
+	background: #fff;
+}
 
 .slick-dots {
 	bottom: 0;
