@@ -420,6 +420,21 @@ class ActivityNotifier < ApplicationNotifier # rubocop:todo Metrics/ClassLength
     )
   end
 
+  def cancel_pair_work(params = {})
+    params.merge!(@params)
+    pair_work = params[:pair_work]
+    sender = params[:sender]
+    receiver = params[:receiver]
+    notification(
+      body: "ペアワーク「#{pair_work.title} 」のペア確定が取り消されました。",
+      kind: :cancel_pair_work,
+      receiver:,
+      sender:,
+      link: Rails.application.routes.url_helpers.polymorphic_path(pair_work),
+      read: false
+    )
+  end
+
   def moved_up_event_waiting_user(params = {})
     params.merge!(@params)
     event = params[:event]

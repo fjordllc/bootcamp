@@ -100,6 +100,10 @@ class PairWork < ApplicationRecord
     save(context: :reserve)
   end
 
+  def unmatch
+    update(buddy_id: nil, reserved_at: nil)
+  end
+
   private
 
   def will_be_published?

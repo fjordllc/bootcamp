@@ -547,4 +547,23 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
     message
   end
+
+  def cancel_pair_work(args = {})
+    @sender ||= args[:sender]
+    @receiver ||= args[:receiver]
+    @pair_work ||= args[:pair_work]
+
+    @user = @receiver
+    @title = "ペアワーク【 #{@pair_work.title} 】のペア確定が取り消されました。"
+
+    @link_url = notification_redirector_url(
+      link: "/pair_works/#{@pair_work.id}",
+      kind: Notification.kinds[:cancel_pair_work]
+    )
+
+    subject = "[FBC] #{@pair_work.user.login_name}さんのペアワーク【 #{@pair_work.title} 】のペア確定が取り消されました。"
+    message = mail(to: @receiver.email, subject:)
+    message.perform_deliveries = @receiver.mail_notification? && !@receiver.retired?
+    message
+  end
 end

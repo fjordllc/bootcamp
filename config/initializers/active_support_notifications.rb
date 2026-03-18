@@ -80,4 +80,5 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('pair_work.reserve', PairWorkMatchingNotifier.new)
   ActiveSupport::Notifications.subscribe('pair_work.rematch', PairWorkRematchingNotifier.new)
   ActiveSupport::Notifications.subscribe('pair_work.reschedule', PairWorkRescheduleNotifier.new)
+  ActiveSupport::Notifications.subscribe('pair_work.cancel', PairWorkCancelNotifier.new)
 end
