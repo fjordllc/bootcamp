@@ -508,4 +508,43 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
     message
   end
+
+  def rematching_pair_work(args = {})
+    @receiver ||= args[:receiver]
+    @pair_work ||= args[:pair_work]
+
+    matched_user = @pair_work.buddy
+    @user = @receiver
+    @title = "ペアワークのペアが#{matched_user.login_name}さんに変更になりました。"
+
+    @link_url = notification_redirector_url(
+      link: "/pair_works/#{@pair_work.id}",
+      kind: Notification.kinds[:rematching_pair_work]
+    )
+
+    subject = "[FBC] ペアワーク【 #{@pair_work.title} 】のペアが#{matched_user.login_name}さんに変更になりました。"
+    message = mail(to: @user.email, subject:)
+
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message
+  end
+
+  def reschedule_pair_work(args = {})
+    @receiver ||= args[:receiver]
+    @pair_work ||= args[:pair_work]
+
+    @user = @receiver
+    @title = "ペアワークの日程が#{I18n.l @pair_work.reserved_at}に変更になりました。"
+
+    @link_url = notification_redirector_url(
+      link: "/pair_works/#{@pair_work.id}",
+      kind: Notification.kinds[:reschedule_pair_work]
+    )
+
+    subject = "[FBC] ペアワーク【 #{@pair_work.title} 】の日程が#{I18n.l @pair_work.reserved_at}に変更になりました。"
+    message = mail(to: @user.email, subject:)
+
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message
+  end
 end

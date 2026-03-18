@@ -5,8 +5,16 @@ class PairWorks::ReservationsController < ApplicationController
 
   def create
     @pair_work = PairWork.find(params[:pair_work_id])
-    if @pair_work.reserve(pair_work_reservation_params)
-      ActiveSupport::Notifications.instrument('pair_work.reserve', pair_work: @pair_work)
+    reservation_params = pair_work_reservation_params
+    notification_kinds = []
+    new_reserved_at = Time.zone.parse(reservation_params[:reserved_at])
+    notification_kinds << 'pair_work.reschedule' if @pair_work.solved? && @pair_work.reserved_at != new_reserved_at
+    notification_kinds << 'pair_work.rematch' if @pair_work.solved? && @pair_work.buddy_id != reservation_params[:buddy_id]
+    notification_kinds << 'pair_work.reserve' if notification_kinds.empty?
+    if @pair_work.reserve(reservation_params)
+      notification_kinds.each do |kind|
+        ActiveSupport::Notifications.instrument(kind, pair_work: @pair_work)
+      end
       redirect_to Redirection.determin_url(self, @pair_work), notice: @pair_work.generate_notice_message(:reserve)
     else
       @comments = @pair_work.comments.order(:created_at)
