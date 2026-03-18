@@ -3373,10 +3373,15 @@ CTA
 }
 
 .history {
-	background: #F9F9FF;
+	background: #f1f1fa;
 	padding: 25px;
 	border-radius: 12px;
 }
+
+.history:not(:last-child) {
+	margin-bottom: 30px;
+}
+
 .history h2 {
 	font-weight: bold;
 	font-size: 18px!important;
