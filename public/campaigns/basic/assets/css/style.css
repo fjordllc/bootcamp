@@ -3364,11 +3364,12 @@ CTA
 	font-weight: bold;
 }
 
-#article .catch {
+#article .catch,
+.reviewPreviewContent .catch {
 	font-size: 28px;
 	color: #4843C2;
 	font-weight: bold;
-	margin:  0 0 50px;
+	margin:  0 0 20px;
 }
 
 #article a {
