@@ -1,9 +1,28 @@
 /*============================================================
+レビュープレビュースケール
+============================================================*/
+
+/*============================================================
+レビュープレビュースケール
+============================================================*/
+
+function scaleReviewPreviews() {
+	document.querySelectorAll('.reviewPreview').forEach(function(preview) {
+		var content = preview.querySelector('.reviewPreviewContent');
+		if (content) {
+			var scale = preview.offsetWidth / 676;
+			content.style.transform = 'scale(' + scale + ')';
+		}
+	});
+}
+window.addEventListener('resize', scaleReviewPreviews);
+
+/*============================================================
 スライド
 ============================================================*/
 
 if (!$('.reviewsList').hasClass('slick-initialized')) {
-	$('.reviewsList').slick({
+	$('.reviewsList').on('init', scaleReviewPreviews).slick({
 		dots: true,
 		arrows: true,
 		infinite: false,
@@ -12,7 +31,7 @@ if (!$('.reviewsList').hasClass('slick-initialized')) {
 		appendDots: $('.custom-dots'),
 		prevArrow: '<button class="prev-arrow">前へ</button>',
 		nextArrow: '<button class="next-arrow">次へ</button>',
-		appendArrows: $('.custom-arrows'),		
+		appendArrows: $('.custom-arrows'),
 		responsive: [{
 			breakpoint: 767,
 			settings: {
@@ -22,6 +41,7 @@ if (!$('.reviewsList').hasClass('slick-initialized')) {
 		}]
 	});
 }
+
 $('.appSlider').slick({
 	dots: false,
 	arrows: true,
