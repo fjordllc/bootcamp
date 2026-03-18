@@ -54,7 +54,8 @@
                                       image_class: 'card-list-item__user-icon'
                           .card-list-item-meta__item
                             time.a-meta(datetime="#{event.start_at}")
-                              | 開催日時:#{event.holding_cycles} #{event.start_at.strftime('%H:%M')} ～ #{event.end_at.strftime('%H:%M')}
+                              | 開催日時:
+                              | #{event.holding_cycles} #{l event.start_at, format: :time_only} ～ #{l event.end_at, format: :time_only}
                           - if event.comments.size.positive?
                             .card-list-item-meta__item
                               .a-meta
