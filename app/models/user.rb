@@ -26,7 +26,6 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     'adviser' => :advisers,
     'admin' => :admins
   }.freeze
-  DEFAULT_REGULAR_EVENT_ORGANIZER = 'komagata'
   HIBERNATION_LIMIT = 3.months
   HIBERNATION_LIMIT_BEFORE_ONE_WEEK = HIBERNATION_LIMIT - 1.week
 
