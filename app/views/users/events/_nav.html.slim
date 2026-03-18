@@ -1,10 +1,6 @@
 nav.tab-nav
   .container
     ul.tab-nav__items
-        - navs = [\
-          { id: 'events', name: Event.model_name.human, count: @user.participate_events.length, path: user_events_path(@user) }, \
-          { id: 'regular_events', name: RegularEvent.model_name.human, count: @user.participate_regular_events.length, path: user_regular_events_path(@user) } \
-          ]
-        - navs.each do |nav|
+        - event_navs(@user).each do |nav|
           li.tab-nav__item
             = link_to "#{nav[:name]}(#{nav[:count]})", nav[:path], class: (request.path.split('/').last == nav[:id] ? ['is-active'] : []) << 'tab-nav__item-link'
