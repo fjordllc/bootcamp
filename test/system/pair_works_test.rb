@@ -124,4 +124,15 @@ class PairWorksTest < ApplicationSystemTestCase
     assert_no_text '内容修正'
     assert_no_text '削除'
   end
+
+  test 'cancel pair confirmation' do
+    pair_work = pair_works(:pair_work4)
+    visit_with_auth pair_work_path(pair_work), 'komagata'
+    find("label[for='show-schedule-dates']").click
+    accept_confirm do
+      click_button 'ペア確定を取り消す'
+    end
+
+    assert_text 'ペア確定を取り消しました'
+  end
 end
