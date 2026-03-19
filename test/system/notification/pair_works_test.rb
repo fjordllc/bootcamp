@@ -105,4 +105,22 @@ class Notification::PairWorksTest < NotificationSystemTestCase
                                    text: 'ペアワーク「ペア確定済みのペアワークです(タイトル)」のペアがmentormentaroに変更されました。')
     end
   end
+
+  test 'pair work creator receive notification when pair work is rescheduled' do
+    travel_to Time.zone.local(2025, 1, 1, 0, 0, 0) do
+      visit_with_auth pair_works_path(target: 'solved'), 'komagata'
+      click_on '日程変更動作確認用のペアワークです。'
+      assert_text 'ペア確定'
+      find("label[for='show-schedule-dates']").click
+      within '.a-table' do
+        accept_alert do
+          find_button(id: '2025-01-03T01:00:00+09:00').click
+        end
+      end
+      assert_text 'ペアが確定しました。'
+
+      assert_user_has_notification(user: users(:kimura), kind: Notification.kinds[:reschedule_pair_work],
+                                   text: 'ペアワーク「日程変更動作確認用のペアワークです。」の日程が2025年01月03日(金) 01:00に変更されました。')
+    end
+  end
 end

@@ -1483,6 +1483,67 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_not ActionMailer::Base.deliveries.empty?
   end
 
+  test 'reschedule_pair_work' do
+    pair_work = pair_works(:pair_work2)
+    receiver = users(:kimura)
+
+    ActivityMailer.reschedule_pair_work(
+      receiver:,
+      pair_work:
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 31, link: "/pair_works/#{pair_work.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['kimura@fjord.jp'], email.to
+    assert_equal '[FBC] ペアワーク【 ペア確定済みのペアワークです(タイトル) 】の日程が2025年01月02日(木) 01:00に変更になりました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">ペアワークのページへ</a>}, email.body.to_s)
+  end
+
+  test 'reschedule_pair_work with params' do
+    pair_work = pair_works(:pair_work2)
+    receiver = users(:kimura)
+
+    mailer = ActivityMailer.with(
+      receiver:,
+      pair_work:
+    ).reschedule_pair_work
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 31, link: "/pair_works/#{pair_work.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['kimura@fjord.jp'], email.to
+    assert_equal '[FBC] ペアワーク【 ペア確定済みのペアワークです(タイトル) 】の日程が2025年01月02日(木) 01:00に変更になりました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">ペアワークのページへ</a>}, email.body.to_s)
+  end
+
+  test 'reschedule_pair_work to mute email notification or retired user' do
+    pair_work = pair_works(:pair_work2)
+    receiver = users(:kimura)
+
+    receiver.update_columns(mail_notification: false, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.reschedule_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
+    assert_empty ActionMailer::Base.deliveries
+
+    receiver.update_columns(mail_notification: false, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.reschedule_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
+    assert_empty ActionMailer::Base.deliveries
+
+    receiver.update_columns(mail_notification: true, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.reschedule_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
+    assert_empty ActionMailer::Base.deliveries
+
+    receiver.update_columns(mail_notification: true, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.reschedule_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
+    assert_not ActionMailer::Base.deliveries.empty?
+  end
+
   private
 
   def mailer_url_options
