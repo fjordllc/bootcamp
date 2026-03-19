@@ -33,6 +33,7 @@ class NotificationsBell {
     this.targetStatus = 'unread'
     this.notifications = null
     this.unreadNotifications = null
+    this.loadNotificationsController = null
 
     this.bindEvents()
     this.loadUnreadCount()
@@ -112,6 +113,13 @@ class NotificationsBell {
   }
 
   async loadNotifications() {
+    // Cancel any in-flight request
+    if (this.loadNotificationsController) {
+      this.loadNotificationsController.abort()
+    }
+    this.loadNotificationsController = new AbortController()
+    const { signal } = this.loadNotificationsController
+
     this.showLoading()
 
     try {
@@ -120,17 +128,26 @@ class NotificationsBell {
           ? `${this.apiUrl}?page=1&per=10`
           : `${this.apiUrl}?status=${this.targetStatus}`
 
-      const response = await fetch(url)
+      const response = await fetch(url, { signal })
       const data = await response.json()
+
+      // Check if this request was aborted while parsing JSON
+      if (signal.aborted) return
+
       this.notifications = data.notifications
       this.renderNotifications()
       this.updateHeader()
       this.updateFooter()
     } catch (error) {
+      // Ignore abort errors
+      if (error.name === 'AbortError') return
+
       console.warn('Failed to load notifications:', error)
       this.showError()
     } finally {
-      this.hideLoading()
+      if (!signal.aborted) {
+        this.hideLoading()
+      }
     }
   }
 
