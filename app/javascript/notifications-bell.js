@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import { FetchRequest } from '@rails/request.js'
 import userIconFrameClass from './user-icon-frame-class.js'
 
 dayjs.extend(relativeTime)
@@ -101,10 +102,18 @@ class NotificationsBell {
     this.notificationLoading.classList.remove('is-hidden')
 
     try {
-      const response = await fetch(`${this.apiUrl}?status=unread`)
-      const data = await response.json()
-      this.unreadNotifications = data.notifications
-      this.updateBellBadge()
+      const request = new FetchRequest('get', this.apiUrl, {
+        query: { status: 'unread' }
+      })
+      const response = await request.perform()
+
+      if (response.ok) {
+        const data = await response.json
+        this.unreadNotifications = data.notifications
+        this.updateBellBadge()
+      } else {
+        console.warn('Failed to load unread notifications: HTTP', response.status)
+      }
     } catch (error) {
       console.warn('Failed to load unread notifications:', error)
     } finally {
@@ -123,21 +132,27 @@ class NotificationsBell {
     this.showLoading()
 
     try {
-      const url =
+      const query =
         this.targetStatus === 'all'
-          ? `${this.apiUrl}?page=1&per=10`
-          : `${this.apiUrl}?status=${this.targetStatus}`
+          ? { page: 1, per: 10 }
+          : { status: this.targetStatus }
 
-      const response = await fetch(url, { signal })
-      const data = await response.json()
+      const request = new FetchRequest('get', this.apiUrl, { query, signal })
+      const response = await request.perform()
 
-      // Check if this request was aborted while parsing JSON
+      // Check if this request was aborted
       if (signal.aborted) return
 
-      this.notifications = data.notifications
-      this.renderNotifications()
-      this.updateHeader()
-      this.updateFooter()
+      if (response.ok) {
+        const data = await response.json
+        this.notifications = data.notifications
+        this.renderNotifications()
+        this.updateHeader()
+        this.updateFooter()
+      } else {
+        console.warn('Failed to load notifications: HTTP', response.status)
+        this.showError()
+      }
     } catch (error) {
       // Ignore abort errors
       if (error.name === 'AbortError') return
