@@ -135,4 +135,14 @@ class PairWorksTest < ApplicationSystemTestCase
 
     assert_text 'ペア確定を取り消しました'
   end
+
+  test 'show confirmed date on calendar' do
+    pair_work = pair_works(:pair_work4)
+    visit_with_auth pair_work_path(pair_work), 'kimura'
+    assert_selector "[id='2025-01-02T01:00:00+09:00']", text: '確定'
+
+    visit_with_auth pair_work_path(pair_work), 'komagata'
+    find("label[for='show-schedule-dates']").click
+    assert_selector "[id='2025-01-02T01:00:00+09:00']", text: '確定'
+  end
 end
