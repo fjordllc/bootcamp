@@ -36,7 +36,7 @@ class Pjord
     private
 
     def model_name
-      ENV.fetch('PJORD_LLM_MODEL', 'claude-sonnet-4-20250514')
+      ENV.fetch('PJORD_LLM_MODEL', 'gpt-4o')
     end
 
     def system_prompt(context)
