@@ -1,0 +1,22 @@
+- if admin_login?
+  .w-full
+    button.a-button.is-md.is-secondary.is-block.change-tag-name-button
+      i.fa-solid.fa-cog
+      |  タグ名変更
+
+    .edit-tag-modal.hidden.a-overlay.is-js
+      .a-card.is-modal
+        header.card-header.is-sm
+          h2.card-header__title タグ名変更
+        hr.a-border
+        .card-body
+          .card-body__description
+            label.a-form-label[for="tag_name"] タグ名
+            input#tag_name.a-text-input[name="tag[name]" data-initial-tag-name=tag_name data-tag-id=tag_id value=tag_name]
+        footer.card-footer
+          .card-main-actions
+            ul.card-main-actions__items
+              li.card-main-actions__item.is-main
+                button.a-button.is-primary.is-sm.is-block.save-tag-button[disabled] 変更
+              li.card-main-actions__item.is-sub
+                .card-main-actions__muted-action.cancel-change-tag-button キャンセル
