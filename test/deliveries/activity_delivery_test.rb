@@ -547,4 +547,28 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
       ActivityDelivery.with(**params).notify(:matching_pair_work)
     end
   end
+
+  test '.notify(:rematching_pair_work)' do
+    pair_work = pair_works(:pair_work2)
+    params = {
+      pair_work:,
+      receiver: users(:mentormentaro)
+    }
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.notify!(:rematching_pair_work, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.notify(:rematching_pair_work, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify!(:rematching_pair_work)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify(:rematching_pair_work)
+    end
+  end
 end

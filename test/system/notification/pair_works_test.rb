@@ -87,4 +87,22 @@ class Notification::PairWorksTest < NotificationSystemTestCase
       assert_user_has_notification(user: users(:mentormentaro), kind: Notification.kinds[:came_pair_work], text: '公開された時に通知が飛ぶ')
     end
   end
+
+  test 'pair work creator receive notification when pair rematched' do
+    travel_to Time.zone.local(2025, 1, 1, 0, 0, 0) do
+      visit_with_auth pair_works_path(target: 'solved'), 'mentormentaro'
+      click_on 'ペア確定済みのペアワークです(タイトル)'
+      assert_text 'ペア確定'
+      find("label[for='show-schedule-dates']").click
+      within '.a-table' do
+        accept_alert do
+          find_button(id: '2025-01-02T01:00:00+09:00').click
+        end
+      end
+      assert_text 'ペアが確定しました。'
+
+      assert_user_has_notification(user: users(:kimura), kind: Notification.kinds[:rematching_pair_work],
+                                   text: 'ペアワーク「ペア確定済みのペアワークです(タイトル)」のペアがmentormentaroに変更されました。')
+    end
+  end
 end
