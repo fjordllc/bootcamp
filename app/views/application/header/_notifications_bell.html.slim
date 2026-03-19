@@ -1,5 +1,9 @@
 #notifications-bell-container data-api-url="/api/notifications.json"
-  .header-links__link.test-show-notifications#notifications-bell-button
+  button.header-links__link.test-show-notifications#notifications-bell-button(
+    type="button"
+    aria-expanded="false"
+    aria-controls="notifications-dropdown"
+    aria-label="通知を表示")
     .header-links__link.test-bell
       .header-notification-icon
         #notification-count.header-notification-count.a-notification-count.test-notification-count.is-hidden
@@ -7,20 +11,30 @@
         i.fa-solid.fa-bell
         .header-links__link-label 通知
 
-  #notifications-dropdown.is-hidden
-    label.header-dropdown__background.is-notification#notifications-background
+  #notifications-dropdown.is-hidden(role="dialog" aria-label="通知")
+    button.header-dropdown__background.is-notification#notifications-background(
+      type="button"
+      aria-label="通知を閉じる")
     .header-dropdown__inner.is-notification
       header.header-dropdown__header
-        nav.pill-nav.is-half
+        nav.pill-nav.is-half(role="tablist" aria-label="通知フィルター")
           ul.pill-nav__items
-            li.pill-nav__item
-              .pill-nav__item-link.w-full.is-active#unread-tab 未読
-            li.pill-nav__item
-              .pill-nav__item-link.w-full#all-tab 全て
+            li.pill-nav__item(role="presentation")
+              button.pill-nav__item-link.w-full.is-active#unread-tab(
+                type="button"
+                role="tab"
+                aria-selected="true"
+                aria-controls="notifications-content") 未読
+            li.pill-nav__item(role="presentation")
+              button.pill-nav__item-link.w-full#all-tab(
+                type="button"
+                role="tab"
+                aria-selected="false"
+                aria-controls="notifications-content") 全て
         #header-page-link.header-dropdown__page-link-container.is-hidden
           a.header-dropdown__page-link#notifications-page-link 全ての未読通知一覧へ
 
-      #notifications-content
+      #notifications-content(role="tabpanel" aria-label="通知一覧")
         #notifications-loading.page-content.loading.is-hidden
           .card-list.a-card.is-loading
             - 5.times do

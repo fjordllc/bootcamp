@@ -76,23 +76,29 @@ class NotificationsBell {
 
   showDropdown() {
     this.dropdown.classList.remove('is-hidden')
+    this.bellButton.setAttribute('aria-expanded', 'true')
     this.loadNotifications()
   }
 
   hideDropdown() {
     this.dropdown.classList.add('is-hidden')
+    this.bellButton.setAttribute('aria-expanded', 'false')
   }
 
   setTargetStatus(status) {
     this.targetStatus = status
 
-    // Update tab active states
+    // Update tab active states and ARIA attributes
     if (status === 'unread') {
       this.unreadTab.classList.add('is-active')
+      this.unreadTab.setAttribute('aria-selected', 'true')
       this.allTab.classList.remove('is-active')
+      this.allTab.setAttribute('aria-selected', 'false')
     } else {
       this.unreadTab.classList.remove('is-active')
+      this.unreadTab.setAttribute('aria-selected', 'false')
       this.allTab.classList.add('is-active')
+      this.allTab.setAttribute('aria-selected', 'true')
     }
 
     this.loadNotifications()
@@ -112,7 +118,10 @@ class NotificationsBell {
         this.unreadNotifications = data.notifications
         this.updateBellBadge()
       } else {
-        console.warn('Failed to load unread notifications: HTTP', response.status)
+        console.warn(
+          'Failed to load unread notifications: HTTP',
+          response.status
+        )
       }
     } catch (error) {
       console.warn('Failed to load unread notifications:', error)
@@ -222,19 +231,43 @@ class NotificationsBell {
       notification.sender.joining_status
     )
 
-    li.innerHTML = `
-      <a href="${notification.path}" class="header-dropdown__item-link unconfirmed_link">
-        <div class="header-notifications-item__body">
-          <span class="${iconFrameClass} header-notifications-item__user-icon">
-            <img src="${notification.sender.avatar_url}" class="a-user-icon" alt="User Icon" />
-          </span>
-          <div class="header-notifications-item__message">
-            <p class="test-notification-message">${notification.message}</p>
-          </div>
-          <time class="header-notifications-item__created-at">${createdAtFromNow}</time>
-        </div>
-      </a>
-    `
+    // Build DOM elements safely without innerHTML
+    const link = document.createElement('a')
+    link.setAttribute('href', notification.path)
+    link.classList.add('header-dropdown__item-link', 'unconfirmed_link')
+
+    const body = document.createElement('div')
+    body.className = 'header-notifications-item__body'
+
+    const iconWrapper = document.createElement('span')
+    iconFrameClass.split(' ').forEach((cls) => {
+      if (cls) iconWrapper.classList.add(cls)
+    })
+    iconWrapper.classList.add('header-notifications-item__user-icon')
+
+    const img = document.createElement('img')
+    img.setAttribute('src', notification.sender.avatar_url)
+    img.setAttribute('alt', 'User Icon')
+    img.className = 'a-user-icon'
+    iconWrapper.appendChild(img)
+
+    const messageDiv = document.createElement('div')
+    messageDiv.className = 'header-notifications-item__message'
+
+    const messageP = document.createElement('p')
+    messageP.className = 'test-notification-message'
+    messageP.textContent = notification.message
+    messageDiv.appendChild(messageP)
+
+    const timeEl = document.createElement('time')
+    timeEl.className = 'header-notifications-item__created-at'
+    timeEl.textContent = createdAtFromNow
+
+    body.appendChild(iconWrapper)
+    body.appendChild(messageDiv)
+    body.appendChild(timeEl)
+    link.appendChild(body)
+    li.appendChild(link)
 
     return li
   }
