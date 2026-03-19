@@ -25,7 +25,9 @@ class NotificationsBell {
     this.emptyText = document.getElementById('empty-text')
     this.emptyLinkContainer = document.getElementById('empty-link-container')
     this.headerPageLink = document.getElementById('header-page-link')
-    this.notificationsPageLink = document.getElementById('notifications-page-link')
+    this.notificationsPageLink = document.getElementById(
+      'notifications-page-link'
+    )
     this.openAllTabs = document.getElementById('open-all-tabs')
 
     this.targetStatus = 'unread'
@@ -61,7 +63,10 @@ class NotificationsBell {
 
     // Close dropdown on escape key
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !this.dropdown.classList.contains('is-hidden')) {
+      if (
+        e.key === 'Escape' &&
+        !this.dropdown.classList.contains('is-hidden')
+      ) {
         this.hideDropdown()
       }
     })
@@ -78,7 +83,7 @@ class NotificationsBell {
 
   setTargetStatus(status) {
     this.targetStatus = status
-    
+
     // Update tab active states
     if (status === 'unread') {
       this.unreadTab.classList.add('is-active')
@@ -93,7 +98,7 @@ class NotificationsBell {
 
   async loadUnreadCount() {
     this.notificationLoading.classList.remove('is-hidden')
-    
+
     try {
       const response = await fetch(`${this.apiUrl}?status=unread`)
       const data = await response.json()
@@ -108,12 +113,13 @@ class NotificationsBell {
 
   async loadNotifications() {
     this.showLoading()
-    
+
     try {
-      const url = this.targetStatus === 'all' 
-        ? `${this.apiUrl}?page=1&per=10`
-        : `${this.apiUrl}?status=${this.targetStatus}`
-        
+      const url =
+        this.targetStatus === 'all'
+          ? `${this.apiUrl}?page=1&per=10`
+          : `${this.apiUrl}?status=${this.targetStatus}`
+
       const response = await fetch(url)
       const data = await response.json()
       this.notifications = data.notifications
@@ -132,7 +138,7 @@ class NotificationsBell {
     if (!this.unreadNotifications) return
 
     const count = this.unreadNotifications.length
-    
+
     if (count > 0) {
       const displayCount = count > 99 ? '99+' : count.toString()
       this.notificationCount.textContent = displayCount
@@ -165,11 +171,11 @@ class NotificationsBell {
     }
 
     this.notificationsList.innerHTML = ''
-    this.notifications.forEach(notification => {
+    this.notifications.forEach((notification) => {
       const li = this.createNotificationElement(notification)
       this.notificationsList.appendChild(li)
     })
-    
+
     this.notificationsList.classList.remove('is-hidden')
     this.emptyMessage.classList.add('is-hidden')
   }
@@ -177,7 +183,7 @@ class NotificationsBell {
   createNotificationElement(notification) {
     const li = document.createElement('li')
     li.className = 'header-dropdown__item'
-    
+
     const createdAtFromNow = dayjs(notification.created_at).fromNow()
     const iconFrameClass = userIconFrameClass(
       notification.sender.primary_role,
@@ -203,17 +209,17 @@ class NotificationsBell {
 
   showEmptyMessage() {
     const isUnreadTab = this.targetStatus === 'unread'
-    
-    this.emptyText.textContent = isUnreadTab 
-      ? '未読の通知はありません' 
+
+    this.emptyText.textContent = isUnreadTab
+      ? '未読の通知はありません'
       : '通知はありません'
-    
+
     if (isUnreadTab) {
       this.emptyLinkContainer.classList.remove('is-hidden')
     } else {
       this.emptyLinkContainer.classList.add('is-hidden')
     }
-    
+
     this.emptyMessage.classList.remove('is-hidden')
     this.notificationsList.classList.add('is-hidden')
   }
@@ -221,11 +227,15 @@ class NotificationsBell {
   updateHeader() {
     const notificationsCount = this.notifications?.length || 0
     const isUnreadTab = this.targetStatus === 'unread'
-    
+
     if (notificationsCount > 0) {
-      const notificationsUrl = isUnreadTab ? '/notifications?status=unread' : '/notifications'
-      const linkLabel = isUnreadTab ? '全ての未読通知一覧へ' : '全ての通知一覧へ'
-      
+      const notificationsUrl = isUnreadTab
+        ? '/notifications?status=unread'
+        : '/notifications'
+      const linkLabel = isUnreadTab
+        ? '全ての未読通知一覧へ'
+        : '全ての通知一覧へ'
+
       this.notificationsPageLink.href = notificationsUrl
       this.notificationsPageLink.textContent = linkLabel
       this.headerPageLink.classList.remove('is-hidden')
@@ -237,7 +247,7 @@ class NotificationsBell {
   updateFooter() {
     const notificationsCount = this.notifications?.length || 0
     const isUnreadTab = this.targetStatus === 'unread'
-    
+
     if (isUnreadTab && notificationsCount > 0) {
       this.notificationsFooter.classList.remove('is-hidden')
     } else {
@@ -246,8 +256,10 @@ class NotificationsBell {
   }
 
   openUnconfirmedItems() {
-    const links = document.querySelectorAll('.header-dropdown__item-link.unconfirmed_link')
-    links.forEach(link => {
+    const links = document.querySelectorAll(
+      '.header-dropdown__item-link.unconfirmed_link'
+    )
+    links.forEach((link) => {
       window.open(link.href, '_blank', 'noopener')
     })
   }
@@ -255,5 +267,6 @@ class NotificationsBell {
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-  new NotificationsBell()
+  const bell = new NotificationsBell()
+  return bell
 })
