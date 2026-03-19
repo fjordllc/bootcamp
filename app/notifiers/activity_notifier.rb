@@ -250,8 +250,8 @@ class ActivityNotifier < ApplicationNotifier # rubocop:todo Metrics/ClassLength
     params.merge!(@params)
     check = params[:check]
     receiver = params[:receiver]
-    kensyu_user = receiver.adviser ? "#{check.checkable.user.login_name}さんの" : ''
-    body = "#{check.sender.login_name}さんが#{kensyu_user}#{check.checkable.title}を#{check.action_label}しました。"
+    trainee_name_prefix = receiver.adviser ? "#{check.checkable.user.login_name}さんの" : ''
+    body = "#{check.sender.login_name}さんが#{trainee_name_prefix}#{check.checkable.title}を#{check.action_label}しました。"
 
     notification(
       body:,
