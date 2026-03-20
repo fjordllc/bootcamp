@@ -35,8 +35,10 @@ class PjordRespondJob < ApplicationJob
       reply_as_answer(mentionable.question, pjord, body)
     when Question
       reply_as_answer(mentionable, pjord, body)
-    when Report, Product
+    when Report, Product, PairWork, MicroReport
       reply_as_comment(mentionable, pjord, body)
+    else
+      Rails.logger.warn("[Pjord] Unsupported mentionable type: #{mentionable.class.name}")
     end
   end
 
@@ -49,7 +51,7 @@ class PjordRespondJob < ApplicationJob
   end
 
   def mentions_pjord?(mentionable)
-    mentionable.body&.include?("@#{Pjord::LOGIN_NAME}")
+    mentionable.body&.match?(/(?<!\w)@#{Regexp.escape(Pjord::LOGIN_NAME)}(?!\w)/)
   end
 
   def build_context(mentionable)
