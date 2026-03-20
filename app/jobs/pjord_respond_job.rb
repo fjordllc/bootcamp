@@ -18,45 +18,26 @@ class PjordRespondJob < ApplicationJob
   private
 
   def reply(mentionable, pjord, text)
-    mention_back = "@#{mentionable.sender.login_name} "
-    body = mention_back + text
+    body = "@#{mentionable.sender.login_name} #{text}"
 
     case mentionable
     when Comment
-      Comment.create!(
-        user: pjord,
-        commentable: mentionable.commentable,
-        description: body
-      )
+      reply_as_comment(mentionable.commentable, pjord, body)
     when Answer
-      # Q&Aの回答へのメンション → 同じ質問に新しい回答を投稿
-      Answer.create!(
-        user: pjord,
-        question: mentionable.question,
-        description: body
-      )
+      reply_as_answer(mentionable.question, pjord, body)
     when Question
-      # Q&Aの質問へのメンション → 回答として投稿
-      Answer.create!(
-        user: pjord,
-        question: mentionable,
-        description: body
-      )
-    when Report
-      # 日報本文へのメンション → コメントとして投稿
-      Comment.create!(
-        user: pjord,
-        commentable: mentionable,
-        description: body
-      )
-    when Product
-      # 提出物へのメンション → コメントとして投稿
-      Comment.create!(
-        user: pjord,
-        commentable: mentionable,
-        description: body
-      )
+      reply_as_answer(mentionable, pjord, body)
+    when Report, Product
+      reply_as_comment(mentionable, pjord, body)
     end
+  end
+
+  def reply_as_comment(commentable, pjord, body)
+    Comment.create!(user: pjord, commentable: commentable, description: body)
+  end
+
+  def reply_as_answer(question, pjord, body)
+    Answer.create!(user: pjord, question: question, description: body)
   end
 
   def build_context(mentionable)

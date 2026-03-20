@@ -42,13 +42,8 @@ class Pjord
     def system_prompt(context)
       parts = [SYSTEM_PROMPT]
 
-      if context[:location].present?
-        parts << "## 現在の場所\n#{context[:location]}"
-      end
-
-      if context[:practice].present?
-        parts << "## 関連プラクティス\n#{context[:practice]}"
-      end
+      parts << "## 現在の場所\n#{context[:location]}" if context[:location].present?
+      parts << "## 関連プラクティス\n#{context[:practice]}" if context[:practice].present?
 
       parts.join("\n\n")
     end
