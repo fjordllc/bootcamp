@@ -21,10 +21,25 @@ class PjordTest < ActiveSupport::TestCase
     end
   end
 
-  test '.respond returns nil on error' do
-    RubyLLM.stub(:chat, ->(*) { raise StandardError, 'API error' }) do
+  test '.respond returns nil on blank response' do
+    mock_content = Minitest::Mock.new
+    mock_content.expect(:content, '')
+
+    mock_chat = Minitest::Mock.new
+    mock_chat.expect(:with_instructions, mock_chat, [String])
+    mock_chat.expect(:ask, mock_content, [String])
+
+    RubyLLM.stub(:chat, mock_chat) do
       response = Pjord.respond(message: 'test')
       assert_nil response
+    end
+  end
+
+  test '.respond raises on API error for job retry' do
+    RubyLLM.stub(:chat, ->(*) { raise StandardError, 'API error' }) do
+      assert_raises(StandardError) do
+        Pjord.respond(message: 'test')
+      end
     end
   end
 end

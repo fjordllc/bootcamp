@@ -2,9 +2,14 @@
 
 class PjordRespondJob < ApplicationJob
   queue_as :default
+  retry_on StandardError, wait: :polynomially_longer, attempts: 3
+  discard_on ActiveJob::DeserializationError
 
   def perform(mentionable_type:, mentionable_id:)
-    mentionable = mentionable_type.constantize.find_by(id: mentionable_id)
+    mentionable_class = mentionable_type.safe_constantize
+    return if mentionable_class.nil?
+
+    mentionable = mentionable_class.find_by(id: mentionable_id)
     return if mentionable.nil?
 
     pjord = Pjord.user

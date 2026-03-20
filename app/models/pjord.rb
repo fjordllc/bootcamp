@@ -27,10 +27,8 @@ class Pjord
     def respond(message:, context: {})
       chat = RubyLLM.chat(model: model_name)
       chat.with_instructions(system_prompt(context))
-      chat.ask(message).content
-    rescue StandardError => e
-      Rails.logger.error("[Pjord] LLM error: #{e.class} #{e.message}")
-      nil
+      result = chat.ask(message).content
+      result.presence
     end
 
     private
