@@ -4,9 +4,12 @@ class PjordRespondJob < ApplicationJob
   queue_as :default
 
   def perform(mentionable_type:, mentionable_id:)
-    mentionable = mentionable_type.constantize.find(mentionable_id)
+    mentionable = mentionable_type.constantize.find_by(id: mentionable_id)
+    return if mentionable.nil?
+
     pjord = Pjord.user
     return if pjord.nil?
+    return unless mentions_pjord?(mentionable)
 
     context = build_context(mentionable)
     response = Pjord.respond(message: mentionable.body, context: context)
@@ -38,6 +41,10 @@ class PjordRespondJob < ApplicationJob
 
   def reply_as_answer(question, pjord, body)
     Answer.create!(user: pjord, question: question, description: body)
+  end
+
+  def mentions_pjord?(mentionable)
+    mentionable.body&.include?("@#{Pjord::LOGIN_NAME}")
   end
 
   def build_context(mentionable)
