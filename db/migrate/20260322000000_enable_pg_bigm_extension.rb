@@ -1,10 +1,24 @@
 # frozen_string_literal: true
 
 class EnablePgBigmExtension < ActiveRecord::Migration[8.1]
-  def change
+  def up
+    return unless pg_bigm_installable?
+
     execute "CREATE EXTENSION IF NOT EXISTS pg_bigm"
-  rescue ActiveRecord::StatementInvalid => e
-    Rails.logger.warn "Notice: pg_bigm extension could not be enabled."
-    Rails.logger.warn "Error details: #{e.message}"
+  end
+
+  def down
+    execute "DROP EXTENSION IF EXISTS pg_bigm"
+  rescue ActiveRecord::StatementInvalid
+    # pg_bigmが存在しない環境では無視
+  end
+
+  private
+
+  def pg_bigm_installable?
+    result = execute("SELECT COUNT(*) FROM pg_available_extensions WHERE name = 'pg_bigm'")
+    result.first["count"].to_i.positive?
+  rescue ActiveRecord::StatementInvalid
+    false
   end
 end

@@ -43,22 +43,22 @@ class Searcher
     # pg_bigm GINインデックスを活用したLIKE検索
     def search_with_bigm(config)
       model = config[:model]
-      columns = config[:columns]
       keywords = Searcher.split_keywords(keyword)
 
       scope = model.all
       scope = scope.includes(*config[:includes]) if config[:includes].any?
+      scope = apply_like_conditions(scope, model, config[:columns], keywords)
+      scope.distinct.order(updated_at: :desc).to_a
+    end
 
+    def apply_like_conditions(scope, model, columns, keywords)
       keywords.each do |word|
         escaped = sanitize_like(word)
-        conditions = columns.map do |col|
-          # case_sensitive: true → LIKEを使用（pg_bigm GINインデックスが効く）
-          model.arel_table[col].matches("%#{escaped}%", nil, true)
-        end
+        # case_sensitive: true → LIKEを使用（pg_bigm GINインデックスが効く）
+        conditions = columns.map { |col| model.arel_table[col].matches("%#{escaped}%", nil, true) }
         scope = scope.where(conditions.reduce(:or))
       end
-
-      scope.distinct.order(updated_at: :desc).to_a
+      scope
     end
 
     # Ransack（ILIKE）によるフォールバック検索
