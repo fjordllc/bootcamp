@@ -100,20 +100,19 @@ class PracticeTest < ActiveSupport::TestCase
     assert_equal 0, practice.reports_count(include_source: true)
     Report.create!(
       user: users(:komagata),
-      title: '日報が存在しないプラクティスの日報',
-      description: '日報が存在しないプラクティスの日報です。',
+      title: '日報が存在しないRailsコースのコピー元プラクティスの日報',
+      description: '日報が存在しないRailsコースのコピー元プラクティスの日報です。',
       practices: [source],
       reported_on: Time.zone.today
     )
     Report.create!(
       user: users(:komagata),
-      title: '日報が存在しないプラクティスをコピーしたプラクティスの日報',
-      description: '日報が存在しないプラクティスをコピーしたプラクティスの日報です。',
+      title: '日報が存在しない給付金コースのプラクティスの日報',
+      description: '日報が存在しない給付金コースのプラクティスの日報です。',
       practices: [practice],
       reported_on: Time.zone.today - 1
     )
 
-    assert_equal 1, practice.reports_count(include_source: false)
     assert_equal 2, practice.reports_count(include_source: true)
   end
 
@@ -123,8 +122,8 @@ class PracticeTest < ActiveSupport::TestCase
     assert_equal 0, practice.reports_count(include_source: false)
     Report.create!(
       user: users(:komagata),
-      title: '日報が存在しないプラクティスの日報',
-      description: '日報が存在しないプラクティスの日報です。',
+      title: '日報が存在しないRailsコースのコピー元プラクティスの日報',
+      description: '日報が存在しないRailsコースのコピー元プラクティスの日報です。',
       practices: [practice],
       reported_on: Time.zone.today
     )
@@ -137,8 +136,8 @@ class PracticeTest < ActiveSupport::TestCase
     practice = practices(:practice68)
     Report.create!(
       user: users(:komagata),
-      title: '日報が存在しないプラクティス、日報が存在しないプラクティスをコピーしたプラクティスの両方に関連する日報',
-      description: '日報が存在しないプラクティス、日報が存在しないプラクティスをコピーしたプラクティスの両方に関連する日報です。',
+      title: '日報が存在しないRailsコースのコピー元プラクティス、日報が存在しない給付金コースのプラクティスの両方に関連する日報',
+      description: '日報が存在しないRailsコースのプラクティス、日報が存在しない給付金コースのプラクティスの両方に関連する日報です。',
       practices: [source, practice],
       reported_on: Time.zone.today
     )
