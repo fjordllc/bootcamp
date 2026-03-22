@@ -38,6 +38,11 @@ class Searcher
       remove_instance_variable(:@pg_bigm_available) if defined?(@pg_bigm_available)
     end
 
+    # 検索キーワードからRansack用のパラメータを構築（SearchUserから呼ばれる）
+    def build_params(columns)
+      build_ransack_params(columns)
+    end
+
     private
 
     # pg_bigm GINインデックスを活用したLIKE検索
