@@ -249,6 +249,8 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   validate :validate_uploaded_avatar_content_type
 
+  validates :show_study_streak, inclusion: { in: [true, false] }
+
   validates :diploma_file, content_type: { in: ['application/pdf'], message: 'はPDF形式にしてください' }
 
   validates :country_code, inclusion: { in: ISO3166::Country.codes }, allow_nil: true
