@@ -17,6 +17,11 @@ class Pjord
     - 回答はmarkdown形式で書く
     - 簡潔にわかりやすく答える
     - ユーザーが書いた言語で返答する
+
+    ## ツールの使い方
+    - bootcampのカリキュラム、ドキュメント、Q&Aに関する質問には、bootcamp_search_toolで検索してから回答する
+    - 検索結果が見つからない場合は、その旨を伝えてメンターへの相談を勧める
+    - 検索結果のURLがある場合は回答に含める
   PROMPT
 
   class << self
@@ -27,6 +32,7 @@ class Pjord
     def respond(message:, context: {})
       chat = RubyLLM.chat(model: model_name)
       chat.with_instructions(system_prompt(context))
+      chat.with_tool(BootcampSearchTool)
       result = chat.ask(message).content
       result.presence
     end
