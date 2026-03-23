@@ -167,4 +167,22 @@ class PairWorkTest < ActiveSupport::TestCase
     assert_not pair_work.reserve(invalid_params_reserved_at)
     assert_includes pair_work.errors.full_messages, '希望した日時は提案されたスケジュールに含まれていません'
   end
+
+  test '#unmatch' do
+    travel_to Time.zone.local(2025, 1, 2, 0, 59, 59) do
+      pair_work = pair_works(:pair_work2)
+      pair_work.unmatch
+      assert_nil pair_work.reserved_at
+      assert_nil pair_work.buddy
+    end
+  end
+
+  test '#unmatch fails when reverved_at before or at current timr ' do
+    travel_to Time.zone.local(2025, 1, 2, 1, 0, 0) do
+      pair_work = pair_works(:pair_work2)
+      pair_work.unmatch
+      assert_not_nil pair_work.reserved_at
+      assert_not_nil pair_work.buddy
+    end
+  end
 end
