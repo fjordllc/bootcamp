@@ -35,10 +35,15 @@ class BootcampSearchToolTest < ActiveSupport::TestCase
   end
 
   test 'search with multiple keywords narrows results' do
-    all_results = @tool.execute(query: 'テスト', category: 'practice')
-    narrow_results = @tool.execute(query: 'テスト Rails', category: 'practice')
-    # 複数キーワードはAND条件なので、結果が同じか少なくなるはず
-    assert narrow_results.length <= all_results.length
+    # 単一キーワードの結果数
+    all_result = @tool.execute(query: 'テスト', category: 'practice')
+    all_count = all_result.scan(/\*\*\[プラクティス\]/).size
+
+    # 複数キーワード（AND条件）の結果数は同じか少なくなるはず
+    narrow_result = @tool.execute(query: 'テスト Rails', category: 'practice')
+    narrow_count = narrow_result.scan(/\*\*\[プラクティス\]/).size
+
+    assert narrow_count <= all_count
   end
 
   test 'escapes LIKE special characters' do
@@ -53,7 +58,8 @@ class BootcampSearchToolTest < ActiveSupport::TestCase
 
   test 'result contains URL paths' do
     result = @tool.execute(query: 'テスト', category: 'practice')
-    # 結果があればURLが含まれる
-    assert_includes result, '/practices/' if result.include?('プラクティス')
+    # フィクスチャに「テスト」を含むプラクティスが存在する前提
+    assert_includes result, 'プラクティス', 'テスト用プラクティスが見つかりません'
+    assert_includes result, '/practices/', '検索結果にURLパスが含まれていません'
   end
 end
