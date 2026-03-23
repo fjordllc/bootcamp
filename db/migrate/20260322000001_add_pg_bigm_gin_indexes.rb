@@ -20,12 +20,11 @@ class AddPgBigmGinIndexes < ActiveRecord::Migration[8.1]
   }.freeze
 
   def up
-    return unless pg_bigm_available?
-
     INDEXES.each do |table, columns|
       columns.each do |column|
-        index_name = "index_#{table}_on_#{column}_bigm"
+        index_name = bigm_index_name(table, column)
         next if index_exists?(table, column, name: index_name)
+        next unless pg_bigm_enabled?
 
         execute <<~SQL
           CREATE INDEX CONCURRENTLY #{index_name}
@@ -39,7 +38,7 @@ class AddPgBigmGinIndexes < ActiveRecord::Migration[8.1]
   def down
     INDEXES.each do |table, columns|
       columns.each do |column|
-        index_name = "index_#{table}_on_#{column}_bigm"
+        index_name = bigm_index_name(table, column)
         execute "DROP INDEX CONCURRENTLY IF EXISTS #{index_name}"
       end
     end
@@ -47,9 +46,13 @@ class AddPgBigmGinIndexes < ActiveRecord::Migration[8.1]
 
   private
 
-  def pg_bigm_available?
+  def bigm_index_name(table, column)
+    "index_#{table}_on_#{column}_bigm"
+  end
+
+  def pg_bigm_enabled?
     result = execute("SELECT COUNT(*) FROM pg_extension WHERE extname = 'pg_bigm'")
-    result.first["count"].to_i.positive?
+    result.first['count'].to_i.positive?
   rescue StandardError
     false
   end
