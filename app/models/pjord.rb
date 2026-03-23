@@ -22,6 +22,8 @@ class Pjord
     - bootcampのカリキュラム、ドキュメント、Q&Aに関する質問には、bootcamp_search_toolで検索してから回答する
     - 検索結果が見つからない場合は、その旨を伝えてメンターへの相談を勧める
     - 検索結果のURLがある場合は回答に含める
+    - ユーザーの進捗やプロフィールに関する情報が必要なときは、user_info_toolを使う
+    - ユーザーの現在の学習状況に合わせてアドバイスする
   PROMPT
 
   class << self
@@ -33,6 +35,7 @@ class Pjord
       chat = RubyLLM.chat(model: model_name)
       chat.with_instructions(system_prompt(context))
       chat.with_tool(BootcampSearchTool)
+      chat.with_tool(UserInfoTool)
       result = chat.ask(message).content
       result.presence
     end
@@ -48,6 +51,7 @@ class Pjord
 
       parts << "## 現在の場所\n#{context[:location]}" if context[:location].present?
       parts << "## 関連プラクティス\n#{context[:practice]}" if context[:practice].present?
+      parts << "## メンションしてきたユーザー\nログイン名: #{context[:sender_login_name]}" if context[:sender_login_name].present?
 
       parts.join("\n\n")
     end

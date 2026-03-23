@@ -58,6 +58,7 @@ class PjordRespondJob < ApplicationJob
     context = {}
     context[:location] = mentionable.where_mention if mentionable.respond_to?(:where_mention)
     context[:practice] = extract_practice(mentionable)
+    context[:sender_login_name] = mentionable.sender&.login_name
     context
   end
 

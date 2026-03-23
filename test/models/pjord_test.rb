@@ -14,6 +14,7 @@ class PjordTest < ActiveSupport::TestCase
     mock_chat = Minitest::Mock.new
     mock_chat.expect(:with_instructions, mock_chat, [String])
     mock_chat.expect(:with_tool, mock_chat, [BootcampSearchTool])
+    mock_chat.expect(:with_tool, mock_chat, [UserInfoTool])
     mock_chat.expect(:ask, mock_content, [String])
 
     RubyLLM.stub(:chat, mock_chat) do
@@ -29,6 +30,7 @@ class PjordTest < ActiveSupport::TestCase
     mock_chat = Minitest::Mock.new
     mock_chat.expect(:with_instructions, mock_chat, [String])
     mock_chat.expect(:with_tool, mock_chat, [BootcampSearchTool])
+    mock_chat.expect(:with_tool, mock_chat, [UserInfoTool])
     mock_chat.expect(:ask, mock_content, [String])
 
     RubyLLM.stub(:chat, mock_chat) do
