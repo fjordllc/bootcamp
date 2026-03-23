@@ -126,14 +126,16 @@ class PairWorksTest < ApplicationSystemTestCase
   end
 
   test 'cancel pair confirmation' do
-    pair_work = pair_works(:pair_work4)
-    visit_with_auth pair_work_path(pair_work), 'komagata'
-    find("label[for='show-schedule-dates']").click
-    accept_confirm do
-      click_button 'ペア確定を取り消す'
-    end
+    travel_to Time.zone.local(2025, 1, 1, 0, 0, 0) do
+      pair_work = pair_works(:pair_work4)
+      visit_with_auth pair_work_path(pair_work), 'komagata'
+      find("label[for='show-schedule-dates']").click
+      accept_confirm do
+        click_button 'ペア確定を取り消す'
+      end
 
-    assert_text 'ペア確定を取り消しました'
+      assert_text 'ペア確定を取り消しました'
+    end
   end
 
   test 'show confirmed date on calendar' do

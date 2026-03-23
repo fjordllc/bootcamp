@@ -101,6 +101,8 @@ class PairWork < ApplicationRecord
   end
 
   def unmatch
+    return if reserved_at <= Time.current
+
     update(buddy_id: nil, reserved_at: nil)
   end
 
