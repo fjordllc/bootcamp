@@ -104,13 +104,13 @@ class PracticesTest < ApplicationSystemTestCase
   test 'should link source practice practice to grant course' do
     source_practice = practices(:practice23)
     visit_with_auth practice_path(source_practice), 'grant-course'
-    click_link '給付金コースのプラクティス'
+    click_link '給付金コース'
     assert_text 'rubyをインストールする（Reスキル）'
   end
 
   test 'hide grant course practice link from non grant course user' do
     source_practice = practices(:practice23)
     visit_with_auth practice_path(source_practice), 'kimura'
-    assert_no_text '給付金コースのプラクティス'
+    assert_no_text '給付金コース'
   end
 end
