@@ -50,7 +50,13 @@ module Mentioner
     return nil if instance_of?(Comment) && commentable.instance_of?(Talk) # protect mention in talk
 
     receivers.each do |receiver|
-      ActivityDelivery.with(mentionable: self, receiver:).notify(:mentioned) if sender != receiver
+      next if sender == receiver
+
+      if receiver.login_name == Pjord::LOGIN_NAME
+        PjordRespondJob.perform_later(mentionable_type: self.class.name, mentionable_id: id)
+      else
+        ActivityDelivery.with(mentionable: self, receiver:).notify(:mentioned)
+      end
     end
   end
 

@@ -1,0 +1,49 @@
+# frozen_string_literal: true
+
+require 'test_helper'
+
+class PjordTest < ActiveSupport::TestCase
+  test '.user returns pjord user' do
+    assert_equal 'pjord', Pjord.user.login_name
+  end
+
+  test '.respond returns a response' do
+    mock_content = Minitest::Mock.new
+    mock_content.expect(:content, 'テストの回答です。')
+
+    mock_chat = Minitest::Mock.new
+    mock_chat.expect(:with_instructions, mock_chat, [String])
+    mock_chat.expect(:with_tool, mock_chat, [BootcampSearchTool])
+    mock_chat.expect(:with_tool, mock_chat, [UserInfoTool])
+    mock_chat.expect(:ask, mock_content, [String])
+
+    RubyLLM.stub(:chat, mock_chat) do
+      response = Pjord.respond(message: 'Rubyの配列について教えて')
+      assert_equal 'テストの回答です。', response
+    end
+  end
+
+  test '.respond returns nil on blank response' do
+    mock_content = Minitest::Mock.new
+    mock_content.expect(:content, '')
+
+    mock_chat = Minitest::Mock.new
+    mock_chat.expect(:with_instructions, mock_chat, [String])
+    mock_chat.expect(:with_tool, mock_chat, [BootcampSearchTool])
+    mock_chat.expect(:with_tool, mock_chat, [UserInfoTool])
+    mock_chat.expect(:ask, mock_content, [String])
+
+    RubyLLM.stub(:chat, mock_chat) do
+      response = Pjord.respond(message: 'test')
+      assert_nil response
+    end
+  end
+
+  test '.respond raises on API error for job retry' do
+    RubyLLM.stub(:chat, ->(*) { raise StandardError, 'API error' }) do
+      assert_raises(StandardError) do
+        Pjord.respond(message: 'test')
+      end
+    end
+  end
+end
