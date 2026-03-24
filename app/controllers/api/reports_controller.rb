@@ -13,4 +13,8 @@ class API::ReportsController < API::BaseController
 
     @reports = @reports.includes(:checks).unchecked.not_wip
   end
+
+  def show
+    @report = Report.find(params[:id])
+  end
 end
