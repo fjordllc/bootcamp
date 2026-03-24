@@ -111,6 +111,7 @@ class PracticesTest < ApplicationSystemTestCase
   test 'hide grant course practice link from non grant course user' do
     source_practice = practices(:practice23)
     visit_with_auth practice_path(source_practice), 'kimura'
+    assert_text 'rubyをインストールする'
     assert_no_text '給付金コース'
   end
 end
