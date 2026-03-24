@@ -4,13 +4,13 @@ steps:
     entrypoint: bash
     args:
       - '-c'
-      - 'docker pull asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest || exit 0'
+      - 'docker pull asia.gcr.io/bootcamp-224405/bootcamp:latest || exit 0'
   - id: Build
     name: gcr.io/cloud-builders/docker
     args:
       - build
       - '-t'
-      - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:pr-${_PR_NUMBER}'
+      - 'asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}'
       - .
       - '-f'
       - Dockerfile
@@ -18,7 +18,7 @@ steps:
     name: gcr.io/cloud-builders/docker
     args:
       - push
-      - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:pr-${_PR_NUMBER}'
+      - 'asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}'
     waitFor:
       - Build
   - id: SqlProxy
@@ -33,7 +33,7 @@ steps:
       - name: db
         path: /cloudsql
   - id: WaitForProxy
-    name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:pr-${_PR_NUMBER}'
+    name: 'asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}'
     args:
       - bash
       - '-c'
@@ -80,7 +80,7 @@ steps:
       - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
       - APP_HOST_NAME=$_APP_HOST_NAME
   - id: CreateDB
-    name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:pr-${_PR_NUMBER}'
+    name: 'asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}'
     entrypoint: bash
     args:
       - '-c'
@@ -109,7 +109,7 @@ steps:
       - APP_HOST_NAME=$_APP_HOST_NAME
       - TARGET_DB_NAME=$_DB_NAME
   - id: EnablePgvector
-    name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:pr-${_PR_NUMBER}'
+    name: 'asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}'
     entrypoint: bash
     args:
       - '-c'
@@ -135,7 +135,7 @@ steps:
       - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
       - APP_HOST_NAME=$_APP_HOST_NAME
   - id: DBMigrate
-    name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:pr-${_PR_NUMBER}'
+    name: 'asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}'
     args:
       - bin/rails
       - db:migrate
@@ -172,7 +172,7 @@ steps:
       - '--platform=managed'
       - '--region=asia-northeast1'
       - '--quiet'
-      - '--image=asia.gcr.io/$PROJECT_ID/$REPO_NAME:pr-${_PR_NUMBER}'
+      - '--image=asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}'
       - '--allow-unauthenticated'
       - '--clear-vpc-connector'
       - '--add-cloudsql-instances'
@@ -233,7 +233,7 @@ steps:
       - Kill_SqlProxy
 timeout: 7200s
 images:
-  - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:pr-${_PR_NUMBER}'
+  - 'asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}'
 substitutions:
   _PR_NUMBER: '0'
   _MEMORY: '2G'
