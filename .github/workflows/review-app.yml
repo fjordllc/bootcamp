@@ -36,31 +36,20 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
 
       - name: Deploy Review App via Cloud Build
+        env:
+          REVIEW_DB_PASS: ${{ secrets.REVIEW_DB_PASS }}
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+          REVIEW_GOOGLE_CREDENTIALS: ${{ secrets.REVIEW_GOOGLE_CREDENTIALS }}
+          REVIEW_BASIC_AUTH_PASSWORD: ${{ secrets.REVIEW_BASIC_AUTH_PASSWORD }}
+          RECAPTCHA_SITE_KEY: ${{ secrets.RECAPTCHA_SITE_KEY }}
+          RECAPTCHA_SECRET_KEY: ${{ secrets.RECAPTCHA_SECRET_KEY }}
+          REVIEW_MISSION_CONTROL_PASSWORD: ${{ secrets.REVIEW_MISSION_CONTROL_PASSWORD }}
+          REVIEW_OPEN_AI_ACCESS_TOKEN: ${{ secrets.REVIEW_OPEN_AI_ACCESS_TOKEN }}
+          REVIEW_ENVS: ${{ secrets.REVIEW_ENVS }}
         run: |
           gcloud builds submit \
             --config=.cloudbuild/cloudbuild-review.yaml \
-            --substitutions="\
-              _PR_NUMBER=${PR_NUMBER},\
-              _SERVICE_NAME=${SERVICE_NAME},\
-              _DB_NAME=${DB_NAME},\
-              _CLOUD_SQL_HOST=bootcamp-224405:asia-northeast1:bootcamp,\
-              _DB_USER=review,\
-              _DB_PASS=${{ secrets.REVIEW_DB_PASS }},\
-              _RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }},\
-              _APP_HOST_NAME=${SERVICE_NAME}-335091307227.asia-northeast1.run.app,\
-              _CLOUD_RUN_HOST_NAME=${SERVICE_NAME}-335091307227.asia-northeast1.run.app,\
-              _GOOGLE_CREDENTIALS=${{ secrets.REVIEW_GOOGLE_CREDENTIALS }},\
-              _GCS_BUCKET=bootcamp-fjord-jp-review,\
-              _TOKEN=review-token-pr-${PR_NUMBER},\
-              _BASIC_AUTH_USER=fjord,\
-              _BASIC_AUTH_PASSWORD=${{ secrets.REVIEW_BASIC_AUTH_PASSWORD }},\
-              _RECAPTCHA_SITE_KEY=${{ secrets.RECAPTCHA_SITE_KEY }},\
-              _RECAPTCHA_SECRET_KEY=${{ secrets.RECAPTCHA_SECRET_KEY }},\
-              _MISSION_CONTROL_USERNAME=fjord,\
-              _MISSION_CONTROL_PASSWORD=${{ secrets.REVIEW_MISSION_CONTROL_PASSWORD }},\
-              _OPEN_AI_ACCESS_TOKEN=${{ secrets.REVIEW_OPEN_AI_ACCESS_TOKEN }},\
-              _ENVS=${{ secrets.REVIEW_ENVS }},\
-              _MEMORY=2G" \
+            --substitutions="_PR_NUMBER=${PR_NUMBER},_SERVICE_NAME=${SERVICE_NAME},_DB_NAME=${DB_NAME},_CLOUD_SQL_HOST=bootcamp-224405:asia-northeast1:bootcamp,_DB_USER=review,_DB_PASS=${REVIEW_DB_PASS},_RAILS_MASTER_KEY=${RAILS_MASTER_KEY},_APP_HOST_NAME=${SERVICE_NAME}-335091307227.asia-northeast1.run.app,_CLOUD_RUN_HOST_NAME=${SERVICE_NAME}-335091307227.asia-northeast1.run.app,_GOOGLE_CREDENTIALS=${REVIEW_GOOGLE_CREDENTIALS},_GCS_BUCKET=bootcamp-fjord-jp-review,_TOKEN=review-token-pr-${PR_NUMBER},_BASIC_AUTH_USER=fjord,_BASIC_AUTH_PASSWORD=${REVIEW_BASIC_AUTH_PASSWORD},_RECAPTCHA_SITE_KEY=${RECAPTCHA_SITE_KEY},_RECAPTCHA_SECRET_KEY=${RECAPTCHA_SECRET_KEY},_MISSION_CONTROL_USERNAME=fjord,_MISSION_CONTROL_PASSWORD=${REVIEW_MISSION_CONTROL_PASSWORD},_OPEN_AI_ACCESS_TOKEN=${REVIEW_OPEN_AI_ACCESS_TOKEN},_MEMORY=2G" \
             --project=bootcamp-224405 \
             --region=asia-northeast1 \
             --quiet

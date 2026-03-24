@@ -222,7 +222,11 @@ steps:
       - '--set-env-vars=ROLLBAR_CLIENT_TOKEN='
       - '--set-env-vars=OPEN_AI_ACCESS_TOKEN=$_OPEN_AI_ACCESS_TOKEN'
       - '--set-env-vars=STRIPE_TAX_RATE_ID='
-      - '--set-env-vars=$_ENVS'
+      - '--set-env-vars=GITHUB_KEY=81e43e9c0580b4e421fb'
+      - '--set-env-vars=GITHUB_SECRET=a9eb0a32138c7d30a22bc6fe93b9928a527e52a9'
+      - '--set-env-vars=STRIPE_PUBLIC_KEY=pk_test_Je8A9BUHRC8oqsqx8wtfbKwg'
+      - '--set-env-vars=STRIPE_SECRET_KEY=sk_test_XLP1Ajz1JvT9jUt5uKGvL0Wd'
+      - '--set-env-vars=POSTMARK_API_TOKEN=aac422f2-f9db-4e59-8991-9c7062ea0b99'
       - >-
         --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,pr-number=${_PR_NUMBER}
     waitFor:
