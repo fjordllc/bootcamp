@@ -159,7 +159,7 @@ steps:
     entrypoint: sh
     args:
       - '-c'
-      - docker kill -s TERM $(docker ps -q --filter "volume=db")
+      - 'CONTAINER=$(docker ps -q --filter "volume=db"); [ -n "$CONTAINER" ] && docker kill -s TERM $CONTAINER || echo "No proxy container found"'
     waitFor:
       - DBMigrate
   - id: Deploy
