@@ -36,11 +36,11 @@
   margin-bottom: 0.125em;
 }
 .a-notice-block a {
-  text-decoration: none;
+  text-decoration: underline;
   cursor: pointer;
 }
 .a-notice-block a:hover, .a-notice-block a:active {
-  text-decoration: underline;
+  text-decoration: none;
 }
 .a-notice-block .message {
   background: red;
