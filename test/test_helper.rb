@@ -18,6 +18,7 @@ Capybara.default_max_wait_time = 15
 Capybara.disable_animation = true
 Capybara.automatic_reload = false
 Capybara.enable_aria_label = true
+Capybara.server = :puma, { Silent: true, persistent_timeout: 0 }
 
 # Configure retry for flaky tests (CI or when MINITEST_RETRY_COUNT is set)
 if ENV['CI'] || ENV['MINITEST_RETRY_COUNT']
@@ -48,8 +49,4 @@ end
 class ActionDispatch::IntegrationTest
   include Sorcery::TestHelpers::Rails::Integration
   include APIHelper
-end
-
-ActiveSupport.on_load(:action_dispatch_system_test_case) do
-  ActionDispatch::SystemTesting::Server.silence_puma = true
 end
