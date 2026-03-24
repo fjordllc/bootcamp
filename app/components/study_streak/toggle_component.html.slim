@@ -1,0 +1,36 @@
+.a-card.streak-card-toggle
+  .card-header.is-sm
+  = form_with url: toggle_show_study_streak_user_path(target_user), method: :patch, local: true do
+    = hidden_field_tag :redirect_to, redirect_path
+
+    label.a-on-off-checkbox.is-md
+      = check_box_tag :toggle, "1", target_user.show_study_streak,
+                      class: "a-on-off-checkbox__input",
+                      onchange: "this.form.submit()"
+      span
+  .a-form-help
+    p
+      | あなたのプロフィール・ダッシュボードに学習連続記録を表示するか否かの設定です。表示させたくない場合はオフにしてください。
+      br
+  label.a-form-help-link.is-danger(for='modal-study-streak')
+    span.a-form-help-link__label
+      | 学習連続記録とは？
+    span.a-help
+      i.fa-solid.fa-question
+
+= render '/shared/modal', id: 'modal-study-streak', modal_title: '学習連続記録'
+  .modal__description.is-md
+    .a-short-text
+      p
+        | あなたが連続で取り組んだ学習記録を表示する機能です。
+        br
+        | 日報の学習時間から何日連続で学習できたかを自動でカウントします。
+        | 記録が目に見えることで、日々の習慣化をサポートします。
+      p
+        = image_tag 'study_streak/about-study-streak.jpg',
+          alt: '学習連続記録の表示画面'
+      p
+        | 学習連続記録はプロフィールとダッシュボードに表示され、他のユーザーからも閲覧されます。
+        | 学習スタイルは人それぞれです。休息日を設けている方やご自身のスケジュールに合わせて「週に数回じっくり取り組む」という方はオフにすることも可能です。
+        br
+        | ※オフにしても、これまでの学習連続記録が消えることはありません。
