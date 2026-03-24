@@ -94,17 +94,17 @@ class PracticesTest < ApplicationSystemTestCase
     assert_equal practice.questions.length, 12
   end
 
-  test 'should link grant course practice to source practice' do
+  test 'link between grant course practice and source practice' do
     grant_course_practice = practices(:practice64)
+    source_practice = practices(:practice23)
+
     visit_with_auth practice_path(grant_course_practice), 'grant-course'
     click_link '元プラクティス'
+    assert_current_path practice_path(source_practice)
     assert_text 'rubyをインストールする'
-  end
 
-  test 'should link source practice practice to grant course' do
-    source_practice = practices(:practice23)
-    visit_with_auth practice_path(source_practice), 'grant-course'
     click_link '給付金コース'
+    assert_current_path practice_path(grant_course_practice)
     assert_text 'rubyをインストールする（Reスキル）'
   end
 
@@ -112,6 +112,6 @@ class PracticesTest < ApplicationSystemTestCase
     source_practice = practices(:practice23)
     visit_with_auth practice_path(source_practice), 'kimura'
     assert_text 'rubyをインストールする'
-    assert_no_text '給付金コース'
+    assert_no_link '給付金コース'
   end
 end
