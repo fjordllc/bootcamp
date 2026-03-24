@@ -97,7 +97,7 @@ class PracticesTest < ApplicationSystemTestCase
   test 'should link grant course practice to source practice' do
     grant_course_practice = practices(:practice64)
     visit_with_auth practice_path(grant_course_practice), 'grant-course'
-    click_link '元のプラクティス'
+    click_link '元プラクティス'
     assert_text 'rubyをインストールする'
   end
 

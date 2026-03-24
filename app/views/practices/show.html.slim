@@ -12,20 +12,30 @@
 = practice_page_tabs(@practice, active_tab: 'プラクティス')
 
 .page-body
-  - if current_user.grant_course?
-    - if @practice.source_practice.present?
-      = link_to practice_path(@practice.source_practice),
-        class: 'a-button is-md is-secondary is-block is-back' do
-        | 元のプラクティス
-    - else
-      = link_to practice_path(Practice.find_by(source_id: @practice.id)),
-        class: 'a-button is-md is-secondary is-block is-back' do
-        | 給付金コースのプラクティス
   - if @practice.learning(current_user)&.complete?
     = render '/products/completion_message', practice: @practice
   .container.is-xl
     .row.is-gutter-width-32
       .col-lg-8.col-xs-12
+        - if current_user.grant_course?
+          nav.pill-nav
+            ul.pill-nav__items
+              li.pill-nav__item
+                = link_to practice_path(@practice.source_practice || @practice),
+                  class: "pill-nav__item-link #{@practice.source_practice.blank? ? 'is-active' : ''}" do
+                  | 元プラクティス
+              li.pill-nav__item
+                = link_to practice_path(@practice.copied_practices.first || @practice),
+                  class: "pill-nav__item-link #{@practice.source_practice.present? ? 'is-active' : ''}" do
+                  | 給付金コース
+
+          .practice-status-buttons__note(class='!mt-3')
+            p
+              | 給付金コースのプラクティスは、専門実践教育訓練給付制度の要件を満たすために、
+              | 申請時点の内容を維持させています。
+              | そのため、継続的にブラッシュアップされている元コースと内容が異なる場合があります。
+              | 元バージョンも参考として「元プラクティス」タブから確認できます。
+
         .practice.page-content
           - learning_minute_statistic = @practice.learning_minute_statistic
           - if learning_minute_statistic
