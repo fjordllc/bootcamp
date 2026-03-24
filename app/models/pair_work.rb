@@ -87,6 +87,7 @@ class PairWork < ApplicationRecord
       update: 'ペアワークを更新しました。',
       destroy: 'ペアワークを削除しました。',
       reserve: 'ペアが確定しました。',
+      update_reserve: '予約内容を変更しました。',
       cancel: 'ペア確定を取り消しました'
     }[action_name]
   end

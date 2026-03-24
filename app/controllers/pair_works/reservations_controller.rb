@@ -5,17 +5,25 @@ class PairWorks::ReservationsController < ApplicationController
 
   def create
     @pair_work = PairWork.find(params[:pair_work_id])
-    reservation_params = pair_work_reservation_params
-    notification_kinds = []
-    new_reserved_at = Time.zone.parse(reservation_params[:reserved_at])
-    notification_kinds << 'pair_work.reschedule' if @pair_work.solved? && @pair_work.reserved_at != new_reserved_at
-    notification_kinds << 'pair_work.rematch' if @pair_work.solved? && @pair_work.buddy_id != reservation_params[:buddy_id]
-    notification_kinds << 'pair_work.reserve' if notification_kinds.empty?
-    if @pair_work.reserve(reservation_params)
+    if @pair_work.reserve(pair_work_reservation_params)
+      ActiveSupport::Notifications.instrument('pair_work.reserve', pair_work: @pair_work)
+      redirect_to Redirection.determin_url(self, @pair_work), notice: @pair_work.generate_notice_message(:reserve)
+    else
+      @comments = @pair_work.comments.order(:created_at)
+      render 'pair_works/show'
+    end
+  end
+
+  def update
+    @pair_work = PairWork.find(params[:pair_work_id])
+    if @pair_work.reserve(pair_work_reservation_params)
+      notification_kinds = []
+      notification_kinds << 'pair_work.reschedule' if @pair_work.saved_change_to_reserved_at?
+      notification_kinds << 'pair_work.rematch' if @pair_work.saved_change_to_buddy_id?
       notification_kinds.each do |kind|
         ActiveSupport::Notifications.instrument(kind, pair_work: @pair_work)
       end
-      redirect_to Redirection.determin_url(self, @pair_work), notice: @pair_work.generate_notice_message(:reserve)
+      redirect_to Redirection.determin_url(self, @pair_work), notice: @pair_work.generate_notice_message(:update_reserve)
     else
       @comments = @pair_work.comments.order(:created_at)
       render 'pair_works/show'
@@ -25,6 +33,7 @@ class PairWorks::ReservationsController < ApplicationController
   def destroy
     @pair_work = PairWork.find(params[:pair_work_id])
     return if current_user != @pair_work.buddy
+
     if @pair_work.unmatch
       ActiveSupport::Notifications.instrument('pair_work.cancel', pair_work: @pair_work, sender: current_user)
       redirect_to Redirection.determin_url(self, @pair_work), notice: @pair_work.generate_notice_message(:cancel)

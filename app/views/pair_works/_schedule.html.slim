@@ -1,5 +1,4 @@
 - proposed_at_list = pair_work.schedules.map(&:proposed_at)
-
 .a-table.is-sm(class='!text-center')
   table(class='!min-w-full')
     thead
@@ -15,7 +14,7 @@
             - target_time = schedule_target_time(day, hour, pair_work:)
             - if proposed_at_list.include?(target_time)
               td(class='!p-0 !h-6 !relative')
-                = form_with model: pair_work, url: pair_work_reservations_path(pair_work), method: :post, local: true do |f|
+                = form_with model: pair_work, url: pair_work_reservations_path(pair_work), method: pair_work.solved? ? :patch : :post, local: true do |f|
                   = f.hidden_field :reserved_at, value: target_time
                   = f.button type: :submit,
                     disabled: schedule_check_disabled?(target_time, pair_work:),

@@ -99,7 +99,7 @@ class Notification::PairWorksTest < NotificationSystemTestCase
           find_button(id: '2025-01-02T01:00:00+09:00').click
         end
       end
-      assert_text 'ペアが確定しました。'
+      assert_text '予約内容を変更しました。'
 
       assert_user_has_notification(user: users(:kimura), kind: Notification.kinds[:rematching_pair_work],
                                    text: 'ペアワーク「ペア確定済みのペアワークです(タイトル)」のペアがmentormentaroに変更されました。')
@@ -117,7 +117,7 @@ class Notification::PairWorksTest < NotificationSystemTestCase
           find_button(id: '2025-01-03T01:00:00+09:00').click
         end
       end
-      assert_text 'ペアが確定しました。'
+      assert_text '予約内容を変更しました。'
       assert_user_has_notification(user: users(:kimura), kind: Notification.kinds[:reschedule_pair_work],
                                    text: 'ペアワーク「日程変更動作確認用のペアワークです。」の日程が2025年01月03日(金) 01:00に変更されました。')
     end
@@ -156,7 +156,7 @@ class Notification::PairWorksTest < NotificationSystemTestCase
       end
 
       assert_text 'ペア確定を取り消しました'
-      
+
       assert_user_has_notification(user: users(:kimura), kind: Notification.kinds[:cancel_pair_work], text: 'ペアワーク「削除通知確認用のペアワーク募集」のペア確定が取り消されました。')
       assert_user_has_notification(user: users(:komagata), kind: Notification.kinds[:cancel_pair_work], text: 'ペアワーク「削除通知確認用のペアワーク募集」のペア確定が取り消されました。')
     end

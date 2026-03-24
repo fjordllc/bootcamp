@@ -147,4 +147,29 @@ class PairWorksTest < ApplicationSystemTestCase
     find("label[for='show-schedule-dates']").click
     assert_selector "[id='2025-01-02T01:00:00+09:00']", text: '確定'
   end
+
+  test 'update pair work reservation' do
+    travel_to Time.zone.local(2025, 1, 1, 0, 0, 0) do
+      pair_work = pair_works(:pair_work4)
+      visit_with_auth pair_work_path(pair_work), 'komagata'
+      find("label[for='show-schedule-dates']").click
+      within '.a-table' do
+        accept_alert do
+          find_button(id: '2025-01-03T01:00:00+09:00').click
+        end
+      end
+      assert_text '予約内容を変更しました。'
+      assert_selector '.pair-work-info__datetime', text: '2025年01月03日(金) 01:00'
+
+      visit_with_auth pair_work_path(pair_work), 'mentormentaro'
+      find("label[for='show-schedule-dates']").click
+      within '.a-table' do
+        accept_alert do
+          find_button(id: '2025-01-02T01:00:00+09:00').click
+        end
+      end
+      assert_text '予約内容を変更しました。'
+      assert_selector 'a', text: 'mentormentaro (メンタ メンタロウ)'
+    end
+  end
 end
