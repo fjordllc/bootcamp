@@ -39,7 +39,7 @@ gem 'google-cloud-storage', '~> 1.25', require: false
 gem 'google-cloud-video-transcoder'
 gem 'google-id-token'
 gem 'holiday_jp'
-gem 'icalendar', '~> 2.8'
+gem 'icalendar', '~> 2.12'
 gem 'interactor', '~> 3.0'
 gem 'jp_prefecture', '~> 1.1'
 gem 'jquery-rails'
