@@ -1,0 +1,107 @@
+name: Review App
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+
+concurrency:
+  group: review-app-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  id-token: write
+  pull-requests: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      SERVICE_NAME: bootcamp-pr-${{ github.event.pull_request.number }}
+      DB_NAME: bootcamp_pr_${{ github.event.pull_request.number }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: projects/335091307227/locations/global/workloadIdentityPools/github-actions/providers/github-actions-provider
+          service_account: actions-cloud-run-deploy@bootcamp-224405.iam.gserviceaccount.com
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Deploy Review App via Cloud Build
+        run: |
+          gcloud builds submit \
+            --config=.cloudbuild/cloudbuild-review.yaml \
+            --substitutions="\
+              _PR_NUMBER=${PR_NUMBER},\
+              _SERVICE_NAME=${SERVICE_NAME},\
+              _DB_NAME=${DB_NAME},\
+              _CLOUD_SQL_HOST=bootcamp-224405:asia-northeast1:bootcamp,\
+              _DB_USER=review,\
+              _DB_PASS=${{ secrets.REVIEW_DB_PASS }},\
+              _RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }},\
+              _APP_HOST_NAME=${SERVICE_NAME}-335091307227.asia-northeast1.run.app,\
+              _CLOUD_RUN_HOST_NAME=${SERVICE_NAME}-335091307227.asia-northeast1.run.app,\
+              _GOOGLE_CREDENTIALS=${{ secrets.REVIEW_GOOGLE_CREDENTIALS }},\
+              _GCS_BUCKET=bootcamp-fjord-jp-review,\
+              _TOKEN=review-token-pr-${PR_NUMBER},\
+              _BASIC_AUTH_USER=fjord,\
+              _BASIC_AUTH_PASSWORD=${{ secrets.REVIEW_BASIC_AUTH_PASSWORD }},\
+              _RECAPTCHA_SITE_KEY=${{ secrets.RECAPTCHA_SITE_KEY }},\
+              _RECAPTCHA_SECRET_KEY=${{ secrets.RECAPTCHA_SECRET_KEY }},\
+              _MISSION_CONTROL_USERNAME=fjord,\
+              _MISSION_CONTROL_PASSWORD=${{ secrets.REVIEW_MISSION_CONTROL_PASSWORD }},\
+              _OPEN_AI_ACCESS_TOKEN=${{ secrets.REVIEW_OPEN_AI_ACCESS_TOKEN }},\
+              _ENVS=${{ secrets.REVIEW_ENVS }},\
+              _MEMORY=2G" \
+            --project=bootcamp-224405 \
+            --region=asia-northeast1 \
+            --quiet
+
+      - name: Get Review App URL
+        id: url
+        run: |
+          URL=$(gcloud run services describe ${SERVICE_NAME} \
+            --region=asia-northeast1 \
+            --project=bootcamp-224405 \
+            --format='value(status.url)')
+          echo "url=${URL}" >> "$GITHUB_OUTPUT"
+
+      - name: Comment PR with Review App URL
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const url = '${{ steps.url.outputs.url }}';
+            const marker = '<!-- review-app-url -->';
+            const body = `${marker}\n## 🚀 Review App\n\n**URL:** ${url}\n\n> Basic認証: fjord / (ステージングと同じ)\n> PR更新時に自動で再デプロイされます。`;
+
+            // 既存コメントを探して更新、なければ新規作成
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const existing = comments.find(c => c.body.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
