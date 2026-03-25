@@ -4,6 +4,6 @@ module Footprintable
   extend ActiveSupport::Concern
 
   included do
-    has_many :footprints, as: :footprintable, dependent: :delete_all
+    has_many :footprints, as: :footprintable, dependent: :destroy
   end
 end
