@@ -77,6 +77,10 @@ jobs:
 
           echo "$BUILD_OUTPUT"
           BUILD_ID=$(echo "$BUILD_OUTPUT" | grep -oP '(?<=builds/)[a-f0-9-]+')
+          if [ -z "$BUILD_ID" ]; then
+            echo "Failed to extract Build ID from output"
+            exit 1
+          fi
           echo "Build ID: $BUILD_ID"
 
           # ビルド完了をポーリングで待つ（最大60分）
