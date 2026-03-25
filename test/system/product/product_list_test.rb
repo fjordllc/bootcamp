@@ -16,7 +16,7 @@ class Product::ProductListTest < ApplicationSystemTestCase
     product = products(:product5)
     assert product.wip?
 
-    visit_with_auth '/products', 'komagata'
+    visit_with_auth '/products?page=2', 'komagata'
     within '.card-list-item.is-wip' do
       assert_selector '.a-list-item-badge.is-wip', text: 'WIP'
     end
