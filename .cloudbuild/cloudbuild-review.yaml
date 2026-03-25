@@ -1,0 +1,244 @@
+steps:
+  - id: Fetch
+    name: gcr.io/cloud-builders/docker
+    entrypoint: bash
+    args:
+      - '-c'
+      - 'docker pull asia.gcr.io/bootcamp-224405/bootcamp:latest || exit 0'
+  - id: Build
+    name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - '-t'
+      - 'asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}'
+      - .
+      - '-f'
+      - Dockerfile
+  - id: Push
+    name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - 'asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}'
+    waitFor:
+      - Build
+  - id: SqlProxy
+    name: 'gcr.io/cloudsql-docker/gce-proxy:1.16'
+    args:
+      - /cloud_sql_proxy
+      - '-dir=/cloudsql'
+      - '-instances=$_CLOUD_SQL_HOST'
+    waitFor:
+      - Push
+    volumes:
+      - name: db
+        path: /cloudsql
+  - id: WaitForProxy
+    name: 'asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}'
+    args:
+      - bash
+      - '-c'
+      - |
+        echo "Waiting for Cloud SQL Proxy to be ready..."
+        TIMEOUT=300
+        ELAPSED=0
+        while [ $$ELAPSED -lt $$TIMEOUT ]; do
+          if OUTPUT=$$(cat <<'TESTEOF' | bin/rails runner - 2>&1
+        begin
+          ActiveRecord::Base.connection.execute("SELECT 1")
+          puts "Database connection successful"
+          exit 0
+        rescue => e
+          puts "Connection failed: #{e.message}"
+          exit 1
+        end
+        TESTEOF
+          ); then
+            echo "$$OUTPUT"
+            echo "Cloud SQL Proxy is ready."
+            exit 0
+          fi
+          echo "Database not ready yet, waiting..."
+          sleep 2
+          ELAPSED=$$(($$ELAPSED + 2))
+        done
+        echo "ERROR: Timeout waiting for Cloud SQL Proxy"
+        exit 1
+    waitFor:
+      - Push
+    volumes:
+      - name: db
+        path: /cloudsql
+    env:
+      - RAILS_ENV=production
+      - DISABLE_DATABASE_ENVIRONMENT_CHECK=1
+      - DB_HOST=/cloudsql/$_CLOUD_SQL_HOST
+      - DB_NAME=postgres
+      - DB_PASS=$_DB_PASS
+      - DB_USER=$_DB_USER
+      - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
+      - APP_HOST_NAME=$_APP_HOST_NAME
+  - id: CreateDB
+    name: 'asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}'
+    entrypoint: bash
+    args:
+      - '-c'
+      - |
+        set -euo pipefail
+        echo "Creating database $_DB_NAME (drop if exists)..."
+        cat <<'SQLEOF' | bin/rails runner - 2>&1
+        db_name = ENV.fetch("TARGET_DB_NAME")
+        quoted = ActiveRecord::Base.connection.quote(db_name)
+        ActiveRecord::Base.connection.execute(<<~SQL)
+          SELECT pg_terminate_backend(pid)
+          FROM pg_stat_activity
+          WHERE datname = #{quoted}
+            AND pid <> pg_backend_pid()
+        SQL
+        ActiveRecord::Base.connection.execute("DROP DATABASE IF EXISTS #{db_name}")
+        ActiveRecord::Base.connection.execute("CREATE DATABASE #{db_name}")
+        puts "Database #{db_name} created successfully"
+        SQLEOF
+    waitFor:
+      - WaitForProxy
+    volumes:
+      - name: db
+        path: /cloudsql
+    env:
+      - RAILS_ENV=production
+      - DISABLE_DATABASE_ENVIRONMENT_CHECK=1
+      - DB_HOST=/cloudsql/$_CLOUD_SQL_HOST
+      - DB_NAME=postgres
+      - DB_PASS=$_DB_PASS
+      - DB_USER=$_DB_USER
+      - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
+      - APP_HOST_NAME=$_APP_HOST_NAME
+      - TARGET_DB_NAME=$_DB_NAME
+  - id: EnablePgvector
+    name: 'asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}'
+    entrypoint: bash
+    args:
+      - '-c'
+      - |
+        set -euo pipefail
+        echo "Enabling pgvector extension..."
+        cat <<'SQLEOF' | bin/rails runner - 2>&1
+        ActiveRecord::Base.connection.execute("CREATE EXTENSION IF NOT EXISTS vector")
+        puts "pgvector extension enabled"
+        SQLEOF
+    waitFor:
+      - CreateDB
+    volumes:
+      - name: db
+        path: /cloudsql
+    env:
+      - RAILS_ENV=production
+      - DISABLE_DATABASE_ENVIRONMENT_CHECK=1
+      - DB_HOST=/cloudsql/$_CLOUD_SQL_HOST
+      - DB_NAME=$_DB_NAME
+      - DB_PASS=$_DB_PASS
+      - DB_USER=$_DB_USER
+      - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
+      - APP_HOST_NAME=$_APP_HOST_NAME
+  - id: DBMigrate
+    name: 'asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}'
+    args:
+      - bin/rails
+      - db:migrate
+      - db:seed
+    waitFor:
+      - EnablePgvector
+    volumes:
+      - name: db
+        path: /cloudsql
+    env:
+      - RAILS_ENV=production
+      - DISABLE_DATABASE_ENVIRONMENT_CHECK=1
+      - DB_HOST=/cloudsql/$_CLOUD_SQL_HOST
+      - DB_NAME=$_DB_NAME
+      - DB_PASS=$_DB_PASS
+      - DB_USER=$_DB_USER
+      - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
+      - APP_HOST_NAME=$_APP_HOST_NAME
+  - id: Kill_SqlProxy
+    name: gcr.io/cloud-builders/docker
+    entrypoint: sh
+    args:
+      - '-c'
+      - 'CONTAINER=$$(docker ps -q --filter "volume=db"); [ -n "$$CONTAINER" ] && docker kill -s TERM $$CONTAINER || echo "No proxy container found"'
+    waitFor:
+      - DBMigrate
+  - id: Deploy
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - $_SERVICE_NAME
+      - '--platform=managed'
+      - '--region=asia-northeast1'
+      - '--quiet'
+      - '--image=asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}'
+      - '--allow-unauthenticated'
+      - '--clear-vpc-connector'
+      - '--add-cloudsql-instances'
+      - $_CLOUD_SQL_HOST
+      - '--memory'
+      - $_MEMORY
+      - '--timeout'
+      - '10m'
+      - '--min-instances=0'
+      - '--max-instances=2'
+      - '--set-env-vars=LANG=ja_JP.UTF-8'
+      - '--set-env-vars=TZ=Asia/Tokyo'
+      - '--set-env-vars=RAILS_SERVE_STATIC_FILES=true'
+      - '--set-env-vars=RAILS_LOG_TO_STDOUT=true'
+      - '--set-env-vars=RAILS_ENV=production'
+      - '--set-env-vars=RACK_ENV=production'
+      - '--set-env-vars=APP_HOST_NAME=$_APP_HOST_NAME'
+      - '--set-env-vars=CLOUD_RUN_HOST_NAME=$_CLOUD_RUN_HOST_NAME'
+      - '--set-env-vars=RAILS_MASTER_KEY=$_RAILS_MASTER_KEY'
+      - '--set-env-vars=DB_NAME=$_DB_NAME'
+      - '--set-env-vars=DB_USER=$_DB_USER'
+      - '--set-env-vars=DB_PASS=$_DB_PASS'
+      - '--set-env-vars=DB_HOST=/cloudsql/$_CLOUD_SQL_HOST'
+      - '--set-env-vars=GOOGLE_CREDENTIALS=$_GOOGLE_CREDENTIALS'
+      - '--set-env-vars=GCS_BUCKET=$_GCS_BUCKET'
+      - '--set-env-vars=TOKEN=$_TOKEN'
+      - '--set-env-vars=BASIC_AUTH_USER=$_BASIC_AUTH_USER'
+      - '--set-env-vars=BASIC_AUTH_PASSWORD=$_BASIC_AUTH_PASSWORD'
+      - '--set-env-vars=DISCORD_NOTICE_WEBHOOK_URL='
+      - '--set-env-vars=DISCORD_INTRODUCTION_WEBHOOK_URL='
+      - '--set-env-vars=DISCORD_ALL_WEBHOOK_URL='
+      - '--set-env-vars=DISCORD_ADMIN_WEBHOOK_URL='
+      - '--set-env-vars=DISCORD_MENTOR_WEBHOOK_URL='
+      - '--set-env-vars=DISCORD_BUG_WEBHOOK_URL='
+      - '--set-env-vars=DISCORD_REPORT_WEBHOOK_URL='
+      - '--set-env-vars=DISCORD_GUILD_ID='
+      - '--set-env-vars=DISCORD_TIMES_CHANNEL_CATEGORY_ID='
+      - '--set-env-vars=DISCORD_BOT_TOKEN='
+      - '--set-env-vars=DISCORD_CLIENT_ID='
+      - '--set-env-vars=DISCORD_CLIENT_SECRET='
+      - '--set-env-vars=DISCORD_AUTHENTICATION_URL='
+      - '--set-env-vars=MISSION_CONTROL_USERNAME=$_MISSION_CONTROL_USERNAME'
+      - '--set-env-vars=MISSION_CONTROL_PASSWORD=$_MISSION_CONTROL_PASSWORD'
+      - '--set-env-vars=STRIPE_ENDPOINT_SECRET='
+      - '--set-env-vars=RECAPTCHA_SITE_KEY=$_RECAPTCHA_SITE_KEY'
+      - '--set-env-vars=RECAPTCHA_SECRET_KEY=$_RECAPTCHA_SECRET_KEY'
+      - '--set-env-vars=ROLLBAR_CLIENT_TOKEN='
+      - '--set-env-vars=OPEN_AI_ACCESS_TOKEN=$_OPEN_AI_ACCESS_TOKEN'
+      - '--set-env-vars=STRIPE_TAX_RATE_ID='
+      - '--set-env-vars=GITHUB_KEY=$_GITHUB_KEY'
+      - '--set-env-vars=GITHUB_SECRET=$_GITHUB_SECRET'
+      - '--set-env-vars=STRIPE_PUBLIC_KEY=$_STRIPE_PUBLIC_KEY'
+      - '--set-env-vars=STRIPE_SECRET_KEY=$_STRIPE_SECRET_KEY'
+      - '--set-env-vars=POSTMARK_API_TOKEN=$_POSTMARK_API_TOKEN'
+      - >-
+        --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,pr-number=${_PR_NUMBER}
+    waitFor:
+      - Kill_SqlProxy
+timeout: 7200s
+images:
+  - 'asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}'
+substitutions:
+  _PR_NUMBER: '0'
+  _MEMORY: '2G'

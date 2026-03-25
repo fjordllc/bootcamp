@@ -1,0 +1,144 @@
+name: Review App
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+
+concurrency:
+  group: review-app-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  id-token: write
+  pull-requests: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      SERVICE_NAME: bootcamp-pr-${{ github.event.pull_request.number }}
+      DB_NAME: bootcamp_pr_${{ github.event.pull_request.number }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: projects/335091307227/locations/global/workloadIdentityPools/github-actions/providers/github-actions-provider
+          service_account: actions-cloud-run-deploy@bootcamp-224405.iam.gserviceaccount.com
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Deploy Review App via Cloud Build
+        env:
+          REVIEW_DB_PASS: ${{ secrets.REVIEW_DB_PASS }}
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+          REVIEW_GOOGLE_CREDENTIALS: ${{ secrets.REVIEW_GOOGLE_CREDENTIALS }}
+          REVIEW_BASIC_AUTH_PASSWORD: ${{ secrets.REVIEW_BASIC_AUTH_PASSWORD }}
+          RECAPTCHA_SITE_KEY: ${{ secrets.RECAPTCHA_SITE_KEY }}
+          RECAPTCHA_SECRET_KEY: ${{ secrets.RECAPTCHA_SECRET_KEY }}
+          REVIEW_MISSION_CONTROL_PASSWORD: ${{ secrets.REVIEW_MISSION_CONTROL_PASSWORD }}
+          REVIEW_OPEN_AI_ACCESS_TOKEN: ${{ secrets.REVIEW_OPEN_AI_ACCESS_TOKEN }}
+          REVIEW_ENVS: ${{ secrets.REVIEW_ENVS }}
+          REVIEW_GITHUB_KEY: ${{ secrets.REVIEW_GITHUB_KEY }}
+          REVIEW_GITHUB_SECRET: ${{ secrets.REVIEW_GITHUB_SECRET }}
+          REVIEW_STRIPE_PUBLIC_KEY: ${{ secrets.REVIEW_STRIPE_PUBLIC_KEY }}
+          REVIEW_STRIPE_SECRET_KEY: ${{ secrets.REVIEW_STRIPE_SECRET_KEY }}
+          REVIEW_POSTMARK_API_TOKEN: ${{ secrets.REVIEW_POSTMARK_API_TOKEN }}
+        run: |
+          # 同一PRの実行中ビルドをキャンセル（race condition防止）
+          echo "Cancelling any running builds for PR ${PR_NUMBER}..."
+          RUNNING_BUILDS=$(gcloud builds list \
+            --project=bootcamp-224405 \
+            --region=asia-northeast1 \
+            --filter="substitutions._PR_NUMBER=${PR_NUMBER} AND (status=QUEUED OR status=WORKING)" \
+            --format="value(id)" 2>/dev/null || true)
+          for BID in $RUNNING_BUILDS; do
+            echo "Cancelling build: $BID"
+            gcloud builds cancel "$BID" \
+              --project=bootcamp-224405 \
+              --region=asia-northeast1 2>/dev/null || true
+          done
+
+          # Cloud Buildを非同期で開始（ログストリーミング権限問題を回避）
+          BUILD_OUTPUT=$(gcloud builds submit \
+            --config=.cloudbuild/cloudbuild-review.yaml \
+            --substitutions="_PR_NUMBER=${PR_NUMBER},_SERVICE_NAME=${SERVICE_NAME},_DB_NAME=${DB_NAME},_CLOUD_SQL_HOST=bootcamp-224405:asia-northeast1:bootcamp,_DB_USER=review,_DB_PASS=${REVIEW_DB_PASS},_RAILS_MASTER_KEY=${RAILS_MASTER_KEY},_APP_HOST_NAME=${SERVICE_NAME}-335091307227.asia-northeast1.run.app,_CLOUD_RUN_HOST_NAME=${SERVICE_NAME}-335091307227.asia-northeast1.run.app,_GOOGLE_CREDENTIALS=${REVIEW_GOOGLE_CREDENTIALS},_GCS_BUCKET=bootcamp-fjord-jp-review,_TOKEN=review-token-pr-${PR_NUMBER},_BASIC_AUTH_USER=fjord,_BASIC_AUTH_PASSWORD=${REVIEW_BASIC_AUTH_PASSWORD},_RECAPTCHA_SITE_KEY=${RECAPTCHA_SITE_KEY},_RECAPTCHA_SECRET_KEY=${RECAPTCHA_SECRET_KEY},_MISSION_CONTROL_USERNAME=fjord,_MISSION_CONTROL_PASSWORD=${REVIEW_MISSION_CONTROL_PASSWORD},_OPEN_AI_ACCESS_TOKEN=${REVIEW_OPEN_AI_ACCESS_TOKEN},_GITHUB_KEY=${REVIEW_GITHUB_KEY},_GITHUB_SECRET=${REVIEW_GITHUB_SECRET},_STRIPE_PUBLIC_KEY=${REVIEW_STRIPE_PUBLIC_KEY},_STRIPE_SECRET_KEY=${REVIEW_STRIPE_SECRET_KEY},_POSTMARK_API_TOKEN=${REVIEW_POSTMARK_API_TOKEN},_MEMORY=2G" \
+            --project=bootcamp-224405 \
+            --region=asia-northeast1 \
+            --async \
+            --quiet 2>&1)
+
+          echo "$BUILD_OUTPUT"
+          BUILD_ID=$(echo "$BUILD_OUTPUT" | grep -oP '(?<=builds/)[a-f0-9-]+')
+          if [ -z "$BUILD_ID" ]; then
+            echo "Failed to extract Build ID from output"
+            exit 1
+          fi
+          echo "Build ID: $BUILD_ID"
+
+          # ビルド完了をポーリングで待つ（最大60分、30秒間隔）
+          for i in $(seq 1 120); do
+            STATUS=$(gcloud builds describe "$BUILD_ID" \
+              --project=bootcamp-224405 \
+              --region=asia-northeast1 \
+              --format='value(status)' 2>/dev/null || true)
+            echo "[$i] Build status: $STATUS"
+            if [ "$STATUS" = "SUCCESS" ]; then
+              echo "Build succeeded!"
+              exit 0
+            elif [ "$STATUS" = "FAILURE" ] || [ "$STATUS" = "CANCELLED" ] || [ "$STATUS" = "TIMEOUT" ] || [ "$STATUS" = "INTERNAL_ERROR" ] || [ "$STATUS" = "EXPIRED" ]; then
+              echo "Build failed with status: $STATUS"
+              exit 1
+            fi
+            sleep 30
+          done
+          echo "Timeout waiting for build"
+          exit 1
+
+      - name: Get Review App URL
+        id: url
+        run: |
+          URL=$(gcloud run services describe ${SERVICE_NAME} \
+            --region=asia-northeast1 \
+            --project=bootcamp-224405 \
+            --format='value(status.url)')
+          echo "url=${URL}" >> "$GITHUB_OUTPUT"
+
+      - name: Comment PR with Review App URL
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const url = '${{ steps.url.outputs.url }}';
+            const marker = '<!-- review-app-url -->';
+            const body = `${marker}\n## 🚀 Review App\n\n**URL:** ${url}\n\n> Basic認証: fjord / (ステージングと同じ)\n> PR更新時に自動で再デプロイされます。`;
+
+            // 既存コメントを探して更新、なければ新規作成
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const existing = comments.find(c => c.body.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
