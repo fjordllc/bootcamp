@@ -22,6 +22,15 @@ class EventTest < ActiveSupport::TestCase
     end
   end
 
+  test '.scheduled_on exclude wip' do
+    travel_to Time.zone.local(2024, 12, 1, 8, 0, 0) do
+      today_date = Time.zone.today
+      wip_event = events(:event37)
+      today_events = Event.scheduled_on(today_date)
+      assert_not_includes today_events, wip_event
+    end
+  end
+
   test '#opening?' do
     event = events(:event2)
     assert event.opening?
@@ -136,19 +145,17 @@ class EventTest < ActiveSupport::TestCase
     assert 205_042_674, ids
   end
 
-  test '.upcoming_from returns only unfinished and published events on the given date' do
+  test '.scheduled_on_without_ended returns only unfinished and published events on the given date' do
     travel_to Time.zone.local(2024, 12, 1, 10, 0, 0) do
       today_date = Time.zone.today
-      events = Event.upcoming_from(today_date)
+      events = Event.scheduled_on_without_ended(today_date)
       event_in_progress = events(:event35)
       event_start_at_tomorrow_midnight = events(:event38)
       event_ended_at_today_10am = events(:event36)
-      event_wip = events(:event37)
 
       assert_includes events, event_in_progress
       assert_not_includes events, event_ended_at_today_10am
       assert_not_includes events, event_start_at_tomorrow_midnight
-      assert_not_includes events, event_wip
     end
   end
 end

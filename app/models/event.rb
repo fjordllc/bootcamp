@@ -43,9 +43,9 @@ class Event < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   scope :wip, -> { where(wip: true) }
   scope :related_to, ->(user) { user.job_seeker ? all : where.not(job_hunting: true) }
-  scope :scheduled_on, ->(date) { where(start_at: date.midnight...(date + 1.day).midnight) }
+  scope :scheduled_on, ->(date) { where(start_at: date.midnight...(date + 1.day).midnight, wip: false) }
   scope :not_ended, -> { where('end_at > ?', Time.current) }
-  scope :upcoming_from, ->(date) { scheduled_on(date).not_ended.where(wip: false) }
+  scope :scheduled_on_without_ended, ->(date) { scheduled_on(date).not_ended }
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[title description location capacity start_at end_at open_start_at open_end_at wip created_at updated_at user_id job_hunting]

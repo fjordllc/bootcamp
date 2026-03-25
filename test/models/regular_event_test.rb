@@ -167,26 +167,32 @@ class RegularEventTest < ActiveSupport::TestCase
     end
   end
 
-  test '.upcoming_from returns only unfinished and published events on the given date' do
+  test '.scheduled_on_without_ended returns only unfinished and published events on the given date' do
     travel_to Time.zone.local(2024, 12, 1, 10, 0, 0) do
       today_date = Time.zone.today
-      regular_events = RegularEvent.upcoming_from(today_date)
+      regular_events = RegularEvent.scheduled_on_without_ended(today_date)
       regular_event_in_progress = regular_events(:regular_event36)
       regular_event_ended = regular_events(:regular_event37)
-      regular_event_wip = regular_events(:regular_event42)
 
       assert_includes regular_events, regular_event_in_progress
       assert_not_includes regular_events, regular_event_ended
-      assert_not_includes regular_events, regular_event_wip
     end
   end
 
-  test '.upcoming in tomorrow’s event' do
+  test '.scheduled_on_without_ended in tomorrow’s event' do
     travel_to Time.zone.local(2024, 12, 1, 10, 0, 0) do
       tomorrow = Time.zone.tomorrow
-      regular_events = RegularEvent.upcoming_from(tomorrow)
+      regular_events = RegularEvent.scheduled_on_without_ended(tomorrow)
       regular_event_scheduled_for_tomorrow = regular_events(:regular_event38)
       assert_includes regular_events, regular_event_scheduled_for_tomorrow
     end
+  end
+
+  test '.holding exclude wip and finished events' do
+    events = RegularEvent.holding
+    wip_event = regular_events(:regular_event42)
+    finished_event = regular_events(:regular_event39)
+    assert_not_includes events, wip_event
+    assert_not_includes events, finished_event
   end
 end
