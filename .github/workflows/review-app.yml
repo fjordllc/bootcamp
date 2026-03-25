@@ -93,7 +93,7 @@ jobs:
             if [ "$STATUS" = "SUCCESS" ]; then
               echo "Build succeeded!"
               exit 0
-            elif [ "$STATUS" = "FAILURE" ] || [ "$STATUS" = "CANCELLED" ] || [ "$STATUS" = "TIMEOUT" ]; then
+            elif [ "$STATUS" = "FAILURE" ] || [ "$STATUS" = "CANCELLED" ] || [ "$STATUS" = "TIMEOUT" ] || [ "$STATUS" = "INTERNAL_ERROR" ] || [ "$STATUS" = "EXPIRED" ]; then
               echo "Build failed with status: $STATUS"
               exit 1
             fi
