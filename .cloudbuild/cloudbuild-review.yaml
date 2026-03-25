@@ -39,7 +39,7 @@ steps:
       - '-c'
       - |
         echo "Waiting for Cloud SQL Proxy to be ready..."
-        TIMEOUT=60
+        TIMEOUT=300
         ELAPSED=0
         while [ $$ELAPSED -lt $$TIMEOUT ]; do
           if OUTPUT=$$(cat <<'TESTEOF' | bin/rails runner - 2>&1
