@@ -55,7 +55,7 @@ class MarkdownTest < ApplicationSystemTestCase
     end
   end
 
-  test 'should expand link card' do
+  test 'expands link card' do
     visit_with_auth new_report_path, 'komagata'
     within('form[name=report]') do
       fill_in('report[title]', with: 'リンクカードが展開される')
@@ -66,11 +66,12 @@ class MarkdownTest < ApplicationSystemTestCase
     end
 
     click_button '提出'
-    assert_selector '.a-link-card'
+    assert_selector '.a-link-card__title'
     assert_no_selector 'a.before-replacement-link-card[href="https://bootcamp.fjord.jp/"]', visible: true
+    assert_no_selector '.embed-error'
   end
 
-  test 'should expand link card for tweet' do
+  test 'expands tweet card' do
     visit_with_auth new_report_path, 'komagata'
     within('form[name=report]') do
       fill_in('report[title]', with: 'リンクカードが展開される')
@@ -83,5 +84,36 @@ class MarkdownTest < ApplicationSystemTestCase
     click_button '提出'
     assert_selector '.twitter-tweet'
     assert_no_selector 'a.before-replacement-link-card[href="https://x.com/fjordbootcamp/status/1866097842483503117"]', visible: true
+    assert_no_selector '.embed-error'
+  end
+
+  test 'expands link card even when og:url is missing' do
+    visit_with_auth new_report_path, 'komagata'
+    within('form[name=report]') do
+      fill_in('report[title]', with: 'リンクカードが展開される')
+      fill_in('report[description]', with: '@[card](https://www.wikipedia.org/)')
+      fill_in('report[reported_on]', with: Time.current)
+
+      check '学習時間は無し', allow_label_click: true
+    end
+
+    click_button '提出'
+    assert_selector '.a-link-card__title'
+    assert_no_selector '.embed-error'
+  end
+
+  test 'expands link card even when favicon is missing' do
+    visit_with_auth new_report_path, 'komagata'
+    within('form[name=report]') do
+      fill_in('report[title]', with: 'リンクカードが展開される')
+      fill_in('report[description]', with: '@[card](https://zenn.dev/)')
+      fill_in('report[reported_on]', with: Time.current)
+
+      check '学習時間は無し', allow_label_click: true
+    end
+
+    click_button '提出'
+    assert_selector '.a-link-card__title'
+    assert_no_selector '.embed-error'
   end
 end

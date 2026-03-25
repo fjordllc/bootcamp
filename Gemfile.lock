@@ -482,9 +482,9 @@ GEM
     omniauth-rails_csrf_protection (2.0.1)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
-    opengraph_parser (0.2.5)
-      addressable
-      nokogiri
+    open_graph_reader (0.9.1)
+      faraday (>= 0.9.0)
+      nokogiri (~> 1.6)
     openssl (4.0.0)
     opus-ruby (1.0.1)
       ffi
@@ -866,7 +866,7 @@ DEPENDENCIES
   omniauth-discord
   omniauth-github (~> 2.0.1)
   omniauth-rails_csrf_protection
-  opengraph_parser
+  open_graph_reader
   openssl
   parser (= 3.3.7.2)
   pg (~> 1.4.6)
