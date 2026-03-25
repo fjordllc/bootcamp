@@ -9,7 +9,7 @@ class PairWorksController < ApplicationController
     @pair_works = PairWork.by_target(params[:target])
                           .with_avatar
                           .includes(:practice, :comments, :user)
-                          .order(:published_at)
+                          .order(published_at: :desc)
                           .page(params[:page])
                           .per(PAGER_NUMBER)
     @pair_works_property = PairWork.generate_pair_works_property(params[:target])
@@ -40,6 +40,7 @@ class PairWorksController < ApplicationController
 
   def update
     set_wip
+    @pair_work.schedules.destroy_all if params[:pair_work][:schedules_attributes].present?
     if @pair_work.update(pair_work_params)
       ActiveSupport::Notifications.instrument('pair_work.update', pair_work: @pair_work)
       redirect_to Redirection.determin_url(self, @pair_work), notice: @pair_work.generate_notice_message(:update)
