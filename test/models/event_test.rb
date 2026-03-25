@@ -145,7 +145,7 @@ class EventTest < ActiveSupport::TestCase
     assert 205_042_674, ids
   end
 
-  test '.scheduled_on_without_ended returns only unfinished and published events on the given date' do
+  test '.scheduled_on_without_ended' do
     travel_to Time.zone.local(2024, 12, 1, 10, 0, 0) do
       today_date = Time.zone.today
       events = Event.scheduled_on_without_ended(today_date)
