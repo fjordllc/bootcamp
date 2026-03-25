@@ -83,12 +83,12 @@ jobs:
           fi
           echo "Build ID: $BUILD_ID"
 
-          # ビルド完了をポーリングで待つ（最大60分）
-          for i in $(seq 1 360); do
+          # ビルド完了をポーリングで待つ（最大60分、30秒間隔）
+          for i in $(seq 1 120); do
             STATUS=$(gcloud builds describe "$BUILD_ID" \
               --project=bootcamp-224405 \
               --region=asia-northeast1 \
-              --format='value(status)' 2>/dev/null)
+              --format='value(status)' 2>/dev/null || true)
             echo "[$i] Build status: $STATUS"
             if [ "$STATUS" = "SUCCESS" ]; then
               echo "Build succeeded!"
@@ -97,7 +97,7 @@ jobs:
               echo "Build failed with status: $STATUS"
               exit 1
             fi
-            sleep 10
+            sleep 30
           done
           echo "Timeout waiting for build"
           exit 1
