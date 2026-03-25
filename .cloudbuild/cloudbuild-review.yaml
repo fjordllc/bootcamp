@@ -38,12 +38,11 @@ steps:
       - bash
       - '-c'
       - |
-        set -euo pipefail
         echo "Waiting for Cloud SQL Proxy to be ready..."
         TIMEOUT=60
         ELAPSED=0
         while [ $$ELAPSED -lt $$TIMEOUT ]; do
-          OUTPUT=$$(cat <<'TESTEOF' | bin/rails runner - 2>&1
+          if OUTPUT=$$(cat <<'TESTEOF' | bin/rails runner - 2>&1
         begin
           ActiveRecord::Base.connection.execute("SELECT 1")
           puts "Database connection successful"
@@ -53,13 +52,12 @@ steps:
           exit 1
         end
         TESTEOF
-          )
-          EXITCODE=$$?
-          if [ $$EXITCODE -eq 0 ]; then
+          ); then
             echo "$$OUTPUT"
             echo "Cloud SQL Proxy is ready."
             exit 0
           fi
+          echo "Database not ready yet, waiting..."
           sleep 2
           ELAPSED=$$(($$ELAPSED + 2))
         done
@@ -89,6 +87,13 @@ steps:
         echo "Creating database $_DB_NAME (drop if exists)..."
         cat <<'SQLEOF' | bin/rails runner - 2>&1
         db_name = ENV.fetch("TARGET_DB_NAME")
+        quoted = ActiveRecord::Base.connection.quote(db_name)
+        ActiveRecord::Base.connection.execute(<<~SQL)
+          SELECT pg_terminate_backend(pid)
+          FROM pg_stat_activity
+          WHERE datname = #{quoted}
+            AND pid <> pg_backend_pid()
+        SQL
         ActiveRecord::Base.connection.execute("DROP DATABASE IF EXISTS #{db_name}")
         ActiveRecord::Base.connection.execute("CREATE DATABASE #{db_name}")
         puts "Database #{db_name} created successfully"

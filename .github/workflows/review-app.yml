@@ -52,6 +52,20 @@ jobs:
           REVIEW_STRIPE_SECRET_KEY: ${{ secrets.REVIEW_STRIPE_SECRET_KEY }}
           REVIEW_POSTMARK_API_TOKEN: ${{ secrets.REVIEW_POSTMARK_API_TOKEN }}
         run: |
+          # 同一PRの実行中ビルドをキャンセル（race condition防止）
+          echo "Cancelling any running builds for PR ${PR_NUMBER}..."
+          RUNNING_BUILDS=$(gcloud builds list \
+            --project=bootcamp-224405 \
+            --region=asia-northeast1 \
+            --filter="substitutions._PR_NUMBER=${PR_NUMBER} AND (status=QUEUED OR status=WORKING)" \
+            --format="value(id)" 2>/dev/null || true)
+          for BID in $RUNNING_BUILDS; do
+            echo "Cancelling build: $BID"
+            gcloud builds cancel "$BID" \
+              --project=bootcamp-224405 \
+              --region=asia-northeast1 2>/dev/null || true
+          done
+
           # Cloud Buildを非同期で開始（ログストリーミング権限問題を回避）
           BUILD_OUTPUT=$(gcloud builds submit \
             --config=.cloudbuild/cloudbuild-review.yaml \

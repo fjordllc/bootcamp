@@ -86,7 +86,7 @@ steps:
       - '-c'
       - |
         set -euo pipefail
-        IMAGE="asia.gcr.io/$PROJECT_ID/bootcamp:pr-${_PR_NUMBER}"
+        IMAGE="asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}"
         echo "Deleting image $${IMAGE}..."
         gcloud container images delete $${IMAGE} --quiet --force-delete-tags 2>/dev/null || echo "Image not found, skipping."
     waitFor:
