@@ -47,12 +47,37 @@ jobs:
           REVIEW_OPEN_AI_ACCESS_TOKEN: ${{ secrets.REVIEW_OPEN_AI_ACCESS_TOKEN }}
           REVIEW_ENVS: ${{ secrets.REVIEW_ENVS }}
         run: |
-          gcloud builds submit \
+          # Cloud Buildを非同期で開始（ログストリーミング権限問題を回避）
+          BUILD_OUTPUT=$(gcloud builds submit \
             --config=.cloudbuild/cloudbuild-review.yaml \
             --substitutions="_PR_NUMBER=${PR_NUMBER},_SERVICE_NAME=${SERVICE_NAME},_DB_NAME=${DB_NAME},_CLOUD_SQL_HOST=bootcamp-224405:asia-northeast1:bootcamp,_DB_USER=review,_DB_PASS=${REVIEW_DB_PASS},_RAILS_MASTER_KEY=${RAILS_MASTER_KEY},_APP_HOST_NAME=${SERVICE_NAME}-335091307227.asia-northeast1.run.app,_CLOUD_RUN_HOST_NAME=${SERVICE_NAME}-335091307227.asia-northeast1.run.app,_GOOGLE_CREDENTIALS=${REVIEW_GOOGLE_CREDENTIALS},_GCS_BUCKET=bootcamp-fjord-jp-review,_TOKEN=review-token-pr-${PR_NUMBER},_BASIC_AUTH_USER=fjord,_BASIC_AUTH_PASSWORD=${REVIEW_BASIC_AUTH_PASSWORD},_RECAPTCHA_SITE_KEY=${RECAPTCHA_SITE_KEY},_RECAPTCHA_SECRET_KEY=${RECAPTCHA_SECRET_KEY},_MISSION_CONTROL_USERNAME=fjord,_MISSION_CONTROL_PASSWORD=${REVIEW_MISSION_CONTROL_PASSWORD},_OPEN_AI_ACCESS_TOKEN=${REVIEW_OPEN_AI_ACCESS_TOKEN},_MEMORY=2G" \
             --project=bootcamp-224405 \
             --region=asia-northeast1 \
-            --quiet
+            --async \
+            --quiet 2>&1)
+
+          echo "$BUILD_OUTPUT"
+          BUILD_ID=$(echo "$BUILD_OUTPUT" | grep -oP '(?<=builds/)[a-f0-9-]+')
+          echo "Build ID: $BUILD_ID"
+
+          # ビルド完了をポーリングで待つ（最大60分）
+          for i in $(seq 1 360); do
+            STATUS=$(gcloud builds describe "$BUILD_ID" \
+              --project=bootcamp-224405 \
+              --region=asia-northeast1 \
+              --format='value(status)' 2>/dev/null)
+            echo "[$i] Build status: $STATUS"
+            if [ "$STATUS" = "SUCCESS" ]; then
+              echo "Build succeeded!"
+              exit 0
+            elif [ "$STATUS" = "FAILURE" ] || [ "$STATUS" = "CANCELLED" ] || [ "$STATUS" = "TIMEOUT" ]; then
+              echo "Build failed with status: $STATUS"
+              exit 1
+            fi
+            sleep 10
+          done
+          echo "Timeout waiting for build"
+          exit 1
 
       - name: Get Review App URL
         id: url
