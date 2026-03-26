@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const commentContent = document.querySelector(
     '#comments.thread-comments.loaded'
   )
+  if (!commentContent) {
+    return
+  }
   if (comments) {
     loadingContent.classList.add('is-hidden')
     commentContent.classList.remove('is-hidden')

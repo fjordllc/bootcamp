@@ -29,8 +29,7 @@ main.page-main
           .page-main-header__end
             .page-main-header-actions
               .page-main-header-actions__items
-                - if admin_login?
-                  = react_component('Tags/TagEditButton', tagId: @tag.id, tagName: @tag.name)
+                = render 'shared/tag_edit_button', tag_id: @tag.id, tag_name: @tag.name
                 .page-main-header-actions__item.is-remove
                   - if current_user.tag_list.include?(params[:tag])
                     = link_to 'このタグを自分から外す', "/users/tags/#{params[:tag]}", method: 'delete', class: 'a-button is-sm is-muted is-block'

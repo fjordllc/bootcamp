@@ -11,3 +11,45 @@ hibernation2:
   reason: 学習時間が取れないため
   returned_at: 202l-09-01 00:00:00
   created_at: 2022-01-10 00:00:02
+
+hibernation3:
+  user: unhibernated
+  scheduled_return_on: <%= Time.current + 30.days %>
+  reason: メンタル不調のため
+  created_at: <%= Time.current - 13.days %>
+
+hibernation4:
+  user: autoretire-within-1-hour
+  scheduled_return_on: <%= Time.current + 30.days %>
+  reason: 家庭の事情
+  created_at: <%= Time.current - 3.months + 30.minutes %>
+
+hibernation5:
+  user: autoretire-within-24-hour
+  scheduled_return_on: <%= Time.current + 30.days %>
+  reason: 時間が無くなったため
+  created_at: <%= Time.current - 3.months + 23.hours %>
+
+hibernation6:
+  user: autoretire-within-1-week
+  scheduled_return_on: <%= Time.current + 30.days %>
+  reason: お金が足りなくなったため
+  created_at: <%= Time.current - 3.months + 1.week %>
+
+hibernation7:
+  user: autoretire-over-1-week
+  scheduled_return_on: <%= Time.current + 30.days %>
+  reason: 事故でしばらく動けないため
+  created_at: <%= Time.current - 3.months + 1.week + 1.day %>
+
+hibernation8:
+  user: not-autoretire
+  scheduled_return_on: <%= Time.current + 30.days %>
+  reason: 指を骨折してプログラミングができないため
+  created_at: <%= Time.current - 6.months%>
+
+hibernation9:
+  user: nagai-kyuukai
+  scheduled_return_on: <%= Time.current + 30.days %>
+  reason: オンラインでのコミュニケーションが向いていないと感じたため
+  created_at: <%= Time.current - 3.months %>

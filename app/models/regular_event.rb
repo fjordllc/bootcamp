@@ -53,6 +53,21 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   scope :scheduled_on, ->(date) { holding.filter { |event| event.scheduled_on?(date) } }
   scope :scheduled_on_without_ended, ->(date) { holding.filter { |event| event.scheduled_on?(date) && !event.ended?(date) } }
 
+  scope :fetch_target_events, lambda { |target|
+    case target
+    when 'not_finished'
+      not_finished
+    else
+      all
+    end
+  }
+
+  scope :list, lambda {
+    with_avatar
+      .includes(:comments, :users, :regular_event_repeat_rules)
+      .order(created_at: :desc)
+  }
+
   belongs_to :user
   has_many :organizers, dependent: :destroy
   has_many :users, through: :organizers
@@ -62,8 +77,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_many :participants,
            through: :regular_event_participations,
            source: :user
-  has_many :watches, as: :watchable, dependent: :destroy
-  has_many :footprints, as: :footprintable, dependent: :destroy
   attribute :wants_announcement, :boolean
 
   columns_for_keyword_search :title, :description

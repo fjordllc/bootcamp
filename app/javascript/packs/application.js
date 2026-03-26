@@ -86,6 +86,8 @@ import '../tag.js'
 import '../tag_edit.js'
 import '../bookmark-button.js'
 import '../notifications_remove_after_open.js'
+import '../notifications-bell.js'
+import '../products-checker-init.js'
 
 // Support component names relative to this directory:
 const componentRequireContext = require.context('components', true)

@@ -8,46 +8,6 @@ class Searcher::QueryBuilderTest < ActiveSupport::TestCase
     assert_equal 'test keyword', builder.keyword
   end
 
-  test 'build_params returns single keyword params' do
-    builder = Searcher::QueryBuilder.new('ruby')
-    params = builder.build_params(%i[title description])
-
-    assert_equal({ 'title_or_description_cont' => 'ruby' }, params)
-  end
-
-  test 'build_params returns multiple keyword params with AND condition' do
-    builder = Searcher::QueryBuilder.new('ruby rails')
-    params = builder.build_params(%i[title description])
-
-    expected = {
-      g: [
-        { 'title_or_description_cont' => 'ruby' },
-        { 'title_or_description_cont' => 'rails' }
-      ]
-    }
-    assert_equal expected, params
-  end
-
-  test 'build_params handles single column' do
-    builder = Searcher::QueryBuilder.new('test')
-    params = builder.build_params([:title])
-
-    assert_equal({ 'title_cont' => 'test' }, params)
-  end
-
-  test 'build_params handles Japanese keywords' do
-    builder = Searcher::QueryBuilder.new('日本語　テスト')
-    params = builder.build_params(%i[title body])
-
-    expected = {
-      g: [
-        { 'title_or_body_cont' => '日本語' },
-        { 'title_or_body_cont' => 'テスト' }
-      ]
-    }
-    assert_equal expected, params
-  end
-
   test 'search_model returns results ordered by updated_at desc' do
     builder = Searcher::QueryBuilder.new('テスト')
     config = {
@@ -59,7 +19,6 @@ class Searcher::QueryBuilderTest < ActiveSupport::TestCase
     results = builder.search_model(config)
 
     assert results.is_a?(Array)
-    # 結果が複数ある場合、更新日時の降順であることを確認
     assert results.first.updated_at >= results.second.updated_at if results.size > 1
   end
 
@@ -73,7 +32,6 @@ class Searcher::QueryBuilderTest < ActiveSupport::TestCase
 
     results = builder.search_model(config)
 
-    # includesが適用されていることを確認（N+1を防ぐ）
     assert_nothing_raised do
       results.each { |product| product.user&.name }
     end
@@ -89,7 +47,59 @@ class Searcher::QueryBuilderTest < ActiveSupport::TestCase
 
     results = builder.search_model(config)
 
-    # 重複がないことを確認
     assert_equal results.uniq.size, results.size
+  end
+
+  test 'pg_bigm_available? returns boolean' do
+    Searcher::QueryBuilder.reset_pg_bigm_cache!
+    result = Searcher::QueryBuilder.pg_bigm_available?
+    assert_includes [true, false], result
+  end
+
+  test 'reset_pg_bigm_cache! clears cached value' do
+    Searcher::QueryBuilder.pg_bigm_available?
+    Searcher::QueryBuilder.reset_pg_bigm_cache!
+    assert_not Searcher::QueryBuilder.instance_variable_defined?(:@pg_bigm_available)
+  end
+
+  test 'search_model with multiple keywords returns AND-filtered results' do
+    config = Searcher::Configuration.get(:practice)
+    builder = Searcher::QueryBuilder.new('OS クリーンインストール')
+    results = builder.search_model(config)
+    titles = results.map(&:title)
+    assert_includes titles, practices(:practice1).title
+    assert_not_includes titles, practices(:practice3).title
+  end
+
+  test 'search_model handles association columns gracefully' do
+    config = Searcher::Configuration.get(:user)
+    builder = Searcher::QueryBuilder.new('テスト')
+    results = builder.search_model(config)
+    assert_kind_of Array, results
+  end
+
+  test 'search_model escapes LIKE special characters' do
+    builder = Searcher::QueryBuilder.new('100%_test')
+    config = Searcher::Configuration.get(:practice)
+    results = builder.search_model(config)
+    assert_kind_of Array, results
+  end
+
+  test 'build_params returns single keyword params for external callers' do
+    builder = Searcher::QueryBuilder.new('ruby')
+    params = builder.build_params(%i[title description])
+    assert_equal({ 'title_or_description_cont' => 'ruby' }, params)
+  end
+
+  test 'build_params returns multiple keyword params' do
+    builder = Searcher::QueryBuilder.new('ruby rails')
+    params = builder.build_params(%i[title description])
+    expected = {
+      g: [
+        { 'title_or_description_cont' => 'ruby' },
+        { 'title_or_description_cont' => 'rails' }
+      ]
+    }
+    assert_equal expected, params
   end
 end

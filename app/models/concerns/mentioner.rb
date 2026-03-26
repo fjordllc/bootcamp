@@ -2,7 +2,10 @@
 
 module Mentioner
   def after_save_mention(new_mentions)
-    return if instance_of?(Report)
+    if instance_of?(Report)
+      notify_pjord_if_mentioned(new_mentions)
+      return
+    end
 
     notify_users_found_by_mentions(new_mentions)
   end
@@ -42,6 +45,13 @@ module Mentioner
 
   private
 
+  def notify_pjord_if_mentioned(mentions)
+    names = extract_login_names_from_mentions(mentions)
+    return unless names.include?(Pjord::LOGIN_NAME)
+
+    PjordRespondJob.perform_later(mentionable_type: self.class.name, mentionable_id: id)
+  end
+
   def notify_users_found_by_mentions(mentions)
     notify_mentions(find_users_from_mentions(mentions))
   end
@@ -50,7 +60,13 @@ module Mentioner
     return nil if instance_of?(Comment) && commentable.instance_of?(Talk) # protect mention in talk
 
     receivers.each do |receiver|
-      ActivityDelivery.with(mentionable: self, receiver:).notify(:mentioned) if sender != receiver
+      next if sender == receiver
+
+      if receiver.login_name == Pjord::LOGIN_NAME
+        PjordRespondJob.perform_later(mentionable_type: self.class.name, mentionable_id: id)
+      else
+        ActivityDelivery.with(mentionable: self, receiver:).notify(:mentioned)
+      end
     end
   end
 
