@@ -1,8 +1,10 @@
-json.partial! "api/reports/report", report: @report
-json.partial! "api/reports/checks", checks: @report.checks
+# frozen_string_literal: true
+
+json.partial! 'api/reports/report', report: @report
+json.partial! 'api/reports/checks', checks: @report.checks
 
 json.user do
-  json.partial! "api/users/user", user: @report.user
+  json.partial! 'api/users/user', user: @report.user
 end
 
 json.practices @report.practices do |practice|
@@ -15,6 +17,6 @@ json.comments @report.comments.order(:created_at) do |comment|
   json.description comment.description
   json.createdAt comment.created_at
   json.user do
-    json.partial! "api/users/user", user: comment.user
+    json.partial! 'api/users/user', user: comment.user
   end
 end

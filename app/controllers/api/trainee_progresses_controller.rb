@@ -20,7 +20,7 @@ class API::TraineeProgressesController < API::BaseController
     else
       Date.current.beginning_of_week
     end
-  rescue Date::Error, ArgumentError
+  rescue ArgumentError
     Date.current.beginning_of_week
   end
 end

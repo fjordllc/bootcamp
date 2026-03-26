@@ -1,20 +1,22 @@
+# frozen_string_literal: true
+
 json.weekStart @week_start
 json.weekEnd @week_end
 
-json.trainees @trainees do |trainee|
+json.trainees @trainees do |trainee| # rubocop:disable Metrics/BlockLength
   user_course_practice = UserCoursePractice.new(trainee)
 
   # learningsを一度取得してフィルタリング
-  all_learnings = trainee.learnings.select { |l| l.status != 'unstarted' }
+  all_learnings = trainee.learnings.reject { |l| l.status == 'unstarted' }
 
   week_learnings = all_learnings.select do |l|
     l.updated_at >= @week_start.beginning_of_day &&
-    l.updated_at <= @week_end.end_of_day
+      l.updated_at <= @week_end.end_of_day
   end
 
   current_learning = all_learnings
-                       .select { |l| l.status == 'started' }
-                       .max_by(&:updated_at)
+                     .select { |l| l.status == 'started' }
+                     .max_by(&:updated_at)
 
   # 対象週の平日に対応する日報
   week_reports = trainee.reports
@@ -44,7 +46,7 @@ json.trainees @trainees do |trainee|
   json.weeklyActivity do
     json.reportCount week_reports.size
     json.weekdays 5
-    json.reportDates week_reports.map { |r| r.reported_on.to_s }
+    json.reportDates(week_reports.map { |r| r.reported_on.to_s })
     json.practiceStatusChanges week_learnings.size
     json.practiceChanges week_learnings do |learning|
       json.practiceId learning.practice_id
