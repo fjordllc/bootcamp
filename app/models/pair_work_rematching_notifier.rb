@@ -12,7 +12,7 @@ class PairWorkRematchingNotifier
   private
 
   def notify_pair_work_creator(pair_work, past_buddy)
-    [pair_work.user, past_buddy].each do |receiver|
+    [pair_work.user, past_buddy].compact.each do |receiver|
       ActivityDelivery.with(pair_work:, receiver:).notify(:rematching_pair_work)
     end
   end
