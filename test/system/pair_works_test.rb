@@ -95,6 +95,17 @@ class PairWorksTest < ApplicationSystemTestCase
     assert_selector 'a.a-category-link', text: 'sshdでパスワード認証を禁止にする'
   end
 
+  test 'update a pair_work desired date' do
+    travel_to Time.zone.local(2025, 1, 1, 0, 0, 0) do
+      pair_work = pair_works(:pair_work1)
+      visit_with_auth pair_work_path(pair_work), 'kimura'
+      click_link '希望日時変更'
+      find('label[for="schedule_ids_202501020100"]').click
+      click_button '更新する'
+      assert_text 'ペアワークを更新しました。'
+    end
+  end
+
   test 'delete a pair_work' do
     pair_work = pair_works(:pair_work1)
     visit_with_auth pair_work_path(pair_work), 'kimura'
