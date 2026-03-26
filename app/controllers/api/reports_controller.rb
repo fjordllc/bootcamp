@@ -15,6 +15,6 @@ class API::ReportsController < API::BaseController
   end
 
   def show
-    @report = Report.find(params[:id])
+    @report = Report.includes(:user, :practices, :checks, comments: :user).find(params[:id])
   end
 end

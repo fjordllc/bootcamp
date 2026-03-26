@@ -4,23 +4,22 @@ json.weekEnd @week_end
 json.trainees @trainees do |trainee|
   user_course_practice = UserCoursePractice.new(trainee)
 
+  # learningsを一度取得してフィルタリング
+  all_learnings = trainee.learnings.select { |l| l.status != 'unstarted' }
+
+  week_learnings = all_learnings.select do |l|
+    l.updated_at >= @week_start.beginning_of_day &&
+    l.updated_at <= @week_end.end_of_day
+  end
+
+  current_learning = all_learnings
+                       .select { |l| l.status == 'started' }
+                       .max_by(&:updated_at)
+
   # 対象週の平日に対応する日報
   week_reports = trainee.reports
-                        .where(reported_on: @week_start..@week_end)
-                        .not_wip
-                        .order(:reported_on)
-
-  # 対象週にステータスが変化したlearning
-  week_learnings = trainee.learnings
-                          .where(updated_at: @week_start.beginning_of_day..@week_end.end_of_day)
-                          .where.not(status: :unstarted)
-                          .includes(:practice)
-
-  # 現在取り組み中のプラクティスの滞留日数
-  current_learning = trainee.learnings
-                            .where(status: :started)
-                            .order(updated_at: :desc)
-                            .first
+                        .select { |r| r.reported_on >= @week_start && r.reported_on <= @week_end && !r.wip? }
+                        .sort_by(&:reported_on)
 
   json.id trainee.id
   json.loginName trainee.login_name
@@ -35,8 +34,10 @@ json.trainees @trainees do |trainee|
   end
 
   json.course do
-    json.id trainee.course.id
-    json.title trainee.course.title
+    if trainee.course.present?
+      json.id trainee.course.id
+      json.title trainee.course.title
+    end
   end
 
   # 週次アクティビティ

@@ -10,7 +10,7 @@ json.practices @report.practices do |practice|
   json.title practice.title
 end
 
-json.comments @report.comments.order(created_at: :asc) do |comment|
+json.comments @report.comments.order(:created_at) do |comment|
   json.id comment.id
   json.description comment.description
   json.createdAt comment.created_at
