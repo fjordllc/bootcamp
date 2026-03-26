@@ -126,7 +126,7 @@ module Retirements
       assert_no_text 'ご自身が主催者である定期イベントがあります。'
     end
 
-    test 'shold unmatch when buddy has retired' do
+    test 'should unmatch when buddy has retired' do
       travel_to Time.zone.local(2025, 1, 1, 0, 0, 0) do
         visit_with_auth new_retirement_path, 'sotugyou'
         find('label', text: 'とても良い').click
@@ -134,7 +134,9 @@ module Retirements
           click_on '退会する'
         end
         assert_text '退会処理が完了しました'
-        assert_not_includes PairWork.where(buddy: users(:sotugyou)), pair_works(:pair_work2)
+        pair_work = pair_works(:pair_work2).reload
+        assert_nil pair_work.buddy_id
+        assert_nil pair_work.reserved_at
       end
     end
   end
