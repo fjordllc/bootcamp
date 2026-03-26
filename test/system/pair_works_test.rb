@@ -138,14 +138,18 @@ class PairWorksTest < ApplicationSystemTestCase
     end
   end
 
-  test 'show confirmed date on calendar' do
-    pair_work = pair_works(:pair_work4)
-    visit_with_auth pair_work_path(pair_work), 'kimura'
-    assert_selector "[id='2025-01-02T01:00:00+09:00']", text: '確定'
+  test 'show confirmed date' do
+    travel_to Time.zone.local(2025, 1, 1, 0, 0, 0) do
+      pair_work = pair_works(:pair_work4)
+      visit_with_auth pair_work_path(pair_work), 'kimura'
+      within '.pair-work-schedule-dates__action-item' do
+        assert_text '開催日時は1月2日(木)01:00に確定しました。'
+      end
 
-    visit_with_auth pair_work_path(pair_work), 'komagata'
-    find("label[for='show-schedule-dates']").click
-    assert_selector "[id='2025-01-02T01:00:00+09:00']", text: '確定'
+      visit_with_auth pair_work_path(pair_work), 'komagata'
+      find("label[for='show-schedule-dates']").click
+      assert_selector "[id='2025-01-02T01:00:00+09:00']", text: '確定'
+    end
   end
 
   test 'update pair work reservation' do
