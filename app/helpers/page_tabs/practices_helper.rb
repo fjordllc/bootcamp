@@ -2,7 +2,9 @@
 
 module PageTabs
   module PracticesHelper
-    def practice_page_tabs(practice, active_tab:, include_source: false)
+    def practice_page_tabs(practice, active_tab:, include_source: nil)
+      # include_source未指定(nil)時は、給付金コースならtrue
+      include_source = practice.grant_course? if include_source.nil?
       tabs = []
       tabs << { name: 'プラクティス', link: practice_path(practice) }
       tabs << { name: '日報', link: practice_reports_path(practice), count: practice.reports_count(include_source:) }

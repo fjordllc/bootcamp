@@ -211,7 +211,7 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
     source_id.present?
   end
 
-  def reports_count(include_source: false)
+  def reports_count(include_source: nil)
     return reports.count unless include_source
 
     ids = [id, source_id].compact
