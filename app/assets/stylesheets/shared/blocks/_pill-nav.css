@@ -48,6 +48,6 @@
   border-color: var(--main);
 }
 
-div.pill-nav__item-link {
+.pill-nav__item-link {
   cursor: pointer;
 }
