@@ -18,6 +18,7 @@
                 = form_with model: pair_work, url: pair_work_reservations_path(pair_work), method: pair_work.solved? ? :patch : :post, local: true do |f|
                   = f.hidden_field :reserved_at, value: target_time
                   - confirmed = pair_work.reserved_at == target_time
+                  - default_text_color = disabled ? '!text-[var(--muted-text)]' : '!text-[var(--main)]'
                   = f.button type: :submit,
                     disabled: disabled,
                     class: ['!absolute',
@@ -32,7 +33,7 @@
                       (confirmed ? '!border' : '!border-0'),
                       (confirmed ? '!border-solid' : nil),
                       (confirmed ? '!rounded' : nil),
-                      (confirmed ? '!text-[var(--danger)]' : (disabled ? '!text-[var(--muted-text)]' : '!text-[var(--main)]')),
+                      (confirmed ? '!text-[var(--danger)]' : default_text_color),
                       (confirmed ? '!bg-[var(--danger-tint)]' : nil),
                       (confirmed ? '!border-[var(--danger)]' : nil),
                       (!confirmed && !disabled ? 'hover:!rounded' : nil),
