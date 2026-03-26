@@ -138,7 +138,7 @@ class PairWorksTest < ApplicationSystemTestCase
     end
   end
 
-  test 'show confirmed date' do
+  test 'show confirmed date when pair work is reserved' do
     travel_to Time.zone.local(2025, 1, 1, 0, 0, 0) do
       pair_work = pair_works(:pair_work4)
       visit_with_auth pair_work_path(pair_work), 'kimura'
@@ -149,6 +149,17 @@ class PairWorksTest < ApplicationSystemTestCase
       visit_with_auth pair_work_path(pair_work), 'komagata'
       find("label[for='show-schedule-dates']").click
       assert_selector "[id='2025-01-02T01:00:00+09:00']", text: '確定'
+    end
+  end
+
+  test 'show pair work ended when reserved date has passed' do
+    travel_to Time.zone.local(2025, 1, 2, 1, 0, 0) do
+      pair_work = pair_works(:pair_work4)
+      visit_with_auth pair_work_path(pair_work), 'kimura'
+      assert_selector "[for='show-ended-schedule']", text: 'ペアワークは終了しました。'
+
+      visit_with_auth pair_work_path(pair_work), 'komagata'
+      assert_selector "[for='show-ended-schedule']", text: 'ペアワークは終了しました。'
     end
   end
 
