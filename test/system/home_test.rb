@@ -55,4 +55,32 @@ class HomeTest < ApplicationSystemTestCase
       assert_no_text '株式会社ロッカの代表兼エンジニア。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
     end
   end
+
+  test 'toggle_show_study_streak' do
+    user = users(:hajime)
+    visit_with_auth '/', 'hajime'
+
+    before = user.show_study_streak
+
+    assert_no_selector '.card-body', text: '現在の連続記録'
+    assert_no_selector '.card-body', text: '連続最高記録'
+    assert_not find('#toggle', visible: false).checked?
+    find('label.a-on-off-checkbox').click
+
+    assert_equal !before, user.reload.show_study_streak
+    assert_selector '.card-body', text: '現在の連続記録'
+    assert_selector '.card-body', text: '連続最高記録'
+    assert find('#toggle', visible: false).checked?
+    find('label.a-on-off-checkbox').click
+  end
+
+  test 'hide_toggle_show_study_streak_when_there_is_no_reports_with_learning_times' do
+    assert_not users(:kensyu).reports_with_learning_times.present?
+    visit_with_auth '/', 'kensyu'
+    assert_no_selector 'label.a-on-off-checkbox'
+    logout
+    assert users(:hajime).reports_with_learning_times.present?
+    visit_with_auth '/', 'hajime'
+    assert_selector 'label.a-on-off-checkbox'
+  end
 end

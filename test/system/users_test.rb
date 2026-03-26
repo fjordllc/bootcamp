@@ -66,4 +66,43 @@ class UsersTest < ApplicationSystemTestCase
     page.driver.browser.switch_to.alert.accept
     assert_text "#{user.name} さんを削除しました。"
   end
+
+  test 'toggle_show_study_streak' do
+    user = users(:hajime)
+    visit_with_auth "/users/#{user.id}", 'hajime'
+
+    before = user.show_study_streak
+
+    assert_no_selector '.card-body', text: '現在の連続記録'
+    assert_no_selector '.card-body', text: '連続最高記録'
+    assert_not find('#toggle', visible: false).checked?
+    find('label.a-on-off-checkbox').click
+
+    assert_equal !before, user.reload.show_study_streak
+    assert_selector '.card-body', text: '現在の連続記録'
+    assert_selector '.card-body', text: '連続最高記録'
+    assert find('#toggle', visible: false).checked?
+    find('label.a-on-off-checkbox').click
+  end
+
+  test 'hide_toggle_show_study_streak when user is not owner' do
+    user = users(:hajime)
+    visit_with_auth "/users/#{user.id}", 'kensyu'
+    assert_no_selector 'label.a-on-off-checkbox'
+    logout
+    visit_with_auth "/users/#{user.id}", 'hajime'
+    assert_selector 'label.a-on-off-checkbox'
+  end
+
+  test 'hide_toggle_show_study_streak_when_there_is_no_reports_with_learning_times' do
+    user = users(:kensyu)
+    assert_not user.reports_with_learning_times.present?
+    visit_with_auth "/users/#{user.id}", 'kensyu'
+    assert_no_selector 'label.a-on-off-checkbox'
+    logout
+    user = users(:hajime)
+    assert user.reports_with_learning_times.present?
+    visit_with_auth "/users/#{user.id}", 'hajime'
+    assert_selector 'label.a-on-off-checkbox'
+  end
 end
