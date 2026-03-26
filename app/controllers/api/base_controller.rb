@@ -2,7 +2,9 @@
 
 class API::BaseController < ApplicationController
   skip_before_action :require_active_user_login, raise: false
-  before_action :require_login_for_api
+  skip_before_action :verify_authenticity_token, if: -> { doorkeeper_token.present? }
+  before_action :doorkeeper_authorize!, if: -> { doorkeeper_token.present? }
+  before_action :require_login_for_api, unless: -> { doorkeeper_token.present? }
 
   private
 
