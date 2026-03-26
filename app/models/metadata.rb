@@ -7,8 +7,8 @@ class Metadata
   end
 
   def fetch
-    response = Net::HTTP.get_response(@uri)
-    response.message == 'OK' ? parse(response.body) : nil
+    response = LinkFetcher::Fetcher.fetch(@url)
+    response.is_a?(Net::HTTPSuccess) ? parse(response.body) : nil
   end
 
   private
