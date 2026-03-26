@@ -16,19 +16,10 @@ class Metadata
   end
 
   def fetch
-    http = Net::HTTP.new(@uri.host, @uri.inferred_port)
-    if @uri.scheme == 'https'
-      http.use_ssl = true
-      http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-    end
-    http.response_body_encoding = true
-
-    response = http.request_get(@uri.request_uri)
+    response = LinkFetcher::Fetcher.fetch(@url)
     return fetch_youtube_oembed unless response.is_a?(Net::HTTPSuccess)
 
     parse(response.body) || fetch_youtube_oembed
-  rescue *NETWORK_ERRORS
-    nil
   end
 
   private
