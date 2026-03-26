@@ -7,15 +7,8 @@ class Metadata
   end
 
   def fetch
-    http = Net::HTTP.new(@uri.host, @uri.inferred_port)
-    if @uri.scheme == 'https'
-      http.use_ssl = true
-      http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-    end
-    http.response_body_encoding = true
-
-    response = http.request_get(@uri.request_uri)
-    response.message == 'OK' ? parse(response.body) : nil
+    response = LinkFetcher::Fetcher.fetch(@url)
+    response.is_a?(Net::HTTPSuccess) ? parse(response.body) : nil
   end
 
   private
