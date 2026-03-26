@@ -1,5 +1,6 @@
 json.id report.id
 json.title report.title
+json.description report.description
 json.reportedOn l(report.reported_on)
 json.url report_url(report)
 json.editPath edit_report_path(report)

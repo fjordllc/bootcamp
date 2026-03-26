@@ -43,13 +43,13 @@ Rails.application.routes.draw do
       resource :position, only: %i(update), controller: "coding_tests/position"
     end
     resources :coding_test_submissions, only: %i(create)
-    resources :reports, only: %i(index)
     namespace "reports" do
       resources :unchecked, only: %i(index) do
         get 'counts', on: :collection
       end
       resources :recents, only: %i(index)
     end
+    resources :reports, only: %i(index show)
     resources :watches, only: %i(index create destroy)
     namespace 'watches' do
       resources :toggle, only: %i(index)
@@ -84,5 +84,6 @@ Rails.application.routes.draw do
     resources :movies, only: %i(index update)
     resources :metadata, only: %i(index)
     resources :micro_reports, only: %i(update)
+    resources :trainee_progresses, only: %i(index)
   end
 end
