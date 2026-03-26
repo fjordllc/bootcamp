@@ -17,11 +17,10 @@ class PairWorks::ReservationsController < ApplicationController
   def update
     @pair_work = PairWork.find(params[:pair_work_id])
     if @pair_work.reserve(pair_work_reservation_params)
-      notification_kinds = []
-      notification_kinds << 'pair_work.reschedule' if @pair_work.saved_change_to_reserved_at?
-      notification_kinds << 'pair_work.rematch' if @pair_work.saved_change_to_buddy_id?
-      notification_kinds.each do |kind|
-        ActiveSupport::Notifications.instrument(kind, pair_work: @pair_work)
+      ActiveSupport::Notifications.instrument('pair_work.reschedule', pair_work: @pair_work) if @pair_work.saved_change_to_reserved_at?
+      if @pair_work.saved_change_to_buddy_id?
+        past_buddy_id = @pair_work.buddy_id_before_last_save
+        ActiveSupport::Notifications.instrument('pair_work.rematch', pair_work: @pair_work, past_buddy: User.find_by(id: past_buddy_id))
       end
       redirect_to Redirection.determin_url(self, @pair_work), notice: @pair_work.generate_notice_message(:update_reserve)
     else

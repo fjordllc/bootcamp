@@ -103,6 +103,8 @@ class Notification::PairWorksTest < NotificationSystemTestCase
 
       assert_user_has_notification(user: users(:kimura), kind: Notification.kinds[:rematching_pair_work],
                                    text: 'ペアワーク「ペア確定済みのペアワークです(タイトル)」のペアがmentormentaroに変更されました。')
+      assert_user_has_notification(user: users(:sotugyou), kind: Notification.kinds[:rematching_pair_work],
+                                   text: 'ペアワーク「ペア確定済みのペアワークです(タイトル)」のペアがmentormentaroに変更されました。')
     end
   end
 
