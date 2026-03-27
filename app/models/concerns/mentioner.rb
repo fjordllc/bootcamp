@@ -26,6 +26,9 @@ module Mentioner
       "#{user.login_name}さんのQ&A「#{practice_title}」"
     when MicroReport
       "#{user.login_name}さんの分報"
+    when PairWork
+      practice_title = practice ? practice[:title] : 'プラクティス選択なし'
+      "#{user.login_name}さんのペアワーク「#{practice_title}」"
     end
   end
 
@@ -47,7 +50,13 @@ module Mentioner
     return nil if instance_of?(Comment) && commentable.instance_of?(Talk) # protect mention in talk
 
     receivers.each do |receiver|
-      ActivityDelivery.with(mentionable: self, receiver:).notify(:mentioned) if sender != receiver
+      next if sender == receiver
+
+      if receiver.login_name == Pjord::LOGIN_NAME
+        PjordRespondJob.perform_later(mentionable_type: self.class.name, mentionable_id: id)
+      else
+        ActivityDelivery.with(mentionable: self, receiver:).notify(:mentioned)
+      end
     end
   end
 
@@ -77,7 +86,8 @@ module Mentioner
       Event: "特別イベント「#{commentable.title}」",
       RegularEvent: "定期イベント「#{commentable.title}」",
       Page: "Docs「#{commentable.title}」",
-      Announcement: "お知らせ「#{commentable.title}」"
+      Announcement: "お知らせ「#{commentable.title}」",
+      PairWork: "ペアワーク「#{commentable.title}」"
     }[:"#{commentable_class}"]
   end
 end
