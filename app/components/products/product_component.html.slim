@@ -81,7 +81,7 @@
           .card-list-item-meta__items
             .card-list-item-meta__item
               - if @product.user.training_ends_on
-                time.a-meta dateTime=@product.user.training_ends_on.in_time_zone.iso8601
+                time.a-meta datetime=@product.user.training_ends_on.in_time_zone.iso8601
                   span.a-meta__label
                     | 研修終了日
                   span.a-meta__value
