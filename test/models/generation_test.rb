@@ -39,9 +39,8 @@ class GenerationTest < ActiveSupport::TestCase
       advisers: 3,
       retired: 1
     }
-    generation = Generation.new(5)
-    expected.each do |target, count|
-      assert_equal count, generation.count_classmates_by_target(target), "#{target} of 5th generation count mismatch"
-    end
+    gen5 = Generation.new(5)
+    actual = expected.keys.index_with { |t| gen5.count_classmates_by_target(t) }
+    assert_equal expected, actual
   end
 end
