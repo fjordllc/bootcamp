@@ -13,5 +13,5 @@
           .card-list-item-meta
             .card-list-item-meta__items
               .card-list-item-meta__item
-                time.a-meta(datetime="#{page.updated_at.iso8601}")
+                time.a-meta datetime=page.updated_at.iso8601
                   = l page.updated_at

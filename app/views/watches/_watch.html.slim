@@ -38,7 +38,7 @@
                 = link_to watchable.user, class: 'a-user-name' do
                   = watchable.user.login_name
             .card-list-item-meta__item
-              time.a-meta(datetime="#{watchable.created_at.iso8601}")
+              time.a-meta datetime=watchable.created_at.iso8601
                 = l watchable.created_at
     .card-list-item__option.hidden
       .a-watch-button.a-button.is-sm.is-block.is-main data-watch_id="#{watch.id}"

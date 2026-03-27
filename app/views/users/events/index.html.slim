@@ -45,7 +45,7 @@
                       .card-list-item-meta
                         .card-list-item-meta__items
                           .card-list-item-meta__item
-                            time.a-meta(datetime="#{event.start_at.iso8601}")
+                            time.a-meta datetime=event.start_at.iso8601
                               | 開催日時:#{l event.start_at}
                           .card-list-item-meta__item
                             .a-meta
