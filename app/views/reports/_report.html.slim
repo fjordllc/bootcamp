@@ -52,7 +52,7 @@
                 .card-list-item__user-icons
                   = render partial: 'comments/user_icons', collection: report.comments.commented_users, as: :user
               .card-list-item-meta__item
-                time.a-meta(datetime="#{report.comments.last.updated_at.iso8601}" pubdate='pubdate')
+                time.a-meta(datetime="#{report.comments.last.updated_at.iso8601}")
                   | 〜 #{l report.comments.last.updated_at, format: :date_and_time}
 
     - if report.checks.any?

@@ -32,7 +32,7 @@
                 user_path(answer.question.user),
                 class: 'a-user-name'
             .card-list-item-meta__item
-              time.a-meta datetime=answer.updated_at.iso8601 pubdate="pubdate"
+              time.a-meta datetime=answer.updated_at.iso8601
                 = formatted_updated_at
       - if best_answer?
         .answer-badge
