@@ -1,0 +1,52 @@
+= form_with model: [:mentor, @textbook, @chapter, @section], local: true, class: 'form', html: { name: 'section' } do |f|
+  = render 'errors', object: @section
+  .form-item
+    .row
+      .col-md-6.col-xs-12
+        = f.label :title, class: 'a-form-label is-required'
+        = f.text_field :title, class: 'a-text-input js-warning-form'
+
+  .form-item
+    .row
+      .col-md-6.col-xs-12
+        = f.label :position, '表示順', class: 'a-form-label is-required'
+        = f.number_field :position, class: 'a-text-input js-warning-form', min: 0
+
+  .form-item
+    .row
+      .col-md-6.col-xs-12
+        = f.label :estimated_minutes, '想定学習時間（分）', class: 'a-form-label'
+        = f.number_field :estimated_minutes, class: 'a-text-input js-warning-form', min: 0
+
+  .form-item
+    = f.label :body, '本文（Markdown）', class: 'a-form-label is-required'
+    .row.js-markdown-parent.mt-2
+      .col-md-6.col-xs-12
+        .a-form-label
+          | 入力
+        = f.text_area :body, class: 'a-text-input js-warning-form markdown-form__text-area js-markdown', rows: 20, data: { 'preview': '#body-preview' }
+      .col-md-6.col-xs-12
+        .a-form-label
+          | プレビュー
+        .js-preview.a-long-text.is-md.markdown-form__preview#body-preview
+
+  .form-item
+    = f.label :goals, '学習目標（1行ずつ入力）', class: 'a-form-label'
+    .a-form-help
+      p
+        | 改行で区切って入力してください。
+    = f.text_area :goals, value: @section.goals&.join("\n"), class: 'a-text-input js-warning-form', rows: 4
+
+  .form-item
+    = f.label :key_terms, 'キーワード（1行ずつ入力）', class: 'a-form-label'
+    .a-form-help
+      p
+        | 本文中でツールチップ表示するキーワードです。改行で区切って入力してください。
+    = f.text_area :key_terms, value: @section.key_terms&.join("\n"), class: 'a-text-input js-warning-form', rows: 4
+
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item.is-main
+        = f.submit '内容を保存', class: 'a-button is-lg is-primary is-block'
+      li.form-actions__item.is-sub
+        = link_to 'キャンセル', :back, class: 'a-button is-sm is-secondary is-block'

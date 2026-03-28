@@ -1,0 +1,82 @@
+- title '教科書編集'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        .page-header__title
+          | メンターページ
+
+= render 'mentor/mentor_page_tabs'
+
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            = title
+        .page-main-header__end
+          .page-main-header-actions
+            .page-main-header-actions__items
+              .page-main-header-actions__item
+                = link_to mentor_textbooks_path, class: 'a-button is-md is-secondary is-block is-back' do
+                  | 教科書一覧
+  hr.a-border
+  .page-body
+    .container.is-xl
+      = render 'form', textbook: @textbook
+
+      - if @textbook.persisted?
+        hr.a-border.mt-2
+        .mt-2
+          h2.page-main-header__title
+            | 章の管理
+          .mt-2
+            = link_to new_mentor_textbook_chapter_path(@textbook), class: 'a-button is-md is-secondary is-block' do
+              i.fa-regular.fa-plus
+              | 章を追加
+
+          - @textbook.chapters.each do |chapter|
+            .a-card.mt-2
+              header.card-header
+                h3.card-header__title
+                  = "第#{chapter.position}章 #{chapter.title}"
+              hr.a-border-tint
+              .card-body
+                - if chapter.sections.any?
+                  ul.card-body__items
+                    - chapter.sections.each do |section|
+                      li.card-body__item
+                        .flex.items-center.gap-2
+                          span
+                            = section.title
+                          - if section.estimated_minutes.present?
+                            span.text-muted
+                              = "(#{section.estimated_minutes}分)"
+                          .ml-auto
+                            ul.is-inline-buttons
+                              li
+                                = link_to edit_mentor_textbook_chapter_section_path(@textbook, chapter, section), class: 'a-button is-sm is-secondary is-icon is-block' do
+                                  i.fa-solid.fa-pen
+                              li
+                                = link_to mentor_textbook_chapter_section_path(@textbook, chapter, section), data: { confirm: '本当に削除しますか？' }, method: :delete, class: 'a-button is-sm is-danger is-icon is-block' do
+                                  i.fa-solid.fa-trash
+                - else
+                  p.text-muted
+                    | セクションはまだありません。
+              hr.a-border-tint
+              footer.card-footer
+                .card-main-actions
+                  ul.card-main-actions__items
+                    li.card-main-actions__item
+                      = link_to new_mentor_textbook_chapter_section_path(@textbook, chapter), class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
+                        i.fa-regular.fa-plus
+                        | セクション追加
+                    li.card-main-actions__item
+                      = link_to edit_mentor_textbook_chapter_path(@textbook, chapter), class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
+                        i.fa-solid.fa-pen
+                        | 章を編集
+                    li.card-main-actions__item.is-sub
+                      = link_to mentor_textbook_chapter_path(@textbook, chapter), data: { confirm: '本当に削除しますか？' }, method: :delete, class: 'card-main-actions__muted-action' do
+                        | 章を削除
