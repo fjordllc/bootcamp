@@ -2,24 +2,15 @@
 
 class EnablePgBigmExtension < ActiveRecord::Migration[8.1]
   def up
-    return unless pg_bigm_installable?
-
     enable_extension 'pg_bigm'
+  rescue StandardError => e
+    # pg_bigmがインストールされていない環境（CI等）ではスキップ
+    say "pg_bigm extension not available, skipping: #{e.message.lines.first.strip}"
   end
 
   def down
     disable_extension 'pg_bigm'
   rescue ActiveRecord::StatementInvalid
-    # pg_bigmが存在しない環境では無視
     nil
-  end
-
-  private
-
-  def pg_bigm_installable?
-    result = execute("SELECT COUNT(*) FROM pg_available_extensions WHERE name = 'pg_bigm'")
-    result.first['count'].to_i.positive?
-  rescue ActiveRecord::StatementInvalid
-    false
   end
 end
