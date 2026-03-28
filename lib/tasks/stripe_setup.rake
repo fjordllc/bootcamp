@@ -3,8 +3,12 @@
 namespace :stripe do
   desc "Stripeテスト環境にProduct/Plan/TaxRate/Customer/Subscriptionを作成し、developmentのDBと同期する"
   task setup: :environment do
-    unless Rails.env.development?
-      abort "このタスクはdevelopment環境でのみ実行できます"
+    if Rails.env.test?
+      abort "このタスクはtest環境では実行できません"
+    end
+
+    if Rails.env.production? && !Stripe.api_key&.start_with?("sk_test_")
+      abort "このタスクはStripeテスト環境でのみ実行できます（本番キーが検出されました）"
     end
 
     puts "🔄 Stripeテスト環境のセットアップを開始..."
