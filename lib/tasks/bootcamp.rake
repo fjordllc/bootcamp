@@ -27,14 +27,6 @@ namespace :bootcamp do
     Rake::Task['db:reset'].execute if ENV['DB_NAME'] == 'bootcamp_staging'
   end
 
-  desc 'Reset Stripe test DB.'
-  task reset_stripe: :environment do
-    customer = Stripe::Customer.create(email: 'hatsuno@fjord.jp')
-    Subscription.new.create(
-      customer.id
-    )
-  end
-
   desc 'Disconnect all DB user.'
   task disconnect_all_user: :environment do
     sql = "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = 'bootcamp_staging' and application_name = 'bin/rails'"

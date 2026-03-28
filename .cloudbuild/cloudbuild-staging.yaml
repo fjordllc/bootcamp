@@ -225,25 +225,6 @@ steps:
       - DB_USER=$_DB_USER
       - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
       - APP_HOST_NAME=$_APP_HOST_NAME
-  - id: StripeSetup
-    name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
-    args:
-      - bin/rails
-      - stripe:setup
-    waitFor:
-      - DBMigrate
-    volumes:
-      - name: db
-        path: /cloudsql
-    env:
-      - RAILS_ENV=production
-      - DISABLE_DATABASE_ENVIRONMENT_CHECK=1
-      - DB_HOST=/cloudsql/$_CLOUD_SQL_HOST
-      - DB_NAME=$_DB_NAME
-      - DB_PASS=$_DB_PASS
-      - DB_USER=$_DB_USER
-      - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
-      - APP_HOST_NAME=$_APP_HOST_NAME
   - id: Kill_SqlProxy
     name: gcr.io/cloud-builders/docker
     entrypoint: sh
@@ -251,7 +232,7 @@ steps:
       - '-c'
       - docker kill -s TERM $(docker ps -q --filter "volume=db")
     waitFor:
-      - StripeSetup
+      - DBMigrate
   - id: Deploy
     name: gcr.io/google.com/cloudsdktool/cloud-sdk
     entrypoint: gcloud
