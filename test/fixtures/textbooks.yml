@@ -1,0 +1,15 @@
+textbook_ruby:
+  title: "Ruby入門"
+  description: "Rubyの基本を学ぶ教科書"
+  published: true
+  practice: practice1
+
+textbook_git:
+  title: "Git入門"
+  description: "Gitの基本を学ぶ教科書"
+  published: true
+
+textbook_draft:
+  title: "下書きの教科書"
+  description: "まだ公開されていない教科書"
+  published: false

@@ -1,0 +1,55 @@
+section_variables:
+  textbook_chapter_id: <%= ActiveRecord::FixtureSet.identify(:chapter_ruby_basics) %>
+  title: "変数とは何か"
+  body: "変数とは、データを一時的に保存しておくための名前付きの箱です。"
+  estimated_minutes: 10
+  goals:
+    - "変数の概念を理解する"
+    - "変数の宣言方法を覚える"
+  key_terms:
+    - "変数"
+    - "代入"
+  position: 0
+  created_at: <%= 1.week.ago.to_fs(:db) %>
+  updated_at: <%= 1.week.ago.to_fs(:db) %>
+
+section_types:
+  textbook_chapter_id: <%= ActiveRecord::FixtureSet.identify(:chapter_ruby_basics) %>
+  title: "データ型"
+  body: "Rubyには文字列、整数、浮動小数点数などのデータ型があります。"
+  estimated_minutes: 15
+  goals:
+    - "主要なデータ型を理解する"
+  key_terms:
+    - "文字列"
+    - "整数"
+  position: 1
+  created_at: <%= 1.week.ago.to_fs(:db) %>
+  updated_at: <%= 1.week.ago.to_fs(:db) %>
+
+section_methods:
+  textbook_chapter_id: <%= ActiveRecord::FixtureSet.identify(:chapter_ruby_methods) %>
+  title: "メソッドとは何か"
+  body: "メソッドとは、処理をまとめて名前をつけたものです。"
+  estimated_minutes: 20
+  goals:
+    - "メソッドの概念を理解する"
+  key_terms:
+    - "メソッド"
+    - "引数"
+  position: 0
+  created_at: <%= 1.week.ago.to_fs(:db) %>
+  updated_at: <%= 1.week.ago.to_fs(:db) %>
+
+section_git_init:
+  textbook_chapter_id: <%= ActiveRecord::FixtureSet.identify(:chapter_git_basics) %>
+  title: "リポジトリの作成"
+  body: "git initコマンドでリポジトリを作成します。"
+  estimated_minutes: 5
+  goals:
+    - "リポジトリを作成できる"
+  key_terms:
+    - "リポジトリ"
+  position: 0
+  created_at: <%= 1.week.ago.to_fs(:db) %>
+  updated_at: <%= 1.week.ago.to_fs(:db) %>
