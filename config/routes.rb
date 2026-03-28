@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   draw :connection
   draw :products
   draw :reports
+  draw :textbook
   resources :announcements
   resource :training_completion, only: %i(show new create), controller: "training_completion"
   resource :retirement, only: %i(show new create), controller: "retirement"
