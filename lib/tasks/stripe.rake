@@ -10,8 +10,8 @@ namespace :stripe do
     puts '🔄 Stripeテスト環境のセットアップを開始...'
     puts ''
 
-    StripeSetup.ensure_resources
-    StripeSetup.sync_users
+    tax_rate = StripeSetup.ensure_resources
+    StripeSetup.sync_users(tax_rate)
   end
 end
 
@@ -26,12 +26,13 @@ module StripeSetup # rubocop:disable Metrics/ModuleLength
     product = ensure_product
     ensure_standard_plan(product)
     ensure_corporate_plan(product)
-    ensure_tax_rate
+    tax_rate = ensure_tax_rate
 
     puts ''
+    tax_rate
   end
 
-  def sync_users
+  def sync_users(tax_rate)
     puts '── ユーザーの同期 ──'
 
     plan = Plan.standard_plan
@@ -42,7 +43,7 @@ module StripeSetup # rubocop:disable Metrics/ModuleLength
     puts "  👥 対象ユーザー: #{users.count}人"
     puts ''
 
-    users.find_each { |user| sync_stripe_customer(user, plan) }
+    users.find_each { |user| sync_stripe_customer(user, plan, tax_rate) }
 
     puts ''
     puts '✅ セットアップ完了！'
@@ -114,11 +115,11 @@ module StripeSetup # rubocop:disable Metrics/ModuleLength
     puts '     secrets.ymlまたは環境変数 STRIPE_TAX_RATE_ID を更新してください。'
   end
 
-  def sync_stripe_customer(user, plan)
+  def sync_stripe_customer(user, plan, tax_rate)
     print "  #{user.login_name} (#{user.email})... "
 
     customer = find_or_create_customer(user)
-    subscription = find_or_create_subscription(customer, plan)
+    subscription = find_or_create_subscription(customer, plan, tax_rate)
 
     # rubocop:disable Rails/SkipsModelValidations
     user.update_columns(customer_id: customer.id, subscription_id: subscription.id)
@@ -136,15 +137,14 @@ module StripeSetup # rubocop:disable Metrics/ModuleLength
     Stripe::Customer.create(email: user.email, source: 'tok_visa', name: user.name)
   end
 
-  def find_or_create_subscription(customer, plan)
+  def find_or_create_subscription(customer, plan, tax_rate)
     existing = Stripe::Subscription.list(customer: customer.id, status: 'active', limit: 1).data.first
     existing ||= Stripe::Subscription.list(customer: customer.id, status: 'trialing', limit: 1).data.first
     return existing if existing
 
-    tax_rate_id = Rails.application.config_for(:secrets)[:stripe][:tax_rate_id]
     Stripe::Subscription.create(
       customer: customer.id,
-      items: [{ plan: plan.id, tax_rates: [tax_rate_id] }],
+      items: [{ plan: plan.id, tax_rates: [tax_rate.id] }],
       trial_end: 'now'
     )
   end
