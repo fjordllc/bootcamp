@@ -1,5 +1,14 @@
 - title "#{@textbook.title} - #{@section.title}"
 
+ruby:
+  sections = @chapter.sections.to_a
+  current_index = sections.index(@section)
+  progress_percent = ((current_index + 1).to_f / sections.size * 100).round
+  all_sections = @textbook.chapters.flat_map(&:sections)
+  global_index = all_sections.index(@section)
+  prev_section = global_index.positive? ? all_sections[global_index - 1] : nil
+  next_section = global_index < all_sections.size - 1 ? all_sections[global_index + 1] : nil
+
 main.page-main
   header.page-main-header
     .container
@@ -16,58 +25,52 @@ main.page-main
   hr.a-border
   .page-body
     .container.is-md
-      /! Progress bar
-      ruby:
-        sections = @chapter.sections.to_a
-        current_index = sections.index(@section)
-        progress_percent = ((current_index + 1).to_f / sections.size * 100).round
-      .mb-2
-        .flex.items-center.gap-2
-          span.text-muted
-            = "#{@chapter.title} (#{current_index + 1}/#{sections.size})"
-        .progress-bar.mt-1
-          .progress-bar__fill style="width: #{progress_percent}%"
 
-      /! Section goals
+      /! パンくず + 進捗
+      .textbook-section__nav
+        .textbook-section__breadcrumb
+          = link_to @textbook.title, textbook_path(@textbook), class: 'textbook-section__breadcrumb-link'
+          span.textbook-section__breadcrumb-sep
+            i.fa-solid.fa-chevron-right
+          span.textbook-section__breadcrumb-current
+            = "第#{@chapter.position}章 #{@chapter.title}"
+        .textbook-section__progress
+          span.textbook-section__progress-text
+            = "#{current_index + 1} / #{sections.size}"
+          .textbook-section__progress-bar
+            .textbook-section__progress-fill style="width: #{progress_percent}%"
+
+      /! 学習目標
       - if @section.goals.present? && @section.goals.any?(&:present?)
-        .a-card.mb-2
-          header.card-header
-            h2.card-header__title
-              i.fa-solid.fa-bullseye.mr-1
-              | このセクションの目標
-          hr.a-border-tint
-          .card-body
-            ul.card-body__items
-              - @section.goals.each do |goal|
-                - next if goal.blank?
-                li.card-body__item
-                  = goal
+        .textbook-section__goals
+          .textbook-section__goals-header
+            i.fa-solid.fa-bullseye.mr-1
+            | このセクションの目標
+          ul.textbook-section__goals-list
+            - @section.goals.each do |goal|
+              - next if goal.blank?
+              li.textbook-section__goals-item
+                = goal
 
-      /! Main content
+      /! 本文
       .a-card data-controller='reading-progress' data-reading-progress-section-id-value="#{@section.id}" data-reading-progress-total-blocks-value='0'
         .card-body
           .card-body__description
             .a-long-text.is-md.js-markdown-view
               = textbook_section_body(@section)
 
-      /! Previous/Next navigation
-      ruby:
-        all_sections = @textbook.chapters.flat_map(&:sections)
-        global_index = all_sections.index(@section)
-        prev_section = global_index.positive? ? all_sections[global_index - 1] : nil
-        next_section = global_index < all_sections.size - 1 ? all_sections[global_index + 1] : nil
-
+      /! 前後ナビ
       .page-content-prev-next.mt-2
         .page-content-prev-next__item
           - if prev_section
             = link_to textbook_chapter_section_path(@textbook, prev_section.chapter, prev_section), class: 'page-content-prev-next__item-link is-prev' do
-              i.fa-solid.fa-angle-left.mr-1
+              i.fa-solid.fa-angle-left
               = prev_section.title
         .page-content-prev-next__item
           - if next_section
             = link_to textbook_chapter_section_path(@textbook, next_section.chapter, next_section), class: 'page-content-prev-next__item-link is-next' do
               = next_section.title
-              i.fa-solid.fa-angle-right.ml-1
+              i.fa-solid.fa-angle-right
 
-  /! Piyo companion
-  = render 'shared/piyo_companion'
+  /! ピヨルド
+  = render 'shared/piyo_companion', section_id: @section.id

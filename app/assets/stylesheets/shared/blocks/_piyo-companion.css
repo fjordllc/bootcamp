@@ -1,0 +1,78 @@
+.piyo-companion {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 1000;
+}
+
+.piyo-companion__button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  transition: transform 0.15s;
+}
+
+.piyo-companion__button:hover {
+  transform: scale(1.1);
+}
+
+.piyo-companion__image {
+  width: 56px;
+  height: 56px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+}
+
+.piyo-companion__bubble {
+  position: absolute;
+  bottom: 64px;
+  right: 0;
+  background: var(--base, #fff);
+  border: 1px solid var(--border, #e0e0e0);
+  border-radius: 12px;
+  padding: 0.625rem 0.875rem;
+  max-width: 220px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  animation: piyo-bubble-in 0.2s ease-out;
+}
+
+.piyo-companion__bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  right: 20px;
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 7px solid var(--base, #fff);
+}
+
+.piyo-companion__message {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.piyo-companion__badge {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 10px;
+  height: 10px;
+  background: var(--danger, #ef4444);
+  border-radius: 50%;
+  border: 2px solid var(--base, #fff);
+}
+
+@keyframes piyo-bubble-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -16,50 +16,87 @@ main.page-main
   hr.a-border
   .page-body
     .container.is-md
-      - all_sections = @textbook.chapters.flat_map(&:sections)
-      - total = all_sections.size
-      - if current_user.present?
-        - completed_ids = current_user.reading_progresses.where(textbook_section_id: all_sections.map(&:id), completed: true).pluck(:textbook_section_id)
-        - completed_count = completed_ids.size
-      - else
-        - completed_ids = []
-        - completed_count = 0
+      ruby:
+        all_sections = @textbook.chapters.flat_map(&:sections)
+        total = all_sections.size
+        if current_user.present?
+          completed_ids = current_user.reading_progresses.where(textbook_section_id: all_sections.map(&:id), completed: true).pluck(:textbook_section_id)
+          completed_count = completed_ids.size
+        else
+          completed_ids = []
+          completed_count = 0
+        end
+        progress_percent = total.positive? ? (completed_count.to_f / total * 100).round : 0
 
-      - if @textbook.description.present?
-        .a-card
-          .card-body
+      /! 概要 + 進捗
+      .a-card
+        .card-body
+          - if @textbook.description.present?
             .card-body__description
               .a-long-text.is-md
                 = @textbook.description
 
-      - if total.positive?
-        .mt-2
-          p
-            = "#{completed_count}/#{total} セクション完了"
-          - if current_user.present?
+          - if total.positive?
+            .textbook-toc__summary
+              .textbook-toc__stats
+                span.textbook-toc__stat
+                  i.fa-solid.fa-list.mr-1
+                  = "#{@textbook.chapters.size}章"
+                span.textbook-toc__stat
+                  i.fa-regular.fa-file-lines.mr-1
+                  = "#{total}セクション"
+                - if current_user.present?
+                  span.textbook-toc__stat
+                    i.fa-solid.fa-check.mr-1
+                    = "#{completed_count}完了 (#{progress_percent}%)"
+              .textbook-toc__progress
+                .completed-practices-progress__bar-container
+                  .completed-practices-progress__bar
+                  .completed-practices-progress__percentage-bar style="width: #{progress_percent}%"
+
+          - if current_user.present? && total.positive?
             - next_section = all_sections.find { |s| !completed_ids.include?(s.id) }
             - if next_section
-              .mt-2
+              .textbook-toc__action
                 = link_to textbook_chapter_section_path(@textbook, next_section.chapter, next_section), class: 'a-button is-md is-primary is-block' do
+                  i.fa-solid.fa-play.mr-1
                   | 続きを読む
+            - else
+              .textbook-toc__action
+                .textbook-toc__complete
+                  i.fa-solid.fa-circle-check.mr-1
+                  | すべてのセクションを読了しました 🎉
 
+      /! 章一覧
       - @textbook.chapters.each do |chapter|
+        - chapter_sections = chapter.sections.to_a
+        - chapter_completed = chapter_sections.count { |s| completed_ids.include?(s.id) }
+        - chapter_total = chapter_sections.size
+
         .a-card.mt-2
           header.card-header
             h2.card-header__title
-              = "第#{chapter.position}章 #{chapter.title}"
+              = "第#{chapter.position}章"
+              span.textbook-toc__chapter-title
+                = chapter.title
+            - if current_user.present? && chapter_total.positive?
+              span.textbook-toc__chapter-progress
+                = "#{chapter_completed}/#{chapter_total}"
           hr.a-border-tint
           .card-body
             ul.card-body__items
               - chapter.sections.each do |section|
                 li.card-body__item
-                  .flex.items-center.gap-2
-                    - if current_user.present? && completed_ids.include?(section.id)
-                      i.fa-solid.fa-check.text-green
-                    - else
-                      i.fa-regular.fa-circle
-                    = link_to textbook_chapter_section_path(@textbook, chapter, section) do
-                      = section.title
-                    - if section.estimated_minutes.present?
-                      span.text-muted
-                        = "(#{section.estimated_minutes}分)"
+                  = link_to textbook_chapter_section_path(@textbook, chapter, section), class: 'textbook-toc__section-link' do
+                    .textbook-toc__section-status
+                      - if current_user.present? && completed_ids.include?(section.id)
+                        i.fa-solid.fa-circle-check.textbook-toc__icon--completed
+                      - else
+                        i.fa-regular.fa-circle.textbook-toc__icon--pending
+                    .textbook-toc__section-info
+                      span.textbook-toc__section-title
+                        = section.title
+                      - if section.estimated_minutes.present?
+                        span.textbook-toc__section-time
+                          i.fa-regular.fa-clock.mr-1
+                          = "#{section.estimated_minutes}分"

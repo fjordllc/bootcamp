@@ -1,5 +1,10 @@
+- section_id = local_assigns[:section_id]
+
 .piyo-companion data-controller='piyo-companion'
+  /! 吹き出し
   .piyo-companion__bubble.is-hidden data-piyo-companion-target='bubble'
     p.piyo-companion__message data-piyo-companion-target='message'
+
+  /! ピヨルドボタン
   button.piyo-companion__button type='button' data-action='click->piyo-companion#dismiss'
     = image_tag 'shared/piyo.svg', alt: 'ピヨルド', class: 'piyo-companion__image'

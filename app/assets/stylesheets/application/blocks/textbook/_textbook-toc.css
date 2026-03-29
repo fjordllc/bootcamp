@@ -1,0 +1,96 @@
+/* 教科書 目次ページ */
+
+.textbook-toc__summary {
+  margin-top: 0.75rem;
+}
+
+.textbook-toc__stats {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.8125rem;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.textbook-toc__stat {
+  white-space: nowrap;
+}
+
+.textbook-toc__progress {
+  margin-top: 0.25rem;
+}
+
+.textbook-toc__action {
+  margin-top: 0.75rem;
+}
+
+.textbook-toc__complete {
+  text-align: center;
+  color: var(--success);
+  font-size: 0.875rem;
+  font-weight: bold;
+  padding: 0.5rem;
+}
+
+.textbook-toc__chapter-title {
+  margin-left: 0.5rem;
+}
+
+.textbook-toc__chapter-progress {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+.textbook-toc__section-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: inherit;
+  padding: 0.25rem 0;
+}
+
+.textbook-toc__section-link:hover {
+  text-decoration: none;
+}
+
+.textbook-toc__section-link:hover .textbook-toc__section-title {
+  color: var(--main);
+  text-decoration: underline;
+}
+
+.textbook-toc__section-status {
+  flex-shrink: 0;
+  width: 1.25rem;
+  text-align: center;
+}
+
+.textbook-toc__icon--completed {
+  color: var(--success);
+}
+
+.textbook-toc__icon--pending {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.textbook-toc__section-info {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.textbook-toc__section-title {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  transition: color 0.15s;
+}
+
+.textbook-toc__section-time {
+  font-size: 0.75rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
