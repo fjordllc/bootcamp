@@ -3,10 +3,14 @@
 require 'test_helper'
 
 class PjordRespondJobTest < ActiveJob::TestCase
+  setup do
+    @pjord = users(:pjord)
+  end
+
   test 'creates a comment reply when mentioned in a report comment' do
     comment = comments(:comment1)
-    comment.update!(description: '@pjord CSSについて教えて')
-    pjord = users(:pjord)
+    # after_commitコールバックの副作用を避けるため、DBを直接更新
+    comment.update_column(:description, "@pjord CSSについて教えて")
 
     Pjord.stub(:respond, 'テストの回答です。') do
       assert_difference 'Comment.count', 1 do
@@ -18,15 +22,15 @@ class PjordRespondJobTest < ActiveJob::TestCase
     end
 
     reply = Comment.last
-    assert_equal pjord, reply.user
-    assert_includes reply.description, "@#{comment.sender.login_name}"
+    assert_equal @pjord, reply.user
+    assert_includes reply.description, "@#{comment.reload.sender.login_name}"
     assert_includes reply.description, 'テストの回答です。'
   end
 
   test 'creates an answer reply when mentioned in a question' do
     question = questions(:question1)
-    question.update!(description: '@pjord エディターについて教えて')
-    pjord = users(:pjord)
+    # after_commitコールバックの副作用を避けるため、DBを直接更新
+    question.update_column(:description, "@pjord エディターについて教えて")
 
     Pjord.stub(:respond, 'ヒントです。') do
       assert_difference 'Answer.count', 1 do
@@ -38,13 +42,13 @@ class PjordRespondJobTest < ActiveJob::TestCase
     end
 
     reply = Answer.last
-    assert_equal pjord, reply.user
+    assert_equal @pjord, reply.user
     assert_includes reply.description, 'ヒントです。'
   end
 
   test 'does nothing when response is blank' do
     comment = comments(:comment1)
-    comment.update!(description: '@pjord テスト')
+    comment.update_column(:description, '@pjord テスト')
 
     Pjord.stub(:respond, nil) do
       assert_no_difference 'Comment.count' do
@@ -57,18 +61,21 @@ class PjordRespondJobTest < ActiveJob::TestCase
   end
 
   test 'does nothing when record is deleted' do
-    assert_no_difference 'Comment.count' do
-      PjordRespondJob.perform_now(
-        mentionable_type: 'Comment',
-        mentionable_id: 0
-      )
+    # 存在しないIDを渡した場合、例外を投げずに何もしないことを確認
+    assert_nothing_raised do
+      assert_no_difference 'Comment.count' do
+        PjordRespondJob.perform_now(
+          mentionable_type: 'Comment',
+          mentionable_id: 0
+        )
+      end
     end
   end
 
   test 'does nothing when mention is removed by edit' do
     comment = comments(:comment1)
-    # メンションが含まれていない
-    comment.update!(description: 'メンション削除済み')
+    # メンションが含まれていないdescriptionをDBに直接セット
+    comment.update_column(:description, 'メンション削除済み')
 
     Pjord.stub(:respond, '回答') do
       assert_no_difference 'Comment.count' do
