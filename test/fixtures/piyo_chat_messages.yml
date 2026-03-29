@@ -1,0 +1,11 @@
+user_question:
+  user: hatsuno
+  textbook_section_id: <%= ActiveRecord::FixtureSet.identify(:section_variables) %>
+  role: user
+  content: Linuxって何ですか？
+
+assistant_answer:
+  user: hatsuno
+  textbook_section_id: <%= ActiveRecord::FixtureSet.identify(:section_variables) %>
+  role: assistant
+  content: Linuxはオープンソースのオペレーティングシステムだよ！

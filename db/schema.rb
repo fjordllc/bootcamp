@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_28_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_29_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_bigm"
   enable_extension "pg_catalog.plpgsql"
@@ -600,6 +600,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_28_000000) do
     t.index ["event_id"], name: "index_participations_on_event_id"
     t.index ["user_id", "event_id"], name: "index_participations_on_user_id_and_event_id", unique: true
     t.index ["user_id"], name: "index_participations_on_user_id"
+  end
+
+  create_table "piyo_chat_messages", force: :cascade do |t|
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.string "role", null: false
+    t.bigint "textbook_section_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["textbook_section_id"], name: "index_piyo_chat_messages_on_textbook_section_id"
+    t.index ["user_id", "textbook_section_id", "created_at"], name: "index_piyo_chat_messages_on_user_section_created"
+    t.index ["user_id"], name: "index_piyo_chat_messages_on_user_id"
   end
 
   create_table "practices", id: :serial, force: :cascade do |t|
@@ -1237,6 +1249,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_28_000000) do
   add_foreign_key "pair_works", "users", column: "buddy_id"
   add_foreign_key "participations", "events"
   add_foreign_key "participations", "users"
+  add_foreign_key "piyo_chat_messages", "textbook_sections"
+  add_foreign_key "piyo_chat_messages", "users"
   add_foreign_key "practices", "practices", column: "source_id"
   add_foreign_key "practices_books", "books"
   add_foreign_key "practices_books", "practices"
