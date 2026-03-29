@@ -1,0 +1,174 @@
+.piyo-companion {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 1000;
+}
+
+.piyo-companion__button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+}
+
+.piyo-companion__image {
+  width: 64px;
+  height: 64px;
+}
+
+.piyo-companion__bubble {
+  position: absolute;
+  bottom: 72px;
+  right: 0;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  max-width: 240px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.piyo-companion__bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  right: 24px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #fff;
+}
+
+.piyo-companion__message {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.piyo-chat-panel {
+  position: absolute;
+  bottom: 72px;
+  right: 0;
+  width: 320px;
+  max-height: 400px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.piyo-chat-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  font-weight: bold;
+  font-size: 0.875rem;
+}
+
+.piyo-chat-panel__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: #666;
+  padding: 0;
+  line-height: 1;
+}
+
+.piyo-chat-panel__close:hover {
+  color: #333;
+}
+
+.piyo-chat-panel__messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 200px;
+}
+
+.piyo-chat-panel__msg {
+  max-width: 85%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.piyo-chat-panel__msg--user {
+  align-self: flex-end;
+  background: #dbeafe;
+  color: #1e3a5f;
+}
+
+.piyo-chat-panel__msg--assistant {
+  align-self: flex-start;
+  background: #f3f4f6;
+  color: #333;
+}
+
+.piyo-chat-panel__input {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.piyo-chat-panel__textarea {
+  flex: 1;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 0.5rem;
+  font-size: 0.8125rem;
+  resize: none;
+  min-height: 2.5rem;
+  max-height: 5rem;
+  font-family: inherit;
+}
+
+.piyo-chat-panel__textarea:focus {
+  outline: none;
+  border-color: #60a5fa;
+}
+
+.piyo-chat-panel__send {
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.piyo-chat-panel__send:hover {
+  background: #2563eb;
+}
+
+.piyo-chat-panel__send:disabled {
+  background: #93c5fd;
+  cursor: not-allowed;
+}
+
+.piyo-companion__badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 12px;
+  height: 12px;
+  background: #ef4444;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}

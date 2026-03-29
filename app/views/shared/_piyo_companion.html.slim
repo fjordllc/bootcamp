@@ -1,5 +1,141 @@
-.piyo-companion data-controller='piyo-companion'
+- section_id = local_assigns[:section_id]
+
+.piyo-companion data-controller="piyo-companion #{section_id ? 'piyo-chat' : ''}" data-piyo-chat-section-id-value=section_id
+  /! チャットパネル（セクション閲覧時のみ）
+  - if section_id
+    .piyo-chat-panel.is-hidden data-piyo-chat-target='panel'
+      .piyo-chat-panel__header
+        span.piyo-chat-panel__title 🐥 ピヨルドに質問
+        button.piyo-chat-panel__close type='button' data-action='click->piyo-chat#close'
+          i.fa-solid.fa-xmark
+      .piyo-chat-panel__messages data-piyo-chat-target='messages'
+      .piyo-chat-panel__input
+        textarea.piyo-chat-panel__textarea data-piyo-chat-target='input' data-action='keydown->piyo-chat#onKeydown' placeholder='質問を入力...' rows='2'
+        button.piyo-chat-panel__send data-piyo-chat-target='sendButton' data-action='click->piyo-chat#send' type='button'
+          i.fa-solid.fa-paper-plane
+
+  /! 吹き出し
   .piyo-companion__bubble.is-hidden data-piyo-companion-target='bubble'
     p.piyo-companion__message data-piyo-companion-target='message'
-  button.piyo-companion__button type='button' data-action='click->piyo-companion#dismiss'
-    = image_tag 'shared/piyo.svg', alt: 'ピヨルド', class: 'piyo-companion__image'
+
+  /! ピヨルドボタン
+  - if section_id
+    button.piyo-companion__button type='button' data-action='click->piyo-chat#toggle'
+      .piyo-companion__badge.is-hidden data-piyo-chat-target='badge'
+      = image_tag 'shared/piyo.svg', alt: 'ピヨルド', class: 'piyo-companion__image'
+  - else
+    button.piyo-companion__button type='button' data-action='click->piyo-companion#dismiss'
+      = image_tag 'shared/piyo.svg', alt: 'ピヨルド', class: 'piyo-companion__image'
+
+css:
+  .piyo-chat-panel {
+    position: fixed;
+    bottom: 80px;
+    right: 16px;
+    width: 340px;
+    max-height: 480px;
+    background: var(--color-white, #fff);
+    border: 1px solid var(--color-border, #ddd);
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    z-index: 1001;
+    overflow: hidden;
+  }
+  .piyo-chat-panel.is-hidden { display: none; }
+
+  .piyo-chat-panel__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--color-border, #ddd);
+    background: var(--color-bg-light, #fafafa);
+  }
+  .piyo-chat-panel__title { font-weight: 600; font-size: 14px; }
+  .piyo-chat-panel__close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-muted, #999);
+    font-size: 16px;
+  }
+
+  .piyo-chat-panel__messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+    min-height: 200px;
+    max-height: 320px;
+  }
+
+  .piyo-chat-message {
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 85%;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+  }
+  .piyo-chat-message--user {
+    background: var(--color-primary, #4a90d9);
+    color: #fff;
+    margin-left: auto;
+    border-bottom-right-radius: 4px;
+  }
+  .piyo-chat-message--assistant {
+    background: var(--color-bg-light, #f0f0f0);
+    color: var(--color-text, #333);
+    margin-right: auto;
+    border-bottom-left-radius: 4px;
+  }
+  .piyo-chat-message--loading { opacity: 0.6; }
+
+  .piyo-chat-panel__input {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    padding: 8px 12px;
+    border-top: 1px solid var(--color-border, #ddd);
+  }
+  .piyo-chat-panel__textarea {
+    flex: 1;
+    border: 1px solid var(--color-border, #ddd);
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 14px;
+    resize: none;
+    font-family: inherit;
+  }
+  .piyo-chat-panel__textarea:focus {
+    outline: none;
+    border-color: var(--color-primary, #4a90d9);
+  }
+  .piyo-chat-panel__send {
+    background: var(--color-primary, #4a90d9);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .piyo-chat-panel__send:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .piyo-companion__badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 12px;
+    height: 12px;
+    background: #e74c3c;
+    border-radius: 50%;
+    border: 2px solid #fff;
+  }
+  .piyo-companion__badge.is-hidden { display: none; }

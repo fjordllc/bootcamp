@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     namespace :textbooks do
       resources :reading_progresses, only: %i[create update]
       resources :term_explanations, only: %i[show]
+      resources :piyo_chat_messages, only: %i[index create]
+      resources :piyo_chat_messages, only: %i[index create]
     end
   end
 end
