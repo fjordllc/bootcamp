@@ -233,6 +233,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
   create_table "corporate_training_inquiries", force: :cascade do |t|
     t.text "additional_information"
     t.string "company_name", null: false
+    t.boolean "consultation", default: false, null: false
     t.datetime "created_at", null: false
     t.string "email", null: false
     t.string "how_did_you_hear", null: false

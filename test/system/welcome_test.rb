@@ -49,8 +49,13 @@ class WelcomeTest < ApplicationSystemTestCase
     click_on '更新する'
     assert_text 'ユーザー情報を更新しました。'
     logout
+
+    # プロフィール更新の反映を待機
     visit '/welcome'
-    assert_no_text '駒形 真幸'
+    using_wait_time 10 do
+      assert_no_text '駒形 真幸'
+    end
+
     visit_with_auth '/welcome', 'kimura'
     assert_no_text '駒形 真幸'
   end

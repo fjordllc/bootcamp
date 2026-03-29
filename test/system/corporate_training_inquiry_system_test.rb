@@ -20,6 +20,40 @@ class CorporateTrainingInquirySystemTest < ApplicationSystemTestCase
   test 'GET /corporate_training_inquiry/new' do
     visit '/corporate_training_inquiry/new'
 
+    fill_corporate_traning_form
+
+    click_button '送信'
+    assert_text 'フィヨルドブートキャンプの企業研修プログラムへのお申し込みを頂き'
+
+    assert_not CorporateTrainingInquiry.order(:id).last.consultation
+
+    assert_equal 1, ActionMailer::Base.deliveries.count
+    mail = ActionMailer::Base.deliveries.last
+    assert_equal '[FBC] 企業研修の申し込み', mail.subject
+    assert_match(/助成金の相談について/, mail.body.to_s)
+    assert_match(/希望しない/, mail.body.to_s)
+  end
+
+  test 'GET /corporate_training_inquiry/new in case of subsidy consultation' do
+    visit '/corporate_training_inquiry/new'
+
+    fill_corporate_traning_form(consultation: true)
+
+    click_button '送信'
+    assert_text 'フィヨルドブートキャンプの企業研修プログラムへのお申し込みを頂き'
+
+    assert CorporateTrainingInquiry.order(:id).last.consultation
+
+    assert_equal 1, ActionMailer::Base.deliveries.count
+    mail = ActionMailer::Base.deliveries.last
+    assert_equal '[FBC] 企業研修の申し込み', mail.subject
+    assert_match(/助成金の相談について/, mail.body.to_s)
+    assert_match(/希望する/, mail.body.to_s)
+  end
+
+  private
+
+  def fill_corporate_traning_form(consultation: false)
     fill_in '担当者様のお名前', with: '研修 する世'
     fill_in '企業名', with: '株式会社カンパニー'
     fill_in 'メールアドレス', with: 'corporate_training_inquiry@example.com'
@@ -28,15 +62,9 @@ class CorporateTrainingInquirySystemTest < ApplicationSystemTestCase
     fill_in '第3希望', with: Time.zone.parse('2030-01-03-12:00')
     select '10', from: '予定している研修を受ける方の人数'
     fill_in '予定している研修期間', with: '1ヶ月'
+    check '希望する', allow_label_click: true if consultation
     fill_in 'どこでフィヨルドブートキャンプを知りましたか？', with: 'インターネットで知った'
     fill_in 'その他伝えておきたいこと', with: 'よろしくお願いします。'
     check '下記の個人情報の取り扱いに同意する', allow_label_click: true
-
-    click_button '送信'
-    assert_text 'フィヨルドブートキャンプの企業研修プログラムへのお申し込みを頂き'
-
-    assert_equal 1, ActionMailer::Base.deliveries.count
-    mail = ActionMailer::Base.deliveries.last
-    assert_equal '[FBC] 企業研修の申し込み', mail.subject
   end
 end
