@@ -4,14 +4,13 @@ namespace :stripe do
   desc 'Stripeテスト環境にProduct/Plan/TaxRate/Customer/Subscriptionを作成し、developmentのDBと同期する'
   task setup: :environment do
     abort 'このタスクはtest環境では実行できません' if Rails.env.test?
-
-    abort 'このタスクはStripeテスト環境でのみ実行できます（本番キーが検出されました）' if Rails.env.production? && !Stripe.api_key&.start_with?('sk_test_')
+    abort 'このタスクはStripeテスト環境でのみ実行できます（sk_test_キーが必要です）' unless Stripe.api_key&.start_with?('sk_test_')
 
     puts '🔄 Stripeテスト環境のセットアップを開始...'
     puts ''
 
-    tax_rate = StripeSetup.ensure_resources
-    StripeSetup.sync_users(tax_rate)
+    resources = StripeSetup.ensure_resources
+    StripeSetup.sync_users(resources)
   end
 end
 
@@ -24,19 +23,19 @@ module StripeSetup # rubocop:disable Metrics/ModuleLength
     puts '── Stripeリソースの確認 ──'
 
     product = ensure_product
-    ensure_standard_plan(product)
+    standard_plan = ensure_standard_plan(product)
     ensure_corporate_plan(product)
     tax_rate = ensure_tax_rate
 
     puts ''
-    tax_rate
+    { plan: standard_plan, tax_rate: tax_rate }
   end
 
-  def sync_users(tax_rate)
+  def sync_users(resources)
     puts '── ユーザーの同期 ──'
 
-    plan = Plan.standard_plan
-    abort '❌ Stripeに「スタンダードプラン」が見つかりません。' if plan.nil?
+    plan = resources[:plan]
+    tax_rate = resources[:tax_rate]
 
     users = User.where.not(customer_id: [nil, ''])
     puts "  📋 プラン: #{plan.nickname} (#{plan.id})"
@@ -93,7 +92,9 @@ module StripeSetup # rubocop:disable Metrics/ModuleLength
 
   def ensure_tax_rate
     tax_rates = Stripe::TaxRate.list(limit: 100).data
-    tax_rate = tax_rates.find { |t| t.display_name == '消費税' && t.percentage.to_d == TAX_RATE_PERCENTAGE.to_d && t.active }
+    tax_rate = tax_rates.find do |t|
+      t.display_name == '消費税' && t.percentage.to_d == TAX_RATE_PERCENTAGE.to_d && t.active && t.inclusive && t.country == 'JP'
+    end
     if tax_rate
       puts "  ✅ Tax Rate: #{tax_rate.display_name} #{tax_rate.percentage}% (#{tax_rate.id}) [既存]"
     else
