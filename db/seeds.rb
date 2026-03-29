@@ -81,5 +81,5 @@ tables = %i[
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', tables
 
 # Stripeテスト環境のCustomer/SubscriptionをDBと同期
-# test環境ではVCRカセットを使うためスキップ
-Rake::Task['stripe:setup'].invoke if !Rails.env.test? && Rake::Task.task_defined?('stripe:setup')
+# development環境またはstaging環境（Stripeテストキー使用時）のみ実行
+Rake::Task['stripe:setup'].invoke if Rake::Task.task_defined?('stripe:setup') && StripeSetup.executable?
