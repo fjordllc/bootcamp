@@ -81,12 +81,12 @@ module Products
       visit_with_auth "/products/#{product.id}/edit", 'mentormentaro'
       wait_for_product_form_ready
       click_button 'WIP'
-      assert_text '提出物をWIPとして保存しました。', wait: 10
+      assert_text '提出物をWIPとして保存しました。'
       visit "/products/#{product.id}"
-      assert_selector 'input[type="submit"][value="提出する"]', wait: 10
+      assert_selector 'input[type="submit"][value="提出する"]'
       click_button '提出する'
       assert_text Time.zone.now.strftime('%Y年%m月%d日')
-      assert_text '提出物を更新しました。', wait: 10
+      assert_text '提出物を更新しました。'
     end
 
     test "don't show review schedule message on product page if product is WIP" do
@@ -97,13 +97,16 @@ module Products
     test 'submit-wip-submitted product does not suddenly show up as overdue' do
       visit_with_auth "/products/#{products(:product8).id}/edit", 'kimura'
       click_button 'WIP'
+      assert_text '提出物をWIPとして保存しました。'
+
       click_button '提出する'
+      assert_text '提出物を更新しました。'
 
       visit_with_auth '/api/products/unassigned/counts.txt', 'komagata'
 
-      assert_selector 'pre', text: '- 6日以上経過：6件'
-      assert_selector 'pre', text: '- 5日経過：1件'
-      assert_selector 'pre', text: '- 4日経過：1件'
+      assert_text '- 6日以上経過：6件'
+      assert_text '- 5日経過：1件'
+      assert_text '- 4日経過：1件'
     end
 
     test 'update published_at when update product content after wips submitted product' do

@@ -47,8 +47,12 @@ class HomeTest < ApplicationSystemTestCase
     click_on '更新する'
     assert_text 'ユーザー情報を更新しました。'
     logout
+
+    # プロフィール更新の反映を待機
     visit '/'
-    assert_no_text '駒形 真幸'
-    assert_no_text '株式会社ロッカの代表兼エンジニア。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
+    using_wait_time 10 do
+      assert_no_text '駒形 真幸'
+      assert_no_text '株式会社ロッカの代表兼エンジニア。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
+    end
   end
 end
