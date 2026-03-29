@@ -20,6 +20,7 @@ class Notification::WatchesTest < NotificationSystemTestCase
       fill_in('new_comment[description]', with: 'いい日報ですね。')
     end
     click_button 'コメントする'
+    assert_text 'コメントを投稿しました！'
     logout
 
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
