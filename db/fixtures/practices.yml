@@ -764,3 +764,12 @@ practice112:
   goal: "goal..."
   include_progress: true
   memo: "memo for mentors..."
+
+practice113:
+  title: "OS X Mountain Lionをクリーンインストールする(Reスキル)"
+  description: "description..."
+  goal: "OS X Mountain Lionをクリーンインストールする"
+  memo: "「OS X Mountain Lionをクリーンインストールする」のメンターメモ"
+  submission: true
+  open_product: false
+  source_practice: practice1
