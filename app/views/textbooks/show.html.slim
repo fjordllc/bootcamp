@@ -28,75 +28,56 @@ main.page-main
         end
         progress_percent = total.positive? ? (completed_count.to_f / total * 100).round : 0
 
-      /! 概要 + 進捗
-      .a-card
-        .card-body
-          - if @textbook.description.present?
-            .card-body__description
-              .a-long-text.is-md
-                = @textbook.description
+      /! 概要カード
+      - if @textbook.description.present? || (current_user.present? && total.positive?)
+        .a-card
+          .card-body
+            - if @textbook.description.present?
+              .card-body__description
+                .a-long-text.is-md
+                  = @textbook.description
+            - if current_user.present? && total.positive?
+              .textbook-summary
+                .completed-practices-progress
+                  .completed-practices-progress__bar-container
+                    .completed-practices-progress__bar
+                    .completed-practices-progress__percentage-bar style="width: #{progress_percent}%"
+                  .completed-practices-progress__counts
+                    span.completed-practices-progress__percentage
+                      = "#{progress_percent}%（#{completed_count}/#{total}セクション完了）"
+              - next_section = all_sections.find { |s| !completed_ids.include?(s.id) }
+              - if next_section
+                .textbook-summary__action
+                  = link_to textbook_chapter_section_path(@textbook, next_section.chapter, next_section), class: 'a-button is-md is-primary is-block' do
+                    | 続きを読む
 
-          - if total.positive?
-            .textbook-toc__summary
-              .textbook-toc__stats
-                span.textbook-toc__stat
-                  i.fa-solid.fa-list.mr-1
-                  = "#{@textbook.chapters.size}章"
-                span.textbook-toc__stat
-                  i.fa-regular.fa-file-lines.mr-1
-                  = "#{total}セクション"
-                - if current_user.present?
-                  span.textbook-toc__stat
-                    i.fa-solid.fa-check.mr-1
-                    = "#{completed_count}完了 (#{progress_percent}%)"
-              .textbook-toc__progress
-                .completed-practices-progress__bar-container
-                  .completed-practices-progress__bar
-                  .completed-practices-progress__percentage-bar style="width: #{progress_percent}%"
-
-          - if current_user.present? && total.positive?
-            - next_section = all_sections.find { |s| !completed_ids.include?(s.id) }
-            - if next_section
-              .textbook-toc__action
-                = link_to textbook_chapter_section_path(@textbook, next_section.chapter, next_section), class: 'a-button is-md is-primary is-block' do
-                  i.fa-solid.fa-play.mr-1
-                  | 続きを読む
-            - else
-              .textbook-toc__action
-                .textbook-toc__complete
-                  i.fa-solid.fa-circle-check.mr-1
-                  | すべてのセクションを読了しました 🎉
-
-      /! 章一覧
+      /! 章・セクション一覧
       - @textbook.chapters.each do |chapter|
         - chapter_sections = chapter.sections.to_a
-        - chapter_completed = chapter_sections.count { |s| completed_ids.include?(s.id) }
-        - chapter_total = chapter_sections.size
-
-        .a-card.mt-2
+        - chapter_completed = current_user.present? ? chapter_sections.count { |s| completed_ids.include?(s.id) } : 0
+        .a-card
           header.card-header
             h2.card-header__title
-              = "第#{chapter.position}章"
-              span.textbook-toc__chapter-title
-                = chapter.title
-            - if current_user.present? && chapter_total.positive?
-              span.textbook-toc__chapter-progress
-                = "#{chapter_completed}/#{chapter_total}"
+              = "第#{chapter.position}章 #{chapter.title}"
+            - if current_user.present? && chapter_sections.size.positive?
+              .card-header__metas
+                span.a-meta
+                  = "#{chapter_completed}/#{chapter_sections.size}"
           hr.a-border-tint
-          .card-body
-            ul.card-body__items
+          .card-list
+            .card-list__items
               - chapter.sections.each do |section|
-                li.card-body__item
-                  = link_to textbook_chapter_section_path(@textbook, chapter, section), class: 'textbook-toc__section-link' do
-                    .textbook-toc__section-status
-                      - if current_user.present? && completed_ids.include?(section.id)
-                        i.fa-solid.fa-circle-check.textbook-toc__icon--completed
-                      - else
-                        i.fa-regular.fa-circle.textbook-toc__icon--pending
-                    .textbook-toc__section-info
-                      span.textbook-toc__section-title
+                .card-list__item
+                  = link_to textbook_chapter_section_path(@textbook, chapter, section), class: 'card-list__item-link' do
+                    .card-list__item-body
+                      .card-list__item-title
+                        - if current_user.present? && completed_ids.include?(section.id)
+                          i.fa-solid.fa-circle-check.a-completed-check
+                        - else
+                          i.fa-regular.fa-circle.a-pending-check
                         = section.title
-                      - if section.estimated_minutes.present?
-                        span.textbook-toc__section-time
-                          i.fa-regular.fa-clock.mr-1
-                          = "#{section.estimated_minutes}分"
+                      .card-list__item-meta
+                        - if section.estimated_minutes.present?
+                          span
+                            i.fa-regular.fa-clock
+                            = " 約#{section.estimated_minutes}分"

@@ -58,8 +58,6 @@
 @import "./application/blocks/page-content/_page-content-members.css";
 @import "./application/blocks/page-content/_page-content-prev-next.css";
 @import "./application/blocks/textbook/_textbook-list.css";
-@import "./application/blocks/textbook/_textbook-toc.css";
-@import "./application/blocks/textbook/_textbook-section.css";
 @import "./application/blocks/pair-work/_pair-work-info.css";
 @import "./application/blocks/pair-work/_pair-work-schedule-dates.css";
 @import "./application/blocks/practice/_categories.css";
