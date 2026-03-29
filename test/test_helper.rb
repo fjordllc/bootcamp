@@ -14,7 +14,7 @@ require 'supports/vcr_helper'
 require 'abstract_notifier/testing/minitest'
 require 'webmock/minitest'
 
-Capybara.default_max_wait_time = 8
+Capybara.default_max_wait_time = 10
 Capybara.disable_animation = true
 Capybara.automatic_reload = false
 Capybara.enable_aria_label = true

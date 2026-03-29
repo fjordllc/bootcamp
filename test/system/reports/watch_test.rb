@@ -4,13 +4,10 @@ require 'application_system_test_case'
 
 module Reports
   class WatchTest < ApplicationSystemTestCase
-    # Vue.js の Watch 処理完了を待つ代替手段
+    # 画面上では更新の完了がわからないため、やむを得ずsleepする
+    # 注意）安易に使用しないこと!! https://bootcamp.fjord.jp/pages/use-assert-text-instead-of-wait-for-vuejs
     def wait_for_watch_change
-      # Watch状態の変更を待機（UIの状態変化を確認）
-      using_wait_time 3 do
-        # 実際のwatch状態変化が確認できれば、それを使用
-        assert true # プレースホルダー
-      end
+      sleep 1
     end
 
     test 'unwatch' do

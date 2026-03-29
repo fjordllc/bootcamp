@@ -29,6 +29,7 @@ class Notification::AssignedAsCheckerTest < NotificationSystemTestCase
       loop do
         delivery_count = deliveries.count
         break if delivery_count.positive?
+
         sleep 0.1
       end
     end

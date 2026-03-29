@@ -54,14 +54,10 @@ class PracticesTest < ApplicationSystemTestCase
     assert_equal "category-#{category.id}", URI.parse(current_url).fragment
   end
 
-  # Vue.js処理完了待ちの代替手段
+  # 画面上では更新の完了がわからないため、やむを得ずsleepする
+  # 注意）安易に使用しないこと!! https://bootcamp.fjord.jp/pages/use-assert-text-instead-of-wait-for-vuejs
   def wait_for_status_change
-    # DOM変更を待つ（例：ボタンのテキスト変更や要素の状態変更）
-    # 具体的な状態変化がない場合は短時間の処理待機
-    using_wait_time 3 do
-      # 実際の状態変化を確認できれば、それを使用
-      assert true # プレースホルダー
-    end
+    sleep 1
   end
 
   test 'change status' do
