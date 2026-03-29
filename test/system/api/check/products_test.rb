@@ -65,8 +65,7 @@ class Check::ProductsTest < ApplicationSystemTestCase
 
     using_session :mentormentaro do
       click_button '提出物を合格にする'
-      assert_text '合格'
-      sleep 1
+      assert_text '合格', wait: 5
     end
 
     using_session :komagata do

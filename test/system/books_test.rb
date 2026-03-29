@@ -28,12 +28,13 @@ class BooksTest < ApplicationSystemTestCase
         # Wait for and select the practice option
         # Try different possible selectors for Choices.js items
         begin
-          # First try with the dropdown visible check, but with retry
-          5.times do
-            break if has_selector?('.choices__list--dropdown', visible: true)
-
-            dropdown.click # Click again if dropdown didn't open
-            sleep 0.5
+          # Wait for dropdown to be visible, with retry mechanism
+          5.times do |attempt|
+            if has_selector?('.choices__list--dropdown', visible: true, wait: 2)
+              break
+            elsif attempt < 4
+              dropdown.click # Click again if dropdown didn't open
+            end
           end
 
           find('.choices__item--choice', text: 'OS X Mountain Lionをクリーンインストールする').click
