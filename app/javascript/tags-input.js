@@ -16,10 +16,7 @@ function validateTagName(text) {
 
 function transformHeadSharp(text) {
   if (/^(#|＃|♯)/.test(text.value)) {
-    if (text.value.length === 1) {
-      return
-    }
-    text.value = text.value.substr(1)
+    text.value = text.value.length === 1 ? '' : text.value.slice(1)
   }
 }
 
