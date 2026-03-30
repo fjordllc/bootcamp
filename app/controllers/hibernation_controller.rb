@@ -7,7 +7,7 @@ class HibernationController < ApplicationController
 
   def new
     @hibernation = Hibernation.new
-    @holding_regular_events = RegularEvent.organizer_event(current_user).holding
+    @holding_regular_events = current_user.organize_regular_events.holding
   end
 
   def create
@@ -23,7 +23,7 @@ class HibernationController < ApplicationController
       logout
       redirect_to hibernation_path
     else
-      @holding_regular_events = RegularEvent.organizer_event(current_user).holding
+      @holding_regular_events = current_user.organize_regular_events.holding
       render :new
     end
   end
