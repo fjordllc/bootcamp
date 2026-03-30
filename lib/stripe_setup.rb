@@ -7,8 +7,14 @@ module StripeSetup # rubocop:disable Metrics/ModuleLength
   module_function
 
   # Stripeテスト環境のセットアップが実行可能かどうか
-  # development環境、またはstaging環境（DB_NAME=bootcamp_staging）で true
+  # 以下の条件をすべて満たす場合に true:
+  # - test環境でない
+  # - Stripeテストキー（sk_test_）が設定されている
+  # - development環境、またはstaging環境（DB_NAME=bootcamp_staging）
   def executable?
+    return false if Rails.env.test?
+    return false unless Stripe.api_key&.start_with?('sk_test_')
+
     Rails.env.development? || staging?
   end
 
