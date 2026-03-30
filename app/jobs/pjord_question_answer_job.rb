@@ -12,7 +12,7 @@ class PjordQuestionAnswerJob < ApplicationJob
     return if pjord.nil?
 
     context = build_context(question)
-    message = "#{question.title}\n#{question.description}"
+    message = build_message(question)
 
     begin
       response = Pjord.respond(message: message, context: context)
@@ -33,5 +33,17 @@ class PjordQuestionAnswerJob < ApplicationJob
     context[:location] = question.where_mention
     context[:practice] = question.practice&.title
     context
+  end
+
+  def build_message(question)
+    <<~MESSAGE
+      以下のQ&A質問に回答してください。
+
+      ## タイトル
+      #{question.title}
+
+      ## 質問内容
+      #{question.description}
+    MESSAGE
   end
 end
