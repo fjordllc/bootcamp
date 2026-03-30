@@ -30,7 +30,7 @@ class PjordQuestionAnswerJob < ApplicationJob
 
   def build_context(question)
     context = {}
-    context[:location] = question.where_mention if question.respond_to?(:where_mention)
+    context[:location] = question.where_mention
     context[:practice] = question.practice&.title
     context
   end
