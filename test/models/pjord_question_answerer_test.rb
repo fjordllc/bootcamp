@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class PjordQuestionAnswererTest < ActiveSupport::TestCase
+class PjordQuestionAnswererTest < ActiveJob::TestCase
   test 'enqueues PjordQuestionAnswerJob on call' do
     question = questions(:question1)
     answerer = PjordQuestionAnswerer.new

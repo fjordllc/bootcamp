@@ -50,7 +50,7 @@ class PjordQuestionAnswerJobTest < ActiveJob::TestCase
     assert question.practice.present?
 
     captured_context = nil
-    mock_respond = lambda { |message:, context:|
+    mock_respond = lambda { |_message:, context:|
       captured_context = context
       'テスト回答'
     }

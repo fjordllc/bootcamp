@@ -2,7 +2,6 @@
 
 class PjordQuestionAnswerJob < ApplicationJob
   queue_as :default
-  retry_on StandardError, wait: :polynomially_longer, attempts: 3
   discard_on ActiveJob::DeserializationError
 
   def perform(question_id:)
