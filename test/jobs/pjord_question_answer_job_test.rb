@@ -50,7 +50,7 @@ class PjordQuestionAnswerJobTest < ActiveJob::TestCase
     assert question.practice.present?
 
     captured_context = nil
-    mock_respond = lambda { |_message:, context:|
+    mock_respond = lambda { |message:, context:| # rubocop:disable Lint/UnusedBlockArgument
       captured_context = context
       'テスト回答'
     }

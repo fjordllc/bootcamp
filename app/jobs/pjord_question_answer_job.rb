@@ -13,7 +13,14 @@ class PjordQuestionAnswerJob < ApplicationJob
 
     context = build_context(question)
     message = "#{question.title}\n#{question.description}"
-    response = Pjord.respond(message: message, context: context)
+
+    begin
+      response = Pjord.respond(message: message, context: context)
+    rescue StandardError => e
+      Rails.logger.error("[PjordQuestionAnswerJob] #{e.class}: #{e.message}")
+      return
+    end
+
     return if response.blank?
 
     Answer.create!(user: pjord, question: question, description: response)
