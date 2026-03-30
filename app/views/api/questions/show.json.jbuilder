@@ -10,8 +10,7 @@ json.call(
   :created_at,
   :updated_at,
   :wip,
-  :published_at,
-  :ai_answer
+  :published_at
 )
 
 json.user do

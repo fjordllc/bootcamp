@@ -53,9 +53,7 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('question.create', mentors_watch_for_question_creator)
   ActiveSupport::Notifications.subscribe('question.update', mentors_watch_for_question_creator)
 
-  ai_answer_creator = AiAnswerCreator.new
-  ActiveSupport::Notifications.subscribe('question.create', ai_answer_creator)
-  ActiveSupport::Notifications.subscribe('question.update', ai_answer_creator)
+  ActiveSupport::Notifications.subscribe('question.create', PjordQuestionAnswerer.new)
 
   question_notifier = QuestionNotifier.new
   ActiveSupport::Notifications.subscribe('question.create', question_notifier)
