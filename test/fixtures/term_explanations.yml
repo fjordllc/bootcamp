@@ -1,0 +1,13 @@
+term_variable:
+  textbook_section_id: <%= ActiveRecord::FixtureSet.identify(:section_variables) %>
+  term: "変数"
+  explanation: "変数とは、プログラムの中でデータを一時的に保存するための名前付きの入れ物です。"
+  created_at: <%= 1.week.ago.to_fs(:db) %>
+  updated_at: <%= 1.week.ago.to_fs(:db) %>
+
+term_method:
+  textbook_section_id: <%= ActiveRecord::FixtureSet.identify(:section_methods) %>
+  term: "メソッド"
+  explanation: "メソッドとは、一連の処理をまとめて名前をつけたもので、何度でも呼び出すことができます。"
+  created_at: <%= 1.week.ago.to_fs(:db) %>
+  updated_at: <%= 1.week.ago.to_fs(:db) %>

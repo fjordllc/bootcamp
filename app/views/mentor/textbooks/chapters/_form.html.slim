@@ -1,0 +1,20 @@
+= form_with model: [:mentor, @textbook, @chapter], local: true, class: 'form', html: { name: 'chapter' } do |f|
+  = render 'errors', object: @chapter
+  .form-item
+    .row
+      .col-md-6.col-xs-12
+        = f.label :title, class: 'a-form-label is-required'
+        = f.text_field :title, class: 'a-text-input js-warning-form'
+
+  .form-item
+    .row
+      .col-md-6.col-xs-12
+        = f.label :position, '表示順', class: 'a-form-label is-required'
+        = f.number_field :position, class: 'a-text-input js-warning-form', min: 0
+
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item.is-main
+        = f.submit '内容を保存', class: 'a-button is-lg is-primary is-block'
+      li.form-actions__item.is-sub
+        = link_to 'キャンセル', :back, class: 'a-button is-sm is-secondary is-block'

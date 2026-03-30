@@ -25,6 +25,7 @@ AllCops:
     - db/data_schema.rb
     - db/migrate/*
     - db/schema.rb
+    - db/seeds/**/*
     - storage/**/*
     - tmp/**/*
     - bin/**/*

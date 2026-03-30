@@ -30,9 +30,9 @@ jobs:
           command: |
             bundle lock --add-platform ruby
       - ruby/install-deps
-      - ruby/rubocop-check:
-          format: progress
-          label: Inspecting with Rubocop
+      - run:
+          name: Inspecting with Rubocop
+          command: bundle exec rubocop --format progress
       - run:
           name: Slim Lint
           command: bundle exec slim-lint app/views -c config/slim_lint.yml
@@ -111,7 +111,15 @@ jobs:
             psql -h localhost -U postgres -d ci_test -c "CREATE EXTENSION IF NOT EXISTS vector;"
       - run:
           name: Database setup
-          command: 'bundle exec rails db:prepare'
+          command: |
+            # pg_bigm未インストール環境でschema.rbのenable_extension/gin_bigm_opsが失敗するため除外
+            echo "=== Before sed ==="
+            grep -n "pg_bigm\|gin_bigm_ops" db/schema.rb || echo "No pg_bigm lines found"
+            sed -i '/pg_bigm/d' db/schema.rb
+            sed -i '/gin_bigm_ops/d' db/schema.rb
+            echo "=== After sed ==="
+            grep -n "pg_bigm\|gin_bigm_ops" db/schema.rb || echo "No pg_bigm lines found"
+            bundle exec rails db:migrate
       - run:
           name: Assets precompile
           command: 'bundle exec rails assets:clean assets:precompile'
