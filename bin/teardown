@@ -18,8 +18,11 @@ FileUtils.chdir APP_ROOT do
     ENV["BRANCH_DB_SUFFIX"] = "_#{db_suffix}"
 
     puts "\n== Dropping databases =="
-    system_quiet("bin/rails", "db:drop")
-    puts "  Done (databases dropped or did not exist)"
+    if system_quiet("bin/rails", "db:drop")
+      puts "  Done (databases dropped)"
+    else
+      puts "  Done (databases did not exist or already dropped)"
+    end
 
     env_local_path = File.join(APP_ROOT, ".env.local")
     if File.exist?(env_local_path)
