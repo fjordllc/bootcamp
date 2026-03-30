@@ -49,4 +49,4 @@ storage/
 yarn-debug.log*
 .yarn-integrity
 
-.claude/settings.local.json
+.claude
