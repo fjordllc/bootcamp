@@ -295,7 +295,7 @@ ja:
       regular_event_repeat_rule:
         frequency: 開催頻度
         day_of_the_week: 曜日
-      regular_event_skip_date:
+      regular_event_skip_dates:
         skip_on: スキップする日
         reason: 理由
       authored_book:
