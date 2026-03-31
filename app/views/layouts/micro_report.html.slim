@@ -18,7 +18,6 @@ html.is-micro-report lang='ja'
               = link_to root_path, class: 'mr-sidebar__nav-link' do
                 i.fa-solid.fa-house
                 span.mr-sidebar__nav-label ホーム
-            - if current_user
               li.mr-sidebar__nav-item
                 = link_to "#{user_micro_reports_path(current_user, page: current_user.latest_micro_report_page)}#latest-micro-report", class: 'mr-sidebar__nav-link' do
                   i.fa-solid.fa-comment-dots
@@ -27,7 +26,6 @@ html.is-micro-report lang='ja'
                 = link_to notifications_path, class: 'mr-sidebar__nav-link' do
                   i.fa-solid.fa-bell
                   span.mr-sidebar__nav-label 通知
-          - if current_user
             .mr-sidebar__footer
               .mr-sidebar__user
                 = image_tag current_user.avatar_url, class: 'mr-sidebar__user-icon', alt: current_user.name
