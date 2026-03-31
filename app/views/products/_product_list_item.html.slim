@@ -37,11 +37,11 @@ ruby:
               .card-list-item-meta
                 .card-list-item-meta__items
                   .card-list-item-meta__item
-                    time.a-meta(datetime="#{product.created_at.to_datetime}")
+                    time.a-meta datetime=product.created_at.to_datetime
                       span.a-meta__label 提出
                       span.a-meta__value = l product.created_at
                   .card-list-item-meta__item
-                    time.a-meta(datetime="#{product.updated_at.to_datetime}")
+                    time.a-meta datetime=product.updated_at.to_datetime
                       span.a-meta__label 更新
                       span.a-meta__value = l product.updated_at
                   - if (elapsed_days != product_deadline_day + 3 && is_unassigned_page) || is_dashboard_page
@@ -67,7 +67,7 @@ ruby:
           .card-list-item-meta__items
             .card-list-item-meta__item
               - if product.user.training_ends_on.present?
-                time.a-meta(datetime="#{product.user.training_ends_on}")
+                time.a-meta datetime=product.user.training_ends_on
                   span.a-meta__label 研修終了日
                   span.a-meta__value = l(product.user.training_ends_on)
                   - remaining_days = (product.user.training_ends_on.to_date - Date.current).to_i

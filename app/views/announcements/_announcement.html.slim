@@ -25,7 +25,7 @@
               .a-meta
                 | お知らせ作成中
             - else
-              time.a-meta(datetime="#{announcement.published_at.iso8601}")
+              time.a-meta datetime=announcement.published_at.iso8601
                 span.a-meta__label
                   | 公開
                 span.a-meta__value

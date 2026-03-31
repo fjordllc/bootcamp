@@ -54,7 +54,7 @@ ruby:
                   .page-content-header-metas__meta
                     .a-meta
                       .a-meta__label 提出日
-                      time.a-meta__value(datetime="#{cts.created_at.iso8601}")
+                      time.a-meta__value datetime=cts.created_at.iso8601
                         = l cts.created_at
 
         .a-card
