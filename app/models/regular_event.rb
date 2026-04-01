@@ -154,6 +154,12 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     wants_announcement? && !wip?
   end
 
+  # 定期イベントは主催者が1人以上必要なため
+  # 主催者が1人しかいない場合はイベントを終了状態にし
+  # それ以外の場合は主催者のみを削除する
+  #
+  # TODO: 本来は「主催者が0人のイベントは無効」という制約をバリデーションで担保する形にしたい
+  # https://github.com/fjordllc/bootcamp/pull/9732#discussion_r2969273381
   def close_or_destroy_organizer(user)
     if regular_event_organizers.count == 1
       update(finished: true)
