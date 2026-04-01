@@ -1,0 +1,38 @@
+doctype html
+html.is-micro-report lang='ja'
+  head
+    = display_meta_tags default_meta_tags
+    = render 'layouts/common/common_head'
+    = render 'available_emojis'
+    = stylesheet_link_tag 'application', media: 'all'
+    = content_for(:head_last) if content_for?(:head_last)
+  body.is-micro-report#body(class="#{body_class}")
+    .mr-layout
+      nav.mr-sidebar
+        .mr-sidebar__inner
+          .mr-sidebar__logo
+            = link_to root_path, class: 'mr-sidebar__logo-link' do
+              = image_tag 'logo-lg.svg', class: 'mr-sidebar__logo-image', alt: 'FBC'
+          ul.mr-sidebar__nav-items
+            li.mr-sidebar__nav-item
+              = link_to root_path, class: 'mr-sidebar__nav-link' do
+                i.fa-solid.fa-house
+                span.mr-sidebar__nav-label ホーム
+              li.mr-sidebar__nav-item
+                = link_to "#{user_micro_reports_path(current_user, page: current_user.latest_micro_report_page)}#latest-micro-report", class: 'mr-sidebar__nav-link' do
+                  i.fa-solid.fa-comment-dots
+                  span.mr-sidebar__nav-label 自分の分報
+              li.mr-sidebar__nav-item
+                = link_to notifications_path, class: 'mr-sidebar__nav-link' do
+                  i.fa-solid.fa-bell
+                  span.mr-sidebar__nav-label 通知
+            .mr-sidebar__footer
+              .mr-sidebar__user
+                = image_tag current_user.avatar_url, class: 'mr-sidebar__user-icon', alt: current_user.name
+                .mr-sidebar__user-info
+                  span.mr-sidebar__user-name = current_user.name
+                  span.mr-sidebar__user-login = "@#{current_user.login_name}"
+      main.mr-main
+        = render 'application/flash'
+        = yield
+    = any_login_here if defined?(AnyLogin)
