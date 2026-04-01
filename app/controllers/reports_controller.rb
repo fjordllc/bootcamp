@@ -37,7 +37,7 @@ class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLeng
               else
                 Report.new(reported_on: Date.current)
               end
-    @report.learning_times.build
+    build_learning_times(@report)
 
     return unless params[:id]
 
@@ -180,5 +180,23 @@ class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLeng
       new_finished_at += 1.day if new_started_at > new_finished_at
       learning_time.assign_attributes(started_at: new_started_at, finished_at: new_finished_at)
     end
+  end
+
+  def build_learning_times(report)
+    reported_weekday = LearningTimeFrame::WEEK_DAY_NAMES_JA[report.reported_on.wday]
+
+    min_hour = current_user.learning_time_frames
+                           .where(week_day: reported_weekday)
+                           .minimum(:activity_time)
+
+    started_at =
+      if min_hour
+        t = report.reported_on.in_time_zone.change(hour: min_hour, min: 0)
+        t <= Time.current ? t : Time.current.change(min: 0)
+      else
+        Time.current.change(min: 0)
+      end
+
+    report.learning_times.build(started_at: started_at)
   end
 end
