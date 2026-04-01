@@ -11,7 +11,7 @@ class Practice::PagesTest < ApplicationSystemTestCase
 
   test 'show last updated user icon and role' do
     visit_with_auth "/practices/#{practices(:practice1).id}/pages", 'hajime'
-    within '.card-list-item-meta__icon-link' do
+    within '.card-list-item-meta__icon-link', match: :first do
       assert_selector 'span.a-user-role.is-admin'
       assert_selector 'img[alt="komagata (Komagata Masaki): 管理者、メンター"]'
       assert_selector 'img[class="card-list-item-meta__icon a-user-icon"]'
@@ -23,5 +23,45 @@ class Practice::PagesTest < ApplicationSystemTestCase
       assert_selector 'img[alt="kimura (Kimura Tadasi)"]'
       assert_selector 'img[class="card-list-item-meta__icon a-user-icon"]'
     end
+  end
+
+  test 'grant filter is not present on rails course practice' do
+    visit_with_auth "/practices/#{practices(:practice1).id}/pages", 'komagata'
+    assert_no_selector '.pill-nav__items'
+  end
+
+  test 'grant filter is present on grant course practice' do
+    visit_with_auth "/practices/#{practices(:copy_practice1).id}/pages", 'komagata'
+    assert_selector '.pill-nav__items'
+  end
+
+  test 'grant filter shows both copied and grant course docs when "全て" is selected' do
+    visit_with_auth "/practices/#{practices(:copy_practice1).id}/pages", 'komagata'
+    assert_selector '.pill-nav__item-link.is-active', text: '全て'
+    assert_selector '.card-list-item-title__link.a-text-link', text: 'コピー元のRailsコースのプラクティスのDocs'
+    assert_selector '.card-list-item-title__link.a-text-link', text: '給付金コースのプラクティスに紐づいたDocs'
+  end
+
+  test 'grant filter shows only grant course pages when "給付金コース" is selected' do
+    visit_with_auth "/practices/#{practices(:copy_practice1).id}/pages", 'komagata'
+    find('.pill-nav__item-link', text: '給付金コース').click
+    assert_selector '.pill-nav__item-link.is-active', text: '給付金コース'
+    assert_no_selector '.card-list-item-title__link.a-text-link', text: 'コピー元のRailsコースのプラクティスのDocs'
+    assert_selector '.card-list-item-title__link.a-text-link', text: '給付金コースのプラクティスに紐づいたDocs'
+  end
+
+  test 'grant filter shows only grant course pages when "給付金コース" is selected but source practice has no pages' do
+    visit_with_auth "/practices/#{practices(:copy_practice3).id}/pages", 'komagata'
+    find('.pill-nav__item-link', text: '給付金コース').click
+    assert_selector '.pill-nav__item-link.is-active', text: '給付金コース'
+    assert_selector '.card-list-item-title__link.a-text-link', text: '給付金コースのプラクティスに紐づいたDocs'
+  end
+
+  test 'grant filter shows empty message when no pages exist' do
+    visit_with_auth "/practices/#{practices(:copy_practice2).id}/pages", 'komagata'
+    assert_selector '.pill-nav__items'
+    find('.pill-nav__item-link', text: '給付金コース').click
+    assert_selector '.pill-nav__item-link.is-active', text: '給付金コース'
+    assert_selector '.o-empty-message__text', text: 'Docはまだありません'
   end
 end

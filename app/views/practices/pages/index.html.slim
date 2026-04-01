@@ -9,6 +9,8 @@
 
 = practice_page_tabs(@practice, active_tab: 'Docs')
 
+- if @practice.grant_course?
+  = render partial: 'practices/grant_course_filter'
 .page-body
   = paginate @pages
   .container.is-md
