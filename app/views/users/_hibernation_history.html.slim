@@ -1,18 +1,14 @@
-- is_hibernating = user.hibernated?
-- total_hibernation_count = user.hibernations.count
-- is_self = user == current_user
-
-.a-card class=('is-only-mentor' unless is_self)
+.a-card class=('is-only-mentor' unless user == current_user)
   header.card-header.is-sm
     h2.card-header__title
       |  休会履歴
-      | （#{total_hibernation_count}回）
+      | （#{user.hibernations.count}回）
   hr.a-border-tint
   .user-data
     .user-data__row
       - user.hibernations.order(created_at: :desc).each_with_index do |hibernation, i|
-        - number = total_hibernation_count - i
-        - if i.zero? && is_hibernating
+        - number = user.hibernations.count - i
+        - if i.zero? && user.hibernated?
           .user-metas.is-only-mentor
             h2.user-metas__title
               | 現在
@@ -51,7 +47,7 @@
                     - else
                       | 未登録
         - else
-          .user-metas class=('is-only-mentor' unless is_self)
+          .user-metas class=('is-only-mentor' unless user == current_user)
             h2.user-metas__title
               | #{number}回目の休会
             .user-metas__items
