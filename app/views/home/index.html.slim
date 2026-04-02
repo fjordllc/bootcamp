@@ -39,6 +39,8 @@
                 = render '/users/practices/active_practices', user: current_user
               - if current_user.completed_practices.present?
                 = render '/users/practices/completed_practices', user: current_user, completed_learnings: @completed_learnings
+              - if current_user.hibernations.present?
+                = render '/users/hibernation_history', user: current_user
             .col-xs-12.col-xl-6.col-xxl-6
               - if current_user.student_or_trainee?
                 = render 'required_field', user: current_user
