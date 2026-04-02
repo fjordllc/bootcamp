@@ -34,27 +34,20 @@ class CalendarNicoNicoCalendarComponentPreview < ViewComponent::Preview
       login_name: 'yamada',
       created_at: 1.year.ago
     )
-    user.define_singleton_method(:niconico_calendar) { |cal| cal }
+    # 本番のuser_decorator.rbと同じ整形ロジック（先頭ブランク + 7件スライス）
+    user.define_singleton_method(:niconico_calendar) do |dates_and_reports|
+      first_wday = dates_and_reports.first[:date].wday
+      blanks = Array.new(first_wday) { { date: nil, emotion: nil, report: nil } }
+      [*blanks, *dates_and_reports].each_slice(7).to_a
+    end
     user
   end
 
   def build_calendar(date, emotions: [])
-    weeks = []
-    beginning_of_month = date.beginning_of_month
-    beginning_of_week = beginning_of_month.beginning_of_week(:sunday)
-
-    current = beginning_of_week
-    while current <= date.end_of_month.end_of_week(:sunday)
-      week = []
-      7.times do
-        emotion = if current.month == date.month && emotions.any?
-                    emotions.sample
-                  end
-        week << { date: current, emotion: emotion }
-        current += 1.day
-      end
-      weeks << week
+    # 本番と同じ形式: 日付ごとのフラットな配列（decoratorが週配列に整形する）
+    date.beginning_of_month.upto(date.end_of_month).map do |current|
+      emotion = emotions.any? ? emotions.sample : nil
+      { date: current, emotion: emotion, report: nil }
     end
-    weeks
   end
 end
