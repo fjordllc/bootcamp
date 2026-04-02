@@ -30,10 +30,12 @@ class CalendarNicoNicoCalendarComponentPreview < ViewComponent::Preview
   private
 
   def mock_user
-    OpenStruct.new(
+    user = OpenStruct.new(
       login_name: 'yamada',
-      niconico_calendar: ->(_cal) { [] }
+      created_at: 1.year.ago
     )
+    user.define_singleton_method(:niconico_calendar) { |cal| cal }
+    user
   end
 
   def build_calendar(date, emotions: [])

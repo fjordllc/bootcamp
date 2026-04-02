@@ -24,19 +24,21 @@ class LearningsLearningComponentPreview < ViewComponent::Preview
   private
 
   def mock_practice(title, submission: false)
-    OpenStruct.new(
+    practice = OpenStruct.new(
       id: 1,
       title: title,
-      submission?: submission,
-      product: ->(_user) { nil }
+      submission?: submission
     )
+    practice.define_singleton_method(:product) { |_user| nil }
+    practice
   end
 
   def mock_user
-    OpenStruct.new(
+    user = OpenStruct.new(
       id: 1,
-      login_name: 'yamada',
-      completed?: ->(_practice) { false }
+      login_name: 'yamada'
     )
+    user.define_singleton_method(:completed?) { |_practice| false }
+    user
   end
 end

@@ -70,6 +70,7 @@ class ProductsProductComponentPreview < ViewComponent::Preview
       login_name: name,
       name: name,
       name_kana: 'ヤマダ',
+      long_name: "#{name} (ヤマダ)",
       primary_role: role,
       joining_status: 'active',
       avatar_url: 'https://via.placeholder.com/40',
@@ -96,8 +97,10 @@ class ProductsProductComponentPreview < ViewComponent::Preview
     practice = OpenStruct.new(id: 1, title: 'Rubyの基礎を理解する')
     published_at = published_days_ago.days.ago
 
+    check_user = OpenStruct.new(id: 3, login_name: 'checker_user')
+
     checks = if with_checker
-               [OpenStruct.new(created_at: 1.day.ago)]
+               [OpenStruct.new(created_at: 1.day.ago, user: check_user)]
              else
                []
              end
@@ -106,18 +109,23 @@ class ProductsProductComponentPreview < ViewComponent::Preview
       OpenStruct.new(id: 1, user: user, body: 'コメントです', created_at: 1.day.ago)
     ]
 
+    commented_users = OpenStruct.new(distinct: [user])
+
     OpenStruct.new(
       id: 1,
       wip?: wip,
       user: user,
       practice: practice,
       comments: comments,
+      commented_users: commented_users,
       published_at: published_at,
       created_at: published_at,
       updated_at: Time.current,
       checker_id: checker&.id,
       checker: checker,
-      checks: OpenStruct.new(last: checks.last)
+      checks: checks,
+      self_last_commented_at: 1.day.ago,
+      mentor_last_commented_at: nil
     )
   end
 end

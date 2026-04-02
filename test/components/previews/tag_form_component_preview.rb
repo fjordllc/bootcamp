@@ -1,12 +1,19 @@
 # frozen_string_literal: true
 
 class TagFormComponentPreview < ViewComponent::Preview
+  ReportTaggable = Struct.new(:id, :tag_list)
+  QuestionTaggable = Struct.new(:id, :tag_list)
+
+  class << ReportTaggable
+    def to_s = 'Report'
+  end
+
+  class << QuestionTaggable
+    def to_s = 'Question'
+  end
+
   def default
-    taggable = OpenStruct.new(
-      id: 1,
-      tag_list: %w[Ruby Rails Web],
-      class: OpenStruct.new(name: 'Report')
-    )
+    taggable = ReportTaggable.new(1, %w[Ruby Rails Web])
 
     render(Tag::FormComponent.new(
       taggable: taggable,
@@ -16,11 +23,7 @@ class TagFormComponentPreview < ViewComponent::Preview
   end
 
   def readonly
-    taggable = OpenStruct.new(
-      id: 1,
-      tag_list: %w[Linux Docker],
-      class: OpenStruct.new(name: 'Report')
-    )
+    taggable = ReportTaggable.new(1, %w[Linux Docker])
 
     render(Tag::FormComponent.new(
       taggable: taggable,
@@ -31,11 +34,7 @@ class TagFormComponentPreview < ViewComponent::Preview
   end
 
   def empty_tags
-    taggable = OpenStruct.new(
-      id: 1,
-      tag_list: [],
-      class: OpenStruct.new(name: 'Question')
-    )
+    taggable = QuestionTaggable.new(1, [])
 
     render(Tag::FormComponent.new(
       taggable: taggable,

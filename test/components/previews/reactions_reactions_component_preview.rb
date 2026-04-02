@@ -33,12 +33,13 @@ class ReactionsReactionsComponentPreview < ViewComponent::Preview
   private
 
   def mock_reactionable(reactions = {})
-    OpenStruct.new(
-      id: 1,
-      class: OpenStruct.new(name: 'Report'),
-      reaction_count_by: ->(kind) { reactions.dig(kind.to_sym, :count) || 0 },
-      find_reaction_id_by: ->(_kind, _login_name) { nil },
-      reaction_login_names_by: ->(kind) { reactions.dig(kind.to_sym, :login_names) || [] }
-    )
+    Class.new do
+      define_method(:id) { 1 }
+      define_method(:class) { OpenStruct.new(name: 'Report') }
+      define_method(:to_global_id) { OpenStruct.new(to_s: 'gid://bootcamp/Report/1') }
+      define_method(:reaction_count_by) { |kind| reactions.dig(kind.to_sym, :count) || 0 }
+      define_method(:find_reaction_id_by) { |_kind, _login_name| nil }
+      define_method(:reaction_login_names_by) { |kind| reactions.dig(kind.to_sym, :login_names) || [] }
+    end.new
   end
 end
