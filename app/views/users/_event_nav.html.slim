@@ -3,6 +3,6 @@ nav.tab-nav
     ul.tab-nav__items
       - event_navs(@user).each do |nav|
         li.tab-nav__item
-          - nav_class = ['tab-nav__item-link']
+          - nav_class = 'tab-nav__item-link '
           - nav_class << 'is-active' if current_page?(nav[:path])
           = link_to "#{nav[:name]}(#{nav[:count]})", nav[:path], class: nav_class
