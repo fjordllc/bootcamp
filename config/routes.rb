@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   mount Switchlet::Engine => "/switchlet"
+  mount Lookbook::Engine, at: "/lookbook" if Rails.env.development?
   
   root to: "home#index"
 

@@ -47,6 +47,7 @@ module Bootcamp
     config.active_record.verify_foreign_keys_for_fixtures = false
 
     config.view_component.capture_compatibility_patch_enabled = true
+    config.view_component.preview_paths = [Rails.root.join('test/components/previews')]
 
     config.to_prepare do
       Doorkeeper::AuthorizationsController.layout "authorization"
