@@ -19,6 +19,7 @@ bootcamp.fjord.jp のUIルールをまとめています。
 ## カラーパレット
 
 ### ブランドカラー
+
 | 名前 | 値 | 用途 |
 |------|-----|------|
 | `--main` | `hsl(242, 51%, 51%)` | ページタイトル、主要アクセント |
@@ -26,6 +27,7 @@ bootcamp.fjord.jp のUIルールをまとめています。
 | `--accent` | `hsl(44, 96%, 54%)` | 警告、ハイライト（ゴールド系） |
 
 ### セマンティックカラー
+
 | 名前 | 値 | 用途 |
 |------|-----|------|
 | `--success` | `hsl(150, 39%, 49%)` | 成功、完了、フラッシュ（notice） |
@@ -35,6 +37,7 @@ bootcamp.fjord.jp のUIルールをまとめています。
 | `--disabled` | `hsl(242, 11%, 85%)` | 無効状態 |
 
 ### テキスト
+
 | 名前 | 値 | 用途 |
 |------|-----|------|
 | `--default-text` | `hsl(242, 10%, 30%)` | 本文テキスト |
@@ -45,6 +48,7 @@ bootcamp.fjord.jp のUIルールをまとめています。
 | `--reversal-text` | `white` | 色付き背景上のテキスト |
 
 ### 背景
+
 | 名前 | 値 | 用途 |
 |------|-----|------|
 | `--base` | `white` | カード、ヘッダーなどの背景 |
@@ -54,6 +58,7 @@ bootcamp.fjord.jp のUIルールをまとめています。
 | `--background-semi-shade` | `hsl(242, 24%, 92%)` | 中間のシェード |
 
 ### ボーダー
+
 | 名前 | 値 | 用途 |
 |------|-----|------|
 | `--border` | `hsl(242, 7%, 89%)` | 通常のボーダー |
@@ -76,7 +81,7 @@ bootcamp.fjord.jp のUIルールをまとめています。
 ## インプット
 
 ### テキスト入力（`.a-text-input`）
-```
+```text
 通常:     bg: var(--input-background)  border: var(--input-border)
 ホバー:   bg: white                    border: var(--input-hover-border)
 フォーカス: bg: white                    border: #5752e8
@@ -97,6 +102,7 @@ bootcamp.fjord.jp のUIルールをまとめています。
 - **コード**: `var(--monospace)` = "Source Code Pro", monospace
 
 ### フォントサイズ（よく使うもの）
+
 | コンテキスト | デスクトップ | モバイル |
 |-------------|------------|---------|
 | ページタイトル | 1.25rem | 1rem |
@@ -116,7 +122,7 @@ bootcamp.fjord.jp のUIルールをまとめています。
 - コンテナ padding: `1.5rem`（デスクトップ）/ `1rem`（モバイル）
 
 ### コンテナサイズ
-```
+```text
 .container.is-xxxl  →  max-width: 108rem
 .container.is-xxl   →  max-width: 96rem
 .container.is-xl    →  max-width: 80rem
@@ -349,7 +355,7 @@ main.page
 - **ユーティリティ**: Tailwind v4 のユーティリティクラスも併用可
 
 ### BEM風の構造
-```
+```text
 .block
   .block__element
     .block__element.is-modifier
@@ -411,7 +417,7 @@ main.page-main
 
 以下をコピーして使ってください：
 
-```
+```markdown
 ## 前提
 - このプロジェクトのデザインシステムは docs/DESIGN_SYSTEM.md に従ってください
 - テンプレートは Slim 記法です
