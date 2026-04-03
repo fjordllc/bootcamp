@@ -51,16 +51,12 @@ class ProductsProductComponentPreview < ViewComponent::Preview
                []
              end
 
-    product = OpenStruct.new(
-      id: 1, wip?: wip, user: user, practice: mock_practice,
+    PreviewHelper::MockProduct.new(
+      id: 1, wip: wip, user: user, practice: mock_practice,
       comments: comments, commented_users: OpenStruct.new(distinct: [user]),
       published_at: published_at, created_at: published_at, updated_at: Time.current,
       checker_id: checker&.id, checker: checker, checks: checks,
       self_last_commented_at: 1.day.ago, mentor_last_commented_at: nil
     )
-    product.define_singleton_method(:to_param) { '1' }
-    product.define_singleton_method(:persisted?) { true }
-    product.define_singleton_method(:model_name) { ActiveModel::Name.new(nil, nil, 'Product') }
-    product
   end
 end

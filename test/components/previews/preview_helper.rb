@@ -2,6 +2,33 @@
 
 # Lookbook previewで使う共通モッククラス
 module PreviewHelper
+  # ActiveModelに準拠したProductモック
+  class MockProduct
+    include ActiveModel::Model
+    include ActiveModel::Attributes
+
+    attribute :id, :integer
+    attribute :user
+    attribute :practice
+    attribute :comments
+    attribute :commented_users
+    attribute :published_at
+    attribute :created_at
+    attribute :updated_at
+    attribute :checker_id
+    attribute :checker
+    attribute :checks
+    attribute :self_last_commented_at
+    attribute :mentor_last_commented_at
+    attribute :wip, :boolean, default: false
+
+    def wip? = wip
+    def persisted? = true
+    def to_param = id.to_s
+    def to_model = self
+    def model_name = ActiveModel::Name.new(Product, nil, 'Product')
+  end
+
   # ActiveModelに準拠したユーザーモック
   class MockUser
     include ActiveModel::Model
@@ -30,8 +57,10 @@ module PreviewHelper
       "a-user-role is-#{primary_role}"
     end
 
+    def to_model = self
+
     def model_name
-      ActiveModel::Name.new(nil, nil, 'User')
+      ActiveModel::Name.new(User, nil, 'User')
     end
 
     def online? = false
