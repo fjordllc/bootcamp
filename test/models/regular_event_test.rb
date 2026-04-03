@@ -215,6 +215,48 @@ class RegularEventTest < ActiveSupport::TestCase
     assert_not regular_event.skip_event?(Date.new(2026, 4, 8))
   end
 
+  test '.date_match_the_rules? matches weekly weekday rule' do
+    regular_event = regular_events(:regular_event7) # 毎週水曜開催イベント
+
+    # 2026-04-22は水曜
+    assert regular_event.date_match_the_rules?(Date.new(2026, 4, 22), regular_event.regular_event_repeat_rules)
+  end
+
+  test '.date_match_the_rules? matches first weekday rule' do
+    regular_event = regular_events(:regular_event2) # 第1月曜開催イベント
+
+    # 2026-04-06は第1月曜
+    assert regular_event.date_match_the_rules?(Date.new(2026, 4, 6), regular_event.regular_event_repeat_rules)
+  end
+
+  test '.date_match_the_rules? matches second weekday rule' do
+    regular_event = regular_events(:regular_event3) # 第2月曜開催イベント
+
+    # 2026-04-13は第2月曜
+    assert regular_event.date_match_the_rules?(Date.new(2026, 4, 13), regular_event.regular_event_repeat_rules)
+  end
+
+  test '.date_match_the_rules? matches third weekday rule' do
+    regular_event = regular_events(:regular_event4) # 第3火曜開催イベント
+
+    # 2026-04-21は第3火曜
+    assert regular_event.date_match_the_rules?(Date.new(2026, 4, 21), regular_event.regular_event_repeat_rules)
+  end
+
+  test '.date_match_the_rules? matches fourth weekday rule' do
+    regular_event = regular_events(:regular_event6) # 第4月曜開催イベント
+
+    # 2026-04-27は第4月曜
+    assert regular_event.date_match_the_rules?(Date.new(2026, 4, 27), regular_event.regular_event_repeat_rules)
+  end
+
+  test '.date_match_the_rules? returns false when date does not match rule' do
+    regular_event = regular_events(:regular_event7) # 毎週水曜開催イベント
+
+    # 2026-04-23は木曜
+    assert_not regular_event.date_match_the_rules?(Date.new(2026, 4, 23), regular_event.regular_event_repeat_rules)
+  end
+
   test '#validate_skip_on_uniqueness' do
     travel_to Time.zone.local(2026, 4, 1, 10, 0, 0) do
       regular_event = regular_events(:regular_event7)
