@@ -24,4 +24,22 @@ module RegularEventDecorator
 
     hold_national_holiday
   end
+
+  def upcoming_skip_event_dates(from: Time.zone.today, limit: 5)
+    to = from.next_year
+
+    skip_dates = regular_event_skip_dates
+                 .where(skip_on: from..to)
+                 .pluck(:skip_on, :reason)
+                 .map { |date, reason| { date:, reason: } }
+
+    skip_holidays = HolidayJp.between(from, to)
+                             .filter_map do |holiday|
+                               { date: holiday.date, reason: "祝日(#{holiday.name})のため" } if date_match_the_rules?(holiday.date, regular_event_repeat_rules)
+    end
+
+    (skip_dates + skip_holidays)
+      .sort_by { |h| h[:date] }
+      .first(limit)
+  end
 end

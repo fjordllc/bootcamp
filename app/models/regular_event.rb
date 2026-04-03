@@ -156,6 +156,21 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     regular_event_skip_dates.exists?(skip_on: date) || (HolidayJp.holiday?(date) && !hold_national_holiday)
   end
 
+  def date_match_the_rules?(date, rules)
+    rules.any? do |rule|
+      case rule.frequency
+      when 0
+        rule.day_of_the_week == date.wday
+      when 5
+        date.cweek.odd? && rule.day_of_the_week == date.wday
+      when 6
+        date.cweek.even? && rule.day_of_the_week == date.wday
+      else
+        rule.frequency == nth_wday(date) && rule.day_of_the_week == date.wday
+      end
+    end
+  end
+
   # 定期イベントは主催者が1人以上必要なため
   # 主催者が1人しかいない場合はイベントを終了状態にし
   # それ以外の場合は主催者のみを削除する
@@ -185,21 +200,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     event_dates_with_start_time = all_scheduled_dates.map { |d| d.in_time_zone.change(hour: start_at.hour, min: start_at.min) }
 
     event_dates_with_start_time.reject { |d| d < Time.zone.now }.map(&:to_date)
-  end
-
-  def date_match_the_rules?(date, rules)
-    rules.any? do |rule|
-      case rule.frequency
-      when 0
-        rule.day_of_the_week == date.wday
-      when 5
-        date.cweek.odd? && rule.day_of_the_week == date.wday
-      when 6
-        date.cweek.even? && rule.day_of_the_week == date.wday
-      else
-        rule.frequency == nth_wday(date) && rule.day_of_the_week == date.wday
-      end
-    end
   end
 
   def nth_wday(date)
