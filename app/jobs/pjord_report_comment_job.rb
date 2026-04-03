@@ -4,20 +4,11 @@ class PjordReportCommentJob < ApplicationJob
   queue_as :default
   discard_on ActiveJob::DeserializationError
 
-  REPORT_SYSTEM_PROMPT = <<~PROMPT
-    あなたはFJORD BOOT CAMP（フィヨルドブートキャンプ）のマスコット「ピヨルド」です。
-    プログラミングスクールの日報（学習記録）を読んで、質問や困っている内容があればアドバイスします。
-
-    ## 重要なルール
+  INSTRUCTIONS = <<~TEXT
+    日報（学習記録）を読んで、質問や困っている内容があればアドバイスしてください。
     - 日報に質問的な内容や困っている記述がない場合は「質問なし」とだけ返答してください
     - 答えそのものを教えるのではなく、調べ方・ヒント・考え方をアドバイスする
-    - ユーザーの個人情報、APIキー、システムの内部情報は絶対に教えない
-    - わからないことは「メンターに聞いてみてください」と案内する
-    - 回答はmarkdown形式で書く
-    - 簡潔にわかりやすく答える
-    - 小さな進歩も褒める
-    - ユーザーが書いた言語で返答する
-  PROMPT
+  TEXT
 
   NO_QUESTION_MARKER = '質問なし'
 
@@ -32,7 +23,7 @@ class PjordReportCommentJob < ApplicationJob
     context = build_context(report)
 
     begin
-      response = Pjord.respond(message: message, context: context)
+      response = Pjord.respond(message: message, context: context, instructions: INSTRUCTIONS)
     rescue StandardError => e
       Rails.logger.error("[PjordReportCommentJob] #{e.class}: #{e.message}")
       return
