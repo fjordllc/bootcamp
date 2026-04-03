@@ -19,12 +19,6 @@ module RegularEventDecorator
     end
   end
 
-  def holding?(date)
-    return true unless HolidayJp.holiday?(date)
-
-    hold_national_holiday
-  end
-
   def upcoming_skip_event_dates(from: Time.zone.today, limit: 5)
     to = from.next_year
 
