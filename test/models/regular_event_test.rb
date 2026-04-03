@@ -187,6 +187,34 @@ class RegularEventTest < ActiveSupport::TestCase
     end
   end
 
+  test '#skip_event? returns true when the date is in regular_event_skip_dates' do
+    regular_event = regular_events(:regular_event7)
+    regular_event.regular_event_skip_dates.create!(skip_on: Date.new(2026, 4, 8), reason: '主催都合のため')
+
+    assert regular_event.skip_event?(Date.new(2026, 4, 8))
+  end
+
+  test '#skip_event? returns true on a holiday when hold_national_holiday is false' do
+    regular_event = regular_events(:regular_event7)
+    regular_event.update!(hold_national_holiday: false)
+
+    assert regular_event.skip_event?(Date.new(2026, 4, 29))
+  end
+
+  test '#skip_event? returns false on a holiday when hold_national_holiday is true' do
+    regular_event = regular_events(:regular_event7)
+    regular_event.update!(hold_national_holiday: true)
+
+    assert_not regular_event.skip_event?(Date.new(2026, 4, 29))
+  end
+
+  test '#skip_event? returns false on a non-holiday date with no skip date' do
+    regular_event = regular_events(:regular_event7)
+    regular_event.update!(hold_national_holiday: false)
+
+    assert_not regular_event.skip_event?(Date.new(2026, 4, 8))
+  end
+
   test '#validate_skip_on_uniqueness' do
     travel_to Time.zone.local(2026, 4, 1, 10, 0, 0) do
       regular_event = regular_events(:regular_event7)
