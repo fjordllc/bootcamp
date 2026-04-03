@@ -87,18 +87,36 @@ class ProductsProductComponentPreview < ViewComponent::Preview
   end
 
   def mock_checker
-    OpenStruct.new(
+    user = OpenStruct.new(
       id: 2,
       login_name: 'mentor',
       name: 'メンター',
+      primary_role: 'mentor',
       avatar_url: 'https://via.placeholder.com/40',
-      icon_title: 'メンター'
+      icon_title: 'メンター',
+      user_icon_frame_class: 'a-user-role is-mentor'
     )
+    user.define_singleton_method(:icon_classes) { |image_class| ['a-user-icon', image_class].compact.join(' ') }
+    user.define_singleton_method(:to_param) { 'mentor' }
+    user.define_singleton_method(:persisted?) { true }
+    user.define_singleton_method(:model_name) { OpenStruct.new(route_key: 'users', singular_route_key: 'user') }
+    user
   end
 
   def mock_checks(with_checker)
-    check_user = OpenStruct.new(id: 3, login_name: 'checker_user')
-    with_checker ? [OpenStruct.new(created_at: 1.day.ago, user: check_user)] : []
+    return [] unless with_checker
+    
+    check_user = OpenStruct.new(
+      id: 3, login_name: 'checker_user', name: 'チェッカー',
+      primary_role: 'mentor', avatar_url: 'https://via.placeholder.com/40',
+      icon_title: 'チェッカー', user_icon_frame_class: 'a-user-role is-mentor'
+    )
+    check_user.define_singleton_method(:icon_classes) { |image_class| ['a-user-icon', image_class].compact.join(' ') }
+    check_user.define_singleton_method(:to_param) { 'checker_user' }
+    check_user.define_singleton_method(:persisted?) { true }
+    check_user.define_singleton_method(:model_name) { OpenStruct.new(route_key: 'users', singular_route_key: 'user') }
+    
+    [OpenStruct.new(created_at: 1.day.ago, user: check_user)]
   end
 
   def mock_product(wip: false, with_checker: false, published_days_ago: 2)
