@@ -104,10 +104,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def next_event_date
-    event_dates =
-      hold_national_holiday ? upcoming_scheduled_dates : upcoming_scheduled_dates.reject { |d| HolidayJp.holiday?(d) }
-
-    event_dates.min
+    upcoming_scheduled_dates.reject { |date| skip_event?(date) }.min
   end
 
   def organizers
@@ -153,6 +150,10 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def publish_with_announcement?
     wants_announcement? && !wip?
+  end
+
+  def skip_event?(date)
+    regular_event_skip_dates.exists?(skip_on: date) || (HolidayJp.holiday?(date) && !hold_national_holiday)
   end
 
   # 定期イベントは主催者が1人以上必要なため

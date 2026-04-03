@@ -20,7 +20,7 @@ class UpcomingEvent
   def held_on_scheduled_date?
     return true if @event_type == Event
 
-    !HolidayJp.holiday?(@scheduled_date) || held_on_national_holiday?
+    !original_event.skip_event?(@scheduled_date)
   end
 
   def scheduled_date_with_start_time
@@ -35,14 +35,6 @@ class UpcomingEvent
     return false if @event_type == RegularEvent
 
     original_event.job_hunting?
-  end
-
-  private
-
-  def held_on_national_holiday?
-    return true if @event_type == Event
-
-    original_event.hold_national_holiday
   end
 
   class << self
