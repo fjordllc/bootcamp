@@ -7,11 +7,11 @@ class CalendarNicoNicoCalendarComponentPreview < ViewComponent::Preview
     current_calendar = build_calendar(current_date)
 
     render(Calendar::NicoNicoCalendarComponent.new(
-      user: user,
-      path: '/reports/calendar',
-      current_date: current_date,
-      current_calendar: current_calendar
-    ))
+             user: user,
+             path: '/reports/calendar',
+             current_date: current_date,
+             current_calendar: current_calendar
+           ))
   end
 
   def with_mixed_emotions
@@ -20,11 +20,11 @@ class CalendarNicoNicoCalendarComponentPreview < ViewComponent::Preview
     current_calendar = build_calendar(current_date, emotions: %i[sushi sad normal happy])
 
     render(Calendar::NicoNicoCalendarComponent.new(
-      user: user,
-      path: '/reports/calendar',
-      current_date: current_date,
-      current_calendar: current_calendar
-    ))
+             user: user,
+             path: '/reports/calendar',
+             current_date: current_date,
+             current_calendar: current_calendar
+           ))
   end
 
   private

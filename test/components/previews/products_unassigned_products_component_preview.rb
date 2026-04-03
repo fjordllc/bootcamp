@@ -6,13 +6,13 @@ class ProductsUnassignedProductsComponentPreview < ViewComponent::Preview
     grouped = group_products(products)
 
     render(Products::UnassignedProductsComponent.new(
-      products: products,
-      products_grouped_by_elapsed_days: grouped,
-      is_mentor: true,
-      is_admin: false,
-      current_user_id: 2,
-      reply_warning_days: 5
-    ))
+             products: products,
+             products_grouped_by_elapsed_days: grouped,
+             is_mentor: true,
+             is_admin: false,
+             current_user_id: 2,
+             reply_warning_days: 5
+           ))
   end
 
   def with_urgent_products
@@ -20,24 +20,24 @@ class ProductsUnassignedProductsComponentPreview < ViewComponent::Preview
     grouped = group_products(products)
 
     render(Products::UnassignedProductsComponent.new(
-      products: products,
-      products_grouped_by_elapsed_days: grouped,
-      is_mentor: true,
-      is_admin: false,
-      current_user_id: 2,
-      reply_warning_days: 5
-    ))
+             products: products,
+             products_grouped_by_elapsed_days: grouped,
+             is_mentor: true,
+             is_admin: false,
+             current_user_id: 2,
+             reply_warning_days: 5
+           ))
   end
 
   def empty
     render(Products::UnassignedProductsComponent.new(
-      products: [],
-      products_grouped_by_elapsed_days: {},
-      is_mentor: true,
-      is_admin: false,
-      current_user_id: 2,
-      reply_warning_days: 5
-    ))
+             products: [],
+             products_grouped_by_elapsed_days: {},
+             is_mentor: true,
+             is_admin: false,
+             current_user_id: 2,
+             reply_warning_days: 5
+           ))
   end
 
   private

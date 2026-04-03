@@ -16,11 +16,11 @@ class SearchableComponentPreview < ViewComponent::Preview
     talks = {}
 
     render(SearchableComponent.new(
-      resource: resource,
-      users: users,
-      word: 'Ruby',
-      talks: talks
-    ))
+             resource: resource,
+             users: users,
+             word: 'Ruby',
+             talks: talks
+           ))
   end
 
   def comment_result
@@ -39,11 +39,11 @@ class SearchableComponentPreview < ViewComponent::Preview
     talks = {}
 
     render(SearchableComponent.new(
-      resource: resource,
-      users: users,
-      word: '学習',
-      talks: talks
-    ))
+             resource: resource,
+             users: users,
+             word: '学習',
+             talks: talks
+           ))
   end
 
   def user_result
@@ -61,11 +61,11 @@ class SearchableComponentPreview < ViewComponent::Preview
     talks = { 1 => OpenStruct.new(id: 1) }
 
     render(SearchableComponent.new(
-      resource: resource,
-      users: users,
-      word: 'yamada',
-      talks: talks
-    ))
+             resource: resource,
+             users: users,
+             word: 'yamada',
+             talks: talks
+           ))
   end
 
   private

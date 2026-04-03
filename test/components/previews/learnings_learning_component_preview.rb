@@ -6,9 +6,9 @@ class LearningsLearningComponentPreview < ViewComponent::Preview
     current_user = mock_user
 
     render(Learnings::LearningComponent.new(
-      practice: practice,
-      current_user: current_user
-    ))
+             practice: practice,
+             current_user: current_user
+           ))
   end
 
   def with_submission
@@ -16,9 +16,9 @@ class LearningsLearningComponentPreview < ViewComponent::Preview
     current_user = mock_user
 
     render(Learnings::LearningComponent.new(
-      practice: practice,
-      current_user: current_user
-    ))
+             practice: practice,
+             current_user: current_user
+           ))
   end
 
   private

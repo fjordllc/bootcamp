@@ -9,9 +9,9 @@ class ReactionsReactionsComponentPreview < ViewComponent::Preview
     )
 
     render(Reactions::ReactionsComponent.new(
-      reactionable: reactionable,
-      current_user: current_user
-    ))
+             reactionable: reactionable,
+             current_user: current_user
+           ))
   end
 
   def with_reactions
@@ -25,9 +25,9 @@ class ReactionsReactionsComponentPreview < ViewComponent::Preview
     )
 
     render(Reactions::ReactionsComponent.new(
-      reactionable: reactionable,
-      current_user: current_user
-    ))
+             reactionable: reactionable,
+             current_user: current_user
+           ))
   end
 
   private

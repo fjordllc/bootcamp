@@ -13,8 +13,8 @@ class SkippedPracticeComponentPreview < ViewComponent::Preview
     )
 
     render(SkippedPracticeComponent.new(
-      form: nil,
-      user: user
-    ))
+             form: nil,
+             user: user
+           ))
   end
 end

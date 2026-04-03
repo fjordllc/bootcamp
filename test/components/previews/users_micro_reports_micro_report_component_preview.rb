@@ -7,10 +7,10 @@ class UsersMicroReportsMicroReportComponentPreview < ViewComponent::Preview
     micro_report = mock_micro_report(user: user, content: '今日はRubyの基礎を学習しました。メソッドの定義について理解が深まりました。')
 
     render(Users::MicroReports::MicroReportComponent.new(
-      user: user,
-      current_user: current_user,
-      micro_report: micro_report
-    ))
+             user: user,
+             current_user: current_user,
+             micro_report: micro_report
+           ))
   end
 
   def owner_post
@@ -18,10 +18,10 @@ class UsersMicroReportsMicroReportComponentPreview < ViewComponent::Preview
     micro_report = mock_micro_report(user: user, content: '自分の投稿です。プログラミングが楽しいです！')
 
     render(Users::MicroReports::MicroReportComponent.new(
-      user: user,
-      current_user: user,
-      micro_report: micro_report
-    ))
+             user: user,
+             current_user: user,
+             micro_report: micro_report
+           ))
   end
 
   def long_content
@@ -31,10 +31,10 @@ class UsersMicroReportsMicroReportComponentPreview < ViewComponent::Preview
     micro_report = mock_micro_report(user: user, content: long_text)
 
     render(Users::MicroReports::MicroReportComponent.new(
-      user: user,
-      current_user: current_user,
-      micro_report: micro_report
-    ))
+             user: user,
+             current_user: current_user,
+             micro_report: micro_report
+           ))
   end
 
   private

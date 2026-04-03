@@ -5,61 +5,61 @@ class ProductsProductComponentPreview < ViewComponent::Preview
     product = mock_product
 
     render(Products::ProductComponent.new(
-      product: product,
-      is_mentor: false,
-      is_admin: false,
-      current_user_id: 1,
-      reply_deadline_days: 7
-    ))
+             product: product,
+             is_mentor: false,
+             is_admin: false,
+             current_user_id: 1,
+             reply_deadline_days: 7
+           ))
   end
 
   def with_mentor_view
     product = mock_product
 
     render(Products::ProductComponent.new(
-      product: product,
-      is_mentor: true,
-      is_admin: false,
-      current_user_id: 2,
-      reply_deadline_days: 7
-    ))
+             product: product,
+             is_mentor: true,
+             is_admin: false,
+             current_user_id: 2,
+             reply_deadline_days: 7
+           ))
   end
 
   def wip_product
     product = mock_product(wip: true)
 
     render(Products::ProductComponent.new(
-      product: product,
-      is_mentor: false,
-      is_admin: false,
-      current_user_id: 1,
-      reply_deadline_days: 7
-    ))
+             product: product,
+             is_mentor: false,
+             is_admin: false,
+             current_user_id: 1,
+             reply_deadline_days: 7
+           ))
   end
 
   def with_checker
     product = mock_product(with_checker: true)
 
     render(Products::ProductComponent.new(
-      product: product,
-      is_mentor: true,
-      is_admin: false,
-      current_user_id: 2,
-      reply_deadline_days: 7
-    ))
+             product: product,
+             is_mentor: true,
+             is_admin: false,
+             current_user_id: 2,
+             reply_deadline_days: 7
+           ))
   end
 
   def with_elapsed_days_display
     product = mock_product(published_days_ago: 5)
 
     render(Products::ProductComponent.new(
-      product: product,
-      is_mentor: true,
-      is_admin: false,
-      current_user_id: 2,
-      reply_deadline_days: 7,
-      display_until_next_elapsed_days: true
-    ))
+             product: product,
+             is_mentor: true,
+             is_admin: false,
+             current_user_id: 2,
+             reply_deadline_days: 7,
+             display_until_next_elapsed_days: true
+           ))
   end
 
   private
@@ -91,41 +91,26 @@ class ProductsProductComponentPreview < ViewComponent::Preview
     )
   end
 
+  def mock_checks(with_checker)
+    check_user = OpenStruct.new(id: 3, login_name: 'checker_user')
+    with_checker ? [OpenStruct.new(created_at: 1.day.ago, user: check_user)] : []
+  end
+
   def mock_product(wip: false, with_checker: false, published_days_ago: 2)
     user = mock_user
     checker = with_checker ? mock_checker : nil
-    practice = OpenStruct.new(id: 1, title: 'Rubyの基礎を理解する')
     published_at = published_days_ago.days.ago
-
-    check_user = OpenStruct.new(id: 3, login_name: 'checker_user')
-
-    checks = if with_checker
-               [OpenStruct.new(created_at: 1.day.ago, user: check_user)]
-             else
-               []
-             end
-
-    comments = [
-      OpenStruct.new(id: 1, user: user, body: 'コメントです', created_at: 1.day.ago)
-    ]
-
-    commented_users = OpenStruct.new(distinct: [user])
+    comments = [OpenStruct.new(id: 1, user: user, body: 'コメントです', created_at: 1.day.ago)]
 
     OpenStruct.new(
-      id: 1,
-      wip?: wip,
-      user: user,
-      practice: practice,
+      id: 1, wip?: wip, user: user,
+      practice: OpenStruct.new(id: 1, title: 'Rubyの基礎を理解する'),
       comments: comments,
-      commented_users: commented_users,
-      published_at: published_at,
-      created_at: published_at,
-      updated_at: Time.current,
-      checker_id: checker&.id,
-      checker: checker,
-      checks: checks,
-      self_last_commented_at: 1.day.ago,
-      mentor_last_commented_at: nil
+      commented_users: OpenStruct.new(distinct: [user]),
+      published_at: published_at, created_at: published_at, updated_at: Time.current,
+      checker_id: checker&.id, checker: checker,
+      checks: mock_checks(with_checker),
+      self_last_commented_at: 1.day.ago, mentor_last_commented_at: nil
     )
   end
 end

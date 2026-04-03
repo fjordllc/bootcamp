@@ -9,11 +9,11 @@ class GrassGrassComponentPreview < ViewComponent::Preview
     times = build_times(Date.current)
 
     render(Grass::GrassComponent.new(
-      user: user,
-      times: times,
-      target_end_date: Date.current,
-      path: '/users/yamada/grass'
-    ))
+             user: user,
+             times: times,
+             target_end_date: Date.current,
+             path: '/users/yamada/grass'
+           ))
   end
 
   def graduated_user
@@ -24,11 +24,11 @@ class GrassGrassComponentPreview < ViewComponent::Preview
     times = build_times(Date.current)
 
     render(Grass::GrassComponent.new(
-      user: user,
-      times: times,
-      target_end_date: Date.current,
-      path: '/users/tanaka/grass'
-    ))
+             user: user,
+             times: times,
+             target_end_date: Date.current,
+             path: '/users/tanaka/grass'
+           ))
   end
 
   private

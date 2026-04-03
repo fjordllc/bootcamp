@@ -6,20 +6,20 @@ class ProductsUserProductsComponentPreview < ViewComponent::Preview
     current_user = mock_user('yamada')
 
     render(Products::UserProductsComponent.new(
-      products: products,
-      current_user: current_user,
-      is_mentor: false
-    ))
+             products: products,
+             current_user: current_user,
+             is_mentor: false
+           ))
   end
 
   def empty
     current_user = mock_user('yamada')
 
     render(Products::UserProductsComponent.new(
-      products: [],
-      current_user: current_user,
-      is_mentor: false
-    ))
+             products: [],
+             current_user: current_user,
+             is_mentor: false
+           ))
   end
 
   def as_mentor
@@ -27,10 +27,10 @@ class ProductsUserProductsComponentPreview < ViewComponent::Preview
     current_user = mock_user('mentor')
 
     render(Products::UserProductsComponent.new(
-      products: products,
-      current_user: current_user,
-      is_mentor: true
-    ))
+             products: products,
+             current_user: current_user,
+             is_mentor: true
+           ))
   end
 
   private
