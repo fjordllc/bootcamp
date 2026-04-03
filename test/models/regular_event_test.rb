@@ -186,4 +186,16 @@ class RegularEventTest < ActiveSupport::TestCase
       assert_includes regular_events, regular_event_scheduled_for_tomorrow
     end
   end
+
+  test '#validate_skip_on_uniqueness' do
+    travel_to Time.zone.local(2026, 4, 1, 10, 0, 0) do
+      regular_event = regular_events(:regular_event7)
+
+      regular_event.regular_event_skip_dates.build(skip_on: Date.new(2026, 4, 8))
+      regular_event.regular_event_skip_dates.build(skip_on: Date.new(2026, 4, 8))
+
+      assert_not regular_event.save
+      assert_includes regular_event.errors[:base], 'スキップする日に重複した日付が含まれています。'
+    end
+  end
 end

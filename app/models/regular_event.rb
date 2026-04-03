@@ -40,6 +40,9 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validates :description, presence: true
   validates :regular_event_repeat_rules, presence: true
   validates_associated :regular_event_repeat_rules
+  validates_associated :regular_event_skip_dates
+
+  validate :validate_skip_on_uniqueness
 
   scope :not_finished, -> { where(finished: false) }
 
@@ -206,5 +209,17 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     str_date = event_date.strftime('%F')
     str_time = event_time.strftime('%R')
     Time.zone.parse([str_date, str_time].join(' '))
+  end
+
+  def validate_skip_on_uniqueness
+    # 削除対象(_destroy: 1)ではないskip_onの中から重複を検知
+    active_skip_ons = regular_event_skip_dates
+                      .reject(&:marked_for_destruction?)
+                      .map(&:skip_on)
+                      .compact
+
+    return unless active_skip_ons.size != active_skip_ons.uniq.size
+
+    errors.add(:base, 'スキップする日に重複した日付が含まれています。')
   end
 end
