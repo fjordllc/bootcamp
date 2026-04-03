@@ -29,6 +29,19 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     end
   end
 
+  test 'creates a comment when response contains no_question_marker in middle of text' do
+    report = reports(:report1)
+    pjord = users(:pjord)
+
+    Pjord.stub(:respond, 'この問題は質問なしでも解決できます。') do
+      assert_difference 'Comment.count', 1 do
+        PjordReportCommentJob.perform_now(report_id: report.id)
+      end
+    end
+
+    assert_equal pjord, Comment.last.user
+  end
+
   test 'does nothing when report is not found' do
     assert_no_difference 'Comment.count' do
       PjordReportCommentJob.perform_now(report_id: 0)
@@ -70,7 +83,7 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     report = reports(:report1)
 
     captured_context = nil
-    mock_respond = lambda { |message:, context:| # rubocop:disable Lint/UnusedBlockArgument
+    mock_respond = lambda { |message:, context:, instructions: nil| # rubocop:disable Lint/UnusedBlockArgument
       captured_context = context
       '質問なし'
     }

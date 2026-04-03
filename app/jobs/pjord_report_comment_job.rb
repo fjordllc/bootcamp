@@ -30,7 +30,7 @@ class PjordReportCommentJob < ApplicationJob
     end
 
     return if response.blank?
-    return if response.include?(NO_QUESTION_MARKER)
+    return if response.strip.start_with?(NO_QUESTION_MARKER)
 
     Comment.create!(user: pjord, commentable: report, description: response)
   end
