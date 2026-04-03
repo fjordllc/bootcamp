@@ -38,6 +38,9 @@ class UsersCurrentUserIconListComponentPreview < ViewComponent::Preview
       updated_at: online ? 5.minutes.ago : 2.hours.ago
     )
     user.define_singleton_method(:icon_classes) { |image_class| ['a-user-icon', image_class].compact.join(' ') }
+    user.define_singleton_method(:to_param) { login_name }
+    user.define_singleton_method(:persisted?) { true }
+    user.define_singleton_method(:model_name) { OpenStruct.new(route_key: 'users', singular_route_key: 'user') }
     user
   end
 end
