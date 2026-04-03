@@ -47,18 +47,6 @@
               = f.label :hold_national_holiday do
                 | 祝日も開催する場合はチェック
 
-      .form-item
-        label.a-form-label
-          | イベントをスキップする日
-        = cocooned_container do
-          = f.fields_for :regular_event_skip_dates, regular_event.regular_event_skip_dates do |regular_event_skip_date|
-            = render 'regular_event_skip_date_fields', f: regular_event_skip_date
-          .form-item__add-times
-              = cocooned_add_item_link f, :regular_event_skip_dates, class: 'a-button is-md is-primary' do
-                i.fa-regular.fa-plus
-                span
-                  | スキップする日を追加
-
   .form__items
     .form-item
       .row.js-markdown-parent
@@ -91,6 +79,18 @@
               = f.check_box :finished, class: 'a-toggle-checkbox js-warning-form'
               = f.label :finished do
                 | イベントが終了した場合はチェック
+
+      .form-item
+        label.a-form-label
+          | イベントをスキップする日
+        = cocooned_container do
+          = f.fields_for :regular_event_skip_dates, regular_event.regular_event_skip_dates do |regular_event_skip_date|
+            = render 'regular_event_skip_date_fields', f: regular_event_skip_date
+          .form-item__add-times
+              = cocooned_add_item_link f, :regular_event_skip_dates, class: 'a-button is-md is-primary' do
+                i.fa-regular.fa-plus
+                span
+                  | スキップする日を追加
 
   - if current_user.admin?
     .form__items
