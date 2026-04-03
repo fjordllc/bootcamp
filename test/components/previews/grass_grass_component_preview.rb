@@ -12,7 +12,7 @@ class GrassGrassComponentPreview < ViewComponent::Preview
              user: user,
              times: times,
              target_end_date: Date.current,
-             path: '/users/yamada/grass'
+             path: :root_path
            ))
   end
 
@@ -27,7 +27,7 @@ class GrassGrassComponentPreview < ViewComponent::Preview
              user: user,
              times: times,
              target_end_date: Date.current,
-             path: '/users/tanaka/grass'
+             path: :root_path
            ))
   end
 

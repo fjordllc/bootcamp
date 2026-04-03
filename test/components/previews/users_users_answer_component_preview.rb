@@ -32,20 +32,39 @@ class UsersUsersAnswerComponentPreview < ViewComponent::Preview
   DEFAULT_DESCRIPTION = 'Rubyでは配列を扱うメソッドが豊富に用意されています。mapやselectなどを使うことで効率的にデータを処理できます。'
 
   def mock_question_user
-    OpenStruct.new(
-      id: 2, login_name: 'questioner', name: '質問者',
-      primary_role: 'student', avatar_url: 'https://via.placeholder.com/40', icon_title: '質問者'
+    user = OpenStruct.new(
+      id: 2, login_name: 'questioner', name: '質問者', long_name: '質問者 (シツモンシャ)',
+      primary_role: 'student', avatar_url: 'https://via.placeholder.com/40', icon_title: '質問者',
+      user_icon_frame_class: 'a-user-role is-student'
     )
+    user.define_singleton_method(:icon_classes) { |image_class| ['a-user-icon', image_class].compact.join(' ') }
+    user.define_singleton_method(:to_param) { 'questioner' }
+    user.define_singleton_method(:persisted?) { true }
+    user.define_singleton_method(:model_name) { OpenStruct.new(route_key: 'users', singular_route_key: 'user') }
+    user
+  end
+
+  def mock_question(question_solved)
+    practice = OpenStruct.new(id: 1, title: 'Rubyの基礎を理解する')
+    practice.define_singleton_method(:to_param) { '1' }
+    practice.define_singleton_method(:persisted?) { true }
+    practice.define_singleton_method(:model_name) { OpenStruct.new(route_key: 'practices', singular_route_key: 'practice') }
+
+    question = OpenStruct.new(
+      id: 1, title: 'Rubyの配列操作について', user: mock_question_user,
+      practice: practice,
+      correct_answer: question_solved ? OpenStruct.new(id: 1) : nil
+    )
+    question.define_singleton_method(:to_param) { '1' }
+    question.define_singleton_method(:persisted?) { true }
+    question.define_singleton_method(:model_name) { OpenStruct.new(route_key: 'questions', singular_route_key: 'question') }
+    question
   end
 
   def mock_answer(is_best: false, question_solved: false, description: DEFAULT_DESCRIPTION)
-    question = OpenStruct.new(
-      id: 1, title: 'Rubyの配列操作について', user: mock_question_user,
-      correct_answer: question_solved ? OpenStruct.new(id: 1) : nil
-    )
     OpenStruct.new(
       id: 1, type: is_best ? 'CorrectAnswer' : 'Answer',
-      description: description, question: question, updated_at: 2.days.ago
+      description: description, question: mock_question(question_solved), updated_at: 2.days.ago
     )
   end
 end

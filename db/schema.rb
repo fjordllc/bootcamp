@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_30_072542) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_bigm"
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
 
@@ -52,6 +53,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
     t.datetime "updated_at", precision: nil, null: false
     t.bigint "user_id"
     t.boolean "wip", default: false, null: false
+    t.index ["description"], name: "index_announcements_on_description_bigm", opclass: :gin_bigm_ops, using: :gin
+    t.index ["title"], name: "index_announcements_on_title_bigm", opclass: :gin_bigm_ops, using: :gin
     t.index ["user_id"], name: "index_announcements_on_user_id"
   end
 
@@ -62,6 +65,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
     t.string "type"
     t.datetime "updated_at", precision: nil
     t.integer "user_id"
+    t.index ["description"], name: "index_answers_on_description_bigm", opclass: :gin_bigm_ops, using: :gin
     t.index ["question_id", "type"], name: "index_answers_on_question_id_and_type", unique: true
     t.index ["question_id"], name: "index_answers_on_question_id"
     t.index ["user_id"], name: "index_answers_on_user_id"
@@ -216,6 +220,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
     t.datetime "updated_at", precision: nil
     t.integer "user_id"
     t.index ["commentable_id"], name: "index_comments_on_commentable_id"
+    t.index ["description"], name: "index_comments_on_description_bigm", opclass: :gin_bigm_ops, using: :gin
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -290,6 +295,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.boolean "wip", default: false, null: false
+    t.index ["description"], name: "index_events_on_description_bigm", opclass: :gin_bigm_ops, using: :gin
+    t.index ["title"], name: "index_events_on_title_bigm", opclass: :gin_bigm_ops, using: :gin
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
@@ -548,8 +555,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
     t.datetime "updated_at", precision: nil, null: false
     t.bigint "user_id"
     t.boolean "wip", default: false, null: false
+    t.index ["body"], name: "index_pages_on_body_bigm", opclass: :gin_bigm_ops, using: :gin
     t.index ["practice_id"], name: "index_pages_on_practice_id"
     t.index ["slug"], name: "index_pages_on_slug", unique: true
+    t.index ["title"], name: "index_pages_on_title_bigm", opclass: :gin_bigm_ops, using: :gin
     t.index ["updated_at"], name: "index_pages_on_updated_at"
     t.index ["user_id"], name: "index_pages_on_user_id"
   end
@@ -576,8 +585,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
     t.bigint "user_id", null: false
     t.boolean "wip", default: false, null: false
     t.index ["buddy_id"], name: "index_pair_works_on_buddy_id"
+    t.index ["description"], name: "index_pair_works_on_description_bigm", opclass: :gin_bigm_ops, using: :gin
     t.index ["practice_id"], name: "index_pair_works_on_practice_id"
     t.index ["published_at"], name: "index_pair_works_on_published_at"
+    t.index ["title"], name: "index_pair_works_on_title_bigm", opclass: :gin_bigm_ops, using: :gin
     t.index ["user_id"], name: "index_pair_works_on_user_id"
   end
 
@@ -590,6 +601,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
     t.index ["event_id"], name: "index_participations_on_event_id"
     t.index ["user_id", "event_id"], name: "index_participations_on_user_id_and_event_id", unique: true
     t.index ["user_id"], name: "index_participations_on_user_id"
+  end
+
+  create_table "piyo_chat_messages", force: :cascade do |t|
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.string "role", null: false
+    t.bigint "textbook_section_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["textbook_section_id"], name: "index_piyo_chat_messages_on_textbook_section_id"
+    t.index ["user_id", "textbook_section_id", "created_at"], name: "index_piyo_chat_messages_on_user_section_created"
+    t.index ["user_id"], name: "index_piyo_chat_messages_on_user_id"
   end
 
   create_table "practices", id: :serial, force: :cascade do |t|
@@ -607,7 +630,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
     t.string "title", limit: 255, null: false
     t.datetime "updated_at", precision: nil
     t.index ["category_id"], name: "index_practices_on_category_id"
+    t.index ["description"], name: "index_practices_on_description_bigm", opclass: :gin_bigm_ops, using: :gin
+    t.index ["goal"], name: "index_practices_on_goal_bigm", opclass: :gin_bigm_ops, using: :gin
     t.index ["source_id"], name: "index_practices_on_source_id"
+    t.index ["title"], name: "index_practices_on_title_bigm", opclass: :gin_bigm_ops, using: :gin
   end
 
   create_table "practices_books", force: :cascade do |t|
@@ -648,6 +674,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
     t.datetime "updated_at", precision: nil, null: false
     t.bigint "user_id"
     t.boolean "wip", default: false, null: false
+    t.index ["body"], name: "index_products_on_body_bigm", opclass: :gin_bigm_ops, using: :gin
     t.index ["commented_at"], name: "index_products_on_commented_at"
     t.index ["practice_id"], name: "index_products_on_practice_id"
     t.index ["user_id", "practice_id"], name: "index_products_on_user_id_and_practice_id", unique: true
@@ -655,7 +682,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
   end
 
   create_table "questions", id: :serial, force: :cascade do |t|
-    t.text "ai_answer"
     t.datetime "created_at", precision: nil
     t.text "description"
     t.bigint "practice_id"
@@ -664,7 +690,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
     t.datetime "updated_at", precision: nil
     t.integer "user_id"
     t.boolean "wip", default: false, null: false
+    t.index ["description"], name: "index_questions_on_description_bigm", opclass: :gin_bigm_ops, using: :gin
     t.index ["practice_id"], name: "index_questions_on_practice_id"
+    t.index ["title"], name: "index_questions_on_title_bigm", opclass: :gin_bigm_ops, using: :gin
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
@@ -696,6 +724,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
     t.index ["reactionable_type", "reactionable_id"], name: "index_reactions_on_reactionable_type_and_reactionable_id"
     t.index ["user_id", "reactionable_id", "reactionable_type", "kind"], name: "index_reactions_on_reactionable", unique: true
     t.index ["user_id"], name: "index_reactions_on_user_id"
+  end
+
+  create_table "reading_progresses", force: :cascade do |t|
+    t.boolean "completed", default: false, null: false
+    t.datetime "created_at", null: false
+    t.integer "last_block_index", default: 0
+    t.datetime "last_read_at"
+    t.float "read_ratio", default: 0.0, null: false
+    t.bigint "textbook_section_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["textbook_section_id"], name: "index_reading_progresses_on_textbook_section_id"
+    t.index ["user_id", "textbook_section_id"], name: "index_reading_progresses_on_user_id_and_textbook_section_id", unique: true
+    t.index ["user_id"], name: "index_reading_progresses_on_user_id"
   end
 
   create_table "regular_event_participations", force: :cascade do |t|
@@ -731,6 +773,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.boolean "wip", default: false, null: false
+    t.index ["description"], name: "index_regular_events_on_description_bigm", opclass: :gin_bigm_ops, using: :gin
+    t.index ["title"], name: "index_regular_events_on_title_bigm", opclass: :gin_bigm_ops, using: :gin
     t.index ["user_id"], name: "index_regular_events_on_user_id"
   end
 
@@ -753,6 +797,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
     t.integer "user_id", null: false
     t.boolean "wip", default: false, null: false
     t.index ["created_at"], name: "index_reports_on_created_at"
+    t.index ["description"], name: "index_reports_on_description_bigm", opclass: :gin_bigm_ops, using: :gin
+    t.index ["title"], name: "index_reports_on_title_bigm", opclass: :gin_bigm_ops, using: :gin
     t.index ["user_id", "reported_on"], name: "index_reports_on_user_id_and_reported_on", unique: true
     t.index ["user_id", "title"], name: "index_reports_on_user_id_and_title", unique: true
     t.index ["user_id"], name: "reports_user_id"
@@ -1012,6 +1058,49 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
     t.index ["user_id"], name: "index_talks_on_user_id"
   end
 
+  create_table "term_explanations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "explanation", null: false
+    t.string "term", null: false
+    t.bigint "textbook_section_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["textbook_section_id", "term"], name: "index_term_explanations_on_textbook_section_id_and_term", unique: true
+    t.index ["textbook_section_id"], name: "index_term_explanations_on_textbook_section_id"
+  end
+
+  create_table "textbook_chapters", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "position", null: false
+    t.bigint "textbook_id", null: false
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.index ["textbook_id", "position"], name: "index_textbook_chapters_on_textbook_id_and_position", unique: true
+    t.index ["textbook_id"], name: "index_textbook_chapters_on_textbook_id"
+  end
+
+  create_table "textbook_sections", force: :cascade do |t|
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.integer "estimated_minutes"
+    t.text "goals", default: [], array: true
+    t.text "key_terms", default: [], array: true
+    t.integer "position", null: false
+    t.bigint "textbook_chapter_id", null: false
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.index ["textbook_chapter_id"], name: "index_textbook_sections_on_textbook_chapter_id"
+  end
+
+  create_table "textbooks", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.bigint "practice_id"
+    t.boolean "published", default: false, null: false
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.index ["practice_id"], name: "index_textbooks_on_practice_id"
+  end
+
   create_table "users", id: :serial, force: :cascade do |t|
     t.datetime "accessed_at", precision: nil
     t.boolean "admin", default: false, null: false
@@ -1082,9 +1171,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
     t.string "unsubscribe_email_token"
     t.datetime "updated_at", precision: nil
     t.index ["course_id"], name: "index_users_on_course_id"
+    t.index ["description"], name: "index_users_on_description_bigm", opclass: :gin_bigm_ops, using: :gin
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true
     t.index ["login_name"], name: "index_users_on_login_name", unique: true
+    t.index ["login_name"], name: "index_users_on_login_name_bigm", opclass: :gin_bigm_ops, using: :gin
+    t.index ["name"], name: "index_users_on_name_bigm", opclass: :gin_bigm_ops, using: :gin
+    t.index ["name_kana"], name: "index_users_on_name_kana_bigm", opclass: :gin_bigm_ops, using: :gin
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
@@ -1156,6 +1249,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
   add_foreign_key "pair_works", "users", column: "buddy_id"
   add_foreign_key "participations", "events"
   add_foreign_key "participations", "users"
+  add_foreign_key "piyo_chat_messages", "textbook_sections"
+  add_foreign_key "piyo_chat_messages", "users"
   add_foreign_key "practices", "practices", column: "source_id"
   add_foreign_key "practices_books", "books"
   add_foreign_key "practices_books", "practices"
@@ -1167,6 +1262,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
   add_foreign_key "radio_button_choices", "radio_buttons"
   add_foreign_key "radio_buttons", "survey_questions"
   add_foreign_key "reactions", "users"
+  add_foreign_key "reading_progresses", "textbook_sections"
+  add_foreign_key "reading_progresses", "users"
   add_foreign_key "regular_event_participations", "regular_events"
   add_foreign_key "regular_event_participations", "users"
   add_foreign_key "regular_event_repeat_rules", "regular_events"
@@ -1190,5 +1287,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
   add_foreign_key "survey_questions", "users"
   add_foreign_key "surveys", "users"
   add_foreign_key "talks", "users"
+  add_foreign_key "term_explanations", "textbook_sections"
+  add_foreign_key "textbook_chapters", "textbooks"
+  add_foreign_key "textbook_sections", "textbook_chapters"
+  add_foreign_key "textbooks", "practices"
   add_foreign_key "works", "users"
 end

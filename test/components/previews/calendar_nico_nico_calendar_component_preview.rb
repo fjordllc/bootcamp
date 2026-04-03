@@ -8,7 +8,7 @@ class CalendarNicoNicoCalendarComponentPreview < ViewComponent::Preview
 
     render(Calendar::NicoNicoCalendarComponent.new(
              user: user,
-             path: '/reports/calendar',
+             path: :niconico_calendar_date_path,
              current_date: current_date,
              current_calendar: current_calendar
            ))
@@ -21,7 +21,7 @@ class CalendarNicoNicoCalendarComponentPreview < ViewComponent::Preview
 
     render(Calendar::NicoNicoCalendarComponent.new(
              user: user,
-             path: '/reports/calendar',
+             path: :niconico_calendar_date_path,
              current_date: current_date,
              current_calendar: current_calendar
            ))

@@ -65,7 +65,7 @@ class ProductsProductComponentPreview < ViewComponent::Preview
   private
 
   def mock_user(name: 'yamada', role: 'student')
-    OpenStruct.new(
+    user = OpenStruct.new(
       id: 1,
       login_name: name,
       name: name,
@@ -75,10 +75,15 @@ class ProductsProductComponentPreview < ViewComponent::Preview
       joining_status: 'active',
       avatar_url: 'https://via.placeholder.com/40',
       icon_title: name,
-      user_icon_frame_class: '',
+      user_icon_frame_class: "a-user-role is-#{role}",
       training_ends_on: nil,
       training_remaining_days: nil
     )
+    user.define_singleton_method(:icon_classes) { |image_class| ['a-user-icon', image_class].compact.join(' ') }
+    user.define_singleton_method(:to_param) { name }
+    user.define_singleton_method(:persisted?) { true }
+    user.define_singleton_method(:model_name) { OpenStruct.new(route_key: 'users', singular_route_key: 'user') }
+    user
   end
 
   def mock_checker

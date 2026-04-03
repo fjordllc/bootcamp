@@ -30,15 +30,14 @@ class LearningsLearningComponentPreview < ViewComponent::Preview
       submission?: submission
     )
     practice.define_singleton_method(:product) { |_user| nil }
+    practice.define_singleton_method(:completed?) { |_user| false }
     practice
   end
 
   def mock_user
-    user = OpenStruct.new(
+    OpenStruct.new(
       id: 1,
       login_name: 'yamada'
     )
-    user.define_singleton_method(:completed?) { |_practice| false }
-    user
   end
 end
