@@ -45,9 +45,10 @@ class ProductsUnassignedProductsComponentPreview < ViewComponent::Preview
 
     PreviewHelper::MockProduct.new(
       id: rand(1..100), wip: false, user: user, practice: practice,
-      comments: [], published_at: published_at, created_at: published_at,
+      comments: [], commented_users: OpenStruct.new(distinct: []),
+      published_at: published_at, created_at: published_at,
       updated_at: Time.current, checker_id: nil, checker: nil,
-      checks: OpenStruct.new(last: nil)
+      checks: [], self_last_commented_at: nil, mentor_last_commented_at: nil
     )
   end
 
