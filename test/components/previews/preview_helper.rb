@@ -69,6 +69,25 @@ module PreviewHelper
     def graduated? = false
   end
 
+  # ActiveModelに準拠したWorkモック
+  class MockWork
+    include ActiveModel::Model
+    include ActiveModel::Attributes
+
+    attribute :id, :integer
+    attribute :title, :string
+    attribute :description, :string
+    attribute :user
+    attribute :thumbnail
+    attribute :thumbnail_url, :string
+    attribute :created_at
+
+    def persisted? = true
+    def to_param = id.to_s
+    def to_model = self
+    def model_name = ActiveModel::Name.new(Work, nil, 'Work')
+  end
+
   # ActiveModelに準拠した汎用リソースモック
   class MockResource
     include ActiveModel::Model
@@ -78,6 +97,7 @@ module PreviewHelper
 
     def persisted? = true
     def to_param = id.to_s
+    def to_model = self
   end
 
   def build_mock_user(attrs = {})

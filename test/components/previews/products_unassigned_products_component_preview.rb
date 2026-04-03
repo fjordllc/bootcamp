@@ -43,16 +43,12 @@ class ProductsUnassignedProductsComponentPreview < ViewComponent::Preview
     practice = OpenStruct.new(id: 1, title: 'Rubyの基礎を理解する')
     published_at = days_ago.days.ago
 
-    product = OpenStruct.new(
-      id: rand(1..100), wip?: false, user: user, practice: practice,
+    PreviewHelper::MockProduct.new(
+      id: rand(1..100), wip: false, user: user, practice: practice,
       comments: [], published_at: published_at, created_at: published_at,
       updated_at: Time.current, checker_id: nil, checker: nil,
       checks: OpenStruct.new(last: nil)
     )
-    product.define_singleton_method(:to_param) { product.id.to_s }
-    product.define_singleton_method(:persisted?) { true }
-    product.define_singleton_method(:model_name) { ActiveModel::Name.new(nil, nil, 'Product') }
-    product
   end
 
   def build_products(include_urgent: false)

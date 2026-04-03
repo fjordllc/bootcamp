@@ -9,13 +9,6 @@ class SkippedPracticeComponentPreview < ViewComponent::Preview
   # カタログ上で示す目的で配置しています。
 
   def default
-    render(inline: <<~HTML)
-      <div class="a-card" style="padding: 1rem;">
-        <p><strong>SkippedPracticeComponent</strong></p>
-        <p>このコンポーネントはActiveRecordとform builderに依存するため、<br>
-        Lookbook上ではプレビューできません。</p>
-        <p>実際のフォーム画面で確認してください。</p>
-      </div>
-    HTML
+    render_with_template(template: 'skipped_practice_component_preview/default')
   end
 end

@@ -30,15 +30,13 @@ class ProductsUserProductsComponentPreview < ViewComponent::Preview
     user = build_mock_user
     practice = OpenStruct.new(id: 1, title: practice_title)
 
-    product = OpenStruct.new(
-      id: rand(1..100), wip?: false, user: user, practice: practice,
-      comments: [], published_at: 2.days.ago, created_at: 2.days.ago,
+    PreviewHelper::MockProduct.new(
+      id: rand(1..100), wip: false, user: user, practice: practice,
+      comments: [], commented_users: OpenStruct.new(distinct: []),
+      published_at: 2.days.ago, created_at: 2.days.ago,
       updated_at: Time.current, checker_id: nil, checker: nil,
-      checks: OpenStruct.new(last: nil)
+      checks: [],
+      self_last_commented_at: nil, mentor_last_commented_at: nil
     )
-    product.define_singleton_method(:to_param) { product.id.to_s }
-    product.define_singleton_method(:persisted?) { true }
-    product.define_singleton_method(:model_name) { ActiveModel::Name.new(nil, nil, 'Product') }
-    product
   end
 end
