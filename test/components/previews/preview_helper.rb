@@ -1,18 +1,58 @@
 # frozen_string_literal: true
 
-# Lookbook previewのユーザーモックに共通メソッドを追加するヘルパー
+# Lookbook previewで使う共通モッククラス
 module PreviewHelper
-  def add_user_routing_methods(user)
-    login = user.login_name
-    user.define_singleton_method(:to_param) { login }
-    user.define_singleton_method(:persisted?) { true }
-    user.define_singleton_method(:model_name) do
-      OpenStruct.new(route_key: 'users', singular_route_key: 'user', param_key: 'user')
-    end
-    user.define_singleton_method(:icon_classes) do |image_class|
+  # ActiveModelに準拠したユーザーモック
+  class MockUser
+    include ActiveModel::Model
+    include ActiveModel::Attributes
+
+    attribute :id, :integer
+    attribute :login_name, :string
+    attribute :name, :string
+    attribute :name_kana, :string
+    attribute :long_name, :string
+    attribute :primary_role, :string, default: 'student'
+    attribute :joining_status, :string, default: 'active'
+    attribute :avatar_url, :string, default: 'https://via.placeholder.com/40'
+    attribute :icon_title, :string
+    attribute :training_ends_on
+    attribute :training_remaining_days
+
+    def persisted? = true
+    def to_param = login_name
+
+    def icon_classes(image_class)
       ['a-user-icon', image_class].compact.join(' ')
     end
-    user.user_icon_frame_class ||= "a-user-role is-#{user.primary_role || 'student'}"
-    user
+
+    def user_icon_frame_class
+      "a-user-role is-#{primary_role}"
+    end
+
+    def model_name
+      ActiveModel::Name.new(nil, nil, 'User')
+    end
+
+    def online? = false
+    def admin? = false
+    def mentor? = primary_role == 'mentor'
+    def graduated? = false
+  end
+
+  # ActiveModelに準拠した汎用リソースモック
+  class MockResource
+    include ActiveModel::Model
+    include ActiveModel::Attributes
+
+    attribute :id, :integer
+
+    def persisted? = true
+    def to_param = id.to_s
+  end
+
+  def build_mock_user(attrs = {})
+    defaults = { id: 1, login_name: 'yamada', name: 'yamada', icon_title: 'yamada' }
+    PreviewHelper::MockUser.new(defaults.merge(attrs))
   end
 end

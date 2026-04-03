@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ProductsUnassignedProductsComponentPreview < ViewComponent::Preview
+  include PreviewHelper
+
   def default
     products = build_products
     grouped = group_products(products)
@@ -8,10 +10,8 @@ class ProductsUnassignedProductsComponentPreview < ViewComponent::Preview
     render(Products::UnassignedProductsComponent.new(
              products: products,
              products_grouped_by_elapsed_days: grouped,
-             is_mentor: true,
-             is_admin: false,
-             current_user_id: 2,
-             reply_warning_days: 5
+             is_mentor: true, is_admin: false,
+             current_user_id: 2, reply_warning_days: 5
            ))
   end
 
@@ -22,10 +22,8 @@ class ProductsUnassignedProductsComponentPreview < ViewComponent::Preview
     render(Products::UnassignedProductsComponent.new(
              products: products,
              products_grouped_by_elapsed_days: grouped,
-             is_mentor: true,
-             is_admin: false,
-             current_user_id: 2,
-             reply_warning_days: 5
+             is_mentor: true, is_admin: false,
+             current_user_id: 2, reply_warning_days: 5
            ))
   end
 
@@ -33,54 +31,28 @@ class ProductsUnassignedProductsComponentPreview < ViewComponent::Preview
     render(Products::UnassignedProductsComponent.new(
              products: [],
              products_grouped_by_elapsed_days: {},
-             is_mentor: true,
-             is_admin: false,
-             current_user_id: 2,
-             reply_warning_days: 5
+             is_mentor: true, is_admin: false,
+             current_user_id: 2, reply_warning_days: 5
            ))
   end
 
   private
 
-  def mock_user(name:, role: 'student')
-    user = OpenStruct.new(
-      id: rand(1..100),
-      login_name: name,
-      name: name,
-      name_kana: 'テスト',
-      primary_role: role,
-      joining_status: 'active',
-      avatar_url: 'https://via.placeholder.com/40',
-      icon_title: name,
-      user_icon_frame_class: "a-user-role is-#{role}",
-      training_ends_on: nil,
-      training_remaining_days: nil
-    )
-    user.define_singleton_method(:icon_classes) { |image_class| ['a-user-icon', image_class].compact.join(' ') }
-    user.define_singleton_method(:to_param) { name }
-    user.define_singleton_method(:persisted?) { true }
-    user.define_singleton_method(:model_name) { OpenStruct.new(route_key: 'users', singular_route_key: 'user') }
-    user
-  end
-
   def mock_product(user_name:, days_ago:)
-    user = mock_user(name: user_name)
+    user = build_mock_user(login_name: user_name, name: user_name, icon_title: user_name)
     practice = OpenStruct.new(id: 1, title: 'Rubyの基礎を理解する')
     published_at = days_ago.days.ago
 
-    OpenStruct.new(
-      id: rand(1..100),
-      wip?: false,
-      user: user,
-      practice: practice,
-      comments: [],
-      published_at: published_at,
-      created_at: published_at,
-      updated_at: Time.current,
-      checker_id: nil,
-      checker: nil,
+    product = OpenStruct.new(
+      id: rand(1..100), wip?: false, user: user, practice: practice,
+      comments: [], published_at: published_at, created_at: published_at,
+      updated_at: Time.current, checker_id: nil, checker: nil,
       checks: OpenStruct.new(last: nil)
     )
+    product.define_singleton_method(:to_param) { product.id.to_s }
+    product.define_singleton_method(:persisted?) { true }
+    product.define_singleton_method(:model_name) { ActiveModel::Name.new(nil, nil, 'Product') }
+    product
   end
 
   def build_products(include_urgent: false)
@@ -101,14 +73,10 @@ class ProductsUnassignedProductsComponentPreview < ViewComponent::Preview
 
     products.group_by do |product|
       elapsed = ((Time.current - product.published_at) / 1.day).floor
-      if elapsed >= reply_deadline_days
-        reply_deadline_days
-      elsif elapsed >= reply_alert_days
-        reply_alert_days
-      elsif elapsed >= reply_warning_days
-        reply_warning_days
-      else
-        elapsed
+      if elapsed >= reply_deadline_days then reply_deadline_days
+      elsif elapsed >= reply_alert_days then reply_alert_days
+      elsif elapsed >= reply_warning_days then reply_warning_days
+      else elapsed
       end
     end
   end

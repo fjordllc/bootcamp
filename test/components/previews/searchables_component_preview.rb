@@ -1,28 +1,25 @@
 # frozen_string_literal: true
 
 class SearchablesComponentPreview < ViewComponent::Preview
-  def default
-    searchables = [mock_searchable(:report, 1), mock_searchable(:page, 2)]
-    users = { 1 => mock_user('yamada'), 2 => mock_user('tanaka') }
-
-    render(SearchablesComponent.new(searchables: searchables, users: users, word: 'Ruby', talks: {}))
-  end
-
-  def empty_results
-    render(SearchablesComponent.new(
-             searchables: [],
-             users: {},
-             word: 'notfound',
-             talks: {}
-           ))
-  end
-
-  private
+  include PreviewHelper
 
   SEARCHABLE_DATA = {
     report: { title: '学習日報: Rubyの基礎', label: '日報', url: '/reports/1' },
     page: { title: 'Ruby入門ガイド', label: 'ページ', url: '/pages/1' }
   }.freeze
+
+  def default
+    searchables = [mock_searchable(:report, 1), mock_searchable(:page, 2)]
+    users = { 1 => build_mock_user, 2 => build_mock_user(id: 2, login_name: 'tanaka', name: 'tanaka', icon_title: 'tanaka') }
+
+    render(SearchablesComponent.new(searchables: searchables, users: users, word: 'Ruby', talks: {}))
+  end
+
+  def empty_results
+    render(SearchablesComponent.new(searchables: [], users: {}, word: 'notfound', talks: {}))
+  end
+
+  private
 
   def mock_searchable(type, user_id)
     data = SEARCHABLE_DATA[type]
@@ -31,22 +28,5 @@ class SearchablesComponentPreview < ViewComponent::Preview
       search_title: data[:title], search_label: data[:label], search_url: data[:url],
       updated_at: rand(1..7).days.ago, class: OpenStruct.new(name: type.to_s.classify)
     )
-  end
-
-  def mock_user(name)
-    user = OpenStruct.new(
-      id: rand(1..100),
-      login_name: name,
-      name: name,
-      primary_role: 'student',
-      avatar_url: 'https://via.placeholder.com/40',
-      icon_title: name,
-      user_icon_frame_class: 'a-user-role is-student'
-    )
-    user.define_singleton_method(:icon_classes) { |image_class| ['a-user-icon', image_class].compact.join(' ') }
-    user.define_singleton_method(:to_param) { name }
-    user.define_singleton_method(:persisted?) { true }
-    user.define_singleton_method(:model_name) { OpenStruct.new(route_key: 'users', singular_route_key: 'user') }
-    user
   end
 end
