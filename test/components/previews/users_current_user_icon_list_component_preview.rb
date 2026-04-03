@@ -26,7 +26,7 @@ class UsersCurrentUserIconListComponentPreview < ViewComponent::Preview
   private
 
   def mock_user(name:, role:, online:)
-    OpenStruct.new(
+    user = OpenStruct.new(
       id: rand(1000),
       login_name: name,
       name: name,
@@ -34,7 +34,10 @@ class UsersCurrentUserIconListComponentPreview < ViewComponent::Preview
       avatar_url: 'https://via.placeholder.com/40',
       icon_title: name,
       online?: online,
+      user_icon_frame_class: "a-user-role is-#{role}",
       updated_at: online ? 5.minutes.ago : 2.hours.ago
     )
+    user.define_singleton_method(:icon_classes) { |image_class| ['a-user-icon', image_class].compact.join(' ') }
+    user
   end
 end

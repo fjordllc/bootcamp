@@ -90,7 +90,21 @@ class ProductsUnassignedProductsComponentPreview < ViewComponent::Preview
     products
   end
 
-  def group_products(products)
-    products.group_by { |p| ((Time.current - p.published_at) / 1.day).floor }
+  def group_products(products, reply_warning_days: 5)
+    reply_alert_days = reply_warning_days + 1
+    reply_deadline_days = reply_warning_days + 2
+
+    products.group_by do |product|
+      elapsed = ((Time.current - product.published_at) / 1.day).floor
+      if elapsed >= reply_deadline_days
+        reply_deadline_days
+      elsif elapsed >= reply_alert_days
+        reply_alert_days
+      elsif elapsed >= reply_warning_days
+        reply_warning_days
+      else
+        elapsed
+      end
+    end
   end
 end

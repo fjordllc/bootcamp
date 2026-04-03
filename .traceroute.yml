@@ -7,10 +7,12 @@ ignore_unused_routes:
   - jobs/mass_update
   - doorkeeper/authorizations#show
   - mission_control\/.*
+  - lookbook\/.*
 ignore_unreachable_actions:
   - rails\/.*
   - active_storage\/.*
   - mission_control\/.*
+  - lookbook\/.*
   - .*#admin_login\?
   - .*#mentor_login\?
   - .*#admin_or_mentor_login\?
