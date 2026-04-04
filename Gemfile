@@ -112,6 +112,7 @@ group :development do
   gem 'foreman'
   gem 'letter_opener_web', '~> 2.0'
   gem 'listen', '~> 3.3'
+  gem 'lookbook', '~> 2.3'
   gem 'rack-dev-mark'
   gem 'rack-mini-profiler', '~> 2.0', require: false
   gem 'view_source_map'
