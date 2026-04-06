@@ -36,3 +36,14 @@
   width: 42.5rem;
   max-width: 100%;
 }
+
+.form__items.is-group {
+  border: solid 1px var(--border);
+  border-radius: .25rem;
+  padding: 1rem;
+  position: relative;
+}
+
+.cocooned-item:not(:last-child) .form__items.is-group {
+  margin-bottom: 1rem;
+}
