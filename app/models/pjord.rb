@@ -31,9 +31,9 @@ class Pjord
       User.find_by(login_name: LOGIN_NAME)
     end
 
-    def respond(message:, context: {})
+    def respond(message:, context: {}, instructions: nil)
       chat = RubyLLM.chat(model: model_name)
-      chat.with_instructions(system_prompt(context))
+      chat.with_instructions(system_prompt(context, instructions:))
       chat.with_tool(BootcampSearchTool)
       chat.with_tool(UserInfoTool)
       result = chat.ask(message).content
@@ -46,9 +46,10 @@ class Pjord
       ENV.fetch('PJORD_LLM_MODEL', 'claude-sonnet-4-6')
     end
 
-    def system_prompt(context)
+    def system_prompt(context, instructions: nil)
       parts = [SYSTEM_PROMPT]
 
+      parts << "## 追加の指示\n#{instructions}" if instructions.present?
       parts << "## 現在の場所\n#{context[:location]}" if context[:location].present?
       parts << "## 関連プラクティス\n#{context[:practice]}" if context[:practice].present?
       parts << "## メンションしてきたユーザー\nログイン名: #{context[:sender_login_name]}" if context[:sender_login_name].present?
