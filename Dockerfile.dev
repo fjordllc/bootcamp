@@ -1,0 +1,38 @@
+# Dev用軽量イメージ (bind mount前提、deps only)
+FROM ruby:3.4.3-slim
+
+ENV LANG=C.UTF-8 \
+    TZ=Asia/Tokyo \
+    BUNDLE_PATH=/workspace/vendor/bundle \
+    BOOTSNAP_CACHE_DIR=/workspace/vendor/bundle \
+    BINDING=0.0.0.0
+
+RUN apt-get update -qq && apt-get install -y --no-install-recommends \
+      build-essential \
+      git \
+      curl \
+      gnupg2 \
+      ca-certificates \
+      libpq-dev \
+      libyaml-dev \
+      libvips-dev \
+      postgresql-client \
+      tzdata \
+      vim && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends nodejs && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN gem update --system && \
+    gem install --no-document bundler -v 2.4.21
+
+RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+
+WORKDIR /workspace
+
+EXPOSE 3000
+
+CMD ["bin/dev"]

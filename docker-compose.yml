@@ -1,0 +1,57 @@
+# Linux用dev環境。worktree並列開発を想定。
+# 各worktreeで独立したDBコンテナを持つため、DB名の衝突は発生しない。
+# .env.local から WEB_PORT を読む (ホストポートのみworktree間で調整)
+# COMPOSE_PROJECT_NAME は .env.local で明示 (claude-launcher が生成)
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: >
+      bash -lc "
+      bundle check > /dev/null 2>&1 || bundle install -j4 &&
+      (test -d node_modules/.bin || npm install) &&
+      bin/rails db:prepare &&
+      exec bin/dev
+      "
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    environment:
+      BINDING: 0.0.0.0
+      DATABASE_URL: postgres://postgres:postgres@db:5432
+      HISTFILE: /workspace/log/.bash_history
+    volumes:
+      - .:/workspace
+      - bundle:/workspace/vendor/bundle
+      - node_modules:/workspace/node_modules
+      - rails_cache:/workspace/tmp/cache
+      - packs:/workspace/public/packs
+      - packs_test:/workspace/public/packs-test
+    tmpfs:
+      - /tmp
+    depends_on:
+      db:
+        condition: service_healthy
+    tty: true
+    stdin_open: true
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  bundle:
+  node_modules:
+  rails_cache:
+  packs:
+  packs_test:
+  pgdata:
