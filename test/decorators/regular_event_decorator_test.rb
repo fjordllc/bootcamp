@@ -109,4 +109,30 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
       reason: '祝日(昭和の日)のため'
     }
   end
+
+  test '#out_of_rule_skip_dates' do
+    weekly_wed_event = ActiveDecorator::Decorator.instance.decorate(regular_events(:regular_event7))
+
+    skip_date = weekly_wed_event.regular_event_skip_dates.create!(
+      skip_on: Date.new(2026, 4, 28),
+      reason: '火曜日で登録したスキップ日'
+    )
+
+    out_of_rule_skip_dates = weekly_wed_event.out_of_rule_skip_dates(from: Date.new(2026, 4, 1))
+
+    assert_includes out_of_rule_skip_dates, skip_date
+  end
+
+  test '#out_of_rule_skip_dates is empty when all skip dates follow the repeat rules' do
+    weekly_wed_event = ActiveDecorator::Decorator.instance.decorate(regular_events(:regular_event7))
+
+    weekly_wed_event.regular_event_skip_dates.create!(
+      skip_on: Date.new(2026, 4, 29), # 火曜日（水曜イベントに対してルール外）
+      reason: '火曜日で登録したスキップ日'
+    )
+
+    out_of_rule_skip_dates = weekly_wed_event.out_of_rule_skip_dates(from: Date.new(2026, 4, 1))
+
+    assert_empty out_of_rule_skip_dates
+  end
 end
