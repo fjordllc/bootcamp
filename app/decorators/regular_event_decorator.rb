@@ -19,21 +19,41 @@ module RegularEventDecorator
     end
   end
 
-  def upcoming_skip_event_dates(from: Time.zone.today, limit: 5)
+  def upcoming_excluded_dates(from: Time.zone.today, limit: 5)
     to = from.next_year
 
-    skip_dates = regular_event_skip_dates
-                 .where(skip_on: from..to)
-                 .pluck(:skip_on, :reason)
-                 .map { |date, reason| { date:, reason: } }
-
-    skip_holidays = HolidayJp.between(from, to)
-                             .filter_map do |holiday|
-                               { date: holiday.date, reason: "祝日(#{holiday.name})のため" } if date_match_the_rules?(holiday.date, regular_event_repeat_rules)
-    end
-
-    (skip_dates + skip_holidays)
+    excluded_dates(matched_holidays(from, to), matched_skip_dates(from, to))
       .sort_by { |h| h[:date] }
       .first(limit)
+  end
+
+  private
+
+  def matched_skip_dates(from, to)
+    regular_event_skip_dates.where(skip_on: from..to).pluck(:skip_on, :reason)
+                            .filter_map do |date, reason|
+                              next unless date_match_the_rules?(date, regular_event_repeat_rules)
+
+                              { date:, reason: }
+    end
+  end
+
+  def matched_holidays(from, to)
+    HolidayJp.between(from, to).filter_map do |h|
+      next unless date_match_the_rules?(h.date, regular_event_repeat_rules)
+
+      { date: h.date, reason: "祝日(#{h.name})のため" }
+    end
+  end
+
+  def excluded_dates(holidays, skip_dates)
+    (holidays + skip_dates)
+      .group_by { |h| h[:date] }
+      .map do |date, reasons|
+        {
+          date:,
+          reason: reasons.map { |r| r[:reason] }.reject(&:empty?).join('、')
+        }
+    end
   end
 end
