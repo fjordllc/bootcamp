@@ -89,7 +89,7 @@ class TrainingCompletionTest < ApplicationSystemTestCase
 
     within('.user-metas.is-only-mentor', text: '研修終了情報（非公開）') do
       within('.user-metas__item', text: '選択入力の研修感想') do
-        assert_text '未入力'
+        assert_selector '.user-metas__item-value', text: '未入力'
       end
     end
   end
