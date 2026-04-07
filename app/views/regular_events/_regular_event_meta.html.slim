@@ -26,7 +26,7 @@
             | イベント編集中のため次回開催日は未定です
           - else
             = regular_event.next_holding_date
-- if regular_event.upcoming_skip_event_dates.present?
+- if regular_event.upcoming_excluded_dates.present?
   .a-card
     header.card-header.is-sm
       h2.card-header__title
@@ -35,7 +35,7 @@
     .card-body__description
       .a-long-text.is-md
         ul
-          - regular_event.upcoming_skip_event_dates.each do |skip_date|
+          - regular_event.upcoming_excluded_dates.each do |skip_date|
             li
               = l skip_date[:date], format: :long
               - if skip_date[:reason].present?
