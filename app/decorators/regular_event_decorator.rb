@@ -27,6 +27,12 @@ module RegularEventDecorator
       .first(limit)
   end
 
+  def out_of_rule_skip_dates(from: Time.zone.today)
+    to = from.next_year
+
+    regular_event_skip_dates.where(skip_on: from..to).order(skip_on: :asc).reject { |s| date_match_the_rules?(s.skip_on, regular_event_repeat_rules) }
+  end
+
   private
 
   def matched_skip_dates(from, to)
