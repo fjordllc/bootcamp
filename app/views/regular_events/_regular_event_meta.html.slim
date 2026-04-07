@@ -26,29 +26,31 @@
             | イベント編集中のため次回開催日は未定です
           - else
             = regular_event.next_holding_date
-- if regular_event.upcoming_excluded_dates.present?
-  .a-card
-    header.card-header.is-sm
-      h2.card-header__title
-        | 今後のイベント休み予定
-    hr.a-border-tint
-    .card-body__description
-      .a-long-text.is-md
-        ul
-          - regular_event.upcoming_excluded_dates.each do |skip_date|
-            li
-              = l skip_date[:date], format: :long
-              - if skip_date[:reason].present?
-                | （#{skip_date[:reason]}）
-      - if regular_event.out_of_rule_skip_dates.present?
+
+- if !regular_event.finished?
+  - if regular_event.upcoming_excluded_dates.present?
+    .a-card
+      header.card-header.is-sm
+        h2.card-header__title
+          | 今後のイベント休み予定
+      hr.a-border-tint
+      .card-body__description
         .a-long-text.is-md
-          h6.card-header__title
-            | ルールに沿っていない休みが登録されています
-            br
-            | 参加者には表示されません
           ul
-            - regular_event.out_of_rule_skip_dates.each do |skip_date|
+            - regular_event.upcoming_excluded_dates.each do |skip_date|
               li
-                = l skip_date.skip_on, format: :long
-                - if skip_date.reason.present?
-                  | （#{skip_date.reason}）
+                = l skip_date[:date], format: :long
+                - if skip_date[:reason].present?
+                  | （#{skip_date[:reason]}）
+        - if regular_event.out_of_rule_skip_dates.present?
+          .a-long-text.is-md
+            h6.card-header__title
+              | ルールに沿っていない休みが登録されています
+              br
+              | 参加者には表示されません
+            ul
+              - regular_event.out_of_rule_skip_dates.each do |skip_date|
+                li
+                  = l skip_date.skip_on, format: :long
+                  - if skip_date.reason.present?
+                    | （#{skip_date.reason}）
