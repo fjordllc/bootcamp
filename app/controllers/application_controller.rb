@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   before_action :allow_cross_domain_access
   before_action :require_active_user_login
   before_action :set_current_user_practice
+  before_action :save_affiliate_rd_code
 
   protected
 
@@ -52,6 +53,10 @@ class ApplicationController < ActionController::Base
 
   def set_current_user_practice
     @current_user_practice = UserCoursePractice.new(current_user)
+  end
+
+  def save_affiliate_rd_code
+    session[:affiliate_rd_code] = params[:rd_code] if params[:rd_code].present?
   end
 
   protected

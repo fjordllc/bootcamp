@@ -112,6 +112,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
       notify_to_mentors(@user)
       notify_to_chat(@user)
       ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.trainee?
+      send_affiliate_kickback(@user)
       logger.info "[Signup] 4. after create times channel for free user. #{@user.email}"
       redirect_to created_users_path(role: determine_user_role(@user))
     else
@@ -158,6 +159,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
         notify_to_mentors(@user)
         notify_to_chat(@user)
         ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.student?
+        send_affiliate_kickback(@user)
         flash[:x_conversion] = 'signup'
         logger.info "[Signup] 8. after create times channel. #{@user.email}"
         redirect_to created_users_path(role: determine_user_role(@user))
@@ -167,6 +169,13 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     end
   end
   # rubocop:enable Metrics/MethodLength, Metrics/BlockLength
+
+  def send_affiliate_kickback(user)
+    rd_code = session.delete(:affiliate_rd_code)
+    return if rd_code.blank?
+
+    AffiliateKickbackJob.perform_later(user.id, rd_code)
+  end
 
   def notify_to_mentors(user)
     User.mentor.each do |mentor|
