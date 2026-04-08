@@ -12,7 +12,8 @@ services:
       bundle check > /dev/null 2>&1 || bundle install -j4 &&
       (test -d node_modules/.bin || npm install) &&
       bin/rails db:prepare &&
-      exec bin/dev
+      bin/rails tailwindcss:watch &
+      exec bin/rails server -b 0.0.0.0 -p 3000
       "
     ports:
       - "${WEB_PORT:-3000}:3000"
