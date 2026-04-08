@@ -10,7 +10,7 @@ services:
     command: >
       bash -lc "
       bundle check > /dev/null 2>&1 || bundle install -j4 &&
-      (test -d node_modules/.bin || npm install) &&
+      npm ci &&
       bin/rails db:prepare &&
       bin/rails tailwindcss:watch &
       exec bin/rails server -b 0.0.0.0 -p 3000

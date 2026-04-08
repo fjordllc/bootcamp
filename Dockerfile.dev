@@ -27,7 +27,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
     rm -rf /var/lib/apt/lists/*
 
 RUN gem update --system && \
-    gem install --no-document bundler -v 2.4.21
+    gem install --no-document bundler -v 2.7.2
 
 RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 

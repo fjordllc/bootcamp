@@ -84,4 +84,7 @@ alias dc='docker compose --env-file .env.local'
 - **5並列まで**を目安に (メモリ消費が大きい)
 - **初回ビルドは数分** (gem + npmインストール)
 - `.env.local` は `.gitignore` 対象、コミットしない
-- 不要になった worktree は `git worktree remove .claude/worktrees/<name>` + `docker compose --env-file .env.local down -v` で完全削除
+- 不要になった worktree の削除手順:
+  1. worktreeディレクトリで `docker compose --env-file .env.local down -v`
+  2. 親リポジトリで `git worktree remove .claude/worktrees/<name>`
+  - `.env.local` 削除済みの場合は `docker compose -p <COMPOSE_PROJECT_NAME> down -v` でプロジェクト名を直接指定
