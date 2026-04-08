@@ -27,30 +27,29 @@
           - else
             = regular_event.next_holding_date
 
-- if !regular_event.finished?
-  - if regular_event.upcoming_excluded_dates.present?
-    .a-card
-      header.card-header.is-sm
-        h2.card-header__title
-          | 今後のイベント休み予定
-      hr.a-border-tint
-      .card-body__description
-        .a-long-text.is-md
-          ul
-            - regular_event.upcoming_excluded_dates.each do |skip_date|
-              li
-                = l skip_date[:date], format: :long
-                - if skip_date[:reason].present?
-                  | （#{skip_date[:reason]}）
-          - if regular_event.organizers.exists?(current_user.id) && regular_event.out_of_repeat_rule_skip_dates.present?
-            .message.danger
-              h6
-                | 開催曜日と一致しない日がスキップ日として登録されています。
-                | この日はスキップ対象にならないため、不要であれば削除してください。
-                | （参加者には表示されません）
-              ul
-                - regular_event.out_of_repeat_rule_skip_dates.each do |skip_date|
-                  li
-                    = l skip_date.skip_on, format: :long
-                    - if skip_date.reason.present?
-                      | （#{skip_date.reason}）
+- if !regular_event.finished? && regular_event.upcoming_excluded_dates.present?
+  .a-card
+    header.card-header.is-sm
+      h2.card-header__title
+        | 今後のイベント休み予定
+    hr.a-border-tint
+    .card-body__description
+      .a-long-text.is-md
+        ul
+          - regular_event.upcoming_excluded_dates.each do |skip_date|
+            li
+              = l skip_date[:date], format: :long
+              - if skip_date[:reason].present?
+                | （#{skip_date[:reason]}）
+        - if regular_event.organizers.exists?(current_user.id) && regular_event.out_of_repeat_rule_skip_dates.present?
+          .message.danger
+            h6
+              | 開催曜日と一致しない日がスキップ日として登録されています。
+              | この日はスキップ対象にならないため、不要であれば削除してください。
+              | （参加者には表示されません）
+            ul
+              - regular_event.out_of_repeat_rule_skip_dates.each do |skip_date|
+                li
+                  = l skip_date.skip_on, format: :long
+                  - if skip_date.reason.present?
+                    | （#{skip_date.reason}）
