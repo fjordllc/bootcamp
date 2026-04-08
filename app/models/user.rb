@@ -954,8 +954,8 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   end
 
   def clean_up_regular_events
-    regular_event_participations.for_holding_events.destroy_all
-    organize_regular_events.holding.each { |event| event.close_or_destroy_organizer(self) }
+    regular_event_participations.for_unfinished_events.destroy_all
+    organize_regular_events.exclude_finished.each { |event| event.close_or_destroy_organizer(self) }
   end
 
   private

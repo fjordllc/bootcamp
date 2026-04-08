@@ -188,8 +188,8 @@ class RegularEventTest < ActiveSupport::TestCase
     end
   end
 
-  test '.holding exclude wip and finished events' do
-    events = RegularEvent.holding
+  test '.not_finished exclude wip and finished events' do
+    events = RegularEvent.not_finished
     wip_event = regular_events(:regular_event42)
     finished_event = regular_events(:regular_event39)
     assert_not_includes events, wip_event
