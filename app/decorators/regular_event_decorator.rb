@@ -45,6 +45,8 @@ module RegularEventDecorator
   end
 
   def matched_holidays(from, to)
+    return [] if hold_national_holiday
+
     HolidayJp.between(from, to).filter_map do |h|
       next unless date_match_the_rules?(h.date, regular_event_repeat_rules)
 

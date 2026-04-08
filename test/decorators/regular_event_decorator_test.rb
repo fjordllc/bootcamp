@@ -110,6 +110,22 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
     }
   end
 
+  test '#upcoming_excluded_dates does not include holidays when hold_national_holiday is true' do
+    weekly_wed_event = ActiveDecorator::Decorator.instance.decorate(regular_events(:regular_event7))
+    weekly_wed_event.update!(hold_national_holiday: true)
+
+    weekly_wed_event.regular_event_skip_dates.create!(
+      skip_on: Date.new(2026, 4, 8),
+      reason: '主催都合のため'
+    )
+
+    excluded_dates = weekly_wed_event.upcoming_excluded_dates(from: Date.new(2026, 4, 1), limit: 5)
+
+    assert_equal [
+      { date: Date.new(2026, 4, 8), reason: '主催都合のため' }
+    ], excluded_dates
+  end
+
   test '#out_of_repeat_rule_skip_dates' do
     weekly_wed_event = ActiveDecorator::Decorator.instance.decorate(regular_events(:regular_event7))
 
