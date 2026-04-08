@@ -73,7 +73,7 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
     skip_event_dates = weekly_wed_event.upcoming_excluded_dates(from: Date.new(2026, 4, 1), limit: 5)
 
     assert_not_includes skip_event_dates, {
-      date: Date.new(2026, 4, 28),
+      date: Date.new(2026, 4, 2),
       reason: '木曜日で登録したスキップ日'
     }
   end
@@ -143,7 +143,7 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
     weekly_wed_event = ActiveDecorator::Decorator.instance.decorate(regular_events(:regular_event7))
 
     weekly_wed_event.regular_event_skip_dates.create!(
-      skip_on: Date.new(2026, 4, 29), # 火曜日（水曜イベントに対してルール外）
+      skip_on: Date.new(2026, 4, 29),
       reason: '火曜日で登録したスキップ日'
     )
 
