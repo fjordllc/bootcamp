@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class StudyStreak::StudyStreakTrackerComponent < ViewComponent::Base
-  def initialize(study_streak:, target_user: nil)
+  def initialize(study_streak:, target_user:)
     @study_streak = study_streak
     @target_user = target_user
   end

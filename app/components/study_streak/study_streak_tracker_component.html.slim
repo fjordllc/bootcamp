@@ -2,7 +2,7 @@
   .card-header.is-sm
     h2.card-header__title
       | 学習連続記録
-    - if target_user
+    - if target_user == helpers.current_user
       .card-header__actions class="flex items-center gap-3"
         label.a-form-help-link.is-danger(for='modal-study-streak')
           span.a-form-help-link__label
@@ -16,7 +16,7 @@
                             class: "a-on-off-checkbox__input",
                             onchange: "this.form.submit()"
             span
-  - if target_user.nil? || target_user.show_study_streak
+  - if target_user.show_study_streak
     hr.a-border-tint
     .card-body
       .streak-container
