@@ -42,15 +42,15 @@
                 = l skip_date[:date], format: :long
                 - if skip_date[:reason].present?
                   | （#{skip_date[:reason]}）
-        - if regular_event.organizers.exists?(current_user.id) && regular_event.out_of_rule_skip_dates.present?
-          .a-long-text.is-md
-            h6.card-header__title
-              | ルールに沿っていないスキップ日が登録されています
-              br
-              | 参加者には表示されていません
-            ul
-              - regular_event.out_of_rule_skip_dates.each do |skip_date|
-                li
-                  = l skip_date.skip_on, format: :long
-                  - if skip_date.reason.present?
-                    | （#{skip_date.reason}）
+          - if regular_event.organizers.exists?(current_user.id) && regular_event.out_of_rule_skip_dates.present?
+            .message.danger
+              h6
+                | 開催曜日と一致しない日がスキップ日として登録されています。
+                | この日はスキップ対象にならないため、不要であれば削除してください。
+                | （参加者には表示されません）
+              ul
+                - regular_event.out_of_rule_skip_dates.each do |skip_date|
+                  li
+                    = l skip_date.skip_on, format: :long
+                    - if skip_date.reason.present?
+                      | （#{skip_date.reason}）
