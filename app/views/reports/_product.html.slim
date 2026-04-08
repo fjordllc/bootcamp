@@ -18,11 +18,12 @@
           .card-list-item-meta__items
             .card-list-item-meta__item
               - if product.published_at.nil?
-                time.a-meta datetime=product.created_at.iso8601
+                  time.a-meta datetime=product.created_at.iso8601
               - else
-                time.a-meta datetime=product.published_at.iso8601
-                = l product.published_at
-                | の提出物
+                  .a-meta
+                    time.a-meta__value datetime=product.published_at.iso8601
+                      = l product.published_at
+                    | の提出物
       - if product.comments.any?
         hr.card-list-item__row-separator
         .card-list-item__row

@@ -33,23 +33,26 @@
                   | 提出物作成中
             - elsif @product.published_at
               .card-list-item-meta__item
-                time.a-meta datetime=@product.published_at.iso8601
+                .a-meta
                   span.a-meta__label
                     | 提出
-                  = l(@product.published_at)
+                  time.a-meta__value datetime=@product.published_at.iso8601
+                    = l(@product.published_at)
             - else
               .card-list-item-meta__item
-                time.a-meta datetime=@product.created_at.iso8601
+                .a-meta
                   span.a-meta__label
                     | 提出
-                  = l(@product.created_at)
+                  time.a-meta datetime=@product.created_at.iso8601
+                    = l(@product.created_at)
 
             .card-list-item-meta__item
               - if @product.updated_at
-                time.a-meta datetime=@product.updated_at.iso8601
+                .a-meta
                   span.a-meta__label
                     | 更新
-                  = l(@product.updated_at)
+                  time.a-meta datetime=@product.updated_at.iso8601
+                    = l(@product.updated_at)
 
             - if @display_until_next_elapsed_days && elapsed_days < @reply_deadline_days
               .a-meta
