@@ -41,7 +41,7 @@
               = l skip_date[:date], format: :long
               - if skip_date[:reason].present?
                 | （#{skip_date[:reason]}）
-        - if regular_event.organizers.exists?(current_user.id) && regular_event.out_of_repeat_rule_skip_dates.present?
+        - if (admin_or_mentor_login? || regular_event.organizers.exists?(current_user.id)) && regular_event.out_of_repeat_rule_skip_dates.present?
           .message.danger
             h6
               | 開催曜日と一致しない日がスキップ日として登録されています。
