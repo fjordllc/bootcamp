@@ -10,14 +10,14 @@ class QuestionAutoCloser
   end
 
   def post_warning
-    question_ids = extract_inactive_questions_to_warn
+    question_ids = extract_inactive_question_ids_to_warn
     question_ids.each do |question_id|
       create_warning_message(question_id)
     end
   end
 
   def close_inactive_questions
-    question_ids = extract_inactive_questions_to_close
+    question_ids = extract_inactive_question_ids_to_close
     question_ids.each do |question_id|
       create_auto_close_message(question_id)
     end
@@ -25,7 +25,7 @@ class QuestionAutoCloser
 
   private
 
-  def extract_inactive_questions_to_warn
+  def extract_inactive_question_ids_to_warn
     base_time = 1.month.ago
     answers_summary = Answer
                       .select(
@@ -44,7 +44,7 @@ class QuestionAutoCloser
       .ids
   end
 
-  def extract_inactive_questions_to_close
+  def extract_inactive_question_ids_to_close
     # 警告投稿日を基準とするため`last_warned_at`の計算には`updated_at`ではなく`created_at`を使用する
     # 最後の更新が自動クローズメッセージ投稿であれば解決済みになっているため「未解決である」の条件と警告の文言のチェックのいずれか一方はなくても機能する
     # ただし可読性と安全性のために両方の条件を残しておく
