@@ -16,9 +16,7 @@ class AffiliateKickbackJob < ApplicationJob
       rd_code: rd_code
     )
     response = Net::HTTP.get_response(uri)
-    unless response.is_a?(Net::HTTPSuccess)
-      Rails.logger.error("[Affiliate] Kickback failed for user #{user_id}: HTTP #{response.code} #{response.message}")
-    end
+    Rails.logger.error("[Affiliate] Kickback failed for user #{user_id}: HTTP #{response.code} #{response.message}") unless response.is_a?(Net::HTTPSuccess)
   rescue StandardError => e
     Rails.logger.error("[Affiliate] Failed to send kickback for user #{user_id}: #{e.message}")
   end
