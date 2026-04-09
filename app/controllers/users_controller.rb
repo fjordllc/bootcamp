@@ -112,7 +112,6 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
       notify_to_mentors(@user)
       notify_to_chat(@user)
       ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.trainee?
-      send_affiliate_kickback(@user)
       logger.info "[Signup] 4. after create times channel for free user. #{@user.email}"
       redirect_to created_users_path(role: determine_user_role(@user))
     else
