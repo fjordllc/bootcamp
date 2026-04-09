@@ -31,11 +31,16 @@ class GenerationTest < ActiveSupport::TestCase
   end
 
   test '#count_classmates_by_target' do
-    assert_equal 18, Generation.new(5).count_classmates_by_target(:students)
-    assert_equal 3, Generation.new(5).count_classmates_by_target(:trainees)
-    assert_equal 1, Generation.new(5).count_classmates_by_target(:hibernated)
-    assert_equal 2, Generation.new(5).count_classmates_by_target(:graduated)
-    assert_equal 3, Generation.new(5).count_classmates_by_target(:advisers)
-    assert_equal 1, Generation.new(5).count_classmates_by_target(:retired)
+    expected = {
+      students: 18,
+      trainees: 3,
+      hibernated: 1,
+      graduated: 2,
+      advisers: 3,
+      retired: 1
+    }
+    gen5 = Generation.new(5)
+    actual = expected.keys.index_with { |t| gen5.count_classmates_by_target(t) }
+    assert_equal expected, actual
   end
 end

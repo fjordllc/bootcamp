@@ -50,5 +50,55 @@ module Reports
         assert_selector('span.a-user-role.is-mentor')
       end
     end
+
+    test 'set default learning start time from user learning time frame' do
+      travel_to Time.zone.local(2025, 1, 1, 10, 0, 0) do
+        visit_with_auth '/reports/new', 'kimura'
+
+        start_hour, start_minutes = learning_start_time_select_values
+
+        assert_equal '10', start_hour
+        assert_equal '00', start_minutes
+
+        user = users(:kimura)
+        one_hour_ago = 1.hour.ago
+        week_day = LearningTimeFrame::WEEK_DAY_NAMES_JA[one_hour_ago.wday]
+        frame_hour = one_hour_ago.hour
+        frame = LearningTimeFrame.find_by!(week_day: week_day, activity_time: frame_hour)
+        LearningTimeFramesUser.create!(user: user, learning_time_frame: frame)
+
+        visit_with_auth '/reports/new', 'kimura'
+
+        start_hour, start_minutes = learning_start_time_select_values
+
+        assert_equal '09', start_hour
+        assert_equal '00', start_minutes
+      end
+    end
+
+    test 'set current time when scheduled learning start time is in the future' do
+      travel_to Time.zone.local(2025, 1, 1, 10, 0, 0) do
+        user = users(:kimura)
+        one_hour_since = 1.hour.since
+        week_day = LearningTimeFrame::WEEK_DAY_NAMES_JA[one_hour_since.wday]
+        frame_hour = one_hour_since.hour
+        frame = LearningTimeFrame.find_by!(week_day: week_day, activity_time: frame_hour)
+        LearningTimeFramesUser.create!(user: user, learning_time_frame: frame)
+
+        visit_with_auth '/reports/new', 'kimura'
+
+        start_hour, start_minutes = learning_start_time_select_values
+
+        assert_equal '10', start_hour
+        assert_equal '00', start_minutes
+      end
+    end
+
+    private
+
+    def learning_start_time_select_values
+      hour_select, minutes_select = first('.learning-time').all('.learning-time__started-at select')
+      [hour_select.value, minutes_select.value]
+    end
   end
 end

@@ -335,3 +335,8 @@ discord_profile_new-mentor:
   user: new-mentor
   account_name: new-mentor
   times_url:
+
+discord_profile_hukki:
+  user: hukki
+  account_name: hukki
+  times_url:

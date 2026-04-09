@@ -6,15 +6,16 @@ class TrainingCompletionController < ApplicationController
 
   def show; end
 
-  def new; end
+  def new
+    @holding_regular_events = RegularEvent.organizer_event(current_user).holding
+  end
 
   def create
     current_user.assign_attributes(training_complete_params)
     current_user.training_completed_at = Time.current
     if current_user.save(context: :training_completion)
       user = current_user
-      current_user.cancel_participation_from_regular_events
-      current_user.delete_and_assign_new_organizer
+      current_user.clean_up_regular_events
       ActiveSupport::Notifications.instrument('training_completion.create', user:)
       user.clear_github_data
       notify_to_user(user)
@@ -25,6 +26,7 @@ class TrainingCompletionController < ApplicationController
       redirect_to training_completion_url
     else
       current_user.training_completed_at = nil
+      @holding_regular_events = RegularEvent.organizer_event(current_user).holding
       render :new
     end
   end

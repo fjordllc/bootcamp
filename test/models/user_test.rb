@@ -682,20 +682,31 @@ class UserTest < ActiveSupport::TestCase
     assert_empty User.users_role(not_scope_name, allowed_targets:)
   end
 
-  test '#cancel_participation_from_regular_events' do
+  test '#clean_up_regular_events removes participant from holding regular event' do
     user = users(:kimura)
+    holding_paticipated_event = regular_events(:regular_event1)
+    holding_paticipated_event.regular_event_participations.create!(user: user)
+    finished_paticipated_event = regular_events(:regular_event2)
+    finished_paticipated_event.update!(finished: true)
+    finished_paticipated_event.regular_event_participations.create!(user: user)
 
-    assert_changes -> { RegularEventParticipation.where(user:).exists? }, from: true, to: false do
-      user.cancel_participation_from_regular_events
-    end
+    user.clean_up_regular_events
+
+    assert_not holding_paticipated_event.regular_event_participations.exists?(user:)
+    assert finished_paticipated_event.regular_event_participations.exists?(user:)
   end
 
-  test '#delete_and_assign_new_organizer' do
-    user = users(:hajime)
+  test '#clean_up_regular_events removes organizer from holding regular event' do
+    user = users(:kimura)
+    # kimuraが主催しているイベント
+    holding_organized_event = regular_events(:regular_event4)
+    finished_organized_event = regular_events(:regular_event5)
+    finished_organized_event.update!(finished: true)
 
-    assert_changes -> { Organizer.where(user:).exists? }, from: true, to: false do
-      user.delete_and_assign_new_organizer
-    end
+    user.clean_up_regular_events
+
+    assert_not holding_organized_event.regular_event_organizers.exists?(user:)
+    assert finished_organized_event.regular_event_organizers.exists?(user:)
   end
 
   test '#scheduled_retire_at' do

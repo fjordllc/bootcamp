@@ -4,6 +4,8 @@
 = render 'users/page_title', user: @user
 = user_page_tabs(@user, active_tab: 'イベント')
 
+= render 'users/event_nav'
+
 .page-main
   .page-body
     .page-body__inner.has-side-nav

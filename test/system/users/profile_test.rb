@@ -149,6 +149,74 @@ module Users
       assert_no_text '卒業 1日'
     end
 
+    test 'show hibernating user history to admins and mentors' do
+      hibernated_user = users(:kyuukai)
+
+      visit_with_auth user_path(hibernated_user), 'komagata'
+      assert_selector '.card-header__title', text: '休会履歴（1回）'
+      assert_selector '.user-metas__title', text: '現在1回目の休会中'
+
+      visit_with_auth user_path(hibernated_user), 'mentormentaro'
+      assert_selector '.card-header__title', text: '休会履歴（1回）'
+      assert_selector '.user-metas__title', text: '現在1回目の休会中'
+    end
+
+    test 'show previously hibernating user history to admins and mentors' do
+      returned_user = users(:hukki)
+
+      visit_with_auth user_path(returned_user), 'komagata'
+      assert_selector '.card-header__title', text: '休会履歴（1回）'
+      assert_selector '.user-metas__title', text: '1回目の休会'
+
+      visit_with_auth user_path(returned_user), 'mentormentaro'
+      assert_selector '.card-header__title', text: '休会履歴（1回）'
+      assert_selector '.user-metas__title', text: '1回目の休会'
+    end
+
+    test 'should not show previously hibernating user history to other users' do
+      returned_user = users(:hukki)
+
+      # 研修終了済み
+      visit_with_auth user_path(returned_user), 'kensyuowata'
+      assert_selector '.page-main-header__title', text: 'プロフィール'
+      assert_selector '.page-content-header__title', text: 'hukki'
+      assert_no_selector '.card-header__title', text: /^休会履歴/
+
+      # 研修中
+      visit_with_auth user_path(returned_user), 'kensyu'
+      assert_selector '.page-main-header__title', text: 'プロフィール'
+      assert_selector '.page-content-header__title', text: 'hukki'
+      assert_no_selector '.card-header__title', text: /^休会履歴/
+
+      # アドバイザー
+      visit_with_auth user_path(returned_user), 'advijirou'
+      assert_selector '.page-main-header__title', text: 'プロフィール'
+      assert_selector '.page-content-header__title', text: 'hukki'
+      assert_no_selector '.card-header__title', text: /^休会履歴/
+
+      # 一般受講生
+      visit_with_auth user_path(returned_user), 'hatsuno'
+      assert_selector '.page-main-header__title', text: 'プロフィール'
+      assert_selector '.page-content-header__title', text: 'hukki'
+      assert_no_selector '.card-header__title', text: /^休会履歴/
+
+      # 卒業生
+      visit_with_auth user_path(returned_user), 'sotugyou'
+      assert_selector '.page-main-header__title', text: 'プロフィール'
+      assert_selector '.page-content-header__title', text: 'hukki'
+      assert_no_selector '.card-header__title', text: /^休会履歴/
+    end
+
+    test 'should not show hibernation history on user profile when user has never hibernated' do
+      never_hibernated_user = users(:hatsuno)
+
+      visit_with_auth user_path(never_hibernated_user), 'komagata'
+
+      assert_selector '.page-main-header__title', text: 'プロフィール'
+      assert_selector '.page-content-header__title', text: 'hatsuno'
+      assert_no_selector '.card-header__title', text: /^休会履歴/
+    end
+
     test 'show hibernation period in profile' do
       hibernated_user = users(:kyuukai)
       user = users(:hatsuno)

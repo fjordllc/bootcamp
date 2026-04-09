@@ -9,7 +9,7 @@ class MicroReportsTest < ApplicationSystemTestCase
 
   test 'show all micro reports of the target user' do
     visit_with_auth user_micro_reports_path(users(:hajime)), 'hatsuno'
-    assert_text '分報 （3）'
+    assert_text '自分の分報'
     assert_text '最初の分報'
     assert_text '2つ目の分報'
     assert_text '最新の分報'
@@ -45,13 +45,10 @@ class MicroReportsTest < ApplicationSystemTestCase
 
   test 'create micro report' do
     visit_with_auth user_micro_reports_path(users(:hatsuno)), 'hatsuno'
-    assert_text '分報 （0）'
     assert_text '分報の投稿はまだありません。'
     fill_in('micro_report[content]', with: '初めての分報です。')
     click_button '投稿'
-    assert_text '分報 （1）'
     assert_text '初めての分報です。'
-    assert_text '分報 （1）'
   end
 
   test 'submit button is disabled and enabled based on textarea content' do
@@ -104,8 +101,8 @@ class MicroReportsTest < ApplicationSystemTestCase
     click_button '投稿'
     assert_selector '.pagination__item.is-active', text: '2'
 
-    # タブから分報一覧に遷移するときに2ページ目に遷移するか
-    click_on '分報 （26）'
+    # サイドバーから分報一覧に遷移するときに2ページ目に遷移するか
+    click_on '自分の分報'
     assert_selector '.pagination__item.is-active', text: '2'
   end
 
