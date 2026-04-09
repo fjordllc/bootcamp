@@ -85,12 +85,6 @@ Rails.application.routes.draw do
     resources :metadata, only: %i(index)
     resources :micro_reports, only: %i(update)
     resources :trainee_progresses, only: %i(index)
-    resources :buzzes, only: %i(create)
-    resources :buzzes, only: %i(create destroy)
-    resource :buzz, only: %i(create destroy)
-    namespace 'buzzes' do
-      resource :buzz, only: %i(show), controller: 'buzz'
-    end
     resource :buzz, only: %i(show create destroy), controller: 'buzzes'
   end
 end
