@@ -35,8 +35,7 @@ class QuestionAutoCloser
                       )
                       .group(:question_id)
     Question
-      .with(answers_summary:)
-      .left_outer_joins(:answers_summary)
+      .joins("LEFT JOIN (#{answers_summary.to_sql}) answers_summary ON answers_summary.question_id = questions.id")
       .where(wip: false)
       .where('COALESCE(answers_summary.solved, false) = false') # 質問が未解決
       .where('questions.updated_at <= ?', base_time)
@@ -58,8 +57,7 @@ class QuestionAutoCloser
                       )
                       .group(:question_id)
     Question
-      .with(answers_summary:)
-      .left_outer_joins(:answers_summary)
+      .joins("LEFT JOIN (#{answers_summary.to_sql}) answers_summary ON answers_summary.question_id = questions.id")
       .where(wip: false)
       .where('COALESCE(answers_summary.solved, false) = false') # 質問が未解決
       .where('answers_summary.last_warned_at IS NOT NULL')
