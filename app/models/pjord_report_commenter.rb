@@ -1,10 +1,17 @@
 # frozen_string_literal: true
 
 class PjordReportCommenter
-  def call(_name, _started, _finished, _unique_id, payload)
+  def call(name, _started, _finished, _unique_id, payload)
     report = payload[:report]
-    return unless report.first_public?
+    return if report.wip
 
-    PjordReportCommentJob.perform_later(report_id: report.id)
+    case name
+    when 'report.create'
+      PjordReportCommentJob.perform_later(report_id: report.id)
+    when 'report.update'
+      return unless report.saved_change_to_attribute?(:wip, from: true)
+
+      PjordReportCommentJob.perform_later(report_id: report.id)
+    end
   end
 end
