@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   before_action :allow_cross_domain_access
   before_action :require_active_user_login
   before_action :set_current_user_practice
+  before_action :save_affiliate_rd_code
 
   protected
 
@@ -52,6 +53,17 @@ class ApplicationController < ActionController::Base
 
   def set_current_user_practice
     @current_user_practice = UserCoursePractice.new(current_user)
+  end
+
+  def save_affiliate_rd_code
+    rd_code = params[:rd_code]
+    return if rd_code.blank?
+
+    if rd_code.match?(/\A[\w-]{1,128}\z/)
+      session[:affiliate_rd_code] = rd_code
+    else
+      Rails.logger.warn("[Affiliate] Invalid rd_code received: #{rd_code.truncate(200)}")
+    end
   end
 
   protected
