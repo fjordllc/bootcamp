@@ -56,7 +56,14 @@ class ApplicationController < ActionController::Base
   end
 
   def save_affiliate_rd_code
-    session[:affiliate_rd_code] = params[:rd_code] if params[:rd_code].present?
+    rd_code = params[:rd_code]
+    return unless rd_code.present?
+
+    if rd_code.match?(/\A[\w\-]{1,128}\z/)
+      session[:affiliate_rd_code] = rd_code
+    else
+      Rails.logger.warn("[Affiliate] Invalid rd_code received: #{rd_code.truncate(200)}")
+    end
   end
 
   protected
