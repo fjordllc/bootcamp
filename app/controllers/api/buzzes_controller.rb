@@ -4,10 +4,6 @@ class API::BuzzesController < API::BaseController
   before_action :require_admin_or_mentor_login_for_api
   skip_before_action :verify_authenticity_token
 
-  def auth_status
-    head :ok
-  end
-
   def show
     return render json: { error: 'URLパラメータが必要です' }, status: :bad_request if params[:url].blank?
 
