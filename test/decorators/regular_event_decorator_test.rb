@@ -51,7 +51,7 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
       reason: 'ミートアップのため'
     )
 
-    skip_event_dates = weekly_wed_event.upcoming_excluded_dates(from: Date.new(2026, 4, 1), limit: 5)
+    excluded_dates = weekly_wed_event.upcoming_excluded_dates(from: Date.new(2026, 4, 1), limit: 5)
 
     assert_equal [
       { date: Date.new(2026, 4, 8), reason: '主催都合のため' },
@@ -59,7 +59,7 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
       { date: Date.new(2026, 5, 6), reason: '祝日(振替休日)のため' },
       { date: Date.new(2026, 5, 13), reason: '特別イベントのため' },
       { date: Date.new(2026, 9, 23), reason: '祝日(秋分の日)のため' }
-    ], skip_event_dates
+    ], excluded_dates
   end
 
   test '#upcoming_excluded_dates ignores skip dates not matching repeat rules' do
@@ -70,9 +70,9 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
       reason: '木曜日で登録したスキップ日'
     )
 
-    skip_event_dates = weekly_wed_event.upcoming_excluded_dates(from: Date.new(2026, 4, 1), limit: 5)
+    excluded_dates = weekly_wed_event.upcoming_excluded_dates(from: Date.new(2026, 4, 1), limit: 5)
 
-    assert_not_includes skip_event_dates, {
+    assert_not_includes excluded_dates, {
       date: Date.new(2026, 4, 2),
       reason: '木曜日で登録したスキップ日'
     }
@@ -86,12 +86,15 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
       reason: '主催都合のため'
     )
 
-    skip_event_dates = weekly_wed_event.upcoming_excluded_dates(from: Date.new(2026, 4, 1), limit: 5)
+    excluded_dates = weekly_wed_event.upcoming_excluded_dates(from: Date.new(2026, 4, 1), limit: 5)
 
-    assert_includes skip_event_dates, {
-      date: Date.new(2026, 4, 29),
-      reason: '祝日(昭和の日)のため、主催都合のため'
-    }
+    same_day = Date.new(2026, 4, 29)
+    same_day_dates = excluded_dates.select { |d| d[:date] == same_day }
+
+    assert_equal 1, same_day_dates.size
+
+    merged_date = same_day_dates.first
+    assert_equal '祝日(昭和の日)のため、主催都合のため', merged_date[:reason]
   end
 
   test '#upcoming_excluded_dates ignores blank reasons when merging with holiday' do
@@ -102,15 +105,15 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
       reason: ''
     )
 
-    skip_event_dates = weekly_wed_event.upcoming_excluded_dates(from: Date.new(2026, 4, 1), limit: 5)
+    excluded_dates = weekly_wed_event.upcoming_excluded_dates(from: Date.new(2026, 4, 1), limit: 5)
 
-    assert_includes skip_event_dates, {
+    assert_includes excluded_dates, {
       date: Date.new(2026, 4, 29),
       reason: '祝日(昭和の日)のため'
     }
   end
 
-  test '#upcoming_excluded_dates does not include holidays when hold_national_holiday is true' do
+  test '#upcoming_excluded_dates returns only custom skip dates when holidays are held' do
     weekly_wed_event = ActiveDecorator::Decorator.instance.decorate(regular_events(:regular_event7))
     weekly_wed_event.update!(hold_national_holiday: true)
 
@@ -124,6 +127,15 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
     assert_equal [
       { date: Date.new(2026, 4, 8), reason: '主催都合のため' }
     ], excluded_dates
+  end
+
+  test '#upcoming_excluded_dates returns empty when no skip dates exist and holidays are held' do
+    weekly_wed_event = ActiveDecorator::Decorator.instance.decorate(regular_events(:regular_event7))
+    weekly_wed_event.update!(hold_national_holiday: true)
+
+    excluded_dates = weekly_wed_event.upcoming_excluded_dates(from: Date.new(2026, 4, 1), limit: 5)
+
+    assert_empty excluded_dates
   end
 
   test '#out_of_repeat_rule_skip_dates' do
@@ -144,7 +156,7 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
 
     weekly_wed_event.regular_event_skip_dates.create!(
       skip_on: Date.new(2026, 4, 29),
-      reason: '火曜日で登録したスキップ日'
+      reason: '水曜日で登録したスキップ日'
     )
 
     out_of_repeat_rule_skip_dates = weekly_wed_event.out_of_repeat_rule_skip_dates(from: Date.new(2026, 4, 1))
