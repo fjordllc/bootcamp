@@ -5,7 +5,11 @@ class Campaign < ApplicationRecord
   validates :end_at, presence: true
 
   validates :end_at, comparison: {
-    greater_than: :start_at
+    greater_than: :start_at,
+    message: lambda { |object, _data|
+      I18n.t('activerecord.errors.models.campaign.attributes.end_at.greater_than_start_at',
+             shortest_end_at: I18n.l(object.start_at, format: :short))
+    }
   }
   validates :title, presence: true
   validates :trial_period, presence: true, numericality: { greater_than_or_equal_to: 4 }
