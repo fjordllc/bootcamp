@@ -146,7 +146,7 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
       reason: '火曜日で登録したスキップ日'
     )
 
-    out_of_repeat_rule_skip_dates = weekly_wed_event.out_of_repeat_rule_skip_dates(from: Date.new(2026, 4, 1))
+    out_of_repeat_rule_skip_dates = weekly_wed_event.out_of_repeat_rule_skip_dates
 
     assert_includes out_of_repeat_rule_skip_dates, skip_date
   end
@@ -159,7 +159,7 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
       reason: '水曜日で登録したスキップ日'
     )
 
-    out_of_repeat_rule_skip_dates = weekly_wed_event.out_of_repeat_rule_skip_dates(from: Date.new(2026, 4, 1))
+    out_of_repeat_rule_skip_dates = weekly_wed_event.out_of_repeat_rule_skip_dates
 
     assert_empty out_of_repeat_rule_skip_dates
   end
