@@ -25,9 +25,6 @@ class RegularEventsTest < ApplicationSystemTestCase
     first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select('木曜日')
     fill_in 'regular_event[start_at]', with: Time.zone.parse('19:00')
     fill_in 'regular_event[end_at]', with: Time.zone.parse('20:00')
-    click_on 'スキップする日を追加'
-    fill_in '理由', with: '主催者の急用のため'
-    fill_in 'スキップする日', with: Time.zone.today
     fill_in 'regular_event[description]', with: '定期イベント・カテゴリーのテストです'
     click_button '作成'
     assert_text '定期イベントを作成しました。'
