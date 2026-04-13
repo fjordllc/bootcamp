@@ -19,12 +19,31 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     assert_equal 'ヒントをあげるね！', comment.description
   end
 
-  test 'does not create a comment when report has no question' do
+  test 'does not create a comment when response is the no_question marker' do
     report = reports(:report1)
 
-    Pjord.stub(:respond, '質問なし') do
+    Pjord.stub(:respond, '[NO_QUESTION]') do
       assert_no_difference 'Comment.count' do
         PjordReportCommentJob.perform_now(report_id: report.id)
+      end
+    end
+  end
+
+  test 'does not create a comment for common "no question" paraphrases' do
+    report = reports(:report1)
+
+    [
+      '質問なし',
+      '質問はありません。',
+      '質問は特にありません',
+      '質問的な内容は見当たりません。',
+      '日報中に質問はないですね。',
+      '日報に質問はありません'
+    ].each do |phrase|
+      Pjord.stub(:respond, phrase) do
+        assert_no_difference 'Comment.count', "should skip: #{phrase}" do
+          PjordReportCommentJob.perform_now(report_id: report.id)
+        end
       end
     end
   end
@@ -85,7 +104,7 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     captured_context = nil
     mock_respond = lambda { |message:, context:, instructions: nil| # rubocop:disable Lint/UnusedBlockArgument
       captured_context = context
-      '質問なし'
+      '[NO_QUESTION]'
     }
 
     Pjord.stub(:respond, mock_respond) do
