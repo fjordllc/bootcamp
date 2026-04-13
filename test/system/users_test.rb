@@ -49,6 +49,16 @@ class UsersTest < ApplicationSystemTestCase
     assert_no_selector 'label.a-form-label', text: '活動時間'
   end
 
+  test 'mentor can see secret attributes of graduated user' do
+    visit_with_auth "/users/#{users(:sotugyou).id}", 'mentormentaro'
+    assert_text users(:sotugyou).email
+  end
+
+  test 'non-mentor cannot see secret attributes of graduated user' do
+    visit_with_auth "/users/#{users(:sotugyou).id}", 'hatsuno'
+    assert_no_text users(:sotugyou).email
+  end
+
   test 'delete user' do
     user = users(:kimura)
     visit_with_auth "users/#{user.id}", 'komagata'
