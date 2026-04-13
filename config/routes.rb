@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   get "welcome", to: "welcome#index", as: "welcome"
+  get "campaigns/basic", to: "static_pages#campaign_basic", as: "campaign_basic"
   get "practices", to: "welcome#practices", as: "practices"
   get "pricing", to: "welcome#pricing", as: "pricing"
   get "alumni_voices", to: "welcome#alumni_voices", as: "alumni_voices"
