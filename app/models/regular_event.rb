@@ -53,8 +53,16 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   scope :holding, -> { where(finished: false) }
   scope :participated_by, ->(user) { where(id: all.filter { |e| e.participated_by?(user) }.map(&:id)) }
   scope :organizer_event, ->(user) { joins(:regular_event_organizers).where(regular_event_organizers: { user: user }) }
-  scope :scheduled_on, ->(date) { holding.filter { |event| event.scheduled_on?(date) } }
-  scope :scheduled_on_without_ended, ->(date) { holding.filter { |event| event.scheduled_on?(date) && !event.ended?(date) } }
+  scope :scheduled_on, lambda { |date|
+    holding
+      .preload(:regular_event_repeat_rules, :regular_event_skip_dates)
+      .filter { |event| event.scheduled_on?(date) }
+  }
+  scope :scheduled_on_without_ended, lambda { |date|
+    holding
+      .preload(:regular_event_repeat_rules, :regular_event_skip_dates)
+      .filter { |event| event.scheduled_on?(date) && !event.ended?(date) }
+  }
 
   scope :fetch_target_events, lambda { |target|
     case target
@@ -153,7 +161,14 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def skip_event?(date)
-    regular_event_skip_dates.exists?(skip_on: date) || (HolidayJp.holiday?(date) && !hold_national_holiday)
+    skip_dates =
+      if regular_event_skip_dates.loaded?
+        regular_event_skip_dates.any? { |skip_date| skip_date.skip_on == date }
+      else
+        regular_event_skip_dates.exists?(skip_on: date)
+      end
+
+    skip_dates || (HolidayJp.holiday?(date) && !hold_national_holiday)
   end
 
   def date_match_the_rules?(date, rules)
