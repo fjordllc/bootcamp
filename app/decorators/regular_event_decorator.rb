@@ -58,7 +58,7 @@ module RegularEventDecorator
       .map do |date, reasons|
         {
           date:,
-          reason: reasons.map { |r| r[:reason] }.reject(&:empty?).join('、')
+          reason: reasons.filter_map { |r| r[:reason].presence }.join('、')
         }
     end
   end
