@@ -44,17 +44,20 @@
 
 - out_of_rule_skip_dates = regular_event.out_of_repeat_rule_skip_dates
 - if !regular_event.finished? && (admin_or_mentor_login? || regular_event.organizers.include?(current_user)) && out_of_rule_skip_dates.present?
-  .a-card
+  .a-card.is-out-of-rule-skip-dates.is-danger
     header.card-header.is-sm
+      h2.card-header__title
+        | 開催曜日と一致しない日がスキップ日として登録されています
+    hr.a-border-danger
+    .card-body__description
       .a-long-text.is-md
-        .message.danger
-          h6
-            | 開催曜日と一致しない日がスキップ日として登録されています。
-            | この日はスキップ対象にならないため、不要であれば削除してください。
-            | （参加者には表示されません）
-          ul
-            - out_of_rule_skip_dates.each do |skip_date|
-              li
-                = l skip_date.skip_on, format: :long
-                - if skip_date.reason.present?
-                  | （#{skip_date.reason}）
+        p
+          | 以下はスキップ対象にならないため、不要であれば削除してください。
+          br
+          | 参加者には表示されません。
+        ul
+          - out_of_rule_skip_dates.each do |skip_date|
+            li
+              = l skip_date.skip_on, format: :long
+              - if skip_date.reason.present?
+                | （#{skip_date.reason}）

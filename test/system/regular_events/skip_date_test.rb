@@ -79,21 +79,21 @@ module RegularEvents
           regular_event = RegularEvent.last
         end
 
-        within('.message.danger') do
+        within('.a-card.is-out-of-rule-skip-dates') do
           assert_text '開催曜日と一致しない日がスキップ日として登録されています'
           assert_text '2026年04月07日(火)'
         end
 
         visit_with_auth regular_event_path(regular_event), 'komagata'
 
-        within('.message.danger') do
+        within('.a-card.is-out-of-rule-skip-dates') do
           assert_text '開催曜日と一致しない日がスキップ日として登録されています'
           assert_text '2026年04月07日(火)'
         end
 
         visit_with_auth regular_event_path(regular_event), 'hajime'
 
-        assert_no_selector('.message.danger')
+        assert_no_selector('.a-card.is-out-of-rule-skip-dates')
       end
     end
   end
