@@ -31,6 +31,10 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
     travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do
       assert_equal '開催終了', @finished_regular_event.next_holding_date
     end
+
+    @regular_event.stub(:next_event_date, nil) do
+      assert_equal '次回の開催日は未定です', @regular_event.next_holding_date
+    end
   end
 
   test '#upcoming_excluded_dates' do
