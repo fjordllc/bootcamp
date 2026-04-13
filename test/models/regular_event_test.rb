@@ -81,6 +81,19 @@ class RegularEventTest < ActiveSupport::TestCase
     end
   end
 
+  test '#next_event_date returns next holding date excluding custom skip date' do
+    regular_event = regular_events(:regular_event1)
+
+    travel_to Time.zone.local(2026, 4, 1, 0, 0, 0) do
+      regular_event.regular_event_skip_dates.create!(
+        skip_on: Date.new(2026, 4, 5),
+        reason: '主催都合により休み'
+      )
+
+      assert_equal Date.new(2026, 4, 12), regular_event.next_event_date
+    end
+  end
+
   test '#cancel_participation' do
     regular_event = regular_events(:regular_event1)
     participant = regular_event_participations(:regular_event_participation1).user
