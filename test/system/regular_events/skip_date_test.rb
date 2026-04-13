@@ -12,10 +12,8 @@ module RegularEvents
 
     test 'create and show skip dates' do
       travel_to Time.zone.local(2026, 4, 1, 6, 0, 0) do
-        # kimuraでログイン
         visit_with_auth new_regular_event_path, 'kimura'
         wait_for_regular_event_form
-        # 作成
         within 'form[name=regular_event]' do
           fill_in 'regular_event[title]', with: 'チェリー本輪読会'
           first('.choices__inner').click
@@ -52,32 +50,11 @@ module RegularEvents
       end
     end
 
-    test 'create out-of-rule skip dates and show only to organizers and mentors' do
+    test 'out-of-rule skip dates are shown only to organizers and mentors' do
       travel_to Time.zone.local(2026, 4, 1, 6, 0, 0) do
-        # kimuraでログイン
-        visit_with_auth new_regular_event_path, 'kimura'
-        wait_for_regular_event_form
-        # 作成
-        within 'form[name=regular_event]' do
-          fill_in 'regular_event[title]', with: 'チェリー本輪読会'
-          first('.choices__inner').click
-          find('#choices--js-choices-multiple-select-item-choice-1').click
-          first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__frequency select').select('毎週')
-          first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select('月曜日')
-          fill_in 'regular_event[start_at]', with: Time.zone.parse('19:00')
-          fill_in 'regular_event[end_at]', with: Time.zone.parse('20:00')
-          fill_in 'regular_event[description]', with: 'テスト'
-          click_on 'スキップする日を追加'
-          fill_in 'スキップする日', with: Time.zone.local(2026, 4, 7).to_date
-          fill_in '理由', with: 'この日は絶対休みたいため'
-        end
+        regular_event = regular_events(:regular_event42)
 
-        regular_event = nil
-
-        assert_difference 'RegularEvent.count', 1 do
-          click_button '作成'
-          regular_event = RegularEvent.last
-        end
+        visit_with_auth regular_event_path(regular_event), 'kimura'
 
         within('.a-card.is-out-of-rule-skip-dates') do
           assert_text '開催曜日と一致しない日がスキップ日として登録されています'

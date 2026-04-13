@@ -249,3 +249,13 @@ regular_event41:
   user: komagata
   category: 3
   published_at: "2023-08-01 00:00:00"
+
+regular_event42:
+  title: スキップする日ありの定期イベント(月曜開催)
+  description: スキップする日ありの定期イベント(月曜開催)
+  finished: false
+  hold_national_holiday: true
+  start_at: <%= Time.zone.local(2020, 1, 1, 18, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 19, 0, 0) %>
+  user: kimura
+  published_at: "2023-08-01 00:00:00"
