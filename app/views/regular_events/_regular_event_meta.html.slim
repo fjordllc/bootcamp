@@ -26,8 +26,8 @@
             | イベント編集中のため次回開催日は未定です
           - else
             = regular_event.next_holding_date
-
-- if !regular_event.finished? && regular_event.upcoming_excluded_dates.present?
+- upcoming_excluded_dates = regular_event.upcoming_excluded_dates
+- if !regular_event.finished? && upcoming_excluded_dates.present?
   .a-card
     header.card-header.is-sm
       h2.card-header__title
@@ -36,20 +36,25 @@
     .card-body__description
       .a-long-text.is-md
         ul
-          - regular_event.upcoming_excluded_dates.each do |skip_date|
+          - upcoming_excluded_dates.each do |skip_date|
             li
               = l skip_date[:date], format: :long
               - if skip_date[:reason].present?
                 | （#{skip_date[:reason]}）
-        - if (admin_or_mentor_login? || regular_event.organizers.exists?(current_user.id)) && regular_event.out_of_repeat_rule_skip_dates.present?
-          .message.danger
-            h6
-              | 開催曜日と一致しない日がスキップ日として登録されています。
-              | この日はスキップ対象にならないため、不要であれば削除してください。
-              | （参加者には表示されません）
-            ul
-              - regular_event.out_of_repeat_rule_skip_dates.each do |skip_date|
-                li
-                  = l skip_date.skip_on, format: :long
-                  - if skip_date.reason.present?
-                    | （#{skip_date.reason}）
+
+- out_of_rule_skip_dates = regular_event.out_of_repeat_rule_skip_dates
+- if !regular_event.finished? && (admin_or_mentor_login? || regular_event.organizers.include?(current_user)) && out_of_rule_skip_dates.present?
+  .a-card
+    header.card-header.is-sm
+      .a-long-text.is-md
+        .message.danger
+          h6
+            | 開催曜日と一致しない日がスキップ日として登録されています。
+            | この日はスキップ対象にならないため、不要であれば削除してください。
+            | （参加者には表示されません）
+          ul
+            - out_of_rule_skip_dates.each do |skip_date|
+              li
+                = l skip_date.skip_on, format: :long
+                - if skip_date.reason.present?
+                  | （#{skip_date.reason}）
