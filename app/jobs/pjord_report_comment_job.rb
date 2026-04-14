@@ -44,7 +44,7 @@ class PjordReportCommentJob < ApplicationJob
     result&.dig(:intent)
   rescue StandardError => e
     Rails.logger.error("[PjordReportCommentJob] classify failed: #{e.class}: #{e.message}")
-    nil
+    raise
   end
 
   def generate_response(report, intent)
@@ -55,7 +55,7 @@ class PjordReportCommentJob < ApplicationJob
     Pjord.respond(message: message, context: context, instructions: instructions)
   rescue StandardError => e
     Rails.logger.error("[PjordReportCommentJob] respond failed: #{e.class}: #{e.message}")
-    nil
+    raise
   end
 
   def build_message(report)

@@ -45,8 +45,18 @@ class Pjord
       chat = RubyLLM.chat(model: model_name)
       chat.with_instructions(classify_instructions)
       chat.with_schema(PjordReportIntent)
-      raw = chat.ask(classify_message(title:, description:)).content
-      parsed = JSON.parse(raw.to_s)
+      content = chat.ask(classify_message(title:, description:)).content
+      parsed =
+        if content.is_a?(String)
+          JSON.parse(content)
+        elsif content.respond_to?(:to_h)
+          content.to_h
+        else
+          content
+        end
+      return nil unless parsed.is_a?(Hash)
+
+      parsed = parsed.stringify_keys
       intent = parsed['intent']
       return nil unless PjordReportIntent::INTENTS.include?(intent)
 
