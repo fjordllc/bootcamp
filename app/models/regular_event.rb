@@ -161,14 +161,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def skip_event?(date)
-    skip_dates =
-      if regular_event_skip_dates.loaded?
-        regular_event_skip_dates.any? { |skip_date| skip_date.skip_on == date }
-      else
-        regular_event_skip_dates.exists?(skip_on: date)
-      end
-
-    skip_dates || (HolidayJp.holiday?(date) && !hold_national_holiday)
+    regular_event_skip_dates.exists?(skip_on: date) || (HolidayJp.holiday?(date) && !hold_national_holiday)
   end
 
   def date_match_the_rules?(date, rules)
