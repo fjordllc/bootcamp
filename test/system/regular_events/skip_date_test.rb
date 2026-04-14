@@ -52,7 +52,8 @@ module RegularEvents
 
     test 'out-of-rule skip dates are shown only to organizers and mentors' do
       travel_to Time.zone.local(2026, 4, 1, 6, 0, 0) do
-        regular_event = regular_events(:regular_event42)
+        regular_event = regular_events(:regular_event7)
+        regular_event.regular_event_skip_dates.create!(skip_on: Date.new(2026, 4, 7), reason: '開催ルールと一致していないスキップする日')
 
         visit_with_auth regular_event_path(regular_event), 'kimura'
 
