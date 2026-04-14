@@ -17,7 +17,9 @@ module RegularEvents
         within 'form[name=regular_event]' do
           fill_in 'regular_event[title]', with: 'チェリー本輪読会'
           first('.choices__inner').click
-          find('#choices--js-choices-multiple-select-item-choice-1').click
+          within('.choices__list--dropdown') do
+            first('.choices__item--choice').click
+          end
           first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__frequency select').select('毎週')
           first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select('月曜日')
           fill_in 'regular_event[start_at]', with: Time.zone.parse('19:00')
