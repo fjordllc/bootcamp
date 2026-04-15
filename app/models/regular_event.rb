@@ -86,7 +86,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def self.ransackable_associations(_auth_object = nil)
-    %w[user organizers users regular_event_repeat_rules participants comments reactions watches]
+    %w[user regular_event_organizers users regular_event_repeat_rules participants comments reactions watches]
   end
 
   def scheduled_on?(date)
