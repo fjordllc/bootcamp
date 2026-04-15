@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_15_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_15_000001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -764,7 +764,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_000000) do
     t.index ["created_at"], name: "index_reports_on_created_at"
     t.index ["user_id", "reported_on"], name: "index_reports_on_user_id_and_reported_on", unique: true
     t.index ["user_id", "title"], name: "index_reports_on_user_id_and_title", unique: true
-    t.index ["user_id"], name: "reports_user_id"
   end
 
   create_table "request_retirements", force: :cascade do |t|
