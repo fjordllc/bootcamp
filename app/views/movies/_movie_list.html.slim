@@ -5,7 +5,7 @@
         = link_to movie, class: 'thumbnail-card__image-link' do
           = image_tag movie.thumbnail_url,
             class: 'thumbnail-card__image',
-            alt: movie.title
+            alt: ''
       .thumbnail-card__row
         h2.thumbnail-card__title(class="#{movie.wip? ? 'is-wip' : ''}")
           - if movie.wip?
