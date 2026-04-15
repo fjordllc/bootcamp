@@ -218,6 +218,7 @@ ja:
         description: 説明
         tag_list: タグ
         movie_data: 動画データ
+        thumbnail: サムネイル画像
       question:
         practice: プラクティス
         title: タイトル
