@@ -549,7 +549,6 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
   end
 
   def cancel_pair_work(args = {})
-    @sender ||= args[:sender]
     @receiver ||= args[:receiver]
     @pair_work ||= args[:pair_work]
 
