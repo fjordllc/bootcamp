@@ -410,6 +410,7 @@ class ActivityNotifier < ApplicationNotifier # rubocop:todo Metrics/ClassLength
     pair_work = params[:pair_work]
     sender = pair_work.buddy
     receiver = params[:receiver]
+
     notification(
       body: "ペアワーク「#{pair_work.title}」の日程が#{I18n.l pair_work.reserved_at}に変更されました。",
       kind: :reschedule_pair_work,
@@ -425,6 +426,7 @@ class ActivityNotifier < ApplicationNotifier # rubocop:todo Metrics/ClassLength
     pair_work = params[:pair_work]
     sender = params[:sender]
     receiver = params[:receiver]
+
     notification(
       body: "ペアワーク「#{pair_work.title}」のペア確定が取り消されました。",
       kind: :cancel_pair_work,
