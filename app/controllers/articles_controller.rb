@@ -117,4 +117,10 @@ class ArticlesController < ApplicationController
       article.wip? ? '記事をWIPとして保存しました' : '記事を更新しました'
     end
   end
+
+  def generate_summary
+    agent = ArticleMetaDescriptionAgent.new
+    result = agent.ask @article.body
+    result.content
+  end
 end
