@@ -1,4 +1,9 @@
-= form_with model: movie, local: true, class: 'form', html: { name: 'movie' } do |f|
+= form_with model: movie,
+  local: true,
+  class: 'form',
+  html: { name: 'movie' } do |f|
+  - description_classes = 'a-text-input js-warning-form ' \
+    'markdown-form__text-area js-markdown'
   = render 'errors', object: movie
   .form__items
     .form-item
@@ -7,7 +12,10 @@
           .form-item
             = f.label :practice, class: 'a-form-label'
             .select-practices
-              = f.select(:practice_ids, practice_options(@categories), { include_hidden: false }, { multiple: true, id: 'js-choices-single-select' })
+              = f.select(:practice_ids,
+                practice_options(@categories),
+                { include_hidden: false },
+                { multiple: true, id: 'js-choices-single-select' })
     .form-item
       .row
         .col-md-6.col-xs-12
@@ -19,8 +27,9 @@
           = f.label :description, class: 'a-form-label'
           .form-textarea
             .form-textarea__body
-              = f.text_area :description, class: 'a-text-input js-warning-form markdown-form__text-area js-markdown',
-              data: { 'preview': '.js-preview', 'input': '.file-input' }
+              = f.text_area :description,
+                class: description_classes,
+                data: { 'preview': '.js-preview', 'input': '.file-input' }
         .col-md-6.col-xs-12
           .a-form-label
             | プレビュー
@@ -33,11 +42,35 @@
             label
               .js-movie-file-input__preview.a-file-input__preview
                 - if @movie.movie_data.attached?
-                  = video_tag url_for(@movie.movie_data.blob), controls: true, width: '717.52', height: '403.59'
+                  = video_tag url_for(@movie.movie_data.blob),
+                    controls: true,
+                    width: '717.52',
+                    height: '403.59'
                   p 動画を変更
                 - else
                   p 動画を選択
-              = f.file_field :movie_data, class: 'a-text-input', accept: 'video/mp4, video/quicktime', direct_upload: true
+              = f.file_field :movie_data,
+                class: 'a-text-input',
+                accept: 'video/mp4, video/quicktime',
+                direct_upload: true
+        .col-md-6.col-xs-12
+          = f.label :thumbnail, class: 'a-form-label'
+          .form-item-file-input.js-file-input.a-file-input.is-thumbnail
+            label.js-file-input__preview
+              - if movie.thumbnail.attached?
+                = image_tag movie.thumbnail
+                p サムネイル画像を変更
+              - elsif movie.movie_data.attached?
+                = image_tag movie.thumbnail_url
+                p サムネイル画像を変更
+              - else
+                p サムネイル画像を選択
+              = f.file_field :thumbnail,
+                accept: 'image/png, image/jpeg',
+                direct_upload: true
+          .a-form-help
+            p
+              | 未設定の場合は、動画の最初のフレームがサムネイル画像になります。
     .form-item
       .row
         .col-md-6.col-xs-12
@@ -46,7 +79,9 @@
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
-        = f.submit 'WIP', class: 'a-button is-lg is-secondary is-block', id: 'js-shortcut-wip'
+        = f.submit 'WIP',
+          class: 'a-button is-lg is-secondary is-block',
+          id: 'js-shortcut-wip'
       li.form-actions__item.is-main
         = button_tag(class: 'a-button is-lg is-primary is-block') do
           - case params[:action]
