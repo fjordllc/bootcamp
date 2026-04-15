@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_15_000001) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_15_062046) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -694,7 +694,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_000001) do
     t.bigint "user_id", null: false
     t.index ["regular_event_id"], name: "index_regular_event_organizers_on_regular_event_id"
     t.index ["user_id", "regular_event_id"], name: "index_regular_event_organizers_on_user_id_and_regular_event_id", unique: true
-    t.index ["user_id"], name: "index_regular_event_organizers_on_user_id"
   end
 
   create_table "regular_event_participations", force: :cascade do |t|
