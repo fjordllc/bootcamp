@@ -46,5 +46,6 @@
               ul.tag-links__items
                 - movie.tag_list.each do |tag|
                   li.tag-links__item
-                    = link_to tag, '', class: 'tag-links__item-link'
-                    // TODO: タグリンクを実装
+                    = link_to tag,
+                      movies_tag_path(tag),
+                      class: 'tag-links__item-link'

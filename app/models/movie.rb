@@ -28,8 +28,8 @@ class Movie < ApplicationRecord
   scope :wip, -> { where(wip: true) }
   scope :by_tag, ->(tag) { tag.present? ? tagged_with(tag) : all }
 
-  after_create_commit :start_transcode_job, on: :create
-  after_create_commit :generate_default_thumbnail, on: :create
+  after_create_commit :start_transcode_job
+  after_create_commit :generate_default_thumbnail
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[title description wip created_at updated_at user_id]

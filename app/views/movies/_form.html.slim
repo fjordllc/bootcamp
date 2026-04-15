@@ -60,9 +60,6 @@
               - if movie.thumbnail.attached?
                 = image_tag movie.thumbnail
                 p サムネイル画像を変更
-              - elsif movie.movie_data.attached?
-                = image_tag movie.thumbnail_url
-                p サムネイル画像を変更
               - else
                 p サムネイル画像を選択
               = f.file_field :thumbnail,

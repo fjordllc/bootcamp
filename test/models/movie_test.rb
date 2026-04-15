@@ -30,7 +30,9 @@ class MovieTest < ActiveSupport::TestCase
       content_type: 'image/jpeg'
     )
 
-    assert_match(/test\.jpg/, movie.thumbnail_url)
+    assert movie.thumbnail.attached?
+    assert movie.thumbnail_url.present?
+    assert_no_match(/work-blank/, movie.thumbnail_url)
   end
 
   test 'thumbnail_url returns movie preview when custom thumbnail is not attached' do

@@ -28,7 +28,7 @@ module Movies
       click_button '動画を追加'
 
       assert_text '動画を追加しました'
-      movie = Movie.order(:created_at).last
+      movie = Movie.find_by!(title: 'サムネイル付き動画を作成する')
       assert movie.thumbnail.attached?
       video = find('video')
       assert_match(/test\.jpg/, video.native['poster'])
