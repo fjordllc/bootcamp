@@ -764,3 +764,15 @@ practice112:
   goal: "goal..."
   include_progress: true
   memo: "memo for mentors..."
+
+practice113:
+  title: "rubyをインストールする（Reスキル）"
+  description: "Railsコースのプラクティスをコピーした給付金コースのプラクティスです。"
+  goal: "goal..."
+  source_practice: practice23
+
+practice114:
+  title: "rbenvをインストールする（Reスキル）"
+  description: "Railsコースのプラクティスをコピーした給付金コースのプラクティスです。"
+  goal: "goal..."
+  source_practice: practice24

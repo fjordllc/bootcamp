@@ -239,3 +239,7 @@ talk_new-mentor:
 talk_hukki:
   user: hukki
   action_completed: true
+
+talk_grant_course:
+  user: grant-course
+  action_completed: true
