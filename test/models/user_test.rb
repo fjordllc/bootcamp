@@ -682,30 +682,30 @@ class UserTest < ActiveSupport::TestCase
     assert_empty User.users_role(not_scope_name, allowed_targets:)
   end
 
-  test '#clean_up_regular_events removes participant from holding regular event' do
+  test '#clean_up_regular_events removes participant from unfinished regular event' do
     user = users(:kimura)
-    holding_paticipated_event = regular_events(:regular_event1)
-    holding_paticipated_event.regular_event_participations.create!(user: user)
-    finished_paticipated_event = regular_events(:regular_event2)
-    finished_paticipated_event.update!(finished: true)
-    finished_paticipated_event.regular_event_participations.create!(user: user)
+    unfinished_participated_event = regular_events(:regular_event1)
+    unfinished_participated_event.regular_event_participations.create!(user: user)
+    finished_participated_event = regular_events(:regular_event2)
+    finished_participated_event.update!(finished: true)
+    finished_participated_event.regular_event_participations.create!(user: user)
 
     user.clean_up_regular_events
 
-    assert_not holding_paticipated_event.regular_event_participations.exists?(user:)
-    assert finished_paticipated_event.regular_event_participations.exists?(user:)
+    assert_not unfinished_participated_event.regular_event_participations.exists?(user:)
+    assert finished_participated_event.regular_event_participations.exists?(user:)
   end
 
-  test '#clean_up_regular_events removes organizer from holding regular event' do
+  test '#clean_up_regular_events removes organizer from unfinished regular event' do
     user = users(:kimura)
     # kimuraが主催しているイベント
-    holding_organized_event = regular_events(:regular_event4)
+    unfinished_organized_event = regular_events(:regular_event4)
     finished_organized_event = regular_events(:regular_event5)
     finished_organized_event.update!(finished: true)
 
     user.clean_up_regular_events
 
-    assert_not holding_organized_event.regular_event_organizers.exists?(user:)
+    assert_not unfinished_organized_event.regular_event_organizers.exists?(user:)
     assert finished_organized_event.regular_event_organizers.exists?(user:)
   end
 
