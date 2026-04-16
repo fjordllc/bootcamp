@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_30_072542) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -113,11 +113,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
 
   create_table "buzzes", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.text "memo"
+    t.date "published_at", null: false
+    t.string "title", null: false
     t.datetime "updated_at", null: false
     t.string "url", null: false
-    t.string "title", null: false
-    t.date "published_at", null: false
-    t.text "memo"
     t.index ["url"], name: "index_buzzes_on_url", unique: true
   end
 
@@ -561,7 +561,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
   create_table "pair_work_schedules", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "pair_work_id", null: false
-    t.datetime "proposed_at", null: false
+    t.datetime "proposed_at", precision: nil, null: false
     t.datetime "updated_at", null: false
     t.index ["pair_work_id", "proposed_at"], name: "index_pair_work_schedules_on_pair_work_id_and_proposed_at", unique: true
     t.index ["pair_work_id"], name: "index_pair_work_schedules_on_pair_work_id"
@@ -573,8 +573,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
     t.datetime "created_at", null: false
     t.text "description", null: false
     t.bigint "practice_id"
-    t.datetime "published_at"
-    t.datetime "reserved_at"
+    t.datetime "published_at", precision: nil
+    t.datetime "reserved_at", precision: nil
     t.string "title", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
@@ -659,7 +659,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_06_064800) do
   end
 
   create_table "questions", id: :serial, force: :cascade do |t|
-    t.text "ai_answer"
     t.datetime "created_at", precision: nil
     t.text "description"
     t.bigint "practice_id"
