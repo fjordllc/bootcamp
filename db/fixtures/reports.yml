@@ -512,9 +512,9 @@ report91:
   emotion: 2
   description: |-
     ## 正常系
-    @[card](https://bootcamp.fjord.jp/)
+    @[card](https://www.youtube.com/watch?v=8LudKmk7yPM)
 
-
+    ## 異常形
     ## ループバック
     @[card](http://127.0.0.1)
 
@@ -524,14 +524,12 @@ report91:
 
     @[card](http://localhost)
 
-
     ## プライベートネットワーク
     @[card](http://10.0.0.1)
 
     @[card](http://172.16.0.1)
 
     @[card](http://192.168.0.1)
-
 
     ## リンクローカル
     @[card](http://169.254.0.1)
@@ -540,22 +538,18 @@ report91:
 
     @[card](http://[fe80::1])
 
-
     ## IPv6 ローカル
     @[card](http://[fc00::1])
 
     @[card](http://[fec0::1])
-
 
     ## 未指定・ブロードキャスト
     @[card](http://0.0.0.0)
 
     @[card](http://255.255.255.255)
 
-
     ## CGNAT
     @[card](http://100.64.0.1)
-
 
     ## ドキュメント用・ベンチマーク用
     @[card](http://192.0.2.1)
@@ -568,12 +562,10 @@ report91:
 
     @[card](http://[2001:db8::1])
 
-
     ## マルチキャスト
     @[card](http://224.0.0.1)
 
     @[card](http://[ff00::1])
-
 
     ## IPv4-mapped IPv6
     @[card](http://[::ffff:127.0.0.1])
