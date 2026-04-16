@@ -505,3 +505,76 @@ report90:
   description: |-
     たくさんのスタンプがつきました。
   reported_on: "2025-10-01 01:00:00"
+
+report91:
+  user: komagata
+  title: "リンクカードの動作確認 危険なIPが弾かれているかのテスト"
+  emotion: 2
+  description: |-
+    ## 正常系
+    @[card](https://bootcamp.fjord.jp/)
+
+
+    ## ループバック
+    @[card](http://127.0.0.1)
+
+    @[card](http://127.0.0.1:80)
+
+    @[card](http://[::1])
+
+    @[card](http://localhost)
+
+
+    ## プライベートネットワーク
+    @[card](http://10.0.0.1)
+
+    @[card](http://172.16.0.1)
+
+    @[card](http://192.168.0.1)
+
+
+    ## リンクローカル
+    @[card](http://169.254.0.1)
+
+    @[card](http://169.254.169.254)
+
+    @[card](http://[fe80::1])
+
+
+    ## IPv6 ローカル
+    @[card](http://[fc00::1])
+
+    @[card](http://[fec0::1])
+
+
+    ## 未指定・ブロードキャスト
+    @[card](http://0.0.0.0)
+
+    @[card](http://255.255.255.255)
+
+
+    ## CGNAT
+    @[card](http://100.64.0.1)
+
+
+    ## ドキュメント用・ベンチマーク用
+    @[card](http://192.0.2.1)
+
+    @[card](http://198.51.100.1)
+
+    @[card](http://203.0.113.1)
+
+    @[card](http://198.18.0.1)
+
+    @[card](http://[2001:db8::1])
+
+
+    ## マルチキャスト
+    @[card](http://224.0.0.1)
+
+    @[card](http://[ff00::1])
+
+
+    ## IPv4-mapped IPv6
+    @[card](http://[::ffff:127.0.0.1])
+  reported_on: <%= Time.now %>
