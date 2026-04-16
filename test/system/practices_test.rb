@@ -93,4 +93,25 @@ class PracticesTest < ApplicationSystemTestCase
     assert_text '未解決'
     assert_equal practice.questions.length, 12
   end
+
+  test 'link between grant course practice and source practice' do
+    grant_course_practice = practices(:practice64)
+    source_practice = practices(:practice23)
+
+    visit_with_auth practice_path(grant_course_practice), 'grant-course'
+    click_link '元プラクティス'
+    assert_current_path practice_path(source_practice)
+    assert_text 'rubyをインストールする'
+
+    click_link '給付金コース'
+    assert_current_path practice_path(grant_course_practice)
+    assert_text 'rubyをインストールする（Reスキル）'
+  end
+
+  test 'hide grant course practice link from non grant course user' do
+    source_practice = practices(:practice23)
+    visit_with_auth practice_path(source_practice), 'kimura'
+    assert_text 'rubyをインストールする'
+    assert_no_link '給付金コース'
+  end
 end
