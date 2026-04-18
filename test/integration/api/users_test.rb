@@ -161,4 +161,54 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     response_body = JSON.parse(@response.body)
     assert_equal 'invalid_scope', response_body['error']
   end
+
+  test 'returns email for resource owner with doorkeeper token' do
+    user = users(:komagata)
+
+    doorkeeper_token = Doorkeeper::AccessToken.create!(
+      application_id: @application.id,
+      resource_owner_id: user.id,
+      scopes: 'read'
+    )
+
+    get api_user_path(id: 'show'),
+        headers: { Authorization: "Bearer #{doorkeeper_token.token}", Accept: 'application/json' }
+    assert_response :ok
+
+    response_body = JSON.parse(@response.body)
+
+    assert_includes response_body.keys, 'email'
+    assert_equal user.email, response_body['email']
+  end
+
+  test 'does not return email for another user even with doorkeeper token' do
+    user = users(:komagata)
+    other_user = users(:kimura)
+    doorkeeper_token = Doorkeeper::AccessToken.create!(
+      application_id: @application.id,
+      resource_owner_id: user.id,
+      scopes: 'read'
+    )
+
+    get api_user_path(other_user),
+        headers: { Authorization: "Bearer #{doorkeeper_token.token}", Accept: 'application/json' }
+    assert_response :ok
+
+    response_body = JSON.parse(@response.body)
+    assert_not_includes response_body.keys, 'email'
+  end
+
+  test 'does not return email when authenticated without doorkeeper token' do
+    user = users(:hajime)
+    token = create_token(user.login_name, 'testtest')
+
+    get api_user_path(user),
+        headers: { Authorization: "Bearer #{token}", Accept: 'application/json' }
+    assert_response :ok
+
+    response_body = JSON.parse(@response.body)
+
+    authorized_keys = %w[id login_name long_name url roles primary_role joining_status icon_title adviser avatar_url]
+    assert_equal authorized_keys.sort, response_body.keys.sort
+  end
 end
