@@ -12,7 +12,10 @@ class Metadata
 
   def initialize(url)
     @url = url
-    @uri = Addressable::URI.parse(url).normalize
+  end
+
+  def uri
+    @uri ||= Addressable::URI.parse(@url).normalize
   end
 
   def fetch
@@ -32,7 +35,7 @@ class Metadata
       title: object.og.title,
       description: object.og.description,
       images: object.og.image&.url,
-      site_name: object.og.site_name || @uri.host,
+      site_name: object.og.site_name || uri.host,
       favicon: favicon(html),
       url: @url,
       site_url: site_url
@@ -40,7 +43,7 @@ class Metadata
   end
 
   def site_url
-    "#{@uri.scheme}://#{@uri.host}"
+    "#{uri.scheme}://#{uri.host}"
   end
 
   def favicon(html)
@@ -59,7 +62,7 @@ class Metadata
   end
 
   def youtube?
-    @uri.host.in?(%w[www.youtube.com youtube.com youtu.be])
+    uri.host.in?(%w[www.youtube.com youtube.com youtu.be])
   end
 
   def fetch_youtube_oembed

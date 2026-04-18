@@ -24,6 +24,7 @@ module LinkFetcher
 
     def fetch(url, redirect_limit = DEFAULT_REDIRECT_LIMIT)
       raise TooManyRedirects if redirect_limit.negative?
+      return nil unless LinkChecker::Checker.valid_url?(url)
 
       uri = Addressable::URI.parse(url).normalize
       return nil unless SafetyValidator.valid?(uri)
