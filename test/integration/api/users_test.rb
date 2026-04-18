@@ -21,6 +21,11 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     get api_users_path(format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
+    # emailはレスポンスに含まないことを確認
+    response_body = JSON.parse(@response.body)
+    response_body['users'].each do |user|
+      assert_not_includes user.keys, 'email'
+    end
   end
 
   test 'GET /api/users/1234.json as admin' do
