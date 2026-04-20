@@ -163,7 +163,7 @@ class PairWorksTest < ApplicationSystemTestCase
     end
   end
 
-  test 'show pair work ended when reserved date has passed' do
+  test 'shows ended message when reserved date has passed' do
     travel_to Time.zone.local(2025, 1, 2, 1, 0, 0) do
       pair_work = pair_works(:pair_work4)
       visit_with_auth pair_work_path(pair_work), 'kimura'
