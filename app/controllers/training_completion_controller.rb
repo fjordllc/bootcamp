@@ -7,7 +7,7 @@ class TrainingCompletionController < ApplicationController
   def show; end
 
   def new
-    @holding_regular_events = RegularEvent.organizer_event(current_user).holding
+    @holding_regular_events = current_user.organize_regular_events.holding
   end
 
   def create
@@ -26,7 +26,7 @@ class TrainingCompletionController < ApplicationController
       redirect_to training_completion_url
     else
       current_user.training_completed_at = nil
-      @holding_regular_events = RegularEvent.organizer_event(current_user).holding
+      @holding_regular_events = current_user.organize_regular_events.holding
       render :new
     end
   end
