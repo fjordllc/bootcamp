@@ -20,7 +20,7 @@ event2:
   end_at: <%= Time.current.next_year %>
   open_start_at: <%= Time.current %>
   open_end_at: <%= Time.current.next_year %>
-  user: kimura
+  user: komagata
 
 event3:
   title: "募集期間中のイベント(補欠者あり)"
@@ -175,10 +175,10 @@ event33:
   description: "kimura専用イベント"
   location: "FJORDオフィス"
   capacity: 10
-  start_at: 2017-04-03 00:00:00
-  end_at: 2017-4-3 12:00:00
-  open_start_at: 2017-3-25 9:00
-  open_end_at: 2017-4-01 9:00
+  start_at: 2030-01-01 00:00:00
+  end_at: 2030-01-01 12:00:00
+  open_start_at: 2029-12-01 09:00:00
+  open_end_at: 2029-12-31 09:00:00
   user: kimura
 
 event34:
