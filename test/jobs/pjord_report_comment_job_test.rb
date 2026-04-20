@@ -29,6 +29,16 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     end
   end
 
+  test 'does not create a comment when response is the no_question marker with backticks' do
+    report = reports(:report1)
+
+    Pjord.stub(:respond, '`[NO_QUESTION]`') do
+      assert_no_difference 'Comment.count' do
+        PjordReportCommentJob.perform_now(report_id: report.id)
+      end
+    end
+  end
+
   test 'does not create a comment for common "no question" paraphrases' do
     report = reports(:report1)
 
