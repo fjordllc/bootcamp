@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class PjordReportResponseTool < RubyLLM::Tool
+  ACTION_POST = 'post'
+  ACTION_SKIP = 'skip'
+  ACTIONS = [ACTION_POST, ACTION_SKIP].freeze
+
   description '日報への応答を確定する。' \
               'このツールを必ず最後に1回だけ呼ぶこと。' \
               '質問や困っている内容があり、アドバイスする場合は action="post" を指定し、advice にアドバイス本文を渡す。' \
@@ -8,7 +12,7 @@ class PjordReportResponseTool < RubyLLM::Tool
 
   params do
     string :action,
-           enum: %w[post skip],
+           enum: ACTIONS,
            description: '"post"（アドバイスを投稿する）または "skip"（質問なしのため投稿しない）'
     string :advice,
            required: false,
@@ -24,6 +28,6 @@ class PjordReportResponseTool < RubyLLM::Tool
   end
 
   def post?
-    action == 'post' && advice.present?
+    action == ACTION_POST && advice.present?
   end
 end
