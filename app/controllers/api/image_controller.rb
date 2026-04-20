@@ -3,8 +3,7 @@
 class API::ImageController < API::BaseController
   def create
     @image = Image.new(user: current_user)
-    processed_image = ExifStripper.call(params[:file])
-    @image.image.attach(processed_image)
+    @image.strip_exif(params[:file])
 
     if @image.save
       render :create, status: :created
