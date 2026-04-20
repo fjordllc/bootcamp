@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class PairWork < ApplicationRecord
   include Searchable
   include Commentable
@@ -107,6 +108,12 @@ class PairWork < ApplicationRecord
     update(buddy_id: nil, reserved_at: nil)
   end
 
+  def past_buddy
+    return nil if buddy_id_before_last_save.blank?
+
+    User.find_by(id: buddy_id_before_last_save)
+  end
+
   private
 
   def will_be_published?
@@ -121,3 +128,4 @@ class PairWork < ApplicationRecord
     errors.add(:reserved_at, 'は提案されたスケジュールに含まれていません') unless schedules.map(&:proposed_at).include?(reserved_at)
   end
 end
+# rubocop:enable Metrics/ClassLength
