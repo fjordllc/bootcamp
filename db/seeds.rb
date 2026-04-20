@@ -79,3 +79,8 @@ tables = %i[
 ]
 
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', tables
+
+# Stripeテスト環境のCustomer/SubscriptionをDBと同期
+# development環境またはstaging環境（DB_NAME=bootcamp_staging）のみ実行
+require_relative '../lib/stripe_setup'
+Rake::Task['stripe:setup'].invoke if Rake::Task.task_defined?('stripe:setup') && StripeSetup.executable?
