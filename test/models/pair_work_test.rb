@@ -177,7 +177,7 @@ class PairWorkTest < ActiveSupport::TestCase
     end
   end
 
-  test '#unmatch fails when reverved_at before or at current timr ' do
+  test '#unmatch fails when reverved_at before or at current time' do
     travel_to Time.zone.local(2025, 1, 2, 1, 0, 0) do
       pair_work = pair_works(:pair_work2)
       pair_work.unmatch
