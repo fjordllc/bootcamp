@@ -114,6 +114,10 @@ class PairWork < ApplicationRecord
     User.find_by(id: buddy_id_before_last_save)
   end
 
+  def find_scheduled_at(target_time)
+    schedules.find { |s| s.proposed_at == target_time }
+  end
+
   private
 
   def will_be_published?
