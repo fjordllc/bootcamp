@@ -20,7 +20,6 @@ class Retirement
     new(user:, strategy: Retirement::Admin.new)
   end
 
-  # rubocop:disable Metrics/MethodLength
   def execute
     ActiveRecord::Base.transaction do
       assign_reason
@@ -44,7 +43,6 @@ class Retirement
     Rails.logger.error "Failed to delete subscription: #{e.message}"
     false
   end
-  # rubocop:enable Metrics/MethodLength
 
   private
 
