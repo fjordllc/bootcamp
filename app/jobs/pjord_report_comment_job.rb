@@ -22,13 +22,13 @@ class PjordReportCommentJob < ApplicationJob
     return if pjord_user.nil?
 
     response_tool = PjordReportResponseTool.new
-    chat = Pjord.build_chat(
-      context: build_context(report),
-      instructions: INSTRUCTIONS,
-      extra_tools: [response_tool]
-    )
 
     begin
+      chat = Pjord.build_chat(
+        context: build_context(report),
+        instructions: INSTRUCTIONS,
+        extra_tools: [response_tool]
+      )
       chat.ask(build_message(report))
     rescue StandardError => e
       Rails.logger.error("[PjordReportCommentJob] #{e.class}: #{e.message}")

@@ -104,6 +104,16 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     end
   end
 
+  test 'rescues errors from Pjord.build_chat (e.g. missing API key)' do
+    report = reports(:report1)
+
+    Pjord.stub(:build_chat, ->(**_) { raise StandardError, 'Missing configuration' }) do
+      assert_no_difference 'Comment.count' do
+        PjordReportCommentJob.perform_now(report_id: report.id)
+      end
+    end
+  end
+
   test 'includes context with location and sender' do
     report = reports(:report1)
 
