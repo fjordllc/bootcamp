@@ -1480,7 +1480,7 @@ class ActivityMailerTest < ActionMailer::TestCase
 
     receiver.update_columns(mail_notification: true, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.rematching_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
-    assert_not ActionMailer::Base.deliveries.empty?
+    assert_equal 1, ActionMailer::Base.deliveries.count
   end
 
   test 'reschedule_pair_work' do
@@ -1541,7 +1541,7 @@ class ActivityMailerTest < ActionMailer::TestCase
 
     receiver.update_columns(mail_notification: true, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.reschedule_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
-    assert_not ActionMailer::Base.deliveries.empty?
+    assert_equal 1, ActionMailer::Base.deliveries.count
   end
 
   test 'cancel_pair_work' do
@@ -1602,7 +1602,7 @@ class ActivityMailerTest < ActionMailer::TestCase
 
     receiver.update_columns(mail_notification: true, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.cancel_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
-    assert_not ActionMailer::Base.deliveries.empty?
+    assert_equal 1, ActionMailer::Base.deliveries.count
   end
 
   private
