@@ -3,11 +3,32 @@
 require 'test_helper'
 
 class PjordReportCommentJobTest < ActiveJob::TestCase
-  test 'creates a comment by pjord when report has a question' do
+  class FakeChat
+    def initialize(tool, behavior)
+      @tool = tool
+      @behavior = behavior
+    end
+
+    def ask(_message)
+      @behavior.call(@tool)
+      Struct.new(:content).new(nil)
+    end
+  end
+
+  def stub_pjord_with(behavior, &block)
+    stub = lambda { |context:, instructions:, extra_tools:| # rubocop:disable Lint/UnusedBlockArgument
+      FakeChat.new(extra_tools.first, behavior)
+    }
+    Pjord.stub(:build_chat, stub, &block)
+  end
+
+  test 'creates a comment when tool is called with action=post' do
     report = reports(:report1)
     pjord = users(:pjord)
 
-    Pjord.stub(:respond, 'ヒントをあげるね！') do
+    behavior = ->(tool) { tool.execute(action: 'post', advice: 'ヒントをあげるね！') }
+
+    stub_pjord_with(behavior) do
       assert_difference 'Comment.count', 1 do
         PjordReportCommentJob.perform_now(report_id: report.id)
       end
@@ -19,46 +40,40 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     assert_equal 'ヒントをあげるね！', comment.description
   end
 
-  test 'does not create a comment when response is the no_question marker' do
+  test 'does not create a comment when tool is called with action=skip' do
     report = reports(:report1)
 
-    Pjord.stub(:respond, '[NO_QUESTION]') do
+    behavior = ->(tool) { tool.execute(action: 'skip') }
+
+    stub_pjord_with(behavior) do
       assert_no_difference 'Comment.count' do
         PjordReportCommentJob.perform_now(report_id: report.id)
       end
     end
   end
 
-  test 'does not create a comment for common "no question" paraphrases' do
+  test 'does not create a comment when tool is called with action=post but advice is blank' do
     report = reports(:report1)
 
-    [
-      '質問なし',
-      '質問はありません。',
-      '質問は特にありません',
-      '質問的な内容は見当たりません。',
-      '日報中に質問はないですね。',
-      '日報に質問はありません'
-    ].each do |phrase|
-      Pjord.stub(:respond, phrase) do
-        assert_no_difference 'Comment.count', "should skip: #{phrase}" do
-          PjordReportCommentJob.perform_now(report_id: report.id)
-        end
+    behavior = ->(tool) { tool.execute(action: 'post', advice: '') }
+
+    stub_pjord_with(behavior) do
+      assert_no_difference 'Comment.count' do
+        PjordReportCommentJob.perform_now(report_id: report.id)
       end
     end
   end
 
-  test 'creates a comment when response contains no_question_marker in middle of text' do
+  test 'does not create a comment when tool is never called' do
     report = reports(:report1)
-    pjord = users(:pjord)
 
-    Pjord.stub(:respond, 'この問題は質問なしでも解決できます。') do
-      assert_difference 'Comment.count', 1 do
+    behavior = ->(_tool) {}
+
+    stub_pjord_with(behavior) do
+      assert_no_difference 'Comment.count' do
         PjordReportCommentJob.perform_now(report_id: report.id)
       end
     end
-
-    assert_equal pjord, Comment.last.user
   end
 
   test 'does nothing when report is not found' do
@@ -77,21 +92,12 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     end
   end
 
-  test 'does nothing when response is blank' do
+  test 'rescues errors from chat.ask' do
     report = reports(:report1)
 
-    Pjord.stub(:respond, nil) do
-      assert_no_difference 'Comment.count' do
-        PjordReportCommentJob.perform_now(report_id: report.id)
-      end
-    end
-  end
+    behavior = ->(_tool) { raise StandardError, 'API error' }
 
-  test 'rescues errors from Pjord.respond' do
-    report = reports(:report1)
-    error_respond = ->(**_args) { raise StandardError, 'API error' }
-
-    Pjord.stub(:respond, error_respond) do
+    stub_pjord_with(behavior) do
       assert_no_difference 'Comment.count' do
         PjordReportCommentJob.perform_now(report_id: report.id)
       end
@@ -102,12 +108,12 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     report = reports(:report1)
 
     captured_context = nil
-    mock_respond = lambda { |message:, context:, instructions: nil| # rubocop:disable Lint/UnusedBlockArgument
+    stub = lambda { |context:, instructions:, extra_tools:| # rubocop:disable Lint/UnusedBlockArgument
       captured_context = context
-      '[NO_QUESTION]'
+      FakeChat.new(extra_tools.first, ->(tool) { tool.execute(action: 'skip') })
     }
 
-    Pjord.stub(:respond, mock_respond) do
+    Pjord.stub(:build_chat, stub) do
       PjordReportCommentJob.perform_now(report_id: report.id)
     end
 

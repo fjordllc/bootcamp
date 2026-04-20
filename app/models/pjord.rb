@@ -32,12 +32,18 @@ class Pjord
     end
 
     def respond(message:, context: {}, instructions: nil)
+      chat = build_chat(context: context, instructions: instructions)
+      result = chat.ask(message).content
+      result.presence
+    end
+
+    def build_chat(context: {}, instructions: nil, extra_tools: [])
       chat = RubyLLM.chat(model: model_name)
       chat.with_instructions(system_prompt(context, instructions:))
       chat.with_tool(BootcampSearchTool)
       chat.with_tool(UserInfoTool)
-      result = chat.ask(message).content
-      result.presence
+      extra_tools.each { |tool| chat.with_tool(tool) }
+      chat
     end
 
     private
