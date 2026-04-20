@@ -6,13 +6,14 @@ class PjordReportResponseTool < RubyLLM::Tool
               '質問や困っている内容があり、アドバイスする場合は action="post" を指定し、advice にアドバイス本文を渡す。' \
               '質問や困っている内容がない場合は action="skip" を指定する（adviceは不要）。'
 
-  param :action,
-        type: :string,
-        desc: '"post"（アドバイスを投稿する）または "skip"（質問なしのため投稿しない）'
-  param :advice,
-        type: :string,
-        desc: 'action="post"のときのアドバイス本文（markdown形式、生徒宛）。skipのときは不要',
-        required: false
+  params do
+    string :action,
+           enum: %w[post skip],
+           description: '"post"（アドバイスを投稿する）または "skip"（質問なしのため投稿しない）'
+    string :advice,
+           required: false,
+           description: 'action="post"のときのアドバイス本文（markdown形式、生徒宛）。skipのときは不要'
+  end
 
   attr_reader :action, :advice
 
