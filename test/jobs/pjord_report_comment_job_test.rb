@@ -55,12 +55,14 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     end
   end
 
-  test 'does not create a comment when classification fails' do
+  test 'propagates error when classification returns nil so ActiveJob can retry' do
     report = reports(:report1)
 
     Pjord.stub(:classify_report, nil) do
       assert_no_difference 'Comment.count' do
-        PjordReportCommentJob.perform_now(report_id: report.id)
+        assert_raises(StandardError) do
+          PjordReportCommentJob.perform_now(report_id: report.id)
+        end
       end
     end
   end
@@ -111,25 +113,29 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     end
   end
 
-  test 'rescues errors from classify_report' do
+  test 'propagates errors from classify_report so ActiveJob can retry' do
     report = reports(:report1)
     error_classify = ->(**_args) { raise StandardError, 'API error' }
 
     Pjord.stub(:classify_report, error_classify) do
       assert_no_difference 'Comment.count' do
-        PjordReportCommentJob.perform_now(report_id: report.id)
+        assert_raises(StandardError) do
+          PjordReportCommentJob.perform_now(report_id: report.id)
+        end
       end
     end
   end
 
-  test 'rescues errors from respond' do
+  test 'propagates errors from respond so ActiveJob can retry' do
     report = reports(:report1)
     error_respond = ->(**_args) { raise StandardError, 'API error' }
 
     Pjord.stub(:classify_report, { intent: 'question', reason: '質問あり' }) do
       Pjord.stub(:respond, error_respond) do
         assert_no_difference 'Comment.count' do
-          PjordReportCommentJob.perform_now(report_id: report.id)
+          assert_raises(StandardError) do
+            PjordReportCommentJob.perform_now(report_id: report.id)
+          end
         end
       end
     end

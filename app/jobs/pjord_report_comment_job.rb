@@ -29,7 +29,7 @@ class PjordReportCommentJob < ApplicationJob
     return if pjord.nil?
 
     intent = classify(report)
-    return if intent.nil? || intent == 'none'
+    return if intent == 'none'
 
     response = generate_response(report, intent)
     return if response.blank?
@@ -41,7 +41,10 @@ class PjordReportCommentJob < ApplicationJob
 
   def classify(report)
     result = Pjord.classify_report(title: report.title, description: report.description)
-    result&.dig(:intent)
+    intent = result&.dig(:intent)
+    raise KeyError, 'classification returned no intent' if intent.nil?
+
+    intent
   rescue StandardError => e
     Rails.logger.error("[PjordReportCommentJob] classify failed: #{e.class}: #{e.message}")
     raise
