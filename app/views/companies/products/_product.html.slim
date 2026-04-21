@@ -76,7 +76,7 @@
                 - if product.self_last_commented_at
                   .a-meta
                     | 〜
-                    time.a-meta datetime=product.self_last_commented_at
+                    time.a-meta datetime=product.self_last_commented_at.iso8601
                       = l product.self_last_commented_at
                     |（
                     strong 提出者
@@ -84,7 +84,7 @@
                 - elsif product.mentor_last_commented_at
                   .a-meta
                     | ～
-                    time.a-meta datetime=product.mentor_last_commented_at
+                    time.a-meta datetime=product.mentor_last_commented_at.iso8601
                       = l product.mentor_last_commented_at
                     |（メンター）
       - if current_user.mentor? && product.checks.empty?
