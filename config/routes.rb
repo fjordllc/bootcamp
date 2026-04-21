@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
   mount Switchlet::Engine => "/switchlet"
   mount Lookbook::Engine, at: "/lookbook" if Rails.env.development?
-  
+
   root to: "home#index"
 
   get "welcome", to: "welcome#index", as: "welcome"
@@ -92,6 +92,7 @@ Rails.application.routes.draw do
   end
   namespace :articles do
     resources :wips, only: %i(index), controller: "wips"
+    post :generate_summary
   end
   resources :articles
   namespace :events do

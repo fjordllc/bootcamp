@@ -62,6 +62,12 @@ class ArticlesController < ApplicationController
     redirect_to articles_url, notice: '記事を削除しました'
   end
 
+  def generate_summary
+    agent = ArticleMetaDescriptionAgent.new
+    summary = agent.ask(params[:body]).content
+    render json: { summary: summary }
+  end
+
   private
 
   def set_article
@@ -84,17 +90,7 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    article_attributes = %i[
-      title
-      body
-      tag_list
-      user_id
-      thumbnail
-      thumbnail_type
-      summary
-      display_thumbnail_in_body
-      target
-    ]
+    article_attributes = %i[title body tag_list user_id thumbnail thumbnail_type summary display_thumbnail_in_body target]
     article_attributes.push(:published_at) unless params[:commit] == 'WIP'
     article_attributes.push(:token) if params[:commit] == 'WIP'
     params.require(:article).permit(*article_attributes)
@@ -116,11 +112,5 @@ class ArticlesController < ApplicationController
     when 'update'
       article.wip? ? '記事をWIPとして保存しました' : '記事を更新しました'
     end
-  end
-
-  def generate_summary
-    agent = ArticleMetaDescriptionAgent.new
-    result = agent.ask @article.body
-    result.content
   end
 end
