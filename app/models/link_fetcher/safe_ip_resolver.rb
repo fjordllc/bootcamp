@@ -46,7 +46,7 @@ module LinkFetcher
 
       ips
     rescue InvalidUriError => e
-      Rails.logger.info("[SafeResolver] #{e.class}: #{uri}")
+      Rails.logger.info("[SafeResolver] #{e.class}: scheme=#{uri.scheme} host=#{uri.host}")
       nil
     rescue UnsafeIpError => e
       Rails.logger.warn("[SafeResolver] #{e.class}: unsafe ip detected host=#{uri.host}")
