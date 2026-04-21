@@ -27,9 +27,10 @@ module LinkFetcher
       return nil unless LinkChecker::Checker.valid_url?(url)
 
       uri = Addressable::URI.parse(url).normalize
-      return nil unless SafetyValidator.valid?(uri)
+      safe_ips = SafeIpResolver.resolve_ips(uri)
+      return nil unless safe_ips
 
-      http = build_http(uri)
+      http = build_http(uri, safe_ips)
       response = http.request_get(uri.request_uri)
 
       if response.is_a?(Net::HTTPRedirection)
@@ -48,7 +49,7 @@ module LinkFetcher
       nil
     end
 
-    def build_http(uri)
+    def build_http(uri, ips)
       http = Net::HTTP.new(uri.host, uri.inferred_port)
       if uri.scheme == 'https'
         http.use_ssl = true
@@ -57,6 +58,7 @@ module LinkFetcher
       http.open_timeout = DEFAULT_TIMEOUT
       http.read_timeout = DEFAULT_TIMEOUT
       http.response_body_encoding = true
+      http.ipaddr = ips.first
       http
     end
 
