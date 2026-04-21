@@ -28,7 +28,7 @@ module LinkFetcher
 
       uri = Addressable::URI.parse(url).normalize
       safe_ips = SafeIpResolver.resolve_ips(uri)
-      return nil unless safe_ips
+      return nil if safe_ips.nil?
 
       http = build_http(uri, safe_ips)
       response = http.request_get(uri.request_uri)
