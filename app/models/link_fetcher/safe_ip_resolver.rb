@@ -23,7 +23,7 @@ module LinkFetcher
       IPAddr.new('fec0::/10'),
 
       # 無効・未指定アドレス（接続先として無効、且つ挙動が不安定のためブロック）
-      IPAddr.new('0.0.0.0/32'),
+      IPAddr.new('0.0.0.0/8'),
       IPAddr.new('::/128'),
 
       # CGNAT（外部から到達すべきでない領域のためブロック）
