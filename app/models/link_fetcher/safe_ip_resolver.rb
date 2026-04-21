@@ -34,6 +34,7 @@ module LinkFetcher
     ].freeze
 
     class InvalidUriError < StandardError; end
+    class AddressNotFoundError < StandardError; end
     class UnsafeIpError < StandardError; end
 
     module_function
@@ -42,11 +43,15 @@ module LinkFetcher
       raise InvalidUriError unless valid_http_uri?(uri)
 
       ips = Resolv.getaddresses(uri.host)
+      raise AddressNotFoundError if ips.empty?
       raise UnsafeIpError unless all_ips_safe?(ips)
 
       ips
     rescue InvalidUriError => e
       Rails.logger.info("[SafeResolver] #{e.class}: scheme=#{uri.scheme} host=#{uri.host}")
+      nil
+    rescue AddressNotFoundError => e
+      Rails.logger.info("[SafeResolver] #{e.class}: host=#{uri.host}")
       nil
     rescue UnsafeIpError => e
       Rails.logger.warn("[SafeResolver] #{e.class}: unsafe ip detected host=#{uri.host}")
