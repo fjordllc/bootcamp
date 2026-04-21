@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module LinkFetcher
-  module SafetyValidator
+  module SafeIpResolver
     BLOCKED_IP_RANGES = [
       # ループバック（SSRFで内部サービスに到達可能なためブロック）
       IPAddr.new('127.0.0.0/8'),
@@ -33,19 +33,35 @@ module LinkFetcher
       IPAddr.new('::ffff:0:0/96')
     ].freeze
 
+    class InvalidUriError < StandardError; end
+    class UnsafeIpError < StandardError; end
+
     module_function
 
-    def valid?(uri)
-      return false unless valid_http_uri?(uri)
+    def resolve_ips(uri)
+      raise InvalidUriError unless valid_http_uri?(uri)
 
       ips = Resolv.getaddresses(uri.host)
-      ips.all? { |ip| safe_ip?(IPAddr.new(ip)) }
+      raise UnsafeIpError unless all_ips_safe?(ips)
+
+      ips
+    rescue InvalidUriError => e
+      Rails.logger.info("[SafeResolver] #{e.class}: #{uri}")
+      nil
+    rescue UnsafeIpError => e
+      Rails.logger.warn("[SafeResolver] #{e.class}: unsafe ip detected host=#{uri.host}")
+      nil
     end
 
     def valid_http_uri?(uri)
       port = uri.port || uri.inferred_port
 
       port.in?([80, 443]) && uri.scheme.downcase.in?(%w[http https])
+    end
+
+    def all_ips_safe?(ips)
+      ip_addrs = ips.map { |ip| IPAddr.new(ip) }
+      ip_addrs.all? { |ip| safe_ip?(ip) }
     end
 
     def safe_ip?(ip_addr)
