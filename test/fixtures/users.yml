@@ -64,6 +64,7 @@ machida:
   profile_text: "株式会社ロッカのデザイナー。Ruby on Railsを使ったWebアプリを中心に多くのプロジェクトに参加。仙台で行われたRubyKaigi 2018のデザイン担当。フィヨルドブートキャンプでは主に HTML と CSS のレビュー担当。"
   country_code: JP
   subdivision_code: '13'
+  show_study_streak: true
 
 adminonly: # adminのroleだけを持ったユーザー
   login_name: adminonly
@@ -226,6 +227,7 @@ kimura:
   mentor_memo: "kimuraさんのメモ"
   country_code: JP
   subdivision_code: '13'
+  show_study_streak: true
 
 hatsuno:
   login_name: hatsuno
@@ -1153,3 +1155,23 @@ kensyu-invoice:
   last_activity_at: "2014-01-01 00:00:11"
   sent_student_followup_message: true
   training_ends_on: "2022-04-01"
+
+grant-course:
+  login_name: grant-course
+  email: grant-course@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 給付金コースのユーザー
+  name_kana: キュウフキンコースノユーザー
+  github_account: grant-course
+  twitter_account: grant-course
+  facebook_url: https://www.facebook.com/fjordllc/grant-course
+  blog_url: http://grant-course.org
+  description: "給付金コースを受講中のユーザーです。"
+  course: course5
+  job: office_worker
+  os: mac
+  organization: Rails大学
+  updated_at: "2025-01-01 00:00:00"
+  created_at: "2025-01-01 00:00:00"
+  last_activity_at: "2025-01-01 00:00:00"

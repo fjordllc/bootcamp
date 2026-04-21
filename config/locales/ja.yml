@@ -140,6 +140,7 @@ ja:
         invoice_payment: 「請求書払い」
         diploma_file: 卒業証書(PDF)
         other_referral_source: FBCを知ったその他の経路
+        show_study_streak: 学習連続記録
       discord_profile:
         account_name: Discord アカウント
         times_url: 分報URL
@@ -218,6 +219,7 @@ ja:
         description: 説明
         tag_list: タグ
         movie_data: 動画データ
+        thumbnail: サムネイル画像
       question:
         practice: プラクティス
         title: タイトル
@@ -387,9 +389,9 @@ ja:
         buddy: ペア
     enums:
       emotion:
-        negative: Negative
-        neutral: Neutral
-        positive: Positive
+        negative: 不調
+        neutral: 普通
+        positive: 好調
       user:
         job:
           student: 学生

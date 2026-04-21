@@ -182,3 +182,7 @@ talk48:
 talk49:
   user: hukki
   action_completed: true
+
+talk50:
+  user: grant-course
+  action_completed: true

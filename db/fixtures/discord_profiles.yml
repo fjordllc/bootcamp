@@ -340,3 +340,8 @@ discord_profile_hukki:
   user: hukki
   account_name: hukki
   times_url:
+
+discord_profile_grant-course:
+  user: grant-course
+  account_name: grant-course
+  times_url:

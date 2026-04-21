@@ -38,7 +38,7 @@ class HomeTest < ApplicationSystemTestCase
     assert_text '最新のみんなの日報'
   end
 
-  test 'toggles_mentor_profile_visibility' do
+  test 'toggles mentor profile visibility' do
     visit '/'
     assert_text '駒形 真幸'
     assert_text '株式会社ロッカの代表兼エンジニア。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
@@ -54,5 +54,33 @@ class HomeTest < ApplicationSystemTestCase
       assert_no_text '駒形 真幸'
       assert_no_text '株式会社ロッカの代表兼エンジニア。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
     end
+  end
+
+  test 'toggles study streak visibility' do
+    user = users(:hajime)
+    visit_with_auth '/', 'hajime'
+
+    initial_show_study_streak = user.show_study_streak
+
+    assert_no_selector '.card-body', text: '現在の連続記録'
+    assert_no_selector '.card-body', text: '連続最高記録'
+    assert_not find('#toggle', visible: false).checked?
+    find('label.a-on-off-checkbox').click
+
+    assert_equal !initial_show_study_streak, user.reload.show_study_streak
+    assert_selector '.card-body', text: '現在の連続記録'
+    assert_selector '.card-body', text: '連続最高記録'
+    assert find('#toggle', visible: false).checked?
+    find('label.a-on-off-checkbox').click
+  end
+
+  test 'not show study streak toggle when no learning reports exist' do
+    assert_not users(:kensyu).reports_with_learning_times.present?
+    visit_with_auth '/', 'kensyu'
+    assert_no_selector 'label.a-on-off-checkbox'
+    logout
+    assert users(:hajime).reports_with_learning_times.present?
+    visit_with_auth '/', 'hajime'
+    assert_selector 'label.a-on-off-checkbox'
   end
 end

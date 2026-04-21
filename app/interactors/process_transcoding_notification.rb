@@ -68,6 +68,7 @@ class ProcessTranscodingNotification
     transcoded_movie = Transcoder::Movie.new(movie)
     movie.movie_data.attach(io: transcoded_movie.data, filename: "#{movie.id}.mp4")
     movie.save!
+    GenerateMovieThumbnailJob.perform_later(movie)
     Rails.logger.info("Successfully attached transcoded movie for Movie #{movie.id}")
   rescue StandardError => e
     Rails.logger.error("Failed to attach transcoded movie for Movie #{movie.id}: #{e.message}")

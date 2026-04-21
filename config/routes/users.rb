@@ -15,6 +15,9 @@ Rails.application.routes.draw do
     collection do
       get :created
     end
+    member do
+      patch :toggle_show_study_streak
+    end
     resources :reports, only: %i(index), controller: "users/reports"
     resources :comments, only: %i(index), controller: "users/comments"
     resources :products, only: %i(index), controller: "users/products"

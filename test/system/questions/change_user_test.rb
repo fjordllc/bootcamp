@@ -24,7 +24,7 @@ module Questions
       fill_in 'question[description]', with: 'テストの質問です。'
       within '.select-user' do
         find('.choices__inner').click
-        find('#choices--js-choices-user-item-choice-13', text: 'hatsuno').click
+        find('.choices__item--choice', text: 'hatsuno').click
       end
       click_button '登録する'
       assert_selector '.a-user-name', text: 'hatsuno (ハツノ シンジ)'
@@ -36,7 +36,7 @@ module Questions
       click_link '内容修正'
       within '.select-user' do
         find('.choices__inner').click
-        find('#choices--js-choices-user-item-choice-13', text: 'hatsuno').click
+        find('.choices__item--choice', text: 'hatsuno').click
       end
       click_button '更新する'
       assert_selector '.a-user-name', text: 'hatsuno (ハツノ シンジ)'
@@ -46,11 +46,11 @@ module Questions
       visit_with_auth new_question_path, 'komagata'
       within '.select-practices' do
         find('.choices__inner').click
-        find('#choices--js-choices-practice-item-choice-12', text: 'sshdでパスワード認証を禁止にする').click
+        find('.choices__item--choice', text: 'sshdでパスワード認証を禁止にする').click
       end
       within '.select-user' do
         find('.choices__inner').click
-        find('#choices--js-choices-user-item-choice-13', text: 'hatsuno').click
+        find('.choices__item--choice', text: 'hatsuno').click
       end
       click_button 'WIP'
 
