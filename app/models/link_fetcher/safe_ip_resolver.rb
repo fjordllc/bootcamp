@@ -33,21 +33,21 @@ module LinkFetcher
       IPAddr.new('::ffff:0:0/96')
     ].freeze
 
-    class InvalidUriError < StandardError; end
+    class NonHttpUriError < StandardError; end
     class AddressNotFoundError < StandardError; end
     class UnsafeIpError < StandardError; end
 
     module_function
 
     def resolve_ips(uri)
-      raise InvalidUriError unless valid_http_uri?(uri)
+      raise NonHttpUriError unless valid_http_uri?(uri)
 
       ips = Resolv.getaddresses(uri.host)
       raise AddressNotFoundError if ips.empty?
       raise UnsafeIpError unless all_ips_safe?(ips)
 
       ips
-    rescue InvalidUriError => e
+    rescue NonHttpUriError => e
       Rails.logger.info("[SafeResolver] #{e.class}: scheme=#{uri.scheme} host=#{uri.host}")
       nil
     rescue AddressNotFoundError => e
