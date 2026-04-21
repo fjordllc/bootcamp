@@ -34,12 +34,18 @@ module LinkFetcher
 
     test '.build_http' do
       secure_uri = Addressable::URI.parse('https://bootcamp.fjord.jp/').normalize
-      http = Fetcher.build_http(secure_uri)
+      ips = ['8.8.8.8', '1.1.1.1']
 
-      assert_equal OpenSSL::SSL::VERIFY_PEER, http.verify_mode
-      assert_equal Fetcher::DEFAULT_TIMEOUT, http.open_timeout
-      assert_equal Fetcher::DEFAULT_TIMEOUT, http.read_timeout
-      assert http.response_body_encoding
+      Resolv.stub :getaddresses, ips do
+        ips = Resolv.getaddresses(secure_uri.host)
+        http = Fetcher.build_http(secure_uri, ips)
+
+        assert_equal OpenSSL::SSL::VERIFY_PEER, http.verify_mode
+        assert_equal Fetcher::DEFAULT_TIMEOUT, http.open_timeout
+        assert_equal Fetcher::DEFAULT_TIMEOUT, http.read_timeout
+        assert_equal ips.first, http.ipaddr
+        assert http.response_body_encoding
+      end
     end
 
     test '.build_redirect_url' do
