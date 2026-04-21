@@ -46,4 +46,48 @@ class PjordTest < ActiveSupport::TestCase
       end
     end
   end
+
+  test '.classify_report returns parsed intent hash' do
+    mock_content = Minitest::Mock.new
+    mock_content.expect(:content, '{"intent":"question","reason":"質問がある"}')
+
+    mock_chat = Minitest::Mock.new
+    mock_chat.expect(:with_instructions, mock_chat, [String])
+    mock_chat.expect(:with_schema, mock_chat, [PjordReportIntent])
+    mock_chat.expect(:ask, mock_content, [String])
+
+    RubyLLM.stub(:chat, mock_chat) do
+      result = Pjord.classify_report(title: 'title', description: 'どうしてもエラーが解決できません')
+      assert_equal 'question', result[:intent]
+      assert_equal '質問がある', result[:reason]
+    end
+  end
+
+  test '.classify_report returns nil on invalid intent' do
+    mock_content = Minitest::Mock.new
+    mock_content.expect(:content, '{"intent":"unknown","reason":"?"}')
+
+    mock_chat = Minitest::Mock.new
+    mock_chat.expect(:with_instructions, mock_chat, [String])
+    mock_chat.expect(:with_schema, mock_chat, [PjordReportIntent])
+    mock_chat.expect(:ask, mock_content, [String])
+
+    RubyLLM.stub(:chat, mock_chat) do
+      assert_nil Pjord.classify_report(title: 't', description: 'd')
+    end
+  end
+
+  test '.classify_report returns nil on JSON parse error' do
+    mock_content = Minitest::Mock.new
+    mock_content.expect(:content, 'not json')
+
+    mock_chat = Minitest::Mock.new
+    mock_chat.expect(:with_instructions, mock_chat, [String])
+    mock_chat.expect(:with_schema, mock_chat, [PjordReportIntent])
+    mock_chat.expect(:ask, mock_content, [String])
+
+    RubyLLM.stub(:chat, mock_chat) do
+      assert_nil Pjord.classify_report(title: 't', description: 'd')
+    end
+  end
 end
