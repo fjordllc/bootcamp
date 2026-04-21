@@ -6,18 +6,18 @@ class GenerateMovieThumbnailJobTest < ActiveJob::TestCase
   test 'attaches first frame image as thumbnail' do
     movie = movies(:movie1)
     movie.thumbnail.purge
+    # fixture の attachment レコードだけでは CI のクリーンな DiskService 上に
+    # 実ファイルが存在せず `preview.processed` が `ActiveStorage::FileNotFoundError`
+    # を投げるため、`movies_test.rb` と同じ方式で実ファイルを明示的に添付する。
+    movie.movie_data.attach(
+      io: File.open(Rails.root.join('test/fixtures/files/movies/movie.mp4')),
+      filename: 'movie.mp4',
+      content_type: 'video/mp4'
+    )
 
-    # ActiveStorage の動画プレビュー生成（ffmpeg 経由）が CI 上でまれに一時的に
-    # 失敗し、ジョブ内の `rescue ActiveStorage::PreviewError` に握り潰されるため、
-    # サムネイルが添付されるまで数回リトライする。
-    3.times do
-      GenerateMovieThumbnailJob.perform_now(movie)
-      break if movie.reload.thumbnail.attached?
+    GenerateMovieThumbnailJob.perform_now(movie)
 
-      sleep 0.2
-    end
-
-    assert movie.thumbnail.attached?
+    assert movie.reload.thumbnail.attached?
     assert_equal 'image/jpeg', movie.thumbnail.content_type
   end
 
