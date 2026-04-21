@@ -7,7 +7,15 @@ class GenerateMovieThumbnailJobTest < ActiveJob::TestCase
     movie = movies(:movie1)
     movie.thumbnail.purge
 
-    GenerateMovieThumbnailJob.perform_now(movie)
+    # ActiveStorage の動画プレビュー生成（ffmpeg 経由）が CI 上でまれに一時的に
+    # 失敗し、ジョブ内の `rescue ActiveStorage::PreviewError` に握り潰されるため、
+    # サムネイルが添付されるまで数回リトライする。
+    3.times do
+      GenerateMovieThumbnailJob.perform_now(movie)
+      break if movie.reload.thumbnail.attached?
+
+      sleep 0.2
+    end
 
     assert movie.thumbnail.attached?
     assert_equal 'image/jpeg', movie.thumbnail.content_type

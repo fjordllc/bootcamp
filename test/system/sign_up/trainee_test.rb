@@ -180,6 +180,9 @@ module SignUp
     test 'job seeker option is hidden for trainee credit card payment' do
       visit '/users/new?role=trainee_credit_card_payment'
       assert_selector 'form[name=user]'
+      # クレジットカード払いフォームが正しく描画されるのを待ってから不在を検査する
+      # （描画途中の別ページで誤判定することを避けるため）
+      assert_selector '#card'
       assert has_no_selector? "input[name='user[job_seeker]']", visible: :all
     end
 
