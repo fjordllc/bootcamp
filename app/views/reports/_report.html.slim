@@ -56,7 +56,7 @@
                 .a-meta
                   | 〜
                   time.a-meta datetime=report.comments.last.updated_at.iso8601
-                  = l report.comments.last.updated_at, format: :date_and_time
+                    = l report.comments.last.updated_at, format: :date_and_time
 
     - if report.checks.any?
       .stamp.stamp-approve
