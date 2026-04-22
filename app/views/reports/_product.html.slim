@@ -39,7 +39,7 @@
                 .a-meta
                   | 〜
                   time.a-meta datetime=product.comments.last.updated_at.iso8601
-                  = l product.comments.last.updated_at, format: :date_and_time
+                    = l product.comments.last.updated_at, format: :date_and_time
 
     - if product.checks.any?
       .stamp.stamp-approve
