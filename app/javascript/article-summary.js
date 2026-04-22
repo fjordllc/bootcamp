@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault()
     try {
       btn.disabled = true
-      btn.innerText = '生成中..'
+      btn.innerHTML = `<svg class="animate-spin h-5 w-5 border-2 border-indigo-500 border-t-transparent rounded-full" viewBox="0 0 24 24"></svg>`
       const articleBody = document.querySelector('[name="article[body]"]').value
       const response = await fetch('/articles/generate_summary', {
         method: 'POST',

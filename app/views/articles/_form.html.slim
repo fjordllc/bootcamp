@@ -26,8 +26,9 @@
     .form-item
       .row
         .col-md-6.col-xs-12
-          = f.label '記事の概要・説明', class: 'a-form-label'
-          = f.button 'AIで生成する', type: 'button', class: 'a-button is-lg is-secondary', id: 'btn-generate-summary'
+          .flex.items-center.justify-between.mb-2
+            = f.label '記事の概要・説明', class: 'a-form-label'
+            = f.button 'AIで生成する', type: 'button', class: 'a-button is-lg is-secondary', id: 'btn-generate-summary'
           = f.text_area :summary, class: 'a-text-input', id: 'summary-text-area'
           .a-form-help
             p
