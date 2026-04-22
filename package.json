@@ -29,7 +29,7 @@
     "compression-webpack-plugin": "^11.1.0",
     "css-loader": "^7.0.0",
     "dayjs": "^1.10.4",
-    "dompurify": "^3.2.6",
+    "dompurify": "^3.4.1",
     "escape-html": "^1.0.3",
     "escape-string-regexp": "^2.0.0",
     "file-loader": "^6.2.0",
