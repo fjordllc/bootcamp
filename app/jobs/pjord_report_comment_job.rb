@@ -34,7 +34,10 @@ class PjordReportCommentJob < ApplicationJob
     response = generate_response(report, intent)
     return if response.blank?
 
-    Comment.create!(user: pjord, commentable: report, description: response)
+    ActiveRecord::Base.transaction do
+      Comment.create!(user: pjord, commentable: report, description: response)
+      Reaction.find_or_create_by!(user: pjord, reactionable: report, kind: :eyes)
+    end
   end
 
   private
