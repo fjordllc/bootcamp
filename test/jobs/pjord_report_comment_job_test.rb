@@ -3,13 +3,14 @@
 require 'test_helper'
 
 class PjordReportCommentJobTest < ActiveJob::TestCase
-  test 'creates a comment when intent is question' do
+  test 'creates a comment and an eyes reaction when intent is question' do
     report = reports(:report1)
     pjord = users(:pjord)
 
     Pjord.stub(:classify_report, { intent: 'question', reason: '質問あり' }) do
       Pjord.stub(:respond, 'ヒントをあげますね。') do
-        assert_difference 'Comment.count', 1 do
+        assert_difference -> { Comment.count } => 1,
+                          -> { Reaction.where(user: pjord, reactionable: report, kind: :eyes).count } => 1 do
           PjordReportCommentJob.perform_now(report_id: report.id)
         end
       end
@@ -19,6 +20,22 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     assert_equal pjord, comment.user
     assert_equal report, comment.commentable
     assert_equal 'ヒントをあげますね。', comment.description
+  end
+
+  test 'does not duplicate eyes reaction when pjord already reacted to the report' do
+    report = reports(:report1)
+    pjord = users(:pjord)
+    Reaction.create!(user: pjord, reactionable: report, kind: :eyes)
+
+    Pjord.stub(:classify_report, { intent: 'question', reason: '質問あり' }) do
+      Pjord.stub(:respond, 'ヒントをあげますね。') do
+        assert_difference 'Comment.count', 1 do
+          assert_no_difference -> { Reaction.where(user: pjord, reactionable: report, kind: :eyes).count } do
+            PjordReportCommentJob.perform_now(report_id: report.id)
+          end
+        end
+      end
+    end
   end
 
   test 'creates a comment when intent is struggling' do
@@ -45,11 +62,13 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     end
   end
 
-  test 'does not create a comment when intent is none' do
+  test 'does not create a comment or reaction when intent is none' do
     report = reports(:report1)
+    pjord = users(:pjord)
 
     Pjord.stub(:classify_report, { intent: 'none', reason: '通常の学習記録' }) do
-      assert_no_difference 'Comment.count' do
+      assert_no_difference ['Comment.count',
+                            -> { Reaction.where(user: pjord, reactionable: report, kind: :eyes).count }] do
         PjordReportCommentJob.perform_now(report_id: report.id)
       end
     end
@@ -101,12 +120,14 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     end
   end
 
-  test 'does nothing when response is blank' do
+  test 'does not create a comment or reaction when response is blank' do
     report = reports(:report1)
+    pjord = users(:pjord)
 
     Pjord.stub(:classify_report, { intent: 'question', reason: '質問あり' }) do
       Pjord.stub(:respond, nil) do
-        assert_no_difference 'Comment.count' do
+        assert_no_difference ['Comment.count',
+                              -> { Reaction.where(user: pjord, reactionable: report, kind: :eyes).count }] do
           PjordReportCommentJob.perform_now(report_id: report.id)
         end
       end
