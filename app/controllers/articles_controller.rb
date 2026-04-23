@@ -62,7 +62,7 @@ class ArticlesController < ApplicationController
     redirect_to articles_url, notice: '記事を削除しました'
   end
 
-  def generate_summary
+  def create_summary
     render json: { summary: Article.agent_summary(params[:body]) }
   end
 
