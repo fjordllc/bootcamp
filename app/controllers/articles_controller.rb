@@ -63,9 +63,7 @@ class ArticlesController < ApplicationController
   end
 
   def generate_summary
-    agent = ArticleMetaDescriptionAgent.new
-    summary = agent.ask(params[:body]).content
-    render json: { summary: summary }
+    render json: { summary: Article.agent_summary(params[:body]) }
   end
 
   private
