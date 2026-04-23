@@ -82,6 +82,11 @@ class Article < ApplicationRecord
     self.token ||= SecureRandom.urlsafe_base64
   end
 
+  def self.agent_summary(article)
+    agent = ArticleMetaDescriptionAgent.new
+    agent.ask(article).content
+  end
+
   private
 
   def will_be_published?
