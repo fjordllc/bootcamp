@@ -345,3 +345,8 @@ discord_profile_grant-course:
   user: grant-course
   account_name: grant-course
   times_url:
+
+discord_profile_kensyukansou-nil:
+  user: kensyukansou-nil
+  account_name: kensyukansou-nil1234
+  times_url:
