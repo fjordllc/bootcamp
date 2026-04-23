@@ -78,6 +78,10 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     else
       create_user!
     end
+
+    return if @user.errors.any?
+
+    @user.avatar_attach_with_filename
   end
 
   def created
