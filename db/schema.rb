@@ -1071,6 +1071,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_000001) do
     t.boolean "sent_student_before_auto_retire_mail", default: false
     t.boolean "sent_student_followup_message", default: false
     t.boolean "show_mentor_profile", default: true, null: false
+    t.boolean "show_study_streak", default: false, null: false
     t.string "subdivision_code"
     t.string "subscription_id"
     t.boolean "trainee", default: false, null: false

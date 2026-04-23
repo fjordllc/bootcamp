@@ -70,7 +70,7 @@
               = render 'users/hibernation_history', user: @user
         .col-xs-12(class="#{visible_learning_time_frames?(@user) ? 'col-lg-4 col-xxl-4' : 'col-lg-6 col-xxl-6'}")
           - if @user.student_or_trainee? && @user.total_learning_time.positive?
-            = render(StudyStreak::StudyStreakTrackerComponent.new(study_streak: @study_streak))
+            = render(StudyStreak::StudyStreakTrackerComponent.new(study_streak: @study_streak, target_user: @user))
           - unless @user.total_learning_time.zero? || @user.mentor?
             = render(Grass::GrassComponent.new(user: @user, times: @times, target_end_date: @target_end_date, path: :user_path))
           - if @user.student_or_trainee?

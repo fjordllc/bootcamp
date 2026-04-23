@@ -64,6 +64,7 @@ machida:
   profile_text: "株式会社ロッカのデザイナー。Ruby on Railsを使ったWebアプリを中心に多くのプロジェクトに参加。仙台で行われたRubyKaigi 2018のデザイン担当。フィヨルドブートキャンプでは主に HTML と CSS のレビュー担当。"
   country_code: JP
   subdivision_code: '13'
+  show_study_streak: true
 
 adminonly: # adminのroleだけを持ったユーザー
   login_name: adminonly
@@ -226,6 +227,7 @@ kimura:
   mentor_memo: "kimuraさんのメモ"
   country_code: JP
   subdivision_code: '13'
+  show_study_streak: true
 
 hatsuno:
   login_name: hatsuno

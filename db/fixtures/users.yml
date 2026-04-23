@@ -1596,3 +1596,31 @@ grant-course:
   updated_at: "2025-01-01 00:00:00"
   created_at: "2025-01-01 00:00:00"
   last_activity_at: "2025-01-01 00:00:00"
+
+kensyukansou-nil:
+  login_name: kensyukansou-nil
+  email: kensyukansou-nil@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: Kensyukansou nil
+  name_kana: ケンシュウカンソウ ニル
+  github_account: kensyukansou-nil
+  twitter_account: kensyukansou-nil
+  facebook_url: https://www.facebook.com/fjordllc/kensyukansou-nil
+  blog_url: http://kensyukansou-nil.org
+  company: company2
+  description: "研修感想nilです。"
+  course: course1
+  job: office_worker
+  os: mac
+  experiences: 6
+  organization: 研修大学
+  trainee: true
+  training_completed_at: "2015-01-01 00:00:00"
+  satisfaction: nil
+  opinion: "研修終了の自由感想です。"
+  unsubscribe_email_token: Vb3qzFj58w4hcwOfEn14qW
+  updated_at: "2014-01-01 00:00:11"
+  created_at: "2014-01-01 00:00:11"
+  sent_student_followup_message: true
+  last_activity_at: "2014-01-01 00:00:11"

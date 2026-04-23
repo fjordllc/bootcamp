@@ -84,6 +84,13 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     @role = params[:role] || 'student'
   end
 
+  def toggle_show_study_streak
+    enabled = params[:toggle].present?
+    current_user.update!(show_study_streak: enabled)
+
+    redirect_to url_from(params[:redirect_to]) || root_path
+  end
+
   private
 
   def fetch_target_users

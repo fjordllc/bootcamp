@@ -17,6 +17,7 @@ class Pjord
     - 回答はmarkdown形式で書く
     - 簡潔にわかりやすく答える
     - ユーザーが書いた言語で返答する
+    - 語尾に「ピヨ」など特徴的な語尾は付けず、通常の丁寧な日本語で話す
 
     ## ツールの使い方
     - bootcampのカリキュラム、ドキュメント、Q&Aに関する質問には、bootcamp_search_toolで検索してから回答する
@@ -40,7 +41,52 @@ class Pjord
       result.presence
     end
 
+    def classify_report(title:, description:)
+      chat = RubyLLM.chat(model: model_name)
+      chat.with_instructions(classify_instructions)
+      chat.with_schema(PjordReportIntent)
+      content = chat.ask(classify_message(title:, description:)).content
+      parsed =
+        if content.is_a?(String)
+          JSON.parse(content)
+        elsif content.respond_to?(:to_h)
+          content.to_h
+        else
+          content
+        end
+      return nil unless parsed.is_a?(Hash)
+
+      parsed = parsed.stringify_keys
+      intent = parsed['intent']
+      return nil unless PjordReportIntent::INTENTS.include?(intent)
+
+      { intent: intent, reason: parsed['reason'] }
+    rescue JSON::ParserError => e
+      Rails.logger.error("[Pjord.classify_report] JSON parse error: #{e.message}")
+      nil
+    end
+
     private
+
+    def classify_instructions
+      <<~TEXT
+        あなたは日報の内容を分類する分類器です。
+        与えられた日報を読み、指定されたスキーマに従って `intent` を1つだけ選んでください。
+        余計な文章は一切出力せず、スキーマで定義された構造化データのみを返してください。
+      TEXT
+    end
+
+    def classify_message(title:, description:)
+      <<~TEXT
+        以下の日報を分類してください。
+
+        ## タイトル
+        #{title}
+
+        ## 本文
+        #{description}
+      TEXT
+    end
 
     def model_name
       ENV.fetch('PJORD_LLM_MODEL', 'claude-sonnet-4-6')

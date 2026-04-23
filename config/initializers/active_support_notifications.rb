@@ -17,8 +17,10 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('report.update', FirstReportNotifier.new)
   ActiveSupport::Notifications.subscribe('report.create', ReportNotifier.new)
   ActiveSupport::Notifications.subscribe('report.update', ReportNotifier.new)
-  ActiveSupport::Notifications.subscribe('report.create', PjordReportCommenter.new)
-  ActiveSupport::Notifications.subscribe('report.update', PjordReportCommenter.new)
+  if ENV['ANTHROPIC_API_KEY'].present?
+    ActiveSupport::Notifications.subscribe('report.create', PjordReportCommenter.new)
+    ActiveSupport::Notifications.subscribe('report.update', PjordReportCommenter.new)
+  end
   ActiveSupport::Notifications.subscribe('announcement.create', AnnouncementNotifier.new)
   ActiveSupport::Notifications.subscribe('announcement.update', AnnouncementNotifier.new)
   ActiveSupport::Notifications.subscribe('announcement.destroy', AnnouncementNotificationDestroyer.new)
