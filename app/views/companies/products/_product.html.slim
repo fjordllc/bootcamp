@@ -67,7 +67,7 @@
                     | ）
                 - elsif product.self_last_commented_at < product.mentor_last_commented_at
                   .a-meta
-                    | ～
+                    | 〜
                     time.a-meta datetime=product.mentor_last_commented_at.iso8601
                       = l product.mentor_last_commented_at
                     |（メンター）
@@ -83,7 +83,7 @@
                     | ）
                 - elsif product.mentor_last_commented_at
                   .a-meta
-                    | ～
+                    | 〜
                     time.a-meta datetime=product.mentor_last_commented_at.iso8601
                       = l product.mentor_last_commented_at
                     |（メンター）
