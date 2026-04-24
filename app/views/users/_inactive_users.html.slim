@@ -18,11 +18,11 @@
                     | #{user.login_name} （#{user.name}）
             .card-list-item__row
               .card-list-item-meta
-                time.a-meta
+                .a-meta
                   span.a-meta__label
                     = User.human_attribute_name :last_activity_at
-                  span.a-meta__value
-                    - if user.last_activity_at?
+                  - if user.last_activity_at?
+                    time.a-meta__value datetime=user.last_activity_at.iso8601
                       = l user.last_activity_at
   hr.a-border-tint
   footer.card-footer

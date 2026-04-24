@@ -32,7 +32,7 @@ header.page-content-header
                   span.a-meta__label
                     | 公開
                   .a-meta__value
-                    time(datetime="#{page.published_at.to_datetime}")
+                    time(datetime="#{page.published_at.iso8601}")
                       | #{l page.published_at}
                     = render 'users/icon',
                       user: page.user,
@@ -47,7 +47,7 @@ header.page-content-header
                   span.a-meta__label
                     | 更新
                   span.a-meta__value
-                    time(datetime="#{page.updated_at.to_datetime}")
+                    time(datetime="#{page.updated_at.iso8601}")
                       | #{l page.updated_at}
                     = render 'users/icon',
                       user: page.last_updated_user,
