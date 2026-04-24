@@ -82,9 +82,9 @@ class Article < ApplicationRecord
     self.token ||= SecureRandom.urlsafe_base64
   end
 
-  def self.agent_summary(article)
+  def self.agent_summary(body)
     agent = ArticleMetaDescriptionAgent.new
-    agent.ask(article).content
+    agent.ask(body).content
   end
 
   private

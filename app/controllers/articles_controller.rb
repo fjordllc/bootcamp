@@ -63,7 +63,27 @@ class ArticlesController < ApplicationController
   end
 
   def create_summary
-    render json: { summary: Article.agent_summary(params[:body]) }
+    # Validate body parameter
+    if params[:body].blank?
+      return render json: { error: 'Body parameter is required' }, status: :bad_request
+    end
+
+    if params[:body].length > 50_000
+      return render json: { error: 'Body is too large (maximum 50,000 characters)' }, status: :payload_too_large
+    end
+
+    # Call the interactor with error handling
+    begin
+      result = Articles::GenerateSummary.call(body: params[:body])
+
+      if result.success?
+        render json: { summary: result.summary }
+      else
+        render json: { error: result.error || 'Failed to generate summary' }, status: :internal_server_error
+      end
+    rescue RubyLLM::Error, SocketError, Errno::ECONNRESET, Net::OpenTimeout => e
+      render json: { error: 'Failed to generate summary due to service error' }, status: :internal_server_error
+    end
   end
 
   private
