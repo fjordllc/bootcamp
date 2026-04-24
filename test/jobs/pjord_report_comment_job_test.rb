@@ -38,6 +38,25 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     end
   end
 
+  test 'still creates a comment even when reaction fails' do
+    report = reports(:report1)
+    pjord = users(:pjord)
+
+    Pjord.stub(:classify_report, { intent: 'question', reason: '質問あり' }) do
+      Pjord.stub(:respond, 'ヒントをあげますね。') do
+        Reaction.stub(:find_or_create_by!, ->(**_args) { raise ActiveRecord::RecordInvalid }) do
+          assert_difference 'Comment.count', 1 do
+            assert_no_difference -> { Reaction.where(user: pjord, reactionable: report, kind: :eyes).count } do
+              assert_nothing_raised do
+                PjordReportCommentJob.perform_now(report_id: report.id)
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+
   test 'creates a comment when intent is struggling' do
     report = reports(:report1)
 
