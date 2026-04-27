@@ -94,9 +94,7 @@ Rails.application.routes.draw do
     resources :wips, only: %i(index), controller: "wips"
   end
   resources :articles do
-    collection do
-      post :create_summary
-    end
+    post :create_summary, on: :collection
   end
   namespace :events do
     resources :calendars, only: %i(index)
