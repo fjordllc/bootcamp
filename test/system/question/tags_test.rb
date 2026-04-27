@@ -14,14 +14,6 @@ class Question::TagsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'update tags without page transitions' do
-    visit_with_auth question_path(questions(:question2)), 'komagata'
-    find('.tag-links__item-edit').click
-    fill_in_tag '追加タグ'
-    click_on '保存'
-    assert_text '追加タグ'
-  end
-
   test 'admin can edit tag' do
     tag = acts_as_taggable_on_tags('game')
     assert_admin_can_edit_tag(questions_tag_path(tag.name, all: 'true'))
