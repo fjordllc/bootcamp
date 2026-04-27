@@ -118,7 +118,7 @@ jobs:
       - run:
           name: Test
           command: |
-            circleci tests glob "test/**/*_test.rb" | circleci tests run --command="xargs bundle exec rails test" --verbose --split-by=timings --timings-type=filename
+            circleci tests glob "test/**/*_test.rb" | timeout 20m circleci tests run --command="xargs bundle exec rails test" --verbose --split-by=timings --timings-type=filename
       - store_test_results:
           path: test/reports
       - store_artifacts:
