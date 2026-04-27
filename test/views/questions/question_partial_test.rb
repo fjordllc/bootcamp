@@ -18,8 +18,7 @@ module Questions
     end
 
     test 'marks answer count as important when answer does not exist' do
-      question = questions(:question1)
-      question.answers.destroy_all
+      question = questions(:question_for_wip)
 
       render partial: 'questions/question', locals: { question: }
 

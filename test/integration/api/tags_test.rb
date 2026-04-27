@@ -25,11 +25,13 @@ class API::TagsTest < ActionDispatch::IntegrationTest
     assert_equal ['追加タグ'], question.reload.tag_list
   end
 
-  test 'renames a tag that does not exist yet across taggings' do
+  test 'renames an existing tag to an unused name across taggings' do
     tag = acts_as_taggable_on_tags('beginner')
     new_tag_name = '上級者'
 
-    patch api_tag_path(tag, format: :json), params: { tag: { name: new_tag_name } }
+    patch api_tag_path(tag, format: :json),
+          params: { tag: { name: new_tag_name } },
+          headers: authorization_header
 
     assert_response :ok
     assert_empty Question.tagged_with(tag.name)

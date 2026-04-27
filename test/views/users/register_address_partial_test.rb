@@ -16,8 +16,10 @@ class Users::RegisterAddressPartialTest < ActionView::TestCase
 
     assert_select 'input[name=register_address][value=yes][checked=checked]'
     assert_select '#country-form'
+    assert_select '#country-form.is-hidden', false
     assert_select 'select#country-select[name="user[country_code]"] option[selected=selected]', text: '日本'
     assert_select '#subdivision-form'
+    assert_select '#subdivision-form.is-hidden', false
     assert_select 'select#subdivision-select[name="user[subdivision_code]"] option', text: '北海道'
   end
 

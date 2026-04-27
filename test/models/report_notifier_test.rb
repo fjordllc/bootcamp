@@ -13,7 +13,6 @@ class ReportNotifierTest < ActiveSupport::TestCase
 
   test 'notifies company advisor only when report is initially posted' do
     author = users(:kensyu)
-    receiver = users(:senpai)
     report = build_wip_report(author, title: '研修生が日報を作成し提出した時', description: 'アドバイザーに通知を飛ばす')
 
     assert_notify_only_when_initially_posted(report, -> { AbstractNotifier::Testing::Driver.deliveries.count })
