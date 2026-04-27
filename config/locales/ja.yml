@@ -474,7 +474,7 @@ ja:
         campaign:
           attributes:
             end_at:
-              format: 'は%{shortest_end_at}以降を入力してください。'
+              greater_than_start_at: 'は%{shortest_end_at}以降を入力してください。'
         doorkeeper/application:
           attributes:
             redirect_uri:
