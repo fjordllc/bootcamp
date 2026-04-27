@@ -1,4 +1,4 @@
-# frozen_string_literal: tru
+# frozen_string_literal: true
 
 class AddAiAnswerToQuestions < ActiveRecord::Migration[6.1]
   def change
