@@ -6,22 +6,14 @@ class GenerateMovieThumbnailJobTest < ActiveJob::TestCase
   test 'attaches first frame image as thumbnail' do
     movie = movies(:movie1)
     movie.thumbnail.purge
-    preview_blob = ActiveStorage::Blob.create_and_upload!(
-      io: File.open(Rails.root.join('test/fixtures/files/articles/ogp_images/test.jpg')),
-      filename: 'test.jpg',
-      content_type: 'image/jpeg'
+    movie.movie_data.attach(
+      io: File.open(Rails.root.join('test/fixtures/files/movies/movie.mp4')),
+      filename: 'movie.mp4',
+      content_type: 'video/mp4'
     )
-    preview = Minitest::Mock.new
-    preview.expect(:processed, preview)
-    preview.expect(:image, Struct.new(:blob).new(preview_blob))
 
-    movie.movie_data.stub(:previewable?, true) do
-      movie.movie_data.stub(:preview, preview) do
-        GenerateMovieThumbnailJob.perform_now(movie)
-      end
-    end
+    GenerateMovieThumbnailJob.perform_now(movie)
 
-    preview.verify
     assert movie.reload.thumbnail.attached?
     assert_equal 'image/jpeg', movie.thumbnail.content_type
   end
