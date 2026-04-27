@@ -173,6 +173,7 @@ class RegularEventTest < ActiveSupport::TestCase
       regular_events = RegularEvent.scheduled_on_without_ended(today_date)
       regular_event_in_progress = regular_events(:regular_event36)
       regular_event_ended = regular_events(:regular_event37)
+
       assert_includes regular_events, regular_event_in_progress
       assert_not_includes regular_events, regular_event_ended
     end
@@ -185,5 +186,13 @@ class RegularEventTest < ActiveSupport::TestCase
       regular_event_scheduled_for_tomorrow = regular_events(:regular_event38)
       assert_includes regular_events, regular_event_scheduled_for_tomorrow
     end
+  end
+
+  test '.not_finished exclude wip and finished events' do
+    events = RegularEvent.not_finished
+    wip_event = regular_events(:regular_event42)
+    finished_event = regular_events(:regular_event39)
+    assert_not_includes events, wip_event
+    assert_not_includes events, finished_event
   end
 end

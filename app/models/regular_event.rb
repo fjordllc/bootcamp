@@ -41,17 +41,17 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validates :regular_event_repeat_rules, presence: true
   validates_associated :regular_event_repeat_rules
 
-  scope :not_finished, -> { where(finished: false) }
+  scope :exclude_finished, -> { where(finished: false) }
 
   with_options if: -> { start_at && end_at } do
     validate :end_at_be_greater_than_start_at
   end
 
-  scope :holding, -> { where(finished: false) }
+  scope :not_finished, -> { where(finished: false, wip: false) }
   scope :participated_by, ->(user) { where(id: all.filter { |e| e.participated_by?(user) }.map(&:id)) }
   scope :organizer_event, ->(user) { joins(:regular_event_organizers).where(regular_event_organizers: { user: user }) }
-  scope :scheduled_on, ->(date) { holding.filter { |event| event.scheduled_on?(date) } }
-  scope :scheduled_on_without_ended, ->(date) { holding.filter { |event| event.scheduled_on?(date) && !event.ended?(date) } }
+  scope :scheduled_on, ->(date) { not_finished.filter { |event| event.scheduled_on?(date) } }
+  scope :scheduled_on_without_ended, ->(date) { not_finished.filter { |event| event.scheduled_on?(date) && !event.ended?(date) } }
 
   scope :fetch_target_events, lambda { |target|
     case target

@@ -169,3 +169,15 @@ event32:
   open_start_at: <%= Time.current %>
   open_end_at: <%= Time.current + 3.day + 1.hours %>
   user: komagata
+
+event33:
+  title: "wipの特別イベント"
+  description: "wip状態のイベントが近日開催のイベントに表示されないことを確認するためのイベント"
+  location: "FJORDオフィス"
+  capacity: 40
+  start_at: <%= Time.current + 1.day %>
+  end_at: <%= Time.current + 1.day + 1.hours %>
+  open_start_at: <%= Time.current %>
+  open_end_at: <%= Time.current + 1.day + 1.hours %>
+  user: komagata
+  wip: true

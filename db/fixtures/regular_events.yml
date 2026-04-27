@@ -134,3 +134,14 @@ regular_event30:
   end_at: <%= Time.zone.local(2020, 1, 1, 12, 0, 0) %>
   user: komagata
   published_at: "2023-08-01 00:00:00"
+
+regular_event31:
+  title: WIPの定期イベント
+  description: WIP状態の定期イベントが近日開催のイベントに表示されないことを確認する用のデータ
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.current + 1.day %>
+  end_at: <%= Time.current + 1.day + 1.hours %>
+  user: komagata
+  published_at: "2023-08-01 00:00:00"
+  wip: true
