@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   btn.addEventListener('click', async (e) => {
     try {
       btn.disabled = true
-      btn.innerHTML = `<svg class="animate-spin h-5 w-5 border-2 border-indigo-500 border-t-transparent rounded-full" viewBox="0 0 24 24"></svg> ${btn.innerText}`
+      btn.innerHTML = `<svg class="animate-spin h-4 w-4 mr-2 border-2 border-indigo-500 border-t-transparent rounded-full" viewBox="0 0 24 24"></svg> ${btn.innerText}`
       const articleBody = document.querySelector('[name="article[body]"]').value
       const response = await fetch('/articles/create_summary', {
         method: 'POST',
