@@ -5,9 +5,8 @@ require 'application_system_test_case'
 module Users
   class RegistrationTest < ApplicationSystemTestCase
     test 'GET /users/new' do
-      visit '/users/new'
-      # CI実行が遅い場合に備えて待ち時間を拡大する
-      using_wait_time 20 do
+      Capybara.using_driver(:rack_test) do
+        visit '/users/new'
         assert_selector 'h1.auth-form__title', text: 'FBC参加登録'
         assert_selector 'form[name=user]'
       end

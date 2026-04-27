@@ -259,8 +259,8 @@ class Admin::UsersTest < ApplicationSystemTestCase
     # 更新し終えるのを待ってから保存する（完了前に submit すると空の状態で保存され flaky になる）
     fill_in_tag('追加タグ')
     click_on '更新する'
-    visit "/admin/users/#{user.id}/edit"
-    assert_text '追加タグ'
+    assert_text 'ユーザー情報を更新しました。'
+    assert_includes user.reload.tag_list, '追加タグ'
   end
 
   test 'does not display advisor in the list of trial period users' do
