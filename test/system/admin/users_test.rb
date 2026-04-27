@@ -255,8 +255,6 @@ class Admin::UsersTest < ApplicationSystemTestCase
   test 'edit user tag' do
     user = users(:kimura)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
-    # Tagify が入力を確定してタグ chip を DOM に追加し、hidden フィールドを
-    # 更新し終えるのを待ってから保存する（完了前に submit すると空の状態で保存され flaky になる）
     fill_in_tag('追加タグ')
     click_on '更新する'
     assert_text 'ユーザー情報を更新しました。'
