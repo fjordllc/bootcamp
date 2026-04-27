@@ -59,6 +59,5 @@ module Questions
       assert_text '削除する'
       assert_text 'Watch中'
     end
-
   end
 end

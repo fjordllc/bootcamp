@@ -218,5 +218,4 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     expected_count = Product.unhibernated_user_products.unchecked.not_wip.count
     assert_selector '.page-tabs__item-link.is-active', text: "未完了 （#{expected_count}）"
   end
-
 end
