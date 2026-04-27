@@ -40,6 +40,9 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validates :description, presence: true
   validates :regular_event_repeat_rules, presence: true
   validates_associated :regular_event_repeat_rules
+  validates_associated :regular_event_skip_dates
+
+  validate :validate_skip_on_uniqueness
 
   scope :not_finished, -> { where(finished: false) }
 
@@ -50,8 +53,16 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   scope :holding, -> { where(finished: false) }
   scope :participated_by, ->(user) { where(id: all.filter { |e| e.participated_by?(user) }.map(&:id)) }
   scope :organizer_event, ->(user) { joins(:regular_event_organizers).where(regular_event_organizers: { user: user }) }
-  scope :scheduled_on, ->(date) { holding.filter { |event| event.scheduled_on?(date) } }
-  scope :scheduled_on_without_ended, ->(date) { holding.filter { |event| event.scheduled_on?(date) && !event.ended?(date) } }
+  scope :scheduled_on, lambda { |date|
+    holding
+      .preload(:regular_event_repeat_rules, :regular_event_skip_dates)
+      .filter { |event| event.scheduled_on?(date) }
+  }
+  scope :scheduled_on_without_ended, lambda { |date|
+    holding
+      .preload(:regular_event_repeat_rules, :regular_event_skip_dates)
+      .filter { |event| event.scheduled_on?(date) && !event.ended?(date) }
+  }
 
   scope :fetch_target_events, lambda { |target|
     case target
@@ -74,6 +85,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_many :regular_event_repeat_rules, dependent: :destroy
   accepts_nested_attributes_for :regular_event_repeat_rules, allow_destroy: true
   has_many :regular_event_participations, dependent: :destroy
+  has_many :regular_event_skip_dates, dependent: :destroy
+  accepts_nested_attributes_for :regular_event_skip_dates, allow_destroy: true
   has_many :participants,
            through: :regular_event_participations,
            source: :user
@@ -99,10 +112,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def next_event_date
-    event_dates =
-      hold_national_holiday ? upcoming_scheduled_dates : upcoming_scheduled_dates.reject { |d| HolidayJp.holiday?(d) }
-
-    event_dates.min
+    upcoming_scheduled_dates.find { |date| !skip_event?(date) }
   end
 
   def organizers
@@ -150,6 +160,25 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     wants_announcement? && !wip?
   end
 
+  def skip_event?(date)
+    regular_event_skip_dates.exists?(skip_on: date) || (HolidayJp.holiday?(date) && !hold_national_holiday)
+  end
+
+  def date_match_the_rules?(date, rules)
+    rules.any? do |rule|
+      case rule.frequency
+      when 0
+        rule.day_of_the_week == date.wday
+      when 5
+        date.cweek.odd? && rule.day_of_the_week == date.wday
+      when 6
+        date.cweek.even? && rule.day_of_the_week == date.wday
+      else
+        rule.frequency == nth_wday(date) && rule.day_of_the_week == date.wday
+      end
+    end
+  end
+
   # 定期イベントは主催者が1人以上必要なため
   # 主催者が1人しかいない場合はイベントを終了状態にし
   # それ以外の場合は主催者のみを削除する
@@ -181,21 +210,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     event_dates_with_start_time.reject { |d| d < Time.zone.now }.map(&:to_date)
   end
 
-  def date_match_the_rules?(date, rules)
-    rules.any? do |rule|
-      case rule.frequency
-      when 0
-        rule.day_of_the_week == date.wday
-      when 5
-        date.cweek.odd? && rule.day_of_the_week == date.wday
-      when 6
-        date.cweek.even? && rule.day_of_the_week == date.wday
-      else
-        rule.frequency == nth_wday(date) && rule.day_of_the_week == date.wday
-      end
-    end
-  end
-
   def nth_wday(date)
     (date.day + 6) / 7
   end
@@ -204,5 +218,17 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     str_date = event_date.strftime('%F')
     str_time = event_time.strftime('%R')
     Time.zone.parse([str_date, str_time].join(' '))
+  end
+
+  def validate_skip_on_uniqueness
+    # 削除対象(_destroy: 1)ではないskip_onの中から重複を検知
+    active_skip_ons = regular_event_skip_dates
+                      .reject(&:marked_for_destruction?)
+                      .map(&:skip_on)
+                      .compact
+
+    return unless active_skip_ons.size != active_skip_ons.uniq.size
+
+    errors.add(:base, 'スキップする日に重複した日付が含まれています。')
   end
 end

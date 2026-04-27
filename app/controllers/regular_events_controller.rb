@@ -97,7 +97,8 @@ class RegularEventsController < ApplicationController # rubocop:disable Metrics/
       :all,
       :wants_announcement,
       user_ids: [],
-      regular_event_repeat_rules_attributes: %i[id regular_event_id frequency day_of_the_week _destroy]
+      regular_event_repeat_rules_attributes: %i[id regular_event_id frequency day_of_the_week _destroy],
+      regular_event_skip_dates_attributes: %i[id reason skip_on _destroy]
     )
   end
 

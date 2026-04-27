@@ -81,6 +81,19 @@ class RegularEventTest < ActiveSupport::TestCase
     end
   end
 
+  test '#next_event_date returns next holding date excluding custom skip date' do
+    regular_event = regular_events(:regular_event1)
+
+    travel_to Time.zone.local(2026, 4, 1, 0, 0, 0) do
+      regular_event.regular_event_skip_dates.create!(
+        skip_on: Date.new(2026, 4, 5),
+        reason: '主催都合により休み'
+      )
+
+      assert_equal Date.new(2026, 4, 12), regular_event.next_event_date
+    end
+  end
+
   test '#cancel_participation' do
     regular_event = regular_events(:regular_event1)
     participant = regular_event_participations(:regular_event_participation1).user
@@ -184,6 +197,88 @@ class RegularEventTest < ActiveSupport::TestCase
       regular_events = RegularEvent.scheduled_on_without_ended(tomorrow)
       regular_event_scheduled_for_tomorrow = regular_events(:regular_event38)
       assert_includes regular_events, regular_event_scheduled_for_tomorrow
+    end
+  end
+
+  test '#skip_event? returns true when the date is in regular_event_skip_dates' do
+    regular_event = regular_events(:regular_event7)
+    regular_event.regular_event_skip_dates.create!(skip_on: Date.new(2026, 4, 8), reason: '主催都合のため')
+
+    assert regular_event.skip_event?(Date.new(2026, 4, 8))
+  end
+
+  test '#skip_event? returns true on a holiday when hold_national_holiday is false' do
+    regular_event = regular_events(:regular_event7)
+    regular_event.update!(hold_national_holiday: false)
+
+    assert regular_event.skip_event?(Date.new(2026, 4, 29))
+  end
+
+  test '#skip_event? returns false on a holiday when hold_national_holiday is true' do
+    regular_event = regular_events(:regular_event7)
+    regular_event.update!(hold_national_holiday: true)
+
+    assert_not regular_event.skip_event?(Date.new(2026, 4, 29))
+  end
+
+  test '#skip_event? returns false on a non-holiday date with no skip date' do
+    regular_event = regular_events(:regular_event7)
+    regular_event.update!(hold_national_holiday: false)
+
+    assert_not regular_event.skip_event?(Date.new(2026, 4, 8))
+  end
+
+  test '.date_match_the_rules? matches weekly weekday rule' do
+    regular_event = regular_events(:regular_event7) # 毎週水曜開催イベント
+
+    # 2026-04-22は水曜
+    assert regular_event.date_match_the_rules?(Date.new(2026, 4, 22), regular_event.regular_event_repeat_rules)
+  end
+
+  test '.date_match_the_rules? matches first weekday rule' do
+    regular_event = regular_events(:regular_event2) # 第1月曜開催イベント
+
+    # 2026-04-06は第1月曜
+    assert regular_event.date_match_the_rules?(Date.new(2026, 4, 6), regular_event.regular_event_repeat_rules)
+  end
+
+  test '.date_match_the_rules? matches second weekday rule' do
+    regular_event = regular_events(:regular_event3) # 第2月曜開催イベント
+
+    # 2026-04-13は第2月曜
+    assert regular_event.date_match_the_rules?(Date.new(2026, 4, 13), regular_event.regular_event_repeat_rules)
+  end
+
+  test '.date_match_the_rules? matches third weekday rule' do
+    regular_event = regular_events(:regular_event4) # 第3火曜開催イベント
+
+    # 2026-04-21は第3火曜
+    assert regular_event.date_match_the_rules?(Date.new(2026, 4, 21), regular_event.regular_event_repeat_rules)
+  end
+
+  test '.date_match_the_rules? matches fourth weekday rule' do
+    regular_event = regular_events(:regular_event6) # 第4月曜開催イベント
+
+    # 2026-04-27は第4月曜
+    assert regular_event.date_match_the_rules?(Date.new(2026, 4, 27), regular_event.regular_event_repeat_rules)
+  end
+
+  test '.date_match_the_rules? returns false when date does not match rule' do
+    regular_event = regular_events(:regular_event7) # 毎週水曜開催イベント
+
+    # 2026-04-23は木曜
+    assert_not regular_event.date_match_the_rules?(Date.new(2026, 4, 23), regular_event.regular_event_repeat_rules)
+  end
+
+  test '#validate_skip_on_uniqueness' do
+    travel_to Time.zone.local(2026, 4, 1, 10, 0, 0) do
+      regular_event = regular_events(:regular_event7)
+
+      regular_event.regular_event_skip_dates.build(skip_on: Date.new(2026, 4, 8))
+      regular_event.regular_event_skip_dates.build(skip_on: Date.new(2026, 4, 8))
+
+      assert_not regular_event.save
+      assert_includes regular_event.errors[:base], 'スキップする日に重複した日付が含まれています。'
     end
   end
 end
