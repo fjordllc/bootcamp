@@ -83,8 +83,13 @@ class Article < ApplicationRecord
   end
 
   def self.agent_summary(body)
-    agent = ArticleMetaDescriptionAgent.new
-    agent.ask(body).content
+    return { error: '本文が空です' } if body.blank?
+
+    truncated_body = body.to_s.slice(0, 2000)
+    { summary: ArticleMetaDescriptionAgent.new.ask(truncated_body).content }
+  rescue RubyLLM::Error, Faraday::Error => e
+    Rails.logger.error("[Article.agent_summary] #{e.class}: #{e.message}")
+    { error: 'サマリー生成に失敗しました' }
   end
 
   private
