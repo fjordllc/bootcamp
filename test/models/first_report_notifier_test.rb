@@ -15,6 +15,7 @@ class FirstReportNotifierTest < ActiveSupport::TestCase
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, User.admins_and_mentors.count do
       notifier.call('report.update', Time.current, Time.current, 'unique_id', report:)
     end
+    assert_equal User.admins_and_mentors.sort, AbstractNotifier::Testing::Driver.enqueued_deliveries.pluck(:receiver).sort
 
     Notification.create!(
       kind: :first_report,

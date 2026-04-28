@@ -13,17 +13,6 @@ class Notification::ReportsTest < NotificationSystemTestCase
     AbstractNotifier.delivery_mode = @delivery_mode
   end
 
-  test 'the first daily report notification is sent only to mentors' do
-    create_report_as('muryou', '初日報です', '初日報の内容です', save_as_wip: false)
-
-    notification_message = 'muryouさんがはじめての日報を書きました！'
-
-    assert_user_has_notification(user: users(:machida), kind: Notification.kinds[:first_report], text: notification_message)
-    assert_user_has_no_notification(user: users(:kimura), kind: Notification.kinds[:first_report], text: notification_message)
-    assert_user_has_no_notification(user: users(:advijirou), kind: Notification.kinds[:first_report], text: notification_message)
-    assert_user_has_no_notification(user: users(:sotugyou), kind: Notification.kinds[:first_report], text: notification_message)
-  end
-
   test 'notify when WIP report submitted' do
     Report.all.find_each(&:destroy)
 
@@ -118,36 +107,6 @@ class Notification::ReportsTest < NotificationSystemTestCase
 
     visit_with_auth '/notifications?status=unread', 'komagata'
     assert_text '未読の通知はありません'
-    logout
-  end
-
-  def assert_notify_only_when_report_is_initially_posted(
-    notification_message,
-    author_login_name,
-    received_user_login_name,
-    title,
-    description
-  )
-    report_id = create_report_as(author_login_name, title, description, save_as_wip: true)
-
-    # 日報を WIP -> 提出 -> 内容変更 の流れで作成・更新し通知の有無を確認する
-    visit_with_auth notifications_path(status: 'unread'), received_user_login_name
-    assert_no_selector(notification_selector,
-                       text: notification_message)
-    logout
-
-    update_report_as_author(report_id, title, description, save_as_wip: false)
-    visit_with_auth notifications_path(status: 'unread'), received_user_login_name
-    assert_selector(notification_selector,
-                    text: notification_message)
-    click_link(notification_message)
-    assert_equal current_path, report_path(report_id)
-    logout
-
-    update_report_as_author(report_id, title, description, save_as_wip: false)
-    visit_with_auth notifications_path(status: 'unread'), received_user_login_name
-    assert_no_selector(notification_selector,
-                       text: notification_message)
     logout
   end
 
