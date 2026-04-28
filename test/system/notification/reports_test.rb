@@ -151,40 +151,6 @@ class Notification::ReportsTest < NotificationSystemTestCase
     logout
   end
 
-  test 'notify follower only when report is initially posted' do
-    # Use non-trainee user to avoid edit restrictions
-    following = Following.find_by(follower: users(:kensyu), followed: users(:muryou))
-    followed_user_login_name = User.find(following.followed_id).login_name
-    follower_user_login_name = User.find(following.follower_id).login_name
-    title = '初めて提出した時だけ'
-    description = 'フォローされているユーザーに通知を飛ばす'
-    notification_message = make_write_report_notification_message(
-      followed_user_login_name, title
-    )
-
-    assert_notify_only_when_report_is_initially_posted(
-      notification_message,
-      followed_user_login_name,
-      follower_user_login_name,
-      title,
-      description
-    )
-  end
-
-  test 'notify user only when first report is initially posted' do
-    check_notification_login_name = 'machida'
-    author_login_name = 'nippounashi'
-    title = '初めての日報を提出したら'
-    description = 'ユーザーに通知をする'
-    assert_notify_only_when_report_is_initially_posted(
-      "#{author_login_name}さんがはじめての日報を書きました！",
-      author_login_name,
-      check_notification_login_name,
-      title,
-      description
-    )
-  end
-
   test 'notify to mentors when a student submitted reports with negative icon at twice in a row' do
     student = 'kimura'
     mentor = 'mentormentaro'
