@@ -10,7 +10,7 @@ class PairWorks::ReservationsController < ApplicationController
       redirect_to Redirection.determin_url(self, @pair_work), notice: @pair_work.generate_notice_message(:reserve)
     else
       @comments = @pair_work.comments.order(:created_at)
-      render 'pair_works/show'
+      render 'pair_works/show', status: :unprocessable_entity
     end
   end
 
@@ -24,7 +24,7 @@ class PairWorks::ReservationsController < ApplicationController
       redirect_to Redirection.determin_url(self, @pair_work), notice: @pair_work.generate_notice_message(:update_reserve)
     else
       @comments = @pair_work.comments.order(:created_at)
-      render 'pair_works/show'
+      render 'pair_works/show', status: :unprocessable_entity
     end
   end
 
@@ -37,7 +37,7 @@ class PairWorks::ReservationsController < ApplicationController
       redirect_to Redirection.determin_url(self, @pair_work), notice: @pair_work.generate_notice_message(:cancel)
     else
       @comments = @pair_work.comments.order(:created_at)
-      render 'pair_works/show'
+      render 'pair_works/show', status: :unprocessable_entity
     end
   end
 
