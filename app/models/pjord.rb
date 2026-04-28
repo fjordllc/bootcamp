@@ -18,6 +18,7 @@ class Pjord
     - 簡潔にわかりやすく答える
     - ユーザーが書いた言語で返答する
     - 語尾に「ピヨ」など特徴的な語尾は付けず、通常の丁寧な日本語で話す
+    - 検索結果を踏まえたこと、ツールを使ったこと、コメントや回答を作成することなど、内部の手順説明は出力しない
 
     ## ツールの使い方
     - bootcampのカリキュラム、ドキュメント、Q&Aに関する質問には、bootcamp_search_toolで検索してから回答する
@@ -37,7 +38,7 @@ class Pjord
       chat.with_instructions(system_prompt(context, instructions:))
       chat.with_tool(BootcampSearchTool)
       chat.with_tool(UserInfoTool)
-      result = chat.ask(message).content
+      result = remove_internal_preamble(chat.ask(message).content)
       result.presence
     end
 
@@ -101,6 +102,12 @@ class Pjord
       parts << "## メンションしてきたユーザー\nログイン名: #{context[:sender_login_name]}" if context[:sender_login_name].present?
 
       parts.join("\n\n")
+    end
+
+    def remove_internal_preamble(content)
+      return content unless content.is_a?(String)
+
+      content.sub(/\A(?:検索結果を踏まえて、)?(?:日報へのコメント|回答|コメント)を作成します。\s*/, '')
     end
   end
 end

@@ -39,6 +39,22 @@ class PjordTest < ActiveSupport::TestCase
     end
   end
 
+  test '.respond removes internal preamble from response' do
+    mock_content = Minitest::Mock.new
+    mock_content.expect(:content, "検索結果を踏まえて、日報へのコメントを作成します。\n\n少しずつ進められていますね。")
+
+    mock_chat = Minitest::Mock.new
+    mock_chat.expect(:with_instructions, mock_chat, [String])
+    mock_chat.expect(:with_tool, mock_chat, [BootcampSearchTool])
+    mock_chat.expect(:with_tool, mock_chat, [UserInfoTool])
+    mock_chat.expect(:ask, mock_content, [String])
+
+    RubyLLM.stub(:chat, mock_chat) do
+      response = Pjord.respond(message: 'test')
+      assert_equal '少しずつ進められていますね。', response
+    end
+  end
+
   test '.respond raises on API error for job retry' do
     RubyLLM.stub(:chat, ->(*) { raise StandardError, 'API error' }) do
       assert_raises(StandardError) do
