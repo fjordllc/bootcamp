@@ -203,6 +203,22 @@ class UserTest < ActiveSupport::TestCase
     assert user.invalid?
   end
 
+  test 'reserved login_name is invalid' do
+    user = users(:komagata)
+    user.login_name = 'mentor'
+
+    assert user.invalid?
+    assert_includes user.errors[:login_name], 'に使用できない文字列が含まれています'
+  end
+
+  test 'description is required' do
+    user = users(:komagata)
+    user.description = nil
+
+    assert user.invalid?
+    assert_includes user.errors[:description], 'を入力してください'
+  end
+
   test 'twitter_account' do
     user = users(:komagata)
     user.twitter_account = ''
