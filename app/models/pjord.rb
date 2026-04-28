@@ -38,7 +38,8 @@ class Pjord
       chat.with_instructions(system_prompt(context, instructions:))
       chat.with_tool(BootcampSearchTool)
       chat.with_tool(UserInfoTool)
-      result = remove_internal_preamble(chat.ask(message).content)
+      chat.with_schema(PjordResponse)
+      result = extract_public_response_body(chat.ask(message).content)
       result.presence
     end
 
@@ -104,10 +105,27 @@ class Pjord
       parts.join("\n\n")
     end
 
-    def remove_internal_preamble(content)
-      return content unless content.is_a?(String)
+    def extract_public_response_body(content)
+      body =
+        if content.is_a?(String)
+          parse_response_body(content)
+        elsif content.respond_to?(:to_h)
+          content.to_h['body'] || content.to_h[:body]
+        end
 
-      content.sub(/\A(?:検索結果を踏まえて、)?(?:日報へのコメント|回答|コメント)を作成します。\s*/, '')
+      remove_internal_preamble(body)
+    end
+
+    def parse_response_body(content)
+      JSON.parse(content)['body']
+    rescue JSON::ParserError
+      content
+    end
+
+    def remove_internal_preamble(body)
+      return body unless body.is_a?(String)
+
+      body.sub(/\A\s*(?:検索結果を踏まえて、)?(?:日報へのコメント|回答|コメント)を作成します。\s*/, '')
     end
   end
 end
