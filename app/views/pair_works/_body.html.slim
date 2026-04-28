@@ -83,7 +83,7 @@
                       - else
                         = l pair_work.reserved_at
                   - else
-                    p = "開催日時は#{l pair_work.reserved_at, format: :mdw_and_time}に確定しました。"
+                    p "開催日時は#{l pair_work.reserved_at, format: :mdw_and_time}に確定しました。"
                   - if pair_work.buddy == current_user
                     .pair-work-schedule-dates__action-item-description
                       p.pair-work-schedule-dates__text-danger あなたがペアとして確定しています。
