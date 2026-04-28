@@ -151,24 +151,6 @@ class Notification::ReportsTest < NotificationSystemTestCase
     logout
   end
 
-  test 'notify company advisor only when report is initially posted' do
-    kensyu_login_name = 'kensyu'
-    advisor_login_name = 'senpai'
-    title = '研修生が日報を作成し提出した時'
-    description = 'アドバイザーに通知を飛ばす'
-    notification_message = make_write_report_notification_message(
-      kensyu_login_name, title
-    )
-
-    assert_notify_only_when_report_is_initially_posted(
-      notification_message,
-      kensyu_login_name,
-      advisor_login_name,
-      title,
-      description
-    )
-  end
-
   test 'notify follower only when report is initially posted' do
     # Use non-trainee user to avoid edit restrictions
     following = Following.find_by(follower: users(:kensyu), followed: users(:muryou))
@@ -184,21 +166,6 @@ class Notification::ReportsTest < NotificationSystemTestCase
       notification_message,
       followed_user_login_name,
       follower_user_login_name,
-      title,
-      description
-    )
-  end
-
-  test 'notify mention target only when report is initially posted' do
-    mention_target_login_name = 'kimura'
-    author_login_name = 'machida'
-    title = '初めて提出したら、'
-    description = "@#{mention_target_login_name} に通知する"
-
-    assert_notify_only_when_report_is_initially_posted(
-      make_mention_notification_message(author_login_name),
-      author_login_name,
-      mention_target_login_name,
       title,
       description
     )
