@@ -2,8 +2,8 @@
   title: @title,
   link_url: @link_url,
   link_text: 'ペアワークのページへ' do
-  p ペアワーク【 #{@pair_work.title} 】のペアが#{@pair_work.buddy.login_name}に変更になりました。
-  div(style='border-top: solid 1px #ccc; height: 0;')
-  h1(style='margin-top: 1em; border-left: solid 6px #4638a0; padding: 0 0 0 1rem; font-size: 1.5em; border-bottom: none; color: #444444;')
-    = @pair_work.title
-  = md2html(@pair_work.description)
+    p ペアワーク【 #{@pair_work.title} 】のペアが#{@pair_work.buddy.login_name}に変更になりました。
+    div(style='border-top: solid 1px #ccc; height: 0;')
+    h1(style='margin-top: 1em; border-left: solid 6px #4638a0; padding: 0 0 0 1rem; font-size: 1.5em; border-bottom: none; color: #444444;')
+      = @pair_work.title
+    = md2html(@pair_work.description)
