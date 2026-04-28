@@ -18,6 +18,14 @@ class ReportNotifierTest < ActiveSupport::TestCase
     assert_notify_only_when_initially_posted(report, -> { AbstractNotifier::Testing::Driver.deliveries.count })
   end
 
+  test 'notifies follower only when report is initially posted' do
+    following = Following.find_by!(follower: users(:kensyu), followed: users(:muryou))
+    author = following.followed
+    report = build_wip_report(author, title: '初めて提出した時だけ', description: 'フォローされているユーザーに通知を飛ばす')
+
+    assert_notify_only_when_initially_posted(report, -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count })
+  end
+
   private
 
   def build_wip_report(user, title:, description:)
