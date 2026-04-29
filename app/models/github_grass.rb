@@ -8,10 +8,7 @@ class GithubGrass
   LABEL_SELECTOR = 'td.ContributionCalendar-label span[aria-hidden="true"]'
   SELECTORS_TO_REMOVE = ['tool-tip', 'caption', 'span[class="sr-only"]'].freeze
 
-  WDAYS = {
-    Sun: '日', Mon: '月', Tue: '火', Wed: '水',
-    Thu: '木', Fri: '金', Sat: '土'
-  }.freeze
+  WDAYS = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 }.freeze
 
   MONTHS = {
     Jan: '1', Feb: '2', Mar: '3', Apr: '4',
@@ -61,9 +58,10 @@ class GithubGrass
   end
 
   def replace_wday_with_japanese(label, abbreviation)
-    return unless WDAYS.key?(abbreviation.to_sym)
+    wday = WDAYS[abbreviation.to_sym]
+    return if wday.nil?
 
-    label.children = WDAYS[abbreviation.to_sym]
+    label.children = I18n.t('date.abbr_day_names')[wday]
     label[:class] = 'wdays'
   end
 
