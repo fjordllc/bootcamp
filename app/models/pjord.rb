@@ -117,7 +117,10 @@ class Pjord
     end
 
     def parse_response_body(content)
-      JSON.parse(content)['body']
+      parsed = JSON.parse(content)
+      return parsed['body'] if parsed.is_a?(Hash)
+
+      content
     rescue JSON::ParserError
       content
     end
