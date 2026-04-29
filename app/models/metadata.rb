@@ -80,7 +80,7 @@ class Metadata
   end
 
   def card_content(doc, type)
-    card_nodes = doc.css("meta[property='og:#{type}'], meta[name='twitter:#{type}']")
-    card_nodes.find { |n| n['property'] == "og:#{type}" || n['name'] == "twitter:#{type}" }&.[]('content')
+    doc.at_css("meta[property='og:#{type}']")&.[]('content') ||
+      doc.at_css("meta[name='twitter:#{type}']")&.[]('content')
   end
 end
