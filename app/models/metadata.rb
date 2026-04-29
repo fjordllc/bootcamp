@@ -15,7 +15,7 @@ class Metadata
 
   def parse(html)
     object = OpenGraphReader.parse(html)
-    return unless object
+    return metadata_fallback(html) if object.nil?
 
     {
       title: object.og.title,
@@ -28,13 +28,29 @@ class Metadata
     }
   end
 
+  def metadata_fallback(html)
+    doc = Nokogiri::HTML(html)
+    metadata = {
+      title: fallback_title(doc),
+      description: fallback_description(doc),
+      images: fallback_images(doc),
+      site_name: fallback_site_name(doc) || @uri.host,
+      favicon: favicon(html),
+      url: @url,
+      site_url: site_url
+    }
+    return nil if metadata[:title].blank?
+
+    metadata
+  end
+
   def site_url
     "#{@uri.scheme}://#{@uri.host}"
   end
 
   def favicon(html)
     doc = Nokogiri::HTML(html)
-    favicon_path = doc.at_css('link[rel="icon"], link[rel="shortcut icon"]')&.attr('href')
+    favicon_path = doc.at_css('link[rel="icon"], link[rel="shortcut icon"]')&.[]('href')
     return unless favicon_path
 
     absolute_regexp = URI::DEFAULT_PARSER.make_regexp
@@ -45,5 +61,26 @@ class Metadata
     else
       URI.join(@url, favicon_path).to_s
     end
+  end
+
+  def fallback_title(doc)
+    card_content(doc, 'title') || doc.at_css('title')&.text&.strip
+  end
+
+  def fallback_description(doc)
+    card_content(doc, 'description') || doc.at_css('meta[name="description"]')&.[]('content')
+  end
+
+  def fallback_images(doc)
+    card_content(doc, 'image') || doc.at_css('link[rel="image_src"]')&.[]('href')
+  end
+
+  def fallback_site_name(doc)
+    card_content(doc, 'site_name') || doc.at_css('meta[name="application-name"]')&.[]('content')
+  end
+
+  def card_content(doc, type)
+    doc.at_css("meta[property='og:#{type}']")&.[]('content').presence ||
+      doc.at_css("meta[name='twitter:#{type}']")&.[]('content').presence
   end
 end
