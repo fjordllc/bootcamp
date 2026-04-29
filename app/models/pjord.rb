@@ -110,7 +110,8 @@ class Pjord
         if content.is_a?(String)
           parse_response_body(content)
         elsif content.respond_to?(:to_h)
-          content.to_h['body'] || content.to_h[:body]
+          parsed = content.to_h
+          parsed['body'] || parsed[:body] if parsed.is_a?(Hash)
         end
 
       remove_internal_preamble(body)
@@ -118,9 +119,7 @@ class Pjord
 
     def parse_response_body(content)
       parsed = JSON.parse(content)
-      return parsed['body'] if parsed.is_a?(Hash)
-
-      content
+      parsed.is_a?(Hash) ? parsed['body'] : content
     rescue JSON::ParserError
       content
     end

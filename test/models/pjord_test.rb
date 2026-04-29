@@ -92,6 +92,28 @@ class PjordTest < ActiveSupport::TestCase
     end
   end
 
+  test '.respond returns nil when structured response cannot be converted to a hash' do
+    content = Struct.new(:body) do
+      def to_h
+        ['公開する本文です。']
+      end
+    end.new
+
+    mock_content = Minitest::Mock.new
+    mock_content.expect(:content, content)
+
+    mock_chat = Minitest::Mock.new
+    mock_chat.expect(:with_instructions, mock_chat, [String])
+    mock_chat.expect(:with_tool, mock_chat, [BootcampSearchTool])
+    mock_chat.expect(:with_tool, mock_chat, [UserInfoTool])
+    mock_chat.expect(:with_schema, mock_chat, [PjordResponse])
+    mock_chat.expect(:ask, mock_content, [String])
+
+    RubyLLM.stub(:chat, mock_chat) do
+      assert_nil Pjord.respond(message: 'test')
+    end
+  end
+
   test '.respond raises on API error for job retry' do
     RubyLLM.stub(:chat, ->(*) { raise StandardError, 'API error' }) do
       assert_raises(StandardError) do
