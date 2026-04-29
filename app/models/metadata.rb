@@ -80,7 +80,7 @@ class Metadata
   end
 
   def card_content(doc, type)
-    doc.at_css("meta[property='og:#{type}']")&.[]('content') ||
-      doc.at_css("meta[name='twitter:#{type}']")&.[]('content')
+    doc.at_css("meta[property='og:#{type}']")&.[]('content').presence ||
+      doc.at_css("meta[name='twitter:#{type}']")&.[]('content').presence
   end
 end
