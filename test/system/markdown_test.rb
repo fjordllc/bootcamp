@@ -152,7 +152,7 @@ class MarkdownTest < ApplicationSystemTestCase
 
     click_button '提出'
     assert_selector '.a-link-card__title'
-    assert_no_selector 'a.before-replacement-link-card[href="https://bootcamp.fjord.jp/"]', visible: true
+    assert_no_selector 'a.before-replacement-link-card[href="https://ja.wikipedia.org/wiki/日本語"]', visible: true
     assert_no_selector '.embed-error'
   end
 end
