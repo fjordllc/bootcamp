@@ -396,3 +396,25 @@ practice64:
   description: 'Railsコースのプラクティスをコピーした給付金コースのプラクティスです。'
   goal: 'goal...'
   source_practice: practice23
+
+practice65:
+  title: "Railsコースのコピー元プラクティス"
+  description: "Railsコースのコピー元プラクティスです。"
+  goal: "goal..."
+
+practice66:
+  title: "給付金コースのプラクティス"
+  description: "給付金コースのプラクティスです。"
+  goal: "goal..."
+  source_id: <%= ActiveRecord::FixtureSet.identify(:practice65) %>
+
+practice67:
+  title: "日報が存在しないRailsコースのコピー元プラクティス"
+  description: "日報が存在しないRailsコースのコピー元プラクティスです。"
+  goal: "goal..."
+
+practice68:
+  title: "日報が存在しない給付金コースのプラクティス"
+  description: "日報が存在しない給付金コースのプラクティスです。"
+  goal: "goal..."
+  source_id: <%= ActiveRecord::FixtureSet.identify(:practice67) %>

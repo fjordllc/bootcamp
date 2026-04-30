@@ -776,3 +776,15 @@ practice114:
   description: "Railsコースのプラクティスをコピーした給付金コースのプラクティスです。"
   goal: "goal..."
   source_practice: practice24
+
+practice115:
+  title: "OS X Mountain Lionをクリーンインストールする（Reスキル）"
+  description: "Railsコースのプラクティスをコピーしたプラクティスです。"
+  goal: "goal..."
+  source_id: <%= ActiveRecord::FixtureSet.identify(:practice1) %>
+
+practice116:
+  title: "Terminalの基礎を覚える（Reスキル）"
+  description: "Railsコースのプラクティスをコピーしたプラクティスです。"
+  goal: "goal..."
+  source_id: <%= ActiveRecord::FixtureSet.identify(:practice2) %>
