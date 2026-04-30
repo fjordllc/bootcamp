@@ -85,5 +85,6 @@ Rails.application.routes.draw do
     resources :metadata, only: %i(index)
     resources :micro_reports, only: %i(update)
     resources :trainee_progresses, only: %i(index)
+    resource :buzz, only: %i(show create destroy), controller: 'buzzes'
   end
 end
