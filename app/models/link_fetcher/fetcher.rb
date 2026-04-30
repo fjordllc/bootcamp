@@ -45,7 +45,7 @@ module LinkFetcher
       Rails.logger.info("[LinkFetcher] #{e.class}: #{uri.host}")
       nil
     rescue *FETCH_ERRORS => e
-      Rails.logger.warn("[LinkFetcher] #{e.class}: #{e.message}")
+      Rails.logger.warn("[LinkFetcher] #{e.class}: #{e.message}: host=#{uri.host}")
       nil
     end
 
