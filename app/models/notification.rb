@@ -45,7 +45,10 @@ class Notification < ApplicationRecord
     came_inquiry: 26,
     training_completed: 27,
     came_pair_work: 28,
-    matching_pair_work: 29
+    matching_pair_work: 29,
+    rematching_pair_work: 30,
+    reschedule_pair_work: 31,
+    cancel_pair_work: 32
   }
 
   scope :unreads, -> { where(read: false) }

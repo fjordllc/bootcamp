@@ -39,7 +39,7 @@
               | プレビュー
             .js-preview.a-long-text.is-md.practices-edit__input.markdown-form__preview
 
-      - if pair_work.new_record?
+      - if pair_work.new_record? || !pair_work.solved?
         .form-item
           .row
             .col-md-6.col-xs-12
@@ -68,12 +68,20 @@
                             target_time = schedule_target_time(day, hour)
                             check_box_id = schedule_check_box_id(target_time)
                             learning_time_frame_id = wday * 24 + hour + 1
-                          td.form-table__check
+                            existing_schedule = pair_work.find_scheduled_at(target_time)
+                            key = target_time.to_i
+                            prefix = "pair_work[schedules_attributes][#{key}]"
+                          td(class="form-table__check #{schedule_check_disabled?(target_time) ? 'is-disabled' : ''}")
                             = label_tag check_box_id do
                               span
-                                = check_box_tag 'pair_work[schedules_attributes][][proposed_at]',
-                                                target_time.iso8601,
-                                                learning_time_frame_checked?(target_time, learning_time_frame_id),
+                                - if existing_schedule
+                                  =hidden_field_tag "#{prefix}[id]", existing_schedule.id
+                                = hidden_field_tag "#{prefix}[proposed_at]", target_time.iso8601
+                                = hidden_field_tag "#{prefix}[_destroy]", '1'
+                                - checked = pair_work.new_record? ? learning_time_frame_checked?(target_time, learning_time_frame_id) : pair_work.schedules.map(&:proposed_at).include?(target_time)
+                                = check_box_tag "#{prefix}[_destroy]",
+                                                '0',
+                                                checked,
                                                 id: check_box_id, disabled: schedule_check_disabled?(target_time)
       .form-item
         .row.js-markdown-parent
