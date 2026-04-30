@@ -38,7 +38,8 @@ class Notification::RegularEventsTest < NotificationSystemTestCase
                        body['content'].include?('Discord通知確認用イベント(土曜日午前8時から開催)') &&
                        body['content'].include?('Discord通知確認用イベント(土曜日 + 日曜日開催)') &&
                        body['content'].include?('Discord通知確認用イベント(土曜日開催)') &&
-                       body['content'].include?('Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)')
+                       body['content'].include?('Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)') &&
+                       body['content'].exclude?('Discord通知が来ないwipイベント(土曜日開催)')
     end
 
     travel_to Time.zone.local(2023, 5, 5, 6, 0, 0) do

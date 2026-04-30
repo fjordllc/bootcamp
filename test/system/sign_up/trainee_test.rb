@@ -172,24 +172,25 @@ module SignUp
     end
 
     test 'job seeker option is hidden for trainee invoice payment' do
-      visit '/users/new?role=trainee_invoice_payment'
-      assert_selector 'form[name=user]'
-      assert has_no_selector? "input[name='user[job_seeker]']", visible: :all
+      assert_job_seeker_option_hidden_for('trainee_invoice_payment')
     end
 
     test 'job seeker option is hidden for trainee credit card payment' do
-      visit '/users/new?role=trainee_credit_card_payment'
-      assert_selector 'form[name=user]'
-      # クレジットカード払いフォームが正しく描画されるのを待ってから不在を検査する
-      # （描画途中の別ページで誤判定することを避けるため）
-      assert_selector '#card'
-      assert has_no_selector? "input[name='user[job_seeker]']", visible: :all
+      assert_job_seeker_option_hidden_for('trainee_credit_card_payment')
     end
 
     test 'job seeker option is hidden for trainee select a payment method' do
-      visit '/users/new?role=trainee_select_a_payment_method'
-      assert_selector 'form[name=user]'
-      assert has_no_selector? "input[name='user[job_seeker]']", visible: :all
+      assert_job_seeker_option_hidden_for('trainee_select_a_payment_method')
+    end
+
+    private
+
+    def assert_job_seeker_option_hidden_for(role)
+      Capybara.using_driver(:rack_test) do
+        visit "/users/new?role=#{role}"
+        assert_selector 'form[name=user]'
+        assert_no_selector "input[name='user[job_seeker]']", visible: :all
+      end
     end
   end
 end

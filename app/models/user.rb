@@ -112,7 +112,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   has_many :articles, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
   has_many :regular_events, dependent: :destroy
-  has_many :organizers, dependent: :destroy
+  has_many :regular_event_organizers, dependent: :destroy
   has_many :hibernations, dependent: :destroy
   has_many :authored_books, dependent: :destroy
   accepts_nested_attributes_for :authored_books, allow_destroy: true
@@ -192,7 +192,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
            source: :follower
 
   has_many :organize_regular_events,
-           through: :organizers,
+           through: :regular_event_organizers,
            source: :regular_event
 
   has_many :participate_regular_events,
@@ -954,8 +954,8 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   end
 
   def clean_up_regular_events
-    regular_event_participations.for_holding_events.destroy_all
-    organize_regular_events.holding.each { |event| event.close_or_destroy_organizer(self) }
+    regular_event_participations.for_unfinished_events.destroy_all
+    organize_regular_events.exclude_finished.each { |event| event.close_or_destroy_organizer(self) }
   end
 
   private
