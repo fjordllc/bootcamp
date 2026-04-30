@@ -29,6 +29,19 @@ module LinkFetcher
       # CGNAT（外部から到達すべきでない領域のためブロック）
       IPAddr.new('100.64.0.0/10'),
 
+      # 特殊用途・予約済み・マルチキャスト等（グローバルなHTTP取得先ではないためブロック）
+      IPAddr.new('255.255.255.255/32'),
+      IPAddr.new('192.0.0.0/24'),
+      IPAddr.new('192.0.2.0/24'),
+      IPAddr.new('198.18.0.0/15'),
+      IPAddr.new('198.51.100.0/24'),
+      IPAddr.new('203.0.113.0/24'),
+      IPAddr.new('224.0.0.0/4'),
+      IPAddr.new('240.0.0.0/4'),
+      IPAddr.new('100::/64'),
+      IPAddr.new('2001:db8::/32'),
+      IPAddr.new('ff00::/8'),
+
       # IPv4-mapped IPv6（IPv4アドレスをIPv6で表現してのフィルタ回避を防ぐためブロック）
       IPAddr.new('::ffff:0:0/96')
     ].freeze
