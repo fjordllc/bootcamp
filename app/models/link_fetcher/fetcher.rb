@@ -41,8 +41,8 @@ module LinkFetcher
       else
         response
       end
-    rescue TooManyRedirects
-      Rails.logger.info("[LinkFetcher] Too many redirects: #{url}")
+    rescue TooManyRedirects => e
+      Rails.logger.info("[LinkFetcher] #{e.class}: #{uri.host}")
       nil
     rescue *FETCH_ERRORS => e
       Rails.logger.warn("[LinkFetcher] #{e.class}: #{e.message}")
