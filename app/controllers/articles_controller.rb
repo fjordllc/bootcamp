@@ -62,6 +62,10 @@ class ArticlesController < ApplicationController
     redirect_to articles_url, notice: '記事を削除しました'
   end
 
+  def create_summary
+    render json: Article.agent_summary(params[:body])
+  end
+
   private
 
   def set_article
@@ -84,17 +88,7 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    article_attributes = %i[
-      title
-      body
-      tag_list
-      user_id
-      thumbnail
-      thumbnail_type
-      summary
-      display_thumbnail_in_body
-      target
-    ]
+    article_attributes = %i[title body tag_list user_id thumbnail thumbnail_type summary display_thumbnail_in_body target]
     article_attributes.push(:published_at) unless params[:commit] == 'WIP'
     article_attributes.push(:token) if params[:commit] == 'WIP'
     params.require(:article).permit(*article_attributes)
