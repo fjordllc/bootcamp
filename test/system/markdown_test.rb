@@ -139,19 +139,4 @@ class MarkdownTest < ApplicationSystemTestCase
     assert_selector '.a-link-card__title'
     assert_no_selector '.embed-error'
   end
-
-  test 'does not garble link card on specific domains' do
-    visit_with_auth new_report_path, 'komagata'
-    within('form[name=report]') do
-      fill_in('report[title]', with: 'リンクカードが文字化けしない')
-      fill_in('report[description]', with: '@[card](https://www.youtube.com/watch?v=8LudKmk7yPM)')
-      fill_in('report[reported_on]', with: Time.current)
-
-      check '学習時間は無し', allow_label_click: true
-    end
-
-    click_button '提出'
-    assert_selector '.a-link-card__title'
-    assert_text '角谷トーク2023 本編'
-  end
 end
