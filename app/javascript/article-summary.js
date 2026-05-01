@@ -1,0 +1,39 @@
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('btn-generate-summary')
+  const textarea = document.getElementById('summary-text-area')
+  if (!btn || !textarea) return
+  btn.addEventListener('click', async () => {
+    const defaultBtn = btn.innerHTML
+    try {
+      btn.disabled = true
+      btn.innerHTML = `<svg class="animate-spin h-4 w-4 mr-2 border-2 border-indigo-500 border-t-transparent rounded-full" viewBox="0 0 24 24"></svg>${btn.innerText}`
+      const articleBody = document.querySelector('[name="article[body]"]').value
+      const response = await fetch('/articles/create_summary', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': document.querySelector("meta[name='csrf-token']")
+            .content
+        },
+        body: JSON.stringify({
+          body: articleBody
+        })
+      })
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`)
+      }
+      const responseData = await response.json()
+      if (responseData.error) {
+        alert(responseData.error)
+      } else {
+        textarea.value = responseData.summary
+      }
+    } catch (error) {
+      console.error(error)
+      alert('サマリーの生成に失敗しました')
+    } finally {
+      btn.disabled = false
+      btn.innerHTML = defaultBtn
+    }
+  })
+})
