@@ -57,9 +57,11 @@ class Mentor::PracticesTest < ApplicationSystemTestCase
 
   test 'student cannot delete practice' do
     practice = practices(:practice7)
-    visit_with_auth "/practices/#{practice.id}", 'kimura'
 
-    assert_text practice.title
-    assert_no_link '削除する'
+    Capybara.using_driver(:rack_test) do
+      visit_with_auth "/practices/#{practice.id}", 'kimura'
+      assert_text practice.title
+      assert_no_link '削除する'
+    end
   end
 end

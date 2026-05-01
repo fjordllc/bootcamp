@@ -70,10 +70,10 @@ hr.a-border
                         | こちら
                       | のページの「分報 URL」欄に分報チャンネルの URL を登録してください。
 
-          - if @holding_regular_events.any?
+          - if @regular_events_without_finished.any?
             .form-item
               = render 'shared/regular_events_warning',
-                events: @holding_regular_events,
+                events: @regular_events_without_finished,
                 case_text: '休会をお考えの',
                 action_text: '休会'
 

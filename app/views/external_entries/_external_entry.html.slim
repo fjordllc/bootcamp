@@ -15,7 +15,7 @@
         .card-list-item-meta
           .card-list-item-meta__items
             .card-list-item-meta__item
-              time.a-meta
+              time.a-meta datetime=external_entry.published_at.iso8601
                 = l(external_entry.published_at)
     .card-list-item__thumbnail
       = link_to external_entry.url, class: 'card-list-item__thumbnail-inner', target: '_blank', rel: 'noopener' do

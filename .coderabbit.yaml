@@ -23,5 +23,6 @@ reviews:
         # Test
         - TestCase名は英語で書く。
         - どうしても避けられない時以外にsystem testでsleepは使わない。
+        - 各テストケースの間には空行を設ける。
         # Unit Test
         model, helper, decorator, view_componentについてはメソッドを追加した場合は必ず対応したUnit TestのTestCaseを1つは書く。

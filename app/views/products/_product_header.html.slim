@@ -53,12 +53,12 @@ header.page-content-header.is-product
               - elsif product.published_at.present?
                 span.a-meta__label
                   | 提出
-                time.a-meta__value(datetime="#{product.published_at.to_datetime}")
+                time.a-meta__value datetime=product.published_at.iso8601
                   = l product.published_at
               - else
                 span.a-meta__label
                   | 提出
-                time.a-meta__value(datetime="#{product.created_at.to_datetime}")
+                time.a-meta__value datetime=product.created_at.iso8601
                   = l product.created_at
 
           - if product.updated_at.present?
@@ -66,7 +66,7 @@ header.page-content-header.is-product
               .a-meta
                 span.a-meta__label
                   | 更新
-                time.a-meta__value(datetime="#{product.updated_at.to_datetime}")
+                time.a-meta__value datetime=product.updated_at.iso8601
                   = l product.updated_at
 
         .page-content-header-metas__end

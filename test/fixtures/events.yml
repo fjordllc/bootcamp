@@ -204,12 +204,35 @@ event35:
   user: kimura
 
 event36:
-  title: "2024/12/1(日)6:00〜7:00開催の特別イベント"
+  title: "2024/12/1(日)6:00〜10:00開催の特別イベント"
   description: "本日開催で終了時刻を過ぎた特別イベントの表示テスト用"
   location: "FJORDオフィス"
   capacity: 40
   start_at: <%= Time.zone.local(2024, 12, 1, 6, 0, 0) %>
-  end_at: <%= Time.zone.local(2024, 12, 1, 7, 0, 0) %>
+  end_at: <%= Time.zone.local(2024, 12, 1, 10, 0, 0) %>
+  open_start_at: <%= Time.zone.local(2024, 11, 1, 6, 0, 0) %>
+  open_end_at: <%= Time.zone.local(2024, 12, 1, 6, 0, 0) %>
+  user: kimura
+
+event37:
+  title: "2024/12/1(日)9:00〜12:00開催予定のWIPイベント"
+  description: "本日開催でまだ終了時刻を迎えていないWIPイベントの非表示確認用"
+  location: "FJORDオフィス"
+  capacity: 40
+  start_at: <%= Time.zone.local(2024, 12, 1, 9, 0, 0) %>
+  end_at: <%= Time.zone.local(2024, 12, 1, 12, 0, 0) %>
+  open_start_at: <%= Time.zone.local(2024, 11, 1, 9, 0, 0) %>
+  open_end_at: <%= Time.zone.local(2024, 12, 1, 9, 0, 0) %>
+  user: hatsuno
+  wip: true
+
+event38:
+  title: "2024/12/2(月)0:00開始の特別イベント"
+  description: "翌日の0時開催のイベントの非表示テスト用"
+  location: "FJORDオフィス"
+  capacity: 40
+  start_at: <%= Time.zone.local(2024, 12, 2, 0, 0, 0) %>
+  end_at: <%= Time.zone.local(2024, 12, 2, 1, 0, 0) %>
   open_start_at: <%= Time.zone.local(2024, 11, 1, 6, 0, 0) %>
   open_end_at: <%= Time.zone.local(2024, 12, 1, 6, 0, 0) %>
   user: kimura
