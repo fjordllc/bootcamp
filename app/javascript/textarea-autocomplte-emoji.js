@@ -16,9 +16,11 @@ export default class {
         this._filterValues(text, callback)
       },
       selectTemplate: (item) => {
+        if (!item) return ''
         return item.original.value
       },
       menuItemTemplate: (item) => {
+        if (!item) return ''
         if (item.original.isUser) {
           return (
             `<span class='mention'>${escapeHtml(
