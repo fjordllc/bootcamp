@@ -125,7 +125,7 @@ Rails.application.routes.draw do
   end
   resources :press_releases, only: %i(index)
   resources :pair_works do
-    resource :reservations, only: %i(create destroy), controller: "pair_works/reservations"
+    resource :reservations, only: %i(create update destroy), controller: "pair_works/reservations"
   end
   get "articles/tags/:tag", to: "articles#index", as: :tag, tag: /.+/
   get 'sponsorships', to: 'articles/sponsorships#index'

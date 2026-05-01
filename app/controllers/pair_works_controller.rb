@@ -9,7 +9,7 @@ class PairWorksController < ApplicationController
     @pair_works = PairWork.by_target(params[:target])
                           .with_avatar
                           .includes(:practice, :comments, :user)
-                          .order(:published_at)
+                          .order(published_at: :desc)
                           .page(params[:page])
                           .per(PAGER_NUMBER)
     @pair_works_property = PairWork.generate_pair_works_property(params[:target])

@@ -1,5 +1,4 @@
 - proposed_at_list = pair_work.schedules.map(&:proposed_at)
-
 .a-table.is-sm(class='!text-center')
   table(class='!min-w-full')
     thead
@@ -14,11 +13,14 @@
           - 7.times do |day|
             - target_time = schedule_target_time(day, hour, pair_work:)
             - if proposed_at_list.include?(target_time)
-              td(class='!p-0 !h-6 !relative')
-                = form_with model: pair_work, url: pair_work_reservations_path(pair_work), method: :post, local: true do |f|
+              - disabled = schedule_check_disabled?(target_time, pair_work:)
+              td(class="!p-0 !h-6 !relative #{disabled ? '!bg-[var(--background-more-tint)]' : ''}")
+                = form_with model: pair_work, url: pair_work_reservations_path(pair_work), method: pair_work.solved? ? :patch : :post, local: true do |f|
                   = f.hidden_field :reserved_at, value: target_time
+                  - confirmed = pair_work.reserved_at == target_time
+                  - default_text_color = disabled ? '!text-[var(--muted-text)]' : '!text-[var(--main)]'
                   = f.button type: :submit,
-                    disabled: schedule_check_disabled?(target_time, pair_work:),
+                    disabled: disabled,
                     class: ['!absolute',
                       '!top-0',
                       '!flex',
@@ -28,16 +30,22 @@
                       '!justify-center',
                       '!items-center',
                       '!p-1',
-                      '!border',
-                      '!border-solid',
-                      '!rounded',
-                      '!text-[var(--main)]',
-                      '!bg-[var(--input-selected-background)]',
-                      '!border-[var(--main)]',
+                      (confirmed ? '!border' : '!border-0'),
+                      (confirmed ? '!border-solid' : nil),
+                      (confirmed ? '!rounded' : nil),
+                      (confirmed ? '!text-[var(--danger)]' : default_text_color),
+                      (confirmed ? '!bg-[var(--danger-tint)]' : nil),
+                      (confirmed ? '!border-[var(--danger)]' : nil),
+                      (!confirmed && !disabled ? 'hover:!rounded' : nil),
+                      (!confirmed && !disabled ? 'hover:!bg-[var(--input-selected-background)]' : nil),
+                      (!confirmed && !disabled ? 'hover:![box-shadow:0_0_0_1px_var(--input-selected-border)_inset]' : nil),
                       'enabled:!cursor-pointer'].join(' '),
                     id: target_time.iso8601,
                     data: { confirm: "#{l target_time, format: :mdw_and_time} にペアワークを申し込みますか？" } do
-                      i.fa-duotone.fa-solid.fa-check
+                      - if confirmed
+                        | 確定
+                      - else
+                        i.fa-regular.fa-circle
             - else
-              td(class='!p-0 !h-6')
-                span ✖️
+              td(class='!p-0 !h-6 !bg-[var(--background-more-tint)] !text-[var(--muted-text)]')
+                i.fa-regular.fa-xmark
