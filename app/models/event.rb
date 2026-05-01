@@ -112,10 +112,6 @@ class Event < ApplicationRecord # rubocop:todo Metrics/ClassLength
     ActivityDelivery.with(receiver:, event: self).notify(:moved_up_event_waiting_user)
   end
 
-  def watched_by?(user)
-    watches.exists?(user_id: user.id)
-  end
-
   def can_move_up_the_waitlist?
     waitlist.count.positive? && can_participate?
   end
