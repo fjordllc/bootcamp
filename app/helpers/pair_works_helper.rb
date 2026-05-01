@@ -45,4 +45,9 @@ module PairWorksHelper
     today = upcoming_pair_work.reserved_at.to_date == Time.current.to_date
     today ? 'a-meta__label is-important' : 'a-meta__label'
   end
+
+  def meta_value_by_status(upcoming_pair_work)
+    today = upcoming_pair_work.reserved_at.to_date == Time.current.to_date
+    today ? 'a-meta__value is-important' : 'a-meta__value'
+  end
 end

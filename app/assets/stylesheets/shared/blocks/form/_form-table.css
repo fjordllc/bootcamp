@@ -57,6 +57,17 @@
   -webkit-font-smoothing: antialiased;
   color: var(--main);
 }
+.form-table .form-table__check:has(:disabled) {
+  background-color: #cbcbd7;
+}
+.form-table .form-table__check label:has(:disabled) {
+  cursor: not-allowed;
+  background-color: var(--input-disabled-background);
+  box-shadow: none;
+}
+.form-table .form-table__check:has(:disabled) label::after {
+  content: none;
+}
 .form-table.is-sticky thead th {
   position: sticky;
   top: 0;
