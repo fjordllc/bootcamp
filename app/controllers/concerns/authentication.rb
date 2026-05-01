@@ -49,6 +49,6 @@ module Authentication
   def require_admin_or_mentor_login_for_api
     return if current_user.admin_or_mentor?
 
-    render json: { error: '権限がありません' }, status: :forbidden
+    head :forbidden
   end
 end
