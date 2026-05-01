@@ -3,6 +3,10 @@
     .dashboard-contents__cols
       .dashboard-contents__col.is-sub.is-only-mentor
         .dashboard-contents__categories
+          - if @upcoming_pair_works.present?
+            .dashboard-category
+              = render 'upcoming_pair_works', upcoming_pair_works: @upcoming_pair_works
+
           .dashboard-category
             - unchecked_report_count = Cache.unchecked_report_count
             - if unchecked_report_count > 100
@@ -25,8 +29,6 @@
             .dashboard-category__body
               .a-panels
                 .a-panels__items
-                  - if @upcoming_pair_works.present?
-                    = render 'upcoming_pair_works', upcoming_pair_works: @upcoming_pair_works
                   - if @upcoming_events_groups.present?
                     = render 'upcoming_events_groups', upcoming_events_groups: @upcoming_events_groups
                   - if @announcements.present?
