@@ -48,7 +48,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   scope :not_finished, -> { where(finished: false, wip: false) }
-  scope :participated_by, ->(user) { where(id: all.filter { |e| e.participated_by?(user) }.map(&:id)) }
   scope :organizer_event, ->(user) { joins(:regular_event_organizers).where(regular_event_organizers: { user: user }) }
   scope :scheduled_on, ->(date) { not_finished.filter { |event| event.scheduled_on?(date) } }
   scope :scheduled_on_without_ended, ->(date) { not_finished.filter { |event| event.scheduled_on?(date) && !event.ended?(date) } }
@@ -114,9 +113,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     regular_event_participation.destroy
   end
 
-  def participated_by?(user)
-    regular_event_participations.find_by(user_id: user.id).present?
-  end
 
   def all_scheduled_dates(
     from: Date.current,

@@ -89,15 +89,6 @@ class RegularEventTest < ActiveSupport::TestCase
     assert_not regular_event.regular_event_participations.find_by(user_id: participant.id)
   end
 
-  test '#participated_by?' do
-    regular_event = regular_events(:regular_event1)
-    user = users(:hatsuno)
-    assert regular_event.participated_by?(user)
-
-    user = users(:komagata)
-    assert_not regular_event.participated_by?(user)
-  end
-
   test '#close_or_destroy_organizer closes the event when only one organizer exists' do
     user = users(:kimura)
     regular_event = regular_events(:regular_event5) # kimuraが1人で主催しているイベント
