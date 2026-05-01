@@ -48,5 +48,5 @@ storage/
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
-
 .claude
+.DS_Store
