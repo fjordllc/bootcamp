@@ -29,6 +29,10 @@ class Subscription
     Stripe::Subscription.update(subscription_id, cancel_at_period_end: true)
   end
 
+  def cancel_immediately(subscription_id)
+    Stripe::Subscription.cancel(subscription_id)
+  end
+
   def all
     Stripe::Subscription.list({ status: 'all' }).auto_paging_each.map { |sub| sub }
   end
