@@ -129,6 +129,8 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
   # rubocop:disable Metrics/MethodLength, Metrics/BlockLength
   def create_user!
     logger.info "[Signup] 2. start create user. #{@user.email}"
+    customer = nil
+    subscription = nil
     @user.with_lock do
       unless @user.validate
         render 'new'
@@ -173,8 +175,32 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
         render 'new'
       end
     end
+  rescue StandardError
+    rollback_stripe_resources(customer, subscription)
+    raise
   end
   # rubocop:enable Metrics/MethodLength, Metrics/BlockLength
+
+  def rollback_stripe_resources(customer, subscription)
+    return if customer.blank?
+
+    customer_id = customer['id']
+    subscription_id = subscription&.[]('id')
+    rollback_stripe_subscription(subscription_id) if subscription_id.present?
+    rollback_stripe_customer(customer_id)
+  end
+
+  def rollback_stripe_subscription(subscription_id)
+    Subscription.new.cancel_immediately(subscription_id)
+  rescue Stripe::StripeError => e
+    logger.error "[Payment] subscriptionのロールバック時にエラーが発生しました: #{e.message}"
+  end
+
+  def rollback_stripe_customer(customer_id)
+    Card.new.destroy(customer_id)
+  rescue Stripe::StripeError => e
+    logger.error "[Payment] customerのロールバック時にエラーが発生しました: #{e.message}"
+  end
 
   def send_affiliate_kickback(user)
     rd_code = session[:affiliate_rd_code]

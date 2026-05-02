@@ -44,6 +44,49 @@ module Discord
       assert_not_nil student.discord_profile.times_id
     end
 
+    test 'POST create by student rolls back Stripe resources when notification fails after user save' do
+      FakeCard.reset
+      FakeSubscription.reset
+
+      mock_env('DISCORD_GUILD_ID' => '111') do
+        Card.stub(:new, -> { FakeCard.new }) do
+          Subscription.stub(:new, -> { FakeSubscription.new }) do
+            Discord::TimesChannel.stub(:new, ->(_) { ValidTimesChannel.new }) do
+              UserMailer.stub(:welcome, ->(_) { FailingMail.new }) do
+                assert_no_difference 'User.students.count' do
+                  assert_raises Postmark::InvalidApiKeyError do
+                    post users_path,
+                         params: {
+                           user: {
+                             adviser: 'false',
+                             trainee: 'false',
+                             company_id: '',
+                             login_name: 'Piyopiyo-student-failed',
+                             email: 'piyopiyo-student-failed@example.com',
+                             name: '登録失敗です',
+                             name_kana: 'トウロクシッパイデス',
+                             description: '登録失敗のテストです。',
+                             job: 'part_time_worker',
+                             os: 'linux',
+                             experiences: 0,
+                             password: 'passW0rd1234',
+                             password_confirmation: 'passW0rd1234',
+                             coc: 1,
+                             tos: 2
+                           }
+                         }
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+
+      assert_equal ['fake_subscription_0123456789'], FakeSubscription.canceled_subscription_ids
+      assert_equal ['fake_customer_0123456789'], FakeCard.destroyed_customer_ids
+    end
+
     test 'POST create by trainee' do
       mock_env('DISCORD_GUILD_ID' => '222') do
         Discord::TimesChannel.stub(:new, ->(_) { ValidTimesChannel.new }) do
@@ -141,6 +184,16 @@ module Discord
     end
 
     class FakeCard
+      class << self
+        attr_reader :destroyed_customer_ids
+
+        def reset
+          @destroyed_customer_ids = []
+        end
+      end
+
+      reset
+
       def search(*)
         nil
       end
@@ -150,13 +203,31 @@ module Discord
           id: 'fake_customer_0123456789'
         }.stringify_keys
       end
+
+      def destroy(customer_id)
+        self.class.destroyed_customer_ids << customer_id
+      end
     end
 
     class FakeSubscription
+      class << self
+        attr_reader :canceled_subscription_ids
+
+        def reset
+          @canceled_subscription_ids = []
+        end
+      end
+
+      reset
+
       def create(*)
         {
           id: 'fake_subscription_0123456789'
         }.stringify_keys
+      end
+
+      def cancel_immediately(subscription_id)
+        self.class.canceled_subscription_ids << subscription_id
       end
     end
 
@@ -167,6 +238,12 @@ module Discord
 
       def id
         '1234567890123456789'
+      end
+    end
+
+    class FailingMail
+      def deliver_now
+        raise Postmark::InvalidApiKeyError, 'Request does not contain a valid Server token.'
       end
     end
   end

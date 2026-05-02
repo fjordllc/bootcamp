@@ -31,6 +31,10 @@ class Card
     Stripe::Customer.update(customer_id, source: card_token)
   end
 
+  def destroy(customer_id)
+    Stripe::Customer.delete(customer_id)
+  end
+
   def search(email:)
     result = Stripe::Customer.list(email:, limit: 1)
     return unless result.data.size.positive?
