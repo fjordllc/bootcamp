@@ -112,7 +112,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def next_event_date
-    upcoming_scheduled_dates.find { |date| !skip_event?(date) }
+    upcoming_scheduled_dates.reject { |date| skip_event?(date) }.min
   end
 
   def organizers
