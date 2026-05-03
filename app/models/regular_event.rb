@@ -53,16 +53,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   scope :not_finished, -> { where(finished: false, wip: false) }
   scope :participated_by, ->(user) { where(id: all.filter { |e| e.participated_by?(user) }.map(&:id)) }
   scope :organizer_event, ->(user) { joins(:regular_event_organizers).where(regular_event_organizers: { user: user }) }
-  scope :scheduled_on, lambda { |date|
-    not_finished
-      .preload(:regular_event_repeat_rules, :regular_event_skip_dates)
-      .filter { |event| event.scheduled_on?(date) }
-  }
-  scope :scheduled_on_without_ended, lambda { |date|
-    not_finished
-      .preload(:regular_event_repeat_rules, :regular_event_skip_dates)
-      .filter { |event| event.scheduled_on?(date) && !event.ended?(date) }
-  }
 
   scope :fetch_target_events, lambda { |target|
     case target
@@ -192,6 +182,18 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
       organizer = regular_event_organizers.find_by(user:)
       organizer.destroy
     end
+  end
+
+  def self.scheduled_on(date)
+    not_finished
+      .preload(:regular_event_repeat_rules, :regular_event_skip_dates)
+      .filter { |event| event.scheduled_on?(date) }
+  end
+
+  def self.scheduled_on_without_ended(date)
+    not_finished
+      .preload(:regular_event_repeat_rules, :regular_event_skip_dates)
+      .filter { |event| event.scheduled_on?(date) && !event.ended?(date) }
   end
 
   private
