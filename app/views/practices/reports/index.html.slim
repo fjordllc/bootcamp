@@ -7,7 +7,19 @@
   category: category,
   practice: @practice
 
-= practice_page_tabs(@practice, active_tab: '日報')
+= practice_page_tabs(@practice, active_tab: '日報', include_source: @include_source)
+
+- if @practice.grant_course?
+  nav.pill-nav
+    ul.pill-nav__items
+      li.pill-nav__item
+        = link_to '全て',
+          practice_reports_path(@practice, include_source: true),
+          class: ['pill-nav__item-link', ('is-active' if @include_source)]
+      li.pill-nav__item
+        = link_to '給付金コース',
+          practice_reports_path(@practice, include_source: false),
+          class: ['pill-nav__item-link', ('is-active' if !@include_source)]
 
 .page-body
   .container.is-md

@@ -117,3 +117,8 @@ category24:
   name: 'Ruby(Reスキル)'
   slug: 'ruby'
   description: 'Rubyのプラクティスからコピーした給付金コースのプラクティスです'
+
+category25:
+  name: "Mac OS X（Reスキル）"
+  slug: "mac-os-x-reskill"
+  description: "Railsコースのカテゴリをコピーしたカテゴリです。"
