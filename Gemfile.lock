@@ -449,7 +449,7 @@ GEM
       activerecord (>= 7.1)
     net-http (0.9.1)
       uri (>= 0.11.1)
-    net-imap (0.6.2)
+    net-imap (0.6.4)
       date
       net-protocol
     net-pop (0.1.2)
@@ -764,7 +764,7 @@ GEM
     thor (1.5.0)
     thread_safe (0.3.6)
     tilt (2.7.0)
-    timeout (0.6.0)
+    timeout (0.6.1)
     traceroute (0.8.1)
       rails (>= 3.0.0)
     trailblazer-option (0.1.2)
