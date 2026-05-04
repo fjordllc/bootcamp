@@ -770,9 +770,3 @@ practice113:
   description: "Railsコースのプラクティスをコピーした給付金コースのプラクティスです。"
   goal: "goal..."
   source_practice: practice23
-
-practice114:
-  title: "rbenvをインストールする（Reスキル）"
-  description: "Railsコースのプラクティスをコピーした給付金コースのプラクティスです。"
-  goal: "goal..."
-  source_practice: practice24
