@@ -42,4 +42,20 @@ class Course::PracticesTest < ApplicationSystemTestCase
       assert_text 'OS X Mountain Lionをクリーンインストールする'
     end
   end
+
+  test 'difficulty icon is displayed for all users' do
+    visit_with_auth course_practices_path(courses(:course1).id), 'kimura'
+    assert_selector '.category-practices-item__learning-time', text: '難易度:'
+    logout
+    visit_with_auth course_practices_path(courses(:course1).id), 'komagata'
+    assert_selector '.category-practices-item__learning-time', text: '難易度:'
+  end
+
+  test 'learning time is displayed only for mentor' do
+    visit_with_auth course_practices_path(courses(:course1).id), 'kimura'
+    assert_no_selector '.category-practices-item__learning-time.is-only-mentor', text: '所要時間の目安:'
+    logout
+    visit_with_auth course_practices_path(courses(:course1).id), 'komagata'
+    assert_selector '.category-practices-item__learning-time.is-only-mentor', text: '所要時間の目安:'
+  end
 end
