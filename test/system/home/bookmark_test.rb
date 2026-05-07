@@ -48,7 +48,7 @@ module Home
       assert_text 'Bookmarkしました！'
 
       visit '/'
-      first('.spec-bookmark-edit').click
+      find('#spec-edit-mode').click
       first('.js-bookmark-delete-button').click
       assert_text 'ブックマークを削除しました。'
       assert_no_text '名前の長いメンター用'
