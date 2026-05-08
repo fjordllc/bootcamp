@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class PairWork < ApplicationRecord
   include Searchable
   include Commentable
@@ -86,7 +87,9 @@ class PairWork < ApplicationRecord
       create: 'ペアワークを作成しました。',
       update: 'ペアワークを更新しました。',
       destroy: 'ペアワークを削除しました。',
-      reserve: 'ペアが確定しました。'
+      reserve: 'ペアが確定しました。',
+      update_reserve: '予約内容を変更しました。',
+      cancel: 'ペア確定を取り消しました'
     }[action_name]
   end
 
@@ -97,6 +100,22 @@ class PairWork < ApplicationRecord
   def reserve(params)
     assign_attributes(params)
     save(context: :reserve)
+  end
+
+  def unmatch
+    return if reserved_at <= Time.current
+
+    update(buddy_id: nil, reserved_at: nil)
+  end
+
+  def past_buddy
+    return nil if buddy_id_before_last_save.blank?
+
+    User.find_by(id: buddy_id_before_last_save)
+  end
+
+  def find_scheduled_at(target_time)
+    schedules.find { |s| s.proposed_at == target_time }
   end
 
   private
@@ -113,3 +132,4 @@ class PairWork < ApplicationRecord
     errors.add(:reserved_at, 'は提案されたスケジュールに含まれていません') unless schedules.map(&:proposed_at).include?(reserved_at)
   end
 end
+# rubocop:enable Metrics/ClassLength

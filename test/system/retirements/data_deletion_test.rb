@@ -125,5 +125,19 @@ module Retirements
       visit_with_auth new_retirement_path, regular_event.user.login_name
       assert_no_text 'ご自身が主催者である定期イベントがあります。'
     end
+
+    test 'should unmatch when buddy has retired' do
+      travel_to Time.zone.local(2025, 1, 1, 0, 0, 0) do
+        visit_with_auth new_retirement_path, 'sotugyou'
+        find('label', text: 'とても良い').click
+        page.accept_confirm '本当によろしいですか？' do
+          click_on '退会する'
+        end
+        assert_text '退会処理が完了しました'
+        pair_work = pair_works(:pair_work2).reload
+        assert_nil pair_work.buddy_id
+        assert_nil pair_work.reserved_at
+      end
+    end
   end
 end
