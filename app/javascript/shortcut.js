@@ -64,5 +64,11 @@ hotkeys(`${ctrl}+i`, 'input', function (event, handler) {
   event.preventDefault()
   const textarea = event.target
   const loginName = textarea.dataset.loginName
-  textarea.value += `@${loginName}`
+  if (!loginName) return
+  const mention = `@${loginName}`
+  const start = textarea.selectionStart
+  const end = textarea.selectionEnd
+  textarea.value =
+    textarea.value.slice(0, start) + mention + textarea.value.slice(end)
+  textarea.selectionStart = textarea.selectionEnd = start + mention.length
 })
