@@ -24,11 +24,13 @@ export default class {
     const textareas = document.querySelectorAll(selector)
     if (!textareas.length) return
 
-    const loginName = document.body.dataset.loginName
+    const loginName = document.body.dataset.loginName ?? ''
 
-    textareas.forEach((textarea) => {
-      textarea.dataset.loginName = loginName
-    })
+    if (loginName) {
+      textareas.forEach((textarea) => {
+        textarea.dataset.loginName = loginName
+      })
+    }
 
     // autosize
     autosize(textareas)
