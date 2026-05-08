@@ -9,11 +9,11 @@ class CurrentUser::BookmarksController < ApplicationController
 
   def dashboard
     bookmarks = current_user.bookmarks.order(created_at: :desc, id: :desc).limit(5)
-    count = current_user.bookmarks.count
 
-    if count.zero?
+    if bookmarks.empty?
       head :ok
     else
+      count = current_user.bookmarks.count
       render DashboardBookmarksComponent.new(bookmarks:, count:), layout: false
     end
   end
