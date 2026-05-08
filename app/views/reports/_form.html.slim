@@ -83,7 +83,7 @@
               = f.text_area :description,
                 **value_option,
                 class: "a-text-input js-warning-form js-report-content markdown-form__text-area #{params[:action] == 'new' && params[:id].blank? ? '' : 'js-markdown'}",
-                data: { 'report-template-target': 'report', 'preview': '.js-preview', 'input': '.file-input' }
+                data: { 'report-template-target': 'report','preview': '.js-preview','input': '.file-input', 'login-name': current_user.login_name }
             .form-textarea__footer
               .form-textarea__insert
                 label.a-file-insert.a-button.is-xs.is-text-reversal.is-block

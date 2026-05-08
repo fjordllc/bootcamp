@@ -58,3 +58,11 @@ hotkeys(`${ctrl}+b`, 'all', function (event, handler) {
     allOpenButton.click()
   }
 })
+
+hotkeys(`${ctrl}+i`, 'input', function (event, handler) {
+  console.log(handler.key)
+  event.preventDefault()
+  const textarea = event.target
+  const loginName = textarea.dataset.loginName
+  textarea.value += `@${loginName}`
+})
