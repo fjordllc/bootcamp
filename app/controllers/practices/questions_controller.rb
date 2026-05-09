@@ -5,11 +5,19 @@ class Practices::QuestionsController < ApplicationController
     @practice = Practice.find(params[:practice_id])
     allowed_targets = %w[solved not_solved].freeze
     target = allowed_targets.include?(params[:target]) ? params[:target] : nil
-    @questions = @practice.questions
-                          .includes(%i[correct_answer answers])
-                          .by_target(target)
-                          .order(created_at: :desc)
-                          .page(params[:page])
+    allowed_scopes = %w[grant_course].freeze
+    scope = allowed_scopes.include?(params[:scope]) ? params[:scope] : nil
+    practices =
+      if scope == 'grant_course'
+        @practice
+      else
+        [@practice, @practice.source_practice].compact
+      end
+    @questions = Question.where(practice: practices)
+                         .includes(%i[correct_answer answers])
+                         .by_target(target)
+                         .order(created_at: :desc)
+                         .page(params[:page])
     @empty_message = empty_message
   end
 
