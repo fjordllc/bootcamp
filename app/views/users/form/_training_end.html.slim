@@ -5,3 +5,10 @@
     p
       | 研修終了日が明確でない場合は、現時点での予定の日にちを入力し、
       | 明確になりましたら更新、もしくはフィヨルドへ連絡をお願いします。
+.form-item
+    - if admin_login?
+      = f.label :training_completed_at, class: 'a-form-label'
+      = f.date_field :training_completed_at, class: 'a-text-input training-info-date'
+      .a-form-help
+        p
+          | 管理者のみ操作ができます
