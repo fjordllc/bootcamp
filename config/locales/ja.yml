@@ -125,6 +125,7 @@ ja:
         github_collaborator: GitHubチーム
         tag_list: タグ
         training_ends_on: 研修終了予定日
+        training_completed_at: 研修完了日時
         last_activity_at: 最終活動日時
         profile_image: プロフィール画像
         profile_name: プロフィール名
