@@ -526,10 +526,10 @@ report92:
 
 report93:
   user: komagata
-  title: Railsコースのコピー元プラクティス、給付金コースのプラクティスの両方に関連する日報報
+  title: Railsコースのコピー元プラクティス、給付金コースのプラクティスの両方に関連する日報
   emotion: 2
   description: |-
-    Railsコースのコピー元プラクティス、給付金コースのプラクティスの両方に関連する日報報
+    Railsコースのコピー元プラクティス、給付金コースのプラクティスの両方に関連する日報
   practices: practice1, practice115
   reported_on: "2026-01-03"
 
