@@ -9,21 +9,8 @@ class AddEmbeddingToSearchableTables < ActiveRecord::Migration[8.1]
   ].freeze
 
   def change
-    # pgvectorが利用不可の環境（テスト用SQLite等）ではスキップ
-    return unless vector_extension_available?
-
     TABLES.each do |table|
       add_column table, :embedding, :vector, limit: 1536
     end
-  end
-
-  private
-
-  def vector_extension_available?
-    # 前のマイグレーションで有効化されていなければ、ここで試みる
-    execute("CREATE EXTENSION IF NOT EXISTS vector")
-    true
-  rescue ActiveRecord::StatementInvalid
-    false
   end
 end
