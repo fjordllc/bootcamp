@@ -2,10 +2,6 @@
 レビュープレビュースケール
 ============================================================*/
 
-/*============================================================
-レビュープレビュースケール
-============================================================*/
-
 function scaleReviewPreviews() {
 	document.querySelectorAll('.reviewPreview').forEach(function(preview) {
 		var content = preview.querySelector('.reviewPreviewContent');
@@ -35,7 +31,8 @@ function equalizePortfolioHeights() {
 }
 
 function buildSlider(selector, options) {
-	document.querySelectorAll(selector).forEach(function(slider) {
+	var sliders = document.querySelectorAll(selector);
+	sliders.forEach(function(slider) {
 		if (slider.classList.contains('slick-initialized')) {
 			return;
 		}
@@ -50,7 +47,7 @@ function buildSlider(selector, options) {
 			slide.style.scrollSnapAlign = 'start';
 		});
 
-		var arrows = document.querySelector(options.appendArrows) || slider.parentElement;
+		var arrows = findSliderControlContainer(slider, options.appendArrows, sliders.length);
 		if (arrows) {
 			var prev = document.createElement('button');
 			var next = document.createElement('button');
@@ -69,7 +66,7 @@ function buildSlider(selector, options) {
 			});
 		}
 
-		var dots = document.querySelector(options.appendDots);
+		var dots = findSliderControlContainer(slider, options.appendDots, sliders.length);
 		if (dots) {
 			var list = document.createElement('ul');
 			var slides = slider.querySelectorAll(':scope > *');
@@ -89,17 +86,53 @@ function buildSlider(selector, options) {
 	});
 }
 
+function findSliderControlContainer(slider, selector, slidersCount) {
+	if (!selector) {
+		return null;
+	}
+	var scopedContainer = slider.querySelector(selector) || slider.parentElement.querySelector(selector);
+	if (scopedContainer) {
+		return scopedContainer;
+	}
+	if (slidersCount === 1) {
+		var globalContainer = document.querySelector(selector);
+		if (globalContainer) {
+			return globalContainer;
+		}
+	}
+	var container = document.createElement('div');
+	container.className = selector.replace(/^\./, '');
+	slider.insertAdjacentElement('afterend', container);
+	return container;
+}
+
+function updateSliderSlideWidth(selector, slideWidth) {
+	document.querySelectorAll(selector).forEach(function(slider) {
+		slider.querySelectorAll(':scope > .slick-slide').forEach(function(slide) {
+			slide.style.flex = '0 0 ' + slideWidth;
+		});
+	});
+}
+
 /*============================================================
 スライド
 ============================================================*/
 
 document.addEventListener('DOMContentLoaded', function() {
+	var reviewSliderMediaQuery = window.matchMedia('(max-width: 767px)');
+	var reviewSlideWidth = function() {
+		return reviewSliderMediaQuery.matches ? '66.666%' : '33.333%';
+	};
 	buildSlider('.reviewsList', {
 		appendArrows: '.custom-arrows',
 		appendDots: '.custom-dots',
 		prevClass: 'prev-arrow slick-arrow',
 		nextClass: 'next-arrow slick-arrow',
-		slideWidth: window.matchMedia('(max-width: 767px)').matches ? '66.666%' : '33.333%'
+		slideWidth: reviewSlideWidth()
+	});
+	reviewSliderMediaQuery.addEventListener('change', function() {
+		updateSliderSlideWidth('.reviewsList', reviewSlideWidth());
+		scaleReviewPreviews();
 	});
 	buildSlider('.appSlider', {
 		appendArrows: '.appSliderArrows',
@@ -117,9 +150,19 @@ window.addEventListener('resize', equalizePortfolioHeights);
 モーダル
 ============================================================*/
 
-document.querySelectorAll('.modal, .mo').forEach(function(element) {
-	element.addEventListener('click', function() {
-		element.style.display = 'none';
+document.querySelectorAll('.modal').forEach(function(element) {
+	element.addEventListener('click', function(event) {
+		if (event.target === element) {
+			element.style.display = 'none';
+		}
+	});
+});
+document.querySelectorAll('.modalClose').forEach(function(button) {
+	button.addEventListener('click', function() {
+		var modal = button.closest('.modal');
+		if (modal) {
+			modal.style.display = 'none';
+		}
 	});
 });
 document.querySelectorAll('.modalBtn').forEach(function(button) {
@@ -140,7 +183,8 @@ document.querySelectorAll('.accordion_head').forEach(function(head) {
 		head.classList.toggle('selected');
 		var target = document.getElementById(head.getAttribute('tg'));
 		if (target) {
-			target.style.display = target.style.display === 'none' ? 'block' : 'none';
+			var isHidden = window.getComputedStyle(target).display === 'none';
+			target.style.display = isHidden ? 'block' : 'none';
 		}
 	});
 });
@@ -154,7 +198,8 @@ document.querySelectorAll('.qaQ').forEach(function(question) {
 		question.classList.toggle('selected');
 		var answer = question.nextElementSibling;
 		if (answer) {
-			answer.style.display = answer.style.display === 'none' ? 'block' : 'none';
+			var isHidden = window.getComputedStyle(answer).display === 'none';
+			answer.style.display = isHidden ? 'block' : 'none';
 		}
 	});
 });

@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const elements = document.querySelectorAll('.js-choices-added-select')
   const elementsCount = elements.length
-  if (!elements) return
   for (let i = 0; i < elementsCount; i++) {
     // eslint-disable-next-line no-new
     new Choices(elements[i], {
@@ -52,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
   addChoiceButtons.forEach((button) => {
     button.addEventListener('cocooned:after-insert', () => {
       const elements = document.querySelectorAll('.js-choices-added-select')
-      if (!elements) return
       const element = elements[elements.length - 1]
       if (element) {
         // eslint-disable-next-line no-new
