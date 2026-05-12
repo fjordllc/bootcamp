@@ -38,15 +38,14 @@ module Pages
       visit_with_auth edit_page_path(pages(:page1)), editor
 
       within('.form') do
-        find('#select2-page_user_id-container').click
         select(author, from: 'page[user_id]')
       end
       click_button '内容を更新'
+      assert_text 'ドキュメントを更新しました'
 
       visit edit_page_path(pages(:page2))
 
       within('.form') do
-        find('#select2-page_user_id-container').click
         select(author, from: 'page[user_id]')
       end
       click_button 'WIP'
@@ -58,5 +57,6 @@ module Pages
       visit page_path(pages(:page2))
       assert_text 'Watch中'
     end
+
   end
 end

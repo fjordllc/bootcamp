@@ -8,9 +8,7 @@ module Pages
       visit_with_auth "/pages/#{pages(:page1).id}/edit", 'komagata'
 
       within('.form') do
-        find('#select2-page_user_id-container').click
         select('kimura', from: 'page[user_id]')
-        find('.select-users').click
       end
 
       click_button '内容を更新'
@@ -37,5 +35,6 @@ module Pages
       click_on '内容変更'
       assert_no_selector '.select-users'
     end
+
   end
 end

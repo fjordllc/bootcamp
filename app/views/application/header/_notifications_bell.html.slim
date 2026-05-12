@@ -60,5 +60,5 @@
         ul.header-dropdown__items#notifications-list
 
       footer.header-dropdown__footer#notifications-footer.is-hidden
-        a.header-dropdown__footer-link href="/notifications/allmarks" data-method="post" 全て既読にする
+        = button_to '全て既読にする', '/notifications/allmarks', method: :post, class: 'header-dropdown__footer-link', form: { class: 'header-dropdown__footer-form' }
         button.header-dropdown__footer-link#open-all-tabs 全て別タブで開く

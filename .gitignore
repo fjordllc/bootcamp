@@ -13,17 +13,30 @@
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp
+!/tmp/
+/tmp/*
+!/tmp/cache/
+/tmp/cache/*
+!/tmp/cache/.keep
 !/log/.keep
 
-vendor/bundle/
+vendor/bundle/*
+!vendor/bundle/
+!vendor/bundle/.keep
 
-/node_modules
+/node_modules/*
+!/node_modules/
+!/node_modules/.keep
 /yarn-error.log
 
 .byebug_history
 /public/assets
-/public/packs
-/public/packs-test
+/public/packs/*
+/public/packs-test/*
+!/public/packs/
+!/public/packs/.keep
+!/public/packs-test/
+!/public/packs-test/.keep
 /app/assets/builds/*
 !/app/assets/builds/.gitkeep
 
@@ -42,9 +55,6 @@ storage/
 .env.local
 /test/reports
 
-/public/packs
-/public/packs-test
-/node_modules
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
