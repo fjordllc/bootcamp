@@ -94,7 +94,7 @@ class PracticeTest < ActiveSupport::TestCase
   end
 
   test '#reports_count sums reports of self and source when include_source is true' do
-    source = practices(:practice67)
+    source_practice = practices(:practice67)
     practice = practices(:practice68)
 
     assert_equal 0, practice.reports_count(include_source: true)
@@ -102,7 +102,7 @@ class PracticeTest < ActiveSupport::TestCase
       user: users(:komagata),
       title: '日報が存在しないRailsコースのコピー元プラクティスの日報',
       description: '日報が存在しないRailsコースのコピー元プラクティスの日報です。',
-      practices: [source],
+      practices: [source_practice],
       reported_on: Time.zone.today
     )
     Report.create!(
@@ -132,13 +132,13 @@ class PracticeTest < ActiveSupport::TestCase
   end
 
   test '#reports_count does not double count reports when associated with both source and practice' do
-    source = practices(:practice67)
+    source_practice = practices(:practice67)
     practice = practices(:practice68)
     Report.create!(
       user: users(:komagata),
       title: '日報が存在しないRailsコースのコピー元プラクティス、日報が存在しない給付金コースのプラクティスの両方に関連する日報',
       description: '日報が存在しないRailsコースのプラクティス、日報が存在しない給付金コースのプラクティスの両方に関連する日報です。',
-      practices: [source, practice],
+      practices: [source_practice, practice],
       reported_on: Time.zone.today
     )
 
