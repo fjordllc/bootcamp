@@ -113,11 +113,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_062046) do
 
   create_table "buzzes", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.text "memo"
+    t.date "published_at", null: false
+    t.string "title", null: false
     t.datetime "updated_at", null: false
     t.string "url", null: false
-    t.string "title", null: false
-    t.date "published_at", null: false
-    t.text "memo"
     t.index ["url"], name: "index_buzzes_on_url", unique: true
   end
 
@@ -551,7 +551,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_062046) do
   create_table "pair_work_schedules", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "pair_work_id", null: false
-    t.datetime "proposed_at", null: false
+    t.datetime "proposed_at", precision: nil, null: false
     t.datetime "updated_at", null: false
     t.index ["pair_work_id", "proposed_at"], name: "index_pair_work_schedules_on_pair_work_id_and_proposed_at", unique: true
     t.index ["pair_work_id"], name: "index_pair_work_schedules_on_pair_work_id"
@@ -563,8 +563,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_062046) do
     t.datetime "created_at", null: false
     t.text "description", null: false
     t.bigint "practice_id"
-    t.datetime "published_at"
-    t.datetime "reserved_at"
+    t.datetime "published_at", precision: nil
+    t.datetime "reserved_at", precision: nil
     t.string "title", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
