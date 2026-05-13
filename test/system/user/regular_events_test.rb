@@ -3,7 +3,7 @@
 require 'application_system_test_case'
 
 class User::RegularEventsTest < ApplicationSystemTestCase
-  test 'shows the regular event listing for a user ' do
+  test 'shows the regular event listing for a user' do
     visit_with_auth "/users/#{users(:komagata).id}/regular_events", 'komagata'
     assert_equal 'komagataのイベント一覧 | FBC', title
     nav = find('a.tab-nav__item-link', text: /定期イベント\(\d+\)/)
