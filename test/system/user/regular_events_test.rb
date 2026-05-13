@@ -20,4 +20,9 @@ class User::RegularEventsTest < ApplicationSystemTestCase
     assert_text '独習Git輪読会'
     assert_no_text '開発MTG'
   end
+
+  test 'shows regular events the user organizes but does not participate in' do
+    visit_with_auth "/users/#{users(:kimura).id}/regular_events", 'kimura'
+    assert_text 'チェリー本輪読会'
+  end
 end
