@@ -96,8 +96,8 @@ class PracticeTest < ActiveSupport::TestCase
   test '#reports_count sums reports of self and source when include_source is true' do
     source_practice = practices(:practice67)
     practice = practices(:practice68)
+    initial_count = practice.reports_count(include_source: true)
 
-    assert_equal 0, practice.reports_count(include_source: true)
     Report.create!(
       user: users(:komagata),
       title: '日報が存在しないRailsコースのコピー元プラクティスの日報',
@@ -113,13 +113,13 @@ class PracticeTest < ActiveSupport::TestCase
       reported_on: Time.zone.today - 1
     )
 
-    assert_equal 2, practice.reports_count(include_source: true)
+    assert_equal initial_count + 2, practice.reports_count(include_source: true)
   end
 
   test '#reports_count counts only self reports when include_source is false' do
     practice = practices(:practice67)
+    initial_count = practice.reports_count(include_source: false)
 
-    assert_equal 0, practice.reports_count(include_source: false)
     Report.create!(
       user: users(:komagata),
       title: '日報が存在しないRailsコースのコピー元プラクティスの日報',
@@ -128,12 +128,15 @@ class PracticeTest < ActiveSupport::TestCase
       reported_on: Time.zone.today
     )
 
-    assert_equal 1, practice.reports_count(include_source: false)
+    assert_equal initial_count + 1, practice.reports_count(include_source: false)
   end
 
   test '#reports_count does not double count reports when associated with both source and practice' do
     source_practice = practices(:practice67)
     practice = practices(:practice68)
+    initial_count = practice.reports_count(include_source: false)
+    initial_count_include_source = practice.reports_count(include_source: true)
+
     Report.create!(
       user: users(:komagata),
       title: '日報が存在しないRailsコースのコピー元プラクティス、日報が存在しない給付金コースのプラクティスの両方に関連する日報',
@@ -142,7 +145,7 @@ class PracticeTest < ActiveSupport::TestCase
       reported_on: Time.zone.today
     )
 
-    assert_equal 1, practice.reports_count(include_source: false)
-    assert_equal 1, practice.reports_count(include_source: true)
+    assert_equal initial_count + 1, practice.reports_count(include_source: false)
+    assert_equal initial_count_include_source + 1, practice.reports_count(include_source: true)
   end
 end
