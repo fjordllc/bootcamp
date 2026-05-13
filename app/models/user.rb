@@ -894,6 +894,10 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     RegularEvent.where(id: regular_event_participations.pluck(:regular_event_id), finished: false)
   end
 
+  def involved_regular_events
+    RegularEvent.where(id: participate_regular_events).or(RegularEvent.where(id: organize_regular_events))
+  end
+
   def clear_github_data
     update(
       github_id: nil,
