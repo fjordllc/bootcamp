@@ -799,4 +799,11 @@ class UserTest < ActiveSupport::TestCase
     user.mark_mail_as_sent_before_auto_retire
     assert user.sent_student_before_auto_retire_mail
   end
+
+  test '#involved_regular_events returns both participating and organizing regular events' do
+    user = users(:kimura)
+    expected_ids = (user.participate_regular_events.ids + user.organize_regular_events.ids).uniq.sort
+    actual_ids = user.involved_regular_events.ids.sort
+    assert_equal expected_ids, actual_ids
+  end
 end
