@@ -30,7 +30,7 @@ class API::AnswersController < API::BaseController
     @answer.user = current_user
     if @answer.save
       ActiveSupport::Notifications.instrument('answer.create', answer: @answer)
-      render json: answer_json(@answer), status: :created
+      render_created_answer(question)
     else
       render_validation_errors(@answer)
     end
@@ -38,7 +38,7 @@ class API::AnswersController < API::BaseController
 
   def update
     if @answer.update(answer_params)
-      render json: answer_json(@answer), status: :ok
+      request.format.json? ? render(json: answer_json(@answer), status: :ok) : head(:ok)
     else
       render_validation_errors(@answer)
     end
@@ -47,7 +47,7 @@ class API::AnswersController < API::BaseController
   def destroy
     @answer.destroy
     ActiveSupport::Notifications.instrument('answer.destroy', answer: @answer, action: current_action_name) if @answer.type == 'CorrectAnswer'
-    render json: { id: @answer.id }, status: :ok
+    request.format.json? ? render(json: { id: @answer.id }, status: :ok) : head(:no_content)
   end
 
   private
@@ -63,6 +63,14 @@ class API::AnswersController < API::BaseController
 
   def answer_params
     params.require(:answer).permit(:description)
+  end
+
+  def render_created_answer(question)
+    if request.format.json?
+      render json: answer_json(@answer), status: :created
+    else
+      render partial: 'questions/answer', locals: { question:, answer: @answer, user: current_user }, status: :created
+    end
   end
 
   def answer_json(answer)
