@@ -16,7 +16,7 @@ class API::ChecksController < API::BaseController
           @check = Check.create!(user: current_user, checkable:)
           ActiveSupport::Notifications.instrument('check.create', check: @check)
         end
-        head :created
+        render json: check_json(@check), status: :created
       rescue StandardError => e
         Rails.logger.error("[API::ChecksController#create] チェック作成でエラー: #{e.message}")
         render json: { message: 'エラーが発生しました。' }, status: :internal_server_error
@@ -31,7 +31,7 @@ class API::ChecksController < API::BaseController
       @check = Check.find(params[:id]).destroy!
       ActiveSupport::Notifications.instrument('check.cancel', check: @check)
     end
-    head :no_content
+    render json: { id: @check.id }, status: :ok
   rescue StandardError => e
     Rails.logger.error("[API::ChecksController#destroy] チェック削除でエラー: #{e.message}")
     render json: { message: 'エラーが発生しました。' }, status: :internal_server_error
@@ -41,5 +41,19 @@ class API::ChecksController < API::BaseController
 
   def checkable
     params[:checkable_type].constantize.find_by(id: params[:checkable_id])
+  end
+
+  def check_json(check)
+    {
+      id: check.id,
+      checkable_type: check.checkable_type,
+      checkable_id: check.checkable_id,
+      user: {
+        id: check.user.id,
+        login_name: check.user.login_name,
+        name: check.user.name
+      },
+      created_at: check.created_at
+    }
   end
 end
