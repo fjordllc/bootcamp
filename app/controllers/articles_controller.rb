@@ -62,10 +62,6 @@ class ArticlesController < ApplicationController
     redirect_to articles_url, notice: '記事を削除しました'
   end
 
-  def create_summary
-    render json: Article.agent_summary(params[:body])
-  end
-
   private
 
   def set_article
