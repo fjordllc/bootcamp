@@ -31,7 +31,7 @@ class API::BaseController < ApplicationController
 
   def render_doorkeeper_error(error)
     response = error.response
-    render json: response.body, status: response.status
+    render json: doorkeeper_error_body(error), status: response.status
   end
 
   def doorkeeper_error_body(error)
