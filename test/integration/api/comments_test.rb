@@ -104,6 +104,7 @@ class API::CommentsTest < ActionDispatch::IntegrationTest
          params: { comment: { description: 'New report comment' } }
 
     assert_response :forbidden
+    assert_equal 'invalid_scope', response.parsed_body['error']
   end
 
   test 'returns not found when creating comment on missing report' do
