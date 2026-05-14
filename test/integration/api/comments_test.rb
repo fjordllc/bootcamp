@@ -153,4 +153,58 @@ class API::CommentsTest < ActionDispatch::IntegrationTest
       assert_response :not_found
     end
   end
+
+  test 'can create product comment with read, write scope' do
+    product = products(:product8)
+
+    assert_difference('Comment.count') do
+      post api_product_comments_url(product, format: :json),
+           headers: { Authorization: "Bearer #{@write_token.token}" },
+           params: { comment: { description: 'New product comment' } }
+      assert_response :created
+    end
+
+    comment = Comment.find(response.parsed_body['id'])
+    assert_equal 'New product comment', comment.description
+    assert_equal product, comment.commentable
+
+    assert_equal comment.id, response.parsed_body['id']
+    assert_equal 'New product comment', response.parsed_body['description']
+    assert_equal 'Product', response.parsed_body['commentable_type']
+    assert_equal product.id, response.parsed_body['commentable_id']
+    assert_equal users(:komagata).id, response.parsed_body.dig('user', 'id')
+    assert response.parsed_body['created_at'].present?
+    assert response.parsed_body['updated_at'].present?
+  end
+
+  test 'can not create product comment with read scope' do
+    post api_product_comments_url(products(:product8), format: :json),
+         headers: { Authorization: "Bearer #{@read_token.token}" },
+         params: { comment: { description: 'New product comment' } }
+
+    assert_response :forbidden
+    assert_equal 'invalid_scope', response.parsed_body['error']
+  end
+
+  test 'returns not found when creating comment on missing product' do
+    assert_no_difference('Comment.count') do
+      post api_product_comments_url(0, format: :json),
+           headers: { Authorization: "Bearer #{@write_token.token}" },
+           params: { comment: { description: 'New product comment' } }
+    end
+
+    assert_response :not_found
+    assert_equal '提出物が見つかりません。', response.parsed_body['message']
+  end
+
+  test 'returns validation error when creating blank product comment' do
+    assert_no_difference('Comment.count') do
+      post api_product_comments_url(products(:product8), format: :json),
+           headers: { Authorization: "Bearer #{@write_token.token}" },
+           params: { comment: { description: '' } }
+    end
+
+    assert_response :unprocessable_entity
+    assert response.parsed_body.dig('errors', 'description').present?
+  end
 end
