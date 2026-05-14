@@ -68,7 +68,7 @@ Rails.application.routes.draw do
       resource :checker, only: %i(show update destroy), controller: 'checker'
       resource :passed, only: %i(show), controller: 'passed'
     end
-    resources :products, only: %i(index show)
+    resources :products, only: %i(index show create update destroy)
     resources :bookmarks, only: %i(index create destroy)
     resources :report_templates, only: %i(create update)
     resources :markdown_tasks, only: %i(create)
