@@ -49,7 +49,9 @@ Rails.application.routes.draw do
       end
       resources :recents, only: %i(index)
     end
-    resources :reports, only: %i(index show)
+    resources :reports, only: %i(index show) do
+      resource :check, only: %i(create destroy), controller: 'reports/check'
+    end
     resources :watches, only: %i(index create destroy)
     namespace 'watches' do
       resources :toggle, only: %i(index)
@@ -68,7 +70,9 @@ Rails.application.routes.draw do
       resource :checker, only: %i(show update destroy), controller: 'checker'
       resource :passed, only: %i(show), controller: 'passed'
     end
-    resources :products, only: %i(index show)
+    resources :products, only: %i(index show) do
+      resource :check, only: %i(create destroy), controller: 'products/check'
+    end
     resources :bookmarks, only: %i(index create destroy)
     resources :report_templates, only: %i(create update)
     resources :markdown_tasks, only: %i(create)
