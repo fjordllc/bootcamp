@@ -21,16 +21,29 @@ class API::BaseController < ApplicationController
     "#{self.class.name}##{action_name}"
   end
 
+  def require_login_for_api
+    login_from_jwt unless logged_in?
+    render json: { error: 'unauthorized' }, status: :unauthorized unless logged_in?
+  end
+
   def doorkeeper_unauthorized_render_options(error:)
-    { json: error.body }
+    { json: doorkeeper_error_body(error) }
   end
 
   def doorkeeper_forbidden_render_options(error:)
-    { json: error.body }
+    { json: doorkeeper_error_body(error) }
   end
 
   def render_doorkeeper_error(error)
     response = error.response
     render json: response.body, status: response.status
+  end
+
+  def doorkeeper_error_body(error)
+    {
+      error: error.name,
+      error_description: error.description,
+      state: error.state
+    }.compact_blank
   end
 end

@@ -31,6 +31,14 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
     assert_response :ok
   end
 
+  test 'returns json error with invalid token' do
+    get api_products_path(format: :json),
+        headers: { Authorization: 'Bearer invalid-token' }
+
+    assert_response :unauthorized
+    assert_equal 'unauthorized', response.parsed_body['error']
+  end
+
   test 'GET /api/products/unchecked.json' do
     get api_products_unchecked_index_path(format: :json)
     assert_response :unauthorized
@@ -104,7 +112,7 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
   end
 
   test 'can create product with write scope' do
-    practice = Practice.where.not(id: @user.products.select(:practice_id)).first
+    practice = first_unsubmitted_practice(@user)
 
     assert_difference('Product.count') do
       post api_products_path(format: :json),
@@ -150,7 +158,7 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
   end
 
   test 'can not create product with read scope' do
-    practice = Practice.where.not(id: @user.products.select(:practice_id)).first
+    practice = first_unsubmitted_practice(@user)
 
     post api_products_path(format: :json),
          headers: { Authorization: "Bearer #{@read_token.token}" },
@@ -184,7 +192,7 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
   end
 
   test 'returns validation error when creating invalid product' do
-    practice = Practice.where.not(id: @user.products.select(:practice_id)).first
+    practice = first_unsubmitted_practice(@user)
 
     assert_no_difference('Product.count') do
       post api_products_path(format: :json),
@@ -194,6 +202,17 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_entity
     assert response.parsed_body.dig('errors', 'body').present?
+  end
+
+  test 'returns bad request when updating product practice' do
+    product = products(:product8)
+
+    patch api_product_path(product, format: :json),
+          headers: { Authorization: "Bearer #{@write_token.token}" },
+          params: { product: { practice_id: practices(:practice1).id } }
+
+    assert_response :bad_request
+    assert_equal '提出物のプラクティスは変更できません。', response.parsed_body['message']
   end
 
   test 'returns permission error when updating another user product' do
@@ -233,5 +252,11 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
 
     assert_response :ok
     assert_equal 'メンターがAPIから更新します。', product.reload.body
+  end
+
+  private
+
+  def first_unsubmitted_practice(user)
+    Practice.where.not(id: user.products.select(:practice_id)).order(:id).first
   end
 end

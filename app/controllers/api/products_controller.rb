@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class API::ProductsController < API::BaseController
-  before_action :require_login_for_api, only: %i[index show]
   before_action -> { doorkeeper_authorize! :write }, only: %i[create update destroy], if: -> { doorkeeper_token.present? }
   before_action :set_product, only: %i[update destroy]
+  before_action :authorize_product, only: %i[update destroy]
 
   def index
     @company = Company.find(params[:company_id]) if params[:company_id]
@@ -38,6 +38,8 @@ class API::ProductsController < API::BaseController
   end
 
   def update
+    return render json: { message: '提出物のプラクティスは変更できません。' }, status: :bad_request if product_params.key?(:practice_id)
+
     @product.assign_attributes(product_attributes)
     apply_wip
     update_published_at
@@ -60,7 +62,11 @@ class API::ProductsController < API::BaseController
 
   def set_product
     @product = Product.find_by(id: params[:id])
-    return render json: { message: '提出物が見つかりません。' }, status: :not_found unless @product
+    render json: { message: '提出物が見つかりません。' }, status: :not_found unless @product
+  end
+
+  def authorize_product
+    return if performed?
     return if current_user.admin? || current_user.mentor? || @product.user == current_user
 
     render json: { message: 'この提出物を操作する権限がありません。' }, status: :forbidden
