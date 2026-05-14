@@ -2,6 +2,7 @@
 
 class API::ReactionsController < API::BaseController
   before_action :set_reactionable, only: %i[create index]
+  before_action -> { doorkeeper_authorize! :write }, only: %i[create destroy], if: -> { doorkeeper_token.present? }
 
   def create
     return head :not_found unless @reactionable

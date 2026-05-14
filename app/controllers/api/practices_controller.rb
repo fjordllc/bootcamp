@@ -3,6 +3,9 @@
 class API::PracticesController < API::BaseController
   include Rails.application.routes.url_helpers
   before_action :require_mentor_login_for_api, only: %i[show update]
+  before_action -> { doorkeeper_authorize! :mentor }, only: %i[show], if: -> { doorkeeper_token.present? }
+  before_action -> { doorkeeper_authorize! :write }, only: %i[update], if: -> { doorkeeper_token.present? }
+  before_action -> { doorkeeper_authorize! :mentor }, only: %i[update], if: -> { doorkeeper_token.present? }
   before_action :set_practice, only: %i[show update]
 
   def show; end

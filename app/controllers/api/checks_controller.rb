@@ -2,6 +2,8 @@
 
 class API::ChecksController < API::BaseController
   before_action :require_staff_login_for_api, only: %i[create destroy]
+  before_action -> { doorkeeper_authorize! :write }, only: %i[create destroy], if: -> { doorkeeper_token.present? }
+  before_action -> { doorkeeper_authorize! :mentor }, only: %i[create destroy], if: -> { doorkeeper_token.present? }
 
   def index
     @checks = Check.where(

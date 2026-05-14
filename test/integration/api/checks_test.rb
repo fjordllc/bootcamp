@@ -10,6 +10,10 @@ class API::ChecksTest < ActionDispatch::IntegrationTest
     @check2 = checks(:report1_check_machida)
     @check3 = checks(:report3_check_machida)
     @check4 = checks(:report5_check_machida)
+    @application = Doorkeeper::Application.create!(
+      name: 'Sample Application',
+      redirect_uri: 'urn:ietf:wg:oauth:2.0:oob'
+    )
   end
 
   test 'GET /api/checks.json' do
@@ -86,5 +90,20 @@ class API::ChecksTest < ActionDispatch::IntegrationTest
     delete api_check_path(@check4.id, format: :json),
            headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :no_content
+  end
+
+  test 'POST /api/checks.json with write scope but without mentor scope returns forbidden' do
+    token = Doorkeeper::AccessToken.create!(
+      application: @application,
+      resource_owner_id: users(:mentormentaro).id,
+      scopes: 'read write'
+    )
+
+    post api_checks_path(format: :json),
+         params: { checkable_type: @check4.checkable_type, checkable_id: @check4.checkable_id },
+         headers: { Authorization: "Bearer #{token.token}" }
+
+    assert_response :forbidden
+    assert_equal 'invalid_scope', response.parsed_body['error']
   end
 end
