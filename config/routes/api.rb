@@ -49,7 +49,9 @@ Rails.application.routes.draw do
       end
       resources :recents, only: %i(index)
     end
-    resources :reports, only: %i(index show)
+    resources :reports, only: %i(index show) do
+      resources :reactions, only: %i(index create destroy), controller: 'reports/reactions'
+    end
     resources :watches, only: %i(index create destroy)
     namespace 'watches' do
       resources :toggle, only: %i(index)
