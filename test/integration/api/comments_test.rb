@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class API::CommentsTest < ActionDispatch::IntegrationTest
-  fixtures :comments, :users
+  fixtures :comments, :products, :users
 
   def setup
     user = users(:komagata)
