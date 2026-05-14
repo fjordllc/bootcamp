@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
-class API::CheckableChecksController < API::BaseController
-  before_action :require_staff
-  before_action -> { doorkeeper_authorize! :write }, only: %i[create destroy], if: -> { doorkeeper_token.present? }
-  before_action :set_checkable
+module API::CheckableCheck
+  extend ActiveSupport::Concern
+
+  included do
+    before_action :require_staff
+    before_action -> { doorkeeper_authorize! :write }, only: %i[create destroy], if: -> { doorkeeper_token.present? }
+    before_action :set_checkable
+  end
 
   def create
     return render json: { message: "この#{@checkable.class.model_name.human}は確認済です。" }, status: :unprocessable_entity if @checkable.checked?
@@ -35,10 +39,6 @@ class API::CheckableChecksController < API::BaseController
   def set_checkable
     @checkable = checkable_class.find_by(id: params[:"#{checkable_name}_id"])
     render json: { message: "#{checkable_class.model_name.human}が見つかりません。" }, status: :not_found unless @checkable
-  end
-
-  def checkable_class
-    raise NotImplementedError
   end
 
   def checkable_name

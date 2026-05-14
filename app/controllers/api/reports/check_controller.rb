@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class API::Reports::CheckController < API::CheckableChecksController
+class API::Reports::CheckController < API::BaseController
+  include API::CheckableCheck
+
   private
 
   def checkable_class
