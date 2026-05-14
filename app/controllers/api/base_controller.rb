@@ -5,6 +5,7 @@ class API::BaseController < ApplicationController
   skip_before_action :verify_authenticity_token, if: -> { doorkeeper_token.present? }
   before_action :doorkeeper_authorize!, if: -> { doorkeeper_token.present? }
   before_action :require_login_for_api, unless: -> { doorkeeper_token.present? }
+  rescue_from Doorkeeper::Errors::DoorkeeperError, with: :render_doorkeeper_error
 
   private
 
@@ -30,5 +31,26 @@ class API::BaseController < ApplicationController
 
   def render_bad_request(message = 'リクエストが不正です。')
     render json: { message: }, status: :bad_request
+  end
+
+  def doorkeeper_unauthorized_render_options(error:)
+    { json: doorkeeper_error_body(error) }
+  end
+
+  def doorkeeper_forbidden_render_options(error:)
+    { json: doorkeeper_error_body(error) }
+  end
+
+  def render_doorkeeper_error(error)
+    response = error.response
+    render json: doorkeeper_error_body(error), status: response.status
+  end
+
+  def doorkeeper_error_body(error)
+    {
+      error: error.name,
+      error_description: error.description,
+      state: error.state
+    }.compact_blank
   end
 end
