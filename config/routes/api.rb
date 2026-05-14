@@ -22,7 +22,11 @@ Rails.application.routes.draw do
     resources :categories_practices, only: %i() do
       resource :position, only: %i(update), controller: "categories_practices/position"
     end
-    resources :notifications, only: %i(index)
+    resources :notifications, only: %i(index) do
+      post :read, on: :member
+      post :read_by_category, on: :collection
+      post :read_all, on: :collection
+    end
     resources :subscriptions, only: %i(index)
     resources :comments, only: %i(index create update destroy)
     resources :answers, only: %i(index create update destroy) do
