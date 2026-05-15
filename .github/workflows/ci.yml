@@ -222,6 +222,7 @@ jobs:
           source-root: "."
 
       - name: Upload flakewatch HTML
+        id: upload-flakewatch-report
         uses: actions/upload-artifact@v4
         with:
           name: flakewatch-report
@@ -235,5 +236,7 @@ jobs:
             echo ""
             echo "- flakewatch action: \`komagata/flakewatch@v0.4.0\`"
             echo "- JUnit XML artifacts: \`junit-xml-*\`"
-            echo "- HTML report artifact: \`flakewatch-report\`"
+            echo "- HTML report: [Download flakewatch-report](${{ steps.upload-flakewatch-report.outputs.artifact-url }})"
+            echo ""
+            echo "Download the artifact and open \`flakewatch.html\` in a browser."
           } >> "$GITHUB_STEP_SUMMARY"
