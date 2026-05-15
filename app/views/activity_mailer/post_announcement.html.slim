@@ -1,0 +1,5 @@
+= render '/notification_mailer/notification_mailer_template',
+  title: @announcement.title,
+  link_url: @link_url,
+  link_text: 'このお知らせへ' do
+  = md2html(@announcement.description)

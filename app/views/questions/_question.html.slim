@@ -1,28 +1,57 @@
-.thread-list-item
-  .thread-list-item__inner
-    .thread-list-item__author
-      = link_to question.user, class: "thread-header__author" do
-        = image_tag question.user.avatar_url, title: question.user.icon_title, class: "thread-list-item__author-icon a-user-icon is-#{question.user.role}"
-    header.thread-list-item__header
-      h2.thread-list-item__title(itemprop="name")
-        = link_to question, itempro: "url", class: "thread-list-item__title-link" do
-          = question.title
-      .thread-list-item__actions
-        - if current_user == question.user
-          = link_to edit_question_path(question), class: "thread-list-item__actions-link" do
-            i.fas.fa-pen
-          = link_to question_path(question), data: { confirm: "本当によろしいですか？" }, method: :delete, class: "thread-list-item__actions-link" do
-            i.fas.fa-trash-alt
-    - if question.practice
-      h3.thread-list-item__sub-title
-        = question.practice.title
-    .thread-list-item-meta
-      = link_to question.user.login_name, question.user, class: "thread-header__author"
-      time.thread-list-item-meta__updated-at(datetime="#{question.updated_at.to_datetime}" pubdate="pubdate")
-        = l question.updated_at
-      - if question.answers.present?
-        .thread-list-item-meta__comment-count
-          .thread-list-item-meta__comment-count-label
-            i.fas.fa-comment
-          .thread-list-item-meta__comment-count-value
-            = question.answers.size
+.card-list-item.(class="#{(question.correct_answer.present? && 'is-solved') || (question.wip? && 'is-wip')}")
+  .card-list-item__inner
+    .card-list-item__user
+      = link_to question.user, class: 'card-list-item__user-link'
+        span.a-user-role.(class="is-#{question.user.primary_role}")
+          img.card-list-item__user-icon.a-user-icon title="#{question.user.icon_title}" alt="#{question.user.icon_title}" src="#{question.user.avatar_url}"
+    .card-list-item__rows
+      .card-list-item__row
+        .card-list-item-title
+          - if question.wip?
+            .a-list-item-badge.is-wip
+              span
+                | WIP
+          h1.card-list-item-title__title itemprop='name'
+            = link_to question, class: 'card-list-item-title__link a-text-link', itemprop: 'url' do
+              = question.title
+      - if question.practice
+        .card-list-item__row
+          .card-list-item-meta
+            .card-list-item-meta__items
+              .card-list-item-meta__item
+                = link_to question.practice, class: 'a-meta is-practice'
+                  = question.practice.title
+      .card-list-item__row
+        .card-list-item-meta
+          .card-list-item-meta__items
+            - if question.wip?
+              .card-list-item-meta__item
+                .a-meta
+                  | 質問作成中
+            .card-list-item-meta__item
+              = link_to question.user, class: 'a-user-name'
+                = question.user.long_name
+      .card-list-item__row
+        .card-list-item-meta
+          .card-list-item-meta__items
+            - if !question.wip?
+              .card-list-item-meta__item
+                time.a-meta datetime=question.published_at.iso8601
+                  span.a-meta__label
+                    | 公開
+                  span.a-meta__value
+                    = l question.published_at, format: :default
+              .card-list-item-meta__item
+                time.a-meta datetime=question.updated_at.iso8601
+                  span.a-meta__label
+                    | 更新
+                  span.a-meta__value
+                    = l question.updated_at, format: :default
+            .card-list-item-meta__item
+              .a-meta.(class="#{question.answers.empty? ? 'is-important' : ''}")
+                | 回答・コメント
+                = "（#{question.answers.size}）"
+    - if question.correct_answer.present?
+      .stamp.is-circle.is-solved
+        .stamp__content.is-icon 解
+        .stamp__content.is-icon 決

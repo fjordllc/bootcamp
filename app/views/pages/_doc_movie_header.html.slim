@@ -1,0 +1,9 @@
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title
+          - if movie_available?
+            | Docs・動画
+          - else
+            | Docs

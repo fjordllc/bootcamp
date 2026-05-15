@@ -1,0 +1,98 @@
+- title '休会手続き'
+- set_meta_tags description: '休会手続きです。休会をする際はこちらからお申し込みください。'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        .page-header__title
+          = title
+hr.a-border
+.auth-form.is-lg
+  - if @hibernation.errors.any?
+    = render 'errors', object: @hibernation
+  .a-card
+    header.auth-form__header
+      h1.auth-form__title 休会手続き
+    .auth-form__body
+      = render 'message'
+      = form_with model: @hibernation,
+        url: hibernation_path,
+        local: true,
+        method: :post,
+        html: { name: 'hibernation' },
+        class: 'form' do |f|
+        .form__items
+          .form-item
+            = f.label :scheduled_return_on,
+              class: 'a-form-label is-required'
+            = f.date_field :scheduled_return_on,
+              class: 'a-text-input'
+            .a-form-help
+              p
+                | 休会期間は最長3ヶ月です（#{l(Time.current.since(3.months), format: :year_and_date)}まで）。
+                | 明確な日を指定できない場合は、大体の年月日の入力をお願いします。
+          .form-item
+            = f.label :reason, '休会の理由を教えてください',
+              class: 'a-form-label is-required'
+            = f.text_area :reason,
+              placeholder: '仕事がXX月まで繁忙期で残業と休日出勤が続き、学習の時間を確保できなくなるため。',
+              class: 'a-text-input is-sm'
+
+          - if current_user.discord_profile.times_url?
+            .form-item
+              label.a-form-label
+                | 分報チャンネル URL
+              .form-link-block
+                = link_to current_user.discord_profile.times_url, class: 'form-link-block__link a-text-link' do
+                  = current_user.discord_profile.times_url
+              .a-form-help
+                p
+                  | 休会の期間、分報チャンネルが削除されないようにします。
+                  | 事情により分報チャンネルが消えてしまう場合がありますことをご了承ください。
+                p
+                  | 念のため、登録している分報チャンネルの URL が正しいものかご確認をお願いします。
+                  | もし、分報チャンネルの URL に誤りがあった場合は、
+                  = link_to edit_current_user_path(anchor: 'times-url') do
+                    | こちら
+                  | のページの「分報 URL」欄に正しい分報チャンネルの URL を登録してください。
+          - else
+            .form-item
+              label.a-form-label
+                | 分報チャンネル
+              .important-message
+                .important-message__body
+                  .a-short-text.is-sm
+                    p
+                      | 分報チャンネルが登録されていません。
+                      | 休会期間中、分報チャンネルが削除されないようにする場合は
+                      = link_to edit_current_user_path(anchor: 'times-url') do
+                        | こちら
+                      | のページの「分報 URL」欄に分報チャンネルの URL を登録してください。
+
+          - if @regular_events_without_finished.any?
+            .form-item
+              = render 'shared/regular_events_warning',
+                events: @regular_events_without_finished,
+                case_text: '休会をお考えの',
+                action_text: '休会'
+
+          .form-item
+            label.a-form-label.is-required
+              | 休会についての注意を読みましたか？
+            .block-checks.is-1-item.is-centered
+              .block-checks__item
+                .a-block-check.is-checkbox.check-box-to-read
+                  input.a-toggle-checkbox.js-hibernation-agreements-checkbox#check-to-read(type='checkbox')
+                  label.a-block-check__label(for='check-to-read')
+                    | 読みました
+
+        .form-actions
+          ul.form-actions__items
+            li.form-actions__item.is-main
+              = link_to 'キャンセル', :back,
+                class: 'a-button is-md is-secondary is-block'
+            li.form-actions__item.is-main
+              = f.submit '休会する',
+                class: 'a-button is-md is-block js-hibernation-agreements-submit is-disabled',
+                data: { confirm: '本当によろしいですか？' }

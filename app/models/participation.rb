@@ -6,7 +6,9 @@ class Participation < ApplicationRecord
 
   scope :disabled, -> { where(enable: false) }
 
+  validates :user_id, uniqueness: { scope: :event_id }
+
   def waited?
-    self.saved_change_to_attribute?("enable", from: false, to: true)
+    saved_change_to_attribute?('enable', from: false, to: true)
   end
 end

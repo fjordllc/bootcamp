@@ -1,53 +1,88 @@
 # frozen_string_literal: true
 
-require "application_system_test_case"
+require 'application_system_test_case'
 
 class SignInTest < ApplicationSystemTestCase
   fixtures :users
 
-  test "sign in with login_name" do
-    visit "/login"
-    within("#sign-in-form") do
-      fill_in("user[login]", with: "komagata")
-      fill_in("user[password]",   with: "testtest")
+  test 'sign in with login_name' do
+    visit '/login'
+    within('#sign-in-form') do
+      fill_in('user[login]', with: 'komagata')
+      fill_in('user[password]', with: 'testtest')
     end
-    click_button "ログイン"
-    assert_equal "/", current_path
+    click_button 'ログイン'
+    assert_text 'ログインしました。'
   end
 
-  test "sign in with email" do
-    visit "/login"
-    within("#sign-in-form") do
-      fill_in("user[login]", with: "komagata@fjord.jp")
-      fill_in("user[password]",   with: "testtest")
+  test 'sign in with email' do
+    visit '/login'
+    within('#sign-in-form') do
+      fill_in('user[login]', with: 'komagata@fjord.jp')
+      fill_in('user[password]', with: 'testtest')
     end
-    click_button "ログイン"
-    assert_equal "/", current_path
+    click_button 'ログイン'
+    assert_text 'ログインしました。'
   end
 
-  test "sign in with wrong password" do
-    visit "/login"
-    within("#sign-in-form") do
-      fill_in("user[login]", with: "komagata")
-      fill_in("user[password]",   with: "xxxxxxxx")
+  test 'sign in with wrong password, then sign in successfully' do
+    visit '/login'
+    within('#sign-in-form') do
+      fill_in('user[login]', with: 'komagata')
+      fill_in('user[password]', with: 'xxxxxxxx')
     end
-    click_button "ログイン"
-    assert_equal "/user_sessions", current_path
-    assert_text "ユーザー名かパスワードが違います。"
+    click_button 'ログイン'
+    assert_text 'ユーザー名かパスワードが違います。'
+
+    within('#sign-in-form') do
+      fill_in('user[login]', with: 'komagata')
+      fill_in('user[password]', with: 'testtest')
+    end
+    click_button 'ログイン'
+    assert_text 'ログインしました。'
   end
 
-  test "sign in with retire account" do
-    logout
-    visit "/login"
-    within("#sign-in-form") do
-      fill_in("user[login]", with: "yameo")
-      fill_in("user[password]",   with: "yameo@example.com")
+  test 'sign in with retire account' do
+    visit '/login'
+    within('#sign-in-form') do
+      fill_in('user[login]', with: 'yameo')
+      fill_in('user[password]', with: 'testtest')
     end
-    click_button "ログイン"
-    assert_equal "/user_sessions", current_path
-    assert_text "ユーザー名かパスワードが違います。"
+    click_button 'ログイン'
+    assert_text '退会したユーザーです。'
+  end
 
-    visit "/users"
-    assert_equal root_path, current_path
+  test 'sign in with hibernated account' do
+    visit '/login'
+    within('#sign-in-form') do
+      fill_in('user[login]', with: 'kyuukai')
+      fill_in('user[password]', with: 'testtest')
+    end
+    click_button 'ログイン'
+    assert_text '休会中です。休会復帰ページから手続きをお願いします。'
+  end
+
+  test 'active account succeed if continue sign in after sign in failed' do
+    visit '/login'
+    within('#sign-in-form') do
+      fill_in('user[login]', with: 'yameo')
+      fill_in('user[password]', with: 'testtest')
+    end
+    click_button 'ログイン'
+    assert_text '退会したユーザーです。'
+
+    within('#sign-in-form') do
+      fill_in('user[login]', with: 'kyuukai')
+      fill_in('user[password]', with: 'testtest')
+    end
+    click_button 'ログイン'
+    assert_text '休会中です。休会復帰ページから手続きをお願いします。'
+
+    within('#sign-in-form') do
+      fill_in('user[login]', with: 'komagata')
+      fill_in('user[password]', with: 'testtest')
+    end
+    click_button 'ログイン'
+    assert_text 'ログインしました。'
   end
 end

@@ -2,46 +2,49 @@
 
 class ProductCallbacks
   def after_create(product)
-    unless product.wip?
-      create_watch(
-        watchers: User.admins,
-        watchable: product
-      )
+    Cache.delete_unchecked_product_count
+    Cache.delete_unassigned_product_count
+    Cache.delete_self_assigned_no_replied_product_count(product.checker_id)
+  end
 
-      if product.user.trainee?
-        send_notification(
-          product: product,
-          receivers: product.user.company.advisers,
-          message: "#{product.user.login_name}さんが#{product.title}を提出しました。"
-        )
-        create_watch(
-          watchers: product.user.company.advisers,
-          watchable: product,
-        )
-      end
+  def after_update(product)
+    return unless product.saved_change_to_attribute?('checker_id')
 
-      product.change_learning_status(:submitted)
-    end
+    checker_id = product.checker_id || product.attribute_before_last_save('checker_id')
+    Cache.delete_self_assigned_no_replied_product_count(checker_id)
+    Cache.delete_unassigned_product_count
+  end
+
+  def after_commit(product)
+    create_advisers_watch product if !product.wip && product.user.trainee? && product.user.company
+
+    Cache.delete_unchecked_product_count
   end
 
   def after_destroy(product)
     delete_notification(product)
+
+    Cache.delete_unchecked_product_count
+    Cache.delete_unassigned_product_count if product.unassigned?
+    Cache.delete_self_assigned_no_replied_product_count(product.checker_id)
   end
 
   private
-    def send_notification(product:, receivers:, message:)
-      receivers.each do |receiver|
-        NotificationFacade.submitted(product, receiver, message)
-      end
-    end
 
-    def create_watch(watchers:, watchable:)
-      watchers.each do |watcher|
-        Watch.create!(user: watcher, watchable: watchable)
-      end
+  def create_advisers_watch(product)
+    product.user.company.advisers.each do |adviser|
+      target = { user: adviser, watchable: product }
+      Watch.create! target unless Watch.exists? target
     end
+  end
 
-    def delete_notification(product)
-      Notification.where(path: "/products/#{product.id}").destroy_all
+  def send_notification(product:, receivers:)
+    receivers.each do |receiver|
+      ActivityDelivery.with(product:, receiver:).notify(:submitted)
     end
+  end
+
+  def delete_notification(product)
+    Notification.where(link: "/products/#{product.id}").destroy_all
+  end
 end

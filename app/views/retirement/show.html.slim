@@ -1,13 +1,32 @@
-- content_for(:extra_body_classes, "no-header no-footer no-recent-reports no-global-nav is-error-page is-piyo-background")
+- content_for(:extra_body_classes, 'no-header no-footer no-global-nav is-error-page is-piyo-background')
+- set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
+description: '退会処理が完了しました。')
 
-.container
-  .error-message.a-card.is-borderd
-    header.retire-message__header
-      h1.retire-message__title
-        | 退会処理が完了しました
-    .retire-message__body
-      p
-        | フィヨルドブートキャンプのご利用ありがとうございました。
-      p
-        | 学習お疲れ様でした。
-      p = link_to "Fjord Boot Camp", welcome_path
+.thanks-message
+  .container.is-xs
+    .thanks-message__header
+      h1.thanks-message__title
+        | 退会処理が完了しました。
+    .a-card
+      .card-body.thanks-message__body
+        .a-long-text
+          p
+            | フィヨルドブートキャンプをご利用いただき、
+            | 誠にありがとうございました。
+          p
+            | これまでの学びが、将来にとって貴重な資産となることを心から願っております。
+            | 何かお力になれることがございましたら、いつでも info@lokka.jp もしくは、
+            | お問い合わせフォームからご連絡ください。
+          p
+            | もし将来的にプログラミング学習を再開する際には、
+            | 以前ご利用いただいたアカウントを復元できる可能性があります。
+            | その際もぜひフィヨルドブートキャンプへご連絡ください。
+          p
+            | 引き続きのご成功を心よりお祈りしております。
+      hr.a-border-tint
+      footer.card-footer
+        .card-main-actions
+          ul.card-main-actions__items
+            li.card-main-actions__item
+              = link_to root_path, class: 'a-button is-secondary is-sm is-block' do
+                | フィヨルドブートキャンプ

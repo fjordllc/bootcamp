@@ -1,23 +1,35 @@
 # frozen_string_literal: true
 
 class Subscription
-  prepend SubscriptionStub if Rails.env.development?
+  STATUS_CLASS_MAP = {
+    'trialing': 'is-primary',
+    'active': 'is-success',
+    'canceled': 'is-danger',
+    'past_due': 'is-warning'
+  }.freeze
 
-  def retrieve(id)
-    Stripe::Subscription.retrieve(id)
-  end
+  delegate :retrieve, to: :'Stripe::Subscription'
 
-  def create(customer_id, idempotency_key = SecureRandom.uuid)
-    Stripe::Subscription.create({
+  def create(customer_id, idempotency_key = SecureRandom.uuid, trial: 3)
+    options = {
       customer: customer_id,
-      trial_end: 3.days.since.to_i,
-      items: [{ plan: Plan.standard_plan.id }],
-    }, {
-      idempotency_key: idempotency_key
-    })
+      items: [{
+        plan: Plan.standard_plan.id,
+        tax_rates: [Rails.application.config_for(:secrets)[:stripe][:tax_rate_id]]
+      }]
+    }
+    options[:trial_end] = trial.days.since.to_i if trial.positive?
+
+    Stripe::Subscription.create(options, { idempotency_key: })
   end
 
   def destroy(subscription_id)
+    return true if retrieve(subscription_id).status == 'canceled'
+
     Stripe::Subscription.update(subscription_id, cancel_at_period_end: true)
+  end
+
+  def all
+    Stripe::Subscription.list({ status: 'all' }).auto_paging_each.map { |sub| sub }
   end
 end

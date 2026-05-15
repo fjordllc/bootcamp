@@ -11,8 +11,7 @@
     "GOOGLE_STORAGE_BUCKET_NAME": "256interns-review",
     "GOOGLE_STORAGE_ACCESS_KEY": { "required": true },
     "GOOGLE_STORAGE_SECRET": { "required": true },
-    "BOOTCAMP_PASSWORD":{ "required":true },
-    "SLACK_WEBHOOK_URL":{ "required": true }
+    "BOOTCAMP_PASSWORD":{ "required":true }
   },
   "addons":[
     "sendgrid",

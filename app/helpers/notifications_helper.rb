@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 module NotificationsHelper
-  def notification_unreads_count_badge
-    count = current_user.unread_notifications_count
-    if count > 99
-      "99+"
-    else
-      count.to_s
-    end
+  def ensure_notifications?(target)
+    current_user.notifications.by_target(target).unreads.latest_of_each_link.size.positive?
+  end
+
+  def notification_count(target)
+    key = target == :all ? nil : target
+    current_user.notifications.by_target(key).unreads.latest_of_each_link.size
   end
 end

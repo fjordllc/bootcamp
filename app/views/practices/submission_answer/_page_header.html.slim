@@ -1,0 +1,30 @@
+header.page-content-header
+  .page-content-header__end
+    .page-content-header__row
+      h1.page-content-header__title
+        = title
+    .page-content-header__row
+      .page-content-header-metas
+        .page-content-header-metas__start
+          .page-content-header-metas
+            //
+              .page-content-header-metas__meta
+                .a-meta.is-creator
+                  span.a-meta__label
+                    | 公開
+                  .a-meta__value
+                    time(datetime="#{submission_answer.published_at.to_datetime}")
+                      | #{l submission_answer.published_at}
+              .page-content-header-metas__meta
+                .a-meta.is-updater
+                  span.a-meta__label
+                    | 更新
+                  span.a-meta__value
+                    time(datetime="#{submission_answer.updated_at.to_datetime}")
+                      | #{l submission_answer.updated_at}
+                    = render 'users/icon',
+                      user: submission_answer.last_updated_user,
+                      link_class: 'thread-header__user-icon-link',
+                      image_class: 'thread-header__user-icon'
+                    = link_to submission_answer.last_updated_user, class: 'a-user-name' do
+                      | #{submission_answer.last_updated_user.login_name}

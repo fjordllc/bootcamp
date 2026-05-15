@@ -1,0 +1,12 @@
+.a-icon-label {
+  display: flex;
+  flex-direction: column;
+}
+.a-icon-label.is-no-holding {
+  color: var(--muted-text);
+}
+
+.a-icon-label__icon {
+  font-size: 1.5rem;
+  line-height: 0.5;
+}

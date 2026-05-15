@@ -1,83 +1,68 @@
 .user-metas
+  h2.user-metas__title.is-only-mentor
+    | ユーザー公開情報
   .user-metas__items
     .user-metas__item
       .user-metas__item-label
         = User.human_attribute_name :created_at
       .user-metas__item-value
-        = l user.created_at.to_date
-        | &nbsp;#{user.elapsed_days}日目
-        | &nbsp;#{user.generation}期生
+        time datetime=user.created_at.iso8601
+          = l user.created_at.to_date
+        span
+          |（#{user.enrollment_period}）
     .user-metas__item
       .user-metas__item-label
-        = User.human_attribute_name :updated_at
+        | お住まい
       .user-metas__item-value
-        = l user.updated_at
-    .user-metas__item
-      .user-metas__item-label
-        | 都道府県
-      .user-metas__item-value
-        = user.prefecture_name
+        = user.address || t('unregistered')
     .user-metas__item
       .user-metas__item-label
         | コース
       .user-metas__item-value
-        = user.course.title
+        = link_to user.course.title, course_practices_path(user.course), target: '_blank', rel: 'noopener'
     .user-metas__item
       .user-metas__item-label
-        | 日報
+        | 環境
       .user-metas__item-value
-        = user.reports.count
+        | OS:
+        = user.os.present? ? t("activerecord.enums.user.os.#{user.os}") : '回答なし'
+        | 、エディタ:
+        = user.editor_or_other_editor || '回答なし'
     .user-metas__item
       .user-metas__item-label
-        | コメント
+        | 修了プラクティス
       .user-metas__item-value
-        = user.comments.count
-    .user-metas__item
-      .user-metas__item-label
-        | 完了プラクティス
-      .user-metas__item-value
-        = user.completed_practices.size
-    .user-metas__item
-      .user-metas__item-label
-        | Slackアカウント
-      .user-metas__item-value
-        - if user.slack_account.present?
-          = user.slack_account
-        - else
-          | 未登録
+        = user_course_practice.cached_completed_fraction_in_metas
     - unless user.admin? || user.adviser?
       .user-metas__item
         .user-metas__item-label
           | 合計学習時間
         .user-metas__item-value
-          = number_with_precision(user.total_learning_time, precision: 1) + "時間 / "
-          = render "users/learning_status", user: user
-    - if user.company.present?
-      .user-metas__item
-        .user-metas__item-label
-          | 所属企業
-        .user-metas__item-value
-          = user.company.name
+          = "#{number_with_precision(user.total_learning_time, precision: 1)}時間（"
+          = render 'users/learning_status', user: user
+          | ）
     .user-metas__item
       .user-metas__item-label
         | 区分
       .user-metas__item-value
-        = t "target.#{user.role}"
+        ul
+          - user.roles.each_with_index do |role, i|
+            li
+              = t "target.#{role}"
+              - if i.zero? && user.company.present?
+                | （#{user.company.name}）
+              - if admin_or_mentor_login?
+                span.is-only-mentor
+                  = "（休会から#{(Time.current.to_date - user.hibernated_at.to_date).to_i}日目）" if role == 'hibernationed'
+    - if user.trainee? && user.training_ends_on?
+      .user-metas__item
+        .user-metas__item-label
+          = User.human_attribute_name :training_ends_on
+        .user-metas__item-value
+          = l user.training_ends_on.to_date
     - if user.graduated_on.present?
       .user-metas__item
         .user-metas__item-label
           = User.human_attribute_name :graduated_on
         .user-metas__item-value
           = l user.graduated_on
-    - if user.retired?
-      .user-metas__item
-        .user-metas__item-label
-          = User.human_attribute_name :retired_on
-        .user-metas__item-value
-          = l user.retired_on
-    - if user.retired? && current_user.admin?
-      .user-metas__item
-        .user-metas__item-label
-          = User.human_attribute_name :retire_reason
-        .user-metas__item-value
-          = user.retire_reason

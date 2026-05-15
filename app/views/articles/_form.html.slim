@@ -1,35 +1,223 @@
-= render "errors", object: @article
-= form_with(model: article, local: true) do |f|
+= render 'errors', object: @article
+= form_with(model: article, local: true, id: 'article_form') do |f|
   .form__items
     .form-item
       .row
-        .col-lg-9.col-xs-12
-          .form-item
-            = f.label :title, class: "a-label"
-            = f.text_field :title, class: "a-text-input js-warning-form"
+        .col-md-6.col-xs-12
+          = f.label :title, class: 'a-form-label'
+          = f.text_field :title, class: 'a-text-input js-warning-form'
+        .col-md-3.col-sm-6.col-xs-6
+          = f.label :user, class: 'a-form-label'
+          .select-users
+            = f.select(:user_id, contributor, { include_blank: (article.user || current_user).login_name }, { id: 'js-choices-single-select' })
 
     .form-item
       .row.js-markdown-parent
         .col-md-6.col-xs-12
-          = f.label :body, class: "a-label"
-          = f.text_area :body, class: "a-text-input js-warning-form js-markdown markdown-form__text-area", data: { "preview": ".js-preview" }
+          = f.label :body, class: 'a-form-label'
+          = f.text_area :body,
+            class: 'a-text-input js-warning-form js-markdown markdown-form__text-area',
+            data: { 'preview': '.js-preview' }
         .col-md-6.col-xs-12
-          .a-label
+          .a-form-label
             | プレビュー
-          .js-preview.is-long-text.markdown-form__preview
+          .js-preview.a-long-text.is-md.markdown-form__preview
 
     .form-item
       .row
         .col-md-6.col-xs-12
-          = f.label :tag_list, "タグを入力してください（カンマ区切り）", class: "a-label"
-          = f.text_field :tag_list, class: "a-text-input js-warning-form"
+          = f.label '記事の概要・説明', class: 'a-form-label'
+          = f.text_area :summary, class: 'a-text-input'
+          .a-form-help
+            p
+              | ここに入力した文章が meta description に使われます。
+              | 検索結果に表示されるので、読んでみたいと思われるような
+              | 記事の説明・概要を100文字前後で入力してください。
+
+    .form-item
+      .row
+        .col-md-6.col-xs-12
+          = f.label :tag_list, 'タグを入力してください',
+            class: 'a-form-label'
+          = render 'tags_input', taggable: article
+
+          .tag-input
+            .tag-input__title
+              | 簡単タグ入力
+            .tag-input__tags
+              ul.tag-input__items
+                li.tag-input__item
+                  = button_tag '注目の記事', type: 'button', class: 'a-button is-sm is-primary-border js-tag-input-button', data: { tag: '注目の記事' }
+                li.tag-input__item
+                  = button_tag '卒業生の声', type: 'button', class: 'a-button is-sm is-primary-border js-tag-input-button', data: { tag: '卒業生の声' }
+                li.tag-input__item
+                  = button_tag 'プレスリリース', type: 'button', class: 'a-button is-sm is-primary-border js-tag-input-button', data: { tag: 'プレスリリース' }
+                li.tag-input__item
+                  = button_tag 'スポンサーシップ', type: 'button', class: 'a-button is-sm is-primary-border js-tag-input-button', data: { tag: 'スポンサーシップ' }
+                li.tag-input__item
+                  = button_tag '受賞実績', type: 'button', class: 'a-button is-sm is-primary-border js-tag-input-button', data: { tag: '受賞実績' }
+
+          .a-form-help
+            p 注目の記事...トップページの注目の記事一覧に表示されます。
+            p 卒業生の声...卒業生の声ページの記事一覧に表示されます。
+            p プレスリリース...プレスキットの記事一覧に表示されます。
+            p スポンサーシップ...スポンサー実績ページの記事一覧に表示されます。
+            p 受賞実績...受賞実績ページの記事一覧に表示されます。
+            p タグは手入力でも登録できます。入力してエンターキーを押すとタグになります（スペースは入力できません）。
+            p
+              | 入力してエンターキーを押すとタグになります（スペースは入力できません）。タグは複数登録できます。
+              br
+              | トップページにこの記事を表示する場合は、"注目の記事" というタグを登録してください。
+              br
+              | 卒業生の声ページにこの記事を表示する場合は、"卒業生の声" というタグを登録してください。
+              br
+              | プレスリリースの場合は、"プレスリリース" というタグを登録してください。
+
+    .form-item
+      .row
+        .col-md-6.col-xs-12
+          label.a-form-label
+            | サムネイル画像選択
+          .a-form-help.mb-4
+            p
+              | サムネイル画像を用意している場合は「アップロード」を選択し、
+              | 画像をアップロードしてください。
+              | サムネイル画像を用意していない場合は、
+              | それ以外から記事の内容に合いそうなものをピックアップしてください。
+      .row
+        - types = Article.thumbnail_types.keys.tap { |thumbnail_types| thumbnail_types.delete('prepared_thumbnail') }
+        - types.each do |type|
+          .col-md-3.col-xs-6
+            .a-image-check.is-radio
+              = f.radio_button :thumbnail_type, type, class: 'a-toggle-checkbox'
+              = f.label :thumbnail_type, value: t("activerecord.enums.article.thumbnail_type.#{type}"), class: 'a-image-check__inner'
+                span.a-image-check__start
+                  = image_tag("/ogp/#{type}.png")
+                span.a-image-check__end
+                  = t("activerecord.enums.article.thumbnail_type.#{type}")
+
+        .col-md-3.col-xs-6
+          .a-image-check.is-radio
+            = f.radio_button :thumbnail_type, 'prepared_thumbnail', class: 'a-toggle-checkbox'
+            = f.label :thumbnail_type, '画像アップロード', value: 'prepared_thumbnail', class: 'a-image-check__inner'
+              span.a-image-check__start
+                span.a-image-check__upload-image
+                  i.fas.fa-upload
+              span.a-image-check__end
+                | 画像アップロード
+
+    .form-item
+      .row
+        .col-md-6.col-xs-12
+          #upload-thumbnail
+            = f.label :thumbnail, 'サムネイル画像を登録してください',
+              class: 'a-form-label'
+            .form-item-file-input.js-file-input.a-file-input.is-thumbnail
+              label.js-file-input__preview
+                - if article.thumbnail.attached?
+                  = image_tag article.thumbnail
+                  p 画像を変更
+                - else
+                  p 画像を選択
+                = f.file_field :thumbnail
+            .a-form-help
+              p
+                | ここにアップロードした画像が、X（Twitter）、Facebook で投稿した際に表示される画像として使われます。
+                | 画像サイズは必ず 1200px × 630xpx でお願いします。
+
+    .form-item
+      .checkboxes
+        .checkboxes__items
+          .checkboxes__item
+            = f.check_box :display_thumbnail_in_body, { class: 'a-toggle-checkbox' }
+            = f.label :display_thumbnail_in_body, 'サムネイル画像を本文に表示'
+        .a-form-help
+          p
+            | チェックを入れると、ブログ記事の本文内にもサムネイル画像が表示されます。
+            label.a-form-help-link.is-muted-text(for='modal-thumbnail-image')
+              span.a-form-help-link__label
+                | 詳しく
+              span.a-help
+                i.fa-solid.fa-question
+    = render '/shared/modal', id: 'modal-thumbnail-image', modal_title: '本文内にサムネイル表示とは？'
+      .modal__description.is-md
+        .a-short-text
+          p
+            | チェックを入れると本文の頭（タイトルの下）にサムネイル画像が大きく表示されます。
+            | 記事のアイキャッチ画像としてサムネイル画像を使用する場合はチェックを入れてください。
+          p = image_tag('articles/thumbnail_description.png')
+
+    - if params[:action] == 'edit'
+      .form-item
+        .hidden-form-item
+          input.a-toggle-checkbox#toggle-published-at(type='checkbox')
+          .hidden-form-item__trigger
+            label.a-button.is-sm.is-secondary(for='toggle-published-at')
+              | 記事公開日時を変更
+          .hidden-form-item__target
+            .form-item
+              .row
+                .col-md-6.col-xs-12
+                  = f.label :published_at, '記事公開日時', class: 'a-form-label'
+                  .form-item__row
+                    .form-item__column
+                      = f.datetime_field :published_at, class: 'a-text-input js-warning-form', id: 'date_time_input_field', step: '1'
+                    .form-item__column.is-action
+                      .a-button.is-md.is-primary#js-current-date-time-input-button
+                        | 現在の日時
+                  .a-form-help
+                    p
+                      | WIPで保存した場合は、記事公開日時は保存されません。
+
+    - if article.before_initial_publish?
+      .form-item
+        label.a-form-label.is-margin-bottom-0
+          | 通知ターゲット
+        .a-form-help
+          p
+            | 通知は初回公開時のみ行われます。
+        ul.block-checks.is-4-items.sm-down:is-2-items.is-margin-top-12
+          li.block-checks__item
+            .a-block-check.is-radio
+              = f.radio_button :target, 'all', id: 'all', class: 'a-toggle-checkbox'
+              label.a-block-check__label(for='all')
+                = t('activerecord.enums.article.target.all')
+          li.block-checks__item
+            .a-block-check.is-radio
+              = f.radio_button :target, 'students', id: 'students', class: 'a-toggle-checkbox'
+              label.a-block-check__label(for='students')
+                = t('activerecord.enums.article.target.students')
+          li.block-checks__item
+            .a-block-check.is-radio
+              = f.radio_button :target, 'job_seekers', id: 'job_seekers', class: 'a-toggle-checkbox'
+              label.a-block-check__label(for='job_seekers')
+                = t('activerecord.enums.article.target.job_seekers')
+          li.block-checks__item
+            .a-block-check.is-radio
+              = f.radio_button :target, 'none', id: 'none', class: 'a-toggle-checkbox'
+              label.a-block-check__label(for='none')
+                =t('activerecord.enums.article.target.none')
+    - elsif article.target == 'none'
+      p この記事は通知を行わずに公開しました。
+    - else
+      p この記事は初回公開時にすでに通知を行っています。
 
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
-        = f.submit nil, class: "a-button is-lg is-warning is-block", id: "js-shortcut-submit"
-      li.form-actions__item
-        - if params[:action] == "new" || params[:action] == "create"
-          = link_to "キャンセル", articles_path, class: "a-button is-md is-secondary is-block"
-        - elsif params[:action] == "edit" || params[:action] == "update"
-          = link_to "キャンセル", article_path, class: "a-button is-md is-secondary is-block"
+        = f.submit 'WIP', class: 'a-button is-lg is-secondary is-block', id: 'js-shortcut-wip'
+      li.form-actions__item.is-main
+        - if article.wip?
+          = f.submit '公開する', class: 'a-button is-lg is-danger is-block', id: 'js-shortcut-submit'
+        - else
+          - case params[:action]
+          - when 'new', 'create'
+            = f.submit '公開する', class: 'a-button is-lg is-danger is-block', id: 'js-shortcut-submit'
+          - when 'edit', 'update'
+            = f.submit '更新する', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
+      li.form-actions__item.is-sub
+        - case params[:action]
+        - when 'new', 'create'
+          = link_to 'キャンセル', articles_path, class: 'a-button is-sm is-text'
+        - when 'edit', 'update'
+          = link_to 'キャンセル', article_path, class: 'a-button is-sm is-text'

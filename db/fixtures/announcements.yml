@@ -1,0 +1,671 @@
+announcement1:
+  user: komagata
+  title: お知らせ1
+  description: お知らせ本文1
+  created_at: "2018-01-01"
+  published_at: "2018-01-01"
+  target: 0
+
+announcement2:
+  user: machida
+  title: お知らせ2
+  description: お知らせ本文2
+  created_at: "2018-01-02"
+  published_at: "2018-01-02"
+  target: 0
+
+announcement3:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2018-01-03"
+  published_at: "2018-01-03"
+  target: 0
+
+announcement_notification_active_user:
+  user: machida
+  title: 現役生にのみ通知するお知らせ
+  description: 現役生にのみ通知するお知らせの本文
+  created_at: "2018-01-04"
+  published_at: "2018-01-04"
+  target: 1
+
+announcement5:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2018-01-05"
+  published_at: "2018-01-05"
+  target: 0
+
+announcement6:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2018-01-06"
+  published_at: "2018-01-06"
+  target: 0
+
+announcement7:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2018-01-07"
+  published_at: "2018-01-07"
+  target: 0
+
+announcement8:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2018-01-08"
+  published_at: "2018-01-08"
+  target: 0
+
+announcement9:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2018-01-09"
+  published_at: "2018-01-09"
+  target: 0
+
+announcement10:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2018-01-10"
+  published_at: "2018-01-10"
+  target: 0
+
+announcement11:
+  user: komagata
+  title: お知らせ1
+  description: お知らせ本文1
+  created_at: "2019-01-01"
+  published_at: "2019-01-01"
+  target: 0
+
+announcement12:
+  user: komagata
+  title: お知らせ2
+  description: お知らせ本文2
+  created_at: "2019-01-02"
+  published_at: "2019-01-02"
+  target: 0
+
+announcement13:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2019-01-03"
+  published_at: "2019-01-03"
+  target: 0
+
+announcement14:
+  user: komagata
+  title: 現役生にのみ通知するお知らせ
+  description: 現役生にのみ通知するお知らせの本文
+  created_at: "2019-01-04"
+  published_at: "2019-01-04"
+  target: 1
+
+announcement15:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2019-01-05"
+  published_at: "2019-01-05"
+  target: 0
+
+announcement16:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2019-01-06"
+  published_at: "2019-01-06"
+  target: 0
+
+announcement17:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2019-01-07"
+  published_at: "2019-01-07"
+  target: 0
+
+announcement18:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2019-01-08"
+  published_at: "2019-01-08"
+  target: 0
+
+announcement19:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2019-01-09"
+  published_at: "2019-01-09"
+  target: 0
+
+announcement20:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-02-10"
+  published_at: "2020-02-10"
+  target: 0
+
+announcement21:
+  user: komagata
+  title: お知らせ1
+  description: お知らせ本文1
+  created_at: "2020-02-01"
+  published_at: "2020-02-01"
+  target: 0
+
+announcement22:
+  user: machida
+  title: お知らせ2
+  description: お知らせ本文2
+  created_at: "2020-02-02"
+  published_at: "2020-02-02"
+  target: 0
+
+announcement23:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-02-03"
+  published_at: "2020-02-03"
+  target: 0
+
+announcement24:
+  user: machida
+  title: 現役生にのみ通知するお知らせ
+  description: 現役生にのみ通知するお知らせの本文
+  created_at: "2020-02-04"
+  published_at: "2020-02-04"
+  target: 1
+
+announcement25:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-02-05"
+  published_at: "2020-02-05"
+  target: 0
+
+announcement26:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-02-06"
+  published_at: "2020-02-06"
+  target: 0
+
+announcement27:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-02-07"
+  published_at: "2020-02-07"
+  target: 0
+
+announcement28:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-02-08"
+  published_at: "2020-02-08"
+  target: 0
+
+announcement29:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-02-09"
+  published_at: "2020-02-09"
+  target: 0
+
+announcement30:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-02-10"
+  published_at: "2020-02-10"
+  target: 0
+
+announcement31:
+  user: komagata
+  title: お知らせ1
+  description: お知らせ本文1
+  created_at: "2020-04-01"
+  published_at: "2020-04-01"
+  target: 0
+
+announcement32:
+  user: komagata
+  title: お知らせ2
+  description: お知らせ本文2
+  created_at: "2020-04-02"
+  published_at: "2020-04-02"
+  target: 0
+
+announcement33:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-04-03"
+  published_at: "2020-04-03"
+  target: 0
+
+announcement34:
+  user: komagata
+  title: 現役生にのみ通知するお知らせ
+  description: 現役生にのみ通知するお知らせの本文
+  created_at: "2020-04-04"
+  published_at: "2020-04-04"
+  target: 1
+
+announcement35:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-04-05"
+  published_at: "2020-04-05"
+  target: 0
+
+announcement36:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-04-06"
+  published_at: "2020-04-06"
+  target: 0
+
+announcement37:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-04-07"
+  published_at: "2020-04-07"
+  target: 0
+
+announcement38:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-04-08"
+  published_at: "2020-04-08"
+  target: 0
+
+announcement39:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-04-09"
+  published_at: "2020-04-09"
+  target: 0
+
+announcement40:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-04-10"
+  published_at: "2020-04-10"
+  target: 0
+
+announcement41:
+  user: komagata
+  title: お知らせ1
+  description: お知らせ本文1
+  created_at: "2020-06-01"
+  published_at: "2020-06-01"
+  target: 0
+
+announcement42:
+  user: machida
+  title: お知らせ2
+  description: お知らせ本文2
+  created_at: "2020-06-02"
+  published_at: "2020-06-02"
+  target: 0
+
+announcement43:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-06-03"
+  published_at: "2020-06-03"
+  target: 0
+
+announcement44:
+  user: machida
+  title: 現役生にのみ通知するお知らせ
+  description: 現役生にのみ通知するお知らせの本文
+  created_at: "2020-06-04"
+  published_at: "2020-06-04"
+  target: 1
+
+announcement45:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-06-05"
+  published_at: "2020-06-05"
+  target: 0
+
+announcement46:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-06-06"
+  published_at: "2020-06-06"
+  target: 0
+
+announcement47:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-06-07"
+  published_at: "2020-06-07"
+  target: 0
+
+announcement48:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-06-08"
+  published_at: "2020-06-08"
+  target: 0
+
+announcement49:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-06-09"
+  published_at: "2020-06-09"
+  target: 0
+
+announcement50:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-06-10"
+  published_at: "2020-06-10"
+  target: 0
+
+announcement51:
+  user: komagata
+  title: お知らせ1
+  description: お知らせ本文1
+  created_at: "2020-08-01"
+  published_at: "2020-08-01"
+  target: 0
+
+announcement52:
+  user: komagata
+  title: お知らせ2
+  description: お知らせ本文2
+  created_at: "2020-08-02"
+  published_at: "2020-08-02"
+  target: 0
+
+announcement53:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-08-03"
+  published_at: "2020-08-03"
+  target: 0
+
+announcement54:
+  user: komagata
+  title: 現役生にのみ通知するお知らせ
+  description: 現役生にのみ通知するお知らせの本文
+  created_at: "2020-08-04"
+  published_at: "2020-08-04"
+  target: 1
+
+announcement55:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-08-05"
+  published_at: "2020-08-05"
+  target: 0
+
+announcement56:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-08-06"
+  published_at: "2020-08-06"
+  target: 0
+
+announcement57:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-08-07"
+  published_at: "2020-08-07"
+  target: 0
+
+announcement58:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-08-08"
+  published_at: "2020-08-08"
+  target: 0
+
+announcement59:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-08-09"
+  published_at: "2020-08-09"
+  target: 0
+
+announcement60:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-08-10"
+  published_at: "2020-08-10"
+  target: 0
+
+announcement61:
+  user: komagata
+  title: お知らせ1
+  description: お知らせ本文1
+  created_at: "2020-12-01"
+  published_at: "2020-12-01"
+  target: 0
+
+announcement62:
+  user: machida
+  title: お知らせ2
+  description: お知らせ本文2
+  created_at: "2020-12-02"
+  published_at: "2020-12-02"
+  target: 0
+
+announcement63:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-12-03"
+  published_at: "2020-12-03"
+  target: 0
+
+announcement64:
+  user: machida
+  title: 現役生にのみ通知するお知らせ
+  description: 現役生にのみ通知するお知らせの本文
+  created_at: "2020-12-04"
+  published_at: "2020-12-04"
+  target: 1
+
+announcement65:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-12-05"
+  published_at: "2020-12-05"
+  target: 0
+
+announcement66:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-12-06"
+  published_at: "2020-12-06"
+  target: 0
+
+announcement67:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-12-07"
+  published_at: "2020-12-07"
+  target: 0
+
+announcement68:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-12-08"
+  published_at: "2020-12-08"
+  target: 0
+
+announcement69:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-12-09"
+  published_at: "2020-12-09"
+  target: 0
+
+announcement70:
+  user: machida
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2020-12-10"
+  published_at: "2020-12-10"
+  target: 0
+
+announcemen71:
+  user: komagata
+  title: お知らせ1
+  description: お知らせ本文1
+  created_at: "2021-01-01"
+  published_at: "2021-01-01"
+  target: 0
+
+announcement72:
+  user: komagata
+  title: お知らせ2
+  description: お知らせ本文2
+  created_at: "2021-01-02"
+  published_at: "2021-01-02"
+  target: 0
+
+announcement73:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2021-01-03"
+  published_at: "2021-01-03"
+  target: 0
+
+announcement74:
+  user: komagata
+  title: 現役生にのみ通知するお知らせ
+  description: 現役生にのみ通知するお知らせの本文
+  created_at: "2021-01-04"
+  published_at: "2021-01-04"
+  target: 1
+
+announcement75:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2021-01-05"
+  published_at: "2021-01-05"
+  target: 0
+
+announcement76:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2021-01-06"
+  published_at: "2021-01-06"
+  target: 0
+
+announcemen77:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2021-01-07"
+  published_at: "2021-01-07"
+  target: 0
+
+announcement78:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2021-01-08"
+  published_at: "2021-01-08"
+  target: 0
+
+announcement79:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2021-01-09"
+  published_at: "2021-01-09"
+  target: 0
+
+announcement80:
+  user: komagata
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2021-01-10"
+  published_at: "2021-01-10"
+  target: 0
+
+announcement_wip:
+  user: komagata
+  title: テストのお知らせ-WIP
+  description: テストのお知らせ本文
+  created_at: "2021-01-10"
+  wip: true
+  target: 0
+
+hatsuno_announcement:
+  user: hatsuno
+  title: テストのお知らせ
+  description: テストのお知らせ本文
+  created_at: "2021-01-10"
+  wip: true
+  target: 0
+
+announcement_wip:
+  user: komagata
+  title: wipのお知らせ
+  description: wipのお知らせ本文
+  created_at: "2018-01-05"
+  target: 0
+  wip: true
+
+announcement_published_later:
+  user: komagata
+  title: 後から公開されたお知らせ
+  description: 後から公開されたお知らせ本文
+  created_at: "2020-12-31"
+  published_at: "2021-01-11"
+  target: 0

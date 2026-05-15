@@ -1,19 +1,103 @@
-page_1:
+page1:
   title: test1
-  body: "## test\ntest"
+  body: |-
+    ## test
+    test
   user: komagata
+  published_at: "2018-01-01 00:00:00"
 
-page_2:
+page2:
   title: テスト
-  body: "## テスト\nテスト"
+  body: |-
+    ## テスト
+    テスト
+    [example](http://example.com)
   user: komagata
+  published_at: "2019-01-01 00:00:00"
 
-page_3:
+page3:
   title: Docsページ
-  body: "## 存在しないDocsページ遷移テスト\n[存在しないページ](http://localhost:3000/pages/5555555)"
+  body: |-
+    ## 存在しないDocsページ遷移テスト
+    [存在しないページ](http://example.com/xxxxx)
   user: komagata
+  published_at: "2020-01-01 00:00:00"
 
-page_4:
+page4:
   title: Bootcampの作業のページ
-  body: "## テスト\nテスト"
+  body: |-
+    ## テスト
+    テスト
   user: komagata
+  published_at: "2020-01-01 00:00:00"
+
+page5:
+  title: WIPのテスト
+  body: WIP
+  user: komagata
+  wip: true # wip の場合は published_at の値が未設定の状態でレコードが作成される
+
+page6:
+  title: Docsの検索結果テスト用
+  body: Docsの検索結果テスト用
+  user: komagata
+  published_at: "2020-01-01 00:00:00"
+
+page7:
+  title: プラクティスに紐付いたDocs
+  body: プラクティスに紐付いている
+  user: komagata
+  practice: practice1
+  published_at: "2021-10-01 00:00:00"
+  last_updated_user: komagata
+
+page8:
+  title: apt
+  body: |-
+    aptとはdebianでソフトウェアをネットワークからインストールするコマンドです。
+
+    [TEST](/test)(/test2)
+
+    [missing](test)
+
+    - 参考
+        - [APT - Wikipedia](http://ja.wikipedia.org/wiki/APT)
+
+    ## Q&A
+
+    - Q. `$ apt-cache search vim` の検索結果が多すぎる
+    - A. [正規表現](https://ja.wikipedia.org/wiki/%E6%AD%A3%E8%A6%8F%E8%A1%A8%E7%8F%BE) を使う。
+      - 完全一致: `$ apt-cache search ^vim$`
+      - 前方一致: `$ apt-cache search ^vim`
+  user: komagata
+  published_at: "2022-01-01 00:00:00"
+
+page9:
+  title: プラクティスに紐付いたDocs(kimura更新)
+  body: プラクティスに紐付いている(kimura更新)
+  user: komagata
+  practice: practice2
+  published_at: "2022-02-28 00:00:00"
+  last_updated_user: kimura
+
+page10:
+  title: プラクティス共通の説明
+  body: |-
+    ## 困った時は
+    ### エラーがでて原因がわからない…
+    デバッグをしてみよう
+
+    ### Q&A・質問・雑談ルームを利用しましょう！
+    質問をしてみましょう！
+
+    ### ペアプロを依頼してみよう
+    コードを書いている時に詰まったりエラーが出た時は、テキストで伝えるのが大変な事が多いので、指摘の意図が分からなかったり質問のテキスト化に苦労したらペアプロを依頼してみましょう。メンター側もテキストで伝えるのが大変なので、ご遠慮なく！
+  slug: practice_common_description
+  user: komagata
+  published_at: "2022-03-10 00:00:00"
+
+page11:
+  title: 長いメンターIDのDOC
+  body: test
+  user: long-id-mentor
+  published_at: "2022-04-15 00:00:00"

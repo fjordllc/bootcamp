@@ -1,0 +1,28 @@
+.event-meta.a-card
+  .event-meta__inner
+    dl.event-meta__items
+      .event-meta__item
+        dt.event-meta__item-label
+          | 主催者
+        dd.event-meta__item-value
+          ul.user-icons__items
+            - regular_event.organizers.each do |organizer|
+              li.user-icons-item
+                = link_to organizer do
+                  span class=organizer.user_icon_frame_class
+                    = image_tag organizer.avatar_url, title: organizer.icon_title, class: "a-user-icon is-sm is-#{organizer.login_name}", alt: organizer.login_name
+      .event-meta__item
+        dt.event-meta__item-label
+          | 開催日時
+        dd.event-meta__item-value
+          = regular_event.holding_cycles
+          | #{l regular_event.start_at, format: :time_only} 〜 #{l regular_event.end_at, format: :time_only}
+          | （祝日#{regular_event.hold_national_holiday ? 'も開催' : 'は休み'}）
+      .event-meta__item
+        dt.event-meta__item-label
+          | 次回開催日
+        dd.event-meta__item-value
+          - if regular_event.wip?
+            | イベント編集中のため次回開催日は未定です
+          - else
+            = regular_event.next_holding_date

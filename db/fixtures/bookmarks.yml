@@ -1,0 +1,21 @@
+bookmark31:
+  user: komagata
+  bookmarkable: talk_komagata (Talk)
+
+bookmark30:
+  user: kimura
+  bookmarkable: page1 (Page)
+
+bookmark29:
+  user: kimura
+  bookmarkable: product1 (Product)
+
+bookmark28:
+  user: kimura
+  bookmarkable: question1 (Question)
+
+<% (1..27).each do |id| %>
+bookmark<%= id %>:
+  user: komagata
+  bookmarkable: report<%= id %> (Report)
+<% end %>

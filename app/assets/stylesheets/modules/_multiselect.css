@@ -1,0 +1,71 @@
+.multiselect {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+}
+
+.multiselect.book {
+  position: initial;
+}
+
+.multiselect__single {
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.multiselect__content-wrapper {
+  overflow-y: scroll;
+  background-color: var(--base);
+  border: solid 1px var(--border);
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.multiselect--active {
+  overflow-y: hidden !important;
+}
+
+.multiselect__content {
+  display: block !important;
+}
+
+.multiselect__element {
+  font-size: 0.875rem;
+}
+.multiselect__element:not(:first-child) {
+  border-top: solid 1px var(--border);
+}
+.multiselect__element > span {
+  display: flex;
+  height: 2.75rem;
+  padding-inline: 0.75rem;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+}
+.multiselect__element > span:hover {
+  background-color: var(--background-tint);
+}
+.multiselect__element > span > span {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.multiselect__option--selected {
+  pointer-events: none;
+  background-color: #fff5db;
+}
+
+@media (max-width: 47.9375em) {
+  .multiselect__element {
+    font-size: 1rem;
+  }
+}

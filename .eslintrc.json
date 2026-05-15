@@ -1,0 +1,35 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "standard",
+    "plugin:react/jsx-runtime",
+    "prettier"
+  ],
+  "plugins": [
+    "react"
+  ],
+  "env": {
+    "browser": true,
+    "jquery": true,
+    "node": true
+  },
+  "globals": {
+    "Worker": true,
+    "IntersectionObserver": true
+  },
+  "root": true,
+  "parserOptions": {
+    "ecmaVersion": 2022
+  },
+  "rules": {
+    "no-unused-vars": [
+      "error",
+      {
+        "args": "all",
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "react/jsx-uses-react": "error",   
+    "react/jsx-uses-vars": "error" 
+  }
+}

@@ -1,17 +1,25 @@
-- fields = required_fields
-- if fields.present?
+- unless @required_fields.valid?
   .a-card
     header.card-header.is-sm
       h2.card-header__title
         | 未入力の項目
+    hr.a-border-tint
     .card-list.is-reauired
       .card-list__deacription
         .card-list__notice
           p
             | プラクティス
-            = link_to "学習の準備", "https://bootcamp.fjord.jp/courses/1/practices#category-1"
+            = link_to '学習の準備', 'https://bootcamp.fjord.jp/courses/1/practices#category-1'
             | が終わりましたら、以下の項目を埋めてください。
       ul.card-list__items
-        - fields.each do |field|
-          li.card-list__item
-            = field
+        - @required_fields.errors.each do |error|
+          li.card-list-item
+            .card-list-item__inner
+              .card-list-item__icon.is-danger
+                i.fas.fa-exclamation-triangle
+              .card-list-item__rows
+                .card-list-item__row
+                  .card-list-item-title
+                    h3.card-list-item-title__title.is-sm
+                      = link_to error.message, edit_current_user_path(anchor: anchor_to_required_field(error.attribute)),
+                        class: "card-list-item-title__link  a-text-link is-#{error.attribute}"

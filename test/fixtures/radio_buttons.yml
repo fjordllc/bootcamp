@@ -1,0 +1,6 @@
+radio_button1:
+  survey_question: survey_question2
+  title_of_reason: "「その他」と回答された方は、内容をお聞かせください。"
+  description_of_reason: "「その他」の内容について、詳しくお聞かせください。"
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

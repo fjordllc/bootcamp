@@ -1,14 +1,43 @@
-- content_for :extra_body_classes, "welcome welcome-home"
+- set_meta_tags(site: 'プログラミングスクール FJORD BOOT CAMP（フィヨルドブートキャンプ）',
+  description: '月額32,780円（税込）、全機能が使えるお試し期間付き。FBCは現場の即戦力になるためのスキルとプログラミングの楽しさを伝える、現役ソフトウェアエンジニアが考える理想のプログラミングスクールの実現に励んでいます。')
+- content_for :extra_body_classes, 'welcome welcome-home'
 - content_for :head_last do
-  = javascript_include_tag "https://sdk.form.run/js/v2/formrun.js"
+  = javascript_include_tag 'https://sdk.form.run/js/v2/formrun.js'
 
-= render "welcome/main_visual"
-.welcome-sections
-  = render "welcome/about"
-  = render "welcome/pricing"
-  = render "welcome/tutorials"
-  = render "welcome/eligibility"
-  = render "welcome/process"
-  = render "welcome/administrator"
-  //
-    = render "welcome/other"
+= render 'welcome/welcome_top_info'
+= render 'welcome/main_visual'
+
+//
+  section.lp-content.is-top-title.is-campaign
+    .l-container.is-xl
+      .lp-content__inner.gap-6
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-xs
+              | 給付金制度対象「Railsエンジニアコース」スタート
+
+        .lp-content__end
+          .lp-content__description
+            .l-container.is-md
+              .a-short-text
+                h3.font-semibold.text-center
+                  | 受講料の最大80％が給付金で補助される！
+                p.font-semibold
+                  | 給付金対象Railsエンジニアコースが、
+                  | 厚生労働省の認定する専門実践教育訓練給付制度の対象講座となりました。
+          .lp-actions.mt-6
+            ul.lp-actions__items
+              li.lp-actions__item
+                = link_to certified_reskill_courses_rails_developer_course_root_path, class: 'a-button is-xl is-warning is-block' do
+                  | くわしくはこちら
+
+//= render 'welcome/welcome_top_banners'
+= render 'welcome/campaign' if Campaign.today_campaign?
+= render 'welcome/about'
+= render 'welcome/pricing'
+= render 'welcome/course-select'
+= render 'welcome/requirements'
+= render 'welcome/question_methods'
+= render 'welcome/articles'
+= render 'welcome/mentors', mentors: @mentors
+= render 'welcome/campus_insight'

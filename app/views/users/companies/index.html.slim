@@ -1,0 +1,24 @@
+- title '企業別ユーザー一覧'
+- set_meta_tags description: '企業別ユーザー一覧ページです。'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title ユーザー一覧
+      .page-header__end
+        .page-header-actions
+          ul.page-header-actions__items
+
+= users_page_tabs(active_tab: '企業別')
+= render 'users_tabs', target: @target, allowed_targets: @allowed_targets
+
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        h1.page-main-header__title
+          = '企業別'
+          | （#{t("target.#{@target}")}）
+  hr.a-border
+  = render 'companies', companies: @companies, company_users: @company_users, target: @target, allowed_targets: @allowed_targets

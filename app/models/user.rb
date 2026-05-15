@@ -1,230 +1,598 @@
 # frozen_string_literal: true
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include ActionView::Helpers::AssetUrlHelper
+  include Taggable
+  include Searchable
+
+  attr_accessor :credit_card_payment, :role, :uploaded_avatar
 
   authenticates_with_sorcery!
-  VALID_SORT_COLUMNS = %w(id login_name company_id updated_at created_at report comment asc desc)
-  AVATAR_SIZE = "88x88>"
+  VALID_SORT_COLUMNS = %w[id login_name company_id last_activity_at created_at report comment asc desc].freeze
+  AVATAR_SIZE = [120, 120].freeze
+  AVATAR_FORMAT = 'webp'
+  DEFAULT_IMAGE_PATH = '/images/users/avatars/default.png'
+  RESERVED_LOGIN_NAMES = %w[adviser all graduate inactive job_seeking mentor retired student student_and_trainee trainee year_end_party].freeze
+  MAX_PERCENTAGE = 100
+  DEPRESSED_SIZE = 2
+  ALL_ALLOWED_TARGETS = %w[adviser all campaign graduate hibernated inactive job_seeking mentor retired student_and_trainee student trainee
+                           year_end_party admin].freeze
+  # 本来であればtarget = scope名としたいが、歴史的経緯によりtargetとscope名が一致しないものが多数あるため、名前が一致しない場合はこのハッシュを使ってscope名に変換する
+  TARGET_TO_SCOPE = {
+    'student_and_trainee' => :students_and_trainees,
+    'student' => :students,
+    'trainee' => :trainees,
+    'graduate' => :graduated,
+    'adviser' => :advisers,
+    'admin' => :admins
+  }.freeze
+  HIBERNATION_LIMIT = 3.months
+  HIBERNATION_LIMIT_BEFORE_ONE_WEEK = HIBERNATION_LIMIT - 1.week
 
-  enum job: {
+  INVITATION_ROLES = [
+    [I18n.t('invitation_role.adviser'), :adviser],
+    [I18n.t('invitation_role.trainee', payment_method: '請求書払い'), :trainee_invoice_payment],
+    [I18n.t('invitation_role.trainee', payment_method: 'クレジットカード払い'), :trainee_credit_card_payment],
+    [I18n.t('invitation_role.trainee', payment_method: '支払い方法を選択'), :trainee_select_a_payment_method],
+    [I18n.t('invitation_role.mentor'), :mentor]
+  ].freeze
+
+  enum :job, {
     student: 0,
     office_worker: 2,
     part_time_worker: 3,
     vacation: 4,
     unemployed: 5
-  }, _prefix: true
+  }, prefix: true
 
-  enum os: {
+  enum :os, {
     mac: 0,
-    linux: 1
-  }, _prefix: true
+    mac_apple: 2,
+    linux: 1,
+    windows_wsl2: 3
+  }, prefix: true
 
-  enum study_place: {
-    local: 0,
-    remote: 1
-  }, _prefix: true
+  enum :editor, {
+    vscode: 0,
+    ruby_mine: 1,
+    vim: 2,
+    emacs: 3,
+    other_editor: 99
+  }, prefix: true
 
-  enum experience: {
-    inexperienced: 0,
-    html_css: 1,
-    other_ruby: 2,
-    ruby: 3,
-    rails: 4
-  }, _prefix: true
+  enum :satisfaction, {
+    excellent: 0,
+    good: 1,
+    average: 2,
+    poor: 3,
+    very_poor: 4
+  }, prefix: true
 
-  belongs_to :company, required: false
+  enum :referral_source, {
+    search_engine: 0,
+    referral: 1,
+    event: 2,
+    x: 3,
+    facebook: 4,
+    blog: 5,
+    web_ad: 6,
+    other: 99
+  }, prefix: true
+
+  enum :career_path, {
+    unset: 0,
+    job_seeking: 1,
+    employed_via_referral: 2,
+    employed_without_referral: 3,
+    employed_non_it: 4,
+    internal_transfer_to_programmer: 5,
+    not_employed: 6
+  }, prefix: true
+
+  belongs_to :company, optional: true
   belongs_to :course
-  has_many :learnings
-  has_many :borrowings
-  has_many :pages,         dependent: :destroy
-  has_many :comments,      dependent: :destroy
-  has_many :reports,       dependent: :destroy
-  has_many :checks,        dependent: :destroy
-  has_many :footprints,    dependent: :destroy
-  has_many :images,        dependent: :destroy
-  has_many :products,      dependent: :destroy
-  has_many :questions,     dependent: :destroy
+  has_many :learnings, dependent: :destroy
+  has_many :pages, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :reports, dependent: :destroy
+  has_many :checks, dependent: :destroy
+  has_many :footprints, dependent: :destroy
+  has_many :images, dependent: :destroy
+  has_many :products, dependent: :destroy
+  has_many :questions, dependent: :destroy
   has_many :announcements, dependent: :destroy
-  has_many :reactions,     dependent: :destroy
-  has_many :works,         dependent: :destroy
+  has_many :reactions, dependent: :destroy
+  has_many :works, dependent: :destroy
   has_many :notifications, dependent: :destroy
-  has_many :events,        dependent: :destroy
+  has_many :events, dependent: :destroy
   has_many :participations, dependent: :destroy
-  has_many :reservations, dependent: :destroy
+  has_many :regular_event_participations, dependent: :destroy
+  has_many :answers, dependent: :destroy
+  has_many :watches, dependent: :destroy
+  has_many :articles, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
+  has_many :regular_events, dependent: :destroy
+  has_many :regular_event_organizers, dependent: :destroy
+  has_many :hibernations, dependent: :destroy
+  has_many :authored_books, dependent: :destroy
+  accepts_nested_attributes_for :authored_books, allow_destroy: true
+  has_many :surveys, dependent: :destroy
+  has_many :survey_questions, dependent: :destroy
+  has_many :external_entries, dependent: :destroy
+  has_many :movies, dependent: :nullify
+  has_many :coding_tests, dependent: :destroy
+  has_many :coding_test_submissions, dependent: :destroy
+  has_one :report_template, dependent: :destroy
+  has_one :talk, dependent: :destroy
+  has_one :discord_profile, dependent: :destroy
+  accepts_nested_attributes_for :discord_profile, allow_destroy: true
+  has_many :request_retirements, dependent: :destroy
+  has_one :targeted_request_retirement, class_name: 'RequestRetirement', foreign_key: 'target_user_id', dependent: :destroy, inverse_of: :target_user
+  has_many :micro_reports, dependent: :destroy
+  has_many :authored_micro_reports, class_name: 'MicroReport', foreign_key: 'comment_user_id', dependent: :destroy, inverse_of: :comment_user
+  has_many :learning_time_frames_users, dependent: :destroy
+  has_many :pair_works, dependent: :destroy
 
   has_many :participate_events,
-    through: :participations,
-    source: :event
+           through: :participations,
+           source: :event
 
   has_many :send_notifications,
-    class_name:  "Notification",
-    foreign_key: "sender_id",
-    dependent:   :destroy
+           class_name: 'Notification',
+           foreign_key: 'sender_id',
+           inverse_of: 'sender',
+           dependent: :destroy
 
   has_many :completed_learnings,
-    -> { where(status: "complete") },
-    class_name: "Learning",
-    dependent:  :destroy
+           -> { where(status: 'complete') },
+           class_name: 'Learning',
+           inverse_of: 'user',
+           dependent: :destroy
 
   has_many :completed_practices,
-    through:   :completed_learnings,
-    source:    :practice,
-    dependent: :destroy
+           through: :completed_learnings,
+           source: :practice,
+           dependent: :destroy
 
   has_many :active_learnings,
-    -> { where(status: "started") },
-    class_name: "Learning",
-    dependent:  :destroy
+           -> { where(status: 'started') },
+           class_name: 'Learning',
+           inverse_of: 'user',
+           dependent: :destroy
 
   has_many :active_practices,
-    through:   :active_learnings,
-    source:    :practice,
-    dependent: :destroy
+           through: :active_learnings,
+           source: :practice,
+           dependent: :destroy
 
-  has_many :books,
-    through: :borrowings
+  has_many :active_relationships,
+           class_name: 'Following',
+           foreign_key: 'follower_id',
+           inverse_of: 'follower',
+           dependent: :destroy
+
+  has_many :skipped_practices,
+           dependent: :destroy
+
+  has_many :practices,
+           through: :skipped_practices
+
+  has_many :followees,
+           through: :active_relationships,
+           source: :followed
+
+  has_many :passive_relationships,
+           class_name: 'Following',
+           foreign_key: 'followed_id',
+           inverse_of: 'followed',
+           dependent: :destroy
+
+  has_many :followers,
+           through: :passive_relationships,
+           source: :follower
+
+  has_many :organize_regular_events,
+           through: :regular_event_organizers,
+           source: :regular_event
+
+  has_many :participate_regular_events,
+           through: :regular_event_participations,
+           source: :regular_event
+
+  has_many :coding_test_submissions, dependent: :destroy
+
+  has_many :learning_time_frames,
+           through: :learning_time_frames_users
+
+  has_many :oauth_access_grants,
+           foreign_key: 'resource_owner_id',
+           dependent: :delete_all,
+           inverse_of: 'user'
+
+  has_many :oauth_access_tokens,
+           foreign_key: 'resource_owner_id',
+           dependent: :delete_all,
+           inverse_of: 'user'
 
   has_one_attached :avatar
+  has_one_attached :profile_image
+  has_one_attached :diploma_file
 
-  after_update UserCallbacks.new
+  after_create UserCallbacks.new
+  before_validation :convert_blank_of_address_to_nil
 
-  validates :email,      presence: true, uniqueness: true
-  validates :first_name, presence: true
-  validates :last_name,  presence: true
+  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
+  validates :name, presence: true
+  validates :description, presence: true
   validates :nda, presence: true
   validates :password, length: { minimum: 4 }, confirmation: true, if: :password_required?
-  validates :twitter_account,
-    length: { maximum: 15 },
-    format: {
-      allow_blank: true,
-      with: /\A\w+\z/,
-      message: "は英文字と_（アンダースコア）のみが使用できます"
-    }
   validates :mail_notification, inclusion: { in: [true, false] }
+  validates :show_mentor_profile, inclusion: { in: [true, false] }
+  validates :github_id, uniqueness: true, allow_nil: true
+  validates :other_editor, presence: true, if: -> { editor == 'other_editor' }
+  validates :other_referral_source, presence: true, if: -> { referral_source == 'other' }
+  validates :invoice_payment, inclusion: { in: [true], message: 'にチェックを入れてください。' }, if: -> { role == 'trainee_invoice_payment' }
+  validates :invoice_payment, inclusion: { in: [true],
+                                           message: 'か「クレジットカード払い」のいずれかを選択してください。' },
+                              if: -> { role == 'trainee_select_a_payment_method' && !credit_card_payment }
+
+  validates :facebook_url, :feed_url, :blog_url,
+            format: {
+              allow_blank: true,
+              with: URI::DEFAULT_PARSER.make_regexp(%w[http https]),
+              message: 'は「http://example.com」や「https://example.com」のようなURL形式で入力してください'
+            }
+
+  validates :login_name, exclusion: { in: RESERVED_LOGIN_NAMES, message: 'に使用できない文字列が含まれています' }
+
+  validates :login_name, length: { minimum: 3, message: 'は3文字以上にしてください。' }
+
+  validate :validate_uploaded_avatar_content_type
+
+  validates :show_study_streak, inclusion: { in: [true, false] }
+
+  validates :diploma_file, content_type: { in: ['application/pdf'], message: 'はPDF形式にしてください' }
+
+  validates :country_code, inclusion: { in: ISO3166::Country.codes }, allow_nil: true
+
+  validates :subdivision_code, inclusion: { in: ->(user) { user.subdivision_codes } }, allow_nil: true, if: -> { country_code.present? }
 
   with_options if: -> { %i[create update].include? validation_context } do
     validates :login_name, presence: true, uniqueness: true,
-      format: {
-          with: /\A[a-z\d](?:[a-z\d]|-(?=[a-z\d]))*\z/i,
-          message: "は半角英数字と-（ハイフン）のみが使用できます 先頭と最後にハイフンを使用することはできません ハイフンを連続して使用することはできません"
-        }
+                           format: {
+                             with: /\A[a-z\d](?:[a-z\d]|-(?=[a-z\d]))*\z/i,
+                             message: 'は半角英数字と-（ハイフン）のみが使用できます 先頭と最後にハイフンを使用することはできません ハイフンを連続して使用することはできません'
+                           }
   end
 
-  with_options if: -> { validation_context != :reset_password && validation_context != :retirement } do
-    validates :kana_first_name,  presence: true,
-    format: {
-      with: /\A^[ア-ン゛゜ァ-ォャ-ョー]+\z/,
-      message: "はカタカナのみが使用できます"
-    }
-    validates :kana_last_name,  presence: true,
-    format: {
-      with: /\A^[ア-ン゛゜ァ-ォャ-ョー]+\z/,
-      message: "はカタカナのみが使用できます"
-    }
+  with_options if: -> { !validation_context.in?(%i[reset_password retirement training_completion]) } do
+    validates :name_kana, presence: true,
+                          format: {
+                            with: /\A[\p{katakana}\p{blank}ー－]+\z/,
+                            message: 'はスペースとカタカナのみが使用できます'
+                          }
   end
 
-  with_options if: -> { !adviser? && validation_context != :reset_password && validation_context != :retirement } do
+  with_options if: -> { !staff? && !validation_context.in?(%i[reset_password retirement training_completion]) } do
     validates :job, presence: true
-    validates :os, presence: true
-    validates :study_place, presence: true
-    validates :experience, presence: true
   end
+
+  with_options if: -> { !adviser? && !validation_context.in?(%i[reset_password retirement training_completion]) } do
+    validates :os, presence: true
+  end
+
+  with_options if: -> { validation_context.in?(%i[retirement training_completion]) } do
+    validates :satisfaction, presence: true
+  end
+
+  with_options if: -> { trainee? } do
+    validates :company_id, presence: true
+  end
+
+  with_options if: -> { !validation_context.in?(%i[retirement training_completion]) } do
+    validates :twitter_account,
+              length: { maximum: 15 },
+              allow_blank: true,
+              format: {
+                with: /\A\w+\z/,
+                message: 'は英文字と_（アンダースコア）のみが使用できます'
+              }
+  end
+
+  flag :retire_reasons, %i[
+    done
+    necessity
+    other_school
+    time
+    motivation
+    curriculum
+    support
+    environment
+    cost
+    job_change
+    training_end
+  ]
+
+  flag :experiences, %i[
+    html_css
+    ruby
+    rails
+    javascript
+    react
+    languages_other_than_ruby_and_javascript
+  ]
 
   scope :in_school, -> { where(graduated_on: nil) }
   scope :graduated, -> { where.not(graduated_on: nil) }
+  scope :hibernated, -> { where.not(hibernated_at: nil) }
+  scope :unhibernated, -> { where(hibernated_at: nil) }
   scope :retired, -> { where.not(retired_on: nil) }
   scope :unretired, -> { where(retired_on: nil) }
+  scope :hibernated_for, ->(period) { where(hibernated_at: nil..period.ago) }
+  scope :auto_retire, -> { where(auto_retire: true) }
   scope :advisers, -> { where(adviser: true) }
   scope :not_advisers, -> { where(adviser: false) }
-  scope :students_and_trainees, -> {
+  scope :by_course, ->(target) { joins(:course).where(courses: { title: target }) }
+  scope :students_and_trainees, lambda {
     where(
       admin: false,
       mentor: false,
       adviser: false,
       graduated_on: nil,
+      hibernated_at: nil,
+      retired_on: nil,
+      training_completed_at: nil
+    )
+  }
+  scope :students_trainees_mentors_and_admins, lambda {
+    where(
+      adviser: false,
+      graduated_on: nil,
+      hibernated_at: nil,
       retired_on: nil
     )
   }
-  scope :students, -> {
+  scope :students, lambda {
     where(
       admin: false,
       mentor: false,
       adviser: false,
-      trainee:  false,
+      trainee: false,
+      hibernated_at: nil,
       retired_on: nil,
       graduated_on: nil
     )
   }
-  scope :active, -> { where(updated_at: 1.month.ago..Float::INFINITY) }
-  scope :inactive, -> {
-    where(
-      updated_at: Date.new..1.month.ago,
+  scope :retired_students, lambda {
+    where.not(
+      retired_on: nil
+    ).where(
+      admin: false,
+      mentor: false,
       adviser: false,
+      trainee: false,
+      hibernated_at: nil,
+      graduated_on: nil
+    )
+  }
+  scope :active, -> { where(last_activity_at: 1.month.ago..Float::INFINITY) }
+  scope :inactive, lambda {
+    where(
+      last_activity_at: Date.new..1.month.ago,
+      adviser: false,
+      hibernated_at: nil,
       retired_on: nil,
       graduated_on: nil
     )
   }
-  scope :year_end_party, -> { where(retired_on: nil) }
+  scope :inactive_students_and_trainees, lambda {
+    where(
+      last_activity_at: Date.new..1.month.ago,
+      admin: false,
+      mentor: false,
+      adviser: false,
+      hibernated_at: nil,
+      retired_on: nil,
+      training_completed_at: nil,
+      graduated_on: nil
+    )
+  }
+  scope :year_end_party, lambda {
+    where(
+      hibernated_at: nil,
+      retired_on: nil
+    )
+  }
   scope :mentor, -> { where(mentor: true) }
-  scope :working, -> {
+  scope :mentors_sorted_by_created_at, lambda {
+    with_attached_profile_image
+      .mentor
+      .includes(authored_books: { cover_attachment: :blob })
+      .order(:created_at)
+  }
+  scope :visible_sorted_mentors, lambda {
+    with_attached_profile_image
+      .mentor
+      .includes(authored_books: { cover_attachment: :blob })
+      .order(:created_at)
+      .where(show_mentor_profile: true)
+  }
+  scope :working, lambda {
     active.where(
       adviser: false,
       graduated_on: nil,
+      hibernated_at: nil,
       retired_on: nil
-    ).order(updated_at: :desc)
+    ).order(last_activity_at: :desc)
   }
   scope :admins, -> { where(admin: true) }
-  scope :trainees, -> { where(trainee: true) }
-  scope :job_seeking, -> { where(job_seeking: true) }
-  scope :job_seekers, -> {
-    students.where(
+  scope :admins_and_mentors, -> { admins.or(mentor) }
+  scope :trainees, lambda {
+    where(
+      trainee: true,
+      training_completed_at: nil
+    )
+  }
+  scope :job_seeking, -> { where(career_path: 'job_seeking') }
+  scope :job_seekers, lambda {
+    where(
+      admin: false,
+      mentor: false,
+      adviser: false,
+      trainee: false,
+      hibernated_at: nil,
+      retired_on: nil,
       job_seeker: true
     )
   }
-  scope :order_by_counts, -> (order_by, direction) {
-    unless order_by.in?(VALID_SORT_COLUMNS) && direction.in?(VALID_SORT_COLUMNS)
-      raise ArgumentError, "Invalid argument"
-    end
+  scope :order_by_counts, lambda { |order_by, direction|
+    raise ArgumentError, 'Invalid argument' unless order_by.in?(VALID_SORT_COLUMNS) && direction.in?(VALID_SORT_COLUMNS)
 
-    if order_by.in? ["report", "comment"]
+    if order_by.in? %w[report comment]
       left_outer_joins(order_by.pluralize.to_sym)
-        .group("users.id")
+        .group('users.id')
         .order(Arel.sql("count(#{order_by.pluralize}.id) #{direction}, users.created_at"))
+    elsif order_by == 'created_at'
+      order(order_by.to_sym => direction.to_sym)
     else
       order(order_by.to_sym => direction.to_sym, created_at: :asc)
     end
   }
+  scope :classmates, lambda { |start_date, end_date|
+    where(created_at: start_date..end_date).order(:created_at, :id)
+  }
+  scope :active_tagged_with, lambda { |tag_name|
+    with_attached_avatar
+      .unretired
+      .unhibernated
+      .order(last_activity_at: :desc)
+      .tagged_with(tag_name)
+  }
+  scope :delayed, lambda {
+    sql = Learning.select(:user_id, 'MAX(updated_at) AS completed_at')
+                  .where(status: :complete)
+                  .group(:user_id).to_sql
+
+    students_and_trainees
+      .joins("JOIN (#{sql}) learnings ON users.id = user_id")
+      .select('users.*', :completed_at)
+      .where('completed_at <= ?', 2.weeks.ago.end_of_day)
+  }
+  scope :campaign, -> { where(created_at: Campaign.recently_campaign) }
+  columns_for_keyword_search(
+    :login_name,
+    :name,
+    :name_kana,
+    :twitter_account,
+    :facebook_url,
+    :blog_url,
+    :github_account,
+    :description
+  )
+
+  scope :currently_learning_except, lambda { |user|
+    students_and_trainees
+      .joins(:learning_time_frames)
+      .merge(LearningTimeFrame.active_now)
+      .where.not(id: user.id)
+      .with_attached_avatar
+  }
+
+  class << self
+    def notification_receiver(target)
+      case target
+      when 'all'
+        User.unretired
+      when 'students'
+        User.admins_and_mentors.or(User.students)
+      when 'job_seekers'
+        User.admins_and_mentors.or(User.job_seekers)
+      when 'none'
+        User.none
+      else
+        User.none
+      end
+    end
+
+    # このメソッドはユーザから送信された値をsendに渡すので、悪意のあるコードが実行される危険性がある
+    # そのため、このメソッドを使用する際には安全性の確保のために以下の引数を指定すること
+    # allowed_targets:　呼び出したいscope名に対応するtargetを過不足なく指定した配列。
+    # default_target: targetに不正な値が渡された際、users_roleが返すスコープ名に対応するtargetを指定する。デフォルトでは:noneを指定しているため何も返さない。
+    def users_role(target, allowed_targets: [], default_target: :none)
+      key = (ALL_ALLOWED_TARGETS & allowed_targets).include?(target) ? target : default_target
+      scope_name = TARGET_TO_SCOPE.fetch(key, key)
+      send(scope_name)
+    end
+
+    # User::users_roleと同じく安全性確保のため、以下の条件を指定している。
+    # allowed_job.include?(job): 存在する職業を過不足なく指定した配列の中に、jobが存在するかどうかチェック。
+    def users_job(job)
+      allowed_jobs = User.jobs.keys.freeze
+      scope_name = allowed_jobs.include?(job) ? "job_#{job}" : 'all'
+      send(scope_name)
+    end
+
+    def tags
+      unretired.unhibernated.all_tag_counts(order: 'count desc, name asc')
+    end
+
+    def depressed_reports
+      ids = User.where(
+        hibernated_at: nil,
+        training_completed_at: nil,
+        retired_on: nil,
+        graduated_on: nil,
+        negative_streak: true
+      ).pluck(:last_negative_report_id)
+      Report.joins(:user).where(id: ids).order(reported_on: :desc)
+    end
+
+    # FIXME: 一次対応として一回でも休会している受講生にはメッセージ送信済みとする
+    #        別Issueで入会n日目、休会開けn日目目の受講生にメッセージを送信する方針へ改修してほしい
+    #        改修後、このメソッドは不要になると思われるので削除すること
+    def mark_message_as_sent_for_hibernated_student
+      User.find_each do |user|
+        if user.hibernated?
+          user.sent_student_followup_message = true
+          user.save(validate: false)
+        end
+      end
+    end
+
+    def create_followup_comment(student)
+      User.find_by(login_name: 'pjord').comments.create(
+        description: I18n.t('talk.followup'),
+        commentable_id: Talk.find_by(user_id: student.id).id,
+        commentable_type: 'Talk'
+      )
+      student.sent_student_followup_message = true
+      student.save(validate: false)
+    end
+
+    def by_area(area)
+      subdivision = ISO3166::Country[:JP].find_subdivision_by_name(area)
+      return User.with_attached_avatar.where(subdivision_code: subdivision.code.to_s) if subdivision
+
+      country = ISO3166::Country.find_country_by_any_name(area)
+      return User.with_attached_avatar.where(country_code: country.alpha2) if country
+
+      User.none
+    end
+  end
+
+  def submitted?(coding_test)
+    coding_test_submissions.exists?(coding_test_id: coding_test.id)
+  end
 
   def away?
-    self.updated_at <= 10.minutes.ago
-  end
-
-  def completed_percentage
-    completed_practices.where(include_progress: true).size.to_f / course.practices.where(include_progress: true).count.to_f * 100
-  end
-
-  def completed_practices_size(category)
-    completed_practices.where(category_id: category.id).size
-  end
-
-  def completed_percentage_by(category)
-    completed_practices_size(category).to_f / category.practices.size.to_f * 100
-  end
-
-  def full_name
-    "#{last_name} #{first_name}"
-  end
-
-  def kana_full_name
-    "#{kana_last_name} #{kana_first_name}"
+    last_activity_at && (last_activity_at <= 10.minutes.ago)
   end
 
   def active?
-    updated_at > 1.month.ago
+    (last_activity_at && (last_activity_at > 1.month.ago)) || created_at > 1.month.ago
   end
 
-  def has_checked_product_of?(*practices)
+  def checked_product_of?(*practices)
     products.where(practice: practices).any?(&:checked?)
   end
 
@@ -232,69 +600,43 @@ class User < ActiveRecord::Base
     Practice.where(products: products.checked)
   end
 
+  def practice_ids_skipped
+    skipped_practices.pluck(:practice_id)
+  end
+
   def total_learning_time
-    sql = <<-SQL
-SELECT
-  SUM(EXTRACT(epoch from learning_times.finished_at - learning_times.started_at) / 60 / 60) AS total
-FROM
-  learning_times JOIN reports ON learning_times.report_id = reports.id
-WHERE
-  reports.user_id = :user_id
-SQL
+    sql = <<~SQL
+      SELECT
+        SUM(EXTRACT(epoch from learning_times.finished_at - learning_times.started_at) / 60 / 60) AS total
+      FROM
+        learning_times JOIN reports ON learning_times.report_id = reports.id
+      WHERE
+        reports.user_id = :user_id
+    SQL
 
     learning_time = LearningTime.find_by_sql([sql, { user_id: id }])
     learning_time.first.total || 0
   end
 
-  def self.users_role(target)
-    case target
-    when "student_and_trainee"
-      self.students_and_trainees
-    when "job_seeking"
-      self.job_seeking
-    when "retired"
-      self.retired
-    when "graduate"
-      self.graduated
-    when "adviser"
-      self.advisers
-    when "mentor"
-      self.mentor
-    when "inactive"
-      self.inactive.order(:updated_at)
-    when "year_end_party"
-      self.year_end_party
-    when "trainee"
-      self.trainees
-    when "all"
-      self.all
-    end
-  end
-
-  def prefecture_name
-    if prefecture_code.nil?
-      "未登録"
-    else
-      pref = JpPrefecture::Prefecture.find prefecture_code
-      pref.name
-    end
-  end
-
   def elapsed_days
-    (Date.current - self.created_at.to_date).to_i
+    if graduated_on.present?
+      (graduated_on.to_date - created_at.to_date).to_i
+    else
+      (Date.current - created_at.to_date).to_i
+    end
   end
 
   def customer
-    if customer_id?
-      Customer.new.retrieve(customer_id)
-    end
+    return unless customer_id?
+
+    Customer.new.retrieve(customer_id)
   end
 
   def card?
     customer_id?
   end
 
-  alias_method :paid?, :card?
+  alias paid? card?
 
   def card
     customer.sources.data.first
@@ -305,13 +647,17 @@ SQL
   end
 
   def subscription
-    if subscription?
-      Subscription.new.retrieve(subscription_id)
-    end
+    return unless subscription?
+
+    Subscription.new.retrieve(subscription_id)
   end
 
   def student?
     !admin? && !adviser? && !mentor? && !trainee?
+  end
+
+  def current_student?
+    !admin? && !adviser? && !mentor? && !graduated? && !retired?
   end
 
   def staff?
@@ -322,48 +668,73 @@ SQL
     staff? || paid?
   end
 
+  def admin_or_mentor?
+    admin? || mentor?
+  end
+
   def adviser_or_mentor?
     adviser? || mentor?
+  end
+
+  def hibernated?
+    hibernated_at?
+  end
+
+  def after_twenty_nine_days_registration?
+    twenty_nine_days = Time.current.ago(29.days).to_date
+    created_at.to_date.before? twenty_nine_days
+  end
+
+  def followup_message_target?
+    current_student? && !hibernated? && after_twenty_nine_days_registration? && !sent_student_followup_message
+  end
+
+  def training_completed?
+    training_completed_at?
   end
 
   def retired?
     retired_on?
   end
 
-  def unread_notifications_count
-    @unread_notifications_count ||= notifications.unreads.count
+  def inactive?
+    hibernated_at? || training_completed_at? || retired_on?
   end
 
-  def unread_notifications_exists?
-    unread_notifications_count > 0
+  def graduated?
+    graduated_on?
   end
 
-  def borrow(book)
-    book.update(borrowed: true)
-    borrowings.create(book_id: book.id)
+  def student_or_trainee?
+    student? || trainee?
   end
 
-  def give_back(book)
-    book.update(borrowed: false)
-    borrowings.find_by(book_id: book.id).destroy
-  end
-
-  def borrowing?(book)
-    borrowings.exists?(book_id: book.id)
+  def student_or_trainee_or_retired?
+    !staff? && !graduated?
   end
 
   def avatar_url
-    if avatar.attached?
-      avatar.variant(resize: AVATAR_SIZE).service_url
+    if avatar.attached? && avatar.blob.present?
+      custom_key = "avatars/#{login_name}.#{AVATAR_FORMAT}"
+      attach_custom_avatar if avatar.blob.key != custom_key
+      "#{avatar.url}?v=#{avatar.created_at.to_i}"
     else
-      image_url("/images/users/avatars/default.png")
+      image_url DEFAULT_IMAGE_PATH
     end
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::Error => e
+    log_avatar_error('avatar_url', e)
+    image_url DEFAULT_IMAGE_PATH
   end
 
-  def resize_avatar!
-    if avatar.attached?
-      avatar.variant(resize: AVATAR_SIZE).processed
+  def profile_image_url
+    if profile_image.attached?
+      profile_image
+    else
+      image_url DEFAULT_IMAGE_PATH
     end
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::Error => e
+    log_avatar_error('profile_image_url', e)
+    image_url DEFAULT_IMAGE_PATH
   end
 
   def generation
@@ -371,38 +742,281 @@ SQL
   end
 
   def participating?(event)
-    participate_events.include?(event)
+    method_name = "participate_#{event.class.name.underscore.pluralize}"
+    send(method_name).include?(event)
   end
 
-  def reports_date_and_emotion(term)
-    search_term = (Date.today - term.day)..Date.today
-    reports = self.reports.where(reported_on: search_term)
-
-    emotions = reports.map { |report| [report.reported_on, report] }.to_h
-
-    dates = search_term.map { |day| [day, nil] }.to_h
-
-    dates.merge(emotions)
-         .to_a
-         .map { |set| [report: set[1], date: set[0], emotion: set[1]&.emotion] }
-         .flatten
+  def depressed?
+    reported_reports = reports.order(reported_on: :desc).limit(DEPRESSED_SIZE)
+    reported_reports.size == DEPRESSED_SIZE && reported_reports.all?(&:negative?)
   end
 
-  def self.announcement_receiver(target)
-    case target
-    when "all"
-      User.unretired
-    when "students"
-      User.admins.or(User.students)
-    when "job_seekers"
-      User.admins.or(User.job_seekers)
+  def raw_last_negative_report_id
+    reports.where(emotion: 'negative')
+           .order(reported_on: :desc)
+           .limit(1)
+           .pluck(:id)
+           .try(:first)
+  end
+
+  def update_negative_streak
+    self.negative_streak = depressed?
+    self.last_negative_report_id = raw_last_negative_report_id
+    save!(validate: false)
+  end
+
+  def follow(other_user, watch:)
+    active_relationships.create(followed: other_user, watch:)
+  end
+
+  def change_watching(other_user, watch)
+    following = Following.find_by(follower_id: self, followed_id: other_user)
+    following.update(watch:)
+  end
+
+  def unfollow(other_user)
+    followees.delete(other_user)
+  end
+
+  def following?(other_user)
+    followees.include?(other_user)
+  end
+
+  def watching?(other_user)
+    following?(other_user) ? Following.find_by(follower_id: self, followed_id: other_user).watch? : false
+  end
+
+  def followees_list(watch: '')
+    if %w[true false].include?(watch)
+      followees.includes(:passive_relationships).where(followings: { watch: })
     else
-      User.none
+      followees
     end
+  end
+
+  def update_mentor_memo(new_memo)
+    # ユーザーの「最終ログイン」にupdated_at値が利用されるため
+    # メンターor管理者によるmemoカラムのupdateの際は、updated_at値の変更を防ぐ
+    self.record_timestamps = false
+    update!(mentor_memo: new_memo)
+  end
+
+  def mark_all_as_read_and_delete_cache_of_unreads(target_notifications: nil)
+    target_notifications ||= notifications
+    target_notifications.update_all(read: true, updated_at: Time.current) # rubocop:disable Rails/SkipsModelValidations
+    Cache.delete_mentioned_and_unread_notification_count(id)
+  end
+
+  def wip_exists?
+    pages.wip.exists? || reports.wip.exists? || questions.wip.exists? ||
+      products.wip.exists? || announcements.wip.exists? || events.wip.exists?
+  end
+
+  def belongs_company_and_adviser?
+    adviser? && company_id?
+  end
+
+  def colleagues
+    company_id ? company.users : User.none
+  end
+
+  def colleagues_other_than_self
+    colleagues.where.not(id:)
+  end
+
+  def colleague_trainees
+    colleagues.students_and_trainees
+  end
+
+  def last_hibernation
+    return nil if hibernations.empty?
+
+    hibernations.order(:created_at).last
+  end
+
+  def hibernation_elapsed_days
+    (Time.zone.today - hibernated_at.to_date).to_i
+  end
+
+  def update_last_returned_at!
+    hibernation = last_hibernation
+    hibernation.returned_at = Date.current
+    hibernation.save!(validate: false)
+  end
+
+  def comeback!
+    update_last_returned_at!
+
+    subscription = Subscription.new.create(customer_id, trial: 0)
+
+    self.hibernated_at = nil
+    self.subscription_id = subscription['id']
+    save!(validate: false)
+  end
+
+  def training_remaining_days
+    (training_ends_on - Time.zone.today).to_i
+  end
+
+  def country_name
+    country = ISO3166::Country[country_code]
+    country.translations[I18n.locale.to_sym]
+  end
+
+  def subdivision_name
+    country = ISO3166::Country[country_code]
+    subdivision = country.subdivisions[subdivision_code]
+    subdivision.translations[I18n.locale.to_sym]
+  end
+
+  def subdivision_codes
+    country = ISO3166::Country[country_code]
+    country ? country.subdivisions.keys : []
+  end
+
+  def create_comebacked_comment
+    User.find_by(login_name: 'pjord').comments.create(
+      description: I18n.t('talk.comeback'),
+      commentable_id: Talk.find_by(user_id: id).id,
+      commentable_type: 'Talk'
+    )
+  end
+
+  def become_watcher!(watchable)
+    watches.find_or_create_by!(watchable:)
+  end
+
+  def scheduled_retire_at
+    hibernated_at + User::HIBERNATION_LIMIT if hibernated_at?
+  end
+
+  def participated_regular_event_ids
+    RegularEvent.where(id: regular_event_participations.pluck(:regular_event_id), finished: false)
+  end
+
+  def clear_github_data
+    update(
+      github_id: nil,
+      github_account: nil,
+      github_collaborator: false
+    )
+  end
+
+  def area
+    if country_code == 'JP'
+      subdivision = ISO3166::Country['JP'].subdivisions[subdivision_code]
+      subdivision ? subdivision.translations[:ja] : nil
+    else
+      country = ISO3166::Country[country_code]
+      country ? country.translations[:ja] : nil
+    end
+  end
+
+  def grant_course?
+    course = Course.find_by(id: course_id)
+    course_id.present? && course&.grant?
+  end
+
+  def latest_micro_report_page(per_page: 25)
+    [micro_reports.page.per(per_page).total_pages, 1].max
+  end
+
+  def mark_mail_as_sent_before_auto_retire
+    self.sent_student_before_auto_retire_mail = true
+    save(validate: false)
+  end
+
+  def search_title
+    login_name
+  end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[
+      login_name name name_kana email twitter_account facebook_url
+      blog_url github_account description profile_text
+      created_at updated_at last_activity_at
+      company_id course_id graduated_on retired_on
+      admin mentor adviser trainee job_seeker hibernated_at
+      experiences career_path job os editor subdivision_code country_code
+    ]
+  end
+
+  def self.ransackable_scopes(_auth_object = nil)
+    %i[job_seeking]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[company course discord_profile]
+  end
+
+  def reports_with_learning_times
+    reports.joins(:learning_times).distinct.order(reported_on: :asc)
+  end
+
+  def clean_up_regular_events
+    regular_event_participations.for_unfinished_events.destroy_all
+    organize_regular_events.exclude_finished.each { |event| event.close_or_destroy_organizer(self) }
   end
 
   private
-    def password_required?
-      new_record? || password.present?
+
+  def password_required?
+    new_record? || password.present?
+  end
+
+  def practices_include_progress
+    course.practices.where(include_progress: true)
+  end
+
+  def validate_uploaded_avatar_content_type
+    return unless uploaded_avatar
+
+    mime_type = Marcel::Magic.by_magic(uploaded_avatar)&.type
+    return if mime_type&.start_with?('image/png', 'image/jpeg', 'image/gif', 'image/heic', 'image/heif')
+
+    errors.add(:avatar, 'は指定された拡張子(PNG, JPG, JPEG, GIF, HEIC, HEIF形式)になっていないか、あるいは画像が破損している可能性があります')
+  end
+
+  def required_practices_size_with_skip
+    course.practices.where(id: practice_ids_skipped, include_progress: true).size
+  end
+
+  def convert_blank_of_address_to_nil
+    self.country_code = nil if country_code.blank?
+    self.subdivision_code = nil if subdivision_code.blank?
+  end
+
+  def attach_custom_avatar
+    custom_key = "avatars/#{login_name}.#{AVATAR_FORMAT}"
+    variant_avatar = avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }, format: AVATAR_FORMAT).processed
+    io = StringIO.new(variant_avatar.download)
+
+    # Use ActiveStorage's create_and_upload! for proper checksum handling
+    custom_blob = ActiveStorage::Blob.find_by(key: custom_key)
+
+    unless custom_blob
+      custom_blob = ActiveStorage::Blob.create_and_upload!(
+        io:,
+        filename: "#{login_name}.#{AVATAR_FORMAT}",
+        content_type: "image/#{AVATAR_FORMAT}",
+        key: custom_key,
+        identify: false
+      )
+      avatar.attach(custom_blob)
     end
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::Error, LoadError => e
+    log_avatar_error('attach_custom_avatar', e)
+  end
+
+  def log_avatar_error(context, error)
+    Rails.logger.error "[#{context}] Avatar processing failed for user #{login_name}: #{error.message}"
+  end
+
+  def role_for_thanks_page
+    return 'adviser' if adviser?
+    return 'trainee' if trainee?
+    return 'mentor' if mentor?
+
+    'student'
+  end
 end

@@ -1,35 +1,37 @@
 # frozen_string_literal: true
 
-require "application_system_test_case"
+require 'notification_system_test_case'
 
-class Notification::EventsTest < ApplicationSystemTestCase
-  test "waiting user receive notification when the event participant cancel" do
-    event = events(:event_3)
-    login_user "komagata", "testtest"
-    visit event_path(event)
-    accept_confirm do
-      click_link "参加を取り消す"
-    end
-    sleep 1
-    logout
-
-    login_user "hatsuno", "testtest"
-    first(".test-bell").click
-    assert_text "#{event.title}で、補欠から参加に繰り上がりました。"
+class Notification::EventsTest < NotificationSystemTestCase
+  setup do
+    @delivery_mode = AbstractNotifier.delivery_mode
+    AbstractNotifier.delivery_mode = :normal
   end
 
-  test "waiting user receive notification when the event capacity is increased" do
-    event = events(:event_3)
-    login_user "komagata", "testtest"
-    visit event_path(event)
-    click_link "内容修正"
+  teardown do
+    AbstractNotifier.delivery_mode = @delivery_mode
+  end
 
-    fill_in "event_capacity", with: 2
-    click_button "内容変更"
-    logout
+  test 'waiting user receive notification when the event participant cancel' do
+    event = events(:event3)
+    visit_with_auth event_path(event), 'komagata'
+    accept_confirm do
+      click_link '参加を取り消す'
+    end
+    assert_text '参加を取り消しました。'
 
-    login_user "hatsuno", "testtest"
-    first(".test-bell").click
-    assert_text "#{event.title}で、補欠から参加に繰り上がりました。"
+    assert_user_has_notification(user: users(:hatsuno), kind: Notification.kinds[:moved_up_event_waiting_user], text: "#{event.title}で、補欠から参加に繰り上がりました。")
+  end
+
+  test 'waiting user receive notification when the event capacity is increased' do
+    event = events(:event3)
+    visit_with_auth event_path(event), 'komagata'
+    click_link '内容修正'
+
+    fill_in 'event_capacity', with: 2
+    click_button '内容を更新'
+    assert_text 'イベントを更新しました。'
+
+    assert_user_has_notification(user: users(:hatsuno), kind: Notification.kinds[:moved_up_event_waiting_user], text: "#{event.title}で、補欠から参加に繰り上がりました。")
   end
 end

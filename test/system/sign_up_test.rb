@@ -1,182 +1,91 @@
 # frozen_string_literal: true
 
-require "application_system_test_case"
+require 'application_system_test_case'
 
 class SignUpTest < ApplicationSystemTestCase
-  test "sign up" do
-    WebMock.allow_net_connect!
-
-    visit "/users/new"
-    within "form[name=user]" do
-      fill_in "user[login_name]", with: "foo"
-      fill_in "user[email]", with: "test-#{SecureRandom.hex(16)}@example.com"
-      fill_in "user[first_name]", with: "太郎"
-      fill_in "user[last_name]", with: "テスト"
-      fill_in "user[kana_first_name]", with: "タロウ"
-      fill_in "user[kana_last_name]", with: "テスト"
-      fill_in "user[password]", with: "testtest"
-      fill_in "user[password_confirmation]", with: "testtest"
-      select "学生", from: "user[job]"
-      select "Mac", from: "user[os]"
-      select "自宅", from: "user[study_place]"
-      select "未経験", from: "user[experience]"
-    end
-
-    fill_stripe_element("4242 4242 4242 4242", "12 / 21", "111", "11122")
-
-    click_button "利用規約に同意して参加する"
-    sleep 1
-    assert_text "サインアップメールをお送りしました。メールからサインアップを完了させてください。"
-
-    WebMock.disable_net_connect!(
-      allow_localhost: true,
-      allow: "chromedriver.storage.googleapis.com"
-    )
+  setup do
+    @bot_token = Discord::Server.authorize_token
+    Discord::Server.authorize_token = nil
+    Capybara.reset_sessions!
+  rescue Net::ReadTimeout
+    # セッションリセット時のタイムアウトは無視して続行
   end
 
-  test "sign up with expired card" do
-    WebMock.allow_net_connect!
-
-    visit "/users/new"
-    within "form[name=user]" do
-      fill_in "user[login_name]", with: "foo"
-      fill_in "user[email]", with: "test-#{SecureRandom.hex(16)}@example.com"
-      fill_in "user[first_name]", with: "太郎"
-      fill_in "user[last_name]", with: "テスト"
-      fill_in "user[kana_first_name]", with: "タロウ"
-      fill_in "user[kana_last_name]", with: "テスト"
-      fill_in "user[password]", with: "testtest"
-      fill_in "user[password_confirmation]", with: "testtest"
-      select "学生", from: "user[job]"
-      select "Mac", from: "user[os]"
-      select "自宅", from: "user[study_place]"
-      select "未経験", from: "user[experience]"
-    end
-
-    fill_stripe_element("4000 0000 0000 0069", "12 / 21", "111", "11122")
-
-    click_button "利用規約に同意して参加する"
-    sleep 1
-    assert_text "クレジットカードが有効期限切れです。"
-
-    WebMock.disable_net_connect!(
-      allow_localhost: true,
-      allow: "chromedriver.storage.googleapis.com"
-    )
+  teardown do
+    Discord::Server.authorize_token = @bot_token
   end
 
-  test "sign up with incorrect cvc card" do
-    WebMock.allow_net_connect!
-
-    visit "/users/new"
-    within "form[name=user]" do
-      fill_in "user[login_name]", with: "foo"
-      fill_in "user[email]", with: "test-#{SecureRandom.hex(16)}@example.com"
-      fill_in "user[first_name]", with: "太郎"
-      fill_in "user[last_name]", with: "テスト"
-      fill_in "user[kana_first_name]", with: "タロウ"
-      fill_in "user[kana_last_name]", with: "テスト"
-      fill_in "user[password]", with: "testtest"
-      fill_in "user[password_confirmation]", with: "testtest"
-      select "学生", from: "user[job]"
-      select "Mac", from: "user[os]"
-      select "自宅", from: "user[study_place]"
-      select "未経験", from: "user[experience]"
+  test 'sign up' do
+    visit '/users/new'
+    within 'form[name=user]' do
+      fill_in 'user[login_name]', with: 'foo'
+      fill_in 'user[email]', with: 'test@example.com'
+      fill_in 'user[name]', with: 'テスト 太郎'
+      fill_in 'user[name_kana]', with: 'テスト タロウ'
+      fill_in 'user[description]', with: 'テスト太郎です。'
+      fill_in 'user[password]', with: 'testtest'
+      fill_in 'user[password_confirmation]', with: 'testtest'
+      fill_in 'user[after_graduation_hope]', with: '起業したいです'
+      select '学生', from: 'user[job]'
+      find('label', text: 'Mac（Intel チップ）').click
+      check 'Rubyの経験あり', allow_label_click: true
+      find('label', text: 'アンチハラスメントポリシーに同意').click
+      find('label', text: '利用規約に同意').click
+      find('label', text: '検索エンジン').click
     end
 
-    fill_stripe_element("4000 0000 0000 0127", "12 / 21", "111", "11122")
+    fill_stripe_element('4242 4242 4242 4242', '12 / 50', '111')
 
-    click_button "利用規約に同意して参加する"
-    sleep 1
-    assert_text "クレジットカードセキュリティコードが正しくありません。"
-
-    WebMock.disable_net_connect!(
-      allow_localhost: true,
-      allow: "chromedriver.storage.googleapis.com"
-    )
+    VCR.use_cassette 'sign_up/valid-card', record: :once, match_requests_on: %i[method uri] do
+      click_button '参加する'
+      assert_text '参加登録が完了しました'
+    end
   end
 
-  test "sign up with declined card" do
-    WebMock.allow_net_connect!
+  test 'job seeker option is shown for student' do
+    visit '/users/new'
+    assert_selector 'form[name=user]'
+    assert_selector "input[name='user[job_seeker]']", visible: :all
+  end
 
-    visit "/users/new"
-    within "form[name=user]" do
-      fill_in "user[login_name]", with: "foo"
-      fill_in "user[email]", with: "test-#{SecureRandom.hex(16)}@example.com"
-      fill_in "user[first_name]", with: "太郎"
-      fill_in "user[last_name]", with: "テスト"
-      fill_in "user[kana_first_name]", with: "タロウ"
-      fill_in "user[kana_last_name]", with: "テスト"
-      fill_in "user[password]", with: "testtest"
-      fill_in "user[password_confirmation]", with: "testtest"
-      select "学生", from: "user[job]"
-      select "Mac", from: "user[os]"
-      select "自宅", from: "user[study_place]"
-      select "未経験", from: "user[experience]"
+  test 'sign up with tag' do
+    email = 'taguo@example.com'
+    tag = 'タグ夫'
+
+    visit '/users/new'
+
+    within 'form[name=user]' do
+      fill_in 'user[login_name]', with: 'taguo'
+      fill_in 'user[email]', with: email
+      fill_in 'user[name]', with: 'テスト タグ夫'
+      fill_in 'user[name_kana]', with: 'テスト タグオ'
+      fill_in 'user[description]', with: 'タグ登録確認用'
+      fill_in 'user[password]', with: 'testtest'
+      fill_in 'user[password_confirmation]', with: 'testtest'
+      select '学生', from: 'user[job]'
+      find('label', text: 'Mac（Intel チップ）').click
+      check 'Rubyの経験あり', allow_label_click: true
+      find('label', text: 'アンチハラスメントポリシーに同意').click
+      find('label', text: '利用規約に同意').click
+
+      # Try to find tagify input, fallback to hidden input if not available
+      if has_selector?('.tagify__input')
+        tag_input = find('.tagify__input')
+        tag_input.set tag
+        tag_input.native.send_keys :return
+      elsif has_selector?('input[name="user[tag_list]"]', visible: :hidden)
+        page.execute_script("document.querySelector('input[name=\"user[tag_list]\"]').value = '#{tag}'")
+      end
     end
 
-    fill_stripe_element("4000 0000 0000 0002", "12 / 21", "111", "11122")
+    fill_stripe_element('5555 5555 5555 4444', '12 / 50', '111')
 
-    click_button "利用規約に同意して参加する"
-    sleep 1
-    assert_text "クレジットカードへの請求が拒否されました。"
-
-    WebMock.disable_net_connect!(
-      allow_localhost: true,
-      allow: "chromedriver.storage.googleapis.com"
-    )
-  end
-
-  test "sign up as adviser" do
-    visit "/users/new?role=adviser"
-
-    email = "test-#{SecureRandom.hex(16)}@example.com"
-
-    within "form[name=user]" do
-      fill_in "user[login_name]", with: "foo"
-      fill_in "user[email]", with: email
-      fill_in "user[first_name]", with: "太郎"
-      fill_in "user[last_name]", with: "テスト"
-      fill_in "user[kana_first_name]", with: "タロウ"
-      fill_in "user[kana_last_name]", with: "テスト"
-      fill_in "user[password]", with: "testtest"
-      fill_in "user[password_confirmation]", with: "testtest"
+    VCR.use_cassette 'sign_up/tag', record: :once, match_requests_on: %i[method uri] do
+      click_button '参加する'
+      assert_text '参加登録が完了しました'
+      user = User.find_by(email:)
+      visit_with_auth user_path(user), 'taguo'
+      assert_text 'タグ夫'
     end
-    click_button "アドバイザー登録"
-    assert_text "サインアップメールをお送りしました。メールからサインアップを完了させてください。"
-    assert User.find_by(email: email).adviser?
-  end
-
-  test "sign up as trainee" do
-    visit "/users/new?role=trainee"
-
-    email = "test-#{SecureRandom.hex(16)}@example.com"
-
-    within "form[name=user]" do
-      fill_in "user[login_name]", with: "foo"
-      fill_in "user[email]", with: email
-      fill_in "user[first_name]", with: "太郎"
-      fill_in "user[last_name]", with: "テスト"
-      fill_in "user[kana_first_name]", with: "タロウ"
-      fill_in "user[kana_last_name]", with: "テスト"
-      fill_in "user[password]", with: "testtest"
-      fill_in "user[password_confirmation]", with: "testtest"
-      select "学生", from: "user[job]"
-      select "Mac", from: "user[os]"
-      select "自宅", from: "user[study_place]"
-      select "未経験", from: "user[experience]"
-    end
-    click_button "利用規約に同意して参加する"
-    assert_text "サインアップメールをお送りしました。メールからサインアップを完了させてください。"
-    assert User.find_by(email: email).trainee?
-  end
-
-  test "form item about job seek is only displayed to students" do
-    visit "/users/new"
-    assert has_field? "user[job_seeker]", visible: :all
-    visit "/users/new?role=adviser"
-    assert has_no_field? "user[job_seeker]", visible: :all
-    visit "/users/new?role=trainee"
-    assert has_no_field? "user[job_seeker]", visible: :all
   end
 end

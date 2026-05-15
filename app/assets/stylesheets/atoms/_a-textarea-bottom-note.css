@@ -1,0 +1,30 @@
+@media (max-width: 63.9375em) {
+  .a-textarea-bottom-note__banner {
+    display: none;
+  }
+}
+
+@media (min-width: 64em) {
+  .a-textarea-bottom-note {
+    position: relative;
+  }
+
+  .a-textarea-bottom-note .a-text-input {
+    padding-bottom: 3rem;
+  }
+
+  .a-textarea-bottom-note__banner {
+    background-color: var(--background-semi-shade);
+    position: absolute;
+    left: 1px;
+    right: 1px;
+    bottom: 1px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    text-align: center;
+    border-top: solid 1px var(--border-shade);
+  }
+}

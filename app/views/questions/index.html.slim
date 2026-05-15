@@ -1,33 +1,57 @@
-- title params[:solved] == "true" ? "解決済みの質問一覧" : "未解決の質問一覧"
-header.page-header.is-margin-bottom-0
-  .container
-    .page-header__inner
-      h2.page-header__title = title
-      .page-header-actions
-        .page-header-actions__items
-          .page-header-actions__item
-            = link_to new_question_path, class: "a-button is-md is-warning is-block" do
-              i.fas.fa-plus
-              | 質問する
+- title @questions_property.title
+- if @tag.present?
+  - set_meta_tags description: "タグ「#{@tag.name}」がついたQ&Aの一覧です。"
+- else
+  - set_meta_tags description: 'Q&Aの一覧です。'
 
-= form_tag :questions, method: "get" do
-  nav.sort-nav
-    .container
-      .sort-nav__inner
-        = hidden_field_tag :solved, params[:solved]
-        = label_tag :practice_id, "プラクティスで絞り込む:", class: "sort-nav__label"
-        .sort-nav__select
-          = select_tag :practice_id, options_from_collection_for_select(Practice.all, :id, :title, selected: params[:practice_id]), include_blank: "全ての質問を表示", onchange: "this.form.submit()", class: "js-select2"
-  = render "questions/tabs"
+= render 'questions_and_pair_works/questions_and_pair_works_header'
+.page-main
+  = render 'questions_and_pair_works/questions_and_pair_works_page_main_header'
+  hr.a-border
+  = questions_sub_tabs
 
-.page-body
-  .container
-    - if @questions.present?
-      .thread-list.a-card
-        = render @questions
-    - else
-      .a-empty-message
-        - if params[:solved] == "true"
-          | 解決済みの質問はまだありません。
-        - else
-          | 未解決の質問はまだありません。
+  nav.page-filter.form
+    .container.is-md
+      = form_with url: questions_path, method: 'get', local: true
+        .form-item.is-inline-md-up
+          = hidden_field_tag :target, params[:target]
+          = label_tag :practice_id, 'プラクティスで絞り込む', class: 'a-form-label'
+          = select_tag :practice_id,
+                      options_from_collection_for_select(@current_user_practice.sorted_practices, :id, :title, selected: params[:practice_id]),
+                      include_blank: '全ての質問を表示',
+                      onchange: 'this.form.submit()',
+                      id: 'js-choices-single-select'
+  hr.a-border
+  .page-body
+    .page-body__inner.has-side-nav
+
+      - if @tag.present?
+        header.page-body-header
+          .container.is-md
+            .page-body-header__inner
+              .page-body-header__start
+                h1.page-body-header__title
+                  | タグ「#{@tag.name}」のQ&A（#{@questions.total_count}）
+              .page-body-header__end
+                .page-body-header-actions
+                  .page-body-header-actions__items
+                    = render 'shared/tag_edit_button', tag_id: @tag.id, tag_name: @tag.name
+
+      .container.is-md
+        .page-body__columns
+          .page-body__column.is-main
+            = render 'questions/questions', questions: @questions, empty_message: @questions_property.empty_message
+      - if @tags.any?
+        nav.a-side-nav
+          .a-side-nav__inner
+            header.a-side-nav__header
+              h2.a-side-nav__title
+                | タグ一覧
+            hr.a-border
+            .a-side-nav__body
+              .page-tags-nav
+                ul.page-tags-nav__items
+                  - @tags.each do |tag|
+                    - if tag.present?
+                      li.page-tags-nav__item
+                              = link_to tag.name, questions_tag_path(tag.name), class: 'page-tags-nav__item-link'

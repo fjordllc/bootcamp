@@ -1,0 +1,109 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://publish.twitter.com/oembed?url=https://x.com/fjordbootcamp/status/1866097842483503117
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 14 Apr 2025 00:36:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '1433'
+      Connection:
+      - keep-alive
+      Perf:
+      - '7402827104'
+      Expires:
+      - Wed, 21 Mar 2125 00:36:00 GMT
+      Set-Cookie:
+      - __cf_bm=.0JjxfY8qehiA.n2DkHOF8DXmRb_IID4pHM_Apox.JM-1744590960-1.0.1.1-AA6BPssVDRJnDjRhg2yEYxwan8o7FU0mm4iaGWIVD5PTCu7lnef65ZtIM7EcBNVBXa81efyHOawC69NLHTkrr8jCENxIgc8jxx4BO_N18Uw;
+        path=/; expires=Mon, 14-Apr-25 01:06:00 GMT; domain=.twitter.com; HttpOnly;
+        Secure; SameSite=None
+      - guest_id=v1%3A174459096075324699; Max-Age=63072000; Expires=Wed, 14 Apr 2027
+        00:36:00 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A174459096075324699; Max-Age=63072000; Expires=Wed, 14 Apr
+        2027 00:36:00 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A174459096075324699; Max-Age=63072000; Expires=Wed,
+        14 Apr 2027 00:36:00 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_TE7hf5Fdkm6PvXxMF+6o+w=="; Max-Age=63072000; Expires=Wed,
+        14 Apr 2027 00:36:00 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      Cache-Control:
+      - must-revalidate, max-age=3153600000
+      Last-Modified:
+      - Mon, 14 Apr 2025 00:36:00 GMT
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Transaction-Id:
+      - 149cc0f5692bb621
+      X-Xss-Protection:
+      - '0'
+      Content-Disposition:
+      - attachment; filename=json.json
+      X-Content-Type-Options:
+      - nosniff
+      Strict-Transport-Security:
+      - max-age=631138519
+      X-Response-Time:
+      - '97'
+      X-Connection-Hash:
+      - 530dc5d4282207fc6e294ace7157689c79ba8574ea00d60c3ff7537204823d7a
+      Cf-Cache-Status:
+      - DYNAMIC
+      Vary:
+      - accept-encoding
+      Server:
+      - cloudflare tsa_p
+      Cf-Ray:
+      - 92ff20604be1e37f-NRT
+    body:
+      encoding: UTF-8
+      base64_string: |
+        eyJ1cmwiOiJodHRwczpcL1wvdHdpdHRlci5jb21cL2Zqb3JkYm9vdGNhbXBc
+        L3N0YXR1c1wvMTg2NjA5Nzg0MjQ4MzUwMzExNyIsImF1dGhvcl9uYW1lIjoi
+        44OV44Kj44Oo44Or44OJ44OW44O844OI44Kt44Oj44Oz44OXIiwiYXV0aG9y
+        X3VybCI6Imh0dHBzOlwvXC90d2l0dGVyLmNvbVwvZmpvcmRib290Y2FtcCIs
+        Imh0bWwiOiJcdTAwM0NibG9ja3F1b3RlIGNsYXNzPVwidHdpdHRlci10d2Vl
+        dFwiXHUwMDNFXHUwMDNDcCBsYW5nPVwiamFcIiBkaXI9XCJsdHJcIlx1MDAz
+        RTEyXC8yNijmnKgpMTk6MzDjgYvjgonjgI5GQkPlv5jlubTkvJoyMDI044CP
+        44KS6ZaL5YKs44GX44G+44GZ77yB44GU5Y+C5Yqg44GK5b6F44Gh44GX44Gm
+        44GK44KK44G+44GZXHVEODNEXHVERTAzIOS7iuW5tOOCguacrOOBrue0ueS7
+        i+OCs+ODn+ODpeODi+OCseODvOOCt+ODp+ODs+OCsuODvOODoOOAjkZCQ+OD
+        k+ODluODquOCquODkOODiOODq+OAj+OCkuihjOOBhOOBvuOBmeOBruOBp+OA
+        geOBnOOBsuOBlOW/nOWLn+OBj+OBoOOBleOBhO+8ge+8iFVSTOOCkuOBlOim
+        p+OBhOOBn+OBoOOBkeOCi+aWueOAgeWPguWKoOeZu+mMsuOBiumhmOOBhOOB
+        hOOBn+OBl+OBvuOBmVx1RDgzRFx1REU0Ru+8iVx1MDAzQ2EgaHJlZj1cImh0
+        dHBzOlwvXC90LmNvXC9yRndMSGRiazBsXCJcdTAwM0VodHRwczpcL1wvdC5j
+        b1wvckZ3TEhkYmswbFx1MDAzQ1wvYVx1MDAzRSBcdTAwM0NhIGhyZWY9XCJo
+        dHRwczpcL1wvdHdpdHRlci5jb21cL2hhc2h0YWdcL2Zqb3JkYm9vdGNhbXA/
+        c3JjPWhhc2gmYW1wO3JlZl9zcmM9dHdzcmMlNUV0ZndcIlx1MDAzRSNmam9y
+        ZGJvb3RjYW1wXHUwMDNDXC9hXHUwMDNFIFx1MDAzQ2EgaHJlZj1cImh0dHBz
+        OlwvXC90LmNvXC9DNzlnQmE2TlZOXCJcdTAwM0VwaWMudHdpdHRlci5jb21c
+        L0M3OWdCYTZOVk5cdTAwM0NcL2FcdTAwM0VcdTAwM0NcL3BcdTAwM0UmbWRh
+        c2g7IOODleOCo+ODqOODq+ODieODluODvOODiOOCreODo+ODs+ODlyAoQGZq
+        b3JkYm9vdGNhbXApIFx1MDAzQ2EgaHJlZj1cImh0dHBzOlwvXC90d2l0dGVy
+        LmNvbVwvZmpvcmRib290Y2FtcFwvc3RhdHVzXC8xODY2MDk3ODQyNDgzNTAz
+        MTE3P3JlZl9zcmM9dHdzcmMlNUV0ZndcIlx1MDAzRURlY2VtYmVyIDksIDIw
+        MjRcdTAwM0NcL2FcdTAwM0VcdTAwM0NcL2Jsb2NrcXVvdGVcdTAwM0Vcblx1
+        MDAzQ3NjcmlwdCBhc3luYyBzcmM9XCJodHRwczpcL1wvcGxhdGZvcm0udHdp
+        dHRlci5jb21cL3dpZGdldHMuanNcIiBjaGFyc2V0PVwidXRmLThcIlx1MDAz
+        RVx1MDAzQ1wvc2NyaXB0XHUwMDNFXG5cbiIsIndpZHRoIjo1NTAsImhlaWdo
+        dCI6bnVsbCwidHlwZSI6InJpY2giLCJjYWNoZV9hZ2UiOiIzMTUzNjAwMDAw
+        IiwicHJvdmlkZXJfbmFtZSI6IlR3aXR0ZXIiLCJwcm92aWRlcl91cmwiOiJo
+        dHRwczpcL1wvdHdpdHRlci5jb20iLCJ2ZXJzaW9uIjoiMS4wIn0=
+  recorded_at: Mon, 14 Apr 2025 00:36:00 GMT
+recorded_with: VCR 6.3.1

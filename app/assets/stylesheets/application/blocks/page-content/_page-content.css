@@ -1,0 +1,40 @@
+
+.page-content {
+}
+
+.page-content.is-products {
+}
+
+.page-content.is-questions {
+}
+
+.page-content.is-books {
+}
+
+.page-content.is-users {
+  width: 100%;
+}
+
+@media (min-width: 48em) {
+  .page-content:not(:first-child) {
+    margin-top: 1.25rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .page-content:not(:first-child) {
+    margin-top: 1rem;
+  }
+}
+
+@media (min-width: 48em) {
+  .page-content:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .page-content:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+}

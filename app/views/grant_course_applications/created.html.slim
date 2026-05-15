@@ -1,0 +1,32 @@
+ruby:
+  title '給付金対応コース受講申請完了'
+  content_for(:extra_body_classes, 'no-header no-footer no-global-nav is-error-page is-piyo-background')
+  set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）')
+- if Rails.env.production? && !staging?
+  - content_for :head_last do
+    | <!-- Event snippet for 助成金コース受講 conversion page -->
+    javascript:
+      gtag('event', 'conversion', {
+          'send_to': 'AW-17419900911/A410CJ_x7okbEO-vuvJA',
+          'transaction_id': ''
+      });
+
+.thanks-message
+  .container.is-xs
+    .thanks-message__header
+      h1.thanks-message__title
+        = title
+    .a-card
+      .card-body.thanks-message__body
+        .a-long-text
+          p
+            | 受講申請が完了しました。ありがとうございます。
+            br
+            | 担当者より折り返しご連絡いたします。
+      hr.a-border-tint
+      footer.card-footer
+        .card-main-actions
+          ul.card-main-actions__items
+            li.card-main-actions__item
+              = link_to root_path, class: 'a-button is-secondary is-sm is-block' do
+                | フィヨルドブートキャンプ

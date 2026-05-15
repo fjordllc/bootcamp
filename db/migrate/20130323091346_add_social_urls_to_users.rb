@@ -2,8 +2,10 @@
 
 class AddSocialUrlsToUsers < ActiveRecord::Migration[4.2]
   def change
-    add_column :users, :twitter_url, :string
-    add_column :users, :facebook_url, :string
-    add_column :users, :blog_url, :string
+    change_table :users, bulk: true do |t|
+      t.string :twitter_url
+      t.string :facebook_url
+      t.string :blog_url
+    end
   end
 end

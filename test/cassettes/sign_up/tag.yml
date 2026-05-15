@@ -1,0 +1,434 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.stripe.com/v1/customers?email=taguo@example.com&limit=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Stripe/v1 RubyBindings/4.5.0
+      Authorization:
+      - Bearer sk_test_XLP1Ajz1JvT9jUt5uKGvL0Wd
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Stripe-Version:
+      - '2018-11-08'
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version":"4.5.0","lang":"ruby","lang_version":"2.6.6 p146 (2020-03-31)","platform":"x86_64-darwin20","engine":"ruby","publisher":"stripe","uname":"Darwin
+        kasainoMacBook-Pro.local 20.5.0 Darwin Kernel Version 20.5.0: Sat May  8 05:10:33
+        PDT 2021; root:xnu-7195.121.3~9/RELEASE_X86_64 x86_64","hostname":"kasainoMacBook-Pro.local"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - '30'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Mon, 28 Jun 2021 01:10:41 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '88'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Request-Id, Stripe-Manage-Version, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Request-Id:
+      - req_LauTgGEgRDvZDu
+      Stripe-Version:
+      - '2018-11-08'
+      X-Stripe-C-Cost:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      base64_string: |
+        ewogICJvYmplY3QiOiAibGlzdCIsCiAgImRhdGEiOiBbCgogIF0sCiAgImhh
+        c19tb3JlIjogZmFsc2UsCiAgInVybCI6ICIvdjEvY3VzdG9tZXJzIgp9
+  recorded_at: Mon, 28 Jun 2021 01:10:38 GMT
+- request:
+    method: post
+    uri: https://api.stripe.com/v1/customers
+    body:
+      encoding: UTF-8
+      base64_string: |
+        ZW1haWw9dGFndW8lNDBleGFtcGxlLmNvbSZzb3VyY2U9dG9rXzFKNzh6a0Jw
+        ZVdjTEZkOGZ5V09VT1J3bw==
+    headers:
+      User-Agent:
+      - Stripe/v1 RubyBindings/4.5.0
+      Authorization:
+      - Bearer sk_test_XLP1Ajz1JvT9jUt5uKGvL0Wd
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Stripe-Version:
+      - '2018-11-08'
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version":"4.5.0","lang":"ruby","lang_version":"2.6.6 p146 (2020-03-31)","platform":"x86_64-darwin20","engine":"ruby","publisher":"stripe","uname":"Darwin
+        kasainoMacBook-Pro.local 20.5.0 Darwin Kernel Version 20.5.0: Sat May  8 05:10:33
+        PDT 2021; root:xnu-7195.121.3~9/RELEASE_X86_64 x86_64","hostname":"kasainoMacBook-Pro.local"}'
+      Idempotency-Key:
+      - a2db0429-8433-4d02-bbf7-22a4f0da7118
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - '30'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Mon, 28 Jun 2021 01:10:41 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '1931'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Request-Id, Stripe-Manage-Version, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Idempotency-Key:
+      - a2db0429-8433-4d02-bbf7-22a4f0da7118
+      Original-Request:
+      - req_k6riAqWDmPa7Nt
+      Request-Id:
+      - req_k6riAqWDmPa7Nt
+      Stripe-Should-Retry:
+      - 'false'
+      Stripe-Version:
+      - '2018-11-08'
+      X-Stripe-C-Cost:
+      - '1'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      base64_string: |
+        ewogICJpZCI6ICJjdXNfSmtlSTl1c1ZZajhwWTYiLAogICJvYmplY3QiOiAi
+        Y3VzdG9tZXIiLAogICJhY2NvdW50X2JhbGFuY2UiOiAwLAogICJhZGRyZXNz
+        IjogbnVsbCwKICAiYmFsYW5jZSI6IDAsCiAgImNyZWF0ZWQiOiAxNjI0ODQy
+        NjQxLAogICJjdXJyZW5jeSI6IG51bGwsCiAgImRlZmF1bHRfc291cmNlIjog
+        ImNhcmRfMUo3OHprQnBlV2NMRmQ4ZjY5ZzRvbzJVIiwKICAiZGVsaW5xdWVu
+        dCI6IGZhbHNlLAogICJkZXNjcmlwdGlvbiI6IG51bGwsCiAgImRpc2NvdW50
+        IjogbnVsbCwKICAiZW1haWwiOiAidGFndW9AZXhhbXBsZS5jb20iLAogICJp
+        bnZvaWNlX3ByZWZpeCI6ICJGNjAxQ0FEMiIsCiAgImludm9pY2Vfc2V0dGlu
+        Z3MiOiB7CiAgICAiY3VzdG9tX2ZpZWxkcyI6IG51bGwsCiAgICAiZGVmYXVs
+        dF9wYXltZW50X21ldGhvZCI6IG51bGwsCiAgICAiZm9vdGVyIjogbnVsbAog
+        IH0sCiAgImxpdmVtb2RlIjogZmFsc2UsCiAgIm1ldGFkYXRhIjogewogIH0s
+        CiAgIm5hbWUiOiBudWxsLAogICJuZXh0X2ludm9pY2Vfc2VxdWVuY2UiOiAx
+        LAogICJwaG9uZSI6IG51bGwsCiAgInByZWZlcnJlZF9sb2NhbGVzIjogWwoK
+        ICBdLAogICJzaGlwcGluZyI6IG51bGwsCiAgInNvdXJjZXMiOiB7CiAgICAi
+        b2JqZWN0IjogImxpc3QiLAogICAgImRhdGEiOiBbCiAgICAgIHsKICAgICAg
+        ICAiaWQiOiAiY2FyZF8xSjc4emtCcGVXY0xGZDhmNjlnNG9vMlUiLAogICAg
+        ICAgICJvYmplY3QiOiAiY2FyZCIsCiAgICAgICAgImFkZHJlc3NfY2l0eSI6
+        IG51bGwsCiAgICAgICAgImFkZHJlc3NfY291bnRyeSI6IG51bGwsCiAgICAg
+        ICAgImFkZHJlc3NfbGluZTEiOiBudWxsLAogICAgICAgICJhZGRyZXNzX2xp
+        bmUxX2NoZWNrIjogbnVsbCwKICAgICAgICAiYWRkcmVzc19saW5lMiI6IG51
+        bGwsCiAgICAgICAgImFkZHJlc3Nfc3RhdGUiOiBudWxsLAogICAgICAgICJh
+        ZGRyZXNzX3ppcCI6IG51bGwsCiAgICAgICAgImFkZHJlc3NfemlwX2NoZWNr
+        IjogbnVsbCwKICAgICAgICAiYnJhbmQiOiAiTWFzdGVyQ2FyZCIsCiAgICAg
+        ICAgImNvdW50cnkiOiAiVVMiLAogICAgICAgICJjdXN0b21lciI6ICJjdXNf
+        SmtlSTl1c1ZZajhwWTYiLAogICAgICAgICJjdmNfY2hlY2siOiAicGFzcyIs
+        CiAgICAgICAgImR5bmFtaWNfbGFzdDQiOiBudWxsLAogICAgICAgICJleHBf
+        bW9udGgiOiAxMiwKICAgICAgICAiZXhwX3llYXIiOiAyMDIxLAogICAgICAg
+        ICJmaW5nZXJwcmludCI6ICJBRWZyVmtKT0NUUkl5eUdQIiwKICAgICAgICAi
+        ZnVuZGluZyI6ICJjcmVkaXQiLAogICAgICAgICJsYXN0NCI6ICI0NDQ0IiwK
+        ICAgICAgICAibWV0YWRhdGEiOiB7CiAgICAgICAgfSwKICAgICAgICAibmFt
+        ZSI6IG51bGwsCiAgICAgICAgInRva2VuaXphdGlvbl9tZXRob2QiOiBudWxs
+        CiAgICAgIH0KICAgIF0sCiAgICAiaGFzX21vcmUiOiBmYWxzZSwKICAgICJ0
+        b3RhbF9jb3VudCI6IDEsCiAgICAidXJsIjogIi92MS9jdXN0b21lcnMvY3Vz
+        X0prZUk5dXNWWWo4cFk2L3NvdXJjZXMiCiAgfSwKICAic3Vic2NyaXB0aW9u
+        cyI6IHsKICAgICJvYmplY3QiOiAibGlzdCIsCiAgICAiZGF0YSI6IFsKCiAg
+        ICBdLAogICAgImhhc19tb3JlIjogZmFsc2UsCiAgICAidG90YWxfY291bnQi
+        OiAwLAogICAgInVybCI6ICIvdjEvY3VzdG9tZXJzL2N1c19Ka2VJOXVzVllq
+        OHBZNi9zdWJzY3JpcHRpb25zIgogIH0sCiAgInRheF9leGVtcHQiOiAibm9u
+        ZSIsCiAgInRheF9pZHMiOiB7CiAgICAib2JqZWN0IjogImxpc3QiLAogICAg
+        ImRhdGEiOiBbCgogICAgXSwKICAgICJoYXNfbW9yZSI6IGZhbHNlLAogICAg
+        InRvdGFsX2NvdW50IjogMCwKICAgICJ1cmwiOiAiL3YxL2N1c3RvbWVycy9j
+        dXNfSmtlSTl1c1ZZajhwWTYvdGF4X2lkcyIKICB9LAogICJ0YXhfaW5mbyI6
+        IG51bGwsCiAgInRheF9pbmZvX3ZlcmlmaWNhdGlvbiI6IG51bGwKfQ==
+  recorded_at: Mon, 28 Jun 2021 01:10:39 GMT
+- request:
+    method: get
+    uri: https://api.stripe.com/v1/plans
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Stripe/v1 RubyBindings/4.5.0
+      Authorization:
+      - Bearer sk_test_XLP1Ajz1JvT9jUt5uKGvL0Wd
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Stripe-Version:
+      - '2018-11-08'
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version":"4.5.0","lang":"ruby","lang_version":"2.6.6 p146 (2020-03-31)","platform":"x86_64-darwin20","engine":"ruby","publisher":"stripe","uname":"Darwin
+        kasainoMacBook-Pro.local 20.5.0 Darwin Kernel Version 20.5.0: Sat May  8 05:10:33
+        PDT 2021; root:xnu-7195.121.3~9/RELEASE_X86_64 x86_64","hostname":"kasainoMacBook-Pro.local"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - '30'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Mon, 28 Jun 2021 01:10:42 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '703'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Request-Id, Stripe-Manage-Version, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Request-Id:
+      - req_A6diOrhCSSO6Dn
+      Stripe-Version:
+      - '2018-11-08'
+      X-Stripe-C-Cost:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      base64_string: |
+        ewogICJvYmplY3QiOiAibGlzdCIsCiAgImRhdGEiOiBbCiAgICB7CiAgICAg
+        ICJpZCI6ICJwcmljZV8xSjBoaFRCcGVXY0xGZDhmZkxqbTRuS08iLAogICAg
+        ICAib2JqZWN0IjogInBsYW4iLAogICAgICAiYWN0aXZlIjogdHJ1ZSwKICAg
+        ICAgImFnZ3JlZ2F0ZV91c2FnZSI6IG51bGwsCiAgICAgICJhbW91bnQiOiAy
+        OTgwMCwKICAgICAgImFtb3VudF9kZWNpbWFsIjogIjI5ODAwIiwKICAgICAg
+        ImJpbGxpbmdfc2NoZW1lIjogInBlcl91bml0IiwKICAgICAgImNyZWF0ZWQi
+        OiAxNjIzMzA3NzUxLAogICAgICAiY3VycmVuY3kiOiAianB5IiwKICAgICAg
+        ImludGVydmFsIjogIm1vbnRoIiwKICAgICAgImludGVydmFsX2NvdW50Ijog
+        MSwKICAgICAgImxpdmVtb2RlIjogZmFsc2UsCiAgICAgICJtZXRhZGF0YSI6
+        IHsKICAgICAgfSwKICAgICAgIm5pY2tuYW1lIjogIuOCueOCv+ODs+ODgOOD
+        vOODieODl+ODqeODsyIsCiAgICAgICJwcm9kdWN0IjogInByb2RfSmR6Z2ph
+        akhPNnRaR0kiLAogICAgICAidGllcnMiOiBudWxsLAogICAgICAidGllcnNf
+        bW9kZSI6IG51bGwsCiAgICAgICJ0cmFuc2Zvcm1fdXNhZ2UiOiBudWxsLAog
+        ICAgICAidHJpYWxfcGVyaW9kX2RheXMiOiBudWxsLAogICAgICAidXNhZ2Vf
+        dHlwZSI6ICJsaWNlbnNlZCIKICAgIH0KICBdLAogICJoYXNfbW9yZSI6IGZh
+        bHNlLAogICJ1cmwiOiAiL3YxL3BsYW5zIgp9
+  recorded_at: Mon, 28 Jun 2021 01:10:39 GMT
+- request:
+    method: post
+    uri: https://api.stripe.com/v1/subscriptions
+    body:
+      encoding: UTF-8
+      base64_string: |
+        Y3VzdG9tZXI9Y3VzX0prZUk5dXNWWWo4cFk2JnRyaWFsX2VuZD0xNjI1MTAx
+        ODM5Jml0ZW1zWzBdW3BsYW5dPXByaWNlXzFKMGhoVEJwZVdjTEZkOGZmTGpt
+        NG5LTw==
+    headers:
+      User-Agent:
+      - Stripe/v1 RubyBindings/4.5.0
+      Authorization:
+      - Bearer sk_test_XLP1Ajz1JvT9jUt5uKGvL0Wd
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Stripe-Version:
+      - '2018-11-08'
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version":"4.5.0","lang":"ruby","lang_version":"2.6.6 p146 (2020-03-31)","platform":"x86_64-darwin20","engine":"ruby","publisher":"stripe","uname":"Darwin
+        kasainoMacBook-Pro.local 20.5.0 Darwin Kernel Version 20.5.0: Sat May  8 05:10:33
+        PDT 2021; root:xnu-7195.121.3~9/RELEASE_X86_64 x86_64","hostname":"kasainoMacBook-Pro.local"}'
+      Idempotency-Key:
+      - a2db0429-8433-4d02-bbf7-22a4f0da7118-subscription
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - '30'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Mon, 28 Jun 2021 01:10:43 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '3825'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Request-Id, Stripe-Manage-Version, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Idempotency-Key:
+      - a2db0429-8433-4d02-bbf7-22a4f0da7118-subscription
+      Original-Request:
+      - req_bE0MTfroOvber6
+      Request-Id:
+      - req_bE0MTfroOvber6
+      Stripe-Should-Retry:
+      - 'false'
+      Stripe-Version:
+      - '2018-11-08'
+      X-Stripe-C-Cost:
+      - '3'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      base64_string: |
+        ewogICJpZCI6ICJzdWJfSmtlSWVHZlRuMGc2am8iLAogICJvYmplY3QiOiAi
+        c3Vic2NyaXB0aW9uIiwKICAiYXBwbGljYXRpb25fZmVlX3BlcmNlbnQiOiBu
+        dWxsLAogICJhdXRvbWF0aWNfdGF4IjogewogICAgImVuYWJsZWQiOiBmYWxz
+        ZQogIH0sCiAgImJpbGxpbmciOiAiY2hhcmdlX2F1dG9tYXRpY2FsbHkiLAog
+        ICJiaWxsaW5nX2N5Y2xlX2FuY2hvciI6IDE2MjUxMDE4MzksCiAgImJpbGxp
+        bmdfdGhyZXNob2xkcyI6IG51bGwsCiAgImNhbmNlbF9hdCI6IG51bGwsCiAg
+        ImNhbmNlbF9hdF9wZXJpb2RfZW5kIjogZmFsc2UsCiAgImNhbmNlbGVkX2F0
+        IjogbnVsbCwKICAiY29sbGVjdGlvbl9tZXRob2QiOiAiY2hhcmdlX2F1dG9t
+        YXRpY2FsbHkiLAogICJjcmVhdGVkIjogMTYyNDg0MjY0MiwKICAiY3VycmVu
+        dF9wZXJpb2RfZW5kIjogMTYyNTEwMTgzOSwKICAiY3VycmVudF9wZXJpb2Rf
+        c3RhcnQiOiAxNjI0ODQyNjQyLAogICJjdXN0b21lciI6ICJjdXNfSmtlSTl1
+        c1ZZajhwWTYiLAogICJkYXlzX3VudGlsX2R1ZSI6IG51bGwsCiAgImRlZmF1
+        bHRfcGF5bWVudF9tZXRob2QiOiBudWxsLAogICJkZWZhdWx0X3NvdXJjZSI6
+        IG51bGwsCiAgImRlZmF1bHRfdGF4X3JhdGVzIjogWwoKICBdLAogICJkaXNj
+        b3VudCI6IG51bGwsCiAgImVuZGVkX2F0IjogbnVsbCwKICAiaW52b2ljZV9j
+        dXN0b21lcl9iYWxhbmNlX3NldHRpbmdzIjogewogICAgImNvbnN1bWVfYXBw
+        bGllZF9iYWxhbmNlX29uX3ZvaWQiOiB0cnVlCiAgfSwKICAiaXRlbXMiOiB7
+        CiAgICAib2JqZWN0IjogImxpc3QiLAogICAgImRhdGEiOiBbCiAgICAgIHsK
+        ICAgICAgICAiaWQiOiAic2lfSmtlSUZ0dUVQSE81VGciLAogICAgICAgICJv
+        YmplY3QiOiAic3Vic2NyaXB0aW9uX2l0ZW0iLAogICAgICAgICJiaWxsaW5n
+        X3RocmVzaG9sZHMiOiBudWxsLAogICAgICAgICJjcmVhdGVkIjogMTYyNDg0
+        MjY0MiwKICAgICAgICAibWV0YWRhdGEiOiB7CiAgICAgICAgfSwKICAgICAg
+        ICAicGxhbiI6IHsKICAgICAgICAgICJpZCI6ICJwcmljZV8xSjBoaFRCcGVX
+        Y0xGZDhmZkxqbTRuS08iLAogICAgICAgICAgIm9iamVjdCI6ICJwbGFuIiwK
+        ICAgICAgICAgICJhY3RpdmUiOiB0cnVlLAogICAgICAgICAgImFnZ3JlZ2F0
+        ZV91c2FnZSI6IG51bGwsCiAgICAgICAgICAiYW1vdW50IjogMjk4MDAsCiAg
+        ICAgICAgICAiYW1vdW50X2RlY2ltYWwiOiAiMjk4MDAiLAogICAgICAgICAg
+        ImJpbGxpbmdfc2NoZW1lIjogInBlcl91bml0IiwKICAgICAgICAgICJjcmVh
+        dGVkIjogMTYyMzMwNzc1MSwKICAgICAgICAgICJjdXJyZW5jeSI6ICJqcHki
+        LAogICAgICAgICAgImludGVydmFsIjogIm1vbnRoIiwKICAgICAgICAgICJp
+        bnRlcnZhbF9jb3VudCI6IDEsCiAgICAgICAgICAibGl2ZW1vZGUiOiBmYWxz
+        ZSwKICAgICAgICAgICJtZXRhZGF0YSI6IHsKICAgICAgICAgIH0sCiAgICAg
+        ICAgICAibmlja25hbWUiOiAi44K544K/44Oz44OA44O844OJ44OX44Op44Oz
+        IiwKICAgICAgICAgICJwcm9kdWN0IjogInByb2RfSmR6Z2phakhPNnRaR0ki
+        LAogICAgICAgICAgInRpZXJzIjogbnVsbCwKICAgICAgICAgICJ0aWVyc19t
+        b2RlIjogbnVsbCwKICAgICAgICAgICJ0cmFuc2Zvcm1fdXNhZ2UiOiBudWxs
+        LAogICAgICAgICAgInRyaWFsX3BlcmlvZF9kYXlzIjogbnVsbCwKICAgICAg
+        ICAgICJ1c2FnZV90eXBlIjogImxpY2Vuc2VkIgogICAgICAgIH0sCiAgICAg
+        ICAgInByaWNlIjogewogICAgICAgICAgImlkIjogInByaWNlXzFKMGhoVEJw
+        ZVdjTEZkOGZmTGptNG5LTyIsCiAgICAgICAgICAib2JqZWN0IjogInByaWNl
+        IiwKICAgICAgICAgICJhY3RpdmUiOiB0cnVlLAogICAgICAgICAgImJpbGxp
+        bmdfc2NoZW1lIjogInBlcl91bml0IiwKICAgICAgICAgICJjcmVhdGVkIjog
+        MTYyMzMwNzc1MSwKICAgICAgICAgICJjdXJyZW5jeSI6ICJqcHkiLAogICAg
+        ICAgICAgImxpdmVtb2RlIjogZmFsc2UsCiAgICAgICAgICAibG9va3VwX2tl
+        eSI6IG51bGwsCiAgICAgICAgICAibWV0YWRhdGEiOiB7CiAgICAgICAgICB9
+        LAogICAgICAgICAgIm5pY2tuYW1lIjogIuOCueOCv+ODs+ODgOODvOODieOD
+        l+ODqeODsyIsCiAgICAgICAgICAicHJvZHVjdCI6ICJwcm9kX0pkemdqYWpI
+        TzZ0WkdJIiwKICAgICAgICAgICJyZWN1cnJpbmciOiB7CiAgICAgICAgICAg
+        ICJhZ2dyZWdhdGVfdXNhZ2UiOiBudWxsLAogICAgICAgICAgICAiaW50ZXJ2
+        YWwiOiAibW9udGgiLAogICAgICAgICAgICAiaW50ZXJ2YWxfY291bnQiOiAx
+        LAogICAgICAgICAgICAidHJpYWxfcGVyaW9kX2RheXMiOiBudWxsLAogICAg
+        ICAgICAgICAidXNhZ2VfdHlwZSI6ICJsaWNlbnNlZCIKICAgICAgICAgIH0s
+        CiAgICAgICAgICAidGllcnNfbW9kZSI6IG51bGwsCiAgICAgICAgICAidHJh
+        bnNmb3JtX3F1YW50aXR5IjogbnVsbCwKICAgICAgICAgICJ0eXBlIjogInJl
+        Y3VycmluZyIsCiAgICAgICAgICAidW5pdF9hbW91bnQiOiAyOTgwMCwKICAg
+        ICAgICAgICJ1bml0X2Ftb3VudF9kZWNpbWFsIjogIjI5ODAwIgogICAgICAg
+        IH0sCiAgICAgICAgInF1YW50aXR5IjogMSwKICAgICAgICAic3Vic2NyaXB0
+        aW9uIjogInN1Yl9Ka2VJZUdmVG4wZzZqbyIsCiAgICAgICAgInRheF9yYXRl
+        cyI6IFsKCiAgICAgICAgXQogICAgICB9CiAgICBdLAogICAgImhhc19tb3Jl
+        IjogZmFsc2UsCiAgICAidG90YWxfY291bnQiOiAxLAogICAgInVybCI6ICIv
+        djEvc3Vic2NyaXB0aW9uX2l0ZW1zP3N1YnNjcmlwdGlvbj1zdWJfSmtlSWVH
+        ZlRuMGc2am8iCiAgfSwKICAibGF0ZXN0X2ludm9pY2UiOiAiaW5fMUo3OHpt
+        QnBlV2NMRmQ4Zm5XUjRjVVd5IiwKICAibGl2ZW1vZGUiOiBmYWxzZSwKICAi
+        bWV0YWRhdGEiOiB7CiAgfSwKICAibmV4dF9wZW5kaW5nX2ludm9pY2VfaXRl
+        bV9pbnZvaWNlIjogbnVsbCwKICAicGF1c2VfY29sbGVjdGlvbiI6IG51bGws
+        CiAgInBlbmRpbmdfaW52b2ljZV9pdGVtX2ludGVydmFsIjogbnVsbCwKICAi
+        cGVuZGluZ19zZXR1cF9pbnRlbnQiOiBudWxsLAogICJwZW5kaW5nX3VwZGF0
+        ZSI6IG51bGwsCiAgInBsYW4iOiB7CiAgICAiaWQiOiAicHJpY2VfMUowaGhU
+        QnBlV2NMRmQ4ZmZMam00bktPIiwKICAgICJvYmplY3QiOiAicGxhbiIsCiAg
+        ICAiYWN0aXZlIjogdHJ1ZSwKICAgICJhZ2dyZWdhdGVfdXNhZ2UiOiBudWxs
+        LAogICAgImFtb3VudCI6IDI5ODAwLAogICAgImFtb3VudF9kZWNpbWFsIjog
+        IjI5ODAwIiwKICAgICJiaWxsaW5nX3NjaGVtZSI6ICJwZXJfdW5pdCIsCiAg
+        ICAiY3JlYXRlZCI6IDE2MjMzMDc3NTEsCiAgICAiY3VycmVuY3kiOiAianB5
+        IiwKICAgICJpbnRlcnZhbCI6ICJtb250aCIsCiAgICAiaW50ZXJ2YWxfY291
+        bnQiOiAxLAogICAgImxpdmVtb2RlIjogZmFsc2UsCiAgICAibWV0YWRhdGEi
+        OiB7CiAgICB9LAogICAgIm5pY2tuYW1lIjogIuOCueOCv+ODs+ODgOODvOOD
+        ieODl+ODqeODsyIsCiAgICAicHJvZHVjdCI6ICJwcm9kX0pkemdqYWpITzZ0
+        WkdJIiwKICAgICJ0aWVycyI6IG51bGwsCiAgICAidGllcnNfbW9kZSI6IG51
+        bGwsCiAgICAidHJhbnNmb3JtX3VzYWdlIjogbnVsbCwKICAgICJ0cmlhbF9w
+        ZXJpb2RfZGF5cyI6IG51bGwsCiAgICAidXNhZ2VfdHlwZSI6ICJsaWNlbnNl
+        ZCIKICB9LAogICJxdWFudGl0eSI6IDEsCiAgInNjaGVkdWxlIjogbnVsbCwK
+        ICAic3RhcnQiOiAxNjI0ODQyNjQyLAogICJzdGFydF9kYXRlIjogMTYyNDg0
+        MjY0MiwKICAic3RhdHVzIjogInRyaWFsaW5nIiwKICAidGF4X3BlcmNlbnQi
+        OiBudWxsLAogICJ0cmFuc2Zlcl9kYXRhIjogbnVsbCwKICAidHJpYWxfZW5k
+        IjogMTYyNTEwMTgzOSwKICAidHJpYWxfc3RhcnQiOiAxNjI0ODQyNjQyCn0=
+  recorded_at: Mon, 28 Jun 2021 01:10:40 GMT
+recorded_with: VCR 6.0.0

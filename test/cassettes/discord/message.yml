@@ -1,0 +1,151 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://discord.com/api/webhooks/0123456789/xxxxxxxx
+    body:
+      encoding: UTF-8
+      base64_string: |
+        eyJ1cmwiOiJodHRwczovL2Rpc2NvcmQuY29tL2FwaS93ZWJob29rcy85Njcx
+        NDA2NjA1NDMxMTk1MDEvbTcyWjQ5N1QtYzZnSVFaTU1jbjBHN3RpSkFrNVZq
+        ck9RcHItSDFRZVJJSzFrUktISGtVSGF4bF9nUmR5dDk1bmtxTUEiLCJ1c2Vy
+        bmFtZSI6ImJvYiIsImF2YXRhcl91cmwiOiJodHRwczovL2kuZ3lhem8uY29t
+        LzcwOTk5Nzc2ODBkOGQ4YzJkNzJhM2YxNGRkZjE0Y2M2LnBuZyIsImNvbnRl
+        bnQiOiJ0ZXN0IG1lc3NhZ2UifQ==
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - discord.com
+  response:
+    status:
+      code: 204
+      message: No Content
+    headers:
+      Date:
+      - Fri, 22 Apr 2022 19:13:43 GMT
+      Content-Type:
+      - text/html; charset=utf-8
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfruid=21d8d0c349ef07ac7215d85289c187728887076d-1650654823; path=/; domain=.discord.com;
+        HttpOnly; Secure; SameSite=None
+      - __dcfduid=53997b12c27011eca3ede2ad8444a457; Expires=Wed, 21-Apr-2027 19:13:43
+        GMT; Max-Age=157680000; Secure; HttpOnly; Path=/
+      - __sdcfduid=53997b12c27011eca3ede2ad8444a457bbc067fb13190b63da79b95ff55b5f97005fc5af7a3f40fc7f9306042f98fc85;
+        Expires=Wed, 21-Apr-2027 19:13:43 GMT; Max-Age=157680000; Secure; HttpOnly;
+        Path=/
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Ratelimit-Bucket:
+      - 3cd1f278bd0ecaf11e0d2391374c011d
+      X-Ratelimit-Limit:
+      - '5'
+      X-Ratelimit-Remaining:
+      - '4'
+      X-Ratelimit-Reset:
+      - '1650654826'
+      X-Ratelimit-Reset-After:
+      - '2'
+      X-Envoy-Upstream-Service-Time:
+      - '40'
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - h3=":443"; ma=86400, h3-29=":443"; ma=86400
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=qncv1W2eVkYQz%2FxZ2CmA44bICHXwC6V3lz0an4H8VYc9WsV6npIHdhupRTEy9uwFfxcAQOoBsxuP8fHIoaWp9857na4EgLLVbTilhA6Xh%2F3fP2jYC7fb%2FhlRyX%2B%2F"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 7000ada6d95520a7-NRT
+    body:
+      encoding: UTF-8
+      base64_string: ''
+  recorded_at: Fri, 22 Apr 2022 19:13:43 GMT
+- request:
+    method: post
+    uri: https://discord.com/api/webhooks/0123456789/xxxxxxxx
+    body:
+      encoding: UTF-8
+      base64_string: |
+        eyJ1cmwiOiJodHRwczovL2Rpc2NvcmQuY29tL2FwaS93ZWJob29rcy8wMTIz
+        NDU2Nzg5L3h4eHh4eHh4IiwidXNlcm5hbWUiOiJib2IiLCJhdmF0YXJfdXJs
+        IjoiaHR0cHM6Ly9pLmd5YXpvLmNvbS83MDk5OTc3NjgwZDhkOGMyZDcyYTNm
+        MTRkZGYxNGNjNi5wbmciLCJjb250ZW50IjoidGVzdCBtZXNzYWdlIn0=
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - discord.com
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Fri, 22 Apr 2022 19:15:47 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '45'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfruid=1bc5ac4a7001d60d6395386c2e64b249c58ea82a-1650654947; path=/; domain=.discord.com;
+        HttpOnly; Secure; SameSite=None
+      - __dcfduid=9da1bf3ac27011ec94e3f2abd4bb4ffe; Expires=Wed, 21-Apr-2027 19:15:47
+        GMT; Max-Age=157680000; Secure; HttpOnly; Path=/
+      - __sdcfduid=9da1bf3ac27011ec94e3f2abd4bb4ffe75e8b3a301bf37366035e13a48ae902a47ea0e4faafb10ffe3a4936e6fdec1e1;
+        Expires=Wed, 21-Apr-2027 19:15:47 GMT; Max-Age=157680000; Secure; HttpOnly;
+        Path=/
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Envoy-Upstream-Service-Time:
+      - '10'
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - h3=":443"; ma=86400, h3-29=":443"; ma=86400
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=oo5Wczq00%2Flym68DlCCM5JnXgzdENLcrRAbYUOM08DDdP3eubV4Jsc78G%2BaBhBsM8VEIzmu%2FK8DC4nvvECoBt5c%2BHUUZti3Zj4Hm1lpaQ%2Bpbs6iybWZ8q2TuM2iU"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 7000b0af5f20f8df-NRT
+    body:
+      encoding: UTF-8
+      base64_string: |
+        ewogICJtZXNzYWdlIjogIlVua25vd24gV2ViaG9vayIsCiAgImNvZGUiOiAx
+        MDAxNQp9
+  recorded_at: Fri, 22 Apr 2022 19:15:47 GMT
+recorded_with: VCR 6.0.0

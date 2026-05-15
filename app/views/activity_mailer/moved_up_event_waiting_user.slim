@@ -1,0 +1,2 @@
+= render '/notification_mailer/notification_mailer_template', title: "#{@event.title}で、補欠から参加に繰り上がりました。", link_url: @link_url, link_text: '特別イベント詳細へ' do
+  = md2html(@event.description)

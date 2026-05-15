@@ -1,0 +1,21 @@
+.card-list-item-tags-edit {
+  width: 100%;
+}
+
+.card-list-item-tags__item-edit {
+  text-decoration: none;
+  cursor: pointer;
+}
+.card-list-item-tags__item-edit:hover, .card-list-item-tags__item-edit:active {
+  text-decoration: underline;
+}
+.card-list-item-tags__item-edit {
+  cursor: pointer;
+  color: var(--main-text);
+}
+
+.card-list-item-tags-edit__actions {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}

@@ -1,0 +1,224 @@
+<% now = Time.current %>
+<% today = Time.zone.today %>
+product1:
+  practice: practice1
+  user: mentormentaro
+  body: テストの提出物1です。
+  published_at: <%= (now - 60 * 60 * 24 * 1).to_formatted_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 1).to_formatted_s(:db) %>
+
+product2:
+  practice: practice1
+  user: kimura
+  body: テストの提出物2です。
+  published_at: <%= (now - 60 * 60 * 24 * 2).to_formatted_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 2).to_formatted_s(:db) %>
+
+product3:
+  practice: practice2
+  user: sotugyou
+  body: 確認済みの提出物
+  published_at: <%= (now - 60 * 60 * 24 * 3).to_formatted_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 3).to_formatted_s(:db) %>
+
+product4:
+  practice: practice2
+  user: mentormentaro
+  body: テストの提出物4です。
+  published_at: <%= (now - 60 * 60 * 24 * 4).to_formatted_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 4).to_formatted_s(:db) %>
+
+product5:
+  practice: practice2
+  user: kimura
+  body: テストの提出物5です。
+  published_at: <%= (now - 60 * 60 * 24 * 5).to_formatted_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 5).to_formatted_s(:db) %>
+
+product6:
+  practice: practice3
+  user: sotugyou
+  body: 確認待ちの提出物
+  published_at: <%= (now - 60 * 60 * 24 * 6).to_formatted_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 6).to_formatted_s(:db) %>
+
+product7:
+  practice: practice3
+  user: mentormentaro
+  body: テストの提出物7です。
+  published_at: <%= (now - 60 * 60 * 24 * 7).to_formatted_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 7).to_formatted_s(:db) %>
+
+product8:
+  practice: practice3
+  user: kimura
+  body: テストの提出物8です。
+  published_at: <%= (now - 60 * 60 * 24 * 8).to_formatted_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 8).to_formatted_s(:db) %>
+
+product9:
+  practice: practice4
+  user: mentormentaro
+  body: テストの提出物9です。
+  published_at: <%= (now - 60 * 60 * 24 * 9).to_formatted_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 9).to_formatted_s(:db) %>
+
+product10:
+  practice: practice4
+  user: kimura
+  body: テストの提出物10です。
+  published_at: <%= (now - 60 * 60 * 24 * 10).to_formatted_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 10).to_formatted_s(:db) %>
+
+product11:
+  practice: practice2
+  user: hatsuno
+  body: テストの提出物11です。
+  published_at: <%= (now - 60 * 60 * 24 * 11).to_formatted_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 11).to_formatted_s(:db) %>
+
+product12:
+  practice: practice5
+  user: mentormentaro
+  body: リアクションテスト
+  published_at: <%= (now - 60 * 60 * 24 * 12).to_formatted_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 12).to_formatted_s(:db) %>
+
+product13:
+  practice: practice1
+  user: kensyu
+  body: 研修の提出物です。
+  published_at: <%= (now - 60 * 60 * 24 * 13).to_formatted_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 13).to_formatted_s(:db) %>
+
+<% (14..60).each do |i| %>
+product<%= i %>:
+  practice: practice<%= i - 12 %>
+  user: with_hyphen
+  body: テストの提出物<%= i %>です。
+  published_at: <%= (now - i).to_formatted_s(:db) %>
+  created_at: <%= (now - i).to_formatted_s(:db) %>
+<% end %>
+
+product61:
+  practice: practice1
+  user: sumi
+  body: テストの提出物61です。
+  published_at: <%= (now - 60 * 60 * 24 * 10).to_formatted_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 10).to_formatted_s(:db) %>
+
+product62:
+  practice: practice1
+  user: take8
+  body: テストの提出物62です。
+  published_at: <%= (now - 60 * 60 * 24 * 10).to_formatted_s(:db) %>
+
+product63:
+  practice: practice6
+  user: kimura
+  body: プラクティス完了メッセージ未表示の提出物です。
+
+product64:
+  practice: practice6
+  user: kensyu
+  body: publish_atがnilの提出物です。
+  published_at: nil
+
+<% (1..4).each do |i| %>
+product<%= 64 + i %>:
+  practice: practice<%= 3 + i %>
+  user: hatsuno
+  body: <%= i+1 %>日前の提出物です。
+  published_at: <%= (i+1).day.ago.to_formatted_s(:db) %>
+  created_at: <%= (i+1).day.ago.to_formatted_s(:db) %>
+<% end %>
+
+product70:
+  practice: practice2
+  user: take8
+  body: 1時間未満と表示される提出物
+  created_at: <%= 23.hour.ago %>
+  updated_at: <%= 23.hour.ago %>
+  published_at: <%= 23.hour.ago %>
+
+product71:
+  practice: practice7
+  user: kimura
+  body: 『mentormentaroが担当/提出済み/コメントがゼロ』の提出物です。
+  checker: mentormentaro
+  published_at: <%= now.to_formatted_s(:db) %>
+  created_at: <%= now.to_formatted_s(:db) %>
+
+product72:
+  practice: practice8
+  user: kimura
+  body: 『mentormentaroが担当/WIP/コメントがゼロ』の提出物です。
+  checker: mentormentaro
+  created_at: <%= now.to_formatted_s(:db) %>
+  wip: true
+
+product73:
+  practice: practice9
+  user: kimura
+  body: 『mentormentaroが担当/提出済み/最新のコメントがkimura』の提出物です。
+  checker: mentormentaro
+  published_at: <%= now.to_formatted_s(:db) %>
+  created_at: <%= now.to_formatted_s(:db) %>
+
+product74:
+  practice: practice10
+  user: kimura
+  body: 『mentormentaroが担当/提出済み/最新のコメントがmentormentaro』の提出物です。
+  checker: mentormentaro
+  published_at: <%= now.to_formatted_s(:db) %>
+  created_at: <%= now.to_formatted_s(:db) %>
+
+product5:
+  practice: practice14
+  user: kimura
+  body: 4時間後に5日経過に到達する提出物です。
+  published_at: <%= (now - 60 * 60 * 23 * 5).to_formatted_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 23 * 5).to_formatted_s(:db) %>
+
+product76:
+  practice: practice19
+  user: kyuukai
+  body: 休会中ユーザの提出物です。
+  published_at: <%= now.to_formatted_s(:db) %>
+  created_at: <%= now.to_formatted_s(:db) %>
+
+product77:
+  practice: practice15
+  user: kimura
+  body: 『mentormentaroが担当/提出済み/最新のコメントがkimuraでコメントから5日経過した』提出物です。
+  checker: mentormentaro
+  published_at: <%= (now - 60 * 60 * 24 * 5).to_formatted_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 5).to_formatted_s(:db) %>
+
+product78:
+  practice: practice1
+  user: kensyu-end-within-24-hour
+  body: 24時間以内に研修終了するユーザーの提出物です。
+  published_at: <%= now.to_formatted_s(:db) %>
+  created_at: <%= now.to_formatted_s(:db) %>
+
+product79:
+  practice: practice1
+  user: kensyu-end-within-1-week
+  body: 1週間以内に研修終了するユーザーの提出物です。
+  published_at: <%= now.to_formatted_s(:db) %>
+  created_at: <%= now.to_formatted_s(:db) %>
+
+product80:
+  practice: practice1
+  user: kensyu-end-over-1-week
+  body: 研修終了まで1週間以上のユーザーの提出物です。
+  published_at: <%= now.to_formatted_s(:db) %>
+  created_at: <%= now.to_formatted_s(:db) %>
+
+product81:
+  practice: practice1
+  user: kensyu-not-setting-end-date
+  body: 研修終了日が未入力のユーザーの提出物です。
+  published_at: <%= now.to_formatted_s(:db) %>
+  created_at: <%= now.to_formatted_s(:db) %>

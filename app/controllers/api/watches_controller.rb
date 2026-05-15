@@ -4,20 +4,26 @@ class API::WatchesController < API::BaseController
   include Rails.application.routes.url_helpers
 
   def index
-    @watches = Watch.where(
-      user: current_user,
-      watchable: watchable
-    )
+    @current_page = params[:page]
+    @watches = current_user.watches.preload(watchable: [:user]).order(created_at: :desc).page(params[:page])
+    render partial: 'watches/watches', locals: { watches: @watches }
   end
 
   def create
-    @watch = Watch.new(
-      user: current_user,
-      watchable: watchable
+    watch_existence = Watch.exists?(
+      user_id: current_user.id,
+      watchable:
     )
-
-    @watch.save!
-    render json: @watch
+    if watch_existence
+      message = "この#{watchable.class.model_name.human}はWatch済です。"
+      render json: { message: }, status: :unprocessable_entity
+    else
+      watch = Watch.create!(
+        user: current_user,
+        watchable:
+      )
+      render json: watch
+    end
   end
 
   def destroy
@@ -27,7 +33,8 @@ class API::WatchesController < API::BaseController
   end
 
   private
-    def watchable
-      params[:watchable_type].constantize.find(params[:watchable_id])
-    end
+
+  def watchable
+    params[:watchable_type].constantize.find_by(id: params[:watchable_id])
+  end
 end

@@ -1,107 +1,218 @@
+import { FetchRequest } from '@rails/request.js'
+import { renderAllReactions } from './reaction_render.js'
+
 document.addEventListener('DOMContentLoaded', () => {
   const reactions = document.querySelectorAll('.js-reactions')
 
-  if (reactions.length === 0) { return }
+  if (reactions.length === 0) {
+    return
+  }
 
-  const requestReaction = (url, method, callback) => {
-    fetch(url, {
-      method: method,
-      credentials: 'same-origin',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': $.rails.csrfToken()
+  reactions.forEach((reaction) => {
+    initializeReaction(reaction)
+  })
+  registerOutsideClickListener()
+})
+
+export function initializeReaction(reaction) {
+  const loginName = reaction.dataset.reactionLoginName
+  const reactionableGid = reaction.dataset.reactionReactionableGid
+
+  const dropdown = reaction.querySelector('.js-reaction-dropdown')
+  if (dropdown) {
+    dropdown.addEventListener('click', (e) => {
+      const reactionEmoji = e.currentTarget.querySelector('.js-reaction')
+      reactionEmoji.hidden = !reactionEmoji.hidden
+    })
+  }
+
+  reaction.querySelectorAll('li').forEach((element) => {
+    element.addEventListener('click', (e) => {
+      const kind = e.currentTarget.dataset.reactionKind
+      const reactionId = e.currentTarget.dataset.reactionId
+
+      if (reactionId) {
+        destroyReaction(reaction, kind, loginName, reactionId)
+      } else {
+        createReaction(reaction, kind, loginName, reactionableGid)
       }
-    }).then(response => {
-      return response.json()
-    }).then(json => {
-      callback(json)
-    }).catch(error => {
-      console.warn(error)
     })
-  }
+  })
 
-  const updateReactionCount = (element, count) => {
-    let reactionCount = element.querySelector('.js-reaction-count')
+  setupUsersList(reaction, reactionableGid)
+}
 
-    if (!reactionCount) { return }
+function requestReaction(url, method, callback) {
+  const request = new FetchRequest(method, url, {
+    responseKind: 'json'
+  })
 
-    reactionCount.textContent = Number(reactionCount.textContent) + count
-    switch (reactionCount.textContent) {
-      case '0':
-        element.hidden = true
-        break
-      case '1':
-        element.hidden = false
-        break
-    }
-  }
-
-  const updateReactionLoginNames = (element, loginName) => {
-    let reactionLoginNames = element.querySelector('.js-reaction-login-names')
-
-    if (!reactionLoginNames) { return }
-
-    let reactionLoginName = Array.from(reactionLoginNames.children).find(li => {
-      return li.textContent === loginName
+  request
+    .perform()
+    .then((response) => {
+      if (response.ok) {
+        return response.json
+      } else {
+        throw new Error(`API error: ${url} (status: ${response.statusCode})`)
+      }
     })
+    .then((json) => callback(json))
+    .catch((error) => console.warn(error))
+}
 
-    if (reactionLoginName) {
-      reactionLoginNames.removeChild(reactionLoginName)
-    } else {
-      let li = document.createElement('li')
-      li.textContent = loginName
-      reactionLoginNames.appendChild(li)
-    }
+function updateReactionCount(element, count) {
+  const reactionCount = element.querySelector('.js-reaction-count')
+
+  if (!reactionCount) {
+    return
   }
 
-  const createReaction = (reaction, kind, loginName, reactionableId) => {
-    const url = `/api/reactions?reactionable_id=${reactionableId}&kind=${kind}`
+  reactionCount.textContent = Number(reactionCount.textContent) + count
+  switch (reactionCount.textContent) {
+    case '0':
+      element.hidden = true
+      break
+    case '1':
+      element.hidden = false
+      break
+  }
+}
 
-    requestReaction(url, 'POST', (json) => {
-      Array.from(reaction.querySelectorAll(`[data-reaction-kind="${kind}"]`), element => {
+function updateReactionLoginNames(element, loginName) {
+  const reactionLoginNames = element.querySelector('.js-reaction-login-names')
+
+  if (!reactionLoginNames) {
+    return
+  }
+
+  const reactionLoginName = Array.from(reactionLoginNames.children).find(
+    (li) => li.textContent === loginName
+  )
+
+  if (reactionLoginName) {
+    reactionLoginNames.removeChild(reactionLoginName)
+  } else {
+    const li = document.createElement('li')
+    li.textContent = loginName
+    reactionLoginNames.appendChild(li)
+  }
+}
+
+function createReaction(reaction, kind, loginName, reactionableGid) {
+  const url = `/api/reactions?reactionable_gid=${reactionableGid}&kind=${kind}`
+
+  requestReaction(url, 'POST', (json) => {
+    if (!json || !json.id) {
+      return
+    }
+    reaction
+      .querySelectorAll(`[data-reaction-kind="${kind}"]`)
+      .forEach((element) => {
         element.classList.add('is-reacted')
         element.dataset.reactionId = json.id
         updateReactionCount(element, 1)
         updateReactionLoginNames(element, loginName)
       })
-    })
-  }
+    updateUsersToggleState(reaction)
+  })
+}
 
-  const destroyReaction = (reaction, kind, loginName, reactionId) => {
-    const url = `/api/reactions/${reactionId}`
+function destroyReaction(reaction, kind, loginName, reactionId) {
+  const url = `/api/reactions/${reactionId}`
 
-    requestReaction(url, 'DELETE', (json) => {
-      Array.from(reaction.querySelectorAll(`[data-reaction-kind="${kind}"]`), element => {
+  requestReaction(url, 'DELETE', () => {
+    reaction
+      .querySelectorAll(`[data-reaction-kind="${kind}"]`)
+      .forEach((element) => {
         element.classList.remove('is-reacted')
-        delete (element.dataset.reactionId)
+        delete element.dataset.reactionId
         updateReactionCount(element, -1)
         updateReactionLoginNames(element, loginName)
       })
-    })
+    updateUsersToggleState(reaction)
+  })
+}
+
+function setupUsersList(reaction, reactionableGid) {
+  const usersToggle = reaction.querySelector('.js-reactions-users-toggle')
+  const usersList = reaction.querySelector('.js-reactions-users-list')
+
+  if (!usersToggle || !usersList) {
+    return
   }
 
-  Array.from(reactions, reaction => {
-    const loginName = reaction.dataset.reactionLoginName
-    const reactionableId = reaction.dataset.reactionReactionableId
+  updateUsersToggleState(reaction)
 
-    Array.from(reaction.querySelectorAll('li'), element => {
-      element.addEventListener('click', e => {
-        const kind = e.currentTarget.dataset.reactionKind
-        const reactionId = e.currentTarget.dataset.reactionId
+  usersToggle.addEventListener('click', (e) => {
+    if (usersToggle.classList.contains('is-disabled')) {
+      return
+    }
+    e.stopPropagation()
+    const isHidden = usersList.classList.contains('hidden')
+    if (isHidden) {
+      fetchAllReactions(reactionableGid, (data) => {
+        if (!data || Object.keys(data).length === 0) {
+          return
+        }
+        renderAllReactions(data, usersList)
+        open(usersList)
+      })
+    } else {
+      close(usersList)
+    }
+  })
+}
 
-        if (reactionId) {
-          destroyReaction(reaction, kind, loginName, reactionId)
-        } else {
-          createReaction(reaction, kind, loginName, reactionableId)
+function registerOutsideClickListener() {
+  document.addEventListener('click', (e) => {
+    document
+      .querySelectorAll('.js-reactions-users-list')
+      .forEach((usersList) => {
+        const usersToggle = usersList
+          .closest('.js-reactions')
+          ?.querySelector('.js-reactions-users-toggle')
+
+        const isOpen = !usersList.classList.contains('hidden')
+        const clickedOutside =
+          !usersList.contains(e.target) && !usersToggle?.contains(e.target)
+        if (isOpen && clickedOutside) {
+          close(usersList)
         }
       })
-    })
   })
+}
 
-  Array.from(document.querySelectorAll('.js-reaction-dropdown'), dropdown => {
-    dropdown.addEventListener('click', e => {
-      const reaction = e.currentTarget.querySelector('.js-reaction')
-      reaction.hidden = !reaction.hidden
-    })
+function open(usersList) {
+  document.querySelectorAll('.js-reactions-users-list').forEach((element) => {
+    if (!element.classList.contains('hidden')) {
+      element.classList.add('hidden')
+    }
   })
-})
+  usersList.classList.remove('hidden')
+}
+
+function close(usersList) {
+  usersList.classList.add('hidden')
+}
+
+function fetchAllReactions(reactionableGid, callback) {
+  const url = `/api/reactions?reactionable_gid=${encodeURIComponent(
+    reactionableGid
+  )}`
+  requestReaction(url, 'GET', callback)
+}
+
+function updateUsersToggleState(reaction) {
+  const usersToggle = reaction.querySelector('.js-reactions-users-toggle')
+  if (!usersToggle) {
+    return
+  }
+
+  const totalReactionCount = [
+    ...reaction.querySelectorAll('.js-reaction-count')
+  ].reduce(
+    (total, element) => total + (parseInt(element.textContent, 10) || 0),
+    0
+  )
+  usersToggle.classList.toggle('is-disabled', totalReactionCount === 0)
+}

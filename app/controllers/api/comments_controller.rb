@@ -1,22 +1,29 @@
 # frozen_string_literal: true
 
 class API::CommentsController < API::BaseController
-  before_action :require_login
-  before_action :set_my_comment, only: %i(update destroy)
+  before_action :set_my_comment, only: %i[update destroy]
+  before_action :set_available_emojis, only: %i[index create]
+  before_action -> { doorkeeper_authorize! :write }, only: %i[create update destroy], if: -> { doorkeeper_token.present? }
 
   def index
-    @comments = commentable.comments.order(created_at: :asc)
-    @available_emojis = Reaction.emojis.map { |key, value| { kind: key, value: value } }
+    if params[:commentable_type].present?
+      return if commentable.comments.nil?
+
+      @comments = commentable.comments.order(created_at: :desc)
+      @comment_total_count = @comments.size
+      @comments = @comments.limit(params[:comment_limit])
+                           .offset(params[:comment_offset])
+    else
+      head :bad_request
+    end
   end
 
   def create
     @comment = Comment.new(comment_params)
     @comment.user = current_user
     @comment.commentable = commentable
-    @available_emojis = Reaction.emojis.map { |key, value| { kind: key, value: value } }
     if @comment.save
-      notify_to_slack(@comment)
-      render :create, status: :created
+      render partial: 'comments/comment', locals: { commentable:, comment: @comment, user: current_user, latest_comment: @comment }, status: :created
     else
       head :bad_request
     end
@@ -36,28 +43,15 @@ class API::CommentsController < API::BaseController
 
   private
 
-    def comment_params
-      params.require(:comment).permit(:description)
-    end
+  def comment_params
+    params.require(:comment).permit(:description)
+  end
 
-    def commentable
-      params[:commentable_type].constantize.find(params[:commentable_id])
-    end
+  def commentable
+    params[:commentable_type].constantize.find(params[:commentable_id])
+  end
 
-    def set_my_comment
-      @comment = current_user.admin? ? Comment.find(params[:id]) : current_user.comments.find(params[:id])
-    end
-
-    def notify_to_slack(comment)
-      name = "#{comment.user.login_name}"
-      link = "<#{polymorphic_url(comment.commentable)}#comment_#{comment.id}|#{comment.commentable.title}>"
-
-      SlackNotification.notify "#{name} commented to #{link}",
-        username: "#{comment.user.login_name} (#{comment.user.full_name})",
-        icon_url: comment.user.avatar_url,
-        attachments: [{
-          fallback: "comment body.",
-          text: comment.description
-        }]
-    end
+  def set_my_comment
+    @comment = current_user.admin? || current_user.mentor? ? Comment.find(params[:id]) : current_user.comments.find(params[:id])
+  end
 end

@@ -9,9 +9,9 @@ class API::Practices::LearningController < API::BaseController
       practice_id: params[:practice_id]
     )
 
-    if @learning.new_record?
-      @learning.status = :unstarted
-    end
+    return unless @learning.new_record?
+
+    @learning.status = :unstarted
   end
 
   def update
@@ -20,16 +20,17 @@ class API::Practices::LearningController < API::BaseController
       practice_id: params[:practice_id]
     )
 
-    if params[:status].nil?
-      learning.status = :complete
-    else
-      learning.status = params[:status].to_sym
-    end
+    learning.status = if params[:status].nil?
+                        :complete
+                      else
+                        params[:status].to_sym
+                      end
 
     status = learning.new_record? ? :created : :ok
 
     if learning.save
-      notify_learning(user: current_user, learning: learning)
+      ActiveSupport::Notifications.instrument('learning.create', user: learning.user)
+      notify_to_chat_for_employment_counseling(learning) if status == :created && learning.practice.title == '就職相談部屋を作る'
       head status
     else
       render json: learning.errors, status: :unprocessable_entity
@@ -37,13 +38,11 @@ class API::Practices::LearningController < API::BaseController
   end
 
   private
-    def notify_learning(user:, learning:)
-      subject = "<#{user_url(user)}|#{user.login_name}>"
-      object = "<#{practice_url(learning.practice)}|#{learning.practice.title}>"
-      verb = "#{t("activerecord.enums.learning.status." + learning.status.to_s)}しました。"
-      text = "#{subject}が#{object}を#{verb}"
-      SlackNotification.notify text,
-        username: "#{current_user.login_name}@bootcamp.fjord.jp",
-        icon_url: current_user.avatar_url
-    end
+
+  def notify_to_chat_for_employment_counseling(learning)
+    ChatNotifier.message(
+      "お知らせ：#{learning.user.name}がプラクティス「#{learning.practice.title}」に進みました。",
+      webhook_url: ENV['DISCORD_ADMIN_WEBHOOK_URL']
+    )
+  end
 end

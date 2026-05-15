@@ -1,0 +1,37 @@
+.sns-links
+  ul.sns-links__items.is-button-group
+    li.sns-links__item
+      - if user.github_account
+        = link_to "https://github.com/#{user.github_account}", class: 'sns-links__item-link a-button is-sm is-secondary is-icon'
+          i.fa-brands.fa-github-alt
+      - else
+        .sns-links__item-link.a-button.is-sm.is-disabled.is-icon
+          i.fa-brands.fa-github-alt
+    li.sns-links__item
+      - if user.twitter_account
+        = link_to "https://twitter.com/#{user.twitter_account}", class: 'sns-links__item-link a-button is-sm is-secondary is-icon'
+          i.fa-brands.fa-x-twitter
+      - else
+        .sns-links__item-link.a-button.is-sm.is-disabled.is-icon
+          i.fa-brands.fa-x-twitter
+    li.sns-links__item
+      - if user.facebook_url
+        = link_to "https://www.facebook.com/#{user.facebook_url}", class: 'sns-links__item-link a-button is-sm is-secondary is-icon'
+          i.fa-brands.fa-facebook-square
+      - else
+        .sns-links__item-link.a-button.is-sm.is-disabled.is-icon
+          i.fa-brands.fa-facebook-square
+    li.sns-links__item
+      - if user.blog_url
+        = link_to user.blog_url, class: 'sns-links__item-link a-button is-sm is-secondary is-icon'
+          i.fa-solid.fa-blog
+      - else
+        .sns-links__item-link.a-button.is-sm.is-disabled.is-icon
+          i.fa-solid.fa-blog
+    li.sns-links__item
+      - if user.discord_profile.times_url
+        = link_to user.discord_profile.times_url, class: 'sns-links__item-link a-button is-sm is-secondary is-icon'
+          i.fa-solid.fa-clock
+      - else
+        .sns-links__item-link.a-button.is-sm.is-disabled.is-icon
+          i.fa-solid.fa-clock

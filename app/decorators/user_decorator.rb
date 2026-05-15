@@ -1,52 +1,107 @@
 # frozen_string_literal: true
 
 module UserDecorator
-  DAYS_IN_WEEK = 7
-  CALENDAR_TERM = 30
+  NEW_USER_DAYS = 7
+
+  include Role
+  include Retire
+  include ReportStatus
 
   def twitter_url
     "https://twitter.com/#{twitter_account}"
   end
 
-  def role
-    roles = [
-      { role: :admin, value: admin },
-      { role: :mentor, value: mentor },
-      { role: :adviser, value: adviser },
-      { role: :trainee, value: trainee },
-      { role: :graduate, value: graduated_on },
-      { role: :student, value: true }
-    ]
-    roles.detect { |v| v[:value] }[:role]
-  end
-
-  def staff_roles
-    staff_roles = [
-      { role: "管理者", value: admin },
-      { role: "メンター", value: mentor },
-      { role: "アドバイザー", value: adviser }
-    ]
-    staff_roles.find_all { |v| v[:value] }
-               .map { |v| v[:role] }
-               .join("、")
-  end
-
   def icon_title
-    [self.login_name, self.staff_roles].reject(&:blank?)
-                                       .join(": ")
+    ["#{login_name} (#{name})", staff_roles].reject(&:blank?)
+                                            .join(': ')
   end
 
   def url
     user_url(self)
   end
 
-  def niconico_calendar
-    reports_date_and_emotion = self.reports_date_and_emotion(CALENDAR_TERM)
-    last_wday = reports_date_and_emotion.first[:date].wday
+  def icon_classes(*classes)
+    classes << 'a-user-icon'
+    classes.join(' ')
+  end
 
-    blanks = last_wday.times.map { { report: nil, date: nil, emotion: nil } }
+  def customer_url
+    "https://dashboard.stripe.com/customers/#{customer_id}"
+  end
 
-    [ *blanks, *reports_date_and_emotion].each_slice(DAYS_IN_WEEK)
-                                         .to_a
+  def subscription_url
+    "https://dashboard.stripe.com/subscriptions/#{subscription_id}"
+  end
+
+  def title
+    login_name
+  end
+
+  def long_name
+    "#{login_name} (#{name_kana})"
+  end
+
+  def private_name
+    "#{name} (#{name_kana})"
+  end
+
+  def enrollment_period
+    if graduated?
+      if elapsed_days.positive?
+        tag.span(" (#{l graduated_on}卒業 #{elapsed_days}日) ") + tag.a("#{generation}期生", href: generation_path(generation))
+      else
+        tag.span(" (#{l graduated_on}卒業 ") + tag.a("#{generation}期生", href: generation_path(generation))
+      end
+    else
+      tag.span(" #{elapsed_days}日目 ") + tag.a("#{generation}期生", href: generation_path(generation))
+    end
+  end
+
+  def subdivisions_of_country
+    return if country_code.blank?
+
+    country = ISO3166::Country[country_code]
+    country.subdivision_names_with_codes(I18n.locale.to_sym)
+  end
+
+  def address
+    if country_code.present? && subdivision_code.present?
+      "#{subdivision_name} (#{country_name})"
+    elsif country_code.present? && subdivision_code.blank?
+      country_name
+    end
+  end
+
+  def hibernation_days
+    ActiveSupport::Duration.build(Time.zone.now - hibernated_at).in_days.floor if hibernated_at?
+  end
+
+  def other_editor_checked?(editors)
+    editors.pop
+    editor.present? && editors.exclude?(editor)
+  end
+
+  def editor_or_other_editor
+    return nil if editor.nil?
+
+    editor == 'other_editor' ? other_editor : t("activerecord.enums.user.editor.#{editor}")
+  end
+
+  def niconico_calendar(dates_and_reports)
+    first_wday = dates_and_reports.first[:date].wday
+
+    blanks = Array.new(first_wday) { { date: nil } }
+
+    [*blanks, *dates_and_reports].each_slice(7).to_a
+  end
+
+  def joining_status
+    elapsed_days <= NEW_USER_DAYS ? 'new-user' : ''
+  end
+
+  def user_icon_frame_class
+    classes = ['a-user-role', "is-#{primary_role}"]
+    classes << 'is-new-user' if joining_status == 'new-user'
+    classes.join(' ')
   end
 end

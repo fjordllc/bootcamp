@@ -1,0 +1,13 @@
+doctype html
+html lang='ja'
+  head
+    = display_meta_tags default_meta_tags
+    = render 'layouts/common/common_head'
+    = stylesheet_link_tag 'not-logged-in', media: 'all'
+    = content_for(:head_last) if content_for?(:head_last)
+  body.is-not-logged-in(class="#{body_class}")
+    .not-logged-in-wrapper
+      .not-logged-in-wrapper__start
+        = yield
+      .not-logged-in-wrapper__end
+        = render 'shared/not_logged_in_footer'

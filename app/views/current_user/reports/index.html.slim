@@ -1,0 +1,38 @@
+- title '自分の日報'
+- set_meta_tags description: '自分の日報一覧ページです。'
+
+= render 'home/page_header'
+= dashboard_page_tabs(active_tab: '自分の日報')
+
+.page-main
+  .page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | 自分の日報（#{@user.reports.length}）
+        - if current_user.reports.present?
+          .page-main-header__end
+            .page-main-header-actions
+              .page-main-header-actions__items
+                .page-main-header-actions__item
+                  = link_to user_reports_path(@user, format: :md), class: 'a-button is-md is-primary is-block' do
+                    | 日報ダウンロード
+
+hr.a-border
+
+.page-body
+  - if @reports.empty?
+    .o-empty-message
+      .o-empty-message__icon
+        i.fa-regular.fa-sad-tear
+      .o-empty-message__text
+        | 日報はまだありません。
+  - else
+    .container.is-md
+      .page-content.reports
+        = paginate @reports
+        .card-list.a-card
+          .card-list__items
+            = render partial: 'reports/report', collection: @reports, as: :report, locals: { user_icon_display: true, actions_display: true }
+        = paginate @reports

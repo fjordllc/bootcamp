@@ -1,12 +1,21 @@
 # frozen_string_literal: true
 
-require "application_system_test_case"
+require 'application_system_test_case'
 
 class Practice::QuestionsTest < ApplicationSystemTestCase
-  setup { login_user "hatsuno", "testtest" }
+  test 'show listing questions' do
+    visit_with_auth "/practices/#{practices(:practice1).id}/questions", 'hatsuno'
+    assert_equal 'OS X Mountain Lionをクリーンインストールするに関するQ&A | FBC', title
+  end
 
-  test "show listing questions" do
-    visit "/practices/#{practices(:practice_1).id}/questions"
-    assert_equal "OS X Mountain Lionをクリーンインストールする | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+  test 'show a WIP question on the all questions list ' do
+    visit_with_auth "/practices/#{practices(:practice1).id}/questions", 'hatsuno'
+    assert_text 'wipテスト用の質問(wip中)'
+  end
+
+  test 'not show a WIP question on the unsolved questions list ' do
+    visit_with_auth "/practices/#{practices(:practice1).id}/questions?target=not_solved", 'hatsuno'
+    assert_no_text 'wipテスト用の質問(wip中)'
+    assert_selector('a.tab-nav__item-link.is-active', text: '未解決')
   end
 end

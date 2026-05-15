@@ -1,14 +1,13 @@
-- title "'#{params[:word]}'の検索結果"
+- title("#{@word} の検索結果#{' 自分の投稿のみ' if params[:only_me]}")
+- set_meta_tags({ description: "#{@word}の検索結果一覧ページです。" })
 
 header.page-header
   .container
     .page-header__inner
-      h2.page-header__title
-        = title
+      .page-header__start
+        h2.page-header__title = "#{@word} の検索結果"
 
 .page-body
-  .container
-    = paginate @searchables, position: "top"
-    .thread-list.a-card
-      = render partial: "searchables/searchable", collection: @searchables, as: :searchable, locals: { words: "" }
-    = paginate @searchables, position: "bottom"
+  = paginate @searchables
+  = render SearchablesComponent.new(searchables: @searchables, users: @users, word: @word, talks: @talks)
+  = paginate @searchables

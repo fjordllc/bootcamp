@@ -1,22 +1,34 @@
-- title @practice.title
+- title "#{@practice.title}の提出物"
+- if @practice.open_product?
+  - set_meta_tags description: "プラクティス「#{@practice.title}」の提出物一覧です。このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。"
+- else
+  - set_meta_tags description: "プラクティス「#{@practice.title}」の提出物一覧です。"
+- category = @practice.category(current_user.course)
 
-header.page-header
-  .container
-    .page-header__inner
-      h2.page-header__title
-        = title
-      .page-header-actions
-        ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to current_user.course, class: "a-button is-md is-secondary is-block" do
-              | プラクティス一覧
+= render '/practices/page_header',
+  title: @practice.title,
+  category: category,
+  practice: @practice
 
-= render "page_tabs", resource: @practice
+= practice_page_tabs(@practice, active_tab: '提出物')
 
 .page-body
-  .container
-    = paginate @products, position: "top"
+  - if current_user.student_or_trainee?
+    - if @practice.open_product?
+      .a-page-notice
+        .container
+          .a-page-notice__inner
+            p このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。
+    - elsif @my_product.nil? || @my_product.checks.empty?
+      .a-page-notice
+        .container
+          .a-page-notice__inner
+            p プラクティスを修了するまで他の人の提出物は見れません。
+  .container.is-md
+    = paginate @products
     - if @products.present?
-      .thread-list.a-card
-        = render partial: "products/product", collection: @products, as: :product
-    = paginate @products, position: "bottom"
+      .card-list.a-card
+        = render partial: 'products/product',
+          collection: @products,
+          as: :product
+    = paginate @products

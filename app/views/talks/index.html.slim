@@ -1,0 +1,14 @@
+- title '相談部屋'
+- set_meta_tags description: '相談部屋一覧ページです。'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title
+          = title
+
+= talks_page_tabs(active_tab: '全て')
+= render 'talks/nav'
+
+= render 'talks/talks'

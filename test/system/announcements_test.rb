@@ -1,125 +1,63 @@
 # frozen_string_literal: true
 
-require "application_system_test_case"
+require 'application_system_test_case'
 
 class AnnouncementsTest < ApplicationSystemTestCase
-  test "show link to create new announcement when user is admin" do
-    login_user "komagata", "testtest"
-    visit "/announcements"
-    assert_text "お知らせ作成"
+  setup do
+    @delivery_mode = AbstractNotifier.delivery_mode
+    AbstractNotifier.delivery_mode = :normal
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/all')
   end
 
-  test "don't show link to create new announcement when user isn't admin" do
-    login_user "kimura", "testtest"
-    visit "/announcements"
-    assert_no_text "お知らせ作成"
+  teardown do
+    AbstractNotifier.delivery_mode = @delivery_mode
   end
 
-  test "show pagination" do
-    login_user "kimura", "testtest"
+  test 'show pagination' do
     user = users(:komagata)
     Announcement.delete_all
-    26.times do |n|
-      Announcement.create(title: "test", description: "test", user: user)
+    26.times do
+      Announcement.create(title: 'test', description: 'test', user:, published_at: DateTime.now)
     end
-    visit "/announcements"
-    assert_selector "nav.pagination", count: 2
+    visit_with_auth '/announcements', 'kimura'
+    assert_selector 'nav.pagination', count: 2
   end
 
-  test "announcement has a comment form " do
-    login_user "kimura", "testtest"
-    visit "/announcements/#{announcements(:announcement_1).id}"
-    assert_selector ".thread-comment-form"
+  test 'announcement has a comment form ' do
+    visit_with_auth "/announcements/#{announcements(:announcement1).id}", 'kimura'
+    assert_selector '.thread-comment-form'
   end
 
-  test "delete announcement with notification" do
-    login_user "komagata", "testtest"
-    visit "/announcements"
-    click_link "お知らせ作成"
-    fill_in "announcement[title]", with: "タイトルtest"
-    fill_in "announcement[description]", with: "内容test"
+  test 'show user name_kana next to user name' do
+    announcement = announcements(:announcement1)
+    user = announcement.user
+    decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
+    visit_with_auth "/announcements/#{announcement.id}", 'kimura'
+    assert_text decorated_user.long_name
+  end
 
-    click_button "作成"
-    assert_text "お知らせを作成しました"
+  test 'show comment count' do
+    visit_with_auth "/announcements/#{announcements(:announcement1).id}", 'kimura'
 
-    login_user "hatsuno", "testtest"
-    visit "/notifications"
-    assert_text "komagataさんからお知らせです。"
+    fill_in 'new_comment[description]', with: 'コメント数表示のテストです。'
+    click_button 'コメントする'
+    assert_selector 'p', text: 'コメント数表示のテストです。'
 
-    login_user "komagata", "testtest"
-    visit "/announcements"
-    click_on "タイトルtest"
-    accept_confirm do
-      click_link "削除"
+    visit current_path
+    assert_selector '#comment_count', text: '2'
+  end
+
+  test 'using file uploading by file selection dialogue in textarea' do
+    visit_with_auth new_announcement_path, 'komagata'
+    wait_for_announcement_form
+    within(:css, '.a-file-insert') do
+      assert_selector 'input.file-input', visible: false
     end
-    assert_text "お知らせを削除しました"
-
-    login_user "hatsuno", "testtest"
-    visit "/notifications"
-    assert_no_text "komagataさんからお知らせです。"
+    assert_equal '.file-input', find('textarea.a-text-input')['data-input']
   end
 
-  test "announcement notification receive only active users" do
-    login_user "machida", "testtest"
-    visit "/announcements"
-    click_link "お知らせ作成"
-    fill_in "announcement[title]", with: "現役生にのみお知らせtest"
-    fill_in "announcement[description]", with: "内容test"
-    choose "現役生にのみお知らせ", visible: false
-
-    click_button "作成"
-    assert_text "お知らせを作成しました"
-
-    login_user "komagata", "testtest"
-    visit "/notifications"
-    assert_text "machidaさんからお知らせです。"
-
-    login_user "kimura", "testtest"
-    visit "/notifications"
-    assert_text "machidaさんからお知らせです。"
-
-    login_user "sotugyou", "testtest"
-    visit "/notifications"
-    assert_no_text "machidaさんからお知らせです。"
-
-    login_user "advijirou", "testtest"
-    visit "/notifications"
-    assert_no_text "machidaさんからお知らせです。"
-
-    login_user "yameo", "testtest"
-    visit "/notifications"
-    assert_no_text "machidaさんからお知らせです。"
-
-    login_user "yamada", "testtest"
-    visit "/notifications"
-    assert_no_text "machidaさんからお知らせです。"
-
-    login_user "kensyu", "testtest"
-    visit "/notifications"
-    assert_no_text "machidaさんからお知らせです。"
-  end
-
-  test "announcement notifications are only recived by job seekers" do
-    login_user "machida", "testtest"
-    visit "/announcements"
-    click_link "お知らせ作成"
-    fill_in "announcement[title]", with: "就活希望者のみお知らせします"
-    fill_in "announcement[description]", with: "合同説明会をやるのでぜひいらしてください！"
-    choose "就職希望者にのみお知らせ", visible: false
-
-    click_button "作成"
-    assert_text "お知らせを作成しました"
-
-    login_user "komagata", "testtest"
-    visit "/notifications"
-    assert_text "machidaさんからお知らせです。"
-
-    login_user "jobseeker", "testtest"
-    visit "/notifications"
-    assert_text "machidaさんからお知らせです。"
-
-    login_user "kimura", "testtest"
-    visit "/notifications"
-    assert_no_text "machidaさんからお知らせです。"
+  test 'show the latest announcements' do
+    visit_with_auth "/announcements/#{announcements(:announcement1).id}", 'kimura'
+    assert_text '最新のお知らせ'
   end
 end

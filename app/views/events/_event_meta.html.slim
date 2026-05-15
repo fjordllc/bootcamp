@@ -1,21 +1,20 @@
-.event-meta
+.event-meta.a-card
   .event-meta__inner
     dl.event-meta__items
       .event-meta__item
         dt.event-meta__item-label
           | 会場
-        dd.event-meta__item-value
-          = event.location
-      .event-meta__item
-        dt.event-meta__item-label
-          | 定員
-        dd.event-meta__item-value
-          | #{event.capacity}名
+        dd.event-meta__item-value.location
+          = auto_link(event.location)
+          | （定員 #{event.capacity}名）
       .event-meta__item
         dt.event-meta__item-label
           | 開催日時
         dd.event-meta__item-value
-          = event.period
+          span.event-meta__item-value-main
+            = event.period
+          = link_to google_calendar_url(event), class: 'a-button is-xs is-primary' do
+            | Googleカレンダーに追加
       .event-meta__item
         dt.event-meta__item-label
           | 募集期間

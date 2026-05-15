@@ -1,13 +1,40 @@
-.user-profile
-  .user-profile__icon
-    = image_tag user.avatar_url, title: "#{user.icon_title}", class: "user-profile__user-icon-image a-user-icon is-#{user.role}"
-  .user-profile__names
-    h1.user-profile__login-name
-      = user.login_name
-    h2.user-profile__full-name
-      = user.full_name
-      span.user-profile__kana-full-name
-        = user.kana_full_name
-  = render "users/sns", user: user
-  - if user.company.present? && user.company.logo.attached?
-    = image_tag user.company.logo_url, class: "user-profile__company-logo"
+header.page-content-header
+  .page-content-header__start
+    .page-content-header__user
+      = link_to user, class: 'page-content-header__user-link' do
+        span class=user.user_icon_frame_class
+          = image_tag user.avatar_url, title: user.icon_title, class: 'user-profile__user-icon-image a-user-icon'
+    - if user.company.present?
+      .user-profile__company-logo
+        = link_to company_path(user.company), class: 'user-profile__company-link is-company' do
+          = image_tag user.company.logo_url, class: 'user-profile__company-logo-image'
+  .page-content-header__end
+    .page-content-header__row
+      .page-content-header__before-title
+        .a-meta
+          | #{user.name}（#{user.name_kana}）
+      h1.page-content-header__title
+        = user.login_name
+    .page-content-header__row
+      .page-content-header-metas
+        .page-content-header-metas__start
+          .page-content-header-metas__meta
+            .a-meta
+              ul.a-meta__list
+                - user.roles.each do |role|
+                  li.a-meta__list-item
+                    = t "target.#{role}"
+        .page-content-header-metas__end
+          .page-content-header-metas__meta
+            - if user.discord_profile.times_url?
+              = link_to user.discord_profile.times_url, class: 'a-meta', target: '_blank', rel: 'noopener' do
+                .a-meta__icon
+                  i.fab.fa-discord
+                = user.discord_profile.account_name.presence || 'Discord ID 未登録'
+            - else
+              .a-meta
+                .a-meta__icon
+                  i.fab.fa-discord
+                = user.discord_profile.account_name.presence || 'Discord 未設定'
+    .page-content-header__row
+      = render 'users/sns', user: user

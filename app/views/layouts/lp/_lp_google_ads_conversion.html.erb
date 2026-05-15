@@ -1,0 +1,94 @@
+<!-- Google Ads conversion tracking -->
+<script>
+// Event snippet for サブスクコース申込みへの遷移 conversion page
+function gtag_report_conversion_subscribe(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-17419900911/oJRfCNrdhYUcEO-vuvJA',
+      'event_callback': callback
+  });
+  return false;
+}
+
+// Event snippet for 企業研修申し込みへの遷移 conversion page
+function gtag_report_conversion_corporate_training(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-17419900911/j7FvCPy1kYUcEO-vuvJA',
+      'value': 1.0,
+      'currency': 'JPY',
+      'event_callback': callback
+  });
+  return false;
+}
+
+// Event snippet for お問い合わせへの遷移 conversion page
+function gtag_report_conversion_inquiry(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-17419900911/isdDCOHxiYUcEO-vuvJA',
+      'value': 1.0,
+      'currency': 'JPY',
+      'event_callback': callback
+  });
+  return false;
+}
+
+// Event snippet for 給付金コース申し込みへ遷移 conversion page
+function gtag_report_conversion_grant(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-17419900911/9wrQCN_Y_IQcEO-vuvJA',
+      'value': 1.0,
+      'currency': 'JPY',
+      'event_callback': callback
+  });
+  return false;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('a[href*="choose_courses"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      gtag_report_conversion_subscribe(this.href);
+    });
+  });
+
+  document.querySelectorAll('a[href*="grant_course_applications"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      gtag_report_conversion_grant(this.href);
+    });
+  });
+
+  document.querySelectorAll('a[href*="corporate_training_inquir"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      gtag_report_conversion_corporate_training(this.href);
+    });
+  });
+
+  document.querySelectorAll('a[href*="inquiry/new"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      gtag_report_conversion_inquiry(this.href);
+    });
+  });
+});
+</script>

@@ -1,20 +1,19 @@
-- title "#{@user.login_name}のコメント"
-header.page-header
-  .container
-    .page-header__inner
-      h2.page-header__title
-        = title
-      .page-header-actions
-        ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to "ユーザー一覧", users_path, class: "a-button is-md is-secondary is-block"
+- title "#{@user.login_name}さんのコメント"
+- set_meta_tags description: "#{@user.login_name}さんのコメントページです。"
 
-.page-tools
-  = render "users/page_tabs", user: @user
+= render 'users/page_title', user: @user
+= user_page_tabs(@user, active_tab: 'コメント')
 
 .page-body
-  .container
-    = paginate @comments, position: "top"
-    .thread-list.a-card
-      = render "comments", comments: @comments
-    = paginate @comments, position: "bottom"
+  .container.is-md
+    = paginate @comments
+    - if @comments.present?
+      .card-list.a-card
+        = render 'comments', comments: @comments
+      = paginate @comments
+    - else
+      .o-empty-message
+        .o-empty-message__icon
+          i.fa-regular.fa-sad-tear
+        p.o-empty-message__text
+          | コメントはまだありません。

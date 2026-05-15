@@ -1,0 +1,34 @@
+- title '定期イベント'
+- set_meta_tags description: '定期イベント一覧ページです。'
+
+= render 'events/header'
+= events_page_tabs(active_tab: '定期イベント')
+
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h2.page-main-header__title
+            = title
+        .page-main-header__end
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              li.page-main-header-actions__item
+                = link_to new_regular_event_path, class: 'a-button is-md is-secondary is-block' do
+                  i.fa-regular.fa-plus
+                  span
+                    | 定期イベント作成
+  hr.a-border
+  .page-body
+    .page-body__inner.has-side-nav
+      .container.is-md
+        - if @regular_events.empty?
+          .o-empty-message
+            .o-empty-message__icon
+              i.fa-regular.fa-sad-tear
+            p.o-empty-message__text
+              | 登録されている定期イベントはありません。
+        - else
+          = render 'regular_events/regular_events'
+      = render 'events/upcoming_events_groups', upcoming_events_groups: @upcoming_events_groups

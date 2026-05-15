@@ -1,0 +1,111 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://discord.com/api/v9/guilds/1234567890123456789/members?limit=1000
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - DiscordBot (https://github.com/shardlab/discordrb, v3.5.0) rest-client/2.1.0
+        ruby/3.1.4p223 discordrb/3.5.0
+      Authorization:
+      - Bot valid token
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - discord.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 12 Jan 2024 13:50:35 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfruid=b14a2dc5058a642fee78bca06bcbffcdf9c7d51e-1705067435; path=/; domain=.discord.com;
+        HttpOnly; Secure; SameSite=None
+      - __dcfduid=8f536f6ab15111ee8a05367b405f8641; Expires=Wed, 10-Jan-2029 13:50:35
+        GMT; Max-Age=157680000; Secure; HttpOnly; Path=/; SameSite=Lax
+      - __sdcfduid=8f536f6ab15111ee8a05367b405f864195624d1148ee91dd1b3413f4d9505ed35f448c401524a77c94a8730aff5bb29a;
+        Expires=Wed, 10-Jan-2029 13:50:35 GMT; Max-Age=157680000; Secure; HttpOnly;
+        Path=/; SameSite=Lax
+      - _cfuvid=DhImK3CXL7CHUOTq3mVl2rZgN0pd06AeoHHGmM0we6s-1705067435093-0-604800000;
+        path=/; domain=.discord.com; HttpOnly; Secure; SameSite=None
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Ratelimit-Bucket:
+      - 14bcf0781dad097b39d603c7d772f784
+      X-Ratelimit-Limit:
+      - '10'
+      X-Ratelimit-Remaining:
+      - '9'
+      X-Ratelimit-Reset:
+      - '1705067444.969'
+      X-Ratelimit-Reset-After:
+      - '10.000'
+      Vary:
+      - Accept-Encoding
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=5GWLgmxowI0TOc7nzmNHi7PsqcoNp9bsfo3AJjsojb%2FDhHZBbsK8%2Fa2Xby3A%2B0x%2FcCk9xpyQlVxXAbF3EIYF7lSx06bXUi5j33Aa%2BhvK7N3MyKZB2V7sI4uGbrSU"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - frame-ancestors 'none'; default-src 'none'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 8445de8b8fe1f5f1-NRT
+    body:
+      encoding: UTF-8
+      base64_string: |
+        WwogIHsKICAgICJhdmF0YXIiOiBudWxsLAogICAgImNvbW11bmljYXRpb25f
+        ZGlzYWJsZWRfdW50aWwiOiBudWxsLAogICAgImZsYWdzIjogMCwKICAgICJq
+        b2luZWRfYXQiOiAiMjAyMy0xMi0yNVQwNjo1MDoxNy40NzMwMDArMDA6MDAi
+        LAogICAgIm5pY2siOiBudWxsLAogICAgInBlbmRpbmciOiBmYWxzZSwKICAg
+        ICJwcmVtaXVtX3NpbmNlIjogbnVsbCwKICAgICJyb2xlcyI6IFsKICAgICAg
+        IjExODg3MzU0NTE3ODg0OTI4MjUiCiAgICBdLAogICAgInVudXN1YWxfZG1f
+        YWN0aXZpdHlfdW50aWwiOiBudWxsLAogICAgInVzZXIiOiB7CiAgICAgICJp
+        ZCI6ICIxMTg3NzU0MTk3NzI3MzE4MDQ2IiwKICAgICAgInVzZXJuYW1lIjog
+        ImdldF91c2VyX2lkIiwKICAgICAgImF2YXRhciI6IG51bGwsCiAgICAgICJk
+        aXNjcmltaW5hdG9yIjogIjc3NzEiLAogICAgICAicHVibGljX2ZsYWdzIjog
+        MCwKICAgICAgInByZW1pdW1fdHlwZSI6IDAsCiAgICAgICJmbGFncyI6IDAs
+        CiAgICAgICJib3QiOiB0cnVlLAogICAgICAiYmFubmVyIjogbnVsbCwKICAg
+        ICAgImFjY2VudF9jb2xvciI6IG51bGwsCiAgICAgICJnbG9iYWxfbmFtZSI6
+        IG51bGwsCiAgICAgICJhdmF0YXJfZGVjb3JhdGlvbl9kYXRhIjogbnVsbCwK
+        ICAgICAgImJhbm5lcl9jb2xvciI6IG51bGwKICAgIH0sCiAgICAibXV0ZSI6
+        IGZhbHNlLAogICAgImRlYWYiOiBmYWxzZQogIH0sCiAgewogICAgImF2YXRh
+        ciI6IG51bGwsCiAgICAiY29tbXVuaWNhdGlvbl9kaXNhYmxlZF91bnRpbCI6
+        IG51bGwsCiAgICAiZmxhZ3MiOiAwLAogICAgImpvaW5lZF9hdCI6ICIyMDIz
+        LTEyLTIzVDAxOjM1OjEyLjIyMTAwMCswMDowMCIsCiAgICAibmljayI6IG51
+        bGwsCiAgICAicGVuZGluZyI6IGZhbHNlLAogICAgInByZW1pdW1fc2luY2Ui
+        OiBudWxsLAogICAgInJvbGVzIjogWwoKICAgIF0sCiAgICAidW51c3VhbF9k
+        bV9hY3Rpdml0eV91bnRpbCI6IG51bGwsCiAgICAidXNlciI6IHsKICAgICAg
+        ImlkIjogIjExODc5MjgxMDI2ODk1NzQ5NzYiLAogICAgICAidXNlcm5hbWUi
+        OiAibWVudG9ybWVudGFybyIsCiAgICAgICJhdmF0YXIiOiAiODU2OWFkY2Jk
+        MzZjNzBhNzU3OGMwMTdiZjU2MDRlYTUiLAogICAgICAiZGlzY3JpbWluYXRv
+        ciI6ICIwIiwKICAgICAgInB1YmxpY19mbGFncyI6IDAsCiAgICAgICJwcmVt
+        aXVtX3R5cGUiOiAwLAogICAgICAiZmxhZ3MiOiAwLAogICAgICAiYmFubmVy
+        IjogbnVsbCwKICAgICAgImFjY2VudF9jb2xvciI6IG51bGwsCiAgICAgICJn
+        bG9iYWxfbmFtZSI6IG51bGwsCiAgICAgICJhdmF0YXJfZGVjb3JhdGlvbl9k
+        YXRhIjogbnVsbCwKICAgICAgImJhbm5lcl9jb2xvciI6IG51bGwKICAgIH0s
+        CiAgICAibXV0ZSI6IGZhbHNlLAogICAgImRlYWYiOiBmYWxzZQogIH0KXQ==
+  recorded_at: Fri, 12 Jan 2024 13:50:35 GMT
+recorded_with: VCR 6.2.0

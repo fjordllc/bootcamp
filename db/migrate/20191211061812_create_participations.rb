@@ -8,6 +8,6 @@ class CreateParticipations < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
-    add_index :participations, [:user_id, :event_id], unique: true
+    add_index :participations, %i[user_id event_id], unique: true
   end
 end

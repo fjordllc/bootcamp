@@ -1,28 +1,55 @@
-- title "退会手続き"
+- title '退会手続き'
 
 header.page-header
   .container
     .page-header__inner
-      .page-header__title = title
+      .page-header__start
+        .page-header__title
+          = title
+hr.a-border
+.auth-form.is-lg
+  .a-card
+    header.auth-form__header
+      h1.auth-form__title 退会手続き
+    .auth-form__body
+      - if current_user.errors.any?
+        = render 'errors', object: current_user
+      = form_with model: current_user, local: true, url: retirement_path, method: :post, class: 'form' do |f|
+        .form__items
+          - if @regular_events_without_finished.any?
+            .form-item
+              = render 'shared/regular_events_warning',
+                events: @regular_events_without_finished,
+                case_text: '退会をお考えの',
+                action_text: '退会'
 
-.auth-form.is-sign-up.a-card.is-in-app
-  header.auth-form__header
-    h1.auth-form__title 退会手続き
-  .auth-form__body
-    - if current_user.errors.any?
-      = render "errors", object: current_user
-    = form_with model: current_user, local: true, url: retirement_path, method: :post, class: "form" do |f|
-      .form__items
-        .form-item
-          = f.label :retire_reason, "退会理由", class: "a-label"
-          = f.text_area :retire_reason, class: "a-text-input is-md", placeholder: "退会理由"
-          .a-form-help
-            p
-              | 差し支えなければ退会理由を教えてください。
+          .form-item
+            = f.label :retire_reasons, '退会の理由を教えてください（複数選択可）', class: 'a-form-label'
+            .checkboxes
+              ul.checkboxes__items
+                = f.collection_check_boxes :retire_reasons, User.retire_reasons.pairs, :second, :first, class: 'label-checkbox' do |b|
+                  li.checkboxes__item
+                    = b.check_box(class: 'a-toggle-checkbox')
+                    = b.label { b.text }
+          .form-item
+            = f.label :retire_reason, '上記を選んだ理由を教えてください。複数選んだ方は最も大きな理由を教えてください', class: 'a-form-label'
+            = f.text_area :retire_reason, class: 'a-text-input is-md', placeholder: '上記を選んだ理由を教えてください。複数選んだ方は最も大きな理由を教えてください'
+          .form-item
+            = f.label :satisfaction, '全体の満足度を教えてください', class: 'a-form-label is-required'
+            ul.block-checks.is-2-items
+              = f.collection_radio_buttons :satisfaction, User.satisfactions, :first, :first do |b|
+                li.block-checks__item
+                  .a-block-check.is-radio
+                    = b.radio_button(class: 'a-toggle-checkbox')
+                    label.a-block-check__label(for="user_satisfaction_#{b.value}")
+                      = t("activerecord.enums.user.satisfaction.#{b.text}")
+          .form-item
+            = f.label :opinion, 'ご意見や改善すべきと感じた点がございましたらご自由にご記載ください', class: 'a-form-label'
+            = f.text_area :opinion, class: 'a-text-input is-md', placeholder: 'ご意見や改善すべきと感じた点がございましたらご自由にご記載ください'
 
-      .form-actions
-        ul.form-actions__items
-          li.form-actions__item.is-main
-            = link_to "キャンセル", :back, class: "a-button is-md is-secondary is-block"
-          li.form-actions__item.is-main
-            = f.submit "退会する", class: "a-button is-md is-danger is-block", data: { confirm: "本当によろしいですか？" }
+        .form-actions
+          ul.form-actions__items
+            li.form-actions__item.is-main
+              = link_to 'キャンセル', :back, class: 'a-button is-md is-secondary is-block'
+            li.form-actions__item.is-main
+              = f.submit '退会する', class: 'a-button is-md is-danger is-block', data: { confirm: '本当によろしいですか？' }

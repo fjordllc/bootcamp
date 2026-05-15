@@ -1,0 +1,62 @@
+radio_button_choice1:
+  radio_button: radio_button1
+  choices: "とても満足している"
+  reason_for_choice_required: false
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+radio_button_choice2:
+  radio_button: radio_button1
+  choices: "満足している"
+  reason_for_choice_required: false
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+radio_button_choice3:
+  radio_button: radio_button1
+  choices: "どちらでもない"
+  reason_for_choice_required: false
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+radio_button_choice4:
+  radio_button: radio_button1
+  choices: "不満がある"
+  reason_for_choice_required: false
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+radio_button_choice5:
+  radio_button: radio_button1
+  choices: "とても不満がある"
+  reason_for_choice_required: true
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+radio_button_choice6:
+  radio_button: radio_button2
+  choices: "とても楽しく学習できている"
+  reason_for_choice_required: false
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+radio_button_choice7:
+  radio_button: radio_button2
+  choices: "楽しく学習できている"
+  reason_for_choice_required: false
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+radio_button_choice8:
+  radio_button: radio_button2
+  choices: "楽しく学習できていない"
+  reason_for_choice_required: false
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+radio_button_choice9:
+  radio_button: radio_button2
+  choices: "挫折しそうで辛い"
+  reason_for_choice_required: true
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

@@ -1,10 +1,8 @@
 .a-card
   .card-header.is-sm
     h2.card-header__title GitHub
+  hr.a-border-tint
   .user-grass
-    - if user.github_account
-      - cache "#{user.github_account}-grass", expires_in: 12.hours do
-        = link_to user_github_url(user), target: "_blank", class: "user-grass__link" do
-          = github_grass(user.github_account)
-    - else
-      .user-grass__empty GitHubアカウントは未登録です。
+    = link_to user_github_url(user), target: '_blank', rel: 'noopener', class: 'user-grass__link' do
+      .js-github-grass.github-grass(data-name="#{user.github_account}")
+      = render('/shared/loading_grass')

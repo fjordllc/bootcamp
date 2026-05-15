@@ -1,14 +1,14 @@
 import hotkeys from 'hotkeys-js'
 
 hotkeys.filter = function (event) {
-  var tagName = (event.target || event.srcElement).tagName
+  const tagName = (event.target || event.srcElement).tagName
   hotkeys.setScope(
     /^(INPUT|TEXTAREA|SELECT)$/.test(tagName) ? 'input' : 'other'
   )
   return true
 }
 
-function isMac () {
+function isMac() {
   return navigator.userAgent.toLowerCase().indexOf('mac') > 0
 }
 
@@ -26,7 +26,9 @@ hotkeys(`${ctrl}+s`, 'input', function (event, handler) {
 hotkeys(`${ctrl}+enter`, 'input', function (event, handler) {
   console.log(handler.key)
   event.preventDefault()
-  const button = document.querySelector('#js-shortcut-submit,#js-shortcut-post-comment')
+  const button = document.querySelector(
+    '#js-shortcut-submit,#js-shortcut-post-comment'
+  )
   if (button) {
     button.click()
   }
@@ -47,5 +49,12 @@ hotkeys(`${ctrl}+b`, 'all', function (event, handler) {
   const button = document.querySelector('#js-shortcut-check')
   if (button) {
     button.click()
+  }
+
+  const allOpenButton = document.querySelector(
+    '#js-shortcut-unconfirmed-links-open'
+  )
+  if (allOpenButton) {
+    allOpenButton.click()
   }
 })

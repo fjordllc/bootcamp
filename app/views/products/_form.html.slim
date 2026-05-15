@@ -1,23 +1,47 @@
-= render "errors", object: product
-= form_for product, html: { name: "product" }  do |f|
+= render 'errors', object: product
+= form_with model: product, local: true, html: { name: 'product', class: 'form' } do |f|
   = hidden_field_tag :practice_id, practice.id
   .form__items
     .form-item
       .row.js-markdown-parent
         .col-md-6.col-xs-12
-          label.a-label
+          label.a-form-label
             | 提出物
-          = f.text_area :body, class: "a-text-input js-warning-form js-markdown markdown-form__text-area", data: { "preview": ".js-preview" }
+          .form-textarea
+            .form-textarea__body
+              = f.text_area :body, class: 'a-text-input js-warning-form js-markdown markdown-form__text-area',
+              data: { 'preview': '.js-preview', 'input': '.file-input' }
+            .form-textarea__footer
+              .form-textarea__insert
+                label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
+                  | ファイルを挿入
+                  input(type='file' class='file-input' multiple)
+              .form-textarea__bottom-note
+                | 途中保存は「#{request.os == 'Mac OSX' ? 'command + s' : 'Ctrl + s'}」 マメに保存しよう。
         .col-md-6.col-xs-12
-          .a-label
+          .a-form-label
             | プレビュー
-          .js-preview.is-long-text.markdown-form__preview
+          .js-preview.a-long-text.markdown-form__preview
+    .form-item
+      - if admin_or_mentor_login?
+        .col-md-3.col-xs-6
+          .a-form-label
+            | 担当者
+          .select-mentors
+            = f.select(:checker_id, User.where(mentor: true).where(retired_on: nil).pluck(:login_name, :id).sort, { include_blank: true }, { class: 'a-text-input' })
 
   .form-actions
     ul.form-actions__items
-      li.form-actions__item.is-main.is-help
-        = f.submit "WIP", class: "a-button is-lg is-primary is-block", id: "js-shortcut-wip"
+      li.form-actions__item.is-main.has-help
+        = f.submit 'WIP', class: 'a-button is-lg is-secondary is-block', id: 'js-shortcut-wip'
         .form-actions__item-help
-          | まだ書いてる途中
-      li.form-actions__item.is-main
-        = f.submit "提出する", class: "a-button is-lg is-warning is-block"
+          | まだ作成途中
+      li.form-actions__item.is-main.has-help
+        = f.submit '提出する', class: 'a-button is-lg is-primary is-block'
+      li.form-actions__item.is-sub.has-help
+        - case params[:action]
+        - when 'new', 'create'
+          - cancel_link_path = practice_path(params[:practice_id])
+        - when 'edit', 'update'
+          - cancel_link_path = product_path
+        = link_to 'キャンセル', cancel_link_path, class: 'a-button is-sm is-text'

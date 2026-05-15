@@ -1,0 +1,144 @@
+article1:
+  title: VirtualBoxでLinuxを使おう
+  body: |-
+    VirtualBoxはオープンソースの仮想化ソフトウェアです。Windows、Mac、Linuxに対応し仮想マシンを構築・実行することができます。
+    ## 仮想マシンとは？
+    仮想マシンとは通常物理的に存在するコンピュータのハードウェアをソフトウェアで用意したマシンです。
+    ![Image from Gyazo](https://i.gyazo.com/d9e609148b5d8d9133c7eb5e6fc4a7d1.png)
+    仮想マシンにLinuxやWindowsなどのOSをインストールして使うわけですが、OSにとっては自分が入っているのが物理的なマシンなのか、仮想マシンなのかは区別がつかないわけです。
+    ![Image from Gyazo](https://i.gyazo.com/3f771a82c06cc2d26c079b93c34557ef.png)
+    マトリックスみたいなもんですね🤭
+    厳密に説明すると本一冊では足りない量が必要なので大体のイメージを掴んでもらえればいいと思います。
+    ソフトウェアになると何がいいかというと、場所を取らないし、新しいマシンを用意するのも削除するのもファイルを作成・削除するのと同じぐらい手軽にできるところです。
+    またLinux学習においてはWindowsやMac上でLinuxをインストールするマシンを簡単に用意できるところが便利です。また複数のマシンを作ることも簡単です。
+    ![Image from Gyazo](https://i.gyazo.com/abfd6ebea9b035259351bc78d3f670db.png)
+    ## VirtualBoxダウンロードとインストール
+    下記からダウンロードできます。Windows、Macそれぞれのインストーラーがあるので自分の環境に合わせてダウンロードしてください。
+    [https://www.oracle.com/jp/virtualization/technologies/vm/downloads/virtualbox-downloads.html](https://www.oracle.com/jp/virtualization/technologies/vm/downloads/virtualbox-downloads.html)
+    ![Image from Gyazo](https://i.gyazo.com/9be15807028d985676f0f3a21526d55c.png)
+    あとはインストーラーの指示に従ってインストールしましょう。
+  user: komagata
+  wip: false
+  published_at: "2022-01-01 00:01:00"
+  created_at: "2022-01-01 00:00:00"
+
+article2:
+  title: Debian用の仮想マシンを作ろう
+  body: |-
+    VirtualBoxや仮想化ソフトウェアについてはこちらを参照ください。
+    ![Image from Gyazo](https://i.gyazo.com/9542fe6980cc3e4539288b99fbc509ab.png)
+    **新規**をクリックしてDebian用の仮想マシンを作ります。
+    ![Image from Gyazo](https://i.gyazo.com/f4b619dcef63e26c8160782f07c41f8e.png)
+    名前は好きな名前、マシンフォルダーも適当な場所を選択します。タイプは**Linux**、バージョンは**Debian(64-bit)**を選択。
+    ![Image from Gyazo](https://i.gyazo.com/e54d7e5e056146a5586c0c0140683ab1.png)
+    メモリーはデフォルトで良いです。
+    ![Image from Gyazo](https://i.gyazo.com/95f6de81a52f6dd8a172b4285875897c.png)
+    ハードディスクは**仮想ハードディスクを作成する**を選択。
+    ![Image from Gyazo](https://i.gyazo.com/04c8d83d33a5b338022c7339ed31cf6e.png)
+    ハードディスクのファイルタイプは**VDI**を選択。
+    ![Image from Gyazo](https://i.gyazo.com/5f82553197261470a99a341e97891a92.png)
+    物理ハードディスクにあるストレージは**可変サイズ**を選択。
+    ![Image from Gyazo](https://i.gyazo.com/84118a7fd7e839979a06d862f0c63e62.png)
+    ファイルの場所とサイズはデフォルトで良いです。
+    ![Image from Gyazo](https://i.gyazo.com/f699612913d1dbcce9281c1ce47562ff.png)
+    左側にDebian用の仮想マシンが表示されました。
+    しかしこれは中身の空っぽの仮想マシンができた状態なので続けてOSをインストールしましょう。
+  user: machida
+  wip: false
+  published_at: "2022-01-02 00:01:00"
+  created_at: "2022-01-02 00:00:00"
+
+article3:
+  title: 仮想マシンにDebianをインストールしよう
+  body: |-
+    仮想マシンにOS(Debian)をインストールしましょう。
+    仮想マシンの作成方法は下記の記事をみてください。
+    [Debian用の仮想マシンを作ろう](https://bootcamp.fjord.jp/articles/4)
+    物理マシンでしたらインストールCD（やUSB）をマシンに入れてインストールしますが、仮想マシンの場合は、仮想のCDドライブにCDイメージをセットしてインストールします。
+  user: komagata
+  wip: true
+
+article4:
+  title: Debianでzshを使う
+  body: |-
+    Debian Basterのデフォルトのシェルはbashですが、フレームワークも豊富なzshを使うと便利です。
+    ## [](https://bootcamp.fjord.jp/articles/17#zsh)zshのインストール
+    インストールする。
+    ```
+    $ sudo apt install zsh -y
+    ```
+    zshのPATHを確認する。
+    ```
+    $ which zsh
+    /bin/usr/zsh
+    ```
+    デフォルトシェルを変更する。
+    ```
+    $ chsh -s /usr/bin/zsh
+    ```
+    シェルを再起動したらzshになってます。設定ファイルは`~/.zshrc`になるので、自由に設定しましょう。zsh設定については奥が深過ぎるのでこのエントリーではここで終わりにしておきます。
+  user: komagata
+  wip: true
+
+<% (5..20).each_with_index do |id, i| %>
+article<%= id %>:
+  title: test title<%= id %>
+  body: |-
+    test body<%= id %>
+  user: komagata
+  wip: false
+  published_at: "<%= Date.parse('2024-01-01') + i %>"
+  created_at: "<%= Date.parse('2024-01-01') + i %>"
+<% end %>
+
+<% (21..27).each_with_index do |id, i| %>
+article<%= id %>:
+  title: test with 注目の記事 tag <%= id %>
+  body: |-
+    test body<%= id %>
+  user: komagata
+  wip: false
+  published_at: "<%= Date.parse('2024-02-01') + i %>"
+  created_at: "<%= Date.parse('2024-02-01') + i %>"
+<% end %>
+
+article56:
+  title: 卒業生の声のタグを持つ最新の記事です
+  summary: |-
+    summaryですsummaryですsummaryです
+  body: |-
+    bodyですbodyですbodyです
+  user: komagata
+  wip: false
+  published_at: "2024-03-14 00:00:00"
+
+article57:
+  title: 卒業生の声のタグを持つ2番目に新しい記事です
+  summary: |-
+    summaryですsummaryですsummaryです
+  body: |-
+    summaryを含むbody
+  user: komagata
+  wip: false
+  published_at: "2024-03-13 00:00:00"
+
+article58:
+  title: 卒業生の声のタグを持つ3番目に新しい記事です
+  summary: |-
+    summaryですsummaryですsummaryです
+  body: |-
+    summaryを含むbody
+  user: komagata
+  wip: false
+  published_at: "2024-03-12 00:00:00"
+
+<% date = Date.parse("2023-01-01") %>
+<% (101..130).each do |id| %>
+article<%= id %>:
+  <% number = id - 100 %>
+  title: プレスリリース<%= number %>
+  body: 「プレスリリース」タグを持つブログ
+  user: komagata
+  wip: false
+  published_at: <%= "#{date + number} 00:00:00" %>
+<% end %>

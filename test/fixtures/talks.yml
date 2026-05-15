@@ -1,0 +1,188 @@
+talk1:
+  user: komagata
+  action_completed: true
+
+talk2:
+  user: machida
+  action_completed: true
+
+talk3:
+  user: sotugyou
+  action_completed: true
+
+talk4:
+  user: advijirou
+  action_completed: true
+
+talk5:
+  user: yameo
+  action_completed: true
+
+talk6:
+  user: mentormentaro
+  action_completed: true
+
+talk7:
+  user: kimura
+  action_completed: true
+
+talk8:
+  user: hatsuno
+  action_completed: true
+
+talk9:
+  user: hajime
+  action_completed: true
+
+talk10:
+  user: muryou
+  action_completed: true
+
+talk11:
+  user: kensyu
+
+talk12:
+  user: senpai
+  action_completed: true
+
+talk13:
+  user: kananashi
+  action_completed: true
+
+talk14:
+  user: osnashi
+  action_completed: true
+
+talk15:
+  user: jobseeker
+  action_completed: true
+
+talk16:
+  user: nippounashi
+  action_completed: true
+
+talk17:
+  user: with_hyphen
+  action_completed: false
+
+talk18:
+  user: kensyuowata
+  action_completed: true
+
+talk19:
+  user: adminonly
+  action_completed: true
+
+talk20:
+  user: otameshi
+  action_completed: true
+
+talk21:
+  user: sotugyou_with_job
+  action_completed: true
+
+talk22:
+  user: discordinvalid
+  action_completed: true
+
+talk23:
+  user: twitterinvalid
+  action_completed: true
+
+talk24:
+  user: enchomaemae
+  action_completed: true
+
+talk25:
+  user: enchomaeyo
+  action_completed: true
+
+talk26:
+  user: enchohayashi
+  action_completed: true
+
+talk27:
+  user: enchoososhi
+  action_completed: true
+
+talk28:
+  user: enchoowata
+  action_completed: true
+
+talk29:
+  user: kimuramitai
+  action_completed: true
+
+talk30:
+  user: long-id-mentor
+  action_completed: true
+
+talk31:
+  user: nocompanykensyu
+  action_completed: true
+
+talk32:
+  user: neverlogin
+  action_completed: true
+
+talk33:
+  user: sotsugyoukigyoshozoku
+  action_completed: true
+
+talk34:
+  user: kyuukai
+  action_completed: true
+
+tal35:
+  user: paginataion-taro
+  action_completed: true
+
+talk36:
+  user: paginataion-jirou
+  action_completed: true
+
+talk_advisernocolleaguetrainee:
+  user: advisernocolleaguetrainee
+  action_completed: true
+
+<% 1.upto(4) do |i| %>
+marumarushain<%= i %>: # ページネーション確認のためのユーザー
+  user: marumarushain<%= i %>
+  action_completed: true
+<% end %>
+
+talk42:
+  user: harikirio
+  action_completed: true
+
+talk43:
+  user: rails-course
+  action_completed: true
+
+talk44:
+  user: front-end-course
+  action_completed: true
+
+talk45:
+  user: unity-course
+  action_completed: true
+
+talk46:
+  user: ios-course
+  action_completed: true
+
+talk47:
+  user: jobseeking
+  action_completed: true
+
+talk48:
+  user: kensyu-invoice
+  action_completed: true
+
+talk49:
+  user: hukki
+  action_completed: true
+
+talk50:
+  user: grant-course
+  action_completed: true

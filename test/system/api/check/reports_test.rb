@@ -1,49 +1,74 @@
 # frozen_string_literal: true
 
-require "application_system_test_case"
+require 'application_system_test_case'
 
 class Check::ReportsTest < ApplicationSystemTestCase
-  test "non admin user is non botton" do
-    login_user "sotugyou", "testtest"
-    visit "/reports/#{reports(:report_2).id}"
-    assert_not has_button? "日報を確認"
+  test 'non admin user is non botton' do
+    visit_with_auth "/reports/#{reports(:report2).id}", 'kimura'
+    assert_not has_button? '日報を確認'
   end
 
-  test "user can see stamp" do
-    login_user "sotugyou", "testtest"
-    visit "/reports/#{reports(:report_1).id}"
-    assert_text "確認済"
+  test 'user can see stamp' do
+    visit_with_auth "/reports/#{reports(:report1).id}", 'kimura'
+    assert_text '確認済'
   end
 
-  test "success report checking" do
-    login_user "machida", "testtest"
-    visit  "/reports/#{reports(:report_2).id}"
-    assert has_button? "日報を確認"
-    click_button "日報を確認"
-    assert has_button? "日報の確認を取り消す"
+  test 'success report checking' do
+    visit_with_auth "/reports/#{reports(:report20).id}", 'komagata'
+    assert has_button? '日報を確認'
+    accept_alert do
+      click_button '日報を確認'
+    end
+    assert has_button? '日報の確認を取り消す'
     visit reports_path
-    assert_text "確認済"
+    assert_text '確認済'
   end
 
-  test "success adviser's report checking" do
-    login_user "advijirou", "testtest"
-    assert_equal "/", current_path
-    click_link "日報"
-    assert_text "作業週2日目"
-    click_link "作業週2日目"
-    assert has_button? "日報を確認"
-    click_button "日報を確認"
-    assert has_button? "日報の確認を取り消す"
-    visit reports_path
-    assert_text "確認済"
+  test 'success report checking cancel' do
+    visit_with_auth "/reports/#{reports(:report20).id}", 'komagata'
+    assert_text '昨日よりできませんでした'
+    accept_alert do
+      click_button '日報を確認'
+    end
+    click_button '日報の確認を取り消す'
+
+    assert_button '日報を確認'
+    assert_no_css 'stamp stamp-approve'
   end
 
-  test "success product checking cancel" do
-    login_user "machida", "testtest"
-    visit "/reports/#{reports(:report_2).id}"
-    click_button "日報を確認"
-    click_button "日報の確認を取り消す"
-    assert_no_text "確認済"
-    assert has_button? "日報を確認"
+  test 'comment and check report' do
+    visit_with_auth "/reports/#{reports(:report20).id}", 'komagata'
+    fill_in 'new_comment[description]', with: '日報でcomment+確認OKにするtest'
+    click_button '確認OKにする'
+    assert_text '確認済'
+    assert_text '日報でcomment+確認OKにするtest'
+  end
+
+  test 'comment and check report by mentor' do
+    visit_with_auth "/reports/#{reports(:report20).id}", 'mentormentaro'
+    fill_in 'new_comment[description]', with: '日報でcomment+確認OKにするtest'
+    click_button '確認OKにする'
+    assert_text '確認済'
+    assert_text '日報でcomment+確認OKにするtest'
+  end
+
+  test 'display error message when checking confirmed report' do
+    using_session :mentormentaro do
+      visit_with_auth "/reports/#{reports(:report15).id}", 'mentormentaro'
+    end
+
+    using_session :komagata do
+      visit_with_auth "/reports/#{reports(:report15).id}", 'komagata'
+    end
+
+    using_session :mentormentaro do
+      click_button '日報を確認'
+      assert_text '確認済'
+    end
+
+    using_session :komagata do
+      click_button '日報を確認'
+      assert_text 'この日報は確認済です'
+    end
   end
 end

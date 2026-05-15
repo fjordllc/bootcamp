@@ -1,64 +1,467 @@
-product_1:
-  practice: practice_1
-  user: yamada
+product1: # 自分(メンター)のコメントあり(2つ)
+  practice: practice1
+  user: mentormentaro
   body: テストの提出物1です。
+  checker_id: nil
+  mentor_last_commented_at: <%= 1.day.ago %>
+  commented_at: <%= 1.day.ago %>
 
-product_2:
-  practice: practice_1
+product2: # チェック済
+  practice: practice1
   user: kimura
   body: テストの提出物2です。
+  created_at: <%= 1.day.ago %>
+  updated_at: <%= 1.day.ago %>
+  published_at: <%= 1.day.ago %>
+  checker_id: "<%= ActiveRecord::FixtureSet.identify(:komagata) %>"
 
-product_3:
-  practice: practice_2
+product3: # チェック済, 他者(メンター)からのコメントあり
+  practice: practice2
   user: sotugyou
   body: 確認済みの提出物
+  created_at: <%= 2.day.ago %>
+  updated_at: <%= 2.day.ago %>
+  published_at: <%= 2.day.ago %>
+  commented_at: <%= 2.day.ago %>
+  mentor_last_commented_at: <%= 2.day.ago %>
 
-product_4:
-  practice: practice_2
-  user: yamada
+product4: # チェック済
+  practice: practice2
+  user: mentormentaro
   body: テストの提出物4です。
+  created_at: <%= 3.day.ago %>
+  updated_at: <%= 3.day.ago %>
+  published_at: <%= 3.day.ago %>
 
-product_5:
-  practice: practice_2
+product5:
+  practice: practice2
   user: kimura
-  body: テストの提出物5です。
+  body: WIPの提出物です。
+  created_at: <%= 4.day.ago %>
+  updated_at: <%= 4.day.ago %>
+  published_at: <%= 4.day.ago %>
+  wip: true
 
-product_6:
-  practice: practice_3
+product6:
+  practice: practice3
   user: sotugyou
   body: 確認待ちの提出物
+  created_at: <%= 5.day.ago %>
+  updated_at: <%= 5.day.ago %>
+  published_at: <%= 5.day.ago %>
 
-product_7:
-  practice: practice_3
-  user: yamada
+product7: # チェック済
+  practice: practice3
+  user: mentormentaro
   body: テストの提出物7です。
+  created_at: <%= 6.day.ago %>
+  updated_at: <%= 6.day.ago %>
+  published_at: <%= 6.day.ago %>
 
-product_8:
-  practice: practice_3
+product8:
+  practice: practice3
   user: kimura
   body: テストの提出物8です。
+  created_at: <%= 7.day.ago %>
+  updated_at: <%= 7.day.ago %>
+  published_at: <%= 7.day.ago %>
 
-product_9:
-  practice: practice_4
-  user: yamada
+product9: # チェック済, 他者(メンター)からのコメントあり
+  practice: practice4
+  user: mentormentaro
   body: テストの提出物9です。
+  created_at: <%= 8.day.ago %>
+  updated_at: <%= 8.day.ago %>
+  published_at: <%= 8.day.ago %>
+  commented_at: <%= 8.day.ago %>
+  mentor_last_commented_at: <%= 8.day.ago %>
 
-product_10:
-  practice: practice_4
+product10: # 他者(メンター)のコメントあり
+  practice: practice4
   user: kimura
   body: テストの提出物10です。
+  created_at: <%= 9.day.ago %>
+  updated_at: <%= 9.day.ago %>
+  published_at: <%= 9.day.ago %>
+  commented_at: <%= 9.day.ago %>
+  mentor_last_commented_at: <%= 9.day.ago %>
 
-product_11:
-  practice: practice_2
+product11: # 他者(メンター)のコメントあり
+  practice: practice2
   user: hatsuno
   body: テストの提出物11です。
+  created_at: <%= 10.day.ago %>
+  updated_at: <%= 10.day.ago %>
+  published_at: <%= 10.day.ago %>
+  commented_at: <%= 10.day.ago %>
+  mentor_last_commented_at: <%= 10.day.ago %>
 
-product_12:
-  practice: practice_2
-  user: yamada
+product12:
+  practice: practice5
+  user: mentormentaro
   body: リアクションテスト
+  created_at: <%= 11.day.ago %>
+  updated_at: <%= 11.day.ago %>
+  published_at: <%= 11.day.ago %>
 
-product_13:
-  practice: practice_1
+product13:
+  practice: practice1
   user: kensyu
   body: 研修の提出物です。
+  created_at: <%= 12.day.ago %>
+  updated_at: <%= 12.day.ago %>
+  published_at: <%= 12.day.ago %>
+
+product14:
+  practice: practice2
+  user: kensyu
+  body: 研修の提出物です。
+  created_at: <%= 13.day.ago %>
+  updated_at: <%= 13.day.ago %>
+  published_at: <%= 13.day.ago %>
+
+product15:
+  practice: practice1
+  user: with_hyphen
+  body: テストの提出物15です。
+  created_at: <%= 6.day.ago %>
+  updated_at: <%= 6.day.ago %>
+  published_at: <%= 6.day.ago %>
+  checker_id: "<%= ActiveRecord::FixtureSet.identify(:machida) %>"
+
+product16:
+  practice: practice2
+  user: with_hyphen
+  body: テストの提出物16です。
+  created_at: <%= 6.day.ago %>
+  updated_at: <%= 6.day.ago %>
+  published_at: <%= 6.day.ago %>
+
+product17:
+  practice: practice3
+  user: with_hyphen
+  body: テストの提出物17です。
+
+product18:
+  practice: practice4
+  user: with_hyphen
+  body: テストの提出物18です。
+
+product19:
+  practice: practice5
+  user: with_hyphen
+  body: テストの提出物19です。
+
+product20:
+  practice: practice6
+  user: with_hyphen
+  body: テストの提出物20です。
+
+product21:
+  practice: practice7
+  user: with_hyphen
+  body: テストの提出物21です。
+
+product22:
+  practice: practice8
+  user: with_hyphen
+  body: テストの提出物22です。
+
+product23:
+  practice: practice9
+  user: with_hyphen
+  body: テストの提出物23です。
+
+product24:
+  practice: practice10
+  user: with_hyphen
+  body: テストの提出物24です。
+
+product25:
+  practice: practice11
+  user: with_hyphen
+  body: テストの提出物25です。
+
+product26:
+  practice: practice12
+  user: with_hyphen
+  body: テストの提出物26です。
+
+product27:
+  practice: practice13
+  user: with_hyphen
+  body: テストの提出物27です。
+
+product28:
+  practice: practice14
+  user: with_hyphen
+  body: テストの提出物28です。
+
+product29:
+  practice: practice15
+  user: with_hyphen
+  body: テストの提出物29です。
+
+product30:
+  practice: practice16
+  user: with_hyphen
+  body: テストの提出物30です。
+
+product31:
+  practice: practice17
+  user: with_hyphen
+  body: テストの提出物31です。
+
+product32:
+  practice: practice18
+  user: with_hyphen
+  body: テストの提出物32です。
+
+product33:
+  practice: practice19
+  user: with_hyphen
+  body: テストの提出物33です。
+
+product34:
+  practice: practice20
+  user: with_hyphen
+  body: テストの提出物34です。
+
+product35:
+  practice: practice21
+  user: with_hyphen
+  body: テストの提出物35です。
+
+product36:
+  practice: practice22
+  user: with_hyphen
+  body: テストの提出物36です。
+
+product37:
+  practice: practice23
+  user: with_hyphen
+  body: テストの提出物37です。
+
+product38:
+  practice: practice24
+  user: with_hyphen
+  body: テストの提出物38です。
+
+product39:
+  practice: practice25
+  user: with_hyphen
+  body: テストの提出物39です。
+
+product40:
+  practice: practice26
+  user: with_hyphen
+  body: テストの提出物40です。
+
+product41:
+  practice: practice27
+  user: with_hyphen
+  body: テストの提出物41です。
+
+product42:
+  practice: practice28
+  user: with_hyphen
+  body: テストの提出物42です。
+
+product43:
+  practice: practice29
+  user: with_hyphen
+  body: テストの提出物43です。
+
+product44:
+  practice: practice30
+  user: with_hyphen
+  body: テストの提出物44です。
+
+product45:
+  practice: practice31
+  user: with_hyphen
+  body: テストの提出物45です。
+
+product46:
+  practice: practice32
+  user: with_hyphen
+  body: テストの提出物46です。
+
+product47:
+  practice: practice33
+  user: with_hyphen
+  body: テストの提出物47です。
+
+product48:
+  practice: practice34
+  user: with_hyphen
+  body: テストの提出物48です。
+
+product49:
+  practice: practice35
+  user: with_hyphen
+  body: テストの提出物49です。
+
+product50:
+  practice: practice36
+  user: with_hyphen
+  body: テストの提出物50です。
+
+product51:
+  practice: practice37
+  user: with_hyphen
+  body: テストの提出物51です。
+
+product52:
+  practice: practice38
+  user: with_hyphen
+  body: テストの提出物52です。
+
+product53:
+  practice: practice39
+  user: with_hyphen
+  body: テストの提出物53です。
+
+product54:
+  practice: practice40
+  user: with_hyphen
+  body: テストの提出物54です。
+
+product55:
+  practice: practice41
+  user: with_hyphen
+  body: テストの提出物55です。
+
+product56:
+  practice: practice42
+  user: with_hyphen
+  body: テストの提出物56です。
+
+product57:
+  practice: practice43
+  user: with_hyphen
+  body: テストの提出物57です。
+
+product58:
+  practice: practice44
+  user: with_hyphen
+  body: テストの提出物58です。
+
+product59:
+  practice: practice45
+  user: with_hyphen
+  body: テストの提出物59です。
+
+product60:
+  practice: practice46
+  user: with_hyphen
+  body: テストの提出物60です。
+
+product61:
+  practice: practice46
+  user: mentormentaro
+  body: 提出物の検索結果テスト用
+
+product62:
+  practice: practice45
+  user: kimura
+  body: 「自分の担当」かつ「未返信」の提出物
+  created_at: <%= 1.day.ago %>
+  updated_at: <%= 1.day.ago %>
+  published_at: <%= 1.day.ago %>
+  wip: false
+  checker_id: <%= ActiveRecord::FixtureSet.identify(:machida) %>
+
+product63:
+  practice: practice46
+  user: kimura
+  body: 「自分の担当」かつ「返信済み」の提出物
+  created_at: <%= 2.day.ago %>
+  updated_at: <%= 2.day.ago %>
+  published_at: <%= 2.day.ago %>
+  wip: false
+  checker_id: <%= ActiveRecord::FixtureSet.identify(:machida) %>
+  commented_at: <%= 2.day.ago %>
+  mentor_last_commented_at: <%= 2.day.ago %>
+
+product64:
+  practice: practice10
+  user: kimura
+  body: 担当者のいる提出物です。
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+  published_at: <%= Time.current %>
+  checker_id: "<%= ActiveRecord::FixtureSet.identify(:machida) %>"
+
+product65:
+  practice: practice6
+  user: kimura
+  body: プラクティス完了メッセージ未表示の提出物です。
+
+product66:
+  practice: practice6
+  user: hajime
+  body: publish_atがnilの提出物です。
+  published_at: nil
+
+product67: # チェック済, 他者(メンター)からのコメントあり
+  practice: practice3
+  user: kimuramitai
+  body: 確認済みの提出物67です。
+  checker_id: "<%= ActiveRecord::FixtureSet.identify(:'long-id-mentor') %>"
+  commented_at: <%= 1.day.ago %>
+  mentor_last_commented_at: <%= 1.day.ago %>
+
+product68:
+  practice: practice5
+  user: kimuramitai
+  body: 未確認だけど、担当になっている提出物68です。
+  checker_id: "<%= ActiveRecord::FixtureSet.identify(:'long-id-mentor') %>"
+
+product69:
+  practice: practice1
+  user: muryou
+  body: 直近の日報がないテストの提出物69です。
+  created_at: <%= 2.day.ago %>
+  updated_at: <%= 2.day.ago %>
+  published_at: <%= 2.day.ago %>
+
+product70:
+  practice: practice11
+  user: kimura
+  body: 8時間以内に4日経過に到達する提出物です。
+  created_at: <%= 4.day.ago + 8.hours %>
+  updated_at: <%= 4.day.ago + 8.hours %>
+  published_at: <%= 4.day.ago + 8.hours %>
+
+product71:
+  practice: practice12
+  user: kimura
+  body: 8時間以内に4日経過に到達する提出物です。
+  created_at: <%= 4.day.ago + 8.hours %>
+  updated_at: <%= 4.day.ago + 8.hours %>
+  published_at: <%= 4.day.ago + 8.hours %>
+
+product72:
+  practice: practice1
+  user: kyuukai
+  body: 休会中ユーザーの未確認提出物
+
+product73:
+  practice: practice12
+  user: hajime
+  body: 担当者がいなくてwatchされていない提出物です
+  checker_id: nil
+
+product74:
+  practice: practice13
+  user: kimura
+  body: 8時間以内に5日経過に到達する提出物です。
+  created_at: <%= 5.day.ago + 8.hours %>
+  updated_at: <%= 5.day.ago + 8.hours %>
+  published_at: <%= 5.day.ago + 8.hours %>
+
+product75:
+  practice: practice6
+  user: kensyu
+  body: 研修の提出物です

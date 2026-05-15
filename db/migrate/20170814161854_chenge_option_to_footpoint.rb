@@ -2,7 +2,18 @@
 
 class ChengeOptionToFootpoint < ActiveRecord::Migration[5.1]
   def change
-    change_column :footprints, :user_id, :integer, null: false
-    change_column :footprints, :report_id, :integer, null: false
+    reversible do |dir|
+      change_table :footprints, bulk: true do |t|
+        dir.up do
+          t.change :user_id, :integer, null: false
+          t.change :report_id, :integer, null: false
+        end
+
+        dir.down do
+          t.change :user_id, :integer, null: true
+          t.change :report_id, :integer, null: true
+        end
+      end
+    end
   end
 end

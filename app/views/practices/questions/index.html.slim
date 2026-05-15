@@ -1,31 +1,27 @@
-- title @practice.title
-header.page-header
-  .container
-    .page-header__inner
-      h2.page-header__title
-        = title
-      .page-header-actions
-        ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to current_user.course, class: "a-button is-md is-secondary is-block" do
-              | プラクティス一覧
+- title "#{@practice.title}に関するQ&A"
+- set_meta_tags description: "プラクティス「#{@practice.title}」に関するQ&A一覧です。"
+- category = @practice.category(current_user.course)
 
-= render "page_tabs", resource: @practice
+= render '/practices/page_header',
+  title: @practice.title,
+  category: category,
+  practice: @practice
+
+= practice_page_tabs(@practice, active_tab: '質問')
 
 nav.tab-nav
-  .container.is-xs-horizontal-padding-0
+  .container
     ul.tab-nav__items
       li.tab-nav__item
-        = link_to "未解決", [@practice, :questions], class: "tab-nav__item-link #{params[:solved].present? ? "" : "is-active"}"
+        = link_to '全ての質問', practice_questions_path(@practice),
+          class: "tab-nav__item-link #{%w[not_solved solved].include?(params[:target]) ? '' : 'is-active'}"
       li.tab-nav__item
-        = link_to "解決済み", polymorphic_path([@practice, :questions], solved: "true"), class: "tab-nav__item-link #{params[:solved].present? ? "is-active" : ""}"
+        = link_to '解決済み', practice_questions_path(@practice, target: 'solved'),
+          class: "tab-nav__item-link #{params[:target] == 'solved' ? 'is-active' : ''}"
+      li.tab-nav__item
+        = link_to '未解決', practice_questions_path(@practice, target: 'not_solved'),
+          class: "tab-nav__item-link #{params[:target] == 'not_solved' ? 'is-active' : ''}"
 
 .page-body
-  .container
-    - if @questions.present?
-      .thread-list.a-card
-        - @questions.each do |question|
-          = render "questions/question", question: question
-    - else
-      .a-empty-message
-        | 質問はまだありません。
+  .container.is-md
+    = render 'questions/questions', questions: @questions, empty_message: @empty_message

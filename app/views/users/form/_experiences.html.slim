@@ -1,0 +1,17 @@
+.form-item
+  = f.label :experiences, 'プログラミング経験（複数選択可）', class: 'a-form-label'
+
+  .a-form-help
+    p
+      | プログラミング経験の有無について、以下のいずれかに該当する場合は該当する
+      | 項目にチェックを入れてください。多くの方はどの項目にも該当しない「未経験」であるため、
+      | 心配なさらずにご回答ください。
+      | この情報は他のフィヨルドブートキャンプの参加者に公開されることはありません。
+
+  ul.block-checks.is-2-items.mt-4
+    = f.collection_check_boxes :experiences, User.experiences.pairs, :second, :first, class: 'label-checkbox' do |b|
+      li.block-checks__item
+        .a-block-check.is-checkbox
+          = b.check_box(class: 'a-toggle-checkbox')
+          = b.label(class: 'a-block-check__label is-ta-left')
+            = b.text

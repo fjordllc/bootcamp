@@ -1,0 +1,27 @@
+.is-hidden {
+  display: none !important;
+}
+
+@media (max-width: 47.9375em) {
+  .is-hidden-sm-down {
+    display: none !important;
+  }
+}
+
+@media (min-width: 48em) {
+  .is-hidden-md-up {
+    display: none !important;
+  }
+}
+
+@media (max-width: 63.9375em) {
+  .is-hidden-md-down {
+    display: none !important;
+  }
+}
+
+@media (min-width: 64em) {
+  .is-hidden-lg-up {
+    display: none !important;
+  }
+}

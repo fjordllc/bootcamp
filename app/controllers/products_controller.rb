@@ -1,20 +1,32 @@
 # frozen_string_literal: true
 
-class ProductsController < ApplicationController
-  before_action :require_login
-  before_action :check_permission!, only: %i(show)
+class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLength
+  before_action :check_permission!, only: %i[show]
   before_action :require_staff_login, only: :index
-  before_action :set_watch, only: %i(show)
+  before_action :set_watch, only: %i[show]
+  before_action :set_target, only: %i[index]
 
   def index
-    @products = Product.list.page(params[:page])
+    @products = Product.list
+                       .order(:id)
+                       .page(params[:page])
+                       .per(50)
   end
 
   def show
     @product = find_product
+    @products = @product.user
+                        .products
+                        .not_wip
+                        .order(published_at: :DESC)
     @practice = find_practice
-    @footprints = find_footprints
-    footprint!
+    @learning = @product.learning # decoratorメソッド用にcontrollerでインスタンス変数化
+    @tweet_url = @practice.tweet_url(practice_completion_url(@practice.id))
+    @recent_reports = Report.list.where(user_id: @product.user.id).limit(10)
+    @user_products = user_products(@product)
+    Footprint.find_or_create_for(@product, current_user)
+    @footprints = Footprint.fetch_for_resource(@product)
+    @comments = @product.comments.order(:created_at)
     respond_to do |format|
       format.html
       format.md
@@ -37,9 +49,11 @@ class ProductsController < ApplicationController
     @product.practice = @practice
     @product.user = current_user
     set_wip
+    update_published_at
     if @product.save
-      notify_to_slack(@product) unless @product.wip?
-      redirect_to @product, notice: notice_message(@product, :create)
+      ActiveSupport::Notifications.instrument('product.create', product: @product)
+      ActiveSupport::Notifications.instrument('product.save', product: @product)
+      redirect_to Redirection.determin_url(self, @product), notice: notice_message(@product, :create)
     else
       render :new
     end
@@ -47,9 +61,15 @@ class ProductsController < ApplicationController
 
   def update
     @product = find_my_product
+    @practice = @product.practice
+    @product.published_at = nil if @product.published_at? && @product.wip
     set_wip
+    update_published_at
     if @product.update(product_params)
-      redirect_to @product, notice: notice_message(@product, :update)
+      ActiveSupport::Notifications.instrument('product.update', { product: @product, current_user: })
+      ActiveSupport::Notifications.instrument('product.save', product: @product)
+      notice_another_mentor_assigned_as_checker
+      redirect_to Redirection.determin_url(self, @product), notice: notice_message(@product, :update)
     else
       render :edit
     end
@@ -58,81 +78,84 @@ class ProductsController < ApplicationController
   def destroy
     @product = find_my_product
     @product.destroy
-    redirect_to @product.practice, notice: "提出物を削除しました。"
+    redirect_to @product.practice, notice: '提出物を削除しました。'
   end
 
   private
-    def notify_to_slack(product)
-      name = "#{product.user.login_name}"
-      link = "<#{url_for(product)}|#{product.title}>"
 
-      if product.user.trainee? && product.user.company.slack_channel?
-        SlackNotification.notify "#{name} さんが#{product.title}を提出しました。 #{link}",
-          username: "#{product.user.login_name} (#{product.user.full_name})",
-          icon_url: product.user.avatar_url,
-          channel: product.user.company.slack_channel,
-          attachments: [{
-            fallback: "product body.",
-            text: product.body
-          }]
-      end
+  def update_published_at
+    return if @product.wip || @product.published_at?
+
+    @product.published_at = Time.current
+  end
+
+  def find_product
+    Product.find(params[:id])
+  end
+
+  def find_practice
+    if params[:practice_id]
+      Practice.find(params[:practice_id])
+    else
+      find_product.practice
     end
+  end
 
-    def find_product
+  def find_my_product
+    if admin_or_mentor_login?
       Product.find(params[:id])
+    else
+      current_user.products.find(params[:id])
     end
+  end
 
-    def find_practice
-      if params[:practice_id]
-        Practice.find(params[:practice_id])
-      else
-        find_product.practice
-      end
-    end
+  def check_permission!
+    return if policy(find_product).show? || find_practice&.open_product?
 
-    def find_my_product
-      if admin_login?
-        Product.find(params[:id])
-      else
-        current_user.products.find(params[:id])
-      end
-    end
+    redirect_to root_path, alert: 'プラクティスを修了するまで他の人の提出物は見れません。'
+  end
 
-    def find_footprints
-      find_product.footprints.with_avatar.order(created_at: :desc)
-    end
+  def product_params
+    keys = %i[body]
+    keys << :checker_id if mentor_login?
+    params.require(:product).permit(*keys)
+  end
 
-    def footprint!
-      if find_product.user != current_user
-        find_product.footprints.where(user: current_user).first_or_create
-      end
-    end
+  def set_watch
+    @watch = Watch.new
+  end
 
-    def check_permission!
-      unless policy(find_product).show? || find_practice&.open_product?
-        redirect_to root_path, alert: "プラクティスを完了するまで他の人の提出物は見れません。"
-      end
-    end
+  def set_wip
+    @product.wip = params[:commit] == 'WIP'
+  end
 
-    def product_params
-      params.require(:product).permit(:body)
-    end
+  def notice_message(product, action_name)
+    return '提出物をWIPとして保存しました。' if product.wip?
 
-    def set_watch
-      @watch = Watch.new
+    case action_name
+    when :create
+      '提出物を提出しました。'
+    when :update
+      '提出物を更新しました。'
     end
+  end
 
-    def set_wip
-      @product.wip = params[:commit] == "WIP"
-    end
+  def notice_another_mentor_assigned_as_checker
+    @checker_id = @product.checker_id
+    return unless @checker_id && admin_or_mentor_login? && (@checker_id != current_user.id) && !@product.wip?
 
-    def notice_message(product, action_name)
-      return "提出物をWIPとして保存しました。" if product.wip?
-      case action_name
-      when :create
-        "提出物を作成しました。"
-      when :update
-        "提出物を更新しました。"
-      end
-    end
+    ActivityDelivery.with(product: @product, receiver: User.find(@checker_id)).notify(:assigned_as_checker)
+  end
+
+  def user_products(product)
+    product.user
+           .products
+           .includes(:practice, :user, :comments, :checks, comments: :user)
+           .not_wip
+           .order(published_at: :desc)
+  end
+
+  def set_target
+    @target = 'all'
+  end
 end

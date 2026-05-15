@@ -1,0 +1,34 @@
+- content_for :extra_body_classes, 'welcome'
+- title '卒業生の声'
+- set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
+  description: 'フィヨルドブートキャンプ卒業生のインタビューやプレゼンテーションの記事を紹介しています。')
+
+article.lp
+  header.lp-content.is-lp-bg-main.is-hero
+    .l-container.is-xl
+      .lp-content__inner
+        .lp-content__start
+          .lp-hero-info
+            hgroup.lp-hero-info__titles
+              h1.lp-hero-info__title
+                | FBC卒業生の声
+              h2.lp-hero-info__catchcopy
+                | たくさんの卒業生が
+                br
+                | 現場で活躍しています
+            .lp-hero-info__description
+              p
+                | フィヨルドブートキャンプでは、今後の改善のために卒業生にアンケートを実施しています。
+                | そのアンケート結果や卒業後の様子のインタビューを紹介。
+            .lp-actions
+              ul.lp-actions__items
+                li.lp-actions__item
+                  = link_to new_inquiry_path, class: 'a-button is-xl is-secondary-border is-block' do
+                    | お問い合わせ
+                li.lp-actions__item
+                  = link_to choose_courses_path, class: 'a-button is-xl is-warning is-block' do
+                    | 参加登録
+        .lp-content__end
+          .lp-hero-visual
+            = image_tag('alumni_voices/alumni_voices_main.svg', class: 'lp-hero-visual__image', alt: 'フィヨルドブートキャンプの卒業生の声')
+  = render 'welcome/alumni_voices', articles: @articles

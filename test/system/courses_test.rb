@@ -1,48 +1,22 @@
 # frozen_string_literal: true
 
-require "application_system_test_case"
+require 'application_system_test_case'
 
 class CoursesTest < ApplicationSystemTestCase
-  test "show listing practices" do
-    login_user "kimura", "testtest"
-    visit "/courses/#{courses(:course_1).id}"
-    assert_equal "Rails Webプログラマーコースのプラクティス | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+  test 'show listing courses' do
+    visit_with_auth '/courses', 'mentormentaro'
+    assert_equal 'コース一覧 | FBC', title
   end
 
-  test "show listing courses" do
-    login_user "kimura", "testtest"
-    visit "/courses"
-    assert_equal "コース | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+  test 'show published courses' do
+    visit_with_auth '/courses', 'hajime'
+    assert_link courses(:course1).title
+    assert_text courses(:course1).description
   end
 
-  test "create course" do
-    login_user "komagata", "testtest"
-    visit "/courses/new"
-    within "form[name=course]" do
-      fill_in "course[title]", with: "テストコース"
-      fill_in "course[description]", with: "テストのコースです。"
-      click_button "内容を保存"
-    end
-    assert_text "コースを作成しました。"
-  end
-
-  test "update course" do
-    login_user "komagata", "testtest"
-    visit "/courses/#{courses(:course_1).id}/edit"
-    within "form[name=course]" do
-      fill_in "course[title]", with: "テストコース"
-      fill_in "course[description]", with: "テストのコースです。"
-      click_button "内容を保存"
-    end
-    assert_text "コースを更新しました。"
-  end
-
-  test "delete course" do
-    login_user "komagata", "testtest"
-    visit "/courses"
-    accept_confirm do
-      find("#course_#{courses(:course_3).id} .js-delete").click
-    end
-    assert_text "コースを削除しました。"
+  test 'cant see unpublished courses' do
+    visit_with_auth '/courses', 'hajime'
+    assert_no_link courses(:course2).title
+    assert_no_text courses(:course2).description
   end
 end

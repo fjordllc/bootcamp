@@ -1,47 +1,74 @@
-= render "errors", object: announcement
-= form_with model: announcement, local: true do |f|
+= render 'errors', object: announcement
+= form_with model: announcement,
+  local: true,
+  html: { name: 'announcement' } do |f|
   .form__items
     .form-item
       .row
         .col-lg-9.col-xs-12
           .form-item
-            = f.label :title, class: "a-label"
-            = f.text_field :title, class: "a-text-input js-warning-form"
+            = f.label :title, class: 'a-form-label'
+            = f.text_field :title, class: 'a-text-input js-warning-form', placeholder: '今週のリリース2023年12月22日'
+            .a-form-help
+              p
+                | お知らせの内容本文がタイトルから予想できる、具体的なタイトルを付けましょう。
+                br
+                | 悪い例: フィヨブーハウス
+                br
+                | 良い例: RubyKaigi 2024 フィヨブーハウス宿泊希望者申し込みを開始しました
     .form-item
       .row.js-markdown-parent
         .col-md-6.col-xs-12
-          = f.label :description, class: "a-label"
-          = f.text_area :description, class: "a-text-input js-warning-form js-markdown markdown-form__text-area", data: { "preview": ".js-preview" }
+          = f.label :description, class: 'a-form-label'
+          .form-textarea
+            .form-textarea__body
+              = f.text_area :description, class: 'a-text-input js-warning-form js-markdown markdown-form__text-area',
+              data: { 'preview': '.js-preview', 'input': '.file-input' }
+            .form-textarea__footer
+              .form-textarea__insert
+                label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
+                  | ファイルを挿入
+                  input(type='file' class='file-input' multiple)
+              .form-textarea__bottom-note
+                | 途中保存は「#{request.os == 'Mac OSX' ? 'command + s' : 'Ctrl + s'}」 マメに保存しよう。
         .col-md-6.col-xs-12
-          .a-label
+          .a-form-label
             | プレビュー
-          .js-preview.is-long-text.markdown-form__preview
+          .js-preview.a-long-text.is-md.markdown-form__preview
     .form-item.is-md
-      label.a-label
+      label.a-form-label
         | 通知ターゲット
-      ul.form-item__radio-buttons.is-inline
-        li.form-radio-button
-          label.form-radio-button__label
-            | 全員にお知らせ
-            = f.radio_button :target, "all", checked: true
-        li.form-radio-button
-          label.form-radio-button__label
-            | 現役生にのみお知らせ
-            = f.radio_button :target, "students"
-        li.form-radio-button
-          label.form-radio-button__label
-            | 就職希望者にのみお知らせ
-            = f.radio_button :target, "job_seekers"
+      ul.block-checks.is-3-items
+        li.block-checks__item
+          .a-block-check.is-radio
+            = f.radio_button :target, 'all', id: 'all', class: 'a-toggle-checkbox'
+            label.a-block-check__label(for='all')
+              | 全員（退会者を除く）
+        li.block-checks__item
+          .a-block-check.is-radio
+            = f.radio_button :target, 'students', id: 'students', class: 'a-toggle-checkbox'
+            label.a-block-check__label(for='students')
+              | 現役生のみ
+        li.block-checks__item
+          .a-block-check.is-radio
+            = f.radio_button :target, 'job_seekers', id: 'job_seekers', class: 'a-toggle-checkbox'
+            label.a-block-check__label(for='job_seekers')
+              | 就職希望者のみ
+  = f.hidden_field :updated_at
 
   .form-actions
     ul.form-actions__items
-      li.form-actions__item.is-main.is-help
-        - if announcement.new_record?
-          = f.submit "作成", class: "a-button is-lg is-warning is-block", id: "js-shortcut-submit"
-        - else
-          = f.submit "内容変更", class: "a-button is-lg is-warning is-block", id: "js-shortcut-submit"
-      li.form-actions__item
-        - if params[:action] == "new" || params[:action] == "create"
-          = link_to "キャンセル", announcements_path, class: "a-button is-md is-secondary"
-        - elsif params[:action] == "edit" || params[:action] == "update"
-          = link_to "キャンセル", announcement_path, class: "a-button is-md is-secondary"
+      li.form-actions__item.is-main
+        = f.submit 'WIP', class: 'a-button is-lg is-secondary is-block', id: 'js-shortcut-wip'
+      - if announcement.new_record?
+        li.form-actions__item.is-main.is-help
+          = f.submit '作成', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
+      - elsif announcement.user == current_user || admin_or_mentor_login? || announcement.published_at
+        li.form-actions__item.is-main.is-help
+          = f.submit '公開', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
+      li.form-actions__item.is-sub
+        - case params[:action]
+        - when 'new', 'create'
+          = link_to 'キャンセル', announcements_path, class: 'a-button is-sm is-text'
+        - when 'edit', 'update'
+          = link_to 'キャンセル', announcement_path, class: 'a-button is-sm is-text'

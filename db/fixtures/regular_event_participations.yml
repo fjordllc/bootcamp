@@ -1,0 +1,19 @@
+regular_event_participation1:
+  user: hatsuno
+  regular_event: regular_event1
+
+regular_event_participation2:
+  user: kimura
+  regular_event: regular_event8
+
+regular_event_participation3:
+  user: kimura
+  regular_event: regular_event9
+
+regular_event_participation4:
+  user: kimura
+  regular_event: regular_event26
+
+regular_event_participation4:
+  user: komagata
+  regular_event: regular_event1

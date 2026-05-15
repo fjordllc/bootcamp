@@ -1,0 +1,208 @@
+# frozen_string_literal: true
+
+class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
+  attr_accessor :start_on, :end_on
+
+  DAYS_OF_THE_WEEK_COUNT = 7
+
+  FREQUENCY_LIST = [
+    ['毎週', 0],
+    ['第1', 1],
+    ['第2', 2],
+    ['第3', 3],
+    ['第4', 4],
+    ['奇数週', 5],
+    ['偶数週', 6]
+  ].freeze
+
+  include WithAvatar
+  include Commentable
+  include Footprintable
+  include Reactionable
+  include Watchable
+  include Searchable
+  include Bookmarkable
+
+  enum :category, {
+    reading_circle: 0,
+    chat: 1,
+    question: 2,
+    meeting: 3,
+    others: 4
+  }, prefix: true
+
+  validates :title, presence: true, markdown_prohibited: true
+  validates :user_ids, presence: true
+  validates :start_at, presence: true
+  validates :end_at, presence: true
+  validates :finished, inclusion: { in: [true, false] }
+  validates :hold_national_holiday, inclusion: { in: [true, false] }
+  validates :description, presence: true
+  validates :regular_event_repeat_rules, presence: true
+  validates_associated :regular_event_repeat_rules
+
+  scope :exclude_finished, -> { where(finished: false) }
+
+  with_options if: -> { start_at && end_at } do
+    validate :end_at_be_greater_than_start_at
+  end
+
+  scope :not_finished, -> { where(finished: false, wip: false) }
+  scope :participated_by, ->(user) { where(id: all.filter { |e| e.participated_by?(user) }.map(&:id)) }
+  scope :organizer_event, ->(user) { joins(:regular_event_organizers).where(regular_event_organizers: { user: user }) }
+  scope :scheduled_on, ->(date) { not_finished.filter { |event| event.scheduled_on?(date) } }
+  scope :scheduled_on_without_ended, ->(date) { not_finished.filter { |event| event.scheduled_on?(date) && !event.ended?(date) } }
+
+  scope :fetch_target_events, lambda { |target|
+    case target
+    when 'not_finished'
+      not_finished
+    else
+      all
+    end
+  }
+
+  scope :list, lambda {
+    with_avatar
+      .includes(:comments, :users, :regular_event_repeat_rules)
+      .order(created_at: :desc)
+  }
+
+  belongs_to :user
+  has_many :regular_event_organizers, dependent: :destroy
+  has_many :users, through: :regular_event_organizers
+  has_many :regular_event_repeat_rules, dependent: :destroy
+  accepts_nested_attributes_for :regular_event_repeat_rules, allow_destroy: true
+  has_many :regular_event_participations, dependent: :destroy
+  has_many :participants,
+           through: :regular_event_participations,
+           source: :user
+  attribute :wants_announcement, :boolean
+
+  columns_for_keyword_search :title, :description
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[title description category start_at end_at finished hold_national_holiday created_at updated_at user_id]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[user regular_event_organizers users regular_event_repeat_rules participants comments reactions watches]
+  end
+
+  def scheduled_on?(date)
+    all_scheduled_dates.include?(date)
+  end
+
+  def ended?(date)
+    end_time_of_event = date.in_time_zone.change(hour: end_at.hour, min: end_at.min)
+    Time.current >= end_time_of_event
+  end
+
+  def next_event_date
+    event_dates =
+      hold_national_holiday ? upcoming_scheduled_dates : upcoming_scheduled_dates.reject { |d| HolidayJp.holiday?(d) }
+
+    event_dates.min
+  end
+
+  def organizers
+    users.preload(avatar_attachment: :blob).order('regular_event_organizers.created_at')
+  end
+
+  def cancel_participation(user)
+    regular_event_participation = regular_event_participations.find_by(user_id: user.id)
+    regular_event_participation.destroy
+  end
+
+  def participated_by?(user)
+    regular_event_participations.find_by(user_id: user.id).present?
+  end
+
+  def all_scheduled_dates(
+    from: Date.current,
+    to: Date.current.next_year
+  )
+    (from..to).filter { |d| date_match_the_rules?(d, regular_event_repeat_rules) }
+  end
+
+  def transform_for_subscription(event_date)
+    regular_event = dup
+
+    regular_event.assign_attributes(
+      start_on: parse_event_time(event_date, regular_event.start_at),
+      end_on: parse_event_time(event_date, regular_event.end_at)
+    )
+
+    regular_event
+  end
+
+  def self.fetch_participated_regular_events(user)
+    participated_regular_events = []
+    user.participated_regular_event_ids.find_each do |regular_event|
+      regular_event.all_scheduled_dates.each do |event_date|
+        participated_regular_events << regular_event.transform_for_subscription(event_date)
+      end
+    end
+    participated_regular_events
+  end
+
+  def publish_with_announcement?
+    wants_announcement? && !wip?
+  end
+
+  # 定期イベントは主催者が1人以上必要なため
+  # 主催者が1人しかいない場合はイベントを終了状態にし
+  # それ以外の場合は主催者のみを削除する
+  #
+  # TODO: 本来は「主催者が0人のイベントは無効」という制約をバリデーションで担保する形にしたい
+  # https://github.com/fjordllc/bootcamp/pull/9732#discussion_r2969273381
+  def close_or_destroy_organizer(user)
+    if regular_event_organizers.count == 1
+      update(finished: true)
+    else
+      organizer = regular_event_organizers.find_by(user:)
+      organizer.destroy
+    end
+  end
+
+  private
+
+  def end_at_be_greater_than_start_at
+    diff = end_at - start_at
+    return unless diff <= 0
+
+    errors.add(:end_at, ': イベント終了時刻はイベント開始時刻よりも後の時刻にしてください。')
+  end
+
+  def upcoming_scheduled_dates
+    # 時刻が過ぎたイベントを排除するためだけに、一時的にstart_timeを与える。後でDate型に戻す。
+    event_dates_with_start_time = all_scheduled_dates.map { |d| d.in_time_zone.change(hour: start_at.hour, min: start_at.min) }
+
+    event_dates_with_start_time.reject { |d| d < Time.zone.now }.map(&:to_date)
+  end
+
+  def date_match_the_rules?(date, rules)
+    rules.any? do |rule|
+      case rule.frequency
+      when 0
+        rule.day_of_the_week == date.wday
+      when 5
+        date.cweek.odd? && rule.day_of_the_week == date.wday
+      when 6
+        date.cweek.even? && rule.day_of_the_week == date.wday
+      else
+        rule.frequency == nth_wday(date) && rule.day_of_the_week == date.wday
+      end
+    end
+  end
+
+  def nth_wday(date)
+    (date.day + 6) / 7
+  end
+
+  def parse_event_time(event_date, event_time)
+    str_date = event_date.strftime('%F')
+    str_time = event_time.strftime('%R')
+    Time.zone.parse([str_date, str_time].join(' '))
+  end
+end

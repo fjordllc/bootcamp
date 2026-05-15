@@ -1,0 +1,64 @@
+<table>
+  <tr>
+    <td style="padding: 24px 20px 0px 20px;">
+      <div>
+        <h3 style="font-family: sans-serif; font-size: 20px; color:#4638a0; line-height: 1.4; margin-bottom: 0; font-weight: bold; text-align: center;">退会申請を受け付けました。</h3>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="padding: 16px 24px 16px 24px;">
+      <div class="a-long-text">
+        <p>
+          以下の内容で退会申請を受け付けました。<br>
+          数営業日以内に処理を行います。<br>
+          誤って申請をしてしまった場合は、
+          ログインをした上で相談部屋から、
+          もしくは <%= mail_to 'info@lokka.jp', 'info@lokka.jp', target: '_blank', rel: 'noopener noreferrer' %> までご連絡ください。
+        </p>
+        <ul>
+          <li>
+            <%= RequestRetirement.human_attribute_name(:requester_name) %><br>
+            <%= @request_retirement.user.login_name %>
+          </li>
+          <li>
+            <%= RequestRetirement.human_attribute_name(:requester_email) %><br>
+            <%= @request_retirement.user.email %>
+          </li>
+          <li>
+            <%= RequestRetirement.human_attribute_name(:company_name) %><br>
+            <%= @request_retirement.user.company.name %>
+          </li>
+          <li>
+            <%= RequestRetirement.human_attribute_name(:target_user) %><br>
+            <%= @request_retirement.target_user.name %>
+          </li>
+          <li>
+            <%= RequestRetirement.human_attribute_name(:reason) %><br>
+            <%= @request_retirement.reason %>
+          </li>
+          <li>
+            <%= RequestRetirement.human_attribute_name(:keep_data) %><br>
+            <% if @request_retirement.keep_data %>
+              <%= RequestRetirement.human_attribute_name('keep_data.option.keep') %>
+            <% else %>
+              <%= RequestRetirement.human_attribute_name('keep_data.option.delete') %>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding: 0 20px 20px 20px;">
+      <table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0" width="100%">
+        <tr>
+          <td valign="middle">
+              <%= link_to "フィヨルドブートキャンプへ", login_url, target: "_blank", style: "border-radius: 24px; color: #fff; text-decoration: none; background: #30ABDB; color: #fff; font-family: sans-serif; font-size: 14px; font-weight: bold; line-height: 1.4; display: block; width: 320px; max-width: 100%; margin: 0 auto; padding: 12px 0;" %>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

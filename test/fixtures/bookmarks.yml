@@ -1,0 +1,37 @@
+bookmark34:
+  user: komagata
+  bookmarkable: event1 (Event)
+
+bookmark33:
+  user: kimura
+  bookmarkable: regular_event1 (RegularEvent)
+
+bookmark32:
+  user: kimura
+  bookmarkable: movie1 (Movie)
+
+bookmark31:
+  user: komagata
+  bookmarkable: talk1 (Talk)
+
+bookmark30:
+  user: kimura
+  bookmarkable: page1 (Page)
+
+bookmark29:
+  user: kimura
+  bookmarkable: product1 (Product)
+
+bookmark28:
+  user: kimura
+  bookmarkable: question1 (Question)
+
+<% (1..27).each do |id| %>
+bookmark<%= id %>:
+  user: komagata
+  bookmarkable: report<%= id %> (Report)
+<% end %>
+
+bookmark_report:
+  user: kimura
+  bookmarkable: report1 (Report)

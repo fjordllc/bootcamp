@@ -4,6 +4,7 @@ class ProductPolicy < ApplicationPolicy
   attr_reader :user, :product
 
   def initialize(user, product)
+    super()
     @user = user
     @product = product
   end
@@ -13,6 +14,7 @@ class ProductPolicy < ApplicationPolicy
       user.mentor? ||
       user.adviser? ||
       user == product.user ||
+      user.graduated_on? ||
       product.practice.completed?(user) ||
       product.completed?(user)
   end

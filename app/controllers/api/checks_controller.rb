@@ -1,44 +1,45 @@
 # frozen_string_literal: true
 
 class API::ChecksController < API::BaseController
-  before_action :require_staff_login, only: %i(create destroy)
+  before_action :require_staff_login_for_api, only: %i[create destroy]
 
   def index
     @checks = Check.where(
-      checkable: checkable
+      checkable:
     )
   end
 
   def create
-    @check = Check.new(
-      user: current_user,
-      checkable: checkable
-    )
-
-    @check.save!
-    notify_to_slack(@check)
+    if checkable.checks.empty?
+      begin
+        Check.transaction do
+          @check = Check.create!(user: current_user, checkable:)
+          ActiveSupport::Notifications.instrument('check.create', check: @check)
+        end
+        head :created
+      rescue StandardError => e
+        Rails.logger.error("[API::ChecksController#create] チェック作成でエラー: #{e.message}")
+        render json: { message: 'エラーが発生しました。' }, status: :internal_server_error
+      end
+    else
+      render json: { message: "この#{checkable.class.model_name.human}は確認済です。" }, status: :unprocessable_entity
+    end
   end
 
   def destroy
-    @check = Check.find(params[:id]).destroy
+    Check.transaction do
+      @check = Check.find(params[:id]).destroy!
+      ActiveSupport::Notifications.instrument('check.cancel', check: @check)
+    end
     head :no_content
+  rescue StandardError => e
+    Rails.logger.error("[API::ChecksController#destroy] チェック削除でエラー: #{e.message}")
+    render json: { message: 'エラーが発生しました。' }, status: :internal_server_error
   end
 
   private
-    def checkable
-      params[:checkable_type].constantize.find(params[:checkable_id])
-    end
 
-    def notify_to_slack(check)
-      name = "#{check.user.login_name}"
-      link = "<#{polymorphic_path(check.checkable)}#check_#{check.id}|#{check.checkable.title}>"
-
-      SlackNotification.notify "#{name} check to #{link}",
-        username: "#{check.user.login_name} (#{check.user.full_name})",
-        icon_url: check.user.avatar_url,
-        attachments: [{
-          fallback: "check body.",
-          text: "#{check.user.login_name}さんが#{check.checkable.title}を確認しました。"
-        }]
-    end
+  def checkable
+    params[:checkable_type].constantize.find_by(id: params[:checkable_id])
+  end
 end

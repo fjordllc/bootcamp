@@ -1,36 +1,82 @@
-= render "errors", object: question
-= form_with model: question, local: true, class: "form", html: { name: "question" } do |f|
+= render 'errors', object: question
+= form_with model: question, local: true, class: 'form', html: { name: 'question' } do |f|
   .form__items
     .form-item
       .form-item
         .row
           .col-lg-6.col-xs-12
             .form-item
-              = f.label :practice, class: "a-label"
+              = f.label :practice, class: 'a-form-label'
               .select-practices
-                = f.select(:practice_id, practice_options(categories), {}, { class: "js-select2" })
+                = f.select :practice_id,
+                  practice_options_within_course,
+                  { include_blank: 'プラクティス選択なし' },
+                  { class: 'js-choices-singles', id: 'js-choices-practice' }
 
       .form-item
         .row.js-markdown-parent
           .col-md-6.col-xs-12
-            = f.label :title, class: "a-label"
-            = f.text_field :title, class: "a-text-input js-warning-form"
+            = f.label :title, class: 'a-form-label'
+            = f.text_field :title, class: 'a-text-input js-warning-form', placeholder: 'メソッドを定義するときの考え方がわからない'
+            .a-form-help
+              p
+                | 質問の内容が予測しやすいタイトルを付けましょう。
+                br
+                | 悪い例: CSS初級課題
+                br
+                | 良い例: タイトルを左右方向に中央に配置する方法
       .form-item
         .row.js-markdown-parent
           .col-md-6.col-xs-12
-            = f.label :description, class: "a-label"
-            = f.text_area :description, class: "a-text-input markdown-form__text-area js-markdown js-warning-form", data: { "preview": ".js-preview" }
+            = f.label :description, class: 'a-form-label'
+            .form-textarea
+              .form-textarea__body
+                = f.text_area :description, class: 'a-text-input markdown-form__text-area js-markdown js-warning-form',
+                data: { 'preview': '.js-preview', 'input': '.file-input' }
+              .form-textarea__footer
+                .form-textarea__insert
+                  label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
+                    | ファイルを挿入
+                    input(type='file' class='file-input' multiple)
+                .form-textarea__bottom-note
+                  | 途中保存は「#{request.os == 'Mac OSX' ? 'command + s' : 'Ctrl + s'}」 マメに保存しよう。
           .col-md-6.col-xs-12
-            .a-label
+            .a-form-label
               | プレビュー
-            .js-preview.is-long-text.practices-edit__input.markdown-form__preview
+            .js-preview.a-long-text.is-md.practices-edit__input.markdown-form__preview
+      .form-item
+        .row
+          .col-md-6.col-xs-12
+            = f.label :tag_list, 'タグを入力してください', class: 'a-form-label'
+            = render partial: 'tags_input', locals: { taggable: @question }
+            .a-form-help
+              p
+                | タグは、質問の内容を示すキーワードです。関連するトピックや技術でタグを付けることで、質問が見つけやすくなります（例: Ruby, CSS, ボーリング）。入力してエンターキーを押すとタグになります。
+
+      - if admin_or_mentor_login?
+        .form-item.is-only-mentor
+          .row
+            .col-md-3.col-xs-12
+              .form-item
+                = f.label :user_id, '作成者', class: 'a-form-label'
+                .select-user
+                  = f.collection_select :user_id,
+                    User.order(:login_name),
+                    :id,
+                    :login_name,
+                    {},
+                    { class: 'js-choices-singles', id: 'js-choices-user' }
+
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
-        = f.submit nil, class: "a-button is-lg is-warning is-block"
-      - if params[:action] == "new" || params[:action] == "create"
-        li.form-actions__item
-          = link_to "キャンセル", questions_path, class: "a-button is-md is-secondary"
-      - elsif params[:action] == "edit" || params[:action] == "update"
-        li.form-actions__item
-          = link_to "キャンセル", question_path, class: "a-button is-md is-secondary"
+        = f.submit 'WIP', class: 'a-button is-lg is-secondary is-block', id: 'js-shortcut-wip'
+      li.form-actions__item.is-main
+        - if question.new_record?
+          = f.submit '登録する', class: 'a-button is-lg is-primary is-block'
+        - elsif question.wip?
+          = f.submit '質問を公開', class: 'a-button is-lg is-primary is-block'
+        - else
+          = f.submit '更新する', class: 'a-button is-lg is-primary is-block'
+      li.form-actions__item
+        = link_to 'キャンセル', questions_path(target: 'not_solved'), class: 'a-button is-sm is-secondary'

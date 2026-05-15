@@ -1,0 +1,69 @@
+.dashboard-contents.is-mentor
+  .container
+    .dashboard-contents__cols
+      .dashboard-contents__col.is-sub.is-only-mentor
+        .dashboard-contents__categories
+          .dashboard-category
+            - unchecked_report_count = Cache.unchecked_report_count
+            - if unchecked_report_count > 100
+              = render 'unchecked_report_alert', unchecked_report_count: unchecked_report_count
+            .dashboard-category__body
+              = render(Products::UnassignedProductsComponent.new( \
+                products:,
+                products_grouped_by_elapsed_days:,
+                is_mentor: mentor_login?,
+                is_admin: admin_login?,
+                current_user_id: current_user.id,
+                reply_warning_days: @product_deadline_day))
+      .dashboard-contents__col.is-main
+        .dashboard-contents__categories
+          .dashboard-category
+            - if current_user.active_practices.present?
+              header.dashboard-category__header
+                h2.dashboard-category__title
+                  | メンター通知
+            .dashboard-category__body
+              .a-panels
+                .a-panels__items
+                  - if @upcoming_events_groups.present?
+                    = render 'upcoming_events_groups', upcoming_events_groups: @upcoming_events_groups
+                  - if @announcements.present?
+                    .a-panels__item
+                      = render partial: 'announcements'
+                  - if current_user.bookmarks.present?
+                    = react_component 'BookmarksInDashboard', {}, { class: 'a-card-react', id: 'bookmarks-in-dashboard' }
+                  - if current_user.wip_exists?
+                    .a-panels__item
+                      = render 'wip_items'
+                  - if User.depressed_reports.present?
+                    .a-panels__item.is-only-mentor
+                      = render 'users/negative_emotion_report', reports: User.depressed_reports
+                  - if @inactive_students.present?
+                    .a-panels__item.is-only-mentor
+                      = render 'users/inactive_users', users: @inactive_students
+                  - if @job_seeking_users.present?
+                    .a-panels__item.is-only-mentor.is-only-adviser
+                      = render 'job_seeking_users', users: @job_seeking_users
+          - if current_user.active_practices.present? && !current_user.admin?
+            .dashboard-category
+              header.dashboard-category__header
+                h2.dashboard-category__title
+                  | 学習状況
+              .dashboard-category__body
+                .a-panels
+                  .a-panels__items
+                    - unless cookies[:user_grass] == current_user.id.to_s
+                      .a-panels__item
+                        = render(Grass::GrassComponent.new(user: current_user, times: @times, target_end_date: @target_end_date, path: :root_path))
+                    - if current_user.github_account.present?
+                      .a-panels__item
+                        = render 'users/github_grass', user: current_user
+                    - if current_user.active_practices.present?
+                      .a-panels__item
+                        = render '/users/practices/active_practices', user: current_user
+                    - if current_user.completed_practices.present?
+                      .a-panels__item
+                        = render '/users/practices/completed_practices', user: current_user, completed_learnings: @completed_learnings
+                    - if current_user.completed_practices.present?
+                      .a-panels__item
+                        #js-niconico_calendar(data-user-id="#{current_user.id}")

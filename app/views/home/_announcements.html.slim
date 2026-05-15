@@ -1,12 +1,12 @@
-.thread-list-item
-  .thread-list-item__inner
-    .thread-list-item__author
-      = link_to announcement.user do
-        = image_tag announcement.user.avatar_url, title: "#{announcement.user.icon_title}", class: "thread-list-item__author-icon a-user-icon is-#{announcement.user.role}"
-    header.thread-list-item__header
-      h2.thread-list-item__title(itemprop="name")
-        = link_to announcement, itempro: "url", class: "thread-list-item__title-link" do
-          = announcement.title
-    .thread-list-item-meta
-      time.thread-list-item-meta__updated-at(datetime="#{announcement.updated_at.to_datetime}" pubdate="pubdate")
-        = l announcement.updated_at
+.a-card
+  header.card-header.is-sm
+    h2.card-header__title
+      | 最新のお知らせ
+  hr.a-border-tint
+  .card-list.has-scroll
+    = render partial: 'announcement', collection: @announcements, as: :announcement
+  hr.a-border-tint
+  footer.card-footer
+    .card-footer__footer-link
+      = link_to announcements_path, class: 'card-footer__footer-text-link' do
+        | 全てのお知らせ

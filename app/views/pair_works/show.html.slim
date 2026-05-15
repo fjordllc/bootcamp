@@ -1,0 +1,35 @@
+- title "ペアワーク: #{truncate(@pair_work.title, length: 35, omission: '...')}"
+- set_meta_tags og: { title: "ペアワーク: #{@pair_work.title}" }
+- if @pair_work.practice
+  - set_meta_tags description: "#{@pair_work.user.long_name}さんが投稿した、プラクティス「#{@pair_work.practice.title}」のペアワーク募集「#{@pair_work.title}」のページです。"
+- else
+  - set_meta_tags description: "#{@pair_work.user.long_name}さんが投稿した、ペアワーク募集「#{@pair_work.title}」のページです。このペアワーク募集に関連するプラクティスはありません。"
+
+= render 'questions_and_pair_works/questions_and_pair_works_header'
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h2.page-main-header__title
+            | ペアワーク
+        .page-main-header__end
+          .page-header-actions
+            ul.page-header-actions__items
+              li.page-header-actions__item
+                = link_to pair_works_path(target: 'not_solved'), class: 'a-button is-md is-secondary is-block is-back' do
+                  | ペアワーク一覧
+              li.page-header-actions__item
+                = link_to new_pair_work_path, class: 'a-button is-md is-secondary is-block' do
+                  i.fa-regular.fa-plus
+                  span ペアを募集する
+  hr.a-border
+
+  .page-body
+    .page-body__inner
+      .container.is-md
+        .page-content.pair-work
+          = render 'errors', object: @pair_work
+          = render 'pair_works/header', pair_work: @pair_work
+          = render 'pair_works/body', pair_work: @pair_work
+        = render 'comments/comments', commentable: @pair_work, commentable_type: 'PairWork'

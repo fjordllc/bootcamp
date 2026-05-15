@@ -1,0 +1,11 @@
+- title 'ブックマーク一覧'
+- set_meta_tags description: 'ブックマーク一覧ページです。'
+
+= render 'home/page_header'
+= dashboard_page_tabs(active_tab: 'ブックマーク')
+
+.page-main
+  - if @bookmarks.empty?
+    = render 'current_user/bookmarks/empty'
+  - else
+    = render 'current_user/bookmarks/list', bookmarks: @bookmarks

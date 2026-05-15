@@ -1,0 +1,28 @@
+version: "3"
+services:
+  app:
+    image: bootcamp:1.0.0
+    volumes:
+      - bundle:/workspace/vendor/bundle
+      - node_modules:/workspace/node_modules
+      - rails_cache:/workspace/tmp/cache
+      - packs:/workspace/public/packs
+      - packs_test:/workspace/public/packs-test
+    environment:
+      EDITOR: "vi"
+      BUNDLE_PATH: "vendor/bundle"
+      BOOTSNAP_CACHE_DIR: "vendor/bundle"
+      HISTFILE: "log/.bash_history"
+      BINDING: "0.0.0.0"
+    tmpfs:
+      - /tmp
+    expose: ["3000"]
+    ports: ["3000:3000"]
+    working_dir: /workspace
+
+volumes:
+  bundle:
+  node_modules:
+  rails_cache:
+  packs:
+  packs_test:

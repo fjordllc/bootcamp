@@ -1,25 +1,26 @@
-- title @practice.title
+- title "#{@practice.title}に関する日報"
+- set_meta_tags description: "プラクティス「#{@practice.title}」に関する日報一覧です。"
+- category = @practice.category(current_user.course)
 
-header.page-header
-  .container
-    .page-header__inner
-      h2.page-header__title
-        = title
-      .page-header-actions
-        ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to current_user.course, class: "a-button is-md is-secondary is-block" do
-              | プラクティス一覧
+= render '/practices/page_header',
+  title: @practice.title,
+  category: category,
+  practice: @practice
 
-= render "page_tabs", resource: @practice
+= practice_page_tabs(@practice, active_tab: '日報')
 
 .page-body
-  .container
-    = paginate @reports, position: "top"
-    - if @reports.present?
-      .thread-list.a-card
-        = render partial: "reports/report", collection: @reports, as: :report
-      = paginate @reports, position: "bottom"
+  .container.is-md
+    - if @reports.empty?
+      .o-empty-message
+        .o-empty-message__icon
+          i.fa-regular.fa-sad-tear
+        .o-empty-message__text
+          | 日報はまだありません。
     - else
-      .a-empty-message
-        | 日報はまだありません。
+      .page-content.reports
+        = paginate @reports
+        .card-list.a-card
+          .card-list__items
+            = render partial: 'reports/report', collection: @reports, as: :report, locals: { user_icon_display: true, actions_display: true }
+        = paginate @reports

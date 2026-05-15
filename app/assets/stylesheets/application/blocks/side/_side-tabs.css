@@ -1,0 +1,10 @@
+.side-tabs {
+  @media (min-width: 64em) {
+    position: sticky;
+    top: 3.125rem;
+  }
+  @media (max-width: 63.9375em) {
+    margin-top: 1.5rem;
+
+  }
+}

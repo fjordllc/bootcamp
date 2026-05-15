@@ -1,0 +1,145 @@
+section.lp-content.is-lp-bg-1.is-top-title
+  .l-container.is-xl
+    .lp-content__inner
+      .lp-content__start
+        header.lp-content__header
+          h2.lp-content-title.text-center.is-border-bottom
+            | 卒業生インタビュー
+            br
+            | &プレゼンテーション
+      .lp-content__end
+        .lp-content-stack
+          - if articles.present?
+            .lp-content-stack__item
+              .lp-content__articles
+                .row.is-gutter-width-32
+
+                  - articles.each do |article|
+                    .col-xs-6.col-md-4
+                      .thumbnail-card.a-card
+                        = link_to article_path(article), class: 'thumbnail-card__inner' do
+                          = image_tag article.prepared_thumbnail_url, class: 'thumbnail-card__image', alt: "#{article.title}の記事のサムネイル"
+                          .thumbnail-card__row
+                            h3.thumbnail-card__title
+                              = article.title
+                          .thumbnail-card__row
+                            .thumbnail-card__description
+                              .a-short-text
+                                p
+                                  = article.summary
+            / TODO: 別issueで対応するためコメントアウト　https://github.com/fjordllc/bootcamp/pull/8272#issuecomment-2709838791
+            / .lp-content-stack__item
+              .lp-actions
+                .lp-actions__items
+                  .lp-actions__item
+                    = link_to '', class: 'a-button is-xl is-primary-border is-block' do
+                      | もっと見る
+
+          - else
+            .lp-content-stack__item
+              .o-empty-message
+                .o-empty-message__icon
+                  i.fa-regular.fa-sad-tear
+                .o-empty-message__text
+                  | まだ記事はありません
+
+section.lp-content.is-lp-bg-2.is-top-title
+  .l-container.is-lg
+    .lp-content__inner
+      .lp-content__start
+        header.lp-content__header
+          h2.lp-content-title.text-center.is-border-bottom
+            | 卒業生アンケート
+      .lp-content__end
+        .row.is-gutter-width-32
+          .col-xs-12.col-md-6
+            .lp-top-image-section
+              .lp-top-image-section__inner.a-card
+                h3.lp-card-title.text-center
+                  | 教材、カリキュラム、指導内容等は、
+                  br
+                  | 期待した能力の習得に役立つものとして満足できましたか？
+                .lp-top-image-section__chart-container
+                  canvas#myPieChart
+          .col-xs-12.col-md-6
+            .lp-top-image-section
+              .lp-top-image-section__inner.a-card
+                h3.lp-card-title.text-center
+                  | フィヨルドブートキャンプを
+                  br
+                  | 友人や知人に勧めたいと思いますか？
+                .lp-top-image-section__chart-container
+                  canvas#myPieChart2
+
+    script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"
+    script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-labels@1.1.0/src/chartjs-plugin-labels.min.js"
+    javascript:
+      var ctx = document.getElementById("myPieChart");
+      var myPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ["大変満足", "おおむね満足", "どちらとも言えない", "やや不満", "大いに不満"],
+          datasets: [{
+              backgroundColor: [
+                  "#f5a1b8",
+                  "#fdb930",
+                  "#faed00",
+                  "#b4dbfd",
+                  "#e6e6ee"
+              ],
+              //data: [11, 8, 0, 0, 0]
+              data: [57.9, 42.1, 0, 0, 0]
+          }]
+        },
+        options: {
+          title: {
+          },
+          legend: {
+          },
+          scales: {
+          },
+          maintainAspectRatio: false,
+          plugins: {
+            labels: {
+              render: 'percentage',
+              fontColor: 'white',
+              fontSize: 14
+            }
+          }
+        }
+      });
+
+      var ctx = document.getElementById("myPieChart2");
+      var myPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ["非常に勧めたい", "やや勧めたい", "どちらともいえない", "あまり勧めたくない", "全く勧めたくない"],
+          datasets: [{
+              backgroundColor: [
+                  "#f5a1b8",
+                  "#fdb930",
+                  "#faed00",
+                  "#b4dbfd",
+                  "#e6e6ee"
+              ],
+              //data: [11, 7, 1, 0, 0]
+              data: [57.9, 36.8, 5, 0, 0]
+          }]
+        },
+        options: {
+          title: {
+          },
+          legend: {
+          },
+          scales: {
+          },
+          maintainAspectRatio: false,
+          plugins: {
+            labels: {
+              render: 'percentage',
+              fontColor: 'white',
+              fontSize: 14
+            }
+          }
+        }
+      });

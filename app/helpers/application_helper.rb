@@ -3,16 +3,15 @@
 module ApplicationHelper
   def my_practice?(practice)
     return false if current_user.blank?
+
     [:everyone, current_user.job].include?(practice.target)
   end
 
-  def md2html(text)
-    html = CommonMarker.render_html(text)
-    raw(html)
+  def movie_available?
+    Rails.env.local? || current_user&.admin? || Switchlet.enabled?(:movie)
   end
 
-  def md_summury(comment, word_count)
-    summury = strip_tags(md2html(comment)).gsub(/[\r\n]/, "")
-    simple_format(truncate(summury, length: word_count))
+  def pair_work_available?
+    Rails.env.local? || Switchlet.enabled?(:pair_work)
   end
 end

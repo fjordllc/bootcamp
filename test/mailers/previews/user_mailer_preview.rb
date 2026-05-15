@@ -11,4 +11,14 @@ class UserMailerPreview < ActionMailer::Preview
     user = User.first
     UserMailer.welcome(user)
   end
+
+  def training_complete
+    user = User.find_by(login_name: 'kensyu')
+    UserMailer.training_complete(user)
+  end
+
+  def retire
+    user = User.first
+    UserMailer.retire(user)
+  end
 end

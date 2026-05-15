@@ -1,27 +1,40 @@
 # frozen_string_literal: true
 
 class Card
+  def self.all(customer_id)
+    Stripe::Customer.list_sources(customer_id)&.data || []
+  end
+
+  def self.destroy_all(customer_id)
+    all(customer_id).each do |card|
+      destroy(customer_id, card['id'])
+    end
+  end
+
+  def self.destroy(customer_id, card_id)
+    Stripe::Customer.delete_source(
+      customer_id,
+      card_id
+    )
+  end
+
   def create(user, card_token, idempotency_key = SecureRandom.uuid)
     Stripe::Customer.create({
-      email: user.email,
-      source: card_token
-    }, {
-      idempotency_key: idempotency_key
-    })
+                              email: user.email,
+                              source: card_token
+                            }, {
+                              idempotency_key:
+                            })
   end
 
   def update(customer_id, card_token)
-    customer = Stripe::Customer.retrieve(customer_id)
-    customer.source = card_token
-    customer.save
+    Stripe::Customer.update(customer_id, source: card_token)
   end
 
   def search(email:)
-    result = Stripe::Customer.list(email: email, limit: 1)
-    if result.data.size > 0
-      result.data.first
-    else
-      nil
-    end
+    result = Stripe::Customer.list(email:, limit: 1)
+    return unless result.data.size.positive?
+
+    result.data.first
   end
 end

@@ -3,26 +3,86 @@
 module Bootcamp
   class Setup
     class << self
-      def attachment
-        User.all.each do |user|
-          filename = "#{user.login_name}.jpg"
-          path = Rails.root.join("test", "fixtures", "files", "users", "avatars", filename)
-          if File.exist?(path)
-            user.avatar.attach(io: open(path), filename: filename)
-            user.resize_avatar!
-          end
-        end
+      def fixtures_dir
+        Rails.env.test? ? 'test' : 'db'
+      end
 
+      def attachment
+        attach_mentor_profile_image!
+        attach_user_avatar!
+        attach_company_logo!
+        attach_book_cover!
+        attach_authored_book_cover!
+        attach_practice_ogp!
+        attach_movie_data!
+      end
+
+      private
+
+      def attach_mentor_profile_image!
+        mentors = User.where(mentor: true)
+        mentors.each do |mentor|
+          filename =
+            File.exist?(Rails.root.join("#{fixtures_dir}/fixtures/files/users/avatars/#{mentor.login_name}.jpg")) ? "#{mentor.login_name}.jpg" : 'default.jpg'
+          path = Rails.root.join("#{fixtures_dir}/fixtures/files/users/avatars/#{filename}")
+          mentor.profile_image.attach(io: File.open(path), filename:)
+        end
+      end
+
+      def attach_user_avatar!
+        User.all.find_each do |user|
+          filename = "#{user.login_name}.jpg"
+          path = Rails.root.join("#{fixtures_dir}/fixtures/files/users/avatars/#{filename}")
+          user.avatar.attach(io: File.open(path), filename:) if File.exist?(path)
+        end
+      end
+
+      def attach_company_logo!
         Company.order(:created_at).each_with_index do |company, i|
           filename = "#{i + 1}.jpg"
-          dir = Rails.root.join("test", "fixtures", "files", "companies", "logos")
+          dir = Rails.root.join("#{fixtures_dir}/fixtures/files/companies/logos")
           path = "#{dir}/#{filename}"
           unless File.exist?(path)
-            filename = "default.jpg"
+            filename = 'default.jpg'
             path = "#{dir}/#{filename}"
           end
-          company.logo.attach(io: open(path), filename: filename)
-          company.resize_logo!
+          company.logo.attach(io: File.open(path), filename:)
+        end
+      end
+
+      def attach_book_cover!
+        Book.order(:created_at).each_with_index do |book, i|
+          filename = "#{i + 1}.jpg"
+          path = Rails.root.join("#{fixtures_dir}/fixtures/files/books/covers/#{filename}")
+          book.cover.attach(io: File.open(path), filename:) if File.exist?(path)
+        end
+      end
+
+      def attach_authored_book_cover!
+        AuthoredBook.order(:created_at).each_with_index do |authored_book, i|
+          filename = "#{i + 1}.png"
+          path = Rails.root.join("#{fixtures_dir}/fixtures/files/authored_books/#{filename}")
+          authored_book.cover.attach(io: File.open(path), filename:) if File.exist?(path)
+        end
+      end
+
+      def attach_practice_ogp!
+        Practice.order(:created_at).each_with_index do |practice, i|
+          filename = "#{i + 1}.jpg"
+          path = Rails.root.join("#{fixtures_dir}/fixtures/files/practices/#{filename}")
+          practice.ogp_image.attach(io: File.open(path), filename:) if File.exist?(path)
+        end
+      end
+
+      def attach_movie_data!
+        Movie.order(:created_at).each do |movie|
+          if movie.title.include?('mp4')
+            movie_path = Rails.root.join("#{fixtures_dir}/fixtures/files/movies/movie.mp4")
+            movie.movie_data.attach(io: File.open(movie_path), filename: 'movie.mp4')
+          elsif movie.title.include?('mov')
+            movie_path = Rails.root.join("#{fixtures_dir}/fixtures/files/movies/movie.mov")
+            movie.movie_data.attach(io: File.open(movie_path), filename: 'movie.mov')
+          end
         end
       end
     end

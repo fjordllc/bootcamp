@@ -2,14 +2,18 @@
 
 module LayoutHelper
   def display_header?
-    current_user && body_class.exclude?("no-header")
+    current_user && body_class.exclude?('no-header')
   end
 
   def display_global_nav?
-    current_user && body_class.exclude?("no-global-nav")
+    current_user && body_class.exclude?('no-global-nav')
   end
 
-  def display_recent_reports?
-    current_user && body_class.exclude?("no-recent-reports") && !admin_page? && body_class.exclude?("is-edit-page")
+  def display_footer?
+    body_class.exclude?('no-footer')
+  end
+
+  def display_forms?
+    body_class.exclude?('no-forms')
   end
 end

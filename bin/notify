@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'net/http'
+require 'json'
+
+uri = URI.parse(ENV['DEPLOY_NOTIFY_WEBHOOK_URL'])
+http = Net::HTTP.new(uri.host, uri.port)
+http.use_ssl = true
+
+puts "ENV[DB_NAME]: #{ENV['DB_NAME']}"
+
+message = if ENV['DB_NAME'] == 'bootcamp_production'
+  "🚢本番環境にデプロイしました。\rhttps://bootcamp.fjord.jp/"
+else
+  "🚢ステージング環境にデプロイしました。\rhttps://bootcamp-staging.fjord.jp/"
+end
+params = { "content" => message }
+headers = { "Content-Type" => "application/json" }
+http.post(uri.path, params.to_json, headers)

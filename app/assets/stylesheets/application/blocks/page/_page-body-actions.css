@@ -1,0 +1,7 @@
+.page-body-actions {
+  margin-top: 1.5rem;
+}
+
+.a-empty-message + .page-body-actions {
+  margin-top: 1rem;
+}

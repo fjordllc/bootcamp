@@ -1,52 +1,13 @@
-- title "管理ページ"
+- title '管理ページ'
 
 header.page-header
   .container
     .page-header__inner
-      h2.page-header__title = title
+      .page-header__start
+        h2.page-header__title
+          | 管理ページ
 
-.page-tools
-  = render "admin/admin_page_tabs"
+= render 'admin/admin_page_tabs'
 
 .page-body
   .container
-    .columns
-      .row
-        .col-xs-12.col-xl-6.col-xxl-6
-          .thread-list.a-card
-            header.card-header.is-sm
-              h2.card-header__title
-                | 管理者メニュー
-            .card-list
-              ul.card-list__items
-                li.card-list__item
-                  = link_to new_article_path, class: "card-list__item-link" do
-                    | ブログ記事作成
-                li.card-list__item
-                  = link_to "https://fjord.slack.com/admin", class: "card-list__item-link", target: "_blank" do
-                    | Slack管理
-                li.card-list__item
-                  = link_to "https://github.com/fjordllc/fjord/wiki/FjordBootCamp", class: "card-list__item-link", target: "_blank" do
-                    | 管理者用ドキュメント
-                li.card-list__item
-                  = link_to "https://www.amazon.co.jp/hz/wishlist/ls/3I571CQISBFR6?ref_=wl_share", class: "card-list__item-link", target: "_blank" do
-                    | ウィッシュリスト
-                li.card-list__item
-                  = link_to welcome_path, class: "card-list__item-link" do
-                    | トップページ確認
-
-        .col-xs-12.col-xl-6.col-xxl-6
-          .thread-list.a-card
-            header.card-header.is-sm
-              h2.card-header__title 日別
-            .card-list
-              .charts
-                = line_chart Metric::User.by_day, ytitle: "人数"
-
-        .col-xs-12.col-xl-6.col-xxl-6
-          .thread-list.a-card
-            header.card-header.is-sm
-              h2.card-header__title 月別
-            .card-list
-              .charts
-                = line_chart Metric::User.by_month, ytitle: "人数"

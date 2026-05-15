@@ -1,23 +1,75 @@
 # frozen_string_literal: true
 
 class Users::ReportsController < ApplicationController
-  before_action :require_login
   before_action :set_user
+  before_action :set_target
+  before_action :require_admin_or_mentor_login, if: -> { params[:target] == 'unchecked_reports' }
+  before_action :set_current_user_practice
   before_action :set_reports
+  before_action :set_report
+  before_action :set_export
+  before_action :set_unchecked_count, if: -> { @target == 'unchecked_reports' }
 
   def index
+    respond_to do |format|
+      format.html
+      format.md do
+        if allow_download_reports_only_admin
+          send_reports_markdown(@reports_for_export)
+        else
+          redirect_to root_path, alert: '自分以外の日報はダウンロードすることができません'
+        end
+      end
+    end
   end
 
   private
-    def set_user
-      @user = User.find(params[:user_id])
-    end
 
-    def set_reports
-      @reports = user.reports.list.page(params[:page])
-    end
+  def allow_download_reports_only_admin
+    current_user.admin? || @report.user_id == current_user.id
+  end
 
-    def user
-      @user ||= User.find(params[:user_id])
+  def set_user
+    @user = User.find(params[:user_id])
+  end
+
+  def set_reports
+    @reports = if @target == 'unchecked_reports'
+                 @user.reports.unchecked.not_wip.list.page(params[:page])
+               else
+                 @user.reports.list.page(params[:page])
+               end
+    @reports = @reports.joins(:practices).where(practices: { id: params[:practice_id] }) if params[:practice_id].present?
+  end
+
+  def set_current_user_practice
+    @current_user_practice = UserCoursePractice.new(@user || current_user)
+  end
+
+  def set_report
+    @report = @reports[0]
+  end
+
+  def set_target
+    @target = params[:target] || 'all_reports'
+  end
+
+  def user
+    @user ||= User.find(params[:user_id])
+  end
+
+  def set_export
+    @reports_for_export = @user.reports.not_wip
+  end
+
+  def send_reports_markdown(reports)
+    Dir.mktmpdir do |folder_path|
+      ReportExporter.export(reports, folder_path)
+      send_data(File.read("#{folder_path}/reports.zip"), filename: '日報一覧.zip')
     end
+  end
+
+  def set_unchecked_count
+    @unchecked_count = @user.reports.unchecked.not_wip.count
+  end
 end

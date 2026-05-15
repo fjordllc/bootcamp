@@ -1,91 +1,49 @@
 # frozen_string_literal: true
 
-require "application_system_test_case"
+require 'application_system_test_case'
 
 class SearchablesTest < ApplicationSystemTestCase
-  setup { login_user "hatsuno", "testtest" }
-
-  test "search All " do
-    within("form[name=search]") do
-      select "すべて"
-      fill_in "word", with: "テスト"
+  test 'search with word' do
+    visit_with_auth '/', 'hatsuno'
+    search_word = '検索結果テスト用'
+    find('.js-modal-search-shown-trigger').click
+    within('form[name=search]') do
+      select 'すべて'
+      fill_in 'word', with: search_word
     end
-    find("#test-search").click
-    assert_text "テストの日報"
-    assert_text "Docsページ"
-    assert_text "Unityでのテスト"
-    assert_text "テストの質問1"
-    assert_text "テストのお知らせ"
-    assert_text "テスト用 report_1へのコメント"
-    assert_text "テスト用 announcement_1へのコメント"
-    assert_text "テストの回答"
+    find('#test-search-modal').click
+    # 検索結果が表示されるまで待機
+    assert_selector '.card-list-item'
+    # 検索結果が表示されていることを確認
+    assert_text search_word
   end
 
-  test "search reports " do
-    within("form[name=search]") do
-      select "日報"
-      fill_in "word", with: "テスト"
+  test 'matched_word is in bold' do
+    visit_with_auth '/', 'komagata'
+    find('.js-modal-search-shown-trigger').click
+    within('form[name=search]') do
+      select 'すべて'
+      fill_in 'word', with: '検索ワードが太字で表示されるかのテスト'
     end
-    find("#test-search").click
-    assert_text "テストの日報"
-    assert_no_text "Docsページ"
-    assert_no_text "Unityでのテスト"
-    assert_no_text "テストの質問1"
-    assert_no_text "テストのお知らせ"
-    assert_text "テスト用 report_1へのコメント"
-    assert_no_text "テスト用 announcement_1へのコメント"
+    find('#test-search-modal').click
+    assert_selector 'strong.matched_word', text: '検索ワードが太字で表示されるかのテスト'
   end
 
-  test "admin can see comment description" do
-    login_user "komagata", "testtest"
-    within("form[name=search]") do
-      select "すべて"
-      fill_in "word", with: "テスト"
+  test 'show icon and go profile page when click icon' do
+    user = users(:komagata)
+    reset_avatar(user)
+    user.reload
+    assert user.avatar.attached?, 'アバターのテスト用フィクスチャがアタッチできませんでした（komagata）'
+    visit_with_auth '/', 'hatsuno'
+    find('.js-modal-search-shown-trigger').click
+    within('form[name=search]') do
+      select 'すべて'
+      fill_in 'word', with: '提出物のコメントです。'
     end
-    find("#test-search").click
-    assert_text "テスト用 product_1へのコメント"
-  end
+    find('#test-search-modal').click
+    assert_includes find('img.card-list-item-meta__icon.a-user-icon')['src'], 'komagata.webp'
 
-  test "advisor can see comment description" do
-    login_user "advijirou", "testtest"
-    within("form[name=search]") do
-      select "すべて"
-      fill_in "word", with: "テスト"
-    end
-    find("#test-search").click
-    assert_text "テスト用 product_1へのコメント"
-  end
-
-  test "can see comment description if it is permitted" do
-    login_user "kimura", "testtest"
-    within("form[name=search]") do
-      select "すべて"
-      fill_in "word", with: "テスト"
-    end
-    find("#test-search").click
-    assert_text "テスト用 product_1へのコメント"
-    assert_text "テスト用 product_3へのコメント"
-  end
-
-  test "can not see comment description if it isn't permitted" do
-    within("form[name=search]") do
-      select "すべて"
-      fill_in "word", with: "テスト"
-    end
-    find("#test-search").click
-    assert_no_text "テスト用 product_1へのコメント"
-    assert_text "テスト用 product_3へのコメント"
-    assert_text "該当プラクティスを完了するまで他の人の提出物へのコメントは見れません。"
-  end
-
-  test "show user name and created time" do
-    within("form[name=search]") do
-      select "日報"
-      fill_in "word", with: "テストの日報"
-    end
-    find("#test-search").click
-    assert_text "yamada"
-    assert_css ".thread-list-item-meta__created-at"
-    assert_no_text "テストの回答"
+    find('img.card-list-item-meta__icon.a-user-icon').click
+    assert_selector 'h1.page-content-header__title', text: 'komagata'
   end
 end

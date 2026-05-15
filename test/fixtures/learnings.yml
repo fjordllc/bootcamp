@@ -1,62 +1,149 @@
-learning_1:
+<% today = Time.current %>
+learning1:
   user: komagata
-  practice: practice_1
+  practice: practice1
   status: "started"
+  completion_message_displayed: false
 
-learning_2:
+learning2:
   user: komagata
-  practice: practice_2
+  practice: practice2
   status: "complete"
+  completion_message_displayed: true
 
-learning_3:
+learning3:
   user: komagata
-  practice: practice_3
+  practice: practice3
   status: "unstarted"
+  completion_message_displayed: false
 
-learning_4:
+learning4:
   user: machida
-  practice: practice_2
+  practice: practice2
   status: "complete"
+  completion_message_displayed: true
 
-learning_5:
+learning5:
   user: sotugyou
-  practice: practice_2
+  practice: practice2
   status: "complete"
+  completion_message_displayed: true
 
-learning_6:
+learning6:
   user: kimura
-  practice: practice_1
+  practice: practice1
   status: "complete"
+  completion_message_displayed: true
 
-learning_7:
+learning7:
   user: komagata
-  practice: practice_4
+  practice: practice4
   status: "submitted"
+  completion_message_displayed: false
 
-learning_8:
+learning8:
   user: machida
-  practice: practice_5
+  practice: practice5
   status: "complete"
+  completion_message_displayed: true
   created_at: "2020-04-12 14:05:53.782503"
   updated_at: "2020-04-12 14:05:53.782503"
 
-learning_9:
+learning9:
   user: machida
-  practice: practice_6
+  practice: practice6
   status: "complete"
+  completion_message_displayed: true
   created_at: "2020-04-10 14:05:53.782503"
   updated_at: "2020-04-10 14:05:53.782503"
 
-learning_10:
+learning10:
   user: machida
-  practice: practice_7
+  practice: practice7
   status: "complete"
+  completion_message_displayed: true
   created_at: "2020-04-19 14:05:53.782503"
   updated_at: "2020-04-19 14:05:53.782503"
 
-learning_11:
+learning11:
   user: machida
-  practice: practice_8
+  practice: practice8
   status: "complete"
+  completion_message_displayed: true
   created_at: "2020-04-22 14:05:53.782503"
   updated_at: "2020-04-22 14:05:53.782503"
+
+learning12:
+  user: hajime
+  practice: practice1
+  status: "started"
+  completion_message_displayed: false
+
+learning13:
+  user: kananashi
+  practice: practice3
+  status: "started"
+  completion_message_displayed: false
+
+learning14:
+  user: hajime
+  practice: practice27
+  status: "complete"
+  completion_message_displayed: true
+
+learning15:
+  user: hajime
+  practice: practice48
+  status: "complete"
+  completion_message_displayed: true
+
+learning16:
+  user: kimura
+  practice: practice6
+  status: "complete"
+  completion_message_displayed: false
+
+learning17:
+  user: sotugyou
+  practice: practice3
+  status: "submitted"
+  completion_message_displayed: false
+
+learning18:
+  user: jobseeker
+  practice: practice1
+  status: "complete"
+  created_at: <%= (today - 1.week).to_formatted_s(:db) %>
+  updated_at: <%= (today - 1.week).to_formatted_s(:db) %>
+
+learning19:
+  user: muryou
+  practice: practice1
+  status: "complete"
+  created_at: <%= (today - 3.weeks).to_formatted_s(:db) %>
+  updated_at: <%= (today - 3.weeks).to_formatted_s(:db) %>
+
+
+learning23:
+  user: harikirio
+  practice: practice5
+  status: "complete"
+  completion_message_displayed: false
+
+learning24:
+  user: harikirio
+  practice: practice61
+  status: "complete"
+  completion_message_displayed: false
+
+learning25:
+  user: harikirio
+  practice: practice62
+  status: "complete"
+  completion_message_displayed: false
+
+learning26:
+  user: harikirio
+  practice: practice63
+  status: "complete"
+  completion_message_displayed: false

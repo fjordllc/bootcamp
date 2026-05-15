@@ -1,0 +1,21 @@
+title: <%= "#{regular_event.title}を開催します🎉" %>
+description: |
+  <!-- このテキストを編集してください -->
+
+  <%= "#{regular_event.title}を開催します🎉" %>
+
+  - 開催日
+    - <%= "#{holding_cycles} #{hold_national_holiday}" %>
+  - 開催時間
+    - <%= "#{I18n.l regular_event.start_at, format: :time_only} 〜 #{I18n.l regular_event.end_at, format: :time_only}" %>
+  - 主催者
+    - <%= organizers %>
+
+  ---
+
+  <%= regular_event.description %>
+
+  ## 参加登録はこちら
+  <%= Rails.application.routes.url_helpers.regular_event_url(regular_event) %>
+
+  ---

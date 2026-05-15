@@ -1,34 +1,29 @@
 # frozen_string_literal: true
 
-class ReportsController < ApplicationController
-  include ReportsHelper
+class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLength
+  PAGER_NUMBER = 25
+
   include Rails.application.routes.url_helpers
-  before_action :require_login
-  before_action :set_report, only: %i(show)
-  before_action :set_my_report, only: %i(edit update destroy)
-  before_action :set_checks, only: %i(show)
-  before_action :set_check, only: %i(show)
-  before_action :set_footprints, only: %i(show)
-  before_action :set_footprint, only: %i(show)
-  before_action :set_user, only: %i(show)
-  before_action :set_categories, only: %i(new create edit update)
-  before_action :set_watch, only: %i(show)
+  before_action :set_report, only: %i[show]
+  before_action :set_my_report, only: %i[destroy]
+  before_action :set_editable_report, only: %i[edit update]
+  before_action :set_checks, only: %i[show]
+  before_action :set_check, only: %i[show]
+  before_action :set_user, only: %i[show]
+  before_action :set_categories, only: %i[create update]
+  before_action :set_watch, only: %i[show]
 
   def index
-    @search_words = params[:word]&.squish&.split(/[[:blank:]]/)&.uniq
-    @reports = Report.list.page(params[:page])
-
-    if params[:practice_id].present?
-      @reports = @reports.joins(:practices).where(practices: { id: params[:practice_id] })
-    end
-
-    if @search_words.present?
-      @reports = @reports.ransack(title_or_description_cont_all: @search_words).result
-    end
+    @reports = Report.list.page(params[:page]).per(PAGER_NUMBER)
+    @reports = @reports.joins(:practices).where(practices: { id: params[:practice_id] }) if params[:practice_id].present?
   end
 
   def show
-    footprint!
+    @products = @report.user.products.not_wip.order(published_at: :desc)
+    @comments = @report.comments.order(:created_at)
+    @recent_reports = Report.list.where(user_id: @report.user.id).limit(10)
+    Footprint.find_or_create_for(@report, current_user)
+    @footprints = Footprint.fetch_for_resource(@report)
     respond_to do |format|
       format.html
       format.md
@@ -36,21 +31,25 @@ class ReportsController < ApplicationController
   end
 
   def new
-    @report = Report.new(reported_on: Date.current)
-    @report.learning_times.build()
+    year, month, day = params[:reported_on].scan(/\d+/).map(&:to_i) if params[:reported_on]
+    @report = if Date.valid_date?(year, month, day)
+                Report.new(reported_on: params[:reported_on].to_date)
+              else
+                Report.new(reported_on: Date.current)
+              end
+    build_learning_times(@report)
 
-    if params[:id]
-      report              = current_user.reports.find(params[:id])
-      @report.title       = report.title
-      @report.reported_on = Date.current
-      @report.emotion = report.emotion
-      @report.description = report.description
-      @report.practices   = report.practices
-    end
+    return unless params[:id]
+
+    report              = current_user.reports.find(params[:id])
+    @report.title       = report.title
+    @report.description = "<!-- #{report.reported_on} の日報を複製 -->\n" + report.description
+    @report.practices   = report.practices
+    flash.now[:notice] = '日報を複製しました。'
   end
 
   def edit
-    @report.user = current_user
+    @report.no_learn = true if @report.learning_times.empty?
   end
 
   def create
@@ -58,148 +57,146 @@ class ReportsController < ApplicationController
     @report.user = current_user
     set_wip
     canonicalize_learning_times(@report)
-    check_noticeable
-    if @report.save
-      notify_to_slack(@report) if @noticeable
-      redirect_to redirect_url(@report), notice: notice_message(@report)
+
+    if @report.save_uniquely
+      ActiveSupport::Notifications.instrument('report.create', report: @report)
+      redirect_to redirect_url(@report), notice: notice_message(@report), flash: flash_contents(@report)
     else
       render :new
     end
   end
 
   def update
+    before_wip_status = @report.wip
     set_wip
+    @report.practice_ids = nil if params[:report][:practice_ids].nil?
     @report.assign_attributes(report_params)
+    @report.learning_times.each(&:mark_for_destruction) if @report.no_learn
     canonicalize_learning_times(@report)
-    check_noticeable
-    if @report.save
-      notify_to_slack(@report) if @noticeable
-      redirect_to redirect_url(@report), notice: notice_message(@report)
+
+    if @report.save_uniquely
+      ActiveSupport::Notifications.instrument('report.update', report: @report)
+      redirect_to redirect_url(@report), notice: notice_message(@report), flash: flash_contents(@report)
     else
+      @report.wip = before_wip_status
       render :edit
     end
   end
 
   def destroy
     @report.destroy
-    redirect_to reports_url, notice: "日報を削除しました。"
+    ActiveSupport::Notifications.instrument('report.destroy', report: @report)
+    redirect_to reports_url, notice: '日報を削除しました。'
   end
 
   private
-    def footprint!
-      @report.footprints.where(user: current_user).first_or_create if @report.user != current_user
-    end
 
-    def report_params
-      params.require(:report).permit(
-        :title,
-        :reported_on,
-        :emotion,
-        :description,
-        practice_ids: [],
-        learning_times_attributes: [:id, :started_at, :finished_at, :_destroy]
+  def report_params
+    params.require(:report).permit(
+      :title,
+      :reported_on,
+      :emotion,
+      :no_learn,
+      :description,
+      practice_ids: [],
+      learning_times_attributes: %i[id started_at finished_at _destroy]
+    )
+  end
+
+  def set_report
+    @report = Report.find(params[:id])
+  end
+
+  def set_my_report
+    @report = current_user.reports.find(params[:id])
+  end
+
+  def set_editable_report
+    @report = current_user.mentor? ? Report.find(params[:id]) : current_user.reports.find(params[:id])
+  end
+
+  def set_user
+    @user = User.find_by(id: params[:user_id])
+  end
+
+  def set_check
+    @check = Check.new
+  end
+
+  def report
+    @report ||= Report.find(params[:id])
+  end
+
+  def set_checks
+    @checks = report.checks.order(created_at: :desc)
+  end
+
+  def set_categories
+    @categories = Category.eager_load(:practices).where.not(practices: { id: nil }).order('categories_practices.position')
+  end
+
+  def set_wip
+    @report.wip = params[:commit] == 'WIP'
+  end
+
+  def redirect_url(report)
+    report.wip? ? edit_report_url(report) : report_url(report)
+  end
+
+  def notice_message(report)
+    report.wip? ? '日報をWIPとして保存しました。' : '日報を保存しました。'
+  end
+
+  def flash_contents(report)
+    { notify_help: !report.wip? && report.negative?,
+      celebrate_report_count: celebrating_count(report) }
+  end
+
+  CELEBRATING_COUNTS = [100, 200, 222, 300, 333, 400, 500, 555, 600, 700, 777, 800, 900, 1000, 1024, 1100, 1111, 1200, 1234, 1300, 1400, 1500].freeze
+
+  def celebrating_count(report)
+    return nil if report.wip
+
+    report_count = current_user.reports.not_wip.count
+    CELEBRATING_COUNTS.find { |count| count == report_count }
+  end
+
+  def set_watch
+    @watch = Watch.new
+  end
+
+  def canonicalize_learning_times(report)
+    report.learning_times.each do |learning_time|
+      new_started_at = learning_time.started_at.change(
+        year: report.reported_on.year,
+        month: report.reported_on.month,
+        day: report.reported_on.day
       )
+      new_finished_at = learning_time.finished_at.change(
+        year: report.reported_on.year,
+        month: report.reported_on.month,
+        day: report.reported_on.day
+      )
+      new_finished_at += 1.day if new_started_at > new_finished_at
+      learning_time.assign_attributes(started_at: new_started_at, finished_at: new_finished_at)
     end
+  end
 
-    def set_report
-      @report = Report.find(params[:id])
-    end
+  def build_learning_times(report)
+    reported_weekday = LearningTimeFrame::WEEK_DAY_NAMES_JA[report.reported_on.wday]
 
-    def set_my_report
-      @report = current_user.reports.find(params[:id])
-    end
+    min_hour = current_user.learning_time_frames
+                           .where(week_day: reported_weekday)
+                           .minimum(:activity_time)
 
-    def set_user
-      @user = User.find_by(id: params[:user_id])
-    end
-
-    def set_check
-      @check = Check.new
-    end
-
-    def report
-      @report ||= Report.find(params[:id])
-    end
-
-    def set_checks
-      @checks = report.checks.order(created_at: :desc)
-    end
-
-    def set_footprint
-      @footprint = Footprint.new
-    end
-
-    def set_footprints
-      @footprints = @report.footprints.with_avatar.order(created_at: :desc)
-    end
-
-    def set_categories
-      @categories = Category.eager_load(:practices).where.not(practices: { id: nil }).order("categories.position ASC, practices.position ASC")
-    end
-
-    def notify_to_slack(report)
-      name = "#{report.user.login_name}"
-      link = "<#{report_url(report)}|#{report.title}>"
-
-      SlackNotification.notify "#{name} created #{link}",
-        username: "#{report.user.login_name} (#{report.user.full_name})",
-        icon_url: report.user.avatar_url,
-        attachments: [{
-          fallback: "report body.",
-          text: report.description
-        }]
-
-      if report.user.trainee? && report.user.company.slack_channel?
-        SlackNotification.notify "#{name} さんが日報を提出しました。 #{link}",
-         username: "#{report.user.login_name} (#{report.user.full_name})",
-         icon_url: report.user.avatar_url,
-         channel: report.user.company.slack_channel,
-         attachments: [{
-           fallback: "report body.",
-           text: report.description
-         }]
+    started_at =
+      if min_hour
+        t = report.reported_on.in_time_zone.change(hour: min_hour, min: 0)
+        t <= Time.current ? t : Time.current.change(min: 0)
+      else
+        Time.current.change(min: 0)
       end
-    end
 
-    def set_wip
-      @report.wip = params[:commit] == "WIP"
-    end
-
-    def check_noticeable
-      if @report.published_at.nil? && @report.wip == false
-        @report.published_at = Date.current
-        @noticeable = true
-      end
-    end
-
-    def redirect_url(report)
-      report.wip? ? edit_report_url(report) : report
-    end
-
-    def notice_message(report)
-      report.wip? ? "日報をWIPとして保存しました。" : "日報を保存しました。"
-    end
-
-    def set_watch
-      @watch = Watch.new
-    end
-
-    def canonicalize_learning_times(report)
-      report.learning_times.each do |learning_time|
-        new_started_at = learning_time.started_at.change(
-          year: report.reported_on.year,
-          month: report.reported_on.month,
-          day: report.reported_on.day
-        )
-        new_finished_at = learning_time.finished_at.change(
-          year: report.reported_on.year,
-          month: report.reported_on.month,
-          day: report.reported_on.day
-        )
-        if new_started_at > new_finished_at
-          new_finished_at += 1.day
-        end
-        learning_time.assign_attributes(started_at: new_started_at, finished_at: new_finished_at)
-      end
-    end
+    report.learning_times.build(started_at: started_at)
+  end
 end

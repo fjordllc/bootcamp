@@ -1,0 +1,77 @@
+.a-list-item-badge {
+  font-size: 0.625rem;
+  display: inline-flex;
+  font-weight: 400;
+  white-space: nowrap;
+  color: var(--semi-muted-text);
+  border-radius: 0.75rem;
+  align-self: flex-start;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 3.75rem;
+  height: 0.8125rem;
+}
+.a-list-item-badge span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  letter-spacing: -0.05em;
+}
+.a-list-item-badge.is-wip {
+  background-color: var(--background-semi-shade);
+  color: var(--semi-muted-text);
+}
+.a-list-item-badge.is-active {
+  background-color: var(--danger);
+  color: var(--reversal-text);
+}
+.a-list-item-badge.is-unread {
+  background-color: var(--danger);
+  color: var(--reversal-text);
+}
+.a-list-item-badge.is-searchable {
+  border: solid 1px var(--muted-text);
+  color: var(--muted-text);
+}
+.a-list-item-badge.is-ended {
+  background-color: var(--muted-text);
+  color: var(--reversal-text);
+}
+.a-list-item-badge.is-report {
+  background-color: #7f6fb7;
+  color: var(--reversal-text);
+}
+.a-list-item-badge.is-practice {
+  background-color: #5bbcc7;
+  color: var(--reversal-text);
+}
+.a-list-item-badge.is-question {
+  background-color: #e2965b;
+  color: var(--reversal-text);
+}
+.a-list-item-badge.is-page {
+  background-color: #56925c;
+  color: var(--reversal-text);
+}
+.a-list-item-badge.is-announcement {
+  background-color: #f7cd5b;
+  color: var(--default-text);
+}
+.a-list-item-badge.is-event {
+  background-color: #fb96a3;
+  color: var(--reversal-text);
+}
+.a-list-item-badge.is-regular_event {
+  background-color: #dc6ed2;
+  color: var(--reversal-text);
+}
+.a-list-item-badge.is-product {
+  background-color: #909b3c;
+  color: var(--reversal-text);
+}
+.a-list-item-badge.is-user {
+  background-color: #7cbd9c;
+  color: var(--reversal-text);
+}

@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require "application_system_test_case"
+require 'application_system_test_case'
 
 class Practice::ReportsTest < ApplicationSystemTestCase
-  setup { login_user "hatsuno", "testtest" }
-
-  test "show listing reports" do
-    visit "/practices/#{practices(:practice_1).id}/reports"
-    assert_equal "OS X Mountain Lionをクリーンインストールする | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+  test 'show listing reports' do
+    visit_with_auth "/practices/#{practices(:practice1).id}/reports", 'hatsuno'
+    assert_equal 'OS X Mountain Lionをクリーンインストールするに関する日報 | FBC', title
+    assert_selector 'img[alt="positive"]', count: 2
+    assert_selector '.card-list-item-title__link', text: '1時間だけ学習'
   end
 end

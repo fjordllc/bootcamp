@@ -1,0 +1,58 @@
+- title '期生別ユーザー一覧'
+- set_meta_tags description: '期生別ユーザー一覧のページです。'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title ユーザー一覧
+      .page-header__end
+        .page-header-actions
+          ul.page-header-actions__items
+
+= users_page_tabs(active_tab: '期生別')
+= render 'users_tabs'
+
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        h1.page-main-header__title
+          = '期生別'
+          | （#{t("target.#{@target}")}）
+  hr.a-border
+    .page-body
+      = paginate @generations
+      - if @generations.empty?
+        .container.is-lg
+          .o-empty-message
+            .o-empty-message__icon
+              i.fa-regular.fa-smile
+            p.o-empty-message__text
+              | ユーザーはありません
+      - else
+        .container.is-lg
+          - @generations.each do |generation|
+            - users = Generation.new(generation.number).target_users(@target)
+            - if !users.empty?
+              .a-card
+                .user-group
+                  header.user-group__header
+                    h2.user-group__title
+                      = link_to generation_path(generation.number), class: 'user-group__title-link' do
+                        span.user-group__title-label
+                          = "#{generation.number}期生"
+                        .user-group__date
+                          = "#{l generation.start_date, format: :year_and_date} ~ #{l generation.end_date, format: :year_and_date}"
+                    - if current_user.mentor? && @target == 'all'
+                      .user-group__counts.is-only-mentor
+                        = render partial: 'generations/generation_count', locals: { generation: generation }
+                  .a-user-icons
+                    .a-user-icons__items
+                      - users.each do |user|
+                        - ActiveDecorator::Decorator.instance.decorate(user)
+                        .a-user-icons__item
+                          = link_to user_path(user), class: 'a-user-icons__item-link' do
+                            span class=user.user_icon_frame_class
+                              img.a-user-icons__item-icon.a-user-icon src=user.avatar_url title=user.icon_title data-login-name=user.login_name
+      = paginate @generations

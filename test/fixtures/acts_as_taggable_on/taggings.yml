@@ -1,0 +1,125 @@
+komagata_tag_cat:
+  taggable: komagata (User)
+  context: tags
+  tag: cat
+
+komagata_tag_game:
+  taggable: komagata (User)
+  context: tags
+  tag: game
+
+komagata_tag_manga:
+  taggable: komagata (User)
+  context: tags
+  tag: manga
+
+machida_tag_designer:
+  taggable: machida (User)
+  context: tags
+  tag: designer
+
+machida_tag_guitar:
+  taggable: machida (User)
+  context: tags
+  tag: guitar
+
+kensyu_tag_guitar:
+  taggable: kensyu (User)
+  context: tags
+  tag: guitar
+
+kimura_tag_cat:
+  taggable: kimura (User)
+  context: tags
+  tag: cat
+
+hajime_tag_cat:
+  taggable: hajime (User)
+  context: tags
+  tag: cat
+
+kimura_tag_shinjuku_rb:
+  taggable: kimura (User)
+  context: tags
+  tag: shinjuku_rb
+
+kimura_tag_neovim_v_zero_five_zero:
+  taggable: kimura (User)
+  context: tags
+  tag: neovim_v_zero_five_zero
+
+kimura_tag__net_framework:
+  taggable: kimura (User)
+  context: tags
+  tag: _net_framework
+
+kimura_tag_may_j_:
+  taggable: kimura (User)
+  context: tags
+  tag: may_j_
+
+kimura_tag_beginner:
+  taggable: kimura (User)
+  context: tags
+  tag: beginner
+
+hajime_tag_intermediate:
+  taggable: hajime (User)
+  context: tags
+  tag: intermediate
+
+question3_tag_beginner:
+  taggable: question3 (Question)
+  context: tags
+  tag: beginner
+
+question3_tag_intermediate:
+  taggable: question3 (Question)
+  context: tags
+  tag: intermediate
+
+question4_tag_intermediate:
+  taggable: question4 (Question)
+  context: tags
+  tag: intermediate
+
+page1_tag_beginner:
+  taggable: page1 (Page)
+  context: tags
+  tag: beginner
+
+page2_tag_intermediate:
+  taggable: page2 (Page)
+  context: tags
+  tag: intermediate
+
+tagging_1:
+  taggable: article_1 (Article)
+  context: tags
+  tag: Ruby
+tagging_2:
+  taggable: article_2 (Article)
+  context: tags
+  tag: FJORD
+
+<% (21..27).each do |id| %>
+article<%= id %>_tag_feature:
+  taggable: article<%= id %> (Article)
+  context: tags
+  tag: feature
+<% end %>
+
+movie1_tag_game:
+  taggable: movie1 (Movie)
+  context: tags
+  tag: game
+
+movie2_tag_beginner:
+  taggable: movie2 (Movie)
+  context: tags
+  tag: beginner
+
+movie2_tag_cat:
+  taggable: movie2 (Movie)
+  context: tags
+  tag: cat

@@ -1,0 +1,116 @@
+.lp-price {
+  color: var(--main);
+  display: flex;
+  justify-content: center;
+  gap: 0.75em;
+  font-size: 0.5625rem;
+}
+@media (min-width: 48em) {
+  .lp-price {
+    font-size: 0.875rem;
+  }
+}
+@media (min-width: 64em) {
+  .lp-price {
+    font-size: 1rem;
+  }
+}
+.lp-price.is-total {
+  gap: 0.25em;
+}
+.lp-price.is-sm {
+  justify-content: flex-start;
+  font-size: 0.375em;
+}
+.lp-price.is-sm .lp-price__tax {
+  font-size: 0.875rem;
+}
+@media (min-width: 48em) {
+  .lp-price.is-sm {
+    font-size: 0.5em;
+  }
+  .lp-price.is-sm .lp-price__tax {
+    font-size: 1rem;
+  }
+}
+@media (min-width: 64em) {
+  .lp-price.is-sm {
+    font-size: 0.5625em;
+  }
+  .lp-price.is-sm .lp-price__tax {
+    font-size: 1.5rem;
+  }
+}
+
+.lp-price__label {
+  font-size: 1.25em;
+  line-height: 1;
+  font-weight: 700;
+  align-self: center;
+  height: 4em;
+  width: 4em;
+  border: solid 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  letter-spacing: -0.0625em;
+  text-indent: -0.0625em;
+}
+
+.lp-price__value {
+  display: flex;
+  align-self: baseline;
+  gap: 0.5em;
+  flex-wrap: wrap;
+}
+
+.lp-price__amount {
+  font-size: 6.25em;
+  line-height: 1;
+  font-weight: 900;
+  align-self: baseline;
+  font-family: "Lato", sans-serif;
+}
+
+.lp-price__currency {
+  font-size: 3.25em;
+  line-height: 1;
+  font-weight: 800;
+  align-self: baseline;
+}
+
+.lp-price__details {
+  font-size: 2.25em;
+  line-height: 1;
+  font-weight: 800;
+  display: flex;
+  align-self: baseline;
+  gap: 0.125em;
+}
+
+.lp-price__separator {
+  font-weight: 100;
+  align-self: baseline;
+}
+
+.lp-price__per-person {
+  align-self: baseline;
+}
+
+.lp-price__tax {
+  font-size: 1.25em;
+  align-self: baseline;
+}
+
+.lp-price__total-value {
+  display: flex;
+  align-self: baseline;
+  gap: 0.25em;
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.lp-price-note {
+  line-height: 1.4;
+}

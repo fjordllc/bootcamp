@@ -1,19 +1,22 @@
-- title "提出物作成"
-- content_for(:extra_body_classes, "no-recent-reports")
+- title '提出物作成'
+- set_meta_tags description: '提出物作成ページです。'
 
 header.page-header
   .container
     .page-header__inner
-      h2.page-header__title
-        = title
+      .page-header__start
+        h2.page-header__title
+          = title
+hr.a-border
 .page-body
-  .container
-    .practice-contents
-      .practice-content.a-card
-        .card-header
-          h2.practice-content__title
-            = Practice.human_attribute_name :goal
-        .practice-content__body.is-goal.js-markdown-view.js-target-blank.is-long-text
-          = @product.practice.goal
-
-    = render "form", practice: @practice, product: @product
+  .page-body__inner
+    .page-body__rows
+      .page-body__row
+        .container.is-lg
+          = render PracticeContentToggle::PracticeContentToggleComponent.new(content_type: :practice, practice: @product.practice)
+      .page-body__row
+        .container.is-lg
+          = render PracticeContentToggle::PracticeContentToggleComponent.new(content_type: :goal, practice: @product.practice)
+      .page-body__row
+        .container.is-xl
+          = render 'form', practice: @practice, product: @product

@@ -1,200 +1,96 @@
 # frozen_string_literal: true
 
-require "application_system_test_case"
-require "minitest/mock"
+require 'application_system_test_case'
 
 class ProductsTest < ApplicationSystemTestCase
-  teardown do
-    wait_for_vuejs
-  end
-
-  test "see my product" do
-    login_user "yamada", "testtest"
-    visit "/products/#{products(:product_1).id}"
-    assert_equal "#{products(:product_1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
-  end
-
-  test "admin can see a product" do
-    login_user "komagata", "testtest"
-    visit "/products/#{products(:product_1).id}"
-    assert_equal "#{products(:product_1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
-  end
-
-  test "adviser can see a product" do
-    login_user "advijirou", "testtest"
-    visit "/products/#{products(:product_1).id}"
-    assert_equal "#{products(:product_1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
-  end
-
-  test "user who completed the practice can see the other user's product" do
-    login_user "kimura", "testtest"
-    visit "/products/#{products(:product_1).id}"
-    assert_equal "#{products(:product_1).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
-  end
-
-  test "can see other user's product if it is permitted" do
-    login_user "hatsuno", "testtest"
-    visit "/products/#{products(:product_3).id}"
-    assert_equal "#{products(:product_3).practice.title}の提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
-  end
-  test "can not see other user's product if it isn't permitted" do
-    login_user "hatsuno", "testtest"
-    visit "/products/#{products(:product_1).id}"
-    assert_not_equal "提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
-    assert_text "プラクティスを完了するまで他の人の提出物は見れません。"
-  end
-
-  test "create product" do
-    login_user "yamada", "testtest"
-    visit "/products/new?practice_id=#{practices(:practice_5).id}"
-    within("#new_product") do
-      fill_in("product[body]", with: "test")
+  test 'create product' do
+    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'mentormentaro'
+    within('form[name=product]') do
+      fill_in('product[body]', with: 'test')
     end
-    click_button "提出する"
-    assert_text "提出物を作成しました。"
+    click_button '提出する'
+    assert_text Time.zone.now.strftime('%Y年%m月%d日')
+    assert_text "6日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、6日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
+    assert_text 'Watch中'
   end
 
-  test "create product change status submitted" do
-    login_user "yamada", "testtest"
-    visit "/products/new?practice_id=#{practices(:practice_5).id}"
-    within("#new_product") do
-      fill_in("product[body]", with: "test")
+  test 'update product' do
+    product = products(:product1)
+    visit_with_auth "/products/#{product.id}/edit", 'mentormentaro'
+    within('form[name=product]') do
+      fill_in('product[body]', with: 'test')
     end
-    click_button "提出する"
-    assert_text "提出物を作成しました。"
-
-    visit "/practices/#{practices(:practice_5).id}"
-    assert_equal first(".test-product").text, "提出物へ"
+    click_button '提出する'
+    assert_text Time.zone.now.strftime('%Y年%m月%d日')
+    assert_text '提出物を更新しました。'
   end
 
-  test "update product" do
-    login_user "yamada", "testtest"
-    product = products(:product_1)
-    visit "/products/#{product.id}/edit"
-    within("form[name=product]") do
-      fill_in("product[body]", with: "test")
+  test 'update product after checked' do
+    my_product = products(:product2)
+    others_product = products(:product15)
+    visit_with_auth "/products/#{my_product.id}/edit", 'kimura'
+    within('form[name=product]') do
+      fill_in('product[body]', with: 'test')
     end
-    click_button "提出する"
-    assert_text "提出物を更新しました。"
+    click_button '提出する'
+
+    visit "/products/#{others_product.id}"
+    assert_current_path("/products/#{others_product.id}")
   end
 
-  test "delete product" do
-    login_user "yamada", "testtest"
-    product = products(:product_1)
-    visit "/products/#{product.id}"
+  test 'delete product' do
+    product = products(:product1)
+    visit_with_auth "/products/#{product.id}", 'mentormentaro'
     accept_confirm do
-      click_link "削除"
+      click_link '削除'
     end
-    assert_text "提出物を削除しました。"
+    assert_text '提出物を削除しました'
   end
 
-  test "product has a comment form " do
-    login_user "yamada", "testtest"
-    visit "/products/#{products(:product_1).id}"
-    assert_selector ".thread-comment-form"
+  test 'product has a comment form ' do
+    product = ensure_valid_product(products(:product1))
+    visit_with_auth "/products/#{product.id}", 'mentormentaro'
+    wait_for_comment_form
+    assert_selector '.thread-comment-form'
   end
 
-  test "admin can delete a product" do
-    login_user "komagata", "testtest"
-    product = products(:product_1)
-    visit "/products/#{product.id}"
-    accept_confirm do
-      click_link "削除"
-    end
-    assert_text "提出物を削除しました。"
+  test 'show user name_kana next to name' do
+    product = products(:product1)
+    visit_with_auth "/products/#{product.id}", 'kimura'
+    user = product.user
+    decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
+    assert_text decorated_user.long_name
   end
 
-  test "create product as WIP" do
-    login_user "yamada", "testtest"
-    visit "/products/new?practice_id=#{practices(:practice_5).id}"
-    within("#new_product") do
-      fill_in("product[body]", with: "test")
+  test 'show number of comments' do
+    visit_with_auth "/products/#{products(:product1).id}", 'komagata'
+    within(:css, '.is-emphasized') do
+      assert_text '2'
     end
-    click_button "WIP"
-    assert_text "提出物をWIPとして保存しました。"
   end
 
-  test "update product as WIP" do
-    login_user "yamada", "testtest"
-    product = products(:product_1)
-    visit "/products/#{product.id}/edit"
-    within("form[name=product]") do
-      fill_in("product[body]", with: "test")
-    end
-    click_button "WIP"
-    assert_text "提出物をWIPとして保存しました。"
+  test 'not update published_at when update product content after submitted product' do
+    product = products(:product12)
+    product_published_at = product.published_at
+
+    visit_with_auth "/products/#{product.id}/edit", 'mentormentaro'
+    click_button '提出する'
+
+    assert product.reload.published_at = product_published_at
   end
 
-  test "Don't notify if create product as WIP" do
-    login_user "komagata", "testtest"
-    visit "/notifications"
-    click_link "全て既読にする"
-
-    login_user "kensyu", "testtest"
-    visit "/products/new?practice_id=#{practices(:practice_3).id}"
-    within("#new_product") do
-      fill_in("product[body]", with: "test")
+  test 'using file uploading by file selection dialogue in textarea' do
+    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'mentormentaro'
+    within(:css, '.a-file-insert') do
+      assert_selector 'input.file-input', visible: false
     end
-    click_button "WIP"
-    assert_text "提出物をWIPとして保存しました。"
-
-    login_user "komagata", "testtest"
-    visit "/notifications"
-    assert_no_text "kensyuさんが「#{practices(:practice_3).id}」の提出物を提出しました。"
+    assert_equal '.file-input', find('textarea.a-text-input')['data-input']
   end
 
-  test "Don't notify if update product as WIP" do
-    login_user "komagata", "testtest"
-    visit "/notifications"
-    click_link "全て既読にする"
-
-    login_user "kensyu", "testtest"
-    visit "/products/new?practice_id=#{practices(:practice_3).id}"
-    within("#new_product") do
-      fill_in("product[body]", with: "test")
-    end
-    click_button "WIP"
-    assert_text "提出物をWIPとして保存しました。"
-
-    click_link "内容修正"
-    fill_in("product[body]", with: "test update")
-    click_button "WIP"
-    assert_text "提出物をWIPとして保存しました。"
-
-    login_user "komagata", "testtest"
-    visit "/notifications"
-    assert_no_text "kensyuさんが「#{practices(:practice_3).title}」の提出物を提出しました。"
-  end
-
-  test "Slack notify if the create product" do
-    login_user "kensyu", "testtest"
-    visit "/products/new?practice_id=#{practices(:practice_3).id}"
-    within("#new_product") do
-      fill_in("product[body]", with: "test")
-    end
-    mock_log = []
-    stub_info = Proc.new { |i| mock_log << i }
-
-    Rails.logger.stub(:info, stub_info) do
-      click_button "提出する"
-      assert_match "kensyu さんが「#{practices(:practice_3).title}」の提出物を提出しました。", mock_log.to_s
-    end
-    assert_text "提出物を作成しました。"
-  end
-
-  test "Slack notify if the create product as WIP" do
-    login_user "kensyu", "testtest"
-    visit "/products/new?practice_id=#{practices(:practice_3).id}"
-    within("#new_product") do
-      fill_in("product[body]", with: "test")
-    end
-    mock_log = []
-    stub_info = Proc.new { |i| mock_log << i }
-
-    Rails.logger.stub(:info, stub_info) do
-      click_button "WIP"
-      assert_no_match "kensyu さんが「#{practices(:practice_3).title}」の提出物を提出しました。", mock_log.to_s
-    end
-    assert_text "提出物をWIPとして保存しました。"
+  test 'return practice page when click cancel on new product page' do
+    visit_with_auth "/products/new?practice_id=#{practices(:practice1).id}", 'hatsuno'
+    click_link 'キャンセル'
+    assert_selector '.page-tabs__item-link.is-active', text: 'プラクティス'
+    assert_link '提出物を作る'
   end
 end

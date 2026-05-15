@@ -6,20 +6,20 @@ module ReactionsHelper
       data: {
         reaction: {
           login: { name: current_user.login_name },
-          reactionable: { id: dom_id(reactionable) }
+          reactionable: { gid: reactionable.to_global_id.to_s }
         }
       }
     }
   end
 
   def reaction_attributes(reactionable, kind, only_reacted: true)
-    attributes = { data: { reaction: { kind: kind } } }
+    attributes = { data: { reaction: { kind: } } }
     attributes[:hidden] = reactionable.reaction_count_by(kind).zero? if only_reacted
     reaction_id = reactionable.find_reaction_id_by(kind, current_user.login_name)
 
     if reaction_id
       attributes.deep_merge!(
-        class: "is-reacted",
+        class: 'is-reacted',
         data: { reaction: { id: reaction_id } }
       )
     end

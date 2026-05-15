@@ -1,0 +1,507 @@
+report1:
+  user: komagata
+  title: "作業週1日目"
+  emotion: 2
+  description: |-
+    今日はローカルで怖話を動かしてみました。
+    rbenv で ruby を動かすのは初めてだったので、色々手間取りました。
+  practices: practice1
+  reported_on: "2017-01-01"
+  created_at: "2017-01-01 00:00:00"
+
+report2:
+  user: komagata
+  title: "作業週2日目"
+  emotion: 2
+  description: |-
+    今日はローカルで Fjord Bootcamp を動かしてみました。
+    ruby の指定バージョンが 2.2.3 だったので、 rbenv で ruby のバージョンを上げました。
+  reported_on: "2017-01-02"
+  created_at: "2017-01-02 00:00:00"
+
+report3:
+  user: komagata
+  title: "学習週3日目"
+  emotion: 1
+  description: |-
+    今日は CSS の勉強をしました。デザイン難しい。。。
+  reported_on: "2017-01-03"
+  created_at: "2017-01-03 00:00:00"
+
+report4:
+  user: machida
+  title: "Fjord Bootcamp で Bootstrap のバージョン更新"
+  emotion: 2
+  description: |-
+    Fjord Bootcamp で Bootstrap のバージョン更新を行った他、デザインの微調整を行いました。
+  reported_on: "2017-01-01"
+
+report5:
+  user: sotugyou
+  title: "学習週1日目"
+  emotion: 2
+  description: |-
+    今日は　Rubyの基礎 を学習しました。
+  reported_on: "2017-01-01"
+
+report6:
+  user: sotugyou
+  title: "学習週2日目"
+  emotion: 2
+  description: |-
+    今日は　Railsの基礎 を学習しました。
+  reported_on: "2017-01-02"
+
+report7:
+  user: sotugyou
+  title: "学習週3日目"
+  emotion: 2
+  description: |-
+    今日は　RSpecの基礎 を学習しました。
+  reported_on: "2017-01-03"
+
+report8:
+  user: mentormentaro
+  title: テストの日報
+  emotion: 2
+  description: |-
+    いろいろやりました。
+  reported_on: "2017-01-01"
+
+report9:
+  user: sotugyou
+  title: WIPの日報
+  emotion: 2
+  description: |-
+    WIP
+  reported_on: "2019-01-01"
+  wip: true
+
+report10:
+  user: hajime
+  title: 初日報です
+  emotion: 2
+  description:
+    学習の準備をしました。
+  reported_on: "2019-01-01"
+
+report11:
+  user: kensyu
+  title: 研修の日報
+  emotion: 2
+  description:
+    研修を行いました。
+  reported_on: "2019-01-01"
+
+sotugyou:
+  user: sotugyou
+  title: テストの日報
+  emotion: 2
+  description: いろいろやりました
+  reported_on: "2018-02-01"
+
+report12:
+  user: mentormentaro
+  title: 検索結果確認用-C
+  emotion: 1
+  description:
+    今年で150歳でーす
+  reported_on: "2020-01-01"
+  created_at: "2020-01-01 00:00:00"
+
+report13:
+  user: mentormentaro
+  title: 検索結果確認用-A
+  emotion: 2
+  description:
+    きたるべき20世紀
+  reported_on: "1900-01-01"
+  created_at: "1900-01-01 00:00:00"
+
+report14:
+  user: mentormentaro
+  title: 検索結果確認用-B
+  emotion: 2
+  description:
+    あれから100年か
+  reported_on: "2000-01-01"
+  created_at: "2000-01-01 00:00:00"
+
+report15:
+  user: hajime
+  title: "今日は頑張りました"
+  emotion: 2
+  description: |-
+    頑張りました
+  reported_on: <%= Time.now - 1.day %>
+
+report16:
+  user: hajime
+  title: "今日は頑張れませんでした"
+  emotion: 1
+  description: |-
+    頑張れませんでした
+  reported_on: <%= Time.now - 2.day %>
+
+report17:
+  user: mentormentaro
+  title: 1時間だけ学習
+  emotion: 2
+  description: |-
+    mentormentaroです、メンターです。
+    今日は1時間学習しました。
+  practices: practice1
+  reported_on: "2020-06-01"
+  created_at: "2020-06-01 17:00:00"
+
+report18:
+  user: kensyu
+  title: テストのnippou
+  emotion: 2
+  description: |-
+    今日は1時間学習しました。
+  reported_on: "2020-06-01"
+  created_at: "2020-06-01 18:00:00"
+
+report19:
+  user: hatsuno
+  title: "<s>1日目</s> できなかった"
+  emotion: 1
+  description: |-
+    あまりできませんでした
+  reported_on: <%= Time.current - 2.day %>
+
+report20:
+  user: hatsuno
+  title: "2日目 昨日よりできなかった"
+  emotion: 1
+  description: |-
+    昨日よりできませんでした
+  reported_on: <%= Time.current - 1.day %>
+
+report21:
+  user: sotugyou
+  title: "学習週4日目"
+  emotion: 2
+  description: |-
+    今日は　Vueの基礎 を学習しました。
+  practices: practice1
+  reported_on: "2020-08-01"
+
+report22:
+  user: sotugyou
+  title: 卒業生による日報
+  emotion: 2
+  description:
+    卒業しました。
+  practices: practice2
+  reported_on: "2020-09-10"
+  created_at: "2020-09-10 01:00:00"
+
+report23:
+  user: kensyu
+  title: フォローされた日報
+  emotion: 2
+  description:
+    フォローされました。
+  reported_on: "2020-11-10"
+
+report24:
+  user: kimura
+  title: 検索用の日報
+  emotion: 2
+  description:
+    ユーザーネームで検索できるよ
+  reported_on: "2020-11-20"
+
+report25:
+  user: hatsuno
+  title: 検索用の日報
+  emotion: 2
+  description:
+    ユーザーネームで検索できるよ
+  reported_on: "2020-11-20"
+
+report26:
+  user: sotugyou
+  title: 卒業の翌日の日報
+  emotion: 2
+  description:
+    「前の日報」をクリックすれば、前日の日報にちゃんと行ける
+  reported_on: "2020-09-11"
+  created_at: "2020-09-11 01:00:00"
+
+report27:
+  user: sotugyou
+  title: 卒業の前日(遡って日報を作成)
+  emotion: 2
+  description:
+    遡って作成しましたが、卒業の前日の分の日報です。
+  reported_on: "2020-09-09"
+  created_at: "2020-09-12 01:00:00"
+
+report28:
+  user: hajime
+  title: "先月の日報"
+  emotion: 0
+  description: |-
+    頑張りました
+  reported_on: <%= Time.now - 1.month %>
+
+report29:
+  user: hajime
+  title: "先月の日報2"
+  emotion: 2
+  description: |-
+    頑張れませんでした
+  reported_on: <%= Time.now - 1.month - 1.day %>
+
+report30:
+  user: sumi
+  title: "365日目の日報"
+  emotion: 2
+  description: |-
+    Vue.jsが楽しかったです
+  reported_on: <%= Time.now - 1.month - 1.day %>
+
+report31:
+  user: take8
+  title: "366日目の日報"
+  emotion: 1
+  description: |-
+    エレベーターピッチ難しいです。
+  reported_on: <%= Time.now - 1.month - 1.day %>
+
+<% (1..5).each do |i| %>
+report<%= i + 31 %>:
+  user: kimura
+  title: <%= "テスト日報#{i}です" %>
+  emotion: 2
+  description: |-
+    # はじめに
+    これはエクスポート機能のテストデータです
+
+    # 今日やったこと
+    - テスト
+      - テスト
+      - テスト
+
+    # 学習メモ
+    ## テスト
+    テスト
+
+    ### テスト
+    テスト
+
+    # 感想
+    - テスト
+    - テスト
+
+    # 次にやること
+    - テスト
+    - テスト
+  reported_on: <%= Time.now - 1.month + i.day %>
+<% end %>
+
+<% 37.upto(70) do |i| %>
+report<%= i %>:
+  user: with_hyphen
+  title: 日報<%= i %>
+  emotion: 2
+  description: |-
+    頑張れませんでした
+  reported_on: <%= Time.local(2022) - 1.year + i.day %>
+<% end %>
+
+<% (1..15).each do |i| %>
+report<%= i + 71 %>:
+  user: <%= "marumarushain#{i}" %>
+  title: <%= "MaruMaru Inc.の研修生のテスト日報#{i}です" %>
+  emotion: 2
+  description: |-
+    MaruMaru Inc.で研修をしました。
+  reported_on: <%= Time.now - 1.month + i.day %>
+<% end %>
+
+report87:
+  user: yameo
+  title: "退会済みユーザーの日報1"
+  emotion: 1
+  description: |-
+    なかなか頑張れていない
+  reported_on: <%= Time.now - 1.month - 11.day %>
+
+report88:
+  user: yameo
+  title: "退会済みユーザーの日報2"
+  emotion: 1
+  description: |-
+    お世話になりました
+  reported_on: <%= Time.now - 1.month - 1.day %>
+
+report89:
+  user: komagata
+  title: "リンクカードの動作確認"
+  emotion: 2
+  description: |-
+    # リンクカードが生成されるパターン
+    ## Twitter関連のリンクカード
+    ### Tweet個別
+    @[card](https://x.com/fjordbootcamp/status/1866097842483503117)
+
+    ---
+
+    ## 通常のリンクカード
+
+    @[card](https://bootcamp.fjord.jp)
+
+    ---
+
+    あいうえお
+
+    @[card](https://bootcamp.fjord.jp)
+
+    かきくけこ
+
+    ---
+
+    あいうえお
+
+    @[card](https://bootcamp.fjord.jp)
+
+    ---
+
+    @[card](https://bootcamp.fjord.jp)
+
+    かきくけこ
+
+    ---
+
+    ## 複数のリンクカードがあるパターン
+    @[card](https://bootcamp.fjord.jp)
+
+    @[card](https://bootcamp.fjord.jp)
+
+    @[card](https://bootcamp.fjord.jp)
+
+    @[card](https://bootcamp.fjord.jp)
+
+    ---
+
+    ## ネストが許容されるマークダウン
+    :::message
+    @[card](https://bootcamp.fjord.jp)
+    :::
+
+    :::details リンクカードが展開される
+    @[card](https://bootcamp.fjord.jp)
+    :::
+
+    ---
+
+    # リンクカードが生成されるがfetchが失敗するパターン
+    ## Twitter関連
+    ### 存在しないTweet
+    @[card](https://x.com/fjordbootcamp/status/186609784248350311774832921aaa)
+
+    ### ユーザーのホーム画面
+    @[card](https://x.com/fjordbootcamp)
+
+    ### リスト
+    @[card](https://x.com/mousuFBC/lists)
+
+    ### ハッシュタグの検索結果
+    @[card](https://x.com/hashtag/fjordbootcamp?src=hashtag_click)
+
+    ## 通常のサイト
+    ### ドメインは存在するがページが存在しない場合
+    @[card](https://bootcamp.fjord.jp/aaa)
+
+    ---
+
+    ### ドメインもページも存在しない場合
+    @[card](https://bootmp.fjd.jp/aaa)
+
+    ---
+
+    # リンクカードが生成されないパターン
+    あいうえお@[card](https://bootcamp.fjord.jp)かきくけこ
+
+    ---
+
+    あいうえお @[card](https://bootcamp.fjord.jp)かきくけこ
+
+    ---
+
+    あいうえお@[card](https://bootcamp.fjord.jp) かきくけこ
+
+    ---
+
+    あいうえお @[card](https://bootcamp.fjord.jp) かきくけこ
+
+    ---
+
+    あいうえお@[card](https://bootcamp.fjord.jp)
+
+    ---
+
+    @[card](https://bootcamp.fjord.jp)かきくけこ
+
+    ---
+
+    あいうえお
+    @[card](https://bootcamp.fjord.jp)
+
+    ---
+
+    @[card](https://bootcamp.fjord.jp)
+    かきくけこ
+
+    ---
+
+    あいうえお
+    @[card](https://bootcamp.fjord.jp)かきくけこ
+
+    ---
+
+    あいうえお@[card](https://bootcamp.fjord.jp)
+    かきくけこ
+
+    ---
+
+    あいうえお
+    @[card](https://bootcamp.fjord.jp)
+    かきくけこ
+
+    ---
+
+    あいうえお
+
+    @[card](https://bootcamp.fjord.jp)
+    かきくけこ
+
+    ---
+
+    あいうえお
+    @[card](https://bootcamp.fjord.jp)
+
+    かきくけこ
+
+    ---
+
+    ## リンクカードが生成されない特殊パターン
+    ### リンクのスキームがhttp / https以外な場合
+    @[card](ftp://target.example.com/target/directory/)
+
+    ### detailsとmessage以外のマークダウンにネストしている場合
+    * @[card](https://bootcamp.fjord.jp)
+
+  reported_on: <%= Time.now %>
+
+report90:
+  user: machida
+  title: たくさんのスタンプがついた日報
+  emotion: 2
+  description: |-
+    たくさんのスタンプがつきました。
+  reported_on: "2025-10-01 01:00:00"

@@ -1,0 +1,168 @@
+notification_commented:
+  kind: 0
+  user: sotugyou
+  sender: komagata
+  message: komagataさんからコメントが届きました。
+  link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report5) %>"
+  read: false
+
+notification_checked:
+  kind: 1
+  user: sotugyou
+  sender: machida
+  message: machidaさんが学習週1日目を確認しました。
+  link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report5) %>"
+  read: false
+
+notification_mentioned:
+  kind: 2
+  user: sotugyou
+  sender: komagata
+  message: komagataさんからメンションがきました。
+  link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report5) %>#comment_<%= ActiveRecord::FixtureSet.identify(:comment9)%>"
+  read: false
+
+notification_read:
+  kind: 0
+  user: sotugyou
+  sender: machida
+  message: machidaさんからコメントが届きました。
+  link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report5) %>"
+  read: true
+
+notification_submitted:
+  kind: 3
+  user: komagata
+  sender: sotugyou
+  message: sotugyouさんが「Terminalの基礎を覚える」の提出物を提出しました。
+  link: "/products/<%= ActiveRecord::FixtureSet.identify(:product3) %>"
+  read: false
+
+notification_answered:
+  kind: 4
+  user: sotugyou
+  sender: komagata
+  message: komagataさんから回答がありました。
+  link: "/questions/<%= ActiveRecord::FixtureSet.identify(:question2) %>"
+  read: false
+
+notification_announced:
+  kind: 5
+  user: sotugyou
+  sender: komagata
+  message: komagataさんからお知らせです。
+  link: "/announcements/<%= ActiveRecord::FixtureSet.identify(:announcement1) %>"
+  read: false
+
+notification_questioned:
+  kind: 6
+  user: komagata
+  sender: sotugyou
+  message: sotugyouさんから質問「injectとreduce」が投稿されました。
+  link: "/questions/<%= ActiveRecord::FixtureSet.identify(:question2) %>"
+  read: false
+
+notification_first_report:
+  user: komagata
+  sender: hajime
+  message: 🎉 hajimeさんがはじめての日報を書きました！
+  link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report10) %>"
+  read: false
+
+notification_watching:
+  kind: 8
+  user: kimura
+  sender: komagata
+  message: komagataさんの【 「作業週1日目」の日報 】にmachidaさんがコメントしました。
+  link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report1) %>"
+  read: false
+
+notification_retired:
+  kind: 9
+  user: komagata
+  sender: yameo
+  message: 😢 yameoさんが退会しました。
+  link: "/users/<%= ActiveRecord::FixtureSet.identify(:yameo) %>"
+  read: false
+
+notification_trainee_report:
+  kind: 10
+  user: senpai
+  sender: kensyu
+  message: kensyuさんが日報【 研修の日報 】を書きました！
+  link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report11) %>"
+  read: false
+
+notification_moved_up_event_waiting_user:
+  kind: 11
+  user: hajime
+  sender: komagata
+  message: 募集期間中のイベント(補欠者あり)で、補欠から参加に繰り上がりました。
+  link: "/events/<%= ActiveRecord::FixtureSet.identify(:event3) %>"
+  read: false
+
+notification_create_page:
+  kind: 12
+  user: mentormentaro
+  sender: komagata
+  message: "komagataさんがDocsにBootcampの作業のページを投稿しました。"
+  link: "/pages/<%= ActiveRecord::FixtureSet.identify(:page4) %>"
+  read: false
+
+notification_following_report:
+  user: muryou
+  sender: kensyu
+  message: kensyuさんが日報【 フォローされた日報 】を書きました！
+  link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report23) %>"
+  read: false
+
+notification_chose_correct_answer:
+  kind: 14
+  user: advijirou
+  sender: hajime
+  message: hajimeさんの質問【 解決済みの質問 】でadvijirouさんの回答がベストアンサーに選ばれました。
+  link: "/questions/<%= ActiveRecord::FixtureSet.identify(:question12) %>"
+  read: false
+
+notification_consecutive_negative_report:
+  kind: 15
+  user: komagata
+  sender: hajime
+  message: hajimeさんが2回連続でnegativeアイコンの日報を提出しました。
+  link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report16) %>"
+  read: false
+
+notification_graduated:
+  kind: 18
+  user: mentormentaro
+  sender: sotugyou
+  message: 🎉 sotugyouさんが卒業しました。
+  link: "/users/<%= ActiveRecord::FixtureSet.identify(:sotugyou) %>"
+  read: false
+
+notification_hibernated:
+  kind: 19
+  user: mentormentaro
+  sender: hatsuno
+  message: hatsunoさんが休会しました。
+  link: "/users/<%= ActiveRecord::FixtureSet.identify(:hatsuno) %>"
+  read: false
+
+notification_regular_event_updated:
+  kind: 21
+  user: hatsuno
+  sender: komagata
+  message: "[FBC] 定期イベント【開発MTG】が更新されました。"
+  link: "/regular_events/<%= ActiveRecord::FixtureSet.identify(:regular_event1) %>"
+  read: false
+
+<% 1.upto(110) do |i| %>
+notification_for_pagination<%= i %>: # 通知ページのページネーション動作と取得数制限確認のための通知
+  kind: 5
+  user: hatsuno
+  sender: komagata
+  message: "practice<%= i %>が更新されました。"
+  link: "/practices/<%= ActiveRecord::FixtureSet.identify("practice#{i}".to_sym) %>"
+  read: false
+  created_at: "<%= Time.current - i.days %>"
+<% end %>

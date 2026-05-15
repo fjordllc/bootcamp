@@ -1,0 +1,13 @@
+radio_button1:
+  survey_question: survey_question2
+  title_of_reason: "選択した理由を教えてください。"
+  description_of_reason: "上記の選択肢を選択した理由を詳しく教えてください。"
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+radio_button2:
+  survey_question: survey_question3
+  title_of_reason: "選択した理由を教えてください。"
+  description_of_reason: "上記の選択肢を選択した理由を詳しく教えてください。"
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

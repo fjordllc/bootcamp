@@ -1,0 +1,13 @@
+.a-side-nav
+  .a-side-nav__inner
+    header.a-side-nav__header
+      h2.a-side-nav__title
+        | 最新のみんなの日報
+    hr.a-border
+    .a-side-nav__body
+      .card-list
+        = render partial: 'recent_report', collection: @recent_reports, as: :report
+    hr.a-border
+    footer.a-side-nav__footer
+      = link_to reports_path, class: 'a-side-nav__footer-link' do
+        | 全ての日報

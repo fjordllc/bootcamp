@@ -1,12 +1,13 @@
-- title "ページ編集"
-- content_for(:extra_body_classes, "no-recent-reports")
+- title 'ページ編集'
+- set_meta_tags description: 'ドキュメント編集ページです。'
 
 header.page-header
   .container
     .page-header__inner
-      h2.page-header__title
-        = title
-
+      .page-header__start
+        h2.page-header__title
+          = title
+hr.a-border
 .page-body
-  .container
-    = render "form", page: @page
+  .container.is-xxl
+    = render 'form', page: @page, categories: @categories

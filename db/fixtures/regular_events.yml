@@ -1,0 +1,147 @@
+regular_event1:
+  title: 開発MTG
+  description: 開発MTGを開催します
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2020, 1, 1, 15, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 16, 0, 0) %>
+  user: komagata
+  category: 3
+  published_at: "2023-08-01 00:00:00"
+
+regular_event2:
+  title: 質問・雑談タイム
+  description: 質問・雑談タイムを開催します
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2020, 1, 1, 16, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 17, 0, 0) %>
+  user: machida
+  category: 2
+  published_at: "2023-08-01 00:00:00"
+
+regular_event3:
+  title: 自作サービス進捗報告会
+  description: 自作サービス進捗報告会を開催します
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
+  user: komagata
+  category: 3
+  all: true
+  published_at: "2023-08-01 00:00:00"
+
+regular_event4:
+  title: チェリー本輪読会
+  description: チェリー本輪読会を開催します
+  finished: false
+  hold_national_holiday: true
+  start_at: <%= Time.zone.local(2020, 1, 1, 18, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 19, 0, 0) %>
+  user: kimura
+  published_at: "2023-08-01 00:00:00"
+
+regular_event5:
+  title: Everyday Rails輪読会
+  description: Everyday Rails輪読会を開催します
+  finished: false
+  hold_national_holiday: true
+  start_at: <%= Time.zone.local(2020, 1, 1, 17, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 18, 0, 0) %>
+  user: komagata
+  published_at: "2023-08-01 00:00:00"
+
+regular_event6:
+  title: Ruby超入門輪読会
+  description: Ruby超入門輪読会を開催します
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2020, 1, 1, 10, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 11, 0, 0) %>
+  user: komagata
+  published_at: "2023-08-01 00:00:00"
+
+regular_event7:
+  title: 独習Git輪読会
+  description: 独習Git輪読会を開催します
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
+  user: komagata
+  published_at: "2023-08-01 00:00:00"
+
+<% (8..25).each do |i| %>
+regular_event<%= i %>:
+  title: 定期イベント<%= i %>
+  description: <%= i %>番目の定期イベントです。
+  start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
+  finished: true
+  hold_national_holiday: true
+  user: komagata
+  category: 1
+  published_at: "2023-08-01 00:00:00"
+<% end %>
+
+regular_event26:
+  title: ダッシュボード表示確認用テスト定期イベント
+  description: ダッシュボード表示確認用テスト定期イベント
+  finished: false
+  hold_national_holiday: true
+  start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
+  user: komagata
+  published_at: "2023-08-01 00:00:00"
+
+regular_event27:
+  title: Discord通知確認用イベント(土曜日開催)
+  description: Discord通知確認用イベント(土曜日開催)
+  finished: false
+  hold_national_holiday: true
+  start_at: <%= Time.zone.local(2020, 1, 1, 10, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 11, 0, 0) %>
+  user: komagata
+  published_at: "2023-08-01 00:00:00"
+
+regular_event28:
+  title: Discord通知確認用イベント(土曜日 + 日曜日開催)
+  description: Discord通知確認用イベント(土曜日 + 日曜日開催)
+  finished: false
+  hold_national_holiday: true
+  start_at: <%= Time.zone.local(2020, 1, 1, 9, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 10, 0, 0) %>
+  user: komagata
+  published_at: "2023-08-01 00:00:00"
+
+regular_event29:
+  title: Discord通知確認用、祝日非開催イベント(金曜日開催)
+  description: Discord通知確認用、祝日非開催イベント(金曜日開催)
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
+  user: komagata
+  published_at: "2023-08-01 00:00:00"
+
+regular_event30:
+  title: Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
+  description: Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2020, 1, 1, 11, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 12, 0, 0) %>
+  user: komagata
+  published_at: "2023-08-01 00:00:00"
+
+regular_event31:
+  title: WIPの定期イベント
+  description: WIP状態の定期イベントが近日開催のイベントに表示されないことを確認する用のデータ
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.current + 1.day %>
+  end_at: <%= Time.current + 1.day + 1.hours %>
+  user: komagata
+  published_at: "2023-08-01 00:00:00"
+  wip: true

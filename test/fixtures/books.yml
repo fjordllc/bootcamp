@@ -1,19 +1,23 @@
-book_1:
-  title: ゼロからわかる Ruby 超入門
-  isbn: 978-4297101237
-  borrowed: true
+book1:
+  title: ゼロからわかるRuby超入門
+  price: 2592
+  page_url: https://www.amazon.co.jp/dp/B07KQXFF6D
+  description: Rubyを始める人にピッタリの本です！
 
-book_2:
-  title: ゼロからわかる Ruby 超入門
-  isbn: 978-4297101237
-  borrowed: false
+book2:
+  title: はじめて学ぶソフトウェアのテスト技法
+  price: 2640
+  page_url: https://www.amazon.co.jp/dp/4822282511
+  description: ソフトウェアテストの必修技法を満載した初心者にもわかりやすい解説書です。
 
-book_3:
-  title: 現場で使える Ruby on Rails 5速習実践ガイド
-  isbn: 978-4839962227
-  borrowed: true
+book3:
+  title: パーフェクト Ruby on Rails
+  price: 3637
+  page_url: https://www.amazon.co.jp/dp/B08D3DW7LP
+  description: 通称パRails
 
-book_4:
-  title: 現場で使える Ruby on Rails 5速習実践ガイド
-  isbn: 978-4839962227
-  borrowed: false
+book4:
+  title: 新しいLinuxの教科書
+  price: 2822
+  page_url: https://www.amazon.co.jp/dp/B072K1NH76
+  description:

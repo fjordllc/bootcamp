@@ -1,0 +1,166 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://discord.com/api/invites/m2K7QG8byz
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - discord.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 29 Sep 2021 04:56:05 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cf-Ray:
+      - 69629f7bfd6f0a56-KIX
+      Set-Cookie:
+      - __dcfduid=8d44281520e111ecb3f242010a0a0797; Expires=Mon, 28-Sep-2026 04:56:05
+        GMT; Max-Age=157680000; Secure; HttpOnly; Path=/
+      - __sdcfduid=8d44281520e111ecb3f242010a0a0797d7cff3dae3c3dddcd9d76e3dd5d07fcece1ed3c26f72496a605f0a888d417b8a;
+        Expires=Mon, 28-Sep-2026 04:56:05 GMT; Max-Age=157680000; Secure; HttpOnly;
+        Path=/
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Via:
+      - 1.1 google
+      Cf-Cache-Status:
+      - DYNAMIC
+      Alt-Svc:
+      - h3=":443"; ma=86400, h3-29=":443"; ma=86400, h3-28=":443"; ma=86400, h3-27=":443";
+        ma=86400
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      X-Content-Type-Options:
+      - nosniff
+      X-Envoy-Upstream-Service-Time:
+      - '43'
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=CmR%2BEhnIR52w3IeAvj6M%2FPMyu4SJSq%2B6NkiSMj8lVFxewxll7PVdMviLj3FeVdcxgwtEsYU2KAVdlgqaXa08iMOl03RRPMceIGlrgcd0NC8G7NH2DDwdgAEcpeuC"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare
+    body:
+      encoding: UTF-8
+      base64_string: |
+        ewogICJjb2RlIjogIm0ySzdRRzhieXoiLAogICJndWlsZCI6IHsKICAgICJp
+        ZCI6ICI3MTU4MDY2MTI4MjQyNjA2NDAiLAogICAgIm5hbWUiOiAiZmpvcmRi
+        b290Y2FtcCIsCiAgICAic3BsYXNoIjogbnVsbCwKICAgICJiYW5uZXIiOiBu
+        dWxsLAogICAgImRlc2NyaXB0aW9uIjogIuODl+ODreOCsOODqeODn+ODs+OC
+        sOOCueOCr+ODvOODq+OBruODleOCo+ODqOODq+ODieODluODvOODiOOCreOD
+        o+ODs+ODl+WPguWKoOiAheeUqOOBruOCteODvOODkOODvOOBp+OBmeOAgiIs
+        CiAgICAiaWNvbiI6ICJlN2VmZTRjODUzNGM3NDVlNTY3MWQzOWJhMTEyMmNh
+        NiIsCiAgICAiZmVhdHVyZXMiOiBbCiAgICAgICJJTlZJVEVfU1BMQVNIIiwK
+        ICAgICAgIk5FV1MiLAogICAgICAiQU5JTUFURURfSUNPTiIsCiAgICAgICJD
+        T01NVU5JVFkiLAogICAgICAiVEhSRUFEU19FTkFCTEVEIiwKICAgICAgIldF
+        TENPTUVfU0NSRUVOX0VOQUJMRUQiLAogICAgICAiVEhSRUVfREFZX1RIUkVB
+        RF9BUkNISVZFIiwKICAgICAgIk5FV19USFJFQURfUEVSTUlTU0lPTlMiCiAg
+        ICBdLAogICAgInZlcmlmaWNhdGlvbl9sZXZlbCI6IDEsCiAgICAidmFuaXR5
+        X3VybF9jb2RlIjogbnVsbCwKICAgICJ3ZWxjb21lX3NjcmVlbiI6IHsKICAg
+        ICAgImRlc2NyaXB0aW9uIjogIuizquWVj+OChOmbkeirh+OBq+S9v+OBhuOD
+        geODo+ODg+ODiOOBp+OBmeOAguOBqeOCk+OBqeOCk+izquWVj+ODu+eZuuio
+        gOOBl+OBoeOCg+OBhOOBvuOBl+OCh+OBhuOAgiIsCiAgICAgICJ3ZWxjb21l
+        X2NoYW5uZWxzIjogWwogICAgICAgIHsKICAgICAgICAgICJjaGFubmVsX2lk
+        IjogIjgyMzczNjQzMTEwODk0Nzk5OCIsCiAgICAgICAgICAiZGVzY3JpcHRp
+        b24iOiAi5pyA5Yid44Gu6Ieq5bex57S55LuLIiwKICAgICAgICAgICJlbW9q
+        aV9pZCI6ICI4MjczNTM3NTM3NTMyMjMyNTAiLAogICAgICAgICAgImVtb2pp
+        X25hbWUiOiAiYmxvYl9jaGVlciIKICAgICAgICB9LAogICAgICAgIHsKICAg
+        ICAgICAgICJjaGFubmVsX2lkIjogIjgxNjI4MjY1OTkzMTU1MzgzMiIsCiAg
+        ICAgICAgICAiZGVzY3JpcHRpb24iOiAi44KP44GL44KJ44Gq44GE44GT44Go
+        44KSd2FrYXJhbuOBqOabuOOBj+ODgeODo+ODs+ODjeODqyIsCiAgICAgICAg
+        ICAiZW1vamlfaWQiOiBudWxsLAogICAgICAgICAgImVtb2ppX25hbWUiOiAi
+        8J+klCIKICAgICAgICB9CiAgICAgIF0KICAgIH0sCiAgICAibnNmdyI6IGZh
+        bHNlLAogICAgIm5zZndfbGV2ZWwiOiAwCiAgfSwKICAiY2hhbm5lbCI6IHsK
+        ICAgICJpZCI6ICI3MTU4MDY2MTMyNjQ0MDAzODUiLAogICAgIm5hbWUiOiAi
+        5YWo5L2T44Gu44GK55+l44KJ44Gb8J+ToyIsCiAgICAidHlwZSI6IDAKICB9
+        LAogICJpbnZpdGVyIjogewogICAgImlkIjogIjUzMTc3MzY4NzE3OTkwMjk4
+        NiIsCiAgICAidXNlcm5hbWUiOiAia29tYWdhdGEiLAogICAgImF2YXRhciI6
+        ICI3ODAwMDFlOThiY2Y4ZGE0ZWUyZGE1MDQ3MmQ1Yzc2YyIsCiAgICAiZGlz
+        Y3JpbWluYXRvciI6ICI5Mjg3IiwKICAgICJwdWJsaWNfZmxhZ3MiOiAwCiAg
+        fQp9
+  recorded_at: Wed, 29 Sep 2021 04:56:06 GMT
+- request:
+    method: get
+    uri: https://discord.com/api/invites/8Px4f7nMUx
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - discord.com
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Wed, 29 Sep 2021 04:56:06 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '44'
+      Connection:
+      - keep-alive
+      Cf-Ray:
+      - 69629f7efe4b0a72-KIX
+      Set-Cookie:
+      - __dcfduid=8deca50620e111ec986542010a0a0958; Expires=Mon, 28-Sep-2026 04:56:06
+        GMT; Max-Age=157680000; Secure; HttpOnly; Path=/
+      - __sdcfduid=8deca50620e111ec986542010a0a09582a944e77dba2abd952be1f55a17cfcf9684c20710847df57e1dc1ba4b050142b;
+        Expires=Mon, 28-Sep-2026 04:56:06 GMT; Max-Age=157680000; Secure; HttpOnly;
+        Path=/
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Via:
+      - 1.1 google
+      Cf-Cache-Status:
+      - DYNAMIC
+      Alt-Svc:
+      - h3=":443"; ma=86400, h3-29=":443"; ma=86400, h3-28=":443"; ma=86400, h3-27=":443";
+        ma=86400
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      X-Content-Type-Options:
+      - nosniff
+      X-Envoy-Upstream-Service-Time:
+      - '13'
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=EHNuu%2FaW4DtVIpPVQ%2BJXfPE%2Bexqn8arpmJRjKWn7qJ5qGHH4djfoNS6phdkgEbCSzIUNvQ5NJwRw7EsrLV8vhfsvhqbJ%2BuFybJjyGxshllJVYI7zpai6duMGdZUt"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare
+    body:
+      encoding: UTF-8
+      base64_string: |
+        ewogICJtZXNzYWdlIjogIlVua25vd24gSW52aXRlIiwKICAiY29kZSI6IDEw
+        MDA2Cn0=
+  recorded_at: Wed, 29 Sep 2021 04:56:06 GMT
+recorded_with: VCR 6.0.0

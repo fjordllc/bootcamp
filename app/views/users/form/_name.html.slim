@@ -1,14 +1,8 @@
 .form-item
-  .row
-    .col-xs-6
-      .form-item
-        = f.label :last_name, class: "a-label is-required"
-        = f.text_field :last_name, class: "a-text-input", placeholder: "駒形"
-    .col-xs-6
-      .form-item
-        = f.label :first_name, class: "a-label is-required"
-        = f.text_field :first_name, class: "a-text-input", placeholder: "真幸"
-  - unless user.adviser?
-    .a-form-help
-      p
-        | 姓・名は必ず本名を（漢字がある場合は漢字で）入力してください。
+  = f.label :name, class: 'a-form-label is-required'
+  = f.text_field :name, class: 'a-text-input', placeholder: '駒形 真幸'
+  .a-form-help
+    p
+      | フィヨルドブートキャンプでは、本名を名乗る必要はありません。
+      | この情報はフィヨルドブートキャンプ内で公開されます。
+      | 本名を公開したくない場合はニックネームを入力してください。

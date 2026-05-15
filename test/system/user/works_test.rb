@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
-require "application_system_test_case"
+require 'application_system_test_case'
 
 class User::WorksTest < ApplicationSystemTestCase
-  setup { login_user "hatsuno", "testtest" }
-
-  test "show portfolio" do
-    visit "/users/#{users(:hatsuno).id}/portfolio"
-    assert_equal "hatsunoのポートフォリオ | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+  test 'show portfolio' do
+    visit_with_auth "/users/#{users(:hatsuno).id}/portfolio", 'hatsuno'
+    assert_equal 'hatsunoさんのポートフォリオ | FBC', title
   end
 end

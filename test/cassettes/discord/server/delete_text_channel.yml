@@ -1,0 +1,85 @@
+---
+http_interactions:
+  - request:
+      method: delete
+      uri: https://discord.com/api/v9/channels/987654321987654321
+      body:
+        encoding: US-ASCII
+        string: ''
+      headers:
+        Accept:
+          - '*/*'
+        User-Agent:
+          - DiscordBot (https://github.com/shardlab/discordrb, v3.4.2) rest-client/2.1.0
+            ruby/3.1.0p0 discordrb/3.4.2
+        Authorization:
+          - Bot valid token
+        X-Audit-Log-Reason:
+          - ''
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+        Host:
+          - discord.com
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Date:
+          - Sat, 10 Jun 2023 10:07:20 GMT
+        Content-Type:
+          - application/json
+        Transfer-Encoding:
+          - chunked
+        Connection:
+          - keep-alive
+        Set-Cookie:
+          - __cfruid=7bff7e41c3f5ddb14b24c420bb5796deb37ff70d-1686391640; path=/; domain=.discord.com;
+            HttpOnly; Secure; SameSite=None
+          - __dcfduid=966b708e077611eeaeaf2221179eb89d; Expires=Thu, 08-Jun-2028 10:07:20
+            GMT; Max-Age=157680000; Secure; HttpOnly; Path=/
+          - __sdcfduid=966b708e077611eeaeaf2221179eb89d5aa4609837dc30d830507bc86a70549d358973dcb44a755b3231cbac813b17d5;
+            Expires=Thu, 08-Jun-2028 10:07:20 GMT; Max-Age=157680000; Secure; HttpOnly;
+            Path=/
+        Strict-Transport-Security:
+          - max-age=31536000; includeSubDomains; preload
+        X-Ratelimit-Bucket:
+          - f7ead6a7674e5a323d93786263b66cb1
+        X-Ratelimit-Limit:
+          - '50'
+        X-Ratelimit-Remaining:
+          - '49'
+        X-Ratelimit-Reset:
+          - '1686391640.427'
+        X-Ratelimit-Reset-After:
+          - '0.019'
+        Via:
+          - 1.1 google
+        Alt-Svc:
+          - h3=":443"; ma=86400
+        Cf-Cache-Status:
+          - DYNAMIC
+        Report-To:
+          - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=fk1wUe90bYDOl0RetW1CjWpt%2BBPO0byhtnAICjfy3pZDX8uTPI%2Bj6rmVeytRI%2B%2BmzJbPbcWpQRPtIyy%2FoXndvgzgBP4IMxzp4vV%2Bp8caY2FqrxTdzl2rYa0ONrLh"}],"group":"cf-nel","max_age":604800}'
+        Nel:
+          - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+        X-Content-Type-Options:
+          - nosniff
+        Content-Security-Policy:
+          - frame-ancestors 'none'; default-src 'none'
+        Server:
+          - cloudflare
+        Cf-Ray:
+          - 7d50ce87bbd7341a-NRT
+      body:
+        encoding: UTF-8
+        base64_string: |
+          ewogICJpZCI6ICIxMTE2OTE4MjQ3OTE3Mzc1NTA4IiwKICAidHlwZSI6IDAs
+          CiAgImxhc3RfbWVzc2FnZV9pZCI6IG51bGwsCiAgImZsYWdzIjogMCwKICAi
+          Z3VpbGRfaWQiOiAiMTEwNjg5NDAzNzMxMjYxMDM0NCIsCiAgIm5hbWUiOiAi
+          aHVuaG91c2FrdWpvMyIsCiAgInBhcmVudF9pZCI6ICIxMTE1MjQ3NTk0NzQ3
+          MjIwMDIwIiwKICAicmF0ZV9saW1pdF9wZXJfdXNlciI6IDAsCiAgInRvcGlj
+          IjogbnVsbCwKICAicG9zaXRpb24iOiAxLAogICJwZXJtaXNzaW9uX292ZXJ3
+          cml0ZXMiOiBbCgogIF0sCiAgIm5zZnciOiBmYWxzZQp9
+    recorded_at: Sat, 10 Jun 2023 10:07:23 GMT
+recorded_with: VCR 6.1.0

@@ -1,0 +1,92 @@
+# companies
+company1_logo:
+  name: logo
+  record: company1 (Company)
+  blob: company1_logo_blob
+
+company2_logo:
+  name: logo
+  record: company2 (Company)
+  blob: company2_logo_blob
+
+company3_logo:
+  name: logo
+  record: company3 (Company)
+  blob: company3_logo_blob
+
+company4_logo:
+  name: logo
+  record: company4 (Company)
+  blob: company4_logo_blob
+
+# users
+hatsuno_avatar:
+  name: avatar
+  record: hatsuno (User)
+  blob: hatsuno_avatar_blob
+
+komagata_avatar:
+  name: avatar
+  record: komagata (User)
+  blob: komagata_avatar_blob
+
+machida_avatar:
+  name: avatar
+  record: machida (User)
+  blob: machida_avatar_blob
+
+mentormentaro_avatar:
+  name: avatar
+  record: mentormentaro (User)
+  blob: mentormentaro_avatar_blob
+
+mineo_avatar:
+  name: avatar
+  record: mineo (User)
+  blob: mineo_avatar_blob
+
+tanaka_avatar:
+  name: avatar
+  record: tanaka (User)
+  blob: tanaka_avatar_blob
+
+yameo_avatar:
+  name: avatar
+  record: yameo (User)
+  blob: yameo_avatar_blob
+
+komagata_profile_image:
+  name: profile_image
+  record: komagata (User)
+  blob: komagata_profile_image_blob
+
+machida_profile_image:
+  name: profile_image
+  record: machida (User)
+  blob: machida_profile_image_blob
+
+kimuramitai_profile_image:
+  name: profile_image
+  record: kimuramitai (User)
+  blob: kimuramitai_profile_image_blob
+
+# movies
+mp4_movie:
+  name: movie_data
+  record: movie1 (Movie)
+  blob: mp4_movie_blob
+
+mov_movie:
+  name: movie_data
+  record: movie2 (Movie)
+  blob: mov_movie_blob
+
+wip_movie:
+  name: movie_data
+  record: movie3 (Movie)
+  blob: wip_movie_blob
+
+destroy_movie:
+  name: movie_data
+  record: movie6 (Movie)
+  blob: destroy_movie_blob

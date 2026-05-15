@@ -1,71 +1,127 @@
-- title "#{@product.practice.title}の提出物"
+- title "提出物: #{@product.practice.title}"
+- set_meta_tags description: "#{@product.user.long_name}さんが提出した、プラクティス「#{@product.practice.title}」の提出物です。"
+- category = @product.category(current_user.course)
+
+= render '/shared/modal_learning_completion',
+  practice: @product.practice,
+  tweet_url: @tweet_url,
+  should_display_message_automatically: @learning&.should_display_message_automatically?(current_user:)
 
 header.page-header
   .container
     .page-header__inner
-      h1.page-header__title
-        = "#{@product.user.login_name}の提出物"
-      .page-header-actions
-        ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to current_user.course, class: "a-button is-md is-secondary is-block" do
-              | プラクティス一覧
-          - if current_user.admin?
+      .page-header__start
+        h2.page-header__title
+          = @product.practice.title
+      .page-header__end
+        .page-header-actions
+          ul.page-header-actions__items
+            - if current_user.mentor? && @practice.submission && !@practice.submission_answer
+              li.page-header-actions__item.is-hidden-sm-down.is-only-mentor
+                = link_to new_mentor_practice_submission_answer_path(@practice), class: 'a-button is-md is-secondary is-block' do
+                  i.fa-regular.fa-plus
+                  span
+                    | 模範解答作成
             li.page-header-actions__item
-              = link_to products_unchecked_index_path, class: "a-button is-md is-secondary is-block" do
-                | 未チェック一覧
+              = link_to course_practices_path(current_user.course, anchor: "category-#{category.id}"),
+                class: 'a-button is-md is-secondary is-block is-back' do
+                | プラクティス一覧
+            - if current_user.admin?
+              li.page-header-actions__item.is-only-mentor
+                = link_to products_unchecked_index_path, class: 'a-button is-md is-secondary is-block is-back' do
+                  | 未完了一覧
 
-= render "page_tabs", resource: @product.practice
+= practice_page_tabs(@product.practice, active_tab: '提出物')
 
 .page-body
-  .container
-    .thread
-      .thread__inner.a-card
-        header.thread-header
-          .thread-header__upper-side
-            = link_to @product.user, class: "thread-header__author" do
-              = @product.user.login_name
-            .thread-header__date
-              time.thread-header__date-value(datetime="#{@product.updated_at.to_datetime}" pubdate="pubdate")
-                = l @product.updated_at
-          h1.thread-header__title(class="#{@product.wip? ? "is-wip" : ""}")
-            - if @product.wip?
-              span.thread-header__title-icon
-                | WIP
-            | #{link_to @product.practice.title, @product.practice, class: "thread-header__title-link"}の提出物
-          .thread-header__lower-side
-            #js-watch(data-watchable-id="#{@product.id}", data-watchable-type="Product")
-            .thread-header__raw
-              = link_to "Raw", product_path(format: :md), class: "a-button is-sm is-secondary", target: "_blank"
-        #js-check-stamp(data-checkable-id="#{@product.id}" data-checkable-type="Product")
-        .thread__description.js-target-blank.is-long-text.js-markdown-view
-          =  @product.practice.goal
-        .thread__description.js-target-blank.is-long-text.js-markdown-view
-          =  @product.body
-        = render "reactions/reactions", reactionable: @product
-        - if @product.user == current_user || admin_login?
-          .card-footer
-            .card-footer-actions
-              ul.card-footer-actions__items
-                li.card-footer-actions__item
-                  = link_to edit_product_path(@product), class: "card-footer-actions_action a-button is-md is-primary is-block" do
-                    i.fas.fa-pen
-                    | 内容修正
-                li.card-footer-actions__item
-                  = link_to @product, data: { confirm: "本当によろしいですか？" }, method: :delete, class: "card-footer-actions__action a-button is-md is-danger is-block" do
-                    i.fas.fa-trash-alt
-                    | 削除
 
-        - if admin_login? || adviser_login?
-          #js-check(data-checkable-id="#{@product.id}" data-checkable-type="Product" data-checkable-label="#{Product.model_name.human}")
+  - if @product.user == current_user && !@product.wip? && !@product.checked? && @product.commented_users.mentor.empty?
+    = render 'message_for_after_submission'
 
-      .thread-prev-next
-        .thread-prev-next__item
-          = link_to @product.practice, class: "thread-prev-next__item-link is-index" do
-            | プラクティスに戻る
+  - if @product.wip? && @product.user == current_user
+    = render 'message_for_wip'
 
-      = link_to @product.user, itempro: "url", class: "thread__author-link" do
-        = image_tag @product.user.avatar_url, title: "#{@product.user.icon_title}", class: "thread__author-icon a-user-icon is-#{@product.user.role}"
+  - if @product.user == current_user && @learning&.complete?
+    = render 'completion_message', practice: @product.practice
 
-    #js-comments(data-commentable-id="#{@product.id}" data-commentable-type="Product" data-current-user-id="#{current_user.id}")
-    = render "footprints/footprints", footprints: @footprints
+  .container.is-xxl
+    .row.is-gutter-width-32.justify-center
+      .col-xl-7.col-lg-9.col-md-11.col-xs-12
+        .page-content.is-product
+          .page-body__rows
+            .page-body__row
+              = render 'product_header', product: @product
+            .page-body__row
+              = render PracticeContentToggle::PracticeContentToggleComponent.new(content_type: :practice, practice: @product.practice)
+            .page-body__row
+              = render PracticeContentToggle::PracticeContentToggleComponent.new(content_type: :goal, practice: @product.practice)
+            .page-body__row.is-only-mentor
+              = render 'practice_memo', practice_id: @practice.id
+            .page-body__row
+              = render 'product_body', product: @product
+
+        = render 'comments/comments', commentable: @product, commentable_type: 'Product'
+        .user-icons
+          ul.user-icons__items
+            = render '/footprints/footprints', footprints: @footprints
+
+      .is-only-mentor(class="#{current_user.mentor? || current_user.admin? ? 'col-xl-5 col-xs-12 is-hidden-sm-down' : ''}")
+        - if current_user.mentor? || current_user.admin?
+          .side-tabs
+            input.a-toggle-checkbox#side-tabs-1 type='radio' name='side-tabs-contents' checked='checked'
+            input.a-toggle-checkbox#side-tabs-2 type='radio' name='side-tabs-contents'
+            input.a-toggle-checkbox#side-tabs-3 type='radio' name='side-tabs-contents'
+            input.a-toggle-checkbox#side-tabs-4 type='radio' name='side-tabs-contents'
+            .side-tabs-nav
+              .side-tabs-nav__items
+                .side-tabs-nav__item
+                  label.side-tabs-nav__item-link#side-tabs-nav-1 for='side-tabs-1'
+                    | 直近の日報
+                .side-tabs-nav__item
+                  label.side-tabs-nav__item-link#side-tabs-nav-2 for='side-tabs-2'
+                    | ユーザーメモ
+                .side-tabs-nav__item
+                  label.side-tabs-nav__item-link#side-tabs-nav-3 for='side-tabs-3'
+                    | ユーザー情報
+                .side-tabs-nav__item
+                  label.side-tabs-nav__item-link#side-tabs-nav-4 for='side-tabs-4'
+                    | 提出物
+            .side-tabs-contents
+              .side-tabs-contents__item#side-tabs-content-1
+                = render partial: 'reports/recent_reports', locals: { header_display: true }
+              .side-tabs-contents__item#side-tabs-content-2
+                = render 'users/user_mentor_memo', user_id: @product.user.id
+              .side-tabs-contents__item#side-tabs-content-3
+                .a-card
+                  .user-data
+                    .user-data__row
+                      = render 'users/user_secret_attributes', user: @product.user
+                    .user-data__row
+                      = render 'users/metas', user: @product.user, user_course_practice: UserCoursePractice.new(@product.user)
+                    ruby:
+                      skipped_practices = @product.user.skipped_practices
+                      user_practices = @product.user.practices
+                    - if skipped_practices.present?
+                      .user-data__row
+                        .user-metas.is-only-mentor
+                          h2.user-metas__title
+                            | スキップするプラクティス一覧
+                          .user-metas__items
+                            - skipped_practices.each do |skipped_practice|
+                              .user-metas__item
+                                .user-metas__item-value
+                                  = link_to practice_path(skipped_practice.practice.id) do
+                                    - display_practice = user_practices.find_by(id: skipped_practice.practice.id)
+                                    span.category-practices-item__title-link-label
+                                      = display_practice.title
+              .side-tabs-contents__item#side-tabs-content-4
+                = render Products::UserProductsComponent.new(\
+                  products: @user_products,
+                  current_user: current_user,
+                  is_mentor: current_user.mentor? || current_user.admin?)
+
+- if !current_user.adviser? && @product.practice.open_product?
+  .sticky-message
+    .container
+      p
+        | このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。

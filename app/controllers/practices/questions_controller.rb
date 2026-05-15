@@ -1,28 +1,28 @@
 # frozen_string_literal: true
 
 class Practices::QuestionsController < ApplicationController
-  before_action :set_practice
-  before_action :set_questions
-
   def index
+    @practice = Practice.find(params[:practice_id])
+    allowed_targets = %w[solved not_solved].freeze
+    target = allowed_targets.include?(params[:target]) ? params[:target] : nil
+    @questions = @practice.questions
+                          .includes(%i[correct_answer answers])
+                          .by_target(target)
+                          .order(created_at: :desc)
+                          .page(params[:page])
+    @empty_message = empty_message
   end
 
   private
-    def set_practice
-      @practice = Practice.find(params[:practice_id])
-    end
 
-    def set_questions
-      questions = practice.questions.eager_load(:user, :answers)
-      @questions =
-        if params[:solved].present?
-          questions.solved
-        else
-          questions.not_solved
-        end.order(updated_at: :desc, id: :desc)
+  def empty_message
+    case params[:target]
+    when 'solved'
+      '解決済みのQ&Aはありません。'
+    when 'not_solved'
+      '未解決のQ&Aはありません。'
+    else
+      '質問はありません。'
     end
-
-    def practice
-      @practice ||= Practice.find(params[:practice_id])
-    end
+  end
 end

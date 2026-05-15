@@ -1,37 +1,50 @@
-- title "#{@user.login_name}のポートフォリオ"
-header.page-header
-  .container
-    .page-header__inner
-      h2.page-header__title
-        = title
-      .page-header-actions
-        ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to "ユーザー一覧", users_path, class: "a-button is-md is-secondary is-block"
-          - if current_user == @user
-            li.page-header-actions__item
-              = link_to new_work_path, class: "a-button is-md is-warning is-block" do
-                i.fas.fa-plus
-                | 作品を追加
+- title "#{@user.login_name}さんのポートフォリオ"
+- set_meta_tags description: "#{@user.login_name}さんのポートフォリオページです。"
 
-.page-tools
-  = render "users/page_tabs", user: @user
+= render 'users/page_title', user: @user
+= user_page_tabs(@user, active_tab: 'ポートフォリオ')
 
-.page-body
-  .container
-    - if @user.works.present?
-      .works
-        .row
-          = render partial: "works/work", collection: @works, as: :work
-    - else
-      .a-empty-message.is-info
-        p
-          | このページは、就職希望先のエンジニアや人事担当者が、#{@user.login_name}さんのスキルを手っ取り早く確認するための作品集ページ（ポートフォリオ）です。
-          br
-          | 自分の作ったGemや登壇した際の発表資料、自分で作ったWebサービス、自分が書いた書籍など、作品を登録していきましょう。
-    .page-body-actions
-      ul.page-body-actions__items
-        li.page-body-actions__item
-          = link_to new_work_path, class: "a-button is-lg is-warning is-block" do
-            i.fas.fa-plus
-            | 作品を追加
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | ポートフォリオ
+        .page-main-header__end
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              - if current_user == @user
+                li.page-main-header-actions__item
+                  = link_to portfolios_path, class: 'a-button is-md is-secondary is-block is-back' do
+                    | みんなの作品
+                li.page-main-header-actions__item
+                  = link_to new_work_path, class: 'a-button is-md is-secondary is-block' do
+                    i.fa-regular.fa-plus
+                    span
+                      | 作品を追加
+  hr.a-border
+  .page-body
+    .container
+      - if @user.works.present?
+        .works
+          .row
+            = render(Works::WorkComponent.with_collection(@works))
+      - elsif @user.works.blank? && current_user == @user
+        .a-empty-message.is-info
+          p
+            | このページは、就職希望先のプログラマーや人事担当者が、#{@user.login_name}さんのスキルを手っ取り早く確認するための作品集ページ（ポートフォリオ）です。
+            br
+            | 自分の作ったGemや登壇した際の発表資料、自分で作ったWebサービス、自分が書いた書籍など、作品を登録していきましょう。
+          .page-body-actions
+            ul.page-body-actions__items
+              li.page-body-actions__item
+                = link_to new_work_path, class: 'a-button is-lg is-warning is-block' do
+                  i.fa-regular.fa-plus
+                  | 作品を追加
+      - else
+        .o-empty-message
+          .o-empty-message__icon
+            i.fa-regular.fa-sad-tear
+          .o-empty-message__text
+            | 作品はまだありません。

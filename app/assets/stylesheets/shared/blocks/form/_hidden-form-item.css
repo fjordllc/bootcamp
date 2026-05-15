@@ -1,0 +1,11 @@
+.hidden-form-item__target {
+  display: none;
+}
+
+input:checked + .hidden-form-item__trigger + .hidden-form-item__target {
+  display: block;
+}
+
+input:checked + .hidden-form-item__trigger {
+  display: none;
+}

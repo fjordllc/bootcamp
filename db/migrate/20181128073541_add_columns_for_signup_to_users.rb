@@ -2,11 +2,13 @@
 
 class AddColumnsForSignupToUsers < ActiveRecord::Migration[5.2]
   def change
-    add_column :users, :job, :integer
-    add_column :users, :organization, :string
-    add_column :users, :os, :integer
-    add_column :users, :study_place, :integer
-    add_column :users, :experience, :integer
-    add_column :users, :how_did_you_know, :string
+    change_table :users, bulk: true do |t|
+      t.integer :job
+      t.string :organization
+      t.integer :os
+      t.integer :study_place
+      t.integer :experience
+      t.string :how_did_you_know
+    end
   end
 end

@@ -1,24 +1,30 @@
-comment_1:
-  user: machida
-  commentable: report_1 (Report)
-  description: |-
-    **CSS** は奥が深いですね。
+<% now = Time.current %>
 
-comment_2:
+comment1:
+  user: machida
+  commentable: report1 (Report)
+  description: |-
+    CSSは奥が深いですね。
+
+comment2:
   user: komagata
-  commentable: report_3 (Report)
+  commentable: report3 (Report)
   description: |-
     どういう教材がいいんでしょうかね？
+  created_at: <%= now %>
+  updated_at: <%= now %>
 
-comment_3:
+comment3:
   user: machida
-  commentable: report_3 (Report)
+  commentable: report3 (Report)
   description: |-
     https://github.com/fjordllc/csstutorial/tree/master とかですかねー。
+  created_at: <%= now + 1.seconds %>
+  updated_at: <%= now + 1.seconds %>
 
-comment_4:
+comment4:
   user: sotugyou
-  commentable: report_4 (Report)
+  commentable: report4 (Report)
   description: |-
     ```ruby
     Comment.where(id: @commentable.id)
@@ -26,61 +32,171 @@ comment_4:
     上記を追加しました。ご確認下さい。
   created_at: "2019-01-01 00:00:01"
 
-comment_5:
+comment5:
   user: komagata
-  commentable: report_4 (Report)
+  commentable: report4 (Report)
   description: |-
     `Comment.where(report_id: @commentable.id)` じゃないと動かなくないですか？
   created_at: "2019-01-02 00:00:01"
 
-comment_6:
+comment6:
   user: sotugyou
-  commentable: report_4 (Report)
-  description: "失礼しました。 report_id を id と typo してました :sweat_drops:"
+  commentable: report4 (Report)
+  description: "失礼しました。 report_id を id と typo してました💦"
   created_at: "2019-01-02 18:00:01"
-comment_7:
+
+comment7:
   user: komagata
-  commentable: report_4 (Report)
+  commentable: report4 (Report)
   description: ":thumbsup:"
   created_at: "2019-01-04 00:00:01"
 
-comment_8:
+comment8:
   user: komagata
-  commentable: product_10 (Product)
+  commentable: product10 (Product)
   description: "提出物のコメントです。"
 
-comment_9:
+comment9:
   user: komagata
-  commentable: report_5 (Report)
+  commentable: report5 (Report)
   description: "@sotugyou 🎉🎉🎉🎉"
 
-comment_10:
-  user: yamada
-  commentable: product_1 (Product)
+comment10:
+  user: mentormentaro
+  commentable: product1 (Product)
   description: "提出物へのコメント"
 
-comment_11:
-  user: yamada
-  commentable: report_1 (Report)
-  description: "テスト用 report_1へのコメント"
+comment11:
+  user: mentormentaro
+  commentable: report1 (Report)
+  description: "テスト用 report1へのコメント"
+  created_at: <%= now + 2.seconds %>
+  updated_at: <%= now + 2.seconds %>
 
-comment_12:
-  user: yamada
-  commentable: announcement_1 (Announcement)
-  description: "テスト用 announcement_1へのコメント"
+comment12:
+  user: mentormentaro
+  commentable: announcement1 (Announcement)
+  description: "テスト用 announcement1へのコメント"
 
-comment_13:
-  user: yamada
-  commentable: product_1 (Product)
-  description: "テスト用 product_1へのコメント"
+comment13:
+  user: mentormentaro
+  commentable: product1 (Product)
+  description: "テスト用 product1へのコメント"
 
-comment_14:
-  user: yamada
-  commentable: product_3 (Product)
-  description: "テスト用 product_3へのコメント"
+comment14:
+  user: mentormentaro
+  commentable: product3 (Product)
+  description: "テスト用 product3へのコメント"
 
-comment_15:
+comment15:
   user: machida
-  commentable: report_4 (Report)
+  commentable: report4 (Report)
   description: ":thumbsup:"
   created_at: "2019-01-02 12:00:01"
+
+comment16:
+  user: mentormentaro
+  commentable: event1 (Event)
+  description: "テスト用 event1へのコメント"
+
+comment17:
+  user: machida
+  commentable: product63 (Product)
+  description: "自分が担当する提出物に返信する"
+
+comment18:
+  user: hajime
+  commentable: report7 (Report)
+  description: "@kimura 1つ目のメンションありの未読通知を発生させる"
+
+comment19:
+  user: mentormentaro
+  commentable: report7 (Report)
+  description: "@kimura 2つ目のメンションありの未読通知を発生させる"
+
+<% (1..20).each do |i| %>
+comment<%= i + 19 %>:
+  user: komagata
+  commentable: product11 (Product)
+  description: <%= "提出物のコメント#{i}です。" %>
+  created_at: <%= Time.current + i.minute %>
+  updated_at: <%= Time.current + i.minute %>
+<% end %>
+
+comment40:
+  user: long-id-mentor
+  commentable: product67 (Product)
+  description: "長い名前のメンター"
+
+comment41:
+  user: long-id-mentor
+  commentable: report71 (Report)
+  description: "長い名前のメンター"
+
+comment42:
+  user: mentormentaro
+  commentable: regular_event27 (RegularEvent)
+  description: "テスト用 regular_event27へのコメント"
+
+comment43:
+  user: komagata
+  commentable: inquiry1 (Inquiry)
+  description: "テスト用 inquiry1へのコメント"
+  created_at: "2019-01-02 00:00:00 JST"
+
+comment44:
+  user: komagata
+  commentable: inquiry2 (Inquiry)
+  description: "inquiryにて削除するコメント"
+
+<% (1..20).each do |i| %>
+comment<%= i + 44 %>:
+  user: komagata
+  commentable: inquiry3 (Inquiry)
+  description: <%= "テスト用 inquiry3へのコメント。No.#{i}" %>
+  created_at: <%= Time.current + i.minute %>
+  updated_at: <%= Time.current + i.minute %>
+<% end %>
+
+comment65:
+  user: komagata
+  commentable: corporate_training_inquiry1 (CorporateTrainingInquiry)
+  description: "テスト用 corporate_training_inquiry1へのコメント"
+
+comment66:
+  user: komagata
+  commentable: corporate_training_inquiry2 (CorporateTrainingInquiry)
+  description: "corporate_training_inquiryにて削除するコメント"
+
+<% (1..20).each do |i| %>
+comment<%= i + 66 %>:
+  user: komagata
+  commentable: corporate_training_inquiry3 (CorporateTrainingInquiry)
+  description: <%= "テスト用 corporate_training_inquiry3へのコメント。No.#{i}" %>
+  created_at: <%= Time.current + i.minute %>
+  updated_at: <%= Time.current + i.minute %>
+<% end %>
+
+comment87:
+  user: mentormentaro
+  commentable: product9 (Product)
+  description: "テスト用 product9へのコメント"
+
+commentOfTalk:
+  user: komagata
+  commentable: talk1 (Talk)
+  commentable_type: Talk
+  description: "これは相談部屋の会話です。"
+  updated_at: "2019-01-02 00:00:00 JST"
+
+commentOfTalk2:
+  user: hajime
+  commentable: talk9 (Talk)
+  commentable_type: Talk
+  description: "これは相談部屋の会話です。"
+  updated_at: "2019-01-02 00:00:00 JST"
+
+comment_for_answer_count:
+  user: kimura
+  commentable: answer_for_comment_count (Answer)
+  description: "コメント数表示テスト用のコメントです。"

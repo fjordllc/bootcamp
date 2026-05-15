@@ -1,0 +1,30 @@
+# frozen_string_literal: true
+
+class API::CorrectAnswersController < API::BaseController
+  before_action :set_question, only: %i[create update]
+
+  def create
+    @answer = @question.answers.find(params[:answer_id])
+    @answer.type = 'CorrectAnswer'
+    if @answer.save
+      ActiveSupport::Notifications.instrument('answer.save', answer: @answer, action: current_action_name)
+      ActiveSupport::Notifications.instrument('correct_answer.save', answer: @answer)
+      head :ok
+    else
+      head :bad_request
+    end
+  end
+
+  def update
+    answer = @question.answers.find(params[:answer_id])
+    answer.update!(type: nil)
+    ActiveSupport::Notifications.instrument('answer.save', answer:, action: current_action_name)
+    head :no_content
+  end
+
+  private
+
+  def set_question
+    @question = Question.find(params[:question_id])
+  end
+end

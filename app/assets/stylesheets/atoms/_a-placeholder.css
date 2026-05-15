@@ -1,0 +1,171 @@
+@keyframes loadingNow {
+  0% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.a-placeholder {
+  background-color: var(--placeholder);
+  animation: loadingNow 0.75s ease infinite alternate;
+}
+.a-placeholder.a-user-icon {
+  background-color: var(--placeholder);
+  display: block;
+}
+.a-placeholder.page-content-header-metas {
+  height: 1.4em;
+  background-color: var(--placeholder);
+  width: 50%;
+}
+.a-placeholder.thread-header-title {
+  height: 1.5em;
+  width: 70%;
+}
+.a-placeholder.card-list-item-title {
+  height: 1.5em;
+  width: 50%;
+}
+.a-placeholder.card-list-item-meta__items {
+  height: 1.4em;
+  width: 70%;
+  margin-inline: 0;
+}
+.a-placeholder.a-button {
+  background-color: var(--placeholder);
+  border: none;
+}
+.a-placeholder.page-nav__item {
+  border: none;
+}
+.a-placeholder.page-nav__item .page-nav__item-link-inner {
+  height: 1.4em;
+  width: 100%;
+  background-color: var(--placeholder);
+  display: block;
+}
+.a-placeholder.practice-status.category-practices-item__status {
+  background-color: var(--placeholder);
+}
+.a-placeholder.categories-item__title {
+  height: 1.5em;
+  width: 50%;
+  background-color: var(--placeholder);
+}
+.a-placeholder.category-practices-item__title-link {
+  height: 1.5em;
+  width: 50%;
+  background-color: var(--placeholder);
+}
+.a-placeholder.group-company-name__label {
+  height: 1em;
+  width: 50%;
+  background-color: var(--placeholder);
+  display: block;
+}
+.a-placeholder.group-company-name__label-option {
+  height: 1em;
+  width: 50%;
+  background-color: var(--placeholder);
+  display: block;
+}
+.a-placeholder.user-group__title-label {
+  height: 1.2em;
+  width: 10%;
+  background-color: var(--placeholder);
+}
+.a-placeholder.user-group__date {
+  height: 1em;
+  width: 20%;
+  background-color: var(--placeholder);
+}
+.a-placeholder.a-long-text {
+  background-color: transparent;
+}
+.a-placeholder.a-long-text p {
+  background-color: var(--placeholder);
+  height: auto;
+  margin-bottom: 0;
+}
+.a-placeholder.a-long-text p:not(:first-child) {
+  margin-top: 0.5em;
+}
+.a-placeholder.a-long-text p:nth-child(1) {
+  width: 70%;
+}
+.a-placeholder.a-long-text p:nth-child(2) {
+  width: 100%;
+}
+.a-placeholder.a-long-text p:nth-child(3) {
+  width: 100%;
+}
+.a-placeholder.a-long-text p:nth-child(4) {
+  width: 80%;
+}
+.a-placeholder.a-long-text p:nth-child(5) {
+  width: 60%;
+}
+.a-placeholder.a-long-text p:nth-child(6) {
+  width: 20%;
+}
+.a-placeholder.a-long-text p:nth-child(7) {
+  width: 100%;
+}
+.a-placeholder.a-long-text p:nth-child(8) {
+  width: 80%;
+}
+.a-placeholder.a-long-text p:nth-child(9) {
+  width: 60%;
+}
+.a-placeholder.a-long-text p:nth-child(10) {
+  width: 20%;
+}
+.a-placeholder.a-long-text p:nth-child(11) {
+  width: 80%;
+}
+.a-placeholder.a-long-text p:nth-child(12) {
+  width: 60%;
+}
+.a-placeholder.a-long-text p:nth-child(13) {
+  width: 20%;
+}
+.a-placeholder.card-list-item-title {
+  height: 1.2em;
+  width: 30%;
+}
+.a-placeholder.card-list-item-meta__item {
+  height: 1em;
+  width: 35%;
+}
+.a-placeholder.sns-links__items.is-button-group {
+  height: 1.8em;
+  width: 60%;
+}
+.a-placeholder.users-item__description.a-short-text {
+  height: 0.8em;
+  width: 50%;
+}
+.a-placeholder.tag-links__item {
+  height: 1.3em;
+  width: 20%;
+}
+.a-placeholder.completed-practices-progress__bar {
+  height: 1em;
+  width: 100%;
+  background-color: var(--placeholder);
+}
+.a-placeholder.completed-practices-progress__number {
+  height: 1em;
+  width: 10%;
+}
+.a-placeholder.card-counts__item-inner {
+  height: 2.8125rem;
+  background-color: var(--placeholder);
+  border: none;
+}
+
+.a-card.is-loading {
+  border: none;
+  background-color: rgba(255, 255, 255, 0.8);
+}

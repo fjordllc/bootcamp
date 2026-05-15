@@ -1,44 +1,75 @@
 # frozen_string_literal: true
 
-require "application_system_test_case"
+require 'application_system_test_case'
+require 'supports/tag_helper'
 
 class PagesTest < ApplicationSystemTestCase
-  setup { login_user "komagata", "testtest" }
+  include TagHelper
 
-  test "GET /pages" do
-    visit "/pages"
-    assert_equal "Docs | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
-    assert_no_selector "nav.pagination"
+  setup do
+    @raise_server_errors = Capybara.raise_server_errors
   end
 
-  test "show page" do
-    id = pages(:page_1).id
-    visit "/pages/#{id}"
-    assert_equal "test1 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+  teardown do
+    Capybara.raise_server_errors = @raise_server_errors
   end
 
-  test "show edit page" do
-    id = pages(:page_2).id
-    visit "/pages/#{id}/edit"
-    assert_equal "ページ編集 | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+  test 'GET /pages' do
+    visit_with_auth '/pages', 'kimura'
+    assert_equal 'Docs | FBC', title
+    assert_no_selector 'nav.pagination'
   end
 
-  test "title with half-width space" do
-    target_page = pages(:page_1)
-    visit edit_page_path(target_page)
-    assert_equal edit_page_path(target_page), current_path
-    fill_in "page[title]", with: "半角スペースを 含んでも 正常なページに 遷移する"
-    click_button "内容を保存"
-    assert_equal page_path(target_page.reload), current_path
-    assert_text "ページを更新しました"
+  test 'show page' do
+    visit_with_auth "/pages/#{pages(:page1).id}", 'kimura'
+    assert_equal 'Docs: test1 | FBC', title
   end
 
-  test "add new page" do
-    visit new_page_path
-    assert_equal new_page_path, current_path
-    fill_in "page[title]", with: "新規ページを作成する"
-    fill_in "page[body]", with: "新規ページを作成する本文です"
-    click_button "内容を保存"
-    assert_text "ページを作成しました"
+  test 'show edit page' do
+    visit_with_auth "/pages/#{pages(:page2).id}/edit", 'kimura'
+    assert_equal 'ページ編集 | FBC', title
+  end
+
+  test 'page has a comment form ' do
+    page = pages(:page1)
+    visit_with_auth "/pages/#{page.id}", 'kimura'
+    wait_for_comment_form
+    assert_selector '.thread-comment-form'
+  end
+
+  test 'show comment count' do
+    page = pages(:page1)
+    visit_with_auth "/pages/#{page.id}", 'kimura'
+    assert_selector '#comment_count', text: 0
+
+    wait_for_comment_form
+    post_comment('コメント数表示のテストです。')
+
+    visit current_path
+    wait_for_javascript_components
+    assert_selector '#comment_count', text: 1
+  end
+
+  test 'show last updated user icon' do
+    visit_with_auth "/pages/#{pages(:page7).id}", 'hajime'
+    within '.a-meta.is-updater' do
+      assert_selector 'img[alt="komagata (Komagata Masaki): 管理者、メンター"]'
+    end
+  end
+
+  test 'show 404 page when accessed with slug does not exist in Docs' do
+    Capybara.raise_server_errors = false
+
+    slug = 'help12345'
+    visit_with_auth "/pages/#{slug}", 'kimura'
+    assert_text 'ActiveRecord::RecordNotFound'
+  end
+
+  test 'using file uploading by file selection dialogue in textarea' do
+    visit_with_auth new_page_path, 'komagata'
+    within(:css, '.a-file-insert') do
+      assert_selector 'input.file-input', visible: false
+    end
+    assert_equal '.file-input', find('textarea.a-text-input')['data-input']
   end
 end

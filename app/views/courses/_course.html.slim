@@ -1,20 +1,28 @@
-.col-xxl-3.col-xl-4.col-lg-4.col-md-6.col-xs-12
-  .courses-item(id="course_#{course.id}")
+.col-xxxl-2.col-xxl-3.col-xl-4.col-lg-4.col-md-6.col-xs-12
+  .courses-item(id="course_#{course.id}" class="#{course.published ? 'is-published' : 'is-closed'}")
     .courses-item__inner.a-card
       header.courses-item__header
         h3.courses-item__title
-          = link_to course.title, course, class: "courses-item__title-link"
+          = link_to [course, :practices], class: 'courses-item__title-link' do
+            - unless course.published
+              .courses-item__title-icon.is-closed
+                | 非表示
+            span.courses-item__title-label
+              = course.title
       .courses-item__description
         = simple_format(course.description)
-      - if admin_login?
+      - if mentor_login?
+        hr.a-border-tint
         footer.card-footer
-          .card-footer-actions
-            ul.card-footer-actions__items
-              li.card-footer-actions__item
-                = link_to edit_course_path(course), class: "a-button is-md is-primary is-block" do
-                  i.fas.fa-pen
+          .card-main-actions.is-3-items
+            ul.card-main-actions__items
+              li.card-main-actions__item
+                = link_to edit_mentor_course_path(course), class: 'a-button is-sm is-secondary is-block' do
+                  i.fa-solid.fa-pen
                   | 編集
-              li.card-footer-actions__item
-                = link_to course, method: :delete, class: "a-button is-md is-danger is-block js-delete", data: { confirm: "本当によろしいですか？" } do
-                  i.fas.fa-trash-alt
-                  | 削除
+              li.card-main-actions__item
+                = link_to mentor_course_categories_path(course), class: 'a-button is-sm is-secondary is-block' do
+                  i.fa-solid.fa-align-justify
+                  | 並び替え
+              li.card-main-actions__item
+                = link_to '複製', new_mentor_course_path(course_id: course.id), class: 'a-button is-sm is-secondary is-block'

@@ -1,29 +1,49 @@
-- title @search_words.present? ? "'#{@search_words.join(" ")}'の検索結果" : "日報"
+- title '日報'
+- set_meta_tags description: '日報の一覧ページです。'
 
-header.page-header.is-margin-bottom-0
-  .container
-    .page-header__inner
-      h2.page-header__title
-        = title
-      = render "reports/new_report"
+= render '/reports/report_blog_header'
+= report_page_tabs(active_tab: '日報')
 
-.page-tools
-  nav.sort-nav
-    = form_tag reports_url, method: "get" do
-      .container
-        .sort-nav__inner
-          = hidden_field_tag :word, @search_words
-          = label_tag :practice_id, "プラクティスで絞り込む:", class: "sort-nav__label"
-          .sort-nav__select
-            = select_tag :practice_id, options_from_collection_for_select(Practice.all, :id, :title, selected: params[:practice_id]), include_blank: "全ての日報を表示", onchange: "this.form.submit()", class: "js-select2"
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | 日報
+        .page-main-header__end
+          = render 'reports/new_report'
 
-  - if current_user.admin?
-    = render "reports/tabs"
+  hr.a-border
 
-.page-body
-  = paginate @reports, position: "top"
-  .container
-    - if @reports.present?
-      .thread-list.a-card
-        = render partial: "reports/report", collection: @reports, as: :report
-  = paginate @reports, position: "bottom"
+  - if admin_or_mentor_login?
+    nav.pill-nav
+      ul.pill-nav__items
+        li.pill-nav__item
+          = link_to '全て', reports_path, class: "pill-nav__item-link#{' is-active' if controller_path == 'reports'}"
+        li.pill-nav__item
+          = link_to '未チェック', reports_unchecked_index_path, class: "pill-nav__item-link#{' is-active' if controller_path == 'reports/unchecked'}"
+  - if controller_path != 'reports/unchecked'
+    nav.page-filter.form.pb-0
+      .container.is-md
+        = form_with url: reports_path, local: true, method: :get do
+          .form-item.is-inline-md-up
+            = label_tag :practice_id, 'プラクティスで絞り込む', class: 'a-form-label'
+            = select_tag :practice_id, options_from_collection_for_select(@current_user_practice.sorted_practices, :id, :title, selected: params[:practice_id]), include_blank: '全ての日報を表示', onchange: 'this.form.submit()', id: 'js-choices-single-select'
+  .page-body
+    - if @reports.empty?
+      .o-empty-message
+        .o-empty-message__icon
+          i.fa-regular.fa-sad-tear
+        .o-empty-message__text
+          | 日報はまだありません。
+    - else
+      .container.is-md
+        .page-content.reports
+          = paginate @reports
+          .card-list.a-card
+            .card-list__items
+              = render partial: 'reports/report', collection: @reports, as: :report, locals: { user_icon_display: true, actions_display: true }
+          - if mentor_login? && controller_path == 'reports/unchecked'
+            = render partial: 'unconfirmed_links_open', locals: { label: '未チェックの日報を一括で開く' }
+        = paginate @reports

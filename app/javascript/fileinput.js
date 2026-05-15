@@ -1,16 +1,54 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const inputs = document.querySelectorAll('.js-file-input input')
-  if (inputs) {
-    for (let i = 0; i < inputs.length; i++) {
-      let input = inputs[i]
-      input.addEventListener('change', e => {
-        const file = e.target.files[0]
+import Heic2any from 'heic2any'
+
+function isHEIC(file) {
+  const type = file.type
+    ? file.type.split('image/').pop()
+    : file.name.split('.').pop().toLowerCase()
+  return type === 'heic' || type === 'heif'
+}
+
+function convertHEIC(file) {
+  return new Promise((resolve) => {
+    Heic2any({
+      blob: file,
+      toType: 'image/jpeg',
+      quality: 1
+    }).then((convertedBlob) => {
+      const convertedFile = new File(
+        [convertedBlob],
+        file.name.substring(0, file.name.lastIndexOf('.')) + '.jpg',
+        { type: 'image/jpeg' }
+      )
+      resolve(convertedFile)
+    })
+  })
+}
+
+function initializeFileInput(target) {
+  const inputs = target.querySelectorAll('.js-file-input input')
+  if (!inputs) return null
+
+  inputs.forEach((input) => {
+    const dropArea = input.closest('.js-file-input')
+    dropArea.addEventListener('dragover', (e) => e.preventDefault())
+    dropArea.addEventListener('drop', (e) => {
+      e.preventDefault()
+      input.files = e.dataTransfer.files
+      input.dispatchEvent(new Event('change'))
+    })
+
+    input.addEventListener('change', async (e) => {
+      let file = e.target.files[0]
+
+      if (file) {
         const fileReader = new FileReader()
-        fileReader.addEventListener('load', event => {
-          let dataUri = event.target.result
-          const preview = document.querySelector('.js-file-input__preview')
-          const p = document.querySelector('.js-file-input__preview p')
-          let img = document.querySelector('.js-file-input__preview img')
+        fileReader.addEventListener('load', (event) => {
+          const dataUri = event.target.result
+          const preview = input.parentElement.parentElement.querySelector(
+            '.js-file-input__preview'
+          )
+          const p = preview.querySelector('p')
+          let img = preview.querySelector('img')
 
           if (!img) {
             img = document.createElement('img')
@@ -18,11 +56,45 @@ document.addEventListener('DOMContentLoaded', () => {
           }
 
           img.src = dataUri
-          console.log('dataUri', dataUri)
           p.innerHTML = '画像を変更'
         })
+
+        if (isHEIC(file)) file = await convertHEIC(file)
+
         fileReader.readAsDataURL(file)
-      })
+      }
+    })
+  })
+}
+
+function extractField(elements) {
+  for (let i = 0; i < elements.length; i++) {
+    const element = elements[i]
+    if (element.classList && element.classList.contains('nested-fields')) {
+      return element
+    } else {
+      if (typeof element.querySelector === 'function') {
+        const field = element.querySelector('.nested-fields')
+        if (field) {
+          return field
+        }
+      }
     }
   }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const ref = document.querySelector('#reference_books')
+  if (ref) {
+    ref.addEventListener('cocooned:after-insert', (e) => {
+      const addedField = e.detail?.node
+      if (addedField) {
+        const added = extractField([addedField])
+        if (added) {
+          initializeFileInput(added)
+        }
+      }
+    })
+  }
+  initializeFileInput(document)
 })
