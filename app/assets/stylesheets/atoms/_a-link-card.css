@@ -1,0 +1,157 @@
+.a-long-text .a-link-card,
+.a-long-text .twitter-tweet {
+  background-color: var(--base);
+  border: solid 1px var(--border);
+  padding: 1em;
+  border-radius: 4px;
+  width: 36rem;
+  max-width: 100%;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+.a-long-text .a-link-card img,
+.a-long-text .twitter-tweet img {
+  border: none;
+}
+.a-long-text .a-link-card div,
+.a-long-text .twitter-tweet div {
+  margin: 0;
+}
+.a-long-text .a-link-card .a-link-card__title-link,
+.a-long-text .twitter-tweet .a-link-card__title-link {
+  display: inline-block;
+  max-width: 100%;
+}
+.a-long-text .a-link-card .a-link-card__title-text,
+.a-long-text .twitter-tweet .a-link-card__title-text {
+  font-weight: 700;
+  max-width: 100%;
+  overflow: hidden;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 1em;
+  line-height: 1.4;
+}
+.a-long-text .a-link-card .a-link-card__favicon-image,
+.a-long-text .twitter-tweet .a-link-card__favicon-image {
+  width: 1em;
+  min-width: 1em;
+  max-width: 1em;
+  height: 1em;
+  min-height: 1em;
+  max-height: 1em;
+  display: block;
+}
+.a-long-text .a-link-card .a-link-card__favicon-image.is-blank,
+.a-long-text .twitter-tweet .a-link-card__favicon-image.is-blank {
+  display: none;
+}
+.a-long-text .a-link-card .a-link-card__body,
+.a-long-text .twitter-tweet .a-link-card__body {
+  font-size: 0.875em;
+  line-height: 1.4;
+  color: var(--muted-text);
+  display: flex;
+  gap: 1em;
+}
+.a-long-text .a-link-card .a-link-card__body p,
+.a-long-text .twitter-tweet .a-link-card__body p {
+  line-height: 1.4;
+  margin: 0;
+}
+.a-long-text .a-link-card .a-link-card__body-start,
+.a-long-text .twitter-tweet .a-link-card__body-start {
+  flex: 2;
+}
+.a-long-text .a-link-card .a-link-card__body-end,
+.a-long-text .twitter-tweet .a-link-card__body-end {
+  flex: 1;
+}
+.a-long-text .a-link-card .a-link-card__body-url-link,
+.a-long-text .twitter-tweet .a-link-card__body-url-link {
+  overflow: hidden;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.a-long-text .a-link-card .a-link-card__image,
+.a-long-text .twitter-tweet .a-link-card__image {
+  max-width: 12rem;
+}
+.a-long-text .a-link-card .a-link-card__image.is-blank,
+.a-long-text .twitter-tweet .a-link-card__image.is-blank {
+  display: none;
+}
+.a-long-text .a-link-card .a-link-card__image-ogp,
+.a-long-text .twitter-tweet .a-link-card__image-ogp {
+  object-fit: cover;
+  width: 100%;
+  aspect-ratio: 1.91/1;
+  border-radius: 0.25rem;
+}
+.a-long-text .a-link-card .a-link-card__site-title,
+.a-long-text .twitter-tweet .a-link-card__site-title {
+  margin-top: 0.5em;
+}
+.a-long-text .a-link-card .a-link-card__site-title-link,
+.a-long-text .twitter-tweet .a-link-card__site-title-link {
+  display: inline-flex;
+  gap: 0.25em;
+  align-items: center;
+}
+.a-long-text .a-link-card .a-link-card__site-title-text,
+.a-long-text .twitter-tweet .a-link-card__site-title-text {
+  font-size: 0.875em;
+  line-height: 1.4;
+  flex: 1;
+}
+.a-long-text .twitter-tweet {
+  position: relative;
+  line-height: 1.4;
+  font-size: 0.875em;
+  color: var(--muted-text);
+  padding: 2em 3em 1em 2em;
+}
+.a-long-text .twitter-tweet::before {
+  font-family: "Font Awesome 6 Brands";
+  font-weight: 400;
+  font-size: 1.5em;
+  content: "\e61b";
+  position: absolute;
+  right: 0.5em;
+  top: 0.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1em;
+  height: 1em;
+  color: #0f1419;
+}
+.a-long-text .twitter-tweet p {
+  font-size: 1.125em;
+  line-height: 1.6;
+  margin-bottom: 1em;
+  color: var(--default-text);
+}
+.a-long-text .twitter-tweet > a:last-child {
+  color: var(--muted-text);
+  text-decoration: none;
+}
+.a-long-text .twitter-tweet > a:last-child:hover {
+  color: var(--hover-text);
+  text-decoration: underline;
+}
+
+@media (max-width: 47.9375em) {
+  .a-long-text .a-link-card__image {
+    max-width: 7.5rem;
+  }
+  .a-long-text .twitter-tweet {
+    padding: 2em 3em 1em 1em;
+  }
+}

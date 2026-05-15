@@ -16,6 +16,14 @@ class Answer < ApplicationRecord
 
   mentionable_as :description
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[description created_at updated_at user_id question_id]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[user question reactions]
+  end
+
   def receiver
     question.user
   end
@@ -26,5 +34,15 @@ class Answer < ApplicationRecord
 
   def certain_period_has_passed?
     created_at.since(1.week).to_date == Date.current
+  end
+
+  def search_title
+    question&.title || 'Q&A回答'
+  end
+
+  def search_url
+    return Rails.application.routes.url_helpers.questions_path unless question.presence
+
+    Rails.application.routes.url_helpers.question_path(question, anchor: "answer_#{id}")
   end
 end

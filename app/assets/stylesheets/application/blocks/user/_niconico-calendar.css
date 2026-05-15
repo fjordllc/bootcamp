@@ -1,0 +1,141 @@
+.niconico-calendar-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -1rem;
+  font-size: 0.875rem;
+}
+
+.niconico-calendar-nav__previous,
+.niconico-calendar-nav__next {
+  height: 2.75rem;
+  width: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  cursor: pointer;
+}
+.niconico-calendar-nav__previous:hover, .niconico-calendar-nav__previous:active,
+.niconico-calendar-nav__next:hover,
+.niconico-calendar-nav__next:active {
+  text-decoration: underline;
+}
+.niconico-calendar-nav__previous,
+.niconico-calendar-nav__next {
+  transition: all 0.2s ease-out;
+}
+.niconico-calendar-nav__previous:hover,
+.niconico-calendar-nav__next:hover {
+  color: var(--main-text);
+}
+.niconico-calendar-nav__previous.is-blank,
+.niconico-calendar-nav__next.is-blank {
+  cursor: default;
+  pointer-events: none;
+}
+
+.niconico-calendar-nav__year--month {
+  width: 6rem;
+  text-align: center;
+}
+
+.niconico-calendar {
+  width: 100%;
+  table-layout: fixed;
+}
+.niconico-calendar th,
+.niconico-calendar td {
+  border: solid 1px var(--border-shade);
+}
+.niconico-calendar td {
+  height: 3rem;
+}
+
+.niconico-calendar__header {
+  background-color: var(--background-tint);
+}
+
+.niconico-calendar__header-day {
+  width: 14.2857142857%;
+  font-size: 0.75rem;
+  line-height: 1;
+  text-align: center;
+  padding-block: 0.25em;
+}
+.niconico-calendar__header-day.is-sunday {
+  color: var(--danger);
+}
+.niconico-calendar__header-day.is-saturday {
+  color: var(--main-text);
+}
+
+.niconico-calendar__day.is-blank {
+  background-color: var(--background-more-tint);
+}
+.niconico-calendar__day.is-positive {
+  background-color: var(--positive-background);
+}
+.niconico-calendar__day.is-negative {
+  background-color: var(--negative-background);
+}
+.niconico-calendar__day.is-neutral {
+  background-color: var(--neutral-background);
+}
+.niconico-calendar__day.is-today .niconico-calendar__day-inner {
+  border: dashed 2px var(--success);
+}
+.niconico-calendar__day.is-today .niconico-calendar__day-label {
+  font-weight: 600;
+  color: var(--success);
+}
+
+.niconico-calendar__day-inner {
+  display: block;
+  text-decoration: none;
+  padding-block: 0.25rem 0.125rem;
+  height: 100%;
+  width: 100%;
+}
+
+a.niconico-calendar__day-inner {
+  transition: all 0.2s ease-out;
+  cursor: pointer;
+}
+a.niconico-calendar__day-inner:hover {
+  background-color: color-mix(in srgb, var(--warning) 10%, transparent);
+  box-shadow: var(--warning) 0 0 0 1px inset;
+  position: relative;
+}
+
+.niconico-calendar__day-label {
+  font-size: 0.625rem;
+  line-height: 1;
+  text-align: center;
+  color: var(--default-text);
+  margin-bottom: 0.125rem;
+}
+.niconico-calendar__day.is-blank .niconico-calendar__day-label {
+  color: var(--muted-text);
+}
+
+.niconico-calendar__day-value {
+  font-size: 1.75rem;
+  line-height: 1;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  height: 1.875rem;
+  width: 100%;
+}
+.niconico-calendar__day.is-blank .niconico-calendar__day-value {
+  color: var(--muted-text);
+  font-size: 1.25rem;
+}
+
+.niconico-calendar__emotion-image {
+  height: 1em;
+  width: 1em;
+}

@@ -1,0 +1,58 @@
+.a-count-badge {
+  font-size: 1.125rem;
+  line-height: 1;
+  text-align: center;
+  border: solid 1px var(--border-shade);
+  vertical-align: middle;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  background-color: var(--base);
+  transition: all 0.2s ease-out;
+  display: flex;
+  flex-direction: column;
+  min-width: 2.75em;
+}
+
+a.a-count-badge {
+  text-decoration: none;
+}
+
+a.a-count-badge:hover {
+  background-color: var(--background-more-tint);
+}
+
+.a-count-badge__label {
+  font-size: 0.625rem;
+  color: var(--default-text);
+  border-bottom: solid 1px var(--border-shade);
+  padding-block: 0.25rem;
+}
+
+.a-count-badge__value {
+  font-size: 1em;
+  font-weight: 700;
+  color: var(--danger);
+  transition: all 0.2s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.0625em 0.125em 0.1875em;
+  line-height: 0.9375;
+}
+
+.a-count-badge__value.is-zero {
+  color: var(--muted-text);
+}
+
+.a-count-badge__value.is-counting {
+  color: var(--muted-text);
+  padding: 0;
+}
+
+.a-count-badge__value.is-counting i {
+  font-size: 0.75em;
+}
+
+.a-count-badge__value + .a-count-badge__value {
+  display: none;
+}

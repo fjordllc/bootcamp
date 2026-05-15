@@ -9,7 +9,7 @@ module LinkChecker
         assert_equal 200, Client.request('http://example.com/')
       end
       VCR.use_cassette 'link_checker/client/request/fjord.jp' do
-        assert_equal 404, Client.request('https://fjord.jp/foo')
+        assert_equal 404, Client.request('https://lokka.jp/foo')
       end
       VCR.use_cassette 'link_checker/client/request/foobarbuzzzzzzzzzzzzz.com' do
         assert_not Client.request('http://foobarbuzzzzzzzzzzzzz.com/')
@@ -27,7 +27,7 @@ module LinkChecker
         assert_equal 200, Client.new('http://example.com/').request
       end
       VCR.use_cassette 'link_checker/client/request/fjord.jp' do
-        assert_equal 404, Client.new('https://fjord.jp/foo').request
+        assert_equal 404, Client.new('https://lokka.jp/foo').request
       end
       VCR.use_cassette 'link_checker/client/request/foobarbuzzzzzzzzzzzzz.com', record: :once do
         assert_not Client.new('http://foobarbuzzzzzzzzzzzzz.com/').request

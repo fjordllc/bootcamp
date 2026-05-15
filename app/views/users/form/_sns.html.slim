@@ -1,26 +1,38 @@
-.form-item#form-discord-account
-  = f.label :discord_account, class: 'a-form-label'
-  .form-item__mention-input
-    = f.text_field :discord_account, class: 'a-text-input', placeholder: 'komagata#1111'
-  .a-form-help
-    p
-      | Discord のアカウントの調べ方は
-      label.a-form-help-link.is-danger(for='modal-discord-account')
-        span.a-form-help-link__label
-          | こちら
-        span.a-help
-          i.fa-solid.fa-question
-.form-item#times-url
-  = f.label :times_url, class: 'a-form-label'
-  = f.text_field :times_url, class: 'a-text-input', placeholder: 'https://discord.com/channels/715806612824260640/123456789012345678'
-  .a-form-help
-    p
-      | Discord の分報チャンネルの URL を入力。調べ方は
-      label.a-form-help-link.is-danger(for='modal-times-url')
-        span.a-form-help-link__label
-          | こちら
-        span.a-help
-          i.fa-solid.fa-question
+= f.fields_for :discord_profile do |discord_profile_fields|
+  .form-item
+    label.a-form-label
+      | Discord アカウント
+    - if f.object.discord_profile.account_name?
+      .form-item__mention-input
+        = discord_profile_fields.text_field :account_name, class: 'a-text-input', disabled: true
+      .a-form-help
+        p
+          | Discord アカウントは登録されています。（
+          = link_to connection_discord_path, method: :delete, class: 'a-form-help-link is-muted-text' do
+            | Discord アカウントの登録を解除する
+          | ）
+    - else
+      = link_to '/auth/discord', class: 'a-button is-sm is-primary', method: :post do
+        p Discord アカウントを登録する
+      .a-form-help
+        p
+          | 今後、Discord とフィヨルドブートキャンプアプリとの
+          | 連携に Discord アカウントの登録が必要になります。
+          | フィヨルドブートキャンプの Discord サーバに入室をしたら、
+          | 必ず登録をしてください。
+
+  .form-item#times-url
+    = discord_profile_fields.label :times_url, class: 'a-form-label'
+    = discord_profile_fields.text_field :times_url, class: 'a-text-input', placeholder: 'https://discord.com/channels/715806612824260640/123456789012345678'
+    .a-form-help
+      p
+        | Discord の分報チャンネルの URL を入力。調べ方は
+        label.a-form-help-link.is-danger(for='modal-times-url')
+          span.a-form-help-link__label
+            | こちら
+          span.a-help
+            i.fa-solid.fa-question
+  = discord_profile_fields.hidden_field :times_id
 
 .form-item#form-github-account
   = f.label :github_account, class: 'a-form-label'
@@ -31,7 +43,7 @@
     .a-form-help
       p
         | GitHub アカウントは登録されています。（
-        = link_to connection_git_hub_path, method: :delete, class: 'a-form-help-link is-muted-text' do
+        = link_to connection_git_hub_path(user_id: @user.id), method: :delete, class: 'a-form-help-link is-muted-text' do
           | GitHub アカウントの登録を解除する
         | ）
   - else
@@ -40,7 +52,8 @@
         | GitHub アカウントを登録する
   .a-form-help
     p
-      | GitHub アカウントを登録すると、GitHub アカウントを使ってワンクリックでログインができるようになります。
+      | GitHub アカウントを登録すると、GitHub アカウントを使ってワンクリックで
+      | ログインができるようになります。
 .form-item
   = f.label :twitter_account, class: 'a-form-label'
   .form-item__mention-input

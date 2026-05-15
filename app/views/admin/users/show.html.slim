@@ -1,1 +1,1 @@
-= image_tag @user.avatar.variant(resize: '88x88>').processed.url
+= image_tag @user.avatar.variant(resize_to_limit: [88, 88]).processed.url

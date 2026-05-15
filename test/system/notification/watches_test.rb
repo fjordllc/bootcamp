@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'notification_system_test_case'
 
-class Notification::WatchesTest < ApplicationSystemTestCase
+class Notification::WatchesTest < NotificationSystemTestCase
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
@@ -20,6 +20,7 @@ class Notification::WatchesTest < ApplicationSystemTestCase
       fill_in('new_comment[description]', with: 'いい日報ですね。')
     end
     click_button 'コメントする'
+    assert_text 'コメントを投稿しました！'
     logout
 
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
@@ -29,17 +30,10 @@ class Notification::WatchesTest < ApplicationSystemTestCase
     click_button 'コメントする'
     assert_text 'コメントを投稿しました！'
 
-    visit_with_auth '/notifications', 'kimura'
-
-    within first('.card-list-item.is-unread') do
-      assert_text "komagataさんの【 「#{reports(:report1).title}」の日報 】にkomagataさんがコメントしました。"
-    end
-
-    visit_with_auth '/notifications', 'machida'
-
-    within first('.card-list-item.is-unread') do
-      assert_text "komagataさんの【 「#{reports(:report1).title}」の日報 】にkomagataさんがコメントしました。"
-    end
+    assert_user_has_notification(user: users(:kimura), kind: Notification.kinds[:watching],
+                                 text: "komagataさんの日報「#{reports(:report1).title}」にkomagataさんがコメントしました。")
+    assert_user_has_notification(user: users(:machida), kind: Notification.kinds[:watching],
+                                 text: "komagataさんの日報「#{reports(:report1).title}」にkomagataさんがコメントしました。")
   end
 
   test '質問作成者がコメントをした際、ウォッチ通知が飛ばないバグの再現' do
@@ -59,16 +53,9 @@ class Notification::WatchesTest < ApplicationSystemTestCase
     click_button 'コメントする'
     assert_text '回答を投稿しました！'
 
-    visit_with_auth '/notifications', 'kimura'
-
-    within first('.card-list-item.is-unread') do
-      assert_text "machidaさんの【 「#{questions(:question1).title}」のQ&A 】にmachidaさんが回答しました。"
-    end
-
-    visit_with_auth '/notifications', 'komagata'
-
-    within first('.card-list-item.is-unread') do
-      assert_text "machidaさんの【 「#{questions(:question1).title}」のQ&A 】にmachidaさんが回答しました。"
-    end
+    assert_user_has_notification(user: users(:kimura), kind: Notification.kinds[:watching],
+                                 text: "machidaさんのQ&A「#{questions(:question1).title}」にmachidaさんが回答しました。")
+    assert_user_has_notification(user: users(:komagata), kind: Notification.kinds[:watching],
+                                 text: "machidaさんのQ&A「#{questions(:question1).title}」にmachidaさんが回答しました。")
   end
 end

@@ -1,0 +1,52 @@
+name: Auto Assign Reviewer
+
+on:
+  pull_request:
+    types: [opened, ready_for_review]
+
+jobs:
+  assign-reviewer:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Assign reviewer based on weighted random selection
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const reviewers = [
+              { username: 'komagata', weight: 3 },
+              { username: 'okuramasafumi', weight: 2 }
+            ];
+            
+            // Create weighted array
+            const weightedArray = [];
+            reviewers.forEach(reviewer => {
+              for (let i = 0; i < reviewer.weight; i++) {
+                weightedArray.push(reviewer.username);
+              }
+            });
+            
+            // Select random reviewer
+            const randomIndex = Math.floor(Math.random() * weightedArray.length);
+            const selectedReviewer = weightedArray[randomIndex];
+            
+            // Get PR author
+            const prAuthor = context.payload.pull_request.user.login;
+            
+            // Don't assign the PR author as reviewer
+            if (selectedReviewer === prAuthor) {
+              console.log('Selected reviewer is the PR author, skipping assignment');
+              return;
+            }
+            
+            // Assign reviewer
+            await github.rest.pulls.requestReviewers({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              reviewers: [selectedReviewer]
+            });
+            
+            console.log(`Assigned ${selectedReviewer} as reviewer`);

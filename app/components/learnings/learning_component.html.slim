@@ -1,0 +1,17 @@
+.card-main-actions
+  ul.card-main-actions__items
+    - if submission?
+      li.card-main-actions__item
+        = link_to product_link, class: 'a-button is-sm is-primary is-block test-product' do
+          i.fa-solid.fa-file
+          | #{product_label}
+    - if @practice.completed?(@current_user)
+      li.card-main-actions__item
+        button.a-button.is-sm.is-secondary.is-block.is-disabled.test-completed
+          i.fa-solid.fa-check
+          | 修了しています
+    - else
+      li.card-main-actions__item
+        = button_tag type: 'button', class: 'a-button is-sm is-warning is-block', id: 'js-complete', data: { practice_id: @practice.id } do
+          i.fa-solid.fa-check
+          | 修了

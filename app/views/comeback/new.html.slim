@@ -1,5 +1,6 @@
-- title '休会からの復帰'
 - content_for(:extra_body_classes, 'no-header no-footer no-global-nav')
+- title '休会からの復帰'
+- set_meta_tags description: '休会からの復帰はこちらからお申し込みください。'
 
 = image_tag('logo-lg.svg', class: 'auth-form-logo-image')
 
@@ -8,12 +9,13 @@
     header.auth-form__header
       h1.auth-form__title = title
     .auth-form__body
-      .form-notice
+      .form-notice.a-notice-block
         p
           | おかえりなさい！こちらのフォームから復帰ができます。
           br
           | 復帰の手続きが完了した時点から受講料が発生しますので、ご注意ください。
       = render 'form', user: @user
+    hr.a-border-tint
     footer.auth-form__footer
       nav.auth-form-nav
         ul.auth-form-nav__items

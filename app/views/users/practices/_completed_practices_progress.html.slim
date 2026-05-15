@@ -1,12 +1,17 @@
 - if user.graduated?
   - percentage = 100
-  - fraction = "卒業(#{user.completed_practices.size})"
+  - fraction = "卒業#{"(#{user_course_practice.completed_practices.size})" if is_display_progress_count}"
 - else
-  - percentage = user.cached_completed_percentage
-  - fraction = user.completed_fraction
+  - percentage = user_course_practice.cached_completed_percentage
+  - fraction = user_course_practice.cached_completed_fraction
 .completed-practices-progress
   .completed-practices-progress__bar-container
     .completed-practices-progress__bar
     .completed-practices-progress__percentage-bar(aria-valuemax='100' aria-valuemin='0' aria-valuenow="#{percentage}" role='progressbar' style="width: #{number_to_percentage percentage, precision: 0};")
-  .completed-practices-progress__number
-    = fraction
+  .completed-practices-progress__counts
+    input.a-toggle-checkbox(type='checkbox' id="userid_#{user.id}")
+    label.completed-practices-progress__counts-inner(for="userid_#{user.id}")
+      .completed-practices-progress__percentage
+          = "#{percentage.floor(0)}%"
+      .completed-practices-progress__number
+        = fraction

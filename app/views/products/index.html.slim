@@ -1,15 +1,32 @@
 - title '提出物'
+- set_meta_tags description: '提出物一覧です。'
 
 header.page-header
   .container
     .page-header__inner
-      h2.page-header__title
-        = title
+      .page-header__start
+        h2.page-header__title
+          = title
 
 - if staff_login?
   = render 'products/tabs'
 
   .page-body
     .container.is-md
-      #js-products(data-title="#{title}" data-selected-tab="all" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
-      / = react_component('Products', title: title, selectedTab: 'all')
+      .page-content.is-products.loaded
+        .page-body__columns
+          .page-body__column.is-main
+            - if @products.empty?
+              .o-empty-message.loaded
+                .o-empty-message__icon
+                  i.fa-regular.fa-smile
+                p.o-empty-message__text 提出物はありません
+            - else
+              - if @products.total_pages > 1
+                = paginate @products
+              .card-list.a-card
+                .card-list__items
+                  = render partial: 'products/product_list_item', collection: @products, as: :product, locals: { show_training_end_date: current_user.mentor? || current_user.admin? }
+              - if @products.total_pages > 1
+                = paginate @products
+              = render 'application/unconfirmed_links_open', label: unconfirmed_links_label(@target)

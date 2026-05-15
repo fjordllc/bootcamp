@@ -6,13 +6,15 @@
       .user-metas__item-label
         = User.human_attribute_name :created_at
       .user-metas__item-value
-        = l user.created_at.to_date
-        = user.enrollment_period
+        time datetime=user.created_at.iso8601
+          = l user.created_at.to_date
+        span
+          |（#{user.enrollment_period}）
     .user-metas__item
       .user-metas__item-label
-        | 都道府県
+        | お住まい
       .user-metas__item-value
-        = user.prefecture_name
+        = user.address || t('unregistered')
     .user-metas__item
       .user-metas__item-label
         | コース
@@ -20,47 +22,38 @@
         = link_to user.course.title, course_practices_path(user.course), target: '_blank', rel: 'noopener'
     .user-metas__item
       .user-metas__item-label
-        | 日報
+        | 環境
       .user-metas__item-value
-        = user.reports.count
-    .user-metas__item
-      .user-metas__item-label
-        | コメント
-      .user-metas__item-value
-        = user.comments.count
+        | OS:
+        = user.os.present? ? t("activerecord.enums.user.os.#{user.os}") : '回答なし'
+        | 、エディタ:
+        = user.editor_or_other_editor || '回答なし'
     .user-metas__item
       .user-metas__item-label
         | 修了プラクティス
       .user-metas__item-value
-        = user.completed_practices.size
-    .user-metas__item
-      .user-metas__item-label
-        | Discordアカウント
-      .user-metas__item-value
-        = user.discord_account.presence || '未登録'
-        - if user.times_url?
-          | （#{link_to '分報', user.times_url}）
+        = user_course_practice.cached_completed_fraction_in_metas
     - unless user.admin? || user.adviser?
       .user-metas__item
         .user-metas__item-label
           | 合計学習時間
         .user-metas__item-value
-          = "#{number_with_precision(user.total_learning_time, precision: 1)}時間 / "
+          = "#{number_with_precision(user.total_learning_time, precision: 1)}時間（"
           = render 'users/learning_status', user: user
-    - if user.company.present?
-      .user-metas__item
-        .user-metas__item-label
-          | 所属企業
-        .user-metas__item-value
-          = user.company.name
+          | ）
     .user-metas__item
       .user-metas__item-label
         | 区分
       .user-metas__item-value
         ul
-          - user.roles.each do |role|
+          - user.roles.each_with_index do |role, i|
             li
               = t "target.#{role}"
+              - if i.zero? && user.company.present?
+                | （#{user.company.name}）
+              - if admin_or_mentor_login?
+                span.is-only-mentor
+                  = "（休会から#{(Time.current.to_date - user.hibernated_at.to_date).to_i}日目）" if role == 'hibernationed'
     - if user.trainee? && user.training_ends_on?
       .user-metas__item
         .user-metas__item-label

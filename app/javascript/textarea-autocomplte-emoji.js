@@ -16,9 +16,11 @@ export default class {
         this._filterValues(text, callback)
       },
       selectTemplate: (item) => {
+        if (!item) return ''
         return item.original.value
       },
       menuItemTemplate: (item) => {
+        if (!item) return ''
         if (item.original.isUser) {
           return (
             `<span class='mention'>${escapeHtml(
@@ -50,7 +52,7 @@ export default class {
   _fetchValues() {
     this.values = Object.keys(emojis)
       .map((key) => {
-        return { key: key, value: emojis[key] }
+        return { key, value: emojis[key] }
       })
       .concat(this.userValues)
   }

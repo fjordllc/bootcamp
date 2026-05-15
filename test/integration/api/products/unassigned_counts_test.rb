@@ -6,7 +6,7 @@ class API::Products::UnassignedTextTest < ActionDispatch::IntegrationTest
   fixtures :products
 
   test 'GET /api/products/unassigned/counts.txt' do
-    products(:product15).update_column(:checker_id, nil)  # rubocop:disable Rails/SkipsModelValidations
+    products(:product15).update_column(:checker_id, nil) # rubocop:disable Rails/SkipsModelValidations
 
     get counts_api_products_unassigned_index_path(format: :text)
     assert_response :unauthorized
@@ -17,10 +17,10 @@ class API::Products::UnassignedTextTest < ActionDispatch::IntegrationTest
     assert_response :ok
 
     expected = <<~BODY
-      - 7日以上経過：6件
-      - 6日経過：2件
+      - 6日以上経過：8件
       - 5日経過：1件
+      - 4日経過：1件
     BODY
-    assert response.body.include?(expected)
+    assert_includes response.body, expected
   end
 end

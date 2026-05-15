@@ -16,7 +16,7 @@ class ReportExporter
     end
 
     def save_as_file!
-      Zip::File.open(@zip_filename, Zip::File::CREATE) do |zipfile|
+      Zip::File.open(@zip_filename, create: true) do |zipfile|
         @filenames.each do |filename|
           zipfile.add(filename, File.join(@path, filename))
         end

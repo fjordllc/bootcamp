@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'notification_system_test_case'
 
-class Notification::AssignedAsCheckerTest < ApplicationSystemTestCase
+class Notification::AssignedAsCheckerTest < NotificationSystemTestCase
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
@@ -12,9 +12,7 @@ class Notification::AssignedAsCheckerTest < ApplicationSystemTestCase
     AbstractNotifier.delivery_mode = @delivery_mode
   end
 
-  def deliveries
-    ActionMailer::Base.deliveries
-  end
+  delegate :deliveries, to: :'ActionMailer::Base'
 
   test 'notify mentor when assigned as checker' do
     visit_with_auth "/products/#{products(:product1).id}/edit", 'komagata'
@@ -22,12 +20,13 @@ class Notification::AssignedAsCheckerTest < ApplicationSystemTestCase
     click_button '提出する'
     logout
 
-    visit_with_auth '/notifications', 'machida'
-    within first('.card-list-item.is-unread') do
-      assert_text "mentormentaroさんの提出物「#{products(:product1).practice.title}」の提出物の担当になりました。"
-    end
+    assert_user_has_notification(user: users(:machida), kind: Notification.kinds[:assigned_as_checker],
+                                 text: "mentormentaroさんの提出物「#{products(:product1).practice.title}」の提出物の担当になりました。")
 
-    sleep 0.2 until deliveries.count.positive?
+    # Wait for email delivery with timeout
+    Timeout.timeout(30) do
+      sleep 0.2 until deliveries.count.positive?
+    end
 
     expected = "[FBC] mentormentaroさんの提出物#{products(:product1).title}の担当になりました。"
     assert_equal expected, deliveries.last.subject
@@ -38,9 +37,9 @@ class Notification::AssignedAsCheckerTest < ApplicationSystemTestCase
     click_link '内容修正'
     select 'komagata', from: 'product_checker_id'
     click_button '提出する'
-    assert_text '担当から外れる'
+    assert_button '担当から外れる'
 
-    visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_no_text "mentormentaroさんの提出物#{products(:product1).title}の担当になりました。"
+    assert_user_has_no_notification(user: users(:komagata), kind: Notification.kinds[:assigned_as_checker],
+                                    text: "mentormentaroさんの提出物#{products(:product1).title}の担当になりました。")
   end
 end

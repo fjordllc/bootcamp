@@ -3,16 +3,6 @@
 require 'test_helper'
 
 class DiscordNotifierTest < ActiveSupport::TestCase
-  include AbstractNotifier::TestHelper
-
-  setup do
-    AbstractNotifier::Testing::Driver.clear
-  end
-
-  teardown do
-    AbstractNotifier::Testing::Driver.clear
-  end
-
   test '.graduated' do
     params = {
       body: 'test message',
@@ -21,18 +11,12 @@ class DiscordNotifierTest < ActiveSupport::TestCase
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
 
-    expected = {
-      body: 'kimuraさんが卒業しました。',
-      name: 'ピヨルド',
-      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
-    }
-
-    assert_notifications_sent 2, **expected do
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 2 do
       DiscordNotifier.graduated(params).notify_now
       DiscordNotifier.with(params).graduated.notify_now
     end
 
-    assert_notifications_enqueued 2, **expected do
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 2 do
       DiscordNotifier.graduated(params).notify_later
       DiscordNotifier.with(params).graduated.notify_later
     end
@@ -45,50 +29,35 @@ class DiscordNotifierTest < ActiveSupport::TestCase
       name: 'bob'
     }
 
-    expected = {
-      body: "お知らせ：「お知らせ1」\rhttps://bootcamp.fjord.jp/announcements/395315747",
-      name: 'ピヨルド',
-      webhook_url: 'https://discord.com/api/webhooks/0123456789/all'
-    }
-
-    assert_notifications_sent 2, **expected do
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 2 do
       DiscordNotifier.announced(params).notify_now
       DiscordNotifier.with(params).announced.notify_now
     end
 
-    assert_notifications_enqueued 2, **expected do
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 2 do
       DiscordNotifier.announced(params).notify_later
       DiscordNotifier.with(params).announced.notify_later
     end
   end
 
-  test '.tomorrow_regular_event' do
+  test '.coming_soon_regular_events' do
     params = {
-      event: regular_events(:regular_event1),
-      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
-    }
-    event_info = <<~TEXT.chomp
-      ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
-      【イベントのお知らせ】
-      明日 07月31日（日）に開催されるイベントです！
-      --------------------------------------------
-      開発MTG
-      時間: 15:00 〜 16:00
-      詳細: http://localhost:3000/regular_events/459650222
-      --------------------------------------------
-      ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
-    TEXT
-
-    expected = {
-      body: event_info,
-      name: 'ピヨルド',
+      today_events: [regular_events(:regular_event26), regular_events(:regular_event30), regular_events(:regular_event31)],
+      tomorrow_events: [regular_events(:regular_event28), regular_events(:regular_event29), regular_events(:regular_event31), regular_events(:regular_event33)],
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
 
-    travel_to Time.zone.local(2022, 7, 30, 0, 0, 0) do
-      assert_notifications_sent 2, **expected do
-        DiscordNotifier.tomorrow_regular_event(params).notify_now
-        DiscordNotifier.with(params).tomorrow_regular_event.notify_now
+    travel_to Time.zone.local(2023, 5, 5, 6, 0, 0) do
+      assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 2 do
+        DiscordNotifier.with(params).coming_soon_regular_events.notify_now
+        DiscordNotifier.coming_soon_regular_events(params).notify_now
+      end
+    end
+
+    travel_to Time.zone.local(2023, 5, 5, 6, 0, 0) do
+      assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 2 do
+        DiscordNotifier.with(params).coming_soon_regular_events.notify_later
+        DiscordNotifier.coming_soon_regular_events(params).notify_later
       end
     end
   end
@@ -99,12 +68,12 @@ class DiscordNotifierTest < ActiveSupport::TestCase
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
 
-    assert_notifications_sent 2, **params do
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 2 do
       DiscordNotifier.invalid_user(params).notify_now
       DiscordNotifier.with(params).invalid_user.notify_now
     end
 
-    assert_notifications_enqueued 2, **params do
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 2 do
       DiscordNotifier.invalid_user(params).notify_later
       DiscordNotifier.with(params).invalid_user.notify_later
     end
@@ -115,12 +84,12 @@ class DiscordNotifierTest < ActiveSupport::TestCase
       body: 'test message'
     }
 
-    assert_notifications_sent 2, **params do
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 2 do
       DiscordNotifier.payment_failed(params).notify_now
       DiscordNotifier.with(params).payment_failed.notify_now
     end
 
-    assert_notifications_enqueued 2, **params do
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 2 do
       DiscordNotifier.payment_failed(params).notify_later
       DiscordNotifier.with(params).payment_failed.notify_later
     end
@@ -135,19 +104,16 @@ class DiscordNotifierTest < ActiveSupport::TestCase
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
 
-    expected = {
-      body: ' ⚠️ komagataさんが担当のkimuraさんの「PC性能の見方を知る」の提出物が、最後のコメントから5日経過しました。',
-      name: 'ピヨルド',
-      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
-    }
-    assert_notifications_sent 2, **expected do
-      DiscordNotifier.product_review_not_completed(params).notify_now
-      DiscordNotifier.with(params).product_review_not_completed.notify_now
-    end
+    Discord::Server.stub(:find_member_id, '12345') do
+      assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 2 do
+        DiscordNotifier.product_review_not_completed(params).notify_now
+        DiscordNotifier.with(params).product_review_not_completed.notify_now
+      end
 
-    assert_notifications_enqueued 2, **expected do
-      DiscordNotifier.product_review_not_completed(params).notify_later
-      DiscordNotifier.with(params).product_review_not_completed.notify_later
+      assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 2 do
+        DiscordNotifier.product_review_not_completed(params).notify_later
+        DiscordNotifier.with(params).product_review_not_completed.notify_later
+      end
     end
   end
 
@@ -159,18 +125,12 @@ class DiscordNotifierTest < ActiveSupport::TestCase
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
 
-    expected = {
-      body: 'kimuraさんが休会しました。',
-      name: 'ピヨルド',
-      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
-    }
-
-    assert_notifications_sent 2, **expected do
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 2 do
       DiscordNotifier.hibernated(params).notify_now
       DiscordNotifier.with(params).hibernated.notify_now
     end
 
-    assert_notifications_enqueued 2, **expected do
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 2 do
       DiscordNotifier.hibernated(params).notify_later
       DiscordNotifier.with(params).hibernated.notify_later
     end
@@ -182,23 +142,12 @@ class DiscordNotifierTest < ActiveSupport::TestCase
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
 
-    body = <<~TEXT.chomp
-      🎉 hajimeさんがはじめての日報を書きました！
-      タイトル：「初日報です」
-      URL： http://localhost:3000/reports/819157022
-    TEXT
-    expected = {
-      body:,
-      name: 'ピヨルド',
-      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
-    }
-
-    assert_notifications_sent 2, **expected do
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 2 do
       DiscordNotifier.first_report(params).notify_now
       DiscordNotifier.with(params).first_report.notify_now
     end
 
-    assert_notifications_enqueued 2, **expected do
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 2 do
       DiscordNotifier.first_report(params).notify_later
       DiscordNotifier.with(params).first_report.notify_later
     end

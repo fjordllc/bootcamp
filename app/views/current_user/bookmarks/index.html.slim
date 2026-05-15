@@ -1,7 +1,11 @@
 - title 'ブックマーク一覧'
-= render 'home/page_header'
-= render 'home/page_tabs', user: @user
+- set_meta_tags description: 'ブックマーク一覧ページです。'
 
-.page-body
-  .container.is-md
-    = react_component 'Bookmarks'
+= render 'home/page_header'
+= dashboard_page_tabs(active_tab: 'ブックマーク')
+
+.page-main
+  - if @bookmarks.empty?
+    = render 'current_user/bookmarks/empty'
+  - else
+    = render 'current_user/bookmarks/list', bookmarks: @bookmarks

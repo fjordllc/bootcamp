@@ -1,0 +1,23 @@
+title: <%= "#{event.title}を開催します🎉" %>
+description: |
+  <!-- このテキストを編集してください -->
+
+  <%= "#{event.title}を開催します🎉" %>
+
+  - 開催日時
+    - <%= "#{I18n.l event.start_at} 〜 #{I18n.l event.end_at}" %>
+  - 会場
+    - <%= event.location %>
+  - 定員
+    - <%= event.capacity %>
+  - 募集期間
+    - <%= "#{I18n.l event.open_start_at} 〜 #{I18n.l event.open_end_at}" %>
+
+  ---
+
+  <%= event.description %>
+
+  ## 参加登録はこちら
+  <%= Rails.application.routes.url_helpers.event_url event %>
+
+  ---

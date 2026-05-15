@@ -1,0 +1,16 @@
+.io-sample__title {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.io-sample__body {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.io-sample__code {
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  font-family: var(--monospace);
+}

@@ -7,7 +7,9 @@ class API::Admin::CountController < API::Admin::BaseController
       mentor: false,
       adviser: false,
       retired_on: nil,
-      graduated_on: nil
+      training_completed_at: nil,
+      graduated_on: nil,
+      hibernated_at: nil
     ).count
 
     render json: { users_count: }

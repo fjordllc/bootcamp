@@ -366,3 +366,33 @@ practice57:
   goal: "goal..."
   include_progress: false
   last_updated_user: komagata
+
+practice61:
+  title: "企業研究"
+  summary: "概要です"
+  description: "就職したい企業について調べます。(進捗の計算には含めません)"
+  goal: "goal..."
+  include_progress: false
+  memo: "memo for mentors..."
+
+practice62:
+  title: "複数カテゴリに所属するプラクティス1"
+  summary: "概要です"
+  description: "複数のカテゴリに所属しているプラクティスです(必修ではありません)"
+  goal: "goal..."
+  include_progress: false
+  memo: "memo for mentors..."
+
+practice63:
+  title: "複数カテゴリに所属するプラクティス2"
+  summary: "概要です"
+  description: "複数のカテゴリに所属しているプラクティスです(必修です)"
+  goal: "goal..."
+  include_progress: true
+  memo: 'memo for mentors...'
+
+practice64:
+  title: 'rubyをインストールする（Reスキル）'
+  description: 'Railsコースのプラクティスをコピーした給付金コースのプラクティスです。'
+  goal: 'goal...'
+  source_practice: practice23

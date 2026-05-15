@@ -13,14 +13,15 @@ class SurveyQuestion < ApplicationRecord
   validates_associated :check_box
   has_many :survey_question_listings, dependent: :destroy
   has_many :surveys, through: :survey_question_listings
+  has_many :survey_question_answers, dependent: :destroy
 
-  enum format: {
+  enum :format, {
     text_area: 0,
     text_field: 1,
     radio_button: 2,
     check_box: 3,
     linear_scale: 4
-  }, _prefix: true
+  }, prefix: true
 
   validates :title, presence: true
 

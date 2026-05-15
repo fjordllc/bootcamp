@@ -1,11 +1,22 @@
 # frozen_string_literal: true
 
-class RegularEventsController < ApplicationController
-  before_action :set_regular_event, only: %i[show edit update destroy]
+class RegularEventsController < ApplicationController # rubocop:disable Metrics/ClassLength
+  before_action :set_regular_event, only: %i[edit update destroy]
 
-  def index; end
+  def index
+    @regular_events = RegularEvent.list
+                                  .fetch_target_events(params[:target])
+                                  .page(params[:page])
 
-  def show; end
+    @upcoming_events_groups = UpcomingEvent.upcoming_events_groups
+  end
+
+  def show
+    @regular_event = RegularEvent.find(params[:id])
+    Footprint.find_or_create_for(@regular_event, current_user)
+    @footprints = Footprint.fetch_for_resource(@regular_event)
+    @comments = @regular_event.comments.order(:created_at)
+  end
 
   def new
     @regular_event = RegularEvent.new
@@ -21,8 +32,11 @@ class RegularEventsController < ApplicationController
     @regular_event.user = current_user
     set_wip
     if @regular_event.save
-      Newspaper.publish(:event_create, @regular_event)
-      redirect_to @regular_event, notice: notice_message(@regular_event)
+      update_published_at
+      @regular_event.regular_event_organizers.find_or_create_by(user: current_user)
+      ActiveSupport::Notifications.instrument('regular_event.create', regular_event: @regular_event)
+      set_all_user_participants_and_watchers
+      select_redirect_path
     else
       render :new
     end
@@ -33,8 +47,10 @@ class RegularEventsController < ApplicationController
   def update
     set_wip
     if @regular_event.update(regular_event_params)
-      Newspaper.publish(:regular_event_update, @regular_event)
-      redirect_to @regular_event, notice: notice_message(@regular_event)
+      update_published_at
+      ActiveSupport::Notifications.instrument('regular_event.update', regular_event: @regular_event, sender: current_user)
+      set_all_user_participants_and_watchers
+      select_redirect_path
     else
       render :edit
     end
@@ -47,26 +63,17 @@ class RegularEventsController < ApplicationController
 
   private
 
-  def regular_event_params
-    params.require(:regular_event).permit(
-      :title,
-      :description,
-      :finished,
-      :hold_national_holiday,
-      :start_at,
-      :end_at,
-      :category,
-      user_ids: [],
-      regular_event_repeat_rules_attributes: %i[id regular_event_id frequency day_of_the_week _destroy]
-    )
-  end
-
   def set_regular_event
-    @regular_event = RegularEvent.find(params[:id])
+    @regular_event = current_user.mentor? ? RegularEvent.find(params[:id]) : RegularEvent.organizer_event(current_user).find(params[:id])
   end
 
-  def set_wip
-    @regular_event.wip = (params[:commit] == 'WIP')
+  def select_redirect_path
+    path = if @regular_event.publish_with_announcement?
+             new_announcement_path(regular_event_id: @regular_event.id)
+           else
+             Redirection.determin_url(self, @regular_event)
+           end
+    redirect_to path, notice: notice_message(@regular_event)
   end
 
   def notice_message(regular_event)
@@ -78,17 +85,45 @@ class RegularEventsController < ApplicationController
     end
   end
 
+  def regular_event_params
+    params.require(:regular_event).permit(
+      :title,
+      :description,
+      :finished,
+      :hold_national_holiday,
+      :start_at,
+      :end_at,
+      :category,
+      :all,
+      :wants_announcement,
+      user_ids: [],
+      regular_event_repeat_rules_attributes: %i[id regular_event_id frequency day_of_the_week _destroy]
+    )
+  end
+
+  def set_wip
+    @regular_event.wip = (params[:commit] == 'WIP')
+  end
+
+  def update_published_at
+    return if @regular_event.wip || @regular_event.published_at?
+
+    @regular_event.update(published_at: Time.current)
+  end
+
   def copy_regular_event(new_event)
     regular_event = RegularEvent.find(params[:id])
-    new_event.title = regular_event.title
-    new_event.description = regular_event.description
-    new_event.finished = regular_event.finished
-    new_event.hold_national_holiday = regular_event.hold_national_holiday
-    new_event.start_at = regular_event.start_at
-    new_event.end_at = regular_event.end_at
-    new_event.category = regular_event.category
+    new_event.attributes = regular_event.attributes.slice('title', 'description', 'finished', 'hold_national_holiday', 'start_at', 'end_at', 'category')
     new_event.user_ids = regular_event.organizers.map(&:id)
 
-    flash.now[:notice] = '定期イベントをコピーしました。'
+    flash.now[:notice] = '定期イベントを複製しました。'
+  end
+
+  def set_all_user_participants_and_watchers
+    return if @regular_event.wip?
+
+    students_trainees_mentors_and_admins = User.students_trainees_mentors_and_admins.ids
+    RegularEvent::ParticipantsCreator.call(regular_event: @regular_event, target: students_trainees_mentors_and_admins)
+    RegularEvent::ParticipantsWatcher.call(regular_event: @regular_event, target: students_trainees_mentors_and_admins)
   end
 end

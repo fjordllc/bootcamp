@@ -1,0 +1,201 @@
+# frozen_string_literal: true
+
+require 'application_system_test_case'
+
+class PairWorksTest < ApplicationSystemTestCase
+  test 'show listing unsolved pair works' do
+    visit_with_auth pair_works_path(target: 'not_solved'), 'kimura'
+    assert_equal '募集中のペアワーク | FBC', title
+  end
+
+  test 'show listing solved pair works' do
+    visit_with_auth pair_works_path(target: 'solved'), 'kimura'
+    assert_equal 'ペア確定済みのペアワーク | FBC', title
+  end
+
+  test 'show listing all pair works' do
+    visit_with_auth pair_works_path, 'kimura'
+    assert_equal '全てのペアワーク | FBC', title
+  end
+
+  test 'create a pair_work' do
+    travel_to Time.zone.local(2025, 3, 2, 0, 0, 0) do
+      visit_with_auth new_pair_work_path, 'kimura'
+      within 'form[name=pair_work]' do
+        within '.select-practices' do
+          find('.choices__inner').click
+          find('#choices--js-choices-practice-item-choice-12', text: 'sshdでパスワード認証を禁止にする').click
+        end
+        fill_in 'pair_work[title]', with: 'テストのペアワーク募集'
+        fill_in 'pair_work[description]', with: 'テストのペアワーク募集です。'
+        within '.form-table' do
+          check 'schedule_ids_202503030000', allow_label_click: true
+        end
+        click_button '登録する'
+      end
+      assert_text 'ペアワークを作成しました。'
+      assert_selector '.a-title-label.is-solved.is-danger', text: '募集中'
+      assert_text 'Watch中'
+
+      visit_with_auth pair_works_path(target: 'not_solved'), 'mentormentaro'
+      click_on 'テストのペアワーク募集'
+      assert_text 'Watch中'
+    end
+  end
+
+  test 'create a pair_work matching' do
+    travel_to Time.zone.local(2025, 1, 1, 0, 0, 0) do
+      pair_work = pair_works(:pair_work1)
+      visit_with_auth pair_work_path(pair_work), 'mentormentaro'
+      within '.a-table' do
+        accept_alert do
+          find_button(id: '2025-01-01T00:00:00+09:00').click
+        end
+      end
+      assert_selector '.a-title-label.is-solved.is-success', text: 'ペア確定'
+      within 'header.event-main-actions__header' do
+        assert_text 'ペアが確定しました'
+        assert_selector 'a', text: 'カレンダーに登録'
+      end
+      within '.event-main-actions__body' do
+        assert_selector "img[title*='mentormentaro']"
+        assert_selector 'a', text: 'mentormentaro (メンタ メンタロウ)'
+        assert_text '2025年01月01日(水) 00:00'
+        assert_text 'ペアワーク・モブワーク1'
+      end
+    end
+  end
+
+  test 'cannot create a pair_work matching with a past date' do
+    travel_to Time.zone.local(2025, 1, 10, 0, 0, 0) do
+      pair_work = pair_works(:pair_work1)
+      visit_with_auth pair_work_path(pair_work), 'komagata'
+      assert_text '募集中'
+      within '.a-table' do
+        find_button(id: '2025-01-01T00:00:00+09:00', disabled: true)
+      end
+    end
+  end
+
+  test 'update a pair_work' do
+    pair_work = pair_works(:pair_work1)
+    visit_with_auth pair_work_path(pair_work), 'kimura'
+    click_link '内容修正'
+    fill_in 'pair_work[title]', with: 'ペアワークのテスト（修正）'
+    fill_in 'pair_work[description]', with: 'ペアワークのテストです。（修正）'
+    within '.select-practices' do
+      find('.choices__inner').click
+      find('#choices--js-choices-practice-item-choice-12', text: 'sshdでパスワード認証を禁止にする').click
+    end
+    click_button '更新する'
+
+    assert_text 'ペアワークを更新しました。'
+    assert_text 'ペアワークのテスト（修正）'
+    assert_text 'ペアワークのテストです。（修正）'
+    assert_selector 'a.a-category-link', text: 'sshdでパスワード認証を禁止にする'
+  end
+
+  test 'update a pair_work desired date' do
+    travel_to Time.zone.local(2025, 1, 1, 0, 0, 0) do
+      pair_work = pair_works(:pair_work1)
+      visit_with_auth pair_work_path(pair_work), 'kimura'
+      click_link '希望日時変更'
+      find('label[for="schedule_ids_202501020100"]').click
+      click_button '更新する'
+      assert_text 'ペアワークを更新しました。'
+    end
+  end
+
+  test 'delete a pair_work' do
+    pair_work = pair_works(:pair_work1)
+    visit_with_auth pair_work_path(pair_work), 'kimura'
+    accept_confirm do
+      click_link '削除'
+    end
+
+    assert_text 'ペアワークを削除しました。'
+    assert_equal '全てのペアワーク | FBC', title
+  end
+
+  test 'only authorized users can update and delete pair_works' do
+    pair_work = pair_works(:pair_work1)
+    pair_work_user = 'kimura'
+    admin_user = 'komagata'
+    user = 'hatsuno'
+
+    visit_with_auth pair_work_path(pair_work), pair_work_user
+    assert_text '内容修正'
+    assert_text '削除'
+
+    visit_with_auth pair_work_path(pair_work), admin_user
+    assert_text '内容修正'
+    assert_text '削除'
+
+    visit_with_auth pair_work_path(pair_work), user
+    assert_no_text '内容修正'
+    assert_no_text '削除'
+  end
+
+  test 'cancel pair confirmation' do
+    travel_to Time.zone.local(2025, 1, 1, 0, 0, 0) do
+      pair_work = pair_works(:pair_work4)
+      visit_with_auth pair_work_path(pair_work), 'komagata'
+      find("label[for='show-schedule-dates']").click
+      accept_confirm do
+        click_button 'ペア確定を取り消す'
+      end
+
+      assert_text 'ペア確定を取り消しました'
+    end
+  end
+
+  test 'show confirmed date when pair work is reserved' do
+    travel_to Time.zone.local(2025, 1, 1, 0, 0, 0) do
+      pair_work = pair_works(:pair_work4)
+      visit_with_auth pair_work_path(pair_work), 'kimura'
+      within '.pair-work-schedule-dates__action-item' do
+        assert_text '開催日時は1月2日(木)01:00に確定しました。'
+      end
+
+      visit_with_auth pair_work_path(pair_work), 'komagata'
+      find("label[for='show-schedule-dates']").click
+      assert_selector "[id='2025-01-02T01:00:00+09:00']", text: '確定'
+    end
+  end
+
+  test 'shows ended message when reserved date has passed' do
+    travel_to Time.zone.local(2025, 1, 2, 1, 0, 0) do
+      pair_work = pair_works(:pair_work4)
+      visit_with_auth pair_work_path(pair_work), 'kimura'
+      assert_selector "[for='show-ended-schedule']", text: 'ペアワークは終了しました。'
+
+      visit_with_auth pair_work_path(pair_work), 'komagata'
+      assert_selector "[for='show-ended-schedule']", text: 'ペアワークは終了しました。'
+    end
+  end
+
+  test 'update pair work reservation' do
+    travel_to Time.zone.local(2025, 1, 1, 0, 0, 0) do
+      pair_work = pair_works(:pair_work4)
+      visit_with_auth pair_work_path(pair_work), 'komagata'
+      find("label[for='show-schedule-dates']").click
+      within '.a-table' do
+        accept_alert do
+          find_button(id: '2025-01-03T01:00:00+09:00').click
+        end
+      end
+      assert_text '予約内容を変更しました。'
+      assert_selector '.pair-work-info__datetime', text: '2025年01月03日(金) 01:00'
+
+      visit_with_auth pair_work_path(pair_work), 'mentormentaro'
+      find("label[for='show-schedule-dates']").click
+      within '.a-table' do
+        accept_alert do
+          find_button(id: '2025-01-02T01:00:00+09:00').click
+        end
+      end
+      assert_text '予約内容を変更しました。'
+      assert_selector 'a', text: 'mentormentaro (メンタ メンタロウ)'
+    end
+  end
+end

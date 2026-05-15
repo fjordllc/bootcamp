@@ -8,20 +8,6 @@ class API::Watches::ToggleController < API::BaseController
     )
   end
 
-  def create
-    @watch = Watch.create!(
-      user: current_user,
-      watchable:
-    )
-    render json: @watch
-  end
-
-  def destroy
-    @watch = Watch.find(params[:id])
-    @watch.destroy
-    head :no_content
-  end
-
   private
 
   def watchable

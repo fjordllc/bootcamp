@@ -1,0 +1,10 @@
+- if reports.present?
+  .a-card.is-only-mentor
+    header.card-header
+      h2.card-header__title
+        | 2回連続
+        = image_tag Report.faces['negative'], id: 'negative', alt: 'negative', class: 'card-header__title-emotion-image'
+        | のユーザー
+    hr.a-border-tint
+    .card-list
+      = render partial: 'reports/report', collection: reports, as: :report, locals: { user_icon_display: true, actions_display: false }

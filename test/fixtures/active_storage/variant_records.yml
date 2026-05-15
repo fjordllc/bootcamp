@@ -1,0 +1,5 @@
+# NOTE:
+# 何らかの理由で active_storage_variant_records テーブルのデータが残ったままになっていた場合、データの不整合が発生して、画像のURLがnilになる。
+# (active_storage_attachments と active_storage_blobs のみが削除されるため）
+# この空のymlファイルを用意することで、テスト実行時に active_storage_variant_records テーブルのデータが削除され、データの不整合を回避できる。
+# (Railsはfixturesにymlファイルがあれば、そのファイル名に合致するテーブルのデータを全件削除する)

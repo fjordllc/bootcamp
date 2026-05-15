@@ -1,0 +1,28 @@
+- title 'コーディングテスト編集'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        .page-header__title メンターページ
+
+= render 'mentor/mentor_page_tabs'
+
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            = title
+        .page-main-header__end
+          .page-main-header-actions
+            .page-main-header-actions__items
+              .page-main-header-actions__item
+                = link_to mentor_coding_tests_path,
+                  class: 'a-button is-md is-secondary is-block is-back' do
+                  | コーディングテスト
+  hr.a-border
+  .page-body
+    .container.is-xxl
+      = render 'form', coding_test: @coding_test

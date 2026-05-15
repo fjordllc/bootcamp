@@ -1,0 +1,151 @@
+# frozen_string_literal: true
+
+require 'application_system_test_case'
+
+class BaseCommentsTest < ApplicationSystemTestCase
+  test 'show all comments for reports of the target user' do
+    visit_with_auth polymorphic_path([users(:komagata), :comments]), 'komagata'
+    assert_equal 4, users(:komagata).comments.where(commentable_type: 'Report').size
+  end
+
+  test 'comment form not found in /users/:user_id/comments' do
+    visit_with_auth user_comments_path(users(:komagata)), 'komagata'
+    assert has_no_field?('new_comment[description]')
+  end
+
+  test 'comment form found in /reports/:report_id' do
+    visit_with_auth report_path(users(:komagata).reports.first), 'komagata'
+    # Wait for page to load
+    find('.thread-comment-form')
+    assert has_field?('new_comment[description]')
+  end
+
+  test 'comment form in reports/:id has comment tab and preview tab' do
+    visit_with_auth "/reports/#{reports(:report3).id}", 'komagata'
+    within('.a-form-tabs') do
+      assert_text 'コメント'
+      assert_text 'プレビュー'
+    end
+  end
+
+  test 'edit comment form has comment tab and preview tab' do
+    visit_with_auth "/reports/#{reports(:report3).id}", 'komagata'
+
+    # Wait for comments to load completely
+    assert_selector '.thread-comment:first-child'
+
+    # Click edit button by text to avoid stale element issues
+    page.find('button', text: '編集', match: :first).click
+
+    # Wait for edit form to appear and check for tabs within the comment edit form
+    assert_selector '.thread-comment-form .a-form-tabs'
+    within('.thread-comment-form .a-form-tabs') do
+      assert_text 'コメント'
+      assert_text 'プレビュー'
+    end
+  end
+
+  test 'comment tab is active after a comment has been posted' do
+    visit_with_auth "/reports/#{reports(:report3).id}", 'komagata'
+
+    # Wait for form to load
+    find('.thread-comment-form__form')
+
+    # Wait for tabs to be active
+    assert_selector '.a-form-tabs__tab.is-active', text: 'コメント'
+
+    within('.thread-comment-form__form') do
+      fill_in('new_comment[description]', with: 'test')
+    end
+
+    find('.a-form-tabs__tab', text: 'プレビュー').click
+    assert_selector '.a-form-tabs__tab.is-active', text: 'プレビュー'
+
+    click_button 'コメントする'
+
+    # Wait for comment to be posted and tab to switch back
+    assert_text 'test'
+    assert_selector '.a-form-tabs__tab.is-active', text: 'コメント'
+  end
+
+  test 'prevent double submit' do
+    visit_with_auth report_path(users(:komagata).reports.first), 'komagata'
+    within('.page-content-header') do
+      find('.stamp.stamp-approve')
+    end
+
+    within('.thread-comment-form__form') do
+      fill_in('new_comment[description]', with: 'test')
+    end
+
+    # Click button once and verify it becomes disabled
+    button = find('#js-shortcut-post-comment', text: 'コメントする')
+    button.click
+
+    # Try to click again - should be intercepted or disabled
+    button_disabled = false
+    begin
+      button.click
+    rescue Selenium::WebDriver::Error::ElementClickInterceptedError, Selenium::WebDriver::Error::ElementNotInteractableError
+      button_disabled = true
+    end
+    assert button_disabled, 'Button should be disabled after first click'
+  end
+
+  test 'submit_button is enabled after a post is done' do
+    visit_with_auth report_path(users(:komagata).reports.first), 'komagata'
+    within('.page-content-header') do
+      find('.stamp.stamp-approve')
+    end
+
+    within('.thread-comment-form__form') do
+      fill_in('new_comment[description]', with: 'test')
+    end
+    click_button 'コメントする'
+    assert_text 'test'
+    within('.thread-comment-form__form') do
+      fill_in('new_comment[description]', with: 'testtest')
+    end
+    click_button 'コメントする'
+    assert_text 'testtest'
+  end
+
+  test 'comment url is copied when click its updated_time' do
+    visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
+    # Wait for comments section to load
+    if has_css?('#comments.loaded')
+      find('#comments.loaded')
+    else
+      # Fallback: wait for comments section or form to be present
+      find('.thread-comment-form, .thread-comment')
+    end
+    expected_url = current_url + "#comment_#{comments(:comment1).id}"
+    click_and_verify_clipboard_copy("#comment_#{comments(:comment1).id} .thread-comment__created-at", expected_url)
+  end
+
+  test 'clear preview after posting new comment for report' do
+    visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
+    within('.page-content-header') do
+      find('.stamp.stamp-approve')
+    end
+
+    find('#js-new-comment').set('test')
+    click_button 'コメントする'
+    assert_text 'test'
+    find('.a-form-tabs__tab.js-tabs__tab', text: 'プレビュー').click
+    assert_selector '.a-form-tabs__tab.is-active', text: 'プレビュー'
+    within('#new-comment-preview') do
+      assert_no_text :all, 'test'
+    end
+  end
+
+  test 'displays raw markdown comment when raw button is clicked' do
+    visit_with_auth "/reports/#{reports(:report4).id}", 'komagata'
+
+    # Wait for comments to load completely
+    assert_selector '.thread-comment:first-child'
+
+    page.find('button', text: 'Raw', match: :first).click
+    assert_text "```ruby\nComment.where(id: @commentable.id)\n```\n上記を追加しました。ご確認下さい。"
+  end
+end

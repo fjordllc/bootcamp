@@ -1,7 +1,14 @@
 - title 'ユーザー登録情報変更'
-- content_for(:extra_body_classes, 'no-header no-footer')
 
-.auth-form.is-sign-up.a-card.is-in-app
+header.page-header
+  .container
+    .page-header__inner
+      h1.page-header__title = title
+
+= render 'admin/admin_page_tabs'
+= render 'admin/users/user_tabs'
+
+.auth-form.is-lg.a-card
   header.auth-form__header
     h1.auth-form__title
       = title
@@ -11,6 +18,7 @@
         | 外部サービスの設定を変更してください。
   .auth-form__body
     = render 'users/form', from: :edit, url: [:admin, @user], user: @user
+  hr.a-border-tint
   footer.auth-form__footer
     nav.auth-form-nav
       ul.auth-form-nav__items

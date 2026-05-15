@@ -10,6 +10,6 @@ class PracticePolicy < ApplicationPolicy
   end
 
   def show?
-    user.staff? || user.free? || user.card?
+    user.staff? || user.card?
   end
 end

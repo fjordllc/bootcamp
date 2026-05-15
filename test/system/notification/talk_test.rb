@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'notification_system_test_case'
 
-class Notification::TalkTest < ApplicationSystemTestCase
+class Notification::TalkTest < NotificationSystemTestCase
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
@@ -23,13 +23,7 @@ class Notification::TalkTest < ApplicationSystemTestCase
     click_button 'コメントする'
     assert_text 'test'
 
-    visit_with_auth '/notifications', 'machida'
-
-    within first('.card-list-item.is-unread') do
-      click_link 'kimuraさんの相談部屋でkimuraさんからコメントが届きました。'
-    end
-
-    assert_current_path(/#latest-comment$/, url: true)
+    assert_user_has_notification(user: users(:machida), kind: Notification.kinds[:came_comment], text: 'kimuraさんの相談部屋でkimuraさんからコメントが届きました。')
   end
 
   test 'Admin except myself receive a notification when other admin comments on a talk room' do
@@ -43,18 +37,8 @@ class Notification::TalkTest < ApplicationSystemTestCase
     click_button 'コメントする'
     assert_text 'test'
 
-    visit '/notifications'
-    assert_selector '.page-header__title', text: '通知'
-
-    within first('.card-list-item.is-unread') do
-      assert_no_text 'kimuraさんの相談部屋でkomagataさんからコメントが届きました。'
-    end
-
-    visit_with_auth '/notifications', 'machida'
-
-    within first('.card-list-item.is-unread') do
-      assert_text 'kimuraさんの相談部屋でkomagataさんからコメントが届きました。'
-    end
+    assert_user_has_no_notification(user: users(:komagata), kind: Notification.kinds[:came_comment], text: 'kimuraさんの相談部屋でkomagataさんからコメントが届きました。')
+    assert_user_has_notification(user: users(:machida), kind: Notification.kinds[:came_comment], text: 'kimuraさんの相談部屋でkomagataさんからコメントが届きました。')
   end
 
   test 'Receive a notification when someone except myself comments on my talk room' do
@@ -68,19 +52,13 @@ class Notification::TalkTest < ApplicationSystemTestCase
     click_button 'コメントする'
     assert_text 'test'
 
-    visit_with_auth '/notifications', 'kimura'
-
-    within first('.card-list-item.is-unread') do
-      click_link '相談部屋でkomagataさんからコメントがありました。'
-    end
-
-    assert_current_path(/#latest-comment$/, url: true)
+    assert_user_has_notification(user: users(:kimura), kind: Notification.kinds[:came_comment], text: '相談部屋でkomagataさんからコメントがありました。')
   end
 
-  test 'The number of unreplied comments is displayed in the global navigation and unreplied tab of the talks room' do
-    visit_with_auth '/talks/unreplied', 'komagata'
+  test 'The number of action uncompleted comments is displayed in the global navigation and action uncompleted tab of the talks room' do
+    visit_with_auth '/talks/action_uncompleted', 'komagata'
     within(:css, '.global-nav') do
-      within(:css, "a[href='/talks/unreplied']") do
+      within(:css, "a[href='/talks/action_uncompleted']") do
         assert_selector '.global-nav__item-count.a-notification-count.is-only-mentor', count: 1
       end
     end
@@ -88,23 +66,20 @@ class Notification::TalkTest < ApplicationSystemTestCase
 
     talk_id = users(:with_hyphen).talk.id
     visit_with_auth "/talks/#{talk_id}", 'komagata'
-    within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'test')
-    end
-    click_button 'コメントする'
-    assert_text 'コメントを投稿しました'
+    find('.check-button').click
+    assert_text '対応済みにしました'
 
-    visit '/talks/unreplied'
-    assert_text '未返信の相談部屋はありません'
+    visit '/talks/action_uncompleted'
+    assert_text '未対応の相談部屋はありません'
     within(:css, '.global-nav') do
-      within(:css, "a[href='/talks/unreplied'") do
+      within(:css, "a[href='/talks/action_uncompleted'") do
         assert_no_selector '.global-nav__item-count.a-notification-count.is-only-mentor'
       end
     end
     assert_no_selector '.page-tabs__item-count.a-notification-count'
   end
 
-  test 'The number of unreplied comments is not displayed in the global navigation when mentor visit page' do
+  test 'The number of action uncompleted comments is not displayed in the global navigation when mentor visit page' do
     user = users(:mentormentaro)
     visit_with_auth root_path, 'mentormentaro'
     assert_selector '.page-header__title', text: 'ダッシュボード'
@@ -115,7 +90,7 @@ class Notification::TalkTest < ApplicationSystemTestCase
     end
   end
 
-  test 'The number of unreplied comments is not displayed in the global navigation when advisor visit page' do
+  test 'The number of action uncompleted comments is not displayed in the global navigation when advisor visit page' do
     user = users(:advijirou)
     visit_with_auth root_path, 'advijirou'
     assert_selector '.page-header__title', text: 'ダッシュボード'
@@ -126,7 +101,7 @@ class Notification::TalkTest < ApplicationSystemTestCase
     end
   end
 
-  test 'The number of unreplied comments is not displayed in the global navigation when student visit page' do
+  test 'The number of action uncompleted comments is not displayed in the global navigation when student visit page' do
     user = users(:kimura)
     visit_with_auth root_path, 'kimura'
     assert_selector '.page-header__title', text: 'ダッシュボード'

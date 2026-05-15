@@ -1,71 +1,89 @@
 survey_question_listing1:
   survey: survey1
   survey_question: survey_question1
+  position: 1
 
 survey_question_listing2:
   survey: survey1
   survey_question: survey_question2
+  position: 2
 
 survey_question_listing3:
   survey: survey1
   survey_question: survey_question3
+  position: 3
 
 survey_question_listing4:
   survey: survey1
   survey_question: survey_question4
+  position: 4
 
 survey_question_listing5:
   survey: survey1
   survey_question: survey_question5
+  position: 5
 
 survey_question_listing6:
   survey: survey1
   survey_question: survey_question6
+  position: 6
 
 survey_question_listing7:
   survey: survey2
   survey_question: survey_question1
+  position: 1
 
 survey_question_listing8:
   survey: survey2
   survey_question: survey_question2
+  position: 2
 
 survey_question_listing9:
   survey: survey2
   survey_question: survey_question3
+  position: 3
 
 survey_question_listing10:
   survey: survey2
   survey_question: survey_question4
+  position: 4
 
 survey_question_listing11:
   survey: survey2
   survey_question: survey_question5
+  position: 5
 
 survey_question_listing12:
   survey: survey2
   survey_question: survey_question6
+  position: 6
 
 survey_question_listing13:
   survey: survey3
   survey_question: survey_question1
+  position: 1
 
 survey_question_listing14:
   survey: survey3
   survey_question: survey_question2
+  position: 2
 
 survey_question_listing15:
   survey: survey3
   survey_question: survey_question3
+  position: 3
 
 survey_question_listing16:
   survey: survey3
   survey_question: survey_question4
+  position: 4
 
 survey_question_listing17:
   survey: survey3
   survey_question: survey_question5
+  position: 5
 
 survey_question_listing18:
   survey: survey3
   survey_question: survey_question6
+  position: 6

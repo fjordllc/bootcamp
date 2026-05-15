@@ -5,6 +5,14 @@ require 'test_helper'
 class PracticeTest < ActiveSupport::TestCase
   fixtures :learnings, :practices, :users
 
+  test '#started_or_submitted_learnings' do
+    started_or_submitted_learnings = practices(:practice3).started_or_submitted_learnings
+
+    started_or_submitted_learnings.each do |learning|
+      assert_includes %w[started submitted], learning.status
+    end
+  end
+
   test '#status(user)' do
     assert_equal \
       practices(:practice1).status(users(:komagata)),
@@ -46,5 +54,37 @@ class PracticeTest < ActiveSupport::TestCase
     category = categories(:category2)
 
     assert_equal category, practice.category(course)
+  end
+
+  test 'source_id_cannot_be_self validation prevents self-reference' do
+    practice = practices(:practice1)
+    practice.source_id = practice.id
+
+    assert_not practice.valid?
+    assert_includes practice.errors[:source_id], 'cannot reference itself'
+  end
+
+  test 'source_id_cannot_be_self validation allows nil source_id' do
+    practice = practices(:practice1)
+    practice.source_id = nil
+
+    assert practice.valid?
+  end
+
+  test 'source_id_cannot_be_self validation allows different practice reference' do
+    practice1 = practices(:practice1)
+    practice2 = practices(:practice2)
+    practice1.source_id = practice2.id
+
+    assert practice1.valid?
+  end
+
+  test 'foreign key constraint prevents invalid source_id references' do
+    practice = practices(:practice1)
+
+    # Try to set a non-existent practice ID
+    assert_raises(ActiveRecord::InvalidForeignKey) do
+      practice.update!(source_id: 99_999)
+    end
   end
 end

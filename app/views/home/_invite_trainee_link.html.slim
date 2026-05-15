@@ -2,21 +2,24 @@
   .a-card
     header.card-header.is-sm
       h2.card-header__title
-        | 研修生の招待
+        | 新規研修をスタートする場合
+    hr.a-border-tint
     .card-body
-      .card__description
+      .card-body__description
         .a-short-text.is-sm
           p
-            | 研修生を追加する場合は、以下のリンクから登録をお願いいたします。
-            | 以下のリンクから登録することで、#{current_user.company.name}所属の研修生として
-            | 登録されます。
+            | 新規研修をお考えの企業様には、ビデオチャットで個別ヒヤリングを行います。
+            | このヒヤリングで研修生の現在のスキル、希望する研修期間、目標とするスキルセットを確認し、
+            | それに応じたカスタマイズカリキュラムを準備します。
+            | これにより、各参加者が目標に向かって効率的に学習できるよう支援します。
           p
-            | 研修生が履修をするプラクティスの選別についてなどは、
+            | まずは、
             = link_to '相談部屋', talk_path(current_user.talk, anchor: 'latest-comment')
-            | からご相談ください。
+            | からご連絡をお願い致します。
+    hr.a-border-tint
     footer.card-footer
       .card-main-actions
         ul.card-main-actions__items
           li.card-main-actions__item
-            = link_to company.trainee_sign_up_url, class: 'a-button is-sm is-block is-secondary', target: '_blank', rel: 'noopener' do
-              | 研修生招待リンク
+            = link_to talk_path(current_user.talk, anchor: 'latest-comment'), class: 'a-button is-sm is-block is-secondary' do
+              | 相談部屋

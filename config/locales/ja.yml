@@ -10,6 +10,7 @@ ja:
       md: '%m月%d日'
       sm: '%m/%d'
       long: '%Y年%m月%d日(%a)'
+      mdw_unique: '%-m/%-d(%a)'
   time:
     formats:
       default: '%Y年%m月%d日(%a) %H:%M'
@@ -21,6 +22,13 @@ ja:
       year_only: '%Y'
       mdw_unique: '%-m/%-d(%a)'
       long: '%Y年%m月%d日(%a)'
+      mdw_and_time: '%-m月%-d日(%a)%H:%M'
+      mdw: '%m/%d %a'
+      day_name: '%A'
+  dates:
+    today: '今日'
+    tomorrow: '明日'
+    day_after_tomorrow: '明後日'
   activerecord:
     models:
       user: ユーザー
@@ -33,30 +41,52 @@ ja:
       page: Docs
       question: Q&A
       product: 提出物
+      submission_answer: 模範解答
       announcement: お知らせ
       article: ブログ記事
       work: 作品
-      event: イベント
-      memo: メモ
+      event: 特別イベント
       reference_book: 参考書籍
       campaign: お試し延長
       book: 参考書籍
       regular_event: 定期イベント
+      request_retirement: 退会申請
+      faq: FAQ
+      answer: 回答
+      correct_answer: 模範回答
+      movie: 動画
+    search_labels:
+      practice: "プラク\nティス"
+      event: "特別\nイベント"
+      regular_event: "定期\nイベント"
+      user: ユーザー
+      report: 日報
+      product: 提出物
+      announcement: お知らせ
+      page: Docs
+      question: Q&A
+      answer: Q&A
+      correct_answer: Q&A
+      comment: コメント
+      faq_category: FAQカテゴリ
+      coding_test: コーディングテスト
+      movie: 動画
+      grant_course_application: 給付金対応コース受講申請
+      pair_work: ペアワーク
     attributes:
       user:
         login_name: アカウント
         name: 名前（ニックネームも可）
         name_kana: 名前（カナ）
+        career_memo: メモ（卒業後の進路）
         course_id: コース
         description: 自己紹介
         email: Email
-        twitter_account: Twitter アカウント
+        twitter_account: X（Twitter）アカウント
         facebook_url: Facebook URL
         blog_url: ブログ URL
         feed_url: ブログのフィードURL
         github_account: GitHub アカウント
-        discord_account: Discord アカウント
-        times_url: 分報URL
         password: パスワード
         password_confirmation: パスワード（確認）
         current_password: 現在のパスワード
@@ -68,8 +98,8 @@ ja:
         job: 職業
         os: 利用OS
         study_place: 主な学習場所
-        experience: プログラミング経験
-        prefecture_code: お住まいの都道府県
+        experiences: プログラミング経験
+        editor: 使用しているエディタ
         organization: 現在の所属組織
         company: 企業
         company_id: 所属企業
@@ -82,15 +112,15 @@ ja:
         mentor: メンター
         job_seeking: 就職活動中
         hibernated_at: 休会日時
+        training_completed_at: 研修終了日時
         retired_on: 退会日
-        free: 無料
         avatar: ユーザーアイコン
         retire_reasons: 選択入力の退会理由
         retire_reason: 自由記入の退会理由
         satisfaction: 満足度
         opinion: ご意見
         mail_notification: メール通知
-        job_seeker: 就職を希望する
+        job_seeker: 就職サポート
         github_collaborator: GitHubチーム
         tag_list: タグ
         training_ends_on: 研修終了日
@@ -100,25 +130,43 @@ ja:
         profile_job: 職業
         profile_text: プロフィール文
         subscription_id: サブスクリプションID
+        country_code: 国
+        subdivision_code: 都道府県・州
+        not_auto_retire: 休会三ヶ月後に自動退会しない
+        invoice_payment_user: 請求書払い
+        credit_card_payment_user: クレジットカード払い
+        other_editor: その他のエディタ
+        show_mentor_profile: プロフィール公開
+        invoice_payment: 「請求書払い」
+        diploma_file: 卒業証書(PDF)
+        other_referral_source: FBCを知ったその他の経路
+        show_study_streak: 学習連続記録
+      discord_profile:
+        account_name: Discord アカウント
+        times_url: 分報URL
       hibernation:
         reason: 休会の理由
         scheduled_return_on: 復帰予定日
         returned_at: 復帰日時
       course:
-        title: タイトル
+        title: コース名
         description: 説明
+        summary: 主な内容や概要
         created_at: 作成日時
         updated_at: 更新日時
       practice:
         title: タイトル
         description: 内容
-        goal: 終了条件
+        goal: 修了条件
         target: ターゲット
         submission: 提出物
+        submission_answer: 模範解答
         progress: 進捗の計算
-        ogp_image: OGP画像
+        completion_image: 修了おめでとう画像
         categories: カテゴリー
         memo: メンター向けメモ
+        summary: 概要
+        ogp_image: OGP画像
       book:
         title: タイトル
         price: 価格
@@ -132,12 +180,15 @@ ja:
         user: ユーザー
         practice: プラクティス
         body: 本文
+      submission_answer:
+        description: 内容
       company:
         name: 名前
         description: 詳細
         website: ウェブサイト
         logo: ロゴ
         blog_url: Techブログ
+        memo: 管理者向けメモ
       category:
         name: 名前
         slug: URLスラッグ
@@ -150,9 +201,6 @@ ja:
         learning_times: 学習時間
         emotion: 今日の気分
         no_learn: 学習時間は無し
-      memo:
-        body: 内容
-        date: 日付
       report/learning_times:
         finished_at: 終了時間
       learning_time:
@@ -165,6 +213,13 @@ ja:
         body: 本文
         tag_list: タグ
         slug: スラッグ
+      movie:
+        practice: 関連プラクティス
+        title: タイトル
+        description: 説明
+        tag_list: タグ
+        movie_data: 動画データ
+        thumbnail: サムネイル画像
       question:
         practice: プラクティス
         title: タイトル
@@ -179,6 +234,20 @@ ja:
         email: メールアドレス
         body: 内容
         privacy_policy: 個人情報の取り扱い
+      corporate_training_inquiry:
+        name: 担当者様のお名前
+        company_name: 企業名
+        email: メールアドレス
+        meeting_dates: 研修打ち合わせ希望日時
+        meeting_date1: 第1希望
+        meeting_date2: 第2希望
+        meeting_date3: 第3希望
+        participants_count: 予定している研修を受ける方の人数
+        training_duration: 予定している研修期間
+        consultation: 助成金の相談
+        how_did_you_hear: どこでフィヨルドブートキャンプを知りましたか？
+        additional_information: その他伝えておきたいこと
+        privacy_policy: 個人情報の取り扱い
       article:
         title: タイトル
         body: 本文
@@ -190,6 +259,7 @@ ja:
         url: URL
         repository: リポジトリURL
         url_or_repository: URLまたはリポジトリ
+        launch_article: リリースブログ記事URL
         thumbnail: サムネイル画像
       event:
         title: タイトル
@@ -260,7 +330,68 @@ ja:
         choices: 選択肢
       check_box/check_box_choices:
         choices: 選択肢
+      buzz:
+        body: 本文
+      request_retirement:
+        requester_name: 申請者のアカウント
+        requester_email: 申請者のメールアドレス
+        company_name: 会社名
+        target_user: 退会をさせる方のアカウント
+        reason: 退会申請理由
+        keep_data: 退会後のデータ
+      request_retirement/keep_data/option:
+        keep: 残す
+        delete: 削除する
+      faq:
+        question: 質問
+        answer: 回答
+        faq_category: カテゴリー
+      faq_category:
+        name: カテゴリー名
+      coding_test:
+        title: タイトル
+        description: 問題文
+        user: 作成者
+        practice: 所属プラクティス
+        language: 言語
+        coding_test_submissions: 回答コード
+      grant_course_application:
+        name: 名前
+        last_name: 姓
+        first_name: 名
+        last_name_kana: セイ
+        first_name_kana: メイ
+        email: メールアドレス
+        zip: 郵便番号
+        zip1: 郵便番号（前半）
+        zip2: 郵便番号（後半）
+        prefecture_code: 都道府県
+        address: 住所
+        address1: 市区町村
+        address2: 建物名・部屋番号
+        tel: 電話番号
+        tel1: 電話番号（前半）
+        tel2: 電話番号（中央）
+        tel3: 電話番号（後半）
+        trial_period: お試し利用希望
+        privacy_policy: 個人情報の取り扱い
+      coding_test_case:
+        input: 入力
+        output: 出力
+      doorkeeper/application:
+        redirect_uri: Redirect URL
+      pair_work:
+        practice: プラクティス
+        title: タイトル
+        description: 内容
+        schedules: スケジュール
+        reserved_at: 希望した日時
+        buddy: ペア
     enums:
+      emotion:
+        negative: 不調
+        neutral: 普通
+        positive: 好調
       user:
         job:
           student: 学生
@@ -276,18 +407,35 @@ ja:
         study_place:
           local: フィヨルドブートキャンプオフィス
           remote: 自宅
-        experience:
-          inexperienced: 未経験
-          html_css: HTML/CSS経験あり
-          other_ruby: Ruby以外の言語経験あり
-          ruby: Ruby経験あり
-          rails: Rails経験あり
+        editor:
+          vscode: VSCode
+          ruby_mine: RubyMine
+          vim: Vim
+          emacs: Emacs
+          other_editor: その他
+        referral_source:
+          search_engine: 検索エンジン
+          referral: 知人の紹介
+          event: テックイベント
+          x: X（旧Twitter）
+          facebook: Facebook
+          blog: ブログ記事
+          web_ad: Web広告
+          other: その他
         satisfaction:
           excellent: とても良い
           good: 良い
           average: どちらでもない
           poor: 悪い
           very_poor: とても悪い
+        career_path:
+          unset: 未設定
+          job_seeking: 就職活動中
+          employed_via_referral: 就職した（Lokkaの紹介）
+          employed_without_referral: 就職した（Lokkaの紹介を使わず）
+          employed_non_it: IT系以外に就職した
+          internal_transfer_to_programmer: 社内転職でプログラマーになった
+          not_employed: 就職していない
       learning:
         status:
           unstarted: 未着手
@@ -301,21 +449,47 @@ ja:
           question: 質問
           meeting: MTG
           others: その他
+      article:
+        thumbnail_type:
+          prepared_thumbnail: prepared_thumbnail
+          ruby: Ruby
+          ruby_on_rails: Ruby on Rails
+          javascript: JavaScript
+          wsl2: WSL2
+          linux: Linux
+          pc: PC
+          sponsorship: Sponsorship
+          green: Green
+          purple: Purple
+          orange: Orange
+          brown: Brown
+          blue: Blue
+        target:
+          all: 全員（退会者を除く）
+          students: 現役生のみ
+          job_seekers: 就職希望者のみ
+          none: 通知しない
     errors:
       models:
         campaign:
           attributes:
             end_at:
               format: 'は%{shortest_end_at}以降を入力してください。'
+        doorkeeper/application:
+          attributes:
+            redirect_uri:
+              relative_uri: Redirect URLの値が無効です
   target:
-    student_and_trainee: 現役生
+    student_and_trainee: 現役 + 研修生
     student: 現役生
     job_seeking: 就職活動中
+    hibernationed: 休会中
     mentor: メンター
     graduate: 卒業生
     adviser: アドバイザー
     all: 全員
     hibernated: 休会
+    training_completed: 研修終了
     retired: 退会
     inactive: 非アクティブ
     year_end_party: 忘年会
@@ -327,6 +501,18 @@ ja:
     unchecked_no_replied: 未返信
     unchecked_all: 全て
     campaign: お試し延長
+    rails_course: Rails
+    front_end_course: フロントエンド
+    other_courses: その他
+    all_reports: 全て
+    unchecked_reports: 未チェック
+  invitation_role:
+    adviser: アドバイザー
+    trainee: 研修生(%{payment_method})
+    mentor: メンター
+  course_names:
+    rails_course: Railsエンジニア
+    front_end_course: フロントエンドエンジニア
   watch:
     all: すべて
     true: コメントあり
@@ -355,15 +541,85 @@ ja:
         cost: 受講料が高いから
         job_change: 転職や引っ越しなど環境の変化によって学びが継続できなくなったから
         training_end: 企業研修で利用をしていて研修期間が終了したため
+      experiences:
+        inexperienced: 未経験
+        html_css: HTML/CSSの経験あり
+        ruby: Rubyの経験あり
+        rails: Railsの経験あり
+        javascript: JavaScriptの経験あり
+        react: Reactの経験あり
+        languages_other_than_ruby_and_javascript: Ruby、JS以外の言語経験あり
   notification:
+    all: 全て
     announcement: お知らせ
     mention: メンション
     comment: コメント
     check: 提出物の確認
     watching: Watch中
     following_report: フォロー中
-  activity_mailer:
-    three_months_after_retirement:
-      subject: '[FBC] %{user}さんが退会してから3カ月が経過しました。'
-      retire_notice: '%{user}さんが退会してから3カ月が経過しました。'
-  retire_notice: '%{user}さんが退会してから3カ月が経過しました。'
+  talk:
+    followup: "こんにちは。\nご登録から30日ほど経ちますが、学習について困っていることや詰まっている部分などありますでしょうか？\nもしあれば、メンターの皆さんにお気軽にご相談ください。"
+    comeback: "お帰りなさい！！復会ありがとうございます。\n休会中に何か変わったことがあれば、再びスムーズに学び始めることができるように全力でサポートします。何か困ったことや質問があれば、メンターの皆さんに遠慮なくご相談ください。\n\nまたフィヨルドブートキャンプの Discord のサーバーに入室できるように、再度、Doc にある Discord の招待 URL にアクセスをお願いします。\n<https://bootcamp.fjord.jp/practices/129#url>"
+  unregistered: 未登録
+  doorkeeper:
+    applications:
+      buttons:
+        authorize: 承認
+        cancel: キャンセル
+        destroy: 削除
+        edit: 編集
+        submit: 登録する
+      confirmations:
+        destroy: アプリケーションを削除しますか？
+      form:
+        error: フォームにエラーが無いか確認してください
+      help:
+        confidential: 機密性の高いアプリケーションの場合はチェックしてください
+        redirect_uri: 一行に一つのURLを入力してください
+        scopes: クライアントアプリがリソースを利用できるようになる範囲を指定してください。read writeが設定でき、readは「読み取り」writeは「書き込み」ができるようになります。空白の場合は、readが利用できます。writeを利用したい場合は、read writeのように入力してください。
+      edit:
+        title: アプリケーション編集
+      index:
+        actions: ''
+        new: アプリケーション追加
+        title: アプリケーション一覧
+      new:
+        title: アプリケーション追加
+      show:
+        actions: ''
+        application_id: Application ID
+        secret: Secret
+        title: '%{name}'
+    authorizations:
+      title: Oauth2 Provider
+      buttons:
+        authorize: 承認
+        deny: キャンセル
+      new:
+        able_to: 次の許可をリクエストしています
+        title: ''
+        prompt: ''
+    errors:
+      messages:
+        invalid_client: アプリの認証に失敗しました
+        invalid_redirect_uri: Redirect URLが無効です
+        invalid_scope: スコープが無効です
+    flash:
+      applications:
+        create:
+          notice: アプリケーションを追加しました。
+        destroy:
+          notice: アプリケーションを削除しました。
+        update:
+          notice: アプリケーションを更新しました。
+    layouts:
+      admin:
+        nav:
+          applications: ''
+          home: BootCamp
+        title: Oauth2 Provider
+      application:
+        title: Oauth2 Provider
+    scopes:
+      read: メールアドレスを含む基本的なプロフィール情報の読み取り
+      write: リソースの作成・修正・削除

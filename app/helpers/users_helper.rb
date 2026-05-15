@@ -10,14 +10,6 @@ module UsersHelper
     end
   end
 
-  def user_tr_attrs(user)
-    if user.active?
-      { class: 'active' }
-    else
-      { class: 'inactive' }
-    end
-  end
-
   def user_github_url(user)
     "https://github.com/#{user.github_account}"
   end
@@ -26,16 +18,14 @@ module UsersHelper
     if from == :new
       if user.adviser?
         'アドバイザー登録'
+      elsif user.mentor?
+        'メンター登録'
       else
         '参加する'
       end
     else
       '更新する'
     end
-  end
-
-  def user_github_grass_url(user)
-    "https://grass-graph.moshimo.works/images/#{user.github_account}.png?background=none"
   end
 
   def users_tags_rank(count, top3_tags_counts)
@@ -61,5 +51,62 @@ module UsersHelper
 
   def users_name
     User.pluck(:login_name, :id).sort
+  end
+
+  def button_label(user)
+    if current_user.following?(user)
+      current_user.watching?(user) ? 'コメントあり' : 'コメントなし'
+    else
+      'フォローする'
+    end
+  end
+
+  def desc_paragraphs(user)
+    max_description = user.description.length <= 200 ? user.description : "#{user.description[0...200]}..."
+    max_description.split(/\n|\r\n/).map.with_index { |text, i| { id: i, text: } }
+  end
+
+  def all_countries_with_subdivisions
+    ISO3166::Country.all
+                    .map { |country| [country.alpha2, country.subdivision_names_with_codes(I18n.locale.to_sym)] }
+                    .to_h
+                    .to_json
+  end
+
+  def roles_for_select
+    roles = %w[all student_and_trainee inactive hibernated retired graduate adviser mentor trainee year_end_party campaign]
+    roles.map { |role| [t("target.#{role}"), role] }
+  end
+
+  def jobs_for_select
+    user_jobs = User.jobs.keys.map { |job| [t("activerecord.enums.user.job.#{job}"), job] }
+    user_jobs.prepend(%w[全員 all])
+  end
+
+  def job_seekings_for_select
+    [
+      %w[全員 all],
+      %w[希望する true],
+      %w[希望しない false]
+    ]
+  end
+
+  def payment_methods_for_select
+    [
+      %w[全員 all],
+      %w[クレジットカード払い card],
+      %w[請求書払い invoice]
+    ]
+  end
+
+  def visible_learning_time_frames?(user)
+    !user.graduated? && user.learning_time_frames.exists?
+  end
+
+  def event_navs(user)
+    [
+      { id: 'events', name: Event.model_name.human, count: user.participate_events.length, path: user_events_path(user) },
+      { id: 'regular_events', name: RegularEvent.model_name.human, count: user.participate_regular_events.length, path: user_regular_events_path(user) }
+    ]
   end
 end

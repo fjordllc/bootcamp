@@ -9,11 +9,28 @@
           .form-item
             = f.label :title, class: 'a-form-label'
             = f.text_field :title, class: 'a-text-input js-warning-form', placeholder: '今週のリリース2023年12月22日'
+            .a-form-help
+              p
+                | お知らせの内容本文がタイトルから予想できる、具体的なタイトルを付けましょう。
+                br
+                | 悪い例: フィヨブーハウス
+                br
+                | 良い例: RubyKaigi 2024 フィヨブーハウス宿泊希望者申し込みを開始しました
     .form-item
       .row.js-markdown-parent
         .col-md-6.col-xs-12
           = f.label :description, class: 'a-form-label'
-          = f.text_area :description, class: 'a-text-input js-warning-form js-markdown markdown-form__text-area', data: { 'preview': '.js-preview' }
+          .form-textarea
+            .form-textarea__body
+              = f.text_area :description, class: 'a-text-input js-warning-form js-markdown markdown-form__text-area',
+              data: { 'preview': '.js-preview', 'input': '.file-input' }
+            .form-textarea__footer
+              .form-textarea__insert
+                label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
+                  | ファイルを挿入
+                  input(type='file' class='file-input' multiple)
+              .form-textarea__bottom-note
+                | 途中保存は「#{request.os == 'Mac OSX' ? 'command + s' : 'Ctrl + s'}」 マメに保存しよう。
         .col-md-6.col-xs-12
           .a-form-label
             | プレビュー

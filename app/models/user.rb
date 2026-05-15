@@ -1,47 +1,93 @@
 # frozen_string_literal: true
 
-class User < ApplicationRecord
+class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include ActionView::Helpers::AssetUrlHelper
   include Taggable
   include Searchable
 
+  attr_accessor :credit_card_payment, :role, :uploaded_avatar
+
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w[id login_name company_id last_activity_at created_at report comment asc desc].freeze
-  AVATAR_SIZE = '88x88>'
+  AVATAR_SIZE = [120, 120].freeze
+  AVATAR_FORMAT = 'webp'
+  DEFAULT_IMAGE_PATH = '/images/users/avatars/default.png'
   RESERVED_LOGIN_NAMES = %w[adviser all graduate inactive job_seeking mentor retired student student_and_trainee trainee year_end_party].freeze
   MAX_PERCENTAGE = 100
   DEPRESSED_SIZE = 2
+  ALL_ALLOWED_TARGETS = %w[adviser all campaign graduate hibernated inactive job_seeking mentor retired student_and_trainee student trainee
+                           year_end_party admin].freeze
+  # 本来であればtarget = scope名としたいが、歴史的経緯によりtargetとscope名が一致しないものが多数あるため、名前が一致しない場合はこのハッシュを使ってscope名に変換する
+  TARGET_TO_SCOPE = {
+    'student_and_trainee' => :students_and_trainees,
+    'student' => :students,
+    'trainee' => :trainees,
+    'graduate' => :graduated,
+    'adviser' => :advisers,
+    'admin' => :admins
+  }.freeze
+  HIBERNATION_LIMIT = 3.months
+  HIBERNATION_LIMIT_BEFORE_ONE_WEEK = HIBERNATION_LIMIT - 1.week
 
-  enum job: {
+  INVITATION_ROLES = [
+    [I18n.t('invitation_role.adviser'), :adviser],
+    [I18n.t('invitation_role.trainee', payment_method: '請求書払い'), :trainee_invoice_payment],
+    [I18n.t('invitation_role.trainee', payment_method: 'クレジットカード払い'), :trainee_credit_card_payment],
+    [I18n.t('invitation_role.trainee', payment_method: '支払い方法を選択'), :trainee_select_a_payment_method],
+    [I18n.t('invitation_role.mentor'), :mentor]
+  ].freeze
+
+  enum :job, {
     student: 0,
     office_worker: 2,
     part_time_worker: 3,
     vacation: 4,
     unemployed: 5
-  }, _prefix: true
+  }, prefix: true
 
-  enum os: {
+  enum :os, {
     mac: 0,
     mac_apple: 2,
     linux: 1,
     windows_wsl2: 3
-  }, _prefix: true
+  }, prefix: true
 
-  enum experience: {
-    inexperienced: 0,
-    html_css: 1,
-    other_ruby: 2,
-    ruby: 3,
-    rails: 4
-  }, _prefix: true
+  enum :editor, {
+    vscode: 0,
+    ruby_mine: 1,
+    vim: 2,
+    emacs: 3,
+    other_editor: 99
+  }, prefix: true
 
-  enum satisfaction: {
+  enum :satisfaction, {
     excellent: 0,
     good: 1,
     average: 2,
     poor: 3,
     very_poor: 4
-  }, _prefix: true
+  }, prefix: true
+
+  enum :referral_source, {
+    search_engine: 0,
+    referral: 1,
+    event: 2,
+    x: 3,
+    facebook: 4,
+    blog: 5,
+    web_ad: 6,
+    other: 99
+  }, prefix: true
+
+  enum :career_path, {
+    unset: 0,
+    job_seeking: 1,
+    employed_via_referral: 2,
+    employed_without_referral: 3,
+    employed_non_it: 4,
+    internal_transfer_to_programmer: 5,
+    not_employed: 6
+  }, prefix: true
 
   belongs_to :company, optional: true
   belongs_to :course
@@ -66,15 +112,26 @@ class User < ApplicationRecord
   has_many :articles, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
   has_many :regular_events, dependent: :destroy
-  has_many :organizers, dependent: :destroy
+  has_many :regular_event_organizers, dependent: :destroy
   has_many :hibernations, dependent: :destroy
   has_many :authored_books, dependent: :destroy
   accepts_nested_attributes_for :authored_books, allow_destroy: true
   has_many :surveys, dependent: :destroy
   has_many :survey_questions, dependent: :destroy
   has_many :external_entries, dependent: :destroy
+  has_many :movies, dependent: :nullify
+  has_many :coding_tests, dependent: :destroy
+  has_many :coding_test_submissions, dependent: :destroy
   has_one :report_template, dependent: :destroy
   has_one :talk, dependent: :destroy
+  has_one :discord_profile, dependent: :destroy
+  accepts_nested_attributes_for :discord_profile, allow_destroy: true
+  has_many :request_retirements, dependent: :destroy
+  has_one :targeted_request_retirement, class_name: 'RequestRetirement', foreign_key: 'target_user_id', dependent: :destroy, inverse_of: :target_user
+  has_many :micro_reports, dependent: :destroy
+  has_many :authored_micro_reports, class_name: 'MicroReport', foreign_key: 'comment_user_id', dependent: :destroy, inverse_of: :comment_user
+  has_many :learning_time_frames_users, dependent: :destroy
+  has_many :pair_works, dependent: :destroy
 
   has_many :participate_events,
            through: :participations,
@@ -114,6 +171,12 @@ class User < ApplicationRecord
            inverse_of: 'follower',
            dependent: :destroy
 
+  has_many :skipped_practices,
+           dependent: :destroy
+
+  has_many :practices,
+           through: :skipped_practices
+
   has_many :followees,
            through: :active_relationships,
            source: :followed
@@ -129,34 +192,51 @@ class User < ApplicationRecord
            source: :follower
 
   has_many :organize_regular_events,
-           through: :organizers,
+           through: :regular_event_organizers,
            source: :regular_event
 
   has_many :participate_regular_events,
            through: :regular_event_participations,
            source: :regular_event
 
+  has_many :coding_test_submissions, dependent: :destroy
+
+  has_many :learning_time_frames,
+           through: :learning_time_frames_users
+
+  has_many :oauth_access_grants,
+           foreign_key: 'resource_owner_id',
+           dependent: :delete_all,
+           inverse_of: 'user'
+
+  has_many :oauth_access_tokens,
+           foreign_key: 'resource_owner_id',
+           dependent: :delete_all,
+           inverse_of: 'user'
+
   has_one_attached :avatar
   has_one_attached :profile_image
+  has_one_attached :diploma_file
 
   after_create UserCallbacks.new
-  after_update UserCallbacks.new
+  before_validation :convert_blank_of_address_to_nil
 
-  validates :email, presence: true, uniqueness: true
+  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
   validates :name, presence: true
   validates :description, presence: true
   validates :nda, presence: true
   validates :password, length: { minimum: 4 }, confirmation: true, if: :password_required?
   validates :mail_notification, inclusion: { in: [true, false] }
+  validates :show_mentor_profile, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
-  validates :times_url,
-            format: {
-              allow_blank: true,
-              with: %r{\Ahttps://discord\.com/channels/\d+/\d+\z},
-              message: 'はDiscordのチャンネルURLを入力してください'
-            }
+  validates :other_editor, presence: true, if: -> { editor == 'other_editor' }
+  validates :other_referral_source, presence: true, if: -> { referral_source == 'other' }
+  validates :invoice_payment, inclusion: { in: [true], message: 'にチェックを入れてください。' }, if: -> { role == 'trainee_invoice_payment' }
+  validates :invoice_payment, inclusion: { in: [true],
+                                           message: 'か「クレジットカード払い」のいずれかを選択してください。' },
+                              if: -> { role == 'trainee_select_a_payment_method' && !credit_card_payment }
 
-  validates :feed_url,
+  validates :facebook_url, :feed_url, :blog_url,
             format: {
               allow_blank: true,
               with: URI::DEFAULT_PARSER.make_regexp(%w[http https]),
@@ -165,11 +245,17 @@ class User < ApplicationRecord
 
   validates :login_name, exclusion: { in: RESERVED_LOGIN_NAMES, message: 'に使用できない文字列が含まれています' }
 
-  validates :avatar, attached: false,
-                     content_type: {
-                       in: %w[image/png image/jpg image/jpeg image/gif image/heic image/heif],
-                       message: 'はPNG, JPG, GIF, HEIC, HEIF形式にしてください'
-                     }
+  validates :login_name, length: { minimum: 3, message: 'は3文字以上にしてください。' }
+
+  validate :validate_uploaded_avatar_content_type
+
+  validates :show_study_streak, inclusion: { in: [true, false] }
+
+  validates :diploma_file, content_type: { in: ['application/pdf'], message: 'はPDF形式にしてください' }
+
+  validates :country_code, inclusion: { in: ISO3166::Country.codes }, allow_nil: true
+
+  validates :subdivision_code, inclusion: { in: ->(user) { user.subdivision_codes } }, allow_nil: true, if: -> { country_code.present? }
 
   with_options if: -> { %i[create update].include? validation_context } do
     validates :login_name, presence: true, uniqueness: true,
@@ -179,7 +265,7 @@ class User < ApplicationRecord
                            }
   end
 
-  with_options if: -> { validation_context != :reset_password && validation_context != :retirement } do
+  with_options if: -> { !validation_context.in?(%i[reset_password retirement training_completion]) } do
     validates :name_kana, presence: true,
                           format: {
                             with: /\A[\p{katakana}\p{blank}ー－]+\z/,
@@ -187,13 +273,15 @@ class User < ApplicationRecord
                           }
   end
 
-  with_options if: -> { !adviser? && validation_context != :reset_password && validation_context != :retirement } do
+  with_options if: -> { !staff? && !validation_context.in?(%i[reset_password retirement training_completion]) } do
     validates :job, presence: true
-    validates :os, presence: true
-    validates :experience, presence: true
   end
 
-  with_options if: -> { validation_context == :retirement } do
+  with_options if: -> { !adviser? && !validation_context.in?(%i[reset_password retirement training_completion]) } do
+    validates :os, presence: true
+  end
+
+  with_options if: -> { validation_context.in?(%i[retirement training_completion]) } do
     validates :satisfaction, presence: true
   end
 
@@ -201,21 +289,16 @@ class User < ApplicationRecord
     validates :company_id, presence: true
   end
 
-  with_options if: -> { validation_context != :retirement } do
-    validates :discord_account,
-              format: {
-                allow_blank: true,
-                with: /\A[^\s\p{blank}].*[^\s\p{blank}]#\d{4}\z/,
-                message: 'は「ユーザー名#４桁の数字」で入力してください'
-              }
+  with_options if: -> { !validation_context.in?(%i[retirement training_completion]) } do
     validates :twitter_account,
               length: { maximum: 15 },
+              allow_blank: true,
               format: {
-                allow_blank: true,
                 with: /\A\w+\z/,
                 message: 'は英文字と_（アンダースコア）のみが使用できます'
               }
   end
+
   flag :retire_reasons, %i[
     done
     necessity
@@ -230,23 +313,39 @@ class User < ApplicationRecord
     training_end
   ]
 
+  flag :experiences, %i[
+    html_css
+    ruby
+    rails
+    javascript
+    react
+    languages_other_than_ruby_and_javascript
+  ]
+
   scope :in_school, -> { where(graduated_on: nil) }
   scope :graduated, -> { where.not(graduated_on: nil) }
   scope :hibernated, -> { where.not(hibernated_at: nil) }
   scope :unhibernated, -> { where(hibernated_at: nil) }
   scope :retired, -> { where.not(retired_on: nil) }
-  scope :retired_with_3_months_ago_and_notification_not_sent, lambda {
-    retired
-      .where('retired_on <= ?', Date.current.ago(3.months).to_date)
-      .where(notified_retirement: false)
-  }
   scope :unretired, -> { where(retired_on: nil) }
+  scope :hibernated_for, ->(period) { where(hibernated_at: nil..period.ago) }
+  scope :auto_retire, -> { where(auto_retire: true) }
   scope :advisers, -> { where(adviser: true) }
   scope :not_advisers, -> { where(adviser: false) }
+  scope :by_course, ->(target) { joins(:course).where(courses: { title: target }) }
   scope :students_and_trainees, lambda {
     where(
       admin: false,
       mentor: false,
+      adviser: false,
+      graduated_on: nil,
+      hibernated_at: nil,
+      retired_on: nil,
+      training_completed_at: nil
+    )
+  }
+  scope :students_trainees_mentors_and_admins, lambda {
+    where(
       adviser: false,
       graduated_on: nil,
       hibernated_at: nil,
@@ -294,16 +393,29 @@ class User < ApplicationRecord
       adviser: false,
       hibernated_at: nil,
       retired_on: nil,
+      training_completed_at: nil,
       graduated_on: nil
     )
   }
-  scope :year_end_party, -> { where(retired_on: nil) }
+  scope :year_end_party, lambda {
+    where(
+      hibernated_at: nil,
+      retired_on: nil
+    )
+  }
   scope :mentor, -> { where(mentor: true) }
   scope :mentors_sorted_by_created_at, lambda {
     with_attached_profile_image
       .mentor
       .includes(authored_books: { cover_attachment: :blob })
       .order(:created_at)
+  }
+  scope :visible_sorted_mentors, lambda {
+    with_attached_profile_image
+      .mentor
+      .includes(authored_books: { cover_attachment: :blob })
+      .order(:created_at)
+      .where(show_mentor_profile: true)
   }
   scope :working, lambda {
     active.where(
@@ -315,8 +427,13 @@ class User < ApplicationRecord
   }
   scope :admins, -> { where(admin: true) }
   scope :admins_and_mentors, -> { admins.or(mentor) }
-  scope :trainees, -> { where(trainee: true) }
-  scope :job_seeking, -> { where(job_seeking: true) }
+  scope :trainees, lambda {
+    where(
+      trainee: true,
+      training_completed_at: nil
+    )
+  }
+  scope :job_seeking, -> { where(career_path: 'job_seeking') }
   scope :job_seekers, lambda {
     where(
       admin: false,
@@ -341,16 +458,16 @@ class User < ApplicationRecord
       order(order_by.to_sym => direction.to_sym, created_at: :asc)
     end
   }
-  scope :same_generations, lambda { |start_date, end_date|
+  scope :classmates, lambda { |start_date, end_date|
     where(created_at: start_date..end_date).order(:created_at, :id)
   }
-  scope :desc_tagged_with, lambda { |tag_name|
+  scope :active_tagged_with, lambda { |tag_name|
     with_attached_avatar
       .unretired
+      .unhibernated
       .order(last_activity_at: :desc)
       .tagged_with(tag_name)
   }
-  scope :search_by_keywords_scope, -> { unretired }
   scope :delayed, lambda {
     sql = Learning.select(:user_id, 'MAX(updated_at) AS completed_at')
                   .where(status: :complete)
@@ -370,99 +487,109 @@ class User < ApplicationRecord
     :facebook_url,
     :blog_url,
     :github_account,
-    :discord_account,
     :description
   )
 
-  class << self
-    def notify_to_discord
-      User.retired.find_each do |retired_user|
-        if retired_user.retired_three_months_ago_and_notification_not_sent?
-          ChatNotifier.message(<<~TEXT, webhook_url: ENV['DISCORD_ADMIN_WEBHOOK_URL'])
-            #{I18n.t('.retire_notice', user: retired_user.login_name)}
-            Discord ID: #{retired_user.discord_account}
-            ユーザーページ: https://bootcamp.fjord.jp/users/#{retired_user.id}
-          TEXT
-        end
-      end
-    end
+  scope :currently_learning_except, lambda { |user|
+    students_and_trainees
+      .joins(:learning_time_frames)
+      .merge(LearningTimeFrame.active_now)
+      .where.not(id: user.id)
+      .with_attached_avatar
+  }
 
-    def announcement_receiver(target)
+  class << self
+    def notification_receiver(target)
       case target
       when 'all'
         User.unretired
       when 'students'
-        User.admins.or(User.students)
+        User.admins_and_mentors.or(User.students)
       when 'job_seekers'
-        User.admins.or(User.job_seekers)
+        User.admins_and_mentors.or(User.job_seekers)
+      when 'none'
+        User.none
       else
         User.none
       end
     end
 
-    def users_role(target)
-      case target
-      when 'student_and_trainee'
-        students_and_trainees
-      when 'graduate'
-        graduated
-      when 'adviser'
-        advisers
-      when 'inactive'
-        inactive.order(:last_activity_at)
-      when 'trainee'
-        trainees
-      else
-        send(target)
-      end
+    # このメソッドはユーザから送信された値をsendに渡すので、悪意のあるコードが実行される危険性がある
+    # そのため、このメソッドを使用する際には安全性の確保のために以下の引数を指定すること
+    # allowed_targets:　呼び出したいscope名に対応するtargetを過不足なく指定した配列。
+    # default_target: targetに不正な値が渡された際、users_roleが返すスコープ名に対応するtargetを指定する。デフォルトでは:noneを指定しているため何も返さない。
+    def users_role(target, allowed_targets: [], default_target: :none)
+      key = (ALL_ALLOWED_TARGETS & allowed_targets).include?(target) ? target : default_target
+      scope_name = TARGET_TO_SCOPE.fetch(key, key)
+      send(scope_name)
+    end
+
+    # User::users_roleと同じく安全性確保のため、以下の条件を指定している。
+    # allowed_job.include?(job): 存在する職業を過不足なく指定した配列の中に、jobが存在するかどうかチェック。
+    def users_job(job)
+      allowed_jobs = User.jobs.keys.freeze
+      scope_name = allowed_jobs.include?(job) ? "job_#{job}" : 'all'
+      send(scope_name)
     end
 
     def tags
-      unretired.all_tag_counts(order: 'count desc, name asc')
+      unretired.unhibernated.all_tag_counts(order: 'count desc, name asc')
     end
 
     def depressed_reports
       ids = User.where(
         hibernated_at: nil,
+        training_completed_at: nil,
         retired_on: nil,
         graduated_on: nil,
-        sad_streak: true
-      ).pluck(:last_sad_report_id)
+        negative_streak: true
+      ).pluck(:last_negative_report_id)
       Report.joins(:user).where(id: ids).order(reported_on: :desc)
+    end
+
+    # FIXME: 一次対応として一回でも休会している受講生にはメッセージ送信済みとする
+    #        別Issueで入会n日目、休会開けn日目目の受講生にメッセージを送信する方針へ改修してほしい
+    #        改修後、このメソッドは不要になると思われるので削除すること
+    def mark_message_as_sent_for_hibernated_student
+      User.find_each do |user|
+        if user.hibernated?
+          user.sent_student_followup_message = true
+          user.save(validate: false)
+        end
+      end
+    end
+
+    def create_followup_comment(student)
+      User.find_by(login_name: 'pjord').comments.create(
+        description: I18n.t('talk.followup'),
+        commentable_id: Talk.find_by(user_id: student.id).id,
+        commentable_type: 'Talk'
+      )
+      student.sent_student_followup_message = true
+      student.save(validate: false)
+    end
+
+    def by_area(area)
+      subdivision = ISO3166::Country[:JP].find_subdivision_by_name(area)
+      return User.with_attached_avatar.where(subdivision_code: subdivision.code.to_s) if subdivision
+
+      country = ISO3166::Country.find_country_by_any_name(area)
+      return User.with_attached_avatar.where(country_code: country.alpha2) if country
+
+      User.none
     end
   end
 
-  def retired_three_months_ago_and_notification_not_sent?
-    retired_on <= Date.current - 3.months && !notified_retirement
+  def submitted?(coding_test)
+    coding_test_submissions.exists?(coding_test_id: coding_test.id)
   end
 
   def away?
     last_activity_at && (last_activity_at <= 10.minutes.ago)
   end
 
-  def completed_percentage
-    completed_practices_include_progress.size.to_f / practices_include_progress.size * MAX_PERCENTAGE
-  end
-
-  def completed_fraction
-    "#{completed_practices_include_progress.size}/#{practices_include_progress.size}"
-  end
-
-  def completed_practices_size_by_category
-    Practice
-      .joins({ categories: :categories_practices }, :learnings)
-      .where(
-        learnings: {
-          user_id: id,
-          status: 'complete'
-        }
-      )
-      .group('categories_practices.category_id')
-      .count('DISTINCT practices.id')
-  end
-
   def active?
-    last_activity_at && (last_activity_at > 1.month.ago)
+    (last_activity_at && (last_activity_at > 1.month.ago)) || created_at > 1.month.ago
   end
 
   def checked_product_of?(*practices)
@@ -471,6 +598,10 @@ class User < ApplicationRecord
 
   def practices_with_checked_product
     Practice.where(products: products.checked)
+  end
+
+  def practice_ids_skipped
+    skipped_practices.pluck(:practice_id)
   end
 
   def total_learning_time
@@ -485,15 +616,6 @@ class User < ApplicationRecord
 
     learning_time = LearningTime.find_by_sql([sql, { user_id: id }])
     learning_time.first.total || 0
-  end
-
-  def prefecture_name
-    if prefecture_code.nil?
-      '未登録'
-    else
-      pref = JpPrefecture::Prefecture.find prefecture_code
-      pref.name
-    end
   end
 
   def elapsed_days
@@ -558,12 +680,25 @@ class User < ApplicationRecord
     hibernated_at?
   end
 
+  def after_twenty_nine_days_registration?
+    twenty_nine_days = Time.current.ago(29.days).to_date
+    created_at.to_date.before? twenty_nine_days
+  end
+
+  def followup_message_target?
+    current_student? && !hibernated? && after_twenty_nine_days_registration? && !sent_student_followup_message
+  end
+
+  def training_completed?
+    training_completed_at?
+  end
+
   def retired?
     retired_on?
   end
 
-  def hibernated_or_retired?
-    hibernated_at? || retired_on?
+  def inactive?
+    hibernated_at? || training_completed_at? || retired_on?
   end
 
   def graduated?
@@ -579,15 +714,27 @@ class User < ApplicationRecord
   end
 
   def avatar_url
-    default_image_path = '/images/users/avatars/default.png'
-
-    if avatar.attached?
-      avatar.variant(resize: AVATAR_SIZE).processed.url
+    if avatar.attached? && avatar.blob.present?
+      custom_key = "avatars/#{login_name}.#{AVATAR_FORMAT}"
+      attach_custom_avatar if avatar.blob.key != custom_key
+      "#{avatar.url}?v=#{avatar.created_at.to_i}"
     else
-      image_url default_image_path
+      image_url DEFAULT_IMAGE_PATH
     end
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError
-    image_url default_image_path
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::Error => e
+    log_avatar_error('avatar_url', e)
+    image_url DEFAULT_IMAGE_PATH
+  end
+
+  def profile_image_url
+    if profile_image.attached?
+      profile_image
+    else
+      image_url DEFAULT_IMAGE_PATH
+    end
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::Error => e
+    log_avatar_error('profile_image_url', e)
+    image_url DEFAULT_IMAGE_PATH
   end
 
   def generation
@@ -599,28 +746,22 @@ class User < ApplicationRecord
     send(method_name).include?(event)
   end
 
-  def register_github_account(id, account_name)
-    self.github_account = account_name
-    self.github_id = id
-    save!
-  end
-
   def depressed?
     reported_reports = reports.order(reported_on: :desc).limit(DEPRESSED_SIZE)
-    reported_reports.size == DEPRESSED_SIZE && reported_reports.all?(&:sad?)
+    reported_reports.size == DEPRESSED_SIZE && reported_reports.all?(&:negative?)
   end
 
-  def raw_last_sad_report_id
-    reports.where(emotion: 'sad')
+  def raw_last_negative_report_id
+    reports.where(emotion: 'negative')
            .order(reported_on: :desc)
            .limit(1)
            .pluck(:id)
            .try(:first)
   end
 
-  def update_sad_streak
-    self.sad_streak = depressed?
-    self.last_sad_report_id = raw_last_sad_report_id
+  def update_negative_streak
+    self.negative_streak = depressed?
+    self.last_negative_report_id = raw_last_negative_report_id
     save!(validate: false)
   end
 
@@ -653,42 +794,11 @@ class User < ApplicationRecord
     end
   end
 
-  def practices
-    course.practices.order('courses_categories.position', 'categories_practices.position')
-  end
-
   def update_mentor_memo(new_memo)
     # ユーザーの「最終ログイン」にupdated_at値が利用されるため
     # メンターor管理者によるmemoカラムのupdateの際は、updated_at値の変更を防ぐ
     self.record_timestamps = false
     update!(mentor_memo: new_memo)
-  end
-
-  def convert_to_channel_url!
-    match = times_url&.match(%r{\Ahttps://discord.gg/(?<invite_code>\w+)\z})
-    return if match.nil?
-
-    uri = URI("https://discord.com/api/invites/#{match[:invite_code]}")
-    res = Net::HTTP.get_response(uri)
-
-    case res
-    when Net::HTTPSuccess
-      data = JSON.parse(res.body)
-      update!(times_url: "https://discord.com/channels/#{data['guild']['id']}/#{data['channel']['id']}")
-    when Net::HTTPNotFound
-      logger.warn "[Discord API] 無効な招待URLです: #{login_name} (#{times_url})"
-      update!(times_url: nil)
-    else
-      logger.error "[Discord API] チャンネルURLを取得できません: #{login_name} (#{res.code} #{res.message})"
-    end
-  end
-
-  def category_active_or_unstarted_practice
-    if active_practices.present?
-      category_having_active_practice
-    elsif unstarted_practices.present?
-      category_having_unstarted_practice
-    end
   end
 
   def mark_all_as_read_and_delete_cache_of_unreads(target_notifications: nil)
@@ -706,26 +816,26 @@ class User < ApplicationRecord
     adviser? && company_id?
   end
 
-  def collegues
-    company.users if company_id?
+  def colleagues
+    company_id ? company.users : User.none
   end
 
-  def collegue_trainees
-    collegues.students_and_trainees if belongs_company_and_adviser?
+  def colleagues_other_than_self
+    colleagues.where.not(id:)
   end
 
-  def rename_avatar_and_strip_exif
-    return unless avatar.attached?
-
-    image = MiniMagick::Image.read(avatar.download)
-    image.strip
-    avatar.attach(io: File.open(image.path), filename: id)
+  def colleague_trainees
+    colleagues.students_and_trainees
   end
 
   def last_hibernation
     return nil if hibernations.empty?
 
     hibernations.order(:created_at).last
+  end
+
+  def hibernation_elapsed_days
+    (Time.zone.today - hibernated_at.to_date).to_i
   end
 
   def update_last_returned_at!
@@ -744,6 +854,110 @@ class User < ApplicationRecord
     save!(validate: false)
   end
 
+  def training_remaining_days
+    (training_ends_on - Time.zone.today).to_i
+  end
+
+  def country_name
+    country = ISO3166::Country[country_code]
+    country.translations[I18n.locale.to_sym]
+  end
+
+  def subdivision_name
+    country = ISO3166::Country[country_code]
+    subdivision = country.subdivisions[subdivision_code]
+    subdivision.translations[I18n.locale.to_sym]
+  end
+
+  def subdivision_codes
+    country = ISO3166::Country[country_code]
+    country ? country.subdivisions.keys : []
+  end
+
+  def create_comebacked_comment
+    User.find_by(login_name: 'pjord').comments.create(
+      description: I18n.t('talk.comeback'),
+      commentable_id: Talk.find_by(user_id: id).id,
+      commentable_type: 'Talk'
+    )
+  end
+
+  def become_watcher!(watchable)
+    watches.find_or_create_by!(watchable:)
+  end
+
+  def scheduled_retire_at
+    hibernated_at + User::HIBERNATION_LIMIT if hibernated_at?
+  end
+
+  def participated_regular_event_ids
+    RegularEvent.where(id: regular_event_participations.pluck(:regular_event_id), finished: false)
+  end
+
+  def clear_github_data
+    update(
+      github_id: nil,
+      github_account: nil,
+      github_collaborator: false
+    )
+  end
+
+  def area
+    if country_code == 'JP'
+      subdivision = ISO3166::Country['JP'].subdivisions[subdivision_code]
+      subdivision ? subdivision.translations[:ja] : nil
+    else
+      country = ISO3166::Country[country_code]
+      country ? country.translations[:ja] : nil
+    end
+  end
+
+  def grant_course?
+    course = Course.find_by(id: course_id)
+    course_id.present? && course&.grant?
+  end
+
+  def latest_micro_report_page(per_page: 25)
+    [micro_reports.page.per(per_page).total_pages, 1].max
+  end
+
+  def mark_mail_as_sent_before_auto_retire
+    self.sent_student_before_auto_retire_mail = true
+    save(validate: false)
+  end
+
+  def search_title
+    login_name
+  end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[
+      login_name name name_kana email twitter_account facebook_url
+      blog_url github_account description profile_text
+      created_at updated_at last_activity_at
+      company_id course_id graduated_on retired_on
+      admin mentor adviser trainee job_seeker hibernated_at
+      experiences career_path job os editor subdivision_code country_code
+    ]
+  end
+
+  def self.ransackable_scopes(_auth_object = nil)
+    %i[job_seeking]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[company course discord_profile]
+  end
+
+  def reports_with_learning_times
+    reports.joins(:learning_times).distinct.order(reported_on: :asc)
+  end
+
+  def clean_up_regular_events
+    regular_event_participations.for_unfinished_events.destroy_all
+    organize_regular_events.exclude_finished.each { |event| event.close_or_destroy_organizer(self) }
+  end
+
   private
 
   def password_required?
@@ -754,23 +968,55 @@ class User < ApplicationRecord
     course.practices.where(include_progress: true)
   end
 
-  def completed_practices_include_progress
-    practices_include_progress.joins(:learnings)
-                              .merge(Learning.complete.where(user_id: id))
+  def validate_uploaded_avatar_content_type
+    return unless uploaded_avatar
+
+    mime_type = Marcel::Magic.by_magic(uploaded_avatar)&.type
+    return if mime_type&.start_with?('image/png', 'image/jpeg', 'image/gif', 'image/heic', 'image/heif')
+
+    errors.add(:avatar, 'は指定された拡張子(PNG, JPG, JPEG, GIF, HEIC, HEIF形式)になっていないか、あるいは画像が破損している可能性があります')
   end
 
-  def unstarted_practices
-    practices -
-      practices.joins(:learnings).where(learnings: { user_id: id, status: :started })
-               .or(practices.joins(:learnings).where(learnings: { user_id: id, status: :submitted }))
-               .or(practices.joins(:learnings).where(learnings: { user_id: id, status: :complete }))
+  def required_practices_size_with_skip
+    course.practices.where(id: practice_ids_skipped, include_progress: true).size
   end
 
-  def category_having_active_practice
-    active_practices&.first&.categories&.first
+  def convert_blank_of_address_to_nil
+    self.country_code = nil if country_code.blank?
+    self.subdivision_code = nil if subdivision_code.blank?
   end
 
-  def category_having_unstarted_practice
-    unstarted_practices&.first&.categories&.first
+  def attach_custom_avatar
+    custom_key = "avatars/#{login_name}.#{AVATAR_FORMAT}"
+    variant_avatar = avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }, format: AVATAR_FORMAT).processed
+    io = StringIO.new(variant_avatar.download)
+
+    # Use ActiveStorage's create_and_upload! for proper checksum handling
+    custom_blob = ActiveStorage::Blob.find_by(key: custom_key)
+
+    unless custom_blob
+      custom_blob = ActiveStorage::Blob.create_and_upload!(
+        io:,
+        filename: "#{login_name}.#{AVATAR_FORMAT}",
+        content_type: "image/#{AVATAR_FORMAT}",
+        key: custom_key,
+        identify: false
+      )
+      avatar.attach(custom_blob)
+    end
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::Error, LoadError => e
+    log_avatar_error('attach_custom_avatar', e)
+  end
+
+  def log_avatar_error(context, error)
+    Rails.logger.error "[#{context}] Avatar processing failed for user #{login_name}: #{error.message}"
+  end
+
+  def role_for_thanks_page
+    return 'adviser' if adviser?
+    return 'trainee' if trainee?
+    return 'mentor' if mentor?
+
+    'student'
   end
 end

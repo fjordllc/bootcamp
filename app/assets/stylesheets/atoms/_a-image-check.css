@@ -1,0 +1,132 @@
+.a-image-check {
+  height: 100%;
+}
+
+.a-image-check__inner {
+  background-color: var(--input-background);
+  height: 100%;
+  min-height: 2.5rem;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  display: flex;
+  text-align: center;
+  gap: 0.5rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: solid 1px var(--input-border);
+  cursor: pointer;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease-in;
+  position: relative;
+  overflow: hidden;
+}
+
+.a-image-check__inner:hover {
+  background-color: var(--input-hover-background);
+  border-color: var(--input-hover-border);
+}
+
+input:checked + .a-image-check__inner {
+  background-color: var(--input-selected-background);
+  border-color: var(--input-selected-border);
+  color: var(--input-selected-text);
+}
+
+input:checked + .a-image-check__inner img {
+  opacity: 0.7;
+}
+
+input:checked + .a-image-check__inner .a-image-check__start {
+  background-color: var(--primary);
+}
+
+.a-image-check .a-image-check__inner::before {
+  display: block;
+  left: 0.75rem;
+  position: absolute;
+  top: 0.75rem;
+  z-index: 2;
+}
+
+.a-image-check.is-radio .a-image-check__inner::before {
+  content: "";
+  height: 0.875rem;
+  width: 0.875rem;
+  border: solid 1px var(--input-border);
+  border-radius: 50%;
+  background-color: var(--base);
+}
+
+.a-image-check.is-radio input:checked + .a-image-check__inner::before {
+  border-color: var(--primary);
+  background-color: var(--primary);
+  box-shadow: inset 0 0 0 2px var(--base);
+}
+
+.a-image-check.is-checkbox .a-image-check__inner::before {
+  content: "";
+  height: 0.875rem;
+  width: 0.875rem;
+  border: solid 1px var(--input-border);
+  border-radius: 3px;
+  background-color: var(--base);
+}
+
+.a-image-check.is-checkbox input:checked + .a-image-check__inner::before {
+  border-color: var(--primary);
+  background-color: var(--primary);
+  content: "\f00c";
+  font-family: "Font Awesome 6 Pro";
+  font-style: normal;
+  font-weight: 900;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  color: var(--reversal-text);
+}
+
+.a-image-check__start {
+  width: 100%;
+}
+
+.a-image-check__end {
+  padding-bottom: 0.5rem;
+  width: 100%;
+}
+
+.a-image-check__name {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  display: block;
+  text-align: center;
+}
+
+.a-image-check__image {
+  height: 2rem;
+  width: 2rem;
+}
+
+.a-image-check__inner.has-icon .a-image-check__image {
+  height: 1.75rem;
+  width: 1.75rem;
+  margin-right: 0.5rem;
+}
+
+.a-image-check__upload-image {
+  display: block;
+  width: 100%;
+  background-color: var(--background-shade);
+  aspect-ratio: 120 / 63;
+  position: relative;
+}
+
+.a-image-check__upload-image i {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+}

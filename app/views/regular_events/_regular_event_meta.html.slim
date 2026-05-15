@@ -9,7 +9,7 @@
             - regular_event.organizers.each do |organizer|
               li.user-icons-item
                 = link_to organizer do
-                  span class="a-user-role is-#{organizer.primary_role}"
+                  span class=organizer.user_icon_frame_class
                     = image_tag organizer.avatar_url, title: organizer.icon_title, class: "a-user-icon is-sm is-#{organizer.login_name}", alt: organizer.login_name
       .event-meta__item
         dt.event-meta__item-label
@@ -22,4 +22,7 @@
         dt.event-meta__item-label
           | 次回開催日
         dd.event-meta__item-value
-          = regular_event.next_holding_date
+          - if regular_event.wip?
+            | イベント編集中のため次回開催日は未定です
+          - else
+            = regular_event.next_holding_date

@@ -110,14 +110,6 @@ notification_retired:
   link: "/users/<%= ActiveRecord::FixtureSet.identify(:yameo) %>"
   read: false
 
-notification_three_months_after_retirement:
-  kind: 9
-  user: komagata
-  sender: taikai3
-  message: taikai3さんが退会してから3カ月が経過しました。Discord ID:taikai#3333, ユーザーページ:https://bootcamp.fjord.jp/users/1008501353
-  link: "/users/<%= ActiveRecord::FixtureSet.identify(:taikai3) %>"
-  read: false
-
 notification_trainee_report:
   kind: 10
   user: senpai
@@ -128,7 +120,7 @@ notification_trainee_report:
 
 notification_moved_up_event_waiting_user:
   kind: 11
-  user: hajime
+  user: hatsuno
   sender: komagata
   message: 募集期間中のイベント(補欠者あり)で、補欠から参加に繰り上がりました。
   link: "/events/<%= ActiveRecord::FixtureSet.identify(:event3) %>"
@@ -136,7 +128,7 @@ notification_moved_up_event_waiting_user:
 
 notification_create_page:
   kind: 12
-  user: hatsuno
+  user: mentormentaro
   sender: komagata
   message: "komagataさんがDocsにBootcampの作業のページを投稿しました。"
   link: "/pages/<%= ActiveRecord::FixtureSet.identify(:page4) %>"
@@ -158,11 +150,11 @@ notification_chose_correct_answer:
   link: "/questions/<%= ActiveRecord::FixtureSet.identify(:question12) %>"
   read: false
 
-notification_consecutive_sad_report:
+notification_consecutive_negative_report:
   kind: 15
   user: komagata
   sender: hajime
-  message: hajimeさんが2回連続でsadアイコンの日報を提出しました。
+  message: hajimeさんが2回連続でnegativeアイコンの日報を提出しました。
   link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report16) %>"
   read: false
 

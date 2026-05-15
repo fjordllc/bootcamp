@@ -1,12 +1,14 @@
 - title '休会手続き'
+- set_meta_tags description: '休会手続きです。休会をする際はこちらからお申し込みください。'
 
 header.page-header
   .container
     .page-header__inner
-      .page-header__title
-        = title
-
-.auth-form.is-sign-up.is-in-app
+      .page-header__start
+        .page-header__title
+          = title
+hr.a-border
+.auth-form.is-lg
   - if @hibernation.errors.any?
     = render 'errors', object: @hibernation
   .a-card
@@ -37,13 +39,13 @@ header.page-header
               placeholder: '仕事がXX月まで繁忙期で残業と休日出勤が続き、学習の時間を確保できなくなるため。',
               class: 'a-text-input is-sm'
 
-          - if current_user.times_url?
+          - if current_user.discord_profile.times_url?
             .form-item
               label.a-form-label
                 | 分報チャンネル URL
               .form-link-block
-                = link_to current_user.times_url, class: 'form-link-block__link a-text-link' do
-                  = current_user.times_url
+                = link_to current_user.discord_profile.times_url, class: 'form-link-block__link a-text-link' do
+                  = current_user.discord_profile.times_url
               .a-form-help
                 p
                   | 休会の期間、分報チャンネルが削除されないようにします。
@@ -67,6 +69,13 @@ header.page-header
                       = link_to edit_current_user_path(anchor: 'times-url') do
                         | こちら
                       | のページの「分報 URL」欄に分報チャンネルの URL を登録してください。
+
+          - if @regular_events_without_finished.any?
+            .form-item
+              = render 'shared/regular_events_warning',
+                events: @regular_events_without_finished,
+                case_text: '休会をお考えの',
+                action_text: '休会'
 
           .form-item
             label.a-form-label.is-required

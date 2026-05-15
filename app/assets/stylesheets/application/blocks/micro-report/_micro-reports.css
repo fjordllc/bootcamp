@@ -1,0 +1,23 @@
+.micro-reports {
+  height: calc(100vh - 52px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.micro-reports .thread-comment:last-child {
+  margin-bottom: 0;
+}
+
+.micro-reports__start {
+  height: 100%;
+  overflow-y: scroll;
+  padding-bottom: 0.5rem;
+}
+
+.micro-reports-with-form {
+  padding-bottom: 8.75rem;
+}
+
+.micro-reports-without-form {
+  padding-bottom: 0;
+}

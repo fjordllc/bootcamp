@@ -23,6 +23,11 @@ machida_tag_guitar:
   context: tags
   tag: guitar
 
+kensyu_tag_guitar:
+  taggable: kensyu (User)
+  context: tags
+  tag: guitar
+
 kimura_tag_cat:
   taggable: kimura (User)
   context: tags
@@ -96,3 +101,25 @@ tagging_2:
   taggable: article_2 (Article)
   context: tags
   tag: FJORD
+
+<% (21..27).each do |id| %>
+article<%= id %>_tag_feature:
+  taggable: article<%= id %> (Article)
+  context: tags
+  tag: feature
+<% end %>
+
+movie1_tag_game:
+  taggable: movie1 (Movie)
+  context: tags
+  tag: game
+
+movie2_tag_beginner:
+  taggable: movie2 (Movie)
+  context: tags
+  tag: beginner
+
+movie2_tag_cat:
+  taggable: movie2 (Movie)
+  context: tags
+  tag: cat

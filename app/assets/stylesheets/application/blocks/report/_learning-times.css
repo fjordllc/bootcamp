@@ -1,0 +1,30 @@
+@charset "UTF-8";
+.learning-times {
+  flex: 1;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.learning-times__header {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  font-weight: 600;
+  gap: 0.25rem;
+}
+
+.learning-times__items {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.learning-times__item {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--semi-muted-text);
+}
+.learning-times__item:not(:last-child)::after {
+  content: "、";
+}

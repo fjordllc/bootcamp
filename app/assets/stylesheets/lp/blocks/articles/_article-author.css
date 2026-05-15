@@ -1,0 +1,135 @@
+.article-author.is-welcome-index {
+  height: 100%;
+}
+
+.article-author__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.75rem 1rem 1rem;
+}
+@media (min-width: 48em) {
+  .article-author__inner {
+    padding: 1.25rem 1.5rem 1.5rem;
+  }
+}
+.article-author.is-articles-show .article-author__inner {
+  padding: 0.75rem 1rem 0;
+}
+.article-author.is-articles-show .article-author__inner:last-child {
+  padding-bottom: 1rem;
+}
+
+.article-author__header {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.article-author__header-start {
+  flex: 0 0 4.5rem;
+}
+
+.article-author__header-end {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.article-author__image {
+  border-radius: 0.25rem;
+  width: 4rem;
+  display: block;
+  margin-inline: auto;
+}
+@media (min-width: 48em) {
+  .article-author__image {
+    width: 100%;
+    margin-inline: 0;
+  }
+}
+
+.article-author__name {
+  font-weight: 800;
+  color: var(--main);
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+.article-author__job {
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1;
+  margin-bottom: 0.125rem;
+  color: var(--main);
+}
+
+.article-author__sns {
+  display: none;
+}
+@media (min-width: 48em) {
+  .article-author__sns {
+    display: flex;
+    gap: 0.75rem;
+  }
+}
+
+.article-author__sns-item-link {
+  font-size: 1.25rem;
+  line-height: 1.45;
+  color: var(--main);
+  display: flex;
+  height: 2.5rem;
+  width: 2.5rem;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  border: solid 1px var(--main);
+  border-radius: 0.25rem;
+  transition: all 0.2s ease-out;
+}
+.article-author__sns-item-link:hover {
+  color: var(--welcome-pink);
+}
+
+.article-author__body {
+  font-size: 0.875rem;
+}
+.article-author__body.is-trancate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  display: none;
+}
+@media (min-width: 48em) {
+  .article-author__body.is-trancate {
+    display: -webkit-box;
+    height: 67.2px;
+  }
+}
+.article-author__body.is-temp {
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.article-author__body.is-temp img {
+  width: 6.25rem;
+  float: right;
+  margin-left: 1rem;
+  margin-bottom: 0.75rem;
+}
+.article-author__body.is-temp img.has-3-books {
+  width: 8.25rem;
+}
+.article-author__body.is-temp img.has-5-books {
+  width: 10rem;
+}
+.article-author__body.is-temp a {
+  color: var(--link-text);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.article-author__body.is-temp a:hover {
+  text-decoration: none;
+}

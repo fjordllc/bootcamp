@@ -1,18 +1,15 @@
 # frozen_string_literal: true
 
 class AnnouncementNotifier
-  def call(announce)
-    return if announce.wip? || announce.published_at?
+  def call(_name, _started, _finished, _unique_id, payload)
+    announcement = payload[:announcement]
+    return if announcement.wip? || announcement.published_at?
 
-    announce.update(published_at: Time.current)
-    DiscordNotifier.with(announce:).announced.notify_now
-    Watch.create!(user: announce.user, watchable: announce)
+    announcement.update(published_at: Time.current)
+    DiscordNotifier.with(announce: announcement).announced.notify_now
+    Watch.create!(user: announcement.user, watchable: announcement)
 
-    target_users = User.announcement_receiver(announce.target)
-    target_users.each do |target|
-      next if announce.sender == target
-
-      ActivityDelivery.with(announcement: announce, receiver: target).notify(:post_announcement)
-    end
+    receivers = User.notification_receiver(announcement.target).reject { |receiver| receiver == announcement.sender }
+    PostAnnouncementJob.perform_later(announcement, receivers)
   end
 end

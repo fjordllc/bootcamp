@@ -14,13 +14,13 @@ class GenerationTest < ActiveSupport::TestCase
     assert_equal Time.zone.local(2020, 12, 31).end_of_day, Generation.new(32).end_date
   end
 
-  test '#users' do
-    assert_includes Generation.new(5).users, users(:komagata)
-    assert_includes Generation.new(29).users, users(:jobseeker)
+  test '#classmates' do
+    assert_includes Generation.new(5).classmates, users(:komagata)
+    assert_includes Generation.new(29).classmates, users(:jobseeker)
     users(:komagata).created_at = Time.zone.local(2020, 12, 31, 23, 59, 59)
     users(:komagata).save
-    assert_includes Generation.new(32).users, users(:komagata)
-    assert_not_includes Generation.new(33).users, users(:komagata)
+    assert_includes Generation.new(32).classmates, users(:komagata)
+    assert_not_includes Generation.new(33).classmates, users(:komagata)
   end
 
   test '#target_users' do
@@ -28,5 +28,19 @@ class GenerationTest < ActiveSupport::TestCase
     assert_includes Generation.new(5).target_users('retired'), users(:yameo)
     assert_not_includes Generation.new(5).target_users('retired'), users(:komagata)
     assert_not_includes Generation.new(5).target_users('all'), users(:yameo)
+  end
+
+  test '#count_classmates_by_target' do
+    expected = {
+      students: 18,
+      trainees: 3,
+      hibernated: 1,
+      graduated: 2,
+      advisers: 3,
+      retired: 1
+    }
+    gen5 = Generation.new(5)
+    actual = expected.keys.index_with { |t| gen5.count_classmates_by_target(t) }
+    assert_equal expected, actual
   end
 end

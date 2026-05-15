@@ -1,4 +1,4 @@
-.page-tabs
+nav.page-tabs
   .container
     ul.page-tabs__items
       li.page-tabs__item
@@ -8,24 +8,32 @@
       li.page-tabs__item
         = link_to 'ユーザー',
           admin_users_path,
-          class: "page-tabs__item-link #{current_link(/^admin-users/)}"
-      li.page-tabs__item
-        = link_to 'プラクティス',
-          admin_practices_path,
-          class: "page-tabs__item-link #{current_link(/^admin-practices/)}"
-      li.page-tabs__item
-        = link_to 'カテゴリー',
-          admin_categories_path,
-          class: "page-tabs__item-link #{current_link(/^admin-categories/)}"
-      li.page-tabs__item
-        = link_to 'コース',
-          admin_courses_path,
-          class: "page-tabs__item-link #{current_link(/^admin-courses/)}"
+          class: "page-tabs__item-link #{current_link(/^admin-users|^admin-invitation_url/)}"
       li.page-tabs__item
         = link_to '企業',
           admin_companies_path,
           class: "page-tabs__item-link #{current_link(/^admin-companies/)}"
       li.page-tabs__item
+        = link_to 'FAQ',
+          admin_faq_categories_path,
+          class: "page-tabs__item-link #{current_link(/^admin-faq_categories|^admin-faqs/)}"
+      li.page-tabs__item
         = link_to 'お試し延長',
           admin_campaigns_path,
           class: "page-tabs__item-link #{current_link(/^admin-campaigns/)}"
+      li.page-tabs__item
+        = link_to 'お問い合わせ',
+          admin_inquiries_path,
+          class: "page-tabs__item-link #{current_link(/^admin-inquiries/)}"
+      li.page-tabs__item
+        = link_to '企業研修',
+          admin_corporate_training_inquiries_path,
+          class: "page-tabs__item-link #{current_link(/^admin-corporate_training_inquiries/)}"
+      li.page-tabs__item
+        = link_to '給付金対応コース受講申請',
+          admin_grant_course_applications_path,
+          class: "page-tabs__item-link #{current_link(/^admin-grant_course_applications/)}"
+      li.page-tabs__item
+        = link_to 'Embedding',
+          admin_embedding_status_index_path,
+          class: "page-tabs__item-link #{current_link(/^admin-embedding_status/)}"

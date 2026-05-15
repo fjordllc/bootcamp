@@ -1,0 +1,32 @@
+.page-search {
+  padding-block: 0.75rem;
+  border-top: solid 1px var(--border-shade);
+  border-bottom: solid 1px var(--border-shade);
+}
+
+.page-tabs + .page-search {
+  padding-block: 0;
+}
+
+.page-search__form {
+  width: 30rem;
+  max-width: 100%;
+  margin-inline: auto;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding-right: 0.75rem;
+}
+
+.page-search__text-input {
+  height: 2rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: none;
+}
+
+.is-icon.page-search__submit {
+  height: 2rem;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}

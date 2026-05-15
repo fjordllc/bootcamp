@@ -10,14 +10,18 @@ linters:
       - Layout/ArgumentAlignment
       - Layout/ArrayAlignment
       - Layout/BlockAlignment
+      - Layout/ClosingParenthesisIndentation
       - Layout/EmptyLineAfterGuardClause
       - Layout/EndAlignment
+      - Layout/FirstArgumentIndentation
       - Layout/FirstArrayElementIndentation
+      - Layout/FirstHashElementIndentation
       - Layout/FirstParameterIndentation
       - Layout/HashAlignment
       - Layout/IndentationConsistency
       - Layout/IndentationWidth
       - Layout/InitialIndentation
+      - Layout/LineEndStringConcatenationIndentation
       - Layout/LineLength
       - Layout/MultilineArrayBraceLayout
       - Layout/MultilineAssignmentLayout
@@ -39,4 +43,4 @@ linters:
       - Style/Next
       - Style/WhileUntilDo
       - Style/WhileUntilModifier
-      - Style/HashSyntax
+      - Style/HashSyntax # 検討の結果、残す。（詳細は issue #7253 参照）

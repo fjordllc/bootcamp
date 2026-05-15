@@ -1,17 +1,15 @@
 # frozen_string_literal: true
 
 class API::CorrectAnswersController < API::BaseController
-  include Rails.application.routes.url_helpers
   before_action :set_question, only: %i[create update]
 
   def create
     @answer = @question.answers.find(params[:answer_id])
     @answer.type = 'CorrectAnswer'
     if @answer.save
-      Newspaper.publish(:answer_save, @answer)
-      Newspaper.publish(:correct_answer_save, @answer)
-      ChatNotifier.message("質問：「#{@answer.question.title}」のベストアンサーが選ばれました。\r#{url_for(@answer.question)}")
-      render json: @answer
+      ActiveSupport::Notifications.instrument('answer.save', answer: @answer, action: current_action_name)
+      ActiveSupport::Notifications.instrument('correct_answer.save', answer: @answer)
+      head :ok
     else
       head :bad_request
     end
@@ -19,8 +17,9 @@ class API::CorrectAnswersController < API::BaseController
 
   def update
     answer = @question.answers.find(params[:answer_id])
-    answer.update!(type: '')
-    Newspaper.publish(:answer_save, @answer)
+    answer.update!(type: nil)
+    ActiveSupport::Notifications.instrument('answer.save', answer:, action: current_action_name)
+    head :no_content
   end
 
   private

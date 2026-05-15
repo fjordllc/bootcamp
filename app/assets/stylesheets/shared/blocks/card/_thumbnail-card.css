@@ -1,0 +1,121 @@
+
+.thumbnail-card {
+  padding: 1rem;
+}
+
+@media (min-width: 48em) {
+  .thumbnail-card {
+    height: 100%;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .col-xs-6 .thumbnail-card {
+    height: 100%;
+  }
+}
+
+.thumbnail-card__inner {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+@media (max-width: 47.9375em) {
+  .thumbnail-card__inner {
+    gap: .5rem;
+  }
+}
+
+@media (min-width: 48em) {
+  .thumbnail-card__inner {
+    gap: .75rem;
+  }
+}
+
+a.thumbnail-card__inner {
+  display: flex;
+  text-decoration: none;
+}
+
+a.thumbnail-card__inner:hover .thumbnail-card__title {
+  text-decoration: underline;
+}
+
+.thumbnail-card__image-link {
+  transition: all .2s ease-out;
+}
+
+.thumbnail-card__image-link:hover {
+  opacity: .7;
+}
+
+.thumbnail-card__image {
+  display: block;
+  border-radius: 4px;
+  aspect-ratio: 1.91 / 1;
+  width: 100%;
+  object-fit: cover;
+}
+
+.thumbnail-card__title {
+  font-size: 1.125rem;
+  line-height: 1.4;
+  font-weight: 700;
+  color: var(--default-text);
+  overflow: hidden;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  max-height: calc(1.125rem * 1.4 * 2);
+}
+
+.thumbnail-card.is-wip .thumbnail-card__title {
+  color: var(--muted-text);
+}
+
+.thumbnail-card__title-link {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.thumbnail-card__title-link:hover,
+.thumbnail-card__title-link:active {
+  text-decoration: underline;
+}
+
+.thumbnail-card__metas {
+  display: flex;
+}
+
+.thumbnail-card__meta:not(:first-child) {
+  margin-left: .75rem;
+}
+
+.thumbnail-card__author {
+  display: flex;
+  align-items: center;
+  font-size: .875rem;
+  color: var(--default-text);
+}
+
+.thumbnail-card__author img {
+  height: 1.125rem;
+  width: 1.125rem;
+  object-fit: cover;
+  margin-right: .25rem;
+  border-radius: 50%;
+}
+
+.thumbnail-card__date {
+  font-size: .8125rem;
+  line-height: 1.4;
+  color: var(--semi-muted-text);
+}
+
+.thumbnail-card__description {
+  font-size: .875rem;
+  line-height: 1.6;
+  color: var(--semi-muted-text);
+}

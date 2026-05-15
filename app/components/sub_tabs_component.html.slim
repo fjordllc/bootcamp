@@ -1,0 +1,6 @@
+nav.tab-nav
+  .container
+    ul.tab-nav__items
+      - tabs.each do |tab|
+        - tab[:active] = active_tab == tab[:name]
+        = render SubTabComponent.new(**tab)

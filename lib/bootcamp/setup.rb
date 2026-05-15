@@ -13,6 +13,8 @@ module Bootcamp
         attach_company_logo!
         attach_book_cover!
         attach_authored_book_cover!
+        attach_practice_ogp!
+        attach_movie_data!
       end
 
       private
@@ -28,7 +30,7 @@ module Bootcamp
       end
 
       def attach_user_avatar!
-        User.all.each do |user|
+        User.all.find_each do |user|
           filename = "#{user.login_name}.jpg"
           path = Rails.root.join("#{fixtures_dir}/fixtures/files/users/avatars/#{filename}")
           user.avatar.attach(io: File.open(path), filename:) if File.exist?(path)
@@ -61,6 +63,26 @@ module Bootcamp
           filename = "#{i + 1}.png"
           path = Rails.root.join("#{fixtures_dir}/fixtures/files/authored_books/#{filename}")
           authored_book.cover.attach(io: File.open(path), filename:) if File.exist?(path)
+        end
+      end
+
+      def attach_practice_ogp!
+        Practice.order(:created_at).each_with_index do |practice, i|
+          filename = "#{i + 1}.jpg"
+          path = Rails.root.join("#{fixtures_dir}/fixtures/files/practices/#{filename}")
+          practice.ogp_image.attach(io: File.open(path), filename:) if File.exist?(path)
+        end
+      end
+
+      def attach_movie_data!
+        Movie.order(:created_at).each do |movie|
+          if movie.title.include?('mp4')
+            movie_path = Rails.root.join("#{fixtures_dir}/fixtures/files/movies/movie.mp4")
+            movie.movie_data.attach(io: File.open(movie_path), filename: 'movie.mp4')
+          elsif movie.title.include?('mov')
+            movie_path = Rails.root.join("#{fixtures_dir}/fixtures/files/movies/movie.mov")
+            movie.movie_data.attach(io: File.open(movie_path), filename: 'movie.mov')
+          end
         end
       end
     end

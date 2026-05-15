@@ -1,8 +1,10 @@
+- product_deadline_day = Product::PRODUCT_DEADLINE + 2
+
 .a-page-notice.is-danger
   .container.is-md
     .a-page-notice__inner
       .a-short-text
         p
-          | 7日以内にメンターがレビューしますので、次のプラクティスにお進みください。
+          | #{product_deadline_day}日以内にメンターがレビューしますので、次のプラクティスにお進みください。
           br
-          | もし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。
+          | もし、#{product_deadline_day}日以上経ってもレビューされない場合は、メンターにお問い合わせください。

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'notification_system_test_case'
 
-class Notification::FollowingsTest < ApplicationSystemTestCase
+class Notification::FollowingsTest < NotificationSystemTestCase
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
@@ -36,10 +36,7 @@ class Notification::FollowingsTest < ApplicationSystemTestCase
     click_button '提出'
     assert_text '日報を保存しました。'
 
-    visit_with_auth '/notifications', 'kimura'
-    assert_text 'hatsunoさんが日報【 test title 】を書きました！'
-
-    visit_with_auth '/notifications', 'mentormentaro'
-    assert_text 'hatsunoさんが日報【 test title 】を書きました！'
+    assert_user_has_notification(user: users(:kimura), kind: Notification.kinds[:following_report], text: 'hatsunoさんが日報【 test title 】を書きました！')
+    assert_user_has_notification(user: users(:mentormentaro), kind: Notification.kinds[:following_report], text: 'hatsunoさんが日報【 test title 】を書きました！')
   end
 end

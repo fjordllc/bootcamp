@@ -3,10 +3,11 @@
 header.page-header
   .container
     .page-header__inner
-      .page-header__title
-        = title
-
-.auth-form.is-sign-up.is-in-app
+      .page-header__start
+        .page-header__title
+          = title
+hr.a-border
+.auth-form.is-lg
   .a-card
     header.auth-form__header
       h1.auth-form__title 退会手続き
@@ -15,6 +16,13 @@ header.page-header
         = render 'errors', object: current_user
       = form_with model: current_user, local: true, url: retirement_path, method: :post, class: 'form' do |f|
         .form__items
+          - if @regular_events_without_finished.any?
+            .form-item
+              = render 'shared/regular_events_warning',
+                events: @regular_events_without_finished,
+                case_text: '退会をお考えの',
+                action_text: '退会'
+
           .form-item
             = f.label :retire_reasons, '退会の理由を教えてください（複数選択可）', class: 'a-form-label'
             .checkboxes

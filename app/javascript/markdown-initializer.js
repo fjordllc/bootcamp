@@ -5,13 +5,16 @@ import MarkdownItMention from 'markdown-it-mention'
 import MarkdownItUserIcon from 'markdown-it-user-icon'
 import MarkdownItLinkingImage from 'markdown-it-linking-image'
 import MarkdownOption from 'markdown-it-option'
-import UserIconRenderer from 'user-icon-renderer'
 import MarkdownItTaskListsInitializer from 'markdown-it-task-lists-initializer'
 import MarkdownItHeadings from 'markdown-it-headings'
 import MarkDownItContainerMessage from 'markdown-it-container-message'
 import MarkDownItContainerDetails from 'markdown-it-container-details'
 import MarkDownItLinkAttributes from 'markdown-it-link-attributes'
 import MarkDownItContainerSpeak from 'markdown-it-container-speak'
+import ReplaceLinkToCard from 'replace-link-to-card'
+import MarkDownItContainerFigure from 'markdown-it-container-figure'
+import MarkdownItVimeo from 'markdown-it-vimeo'
+import MarkdownItYoutube from 'markdown-it-youtube'
 
 export default class {
   replace(selector) {
@@ -25,8 +28,8 @@ export default class {
       element.innerHTML = this.render(element.textContent)
     })
 
-    new UserIconRenderer().render(selector)
     MarkdownItTaskListsInitializer.initialize()
+    ReplaceLinkToCard(selector)
   }
 
   render(text) {
@@ -53,6 +56,9 @@ export default class {
       }
     })
     md.use(MarkDownItContainerSpeak)
+    md.use(MarkDownItContainerFigure)
+    md.use(MarkdownItVimeo)
+    md.use(MarkdownItYoutube)
     return md.render(text)
   }
 }

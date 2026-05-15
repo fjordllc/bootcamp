@@ -1,0 +1,5 @@
+#watches
+  = paginate watches, params: { controller: 'current_user/watches', action: 'index' }
+  .card-list.a-card data-current_page="#{@current_page}"
+    = render partial: 'watches/watch', collection: watches, as: :watch
+  = paginate watches, params: { controller: 'current_user/watches', action: 'index' }

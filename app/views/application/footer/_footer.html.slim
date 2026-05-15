@@ -1,3 +1,4 @@
+hr.a-border
 footer.footer
   .container
     .footer__inner
@@ -13,11 +14,20 @@ footer.footer
             = link_to books_path, class: 'footer-nav__item-link' do
               | 参考書籍
           li.footer-nav__item
+            = link_to 'https://github.com/fjordllc/bootcamp', class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
+              | bootcampリポジトリ
+          li.footer-nav__item
             = link_to 'https://github.com/fjordllc/bootcamp/projects/1', class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
-              | GitHub Projects
+              | bootcampカンバン
+          li.footer-nav__item
+            = link_to 'https://fjord-minutes.com/', class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
+              | Fjord Minutes
           li.footer-nav__item
             = link_to 'https://suzuri.jp/FjordBootCamp', class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
               | グッズ購入
+          li.footer-nav__item
+            = link_to 'https://techbookfest.org/product/fyJf6irY7PjMLYXH7D86py?productVariantID=aRihPwt0CQSaQU0VLa2NeG', class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
+              | フィヨブーファンブック
           li.footer-nav__item
             = link_to coc_path, class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
               | アンチハラスメントポリシー
@@ -43,16 +53,42 @@ footer.footer
             = link_to 'https://fjord-choice.herokuapp.com', class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
               | Fjord Choice
           li.footer-nav__item
-            = link_to 'https://fjord-boot-camp-contributors-production.up.railway.app', class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
-              | FBC Contributors
+            = link_to 'https://fjordcontributions.onrender.com/', class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
+              | FjordContributions
           li.footer-nav__item
             = link_to 'https://buzzcord-fjord-jp.herokuapp.com', class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
               | Buzzcord
           li.footer-nav__item
             = link_to 'https://discord-bot-fjord.herokuapp.com/', class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
               | DiscordBotF
-
+          li.footer-nav__item
+            = link_to 'https://bookrin.fly.dev/login/', class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
+              | BookRin
+          li.footer-nav__item
+            = link_to 'https://fbc-stack.vercel.app/', class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
+              | FBC Stack
+          li.footer-nav__item
+            = link_to 'https://podcasts.apple.com/jp/podcast/フィヨルドブートキャスト/id1786658623', class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
+              | フィヨルドブートキャスト
+          li.footer-nav__item
+            = link_to 'https://roulette-talk.com/', class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
+              | RouletteTalk
+          li.footer-nav__item
+            = link_to 'https://github.com/fjordllc/agent', class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
+              | agentリポジトリ
+          li.footer-nav__item
+            = link_to 'https://github.com/orgs/fjordllc/projects/4/views/2', class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
+              | agentカンバン
+          li.footer-nav__item
+            = link_to 'https://www.youtube.com/@フィヨルドブートキャンプ', class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
+              | YouTubeチャンネル
+          li.footer-nav__item
+            = link_to 'https://x.com/fjordbootcamp', class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
+              | FBCのXアカウント
+          li.footer-nav__item
+            = link_to '/articles.atom', class: 'a-button is-sm is-secondary is-icon', target: '_blank', rel: 'noopener', title: 'フィヨルドブートキャンプブログフィード' do
+              i.fa-solid.fa-rss
       small.footer__copyright
         i.fa-regular.fa-copyright
-        = link_to 'Fjord Inc.', 'https://fjord.jp', class: 'footer__copyright-link'
+        = link_to 'Lokka Inc.', 'https://lokka.jp', class: 'footer__copyright-link'
         | 2012 - #{Time.zone.today.year}

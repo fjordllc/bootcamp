@@ -1,0 +1,20 @@
+.a-border {
+  height: 1px;
+  width: 100%;
+  display: block;
+  border-top: solid 1px var(--border);
+}
+
+.a-border-tint {
+  height: 1px;
+  width: 100%;
+  display: block;
+  border-top: solid 1px var(--border-tint);
+}
+
+.a-border-shade {
+  height: 1px;
+  width: 100%;
+  display: block;
+  border-top: solid 1px var(--border-shade);
+}

@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 class API::BookmarksController < API::BaseController
-  PAGER_NUMBER = 25
+  PAGER_NUMBER = 20
 
   def index
+    per = params[:per] || PAGER_NUMBER
     bookmarks = Bookmark.where(user: current_user).order(created_at: :desc).preload(bookmarkable: :user)
-    @bookmarks = Kaminari.paginate_array(bookmarks).page(params[:page]).per(PAGER_NUMBER)
+    @bookmarks = Kaminari.paginate_array(bookmarks).page(params[:page]).per(per)
+    @unpaged_bookmarks = bookmarks
     return unless params[:bookmarkable_id] && params[:bookmarkable_type]
 
     @bookmarks = Bookmark.where(

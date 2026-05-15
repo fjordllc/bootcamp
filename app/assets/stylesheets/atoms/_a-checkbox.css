@@ -1,0 +1,76 @@
+.a-checkbox {
+  position: relative;
+}
+
+.a-checkbox input[type="checkbox"] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.a-checkbox span {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 0;
+  padding-left: 1.5em;
+  cursor: pointer;
+}
+
+.a-checkbox span::before {
+  content: "";
+  display: block;
+  height: 0.875rem;
+  width: 0.875rem;
+  border: solid 1px var(--muted-text);
+  border-radius: 0.1875rem;
+  left: 0;
+  position: absolute;
+  top: 50%;
+  margin-top: -0.4375rem;
+  background-color: var(--base);
+}
+
+.a-checkbox input:checked + span::before {
+  content: "\f00c";
+  font-family: "Font Awesome 6 Pro";
+  font-style: normal;
+  font-weight: 900;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: 0.75rem;
+  line-height: 0.875rem;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  color: var(--reversal-text);
+  background-color: var(--primary);
+  border-color: var(--primary-text);
+}
+
+.a-checkbox:hover span {
+  text-decoration: underline;
+}
+
+.a-checkbox:hover span::before,
+.a-checkbox:hover span::after {
+  text-decoration: none;
+}
+
+.a-toggle-checkbox {
+  height: 0;
+  width: 0;
+  display: block;
+  left: 0;
+  position: fixed;
+  opacity: 0;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+}

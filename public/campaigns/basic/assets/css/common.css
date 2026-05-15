@@ -1,0 +1,110 @@
+@charset "UTF-8";
+
+/*=========================================================
+リセット
+=========================================================*/
+
+html,body,div,pre,p,blockquote,form,fieldset,input,textarea,select,option,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,table,th,td,embed,object{margin: 0;padding: 0;vertical-align: baseline;}
+h1,h2,h3,h4,h5,h6 {font-style: normal;font-weight: normal;font-size: 100%;}
+table{border-spacing:0;}
+* html table{border-collapse:collapse;}
+*:first-child+html table{border-collapse:collapse;}
+caption,th{text-align:left; font-weight:normal;}
+table,th,td,img {border:0;}img,input{vertical-align:top;}
+q:before,q:after{content:'';}
+strong,em,address{font-weight:normal;font-stretch:normal;font-style:normal;}
+ul{list-style:none;}
+article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary{display:block;}
+
+/*--- clear ---*/
+.clear {clear: both;}
+.clearfix:after {
+visibility: hidden;
+display: block;
+font-size: 0;
+content: " ";
+clear: both;
+height: 0;
+}
+* html .clearfix {zoom:1;}
+*:first-child+html .clearfix {zoom:1;}
+
+/*--- hover ---*/
+.hover {
+opacity:0.6;
+filter: alpha(opacity=60);
+-ms-filter: "alpha(opacity=60)";
+}
+
+
+/*=========================================================
+JS
+=========================================================*/
+
+/* アコーディオン
+---------------------------------------*/
+
+.accordion .accordion_head {
+	cursor: pointer;
+	opacity: 0.7;
+}
+
+.accordion .accordion_head:before  {
+	content: "＋";
+}
+
+.accordion .accordion_body {
+	height: 0;
+	overflow: hidden;
+	pointer-events: none;
+	opacity: 0;	
+	transition: all 0.3s;
+}
+
+.accordion.open .accordion_head:before  {
+	content: "ー";
+}
+
+.accordion.open .accordion_body {
+	height: auto;
+	opacity: 1;
+	pointer-events: inherit;
+	z-index: 99;
+}
+
+/* ページトップ
+---------------------------------------*/
+
+#pageTop {
+	border: none;
+	cursor: pointer;
+	outline: none;
+	padding: 0;
+	appearance: none;
+	position: fixed;
+	right: 30px;
+	bottom: 30px;
+	z-index: 100;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background-color: #115582;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.3s ease;
+}
+
+#pageTop:before {
+	content: "";
+	width: 12px;
+	height: 12px;
+	margin-bottom: -6px;
+	border-top: solid 3px #fff;
+	border-right: solid 3px #fff;
+	transform: rotate(-45deg);
+}
+
+#pageTop:hover {
+	transform: scale(1.1);
+}

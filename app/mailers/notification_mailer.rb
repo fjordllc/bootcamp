@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLength
+class NotificationMailer < ApplicationMailer
   helper ApplicationHelper
+  helper MarkdownHelper
 
   before_action do
     @mentionable = params[:mentionable]
@@ -14,19 +15,11 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     @announcement = params[:announcement]
     @question = params[:question]
     @report = params[:report]
-    @watchable = params[:watchable]
     @sender = params[:sender]
     @event = params[:event]
     @page = params[:page]
     @regular_event = params[:regular_event]
-  end
-
-  # required params: comment, receiver, message
-  def came_comment
-    @user = @receiver
-    link = "/#{@comment.commentable_type.downcase.pluralize}/#{@comment.commentable.id}"
-    @notification = @user.notifications.find_by(link:) || @user.notifications.find_by(link: "#{link}#latest-comment")
-    mail to: @user.email, subject: "[FBC] #{@message}"
+    @notification = params[:notification]
   end
 
   # required params: mentionable, receiver
@@ -42,26 +35,7 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     @user = @check.receiver
     link = "/#{@check.checkable_type.downcase.pluralize}/#{@check.checkable.id}"
     @notification = @user.notifications.find_by(link:)
-    subject = "[FBC] #{@user.login_name}さんの#{@check.checkable.title}を確認しました。"
-    mail to: @user.email, subject:
-  end
-
-  # required params: report, receiver
-  def first_report
-    @user = @receiver
-    @notification = @user.notifications.find_by(link: "/reports/#{@report.id}")
-    mail to: @user.email,
-         subject: "[FBC] #{@report.user.login_name}さんがはじめての日報を書きました！"
-  end
-
-  # required params: watchable, receiver
-  def watching_notification
-    @sender = @watchable.user
-    @user = @receiver
-    link = "/#{@watchable.class.name.underscore.pluralize}/#{@watchable.id}"
-    @notification = @user.notifications.find_by(link:)
-    action = @watchable.instance_of?(Question) ? '回答' : 'コメント'
-    subject = "[FBC] #{@sender.login_name}さんの【 #{@watchable.notification_title} 】に#{@comment.user.login_name}さんが#{action}しました。"
+    subject = "[FBC] #{@check.checkable.user.login_name}さんの#{@check.checkable.title}を#{@check.action_label}しました。"
     mail to: @user.email, subject:
   end
 
@@ -76,16 +50,8 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
   # required params: report, receiver
   def trainee_report
     @user = @receiver
-    @notification = @user.notifications.find_by(link: "/reports/#{@report.id}")
+    @notification ||= @user.notifications.find_by(link: "/reports/#{@report.id}")
     subject = "[FBC] #{@report.user.login_name}さんが日報【 #{@report.title} 】を書きました！"
-    mail to: @user.email, subject:
-  end
-
-  # required params: event, receiver
-  def moved_up_event_waiting_user
-    @user = @receiver
-    @notification = @user.notifications.find_by(link: "/events/#{@event.id}")
-    subject = "[FBC] #{@event.title}で、補欠から参加に繰り上がりました。"
     mail to: @user.email, subject:
   end
 
@@ -94,61 +60,6 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     @user = @receiver
     @notification = @user.notifications.find_by(link: "/pages/#{@page.id}")
     subject = "[FBC] #{@page.user.login_name}さんがDocsに#{@page.title}を投稿しました。"
-    mail to: @user.email, subject:
-  end
-
-  # required params: answer, receiver
-  def chose_correct_answer
-    @user = @receiver
-    @notification = @user.notifications.find_by(link: "/questions/#{@answer.question.id}")
-    subject = "[FBC] #{@answer.receiver.login_name}さんの質問【 #{@answer.question.title} 】で#{@answer.sender.login_name}さんの回答がベストアンサーに選ばれました。"
-    mail to: @user.email, subject:
-  end
-
-  # required params: report, receiver
-  def consecutive_sad_report
-    @user = @receiver
-    @notification = @user.notifications.find_by(link: "/reports/#{@report.id}")
-    mail to: @user.email,
-         subject: "[FBC] #{@report.user.login_name}さんが#{User::DEPRESSED_SIZE}回連続でsadアイコンの日報を提出しました。"
-  end
-
-  def assigned_as_checker
-    @user = @receiver
-    @notification = @user.notifications.find_by(link: "/products/#{@product.id}")
-    subject = "[FBC] #{@product.user.login_name}さんの提出物#{@product.title}の担当になりました。"
-    mail to: @user.email, subject:
-  end
-
-  # required params: sender, receiver
-  def hibernated
-    @user = @receiver
-    @notification = @user.notifications.find_by(link: "/users/#{@sender.id}", kind: Notification.kinds[:hibernated])
-    subject = "[FBC] #{@sender.login_name}さんが休会しました。"
-    mail to: @user.email, subject:
-  end
-
-  # required params: sender, receiver
-  def signed_up
-    @user = @receiver
-    roles = @sender.roles_to_s.empty? ? '' : "(#{@sender.roles_to_s})"
-    @notification = @user.notifications.find_by(link: "/users/#{@sender.id}", kind: Notification.kinds[:signed_up])
-    subject = "[FBC] #{@sender.login_name}さん#{roles}が新しく入会しました！"
-    mail to: @user.email, subject:
-  end
-
-  def update_regular_event
-    @user = @receiver
-    @notification = @user.notifications.find_by(link: "/regular_events/#{@regular_event.id}", kind: Notification.kinds[:regular_event_updated])
-    subject = "[FBC] 定期イベント【#{@regular_event.title}】が更新されました。"
-    mail to: @user.email, subject:
-  end
-
-  # required params: question, receiver
-  def no_correct_answer
-    @user = @receiver
-    @notification = @user.notifications.find_by(link: "/questions/#{@question.id}", kind: Notification.kinds[:no_correct_answer])
-    subject = "[FBC] #{@user.login_name}さんの質問【 #{@question.title} 】のベストアンサーがまだ選ばれていません。"
     mail to: @user.email, subject:
   end
 end

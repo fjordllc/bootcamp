@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'notification_system_test_case'
 
-class Notification::AnnouncementsTest < ApplicationSystemTestCase
+class Notification::AnnouncementsTest < NotificationSystemTestCase
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
@@ -10,6 +10,7 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     @notice_kind = Notification.kinds['announced']
     @notified_count = Notification.where(kind: @notice_kind).size
     @receiver_count = User.where(retired_on: nil).size - 1 # 送信者は除くため-1
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/all')
   end
 
   teardown do
@@ -27,21 +28,15 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     end
     assert_text 'お知らせを作成しました。'
 
-    visit_with_auth '/notifications', 'sotugyou'
-
-    within first('.card-list-item.is-unread') do
-      assert_text @notice_text
-    end
-
-    visit_with_auth '/', 'komagata'
-    refute_text @notice_text
+    assert_user_has_notification(user: users(:sotugyou), kind: @notice_kind, text: @notice_text)
+    assert_user_has_no_notification(user: users(:komagata), kind: @notice_kind, text: @notice_text)
 
     expected = @notified_count + @receiver_count
     actual = Notification.where(kind: @notice_kind).size
     assert_equal expected, actual
   end
 
-  test 'announcement notification receive only active users' do
+  test 'announcement to Only Active Users notifies the active users, admins, mentors' do
     visit_with_auth '/announcements', 'machida'
     click_link 'お知らせ作成'
     fill_in 'announcement[title]', with: '現役生にのみお知らせtest'
@@ -51,29 +46,20 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     click_button '作成'
     assert_text 'お知らせを作成しました'
 
-    visit_with_auth '/notifications', 'komagata'
-    assert_text 'お知らせ「現役生にのみお知らせtest」'
+    message = 'お知らせ「現役生にのみお知らせtest」'
 
-    visit_with_auth '/notifications', 'kimura'
-    assert_text 'お知らせ「現役生にのみお知らせtest」'
+    notified_users = %w[kimura komagata mentormentaro]
+    notified_users.each do |user_name|
+      assert_user_has_notification(user: users(user_name.to_sym), kind: Notification.kinds[:announced], text: message)
+    end
 
-    visit_with_auth '/notifications', 'sotugyou'
-    assert_no_text 'お知らせ「現役生にのみお知らせtest」'
-
-    visit_with_auth '/notifications', 'advijirou'
-    assert_no_text 'お知らせ「現役生にのみお知らせtest」'
-
-    visit_with_auth '/notifications', 'yameo'
-    assert_no_text 'お知らせ「現役生にのみお知らせtest」'
-
-    visit_with_auth '/notifications', 'mentormentaro'
-    assert_no_text 'お知らせ「現役生にのみお知らせtest」'
-
-    visit_with_auth '/notifications', 'kensyu'
-    assert_no_text 'お知らせ「現役生にのみお知らせtest」'
+    not_notified_users = %w[sotugyou advijirou yameo kensyu]
+    not_notified_users.each do |user_name|
+      assert_user_has_no_notification(user: users(user_name.to_sym), kind: Notification.kinds[:announced], text: message)
+    end
   end
 
-  test 'announcement notifications are only recived by job seekers' do
+  test 'announcement to Only Job Seekers notifies the job seekers, admins, mentors' do
     visit_with_auth '/announcements', 'machida'
     click_link 'お知らせ作成'
     fill_in 'announcement[title]', with: '就活希望者のみお知らせします'
@@ -83,13 +69,16 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     click_button '作成'
     assert_text 'お知らせを作成しました'
 
-    visit_with_auth '/notifications', 'komagata'
-    assert_text 'お知らせ「就活希望者のみお知らせします」'
+    message = 'お知らせ「就活希望者のみお知らせします」'
 
-    visit_with_auth '/notifications', 'jobseeker'
-    assert_text 'お知らせ「就活希望者のみお知らせします」'
+    notified_users = %w[jobseeker komagata mentormentaro]
+    notified_users.each do |user_name|
+      assert_user_has_notification(user: users(user_name.to_sym), kind: Notification.kinds[:announced], text: message)
+    end
 
-    visit_with_auth '/notifications', 'kimura'
-    assert_no_text 'お知らせ「就活希望者のみお知らせします」'
+    not_notified_users = %w[kimura]
+    not_notified_users.each do |user_name|
+      assert_user_has_no_notification(user: users(user_name.to_sym), kind: Notification.kinds[:announced], text: message)
+    end
   end
 end

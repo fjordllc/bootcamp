@@ -1,0 +1,19 @@
+article.lp-course-selection-item
+  .lp-course-selection-item__inner
+    header.lp-course-selection-item__header
+      h2.lp-content-sub-title.text-center.is-course-name
+        | #{course.title}
+        br
+        | コース
+    .a-short-text.is-md
+      = simple_format(course.description)
+    .lp-course-selection-item__categories
+      - course.categories.each do |category|
+        - if category.practices.present?
+          dl.lp-category-practices
+            dt.lp-category-practices__category
+              = category.name
+            .lp-category-practices__practices
+              - category.practices.each do |practice|
+                dd.lp-category-practices__practice
+                  = practice.title

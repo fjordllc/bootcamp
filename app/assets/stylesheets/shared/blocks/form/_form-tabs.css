@@ -1,0 +1,39 @@
+.form-tabs {
+  display: flex;
+  border-bottom: solid 1px var(--border);
+}
+
+.form-tabs__tab {
+  width: 5.5rem;
+  padding-block: 0.75rem 1rem;
+  font-size: 0.8125rem;
+  line-height: 1;
+  display: flex;
+  display: flex;
+  white-space: nowrap;
+  color: var(--muted-text);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease-out;
+}
+.form-tabs__tab:hover {
+  color: var(--default-text);
+  text-decoration: underline;
+}
+.form-tabs__tab.is-active {
+  color: var(--default-text);
+  font-weight: 600;
+  pointer-events: none;
+}
+.form-tabs__tab.is-active::before {
+  content: "";
+  display: block;
+  height: 0.375rem;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--warning);
+}

@@ -1,39 +1,59 @@
-- title @question.title
-header.page-header
-  .container
-    .page-header__inner
-      .page-header__title
-        | Q&A
-      .page-header-actions
-        ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to new_question_path, class: 'a-button is-md is-secondary is-block' do
-              i.fa-regular.fa-plus
-              | 質問する
-          li.page-header-actions__item
-            = link_to questions_path(target: 'not_solved'), class: 'a-button is-md is-secondary is-block is-back' do
-              | Q&A一覧
+- title "Q&A: #{truncate(@question.title, length: 35, omission: '...')}"
+- set_meta_tags og: { title: "Q&A: #{@question.title}" }
+- if @question.practice
+  - set_meta_tags description: "#{@question.user.long_name}さんが投稿した、プラクティス「#{@question.practice.title}」に関する質問「#{@question.title}」のページです。"
+- else
+  - set_meta_tags description: "#{@question.user.long_name}さんが投稿した、質問「#{@question.title}」のページです。この質問に関連するプラクティスはありません。"
 
-.page-body
-  .container.is-xxl
-    .row.is-gutter-width-32
-      .col-lg-8.col-xs-12
-        div(data-vue="QuestionPage" data-vue-current-user-id="#{current_user.id}" data-vue-question-id="#{@question.id}")
+= render 'questions_and_pair_works/questions_and_pair_works_header'
+.page-main
+  = render 'questions_and_pair_works/questions_and_pair_works_page_main_header'
+  hr.a-border
 
-      .col-lg-4.col-xs-12
-        nav.page-nav.has-footer.page-nav.has-footer
-          header.page-nav__header
-            h2.page-nav__title
+  .page-body
+    .page-body__inner.has-side-nav
+      .container.is-md
+        .question.page-content
+          = render 'question_header', question: @question
+          = render 'question_body', question: @question
+        .loading-content
+          - 3.times do
+            = render 'questions/comment_placeholder'
+        .answer-content.is-hidden
+          header.thread-comments__header
+            h2.thread-comments__title
+              | 回答・コメント
+          .answers-list
+            - @answers.each do |answer|
+              = render 'answer', question: @question, user: current_user, answer: answer
+          = render 'new_answer', question: @question, user: current_user
+      nav.a-side-nav
+        .a-side-nav__inner
+          header.a-side-nav__header
+            h2.a-side-nav__title
               - if @question.practice
                 = link_to @question.practice,
-                      class: 'page-nav__title-link' do
+                  class: 'a-side-nav__title-link' do
                   = @question.practice.title
               - else
                 | 関連プラクティス無し
+          hr.a-border
+          .a-side-nav__body
+            = render 'nav_questions', questions: @practice_questions
+          hr.a-border
+          footer.card-footer
+            .card-footer__footer-link
+              = link_to questions_path(practice_id: @question.practice), class: 'card-footer__footer-text-link' do
+                | 全て見る
 
-          = render 'nav_questions', questions: @practice_questions
-
-          footer.page-nav__footer
-            = link_to questions_path(practice_id: @question.practice),
-              class: 'page-nav__footer-link' do
-              | 全て見る
+= render '/shared/modal', id: 'modal-delete-request', modal_title: '質問の削除申請' do
+  .modal__description.is-md
+    .a-long-text
+      p
+        | せっかく作った質問を操作ミスで削除してしまわないように、
+        | 削除ができないようになっています。
+        | 質問の削除をする場合は、相談部屋にこのページの URL <code>#{request.url}</code> を貼り、
+        | 削除の申請をお願いします。
+      p
+        = link_to action_uncompleted_index_path(current_user.talk), target: '_blank', rel: 'noopener' do
+          | 相談部屋はこちら

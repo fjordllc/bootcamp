@@ -1,0 +1,23 @@
+.auth-form-nav {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.auth-form-nav__items {
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+  width: 100%;
+}
+
+.auth-form-nav__item-link {
+  cursor: pointer;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--main);
+  text-decoration: none;
+  cursor: pointer;
+}
+.auth-form-nav__item-link:hover, .auth-form-nav__item-link:active {
+  text-decoration: underline;
+}

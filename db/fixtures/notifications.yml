@@ -103,7 +103,7 @@ notification_moved_up_event_waiting_user:
 
 notification_create_page:
   kind: 12
-  user: hatsuno
+  user: mentormentaro
   sender: komagata
   message: "komagataさんがDocsにBootcampの作業のページを投稿しました。"
   link: "/pages/<%= ActiveRecord::FixtureSet.identify(:page4) %>"
@@ -124,11 +124,11 @@ notification_chose_correct_answer:
   link: "/questions/<%= ActiveRecord::FixtureSet.identify(:question12) %>"
   read: false
 
-notification_consecutive_sad_report:
+notification_consecutive_negative_report:
   kind: 15
   user: komagata
   sender: hajime
-  message: hajimeさんが2回連続でsadアイコンの日報を提出しました。
+  message: hajimeさんが2回連続でnegativeアイコンの日報を提出しました。
   link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report16) %>"
   read: false
 
@@ -155,3 +155,14 @@ notification_regular_event_updated:
   message: "[FBC] 定期イベント【開発MTG】が更新されました。"
   link: "/regular_events/<%= ActiveRecord::FixtureSet.identify(:regular_event1) %>"
   read: false
+
+<% 1.upto(110) do |i| %>
+notification_for_pagination<%= i %>: # 通知ページのページネーション動作と取得数制限確認のための通知
+  kind: 5
+  user: hatsuno
+  sender: komagata
+  message: "practice<%= i %>が更新されました。"
+  link: "/practices/<%= ActiveRecord::FixtureSet.identify("practice#{i}".to_sym) %>"
+  read: false
+  created_at: "<%= Time.current - i.days %>"
+<% end %>

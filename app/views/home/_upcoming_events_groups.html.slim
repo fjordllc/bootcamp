@@ -1,0 +1,12 @@
+.a-card
+  header.card-header.is-sm.has-no-border
+    h2.card-header__title
+      | 近日開催のイベント
+  .card-list.has-scroll
+    - upcoming_events_groups.each do |events_group|
+      = render 'events/upcoming_events_group', events_group: events_group
+
+  hr.a-border-tint
+  footer.card-footer
+    .card-footer__footer-link
+      = link_to '全てのイベント（参加登録はこちらから）', events_path, class: 'card-footer__footer-text-link'

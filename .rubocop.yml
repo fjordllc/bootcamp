@@ -1,27 +1,17 @@
+plugins:
+  - rubocop-minitest
+  - rubocop-capybara
+  - rubocop-performance
+  - rubocop-rails
+
 inherit_gem:
   rubocop-fjord:
     - config/rubocop.yml
     - config/rails.yml
 
-Metrics/BlockLength:
+Lint/MissingSuper:
   Exclude:
-    - test/**/*
-
-Metrics/ClassLength:
-  Exclude:
-    - test/**/*
-    - app/controllers/products_controller.rb
-    - app/controllers/reports_controller.rb
-    - app/controllers/users_controller.rb
-    - app/mailers/activity_mailer.rb
-    - app/models/event.rb
-    - app/models/notification.rb
-    - app/models/notification_facade.rb
-    - app/models/practice.rb
-    - app/models/user.rb
-    - app/models/product.rb
-    - app/models/report.rb
-    - app/notifiers/activity_notifier.rb
+    - 'app/components/**/*'
 
 AllCops:
   Exclude:
@@ -31,6 +21,8 @@ AllCops:
     - config/**/*
     - config.ru
     - node_modules/**/*
+    - db/data/*
+    - db/data_schema.rb
     - db/migrate/*
     - db/schema.rb
     - storage/**/*

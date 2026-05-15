@@ -6,7 +6,7 @@
       .user-metas__item-label
         = User.human_attribute_name :retired_on
       .user-metas__item-value
-        = l user.retired_on
+        | #{l user.retired_on}(開始日: #{l user.created_at.to_date})
     .user-metas__item
       .user-metas__item-label
         = User.human_attribute_name :retire_reasons

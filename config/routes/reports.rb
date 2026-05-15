@@ -2,8 +2,9 @@
 
 Rails.application.routes.draw do
   namespace :reports do
-    resources :unchecked, only: %i(index)
+    resources :unchecked, only: %i[index]
   end
-
-  resources :reports
+  resources :reports do
+    resources :checks, only: [:create, :destroy]
+  end
 end

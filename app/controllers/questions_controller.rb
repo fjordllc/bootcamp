@@ -3,33 +3,26 @@
 class QuestionsController < ApplicationController
   include Rails.application.routes.url_helpers
   before_action :set_question, only: %i[show destroy]
+  before_action :set_editable_question, only: %i[edit update]
   before_action :set_categories, only: %i[new show create]
   before_action :set_watch, only: %i[show]
-
-  QuestionsProperty = Struct.new(:title, :empty_message)
+  before_action :require_admin_or_mentor_login, only: [:destroy]
+  skip_before_action :require_active_user_login, only: %i[show]
 
   MAX_PRACTICE_QUESTIONS_DISPLAYED = 20
 
   def index
-    questions =
-      case params[:target]
-      when 'solved'
-        Question.solved
-      when 'not_solved'
-        Question.not_solved.not_wip
-      else
-        Question.all
-      end
     @tag = ActsAsTaggableOn::Tag.find_by(name: params[:tag])
     @tags = Question.all.all_tags
-    questions = params[:practice_id].present? ? questions.where(practice_id: params[:practice_id]) : questions
-    questions = questions.tagged_with(params[:tag]) if params[:tag]
-    @questions = questions
+    @questions = Question
+                 .by_target(params[:target])
+                 .by_practice_id(params[:practice_id])
+                 .by_tag(params[:tag])
                  .with_avatar
                  .includes(:practice, :answers, :tags, :correct_answer)
-                 .order(updated_at: :desc, id: :desc)
+                 .latest_update_order
                  .page(params[:page])
-    @questions_property = questions_property
+    @questions_property = Question.generate_questions_property(params[:target])
   end
 
   def show
@@ -38,27 +31,46 @@ class QuestionsController < ApplicationController
                           .where(practice: @question.practice)
                           .where.not(id: @question.id)
                           .includes(:correct_answer)
-                          .order(updated_at: :desc, id: :desc)
+                          .latest_update_order
                           .limit(MAX_PRACTICE_QUESTIONS_DISPLAYED)
+    @answers = @question.answers.order(created_at: :asc)
     respond_to do |format|
       format.html
       format.md
     end
+
+    if logged_in?
+      render :show
+    else
+      render :unauthorized_show, layout: 'not_logged_in'
+    end
   end
 
   def new
-    @question = Question.new
+    @question = Question.new(practice_id: params[:practice_id], user_id: current_user.id)
   end
+
+  def edit; end
 
   def create
     @question = Question.new(question_params)
-    @question.user = current_user
-    @question.wip = params[:commit] == 'WIP'
+    @question.user = current_user if !admin_or_mentor_login?
+    set_wip
     if @question.save
-      Newspaper.publish(:question_create, @question)
-      redirect_to @question, notice: notice_message(@question)
+      ActiveSupport::Notifications.instrument('question.create', question: @question)
+      redirect_to Redirection.determin_url(self, @question), notice: @question.generate_notice_message(:create)
     else
       render :new
+    end
+  end
+
+  def update
+    set_wip
+    if @question.update(question_params)
+      ActiveSupport::Notifications.instrument('question.update', question: @question) if @question.saved_change_to_wip?
+      redirect_to Redirection.determin_url(self, @question), notice: @question.generate_notice_message(:update)
+    else
+      render :edit
     end
   end
 
@@ -71,6 +83,10 @@ class QuestionsController < ApplicationController
 
   def set_question
     @question = Question.find(params[:id])
+  end
+
+  def set_editable_question
+    @question = current_user.mentor? ? Question.find(params[:id]) : current_user.questions.find(params[:id])
   end
 
   def set_categories
@@ -89,20 +105,7 @@ class QuestionsController < ApplicationController
     @watch = Watch.new
   end
 
-  def questions_property
-    case params[:target]
-    when 'solved'
-      QuestionsProperty.new('解決済みのQ&A', '解決済みのQ&Aはありません。')
-    when 'not_solved'
-      QuestionsProperty.new('未解決のQ&A', '未解決のQ&Aはありません。')
-    else
-      QuestionsProperty.new('全てのQ&A', 'Q&Aはありません。')
-    end
-  end
-
-  def notice_message(question)
-    return '質問をWIPとして保存しました。' if question.wip?
-
-    '質問を作成しました。'
+  def set_wip
+    @question.wip = params[:commit] == 'WIP'
   end
 end

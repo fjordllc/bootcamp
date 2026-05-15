@@ -1,0 +1,13 @@
+.a-side-nav.upcoming_events_groups
+  .a-side-nav__inner
+    header.a-side-nav__header
+      h2.a-side-nav__title
+        | 近日開催のイベント
+    .a-side-nav__body
+      - upcoming_events_groups.each do |events_group|
+        = render 'events/upcoming_events_group', events_group: events_group
+
+    hr.a-border
+    footer.a-side-nav__footer
+      = link_to events_path, class: 'a-side-nav__footer-link' do
+        | 全てのイベント

@@ -1,0 +1,25 @@
+
+.card-message {
+  text-align: center;
+}
+
+.card-message.is-notice {
+  background-color: var(--success);
+  color: var(--reversal-text);
+}
+
+@media (min-width: 48em) {
+  .card-message {
+    padding: .75rem 1rem;
+    font-size: .875rem;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .card-message {
+    padding: .75rem;
+    font-size: .75rem;
+    line-height: 1.5;
+  }
+}

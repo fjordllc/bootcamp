@@ -2,7 +2,10 @@
 
 module Mentioner
   def after_save_mention(new_mentions)
-    return if instance_of?(Report)
+    if instance_of?(Report)
+      notify_pjord_if_mentioned(new_mentions)
+      return
+    end
 
     notify_users_found_by_mentions(new_mentions)
   end
@@ -14,7 +17,7 @@ module Mentioner
   def where_mention
     case self
     when Product
-      "#{user.login_name}さんの「#{practice[:title]}」の提出物"
+      "#{user.login_name}さんの提出物「#{practice[:title]}」"
     when Report
       "#{user.login_name}さんの日報「#{self[:title]}」"
     when Comment
@@ -22,7 +25,13 @@ module Mentioner
     when Answer
       "#{receiver.login_name}さんのQ&A「#{question[:title]}」へのコメント"
     when Question
-      "#{user.login_name}さんのQ&A「#{practice[:title]}」"
+      practice_title = practice ? practice[:title] : 'プラクティス選択なし'
+      "#{user.login_name}さんのQ&A「#{practice_title}」"
+    when MicroReport
+      "#{user.login_name}さんの分報"
+    when PairWork
+      practice_title = practice ? practice[:title] : 'プラクティス選択なし'
+      "#{user.login_name}さんのペアワーク「#{practice_title}」"
     end
   end
 
@@ -36,6 +45,13 @@ module Mentioner
 
   private
 
+  def notify_pjord_if_mentioned(mentions)
+    names = extract_login_names_from_mentions(mentions)
+    return unless names.include?(Pjord::LOGIN_NAME)
+
+    PjordRespondJob.perform_later(mentionable_type: self.class.name, mentionable_id: id)
+  end
+
   def notify_users_found_by_mentions(mentions)
     notify_mentions(find_users_from_mentions(mentions))
   end
@@ -44,7 +60,13 @@ module Mentioner
     return nil if instance_of?(Comment) && commentable.instance_of?(Talk) # protect mention in talk
 
     receivers.each do |receiver|
-      ActivityDelivery.with(mentionable: self, receiver:).notify(:mentioned) if sender != receiver
+      next if sender == receiver
+
+      if receiver.login_name == Pjord::LOGIN_NAME
+        PjordRespondJob.perform_later(mentionable_type: self.class.name, mentionable_id: id)
+      else
+        ActivityDelivery.with(mentionable: self, receiver:).notify(:mentioned)
+      end
     end
   end
 
@@ -54,22 +76,28 @@ module Mentioner
 
   def find_users_from_mentions(mentions)
     names = extract_login_names_from_mentions(mentions)
-    names.concat(User.mentor.map(&:login_name)) if mentions.include?('@mentor')
+    names.concat(User.mentor.map(&:login_name)) if names.include?('mentor')
     # find_users_from_login_names 内のwhereで重複は削除する
     find_users_from_login_names(names)
   end
 
   def extract_login_names_from_mentions(mentions)
-    mentions.map { |s| s.gsub(/@/, '') }
+    code_block_regexp = /```.*?```|`.*?`/m
+    block_quotes_regexp = /^>.+?\n{2}|^>.+?\Z/m
+    regexps = Regexp.union(code_block_regexp, block_quotes_regexp)
+    mentionable_without_code_quotes = mentionable.gsub(regexps, '')
+    mentions.map { |s| s.gsub(/@/, '') if mentionable_without_code_quotes.include?(s) }
   end
 
   def target_of_comment(commentable_class, commentable)
     {
       Report: "#{commentable.user.login_name}さんの日報「#{commentable.title}」",
       Product: "#{commentable.user.login_name}さんの#{commentable.title}",
-      Event: "イベント「#{commentable.title}」",
+      Event: "特別イベント「#{commentable.title}」",
+      RegularEvent: "定期イベント「#{commentable.title}」",
       Page: "Docs「#{commentable.title}」",
-      Announcement: "お知らせ「#{commentable.title}」"
+      Announcement: "お知らせ「#{commentable.title}」",
+      PairWork: "ペアワーク「#{commentable.title}」"
     }[:"#{commentable_class}"]
   end
 end

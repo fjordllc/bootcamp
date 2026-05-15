@@ -1,8 +1,8 @@
-.col-xs-12.nested-fields
+= cocooned_item class: 'col-xs-12' do
   .books-form
     .books-form__header
       .books-form__delete
-        = link_to_remove_association f, class: 'books-form__delete-link' do
+        = cocooned_remove_item_link f, class: 'books-form__delete-link' do
           i.fas.fa-times
     .books-form__items
       .books-form-item

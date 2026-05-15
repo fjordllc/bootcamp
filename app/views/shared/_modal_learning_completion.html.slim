@@ -5,14 +5,15 @@
       h2.congrats-card-body__title
         | プラクティス「#{practice.title}」を修了しました🎉
       .congrats-card-body__image-container
-        - if practice.ogp_image.attached?
-          = image_tag @practice.ogp_image, class: 'congrats-card-body__image', alt: "#{practice.title}修了おめでとうカード"
+        - if practice.completion_image.attached?
+          = image_tag @practice.completion_image, class: 'congrats-card-body__image', alt: "#{practice.title}修了おめでとうカード"
         - else
           = image_tag('completion/completion_default.png', class: 'congrats-card-body__image', alt: "#{practice.title}修了おめでとうカード")
-      .card-main-actions
-        ul.card-main-actions__items
-          li.card-main-actions__item
-            = link_to '喜びを Tweet する！', tweet_url, class: 'a-button is-sm is-primary is-block', target: '_blank', rel: 'noopener'
-          li.card-main-actions__item.is-sub
-            label.card-main-actions__muted-action(for="#{id}")
-              | 閉じる
+      .card-footer
+        .card-main-actions
+          ul.card-main-actions__items
+            li.card-main-actions__item
+              = link_to '喜びをXにポストする！', tweet_url, class: 'a-button is-sm is-primary is-block', target: '_blank', rel: 'noopener'
+            li.card-main-actions__item.is-sub
+              label.card-main-actions__muted-action.is-closer(for="#{id}")
+                | 閉じる

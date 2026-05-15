@@ -1,0 +1,72 @@
+header.page-content-header
+  .page-content-header__start
+    .page-content-header__user
+      .page-content-header__user-icon
+        = render 'users/icon', user: question.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon-image'
+    - if question.user.trainee?
+      .page-content-header__company-logo
+        = link_to company_path(question.user.company), class: 'page-content-header__company-link' do
+          = image_tag question.user.company.logo_url, class: 'page-content-header__company-logo-image'
+  .page-content-header__end
+    a.a-count-badge href='#comments'
+      .a-count-badge__label
+        | 回答
+      .a-count-badge__value.js-answer-count class=(question.answers.blank? ? 'is-zero' : '')
+        | #{question.answers.size}
+
+    .page-content-header__row
+      .page-content-header__before-title
+        - if question.practice_id.present?
+          = link_to question.practice.title, practice_path(question.practice_id), class: 'a-category-link'
+      h1.page-content-header__title class=(question.wip ? 'is-wip' : '')
+        - if question.correct_answer.present?
+          span.a-title-label.is-solved.is-success.js-solved-status
+            | 解決済
+        - elsif question.wip?
+          span.a-title-label.is-wip
+            | WIP
+        - else
+          span.a-title-label.is-solved.is-danger.js-solved-status
+            | 未解決
+        | #{question.title}
+
+    .page-content-header__row
+      .page-content-header-metas
+        .page-content-header-metas__start
+          - if question.wip?
+            .page-content-header-metas__meta
+              .a-meta
+                span.a-meta__value
+                  | 質問作成中
+          .page-content-header-metas__meta
+            = link_to question.user.long_name, user_path(question.user), class: 'a-user-name'
+          - if !question.wip?
+            .page-content-header-metas__meta
+              .a-meta
+                span.a-meta__label
+                  | 公開
+                time.a-meta__value datetime=question.published_at.iso8601
+                  = l question.published_at
+            .page-content-header-metas__meta
+              .a-meta
+                span.a-meta__label
+                  | 更新
+                time.a-meta__value datetime=question.updated_at.iso8601
+                  = l question.updated_at
+
+    .page-content-header__row
+      .page-content-header-actions
+        .page-content-header-actions__start
+          = render 'watches/watch_toggle', type: question.class.to_s, id: question.id, watch: question.watch_by(current_user)
+          .page-content-header-actions__action
+            = render 'bookmarks/button', bookmarkable: question
+          = render 'application/url_copy_button'
+
+        .page-content-header-actions__end
+          .page-content-header-actions__action
+            = link_to question_path(question, format: :md), class: 'a-button is-sm is-secondary is-block', target: '_blank', rel: 'noopener' do
+              | Raw
+
+    .page-content-header__row
+      .page-content-header__tags
+        = render(Tag::FormComponent.new(taggable: @question, param_name: 'question[tag_list]', input_id: 'question_tag_list'))

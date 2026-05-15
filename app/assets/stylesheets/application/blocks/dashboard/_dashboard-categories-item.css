@@ -1,0 +1,15 @@
+.dashboard-category__header {
+  padding-bottom: 0.25rem;
+  border-bottom: dashed 1px var(--border);
+}
+
+.dashboard-category__title {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.dashboard-category__body:not(:first-child) {
+  flex: 1;
+  margin-top: 1rem;
+}

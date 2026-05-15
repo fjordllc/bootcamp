@@ -1,0 +1,66 @@
+ruby:
+  case @role
+  when 'adviser'
+    title 'FBCアドバイザー参加登録完了'
+  when 'trainee'
+    title 'FBC研修生参加登録完了'
+  when 'mentor'
+    title 'FBCメンター参加登録完了'
+  else
+    title 'FBC参加登録完了'
+  end
+  content_for(:extra_body_classes, 'no-header no-footer no-global-nav is-error-page is-piyo-background')
+  set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）')
+
+- if Rails.env.production? && !staging? && @role == 'student'
+  - content_for :head_last do
+    script
+      | gtag('event', 'conversion', {
+      |     'send_to': 'AW-17419900911/A8LTCJzqyIkbEO-vuvJA',
+      |     'transaction_id': ''
+      | });
+
+.thanks-message
+  .container.is-xs
+    .thanks-message__header
+      h1.thanks-message__title
+        = title
+    .a-card
+      .card-body.thanks-message__body
+        .a-long-text
+          - case @role
+          - when 'adviser'
+            p
+              | アドバイザー登録が完了しました。ありがとうございます。
+              br
+              | サインアップメールをお送りしました。
+              br
+              | メールからサインアップを完了させてください。
+          - when 'trainee'
+            p
+              | 研修生登録が完了しました。ありがとうございます。
+              br
+              | サインアップメールをお送りしました。
+              br
+              | メールからサインアップを完了させてください。
+          - when 'mentor'
+            p
+              | メンター登録が完了しました。ありがとうございます。
+              br
+              | サインアップメールをお送りしました。
+              br
+              | メールからサインアップを完了させてください。
+          - else
+            p
+              | 参加登録が完了しました。ありがとうございます。
+              br
+              | サインアップメールをお送りしました。
+              br
+              | メールからサインアップを完了させてください。
+      hr.a-border-tint
+      footer.card-footer
+        .card-main-actions
+          ul.card-main-actions__items
+            li.card-main-actions__item
+              = link_to root_path, class: 'a-button is-secondary is-sm is-block' do
+                | フィヨルドブートキャンプ

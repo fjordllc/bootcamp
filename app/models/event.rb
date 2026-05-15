@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
-class Event < ApplicationRecord
+class Event < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include WithAvatar
   include Commentable
   include Footprintable
   include Reactionable
   include Watchable
   include Searchable
+  include Bookmarkable
 
   validates :title, presence: true
   validates :description, presence: true
@@ -36,11 +37,23 @@ class Event < ApplicationRecord
   belongs_to :user
   has_many :participations, dependent: :destroy
   has_many :users, through: :participations
-  has_many :watches, as: :watchable, dependent: :destroy
+  attribute :announcement_of_publication, :boolean
 
   columns_for_keyword_search :title, :description
 
   scope :wip, -> { where(wip: true) }
+  scope :related_to, ->(user) { user.job_seeker ? all : where.not(job_hunting: true) }
+  scope :scheduled_on, ->(date) { where(start_at: date.midnight...(date + 1.day).midnight, wip: false) }
+  scope :not_ended, -> { where('end_at > ?', Time.current) }
+  scope :scheduled_on_without_ended, ->(date) { scheduled_on(date).not_ended }
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[title description location capacity start_at end_at open_start_at open_end_at wip created_at updated_at user_id job_hunting]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[user participations users comments reactions watches]
+  end
 
   def opening?
     Time.current.between?(open_start_at, open_end_at)
@@ -59,23 +72,15 @@ class Event < ApplicationRecord
   end
 
   def participants
-    first_come_first_served.limit(capacity)
+    users.where('participations.enable = true').order(created_at: :asc)
   end
 
   def waitlist
-    first_come_first_served - participants
-  end
-
-  def participants_count
-    users.size > capacity ? capacity : users.size
-  end
-
-  def waitlist_count
-    users.size > capacity ? users.size - capacity : 0
+    users.where('participations.enable = false').order(created_at: :asc)
   end
 
   def can_participate?
-    first_come_first_served.count < capacity
+    participants.count < capacity
   end
 
   def cancel_participation!(user)
@@ -104,15 +109,19 @@ class Event < ApplicationRecord
   end
 
   def send_notification(receiver)
-    NotificationFacade.moved_up_event_waiting_user(self, receiver)
+    ActivityDelivery.with(receiver:, event: self).notify(:moved_up_event_waiting_user)
   end
 
-  def holding_today?
-    start_at.to_date.today?
+  def can_move_up_the_waitlist?
+    waitlist.count.positive? && can_participate?
   end
 
-  def holding_tomorrow?
-    start_at.to_date == Date.tomorrow
+  def self.fetch_participated_ids(user)
+    user.participations.pluck(:event_id)
+  end
+
+  def self.fetch_upcoming_ids
+    Event.where('start_at > ?', Date.current).pluck(:id)
   end
 
   private

@@ -1,0 +1,98 @@
+.lp-top-cover {
+  background-image: var(--people-bg-image);
+  background-color: var(--lp-bg-2);
+  background-repeat: repeat;
+  position: relative;
+  height: 24rem;
+  background-size: 20rem;
+}
+@media (min-width: 48em) {
+  .lp-top-cover {
+    height: 28rem;
+    background-size: 26rem;
+  }
+}
+@media (min-width: 64em) {
+  .lp-top-cover {
+    height: 38rem;
+    background-size: 32rem;
+  }
+}
+
+.lp-top-cover__container {
+  height: 100%;
+}
+
+.lp-top-cover__inner {
+  height: 100%;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+}
+@media (max-width: 47.9375em) {
+  .lp-top-cover__inner {
+    padding-block: 1rem 1.5rem;
+  }
+}
+
+.lp-top-cover__contents {
+  max-width: 920px;
+  margin-inline: auto;
+}
+
+.lp-top-cover__image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lp-top-cover__logo {
+  height: auto;
+  width: 38rem;
+  display: block;
+  margin-top: 1.125rem;
+  margin-inline: auto;
+}
+@media (max-width: 47.9375em) {
+  .lp-top-cover__logo {
+    max-width: 90%;
+    margin-top: 0.75rem;
+  }
+}
+
+.lp-top-cover__description {
+  font-size: 1.5rem;
+  line-height: 1.4;
+  text-align: center;
+  font-weight: 800;
+  color: var(--reversal-text);
+  font-feature-settings: "palt";
+}
+@media (max-width: 47.9375em) {
+  .lp-top-cover__description {
+    font-size: 0.875rem;
+  }
+}
+
+.lp-top-cover__title {
+  color: var(--reversal-text);
+  font-feature-settings: "palt";
+  background-color: var(--accent);
+  color: var(--main);
+  padding: 0.5rem 1rem;
+  font-weight: 800;
+  text-align: center;
+  font-size: 1.25rem;
+  line-height: 1.4;
+}
+@media (min-width: 48em) {
+  .lp-top-cover__title {
+    font-size: 2rem;
+  }
+}
+@media (min-width: 64em) {
+  .lp-top-cover__title {
+    font-size: 2.5rem;
+  }
+}

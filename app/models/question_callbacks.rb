@@ -5,23 +5,22 @@ class QuestionCallbacks
     return unless question.saved_change_to_attribute?(:published_at, from: nil)
 
     send_notification_to_mentors(question)
-    notify_to_chat(question)
+    Rails.logger.info '[CACHE CLEARED#after_save] Cache destroyed for unsolved question count.'
     Cache.delete_not_solved_question_count
+  end
+
+  def before_destroy(question)
+    return if question.wip? || question.correct_answer.present?
+
+    Cache.delete_not_solved_question_count
+    Rails.logger.info '[CACHE CLEARED#before_destroy] Cache destroyed for unsolved question count.'
   end
 
   def after_destroy(question)
     delete_notification(question)
-    Cache.delete_not_solved_question_count
   end
 
   private
-
-  def notify_to_chat(question)
-    ChatNotifier.message(<<~TEXT)
-      質問：「#{question.title}」を#{question.user.login_name}さんが作成しました。
-      https://bootcamp.fjord.jp/questions/#{question.id}
-    TEXT
-  end
 
   def send_notification_to_mentors(question)
     User.mentor.each do |user|

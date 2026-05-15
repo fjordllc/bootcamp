@@ -13,7 +13,6 @@ class RequireLoginTest < ApplicationSystemTestCase
     assert_login_required "/companies/#{companies(:company1).id}/users"
     assert_login_required '/companies'
     assert_login_required "/courses/#{courses(:course1).id}/practices"
-    assert_login_required '/courses'
     assert_login_required '/current_user/bookmarks'
     assert_login_required '/current_user/password/edit'
     assert_login_required '/current_user/products'
@@ -24,11 +23,11 @@ class RequireLoginTest < ApplicationSystemTestCase
     assert_login_required '/generations'
     assert_login_required '/notifications'
     assert_login_required '/pages'
+    assert_login_required '/portfolios'
     assert_login_required "/practices/#{practices(:practice1).id}/pages"
     assert_login_required "/practices/#{practices(:practice1).id}/products"
     assert_login_required "/practices/#{practices(:practice1).id}/questions"
     assert_login_required "/practices/#{practices(:practice1).id}/reports"
-    assert_login_required "/practices/#{practices(:practice1).id}"
     assert_login_required '/products'
     assert_login_required '/questions'
     assert_login_required '/regular_events'
@@ -50,9 +49,11 @@ class RequireLoginTest < ApplicationSystemTestCase
     # app/controllers/comeback_controller.rb
     assert_no_login_required('/comeback/new', '休会からの復帰')
 
+    # app/controllers/corporate_training_inquiry_comtroller.rb
+    assert_no_login_required('/corporate_training_inquiry/new', '企業研修申し込みフォーム')
+
     # app/controllers/home_controller.rb
-    assert_no_login_required('/', 'フィヨルドブートキャンプとは？')
-    assert_no_login_required('/test', 'TEST')
+    assert_no_login_required('/', 'プラス戦力のスキルを身につける')
 
     # app/controllers/inquiries_controller.rb
     assert_no_login_required('/inquiry/new', 'お問い合わせ')
@@ -65,10 +66,10 @@ class RequireLoginTest < ApplicationSystemTestCase
     assert_no_login_required('/logout', 'ログアウトしました。')
 
     # app/controllers/welcome_controller.rb
-    assert_no_login_required('/welcome', 'フィヨルドブートキャンプとは？')
+    assert_no_login_required('/welcome', 'プラス戦力のスキルを身につける')
     assert_no_login_required('/pricing', '料金')
     assert_no_login_required('/faq', 'FAQ')
-    assert_no_login_required('/training', '法人利用')
+    assert_no_login_required('/training', 'FBCの法人向けプログラミング研修')
     assert_no_login_required('/practices', '学習内容')
     assert_no_login_required('/tos', '利用規約')
     assert_no_login_required('/pp', 'プライバシーポリシー')

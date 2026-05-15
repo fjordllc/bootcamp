@@ -1,0 +1,221 @@
+
+@keyframes grab-background-color {
+  0% {
+    background-color: var(--warning);
+  }
+  100% {
+    background-color: var(--base);
+  }
+}
+
+.admin-table {
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 47.9375em) {
+  .admin-table {
+    overflow-x: auto;
+  }
+}
+
+.admin-table__table {
+  border-radius: .25rem;
+  width: 100%;
+}
+
+.admin-table__header {
+  background-color: var(--background-semi-shade);
+  border: solid 1px var(--border-shade);
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
+}
+
+.admin-table__items {
+  border-left: solid 1px var(--border);
+  border-right: solid 1px var(--border);
+}
+
+.admin-table-item__title {
+  font-size: 1.5rem;
+  line-height: 1.45;
+  color: var(--default-text);
+}
+
+.admin-table__label {
+  font-size: .75rem;
+  line-height: 1.4;
+  text-align: center;
+  font-weight: 700;
+  color: var(--main);
+  border: solid 1px var(--border-shade);
+  white-space: nowrap;
+  height: 2rem;
+  padding-inline: .5rem;
+}
+
+.admin-table__label .a-button.is-icon {
+  min-height: 1.25rem;
+  height: 1.25rem;
+  font-size: .75rem;
+  margin-left: .5rem;
+  padding-inline: .375rem;
+  background-color: var(--base);
+  border-color: var(--border-shade);
+  color: var(--default-text);
+}
+
+.admin-table__item {
+  transition: all .2s ease-out;
+  background-color: var(--base);
+}
+
+.admin-table__item.is-retired {
+  background-color: var(--background-tint);
+}
+
+.admin-table__item.is-retired:hover {
+  background-color: var(--background);
+}
+
+.admin-table__item:last-child {
+  border-bottom-left-radius: .25rem;
+  border-bottom-right-radius: .25rem;
+}
+
+.admin-table__item.sortable-chosen {
+  background-color: color-mix(in srgb, var(--warning) 20%, white);
+}
+
+.admin-table__item:hover,
+.admin-table.is-grab .admin-table__item:hover {
+  background-color: color-mix(in srgb, var(--primary) 10%, white);
+}
+
+.admin-table__item[draggable="false"] {
+  background-color: var(--base);
+  animation: grab-background-color 1.25s ease 0s 1 normal none running;
+}
+
+.admin-table__item-value {
+  padding: .375rem .75rem;
+  border: solid 1px var(--border);
+  font-size: .8125rem;
+  line-height: 1.45;
+}
+
+.admin-table__item-value.is-text-align-center {
+  text-align: center;
+}
+
+.admin-table__item-value .a-button {
+  margin-inline: .1875rem;
+}
+
+.admin-table__item-value .is-button-group .a-button {
+  margin-inline: 0;
+}
+
+.admin-table__item-value.is-grab {
+  padding: 0;
+}
+
+.admin-table__item-blank {
+  font-size: .75rem;
+  line-height: 1.45;
+  color: var(--muted-text);
+}
+
+.admin-table__item-logo-image {
+  border: solid 1px var(--border);
+  width: 2.5rem;
+  border-radius: .25rem;
+}
+
+.admin-table-item__body {
+  border-radius: .25rem;
+  background-color: var(--base);
+  box-shadow: rgba(0, 0, 0, .2) 0 1px 4px;
+  overflow: hidden;
+}
+
+.admin-table__user {
+  display: inline-flex;
+  align-items: center;
+  gap: .25rem .25rem;
+}
+
+.admin-table__user-icon {
+  height: 2.125rem;
+  width: 2.125rem;
+  display: inline-block;
+  flex: 0 0 2.125rem;
+}
+
+.admin-table__user-icon:not(:last-child) {
+  margin-right: .5rem;
+}
+
+.admin-table__user-login-name {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  color: var(--main-text);
+}
+
+.admin-table__user:hover .admin-table__user-login-name {
+  text-decoration: underline;
+}
+
+.is-user-icon-xl {
+  height: auto;
+  width: 100%;
+  margin-inline: auto;
+  border-radius: .25rem;
+}
+
+.admin-table__item-block-link-container {
+  padding-top: .25em;
+  font-size: .75rem;
+}
+
+.admin-table__item-block-link-container a {
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--danger);
+}
+
+.admin-table__item-block-link-container a:hover,
+.admin-table__item-block-link-container a:active {
+  text-decoration: underline;
+}
+
+.admin-table.is-loading .admin-table__header {
+  border: solid 1px var(--border);
+  background-color: var(--background);
+}
+
+.admin-table.is-loading .admin-table__label {
+  border: solid 1px var(--border);
+  text-align: center;
+}
+
+.admin-table.is-loading .admin-table__label .a-placeholder {
+  height: 1.05rem;
+  width: 30%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.admin-table.is-loading .admin-table__item-value {
+  height: 2.75rem;
+  border: solid 1px var(--border);
+  pointer-events: none;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.admin-table.is-loading .admin-table__item-value .a-placeholder {
+  height: 1.1875rem;
+  width: 60%;
+  display: inline-block;
+  vertical-align: middle;
+}

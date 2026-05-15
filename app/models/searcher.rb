@@ -1,75 +1,97 @@
 # frozen_string_literal: true
 
 class Searcher
-  DOCUMENT_TYPES = [
-    ['すべて', :all],
-    ['お知らせ', :announcements],
-    ['プラクティス', :practices],
-    ['日報', :reports],
-    ['提出物', :products],
-    ['Q&A', :questions],
-    ['Docs', :pages],
-    ['イベント', :events],
-    ['ユーザー', :users]
+  MODES = %i[keyword semantic hybrid].freeze
+  MODES_FOR_SELECT = [
+    %w[キーワード検索 keyword],
+    %w[意味検索 semantic],
+    %w[ハイブリッド hybrid]
   ].freeze
 
-  AVAILABLE_TYPES = DOCUMENT_TYPES.map(&:second) - %i[all] + %i[comments answers]
+  attr_reader :keyword, :document_type, :current_user, :only_me, :mode
 
-  class << self
-    def search(word, document_type: :all)
-      searchables =
-        case document_type
-        when :all
-          result_for_all(word)
-        when commentable?
-          result_for_comments(document_type, word)
-        when :questions
-          result_for_questions(document_type, word)
-        else
-          result_for(document_type, word).sort_by(&:updated_at).reverse
-        end
+  def self.split_keywords(text)
+    text.to_s.split(/[[:blank:]]+/).reject(&:blank?)
+  end
 
-      delete_comment_of_talk!(searchables) # 相談部屋の内容は検索できないようにする
+  def initialize(keyword:, current_user:, document_type: :all, only_me: false, mode: :keyword)
+    @keyword = keyword.to_s.strip
+    @document_type = validate_document_type(document_type)
+    @only_me = only_me
+    @current_user = current_user
+    @mode = validate_mode(mode)
+  end
+
+  def search
+    return [] if keyword.blank?
+
+    results = case mode
+              when :keyword then keyword_search
+              when :semantic then semantic_search
+              when :hybrid then hybrid_search
+              end
+
+    filter = Filter.new(current_user, only_me:)
+    filter.apply(results)
+  end
+
+  private
+
+  def keyword_search
+    query_builder = QueryBuilder.new(keyword)
+    type_searcher = TypeSearcher.new(query_builder, document_type)
+    type_searcher.search
+  end
+
+  def semantic_search
+    searcher = SmartSearch::SemanticSearcher.new
+    searcher.search(keyword, document_type:)
+  end
+
+  def hybrid_search
+    keyword_results = keyword_search
+    semantic_results = semantic_search
+
+    merge_results(semantic_results, keyword_results)
+  end
+
+  def merge_results(primary, secondary)
+    seen_ids = {}
+    merged = []
+
+    primary.each do |record|
+      key = "#{record.class.name}-#{record.id}"
+      next if seen_ids[key]
+
+      merged << record
+      seen_ids[key] = true
     end
 
-    private
+    secondary.each do |record|
+      key = "#{record.class.name}-#{record.id}"
+      next if seen_ids[key]
 
-    def result_for(type, word, commentable_type: nil)
-      raise ArgumentError "#{type} is not available type" unless type.in?(AVAILABLE_TYPES)
-
-      model(type).search_by_keywords(word:, commentable_type:)
+      merged << record
+      seen_ids[key] = true
     end
 
-    def commentable?
-      ->(document_type) { model(document_type).include?(Commentable) }
-    end
+    merged
+  end
 
-    def model(type)
-      model_name(type).constantize
-    end
+  def validate_document_type(document_type)
+    type_sym = document_type&.to_sym || :all
+    available_keys = Configuration.available_types + [:all]
 
-    def model_name(type)
-      type.to_s.capitalize.singularize
-    end
+    return type_sym if available_keys.include?(type_sym)
 
-    def result_for_all(word)
-      AVAILABLE_TYPES.flat_map { |type| result_for(type, word) }.sort_by(&:updated_at).reverse
-    end
+    raise ArgumentError, "Invalid document_type: #{document_type}. Available types: #{available_keys.join(', ')}"
+  end
 
-    def result_for_comments(document_type, word)
-      [document_type, :comments].flat_map do |type|
-        result_for(type, word, commentable_type: model_name(document_type))
-      end.sort_by(&:updated_at).reverse
-    end
+  def validate_mode(mode)
+    mode_sym = mode&.to_sym || :keyword
+    return mode_sym if MODES.include?(mode_sym)
 
-    def result_for_questions(document_type, word)
-      [document_type, :answers].flat_map { |type| result_for(type, word) }.sort_by(&:updated_at).reverse
-    end
-
-    def delete_comment_of_talk!(searchables)
-      searchables.reject do |searchable|
-        searchable.instance_of?(Comment) && searchable.commentable.instance_of?(Talk)
-      end
-    end
+    Rails.logger.warn "[Searcher] Invalid mode: #{mode.inspect}. Fallback to :keyword"
+    :keyword
   end
 end

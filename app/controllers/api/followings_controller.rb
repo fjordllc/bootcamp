@@ -7,7 +7,7 @@ class API::FollowingsController < API::BaseController
     user = User.find(params[:id])
     watch = params[:watch] == 'true'
     if current_user.follow(user, watch:)
-      render json: { id: user.id }
+      head :no_content
     else
       head :bad_request
     end

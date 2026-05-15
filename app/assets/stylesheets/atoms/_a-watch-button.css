@@ -1,0 +1,13 @@
+.a-watch-button {
+  border: none;
+}
+.a-watch-button:hover {
+  border: none;
+}
+.a-watch-button.is-inactive {
+  color: var(--semi-muted-text);
+}
+.a-watch-button.is-inactive:hover {
+  color: var(--default-text);
+  background-color: var(--background-semi-shade);
+}

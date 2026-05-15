@@ -1,0 +1,15 @@
+button.header-links__link.js-header-dropdown
+  .header-links__link-icon
+    i.fa-solid.fa-circle-info
+  .header-links__link-label
+    | ヘルプ
+  .header-dropdown
+    .header-dropdown__inner
+      .header-dropdown__list
+        ul.header-dropdown__items
+          li.header-dropdown__item
+            = link_to page_path('help'), class: 'header-dropdown__item-link' do
+              | 受講生用ヘルプ
+          li.header-dropdown__item
+            = link_to page_path('help-adviser'), class: 'header-dropdown__item-link' do
+              | アドバイザー用ヘルプ

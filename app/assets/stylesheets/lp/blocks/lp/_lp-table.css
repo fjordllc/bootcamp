@@ -1,0 +1,38 @@
+.lp-table {
+  width: 100%;
+  background-color: var(--base);
+}
+.lp-table th,
+.lp-table td {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  padding: 0.5rem 1rem;
+  border: solid 1px var(--border);
+  text-align: left;
+}
+.lp-table th {
+  font-weight: 400;
+  width: 30%;
+  background-color: var(--lp-bg-2);
+}
+.lp-table td {
+  text-align: left;
+}
+.lp-table td *:first-child {
+  margin-top: 0;
+}
+.lp-table td *:last-child {
+  margin-bottom: 0;
+}
+.lp-table p,
+.lp-table ul,
+.lp-table ol {
+  margin-block: 0.75em;
+}
+.lp-table ul {
+  list-style-type: disc;
+  margin-left: 1.5em;
+}
+.lp-table li {
+  margin-block: 0.25em;
+}

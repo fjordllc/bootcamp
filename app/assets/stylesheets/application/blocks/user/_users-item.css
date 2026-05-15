@@ -1,0 +1,126 @@
+
+.users-item {
+  height: 100%;
+  container: users-item / inline-size;
+
+}
+.users-item__inactive-message {
+  background-color: var(--disabled);
+  font-size: .625rem;
+  line-height: 1.4;
+  text-align: center;
+  padding: .25rem;
+  border-top-left-radius: .1875rem;
+  border-top-right-radius: .1875rem;
+  margin: -1px -1px -.25rem;
+
+}
+.users-item__inner {
+  @media (min-width: 48em) {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+  }
+}
+.users-item__header {
+  position: relative;
+  padding: .75rem 1rem;
+  border-bottom: solid 1px var(--border-tint);
+
+}
+.users-item__header-inner {
+  display: flex;
+  gap: 1rem;
+
+}
+.users-item__header-start {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  align-items: center;
+
+}
+.users-item__header-end {
+  flex: 1;
+
+}
+.users-item__icon {
+  @media (min-width: 48em) {
+    min-width: 3.5rem;
+  }
+  @media (max-width: 47.9375em) {
+    min-width: 2.5rem;
+
+  }
+}
+.users-item__user-icon-image {
+  background-color: var(--base);
+  @media (min-width: 48em) {
+    height: 3.5rem;
+    width: 3.5rem;
+  }
+  @media (max-width: 47.9375em) {
+    height: 2.5rem;
+    width: 2.5rem;
+
+  }
+}
+.users-item__name {
+  font-size: 1em;
+  line-height: 1.4;
+  display: block;
+  font-weight: 600;
+  color: var(--main);
+  margin-bottom: .125rem;
+  @media (min-width: 48em) {
+    font-size: 1.125rem;
+  }
+  @media (max-width: 47.9375em) {
+    font-size: 1rem;
+  }
+  i {
+    color: var(--danger);
+    margin-left: .25em;
+    font-size: .75em;
+
+  }
+}
+.users-item__body {
+  padding: .75rem 1rem 0;
+  @media (min-width: 48em) {
+    flex: 1;
+
+  }
+}
+.users-item__description {
+  p {
+    font-size: .75rem;
+    line-height: 1.6;
+
+  }
+}
+.users-item__tags {
+  margin-top: .75rem;
+
+}
+.users-item__edit {
+  text-align: center;
+  margin-top: -.25rem;
+  padding-bottom: 1rem;
+
+}
+.user-item__company-logo-image {
+  height: 3.5rem;
+  width: 3.5rem;
+  min-width: 3.5rem;
+  object-fit: cover;
+  background-color: var(--base);
+  border-radius: .25rem;
+  border: solid 1px var(--border-tint);
+
+}
+.users-item__footer {
+  position: relative;
+
+}

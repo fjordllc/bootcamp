@@ -5,52 +5,23 @@ require 'application_system_test_case'
 class Question::TagsTest < ApplicationSystemTestCase
   test 'search questions by tag' do
     visit_with_auth questions_url, 'kimura'
-    click_on '質問する'
-    tag_list = ['tag1',
-                'ドットつき.タグ',
-                'ドットが.2つ以上の.タグ',
-                '.先頭がドット',
-                '最後がドット.']
-    within 'form[name=question]' do
-      fill_in 'question[title]', with: 'tagテストの質問'
-      fill_in 'question[description]', with: 'tagテストの質問です。'
-      tag_input = find('.ti-new-tag-input')
-      tag_list.each do |tag|
-        tag_input.set tag
-        tag_input.native.send_keys :return
-      end
-      click_button '登録する'
+    tags = find_tags('Question')
+    tags.each do |tag|
+      visit_with_auth questions_tag_path(tag, all: 'true'), 'kimura'
+      titles = Question.tagged_with(tag).pluck(:title)
+      texts = all('.card-list-item-title__link').map(&:text)
+      assert_equal titles, texts
     end
-    click_on 'Q&A', match: :first
-
-    tag_list.each do |tag|
-      assert_text tag
-      click_on tag, match: :first
-      assert_text 'tagテストの質問'
-      assert_no_text 'どのエディターを使うのが良いでしょうか'
-    end
-  end
-
-  test 'update tags without page transitions' do
-    visit_with_auth question_path(questions(:question2)), 'komagata'
-    find('.tag-links__item-edit').click
-    tag_input = find('.ti-new-tag-input')
-    tag_input.set '追加タグ'
-    tag_input.native.send_keys :return
-    click_on '保存'
-    assert_text '追加タグ'
   end
 
   test 'admin can edit tag' do
     tag = acts_as_taggable_on_tags('game')
-    visit_with_auth questions_tag_path(tag.name, all: 'true'), 'komagata'
-    assert_text('タグ名変更')
+    assert_admin_can_edit_tag(questions_tag_path(tag.name, all: 'true'))
   end
 
   test 'users except admin cannot edit tag' do
     tag = acts_as_taggable_on_tags('game')
-    visit_with_auth questions_tag_path(tag.name, all: 'true'), 'kimura'
-    assert_no_text('タグ名変更')
+    assert_non_admin_cannot_edit_tag(questions_tag_path(tag.name, all: 'true'))
   end
 
   test 'update tag with not existing tag' do
@@ -96,17 +67,13 @@ class Question::TagsTest < ApplicationSystemTestCase
     assert_text "タグ「#{update_tag.name}」のユーザー（2）"
 
     visit_with_auth pages_tag_path(tag.name), 'komagata'
-    has_no_selector?('card-list-item')
+    assert_no_selector '.card-list-item'
     visit_with_auth pages_tag_path(update_tag.name), 'komagata'
-    has_selector?('card-list-item')
+    assert_selector '.card-list-item'
   end
 
   test 'update tag with same value' do
     tag = acts_as_taggable_on_tags('beginner')
-
-    visit_with_auth questions_tag_path(tag.name, all: 'true'), 'komagata'
-    click_button 'タグ名変更'
-    fill_in('tag[name]', with: tag.name)
-    has_field?('変更', disabled: true)
+    assert_tag_update_button_disabled_for_same_value(questions_tag_path(tag.name, all: 'true'), tag.name)
   end
 end

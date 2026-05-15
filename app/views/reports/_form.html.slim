@@ -20,7 +20,7 @@
 
       .form-item
         = f.label :reported_on, class: 'a-form-label'
-        = f.date_field :reported_on, class: 'a-text-input'
+        = f.date_field :reported_on, min: '2013-01-01', class: 'a-text-input'
       .form-item.is-sm
         = f.label :emotion, class: 'a-form-label'
         ul.block-checks.is-3-items.is-inline
@@ -31,17 +31,19 @@
                 label.a-block-check__label.has-icon for="report_emotion_#{b.value}"
                   = image_tag b.text, id: b.value, alt: b.value, class: 'a-block-check__image'
                   span.a-block-check__name
-                    = b.value
+                    = t("activerecord.enums.emotion.#{b.value}")
       .form-item
         label.a-form-label
           | 学習時間
         .form-item__lerning-times#js-learning-times
-          = f.fields_for :learning_times do |learning_time|
-            = render 'learning_time_fields', f: learning_time
-          .form-item__add-times
-            = link_to_add_association f, :learning_times, class: 'a-button is-md is-primary' do
-              i.fa-regular.fa-plus
-              | 学習時間追加
+          = cocooned_container do
+            = f.fields_for :learning_times do |learning_time|
+              = render 'learning_time_fields', f: learning_time
+            .form-item__add-times
+              = cocooned_add_item_link f, :learning_times, class: 'a-button is-md is-primary' do
+                i.fa-regular.fa-plus
+                span
+                  | 学習時間追加
 
         .checkboxes
           .checkboxes__items
@@ -63,24 +65,36 @@
           .a-page-notice__inner
             p
               | この日報はすでに提出済みです。
-      .row.js-markdown-parent
+      .row.js-markdown-parent(data-controller="report-template")
         .col-md-6.col-xs-12
+          - registered_template = current_user.report_template&.description
+          - registered_template_id = current_user.report_template&.id
           .form-item__header
             = f.label :description, class: 'a-form-label'
-            #js-report-template(
-              template-description="#{current_user.report_template&.description}"
-              template-id="#{current_user.report_template&.id}"
-            )
-          .a-textarea-bottom-note
-            = f.text_area :description,
-              class: "a-text-input js-warning-form js-report-content markdown-form__text-area #{params[:action] == 'new' && params[:id].blank? ? '' : 'js-markdown'}",
-              data: { 'preview': '.js-preview' }
-            .a-textarea-bottom-note__banner
-              | 途中保存は「#{request.os == 'Mac OSX' ? 'command + s' : 'Ctrl + s'}」 マメに保存しよう。
+            = render 'reports/report_template',
+              template_description: registered_template,
+              template_id: registered_template_id,
+              editingValue: true,
+              is_editing_template_valid: true,
+              data: { 'registered-template-value': registered_template }
+          .form-textarea
+            .form-textarea__body
+              - value_option = report.description.blank? && registered_template.present? ? { value: registered_template } : {}
+              = f.text_area :description,
+                **value_option,
+                class: "a-text-input js-warning-form js-report-content markdown-form__text-area #{params[:action] == 'new' && params[:id].blank? ? '' : 'js-markdown'}",
+                data: { 'report-template-target': 'report', 'preview': '.js-preview', 'input': '.file-input' }
+            .form-textarea__footer
+              .form-textarea__insert
+                label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
+                  | ファイルを挿入
+                  input(type='file' class='file-input' multiple)
+              .form-textarea__bottom-note
+                | 途中保存は「#{request.os == 'Mac OSX' ? 'command + s' : 'Ctrl + s'}」 マメに保存しよう。
         .col-md-6.col-xs-12
           .a-form-label
             | プレビュー
-          .js-preview.a-long-text.is-md.markdown-form__preview
+          .js-preview.a-long-text.is-md.markdown-form__preview(data-report-template-target="previewContent")
 
   .form-actions.is-report
     ul.form-actions__items
@@ -122,7 +136,7 @@
     .a-short-text
       p
         | WIPとは、「work in progress」もしくは「work in process」の略。
-        | 「作業中」を表すプログラマー界隈でよく使われる用語です。
+        | 「作業中」を表すエンジニア界隈でよく使われる用語です。
       p
         | 下書きと違って、WIPの状態でも公開されています(バグではありません😄)。
       p

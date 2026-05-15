@@ -1,0 +1,12 @@
+nav.pill-nav
+  .container
+    ul.pill-nav__items
+      li.pill-nav__item
+        = link_to '未読',
+          notifications_path(status: 'unread', target: params[:target]),
+          class: "pill-nav__item-link #{params[:status] == 'unread' ? 'is-active' : ''}"
+
+      li.pill-nav__item
+        = link_to '全て',
+          notifications_path(target: params[:target]),
+          class: "pill-nav__item-link #{params[:status] == 'unread' ? '' : 'is-active'}"

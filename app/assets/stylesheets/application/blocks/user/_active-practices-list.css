@@ -1,0 +1,38 @@
+.active-practices-list__items {
+  margin-bottom: -0.25rem;
+}
+
+.active-practices-list-item:not(:last-child) {
+  border-bottom: dotted 0.0625rem var(--border-tint);
+}
+
+.active-practices-list-item__link {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  display: block;
+  color: var(--main);
+  padding-block: 0.5rem;
+  padding-inline: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+.active-practices-list-item__link:hover, .active-practices-list-item__link:active {
+  text-decoration: underline;
+}
+.active-practices-list-item__link::before {
+  content: "\f060";
+  font-family: "Font Awesome 6 Pro";
+  font-style: normal;
+  font-weight: 900;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  margin-right: 0.5rem;
+  color: var(--accent);
+}
+.active-practices-list-item__link:hover::before {
+  text-decoration: none;
+}

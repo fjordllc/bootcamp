@@ -2,7 +2,7 @@
 
 class BuildTalkToAllUsers < ActiveRecord::Migration[6.1]
   def up
-    User.all.each(&:create_talk!)
+    User.all.find_each(&:create_talk!)
   end
 
   def down

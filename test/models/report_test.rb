@@ -35,23 +35,6 @@ class ReportTest < ActiveSupport::TestCase
     assert_equal 0, reports(:report3).total_learning_time
   end
 
-  test 'adviser watches trainee report when trainee create report' do
-    trainee = users(:kensyu)
-    adviser = users(:senpai)
-    report = Report.new(
-      title: 'test',
-      description: 'test text',
-      reported_on: Date.parse('2020-01-01'),
-      user: trainee
-    )
-    report.learning_times.build(
-      started_at: Time.zone.parse('2020-01-01 10:00:00'),
-      finished_at: Time.zone.parse('2020-01-01 11:00:00')
-    )
-    report.save!
-    assert_not_nil Watch.find_by(user: adviser, watchable: report)
-  end
-
   test '#latest_of_user?' do
     assert_not reports(:report31).latest_of_user?
     assert reports(:report32).latest_of_user?
@@ -59,5 +42,35 @@ class ReportTest < ActiveSupport::TestCase
 
   test '#interval' do
     assert_equal 10, reports(:report32).interval
+  end
+
+  test 'save_uniquely does not save duplicate report and adds validation errors' do
+    Report.create!(
+      user: users(:komagata),
+      reported_on: Time.zone.today,
+      title: 'report1',
+      description: 'report1本文'
+    )
+
+    duplicate_report = Report.new(
+      user: users(:komagata),
+      reported_on: Time.zone.today,
+      title: 'report2',
+      description: 'report2本文'
+    )
+    assert_not duplicate_report.save_uniquely
+    assert_includes duplicate_report.errors.full_messages, '学習日はすでに存在します'
+  end
+
+  test 'unchecked scope returns reports without checks' do
+    unchecked_report = Report.create!(
+      user: users(:kimura),
+      reported_on: Time.zone.today,
+      title: 'テスト未チェックレポート',
+      description: '本文'
+    )
+
+    assert_empty unchecked_report.checks
+    assert_includes Report.unchecked, unchecked_report
   end
 end

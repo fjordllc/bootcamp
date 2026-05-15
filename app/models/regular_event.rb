@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
+  attr_accessor :start_on, :end_on
+
   DAYS_OF_THE_WEEK_COUNT = 7
 
   FREQUENCY_LIST = [
@@ -8,17 +10,9 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     ['第1', 1],
     ['第2', 2],
     ['第3', 3],
-    ['第4', 4]
-  ].freeze
-
-  DAY_OF_THE_WEEK_LIST = [
-    ['日曜日', 0],
-    ['月曜日', 1],
-    ['火曜日', 2],
-    ['水曜日', 3],
-    ['木曜日', 4],
-    ['金曜日', 5],
-    ['土曜日', 6]
+    ['第4', 4],
+    ['奇数週', 5],
+    ['偶数週', 6]
   ].freeze
 
   include WithAvatar
@@ -26,16 +20,18 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   include Footprintable
   include Reactionable
   include Watchable
+  include Searchable
+  include Bookmarkable
 
-  enum category: {
+  enum :category, {
     reading_circle: 0,
     chat: 1,
     question: 2,
     meeting: 3,
     others: 4
-  }, _prefix: true
+  }, prefix: true
 
-  validates :title, presence: true
+  validates :title, presence: true, markdown_prohibited: true
   validates :user_ids, presence: true
   validates :start_at, presence: true
   validates :end_at, presence: true
@@ -45,86 +41,72 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validates :regular_event_repeat_rules, presence: true
   validates_associated :regular_event_repeat_rules
 
-  scope :not_finished, -> { where(finished: false) }
+  scope :exclude_finished, -> { where(finished: false) }
 
   with_options if: -> { start_at && end_at } do
     validate :end_at_be_greater_than_start_at
   end
 
-  scope :holding, -> { where(finished: false) }
+  scope :not_finished, -> { where(finished: false, wip: false) }
+  scope :participated_by, ->(user) { where(id: all.filter { |e| e.participated_by?(user) }.map(&:id)) }
+  scope :organizer_event, ->(user) { joins(:regular_event_organizers).where(regular_event_organizers: { user: user }) }
+  scope :scheduled_on, ->(date) { not_finished.filter { |event| event.scheduled_on?(date) } }
+  scope :scheduled_on_without_ended, ->(date) { not_finished.filter { |event| event.scheduled_on?(date) && !event.ended?(date) } }
+
+  scope :fetch_target_events, lambda { |target|
+    case target
+    when 'not_finished'
+      not_finished
+    else
+      all
+    end
+  }
+
+  scope :list, lambda {
+    with_avatar
+      .includes(:comments, :users, :regular_event_repeat_rules)
+      .order(created_at: :desc)
+  }
 
   belongs_to :user
-  has_many :organizers, dependent: :destroy
-  has_many :users, through: :organizers
+  has_many :regular_event_organizers, dependent: :destroy
+  has_many :users, through: :regular_event_organizers
   has_many :regular_event_repeat_rules, dependent: :destroy
   accepts_nested_attributes_for :regular_event_repeat_rules, allow_destroy: true
   has_many :regular_event_participations, dependent: :destroy
   has_many :participants,
            through: :regular_event_participations,
            source: :user
-  has_many :watches, as: :watchable, dependent: :destroy
+  attribute :wants_announcement, :boolean
 
-  def organizers
-    users.with_attached_avatar.order('organizers.created_at')
+  columns_for_keyword_search :title, :description
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[title description category start_at end_at finished hold_national_holiday created_at updated_at user_id]
   end
 
-  def holding_today?
-    now = Time.current
-    event_day = regular_event_repeat_rules.map do |repeat_rule|
-      if repeat_rule.frequency.zero?
-        repeat_rule.day_of_the_week == now.wday
-      else
-        repeat_rule.day_of_the_week == now.wday && repeat_rule.frequency == convert_date_into_week(now.day)
-      end
-    end.include?(true)
-    event_start_time = Time.zone.local(now.year, now.month, now.day, start_at.hour, start_at.min, 0)
-
-    event_day && (now < event_start_time)
+  def self.ransackable_associations(_auth_object = nil)
+    %w[user regular_event_organizers users regular_event_repeat_rules participants comments reactions watches]
   end
 
-  def convert_date_into_week(date)
-    (date / 7.0).ceil
+  def scheduled_on?(date)
+    all_scheduled_dates.include?(date)
+  end
+
+  def ended?(date)
+    end_time_of_event = date.in_time_zone.change(hour: end_at.hour, min: end_at.min)
+    Time.current >= end_time_of_event
   end
 
   def next_event_date
-    today = Time.zone.today
-    this_month_first_day = Date.new(today.year, today.mon, 1)
-    next_month_first_day = this_month_first_day.next_month
+    event_dates =
+      hold_national_holiday ? upcoming_scheduled_dates : upcoming_scheduled_dates.reject { |d| HolidayJp.holiday?(d) }
 
-    possible_dates = regular_event_repeat_rules.map do |repeat_rule|
-      [
-        possible_next_event_date(this_month_first_day, repeat_rule),
-        possible_next_event_date(next_month_first_day, repeat_rule)
-      ]
-    end.flatten
-    possible_dates.compact.select { |possible_date| possible_date > Time.zone.today }.min
+    event_dates.min
   end
 
-  def possible_next_event_date(first_day, repeat_rule)
-    if repeat_rule.frequency.zero?
-      next_specific_day_of_the_week(repeat_rule) if Time.zone.today.mon == first_day.mon
-    else
-      # 次の第n X曜日の日付を計算する
-      date = (repeat_rule.frequency - 1) * DAYS_OF_THE_WEEK_COUNT + repeat_rule.day_of_the_week - first_day.wday + 1
-      date += DAYS_OF_THE_WEEK_COUNT if repeat_rule.day_of_the_week < first_day.wday
-      Date.new(first_day.year, first_day.mon, date)
-    end
-  end
-
-  def next_specific_day_of_the_week(repeat_rule)
-    day_of_the_week_symbol = DateAndTime::Calculations::DAYS_INTO_WEEK.key(repeat_rule.day_of_the_week)
-    0.days.ago.next_occurring(day_of_the_week_symbol).to_date
-  end
-
-  def holding_tomorrow?
-    tomorrow = Time.current.next_day
-    regular_event_repeat_rules.map do |repeat_rule|
-      if repeat_rule.frequency.zero?
-        repeat_rule.day_of_the_week == tomorrow.wday
-      else
-        repeat_rule.day_of_the_week == tomorrow.wday && repeat_rule.frequency == convert_date_into_week(tomorrow.day)
-      end
-    end.include?(true)
+  def organizers
+    users.preload(avatar_attachment: :blob).order('regular_event_organizers.created_at')
   end
 
   def cancel_participation(user)
@@ -132,23 +114,54 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     regular_event_participation.destroy
   end
 
-  def watched_by?(user)
-    watches.exists?(user_id: user.id)
-  end
-
   def participated_by?(user)
     regular_event_participations.find_by(user_id: user.id).present?
   end
 
-  class << self
-    def today_events
-      holding_events = RegularEvent.holding
-      holding_events.select(&:holding_today?)
-    end
+  def all_scheduled_dates(
+    from: Date.current,
+    to: Date.current.next_year
+  )
+    (from..to).filter { |d| date_match_the_rules?(d, regular_event_repeat_rules) }
+  end
 
-    def tomorrow_events
-      holding_events = RegularEvent.holding
-      holding_events.select(&:holding_tomorrow?)
+  def transform_for_subscription(event_date)
+    regular_event = dup
+
+    regular_event.assign_attributes(
+      start_on: parse_event_time(event_date, regular_event.start_at),
+      end_on: parse_event_time(event_date, regular_event.end_at)
+    )
+
+    regular_event
+  end
+
+  def self.fetch_participated_regular_events(user)
+    participated_regular_events = []
+    user.participated_regular_event_ids.find_each do |regular_event|
+      regular_event.all_scheduled_dates.each do |event_date|
+        participated_regular_events << regular_event.transform_for_subscription(event_date)
+      end
+    end
+    participated_regular_events
+  end
+
+  def publish_with_announcement?
+    wants_announcement? && !wip?
+  end
+
+  # 定期イベントは主催者が1人以上必要なため
+  # 主催者が1人しかいない場合はイベントを終了状態にし
+  # それ以外の場合は主催者のみを削除する
+  #
+  # TODO: 本来は「主催者が0人のイベントは無効」という制約をバリデーションで担保する形にしたい
+  # https://github.com/fjordllc/bootcamp/pull/9732#discussion_r2969273381
+  def close_or_destroy_organizer(user)
+    if regular_event_organizers.count == 1
+      update(finished: true)
+    else
+      organizer = regular_event_organizers.find_by(user:)
+      organizer.destroy
     end
   end
 
@@ -159,5 +172,37 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     return unless diff <= 0
 
     errors.add(:end_at, ': イベント終了時刻はイベント開始時刻よりも後の時刻にしてください。')
+  end
+
+  def upcoming_scheduled_dates
+    # 時刻が過ぎたイベントを排除するためだけに、一時的にstart_timeを与える。後でDate型に戻す。
+    event_dates_with_start_time = all_scheduled_dates.map { |d| d.in_time_zone.change(hour: start_at.hour, min: start_at.min) }
+
+    event_dates_with_start_time.reject { |d| d < Time.zone.now }.map(&:to_date)
+  end
+
+  def date_match_the_rules?(date, rules)
+    rules.any? do |rule|
+      case rule.frequency
+      when 0
+        rule.day_of_the_week == date.wday
+      when 5
+        date.cweek.odd? && rule.day_of_the_week == date.wday
+      when 6
+        date.cweek.even? && rule.day_of_the_week == date.wday
+      else
+        rule.frequency == nth_wday(date) && rule.day_of_the_week == date.wday
+      end
+    end
+  end
+
+  def nth_wday(date)
+    (date.day + 6) / 7
+  end
+
+  def parse_event_time(event_date, event_time)
+    str_date = event_date.strftime('%F')
+    str_time = event_time.strftime('%R')
+    Time.zone.parse([str_date, str_time].join(' '))
   end
 end

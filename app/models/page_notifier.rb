@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class PageNotifier
-  def call(page)
+  def call(_name, _started, _finished, _unique_id, payload)
+    page = payload[:page]
     send_notification(page)
     notify_to_chat(page)
-    create_author_watch(page)
 
     page.published_at = Time.current
     page.save
@@ -13,7 +13,7 @@ class PageNotifier
   private
 
   def send_notification(page)
-    receivers = User.where(retired_on: nil, graduated_on: nil, adviser: false, trainee: false)
+    receivers = User.admins_and_mentors
     receivers.each do |receiver|
       ActivityDelivery.with(receiver:, page:).notify(:create_page) if page.sender != receiver
     end
@@ -28,11 +28,7 @@ class PageNotifier
 
     ChatNotifier.message(<<~TEXT)
       Docs：「#{page.title}」が作成されました。
-      #{page_url}
+      <#{page_url}>
     TEXT
-  end
-
-  def create_author_watch(page)
-    Watch.create!(user: page.user, watchable: page)
   end
 end
