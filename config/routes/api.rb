@@ -72,6 +72,7 @@ Rails.application.routes.draw do
       resource :passed, only: %i(show), controller: 'passed'
     end
     resources :products, only: %i(index show) do
+      resources :comments, only: %i(create), controller: 'products/comments'
       resource :check, only: %i(create destroy), controller: 'products/check'
     end
     resources :bookmarks, only: %i(index create destroy)
