@@ -23,12 +23,12 @@ class API::NotificationsTest < ActionDispatch::IntegrationTest
     assert_response :ok
   end
 
-  test 'POST /api/notifications/:id/read.json' do
+  test 'PATCH /api/notifications/:notification_id/read_mark.json' do
     token = create_token('kimura', 'testtest')
     notification = notifications('notification_mentioned_and_unread_1')
 
-    post read_api_notification_path(notification, format: :json),
-         headers: { 'Authorization' => "Bearer #{token}" }
+    patch api_notification_read_mark_path(notification, format: :json),
+          headers: { 'Authorization' => "Bearer #{token}" }
 
     assert_response :ok
     assert_equal notification.id, response.parsed_body['id']
@@ -36,12 +36,12 @@ class API::NotificationsTest < ActionDispatch::IntegrationTest
     assert notification.reload.read?
   end
 
-  test 'POST /api/notifications/read_by_category.json' do
+  test 'PATCH /api/notifications/category_read_mark.json' do
     token = create_token('kimura', 'testtest')
 
-    post read_by_category_api_notifications_path(format: :json),
-         headers: { 'Authorization' => "Bearer #{token}" },
-         params: { target: 'mention' }
+    patch api_notifications_category_read_mark_path(format: :json),
+          headers: { 'Authorization' => "Bearer #{token}" },
+          params: { target: 'mention' }
 
     assert_response :ok
     assert_equal 2, response.parsed_body['count']
@@ -50,12 +50,12 @@ class API::NotificationsTest < ActionDispatch::IntegrationTest
     assert_not notifications(:notification_watching).reload.read?
   end
 
-  test 'POST /api/notifications/read_all.json' do
+  test 'PATCH /api/notifications/all_read_mark.json' do
     token = create_token('kimura', 'testtest')
     unread_count = users(:kimura).notifications.unreads.count
 
-    post read_all_api_notifications_path(format: :json),
-         headers: { 'Authorization' => "Bearer #{token}" }
+    patch api_notifications_all_read_mark_path(format: :json),
+          headers: { 'Authorization' => "Bearer #{token}" }
 
     assert_response :ok
     assert_equal unread_count, response.parsed_body['count']
@@ -65,8 +65,8 @@ class API::NotificationsTest < ActionDispatch::IntegrationTest
   test 'returns not found when reading other user notification' do
     token = create_token('kimura', 'testtest')
 
-    post read_api_notification_path(notifications(:notification_submitted), format: :json),
-         headers: { 'Authorization' => "Bearer #{token}" }
+    patch api_notification_read_mark_path(notifications(:notification_submitted), format: :json),
+          headers: { 'Authorization' => "Bearer #{token}" }
 
     assert_response :not_found
     assert_equal '通知が見つかりません。', response.parsed_body['message']
