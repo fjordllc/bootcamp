@@ -847,10 +847,12 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   def comeback!
     update_last_returned_at!
 
-    subscription = Subscription.new.create(customer_id, trial: 0)
+    unless Rails.env.development?
+      subscription = Subscription.new.create(customer_id, trial: 0)
+      self.subscription_id = subscription['id']
+    end
 
     self.hibernated_at = nil
-    self.subscription_id = subscription['id']
     save!(validate: false)
   end
 
