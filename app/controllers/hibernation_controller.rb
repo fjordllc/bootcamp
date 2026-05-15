@@ -15,7 +15,7 @@ class HibernationController < ApplicationController
     @hibernation.user = current_user
 
     if @hibernation.save
-      @hibernation.excute
+      @hibernation.execute
 
       logout
       redirect_to hibernation_path
