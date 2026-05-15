@@ -245,6 +245,7 @@ jobs:
 
       - name: Update PR description with flakewatch report
         if: github.event_name == 'pull_request'
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
