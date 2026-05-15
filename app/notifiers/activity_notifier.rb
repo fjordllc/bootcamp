@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ActivityNotifier < ApplicationNotifier
+class ActivityNotifier < ApplicationNotifier # rubocop:todo Metrics/ClassLength
   self.driver = ActivityDriver.new
   self.async_adapter = ActivityAsyncAdapter.new
 
@@ -19,14 +19,14 @@ class ActivityNotifier < ApplicationNotifier
     )
   end
 
-  def consecutive_sad_report(params = {})
+  def consecutive_negative_report(params = {})
     params.merge!(@params)
     report = params[:report]
     receiver = params[:receiver]
 
     notification(
-      body: "#{report.user.login_name}さんが#{User::DEPRESSED_SIZE}回連続でsadアイコンの日報を提出しました。",
-      kind: :consecutive_sad_report,
+      body: "#{report.user.login_name}さんが#{User::DEPRESSED_SIZE}回連続でnegativeアイコンの日報を提出しました。",
+      kind: :consecutive_negative_report,
       sender: report.sender,
       receiver:,
       link: Rails.application.routes.url_helpers.polymorphic_path(report),
@@ -122,6 +122,21 @@ class ActivityNotifier < ApplicationNotifier
       receiver:,
       sender: report.sender,
       link: Rails.application.routes.url_helpers.polymorphic_path(report),
+      read: false
+    )
+  end
+
+  def training_completed(params = {})
+    params.merge!(@params)
+    sender = params[:sender]
+    receiver = params[:receiver]
+
+    notification(
+      body: "#{sender.login_name}さんの研修が終了しました。",
+      kind: :training_completed,
+      sender:,
+      receiver:,
+      link: Rails.application.routes.url_helpers.polymorphic_path(sender),
       read: false
     )
   end
@@ -235,9 +250,11 @@ class ActivityNotifier < ApplicationNotifier
     params.merge!(@params)
     check = params[:check]
     receiver = params[:receiver]
+    trainee_name_prefix = receiver.adviser ? "#{check.checkable.user.login_name}さんの" : ''
+    body = "#{check.sender.login_name}さんが#{trainee_name_prefix}#{check.checkable.title}を#{check.action_label}しました。"
 
     notification(
-      body: "#{check.sender.login_name}さんが#{check.checkable.title}を確認しました。",
+      body:,
       kind: :checked,
       receiver:,
       sender: check.sender,
@@ -297,12 +314,13 @@ class ActivityNotifier < ApplicationNotifier
     params.merge!(@params)
     regular_event = params[:regular_event]
     receiver = params[:receiver]
+    sender = params[:sender]
 
     notification(
       body: "定期イベント【#{regular_event.title}】が更新されました。",
       kind: :regular_event_updated,
       receiver:,
-      sender: regular_event.user,
+      sender:,
       link: Rails.application.routes.url_helpers.polymorphic_path(regular_event),
       read: false
     )
@@ -338,6 +356,87 @@ class ActivityNotifier < ApplicationNotifier
     )
   end
 
+  def came_pair_work(params = {})
+    params.merge!(@params)
+    pair_work = params[:pair_work]
+    receiver = params[:receiver]
+
+    notification(
+      body: "#{pair_work.user.login_name}さんからペアワーク依頼「#{pair_work.title}」が投稿されました。",
+      kind: :came_pair_work,
+      receiver:,
+      sender: pair_work.user,
+      link: Rails.application.routes.url_helpers.polymorphic_path(pair_work),
+      read: false
+    )
+  end
+
+  def matching_pair_work(params = {})
+    params.merge!(@params)
+    pair_work = params[:pair_work]
+    sender = pair_work.user
+    receiver = params[:receiver]
+    matched_user = pair_work.buddy
+    user_name = receiver == matched_user ? 'あなた' : "#{matched_user.login_name}さん"
+
+    notification(
+      body: "#{sender.login_name}さんのペアワーク【 #{pair_work.title} 】のペアが#{user_name}に決定しました。",
+      kind: :matching_pair_work,
+      receiver:,
+      sender:,
+      link: Rails.application.routes.url_helpers.polymorphic_path(pair_work),
+      read: false
+    )
+  end
+
+  def rematching_pair_work(params = {})
+    params.merge!(@params)
+    pair_work = params[:pair_work]
+    sender = pair_work.buddy
+    receiver = params[:receiver]
+
+    notification(
+      body: "ペアワーク「#{pair_work.title}」のペアが#{sender.login_name}に変更されました。",
+      kind: :rematching_pair_work,
+      receiver:,
+      sender:,
+      link: Rails.application.routes.url_helpers.polymorphic_path(pair_work),
+      read: false
+    )
+  end
+
+  def reschedule_pair_work(params = {})
+    params.merge!(@params)
+    pair_work = params[:pair_work]
+    sender = pair_work.buddy
+    receiver = params[:receiver]
+
+    notification(
+      body: "ペアワーク「#{pair_work.title}」の日程が#{I18n.l pair_work.reserved_at}に変更されました。",
+      kind: :reschedule_pair_work,
+      receiver:,
+      sender:,
+      link: Rails.application.routes.url_helpers.polymorphic_path(pair_work),
+      read: false
+    )
+  end
+
+  def cancel_pair_work(params = {})
+    params.merge!(@params)
+    pair_work = params[:pair_work]
+    sender = params[:sender]
+    receiver = params[:receiver]
+
+    notification(
+      body: "ペアワーク「#{pair_work.title}」のペア確定が取り消されました。",
+      kind: :cancel_pair_work,
+      receiver:,
+      sender:,
+      link: Rails.application.routes.url_helpers.polymorphic_path(pair_work),
+      read: false
+    )
+  end
+
   def moved_up_event_waiting_user(params = {})
     params.merge!(@params)
     event = params[:event]
@@ -349,6 +448,53 @@ class ActivityNotifier < ApplicationNotifier
       receiver:,
       sender: event.user,
       link: Rails.application.routes.url_helpers.polymorphic_path(event),
+      read: false
+    )
+  end
+
+  def create_article(params = {})
+    params.merge!(@params)
+    article = params[:article]
+    receiver = params[:receiver]
+
+    notification(
+      body: "#{article.user.login_name}さんがブログに「#{article.title}」を投稿しました。",
+      kind: :create_article,
+      receiver:,
+      sender: article.user,
+      link: Rails.application.routes.url_helpers.polymorphic_path(article),
+      read: false
+    )
+  end
+
+  def added_work(params = {})
+    params.merge!(@params)
+    work = params[:work]
+    receiver = params[:receiver]
+    sender = work.user
+
+    notification(
+      body: "#{sender.login_name}さんがポートフォリオに作品「#{work.title}」を追加しました。",
+      kind: :added_work,
+      receiver:,
+      sender:,
+      link: Rails.application.routes.url_helpers.polymorphic_path(work),
+      read: false
+    )
+  end
+
+  def came_inquiry(params = {})
+    params.merge!(@params)
+    inquiry = params[:inquiry]
+    sender = params[:sender]
+    receiver = params[:receiver]
+
+    notification(
+      body: "#{inquiry.name}さんから問い合わせがありました。",
+      kind: :came_inquiry,
+      receiver:,
+      sender:,
+      link: Rails.application.routes.url_helpers.admin_inquiry_path(inquiry),
       read: false
     )
   end

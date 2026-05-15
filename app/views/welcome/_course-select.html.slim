@@ -1,0 +1,82 @@
+section.lp-content.is-lp-bg-3.is-top-title#course-select
+  .l-container.is-xl
+    .lp-content__inner
+      .lp-content__start
+        header.lp-content__header
+          h2.lp-content-title.text-center.is-border-bottom
+            | 選べる
+            strong
+              | 2つ + 1の
+            | コース
+
+      .lp-content__end
+        .lp-content-stack
+          .lp-content-stack__item
+            .lp-content__description
+              .l-inner-container.is-md
+                .a-short-text
+                  p
+                    | 「Railsエンジニアコース」と「フロントエンドエンジニアコース」の2つのコース
+                    |  + 専門実践教育訓練給付制度の対象講座の「給付金対象Railsエンジニアコース」があります。
+                    | 最初は共通のカリキュラムからスタートし、その後に専門分野に分かれて学んでいきます。
+                    | どのコースも最終的には、自分で考えたWebサービスを作ってリリースすることを目指します。
+                    | また、どれもチーム開発を体験できるので、実践的なスキルが身につきます。
+
+          .lp-content-stack__item
+            .lp-content-section
+              .row.is-gutter-width-24
+                .col-xs-12.col-md-6
+                  section.lp-top-image-section
+                    .lp-top-image-section__inner.a-card
+                      h3.lp-card-title.text-center
+                        | Railsエンジニアコース
+                      .lp-card-description.a-short-text
+                        = image_tag('courses/rails.svg', class: 'lp-top-image-section__float-image', alt: 'Ruby on Railsのロゴ')
+                        p.mt-0
+                          | プログラミング言語 Ruby を用いたWebアプリケーションフレームワークである
+                          |  Ruby on Rails を使って Web エンジニアになるためのバックエンド・フロントエンドも含めた
+                          | 一通りの技術を学びます。
+                      .lp-card-actions
+                        .lp-card-actions__items
+                          .lp-card-actions__item
+                            = link_to 'コース内容を確認する', practices_path, class: 'a-button is-md is-primary-border is-block'
+                .col-xs-12.col-md-6
+                  section.lp-top-image-section
+                    .lp-top-image-section__inner.a-card
+                      h3.lp-card-title.text-center
+                        | フロントエンドエンジニアコース
+                      .lp-card-description.a-short-text
+                        = image_tag('courses/nextjs.svg', class: 'lp-top-image-section__float-image', alt: 'Ruby on Railsのロゴ')
+                        p.mt-0
+                          | HTML、CSS やJavaScript/TypeScriptをつかってWebアプリケーションにおいてユーザーが直接触る部分（ユーザーインターフェース）を作るための技術を習得できます。
+                      .lp-card-actions
+                        .lp-card-actions__items
+                          .lp-card-actions__item
+                            = link_to 'コース内容を確認する', practices_path, class: 'a-button is-md is-primary-border is-block'
+
+          .lp-content-stack__item
+            .lp-content-section
+              .row.is-gutter-width-24.justify-center
+                .col-xs-12.col-md-8
+                  section.lp-top-image-section
+                    .lp-top-image-section__inner.a-card
+                      h3.lp-card-title.text-center
+                        | 専門実践教育訓練給付制度対象講座
+                        br
+                        | 給付金対象Railsエンジニアコース
+                      .lp-card-description.a-short-text
+                        = image_tag('courses/rails.svg', class: 'lp-top-image-section__float-image', alt: 'Ruby on Railsのロゴ')
+                        p.mt-0
+                          | 2025年4月1日より厚生労働省が認定した専門実践教育訓練給付制度の対象講座の
+                          | 「給付金対象Railsエンジニアコース」が開講されました。
+                          br
+                          | こちらのコースはサブスクではなく一括支払い 746,218円（税込 教材費含む）になりますが、
+                          | 一定の条件を満たすことで受講料の最大80%（最大給付額 596,974円）が給付金として支給されます。
+                        p
+                          | プログラミング言語 Ruby を用いたWebアプリケーションフレームワークである
+                          |  Ruby on Rails を使って Web エンジニアになるためのバックエンド・フロントエンドも含めた
+                          | 一通りの技術を学びます。
+                      .lp-card-actions
+                        .lp-card-actions__items
+                          .lp-card-actions__item
+                            = link_to 'コース内容を確認する', certified_reskill_courses_rails_developer_course_root_path, class: 'a-button is-md is-primary-border is-block'

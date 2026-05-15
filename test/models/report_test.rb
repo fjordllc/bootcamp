@@ -43,4 +43,34 @@ class ReportTest < ActiveSupport::TestCase
   test '#interval' do
     assert_equal 10, reports(:report32).interval
   end
+
+  test 'save_uniquely does not save duplicate report and adds validation errors' do
+    Report.create!(
+      user: users(:komagata),
+      reported_on: Time.zone.today,
+      title: 'report1',
+      description: 'report1本文'
+    )
+
+    duplicate_report = Report.new(
+      user: users(:komagata),
+      reported_on: Time.zone.today,
+      title: 'report2',
+      description: 'report2本文'
+    )
+    assert_not duplicate_report.save_uniquely
+    assert_includes duplicate_report.errors.full_messages, '学習日はすでに存在します'
+  end
+
+  test 'unchecked scope returns reports without checks' do
+    unchecked_report = Report.create!(
+      user: users(:kimura),
+      reported_on: Time.zone.today,
+      title: 'テスト未チェックレポート',
+      description: '本文'
+    )
+
+    assert_empty unchecked_report.checks
+    assert_includes Report.unchecked, unchecked_report
+  end
 end

@@ -1,0 +1,14 @@
+.a-card.is-toggle
+  input.a-toggle-checkbox(id=practice_content[:id_name] type='checkbox')
+  label.card-header.is-sm(for=practice_content[:id_name])
+    h2.card-header__title
+      = practice_content[:title]
+    .is-hidden-then-checked
+      i.fas.fa-angle-down
+    .is-hidden-then-unchecked
+      i.fas.fa-angle-up
+  .card-body
+    hr.a-border-tint
+    .card-body__description
+      .a-long-text.is-sm.js-markdown-view
+        = practice_content[:description]

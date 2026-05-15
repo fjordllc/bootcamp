@@ -1,0 +1,114 @@
+.practice-books__items {
+  margin-top: -1px;
+  display: block;
+}
+@media (min-width: 48em) {
+  .practice-books__items {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.practice-books-item:not(:first-child) {
+  border-top: solid 1px var(--border-tint);
+}
+@media (min-width: 48em) {
+  .practice-books-item {
+    border-top: solid 1px var(--border-tint);
+    flex: 0 0 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .practice-books-item:nth-child(odd) {
+    border-right: solid 1px var(--border-tint);
+  }
+}
+
+@media (min-width: 48em) {
+  .practice-books-item__body {
+    flex: 1;
+  }
+}
+
+.practice-books-item__inner {
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+}
+.practice-books .practice-books-item__inner {
+  height: 100%;
+  width: 100%;
+}
+.practice-books-item__inner {
+  display: block;
+  overflow: hidden;
+}
+@media (min-width: 48em) {
+  .practice-books-item__inner {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+}
+
+.practice-books-item__start {
+  float: left;
+  margin-right: 1rem;
+  width: 3.5rem;
+}
+@media (min-width: 48em) {
+  .practice-books-item__start {
+    float: none;
+    margin-right: 0;
+    flex: 0 0 4rem;
+  }
+}
+
+.practice-books-item__end {
+  flex: 1;
+}
+
+.practice-books-item__cover-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.practice-books-item__image {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: 50% 0;
+  border: solid 1px var(--border-tint);
+  border-radius: 2px;
+}
+
+.practice-books-item__title {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  font-weight: 600;
+  color: var(--default-text);
+  transition: all 0.2s ease-out;
+}
+.practice-books-item__title .a-badge {
+  position: relative;
+  top: -0.125em;
+  margin-right: 0.5em;
+}
+
+a.practice-books-item__inner:hover .practice-books-item__title-label {
+  text-decoration: underline;
+  color: var(--main-text);
+}
+
+.practice-books-item__price {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--default-text);
+}
+
+.practice-books-item__description {
+  font-size: 0.75rem;
+  color: var(--semi-muted-text);
+}

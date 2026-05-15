@@ -1,12 +1,20 @@
 # frozen_string_literal: true
 
 class EventsController < ApplicationController
+  PAGER_NUMBER = 20
+
   before_action :set_event, only: %i[edit update destroy]
 
-  def index; end
+  def index
+    @events = Event.with_avatar.includes(:comments, :users).order(start_at: :desc).page(params[:page]).per(PAGER_NUMBER)
+    @upcoming_events_groups = UpcomingEvent.upcoming_events_groups
+  end
 
   def show
     @event = Event.with_avatar.find(params[:id])
+    Footprint.find_or_create_for(@event, current_user)
+    @footprints = Footprint.fetch_for_resource(@event)
+    @comments = @event.comments.order(:created_at)
   end
 
   def new
@@ -23,7 +31,7 @@ class EventsController < ApplicationController
     set_wip
     if @event.save
       update_published_at
-      Newspaper.publish(:event_create, { event: @event })
+      ActiveSupport::Notifications.instrument('event.create', event: @event)
       url = publish_with_announcement? ? new_announcement_path(event_id: @event.id) : Redirection.determin_url(self, @event)
       redirect_to url, notice: notice_message(@event)
     else
@@ -75,12 +83,6 @@ class EventsController < ApplicationController
     @event.wip = (params[:commit] == 'WIP')
   end
 
-  def redirect_url(event)
-    return new_announcement_path(event_id: event.id) if publish_with_announcement?
-
-    event.wip? ? edit_event_url(event) : event_url(event)
-  end
-
   def notice_message(event)
     case params[:action]
     when 'create'
@@ -99,7 +101,7 @@ class EventsController < ApplicationController
     new_event.description = event.description
     new_event.job_hunting = event.job_hunting
 
-    flash.now[:notice] = '特別イベントをコピーしました。'
+    flash.now[:notice] = '特別イベントを複製しました。'
   end
 
   def update_published_at

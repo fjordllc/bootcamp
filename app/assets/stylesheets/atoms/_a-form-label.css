@@ -1,0 +1,91 @@
+.a-form-label {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  display: block;
+  font-weight: 600;
+}
+.a-form-label:last-child {
+  margin-bottom: 0;
+}
+.a-form-label.is-required::after {
+  content: "\f069";
+  font-family: "Font Awesome 6 Pro";
+  font-style: normal;
+  font-weight: 900;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: 0.625rem;
+  display: inline-block;
+  color: var(--danger);
+  margin-left: 0.125rem;
+  vertical-align: top;
+  transform: scale(0.7);
+}
+.a-form-label.is-sm {
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+.a-form-label.is-lg {
+  font-size: 1.125rem;
+  line-height: 1.5;
+  border-bottom: solid 1px var(--border);
+  padding-bottom: 0.5rem;
+}
+.a-form-label.is-inline {
+  margin-bottom: 0;
+  margin-right: 0.5rem;
+}
+.a-form-label.is-margin-bottom-0 {
+  margin-bottom: 0;
+}
+
+.form-item__label-checkbox {
+  position: relative;
+}
+.form-item__label-checkbox .a-form-label {
+  display: inline-block;
+  margin-bottom: 0;
+  padding-left: 0.75em;
+  cursor: pointer;
+}
+.form-item__label-checkbox .a-form-label::before {
+  content: "";
+  display: block;
+  height: 0.875rem;
+  width: 0.875rem;
+  border: solid 1px var(--muted-text);
+  border-radius: 0.1875rem;
+  left: 0;
+  position: absolute;
+  top: 50%;
+  margin-top: -0.4375rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 1px 2px inset;
+  background-color: var(--base);
+}
+.form-item__label-checkbox input:checked + .a-form-label::after {
+  content: "\f00c";
+  font-family: "Font Awesome 6 Pro";
+  font-style: normal;
+  font-weight: 900;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: 0.75rem;
+  line-height: 0.875rem;
+  display: block;
+  text-align: center;
+  color: var(--primary);
+  height: 0.875rem;
+  width: 0.875rem;
+  left: 0;
+  position: absolute;
+  top: 50%;
+  margin-top: -0.4375rem;
+}

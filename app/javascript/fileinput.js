@@ -29,6 +29,14 @@ function initializeFileInput(target) {
   if (!inputs) return null
 
   inputs.forEach((input) => {
+    const dropArea = input.closest('.js-file-input')
+    dropArea.addEventListener('dragover', (e) => e.preventDefault())
+    dropArea.addEventListener('drop', (e) => {
+      e.preventDefault()
+      input.files = e.dataTransfer.files
+      input.dispatchEvent(new Event('change'))
+    })
+
     input.addEventListener('change', async (e) => {
       let file = e.target.files[0]
 
@@ -78,9 +86,14 @@ function extractField(elements) {
 document.addEventListener('DOMContentLoaded', () => {
   const ref = document.querySelector('#reference_books')
   if (ref) {
-    $(ref).on('cocoon:after-insert', (_, target) => {
-      const added = extractField(target)
-      initializeFileInput(added)
+    ref.addEventListener('cocooned:after-insert', (e) => {
+      const addedField = e.detail?.node
+      if (addedField) {
+        const added = extractField([addedField])
+        if (added) {
+          initializeFileInput(added)
+        }
+      }
     })
   }
   initializeFileInput(document)

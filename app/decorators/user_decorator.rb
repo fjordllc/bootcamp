@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 module UserDecorator
+  NEW_USER_DAYS = 7
+
   include Role
   include Retire
+  include ReportStatus
 
   def twitter_url
     "https://twitter.com/#{twitter_account}"
@@ -20,12 +23,6 @@ module UserDecorator
   def icon_classes(*classes)
     classes << 'a-user-icon'
     classes.join(' ')
-  end
-
-  def cached_completed_percentage
-    Rails.cache.fetch "/model/user/#{id}/completed_percentage" do
-      completed_percentage
-    end
   end
 
   def customer_url
@@ -64,7 +61,7 @@ module UserDecorator
     return if country_code.blank?
 
     country = ISO3166::Country[country_code]
-    country.subdivision_names_with_codes(I18n.locale.to_s)
+    country.subdivision_names_with_codes(I18n.locale.to_sym)
   end
 
   def address
@@ -77,5 +74,34 @@ module UserDecorator
 
   def hibernation_days
     ActiveSupport::Duration.build(Time.zone.now - hibernated_at).in_days.floor if hibernated_at?
+  end
+
+  def other_editor_checked?(editors)
+    editors.pop
+    editor.present? && editors.exclude?(editor)
+  end
+
+  def editor_or_other_editor
+    return nil if editor.nil?
+
+    editor == 'other_editor' ? other_editor : t("activerecord.enums.user.editor.#{editor}")
+  end
+
+  def niconico_calendar(dates_and_reports)
+    first_wday = dates_and_reports.first[:date].wday
+
+    blanks = Array.new(first_wday) { { date: nil } }
+
+    [*blanks, *dates_and_reports].each_slice(7).to_a
+  end
+
+  def joining_status
+    elapsed_days <= NEW_USER_DAYS ? 'new-user' : ''
+  end
+
+  def user_icon_frame_class
+    classes = ['a-user-role', "is-#{primary_role}"]
+    classes << 'is-new-user' if joining_status == 'new-user'
+    classes.join(' ')
   end
 end

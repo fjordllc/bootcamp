@@ -16,7 +16,7 @@ class ProductCallbacks
   end
 
   def after_commit(product)
-    create_advisers_watch product if !product.wip && (product.user.trainee? && product.user.company)
+    create_advisers_watch product if !product.wip && product.user.trainee? && product.user.company
 
     Cache.delete_unchecked_product_count
   end

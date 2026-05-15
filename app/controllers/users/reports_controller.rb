@@ -2,9 +2,13 @@
 
 class Users::ReportsController < ApplicationController
   before_action :set_user
+  before_action :set_target
+  before_action :require_admin_or_mentor_login, if: -> { params[:target] == 'unchecked_reports' }
+  before_action :set_current_user_practice
   before_action :set_reports
   before_action :set_report
   before_action :set_export
+  before_action :set_unchecked_count, if: -> { @target == 'unchecked_reports' }
 
   def index
     respond_to do |format|
@@ -30,11 +34,24 @@ class Users::ReportsController < ApplicationController
   end
 
   def set_reports
-    @reports = user.reports.list.page(params[:page])
+    @reports = if @target == 'unchecked_reports'
+                 @user.reports.unchecked.not_wip.list.page(params[:page])
+               else
+                 @user.reports.list.page(params[:page])
+               end
+    @reports = @reports.joins(:practices).where(practices: { id: params[:practice_id] }) if params[:practice_id].present?
+  end
+
+  def set_current_user_practice
+    @current_user_practice = UserCoursePractice.new(@user || current_user)
   end
 
   def set_report
     @report = @reports[0]
+  end
+
+  def set_target
+    @target = params[:target] || 'all_reports'
   end
 
   def user
@@ -50,5 +67,9 @@ class Users::ReportsController < ApplicationController
       ReportExporter.export(reports, folder_path)
       send_data(File.read("#{folder_path}/reports.zip"), filename: '日報一覧.zip')
     end
+  end
+
+  def set_unchecked_count
+    @unchecked_count = @user.reports.unchecked.not_wip.count
   end
 end

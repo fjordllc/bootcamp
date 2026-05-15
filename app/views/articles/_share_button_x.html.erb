@@ -1,5 +1,5 @@
 <a class="x-share-button"
-  href="https://twitter.com/intent/tweet?url=https://bootcamp.fjord.jp/articles/<%= article %>&hashtags=fjordbootcamp"
+  href="https://twitter.com/intent/tweet?url=https://bootcamp.fjord.jp/articles/<%= article.id %>&hashtags=fjordbootcamp&text=<%= truncate(article.title, length: 100) %>%0a"
   data-size="large"
   rel="noopener noreferrer"
   target="_blank">

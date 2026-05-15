@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class Course::PracticesTest < ApplicationSystemTestCase
   test 'show the course book list page' do
     visit_with_auth "/courses/#{courses(:course1).id}/books", 'kimura'
-    assert_equal 'Railsプログラマーコースの参考書籍 | FBC', title
+    assert_equal 'Railsエンジニアコースの参考書籍 | FBC', title
   end
 
   test 'disply in the list is books associated with practices of that course' do

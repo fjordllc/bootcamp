@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class CorrectAnswerNotifier
-  def call(payload)
+  def call(_name, _started, _finished, _unique_id, payload)
     answer = payload[:answer]
-    notify_correct_answer(answer) if answer.saved_change_to_attribute?('type', to: 'CorrectAnswer')
+    notify_correct_answer(answer)
+    notify_to_chat(answer)
   end
 
   private
@@ -16,5 +17,9 @@ class CorrectAnswerNotifier
       receiver = User.find(receiver_id)
       ActivityDelivery.with(answer:, receiver:).notify(:chose_correct_answer)
     end
+  end
+
+  def notify_to_chat(answer)
+    ChatNotifier.message("質問：「#{answer.question.title}」のベストアンサーが選ばれました。\r#{Rails.application.routes.url_helpers.question_url(answer.question)}")
   end
 end

@@ -1,0 +1,13 @@
+.page-body-header__inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.page-body-header__title {
+  font-size: 1rem;
+  line-height: 1.4;
+  font-weight: 700;
+  color: var(--main);
+}

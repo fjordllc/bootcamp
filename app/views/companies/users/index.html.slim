@@ -4,15 +4,17 @@
 header.page-header
   .container
     .page-header__inner
-      h2.page-header__title
-        = @company.name
-      .page-header-actions
-        ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to companies_path, class: 'a-button is-md is-secondary is-block is-back' do
-              | 企業一覧
+      .page-header__start
+        h2.page-header__title
+          = @company.name
+      .page-header__end
+        .page-header-actions
+          ul.page-header-actions__items
+            li.page-header-actions__item
+              = link_to companies_path, class: 'a-button is-md is-secondary is-block is-back' do
+                | 企業一覧
 
-= render 'companies/tabs', company: @company
+= company_page_tabs(@company, active_tab: 'ユーザー')
 = render 'users_tabs', company: @company
 
 .page-main
@@ -20,6 +22,6 @@ header.page-header
     .container
       .page-main-header__inner
         h1.page-main-header__title
-          = "#{t("target.#{@target}")}（#{@users.size}）"
+          = "#{t("target.#{@target}")}（#{@users.total_count}）"
   hr.a-border
-  #js-company-users(company-id="#{@company.id}")
+  = render 'company_users', users: @users, data_title: title

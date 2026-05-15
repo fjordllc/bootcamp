@@ -27,6 +27,7 @@ class WorksController < ApplicationController
     @work = Work.new(work_params)
     @work.user = current_user
     if @work.save
+      ActiveSupport::Notifications.instrument('work.create', work: @work)
       redirect_to @work, notice: 'ポートフォリオに作品を追加しました。'
     else
       render :new
@@ -43,6 +44,7 @@ class WorksController < ApplicationController
 
   def destroy
     @work.destroy
+    ActiveSupport::Notifications.instrument('work.destroy', work: @work)
     redirect_to user_portfolio_url(@work.user), notice: 'ポートフォリオから作品を削除しました。'
   end
 
@@ -54,6 +56,7 @@ class WorksController < ApplicationController
       :description,
       :url,
       :repository,
+      :launch_article,
       :thumbnail
     )
   end

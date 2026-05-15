@@ -4,12 +4,17 @@
       .dashboard-contents__col.is-sub.is-only-mentor
         .dashboard-contents__categories
           .dashboard-category
-            - if current_user.active_practices.present?
-              header.dashboard-category__header
-                h2.dashboard-category__title
-                  | 提出物状況
+            - unchecked_report_count = Cache.unchecked_report_count
+            - if unchecked_report_count > 100
+              = render 'unchecked_report_alert', unchecked_report_count: unchecked_report_count
             .dashboard-category__body
-              #js-products(data-title="#{title}" data-selected-tab="unassigned" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
+              = render(Products::UnassignedProductsComponent.new( \
+                products:,
+                products_grouped_by_elapsed_days:,
+                is_mentor: mentor_login?,
+                is_admin: admin_login?,
+                current_user_id: current_user.id,
+                reply_warning_days: @product_deadline_day))
       .dashboard-contents__col.is-main
         .dashboard-contents__categories
           .dashboard-category
@@ -20,20 +25,19 @@
             .dashboard-category__body
               .a-panels
                 .a-panels__items
-                  .a-panels__item
-                    = render partial: 'events'
+                  - if @upcoming_events_groups.present?
+                    = render 'upcoming_events_groups', upcoming_events_groups: @upcoming_events_groups
                   - if @announcements.present?
                     .a-panels__item
                       = render partial: 'announcements'
                   - if current_user.bookmarks.present?
-                    .a-panels__item
-                      = render 'bookmarks', user: current_user
+                    = react_component 'BookmarksInDashboard', {}, { class: 'a-card-react', id: 'bookmarks-in-dashboard' }
                   - if current_user.wip_exists?
                     .a-panels__item
                       = render 'wip_items'
                   - if User.depressed_reports.present?
                     .a-panels__item.is-only-mentor
-                      = render 'users/sad_emotion_report', reports: User.depressed_reports
+                      = render 'users/negative_emotion_report', reports: User.depressed_reports
                   - if @inactive_students.present?
                     .a-panels__item.is-only-mentor
                       = render 'users/inactive_users', users: @inactive_students
@@ -48,9 +52,9 @@
               .dashboard-category__body
                 .a-panels
                   .a-panels__items
-                    - unless cookies[:user_grass]
+                    - unless cookies[:user_grass] == current_user.id.to_s
                       .a-panels__item
-                        = react_component 'Grass', { userId: current_user.id }, { class: 'a-card' }
+                        = render(Grass::GrassComponent.new(user: current_user, times: @times, target_end_date: @target_end_date, path: :root_path))
                     - if current_user.github_account.present?
                       .a-panels__item
                         = render 'users/github_grass', user: current_user

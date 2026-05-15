@@ -1,3 +1,15 @@
+bookmark34:
+  user: komagata
+  bookmarkable: event1 (Event)
+
+bookmark33:
+  user: kimura
+  bookmarkable: regular_event1 (RegularEvent)
+
+bookmark32:
+  user: kimura
+  bookmarkable: movie1 (Movie)
+
 bookmark31:
   user: komagata
   bookmarkable: talk1 (Talk)

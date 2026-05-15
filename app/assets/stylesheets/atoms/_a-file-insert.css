@@ -1,0 +1,12 @@
+.a-file-insert {
+  cursor: pointer;
+}
+.a-file-insert input {
+  position: absolute;
+  left: -44px;
+  top: 0;
+  height: 20px;
+  width: 44px;
+  background: red;
+  opacity: 0;
+}

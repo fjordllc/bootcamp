@@ -10,6 +10,20 @@ header.page-header
           .page-header-actions__item
             = link_to new_announcement_path, class: 'a-button is-md is-secondary is-block' do
               i.fa-regular.fa-plus
-              | お知らせ作成
+              span
+                | お知らせ作成
 hr.a-border
-div(data-vue="Announcements" data-vue-title="#{title}" data-vue-current-user-id:number="#{current_user.id}")
+.page-body
+  - if @announcements.empty?
+    .container
+      .o-empty-message
+        .o-empty-message__icon
+          i.fa-regular.fa-smile
+        p.o-empty-message__text
+          | お知らせはありません
+  - else
+    .container.is-md
+      = paginate @announcements
+      .card-list.a-card
+        = render partial: 'announcement', collection: @announcements
+      = paginate @announcements

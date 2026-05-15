@@ -2,9 +2,8 @@
 - set_meta_tags description: "#{@user.login_name}さんの質問一覧ページです。"
 
 = render 'users/page_title', user: @user
-
-= render 'users/page_tabs', user: @user
+= user_page_tabs(@user, active_tab: '質問')
 
 .page-body
   .container.is-md
-    div(data-vue='Questions' data-vue-empty-message="#{@questions_property.empty_message}" data-vue-selected-tag="#{params[:tag]}" data-vue-user-id:number="#{params[:user_id]}")
+    = render 'questions/questions', questions: @questions, empty_message: @questions_property.empty_message

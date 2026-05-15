@@ -19,24 +19,8 @@ class Area
   }.freeze
 
   class << self
-    # 指定したregionとareaのユーザーを全て取得して返す関数
-    # regionはareaをカテゴリーに分類します 日本の地域区分名か海外になります
-    # areaは場所を表す最小単位です 都道府県名か国名になります
-    def users(region, area)
-      if region == '海外'
-        country = ISO3166::Country.find_country_by_any_name(area)
-        User
-          .with_attached_avatar
-          .where(country_code: country.alpha2)
-      else
-        subdivision_code = ISO3166::Country[:JP].find_subdivision_by_name(area).code
-        User
-          .with_attached_avatar
-          .where(subdivision_code: subdivision_code.to_s)
-      end
-    end
-
     # regionとareaによって分類されたユーザー数をハッシュで取得して返す関数
+    # country_codeかsubdivision_codeのどちらかがnullのユーザーのデータは無視されます
     #
     # 返されるハッシュの例
     # {
@@ -52,8 +36,8 @@ class Area
       by_countries.each_with_object(Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }) do |v, result|
         country, pair_array = v
         if country == '日本'
-          pair_array.each do |_, s|
-            result = select_region(s, result)
+          pair_array.each do |pair|
+            result = select_region(pair[1], result)
           end
         else
           result['海外'][pair_array.map(&:first)[0]] = pair_array.map(&:second).length
@@ -61,20 +45,41 @@ class Area
       end
     end
 
+    def sorted_user_groups_by_area_user_num
+      users_group_by_areas = User.with_attached_avatar.order(created_at: :desc).group_by(&:area)
+
+      sorted_users_group_by_non_nil_areas =
+        users_group_by_areas.map do |area, users|
+          { users:, area: } unless area.nil?
+        end.compact
+
+      sorted_users_group_by_non_nil_areas.sort_by { |hash| -hash[:users].size }
+    end
+
     private
 
     def country_subdivision_pairs
       User
         .select('country_code, subdivision_code')
-        .where.not(country_code: nil, subdivision_code: nil)
+        .where.not(country_code: [nil, ''])
+        .where.not(subdivision_code: [nil, ''])
         .pluck(:country_code, :subdivision_code)
+        .filter do |country_code, subdivision_code|
+          # country_codeが間違っている場合は配列から削除する
+          if ISO3166::Country.codes.include?(country_code)
+            # subdivision_codeが間違っている場合は配列から削除する
+            ISO3166::Country[country_code].subdivisions.key?(subdivision_code)
+          else
+            false
+          end
+        end
     end
 
     def translate(country_subdivision_pairs)
       country_subdivision_pairs.map do |country_code, subdivision_code|
         country = ISO3166::Country[country_code]
         subdivision = country.subdivisions[subdivision_code]
-        [country.translations['ja'], subdivision.translations['ja']]
+        [country.translations[:ja], subdivision.translations[:ja]]
       end
     end
 

@@ -90,3 +90,8 @@ regular_event_repeat_rule35:
   frequency: 0
   day_of_the_week: 6
   regular_event: regular_event30
+
+regular_event_repeat_rule36:
+  frequency: 0
+  day_of_the_week: <%= Time.current.wday %>
+  regular_event: regular_event31

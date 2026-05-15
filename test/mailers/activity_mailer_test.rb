@@ -17,7 +17,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['mentormentaro@fjord.jp'], email.to
     assert_equal '[FBC] sotugyouさんが卒業しました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">sotugyouさんのページへ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">sotugyouさんのページへ</a>}, email.body.to_s)
   end
 
   test 'graduated with params' do
@@ -38,7 +38,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['mentormentaro@fjord.jp'], email.to
     assert_equal '[FBC] sotugyouさんが卒業しました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">sotugyouさんのページへ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">sotugyouさんのページへ</a>}, email.body.to_s)
   end
 
   test 'graduated with user who have been denied' do
@@ -64,7 +64,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['mentormentaro@fjord.jp'], email.to
     assert_equal '[FBC] kimuraさんが休会から復帰しました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">kimuraさんのページへ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">kimuraさんのページへ</a>}, email.body.to_s)
   end
 
   test 'comebacked with params' do
@@ -85,7 +85,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['mentormentaro@fjord.jp'], email.to
     assert_equal '[FBC] kimuraさんが休会から復帰しました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">kimuraさんのページへ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">kimuraさんのページへ</a>}, email.body.to_s)
   end
 
   test 'comebacked with user who have been denied' do
@@ -107,7 +107,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['sotugyou@example.com'], email.to
     assert_equal '[FBC] komagataさんから回答がありました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">回答へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">回答へ</a>}, email.body.to_s)
   end
 
   test 'came_answer with params' do
@@ -124,7 +124,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['sotugyou@example.com'], email.to
     assert_equal '[FBC] komagataさんから回答がありました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">回答へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">回答へ</a>}, email.body.to_s)
   end
 
   test 'came_answer to mute email notification or retired user' do
@@ -162,7 +162,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['sotugyou@example.com'], email.to
     assert_equal '[FBC] お知らせ「お知らせ1」', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">このお知らせへ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">このお知らせへ</a>}, email.body.to_s)
   end
 
   test 'post_announcement with params' do
@@ -183,8 +183,8 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['sotugyou@example.com'], email.to
     assert_equal '[FBC] お知らせ「お知らせ1」', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">このお知らせへ</a>}, email.body.to_s)
-    assert_match(%r{<a .+ href="http://localhost:3000/users/#{announce.user.id}">}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">このお知らせへ</a>}, email.body.to_s)
+    assert_match(/<a .+ href="#{Regexp.escape(full_url_for("/users/#{announce.user.id}"))}">/, email.body.to_s)
   end
 
   test 'post_announcement to mute email notification or retired user' do
@@ -237,7 +237,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
     assert_equal '[FBC] machidaさんから質問「どのエディターを使うのが良いでしょうか」が投稿されました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">質問へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">質問へ</a>}, email.body.to_s)
   end
 
   test 'came_question with params' do
@@ -261,7 +261,27 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
     assert_equal '[FBC] machidaさんから質問「どのエディターを使うのが良いでしょうか」が投稿されました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">質問へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">質問へ</a>}, email.body.to_s)
+  end
+
+  test 'came_question with no practice' do
+    question = questions(:question14)
+    user = question.user
+    mentor = users(:komagata)
+
+    ActivityMailer.came_question(
+      sender: user,
+      receiver: mentor,
+      question:
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 6, link: "/questions/#{question.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] kimuraさんから質問「プラクティスを選択せずに登録したテストの質問」が投稿されました。', email.subject
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">質問へ</a>}, email.body.to_s)
   end
 
   test 'mentioned' do
@@ -278,7 +298,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['sotugyou@example.com'], email.to
     assert_equal '[FBC] sotugyouさんの日報「学習週1日目」へのコメントでkomagataさんからメンションがありました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">このメンションへ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">このメンションへ</a>}, email.body.to_s)
   end
 
   test 'mentioned with params' do
@@ -299,7 +319,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['sotugyou@example.com'], email.to
     assert_equal '[FBC] sotugyouさんの日報「学習週1日目」へのコメントでkomagataさんからメンションがありました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">このメンションへ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">このメンションへ</a>}, email.body.to_s)
   end
 
   test 'mentioned to mute email notification or retired user' do
@@ -349,7 +369,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['mentormentaro@fjord.jp'], email.to
     assert_equal '[FBC] yameoさんが退会しました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">yameoさんのページへ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">yameoさんのページへ</a>}, email.body.to_s)
   end
 
   test 'retired with params' do
@@ -370,7 +390,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['mentormentaro@fjord.jp'], email.to
     assert_equal '[FBC] yameoさんが退会しました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">yameoさんのページへ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">yameoさんのページへ</a>}, email.body.to_s)
   end
 
   test 'retired with user who have been denied' do
@@ -395,8 +415,43 @@ class ActivityMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['kimura@fjord.jp'], email.to
-    assert_equal '[FBC] kimuraさんの「OS X Mountain Lionをクリーンインストールする」の提出物を確認しました。', email.subject
-    assert_match(/確認/, email.body.to_s)
+    assert_equal '[FBC] kimuraさんの「OS X Mountain Lionをクリーンインストールする」の提出物を合格にしました。', email.subject
+    assert_match(/合格/, email.body.to_s)
+  end
+
+  test 'trainee and advisers receive different wording in their acceptance emails' do
+    check = checks(:procuct75_check_komagata)
+
+    ActivityMailer.checked(
+      sender: check.sender,
+      receiver: check.receiver,
+      check:
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['kensyu@fjord.jp'], email.to
+    assert_equal '[FBC] kensyuさんの「aptの基礎を覚える」の提出物を合格にしました。', email.subject
+    assert_match(/「aptの基礎を覚える」の提出物/, email.body.to_s)
+    assert_no_match(/kensyuさんの「aptの基礎を覚える」の提出物/, email.body.to_s)
+    assert_match(/合格/, email.body.to_s)
+
+    assert_includes(check.receiver.company.advisers, users(:senpai))
+
+    ActivityMailer.checked(
+      sender: check.sender,
+      receiver: users(:senpai),
+      check:
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['senpai@fjord.jp'], email.to
+    assert_equal '[FBC] kensyuさんの「aptの基礎を覚える」の提出物を合格にしました。', email.subject
+    assert_match(/kensyuさんの「aptの基礎を覚える」の提出物/, email.body.to_s)
+    assert_match(/合格/, email.body.to_s)
   end
 
   test 'checked with params' do
@@ -416,8 +471,8 @@ class ActivityMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['kimura@fjord.jp'], email.to
-    assert_equal '[FBC] kimuraさんの「OS X Mountain Lionをクリーンインストールする」の提出物を確認しました。', email.subject
-    assert_match(/確認/, email.body.to_s)
+    assert_equal '[FBC] kimuraさんの「OS X Mountain Lionをクリーンインストールする」の提出物を合格にしました。', email.subject
+    assert_match(/合格/, email.body.to_s)
   end
 
   test 'checked with user who have been denied' do
@@ -446,7 +501,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['mentormentaro@fjord.jp'], email.to
     assert_equal '[FBC] komagataさんがDocsにBootcampの作業のページを投稿しました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">このDocsへ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">このDocsへ</a>}, email.body.to_s)
   end
 
   test 'create_page with params' do
@@ -468,7 +523,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['mentormentaro@fjord.jp'], email.to
     assert_equal '[FBC] komagataさんがDocsにBootcampの作業のページを投稿しました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">このDocsへ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">このDocsへ</a>}, email.body.to_s)
   end
 
   test 'moved_up_event_waiting_user' do
@@ -485,7 +540,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['hatsuno@fjord.jp'], email.to
     assert_equal '[FBC] 募集期間中のイベント(補欠者あり)で、補欠から参加に繰り上がりました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">特別イベント詳細へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">特別イベント詳細へ</a>}, email.body.to_s)
   end
 
   test 'moved_up_event_waiting_user with params' do
@@ -506,7 +561,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['hatsuno@fjord.jp'], email.to
     assert_equal '[FBC] 募集期間中のイベント(補欠者あり)で、補欠から参加に繰り上がりました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">特別イベント詳細へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">特別イベント詳細へ</a>}, email.body.to_s)
   end
 
   test 'submitted' do
@@ -520,11 +575,11 @@ class ActivityMailerTest < ActionMailer::TestCase
 
     assert_not ActionMailer::Base.deliveries.empty?
     email = ActionMailer::Base.deliveries.last
-    query = CGI.escapeHTML({ kind: 3, link: "/products/#{product.id}" }.to_param)
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['mentormentaro@fjord.jp'], email.to
     assert_equal '[FBC] hatsunoさんが「Terminalの基礎を覚える」の提出物を提出しました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">提出物へ</a>}, email.body.to_s)
+    expected = Regexp.escape(Rails.application.routes.url_helpers.notification_redirector_url(link: "/products/#{product.id}", kind: 3).gsub('&', '&amp;'))
+    assert_match(%r{<a .+ href="#{expected}">提出物へ</a>}, email.body.to_s)
   end
 
   test 'submitted with params' do
@@ -542,11 +597,11 @@ class ActivityMailerTest < ActionMailer::TestCase
 
     assert_not ActionMailer::Base.deliveries.empty?
     email = ActionMailer::Base.deliveries.last
-    query = CGI.escapeHTML({ kind: 3, link: "/products/#{product.id}" }.to_param)
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['mentormentaro@fjord.jp'], email.to
     assert_equal '[FBC] hatsunoさんが「Terminalの基礎を覚える」の提出物を提出しました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">提出物へ</a>}, email.body.to_s)
+    expected = Regexp.escape(Rails.application.routes.url_helpers.notification_redirector_url(link: "/products/#{product.id}", kind: 3).gsub('&', '&amp;'))
+    assert_match(%r{<a .+ href="#{expected}">提出物へ</a>}, email.body.to_s)
   end
 
   test 'submitted with user who have been denied' do
@@ -578,7 +633,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['muryou@fjord.jp'], email.to
     assert_equal '[FBC] kensyuさんが日報【 フォローされた日報 】を書きました！', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">この日報へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">この日報へ</a>}, email.body.to_s)
   end
 
   test 'following_report with params' do
@@ -602,7 +657,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['muryou@fjord.jp'], email.to
     assert_equal '[FBC] kensyuさんが日報【 フォローされた日報 】を書きました！', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">この日報へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">この日報へ</a>}, email.body.to_s)
   end
 
   test 'watching_notification' do
@@ -642,7 +697,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['machidanohimitsu@gmail.com'], email.to
     assert_equal '[FBC] kimuraさんの提出物「sshdをインストールする」の提出物の担当になりました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">この提出物へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">この提出物へ</a>}, email.body.to_s)
   end
 
   test 'assigned_as_checker with params' do
@@ -664,7 +719,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['machidanohimitsu@gmail.com'], email.to
     assert_equal '[FBC] kimuraさんの提出物「sshdをインストールする」の提出物の担当になりました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">この提出物へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">この提出物へ</a>}, email.body.to_s)
   end
 
   test 'assigned_as_checker to mute email notification or retired user' do
@@ -701,13 +756,13 @@ class ActivityMailerTest < ActionMailer::TestCase
   end
 
   test 'hibernated using synchronous mailer' do
-    user = users(:kimura)
+    user = users(:kyuukai)
     mentor = users(:komagata)
     Notification.create!(
       kind: 19,
       sender: user,
       user: mentor,
-      message: 'kimuraさんが休会しました。',
+      message: 'kyuukaiさんが休会しました。',
       link: "/users/#{user.id}",
       read: false
     )
@@ -720,18 +775,18 @@ class ActivityMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal '[FBC] kimuraさんが休会しました。', email.subject
+    assert_equal '[FBC] kyuukaiさんが休会しました。', email.subject
     assert_match(/休会/, email.body.to_s)
   end
 
   test 'hibernated with params using asynchronous mailer' do
-    user = users(:kimura)
+    user = users(:kyuukai)
     mentor = users(:komagata)
     Notification.create!(
       kind: 19,
       sender: user,
       user: mentor,
-      message: 'kimuraさんが休会しました。',
+      message: 'kyuukaiさんが休会しました。',
       link: "/users/#{user.id}",
       read: false
     )
@@ -748,7 +803,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal '[FBC] kimuraさんが休会しました。', email.subject
+    assert_equal '[FBC] kyuukaiさんが休会しました。', email.subject
     assert_match(/休会/, email.body.to_s)
   end
 
@@ -788,12 +843,12 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_match(/はじめて/, email.body.to_s)
   end
 
-  test 'consecutive_sad_report' do
+  test 'consecutive_negative_report' do
     report = reports(:report16)
-    consecutive_sad_report = notifications(:notification_consecutive_sad_report)
-    ActivityMailer.consecutive_sad_report(
+    consecutive_negative_report = notifications(:notification_consecutive_negative_report)
+    ActivityMailer.consecutive_negative_report(
       report:,
-      receiver: consecutive_sad_report.user
+      receiver: consecutive_negative_report.user
     ).deliver_now
 
     assert_not ActionMailer::Base.deliveries.empty?
@@ -801,17 +856,17 @@ class ActivityMailerTest < ActionMailer::TestCase
     query = CGI.escapeHTML({ kind: 15, link: "/reports/#{report.id}" }.to_param)
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal '[FBC] hajimeさんが2回連続でsadアイコンの日報を提出しました。', email.subject
+    assert_equal '[FBC] hajimeさんが2回連続でnegativeアイコンの日報を提出しました。', email.subject
     assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">この日報へ</a>}, email.body.to_s)
   end
 
-  test 'consecutive_sad_report with params' do
+  test 'consecutive_negative_report with params' do
     report = reports(:report16)
-    consecutive_sad_report = notifications(:notification_consecutive_sad_report)
+    consecutive_negative_report = notifications(:notification_consecutive_negative_report)
     mailer = ActivityMailer.with(
       report:,
-      receiver: consecutive_sad_report.user
-    ).consecutive_sad_report
+      receiver: consecutive_negative_report.user
+    ).consecutive_negative_report
 
     perform_enqueued_jobs do
       mailer.deliver_later
@@ -822,7 +877,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     query = CGI.escapeHTML({ kind: 15, link: "/reports/#{report.id}" }.to_param)
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal '[FBC] hajimeさんが2回連続でsadアイコンの日報を提出しました。', email.subject
+    assert_equal '[FBC] hajimeさんが2回連続でnegativeアイコンの日報を提出しました。', email.subject
     assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">この日報へ</a>}, email.body.to_s)
   end
 
@@ -885,7 +940,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal '[FBC] hajimeさんが新しく入会しました！', email.subject
+    assert_equal '[FBC] hajimeさんがRailsエンジニアコースに入会しました！', email.subject
     assert_match(/入会/, email.body.to_s)
   end
 
@@ -913,7 +968,35 @@ class ActivityMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal '[FBC] hajimeさんが新しく入会しました！', email.subject
+    assert_equal '[FBC] hajimeさんがRailsエンジニアコースに入会しました！', email.subject
+    assert_match(/入会/, email.body.to_s)
+  end
+
+  test 'mentor receives email when user joins frontend engineer course' do
+    user = User.create!(
+      login_name: 'frontend',
+      email: 'frontend@fjord.jp',
+      password: 'testtest',
+      name: 'フロント 極め太郎',
+      name_kana: 'フロント キワメタロウ',
+      description: 'フロントエンドエンジニアコースに入会したユーザーです',
+      course: courses(:course4),
+      job: 'unemployed',
+      os: 'mac',
+      experiences: 2
+    )
+    mentor = users(:komagata)
+
+    ActivityMailer.signed_up(
+      sender: user,
+      receiver: mentor
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] frontendさんがフロントエンドエンジニアコースに入会しました！', email.subject
     assert_match(/入会/, email.body.to_s)
   end
 
@@ -932,7 +1015,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal [receiver.email], email.to
     assert_equal "[FBC] #{answer.receiver.login_name}さんの質問【 #{answer.question.title} 】で#{answer.sender.login_name}さんの回答がベストアンサーに選ばれました。", email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">回答へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">回答へ</a>}, email.body.to_s)
   end
 
   test 'chose_correct_answer with params using asynchronous mailer' do
@@ -954,7 +1037,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal [receiver.email], email.to
     assert_equal "[FBC] #{answer.receiver.login_name}さんの質問【 #{answer.question.title} 】で#{answer.sender.login_name}さんの回答がベストアンサーに選ばれました。", email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">回答へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">回答へ</a>}, email.body.to_s)
   end
 
   test 'not send chose_correct_answer email to user with mail_notification off' do
@@ -1003,7 +1086,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal [receiver.email], email.to
     assert_equal "[FBC] #{receiver.login_name}さんの質問【 #{question.title} 】のベストアンサーがまだ選ばれていません。", email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">#{receiver.login_name}さんの質問へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">#{receiver.login_name}さんの質問へ</a>}, email.body.to_s)
   end
 
   test 'no_correct_answer with params using asynchronous mailer' do
@@ -1022,7 +1105,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal [receiver.email], email.to
     assert_equal "[FBC] #{receiver.login_name}さんの質問【 #{question.title} 】のベストアンサーがまだ選ばれていません。", email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">#{receiver.login_name}さんの質問へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">#{receiver.login_name}さんの質問へ</a>}, email.body.to_s)
   end
 
   test 'product_update' do
@@ -1040,7 +1123,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
     assert_equal '[FBC] mentormentaroさんが「OS X Mountain Lionをクリーンインストールする」の提出物を更新しました。', email.subject
-    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">提出物へ</a>}, email.body.to_s)
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">提出物へ</a>}, email.body.to_s)
   end
 
   test 'came_comment' do
@@ -1114,5 +1197,439 @@ class ActivityMailerTest < ActionMailer::TestCase
     ).deliver_now
 
     assert_empty ActionMailer::Base.deliveries
+  end
+
+  test 'create_article notifies students, trainees, mentors, and admins' do
+    target_users = %i[hatsuno kensyu mentormentaro machida]
+
+    target_users.each do |target_user|
+      article = articles(:article1)
+      receiver = users(target_user)
+
+      ActivityMailer.create_article(
+        article:,
+        receiver:
+      ).deliver_now
+
+      assert_not ActionMailer::Base.deliveries.empty?
+      email = ActionMailer::Base.deliveries.last
+      query = CGI.escapeHTML({ kind: 24, link: "/articles/#{article.id}" }.to_param)
+      assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+      assert_equal [receiver.email], email.to
+      assert_equal "新しいブログ「#{article.title}」を#{article.user.login_name}さんが投稿しました！", email.subject
+      assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">ブログへ</a>}, email.body.to_s)
+    end
+  end
+
+  test 'create_article notifies students, trainees, mentors, and admins with params' do
+    target_users = %i[hatsuno kensyu mentormentaro machida]
+
+    target_users.each do |target_user|
+      article = articles(:article1)
+      receiver = users(target_user)
+
+      mailer = ActivityMailer.with(
+        article:,
+        receiver:
+      ).create_article
+
+      perform_enqueued_jobs do
+        mailer.deliver_later
+      end
+
+      assert_not ActionMailer::Base.deliveries.empty?
+      email = ActionMailer::Base.deliveries.last
+      query = CGI.escapeHTML({ kind: 24, link: "/articles/#{article.id}" }.to_param)
+      assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+      assert_equal [receiver.email], email.to
+      assert_equal "新しいブログ「#{article.title}」を#{article.user.login_name}さんが投稿しました！", email.subject
+      assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">ブログへ</a>}, email.body.to_s)
+    end
+  end
+
+  test 'create_article notifies students, trainees, mentors, and admins with mail_notification off' do
+    article = articles(:article1)
+    receiver = users(:mentormentaro)
+    receiver.update(mail_notification: false)
+
+    ActivityMailer.create_article(
+      sender: article.user,
+      receiver:,
+      article:
+    ).deliver_now
+
+    assert_empty ActionMailer::Base.deliveries
+  end
+
+  test 'added_work' do
+    work = works(:work1)
+    user = work.user
+    receiver = users(:komagata)
+
+    ActivityMailer.added_work(
+      sender: user,
+      receiver:,
+      work:
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 25, link: "/works/#{work.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal "[FBC] kimuraさんがポートフォリオに作品「kimura\'s app」を追加しました。", email.subject
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">この作品へ</a>}, email.body.to_s)
+  end
+
+  test 'added_work with params' do
+    work = works(:work1)
+    user = work.user
+    receiver = users(:komagata)
+
+    mailer = ActivityMailer.with(
+      sender: user,
+      receiver:,
+      work:
+    ).added_work
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 25, link: "/works/#{work.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] kimuraさんがポートフォリオに作品「kimura\'s app」を追加しました。', email.subject
+    assert_match(%r{<a .+ href="#{expected_redirector_href(query)}">この作品へ</a>}, email.body.to_s)
+  end
+
+  test 'added_work for admin with mail_notification off' do
+    work = works(:work1)
+    user = work.user
+    receiver = users(:komagata)
+    receiver.update(mail_notification: false)
+
+    ActivityMailer.added_work(
+      sender: user,
+      receiver:,
+      work:
+    ).deliver_now
+
+    assert_empty ActionMailer::Base.deliveries
+  end
+
+  test 'came_pair_work' do
+    pair_work = pair_works(:pair_work1)
+    mentor = users(:komagata)
+
+    ActivityMailer.came_pair_work(
+      receiver: mentor,
+      pair_work:
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 28, link: "/pair_works/#{pair_work.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] kimuraさんからペアワーク依頼「募集中のペアワークです(タイトル)」が投稿されました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">ペアワークのページへ</a>}, email.body.to_s)
+  end
+
+  test 'came_pair_work with params' do
+    pair_work = pair_works(:pair_work1)
+    mentor = users(:komagata)
+
+    mailer = ActivityMailer.with(
+      receiver: mentor,
+      pair_work:
+    ).came_pair_work
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 28, link: "/pair_works/#{pair_work.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] kimuraさんからペアワーク依頼「募集中のペアワークです(タイトル)」が投稿されました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">ペアワークのページへ</a>}, email.body.to_s)
+  end
+
+  test 'matching_pair_work' do
+    pair_work = pair_works(:pair_work2)
+    mentor = users(:komagata)
+
+    ActivityMailer.matching_pair_work(
+      receiver: mentor,
+      pair_work:
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 29, link: "/pair_works/#{pair_work.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] kimuraさんのペアワーク【 ペア確定済みのペアワークです(タイトル) 】のペアがsotugyouさんに決定しました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">ペアワークのページへ</a>}, email.body.to_s)
+  end
+
+  test 'matching_pair_work with params' do
+    pair_work = pair_works(:pair_work2)
+    mentor = users(:komagata)
+
+    mailer = ActivityMailer.with(
+      receiver: mentor,
+      pair_work:
+    ).matching_pair_work
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 29, link: "/pair_works/#{pair_work.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] kimuraさんのペアワーク【 ペア確定済みのペアワークです(タイトル) 】のペアがsotugyouさんに決定しました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">ペアワークのページへ</a>}, email.body.to_s)
+  end
+
+  test 'matching_pair_work to mute email notification or retired user' do
+    pair_work = pair_works(:pair_work2)
+    receiver = users(:hatsuno)
+    Watch.create!(user: receiver, watchable: pair_work)
+
+    receiver.update_columns(mail_notification: false, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.matching_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
+    assert_empty ActionMailer::Base.deliveries
+
+    receiver.update_columns(mail_notification: false, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.matching_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
+    assert_empty ActionMailer::Base.deliveries
+
+    receiver.update_columns(mail_notification: true, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.matching_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
+    assert_empty ActionMailer::Base.deliveries
+
+    receiver.update_columns(mail_notification: true, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.matching_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
+    assert_not ActionMailer::Base.deliveries.empty?
+  end
+
+  test 'rematching_pair_work' do
+    pair_work = pair_works(:pair_work2)
+    receiver = users(:kimura)
+
+    ActivityMailer.rematching_pair_work(
+      receiver:,
+      pair_work:
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 30, link: "/pair_works/#{pair_work.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['kimura@fjord.jp'], email.to
+    assert_equal '[FBC] ペアワーク【 ペア確定済みのペアワークです(タイトル) 】のペアがsotugyouさんに変更になりました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">ペアワークのページへ</a>}, email.body.to_s)
+  end
+
+  test 'rematching_pair_work with params' do
+    pair_work = pair_works(:pair_work2)
+    receiver = users(:kimura)
+
+    mailer = ActivityMailer.with(
+      receiver:,
+      pair_work:
+    ).rematching_pair_work
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 30, link: "/pair_works/#{pair_work.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['kimura@fjord.jp'], email.to
+    assert_equal '[FBC] ペアワーク【 ペア確定済みのペアワークです(タイトル) 】のペアがsotugyouさんに変更になりました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">ペアワークのページへ</a>}, email.body.to_s)
+  end
+
+  test 'rematching_pair_work to mute email notification or retired user' do
+    pair_work = pair_works(:pair_work2)
+    receiver = users(:kimura)
+
+    receiver.update_columns(mail_notification: false, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.rematching_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
+    assert_empty ActionMailer::Base.deliveries
+
+    receiver.update_columns(mail_notification: false, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.rematching_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
+    assert_empty ActionMailer::Base.deliveries
+
+    receiver.update_columns(mail_notification: true, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.rematching_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
+    assert_empty ActionMailer::Base.deliveries
+
+    receiver.update_columns(mail_notification: true, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.rematching_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
+    assert_equal 1, ActionMailer::Base.deliveries.count
+  end
+
+  test 'reschedule_pair_work' do
+    pair_work = pair_works(:pair_work2)
+    receiver = users(:kimura)
+
+    ActivityMailer.reschedule_pair_work(
+      receiver:,
+      pair_work:
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 31, link: "/pair_works/#{pair_work.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['kimura@fjord.jp'], email.to
+    assert_equal '[FBC] ペアワーク【 ペア確定済みのペアワークです(タイトル) 】の日程が2025年01月02日(木) 01:00に変更になりました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">ペアワークのページへ</a>}, email.body.to_s)
+  end
+
+  test 'reschedule_pair_work with params' do
+    pair_work = pair_works(:pair_work2)
+    receiver = users(:kimura)
+
+    mailer = ActivityMailer.with(
+      receiver:,
+      pair_work:
+    ).reschedule_pair_work
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 31, link: "/pair_works/#{pair_work.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['kimura@fjord.jp'], email.to
+    assert_equal '[FBC] ペアワーク【 ペア確定済みのペアワークです(タイトル) 】の日程が2025年01月02日(木) 01:00に変更になりました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">ペアワークのページへ</a>}, email.body.to_s)
+  end
+
+  test 'reschedule_pair_work to mute email notification or retired user' do
+    pair_work = pair_works(:pair_work2)
+    receiver = users(:kimura)
+
+    receiver.update_columns(mail_notification: false, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.reschedule_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
+    assert_empty ActionMailer::Base.deliveries
+
+    receiver.update_columns(mail_notification: false, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.reschedule_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
+    assert_empty ActionMailer::Base.deliveries
+
+    receiver.update_columns(mail_notification: true, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.reschedule_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
+    assert_empty ActionMailer::Base.deliveries
+
+    receiver.update_columns(mail_notification: true, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.reschedule_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
+    assert_equal 1, ActionMailer::Base.deliveries.count
+  end
+
+  test 'cancel_pair_work' do
+    pair_work = pair_works(:pair_work2)
+    receiver = users(:kimura)
+
+    ActivityMailer.cancel_pair_work(
+      receiver:,
+      pair_work:
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 32, link: "/pair_works/#{pair_work.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['kimura@fjord.jp'], email.to
+    assert_equal '[FBC] kimuraさんのペアワーク【 ペア確定済みのペアワークです(タイトル) 】のペア確定が取り消されました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">ペアワークのページへ</a>}, email.body.to_s)
+  end
+
+  test 'cancel_pair_work with params' do
+    pair_work = pair_works(:pair_work2)
+    receiver = users(:kimura)
+
+    mailer = ActivityMailer.with(
+      receiver:,
+      pair_work:
+    ).cancel_pair_work
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 32, link: "/pair_works/#{pair_work.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['kimura@fjord.jp'], email.to
+    assert_equal '[FBC] kimuraさんのペアワーク【 ペア確定済みのペアワークです(タイトル) 】のペア確定が取り消されました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">ペアワークのページへ</a>}, email.body.to_s)
+  end
+
+  test 'cancel_pair_work to mute email notification or retired user' do
+    pair_work = pair_works(:pair_work2)
+    receiver = users(:kimura)
+
+    receiver.update_columns(mail_notification: false, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.cancel_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
+    assert_empty ActionMailer::Base.deliveries
+
+    receiver.update_columns(mail_notification: false, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.cancel_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
+    assert_empty ActionMailer::Base.deliveries
+
+    receiver.update_columns(mail_notification: true, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.cancel_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
+    assert_empty ActionMailer::Base.deliveries
+
+    receiver.update_columns(mail_notification: true, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.cancel_pair_work(receiver:, pair_work: pair_work.reload).deliver_now
+    assert_equal 1, ActionMailer::Base.deliveries.count
+  end
+
+  private
+
+  def mailer_url_options
+    Rails.application.config.action_mailer.default_url_options || {}
+  end
+
+  def full_url_for(path)
+    opts = mailer_url_options
+    host = opts[:host]
+    port = opts[:port]
+    protocol = opts[:protocol] || 'http'
+    base = "#{protocol}://#{host}"
+    base += ":#{port}" if port
+    path = "/#{path}" unless path.start_with?('/')
+    "#{base}#{path}"
+  end
+
+  def expected_redirector_href(query)
+    # query is HTML-escaped (e.g., "kind=3&amp;link=%2Fproducts%2F1").
+    raw = CGI.unescapeHTML(query)
+    params = Rack::Utils.parse_nested_query(raw)
+    expected_url = Rails.application.routes.url_helpers.notification_redirector_url(
+      link: params['link'],
+      kind: params['kind']
+    )
+    Regexp.escape(expected_url.gsub('&', '&amp;'))
   end
 end

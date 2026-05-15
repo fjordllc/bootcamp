@@ -1,0 +1,19 @@
+
+.sns-links {
+  margin-top: .5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sns-links__items {
+}
+
+.sns-links__item-link {
+  font-size: .875rem;
+}
+
+.sns-links__item-link:hover {
+  color: var(--main-text);
+}

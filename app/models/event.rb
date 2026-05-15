@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
-class Event < ApplicationRecord
+class Event < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include WithAvatar
   include Commentable
   include Footprintable
   include Reactionable
   include Watchable
   include Searchable
+  include Bookmarkable
 
   validates :title, presence: true
   validates :description, presence: true
@@ -36,16 +37,23 @@ class Event < ApplicationRecord
   belongs_to :user
   has_many :participations, dependent: :destroy
   has_many :users, through: :participations
-  has_many :watches, as: :watchable, dependent: :destroy
   attribute :announcement_of_publication, :boolean
 
   columns_for_keyword_search :title, :description
 
   scope :wip, -> { where(wip: true) }
   scope :related_to, ->(user) { user.job_seeker ? all : where.not(job_hunting: true) }
-  scope :today_events, -> { where(start_at: Time.zone.today.midnight...Time.zone.tomorrow.midnight) }
-  scope :tomorrow_events, -> { where(start_at: Time.zone.tomorrow.midnight...(Time.zone.tomorrow + 1.day).midnight) }
-  scope :day_after_tomorrow_events, -> { where(start_at: (Time.zone.tomorrow + 1.day).midnight...(Time.zone.tomorrow + 2.days).midnight) }
+  scope :scheduled_on, ->(date) { where(start_at: date.midnight...(date + 1.day).midnight, wip: false) }
+  scope :not_ended, -> { where('end_at > ?', Time.current) }
+  scope :scheduled_on_without_ended, ->(date) { scheduled_on(date).not_ended }
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[title description location capacity start_at end_at open_start_at open_end_at wip created_at updated_at user_id job_hunting]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[user participations users comments reactions watches]
+  end
 
   def opening?
     Time.current.between?(open_start_at, open_end_at)
@@ -104,20 +112,16 @@ class Event < ApplicationRecord
     ActivityDelivery.with(receiver:, event: self).notify(:moved_up_event_waiting_user)
   end
 
-  def holding_today?
-    start_at.to_date.today?
-  end
-
-  def holding_tomorrow?
-    start_at.to_date == Date.tomorrow
-  end
-
-  def watched_by?(user)
-    watches.exists?(user_id: user.id)
-  end
-
   def can_move_up_the_waitlist?
     waitlist.count.positive? && can_participate?
+  end
+
+  def self.fetch_participated_ids(user)
+    user.participations.pluck(:event_id)
+  end
+
+  def self.fetch_upcoming_ids
+    Event.where('start_at > ?', Date.current).pluck(:id)
   end
 
   private

@@ -20,11 +20,11 @@ class Question < ApplicationRecord
   before_validation :set_published_at, if: :will_be_published?
 
   after_save QuestionCallbacks.new
+  before_destroy QuestionCallbacks.new, prepend: true
   after_destroy QuestionCallbacks.new
 
   validates :title, presence: true, length: { maximum: 256 }
   validates :description, presence: true
-  validates :user, presence: true
   validates :published_at, presence: true, if: :will_be_published?
 
   scope :solved, -> { where(id: CorrectAnswer.select(:question_id)) }
@@ -48,6 +48,14 @@ class Question < ApplicationRecord
   columns_for_keyword_search :title, :description
 
   mentionable_as :description
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[title description wip published_at created_at updated_at user_id practice_id]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[user practice correct_answer answers reactions watches bookmarks]
+  end
 
   class << self
     def notify_certain_period_passed_after_last_answer
@@ -74,6 +82,16 @@ class Question < ApplicationRecord
         QuestionsProperty.new('未解決のQ&A', '未解決のQ&Aはありません。')
       else
         QuestionsProperty.new('全てのQ&A', 'Q&Aはありません。')
+      end
+    end
+
+    def unsolved_badge(current_user:, practice_id: nil)
+      return nil if !current_user.admin_or_mentor?
+
+      if practice_id.present?
+        Question.not_solved.not_wip.where(practice_id:).size
+      else
+        ::Cache.not_solved_question_count
       end
     end
   end

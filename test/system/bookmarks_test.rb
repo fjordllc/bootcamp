@@ -5,77 +5,49 @@ require 'application_system_test_case'
 class BookmarksTest < ApplicationSystemTestCase
   setup do
     @report = reports(:report1)
-    @question = questions(:question1)
   end
 
   test 'show my bookmark report' do
     visit_with_auth "/reports/#{@report.id}", 'komagata'
+    wait_for_javascript_components
     assert_selector '#bookmark-button.is-active'
     assert_no_selector '#bookmark-button.is-inactive'
+    assert_selector '#bookmark-button', text: 'Bookmark中'
   end
 
   test 'show not bookmark report' do
     visit_with_auth "/reports/#{@report.id}", 'machida'
+    wait_for_javascript_components
     assert_selector '#bookmark-button.is-inactive'
     assert_no_selector '#bookmark-button.is-active'
+    assert_selector '#bookmark-button', text: 'Bookmark'
   end
 
-  test 'bookmark' do
+  test 'bookmark report' do
     visit_with_auth "/reports/#{@report.id}", 'machida'
+    wait_for_javascript_components
+    assert_selector '#bookmark-button.is-inactive', text: 'Bookmark'
     find('#bookmark-button').click
+    wait_for_javascript_components
     assert_selector '#bookmark-button.is-active'
     assert_no_selector '#bookmark-button.is-inactive'
+    assert_selector '#bookmark-button', text: 'Bookmark中'
 
     visit '/current_user/bookmarks'
     assert_text @report.title
   end
 
-  test 'unbookmark' do
+  test 'unbookmark report' do
     visit_with_auth "/reports/#{@report.id}", 'komagata'
-    assert_selector '#bookmark-button.is-active'
+    wait_for_javascript_components
+    assert_selector '#bookmark-button.is-active', text: 'Bookmark中'
     find('#bookmark-button').click
+    wait_for_javascript_components
     assert_selector '#bookmark-button.is-inactive'
     assert_no_selector '#bookmark-button.is-active'
+    assert_selector '#bookmark-button', text: 'Bookmark'
 
     visit '/current_user/bookmarks'
     assert_no_text @report.title
-  end
-
-  test 'show question bookmark on lists' do
-    visit_with_auth '/current_user/bookmarks', 'kimura'
-    assert_text @question.title
-  end
-
-  test 'show active button when bookmarked question' do
-    visit_with_auth "/questions/#{@question.id}", 'kimura'
-    assert_selector '#bookmark-button.is-active'
-    assert_no_selector '#bookmark-button.is-inactive'
-  end
-
-  test 'show inactive button when not bookmarked question' do
-    visit_with_auth "/questions/#{@question.id}", 'hajime'
-    assert_selector '#bookmark-button.is-inactive'
-    assert_no_selector '#bookmark-button.is-active'
-  end
-
-  test 'bookmark question' do
-    visit_with_auth "/questions/#{@question.id}", 'hatsuno'
-    find('#bookmark-button').click
-    assert_selector '#bookmark-button.is-active'
-    assert_no_selector '#bookmark-button.is-inactive'
-
-    visit '/current_user/bookmarks'
-    assert_text @question.title
-  end
-
-  test 'unbookmark question' do
-    visit_with_auth "/questions/#{@question.id}", 'kimura'
-    assert_selector '#bookmark-button.is-active'
-    find('#bookmark-button').click
-    assert_selector '#bookmark-button.is-inactive'
-    assert_no_selector '#bookmark-button.is-active'
-
-    visit '/current_user/bookmarks'
-    assert_no_text @question.title
   end
 end

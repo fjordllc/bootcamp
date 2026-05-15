@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Report < ApplicationRecord
+class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include Commentable
   include Checkable
   include Footprintable
@@ -12,10 +12,10 @@ class Report < ApplicationRecord
   include Bookmarkable
   include Taskable
 
-  enum emotion: {
-    sad: 1,
-    soso: 0,
-    happy: 2
+  enum :emotion, {
+    negative: 1,
+    neutral: 0,
+    positive: 2
   }
 
   attribute :no_learn, :boolean
@@ -24,6 +24,7 @@ class Report < ApplicationRecord
   validates_associated :learning_times
   accepts_nested_attributes_for :learning_times, reject_if: :all_blank, allow_destroy: true
   has_and_belongs_to_many :practices # rubocop:disable Rails/HasAndBelongsToMany
+  has_many :footprints, as: :footprintable, dependent: :destroy
   belongs_to :user, touch: true
   alias sender user
 
@@ -32,7 +33,7 @@ class Report < ApplicationRecord
   validates :user, presence: true
   validates :reported_on, presence: true, uniqueness: { scope: :user }
   validates :emotion, presence: true
-  validate :reported_on_or_before_today
+  validate :limited_date_within_range
 
   after_create ReportCallbacks.new
   after_destroy ReportCallbacks.new
@@ -58,10 +59,20 @@ class Report < ApplicationRecord
       .default_order
   }
 
+  scope :user, ->(user) { where(user_id: user.id) }
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[title description reported_on emotion wip created_at updated_at user_id]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[user practices comments checks reactions bookmarks]
+  end
+
   class << self
     def faces
       @faces ||= emotions.keys
-                         .zip(%w[emotion/sad.svg emotion/soso.svg emotion/happy.svg])
+                         .zip(%w[emotion/negative.svg emotion/neutral.svg emotion/positive.svg])
                          .to_h
                          .with_indifferent_access
     end
@@ -107,15 +118,11 @@ class Report < ApplicationRecord
   end
 
   def set_default_emotion
-    self.emotion ||= 2
+    self.emotion ||= 0
   end
 
   def total_learning_time
     (learning_times.sum(&:diff) / 60).to_i
-  end
-
-  def reported_on_or_before_today
-    errors.add(:reported_on, 'は今日以前の日付にしてください') if reported_on > Date.current
   end
 
   def latest_of_user?
@@ -133,5 +140,23 @@ class Report < ApplicationRecord
     Report.where(user:, wip: false)
           .order(reported_on: :desc)
           .second
+  end
+
+  def save_uniquely
+    transaction do
+      save
+    end
+  rescue ActiveRecord::RecordNotUnique
+    errors.add(:base, '学習日はすでに存在します')
+    false
+  end
+
+  private
+
+  def limited_date_within_range
+    min_date = Date.new(2013, 1, 1)
+    return if min_date <= reported_on && reported_on <= Date.current
+
+    errors.add(:reported_on, "は#{I18n.l min_date}から今日以前の間の日付にしてください")
   end
 end

@@ -5,28 +5,19 @@ class RetirementController < ApplicationController
 
   def show; end
 
-  def new; end
+  def new
+    @regular_events_without_finished = RegularEvent.organizer_event(current_user).exclude_finished
+  end
 
   def create
-    current_user.assign_attributes(retire_reason_params)
-    current_user.retired_on = Date.current
-    if current_user.save(context: :retirement)
-      user = current_user
-      current_user.delete_and_assign_new_organizer
-      Newspaper.publish(:retirement_create, { user: })
-      begin
-        UserMailer.retire(user).deliver_now
-      rescue Postmark::InactiveRecipientError => e
-        logger.warn "[Postmark] 受信者由来のエラーのためメールを送信できませんでした。：#{e.message}"
-      end
+    retirement = Retirement.by_self(retire_reason_params, user: current_user)
 
-      destroy_subscription
-      notify_to_admins
-      notify_to_mentors
+    if retirement.execute
       logout
       redirect_to retirement_url
     else
       current_user.retired_on = nil
+      @regular_events_without_finished = RegularEvent.organizer_event(current_user).exclude_finished
       render :new
     end
   end
@@ -35,21 +26,5 @@ class RetirementController < ApplicationController
 
   def retire_reason_params
     params.require(:user).permit(:retire_reason, :satisfaction, :opinion, retire_reasons: [])
-  end
-
-  def destroy_subscription
-    Subscription.new.destroy(current_user.subscription_id) if current_user.subscription_id
-  end
-
-  def notify_to_admins
-    User.admins.each do |admin_user|
-      ActivityDelivery.with(sender: current_user, receiver: admin_user).notify(:retired)
-    end
-  end
-
-  def notify_to_mentors
-    User.mentor.each do |mentor_user|
-      ActivityDelivery.with(sender: current_user, receiver: mentor_user).notify(:retired)
-    end
   end
 end

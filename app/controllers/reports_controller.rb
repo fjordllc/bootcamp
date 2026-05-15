@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class ReportsController < ApplicationController
+class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLength
+  PAGER_NUMBER = 25
+
   include Rails.application.routes.url_helpers
   before_action :set_report, only: %i[show]
   before_action :set_my_report, only: %i[destroy]
@@ -11,10 +13,17 @@ class ReportsController < ApplicationController
   before_action :set_categories, only: %i[create update]
   before_action :set_watch, only: %i[show]
 
-  def index; end
+  def index
+    @reports = Report.list.page(params[:page]).per(PAGER_NUMBER)
+    @reports = @reports.joins(:practices).where(practices: { id: params[:practice_id] }) if params[:practice_id].present?
+  end
 
   def show
     @products = @report.user.products.not_wip.order(published_at: :desc)
+    @comments = @report.comments.order(:created_at)
+    @recent_reports = Report.list.where(user_id: @report.user.id).limit(10)
+    Footprint.find_or_create_for(@report, current_user)
+    @footprints = Footprint.fetch_for_resource(@report)
     respond_to do |format|
       format.html
       format.md
@@ -28,16 +37,15 @@ class ReportsController < ApplicationController
               else
                 Report.new(reported_on: Date.current)
               end
-    @report.learning_times.build
+    build_learning_times(@report)
 
     return unless params[:id]
 
     report              = current_user.reports.find(params[:id])
     @report.title       = report.title
-    @report.emotion = report.emotion
-    @report.description = "<!-- #{report.reported_on} の日報をコピー -->\n" + report.description
+    @report.description = "<!-- #{report.reported_on} の日報を複製 -->\n" + report.description
     @report.practices   = report.practices
-    flash.now[:notice] = '日報をコピーしました。'
+    flash.now[:notice] = '日報を複製しました。'
   end
 
   def edit
@@ -49,8 +57,9 @@ class ReportsController < ApplicationController
     @report.user = current_user
     set_wip
     canonicalize_learning_times(@report)
-    if @report.save
-      Newspaper.publish(:report_save, { report: @report })
+
+    if @report.save_uniquely
+      ActiveSupport::Notifications.instrument('report.create', report: @report)
       redirect_to redirect_url(@report), notice: notice_message(@report), flash: flash_contents(@report)
     else
       render :new
@@ -58,21 +67,25 @@ class ReportsController < ApplicationController
   end
 
   def update
+    before_wip_status = @report.wip
     set_wip
     @report.practice_ids = nil if params[:report][:practice_ids].nil?
     @report.assign_attributes(report_params)
+    @report.learning_times.each(&:mark_for_destruction) if @report.no_learn
     canonicalize_learning_times(@report)
-    if @report.save
-      Newspaper.publish(:report_save, { report: @report })
+
+    if @report.save_uniquely
+      ActiveSupport::Notifications.instrument('report.update', report: @report)
       redirect_to redirect_url(@report), notice: notice_message(@report), flash: flash_contents(@report)
     else
+      @report.wip = before_wip_status
       render :edit
     end
   end
 
   def destroy
     @report.destroy
-    Newspaper.publish(:report_destroy, { report: @report })
+    ActiveSupport::Notifications.instrument('report.destroy', report: @report)
     redirect_to reports_url, notice: '日報を削除しました。'
   end
 
@@ -135,16 +148,16 @@ class ReportsController < ApplicationController
   end
 
   def flash_contents(report)
-    { notify_help: !report.wip? && report.sad?,
+    { notify_help: !report.wip? && report.negative?,
       celebrate_report_count: celebrating_count(report) }
   end
 
-  CELEBRATING_COUNTS = [100].freeze
+  CELEBRATING_COUNTS = [100, 200, 222, 300, 333, 400, 500, 555, 600, 700, 777, 800, 900, 1000, 1024, 1100, 1111, 1200, 1234, 1300, 1400, 1500].freeze
 
   def celebrating_count(report)
     return nil if report.wip
 
-    report_count = current_user.reports.count
+    report_count = current_user.reports.not_wip.count
     CELEBRATING_COUNTS.find { |count| count == report_count }
   end
 
@@ -167,5 +180,23 @@ class ReportsController < ApplicationController
       new_finished_at += 1.day if new_started_at > new_finished_at
       learning_time.assign_attributes(started_at: new_started_at, finished_at: new_finished_at)
     end
+  end
+
+  def build_learning_times(report)
+    reported_weekday = LearningTimeFrame::WEEK_DAY_NAMES_JA[report.reported_on.wday]
+
+    min_hour = current_user.learning_time_frames
+                           .where(week_day: reported_weekday)
+                           .minimum(:activity_time)
+
+    started_at =
+      if min_hour
+        t = report.reported_on.in_time_zone.change(hour: min_hour, min: 0)
+        t <= Time.current ? t : Time.current.change(min: 0)
+      else
+        Time.current.change(min: 0)
+      end
+
+    report.learning_times.build(started_at: started_at)
   end
 end

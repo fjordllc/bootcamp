@@ -1,13 +1,33 @@
 - content_for(:extra_body_classes, 'no-header no-footer no-global-nav is-error-page is-piyo-background')
 - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
-description: '休会処理が完了しました。')
+description: '休会手続きが完了しました。')
 
-.container
-  .error-message.a-card.is-borderd
-    header.retire-message__header
-      h1.retire-message__title
-        | 休会処理が完了しました
-    .retire-message__body
-      p ご利用ありがとうございました。
-      p 休会から復帰する場合は #{link_to '休会からの復帰ページ', new_comeback_path} からお手続きをしてください。
-      p = link_to 'Fjord Boot Camp', welcome_path
+.thanks-message
+  .container.is-xs
+    .thanks-message__header
+      h1.thanks-message__title
+        | 休会手続きが完了しました。
+    .a-card
+      .card-body.thanks-message__body
+        .a-long-text
+          p
+            | 休会手続きが無事完了いたしました。
+            | 休会期間は本日から最長3ヶ月間となります。
+            | それを超えると自動的に退会となりますので、ご注意ください。
+          p
+            | この期間中、何かご質問があれば info@lokka.jp もしくはお問い合わせフォームから
+            | いつでもお気軽にお問い合わせください。
+          p
+            | 休会から復帰する場合は #{link_to '休会からの復帰ページ', new_comeback_path} から
+            | お手続きをお願いいたします。
+          p
+            | また、自動退会後に復帰をする場合も、お約束はできないのですが、
+            | アカウントを復元できる可能性がありますので、
+            | その際もフィヨルドブートキャンプへご連絡をお願いいたします。
+      hr.a-border-tint
+      footer.card-footer
+        .card-main-actions
+          ul.card-main-actions__items
+            li.card-main-actions__item
+              = link_to root_path, class: 'a-button is-secondary is-sm is-block' do
+                | フィヨルドブートキャンプ

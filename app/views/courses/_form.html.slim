@@ -13,6 +13,13 @@
           = f.check_box :published, class: 'is-published-checkbox'
           span#checkbox-published-course
   .form-item
+    .row
+      .col-md-6.col-xs-12
+        = f.label '給付金対応', class: 'a-form-label'
+        label.a-on-off-checkbox.is-md
+          = f.check_box :grant, class: 'is-grant-checkbox'
+          span#checkbox-grant-course
+  .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12
         = f.label :description, class: 'a-form-label'

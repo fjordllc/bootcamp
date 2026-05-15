@@ -15,7 +15,7 @@ class Notification < ApplicationRecord
 
   paginates_per 20
 
-  enum kind: {
+  enum :kind, {
     came_comment: 0,
     checked: 1,
     mentioned: 2,
@@ -31,7 +31,7 @@ class Notification < ApplicationRecord
     create_pages: 12,
     following_report: 13,
     chose_correct_answer: 14,
-    consecutive_sad_report: 15,
+    consecutive_negative_report: 15,
     assigned_as_checker: 16,
     product_update: 17,
     graduated: 18,
@@ -39,12 +39,21 @@ class Notification < ApplicationRecord
     signed_up: 20,
     regular_event_updated: 21,
     no_correct_answer: 22,
-    comebacked: 23
+    comebacked: 23,
+    create_article: 24,
+    added_work: 25,
+    came_inquiry: 26,
+    training_completed: 27,
+    came_pair_work: 28,
+    matching_pair_work: 29,
+    rematching_pair_work: 30,
+    reschedule_pair_work: 31,
+    cancel_pair_work: 32
   }
 
   scope :unreads, -> { where(read: false) }
-  scope :with_avatar, -> { preload(sender: { avatar_attachment: :blob }) }
-  scope :by_read_status, ->(status) { status == 'unread' ? unreads.with_avatar.limit(99) : with_avatar }
+  scope :with_avatar, -> { preload(sender: [{ company: { logo_attachment: :blob } }, { avatar_attachment: :blob }]) }
+  scope :by_read_status, ->(status) { status == 'unread' ? unreads.with_avatar : with_avatar }
 
   scope :by_target, lambda { |target|
     target ? where(kind: TARGETS_TO_KINDS[target]) : all
@@ -57,30 +66,6 @@ class Notification < ApplicationRecord
   after_create NotificationCallbacks.new
   after_update NotificationCallbacks.new
   after_destroy NotificationCallbacks.new
-
-  class << self
-    def checked(check)
-      Notification.create!(
-        kind: kinds[:checked],
-        user: check.receiver,
-        sender: check.sender,
-        link: Rails.application.routes.url_helpers.polymorphic_path(check.checkable),
-        message: "#{check.sender.login_name}さんが#{check.checkable.title}を確認しました。",
-        read: false
-      )
-    end
-
-    def came_answer(answer)
-      Notification.create!(
-        kind: kinds[:answered],
-        user: answer.receiver,
-        sender: answer.sender,
-        link: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
-        message: "#{answer.user.login_name}さんから回答がありました。",
-        read: false
-      )
-    end
-  end
 
   def unread?
     !read

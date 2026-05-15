@@ -13,6 +13,10 @@ module Watchable
     watches.present?
   end
 
+  def watch_by(user)
+    watches.find_by(user_id: user.id)
+  end
+
   def notification_title
     case self
     when Product
@@ -29,12 +33,14 @@ module Watchable
       "Docs「#{self[:title]}」"
     when Announcement
       "お知らせ「#{self[:title]}」"
+    when PairWork
+      "ペアワーク「#{self[:title]}」"
     end
   end
 
   def body
     case self
-    when Question, Event, RegularEvent, Report, Announcement
+    when Question, Event, RegularEvent, Report, Announcement, PairWork
       self[:description]
     else
       self[:body]

@@ -2,6 +2,7 @@
 
 class ExternalEntry < ApplicationRecord
   include ActionView::Helpers::AssetUrlHelper
+  include WithAvatar
 
   belongs_to :user
 

@@ -1,0 +1,45 @@
+.tab-nav {
+  padding-block: 0.875rem;
+  border-bottom: solid 1px var(--border);
+}
+
+.page-main-header + .tab-nav {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.tab-nav__items {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin-inline: -1rem;
+  padding-inline: 1rem;
+}
+
+.tab-nav__item {
+  flex: 0 0 7rem;
+}
+
+.tab-nav__item-link {
+  display: block;
+  text-decoration: none;
+  font-size: 0.75rem;
+  line-height: 2.3;
+  text-align: center;
+  white-space: nowrap;
+  color: var(--semi-muted-text);
+  border: solid 1px var(--border-shade);
+  border-radius: 20rem;
+  transition: all 0.2s ease-out;
+}
+
+.tab-nav__item-link:hover {
+  background-color: var(--background-semi-shade);
+}
+
+.tab-nav__item-link.is-active {
+  background-color: var(--main);
+  border-color: var(--main);
+  color: var(--reversal-text);
+}

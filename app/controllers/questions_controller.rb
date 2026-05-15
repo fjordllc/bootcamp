@@ -33,6 +33,7 @@ class QuestionsController < ApplicationController
                           .includes(:correct_answer)
                           .latest_update_order
                           .limit(MAX_PRACTICE_QUESTIONS_DISPLAYED)
+    @answers = @question.answers.order(created_at: :asc)
     respond_to do |format|
       format.html
       format.md
@@ -46,16 +47,17 @@ class QuestionsController < ApplicationController
   end
 
   def new
-    @question = Question.new
+    @question = Question.new(practice_id: params[:practice_id], user_id: current_user.id)
   end
 
   def edit; end
 
   def create
-    @question = current_user.questions.new(question_params)
+    @question = Question.new(question_params)
+    @question.user = current_user if !admin_or_mentor_login?
     set_wip
     if @question.save
-      Newspaper.publish(:question_create, { question: @question })
+      ActiveSupport::Notifications.instrument('question.create', question: @question)
       redirect_to Redirection.determin_url(self, @question), notice: @question.generate_notice_message(:create)
     else
       render :new
@@ -65,7 +67,7 @@ class QuestionsController < ApplicationController
   def update
     set_wip
     if @question.update(question_params)
-      Newspaper.publish(:question_update, { question: @question }) if @question.saved_change_to_wip?
+      ActiveSupport::Notifications.instrument('question.update', question: @question) if @question.saved_change_to_wip?
       redirect_to Redirection.determin_url(self, @question), notice: @question.generate_notice_message(:update)
     else
       render :edit

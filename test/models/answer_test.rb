@@ -29,4 +29,28 @@ class AnswerTest < ActiveSupport::TestCase
       assert answer.certain_period_has_passed?
     end
   end
+
+  test 'search_url returns question path with anchor when question exists' do
+    answer = answers(:answer1)
+    expected_url = Rails.application.routes.url_helpers.question_path(answer.question, anchor: "answer_#{answer.id}")
+    assert_equal expected_url, answer.search_url
+  end
+
+  test 'search_url returns questions path when question is nil' do
+    answer = answers(:answer1)
+    answer.question = nil
+    expected_url = Rails.application.routes.url_helpers.questions_path
+    assert_equal expected_url, answer.search_url
+  end
+
+  test 'search_title returns question title when question exists' do
+    answer = answers(:answer1)
+    assert_equal answer.question.title, answer.search_title
+  end
+
+  test 'search_title returns fallback when question is nil' do
+    answer = answers(:answer1)
+    answer.question = nil
+    assert_equal 'Q&A回答', answer.search_title
+  end
 end

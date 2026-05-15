@@ -1,0 +1,128 @@
+.a-page-notice {
+  background-color: var(--success);
+  color: var(--reversal-text);
+}
+
+.a-page-notice.is-danger {
+  background-color: var(--danger);
+}
+
+.a-page-notice.is-muted {
+  background-color: var(--background-shade);
+}
+
+.a-page-notice.is-muted .a-page-notice__inner {
+  color: var(--default-text);
+}
+
+.page-body .a-page-notice {
+  margin-block: -0.5rem 1rem;
+}
+
+.page-body .page-notices__item .a-page-notice {
+  margin-block: 0;
+}
+
+.page-tabs + .a-page-notice {
+  margin-top: 1rem;
+}
+
+.a-page-notice__inner {
+  padding-block: 0.5rem;
+  color: var(--reversal-text);
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+.a-page-notice__inner.has-close {
+  position: relative;
+  display: flex;
+  text-align: left;
+}
+
+.a-page-notice__inner p {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.a-page-notice__inner a {
+  color: var(--reversal-text);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.a-page-notice__inner a:hover,
+.a-page-notice__inner a:active {
+  text-decoration: underline;
+}
+
+.a-page-notice__inner a.has-badge {
+  text-decoration: none;
+}
+
+.a-page-notice__inner a.has-badge .a-badge {
+  margin-right: 0.75rem;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: none;
+}
+
+.a-page-notice__inner a.has-badge .a-page-notice__label {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.a-page-notice__inner a.has-badge .a-page-notice__label:hover,
+.a-page-notice__inner a.has-badge .a-page-notice__label:active {
+  text-decoration: underline;
+}
+
+.a-page-notice__inner-start {
+  flex: 1;
+}
+
+.a-page-notice__close {
+  height: 2.75rem;
+  width: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.5rem;
+  opacity: 0.6;
+  transition: all 0.2s ease-out;
+  transform: translateX(1rem);
+  margin-block: -0.75rem;
+}
+
+.a-page-notice__close:hover {
+  opacity: 1;
+}
+
+@media (max-width: 47.9375em) {
+  .a-page-notice__inner {
+    font-size: 0.75rem;
+    text-align: center;
+  }
+
+  .a-page-notice__inner p {
+    font-size: 0.75rem;
+  }
+
+  .a-page-notice__inner.has-close {
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .a-page-notice__inner a.has-badge {
+    display: block;
+  }
+
+  .a-page-notice__inner a.has-badge .a-badge {
+    display: inline-flex;
+  }
+
+  .a-page-notice__close {
+    transform: none;
+    margin-block: 0;
+  }
+}

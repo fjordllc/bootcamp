@@ -1,0 +1,44 @@
+.a-title-label {
+  font-size: 0.5em;
+  line-height: 1;
+  display: inline-flex;
+  font-weight: 500;
+  white-space: nowrap;
+  vertical-align: top;
+  background-color: var(--background-semi-shade);
+  padding-inline: 1em;
+  border-radius: 0.75rem;
+  align-items: center;
+  position: relative;
+  top: 0.75em;
+  margin-right: 0.5em;
+}
+.a-title-label.is-solved {
+  color: var(--reversal-text);
+}
+.a-title-label.is-wip {
+  color: var(--semi-muted-text);
+  background-color: var(--background-semi-shade);
+}
+.a-title-label.is-success {
+  color: var(--reversal-text);
+  background-color: var(--success);
+}
+.a-title-label.is-danger {
+  color: var(--reversal-text);
+  background-color: var(--danger);
+}
+
+@media (min-width: 48em) {
+  .a-title-label {
+    height: 1.5em;
+    top: 0.75em;
+  }
+}
+@media (max-width: 47.9375em) {
+  .a-title-label {
+    font-size: 0.625rem;
+    height: 1.75em;
+    top: 0.375em;
+  }
+}

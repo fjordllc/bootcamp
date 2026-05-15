@@ -1,0 +1,36 @@
+.lp-header {
+  background-color: var(--base);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.lp-header__inner {
+  height: 3.5rem;
+  display: flex;
+}
+
+.lp-header__start {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  gap: 2.5rem;
+}
+
+.lp-header__end {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-right: -1rem;
+  gap: 0.25rem;
+}
+@media (min-width: 48em) {
+  .lp-header__end {
+    gap: 1rem;
+  }
+}
+@media (min-width: 64em) {
+  .lp-header__end {
+    margin-right: 0;
+  }
+}

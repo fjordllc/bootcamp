@@ -3,6 +3,34 @@
 require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
+  test '.scheduled_on(date)' do
+    travel_to Time.zone.local(2017, 4, 3, 8, 0, 0) do
+      today_date = Time.zone.today
+      today_events_count = 2
+      today_events = Event.scheduled_on(today_date)
+      assert_equal today_events_count, today_events.count
+
+      tomorrow_date = Time.zone.today + 1.day
+      tomorrow_events_count = 1
+      tomorrow_events = Event.scheduled_on(tomorrow_date)
+      assert_equal tomorrow_events_count, tomorrow_events.count
+
+      day_after_tomorrow_date = Time.zone.today + 2.days
+      day_after_tomorrow_events_count = 1
+      day_after_tomorrow_events = Event.scheduled_on(day_after_tomorrow_date)
+      assert_equal day_after_tomorrow_events_count, day_after_tomorrow_events.count
+    end
+  end
+
+  test '.scheduled_on exclude wip' do
+    travel_to Time.zone.local(2024, 12, 1, 8, 0, 0) do
+      today_date = Time.zone.today
+      wip_event = events(:event37)
+      today_events = Event.scheduled_on(today_date)
+      assert_not_includes today_events, wip_event
+    end
+  end
+
   test '#opening?' do
     event = events(:event2)
     assert event.opening?
@@ -71,28 +99,6 @@ class EventTest < ActiveSupport::TestCase
     assert Notification.where(user:, sender: event.user, link: "/events/#{event.id}").exists?
   end
 
-  test '#holding_today?' do
-    event = events(:event1)
-    travel_to Time.zone.local(2019, 12, 20, 0, 0, 0) do
-      assert event.holding_today?
-    end
-
-    travel_to Time.zone.local(2019, 12, 21, 0, 0, 0) do
-      assert_not event.holding_today?
-    end
-  end
-
-  test '#holding_tomorrow?' do
-    event = events(:event1)
-    travel_to Time.zone.local(2019, 12, 19, 0, 0, 0) do
-      assert event.holding_tomorrow?
-    end
-
-    travel_to Time.zone.local(2019, 12, 20, 0, 0, 0) do
-      assert_not event.holding_tomorrow?
-    end
-  end
-
   test 'should be invalid when start_at >= end_at' do
     event = events(:event1)
     event.end_at = event.start_at - 1.hour
@@ -121,5 +127,35 @@ class EventTest < ActiveSupport::TestCase
     event = events(:event3)
     event.update(capacity: 10)
     assert event.can_move_up_the_waitlist?
+  end
+
+  test '.fetch_participated_ids' do
+    user = users(:kimura)
+
+    ids = Event.fetch_participated_ids(user)
+    assert 200_404_551, ids
+    assert 318_291_967, ids
+  end
+
+  test '.fetch_upcoming_ids' do
+    ids = Event.fetch_upcoming_ids
+    assert 308_029_005, ids
+    assert 626_726_618, ids
+    assert 994_018_171, ids
+    assert 205_042_674, ids
+  end
+
+  test '.scheduled_on_without_ended' do
+    travel_to Time.zone.local(2024, 12, 1, 10, 0, 0) do
+      today_date = Time.zone.today
+      events = Event.scheduled_on_without_ended(today_date)
+      event_in_progress = events(:event35)
+      event_start_at_tomorrow_midnight = events(:event38)
+      event_ended_at_today_10am = events(:event36)
+
+      assert_includes events, event_in_progress
+      assert_not_includes events, event_ended_at_today_10am
+      assert_not_includes events, event_start_at_tomorrow_midnight
+    end
   end
 end

@@ -1,0 +1,5 @@
+.a-horizontal-dashed {
+  width: 100%;
+  height: 1px;
+  border-top: dashed 1px var(--border-shade);
+}

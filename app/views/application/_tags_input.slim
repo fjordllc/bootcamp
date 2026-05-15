@@ -1,3 +1,10 @@
-= react_component('Tags/TagsInput', { tagsInitialValue: taggable.tag_list.join(',').to_s,
-                                      tagsParamName: "#{taggable.class.to_s.tableize.singularize}[tag_list]",
-                                      taggableType: taggable.class.to_s.capitalize.to_s })
+div data-tags-input=""
+  input[data-tags-input-field=""
+        data-tags-initial-value=taggable.tag_list.join(',').to_s
+        data-taggable-type=taggable.class.to_s.capitalize.to_s]
+  input[type="hidden"
+        name="#{taggable.class.to_s.tableize.singularize}[tag_list]"
+        value=taggable.tag_list.join(',')
+        data-tags-hidden-input=""]
+  div data-tags-sharp-warning="" style="display: none"
+    | 先頭の記号は無視されます

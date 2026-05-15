@@ -7,20 +7,19 @@ class HomeController < ApplicationController
     if current_user
       display_dashboard
       display_events_on_dashboard
+      display_pair_works_on_dashboard
       display_welcome_message_for_adviser
       set_required_fields
-      render aciton: :index
+      display_products_for_mentor
+      render action: :index
     else
-      @mentors = User.with_attached_profile_image.mentor.includes(authored_books: { cover_attachment: :blob })
-      render template: 'welcome/index', layout: 'welcome'
+      @mentors = User.visible_sorted_mentors
+      @featured_articles = Article.featured
+      render template: 'welcome/index', layout: 'lp'
     end
   end
 
   def pricing; end
-
-  def test
-    render :test, layout: false
-  end
 
   private
 
@@ -32,7 +31,8 @@ class HomeController < ApplicationController
       discord_account_name: current_user.discord_profile.account_name,
       github_account: current_user.github_account,
       blog_url: current_user.blog_url,
-      graduated: current_user.graduated?
+      graduated: current_user.graduated?,
+      learning_time_frames: current_user.graduated? || current_user.learning_time_frames.exists?
     )
   end
 
@@ -42,22 +42,32 @@ class HomeController < ApplicationController
     @completed_learnings = current_user.learnings.where(status: 3).includes(:practice).order(updated_at: :desc)
     @inactive_students = User.with_attached_avatar.inactive_students_and_trainees.order(last_activity_at: :desc)
     @job_seeking_users = User.with_attached_avatar.job_seeking.includes(:reports, :products, :works, :course, :company)
-    @collegue_trainees = current_user.collegue_trainees&.with_attached_avatar&.includes(:reports, :products, :comments)
-    collegue_trainees_reports = Report.with_avatar.where(wip: false).where(user: current_user.collegue_trainees&.with_attached_avatar)
-    @collegue_trainees_recent_reports = collegue_trainees_reports.order(reported_on: :desc).limit(10)
+    @colleague_trainees = current_user.colleague_trainees.with_attached_avatar.includes(:reports, :products, :comments)
+    @colleague_trainees_recent_reports = ColleagueTraineesRecentReportsQuery.new(current_user:).call.limit(10)
     @recent_reports = Report.with_avatar.where(wip: false).order(reported_on: :desc, created_at: :desc).limit(10)
+    @product_deadline_day = Product::PRODUCT_DEADLINE
+    @colleagues = current_user.colleagues_other_than_self
+    @calendar = NicoNicoCalendar.new(current_user, params[:niconico_calendar])
+    @target_end_date = GrassDateParameter.new(params[:end_date]).target_end_date
+    @times = Grass.times(current_user, @target_end_date)
+    @users_for_time_slot = User.currently_learning_except(current_user)
+    @study_streak = StudyStreak.new(current_user.reports_with_learning_times, include_wip: false)
   end
 
   def display_events_on_dashboard
-    @today_events = (Event.today_events + RegularEvent.today_events)
-                    .sort_by { |e| e.start_at.strftime('%H:%M') }
-    @tomorrow_events = (Event.tomorrow_events + RegularEvent.tomorrow_events)
-                       .sort_by { |e| e.start_at.strftime('%H:%M') }
-    @day_after_tomorrow_events = (Event.day_after_tomorrow_events + RegularEvent.day_after_tomorrow_events)
-                                 .sort_by { |e| e.start_at.strftime('%H:%M') }
+    @upcoming_events_groups = UpcomingEvent.upcoming_events_groups
+  end
+
+  def display_pair_works_on_dashboard
+    @upcoming_pair_works = PairWork.upcoming_pair_works(current_user)
   end
 
   def display_welcome_message_for_adviser
     @welcome_message_first_time = cookies[:confirmed_welcome_message]
+  end
+
+  def display_products_for_mentor
+    @products = Product.require_assignment_products
+    @products_grouped_by_elapsed_days = Product.group_by_elapsed_days(@products)
   end
 end

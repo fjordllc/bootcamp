@@ -11,7 +11,7 @@ class Book < ApplicationRecord
   validates :price, presence: true, numericality: { only_integer: true }
   validates :page_url, presence: true
   validates :cover,
-            content_type: %w[image/png image/jpg image/jpeg],
+            content_type: %w[image/png image/jpeg],
             size: { less_than: 10.megabytes }
 
   def cover_url

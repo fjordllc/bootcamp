@@ -2,20 +2,25 @@
 - set_meta_tags description: "#{@report.user.login_name}さんの#{l @report.reported_on}の日報です。"
 
 = render 'users/page_title', user: @report.user
-= render 'users/page_tabs', user: @report.user
+= user_page_tabs(@report.user, active_tab: '日報')
 
-- if mentor_login? && !@report.first? && @report.latest_of_user?
-  .a-page-notice.is-only-mentor(class="#{@report.interval >= 10 ? 'is-danger' : ''}")
-    .container
-      .a-page-notice__inner
-        p
-          strong
-            | #{@report.interval}日
-          | ぶりの日報です
+- if admin_or_mentor_login?
+  - if @report.user.retired_on?
+    .a-page-notice.is-muted.is-only-mentor
+      .container
+        .a-page-notice__inner
+          p このユーザーは退会しています。
+  - elsif !@report.first? && @report.latest_of_user?
+    .a-page-notice.is-only-mentor(class="#{@report.interval >= 10 ? 'is-danger' : ''}")
+      .container
+        .a-page-notice__inner
+          p
+            strong #{@report.interval}日
+            | ぶりの日報です。
 
 .page-body
   .container.is-xxl
-    .row.justify-center
+    .row.justify-center.is-gutter-width-32
       .col-xl-7.col-xs-12
         .report.page-content
           = render 'report_header', report: @report
@@ -35,10 +40,10 @@
                 = link_to @report.next, class: 'page-content-prev-next__item-link is-next' do
                   | 次の日報
                   i.fa-solid.fa-angle-right
-
-        #js-comments(data-commentable-id="#{@report.id}" data-commentable-type='Report' data-current-user-id="#{current_user.id}")
-
-        div(data-vue='Footprints' data-vue-footprintable-id="#{@report.id}" data-vue-footprintable-type='Report')
+        = render 'comments/comments', commentable: @report, commentable_type: 'Report'
+        .user-icons
+          ul.user-icons__items
+            = render '/footprints/footprints', footprints: @footprints
 
       .col-xl-5.col-xs-12
         - if current_user.mentor? || current_user.admin?
@@ -46,6 +51,7 @@
             input.a-toggle-checkbox#side-tabs-1 type='radio' name='side-tabs-contents' checked='checked'
             input.a-toggle-checkbox#side-tabs-2 type='radio' name='side-tabs-contents'
             input.a-toggle-checkbox#side-tabs-3 type='radio' name='side-tabs-contents'
+            input.a-toggle-checkbox#side-tabs-4 type='radio' name='side-tabs-contents'
             .side-tabs-nav.is-only-mentor
               .side-tabs-nav__items
                 .side-tabs-nav__item
@@ -56,16 +62,40 @@
                     | ユーザーメモ
                 .side-tabs-nav__item
                   label.side-tabs-nav__item-link#side-tabs-nav-3 for='side-tabs-3'
+                    | ユーザー情報
+                .side-tabs-nav__item
+                  label.side-tabs-nav__item-link#side-tabs-nav-4 for='side-tabs-4'
                     | 提出物
             .side-tabs-contents
               .side-tabs-contents__item#side-tabs-content-1
-                = react_component('Reports', userId: @report.user.id, displayUserIcon: false, displayPagination: false)
+                = render partial: 'reports/recent_reports', locals: { header_display: false }
               .side-tabs-contents__item#side-tabs-content-2.is-only-mentor
-                .user-info
-                  = render 'users/user_secret_attributes', user: @report.user
-                  = render 'users/metas', user: @report.user
-                div(data-vue="UserMentorMemo" data-vue-user-id:number="#{@report.user_id}")
+                = render 'users/user_mentor_memo', user_id: @report.user_id
               .side-tabs-contents__item#side-tabs-content-3.is-only-mentor
+                .a-card
+                  .user-data
+                    .user-data__row
+                      = render 'users/user_secret_attributes', user: @report.user
+                    .user-data__row
+                      = render 'users/metas', user: @report.user, user_course_practice: UserCoursePractice.new(@report.user)
+                    .user-data__row
+                      ruby:
+                        skipped_practices = @report.user.skipped_practices
+                        user_practices = @report.user.practices
+                      - if skipped_practices.present?
+                        .user-data__row
+                          .user-metas.is-only-mentor
+                            h2.user-metas__title
+                              | スキップするプラクティス一覧
+                            .user-metas__items
+                              - skipped_practices.each do |skipped_practice|
+                                .user-metas__item
+                                  .user-metas__item-value
+                                    = link_to practice_path(skipped_practice.practice.id) do
+                                      - display_practice = user_practices.find_by(id: skipped_practice.practice.id)
+                                      span.category-practices-item__title-link-label
+                                        = display_practice.title
+              .side-tabs-contents__item#side-tabs-content-4.is-only-mentor
                 .card-list.a-card
                   - if @products.present?
                     - @products.each do |product|
@@ -79,12 +109,12 @@
                           .o-empty-message__text
                             | 提出物はまだありません。
         - else
-          = react_component('Reports', userId: @report.user.id, displayUserIcon: false, displayPagination: false)
+          = render partial: 'reports/recent_reports', locals: { header_display: true }
 
 - if flash[:notify_help] && flash[:celebrate_report_count]
     = render '/shared/modal', id: 'modal-notify-help', modal_title: '🎉 おめでとう！', auto_show: true
       .modal__description
-        = render 'celebrate_report_count_body'
+        = render 'celebrate_report_count_body', report_count: flash[:celebrate_report_count]
       .modal__description.is-md
         = render 'notify_help_body'
 - elsif flash[:notify_help]
@@ -94,4 +124,4 @@
 - elsif flash[:celebrate_report_count]
     = render '/shared/modal', id: 'modal-report-counts-celebration', modal_title: '🎉 おめでとう！', auto_show: true
       .modal__description
-        = render 'celebrate_report_count_body'
+        = render 'celebrate_report_count_body', report_count: flash[:celebrate_report_count]

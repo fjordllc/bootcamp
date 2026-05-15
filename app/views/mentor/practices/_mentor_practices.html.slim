@@ -9,6 +9,8 @@
         th.admin-table__label
           | 提出物
         th.admin-table__label
+          | 模範解答
+        th.admin-table__label
           | 日報
         th.admin-table__label
           | Q&A
@@ -20,24 +22,32 @@
           td.admin-table__item-value
             = link_to practice_path(practice)
               = practice.title
-          td.admin-table__item-value.is-text-align-right
+          td.admin-table__item-value.text-right
             - practice.categories.each do |category|
               p
                 = category.name
           - if practice.submission
-            td.admin-table__item-value.is-text-align-right
+            td.admin-table__item-value.text-right
               = link_to practice_products_path(practice) do
-                = practice.products.size
+                = practice.products_count
           - else
             td.admin-table__item-value.is-text-align-center
               span.admin-table__item-blank
                 | 不要
-          td.admin-table__item-value.is-text-align-right
+          - if practice.submission_answer
+            td.admin-table__item-value.is-text-align-center
+              = link_to edit_mentor_practice_submission_answer_path(practice), class: 'a-button is-sm is-secondary is-icon' do
+                i.fa-solid.fa-pen
+          - else
+            td.admin-table__item-value.is-text-align-center
+              = link_to new_mentor_practice_submission_answer_path(practice), class: 'a-button is-sm is-secondary is-icon' do
+                i.fa-solid.fa-plus
+          td.admin-table__item-value.text-right
             = link_to practice_reports_path(practice) do
-              = practice.reports.size
-          td.admin-table__item-value.is-text-align-right
+              = practice.reports_count
+          td.admin-table__item-value.text-right
             = link_to practice_questions_path(practice) do
-              = practice.questions.size
+              = practice.questions_count
           td.admin-table__item-value.is-text-align-center
             ul.is-inline-buttons
               li

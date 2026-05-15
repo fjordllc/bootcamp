@@ -29,6 +29,10 @@ end
 
 json.user do
   json.partial! "api/users/user", user: product.user
+  if product.user.training_ends_on
+    json.training_ends_on l(product.user.training_ends_on)
+    json.training_remaining_days product.user.training_remaining_days
+  end
 end
 
 json.practice do
@@ -39,12 +43,14 @@ json.comments do
   json.size product.comments.size
   if product.comments.size > 0
     json.last_created_at l(product.comments.last.created_at)
-    json.last_created_at_date_time product.commented_users.last.created_at.to_datetime
-    json.users product.commented_users.distinct do |user|
+    json.last_created_at_date_time product.comments.last.created_at.to_datetime
+    commented_users = product.comments.includes(:user).map(&:user).uniq
+    json.users commented_users do |user|
       json.avatar_url user.avatar_url
-      json.url user.url
+      json.url user_path(user)
       json.icon_title user.icon_title
       json.primary_role user.primary_role
+      json.joining_status user.joining_status
     end
   end
 end

@@ -1,0 +1,132 @@
+.article {
+  padding-block: 1.5rem;
+}
+@media (min-width: 48em) {
+  .article {
+    padding-block: 2rem;
+  }
+}
+
+.article__inner {
+  padding: 1rem;
+}
+@media (min-width: 48em) {
+  .article__inner {
+    padding: 1.25rem 2rem;
+  }
+}
+
+.article__header {
+  margin-bottom: 3rem;
+}
+
+.article__title {
+  line-height: 1.4;
+  font-weight: 700;
+  font-feature-settings: "palt";
+  letter-spacing: 0.025em;
+  color: var(--main);
+  font-size: 1.625rem;
+}
+@media (min-width: 48em) {
+  .article__title {
+    font-size: 2.5rem;
+  }
+}
+.article__title.is-wip {
+  color: var(--muted-text);
+}
+
+.article__title-label {
+  background-color: var(--background-semi-shade);
+  font-size: 0.625rem;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0.25rem 0.5rem;
+  margin-right: 0.25rem;
+  border-radius: 1rem;
+  margin-top: -0.5em;
+  font-weight: 400;
+  color: var(--default-text);
+  line-height: 1;
+}
+
+.article__metas {
+  display: flex;
+  margin-top: 0.75rem;
+  font-size: 0.8125rem;
+}
+@media (min-width: 48em) {
+  .article__metas {
+    font-size: 0.875rem;
+  }
+}
+
+.article__meta:not(:first-child) {
+  margin-left: 0.75em;
+}
+
+.article__published-at {
+  font-size: 1em;
+  line-height: 1.4;
+  color: var(--semi-muted-text);
+}
+
+.article__author {
+  display: flex;
+  align-items: center;
+  font-size: 1em;
+  line-height: 1.4;
+  color: var(--default-text);
+}
+.article__author img {
+  width: 1.125rem;
+  height: 1.125rem;
+  object-fit: cover;
+  margin-right: 0.25rem;
+  border-radius: 50%;
+}
+
+.article__image {
+  margin-top: 1.5rem;
+  border-radius: 4px;
+  aspect-ratio: 40/21;
+  object-fit: cover;
+  width: 100%;
+}
+
+.article__body:not(:first-child) {
+  margin-top: 1.5rem;
+}
+.article__body.a-long-text {
+  font-size: 0.875rem;
+}
+@media (min-width: 48em) {
+  .article__body.a-long-text {
+    font-size: 1rem;
+  }
+}
+
+.article__actions {
+  margin-top: 2rem;
+  border-top: dashed 2px var(--border);
+  padding-top: 1rem;
+}
+.article__actions ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.article__actions li {
+  flex: 1;
+  max-width: 15rem;
+}
+
+.article__header-row:not(:first-child) {
+  margin-top: 0.75rem;
+}
+
+.article__ad {
+  font-size: 0.875rem;
+}

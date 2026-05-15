@@ -2,7 +2,6 @@
 
 class API::UsersController < API::BaseController
   before_action :set_user, only: %i[show update]
-  before_action :require_login_for_api
   PAGER_NUMBER = 24
 
   def index
@@ -26,7 +25,12 @@ class API::UsersController < API::BaseController
       end
   end
 
-  def show; end
+  def show
+    # Doorkeeperで認証された本人の情報取得時のみemailを返す
+    @include_email = doorkeeper_token.present? &&
+                     @user.present? &&
+                     @user.id == doorkeeper_token.resource_owner_id
+  end
 
   def update
     if @user == current_user && @user.update(user_params)
@@ -46,7 +50,7 @@ class API::UsersController < API::BaseController
   end
 
   def target_allowlist
-    target_allowlist = %w[student_and_trainee followings mentor graduate adviser trainee year_end_party]
+    target_allowlist = %w[student_and_trainee student trainee followings mentor graduate adviser year_end_party admin]
     target_allowlist.push('job_seeking') if current_user.adviser?
     target_allowlist.push('all') if @company
     target_allowlist.concat(%w[job_seeking hibernated retired inactive all]) if current_user.mentor? || current_user.admin?
@@ -72,7 +76,11 @@ class API::UsersController < API::BaseController
   end
 
   def set_user
-    @user = User.find(params[:id])
+    @user = if params[:id] == 'show'
+              User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
+            else
+              User.find(params[:id])
+            end
   end
 
   def user_params

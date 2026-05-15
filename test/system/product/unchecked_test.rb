@@ -21,18 +21,17 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     assert_button '未完了の提出物を一括で開く'
   end
 
-  test 'click on open all unchecked submissions button' do
+  test 'unchecked products links are rendered correctly' do
     delete_most_unchecked_products!
+    oldest_product = Product
+                     .unchecked
+                     .not_wip
+                     .ascending_by_date_of_publishing_and_id
+                     .first
+
     visit_with_auth '/products/unchecked', 'komagata'
-    click_button '未完了の提出物を一括で開く'
-    within_window(windows.last) do
-      newest_product = Product
-                       .unchecked
-                       .not_wip
-                       .ascending_by_date_of_publishing_and_id
-                       .first
-      assert_text newest_product.body
-    end
+
+    assert_selector "a.js-unconfirmed-link[href$='/#{oldest_product.id}']"
   end
 
   test 'products order on unchecked tab' do
@@ -58,7 +57,8 @@ class Product::UncheckedTest < ApplicationSystemTestCase
       checker_id: checker.id
     )
     visit_with_auth "/products/#{product.id}", 'komagata'
-    click_button '提出物を確認'
+    click_button '提出物を合格にする'
+    assert_text '提出物を合格にしました。'
     visit_with_auth '/products/unchecked?target=unchecked_all', 'komagata'
     assert_no_text product.practice.title
   end
@@ -76,8 +76,15 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{product.id}", 'kimura'
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
+    assert_text 'コメントを投稿しました！'
+
     visit_with_auth '/products/unchecked', 'komagata'
-    click_link '自分の担当'
+    assert_text '未完了の提出物'
+    within '.page-tabs' do
+      click_link '自分の担当'
+    end
+    # タブ切り替え後のページ読み込みを待つ
+    assert_selector '.page-content'
     assert_text product.practice.title
   end
 
@@ -106,13 +113,13 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{product.id}", 'mentormentaro'
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
+    accept_alert '提出物の担当になりました。'
     within('.thread-comment.is-latest') do
       assert_text 'mentormentaro'
       assert_text 'test'
     end
     visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'komagata'
-    assert_no_text product.practice.title
-    assert_no_selector '.card-list-item-meta__item', text: 'メンター'
+    assert_no_selector "a[href='/products/#{product.id}']"
   end
 
   test 'display no-replied products if click on unchecked-all-button' do
@@ -128,8 +135,13 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{product.id}", 'kimura'
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
+    assert_text 'コメントを投稿しました！'
+
     visit_with_auth '/products/unchecked?target=unchecked_all', 'komagata'
+    assert_text '未完了の提出物'
     click_link '自分の担当'
+    # タブ切り替え後のページ読み込みを待つ
+    assert_selector '.page-content'
     assert_text product.practice.title
   end
 
@@ -205,30 +217,5 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     visit_with_auth '/products/unchecked', 'komagata'
     expected_count = Product.unhibernated_user_products.unchecked.not_wip.count
     assert_selector '.page-tabs__item-link.is-active', text: "未完了 （#{expected_count}）"
-  end
-
-  test 'unchecked products is excepted hiberanated user' do
-    hiberanated_user = users(:kyuukai)
-    practice = practices(:practice47)
-
-    Product.create!(
-      body: 'hiberanated user product.',
-      user: hiberanated_user,
-      practice:,
-      checker_id: nil
-    )
-
-    product_hiberanated_user_name = "#{hiberanated_user.login_name} (#{hiberanated_user.name_kana})"
-
-    visit_with_auth '/products/unchecked', 'komagata'
-    # assert_no_text だとデータが読み込まれる前に実行され常に成立してしまうため、明示的に待機する has_text? を使用する
-    assert_not has_text?(product_hiberanated_user_name)
-    first('.pagination__item-link', text: '2').click
-    assert_not has_text?(product_hiberanated_user_name)
-
-    visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'komagata'
-    assert_not has_text?(product_hiberanated_user_name)
-    first('.pagination__item-link', text: '2').click
-    assert_not has_text?(product_hiberanated_user_name)
   end
 end

@@ -1,0 +1,24 @@
+.company-links {
+  margin-top: 0.5rem;
+}
+
+.company-links__items {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.company-links__item {
+  flex: 0 0 auto;
+}
+
+@media (min-width: 96em) {
+  .company-links__item {
+    flex: 0 0 calc((100% - 1rem) / 3);
+  }
+}
+@media (max-width: 79.9375em) {
+  .company-links__item {
+    flex: 0 0 calc((100% - 0.5rem) / 2);
+  }
+}

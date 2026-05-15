@@ -7,7 +7,6 @@ import MarkdownItTaskLists from 'markdown-it-task-lists'
 import MarkdownItMention from 'markdown-it-mention'
 import MarkdownItUserIcon from 'markdown-it-user-icon'
 import MarkdownOption from 'markdown-it-option'
-import UserIconRenderer from 'user-icon-renderer'
 import autosize from 'autosize'
 import MarkDownItContainerMessage from 'markdown-it-container-message'
 import MarkDownItContainerDetails from 'markdown-it-container-details'
@@ -15,6 +14,10 @@ import MarkDownItLinkAttributes from 'markdown-it-link-attributes'
 import MarkDownItContainerSpeak from 'markdown-it-container-speak'
 import CSRF from 'csrf'
 import TextareaMarkdownLinkify from 'textarea-markdown-linkify'
+import ReplaceLinkToCard from 'replace-link-to-card'
+import MarkDownItContainerFigure from 'markdown-it-container-figure'
+import MarkdownItVimeo from 'markdown-it-vimeo'
+import MarkdownItYoutube from 'markdown-it-youtube'
 
 export default class {
   static initialize(selector) {
@@ -43,13 +46,21 @@ export default class {
       mention.values.unshift({ login_name: 'mentor', name: 'メンター' })
       const collection = [emoji.params(), mention.params()]
       const tribute = new Tribute({
-        collection: collection
+        collection
       })
-      tribute.attach(textareas)
+
+      textareas.forEach((textarea) => {
+        if (!textarea.dataset.tribute) {
+          tribute.attach(textarea)
+          textarea.dataset.tribute = 'true'
+        }
+      })
     })
 
     // markdown
     Array.from(textareas).forEach((textarea) => {
+      if (textarea.dataset.textareaMarkdownInitialized) return
+      textarea.dataset.textareaMarkdownInitialized = 'true'
       /* eslint-disable no-new */
       new TextareaMarkdown(textarea, {
         endPoint: '/api/image.json',
@@ -57,6 +68,8 @@ export default class {
         responseKey: 'url',
         csrfToken: CSRF.getToken(),
         placeholder: '%filenameをアップロード中...',
+        uploadImageTag:
+          '<a href="%url" target="_blank" rel="noopener noreferrer"><img src="%url" width="%width" height="%height" alt="%filename"></a>\n',
         afterPreview: () => {
           autosize.update(textarea)
 
@@ -74,24 +87,27 @@ export default class {
           MarkDownItContainerMessage,
           MarkDownItContainerDetails,
           MarkDownItLinkAttributes,
-          MarkDownItContainerSpeak
+          MarkDownItContainerSpeak,
+          MarkDownItContainerFigure,
+          MarkdownItVimeo,
+          MarkdownItYoutube
         ],
         markdownOptions: MarkdownOption
       })
       /* eslint-enable no-new */
     })
 
-    // user-icon
-    new UserIconRenderer().render(selector)
-
     // Convert selected text to markdown link on URL paste
     new TextareaMarkdownLinkify().linkify(selector)
+
+    ReplaceLinkToCard(selector)
   }
 
   static uninitialize(selector) {
     const textareas = document.querySelectorAll(selector)
     textareas.forEach((textarea) => {
       const cloneTextarea = textarea.cloneNode(true)
+      delete cloneTextarea.dataset.textareaMarkdownInitialized
       textarea.parentNode.replaceChild(cloneTextarea, textarea)
     })
   }

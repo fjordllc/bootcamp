@@ -51,7 +51,7 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
       user: check.receiver,
       sender: check.sender,
       link: "/products/#{check.checkable.id}",
-      message: "#{check.sender.login_name}さんが#{check.checkable.title}を確認しました。",
+      message: "#{check.sender.login_name}さんが#{check.checkable.title}を合格にしました。",
       read: false
     )
 
@@ -272,26 +272,26 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
     end
   end
 
-  test '.notify(:consecutive_sad_report)' do
+  test '.notify(:consecutive_negative_report)' do
     params = {
       report: reports(:report22),
       receiver: users(:komagata)
     }
 
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
-      ActivityDelivery.notify!(:consecutive_sad_report, **params)
+      ActivityDelivery.notify!(:consecutive_negative_report, **params)
     end
 
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
-      ActivityDelivery.notify(:consecutive_sad_report, **params)
+      ActivityDelivery.notify(:consecutive_negative_report, **params)
     end
 
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
-      ActivityDelivery.with(**params).notify!(:consecutive_sad_report)
+      ActivityDelivery.with(**params).notify!(:consecutive_negative_report)
     end
 
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
-      ActivityDelivery.with(**params).notify(:consecutive_sad_report)
+      ActivityDelivery.with(**params).notify(:consecutive_negative_report)
     end
   end
 
@@ -299,7 +299,8 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
     regular_event = regular_events(:regular_event1)
     params = {
       regular_event:,
-      receiver: users(:komagata)
+      receiver: users(:komagata),
+      sender: regular_event.user
     }
 
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
@@ -450,6 +451,172 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
 
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
       ActivityDelivery.with(**params).notify(:came_comment)
+    end
+  end
+
+  test '.notify(:create_article)' do
+    params = {
+      article: articles(:article1),
+      receiver: users(:kimura)
+    }
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.notify!(:create_article, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.notify(:create_article, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify!(:create_article)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify(:create_article)
+    end
+  end
+
+  test '.notify(:added_work)' do
+    params = {
+      work: works(:work1),
+      receiver: users(:komagata)
+    }
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.notify!(:added_work, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.notify(:added_work, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify!(:added_work)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify(:added_work)
+    end
+  end
+
+  test '.notify(:came_pair_work)' do
+    pair_work = pair_works(:pair_work1)
+    params = {
+      pair_work:,
+      receiver: users(:mentormentaro)
+    }
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.notify!(:came_pair_work, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.notify(:came_pair_work, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify!(:came_pair_work)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify(:came_pair_work)
+    end
+  end
+
+  test '.notify(:matching_pair_work)' do
+    pair_work = pair_works(:pair_work2)
+    params = {
+      pair_work:,
+      receiver: users(:mentormentaro)
+    }
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.notify!(:matching_pair_work, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.notify(:matching_pair_work, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify!(:matching_pair_work)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify(:matching_pair_work)
+    end
+  end
+
+  test '.notify(:rematching_pair_work)' do
+    pair_work = pair_works(:pair_work2)
+    params = {
+      pair_work:,
+      receiver: users(:mentormentaro)
+    }
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.notify!(:rematching_pair_work, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.notify(:rematching_pair_work, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify!(:rematching_pair_work)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify(:rematching_pair_work)
+    end
+  end
+
+  test '.notify(:reschedule_pair_work)' do
+    pair_work = pair_works(:pair_work2)
+    params = {
+      pair_work:,
+      receiver: users(:kimura)
+    }
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.notify!(:reschedule_pair_work, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.notify(:reschedule_pair_work, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify!(:reschedule_pair_work)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify(:reschedule_pair_work)
+    end
+  end
+
+  test '.notify(:cancel_pair_work)' do
+    pair_work = pair_works(:pair_work2)
+    params = {
+      pair_work:,
+      receiver: users(:kimura)
+    }
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.notify!(:cancel_pair_work, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.notify(:cancel_pair_work, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify!(:cancel_pair_work)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify(:cancel_pair_work)
     end
   end
 end

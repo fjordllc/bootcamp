@@ -12,6 +12,11 @@ class UserMailer < ApplicationMailer
     mail to: user.email, bcc: 'info@lokka.jp', subject: '[FBC] フィヨルドブートキャンプへようこそ'
   end
 
+  def training_complete(user)
+    @user = user
+    mail to: user.email, bcc: 'info@lokka.jp', subject: '[FBC] 研修終了手続きが完了しました'
+  end
+
   def retire(user)
     @user = user
     mail to: user.email, bcc: 'info@lokka.jp', subject: '[FBC] 退会処理が完了しました'
@@ -20,5 +25,16 @@ class UserMailer < ApplicationMailer
   def auto_retire(user)
     @user = user
     mail to: user.email, bcc: 'info@lokka.jp', subject: '[FBC] 重要なお知らせ：受講ステータスの変更について'
+  end
+
+  def request_retirement(request_retirement)
+    email = request_retirement.user.email
+    @request_retirement = request_retirement
+    mail to: email, bcc: 'info@lokka.jp', subject: '[FBC] 退会申請を受け付けました'
+  end
+
+  def one_week_before_auto_retire(user)
+    @user = user
+    mail to: user.email, bcc: 'info@lokka.jp', subject: '[FBC] ご注意：休会期限の接近について'
   end
 end

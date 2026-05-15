@@ -1,0 +1,36 @@
+.l-container {
+  width: 100%;
+  max-width: 100vw;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+.l-container.is-xxxl {
+  max-width: 108rem;
+}
+.l-container.is-xxl {
+  max-width: 96rem;
+}
+.l-container.is-xl {
+  max-width: 80rem;
+}
+.l-container.is-lg {
+  max-width: 64rem;
+}
+.l-container.is-md {
+  max-width: 48rem;
+}
+.l-container.is-sm {
+  width: 40rem;
+}
+.l-container.is-xs {
+  width: 32rem;
+}
+.l-container.is-xxs {
+  width: 28rem;
+}
+
+@media (min-width: 48em) {
+  .l-container {
+    padding-inline: 1.5rem;
+  }
+}

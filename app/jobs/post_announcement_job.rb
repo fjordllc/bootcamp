@@ -5,8 +5,8 @@ class PostAnnouncementJob < ApplicationJob
 
   def perform(announcement, receivers)
     receivers.each do |receiver|
-      send_mail_notification(announcement, receiver)
       send_on_site_notification(announcement, receiver)
+      send_mail_notification(announcement, receiver)
     end
   end
 

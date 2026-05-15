@@ -58,6 +58,26 @@ discord_profile_kensyu:
   account_name: kensyu3333
   times_url: https://discord.com/channels/715806612824260640/123456789000000011
 
+discord_profile_kensyu-end-within-24-hour:
+  user: kensyu-end-within-24-hour
+  account_name: kensyu_end_within_24_hour
+  times_url:
+
+discord_profile_kensyu-end-within-1-week:
+  user: kensyu-end-within-1-week
+  account_name: kensyu_end_within_1_week
+  times_url:
+
+discord_profile_kensyu-end-over-1-week:
+  user: kensyu-end-over-1-week
+  account_name: kensyu_end_over_1_week
+  times_url:
+
+discord_profile_kensyu-not-setting-end-date:
+  user: kensyu-not-setting-end-date
+  account_name: kensyu_not_setting_end_date
+  times_url:
+
 discord_profile_senpai:
   user: senpai
   account_name: senpai4444
@@ -255,12 +275,78 @@ discord_profile_sotsugyoukigyoshozoku:
   account_name:
   times_url:
 
-discord_profile_advisernocolleguetrainee:
-  user: advisernocolleguetrainee
+discord_profile_advisernocolleaguetrainee:
+  user: advisernocolleaguetrainee
   account_name:
   times_url:
 
 discord_profile_nagai-kyuukai:
   user: nagai-kyuukai
+  account_name: nagaikyuukai#1234
+  times_url: https://discord.com/channels/1079802367970656257/1224708078847397908
+  times_id: 1224708078847397908
+
+discord_profile_pjord:
+  user: pjord
   account_name:
+  times_url:
+
+discord_profile_paginataion-taro:
+  user: paginataion-taro
+  account_name:
+  times_url:
+
+discord_profile_paginataion-jirou:
+  user: paginataion-jirou
+  account_name:
+  times_url:
+
+discord_profile_harikirio:
+  user: harikirio
+  account_name:
+  times_url:
+
+discord_profile_rails-course:
+  user: rails-course
+  account_name:
+  times_url:
+
+discord_profile_front-end-course:
+  user: front-end-course
+  account_name:
+  times_url:
+
+discord_profile_unity-course:
+  user: unity-course
+  account_name:
+  times_url:
+
+discord_profile_ios-course:
+  user: ios-course
+  account_name:
+  times_url:
+
+discord_profile_kensyu-invoice:
+  user: kensyu-invoice
+  account_name:
+  times_url:
+
+discord_profile_new-mentor:
+  user: new-mentor
+  account_name: new-mentor
+  times_url:
+
+discord_profile_hukki:
+  user: hukki
+  account_name: hukki
+  times_url:
+
+discord_profile_grant-course:
+  user: grant-course
+  account_name: grant-course
+  times_url:
+
+discord_profile_kensyukansou-nil:
+  user: kensyukansou-nil
+  account_name: kensyukansou-nil1234
   times_url:

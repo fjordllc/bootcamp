@@ -297,3 +297,72 @@ categories_practice60:
   practice: practice60
   category: category2
   position: 6
+
+categories_practice61:
+  practice: practice61
+  category: category22
+  position: 1
+
+categories_practice62:
+  practice: practice62
+  category: category10
+  position: 1
+
+categories_practice63:
+  practice: practice63
+  category: category10
+  position: 2
+
+categories_practice64:
+  practice: practice64
+  category: category10
+
+categories_practice111_1:
+  practice: practice111
+  category: category6
+  position: 14
+
+categories_practice111_2:
+  practice: practice111
+  category: category23
+  position: 2
+
+categories_practice112_1:
+  practice: practice112
+  category: category6
+  position: 15
+
+categories_practice112_2:
+  practice: practice112
+  category: category23
+  position: 3
+
+categories_practice65_1:
+  practice: practice65
+  category: category6
+  position: 14
+
+categories_practice65_2:
+  practice: practice65
+  category: category22
+  position: 2
+
+categories_practice66_1:
+  practice: practice66
+  category: category6
+  position: 15
+
+categories_practice66_2:
+  practice: practice66
+  category: category22
+  position: 3
+
+categories_practice67:
+  practice: practice113
+  category: category24
+  position: 16
+
+categories_practice68:
+  practice: practice114
+  category: category24
+  position: 17

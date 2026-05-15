@@ -29,4 +29,18 @@ class GenerationTest < ActiveSupport::TestCase
     assert_not_includes Generation.new(5).target_users('retired'), users(:komagata)
     assert_not_includes Generation.new(5).target_users('all'), users(:yameo)
   end
+
+  test '#count_classmates_by_target' do
+    expected = {
+      students: 18,
+      trainees: 3,
+      hibernated: 1,
+      graduated: 2,
+      advisers: 3,
+      retired: 1
+    }
+    gen5 = Generation.new(5)
+    actual = expected.keys.index_with { |t| gen5.count_classmates_by_target(t) }
+    assert_equal expected, actual
+  end
 end

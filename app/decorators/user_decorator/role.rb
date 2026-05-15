@@ -5,6 +5,7 @@ module UserDecorator
     def roles
       role_list = [
         { role: 'retired', value: retired? },
+        { role: 'training_completed', value: training_completed? },
         { role: 'hibernationed', value: hibernated? },
         { role: 'admin', value: admin? },
         { role: 'mentor', value: mentor? },

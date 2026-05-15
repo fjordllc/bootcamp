@@ -1,34 +1,37 @@
 # frozen_string_literal: true
 
-class Practice < ApplicationRecord
+class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include Watchable
   include Searchable
 
   has_many :learnings, dependent: :destroy
   has_and_belongs_to_many :reports # rubocop:disable Rails/HasAndBelongsToMany
-  has_many :started_learnings,
-           -> { where(status: 'started') },
-           class_name: 'Learning',
-           inverse_of: 'practice',
-           dependent: nil
   has_many :completed_learnings,
            -> { where(status: 'complete') },
            class_name: 'Learning',
            inverse_of: 'practice',
            dependent: nil
-  has_many :started_users,
-           through: :started_learnings,
-           source: :user
-  has_many :completed_users,
-           through: :completed_learnings,
-           source: :user
-  has_many :started_students,
+  has_many :started_or_submitted_learnings,
+           -> { where(status: 'started').or(where(status: 'submitted')) },
+           class_name: 'Learning',
+           inverse_of: 'practice',
+           dependent: nil
+  has_many :started_or_submitted_students,
            -> { students_and_trainees },
-           through: :started_learnings,
+           through: :started_or_submitted_learnings,
            source: :user
+  has_many :skipped_users,
+           through: :skipped_practices,
+           source: :user
+  has_many :skipped_practices, dependent: :destroy
   has_many :products, dependent: :destroy
   has_many :questions, dependent: :nullify
-  has_many :pages, dependent: :nullify
+  has_many :pages,
+           -> { order(updated_at: :desc, id: :desc) },
+           dependent: :nullify,
+           inverse_of: :practice
+  has_many :practices_movies, dependent: :nullify
+  has_many :movies, through: :practices_movies
   has_one :learning_minute_statistic, dependent: :destroy
   belongs_to :last_updated_user, class_name: 'User', optional: true
 
@@ -37,16 +40,49 @@ class Practice < ApplicationRecord
   has_one_attached :ogp_image
   has_one_attached :completion_image
 
-  has_many :books, through: :practices_books
   has_many :practices_books, dependent: :destroy
+  has_many :books, through: :practices_books
   accepts_nested_attributes_for :practices_books, reject_if: :all_blank, allow_destroy: true
+
+  has_one :submission_answer, dependent: :destroy
+  has_many :coding_tests, dependent: :nullify
+
+  has_many :coding_test_submissions,
+           through: :coding_tests,
+           source: :coding_test_submissions
+
+  # Practice copy relationships
+  has_many :copied_practices, class_name: 'Practice', foreign_key: 'source_id', dependent: :nullify, inverse_of: :source_practice
+  belongs_to :source_practice, class_name: 'Practice', foreign_key: 'source_id', optional: true, inverse_of: :copied_practices
 
   validates :title, presence: true
   validates :description, presence: true
   validates :goal, presence: true
   validates :categories, presence: true
+  validate :source_id_cannot_be_self
 
   columns_for_keyword_search :title, :description, :goal
+
+  scope :with_counts, lambda {
+    select('practices.*,
+           (SELECT COUNT(*) FROM products WHERE products.practice_id = practices.id) as products_count,
+           (SELECT COUNT(*) FROM practices_reports WHERE practices_reports.practice_id = practices.id) as reports_count,
+           (SELECT COUNT(*) FROM questions WHERE questions.practice_id = practices.id) as questions_count')
+  }
+
+  scope :for_mentor_index, lambda {
+    with_counts
+      .preload(:categories, :submission_answer)
+      .order(:id)
+  }
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[title description goal created_at updated_at last_updated_user_id submission]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[learnings categories products questions pages movies books last_updated_user]
+  end
 
   class << self
     def save_learning_minute_statistics
@@ -107,6 +143,11 @@ class Practice < ApplicationRecord
     [description, goal].join("\n")
   end
 
+  def text_for_embedding
+    text = [title, description, goal].compact.join("\n\n")
+    truncate_for_embedding(text)
+  end
+
   def product(user)
     products.find_by(user:)
   end
@@ -137,7 +178,7 @@ class Practice < ApplicationRecord
     if minute_list.size.even?
       (minute_list[center_index] + minute_list[center_index + 1]) / 2
     else
-      (minute_list[center_index])
+      minute_list[center_index]
     end
   end
 
@@ -183,5 +224,21 @@ class Practice < ApplicationRecord
 
   def average_minute_per_practice(minute, size)
     minute / size
+  end
+
+  def convert_to_hour_minute(learning_minute_statistic)
+    converted_hour = learning_minute_statistic / 60
+    converted_minute = (learning_minute_statistic % 60).round
+    if converted_minute.zero?
+      "#{converted_hour}時間"
+    else
+      "#{converted_hour}時間#{converted_minute}分"
+    end
+  end
+
+  def source_id_cannot_be_self
+    return unless source_id && id
+
+    errors.add(:source_id, 'cannot reference itself') if source_id == id
   end
 end

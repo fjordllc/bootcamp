@@ -1,0 +1,30 @@
+import initializeAnswer from './initializeAnswer'
+
+document.addEventListener('DOMContentLoaded', () => {
+  const answerAnchor = location.hash
+  if (answerAnchor) {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const anchorElement = document.getElementById(answerAnchor.slice(1))
+        if (anchorElement) {
+          anchorElement.scrollIntoView({ behavior: 'instant' })
+        }
+      })
+    })
+  }
+
+  const answers = document.querySelectorAll('.answer')
+  const loadingContent = document.querySelector('.loading-content')
+  const answerContent = document.querySelector('.answer-content')
+
+  if (loadingContent && answerContent) {
+    loadingContent.classList.add('is-hidden')
+    answerContent.classList.remove('is-hidden')
+  }
+
+  if (answers.length > 0) {
+    answers.forEach((answer) => {
+      initializeAnswer(answer)
+    })
+  }
+})

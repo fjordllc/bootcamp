@@ -124,11 +124,11 @@ notification_chose_correct_answer:
   link: "/questions/<%= ActiveRecord::FixtureSet.identify(:question12) %>"
   read: false
 
-notification_consecutive_sad_report:
+notification_consecutive_negative_report:
   kind: 15
   user: komagata
   sender: hajime
-  message: hajimeさんが2回連続でsadアイコンの日報を提出しました。
+  message: hajimeさんが2回連続でnegativeアイコンの日報を提出しました。
   link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report16) %>"
   read: false
 
@@ -156,8 +156,8 @@ notification_regular_event_updated:
   link: "/regular_events/<%= ActiveRecord::FixtureSet.identify(:regular_event1) %>"
   read: false
 
-<% 1.upto(25) do |i| %>
-notification_for_pagination<%= i %>: # 通知ページのページネーション動作確認のための通知
+<% 1.upto(110) do |i| %>
+notification_for_pagination<%= i %>: # 通知ページのページネーション動作と取得数制限確認のための通知
   kind: 5
   user: hatsuno
   sender: komagata

@@ -1,11 +1,17 @@
 # frozen_string_literal: true
 
-class ProductsController < ApplicationController
+class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLength
   before_action :check_permission!, only: %i[show]
   before_action :require_staff_login, only: :index
   before_action :set_watch, only: %i[show]
+  before_action :set_target, only: %i[index]
 
-  def index; end
+  def index
+    @products = Product.list
+                       .order(:id)
+                       .page(params[:page])
+                       .per(50)
+  end
 
   def show
     @product = find_product
@@ -16,6 +22,11 @@ class ProductsController < ApplicationController
     @practice = find_practice
     @learning = @product.learning # decoratorメソッド用にcontrollerでインスタンス変数化
     @tweet_url = @practice.tweet_url(practice_completion_url(@practice.id))
+    @recent_reports = Report.list.where(user_id: @product.user.id).limit(10)
+    @user_products = user_products(@product)
+    Footprint.find_or_create_for(@product, current_user)
+    @footprints = Footprint.fetch_for_resource(@product)
+    @comments = @product.comments.order(:created_at)
     respond_to do |format|
       format.html
       format.md
@@ -40,8 +51,8 @@ class ProductsController < ApplicationController
     set_wip
     update_published_at
     if @product.save
-      Newspaper.publish(:product_create, { product: @product })
-      Newspaper.publish(:product_save, { product: @product })
+      ActiveSupport::Notifications.instrument('product.create', product: @product)
+      ActiveSupport::Notifications.instrument('product.save', product: @product)
       redirect_to Redirection.determin_url(self, @product), notice: notice_message(@product, :create)
     else
       render :new
@@ -55,8 +66,8 @@ class ProductsController < ApplicationController
     set_wip
     update_published_at
     if @product.update(product_params)
-      Newspaper.publish(:product_update, { product: @product, current_user: })
-      Newspaper.publish(:product_save, { product: @product })
+      ActiveSupport::Notifications.instrument('product.update', { product: @product, current_user: })
+      ActiveSupport::Notifications.instrument('product.save', product: @product)
       notice_another_mentor_assigned_as_checker
       redirect_to Redirection.determin_url(self, @product), notice: notice_message(@product, :update)
     else
@@ -134,5 +145,17 @@ class ProductsController < ApplicationController
     return unless @checker_id && admin_or_mentor_login? && (@checker_id != current_user.id) && !@product.wip?
 
     ActivityDelivery.with(product: @product, receiver: User.find(@checker_id)).notify(:assigned_as_checker)
+  end
+
+  def user_products(product)
+    product.user
+           .products
+           .includes(:practice, :user, :comments, :checks, comments: :user)
+           .not_wip
+           .order(published_at: :desc)
+  end
+
+  def set_target
+    @target = 'all'
   end
 end

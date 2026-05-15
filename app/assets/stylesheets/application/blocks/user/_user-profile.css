@@ -1,0 +1,29 @@
+
+.user-profile__icon {
+  @media (max-width: 47.9375em) {
+    position: static;
+    text-align: center;
+    margin-bottom: .25rem;
+
+  }
+}
+.user-profile__user-icon-image {
+  @media (min-width: 48em) {
+    height: 5rem;
+    width: 5rem;
+  }
+  @media (max-width: 47.9375em) {
+    height: 4rem;
+    width: 4rem;
+
+  }
+}
+.user-company-profile__description {
+  @media (min-width: 48em) {
+    font-size: .9375rem;
+  }
+  @media (max-width: 47.9375em) {
+    font-size: .8125rem;
+
+  }
+}

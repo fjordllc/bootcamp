@@ -21,19 +21,18 @@ class Product::UnassignedTest < ApplicationSystemTestCase
     assert_button '未アサインの提出物を一括で開く'
   end
 
-  test 'click on open all unassigned submissions button' do
+  test 'unassigned products links are rendered correctly' do
     delete_most_unassigned_products!
+    newest_product = Product
+                     .unassigned
+                     .unchecked
+                     .not_wip
+                     .ascending_by_date_of_publishing_and_id
+                     .first
+
     visit_with_auth '/products/unassigned', 'komagata'
-    click_button '未アサインの提出物を一括で開く'
-    within_window(windows.last) do
-      newest_product = Product
-                       .unassigned
-                       .unchecked
-                       .not_wip
-                       .ascending_by_date_of_publishing_and_id
-                       .first
-      assert_text newest_product.body
-    end
+
+    assert_selector "a.js-unconfirmed-link[href$='#{newest_product.id}']"
   end
 
   test 'products order on unassigned tab' do
@@ -52,9 +51,9 @@ class Product::UnassignedTest < ApplicationSystemTestCase
 
     visit_with_auth '/products/unassigned', 'komagata'
     within '.page-body__column.is-main' do
-      assert_text "7日以上経過（#{unassigned_products.count { |product| product.elapsed_days >= 7 }}）"
-      assert_text "6日経過（#{unassigned_products.count { |product| product.elapsed_days == 6 }}）"
+      assert_text "6日以上経過（#{unassigned_products.count { |product| product.elapsed_days >= 6 }}）"
       assert_text "5日経過（#{unassigned_products.count { |product| product.elapsed_days == 5 }}）"
+      assert_text "4日経過（#{unassigned_products.count { |product| product.elapsed_days == 4 }}）"
       assert_text "今日提出（#{unassigned_products.count { |product| product.elapsed_days.zero? }}）"
     end
   end
@@ -62,9 +61,9 @@ class Product::UnassignedTest < ApplicationSystemTestCase
   test 'show elapsed days links that jump to elements on the same page' do
     visit_with_auth '/products/unassigned', 'komagata'
     within '.page-nav__items.elapsed-days' do
-      assert_link('7日以上経過', href: '#7days-elapsed')
-      assert has_selector?('li.is-active', text: '7日以上経過')
-      assert_link('1日経過', href: '#1days-elapsed')
+      assert_link('6日以上経過', href: '#elapsed-6days')
+      assert has_selector?('li.is-active', text: '6日以上経過')
+      assert_link('1日経過', href: '#elapsed-1days')
       assert has_selector?('li.is-inactive', text: '1日経過')
     end
   end

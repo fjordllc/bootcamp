@@ -10,6 +10,7 @@ class Practice::NotLoggedInTest < ApplicationSystemTestCase
       attach_file 'practice[ogp_image]', 'test/fixtures/files/practices/ogp_images/1.jpg', make_visible: true
     end
     click_button '更新する'
+    assert_text 'プラクティスを更新しました'
     logout
 
     visit practice_path(practice)

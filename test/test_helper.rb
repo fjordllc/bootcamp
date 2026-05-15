@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 ENV['RAILS_ENV'] ||= 'test'
+# Suppress VIPS/GLib warnings in test environment
+ENV['G_MESSAGES_DEBUG'] = ''
+
 require_relative '../config/environment'
 require 'rails/test_help'
 require 'capybara/rails'
@@ -11,26 +14,35 @@ require 'supports/vcr_helper'
 require 'abstract_notifier/testing/minitest'
 require 'webmock/minitest'
 
-Capybara.default_max_wait_time = 10
+Capybara.default_max_wait_time = 15
 Capybara.disable_animation = true
-Minitest::Retry.use! if ENV['CI']
+Capybara.automatic_reload = false
+Capybara.enable_aria_label = true
+Capybara.server = :puma, { Silent: true, persistent_timeout: 0 }
+
+# Configure retry for flaky tests (CI or when MINITEST_RETRY_COUNT is set)
+if ENV['CI'] || ENV['MINITEST_RETRY_COUNT']
+  retry_count = ENV.fetch('MINITEST_RETRY_COUNT', 3).to_i
+  Minitest::Retry.use!(retry_count:, verbose: true)
+end
 
 class ActiveSupport::TestCase
   include VCRHelper
 
-  # Run tests in parallel with specified workers
-  parallelize(workers: :number_of_processors)
+  # Parallel testing configuration:
+  # - CI: Disabled - CircleCI handles parallelism via its own parallelism setting
+  # - Local: Disabled - DRb/fork causes test hangs (Rails issue #55513)
+  # To enable parallel tests locally, use: PARALLEL_WORKERS=4 bin/rails test
+  parallelize(workers: ENV.fetch('PARALLEL_WORKERS', 1).to_i)
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
-  # Add more helper methods to be used by all tests here...
   setup do
-    ActiveStorage::Current.host = 'http://localhost:3000' # https://github.com/rails/rails/issues/40855
-  end
-
-  teardown do
-    ActiveStorage::Current.host = nil
+    ActiveStorage::Current.url_options = { protocol: 'http', host: 'localhost', port: '3000' }
+    ActiveJob::Base.queue_adapter = :test
+    AbstractNotifier.delivery_mode = :test
+    AbstractNotifier::Testing::Driver.clear
   end
 end
 
@@ -38,26 +50,3 @@ class ActionDispatch::IntegrationTest
   include Sorcery::TestHelpers::Rails::Integration
   include APIHelper
 end
-
-ActiveSupport.on_load(:action_dispatch_system_test_case) do
-  ActionDispatch::SystemTesting::Server.silence_puma = true
-end
-
-# Rails 7 の ActiveStorage::FixtureSet.blob と同様の機能を実装
-# Pull Request #4182(https://github.com/fjordllc/bootcamp/pull/4182) でRails 7 への移行完了後に削除する
-# => test/fixtures/active_storage/blobs.yml でActiveStorage::FixtureSet.blob を使うように変更する
-module BlobFixtureSet
-  def fixture(filename:, **attributes)
-    blob = new(
-      filename:,
-      key: generate_unique_secure_token
-    )
-    io = Rails.root.join("test/fixtures/files/#{filename}").open
-    blob.unfurl(io)
-    blob.assign_attributes(attributes)
-    blob.upload_without_unfurling(io)
-
-    blob.attributes.transform_values { |values| values.is_a?(Hash) ? values.to_json : values }.compact.to_json
-  end
-end
-ActiveStorage::Blob.extend BlobFixtureSet

@@ -1,0 +1,14 @@
+
+.header-current-user__icon {
+  display: block;
+  margin-inline: auto;
+  @media (min-width: 48em) {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  @media (max-width: 47.9375em) {
+    width: 1.125rem;
+    height: 1.125rem;
+
+  }
+}

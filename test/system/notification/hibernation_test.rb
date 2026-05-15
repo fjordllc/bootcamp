@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'notification_system_test_case'
 
-class Notification::HibernationTest < ApplicationSystemTestCase
+class Notification::HibernationTest < NotificationSystemTestCase
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
+    stub_request(:post, 'https://discord.com/api/webhooks/0123456789/admin')
   end
 
   teardown do
@@ -13,11 +14,7 @@ class Notification::HibernationTest < ApplicationSystemTestCase
   end
 
   test 'notify admins and mentors when a student hibernate' do
-    visit_with_auth notifications_path, 'komagata'
-    find('#notifications.loaded', wait: 10)
-    within first('.card-list-item') do
-      assert_no_selector '.card-list-item-title__link-label', text: 'kimuraさんが休会しました。'
-    end
+    assert_user_has_no_notification(user: users(:komagata), kind: Notification.kinds[:hibernated], text: 'kimuraさんが休会しました。')
 
     visit_with_auth new_hibernation_path, 'kimura'
     fill_in 'hibernation[scheduled_return_on]', with: Time.current.next_month
@@ -26,21 +23,13 @@ class Notification::HibernationTest < ApplicationSystemTestCase
     accept_confirm do
       click_button '休会する'
     end
-    assert_text '休会処理が完了しました'
+    assert_text '休会手続きが完了しました'
 
-    visit_with_auth notifications_path, 'komagata'
-    find('#notifications.loaded', wait: 10)
-    within first('.card-list-item.is-unread') do
-      assert_selector '.card-list-item-title__link-label', text: 'kimuraさんが休会しました。'
-    end
+    assert_user_has_notification(user: users(:komagata), kind: Notification.kinds[:hibernated], text: 'kimuraさんが休会しました。')
   end
 
   test 'notify admins and mentors when a trainee hibernate' do
-    visit_with_auth notifications_path, 'komagata'
-    find('#notifications.loaded', wait: 10)
-    within first('.card-list-item') do
-      assert_no_selector '.card-list-item-title__link-label', text: 'kensyuさんが休会しました。'
-    end
+    assert_user_has_no_notification(user: users(:komagata), kind: Notification.kinds[:hibernated], text: 'kensyuさんが休会しました。')
 
     visit_with_auth new_hibernation_path, 'kensyu'
     fill_in 'hibernation[scheduled_return_on]', with: Time.current.next_month
@@ -49,21 +38,13 @@ class Notification::HibernationTest < ApplicationSystemTestCase
     accept_confirm do
       click_button '休会する'
     end
-    assert_text '休会処理が完了しました'
+    assert_text '休会手続きが完了しました'
 
-    visit_with_auth notifications_path, 'komagata'
-    find('#notifications.loaded', wait: 10)
-    within first('.card-list-item.is-unread') do
-      assert_selector '.card-list-item-title__link-label', text: 'kensyuさんが休会しました。'
-    end
+    assert_user_has_notification(user: users(:komagata), kind: Notification.kinds[:hibernated], text: 'kensyuさんが休会しました。')
   end
 
   test 'notify admins and mentors when a adviser hibernate' do
-    visit_with_auth notifications_path, 'komagata'
-    find('#notifications.loaded', wait: 10)
-    within first('.card-list-item') do
-      assert_no_selector '.card-list-item-title__link-label', text: 'senpaiさんが休会しました。'
-    end
+    assert_user_has_no_notification(user: users(:komagata), kind: Notification.kinds[:hibernated], text: 'senpaiさんが休会しました。')
 
     visit_with_auth new_hibernation_path, 'senpai'
     fill_in 'hibernation[scheduled_return_on]', with: Time.current.next_month
@@ -72,12 +53,8 @@ class Notification::HibernationTest < ApplicationSystemTestCase
     accept_confirm do
       click_button '休会する'
     end
-    assert_text '休会処理が完了しました'
+    assert_text '休会手続きが完了しました'
 
-    visit_with_auth notifications_path, 'komagata'
-    find('#notifications.loaded', wait: 10)
-    within first('.card-list-item.is-unread') do
-      assert_selector '.card-list-item-title__link-label', text: 'senpaiさんが休会しました。'
-    end
+    assert_user_has_notification(user: users(:komagata), kind: Notification.kinds[:hibernated], text: 'senpaiさんが休会しました。')
   end
 end

@@ -2,8 +2,7 @@
 
 module Discord
   class TimesCategory
-    include ActiveSupport::Configurable
-    config_accessor :default_times_category_id, instance_accessor: false
+    class_attribute :default_times_category_id, instance_accessor: false
     CATEGORY_NAME_KEYWORD = 'ひとりごと・分報'
 
     class << self

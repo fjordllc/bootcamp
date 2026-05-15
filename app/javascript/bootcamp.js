@@ -22,6 +22,16 @@ export default {
     })
   },
 
+  post(path, params = {}) {
+    return fetch(path, {
+      method: 'POST',
+      headers: headers(),
+      credentials: 'same-origin',
+      redirect: 'manual',
+      body: JSON.stringify(params)
+    })
+  },
+
   delete(path) {
     return fetch(path, {
       method: 'DELETE',

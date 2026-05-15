@@ -23,7 +23,7 @@ class User::TagsTest < ApplicationSystemTestCase
     %i[cat shinjuku_rb neovim_v_zero_five_zero _net_framework may_j_].each do |key|
       name = acts_as_taggable_on_tags(key).name
       within '.random-tags' do
-        click_on name, exact_text: true
+        find('a.random-tags-item__link', text: /^#{name}$/).click
       end
       assert_text "タグ「#{name}」のユーザー"
       assert_text user.name
@@ -53,9 +53,7 @@ class User::TagsTest < ApplicationSystemTestCase
     tag_input = find('.tagify__input')
     tag_input.set 'タグタグ'
     tag_input.native.send_keys :return
-    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
-      loop until page.has_text?('タグタグ')
-    end
+    assert_text 'タグタグ'
     find_all('.tagify__tag').map(&:text)
     click_button '保存する'
 
@@ -136,7 +134,7 @@ class User::TagsTest < ApplicationSystemTestCase
     visit_with_auth users_tag_path(tag.name, all: 'true'), 'komagata'
     click_button 'タグ名変更'
     fill_in('tag[name]', with: tag.name)
-    has_field?('変更', disabled: true)
+    assert_button '変更', disabled: true
   end
 
   test 'the first letter is ignored when adding a tag whose name begins with octothorpe' do
@@ -176,7 +174,7 @@ class User::TagsTest < ApplicationSystemTestCase
     find('.check-box-to-read').click
     click_on '休会する'
     page.driver.browser.switch_to.alert.accept
-    assert_text '休会処理が完了しました'
+    assert_text '休会手続きが完了しました'
 
     visit_with_auth users_tag_path(tag_name), 'komagata'
     assert_text "タグ「#{tag_name}」のユーザー（1）"

@@ -1,0 +1,65 @@
+import { patch } from '@rails/request.js'
+import { toast } from './vanillaToast'
+
+document.addEventListener('DOMContentLoaded', () => {
+  const button = document.querySelector('.check-button')
+  if (!button) return
+
+  const updatePath = button.dataset.updatePath
+  const modelName = button.dataset.modelName
+  button.addEventListener('click', async () => {
+    button.disabled = true
+    const isInitialActionCompleted =
+      button.classList.contains('is-muted-borderd')
+    const isActionCompleted = !isInitialActionCompleted
+
+    try {
+      const response = await patch(updatePath, {
+        body: JSON.stringify({
+          [modelName]: { action_completed: isActionCompleted }
+        })
+      })
+      if (response.ok) {
+        const forCompleted = {
+          newButtonText: '対応済です',
+          iconClass: 'fa-check',
+          newMessage:
+            'お疲れ様でした！相談者から次のアクションがあった際は、自動で未対応のステータスに変更されます。再度このボタンをクリックすると、未対応にステータスに戻ります。',
+          toastMessage: '対応済みにしました'
+        }
+        const forNotCompleted = {
+          newButtonText: '対応済にする',
+          iconClass: 'fa-redo',
+          newMessage:
+            '返信が完了し次は相談者からのアクションの待ちの状態になったとき、もしくは、相談者とのやりとりが一通り完了した際は、このボタンをクリックして対応済のステータスに変更してください。',
+          toastMessage: '未対応にしました'
+        }
+        const { newButtonText, iconClass, newMessage, toastMessage } =
+          isActionCompleted ? forCompleted : forNotCompleted
+        button.innerHTML = `<i class="fas ${iconClass}"></i> ${newButtonText}`
+        button.classList.toggle('is-warning', !isActionCompleted)
+        button.classList.toggle('is-muted-borderd', isActionCompleted)
+
+        const description = button
+          .closest('.thread-comment-form')
+          .querySelector('.action-completed__description p')
+        if (description) {
+          description.innerHTML = newMessage
+        }
+
+        toast(toastMessage, 'success')
+      } else {
+        toast('更新に失敗しました', 'error')
+        const errorText = await response.text
+        console.warn('update action_completed failed', {
+          status: response.statusCode,
+          body: errorText
+        })
+      }
+    } catch (error) {
+      console.warn(error)
+    }
+
+    button.disabled = false
+  })
+})

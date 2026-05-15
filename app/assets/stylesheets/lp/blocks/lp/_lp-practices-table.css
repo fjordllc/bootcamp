@@ -1,0 +1,20 @@
+.lp-practices-table {
+  width: 100%;
+}
+.lp-practices-table tr:not(:last-child) {
+  border-bottom: solid 1px var(--border);
+}
+.lp-practices-table th,
+.lp-practices-table td {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  padding: 0.5rem 1rem;
+}
+.lp-practices-table th {
+  text-align: right;
+  white-space: nowrap;
+  font-weight: 400;
+}
+.lp-practices-table td {
+  text-align: left;
+}

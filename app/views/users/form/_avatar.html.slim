@@ -8,6 +8,6 @@
       - else
         p 画像を選択
       = f.file_field :avatar
-  - unless user.adviser?
+  - unless user.adviser? || user.mentor?
     .a-form-help
       p 著作権侵害にならない画像を使用してください。画像は正方形に切り抜かれます。

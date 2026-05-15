@@ -1,0 +1,17 @@
+.page-body
+  - if products.empty?
+    .container.is-md
+      .o-empty-message
+        .o-empty-message__icon
+          i.far.fa-smile
+        p.o-empty-message__text
+          | #{data_title}はありません
+  - else
+    .container.is-md
+      nav.pagination
+        = paginate products
+      .card-list.a-card
+        .card-list__items
+          = render products, commented_users:
+      nav.pagination
+        = paginate products

@@ -184,8 +184,8 @@ talk_sotsugyoukigyoshozoku:
   user: sotsugyoukigyoshozoku
   action_completed: true
 
-talk_advisernocolleguetrainee:
-  user: advisernocolleguetrainee
+talk_advisernocolleaguetrainee:
+  user: advisernocolleaguetrainee
   action_completed: true
 
 talk_nagai-kyuukai:
@@ -210,4 +210,36 @@ talk_autoretire-over-1-week:
 
 talk_not-autoretire:
   user: not-autoretire
+  action_completed: true
+
+talk_kensyu-end-within-24-hour:
+  user: kensyu-end-within-24-hour
+  action_completed: true
+
+talk_kensyu-end-within-1-week:
+  user: kensyu-end-within-1-week
+  action_completed: true
+
+talk_kensyu-end-over-1-week:
+  user: kensyu-end-over-1-week
+  action_completed: true
+
+talk_kensyu-not-setting-end-date:
+  user: kensyu-not-setting-end-date
+  action_completed: true
+
+talk_pjord:
+  user: pjord
+  action_completed: true
+
+talk_new-mentor:
+  user: new-mentor
+  action_completed: true
+
+talk_hukki:
+  user: hukki
+  action_completed: true
+
+talk_grant_course:
+  user: grant-course
   action_completed: true

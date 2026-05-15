@@ -4,8 +4,9 @@
 header.page-header
   .container
     .page-header__inner
-      h2.page-header__title
-        = title
+      .page-header__start
+        h2.page-header__title
+          = title
 hr.a-border
 - if @product.published_at.present?
   .a-page-notice.is-danger
@@ -14,14 +15,14 @@ hr.a-border
         p
           | 再提出をした際はコメントから<br class='is-hidden-md-up'>メンターに連絡をお願いします。
 .page-body
-  .container.is-xl
-    .page-body__inner
-      .page-body__rows
-        .page-body__row
-          .container.is-lg
-            = render 'product_practice_content', product: @product, content_type: :practice
-        .page-body__row
-          .container.is-lg
-            = render 'product_practice_content', product: @product, content_type: :goal
-        .page-body__row
+  .page-body__inner
+    .page-body__rows
+      .page-body__row
+        .container.is-lg
+          = render PracticeContentToggle::PracticeContentToggleComponent.new(content_type: :practice, practice: @product.practice)
+      .page-body__row
+        .container.is-lg
+          = render PracticeContentToggle::PracticeContentToggleComponent.new(content_type: :goal, practice: @product.practice)
+      .page-body__row
+        .container.is-xl
           = render 'form', practice: @practice, product: @product

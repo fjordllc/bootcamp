@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require Rails.root.join('app/models/question_auto_closer')
 
 class QuestionTest < ActiveSupport::TestCase
   test '#last_answer' do
@@ -109,7 +110,19 @@ class QuestionTest < ActiveSupport::TestCase
     assert_equal 'Q&Aはありません。', all_questions_property.empty_message
   end
 
-  test '.generate_notice_message' do
+  test '.unsolved_badge' do
+    assert_equal 9, Question.unsolved_badge(
+      current_user: users(:komagata),
+      practice_id: practices(:practice1).id
+    )
+
+    assert_nil Question.unsolved_badge(
+      current_user: users(:hatsuno),
+      practice_id: practices(:practice1).id
+    )
+  end
+
+  test 'generate_notice_message' do
     wip_question = questions(:question_for_wip)
     assert_equal '質問をWIPとして保存しました。', wip_question.generate_notice_message(:create)
     assert_equal '質問をWIPとして保存しました。', wip_question.generate_notice_message(:update)

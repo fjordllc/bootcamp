@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class User::ProductsTest < ApplicationSystemTestCase
   test 'show listing products' do
     visit_with_auth "/users/#{users(:hatsuno).id}/products", 'komagata'
-    assert_equal 'hatsunoの提出物一覧 | FBC', title
+    assert_equal 'hatsunoさんの提出物一覧 | FBC', title
   end
 
   test 'show self assigned products to mentor' do
@@ -15,7 +15,7 @@ class User::ProductsTest < ApplicationSystemTestCase
 
     visit_with_auth "/products/#{products(:product16).id}", 'komagata'
     click_button '担当する'
-    assert_text '担当から外れる'
+    assert_button '担当から外れる'
 
     visit_with_auth self_assigned_products_url, 'komagata'
     assert_text products(:product16).practice.title
@@ -34,7 +34,7 @@ class User::ProductsTest < ApplicationSystemTestCase
     visit_with_auth "/users/#{user.id}/products", 'komagata'
 
     # 作成日の降順で並んでいることを検証する
-    titles = all('.card-list-item-title__title').map { |t| t.text.gsub('★', '') }
+    titles = all('.card-list-item-title__title').map { |t| t.text.delete('★') }
     names = all('.card-list-item-meta .a-user-name').map(&:text)
     assert_equal "#{newest_product.practice.title}の提出物", titles.first
     assert_equal newest_product.user.login_name, names.first

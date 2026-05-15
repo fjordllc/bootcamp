@@ -4,10 +4,11 @@
 header.page-header
   .container
     .page-header__inner
-      h2.page-header__title
-        = title
+      .page-header__start
+        h2.page-header__title
+          = title
 
-= render 'talks/tabs'
+= talks_page_tabs(active_tab: '全て')
 = render 'talks/nav'
 
 = render 'talks/talks'

@@ -1,0 +1,16 @@
+.lp-card-description {
+  font-size: 0.875rem;
+}
+@media (min-width: 48em) {
+  .lp-card-description {
+    font-size: 1rem;
+  }
+}
+.lp-card-description a {
+  color: #0098f9;
+  text-decoration: none;
+  cursor: pointer;
+}
+.lp-card-description a:hover, .lp-card-description a:active {
+  text-decoration: underline;
+}

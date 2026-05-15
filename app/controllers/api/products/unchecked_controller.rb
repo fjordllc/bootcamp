@@ -15,14 +15,14 @@ class API::Products::UncheckedController < API::BaseController
                          .ascending_by_date_of_publishing_and_id
                          .page(params[:page])
                 when 'unchecked_no_replied'
-                  Product.unhibernated_user_products
-                         .unchecked_no_replied_products
-                         .not_wip
-                         .list
-                         .page(params[:page])
+                  UncheckedNoRepliedProductsQuery.new.call
+                                                 .unhibernated_user_products
+                                                 .not_wip.list
+                                                 .ascending_by_date_of_publishing_and_id
+                                                 .page(params[:page])
                 end
     @products = @products.where(checker_id:) if checker_id.present?
-    @products_grouped_by_elapsed_days = @products.group_by { |product| product.elapsed_days >= 7 ? 7 : product.elapsed_days }
+    @products_grouped_by_elapsed_days = @products.group_by(&:elapsed_days)
   end
 
   private

@@ -1,16 +1,17 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'notification_system_test_case'
 require 'supports/mention_helper'
 require 'supports/report_helper'
 
-class Notification::MentionTest < ApplicationSystemTestCase
+class Notification::MentionTest < NotificationSystemTestCase
   include MentionHelper
   include ReportHelper
 
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
+    mock_openai_chat_completion
   end
 
   teardown do
@@ -46,7 +47,7 @@ class Notification::MentionTest < ApplicationSystemTestCase
         fill_in('product[body]', with: body)
       end
       click_button '提出する'
-      assert_text "7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
+      assert_text "6日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、6日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
     }
 
     %w[hatsuno with-hyphen].each do |mention_target_login_name|
@@ -61,6 +62,7 @@ class Notification::MentionTest < ApplicationSystemTestCase
       fill_in 'question_title', with: 'メンション通知が送信されるかのテスト'
       fill_in 'question_description', with: description
       click_button '登録する'
+      assert_text '質問を作成しました。'
     }
 
     assert_notify_mention(post_mention)
@@ -68,12 +70,29 @@ class Notification::MentionTest < ApplicationSystemTestCase
 
   test 'mention from a report' do
     post_mention = lambda { |description|
-      create_report('メンション通知が送信されるかのテスト', description, false)
+      create_report('メンション通知が送信されるかのテスト', description, save_as_wip: false)
     }
 
     %w[hatsuno with-hyphen].each do |mention_target_login_name|
       assert exists_unread_mention_notification_after_posting_mention?('kimura', mention_target_login_name, post_mention)
       Report.last.destroy
     end
+  end
+
+  test 'mention from a micro_report' do
+    owner = users(:kimura)
+    comment_user = users(:komagata)
+
+    visit_with_auth user_micro_reports_path(owner), comment_user.login_name
+    within('#js-micro-report-form') do
+      fill_in('micro_report[content]', with: '@machida')
+      click_button '投稿'
+    end
+    logout
+
+    receiver = users(:machida)
+    visit_with_auth notifications_path(status: 'unread'), receiver.login_name
+    assert_selector 'span.card-list-item-title__link-label',
+                    text: notification_message_for_mention(owner.login_name, comment_user.login_name).to_s
   end
 end

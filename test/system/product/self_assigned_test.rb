@@ -25,9 +25,9 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     assert_button '自分の担当の提出物を一括で開く'
   end
 
-  test 'click on open all self-assigned submissions button' do
+  test 'self-assigned products links are rendered correctly' do
     checker = users(:komagata)
-    Product.create!(
+    self_assigned_product = Product.create!(
       body: '自分の担当の提出物です。',
       user: users(:kimura),
       practice: practices(:practice5),
@@ -35,11 +35,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     )
     visit_with_auth '/products/self_assigned', 'komagata'
 
-    click_button '自分の担当の提出物を一括で開く'
-
-    within_window(windows.last) do
-      assert_text '自分の担当の提出物です。'
-    end
+    assert_selector "a.js-unconfirmed-link[href$='#{self_assigned_product.id}']"
   end
 
   test 'display products on self assigned tab' do
@@ -73,7 +69,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
       checker_id: checker.id
     )
     visit_with_auth '/products/self_assigned', 'mentormentaro'
-    titles = all('.card-list-item-title__title').map { |t| t.text.gsub('★', '') }
+    titles = all('.card-list-item-title__title').map { |t| t.text.delete('★') }
     names = all('.card-list-item-meta .a-user-name').map(&:text)
     assert_equal ["#{practice.title}の提出物"], titles
     assert_equal [decorated_user.long_name], names
@@ -91,7 +87,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
       checker_id: checker.id
     )
     visit_with_auth '/products/self_assigned?target=self_assigned_no_replied', 'mentormentaro'
-    titles = all('.card-list-item-title__title').map { |t| t.text.gsub('★', '') }
+    titles = all('.card-list-item-title__title').map { |t| t.text.delete('★') }
     names = all('.card-list-item-meta .a-user-name').map(&:text)
     assert_equal ["#{practice.title}の提出物"], titles
     assert_equal [decorated_user.long_name], names
@@ -140,7 +136,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     end
     click_button 'コメントする'
     visit_with_auth '/products/self_assigned?target=self_assigned_all', 'mentormentaro'
-    titles = all('.card-list-item-title__title').map { |t| t.text.gsub('★', '') }
+    titles = all('.card-list-item-title__title').map { |t| t.text.delete('★') }
     names = all('.card-list-item-meta .a-user-name').map(&:text)
     assert_equal ["#{practice.title}の提出物"], titles
     assert_equal [decorated_user.long_name], names

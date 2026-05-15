@@ -19,15 +19,20 @@ tables = %i[
   checks
   comments
   companies
+  corporate_training_inquiries
   correct_answers
   courses
   courses_categories
   discord_profiles
   events
   external_entries
+  faq_categories
+  faqs
   followings
   reports
+  micro_reports
   learning_times
+  learning_time_frames
   learnings
   notifications
   participations
@@ -38,6 +43,7 @@ tables = %i[
   practices_books
   products
   questions
+  submission_answers
   reactions
   watches
   works
@@ -45,7 +51,7 @@ tables = %i[
   regular_events
   regular_event_repeat_rules
   regular_event_participations
-  organizers
+  regular_event_organizers
   hibernations
   footprints
   authored_books
@@ -57,8 +63,19 @@ tables = %i[
   check_box_choices
   surveys
   survey_question_listings
+  survey_answers
+  survey_question_answers
   buzzes
+  inquiries
+  movies
+  coding_tests
+  coding_test_cases
+  coding_test_submissions
+  skipped_practices
+  grant_course_applications
+  practices_movies
+  pair_works
+  pair_work_schedules
 ]
 
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', tables
-Bootcamp::Setup.attachment if Rails.env.development?

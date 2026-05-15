@@ -98,7 +98,8 @@ class ActivityNotifierTest < ActiveSupport::TestCase
   end
 
   test '#update_regular_event' do
-    notification = ActivityNotifier.with(regular_event: regular_events(:regular_event1), receiver: users(:hatsuno)).update_regular_event
+    regular_event = regular_events(:regular_event1)
+    notification = ActivityNotifier.with(regular_event:, receiver: users(:hatsuno), sender: regular_event.user).update_regular_event
 
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
       notification.notify_now
@@ -135,6 +136,23 @@ class ActivityNotifierTest < ActiveSupport::TestCase
 
   test '#product_update' do
     notification = ActivityNotifier.with(product: products(:product1), receiver: users(:komagata)).product_update
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      notification.notify_now
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      notification.notify_later
+    end
+  end
+
+  test '#came_inquiry' do
+    params = {
+      inquiry: Inquiry.first,
+      sender: users(:pjord),
+      receiver: users(:komagata)
+    }
+    notification = ActivityNotifier.with(params).came_inquiry
 
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
       notification.notify_now

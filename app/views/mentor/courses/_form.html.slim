@@ -3,8 +3,13 @@
   .form-item
     .row
       .col-md-6.col-xs-12
-        = f.label :title, class: 'a-form-label'
-        = f.text_field :title, class: 'a-text-input js-warning-form'
+        = f.label :title, class: 'a-form-label is-required'
+        .flex.items-center.gap-2
+          .flex-1
+            = f.text_field :title, class: 'a-text-input js-warning-form'
+          span
+            | コース
+
   .form-item
     .row
       .col-md-6.col-xs-12
@@ -12,24 +17,49 @@
         label.a-on-off-checkbox.is-md
           = f.check_box :published, class: 'is-published-checkbox'
           span#checkbox-published-course
-  .form-item
-    .row.js-markdown-parent
-      .col-md-6.col-xs-12
-        = f.label :description, class: 'a-form-label'
-        = f.text_area :description, class: 'a-text-input js-warning-form markdown-form__text-area js-markdown', data: { 'preview': '.js-preview' }
-      .col-md-6.col-xs-12
-        .a-form-label
-          | プレビュー
-        .js-preview.a-long-text.is-md.markdown-form__preview
+        .a-form-help.mt-2
+          p
+            | メンター・管理者以外にはコース一覧に表示しない場合
+            | （企業研修用コースや、今は実施していないコース、作成中のコースなど）は、
+            | 非表示の設定にしてください。
   .form-item
     .row
       .col-md-6.col-xs-12
-        .checkboxes
-          ul.checkboxes__items
-            = f.collection_check_boxes :category_ids, Category.all, :id, :name, class: 'label-checkbox' do |b|
-              li.checkboxes__item
-                = b.check_box(class: 'a-toggle-checkbox')
-                = b.label { b.text }
+        = f.label :description, class: 'a-form-label is-required'
+        .a-form-help
+          p
+            | コース一覧に表示する説明文です。
+            br
+            | Railsエンジニアコース、フロントエンドエンジニアコースの場合は、
+            | ログイン前のサイト訪問者にも表示され、
+            | 受講検討者がコースを選ぶ際の参考になります。
+        = f.text_area :description, class: 'a-text-input js-warning-form'
+  .form-item
+    = f.label :summary, class: 'a-form-label' do
+      | 主な内容や概要（Rails、フロントエンドのみ必須）
+    .a-form-help
+      p
+        | ログイン前のサイト訪問者にも表示され、
+        | 受講検討者がコースを選ぶ際の参考になります。
+    .row.js-markdown-parent.mt-2
+      .col-md-6.col-xs-12
+        .a-form-label
+          | 入力
+        = f.text_area :summary, class: 'a-text-input js-warning-form markdown-form__text-area js-markdown', data: { 'preview': '#summary-preview' }
+      .col-md-6.col-xs-12
+        .a-form-label
+          | プレビュー
+        .js-preview.a-long-text.is-md.markdown-form__preview#summary-preview
+  .form-item
+    label.a-form-label.is-required
+      | このコースに含むカテゴリー
+    .checkboxes
+      .checkboxes__items
+        = f.collection_check_boxes :category_ids, Category.all, :id, :name, class: 'label-checkbox' do |b|
+          .checkboxes__item
+            = b.check_box(class: 'a-toggle-checkbox')
+            = b.label { b.text }
+
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main

@@ -1,3 +1,4 @@
+<!-- I want to review in Japanese. -->
 ## Issue
 
 - Issue番号
@@ -15,3 +16,4 @@
 
 ### 変更後
 
+<!-- I want to review in Japanese. -->

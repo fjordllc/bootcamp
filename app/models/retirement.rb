@@ -1,0 +1,109 @@
+# frozen_string_literal: true
+
+# strategyパターンの簡易版
+# 各退会ケース(Self, Auto, Admin)のStrategyクラスを利用
+class Retirement
+  def initialize(user:, strategy:)
+    @user = user
+    @strategy = strategy
+  end
+
+  def self.by_self(params, user:)
+    new(user:, strategy: Retirement::Self.new(params))
+  end
+
+  def self.auto(user:)
+    new(user:, strategy: Retirement::Auto.new)
+  end
+
+  def self.by_admin(user:)
+    new(user:, strategy: Retirement::Admin.new)
+  end
+
+  def execute
+    ActiveRecord::Base.transaction do
+      assign_reason
+      assign_date
+      clear_hibernation_state
+      save_user
+      destroy_subscription
+    end
+
+    clean_up_regular_events
+    clear_github_info
+    destroy_cards
+    unmatch_pair_works
+    publish
+    notify
+    true
+  rescue ActiveRecord::RecordInvalid => e
+    Rails.logger.error "Failed to save user: #{e.message}"
+    false
+  rescue Stripe::StripeError => e
+    Rails.logger.error "Failed to delete subscription: #{e.message}"
+    false
+  end
+
+  private
+
+  def assign_reason
+    @strategy.assign_reason(@user)
+  end
+
+  def assign_date
+    @strategy.assign_date(@user)
+  end
+
+  def clear_hibernation_state
+    @user.hibernated_at = nil
+  end
+
+  def save_user
+    @strategy.save_user(@user)
+  end
+
+  def destroy_subscription
+    Subscription.new.destroy(@user.subscription_id) if @user.subscription_id?
+  end
+
+  def clear_github_info
+    @user.clear_github_data
+  end
+
+  def destroy_cards
+    Card.destroy_all(@user.customer_id) if @user.customer_id?
+  end
+
+  def clean_up_regular_events
+    @user.clean_up_regular_events
+  end
+
+  def unmatch_pair_works
+    PairWork.where(buddy: @user).find_each do |pair_work|
+      ActiveSupport::Notifications.instrument('pair_work.cancel', pair_work: pair_work, sender: @user) if pair_work.unmatch
+    end
+  end
+
+  def publish
+    ActiveSupport::Notifications.instrument('retirement.create', user: @user)
+  end
+
+  def notify
+    return unless (type = @strategy.notification_type)
+
+    notify_user(type)
+    notify_admins_and_mentors
+  end
+
+  def notify_user(type)
+    UserMailer.send(type, @user).deliver_now
+  rescue Postmark::InactiveRecipientError => e
+    Rails.logger.warn "[Postmark] 受信者由来のエラーのためメールを送信できませんでした。：#{e.message}"
+  end
+
+  def notify_admins_and_mentors
+    User.admins_and_mentors.each do |admin_user|
+      ActivityDelivery.with(sender: @user, receiver: admin_user).notify(:retired)
+    end
+  end
+end

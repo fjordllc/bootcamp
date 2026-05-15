@@ -1,0 +1,36 @@
+.books-form-item .a-form-label {
+  font-size: 0.8125rem;
+  margin-bottom: 0.25em;
+}
+
+.books-form-item .a-form-help {
+  margin-top: 0.25em;
+}
+
+.books-form-item + .books-form-item {
+  margin-top: 0.75rem;
+}
+
+.books-form-item.is-inline {
+  display: flex;
+}
+
+.books-form-item.is-inline *:first-child {
+  margin-right: 1em;
+}
+
+.books-form-item textarea.a-text-input {
+  height: 10rem;
+}
+
+.books-form-item__price-container {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  max-width: 10rem;
+}
+
+.books-form-item__price-unit {
+  padding-bottom: 0.25rem;
+  margin-left: 0.25rem;
+}

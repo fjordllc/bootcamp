@@ -1,0 +1,52 @@
+.thread-comment-form {
+}
+
+@media (min-width: 48em) {
+  .thread-comment-form {
+    display: flex;
+  }
+}
+
+.thread-comment-form .card-footer {
+  border-top: none;
+}
+
+@media (min-width: 48em) {
+  .thread-comment-form.is-action-completed {
+    margin-top: 1.5rem;
+    padding-left: var(--thread-header-author);
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .thread-comment-form.is-action-completed {
+    margin-top: 1rem;
+  }
+}
+
+.thread-comment-form__author {
+  flex: 0 0 var(--thread-header-author);
+  height: 100%;
+  width: var(--thread-header-author);
+  padding-right: 2rem;
+  border-right: solid 1px var(--border-tint);
+}
+
+.thread-comment-form__user-icon {
+  height: auto;
+  width: 100%;
+  border-radius: 50%;
+}
+
+.thread-comment-form__form {
+}
+
+.thread-action-completed-form__form {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.thread-comment-form__action-completed {
+  flex: 1;
+}

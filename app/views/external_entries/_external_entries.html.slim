@@ -1,0 +1,7 @@
+.page-main
+  .page-body
+    .container.is-md
+      = paginate(@external_entries)
+      .card-list.a-card
+        = render(@external_entries)
+      = paginate(@external_entries)

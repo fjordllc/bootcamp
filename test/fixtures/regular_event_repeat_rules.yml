@@ -48,7 +48,7 @@ regular_event_repeat_rule26:
 regular_event_repeat_rule27:
   frequency: 0
   day_of_the_week: 2
-  regular_event: regular_event26
+  regular_event: regular_event27
 
 regular_event_repeat_rule28:
   frequency: 0
@@ -91,6 +91,51 @@ regular_event_repeat_rule35:
   regular_event: regular_event33
 
 regular_event_repeat_rule36:
-  frequency: 1
+  frequency: 0
   day_of_the_week: 3
   regular_event: regular_event34
+
+regular_event_repeat_rule37:
+  frequency: 1
+  day_of_the_week: 6
+  regular_event: regular_event33
+
+regular_event_repeat_rule38:
+  frequency: 0
+  day_of_the_week: 0
+  regular_event: regular_event36
+
+regular_event_repeat_rule39:
+  frequency: 0
+  day_of_the_week: 0
+  regular_event: regular_event37
+
+regular_event_repeat_rule40:
+  frequency: 0
+  day_of_the_week: 1
+  regular_event: regular_event38
+
+regular_event_repeat_rule41:
+  frequency: 0
+  day_of_the_week: 1
+  regular_event: regular_event39
+
+regular_event_repeat_rule42:
+  frequency: 5
+  day_of_the_week: 4
+  regular_event: regular_event40
+
+regular_event_repeat_rule43:
+  frequency: 6
+  day_of_the_week: 4
+  regular_event: regular_event41
+
+regular_event_repeat_rule44:
+  frequency: 0
+  day_of_the_week: 0
+  regular_event: regular_event42
+
+regular_event_repeat_rule45:
+  frequency: 0
+  day_of_the_week: 6
+  regular_event: regular_event43

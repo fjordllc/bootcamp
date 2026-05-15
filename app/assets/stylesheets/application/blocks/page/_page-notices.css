@@ -1,0 +1,11 @@
+.page-notices {
+  margin-block: -0.5rem 1rem;
+  background-color: var(--success);
+}
+
+.page-notices__item .a-badge {
+  min-width: 5rem;
+}
+.page-notices__item:not(:first-child) {
+  border-top: dashed 1px rgba(255, 255, 255, 0.2);
+}

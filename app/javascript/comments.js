@@ -1,26 +1,122 @@
-import Vue from 'vue'
-import Comments from 'comments.vue'
-import store from 'check-store.js'
+import { initializeComment } from './initializeComment.js'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const selector = '#js-comments'
-  const comments = document.querySelector(selector)
+  const comments = document.querySelectorAll('.thread-comment:not(.loading)')
+  const loadingContent = document.querySelector('.loading-content')
+  if (!loadingContent) {
+    return
+  }
+  const commentContent = document.querySelector(
+    '#comments.thread-comments.loaded'
+  )
+  if (!commentContent) {
+    return
+  }
   if (comments) {
-    const commentableId = comments.getAttribute('data-commentable-id')
-    const commentableType = comments.getAttribute('data-commentable-type')
-    const currentUserId = Number(comments.getAttribute('data-current-user-id'))
-    const currentUser = window.currentUser
-    new Vue({
-      store,
-      render: (h) =>
-        h(Comments, {
-          props: {
-            commentableId: commentableId,
-            commentableType: commentableType,
-            currentUserId: currentUserId,
-            currentUser: currentUser
-          }
+    loadingContent.classList.add('is-hidden')
+    commentContent.classList.remove('is-hidden')
+  }
+
+  const initialComments = []
+  const commentTotalCount = comments.length
+  const initialLimit = 8
+  const incrementSize = 8
+  let commentRemaining = 0
+  const nextCommentAmount = 0
+  const moreCommentButton = document.querySelector(
+    '.a-button.is-lg.is-text.is-block'
+  )
+  const moreComments = document.querySelector('.thread-comments-more')
+
+  if (commentTotalCount <= initialLimit) {
+    comments.forEach((comment) => {
+      initialComments.push(comment)
+    })
+  } else {
+    for (let i = 1; i <= initialLimit; i++) {
+      initialComments.push(comments[commentTotalCount - i])
+    }
+    commentRemaining = commentTotalCount - initialLimit
+
+    if (commentRemaining > 0) {
+      moreComments.classList.remove('is-hidden')
+    }
+    displayMoreComments(commentRemaining, nextCommentAmount, moreCommentButton)
+  }
+  setComments(initialComments)
+
+  const commentAnchor = location.hash
+  if (commentAnchor && commentAnchor.startsWith('#comment_')) {
+    const anchorElement = document.getElementById(commentAnchor.slice(1))
+    if (anchorElement && anchorElement.classList.contains('is-hidden')) {
+      const commentsArray = Array.from(comments)
+      const targetIndex = commentsArray.indexOf(anchorElement)
+      if (targetIndex !== -1) {
+        const commentsToReveal = commentsArray.slice(
+          targetIndex,
+          commentTotalCount - initialLimit
+        )
+        setComments(commentsToReveal)
+        commentRemaining = targetIndex
+        if (commentRemaining === 0) {
+          moreComments.classList.add('is-hidden')
+        } else {
+          displayMoreComments(commentRemaining, 0, moreCommentButton)
+        }
+      }
+    }
+    if (anchorElement) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          anchorElement.scrollIntoView({ behavior: 'instant' })
         })
-    }).$mount(selector)
+      })
+    }
+  }
+
+  moreCommentButton.addEventListener('click', () => {
+    const nextComments = []
+    if (commentRemaining <= incrementSize) {
+      for (let i = 1; i <= commentRemaining; i++) {
+        nextComments.push(comments[commentRemaining - i])
+      }
+      setComments(nextComments)
+      commentRemaining = 0
+      moreComments.classList.add('is-hidden')
+    } else {
+      for (let i = 1; i <= incrementSize; i++) {
+        nextComments.push(comments[commentRemaining - i])
+      }
+      commentRemaining = commentRemaining - incrementSize
+      setComments(nextComments)
+      displayMoreComments(
+        commentRemaining,
+        nextCommentAmount,
+        moreCommentButton
+      )
+    }
+  })
+
+  function displayMoreComments(
+    commentRemaining,
+    nextCommentAmount,
+    moreCommentButton
+  ) {
+    if (commentRemaining <= incrementSize) {
+      nextCommentAmount = commentRemaining
+      const commentText = `前のコメント（ ${nextCommentAmount} ）`
+      moreCommentButton.textContent = commentText
+    } else {
+      nextCommentAmount = `${incrementSize} / ${commentRemaining}`
+      const commentText = `前のコメント（ ${nextCommentAmount} ）`
+      moreCommentButton.textContent = commentText
+    }
+  }
+
+  function setComments(comments) {
+    comments.forEach((comment) => {
+      comment.classList.remove('is-hidden')
+      initializeComment(comment)
+    })
   }
 })

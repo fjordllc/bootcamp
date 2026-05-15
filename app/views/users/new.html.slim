@@ -1,29 +1,43 @@
 - content_for :extra_body_classes, 'no-header no-footer no-global-nav is-auth-page is-piyo-background'
 - if @user.adviser?
-  - title 'アドバイザー登録'
+  - title 'FBCアドバイザー参加登録'
   - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
   description: 'フィヨルドブートキャンプアドバイザー登録フォームです。オンラインプログラミングスクールのフィヨルドブートキャンプにアドバイザーとして登録する際はこちらのページからお申し込みください。')
+- elsif @user.trainee?
+  - title 'FBC研修生参加登録'
+  - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
+  description: 'フィヨルドブートキャンプ研修生登録フォームです。オンラインプログラミングスクールのフィヨルドブートキャンプに研修生として登録する際はこちらのページからお申し込みください。')
+- elsif @user.mentor?
+  - title 'FBCメンター参加登録'
+  - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
+  description: 'フィヨルドブートキャンプメンター登録フォームです。オンラインプログラミングスクールのフィヨルドブートキャンプにメンターとして登録する際はこちらのページからお申し込みください。')
 - else
-  - title 'フィヨルドブートキャンプ参加登録'
+  - title 'FBC参加登録'
   - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
   description: 'フィヨルドブートキャンプ参加登録フォームです。オンラインプログラミングスクールのフィヨルドブートキャンプに参加登録する際はこちらのページからお申し込みください。')
 
-.auth-form.is-sign-up
+.auth-form.is-lg
   .a-card
     header.auth-form__header
       h1.auth-form__title
         = title
     .auth-form__body
       .form-item
-        .form-notice
-          p
-            | 法人研修でのご利用については、
-            = link_to new_inquiry_path do
-              | こちらのお問い合わせフォーム
-            | からご連絡ください。
-      - if !@user.adviser? && Campaign.today_campaign?
-        = render 'checked_campaign'
-      = render 'form', from: :new, url: users_path, user: @user
+        .form-notice.a-notice-block.is-danger
+          - if !@user.grant_course?
+            p
+              | 専門実践教育訓練給付制度対象講座「給付金対象Railsエンジニアコース」は
+              = link_to certified_reskill_courses_rails_developer_course_root_path do
+                |  こちらからお申し込みください
+              | 。
+          - if !@user.trainee?
+            p
+              | 企業研修でのご利用は、
+              = link_to new_corporate_training_inquiry_path do
+                | こちらの企業研修申し込みフォーム
+              | からお申し込みください。
+      = render 'form', from: :new, url: users_path, user: @user || user
+    hr.a-border-tint
     footer.auth-form__footer
       nav.auth-form-nav
         ul.auth-form-nav__items

@@ -22,27 +22,21 @@
                 = event.user.long_name
             .page-content-header-metas__meta
               .a-meta
-                time.a-meta__value(datetime="#{event.created_at.to_datetime}" pubdate='pubdate')
+                time.a-meta__value datetime=event.updated_at.iso8601
                   = l event.updated_at
           .page-content-header-metas__end
             .page-content-header-metas__meta
-              - length = event.comments.length
-              a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
-                | コメント（
-                span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
-                  = length
-                | ）
+              = event_comment_count(event, styled: true)
 
       .page-content-header__row
         .page-content-header-actions
           .page-content-header-actions__start
+            = render 'watches/watch_toggle', type: event.class.to_s, id: event.id, watch: event.watch_by(current_user)
             .page-content-header-actions__action
-              div(data-vue="WatchToggle" data-vue-watchable-id:number="#{@event.id}" data-vue-watchable-type='Event')
+              = render 'bookmarks/button', bookmarkable: event
           .page-content-header-actions__end
             .page-content-header-actions__action
-              = link_to new_event_path(id: event), class: 'a-button is-sm is-secondary is-block', id: 'copy' do
-                i.fa-solid.fa-copy
-                | コピー
+              = link_to '複製', new_event_path(id: event), class: 'a-button is-sm is-secondary is-block', id: 'copy'
 
   = render('event_meta', event:)
 
@@ -52,7 +46,7 @@
         | イベント内容
     hr.a-border-tint
     .card-body
-      .card__description
+      .card-body__description
         .a-long-text.is-md.js-markdown-view
           = event.description
       - unless event.wip?
@@ -76,16 +70,16 @@
     .a-card.participants
       header.card-header.is-sm
         h2.card-header__title
-          | 参加者（#{event.participants.count}名/#{event.capacity}名）
+          = event_participant_count(event)
       hr.a-border-tint
       .card-body
-        .card__description
+        .card-body__description
           - if event.participants.present?
             ul.user-icons__items
               - event.participants.each do |participant|
                 li.user-icons-item
                   = link_to participant do
-                    span class="a-user-role is-#{participant.primary_role}"
+                    span class=participant.user_icon_frame_class
                       = image_tag participant.avatar_url, title: participant.icon_title, class: "a-user-icon is-sm is-#{participant.login_name}", alt: participant.login_name
           - else
             .o-empty-message
@@ -98,10 +92,10 @@
     .a-card.waitlist
       header.card-header.is-sm
         h2.card-header__title
-          | 補欠者（#{event.waitlist.count}名）
-      hr.a-border
+          = event_waitlist_count(event)
+      hr.a-border-tint
       .card-body
-        .card__description
+        .card-body__description
           ul.user-icons__items
             - event.waitlist.each do |wait_user|
               li.user-icons-item

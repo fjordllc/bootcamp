@@ -9,4 +9,8 @@
           .a-completion-message__actions-items
             .a-completion-message__actions-item
               label.a-button.is-sm.is-secondary.is-block.is-tweet(for='modal-learning_completion')
-                | 修了 投稿する
+                | Xに修了ポストする
+            - if @practice.submission_answer
+              .a-completion-message__actions-item
+                = link_to practice_submission_answer_path(practice), class: 'a-button is-sm is-secondary is-block' do
+                  | 模範解答を見る

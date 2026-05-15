@@ -1,22 +1,33 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :surveys do
-    resources :survey_questions, only: %i(index), controller: "surveys/survey_question_listings"
-  end
+  mount Switchlet::Engine => "/switchlet"
+  mount Lookbook::Engine, at: "/lookbook" if Rails.env.development?
+  
   root to: "home#index"
-  get "test", to: "home#test", as: "test"
+
   get "welcome", to: "welcome#index", as: "welcome"
+  get "campaigns/basic", to: "static_pages#campaign_basic", as: "campaign_basic"
   get "practices", to: "welcome#practices", as: "practices"
   get "pricing", to: "welcome#pricing", as: "pricing"
+  get "alumni_voices", to: "welcome#alumni_voices", as: "alumni_voices"
   get "training", to: "welcome#training", as: "training"
   get "faq", to: "welcome#faq", as: "faq"
+  get "job_support", to: "welcome#job_support", as: "job_support"
   get "tos", to: "welcome#tos", as: "tos"
   get "pp", to: "welcome#pp", as: "pp"
   get "law", to: "welcome#law", as: "law"
   get "coc", to: "welcome#coc", as: "coc"
+  get "press_kit", to: "welcome#press_kit", as: "press_kit"
+  get "logo", to: "welcome#logo", as: "logo"
+  get 'certified_reskill_courses/rails_developer_course',
+    to: 'welcome#rails_developer_course',
+    as: :certified_reskill_courses_rails_developer_course_root
+  get 'choose_courses', to: "welcome#choose_courses", as: "choose_courses"
+  get '/@:login_name', to: 'user_icons#show', as: :user_icon, constraints: { login_name: /[a-zA-Z0-9_-]+/ }, defaults: { format: :webp }
   draw :scheduler
   draw :api
+  draw :paper
   draw :admin
   draw :mentor
   draw :current_user
@@ -26,7 +37,9 @@ Rails.application.routes.draw do
   draw :products
   draw :reports
   resources :announcements
+  resource :training_completion, only: %i(show new create), controller: "training_completion"
   resource :retirement, only: %i(show new create), controller: "retirement"
+  resources :request_retirements, only: %i(show new create)
   resource :hibernation, only: %i(show new create), controller: "hibernation"
   resource :comeback, only: %i(new create), controller: "comeback"
   resource :current_user, only: %i(edit update), controller: "current_user" do
@@ -45,6 +58,14 @@ Rails.application.routes.draw do
     resources :products, only: %i(index), controller: "practices/products"
     resources :pages, only: %i(index), controller: "practices/pages"
     resource :completion, only: %i(show), controller: "practices/completion"
+    resource :submission_answer, only: %i(show), controller: "practices/submission_answer"
+    resources :coding_tests, only: %i(index), controller: "practices/coding_tests"
+    resources :movies, only: %i(index), controller: "practices/movies"
+  end
+  resources :coding_tests, only: %i(show) do
+    resources :coding_test_submissions,
+      only: %i(index show show),
+      controller: "coding_tests/coding_test_submissions"
   end
   resources :pages, param: :slug_or_id
   namespace :notification do
@@ -63,9 +84,16 @@ Rails.application.routes.draw do
   resources :talks, only: %i(index show)
   resources :questions
   resources :courses, only: :index
-  resource :inquiry, only: %i(new create)
+  resource :inquiry, only: %i(new create) do
+    get :created
+  end
+  resource :corporate_training_inquiry, only: %i(new create) do
+    get :created
+  end
+  namespace :articles do
+    resources :wips, only: %i(index), controller: "wips"
+  end
   resources :articles
-  resources :survey_questions, except: %i(show destroy)
   namespace :events do
     resources :calendars, only: %i(index)
   end
@@ -87,16 +115,34 @@ Rails.application.routes.draw do
   resources :generations, only: %i(show index)
   resource :billing_portal, only: :create, controller: "billing_portal"
   resources :external_entries, only: %i(index)
+  resources :surveys, only: %i(show) do
+    resources :survey_answers, only: %i(create), controller: "surveys/survey_answers"
+  end
+  resources :grant_course_applications, only: %i(new create) do
+    collection do
+      get :created
+    end
+  end
+  resources :press_releases, only: %i(index)
+  resources :pair_works do
+    resource :reservations, only: %i(create update destroy), controller: "pair_works/reservations"
+  end
   get "articles/tags/:tag", to: "articles#index", as: :tag, tag: /.+/
+  get 'sponsorships', to: 'articles/sponsorships#index'
   get "pages/tags/:tag", to: "pages#index", as: :pages_tag, tag: /.+/, format: "html"
   get "questions/tags/:tag", to: "questions#index", as: :questions_tag, tag: /.+/, format: "html"
+  get "movies/tags/:tag", to: "movies#index", as: :movies_tag, tag: /.+/, format: "html"
   get "login" => "user_sessions#new", as: :login
-  get "auth/github/callback" => "user_sessions#callback"
+  get "auth/:provider/callback" => "user_sessions#callback"
+  get 'auth/failure', to: "user_sessions#failure"
   post "user_sessions" => "user_sessions#create"
   get "logout" => "user_sessions#destroy", as: :logout
-  get "thanks", to: "static_pages#thanks"
   get "portfolios" => "works#index"
+  niconico_calendar_constraints = { niconico_calendar: /\d{4}-\d{2}/ }
+  get '/', to: 'home#index', as: :niconico_calendar_date, constraints: niconico_calendar_constraints
+  get '/users/:id', to: 'users#show', as: :niconico_calendar_date_in_profile, constraints: niconico_calendar_constraints
   resource :buzz, only: %i(show edit update), controller: "buzz"
+  resources :movies
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
-  mount GoodJob::Engine => 'good_job'
+  mount MissionControl::Jobs::Engine, at: "/jobs"
 end

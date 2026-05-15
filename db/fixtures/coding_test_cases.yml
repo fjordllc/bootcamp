@@ -1,0 +1,81 @@
+coding_test_case1:
+  coding_test: coding_test1
+  input: ""
+  output: hello
+
+coding_test_case2:
+  coding_test: coding_test2
+  input: world
+  output: hello world
+
+coding_test_case3:
+  coding_test: coding_test2
+  input: programming
+  output: hello programming
+
+coding_test_case4:
+  coding_test: coding_test3
+  input: 1
+  output: 1
+
+coding_test_case5:
+  coding_test: coding_test3
+  input: 3
+  output: Fizz
+
+coding_test_case6:
+  coding_test: coding_test3
+  input: 5
+  output: Buzz
+
+coding_test_case7:
+  coding_test: coding_test3
+  input: 15
+  output: FizzBuzz
+
+coding_test_case8:
+  coding_test: coding_test4
+  input: a b c d
+  output: d c b a
+
+coding_test_case9:
+  coding_test: coding_test4
+  input: hello
+  output: olleh
+
+coding_test_case10:
+  coding_test: coding_test5
+  input: hello
+  output: h e l l o
+
+coding_test_case11:
+  coding_test: coding_test5
+  input: world
+  output: w o r l d
+
+<% 12.upto(27) do |i| %>
+coding_test_case<%= i %>:
+  coding_test: coding_test<%= i - 6 %>
+  input: ""
+  output: hello
+<% end %>
+
+coding_test_case28:
+  coding_test: coding_test22
+  input: ""
+  output: hello
+
+coding_test_case29:
+  coding_test: coding_test23
+  input: 3
+  output: Fizz
+
+coding_test_case30:
+  coding_test: coding_test23
+  input: 5
+  output: Buzz
+
+coding_test_case31:
+  coding_test: coding_test23
+  input: 15
+  output: FizzBuzz

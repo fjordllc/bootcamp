@@ -1,0 +1,9 @@
+- course.categories.each do |category|
+  - if category.practices.present?
+    h4
+      = category.name
+    table.lp-practices-table.a-card
+      - category.practices.each do |practice|
+        tr
+          td
+            = practice.title

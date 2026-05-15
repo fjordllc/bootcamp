@@ -1,23 +1,27 @@
 - title "#{@user.login_name}さんの相談部屋"
 - set_meta_tags description: "#{@user.login_name}さんの相談部屋ページです。"
 
-= render 'users/page_title', user: @user
+= render 'talks/page_title', user: @user
 
 - if admin_login?
-  = render 'users/page_tabs', user: @user
+  = user_page_tabs(@user, active_tab: '相談部屋')
+- else
+  hr.a-border
 
 .page-body
   .container.is-xxl
-    .row.justify-center
+    .row(class='!justify-center')
       .col-xl-7.col-xs-12
         .talk.page-content
           header.page-content-header
             .page-content-header__start
               .page-content-header__user
-                = render 'users/icon', user: @talk.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon'
+                .page-content-header__user-icon
+                  = render 'users/icon', user: @talk.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon-image'
               - if @talk.user.trainee?
-                = link_to company_path(@talk.user.company) do
-                  = image_tag @talk.user.company.logo_url, class: 'page-content-header__company-logo'
+                .page-content-header__company-logo
+                  = link_to company_path(@talk.user.company), class: 'page-content-header__company-link' do
+                    = image_tag @talk.user.company.logo_url, class: 'page-content-header__company-logo-image'
             .page-content-header__end
               .page-content-header__row
                 .page-content-header__before-title
@@ -31,7 +35,7 @@
                   .page-content-header-actions
                     .page-content-header-actions__start
                       .page-content-header-actions__action
-                        #js-bookmark(data-bookmarkable-id="#{@talk.id}", data-bookmarkable-type='Talk')
+                        = render 'bookmarks/button', bookmarkable: @talk
               .page-content-header__row
                 .page-content-header__description
                   .a-long-text.is-md
@@ -45,7 +49,7 @@
                     | 相談部屋にアクセスできるメンバー
                 hr.a-border-tint
                 .card-body
-                  .card__description
+                  .card-body__description
                     ul.page-content-members__items
                       - @members.each do |member|
                         li.page-content-members__item
@@ -55,9 +59,9 @@
                             image_class: 'page-content-members__user-icon'
                           = link_to user_path(member.id), class: 'a-user-name' do
                             = member.login_name
-        #js-comments(data-commentable-id="#{@talk.id}" data-commentable-type='Talk' data-current-user-id="#{current_user.id}")
+        = render 'comments/comments', commentable: @talk, commentable_type: 'Talk'
         - if current_user.admin?
-          div(data-vue="ActionCompletedButton" data-vue-commentable-id:number="#{@talk.id}" data-vue-is-initial-action-completed:boolean="#{@talk.action_completed}")
+          = render(ActionCompletedButtonComponent.new(is_initial_action_completed: @talk.action_completed, update_path: api_talk_path(@talk), model_name: 'talk'))
 
       - if current_user.admin?
         .col-xl-5.col-xs-12
@@ -74,26 +78,37 @@
                     | ユーザーの日報
             .side-tabs-contents
               .side-tabs-contents__item#side-tabs-content-1
-                .user-info
-                  = render 'users/user_secret_attributes', user: @user
-                  = render 'users/metas', user: @user
-                .user-statuses
-                  .user-statuses__items
-                    .user-statuses__item
-                      = link_to 'ユーザー情報変更', edit_admin_user_path(@talk.user), class: 'card-main-actions__action a-button is-sm is-secondary is-block'
-                    .user-statuses__item
-                      = form_with model: @user, local: true, url: user_job_seek_path(@user), class: 'form', html: { name: 'jobseeking' } do |f|
-                        = render 'talks/seeking_switch', f:
-                    .user-statuses__item
-                      .graduation_button
-                        - if @user.graduated_on?
-                          .a-button.is-sm.is-disabled.is-block
-                            | 卒業済
-                        - else
-                          = link_to '卒業にする', user_graduation_path(@user, redirect_url: "/talks/#{@talk.id}"),
-                                  method: :patch,
-                                  data: { confirm: '本当によろしいですか？' },
-                                  class: 'a-button is-sm is-danger is-block'
-                div(data-vue="UserMentorMemo" data-vue-user-id:number="#{@user.id}" data-vue-products-mode:boolean="#{true}")
+                .a-card
+                  .user-data
+                    .user-data__row
+                      = render 'users/user_mentor_memo', user_id: @user.id
+                    .user-data__row
+                      = render 'users/user_secret_attributes', user: @user
+                    .user-data__row
+                      = render 'users/metas', user: @user, user_course_practice: UserCoursePractice.new(@user)
+                  hr.a-border-tint
+                  .user-statuses
+                    .user-statuses__items
+                      .user-statuses__item
+                        = link_to 'ユーザー情報変更', edit_admin_user_path(@talk.user), class: 'card-main-actions__action a-button is-sm is-secondary is-block'
+                      .user-statuses__item
+                        .graduation_button
+                          - if @user.graduated_on?
+                            .a-button.is-sm.is-disabled.is-block
+                              | 卒業済
+                          - else
+                            = link_to '卒業にする', user_graduation_path(@user, redirect_url: "/talks/#{@talk.id}"),
+                                    method: :patch,
+                                    data: { confirm: '本当によろしいですか？' },
+                                    class: 'a-button is-sm is-danger is-block'
               .side-tabs-contents__item#side-tabs-content-2
-                = react_component('Reports', userId: @user.id, displayUserIcon: false, displayPagination: false)
+                - if @reports.empty?
+                  .o-empty-message
+                    .o-empty-message__icon
+                      i.fa-regular.fa-sad-tear
+                    .o-empty-message__text
+                      | 日報はまだありません。
+                - else
+                  .card-list.a-card
+                    .card-list__items
+                      = render partial: 'reports/report', collection: @reports, as: :report, locals: { user_icon_display: false, actions_display: false }

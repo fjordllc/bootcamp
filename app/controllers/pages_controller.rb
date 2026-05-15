@@ -7,19 +7,22 @@ class PagesController < ApplicationController
   skip_before_action :require_active_user_login, only: %i[show]
 
   SIDE_LINK_LIMIT = 20
+  PAGER_NUMBER = 20
 
   def index
     @pages = Page.with_avatar
                  .includes(:comments, :practice, :tags,
                            { last_updated_user: { avatar_attachment: :blob } })
-                 .order(updated_at: :desc)
+                 .order(updated_at: :desc, id: :desc)
                  .page(params[:page])
+                 .per(PAGER_NUMBER)
     @pages = @pages.tagged_with(params[:tag]) if params[:tag]
     @tag = ActsAsTaggableOn::Tag.find_by(name: params[:tag])
   end
 
   def show
     @pages = @page.practice.pages.limit(SIDE_LINK_LIMIT) if @page.practice
+    @comments = @page.comments.order(:created_at)
 
     if logged_in?
       render :show
@@ -39,16 +42,17 @@ class PagesController < ApplicationController
     @page.last_updated_user = current_user
     @page.user ||= current_user
     set_wip
+    is_published = @page.published_at?
     if @page.save
       url = Redirection.determin_url(self, @page)
       if !@page.wip?
-        Newspaper.publish(:page_create, { page: @page })
+        ActiveSupport::Notifications.instrument('page.create', page: @page)
         url = new_announcement_url(page_id: @page.id) if @page.announcement_of_publication?
       end
 
       become_watcher!(@page, [current_user, @page.user])
 
-      redirect_to url, notice: notice_message(@page, :create)
+      redirect_to url, notice: notice_message(@page, is_published)
     else
       render :new
     end
@@ -57,16 +61,17 @@ class PagesController < ApplicationController
   def update
     set_wip
     @page.last_updated_user = current_user
+    is_published = @page.published_at?
     if @page.update(page_params)
       url = Redirection.determin_url(self, @page)
       if @page.saved_change_to_attribute?(:wip, from: true, to: false) && @page.published_at.nil?
-        Newspaper.publish(:page_update, { page: @page })
+        ActiveSupport::Notifications.instrument('page.update', page: @page)
         url = new_announcement_path(page_id: @page.id) if @page.announcement_of_publication?
       end
 
       become_watcher!(@page, [current_user, @page.user])
 
-      redirect_to url, notice: notice_message(@page, :update)
+      redirect_to url, notice: notice_message(@page, is_published)
     else
       render :edit
     end
@@ -93,15 +98,10 @@ class PagesController < ApplicationController
     @page.wip = params[:commit] == 'WIP'
   end
 
-  def notice_message(page, action_name)
+  def notice_message(page, is_published)
     return 'ドキュメントをWIPとして保存しました。' if page.wip?
 
-    case action_name
-    when :create
-      'ドキュメントを作成しました。'
-    when :update
-      'ドキュメントを更新しました。'
-    end
+    is_published ? 'ドキュメントを更新しました。' : 'ドキュメントを作成しました。'
   end
 
   def set_categories

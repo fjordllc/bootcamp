@@ -1,0 +1,51 @@
+
+.user-data {
+  padding: 1rem 1.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 48em) {
+  .user-data {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .user-data {
+    padding: .75rem;
+    gap: .75rem;
+  }
+}
+
+.user-data__description {
+  flex: 0 0 100%;
+}
+
+@media (min-width: 48em) {
+  .user-data__description {
+    font-size: .9375rem;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .user-data__description {
+    font-size: .8125rem;
+  }
+}
+
+.user-data__description p {
+  font-size: 1em;
+  line-height: 1.8;
+  margin-top: 0;
+  margin-bottom: .8em;
+}
+
+.user-data__description p:last-child {
+  margin-bottom: 0;
+}
+
+.user-data__tags {
+  margin-top: .75rem;
+}

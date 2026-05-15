@@ -1,6 +1,0 @@
-= render '/notification_mailer/notification_mailer_template',
-  title: "#{@report.user.login_name}さんが#{User::DEPRESSED_SIZE}回連続でsadアイコンの日報を提出しました。",
-  link_url: @link_url, link_text: 'この日報へ' do
-  p #{@report.user.login_name}さんが#{User::DEPRESSED_SIZE}回連続でsadアイコンの日報を提出しました。メンターのみなさんはフォローいただけると幸いです。
-  div(style='border-top: solid 1px #ccc; height: 0;')
-  = md2html(@report.description)

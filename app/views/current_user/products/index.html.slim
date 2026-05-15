@@ -2,7 +2,7 @@
 - set_meta_tags description: '自分の提出物一覧ページです。'
 
 = render 'home/page_header'
-= render 'home/page_tabs', user: @user
+= dashboard_page_tabs(active_tab: '自分の提出物')
 
 .page-body
   .container.is-md

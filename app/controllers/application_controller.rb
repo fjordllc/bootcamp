@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  include ActiveStorage::SetCurrent
   include Authentication
   include TestAuthentication if Rails.env.test?
   include PolicyHelper
@@ -11,8 +12,9 @@ class ApplicationController < ActionController::Base
   before_action :test_login, if: :test?
   before_action :init_user
   before_action :allow_cross_domain_access
-  before_action :set_host_for_disk_storage
   before_action :require_active_user_login
+  before_action :set_current_user_practice
+  before_action :save_affiliate_rd_code
 
   protected
 
@@ -37,12 +39,6 @@ class ApplicationController < ActionController::Base
     @available_emojis = Reaction.emojis.map { |key, value| { kind: key, value: } }
   end
 
-  def set_host_for_disk_storage
-    return unless %i[local test].include? Rails.application.config.active_storage.service
-
-    ActiveStorage::Current.host = request.base_url
-  end
-
   def require_card
     redirect_to root_path, notice: 'カード登録が必要です。' unless current_user&.card?
   end
@@ -53,6 +49,21 @@ class ApplicationController < ActionController::Base
 
   def require_scheduler_inheritation
     head :internal_server_error unless is_a?(SchedulerController)
+  end
+
+  def set_current_user_practice
+    @current_user_practice = UserCoursePractice.new(current_user)
+  end
+
+  def save_affiliate_rd_code
+    rd_code = params[:rd_code]
+    return if rd_code.blank?
+
+    if rd_code.match?(/\A[\w-]{1,128}\z/)
+      session[:affiliate_rd_code] = rd_code
+    else
+      Rails.logger.warn("[Affiliate] Invalid rd_code received: #{rd_code.truncate(200)}")
+    end
   end
 
   protected

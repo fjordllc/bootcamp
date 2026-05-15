@@ -2,8 +2,7 @@
 
 module Discord
   class Server
-    include ActiveSupport::Configurable
-    config_accessor :guild_id, :authorize_token, instance_accessor: false
+    class_attribute :guild_id, :authorize_token, instance_accessor: false
 
     class << self
       def create_text_channel(name:, parent: nil)

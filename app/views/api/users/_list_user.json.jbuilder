@@ -1,4 +1,6 @@
-json.(user, :id, :login_name, :name, :description, :github_account, :twitter_account, :facebook_url, :blog_url, :job_seeker, :free, :job, :os, :experience, :email, :roles, :primary_role, :icon_title, :cached_completed_percentage, :completed_fraction, :graduated_on)
+user_course_practice = ActiveDecorator::Decorator.instance.decorate(UserCoursePractice.new(user))
+
+json.(user, :id, :login_name, :name, :description, :github_account, :twitter_account, :facebook_url, :blog_url, :job_seeker, :job, :os, :experiences, :roles, :primary_role, :icon_title, :graduated_on, :joining_status)
 json.tag_list user.tags.pluck(:name)
 json.url user_url(user)
 json.updated_at l(user.updated_at)
@@ -8,11 +10,13 @@ json.student user.student?
 json.card user.card?
 json.job_name t("activerecord.enums.user.job.#{user.job}")
 json.os_name t("activerecord.enums.user.os.#{user.os}")
-json.experience_name t("activerecord.enums.user.experience.#{user.experience}")
 json.student_or_trainee user.student_or_trainee?
 json.edit_admin_user_path edit_admin_user_path(user)
 json.isFollowing current_user.following?(user)
 json.isWatching current_user.watching?(user)
+json.cached_completed_percentage user_course_practice.cached_completed_percentage
+json.cached_completed_fraction user_course_practice.cached_completed_fraction
+
 
 if user.student_or_trainee?
   json.report_count user.reports.size
@@ -20,6 +24,7 @@ if user.student_or_trainee?
   json.product_count user.products.size
   json.question_count user.questions.size
   json.answer_count user.answers.size
+  json.work_count user.works.size
 end
 
 

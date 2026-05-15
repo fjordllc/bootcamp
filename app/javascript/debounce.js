@@ -1,13 +1,7 @@
-const debounce = (func, wait) => {
-  let timerId
+export function debounce(func, wait) {
+  let timeout
   return function (...args) {
-    if (timerId) {
-      clearTimeout(timerId)
-    }
-    timerId = setTimeout(() => {
-      func.apply(this, args)
-    }, wait)
+    clearTimeout(timeout)
+    timeout = setTimeout(() => func.apply(this, args), wait)
   }
 }
-
-export default debounce

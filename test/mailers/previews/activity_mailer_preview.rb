@@ -135,12 +135,12 @@ class ActivityMailerPreview < ActionMailer::Preview
     ActivityMailer.with(report:, receiver:).first_report
   end
 
-  def consecutive_sad_report
+  def consecutive_negative_report
     report = Report.find(ActiveRecord::FixtureSet.identify(:report16))
-    notification = Notification.find(ActiveRecord::FixtureSet.identify(:notification_consecutive_sad_report))
+    notification = Notification.find(ActiveRecord::FixtureSet.identify(:notification_consecutive_negative_report))
     receiver = notification.user
 
-    ActivityMailer.with(report:, receiver:).consecutive_sad_report
+    ActivityMailer.with(report:, receiver:).consecutive_negative_report
   end
 
   def update_regular_event
@@ -169,5 +169,56 @@ class ActivityMailerPreview < ActionMailer::Preview
     receiver = User.find(question.user_id)
 
     ActivityMailer.with(question:, receiver:).no_correct_answer
+  end
+
+  def create_article
+    article = Article.find(ActiveRecord::FixtureSet.identify(:article1))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:kimura))
+    user = User.find(article.user_id)
+
+    ActivityMailer.with(article:, receiver:, sender: user).create_article
+  end
+
+  def added_work
+    work = Work.find(ActiveRecord::FixtureSet.identify(:work1))
+    user = User.find(work.user_id)
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))
+
+    ActivityMailer.with(work:, sender: user, receiver:).added_work
+  end
+
+  def came_pair_work
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:mentormentaro))
+    pair_work = PairWork.find(ActiveRecord::FixtureSet.identify(:pair_work1))
+
+    ActivityMailer.with(receiver:, pair_work:).came_pair_work
+  end
+
+  def matching_pair_work
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:mentormentaro))
+    pair_work = PairWork.find(ActiveRecord::FixtureSet.identify(:pair_work2))
+
+    ActivityMailer.with(receiver:, pair_work:).matching_pair_work
+  end
+
+  def rematching_pair_work
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:mentormentaro))
+    pair_work = PairWork.find(ActiveRecord::FixtureSet.identify(:pair_work1))
+
+    ActivityMailer.with(receiver:, pair_work:).rematching_pair_work
+  end
+
+  def reschedule_pair_work
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:kimura))
+    pair_work = PairWork.find(ActiveRecord::FixtureSet.identify(:pair_work1))
+
+    ActivityMailer.with(receiver:, pair_work:).reschedule_pair_work
+  end
+
+  def cancel_pair_work
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:kimura))
+    pair_work = PairWork.find(ActiveRecord::FixtureSet.identify(:pair_work1))
+
+    ActivityMailer.with(receiver:, pair_work:).cancel_pair_work
   end
 end

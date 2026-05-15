@@ -7,6 +7,7 @@ class HibernationController < ApplicationController
 
   def new
     @hibernation = Hibernation.new
+    @regular_events_without_finished = RegularEvent.organizer_event(current_user).exclude_finished
   end
 
   def create
@@ -18,10 +19,11 @@ class HibernationController < ApplicationController
       destroy_subscription!
       notify_to_chat
       notify_to_mentors_and_admins
-      current_user.delete_and_assign_new_organizer
+      current_user.clean_up_regular_events
       logout
       redirect_to hibernation_path
     else
+      @regular_events_without_finished = RegularEvent.organizer_event(current_user).exclude_finished
       render :new
     end
   end
@@ -38,7 +40,7 @@ class HibernationController < ApplicationController
   end
 
   def destroy_subscription!
-    return nil unless Rails.env.production?
+    return nil if !Rails.env.production? || staging?
 
     Subscription.new.destroy(current_user.subscription_id) if current_user.subscription_id
   end

@@ -2,14 +2,14 @@
 - set_meta_tags description: '定期イベント編集ページです。'
 
 = render 'events/header'
-= render 'events/tabs'
+= events_page_tabs(active_tab: '定期イベント')
 
 .page-main
   header.page-main-header
     .container
       .page-main-header__inner
         .page-main-header__start
-          h2.page-header__title
+          h2.page-main-header__title
             = title
         .page-main-header__end
           .page-main-header-actions

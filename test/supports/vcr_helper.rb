@@ -8,9 +8,17 @@ VCR.configure do |c|
   c.cassette_library_dir = 'test/cassettes'
   c.hook_into :webmock
 
+  # Ignore Discord webhook requests (handled by AbstractNotifier test mode)
+  # Only webhooks are ignored, not the Discord API used by Discord::Server tests
+  c.ignore_request do |request|
+    uri = URI(request.uri)
+    uri.host == 'discord.com' && uri.path.start_with?('/api/webhooks/')
+  end
+
   c.default_cassette_options = {
     record: :once,
-    match_requests_on: %i[method path query body]
+    match_requests_on: %i[method path query body],
+    allow_playback_repeats: true
   }
 
   c.before_record do |i|
@@ -34,7 +42,8 @@ module VCRHelper
       match_requests_on: [
         :method,
         VCR.request_matchers.uri_without_param(:source)
-      ]
+      ],
+      allow_playback_repeats: true
     }
   end
 end

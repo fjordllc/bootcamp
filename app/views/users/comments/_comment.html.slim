@@ -18,7 +18,7 @@
           - if user_comments_page?
             h2.card-list-item-title__title
               = link_to commentable, class: 'card-list-item-title__link a-text-link' do
-                span class="a-user-role is-#{commentable.user.primary_role} align-middle"
+                span class="#{commentable.user.user_icon_frame_class}"
                   = image_tag commentable.user.avatar_url, title: commentable.user.icon_title, class: 'thread-comment__title-icon a-user-icon'
                 = commentable.title
           - else
@@ -29,7 +29,7 @@
         .card-list-item-meta
           .card-list-item-meta__items
             .card-list-item-meta__item
-              time.a-meta(datetime="#{commentable.created_at.to_datetime}" pubdate='pubdate')
+              time.a-meta datetime=comment.updated_at.iso8601
                 = l comment.updated_at
       .card-list-item__row
         .card-list-item__summary

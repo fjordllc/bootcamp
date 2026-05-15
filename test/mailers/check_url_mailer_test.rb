@@ -4,7 +4,7 @@ require 'test_helper'
 
 class CheckUrlMailerTest < ActionMailer::TestCase
   test 'notify_error_url' do
-    page_error_url = [{ id: 883_692_644, url: 'http://localhost:3000/pages/5555555' }]
+    page_error_url = [{ id: 883_692_644, url: "#{Rails.application.routes.url_helpers.root_url}pages/5555555" }]
     practice_error_url = [
       { id: 207_936_418, url: 'http://homepage2.nifty.com/kamurai/CPU.htm' },
       { id: 207_936_418, url: 'http://homepage2.nifty.com/kamurai/MEMORY.htm' },

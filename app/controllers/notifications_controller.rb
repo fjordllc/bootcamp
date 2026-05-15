@@ -5,6 +5,11 @@ class NotificationsController < ApplicationController
 
   def index
     @target = params[:target]
+    @notifications = UserNotificationsQuery.new(
+      user: current_user,
+      target: params[:target],
+      status: params[:status]
+    ).call.page(params[:page])
   end
 
   def show

@@ -5,8 +5,8 @@ class Comment::AfterCreateCallback
     if comment.commentable.class.include?(Watchable)
       create_watch(comment)
       notify_to_watching_user(comment)
-    elsif comment.sender != comment.receiver
-      Newspaper.publish(:came_comment, { comment: })
+    elsif comment.receiver.present? && comment.receiver != comment.sender
+      ActiveSupport::Notifications.instrument('came.comment', comment:)
     end
 
     if comment.commentable.instance_of?(Talk)
@@ -85,7 +85,7 @@ class Comment::AfterCreateCallback
     ChatNotifier.message(<<~TEXT, webhook_url: ENV['DISCORD_ADMIN_WEBHOOK_URL'])
       相談部屋にて#{comment.user.login_name}さんからコメントがありました。
       本文： #{comment.description}
-      URL： https://bootcamp.fjord.jp/talks/#{comment.commentable_id}#latest-comment
+      URL： <https://bootcamp.fjord.jp/talks/#{comment.commentable_id}#latest-comment>
     TEXT
   end
 end

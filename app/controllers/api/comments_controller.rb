@@ -3,6 +3,7 @@
 class API::CommentsController < API::BaseController
   before_action :set_my_comment, only: %i[update destroy]
   before_action :set_available_emojis, only: %i[index create]
+  before_action -> { doorkeeper_authorize! :write }, only: %i[create update destroy], if: -> { doorkeeper_token.present? }
 
   def index
     if params[:commentable_type].present?
@@ -22,7 +23,7 @@ class API::CommentsController < API::BaseController
     @comment.user = current_user
     @comment.commentable = commentable
     if @comment.save
-      render :create, status: :created
+      render partial: 'comments/comment', locals: { commentable:, comment: @comment, user: current_user, latest_comment: @comment }, status: :created
     else
       head :bad_request
     end
@@ -51,6 +52,6 @@ class API::CommentsController < API::BaseController
   end
 
   def set_my_comment
-    @comment = current_user.admin? ? Comment.find(params[:id]) : current_user.comments.find(params[:id])
+    @comment = current_user.admin? || current_user.mentor? ? Comment.find(params[:id]) : current_user.comments.find(params[:id])
   end
 end

@@ -3,6 +3,10 @@
 class DiscordProfile < ApplicationRecord
   belongs_to :user
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[account_name]
+  end
+
   validates :times_url,
             format: {
               allow_blank: true,

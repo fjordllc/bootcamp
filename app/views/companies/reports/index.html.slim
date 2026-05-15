@@ -4,16 +4,30 @@
 header.page-header
   .container
     .page-header__inner
-      h2.page-header__title
-        = @company.name
-      .page-header-actions
-        ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to companies_path, class: 'a-button is-md is-secondary is-block is-back' do
-              | 企業一覧
+      .page-header__start
+        h2.page-header__title
+          = @company.name
+      .page-header__end
+        .page-header-actions
+          ul.page-header-actions__items
+            li.page-header-actions__item
+              = link_to companies_path, class: 'a-button is-md is-secondary is-block is-back' do
+                | 企業一覧
 
-= render 'companies/tabs', company: @company
+= company_page_tabs(@company, active_tab: '日報')
 
 .page-body
   .container.is-md
-    = react_component('Reports', companyId: @company.id)
+    - if @reports.empty?
+      .o-empty-message
+        .o-empty-message__icon
+          i.fa-regular.fa-sad-tear
+        .o-empty-message__text
+          | 日報はまだありません。
+    - else
+      .page-content.reports
+        = paginate @reports
+        .card-list.a-card
+          .card-list__items
+            = render partial: 'reports/report', collection: @reports, as: :report, locals: { user_icon_display: true, actions_display: true }
+        = paginate @reports
