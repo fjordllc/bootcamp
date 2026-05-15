@@ -8,6 +8,7 @@ corporate_training_inquiry<%= i %>:
   meeting_date3: <%= Time.zone.parse('2030-12-03 10:00') + i.days %>
   participants_count: 10
   training_duration: "1ヶ月"
+  consultation: <%= i == 40 %>
   how_did_you_hear: "WEB検索"
   additional_information: 'よろしくお願いします。'
   created_at: <%= Time.zone.parse('2029-11-01 10:00') - i.days %>

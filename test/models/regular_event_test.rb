@@ -98,21 +98,29 @@ class RegularEventTest < ActiveSupport::TestCase
     assert_not regular_event.participated_by?(user)
   end
 
-  test '#assign_admin_as_organizer_if_none' do
-    regular_event = RegularEvent.new(
-      title: '主催者のいないイベント',
-      description: '主催者のいないイベント',
-      finished: false,
-      hold_national_holiday: false,
-      start_at: Time.zone.local(2020, 1, 1, 21, 0, 0),
-      end_at: Time.zone.local(2020, 1, 1, 22, 0, 0),
-      user: users(:kimura),
-      category: 0,
-      published_at: '2023-08-01 00:00:00'
-    )
-    regular_event.save(validate: false)
-    regular_event.assign_admin_as_organizer_if_none
-    assert_equal User.find_by(login_name: User::DEFAULT_REGULAR_EVENT_ORGANIZER), regular_event.organizers.first
+  test '#close_or_destroy_organizer closes the event when only one organizer exists' do
+    user = users(:kimura)
+    regular_event = regular_events(:regular_event5) # kimuraが1人で主催しているイベント
+
+    assert_no_difference -> { regular_event.regular_event_organizers.count },
+                         -> { regular_event.regular_event_organizers.where(user: user).count } do
+      assert_changes -> { regular_event.finished }, from: false, to: true do
+        regular_event.close_or_destroy_organizer(user)
+      end
+    end
+  end
+
+  test '#close_or_destroy_organizer removes the organizer when multiple organizers exist' do
+    user = users(:kimura)
+    regular_event = regular_events(:regular_event5) # kimuraが1人で主催しているイベント
+    regular_event.regular_event_organizers.create!(user: users(:hatsuno))
+
+    assert_difference -> { regular_event.regular_event_organizers.count } => -1,
+                      -> { regular_event.regular_event_organizers.where(user: user).count } => -1 do
+      assert_no_changes -> { regular_event.finished } do
+        regular_event.close_or_destroy_organizer(user)
+      end
+    end
   end
 
   test '#all_scheduled_dates' do
@@ -165,6 +173,7 @@ class RegularEventTest < ActiveSupport::TestCase
       regular_events = RegularEvent.scheduled_on_without_ended(today_date)
       regular_event_in_progress = regular_events(:regular_event36)
       regular_event_ended = regular_events(:regular_event37)
+
       assert_includes regular_events, regular_event_in_progress
       assert_not_includes regular_events, regular_event_ended
     end
@@ -177,5 +186,13 @@ class RegularEventTest < ActiveSupport::TestCase
       regular_event_scheduled_for_tomorrow = regular_events(:regular_event38)
       assert_includes regular_events, regular_event_scheduled_for_tomorrow
     end
+  end
+
+  test '.not_finished exclude wip and finished events' do
+    events = RegularEvent.not_finished
+    wip_event = regular_events(:regular_event42)
+    finished_event = regular_events(:regular_event39)
+    assert_not_includes events, wip_event
+    assert_not_includes events, finished_event
   end
 end

@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class StudyStreak::StudyStreakTrackerComponent < ViewComponent::Base
-  def initialize(study_streak:)
+  def initialize(study_streak:, target_user:)
     @study_streak = study_streak
+    @target_user = target_user
   end
 
   def current_streak?
@@ -38,6 +39,8 @@ class StudyStreak::StudyStreakTrackerComponent < ViewComponent::Base
   end
 
   private
+
+  attr_reader :target_user
 
   def format_period(days:, start_on:, end_on:)
     return '' if days.to_i.zero? || start_on.blank? || end_on.blank?

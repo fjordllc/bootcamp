@@ -16,9 +16,9 @@ class Movie::TagsTest < ApplicationSystemTestCase
 
   test 'update tags without page transitions' do
     visit_with_auth movie_path(movies(:movie2)), 'komagata'
-    find('.tag-links__item-edit').click
+    click_tag_edit
     fill_in_tag '追加タグ'
-    click_on '保存'
+    click_save_tags
     assert_text '追加タグ'
   end
 
@@ -39,9 +39,9 @@ class Movie::TagsTest < ApplicationSystemTestCase
     new_tag_name = '上級者'
 
     visit_with_auth movies_tag_path(old_tag.name, all: 'true'), 'komagata'
-    click_button 'タグ名変更'
+    click_tag_name_change
     fill_in('tag[name]', with: new_tag_name)
-    click_button '変更'
+    click_save_tag_name_change
 
     assert_text "タグ「#{new_tag_name}」の動画（1）"
   end
@@ -52,9 +52,9 @@ class Movie::TagsTest < ApplicationSystemTestCase
 
     visit_with_auth movies_tag_path(existing_tag.name, all: 'true'), 'komagata'
 
-    click_button 'タグ名変更'
+    click_tag_name_change
     fill_in 'tag[name]', with: new_tag.name
-    click_button '変更'
+    click_save_tag_name_change
 
     assert_text "タグ「#{new_tag.name}」の動画（2）"
   end
@@ -63,7 +63,7 @@ class Movie::TagsTest < ApplicationSystemTestCase
     tag = acts_as_taggable_on_tags('cat')
 
     visit_with_auth movies_tag_path(tag.name, all: 'true'), 'komagata'
-    click_button 'タグ名変更'
+    click_tag_name_change
     fill_in('tag[name]', with: tag.name)
     assert_selector('button.is-primary[disabled]', text: '変更')
   end

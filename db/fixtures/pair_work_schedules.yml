@@ -9,3 +9,7 @@ pair_work_schedule2:
 pair_work_schedule3:
   pair_work: pair_work3
   proposed_at: <%= Time.current.beginning_of_day + 23.hours %>
+
+pair_work_schedule4:
+  pair_work: pair_work4
+  proposed_at: <%= Time.zone.parse('2025-02-28 01:00:00') %>

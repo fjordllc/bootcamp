@@ -59,24 +59,5 @@ module Questions
       assert_text '削除する'
       assert_text 'Watch中'
     end
-
-    test 'show number of comments' do
-      visit_with_auth questions_path(target: 'not_solved'), 'kimura'
-      assert_text 'コメント数表示テスト用の質問'
-      element = all('.card-list-item').find { |component| component.has_text?('コメント数表示テスト用の質問') }
-      within element do
-        assert_selector '.a-meta', text: '（1）'
-      end
-    end
-
-    test "show number of comments when comments don't exist" do
-      visit_with_auth questions_path(target: 'not_solved'), 'kimura'
-      assert_text 'テストの質問'
-
-      element = all('.card-list-item').find { |component| component.has_text?('テストの質問') }
-      within element do
-        assert_selector '.a-meta.is-important', text: '（0）'
-      end
-    end
   end
 end

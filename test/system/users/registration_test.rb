@@ -5,9 +5,11 @@ require 'application_system_test_case'
 module Users
   class RegistrationTest < ApplicationSystemTestCase
     test 'GET /users/new' do
-      visit '/users/new'
-      assert_selector 'h1.auth-form__title', text: 'FBC参加登録'
-      assert_selector 'form[name=user]'
+      Capybara.using_driver(:rack_test) do
+        visit '/users/new'
+        assert_selector 'h1.auth-form__title', text: 'FBC参加登録'
+        assert_selector 'form[name=user]'
+      end
     end
 
     test 'GET /users/new as an adviser' do

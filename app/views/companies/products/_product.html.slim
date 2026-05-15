@@ -24,17 +24,17 @@
                 .a-meta 提出物作成中
             - elsif product.published_at
               .card-list-item-meta__item
-                time.a-meta
+                time.a-meta datetime=product.published_at.iso8601
                   span.a-meta__label 提出
                   | #{l product.published_at}
             - else
               .card-list-item-meta__item
-                time.a-meta
+                time.a-meta datetime=product.created_at.iso8601
                   span.a-meta__label 提出
                   | #{l product.created_at}
               .card-list-item-meta__item
                 - if product.updated_at
-                  time.a-meta
+                  time.a-meta datetime=product.updated_at.iso8601
                     span.a-meta__label 更新
                     | #{l product.updated_at}
       - if !product.comments.empty?
@@ -58,23 +58,35 @@
               - if product.self_last_commented_at && product.mentor_last_commented_at
                 .card-list-item-meta__item
                 - if product.self_last_commented_at > product.mentor_last_commented_at
-                  time.a-meta
-                    | 〜 #{l product.self_last_commented_at}（
+                  .a-meta
+                    | 〜
+                    time.a-meta datetime=product.self_last_commented_at.iso8601
+                      = l product.self_last_commented_at
+                    |（
                     strong 提出者
                     | ）
                 - elsif product.self_last_commented_at < product.mentor_last_commented_at
-                  time.a-meta
-                    | 〜 #{l product.mentor_last_commented_at}（メンター）
+                  .a-meta
+                    | 〜
+                    time.a-meta datetime=product.mentor_last_commented_at.iso8601
+                      = l product.mentor_last_commented_at
+                    |（メンター）
               - elsif product.self_last_commented_at || product.mentor_last_commented_at
                 .card-list-item-meta__item
                 - if product.self_last_commented_at
-                  time.a-meta
-                    | 〜 #{l product.self_last_commented_at}（
+                  .a-meta
+                    | 〜
+                    time.a-meta datetime=product.self_last_commented_at.iso8601
+                      = l product.self_last_commented_at
+                    |（
                     strong 提出者
                     | ）
                 - elsif product.mentor_last_commented_at
-                  time.a-meta
-                    | 〜 #{l product.mentor_last_commented_at}（メンター）
+                  .a-meta
+                    | 〜
+                    time.a-meta datetime=product.mentor_last_commented_at.iso8601
+                      = l product.mentor_last_commented_at
+                    |（メンター）
       - if current_user.mentor? && product.checks.empty?
         .card-list-item__row.is-only-mentor
           .card-list-item__assignee

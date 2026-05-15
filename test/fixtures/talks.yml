@@ -178,3 +178,11 @@ talk47:
 talk48:
   user: kensyu-invoice
   action_completed: true
+
+talk49:
+  user: hukki
+  action_completed: true
+
+talk50:
+  user: grant-course
+  action_completed: true

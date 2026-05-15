@@ -15,8 +15,6 @@ class Announcement < ApplicationRecord
     job_seekers: 2
   }, prefix: true
 
-  has_many :watches, as: :watchable, dependent: :destroy
-  has_many :footprints, as: :footprintable, dependent: :destroy
   belongs_to :user
   alias sender user
 

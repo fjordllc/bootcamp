@@ -19,7 +19,7 @@ module Home
       end
     end
 
-    test 'show all regular events and special events on dashbord' do
+    test 'show upcoming regular and special events in upcoming events section' do
       travel_to Time.zone.local(2017, 4, 3, 8, 0, 0) do
         visit_with_auth '/', 'kimura'
         today_event_label = find('.card-list__label', text: '今日開催')
@@ -48,6 +48,22 @@ module Home
         assert_event_card(today_event_label, today_events_texts)
         assert_event_card(tomorrow_event_label, tomorrow_events_texts)
         assert_event_card(day_after_tomorrow_event_label, day_after_tomorrow_events_texts)
+      end
+    end
+
+    test 'should not show wip regular and special events in upcoming events section' do
+      travel_to Time.zone.local(2024, 12, 1, 0, 0, 0) do
+        wip_regular_event = regular_events(:regular_event42)
+        wip_special_event = events(:event37)
+        regular_event = regular_events(:regular_event37)
+        special_event = events(:event35)
+        visit_with_auth '/', 'kimura'
+        within(:xpath, "//div[contains(@class, 'card-list__items')][.//text()='今日開催']") do
+          assert_no_text wip_regular_event.title
+          assert_no_text wip_special_event.title
+          assert_text regular_event.title
+          assert_text special_event.title
+        end
       end
     end
 

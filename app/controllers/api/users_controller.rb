@@ -25,7 +25,12 @@ class API::UsersController < API::BaseController
       end
   end
 
-  def show; end
+  def show
+    # Doorkeeperで認証された本人の情報取得時のみemailを返す
+    @include_email = doorkeeper_token.present? &&
+                     @user.present? &&
+                     @user.id == doorkeeper_token.resource_owner_id
+  end
 
   def update
     if @user == current_user && @user.update(user_params)

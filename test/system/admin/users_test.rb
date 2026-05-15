@@ -255,13 +255,10 @@ class Admin::UsersTest < ApplicationSystemTestCase
   test 'edit user tag' do
     user = users(:kimura)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
-    tag_input = find('.tagify__input')
-    tag_input.set ''
-    tag_input.set '追加タグ'
-    tag_input.native.send_keys :return
+    fill_in_tag('追加タグ')
     click_on '更新する'
-    visit "/admin/users/#{user.id}/edit"
-    assert_text '追加タグ'
+    assert_text 'ユーザー情報を更新しました。'
+    assert_includes user.reload.tag_list, '追加タグ'
   end
 
   test 'does not display advisor in the list of trial period users' do

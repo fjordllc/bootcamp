@@ -65,7 +65,14 @@ class Admin::CorporateTrainingInquiriesTest < ApplicationSystemTestCase
     assert_text '2030年12月04日(水) 10:00'
     assert_text '10人'
     assert_text '1ヶ月'
+    assert_text '希望しない'
     assert_text 'よろしくお願いします。'
     assert_text 'WEB検索'
+  end
+
+  test 'displays subsidy consultation request' do
+    inquiry = corporate_training_inquiries(:corporate_training_inquiry40)
+    visit_with_auth admin_corporate_training_inquiry_path(inquiry), 'komagata'
+    assert_text '希望する'
   end
 end

@@ -35,6 +35,7 @@ class CorporateTrainingInquiriesController < ApplicationController
       :meeting_date3,
       :participants_count,
       :training_duration,
+      :consultation,
       :how_did_you_hear,
       :additional_information,
       :privacy_policy

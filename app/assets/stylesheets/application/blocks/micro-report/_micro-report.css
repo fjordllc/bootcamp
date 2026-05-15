@@ -235,6 +235,10 @@
   display: flex;
 }
 
+.micro-report__footer .reactions {
+  z-index: auto;
+}
+
 @media (min-width: 48em) {
   .micro-report__footer {
     justify-content: space-between;

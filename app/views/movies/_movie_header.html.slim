@@ -37,7 +37,7 @@ header.page-content-header
                   span.a-meta__label
                     | 公開
                   .a-meta__value
-                    time(datetime="#{movie.published_at.to_datetime}")
+                    time(datetime="#{movie.published_at.iso8601}")
                       | #{l movie.published_at}
                     - if movie.user
                       = render 'users/icon',

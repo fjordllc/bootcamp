@@ -29,10 +29,10 @@ class Retirement
       destroy_subscription
     end
 
-    cancel_event_subscription
-    remove_as_event_organizer
+    clean_up_regular_events
     clear_github_info
     destroy_cards
+    unmatch_pair_works
     publish
     notify
     true
@@ -74,12 +74,14 @@ class Retirement
     Card.destroy_all(@user.customer_id) if @user.customer_id?
   end
 
-  def cancel_event_subscription
-    @user.cancel_participation_from_regular_events
+  def clean_up_regular_events
+    @user.clean_up_regular_events
   end
 
-  def remove_as_event_organizer
-    @user.delete_and_assign_new_organizer
+  def unmatch_pair_works
+    PairWork.where(buddy: @user).find_each do |pair_work|
+      ActiveSupport::Notifications.instrument('pair_work.cancel', pair_work: pair_work, sender: @user) if pair_work.unmatch
+    end
   end
 
   def publish

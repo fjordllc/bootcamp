@@ -102,4 +102,11 @@ module UsersHelper
   def visible_learning_time_frames?(user)
     !user.graduated? && user.learning_time_frames.exists?
   end
+
+  def event_navs(user)
+    [
+      { id: 'events', name: Event.model_name.human, count: user.participate_events.length, path: user_events_path(user) },
+      { id: 'regular_events', name: RegularEvent.model_name.human, count: user.participate_regular_events.length, path: user_regular_events_path(user) }
+    ]
+  end
 end

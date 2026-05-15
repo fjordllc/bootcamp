@@ -41,17 +41,17 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validates :regular_event_repeat_rules, presence: true
   validates_associated :regular_event_repeat_rules
 
-  scope :not_finished, -> { where(finished: false) }
+  scope :exclude_finished, -> { where(finished: false) }
 
   with_options if: -> { start_at && end_at } do
     validate :end_at_be_greater_than_start_at
   end
 
-  scope :holding, -> { where(finished: false) }
+  scope :not_finished, -> { where(finished: false, wip: false) }
   scope :participated_by, ->(user) { where(id: all.filter { |e| e.participated_by?(user) }.map(&:id)) }
-  scope :organizer_event, ->(user) { joins(:organizers).where(organizers: { user_id: user.id }) }
-  scope :scheduled_on, ->(date) { holding.filter { |event| event.scheduled_on?(date) } }
-  scope :scheduled_on_without_ended, ->(date) { holding.filter { |event| event.scheduled_on?(date) && !event.ended?(date) } }
+  scope :organizer_event, ->(user) { joins(:regular_event_organizers).where(regular_event_organizers: { user: user }) }
+  scope :scheduled_on, ->(date) { not_finished.filter { |event| event.scheduled_on?(date) } }
+  scope :scheduled_on_without_ended, ->(date) { not_finished.filter { |event| event.scheduled_on?(date) && !event.ended?(date) } }
 
   scope :fetch_target_events, lambda { |target|
     case target
@@ -69,8 +69,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   }
 
   belongs_to :user
-  has_many :organizers, dependent: :destroy
-  has_many :users, through: :organizers
+  has_many :regular_event_organizers, dependent: :destroy
+  has_many :users, through: :regular_event_organizers
   has_many :regular_event_repeat_rules, dependent: :destroy
   accepts_nested_attributes_for :regular_event_repeat_rules, allow_destroy: true
   has_many :regular_event_participations, dependent: :destroy
@@ -86,7 +86,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def self.ransackable_associations(_auth_object = nil)
-    %w[user organizers users regular_event_repeat_rules participants comments reactions watches]
+    %w[user regular_event_organizers users regular_event_repeat_rules participants comments reactions watches]
   end
 
   def scheduled_on?(date)
@@ -106,7 +106,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def organizers
-    users.preload(avatar_attachment: :blob).order('organizers.created_at')
+    users.preload(avatar_attachment: :blob).order('regular_event_organizers.created_at')
   end
 
   def cancel_participation(user)
@@ -116,13 +116,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def participated_by?(user)
     regular_event_participations.find_by(user_id: user.id).present?
-  end
-
-  def assign_admin_as_organizer_if_none
-    return if organizers.exists?
-
-    admin_user = User.find_by(login_name: User::DEFAULT_REGULAR_EVENT_ORGANIZER)
-    Organizer.new(user: admin_user, regular_event: self).save if admin_user
   end
 
   def all_scheduled_dates(
@@ -155,6 +148,21 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def publish_with_announcement?
     wants_announcement? && !wip?
+  end
+
+  # 定期イベントは主催者が1人以上必要なため
+  # 主催者が1人しかいない場合はイベントを終了状態にし
+  # それ以外の場合は主催者のみを削除する
+  #
+  # TODO: 本来は「主催者が0人のイベントは無効」という制約をバリデーションで担保する形にしたい
+  # https://github.com/fjordllc/bootcamp/pull/9732#discussion_r2969273381
+  def close_or_destroy_organizer(user)
+    if regular_event_organizers.count == 1
+      update(finished: true)
+    else
+      organizer = regular_event_organizers.find_by(user:)
+      organizer.destroy
+    end
   end
 
   private

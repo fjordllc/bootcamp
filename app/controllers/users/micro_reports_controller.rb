@@ -7,6 +7,8 @@ class Users::MicroReportsController < ApplicationController
   before_action :set_user
   before_action :set_micro_report, only: %i[destroy]
 
+  layout 'micro_report'
+
   def index
     if params[:micro_report_id].present?
       micro_report = @user.micro_reports.find_by(id: params[:micro_report_id])
