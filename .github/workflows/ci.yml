@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
 env:
@@ -198,7 +198,7 @@ jobs:
           if-no-files-found: ignore
 
   flakewatch:
-    name: Flakewatch HTML report - download artifact
+    name: Flakewatch HTML report
     runs-on: ubuntu-latest
     timeout-minutes: 20
     needs: test
@@ -227,20 +227,62 @@ jobs:
         id: upload-flakewatch-report
         uses: actions/upload-artifact@v4
         with:
-          name: flakewatch-report-download-and-open-html
+          name: flakewatch-report-zip-fallback
           path: flakewatch.html
           if-no-files-found: error
 
+      - name: Publish flakewatch HTML as a single file
+        id: publish-flakewatch-report
+        if: github.event_name == 'pull_request'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPORT_BRANCH: flakewatch-reports
+        run: |
+          report_dir="pr-${PR_NUMBER}"
+          report_path="${report_dir}/flakewatch.html"
+          report_worktree="$(mktemp -d)"
+
+          git init "$report_worktree"
+          cd "$report_worktree"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
+          if git fetch --depth=1 origin "${REPORT_BRANCH}:${REPORT_BRANCH}"; then
+            git checkout "${REPORT_BRANCH}"
+          else
+            git checkout --orphan "${REPORT_BRANCH}"
+            git rm -rf . || true
+          fi
+
+          mkdir -p "$report_dir"
+          cp "${GITHUB_WORKSPACE}/flakewatch.html" "$report_path"
+
+          git add "$report_path"
+          git commit -m "Publish flakewatch report for PR #${PR_NUMBER}" || true
+          git push origin "${REPORT_BRANCH}"
+
+          echo "report-url=https://github.com/${GITHUB_REPOSITORY}/raw/${REPORT_BRANCH}/${report_path}" >> "$GITHUB_OUTPUT"
+
       - name: Add flakewatch summary
+        env:
+          REPORT_URL: ${{ steps.publish-flakewatch-report.outputs.report-url }}
+          ARTIFACT_URL: ${{ steps.upload-flakewatch-report.outputs.artifact-url }}
         run: |
           {
             echo "## Flakewatch"
             echo ""
             echo "- flakewatch action: \`komagata/flakewatch@v0.4.0\`"
             echo "- JUnit XML artifacts: \`junit-xml-*\`"
-            echo "- HTML report: [Download flakewatch-report-download-and-open-html](${{ steps.upload-flakewatch-report.outputs.artifact-url }})"
+            if [ -n "$REPORT_URL" ]; then
+              echo "- HTML report: [Download single HTML file]($REPORT_URL)"
+            else
+              echo "- HTML report: [Download zip artifact fallback]($ARTIFACT_URL)"
+            fi
             echo ""
-            echo "Download the artifact and open \`flakewatch.html\` in a browser."
+            echo "Download \`flakewatch.html\` and open it in a browser."
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Update PR description with flakewatch report
@@ -249,10 +291,18 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
-          REPORT_URL: ${{ steps.upload-flakewatch-report.outputs.artifact-url }}
+          REPORT_URL: ${{ steps.publish-flakewatch-report.outputs.report-url }}
+          ARTIFACT_URL: ${{ steps.upload-flakewatch-report.outputs.artifact-url }}
         run: |
           marker_start="<!-- flakewatch-report:start -->"
           marker_end="<!-- flakewatch-report:end -->"
+          if [ -n "$REPORT_URL" ]; then
+            report_link="[Download single flakewatch.html]($REPORT_URL)"
+            report_note="Download the single HTML file and open it in your browser."
+          else
+            report_link="[Download zip artifact fallback]($ARTIFACT_URL)"
+            report_note="Single-file publishing was not available for this run. Download the artifact, unzip it, and open \`flakewatch.html\` in your browser."
+          fi
 
           gh pr view "$PR_NUMBER" --json body --jq '.body // ""' > current_body.md
 
@@ -260,9 +310,9 @@ jobs:
           $marker_start
           ## Flakewatch Report
 
-          [Download flakewatch-report-download-and-open-html]($REPORT_URL)
+          $report_link
 
-          GitHub Actions artifacts cannot preview HTML directly. Download the artifact, unzip it, and open \`flakewatch.html\` in your browser.
+          $report_note
           $marker_end
           EOF
 
