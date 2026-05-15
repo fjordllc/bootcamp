@@ -6,6 +6,7 @@ class Textbook::Section < ApplicationRecord
   belongs_to :chapter, class_name: 'Textbook::Chapter', foreign_key: 'textbook_chapter_id', inverse_of: :sections
   has_many :reading_progresses, foreign_key: 'textbook_section_id', dependent: :destroy, inverse_of: :section
   has_many :term_explanations, foreign_key: 'textbook_section_id', dependent: :destroy, inverse_of: :section
+  has_many :piyo_chat_messages, foreign_key: 'textbook_section_id', dependent: :destroy, inverse_of: :section
 
   validates :title, presence: true
   validates :body, presence: true
