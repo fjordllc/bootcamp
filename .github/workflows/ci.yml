@@ -214,7 +214,7 @@ jobs:
           merge-multiple: true
 
       - name: Generate flakewatch HTML
-        uses: komagata/flakewatch@v0.3.0
+        uses: komagata/flakewatch@v0.4.0
         with:
           junit: "test/reports/**/*.xml"
           output: flakewatch.html
@@ -233,7 +233,7 @@ jobs:
           {
             echo "## Flakewatch"
             echo ""
-            echo "- flakewatch action: \`komagata/flakewatch@v0.3.0\`"
+            echo "- flakewatch action: \`komagata/flakewatch@v0.4.0\`"
             echo "- JUnit XML artifacts: \`junit-xml-*\`"
             echo "- HTML report artifact: \`flakewatch-report\`"
           } >> "$GITHUB_STEP_SUMMARY"
