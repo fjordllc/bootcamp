@@ -1,4 +1,5 @@
 json.id report.id
+json.reactionable_gid report.to_global_id.to_s
 json.title report.title
 json.description report.description
 json.reportedOn l(report.reported_on)

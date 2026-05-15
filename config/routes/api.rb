@@ -51,6 +51,7 @@ Rails.application.routes.draw do
     end
     resources :reports, only: %i(index show) do
       resources :comments, only: %i[create], controller: 'reports/comments'
+      resources :reactions, only: %i(index create destroy), controller: 'reports/reactions'
     end
     resources :watches, only: %i(index create destroy)
     namespace 'watches' do
