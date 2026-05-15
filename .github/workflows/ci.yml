@@ -11,6 +11,7 @@ concurrency:
 
 permissions:
   contents: read
+  pull-requests: write
 
 env:
   RUBY_VERSION: 3.4.3
@@ -241,3 +242,41 @@ jobs:
             echo ""
             echo "Download the artifact and open \`flakewatch.html\` in a browser."
           } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Update PR description with flakewatch report
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPORT_URL: ${{ steps.upload-flakewatch-report.outputs.artifact-url }}
+        run: |
+          marker_start="<!-- flakewatch-report:start -->"
+          marker_end="<!-- flakewatch-report:end -->"
+
+          gh pr view "$PR_NUMBER" --json body --jq '.body // ""' > current_body.md
+
+          cat > flakewatch_block.md <<EOF
+          $marker_start
+          ## Flakewatch Report
+
+          [Download flakewatch-report-download-and-open-html]($REPORT_URL)
+
+          GitHub Actions artifacts cannot preview HTML directly. Download the artifact, unzip it, and open \`flakewatch.html\` in your browser.
+          $marker_end
+          EOF
+
+          node <<'NODE'
+          const fs = require("fs")
+
+          const body = fs.readFileSync("current_body.md", "utf8").trimEnd()
+          const block = fs.readFileSync("flakewatch_block.md", "utf8").trim()
+          const pattern = /<!-- flakewatch-report:start -->[\s\S]*?<!-- flakewatch-report:end -->/
+
+          const nextBody = pattern.test(body)
+            ? body.replace(pattern, block)
+            : `${body}\n\n${block}`.trim()
+
+          fs.writeFileSync("new_body.md", `${nextBody}\n`)
+          NODE
+
+          gh pr edit "$PR_NUMBER" --body-file new_body.md
