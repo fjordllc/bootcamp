@@ -42,3 +42,16 @@
 .pair-work-schedule-dates__cancel-action {
   min-width: 20rem;
 }
+
+.pair-work-schedule-dates__text-danger {
+  color: var(--danger);
+}
+
+.pair-work-ended__table {
+  display: none;
+  margin-top: 1rem;
+}
+
+#show-ended-schedule:checked ~ .pair-work-ended__table {
+  display: block;
+}

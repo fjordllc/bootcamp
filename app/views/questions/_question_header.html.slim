@@ -42,19 +42,17 @@ header.page-content-header
             = link_to question.user.long_name, user_path(question.user), class: 'a-user-name'
           - if !question.wip?
             .page-content-header-metas__meta
-              time.a-meta
+              .a-meta
                 span.a-meta__label
                   | 公開
-                span.a-meta__value
-                  time(datetime="#{question.published_at.to_datetime}")
-                    | #{l question.published_at}
+                time.a-meta__value datetime=question.published_at.iso8601
+                  = l question.published_at
             .page-content-header-metas__meta
               .a-meta
                 span.a-meta__label
                   | 更新
-                time.a-meta__value
-                  time(datetime="#{question.updated_at.to_datetime}")
-                    | #{l question.updated_at}
+                time.a-meta__value datetime=question.updated_at.iso8601
+                  = l question.updated_at
 
     .page-content-header__row
       .page-content-header-actions

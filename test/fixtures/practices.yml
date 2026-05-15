@@ -389,4 +389,10 @@ practice63:
   description: "複数のカテゴリに所属しているプラクティスです(必修です)"
   goal: "goal..."
   include_progress: true
-  memo: "memo for mentors..."
+  memo: 'memo for mentors...'
+
+practice64:
+  title: 'rubyをインストールする（Reスキル）'
+  description: 'Railsコースのプラクティスをコピーした給付金コースのプラクティスです。'
+  goal: 'goal...'
+  source_practice: practice23

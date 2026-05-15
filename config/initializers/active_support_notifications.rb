@@ -17,6 +17,10 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('report.update', FirstReportNotifier.new)
   ActiveSupport::Notifications.subscribe('report.create', ReportNotifier.new)
   ActiveSupport::Notifications.subscribe('report.update', ReportNotifier.new)
+  if ENV['ANTHROPIC_API_KEY'].present?
+    ActiveSupport::Notifications.subscribe('report.create', PjordReportCommenter.new)
+    ActiveSupport::Notifications.subscribe('report.update', PjordReportCommenter.new)
+  end
   ActiveSupport::Notifications.subscribe('announcement.create', AnnouncementNotifier.new)
   ActiveSupport::Notifications.subscribe('announcement.update', AnnouncementNotifier.new)
   ActiveSupport::Notifications.subscribe('announcement.destroy', AnnouncementNotificationDestroyer.new)
@@ -53,9 +57,7 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('question.create', mentors_watch_for_question_creator)
   ActiveSupport::Notifications.subscribe('question.update', mentors_watch_for_question_creator)
 
-  ai_answer_creator = AiAnswerCreator.new
-  ActiveSupport::Notifications.subscribe('question.create', ai_answer_creator)
-  ActiveSupport::Notifications.subscribe('question.update', ai_answer_creator)
+  ActiveSupport::Notifications.subscribe('question.create', PjordQuestionAnswerer.new)
 
   question_notifier = QuestionNotifier.new
   ActiveSupport::Notifications.subscribe('question.create', question_notifier)
@@ -78,4 +80,7 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('pair_work.update', pair_work_notifier)
 
   ActiveSupport::Notifications.subscribe('pair_work.reserve', PairWorkMatchingNotifier.new)
+  ActiveSupport::Notifications.subscribe('pair_work.rematch', PairWorkRematchingNotifier.new)
+  ActiveSupport::Notifications.subscribe('pair_work.reschedule', PairWorkRescheduleNotifier.new)
+  ActiveSupport::Notifications.subscribe('pair_work.cancel', PairWorkCancelNotifier.new)
 end

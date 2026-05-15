@@ -8,19 +8,22 @@
 .micro-report-actions__action {
   font-size: .75rem;
   display: flex;
-  height: 2rem;
+  height: 2.25rem;
   align-items: center;
   text-decoration: none;
   padding-inline: .75rem;
-  background-color: var(--background-shade);
+  background-color: var(--base);
+  border: solid 1px var(--border);
   border-radius: .25rem;
-  color: var(--muted-text);
+  color: var(--default-text);
+  cursor: pointer;
   transition: all .2s ease-out;
 }
 
 .micro-report-actions__action:hover {
   background-color: var(--main);
   color: var(--reversal-text);
+  border-color: var(--main);
 }
 
 .micro-report-actions__user-link {

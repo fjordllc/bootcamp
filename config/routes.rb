@@ -2,10 +2,12 @@
 
 Rails.application.routes.draw do
   mount Switchlet::Engine => "/switchlet"
+  mount Lookbook::Engine, at: "/lookbook" if Rails.env.development?
   
   root to: "home#index"
 
   get "welcome", to: "welcome#index", as: "welcome"
+  get "campaigns/basic", to: "static_pages#campaign_basic", as: "campaign_basic"
   get "practices", to: "welcome#practices", as: "practices"
   get "pricing", to: "welcome#pricing", as: "pricing"
   get "alumni_voices", to: "welcome#alumni_voices", as: "alumni_voices"
@@ -124,7 +126,7 @@ Rails.application.routes.draw do
   end
   resources :press_releases, only: %i(index)
   resources :pair_works do
-    resource :reservations, only: %i(create destroy), controller: "pair_works/reservations"
+    resource :reservations, only: %i(create update destroy), controller: "pair_works/reservations"
   end
   get "articles/tags/:tag", to: "articles#index", as: :tag, tag: /.+/
   get 'sponsorships', to: 'articles/sponsorships#index'

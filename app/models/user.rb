@@ -26,7 +26,6 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     'adviser' => :advisers,
     'admin' => :admins
   }.freeze
-  DEFAULT_REGULAR_EVENT_ORGANIZER = 'komagata'
   HIBERNATION_LIMIT = 3.months
   HIBERNATION_LIMIT_BEFORE_ONE_WEEK = HIBERNATION_LIMIT - 1.week
 
@@ -114,7 +113,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   has_many :articles, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
   has_many :regular_events, dependent: :destroy
-  has_many :organizers, dependent: :destroy
+  has_many :regular_event_organizers, dependent: :destroy
   has_many :hibernations, dependent: :destroy
   has_many :authored_books, dependent: :destroy
   accepts_nested_attributes_for :authored_books, allow_destroy: true
@@ -194,7 +193,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
            source: :follower
 
   has_many :organize_regular_events,
-           through: :organizers,
+           through: :regular_event_organizers,
            source: :regular_event
 
   has_many :participate_regular_events,
@@ -250,6 +249,8 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   validates :login_name, length: { minimum: 3, message: 'は3文字以上にしてください。' }
 
   validate :validate_uploaded_avatar_content_type
+
+  validates :show_study_streak, inclusion: { in: [true, false] }
 
   validates :diploma_file, content_type: { in: ['application/pdf'], message: 'はPDF形式にしてください' }
 
@@ -886,14 +887,6 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     watches.find_or_create_by!(watchable:)
   end
 
-  def cancel_participation_from_regular_events
-    regular_event_participations.destroy_all
-  end
-
-  def delete_and_assign_new_organizer
-    organizers.each(&:delete_and_assign_new)
-  end
-
   def scheduled_retire_at
     hibernated_at + User::HIBERNATION_LIMIT if hibernated_at?
   end
@@ -959,6 +952,11 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   def reports_with_learning_times
     reports.joins(:learning_times).distinct.order(reported_on: :asc)
+  end
+
+  def clean_up_regular_events
+    regular_event_participations.for_unfinished_events.destroy_all
+    organize_regular_events.exclude_finished.each { |event| event.close_or_destroy_organizer(self) }
   end
 
   private

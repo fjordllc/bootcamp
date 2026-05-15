@@ -15,6 +15,9 @@ Rails.application.routes.draw do
     collection do
       get :created
     end
+    member do
+      patch :toggle_show_study_streak
+    end
     resources :reports, only: %i(index), controller: "users/reports"
     resources :comments, only: %i(index), controller: "users/comments"
     resources :products, only: %i(index), controller: "users/products"
@@ -22,6 +25,7 @@ Rails.application.routes.draw do
     resources :answers, only: %i(index), controller: "users/answers"
     resources :micro_reports, only: %i[index create destroy], controller: "users/micro_reports"
     resources :events, only: %i(index), controller: "users/events"
+    resources :regular_events, only: %i(index), controller: "users/regular_events"
     get "portfolio" => "users/works#index", as: :portfolio
     patch "graduation", to: "graduation#update", as: :graduation
     resource :mail_notification, only: %i(edit update), controller: "users/mail_notification"

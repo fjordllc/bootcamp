@@ -203,6 +203,22 @@ class UserTest < ActiveSupport::TestCase
     assert user.invalid?
   end
 
+  test 'reserved login_name is invalid' do
+    user = users(:komagata)
+    user.login_name = 'mentor'
+
+    assert user.invalid?
+    assert_includes user.errors[:login_name], 'に使用できない文字列が含まれています'
+  end
+
+  test 'description is required' do
+    user = users(:komagata)
+    user.description = nil
+
+    assert user.invalid?
+    assert_includes user.errors[:description], 'を入力してください'
+  end
+
   test 'twitter_account' do
     user = users(:komagata)
     user.twitter_account = ''
@@ -682,20 +698,31 @@ class UserTest < ActiveSupport::TestCase
     assert_empty User.users_role(not_scope_name, allowed_targets:)
   end
 
-  test '#cancel_participation_from_regular_events' do
+  test '#clean_up_regular_events removes participant from unfinished regular event' do
     user = users(:kimura)
+    unfinished_participated_event = regular_events(:regular_event1)
+    unfinished_participated_event.regular_event_participations.create!(user: user)
+    finished_participated_event = regular_events(:regular_event2)
+    finished_participated_event.update!(finished: true)
+    finished_participated_event.regular_event_participations.create!(user: user)
 
-    assert_changes -> { RegularEventParticipation.where(user:).exists? }, from: true, to: false do
-      user.cancel_participation_from_regular_events
-    end
+    user.clean_up_regular_events
+
+    assert_not unfinished_participated_event.regular_event_participations.exists?(user:)
+    assert finished_participated_event.regular_event_participations.exists?(user:)
   end
 
-  test '#delete_and_assign_new_organizer' do
-    user = users(:hajime)
+  test '#clean_up_regular_events removes organizer from unfinished regular event' do
+    user = users(:kimura)
+    # kimuraが主催しているイベント
+    unfinished_organized_event = regular_events(:regular_event4)
+    finished_organized_event = regular_events(:regular_event5)
+    finished_organized_event.update!(finished: true)
 
-    assert_changes -> { Organizer.where(user:).exists? }, from: true, to: false do
-      user.delete_and_assign_new_organizer
-    end
+    user.clean_up_regular_events
+
+    assert_not unfinished_organized_event.regular_event_organizers.exists?(user:)
+    assert finished_organized_event.regular_event_organizers.exists?(user:)
   end
 
   test '#scheduled_retire_at' do

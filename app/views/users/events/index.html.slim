@@ -4,6 +4,8 @@
 = render 'users/page_title', user: @user
 = user_page_tabs(@user, active_tab: 'イベント')
 
+= render 'users/event_nav'
+
 .page-main
   .page-body
     .page-body__inner.has-side-nav
@@ -43,7 +45,7 @@
                       .card-list-item-meta
                         .card-list-item-meta__items
                           .card-list-item-meta__item
-                            time.a-meta(datetime="#{event.start_at}")
+                            time.a-meta datetime=event.start_at.iso8601
                               | 開催日時:#{l event.start_at}
                           .card-list-item-meta__item
                             .a-meta

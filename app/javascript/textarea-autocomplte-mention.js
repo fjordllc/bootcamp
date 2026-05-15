@@ -18,6 +18,7 @@ export default class {
         return person.login_name + person.name
       },
       menuItemTemplate: (item) => {
+        if (!item) return ''
         return (
           `<span class='mention'>${escapeHtml(
             item.original.login_name

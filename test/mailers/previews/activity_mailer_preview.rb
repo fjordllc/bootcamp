@@ -200,4 +200,25 @@ class ActivityMailerPreview < ActionMailer::Preview
 
     ActivityMailer.with(receiver:, pair_work:).matching_pair_work
   end
+
+  def rematching_pair_work
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:mentormentaro))
+    pair_work = PairWork.find(ActiveRecord::FixtureSet.identify(:pair_work1))
+
+    ActivityMailer.with(receiver:, pair_work:).rematching_pair_work
+  end
+
+  def reschedule_pair_work
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:kimura))
+    pair_work = PairWork.find(ActiveRecord::FixtureSet.identify(:pair_work1))
+
+    ActivityMailer.with(receiver:, pair_work:).reschedule_pair_work
+  end
+
+  def cancel_pair_work
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:kimura))
+    pair_work = PairWork.find(ActiveRecord::FixtureSet.identify(:pair_work1))
+
+    ActivityMailer.with(receiver:, pair_work:).cancel_pair_work
+  end
 end

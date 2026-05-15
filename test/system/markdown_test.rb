@@ -72,6 +72,29 @@ class MarkdownTest < ApplicationSystemTestCase
   end
 
   test 'expands tweet card' do
+    tweet_html = <<~HTML
+      <blockquote class="twitter-tweet">
+        <p lang="ja" dir="ltr">
+          12/26(木)19:30から『FBC忘年会2024』を開催します！ご参加お待ちしております😃
+          今年も本の紹介コミュニケーションゲーム『FBCビブリオバトル』を行いますので、ぜひご応募ください！
+        </p>
+      </blockquote>
+      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    HTML
+
+    stub_request(:get, 'https://publish.twitter.com/oembed?url=https://x.com/fjordbootcamp/status/1866097842483503117')
+      .to_return(status: 200,
+                 body: {
+                   "html": tweet_html,
+                   "width": 550,
+                   "height": nil,
+                   "type": 'rich',
+                   "cache_age": '3153600000',
+                   "provider_name": 'Twitter',
+                   "provider_url": 'https://twitter.com',
+                   "version": '1.0'
+                 }.to_json)
+
     visit_with_auth new_report_path, 'komagata'
     within('form[name=report]') do
       fill_in('report[title]', with: 'リンクカードが展開される')

@@ -16,10 +16,10 @@ class RetirementTest < ActiveSupport::TestCase
       clear_hibernation_state
       save_user
       destroy_subscription
-      cancel_event_subscription
-      remove_as_event_organizer
+      clean_up_regular_events
       clear_github_info
       destroy_cards
+      unmatch_pair_works
       publish
       notify
     ]

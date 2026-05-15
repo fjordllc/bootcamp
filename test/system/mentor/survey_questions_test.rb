@@ -68,26 +68,30 @@ class Mentor::SurveyQuestionsTest < ApplicationSystemTestCase
   end
 
   test 'display a list of questions' do
+    survey_question = survey_questions(:survey_question1)
+
     visit_with_auth '/mentor/survey_questions', 'komagata'
     assert_text '段落'
     assert_text 'フィヨルドブートキャンプの学習を通して、どんなことを学びましたか？'
-    assert_text "作成: #{I18n.l(Time.current, format: :long)}"
-    assert_text "更新: #{I18n.l(Time.current, format: :long)}"
+    assert_text "作成: #{I18n.l(survey_question.created_at, format: :long)}"
+    assert_text "更新: #{I18n.l(survey_question.updated_at, format: :long)}"
   end
 
   test 'edit question' do
+    survey_question = survey_questions(:survey_question1)
+
     visit_with_auth '/mentor/survey_questions', 'komagata'
     assert_text '段落'
     assert_text 'フィヨルドブートキャンプの学習を通して、どんなことを学びましたか？'
-    assert_text "作成: #{I18n.l(Time.current, format: :long)}"
-    assert_text "更新: #{I18n.l(Time.current, format: :long)}"
+    assert_text "作成: #{I18n.l(survey_question.created_at, format: :long)}"
+    assert_text "更新: #{I18n.l(survey_question.updated_at, format: :long)}"
     first('#edit_icon').click
     fill_in 'survey_question[title]', with: '一番辛かったプラクティスは何ですか？'
     choose '記述式', allow_label_click: true
     click_button '保存'
     assert_text '記述式'
     assert_text '一番辛かったプラクティスは何ですか？'
-    assert_text "作成: #{I18n.l(Time.current, format: :long)}"
-    assert_text "更新: #{I18n.l(Time.current, format: :long)}"
+    assert_text "作成: #{I18n.l(survey_question.reload.created_at, format: :long)}"
+    assert_text "更新: #{I18n.l(survey_question.updated_at, format: :long)}"
   end
 end

@@ -1,9 +1,8 @@
 .micro-reports {
-  height: calc(100vh - 10.5rem);
+  height: calc(100vh - 52px);
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
 }
 .micro-reports .thread-comment:last-child {
   margin-bottom: 0;

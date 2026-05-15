@@ -4,10 +4,6 @@
   border-radius: .25rem;
 }
 
-.books-form + .books-form {
-  margin-top: 2rem;
-}
-
 .books-form__header {
   position: relative;
 }
@@ -39,9 +35,6 @@
 .books-form__delete-link:hover {
   color: var(--danger);
   border-color: var(--danger);
-}
-
-.books-form__items {
 }
 
 @media (min-width: 48em) {

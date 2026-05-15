@@ -120,7 +120,7 @@ class BaseCommentsTest < ApplicationSystemTestCase
       find('.thread-comment-form, .thread-comment')
     end
     expected_url = current_url + "#comment_#{comments(:comment1).id}"
-    click_and_verify_clipboard_copy('.thread-comment__created-at', expected_url, use_first: true)
+    click_and_verify_clipboard_copy("#comment_#{comments(:comment1).id} .thread-comment__created-at", expected_url)
   end
 
   test 'clear preview after posting new comment for report' do

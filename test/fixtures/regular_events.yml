@@ -249,3 +249,25 @@ regular_event41:
   user: komagata
   category: 3
   published_at: "2023-08-01 00:00:00"
+
+regular_event42:
+  title: 日曜日開催で15:00に終了するWIP定期イベント
+  description: 日曜日開催で15:00に終了するWIP定期イベントの非表示テスト用
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2024, 12, 1, 10, 0, 0) %>
+  end_at: <%= Time.zone.local(2024, 12, 1, 15, 0, 0) %>
+  user: komagata
+  published_at: "2024-12-01 00:00:00"
+  wip: true
+
+regular_event43:
+  title: Discord通知が来ないwipイベント(土曜日開催)
+  description: wipイベントなのでDiscord通知が来ないです。(土曜日開催)
+  finished: false
+  hold_national_holiday: true
+  start_at: <%= Time.zone.local(2020, 1, 1, 10, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 11, 0, 0) %>
+  user: komagata
+  published_at: "2023-08-01 00:00:00"
+  wip: true

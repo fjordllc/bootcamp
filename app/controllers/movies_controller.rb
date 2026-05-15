@@ -12,6 +12,8 @@ class MoviesController < ApplicationController
     @tags = Movie.all.all_tags
     @movies = Movie.by_tag(params[:tag])
                    .includes(:user)
+                   .with_attached_movie_data
+                   .with_attached_thumbnail
                    .order(updated_at: :desc, id: :desc)
                    .page(params[:page])
                    .per(PAGER_NUMBER)
@@ -71,6 +73,7 @@ class MoviesController < ApplicationController
       :title,
       :description,
       :movie_data,
+      :thumbnail,
       :tag_list,
       practice_ids: []
     )

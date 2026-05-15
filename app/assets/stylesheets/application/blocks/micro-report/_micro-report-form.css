@@ -1,16 +1,11 @@
 
 .micro-report-form {
-  padding-bottom: 1rem;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   background-color: var(--background);
   z-index: 2;
-  @media (min-width: 48em) {
-    margin-left: 5rem;
-
-  }
 }
 .micro-report-form__inner {
   display: flex;

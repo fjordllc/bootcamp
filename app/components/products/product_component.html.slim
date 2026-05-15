@@ -33,26 +33,29 @@
                   | 提出物作成中
             - elsif @product.published_at
               .card-list-item-meta__item
-                time.a-meta
+                .a-meta
                   span.a-meta__label
                     | 提出
-                  = l(@product.published_at)
+                  time.a-meta__value datetime=@product.published_at.iso8601
+                    = l(@product.published_at)
             - else
               .card-list-item-meta__item
-                time.a-meta
+                .a-meta
                   span.a-meta__label
                     | 提出
-                  = l(@product.created_at)
+                  time.a-meta datetime=@product.created_at.iso8601
+                    = l(@product.created_at)
 
             .card-list-item-meta__item
               - if @product.updated_at
-                time.a-meta
+                .a-meta
                   span.a-meta__label
                     | 更新
-                  = l(@product.updated_at)
+                  time.a-meta datetime=@product.updated_at.iso8601
+                    = l(@product.updated_at)
 
             - if @display_until_next_elapsed_days && elapsed_days < @reply_deadline_days
-              time.a-meta
+              .a-meta
                 span.a-meta__label
                   | 次の経過日数まで
                 - if until_next_elapsed_days < 1
@@ -73,15 +76,17 @@
                     = link_to user, class: 'card-list-item__user-icons-icon' do
                       = image_tag user.avatar_url, class: "a-user-icon #{role_class_for_user(user)}", title: user.icon_title, alt: user.icon_title
               .card-list-item-meta__item
-                time.a-meta
-                  = "〜 #{l @product.comments.last.created_at, format: :date_and_time}"
+                .a-meta
+                  | 〜
+                  time datetime=@product.comments.last.created_at.iso8601
+                    = l @product.comments.last.created_at, format: :date_and_time
 
       - if (@is_mentor || @is_admin) && @product.user.primary_role == 'trainee'
         .card-list-item__row
           .card-list-item-meta__items
             .card-list-item-meta__item
               - if @product.user.training_ends_on
-                time.a-meta dateTime=@product.user.training_ends_on
+                time.a-meta datetime=@product.user.training_ends_on.in_time_zone.iso8601
                   span.a-meta__label
                     | 研修終了日
                   span.a-meta__value

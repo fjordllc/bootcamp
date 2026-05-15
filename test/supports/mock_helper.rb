@@ -6,11 +6,15 @@ module MockHelper
       .to_return(
         status: 200,
         body: {
+          id: 'chatcmpl-test',
+          object: 'chat.completion',
+          model: 'gpt-5-mini',
           choices: [{
-            message: {
-              content:
-            }
-          }]
+            index: 0,
+            message: { role: 'assistant', content: },
+            finish_reason: 'stop'
+          }],
+          usage: { prompt_tokens: 10, completion_tokens: 20, total_tokens: 30 }
         }.to_json,
         headers: { 'Content-Type' => 'application/json' }
       )

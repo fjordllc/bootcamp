@@ -26,10 +26,10 @@
           .card-list-item-meta__items
             .card-list-item-meta__item
               - if event.held_on_scheduled_date?
-                time.a-meta
+                .a-meta
                   span.a-meta__label
                     | 開催日時
-                  span.a-meta__value
+                  time.a-meta__value datetime=event.scheduled_date_with_start_time.iso8601
                     = I18n.localize(event.scheduled_date_with_start_time)
               - else
                   .a-meta.is-important

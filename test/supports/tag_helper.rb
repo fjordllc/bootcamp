@@ -1,10 +1,38 @@
 # frozen_string_literal: true
 
 module TagHelper
+  def close_header_dropdowns
+    page.execute_script(<<~JS)
+      document.querySelectorAll('.is-opened-dropdown').forEach((element) => {
+        element.classList.remove('is-opened-dropdown')
+      })
+    JS
+  end
+
+  def click_tag_edit
+    close_header_dropdowns
+    page.execute_script('arguments[0].click()', find('.tag-links__item-edit'))
+  end
+
+  def click_tag_name_change
+    close_header_dropdowns
+    page.execute_script('arguments[0].click()', find_button('タグ名変更'))
+  end
+
+  def click_save_tag_name_change
+    close_header_dropdowns
+    page.execute_script('arguments[0].click()', find_button('変更'))
+  end
+
+  def click_save_tags
+    close_header_dropdowns
+    page.execute_script('arguments[0].click()', find_button('保存する'))
+  end
+
   def fill_in_tag(name, selector = '.tagify__input')
     tag_count_before = all('.tagify__tag', visible: :all).count
     tag_input = find(selector, match: :first)
-    tag_input.click
+    page.execute_script('arguments[0].click()', tag_input)
     tag_input.native.send_keys(name, :return)
     assert_selector('.tagify__tag', count: tag_count_before + 1, wait: 10, visible: :all)
     # Wait for the hidden input to be updated with the new tag (React components only)
@@ -15,7 +43,7 @@ module TagHelper
 
   def fill_in_tag_with_alert(name, selector = '.tagify__input')
     tag_input = find(selector)
-    tag_input.click
+    page.execute_script('arguments[0].click()', tag_input)
     accept_alert do
       tag_input.native.send_keys(name, :return)
     end
@@ -47,7 +75,7 @@ module TagHelper
 
   def assert_tag_update_button_disabled_for_same_value(tag_path, tag_name)
     visit_with_auth tag_path, 'komagata'
-    click_button 'タグ名変更'
+    click_tag_name_change
     # Confirm modal is displayed
     assert_selector '.a-card.is-modal', visible: true
     # Fill in tag name field (wait for React state to update)

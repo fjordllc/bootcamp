@@ -17,6 +17,8 @@ class Pjord
     - 回答はmarkdown形式で書く
     - 簡潔にわかりやすく答える
     - ユーザーが書いた言語で返答する
+    - 語尾に「ピヨ」など特徴的な語尾は付けず、通常の丁寧な日本語で話す
+    - 検索結果を踏まえたこと、ツールを使ったこと、コメントや回答を作成することなど、内部の手順説明は出力しない
 
     ## ツールの使い方
     - bootcampのカリキュラム、ドキュメント、Q&Aに関する質問には、bootcamp_search_toolで検索してから回答する
@@ -31,29 +33,101 @@ class Pjord
       User.find_by(login_name: LOGIN_NAME)
     end
 
-    def respond(message:, context: {})
+    def respond(message:, context: {}, instructions: nil)
       chat = RubyLLM.chat(model: model_name)
-      chat.with_instructions(system_prompt(context))
+      chat.with_instructions(system_prompt(context, instructions:))
       chat.with_tool(BootcampSearchTool)
       chat.with_tool(UserInfoTool)
-      result = chat.ask(message).content
+      chat.with_schema(PjordResponse)
+      result = extract_public_response_body(chat.ask(message).content)
       result.presence
     end
 
+    def classify_report(title:, description:)
+      chat = RubyLLM.chat(model: model_name)
+      chat.with_instructions(classify_instructions)
+      chat.with_schema(PjordReportIntent)
+      content = chat.ask(classify_message(title:, description:)).content
+      parsed =
+        if content.is_a?(String)
+          JSON.parse(content)
+        elsif content.respond_to?(:to_h)
+          content.to_h
+        else
+          content
+        end
+      return nil unless parsed.is_a?(Hash)
+
+      parsed = parsed.stringify_keys
+      intent = parsed['intent']
+      return nil unless PjordReportIntent::INTENTS.include?(intent)
+
+      { intent: intent, reason: parsed['reason'] }
+    rescue JSON::ParserError => e
+      Rails.logger.error("[Pjord.classify_report] JSON parse error: #{e.message}")
+      nil
+    end
+
     private
+
+    def classify_instructions
+      <<~TEXT
+        あなたは日報の内容を分類する分類器です。
+        与えられた日報を読み、指定されたスキーマに従って `intent` を1つだけ選んでください。
+        余計な文章は一切出力せず、スキーマで定義された構造化データのみを返してください。
+      TEXT
+    end
+
+    def classify_message(title:, description:)
+      <<~TEXT
+        以下の日報を分類してください。
+
+        ## タイトル
+        #{title}
+
+        ## 本文
+        #{description}
+      TEXT
+    end
 
     def model_name
       ENV.fetch('PJORD_LLM_MODEL', 'gpt-5-mini')
     end
 
-    def system_prompt(context)
+    def system_prompt(context, instructions: nil)
       parts = [SYSTEM_PROMPT]
 
+      parts << "## 追加の指示\n#{instructions}" if instructions.present?
       parts << "## 現在の場所\n#{context[:location]}" if context[:location].present?
       parts << "## 関連プラクティス\n#{context[:practice]}" if context[:practice].present?
       parts << "## メンションしてきたユーザー\nログイン名: #{context[:sender_login_name]}" if context[:sender_login_name].present?
 
       parts.join("\n\n")
+    end
+
+    def extract_public_response_body(content)
+      body =
+        if content.is_a?(String)
+          parse_response_body(content)
+        elsif content.respond_to?(:to_h)
+          parsed = content.to_h
+          parsed['body'] || parsed[:body] if parsed.is_a?(Hash)
+        end
+
+      remove_internal_preamble(body)
+    end
+
+    def parse_response_body(content)
+      parsed = JSON.parse(content)
+      parsed.is_a?(Hash) ? parsed['body'] : content
+    rescue JSON::ParserError
+      content
+    end
+
+    def remove_internal_preamble(body)
+      return body unless body.is_a?(String)
+
+      body.sub(/\A\s*(?:検索結果を踏まえて、)?(?:日報へのコメント|回答|コメント)を作成します。\s*/, '')
     end
   end
 end
