@@ -5,7 +5,7 @@ class Hibernation < ApplicationRecord
   validates :reason, presence: true
   validates :scheduled_return_on, presence: true
 
-  def excute
+  def execute
     update_hibernated_at!
     destroy_subscription!
     notify_to_chat
