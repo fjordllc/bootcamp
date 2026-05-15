@@ -10,8 +10,7 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 env:
   RUBY_VERSION: 3.4.3
@@ -203,6 +202,10 @@ jobs:
     timeout-minutes: 20
     needs: test
     if: ${{ always() && !cancelled() }}
+    permissions:
+      actions: read
+      contents: write
+      pull-requests: write
 
     steps:
       - name: Checkout
@@ -250,19 +253,29 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
-          if git fetch --depth=1 origin "${REPORT_BRANCH}:${REPORT_BRANCH}"; then
-            git checkout "${REPORT_BRANCH}"
-          else
-            git checkout --orphan "${REPORT_BRANCH}"
-            git rm -rf . || true
-          fi
+          published=0
+          for attempt in 1 2 3; do
+            if git fetch --depth=1 origin "${REPORT_BRANCH}"; then
+              git checkout -B "${REPORT_BRANCH}" "origin/${REPORT_BRANCH}"
+            else
+              git checkout --orphan "${REPORT_BRANCH}" 2>/dev/null || git checkout "${REPORT_BRANCH}"
+              git rm -rf . || true
+            fi
 
-          mkdir -p "$report_dir"
-          cp "${GITHUB_WORKSPACE}/flakewatch.html" "$report_path"
+            mkdir -p "$report_dir"
+            cp "${GITHUB_WORKSPACE}/flakewatch.html" "$report_path"
 
-          git add "$report_path"
-          git commit -m "Publish flakewatch report for PR #${PR_NUMBER}" || true
-          git push origin "${REPORT_BRANCH}"
+            git add "$report_path"
+            git commit -m "Publish flakewatch report for PR #${PR_NUMBER}" || true
+            if git push origin "HEAD:${REPORT_BRANCH}"; then
+              published=1
+              break
+            fi
+
+            sleep "$((attempt * 2))"
+          done
+
+          test "$published" -eq 1
 
           echo "report-url=https://github.com/${GITHUB_REPOSITORY}/raw/${REPORT_BRANCH}/${report_path}" >> "$GITHUB_OUTPUT"
 
@@ -282,7 +295,7 @@ jobs:
               echo "- HTML report: [Download zip artifact fallback]($ARTIFACT_URL)"
             fi
             echo ""
-            echo "Download \`flakewatch.html\` and open it in a browser."
+            echo "Download \`flakewatch.html\`, save it locally, and open it in a browser."
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Update PR description with flakewatch report
@@ -298,7 +311,7 @@ jobs:
           marker_end="<!-- flakewatch-report:end -->"
           if [ -n "$REPORT_URL" ]; then
             report_link="[Download single flakewatch.html]($REPORT_URL)"
-            report_note="Download the single HTML file and open it in your browser."
+            report_note="Download the single HTML file, save it locally, and open it in your browser."
           else
             report_link="[Download zip artifact fallback]($ARTIFACT_URL)"
             report_note="Single-file publishing was not available for this run. Download the artifact, unzip it, and open \`flakewatch.html\` in your browser."
