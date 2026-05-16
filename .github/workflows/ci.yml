@@ -197,10 +197,14 @@ jobs:
           if-no-files-found: ignore
 
   flakewatch:
+    name: Flakewatch HTML report
     runs-on: ubuntu-latest
     timeout-minutes: 20
     needs: test
     if: ${{ always() && !cancelled() }}
+    permissions:
+      actions: read
+      pull-requests: write
 
     steps:
       - name: Checkout
@@ -214,29 +218,7 @@ jobs:
           merge-multiple: true
 
       - name: Generate flakewatch HTML
-        uses: komagata/flakewatch@v0.4.0
+        uses: komagata/flakewatch@simplify-github-action-setup
         with:
           junit: "test/reports/**/*.xml"
-          output: flakewatch.html
-          source-base-url: "https://github.com/${{ github.repository }}/blob/${{ github.sha }}"
           source-root: "."
-
-      - name: Upload flakewatch HTML
-        id: upload-flakewatch-report
-        uses: actions/upload-artifact@v4
-        with:
-          name: flakewatch-report
-          path: flakewatch.html
-          if-no-files-found: error
-
-      - name: Add flakewatch summary
-        run: |
-          {
-            echo "## Flakewatch"
-            echo ""
-            echo "- flakewatch action: \`komagata/flakewatch@v0.4.0\`"
-            echo "- JUnit XML artifacts: \`junit-xml-*\`"
-            echo "- HTML report: [Download flakewatch-report](${{ steps.upload-flakewatch-report.outputs.artifact-url }})"
-            echo ""
-            echo "Download the artifact and open \`flakewatch.html\` in a browser."
-          } >> "$GITHUB_STEP_SUMMARY"
