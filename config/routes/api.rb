@@ -51,6 +51,7 @@ Rails.application.routes.draw do
     end
     resources :reports, only: %i(index show) do
       resources :comments, only: %i[create], controller: 'reports/comments'
+      resources :reactions, only: %i(index create destroy), controller: 'reports/reactions'
       resource :check, only: %i(create destroy), controller: 'reports/check'
     end
     resources :watches, only: %i(index create destroy)
@@ -71,7 +72,7 @@ Rails.application.routes.draw do
       resource :checker, only: %i(show update destroy), controller: 'checker'
       resource :passed, only: %i(show), controller: 'passed'
     end
-    resources :products, only: %i(index show) do
+    resources :products, only: %i(index show create update destroy) do
       resources :comments, only: %i(create), controller: 'products/comments'
       resource :check, only: %i(create destroy), controller: 'products/check'
     end

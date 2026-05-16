@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class API::ProductsController < API::BaseController
-  before_action :require_login_for_api, only: %i[index show]
+  before_action -> { doorkeeper_authorize! :write }, only: %i[create update destroy], if: -> { doorkeeper_token.present? }
+  before_action :set_product, only: %i[update destroy]
+  before_action :authorize_product, only: %i[update destroy]
 
   def index
     @company = Company.find(params[:company_id]) if params[:company_id]
@@ -18,5 +20,87 @@ class API::ProductsController < API::BaseController
 
   def show
     @product = Product.find(params[:id])
+  end
+
+  def create
+    @product = current_user.products.new(product_attributes)
+    @product.practice = Practice.find_by(id: product_params[:practice_id])
+    apply_wip
+    update_published_at
+
+    if @product.save
+      ActiveSupport::Notifications.instrument('product.create', product: @product)
+      ActiveSupport::Notifications.instrument('product.save', product: @product)
+      render_product_json :created
+    else
+      render json: { errors: @product.errors }, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    return render json: { message: '提出物のプラクティスは変更できません。' }, status: :bad_request if product_params.key?(:practice_id)
+
+    @product.assign_attributes(product_attributes)
+    apply_wip
+    update_published_at
+
+    if @product.save
+      ActiveSupport::Notifications.instrument('product.update', { product: @product, current_user: })
+      ActiveSupport::Notifications.instrument('product.save', product: @product)
+      render_product_json :ok
+    else
+      render json: { errors: @product.errors }, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @product.destroy
+    head :no_content
+  end
+
+  private
+
+  def set_product
+    @product = Product.find_by(id: params[:id])
+    render json: { message: '提出物が見つかりません。' }, status: :not_found unless @product
+  end
+
+  def authorize_product
+    return if performed?
+    return if current_user.admin? || current_user.mentor? || @product.user == current_user
+
+    render json: { message: 'この提出物を操作する権限がありません。' }, status: :forbidden
+  end
+
+  def product_params
+    params.fetch(:product, ActionController::Parameters.new).permit(:practice_id, :body, :wip)
+  end
+
+  def product_attributes
+    product_params.except(:practice_id, :wip)
+  end
+
+  def apply_wip
+    return unless product_params.key?(:wip)
+
+    @product.wip = ActiveModel::Type::Boolean.new.cast(product_params[:wip])
+  end
+
+  def update_published_at
+    if @product.wip
+      @product.published_at = nil
+    elsif @product.published_at.blank?
+      @product.published_at = Time.current
+    end
+  end
+
+  def render_product_json(status)
+    render json: {
+      id: @product.id,
+      practice_id: @product.practice_id,
+      body: @product.body,
+      wip: @product.wip,
+      published_at: @product.published_at
+    }, status:
   end
 end

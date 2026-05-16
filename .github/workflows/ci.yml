@@ -4,11 +4,6 @@ on:
   pull_request:
     branches: [main]
   workflow_dispatch:
-    inputs:
-      flakewatch_ref:
-        description: "komagata/flakewatch ref to build"
-        required: false
-        default: "flakewatch-html-report"
 
 concurrency:
   group: ci-${{ github.event.pull_request.number || github.ref }}
@@ -24,8 +19,6 @@ env:
   BUNDLE_RETRY: "3"
   TZ: Asia/Tokyo
   SHAKAPACKER_NODE_MODULES_BIN_PATH: ./node_modules/.bin
-  FLAKEWATCH_REF: ${{ github.event.inputs.flakewatch_ref || 'flakewatch-html-report' }}
-  TYA_VERSION: v0.62.0
 
 jobs:
   build:
@@ -207,7 +200,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     needs: test
-    if: always()
+    if: ${{ always() && !cancelled() }}
 
     steps:
       - name: Checkout
@@ -220,33 +213,16 @@ jobs:
           path: test/reports
           merge-multiple: true
 
-      - name: Install Tya
-        run: |
-          curl -fsSL -o /tmp/tya.tar.gz "https://github.com/komagata/tya/releases/download/${TYA_VERSION}/tya-${TYA_VERSION}-linux-amd64.tar.gz"
-          tar -xzf /tmp/tya.tar.gz -C /tmp
-          echo "/tmp/tya-${TYA_VERSION}-linux-amd64/bin" >> "$GITHUB_PATH"
-
-      - name: Install flakewatch build packages
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libuv1-dev
-
-      - name: Build flakewatch
-        run: |
-          git clone --depth 1 --branch "$FLAKEWATCH_REF" https://github.com/komagata/flakewatch.git /tmp/flakewatch
-          cd /tmp/flakewatch
-          tya install
-          tya build src/main.tya -o /tmp/flakewatch-bin
-
       - name: Generate flakewatch HTML
-        run: |
-          /tmp/flakewatch-bin html \
-            --junit "test/reports/**/*.xml" \
-            --output flakewatch.html \
-            --source-base-url "https://github.com/${{ github.repository }}/blob/${{ github.sha }}" \
-            --source-root "."
+        uses: komagata/flakewatch@v0.4.0
+        with:
+          junit: "test/reports/**/*.xml"
+          output: flakewatch.html
+          source-base-url: "https://github.com/${{ github.repository }}/blob/${{ github.sha }}"
+          source-root: "."
 
       - name: Upload flakewatch HTML
+        id: upload-flakewatch-report
         uses: actions/upload-artifact@v4
         with:
           name: flakewatch-report
@@ -258,7 +234,9 @@ jobs:
           {
             echo "## Flakewatch"
             echo ""
-            echo "- flakewatch ref: \`${FLAKEWATCH_REF}\`"
-            echo "- JUnit XML artifacts: \`junit-xml-0\` ... \`junit-xml-7\`"
-            echo "- HTML report artifact: \`flakewatch-report\`"
+            echo "- flakewatch action: \`komagata/flakewatch@v0.4.0\`"
+            echo "- JUnit XML artifacts: \`junit-xml-*\`"
+            echo "- HTML report: [Download flakewatch-report](${{ steps.upload-flakewatch-report.outputs.artifact-url }})"
+            echo ""
+            echo "Download the artifact and open \`flakewatch.html\` in a browser."
           } >> "$GITHUB_STEP_SUMMARY"
