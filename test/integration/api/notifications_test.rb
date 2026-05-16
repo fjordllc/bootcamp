@@ -47,7 +47,30 @@ class API::NotificationsTest < ActionDispatch::IntegrationTest
     assert_equal 2, response.parsed_body['count']
     assert notifications('notification_mentioned_and_unread_1').reload.read?
     assert notifications('notification_mentioned_and_unread_2').reload.read?
-    assert_not notifications(:notification_watching).reload.read?
+    assert_not notifications('notification_watching').reload.read?
+  end
+
+  test 'PATCH /api/notifications/category_read_mark.json with invalid target' do
+    token = create_token('kimura', 'testtest')
+
+    patch api_notifications_category_read_mark_path(format: :json),
+          headers: { 'Authorization' => "Bearer #{token}" },
+          params: { target: 'invalid' }
+
+    assert_response :bad_request
+    assert_equal 'targetが不正です。', response.parsed_body['message']
+    assert_unread_notifications_remain
+  end
+
+  test 'PATCH /api/notifications/category_read_mark.json without target' do
+    token = create_token('kimura', 'testtest')
+
+    patch api_notifications_category_read_mark_path(format: :json),
+          headers: { 'Authorization' => "Bearer #{token}" }
+
+    assert_response :bad_request
+    assert_equal 'targetが不正です。', response.parsed_body['message']
+    assert_unread_notifications_remain
   end
 
   test 'PATCH /api/notifications/all_read_mark.json' do
@@ -70,6 +93,14 @@ class API::NotificationsTest < ActionDispatch::IntegrationTest
 
     assert_response :not_found
     assert_equal '通知が見つかりません。', response.parsed_body['message']
-    assert_not notifications(:notification_submitted).reload.read?
+    assert_not notifications('notification_submitted').reload.read?
+  end
+
+  private
+
+  def assert_unread_notifications_remain
+    assert_not notifications('notification_mentioned_and_unread_1').reload.read?
+    assert_not notifications('notification_mentioned_and_unread_2').reload.read?
+    assert_not notifications('notification_watching').reload.read?
   end
 end

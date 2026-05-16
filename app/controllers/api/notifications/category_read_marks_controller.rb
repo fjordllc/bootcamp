@@ -2,7 +2,10 @@
 
 class API::Notifications::CategoryReadMarksController < API::BaseController
   def update
-    notifications = current_user.notifications.by_target(validated_target).unreads
+    target = validated_target
+    return render json: { message: 'targetが不正です。' }, status: :bad_request unless target
+
+    notifications = current_user.notifications.by_target(target).unreads
     count = notifications.count
     current_user.mark_all_as_read_and_delete_cache_of_unreads(target_notifications: notifications)
     render json: { count: }, status: :ok

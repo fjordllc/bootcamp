@@ -7,7 +7,6 @@ class API::Notifications::ReadMarksController < API::BaseController
 
     notification.update!(read: true)
     Cache.delete_mentioned_and_unread_notification_count(current_user.id)
-    notification.reload
-    render json: { id: notification.id, read: notification.read }, status: :ok
+    render json: { id: notification.id, read: true }, status: :ok
   end
 end
