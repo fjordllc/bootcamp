@@ -33,6 +33,30 @@ class API::BaseController < ApplicationController
     render json: { message: }, status: :bad_request
   end
 
+  def check_json(check)
+    {
+      id: check.id,
+      checkable_type: check.checkable_type,
+      checkable_id: check.checkable_id,
+      user: {
+        id: check.user.id,
+        login_name: check.user.login_name,
+        name: check.user.name
+      },
+      created_at: check.created_at
+    }
+  end
+
+  def reaction_summary_json(reactionable)
+    reactions = reactionable.reactions.includes(user: { avatar_attachment: :blob }).order(created_at: :asc)
+    grouped_reactions = reactions.group_by(&:kind)
+
+    Reaction.emojis.each_with_object({}) do |(kind, emoji), hash|
+      users = grouped_reactions[kind]&.map { |reaction| reaction_user_json(reaction.user) } || []
+      hash[kind] = { emoji:, users: } unless users.empty?
+    end
+  end
+
   def require_login_for_api
     login_from_jwt unless logged_in?
     render json: { error: 'unauthorized' }, status: :unauthorized unless logged_in?
@@ -57,5 +81,15 @@ class API::BaseController < ApplicationController
       error_description: error.description,
       state: error.state
     }.compact_blank
+  end
+
+  def reaction_user_json(user)
+    user = ActiveDecorator::Decorator.instance.decorate(user)
+    {
+      id: user.id,
+      login_name: user.login_name,
+      avatar_url: user.avatar_url,
+      user_icon_frame_class: user.user_icon_frame_class
+    }
   end
 end

@@ -44,18 +44,4 @@ class API::ChecksController < API::BaseController
   def checkable
     params[:checkable_type].constantize.find_by(id: params[:checkable_id])
   end
-
-  def check_json(check)
-    {
-      id: check.id,
-      checkable_type: check.checkable_type,
-      checkable_id: check.checkable_id,
-      user: {
-        id: check.user.id,
-        login_name: check.user.login_name,
-        name: check.user.name
-      },
-      created_at: check.created_at
-    }
-  end
 end
