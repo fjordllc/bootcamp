@@ -82,6 +82,7 @@ Rails.application.routes.draw do
     resources :products, only: %i(index show create update destroy) do
       resources :comments, only: %i(create), controller: 'products/comments'
     end
+    resources :searchables, only: %i(index)
     resources :bookmarks, only: %i(index create destroy)
     resources :report_templates, only: %i(create update)
     resources :markdown_tasks, only: %i(create)
