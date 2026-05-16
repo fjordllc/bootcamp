@@ -204,7 +204,6 @@ jobs:
     if: ${{ always() && !cancelled() }}
     permissions:
       actions: read
-      contents: write
       pull-requests: write
 
     steps:
@@ -228,49 +227,23 @@ jobs:
 
       - name: Upload flakewatch HTML
         id: upload-flakewatch-report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: flakewatch-report-zip-fallback
+          name: flakewatch.html
           path: flakewatch.html
+          archive: false
           if-no-files-found: error
-
-      - name: Publish flakewatch HTML as a release asset
-        id: publish-flakewatch-report
-        if: github.event_name == 'pull_request'
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ github.token }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: |
-          tag="flakewatch-report-pr-${PR_NUMBER}"
-
-          if ! gh release view "$tag" >/dev/null 2>&1; then
-            gh release create "$tag" \
-              --title "Flakewatch report for PR #${PR_NUMBER}" \
-              --notes "Flakewatch HTML report for PR #${PR_NUMBER}. This release is maintained by GitHub Actions." \
-              --target "$GITHUB_SHA" \
-              --prerelease
-          fi
-
-          gh release upload "$tag" flakewatch.html --clobber
-
-          echo "report-url=https://github.com/${GITHUB_REPOSITORY}/releases/download/${tag}/flakewatch.html" >> "$GITHUB_OUTPUT"
 
       - name: Add flakewatch summary
         env:
-          REPORT_URL: ${{ steps.publish-flakewatch-report.outputs.report-url }}
-          ARTIFACT_URL: ${{ steps.upload-flakewatch-report.outputs.artifact-url }}
+          REPORT_URL: ${{ steps.upload-flakewatch-report.outputs.artifact-url }}
         run: |
           {
             echo "## Flakewatch"
             echo ""
             echo "- flakewatch action: \`komagata/flakewatch@v0.4.0\`"
             echo "- JUnit XML artifacts: \`junit-xml-*\`"
-            if [ -n "$REPORT_URL" ]; then
-              echo "- HTML report: [Download single HTML file]($REPORT_URL)"
-            else
-              echo "- HTML report: [Download zip artifact fallback]($ARTIFACT_URL)"
-            fi
+            echo "- HTML report: [Download flakewatch.html]($REPORT_URL)"
             echo ""
             echo "Download \`flakewatch.html\` and open it in a browser."
           } >> "$GITHUB_STEP_SUMMARY"
@@ -281,18 +254,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
-          REPORT_URL: ${{ steps.publish-flakewatch-report.outputs.report-url }}
-          ARTIFACT_URL: ${{ steps.upload-flakewatch-report.outputs.artifact-url }}
+          REPORT_URL: ${{ steps.upload-flakewatch-report.outputs.artifact-url }}
         run: |
           marker_start="<!-- flakewatch-report:start -->"
           marker_end="<!-- flakewatch-report:end -->"
-          if [ -n "$REPORT_URL" ]; then
-            report_link="[Download single flakewatch.html]($REPORT_URL)"
-            report_note="Download the single HTML file and open it in your browser."
-          else
-            report_link="[Download zip artifact fallback]($ARTIFACT_URL)"
-            report_note="Single-file publishing was not available for this run. Download the artifact, unzip it, and open \`flakewatch.html\` in your browser."
-          fi
 
           gh pr view "$PR_NUMBER" --json body --jq '.body // ""' > current_body.md
 
@@ -300,9 +265,9 @@ jobs:
           $marker_start
           ## Flakewatch Report
 
-          $report_link
+          [Download flakewatch.html]($REPORT_URL)
 
-          $report_note
+          Download the single HTML artifact and open it in your browser.
           $marker_end
           EOF
 
