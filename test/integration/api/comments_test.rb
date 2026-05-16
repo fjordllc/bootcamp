@@ -150,7 +150,8 @@ class API::CommentsTest < ActionDispatch::IntegrationTest
     assert_difference('Comment.count', -1) do
       delete api_comment_url(@comment.id, format: :json),
              headers: { Authorization: "Bearer #{@write_token.token}" }
-      assert_response :no_content
+      assert_response :ok
+      assert_equal @comment.id, response.parsed_body['id']
     end
   end
 
@@ -181,7 +182,8 @@ class API::CommentsTest < ActionDispatch::IntegrationTest
     assert_difference('Comment.count', -1) do
       delete api_comment_url(other_user_comment.id, format: :json),
              headers: { Authorization: "Bearer #{admin_token.token}" }
-      assert_response :no_content
+      assert_response :ok
+      assert_equal other_user_comment.id, response.parsed_body['id']
     end
   end
 

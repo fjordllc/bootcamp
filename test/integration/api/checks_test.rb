@@ -92,19 +92,22 @@ class API::ChecksTest < ActionDispatch::IntegrationTest
     token = create_token('komagata', 'testtest')
     delete api_check_path(@check2.id, format: :json),
            headers: { 'Authorization' => "Bearer #{token}" }
-    assert_response :no_content
+    assert_response :ok
+    assert_equal @check2.id, response.parsed_body['id']
 
     # adviser login
     token = create_token('advijirou', 'testtest')
     delete api_check_path(@check3.id, format: :json),
            headers: { 'Authorization' => "Bearer #{token}" }
-    assert_response :no_content
+    assert_response :ok
+    assert_equal @check3.id, response.parsed_body['id']
 
     # mentor login
     token = create_token('mentormentaro', 'testtest')
     delete api_check_path(@check4.id, format: :json),
            headers: { 'Authorization' => "Bearer #{token}" }
-    assert_response :no_content
+    assert_response :ok
+    assert_equal @check4.id, response.parsed_body['id']
   end
 
   test 'POST /api/checks.json with write scope but without mentor scope returns forbidden' do

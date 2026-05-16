@@ -21,6 +21,18 @@ class API::BaseController < ApplicationController
     "#{self.class.name}##{action_name}"
   end
 
+  def render_validation_errors(resource)
+    render json: { errors: resource.errors }, status: :unprocessable_entity
+  end
+
+  def render_not_found(message = 'リソースが見つかりません。')
+    render json: { message: }, status: :not_found
+  end
+
+  def render_bad_request(message = 'リクエストが不正です。')
+    render json: { message: }, status: :bad_request
+  end
+
   def require_login_for_api
     login_from_jwt unless logged_in?
     render json: { error: 'unauthorized' }, status: :unauthorized unless logged_in?

@@ -5,14 +5,14 @@ class API::ReactionsController < API::BaseController
   before_action -> { doorkeeper_authorize! :write }, only: %i[create destroy], if: -> { doorkeeper_token.present? }
 
   def create
-    return head :not_found unless @reactionable
+    return render_not_found('リアクション対象が見つかりません。') unless @reactionable
 
     reaction = @reactionable.reactions.build(user: current_user, kind: params[:kind])
 
     if reaction.save
       render json: { id: reaction.id }, status: :created
     else
-      head :bad_request
+      render_validation_errors(reaction)
     end
   end
 
@@ -23,7 +23,7 @@ class API::ReactionsController < API::BaseController
   end
 
   def index
-    return head :not_found unless @reactionable
+    return render_not_found('リアクション対象が見つかりません。') unless @reactionable
 
     reactions = @reactionable
                 .reactions
