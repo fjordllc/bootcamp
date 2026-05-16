@@ -91,7 +91,7 @@ class Pjord
     end
 
     def model_name
-      ENV.fetch('PJORD_LLM_MODEL', 'claude-sonnet-4-6')
+      ENV.fetch('PJORD_LLM_MODEL', 'gpt-5-mini')
     end
 
     def system_prompt(context, instructions: nil)

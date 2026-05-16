@@ -1,0 +1,83 @@
+- title @textbook.title
+
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            = @textbook.title
+        .page-main-header__end
+          .page-header-actions
+            ul.page-header-actions__items
+              li.page-header-actions__item
+                = link_to textbooks_path, class: 'a-button is-md is-secondary is-block is-back' do
+                  | 教科書一覧
+  hr.a-border
+  .page-body
+    .container.is-md
+      ruby:
+        all_sections = @textbook.chapters.flat_map(&:sections)
+        total = all_sections.size
+        if current_user.present?
+          completed_ids = current_user.reading_progresses.where(textbook_section_id: all_sections.map(&:id), completed: true).pluck(:textbook_section_id)
+          completed_count = completed_ids.size
+        else
+          completed_ids = []
+          completed_count = 0
+        end
+        progress_percent = total.positive? ? (completed_count.to_f / total * 100).round : 0
+
+      /! 概要カード
+      - if @textbook.description.present? || (current_user.present? && total.positive?)
+        .a-card
+          .card-body
+            - if @textbook.description.present?
+              .card-body__description
+                .a-long-text.is-md
+                  = @textbook.description
+            - if current_user.present? && total.positive?
+              .textbook-summary
+                .completed-practices-progress
+                  .completed-practices-progress__bar-container
+                    .completed-practices-progress__bar
+                    .completed-practices-progress__percentage-bar style="width: #{progress_percent}%"
+                  .completed-practices-progress__counts
+                    span.completed-practices-progress__percentage
+                      = "#{progress_percent}%（#{completed_count}/#{total}セクション完了）"
+              - next_section = all_sections.find { |s| !completed_ids.include?(s.id) }
+              - if next_section
+                .textbook-summary__action
+                  = link_to textbook_chapter_section_path(@textbook, next_section.chapter, next_section), class: 'a-button is-md is-primary is-block' do
+                    | 続きを読む
+
+      /! 章・セクション一覧
+      - @textbook.chapters.each do |chapter|
+        - chapter_sections = chapter.sections.to_a
+        - chapter_completed = current_user.present? ? chapter_sections.count { |s| completed_ids.include?(s.id) } : 0
+        .a-card
+          header.card-header
+            h2.card-header__title
+              = "第#{chapter.position}章 #{chapter.title}"
+            - if current_user.present? && chapter_sections.size.positive?
+              .card-header__metas
+                span.a-meta
+                  = "#{chapter_completed}/#{chapter_sections.size}"
+          hr.a-border-tint
+          .card-list
+            .card-list__items
+              - chapter.sections.each do |section|
+                .card-list__item
+                  = link_to textbook_chapter_section_path(@textbook, chapter, section), class: 'card-list__item-link' do
+                    .card-list__item-body
+                      .card-list__item-title
+                        - if current_user.present? && completed_ids.include?(section.id)
+                          i.fa-solid.fa-circle-check.a-completed-check
+                        - else
+                          i.fa-regular.fa-circle.a-pending-check
+                        = section.title
+                      .card-list__item-meta
+                        - if section.estimated_minutes.present?
+                          span
+                            i.fa-regular.fa-clock
+                            = " 約#{section.estimated_minutes}分"

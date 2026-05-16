@@ -1,0 +1,22 @@
+- title "#{@textbook.title} - #{@chapter.title}"
+
+  main.page-main
+    header.page-main-header
+      .container
+        .page-main-header__inner
+          .page-main-header__start
+            h1.page-main-header__title
+              = @chapter.title
+          .page-main-header__end
+            .page-header-actions
+              ul.page-header-actions__items
+                li.page-header-actions__item
+                  = link_to textbook_path(@textbook), class: 'a-button is-md is-secondary is-block is-back' do
+                    | 目次に戻る
+    hr.a-border
+    .page-body
+      .container.is-md
+        .a-card
+          .card-body
+            p
+              | この章にはまだセクションがありません。

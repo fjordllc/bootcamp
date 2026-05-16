@@ -1,0 +1,34 @@
+= form_with model: [:mentor, @textbook], local: true, class: 'form', html: { name: 'textbook' } do |f|
+  = render 'errors', object: @textbook
+  .form-item
+    .row
+      .col-md-6.col-xs-12
+        = f.label :title, class: 'a-form-label is-required'
+        = f.text_field :title, class: 'a-text-input js-warning-form'
+
+  .form-item
+    .row
+      .col-md-6.col-xs-12
+        = f.label :description, class: 'a-form-label'
+        = f.text_area :description, class: 'a-text-input js-warning-form', rows: 4
+
+  .form-item
+    .row
+      .col-md-6.col-xs-12
+        = f.label :published, '教科書を公開する', class: 'a-form-label'
+        label.a-on-off-checkbox.is-md
+          = f.check_box :published
+          span
+
+  .form-item
+    .row
+      .col-md-6.col-xs-12
+        = f.label :practice_id, 'プラクティス', class: 'a-form-label'
+        = f.collection_select :practice_id, Practice.all, :id, :title, { include_blank: '選択なし' }, class: 'a-text-input'
+
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item.is-main
+        = f.submit '内容を保存', class: 'a-button is-lg is-primary is-block'
+      li.form-actions__item.is-sub
+        = link_to 'キャンセル', :back, class: 'a-button is-sm is-secondary is-block'

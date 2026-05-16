@@ -37,6 +37,10 @@ class ActiveSupport::TestCase
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
+  set_fixture_class textbook_chapters: Textbook::Chapter,
+                    textbook_sections: Textbook::Section,
+                    reading_progresses: ReadingProgress,
+                    term_explanations: TermExplanation
 
   setup do
     ActiveStorage::Current.url_options = { protocol: 'http', host: 'localhost', port: '3000' }

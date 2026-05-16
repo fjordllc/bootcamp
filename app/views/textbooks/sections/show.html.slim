@@ -1,0 +1,88 @@
+- title "#{@textbook.title} - #{@section.title}"
+
+ruby:
+  sections = @chapter.sections.to_a
+  current_index = sections.index(@section)
+  progress_percent = ((current_index + 1).to_f / sections.size * 100).round
+  all_sections = @textbook.chapters.flat_map(&:sections)
+  global_index = all_sections.index(@section)
+  prev_section = global_index.positive? ? all_sections[global_index - 1] : nil
+  next_section = global_index < all_sections.size - 1 ? all_sections[global_index + 1] : nil
+
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            = @section.title
+        .page-main-header__end
+          .page-header-actions
+            ul.page-header-actions__items
+              li.page-header-actions__item
+                = link_to textbook_path(@textbook), class: 'a-button is-md is-secondary is-block is-back' do
+                  | 目次に戻る
+  hr.a-border
+  .page-body
+    .page-body__inner.has-side-nav
+      .container.is-md
+        /! パンくず
+        nav.textbook-breadcrumb
+          = link_to @textbook.title, textbook_path(@textbook)
+          |  ›
+          = " 第#{@chapter.position}章 #{@chapter.title}"
+          |  ›
+          span = " #{current_index + 1}/#{sections.size}"
+
+        /! 学習目標
+        - if @section.goals.present? && @section.goals.any?(&:present?)
+          .a-card.is-sm
+            header.card-header.is-sm
+              h2.card-header__title
+                i.fa-solid.fa-bullseye
+                |  このセクションの目標
+            .card-body
+              ul.card-body__items
+                - @section.goals.each do |goal|
+                  - next if goal.blank?
+                  li.card-body__item
+                    = goal
+
+        /! 本文
+        .a-card data-controller='reading-progress' data-reading-progress-section-id-value="#{@section.id}" data-reading-progress-total-blocks-value='0'
+          .card-body
+            .card-body__description
+              .a-long-text.is-md.js-markdown-view
+                = textbook_section_body(@section)
+
+        /! 前後ナビ
+        .page-content-prev-next
+          .page-content-prev-next__item
+            - if prev_section
+              = link_to textbook_chapter_section_path(@textbook, prev_section.chapter, prev_section), class: 'page-content-prev-next__item-link is-prev' do
+                i.fa-solid.fa-angle-left
+                |  前へ
+          .page-content-prev-next__item
+            - if next_section
+              = link_to textbook_chapter_section_path(@textbook, next_section.chapter, next_section), class: 'page-content-prev-next__item-link is-next' do
+                | 次へ
+                i.fa-solid.fa-angle-right
+
+      /! サイドナビ（章のセクション一覧）
+      nav.a-side-nav
+        .a-side-nav__inner
+          header.a-side-nav__header
+            h2.a-side-nav__title
+              = link_to textbook_path(@textbook), class: 'a-side-nav__title-link' do
+                = "第#{@chapter.position}章 #{@chapter.title}"
+          hr.a-border
+          .a-side-nav__body
+            ul.a-side-nav__items
+              - sections.each do |section|
+                li.a-side-nav__item class=("#{'is-current' if section == @section}")
+                  = link_to textbook_chapter_section_path(@textbook, @chapter, section), class: 'a-side-nav__item-link' do
+                    span.a-side-nav__item-link-inner
+                      = section.title
+
+  /! ピヨルド
+  = render 'shared/piyo_companion', section_id: @section.id

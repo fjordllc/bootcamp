@@ -79,3 +79,6 @@ tables = %i[
 ]
 
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', tables
+
+# textbook seed データ
+load Rails.root.join('db/seeds/textbook_linux.rb')
