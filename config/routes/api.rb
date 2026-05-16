@@ -60,6 +60,7 @@ Rails.application.routes.draw do
     resources :reports, only: %i(index show create update destroy) do
       resources :comments, only: %i[create], controller: 'reports/comments'
       resources :reactions, only: %i(index create destroy), controller: 'reports/reactions'
+      resource :check, only: %i(create destroy), controller: 'reports/check'
     end
     resources :watches, only: %i(index create destroy)
     namespace 'watches' do
@@ -81,6 +82,7 @@ Rails.application.routes.draw do
     end
     resources :products, only: %i(index show create update destroy) do
       resources :comments, only: %i(create), controller: 'products/comments'
+      resource :check, only: %i(create destroy), controller: 'products/check'
     end
     resources :searchables, only: %i(index)
     resources :bookmarks, only: %i(index create destroy)
