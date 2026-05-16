@@ -33,6 +33,11 @@ class API::BaseController < ApplicationController
     render json: { message: }, status: :bad_request
   end
 
+  def require_login_for_api
+    login_from_jwt unless logged_in?
+    render json: { error: 'unauthorized' }, status: :unauthorized unless logged_in?
+  end
+
   def doorkeeper_unauthorized_render_options(error:)
     { json: doorkeeper_error_body(error) }
   end
