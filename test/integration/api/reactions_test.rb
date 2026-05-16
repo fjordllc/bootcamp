@@ -3,19 +3,19 @@
 require 'test_helper'
 
 class API::ReactionTest < ActionDispatch::IntegrationTest
-  def setup
+  setup do
     user = users(:komagata)
-    application = Doorkeeper::Application.create!(
+    @application = Doorkeeper::Application.create!(
       name: 'Sample Application',
       redirect_uri: 'urn:ietf:wg:oauth:2.0:oob'
     )
     @read_token = Doorkeeper::AccessToken.create!(
-      application:,
+      application: @application,
       resource_owner_id: user.id,
       scopes: 'read'
     )
     @write_token = Doorkeeper::AccessToken.create!(
-      application:,
+      application: @application,
       resource_owner_id: user.id,
       scopes: 'read write'
     )
@@ -39,6 +39,22 @@ class API::ReactionTest < ActionDispatch::IntegrationTest
                              headers: { 'Authorization' => "Bearer #{token}" }
 
     assert_response :not_found
+  end
+
+  test 'POST /api/reactions with read scope returns forbidden' do
+    token = Doorkeeper::AccessToken.create!(
+      application: @application,
+      resource_owner_id: users(:komagata).id,
+      scopes: 'read'
+    )
+
+    post api_reactions_path,
+         params: { reactionable_gid: reports(:report4).to_global_id.to_s, kind: 'smile' },
+         as: :json,
+         headers: { Authorization: "Bearer #{token.token}" }
+
+    assert_response :forbidden
+    assert_equal 'invalid_scope', response.parsed_body['error']
   end
 
   test 'DELETE /api/reactions/reactionID returns ok' do

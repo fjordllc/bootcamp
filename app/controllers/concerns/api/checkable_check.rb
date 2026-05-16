@@ -6,6 +6,7 @@ module API::CheckableCheck
   included do
     before_action :require_staff
     before_action -> { doorkeeper_authorize! :write }, only: %i[create destroy], if: -> { doorkeeper_token.present? }
+    before_action -> { doorkeeper_authorize! :mentor }, only: %i[create destroy], if: -> { doorkeeper_token.present? }
     before_action :set_checkable
   end
 
