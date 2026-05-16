@@ -4,9 +4,20 @@ require 'test_helper'
 
 class API::ReactionTest < ActionDispatch::IntegrationTest
   setup do
+    user = users(:komagata)
     @application = Doorkeeper::Application.create!(
       name: 'Sample Application',
       redirect_uri: 'urn:ietf:wg:oauth:2.0:oob'
+    )
+    @read_token = Doorkeeper::AccessToken.create!(
+      application: @application,
+      resource_owner_id: user.id,
+      scopes: 'read'
+    )
+    @write_token = Doorkeeper::AccessToken.create!(
+      application: @application,
+      resource_owner_id: user.id,
+      scopes: 'read write'
     )
   end
 
@@ -107,5 +118,95 @@ class API::ReactionTest < ActionDispatch::IntegrationTest
                             headers: { 'Authorization' => "Bearer #{token}" }
 
     assert_response :not_found
+  end
+
+  test 'report response includes reactionable_gid' do
+    get api_report_path(reports(:report4), format: :json),
+        headers: { Authorization: "Bearer #{@read_token.token}" }
+
+    assert_response :ok
+    assert_equal reports(:report4).to_global_id.to_s, response.parsed_body['reactionable_gid']
+  end
+
+  test 'POST /api/reports/:report_id/reactions returns created' do
+    report = reports(:report4)
+
+    assert_difference('Reaction.count') do
+      post api_report_reactions_path(report, format: :json),
+           params: { kind: 'smile' },
+           headers: { Authorization: "Bearer #{@write_token.token}" }
+      assert_response :created
+    end
+
+    reaction = Reaction.find(response.parsed_body['id'])
+    assert_equal report, reaction.reactionable
+    assert_equal users(:komagata), reaction.user
+    assert_equal 'smile', reaction.kind
+  end
+
+  test 'GET /api/reports/:report_id/reactions returns reactions' do
+    report = reports(:report4)
+    Reaction.create!(reactionable: report, user: users(:komagata), kind: 'thumbsup')
+
+    get api_report_reactions_path(report, format: :json),
+        headers: { Authorization: "Bearer #{@read_token.token}" }
+
+    assert_response :ok
+    assert_equal Reaction.emojis['thumbsup'], response.parsed_body.dig('thumbsup', 'emoji')
+    assert_equal users(:komagata).id, response.parsed_body.dig('thumbsup', 'users', 0, 'id')
+  end
+
+  test 'DELETE /api/reports/:report_id/reactions/:id returns ok' do
+    report = reports(:report4)
+    reaction = Reaction.create!(reactionable: report, user: users(:komagata), kind: 'heart')
+
+    assert_difference('Reaction.count', -1) do
+      delete api_report_reaction_path(report, reaction, format: :json),
+             headers: { Authorization: "Bearer #{@write_token.token}" }
+      assert_response :ok
+    end
+  end
+
+  test 'POST /api/reports/:report_id/reactions with read scope returns forbidden' do
+    post api_report_reactions_path(reports(:report4), format: :json),
+         params: { kind: 'smile' },
+         headers: { Authorization: "Bearer #{@read_token.token}" }
+
+    assert_response :forbidden
+    assert_equal 'invalid_scope', response.parsed_body['error']
+  end
+
+  test 'POST /api/reports/:report_id/reactions with unknown report returns not_found' do
+    post api_report_reactions_path(0, format: :json),
+         params: { kind: 'smile' },
+         headers: { Authorization: "Bearer #{@write_token.token}" }
+
+    assert_response :not_found
+    assert_equal '日報が見つかりません。', response.parsed_body['message']
+  end
+
+  test 'POST /api/reports/:report_id/reactions with invalid kind returns unprocessable_entity' do
+    assert_no_difference('Reaction.count') do
+      post api_report_reactions_path(reports(:report4), format: :json),
+           params: { kind: 'invalid' },
+           headers: { Authorization: "Bearer #{@write_token.token}" }
+    end
+
+    assert_response :unprocessable_entity
+    assert response.parsed_body.dig('errors', 'kind').present?
+  end
+
+  test 'POST /api/reports/:report_id/reactions with duplicate kind returns unprocessable_entity' do
+    report = reports(:report4)
+    Reaction.create!(reactionable: report, user: users(:komagata), kind: 'smile')
+
+    assert_no_difference('Reaction.count') do
+      post api_report_reactions_path(report, format: :json),
+           params: { kind: 'smile' },
+           headers: { Authorization: "Bearer #{@write_token.token}" }
+    end
+
+    assert_response :unprocessable_entity
+    assert response.parsed_body['errors'].present?
   end
 end

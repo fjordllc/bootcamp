@@ -1,0 +1,242 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  RUBY_VERSION: 3.4.3
+  NODE_VERSION: 22.19.0
+  BUNDLE_JOBS: "3"
+  BUNDLE_RETRY: "3"
+  TZ: Asia/Tokyo
+  SHAKAPACKER_NODE_MODULES_BIN_PATH: ./node_modules/.bin
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+          bundler-cache: true
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install npm packages
+        run: npm ci
+
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+          bundler-cache: true
+
+      - name: Install system packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libvips libheif-dev
+
+      - name: RuboCop
+        run: bundle exec rubocop --format progress
+
+      - name: Slim Lint
+        run: bundle exec slim-lint app/views -c config/slim_lint.yml
+
+      - name: Traceroute
+        run: FAIL_ON_ERROR=1 bundle exec rake traceroute
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install npm packages
+        run: npm ci
+
+      - name: Lint JavaScript
+        run: npm run lint
+
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    needs: build
+
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7]
+
+    services:
+      postgres:
+        image: pgvector/pgvector:pg14
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: ci_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d ci_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      PGHOST: 127.0.0.1
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      RAILS_ENV: test
+      DATABASE_URL: postgres://postgres:postgres@localhost/ci_test
+      CIRCLE_TEST_REPORTS: test/reports
+      TEST_SHARD: ${{ matrix.shard }}
+      TEST_SHARDS: 8
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+          bundler-cache: true
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install npm packages
+        run: npm ci
+
+      - name: Install system packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk ffmpeg imagemagick libvips libheif-dev libuv1-dev postgresql-client
+          for package in libheif-plugin-aomdec libheif-plugin-libde265; do
+            if apt-cache show "$package" >/dev/null 2>&1; then
+              sudo apt-get install -y "$package"
+            fi
+          done
+
+      - name: Check browser install
+        run: |
+          google-chrome --version
+          chromedriver --version
+
+      - name: Enable pgvector extension
+        run: psql -h localhost -U postgres -d ci_test -c "CREATE EXTENSION IF NOT EXISTS vector;"
+
+      - name: Prepare database
+        run: bundle exec rails db:prepare
+
+      - name: Precompile assets
+        run: bundle exec rails assets:clean assets:precompile
+
+      - name: Select test files
+        run: |
+          ruby -e 'files = Dir["test/**/*_test.rb"].sort.each_with_index.select { |_, i| i % ENV.fetch("TEST_SHARDS").to_i == ENV.fetch("TEST_SHARD").to_i }.map(&:first); abort "No test files selected" if files.empty?; File.write("tmp/test_files.txt", files.join("\n") + "\n")'
+          wc -l tmp/test_files.txt
+
+      - name: Run Rails tests with JUnit XML
+        run: |
+          mkdir -p test/reports
+          find test/reports -type f -delete
+          xargs bundle exec ruby -e '
+            require "minitest"
+            Minitest.const_set(:Reporter, Minitest::AbstractReporter) unless defined?(Minitest::Reporter)
+            require "minitest/ci"
+            load "bin/rails"
+          ' test < tmp/test_files.txt
+
+      - name: Upload JUnit XML
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: junit-xml-${{ matrix.shard }}
+          path: test/reports/**/*.xml
+          if-no-files-found: warn
+
+      - name: Upload screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots-${{ matrix.shard }}
+          path: |
+            tmp/screenshots
+            tmp/capybara
+          if-no-files-found: ignore
+
+  flakewatch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: test
+    if: ${{ always() && !cancelled() }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download JUnit XML
+        uses: actions/download-artifact@v4
+        with:
+          pattern: junit-xml-*
+          path: test/reports
+          merge-multiple: true
+
+      - name: Generate flakewatch HTML
+        uses: komagata/flakewatch@v0.4.0
+        with:
+          junit: "test/reports/**/*.xml"
+          output: flakewatch.html
+          source-base-url: "https://github.com/${{ github.repository }}/blob/${{ github.sha }}"
+          source-root: "."
+
+      - name: Upload flakewatch HTML
+        id: upload-flakewatch-report
+        uses: actions/upload-artifact@v4
+        with:
+          name: flakewatch-report
+          path: flakewatch.html
+          if-no-files-found: error
+
+      - name: Add flakewatch summary
+        run: |
+          {
+            echo "## Flakewatch"
+            echo ""
+            echo "- flakewatch action: \`komagata/flakewatch@v0.4.0\`"
+            echo "- JUnit XML artifacts: \`junit-xml-*\`"
+            echo "- HTML report: [Download flakewatch-report](${{ steps.upload-flakewatch-report.outputs.artifact-url }})"
+            echo ""
+            echo "Download the artifact and open \`flakewatch.html\` in a browser."
+          } >> "$GITHUB_STEP_SUMMARY"
