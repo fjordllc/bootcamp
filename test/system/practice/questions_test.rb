@@ -109,4 +109,22 @@ class Practice::QuestionsTest < ApplicationSystemTestCase
     assert_no_selector '.card-list-item-title__link', exact_text: '給付金コースのコピー元プラクティスの質問'
     assert_no_selector '.card-list-item-title__link', exact_text: '給付金コースのコピー元プラクティスの質問(解決済み)'
   end
+
+  test 'show total question count from grant and source practices when all scope is selected' do
+    visit_with_auth "/practices/#{practices(:practice64).id}/questions", 'grant-course'
+    assert_selector '.page-tabs__item-link.is-active', exact_text: '質問 （4）'
+  end
+
+  test 'show question count from grant practice only when grant course scope is selected' do
+    visit_with_auth "/practices/#{practices(:practice64).id}/questions", 'grant-course'
+    within '.pill-nav' do
+      click_on '給付金コース'
+    end
+    assert_selector '.page-tabs__item-link.is-active', exact_text: '質問 （2）'
+  end
+
+  test 'show total question count from grant and source practices on non-question pages' do
+    visit_with_auth "/practices/#{practices(:practice64).id}", 'grant-course'
+    assert_selector '.page-tabs__item-link', exact_text: '質問 （4）'
+  end
 end
