@@ -49,7 +49,7 @@ Rails.application.routes.draw do
       end
       resources :recents, only: %i(index)
     end
-    resources :reports, only: %i(index show) do
+    resources :reports, only: %i(index show create update destroy) do
       resources :comments, only: %i[create], controller: 'reports/comments'
       resources :reactions, only: %i(index create destroy), controller: 'reports/reactions'
     end
