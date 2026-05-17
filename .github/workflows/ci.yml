@@ -204,6 +204,7 @@ jobs:
     if: ${{ always() && !cancelled() }}
     permissions:
       actions: read
+      contents: write
       pull-requests: write
 
     steps:
@@ -218,7 +219,8 @@ jobs:
           merge-multiple: true
 
       - name: Generate flakewatch HTML
-        uses: komagata/flakewatch@v0.5.0
+        uses: komagata/flakewatch@v0.6.0
         with:
           junit: "test/reports/**/*.xml"
           source-root: "."
+          history-branch: flakewatch-data
