@@ -9,8 +9,8 @@ module PageTabs
       tabs << { name: 'プラクティス', link: practice_path(practice) }
       tabs << { name: '日報', link: practice_reports_path(practice), count: practice.reports_count(include_source:) }
       tabs << { name: '質問', link: practice_questions_path(practice), count: practice_questions_count(practice, active_tab:) }
-      tabs << { name: 'Docs', link: practice_pages_path(practice), count: practice.pages.length }
-      tabs << { name: '動画', link: practice_movies_path(practice), count: practice.movies.length } if movie_available?
+      tabs << { name: 'Docs', link: practice_pages_path(practice), count: practice.pages.count }
+      tabs << { name: '動画', link: practice_movies_path(practice), count: practice.movies.count } if movie_available?
       tabs << { name: '提出物', link: practice_products_path(practice) } if practice.submission
       tabs << { name: '模範解答', link: practice_submission_answer_path(practice) } if practice.submission_answer.present?
       tabs << { name: 'コーディングテスト', link: practice_coding_tests_path(practice) } if practice.coding_tests.present?
