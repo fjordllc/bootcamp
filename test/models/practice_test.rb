@@ -135,7 +135,7 @@ class PracticeTest < ActiveSupport::TestCase
     source_practice = practices(:practice67)
     practice = practices(:practice68)
     initial_count = practice.reports_count(include_source: false)
-    initial_count_include_source = practice.reports_count(include_source: true)
+    initial_count_including_source = practice.reports_count(include_source: true)
 
     Report.create!(
       user: users(:komagata),
@@ -146,6 +146,6 @@ class PracticeTest < ActiveSupport::TestCase
     )
 
     assert_equal initial_count + 1, practice.reports_count(include_source: false)
-    assert_equal initial_count_include_source + 1, practice.reports_count(include_source: true)
+    assert_equal initial_count_including_source + 1, practice.reports_count(include_source: true)
   end
 end
