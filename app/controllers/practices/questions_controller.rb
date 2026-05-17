@@ -3,10 +3,6 @@
 class Practices::QuestionsController < ApplicationController
   def index
     @practice = Practice.find(params[:practice_id])
-    allowed_targets = %w[solved not_solved].freeze
-    target = allowed_targets.include?(params[:target]) ? params[:target] : nil
-    allowed_scopes = %w[grant_course].freeze
-    scope = allowed_scopes.include?(params[:scope]) ? params[:scope] : nil
     practices =
       if scope == 'grant_course'
         @practice
@@ -32,5 +28,13 @@ class Practices::QuestionsController < ApplicationController
     else
       '質問はありません。'
     end
+  end
+
+  def target
+    params[:target] if %w[solved not_solved].include?(params[:target])
+  end
+
+  def scope
+    params[:scope] if %w[grant_course].include?(params[:scope])
   end
 end
