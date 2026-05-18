@@ -1,2 +1,159 @@
+buzz0:
+  title: test-article-2025-08
+  url: https://example1.com/
+  published_at: 2025-08-01
+
 buzz1:
-  body: インターネットで見つけたフィヨルドブートキャンプに関連する記事、フィヨルドブートキャンプに言及いただいた記事を集めています。このページに載せて欲しい記事、掲載NGな記事がありましたら[お問い合わせフォーム](https://bootcamp.fjord.jp/inquiry/new)からご連絡ください。
+  title: test-article-2025-07
+  url: https://example2.com/
+  published_at: 2025-07-01
+
+buzz2:
+  title: test-article-2025-06
+  url: https://example3.com/
+  published_at: 2025-06-01
+
+buzz3:
+  title: test-article-2025-05
+  url: https://example4.com/
+  published_at: 2025-05-01
+
+buzz4:
+  title: test-article-2025-04
+  url: https://example5.com/
+  published_at: 2025-04-01
+
+buzz5:
+  title: test-article-2025-03
+  url: https://example6.com/
+  published_at: 2025-03-01
+
+buzz6:
+  title: test-article-2025-02
+  url: https://example7.com/
+  published_at: 2025-02-01
+
+buzz7:
+  title: test-article-2025-01
+  url: https://example8.com/
+  published_at: 2025-01-01
+
+buzz8:
+  title: test-article-2024-12
+  url: https://example9.com/
+  published_at: 2024-12-01
+
+buzz9:
+  title: test-article-2024-11
+  url: https://example10.com/
+  published_at: 2024-11-01
+
+buzz10:
+  title: test-article-2024-10
+  url: https://example11.com/
+  published_at: 2024-10-01
+
+buzz11:
+  title: test-article-2024-09
+  url: https://example12.com/
+  published_at: 2024-09-01
+
+buzz12:
+  title: test-article-2024-08
+  url: https://example13.com/
+  published_at: 2024-08-01
+
+buzz13:
+  title: test-article-2024-07
+  url: https://example14.com/
+  published_at: 2024-07-01
+
+buzz14:
+  title: test-article-2024-06
+  url: https://example15.com/
+  published_at: 2024-06-01
+
+buzz15:
+  title: test-article-2024-05
+  url: https://example16.com/
+  published_at: 2024-05-01
+
+buzz16:
+  title: test-article-2024-04
+  url: https://example17.com/
+  published_at: 2024-04-01
+
+buzz17:
+  title: test-article-2024-03
+  url: https://example18.com/
+  published_at: 2024-03-01
+
+buzz18:
+  title: test-article-2024-02
+  url: https://example19.com/
+  published_at: 2024-02-01
+
+buzz19:
+  title: test-article-2024-01
+  url: https://example20.com/
+  published_at: 2024-01-01
+
+buzz20:
+  title: test-article-2023-12
+  url: https://example21.com/
+  published_at: 2023-12-01
+
+buzz21:
+  title: test-article-2023-11
+  url: https://example22.com/
+  published_at: 2023-11-01
+
+buzz22:
+  title: test-article-2023-10
+  url: https://example23.com/
+  published_at: 2023-10-01
+
+buzz23:
+  title: test-article-2023-09
+  url: https://example24.com/
+  published_at: 2023-09-01
+
+buzz24:
+  title: test-article-2023-08
+  url: https://example25.com/
+  published_at: 2023-08-01
+
+buzz25:
+  title: test-article-2023-07
+  url: https://example26.com/
+  published_at: 2023-07-01
+
+buzz26:
+  title: test-article-2023-06
+  url: https://example27.com/
+  published_at: 2023-06-01
+
+buzz27:
+  title: test-article-2023-05
+  url: https://example28.com/
+  published_at: 2023-05-01
+
+buzz28:
+  title: test-article-2023-04
+  url: https://example29.com/
+  published_at: 2023-04-01
+
+buzz29:
+  title: test-article-2023-03
+  url: https://example30.com/
+  published_at: 2023-03-01
+
+buzz30:
+  title: test-article-2023-02
+  url: https://example31.com/
+  published_at: 2023-02-01
+
+buzz31:
+  title: test-article-2023-01
+  url: https://example32.com/
+  published_at: 2023-01-01
