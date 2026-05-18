@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Admin::UsersController < AdminController
+class Admin::UsersController < AdminController # rubocop:todo Metrics/ClassLength
   before_action :set_user, only: %i[show edit update]
   ALLOWED_TARGETS = %w[all student_and_trainee inactive hibernated retired graduate adviser mentor trainee year_end_party campaign].freeze
 
