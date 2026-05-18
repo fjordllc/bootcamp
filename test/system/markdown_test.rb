@@ -175,7 +175,7 @@ class MarkdownTest < ApplicationSystemTestCase
         find('#js-new-comment').send_keys([:control, 'i'])
       end
     end
-    all('.a-form-tabs__tab.js-tabs__tab')[1].click
+    find('.a-form-tabs__tab.js-tabs__tab', text: 'プレビュー').click
     assert_text '@komagata'
     click_button 'コメントする'
     assert_text '@komagata'
