@@ -4,6 +4,8 @@ class Image < ApplicationRecord
   belongs_to :user
   has_one_attached :image
 
+  validates :image, attached: true
+
   attr_accessor :file
 
   def strip_exif!
