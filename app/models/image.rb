@@ -6,12 +6,11 @@ class Image < ApplicationRecord
 
   validates :image, attached: true
 
-  attr_accessor :file
-
   def strip_exif!
-    return if file.blank?
+    attachment = attachment_changes['image']
+    return unless attachment
 
-    uploaded_file = file
+    uploaded_file = attachment.attachable
     original_image = MiniMagick::Image.read(uploaded_file.tempfile)
     original_image.strip
 
