@@ -715,6 +715,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_062046) do
     t.index ["regular_event_id"], name: "index_regular_event_repeat_rules_on_regular_event_id"
   end
 
+  create_table "regular_event_skip_dates", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "reason"
+    t.bigint "regular_event_id", null: false
+    t.date "skip_on", null: false
+    t.datetime "updated_at", null: false
+    t.index ["regular_event_id", "skip_on"], name: "index_regular_event_skip_dates_on_regular_event_id_and_skip_on", unique: true
+    t.index ["regular_event_id"], name: "index_regular_event_skip_dates_on_regular_event_id"
+  end
+
   create_table "regular_events", force: :cascade do |t|
     t.boolean "all", default: false, null: false
     t.integer "category", default: 0, null: false
@@ -1168,6 +1178,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_062046) do
   add_foreign_key "regular_event_participations", "regular_events"
   add_foreign_key "regular_event_participations", "users"
   add_foreign_key "regular_event_repeat_rules", "regular_events"
+  add_foreign_key "regular_event_skip_dates", "regular_events"
   add_foreign_key "regular_events", "users"
   add_foreign_key "report_templates", "users"
   add_foreign_key "request_retirements", "users"

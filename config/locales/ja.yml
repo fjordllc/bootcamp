@@ -50,6 +50,7 @@ ja:
       campaign: お試し延長
       book: 参考書籍
       regular_event: 定期イベント
+      regular_event_skip_date: イベントをスキップする日
       request_retirement: 退会申請
       faq: FAQ
       answer: 回答
@@ -291,9 +292,16 @@ ja:
         open_end_at: 募集終了日時
         organizer: 主催者
         regular_event_repeat_rules: 定期開催日
+        regular_event_skip_dates: イベントをスキップする日
       regular_event_repeat_rule:
         frequency: 開催頻度
         day_of_the_week: 曜日
+      regular_event_skip_date:
+        skip_on: スキップする日
+        reason: 理由
+      regular_event_skip_dates:
+        skip_on: スキップする日
+        reason: 理由
       authored_book:
         title: タイトル
         url: URL
