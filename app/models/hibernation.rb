@@ -23,7 +23,7 @@ class Hibernation < ApplicationRecord
   def destroy_subscription!
     return nil if !Rails.env.production? || staging?
 
-    Subscription.new.destroy(user.subscription_id) if user.subscription_id
+    Subscription.new.destroy(user.subscription_id) if user.subscription_id?
   end
 
   def notify_to_mentors_and_admins
