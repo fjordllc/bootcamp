@@ -36,7 +36,7 @@ class Admin::UsersController < AdminController
     if @user.update(user_params)
       complete_graduation_or_retirement(@user)
       if params[:hibernate_user]
-        return unless hibernate(`@user`)
+        return unless hibernate(@user)
       elsif params[:comeback_user]
         @user.comeback!
       end

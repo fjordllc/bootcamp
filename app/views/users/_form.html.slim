@@ -118,8 +118,11 @@
                   = check_box_tag :hibernate_user, 1, false, class: 'a-toggle-checkbox js-date-input-toggler-checkbox', id: 'hibernate-user'
                   .a-block-check__label.is-ta-left.has-input
                     = label_tag :hibernate_user, '休会させる', for: 'hibernate-user'
+
                     .form-item__inline-form-item.js-date-input-toggler-date-area
-                      = date_field_tag :scheduled_return_on, nil, class: 'a-text-input js-date-input-toggler-date'
+                      .is-block.w-full
+                        p 復帰予定日
+                        = date_field_tag :scheduled_return_on, nil, class: 'a-text-input js-date-input-toggler-date w-full'
         .a-form-help
           p
             - if @user.hibernated?
