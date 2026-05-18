@@ -36,7 +36,7 @@ class Admin::UsersController < AdminController
     if @user.update(user_params)
       complete_graduation_or_retirement(@user)
       if params[:hibernate_user]
-        hibernate(@user)
+        return unless hibernate(`@user`)
       elsif params[:comeback_user]
         @user.comeback!
       end
@@ -122,11 +122,12 @@ class Admin::UsersController < AdminController
       reason: '管理者操作',
       scheduled_return_on: params[:scheduled_return_on]
     )
-    hibernation.user = @user
+    hibernation.user = user
     if hibernation.save
       hibernation.execute
     else
-      render :edit, alert: '休会に失敗しました。'
+      render :edit
+      false
     end
   end
 end
