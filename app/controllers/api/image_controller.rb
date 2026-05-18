@@ -2,7 +2,7 @@
 
 class API::ImageController < API::BaseController
   def create
-    @image = Image.new(user: current_user, file: params[:file])
+    @image = Image.new(user: current_user, image: params[:file])
     @image.strip_exif!
 
     if @image.save
