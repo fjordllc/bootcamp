@@ -2,8 +2,8 @@
 
 class API::ImageController < API::BaseController
   def create
-    @image = Image.new(user: current_user)
-    @image.strip_exif(params[:file])
+    @image = Image.new(user: current_user, file: params[:file])
+    @image.strip_exif!
 
     if @image.save
       render :create, status: :created

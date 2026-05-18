@@ -4,7 +4,10 @@ class Image < ApplicationRecord
   belongs_to :user
   has_one_attached :image
 
-  def strip_exif(uploaded_file)
+  attr_accessor :file
+
+  def strip_exif!
+    uploaded_file = file
     original_image = MiniMagick::Image.read(uploaded_file.tempfile)
     original_image.strip
 
