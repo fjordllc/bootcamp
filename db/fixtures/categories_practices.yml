@@ -316,6 +316,7 @@ categories_practice63:
 categories_practice64:
   practice: practice64
   category: category10
+  position: 3
 
 categories_practice65:
   practice: practice111
@@ -340,7 +341,7 @@ categories_practice68:
 categories_practice69:
   practice: practice65
   category: category6
-  position: 14
+  position: 16
 
 categories_practice70:
   practice: practice65
@@ -350,7 +351,7 @@ categories_practice70:
 categories_practice71:
   practice: practice66
   category: category6
-  position: 15
+  position: 17
 
 categories_practice72:
   practice: practice66
@@ -360,7 +361,7 @@ categories_practice72:
 categories_practice73:
   practice: practice113
   category: category24
-  position: 16
+  position: 1
 
 categories_practice74:
   practice: practice114
