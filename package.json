@@ -100,7 +100,7 @@
     "playwright": "1.60.0",
     "prettier": "^2.6.2",
     "style-loader": "^3.3.4",
-    "webpack-dev-server": "^5.2.2"
+    "webpack-dev-server": "^5.2.4"
   },
   "engines": {
     "node": ">=20.9.0 <23"
