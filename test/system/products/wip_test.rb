@@ -38,14 +38,14 @@ module Products
     test 'user who has submitted a WIP product is alerted in the product page' do
       wip_product = products(:product5)
       visit_with_auth "/products/#{wip_product.id}", 'kimura'
-      assert_text "提出物はまだ提出されていません。\n完成したら「提出する」をクリック！"
+      assert_text '提出物はまだ提出されていません。完成したら「提出する」をクリック！'
     end
 
     test "user is not alerted in the other's WIP product page" do
       wip_product = products(:product5)
       visit_with_auth "/products/#{wip_product.id}", 'hatsuno'
       assert_equal "提出物: #{wip_product.practice.title} | FBC", title
-      assert_no_text "提出物はまだ提出されていません。\n完成したら「提出する」をクリック！"
+      assert_no_text '提出物はまだ提出されていません。完成したら「提出する」をクリック！'
     end
 
     test "Don't notify if create product as WIP" do

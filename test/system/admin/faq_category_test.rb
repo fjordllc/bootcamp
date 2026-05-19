@@ -28,8 +28,9 @@ class Admin::FaqCategoryest < ApplicationSystemTestCase
 
   test 'delete FAQ' do
     visit_with_auth "/admin/faq_categories/#{faq_categories(:faq_category1).id}/edit", 'komagata'
-    click_on '削除'
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm do
+      click_on '削除'
+    end
     assert_text 'FAQカテゴリーを削除しました。'
   end
 end

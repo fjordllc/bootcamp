@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'capybara-playwright-driver'
 require 'supports/login_helper'
 require 'supports/test_auth_helper'
 require 'supports/stripe_helper'
@@ -36,16 +37,15 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include AnnouncementHelper
   include RegularEventHelper
 
-  if ENV['HEADFUL']
-    driven_by :selenium, using: :chrome
-  else
-    driven_by(:selenium, using: :headless_chrome) do |driver_option|
-      driver_option.add_argument('--no-sandbox')
-      driver_option.add_argument('--disable-dev-shm-usage')
-      driver_option.add_argument('enable-blink-features=Clipboard')
-      driver_option.add_preference('profile.password_manager_leak_detection', false)
-    end
-  end
+  driven_by :playwright,
+            screen_size: [1400, 1400],
+            options: {
+              browser_type: :chromium,
+              chromiumSandbox: false,
+              headless: !ENV['HEADFUL'],
+              playwright_cli_executable_path: './node_modules/.bin/playwright',
+              permissions: %w[clipboard-read clipboard-write]
+            }
 
   setup do
     @original_adapter = ActiveJob::Base.queue_adapter

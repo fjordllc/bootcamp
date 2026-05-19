@@ -30,7 +30,7 @@ module Reports
         fill_in('report[reported_on]', with: Date.new(2012, 12, 31))
       end
       click_button '提出'
-      html_validation_message = page.find('#report_reported_on').native.attribute('validationMessage')
+      html_validation_message = page.evaluate_script("document.getElementById('report_reported_on').validationMessage")
       assert_not_nil html_validation_message
       assert_not_empty html_validation_message
     end

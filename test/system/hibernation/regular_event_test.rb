@@ -13,8 +13,9 @@ class HibernationRegularEventTest < ApplicationSystemTestCase
       fill_in('hibernation[reason]', with: 'test')
     end
     find('.check-box-to-read').click
-    click_on '休会する'
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm do
+      click_on '休会する'
+    end
     assert_text '休会手続きが完了しました'
 
     regular_event = regular_events(:regular_event1)
@@ -32,8 +33,9 @@ class HibernationRegularEventTest < ApplicationSystemTestCase
       fill_in('hibernation[reason]', with: 'test')
     end
     find('.check-box-to-read').click
-    click_on '休会する'
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm do
+      click_on '休会する'
+    end
     assert_text '休会手続きが完了しました'
 
     regular_event = regular_events(:regular_event4)
@@ -51,8 +53,9 @@ class HibernationRegularEventTest < ApplicationSystemTestCase
       fill_in('hibernation[reason]', with: 'test')
     end
     find('.check-box-to-read').click
-    click_on '休会する'
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm do
+      click_on '休会する'
+    end
     assert_text '休会手続きが完了しました'
 
     regular_event = regular_events(:regular_event4)

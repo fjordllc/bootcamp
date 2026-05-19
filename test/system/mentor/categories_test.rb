@@ -75,8 +75,9 @@ class Mentor::CategoriesTest < ApplicationSystemTestCase
 
   test 'delete category' do
     visit_with_auth "/mentor/categories/#{categories(:category1).id}/edit", 'mentormentaro'
-    click_on '削除'
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm do
+      click_on '削除'
+    end
     assert_text 'カテゴリーを削除しました。'
     assert_no_text '学習の準備'
   end

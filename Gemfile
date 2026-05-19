@@ -121,11 +121,11 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'capybara-playwright-driver', '~> 0.5.9'
   gem 'minitest', '< 6.0'
   gem 'minitest-ci'
   gem 'minitest-retry'
   gem 'minitest-stub_any_instance'
-  gem 'selenium-webdriver'
   gem 'vcr'
   gem 'webmock'
 end

@@ -72,7 +72,7 @@ class SignUpTest < ApplicationSystemTestCase
       if has_selector?('.tagify__input')
         tag_input = find('.tagify__input')
         tag_input.set tag
-        tag_input.native.send_keys :return
+        tag_input.send_keys :return
       elsif has_selector?('input[name="user[tag_list]"]', visible: :hidden)
         page.execute_script("document.querySelector('input[name=\"user[tag_list]\"]').value = '#{tag}'")
       end

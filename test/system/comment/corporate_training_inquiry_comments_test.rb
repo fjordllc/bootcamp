@@ -131,18 +131,7 @@ class CorporateTrainingInquiryCommentsTest < ApplicationSystemTestCase
     button = find('#js-shortcut-post-comment', text: 'コメントする')
     button.click
 
-    # Try to click again - should be intercepted or disabled
-    prevented = false
-    begin
-      button.click
-      # If we reach here, the button was clickable twice (bad)
-      flunk 'Button should be disabled after first click'
-    rescue Selenium::WebDriver::Error::ElementClickInterceptedError, Selenium::WebDriver::Error::ElementNotInteractableError
-      # This is expected - button should be disabled/not clickable
-      prevented = true
-    end
-
-    assert prevented, 'Button should be disabled after first click to prevent double submission'
+    assert button.disabled?, 'Button should be disabled after first click to prevent double submission'
   end
 
   test 'comment url is copied when click its updated_time at corporate_training_inquiry' do

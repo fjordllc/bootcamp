@@ -39,8 +39,9 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
 
   test 'delete company' do
     visit_with_auth "/admin/companies/#{companies(:company1).id}/edit", 'komagata'
-    click_on '削除'
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm do
+      click_on '削除'
+    end
     assert_text '企業を削除しました。'
   end
 

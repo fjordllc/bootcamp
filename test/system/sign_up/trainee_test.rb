@@ -124,7 +124,7 @@ module SignUp
         select '学生', from: 'user[job]'
         find('label', text: 'Mac（Intel チップ）').click
         check 'Rubyの経験あり', allow_label_click: true
-        find('label', text: 'クレジットカード払い').click
+        check 'credit_card_payment', allow_label_click: true
         first('.choices__inner').click
         find('.choices__list--dropdown').click
         find('.choices__list').click
@@ -133,10 +133,22 @@ module SignUp
         find('label', text: '利用規約に同意').click
       end
 
-      fill_stripe_element('4242 4242 4242 4242', '12 / 50', '111')
+      page.execute_script(<<~JS)
+        const creditCardCheckBox = document.querySelector('.selectable-credit-card-box')
+        creditCardCheckBox.checked = false
+        creditCardCheckBox.click()
+      JS
+      assert_no_selector '#card.hidden'
+      page.execute_script(<<~JS)
+        const hiddenInput = document.createElement('input')
+        hiddenInput.setAttribute('type', 'hidden')
+        hiddenInput.setAttribute('name', 'stripeToken')
+        hiddenInput.setAttribute('value', 'tok_visa')
+        document.getElementById('payment-form').appendChild(hiddenInput)
+      JS
 
       VCR.use_cassette 'sign_up/valid-card', record: :once, match_requests_on: %i[method uri] do
-        click_button '参加する'
+        page.execute_script("document.getElementById('payment-form').submit()")
         assert_text '研修生登録が完了しました'
       end
       assert User.find_by(email:).trainee?

@@ -5,12 +5,8 @@ require 'application_system_test_case'
 class CurrentUser::TagsTest < ApplicationSystemTestCase
   test 'update user tags' do
     visit_with_auth '/current_user/edit', 'komagata'
-    tag_input = find '.tagify__input'
-    tag_input.set ''
-    tag_input.set 'タグ1'
-    tag_input.native.send_keys :enter
+    fill_in_tag 'タグ1'
     assert_text 'タグ1'
-    find_all('.tagify__tag').map(&:text)
     click_on '更新する'
     assert_text 'タグ1'
 

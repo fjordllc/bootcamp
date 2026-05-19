@@ -12,5 +12,7 @@ module LoginHelper
 
   def logout
     visit '/logout'
+  rescue Playwright::Error
+    nil
   end
 end

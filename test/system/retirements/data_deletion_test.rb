@@ -69,8 +69,9 @@ module Retirements
 
       visit_with_auth new_retirement_path, 'kimura'
       find('label', text: 'とても良い').click
-      click_on '退会する'
-      page.driver.browser.switch_to.alert.accept
+      accept_confirm do
+        click_on '退会する'
+      end
       assert_text '退会処理が完了しました'
 
       visit_with_auth "regular_events/#{regular_event.id}", 'komagata'
@@ -82,8 +83,9 @@ module Retirements
     test 'retire with event organizer' do
       visit_with_auth new_retirement_path, 'hajime'
       find('label', text: 'とても良い').click
-      click_on '退会する'
-      page.driver.browser.switch_to.alert.accept
+      accept_confirm do
+        click_on '退会する'
+      end
       assert_text '退会処理が完了しました'
 
       regular_event = regular_events(:regular_event4)
@@ -92,8 +94,9 @@ module Retirements
 
       visit_with_auth new_retirement_path, 'kimura'
       find('label', text: 'とても良い').click
-      click_on '退会する'
-      page.driver.browser.switch_to.alert.accept
+      accept_confirm do
+        click_on '退会する'
+      end
       assert_text '退会処理が完了しました'
 
       visit_with_auth "regular_events/#{regular_event.id}", 'komagata'

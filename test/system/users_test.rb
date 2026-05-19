@@ -62,8 +62,9 @@ class UsersTest < ApplicationSystemTestCase
   test 'delete user' do
     user = users(:kimura)
     visit_with_auth "users/#{user.id}", 'komagata'
-    click_link "delete-#{user.id}"
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm do
+      click_link "delete-#{user.id}"
+    end
     assert_text "#{user.name} さんを削除しました。"
   end
 

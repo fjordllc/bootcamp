@@ -8,8 +8,9 @@ class ProductCommentsTest < ApplicationSystemTestCase
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
-    click_button 'コメントする'
-    accept_alert '提出物の担当になりました。'
+    accept_alert '提出物の担当になりました。' do
+      click_button 'コメントする'
+    end
     assert_text 'test'
     assert_text 'Watch中'
   end
