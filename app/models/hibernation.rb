@@ -20,6 +20,10 @@ class Hibernation < ApplicationRecord
     user.save!(validate: false)
   end
 
+  def staging?
+    ENV['DB_NAME'] == 'bootcamp_staging'
+  end
+
   def destroy_subscription!
     return nil if !Rails.env.production? || staging?
 
