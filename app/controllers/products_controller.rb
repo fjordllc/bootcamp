@@ -3,6 +3,7 @@
 class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLength
   before_action :check_permission!, only: %i[show]
   before_action :require_staff_login, only: :index
+  before_action :require_mentor_login, only: :review_by_pjord
   before_action :set_watch, only: %i[show]
   before_action :set_target, only: %i[index]
 
@@ -81,12 +82,31 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     redirect_to @product.practice, notice: '提出物を削除しました。'
   end
 
+  def review_by_pjord
+    @product = find_product
+    reviewer = Pjord.user
+    body = review_body_by_pjord(reviewer)
+    if body.present? && reviewer
+      @product.comments.create!(user: reviewer, description: body)
+      redirect_to product_path(@product, anchor: 'comments'), notice: 'ピヨルドのレビューコメントを作成しました。'
+    else
+      redirect_to @product, alert: 'ピヨルドのレビューコメントを作成できませんでした。'
+    end
+  end
+
   private
 
   def update_published_at
     return if @product.wip || @product.published_at?
 
     @product.published_at = Time.current
+  end
+
+  def review_body_by_pjord(reviewer)
+    ProductAiReviewer.review(@product) if reviewer
+  rescue StandardError => e
+    Rails.logger.error("[ProductsController#review_by_pjord] #{e.class}: #{e.message}")
+    nil
   end
 
   def find_product
