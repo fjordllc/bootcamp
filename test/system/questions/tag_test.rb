@@ -51,13 +51,13 @@ module Questions
       find('.tag-links__item-edit').click
       tag_input = first('.tagify__input')
       accept_alert do
-        tag_input.set "半角スペースは 使えない\t"
+        tag_input.send_keys '半角スペースは 使えない', :tab
       end
       click_button '保存する'
       find('.tag-links__item-edit').click
       tag_input = first('.tagify__input')
       accept_alert do
-        tag_input.set "全角スペースも　使えない\t"
+        tag_input.send_keys '全角スペースも　使えない', :tab
       end
       click_button '保存する'
       assert_equal question.tag_list.sort, all('.tag-links__item-link').map(&:text).sort
@@ -69,7 +69,7 @@ module Questions
       find('.tag-links__item-edit').click
       tag_input = first('.tagify__input')
       accept_alert do
-        tag_input.set ".\t"
+        tag_input.send_keys '.', :tab
       end
       click_button '保存する'
       assert_equal question.tag_list.sort, all('.tag-links__item-link').map(&:text).sort

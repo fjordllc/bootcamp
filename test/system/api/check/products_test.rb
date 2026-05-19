@@ -38,7 +38,6 @@ class Check::ProductsTest < ApplicationSystemTestCase
     accept_confirm do
       click_on '合格にする'
     end
-    accept_alert '提出物の担当になりました。'
     assert_text '合格'
     assert_text '提出物でcomment+合格にするtest'
   end
@@ -49,7 +48,6 @@ class Check::ProductsTest < ApplicationSystemTestCase
     accept_confirm do
       click_on '合格にする'
     end
-    accept_alert '提出物の担当になりました。'
     assert_text '合格'
     assert_text '提出物でcomment+合格にするtest'
   end

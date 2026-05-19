@@ -145,11 +145,7 @@ class MarkdownTest < ApplicationSystemTestCase
     within('form[name=report]') do
       fill_in('report[title]', with: '日報でCtrl + i キーを押すと、:@自分: を入力される。')
 
-      if Selenium::WebDriver::Platform.mac?
-        find('#report_description').send_keys([:command, 'i'])
-      else
-        find('#report_description').send_keys([:control, 'i'])
-      end
+      find('#report_description').send_keys([cmd_ctrl, 'i'])
 
       fill_in('report[reported_on]', with: Time.current)
 
@@ -169,11 +165,7 @@ class MarkdownTest < ApplicationSystemTestCase
     end
 
     within('.thread-comment-form__form') do
-      if Selenium::WebDriver::Platform.mac?
-        find('#js-new-comment').send_keys([:command, 'i'])
-      else
-        find('#js-new-comment').send_keys([:control, 'i'])
-      end
+      find('#js-new-comment').send_keys([cmd_ctrl, 'i'])
     end
     find('.a-form-tabs__tab.js-tabs__tab', text: 'プレビュー').click
     assert_text '@komagata'

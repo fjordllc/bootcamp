@@ -112,8 +112,9 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     product = products(:product8)
     visit_with_auth "/products/#{product.id}", 'mentormentaro'
     fill_in('new_comment[description]', with: 'test')
-    click_button 'コメントする'
-    accept_alert '提出物の担当になりました。'
+    accept_alert '提出物の担当になりました。' do
+      click_button 'コメントする'
+    end
     within('.thread-comment.is-latest') do
       assert_text 'mentormentaro'
       assert_text 'test'

@@ -45,7 +45,7 @@ module Reports
     test 'show edit button when mentor is logged in and mentor mode is on in report detail page' do
       visit_with_auth report_path(reports(:report1)), 'mentormentaro'
       assert_text '内容修正'
-      find(:css, '#checkbox-mentor-mode').set(false)
+      page.execute_script("document.querySelector('#checkbox-mentor-mode').click()")
       assert_no_text '内容修正'
     end
 

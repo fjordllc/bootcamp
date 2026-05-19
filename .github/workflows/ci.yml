@@ -150,10 +150,8 @@ jobs:
             fi
           done
 
-      - name: Check browser install
-        run: |
-          google-chrome --version
-          chromedriver --version
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
 
       - name: Enable pgvector extension
         run: psql -h localhost -U postgres -d ci_test -c "CREATE EXTENSION IF NOT EXISTS vector;"

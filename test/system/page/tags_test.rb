@@ -28,9 +28,9 @@ class Page::TagsTest < ApplicationSystemTestCase
     update_tag = acts_as_taggable_on_tags('intermediate')
 
     visit_with_auth pages_tag_path(tag.name, all: 'true'), 'komagata'
-    click_button 'タグ名変更'
-    fill_in('tag[name]', with: update_tag.name)
-    click_button '変更'
+    click_tag_name_change
+    fill_in_open_tag_modal update_tag.name
+    click_save_tag_name_change
     assert_text 'タグ 「中級者」'
 
     visit_with_auth questions_tag_path(tag.name, all: 'true'), 'komagata'
