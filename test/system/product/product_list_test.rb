@@ -177,7 +177,7 @@ class Product::ProductListTest < ApplicationSystemTestCase
 
     visit_with_auth '/products/unchecked', 'komagata'
 
-    assert_selector '.a-meta__label', text: '研修終了日'
+    assert_selector '.a-meta__label', text: '研修終了予定日'
   end
 
   test 'pagination works on unchecked page' do

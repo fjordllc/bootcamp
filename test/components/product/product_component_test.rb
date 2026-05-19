@@ -140,7 +140,7 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                     reply_deadline_days: @reply_deadline_days
                   ))
 
-    assert_selector '.a-meta', text: '研修終了日'
+    assert_selector '.a-meta', text: '研修終了予定日'
 
     render_inline(Products::ProductComponent.new(
                     product: trainee_product,
@@ -150,7 +150,7 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                     reply_deadline_days: @reply_deadline_days
                   ))
 
-    assert_selector '.a-meta', text: '研修終了日'
+    assert_selector '.a-meta', text: '研修終了予定日'
   end
 
   def test_does_not_render_training_remaining_days_when_user_is_not_mentor_or_admin_and_product_user_is_trainee
@@ -163,7 +163,7 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                     reply_deadline_days: @reply_deadline_days
                   ))
 
-    assert_no_selector '.a-meta', text: '研修終了日'
+    assert_no_selector '.a-meta', text: '研修終了予定日'
   end
 
   def test_does_not_render_training_remaining_days_when_product_user_is_not_trainee
@@ -176,7 +176,7 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                     reply_deadline_days: @reply_deadline_days
                   ))
 
-    assert_no_selector '.a-meta', text: '研修終了日'
+    assert_no_selector '.a-meta', text: '研修終了予定日'
   end
 
   def test_render_product_checker_when_user_is_mentor_and_no_checks
