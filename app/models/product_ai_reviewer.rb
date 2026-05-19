@@ -57,7 +57,7 @@ class ProductAiReviewer
     def comments(product)
       return 'なし' if product.comments.blank?
 
-      product.comments.order(:created_at).map do |comment|
+      product.comments.includes(:user).order(:created_at).map do |comment|
         "- #{comment.user.login_name}: #{truncate_for_prompt(comment.description)}"
       end.join("\n")
     end
