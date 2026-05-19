@@ -18,6 +18,6 @@ class User::EventsTest < ApplicationSystemTestCase
   test 'does not show events the user is not participating in' do
     visit_with_auth "/users/#{users(:kimura).id}/events", 'kimura'
     assert_text '未来のイベント(参加済)'
-    assert_no_text '未来のイベント(未参加)'
+    assert_no_text '過去のイベント'
   end
 end

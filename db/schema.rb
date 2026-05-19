@@ -112,9 +112,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_062046) do
   end
 
   create_table "buzzes", force: :cascade do |t|
-    t.text "body", null: false
     t.datetime "created_at", null: false
+    t.text "memo"
+    t.date "published_at", null: false
+    t.string "title", null: false
     t.datetime "updated_at", null: false
+    t.string "url", null: false
+    t.index ["url"], name: "index_buzzes_on_url", unique: true
   end
 
   create_table "campaigns", force: :cascade do |t|
@@ -547,7 +551,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_062046) do
   create_table "pair_work_schedules", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "pair_work_id", null: false
-    t.datetime "proposed_at", null: false
+    t.datetime "proposed_at", precision: nil, null: false
     t.datetime "updated_at", null: false
     t.index ["pair_work_id", "proposed_at"], name: "index_pair_work_schedules_on_pair_work_id_and_proposed_at", unique: true
     t.index ["pair_work_id"], name: "index_pair_work_schedules_on_pair_work_id"
@@ -559,8 +563,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_062046) do
     t.datetime "created_at", null: false
     t.text "description", null: false
     t.bigint "practice_id"
-    t.datetime "published_at"
-    t.datetime "reserved_at"
+    t.datetime "published_at", precision: nil
+    t.datetime "reserved_at", precision: nil
     t.string "title", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
@@ -713,6 +717,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_062046) do
     t.bigint "regular_event_id"
     t.datetime "updated_at", null: false
     t.index ["regular_event_id"], name: "index_regular_event_repeat_rules_on_regular_event_id"
+  end
+
+  create_table "regular_event_skip_dates", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "reason"
+    t.bigint "regular_event_id", null: false
+    t.date "skip_on", null: false
+    t.datetime "updated_at", null: false
+    t.index ["regular_event_id", "skip_on"], name: "index_regular_event_skip_dates_on_regular_event_id_and_skip_on", unique: true
+    t.index ["regular_event_id"], name: "index_regular_event_skip_dates_on_regular_event_id"
   end
 
   create_table "regular_events", force: :cascade do |t|
@@ -1168,6 +1182,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_062046) do
   add_foreign_key "regular_event_participations", "regular_events"
   add_foreign_key "regular_event_participations", "users"
   add_foreign_key "regular_event_repeat_rules", "regular_events"
+  add_foreign_key "regular_event_skip_dates", "regular_events"
   add_foreign_key "regular_events", "users"
   add_foreign_key "report_templates", "users"
   add_foreign_key "request_retirements", "users"

@@ -80,6 +80,24 @@
               = f.label :finished do
                 | イベントが終了した場合はチェック
 
+      .form-item
+        label.a-form-label
+          | イベントをスキップする日
+        .a-form-help.mb-2(class='!mt-2')
+          p
+            | 定期イベントを開催しない日（スキップする日）をあらかじめ設定できます。
+            br
+            | 主催者の都合などにより開催できない日がある場合は、
+            | こちらでご指定ください。
+        = cocooned_container do
+          = f.fields_for :regular_event_skip_dates, regular_event.regular_event_skip_dates do |regular_event_skip_date|
+            = render 'regular_event_skip_date_fields', f: regular_event_skip_date
+          .form-item__add-times
+              = cocooned_add_item_link f, :regular_event_skip_dates, class: 'a-button is-md is-primary' do
+                i.fa-regular.fa-plus
+                span
+                  | スキップする日を追加
+
   - if current_user.admin?
     .form__items
       .form__items-inner

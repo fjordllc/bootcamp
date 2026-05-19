@@ -1,0 +1,33 @@
+= form_with model: [:mentor, buzz], local: true, class: 'form', html: { name: 'buzz' } do |f|
+  = render 'errors', object: buzz
+  .form-item
+    .row
+      .col-md-6.col-xs-12
+        = f.label :title, class: 'a-form-label is-required'
+        = f.text_field :title, class: 'a-text-input js-warning-form', placeholder: 'urlから自動取得'
+  .form-item
+    .row
+      .col-md-6.col-xs-12
+        - if f.object.new_record?
+          = f.label :url, class: 'a-form-label is-required'
+          = f.text_field :url, class: 'a-text-input js-warning-form', placeholder: '紹介・言及記事のurlを貼り付け'
+  .form-item
+    .row.js-markdown-parent
+      .col-md-6.col-xs-12
+        = f.label :memo, class: 'a-form-label'
+        = f.text_area :memo,
+          class: 'a-text-input is-md js-warning-form'
+        .a-form-help
+  .form-item
+    .row.js-markdown-parent
+      .col-md-6.col-xs-12
+        = f.label :published_at, class: 'a-form-label is-required'
+        = f.date_field :published_at,
+          class: 'a-text-input is-md js-warning-form'
+        .a-form-help
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item.is-main
+        = f.submit nil, class: 'a-button is-lg is-primary is-block'
+      li.form-actions__item.is-sub
+        = link_to 'キャンセル', mentor_buzzes_path, class: 'a-button is-sm is-text'

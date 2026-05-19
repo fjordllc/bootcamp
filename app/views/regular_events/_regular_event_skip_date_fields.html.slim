@@ -1,0 +1,14 @@
+= cocooned_item do
+  .form__items.is-group
+    .books-form__delete
+      = cocooned_remove_item_link f, class: 'books-form__delete-link' do
+        i.fas.fa-times
+    .form-item(class='!mb-4')
+      = f.label :skip_on,
+        class: 'a-form-label is-required'
+      = f.date_field :skip_on,
+        class: 'a-text-input'
+    .form-item
+      = f.label :reason, class: 'a-form-label'
+      = f.text_field :reason, class: 'a-text-input',
+        placeholder: '主催者都合のため'

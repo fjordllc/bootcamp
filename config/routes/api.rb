@@ -22,7 +22,13 @@ Rails.application.routes.draw do
     resources :categories_practices, only: %i() do
       resource :position, only: %i(update), controller: "categories_practices/position"
     end
-    resources :notifications, only: %i(index)
+    resources :notifications, only: %i(index) do
+      resource :read_mark, only: %i(update), controller: 'notifications/read_marks'
+    end
+    namespace :notifications do
+      resource :all_read_mark, only: %i(update)
+      resource :category_read_mark, only: %i(update)
+    end
     resources :subscriptions, only: %i(index)
     resources :comments, only: %i(index create update destroy)
     resources :answers, only: %i(index create update destroy) do
@@ -32,7 +38,9 @@ Rails.application.routes.draw do
     resources :reactions, only: %i(create destroy index)
     resources :checks, only: %i(index create destroy)
     resources :mention_users, only: %i(index)
-    resources :users, only: %i(index show update)
+    resources :users, only: %i(index show update) do
+      resource :support_context, only: %i(show), controller: 'users/support_contexts'
+    end
     get "users/tags/:tag", to: "users#index", as: :users_tag, tag: /.+/
     resources :practices, only: %i(index show update) do
       resource :learning, only: %i(show update), controller: "practices/learning" do
@@ -49,7 +57,11 @@ Rails.application.routes.draw do
       end
       resources :recents, only: %i(index)
     end
-    resources :reports, only: %i(index show)
+    resources :reports, only: %i(index show create update destroy) do
+      resources :comments, only: %i[create], controller: 'reports/comments'
+      resources :reactions, only: %i(index create destroy), controller: 'reports/reactions'
+      resource :check, only: %i(create destroy), controller: 'reports/check'
+    end
     resources :watches, only: %i(index create destroy)
     namespace 'watches' do
       resources :toggle, only: %i(index)
@@ -68,7 +80,11 @@ Rails.application.routes.draw do
       resource :checker, only: %i(show update destroy), controller: 'checker'
       resource :passed, only: %i(show), controller: 'passed'
     end
-    resources :products, only: %i(index show)
+    resources :products, only: %i(index show create update destroy) do
+      resources :comments, only: %i(create), controller: 'products/comments'
+      resource :check, only: %i(create destroy), controller: 'products/check'
+    end
+    resources :searchables, only: %i(index)
     resources :bookmarks, only: %i(index create destroy)
     resources :report_templates, only: %i(create update)
     resources :markdown_tasks, only: %i(create)
@@ -85,5 +101,6 @@ Rails.application.routes.draw do
     resources :metadata, only: %i(index)
     resources :micro_reports, only: %i(update)
     resources :trainee_progresses, only: %i(index)
+    resource :buzz, only: %i(show create destroy), controller: 'buzzes'
   end
 end
