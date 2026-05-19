@@ -124,7 +124,6 @@ module SignUp
         select '学生', from: 'user[job]'
         find('label', text: 'Mac（Intel チップ）').click
         check 'Rubyの経験あり', allow_label_click: true
-        check 'credit_card_payment', allow_label_click: true
         first('.choices__inner').click
         find('.choices__list--dropdown').click
         find('.choices__list').click
@@ -135,8 +134,9 @@ module SignUp
 
       page.execute_script(<<~JS)
         const creditCardCheckBox = document.querySelector('.selectable-credit-card-box')
-        creditCardCheckBox.checked = false
-        creditCardCheckBox.click()
+        if (!creditCardCheckBox.checked) {
+          creditCardCheckBox.click()
+        }
       JS
       assert_no_selector '#card.hidden'
       page.execute_script(<<~JS)

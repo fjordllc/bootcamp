@@ -82,7 +82,7 @@ class BaseCommentsTest < ApplicationSystemTestCase
     button = find('#js-shortcut-post-comment', text: 'コメントする')
     button.click
 
-    assert button.disabled?, 'Button should be disabled after first click'
+    assert_selector '#js-shortcut-post-comment[disabled]'
   end
 
   test 'submit_button is enabled after a post is done' do

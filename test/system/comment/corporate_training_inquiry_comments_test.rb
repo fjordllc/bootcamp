@@ -131,7 +131,7 @@ class CorporateTrainingInquiryCommentsTest < ApplicationSystemTestCase
     button = find('#js-shortcut-post-comment', text: 'コメントする')
     button.click
 
-    assert button.disabled?, 'Button should be disabled after first click to prevent double submission'
+    assert_selector '#js-shortcut-post-comment[disabled]'
   end
 
   test 'comment url is copied when click its updated_time at corporate_training_inquiry' do

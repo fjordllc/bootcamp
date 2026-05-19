@@ -26,8 +26,8 @@ http://localhost:3000/ にアクセス。
 
 system test は Playwright で Chromium を起動します。初回セットアップ時、または Playwright のバージョン更新後にブラウザーをインストールしてください。
 
-```
-$ npx playwright install chromium
+```bash
+npx playwright install chromium
 ```
 
 ### ヘッドレスブラウザーでテスト

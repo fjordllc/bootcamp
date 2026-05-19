@@ -12,7 +12,9 @@ module LoginHelper
 
   def logout
     visit '/logout'
-  rescue Playwright::Error
+  rescue Playwright::TargetClosedError, Playwright::TimeoutError
     nil
+  rescue Playwright::Error => e
+    raise unless e.message.include?('net::ERR_ABORTED')
   end
 end

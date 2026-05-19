@@ -36,7 +36,7 @@ class Mentor::Courses::CategoriesTest < ApplicationSystemTestCase
   private
 
   def move_category_to(source, target)
-    page.evaluate_async_script(<<~JS, source, target)
+    result = page.evaluate_async_script(<<~JS, source, target)
       const done = arguments[arguments.length - 1]
       const source = arguments[0].closest('[data-courses_category_id]')
       const target = arguments[1].closest('[data-courses_category_id]')
@@ -48,7 +48,14 @@ class Mentor::Courses::CategoriesTest < ApplicationSystemTestCase
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ insert_at: items.indexOf(target) + 1 })
-      }).then(() => done())
+      }).then((response) => {
+        if (response.ok) {
+          done()
+        } else {
+          done({ error: `PATCH failed: ${response.status}` })
+        }
+      }).catch((error) => done({ error: error.message }))
     JS
+    raise result['error'] if result&.dig('error')
   end
 end

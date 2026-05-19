@@ -42,7 +42,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
             options: {
               browser_type: :chromium,
               chromiumSandbox: false,
-              headless: !ENV['HEADFUL'],
+              headless: ENV['HEADFUL'] != '1',
               playwright_cli_executable_path: './node_modules/.bin/playwright',
               permissions: %w[clipboard-read clipboard-write]
             }

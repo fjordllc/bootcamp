@@ -22,7 +22,7 @@ class CurrentUser::WatchesTest < ApplicationSystemTestCase
   test 'watch index checkbox test' do
     visit_with_auth '/current_user/watches', 'kimura'
     assert_no_selector '.card-list-item__option'
-    page.execute_script("document.querySelector('#spec-edit-mode').click()")
+    find('#spec-edit-mode').click
     assert_selector '.card-list-item__option'
   end
 
@@ -32,7 +32,7 @@ class CurrentUser::WatchesTest < ApplicationSystemTestCase
     assert_text 'Watch中'
     visit '/current_user/watches'
     assert_text '作業週1日目'
-    page.execute_script("document.querySelector('#spec-edit-mode').click()")
+    find('#spec-edit-mode').click
     assert_selector '.card-list-item__option'
     first('.a-watch-button').click
     assert_no_text '作業週1日目'
