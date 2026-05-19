@@ -3,6 +3,7 @@
 class ProductAiReviewer
   MODEL = 'claude-opus-4-1-20250805'
   OTHER_PRODUCTS_LIMIT = 10
+  PROMPT_TEXT_LIMIT = 2_000
 
   class << self
     def review(product)
@@ -37,10 +38,10 @@ class ProductAiReviewer
         ## プラクティス
         - タイトル: #{product.practice.title}
         - 説明:
-        #{product.practice.description}
+        #{truncate_for_prompt(product.practice.description)}
 
         ## 提出物
-        #{product.body}
+        #{truncate_for_prompt(product.body)}
 
         ## 同じ提出物に対するコメント
         #{comments(product)}
@@ -57,12 +58,12 @@ class ProductAiReviewer
       return 'なし' if product.comments.blank?
 
       product.comments.order(:created_at).map do |comment|
-        "- #{comment.user.login_name}: #{comment.description}"
+        "- #{comment.user.login_name}: #{truncate_for_prompt(comment.description)}"
       end.join("\n")
     end
 
     def submission_answer(product)
-      product.practice.submission_answer&.description.presence || 'なし'
+      truncate_for_prompt(product.practice.submission_answer&.description).presence || 'なし'
     end
 
     def other_products(product)
@@ -70,8 +71,12 @@ class ProductAiReviewer
       return 'なし' if products.blank?
 
       products.map do |other_product|
-        "### #{other_product.user.login_name}さんの提出物\n#{other_product.body}"
+        "### #{other_product.user.login_name}さんの提出物\n#{truncate_for_prompt(other_product.body)}"
       end.join("\n\n")
+    end
+
+    def truncate_for_prompt(text)
+      text.to_s.slice(0, PROMPT_TEXT_LIMIT)
     end
 
     def completed_percentage(user_course_practice)

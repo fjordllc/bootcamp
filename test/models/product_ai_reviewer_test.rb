@@ -52,4 +52,27 @@ class ProductAiReviewerTest < ActiveSupport::TestCase
     assert_includes asked_message, '進捗率: 不明'
     mock_chat.verify
   end
+
+  test '.review truncates long text in prompt' do
+    product = products(:product1)
+    product.update!(body: 'a' * (ProductAiReviewer::PROMPT_TEXT_LIMIT + 1))
+    mock_content = Struct.new(:content).new({ body: 'レビュー本文' })
+    mock_chat = Minitest::Mock.new
+    asked_message = nil
+
+    mock_chat.expect(:with_instructions, mock_chat, [String])
+    mock_chat.expect(:with_schema, mock_chat, [PjordResponse])
+    mock_chat.expect(:ask, mock_content) do |message|
+      asked_message = message
+      true
+    end
+
+    RubyLLM.stub(:chat, mock_chat) do
+      assert_equal 'レビュー本文', ProductAiReviewer.review(product)
+    end
+
+    assert_includes asked_message, 'a' * ProductAiReviewer::PROMPT_TEXT_LIMIT
+    assert_not_includes asked_message, 'a' * (ProductAiReviewer::PROMPT_TEXT_LIMIT + 1)
+    mock_chat.verify
+  end
 end
