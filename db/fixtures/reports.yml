@@ -604,4 +604,4 @@ report95:
 
     ## IPv4-mapped IPv6
     @[card](http://[::ffff:127.0.0.1])
-  reported_on: "2026-01-02 01:00:00"
+  reported_on: "2026-01-05"
