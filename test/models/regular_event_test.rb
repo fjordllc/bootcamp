@@ -279,7 +279,7 @@ class RegularEventTest < ActiveSupport::TestCase
       regular_event.regular_event_skip_dates.build(skip_on: Date.new(2026, 4, 8))
 
       assert_not regular_event.save
-      assert_includes regular_event.errors[:base], 'スキップする日に重複した日付が含まれています。'
+      assert_includes regular_event.errors[:base], 'スキップする日に重複した日付が含まれています'
     end
   end
 
