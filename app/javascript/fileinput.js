@@ -1,4 +1,4 @@
-import Heic2any from 'heic2any'
+let Heic2any
 
 function isHEIC(file) {
   const type = file.type
@@ -7,7 +7,11 @@ function isHEIC(file) {
   return type === 'heic' || type === 'heif'
 }
 
-function convertHEIC(file) {
+async function convertHEIC(file) {
+  if (!Heic2any) {
+    ;({ default: Heic2any } = await import('heic2any'))
+  }
+
   return new Promise((resolve) => {
     Heic2any({
       blob: file,
