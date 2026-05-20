@@ -1,5 +1,4 @@
-import Tagify from '@yaireo/tagify'
-import '@yaireo/tagify/dist/tagify.css' // Tagify CSS
+import loadTagify from './lazy-tagify.js'
 import { get } from '@rails/request.js'
 import CSRF from './csrf.js'
 import transformHeadSharp from './transform-head-sharp.js'
@@ -7,9 +6,10 @@ import validateTagName from './validate-tag-name.js'
 import headIsSharpOrOctothorpe from './head-is-sharp-or-octothorpe.js'
 import parseTags from './parse_tags.js'
 
-document.addEventListener('turbo:load', () => {
+document.addEventListener('turbo:load', async () => {
   const tagsContainer = document.querySelector('.tag-component')
   if (!tagsContainer) return
+  const Tagify = await loadTagify()
   const tagsDisplay = tagsContainer.querySelector('.tags-display')
   const tagListItems = tagsDisplay.querySelector('.tag-links__items')
   const editButton = tagListItems.querySelector('.tag-links__item-edit')
