@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus'
-import TextareaInitializer from '../textarea-initializer'
-import CSRF from '../csrf'
-import { toast } from '../vanillaToast'
+import TextareaInitializer from '../textarea-initializer.js'
+import CSRF from '../csrf.js'
+import { toast } from '../vanillaToast.js'
 
 export default class extends Controller {
   static targets = [

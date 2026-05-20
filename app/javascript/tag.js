@@ -1,11 +1,11 @@
 import Tagify from '@yaireo/tagify'
 import '@yaireo/tagify/dist/tagify.css' // Tagify CSS
 import { get } from '@rails/request.js'
-import CSRF from './csrf'
-import transformHeadSharp from './transform-head-sharp'
-import validateTagName from './validate-tag-name'
-import headIsSharpOrOctothorpe from './head-is-sharp-or-octothorpe'
-import parseTags from './parse_tags'
+import CSRF from './csrf.js'
+import transformHeadSharp from './transform-head-sharp.js'
+import validateTagName from './validate-tag-name.js'
+import headIsSharpOrOctothorpe from './head-is-sharp-or-octothorpe.js'
+import parseTags from './parse_tags.js'
 
 document.addEventListener('turbo:load', () => {
   const tagsContainer = document.querySelector('.tag-component')

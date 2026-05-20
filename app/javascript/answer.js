@@ -1,4 +1,4 @@
-import initializeAnswer from './initializeAnswer'
+import initializeAnswer from './initializeAnswer.js'
 
 document.addEventListener('turbo:load', () => {
   const answerAnchor = location.hash

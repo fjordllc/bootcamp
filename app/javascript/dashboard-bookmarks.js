@@ -1,5 +1,5 @@
 import { get, destroy } from '@rails/request.js'
-import { toggleDeleteButtonVisibility } from './bookmarks-delete-button-visibility'
+import { toggleDeleteButtonVisibility } from './bookmarks-delete-button-visibility.js'
 import { toast } from './vanillaToast.js'
 
 document.addEventListener('turbo:load', () => {

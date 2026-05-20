@@ -1,5 +1,5 @@
 import CSRF from './csrf.js'
-import updateAnswerCount from './updateAnswerCount'
+import updateAnswerCount from './updateAnswerCount.js'
 import TextareaInitializer from './textarea-initializer.js'
 import MarkdownInitializer from './markdown-initializer.js'
 

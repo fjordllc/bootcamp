@@ -1,5 +1,5 @@
 import { get, destroy } from '@rails/request.js'
-import { toggleDeleteButtonVisibility } from './bookmarks-delete-button-visibility'
+import { toggleDeleteButtonVisibility } from './bookmarks-delete-button-visibility.js'
 
 const EDIT_MODE_KEY = 'bookmark_edit_mode'
 const DELETE_BUTTON_CLASS = 'js-bookmark-delete-button'

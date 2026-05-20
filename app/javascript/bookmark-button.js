@@ -1,4 +1,4 @@
-import { toast } from './vanillaToast'
+import { toast } from './vanillaToast.js'
 import { get, post, destroy } from '@rails/request.js'
 
 document.addEventListener('turbo:load', () => {

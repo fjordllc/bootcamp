@@ -1,4 +1,4 @@
-import { checkProduct } from './checkable_react'
+import { checkProduct } from './checkable_react.js'
 
 export class ProductChecker {
   constructor(checkerElement) {
