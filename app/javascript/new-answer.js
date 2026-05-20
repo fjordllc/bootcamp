@@ -7,7 +7,7 @@ import initializeAnswer from './initializeAnswer.js'
 import { initializeReaction } from './reaction.js'
 import { setWatchable } from './setWatchable.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const newAnswer = document.querySelector('.new-answer')
   if (newAnswer) {
     TextareaInitializer.initialize('#js-new-comment')

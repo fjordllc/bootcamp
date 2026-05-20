@@ -100,6 +100,6 @@ function initTagsInput(container) {
   })
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   document.querySelectorAll('[data-tags-input]').forEach(initTagsInput)
 })

@@ -1,6 +1,6 @@
 import { debounce } from './debounce.js'
 
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('turbo:load', function () {
   const textarea = document.getElementById('js-micro-report-textarea')
   const microReports = document.getElementById('js-micro-reports')
   const form = document.getElementById('js-micro-report-form')

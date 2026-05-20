@@ -1,6 +1,6 @@
 import { initializeComment } from './initializeComment.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const comments = document.querySelectorAll('.thread-comment:not(.loading)')
   const loadingContent = document.querySelector('.loading-content')
   if (!loadingContent) {

@@ -1,14 +1,5 @@
 import { ProductChecker } from './product-checker.js'
 
-document.addEventListener('DOMContentLoaded', () => {
-  initProductCheckers()
-})
-
-// Turbolinks/Turbo support
-document.addEventListener('turbolinks:load', () => {
-  initProductCheckers()
-})
-
 document.addEventListener('turbo:load', () => {
   initProductCheckers()
 })

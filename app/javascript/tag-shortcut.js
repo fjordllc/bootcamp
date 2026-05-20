@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   document.querySelectorAll('.js-tag-input-button').forEach((button) => {
     button.addEventListener('click', () => {
       const tag = button.dataset.tag

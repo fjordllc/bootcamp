@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const welcomeMessageCookie = document.cookie
     .split('; ')
     .find((row) => row.startsWith('confirmed_welcome_message'))

@@ -2,7 +2,7 @@ import CSRF from 'csrf'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const mentorMemo = document.querySelector('.user-mentor-memo')
   if (mentorMemo) {
     const markdownInitializer = new MarkdownInitializer()

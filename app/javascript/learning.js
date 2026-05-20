@@ -1,6 +1,6 @@
 import CSRF from 'csrf'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const completeButton = document.getElementById('js-complete')
   if (completeButton) {
     completeButton.addEventListener('click', function () {

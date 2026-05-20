@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const statusMap = {
     trialing: 'is-primary',
     active: 'is-success',

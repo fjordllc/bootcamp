@@ -2,7 +2,7 @@ import Bootcamp from 'bootcamp'
 import MarkdownInitializer from 'markdown-initializer'
 import TextareaInitializer from 'textarea-initializer'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const microReports = document.querySelectorAll('.micro-report')
   if (microReports.length === 0) return
 

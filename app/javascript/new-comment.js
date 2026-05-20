@@ -8,7 +8,7 @@ import { setWatchable } from './setWatchable.js'
 import commentCheckable from './comment-checkable.js'
 import { post } from '@rails/request.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const newComment = document.querySelector('.new-comment')
   if (!newComment) return
 

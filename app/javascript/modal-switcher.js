@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const modalSearch = document.querySelector('.modal#js-modal-search')
   const modalSearchShownTriggers = document.querySelectorAll(
     '.js-modal-search-shown-trigger'

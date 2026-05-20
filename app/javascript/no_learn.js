@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const checkBox = document.querySelector('.js-no-practice-time')
   const times = document.querySelector('#js-learning-times')
   if (!checkBox || !times) {

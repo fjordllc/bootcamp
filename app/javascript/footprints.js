@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const userIconsContainer = document.querySelector('.user-icons')
   const loadingMessage = document.querySelector('.user-icons__loading')
 

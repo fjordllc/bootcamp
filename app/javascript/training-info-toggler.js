@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const checkbox = document.querySelector(
     'input.js-training-info-toggler-checkbox'
   )

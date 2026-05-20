@@ -1,6 +1,6 @@
 import { patch } from '@rails/request.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const tagChangeButton = document.querySelector('.change-tag-name-button')
   if (!tagChangeButton) return
 

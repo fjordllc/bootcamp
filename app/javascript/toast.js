@@ -1,6 +1,6 @@
 import { toast } from 'vanillaToast.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const messages = document.querySelectorAll('.js-toast')
   messages.forEach((element) => {
     const message = element.dataset.message

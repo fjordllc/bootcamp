@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const checkbox = document.querySelector('.js-hibernation-agreements-checkbox')
   const submit = document.querySelector('.js-hibernation-agreements-submit')
 

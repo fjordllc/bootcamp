@@ -1,7 +1,7 @@
 import 'whatwg-fetch'
 import CSRF from 'csrf'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const practiceElement = document.querySelector('#practice')
 
   if (!practiceElement) {

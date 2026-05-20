@@ -1,6 +1,6 @@
 import MarkdownInitializer from 'markdown-initializer'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const selector = '.js-markdown-view'
   if (!selector) {
     return null

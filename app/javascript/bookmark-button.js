@@ -1,7 +1,7 @@
 import { toast } from './vanillaToast'
 import { get, post, destroy } from '@rails/request.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const button = document.querySelector('#bookmark-button')
   if (!button) return
   const bookmarkableId = button.dataset.bookmarkableId

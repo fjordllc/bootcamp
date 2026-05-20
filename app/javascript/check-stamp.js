@@ -1,6 +1,6 @@
 import { get } from '@rails/request.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   loadCheckStamp()
 })
 

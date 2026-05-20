@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const button = document.querySelector('.a-copy-button')
 
   if (button) {

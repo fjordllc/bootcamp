@@ -1,6 +1,6 @@
 import initializeAnswer from './initializeAnswer'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const answerAnchor = location.hash
   if (answerAnchor) {
     requestAnimationFrame(() => {

@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   if (
     !document.querySelector(
       'body.is-users-new,body.is-users-create,body.is-card-new,body.is-card-edit'

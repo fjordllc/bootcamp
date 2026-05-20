@@ -6,14 +6,14 @@ function keepCheckBoxChecked(checkBoxes) {
   })
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const invoiceCheckBox = document.querySelector('.checked-invoice-box')
   const creditCardCheckBox = document.querySelector('.checked-credit-card-box')
   const checkBoxes = [invoiceCheckBox, creditCardCheckBox]
   keepCheckBoxChecked(checkBoxes)
 })
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const selectableInvoiceCheckBox = document.querySelector(
     '.selectable-invoice-box'
   )

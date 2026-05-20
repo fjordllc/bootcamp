@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const radioButtons = document.getElementsByName('register_address')
 
   if (!radioButtons) {

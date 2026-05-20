@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const notificationPage = document.querySelector('#notifications')
   if (!notificationPage) return
 

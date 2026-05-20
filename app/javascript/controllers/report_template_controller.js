@@ -1,4 +1,4 @@
-import { Controller } from 'stimulus'
+import { Controller } from '@hotwired/stimulus'
 import TextareaInitializer from '../textarea-initializer'
 import CSRF from '../csrf'
 import { toast } from '../vanillaToast'

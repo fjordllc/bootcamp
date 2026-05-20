@@ -6,7 +6,7 @@ import 'ace-builds/src-noconflict/mode-ruby'
 import 'ace-builds/src-noconflict/theme-github'
 import { post } from '@rails/request.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const id = 'code_editor'
   const element = document.getElementById(id)
   if (!element) {

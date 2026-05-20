@@ -1,7 +1,7 @@
 import { patch } from '@rails/request.js'
 import { toast } from './vanillaToast'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const button = document.querySelector('.check-button')
   if (!button) return
 

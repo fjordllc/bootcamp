@@ -1,7 +1,7 @@
 import { toast } from './vanillaToast.js'
 import { post, destroy } from '@rails/request.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const watchToggle = document.querySelector('.watch-toggle')
   if (!watchToggle) {
     return

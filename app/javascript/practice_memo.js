@@ -3,7 +3,7 @@ import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
 import { toast } from 'vanillaToast'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const practiceMemo = document.querySelector('.practice-memo')
   if (practiceMemo) {
     const markdownInitializer = new MarkdownInitializer()

@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const choices = Array.from(
     document.querySelectorAll('.js-questionnaire_choice')
   )

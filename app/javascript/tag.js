@@ -7,7 +7,7 @@ import validateTagName from './validate-tag-name'
 import headIsSharpOrOctothorpe from './head-is-sharp-or-octothorpe'
 import parseTags from './parse_tags'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const tagsContainer = document.querySelector('.tag-component')
   if (!tagsContainer) return
   const tagsDisplay = tagsContainer.querySelector('.tags-display')

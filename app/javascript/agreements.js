@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const checkboxes = Array.from(
     document.querySelectorAll('.js-agreements-checkbox')
   )

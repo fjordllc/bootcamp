@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const warningForms = document.querySelectorAll('.js-warning-form')
   if (warningForms.length <= 0) {
     return null

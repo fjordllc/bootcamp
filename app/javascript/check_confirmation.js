@@ -1,5 +1,5 @@
 document.addEventListener('turbo:load', setupCheckConfirmation)
-document.addEventListener('DOMContentLoaded', setupCheckConfirmation)
+document.addEventListener('turbo:load', setupCheckConfirmation)
 
 function setupCheckConfirmation() {
   const checkButton = document.querySelector('#js-shortcut-check')

@@ -1,7 +1,7 @@
 @import "tailwindcss" source(none);
 @source "../../views/**/*.slim";
 @source "../../components/**/*.slim";
-@source "../../../app/javascript/**/*.{js,vue,jsx}";
+@source "../../../app/javascript/**/*.{js,vue}";
 @source "./**/*.css";
 
 @theme {

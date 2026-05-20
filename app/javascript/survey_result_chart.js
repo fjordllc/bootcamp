@@ -5,7 +5,7 @@ import annotationPlugin from 'chartjs-plugin-annotation'
 Chart.register(ChartDataLabels)
 Chart.register(annotationPlugin)
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('turbo:load', function () {
   initRadioButtonCharts()
   initCheckBoxCharts()
   initLinearScaleCharts()

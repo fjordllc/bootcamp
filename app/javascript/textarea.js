@@ -1,6 +1,6 @@
 import TextareaInitializer from 'textarea-initializer'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const selector = '.js-markdown'
   if (!selector) {
     return null

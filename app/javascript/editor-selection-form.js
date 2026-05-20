@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   if (!document.querySelector('.is-current_user-edit')) {
     return null
   }

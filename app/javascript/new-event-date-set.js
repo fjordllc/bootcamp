@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const eventStartAt = document.getElementById('event_start_at')
   if (eventStartAt) {
     eventStartAt.addEventListener('blur', (event) => {

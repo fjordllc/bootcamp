@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const FileInput = (target) => {
     const input = target.querySelector('.js-movie-file-input input')
     if (!input) return null

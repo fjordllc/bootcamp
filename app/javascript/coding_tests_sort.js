@@ -1,7 +1,7 @@
 import Sortable from 'sortablejs'
 import Bootcamp from 'bootcamp'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const element = document.querySelector('#js-coding-test-sortable')
   if (!element) {
     return null

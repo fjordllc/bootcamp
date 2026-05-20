@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const dropdownMenus = document.querySelectorAll('.js-header-dropdown')
 
   document.addEventListener('click', (event) => {

@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const radioButtons = document.getElementsByName('article[thumbnail_type]')
   const fileField = document.getElementById('upload-thumbnail')
   for (const radioButton of radioButtons) {

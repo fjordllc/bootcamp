@@ -6,6 +6,7 @@
 //
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
+import '@hotwired/turbo-rails'
 import 'controllers'
 import '../textarea.js'
 import '../markdown.js'
@@ -90,6 +91,6 @@ import '../notifications_remove_after_open.js'
 import '../notifications-bell.js'
 import '../products-checker-init.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   Cocooned.start()
 })

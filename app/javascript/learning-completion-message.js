@@ -1,6 +1,6 @@
 import CSRF from 'csrf'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const modal = document.querySelector('#modal-learning_completion')
   if (!modal) {
     return null

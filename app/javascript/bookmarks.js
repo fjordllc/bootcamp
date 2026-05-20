@@ -4,7 +4,7 @@ import { toggleDeleteButtonVisibility } from './bookmarks-delete-button-visibili
 const EDIT_MODE_KEY = 'bookmark_edit_mode'
 const DELETE_BUTTON_CLASS = 'js-bookmark-delete-button'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const editButton = document.getElementById('bookmark_edit')
   const pageBody = document.querySelector('.page-body')
   if (!pageBody) return

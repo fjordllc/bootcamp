@@ -331,7 +331,7 @@ class NotificationsBell {
 }
 
 // Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const bell = new NotificationsBell()
   return bell
 })

@@ -34,6 +34,6 @@ function initializeDiplomaUploadField() {
   })
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   initializeDiplomaUploadField()
 })

@@ -83,7 +83,7 @@ function extractField(elements) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const ref = document.querySelector('#reference_books')
   if (ref) {
     ref.addEventListener('cocooned:after-insert', (e) => {

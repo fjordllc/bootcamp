@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const localStorage = window.localStorage
   const checkbox = document.querySelector('.js-mentor-mode__trigger')
   const body = document.body

@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const radioButtons = document.querySelectorAll(
     'input[name="article[target]"]'
   )

@@ -1,7 +1,7 @@
 import { get, destroy } from '@rails/request.js'
 import { toast } from './vanillaToast.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const localStorage = window.localStorage
   const editToggle = document.getElementById('card-list-tools__action')
   if (!editToggle) {
