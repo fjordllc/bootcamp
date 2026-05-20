@@ -90,7 +90,8 @@
             | 主催者の都合などにより開催できない日がある場合は、
             | こちらでご指定ください。
         = cocooned_container do
-          = f.fields_for :regular_event_skip_dates, regular_event.regular_event_skip_dates.order(skip_on: :asc) do |regular_event_skip_date|
+          - sorted_skip_dates = regular_event.regular_event_skip_dates.to_a.sort_by { |d| d.skip_on || Date.new(9999, 12, 31) }
+          = f.fields_for :regular_event_skip_dates, sorted_skip_dates do |regular_event_skip_date|
             = render 'regular_event_skip_date_fields', f: regular_event_skip_date
           .form-item__add-times
               = cocooned_add_item_link f, :regular_event_skip_dates, class: 'a-button is-md is-primary' do
