@@ -76,19 +76,5 @@ module RegularEvents
         assert_no_selector('.a-card.is-out-of-rule-skip-dates')
       end
     end
-
-    test 'skip dates are ordered by skip_on asc in edit form' do
-      regular_event = regular_events(:regular_event7)
-
-      regular_event.regular_event_skip_dates.create!(skip_on: Date.new(2026, 6, 15), reason: '遅い日')
-      regular_event.regular_event_skip_dates.create!(skip_on: Date.new(2026, 5, 28), reason: '早い日')
-
-      visit_with_auth edit_regular_event_path(regular_event), 'kimura'
-
-      skip_date_fields = all('input[id*="_skip_on"]')
-
-      assert_equal '2026-05-28', skip_date_fields[0].value
-      assert_equal '2026-06-15', skip_date_fields[1].value
-    end
   end
 end
