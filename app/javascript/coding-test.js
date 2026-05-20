@@ -1,6 +1,5 @@
 import { OnBrowserJudge } from './onbrowserjudge.js'
 import ace from 'ace-builds'
-import 'ace-builds/webpack-resolver'
 import 'ace-builds/src-noconflict/mode-javascript'
 import 'ace-builds/src-noconflict/mode-ruby'
 import 'ace-builds/src-noconflict/theme-github'
@@ -19,6 +18,7 @@ document.addEventListener('turbo:load', () => {
   const editor = ace.edit(id)
 
   editor.session.setMode(`ace/mode/${language}`)
+  editor.session.setUseWorker(false)
   editor.setTheme('ace/theme/github')
 
   OnBrowserJudge.workerFile = `../${language}.js`

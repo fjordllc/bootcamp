@@ -47,13 +47,13 @@ Markdown/Prism/Ace は、importmap 化より前に読み込み境界を分けて
 - Markdown viewer: `.js-markdown-view` の読み取り専用レンダリングを担当する。`markdown-it` 本体、Markdown plugin 群、`prismjs`、`prism-languages.js` をここへ集約する。
 - Markdown editor: `.js-markdown` / コメント欄の編集機能を担当する。`textarea-markdown`、`tributejs`、emoji autocomplete、画像アップロード、preview を含むため viewer より後に移行する。
 - Prism: component import は順序依存で global `Prism` を拡張するため、importmap では個別 pin よりも core + 使用 language をまとめた vendor file にする方が安全。言語一覧は `prism-languages.js` に集約したままにする。
-- Ace: coding test 画面専用。まず Shakapacker の別 pack に分け、全画面の `application` bundle から外す。その後 importmap/vendor 化する場合は `ace.js`、`mode-javascript.js`、`mode-ruby.js`、`theme-github.js`、必要な worker だけを配信し、`ace-builds/webpack-resolver` は使わない。
+- Ace: coding test 画面専用。Shakapacker の別 pack に分離済み。`ace-builds/webpack-resolver` は削除済みで、Ace の構文チェック worker は無効化済み。importmap/vendor 化する場合は `ace.js`、`mode-javascript.js`、`mode-ruby.js`、`theme-github.js` だけを配信する。
 
 ## Higher-Risk Runtime Dependencies
 
 | package | usage | risk |
 | --- | --- | --- |
-| `ace-builds` | `coding-test.js` imports webpack resolver, modes, theme, workers | coding test 専用 pack へ分離済み。importmap 化時は `ace-builds/webpack-resolver` を外し、worker 配信方法を設計する必要がある。 |
+| `ace-builds` | `coding-test.js` imports Ace, JavaScript/Ruby modes, GitHub theme | coding test 専用 pack へ分離済み。`ace-builds/webpack-resolver` は削除済み。importmap 化時は vendor 配信に切り替える。 |
 | `chart.js`, `chartjs-plugin-annotation`, `chartjs-plugin-datalabels` | `survey_result_chart.js` | ESM pin は可能性あり。plugin 登録順と bundle size を確認する。 |
 | `heic2any` | `fileinput.js` | browser-only 依存。importmap で動くか個別検証する。 |
 | `@notus.sh/cocooned` | `packs/application.js` | Rails nested form 用。importmap pin 可能か確認が必要。 |
