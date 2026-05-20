@@ -2,6 +2,7 @@ doctype html
 html(lang='ja')
   head
     = javascript_include_tag 'application'
+    = javascript_importmap_tags 'hotwire'
     = javascript_pack_tag 'application'
     = stylesheet_link_tag 'paper', media: 'all'
   body
