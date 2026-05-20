@@ -3,19 +3,15 @@
 class Metadata
   def initialize(url)
     @url = url
-    @uri = Addressable::URI.parse(url).normalize
+  end
+
+  def uri
+    @uri ||= Addressable::URI.parse(@url).normalize
   end
 
   def fetch
-    http = Net::HTTP.new(@uri.host, @uri.inferred_port)
-    if @uri.scheme == 'https'
-      http.use_ssl = true
-      http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-    end
-    http.response_body_encoding = true
-
-    response = http.request_get(@uri.request_uri)
-    response.message == 'OK' ? parse(response.body) : nil
+    response = LinkFetcher::Fetcher.fetch(@url)
+    response.is_a?(Net::HTTPSuccess) ? parse(response.body) : nil
   end
 
   private
@@ -28,7 +24,7 @@ class Metadata
       title: object.og.title,
       description: object.og.description,
       images: object.og.image&.url,
-      site_name: object.og.site_name || @uri.host,
+      site_name: object.og.site_name || uri.host,
       favicon: favicon(html),
       url: @url,
       site_url: site_url
@@ -36,7 +32,7 @@ class Metadata
   end
 
   def site_url
-    "#{@uri.scheme}://#{@uri.host}"
+    "#{uri.scheme}://#{uri.host}"
   end
 
   def favicon(html)
