@@ -57,7 +57,7 @@ Markdown/Prism/Ace は、importmap 化より前に読み込み境界を分けて
 | `ace-builds` | `coding-test.js` imports Ace, JavaScript/Ruby modes, GitHub theme | coding test 専用 pack へ分離済み。`ace-builds/webpack-resolver` は削除済み。importmap 化時は vendor 配信に切り替える。 |
 | `chart.js`, `chartjs-plugin-annotation`, `chartjs-plugin-datalabels` | `survey_result_chart.js` | dynamic import 化済み。importmap 化時は plugin 登録順を維持して pin する。 |
 | `heic2any` | `fileinput.js` | dynamic import 化済み。HEIC/HEIF ファイル選択時だけ読み込む。importmap 化時は browser-only 依存として個別検証する。 |
-| `@notus.sh/cocooned` | `packs/application.js` | Rails nested form 用。importmap pin 可能か確認が必要。 |
+| `@notus.sh/cocooned` | `packs/application.js` | dynamic import 化済み。Rails nested form がある画面だけ読み込む。importmap pin 可能か確認が必要。 |
 | `tributejs`, `textarea-markdown` | textarea initializer | editor 周りの中核。pin 後に system test が必要。 |
 
 ## Local Alias Imports To Rewrite Or Pin

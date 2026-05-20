@@ -79,7 +79,6 @@ import '../watch-toggle.js'
 import '../diploma-upload.js'
 import '../tag-shortcut.js'
 import '../tags-input.js'
-import Cocooned from '@notus.sh/cocooned'
 import '../action_completed_button.js'
 import '../toast.js'
 import '../tag.js'
@@ -90,5 +89,15 @@ import '../notifications-bell.js'
 import '../products-checker-init.js'
 
 document.addEventListener('turbo:load', () => {
-  Cocooned.start()
+  if (
+    !document.querySelector(
+      '[data-cocooned-container], [data-cocooned-options]'
+    )
+  ) {
+    return
+  }
+
+  import('@notus.sh/cocooned').then(({ default: Cocooned }) => {
+    Cocooned.start()
+  })
 })
