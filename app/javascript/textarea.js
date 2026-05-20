@@ -1,10 +1,10 @@
-import TextareaInitializer from './textarea-initializer.js'
+import { initializeTextarea } from './lazy-markdown.js'
 
 document.addEventListener('turbo:load', () => {
   const selector = '.js-markdown'
-  if (!selector) {
+  if (!document.querySelector(selector)) {
     return null
   }
 
-  TextareaInitializer.initialize(selector)
+  initializeTextarea(selector)
 })

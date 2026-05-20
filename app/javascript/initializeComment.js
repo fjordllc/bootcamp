@@ -1,8 +1,7 @@
 import CSRF from './csrf.js'
-import TextareaInitializer from './textarea-initializer.js'
-import MarkdownInitializer from './markdown-initializer.js'
+import { initializeTextarea, renderMarkdown } from './lazy-markdown.js'
 
-function initializeComment(comment) {
+async function initializeComment(comment) {
   const commentId = comment.dataset.comment_id
   const commentDescription = comment.dataset.comment_description
 
@@ -18,14 +17,13 @@ function initializeComment(comment) {
   if (!commentEditorPreview || !editorTextarea) return
 
   let savedComment = ''
-  TextareaInitializer.initialize(`#js-comment-${commentId}`)
-  const markdownInitializer = new MarkdownInitializer()
+  initializeTextarea(`#js-comment-${commentId}`)
 
   const commentDisplay = comment.querySelector('.js-comment-display')
   const commentDisplayContent =
     commentDisplay?.querySelector('.js-comment-html')
   if (commentDescription && commentDisplayContent) {
-    const rendered = markdownInitializer.render(commentDescription)
+    const rendered = await renderMarkdown(commentDescription)
     commentDisplayContent.innerHTML = rendered
     commentEditorPreview.innerHTML = rendered
   }
@@ -73,26 +71,24 @@ function initializeComment(comment) {
 
   const saveButton = commentEditor.querySelector('.js-comment-save-button')
   if (saveButton) {
-    saveButton.addEventListener('click', () => {
-      TextareaInitializer.initialize(`#js-comment-${commentId}`)
+    saveButton.addEventListener('click', async () => {
+      initializeTextarea(`#js-comment-${commentId}`)
       toggleVisibility(modalElements, 'is-hidden')
       savedComment = editorTextarea.value
       updateComment(commentId, savedComment)
-      commentDisplayContent.innerHTML = markdownInitializer.render(savedComment)
+      commentDisplayContent.innerHTML = await renderMarkdown(savedComment)
     })
   }
 
   const cancelButton = commentEditor.querySelector('.is-secondary')
-  cancelButton.addEventListener('click', () => {
+  cancelButton.addEventListener('click', async () => {
     toggleVisibility(modalElements, 'is-hidden')
     editorTextarea.value = savedComment
-    commentEditorPreview.innerHTML = markdownInitializer.render(savedComment)
+    commentEditorPreview.innerHTML = await renderMarkdown(savedComment)
   })
 
-  editorTextarea.addEventListener('input', () => {
-    commentEditorPreview.innerHTML = markdownInitializer.render(
-      editorTextarea.value
-    )
+  editorTextarea.addEventListener('input', async () => {
+    commentEditorPreview.innerHTML = await renderMarkdown(editorTextarea.value)
   })
 
   const deleteButton = comment.querySelector('.card-main-actions__muted-action')

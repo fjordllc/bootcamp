@@ -1,15 +1,14 @@
 import Bootcamp from './bootcamp.js'
-import MarkdownInitializer from './markdown-initializer.js'
-import TextareaInitializer from './textarea-initializer.js'
+import { initializeTextarea, renderMarkdown } from './lazy-markdown.js'
 
 document.addEventListener('turbo:load', () => {
   const microReports = document.querySelectorAll('.micro-report')
   if (microReports.length === 0) return
 
-  microReports.forEach((microReport) => {
+  microReports.forEach(async (microReport) => {
     const microReportId = microReport.dataset.micro_report_id
     const microReportContent = microReport.dataset.micro_report_content
-    TextareaInitializer.initialize(`#js-comment-${microReportId}`)
+    initializeTextarea(`#js-comment-${microReportId}`)
     let savedMicroReport = ''
 
     const microReportDisplay = microReport.querySelector(
@@ -26,12 +25,10 @@ document.addEventListener('turbo:load', () => {
       '.a-markdown-input__textarea'
     )
 
-    const markdownInitializer = new MarkdownInitializer()
     if (microReportContent) {
-      microReportDisplayContent.innerHTML =
-        markdownInitializer.render(microReportContent)
-      microReportEditorPreview.innerHTML =
-        markdownInitializer.render(microReportContent)
+      const rendered = await renderMarkdown(microReportContent)
+      microReportDisplayContent.innerHTML = rendered
+      microReportEditorPreview.innerHTML = rendered
     }
 
     const modalElements = [microReportDisplay, microReportEditor]
@@ -50,24 +47,26 @@ document.addEventListener('turbo:load', () => {
         toggleVisibility(modalElements, 'is-hidden')
         savedMicroReport = editorTextarea.value
         await updateMicroReport(microReportId, savedMicroReport)
-        TextareaInitializer.initialize(`#js-comment-${microReportId}`)
-        microReportDisplayContent.innerHTML =
-          markdownInitializer.render(savedMicroReport)
+        initializeTextarea(`#js-comment-${microReportId}`)
+        microReportDisplayContent.innerHTML = await renderMarkdown(
+          savedMicroReport
+        )
       })
     }
 
     const cancelButton = microReportEditor.querySelector('.js-cancel-button')
     if (cancelButton) {
-      cancelButton.addEventListener('click', () => {
+      cancelButton.addEventListener('click', async () => {
         toggleVisibility(modalElements, 'is-hidden')
         editorTextarea.value = savedMicroReport
-        microReportEditorPreview.innerHTML =
-          markdownInitializer.render(savedMicroReport)
+        microReportEditorPreview.innerHTML = await renderMarkdown(
+          savedMicroReport
+        )
       })
     }
 
-    editorTextarea.addEventListener('input', () => {
-      microReportEditorPreview.innerHTML = markdownInitializer.render(
+    editorTextarea.addEventListener('input', async () => {
+      microReportEditorPreview.innerHTML = await renderMarkdown(
         editorTextarea.value
       )
     })

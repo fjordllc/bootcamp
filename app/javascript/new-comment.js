@@ -1,6 +1,5 @@
 import autosize from 'autosize'
-import TextareaInitializer from './textarea-initializer.js'
-import MarkdownInitializer from './markdown-initializer.js'
+import { initializeTextarea, renderMarkdown } from './lazy-markdown.js'
 import { initializeComment, toggleVisibility } from './initializeComment.js'
 import { initializeReaction } from './reaction.js'
 import { toast } from './vanillaToast.js'
@@ -18,8 +17,7 @@ document.addEventListener('turbo:load', () => {
   const isMentor = newComment.dataset.is_mentor === 'true'
 
   let savedComment = ''
-  TextareaInitializer.initialize('#js-new-comment')
-  const markdownInitializer = new MarkdownInitializer()
+  initializeTextarea('#js-new-comment')
 
   const commentEditor = newComment.querySelector('.js-comment-editor')
   const commentEditorPreview = commentEditor.querySelector(
@@ -59,10 +57,8 @@ document.addEventListener('turbo:load', () => {
     if (saveAndCheckButton) saveAndCheckButton.disabled = true
   }
 
-  const updatePreviewAndButtonState = () => {
-    commentEditorPreview.innerHTML = markdownInitializer.render(
-      editorTextarea.value
-    )
+  const updatePreviewAndButtonState = async () => {
+    commentEditorPreview.innerHTML = await renderMarkdown(editorTextarea.value)
     const isEmpty = editorTextarea.value.length === 0
     saveButton.disabled = isEmpty
     if (saveAndCheckButton) saveAndCheckButton.disabled = isEmpty

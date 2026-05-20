@@ -46,6 +46,7 @@ Markdown/Prism/Ace は、importmap 化より前に読み込み境界を分けて
 
 - Markdown viewer: `.js-markdown-view` の読み取り専用レンダリングを担当する。`markdown-it` 本体、Markdown plugin 群、`prismjs`、`prism-languages.js` をここへ集約する。
 - Markdown editor: `.js-markdown` / コメント欄の編集機能を担当する。`textarea-markdown`、`tributejs`、emoji autocomplete、画像アップロード、preview を含むため viewer より後に移行する。
+- Markdown lazy loading: `lazy-markdown.js` 経由の dynamic import へ集約済み。Markdown/Prism/editor 依存は `application` entrypoint から外れ、必要な画面で遅延 chunk として読み込まれる。
 - Prism: component import は順序依存で global `Prism` を拡張するため、importmap では個別 pin よりも core + 使用 language をまとめた vendor file にする方が安全。言語一覧は `prism-languages.js` に集約したままにする。
 - Ace: coding test 画面専用。Shakapacker の別 pack に分離済み。`ace-builds/webpack-resolver` は削除済みで、Ace の構文チェック worker は無効化済み。importmap/vendor 化する場合は `ace.js`、`mode-javascript.js`、`mode-ruby.js`、`theme-github.js` だけを配信する。
 

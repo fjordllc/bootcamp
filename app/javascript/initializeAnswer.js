@@ -1,15 +1,13 @@
 import CSRF from './csrf.js'
 import updateAnswerCount from './updateAnswerCount.js'
-import TextareaInitializer from './textarea-initializer.js'
-import MarkdownInitializer from './markdown-initializer.js'
+import { initializeTextarea, renderMarkdown } from './lazy-markdown.js'
 
-export default function initializeAnswer(answer) {
+export default async function initializeAnswer(answer) {
   const questionId = answer.dataset.question_id
   const answerId = answer.dataset.answer_id
   const answerDescription = answer.dataset.answer_description
   let savedAnswer = ''
-  TextareaInitializer.initialize(`#js-comment-${answerId}`)
-  const markdownInitializer = new MarkdownInitializer()
+  initializeTextarea(`#js-comment-${answerId}`)
 
   const answerDisplay = answer.querySelector('.answer-display')
   const answerEditor = answer.querySelector('.answer-editor')
@@ -19,10 +17,9 @@ export default function initializeAnswer(answer) {
   const editorTextarea = answerEditor.querySelector('.markdown-textarea')
 
   if (answerDescription) {
-    answerDisplayContent.innerHTML =
-      markdownInitializer.render(answerDescription)
-    answerEditorPreview.innerHTML =
-      markdownInitializer.render(answerDescription)
+    const rendered = await renderMarkdown(answerDescription)
+    answerDisplayContent.innerHTML = rendered
+    answerEditorPreview.innerHTML = rendered
   }
 
   const editButton = answerDisplay.querySelector('.edit-button')
@@ -38,25 +35,23 @@ export default function initializeAnswer(answer) {
 
   const saveButton = answerEditor.querySelector('.save-button')
   if (saveButton) {
-    saveButton.addEventListener('click', () => {
+    saveButton.addEventListener('click', async () => {
       toggleVisibility(modalElements, 'is-hidden')
       savedAnswer = editorTextarea.value
       updateAnswer(answerId, savedAnswer)
-      answerDisplayContent.innerHTML = markdownInitializer.render(savedAnswer)
+      answerDisplayContent.innerHTML = await renderMarkdown(savedAnswer)
     })
   }
 
   const cancelButton = answerEditor.querySelector('.cancel-button')
-  cancelButton.addEventListener('click', () => {
+  cancelButton.addEventListener('click', async () => {
     toggleVisibility(modalElements, 'is-hidden')
     editorTextarea.value = savedAnswer
-    answerEditorPreview.innerHTML = markdownInitializer.render(savedAnswer)
+    answerEditorPreview.innerHTML = await renderMarkdown(savedAnswer)
   })
 
-  editorTextarea.addEventListener('input', () => {
-    answerEditorPreview.innerHTML = markdownInitializer.render(
-      editorTextarea.value
-    )
+  editorTextarea.addEventListener('input', async () => {
+    answerEditorPreview.innerHTML = await renderMarkdown(editorTextarea.value)
   })
 
   const makeBestAnswerButton = answerDisplay.querySelector('.make-best-answer')
