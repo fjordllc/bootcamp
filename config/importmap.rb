@@ -8,3 +8,5 @@ pin "@rails/request.js", to: "importmap-rails-request.js" # @0.0.12
 pin "autosize", to: "importmap-autosize.js" # @4.0.2
 pin "sortablejs", to: "importmap-sortablejs.js" # @1.15.0
 pin "sweetalert2", to: "importmap-sweetalert2.js" # @11.1.5
+pin "choices.js", to: "importmap-choices.js" # @10.1.0
+pin "dayjs", to: "importmap-dayjs.js" # @1.10.4
