@@ -224,4 +224,4 @@ jobs:
           junit: "test/reports/**/*.xml"
           source-root: "."
           history-branch: flakewatch-data
-          history-write: true
+          history-write: auto
