@@ -1,4 +1,4 @@
-import { toast } from 'vanillaToast.js'
+import { toast } from './vanillaToast.js'
 
 document.addEventListener('turbo:load', () => {
   const messages = document.querySelectorAll('.js-toast')

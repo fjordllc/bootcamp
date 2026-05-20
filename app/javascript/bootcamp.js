@@ -1,4 +1,4 @@
-import CSRF from 'csrf'
+import CSRF from './csrf.js'
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
 dayjs.locale(ja)

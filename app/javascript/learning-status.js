@@ -1,5 +1,5 @@
 import 'whatwg-fetch'
-import CSRF from 'csrf'
+import CSRF from './csrf.js'
 
 document.addEventListener('turbo:load', () => {
   const practiceElement = document.querySelector('#practice')

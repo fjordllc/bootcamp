@@ -1,4 +1,4 @@
-import CSRF from 'csrf'
+import CSRF from './csrf.js'
 
 document.addEventListener('turbo:load', () => {
   const completeButton = document.getElementById('js-complete')

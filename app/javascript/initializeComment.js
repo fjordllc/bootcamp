@@ -1,6 +1,6 @@
-import CSRF from 'csrf'
-import TextareaInitializer from 'textarea-initializer'
-import MarkdownInitializer from 'markdown-initializer'
+import CSRF from './csrf.js'
+import TextareaInitializer from './textarea-initializer.js'
+import MarkdownInitializer from './markdown-initializer.js'
 
 function initializeComment(comment) {
   const commentId = comment.dataset.comment_id

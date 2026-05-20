@@ -1,4 +1,4 @@
-import TextareaInitializer from 'textarea-initializer'
+import TextareaInitializer from './textarea-initializer.js'
 
 document.addEventListener('turbo:load', () => {
   const selector = '.js-markdown'

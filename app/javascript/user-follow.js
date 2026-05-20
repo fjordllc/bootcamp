@@ -1,4 +1,4 @@
-import CSRF from 'csrf'
+import CSRF from './csrf.js'
 
 function followOrChangeFollow(userId, isFollowing, isWatching) {
   const url = isFollowing

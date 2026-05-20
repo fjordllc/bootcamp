@@ -1,6 +1,6 @@
-import Bootcamp from 'bootcamp'
-import MarkdownInitializer from 'markdown-initializer'
-import TextareaInitializer from 'textarea-initializer'
+import Bootcamp from './bootcamp.js'
+import MarkdownInitializer from './markdown-initializer.js'
+import TextareaInitializer from './textarea-initializer.js'
 
 document.addEventListener('turbo:load', () => {
   const microReports = document.querySelectorAll('.micro-report')

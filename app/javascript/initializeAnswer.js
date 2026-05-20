@@ -1,7 +1,7 @@
-import CSRF from 'csrf'
+import CSRF from './csrf.js'
 import updateAnswerCount from './updateAnswerCount'
-import TextareaInitializer from 'textarea-initializer'
-import MarkdownInitializer from 'markdown-initializer'
+import TextareaInitializer from './textarea-initializer.js'
+import MarkdownInitializer from './markdown-initializer.js'
 
 export default function initializeAnswer(answer) {
   const questionId = answer.dataset.question_id

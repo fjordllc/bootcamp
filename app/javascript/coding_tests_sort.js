@@ -1,5 +1,5 @@
 import Sortable from 'sortablejs'
-import Bootcamp from 'bootcamp'
+import Bootcamp from './bootcamp.js'
 
 document.addEventListener('turbo:load', () => {
   const element = document.querySelector('#js-coding-test-sortable')

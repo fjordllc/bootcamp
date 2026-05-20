@@ -1,6 +1,6 @@
 import autosize from 'autosize'
-import TextareaInitializer from 'textarea-initializer'
-import MarkdownInitializer from 'markdown-initializer'
+import TextareaInitializer from './textarea-initializer.js'
+import MarkdownInitializer from './markdown-initializer.js'
 import { initializeComment, toggleVisibility } from './initializeComment.js'
 import { initializeReaction } from './reaction.js'
 import { toast } from './vanillaToast.js'

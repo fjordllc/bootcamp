@@ -1,7 +1,7 @@
-import CSRF from 'csrf'
-import TextareaInitializer from 'textarea-initializer'
-import MarkdownInitializer from 'markdown-initializer'
-import { toast } from 'vanillaToast'
+import CSRF from './csrf.js'
+import TextareaInitializer from './textarea-initializer.js'
+import MarkdownInitializer from './markdown-initializer.js'
+import { toast } from './vanillaToast.js'
 
 document.addEventListener('turbo:load', () => {
   const practiceMemo = document.querySelector('.practice-memo')
