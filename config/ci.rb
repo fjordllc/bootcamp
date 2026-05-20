@@ -5,8 +5,7 @@ CI.run do
 
   step "Style: Ruby", "bin/rubocop"
 
-  # TODO: importmapに移行後に有効化
-  # step "Security: Importmap vulnerability audit", "bin/importmap audit"
+  step "Security: Importmap vulnerability audit", "bin/importmap audit"
 
   step "Tests: Rails", "bin/rails test"
   step "Tests: System", "bin/rails test:system"

@@ -100,6 +100,8 @@ Webpack の `app/javascript` 解決に依存していた local alias import は 
 
 1. Local alias imports を relative import へ統一する。（完了）
 2. importmap の足場と Simple runtime dependencies の pin を追加する。（完了）
-3. importmap 導入時に Stimulus controller loading を `stimulus-loading` 方式へ置換する。
-4. Tagify/Prism/Markdown/Ace の asset・CSS・worker 問題を個別に処理する。
-5. Shakapacker/Webpack/Babel 依存と設定を削除する。
+3. Turbo を importmap entrypoint で読み込む。（完了）
+4. Importmap vulnerability audit を CI に戻す。（完了）
+5. importmap 導入時に Stimulus controller loading を `stimulus-loading` 方式へ置換する。
+6. Tagify/Prism/Markdown/Ace の asset・CSS・worker 問題を個別に処理する。
+7. Shakapacker/Webpack/Babel 依存と設定を削除する。
