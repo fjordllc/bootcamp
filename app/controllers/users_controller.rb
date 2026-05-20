@@ -82,6 +82,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
 
   def created
     @role = params[:role] || 'student'
+    @email = flash[:signup_email]
   end
 
   def toggle_show_study_streak
@@ -120,6 +121,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
       notify_to_chat(@user)
       ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.trainee?
       logger.info "[Signup] 4. after create times channel for free user. #{@user.email}"
+      flash[:signup_email] = @user.email
       redirect_to created_users_path(role: determine_user_role(@user))
     else
       render 'new', locals: { user: @user }
@@ -167,6 +169,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
         ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.student?
         send_affiliate_kickback(@user)
         flash[:x_conversion] = 'signup'
+        flash[:signup_email] = @user.email
         logger.info "[Signup] 8. after create times channel. #{@user.email}"
         redirect_to created_users_path(role: determine_user_role(@user))
       else
