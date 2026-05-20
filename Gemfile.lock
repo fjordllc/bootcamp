@@ -837,6 +837,7 @@ DEPENDENCIES
   holiday_jp
   icalendar (~> 2.12)
   image_processing (>= 1.12.2, < 2.0)
+  importmap-rails
   interactor (~> 3.0)
   jbuilder
   jp_prefecture (~> 1.1)
