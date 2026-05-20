@@ -223,7 +223,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def validate_skip_on_uniqueness
-    # 削除対象(_destroy: 1)ではないskip_onの中から重複を検知
     active_skip_ons = regular_event_skip_dates
                       .map(&:skip_on)
                       .compact
