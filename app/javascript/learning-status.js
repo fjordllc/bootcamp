@@ -1,4 +1,3 @@
-import 'whatwg-fetch'
 import CSRF from './csrf.js'
 
 document.addEventListener('turbo:load', () => {

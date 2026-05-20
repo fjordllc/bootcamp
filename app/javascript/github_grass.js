@@ -1,5 +1,3 @@
-import 'whatwg-fetch'
-
 document.addEventListener('turbo:load', () => {
   const selector = '.js-github-grass'
   const grasses = document.querySelectorAll(selector)

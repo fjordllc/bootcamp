@@ -1,4 +1,4 @@
-import { checkProduct } from './checkable_react.js'
+import { checkProduct } from './product-checker-api.js'
 
 export class ProductChecker {
   constructor(checkerElement) {
@@ -36,18 +36,33 @@ export class ProductChecker {
     button.appendChild(icon)
   }
 
-  handleCheckerToggle(button) {
+  async handleCheckerToggle(button) {
     const nextIsAssigned = !this.isAssigned
-    this.updateButton(button, nextIsAssigned)
+    button.disabled = true
 
-    checkProduct(
+    const body = await checkProduct(
       this.productId,
       this.currentUserId,
       '/api/products/checker',
       this.isAssigned ? 'delete' : 'patch'
     )
 
+    button.disabled = false
+    if (!body) return
+
+    this.updateUnassignedCounter(this.isAssigned ? 1 : -1)
+    this.updateButton(button, nextIsAssigned)
     this.isAssigned = nextIsAssigned
+  }
+
+  updateUnassignedCounter(delta) {
+    const counter = document.getElementById('test-unassigned-counter')
+    if (!counter) return
+
+    const count = parseInt(counter.textContent, 10)
+    if (Number.isNaN(count)) return
+
+    counter.textContent = Math.max(count + delta, 0)
   }
 
   generateActionButton() {
@@ -55,7 +70,9 @@ export class ProductChecker {
     this.updateButton(button, this.isAssigned)
     this.element.appendChild(button)
 
-    button.addEventListener('click', () => this.handleCheckerToggle(button))
+    button.addEventListener('click', async () =>
+      this.handleCheckerToggle(button)
+    )
   }
 
   generateAssigneeDisplay() {
