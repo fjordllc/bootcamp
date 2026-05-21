@@ -1,11 +1,47 @@
 - title "提出物: #{@product.practice.title}"
-- set_meta_tags description: "#{@product.user.long_name}さんが提出した、プラクティス「#{@product.practice.title}」の提出物です。"
 - category = @product.category(current_user.course)
+ruby:
+  meta_description = "#{@product.user.long_name}さんが提出した、" \
+                     "プラクティス「#{@product.practice.title}」の提出物です。"
+  should_display_completion_modal =
+    @learning&.should_display_message_automatically?(current_user:)
+  practices_path =
+    course_practices_path(
+      current_user.course,
+      anchor: "category-#{category.id}"
+    )
+  practice_content_toggle =
+    PracticeContentToggle::PracticeContentToggleComponent.new(
+      content_type: :practice,
+      practice: @product.practice
+    )
+  goal_content_toggle =
+    PracticeContentToggle::PracticeContentToggleComponent.new(
+      content_type: :goal,
+      practice: @product.practice
+    )
+  user_course_practice = UserCoursePractice.new(@product.user)
+  show_submission_answer_button =
+    current_user.mentor? &&
+    @practice.submission &&
+    !@practice.submission_answer
+  show_after_submission_message =
+    @product.user == current_user &&
+    !@product.wip? &&
+    !@product.checked? &&
+    @product.commented_users.mentor.empty?
+  mentor_sidebar_class =
+    if current_user.mentor? || current_user.admin?
+      'col-xl-5 col-xs-12 is-hidden-sm-down'
+    else
+      ''
+    end
+- set_meta_tags description: meta_description
 
 = render '/shared/modal_learning_completion',
   practice: @product.practice,
   tweet_url: @tweet_url,
-  should_display_message_automatically: @learning&.should_display_message_automatically?(current_user:)
+  should_display_message_automatically: should_display_completion_modal
 
 header.page-header
   .container
@@ -16,13 +52,14 @@ header.page-header
       .page-header__end
         .page-header-actions
           ul.page-header-actions__items
-            - if current_user.mentor? && @practice.submission && !@practice.submission_answer
+            - if show_submission_answer_button
               li.page-header-actions__item.is-hidden-sm-down.is-only-mentor
-                = link_to new_mentor_practice_submission_answer_path(@practice), class: 'a-button is-md is-secondary is-block' do
+                = link_to new_mentor_practice_submission_answer_path(@practice),
+                  class: 'a-button is-md is-secondary is-block' do
                   i.fa-regular.fa-plus
                   span
                     | 模範解答作成
-            - if current_user.mentor?
+            - if current_user.admin?
               li.page-header-actions__item.is-only-mentor
                 = link_to review_by_pjord_product_path(@product),
                   class: 'a-button is-md is-secondary is-block',
@@ -32,19 +69,20 @@ header.page-header
                   span
                     | ピヨルドでレビューコメントをする
             li.page-header-actions__item
-              = link_to course_practices_path(current_user.course, anchor: "category-#{category.id}"),
+              = link_to practices_path,
                 class: 'a-button is-md is-secondary is-block is-back' do
                 | プラクティス一覧
             - if current_user.admin?
               li.page-header-actions__item.is-only-mentor
-                = link_to products_unchecked_index_path, class: 'a-button is-md is-secondary is-block is-back' do
+                = link_to products_unchecked_index_path,
+                  class: 'a-button is-md is-secondary is-block is-back' do
                   | 未完了一覧
 
 = practice_page_tabs(@product.practice, active_tab: '提出物')
 
 .page-body
 
-  - if @product.user == current_user && !@product.wip? && !@product.checked? && @product.commented_users.mentor.empty?
+  - if show_after_submission_message
     = render 'message_for_after_submission'
 
   - if @product.wip? && @product.user == current_user
@@ -61,52 +99,79 @@ header.page-header
             .page-body__row
               = render 'product_header', product: @product
             .page-body__row
-              = render PracticeContentToggle::PracticeContentToggleComponent.new(content_type: :practice, practice: @product.practice)
+              = render practice_content_toggle
             .page-body__row
-              = render PracticeContentToggle::PracticeContentToggleComponent.new(content_type: :goal, practice: @product.practice)
+              = render goal_content_toggle
             .page-body__row.is-only-mentor
               = render 'practice_memo', practice_id: @practice.id
             .page-body__row
               = render 'product_body', product: @product
 
-        = render 'comments/comments', commentable: @product, commentable_type: 'Product'
+        = render 'comments/comments',
+          commentable: @product,
+          commentable_type: 'Product'
         .user-icons
           ul.user-icons__items
             = render '/footprints/footprints', footprints: @footprints
 
-      .is-only-mentor(class="#{current_user.mentor? || current_user.admin? ? 'col-xl-5 col-xs-12 is-hidden-sm-down' : ''}")
+      .is-only-mentor class=mentor_sidebar_class
         - if current_user.mentor? || current_user.admin?
           .side-tabs
-            input.a-toggle-checkbox#side-tabs-1 type='radio' name='side-tabs-contents' checked='checked'
-            input.a-toggle-checkbox#side-tabs-2 type='radio' name='side-tabs-contents'
-            input.a-toggle-checkbox#side-tabs-3 type='radio' name='side-tabs-contents'
-            input.a-toggle-checkbox#side-tabs-4 type='radio' name='side-tabs-contents'
+            input.a-toggle-checkbox#side-tabs-1(
+              type='radio'
+              name='side-tabs-contents'
+              checked='checked'
+            )
+            input.a-toggle-checkbox#side-tabs-2(
+              type='radio'
+              name='side-tabs-contents'
+            )
+            input.a-toggle-checkbox#side-tabs-3(
+              type='radio'
+              name='side-tabs-contents'
+            )
+            input.a-toggle-checkbox#side-tabs-4(
+              type='radio'
+              name='side-tabs-contents'
+            )
             .side-tabs-nav
               .side-tabs-nav__items
                 .side-tabs-nav__item
-                  label.side-tabs-nav__item-link#side-tabs-nav-1 for='side-tabs-1'
+                  label.side-tabs-nav__item-link#side-tabs-nav-1(
+                    for='side-tabs-1'
+                  )
                     | 直近の日報
                 .side-tabs-nav__item
-                  label.side-tabs-nav__item-link#side-tabs-nav-2 for='side-tabs-2'
+                  label.side-tabs-nav__item-link#side-tabs-nav-2(
+                    for='side-tabs-2'
+                  )
                     | ユーザーメモ
                 .side-tabs-nav__item
-                  label.side-tabs-nav__item-link#side-tabs-nav-3 for='side-tabs-3'
+                  label.side-tabs-nav__item-link#side-tabs-nav-3(
+                    for='side-tabs-3'
+                  )
                     | ユーザー情報
                 .side-tabs-nav__item
-                  label.side-tabs-nav__item-link#side-tabs-nav-4 for='side-tabs-4'
+                  label.side-tabs-nav__item-link#side-tabs-nav-4(
+                    for='side-tabs-4'
+                  )
                     | 提出物
             .side-tabs-contents
               .side-tabs-contents__item#side-tabs-content-1
-                = render partial: 'reports/recent_reports', locals: { header_display: true }
+                = render partial: 'reports/recent_reports',
+                  locals: { header_display: true }
               .side-tabs-contents__item#side-tabs-content-2
                 = render 'users/user_mentor_memo', user_id: @product.user.id
               .side-tabs-contents__item#side-tabs-content-3
                 .a-card
                   .user-data
                     .user-data__row
-                      = render 'users/user_secret_attributes', user: @product.user
+                      = render 'users/user_secret_attributes',
+                        user: @product.user
                     .user-data__row
-                      = render 'users/metas', user: @product.user, user_course_practice: UserCoursePractice.new(@product.user)
+                      = render 'users/metas',
+                        user: @product.user,
+                        user_course_practice: user_course_practice
                     ruby:
                       skipped_practices = @product.user.skipped_practices
                       user_practices = @product.user.practices
@@ -119,9 +184,21 @@ header.page-header
                             - skipped_practices.each do |skipped_practice|
                               .user-metas__item
                                 .user-metas__item-value
-                                  = link_to practice_path(skipped_practice.practice.id) do
-                                    - display_practice = user_practices.find_by(id: skipped_practice.practice.id)
-                                    span.category-practices-item__title-link-label
+                                  ruby:
+                                    skipped_practice_id =
+                                      skipped_practice.practice.id
+                                    skipped_practice_path =
+                                      practice_path(skipped_practice_id)
+                                    display_practice =
+                                      user_practices.find_by(
+                                        id: skipped_practice_id
+                                      )
+                                  = link_to skipped_practice_path do
+                                    ruby:
+                                      practice_title_class =
+                                        'category-practices-item__' \
+                                        'title-link-label'
+                                    = tag.span(class: practice_title_class) do
                                       = display_practice.title
               .side-tabs-contents__item#side-tabs-content-4
                 = render Products::UserProductsComponent.new(\
