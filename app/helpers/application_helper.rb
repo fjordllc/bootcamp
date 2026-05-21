@@ -50,6 +50,7 @@ module ApplicationHelper
     confirm = html_options.delete(:confirm) || html_options.dig(:data, :confirm) || html_options.dig(:data, 'confirm')
     data = legacy_link_data(html_options[:data], method, confirm)
     html_options[:data] = data if data
+    html_options[:onclick] ||= 'return window.submitLegacyMethodLink(this, event)' if method.present?
     html_options
   end
 

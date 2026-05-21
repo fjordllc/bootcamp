@@ -29,15 +29,21 @@
           .page-content-prev-next
             .page-content-prev-next__item
               - if @report.previous
-                = link_to @report.previous, class: 'page-content-prev-next__item-link is-prev' do
+                = link_to @report.previous,
+                  class: 'page-content-prev-next__item-link is-prev',
+                  data: { turbo: false } do
                   i.fa-solid.fa-angle-left
                   | 前の日報
             .page-content-prev-next__item
-              = link_to user_reports_path(@report.user_id), class: 'page-content-prev-next__item-link is-index' do
+              = link_to user_reports_path(@report.user_id),
+                class: 'page-content-prev-next__item-link is-index',
+                data: { turbo: false } do
                 | 日報一覧
             .page-content-prev-next__item
               - if @report.next
-                = link_to @report.next, class: 'page-content-prev-next__item-link is-next' do
+                = link_to @report.next,
+                  class: 'page-content-prev-next__item-link is-next',
+                  data: { turbo: false } do
                   | 次の日報
                   i.fa-solid.fa-angle-right
         = render 'comments/comments', commentable: @report, commentable_type: 'Report'

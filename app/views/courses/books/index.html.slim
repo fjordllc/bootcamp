@@ -25,9 +25,15 @@ header.page-header
       .container
         ul.pill-nav__items
           li.pill-nav__item
-            = link_to '全て', course_books_path, class: "pill-nav__item-link #{params[:status] == 'mustread' ? '' : 'is-active'}"
+            = link_to '全て',
+              course_books_path,
+              class: "pill-nav__item-link #{params[:status] == 'mustread' ? '' : 'is-active'}",
+              data: { turbo: false }
           li.pill-nav__item
-            = link_to '必読', course_books_path(status: 'mustread'), class: "pill-nav__item-link #{params[:status] == 'mustread' ? 'is-active' : ''}"
+            = link_to '必読',
+              course_books_path(status: 'mustread'),
+              class: "pill-nav__item-link #{params[:status] == 'mustread' ? 'is-active' : ''}",
+              data: { turbo: false }
   .page-body
     .page-content.is-books
       .container

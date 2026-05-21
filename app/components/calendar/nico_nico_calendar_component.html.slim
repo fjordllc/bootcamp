@@ -7,7 +7,7 @@
     .card-body__description
       .niconico-calendar-nav
         - if prev_month?(current_date)
-          = link_to prev_month_path do
+          = link_to prev_month_path, data: { turbo: false } do
             .niconico-calendar-nav__previous
               i.fa-solid.fa-angle-left
         - else
@@ -15,7 +15,7 @@
         .niconico-calendar-nav__year--month
           = "#{current_date.year}年#{current_date.month}月"
         - if next_month?(current_date)
-          = link_to next_month_path do
+          = link_to next_month_path, data: { turbo: false } do
             .niconico-calendar-nav__next
               i.fa-solid.fa-angle-right
         - else
@@ -24,9 +24,10 @@
         thead.niconico-calendar__header
           tr
             - I18n.t('date.abbr_day_names').each_with_index do |day, i|
-              - c = 'niconico-calendar__header-day'
-              - c += ' is-sunday' if i == 0
-              - c += ' is-saturday' if i == 6
+              ruby:
+                c = 'niconico-calendar__header-day'
+                c += ' is-sunday' if i.zero?
+                c += ' is-saturday' if i == 6
               th class=c = day
         tbody.niconico-calendar__body
           - user.niconico_calendar(current_calendar).each do |week|
@@ -43,10 +44,14 @@
                       i.fa-solid.fa-minus
                 td.niconico-calendar__day class=day_css_class
                   - if set[:report]
-                    = link_to report_path(set[:report]), class: 'niconico-calendar__day-inner' do
+                    = link_to report_path(set[:report]),
+                      class: 'niconico-calendar__day-inner',
+                      data: { turbo: false } do
                       = day_label_html
                   - elsif set[:date] && !set[:date].future?
-                    = link_to new_report_path(reported_on: set[:date]), class: 'niconico-calendar__day-inner' do
+                    = link_to new_report_path(reported_on: set[:date]),
+                      class: 'niconico-calendar__day-inner',
+                      data: { turbo: false } do
                       = day_label_html
                   - else
                     .niconico-calendar__day-inner
