@@ -1,4 +1,4 @@
-document.addEventListener('turbo:load', () => {
+function setupCoursesPractices() {
   function scrollToCategory() {
     const count = location.href.search('#')
     const hash = location.href.slice(count + 1)
@@ -8,4 +8,8 @@ document.addEventListener('turbo:load', () => {
     }
   }
   scrollToCategory()
-})
+}
+
+document.addEventListener('turbo:load', setupCoursesPractices)
+document.addEventListener('DOMContentLoaded', setupCoursesPractices)
+setupCoursesPractices()

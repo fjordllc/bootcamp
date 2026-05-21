@@ -12,5 +12,10 @@
 //= link copy-url.js
 //= link no_learn.js
 //= link training-info-toggler.js
+//= link courses-practices.js
+//= link upload-image-to-article.js
+//= link micro-report-form-tabs.js
+//= link footprints.js
+//= link diploma-upload.js
 //= link_tree ../../../vendor/javascript .js
 //= link_directory ../builds .css

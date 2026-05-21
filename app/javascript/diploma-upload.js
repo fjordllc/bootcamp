@@ -1,6 +1,9 @@
 function initializeDiplomaUploadField() {
   const uploadField = document.getElementById('js-pdf-upload-field')
   if (!uploadField) return
+  if (uploadField.dataset.diplomaUploadInitialized === 'true') return
+
+  uploadField.dataset.diplomaUploadInitialized = 'true'
 
   const removeButton = document.getElementById('js-remove-pdf-button')
   const fileLink = document.getElementById('js-pdf-file-link')
@@ -34,6 +37,6 @@ function initializeDiplomaUploadField() {
   })
 }
 
-document.addEventListener('turbo:load', () => {
-  initializeDiplomaUploadField()
-})
+document.addEventListener('turbo:load', initializeDiplomaUploadField)
+document.addEventListener('DOMContentLoaded', initializeDiplomaUploadField)
+initializeDiplomaUploadField()
