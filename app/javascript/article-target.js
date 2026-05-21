@@ -1,4 +1,4 @@
-document.addEventListener('turbo:load', () => {
+function setupArticleTarget() {
   const radioButtons = document.querySelectorAll(
     'input[name="article[target]"]'
   )
@@ -8,6 +8,11 @@ document.addEventListener('turbo:load', () => {
   if (!defaultTarget) {
     return
   }
+  if (defaultTarget.dataset.articleTargetInitialized === 'true') {
+    return
+  }
+
+  defaultTarget.dataset.articleTargetInitialized = 'true'
   let target = defaultTarget.value
   let targetName = document
     .querySelector(`label[for="${defaultTarget.id}"]`)
@@ -50,7 +55,11 @@ document.addEventListener('turbo:load', () => {
       }
     }
   })
-})
+}
+
+document.addEventListener('turbo:load', setupArticleTarget)
+document.addEventListener('DOMContentLoaded', setupArticleTarget)
+setupArticleTarget()
 
 function setAlertText(target, targetName) {
   if (target === 'none') {

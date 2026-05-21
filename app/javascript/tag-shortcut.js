@@ -26,4 +26,5 @@ function setupTagShortcut() {
 }
 
 document.addEventListener('turbo:load', setupTagShortcut)
+document.addEventListener('DOMContentLoaded', setupTagShortcut)
 setupTagShortcut()
