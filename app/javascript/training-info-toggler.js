@@ -1,9 +1,11 @@
-document.addEventListener('turbo:load', () => {
+function setupTrainingInfoToggler() {
   const checkbox = document.querySelector(
     'input.js-training-info-toggler-checkbox'
   )
 
   if (checkbox !== null) {
+    if (checkbox.dataset.trainingInfoTogglerInitialized === 'true') return null
+
     const dateInput = document.querySelector('input.training-info-date')
     const trainingInfoBlock = document.querySelector('.js-training-info-block')
 
@@ -14,6 +16,7 @@ document.addEventListener('turbo:load', () => {
       trainingInfoBlock.style.display = 'none'
     }
 
+    checkbox.dataset.trainingInfoTogglerInitialized = 'true'
     checkbox.addEventListener('change', () => {
       if (checkbox.checked === true) {
         trainingInfoBlock.style.display = 'block'
@@ -23,4 +26,8 @@ document.addEventListener('turbo:load', () => {
       }
     })
   }
-})
+}
+
+document.addEventListener('turbo:load', setupTrainingInfoToggler)
+document.addEventListener('DOMContentLoaded', setupTrainingInfoToggler)
+setupTrainingInfoToggler()

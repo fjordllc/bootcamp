@@ -10,5 +10,7 @@
 //= link date-input-toggler.js
 //= link modal-switcher.js
 //= link copy-url.js
+//= link no_learn.js
+//= link training-info-toggler.js
 //= link_tree ../../../vendor/javascript .js
 //= link_directory ../builds .css

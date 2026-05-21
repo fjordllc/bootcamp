@@ -100,6 +100,15 @@ async function initTagsInput(container) {
   })
 }
 
-document.addEventListener('turbo:load', () => {
-  document.querySelectorAll('[data-tags-input]').forEach(initTagsInput)
-})
+function setupTagsInput() {
+  document.querySelectorAll('[data-tags-input]').forEach((container) => {
+    if (container.dataset.tagsInputInitialized === 'true') return
+
+    container.dataset.tagsInputInitialized = 'true'
+    initTagsInput(container)
+  })
+}
+
+document.addEventListener('turbo:load', setupTagsInput)
+document.addEventListener('DOMContentLoaded', setupTagsInput)
+setupTagsInput()

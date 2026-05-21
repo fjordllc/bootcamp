@@ -1,7 +1,10 @@
-document.addEventListener('turbo:load', () => {
+function setupNoLearn() {
   const checkBox = document.querySelector('.js-no-practice-time')
   const times = document.querySelector('#js-learning-times')
   if (!checkBox || !times) {
+    return null
+  }
+  if (checkBox.dataset.noLearnInitialized === 'true') {
     return null
   }
 
@@ -11,6 +14,7 @@ document.addEventListener('turbo:load', () => {
     }
   }
 
+  checkBox.dataset.noLearnInitialized = 'true'
   checkBox.addEventListener('change', (event) => {
     times.classList.toggle('is-hidden')
     if (event.target.checked) {
@@ -19,4 +23,8 @@ document.addEventListener('turbo:load', () => {
         .forEach((field) => field.remove())
     }
   })
-})
+}
+
+document.addEventListener('turbo:load', setupNoLearn)
+document.addEventListener('DOMContentLoaded', setupNoLearn)
+setupNoLearn()
