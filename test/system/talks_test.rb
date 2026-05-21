@@ -6,7 +6,7 @@ class TalksTest < ApplicationSystemTestCase
   test 'talks action uncompleted page displays when admin logined ' do
     visit_with_auth '/', 'komagata'
     click_link '相談', match: :first
-    assert_equal '/talks/action_uncompleted', current_path
+    assert_current_path '/talks/action_uncompleted'
   end
 
   test 'Displays users talks page when user loged in ' do
