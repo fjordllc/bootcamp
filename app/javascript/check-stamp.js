@@ -1,9 +1,5 @@
 import { get } from '@rails/request.js'
 
-document.addEventListener('turbo:load', () => {
-  loadCheckStamp()
-})
-
 const loadCheckStamp = () => {
   const checkStamp = document.getElementById('js-check-stamp')
   if (!checkStamp) return
@@ -33,5 +29,13 @@ const loadCheckStamp = () => {
       console.warn(error)
     })
 }
+
+function setupCheckStamp() {
+  loadCheckStamp()
+}
+
+document.addEventListener('turbo:load', setupCheckStamp)
+document.addEventListener('DOMContentLoaded', setupCheckStamp)
+setupCheckStamp()
 
 export default loadCheckStamp

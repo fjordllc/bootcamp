@@ -7,9 +7,11 @@ import { setWatchable } from './setWatchable.js'
 import commentCheckable from './comment-checkable.js'
 import { post } from '@rails/request.js'
 
-document.addEventListener('turbo:load', () => {
+function setupNewComment() {
   const newComment = document.querySelector('.new-comment')
   if (!newComment) return
+  if (newComment.dataset.initialized === 'true') return
+  newComment.dataset.initialized = 'true'
 
   const commentableId = newComment.dataset.commentable_id
   const commentableType = newComment.dataset.commentable_type
@@ -208,4 +210,8 @@ document.addEventListener('turbo:load', () => {
   document.addEventListener('unchecked', () => {
     saveAndCheckWrapper?.classList.remove('is-hidden')
   })
-})
+}
+
+document.addEventListener('turbo:load', setupNewComment)
+document.addEventListener('DOMContentLoaded', setupNewComment)
+setupNewComment()
