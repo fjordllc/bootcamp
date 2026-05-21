@@ -7,6 +7,7 @@
 //= link unconfirmed-links-open.js
 //= link notifications_remove_after_open.js
 //= link warning.js
+//= link legacy-link-method.js
 //= link date-input-toggler.js
 //= link modal-switcher.js
 //= link copy-url.js

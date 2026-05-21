@@ -24,6 +24,9 @@ export default class {
     }
 
     Array.from(elements).forEach((element) => {
+      if (element.dataset.markdownInitialized === 'true') return
+
+      element.dataset.markdownInitialized = 'true'
       element.style.display = 'block'
       element.innerHTML = this.render(element.textContent)
     })
