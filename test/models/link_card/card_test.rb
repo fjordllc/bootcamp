@@ -42,5 +42,20 @@ module LinkCard
         assert_includes metadata[:description], 'フィヨルドブートキャンプの顧問、角谷信太郎氏によるプログラミング学習者に向けたトークイベント'
       end
     end
+
+    test '#metadata does not cache failed fetch' do
+      store = ActiveSupport::Cache::MemoryStore.new
+      params = { url: 'https://www.youtube.com/watch?v=8LudKmk7yPM', tweet: nil }
+      card = LinkCard::Card.new(params[:url], params[:tweet])
+      metadata = { title: '角谷トーク2023 本編' }
+      requests = [nil, metadata]
+
+      Rails.stub(:cache, store) do
+        card.stub(:request, -> { requests.shift }) do
+          assert_nil card.metadata
+          assert_equal metadata, card.metadata
+        end
+      end
+    end
   end
 end
