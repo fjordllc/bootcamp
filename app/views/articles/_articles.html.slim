@@ -42,7 +42,9 @@ header.lp-page-header
             - articles.each do |article|
               .col-lg-4.col-md-6.col-xs-12
                 .thumbnail-card.a-card class=(article.wip? ? ' is-wip' : '')
-                  = link_to article, class: 'thumbnail-card__inner' do
+                  - thumbnail_link_options = { class: 'thumbnail-card__inner' }
+                  - thumbnail_link_options[:data] = { turbo: false } if article.wip?
+                  = link_to article, thumbnail_link_options do
                     - if current_user&.admin_or_mentor_login? && feature_tag?(article)
                       .tags-highlight
                         .tags-highlight__item

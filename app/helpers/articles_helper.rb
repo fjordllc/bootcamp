@@ -14,11 +14,6 @@ module ArticlesHelper
     base_url + image_url
   end
 
-  def meta_robots_tag
-    content = logged_in? ? 'none' : 'noindex, nofollow'
-    tag.meta(name: 'robots', content:)
-  end
-
   def feature_tag?(article)
     article.tags.pluck(:name).include?('注目の記事')
   end

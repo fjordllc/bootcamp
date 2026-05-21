@@ -1,8 +1,9 @@
-- title @article.title
-- set_meta_tags description: @article.summary if @article.summary.present?
-- set_meta_tags site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）'
-
 ruby:
+  title @article.title
+  set_meta_tags description: @article.summary if @article.summary.present?
+  set_meta_tags site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）'
+  set_meta_tags robots: (logged_in? ? 'none' : 'noindex, nofollow') if @article.wip?
+
   if thumbnail_blank?(@article)
     set_meta_tags(og: { image: ogp_image_url('/ogp/ogp.png'), url: request.url })
     set_meta_tags(twitter: { image: ogp_image_url('/ogp/ogp.png'), url: request.url })

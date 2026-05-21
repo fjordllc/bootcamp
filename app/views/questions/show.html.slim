@@ -33,7 +33,8 @@
             h2.a-side-nav__title
               - if @question.practice
                 = link_to @question.practice,
-                  class: 'a-side-nav__title-link' do
+                  class: 'a-side-nav__title-link',
+                  data: { turbo: false } do
                   = @question.practice.title
               - else
                 | 関連プラクティス無し
@@ -43,7 +44,9 @@
           hr.a-border
           footer.card-footer
             .card-footer__footer-link
-              = link_to questions_path(practice_id: @question.practice), class: 'card-footer__footer-text-link' do
+              = link_to questions_path(practice_id: @question.practice),
+                class: 'card-footer__footer-text-link',
+                data: { turbo: false } do
                 | 全て見る
 
 = render '/shared/modal', id: 'modal-delete-request', modal_title: '質問の削除申請' do
