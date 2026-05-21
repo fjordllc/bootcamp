@@ -113,7 +113,6 @@ ja:
         mentor: メンター
         job_seeking: 就職活動中
         hibernated_at: 休会日時
-        training_completed_at: 研修終了日時
         retired_on: 退会日
         avatar: ユーザーアイコン
         retire_reasons: 選択入力の退会理由
@@ -124,7 +123,8 @@ ja:
         job_seeker: 就職サポート
         github_collaborator: GitHubチーム
         tag_list: タグ
-        training_ends_on: 研修終了日
+        training_ends_on: 研修終了予定日
+        training_completed_at: 研修完了日時
         last_activity_at: 最終活動日時
         profile_image: プロフィール画像
         profile_name: プロフィール名
