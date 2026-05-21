@@ -27,7 +27,7 @@
           - if admin_or_mentor_login?
             li.card-main-actions__item.is-sub.is-only-mentor
               = link_to product, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
-                | 削除する
+                | 削除
           - else
             li.card-main-actions__item.is-sub
               label.card-main-actions__muted-action(for='modal-delete-request')
