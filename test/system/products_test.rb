@@ -54,9 +54,9 @@ class ProductsTest < ApplicationSystemTestCase
     assert_selector '.thread-comment-form'
   end
 
-  test 'show Pjord product review button only to mentor' do
+  test 'show Pjord product review button only to admin' do
     product = products(:product1)
-    visit_with_auth "/products/#{product.id}", 'mentormentaro'
+    visit_with_auth "/products/#{product.id}", 'adminonly'
     assert_link 'ピヨルドでレビューコメントをする'
 
     visit_with_auth "/products/#{product.id}", 'kimura'

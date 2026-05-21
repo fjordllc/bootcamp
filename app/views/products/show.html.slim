@@ -22,7 +22,7 @@ header.page-header
                   i.fa-regular.fa-plus
                   span
                     | 模範解答作成
-            - if current_user.mentor?
+            - if current_user.admin?
               li.page-header-actions__item.is-only-mentor
                 = link_to review_by_pjord_product_path(@product),
                   class: 'a-button is-md is-secondary is-block',
