@@ -6,5 +6,9 @@
 //= link check_confirmation.js
 //= link unconfirmed-links-open.js
 //= link notifications_remove_after_open.js
+//= link warning.js
+//= link date-input-toggler.js
+//= link modal-switcher.js
+//= link copy-url.js
 //= link_tree ../../../vendor/javascript .js
 //= link_directory ../builds .css
