@@ -3,12 +3,12 @@
 require 'test_helper'
 
 class Products::ReviewByPjordTest < ActionDispatch::IntegrationTest
-  test 'mentor can create product review comment by Pjord' do
+  test 'admin can create product review comment by Pjord' do
     product = products(:product1)
 
     ProductAiReviewer.stub(:review, 'レビュー本文') do
       assert_difference -> { product.comments.count } do
-        post review_by_pjord_product_path(product, _login_name: 'komagata')
+        post review_by_pjord_product_path(product, _login_name: 'adminonly')
       end
     end
 
@@ -16,6 +16,16 @@ class Products::ReviewByPjordTest < ActionDispatch::IntegrationTest
     assert_redirected_to product_path(product, anchor: 'comments')
     assert_equal users(:pjord), comment.user
     assert_equal 'レビュー本文', comment.description
+  end
+
+  test 'mentor cannot create product review comment by Pjord' do
+    product = products(:product1)
+
+    assert_no_difference -> { product.comments.count } do
+      post review_by_pjord_product_path(product, _login_name: 'mentormentaro')
+    end
+
+    assert_redirected_to root_path
   end
 
   test 'student cannot create product review comment by Pjord' do
@@ -28,22 +38,12 @@ class Products::ReviewByPjordTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
   end
 
-  test 'admin without mentor role cannot create product review comment by Pjord' do
-    product = products(:product1)
-
-    assert_no_difference -> { product.comments.count } do
-      post review_by_pjord_product_path(product, _login_name: 'adminonly')
-    end
-
-    assert_redirected_to root_path
-  end
-
   test 'redirects with alert when Pjord user is missing' do
     product = products(:product1)
 
     Pjord.stub(:user, nil) do
       assert_no_difference -> { product.comments.count } do
-        post review_by_pjord_product_path(product, _login_name: 'komagata')
+        post review_by_pjord_product_path(product, _login_name: 'adminonly')
       end
     end
 
@@ -56,7 +56,7 @@ class Products::ReviewByPjordTest < ActionDispatch::IntegrationTest
 
     ProductAiReviewer.stub(:review, ->(_product) { raise StandardError, 'error' }) do
       assert_no_difference -> { product.comments.count } do
-        post review_by_pjord_product_path(product, _login_name: 'komagata')
+        post review_by_pjord_product_path(product, _login_name: 'adminonly')
       end
     end
 

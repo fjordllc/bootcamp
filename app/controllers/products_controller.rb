@@ -3,7 +3,7 @@
 class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLength
   before_action :check_permission!, only: %i[show]
   before_action :require_staff_login, only: :index
-  before_action :require_mentor_login, only: :review_by_pjord
+  before_action :require_admin_login, only: :review_by_pjord
   before_action :set_watch, only: %i[show]
   before_action :set_target, only: %i[index]
 
