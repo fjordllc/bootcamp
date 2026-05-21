@@ -29,9 +29,9 @@ jobs:
           command: |
             bundle lock --add-platform ruby
       - ruby/install-deps
-      - ruby/rubocop-check:
-          format: progress
-          label: Inspecting with Rubocop
+      - run:
+          name: Inspecting with Rubocop
+          command: git ls-files -z -- '*.rb' '*.rake' 'Gemfile' 'Rakefile' '.rubocop.yml' | xargs -0 bundle exec rubocop --force-exclusion --format progress
       - run:
           name: Slim Lint
           command: bundle exec slim-lint app/views -c config/slim_lint.yml
