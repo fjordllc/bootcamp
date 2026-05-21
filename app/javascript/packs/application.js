@@ -9,7 +9,6 @@
 import '../controllers/index.js'
 import '../textarea.js'
 import '../markdown.js'
-import '../shortcut.js'
 import '../learning.js'
 import '../learning-status.js'
 import '../check-stamp.js'
