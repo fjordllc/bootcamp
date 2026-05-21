@@ -3,5 +3,8 @@
 //= link hotwire.js
 //= link shortcut.js
 //= link current-date-time-setter.js
+//= link check_confirmation.js
+//= link unconfirmed-links-open.js
+//= link notifications_remove_after_open.js
 //= link_tree ../../../vendor/javascript .js
 //= link_directory ../builds .css
