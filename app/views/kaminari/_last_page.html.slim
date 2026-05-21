@@ -1,4 +1,4 @@
 - # rubocop:disable Rails/OutputSafety
 li.pagination__item.is-last
-  = link_to_unless current_page.last?, raw('<i class="fas fa-angle-double-right"></i>'), url, remote:, class: 'pagination__item-link is-last'
+  = link_to_unless current_page.last?, raw('<i class="fas fa-angle-double-right"></i>'), url, remote:, class: 'pagination__item-link is-last', data: { turbo: false }
 - # rubocop:enable Rails/OutputSafety

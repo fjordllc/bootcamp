@@ -50,5 +50,7 @@ section.lp-content.is-lp-bg-1.is-top-title
                             .card-main-actions
                               ul.card-main-actions__items
                                 li.card-main-actions__item
-                                  = link_to mentor_buzzes_path, class: 'a-button is-secondary is-md is-block' do
+                                  = link_to mentor_buzzes_path,
+                                    class: 'a-button is-secondary is-md is-block',
+                                    data: { turbo: false } do
                                     | 内容修正
