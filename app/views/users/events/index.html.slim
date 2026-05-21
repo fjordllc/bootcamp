@@ -26,6 +26,9 @@
                     .card-list-item__row
                       .card-list-item-title
                         .card-list-item-title__start
+                          - if event.user == @user
+                            .a-list-item-badge.is-active
+                              <span>主催</span>
                           - if event.wip
                             .a-list-item-badge.is-wip
                               <span>WIP</span>

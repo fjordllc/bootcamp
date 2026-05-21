@@ -10,12 +10,12 @@ class User::EventsTest < ApplicationSystemTestCase
     assert nav.matches_css?('.is-active')
   end
 
-  test 'shows correct count of user participating events' do
+  test 'shows correct count of user involved events' do
     visit_with_auth "/users/#{users(:kimura).id}/events", 'kimura'
-    assert_selector '.tab-nav__item-link', text: "特別イベント(#{users(:kimura).participate_events.count})"
+    assert_selector '.tab-nav__item-link', text: "特別イベント(#{users(:kimura).involved_events.count})"
   end
 
-  test 'does not show events the user is not participating in' do
+  test 'does not show events the user is not involved in' do
     participated_event = events(:event30)
     non_participated_event = events(:event34)
     start_at = 1.month.from_now
@@ -37,5 +37,13 @@ class User::EventsTest < ApplicationSystemTestCase
     visit_with_auth "/users/#{users(:kimura).id}/events", 'kimura'
     assert_text '未来のイベント(参加済)'
     assert_no_text '過去のイベント'
+  end
+
+  test 'shows events the user organizes but does not participate in' do
+    visit_with_auth "/users/#{users(:kimura).id}/events", 'kimura'
+
+    within('.card-list-item', text: 'ミートアップ') do
+      assert_text '主催'
+    end
   end
 end

@@ -806,4 +806,11 @@ class UserTest < ActiveSupport::TestCase
     actual_ids = user.involved_regular_events.ids.sort
     assert_equal expected_ids, actual_ids
   end
+
+  test '#involved_events returns both participating and organizing events' do
+    user = users(:kimura)
+    expected_ids = (user.participate_events.ids + Event.where(user_id: user.id).ids).uniq.sort
+    actual_ids = user.involved_events.ids.sort
+    assert_equal expected_ids, actual_ids
+  end
 end
