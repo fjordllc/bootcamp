@@ -99,6 +99,14 @@ module UserDecorator
     elapsed_days <= NEW_USER_DAYS ? 'new-user' : ''
   end
 
+  def product_sidebar_class
+    if mentor? || admin?
+      'col-xl-5 col-xs-12 is-hidden-sm-down'
+    else
+      ''
+    end
+  end
+
   def user_icon_frame_class
     classes = ['a-user-role', "is-#{primary_role}"]
     classes << 'is-new-user' if joining_status == 'new-user'

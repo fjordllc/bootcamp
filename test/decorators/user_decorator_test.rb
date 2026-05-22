@@ -98,4 +98,10 @@ class UserDecoratorTest < ActiveDecoratorTestCase
     assert_equal 'a-user-role is-student is-new-user', new_user.user_icon_frame_class
     assert_equal 'a-user-role is-student', standard_user.user_icon_frame_class
   end
+
+  test '#product_sidebar_class' do
+    assert_equal 'col-xl-5 col-xs-12 is-hidden-sm-down', @mentor_user.product_sidebar_class
+    assert_equal 'col-xl-5 col-xs-12 is-hidden-sm-down', decorate(users(:adminonly)).product_sidebar_class
+    assert_equal '', @student_user.product_sidebar_class
+  end
 end
