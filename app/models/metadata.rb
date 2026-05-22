@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
 class Metadata
+  NETWORK_ERRORS = [
+    SocketError,
+    Errno::ECONNREFUSED,
+    Errno::ETIMEDOUT,
+    Net::OpenTimeout,
+    Net::ReadTimeout,
+    OpenSSL::SSL::SSLError
+  ].freeze
+
   def initialize(url)
     @url = url
     @uri = Addressable::URI.parse(url).normalize
@@ -18,6 +27,8 @@ class Metadata
     return fetch_youtube_oembed unless response.is_a?(Net::HTTPSuccess)
 
     parse(response.body) || fetch_youtube_oembed
+  rescue *NETWORK_ERRORS
+    nil
   end
 
   private
@@ -78,7 +89,7 @@ class Metadata
       url: @url,
       site_url: 'https://www.youtube.com'
     }
-  rescue JSON::ParserError
+  rescue JSON::ParserError, *NETWORK_ERRORS
     nil
   end
 end

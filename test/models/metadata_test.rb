@@ -23,4 +23,21 @@ class MetadataTest < ActiveSupport::TestCase
     assert_equal 'YouTube', metadata[:site_name]
     assert_equal 'https://www.youtube.com', metadata[:site_url]
   end
+
+  test '#fetch returns nil when page fetch raises network error' do
+    url = 'https://example.com/'
+    stub_request(:get, url).to_raise(SocketError)
+
+    assert_nil Metadata.new(url).fetch
+  end
+
+  test '#fetch returns nil when YouTube oEmbed raises network error' do
+    url = 'https://www.youtube.com/watch?v=8LudKmk7yPM'
+    stub_request(:get, url).to_return(status: 403, body: 'Forbidden')
+    stub_request(:get, 'https://www.youtube.com/oembed')
+      .with(query: { url:, format: 'json' })
+      .to_raise(Net::OpenTimeout)
+
+    assert_nil Metadata.new(url).fetch
+  end
 end
