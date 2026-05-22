@@ -43,6 +43,9 @@ class ProductAiReviewer
         ## 提出物
         #{truncate_for_prompt(product.body)}
 
+        ## 提出物内のGitHubリンク先コード
+        #{github_code_links(product)}
+
         ## 同じ提出物に対するコメント
         #{comments(product)}
 
@@ -73,6 +76,20 @@ class ProductAiReviewer
       products.map do |other_product|
         "### #{other_product.user.login_name}さんの提出物\n#{truncate_for_prompt(other_product.body)}"
       end.join("\n\n")
+    end
+
+    def github_code_links(product)
+      entries = ProductAiReviewer::GithubCodeFetcher.fetch(product.body)
+      return 'なし' if entries.blank?
+
+      entries.map do |entry|
+        <<~TEXT
+          ### #{entry[:url]}
+          ```#{entry[:language]}
+          #{entry[:body]}
+          ```
+        TEXT
+      end.join("\n")
     end
 
     def truncate_for_prompt(text)
