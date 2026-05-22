@@ -16,7 +16,7 @@ class Metadata
 
     response = http.request_get(@uri.request_uri)
     if response.message != 'OK'
-      Rails.logger.info("[Metadata] Response was not OK: status=#{response.code} url=#{@url}")
+      Rails.logger.info("[Metadata] Response was not OK: status=#{response.code} url=#{@url}") unless Rails.env.production?
       return
     end
 
@@ -28,7 +28,7 @@ class Metadata
   def parse(html)
     object = OpenGraphReader.parse(html)
     unless object
-      Rails.logger.info("[Metadata] OpenGraphReader parse failed: url=#{@url}, title=#{Nokogiri::HTML(html).title}")
+      Rails.logger.info("[Metadata] OpenGraphReader parse failed: url=#{@url}, title=#{Nokogiri::HTML(html).title}") unless Rails.env.production?
       return
     end
 
