@@ -6,6 +6,8 @@ require 'uri'
 class ProductAiReviewer::GithubCodeFetcher
   LINKS_LIMIT = 3
   CONTENT_LIMIT = 20_000
+  OPEN_TIMEOUT = 3
+  READ_TIMEOUT = 5
 
   class << self
     def fetch(text)
@@ -61,7 +63,15 @@ class ProductAiReviewer::GithubCodeFetcher
     def fetch_url(url)
       Rails.cache.fetch("product_ai_reviewer/github_code/#{Digest::SHA256.hexdigest(url)}", expires_in: 10.minutes) do
         uri = URI.parse(url)
-        response = Net::HTTP.get_response(uri, github_request_headers)
+        response = Net::HTTP.start(
+          uri.host,
+          uri.port,
+          use_ssl: uri.scheme == 'https',
+          open_timeout: OPEN_TIMEOUT,
+          read_timeout: READ_TIMEOUT
+        ) do |http|
+          http.get(uri.request_uri, github_request_headers)
+        end
         response.is_a?(Net::HTTPSuccess) ? response.body : nil
       end
     end

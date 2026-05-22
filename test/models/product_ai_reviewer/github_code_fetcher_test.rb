@@ -31,9 +31,21 @@ class ProductAiReviewer::GithubCodeFetcherTest < ActiveSupport::TestCase
   test '.fetch sends Pjord GitHub token when it is configured' do
     github_url = 'https://raw.githubusercontent.com/fjordllc/bootcamp/main/app/models/product.rb'
     response = Net::HTTPSuccess.new('1.1', '200', 'OK')
+    http = Minitest::Mock.new
+    headers = {
+      'User-Agent' => 'fjord-bootcamp-pjord',
+      'Authorization' => 'Bearer token-for-pjord'
+    }
+    http.expect(:get, response, ['/fjordllc/bootcamp/main/app/models/product.rb', headers])
+
     response.stub(:body, 'class Product < ApplicationRecord; end') do
-      Net::HTTP.stub(:get_response, lambda { |_uri, headers|
-        assert_equal 'Bearer token-for-pjord', headers['Authorization']
+      Net::HTTP.stub(:start, lambda { |host, port, options, &block|
+        assert_equal 'raw.githubusercontent.com', host
+        assert_equal 443, port
+        assert options[:use_ssl]
+        assert_equal ProductAiReviewer::GithubCodeFetcher::OPEN_TIMEOUT, options[:open_timeout]
+        assert_equal ProductAiReviewer::GithubCodeFetcher::READ_TIMEOUT, options[:read_timeout]
+        block.call(http)
         response
       }) do
         mock_env('PJORD_GITHUB_TOKEN' => 'token-for-pjord') do
@@ -43,5 +55,7 @@ class ProductAiReviewer::GithubCodeFetcherTest < ActiveSupport::TestCase
         end
       end
     end
+
+    http.verify
   end
 end
