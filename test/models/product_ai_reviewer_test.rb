@@ -8,8 +8,12 @@ class ProductAiReviewerTest < ActiveSupport::TestCase
     mock_content = Struct.new(:content).new({ body: 'レビュー本文' })
     mock_chat = Minitest::Mock.new
     asked_message = nil
+    instructions = nil
 
-    mock_chat.expect(:with_instructions, mock_chat, [String])
+    mock_chat.expect(:with_instructions, mock_chat) do |text|
+      instructions = text
+      true
+    end
     mock_chat.expect(:with_schema, mock_chat, [PjordResponse])
     mock_chat.expect(:ask, mock_content) do |message|
       asked_message = message
@@ -28,6 +32,9 @@ class ProductAiReviewerTest < ActiveSupport::TestCase
     assert_includes asked_message, product.body
     assert_includes asked_message, product.practice.submission_answer.description
     assert_includes asked_message, products(:product15).body
+    assert_includes instructions, Pjord::SYSTEM_PROMPT
+    assert_includes instructions, '語尾に「ピヨ」など特徴的な語尾は付けず'
+    assert_includes instructions, '提出物にレビューコメントを書いてください。'
     mock_chat.verify
   end
 
