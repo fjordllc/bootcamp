@@ -1,6 +1,6 @@
 import Choices from 'choices.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const bookSelectCount = document.querySelectorAll('.js-book-select').length
   const elements = document.querySelectorAll('.js-book-select')
   for (let i = 0; i < bookSelectCount; i++) {

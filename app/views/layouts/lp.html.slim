@@ -5,8 +5,6 @@ html.is-lp lang='ja'
     = display_meta_tags welcome_meta_tags
     - if page_classes.include?('welcome-home')
       link(rel='canonical' href='https://bootcamp.fjord.jp/')
-    - if defined?(@article) && @article.wip?
-      = meta_robots_tag
     = render 'layouts/common/common_head'
     = stylesheet_link_tag 'lp', media: 'all'
     = render 'layouts/lp/lp_web_fonts'

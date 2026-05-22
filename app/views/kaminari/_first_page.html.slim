@@ -3,5 +3,5 @@ li.pagination__item.is-first
     span.pagination__item-link.is-first.is-disabled
       i.fas.fa-angle-double-left
   - else
-    = link_to url, remote:, class: 'pagination__item-link is-first' do
+    = link_to url, remote:, class: 'pagination__item-link is-first', data: { turbo: false } do
       i.fas.fa-angle-double-left

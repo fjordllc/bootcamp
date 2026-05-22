@@ -27,7 +27,7 @@ class BookmarksTest < ApplicationSystemTestCase
     visit_with_auth "/reports/#{@report.id}", 'machida'
     wait_for_javascript_components
     assert_selector '#bookmark-button.is-inactive', text: 'Bookmark'
-    find('#bookmark-button').click
+    click_in_view find('#bookmark-button')
     wait_for_javascript_components
     assert_selector '#bookmark-button.is-active'
     assert_no_selector '#bookmark-button.is-inactive'
@@ -41,7 +41,7 @@ class BookmarksTest < ApplicationSystemTestCase
     visit_with_auth "/reports/#{@report.id}", 'komagata'
     wait_for_javascript_components
     assert_selector '#bookmark-button.is-active', text: 'Bookmark中'
-    find('#bookmark-button').click
+    click_in_view find('#bookmark-button')
     wait_for_javascript_components
     assert_selector '#bookmark-button.is-inactive'
     assert_no_selector '#bookmark-button.is-active'

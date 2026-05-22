@@ -1,10 +1,17 @@
-import MarkdownInitializer from 'markdown-initializer'
+import { replaceMarkdown } from './lazy-markdown.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
+  setupMarkdown()
+})
+
+function setupMarkdown() {
   const selector = '.js-markdown-view'
-  if (!selector) {
+  if (!document.querySelector(selector)) {
     return null
   }
 
-  new MarkdownInitializer().replace('.js-markdown-view')
-})
+  replaceMarkdown(selector)
+}
+
+document.addEventListener('DOMContentLoaded', setupMarkdown)
+setupMarkdown()

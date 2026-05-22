@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const zip1Element = document.getElementById('grant_course_application_zip1')
   const zip2Element = document.getElementById('grant_course_application_zip2')
 

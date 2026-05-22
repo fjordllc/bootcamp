@@ -1,13 +1,5 @@
 {
-  "extends": [
-    "eslint:recommended",
-    "standard",
-    "plugin:react/jsx-runtime",
-    "prettier"
-  ],
-  "plugins": [
-    "react"
-  ],
+  "extends": ["eslint:recommended", "standard", "prettier"],
   "env": {
     "browser": true,
     "jquery": true,
@@ -28,8 +20,6 @@
         "args": "all",
         "argsIgnorePattern": "^_"
       }
-    ],
-    "react/jsx-uses-react": "error",   
-    "react/jsx-uses-vars": "error" 
+    ]
   }
 }

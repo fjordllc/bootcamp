@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const elements = document.getElementsByClassName('js-date-input-toggler')
   for (const element of elements) {
     const checkbox = element.querySelector(

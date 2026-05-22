@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const hideGrass = document.querySelector('.hide-grass')
   if (hideGrass) {
     const grassContainer = hideGrass?.closest('.a-card')

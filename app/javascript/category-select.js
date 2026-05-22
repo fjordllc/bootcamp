@@ -1,6 +1,4 @@
-import 'whatwg-fetch'
-
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const categorySelect = document.querySelector(
     "select[name='practice[category_id]']"
   )

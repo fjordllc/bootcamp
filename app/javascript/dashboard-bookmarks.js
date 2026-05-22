@@ -1,8 +1,8 @@
 import { get, destroy } from '@rails/request.js'
-import { toggleDeleteButtonVisibility } from './bookmarks-delete-button-visibility'
+import { toggleDeleteButtonVisibility } from './bookmarks-delete-button-visibility.js'
 import { toast } from './vanillaToast.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const bookmarksContainer = document.querySelector('.dashboard-bookmarks')
   if (!bookmarksContainer) return
 

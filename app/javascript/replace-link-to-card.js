@@ -1,4 +1,4 @@
-import CSRF from 'csrf'
+import CSRF from './csrf.js'
 import { debounce } from './debounce.js'
 import escapeHTML from './escapeHtml.js'
 

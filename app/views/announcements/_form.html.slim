@@ -1,6 +1,7 @@
 = render 'errors', object: announcement
 = form_with model: announcement,
   local: true,
+  data: { turbo: false },
   html: { name: 'announcement' } do |f|
   .form__items
     .form-item

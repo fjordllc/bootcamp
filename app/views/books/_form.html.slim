@@ -1,4 +1,4 @@
-= form_with model: book, local: true, class: 'form', html: { name: 'book' } do |f|
+= form_with model: book, local: true, data: { turbo: false }, class: 'form', html: { name: 'book' } do |f|
   = render 'errors', object: book
   .form__items
     .form-item

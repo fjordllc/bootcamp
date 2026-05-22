@@ -1,7 +1,7 @@
 import Sortable from 'sortablejs'
 import { patch } from '@rails/request.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const element = document.querySelector('#js-survey-question-listing-sortable')
   if (!element) {
     return null

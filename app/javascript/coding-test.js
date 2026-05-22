@@ -1,12 +1,11 @@
 import { OnBrowserJudge } from './onbrowserjudge.js'
 import ace from 'ace-builds'
-import 'ace-builds/webpack-resolver'
 import 'ace-builds/src-noconflict/mode-javascript'
 import 'ace-builds/src-noconflict/mode-ruby'
 import 'ace-builds/src-noconflict/theme-github'
 import { post } from '@rails/request.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const id = 'code_editor'
   const element = document.getElementById(id)
   if (!element) {
@@ -19,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const editor = ace.edit(id)
 
   editor.session.setMode(`ace/mode/${language}`)
+  editor.session.setUseWorker(false)
   editor.setTheme('ace/theme/github')
 
   OnBrowserJudge.workerFile = `../${language}.js`

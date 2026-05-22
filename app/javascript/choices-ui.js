@@ -1,6 +1,6 @@
 import Choices from 'choices.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const element = document.getElementById('js-choices-single-select')
   if (element) {
     return new Choices(element, {

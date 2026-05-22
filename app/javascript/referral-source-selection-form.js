@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const referralSources = document.getElementsByName('user[referral_source]')
   if (referralSources.length === 0) {
     return null

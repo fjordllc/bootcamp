@@ -1,17 +1,39 @@
-import Chart from 'chart.js/auto'
-import ChartDataLabels from 'chartjs-plugin-datalabels'
-import annotationPlugin from 'chartjs-plugin-annotation'
+let Chart
 
-Chart.register(ChartDataLabels)
-Chart.register(annotationPlugin)
+async function loadChart() {
+  if (!Chart) {
+    const [
+      { default: ChartModule },
+      { default: ChartDataLabels },
+      { default: annotationPlugin }
+    ] = await Promise.all([
+      import('chart.js/auto'),
+      import('chartjs-plugin-datalabels'),
+      import('chartjs-plugin-annotation')
+    ])
+    ChartModule.register(ChartDataLabels)
+    ChartModule.register(annotationPlugin)
+    Chart = ChartModule
+  }
+  return Chart
+}
 
-document.addEventListener('DOMContentLoaded', function () {
-  initRadioButtonCharts()
-  initCheckBoxCharts()
-  initLinearScaleCharts()
+document.addEventListener('turbo:load', async function () {
+  if (
+    !document.querySelector(
+      '[data-radio-button-chart], [data-check-box-chart], [data-linear-scale-chart]'
+    )
+  ) {
+    return
+  }
+
+  const Chart = await loadChart()
+  initRadioButtonCharts(Chart)
+  initCheckBoxCharts(Chart)
+  initLinearScaleCharts(Chart)
 })
 
-function initRadioButtonCharts() {
+function initRadioButtonCharts(Chart) {
   document.querySelectorAll('[data-radio-button-chart]').forEach((element) => {
     const ctx = element.getContext('2d')
     const choices = JSON.parse(element.dataset.choices)
@@ -79,7 +101,7 @@ function initRadioButtonCharts() {
   })
 }
 
-function initCheckBoxCharts() {
+function initCheckBoxCharts(Chart) {
   document.querySelectorAll('[data-check-box-chart]').forEach((element) => {
     const ctx = element.getContext('2d')
     const choices = JSON.parse(element.dataset.choices)
@@ -159,7 +181,7 @@ function initCheckBoxCharts() {
   })
 }
 
-function initLinearScaleCharts() {
+function initLinearScaleCharts(Chart) {
   document.querySelectorAll('[data-linear-scale-chart]').forEach((element) => {
     const ctx = element.getContext('2d')
     const minValue = parseInt(element.dataset.minValue)

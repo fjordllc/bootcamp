@@ -1,8 +1,9 @@
-document.addEventListener('DOMContentLoaded', () => {
+function setupMentorMode() {
   const localStorage = window.localStorage
   const checkbox = document.querySelector('.js-mentor-mode__trigger')
   const body = document.body
   if (!checkbox) return
+  if (checkbox.dataset.mentorModeInitialized === 'true') return
 
   if (localStorage.getItem('mentor-mode')) {
     checkbox.checked = false
@@ -20,4 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
       body.classList.remove('is-mentor-mode')
     }
   })
-})
+  checkbox.dataset.mentorModeInitialized = 'true'
+}
+
+document.addEventListener('turbo:load', setupMentorMode)
+document.addEventListener('DOMContentLoaded', setupMentorMode)
+setupMentorMode()

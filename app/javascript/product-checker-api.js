@@ -1,4 +1,4 @@
-import { toast } from './vanillaToast'
+import { toast } from './vanillaToast.js'
 import { FetchRequest } from '@rails/request.js'
 
 export const checkProduct = async (productId, currentUserId, url, method) => {
@@ -20,6 +20,7 @@ export const checkProduct = async (productId, currentUserId, url, method) => {
       } else {
         toast('担当から外れました。')
       }
+      return body
     } else {
       if (body.message) {
         toast(body.message, 'error')
@@ -28,4 +29,5 @@ export const checkProduct = async (productId, currentUserId, url, method) => {
   } catch (error) {
     console.warn(error)
   }
+  return null
 }

@@ -1,6 +1,6 @@
 import { initializeComment } from './initializeComment.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+function setupComments() {
   const comments = document.querySelectorAll('.thread-comment:not(.loading)')
   const loadingContent = document.querySelector('.loading-content')
   if (!loadingContent) {
@@ -12,6 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!commentContent) {
     return
   }
+  if (commentContent.dataset.commentsInitialized === 'true') {
+    return
+  }
+
+  commentContent.dataset.commentsInitialized = 'true'
   if (comments) {
     loadingContent.classList.add('is-hidden')
     commentContent.classList.remove('is-hidden')
@@ -119,4 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
       initializeComment(comment)
     })
   }
-})
+}
+
+document.addEventListener('turbo:load', setupComments)
+document.addEventListener('DOMContentLoaded', setupComments)
+setupComments()

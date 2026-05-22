@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const countryForm = document.getElementById('country-form')
 
   if (!countryForm) {

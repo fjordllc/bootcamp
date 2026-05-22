@@ -26,8 +26,12 @@
                 = f.submit '提出する', class: 'a-button is-sm is-primary is-block'
           - if admin_or_mentor_login?
             li.card-main-actions__item.is-sub.is-only-mentor
-              = link_to product, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
-                | 削除する
+              - delete_form_id = "delete_product_#{product.id}"
+              = form_with url: product_path(product), method: :delete, local: true, html: { id: delete_form_id, hidden: true } do
+              = link_to product_path(product),
+                class: 'card-main-actions__muted-action',
+                onclick: "if (confirm('本当によろしいですか？')) { document.getElementById('#{delete_form_id}').requestSubmit() }; return false;" do
+                | 削除
           - else
             li.card-main-actions__item.is-sub
               label.card-main-actions__muted-action(for='modal-delete-request')

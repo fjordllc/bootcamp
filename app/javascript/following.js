@@ -1,5 +1,4 @@
-import 'whatwg-fetch'
-import CSRF from 'csrf'
+import CSRF from './csrf.js'
 
 const usersIndex = {
   getUrl(userId, isFollow, isWatch) {

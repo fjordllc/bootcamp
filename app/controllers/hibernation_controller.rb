@@ -24,7 +24,7 @@ class HibernationController < ApplicationController
       redirect_to hibernation_path
     else
       @regular_events_without_finished = RegularEvent.organizer_event(current_user).exclude_finished
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 

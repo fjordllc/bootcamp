@@ -1,15 +1,14 @@
-import Tagify from '@yaireo/tagify'
-import '@yaireo/tagify/dist/tagify.css' // Tagify CSS
-import { get } from '@rails/request.js'
-import CSRF from './csrf'
-import transformHeadSharp from './transform-head-sharp'
-import validateTagName from './validate-tag-name'
-import headIsSharpOrOctothorpe from './head-is-sharp-or-octothorpe'
-import parseTags from './parse_tags'
+import loadTagify from './lazy-tagify.js'
+import { get, put } from '@rails/request.js'
+import transformHeadSharp from './transform-head-sharp.js'
+import validateTagName from './validate-tag-name.js'
+import headIsSharpOrOctothorpe from './head-is-sharp-or-octothorpe.js'
+import parseTags from './parse_tags.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', async () => {
   const tagsContainer = document.querySelector('.tag-component')
   if (!tagsContainer) return
+  const Tagify = await loadTagify()
   const tagsDisplay = tagsContainer.querySelector('.tags-display')
   const tagListItems = tagsDisplay.querySelector('.tag-links__items')
   const editButton = tagListItems.querySelector('.tag-links__item-edit')
@@ -111,17 +110,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     try {
-      const response = await fetch(
+      const response = await put(
         `/api/${tagsType.toLowerCase()}s/${tagsTypeId}`,
         {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-            'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRF-Token': CSRF.getToken()
-          },
-          credentials: 'same-origin',
-          redirect: 'manual',
           body: JSON.stringify(params)
         }
       )

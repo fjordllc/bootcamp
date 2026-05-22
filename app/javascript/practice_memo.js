@@ -1,12 +1,10 @@
-import CSRF from 'csrf'
-import TextareaInitializer from 'textarea-initializer'
-import MarkdownInitializer from 'markdown-initializer'
-import { toast } from 'vanillaToast'
+import CSRF from './csrf.js'
+import { initializeTextarea, renderMarkdown } from './lazy-markdown.js'
+import { toast } from './vanillaToast.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const practiceMemo = document.querySelector('.practice-memo')
   if (practiceMemo) {
-    const markdownInitializer = new MarkdownInitializer()
     const practiceId = practiceMemo.dataset.practice_id
     let savedMemo = ''
 
@@ -31,14 +29,15 @@ document.addEventListener('DOMContentLoaded', () => {
       .then((response) => {
         return response.json()
       })
-      .then((json) => {
+      .then(async (json) => {
         if (json.memo) {
           savedMemo = json.memo
           editorTextarea.value = savedMemo
           switchMemoDisplay(memoDisplay, savedMemo)
-          TextareaInitializer.initialize('#js-practice-memo')
-          memoDisplayContent.innerHTML = markdownInitializer.render(savedMemo)
-          memoEditorPreview.innerHTML = markdownInitializer.render(savedMemo)
+          initializeTextarea('#js-practice-memo')
+          const rendered = await renderMarkdown(savedMemo)
+          memoDisplayContent.innerHTML = rendered
+          memoEditorPreview.innerHTML = rendered
         }
       })
       .catch((error) => {
@@ -52,28 +51,26 @@ document.addEventListener('DOMContentLoaded', () => {
     )
 
     const saveButton = memoEditor.querySelector('.is-primary')
-    saveButton.addEventListener('click', () => {
+    saveButton.addEventListener('click', async () => {
       toggleClass(modalElements, 'is-hidden')
       savedMemo = editorTextarea.value
       updateMemo(savedMemo, practiceId)
-      memoDisplayContent.innerHTML = markdownInitializer.render(savedMemo)
-      TextareaInitializer.initialize('#js-practice-memo')
+      memoDisplayContent.innerHTML = await renderMarkdown(savedMemo)
+      initializeTextarea('#js-practice-memo')
       switchMemoDisplay(memoDisplay, savedMemo)
     })
 
     const cancelButton = memoEditor.querySelector('.is-secondary')
-    cancelButton.addEventListener('click', () => {
+    cancelButton.addEventListener('click', async () => {
       toggleClass(modalElements, 'is-hidden')
       editorTextarea.value = savedMemo
-      memoEditorPreview.innerHTML = markdownInitializer.render(savedMemo)
-      TextareaInitializer.initialize('#js-practice-memo')
+      memoEditorPreview.innerHTML = await renderMarkdown(savedMemo)
+      initializeTextarea('#js-practice-memo')
     })
 
-    editorTextarea.addEventListener('change', () => {
-      memoEditorPreview.innerHTML = markdownInitializer.render(
-        editorTextarea.value
-      )
-      TextareaInitializer.initialize('#js-practice-memo')
+    editorTextarea.addEventListener('change', async () => {
+      memoEditorPreview.innerHTML = await renderMarkdown(editorTextarea.value)
+      initializeTextarea('#js-practice-memo')
     })
 
     const editorTab = memoEditor.querySelector('.editor-tab')

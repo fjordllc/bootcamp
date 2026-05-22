@@ -1,4 +1,4 @@
-import CSRF from 'csrf'
+import CSRF from './csrf.js'
 
 function followOrChangeFollow(userId, isFollowing, isWatching) {
   const url = isFollowing
@@ -204,7 +204,7 @@ document.addEventListener('click', (event) => {
   }
 })
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   document.querySelectorAll('button[data-action]').forEach((button) => {
     button.addEventListener('click', (event) => {
       const action = event.currentTarget.dataset.action

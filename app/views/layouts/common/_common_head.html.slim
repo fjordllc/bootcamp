@@ -6,7 +6,9 @@ meta content='IE=edge' http-equiv='X-UA-Compatible'
 
 // JavaScripts
 = javascript_include_tag 'application'
-= javascript_pack_tag 'application'
+= javascript_include_tag 'legacy-link-method'
+= javascript_importmap_tags 'hotwire'
+= javascript_pack_tag 'application', *content_for(:javascript_packs).to_s.split
 
 // WebFonts
 script(src='https://kit.fontawesome.com/8f04dd61ff.js' crossorigin='anonymous')

@@ -200,7 +200,7 @@ const OnBrowserJudge = {
   }
 }
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('turbo:load', () => {
   const editor = document.getElementById('code_editor')
   if (!editor) return null
 

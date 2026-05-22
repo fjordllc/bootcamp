@@ -1,7 +1,9 @@
 ul.a-side-nav__items
   - questions.each do |question|
     li.a-side-nav__item(class="#{@question == question ? 'is-current' : ''}")
-      = link_to question_path(question), class: 'a-side-nav__item-link has-metas' do
+      = link_to question_path(question),
+        class: 'a-side-nav__item-link has-metas',
+        data: { turbo: false } do
         .a-side-nav__item-link-inner
           .a-side-nav__item-header
             - unless question.correct_answer

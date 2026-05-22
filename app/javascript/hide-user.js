@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const localStorage = window.localStorage
   const checkboxProgress = document.querySelector(
     '.js-users-visibility__trigger'

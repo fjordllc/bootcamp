@@ -1,5 +1,4 @@
-import Tagify from '@yaireo/tagify'
-import '@yaireo/tagify/dist/tagify.css'
+import loadTagify from './lazy-tagify.js'
 import { get } from '@rails/request.js'
 
 function validateTagName(text) {
@@ -36,11 +35,12 @@ function syncHiddenInput(tagify, hiddenInput) {
   hiddenInput.value = values.join(',')
 }
 
-function initTagsInput(container) {
+async function initTagsInput(container) {
   const input = container.querySelector('[data-tags-input-field]')
   const hiddenInput = container.querySelector('[data-tags-hidden-input]')
   const sharpWarning = container.querySelector('[data-tags-sharp-warning]')
   if (!input || !hiddenInput) return
+  const Tagify = await loadTagify()
 
   const initialValue = input.dataset.tagsInitialValue || ''
   const taggableType = input.dataset.taggableType || ''
@@ -100,6 +100,15 @@ function initTagsInput(container) {
   })
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('[data-tags-input]').forEach(initTagsInput)
-})
+function setupTagsInput() {
+  document.querySelectorAll('[data-tags-input]').forEach((container) => {
+    if (container.dataset.tagsInputInitialized === 'true') return
+
+    container.dataset.tagsInputInitialized = 'true'
+    initTagsInput(container)
+  })
+}
+
+document.addEventListener('turbo:load', setupTagsInput)
+document.addEventListener('DOMContentLoaded', setupTagsInput)
+setupTagsInput()

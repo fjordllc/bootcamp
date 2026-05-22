@@ -1,7 +1,7 @@
-import { Controller } from 'stimulus'
-import TextareaInitializer from '../textarea-initializer'
-import CSRF from '../csrf'
-import { toast } from '../vanillaToast'
+import { Controller } from '@hotwired/stimulus'
+import { initializeTextarea, uninitializeTextarea } from '../lazy-markdown.js'
+import CSRF from '../csrf.js'
+import { toast } from '../vanillaToast.js'
 
 export default class extends Controller {
   static targets = [
@@ -27,18 +27,18 @@ export default class extends Controller {
       this.reportTarget.value = this.registeredTemplateValue
     }
     this.registeredTemplateValue = this.templateInputTarget.value
-    TextareaInitializer.initialize('.js-report-content')
+    initializeTextarea('.js-report-content')
   }
 
-  replaceReport(e) {
+  async replaceReport(e) {
     e.preventDefault()
     if (
       this.reportTarget.value === '' ||
       confirm('日報が上書きされますが、よろしいですか？')
     ) {
       this.reportTarget.value = this.registeredTemplateValue
-      TextareaInitializer.uninitialize('.js-report-content')
-      TextareaInitializer.initialize('.js-report-content')
+      await uninitializeTextarea('.js-report-content')
+      initializeTextarea('.js-report-content')
     }
   }
 
@@ -57,7 +57,7 @@ export default class extends Controller {
     e.preventDefault()
     this.modalTarget.classList.remove('is-hidden')
     this.templateInputTarget.value = this.registeredTemplateValue
-    TextareaInitializer.initialize('#js-template-content')
+    initializeTextarea('#js-template-content')
     this.updateSubmitButtonState()
   }
 

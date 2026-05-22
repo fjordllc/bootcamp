@@ -42,7 +42,9 @@ class ProductsTest < ApplicationSystemTestCase
     product = products(:product1)
     visit_with_auth "/products/#{product.id}", 'mentormentaro'
     accept_confirm do
-      click_link '削除'
+      within first('.card-main-actions', text: '削除') do
+        click_link '削除', exact: true
+      end
     end
     assert_text '提出物を削除しました'
   end

@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('turbo:load', async () => {
   const invitationElements = Array.from(
     document.querySelectorAll('.invitation__element select')
   )

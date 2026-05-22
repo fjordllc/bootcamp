@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const allOpenButton = document.querySelector(
     '#js-shortcut-unconfirmed-links-open'
   )

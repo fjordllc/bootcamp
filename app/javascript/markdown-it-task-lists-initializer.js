@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2'
-import CSRF from 'csrf'
+import CSRF from './csrf.js'
 
 export default class {
   static initialize(parent, selector) {

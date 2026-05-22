@@ -1,7 +1,7 @@
 import { FetchRequest } from '@rails/request.js'
 import { renderAllReactions } from './reaction_render.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const reactions = document.querySelectorAll('.js-reactions')
 
   if (reactions.length === 0) {

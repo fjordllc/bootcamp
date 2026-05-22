@@ -56,4 +56,15 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     ActionMailer::Base.deliveries.clear
     ActiveJob::Base.queue_adapter = @original_adapter
   end
+
+  private
+
+  def click_button_in_view(locator)
+    click_in_view(find_button(locator))
+  end
+
+  def click_in_view(element)
+    element.scroll_to(:center)
+    execute_script('arguments[0].click()', element)
+  end
 end

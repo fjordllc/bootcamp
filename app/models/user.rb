@@ -978,10 +978,15 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   def validate_uploaded_avatar_content_type
     return unless uploaded_avatar
+    return add_invalid_avatar_error if uploaded_avatar.size.zero? # rubocop:disable Style/ZeroLengthPredicate
 
     mime_type = Marcel::Magic.by_magic(uploaded_avatar)&.type
     return if mime_type&.start_with?('image/png', 'image/jpeg', 'image/gif', 'image/heic', 'image/heif')
 
+    add_invalid_avatar_error
+  end
+
+  def add_invalid_avatar_error
     errors.add(:avatar, 'は指定された拡張子(PNG, JPG, JPEG, GIF, HEIC, HEIF形式)になっていないか、あるいは画像が破損している可能性があります')
   end
 

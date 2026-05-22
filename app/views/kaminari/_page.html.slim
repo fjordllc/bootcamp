@@ -9,4 +9,4 @@ ruby:
     = tag.a page, remote:, rel:, class: 'pagination__item-link is-active'
 - else
   li.pagination__item
-    = link_to page, url, remote:, rel:, class: 'pagination__item-link'
+    = link_to page, url, remote:, rel:, class: 'pagination__item-link', data: { turbo: false }

@@ -1,19 +1,17 @@
-import CSRF from 'csrf'
-import TextareaInitializer from 'textarea-initializer'
-import MarkdownInitializer from 'markdown-initializer'
+import CSRF from './csrf.js'
+import { initializeTextarea, renderMarkdown } from './lazy-markdown.js'
 import { toast } from './vanillaToast.js'
 import updateAnswerCount from './updateAnswerCount.js'
 import initializeAnswer from './initializeAnswer.js'
 import { initializeReaction } from './reaction.js'
 import { setWatchable } from './setWatchable.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const newAnswer = document.querySelector('.new-answer')
   if (newAnswer) {
-    TextareaInitializer.initialize('#js-new-comment')
+    initializeTextarea('#js-new-comment')
     const defaultTextareaSize =
       document.getElementById('js-new-comment').scrollHeight
-    const markdownInitializer = new MarkdownInitializer()
     const questionId = newAnswer.dataset.question_id
     let savedAnswer = ''
 
@@ -26,10 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
     )
 
     const saveButton = answerEditor.querySelector('.is-primary')
-    editorTextarea.addEventListener('input', () => {
-      answerEditorPreview.innerHTML = markdownInitializer.render(
-        editorTextarea.value
-      )
+    editorTextarea.addEventListener('input', async () => {
+      answerEditorPreview.innerHTML = await renderMarkdown(editorTextarea.value)
       saveButton.disabled = editorTextarea.value.length === 0
     })
 
@@ -39,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const answerCreated = await createAnswer(savedAnswer, questionId)
       if (answerCreated) {
         editorTextarea.value = ''
-        answerEditorPreview.innerHTML = markdownInitializer.render(
+        answerEditorPreview.innerHTML = await renderMarkdown(
           editorTextarea.value
         )
         updateAnswerCount(true)

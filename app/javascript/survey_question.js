@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const radioButtonChoices = document.getElementsByName(
     'survey_question[format]'
   )

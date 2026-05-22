@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const currentDateTimeButton = document.getElementById(
     'js-current-date-time-input-button'
   )

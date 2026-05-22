@@ -1,6 +1,5 @@
 import autosize from 'autosize'
-import TextareaInitializer from 'textarea-initializer'
-import MarkdownInitializer from 'markdown-initializer'
+import { initializeTextarea, renderMarkdown } from './lazy-markdown.js'
 import { initializeComment, toggleVisibility } from './initializeComment.js'
 import { initializeReaction } from './reaction.js'
 import { toast } from './vanillaToast.js'
@@ -8,9 +7,11 @@ import { setWatchable } from './setWatchable.js'
 import commentCheckable from './comment-checkable.js'
 import { post } from '@rails/request.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+function setupNewComment() {
   const newComment = document.querySelector('.new-comment')
   if (!newComment) return
+  if (newComment.dataset.initialized === 'true') return
+  newComment.dataset.initialized = 'true'
 
   const commentableId = newComment.dataset.commentable_id
   const commentableType = newComment.dataset.commentable_type
@@ -18,8 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const isMentor = newComment.dataset.is_mentor === 'true'
 
   let savedComment = ''
-  TextareaInitializer.initialize('#js-new-comment')
-  const markdownInitializer = new MarkdownInitializer()
+  initializeTextarea('#js-new-comment')
 
   const commentEditor = newComment.querySelector('.js-comment-editor')
   const commentEditorPreview = commentEditor.querySelector(
@@ -59,10 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (saveAndCheckButton) saveAndCheckButton.disabled = true
   }
 
-  const updatePreviewAndButtonState = () => {
-    commentEditorPreview.innerHTML = markdownInitializer.render(
-      editorTextarea.value
-    )
+  const updatePreviewAndButtonState = async () => {
+    commentEditorPreview.innerHTML = await renderMarkdown(editorTextarea.value)
     const isEmpty = editorTextarea.value.length === 0
     saveButton.disabled = isEmpty
     if (saveAndCheckButton) saveAndCheckButton.disabled = isEmpty
@@ -212,4 +210,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('unchecked', () => {
     saveAndCheckWrapper?.classList.remove('is-hidden')
   })
-})
+}
+
+document.addEventListener('turbo:load', setupNewComment)
+document.addEventListener('DOMContentLoaded', setupNewComment)
+setupNewComment()

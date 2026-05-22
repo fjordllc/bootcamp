@@ -1,5 +1,5 @@
 import { toast } from './vanillaToast.js'
-import checkStamp from 'check-stamp.js'
+import checkStamp from './check-stamp.js'
 import { FetchRequest } from '@rails/request.js'
 
 async function sendRequest(url, method = 'get', body = null) {
