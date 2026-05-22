@@ -25,7 +25,10 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
            source: :user
   has_many :skipped_practices, dependent: :destroy
   has_many :products, dependent: :destroy
+
   has_one :product_template, dependent: :destroy
+  accepts_nested_attributes_for :product_template, update_only: true, allow_destroy: true
+
   has_many :questions, dependent: :nullify
   has_many :pages,
            -> { order(updated_at: :desc, id: :desc) },
