@@ -80,7 +80,7 @@ module Practices
       assert_field 'product[body]', with: 'テストテンプレート'
     end
 
-    test 'update practice template' do
+    test 'update product template' do
       practice = practices(:practice1)
       visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
       assert_field 'practice_product_template_attributes_description', with: '更新前テンプレート'
