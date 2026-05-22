@@ -15,14 +15,22 @@ class Metadata
     http.response_body_encoding = true
 
     response = http.request_get(@uri.request_uri)
-    response.message == 'OK' ? parse(response.body) : nil
+    if response.message != 'OK'
+      Rails.logger.info("[Metadata] Response was not OK: status=#{response.code} url=#{@url}") unless Rails.env.production?
+      return
+    end
+
+    parse(response.body)
   end
 
   private
 
   def parse(html)
     object = OpenGraphReader.parse(html)
-    return unless object
+    unless object
+      Rails.logger.info("[Metadata] OpenGraphReader parse failed: url=#{@url}, title=#{Nokogiri::HTML(html).title}") unless Rails.env.production?
+      return
+    end
 
     {
       title: object.og.title,

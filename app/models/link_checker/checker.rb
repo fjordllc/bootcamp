@@ -39,7 +39,8 @@ module LinkChecker
 
       Resolv.getaddress(domain)
       true
-    rescue Resolv::ResolvError
+    rescue Resolv::ResolvError => e
+      Rails.logger.info("[LinkChecker] #{e.class}: domain=#{domain}") unless Rails.env.production?
       false
     end
 
