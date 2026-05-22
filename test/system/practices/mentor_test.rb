@@ -21,11 +21,41 @@ module Practices
         end
         fill_in 'practice[goal]', with: 'テストのゴールの内容です'
         fill_in 'practice[memo]', with: 'テストのメンター向けメモの内容です'
+        fill_in 'practice_product_template_attributes_description', with: 'テストテンプレート'
         uncheck 'practice[pjord_review]', allow_label_click: true
         click_button '登録する'
       end
       assert_text 'プラクティスを作成しました'
       assert_not_predicate Practice.order(:created_at).last, :pjord_review?
+    end
+
+    test 'can create practice without product template' do
+      visit_with_auth '/mentor/practices/new', 'komagata'
+
+      within 'form[name=practice]' do
+        fill_in 'practice[title]', with: 'テンプレなし'
+        check categories(:category1).name, allow_label_click: true
+        fill_in 'practice[description]', with: 'テストの内容です'
+        fill_in 'practice[goal]', with: 'テストのゴールの内容です'
+        click_button '登録する'
+      end
+
+      assert_text 'プラクティスを作成しました'
+      assert_not_predicate Practice.order(:created_at).last, :pjord_review?
+    end
+
+    test 'can create practice without product template' do
+      visit_with_auth '/mentor/practices/new', 'komagata'
+
+      within 'form[name=practice]' do
+        fill_in 'practice[title]', with: 'テンプレなし'
+        check categories(:category1).name, allow_label_click: true
+        fill_in 'practice[description]', with: 'テストの内容です'
+        fill_in 'practice[goal]', with: 'テストのゴールの内容です'
+        click_button '登録する'
+      end
+
+      assert_text 'プラクティスを作成しました'
     end
 
     test 'create practice as a mentor' do
@@ -39,6 +69,7 @@ module Practices
         end
         fill_in 'practice[goal]', with: 'テストのゴールの内容です'
         fill_in 'practice[memo]', with: 'テストのメンター向けメモの内容です'
+        fill_in 'practice_product_template_attributes_description', with: 'テストテンプレート'
         click_button '登録する'
       end
       assert_text 'プラクティスを作成しました'
@@ -51,6 +82,7 @@ module Practices
       within 'form[name=practice]' do
         fill_in 'practice[title]', with: 'テストプラクティス'
         fill_in 'practice[memo]', with: 'メンター向けのメモの内容です'
+        fill_in 'practice_product_template_attributes_description', with: 'テストテンプレート'
         within '#reference_books' do
           click_link '書籍を選択'
         end
@@ -60,6 +92,21 @@ module Practices
       visit "/products/#{product.id}"
       check 'toggle-mentor-memo-body', allow_label_click: true, visible: false
       assert_text 'メンター向けのメモの内容です'
+
+      visit new_product_path(practice_id: practice.id)
+      assert_field 'product[body]', with: 'テストテンプレート'
+    end
+
+    test 'update product template' do
+      practice = practices(:practice1)
+      visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
+      assert_field 'practice_product_template_attributes_description', with: '更新前テンプレート'
+      fill_in 'practice_product_template_attributes_description', with: '更新後テンプレート'
+      click_button '更新する'
+      assert_text 'プラクティスを更新しました'
+
+      visit new_product_path(practice_id: practice.id)
+      assert_field 'product[body]', with: '更新後テンプレート'
     end
 
     test 'add a book' do
