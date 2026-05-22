@@ -20,40 +20,40 @@ document.addEventListener('turbo:load', () => {
       sessionStorage.setItem(EDIT_MODE_KEY, editButton.checked)
     })
   }
+})
 
-  document.addEventListener('click', async (event) => {
-    const deleteButton = event.target.closest('.bookmark-delete-button')
-    if (!deleteButton) return
+document.addEventListener('click', async (event) => {
+  const deleteButton = event.target.closest('.bookmark-delete-button')
+  if (!deleteButton) return
 
-    deleteButton.disabled = true
+  deleteButton.disabled = true
 
-    try {
-      const url = deleteButton.dataset.url
-      const response = await destroy(url)
+  try {
+    const url = deleteButton.dataset.url
+    const response = await destroy(url)
 
-      if (!response.ok) {
-        throw new Error(`削除に失敗しました。(ステータス: ${response.status})`)
-      }
-
-      const params = new URLSearchParams(location.search)
-      const currentPage = parseInt(params.get('page') || '1', 10)
-      const newPageMain = await fetchPageMain(currentPage)
-
-      // 空ページの場合は1ページ前にフォールバック
-      let pageToShow = newPageMain
-      if (currentPage > 1 && newPageMain.querySelector('.o-empty-message')) {
-        pageToShow = await fetchPageMain(currentPage - 1)
-      }
-      document.querySelector('.page-body').replaceWith(pageToShow)
-
-      const savedModeAfterDelete =
-        sessionStorage.getItem(EDIT_MODE_KEY) === 'true'
-      initialize(savedModeAfterDelete)
-    } catch (error) {
-      console.warn(error)
-      deleteButton.disabled = false
+    if (!response.ok) {
+      throw new Error(`削除に失敗しました。(ステータス: ${response.status})`)
     }
-  })
+
+    const params = new URLSearchParams(location.search)
+    const currentPage = parseInt(params.get('page') || '1', 10)
+    const newPageMain = await fetchPageMain(currentPage)
+
+    // 空ページの場合は1ページ前にフォールバック
+    let pageToShow = newPageMain
+    if (currentPage > 1 && newPageMain.querySelector('.o-empty-message')) {
+      pageToShow = await fetchPageMain(currentPage - 1)
+    }
+    document.querySelector('.page-body').replaceWith(pageToShow)
+
+    const savedModeAfterDelete =
+      sessionStorage.getItem(EDIT_MODE_KEY) === 'true'
+    initialize(savedModeAfterDelete)
+  } catch (error) {
+    console.warn(error)
+    deleteButton.disabled = false
+  }
 })
 
 window.addEventListener('beforeunload', () => {

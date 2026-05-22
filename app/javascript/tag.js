@@ -1,6 +1,5 @@
 import loadTagify from './lazy-tagify.js'
-import { get } from '@rails/request.js'
-import CSRF from './csrf.js'
+import { get, put } from '@rails/request.js'
 import transformHeadSharp from './transform-head-sharp.js'
 import validateTagName from './validate-tag-name.js'
 import headIsSharpOrOctothorpe from './head-is-sharp-or-octothorpe.js'
@@ -111,17 +110,9 @@ document.addEventListener('turbo:load', async () => {
       }
     }
     try {
-      const response = await fetch(
+      const response = await put(
         `/api/${tagsType.toLowerCase()}s/${tagsTypeId}`,
         {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-            'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRF-Token': CSRF.getToken()
-          },
-          credentials: 'same-origin',
-          redirect: 'manual',
           body: JSON.stringify(params)
         }
       )
