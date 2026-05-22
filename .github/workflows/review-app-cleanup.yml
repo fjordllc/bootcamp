@@ -31,11 +31,7 @@ jobs:
         run: |
           gcloud builds submit \
             --config=.cloudbuild/cloudbuild-review-cleanup.yaml \
-            --substitutions="\
-              _PR_NUMBER=${PR_NUMBER},\
-              _CLOUD_SQL_HOST=bootcamp-224405:asia-northeast1:bootcamp,\
-              _DB_USER=review,\
-              _DB_PASS=${{ secrets.REVIEW_DB_PASS }}" \
+            --substitutions="_PR_NUMBER=${PR_NUMBER},_CLOUD_SQL_HOST=bootcamp-224405:asia-northeast1:bootcamp,_DB_USER=review,_DB_PASS=${{ secrets.REVIEW_DB_PASS }}" \
             --project=bootcamp-224405 \
             --region=asia-northeast1 \
             --no-source \
