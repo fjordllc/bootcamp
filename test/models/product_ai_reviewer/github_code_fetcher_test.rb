@@ -29,6 +29,15 @@ class ProductAiReviewer::GithubCodeFetcherTest < ActiveSupport::TestCase
     assert_equal 'class Product < ApplicationRecord; end', normalized_body
   end
 
+  test '.fetch scrubs invalid bytes from fetched body' do
+    invalid_body = "valid\xFFinvalid".b
+    normalized_body = ProductAiReviewer::GithubCodeFetcher.send(:normalize_body, invalid_body)
+
+    assert_equal Encoding::UTF_8, normalized_body.encoding
+    assert normalized_body.valid_encoding?
+    assert_equal 'valid�invalid', normalized_body
+  end
+
   test '.fetch sends Pjord GitHub token when it is configured' do
     mock_env('PJORD_GITHUB_TOKEN' => 'token-for-pjord') do
       headers = ProductAiReviewer::GithubCodeFetcher.send(:github_request_headers)
