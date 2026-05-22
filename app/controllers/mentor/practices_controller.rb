@@ -12,9 +12,12 @@ class Mentor::PracticesController < ApplicationController
 
   def new
     @practice = Practice.new(pjord_review: true, pjord_auto_check: false)
+    @practice.build_product_template
   end
 
-  def edit; end
+  def edit
+    @practice.build_product_template unless @practice.product_template
+  end
 
   def create
     @practice = Practice.new(practice_params)
@@ -63,7 +66,8 @@ class Mentor::PracticesController < ApplicationController
       :summary,
       :ogp_image,
       category_ids: [],
-      practices_books_attributes: %i[id book_id must_read _destroy]
+      practices_books_attributes: %i[id book_id must_read _destroy],
+      product_template_attributes: %i[id description]
     )
   end
 

@@ -634,10 +634,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
 
   create_table "product_templates", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.text "description"
+    t.text "description", null: false
     t.bigint "practice_id", null: false
     t.datetime "updated_at", null: false
-    t.index ["practice_id"], name: "index_product_templates_on_practice_id"
+    t.index ["practice_id"], name: "index_product_templates_on_practice_id", unique: true
   end
 
   create_table "products", force: :cascade do |t|

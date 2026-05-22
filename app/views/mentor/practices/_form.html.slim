@@ -109,6 +109,19 @@
           = f.check_box :include_progress, class: 'a-toggle-checkbox'
           = f.label :include_progress
             | 進捗の計算に含むようにする場合はチェック
+
+  = f.fields_for :product_template do |pt|
+    .form-item
+      .row.js-markdown-parent
+        .col-md-6.col-xs-12
+          = pt.label :description, '提出物のテンプレート', class: 'a-form-label'
+          = pt.text_area :description,
+            class: 'a-text-input js-warning-form markdown-form__text-area js-markdown',
+            data: { 'preview': '.js-product-template-preview' }
+        .col-md-6.col-xs-12
+          .a-form-label プレビュー
+          .js-product-template-preview.a-long-text.is-md.markdown-form__preview
+
   .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12
