@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 module ProductsHelper
+  def product_category_practices_link_path(category)
+    course_practices_path(
+      current_user.course,
+      anchor: "category-#{category.id}"
+    )
+  end
+
   def unconfirmed_links_label(target)
     case target
     when 'all' then '全ての提出物を一括で開く'

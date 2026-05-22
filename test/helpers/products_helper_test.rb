@@ -3,6 +3,17 @@
 require 'test_helper'
 
 class ProductsHelperTest < ActionView::TestCase
+  test '#product_category_practices_link_path' do
+    def current_user = users(:kimura)
+
+    category = products(:product8).category(current_user.course)
+
+    assert_equal(
+      course_practices_path(current_user.course, anchor: "category-#{category.id}"),
+      product_category_practices_link_path(category)
+    )
+  end
+
   test 'unconfirmed_links_label returns correct label for all targets' do
     assert_equal '全ての提出物を一括で開く', unconfirmed_links_label('all')
     assert_equal '未完了の提出物を一括で開く', unconfirmed_links_label('unchecked')
