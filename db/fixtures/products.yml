@@ -222,3 +222,16 @@ product81:
   body: 研修終了日が未入力のユーザーの提出物です。
   published_at: <%= now.to_formatted_s(:db) %>
   created_at: <%= now.to_formatted_s(:db) %>
+
+product82:
+  practice: practice27
+  user: kensyu
+  body: |
+    GitHubにコードをpushしました。
+    実装はこちらです。
+
+    https://github.com/fjordllc/bootcamp/blob/main/app/models/product.rb
+
+    ピヨルドのレビューで、リンク先のコードも確認できるかを検証するための提出物です。
+  published_at: <%= now.to_formatted_s(:db) %>
+  created_at: <%= now.to_formatted_s(:db) %>
