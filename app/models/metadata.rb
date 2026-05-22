@@ -15,7 +15,9 @@ class Metadata
     http.response_body_encoding = true
 
     response = http.request_get(@uri.request_uri)
-    response.message == 'OK' ? parse(response.body) : nil
+    return fetch_youtube_oembed unless response.is_a?(Net::HTTPSuccess)
+
+    parse(response.body) || fetch_youtube_oembed
   end
 
   private
@@ -52,5 +54,31 @@ class Metadata
     else
       URI.join(@url, favicon_path).to_s
     end
+  end
+
+  def youtube?
+    @uri.host.in?(%w[www.youtube.com youtube.com youtu.be])
+  end
+
+  def fetch_youtube_oembed
+    return unless youtube?
+
+    uri = Addressable::URI.parse('https://www.youtube.com/oembed')
+    uri.query_values = { url: @url, format: 'json' }
+    response = Net::HTTP.get_response(uri.normalize)
+    return unless response.is_a?(Net::HTTPSuccess)
+
+    body = JSON.parse(response.body)
+    {
+      title: body['title'],
+      description: nil,
+      images: body['thumbnail_url'],
+      site_name: 'YouTube',
+      favicon: 'https://www.youtube.com/s/desktop/5af4fee3/img/favicon.ico',
+      url: @url,
+      site_url: 'https://www.youtube.com'
+    }
+  rescue JSON::ParserError
+    nil
   end
 end
