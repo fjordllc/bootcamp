@@ -7,18 +7,6 @@ GIT
       i18n (>= 0.6, < 2.0)
       railties (>= 4.0)
 
-GIT
-  remote: https://github.com/reactjs/react-rails.git
-  revision: 224d03b8e04b95e4d16197fc6ecf75601543154a
-  ref: 224d03b8e04b95e4d16197fc6ecf75601543154a
-  specs:
-    react-rails (3.2.1)
-      babel-transpiler (>= 0.7.0)
-      connection_pool
-      execjs
-      railties (>= 3.2)
-      tilt
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -123,10 +111,6 @@ GEM
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
-    babel-source (5.8.35)
-    babel-transpiler (0.7.0)
-      babel-source (>= 4.0, < 6)
-      execjs (~> 2.0)
     base64 (0.3.0)
     bcrypt (3.1.22)
     benchmark (0.5.0)
@@ -206,7 +190,6 @@ GEM
       tzinfo
     event_emitter (0.2.6)
     event_stream_parser (1.0.0)
-    execjs (2.10.0)
     faraday (2.14.1)
       faraday-net_http (>= 2.0, < 3.5)
       json
@@ -896,7 +879,6 @@ DEPENDENCIES
   rails-patterns (~> 0.2)
   rails_autolink
   ransack (~> 4.3)
-  react-rails!
   recaptcha (~> 5.12)
   rollbar
   rss

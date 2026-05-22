@@ -2,11 +2,7 @@
   "extends": [
     "eslint:recommended",
     "standard",
-    "plugin:react/jsx-runtime",
     "prettier"
-  ],
-  "plugins": [
-    "react"
   ],
   "env": {
     "browser": true,
@@ -28,8 +24,6 @@
         "args": "all",
         "argsIgnorePattern": "^_"
       }
-    ],
-    "react/jsx-uses-react": "error",   
-    "react/jsx-uses-vars": "error" 
+    ]
   }
 }

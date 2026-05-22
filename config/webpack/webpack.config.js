@@ -4,14 +4,14 @@ const webpack = require('webpack')
 
 const webpackConfig = generateWebpackConfig()
 
-// Add custom configuration for JSX files
+// Add custom configuration for Tagify JavaScript files
 webpackConfig.module.rules.push({
-  test: /\.jsx?$/,
+  test: /\.js$/,
   include: /node_modules\/@yaireo\/tagify/,
   use: {
     loader: 'babel-loader',
     options: {
-      presets: ['@babel/preset-env', '@babel/preset-react']
+      presets: ['@babel/preset-env']
     }
   }
 })
@@ -48,11 +48,9 @@ webpackConfig.plugins.push(
   })
 )
 
-// Provide React and ReactDOM globally for compatibility
-// Also provide process and util polyfills for browser environment
+// Provide process and util polyfills for browser environment
 webpackConfig.plugins.push(
   new webpack.ProvidePlugin({
-    React: 'react',
     process: 'process/browser.js',
     Buffer: ['buffer', 'Buffer']
   })
