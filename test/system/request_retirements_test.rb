@@ -11,8 +11,9 @@ class RequestRetirementsTest < ApplicationSystemTestCase
     select 'kensyu', from: '退会をさせる方のアカウント'
     fill_in('退会申請理由', with: '退職してしまったため。')
     choose '削除する', allow_label_click: true
-    click_on '申請する'
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm do
+      click_on '申請する'
+    end
 
     assert_text '退会申請を受け付けました。'
   end

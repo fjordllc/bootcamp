@@ -2,6 +2,9 @@
 
 class API::Products::CheckerController < API::BaseController
   before_action :require_mentor_login_for_api
+  before_action -> { doorkeeper_authorize! :mentor }, only: %i[show], if: -> { doorkeeper_token.present? }
+  before_action -> { doorkeeper_authorize! :write }, only: %i[update destroy], if: -> { doorkeeper_token.present? }
+  before_action -> { doorkeeper_authorize! :mentor }, only: %i[update destroy], if: -> { doorkeeper_token.present? }
   before_action :set_product, only: %i[show update destroy]
 
   def show

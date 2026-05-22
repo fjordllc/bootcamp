@@ -2,6 +2,8 @@
 
 class API::ChecksController < API::BaseController
   before_action :require_staff_login_for_api, only: %i[create destroy]
+  before_action -> { doorkeeper_authorize! :write }, only: %i[create destroy], if: -> { doorkeeper_token.present? }
+  before_action -> { doorkeeper_authorize! :mentor }, only: %i[create destroy], if: -> { doorkeeper_token.present? }
 
   def index
     @checks = Check.where(
@@ -16,7 +18,7 @@ class API::ChecksController < API::BaseController
           @check = Check.create!(user: current_user, checkable:)
           ActiveSupport::Notifications.instrument('check.create', check: @check)
         end
-        head :created
+        render json: check_json(@check), status: :created
       rescue StandardError => e
         Rails.logger.error("[API::ChecksController#create] チェック作成でエラー: #{e.message}")
         render json: { message: 'エラーが発生しました。' }, status: :internal_server_error
@@ -31,7 +33,7 @@ class API::ChecksController < API::BaseController
       @check = Check.find(params[:id]).destroy!
       ActiveSupport::Notifications.instrument('check.cancel', check: @check)
     end
-    head :no_content
+    render json: { id: @check.id }, status: :ok
   rescue StandardError => e
     Rails.logger.error("[API::ChecksController#destroy] チェック削除でエラー: #{e.message}")
     render json: { message: 'エラーが発生しました。' }, status: :internal_server_error

@@ -87,4 +87,65 @@ class PracticeTest < ActiveSupport::TestCase
       practice.update!(source_id: 99_999)
     end
   end
+
+  test '#grant_course? returns true when practice has source' do
+    assert Practice.new(source_id: 1).grant_course?
+    assert_not Practice.new(source_id: nil).grant_course?
+  end
+
+  test '#reports_count sums reports of self and source when include_source is true' do
+    source_practice = practices(:practice67)
+    practice = practices(:practice68)
+    initial_count = practice.reports_count(include_source: true)
+
+    Report.create!(
+      user: users(:komagata),
+      title: '日報が存在しないRailsコースのコピー元プラクティスの日報',
+      description: '日報が存在しないRailsコースのコピー元プラクティスの日報です。',
+      practices: [source_practice],
+      reported_on: Time.zone.today
+    )
+    Report.create!(
+      user: users(:komagata),
+      title: '日報が存在しない給付金コースのプラクティスの日報',
+      description: '日報が存在しない給付金コースのプラクティスの日報です。',
+      practices: [practice],
+      reported_on: Time.zone.today - 1
+    )
+
+    assert_equal initial_count + 2, practice.reports_count(include_source: true)
+  end
+
+  test '#reports_count counts only self reports when include_source is false' do
+    practice = practices(:practice67)
+    initial_count = practice.reports_count(include_source: false)
+
+    Report.create!(
+      user: users(:komagata),
+      title: '日報が存在しないRailsコースのコピー元プラクティスの日報',
+      description: '日報が存在しないRailsコースのコピー元プラクティスの日報です。',
+      practices: [practice],
+      reported_on: Time.zone.today
+    )
+
+    assert_equal initial_count + 1, practice.reports_count(include_source: false)
+  end
+
+  test '#reports_count does not double count reports when associated with both source and practice' do
+    source_practice = practices(:practice67)
+    practice = practices(:practice68)
+    initial_count = practice.reports_count(include_source: false)
+    initial_count_including_source = practice.reports_count(include_source: true)
+
+    Report.create!(
+      user: users(:komagata),
+      title: '日報が存在しないRailsコースのコピー元プラクティス、日報が存在しない給付金コースのプラクティスの両方に関連する日報',
+      description: '日報が存在しないRailsコースのプラクティス、日報が存在しない給付金コースのプラクティスの両方に関連する日報です。',
+      practices: [source_practice, practice],
+      reported_on: Time.zone.today
+    )
+
+    assert_equal initial_count + 1, practice.reports_count(include_source: false)
+    assert_equal initial_count_including_source + 1, practice.reports_count(include_source: true)
+  end
 end

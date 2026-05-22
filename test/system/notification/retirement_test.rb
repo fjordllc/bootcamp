@@ -8,8 +8,9 @@ class Notification::RetirementTest < NotificationSystemTestCase
 
     visit_with_auth new_retirement_path, 'kimura'
     find('label', text: 'とても良い').click
-    click_on '退会する'
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm do
+      click_on '退会する'
+    end
     assert_text '退会処理が完了しました'
 
     assert_user_has_notification(user: users(:komagata), kind: Notification.kinds[:retired], text: 'kimuraさんが退会しました。')

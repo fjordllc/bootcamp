@@ -14,14 +14,6 @@ class Question::TagsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'update tags without page transitions' do
-    visit_with_auth question_path(questions(:question2)), 'komagata'
-    find('.tag-links__item-edit').click
-    fill_in_tag '追加タグ'
-    click_on '保存'
-    assert_text '追加タグ'
-  end
-
   test 'admin can edit tag' do
     tag = acts_as_taggable_on_tags('game')
     assert_admin_can_edit_tag(questions_tag_path(tag.name, all: 'true'))
@@ -37,9 +29,9 @@ class Question::TagsTest < ApplicationSystemTestCase
     update_tag_text = '上級者'
 
     visit_with_auth questions_tag_path(tag.name, all: 'true'), 'komagata'
-    click_button 'タグ名変更'
-    fill_in('tag[name]', with: update_tag_text)
-    click_button '変更'
+    click_tag_name_change
+    fill_in_open_tag_modal update_tag_text
+    click_save_tag_name_change
 
     assert_text "タグ「#{update_tag_text}」のQ&A（1）"
     visit_with_auth questions_tag_path(tag.name, all: 'true'), 'komagata'
@@ -61,9 +53,9 @@ class Question::TagsTest < ApplicationSystemTestCase
     update_tag = acts_as_taggable_on_tags('intermediate')
 
     visit_with_auth questions_tag_path(tag.name, all: 'true'), 'komagata'
-    click_button 'タグ名変更'
-    fill_in('tag[name]', with: update_tag.name)
-    click_button '変更'
+    click_tag_name_change
+    fill_in_open_tag_modal update_tag.name
+    click_save_tag_name_change
 
     assert_text "タグ「#{update_tag.name}」のQ&A（2）"
     visit_with_auth questions_tag_path(tag.name, all: 'true'), 'komagata'

@@ -14,7 +14,7 @@ class MentionAndInteractionTest < ApplicationSystemTestCase
     end
 
     # Type @ to trigger mention suggestion
-    find('#js-new-comment').set('@')
+    find('#js-new-comment').send_keys('@')
 
     # Wait for mention suggestion to appear using Capybara's built-in wait
     assert_selector 'span.mention', text: 'mentor', wait: 10

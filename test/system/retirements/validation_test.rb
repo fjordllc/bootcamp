@@ -20,8 +20,9 @@ module Retirements
       user = users(:discordinvalid)
       visit_with_auth new_retirement_path, 'discordinvalid'
       find('label', text: 'とても悪い').click
-      click_on '退会する'
-      page.accept_confirm
+      page.accept_confirm do
+        click_on '退会する'
+      end
       assert_text '退会処理が完了しました'
       assert_equal Date.current, user.reload.retired_on
       assert_equal '😢 discordinvalidさんが退会しました。', users(:komagata).notifications.last.message
@@ -35,8 +36,9 @@ module Retirements
       user = users(:twitterinvalid)
       visit_with_auth new_retirement_path, 'twitterinvalid'
       find('label', text: 'とても悪い').click
-      click_on '退会する'
-      page.accept_confirm
+      page.accept_confirm do
+        click_on '退会する'
+      end
       assert_text '退会処理が完了しました'
       assert_equal Date.current, user.reload.retired_on
       assert_equal '😢 twitterinvalidさんが退会しました。', users(:komagata).notifications.last.message

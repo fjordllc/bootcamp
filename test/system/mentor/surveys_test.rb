@@ -18,20 +18,20 @@ class Mentor::SurveysTest < ApplicationSystemTestCase
     visit_with_auth "/mentor/surveys/#{surveys(:survey1).id}", 'komagata'
     assert_selector 'h1', text: '【第1回】FBCモチベーションに関するアンケート'
     required_answer_checkbox = find('.survey-questions-item__checkboxes').all('.checkboxes__item')[4]
-    required_answer_checkbox.select_option
+    required_answer_checkbox.click
     assert_text '「その他」と回答された方は、内容をお聞かせください。'
-    required_answer_checkbox.select_option
+    required_answer_checkbox.click
     assert_no_text '「その他」と回答された方は、内容をお聞かせください。'
 
     required_answer_radio_button = find('.survey-questions-item__radios').all('.radios__item')[4]
-    required_answer_radio_button.select_option
+    required_answer_radio_button.click
     assert_text '「その他」と回答された方は、内容をお聞かせください。'
     normal_radio_button = find('.survey-questions-item__radios').all('.radios__item')[0]
-    normal_radio_button.select_option
+    normal_radio_button.click
     assert_no_text '「その他」と回答された方は、内容をお聞かせください。'
 
     required_answer_linear_scale = find('.linear-scale__points-items').first('.linear-scale__points-item')
-    required_answer_linear_scale.select_option
+    required_answer_linear_scale.click
     assert_text 'そのように回答された理由を教えてください。'
   end
 

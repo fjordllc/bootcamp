@@ -20,5 +20,5 @@
                 = link_to work.user.name, user_path(work.user), class: 'a-user-name'
         .thumbnail-card__metas
           .thumbnail-card__meta
-            .thumbnail-card__date
+            time.thumbnail-card__date datetime=work.created_at.iso8601
               = l(work.created_at)

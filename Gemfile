@@ -52,9 +52,6 @@ gem 'mini_magick'
 gem 'mission_control-jobs'
 gem 'mutex_m', '0.1.1'
 gem 'neighbor'
-gem 'net-imap', require: false
-gem 'net-pop', require: false
-gem 'net-smtp', require: false # TODO: Remove it if you use rails 7.0.1
 gem 'newspaper'
 gem 'oauth2'
 gem 'omniauth', '~> 2.1.1'
@@ -121,11 +118,11 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'capybara-playwright-driver', '~> 0.5.9'
   gem 'minitest', '< 6.0'
   gem 'minitest-ci'
   gem 'minitest-retry'
   gem 'minitest-stub_any_instance'
-  gem 'selenium-webdriver'
   gem 'vcr'
   gem 'webmock'
 end

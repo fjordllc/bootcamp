@@ -58,7 +58,6 @@
     "react_ujs": "^2.5.0",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.4.1",
-    "select2": "^4.0.7-rc.0",
     "set-value": "^4.0.1",
     "shakapacker": "9.5.0",
     "sortablejs": "^1.15.0",
@@ -98,6 +97,7 @@
     "eslint-plugin-react": "^7.31.8",
     "mini-css-extract-plugin": "^2.9.1",
     "npm-run-all": "^4.1.5",
+    "playwright": "1.60.0",
     "prettier": "^2.6.2",
     "style-loader": "^3.3.4",
     "webpack-dev-server": "^5.2.2"

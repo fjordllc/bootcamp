@@ -6,7 +6,7 @@ class Reaction::MicroReportsTest < ApplicationSystemTestCase
   test 'show reaction of micro report' do
     visit_with_auth user_micro_reports_path(users(:hajime)), 'hatsuno'
 
-    assert_text "👍1\n❤️1"
+    assert_text '👍1❤️1'
   end
 
   test 'reaction to micro report' do
@@ -14,7 +14,7 @@ class Reaction::MicroReportsTest < ApplicationSystemTestCase
     first('.js-reaction-dropdown-toggle').click
     first(".js-reaction-dropdown li[data-reaction-kind='eyes']").click
 
-    assert_text "👍1\n❤️1\n👀1"
+    assert_text '👍1❤️1👀1'
   end
 
   test 'delete reaction of micro report on dropdown' do

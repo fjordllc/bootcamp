@@ -50,8 +50,9 @@ class Products::CheckerTest < ApplicationSystemTestCase
     product = ensure_valid_product(products(:product1))
     visit_with_auth "/products/#{product.id}", 'komagata'
     wait_for_comment_form
-    post_comment('コメントしたら担当になるテスト')
-    accept_alert '提出物の担当になりました。'
+    accept_alert '提出物の担当になりました。' do
+      post_comment('コメントしたら担当になるテスト')
+    end
     assert_text 'コメントしたら担当になるテスト'
     visit current_path
     assert_button '担当から外れる'

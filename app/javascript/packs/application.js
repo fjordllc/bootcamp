@@ -22,7 +22,6 @@ import '../fileinput.js'
 import '../reaction.js'
 import '../practice_memo.js'
 import '../card.js'
-import '../js-select2.js'
 import '../warning.js'
 import '../date-input-toggler'
 import '../grass.js'
@@ -45,6 +44,7 @@ import '../choices-ui.js'
 import '../training-info-toggler.js'
 import '../welcome_message_for_adviser.js'
 import '../bookmarks.js'
+import '../dashboard-bookmarks.js'
 import '../hibernation_agreements.js'
 import '../current-date-time-setter.js'
 import '../modal-switcher.js'
@@ -89,11 +89,6 @@ import '../bookmark-button.js'
 import '../notifications_remove_after_open.js'
 import '../notifications-bell.js'
 import '../products-checker-init.js'
-
-// Support component names relative to this directory:
-const componentRequireContext = require.context('components', true)
-const ReactRailsUJS = require('react_ujs')
-ReactRailsUJS.useContext(componentRequireContext)
 
 document.addEventListener('DOMContentLoaded', () => {
   Cocooned.start()

@@ -72,7 +72,7 @@ class Notification::TalkTest < NotificationSystemTestCase
     visit '/talks/action_uncompleted'
     assert_text '未対応の相談部屋はありません'
     within(:css, '.global-nav') do
-      within(:css, "a[href='/talks/action_uncompleted'") do
+      within(:css, "a[href='/talks/action_uncompleted']") do
         assert_no_selector '.global-nav__item-count.a-notification-count.is-only-mentor'
       end
     end
@@ -84,7 +84,7 @@ class Notification::TalkTest < NotificationSystemTestCase
     visit_with_auth root_path, 'mentormentaro'
     assert_selector '.page-header__title', text: 'ダッシュボード'
     within(:css, '.global-nav') do
-      within(:css, "a[href='/talks/#{user.talk.id}#latest-comment'") do
+      within(:css, "a[href='/talks/#{user.talk.id}#latest-comment']") do
         assert_no_selector '.global-nav__item-count.a-notification-count.is-only-mentor'
       end
     end
@@ -95,7 +95,7 @@ class Notification::TalkTest < NotificationSystemTestCase
     visit_with_auth root_path, 'advijirou'
     assert_selector '.page-header__title', text: 'ダッシュボード'
     within(:css, '.global-nav') do
-      within(:css, "a[href='/talks/#{user.talk.id}#latest-comment'") do
+      within(:css, "a[href='/talks/#{user.talk.id}#latest-comment']") do
         assert_no_selector '.global-nav__item-count.a-notification-count.is-only-mentor'
       end
     end
@@ -106,7 +106,7 @@ class Notification::TalkTest < NotificationSystemTestCase
     visit_with_auth root_path, 'kimura'
     assert_selector '.page-header__title', text: 'ダッシュボード'
     within(:css, '.global-nav') do
-      within(:css, "a[href='/talks/#{user.talk.id}#latest-comment'") do
+      within(:css, "a[href='/talks/#{user.talk.id}#latest-comment']") do
         assert_no_selector '.global-nav__item-count.a-notification-count.is-only-mentor'
       end
     end

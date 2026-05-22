@@ -12,6 +12,16 @@ module Products
       assert_selector '#side-tabs-nav-4', text: '提出物'
     end
 
+    test 'mentors cannot see review by Pjord button' do
+      visit_with_auth "/products/#{products(:product2).id}", 'mentormentaro'
+      assert_no_text 'ピヨルドでレビューコメントをする'
+    end
+
+    test 'admins can see review by Pjord button' do
+      visit_with_auth "/products/#{products(:product2).id}", 'adminonly'
+      assert_text 'ピヨルドでレビューコメントをする'
+    end
+
     test 'students can not see block for mentors' do
       visit_with_auth "/products/#{products(:product2).id}", 'hatsuno'
       assert_no_text '直近の日報'

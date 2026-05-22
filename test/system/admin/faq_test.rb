@@ -33,7 +33,7 @@ class Admin::FAQTest < ApplicationSystemTestCase
   test "display answer's preview" do
     visit_with_auth '/admin/faqs/new', 'komagata'
     within 'form[name=faq]' do
-      fill_in 'faq[answer]', with: 'updated FAQ'
+      find_field('faq[answer]').send_keys 'updated FAQ'
     end
     assert_selector '.markdown-form__preview', text: 'updated FAQ'
   end
@@ -41,15 +41,16 @@ class Admin::FAQTest < ApplicationSystemTestCase
   test 'display link tag when answer has links' do
     visit_with_auth '/admin/faqs/new', 'komagata'
     within 'form[name=faq]' do
-      fill_in 'faq[answer]', with: '[test](https://example.com)'
+      find_field('faq[answer]').send_keys '[test](https://example.com)'
     end
     assert_selector '.markdown-form__preview a', text: 'test'
   end
 
   test 'delete FAQ' do
     visit_with_auth "/admin/faqs/#{faqs(:faq1).id}/edit", 'komagata'
-    click_on '削除'
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm do
+      click_on '削除'
+    end
     assert_text 'FAQを削除しました。'
   end
 end

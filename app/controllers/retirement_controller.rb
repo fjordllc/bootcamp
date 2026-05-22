@@ -6,7 +6,7 @@ class RetirementController < ApplicationController
   def show; end
 
   def new
-    @holding_regular_events = RegularEvent.organizer_event(current_user).holding
+    @regular_events_without_finished = RegularEvent.organizer_event(current_user).exclude_finished
   end
 
   def create
@@ -17,7 +17,7 @@ class RetirementController < ApplicationController
       redirect_to retirement_url
     else
       current_user.retired_on = nil
-      @holding_regular_events = RegularEvent.organizer_event(current_user).holding
+      @regular_events_without_finished = RegularEvent.organizer_event(current_user).exclude_finished
       render :new
     end
   end

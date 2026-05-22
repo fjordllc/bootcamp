@@ -19,7 +19,7 @@
             = f.select :language,
               CodingTest.languages.keys,
               { include_blank: '言語を選択してください' },
-              { class: 'js-select2' }
+              { class: 'a-text-input' }
     .form-item
       .row
         .col-md-6.col-xs-12
@@ -31,7 +31,7 @@
             = f.select :user_id,
               User.where(retired_on: nil).pluck(:login_name, :id).sort,
               { include_blank: '作成者を選択してください' },
-              { class: 'js-select2' }
+              { class: 'a-text-input' }
     .form-item
       .row.js-markdown-parent
         .col-md-6.col-xs-12

@@ -52,7 +52,7 @@ class User::TagsTest < ApplicationSystemTestCase
     page.all('.tag-links__item-edit')[0].click
     tag_input = find('.tagify__input')
     tag_input.set 'タグタグ'
-    tag_input.native.send_keys :return
+    tag_input.send_keys :return
     assert_text 'タグタグ'
     find_all('.tagify__tag').map(&:text)
     click_button '保存する'
@@ -92,8 +92,8 @@ class User::TagsTest < ApplicationSystemTestCase
 
     visit_with_auth users_tag_path(tag.name, all: 'true'), 'komagata'
     click_button 'タグ名変更'
-    fill_in('tag[name]', with: update_tag_text)
-    click_button '変更'
+    fill_in_open_tag_modal update_tag_text
+    click_save_tag_name_change
     assert_text 'タグ「上級者」'
 
     visit_with_auth users_tag_path(tag.name), 'komagata'
@@ -113,8 +113,8 @@ class User::TagsTest < ApplicationSystemTestCase
 
     visit_with_auth users_tag_path(tag.name, all: 'true'), 'komagata'
     click_button 'タグ名変更'
-    fill_in('tag[name]', with: update_tag.name)
-    click_button '変更'
+    fill_in_open_tag_modal update_tag.name
+    click_save_tag_name_change
     assert_text 'タグ「中級者」'
 
     visit_with_auth users_tag_path(tag.name), 'komagata'
@@ -142,7 +142,7 @@ class User::TagsTest < ApplicationSystemTestCase
     first('.tag-links__item-edit').click
     tag_input = find('.tagify__input')
     tag_input.set '#ハッシュハッシュ'
-    tag_input.native.send_keys :return
+    tag_input.send_keys :return
     click_button '保存する'
 
     assert_includes all('.tag-links__item-link').map(&:text), 'ハッシュハッシュ'
@@ -172,8 +172,9 @@ class User::TagsTest < ApplicationSystemTestCase
       fill_in('hibernation[reason]', with: 'test')
     end
     find('.check-box-to-read').click
-    click_on '休会する'
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm do
+      click_on '休会する'
+    end
     assert_text '休会手続きが完了しました'
 
     visit_with_auth users_tag_path(tag_name), 'komagata'
@@ -203,8 +204,9 @@ class User::TagsTest < ApplicationSystemTestCase
 
     visit_with_auth new_retirement_path, 'kensyu'
     find('label', text: 'とても良い').click
-    click_on '退会する'
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm do
+      click_on '退会する'
+    end
     assert_text '退会処理が完了しました'
 
     visit_with_auth users_tag_path(tag_name), 'komagata'

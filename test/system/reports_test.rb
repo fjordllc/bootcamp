@@ -45,18 +45,7 @@ class ReportsTest < ApplicationSystemTestCase
   test 'URL copy button copies the current URL to the clipboard' do
     report = reports(:report10)
     visit_with_auth "/reports/#{report.id}", 'hajime'
-    cdp_permission_write = {
-      origin: page.server_url,
-      permission: { name: 'clipboard-write' },
-      setting: 'granted'
-    }
-    page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission_write)
-    cdp_permission_read = {
-      origin: page.server_url,
-      permission: { name: 'clipboard-read' },
-      setting: 'granted'
-    }
-    page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission_read)
+    grant_clipboard_permission
     click_button 'URLコピー'
     clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
     assert_equal current_url, clip_text

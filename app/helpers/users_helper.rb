@@ -105,8 +105,8 @@ module UsersHelper
 
   def event_navs(user)
     [
-      { id: 'events', name: Event.model_name.human, count: user.participate_events.length, path: user_events_path(user) },
-      { id: 'regular_events', name: RegularEvent.model_name.human, count: user.participate_regular_events.length, path: user_regular_events_path(user) }
+      { id: 'events', name: Event.model_name.human, count: user.involved_events.length, path: user_events_path(user) },
+      { id: 'regular_events', name: RegularEvent.model_name.human, count: user.involved_regular_events.length, path: user_regular_events_path(user) }
     ]
   end
 end

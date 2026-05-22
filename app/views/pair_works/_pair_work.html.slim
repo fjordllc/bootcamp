@@ -35,10 +35,10 @@
                 span.a-meta__label
                   | 投稿日時
                 - if pair_work.wip?
-                  span.a-meta__value
+                  time.a-meta__value datetime=pair_work.created_at.iso8601
                     = l pair_work.created_at
                 - else
-                  span.a-meta__value
+                  time.a-meta__value datetime=pair_work.published_at.iso8601
                     = l pair_work.published_at
             .card-list-item-meta__item
               .a-meta(class="#{pair_work.important? ? 'is-important' : ''}")

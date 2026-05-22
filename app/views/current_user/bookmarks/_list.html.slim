@@ -47,8 +47,8 @@ hr.a-border
                         = link_to bookmark.bookmarkable.user.url, class: 'a-user-name' do
                           = "#{bookmark.bookmarkable.user.login_name}(#{bookmark.bookmarkable.user.name_kana})"
                       .card-list-item-meta__item
-                        - date = bookmark.bookmarkable_type == 'Report' ? bookmark.bookmarkable.reported_on.to_time : bookmark.bookmarkable.created_at
-                        time.a-meta datetime=date
+                        - date = bookmark.bookmarkable_type == 'Report' ? bookmark.bookmarkable.reported_on.in_time_zone : bookmark.bookmarkable.created_at
+                        time.a-meta datetime=date.iso8601
                           = l(date, format: :default)
 
               .card-list-item__option

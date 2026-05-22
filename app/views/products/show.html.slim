@@ -22,6 +22,15 @@ header.page-header
                   i.fa-regular.fa-plus
                   span
                     | 模範解答作成
+            - if current_user.admin?
+              li.page-header-actions__item.is-only-mentor
+                = link_to review_by_pjord_product_path(@product),
+                  class: 'a-button is-md is-secondary is-block',
+                  method: :post,
+                  data: { confirm: 'ピヨルドでレビューコメントを作成しますか？' } do
+                  i.fa-regular.fa-comment
+                  span
+                    | ピヨルドでレビューコメントをする
             li.page-header-actions__item
               = link_to course_practices_path(current_user.course, anchor: "category-#{category.id}"),
                 class: 'a-button is-md is-secondary is-block is-back' do

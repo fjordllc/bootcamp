@@ -19,8 +19,9 @@ class RetirementsTest < ApplicationSystemTestCase
     user = users(:kananashi)
     visit_with_auth new_retirement_path, 'kananashi'
     find('label', text: 'とても良い').click
-    click_on '退会する'
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm do
+      click_on '退会する'
+    end
     assert_text '退会処理が完了しました'
     assert_equal Date.current, user.reload.retired_on
     assert_equal '😢 kananashiさんが退会しました。', users(:komagata).notifications.last.message
@@ -32,8 +33,9 @@ class RetirementsTest < ApplicationSystemTestCase
     user = users(:osnashi)
     visit_with_auth new_retirement_path, 'osnashi'
     find('label', text: 'とても良い').click
-    click_on '退会する'
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm do
+      click_on '退会する'
+    end
     assert_text '退会処理が完了しました'
     assert_equal Date.current, user.reload.retired_on
     assert_equal '😢 osnashiさんが退会しました。', users(:komagata).notifications.last.message
@@ -52,8 +54,9 @@ class RetirementsTest < ApplicationSystemTestCase
     Discord::Server.stub(:delete_text_channel, true) do
       visit_with_auth new_retirement_path, user.login_name
       find('label', text: 'とても良い').click
-      click_on '退会する'
-      page.driver.browser.switch_to.alert.accept
+      accept_confirm do
+        click_on '退会する'
+      end
       assert_text '退会処理が完了しました'
     end
     assert_equal Date.current, user.reload.retired_on
@@ -70,8 +73,9 @@ class RetirementsTest < ApplicationSystemTestCase
         user = users(:kananashi)
         visit_with_auth new_retirement_path, 'kananashi'
         find('label', text: 'とても良い').click
-        click_on '退会する'
-        page.driver.browser.switch_to.alert.accept
+        accept_confirm do
+          click_on '退会する'
+        end
         assert_text '退会処理が完了しました'
         assert_equal Date.current, user.reload.retired_on
       end
