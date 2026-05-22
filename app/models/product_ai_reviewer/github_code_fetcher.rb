@@ -21,7 +21,7 @@ class ProductAiReviewer::GithubCodeFetcher
         {
           url: url,
           language: language_name(url),
-          body: body.slice(0, CONTENT_LIMIT)
+          body: normalize_body(body).slice(0, CONTENT_LIMIT)
         }
       rescue StandardError => e
         Rails.logger.warn("[ProductAiReviewer] GitHub link fetch failed: #{url} #{e.class}: #{e.message}")
@@ -74,6 +74,10 @@ class ProductAiReviewer::GithubCodeFetcher
         end
         response.is_a?(Net::HTTPSuccess) ? response.body : nil
       end
+    end
+
+    def normalize_body(body)
+      body.to_s.force_encoding(Encoding::UTF_8).scrub
     end
 
     def github_request_headers
