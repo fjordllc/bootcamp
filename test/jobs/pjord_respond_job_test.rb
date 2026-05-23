@@ -8,7 +8,7 @@ class PjordRespondJobTest < ActiveJob::TestCase
     comment.update!(description: '@pjord CSSについて教えて')
     pjord = users(:pjord)
 
-    Pjord.stub(:respond, 'テストの回答です。') do
+    Pjord::MentionResponseAgent.stub(:respond_to, 'テストの回答です。') do
       assert_difference 'Comment.count', 1 do
         PjordRespondJob.perform_now(
           mentionable_type: 'Comment',
@@ -28,7 +28,7 @@ class PjordRespondJobTest < ActiveJob::TestCase
     question.update!(description: '@pjord エディターについて教えて')
     pjord = users(:pjord)
 
-    Pjord.stub(:respond, 'ヒントです。') do
+    Pjord::MentionResponseAgent.stub(:respond_to, 'ヒントです。') do
       assert_difference 'Answer.count', 1 do
         PjordRespondJob.perform_now(
           mentionable_type: 'Question',
@@ -46,7 +46,7 @@ class PjordRespondJobTest < ActiveJob::TestCase
     comment = comments(:comment1)
     comment.update!(description: '@pjord テスト')
 
-    Pjord.stub(:respond, nil) do
+    Pjord::MentionResponseAgent.stub(:respond_to, nil) do
       assert_no_difference 'Comment.count' do
         PjordRespondJob.perform_now(
           mentionable_type: 'Comment',
@@ -70,7 +70,7 @@ class PjordRespondJobTest < ActiveJob::TestCase
     # メンションが含まれていない
     comment.update!(description: 'メンション削除済み')
 
-    Pjord.stub(:respond, '回答') do
+    Pjord::MentionResponseAgent.stub(:respond_to, '回答') do
       assert_no_difference 'Comment.count' do
         PjordRespondJob.perform_now(
           mentionable_type: 'Comment',

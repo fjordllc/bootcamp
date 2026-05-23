@@ -6,7 +6,7 @@ class Products::ReviewByPjordTest < ActionDispatch::IntegrationTest
   test 'admin can create product review comment by Pjord' do
     product = products(:product1)
 
-    ProductAiReviewer.stub(:review, 'レビュー本文') do
+    Pjord::ProductReviewAgent.stub(:review, 'レビュー本文') do
       assert_difference -> { product.comments.count } do
         post review_by_pjord_product_path(product, _login_name: 'adminonly')
       end
@@ -54,7 +54,7 @@ class Products::ReviewByPjordTest < ActionDispatch::IntegrationTest
   test 'redirects with alert when product review fails' do
     product = products(:product1)
 
-    ProductAiReviewer.stub(:review, ->(_product) { raise StandardError, 'error' }) do
+    Pjord::ProductReviewAgent.stub(:review, ->(_product) { raise StandardError, 'error' }) do
       assert_no_difference -> { product.comments.count } do
         post review_by_pjord_product_path(product, _login_name: 'adminonly')
       end

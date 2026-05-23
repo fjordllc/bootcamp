@@ -1,37 +1,25 @@
 # frozen_string_literal: true
 
-class ProductAiReviewer
-  MODEL = 'claude-opus-4-1-20250805'
+class Pjord::ProductReviewAgent < Pjord::Agent
   OTHER_PRODUCTS_LIMIT = 10
   PROMPT_TEXT_LIMIT = 2_000
 
+  instructions
+
   class << self
     def review(product)
-      chat = RubyLLM.chat(model: MODEL)
-      chat.with_instructions(instructions)
-      chat.with_schema(PjordResponse)
-      extract_public_response_body(chat.ask(message(product)).content).presence
+      extract_public_response_body(new.ask(message(product)).content).presence
     end
 
     private
-
-    def instructions
-      <<~TEXT
-        #{Pjord::SYSTEM_PROMPT}
-
-        ## 追加の指示
-        提出物にレビューコメントを書いてください。
-        受講生を励ましつつ、提出物の内容を具体的に確認してください。
-        改善点があれば短く実行可能な形で伝えてください。
-        模範解答や他の提出物の内容をそのままコピーせず、答えを丸ごと教えないでください。
-        レビューコメント本文だけをmarkdownで出力してください。
-      TEXT
-    end
 
     def message(product)
       user_course_practice = UserCoursePractice.new(product.user)
       <<~TEXT
         以下の情報を参考に、提出物へのレビューコメントを書いてください。
+
+        ## 提出物URL
+        #{Rails.application.routes.url_helpers.product_url(product)}
 
         ## 提出者
         - ログイン名: #{product.user.login_name}
@@ -41,14 +29,13 @@ class ProductAiReviewer
 
         ## プラクティス
         - タイトル: #{product.practice.title}
+        - ゴール:
+        #{truncate_for_prompt(product.practice.goal)}
         - 説明:
         #{truncate_for_prompt(product.practice.description)}
 
         ## 提出物
         #{truncate_for_prompt(product.body)}
-
-        ## 提出物内のGitHubリンク先コード
-        #{github_code_links(product)}
 
         ## 同じ提出物に対するコメント
         #{comments(product)}
@@ -82,20 +69,6 @@ class ProductAiReviewer
       end.join("\n\n")
     end
 
-    def github_code_links(product)
-      entries = ProductAiReviewer::GithubCodeFetcher.fetch(product.body)
-      return 'なし' if entries.blank?
-
-      entries.map do |entry|
-        <<~TEXT
-          ### #{entry[:url]}
-          ```#{entry[:language]}
-          #{entry[:body]}
-          ```
-        TEXT
-      end.join("\n")
-    end
-
     def truncate_for_prompt(text)
       text.to_s.slice(0, PROMPT_TEXT_LIMIT)
     end
@@ -106,20 +79,5 @@ class ProductAiReviewer
       "#{format('%.1f', user_course_practice.completed_percentage)}%"
     end
 
-    def extract_public_response_body(content)
-      if content.is_a?(String)
-        parse_response_body(content)
-      elsif content.respond_to?(:to_h)
-        parsed = content.to_h
-        parsed['body'] || parsed[:body] if parsed.is_a?(Hash)
-      end
-    end
-
-    def parse_response_body(content)
-      parsed = JSON.parse(content)
-      parsed.is_a?(Hash) ? parsed['body'] : content
-    rescue JSON::ParserError
-      content
-    end
   end
 end
