@@ -12,6 +12,12 @@ class UsersLoginTest < ApplicationSystemTestCase
     # セッションリセット時のタイムアウトは無視して続行
   end
 
+  def after_teardown
+    super
+  rescue Net::ReadTimeout
+    # セッションリセット時のタイムアウトは無視して続行
+  end
+
   test 'cannot access users list without login' do
     assert_login_required('/users')
   end

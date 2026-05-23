@@ -139,4 +139,41 @@ class MarkdownTest < ApplicationSystemTestCase
     assert_selector '.a-link-card__title'
     assert_no_selector '.embed-error'
   end
+
+  test 'When you press Ctrl + i in the report, it will type the user icon.' do
+    reset_avatar(users(:komagata))
+
+    visit_with_auth new_report_path, 'komagata'
+    within('form[name=report]') do
+      fill_in('report[title]', with: '日報でCtrl + i キーを押すと、:@自分: を入力される。')
+
+      find('#report_description').send_keys([cmd_ctrl, 'i'])
+
+      fill_in('report[reported_on]', with: Time.current)
+
+      check '学習時間は無し', allow_label_click: true
+    end
+
+    click_button '提出'
+    assert_selector 'a.a-user-emoji-link'
+    assert_no_selector '.embed-error'
+  end
+
+  test 'When you press Ctrl + i in the comments, it will type the user icon.' do
+    reset_avatar(users(:komagata))
+
+    visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
+    # テストが落ちやすいため、setCheckableが実行されるまで待つ
+    within('.page-content-header') do
+      find('.stamp.stamp-approve')
+    end
+
+    within('.thread-comment-form__form') do
+      find('#js-new-comment').send_keys([cmd_ctrl, 'i'])
+    end
+    find('.a-form-tabs__tab.js-tabs__tab', text: 'プレビュー').click
+    assert_selector 'a.a-user-emoji-link'
+    click_button 'コメントする'
+    assert_selector 'a.a-user-emoji-link'
+  end
 end

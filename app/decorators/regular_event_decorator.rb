@@ -12,6 +12,8 @@ module RegularEventDecorator
   def next_holding_date
     if finished
       '開催終了'
+    elsif next_event_date.nil?
+      '次回の開催日は未定です'
     elsif next_event_date == Time.zone.today
       '本日開催'
     else
@@ -19,9 +21,47 @@ module RegularEventDecorator
     end
   end
 
-  def holding?(date)
-    return true unless HolidayJp.holiday?(date)
+  def upcoming_excluded_dates(from: Time.zone.today, limit: 5)
+    to = from.next_year
 
-    hold_national_holiday
+    excluded_dates(matched_holidays(from, to), matched_skip_dates(from, to))
+      .sort_by { |h| h[:date] }
+      .first(limit)
+  end
+
+  def out_of_repeat_rule_skip_dates
+    regular_event_skip_dates.order(skip_on: :asc).reject { |s| date_match_the_rules?(s.skip_on, regular_event_repeat_rules) }
+  end
+
+  private
+
+  def matched_skip_dates(from, to)
+    regular_event_skip_dates.where(skip_on: from..to).pluck(:skip_on, :reason)
+                            .filter_map do |date, reason|
+                              next unless date_match_the_rules?(date, regular_event_repeat_rules)
+
+                              { date:, reason: }
+    end
+  end
+
+  def matched_holidays(from, to)
+    return [] if hold_national_holiday
+
+    HolidayJp.between(from, to).filter_map do |h|
+      next unless date_match_the_rules?(h.date, regular_event_repeat_rules)
+
+      { date: h.date, reason: "祝日(#{h.name})のため" }
+    end
+  end
+
+  def excluded_dates(holidays, skip_dates)
+    (holidays + skip_dates)
+      .group_by { |h| h[:date] }
+      .map do |date, reasons|
+        {
+          date:,
+          reason: reasons.filter_map { |r| r[:reason].presence }.join('、')
+        }
+    end
   end
 end

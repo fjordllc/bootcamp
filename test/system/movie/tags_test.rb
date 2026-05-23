@@ -40,7 +40,7 @@ class Movie::TagsTest < ApplicationSystemTestCase
 
     visit_with_auth movies_tag_path(old_tag.name, all: 'true'), 'komagata'
     click_tag_name_change
-    fill_in('tag[name]', with: new_tag_name)
+    fill_in_open_tag_modal new_tag_name
     click_save_tag_name_change
 
     assert_text "タグ「#{new_tag_name}」の動画（1）"
@@ -53,7 +53,7 @@ class Movie::TagsTest < ApplicationSystemTestCase
     visit_with_auth movies_tag_path(existing_tag.name, all: 'true'), 'komagata'
 
     click_tag_name_change
-    fill_in 'tag[name]', with: new_tag.name
+    fill_in_open_tag_modal new_tag.name
     click_save_tag_name_change
 
     assert_text "タグ「#{new_tag.name}」の動画（2）"

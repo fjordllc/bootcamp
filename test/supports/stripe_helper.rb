@@ -2,45 +2,52 @@
 
 module StripeHelper
   def fill_stripe_element(card, exp, cvc)
-    card_iframe = find('iframe[name^="__privateStripeFrame"]')
-
-    within_frame card_iframe do
-      wait_and_fill_field('cardnumber', card)
-      wait_and_fill_field('exp-date', exp)
-      wait_and_fill_field('cvc', cvc)
-    end
+    wait_and_fill_stripe_field('cardnumber', card)
+    wait_and_fill_stripe_field('exp-date', exp)
+    wait_and_fill_stripe_field('cvc', cvc)
 
     page.has_no_css?('iframe[name^="__privateStripeFrame"]')
   end
 
   private
 
-  def wait_and_fill_field(field_name, value)
-    field = wait_for_visible_field(field_name)
+  def wait_and_fill_stripe_field(field_name, value)
+    field = wait_for_visible_stripe_field(field_name)
     fill_field_slowly(field, value)
   end
 
-  def wait_for_visible_field(field_name)
-    field = find_visible_field_with_retry(field_name)
+  def wait_for_visible_stripe_field(field_name)
+    field = find_visible_stripe_field_with_retry(field_name)
     raise_field_not_found_error(field_name) unless field
 
     wait_until_field_ready(field)
     field
   end
 
-  def find_visible_field_with_retry(field_name)
+  def find_visible_stripe_field_with_retry(field_name)
     field = nil
-    10.times do |attempt|
-      sleep 1
-      field = try_find_visible_field(field_name, attempt)
+    5.times do
+      field = find_visible_stripe_field(field_name)
       break if field
+
+      sleep 0.5
     end
     field
   end
 
-  def try_find_visible_field(field_name, _attempt)
-    find_field(field_name, visible: true)
-  rescue Capybara::ElementNotFound
+  def find_visible_stripe_field(field_name)
+    all('iframe[name^="__privateStripeFrame"]').each do |iframe|
+      field = find_field_in_frame(iframe, field_name)
+      return field if field
+    end
+    nil
+  end
+
+  def find_field_in_frame(iframe, field_name)
+    within_frame iframe do
+      find_field(field_name, visible: true)
+    end
+  rescue Capybara::ElementNotFound, Capybara::Playwright::Node::StaleReferenceError
     nil
   end
 
@@ -64,7 +71,7 @@ module StripeHelper
       begin
         field.tag_name
         return true
-      rescue Selenium::WebDriver::Error::StaleElementReferenceError
+      rescue Capybara::ElementNotFound, Capybara::Playwright::Node::StaleReferenceError
         attempts += 1
         sleep 0.2
         next

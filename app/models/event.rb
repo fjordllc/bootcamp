@@ -43,7 +43,7 @@ class Event < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   scope :wip, -> { where(wip: true) }
   scope :related_to, ->(user) { user.job_seeker ? all : where.not(job_hunting: true) }
-  scope :scheduled_on, ->(date) { where(start_at: date.midnight...(date + 1.day).midnight) }
+  scope :scheduled_on, ->(date) { where(start_at: date.midnight...(date + 1.day).midnight, wip: false) }
   scope :not_ended, -> { where('end_at > ?', Time.current) }
   scope :scheduled_on_without_ended, ->(date) { scheduled_on(date).not_ended }
 
@@ -110,10 +110,6 @@ class Event < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   def send_notification(receiver)
     ActivityDelivery.with(receiver:, event: self).notify(:moved_up_event_waiting_user)
-  end
-
-  def watched_by?(user)
-    watches.exists?(user_id: user.id)
   end
 
   def can_move_up_the_waitlist?

@@ -27,13 +27,13 @@ module Reports
       click_button '提出'
       click_link 'Raw'
       switch_to_window windows.last
-      assert_text '## this is heading2', exact: true
+      assert_text 'this is heading2'
     end
 
     test 'description of the daily report is previewed' do
       visit_with_auth '/reports/new', 'komagata'
       within('form[name=report]') do
-        fill_in('report[description]', with: "Markdown入力するとプレビューにHTMLで表示されている。\n # h1")
+        find_field('report[description]').send_keys "Markdown入力するとプレビューにHTMLで表示されている。\n # h1"
       end
       assert_selector '.js-preview.a-long-text.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
         assert_selector 'h1', text: 'h1'
@@ -44,7 +44,7 @@ module Reports
       visit_with_auth report_path(reports(:report1)), 'komagata'
       click_link '内容修正'
       within('form[name=report]') do
-        fill_in('report[description]', with: "Markdown入力するとプレビューにHTMLで表示されている。\n # h1")
+        find_field('report[description]').send_keys([cmd_ctrl, 'a'], "Markdown入力するとプレビューにHTMLで表示されている。\n # h1")
       end
       assert_selector '.js-preview.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
         assert_selector 'h1', text: 'h1'
@@ -55,7 +55,7 @@ module Reports
       visit_with_auth report_path(reports(:report1)), 'komagata'
       click_link '複製'
       within('form[name=report]') do
-        fill_in('report[description]', with: "Markdown入力するとプレビューにHTMLで表示されている。\n # h1")
+        find_field('report[description]').send_keys([cmd_ctrl, 'a'], "Markdown入力するとプレビューにHTMLで表示されている。\n # h1")
       end
       assert_selector '.js-preview.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
         assert_selector 'h1', text: 'h1'

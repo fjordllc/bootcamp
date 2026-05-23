@@ -11,6 +11,8 @@ ul.a-side-nav__items
               = question.title
         .a-side-nav-metas
           .a-side-nav-metas__item
-            = "公開:#{l question.published_at}"
+            | 公開:
+            time datetime=question.published_at.iso8601
+              = l question.published_at
           .a-side-nav-metas__item
             = "回答・コメント(#{question.answers.count})"

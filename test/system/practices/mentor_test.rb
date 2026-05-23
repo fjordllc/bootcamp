@@ -125,7 +125,7 @@ module Practices
       practice = practices(:practice2)
       visit_with_auth "/practices/#{practice.id}", 'komagata'
       assert_text 'メンター向けメモ'
-      find(:css, '#checkbox-mentor-mode').set(false)
+      page.execute_script("document.querySelector('#checkbox-mentor-mode').click()")
       assert_no_text 'メンター向けメモ'
     end
 
@@ -133,7 +133,7 @@ module Practices
       practice = practices(:practice2)
       visit_with_auth "/practices/#{practice.id}", 'komagata'
       assert_text '管理者・メンター用メニュー'
-      find(:css, '#checkbox-mentor-mode').set(false)
+      page.execute_script("document.querySelector('#checkbox-mentor-mode').click()")
       assert_no_text '管理者・メンター用メニュー'
     end
   end

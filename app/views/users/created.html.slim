@@ -15,6 +15,7 @@ ruby:
 - if Rails.env.production? && !staging? && @role == 'student'
   - content_for :head_last do
     script
+      | gtag('set', 'user_data', { email: '#{@email}' });
       | gtag('event', 'conversion', {
       |     'send_to': 'AW-17419900911/A8LTCJzqyIkbEO-vuvJA',
       |     'transaction_id': ''

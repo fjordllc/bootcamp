@@ -6,5 +6,5 @@ class RegularEventParticipation < ApplicationRecord
 
   validates :user_id, uniqueness: { scope: :regular_event_id }
 
-  scope :for_holding_events, -> { joins(:regular_event).merge(RegularEvent.holding) }
+  scope :for_unfinished_events, -> { joins(:regular_event).merge(RegularEvent.not_finished) }
 end

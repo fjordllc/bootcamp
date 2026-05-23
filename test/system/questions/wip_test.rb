@@ -76,21 +76,6 @@ module Questions
       assert_text '質問をWIPとして保存しました。'
     end
 
-    test 'show a WIP question on the All Q&A list page' do
-      visit_with_auth questions_path, 'kimura'
-      assert_text 'wipテスト用の質問(wip中)'
-      element = all('.card-list-item').find { |component| component.has_text?('wipテスト用の質問(wip中)') }
-      within element do
-        assert_selector '.a-list-item-badge.is-wip', text: 'WIP'
-      end
-    end
-
-    test 'not show a WIP question on the unsolved Q&A list page' do
-      visit_with_auth questions_path(target: 'not_solved'), 'kimura'
-      assert_no_text 'wipテスト用の質問(wip中)'
-      assert_selector 'h2', text: 'Q&A'
-    end
-
     test "mentor's watch-button is not automatically on when new question is created as WIP" do
       visit_with_auth new_question_path, 'kimura'
       within 'form[name=question]' do

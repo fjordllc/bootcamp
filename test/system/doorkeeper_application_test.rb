@@ -47,8 +47,9 @@ class DoorkeeperApplicationTest < ApplicationSystemTestCase
 
   test 'delete an application' do
     visit "/oauth/applications/#{Doorkeeper::Application.last.id}"
-    click_on '削除'
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm do
+      click_on '削除'
+    end
     assert_text 'アプリケーションを削除しました。'
   end
 

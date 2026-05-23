@@ -44,7 +44,7 @@
                         = image_tag resource_user.avatar_url, class: 'card-list-item-meta__icon a-user-icon'
                     = link_to resource_user.login_name, resource_user, class: 'a-user-name'
               .card-list-item-meta__item
-                time.a-meta datetime=resource.updated_at.iso8601 pubdate='pubdate'
+                time.a-meta datetime=resource.updated_at.iso8601
                   = l(resource.updated_at)
               .card-list-item-meta__item
                 .a-meta

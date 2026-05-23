@@ -7,6 +7,17 @@ class CurrentUser::BookmarksController < ApplicationController
 
   def index; end
 
+  def dashboard
+    bookmarks = current_user.bookmarks.order(created_at: :desc, id: :desc).limit(5)
+
+    if bookmarks.empty?
+      head :ok
+    else
+      count = current_user.bookmarks.count
+      render DashboardBookmarksComponent.new(bookmarks:, count:), layout: false
+    end
+  end
+
   def destroy
     current_user.bookmarks.find(params[:id]).destroy
     head :no_content

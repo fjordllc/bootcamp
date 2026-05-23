@@ -65,7 +65,7 @@ class MicroReportsTest < ApplicationSystemTestCase
 
   test 'content is interpreted as markdown in preview tab' do
     visit_with_auth user_micro_reports_path(users(:hatsuno)), 'hatsuno'
-    fill_in('micro_report[content]', with: "Markdown入力するとプレビューにHTMLで表示されている。\n # h1")
+    find_field('micro_report[content]').send_keys "Markdown入力するとプレビューにHTMLで表示されている。\n # h1"
     within('.micro-report-form-tabs') do
       click_on 'プレビュー'
     end
@@ -152,8 +152,9 @@ class MicroReportsTest < ApplicationSystemTestCase
 
     within(".micro-report#micro_report_#{micro_report.id}") do
       assert_selector 'a', text: '削除する'
-      click_link_or_button '削除する'
-      page.accept_alert
+      page.accept_alert do
+        click_link_or_button '削除する'
+      end
     end
 
     assert_text '分報を削除しました。'
@@ -178,8 +179,9 @@ class MicroReportsTest < ApplicationSystemTestCase
 
     assert_text '最初の分報'
     within(".micro-report#micro_report_#{micro_report.id}") do
-      click_link_or_button '削除する'
-      page.accept_alert
+      page.accept_alert do
+        click_link_or_button '削除する'
+      end
     end
 
     assert_text '分報を削除しました。'
@@ -222,8 +224,9 @@ class MicroReportsTest < ApplicationSystemTestCase
     assert_selector '.pagination__item.is-active', text: '1'
 
     within('.micro-report[data-micro_report_content="分報1"]') do
-      click_link_or_button '削除する'
-      page.accept_alert
+      page.accept_alert do
+        click_link_or_button '削除する'
+      end
     end
 
     assert_text '分報を削除しました。'

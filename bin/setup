@@ -62,6 +62,9 @@ FileUtils.chdir APP_ROOT do
   if File.exist?("package.json")
     puts "\n== Installing JavaScript dependencies =="
     system!("npm install")
+
+    puts "\n== Installing Playwright browsers =="
+    system!("npx playwright install chromium")
   end
 
   # puts "\n== Copying sample files =="

@@ -73,4 +73,20 @@ class ReportTest < ActiveSupport::TestCase
     assert_empty unchecked_report.checks
     assert_includes Report.unchecked, unchecked_report
   end
+
+  test '.for_practice_including_source returns practice and source reports' do
+    practice = practices(:practice66)
+    practice_report = reports(:report77)
+    source_report = reports(:report76)
+    practice_and_source_report = reports(:report78)
+    other_report = reports(:report79)
+    unrelated_report = reports(:report80)
+    result = Report.for_practice_including_source(practice)
+
+    assert_includes result, practice_report
+    assert_includes result, source_report
+    assert_includes result, practice_and_source_report
+    assert_not_includes result, other_report
+    assert_not_includes result, unrelated_report
+  end
 end

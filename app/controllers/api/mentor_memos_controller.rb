@@ -2,6 +2,8 @@
 
 class API::MentorMemosController < API::BaseController
   before_action :require_mentor_login_for_api
+  before_action -> { doorkeeper_authorize! :write }, only: %i[update], if: -> { doorkeeper_token.present? }
+  before_action -> { doorkeeper_authorize! :mentor }, only: %i[update], if: -> { doorkeeper_token.present? }
   before_action :set_user, only: %i[update]
 
   def update

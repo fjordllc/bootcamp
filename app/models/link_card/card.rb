@@ -8,12 +8,16 @@ module LinkCard
     end
 
     def metadata
-      Rails.cache.fetch @url, expires_in: 3.days do
+      Rails.cache.fetch cache_key, expires_in: 3.days, skip_nil: true do
         request
       end
     end
 
     private
+
+    def cache_key
+      ['link_card', @tweet ? 'tweet' : 'metadata', @url]
+    end
 
     def request
       return unless LinkChecker::Checker.valid_url?(@url)

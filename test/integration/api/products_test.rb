@@ -3,6 +3,24 @@
 require 'test_helper'
 
 class API::ProductsTest < ActionDispatch::IntegrationTest
+  def setup
+    @user = users(:kimura)
+    application = Doorkeeper::Application.create!(
+      name: 'Sample Application',
+      redirect_uri: 'urn:ietf:wg:oauth:2.0:oob'
+    )
+    @read_token = Doorkeeper::AccessToken.create!(
+      application:,
+      resource_owner_id: @user.id,
+      scopes: 'read'
+    )
+    @write_token = Doorkeeper::AccessToken.create!(
+      application:,
+      resource_owner_id: @user.id,
+      scopes: 'read write'
+    )
+  end
+
   test 'GET /api/products.json' do
     get api_products_path(format: :json)
     assert_response :unauthorized
@@ -11,6 +29,14 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
     get api_products_path(format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
+  end
+
+  test 'returns json error with invalid token' do
+    get api_products_path(format: :json),
+        headers: { Authorization: 'Bearer invalid-token' }
+
+    assert_response :unauthorized
+    assert_equal 'unauthorized', response.parsed_body['error']
   end
 
   test 'GET /api/products/unchecked.json' do
@@ -83,5 +109,154 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
     get api_products_path(company_id: company.id, format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
+  end
+
+  test 'can create product with write scope' do
+    practice = first_unsubmitted_practice(@user)
+
+    assert_difference('Product.count') do
+      post api_products_path(format: :json),
+           headers: { Authorization: "Bearer #{@write_token.token}" },
+           params: { product: { practice_id: practice.id, body: 'APIから提出します。', wip: false } }
+      assert_response :created
+    end
+
+    product = Product.find(response.parsed_body['id'])
+    assert_equal @user, product.user
+    assert_equal practice, product.practice
+    assert_equal 'APIから提出します。', product.body
+    assert_not product.wip
+    assert_not_nil product.published_at
+    assert_equal product.body, response.parsed_body['body']
+    assert_equal practice.id, response.parsed_body['practice_id']
+  end
+
+  test 'can update own product with write scope' do
+    product = products(:product8)
+
+    patch api_product_path(product, format: :json),
+          headers: { Authorization: "Bearer #{@write_token.token}" },
+          params: { product: { body: 'APIからWIP更新します。', wip: true } }
+
+    assert_response :ok
+    product.reload
+    assert_equal 'APIからWIP更新します。', product.body
+    assert product.wip
+    assert_nil product.published_at
+    assert_equal product.body, response.parsed_body['body']
+    assert response.parsed_body['wip']
+  end
+
+  test 'can delete own product with write scope' do
+    product = products(:product8)
+
+    assert_difference('Product.count', -1) do
+      delete api_product_path(product, format: :json),
+             headers: { Authorization: "Bearer #{@write_token.token}" }
+      assert_response :no_content
+    end
+  end
+
+  test 'can not create product with read scope' do
+    practice = first_unsubmitted_practice(@user)
+
+    post api_products_path(format: :json),
+         headers: { Authorization: "Bearer #{@read_token.token}" },
+         params: { product: { practice_id: practice.id, body: 'APIから提出します。', wip: false } }
+
+    assert_response :forbidden
+    assert_equal 'invalid_scope', response.parsed_body['error']
+  end
+
+  test 'can not update product with read scope' do
+    product = products(:product8)
+
+    patch api_product_path(product, format: :json),
+          headers: { Authorization: "Bearer #{@read_token.token}" },
+          params: { product: { body: 'APIから更新します。' } }
+
+    assert_response :forbidden
+    assert_equal 'invalid_scope', response.parsed_body['error']
+  end
+
+  test 'can not delete product with read scope' do
+    product = products(:product8)
+
+    assert_no_difference('Product.count') do
+      delete api_product_path(product, format: :json),
+             headers: { Authorization: "Bearer #{@read_token.token}" }
+    end
+
+    assert_response :forbidden
+    assert_equal 'invalid_scope', response.parsed_body['error']
+  end
+
+  test 'returns validation error when creating invalid product' do
+    practice = first_unsubmitted_practice(@user)
+
+    assert_no_difference('Product.count') do
+      post api_products_path(format: :json),
+           headers: { Authorization: "Bearer #{@write_token.token}" },
+           params: { product: { practice_id: practice.id, body: '', wip: false } }
+    end
+
+    assert_response :unprocessable_entity
+    assert response.parsed_body.dig('errors', 'body').present?
+  end
+
+  test 'returns bad request when updating product practice' do
+    product = products(:product8)
+
+    patch api_product_path(product, format: :json),
+          headers: { Authorization: "Bearer #{@write_token.token}" },
+          params: { product: { practice_id: practices(:practice1).id } }
+
+    assert_response :bad_request
+    assert_equal '提出物のプラクティスは変更できません。', response.parsed_body['message']
+  end
+
+  test 'returns permission error when updating another user product' do
+    product = products(:product11)
+
+    patch api_product_path(product, format: :json),
+          headers: { Authorization: "Bearer #{@write_token.token}" },
+          params: { product: { body: '他人の提出物を更新します。' } }
+
+    assert_response :forbidden
+    assert_equal 'この提出物を操作する権限がありません。', response.parsed_body['message']
+  end
+
+  test 'returns permission error when deleting another user product' do
+    product = products(:product11)
+
+    assert_no_difference('Product.count') do
+      delete api_product_path(product, format: :json),
+             headers: { Authorization: "Bearer #{@write_token.token}" }
+    end
+
+    assert_response :forbidden
+    assert_equal 'この提出物を操作する権限がありません。', response.parsed_body['message']
+  end
+
+  test 'mentor can update another user product with write scope' do
+    product = products(:product8)
+    mentor_token = Doorkeeper::AccessToken.create!(
+      application: @write_token.application,
+      resource_owner_id: users(:mentormentaro).id,
+      scopes: 'read write'
+    )
+
+    patch api_product_path(product, format: :json),
+          headers: { Authorization: "Bearer #{mentor_token.token}" },
+          params: { product: { body: 'メンターがAPIから更新します。' } }
+
+    assert_response :ok
+    assert_equal 'メンターがAPIから更新します。', product.reload.body
+  end
+
+  private
+
+  def first_unsubmitted_practice(user)
+    Practice.where.not(id: user.products.select(:practice_id)).order(:id).first
   end
 end

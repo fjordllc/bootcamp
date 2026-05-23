@@ -30,3 +30,14 @@ pair_work3:
   published_at: null
   created_at: <%= Time.zone.parse('2025-01-01 00:00:00') %>
   wip: true
+
+pair_work4:
+  title: 日程変更動作確認用のペアワークです。
+  description: 日程変更動作確認用のペアワークです。
+  reserved_at: <%= Time.zone.parse('2025-01-02 01:00:00') %>
+  user: kimura
+  practice: practice1
+  buddy: komagata
+  published_at: <%= Time.zone.parse('2025-01-01 00:00:00') %>
+  created_at: <%= Time.zone.parse('2025-01-01 00:00:00') %>
+  wip: false

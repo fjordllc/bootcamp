@@ -207,6 +207,16 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
     practices_books.any?(&:must_read)
   end
 
+  def grant_course?
+    source_id.present?
+  end
+
+  def reports_count(include_source: false)
+    return reports.count unless include_source
+
+    Report.for_practice_including_source(self).count
+  end
+
   private
 
   def total_learning_minute(report)

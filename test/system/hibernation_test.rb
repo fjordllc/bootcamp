@@ -20,8 +20,9 @@ class HibernationTest < ApplicationSystemTestCase
 
     VCR.use_cassette 'subscription/update', vcr_options do
       find('.check-box-to-read').click
-      click_on '休会する'
-      page.driver.browser.switch_to.alert.accept
+      accept_confirm do
+        click_on '休会する'
+      end
       assert_text '休会手続きが完了しました'
     end
   end
@@ -33,8 +34,9 @@ class HibernationTest < ApplicationSystemTestCase
     end
 
     find('.check-box-to-read').click
-    click_on '休会する'
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm do
+      click_on '休会する'
+    end
     assert_text '復帰予定日を入力してください'
   end
 end

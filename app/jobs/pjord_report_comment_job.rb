@@ -34,9 +34,12 @@ class PjordReportCommentJob < ApplicationJob
     response = generate_response(report, intent)
     return if response.blank?
 
-    ActiveRecord::Base.transaction do
-      Comment.create!(user: pjord, commentable: report, description: response)
+    Comment.create!(user: pjord, commentable: report, description: response)
+
+    begin
       Reaction.find_or_create_by!(user: pjord, reactionable: report, kind: :eyes)
+    rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique => e
+      Rails.logger.error("[PjordReportCommentJob] reaction failed: #{e.class}: #{e.message}")
     end
   end
 

@@ -57,6 +57,14 @@
   -webkit-font-smoothing: antialiased;
   color: var(--main);
 }
+.form-table .form-table__check.is-disabled {
+  background-color: var(--background-tint);
+  cursor: not-allowed;
+}
+.form-table .form-table__check.is-disabled label {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
 .form-table.is-sticky thead th {
   position: sticky;
   top: 0;

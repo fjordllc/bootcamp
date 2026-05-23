@@ -216,4 +216,44 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     authorized_keys = %w[id login_name long_name url roles primary_role joining_status icon_title adviser avatar_url]
     assert_equal authorized_keys.sort, response_body.keys.sort
   end
+
+  test 'GET /api/users/:id/support_context.json as mentor' do
+    target_user = users(:kimura)
+    token = create_token('mentormentaro', 'testtest')
+
+    get api_user_support_context_path(target_user, format: :json),
+        headers: { Authorization: "Bearer #{token}", Accept: 'application/json' }
+
+    assert_response :ok
+    response_body = response.parsed_body
+    assert_equal target_user.id, response_body.dig('user', 'id')
+    assert_includes response_body.keys, 'current_practices'
+    assert_includes response_body.keys, 'recent_reports'
+    assert_includes response_body.keys, 'recent_products'
+    assert_includes response_body.keys, 'recent_questions'
+    assert_includes response_body.keys, 'talk'
+    assert_includes response_body.keys, 'mentor_memo'
+    assert_includes response_body.keys, 'learning_progress'
+    assert response_body['recent_reports'].size <= API::Users::SupportContextsController::SUPPORT_CONTEXT_LIMIT
+  end
+
+  test 'GET /api/users/:id/support_context.json as student returns forbidden' do
+    token = create_token('kimura', 'testtest')
+
+    get api_user_support_context_path(users(:hajime), format: :json),
+        headers: { Authorization: "Bearer #{token}", Accept: 'application/json' }
+
+    assert_response :forbidden
+    assert_equal '権限がありません。', response.parsed_body['message']
+  end
+
+  test 'GET /api/users/:id/support_context.json with missing user returns not found' do
+    token = create_token('mentormentaro', 'testtest')
+
+    get api_user_support_context_path(0, format: :json),
+        headers: { Authorization: "Bearer #{token}", Accept: 'application/json' }
+
+    assert_response :not_found
+    assert_equal 'ユーザーが見つかりません。', response.parsed_body['message']
+  end
 end

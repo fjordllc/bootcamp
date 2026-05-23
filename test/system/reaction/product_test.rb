@@ -6,7 +6,7 @@ class Reaction::ProductsTest < ApplicationSystemTestCase
   test 'show reaction of product' do
     visit_with_auth product_path(products(:product12)), 'machida'
 
-    assert_text "🎉1\n👀1"
+    assert_text '🎉1👀1'
   end
 
   test 'reaction to product' do
@@ -15,7 +15,7 @@ class Reaction::ProductsTest < ApplicationSystemTestCase
     first(".js-reaction-dropdown li[data-reaction-kind='eyes']").click
 
     using_wait_time 5 do
-      assert_text "🎉1\n👀2"
+      assert_text '🎉1👀2'
     end
   end
 

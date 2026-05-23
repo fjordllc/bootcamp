@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class API::CommentsTest < ActionDispatch::IntegrationTest
-  fixtures :comments, :users
+  fixtures :comments, :products, :users
 
   def setup
     user = users(:komagata)
@@ -77,6 +77,68 @@ class API::CommentsTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'can create report comment with read, write scope' do
+    report = reports(:report1)
+
+    assert_difference('Comment.count') do
+      post api_report_comments_url(report, format: :json),
+           headers: { Authorization: "Bearer #{@write_token.token}" },
+           params: { comment: { description: 'New report comment' } }
+      assert_response :created
+    end
+
+    comment = Comment.find(response.parsed_body['id'])
+    assert_equal 'New report comment', comment.description
+    assert_equal report, comment.commentable
+
+    assert_equal comment.id, response.parsed_body['id']
+    assert_equal 'New report comment', response.parsed_body['description']
+    assert_equal 'Report', response.parsed_body['commentable_type']
+    assert_equal report.id, response.parsed_body['commentable_id']
+    assert_equal users(:komagata).id, response.parsed_body.dig('user', 'id')
+  end
+
+  test 'can not create report comment with read scope' do
+    post api_report_comments_url(reports(:report1), format: :json),
+         headers: { Authorization: "Bearer #{@read_token.token}" },
+         params: { comment: { description: 'New report comment' } }
+
+    assert_response :forbidden
+    assert_equal 'invalid_scope', response.parsed_body['error']
+  end
+
+  test 'returns not found when creating comment on missing report' do
+    assert_no_difference('Comment.count') do
+      post api_report_comments_url(0, format: :json),
+           headers: { Authorization: "Bearer #{@write_token.token}" },
+           params: { comment: { description: 'New report comment' } }
+    end
+
+    assert_response :not_found
+    assert_equal '日報が見つかりません。', response.parsed_body['message']
+  end
+
+  test 'returns validation error when creating blank report comment' do
+    assert_no_difference('Comment.count') do
+      post api_report_comments_url(reports(:report1), format: :json),
+           headers: { Authorization: "Bearer #{@write_token.token}" },
+           params: { comment: { description: '' } }
+    end
+
+    assert_response :unprocessable_entity
+    assert response.parsed_body.dig('errors', 'description').present?
+  end
+
+  test 'returns validation error when creating report comment without comment parameter' do
+    assert_no_difference('Comment.count') do
+      post api_report_comments_url(reports(:report1), format: :json),
+           headers: { Authorization: "Bearer #{@write_token.token}" }
+    end
+
+    assert_response :unprocessable_entity
+    assert response.parsed_body.dig('errors', 'description').present?
+  end
+
   test 'can update comment with read, write scope' do
     patch api_comment_url(@comment.id, format: :json),
           headers: { Authorization: "Bearer #{@write_token.token}" },
@@ -88,7 +150,8 @@ class API::CommentsTest < ActionDispatch::IntegrationTest
     assert_difference('Comment.count', -1) do
       delete api_comment_url(@comment.id, format: :json),
              headers: { Authorization: "Bearer #{@write_token.token}" }
-      assert_response :no_content
+      assert_response :ok
+      assert_equal @comment.id, response.parsed_body['id']
     end
   end
 
@@ -119,7 +182,8 @@ class API::CommentsTest < ActionDispatch::IntegrationTest
     assert_difference('Comment.count', -1) do
       delete api_comment_url(other_user_comment.id, format: :json),
              headers: { Authorization: "Bearer #{admin_token.token}" }
-      assert_response :no_content
+      assert_response :ok
+      assert_equal other_user_comment.id, response.parsed_body['id']
     end
   end
 
@@ -152,5 +216,59 @@ class API::CommentsTest < ActionDispatch::IntegrationTest
              headers: { Authorization: "Bearer #{regular_token.token}" }
       assert_response :not_found
     end
+  end
+
+  test 'can create product comment with read, write scope' do
+    product = products(:product8)
+
+    assert_difference('Comment.count') do
+      post api_product_comments_url(product, format: :json),
+           headers: { Authorization: "Bearer #{@write_token.token}" },
+           params: { comment: { description: 'New product comment' } }
+      assert_response :created
+    end
+
+    comment = Comment.find(response.parsed_body['id'])
+    assert_equal 'New product comment', comment.description
+    assert_equal product, comment.commentable
+
+    assert_equal comment.id, response.parsed_body['id']
+    assert_equal 'New product comment', response.parsed_body['description']
+    assert_equal 'Product', response.parsed_body['commentable_type']
+    assert_equal product.id, response.parsed_body['commentable_id']
+    assert_equal users(:komagata).id, response.parsed_body.dig('user', 'id')
+    assert response.parsed_body['created_at'].present?
+    assert response.parsed_body['updated_at'].present?
+  end
+
+  test 'can not create product comment with read scope' do
+    post api_product_comments_url(products(:product8), format: :json),
+         headers: { Authorization: "Bearer #{@read_token.token}" },
+         params: { comment: { description: 'New product comment' } }
+
+    assert_response :forbidden
+    assert_equal 'invalid_scope', response.parsed_body['error']
+  end
+
+  test 'returns not found when creating comment on missing product' do
+    assert_no_difference('Comment.count') do
+      post api_product_comments_url(0, format: :json),
+           headers: { Authorization: "Bearer #{@write_token.token}" },
+           params: { comment: { description: 'New product comment' } }
+    end
+
+    assert_response :not_found
+    assert_equal '提出物が見つかりません。', response.parsed_body['message']
+  end
+
+  test 'returns validation error when creating blank product comment' do
+    assert_no_difference('Comment.count') do
+      post api_product_comments_url(products(:product8), format: :json),
+           headers: { Authorization: "Bearer #{@write_token.token}" },
+           params: { comment: { description: '' } }
+    end
+
+    assert_response :unprocessable_entity
+    assert response.parsed_body.dig('errors', 'description').present?
   end
 end

@@ -16,12 +16,23 @@ module TagHelper
 
   def click_tag_name_change
     close_header_dropdowns
-    page.execute_script('arguments[0].click()', find_button('タグ名変更'))
+    page.execute_script('arguments[0].click()', first('.change-tag-name-button'))
   end
 
   def click_save_tag_name_change
     close_header_dropdowns
-    page.execute_script('arguments[0].click()', find_button('変更'))
+    button = find('.edit-tag-modal:not(.hidden) .save-tag-button')
+    page.execute_script('arguments[0].click()', button)
+  end
+
+  def fill_in_open_tag_modal(name)
+    input = find('.edit-tag-modal:not(.hidden) input[name="tag[name]"]')
+    page.execute_script(<<~JS, input, name)
+      const input = arguments[0]
+      input.value = arguments[1]
+      input.dispatchEvent(new Event('input', { bubbles: true }))
+      input.dispatchEvent(new KeyboardEvent('keyup', { bubbles: true }))
+    JS
   end
 
   def click_save_tags
@@ -33,7 +44,7 @@ module TagHelper
     tag_count_before = all('.tagify__tag', visible: :all).count
     tag_input = find(selector, match: :first)
     page.execute_script('arguments[0].click()', tag_input)
-    tag_input.native.send_keys(name, :return)
+    tag_input.send_keys(name, :return)
     assert_selector('.tagify__tag', count: tag_count_before + 1, wait: 10, visible: :all)
     # Wait for the hidden input to be updated with the new tag (React components only)
     return unless has_selector?("input[type='hidden'][name*='tag_list']", visible: :all)
@@ -45,7 +56,7 @@ module TagHelper
     tag_input = find(selector)
     page.execute_script('arguments[0].click()', tag_input)
     accept_alert do
-      tag_input.native.send_keys(name, :return)
+      tag_input.send_keys(name, :return)
     end
     assert_selector(selector)
   end

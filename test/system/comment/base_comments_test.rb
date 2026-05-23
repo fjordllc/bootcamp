@@ -82,14 +82,7 @@ class BaseCommentsTest < ApplicationSystemTestCase
     button = find('#js-shortcut-post-comment', text: 'コメントする')
     button.click
 
-    # Try to click again - should be intercepted or disabled
-    button_disabled = false
-    begin
-      button.click
-    rescue Selenium::WebDriver::Error::ElementClickInterceptedError, Selenium::WebDriver::Error::ElementNotInteractableError
-      button_disabled = true
-    end
-    assert button_disabled, 'Button should be disabled after first click'
+    assert_selector '#js-shortcut-post-comment[disabled]'
   end
 
   test 'submit_button is enabled after a post is done' do
@@ -120,7 +113,7 @@ class BaseCommentsTest < ApplicationSystemTestCase
       find('.thread-comment-form, .thread-comment')
     end
     expected_url = current_url + "#comment_#{comments(:comment1).id}"
-    click_and_verify_clipboard_copy('.thread-comment__created-at', expected_url, use_first: true)
+    click_and_verify_clipboard_copy("#comment_#{comments(:comment1).id} .thread-comment__created-at", expected_url)
   end
 
   test 'clear preview after posting new comment for report' do

@@ -2,23 +2,11 @@
 
 module ClipboardHelper
   def cmd_ctrl
-    page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
+    RUBY_PLATFORM.include?('darwin') ? :command : :control
   end
 
   def grant_clipboard_permission
-    page.driver.browser.execute_cdp(
-      'Browser.grantPermissions',
-      origin: page.server_url,
-      permissions: %w[clipboardReadWrite clipboardSanitizedWrite]
-    )
-  rescue StandardError => e
-    warn "Browser.grantPermissions failed: #{e.message}, trying fallback method"
-    cdp_permission = {
-      origin: page.server_url,
-      permission: { name: 'clipboard-read' },
-      setting: 'granted'
-    }
-    page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission)
+    # Clipboard access is granted by the Playwright driver options.
   end
 
   def clipboard_supported?
@@ -41,15 +29,15 @@ module ClipboardHelper
   end
 
   def select_all_and_copy(selector)
-    find(selector).native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'c'])
+    find(selector).send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'c'])
   end
 
   def paste_to(selector)
-    find(selector).native.send_keys([cmd_ctrl, 'v'])
+    find(selector).send_keys([cmd_ctrl, 'v'])
   end
 
   def undo_in(selector)
-    find(selector).native.send_keys([cmd_ctrl, 'z'])
+    find(selector).send_keys([cmd_ctrl, 'z'])
   end
 
   # CIでのみペースト前のctrl + Aが効かないため文字列の選択をselect()メソッドで実行

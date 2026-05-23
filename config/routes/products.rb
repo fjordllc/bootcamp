@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   end
 
   resources :products do
+    post :review_by_pjord, on: :member
     resources :checks, only: %i[create destroy]
   end
 end

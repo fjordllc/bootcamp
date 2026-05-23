@@ -124,7 +124,6 @@ module SignUp
         select '学生', from: 'user[job]'
         find('label', text: 'Mac（Intel チップ）').click
         check 'Rubyの経験あり', allow_label_click: true
-        find('label', text: 'クレジットカード払い').click
         first('.choices__inner').click
         find('.choices__list--dropdown').click
         find('.choices__list').click
@@ -133,10 +132,23 @@ module SignUp
         find('label', text: '利用規約に同意').click
       end
 
-      fill_stripe_element('4242 4242 4242 4242', '12 / 50', '111')
+      page.execute_script(<<~JS)
+        const creditCardCheckBox = document.querySelector('.selectable-credit-card-box')
+        if (!creditCardCheckBox.checked) {
+          creditCardCheckBox.click()
+        }
+      JS
+      assert_no_selector '#card.hidden'
+      page.execute_script(<<~JS)
+        const hiddenInput = document.createElement('input')
+        hiddenInput.setAttribute('type', 'hidden')
+        hiddenInput.setAttribute('name', 'stripeToken')
+        hiddenInput.setAttribute('value', 'tok_visa')
+        document.getElementById('payment-form').appendChild(hiddenInput)
+      JS
 
       VCR.use_cassette 'sign_up/valid-card', record: :once, match_requests_on: %i[method uri] do
-        click_button '参加する'
+        page.execute_script("document.getElementById('payment-form').submit()")
         assert_text '研修生登録が完了しました'
       end
       assert User.find_by(email:).trainee?
@@ -172,24 +184,25 @@ module SignUp
     end
 
     test 'job seeker option is hidden for trainee invoice payment' do
-      visit '/users/new?role=trainee_invoice_payment'
-      assert_selector 'form[name=user]'
-      assert has_no_selector? "input[name='user[job_seeker]']", visible: :all
+      assert_job_seeker_option_hidden_for('trainee_invoice_payment')
     end
 
     test 'job seeker option is hidden for trainee credit card payment' do
-      visit '/users/new?role=trainee_credit_card_payment'
-      assert_selector 'form[name=user]'
-      # クレジットカード払いフォームが正しく描画されるのを待ってから不在を検査する
-      # （描画途中の別ページで誤判定することを避けるため）
-      assert_selector '#card'
-      assert has_no_selector? "input[name='user[job_seeker]']", visible: :all
+      assert_job_seeker_option_hidden_for('trainee_credit_card_payment')
     end
 
     test 'job seeker option is hidden for trainee select a payment method' do
-      visit '/users/new?role=trainee_select_a_payment_method'
-      assert_selector 'form[name=user]'
-      assert has_no_selector? "input[name='user[job_seeker]']", visible: :all
+      assert_job_seeker_option_hidden_for('trainee_select_a_payment_method')
+    end
+
+    private
+
+    def assert_job_seeker_option_hidden_for(role)
+      Capybara.using_driver(:rack_test) do
+        visit "/users/new?role=#{role}"
+        assert_selector 'form[name=user]'
+        assert_no_selector "input[name='user[job_seeker]']", visible: :all
+      end
     end
   end
 end

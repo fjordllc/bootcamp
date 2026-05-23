@@ -15,6 +15,7 @@ class PjordTest < ActiveSupport::TestCase
     mock_chat.expect(:with_instructions, mock_chat, [String])
     mock_chat.expect(:with_tool, mock_chat, [BootcampSearchTool])
     mock_chat.expect(:with_tool, mock_chat, [UserInfoTool])
+    mock_chat.expect(:with_schema, mock_chat, [PjordResponse])
     mock_chat.expect(:ask, mock_content, [String])
 
     RubyLLM.stub(:chat, mock_chat) do
@@ -31,11 +32,85 @@ class PjordTest < ActiveSupport::TestCase
     mock_chat.expect(:with_instructions, mock_chat, [String])
     mock_chat.expect(:with_tool, mock_chat, [BootcampSearchTool])
     mock_chat.expect(:with_tool, mock_chat, [UserInfoTool])
+    mock_chat.expect(:with_schema, mock_chat, [PjordResponse])
     mock_chat.expect(:ask, mock_content, [String])
 
     RubyLLM.stub(:chat, mock_chat) do
       response = Pjord.respond(message: 'test')
       assert_nil response
+    end
+  end
+
+  test '.respond removes internal preamble from response' do
+    mock_content = Minitest::Mock.new
+    mock_content.expect(:content, "\n検索結果を踏まえて、日報へのコメントを作成します。\n\n少しずつ進められていますね。")
+
+    mock_chat = Minitest::Mock.new
+    mock_chat.expect(:with_instructions, mock_chat, [String])
+    mock_chat.expect(:with_tool, mock_chat, [BootcampSearchTool])
+    mock_chat.expect(:with_tool, mock_chat, [UserInfoTool])
+    mock_chat.expect(:with_schema, mock_chat, [PjordResponse])
+    mock_chat.expect(:ask, mock_content, [String])
+
+    RubyLLM.stub(:chat, mock_chat) do
+      response = Pjord.respond(message: 'test')
+      assert_equal '少しずつ進められていますね。', response
+    end
+  end
+
+  test '.respond extracts body from structured response' do
+    mock_content = Minitest::Mock.new
+    mock_content.expect(:content, '{"body":"公開する本文です。"}')
+
+    mock_chat = Minitest::Mock.new
+    mock_chat.expect(:with_instructions, mock_chat, [String])
+    mock_chat.expect(:with_tool, mock_chat, [BootcampSearchTool])
+    mock_chat.expect(:with_tool, mock_chat, [UserInfoTool])
+    mock_chat.expect(:with_schema, mock_chat, [PjordResponse])
+    mock_chat.expect(:ask, mock_content, [String])
+
+    RubyLLM.stub(:chat, mock_chat) do
+      response = Pjord.respond(message: 'test')
+      assert_equal '公開する本文です。', response
+    end
+  end
+
+  test '.respond returns original response when JSON is not an object' do
+    mock_content = Minitest::Mock.new
+    mock_content.expect(:content, '["公開する本文です。"]')
+
+    mock_chat = Minitest::Mock.new
+    mock_chat.expect(:with_instructions, mock_chat, [String])
+    mock_chat.expect(:with_tool, mock_chat, [BootcampSearchTool])
+    mock_chat.expect(:with_tool, mock_chat, [UserInfoTool])
+    mock_chat.expect(:with_schema, mock_chat, [PjordResponse])
+    mock_chat.expect(:ask, mock_content, [String])
+
+    RubyLLM.stub(:chat, mock_chat) do
+      response = Pjord.respond(message: 'test')
+      assert_equal '["公開する本文です。"]', response
+    end
+  end
+
+  test '.respond returns nil when structured response cannot be converted to a hash' do
+    content = Struct.new(:body) do
+      def to_h
+        ['公開する本文です。']
+      end
+    end.new
+
+    mock_content = Minitest::Mock.new
+    mock_content.expect(:content, content)
+
+    mock_chat = Minitest::Mock.new
+    mock_chat.expect(:with_instructions, mock_chat, [String])
+    mock_chat.expect(:with_tool, mock_chat, [BootcampSearchTool])
+    mock_chat.expect(:with_tool, mock_chat, [UserInfoTool])
+    mock_chat.expect(:with_schema, mock_chat, [PjordResponse])
+    mock_chat.expect(:ask, mock_content, [String])
+
+    RubyLLM.stub(:chat, mock_chat) do
+      assert_nil Pjord.respond(message: 'test')
     end
   end
 
