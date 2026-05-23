@@ -7,8 +7,8 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     report = reports(:report1)
     pjord = users(:pjord)
 
-    Pjord.stub(:classify_report, { intent: 'question', reason: '質問あり' }) do
-      Pjord.stub(:respond, 'ヒントをあげますね。') do
+    Pjord::ReportClassifierAgent.stub(:classify, { intent: 'question', reason: '質問あり' }) do
+      Pjord::ReportCommentAgent.stub(:comment, 'ヒントをあげますね。') do
         assert_difference -> { Comment.count } => 1,
                           -> { Reaction.where(user: pjord, reactionable: report, kind: :eyes).count } => 1 do
           PjordReportCommentJob.perform_now(report_id: report.id)
@@ -27,8 +27,8 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     pjord = users(:pjord)
     Reaction.create!(user: pjord, reactionable: report, kind: :eyes)
 
-    Pjord.stub(:classify_report, { intent: 'question', reason: '質問あり' }) do
-      Pjord.stub(:respond, 'ヒントをあげますね。') do
+    Pjord::ReportClassifierAgent.stub(:classify, { intent: 'question', reason: '質問あり' }) do
+      Pjord::ReportCommentAgent.stub(:comment, 'ヒントをあげますね。') do
         assert_difference 'Comment.count', 1 do
           assert_no_difference -> { Reaction.where(user: pjord, reactionable: report, kind: :eyes).count } do
             PjordReportCommentJob.perform_now(report_id: report.id)
@@ -42,8 +42,8 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     report = reports(:report1)
     pjord = users(:pjord)
 
-    Pjord.stub(:classify_report, { intent: 'question', reason: '質問あり' }) do
-      Pjord.stub(:respond, 'ヒントをあげますね。') do
+    Pjord::ReportClassifierAgent.stub(:classify, { intent: 'question', reason: '質問あり' }) do
+      Pjord::ReportCommentAgent.stub(:comment, 'ヒントをあげますね。') do
         Reaction.stub(:find_or_create_by!, ->(**_args) { raise ActiveRecord::RecordInvalid }) do
           assert_difference 'Comment.count', 1 do
             assert_no_difference -> { Reaction.where(user: pjord, reactionable: report, kind: :eyes).count } do
@@ -60,8 +60,8 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
   test 'creates a comment when intent is struggling' do
     report = reports(:report1)
 
-    Pjord.stub(:classify_report, { intent: 'struggling', reason: '落ち込み' }) do
-      Pjord.stub(:respond, '少しずつで大丈夫です。') do
+    Pjord::ReportClassifierAgent.stub(:classify, { intent: 'struggling', reason: '落ち込み' }) do
+      Pjord::ReportCommentAgent.stub(:comment, '少しずつで大丈夫です。') do
         assert_difference 'Comment.count', 1 do
           PjordReportCommentJob.perform_now(report_id: report.id)
         end
@@ -72,8 +72,8 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
   test 'creates a comment when intent is celebration' do
     report = reports(:report1)
 
-    Pjord.stub(:classify_report, { intent: 'celebration', reason: '達成' }) do
-      Pjord.stub(:respond, 'おめでとうございます！') do
+    Pjord::ReportClassifierAgent.stub(:classify, { intent: 'celebration', reason: '達成' }) do
+      Pjord::ReportCommentAgent.stub(:comment, 'おめでとうございます！') do
         assert_difference 'Comment.count', 1 do
           PjordReportCommentJob.perform_now(report_id: report.id)
         end
@@ -85,7 +85,7 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     report = reports(:report1)
     pjord = users(:pjord)
 
-    Pjord.stub(:classify_report, { intent: 'none', reason: '通常の学習記録' }) do
+    Pjord::ReportClassifierAgent.stub(:classify, { intent: 'none', reason: '通常の学習記録' }) do
       assert_no_difference ['Comment.count',
                             -> { Reaction.where(user: pjord, reactionable: report, kind: :eyes).count }] do
         PjordReportCommentJob.perform_now(report_id: report.id)
@@ -96,7 +96,7 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
   test 'propagates error when classification returns nil so ActiveJob can retry' do
     report = reports(:report1)
 
-    Pjord.stub(:classify_report, nil) do
+    Pjord::ReportClassifierAgent.stub(:classify, nil) do
       assert_no_difference 'Comment.count' do
         assert_raises(StandardError) do
           PjordReportCommentJob.perform_now(report_id: report.id)
@@ -105,22 +105,25 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     end
   end
 
-  test 'passes intent-specific instructions to respond' do
+  test 'passes report and intent to report comment agent' do
     report = reports(:report1)
 
-    captured_instructions = nil
-    mock_respond = lambda { |message:, context:, instructions: nil| # rubocop:disable Lint/UnusedBlockArgument
-      captured_instructions = instructions
+    captured_report = nil
+    captured_intent = nil
+    comment = lambda { |passed_report, intent:|
+      captured_report = passed_report
+      captured_intent = intent
       '共感のコメント'
     }
 
-    Pjord.stub(:classify_report, { intent: 'struggling', reason: '疲れている' }) do
-      Pjord.stub(:respond, mock_respond) do
+    Pjord::ReportClassifierAgent.stub(:classify, { intent: 'struggling', reason: '疲れている' }) do
+      Pjord::ReportCommentAgent.stub(:comment, comment) do
         PjordReportCommentJob.perform_now(report_id: report.id)
       end
     end
 
-    assert_includes captured_instructions, '共感'
+    assert_equal report, captured_report
+    assert_equal 'struggling', captured_intent
   end
 
   test 'does nothing when report is not found' do
@@ -143,8 +146,8 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     report = reports(:report1)
     pjord = users(:pjord)
 
-    Pjord.stub(:classify_report, { intent: 'question', reason: '質問あり' }) do
-      Pjord.stub(:respond, nil) do
+    Pjord::ReportClassifierAgent.stub(:classify, { intent: 'question', reason: '質問あり' }) do
+      Pjord::ReportCommentAgent.stub(:comment, nil) do
         assert_no_difference ['Comment.count',
                               -> { Reaction.where(user: pjord, reactionable: report, kind: :eyes).count }] do
           PjordReportCommentJob.perform_now(report_id: report.id)
@@ -157,7 +160,7 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     report = reports(:report1)
     error_classify = ->(**_args) { raise StandardError, 'API error' }
 
-    Pjord.stub(:classify_report, error_classify) do
+    Pjord::ReportClassifierAgent.stub(:classify, error_classify) do
       assert_no_difference 'Comment.count' do
         assert_raises(StandardError) do
           PjordReportCommentJob.perform_now(report_id: report.id)
@@ -166,12 +169,12 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     end
   end
 
-  test 'propagates errors from respond so ActiveJob can retry' do
+  test 'propagates errors from report comment agent so ActiveJob can retry' do
     report = reports(:report1)
-    error_respond = ->(**_args) { raise StandardError, 'API error' }
+    error_comment = ->(_report, intent:) { raise StandardError, 'API error' }
 
-    Pjord.stub(:classify_report, { intent: 'question', reason: '質問あり' }) do
-      Pjord.stub(:respond, error_respond) do
+    Pjord::ReportClassifierAgent.stub(:classify, { intent: 'question', reason: '質問あり' }) do
+      Pjord::ReportCommentAgent.stub(:comment, error_comment) do
         assert_no_difference 'Comment.count' do
           assert_raises(StandardError) do
             PjordReportCommentJob.perform_now(report_id: report.id)
@@ -181,22 +184,4 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     end
   end
 
-  test 'includes context with location and sender' do
-    report = reports(:report1)
-
-    captured_context = nil
-    mock_respond = lambda { |message:, context:, instructions: nil| # rubocop:disable Lint/UnusedBlockArgument
-      captured_context = context
-      'コメント'
-    }
-
-    Pjord.stub(:classify_report, { intent: 'question', reason: '質問あり' }) do
-      Pjord.stub(:respond, mock_respond) do
-        PjordReportCommentJob.perform_now(report_id: report.id)
-      end
-    end
-
-    assert_equal '日報', captured_context[:location]
-    assert_equal report.user.login_name, captured_context[:sender_login_name]
-  end
 end
