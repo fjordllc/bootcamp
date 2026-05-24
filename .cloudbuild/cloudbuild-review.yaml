@@ -177,6 +177,7 @@ steps:
     waitFor:
       - Kill_SqlProxy
 options:
+  automapSubstitutions: true
   substitutionOption: ALLOW_LOOSE
 timeout: 7200s
 images:
