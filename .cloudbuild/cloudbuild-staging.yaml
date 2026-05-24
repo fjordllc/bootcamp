@@ -257,3 +257,13 @@ images:
   - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
 substitutions:
   _APP_HOST_NAME: bootcamp-staging.fjord.jp
+  _BASIC_AUTH_USER: ''
+  _CLOUD_RUN_HOST_NAME: ''
+  _CLOUD_SQL_HOST: ''
+  _DB_NAME: ''
+  _DB_USER: ''
+  _GCS_BUCKET: ''
+  _LABELS: ''
+  _MEMORY: ''
+  _SERVICE_NAME: ''
+  _TRIGGER_ID: ''
