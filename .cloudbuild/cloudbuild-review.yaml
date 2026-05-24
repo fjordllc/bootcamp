@@ -170,14 +170,42 @@ steps:
   - id: Deploy
     name: gcr.io/google.com/cloudsdktool/cloud-sdk
     entrypoint: bash
-    automapSubstitutions: true
     args:
       - .cloudbuild/deploy-cloud-run
       - review
+    env:
+      - PROJECT_ID=$PROJECT_ID
+      - COMMIT_SHA=$COMMIT_SHA
+      - BUILD_ID=$BUILD_ID
+      - _ANTHROPIC_API_KEY=$_ANTHROPIC_API_KEY
+      - _APP_HOST_NAME=$_APP_HOST_NAME
+      - _BASIC_AUTH_PASSWORD=$_BASIC_AUTH_PASSWORD
+      - _BASIC_AUTH_USER=$_BASIC_AUTH_USER
+      - _CLOUD_RUN_HOST_NAME=$_CLOUD_RUN_HOST_NAME
+      - _CLOUD_SQL_HOST=$_CLOUD_SQL_HOST
+      - _DB_NAME=$_DB_NAME
+      - _DB_PASS=$_DB_PASS
+      - _DB_USER=$_DB_USER
+      - _GCS_BUCKET=$_GCS_BUCKET
+      - _GITHUB_KEY=$_GITHUB_KEY
+      - _GITHUB_SECRET=$_GITHUB_SECRET
+      - _GOOGLE_CREDENTIALS=$_GOOGLE_CREDENTIALS
+      - _MEMORY=$_MEMORY
+      - _MISSION_CONTROL_PASSWORD=$_MISSION_CONTROL_PASSWORD
+      - _MISSION_CONTROL_USERNAME=$_MISSION_CONTROL_USERNAME
+      - _OPEN_AI_ACCESS_TOKEN=$_OPEN_AI_ACCESS_TOKEN
+      - _POSTMARK_API_TOKEN=$_POSTMARK_API_TOKEN
+      - _PR_NUMBER=$_PR_NUMBER
+      - _RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
+      - _RECAPTCHA_SECRET_KEY=$_RECAPTCHA_SECRET_KEY
+      - _RECAPTCHA_SITE_KEY=$_RECAPTCHA_SITE_KEY
+      - _SERVICE_NAME=$_SERVICE_NAME
+      - _STRIPE_PUBLIC_KEY=$_STRIPE_PUBLIC_KEY
+      - _STRIPE_SECRET_KEY=$_STRIPE_SECRET_KEY
+      - _TOKEN=$_TOKEN
     waitFor:
       - Kill_SqlProxy
 options:
-  automapSubstitutions: true
   substitutionOption: ALLOW_LOOSE
 timeout: 7200s
 images:
