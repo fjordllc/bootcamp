@@ -61,9 +61,12 @@ jobs:
             --format="value(id)" 2>/dev/null || true)
           for BID in $RUNNING_BUILDS; do
             echo "Cancelling build: $BID"
-            gcloud builds cancel "$BID" \
+            if ! gcloud builds cancel "$BID" \
               --project=bootcamp-224405 \
-              --region=asia-northeast1 2>/dev/null || true
+              --region=asia-northeast1 \
+              --quiet 2>/dev/null; then
+              echo "Skipping build cancellation: $BID"
+            fi
           done
 
           # Cloud Buildを非同期で開始（ログストリーミング権限問題を回避）
