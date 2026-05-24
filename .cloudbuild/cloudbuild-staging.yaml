@@ -250,6 +250,7 @@ steps:
       - DB_NAME=$_DB_NAME
       - DEPLOY_NOTIFY_WEBHOOK_URL=$_DEPLOY_NOTIFY_WEBHOOK_URL
 options:
+  automapSubstitutions: true
   substitutionOption: ALLOW_LOOSE
 timeout: 7200s
 images:
