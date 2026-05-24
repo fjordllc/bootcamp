@@ -6,7 +6,7 @@ Cloud Run の実行時設定は環境別の service YAML で管理する。
 - `staging.yaml`: ステージング環境
 
 Cloud Build は deploy 時に image URL、Cloud SQL instance、host name などの非 secret 値だけを
-placeholder に埋め込み、`gcloud run services replace` で Cloud Run に反映する。
+`bin/render-cloud-run-service` で placeholder に埋め込み、`gcloud run services replace` で Cloud Run に反映する。
 
 Secret の実値は Cloud Build substitutions ではなく Secret Manager に保存し、service YAML から
 Secret Manager の secret version を参照する。
