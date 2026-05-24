@@ -34,7 +34,7 @@ class Pjord::ReportCommentAgentTest < ActiveSupport::TestCase
       self
     end
 
-    def ask(message, with: nil)
+    def ask(message, with: nil) # rubocop:disable Lint/UnusedMethodArgument
       @asked_message = message
       Struct.new(:content).new({ body: 'コメント本文' })
     end

@@ -10,7 +10,11 @@ class ExternalContentToolTest < ActiveSupport::TestCase
 
   test 'reads regular web pages' do
     stub_request(:get, 'https://example.com/page')
-      .to_return(status: 200, body: '<html><body><h1>Title</h1><script>ignore()</script><p>Main text</p></body></html>', headers: { 'Content-Type' => 'text/html' })
+      .to_return(
+        status: 200,
+        body: '<html><body><h1>Title</h1><script>ignore()</script><p>Main text</p></body></html>',
+        headers: { 'Content-Type' => 'text/html' }
+      )
 
     result = @tool.execute(url: 'https://example.com/page')
 

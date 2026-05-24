@@ -38,7 +38,7 @@ class Pjord::QuestionAnswerAgentTest < ActiveSupport::TestCase
       self
     end
 
-    def ask(message, with: nil)
+    def ask(message, with: nil) # rubocop:disable Lint/UnusedMethodArgument
       @asked_message = message
       Struct.new(:content).new({ body: '回答本文' })
     end

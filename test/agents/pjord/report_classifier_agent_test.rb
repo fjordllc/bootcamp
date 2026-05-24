@@ -44,7 +44,7 @@ class Pjord::ReportClassifierAgentTest < ActiveSupport::TestCase
       self
     end
 
-    def ask(message, with: nil)
+    def ask(message, with: nil) # rubocop:disable Lint/UnusedMethodArgument
       @asked_message = message
       Struct.new(:content).new(@content)
     end
