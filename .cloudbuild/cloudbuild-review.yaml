@@ -176,6 +176,8 @@ steps:
       - review
     waitFor:
       - Kill_SqlProxy
+options:
+  substitutionOption: ALLOW_LOOSE
 timeout: 7200s
 images:
   - 'asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}'

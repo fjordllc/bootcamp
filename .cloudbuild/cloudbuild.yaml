@@ -108,6 +108,8 @@ steps:
     env:
       - DB_NAME=$_DB_NAME
       - DEPLOY_NOTIFY_WEBHOOK_URL=$_DEPLOY_NOTIFY_WEBHOOK_URL
+options:
+  substitutionOption: ALLOW_LOOSE
 timeout: 7200s
 images:
   - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
