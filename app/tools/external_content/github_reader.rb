@@ -56,33 +56,13 @@ class ExternalContent::GithubReader
     files = fetch_json(api_url("/repos/#{owner}/#{repository}/pulls/#{number}/files"))
     return 'Pull Requestを取得できませんでした。' if pull_request.blank? || files.blank?
 
-    head_sha = pull_request.dig('head', 'sha')
-    lines = [
-      '# GitHub Pull Request',
-      "- URL: #{url}",
-      "- タイトル: #{pull_request['title']}",
-      "- ブランチ: #{pull_request.dig('head', 'ref')}",
-      "- ベースブランチ: #{pull_request.dig('base', 'ref')}",
-      "- head SHA: #{head_sha}",
-      '',
-      '## 説明',
-      normalize_body(pull_request['body']).presence || 'なし',
-      '',
-      '## 変更ファイル'
-    ]
-    lines.concat(files.first(FILES_LIMIT).map { |file| pull_request_file_line(owner, repository, head_sha, file) })
-    lines << "- ...ほか #{files.size - FILES_LIMIT} ファイル" if files.size > FILES_LIMIT
-    lines << ''
-    lines << '必要なら、上記の raw URL をこのツールに渡してファイル全体を確認してください。'
-    lines.join("\n")
-  end
-
-  def pull_request_file_line(owner, repository, head_sha, file)
-    patch = normalize_body(file['patch']).slice(0, 1_500)
-    line = "- #{file['filename']} (#{file['status']}, +#{file['additions']} -#{file['deletions']})"
-    line += "\n  raw URL: #{raw_url(owner, repository, head_sha, file['filename'])}" if head_sha.present?
-    line += "\n  patch:\n#{indent(patch.presence || 'patchなし')}"
-    line
+    ExternalContent::GithubPullRequestFormatter.new(
+      owner:,
+      repository:,
+      url:,
+      pull_request:,
+      files:
+    ).format
   end
 
   def fetch_directory(owner, repository, ref, path)
@@ -90,25 +70,13 @@ class ExternalContent::GithubReader
     return 'ディレクトリを取得できませんでした。' if items.blank?
     return format_raw_file(items['download_url'], fetch_url(items['download_url'])) if items.is_a?(Hash) && items['type'] == 'file'
 
-    lines = ["# GitHub Directory", "- repository: #{owner}/#{repository}", "- ref: #{ref}", "- path: /#{path}", '', '## entries']
-    lines.concat(items.first(FILES_LIMIT).map do |item|
-      "- #{item['type']}: #{item['path']} #{item['html_url']}"
-    end)
-    lines << "- ...ほか #{items.size - FILES_LIMIT} 件" if items.size > FILES_LIMIT
-    lines.join("\n")
+    ExternalContent::GithubDirectoryFormatter.new(owner:, repository:, ref:, path:, items:).format
   end
 
   def format_raw_file(url, body)
     return 'ファイルを取得できませんでした。' if body.blank?
 
-    <<~TEXT
-      # GitHub File
-      - URL: #{url}
-
-      ```#{language_name(url)}
-      #{normalize_body(body).slice(0, CONTENT_LIMIT)}
-      ```
-    TEXT
+    ExternalContent::GithubRawFileFormatter.new(url:, body:).format
   end
 
   def fetch_json(url)
@@ -145,20 +113,5 @@ class ExternalContent::GithubReader
 
   def github_token
     ENV['PJORD_GITHUB_TOKEN'].presence
-  end
-
-  def normalize_body(body)
-    body.to_s.dup.force_encoding(Encoding::UTF_8).scrub
-  end
-
-  def language_name(url)
-    extension = File.extname(URI.parse(url).path).delete_prefix('.')
-    extension.presence || 'text'
-  rescue URI::InvalidURIError
-    'text'
-  end
-
-  def indent(text)
-    text.to_s.lines.map { |line| "  #{line}" }.join
   end
 end

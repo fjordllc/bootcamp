@@ -171,7 +171,7 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
 
   test 'propagates errors from report comment agent so ActiveJob can retry' do
     report = reports(:report1)
-    error_comment = ->(_report, intent:) { raise StandardError, 'API error' }
+    error_comment = ->(_report, intent: nil) { raise StandardError, 'API error' } # rubocop:disable Lint/UnusedBlockArgument
 
     Pjord::ReportClassifierAgent.stub(:classify, { intent: 'question', reason: '質問あり' }) do
       Pjord::ReportCommentAgent.stub(:comment, error_comment) do
@@ -183,5 +183,4 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
       end
     end
   end
-
 end

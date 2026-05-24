@@ -45,5 +45,4 @@ class PjordReportCommentJob < ApplicationJob
     Rails.logger.error("[PjordReportCommentJob] respond failed: #{e.class}: #{e.message}")
     raise
   end
-
 end

@@ -34,7 +34,7 @@ class Pjord::MentionResponseAgentTest < ActiveSupport::TestCase
       self
     end
 
-    def ask(message, with: nil)
+    def ask(message, with: nil) # rubocop:disable Lint/UnusedMethodArgument
       @asked_message = message
       Struct.new(:content).new({ body: '返信本文' })
     end

@@ -52,5 +52,4 @@ class PjordRespondJob < ApplicationJob
   def mentions_pjord?(mentionable)
     mentionable.body&.match?(/(?<!\w)@#{Regexp.escape(Pjord::LOGIN_NAME)}(?!\w)/)
   end
-
 end

@@ -78,6 +78,5 @@ class Pjord::ProductReviewAgent < Pjord::Agent
 
       "#{format('%.1f', user_course_practice.completed_percentage)}%"
     end
-
   end
 end
