@@ -1,0 +1,218 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+environment=${1:?Usage: deploy-cloud-run ENVIRONMENT}
+
+join_by_comma() {
+  local IFS=,
+  echo "$*"
+}
+
+secret_ref() {
+  local name
+  name=$(echo "$1" | tr '[:upper:]_' '[:lower:]-')
+  echo "$1=bootcamp-${environment}-${name}:latest"
+}
+
+image_for_environment() {
+  if [[ "$environment" == review ]]; then
+    echo "asia.gcr.io/${PROJECT_ID}/bootcamp:pr-${_PR_NUMBER}"
+  else
+    echo "asia.gcr.io/${PROJECT_ID}/${REPO_NAME}:${COMMIT_SHA}"
+  fi
+}
+
+common_env_vars=(
+  LANG=ja_JP.UTF-8
+  TZ=Asia/Tokyo
+  RAILS_SERVE_STATIC_FILES=true
+  RAILS_LOG_TO_STDOUT=true
+  RAILS_ENV=production
+  RACK_ENV=production
+  APP_HOST_NAME="${_APP_HOST_NAME}"
+  CLOUD_RUN_HOST_NAME="${_CLOUD_RUN_HOST_NAME}"
+  DB_NAME="${_DB_NAME}"
+  DB_USER="${_DB_USER}"
+  DB_HOST="/cloudsql/${_CLOUD_SQL_HOST}"
+  GCS_BUCKET="${_GCS_BUCKET}"
+  BASIC_AUTH_USER="${_BASIC_AUTH_USER}"
+)
+
+cloud_run_args=(
+  run
+  deploy
+  "${_SERVICE_NAME}"
+  --platform=managed
+  --region=asia-northeast1
+  --quiet
+  "--image=$(image_for_environment)"
+  --allow-unauthenticated
+  --clear-vpc-connector
+  --add-cloudsql-instances
+  "${_CLOUD_SQL_HOST}"
+  --memory
+  "${_MEMORY}"
+  --timeout
+  10m
+)
+
+case "$environment" in
+  production)
+    env_vars=("${common_env_vars[@]}" RAILS_MAX_THREADS=5 PJORD_LLM_MODEL=claude-sonnet-4-6)
+    secret_names=(
+      RAILS_MASTER_KEY
+      DB_PASS
+      GOOGLE_CREDENTIALS
+      TOKEN
+      DISCORD_NOTICE_WEBHOOK_URL
+      DISCORD_INTRODUCTION_WEBHOOK_URL
+      DISCORD_ALL_WEBHOOK_URL
+      DISCORD_ADMIN_WEBHOOK_URL
+      DISCORD_MENTOR_WEBHOOK_URL
+      DISCORD_BUG_WEBHOOK_URL
+      DISCORD_REPORT_WEBHOOK_URL
+      DISCORD_GUILD_ID
+      DISCORD_TIMES_CHANNEL_CATEGORY_ID
+      DISCORD_BOT_TOKEN
+      MISSION_CONTROL_USERNAME
+      MISSION_CONTROL_PASSWORD
+      STRIPE_ENDPOINT_SECRET
+      BASIC_AUTH_PASSWORD
+      RECAPTCHA_SITE_KEY
+      RECAPTCHA_SECRET_KEY
+      ROLLBAR_CLIENT_TOKEN
+      OPEN_AI_ACCESS_TOKEN
+      ANTHROPIC_API_KEY
+      PJORD_GITHUB_TOKEN
+      STRIPE_TAX_RATE_ID
+      DISCORD_CLIENT_ID
+      DISCORD_CLIENT_SECRET
+      DISCORD_AUTHENTICATION_URL
+      PUBSUB_AUDIENCE
+      PUBSUB_SERVICE_ACCOUNT_EMAIL
+      PUBSUB_TOPIC
+      GITHUB_KEY
+      GITHUB_SECRET
+      ROLLBAR_ACCESS_TOKEN
+      SLACK_WEBHOOK_URL
+      STRIPE_PUBLIC_KEY
+      STRIPE_SECRET_KEY
+      POSTMARK_API_TOKEN
+    )
+    secret_vars=()
+    for secret_name in "${secret_names[@]}"; do
+      secret_vars+=("$(secret_ref "$secret_name")")
+    done
+    cloud_run_args+=(--concurrency 5)
+    cloud_run_args+=("--set-secrets=$(join_by_comma "${secret_vars[@]}")")
+    ;;
+  staging)
+    env_vars=("${common_env_vars[@]}")
+    secret_names=(
+      RAILS_MASTER_KEY
+      DB_PASS
+      GOOGLE_CREDENTIALS
+      TOKEN
+      DISCORD_NOTICE_WEBHOOK_URL
+      DISCORD_INTRODUCTION_WEBHOOK_URL
+      DISCORD_ALL_WEBHOOK_URL
+      DISCORD_ADMIN_WEBHOOK_URL
+      DISCORD_MENTOR_WEBHOOK_URL
+      DISCORD_BUG_WEBHOOK_URL
+      DISCORD_REPORT_WEBHOOK_URL
+      DISCORD_GUILD_ID
+      DISCORD_TIMES_CHANNEL_CATEGORY_ID
+      DISCORD_BOT_TOKEN
+      MISSION_CONTROL_USERNAME
+      MISSION_CONTROL_PASSWORD
+      STRIPE_ENDPOINT_SECRET
+      BASIC_AUTH_PASSWORD
+      RECAPTCHA_SITE_KEY
+      RECAPTCHA_SECRET_KEY
+      ROLLBAR_CLIENT_TOKEN
+      OPEN_AI_ACCESS_TOKEN
+      ANTHROPIC_API_KEY
+      PJORD_GITHUB_TOKEN
+      STRIPE_TAX_RATE_ID
+      DISCORD_CLIENT_ID
+      DISCORD_CLIENT_SECRET
+      DISCORD_AUTHENTICATION_URL
+      PUBSUB_AUDIENCE
+      PUBSUB_SERVICE_ACCOUNT_EMAIL
+      PUBSUB_TOPIC
+      GITHUB_KEY
+      GITHUB_SECRET
+      ROLLBAR_ACCESS_TOKEN
+      SLACK_WEBHOOK_URL
+      STRIPE_PUBLIC_KEY
+      STRIPE_SECRET_KEY
+      POSTMARK_API_TOKEN
+    )
+    secret_vars=()
+    for secret_name in "${secret_names[@]}"; do
+      secret_vars+=("$(secret_ref "$secret_name")")
+    done
+    cloud_run_args+=("--set-secrets=$(join_by_comma "${secret_vars[@]}")")
+    ;;
+  review)
+    env_vars=(
+      "${common_env_vars[@]}"
+      RAILS_MASTER_KEY="${_RAILS_MASTER_KEY}"
+      DB_PASS="${_DB_PASS}"
+      GOOGLE_CREDENTIALS="${_GOOGLE_CREDENTIALS}"
+      TOKEN="${_TOKEN}"
+      BASIC_AUTH_PASSWORD="${_BASIC_AUTH_PASSWORD}"
+      DISCORD_NOTICE_WEBHOOK_URL=
+      DISCORD_INTRODUCTION_WEBHOOK_URL=
+      DISCORD_ALL_WEBHOOK_URL=
+      DISCORD_ADMIN_WEBHOOK_URL=
+      DISCORD_MENTOR_WEBHOOK_URL=
+      DISCORD_BUG_WEBHOOK_URL=
+      DISCORD_REPORT_WEBHOOK_URL=
+      DISCORD_GUILD_ID=
+      DISCORD_TIMES_CHANNEL_CATEGORY_ID=
+      DISCORD_BOT_TOKEN=
+      DISCORD_CLIENT_ID=
+      DISCORD_CLIENT_SECRET=
+      DISCORD_AUTHENTICATION_URL=
+      MISSION_CONTROL_USERNAME="${_MISSION_CONTROL_USERNAME}"
+      MISSION_CONTROL_PASSWORD="${_MISSION_CONTROL_PASSWORD}"
+      STRIPE_ENDPOINT_SECRET=
+      RECAPTCHA_SITE_KEY="${_RECAPTCHA_SITE_KEY}"
+      RECAPTCHA_SECRET_KEY="${_RECAPTCHA_SECRET_KEY}"
+      ROLLBAR_CLIENT_TOKEN=
+      OPEN_AI_ACCESS_TOKEN="${_OPEN_AI_ACCESS_TOKEN}"
+      ANTHROPIC_API_KEY="${_ANTHROPIC_API_KEY}"
+      STRIPE_TAX_RATE_ID=
+      GITHUB_KEY="${_GITHUB_KEY}"
+      GITHUB_SECRET="${_GITHUB_SECRET}"
+      STRIPE_PUBLIC_KEY="${_STRIPE_PUBLIC_KEY}"
+      STRIPE_SECRET_KEY="${_STRIPE_SECRET_KEY}"
+      POSTMARK_API_TOKEN="${_POSTMARK_API_TOKEN}"
+    )
+    cloud_run_args+=(--min-instances=0 --max-instances=2)
+    ;;
+  *)
+    echo "Unknown environment: $environment" >&2
+    exit 1
+    ;;
+esac
+
+cloud_run_args+=(
+  "--set-env-vars=$(join_by_comma "${env_vars[@]}")"
+)
+
+case "$environment" in
+  production | staging)
+    cloud_run_args+=(
+      "--labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=${COMMIT_SHA},gcb-build-id=${BUILD_ID},gcb-trigger-id=${_TRIGGER_ID},${_LABELS}"
+    )
+    ;;
+  review)
+    cloud_run_args+=(
+      "--labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=${COMMIT_SHA},gcb-build-id=${BUILD_ID},pr-number=${_PR_NUMBER}"
+    )
+    ;;
+esac
+
+gcloud "${cloud_run_args[@]}"

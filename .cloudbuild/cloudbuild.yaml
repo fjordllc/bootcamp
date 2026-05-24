@@ -63,31 +63,11 @@ steps:
       - DB_Migrate
   - id: Deploy
     name: gcr.io/google.com/cloudsdktool/cloud-sdk
-    entrypoint: gcloud
+    entrypoint: bash
+    automapSubstitutions: true
     args:
-      - run
-      - deploy
-      - $_SERVICE_NAME
-      - '--platform=managed'
-      - '--region=asia-northeast1'
-      - '--quiet'
-      - '--image=asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
-      - '--allow-unauthenticated'
-      - '--clear-vpc-connector'
-      - '--add-cloudsql-instances'
-      - $_CLOUD_SQL_HOST
-      - '--memory'
-      - $_MEMORY
-      - '--concurrency'
-      - '5'
-      - '--timeout'
-      - '10m'
-      - >-
-        --set-env-vars=LANG=ja_JP.UTF-8,RAILS_MAX_THREADS=5,TZ=Asia/Tokyo,RAILS_SERVE_STATIC_FILES=true,RAILS_LOG_TO_STDOUT=true,RAILS_ENV=production,RACK_ENV=production,APP_HOST_NAME=$_APP_HOST_NAME,CLOUD_RUN_HOST_NAME=$_CLOUD_RUN_HOST_NAME,DB_NAME=$_DB_NAME,DB_USER=$_DB_USER,DB_HOST=/cloudsql/$_CLOUD_SQL_HOST,GCS_BUCKET=$_GCS_BUCKET,BASIC_AUTH_USER=$_BASIC_AUTH_USER,PJORD_LLM_MODEL=claude-sonnet-4-6
-      - >-
-        --set-secrets=RAILS_MASTER_KEY=bootcamp-production-rails-master-key:latest,DB_PASS=bootcamp-production-db-pass:latest,GOOGLE_CREDENTIALS=bootcamp-production-google-credentials:latest,TOKEN=bootcamp-production-token:latest,DISCORD_NOTICE_WEBHOOK_URL=bootcamp-production-discord-notice-webhook-url:latest,DISCORD_INTRODUCTION_WEBHOOK_URL=bootcamp-production-discord-introduction-webhook-url:latest,DISCORD_ALL_WEBHOOK_URL=bootcamp-production-discord-all-webhook-url:latest,DISCORD_ADMIN_WEBHOOK_URL=bootcamp-production-discord-admin-webhook-url:latest,DISCORD_MENTOR_WEBHOOK_URL=bootcamp-production-discord-mentor-webhook-url:latest,DISCORD_BUG_WEBHOOK_URL=bootcamp-production-discord-bug-webhook-url:latest,DISCORD_REPORT_WEBHOOK_URL=bootcamp-production-discord-report-webhook-url:latest,DISCORD_GUILD_ID=bootcamp-production-discord-guild-id:latest,DISCORD_TIMES_CHANNEL_CATEGORY_ID=bootcamp-production-discord-times-channel-category-id:latest,DISCORD_BOT_TOKEN=bootcamp-production-discord-bot-token:latest,MISSION_CONTROL_USERNAME=bootcamp-production-mission-control-username:latest,MISSION_CONTROL_PASSWORD=bootcamp-production-mission-control-password:latest,STRIPE_ENDPOINT_SECRET=bootcamp-production-stripe-endpoint-secret:latest,BASIC_AUTH_PASSWORD=bootcamp-production-basic-auth-password:latest,RECAPTCHA_SITE_KEY=bootcamp-production-recaptcha-site-key:latest,RECAPTCHA_SECRET_KEY=bootcamp-production-recaptcha-secret-key:latest,ROLLBAR_CLIENT_TOKEN=bootcamp-production-rollbar-client-token:latest,OPEN_AI_ACCESS_TOKEN=bootcamp-production-open-ai-access-token:latest,ANTHROPIC_API_KEY=bootcamp-production-anthropic-api-key:latest,PJORD_GITHUB_TOKEN=bootcamp-production-pjord-github-token:latest,STRIPE_TAX_RATE_ID=bootcamp-production-stripe-tax-rate-id:latest,DISCORD_CLIENT_ID=bootcamp-production-discord-client-id:latest,DISCORD_CLIENT_SECRET=bootcamp-production-discord-client-secret:latest,DISCORD_AUTHENTICATION_URL=bootcamp-production-discord-authentication-url:latest,PUBSUB_AUDIENCE=bootcamp-production-pubsub-audience:latest,PUBSUB_SERVICE_ACCOUNT_EMAIL=bootcamp-production-pubsub-service-account-email:latest,PUBSUB_TOPIC=bootcamp-production-pubsub-topic:latest,GITHUB_KEY=bootcamp-production-github-key:latest,GITHUB_SECRET=bootcamp-production-github-secret:latest,ROLLBAR_ACCESS_TOKEN=bootcamp-production-rollbar-access-token:latest,SLACK_WEBHOOK_URL=bootcamp-production-slack-webhook-url:latest,STRIPE_PUBLIC_KEY=bootcamp-production-stripe-public-key:latest,STRIPE_SECRET_KEY=bootcamp-production-stripe-secret-key:latest,POSTMARK_API_TOKEN=bootcamp-production-postmark-api-token:latest
-      - >-
-        --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID,$_LABELS
+      - .cloudbuild/deploy-cloud-run
+      - production
   - id: UpdateLinkCheckerJob
     name: gcr.io/google.com/cloudsdktool/cloud-sdk
     entrypoint: bash
