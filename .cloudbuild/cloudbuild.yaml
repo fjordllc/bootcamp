@@ -49,11 +49,10 @@ steps:
       - DISABLE_DATABASE_ENVIRONMENT_CHECK=1
       - DB_HOST=/cloudsql/$_CLOUD_SQL_HOST
       - DB_NAME=$_DB_NAME
+      - DB_PASS=$_DB_PASS
       - DB_USER=$_DB_USER
+      - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
       - APP_HOST_NAME=$_APP_HOST_NAME
-    secretEnv:
-      - DB_PASS
-      - RAILS_MASTER_KEY
   - id: Kill_SqlProxy
     name: gcr.io/cloud-builders/docker
     entrypoint: sh
@@ -64,43 +63,72 @@ steps:
       - DB_Migrate
   - id: Deploy
     name: gcr.io/google.com/cloudsdktool/cloud-sdk
-    entrypoint: bash
+    entrypoint: gcloud
     args:
-      - '-c'
-      - |
-        set -euo pipefail
-
-        SERVICE_YAML=/workspace/tmp/cloud-run-production.yaml
-        mkdir -p /workspace/tmp
-        sed \
-          -e "s|__IMAGE__|asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA|g" \
-          -e "s|__SERVICE_NAME__|$_SERVICE_NAME|g" \
-          -e "s|__CLOUD_SQL_HOST__|$_CLOUD_SQL_HOST|g" \
-          -e "s|__APP_HOST_NAME__|$_APP_HOST_NAME|g" \
-          -e "s|__CLOUD_RUN_HOST_NAME__|$_CLOUD_RUN_HOST_NAME|g" \
-          -e "s|__DB_NAME__|$_DB_NAME|g" \
-          -e "s|__DB_USER__|$_DB_USER|g" \
-          -e "s|__GCS_BUCKET__|$_GCS_BUCKET|g" \
-          -e "s|__BASIC_AUTH_USER__|$_BASIC_AUTH_USER|g" \
-          -e "s|__COMMIT_SHA__|$COMMIT_SHA|g" \
-          -e "s|__BUILD_ID__|$BUILD_ID|g" \
-          -e "s|__TRIGGER_ID__|$_TRIGGER_ID|g" \
-          config/cloud_run/production.yaml > "$$SERVICE_YAML"
-
-        gcloud run services replace "$$SERVICE_YAML" \
-          --region=asia-northeast1 \
-          --quiet
-
-        gcloud run services update $_SERVICE_NAME \
-          --region=asia-northeast1 \
-          --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID,$_LABELS \
-          --quiet
-
-        gcloud run services add-iam-policy-binding $_SERVICE_NAME \
-          --region=asia-northeast1 \
-          --member=allUsers \
-          --role=roles/run.invoker \
-          --quiet
+      - run
+      - deploy
+      - $_SERVICE_NAME
+      - '--platform=managed'
+      - '--region=asia-northeast1'
+      - '--quiet'
+      - '--image=asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
+      - '--allow-unauthenticated'
+      - '--clear-vpc-connector'
+      - '--add-cloudsql-instances'
+      - $_CLOUD_SQL_HOST
+      - '--memory'
+      - $_MEMORY
+      - '--concurrency'
+      - '5'
+      - '--timeout'
+      - '10m'
+      - '--set-env-vars=LANG=ja_JP.UTF-8'
+      - '--set-env-vars=RAILS_MAX_THREADS=5'
+      - '--set-env-vars=TZ=Asia/Tokyo'
+      - '--set-env-vars=RAILS_SERVE_STATIC_FILES=true'
+      - '--set-env-vars=RAILS_LOG_TO_STDOUT=true'
+      - '--set-env-vars=RAILS_ENV=production'
+      - '--set-env-vars=RACK_ENV=production'
+      - '--set-env-vars=APP_HOST_NAME=$_APP_HOST_NAME'
+      - '--set-env-vars=CLOUD_RUN_HOST_NAME=$_CLOUD_RUN_HOST_NAME'
+      - '--set-env-vars=RAILS_MASTER_KEY=$_RAILS_MASTER_KEY'
+      - '--set-env-vars=DB_NAME=$_DB_NAME'
+      - '--set-env-vars=DB_USER=$_DB_USER'
+      - '--set-env-vars=DB_PASS=$_DB_PASS'
+      - '--set-env-vars=DB_HOST=/cloudsql/$_CLOUD_SQL_HOST'
+      - '--set-env-vars=GOOGLE_CREDENTIALS=$_GOOGLE_CREDENTIALS'
+      - '--set-env-vars=GCS_BUCKET=$_GCS_BUCKET'
+      - '--set-env-vars=TOKEN=$_TOKEN'
+      - '--set-env-vars=DISCORD_NOTICE_WEBHOOK_URL=$_DISCORD_NOTICE_WEBHOOK_URL'
+      - '--set-env-vars=DISCORD_INTRODUCTION_WEBHOOK_URL=$_DISCORD_INTRODUCTION_WEBHOOK_URL'
+      - '--set-env-vars=DISCORD_ALL_WEBHOOK_URL=$_DISCORD_ALL_WEBHOOK_URL'
+      - '--set-env-vars=DISCORD_ADMIN_WEBHOOK_URL=$_DISCORD_ADMIN_WEBHOOK_URL'
+      - '--set-env-vars=DISCORD_MENTOR_WEBHOOK_URL=$_DISCORD_MENTOR_WEBHOOK_URL'
+      - '--set-env-vars=DISCORD_BUG_WEBHOOK_URL=$_DISCORD_BUG_WEBHOOK_URL'
+      - '--set-env-vars=DISCORD_REPORT_WEBHOOK_URL=$_DISCORD_REPORT_WEBHOOK_URL'
+      - '--set-env-vars=DISCORD_GUILD_ID=$_DISCORD_GUILD_ID'
+      - '--set-env-vars=DISCORD_TIMES_CHANNEL_CATEGORY_ID=$_DISCORD_TIMES_CHANNEL_CATEGORY_ID'
+      - '--set-env-vars=DISCORD_BOT_TOKEN=$_DISCORD_BOT_TOKEN'
+      - '--set-env-vars=MISSION_CONTROL_USERNAME=$_MISSION_CONTROL_USERNAME'
+      - '--set-env-vars=MISSION_CONTROL_PASSWORD=$_MISSION_CONTROL_PASSWORD'
+      - '--set-env-vars=STRIPE_ENDPOINT_SECRET=$_STRIPE_ENDPOINT_SECRET'
+      - '--set-env-vars=BASIC_AUTH_USER=$_BASIC_AUTH_USER'
+      - '--set-env-vars=BASIC_AUTH_PASSWORD=$_BASIC_AUTH_PASSWORD'
+      - '--set-env-vars=RECAPTCHA_SITE_KEY=$_RECAPTCHA_SITE_KEY'
+      - '--set-env-vars=RECAPTCHA_SECRET_KEY=$_RECAPTCHA_SECRET_KEY'
+      - '--set-env-vars=ROLLBAR_CLIENT_TOKEN=$_ROLLBAR_CLIENT_TOKEN'
+      - '--set-env-vars=OPEN_AI_ACCESS_TOKEN=$_OPEN_AI_ACCESS_TOKEN'
+      - '--set-env-vars=PJORD_GITHUB_TOKEN=$_PJORD_GITHUB_TOKEN'
+      - '--set-env-vars=STRIPE_TAX_RATE_ID=$_STRIPE_TAX_RATE_ID'
+      - '--set-env-vars=DISCORD_CLIENT_ID=$_DISCORD_CLIENT_ID'
+      - '--set-env-vars=DISCORD_CLIENT_SECRET=$_DISCORD_CLIENT_SECRET'
+      - '--set-env-vars=DISCORD_AUTHENTICATION_URL=$_DISCORD_AUTHENTICATION_URL'
+      - '--set-env-vars=PUBSUB_AUDIENCE=$_PUBSUB_AUDIENCE'
+      - '--set-env-vars=PUBSUB_SERVICE_ACCOUNT_EMAIL=$_PUBSUB_SERVICE_ACCOUNT_EMAIL'
+      - '--set-env-vars=PUBSUB_TOPIC=$_PUBSUB_TOPIC'
+      - '--set-env-vars=$_ENVS'
+      - >-
+        --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID,$_LABELS
   - id: UpdateLinkCheckerJob
     name: gcr.io/google.com/cloudsdktool/cloud-sdk
     entrypoint: bash
@@ -119,8 +147,7 @@ steps:
             --cpu=1 \
             --task-timeout=30m \
             --max-retries=1 \
-            --set-env-vars="RAILS_ENV=production,APP_HOST_NAME=$_APP_HOST_NAME,DB_HOST=/cloudsql/$_CLOUD_SQL_HOST,DB_NAME=$_DB_NAME,DB_USER=$_DB_USER,RAILS_LOG_TO_STDOUT=true" \
-            --set-secrets="RAILS_MASTER_KEY=bootcamp-production-rails-master-key:latest,DB_PASS=bootcamp-production-db-pass:latest,DISCORD_BUG_WEBHOOK_URL=bootcamp-production-discord-bug-webhook-url:latest"
+            --set-env-vars="RAILS_ENV=production,RAILS_MASTER_KEY=$_RAILS_MASTER_KEY,APP_HOST_NAME=$_APP_HOST_NAME,DB_HOST=/cloudsql/$_CLOUD_SQL_HOST,DB_NAME=$_DB_NAME,DB_PASS=$_DB_PASS,DB_USER=$_DB_USER,DISCORD_BUG_WEBHOOK_URL=$_DISCORD_BUG_WEBHOOK_URL,RAILS_LOG_TO_STDOUT=true"
         else
           gcloud run jobs create link-checker \
             --region=asia-northeast1 \
@@ -131,8 +158,7 @@ steps:
             --cpu=1 \
             --task-timeout=30m \
             --max-retries=1 \
-            --set-env-vars="RAILS_ENV=production,APP_HOST_NAME=$_APP_HOST_NAME,DB_HOST=/cloudsql/$_CLOUD_SQL_HOST,DB_NAME=$_DB_NAME,DB_USER=$_DB_USER,RAILS_LOG_TO_STDOUT=true" \
-            --set-secrets="RAILS_MASTER_KEY=bootcamp-production-rails-master-key:latest,DB_PASS=bootcamp-production-db-pass:latest,DISCORD_BUG_WEBHOOK_URL=bootcamp-production-discord-bug-webhook-url:latest"
+            --set-env-vars="RAILS_ENV=production,RAILS_MASTER_KEY=$_RAILS_MASTER_KEY,APP_HOST_NAME=$_APP_HOST_NAME,DB_HOST=/cloudsql/$_CLOUD_SQL_HOST,DB_NAME=$_DB_NAME,DB_PASS=$_DB_PASS,DB_USER=$_DB_USER,DISCORD_BUG_WEBHOOK_URL=$_DISCORD_BUG_WEBHOOK_URL,RAILS_LOG_TO_STDOUT=true"
         fi
   - id: Notify
     name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
@@ -142,18 +168,9 @@ steps:
       - Deploy
     env:
       - DB_NAME=$_DB_NAME
-    secretEnv:
-      - DEPLOY_NOTIFY_WEBHOOK_URL
+      - DEPLOY_NOTIFY_WEBHOOK_URL=$_DEPLOY_NOTIFY_WEBHOOK_URL
 timeout: 7200s
 images:
   - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
 substitutions:
   _APP_HOST_NAME: bootcamp.fjord.jp
-availableSecrets:
-  secretManager:
-    - versionName: projects/$PROJECT_ID/secrets/bootcamp-production-db-pass/versions/latest
-      env: DB_PASS
-    - versionName: projects/$PROJECT_ID/secrets/bootcamp-production-rails-master-key/versions/latest
-      env: RAILS_MASTER_KEY
-    - versionName: projects/$PROJECT_ID/secrets/bootcamp-production-deploy-notify-webhook-url/versions/latest
-      env: DEPLOY_NOTIFY_WEBHOOK_URL
