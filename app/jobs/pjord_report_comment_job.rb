@@ -31,7 +31,7 @@ class PjordReportCommentJob < ApplicationJob
   def classify(report)
     result = Pjord::ReportClassifierAgent.classify(report)
     intent = result&.dig(:intent)
-    raise KeyError, 'classification returned no intent' if intent.nil?
+    return 'none' if intent.nil?
 
     intent
   rescue StandardError => e

@@ -93,14 +93,14 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     end
   end
 
-  test 'propagates error when classification returns nil so ActiveJob can retry' do
+  test 'does not create a comment or reaction when classification returns nil' do
     report = reports(:report1)
+    pjord = users(:pjord)
 
     Pjord::ReportClassifierAgent.stub(:classify, nil) do
-      assert_no_difference 'Comment.count' do
-        assert_raises(StandardError) do
-          PjordReportCommentJob.perform_now(report_id: report.id)
-        end
+      assert_no_difference ['Comment.count',
+                            -> { Reaction.where(user: pjord, reactionable: report, kind: :eyes).count }] do
+        PjordReportCommentJob.perform_now(report_id: report.id)
       end
     end
   end
@@ -171,7 +171,7 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
 
   test 'propagates errors from report comment agent so ActiveJob can retry' do
     report = reports(:report1)
-    error_comment = ->(_report, intent: nil) { raise StandardError, 'API error' } # rubocop:disable Lint/UnusedBlockArgument
+    error_comment = ->(_report, intent:) { raise StandardError, 'API error' } # rubocop:disable Lint/UnusedBlockArgument
 
     Pjord::ReportClassifierAgent.stub(:classify, { intent: 'question', reason: '質問あり' }) do
       Pjord::ReportCommentAgent.stub(:comment, error_comment) do
