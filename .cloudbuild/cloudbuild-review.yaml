@@ -226,6 +226,7 @@ steps:
       - '--set-env-vars=RECAPTCHA_SECRET_KEY=$_RECAPTCHA_SECRET_KEY'
       - '--set-env-vars=ROLLBAR_CLIENT_TOKEN='
       - '--set-env-vars=OPEN_AI_ACCESS_TOKEN=$_OPEN_AI_ACCESS_TOKEN'
+      - '--set-env-vars=ANTHROPIC_API_KEY=$_ANTHROPIC_API_KEY'
       - '--set-env-vars=STRIPE_TAX_RATE_ID='
       - '--set-env-vars=GITHUB_KEY=$_GITHUB_KEY'
       - '--set-env-vars=GITHUB_SECRET=$_GITHUB_SECRET'
