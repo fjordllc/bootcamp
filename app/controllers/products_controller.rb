@@ -103,7 +103,7 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
   end
 
   def review_body_by_pjord(reviewer)
-    ProductAiReviewer.review(@product) if reviewer
+    Pjord::ProductReviewAgent.review(@product) if reviewer
   rescue StandardError => e
     Rails.logger.error("[ProductsController#review_by_pjord] #{e.class}: #{e.message}")
     nil

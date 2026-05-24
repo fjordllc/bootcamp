@@ -11,11 +11,8 @@ class PjordQuestionAnswerJob < ApplicationJob
     pjord = Pjord.user
     return if pjord.nil?
 
-    context = build_context(question)
-    message = build_message(question)
-
     begin
-      response = Pjord.respond(message: message, context: context)
+      response = Pjord::QuestionAnswerAgent.answer(question)
     rescue StandardError => e
       Rails.logger.error("[PjordQuestionAnswerJob] #{e.class}: #{e.message}")
       return
@@ -24,26 +21,5 @@ class PjordQuestionAnswerJob < ApplicationJob
     return if response.blank?
 
     Answer.create!(user: pjord, question: question, description: response)
-  end
-
-  private
-
-  def build_context(question)
-    context = {}
-    context[:location] = question.where_mention
-    context[:practice] = question.practice&.title
-    context
-  end
-
-  def build_message(question)
-    <<~MESSAGE
-      以下のQ&A質問に回答してください。
-
-      ## タイトル
-      #{question.title}
-
-      ## 質問内容
-      #{question.description}
-    MESSAGE
   end
 end

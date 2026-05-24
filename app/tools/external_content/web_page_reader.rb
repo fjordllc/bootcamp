@@ -1,0 +1,53 @@
+# frozen_string_literal: true
+
+require 'uri'
+
+class ExternalContent::WebPageReader
+  CONTENT_LIMIT = 20_000
+  def self.fetch(url)
+    new.fetch(url)
+  end
+
+  def fetch(url)
+    uri = URI.parse(url.to_s)
+    return 'httpまたはhttpsのURLだけ取得できます。' unless uri.is_a?(URI::HTTP)
+
+    response = fetch_response(uri)
+    return "URLの取得に失敗しました。HTTP status: #{response.code}" unless response.success?
+
+    format_page(response.url, response.body)
+  rescue URI::InvalidURIError
+    'URLの形式が正しくありません。'
+  rescue StandardError => e
+    Rails.logger.warn("[ExternalContent::WebPageReader] #{url} #{e.class}: #{e.message}")
+    'URLの取得に失敗しました。'
+  end
+
+  private
+
+  def fetch_response(uri)
+    Rails.cache.fetch("external_content/web_page/#{Digest::SHA256.hexdigest(uri.to_s)}", expires_in: 10.minutes) do
+      ExternalContent::HttpClient.get(uri.to_s, headers: request_headers)
+    end
+  end
+
+  def format_page(url, body)
+    <<~TEXT
+      # Web Page
+      - URL: #{url}
+
+      #{extract_text(body).slice(0, CONTENT_LIMIT)}
+    TEXT
+  end
+
+  def extract_text(body)
+    document = Nokogiri::HTML(body.to_s)
+    document.css('script, style, noscript').remove
+    node = document.at('body') || document
+    node.xpath('.//text()').map { |text| text.text.squish }.reject(&:blank?).join(' ')
+  end
+
+  def request_headers
+    { 'User-Agent' => 'fjord-bootcamp-pjord' }
+  end
+end

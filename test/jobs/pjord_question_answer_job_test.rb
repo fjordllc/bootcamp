@@ -7,7 +7,7 @@ class PjordQuestionAnswerJobTest < ActiveJob::TestCase
     question = questions(:question1)
     pjord = users(:pjord)
 
-    Pjord.stub(:respond, 'ヒントをあげるね！') do
+    Pjord::QuestionAnswerAgent.stub(:answer, 'ヒントをあげるね！') do
       assert_difference 'Answer.count', 1 do
         PjordQuestionAnswerJob.perform_now(question_id: question.id)
       end
@@ -38,27 +38,26 @@ class PjordQuestionAnswerJobTest < ActiveJob::TestCase
   test 'does nothing when response is blank' do
     question = questions(:question1)
 
-    Pjord.stub(:respond, nil) do
+    Pjord::QuestionAnswerAgent.stub(:answer, nil) do
       assert_no_difference 'Answer.count' do
         PjordQuestionAnswerJob.perform_now(question_id: question.id)
       end
     end
   end
 
-  test 'includes practice in context' do
+  test 'passes question to question answer agent' do
     question = questions(:question1)
-    assert question.practice.present?
+    captured_question = nil
 
-    captured_context = nil
-    mock_respond = lambda { |message:, context:, instructions: nil| # rubocop:disable Lint/UnusedBlockArgument
-      captured_context = context
+    answer = lambda { |passed_question|
+      captured_question = passed_question
       'テスト回答'
     }
 
-    Pjord.stub(:respond, mock_respond) do
+    Pjord::QuestionAnswerAgent.stub(:answer, answer) do
       PjordQuestionAnswerJob.perform_now(question_id: question.id)
     end
 
-    assert_equal question.practice.title, captured_context[:practice]
+    assert_equal question, captured_question
   end
 end
