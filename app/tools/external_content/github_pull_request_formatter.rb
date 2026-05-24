@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'cgi'
+
 class ExternalContent::GithubPullRequestFormatter
   FILES_LIMIT = ExternalContent::GithubReader::FILES_LIMIT
 
@@ -49,7 +51,8 @@ class ExternalContent::GithubPullRequestFormatter
   end
 
   def raw_url(path)
-    "https://raw.githubusercontent.com/#{owner}/#{repository}/#{head_sha}/#{path}"
+    encoded_path = path.to_s.split('/').map { |segment| CGI.escape(segment).gsub('+', '%20') }.join('/')
+    "https://raw.githubusercontent.com/#{owner}/#{repository}/#{head_sha}/#{encoded_path}"
   end
 
   def head_sha

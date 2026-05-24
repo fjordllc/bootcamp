@@ -38,4 +38,19 @@ class ExternalContentToolTest < ActiveSupport::TestCase
   test 'rejects non http urls' do
     assert_equal 'httpまたはhttpsのURLだけ取得できます。', @tool.execute(url: 'file:///etc/passwd')
   end
+
+  test 'rejects private network urls' do
+    result = @tool.execute(url: 'http://127.0.0.1/internal')
+
+    assert_equal 'URLの取得に失敗しました。', result
+  end
+
+  test 'rejects redirects to private network urls' do
+    stub_request(:get, 'https://example.com/redirect-to-private')
+      .to_return(status: 302, headers: { 'Location' => 'http://127.0.0.1/internal' })
+
+    result = @tool.execute(url: 'https://example.com/redirect-to-private')
+
+    assert_equal 'URLの取得に失敗しました。', result
+  end
 end

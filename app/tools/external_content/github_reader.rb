@@ -7,7 +7,7 @@ class ExternalContent::GithubReader
   CONTENT_LIMIT = 20_000
   FILES_LIMIT = 30
   def self.support?(uri)
-    uri.is_a?(URI::HTTPS) && %w[github.com raw.githubusercontent.com api.github.com].include?(uri.host)
+    uri.is_a?(URI::HTTPS) && %w[github.com raw.githubusercontent.com].include?(uri.host)
   end
 
   def self.fetch(url)
