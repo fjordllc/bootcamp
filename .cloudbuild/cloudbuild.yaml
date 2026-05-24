@@ -64,10 +64,25 @@ steps:
   - id: Deploy
     name: gcr.io/google.com/cloudsdktool/cloud-sdk
     entrypoint: bash
-    automapSubstitutions: true
     args:
       - .cloudbuild/deploy-cloud-run
       - production
+    env:
+      - PROJECT_ID=$PROJECT_ID
+      - REPO_NAME=$REPO_NAME
+      - COMMIT_SHA=$COMMIT_SHA
+      - BUILD_ID=$BUILD_ID
+      - _APP_HOST_NAME=$_APP_HOST_NAME
+      - _BASIC_AUTH_USER=$_BASIC_AUTH_USER
+      - _CLOUD_RUN_HOST_NAME=$_CLOUD_RUN_HOST_NAME
+      - _CLOUD_SQL_HOST=$_CLOUD_SQL_HOST
+      - _DB_NAME=$_DB_NAME
+      - _DB_USER=$_DB_USER
+      - _GCS_BUCKET=$_GCS_BUCKET
+      - _LABELS=$_LABELS
+      - _MEMORY=$_MEMORY
+      - _SERVICE_NAME=$_SERVICE_NAME
+      - _TRIGGER_ID=$_TRIGGER_ID
   - id: UpdateLinkCheckerJob
     name: gcr.io/google.com/cloudsdktool/cloud-sdk
     entrypoint: bash
@@ -109,7 +124,6 @@ steps:
       - DB_NAME=$_DB_NAME
       - DEPLOY_NOTIFY_WEBHOOK_URL=$_DEPLOY_NOTIFY_WEBHOOK_URL
 options:
-  automapSubstitutions: true
   substitutionOption: ALLOW_LOOSE
 timeout: 7200s
 images:
