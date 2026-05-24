@@ -248,20 +248,7 @@ steps:
 
         SERVICE_YAML=/workspace/tmp/cloud-run-staging.yaml
         mkdir -p /workspace/tmp
-        sed \
-          -e "s|__IMAGE__|asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA|g" \
-          -e "s|__SERVICE_NAME__|$_SERVICE_NAME|g" \
-          -e "s|__CLOUD_SQL_HOST__|$_CLOUD_SQL_HOST|g" \
-          -e "s|__APP_HOST_NAME__|$_APP_HOST_NAME|g" \
-          -e "s|__CLOUD_RUN_HOST_NAME__|$_CLOUD_RUN_HOST_NAME|g" \
-          -e "s|__DB_NAME__|$_DB_NAME|g" \
-          -e "s|__DB_USER__|$_DB_USER|g" \
-          -e "s|__GCS_BUCKET__|$_GCS_BUCKET|g" \
-          -e "s|__BASIC_AUTH_USER__|$_BASIC_AUTH_USER|g" \
-          -e "s|__COMMIT_SHA__|$COMMIT_SHA|g" \
-          -e "s|__BUILD_ID__|$BUILD_ID|g" \
-          -e "s|__TRIGGER_ID__|$_TRIGGER_ID|g" \
-          config/cloud_run/staging.yaml > "$$SERVICE_YAML"
+        bin/render-cloud-run-service config/cloud_run/staging.yaml "$$SERVICE_YAML"
 
         gcloud run services replace "$$SERVICE_YAML" \
           --region=asia-northeast1 \
