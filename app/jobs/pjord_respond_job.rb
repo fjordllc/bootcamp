@@ -16,8 +16,7 @@ class PjordRespondJob < ApplicationJob
     return if pjord.nil?
     return unless mentions_pjord?(mentionable)
 
-    context = build_context(mentionable)
-    response = Pjord.respond(message: mentionable.body, context: context)
+    response = Pjord::MentionResponseAgent.respond_to(mentionable)
     return if response.blank?
 
     reply(mentionable, pjord, response)
@@ -52,37 +51,5 @@ class PjordRespondJob < ApplicationJob
 
   def mentions_pjord?(mentionable)
     mentionable.body&.match?(/(?<!\w)@#{Regexp.escape(Pjord::LOGIN_NAME)}(?!\w)/)
-  end
-
-  def build_context(mentionable)
-    context = {}
-    context[:location] = mentionable.where_mention if mentionable.respond_to?(:where_mention)
-    context[:practice] = extract_practice(mentionable)
-    context[:sender_login_name] = mentionable.sender&.login_name
-    context
-  end
-
-  def extract_practice(mentionable)
-    case mentionable
-    when Comment
-      extract_practice_from_commentable(mentionable.commentable)
-    when Answer
-      mentionable.question.practice&.title
-    when Question
-      mentionable.practice&.title
-    when Report
-      mentionable.practices.map(&:title).join(', ').presence
-    when Product
-      mentionable.practice&.title
-    end
-  end
-
-  def extract_practice_from_commentable(commentable)
-    case commentable
-    when Report
-      commentable.practices.map(&:title).join(', ').presence
-    when Product
-      commentable.practice&.title
-    end
   end
 end
