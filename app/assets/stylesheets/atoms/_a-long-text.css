@@ -159,12 +159,6 @@
 .a-long-text ol.is-aiu {
   list-style: katakana;
 }
-.a-long-text > ul {
-  list-style-type: disc;
-}
-.a-long-text > ol {
-  list-style-type: decimal;
-}
 .a-long-text li ul,
 .a-long-text li ol {
   margin-block: 0.375em;
@@ -176,12 +170,6 @@
 .a-long-text li ul:last-child,
 .a-long-text li ol:last-child {
   margin-bottom: 0.375em;
-}
-.a-long-text li > ul {
-  list-style-type: circle;
-}
-.a-long-text li > ul > li > ul {
-  list-style-type: square;
 }
 .a-long-text .speak.is-mc {
   font-weight: 700;
@@ -298,18 +286,29 @@
 .a-long-text .message.success::before {
   color: var(--success);
 }
-.a-long-text ul.contains-task-list {
-  list-style: none;
-  margin-left: 0;
+.a-long-text > ul,
+.a-long-text details > ul,
+.a-long-text div > ul,
+.a-long-text blockquote > ul {
+  list-style-type: disc;
 }
-.a-long-text li.task-list-item {
-  position: relative;
-  padding-left: 1.375em;
+.a-long-text > ol,
+.a-long-text details > ol,
+.a-long-text div > ol,
+.a-long-text blockquote > ol {
+  list-style-type: decimal;
 }
-.a-long-text li.task-list-item .task-list-item-checkbox {
-  left: 0;
-  position: absolute;
-  top: 0.5em;
+.a-long-text ul ul {
+  list-style-type: circle;
+}
+.a-long-text ul ul ul {
+  list-style-type: square;
+}
+.a-long-text li.task-list-item:has(input[type="checkbox"]) {
+  list-style-type: none;
+}
+.a-long-text li.task-list-item input[type="checkbox"] {
+  margin-left: -1.3rem;
 }
 .a-long-text p {
   font-size: 1em;
@@ -486,12 +485,6 @@
 .a-long-text div ol.is-aiu {
   list-style: katakana;
 }
-.a-long-text div > ul {
-  list-style-type: disc;
-}
-.a-long-text div > ol {
-  list-style-type: decimal;
-}
 .a-long-text div li ul,
 .a-long-text div li ol {
   margin-block: 0.375em;
@@ -503,12 +496,6 @@
 .a-long-text div li ul:last-child,
 .a-long-text div li ol:last-child {
   margin-bottom: 0.375em;
-}
-.a-long-text div li > ul {
-  list-style-type: circle;
-}
-.a-long-text div li > ul > li > ul {
-  list-style-type: square;
 }
 .a-long-text blockquote {
   padding-left: 1.5em;
