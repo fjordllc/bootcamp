@@ -13,18 +13,8 @@ module EventsHelper
     uri.to_s
   end
 
-  def event_comment_count(event, styled: true)
-    length = event.comments.length
-
-    if styled
-      link_to '#comments', class: "a-meta #{'is-disabled' if length.zero?}" do
-        'コメント（'.html_safe +
-          content_tag(:span, length, class: length.zero? ? 'is-muted' : 'is-emphasized') +
-          '）'.html_safe
-      end
-    else
-      "コメント（#{length}名）"
-    end
+  def event_comment_count(event)
+    'コメント（'.html_safe + content_tag(:span, event.comments.length, class: 'is-emphasized') + '）'.html_safe
   end
 
   def event_participant_count(event)
