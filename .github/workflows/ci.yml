@@ -151,7 +151,18 @@ jobs:
           done
 
       - name: Install Playwright browser
-        run: npx playwright install --with-deps chromium
+        run: |
+          for attempt in 1 2 3; do
+            if npx playwright install --with-deps chromium; then
+              exit 0
+            fi
+
+            sudo rm -rf /var/lib/apt/lists/*
+            sudo apt-get clean
+            sleep "$((attempt * 10))"
+          done
+
+          npx playwright install --with-deps chromium
 
       - name: Enable pgvector extension
         run: psql -h localhost -U postgres -d ci_test -c "CREATE EXTENSION IF NOT EXISTS vector;"
