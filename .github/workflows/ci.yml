@@ -230,7 +230,7 @@ jobs:
           merge-multiple: true
 
       - name: Generate flakewatch HTML
-        uses: komagata/flakewatch@v0.6.11
+        uses: komagata/flakewatch@v0.6.12
         with:
           junit: "test/reports/**/*.xml"
           source-root: "."
