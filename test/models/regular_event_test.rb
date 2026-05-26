@@ -94,6 +94,22 @@ class RegularEventTest < ActiveSupport::TestCase
     end
   end
 
+  test '#next_event_date returns today if today is one of the holding days and start time has NOT passed' do
+    regular_event = regular_events(:regular_event29) # 土日の9~10時に開催
+
+    travel_to Time.zone.local(2026, 5, 23, 8, 0, 0) do
+      assert_equal Date.new(2026, 5, 23), regular_event.next_event_date
+    end
+  end
+
+  test '#next_event_date returns next holding day within the same week if today is one of the holding days and start time HAS passed' do
+    regular_event = regular_events(:regular_event29) # 土日の9~10時に開催
+
+    travel_to Time.zone.local(2026, 5, 23, 12, 0, 0) do
+      assert_equal Date.new(2026, 5, 24), regular_event.next_event_date
+    end
+  end
+
   test '#cancel_participation' do
     regular_event = regular_events(:regular_event1)
     participant = regular_event_participations(:regular_event_participation1).user
