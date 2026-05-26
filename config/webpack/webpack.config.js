@@ -25,12 +25,6 @@ webpackConfig.module.rules.push({
   }
 })
 
-// Fix markdown-it-purifier CommonJS parsing
-webpackConfig.module.rules.push({
-  test: /markdown-it-purifier[\/\\]dist[\/\\]index\.browser\.js$/,
-  type: 'javascript/auto'
-})
-
 // Fix process is not defined error for browser environment
 // Only expose necessary environment variables to client
 const allowedEnvKeys = ['NODE_ENV', 'RAILS_ENV']
@@ -48,25 +42,18 @@ webpackConfig.plugins.push(
   })
 )
 
-// Provide process and util polyfills for browser environment
+webpackConfig.resolve = webpackConfig.resolve || {}
+webpackConfig.resolve.alias = webpackConfig.resolve.alias || {}
+webpackConfig.resolve.fallback = {
+  ...webpackConfig.resolve.fallback,
+  buffer: require.resolve('buffer/'),
+  util: require.resolve('util/')
+}
+
 webpackConfig.plugins.push(
   new webpack.ProvidePlugin({
-    process: 'process/browser.js',
     Buffer: ['buffer', 'Buffer']
   })
 )
-
-// Fix markdown-it-purifier CommonJS/ESM compatibility issue
-webpackConfig.resolve = webpackConfig.resolve || {}
-webpackConfig.resolve.alias = webpackConfig.resolve.alias || {}
-webpackConfig.resolve.alias['markdown-it-purifier'] = require.resolve('markdown-it-purifier/dist/index.browser.js')
-
-// Add fallbacks for Node.js core modules in browser environment
-webpackConfig.resolve.fallback = {
-  ...webpackConfig.resolve.fallback,
-  process: require.resolve('process/browser.js'),
-  util: require.resolve('util/'),
-  buffer: require.resolve('buffer/')
-}
 
 module.exports = webpackConfig
