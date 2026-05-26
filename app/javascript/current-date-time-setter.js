@@ -1,4 +1,4 @@
-import dayjs from 'dayjs'
+import { formatDateTimeLocal } from './utilities/date.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const currentDateTimeButton = document.getElementById(
@@ -7,8 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!currentDateTimeButton) return
   const dateTimeField = document.getElementById('date_time_input_field')
   function reflectDateTime() {
-    const currentDateTime = dayjs().format('YYYY-MM-DD HH:mm:ss')
-    dateTimeField.value = currentDateTime
+    dateTimeField.value = formatDateTimeLocal()
   }
   currentDateTimeButton.addEventListener('click', reflectDateTime)
 })
