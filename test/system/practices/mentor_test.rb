@@ -39,6 +39,10 @@ module Practices
       end
 
       assert_text 'プラクティスを作成しました'
+
+      practice = Practice.find_by!(title: 'テンプレなし')
+      visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
+      assert_empty find_field('practice_product_template_attributes_description').value
     end
 
     test 'create practice as a mentor' do
