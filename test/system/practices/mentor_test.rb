@@ -66,8 +66,10 @@ module Practices
       visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
       within '#reference_books' do
         click_link '書籍を選択'
-        first('.choices__list').click
-        find('.choices__item--choice', text: book.title).click
+        within first('.choices') do
+          find('.choices__inner').click
+          find('.choices__item--choice', text: book.title).click
+        end
       end
       click_button '更新する'
       assert_text 'プラクティスを更新しました。'
@@ -79,8 +81,10 @@ module Practices
       book = books(:book2)
       visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
       within '#reference_books' do
-        first('.choices__list').click
-        find('.choices__item--choice', text: book.title).click
+        within first('.choices') do
+          find('.choices__inner').click
+          find('.choices__item--choice', text: book.title).click
+        end
       end
       click_button '更新する'
       assert_text 'プラクティスを更新しました。'

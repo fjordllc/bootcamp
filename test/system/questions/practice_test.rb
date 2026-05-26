@@ -77,7 +77,7 @@ module Questions
       go_back
 
       find('.a-side-nav').click_link '全て見る'
-      find('.choices__item') { assert_text 'OS X Mountain Lionをクリーンインストールする' }
+      assert_selector '.choices__item', text: 'OS X Mountain Lionをクリーンインストールする'
       go_back
 
       within '.a-side-nav' do
