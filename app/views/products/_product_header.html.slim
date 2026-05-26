@@ -71,12 +71,9 @@ header.page-content-header.is-product
 
         .page-content-header-metas__end
           .page-content-header-metas__meta
-            - length = product.comments.length
-            a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
-              | コメント（
-              span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
-                = length
-              | ）
+            - if product.comments.any?
+              a.a-meta(href='#comments')
+                = event_comment_count(product)
 
     .page-content-header__row
       .page-content-header-actions

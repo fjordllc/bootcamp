@@ -50,7 +50,7 @@
             .card-list-item-meta__items
               .card-list-item-meta__item
                 .a-meta
-                  | コメント（#{product.comments.size}）
+                  = event_comment_count(product)
               .card-list-item-meta__item
                 .card-list-item__user-icons
                   = render partial: 'users/icon',

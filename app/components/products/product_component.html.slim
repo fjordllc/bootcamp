@@ -63,13 +63,13 @@
                 - else
                   | 約#{until_next_elapsed_days}時間
 
-      - if @product.comments.size > 0
+      - if @product.comments.any?
         hr.card-list-item__row-separator
         .card-list-item__row
           .card-list-item-meta
             .card-list-item-meta__items
               .card-list-item-meta__item
-                .a-meta コメント（#{@product.comments.size}）
+                .a-meta = helpers.event_comment_count(@product)
               .card-list-item-meta__item
                 .card-list-item__user-icons
                   - @product.commented_users.distinct.each do |user|
