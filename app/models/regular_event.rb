@@ -102,7 +102,19 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def next_event_date
-    upcoming_scheduled_dates.reject { |date| skip_event?(date) }.min
+    now = Time.zone.now
+    today = Time.zone.today
+
+    # all_scheduled_dates は実行日から1年分の開催日を取得している(昇順でソート済み)
+    all_scheduled_dates.find do |date|
+      # 開催日が今日の場合、開始時間を過ぎているか判定する
+      if date == today
+        event_start_at = date.in_time_zone.change(hour: start_at.hour, min: start_at.min)
+        next false if now > event_start_at
+      end
+
+      !skip_event?(date)
+    end
   end
 
   def organizers
@@ -203,13 +215,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     return unless diff <= 0
 
     errors.add(:end_at, ': イベント終了時刻はイベント開始時刻よりも後の時刻にしてください。')
-  end
-
-  def upcoming_scheduled_dates
-    # 時刻が過ぎたイベントを排除するためだけに、一時的にstart_timeを与える。後でDate型に戻す。
-    event_dates_with_start_time = all_scheduled_dates.map { |d| d.in_time_zone.change(hour: start_at.hour, min: start_at.min) }
-
-    event_dates_with_start_time.reject { |d| d < Time.zone.now }.map(&:to_date)
   end
 
   def nth_wday(date)
