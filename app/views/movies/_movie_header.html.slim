@@ -56,12 +56,9 @@ header.page-content-header
         .page-content-header-metas__end
           .page-content-header-metas
             .page-content-header-metas__meta
-              - length = movie.comments.length
-              a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
-                | コメント（
-                span#comment_count(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
-                  = length
-                | ）
+              - if movie.comments.any?
+                a.a-meta(href='#comments')
+                  = event_comment_count(movie)
 
     .page-content-header__row
       .page-content-header-actions
