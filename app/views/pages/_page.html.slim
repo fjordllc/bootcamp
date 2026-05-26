@@ -52,4 +52,4 @@
             - if page.comments.any?
               .card-list-item-meta__item
                 .a-meta
-                  | コメント（#{page.comments.length}）
+                  = event_comment_count(page)
