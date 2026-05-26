@@ -57,10 +57,10 @@
                             .card-list-item-meta__item
                               .a-meta
                                 = event_waitlist_count(event)
-                          - if event.comments.size.positive?
+                          - if event.comments.any?
                             .card-list-item-meta__item
                               .a-meta
-                                = event_comment_count(event, styled: false)
+                                = event_comment_count(event)
           .pagination
             = paginate @events
         - else
