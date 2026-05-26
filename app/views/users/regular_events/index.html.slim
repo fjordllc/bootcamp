@@ -56,10 +56,10 @@
                             time.a-meta(datetime="#{event.start_at}")
                               | 開催日時:
                               | #{event.holding_cycles} #{l event.start_at, format: :time_only} ～ #{l event.end_at, format: :time_only}
-                          - if event.comments.size.positive?
+                          - if event.comments.any?
                             .card-list-item-meta__item
                               .a-meta
-                                = event_comment_count(event, styled: false)
+                                = event_comment_count(event)
           .pagination
             = paginate @regular_events
         - else
