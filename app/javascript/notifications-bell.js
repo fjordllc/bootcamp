@@ -1,9 +1,6 @@
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
 import { FetchRequest } from '@rails/request.js'
 import userIconFrameClass from './user-icon-frame-class.js'
-
-dayjs.extend(relativeTime)
+import { formatRelativeTime } from './utilities/date.js'
 
 class NotificationsBell {
   constructor() {
@@ -225,7 +222,7 @@ class NotificationsBell {
     const li = document.createElement('li')
     li.className = 'header-dropdown__item'
 
-    const createdAtFromNow = dayjs(notification.created_at).fromNow()
+    const createdAtFromNow = formatRelativeTime(notification.created_at)
     const iconFrameClass = userIconFrameClass(
       notification.sender.primary_role,
       notification.sender.joining_status
