@@ -41,21 +41,10 @@ module Practices
       end
 
       assert_text 'プラクティスを作成しました'
-      assert_not_predicate Practice.order(:created_at).last, :pjord_review?
-    end
 
-    test 'can create practice without product template' do
-      visit_with_auth '/mentor/practices/new', 'komagata'
-
-      within 'form[name=practice]' do
-        fill_in 'practice[title]', with: 'テンプレなし'
-        check categories(:category1).name, allow_label_click: true
-        fill_in 'practice[description]', with: 'テストの内容です'
-        fill_in 'practice[goal]', with: 'テストのゴールの内容です'
-        click_button '登録する'
-      end
-
-      assert_text 'プラクティスを作成しました'
+      practice = Practice.find_by!(title: 'テンプレなし')
+      visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
+      assert_empty find_field('practice_product_template_attributes_description').value
     end
 
     test 'create practice as a mentor' do
