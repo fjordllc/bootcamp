@@ -308,7 +308,7 @@
   list-style-type: none;
 }
 .a-long-text li.task-list-item input[type="checkbox"] {
-  margin-left: -1.3rem;
+  margin-left: -1.4em;
 }
 .a-long-text p {
   font-size: 1em;
