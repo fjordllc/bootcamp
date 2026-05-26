@@ -66,7 +66,7 @@ class Mentor::PracticesController < ApplicationController
       :ogp_image,
       category_ids: [],
       practices_books_attributes: %i[id book_id must_read _destroy],
-      product_template_attributes: %i[id description]
+      product_template_attributes: %i[id description _destroy]
     )
   end
 
