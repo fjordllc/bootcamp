@@ -81,9 +81,23 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     end
   end
 
-  test 'does not create a comment or reaction when intent is none' do
+  test 'creates only an eyes reaction when intent is none' do
     report = reports(:report1)
     pjord = users(:pjord)
+
+    Pjord::ReportClassifierAgent.stub(:classify, { intent: 'none', reason: '通常の学習記録' }) do
+      assert_difference -> { Reaction.where(user: pjord, reactionable: report, kind: :eyes).count }, 1 do
+        assert_no_difference 'Comment.count' do
+          PjordReportCommentJob.perform_now(report_id: report.id)
+        end
+      end
+    end
+  end
+
+  test 'does not duplicate eyes reaction when intent is none' do
+    report = reports(:report1)
+    pjord = users(:pjord)
+    Reaction.create!(user: pjord, reactionable: report, kind: :eyes)
 
     Pjord::ReportClassifierAgent.stub(:classify, { intent: 'none', reason: '通常の学習記録' }) do
       assert_no_difference ['Comment.count',
@@ -93,14 +107,15 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     end
   end
 
-  test 'does not create a comment or reaction when classification returns nil' do
+  test 'creates only an eyes reaction when classification returns nil' do
     report = reports(:report1)
     pjord = users(:pjord)
 
     Pjord::ReportClassifierAgent.stub(:classify, nil) do
-      assert_no_difference ['Comment.count',
-                            -> { Reaction.where(user: pjord, reactionable: report, kind: :eyes).count }] do
-        PjordReportCommentJob.perform_now(report_id: report.id)
+      assert_difference -> { Reaction.where(user: pjord, reactionable: report, kind: :eyes).count }, 1 do
+        assert_no_difference 'Comment.count' do
+          PjordReportCommentJob.perform_now(report_id: report.id)
+        end
       end
     end
   end
@@ -142,15 +157,16 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     end
   end
 
-  test 'does not create a comment or reaction when response is blank' do
+  test 'creates only an eyes reaction when response is blank' do
     report = reports(:report1)
     pjord = users(:pjord)
 
     Pjord::ReportClassifierAgent.stub(:classify, { intent: 'question', reason: '質問あり' }) do
       Pjord::ReportCommentAgent.stub(:comment, nil) do
-        assert_no_difference ['Comment.count',
-                              -> { Reaction.where(user: pjord, reactionable: report, kind: :eyes).count }] do
-          PjordReportCommentJob.perform_now(report_id: report.id)
+        assert_difference -> { Reaction.where(user: pjord, reactionable: report, kind: :eyes).count }, 1 do
+          assert_no_difference 'Comment.count' do
+            PjordReportCommentJob.perform_now(report_id: report.id)
+          end
         end
       end
     end
