@@ -25,11 +25,9 @@ class PjordReportCommentJob < ApplicationJob
   private
 
   def add_eyes_reaction(pjord, report)
-    begin
-      Reaction.find_or_create_by!(user: pjord, reactionable: report, kind: :eyes)
-    rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique => e
-      Rails.logger.error("[PjordReportCommentJob] reaction failed: #{e.class}: #{e.message}")
-    end
+    Reaction.find_or_create_by!(user: pjord, reactionable: report, kind: :eyes)
+  rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique => e
+    Rails.logger.error("[PjordReportCommentJob] reaction failed: #{e.class}: #{e.message}")
   end
 
   def classify(report)
