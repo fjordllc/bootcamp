@@ -1,11 +1,8 @@
-import Choices from 'choices.js'
-
 export default class {
   constructor(practices, practiceId, setPracticeId) {
     this.practices = practices
     this.practiceId = practiceId
     this.setPracticeId = setPracticeId
-    this.choices = null
     this.selectElement = null
     this.handleSelectChange = null
   }
@@ -40,18 +37,8 @@ export default class {
       this.selectElement.appendChild(option)
     })
 
-    this.choices = new Choices(this.selectElement, {
-      searchEnabled: true,
-      allowHTML: true,
-      searchResultLimit: 20,
-      searchPlaceholderValue: '検索ワード',
-      noResultsText: '一致する情報は見つかりません',
-      itemSelectText: '選択',
-      shouldSort: false
-    })
-
     if (this.practiceId) {
-      this.choices.setChoiceByValue(this.practiceId)
+      this.selectElement.value = this.practiceId
     }
 
     this.handleSelectChange = (event) => {
@@ -65,10 +52,6 @@ export default class {
   destroy() {
     if (this.selectElement && this.handleSelectChange) {
       this.selectElement.removeEventListener('change', this.handleSelectChange)
-    }
-    if (this.choices) {
-      this.choices.destroy()
-      this.choices = null
     }
     this.selectElement = null
     this.handleSelectChange = null

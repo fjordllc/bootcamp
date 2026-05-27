@@ -33,9 +33,7 @@ module SignUp
         find('label', text: 'Mac（Intel チップ）').click
         check 'Rubyの経験あり', allow_label_click: true
         first('.choices__inner').click
-        find('.choices__list--dropdown').click
-        find('.choices__list').click
-        find('#choices--js-choices-single-select-item-choice-2').click
+        find('.choices__item--choice', text: 'Fjord inc.').click
         find('label', text: 'アンチハラスメントポリシーに同意').click
         find('label', text: '利用規約に同意').click
       end
@@ -62,9 +60,7 @@ module SignUp
         find('label', text: 'Mac（Intel チップ）').click
         check 'Rubyの経験あり', allow_label_click: true
         first('.choices__inner').click
-        find('.choices__list--dropdown').click
-        find('.choices__list').click
-        find('#choices--js-choices-single-select-item-choice-2').click
+        find('.choices__item--choice', text: 'Fjord inc.').click
         find('label', text: 'アンチハラスメントポリシーに同意').click
         find('label', text: '利用規約に同意').click
       end
@@ -96,9 +92,7 @@ module SignUp
         check 'Rubyの経験あり', allow_label_click: true
         find('label', text: '請求書払い').click
         first('.choices__inner').click
-        find('.choices__list--dropdown').click
-        find('.choices__list').click
-        find('#choices--js-choices-single-select-item-choice-2').click
+        find('.choices__item--choice', text: 'Fjord inc.').click
         find('label', text: 'アンチハラスメントポリシーに同意').click
         find('label', text: '利用規約に同意').click
       end
@@ -125,9 +119,7 @@ module SignUp
         find('label', text: 'Mac（Intel チップ）').click
         check 'Rubyの経験あり', allow_label_click: true
         first('.choices__inner').click
-        find('.choices__list--dropdown').click
-        find('.choices__list').click
-        find('#choices--js-choices-single-select-item-choice-2').click
+        find('.choices__item--choice', text: 'Fjord inc.').click
         find('label', text: 'アンチハラスメントポリシーに同意').click
         find('label', text: '利用規約に同意').click
       end
