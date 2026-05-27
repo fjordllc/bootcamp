@@ -40,12 +40,9 @@ header.page-content-header.is-report
 
         .page-content-header-metas__end
           .page-content-header-metas__meta
-            - length = report.comments.length
-            a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
-              | コメント（
-              span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
-                = length
-              | ）
+            - if report.comments.any?
+              a.a-meta(href='#comments')
+                = event_comment_count(report)
 
     .page-content-header__row
       .page-content-header-actions
