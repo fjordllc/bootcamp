@@ -119,7 +119,7 @@ module Users
     test 'show training end date if user is a trainee and has a training end date' do
       user = users(:kensyu)
       visit_with_auth user_path(user.id), 'kensyu'
-      assert has_text?('研修終了日')
+      assert has_text?('研修終了予定日')
       assert has_text?('2022年04月01日')
     end
 
