@@ -16,12 +16,20 @@ const pad = (value) => value.toString().padStart(2, '0')
 
 const formatDateTimeParts = (date) => {
   const parts = dateTimeFormatter.formatToParts(date)
-  return (type) => parts.find((part) => part.type === type)?.value
+  return (type) => parts.find((part) => part.type === type)?.value || ''
 }
 
 export const parseDate = (date) => {
-  if (date instanceof Date) return date
-  return new Date(date + (date.includes('T') ? '' : 'T00:00:00'))
+  const parsedDate =
+    date instanceof Date
+      ? date
+      : new Date(date + (date.includes('T') ? '' : 'T00:00:00'))
+
+  if (Number.isNaN(parsedDate.getTime())) {
+    throw new Error(`Invalid date: ${date}`)
+  }
+
+  return parsedDate
 }
 
 export const formatDateTimeLocal = (date = new Date()) => {
@@ -38,10 +46,14 @@ export const formatDateTimeLocal = (date = new Date()) => {
 
 export const formatDateToJapanese = (date) => {
   const value = formatDateTimeParts(parseDate(date))
+  const year = value('year')
+  const month = value('month')
+  const day = value('day')
+  const weekday = value('weekday')
+  const hour = value('hour')
+  const minute = value('minute')
 
-  return `${value('year')}年${value('month')}月${value('day')}日(${value(
-    'weekday'
-  )}) ${value('hour')}:${value('minute')}`
+  return `${year}年${month}月${day}日(${weekday}) ${hour}:${minute}`
 }
 
 export const formatRelativeTime = (date, baseDate = new Date()) => {

@@ -25,7 +25,7 @@ const clickButton = (selector) => {
 
 const insertUserIconTag = (textarea) => {
   const loginName = textarea.dataset.loginName
-  if (!loginName) return
+  if (!loginName) return false
 
   const userIconTag = `:@${loginName}: `
   const start = textarea.selectionStart
@@ -33,6 +33,7 @@ const insertUserIconTag = (textarea) => {
   textarea.value =
     textarea.value.slice(0, start) + userIconTag + textarea.value.slice(end)
   textarea.selectionStart = textarea.selectionEnd = start + userIconTag.length
+  return true
 }
 
 document.addEventListener('keydown', (event) => {
@@ -68,7 +69,6 @@ document.addEventListener('keydown', (event) => {
   }
 
   if (editable && key === 'i' && canInsertText(event.target)) {
-    event.preventDefault()
-    insertUserIconTag(event.target)
+    if (insertUserIconTag(event.target)) event.preventDefault()
   }
 })
