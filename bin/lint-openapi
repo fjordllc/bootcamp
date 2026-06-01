@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'openapi_parser'
+require 'yaml'
+
+path = ARGV.fetch(0, 'docs/openapi.yaml')
+spec = YAML.safe_load_file(path)
+
+required_top_level_keys = %w[openapi info paths]
+missing_keys = required_top_level_keys.reject { |key| spec.key?(key) }
+
+abort "#{path}: missing required keys: #{missing_keys.join(', ')}" if missing_keys.any?
+abort "#{path}: paths must be a non-empty object" unless spec['paths'].is_a?(Hash) && spec['paths'].any?
+
+spec['paths'].each do |api_path, operations|
+  abort "#{path}: #{api_path} must start with /" unless api_path.start_with?('/')
+  abort "#{path}: #{api_path} operations must be an object" unless operations.is_a?(Hash)
+
+  operations.each do |method, operation|
+    next if method.start_with?('x-')
+
+    abort "#{path}: #{api_path} #{method} is missing responses" unless operation.is_a?(Hash) && operation['responses'].is_a?(Hash)
+  end
+end
+
+OpenAPIParser.parse(spec, strict_reference_validation: true)
+
+puts "#{path}: ok"
