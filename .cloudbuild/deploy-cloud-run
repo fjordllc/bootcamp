@@ -146,7 +146,8 @@ case "$environment" in
       PUBSUB_TOPIC="${_PUBSUB_TOPIC}"
     )
     if [[ -n "${_ENVS:-}" ]]; then
-      cloud_run_args+=("--set-env-vars=${_ENVS}")
+      IFS=',' read -ra extra_env_vars <<< "${_ENVS}"
+      env_vars+=("${extra_env_vars[@]}")
     fi
     ;;
   review)
