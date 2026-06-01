@@ -99,6 +99,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   has_many :footprints, dependent: :destroy
   has_many :images, dependent: :destroy
   has_many :products, dependent: :destroy
+  has_one :pjord_chat_session, dependent: :destroy
   has_many :questions, dependent: :destroy
   has_many :announcements, dependent: :destroy
   has_many :reactions, dependent: :destroy

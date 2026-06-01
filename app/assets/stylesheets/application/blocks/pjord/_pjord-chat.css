@@ -1,0 +1,163 @@
+.pjord-chat {
+  bottom: 1.25rem;
+  position: fixed;
+  right: 1.25rem;
+  z-index: 30;
+}
+
+.pjord-chat__launcher {
+  align-items: center;
+  background: var(--main);
+  border: none;
+  border-radius: 999rem;
+  box-shadow: 0 .5rem 1.25rem rgb(0 0 0 / 20%);
+  color: var(--reversal-text);
+  cursor: pointer;
+  display: flex;
+  font-size: .875rem;
+  font-weight: 700;
+  gap: .375rem;
+  min-height: 2.75rem;
+  padding: 0 1rem;
+}
+
+.pjord-chat__panel {
+  background: var(--base);
+  border: solid 1px var(--border);
+  border-radius: .5rem;
+  bottom: 3.75rem;
+  box-shadow: 0 .75rem 2rem rgb(0 0 0 / 18%);
+  display: flex;
+  flex-direction: column;
+  max-height: min(40rem, calc(100vh - 7rem));
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  width: min(24rem, calc(100vw - 2.5rem));
+}
+
+.pjord-chat__panel[hidden] {
+  display: none;
+}
+
+.pjord-chat__header {
+  align-items: center;
+  background: var(--main);
+  color: var(--reversal-text);
+  display: flex;
+  justify-content: space-between;
+  min-height: 3rem;
+  padding: 0 .875rem;
+}
+
+.pjord-chat__title {
+  align-items: center;
+  display: flex;
+  font-weight: 700;
+  gap: .375rem;
+}
+
+.pjord-chat__close {
+  align-items: center;
+  background: transparent;
+  border: none;
+  color: currentcolor;
+  cursor: pointer;
+  display: inline-flex;
+  height: 2rem;
+  justify-content: center;
+  width: 2rem;
+}
+
+.pjord-chat__messages {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: .625rem;
+  overflow-y: auto;
+  padding: .875rem;
+}
+
+.pjord-chat__message {
+  border-radius: .5rem;
+  font-size: .875rem;
+  line-height: 1.7;
+  max-width: 88%;
+  overflow-wrap: anywhere;
+  padding: .625rem .75rem;
+  white-space: pre-wrap;
+}
+
+.pjord-chat__message.is-assistant {
+  align-self: flex-start;
+  background: var(--background);
+  color: var(--default-text);
+}
+
+.pjord-chat__message.is-user {
+  align-self: flex-end;
+  background: var(--main);
+  color: var(--reversal-text);
+}
+
+.pjord-chat__form {
+  border-top: solid 1px var(--border);
+  display: grid;
+  gap: .5rem;
+  grid-template-columns: 1fr auto;
+  padding: .75rem;
+}
+
+.pjord-chat__textarea {
+  border: solid 1px var(--border);
+  border-radius: .25rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  min-height: 4rem;
+  padding: .5rem;
+  resize: vertical;
+}
+
+.pjord-chat__submit {
+  align-items: center;
+  align-self: end;
+  background: var(--main);
+  border: none;
+  border-radius: .25rem;
+  color: var(--reversal-text);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: .875rem;
+  font-weight: 700;
+  gap: .25rem;
+  min-height: 2.5rem;
+  padding: 0 .875rem;
+}
+
+.pjord-chat__submit:disabled {
+  cursor: wait;
+  opacity: .55;
+}
+
+@media (max-width: 40rem) {
+  .pjord-chat {
+    bottom: .75rem;
+    right: .75rem;
+  }
+
+  .pjord-chat__launcher-label {
+    display: none;
+  }
+
+  .pjord-chat__launcher {
+    justify-content: center;
+    min-width: 2.75rem;
+    padding: 0;
+  }
+
+  .pjord-chat__panel {
+    bottom: 3.5rem;
+    max-height: min(34rem, calc(100vh - 5rem));
+    width: calc(100vw - 1.5rem);
+  }
+}

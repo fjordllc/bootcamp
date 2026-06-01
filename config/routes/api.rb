@@ -10,6 +10,9 @@ Rails.application.routes.draw do
     namespace 'mentor' do
       resources :practices, only: %i(index)
     end
+    namespace 'pjord' do
+      resources :chat_messages, only: %i[index create]
+    end
     resource :pubsub, controller:"pub_sub", only: %i(create), defaults: { format: :json }
     resource :session, controller: "session", only: %i(create)
     resource :image, controller: "image", only: %i(create)

@@ -1,0 +1,21 @@
+- return unless current_user&.student_or_trainee?
+
+.pjord-chat(data-pjord-chat data-messages-url=api_pjord_chat_messages_path(format: :json))
+  button.pjord-chat__launcher(type='button' data-pjord-chat-launcher aria-expanded='false' aria-controls='pjord-chat-panel')
+    i.fa-solid.fa-comment-dots(aria-hidden='true')
+    span.pjord-chat__launcher-label ピヨルドに相談
+  section#pjord-chat-panel.pjord-chat__panel(data-pjord-chat-panel hidden)
+    header.pjord-chat__header
+      .pjord-chat__title
+        i.fa-solid.fa-robot(aria-hidden='true')
+        span ピヨルド
+      button.pjord-chat__close(type='button' data-pjord-chat-close aria-label='閉じる')
+        i.fa-solid.fa-xmark(aria-hidden='true')
+    .pjord-chat__messages(data-pjord-chat-messages aria-live='polite')
+      .pjord-chat__message.is-assistant
+        | こんにちは。学習で困っていることを相談してください。
+    form.pjord-chat__form(data-pjord-chat-form)
+      textarea.pjord-chat__textarea(data-pjord-chat-input name='message' rows='3' maxlength='2000' placeholder='相談内容を入力' required)
+      button.pjord-chat__submit(type='submit')
+        i.fa-solid.fa-paper-plane(aria-hidden='true')
+        span 送信
