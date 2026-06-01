@@ -42,16 +42,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const showError = (body) => appendMessage({ role: 'assistant', body })
 
   const loadMessages = async () => {
-    const response = await fetch(messagesUrl, {
-      headers: { Accept: 'application/json' }
-    })
-    if (!response.ok) return
+    try {
+      const response = await fetch(messagesUrl, {
+        headers: { Accept: 'application/json' }
+      })
+      if (!response.ok) {
+        showError('相談履歴を取得できませんでした。')
+        return
+      }
 
-    const data = await response.json()
-    if (!data.messages?.length) return
+      const data = await response.json()
+      if (!data.messages?.length) return
 
-    messages.replaceChildren()
-    data.messages.forEach(appendMessage)
+      messages.replaceChildren()
+      data.messages.forEach(appendMessage)
+    } catch (_error) {
+      showError('相談履歴を取得できませんでした。')
+    }
   }
 
   const setSubmitting = (submitting) => {

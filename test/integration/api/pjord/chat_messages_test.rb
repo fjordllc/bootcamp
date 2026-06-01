@@ -65,6 +65,22 @@ class API::Pjord::ChatMessagesTest < ActionDispatch::IntegrationTest
                  response.parsed_body.dig('assistant_message', 'body')
   end
 
+  test 'returns fallback assistant message when Pjord chat agent returns blank response' do
+    login(users(:hajime))
+
+    Pjord::ChatAgent.stub(:reply, ' ') do
+      assert_difference('PjordChatMessage.count', 2) do
+        post api_pjord_chat_messages_path(format: :json), params: { message: '相談です' }
+      end
+    end
+
+    assert_response :service_unavailable
+    assert_equal 'user', response.parsed_body.dig('user_message', 'role')
+    assert_equal 'assistant', response.parsed_body.dig('assistant_message', 'role')
+    assert_equal 'すみません、今はうまく回答できませんでした。時間をおいてもう一度試すか、メンターに相談してください。',
+                 response.parsed_body.dig('assistant_message', 'body')
+  end
+
   test 'mentor cannot use Pjord chat' do
     login(users(:mentormentaro))
 

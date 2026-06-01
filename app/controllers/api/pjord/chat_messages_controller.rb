@@ -6,6 +6,7 @@ class API::Pjord::ChatMessagesController < API::BaseController
   MESSAGE_MAX_LENGTH = 2_000
   HOURLY_MESSAGE_LIMIT = 20
   RESPONSE_TIMEOUT = 30.seconds
+  BlankAssistantResponse = Class.new(StandardError)
 
   before_action :require_student_or_trainee
   before_action -> { doorkeeper_authorize! :read }, only: :index, if: -> { doorkeeper_token.present? }
@@ -37,7 +38,9 @@ class API::Pjord::ChatMessagesController < API::BaseController
   def create_chat_response(body)
     @user_message = writable_chat_session.messages.create!(role: 'user', body:)
     assistant_body = fetch_assistant_body(body)
-    assistant_message = writable_chat_session.messages.create!(role: 'assistant', body: assistant_body.presence || fallback_message)
+    raise BlankAssistantResponse, 'Pjord response is blank' if assistant_body.blank?
+
+    assistant_message = writable_chat_session.messages.create!(role: 'assistant', body: assistant_body)
 
     render json: {
       user_message: message_json(@user_message),
