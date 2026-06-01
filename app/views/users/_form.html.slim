@@ -103,26 +103,26 @@
             .form-item-block__title
               | 休会管理
 
-          - if @user.hibernated?
-            .block-checks.is-1-item
-              .block-checks__item
-                .a-block-check.is-checkbox
-                  = check_box_tag :comeback_user, 1, false, class: 'a-toggle-checkbox', id: 'comeback-user'
-                  .a-block-check__label.is-ta-left
-                    = label_tag :comeback_user, '復帰させる', for: 'comeback-user'
+          .form-item-block__items
+            .form-item-block__item
+              .block-checks.is-1-item
+                .block-checks__item
+                  - if @user.hibernated?
+                    .a-block-check.is-checkbox
+                      = check_box_tag :comeback_user, 1, false, class: 'a-toggle-checkbox', id: 'comeback-user'
+                      .a-block-check__label.is-ta-left
+                        = label_tag :comeback_user, '復帰させる', for: 'comeback-user'
 
-          - else
-            .block-checks.is-1-item
-              .block-checks__item
-                .a-block-check.is-checkbox.js-date-input-toggler
-                  = check_box_tag :hibernate_user, 1, false, class: 'a-toggle-checkbox js-date-input-toggler-checkbox', id: 'hibernate-user'
-                  .a-block-check__label.is-ta-left.has-input
-                    = label_tag :hibernate_user, '休会させる', for: 'hibernate-user'
+                  - else
+                    .a-block-check.is-checkbox.js-date-input-toggler
+                      = check_box_tag :hibernate_user, 1, false, class: 'a-toggle-checkbox js-date-input-toggler-checkbox', id: 'hibernate-user'
+                      .a-block-check__label.is-ta-left.has-input
+                        = label_tag :hibernate_user, '休会させる', for: 'hibernate-user'
 
-                    .form-item__inline-form-item.js-date-input-toggler-date-area
-                      .is-block.w-full
-                        p 復帰予定日
-                        = date_field_tag :scheduled_return_on, nil, class: 'a-text-input js-date-input-toggler-date w-full'
+                        .form-item__inline-form-item.js-date-input-toggler-date-area
+                          .is-block.w-full
+                            p 復帰予定日
+                            = date_field_tag :scheduled_return_on, nil, class: 'a-text-input js-date-input-toggler-date w-full'
         .a-form-help
           p
             - if @user.hibernated?
