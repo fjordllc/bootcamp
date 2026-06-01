@@ -22,4 +22,4 @@
             - if user.comments.present?
               .card-list-item-meta__item
                 = link_to user_comments_path(user), class: 'card-list-item-meta__item-link a-text-link' do
-                  | コメント（#{user.comments.count}）
+                  = event_comment_count(user)
