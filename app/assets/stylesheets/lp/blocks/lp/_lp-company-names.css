@@ -1,0 +1,15 @@
+.a-short-text > .lp-company-names {
+  display: inline;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.lp-company-names li {
+  display: inline;
+}
+.lp-company-names li::after {
+  content: "、";
+}
+.lp-company-names li:last-child::after {
+  content: "";
+}
