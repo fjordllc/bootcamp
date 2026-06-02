@@ -5,6 +5,7 @@ class API::MentorMemosController < API::BaseController
   before_action -> { doorkeeper_authorize! :write }, only: %i[update], if: -> { doorkeeper_token.present? }
   before_action -> { doorkeeper_authorize! :mentor }, only: %i[update], if: -> { doorkeeper_token.present? }
   before_action :set_user, only: %i[create update]
+  before_action :set_memo, only: %i[update]
 
   def create
     memo = MentorMemo.new(mentor_memo_params)
@@ -19,7 +20,7 @@ class API::MentorMemosController < API::BaseController
   end
 
   def update
-    if @user.update_mentor_memo(user_params[:mentor_memo])
+    if @mentor_memo.update(mentor_memo_params)
       head :ok
     else
       head :bad_request
@@ -30,6 +31,10 @@ class API::MentorMemosController < API::BaseController
 
   def set_user
     @user = User.find(params[:user_id])
+  end
+
+  def set_memo
+    @mentor_memo = @user.received_memos.find(params[:id])
   end
 
   def mentor_memo_params

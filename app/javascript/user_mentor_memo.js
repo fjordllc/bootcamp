@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const memos = document.querySelectorAll('.mentor-memo')
     memos.forEach((memo) => {
-      initializeMemo(memo)
+      initializeMemo(memo, userId)
     })
 
     const addButton = memoDisplay.querySelector('.js-add-memo')
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const html = await createMemo(memoContent, userId)
       if (!html) return
 
-      const newMemo = initializeNewMemo(html)
+      const newMemo = initializeNewMemo(html, userId)
       newMemo.scrollIntoView()
       toggleClass(modalElements, 'is-hidden')
       editorTextarea.value = ''
@@ -120,13 +120,13 @@ async function createMemo(memo, userId) {
   }
 }
 
-function initializeNewMemo(html) {
+function initializeNewMemo(html, userId) {
   const memoList = document.querySelector('.mentor-memo-list')
   const memoDiv = document.createElement('div')
   memoDiv.innerHTML = html
   const newMemoElement = memoDiv.firstElementChild
   memoList.prepend(newMemoElement)
-  initializeMemo(newMemoElement)
+  initializeMemo(newMemoElement, userId)
 
   return newMemoElement
 }
