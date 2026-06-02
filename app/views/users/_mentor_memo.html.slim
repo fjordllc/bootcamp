@@ -1,12 +1,37 @@
-.mentor-memo data-memo_body="#{memo.body}"
-  a href="#{memo.writer.url}"
-    = memo.writer.login_name
-  div
-    = l memo.created_at
-  div.a-long-text.is-sm.memo-text
-    = memo.body
-  - if memo.writer == current_user || current_user.admin?
-    button.js-edit-memo
-      | 編集
-    button.js-delete-memo
-      | 削除
+.mentor-memo data-memo_body="#{memo.body}" data-memo_id="#{memo.id}"
+  .memo-display
+    a href="#{memo.writer.url}"
+      = memo.writer.login_name
+    div
+      = l memo.created_at
+    div.a-long-text.is-sm.memo-text
+      = memo.body
+    - if memo.writer == current_user || current_user.admin?
+      button.js-edit-memo
+        | 編集
+      button.js-delete-memo
+        | 削除
+  .memo-editor.is-hidden
+    .form-tabs.js-tabs
+      .form-tabs__tab.js-tabs__tab.editor-tab.is-active
+        | メモ
+      .form-tabs__tab.js-tabs__tab.preview-tab
+        | プレビュー
+    .card-body
+      .card-body__description
+        .a-markdown-input.js-markdown-parent
+          .a-markdown-input__inner.is-editor.js-tabs__content.is-active
+            textarea.a-text-input.a-markdown-input__textarea id="js-memo-#{memo.id}" data-preview="#mentor-memo-preview-#{memo.id}" name='mentor_memo[body]'
+              = memo.body
+          .a-markdown-input__inner.is-preview.js-tabs__content
+            .a-long-text.is-md.a-markdown-input__preview
+    hr.a-border-tint
+    .card-footer
+      .card-main-actions
+        .card-main-actions__items
+          .card-main-actions__item
+            button.a-button.is-sm.is-primary.is-block.js-save-memo
+              | 保存する
+          .card-main-actions__item
+            button.a-button.is-sm.is-secondary.is-block.js-cancel-memo
+              | キャンセル
