@@ -222,17 +222,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download JUnit XML
-        uses: actions/download-artifact@v4
-        with:
-          pattern: junit-xml-*
-          path: test/reports
-          merge-multiple: true
-
       - name: Generate flakewatch HTML
-        uses: komagata/flakewatch@v0.6.16
+        uses: komagata/flakewatch@v0.6.20
         with:
-          junit: "test/reports/**/*.xml"
+          junit-artifact-pattern: junit-xml-*
           source-root: "."
           history-branch: flakewatch-data
           history-write: auto
