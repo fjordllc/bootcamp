@@ -1,6 +1,7 @@
 import CSRF from 'csrf'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
+import initializeMemo from './initializeMentorMemo'
 
 document.addEventListener('DOMContentLoaded', () => {
   const mentorMemo = document.querySelector('.mentor-memos')
@@ -8,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
     TextareaInitializer.initialize('#js-new-memo')
     const markdownInitializer = new MarkdownInitializer()
     const userId = mentorMemo.dataset.user_id
-    const savedMemo = ''
 
     const memoDisplay = mentorMemo.querySelector('.memos-display')
     const memoEditor = mentorMemo.querySelector('.new-memo-editor')
@@ -22,11 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const memos = document.querySelectorAll('.mentor-memo')
     memos.forEach((memo) => {
-      const memoDisplayContent = memo.querySelector('.memo-text')
-      const memoBody = memo.dataset.memo_body
-      if (!memoBody) return
-
-      memoDisplayContent.innerHTML = markdownInitializer.render(memoBody)
+      initializeMemo(memo)
     })
 
     const addButton = memoDisplay.querySelector('.js-add-memo')
@@ -48,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const html = await createMemo(memoContent, userId)
       if (!html) return
 
-      const newMemo = initializeNewMemo(html, markdownInitializer)
+      const newMemo = initializeNewMemo(html)
       newMemo.scrollIntoView()
       toggleClass(modalElements, 'is-hidden')
       editorTextarea.value = ''
@@ -64,8 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const cancelButton = memoEditor.querySelector('.js-cancel-memo')
     cancelButton.addEventListener('click', () => {
       toggleClass(modalElements, 'is-hidden')
-      editorTextarea.value = savedMemo
-      memoEditorPreview.innerHTML = markdownInitializer.render(savedMemo)
+      editorTextarea.value = ''
+      memoEditorPreview.innerHTML = ''
       TextareaInitializer.initialize('#js-new-memo')
     })
 
@@ -124,15 +120,13 @@ async function createMemo(memo, userId) {
   }
 }
 
-function initializeNewMemo(html, markdownInitializer) {
+function initializeNewMemo(html) {
   const memoList = document.querySelector('.mentor-memo-list')
   const memoDiv = document.createElement('div')
   memoDiv.innerHTML = html
   const newMemoElement = memoDiv.firstElementChild
   memoList.prepend(newMemoElement)
-  const memoBody = newMemoElement.dataset.memo_body
-  const memoDisplayContent = newMemoElement.querySelector('.memo-text')
-  memoDisplayContent.innerHTML = markdownInitializer.render(memoBody)
+  initializeMemo(newMemoElement)
 
   return newMemoElement
 }
