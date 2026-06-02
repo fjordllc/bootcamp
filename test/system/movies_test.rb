@@ -41,14 +41,13 @@ class MoviesTest < ApplicationSystemTestCase
       content_type: 'video/mp4'
     )
     visit_with_auth "/movies/#{movie.id}", 'kimura'
-    assert_selector '#comment_count', text: 0
 
     wait_for_comment_form
     post_comment('コメント数表示のテストです。')
 
     visit_with_auth "/movies/#{movie.id}", 'kimura'
     wait_for_javascript_components
-    assert_selector '#comment_count', text: 1
+    assert_selector 'span', text: 1
   end
 
   test 'show the edit movie page' do

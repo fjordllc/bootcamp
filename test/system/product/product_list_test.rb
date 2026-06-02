@@ -37,7 +37,7 @@ class Product::ProductListTest < ApplicationSystemTestCase
     visit_with_auth '/products', 'komagata'
     product_item = find("a[href='/products/#{product.id}']").ancestor('.card-list-item')
     within product_item do
-      assert_text "コメント（#{product.comments.size}）"
+      assert_text(/コメント（\s*#{product.comments.size}\s*）/)
       assert_selector '.card-list-item__user-icons'
     end
   end
