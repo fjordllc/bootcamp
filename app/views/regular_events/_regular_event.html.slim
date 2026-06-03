@@ -22,9 +22,9 @@
               .a-meta
                 time.a-meta__value datetime=regular_event.updated_at.iso8601
                   = l regular_event.updated_at
-          .page-content-header-metas__end
-            .page-content-header-metas__meta
-              - if regular_event.comments.any?
+          - if regular_event.comments.any?
+            .page-content-header-metas__end
+              .page-content-header-metas__meta
                 a.a-meta(href='#comments')
                   = event_comment_count(regular_event)
 

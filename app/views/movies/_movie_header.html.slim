@@ -52,13 +52,12 @@ header.page-content-header
                           = image_tag 'users/avatars/ghost.png', class: 'thread-header__user-icon a-user-icon'
                       .a-user-name
                         | ghost
-
-        .page-content-header-metas__end
-          .page-content-header-metas
-            .page-content-header-metas__meta
-              - if movie.comments.any?
-                a.a-meta(href='#comments')
-                  = event_comment_count(movie)
+        - if movie.comments.any?
+          .page-content-header-metas__end
+            .page-content-header-metas
+                .page-content-header-metas__meta
+                  a.a-meta(href='#comments')
+                    = event_comment_count(movie)
 
     .page-content-header__row
       .page-content-header-actions

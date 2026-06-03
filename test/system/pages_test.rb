@@ -46,7 +46,7 @@ class PagesTest < ApplicationSystemTestCase
 
     visit current_path
     wait_for_javascript_components
-    assert_selector 'span', text: 1
+    assert_selector 'span.is-emphasized', text: 1
   end
 
   test 'show last updated user icon' do

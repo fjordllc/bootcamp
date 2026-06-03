@@ -55,11 +55,10 @@ header.page-content-header
                       image_class: 'thread-header__user-icon'
                     = link_to page.last_updated_user, class: 'a-user-name' do
                       | #{page.last_updated_user.login_name}
-
-        .page-content-header-metas__end
-          .page-content-header-metas
-            .page-content-header-metas__meta
-              - if page.comments.any?
+        - if page.comments.any?
+          .page-content-header-metas__end
+            .page-content-header-metas
+              .page-content-header-metas__meta
                 a.a-meta(href='#comments')
                   = event_comment_count(page)
 

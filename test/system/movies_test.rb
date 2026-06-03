@@ -47,7 +47,7 @@ class MoviesTest < ApplicationSystemTestCase
 
     visit_with_auth "/movies/#{movie.id}", 'kimura'
     wait_for_javascript_components
-    assert_selector 'span', text: 1
+    assert_selector 'a.a-meta[href="#comments"] span.is-emphasized', text: 1
   end
 
   test 'show the edit movie page' do

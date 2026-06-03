@@ -14,7 +14,7 @@ module EventsHelper
   end
 
   def event_comment_count(event)
-    safe_join(['コメント（', content_tag(:span, event.comments.length, class: 'is-emphasized'), '）'])
+    safe_join(['コメント（', content_tag(:span, event.comments.size, class: 'is-emphasized'), '）'])
   end
 
   def event_participant_count(event)

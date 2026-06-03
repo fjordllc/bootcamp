@@ -68,10 +68,9 @@ header.page-content-header.is-product
                   | 更新
                 time.a-meta__value datetime=product.updated_at.iso8601
                   = l product.updated_at
-
-        .page-content-header-metas__end
-          .page-content-header-metas__meta
-            - if product.comments.any?
+        - if product.comments.any?
+          .page-content-header-metas__end
+            .page-content-header-metas__meta
               a.a-meta(href='#comments')
                 = event_comment_count(product)
 

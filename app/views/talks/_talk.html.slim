@@ -10,28 +10,28 @@
               | #{talk.user.long_name} さんの相談部屋
       - if talk.comments.any?
         hr.card-list-item__row-separator
-          .card-list-item__row
-            .card-list-item-meta__items
-              .card-list-item-meta__item
-                .card-list-item-meta
-                  .card-list-item-meta__items
-                    .card-list-item-meta__item
+        .card-list-item__row
+          .card-list-item-meta__items
+            .card-list-item-meta__item
+              .card-list-item-meta
+                .card-list-item-meta__items
+                  .card-list-item-meta__item
+                    .a-meta
+                      = event_comment_count(talk)
+                  .card-list-item-meta__item
+                    .card-list-item__user-icons
+                      = render partial: 'users/icon',
+                        collection: talk.commented_users.distinct,
+                        locals: { link_class: 'card-list-item__user-icons-icon', image_class: 'a-user-icon' },
+                        as: :user,
+                        cached: true
+                  .card-list-item-meta__item
+                    .a-meta
+                      | 〜 #{l talk.comments.last.updated_at}
+                  .card-list-item-meta__item
+                    - if talk.comments.last.user.admin
                       .a-meta
-                        = event_comment_count(talk)
-                    .card-list-item-meta__item
-                      .card-list-item__user-icons
-                        = render partial: 'users/icon',
-                          collection: talk.commented_users.distinct,
-                          locals: { link_class: 'card-list-item__user-icons-icon', image_class: 'a-user-icon' },
-                          as: :user,
-                          cached: true
-                    .card-list-item-meta__item
+                        | （管理者）
+                    - else
                       .a-meta
-                        | 〜 #{l talk.comments.last.updated_at}
-                    .card-list-item-meta__item
-                      - if talk.comments.last.user.admin
-                        .a-meta
-                          | （管理者）
-                      - else
-                        .a-meta
-                          | （#{talk.user.login_name}）
+                        | （#{talk.user.login_name}）
