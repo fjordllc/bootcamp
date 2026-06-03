@@ -2,10 +2,10 @@
 
 class API::MentorMemosController < API::BaseController
   before_action :require_mentor_login_for_api
-  before_action -> { doorkeeper_authorize! :write }, only: %i[update], if: -> { doorkeeper_token.present? }
-  before_action -> { doorkeeper_authorize! :mentor }, only: %i[update], if: -> { doorkeeper_token.present? }
-  before_action :set_user, only: %i[create update]
-  before_action :set_memo, only: %i[update]
+  before_action -> { doorkeeper_authorize! :write }, only: %i[update destroy], if: -> { doorkeeper_token.present? }
+  before_action -> { doorkeeper_authorize! :mentor }, only: %i[update destroy], if: -> { doorkeeper_token.present? }
+  before_action :set_user, only: %i[create update destroy]
+  before_action :set_memo, only: %i[update destroy]
 
   def create
     memo = MentorMemo.new(mentor_memo_params)
@@ -25,6 +25,12 @@ class API::MentorMemosController < API::BaseController
     else
       head :bad_request
     end
+  end
+
+  def destroy
+    @mentor_memo.destroy
+
+    head :no_content
   end
 
   private

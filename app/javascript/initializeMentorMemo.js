@@ -3,12 +3,12 @@ import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
 
 export default function initializeMemo(memo, userId) {
-  const markdownInitializer = new MarkdownInitializer()
-
   const memoId = memo.dataset.memo_id
   const memoBody = memo.dataset.memo_body
   let savedMemo = memoBody || ''
+
   TextareaInitializer.initialize(`#js-memo-${memoId}`)
+  const markdownInitializer = new MarkdownInitializer()
 
   const memoDisplay = memo.querySelector('.memo-display')
   const memoDisplayContent = memo.querySelector('.memo-text')
@@ -53,6 +53,26 @@ export default function initializeMemo(memo, userId) {
     editorPreview.innerHTML = markdownInitializer.render(savedMemo)
   })
 
+  const deleteButton = memo.querySelector('.js-delete-memo')
+  if (deleteButton) {
+    deleteButton.addEventListener('click', async () => {
+      if (window.confirm('本当によろしいですか？')) {
+        try {
+          await deleteMemo(memoId, userId)
+          memo.remove()
+
+          const mentorMemos = document.querySelector('.mentor-memos')
+          const emptyMessage = mentorMemos.querySelector('.o-empty-message')
+          const memoList = mentorMemos.querySelectorAll('.mentor-memo')
+
+          if (!memoList.length) emptyMessage.classList.remove('is-hidden')
+        } catch (error) {
+          console.warn(error)
+        }
+      }
+    })
+  }
+
   const editorTab = memoEditor.querySelector('.editor-tab')
   const editorTabContent = memoEditor.querySelector('.is-editor')
   const previewTab = memoEditor.querySelector('.preview-tab')
@@ -94,6 +114,23 @@ export default function initializeMemo(memo, userId) {
     )
 
     if (!response.ok) throw new Error('Failed to update')
+  }
+
+  async function deleteMemo(memoId, userId) {
+    const response = await fetch(
+      `/api/users/${userId}/mentor_memos/${memoId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': CSRF.getToken()
+        },
+        credentials: 'same-origin',
+        redirect: 'manual'
+      }
+    )
+
+    if (!response.ok) throw new Error('Failed to delete')
   }
 
   function toggleEditor() {
