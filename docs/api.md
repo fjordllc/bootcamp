@@ -2,13 +2,13 @@
 
 Bootcamp の API 仕様は OpenAPI 3.1 形式で `docs/openapi.yaml` にまとめています。
 
-外部向けの閲覧用ドキュメントは Swagger UI で `public/api-docs/` に生成します。
+外部向けの閲覧用ドキュメントは Swagger UI で `public/api-docs/` に生成します。生成処理は Ruby スクリプトで行い、Swagger UI の配布ファイルは `swagger-ui-dist` からコピーします。
 
 ```bash
 npm run build:openapi-docs
 ```
 
-生成後はローカルで `http://localhost:3000/api-docs/` から確認できます。本番環境でも静的ファイルとして `/api-docs/` から参照できます。公開用の生成物は本番の静的配信対象にするためコミットし、`npm run lint:openapi` で `docs/openapi.yaml` と `public/api-docs/` の同期を確認します。
+生成後はローカルで `http://localhost:3000/api-docs/` から確認できます。本番環境でも静的ファイルとして `/api-docs/` から参照できます。公開用の生成物は本番の静的配信対象にするためコミットし、`npm run lint:openapi` で `openapi_parser` gem による `docs/openapi.yaml` の検証と、`public/api-docs/` の同期を確認します。
 
 構文と基本構造の確認:
 

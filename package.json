@@ -4,7 +4,7 @@
     "lint:eslint": "eslint 'app/javascript/**/*.js' --max-warnings=0",
     "lint:openapi": "bundle exec ruby bin/lint-openapi && npm run build:openapi-docs -- --check",
     "lint:prettier": "prettier 'app/javascript/**/*.js' --check",
-    "build:openapi-docs": "node bin/build-openapi-docs"
+    "build:openapi-docs": "ruby bin/build-openapi-docs"
   },
   "dependencies": {
     "@babel/core": "^7.23.7",
