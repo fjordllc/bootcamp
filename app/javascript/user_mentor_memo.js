@@ -49,7 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
       toggleClass(modalElements, 'is-hidden')
       editorTextarea.value = ''
       memoEditorPreview.innerHTML = ''
-      TextareaInitializer.initialize('#js-new-memo')
 
       const emptyMessage = mentorMemo.querySelector('.o-empty-message')
       if (emptyMessage) {
@@ -62,14 +61,12 @@ document.addEventListener('DOMContentLoaded', () => {
       toggleClass(modalElements, 'is-hidden')
       editorTextarea.value = ''
       memoEditorPreview.innerHTML = ''
-      TextareaInitializer.initialize('#js-new-memo')
     })
 
     editorTextarea.addEventListener('change', () => {
       memoEditorPreview.innerHTML = markdownInitializer.render(
         editorTextarea.value
       )
-      TextareaInitializer.initialize('#js-new-memo')
     })
 
     const editorTab = memoEditor.querySelector('.editor-tab')
