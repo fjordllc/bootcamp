@@ -52,9 +52,6 @@ module SignUp
         fill_in 'user[password]', with: 'testtest'
         fill_in 'user[password_confirmation]', with: 'testtest'
         find('label', text: 'Mac（Intel チップ）').click
-        first('.choices__inner').click
-        find('.choices__list--dropdown').click
-        find('.choices__list').click
         find('label', text: 'アンチハラスメントポリシーに同意').click
         find('label', text: '利用規約に同意').click
       end

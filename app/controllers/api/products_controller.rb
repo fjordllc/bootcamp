@@ -29,6 +29,7 @@ class API::ProductsController < API::BaseController
     update_published_at
 
     if @product.save
+      create_pjord_review(wip_before_save: nil)
       ActiveSupport::Notifications.instrument('product.create', product: @product)
       ActiveSupport::Notifications.instrument('product.save', product: @product)
       render_product_json :created
@@ -40,11 +41,13 @@ class API::ProductsController < API::BaseController
   def update
     return render json: { message: '提出物のプラクティスは変更できません。' }, status: :bad_request if product_params.key?(:practice_id)
 
+    wip_before_save = @product.wip?
     @product.assign_attributes(product_attributes)
     apply_wip
     update_published_at
 
     if @product.save
+      create_pjord_review(wip_before_save:)
       ActiveSupport::Notifications.instrument('product.update', { product: @product, current_user: })
       ActiveSupport::Notifications.instrument('product.save', product: @product)
       render_product_json :ok
@@ -92,6 +95,10 @@ class API::ProductsController < API::BaseController
     elsif @product.published_at.blank?
       @product.published_at = Time.current
     end
+  end
+
+  def create_pjord_review(wip_before_save:)
+    PjordReview.call(product: @product, wip_before_save:)
   end
 
   def render_product_json(status)

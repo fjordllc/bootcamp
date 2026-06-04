@@ -27,17 +27,17 @@ steps:
       - name: db
         path: /cloudsql
   - id: WaitForProxy
-    name: gcr.io/google.com/cloudsdktool/cloud-sdk
-    entrypoint: bash
+    name: postgres:16-alpine
+    entrypoint: sh
     args:
       - '-c'
       - |
-        set -euo pipefail
+        set -eu
         echo "Waiting for Cloud SQL Proxy..."
         TIMEOUT=60
         ELAPSED=0
         while [ $$ELAPSED -lt $$TIMEOUT ]; do
-          if PGPASSWORD=$_DB_PASS psql -h /cloudsql/$_CLOUD_SQL_HOST -U $_DB_USER -d postgres -c "SELECT 1" 2>/dev/null; then
+          if PGPASSWORD=$_DB_PASS PGCONNECT_TIMEOUT=2 psql -h /cloudsql/$_CLOUD_SQL_HOST -U $_DB_USER -d postgres -c "SELECT 1"; then
             echo "Proxy ready."
             exit 0
           fi
@@ -52,12 +52,18 @@ steps:
       - name: db
         path: /cloudsql
   - id: DropDB
-    name: gcr.io/google.com/cloudsdktool/cloud-sdk
-    entrypoint: bash
+    name: postgres:16-alpine
+    entrypoint: sh
     args:
       - '-c'
       - |
-        set -euo pipefail
+        set -eu
+        case "${_PR_NUMBER}" in
+          (*[!0-9]*|'')
+            echo "Invalid PR number: ${_PR_NUMBER}" >&2
+            exit 1
+            ;;
+        esac
         DB_NAME="bootcamp_pr_${_PR_NUMBER}"
         echo "Terminating connections to $${DB_NAME}..."
         PGPASSWORD=$_DB_PASS psql -h /cloudsql/$_CLOUD_SQL_HOST -U $_DB_USER -d postgres -c \

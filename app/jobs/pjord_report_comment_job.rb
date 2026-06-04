@@ -11,6 +11,8 @@ class PjordReportCommentJob < ApplicationJob
     pjord = Pjord.user
     return if pjord.nil?
 
+    add_eyes_reaction(pjord, report)
+
     intent = classify(report)
     return if intent == 'none'
 
@@ -18,15 +20,15 @@ class PjordReportCommentJob < ApplicationJob
     return if response.blank?
 
     Comment.create!(user: pjord, commentable: report, description: response)
-
-    begin
-      Reaction.find_or_create_by!(user: pjord, reactionable: report, kind: :eyes)
-    rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique => e
-      Rails.logger.error("[PjordReportCommentJob] reaction failed: #{e.class}: #{e.message}")
-    end
   end
 
   private
+
+  def add_eyes_reaction(pjord, report)
+    Reaction.find_or_create_by!(user: pjord, reactionable: report, kind: :eyes)
+  rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique => e
+    Rails.logger.error("[PjordReportCommentJob] reaction failed: #{e.class}: #{e.message}")
+  end
 
   def classify(report)
     result = Pjord::ReportClassifierAgent.classify(report)

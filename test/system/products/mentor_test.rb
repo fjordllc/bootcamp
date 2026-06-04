@@ -17,9 +17,9 @@ module Products
       assert_no_text 'ピヨルドでレビューコメントをする'
     end
 
-    test 'admins can see review by Pjord button' do
+    test 'admins cannot see review by Pjord button' do
       visit_with_auth "/products/#{products(:product2).id}", 'adminonly'
-      assert_text 'ピヨルドでレビューコメントをする'
+      assert_no_text 'ピヨルドでレビューコメントをする'
     end
 
     test 'students can not see block for mentors' do

@@ -94,7 +94,7 @@ class Admin::UsersController < AdminController
       :trainee, :nda, :avatar,
       :graduated_on, :retired_on,
       :job_seeker, :github_collaborator,
-      :officekey_permission, :tag_list, :training_ends_on,
+      :officekey_permission, :tag_list, :training_ends_on, :training_completed_at,
       :profile_image, :profile_name, :profile_job, :mentor, :diploma_file,
       :career_path, :career_memo,
       :auto_retire, :invoice_payment, :show_mentor_profile,

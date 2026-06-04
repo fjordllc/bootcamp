@@ -50,10 +50,13 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   setup do
     @original_adapter = ActiveJob::Base.queue_adapter
     ActiveJob::Base.queue_adapter = :inline
+    @original_pjord_product_review = Pjord::ProductReviewAgent.method(:review)
+    Pjord::ProductReviewAgent.define_singleton_method(:review) { |_product| '' }
   end
 
   teardown do
     ActionMailer::Base.deliveries.clear
+    Pjord::ProductReviewAgent.define_singleton_method(:review, @original_pjord_product_review)
     ActiveJob::Base.queue_adapter = @original_adapter
   end
 end

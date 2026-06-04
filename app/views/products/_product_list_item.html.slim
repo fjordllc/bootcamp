@@ -70,7 +70,7 @@ ruby:
             .card-list-item-meta__item
               - if product.user.training_ends_on.present?
                 .a-meta
-                  span.a-meta__label 研修終了日
+                  span.a-meta__label 研修終了予定日
                   time.a-meta__value datetime=product.user.training_ends_on.in_time_zone.iso8601
                     = l(product.user.training_ends_on)
                   - remaining_days = (product.user.training_ends_on.to_date - Date.current).to_i
@@ -84,7 +84,7 @@ ruby:
                     span.a-meta__value （あと#{remaining_days}日）
               - else
                 .a-meta
-                  span.a-meta__label 研修終了日
+                  span.a-meta__label 研修終了予定日
                   span.a-meta__value 未入力
       - if current_user.mentor? && product.checks.empty?
         .card-list-item__row.is-only-mentor

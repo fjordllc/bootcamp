@@ -50,3 +50,4 @@ yarn-debug.log*
 .yarn-integrity
 .claude
 .DS_Store
+.agents

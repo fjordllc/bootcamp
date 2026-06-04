@@ -1,7 +1,5 @@
 import CSRF from 'csrf'
-import dayjs from 'dayjs'
-import ja from 'dayjs/locale/ja'
-dayjs.locale(ja)
+import { formatDateToJapanese } from './utilities/date.js'
 
 const headers = () => {
   return {
@@ -44,6 +42,6 @@ export default {
   },
 
   iso8601ToFullTime(isoString) {
-    return dayjs(isoString).format('YYYY年MM月DD日(dd) HH:mm')
+    return formatDateToJapanese(isoString)
   }
 }

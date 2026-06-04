@@ -32,36 +32,58 @@ article.lp
           .lp-hero-visual
             = image_tag('training/training_main.svg', class: 'lp-hero-visual__image', alt: 'フィヨルドブートキャンプの企業研修代行イメージイラスト')
 
-  //
-    section.lp-content.is-lp-bg-1.is-top-title.corporate-training-clients
-      .l-container.is-lg
-        .lp-content__inner
-          .lp-content__start
-            header.lp-content__header
-              h2.lp-content-title.is-sm.text-center
-                | 多くの企業様にご利用いただいています
-          .lp-content__start
-            .lp-company-logos
+  section.lp-content.is-lp-bg-1.is-top-title.corporate-training-clients
+    .l-container.is-xxl
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.is-sm.text-center
+              | 新人研修から中途社員の育成まで、
+              br
+              | さまざまな企業にご利用いただいています。
+        .lp-content__start
+          .lp-company-logos
+            .lp-company-logos__item
+              = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener' do
+                = image_tag('company_logos/gmo-pepabo.svg', alt: '株式会社GMOペパボ')
+            .lp-company-logos__item
+              = link_to 'https://esm.co.jp/', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener' do
+                = image_tag('company_logos/esm.svg', alt: '株式会社永和システムマネジメント')
+            .lp-company-logos__item
+              = link_to 'https://www.luxiar.com/', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener' do
+                = image_tag('company_logos/luxiar.svg', alt: '株式会社ラグザイア')
+            .lp-company-logos__item
+              = link_to 'https://everyleaf.com/', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener' do
+                = image_tag('company_logos/everyleaf.svg', alt: '株式会社万葉')
+            .lp-company-logos__item
+              = link_to 'https://www.pixiv.co.jp/', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener' do
+                = image_tag('company_logos/pixiv.svg', alt: 'ピクシブ株式会社')
+            //
               .lp-company-logos__item
-                = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
-                  = image_tag('company_logos/gmo-pepabo.svg', alt: '株式会社GMOペパボ')
-              .lp-company-logos__item
-                = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
-                  = image_tag('company_logos/esm.svg', alt: '株式会社永和システムマネジメント')
-              .lp-company-logos__item
-                = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
-                  = image_tag('company_logos/luxiar.svg', alt: '株式会社ラグザイア')
-              .lp-company-logos__item
-                = link_to 'https://everyleaf.com/', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
-                  = image_tag('company_logos/everyleaf.svg', alt: '株式会社万葉')
-              .lp-company-logos__item
-                = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
+                = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener' do
                   = image_tag('company_logos/enishi.svg', alt: '株式会社えにしテック')
-              .lp-company-logos__item
-                = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
-                  = image_tag('company_logos/ruby-dev.svg', alt: '株式会社Ruby開発')
+            .lp-company-logos__item
+              = link_to 'https://www.ruby-dev.jp/', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener' do
+                = image_tag('company_logos/ruby-dev.svg', alt: '株式会社Ruby開発')
+            .lp-company-logos__item
+              = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener' do
+                = image_tag('company_logos/genbasupport.svg', alt: '株式会社現場サポート')
+            .lp-company-logos__item
+              = link_to 'https://www.vitallead.co.jp/', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener' do
+                = image_tag('company_logos/vitallead.svg', alt: '株式会社バイタルリード')
+            .lp-company-logos__item
+              = link_to 'https://www.icubedsystems.com/', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener' do
+                = image_tag('company_logos/icubedsystems.svg', alt: '株式会社アイキューブドシステムズ')
+            .lp-company-logos__item
+              = link_to 'https://youcube.jp/', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener' do
+                = image_tag('company_logos/youcube.svg', alt: '合同会社ユーキューブ')
+          .a-short-text.is-ta-center.mt-8
+            p.text-lg
+              | 掲載している企業は一部です。
+              br
+              | 業種や規模を問わず、さまざまな企業のエンジニア育成を支援しています。
 
-  section.lp-content.is-lp-bg-1.is-left-title.corporate-training-overview
+  section.lp-content.is-lp-bg-3.is-left-title.corporate-training-overview
     .l-container.is-xl
       .lp-content__inner
         .lp-content__start
@@ -93,98 +115,98 @@ article.lp
                 | FBCの教育は貴社の現場のエンジニアと考えが近く、きっと納得のいく成果をもたらすはずです。
 
   section.lp-content.is-lp-bg-2.is-top-title.lp-capture-sections
-    .l-container.is-xl
-      .lp-content__inner
-        .lp-content__start
-          header.lp-content__header
-            .lp-capture-sections-header__start
-              h2.lp-content-title.is-border-bottom.text-center
-                | 助成金を活用して、
-                br
-                strong
-                  | 研修コストを最大75％削減
-            .lp-capture-sections-header__end
-        .lp-content__end
-          .lp-content-stack
-            .lp-content-stack__item
+      .l-container.is-xl
+        .lp-content__inner
+          .lp-content__start
+            header.lp-content__header
+              .lp-capture-sections-header__start
+                h2.lp-content-title.is-border-bottom.text-center
+                  | 助成金を活用して、
+                  br
+                  strong
+                    | 研修コストを最大75％削減
+              .lp-capture-sections-header__end
+          .lp-content__end
+            .lp-content-stack
+              .lp-content-stack__item
 
-              .lp-content-section
-                .row.is-gutter-width-32
-                  .col-xs-12.col-md-6
-                    section.lp-top-image-section
-                      .lp-top-image-section__inner.a-card
-                        = image_tag('money-2.svg', class: 'lp-top-image-section__icon', alt: '助成金のイメージイラスト')
-                        h3.lp-card-title.text-center
-                          | 受講料 + 研修期間中の賃金が助成対象
-                        .lp-card-description
-                          .a-short-text
-                            p
-                              | 厚生労働省の「人材開発支援助成金」を活用すると、
-                              | FBCの研修にかかる以下の費用が助成の対象になります。
-                            ul
-                              li
-                                strong
-                                  | 研修の受講料
-                              li
-                                strong
-                                  | 研修期間中の受講者の賃金
-                            p
-                              | 受講料だけでなく、研修中に発生する人件費も対象になるため、
-                              | 企業様の実質的な負担を大きく抑えることができます。
+                .lp-content-section
+                  .row.is-gutter-width-32
+                    .col-xs-12.col-md-6
+                      section.lp-top-image-section
+                        .lp-top-image-section__inner.a-card
+                          = image_tag('money-2.svg', class: 'lp-top-image-section__icon', alt: '助成金のイメージイラスト')
+                          h3.lp-card-title.text-center
+                            | 受講料 + 研修期間中の賃金が助成対象
+                          .lp-card-description
+                            .a-short-text
+                              p
+                                | 厚生労働省の「人材開発支援助成金」を活用すると、
+                                | FBCの研修にかかる以下の費用が助成の対象になります。
+                              ul
+                                li
+                                  strong
+                                    | 研修の受講料
+                                li
+                                  strong
+                                    | 研修期間中の受講者の賃金
+                              p
+                                | 受講料だけでなく、研修中に発生する人件費も対象になるため、
+                                | 企業様の実質的な負担を大きく抑えることができます。
 
-                  .col-xs-12.col-md-6
-                    section.lp-top-image-section
-                      .lp-top-image-section__inner.a-card
-                        = image_tag('practice.svg', class: 'lp-top-image-section__icon', alt: '提携社労士のイメージイラスト')
-                        h3.lp-card-title.text-center
-                          | 申請は提携社労士がサポートも可能
-                        .lp-card-description
-                          .a-short-text
-                            p
-                              | 「助成金は気になるけど、申請が面倒そう」という方もご安心ください。
-                              | FBCでは助成金申請の実績が豊富な提携社労士をご紹介できます。
-                              | 制度選定から計画書作成、申請手続き、実施後の報告まで、
-                              | 専門家がサポートします。
-                          .a-notice-block.is-danger.mt-4
-                            p
-                              | 助成金は「研修開始前」の申請が必須です。
-                              | 原則、研修開始の1ヶ月前までに計画届の提出が必要です。
-                              br
-                              | 提携社労士を利用される場合は、
-                              | 研修開始の1ヶ月半前までにご相談ください。
+                    .col-xs-12.col-md-6
+                      section.lp-top-image-section
+                        .lp-top-image-section__inner.a-card
+                          = image_tag('practice.svg', class: 'lp-top-image-section__icon', alt: '提携社労士のイメージイラスト')
+                          h3.lp-card-title.text-center
+                            | 申請は提携社労士がサポートも可能
+                          .lp-card-description
+                            .a-short-text
+                              p
+                                | 「助成金は気になるけど、申請が面倒そう」という方もご安心ください。
+                                | FBCでは助成金申請の実績が豊富な提携社労士をご紹介できます。
+                                | 制度選定から計画書作成、申請手続き、実施後の報告まで、
+                                | 専門家がサポートします。
+                            .a-notice-block.is-danger.mt-4
+                              p
+                                | 助成金は「研修開始前」の申請が必須です。
+                                | 原則、研修開始の1ヶ月前までに計画届の提出が必要です。
+                                br
+                                | 提携社労士を利用される場合は、
+                                | 研修開始の1ヶ月半前までにご相談ください。
 
-            .lp-content-stack__item
-              .l-inner-container.is-lg
-                section.lp-capture-section
-                  .lp-capture-section__inner.is-sm-block
-                    .lp-capture-section__start.is-sm
-                      = link_to 'https://www.namba-office.osaka.jp/', target: '_blank', rel: 'noopener' do
-                        = image_tag('logic.png', alt: 'ロジック社労士事務所のロゴ')
-                    .lp-capture-section__end
-                      .lp-capture-section__content(class='!gap-4' )
-                        header.lp-capture-section__header
-                          h3.lp-content-sub-title.is-sm
-                            | 提携社労士事務所のご紹介
-                        .lp-capture-section__body
-                          .a-short-text
-                            p
-                              = link_to 'ロジック社労士事務所', 'https://www.namba-office.osaka.jp/', target: '_blank', rel: 'noopener'
-                              | は、「わかりやすく、ともに歩む」をコンセプトに、
-                              | 中小企業の労務課題に寄り添うサポートを行っている社労士事務所です。
-                            p
-                              | 複雑な助成金制度もわかりやすく説明し、
-                              | 「自社が対象になるかわからない」という段階から相談に乗ってもらえます。
-                              | まずはお気軽に社労士の紹介についてお問い合わせください。
+              .lp-content-stack__item
+                .l-inner-container.is-lg
+                  section.lp-capture-section
+                    .lp-capture-section__inner.is-sm-block
+                      .lp-capture-section__start.is-sm
+                        = link_to 'https://www.namba-office.osaka.jp/', target: '_blank', rel: 'noopener' do
+                          = image_tag('logic.png', alt: 'ロジック社労士事務所のロゴ')
+                      .lp-capture-section__end
+                        .lp-capture-section__content(class='!gap-4' )
+                          header.lp-capture-section__header
+                            h3.lp-content-sub-title.is-sm
+                              | 提携社労士事務所のご紹介
+                          .lp-capture-section__body
+                            .a-short-text
+                              p
+                                = link_to 'ロジック社労士事務所', 'https://www.namba-office.osaka.jp/', target: '_blank', rel: 'noopener'
+                                | は、「わかりやすく、ともに歩む」をコンセプトに、
+                                | 中小企業の労務課題に寄り添うサポートを行っている社労士事務所です。
+                              p
+                                | 複雑な助成金制度もわかりやすく説明し、
+                                | 「自社が対象になるかわからない」という段階から相談に乗ってもらえます。
+                                | まずはお気軽に社労士の紹介についてお問い合わせください。
 
-            .lp-content-stack__item
-              .lp-actions
-                ul.lp-actions__items
-                  li.lp-actions__item
-                    = link_to new_inquiry_path, class: 'a-button is-xl is-primary-border is-block' do
-                      | お問い合わせ
-                  li.lp-actions__item
-                    = link_to new_corporate_training_inquiry_path, class: 'a-button is-xl is-warning is-block' do
-                      | 研修を申し込む
+              .lp-content-stack__item
+                .lp-actions
+                  ul.lp-actions__items
+                    li.lp-actions__item
+                      = link_to new_inquiry_path, class: 'a-button is-xl is-primary-border is-block' do
+                        | お問い合わせ
+                    li.lp-actions__item
+                      = link_to new_corporate_training_inquiry_path, class: 'a-button is-xl is-warning is-block' do
+                        | 研修を申し込む
 
   section.lp-content.is-lp-bg-1.is-top-title
     .l-container.is-xl
