@@ -1,7 +1,7 @@
-import CSRF from 'csrf'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
 import initializeMemo from './initializeMentorMemo'
+import { post } from '@rails/request.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const mentorMemo = document.querySelector('.mentor-memos')
@@ -90,23 +90,16 @@ async function createMemo(memo, userId) {
     }
   }
   try {
-    const response = await fetch(`/api/users/${userId}/mentor_memos/`, {
-      method: 'POST',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        'Content-Type': 'application/json; charset=utf-8',
-        'X-CSRF-Token': CSRF.getToken()
-      },
-      credentials: 'same-origin',
-      redirect: 'manual',
-      body: JSON.stringify(params)
+    const response = await post(`/api/users/${userId}/mentor_memos/`, {
+      body: params
     })
 
     if (!response.ok) throw new Error('Failed to fetch')
 
-    return response.text()
+    return await response.text
   } catch (error) {
     console.warn(error)
+
     return false
   }
 }
