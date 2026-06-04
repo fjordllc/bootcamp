@@ -59,6 +59,7 @@
 @import "./application/blocks/page-content/_page-content-prev-next.css";
 @import "./application/blocks/pair-work/_pair-work-info.css";
 @import "./application/blocks/pair-work/_pair-work-schedule-dates.css";
+@import "./application/blocks/pjord/_pjord-chat.css";
 @import "./application/blocks/practice/_categories.css";
 @import "./application/blocks/practice/_category-practices-item.css";
 @import "./application/blocks/practice/_completion-massage.css";

@@ -91,6 +91,7 @@ import '../bookmark-button.js'
 import '../notifications_remove_after_open.js'
 import '../notifications-bell.js'
 import '../products-checker-init.js'
+import '../pjord-chat.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   Cocooned.start()

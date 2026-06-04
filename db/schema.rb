@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_15_062046) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_01_070001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -584,6 +584,24 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_062046) do
     t.index ["event_id"], name: "index_participations_on_event_id"
     t.index ["user_id", "event_id"], name: "index_participations_on_user_id_and_event_id", unique: true
     t.index ["user_id"], name: "index_participations_on_user_id"
+  end
+
+  create_table "pjord_chat_messages", force: :cascade do |t|
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.bigint "pjord_chat_session_id", null: false
+    t.string "role", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pjord_chat_session_id", "created_at"], name: "idx_on_pjord_chat_session_id_created_at_dff8cfe7fd"
+    t.index ["pjord_chat_session_id"], name: "index_pjord_chat_messages_on_pjord_chat_session_id"
+    t.check_constraint "role::text = ANY (ARRAY['user'::character varying, 'assistant'::character varying]::text[])", name: "pjord_chat_messages_role_check"
+  end
+
+  create_table "pjord_chat_sessions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_pjord_chat_sessions_on_user_id", unique: true
   end
 
   create_table "practices", id: :serial, force: :cascade do |t|
@@ -1166,6 +1184,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_062046) do
   add_foreign_key "pair_works", "users", column: "buddy_id"
   add_foreign_key "participations", "events"
   add_foreign_key "participations", "users"
+  add_foreign_key "pjord_chat_messages", "pjord_chat_sessions"
+  add_foreign_key "pjord_chat_sessions", "users"
   add_foreign_key "practices", "practices", column: "source_id"
   add_foreign_key "practices_books", "books"
   add_foreign_key "practices_books", "practices"
