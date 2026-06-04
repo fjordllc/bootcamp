@@ -131,6 +131,16 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
     assert_equal practice.id, response.parsed_body['practice_id']
   end
 
+  test 'enqueues Pjord product review when creating submitted product with write scope' do
+    practice = first_unsubmitted_practice(@user)
+
+    assert_enqueued_with(job: PjordProductReviewJob) do
+      post api_products_path(format: :json),
+           headers: { Authorization: "Bearer #{@write_token.token}" },
+           params: { product: { practice_id: practice.id, body: 'APIから提出します。', wip: false } }
+    end
+  end
+
   test 'can update own product with write scope' do
     product = products(:product8)
 
@@ -145,6 +155,26 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
     assert_nil product.published_at
     assert_equal product.body, response.parsed_body['body']
     assert response.parsed_body['wip']
+  end
+
+  test 'enqueues Pjord product review when updating WIP product to submitted with write scope' do
+    product = products(:product5)
+
+    assert_enqueued_with(job: PjordProductReviewJob, args: [{ product_id: product.id }]) do
+      patch api_product_path(product, format: :json),
+            headers: { Authorization: "Bearer #{@write_token.token}" },
+            params: { product: { body: 'APIから提出します。', wip: false } }
+    end
+  end
+
+  test 'does not enqueue Pjord product review when updating submitted product with write scope' do
+    product = products(:product8)
+
+    assert_no_enqueued_jobs only: PjordProductReviewJob do
+      patch api_product_path(product, format: :json),
+            headers: { Authorization: "Bearer #{@write_token.token}" },
+            params: { product: { body: 'APIから更新します。', wip: false } }
+    end
   end
 
   test 'can delete own product with write scope' do

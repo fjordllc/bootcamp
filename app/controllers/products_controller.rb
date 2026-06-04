@@ -3,7 +3,6 @@
 class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLength
   before_action :check_permission!, only: %i[show]
   before_action :require_staff_login, only: :index
-  before_action :require_admin_login, only: :review_by_pjord
   before_action :set_watch, only: %i[show]
   before_action :set_target, only: %i[index]
 
@@ -52,6 +51,7 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     set_wip
     update_published_at
     if @product.save
+      create_pjord_review(wip_before_save: nil)
       ActiveSupport::Notifications.instrument('product.create', product: @product)
       ActiveSupport::Notifications.instrument('product.save', product: @product)
       redirect_to Redirection.determin_url(self, @product), notice: notice_message(@product, :create)
@@ -63,10 +63,12 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
   def update
     @product = find_my_product
     @practice = @product.practice
+    wip_before_save = @product.wip?
     @product.published_at = nil if @product.published_at? && @product.wip
     set_wip
     update_published_at
     if @product.update(product_params)
+      create_pjord_review(wip_before_save:)
       ActiveSupport::Notifications.instrument('product.update', { product: @product, current_user: })
       ActiveSupport::Notifications.instrument('product.save', product: @product)
       notice_another_mentor_assigned_as_checker
@@ -82,18 +84,6 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     redirect_to @product.practice, notice: '提出物を削除しました。'
   end
 
-  def review_by_pjord
-    @product = find_product
-    reviewer = Pjord.user
-    body = review_body_by_pjord(reviewer)
-    if body.present? && reviewer
-      @product.comments.create!(user: reviewer, description: body)
-      redirect_to product_path(@product, anchor: 'comments'), notice: 'ピヨルドのレビューコメントを作成しました。'
-    else
-      redirect_to @product, alert: 'ピヨルドのレビューコメントを作成できませんでした。'
-    end
-  end
-
   private
 
   def update_published_at
@@ -102,11 +92,8 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     @product.published_at = Time.current
   end
 
-  def review_body_by_pjord(reviewer)
-    Pjord::ProductReviewAgent.review(@product) if reviewer
-  rescue StandardError => e
-    Rails.logger.error("[ProductsController#review_by_pjord] #{e.class}: #{e.message}")
-    nil
+  def create_pjord_review(wip_before_save:)
+    PjordReview.call(product: @product, wip_before_save:)
   end
 
   def find_product
