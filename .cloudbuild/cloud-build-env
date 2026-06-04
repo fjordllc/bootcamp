@@ -1,0 +1,172 @@
+#!/usr/bin/env python3
+
+import json
+import os
+import re
+import shlex
+import subprocess
+import sys
+
+DEPLOY_ONLY_VARS = {
+    "CLOUD_SQL_HOST",
+    "DOCKER_IMAGE",
+    "ENVS",
+    "LABELS",
+    "MEMORY",
+    "PLATFORM",
+    "PR_NUMBER",
+    "SERVICE_ACCOUNT",
+    "SERVICE_NAME",
+    "STAGING",
+    "TRIGGER_ID",
+}
+
+DEFAULT_ENV = {
+    "LANG": "ja_JP.UTF-8",
+    "TZ": "Asia/Tokyo",
+    "RAILS_SERVE_STATIC_FILES": "true",
+    "RAILS_LOG_TO_STDOUT": "true",
+    "RAILS_ENV": "production",
+    "RACK_ENV": "production",
+}
+
+
+def usage():
+    print(
+        """Usage:
+  cloud-build-env exports
+  cloud-build-env cloud-run-json
+  cloud-build-env cloud-run-env-vars
+  cloud-build-env write OUTPUT_FILE BUILD_JSON
+  cloud-build-env write OUTPUT_FILE --build PROJECT_ID BUILD_ID [REGION]""",
+        file=sys.stderr,
+    )
+    sys.exit(1)
+
+
+def is_cloud_build_substitution(name):
+    return (
+        re.fullmatch(r"_[A-Z0-9_]+", name) is not None
+        and not name.startswith(("__", "_CF_", "_MISE_"))
+        and name[1:] != ""
+    )
+
+
+def app_env():
+    env_vars = dict(DEFAULT_ENV)
+
+    for name, value in sorted(os.environ.items()):
+        if not is_cloud_build_substitution(name):
+            continue
+
+        exported_name = name[1:]
+        if exported_name in DEPLOY_ONLY_VARS:
+            continue
+
+        env_vars[exported_name] = value
+
+    for env_var in os.environ.get("_ENVS", "").split(","):
+        if not env_var:
+            continue
+
+        name, separator, value = env_var.partition("=")
+        if separator and name:
+            env_vars[name] = value
+
+    cloud_sql_host = os.environ.get("_CLOUD_SQL_HOST")
+    if cloud_sql_host:
+        env_vars["DB_HOST"] = f"/cloudsql/{cloud_sql_host}"
+
+    return env_vars
+
+
+def export_lines(env_vars):
+    return "\n".join(f"export {name}={shlex.quote(str(value))}" for name, value in env_vars.items())
+
+
+def build_json_from_gcloud(project_id, build_id, region):
+    return subprocess.check_output(
+        [
+            "gcloud",
+            "builds",
+            "describe",
+            build_id,
+            f"--project={project_id}",
+            f"--region={region}",
+            "--format=json",
+        ],
+        text=True,
+    )
+
+
+def write_substitutions(output_file, build_json):
+    build = json.loads(build_json)
+    substitutions = build.get("substitutions", {})
+    env_vars = {
+        "PROJECT_ID": build.get("projectId", ""),
+        "BUILD_ID": build.get("id", ""),
+        "COMMIT_SHA": substitutions.get("COMMIT_SHA", "unknown"),
+        "REPO_NAME": substitutions.get("REPO_NAME", "bootcamp"),
+    }
+
+    for key, value in sorted(substitutions.items()):
+        if not key.startswith("_"):
+            continue
+
+        exported_name = key[1:]
+        if not exported_name or re.fullmatch(r"[A-Z0-9_]+", exported_name) is None:
+            continue
+
+        env_vars[key] = value
+        env_vars[exported_name] = value
+
+    with open(output_file, "w", encoding="utf-8") as output:
+        output.write(export_lines(env_vars))
+        output.write("\n")
+
+
+def main():
+    if len(sys.argv) < 2:
+        usage()
+
+    command = sys.argv[1]
+    if command == "exports":
+        env_vars = {
+            "RAILS_ENV": "production",
+            "DISABLE_DATABASE_ENVIRONMENT_CHECK": "1",
+        }
+        for name, value in sorted(os.environ.items()):
+            if is_cloud_build_substitution(name):
+                env_vars[name[1:]] = value
+
+        cloud_sql_host = env_vars.get("CLOUD_SQL_HOST")
+        if cloud_sql_host:
+            env_vars["DB_HOST"] = f"/cloudsql/{cloud_sql_host}"
+
+        print(export_lines(env_vars))
+    elif command == "cloud-run-json":
+        print(json.dumps(app_env(), ensure_ascii=False))
+    elif command == "cloud-run-env-vars":
+        print(",".join(f"{name}={value}" for name, value in app_env().items()))
+    elif command == "write":
+        if len(sys.argv) < 4:
+            usage()
+
+        output_file = sys.argv[2]
+        if sys.argv[3] == "--build":
+            if len(sys.argv) < 6:
+                usage()
+
+            project_id = sys.argv[4]
+            build_id = sys.argv[5]
+            region = sys.argv[6] if len(sys.argv) > 6 else "asia-northeast1"
+            write_substitutions(output_file, build_json_from_gcloud(project_id, build_id, region))
+        else:
+            with open(sys.argv[3], encoding="utf-8") as build_json:
+                write_substitutions(output_file, build_json.read())
+    else:
+        usage()
+
+
+if __name__ == "__main__":
+    main()
