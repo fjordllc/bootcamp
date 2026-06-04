@@ -1,6 +1,6 @@
-import CSRF from 'csrf'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
+import { put, destroy } from '@rails/request.js'
 
 export default function initializeMemo(memo, userId) {
   const memoId = memo.dataset.memo_id
@@ -98,36 +98,16 @@ export default function initializeMemo(memo, userId) {
         body: memoContent
       }
     }
-    const response = await fetch(
-      `/api/users/${userId}/mentor_memos/${memoId}`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': CSRF.getToken()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual',
-        body: JSON.stringify(params)
-      }
-    )
+    const response = await put(`/api/users/${userId}/mentor_memos/${memoId}`, {
+      body: params
+    })
 
     if (!response.ok) throw new Error('Failed to update')
   }
 
   async function deleteMemo(memoId, userId) {
-    const response = await fetch(
-      `/api/users/${userId}/mentor_memos/${memoId}`,
-      {
-        method: 'DELETE',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': CSRF.getToken()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual'
-      }
+    const response = await destroy(
+      `/api/users/${userId}/mentor_memos/${memoId}`
     )
 
     if (!response.ok) throw new Error('Failed to delete')
