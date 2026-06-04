@@ -227,6 +227,5 @@ jobs:
         with:
           junit-artifact-pattern: junit-xml-*
           source-root: "."
-          version: v0.6.22
           history-branch: flakewatch-data
           history-write: auto
