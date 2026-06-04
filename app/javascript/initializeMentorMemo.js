@@ -26,6 +26,7 @@ export default function initializeMemo(memo, userId) {
   if (editButton) {
     editButton.addEventListener('click', () => {
       toggleEditor()
+      resetEditorTabs()
     })
   }
 
@@ -121,5 +122,12 @@ export default function initializeMemo(memo, userId) {
     elements.forEach((element) => {
       element.classList.toggle(className)
     })
+  }
+
+  function resetEditorTabs() {
+    editorTab.classList.add('is-active')
+    editorTabContent.classList.add('is-active')
+    previewTab.classList.remove('is-active')
+    previewTabContent.classList.remove('is-active')
   }
 }
