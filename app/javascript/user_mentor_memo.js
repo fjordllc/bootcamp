@@ -63,12 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
       memoEditorPreview.innerHTML = ''
     })
 
-    editorTextarea.addEventListener('change', () => {
-      memoEditorPreview.innerHTML = markdownInitializer.render(
-        editorTextarea.value
-      )
-    })
-
     const editorTab = memoEditor.querySelector('.editor-tab')
     const editorTabContent = memoEditor.querySelector('.is-editor')
     const previewTab = memoEditor.querySelector('.preview-tab')
@@ -83,9 +77,12 @@ document.addEventListener('DOMContentLoaded', () => {
     editorTab.addEventListener('click', () =>
       toggleClass(tabElements, 'is-active')
     )
-    previewTab.addEventListener('click', () =>
+    previewTab.addEventListener('click', () => {
+      memoEditorPreview.innerHTML = markdownInitializer.render(
+        editorTextarea.value
+      )
       toggleClass(tabElements, 'is-active')
-    )
+    })
   }
 })
 
