@@ -3,12 +3,23 @@
 require 'test_helper'
 
 class ProductTest < ActiveSupport::TestCase
+  include ActiveJob::TestHelper
+
   test 'delete associated notification' do
     user = users(:kimura)
     practice = practices(:practice5)
     product = Product.create!(practice:, user:, body: 'test')
     product.destroy
     assert_not Notification.where(link: "/products/#{product.id}").exists?
+  end
+
+  test 'does not enqueue Pjord product review when product is created directly' do
+    user = users(:kimura)
+    practice = practices(:practice5)
+
+    assert_no_enqueued_jobs only: PjordProductReviewJob do
+      Product.create!(practice:, user:, body: 'test')
+    end
   end
 
   test 'adviser watches trainee product when trainee create product' do
