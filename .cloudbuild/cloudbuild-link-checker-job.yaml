@@ -1,10 +1,15 @@
 steps:
   - id: CreateOrUpdateJob
     name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    automapSubstitutions: true
     entrypoint: bash
     args:
       - '-c'
       - |
+        set -euo pipefail
+
+        env_vars="$(.cloudbuild/cloud-build-env cloud-run-env-vars)"
+
         # Cloud Run Jobが存在するか確認
         if gcloud run jobs describe link-checker --region=asia-northeast1 --project=$PROJECT_ID --quiet 2>/dev/null; then
           echo "既存のジョブを更新"
@@ -17,7 +22,7 @@ steps:
             --cpu=1 \
             --task-timeout=30m \
             --max-retries=1 \
-            --set-env-vars="RAILS_ENV=production,RAILS_MASTER_KEY=$_RAILS_MASTER_KEY,APP_HOST_NAME=$_APP_HOST_NAME,DB_HOST=/cloudsql/$_CLOUD_SQL_HOST,DB_NAME=$_DB_NAME,DB_PASS=$_DB_PASS,DB_USER=$_DB_USER,DISCORD_BUG_WEBHOOK_URL=$_DISCORD_BUG_WEBHOOK_URL,RAILS_LOG_TO_STDOUT=true"
+            --set-env-vars="$${env_vars}"
         else
           echo "新規ジョブを作成"
           gcloud run jobs create link-checker \
@@ -29,10 +34,11 @@ steps:
             --cpu=1 \
             --task-timeout=30m \
             --max-retries=1 \
-            --set-env-vars="RAILS_ENV=production,RAILS_MASTER_KEY=$_RAILS_MASTER_KEY,APP_HOST_NAME=$_APP_HOST_NAME,DB_HOST=/cloudsql/$_CLOUD_SQL_HOST,DB_NAME=$_DB_NAME,DB_PASS=$_DB_PASS,DB_USER=$_DB_USER,DISCORD_BUG_WEBHOOK_URL=$_DISCORD_BUG_WEBHOOK_URL,RAILS_LOG_TO_STDOUT=true"
+            --set-env-vars="$${env_vars}"
         fi
 options:
   substitutionOption: ALLOW_LOOSE
+  automapSubstitutions: true
 substitutions:
   _APP_HOST_NAME: bootcamp.fjord.jp
   _CLOUD_SQL_HOST: bootcamp-224405:asia-northeast1:bootcamp
