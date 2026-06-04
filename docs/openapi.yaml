@@ -1,0 +1,1448 @@
+openapi: 3.1.0
+info:
+  title: FJORD BOOT CAMP API
+  version: 0.1.0
+  summary: Machine-readable index of Bootcamp API access points.
+  description: |
+    This file documents the existing `/api` endpoints so humans, AI agents,
+    and API tooling can understand the available access points from one place.
+    It starts with route-level coverage and shared response shapes; detailed
+    resource schemas should be expanded from `app/views/api/**/*.jbuilder` and
+    `test/integration/api/**/*_test.rb`.
+
+    Rails also accepts `PUT` for update routes generated from `resource` and
+    `resources`; this document uses the canonical `PATCH` operation for those
+    update endpoints.
+servers:
+  - url: https://bootcamp.fjord.jp
+    description: Production
+  - url: http://localhost:3000
+    description: Local development
+tags:
+  - name: Admin
+  - name: Mentor
+  - name: Session
+  - name: Notifications
+  - name: Learning
+  - name: Reports
+  - name: Products
+  - name: Questions
+  - name: Users
+  - name: Social
+  - name: Content
+  - name: Search
+  - name: Utility
+security:
+  - sessionCookie: []
+  - oauth2: []
+paths:
+  /api/session:
+    post:
+      tags: [Session]
+      summary: Create an API session.
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/pubsub:
+    post:
+      tags: [Utility]
+      summary: Receive a Pub/Sub callback.
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/image:
+    post:
+      tags: [Utility]
+      summary: Upload an image.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '201':
+          $ref: '#/components/responses/JsonObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/admin/count:
+    get:
+      tags: [Admin]
+      summary: Return admin dashboard counts.
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/admin/inquiries/{id}:
+    patch:
+      tags: [Admin]
+      summary: Update an inquiry from the admin API.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/mentor/practices:
+    get:
+      tags: [Mentor]
+      summary: List practices for mentors.
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/courses/{course_id}/practices:
+    get:
+      tags: [Learning]
+      summary: List practices in a course.
+      parameters:
+        - $ref: '#/components/parameters/CourseId'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/courses_categories/{courses_category_id}/position:
+    patch:
+      tags: [Learning]
+      summary: Update a course category position.
+      parameters:
+        - $ref: '#/components/parameters/CoursesCategoryId'
+      requestBody:
+        $ref: '#/components/requestBodies/Position'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/categories_practices/{categories_practice_id}/position:
+    patch:
+      tags: [Learning]
+      summary: Update a category practice position.
+      parameters:
+        - $ref: '#/components/parameters/CategoriesPracticeId'
+      requestBody:
+        $ref: '#/components/requestBodies/Position'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/notifications:
+    get:
+      tags: [Notifications]
+      summary: List notifications.
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [unread]
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/notifications/{notification_id}/read_mark:
+    patch:
+      tags: [Notifications]
+      summary: Mark one notification as read.
+      parameters:
+        - name: notification_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/notifications/all_read_mark:
+    patch:
+      tags: [Notifications]
+      summary: Mark all notifications as read.
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/notifications/category_read_mark:
+    patch:
+      tags: [Notifications]
+      summary: Mark notifications in a category as read.
+      parameters:
+        - name: target
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /api/subscriptions:
+    get:
+      tags: [Users]
+      summary: List subscriptions for the current user.
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/comments:
+    get:
+      tags: [Social]
+      summary: List comments.
+      parameters:
+        - name: commentable_type
+          in: query
+          schema:
+            type: string
+        - name: commentable_id
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+    post:
+      tags: [Social]
+      summary: Create a comment.
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '201':
+          $ref: '#/components/responses/JsonObject'
+  /api/comments/{id}:
+    patch:
+      tags: [Social]
+      summary: Update a comment.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+    delete:
+      tags: [Social]
+      summary: Delete a comment.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/answers:
+    get:
+      tags: [Questions]
+      summary: List answers.
+      parameters:
+        - name: user_id
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+    post:
+      tags: [Questions]
+      summary: Create an answer.
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '201':
+          $ref: '#/components/responses/JsonObject'
+  /api/answers/{id}:
+    patch:
+      tags: [Questions]
+      summary: Update an answer.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+    delete:
+      tags: [Questions]
+      summary: Delete an answer.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/answers/{answer_id}/correct_answer:
+    post:
+      tags: [Questions]
+      summary: Mark an answer as the correct answer.
+      parameters:
+        - $ref: '#/components/parameters/AnswerId'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+    patch:
+      tags: [Questions]
+      summary: Update the correct answer marker for an answer.
+      parameters:
+        - $ref: '#/components/parameters/AnswerId'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/available_emojis:
+    get:
+      tags: [Social]
+      summary: List available reaction emojis.
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/reactions:
+    get:
+      tags: [Social]
+      summary: List reactions.
+      parameters:
+        - name: reactionable_gid
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+    post:
+      tags: [Social]
+      summary: Create a reaction.
+      parameters:
+        - name: reactionable_gid
+          in: query
+          schema:
+            type: string
+        - name: kind
+          in: query
+          schema:
+            type: string
+      responses:
+        '201':
+          $ref: '#/components/responses/JsonObject'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /api/reactions/{id}:
+    delete:
+      tags: [Social]
+      summary: Delete a reaction.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/checks:
+    get:
+      tags: [Social]
+      summary: List checks.
+      parameters:
+        - name: checkable_type
+          in: query
+          schema:
+            type: string
+        - name: checkable_id
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+    post:
+      tags: [Social]
+      summary: Create a check.
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '201':
+          $ref: '#/components/responses/JsonObject'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /api/checks/{id}:
+    delete:
+      tags: [Social]
+      summary: Delete a check.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/mention_users:
+    get:
+      tags: [Users]
+      summary: List users available for mention autocomplete.
+      parameters:
+        - name: query
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/users:
+    get:
+      tags: [Users]
+      summary: List users.
+      parameters:
+        - name: target
+          in: query
+          schema:
+            type: string
+        - name: watch
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/users/{id}:
+    get:
+      tags: [Users]
+      summary: Show a user. Use `show` as id for the authorized user with OAuth.
+      parameters:
+        - $ref: '#/components/parameters/IdOrShow'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      tags: [Users]
+      summary: Update a user.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/users/{user_id}/support_context:
+    get:
+      tags: [Users]
+      summary: Show mentor support context for a user.
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /api/users/tags/{tag}:
+    get:
+      tags: [Users]
+      summary: List users by tag.
+      parameters:
+        - name: tag
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/practices:
+    get:
+      tags: [Learning]
+      summary: List practices.
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/practices/{id}:
+    get:
+      tags: [Learning]
+      summary: Show a practice.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+    patch:
+      tags: [Learning]
+      summary: Update a practice.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/practices/{practice_id}/learning:
+    get:
+      tags: [Learning]
+      summary: Show learning status for a practice.
+      parameters:
+        - $ref: '#/components/parameters/PracticeId'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+    patch:
+      tags: [Learning]
+      summary: Update learning status for a practice.
+      parameters:
+        - $ref: '#/components/parameters/PracticeId'
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/practices/{practice_id}/learning/completion_message:
+    patch:
+      tags: [Learning]
+      summary: Update the learning completion message for a practice.
+      parameters:
+        - $ref: '#/components/parameters/PracticeId'
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/coding_tests/{coding_test_id}/position:
+    patch:
+      tags: [Learning]
+      summary: Update a coding test position.
+      parameters:
+        - name: coding_test_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        $ref: '#/components/requestBodies/Position'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/coding_test_submissions:
+    post:
+      tags: [Learning]
+      summary: Create a coding test submission.
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '201':
+          $ref: '#/components/responses/JsonObject'
+  /api/reports/unchecked:
+    get:
+      tags: [Reports]
+      summary: List unchecked reports.
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/reports/unchecked/counts:
+    get:
+      tags: [Reports]
+      summary: Return unchecked report counts as text.
+      responses:
+        '200':
+          $ref: '#/components/responses/Text'
+  /api/reports/recents:
+    get:
+      tags: [Reports]
+      summary: List recent reports.
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/reports:
+    get:
+      tags: [Reports]
+      summary: List reports.
+      parameters:
+        - name: user_id
+          in: query
+          schema:
+            type: integer
+        - name: company_id
+          in: query
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/Page'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+    post:
+      tags: [Reports]
+      summary: Create a report.
+      requestBody:
+        $ref: '#/components/requestBodies/Report'
+      responses:
+        '201':
+          $ref: '#/components/responses/JsonObject'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /api/reports/{id}:
+    get:
+      tags: [Reports]
+      summary: Show a report.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+    patch:
+      tags: [Reports]
+      summary: Update a report.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        $ref: '#/components/requestBodies/Report'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    delete:
+      tags: [Reports]
+      summary: Delete a report.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/reports/{report_id}/comments:
+    post:
+      tags: [Reports]
+      summary: Create a comment on a report.
+      parameters:
+        - $ref: '#/components/parameters/ReportId'
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '201':
+          $ref: '#/components/responses/JsonObject'
+  /api/reports/{report_id}/reactions:
+    get:
+      tags: [Reports]
+      summary: List reactions on a report.
+      parameters:
+        - $ref: '#/components/parameters/ReportId'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+    post:
+      tags: [Reports]
+      summary: Create a reaction on a report.
+      parameters:
+        - $ref: '#/components/parameters/ReportId'
+      requestBody:
+        $ref: '#/components/requestBodies/Reaction'
+      responses:
+        '201':
+          $ref: '#/components/responses/JsonObject'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /api/reports/{report_id}/reactions/{id}:
+    delete:
+      tags: [Reports]
+      summary: Delete a reaction on a report.
+      parameters:
+        - $ref: '#/components/parameters/ReportId'
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/reports/{report_id}/check:
+    post:
+      tags: [Reports]
+      summary: Check a report.
+      parameters:
+        - $ref: '#/components/parameters/ReportId'
+      responses:
+        '201':
+          $ref: '#/components/responses/JsonObject'
+    delete:
+      tags: [Reports]
+      summary: Uncheck a report.
+      parameters:
+        - $ref: '#/components/parameters/ReportId'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/watches:
+    get:
+      tags: [Social]
+      summary: List watches.
+      parameters:
+        - $ref: '#/components/parameters/Page'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+    post:
+      tags: [Social]
+      summary: Create a watch.
+      requestBody:
+        $ref: '#/components/requestBodies/Watch'
+      responses:
+        '201':
+          $ref: '#/components/responses/JsonObject'
+  /api/watches/{id}:
+    delete:
+      tags: [Social]
+      summary: Delete a watch.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/watches/toggle:
+    get:
+      tags: [Social]
+      summary: Toggle watch state for a watchable resource.
+      parameters:
+        - name: watchable_id
+          in: query
+          schema:
+            type: integer
+        - name: watchable_type
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/mentor_memos/{id}:
+    patch:
+      tags: [Mentor]
+      summary: Update a mentor memo.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/tags:
+    get:
+      tags: [Content]
+      summary: List tags.
+      parameters:
+        - name: taggable_type
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/tags/{id}:
+    patch:
+      tags: [Content]
+      summary: Update a tag.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/pages/{id}:
+    patch:
+      tags: [Content]
+      summary: Update a page.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/questions:
+    get:
+      tags: [Questions]
+      summary: List questions.
+      parameters:
+        - name: user_id
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/questions/{id}:
+    get:
+      tags: [Questions]
+      summary: Show a question.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+    patch:
+      tags: [Questions]
+      summary: Update a question.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/followings:
+    post:
+      tags: [Social]
+      summary: Follow a user.
+      parameters:
+        - name: watch
+          in: query
+          schema:
+            type: boolean
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '201':
+          $ref: '#/components/responses/JsonObject'
+  /api/followings/{id}:
+    patch:
+      tags: [Social]
+      summary: Update a following.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+        - name: watch
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+    delete:
+      tags: [Social]
+      summary: Unfollow a user.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+        - name: watch
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/products/unchecked:
+    get:
+      tags: [Products]
+      summary: List unchecked products.
+      parameters:
+        - name: checker_id
+          in: query
+          schema:
+            type: integer
+        - name: target
+          in: query
+          schema:
+            type: string
+            enum: [unchecked_no_replied]
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/products/unassigned:
+    get:
+      tags: [Products]
+      summary: List unassigned products.
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/products/unassigned/counts:
+    get:
+      tags: [Products]
+      summary: Return unassigned product counts as text.
+      responses:
+        '200':
+          $ref: '#/components/responses/Text'
+  /api/products/self_assigned:
+    get:
+      tags: [Products]
+      summary: List products assigned to the current mentor.
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/products/checker:
+    get:
+      tags: [Products]
+      summary: Show checker state for a product.
+      parameters:
+        - name: product_id
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+    patch:
+      tags: [Products]
+      summary: Assign or update a product checker.
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+    delete:
+      tags: [Products]
+      summary: Remove a product checker.
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/products/passed:
+    get:
+      tags: [Products]
+      summary: Return passed product status as text.
+      responses:
+        '200':
+          $ref: '#/components/responses/Text'
+  /api/products:
+    get:
+      tags: [Products]
+      summary: List products.
+      parameters:
+        - name: company_id
+          in: query
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/Page'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+    post:
+      tags: [Products]
+      summary: Create a product.
+      requestBody:
+        $ref: '#/components/requestBodies/Product'
+      responses:
+        '201':
+          $ref: '#/components/responses/JsonObject'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /api/products/{id}:
+    get:
+      tags: [Products]
+      summary: Show a product.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+    patch:
+      tags: [Products]
+      summary: Update a product.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        $ref: '#/components/requestBodies/Product'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+    delete:
+      tags: [Products]
+      summary: Delete a product.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/products/{product_id}/comments:
+    post:
+      tags: [Products]
+      summary: Create a comment on a product.
+      parameters:
+        - $ref: '#/components/parameters/ProductId'
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '201':
+          $ref: '#/components/responses/JsonObject'
+  /api/products/{product_id}/check:
+    post:
+      tags: [Products]
+      summary: Check a product.
+      parameters:
+        - $ref: '#/components/parameters/ProductId'
+      responses:
+        '201':
+          $ref: '#/components/responses/JsonObject'
+    delete:
+      tags: [Products]
+      summary: Uncheck a product.
+      parameters:
+        - $ref: '#/components/parameters/ProductId'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/searchables:
+    get:
+      tags: [Search]
+      summary: Search site content.
+      parameters:
+        - name: word
+          in: query
+          schema:
+            type: string
+        - name: document_type
+          in: query
+          schema:
+            type: string
+        - name: only_me
+          in: query
+          schema:
+            type: boolean
+        - name: semantic
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /api/bookmarks:
+    get:
+      tags: [Social]
+      summary: List bookmarks.
+      parameters:
+        - name: bookmarkable_type
+          in: query
+          schema:
+            type: string
+        - name: bookmarkable_id
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+    post:
+      tags: [Social]
+      summary: Create a bookmark.
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '201':
+          $ref: '#/components/responses/JsonObject'
+  /api/bookmarks/{id}:
+    delete:
+      tags: [Social]
+      summary: Delete a bookmark.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/report_templates:
+    post:
+      tags: [Reports]
+      summary: Create a report template.
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '201':
+          $ref: '#/components/responses/JsonObject'
+  /api/report_templates/{id}:
+    patch:
+      tags: [Reports]
+      summary: Update a report template.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/markdown_tasks:
+    post:
+      tags: [Utility]
+      summary: Update a markdown task checkbox.
+      parameters:
+        - name: taskable_type
+          in: query
+          schema:
+            type: string
+        - name: taskable_id
+          in: query
+          schema:
+            type: integer
+        - name: checked
+          in: query
+          schema:
+            type: boolean
+        - name: nth
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/talks/action_uncompleted:
+    get:
+      tags: [Social]
+      summary: List talks with uncompleted action.
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/talks:
+    get:
+      tags: [Social]
+      summary: List talks.
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/talks/{id}:
+    patch:
+      tags: [Social]
+      summary: Update a talk.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/books:
+    get:
+      tags: [Content]
+      summary: List books.
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/survey_question_listings/{survey_question_listing_id}/position:
+    patch:
+      tags: [Content]
+      summary: Update a survey question listing position.
+      parameters:
+        - name: survey_question_listing_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        $ref: '#/components/requestBodies/Position'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/reading_circles:
+    get:
+      tags: [Content]
+      summary: List reading circles.
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/movies:
+    get:
+      tags: [Content]
+      summary: List movies.
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/movies/{id}:
+    patch:
+      tags: [Content]
+      summary: Update a movie.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/metadata:
+    get:
+      tags: [Utility]
+      summary: Fetch metadata for a URL.
+      parameters:
+        - name: url
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uri
+        - name: tweet
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/micro_reports/{id}:
+    patch:
+      tags: [Reports]
+      summary: Update a micro report.
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        $ref: '#/components/requestBodies/GenericObject'
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/trainee_progresses:
+    get:
+      tags: [Learning]
+      summary: List trainee progresses.
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+  /api/buzz:
+    get:
+      tags: [Social]
+      summary: Show current buzz state.
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+    post:
+      tags: [Social]
+      summary: Create buzz state.
+      responses:
+        '201':
+          $ref: '#/components/responses/JsonObject'
+    delete:
+      tags: [Social]
+      summary: Delete buzz state.
+      responses:
+        '200':
+          $ref: '#/components/responses/JsonObject'
+components:
+  securitySchemes:
+    sessionCookie:
+      type: apiKey
+      in: cookie
+      name: _bootcamp_session
+      description: Browser session or JWT-backed API session used by existing UI/API calls.
+    oauth2:
+      type: oauth2
+      description: Doorkeeper OAuth2 bearer token. Some write endpoints require the `write` scope.
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
+          scopes:
+            read: Read API resources.
+            write: Create, update, or delete API resources.
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    IdOrShow:
+      name: id
+      in: path
+      required: true
+      schema:
+        oneOf:
+          - type: integer
+          - type: string
+            enum: [show]
+    UserId:
+      name: user_id
+      in: path
+      required: true
+      schema:
+        type: integer
+    CourseId:
+      name: course_id
+      in: path
+      required: true
+      schema:
+        type: integer
+    PracticeId:
+      name: practice_id
+      in: path
+      required: true
+      schema:
+        type: integer
+    ReportId:
+      name: report_id
+      in: path
+      required: true
+      schema:
+        type: integer
+    ProductId:
+      name: product_id
+      in: path
+      required: true
+      schema:
+        type: integer
+    AnswerId:
+      name: answer_id
+      in: path
+      required: true
+      schema:
+        type: integer
+    CoursesCategoryId:
+      name: courses_category_id
+      in: path
+      required: true
+      schema:
+        type: integer
+    CategoriesPracticeId:
+      name: categories_practice_id
+      in: path
+      required: true
+      schema:
+        type: integer
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+  requestBodies:
+    GenericObject:
+      required: false
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: true
+    Position:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              position:
+                type: integer
+            additionalProperties: true
+    Reaction:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              kind:
+                type: string
+            additionalProperties: true
+    Watch:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              watchable_id:
+                type: integer
+              watchable_type:
+                type: string
+            additionalProperties: true
+    Product:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              product:
+                type: object
+                properties:
+                  practice_id:
+                    type: integer
+                  body:
+                    type: string
+                  wip:
+                    type: boolean
+                additionalProperties: true
+            additionalProperties: true
+    Report:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              report:
+                type: object
+                properties:
+                  title:
+                    type: string
+                  reported_on:
+                    type: string
+                    format: date
+                  emotion:
+                    type: string
+                    enum: [sad, neutral, happy, positive]
+                  description:
+                    type: string
+                  wip:
+                    type: boolean
+                  practice_ids:
+                    type: array
+                    maxItems: 100
+                    items:
+                      type: integer
+                  learning_times_attributes:
+                    type: object
+                    additionalProperties: true
+                additionalProperties: true
+            additionalProperties: true
+  responses:
+    JsonObject:
+      description: JSON response. Expand the schema from the matching jbuilder view and integration test.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiObject'
+    Text:
+      description: Plain text response.
+      content:
+        text/plain:
+          schema:
+            type: string
+    Unauthorized:
+      description: Authentication is required or the bearer token is invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user is not allowed to perform this action.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource was not found or is hidden from the authenticated user.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Request parameters are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: Validation failed.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: object
+                additionalProperties: true
+  schemas:
+    ApiObject:
+      type: object
+      additionalProperties: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        error_description:
+          type: string
+        state:
+          type: string
+      additionalProperties: true

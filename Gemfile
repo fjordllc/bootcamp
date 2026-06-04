@@ -91,6 +91,7 @@ group :development, :test do
   gem 'benchmark', require: false
   gem 'byebug', platforms: :windows
   gem 'dotenv-rails'
+  gem 'openapi_parser', '~> 2.3', require: false
   gem 'pry-byebug'
   gem 'rubocop', '~> 1.82', require: false
   gem 'rubocop-capybara', require: false
