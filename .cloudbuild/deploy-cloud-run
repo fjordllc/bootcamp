@@ -111,7 +111,12 @@ case "$environment" in
     export _STRIPE_ENDPOINT_SECRET=
     export _ROLLBAR_CLIENT_TOKEN=
     export _STRIPE_TAX_RATE_ID=
-    cloud_run_args+=(--min-instances=0 --max-instances=2)
+    cloud_run_args+=(
+      --min-instances=0
+      --max-instances=2
+      --port=8080
+      --startup-probe=tcpSocket.port=8080,periodSeconds=240,timeoutSeconds=240,failureThreshold=3
+    )
     ;;
   *)
     echo "Unknown environment: $environment" >&2
