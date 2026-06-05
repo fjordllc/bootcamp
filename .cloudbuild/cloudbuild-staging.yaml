@@ -24,6 +24,19 @@ steps:
   - asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA
   waitFor:
   - Build
+- id: WriteSubstitutionEnv
+  name: gcr.io/google.com/cloudsdktool/cloud-sdk
+  entrypoint: python3
+  args:
+  - ".cloudbuild/cloud-build-env"
+  - write
+  - ".cloudbuild/substitutions.env"
+  - --build
+  - "$PROJECT_ID"
+  - "$BUILD_ID"
+  - global
+  waitFor:
+  - Push
 - id: StopCloudRun
   name: gcr.io/google.com/cloudsdktool/cloud-sdk
   entrypoint: bash
@@ -165,10 +178,12 @@ steps:
   - bash
   - "-c"
   - |-
+    source .cloudbuild/substitutions.env
     eval "$(.cloudbuild/cloud-build-env exports)"
     bin/rails db:migrate db:seed
   waitFor:
   - EnablePgvector
+  - WriteSubstitutionEnv
   volumes:
   - name: db
     path: "/cloudsql"
@@ -194,6 +209,7 @@ steps:
   - bash
   - "-c"
   - |-
+    source .cloudbuild/substitutions.env
     eval "$(.cloudbuild/cloud-build-env exports)"
     bin/notify
   waitFor:
