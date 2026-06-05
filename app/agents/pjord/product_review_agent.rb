@@ -3,12 +3,21 @@
 class Pjord::ProductReviewAgent < Pjord::Agent
   OTHER_PRODUCTS_LIMIT = 10
   PROMPT_TEXT_LIMIT = 2_000
+  INSUFFICIENT_REVIEW_PATTERNS = [
+    /\A提出物を確認しますね[!！。]*\z/,
+    /\A確認しますね[!！。]*\z/,
+    /\Aレビューしますね[!！。]*\z/
+  ].freeze
 
   instructions
 
   class << self
     def review(product)
-      extract_public_response_body(new.ask(message(product)).content).presence
+      agent = new
+      response = extract_public_response_body(agent.ask(message(product)).content).presence
+      return response unless insufficient_review?(response)
+
+      extract_public_response_body(agent.ask(retry_message(product, response)).content).presence
     end
 
     private
@@ -46,6 +55,29 @@ class Pjord::ProductReviewAgent < Pjord::Agent
         ## 同じプラクティスの他の提出物
         #{other_products(product)}
       TEXT
+    end
+
+    def retry_message(product, previous_response)
+      <<~TEXT
+        直前のレビューコメントは提出物の内容に触れていないため不十分です。
+
+        ## 直前のレビューコメント
+        #{previous_response}
+
+        ## やり直しの条件
+        - 提出物本文、URL先の内容、模範解答、過去コメントのいずれかを根拠に、具体的な確認内容を必ず書いてください。
+        - 「確認しますね」「レビューしますね」のような予告や挨拶だけで終わらせないでください。
+        - 改善点が見つからない場合も、何を確認して問題ないと判断したかを書いてください。
+
+        #{message(product)}
+      TEXT
+    end
+
+    def insufficient_review?(response)
+      return true if response.blank?
+
+      normalized_response = response.strip
+      INSUFFICIENT_REVIEW_PATTERNS.any? { |pattern| normalized_response.match?(pattern) }
     end
 
     def comments(product)

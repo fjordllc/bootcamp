@@ -30,7 +30,21 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
     assert_includes chat.instructions, 'あなたはFJORD BOOT CAMP'
     assert_includes chat.instructions, '語尾に「ピヨ」など特徴的な語尾は付けず'
     assert_includes chat.instructions, '提出物にレビューコメントを書いてください。'
+    assert_includes chat.instructions, '「確認しますね」「レビューしますね」のような予告や挨拶だけで終わらせず'
     assert_includes chat.instructions, 'external_content_toolを使って内容を確認してからレビューしてください。'
+  end
+
+  test '.review retries when response does not review the product content' do
+    product = products(:product1)
+    chat = ProductReviewChatFake.new(responses: ['提出物を確認しますね！', '本文の構成が整理されていることを確認しました。'])
+
+    RubyLLM.stub(:chat, chat) do
+      assert_equal '本文の構成が整理されていることを確認しました。', Pjord::ProductReviewAgent.review(product)
+    end
+
+    assert_equal 2, chat.asked_messages.size
+    assert_includes chat.asked_messages.second, '直前のレビューコメントは提出物の内容に触れていないため不十分です。'
+    assert_includes chat.asked_messages.second, '提出物を確認しますね！'
   end
 
   test '.review handles user without course' do
@@ -88,11 +102,15 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
   end
 
   class ProductReviewChatFake
-    attr_reader :asked_message, :instructions, :schema, :tools
+    attr_reader :asked_messages, :instructions, :schema, :tools
 
-    def initialize
+    def initialize(responses: ['レビュー本文'])
       @tools = []
+      @responses = responses
+      @asked_messages = []
     end
+
+    def asked_message = asked_messages.last
 
     def with_instructions(instructions)
       @instructions = instructions
@@ -110,9 +128,9 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
     end
 
     def ask(message, with: nil)
-      @asked_message = message
+      @asked_messages << message
       @attachments = with
-      Struct.new(:content).new({ body: 'レビュー本文' })
+      Struct.new(:content).new({ body: @responses.shift || @responses.last })
     end
   end
 end
