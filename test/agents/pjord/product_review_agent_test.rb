@@ -19,7 +19,7 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
     end
 
     assert_equal [BootcampSearchTool, UserInfoTool, ExternalContentTool], chat.tools
-    assert_equal PjordResponse, chat.schema
+    assert_equal PjordProductReviewResponse, chat.schema
     asked_message = chat.asked_message
     assert_includes asked_message, product.user.login_name
     assert_includes asked_message, product.practice.title
@@ -30,6 +30,8 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
     assert_includes chat.instructions, 'あなたはFJORD BOOT CAMP'
     assert_includes chat.instructions, '語尾に「ピヨ」など特徴的な語尾は付けず'
     assert_includes chat.instructions, '提出物にレビューコメントを書いてください。'
+    assert_includes chat.instructions, 'reviewed_points には、提出物本文、URL先の内容、模範解答、過去コメントなどを確認して判断した具体的な点を1つ以上入れてください。'
+    assert_includes chat.instructions, '管理側への説明、内部事情、運用者向けメモ、レビュー生成方針への言及は含めず'
     assert_includes chat.instructions, 'external_content_toolを使って内容を確認してからレビューしてください。'
   end
 
@@ -112,7 +114,7 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
     def ask(message, with: nil)
       @asked_message = message
       @attachments = with
-      Struct.new(:content).new({ body: 'レビュー本文' })
+      Struct.new(:content).new({ body: 'レビュー本文', reviewed_points: ['提出物本文'] })
     end
   end
 end

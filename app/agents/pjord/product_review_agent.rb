@@ -4,6 +4,7 @@ class Pjord::ProductReviewAgent < Pjord::Agent
   OTHER_PRODUCTS_LIMIT = 10
   PROMPT_TEXT_LIMIT = 2_000
 
+  schema PjordProductReviewResponse
   instructions
 
   class << self
