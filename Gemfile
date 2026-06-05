@@ -8,11 +8,13 @@ ruby '3.4.3'
 gem 'bootsnap', require: false
 gem 'ffi', '1.17.1'
 gem 'image_processing', '>= 1.12.2', '< 2.0'
+gem 'importmap-rails'
 gem 'jbuilder'
 gem 'puma', '>= 5.0'
 gem 'rails', '8.1.1'
 gem 'shakapacker', '~> 9.0'
 gem 'sprockets-rails', '>= 2.0.0'
+gem 'stimulus-rails'
 gem 'tailwindcss-rails', '~> 4.0'
 
 # not default
