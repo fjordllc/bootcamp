@@ -1,11 +1,44 @@
 ---
 steps:
+- id: CancelPreviousBuilds
+  name: gcr.io/google.com/cloudsdktool/cloud-sdk
+  entrypoint: bash
+  args:
+  - "-c"
+  - |
+    set -euo pipefail
+
+    current_build_id="$BUILD_ID"
+    current_create_time="$(
+      gcloud builds describe "$current_build_id" \
+        --project="$PROJECT_ID" \
+        --region=global \
+        --format="value(createTime)"
+    )"
+
+    echo "Cancelling previous running staging builds..."
+    gcloud builds list \
+      --project="$PROJECT_ID" \
+      --region=global \
+      --filter="substitutions.TRIGGER_NAME=cloud-run-deploy-staging AND (status=QUEUED OR status=WORKING)" \
+      --format="value(id,createTime)" |
+      while read -r build_id create_time; do
+        if [ "$build_id" != "$current_build_id" ] && [ "$create_time" \< "$current_create_time" ]; then
+          echo "Cancelling previous build: $build_id"
+          gcloud builds cancel "$build_id" \
+            --project="$PROJECT_ID" \
+            --region=global \
+            --quiet || true
+        fi
+      done
 - id: Fetch
   name: gcr.io/cloud-builders/docker
   entrypoint: bash
   args:
   - "-c"
   - docker pull asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest || exit 0
+  waitFor:
+  - CancelPreviousBuilds
 - id: Build
   name: gcr.io/cloud-builders/docker
   args:
