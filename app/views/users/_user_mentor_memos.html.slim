@@ -10,12 +10,11 @@ section.a-card.is-memo.is-only-mentor.mentor-memos data-user_id=user_id
         .mentor-memo-list
           - memos.each do |memo|
             = render partial: 'users/mentor_memo', locals: { memo: memo }
-        - if memos.empty?
-          .o-empty-message
-            .o-empty-message__icon
-              i.fa-regular.fa-sad-tear
-            .o-empty-message__text
-              | ユーザーメモはまだありません。
+        .o-empty-message.is-hidden
+          .o-empty-message__icon
+            i.fa-regular.fa-sad-tear
+          .o-empty-message__text
+            | ユーザーメモはまだありません。
     hr.a-border-tint
     footer.card-footer.js-add-action
       .card-main-actions

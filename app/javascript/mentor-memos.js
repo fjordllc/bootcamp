@@ -32,9 +32,14 @@ document.addEventListener('DOMContentLoaded', () => {
   ]
 
   const memos = document.querySelectorAll('.mentor-memo')
-  memos.forEach((memo) => {
-    initializeMemo(memo, userId)
-  })
+  const emptyMessage = mentorMemo.querySelector('.o-empty-message')
+  if (memos.length) {
+    memos.forEach((memo) => {
+      initializeMemo(memo, userId)
+    })
+  } else {
+    emptyMessage.classList.remove('is-hidden')
+  }
 
   const addButton = memoDisplay.querySelector('.js-add-memo')
   const addContainer = memoDisplay.querySelector('.js-add-action')
@@ -62,7 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
     editorTextarea.value = ''
     memoEditorPreview.innerHTML = ''
 
-    const emptyMessage = mentorMemo.querySelector('.o-empty-message')
     if (emptyMessage) {
       emptyMessage.classList.add('is-hidden')
     }
