@@ -19,7 +19,7 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
     end
 
     assert_equal [BootcampSearchTool, UserInfoTool, ExternalContentTool], chat.tools
-    assert_equal PjordResponse, chat.schema
+    assert_equal PjordProductReviewResponse, chat.schema
     asked_message = chat.asked_message
     assert_includes asked_message, product.user.login_name
     assert_includes asked_message, product.practice.title
@@ -30,20 +30,25 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
     assert_includes chat.instructions, 'あなたはFJORD BOOT CAMP'
     assert_includes chat.instructions, '語尾に「ピヨ」など特徴的な語尾は付けず'
     assert_includes chat.instructions, '提出物にレビューコメントを書いてください。'
-    assert_includes chat.instructions, '「確認しますね」「レビューしますね」のような予告や挨拶だけで終わらせず'
+    assert_includes chat.instructions, 'reviewed_points には、提出物本文、URL先の内容、模範解答、過去コメントなどを確認して判断した具体的な点を1つ以上入れてください。'
     assert_includes chat.instructions, 'external_content_toolを使って内容を確認してからレビューしてください。'
   end
 
-  test '.review retries when response does not review the product content' do
+  test '.review retries when reviewed points are missing' do
     product = products(:product1)
-    chat = ProductReviewChatFake.new(responses: ['提出物を確認しますね！', '本文の構成が整理されていることを確認しました。'])
+    chat = ProductReviewChatFake.new(
+      responses: [
+        { body: '提出物を確認しますね！', reviewed_points: [] },
+        { body: '本文の構成が整理されていることを確認しました。', reviewed_points: ['本文の構成'] }
+      ]
+    )
 
     RubyLLM.stub(:chat, chat) do
       assert_equal '本文の構成が整理されていることを確認しました。', Pjord::ProductReviewAgent.review(product)
     end
 
     assert_equal 2, chat.asked_messages.size
-    assert_includes chat.asked_messages.second, '直前のレビューコメントは提出物の内容に触れていないため不十分です。'
+    assert_includes chat.asked_messages.second, '直前のレビューコメントは、提出物の内容を具体的に確認した点が構造化されていないため不十分です。'
     assert_includes chat.asked_messages.second, '提出物を確認しますね！'
   end
 
@@ -104,7 +109,7 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
   class ProductReviewChatFake
     attr_reader :asked_messages, :instructions, :schema, :tools
 
-    def initialize(responses: ['レビュー本文'])
+    def initialize(responses: [{ body: 'レビュー本文', reviewed_points: ['提出物本文'] }])
       @tools = []
       @responses = responses
       @last_response = nil
@@ -132,7 +137,7 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
       @asked_messages << message
       @attachments = with
       @last_response = @responses.shift || @last_response
-      Struct.new(:content).new({ body: @last_response })
+      Struct.new(:content).new(@last_response)
     end
   end
 end
