@@ -56,7 +56,7 @@ input:checked + .a-block-check__label {
 
 .form-item-block__item .a-block-check__label {
   border: none;
-  border-radius: none;
+  border-radius: 0;
 }
 
 .a-block-check__label.is-dammy {

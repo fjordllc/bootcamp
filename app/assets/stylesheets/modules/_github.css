@@ -459,7 +459,6 @@
 .ContributionCalendar-day,
 .ContributionCalendar-day[data-level="0"] {
   fill: var(--color-calendar-graph-day-bg);
-  shape-rendering: geometricPrecision;
   background-color: var(--color-calendar-graph-day-bg);
   shape-rendering: geometricPrecision;
   border-radius: 2px;

@@ -315,10 +315,7 @@ input:checked + .card-list-item__user-detail {
   height: 100%;
   width: 100%;
   position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   object-fit: cover;
   border-radius: 4px;
 }

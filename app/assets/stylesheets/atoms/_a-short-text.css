@@ -207,7 +207,7 @@
 .a-short-text .message {
   padding: 0.875rem 1em;
   border-radius: 0.25rem;
-  margin-block: 1em 1em;
+  margin-block: 1em;
   background-color: var(--warning-tint);
   color: var(--warning-text);
 }

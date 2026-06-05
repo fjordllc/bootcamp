@@ -188,7 +188,7 @@
 @media (min-width: 48em) {
   .page-content-header__title {
     font-size: 1.625rem;
-    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 }
 
