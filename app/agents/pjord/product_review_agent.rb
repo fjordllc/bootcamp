@@ -5,6 +5,7 @@ class Pjord::ProductReviewAgent < Pjord::Agent
   PROMPT_TEXT_LIMIT = 2_000
 
   schema PjordProductReviewResponse
+  tools BootcampSearchTool, UserInfoTool, ExternalContentTool, GithubPullRequestReviewCommentTool
   instructions
 
   class << self
