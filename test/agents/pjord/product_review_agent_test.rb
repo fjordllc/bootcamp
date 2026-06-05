@@ -107,6 +107,7 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
     def initialize(responses: ['レビュー本文'])
       @tools = []
       @responses = responses
+      @last_response = nil
       @asked_messages = []
     end
 
@@ -130,7 +131,8 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
     def ask(message, with: nil)
       @asked_messages << message
       @attachments = with
-      Struct.new(:content).new({ body: @responses.shift || @responses.last })
+      @last_response = @responses.shift || @last_response
+      Struct.new(:content).new({ body: @last_response })
     end
   end
 end
