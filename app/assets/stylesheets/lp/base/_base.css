@@ -35,9 +35,8 @@ body.is-lp {
 .welcome-practices {
   margin-top: 1.25rem;
   display: flex;
-  flex-wrap: wrap;
+  flex-flow: column wrap;
   gap: 0.75rem 0.5rem;
-  flex-direction: column;
 }
 
 .welcome-practices__item {

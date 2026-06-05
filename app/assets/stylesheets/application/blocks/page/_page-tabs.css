@@ -8,8 +8,7 @@
   display: flex;
   gap: .25rem;
   transform: translateY(1px);
-  overflow-y: visible;
-  overflow-x: auto;
+  overflow: auto visible;
   margin-inline: -1rem;
   padding-inline: 1rem;
 }

@@ -21,13 +21,10 @@ input:checked + .header-dropdown, .is-opened-dropdown .header-dropdown {
     overflow-y: auto;
     background-color: var(--main);
     position: fixed;
-    top: 0;
-    bottom: 0;
-    right: auto;
+    inset: 0 auto 0 calc(var(--global-nav-width-sm) * -1);
     z-index: 1;
     transition: left 0.2s ease-out;
     width: var(--global-nav-width-sm);
-    left: calc(var(--global-nav-width-sm) * -1);
   }
   input:checked + .header-dropdown .header-dropdown__inner, .is-opened-dropdown .header-dropdown__inner {
     left: 0;

@@ -11,8 +11,7 @@
 .tab-nav__items {
   display: flex;
   gap: 0.5rem;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow: auto hidden;
   margin-inline: -1rem;
   padding-inline: 1rem;
 }

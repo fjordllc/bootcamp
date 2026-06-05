@@ -26,7 +26,6 @@
 }
 
 .dropdown-button {
-  display: block;
   text-decoration: none;
   font-size: 0.75rem;
   line-height: 2.3;
@@ -107,7 +106,6 @@
 }
 
 .search-button {
-  display: block;
   text-decoration: none;
   font-size: 0.75rem;
   line-height: 2.3;

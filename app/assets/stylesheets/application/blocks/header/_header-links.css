@@ -24,7 +24,6 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  font-size: 1em;
   line-height: 1;
   color: var(--default-text);
   position: relative;
@@ -57,7 +56,6 @@
 }
 
 .header-links__link-icon {
-  font-size: 1.25rem;
   line-height: 1;
   text-align: center;
   font-size: 1.125rem;

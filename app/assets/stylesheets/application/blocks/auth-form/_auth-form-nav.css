@@ -11,7 +11,6 @@
 }
 
 .auth-form-nav__item-link {
-  cursor: pointer;
   font-size: 0.75rem;
   line-height: 1.45;
   color: var(--main);

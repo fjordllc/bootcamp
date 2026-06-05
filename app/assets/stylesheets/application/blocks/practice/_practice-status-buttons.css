@@ -89,7 +89,6 @@
 }
 
 .practice-status-buttons__button.is-active.is-unstarted {
-  background-color: #fff;
   color: var(--muted-text);
   border-color: var(--muted-text);
   background-color: var(--background-tint);

@@ -141,7 +141,7 @@
 .admin-table__user {
   display: inline-flex;
   align-items: center;
-  gap: .25rem .25rem;
+  gap: .25rem;
 }
 
 .admin-table__user-icon {
@@ -157,7 +157,6 @@
 
 .admin-table__user-login-name {
   overflow-wrap: break-word;
-  word-wrap: break-word;
   color: var(--main-text);
 }
 

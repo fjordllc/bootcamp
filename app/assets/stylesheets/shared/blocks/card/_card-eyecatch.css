@@ -10,7 +10,6 @@
 }
 .card-eyecatch__image {
   display: block;
-  border-radius: 4px;
   aspect-ratio: 1.91 / 1;
   width: 100%;
   object-fit: cover;

@@ -2,8 +2,7 @@
   display: flex;
   position: relative;
   z-index: 2;
-  overflow-y: hidden;
-  overflow-x: auto;
+  overflow: auto hidden;
   transform: translateY(1px);
 }
 
