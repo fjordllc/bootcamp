@@ -13,14 +13,13 @@ class GithubPullRequestReviewCommentTool < RubyLLM::Tool
   param :side, type: :string, desc: 'コメント対象のdiff側。通常はRIGHT。削除行にコメントする場合のみLEFT', required: false
 
   def execute(pull_request_url:, path:, line:, body:, side: 'RIGHT')
-    return 'PJORD_GITHUB_TOKENが設定されていないため、PRへのコメント投稿はできません。' if github_token.blank?
-    return 'コメント本文が空のため、PRへのコメント投稿はできません。' if body.blank?
+    error_message = validation_error(body)
+    return error_message if error_message
 
     owner, repository, pull_number = parse_pull_request_url(pull_request_url)
     return 'GitHub Pull Request URLの形式が正しくありません。' unless owner && repository && pull_number
 
-    pull_request = get_json(api_url("/repos/#{owner}/#{repository}/pulls/#{pull_number}"))
-    commit_id = pull_request.dig('head', 'sha')
+    commit_id = pull_request_head_sha(owner, repository, pull_number)
     return 'Pull Requestを取得できませんでした。' if commit_id.blank?
 
     response = post_json(
@@ -42,6 +41,13 @@ class GithubPullRequestReviewCommentTool < RubyLLM::Tool
 
   private
 
+  def validation_error(body)
+    return 'PJORD_GITHUB_TOKENが設定されていないため、PRへのコメント投稿はできません。' if github_token.blank?
+    return 'コメント本文が空のため、PRへのコメント投稿はできません。' if body.blank?
+
+    nil
+  end
+
   def parse_pull_request_url(url)
     uri = URI.parse(url.to_s)
     return unless uri.is_a?(URI::HTTPS) && uri.host == 'github.com'
@@ -50,6 +56,11 @@ class GithubPullRequestReviewCommentTool < RubyLLM::Tool
     match&.captures
   rescue URI::InvalidURIError
     nil
+  end
+
+  def pull_request_head_sha(owner, repository, pull_number)
+    pull_request = get_json(api_url("/repos/#{owner}/#{repository}/pulls/#{pull_number}"))
+    pull_request&.dig('head', 'sha')
   end
 
   def get_json(url)
