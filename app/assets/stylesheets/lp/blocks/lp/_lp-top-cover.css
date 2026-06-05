@@ -76,7 +76,6 @@
 }
 
 .lp-top-cover__title {
-  color: var(--reversal-text);
   font-feature-settings: "palt";
   background-color: var(--accent);
   color: var(--main);

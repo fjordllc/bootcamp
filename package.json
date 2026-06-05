@@ -4,6 +4,7 @@
     "lint:eslint": "eslint 'app/javascript/**/*.js' --max-warnings=0",
     "lint:openapi": "bundle exec ruby bin/lint-openapi && npm run build:openapi-docs -- --check",
     "lint:prettier": "prettier 'app/javascript/**/*.js' --check",
+    "lint:stylelint": "stylelint 'app/assets/stylesheets/**/*.css'",
     "build:openapi-docs": "ruby bin/build-openapi-docs"
   },
   "devDependencies": {
@@ -14,6 +15,8 @@
     "playwright": "1.60.0",
     "prettier": "^3.8.4",
     "prettier-config-standard": "^7.0.0",
+    "stylelint": "^17.12.0",
+    "stylelint-config-standard": "^40.0.0",
     "swagger-ui-dist": "^5.32.6"
   },
   "engines": {

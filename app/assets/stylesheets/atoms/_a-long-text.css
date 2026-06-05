@@ -1,5 +1,5 @@
 .a-long-text {
-  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 .a-long-text h1 {
   font-size: 1.875em;
@@ -561,7 +561,7 @@ p + .a-long-text blockquote {
 }
 .a-long-text code {
   word-break: break-all;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
   white-space: pre-wrap;
 }
 .a-long-text strong,

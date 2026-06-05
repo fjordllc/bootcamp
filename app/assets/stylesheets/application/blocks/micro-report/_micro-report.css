@@ -132,7 +132,7 @@
 
 @media (max-width: 47.9375em) {
   .micro-report__body {
-    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 }
 
@@ -182,7 +182,7 @@
 .micro-report__created-at.is-active::after {
   content: "Copied!";
   display: block;
-  background-color: rgba(black, .4);
+  background-color: rgba(0, 0, 0, .4);
   border-radius: .125rem;
   padding: .25rem;
   font-size: .625rem;

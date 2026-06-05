@@ -38,7 +38,6 @@ input:checked + .global-nav .global-nav__background.a-overlay {
   text-decoration: none;
   white-space: nowrap;
   align-items: center;
-  justify-content: center;
   border-bottom: solid 1px var(--main-semi-shade);
   color: var(--reversal-text);
   transition: color 0.2s ease-in, background-color 0.2s ease-in;

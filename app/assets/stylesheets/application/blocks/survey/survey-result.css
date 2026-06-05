@@ -126,7 +126,7 @@
   color: #495057;
 }
 .survey-result-question__content .text-break {
-  word-break: break-word;
+  overflow-wrap: break-word;
 }
 .survey-result-question__content .font-weight-bold {
   font-weight: bold;

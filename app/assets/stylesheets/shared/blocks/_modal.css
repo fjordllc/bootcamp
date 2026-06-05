@@ -1,10 +1,7 @@
 .modal {
   display: none;
-  bottom: 0;
-  left: 0;
+  inset: 0;
   position: fixed;
-  right: 0;
-  top: 0;
   z-index: 100;
   padding: 1rem;
 }
@@ -15,11 +12,8 @@ input:checked + .modal,
 }
 
 .modal__overlay {
-  bottom: 0;
-  left: 0;
+  inset: 0;
   position: fixed;
-  right: 0;
-  top: 0;
   background-color: rgba(0, 0, 0, .6);
 }
 
