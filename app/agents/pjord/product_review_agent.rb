@@ -9,12 +9,7 @@ class Pjord::ProductReviewAgent < Pjord::Agent
 
   class << self
     def review(product)
-      agent = new
-      response = response_content(agent.ask(message(product)).content)
-      return response[:body] if sufficient_review?(response)
-
-      retry_response = response_content(agent.ask(retry_message(product, response)).content)
-      retry_response[:body].presence
+      extract_public_response_body(new.ask(message(product)).content).presence
     end
 
     private
@@ -52,50 +47,6 @@ class Pjord::ProductReviewAgent < Pjord::Agent
         ## 同じプラクティスの他の提出物
         #{other_products(product)}
       TEXT
-    end
-
-    def retry_message(product, previous_response)
-      <<~TEXT
-        直前のレビューコメントは、提出物の内容を具体的に確認した点が構造化されていないため不十分です。
-
-        ## 直前のレビューコメント本文
-        #{previous_response[:body].presence || 'なし'}
-
-        ## 直前の具体的な確認点
-        #{previous_response[:reviewed_points].presence || 'なし'}
-
-        ## やり直しの条件
-        - reviewed_points には、提出物本文、URL先の内容、模範解答、過去コメントなどから確認した具体的な点を1つ以上入れてください。
-        - body には reviewed_points の内容を反映したレビューコメントを書いてください。
-        - 改善点が見つからない場合も、何を確認して問題ないと判断したかを書いてください。
-
-        #{message(product)}
-      TEXT
-    end
-
-    def response_content(content)
-      parsed =
-        if content.respond_to?(:to_h)
-          content.to_h
-        elsif content.is_a?(String)
-          JSON.parse(content)
-        else
-          {}
-        end
-
-      {
-        body: extract_public_response_body(parsed).presence,
-        reviewed_points: Array.wrap(parsed['reviewed_points'] || parsed[:reviewed_points]).filter_map { |point| point.to_s.presence }
-      }
-    rescue JSON::ParserError
-      {
-        body: extract_public_response_body(content).presence,
-        reviewed_points: []
-      }
-    end
-
-    def sufficient_review?(response)
-      response[:body].present? && response[:reviewed_points].present?
     end
 
     def comments(product)

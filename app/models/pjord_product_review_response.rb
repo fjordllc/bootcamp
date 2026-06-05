@@ -12,5 +12,5 @@ class PjordProductReviewResponse < RubyLLM::Schema
 
   string :body,
          min_length: 1,
-         description: 'ユーザーにそのまま見せるレビューコメント本文。検索やツール使用などの内部手順説明は含めない。'
+         description: '提出者にそのまま見せるレビューコメント本文。検索やツール使用などの内部手順説明、管理側へのメッセージ、運用者向けメモは含めない。'
 end

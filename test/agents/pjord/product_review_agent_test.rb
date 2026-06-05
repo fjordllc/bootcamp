@@ -31,25 +31,8 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
     assert_includes chat.instructions, '語尾に「ピヨ」など特徴的な語尾は付けず'
     assert_includes chat.instructions, '提出物にレビューコメントを書いてください。'
     assert_includes chat.instructions, 'reviewed_points には、提出物本文、URL先の内容、模範解答、過去コメントなどを確認して判断した具体的な点を1つ以上入れてください。'
+    assert_includes chat.instructions, '管理側への説明、内部事情、運用者向けメモ、レビュー生成方針への言及は含めず'
     assert_includes chat.instructions, 'external_content_toolを使って内容を確認してからレビューしてください。'
-  end
-
-  test '.review retries when reviewed points are missing' do
-    product = products(:product1)
-    chat = ProductReviewChatFake.new(
-      responses: [
-        { body: '提出物を確認しますね！', reviewed_points: [] },
-        { body: '本文の構成が整理されていることを確認しました。', reviewed_points: ['本文の構成'] }
-      ]
-    )
-
-    RubyLLM.stub(:chat, chat) do
-      assert_equal '本文の構成が整理されていることを確認しました。', Pjord::ProductReviewAgent.review(product)
-    end
-
-    assert_equal 2, chat.asked_messages.size
-    assert_includes chat.asked_messages.second, '直前のレビューコメントは、提出物の内容を具体的に確認した点が構造化されていないため不十分です。'
-    assert_includes chat.asked_messages.second, '提出物を確認しますね！'
   end
 
   test '.review handles user without course' do
@@ -107,16 +90,11 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
   end
 
   class ProductReviewChatFake
-    attr_reader :asked_messages, :instructions, :schema, :tools
+    attr_reader :asked_message, :instructions, :schema, :tools
 
-    def initialize(responses: [{ body: 'レビュー本文', reviewed_points: ['提出物本文'] }])
+    def initialize
       @tools = []
-      @responses = responses
-      @last_response = nil
-      @asked_messages = []
     end
-
-    def asked_message = asked_messages.last
 
     def with_instructions(instructions)
       @instructions = instructions
@@ -134,10 +112,9 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
     end
 
     def ask(message, with: nil)
-      @asked_messages << message
+      @asked_message = message
       @attachments = with
-      @last_response = @responses.shift || @last_response
-      Struct.new(:content).new(@last_response)
+      Struct.new(:content).new({ body: 'レビュー本文', reviewed_points: ['提出物本文'] })
     end
   end
 end
