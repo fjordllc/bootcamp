@@ -51,9 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const newMemo = initializeNewMemo(html, userId)
     newMemo.scrollIntoView()
-    toggleClass(modalElements, 'is-hidden')
-    editorTextarea.value = ''
-    memoEditorPreview.innerHTML = ''
+    closeEditor()
 
     if (emptyMessage) {
       emptyMessage.classList.add('is-hidden')
@@ -62,9 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const cancelButton = memoEditor.querySelector('.js-cancel-memo')
   cancelButton.addEventListener('click', () => {
-    toggleClass(modalElements, 'is-hidden')
-    editorTextarea.value = ''
-    memoEditorPreview.innerHTML = ''
+    closeEditor()
   })
 
   const editorTab = memoEditor.querySelector('.editor-tab')
@@ -93,6 +89,13 @@ document.addEventListener('DOMContentLoaded', () => {
     editorTabContent.classList.add('is-active')
     previewTab.classList.remove('is-active')
     previewTabContent.classList.remove('is-active')
+  }
+
+  function closeEditor() {
+    toggleClass(modalElements, 'is-hidden')
+    editorTextarea.value = ''
+    memoEditorPreview.innerHTML = ''
+    saveButton.disabled = true
   }
 })
 
