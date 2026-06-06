@@ -52,6 +52,7 @@ export default function initializeMemo(memo, userId) {
     toggleEditor()
     editorTextarea.value = savedMemo
     editorPreview.innerHTML = markdownInitializer.render(savedMemo)
+    saveButton.disabled = editorTextarea.value.trim().length === 0
   })
 
   const deleteButton = memo.querySelector('.js-delete-memo')
