@@ -24,6 +24,19 @@ steps:
   args:
   - push
   - asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA
+- id: WriteSubstitutionEnv
+  name: gcr.io/google.com/cloudsdktool/cloud-sdk
+  entrypoint: python3
+  args:
+  - ".cloudbuild/cloud-build-env"
+  - write
+  - ".cloudbuild/substitutions.env"
+  - --build
+  - "$PROJECT_ID"
+  - "$BUILD_ID"
+  - global
+  waitFor:
+  - Push
 - id: SqlProxy
   name: gcr.io/cloudsql-docker/gce-proxy:1.16
   args:
@@ -42,10 +55,12 @@ steps:
   - bash
   - "-c"
   - |-
+    source .cloudbuild/substitutions.env
     eval "$(.cloudbuild/cloud-build-env exports)"
     bin/rails db:migrate:with_data
   waitFor:
   - Push
+  - WriteSubstitutionEnv
   volumes:
   - name: db
     path: "/cloudsql"
@@ -75,6 +90,7 @@ steps:
   - |
     set -euo pipefail
 
+    source .cloudbuild/substitutions.env
     env_vars="$(.cloudbuild/cloud-build-env cloud-run-env-vars)"
 
     if gcloud run jobs describe link-checker --region=asia-northeast1 --quiet 2>/dev/null; then
@@ -107,6 +123,7 @@ steps:
   - bash
   - "-c"
   - |-
+    source .cloudbuild/substitutions.env
     eval "$(.cloudbuild/cloud-build-env exports)"
     bin/notify
   waitFor:
