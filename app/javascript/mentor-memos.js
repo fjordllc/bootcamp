@@ -19,18 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
   )
   const editorTextarea = memoEditor.querySelector('.a-markdown-input__textarea')
 
-  const editorTab = memoEditor.querySelector('.editor-tab')
-  const editorTabContent = memoEditor.querySelector('.is-editor')
-  const previewTab = memoEditor.querySelector('.preview-tab')
-  const previewTabContent = memoEditor.querySelector('.is-preview')
-
-  const tabElements = [
-    editorTab,
-    editorTabContent,
-    previewTab,
-    previewTabContent
-  ]
-
   const memos = document.querySelectorAll('.mentor-memo')
   const emptyMessage = mentorMemo.querySelector('.o-empty-message')
   if (memos.length) {
@@ -46,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalElements = [addContainer, memoEditor]
   addButton.addEventListener('click', () => {
     toggleClass(modalElements, 'is-hidden')
-    resetEditorTabs(tabElements)
+    resetEditorTabs()
     editorTextarea.focus()
   })
 
@@ -79,6 +67,18 @@ document.addEventListener('DOMContentLoaded', () => {
     memoEditorPreview.innerHTML = ''
   })
 
+  const editorTab = memoEditor.querySelector('.editor-tab')
+  const editorTabContent = memoEditor.querySelector('.is-editor')
+  const previewTab = memoEditor.querySelector('.preview-tab')
+  const previewTabContent = memoEditor.querySelector('.is-preview')
+
+  const tabElements = [
+    editorTab,
+    editorTabContent,
+    previewTab,
+    previewTabContent
+  ]
+
   editorTab.addEventListener('click', () =>
     toggleClass(tabElements, 'is-active')
   )
@@ -87,6 +87,13 @@ document.addEventListener('DOMContentLoaded', () => {
       editorTextarea.value
     )
   })
+
+  function resetEditorTabs() {
+    editorTab.classList.add('is-active')
+    editorTabContent.classList.add('is-active')
+    previewTab.classList.remove('is-active')
+    previewTabContent.classList.remove('is-active')
+  }
 })
 
 async function createMemo(memo, userId) {
@@ -125,13 +132,4 @@ function toggleClass(elements, className) {
   elements.forEach((element) => {
     element.classList.toggle(className)
   })
-}
-
-function resetEditorTabs(tabElements) {
-  const [editorTab, editorTabContent, previewTab, previewTabContent] =
-    tabElements
-  editorTab.classList.add('is-active')
-  editorTabContent.classList.add('is-active')
-  previewTab.classList.remove('is-active')
-  previewTabContent.classList.remove('is-active')
 }
