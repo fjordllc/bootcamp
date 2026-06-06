@@ -1,307 +1,258 @@
+---
 steps:
-  - id: Fetch
-    name: gcr.io/cloud-builders/docker
-    entrypoint: bash
-    args:
-      - '-c'
-      - 'docker pull asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest || exit 0'
-  - id: Build
-    name: gcr.io/cloud-builders/docker
-    args:
-      - build
-      - '-t'
-      - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
-      - '-t'
-      - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
-      - .
-      - '-f'
-      - Dockerfile
-  - id: Push
-    name: gcr.io/cloud-builders/docker
-    args:
-      - push
-      - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
-    waitFor:
-      - Build
-  # Cloud Runサービスを削除してDB接続を切断し、Deployで再作成される
-  - id: StopCloudRun
-    name: gcr.io/google.com/cloudsdktool/cloud-sdk
-    entrypoint: bash
-    args:
-      - '-c'
-      - |
-        set -euo pipefail
-        echo "Deleting Cloud Run service to disconnect database connections..."
+- id: CancelPreviousBuilds
+  name: gcr.io/google.com/cloudsdktool/cloud-sdk
+  entrypoint: bash
+  args:
+  - "-c"
+  - |
+    set -euo pipefail
 
-        # サービスが存在するか確認して削除
-        if gcloud run services describe $_SERVICE_NAME --region=asia-northeast1 --quiet 2>/dev/null; then
-          gcloud run services delete $_SERVICE_NAME \
-            --region=asia-northeast1 \
-            --quiet
+    current_build_id="$BUILD_ID"
+    current_create_time="$(
+      gcloud builds describe "$current_build_id" \
+        --project="$PROJECT_ID" \
+        --region=global \
+        --format="value(createTime)"
+    )"
 
-          echo "Cloud Run service deleted. Waiting 60 seconds for connections to close..."
-          sleep 60
-        else
-          echo "Cloud Run service does not exist yet. Skipping delete."
+    echo "Cancelling previous running staging builds..."
+    gcloud builds list \
+      --project="$PROJECT_ID" \
+      --region=global \
+      --filter="substitutions.TRIGGER_NAME=cloud-run-deploy-staging AND (status=QUEUED OR status=WORKING)" \
+      --format="value(id,createTime)" |
+      while read -r build_id create_time; do
+        if [ "$build_id" != "$current_build_id" ] && [ "$create_time" \< "$current_create_time" ]; then
+          echo "Cancelling previous build: $build_id"
+          gcloud builds cancel "$build_id" \
+            --project="$PROJECT_ID" \
+            --region=global \
+            --quiet || true
         fi
-    waitFor:
-      - Push
-  - id: SqlProxy
-    name: 'gcr.io/cloudsql-docker/gce-proxy:1.16'
-    args:
-      - /cloud_sql_proxy
-      - '-dir=/cloudsql'
-      - '-instances=$_CLOUD_SQL_HOST'
-    waitFor:
-      - StopCloudRun
-    volumes:
-      - name: db
-        path: /cloudsql
-  # Cloud SQL Proxyの起動を待つ
-  - id: WaitForProxy
-    name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
-    args:
-      - bash
-      - '-c'
-      - |
-        set -euo pipefail
+      done
+- id: Fetch
+  name: gcr.io/cloud-builders/docker
+  entrypoint: bash
+  args:
+  - "-c"
+  - docker pull asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest || exit 0
+  waitFor:
+  - CancelPreviousBuilds
+- id: Build
+  name: gcr.io/cloud-builders/docker
+  args:
+  - build
+  - "-t"
+  - asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA
+  - "-t"
+  - asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest
+  - "."
+  - "-f"
+  - Dockerfile
+- id: Push
+  name: gcr.io/cloud-builders/docker
+  args:
+  - push
+  - asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA
+  waitFor:
+  - Build
+- id: WriteSubstitutionEnv
+  name: gcr.io/google.com/cloudsdktool/cloud-sdk
+  entrypoint: python3
+  args:
+  - ".cloudbuild/cloud-build-env"
+  - write
+  - ".cloudbuild/substitutions.env"
+  - --build
+  - "$PROJECT_ID"
+  - "$BUILD_ID"
+  - global
+  waitFor:
+  - Push
+- id: StopCloudRun
+  name: gcr.io/google.com/cloudsdktool/cloud-sdk
+  entrypoint: bash
+  args:
+  - "-c"
+  - |
+    set -euo pipefail
+    echo "Deleting Cloud Run service to disconnect database connections..."
 
-        echo "Waiting for Cloud SQL Proxy to be ready..."
-        TIMEOUT=60
-        ELAPSED=0
+    # サービスが存在するか確認して削除
+    if gcloud run services describe $_SERVICE_NAME --region=asia-northeast1 --quiet 2>/dev/null; then
+      gcloud run services delete $_SERVICE_NAME \
+        --region=asia-northeast1 \
+        --quiet
 
-        while [ $$ELAPSED -lt $$TIMEOUT ]; do
-          echo "Attempting database connection... ($$ELAPSED/$$TIMEOUT seconds)"
-          OUTPUT=$$(cat <<'TESTEOF' | bin/rails runner - 2>&1
-        begin
-          ActiveRecord::Base.connection.execute("SELECT 1")
-          puts "Database connection successful"
-          exit 0
-        rescue => e
-          puts "Connection failed: #{e.message}"
-          exit 1
-        end
-        TESTEOF
-          )
-          EXITCODE=$$?
-          if [ $$EXITCODE -eq 0 ]; then
-            echo "$$OUTPUT"
-            echo "Cloud SQL Proxy is ready."
-            exit 0
-          else
-            echo "Rails runner output: $$OUTPUT"
-            echo "Database not ready yet, waiting..."
-          fi
-          sleep 2
-          ELAPSED=$$(($$ELAPSED + 2))
-        done
+      echo "Cloud Run service deleted. Waiting 60 seconds for connections to close..."
+      sleep 60
+    else
+      echo "Cloud Run service does not exist yet. Skipping delete."
+    fi
+  waitFor:
+  - Push
+- id: SqlProxy
+  name: gcr.io/cloudsql-docker/gce-proxy:1.16
+  args:
+  - "/cloud_sql_proxy"
+  - "-dir=/cloudsql"
+  - "-instances=$_CLOUD_SQL_HOST"
+  waitFor:
+  - StopCloudRun
+  volumes:
+  - name: db
+    path: "/cloudsql"
+- id: WaitForProxy
+  name: postgres:16-alpine
+  entrypoint: sh
+  args:
+  - "-c"
+  - |
+    set -eu
+    echo "Waiting for Cloud SQL Proxy to be ready..."
+    TIMEOUT=60
+    ELAPSED=0
 
-        echo "ERROR: Timeout waiting for Cloud SQL Proxy after $$TIMEOUT seconds"
+    while [ $$ELAPSED -lt $$TIMEOUT ]; do
+      echo "Attempting database connection... ($$ELAPSED/$$TIMEOUT seconds)"
+      if PGPASSWORD="$_DB_PASS" PGCONNECT_TIMEOUT=2 psql -h "/cloudsql/$_CLOUD_SQL_HOST" -U "$_DB_USER" -d postgres -c "SELECT 1"; then
+        echo "Cloud SQL Proxy is ready."
+        exit 0
+      fi
+      echo "Database not ready yet, waiting..."
+      sleep 2
+      ELAPSED=$$(($$ELAPSED + 2))
+    done
+
+    echo "ERROR: Timeout waiting for Cloud SQL Proxy after $$TIMEOUT seconds"
+    exit 1
+  waitFor:
+  - StopCloudRun
+  volumes:
+  - name: db
+    path: "/cloudsql"
+- id: DeleteDB
+  name: postgres:16-alpine
+  entrypoint: sh
+  args:
+  - "-c"
+  - |
+    set -eu
+
+    case "$_DB_NAME" in
+      (*[!a-zA-Z0-9_]*|'')
+        echo "Invalid DB name: $_DB_NAME" >&2
         exit 1
-    waitFor:
-      - StopCloudRun
-    volumes:
-      - name: db
-        path: /cloudsql
-    env:
-      - RAILS_ENV=production
-      - DISABLE_DATABASE_ENVIRONMENT_CHECK=1
-      - DB_HOST=/cloudsql/$_CLOUD_SQL_HOST
-      - DB_NAME=postgres
-      - DB_PASS=$_DB_PASS
-      - DB_USER=$_DB_USER
-      - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
-      - APP_HOST_NAME=$_APP_HOST_NAME
-  # bootcamp_stagingへの接続を強制切断してからデータベースを削除
-  - id: DeleteDB
-    name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
-    entrypoint: bash
-    args:
-      - '-c'
-      - |
-        set -euo pipefail
+        ;;
+    esac
 
-        echo "Terminating all connections to bootcamp_staging..."
-        cat <<'SQLEOF' | bin/rails runner - 2>&1
-        result = ActiveRecord::Base.connection.execute(<<~SQL)
-          SELECT pg_terminate_backend(pid)
-          FROM pg_stat_activity
-          WHERE datname = 'bootcamp_staging'
-            AND pid <> pg_backend_pid()
-        SQL
-        puts "Terminated #{result.count} connection(s)"
-        SQLEOF
+    echo "Terminating all connections to $_DB_NAME..."
+    PGPASSWORD="$_DB_PASS" psql -h "/cloudsql/$_CLOUD_SQL_HOST" -U "$_DB_USER" -d postgres -c \
+      "SELECT pg_terminate_backend(pid)
+      FROM pg_stat_activity
+      WHERE datname = '$_DB_NAME'
+        AND pid <> pg_backend_pid();"
 
-        echo "Dropping database bootcamp_staging..."
-        cat <<'SQLEOF' | bin/rails runner - 2>&1
-        ActiveRecord::Base.connection.execute("DROP DATABASE IF EXISTS bootcamp_staging")
-        puts "Database dropped successfully"
-        SQLEOF
-    waitFor:
-      - WaitForProxy
-    volumes:
-      - name: db
-        path: /cloudsql
-    env:
-      - RAILS_ENV=production
-      - DISABLE_DATABASE_ENVIRONMENT_CHECK=1
-      - DB_HOST=/cloudsql/$_CLOUD_SQL_HOST
-      - DB_NAME=postgres
-      - DB_PASS=$_DB_PASS
-      - DB_USER=$_DB_USER
-      - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
-      - APP_HOST_NAME=$_APP_HOST_NAME
-  - id: CreateDB
-    name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
-    entrypoint: bash
-    args:
-      - '-c'
-      - |
-        set -euo pipefail
+    echo "Dropping database $_DB_NAME..."
+    PGPASSWORD="$_DB_PASS" psql -h "/cloudsql/$_CLOUD_SQL_HOST" -U "$_DB_USER" -d postgres -c \
+      "DROP DATABASE IF EXISTS $_DB_NAME;"
+    echo "Database dropped successfully"
+  waitFor:
+  - WaitForProxy
+  volumes:
+  - name: db
+    path: "/cloudsql"
+- id: CreateDB
+  name: postgres:16-alpine
+  entrypoint: sh
+  args:
+  - "-c"
+  - |
+    set -eu
 
-        echo "Creating database bootcamp_staging..."
-        cat <<'SQLEOF' | bin/rails runner - 2>&1
-        ActiveRecord::Base.connection.execute("CREATE DATABASE bootcamp_staging")
-        puts "Database created successfully"
-        SQLEOF
-    waitFor:
-      - DeleteDB
-    volumes:
-      - name: db
-        path: /cloudsql
-    env:
-      - RAILS_ENV=production
-      - DISABLE_DATABASE_ENVIRONMENT_CHECK=1
-      - DB_HOST=/cloudsql/$_CLOUD_SQL_HOST
-      - DB_NAME=postgres
-      - DB_PASS=$_DB_PASS
-      - DB_USER=$_DB_USER
-      - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
-      - APP_HOST_NAME=$_APP_HOST_NAME
-  - id: EnablePgvector
-    name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
-    entrypoint: bash
-    args:
-      - '-c'
-      - |
-        set -euo pipefail
+    case "$_DB_NAME" in
+      (*[!a-zA-Z0-9_]*|'')
+        echo "Invalid DB name: $_DB_NAME" >&2
+        exit 1
+        ;;
+    esac
 
-        echo "Enabling pgvector extension on bootcamp_staging..."
-        cat <<'SQLEOF' | bin/rails runner - 2>&1
-        ActiveRecord::Base.connection.execute("CREATE EXTENSION IF NOT EXISTS vector")
-        puts "pgvector extension enabled"
-        SQLEOF
-    waitFor:
-      - CreateDB
-    volumes:
-      - name: db
-        path: /cloudsql
-    env:
-      - RAILS_ENV=production
-      - DISABLE_DATABASE_ENVIRONMENT_CHECK=1
-      - DB_HOST=/cloudsql/$_CLOUD_SQL_HOST
-      - DB_NAME=$_DB_NAME
-      - DB_PASS=$_DB_PASS
-      - DB_USER=$_DB_USER
-      - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
-      - APP_HOST_NAME=$_APP_HOST_NAME
-  - id: DBMigrate
-    name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
-    args:
-      - bin/rails
-      - db:migrate
-      - db:seed
-    waitFor:
-      - EnablePgvector
-    volumes:
-      - name: db
-        path: /cloudsql
-    env:
-      - RAILS_ENV=production
-      - DISABLE_DATABASE_ENVIRONMENT_CHECK=1
-      - DB_HOST=/cloudsql/$_CLOUD_SQL_HOST
-      - DB_NAME=$_DB_NAME
-      - DB_PASS=$_DB_PASS
-      - DB_USER=$_DB_USER
-      - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
-      - APP_HOST_NAME=$_APP_HOST_NAME
-  - id: Kill_SqlProxy
-    name: gcr.io/cloud-builders/docker
-    entrypoint: sh
-    args:
-      - '-c'
-      - docker kill -s TERM $(docker ps -q --filter "volume=db")
-    waitFor:
-      - DBMigrate
-  - id: Deploy
-    name: gcr.io/google.com/cloudsdktool/cloud-sdk
-    entrypoint: bash
-    args:
-      - .cloudbuild/deploy-cloud-run
-      - staging
-    env:
-      - PROJECT_ID=$PROJECT_ID
-      - REPO_NAME=$REPO_NAME
-      - COMMIT_SHA=$COMMIT_SHA
-      - BUILD_ID=$BUILD_ID
-      - _ANTHROPIC_API_KEY=$_ANTHROPIC_API_KEY
-      - _APP_HOST_NAME=$_APP_HOST_NAME
-      - _BASIC_AUTH_PASSWORD=$_BASIC_AUTH_PASSWORD
-      - _BASIC_AUTH_USER=$_BASIC_AUTH_USER
-      - _CLOUD_RUN_HOST_NAME=$_CLOUD_RUN_HOST_NAME
-      - _CLOUD_SQL_HOST=$_CLOUD_SQL_HOST
-      - _DB_NAME=$_DB_NAME
-      - _DB_PASS=$_DB_PASS
-      - _DB_USER=$_DB_USER
-      - _DISCORD_ADMIN_WEBHOOK_URL=$_DISCORD_ADMIN_WEBHOOK_URL
-      - _DISCORD_ALL_WEBHOOK_URL=$_DISCORD_ALL_WEBHOOK_URL
-      - _DISCORD_AUTHENTICATION_URL=$_DISCORD_AUTHENTICATION_URL
-      - _DISCORD_BOT_TOKEN=$_DISCORD_BOT_TOKEN
-      - _DISCORD_BUG_WEBHOOK_URL=$_DISCORD_BUG_WEBHOOK_URL
-      - _DISCORD_CLIENT_ID=$_DISCORD_CLIENT_ID
-      - _DISCORD_CLIENT_SECRET=$_DISCORD_CLIENT_SECRET
-      - _DISCORD_GUILD_ID=$_DISCORD_GUILD_ID
-      - _DISCORD_INTRODUCTION_WEBHOOK_URL=$_DISCORD_INTRODUCTION_WEBHOOK_URL
-      - _DISCORD_MENTOR_WEBHOOK_URL=$_DISCORD_MENTOR_WEBHOOK_URL
-      - _DISCORD_NOTICE_WEBHOOK_URL=$_DISCORD_NOTICE_WEBHOOK_URL
-      - _DISCORD_REPORT_WEBHOOK_URL=$_DISCORD_REPORT_WEBHOOK_URL
-      - _DISCORD_TIMES_CHANNEL_CATEGORY_ID=$_DISCORD_TIMES_CHANNEL_CATEGORY_ID
-      - _ENVS=$_ENVS
-      - _GCS_BUCKET=$_GCS_BUCKET
-      - _GOOGLE_CREDENTIALS=$_GOOGLE_CREDENTIALS
-      - _LABELS=$_LABELS
-      - _MEMORY=$_MEMORY
-      - _MISSION_CONTROL_PASSWORD=$_MISSION_CONTROL_PASSWORD
-      - _MISSION_CONTROL_USERNAME=$_MISSION_CONTROL_USERNAME
-      - _OPEN_AI_ACCESS_TOKEN=$_OPEN_AI_ACCESS_TOKEN
-      - _PJORD_GITHUB_TOKEN=$_PJORD_GITHUB_TOKEN
-      - _PUBSUB_AUDIENCE=$_PUBSUB_AUDIENCE
-      - _PUBSUB_SERVICE_ACCOUNT_EMAIL=$_PUBSUB_SERVICE_ACCOUNT_EMAIL
-      - _PUBSUB_TOPIC=$_PUBSUB_TOPIC
-      - _RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
-      - _RECAPTCHA_SECRET_KEY=$_RECAPTCHA_SECRET_KEY
-      - _RECAPTCHA_SITE_KEY=$_RECAPTCHA_SITE_KEY
-      - _ROLLBAR_CLIENT_TOKEN=$_ROLLBAR_CLIENT_TOKEN
-      - _SERVICE_ACCOUNT=$_SERVICE_ACCOUNT
-      - _SERVICE_NAME=$_SERVICE_NAME
-      - _STRIPE_ENDPOINT_SECRET=$_STRIPE_ENDPOINT_SECRET
-      - _STRIPE_TAX_RATE_ID=$_STRIPE_TAX_RATE_ID
-      - _TOKEN=$_TOKEN
-      - _TRIGGER_ID=$_TRIGGER_ID
-  - id: Notify
-    name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
-    args:
-      - bin/notify
-    waitFor:
-      - Deploy
-    env:
-      - DB_NAME=$_DB_NAME
-      - DEPLOY_NOTIFY_WEBHOOK_URL=$_DEPLOY_NOTIFY_WEBHOOK_URL
+    echo "Creating database $_DB_NAME..."
+    PGPASSWORD="$_DB_PASS" psql -h "/cloudsql/$_CLOUD_SQL_HOST" -U "$_DB_USER" -d postgres -c \
+      "CREATE DATABASE $_DB_NAME;"
+    echo "Database created successfully"
+  waitFor:
+  - DeleteDB
+  volumes:
+  - name: db
+    path: "/cloudsql"
+- id: EnablePgvector
+  name: postgres:16-alpine
+  entrypoint: sh
+  args:
+  - "-c"
+  - |
+    set -eu
+
+    echo "Enabling pgvector extension on $_DB_NAME..."
+    PGPASSWORD="$_DB_PASS" psql -h "/cloudsql/$_CLOUD_SQL_HOST" -U "$_DB_USER" -d "$_DB_NAME" -c \
+      "CREATE EXTENSION IF NOT EXISTS vector;"
+    echo "pgvector extension enabled"
+  waitFor:
+  - CreateDB
+  volumes:
+  - name: db
+    path: "/cloudsql"
+- id: DBMigrate
+  name: asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA
+  automapSubstitutions: true
+  args:
+  - bash
+  - "-c"
+  - |-
+    source .cloudbuild/substitutions.env
+    eval "$(.cloudbuild/cloud-build-env exports)"
+    bin/rails db:migrate db:seed
+  waitFor:
+  - EnablePgvector
+  - WriteSubstitutionEnv
+  volumes:
+  - name: db
+    path: "/cloudsql"
+- id: Kill_SqlProxy
+  name: gcr.io/cloud-builders/docker
+  entrypoint: sh
+  args:
+  - "-c"
+  - docker kill -s TERM $(docker ps -q --filter "volume=db")
+  waitFor:
+  - DBMigrate
+- id: Deploy
+  name: gcr.io/google.com/cloudsdktool/cloud-sdk
+  automapSubstitutions: true
+  entrypoint: bash
+  args:
+  - ".cloudbuild/deploy-cloud-run"
+  - staging
+- id: Notify
+  name: asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest
+  automapSubstitutions: true
+  args:
+  - bash
+  - "-c"
+  - |-
+    source .cloudbuild/substitutions.env
+    eval "$(.cloudbuild/cloud-build-env exports)"
+    bin/notify
+  waitFor:
+  - Deploy
 options:
   substitutionOption: ALLOW_LOOSE
+  automapSubstitutions: true
 timeout: 7200s
 images:
-  - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
+- asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest
 substitutions:
   _APP_HOST_NAME: bootcamp-staging.fjord.jp
   _BASIC_AUTH_USER: ''
@@ -312,6 +263,7 @@ substitutions:
   _GCS_BUCKET: ''
   _LABELS: ''
   _MEMORY: ''
+  _DEPLOY_NOTIFY_WEBHOOK_URL: ''
   _SERVICE_ACCOUNT: staging@bootcamp-224405.iam.gserviceaccount.com
   _SERVICE_NAME: ''
   _TRIGGER_ID: ''

@@ -18,8 +18,8 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
       assert_equal 'レビュー本文', Pjord::ProductReviewAgent.review(product)
     end
 
-    assert_equal [BootcampSearchTool, UserInfoTool, ExternalContentTool], chat.tools
-    assert_equal PjordResponse, chat.schema
+    assert_equal [BootcampSearchTool, UserInfoTool, ExternalContentTool, GithubPullRequestReviewCommentTool], chat.tools
+    assert_equal PjordProductReviewResponse, chat.schema
     asked_message = chat.asked_message
     assert_includes asked_message, product.user.login_name
     assert_includes asked_message, product.practice.title
@@ -30,7 +30,10 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
     assert_includes chat.instructions, 'あなたはFJORD BOOT CAMP'
     assert_includes chat.instructions, '語尾に「ピヨ」など特徴的な語尾は付けず'
     assert_includes chat.instructions, '提出物にレビューコメントを書いてください。'
+    assert_includes chat.instructions, 'reviewed_points には、提出物本文、URL先の内容、模範解答、過去コメントなどを確認して判断した具体的な点を1つ以上入れてください。'
+    assert_includes chat.instructions, '管理側への説明、内部事情、運用者向けメモ、レビュー生成方針への言及は含めず'
     assert_includes chat.instructions, 'external_content_toolを使って内容を確認してからレビューしてください。'
+    assert_includes chat.instructions, 'コードの特定行に対する具体的な指摘は、可能な限りgithub_pull_request_review_comment_toolを使ってPRの該当行へ直接コメントしてください。'
   end
 
   test '.review handles user without course' do
@@ -112,7 +115,7 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
     def ask(message, with: nil)
       @asked_message = message
       @attachments = with
-      Struct.new(:content).new({ body: 'レビュー本文' })
+      Struct.new(:content).new({ body: 'レビュー本文', reviewed_points: ['提出物本文'] })
     end
   end
 end
