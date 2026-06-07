@@ -49,7 +49,7 @@
 .is-first .random-tags-item__name::before, .is-second .random-tags-item__name::before, .is-third .random-tags-item__name::before {
   margin-right: 0.5em;
   content: "\f521";
-  font-family: "Font Awesome 6 Pro";
+  font-family: "Font Awesome 7 Free";
   font-style: normal;
   font-weight: 900;
   font-variant: normal;

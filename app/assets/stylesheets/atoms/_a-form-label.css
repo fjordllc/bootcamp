@@ -11,7 +11,7 @@
 }
 .a-form-label.is-required::after {
   content: "\f069";
-  font-family: "Font Awesome 6 Pro";
+  font-family: "Font Awesome 7 Free";
   font-style: normal;
   font-weight: 900;
   font-variant: normal;
@@ -69,7 +69,7 @@
 }
 .form-item__label-checkbox input:checked + .a-form-label::after {
   content: "\f00c";
-  font-family: "Font Awesome 6 Pro";
+  font-family: "Font Awesome 7 Free";
   font-style: normal;
   font-weight: 900;
   font-variant: normal;
