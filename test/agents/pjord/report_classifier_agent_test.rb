@@ -5,16 +5,18 @@ require 'test_helper'
 class Pjord::ReportClassifierAgentTest < ActiveSupport::TestCase
   test '.classify returns parsed report intent' do
     report = reports(:report1)
-    chat = ClassifierChatFake.new('{"intent":"question","reason":"質問がある"}')
+    chat = ClassifierChatFake.new('{"intent":"general","reason":"通常の学習記録"}')
 
     RubyLLM.stub(:chat, chat) do
       result = Pjord::ReportClassifierAgent.classify(report)
 
-      assert_equal 'question', result[:intent]
-      assert_equal '質問がある', result[:reason]
+      assert_equal 'general', result[:intent]
+      assert_equal '通常の学習記録', result[:reason]
     end
 
     assert_includes chat.instructions, '日報の内容を分類'
+    assert_includes chat.instructions, '通常の日報は `general`'
+    assert_includes chat.instructions, '`none` は'
     assert_includes chat.asked_message, report.title
     assert_includes chat.asked_message, report.description
   end
