@@ -6,9 +6,13 @@ env_vars_file="$(mktemp)"
 trap 'rm -f "$env_vars_file"' EXIT
 
 substitution_env_file="${SUBSTITUTION_ENV_FILE:-.cloudbuild/substitutions.env}"
+postmark_api_token_from_secret_env="${POSTMARK_API_TOKEN_FROM_SECRET:-}"
 if [[ -f "$substitution_env_file" ]]; then
   # shellcheck source=/dev/null
   source "$substitution_env_file"
+fi
+if [[ -z "${_POSTMARK_API_TOKEN:-}" && -n "$postmark_api_token_from_secret_env" ]]; then
+  export _POSTMARK_API_TOKEN="$postmark_api_token_from_secret_env"
 fi
 
 image_for_environment() {

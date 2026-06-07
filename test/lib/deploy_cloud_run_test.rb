@@ -40,6 +40,24 @@ class DeployCloudRunTest < ActiveSupport::TestCase
     end
   end
 
+  test 'uses postmark token from secret env when substitution file contains an empty placeholder' do
+    Dir.mktmpdir do |dir|
+      gcloud_log = File.join(dir, 'gcloud.log')
+      stub_gcloud(dir, gcloud_log)
+      substitutions_env = File.join(dir, 'substitutions.env')
+      File.write(substitutions_env, "export _POSTMARK_API_TOKEN=''\n")
+
+      env = deploy_env(dir).merge(
+        'SUBSTITUTION_ENV_FILE' => substitutions_env,
+        'POSTMARK_API_TOKEN_FROM_SECRET' => 'postmark-token-from-secret'
+      )
+      _stdout, stderr, status = Open3.capture3(env, SCRIPT, 'production')
+
+      assert_predicate status, :success?, stderr
+      assert File.exist?(gcloud_log), 'gcloud should be called'
+    end
+  end
+
   private
 
   def stub_gcloud(dir, gcloud_log)

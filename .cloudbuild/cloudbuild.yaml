@@ -77,6 +77,8 @@ steps:
   name: gcr.io/google.com/cloudsdktool/cloud-sdk
   automapSubstitutions: true
   entrypoint: bash
+  secretEnv:
+  - POSTMARK_API_TOKEN_FROM_SECRET
   args:
   - ".cloudbuild/deploy-cloud-run"
   - production
@@ -84,6 +86,8 @@ steps:
   name: gcr.io/google.com/cloudsdktool/cloud-sdk
   automapSubstitutions: true
   entrypoint: bash
+  secretEnv:
+  - POSTMARK_API_TOKEN_FROM_SECRET
   waitFor:
   - Deploy
   args:
@@ -91,7 +95,12 @@ steps:
   - |
     set -euo pipefail
 
+    postmark_api_token_from_secret_env="$${POSTMARK_API_TOKEN_FROM_SECRET:-}"
     source .cloudbuild/substitutions.env
+    if [[ -z "$${_POSTMARK_API_TOKEN:-}" && -n "$${postmark_api_token_from_secret_env}" ]]; then
+      export _POSTMARK_API_TOKEN="$${postmark_api_token_from_secret_env}"
+    fi
+
     env_vars="$(.cloudbuild/cloud-build-env cloud-run-env-vars)"
 
     if gcloud run jobs describe link-checker --region=asia-northeast1 --quiet 2>/dev/null; then
@@ -136,6 +145,10 @@ options:
 timeout: 7200s
 images:
 - asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest
+availableSecrets:
+  secretManager:
+  - versionName: projects/$PROJECT_ID/secrets/bootcamp-production-postmark-api-token/versions/latest
+    env: POSTMARK_API_TOKEN_FROM_SECRET
 substitutions:
   _APP_HOST_NAME: bootcamp.fjord.jp
   _BASIC_AUTH_PASSWORD: ''
