@@ -45,7 +45,11 @@ class DeployCloudRunTest < ActiveSupport::TestCase
       gcloud_log = File.join(dir, 'gcloud.log')
       stub_gcloud(dir, gcloud_log)
       substitutions_env = File.join(dir, 'substitutions.env')
-      File.write(substitutions_env, "export _POSTMARK_API_TOKEN=''\n")
+      File.write(
+        substitutions_env,
+        "export _POSTMARK_API_TOKEN=''\n" \
+        "export POSTMARK_API_TOKEN=''\n"
+      )
 
       env = deploy_env(dir).merge(
         'SUBSTITUTION_ENV_FILE' => substitutions_env,
