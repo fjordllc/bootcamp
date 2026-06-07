@@ -81,6 +81,18 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     end
   end
 
+  test 'creates a comment when intent is general' do
+    report = reports(:report1)
+
+    Pjord::ReportClassifierAgent.stub(:classify, { intent: 'general', reason: '通常の学習記録' }) do
+      Pjord::ReportCommentAgent.stub(:comment, '今日の取り組みもいいですね。') do
+        assert_difference 'Comment.count', 1 do
+          PjordReportCommentJob.perform_now(report_id: report.id)
+        end
+      end
+    end
+  end
+
   test 'creates only an eyes reaction when intent is none' do
     report = reports(:report1)
     pjord = users(:pjord)

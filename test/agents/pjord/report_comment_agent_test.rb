@@ -22,6 +22,18 @@ class Pjord::ReportCommentAgentTest < ActiveSupport::TestCase
     assert_equal PjordResponse, chat.schema
   end
 
+  test '.comment includes general intent instructions' do
+    report = reports(:report1)
+    chat = AgentChatFake.new
+
+    RubyLLM.stub(:chat, chat) do
+      Pjord::ReportCommentAgent.comment(report, intent: 'general')
+    end
+
+    assert_includes chat.instructions, '短く自然な応援や共感'
+    assert_includes chat.instructions, '無理にアドバイスを足さず'
+  end
+
   class AgentChatFake
     attr_reader :asked_message, :instructions, :schema, :tools
 
