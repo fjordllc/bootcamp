@@ -26,6 +26,20 @@ class DeployCloudRunTest < ActiveSupport::TestCase
     end
   end
 
+  test 'fails before deploy when required production environment variables are missing' do
+    Dir.mktmpdir do |dir|
+      gcloud_log = File.join(dir, 'gcloud.log')
+      stub_gcloud(dir, gcloud_log)
+
+      env = deploy_env(dir).except('_POSTMARK_API_TOKEN')
+      _stdout, stderr, status = Open3.capture3(env, SCRIPT, 'production')
+
+      assert_not_predicate status, :success?
+      assert_includes stderr, 'POSTMARK_API_TOKEN'
+      assert_not File.exist?(gcloud_log), 'gcloud should not be called'
+    end
+  end
+
   private
 
   def stub_gcloud(dir, gcloud_log)
@@ -57,6 +71,7 @@ class DeployCloudRunTest < ActiveSupport::TestCase
       '_SERVICE_NAME' => 'bootcamp',
       '_TRIGGER_ID' => 'trigger123',
       '_RAILS_MASTER_KEY' => 'master-key',
+      '_POSTMARK_API_TOKEN' => 'postmark-token',
       '_DB_PASS' => 'db-pass'
     }
   end

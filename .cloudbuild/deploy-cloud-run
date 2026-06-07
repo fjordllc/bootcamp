@@ -84,6 +84,28 @@ esac
 
 "$(dirname "$0")/cloud-build-env" cloud-run-json > "$env_vars_file"
 
+case "$environment" in
+  production)
+    python3 - "$env_vars_file" <<'PY'
+import json
+import sys
+
+required = ["POSTMARK_API_TOKEN"]
+with open(sys.argv[1], encoding="utf-8") as env_file:
+    env_vars = json.load(env_file)
+
+missing = [name for name in required if not str(env_vars.get(name, "")).strip()]
+if missing:
+    print(
+        "ERROR: required production environment variable(s) are missing: "
+        + ", ".join(missing),
+        file=sys.stderr,
+    )
+    sys.exit(1)
+PY
+    ;;
+esac
+
 cloud_run_args+=(
   --clear-secrets
   --env-vars-file

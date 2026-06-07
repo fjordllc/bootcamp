@@ -138,6 +138,7 @@ images:
 - asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest
 substitutions:
   _APP_HOST_NAME: bootcamp.fjord.jp
+  _BASIC_AUTH_PASSWORD: ''
   _BASIC_AUTH_USER: ''
   _CLOUD_RUN_HOST_NAME: ''
   _CLOUD_SQL_HOST: ''
@@ -146,6 +147,7 @@ substitutions:
   _GCS_BUCKET: ''
   _LABELS: ''
   _MEMORY: ''
+  _POSTMARK_API_TOKEN: ''
   _DEPLOY_NOTIFY_WEBHOOK_URL: ''
   _SERVICE_NAME: ''
   _TRIGGER_ID: ''
