@@ -55,6 +55,7 @@ steps:
   - bash
   - "-c"
   - |-
+    set -euo pipefail
     source .cloudbuild/substitutions.env
     eval "$(.cloudbuild/cloud-build-env exports)"
     bin/rails db:migrate:with_data
@@ -123,6 +124,7 @@ steps:
   - bash
   - "-c"
   - |-
+    set -euo pipefail
     source .cloudbuild/substitutions.env
     eval "$(.cloudbuild/cloud-build-env exports)"
     bin/notify
