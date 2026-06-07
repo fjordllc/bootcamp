@@ -249,7 +249,7 @@
 }
 .a-long-text .message::before {
   content: "\f06a";
-  font-family: "Font Awesome 6 Pro";
+  font-family: "Font Awesome 7 Free";
   font-style: normal;
   font-weight: 900;
   font-variant: normal;
