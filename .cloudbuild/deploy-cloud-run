@@ -19,48 +19,6 @@ image_for_environment() {
   fi
 }
 
-remove_existing_secret_env_vars() {
-  local service_json
-  local secret_env_vars
-
-  service_json="$(mktemp)"
-  trap 'rm -f "$service_json"' RETURN
-
-  if ! gcloud run services describe "${_SERVICE_NAME}" \
-    --platform=managed \
-    --region=asia-northeast1 \
-    --format=json > "$service_json" 2>/dev/null; then
-    return
-  fi
-
-  secret_env_vars="$(
-    python3 - "$service_json" <<'PY'
-import json
-import sys
-
-with open(sys.argv[1], encoding="utf-8") as service_json:
-    service = json.load(service_json)
-
-containers = service.get("spec", {}).get("template", {}).get("spec", {}).get("containers", [])
-names = []
-for container in containers:
-    for env in container.get("env", []):
-        if "valueFrom" in env and env.get("name"):
-            names.append(env["name"])
-
-print(",".join(sorted(set(names))))
-PY
-  )"
-
-  if [[ -n "$secret_env_vars" ]]; then
-    gcloud run services update "${_SERVICE_NAME}" \
-      --platform=managed \
-      --region=asia-northeast1 \
-      --remove-secrets="$secret_env_vars" \
-      --quiet
-  fi
-}
-
 cloud_run_args=(
   run
   deploy
@@ -124,10 +82,10 @@ case "$environment" in
     ;;
 esac
 
-remove_existing_secret_env_vars
 "$(dirname "$0")/cloud-build-env" cloud-run-json > "$env_vars_file"
 
 cloud_run_args+=(
+  --clear-secrets
   --env-vars-file
   "$env_vars_file"
 )
