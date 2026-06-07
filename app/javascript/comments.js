@@ -1,4 +1,4 @@
-import { initializeComment } from './initializeComment.js'
+import { initializeComment } from 'initializeComment'
 
 document.addEventListener('DOMContentLoaded', () => {
   const comments = document.querySelectorAll('.thread-comment:not(.loading)')

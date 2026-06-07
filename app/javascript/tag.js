@@ -1,11 +1,10 @@
 import Tagify from '@yaireo/tagify'
-import '@yaireo/tagify/dist/tagify.css' // Tagify CSS
 import { get } from '@rails/request.js'
-import CSRF from './csrf'
-import transformHeadSharp from './transform-head-sharp'
-import validateTagName from './validate-tag-name'
-import headIsSharpOrOctothorpe from './head-is-sharp-or-octothorpe'
-import parseTags from './parse_tags'
+import CSRF from 'csrf'
+import transformHeadSharp from 'transform-head-sharp'
+import validateTagName from 'validate-tag-name'
+import headIsSharpOrOctothorpe from 'head-is-sharp-or-octothorpe'
+import parseTags from 'parse_tags'
 
 document.addEventListener('DOMContentLoaded', () => {
   const tagsContainer = document.querySelector('.tag-component')
@@ -16,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const tagsForm = tagsContainer.querySelector('.tags-form')
   const inputTags = tagsForm.querySelector('.tags-form__input')
   const sharpWarning = tagsForm.querySelector('.sharp-warning')
+  const saveButton = tagsForm.querySelector('.save-button')
   const cancelButton = tagsForm.querySelector('.cancel-button')
 
   const tagsType = tagsContainer.dataset.tagsType
@@ -102,14 +102,21 @@ document.addEventListener('DOMContentLoaded', () => {
     setEditing(false)
   })
 
-  tagsForm.addEventListener('submit', async (e) => {
+  let isSaving = false
+
+  const saveTags = async (e) => {
     e.preventDefault()
+    if (isSaving) return
+    isSaving = true
     tags = tagify.value.filter((tag) => tag.__isValid).map((tag) => tag.value)
+    const previousTags = [...tagsInitialValue]
     const params = {
       [tagsType.toLowerCase()]: {
         tag_list: tags.join(',')
       }
     }
+    renderTags(tags)
+    setEditing(false)
     try {
       const response = await fetch(
         `/api/${tagsType.toLowerCase()}s/${tagsTypeId}`,
@@ -130,13 +137,19 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       tagsInitialValue = [...tags]
-      renderTags(tags)
-      setEditing(false)
     } catch (error) {
+      tags = [...previousTags]
+      renderTags(tags)
+      setEditing(true)
       alert('タグの更新に失敗しました')
       console.warn(error)
+    } finally {
+      isSaving = false
     }
-  })
+  }
+
+  tagsForm.addEventListener('submit', saveTags)
+  saveButton.addEventListener('mousedown', saveTags)
 
   fetchTagsData()
   renderTags(tagsInitialValue)

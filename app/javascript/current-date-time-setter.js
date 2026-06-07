@@ -1,4 +1,4 @@
-import { formatDateTimeLocal } from './utilities/date.js'
+import { formatDateTimeLocal } from 'utilities/date'
 
 document.addEventListener('DOMContentLoaded', () => {
   const currentDateTimeButton = document.getElementById(

@@ -1,4 +1,4 @@
-# Build stage - includes devDependencies for asset compilation
+# Build stage - compiles Rails assets without a Node.js build step
 FROM ruby:3.4.3-slim as builder
 
 ENV RAILS_ENV production
@@ -23,18 +23,8 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
       libvips-dev && \
     rm -rf /var/lib/apt/lists/*
 
-# Install Node.js 22.x
-RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends nodejs && \
-    rm -rf /var/lib/apt/lists/*
-
 # Set timezone
 RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
-
-# Install ALL npm packages (including devDependencies for asset compilation)
-COPY package.json package-lock.json ./
-RUN npm install
 
 # Install gems
 COPY Gemfile Gemfile.lock ./
@@ -43,9 +33,8 @@ RUN bundle install -j4
 # Copy application code
 COPY . ./
 
-# Compile assets (now with devDependencies available)
+# Compile assets
 ENV RAILS_LOG_TO_STDOUT true
-ENV SHAKAPACKER_NODE_MODULES_BIN_PATH ./node_modules/.bin
 RUN SECRET_KEY_BASE=dummy bundle exec rails assets:precompile
 
 # Production stage - minimal runtime image
@@ -76,19 +65,9 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
 # Set timezone
 RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
-# Install Node.js 22.x (runtime only)
-RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends nodejs && \
-    rm -rf /var/lib/apt/lists/*
-
 # Copy gems configuration
 COPY Gemfile Gemfile.lock ./
 RUN bundle install -j4
-
-# Install only production npm packages
-COPY package.json package-lock.json ./
-RUN npm install --omit=dev
 
 # Copy application code from builder (excluding large directories)
 COPY --from=builder /app/app ./app

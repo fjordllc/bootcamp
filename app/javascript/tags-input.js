@@ -1,5 +1,4 @@
 import Tagify from '@yaireo/tagify'
-import '@yaireo/tagify/dist/tagify.css'
 import { get } from '@rails/request.js'
 
 function validateTagName(text) {

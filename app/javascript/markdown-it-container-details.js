@@ -1,5 +1,5 @@
 import MarkdownItContainer from 'markdown-it-container'
-import escapeHTML from './escapeHtml.js'
+import escapeHTML from 'escapeHtml'
 
 export default (md) => {
   md.use(MarkdownItContainer, 'details', {

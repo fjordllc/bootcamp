@@ -1,5 +1,5 @@
 import CSRF from 'csrf'
-import updateAnswerCount from './updateAnswerCount'
+import updateAnswerCount from 'updateAnswerCount'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
 

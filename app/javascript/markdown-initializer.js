@@ -1,5 +1,5 @@
 import MarkdownIt from 'markdown-it'
-import MarkdownItEmoji from 'markdown-it-emoji'
+import { full as MarkdownItEmoji } from 'markdown-it-emoji'
 import MarkdownItTaskLists from 'markdown-it-task-lists'
 import MarkdownItMention from 'markdown-it-mention'
 import MarkdownItUserIcon from 'markdown-it-user-icon'

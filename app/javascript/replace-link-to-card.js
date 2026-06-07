@@ -1,6 +1,6 @@
 import CSRF from 'csrf'
-import { debounce } from './debounce.js'
-import escapeHTML from './escapeHtml.js'
+import { debounce } from 'debounce'
+import escapeHTML from 'escapeHtml'
 
 export default (selector) => {
   const textareas = document.querySelectorAll(selector)
