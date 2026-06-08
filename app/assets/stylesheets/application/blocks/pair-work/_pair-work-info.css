@@ -33,14 +33,14 @@
   pointer-events: none;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .pair-badge {
     right: 0;
     top: -0.125rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .pair-badge {
     left: 80%;
     top: 0;

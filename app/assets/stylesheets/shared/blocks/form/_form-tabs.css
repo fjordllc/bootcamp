@@ -17,15 +17,18 @@
   position: relative;
   transition: all 0.2s ease-out;
 }
+
 .form-tabs__tab:hover {
   color: var(--default-text);
   text-decoration: underline;
 }
+
 .form-tabs__tab.is-active {
   color: var(--default-text);
   font-weight: 600;
   pointer-events: none;
 }
+
 .form-tabs__tab.is-active::before {
   content: "";
   display: block;

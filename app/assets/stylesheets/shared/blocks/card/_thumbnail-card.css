@@ -3,13 +3,13 @@
   padding: 1rem;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .thumbnail-card {
     height: 100%;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .col-xs-6 .thumbnail-card {
     height: 100%;
   }
@@ -21,13 +21,13 @@
   position: relative;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .thumbnail-card__inner {
     gap: .5rem;
   }
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .thumbnail-card__inner {
     gap: .75rem;
   }

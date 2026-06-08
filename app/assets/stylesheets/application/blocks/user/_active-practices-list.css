@@ -16,9 +16,11 @@
   text-decoration: none;
   cursor: pointer;
 }
+
 .active-practices-list-item__link:hover, .active-practices-list-item__link:active {
   text-decoration: underline;
 }
+
 .active-practices-list-item__link::before {
   content: "\f060";
   font-family: "Font Awesome 7 Free";
@@ -33,6 +35,7 @@
   margin-right: 0.5rem;
   color: var(--accent);
 }
+
 .active-practices-list-item__link:hover::before {
   text-decoration: none;
 }

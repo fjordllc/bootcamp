@@ -56,7 +56,7 @@
   justify-content: center;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .form-item.is-inline-md-up {
     display: flex;
     align-items: center;
@@ -200,13 +200,13 @@
 .form-item__add-times {
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .form-item__add-times {
     margin-top: -.125rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .form-item__add-times {
     margin-top: -1.25rem;
   }

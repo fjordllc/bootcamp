@@ -9,7 +9,7 @@
 .form-added-choice__inner {
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .form-added-choice__inner {
     display: flex;
     align-items: flex-start;
@@ -25,7 +25,7 @@
   display: flex;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .form-added-choice__items {
     gap: 1rem;
   }
@@ -34,7 +34,7 @@
 .form-added-choice__action {
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .form-added-choice__action {
     margin-top: .75rem;
     display: flex;

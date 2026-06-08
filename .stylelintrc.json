@@ -24,33 +24,13 @@
     "custom-property-pattern": null,
     "keyframes-name-pattern": null,
 
-    "rule-empty-line-before": null,
-    "at-rule-empty-line-before": null,
-    "custom-property-empty-line-before": null,
-    "comment-empty-line-before": null,
-
-    "color-function-notation": null,
-    "color-function-alias-notation": null,
-    "alpha-value-notation": null,
-    "hue-degree-notation": null,
-    "color-hex-length": null,
-    "media-feature-range-notation": null,
-    "selector-attribute-quotes": null,
-    "selector-not-notation": null,
-    "selector-pseudo-element-colon-notation": null,
     "declaration-block-single-line-max-declarations": null,
     "number-max-precision": null,
-    "value-keyword-case": null,
-    "function-name-case": null,
-    "function-url-quotes": null,
-    "length-zero-no-unit": null,
-    "font-family-name-quotes": null,
     "property-no-vendor-prefix": null,
     "import-notation": null,
     "no-invalid-position-at-import-rule": null,
 
     "no-descending-specificity": null,
-
     "block-no-empty": null,
     "no-duplicate-selectors": null,
     "font-family-no-missing-generic-family-keyword": null

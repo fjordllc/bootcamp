@@ -5,6 +5,7 @@
   align-items: center;
   gap: 0.5rem;
 }
+
 .a-zip-input__label,
 .a-tel-input__label,
 .a-name-input__label {
@@ -15,6 +16,7 @@
 .a-name-input__field {
   flex: 1;
 }
+
 .a-name-input__field .a-form-label {
   margin-bottom: 0.25rem;
 }

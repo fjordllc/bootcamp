@@ -14,13 +14,16 @@
   border-bottom: solid 1px #ccc;
   cursor: pointer;
 }
+
 .many-check-boxes__item-label.is-checked {
   background-color: var(--accent);
   color: var(--main-text);
 }
+
 .many-check-boxes__item:last-child .many-check-boxes__item-label {
   border-bottom: none;
 }
+
 .many-check-boxes__item-label input {
   margin-right: 0.75rem;
 }

@@ -19,18 +19,23 @@
   text-decoration: none;
   cursor: pointer;
 }
+
 .page-content-prev-next__item-link:hover, .page-content-prev-next__item-link:active {
   text-decoration: underline;
 }
+
 .page-content-prev-next__item-link.is-prev {
   text-align: left;
 }
+
 .page-content-prev-next__item-link.is-next {
   text-align: right;
 }
+
 .page-content-prev-next__item-link i:first-child {
   margin-right: 0.5rem;
 }
+
 .page-content-prev-next__item-link i:last-child {
   margin-left: 0.5rem;
 }

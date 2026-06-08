@@ -2,7 +2,7 @@
   position: static;
 }
 
-@media (min-width: 64em) {
+@media (width >= 64em) {
   .page-nav {
     right: 0;
     top: 3.5rem;
@@ -59,7 +59,7 @@ a.page-nav__title-inner:hover {
   max-height: 12rem;
 }
 
-@media (min-width: 64em) {
+@media (width >= 64em) {
   .page-nav__items {
     max-height: calc(100vh - 8.5rem);
   }

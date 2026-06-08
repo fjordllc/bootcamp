@@ -3,9 +3,10 @@
   display: flex;
   flex-direction: column;
 }
+
 .not-logged-in-wrapper::before {
   content: "";
-  background-image: url(https://bootcamp.fjord.jp/images/background/background.svg);
+  background-image: url("https://bootcamp.fjord.jp/images/background/background.svg");
   background-repeat: repeat;
   position: fixed;
   inset: 0;
@@ -15,6 +16,7 @@
   opacity: 0.075;
   background-size: 22rem auto;
 }
+
 body.is-completion .not-logged-in-wrapper::before {
   content: "";
   background-image: url("https://bootcamp.fjord.jp/images/background/completion_background.svg");
@@ -39,10 +41,11 @@ body.is-completion .not-logged-in-wrapper::before {
   z-index: 2;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .not-logged-in-wrapper::before {
     background-size: 16rem auto;
   }
+
   body.is-completion .not-logged-in-wrapper::before {
     background-size: auto;
   }

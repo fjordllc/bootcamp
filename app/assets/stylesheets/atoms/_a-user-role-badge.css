@@ -28,13 +28,13 @@
   margin-inline: 0.25em;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .a-user-role-badge {
     transform: scale(0.9375, 0.9375);
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .a-user-role-badge {
     transform: scale(0.875, 0.875);
   }

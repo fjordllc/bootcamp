@@ -3,13 +3,13 @@
   position: relative;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .thread-comments-more {
     margin-bottom: 2rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .thread-comments-more {
     padding-left: 0;
     margin-bottom: 1rem;
@@ -32,7 +32,7 @@
 .thread-comments-more__action {
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .thread-comments-more__action {
     max-width: 16rem;
     padding-inline: .375rem;

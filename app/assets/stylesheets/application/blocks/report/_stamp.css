@@ -19,7 +19,7 @@
   letter-spacing: 0;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .stamp {
     right: 0;
     top: 0;

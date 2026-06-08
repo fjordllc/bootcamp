@@ -20,10 +20,11 @@
   border: solid 0.75rem var(--completion-dark);
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .completion__title {
     font-size: 1.5rem;
   }
+
   .completion__image {
     border: solid 0.5rem var(--completion-dark);
   }

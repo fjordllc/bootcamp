@@ -44,7 +44,7 @@
   display: flex;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .user-metas__item {
     display: block;
   }
@@ -65,7 +65,7 @@
   padding: .375rem .5rem;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .user-metas__item-label {
     text-align: left;
     border-right: none;

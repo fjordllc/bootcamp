@@ -7,22 +7,27 @@
   padding: .5rem;
   z-index: 2;
 }
+
 .card-body + .reactions {
   border-top: none;
 }
+
 .reactions__items {
   display: flex;
   flex-wrap: wrap;
   gap: .5rem;
 }
+
 .reactions__items[hidden] {
   display: none;
 }
-@media (max-width: 47.9375em) {
+
+@media (width <= 47.9375em) {
   .reactions__items {
     overflow: hidden;
   }
 }
+
 .reactions__dropdown .reactions__items {
   position: absolute;
   right: -1px;
@@ -35,6 +40,7 @@
   border-radius: 0 0 .25rem .25rem;
   width: 218px;
 }
+
 .reactions__item {
   cursor: pointer;
   display: inline-flex;
@@ -48,34 +54,41 @@
   transition: all .2s ease-out;
   position: relative;
 }
+
 .reactions__item.is-reacted {
   background-color: #f1f1ff;
   border-color: #dad9ff;
 }
+
 .reactions__item:hover {
   background-color: var(--background-more-tint);
 }
+
 @media (pointer: fine) {
   .reactions__item:hover .reactions__item-login-names {
     display: block;
     z-index: 2;
   }
 }
+
 .reactions__dropdown .reactions__item {
   width: 2.75rem;
   border-color: var(--border-shade);
 }
+
 .reactions__item-emoji {
   font-size: 1.125rem;
   line-height: 1;
   vertical-align: middle;
   pointer-events: none;
 }
+
 .reactions__item-count {
   margin-left: .25rem;
   font-size: .75rem;
   line-height: 1;
 }
+
 .reactions__item-login-names {
   display: none;
   position: absolute;
@@ -90,6 +103,7 @@
   white-space: nowrap;
   z-index: 1;
 }
+
 .reactions__item-login-names::after {
   content: " ";
   position: absolute;
@@ -100,9 +114,11 @@
   border-style: solid;
   border-color: transparent transparent var(--main) transparent;
 }
+
 .reactions__item-login-names li {
   line-height: 1.4;
 }
+
 .reactions__dropdown-toggle {
   height: 2.375rem;
   width: 2.8125rem;
@@ -117,23 +133,28 @@
   border-radius: .25rem;
   transition: all .2s ease-out;
 }
+
 .reactions__dropdown-toggle:hover {
   color: var(--hover-text);
   background: var(--background-more-tint);
 }
+
 .reactions__dropdown-toggle.is-disabled {
   cursor: not-allowed;
   color: var(--disabled);
   background: var(--background);
 }
+
 .reactions__dropdown-toggle-plus {
   font-size: .4em;
   margin-right: .3em;
 }
+
 .reactions__actions {
   display: flex;
   gap: .5rem;
 }
+
 .reactions__users-list {
   position: absolute;
   top: 100%;
@@ -148,18 +169,22 @@
   flex-direction: column;
   gap: .5rem;
 }
+
 .reactions__users-list.hidden {
   display: none;
 }
+
 .reaction-users-line {
   display: flex;
   align-items: center;
   gap: .5rem;
 }
+
 .reaction-users-line:not(:last-child) {
   border-bottom: 1px dashed var(--border);
   padding-bottom: .5rem;
 }
+
 .reaction-user__avatar {
   height: 1.75rem;
   width: 1.75rem;
