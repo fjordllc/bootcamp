@@ -6,9 +6,7 @@ class ChatNotifierTest < ActiveSupport::TestCase
   test '.message does not send when webhook URL is blank' do
     Rails.env.stub(:production?, true) do
       Discord::Notifier.stub(:message, ->(*) { flunk 'Discord notification should not be sent.' }) do
-        assert_nothing_raised do
-          ChatNotifier.message('日報を公開しました。', webhook_url: nil)
-        end
+        assert_warns_missing_webhook_url { ChatNotifier.message('日報を公開しました。', webhook_url: nil) }
       end
     end
   end
@@ -16,7 +14,7 @@ class ChatNotifierTest < ActiveSupport::TestCase
   test '.notify does not send when webhook URL is blank' do
     Rails.env.stub(:production?, true) do
       Discord::Notifier.stub(:message, ->(*) { flunk 'Discord notification should not be sent.' }) do
-        assert_nothing_raised do
+        assert_warns_missing_webhook_url do
           ChatNotifier.notify(
             title: '日報を公開しました。',
             title_url: 'https://bootcamp.fjord.jp/reports/1',
@@ -27,5 +25,16 @@ class ChatNotifierTest < ActiveSupport::TestCase
         end
       end
     end
+  end
+
+  private
+
+  def assert_warns_missing_webhook_url(&block)
+    logs = []
+    Rails.logger.stub(:warn, ->(message) { logs << message }) do
+      assert_nothing_raised(&block)
+    end
+
+    assert_includes logs, 'Discord webhook URL is not configured.'
   end
 end
