@@ -92,7 +92,7 @@ class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLeng
 
   def comment_by_pjord
     report = Report.find(params[:id])
-    PjordReportCommentJob.perform_later(report_id: report.id)
+    PjordReportCommentJob.perform_now(report_id: report.id)
     redirect_to report, notice: 'ピヨルドがコメントします。'
   end
 
