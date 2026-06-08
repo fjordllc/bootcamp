@@ -7,7 +7,8 @@
   align-items: center;
   height: 3rem;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .articles__header-inner {
     height: 3.5rem;
   }
@@ -18,7 +19,8 @@
   font-size: 1rem;
   line-height: 1.4;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .articles__title {
     font-size: 1.25rem;
   }
@@ -27,7 +29,8 @@
 .articles__body {
   padding-block: 1.5rem;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .articles__body {
     padding-block: 2rem;
   }

@@ -37,13 +37,13 @@
   border-color: var(--danger);
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .books-form__items {
     padding: 1rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .books-form__items {
     padding: .75rem;
   }
@@ -53,7 +53,7 @@
   min-width: 12rem;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .books-form__add .a-button {
     width: 100%;
   }

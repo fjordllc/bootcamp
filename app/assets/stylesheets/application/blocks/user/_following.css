@@ -2,9 +2,11 @@
   position: relative;
   width: 100%;
 }
+
 .following summary {
   display: block;
 }
+
 .following summary::-webkit-details-marker,
 .following summary::marker {
   display: none;
@@ -24,6 +26,7 @@
   text-align: left;
   transition: all 0.2s ease-out;
 }
+
 .following-option:hover {
   background-color: var(--background-more-tint);
 }
@@ -32,6 +35,7 @@
   position: relative;
   padding-left: 1.5rem;
 }
+
 .following-option.is-active .following-option__inner::before {
   content: "\f00c";
   font-family: "Font Awesome 7 Free";
@@ -53,6 +57,7 @@
   font-weight: 600;
   color: var(--semi-muted-text);
 }
+
 .following-option.is-active .following-option__label {
   color: var(--default-text);
 }

@@ -3,7 +3,8 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .corporate-training-examples__items {
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;

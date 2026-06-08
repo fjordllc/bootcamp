@@ -1,4 +1,4 @@
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .articles-item {
     height: 100%;
   }
@@ -9,6 +9,7 @@
   text-decoration: none;
   padding: 1rem;
 }
+
 .articles-item__link:hover .articles-item__title {
   text-decoration: underline;
 }
@@ -30,6 +31,7 @@
   font-weight: 700;
   color: var(--default-text);
 }
+
 .articles-item.is-wip .articles-item__title {
   color: var(--muted-text);
 }
@@ -49,6 +51,7 @@
   line-height: 1.4;
   color: var(--default-text);
 }
+
 .articles-item__author img {
   width: 1.125rem;
   height: 1.125rem;

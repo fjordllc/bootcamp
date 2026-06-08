@@ -13,6 +13,7 @@
   color: var(--main-text);
   position: relative;
 }
+
 .categories-item__title .stamp {
   right: -3rem;
   top: -0.75rem;
@@ -31,6 +32,7 @@
   color: var(--muted-text);
   transition: all 0.2s ease-out;
 }
+
 .categories-item__show-handle:hover {
   color: var(--main-text);
 }
@@ -72,17 +74,20 @@
   color: var(--muted-text);
   transition: all 0.2s ease-out;
 }
+
 .categories-item__edit-link:hover {
   color: var(--main-text);
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .categories-item:not(:last-child) {
     margin-bottom: 3rem;
   }
+
   .categories-item__title {
     font-size: 1.5rem;
   }
+
   .categories-item__title .stamp {
     right: -3rem;
     top: -0.5rem;

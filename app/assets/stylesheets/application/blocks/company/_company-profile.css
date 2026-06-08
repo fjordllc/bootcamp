@@ -1,6 +1,7 @@
 .company-profile__header {
   padding: 1rem;
 }
+
 .company-profile__header .company-links__items {
   justify-content: flex-start;
 }
@@ -46,22 +47,26 @@
   font-size: 0.8125rem;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .company-profile__header-inner {
     display: flex;
     text-align: left;
   }
+
   .company-profile__logo {
     margin-bottom: 0;
     text-align: left;
   }
+
   .company-profile__logo-image {
     width: 4.5rem;
     height: 4.5rem;
   }
+
   .company-profile__name {
     font-size: 1.5rem;
   }
+
   .company-profile__description {
     font-size: 0.9375rem;
   }

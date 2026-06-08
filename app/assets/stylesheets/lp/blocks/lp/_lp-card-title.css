@@ -6,27 +6,33 @@
   font-size: 1.125rem;
   line-height: 1.4;
 }
+
 .lp-card-title br {
   display: none;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .lp-card-title {
     font-size: 1.25rem;
   }
+
   .lp-card-title br {
     display: inline;
   }
 }
-@media (min-width: 64em) {
+
+@media (width >= 64em) {
   .lp-card-title {
     font-size: 1.5rem;
   }
 }
+
 .lp-card-title.is-sm {
   font-size: 1rem;
   line-height: 1.4;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .lp-card-title.is-sm {
     font-size: 1.125rem;
   }

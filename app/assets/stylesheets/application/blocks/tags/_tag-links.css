@@ -3,7 +3,7 @@
   margin-top: 1rem;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .tag-links .form-actions__item.is-main {
     min-width: 12rem;
   }

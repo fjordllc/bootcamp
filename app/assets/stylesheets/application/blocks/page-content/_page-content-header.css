@@ -3,20 +3,20 @@
   position: relative;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .page-content-header {
     display: flex;
     gap: 1rem;
   }
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .page-content-header:not(:last-child) {
     margin-bottom: 1.5rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .page-content-header {
     margin-bottom: 1.25rem;
   }
@@ -41,13 +41,13 @@
   gap: .5rem;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .page-content-header__end {
     flex: 1;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .page-content-header__start + .page-content-header__end {
     margin-top: .5rem;
   }
@@ -56,7 +56,7 @@
 .page-content-header__user {
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .page-content-header__user {
     display: flex;
     justify-content: center;
@@ -66,7 +66,7 @@
 .page-content-header__category {
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .page-content-header__category {
     display: flex;
     justify-content: center;
@@ -126,14 +126,14 @@
   border-radius: .25rem;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .page-content-header__company-logo-image {
     height: 3.5rem;
     width: 3.5rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .page-content-header__company-logo-image {
     height: 2.75rem;
     width: 2.75rem;
@@ -148,14 +148,14 @@
   flex-wrap: wrap;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .page-content-header__before-title {
     display: inline-flex;
     margin-bottom: .25rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .page-content-header__before-title {
     display: flex;
     justify-content: center;
@@ -185,14 +185,14 @@
   border-bottom: solid 1px var(--border-shade);
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .page-content-header__title {
     font-size: 1.625rem;
     overflow-wrap: break-word;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .page-content-header__title {
     font-size: 1.125rem;
     word-break: break-all;
@@ -212,14 +212,14 @@
   vertical-align: top;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .page-content-header__title .a-title-label {
     position: relative;
     top: .75em;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .page-content-header__title .a-title-label {
     position: relative;
     top: .5em;
@@ -259,25 +259,25 @@
 .page-content-header__description {
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .page-content-header__description {
     padding-block: .25rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .page-content-header__description {
     padding-block: .25rem;
   }
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .page-content-header__description.a-long-text {
     font-size: .9375rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .page-content-header__description.a-long-text {
     font-size: .8125rem;
   }
@@ -292,14 +292,14 @@
   width: 1em;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .page-content-header__emotion {
     font-size: 1.75rem;
     margin-right: .375em;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .page-content-header__emotion {
     font-size: 1.25rem;
     margin-right: .25em;
@@ -325,7 +325,7 @@
   width: 4.5rem;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .user-profile__company-logo-image {
     height: 3.5rem;
     width: 3.5rem;

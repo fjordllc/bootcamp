@@ -10,7 +10,7 @@
   flex: 1;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .wrapper {
     display: flex;
     flex-direction: column;

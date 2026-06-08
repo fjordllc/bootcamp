@@ -4,19 +4,22 @@
   background-color: var(--background);
 
 }
+
 .page-optional-header__inner {
-  @media (min-width: 48em) {
+  @media (width >= 48em) {
     display: flex;
     align-items: center;
 
   }
 }
+
 .page-optional-header__start {
-  @media (min-width: 48em) {
+  @media (width >= 48em) {
     flex: 1;
 
   }
 }
+
 .page-optional-header__title {
   font-size: 1rem;
   line-height: 1.4;

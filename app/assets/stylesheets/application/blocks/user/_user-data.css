@@ -6,13 +6,13 @@
   flex-direction: column;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .user-data {
     gap: 1rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .user-data {
     padding: .75rem;
     gap: .75rem;
@@ -23,13 +23,13 @@
   flex: 0 0 100%;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .user-data__description {
     font-size: .9375rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .user-data__description {
     font-size: .8125rem;
   }

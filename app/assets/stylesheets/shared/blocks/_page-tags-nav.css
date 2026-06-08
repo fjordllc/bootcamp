@@ -24,6 +24,7 @@
   transition: all 0.1s ease-in;
   background-color: transparent;
 }
+
 .page-tags-nav__item-link:hover {
   background-color: var(--main-tint);
 }

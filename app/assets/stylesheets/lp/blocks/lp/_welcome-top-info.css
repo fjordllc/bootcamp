@@ -5,7 +5,8 @@
 .welcome-top-info__inner {
   padding-block: 0.75rem;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .welcome-top-info__inner {
     display: flex;
     align-items: center;
@@ -29,7 +30,8 @@
   width: 10rem;
   margin: -26px auto 0.5rem;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .welcome-top-info__label {
     margin: 0 0.5rem 0 0;
     width: auto;
@@ -41,14 +43,17 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
 .welcome-top-info__link:hover, .welcome-top-info__link:active {
   text-decoration: none;
 }
+
 .welcome-top-info__link {
   font-size: 0.875rem;
   line-height: 1.5;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .welcome-top-info__link {
     font-size: 1.125rem;
   }

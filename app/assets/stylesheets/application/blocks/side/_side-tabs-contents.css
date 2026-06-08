@@ -33,7 +33,7 @@
   display: none;
 }
 
-.side-tabs-contents__item .card-header + [class*=a-border] {
+.side-tabs-contents__item .card-header + [class*="a-border"] {
   display: none;
 }
 

@@ -8,7 +8,8 @@
 .lp-mentor-books__item {
   flex: 1;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .lp-mentor-books__item {
     flex: 0 0 4.75rem;
   }
@@ -19,6 +20,7 @@
   display: block;
   transition: all 0.2s ease-out;
 }
+
 .lp-mentor-books__item-link:hover {
   box-shadow: 0 0 0 1px var(--warning);
 }

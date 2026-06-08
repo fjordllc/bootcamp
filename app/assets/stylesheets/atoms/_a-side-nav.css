@@ -2,10 +2,10 @@
   background-color: var(--base);
 }
 
-@media (min-width: 64em) {
+@media (width >= 64em) {
   .a-side-nav {
       position: absolute;
-      right: 0px;
+      right: 0;
       top: -1.5rem;
       bottom: -1.5rem;
       width: var(--side-nav-width);
@@ -14,7 +14,7 @@
   }
 }
 
-@media (max-width: 63.9375em) {
+@media (width <= 63.9375em) {
   .a-side-nav {
     margin-top: 1rem;
     margin-inline: 1rem;
@@ -30,7 +30,7 @@
   position: static;
 }
 
-@media (min-width: 64em) {
+@media (width >= 64em) {
   .a-side-nav__inner {
     max-height: 100%;
     position: sticky;

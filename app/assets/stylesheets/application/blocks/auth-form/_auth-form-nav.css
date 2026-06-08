@@ -17,6 +17,7 @@
   text-decoration: none;
   cursor: pointer;
 }
+
 .auth-form-nav__item-link:hover, .auth-form-nav__item-link:active {
   text-decoration: underline;
 }

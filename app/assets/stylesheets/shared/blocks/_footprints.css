@@ -19,7 +19,7 @@
   flex-wrap: wrap;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .user-icons__items {
     margin-top: 0.75rem;
   }
@@ -45,25 +45,30 @@
   text-decoration: none;
   cursor: pointer;
 }
+
 .user-icons__more:hover, .user-icons__more:active {
   text-decoration: underline;
 }
+
 .user-icons__more {
   align-self: center;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .user-icons,
   .user-icons__wrapper {
     display: block;
   }
+
   .user-icons__title {
     text-align: left;
     line-height: 1.4;
   }
+
   .user-icons__items {
     margin-top: 0.75rem;
   }
+
   .user-icons__more {
     margin-top: 0.75rem;
   }
