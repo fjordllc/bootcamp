@@ -2,7 +2,8 @@
   margin-top: -1px;
   display: block;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .practice-books__items {
     display: flex;
     flex-wrap: wrap;
@@ -12,7 +13,8 @@
 .practice-books-item:not(:first-child) {
   border-top: solid 1px var(--border-tint);
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .practice-books-item {
     border-top: solid 1px var(--border-tint);
     flex: 0 0 50%;
@@ -20,12 +22,13 @@
     display: flex;
     flex-direction: column;
   }
+
   .practice-books-item:nth-child(odd) {
     border-right: solid 1px var(--border-tint);
   }
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .practice-books-item__body {
     flex: 1;
   }
@@ -35,15 +38,18 @@
   padding: 0.75rem 1rem;
   text-decoration: none;
 }
+
 .practice-books .practice-books-item__inner {
   height: 100%;
   width: 100%;
 }
+
 .practice-books-item__inner {
   display: block;
   overflow: hidden;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .practice-books-item__inner {
     display: flex;
     gap: 1rem;
@@ -56,7 +62,8 @@
   margin-right: 1rem;
   width: 3.5rem;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .practice-books-item__start {
     float: none;
     margin-right: 0;
@@ -91,6 +98,7 @@
   color: var(--default-text);
   transition: all 0.2s ease-out;
 }
+
 .practice-books-item__title .a-badge {
   position: relative;
   top: -0.125em;

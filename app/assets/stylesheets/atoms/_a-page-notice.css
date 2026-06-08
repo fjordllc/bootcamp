@@ -62,7 +62,7 @@
 
 .a-page-notice__inner a.has-badge .a-badge {
   margin-right: 0.75rem;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgb(0 0 0 / 40%);
   border: none;
 }
 
@@ -98,7 +98,7 @@
   opacity: 1;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .a-page-notice__inner {
     font-size: 0.75rem;
     text-align: center;

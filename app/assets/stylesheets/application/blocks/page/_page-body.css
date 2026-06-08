@@ -3,7 +3,7 @@
   padding-block: 1.5rem;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .page-body {
     flex: 1;
     display: flex;
@@ -12,7 +12,7 @@
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .page-body {
     padding-block: 1.125rem;
   }
@@ -22,13 +22,13 @@
   position: relative;
 }
 
-@media (min-width: 64em) {
+@media (width >= 64em) {
   .page-body__inner {
     flex: 1;
   }
 }
 
-@media (min-width: 64em) {
+@media (width >= 64em) {
   .page-body__inner.has-side-nav {
     padding-right: var(--side-nav-width);
   }
@@ -39,13 +39,13 @@
   flex-direction: column;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .page-body__rows {
     gap: 1.25rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .page-body__rows {
     gap: 1rem;
   }
@@ -58,7 +58,7 @@
 .page-body__columns {
 }
 
-@media (min-width: 64em) {
+@media (width >= 64em) {
   .page-body__columns {
     display: flex;
     gap: 1.5rem;
@@ -70,14 +70,14 @@
   display: flex;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .page-body__columns.is-reverse {
     flex-direction: row;
     gap: 1.5rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .page-body__columns.is-reverse {
     flex-direction: column-reverse;
     gap: 1rem;
@@ -107,13 +107,13 @@
 .page-body__description {
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .page-body__description {
     font-size: .875rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .page-body__description {
     font-size: .8125rem;
   }

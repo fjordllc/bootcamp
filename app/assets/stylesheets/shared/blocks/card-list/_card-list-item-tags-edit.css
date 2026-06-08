@@ -6,9 +6,11 @@
   text-decoration: none;
   cursor: pointer;
 }
+
 .card-list-item-tags__item-edit:hover, .card-list-item-tags__item-edit:active {
   text-decoration: underline;
 }
+
 .card-list-item-tags__item-edit {
   cursor: pointer;
   color: var(--main-text);

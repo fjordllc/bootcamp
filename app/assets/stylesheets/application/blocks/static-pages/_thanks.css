@@ -41,26 +41,33 @@
   line-height: 1.6;
   text-align: center;
 }
+
 .thanks__message a {
   transition: color 0.2s ease-in;
   color: var(--link-text);
 }
+
 .thanks__message a:link {
   color: var(--link-text);
 }
+
 .thanks__message a:visited {
-  color: hsl(233, 33%, 58%);
+  color: hsl(233deg 33% 58%);
 }
+
 .thanks__message a:hover {
   color: var(--hover-text);
 }
+
 .thanks__message a:active {
   color: var(--hover-text);
 }
+
 .thanks__message a {
   text-decoration: none;
   cursor: pointer;
 }
+
 .thanks__message a:hover, .thanks__message a:active {
   text-decoration: underline;
 }

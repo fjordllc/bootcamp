@@ -2,7 +2,7 @@
   width: 100%;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .practice-first-actions {
     display: flex;
   }
@@ -16,7 +16,7 @@
   width: 100%;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .practice-first-actions__end {
     min-width: 6rem;
     width: auto;

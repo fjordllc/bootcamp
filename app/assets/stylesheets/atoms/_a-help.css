@@ -14,13 +14,16 @@
   cursor: pointer;
   transition: all 0.2s ease-out;
 }
+
 .a-help:hover {
   background-color: var(--main);
   color: var(--reversal-text);
 }
+
 .a-help:last-child {
   margin-left: 0.25em;
 }
+
 .is-danger .a-help {
   background-color: var(--danger);
 }

@@ -12,6 +12,7 @@
   border-radius: 50%;
   transition: all 0.2s ease-out;
 }
+
 .a-cancel-button:hover {
   background-color: var(--primary);
   color: var(--reversal-text);

@@ -2,13 +2,13 @@
 .form-item-actions {
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .form-item-actions {
     margin-top: -.75rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .form-item-actions {
     margin-top: -.5rem;
   }
@@ -26,13 +26,13 @@
   line-height: 1.4;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .form-item-actions__text-link {
     font-size: .8125rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .form-item-actions__text-link {
     font-size: .75rem;
   }

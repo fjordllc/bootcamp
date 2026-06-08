@@ -7,14 +7,14 @@
   border-radius: 4px;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .card-body-main-actions {
     padding-inline: 2rem;
     margin-bottom: 1.5rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .card-body-main-actions {
     padding-inline: .75rem;
     margin-bottom: 1rem;
@@ -62,7 +62,7 @@
   flex: 1;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .card-body-main-actions__item {
     max-width: 16rem;
   }

@@ -19,13 +19,15 @@
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  @media (max-width: 47.9375em) {
+
+  @media (width <= 47.9375em) {
     position: absolute;
     left: 80%;
     top: 0;
 
   }
 }
+
 .answer-badge__icon {
   font-size: 1.5rem;
 
