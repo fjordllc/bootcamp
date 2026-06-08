@@ -1,35 +1,26 @@
-import Prism from 'prismjs'
-
-globalThis.Prism = Prism
-
-const loadPrismLanguages = async () => {
-  await import('prismjs/components/prism-clike')
-  await import('prismjs/components/prism-css')
-  await import('prismjs/components/prism-css-extras')
-  await import('prismjs/components/prism-bash')
-  await import('prismjs/components/prism-ruby')
-  await import('prismjs/components/prism-markup-templating')
-  await import('prismjs/components/prism-erb')
-  await import('prismjs/components/prism-haml')
-  await import('prismjs/components/prism-javascript')
-  await import('prismjs/components/prism-sass')
-  await import('prismjs/components/prism-scss')
-  await import('prismjs/components/prism-pug')
-  await import('prismjs/components/prism-markdown')
-  await import('prismjs/components/prism-go')
-  await import('prismjs/components/prism-http')
-  await import('prismjs/components/prism-json')
-  await import('prismjs/components/prism-nginx')
-  await import('prismjs/components/prism-sql')
-  await import('prismjs/components/prism-yaml')
-  await import('prismjs/components/prism-shell-session')
-  await import('prismjs/components/prism-typescript')
-  await import('prismjs/components/prism-jsx')
-  await import('prismjs/components/prism-tsx')
-}
-
-loadPrismLanguages().catch((error) => {
-  console.warn('Prism languages could not be loaded', error)
-})
+import Prism from 'prism-global'
+import 'prismjs/components/prism-clike'
+import 'prismjs/components/prism-css'
+import 'prismjs/components/prism-css-extras'
+import 'prismjs/components/prism-bash'
+import 'prismjs/components/prism-ruby'
+import 'prismjs/components/prism-markup-templating'
+import 'prismjs/components/prism-erb'
+import 'prismjs/components/prism-haml'
+import 'prismjs/components/prism-javascript'
+import 'prismjs/components/prism-sass'
+import 'prismjs/components/prism-scss'
+import 'prismjs/components/prism-pug'
+import 'prismjs/components/prism-markdown'
+import 'prismjs/components/prism-go'
+import 'prismjs/components/prism-http'
+import 'prismjs/components/prism-json'
+import 'prismjs/components/prism-nginx'
+import 'prismjs/components/prism-sql'
+import 'prismjs/components/prism-yaml'
+import 'prismjs/components/prism-shell-session'
+import 'prismjs/components/prism-typescript'
+import 'prismjs/components/prism-jsx'
+import 'prismjs/components/prism-tsx'
 
 export default Prism
