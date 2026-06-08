@@ -139,6 +139,8 @@ document.addEventListener('DOMContentLoaded', () => {
       tagsInitialValue = [...tags]
     } catch (error) {
       tags = [...previousTags]
+      tagify.removeAllTags()
+      tagify.addTags(tags, true)
       renderTags(tags)
       setEditing(true)
       alert('タグの更新に失敗しました')
@@ -149,7 +151,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   tagsForm.addEventListener('submit', saveTags)
-  saveButton.addEventListener('mousedown', saveTags)
+  saveButton.addEventListener('pointerdown', saveTags)
+  saveButton.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      saveTags(e)
+    }
+  })
 
   fetchTagsData()
   renderTags(tagsInitialValue)
