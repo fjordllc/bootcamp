@@ -94,6 +94,9 @@ class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLeng
     @report = Report.find(params[:id])
     PjordReportCommentJob.perform_now(report_id: @report.id)
     redirect_to @report, notice: 'ピヨルドがコメントしました。'
+  rescue RubyLLM::UnauthorizedError => e
+    Rails.logger.error("[ReportsController#comment_by_pjord] PjordReportCommentJob failed: #{e.class}: #{e.message}")
+    redirect_to @report || reports_path, alert: 'ピヨルドのAPIキー設定が無効です。管理者に確認してください。'
   rescue StandardError => e
     Rails.logger.error("[ReportsController#comment_by_pjord] PjordReportCommentJob failed: #{e.class}: #{e.message}")
     redirect_to @report || reports_path, alert: 'ピヨルドのコメントに失敗しました。時間をおいて再度お試しください。'

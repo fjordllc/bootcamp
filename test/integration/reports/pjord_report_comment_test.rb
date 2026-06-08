@@ -52,6 +52,21 @@ class Reports::PjordReportCommentTest < ActionDispatch::IntegrationTest
     assert_equal 'ピヨルドのコメントに失敗しました。時間をおいて再度お試しください。', flash[:alert]
   end
 
+  test 'redirects with alert when Pjord report comment API key is invalid' do
+    report = reports(:report5)
+
+    PjordReportCommentJob.stub(:perform_now, lambda { |_args|
+      raise RubyLLM::UnauthorizedError.new(nil, 'invalid x-api-key')
+    }) do
+      assert_no_difference 'Comment.count' do
+        post comment_by_pjord_report_path(report, _login_name: 'mentormentaro')
+      end
+    end
+
+    assert_redirected_to report_path(report)
+    assert_equal 'ピヨルドのAPIキー設定が無効です。管理者に確認してください。', flash[:alert]
+  end
+
   test 'student cannot manually create report comment by Pjord' do
     assert_no_enqueued_jobs only: PjordReportCommentJob do
       assert_no_difference 'Comment.count' do
