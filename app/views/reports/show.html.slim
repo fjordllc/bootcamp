@@ -22,12 +22,6 @@
   .container.is-xxl
     .row.justify-center.is-gutter-width-32
       .col-xl-7.col-xs-12
-        - if admin_or_mentor_login?
-          .page-body__row.is-only-mentor
-            = button_to comment_by_pjord_report_path(@report),
-              method: :post,
-              class: 'a-button is-md is-primary is-block' do
-              | 日報にピヨルドがコメントする
         .report.page-content
           = render 'report_header', report: @report
           = render 'report_body', report: @report

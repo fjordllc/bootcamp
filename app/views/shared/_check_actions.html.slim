@@ -21,6 +21,13 @@
                 span.card-list-item__assignee-name
                   = checkable.checker.login_name
 
+        - if checkable_type == 'Report'
+          li.card-main-actions__item
+            = button_to comment_by_pjord_report_path(checkable),
+              method: :post,
+              class: 'a-button is-sm is-primary is-block' do
+              | 日報にピヨルドがコメントする
+
         li.card-main-actions__item class=(checkable.checks.any? ? 'is-sub' : '')
           - checked_checkable = checkable.checks.first
           - if checked_checkable
