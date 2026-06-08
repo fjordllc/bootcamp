@@ -75,6 +75,57 @@ class CommentTest < ActiveSupport::TestCase
     )
   end
 
+  test 'enqueue Pjord response when product comment follows Pjord comment' do
+    product = products(:product8)
+    Comment.create!(
+      user: users(:pjord),
+      commentable: product,
+      description: '修正点をレビューしました。'
+    )
+
+    assert_enqueued_with(job: PjordRespondJob) do
+      Comment.create!(
+        user: product.user,
+        commentable: product,
+        description: '指摘点を修正しました。'
+      )
+    end
+  end
+
+  test 'does not enqueue Pjord response to Pjord own product comment' do
+    product = products(:product8)
+    Comment.create!(
+      user: users(:pjord),
+      commentable: product,
+      description: '修正点をレビューしました。'
+    )
+
+    assert_no_enqueued_jobs only: PjordRespondJob do
+      Comment.create!(
+        user: users(:pjord),
+        commentable: product,
+        description: '補足です。'
+      )
+    end
+  end
+
+  test 'does not enqueue duplicate Pjord response when product comment mentions Pjord' do
+    product = products(:product8)
+    Comment.create!(
+      user: users(:pjord),
+      commentable: product,
+      description: '修正点をレビューしました。'
+    )
+
+    assert_enqueued_jobs 1, only: PjordRespondJob do
+      Comment.create!(
+        user: product.user,
+        commentable: product,
+        description: '@pjord 指摘点を修正しました。'
+      )
+    end
+  end
+
   test 'watch mentor not notify submitted when comment on product' do
     comment = comments(:comment14)
     # 数が変わっていない(通知は来ないことをテスト)

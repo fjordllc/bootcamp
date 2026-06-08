@@ -42,6 +42,34 @@ class PjordRespondJobTest < ActiveJob::TestCase
     assert_includes reply.description, 'ヒントです。'
   end
 
+  test 'creates a comment reply when product comment follows Pjord review without mention' do
+    product = products(:product8)
+    Comment.create!(
+      user: users(:pjord),
+      commentable: product,
+      description: 'コードの読みやすさを見直してください。'
+    )
+    comment = Comment.create!(
+      user: product.user,
+      commentable: product,
+      description: '指摘点を修正しました。確認お願いします。'
+    )
+
+    Pjord::MentionResponseAgent.stub(:respond_to, '確認します。') do
+      assert_difference 'Comment.count', 1 do
+        PjordRespondJob.perform_now(
+          mentionable_type: 'Comment',
+          mentionable_id: comment.id
+        )
+      end
+    end
+
+    reply = Comment.last
+    assert_equal users(:pjord), reply.user
+    assert_includes reply.description, "@#{comment.sender.login_name}"
+    assert_includes reply.description, '確認します。'
+  end
+
   test 'does nothing when response is blank' do
     comment = comments(:comment1)
     comment.update!(description: '@pjord テスト')
@@ -68,6 +96,20 @@ class PjordRespondJobTest < ActiveJob::TestCase
   test 'does nothing when mention is removed by edit' do
     comment = comments(:comment1)
     # メンションが含まれていない
+    comment.update!(description: 'メンション削除済み')
+
+    Pjord::MentionResponseAgent.stub(:respond_to, '回答') do
+      assert_no_difference 'Comment.count' do
+        PjordRespondJob.perform_now(
+          mentionable_type: 'Comment',
+          mentionable_id: comment.id
+        )
+      end
+    end
+  end
+
+  test 'does nothing when product comment does not follow Pjord comment' do
+    comment = comments(:comment1)
     comment.update!(description: 'メンション削除済み')
 
     Pjord::MentionResponseAgent.stub(:respond_to, '回答') do

@@ -62,4 +62,20 @@ class Products::PjordReviewCommentTest < ActionDispatch::IntegrationTest
 
     assert_predicate Product.order(:created_at).last, :published_at?
   end
+
+  test 'mentor can manually enqueue product review by Pjord' do
+    product = products(:product8)
+
+    assert_enqueued_with(job: PjordProductReviewJob, args: [{ product_id: product.id }]) do
+      post review_by_pjord_product_path(product, _login_name: 'mentormentaro')
+    end
+
+    assert_redirected_to product_path(product)
+  end
+
+  test 'student cannot manually enqueue product review by Pjord' do
+    assert_no_enqueued_jobs only: PjordProductReviewJob do
+      post review_by_pjord_product_path(products(:product8), _login_name: 'hatsuno')
+    end
+  end
 end
