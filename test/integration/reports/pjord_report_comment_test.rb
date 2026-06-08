@@ -17,6 +17,7 @@ class Reports::PjordReportCommentTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to report_path(report)
+    assert_equal 'ピヨルドがコメントしました。', flash[:notice]
     assert_equal 'コメント本文', report.comments.order(:created_at).last.description
   end
 
@@ -34,7 +35,21 @@ class Reports::PjordReportCommentTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to report_path(report)
+    assert_equal 'ピヨルドがコメントしました。', flash[:notice]
     assert_equal 'コメント本文', report.comments.order(:created_at).last.description
+  end
+
+  test 'redirects with alert when Pjord report comment fails' do
+    report = reports(:report5)
+
+    PjordReportCommentJob.stub(:perform_now, ->(report_id:) { raise StandardError, report_id }) do
+      assert_no_difference 'Comment.count' do
+        post comment_by_pjord_report_path(report, _login_name: 'mentormentaro')
+      end
+    end
+
+    assert_redirected_to report_path(report)
+    assert_equal 'ピヨルドのコメントに失敗しました。時間をおいて再度お試しください。', flash[:alert]
   end
 
   test 'student cannot manually create report comment by Pjord' do
