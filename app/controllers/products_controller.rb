@@ -3,6 +3,7 @@
 class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLength
   before_action :check_permission!, only: %i[show]
   before_action :require_staff_login, only: :index
+  before_action :require_admin_or_mentor_login, only: :review_by_pjord
   before_action :set_watch, only: %i[show]
   before_action :set_target, only: %i[index]
 
@@ -82,6 +83,12 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     @product = find_my_product
     @product.destroy
     redirect_to @product.practice, notice: '提出物を削除しました。'
+  end
+
+  def review_by_pjord
+    product = Product.find(params[:id])
+    PjordProductReviewJob.perform_later(product_id: product.id)
+    redirect_to product, notice: 'ピヨルドがレビューします。'
   end
 
   private
