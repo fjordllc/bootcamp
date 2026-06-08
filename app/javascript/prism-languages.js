@@ -28,6 +28,8 @@ const loadPrismLanguages = async () => {
   await import('prismjs/components/prism-tsx')
 }
 
-loadPrismLanguages()
+loadPrismLanguages().catch((error) => {
+  console.warn('Prism languages could not be loaded', error)
+})
 
 export default Prism
