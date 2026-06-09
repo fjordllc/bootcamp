@@ -134,18 +134,16 @@
 }
 
 .form-item__mention-input::before {
-  content: '@';
+  content: "\@";
   font-family: 'Font Awesome 7 Free';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 900;
   font-variant: normal;
   text-rendering: auto;
+  font-size: 1rem;
   line-height: 1;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  content: "\f1fa";
-  font-size: 1rem;
-  line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;

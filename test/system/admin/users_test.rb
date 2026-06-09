@@ -119,6 +119,26 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert_match(/\?v=\d+/, after_src)
   end
 
+  test 'shows Font Awesome at icons on user edit form mention inputs' do
+    user = users(:komagata)
+    user.update!(github_id: '1234567890')
+    visit_with_auth edit_admin_user_path(user.id), 'komagata'
+
+    assert_selector '.form-item__mention-input', count: 3
+    all('.form-item__mention-input').each do |mention_input|
+      before_style = mention_input.evaluate_script(<<~JS)
+        (() => {
+          const style = getComputedStyle(this, '::before')
+          return { content: style.content, fontFamily: style.fontFamily, fontWeight: style.fontWeight }
+        })()
+      JS
+
+      assert_equal '"@"', before_style['content']
+      assert_match(/Font Awesome 7 Free/, before_style['fontFamily'])
+      assert_equal '900', before_style['fontWeight']
+    end
+  end
+
   test 'update user with company' do
     user = users(:kensyu)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
