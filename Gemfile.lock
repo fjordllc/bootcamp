@@ -838,6 +838,7 @@ DEPENDENCIES
   holiday_jp
   icalendar (~> 2.12)
   image_processing (>= 1.12.2, < 2.0)
+  importmap-rails
   interactor (~> 3.0)
   jbuilder
   jp_prefecture (~> 1.1)
@@ -901,6 +902,7 @@ DEPENDENCIES
   sorcery (~> 0.16.2)
   sorcery-jwt
   sprockets-rails (>= 2.0.0)
+  stimulus-rails
   stringio (>= 3.1.3)
   stripe
   stripe-i18n!

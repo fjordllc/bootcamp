@@ -7,6 +7,7 @@ class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLeng
   before_action :set_report, only: %i[show]
   before_action :set_my_report, only: %i[destroy]
   before_action :set_editable_report, only: %i[edit update]
+  before_action :require_admin_or_mentor_login, only: :comment_by_pjord
   before_action :set_checks, only: %i[show]
   before_action :set_check, only: %i[show]
   before_action :set_user, only: %i[show]
@@ -87,6 +88,18 @@ class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLeng
     @report.destroy
     ActiveSupport::Notifications.instrument('report.destroy', report: @report)
     redirect_to reports_url, notice: '日報を削除しました。'
+  end
+
+  def comment_by_pjord
+    @report = Report.find(params[:id])
+    PjordReportCommentJob.perform_now(report_id: @report.id)
+    redirect_to @report, notice: 'ピヨルドがコメントしました。'
+  rescue RubyLLM::UnauthorizedError => e
+    Rails.logger.error("[ReportsController#comment_by_pjord] PjordReportCommentJob failed: #{e.class}: #{e.message}")
+    redirect_to @report || reports_path, alert: 'ピヨルドのAPIキー設定が無効です。管理者に確認してください。'
+  rescue StandardError => e
+    Rails.logger.error("[ReportsController#comment_by_pjord] PjordReportCommentJob failed: #{e.class}: #{e.message}")
+    redirect_to @report || reports_path, alert: 'ピヨルドのコメントに失敗しました。時間をおいて再度お試しください。'
   end
 
   private

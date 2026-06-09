@@ -6,6 +6,11 @@
         - check = checkable.checks.find_by(user: current_user)
         - if checkable_type == 'Product' && check.nil?
           li.card-main-actions__item
+            = button_to review_by_pjord_product_path(checkable),
+              method: :post,
+              class: 'a-button is-sm is-primary is-block' do
+              | ピヨルドがコメントする
+          li.card-main-actions__item
             - if !checkable.checker_id || checkable.checker_id == current_user.id
               - if checkable.checker_id
                 = form_with url: products_checker_assignment_path(id: checkable.id), method: :delete, local: true do |f|
@@ -20,6 +25,13 @@
                   = image_tag checkable.checker.avatar_url, class: 'a-user-icon', width: 20, height: 20
                 span.card-list-item__assignee-name
                   = checkable.checker.login_name
+
+        - if checkable_type == 'Report'
+          li.card-main-actions__item
+            = button_to comment_by_pjord_report_path(checkable),
+              method: :post,
+              class: 'a-button is-sm is-primary is-block' do
+              | ピヨルドがコメントする
 
         li.card-main-actions__item class=(checkable.checks.any? ? 'is-sub' : '')
           - checked_checkable = checkable.checks.first

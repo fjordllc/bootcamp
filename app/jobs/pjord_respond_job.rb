@@ -14,7 +14,8 @@ class PjordRespondJob < ApplicationJob
 
     pjord = Pjord.user
     return if pjord.nil?
-    return unless mentions_pjord?(mentionable)
+    return if mentionable.sender == pjord
+    return unless should_respond?(mentionable, pjord)
 
     response = Pjord::MentionResponseAgent.respond_to(mentionable)
     return if response.blank?
@@ -51,5 +52,15 @@ class PjordRespondJob < ApplicationJob
 
   def mentions_pjord?(mentionable)
     mentionable.body&.match?(/(?<!\w)@#{Regexp.escape(Pjord::LOGIN_NAME)}(?!\w)/)
+  end
+
+  def should_respond?(mentionable, pjord)
+    mentions_pjord?(mentionable) || product_comment_after_pjord_comment?(mentionable, pjord)
+  end
+
+  def product_comment_after_pjord_comment?(mentionable, pjord)
+    return false unless mentionable.is_a?(Comment) && mentionable.commentable.is_a?(Product)
+
+    mentionable.commentable.comments.where(user: pjord).where('created_at < ?', mentionable.created_at).exists?
   end
 end

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :unchecked, only: %i[index]
   end
   resources :reports do
+    post :comment_by_pjord, on: :member
     resources :checks, only: [:create, :destroy]
   end
 end

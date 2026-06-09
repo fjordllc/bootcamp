@@ -38,7 +38,7 @@
 }
 .a-button.is-select::before {
   content: "\f0d7";
-  font-family: "Font Awesome 6 Pro";
+  font-family: "Font Awesome 7 Free";
   font-style: normal;
   font-weight: 900;
   font-variant: normal;
@@ -104,7 +104,7 @@
 }
 .a-button.is-checkbox::after {
   content: "\f00c";
-  font-family: "Font Awesome 6 Pro";
+  font-family: "Font Awesome 7 Free";
   font-style: normal;
   font-weight: 900;
   font-variant: normal;
@@ -484,7 +484,7 @@ input:checked + .a-button.is-checkbox::after {
 }
 .a-button.is-back::before {
   content: "\f104";
-  font-family: "Font Awesome 6 Pro";
+  font-family: "Font Awesome 7 Free";
   font-style: normal;
   font-weight: 900;
   font-variant: normal;

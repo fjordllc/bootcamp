@@ -23,6 +23,7 @@ class Comment::AfterCreateCallback
     comment.commentable.update_commented_at(comment)
     delete_product_cache(comment.commentable.id)
     delete_assigned_and_unreplied_product_count_cache(comment)
+    notify_pjord_if_comment_replies_to_pjord_review(comment)
   end
 
   private
@@ -87,5 +88,14 @@ class Comment::AfterCreateCallback
       本文： #{comment.description}
       URL： <https://bootcamp.fjord.jp/talks/#{comment.commentable_id}#latest-comment>
     TEXT
+  end
+
+  def notify_pjord_if_comment_replies_to_pjord_review(comment)
+    pjord = Pjord.user
+    return if pjord.nil? || comment.user_id == pjord.id
+    return if comment.body&.match?(/(?<!\w)@#{Regexp.escape(Pjord::LOGIN_NAME)}(?!\w)/)
+    return unless comment.commentable.comments.where(user: pjord).where('created_at < ?', comment.created_at).exists?
+
+    PjordRespondJob.perform_later(mentionable_type: comment.class.name, mentionable_id: comment.id)
   end
 end

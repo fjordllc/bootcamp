@@ -25,9 +25,20 @@ module Reports
       assert_text 'PC性能の見方を知る'
     end
 
+    test 'mentor can see comment by Pjord button' do
+      visit_with_auth report_path(reports(:report5)), 'mentormentaro'
+      assert_button 'ピヨルドがコメントする'
+    end
+
+    test 'admin can see comment by Pjord button' do
+      visit_with_auth report_path(reports(:report5)), 'adminonly'
+      assert_button 'ピヨルドがコメントする'
+    end
+
     test 'not display list of submission when non-mentor accesses' do
       visit_with_auth report_path(reports(:report5)), 'kimura'
       assert_no_selector '#side-tabs-content-3'
+      assert_no_button 'ピヨルドがコメントする'
     end
 
     test 'display report interval for mentor while undoing wip' do
