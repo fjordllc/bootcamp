@@ -25,6 +25,7 @@ class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLeng
     @recent_reports = Report.list.where(user_id: @report.user.id).limit(10)
     Footprint.find_or_create_for(@report, current_user)
     @footprints = Footprint.fetch_for_resource(@report)
+    @mentor_memos = @report.user.received_memos.includes(:writer).order(created_at: :desc)
     respond_to do |format|
       format.html
       format.md

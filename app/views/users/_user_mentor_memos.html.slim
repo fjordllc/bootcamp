@@ -1,5 +1,5 @@
-section.a-card.is-memo.is-only-mentor.user-mentor-memo data-user_id=user_id
-  .memo-display
+section.a-card.is-memo.is-only-mentor.mentor-memos data-user_id=user_id
+  .memos-display
     .description
       header.card-header.is-sm
         h2.card-header__title
@@ -7,28 +7,23 @@ section.a-card.is-memo.is-only-mentor.user-mentor-memo data-user_id=user_id
       hr.a-border-tint
     .card-body
       .card-body__description
-        .a-long-text.is-sm.a-placeholder
-          p
-          p
-          p
-          p
-          p
-          p
+        .mentor-memo-list
+          - memos.each do |memo|
+            = render partial: 'users/mentor_memo', locals: { memo: memo }
         .o-empty-message.is-hidden
           .o-empty-message__icon
             i.fa-regular.fa-sad-tear
           .o-empty-message__text
             | ユーザーメモはまだありません。
-        .a-long-text.is-sm.user-mentor-memo-content.is-hidden
     hr.a-border-tint
-    footer.card-footer
+    footer.card-footer.js-add-action
       .card-main-actions
         .card-main-actions__items
           .card-main-actions__item
-            button.card-footer-actions__action.a-button.is-sm.is-secondary.is-block
+            button.card-footer-actions__action.a-button.is-sm.is-block.js-add-memo
               i.fa-solid.fa-pen
-              | 編集
-  .memo-editor.is-hidden
+              | 追加
+  .new-memo-editor.is-hidden
     .form-tabs.js-tabs
       .form-tabs__tab.js-tabs__tab.editor-tab.is-active
         | メモ
@@ -38,7 +33,7 @@ section.a-card.is-memo.is-only-mentor.user-mentor-memo data-user_id=user_id
       .card-body__description
         .a-markdown-input.js-markdown-parent
           .a-markdown-input__inner.is-editor.js-tabs__content.is-active
-            textarea.a-text-input.a-markdown-input__textarea id='js-user-mentor-memo' data-preview='#user-mentor-memo-preview' name='user[memo]'
+            textarea.a-text-input.a-markdown-input__textarea id='js-new-memo' data-preview='#user-memo-preview' name='mentor_memo[body]'
           .a-markdown-input__inner.is-preview.js-tabs__content
             .a-long-text.is-md.a-markdown-input__preview
     hr.a-border-tint
@@ -46,8 +41,8 @@ section.a-card.is-memo.is-only-mentor.user-mentor-memo data-user_id=user_id
       .card-main-actions
         .card-main-actions__items
           .card-main-actions__item
-            button.a-button.is-sm.is-primary.is-block
+            button.a-button.is-sm.is-primary.is-block.js-save-memo
               | 保存する
           .card-main-actions__item
-            button.a-button.is-sm.is-secondary.is-block
+            button.a-button.is-sm.is-secondary.is-block.js-cancel-memo
               | キャンセル

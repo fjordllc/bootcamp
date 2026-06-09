@@ -214,6 +214,18 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
            dependent: :delete_all,
            inverse_of: 'user'
 
+  has_many :received_memos,
+           class_name: 'MentorMemo',
+           foreign_key: 'recipient_id',
+           inverse_of: :recipient,
+           dependent: :destroy
+
+  has_many :authored_memos,
+           class_name: 'MentorMemo',
+           foreign_key: 'writer_id',
+           inverse_of: :writer,
+           dependent: :destroy
+
   has_one_attached :avatar
   has_one_attached :profile_image
   has_one_attached :diploma_file
