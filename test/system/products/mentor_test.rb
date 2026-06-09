@@ -14,12 +14,12 @@ module Products
 
     test 'mentors can see review by Pjord button' do
       visit_with_auth "/products/#{products(:product2).id}", 'mentormentaro'
-      assert_button '提出物をピヨるどがレビューする'
+      assert_button 'ピヨルドがコメントする'
     end
 
     test 'admins can see review by Pjord button' do
       visit_with_auth "/products/#{products(:product2).id}", 'adminonly'
-      assert_button '提出物をピヨるどがレビューする'
+      assert_button 'ピヨルドがコメントする'
     end
 
     test 'students can not see block for mentors' do

@@ -86,9 +86,15 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
   end
 
   def review_by_pjord
-    product = Product.find(params[:id])
-    PjordProductReviewJob.perform_later(product_id: product.id)
-    redirect_to product, notice: 'ピヨルドがレビューします。'
+    @product = Product.find(params[:id])
+    PjordProductReviewJob.perform_now(product_id: @product.id)
+    redirect_to @product, notice: 'ピヨルドがコメントしました。'
+  rescue RubyLLM::UnauthorizedError => e
+    Rails.logger.error("[ProductsController#review_by_pjord] PjordProductReviewJob failed: #{e.class}: #{e.message}")
+    redirect_to @product || products_path, alert: 'ピヨルドのAPIキー設定が無効です。管理者に確認してください。'
+  rescue StandardError => e
+    Rails.logger.error("[ProductsController#review_by_pjord] PjordProductReviewJob failed: #{e.class}: #{e.message}")
+    redirect_to @product || products_path, alert: 'ピヨルドのコメントに失敗しました。時間をおいて再度お試しください。'
   end
 
   private

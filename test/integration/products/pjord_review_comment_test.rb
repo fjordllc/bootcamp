@@ -63,19 +63,55 @@ class Products::PjordReviewCommentTest < ActionDispatch::IntegrationTest
     assert_predicate Product.order(:created_at).last, :published_at?
   end
 
-  test 'mentor can manually enqueue product review by Pjord' do
+  test 'mentor can manually create product review comment by Pjord' do
     product = products(:product8)
 
-    assert_enqueued_with(job: PjordProductReviewJob, args: [{ product_id: product.id }]) do
-      post review_by_pjord_product_path(product, _login_name: 'mentormentaro')
+    Pjord::ProductReviewAgent.stub(:review, 'コメント本文') do
+      assert_no_enqueued_jobs only: PjordProductReviewJob do
+        assert_difference -> { product.comments.where(user: users(:pjord)).count }, 1 do
+          post review_by_pjord_product_path(product, _login_name: 'mentormentaro')
+        end
+      end
     end
 
     assert_redirected_to product_path(product)
+    assert_equal 'ピヨルドがコメントしました。', flash[:notice]
+    assert_equal 'コメント本文', product.comments.order(:created_at).last.description
   end
 
-  test 'student cannot manually enqueue product review by Pjord' do
+  test 'redirects with alert when Pjord product review fails' do
+    product = products(:product8)
+
+    PjordProductReviewJob.stub(:perform_now, ->(_args) { raise StandardError, 'error' }) do
+      assert_no_difference 'Comment.count' do
+        post review_by_pjord_product_path(product, _login_name: 'mentormentaro')
+      end
+    end
+
+    assert_redirected_to product_path(product)
+    assert_equal 'ピヨルドのコメントに失敗しました。時間をおいて再度お試しください。', flash[:alert]
+  end
+
+  test 'redirects with alert when Pjord product review API key is invalid' do
+    product = products(:product8)
+
+    PjordProductReviewJob.stub(:perform_now, lambda { |_args|
+      raise RubyLLM::UnauthorizedError.new(nil, 'invalid x-api-key')
+    }) do
+      assert_no_difference 'Comment.count' do
+        post review_by_pjord_product_path(product, _login_name: 'mentormentaro')
+      end
+    end
+
+    assert_redirected_to product_path(product)
+    assert_equal 'ピヨルドのAPIキー設定が無効です。管理者に確認してください。', flash[:alert]
+  end
+
+  test 'student cannot manually create product review comment by Pjord' do
     assert_no_enqueued_jobs only: PjordProductReviewJob do
-      post review_by_pjord_product_path(products(:product8), _login_name: 'hatsuno')
+      assert_no_difference 'Comment.count' do
+        post review_by_pjord_product_path(products(:product8), _login_name: 'hatsuno')
+      end
     end
   end
 end

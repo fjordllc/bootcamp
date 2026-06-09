@@ -32,12 +32,6 @@ header.page-header
                 = link_to products_unchecked_index_path,
                   class: 'a-button is-md is-secondary is-block is-back' do
                   | 未完了一覧
-            - if admin_or_mentor_login?
-              li.page-header-actions__item.is-only-mentor
-                = button_to review_by_pjord_product_path(@product),
-                  method: :post,
-                  class: 'a-button is-md is-primary is-block' do
-                  | 提出物をピヨるどがレビューする
 
 = practice_page_tabs(@product.practice, active_tab: '提出物')
 
