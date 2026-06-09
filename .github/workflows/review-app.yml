@@ -69,6 +69,19 @@ jobs:
             fi
           done
 
+          STAGING_ANTHROPIC_API_KEY=$(gcloud run services describe bootcamp-staging \
+            --project=bootcamp-224405 \
+            --region=asia-northeast1 \
+            --format=json | python3 -c 'import json, sys; data = json.load(sys.stdin); env = data["spec"]["template"]["spec"]["containers"][0].get("env", []); print(next((item.get("value", "") for item in env if item.get("name") == "ANTHROPIC_API_KEY"), ""))')
+          if [ -n "$STAGING_ANTHROPIC_API_KEY" ]; then
+            ANTHROPIC_API_KEY="$STAGING_ANTHROPIC_API_KEY"
+            echo "Using ANTHROPIC_API_KEY from bootcamp-staging for Review App deploy."
+          elif [ -z "$ANTHROPIC_API_KEY" ]; then
+            echo "ANTHROPIC_API_KEY is not set."
+            exit 1
+          fi
+          unset STAGING_ANTHROPIC_API_KEY
+
           # Cloud Buildを非同期で開始（ログストリーミング権限問題を回避）
           set +e
           BUILD_OUTPUT=$(gcloud builds submit \
