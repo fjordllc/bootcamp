@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   )
   const editorTextarea = memoEditor.querySelector('.a-markdown-input__textarea')
 
-  const memos = document.querySelectorAll('.mentor-memo')
+  const memos = mentorMemo.querySelectorAll('.mentor-memo')
   const emptyMessage = mentorMemo.querySelector('.o-empty-message')
   if (memos.length) {
     memos.forEach((memo) => {
