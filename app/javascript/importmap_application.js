@@ -1,4 +1,5 @@
 import 'controllers'
+import Rails from '@rails/ujs'
 import 'textarea'
 import 'markdown'
 import 'shortcut'
@@ -82,6 +83,8 @@ import 'bookmark-button'
 import 'notifications_remove_after_open'
 import 'notifications-bell'
 import 'products-checker-init'
+
+Rails.start()
 
 document.addEventListener('DOMContentLoaded', () => {
   Cocooned.start()
