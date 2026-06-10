@@ -7,6 +7,7 @@ pin "@hotwired/stimulus", to: "stimulus.min.js"
 pin "@hotwired/stimulus-loading", to: "stimulus-loading.js"
 pin "@notus.sh/cocooned", to: "https://ga.jspm.io/npm:@notus.sh/cocooned@3.0.1/index.js" # @3.0.1
 pin "@rails/request.js", to: "https://ga.jspm.io/npm:@rails/request.js@0.0.13/src/index.js" # @0.0.13
+pin "@rails/ujs", to: "https://ga.jspm.io/npm:@rails/ujs@7.1.3-4/app/assets/javascripts/rails-ujs.esm.js" # @7.1.3-4
 pin "@yaireo/tagify", to: "https://ga.jspm.io/npm:@yaireo/tagify@4.37.1/dist/tagify.esm.js" # @4.37.1
 pin "ace-builds", to: "https://ga.jspm.io/npm:ace-builds@1.44.0/src-noconflict/ace.js" # @1.44.0
 pin "autosize", to: "https://ga.jspm.io/npm:autosize@6.0.1/dist/autosize.esm.js" # @6.0.1
