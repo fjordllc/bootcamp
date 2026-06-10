@@ -14,4 +14,10 @@ module ApplicationHelper
   def pair_work_available?
     Rails.env.local? || Switchlet.enabled?(:pair_work)
   end
+
+  def pjord_ai_badge(user)
+    return unless user.login_name == Pjord::LOGIN_NAME
+
+    tag.span 'AI', class: 'a-badge is-xs is-info', title: 'AIアシスタント'
+  end
 end
