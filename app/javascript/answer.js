@@ -1,4 +1,4 @@
-import initializeAnswer from './initializeAnswer'
+import initializeAnswer from 'initializeAnswer'
 
 document.addEventListener('DOMContentLoaded', () => {
   const answerAnchor = location.hash

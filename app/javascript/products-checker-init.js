@@ -1,4 +1,4 @@
-import { ProductChecker } from './product-checker.js'
+import { ProductChecker } from 'product-checker'
 
 document.addEventListener('DOMContentLoaded', () => {
   initProductCheckers()

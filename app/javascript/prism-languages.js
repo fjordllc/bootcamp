@@ -1,3 +1,4 @@
+import Prism from 'prism-global'
 import 'prismjs/components/prism-clike'
 import 'prismjs/components/prism-css'
 import 'prismjs/components/prism-css-extras'
@@ -21,3 +22,5 @@ import 'prismjs/components/prism-shell-session'
 import 'prismjs/components/prism-typescript'
 import 'prismjs/components/prism-jsx'
 import 'prismjs/components/prism-tsx'
+
+export default Prism

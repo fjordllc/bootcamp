@@ -1,10 +1,11 @@
-import { OnBrowserJudge } from './onbrowserjudge.js'
+import { OnBrowserJudge } from 'onbrowserjudge'
 import ace from 'ace-builds'
-import 'ace-builds/webpack-resolver'
-import 'ace-builds/src-noconflict/mode-javascript'
-import 'ace-builds/src-noconflict/mode-ruby'
-import 'ace-builds/src-noconflict/theme-github'
 import { post } from '@rails/request.js'
+
+ace.config.set(
+  'basePath',
+  'https://cdn.jsdelivr.net/npm/ace-builds@1.44.0/src-noconflict'
+)
 
 document.addEventListener('DOMContentLoaded', () => {
   const id = 'code_editor'

@@ -1,5 +1,5 @@
 import { FetchRequest } from '@rails/request.js'
-import { renderAllReactions } from './reaction_render.js'
+import { renderAllReactions } from 'reaction_render'
 
 document.addEventListener('DOMContentLoaded', () => {
   const reactions = document.querySelectorAll('.js-reactions')

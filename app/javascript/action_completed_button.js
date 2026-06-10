@@ -1,5 +1,5 @@
 import { patch } from '@rails/request.js'
-import { toast } from './vanillaToast'
+import { toast } from 'vanillaToast'
 
 document.addEventListener('DOMContentLoaded', () => {
   const button = document.querySelector('.check-button')

@@ -1,6 +1,6 @@
 import escapeHtml from 'escape-html'
 import escapeStringRegexp from 'escape-string-regexp'
-import emojis from 'markdown-it-emoji/lib/data/full.json'
+import emojis from 'emoji-data'
 
 export default class {
   constructor(menuItemsSize = 5) {

@@ -1,5 +1,84 @@
 # Pin npm packages by running ./bin/importmap
 
-pin "application", preload: true
+pin "application", to: "importmap_application.js", preload: true
+pin_all_from "app/javascript"
+pin_all_from "app/javascript/controllers", under: "controllers"
 pin "@hotwired/stimulus", to: "stimulus.min.js"
 pin "@hotwired/stimulus-loading", to: "stimulus-loading.js"
+pin "@notus.sh/cocooned", to: "https://ga.jspm.io/npm:@notus.sh/cocooned@3.0.1/index.js" # @3.0.1
+pin "@rails/request.js", to: "https://ga.jspm.io/npm:@rails/request.js@0.0.13/src/index.js" # @0.0.13
+pin "@yaireo/tagify", to: "https://ga.jspm.io/npm:@yaireo/tagify@4.37.1/dist/tagify.esm.js" # @4.37.1
+pin "ace-builds", to: "https://ga.jspm.io/npm:ace-builds@1.44.0/src-noconflict/ace.js" # @1.44.0
+pin "autosize", to: "https://ga.jspm.io/npm:autosize@6.0.1/dist/autosize.esm.js" # @6.0.1
+pin "chart.js", to: "https://ga.jspm.io/npm:chart.js@4.5.1/dist/chart.js" # @4.5.1
+pin "chartjs-plugin-annotation", to: "https://ga.jspm.io/npm:chartjs-plugin-annotation@3.1.0/dist/chartjs-plugin-annotation.esm.js" # @3.1.0
+pin "chartjs-plugin-datalabels", to: "https://ga.jspm.io/npm:chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.esm.js" # @2.2.0
+pin "choices.js", to: "https://ga.jspm.io/npm:choices.js@11.2.3/public/assets/scripts/choices.mjs" # @11.2.3
+pin "emoji-data"
+pin "escape-html", to: "https://ga.jspm.io/npm:escape-html@1.0.3/index.js" # @1.0.3
+pin "escape-string-regexp", to: "https://ga.jspm.io/npm:escape-string-regexp@5.0.0/index.js" # @5.0.0
+pin "heic2any", to: "https://ga.jspm.io/npm:heic2any@0.0.4/dist/heic2any.js" # @0.0.4
+pin "markdown-it", to: "https://ga.jspm.io/npm:markdown-it@12.3.2/index.js" # @12.3.2
+pin "markdown-it-anchor", to: "https://ga.jspm.io/npm:markdown-it-anchor@9.2.0/dist/markdownItAnchor.mjs" # @9.2.0
+pin "markdown-it-container", to: "https://ga.jspm.io/npm:markdown-it-container@3.0.0/index.js" # @3.0.0
+pin "markdown-it-container-figure", to: "https://ga.jspm.io/npm:markdown-it-container-figure@1.1.3/index.js" # @1.1.3
+pin "markdown-it-emoji", to: "https://ga.jspm.io/npm:markdown-it-emoji@3.0.0/index.mjs" # @3.0.0
+pin "markdown-it-link-attributes", to: "https://ga.jspm.io/npm:markdown-it-link-attributes@4.0.1/index.js" # @4.0.1
+pin "markdown-it-regexp", to: "https://ga.jspm.io/npm:markdown-it-regexp@0.4.0/index.js" # @0.4.0
+pin "markdown-it-task-lists", to: "https://ga.jspm.io/npm:markdown-it-task-lists@2.1.1/index.js" # @2.1.1
+pin "prismjs", to: "https://ga.jspm.io/npm:prismjs@1.30.0/prism.js" # @1.30.0
+pin "sortablejs", to: "https://ga.jspm.io/npm:sortablejs@1.15.7/modular/sortable.esm.js" # @1.15.7
+pin "sweetalert2", to: "https://ga.jspm.io/npm:sweetalert2@11.26.25/dist/sweetalert2.all.js" # @11.26.25
+pin "textarea-markdown", to: "https://ga.jspm.io/npm:textarea-markdown@1.7.0/lib/textarea-markdown.js" # @1.7.0
+pin "tributejs", to: "https://ga.jspm.io/npm:tributejs@5.1.3/dist/tribute.min.js" # @5.1.3
+pin "@kurkle/color", to: "https://ga.jspm.io/npm:@kurkle/color@0.3.4/dist/color.esm.js" # @0.3.4
+pin "abort-controller", to: "https://ga.jspm.io/npm:abort-controller@3.0.0/browser.js" # @3.0.0
+pin "base64-js", to: "https://ga.jspm.io/npm:base64-js@1.5.1/index.js" # @1.5.1
+pin "buffer", to: "https://ga.jspm.io/npm:@jspm/core@2.1.0/nodelibs/browser/buffer.js" # @2.1.0
+pin "chart.js/helpers", to: "https://ga.jspm.io/npm:chart.js@4.5.1/helpers/helpers.js" # @4.5.1
+pin "entities/lib/maps/entities.json", to: "https://ga.jspm.io/npm:entities@2.1.0/lib/maps/entities.json.js" # @2.1.0
+pin "events", to: "https://ga.jspm.io/npm:events@3.3.0/events.js" # @3.3.0
+pin "file-type/browser", to: "https://ga.jspm.io/npm:file-type@16.5.4/browser.js" # @16.5.4
+pin "filesize", to: "https://ga.jspm.io/npm:filesize@10.1.6/dist/filesize.esm.js" # @10.1.6
+pin "ieee754", to: "https://ga.jspm.io/npm:ieee754@1.2.1/index.js" # @1.2.1
+pin "linkify-it", to: "https://ga.jspm.io/npm:linkify-it@3.0.3/index.js" # @3.0.3
+pin "mdurl", to: "https://ga.jspm.io/npm:mdurl@1.0.1/index.js" # @1.0.1
+pin "peek-readable", to: "https://ga.jspm.io/npm:peek-readable@4.1.0/lib/index.js" # @4.1.0
+pin "process", to: "https://ga.jspm.io/npm:process@0.11.10/browser.js" # @0.11.10
+pin "punycode", to: "https://ga.jspm.io/npm:@jspm/core@2.1.0/nodelibs/browser/punycode.js" # @2.1.0
+pin "readable-stream", to: "https://ga.jspm.io/npm:readable-stream@4.7.0/lib/ours/browser.js" # @4.7.0
+pin "readable-web-to-node-stream", to: "https://ga.jspm.io/npm:readable-web-to-node-stream@3.0.4/lib/index.js" # @3.0.4
+pin "safe-buffer", to: "https://ga.jspm.io/npm:safe-buffer@5.2.1/index.js" # @5.2.1
+pin "string_decoder", to: "https://ga.jspm.io/npm:string_decoder@1.3.0/lib/string_decoder.js" # @1.3.0
+pin "strtok3/lib/core", to: "https://ga.jspm.io/npm:strtok3@6.3.0/lib/core.js" # @6.3.0
+pin "token-types", to: "https://ga.jspm.io/npm:token-types@4.2.1/lib/index.js" # @4.2.1
+pin "uc.micro", to: "https://ga.jspm.io/npm:uc.micro@1.0.6/index.js" # @1.0.6
+pin "uc.micro/categories/Cc/regex", to: "https://ga.jspm.io/npm:uc.micro@1.0.6/categories/Cc/regex.js" # @1.0.6
+pin "uc.micro/categories/P/regex", to: "https://ga.jspm.io/npm:uc.micro@1.0.6/categories/P/regex.js" # @1.0.6
+pin "uc.micro/categories/Z/regex", to: "https://ga.jspm.io/npm:uc.micro@1.0.6/categories/Z/regex.js" # @1.0.6
+pin "uc.micro/properties/Any/regex", to: "https://ga.jspm.io/npm:uc.micro@1.0.6/properties/Any/regex.js" # @1.0.6
+pin "util", to: "https://ga.jspm.io/npm:@jspm/core@2.1.0/nodelibs/browser/util.js" # @2.1.0
+pin "whatwg-fetch", to: "https://ga.jspm.io/npm:whatwg-fetch@2.0.4/fetch.js" # @2.0.4
+pin "prismjs/components/prism-bash", to: "prismjs--components--prism-bash.js" # @1.30.0
+pin "prismjs/components/prism-clike", to: "prismjs--components--prism-clike.js" # @1.30.0
+pin "prismjs/components/prism-css", to: "prismjs--components--prism-css.js" # @1.30.0
+pin "prismjs/components/prism-css-extras", to: "prismjs--components--prism-css-extras.js" # @1.30.0
+pin "prismjs/components/prism-erb", to: "prismjs--components--prism-erb.js" # @1.30.0
+pin "prismjs/components/prism-go", to: "prismjs--components--prism-go.js" # @1.30.0
+pin "prismjs/components/prism-haml", to: "prismjs--components--prism-haml.js" # @1.30.0
+pin "prismjs/components/prism-http", to: "prismjs--components--prism-http.js" # @1.30.0
+pin "prismjs/components/prism-javascript", to: "prismjs--components--prism-javascript.js" # @1.30.0
+pin "prismjs/components/prism-json", to: "prismjs--components--prism-json.js" # @1.30.0
+pin "prismjs/components/prism-jsx", to: "prismjs--components--prism-jsx.js" # @1.30.0
+pin "prismjs/components/prism-markdown", to: "prismjs--components--prism-markdown.js" # @1.30.0
+pin "prismjs/components/prism-markup-templating", to: "prismjs--components--prism-markup-templating.js" # @1.30.0
+pin "prismjs/components/prism-nginx", to: "prismjs--components--prism-nginx.js" # @1.30.0
+pin "prismjs/components/prism-pug", to: "prismjs--components--prism-pug.js" # @1.30.0
+pin "prismjs/components/prism-ruby", to: "prismjs--components--prism-ruby.js" # @1.30.0
+pin "prismjs/components/prism-sass", to: "prismjs--components--prism-sass.js" # @1.30.0
+pin "prismjs/components/prism-scss", to: "prismjs--components--prism-scss.js" # @1.30.0
+pin "prismjs/components/prism-shell-session", to: "prismjs--components--prism-shell-session.js" # @1.30.0
+pin "prismjs/components/prism-sql", to: "prismjs--components--prism-sql.js" # @1.30.0
+pin "prismjs/components/prism-tsx", to: "prismjs--components--prism-tsx.js" # @1.30.0
+pin "prismjs/components/prism-typescript", to: "prismjs--components--prism-typescript.js" # @1.30.0
+pin "prismjs/components/prism-yaml", to: "prismjs--components--prism-yaml.js" # @1.30.0

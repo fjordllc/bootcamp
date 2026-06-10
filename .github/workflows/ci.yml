@@ -20,7 +20,6 @@ env:
   BUNDLE_JOBS: "3"
   BUNDLE_RETRY: "3"
   TZ: Asia/Tokyo
-  SHAKAPACKER_NODE_MODULES_BIN_PATH: ./node_modules/.bin
 
 jobs:
   build:

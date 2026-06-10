@@ -1,11 +1,11 @@
 import autosize from 'autosize'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
-import { initializeComment, toggleVisibility } from './initializeComment.js'
-import { initializeReaction } from './reaction.js'
-import { toast } from './vanillaToast.js'
-import { setWatchable } from './setWatchable.js'
-import commentCheckable from './comment-checkable.js'
+import { initializeComment, toggleVisibility } from 'initializeComment'
+import { initializeReaction } from 'reaction'
+import { toast } from 'vanillaToast'
+import { setWatchable } from 'setWatchable'
+import commentCheckable from 'comment-checkable'
 import { post } from '@rails/request.js'
 
 document.addEventListener('DOMContentLoaded', () => {

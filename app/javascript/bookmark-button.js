@@ -1,4 +1,4 @@
-import { toast } from './vanillaToast'
+import { toast } from 'vanillaToast'
 import { get, post, destroy } from '@rails/request.js'
 
 document.addEventListener('DOMContentLoaded', () => {
