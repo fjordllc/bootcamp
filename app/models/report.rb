@@ -24,7 +24,6 @@ class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
   validates_associated :learning_times
   accepts_nested_attributes_for :learning_times, reject_if: :all_blank, allow_destroy: true
   has_and_belongs_to_many :practices # rubocop:disable Rails/HasAndBelongsToMany
-  has_many :footprints, as: :footprintable, dependent: :destroy
   belongs_to :user, touch: true
   alias sender user
 
