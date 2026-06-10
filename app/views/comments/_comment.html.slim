@@ -17,6 +17,7 @@
                 img.thread-comment__title-user-icon.a-user-icon src="#{comment.user.avatar_url}"
             a.thread-comment__title-link.a-text-link href="#{comment.user.url}"
               = comment.user.login_name
+            = pjord_ai_badge(comment.user)
           time.thread-comment__created-at
             = l(comment.created_at)
           .raw-button
