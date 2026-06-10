@@ -75,7 +75,7 @@ class CommentTest < ActiveSupport::TestCase
     )
   end
 
-  test 'enqueue Pjord response when product comment follows Pjord comment' do
+  test 'does not enqueue Pjord response when product comment follows Pjord comment without mention' do
     product = products(:product8)
     Comment.create!(
       user: users(:pjord),
@@ -83,7 +83,7 @@ class CommentTest < ActiveSupport::TestCase
       description: '修正点をレビューしました。'
     )
 
-    assert_enqueued_with(job: PjordRespondJob) do
+    assert_no_enqueued_jobs only: PjordRespondJob do
       Comment.create!(
         user: product.user,
         commentable: product,
@@ -109,7 +109,7 @@ class CommentTest < ActiveSupport::TestCase
     end
   end
 
-  test 'does not enqueue duplicate Pjord response when product comment mentions Pjord' do
+  test 'enqueues Pjord response when product comment mentions Pjord' do
     product = products(:product8)
     Comment.create!(
       user: users(:pjord),
