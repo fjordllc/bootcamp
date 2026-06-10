@@ -22,6 +22,7 @@
               img.thread-comment__title-user-icon.a-user-icon src="#{answer.user.avatar_url}"
           a.thread-comment__title-link.a-text-link href="#{answer.user.url}"
             = answer.user.login_name
+          = pjord_ai_badge(answer.user)
         time.thread-comment__created-at.created-at
           = l(answer.created_at)
       hr.a-border-tint
