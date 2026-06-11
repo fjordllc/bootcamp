@@ -66,7 +66,7 @@ Rails.application.routes.draw do
   end
   resources :coding_tests, only: %i(show) do
     resources :coding_test_submissions,
-      only: %i(index show show),
+      only: %i(index show),
       controller: "coding_tests/coding_test_submissions"
   end
   resources :pages, param: :slug_or_id
