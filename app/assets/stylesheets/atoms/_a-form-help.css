@@ -53,6 +53,10 @@ label + .a-form-help:not(:first-child) {
 .a-form-help a {
   text-decoration: none;
   cursor: pointer;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  transition: color 0.2s ease-in;
+  color: var(--link-text);
 }
 
 .a-form-help a:hover, .a-form-help a:active {
@@ -61,23 +65,6 @@ label + .a-form-help:not(:first-child) {
 
 .a-form-help *:last-child {
   margin-bottom: 0;
-}
-
-.a-form-help a {
-  font-size: 0.75rem;
-  line-height: 1.6;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.a-form-help a:hover, .a-form-help a:active {
-  text-decoration: underline;
-}
-
-.a-form-help a {
-  cursor: pointer;
-  transition: color 0.2s ease-in;
-  color: var(--link-text);
 }
 
 .a-form-help a:link {

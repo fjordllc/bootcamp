@@ -2,6 +2,8 @@
   font-size: 1.25em;
   line-height: 1.4;
   margin-top: 0.75em;
+  font-weight: 600;
+  margin-bottom: 0.625em;
 }
 
 .a-short-text p {
@@ -59,15 +61,12 @@
 .a-short-text a {
   text-decoration: underline;
   cursor: pointer;
+  transition: color 0.2s ease-in;
+  color: var(--link-text);
 }
 
 .a-short-text a:hover, .a-short-text a:active {
   text-decoration: none;
-}
-
-.a-short-text a {
-  transition: color 0.2s ease-in;
-  color: var(--link-text);
 }
 
 .a-short-text a:link {
@@ -126,13 +125,6 @@
 .a-short-text * + h4,
 .a-short-text * + h5 {
   margin-top: 0.75em;
-}
-
-.a-short-text h3 {
-  font-size: 1.25em;
-  line-height: 1.4;
-  font-weight: 600;
-  margin-bottom: 0.625em;
 }
 
 .a-short-text h3 + * {

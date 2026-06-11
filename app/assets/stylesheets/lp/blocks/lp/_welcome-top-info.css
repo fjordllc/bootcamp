@@ -42,15 +42,12 @@
   color: var(--reversal-text);
   text-decoration: underline;
   cursor: pointer;
+  font-size: 0.875rem;
+  line-height: 1.5;
 }
 
 .welcome-top-info__link:hover, .welcome-top-info__link:active {
   text-decoration: none;
-}
-
-.welcome-top-info__link {
-  font-size: 0.875rem;
-  line-height: 1.5;
 }
 
 @media (width >= 48em) {

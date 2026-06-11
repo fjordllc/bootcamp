@@ -103,14 +103,11 @@ input:checked + .header-dropdown, .is-opened-dropdown .header-dropdown {
   height: 2.75rem;
   transition: all 0.2s ease-out;
   color: var(--reversal-text);
+  border-bottom: solid 1px var(--main-semi-shade);
 }
 
 .header-dropdown__footer-link:hover {
   background-color: var(--main-shade);
-}
-
-.header-dropdown__footer-link {
-  border-bottom: solid 1px var(--main-semi-shade);
 }
 
 .header-dropdown__background {
@@ -194,9 +191,6 @@ input:checked + .header-dropdown .header-dropdown__background {
 
   .header-dropdown__inner.is-notification {
     width: 15rem;
-  }
-
-  .header-dropdown__inner.is-notification {
     left: auto;
     background-color: var(--base);
   }

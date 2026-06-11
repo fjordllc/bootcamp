@@ -44,14 +44,11 @@
   color: var(--main);
   text-decoration: none;
   cursor: pointer;
+  align-self: center;
 }
 
 .user-icons__more:hover, .user-icons__more:active {
   text-decoration: underline;
-}
-
-.user-icons__more {
-  align-self: center;
 }
 
 @media (width <= 47.9375em) {

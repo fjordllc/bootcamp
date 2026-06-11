@@ -16,14 +16,9 @@
 
 .congrats-card-body__image-container {
   margin-top: 1.25rem;
-
-}
-
-.congrats-card-body__image-container {
   width: 100%;
   max-width: 28rem;
   margin-inline: auto;
-
 }
 
 .congrats-card-body__image {

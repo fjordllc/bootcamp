@@ -55,11 +55,6 @@
   }
 }
 
-.page-content-header-actions__start {
-  justify-content: flex-start;
-
-}
-
 .page-content-header-actions__action {
   min-width: 5.4rem;
 }

@@ -132,17 +132,14 @@
   border: solid 1px var(--main);
   border-radius: 0.25rem;
   transition: all 0.2s ease-out;
-}
-
-.lp-mentor__sns-item-link:hover {
-  color: var(--welcome-pink);
-}
-
-.lp-mentor__sns-item-link {
   height: 1.75rem;
   width: 1.75rem;
   font-size: 1rem;
   line-height: 1.45;
+}
+
+.lp-mentor__sns-item-link:hover {
+  color: var(--welcome-pink);
 }
 
 @media (width >= 48em) {
