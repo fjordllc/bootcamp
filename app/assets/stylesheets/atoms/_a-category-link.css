@@ -4,14 +4,11 @@
   color: var(--muted-text);
   text-decoration: none;
   cursor: pointer;
+  transition: all 0.2s ease-out;
 }
 
 .a-category-link:hover, .a-category-link:active {
   text-decoration: underline;
-}
-
-.a-category-link {
-  transition: all 0.2s ease-out;
 }
 
 .a-category-link:hover {

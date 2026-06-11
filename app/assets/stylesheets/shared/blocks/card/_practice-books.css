@@ -37,16 +37,13 @@
 .practice-books-item__inner {
   padding: 0.75rem 1rem;
   text-decoration: none;
+  display: block;
+  overflow: hidden;
 }
 
 .practice-books .practice-books-item__inner {
   height: 100%;
   width: 100%;
-}
-
-.practice-books-item__inner {
-  display: block;
-  overflow: hidden;
 }
 
 @media (width >= 48em) {

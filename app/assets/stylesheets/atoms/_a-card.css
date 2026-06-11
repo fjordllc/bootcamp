@@ -9,9 +9,9 @@
 }
 
 .a-card.is-danger {
-  border-color: var(--danger);
   color: var(--danger-text);
   background-color: var(--danger-tint);
+  border: solid 0.25rem var(--danger);
 }
 
 .a-card:not(:last-child) {
@@ -63,10 +63,6 @@
 .a-card.is-toggle .card-body {
   max-height: 50vh;
   overflow-y: auto;
-}
-
-.a-card.is-danger {
-  border: solid 0.25rem var(--danger);
 }
 
 table.a-card {

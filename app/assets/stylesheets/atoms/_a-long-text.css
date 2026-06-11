@@ -447,6 +447,9 @@
   font-family: var(--monospace);
   tab-size: 2;
   hyphens: none;
+  word-break: break-all;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 .a-long-text p code,
@@ -691,12 +694,6 @@ p + .a-long-text blockquote {
 .a-long-text iframe {
   display: block;
   margin-inline: auto;
-}
-
-.a-long-text code {
-  word-break: break-all;
-  overflow-wrap: break-word;
-  white-space: pre-wrap;
 }
 
 .a-long-text strong,

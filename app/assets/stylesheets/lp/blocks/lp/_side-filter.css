@@ -3,14 +3,11 @@
   top: 4rem;
   max-width: 14rem;
   margin: 0;
+  display: none;
 }
 
 .side-filter .a-card {
   overflow: hidden;
-}
-
-.side-filter {
-  display: none;
 }
 
 @media (width >= 64em) {

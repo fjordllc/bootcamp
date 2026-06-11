@@ -15,17 +15,13 @@
   justify-content: center;
   text-decoration: none;
   cursor: pointer;
+  transition: all 0.2s ease-out;
 }
 
 .niconico-calendar-nav__previous:hover, .niconico-calendar-nav__previous:active,
 .niconico-calendar-nav__next:hover,
 .niconico-calendar-nav__next:active {
   text-decoration: underline;
-}
-
-.niconico-calendar-nav__previous,
-.niconico-calendar-nav__next {
-  transition: all 0.2s ease-out;
 }
 
 .niconico-calendar-nav__previous:hover,

@@ -1,14 +1,13 @@
 .lp-content {
   position: relative;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .lp-content .lp-content__inner {
   display: flex;
-}
-
-.lp-content {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 @media (width >= 48em) {
@@ -169,11 +168,6 @@
   .lp-content.is-left-title .lp-content__end {
     max-width: 42.5rem;
   }
-}
-
-.lp-content .lp-content__inner {
-  flex-direction: column;
-  gap: 2rem;
 }
 
 @media (width >= 48em) {

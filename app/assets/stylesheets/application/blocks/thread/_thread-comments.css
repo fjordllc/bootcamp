@@ -1,9 +1,4 @@
 
-.thread-comments {
-  position: relative;
-
-}
-
 .thread-comments__header {
   @media (width >= 48em) {
     margin-bottom: 1.5rem;
@@ -48,6 +43,8 @@
 }
 
 .thread-comments {
+  position: relative;
+
   .form-actions {
     @media (width >= 48em) {
       padding-left: var(--thread)-header-author;

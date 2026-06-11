@@ -10,11 +10,13 @@
 .pill-nav__item:first-child .pill-nav__item-link {
   border-top-left-radius: 10em;
   border-bottom-left-radius: 10em;
+  border-left-width: 1px;
 }
 
 .pill-nav__item:last-child .pill-nav__item-link {
   border-top-right-radius: 10em;
   border-bottom-right-radius: 10em;
+  border-right-width: 1px;
 }
 
 .is-half .pill-nav__item {
@@ -34,14 +36,7 @@
   border-right-width: 0.5px;
   width: 7rem;
   transition: all 0.2s ease-out;
-}
-
-.pill-nav__item:first-child .pill-nav__item-link {
-  border-left-width: 1px;
-}
-
-.pill-nav__item:last-child .pill-nav__item-link {
-  border-right-width: 1px;
+  cursor: pointer;
 }
 
 .pill-nav__item-link:hover {
@@ -52,8 +47,4 @@
   background-color: var(--main);
   color: var(--reversal-text);
   border-color: var(--main);
-}
-
-.pill-nav__item-link {
-  cursor: pointer;
 }
