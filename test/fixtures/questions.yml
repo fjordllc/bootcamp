@@ -143,3 +143,35 @@ question16:
   practice: practice1
   created_at: "2022-01-18"
   published_at: "2022-01-18"
+
+question17:
+  title: 給付金コースのプラクティスの質問
+  description: 給付金コースのプラクティスの質問です。
+  user: grant-course
+  practice: practice64
+  created_at: "2026-05-15"
+  published_at: "2026-05-15"
+
+question18:
+  title: 給付金コースのプラクティスの質問(解決済み)
+  description: 解決済みです。
+  user: grant-course
+  practice: practice64
+  created_at: "2026-05-15"
+  published_at: "2026-05-15"
+
+question19:
+  title: 給付金コースのコピー元プラクティスの質問
+  description: 給付金コースのコピー元プラクティスの質問
+  user: grant-course
+  practice: practice23
+  created_at: "2026-05-15"
+  published_at: "2026-05-15"
+
+question20:
+  title: 給付金コースのコピー元プラクティスの質問(解決済み)
+  description: 解決済みです。
+  user: grant-course
+  practice: practice23
+  created_at: "2026-05-15"
+  published_at: "2026-05-15"
