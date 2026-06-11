@@ -54,7 +54,7 @@
 /* =========================================================
   Breakpoints
 ========================================================= */
-@media (min-width: 40em) {
+@media (width >= 40em) {
   .col-sm-1  { flex: 0 0 var(--one-col); max-width: var(--one-col); }
   .col-sm-2  { flex: 0 0 calc(var(--one-col) * 2  + 1 * var(--gutter)); max-width: calc(var(--one-col) * 2  + 1 * var(--gutter)); }
   .col-sm-3  { flex: 0 0 calc(var(--one-col) * 3  + 2 * var(--gutter)); max-width: calc(var(--one-col) * 3  + 2 * var(--gutter)); }
@@ -69,7 +69,7 @@
   .col-sm-12 { flex: 0 0 100%; max-width: 100%; }
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .col-md-1  { flex: 0 0 var(--one-col); max-width: var(--one-col); }
   .col-md-2  { flex: 0 0 calc(var(--one-col) * 2  + 1 * var(--gutter)); max-width: calc(var(--one-col) * 2  + 1 * var(--gutter)); }
   .col-md-3  { flex: 0 0 calc(var(--one-col) * 3  + 2 * var(--gutter)); max-width: calc(var(--one-col) * 3  + 2 * var(--gutter)); }
@@ -84,7 +84,7 @@
   .col-md-12 { flex: 0 0 100%; max-width: 100%; }
 }
 
-@media (min-width: 64em) {
+@media (width >= 64em) {
   .col-lg-1  { flex: 0 0 var(--one-col); max-width: var(--one-col); }
   .col-lg-2  { flex: 0 0 calc(var(--one-col) * 2  + 1 * var(--gutter)); max-width: calc(var(--one-col) * 2  + 1 * var(--gutter)); }
   .col-lg-3  { flex: 0 0 calc(var(--one-col) * 3  + 2 * var(--gutter)); max-width: calc(var(--one-col) * 3  + 2 * var(--gutter)); }
@@ -99,7 +99,7 @@
   .col-lg-12 { flex: 0 0 100%; max-width: 100%; }
 }
 
-@media (min-width: 80em) {
+@media (width >= 80em) {
   .col-xl-1  { flex: 0 0 var(--one-col); max-width: var(--one-col); }
   .col-xl-2  { flex: 0 0 calc(var(--one-col) * 2  + 1 * var(--gutter)); max-width: calc(var(--one-col) * 2  + 1 * var(--gutter)); }
   .col-xl-3  { flex: 0 0 calc(var(--one-col) * 3  + 2 * var(--gutter)); max-width: calc(var(--one-col) * 3  + 2 * var(--gutter)); }
@@ -114,7 +114,7 @@
   .col-xl-12 { flex: 0 0 100%; max-width: 100%; }
 }
 
-@media (min-width: 96em) {
+@media (width >= 96em) {
   .col-xxl-1  { flex: 0 0 var(--one-col); max-width: var(--one-col); }
   .col-xxl-2  { flex: 0 0 calc(var(--one-col) * 2  + 1 * var(--gutter)); max-width: calc(var(--one-col) * 2  + 1 * var(--gutter)); }
   .col-xxl-3  { flex: 0 0 calc(var(--one-col) * 3  + 2 * var(--gutter)); max-width: calc(var(--one-col) * 3  + 2 * var(--gutter)); }
@@ -129,7 +129,7 @@
   .col-xxl-12 { flex: 0 0 100%; max-width: 100%; }
 }
 
-@media (min-width: 120em) {
+@media (width >= 120em) {
   .col-xxxl-1  { flex: 0 0 var(--one-col); max-width: var(--one-col); }
   .col-xxxl-2  { flex: 0 0 calc(var(--one-col) * 2  + 1 * var(--gutter)); max-width: calc(var(--one-col) * 2  + 1 * var(--gutter)); }
   .col-xxxl-3  { flex: 0 0 calc(var(--one-col) * 3  + 2 * var(--gutter)); max-width: calc(var(--one-col) * 3  + 2 * var(--gutter)); }

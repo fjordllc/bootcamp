@@ -15,10 +15,12 @@
   max-width: 50%;
   min-width: 10rem;
 }
+
 .lp-page-header-nav__item:first-child:last-child {
   max-width: 100%;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .lp-page-header-nav__item {
     flex: none;
     max-width: none;

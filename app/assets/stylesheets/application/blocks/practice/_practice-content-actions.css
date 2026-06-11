@@ -13,7 +13,7 @@
   justify-content: center;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .practice-content-actions__items {
     flex-direction: column;
   }
@@ -28,7 +28,7 @@
   max-width: 100%;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .practice-content-actions__item {
     width: 100%;
     padding-inline: 0;

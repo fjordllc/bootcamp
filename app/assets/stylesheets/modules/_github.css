@@ -203,12 +203,12 @@
   --color-bg-success-inverse: #28a745;
   --color-bg-warning: #fff5b1;
   --color-bg-warning-inverse: #ffd33d;
-  --color-shadow-small: 0 1px 0 rgba(27,31,35,0.04);
-  --color-shadow-medium: 0 3px 6px rgba(149,157,165,0.15);
-  --color-shadow-large: 0 8px 24px rgba(149,157,165,0.2);
-  --color-shadow-extra-large: 0 12px 48px rgba(149,157,165,0.3);
-  --color-shadow-highlight: inset 0 1px 0 hsla(0,0%,100%,0.25);
-  --color-shadow-inset: inset 0 1px 0 rgba(225,228,232,0.2);
+  --color-shadow-small: 0 1px 0 rgb(27 31 35 / 4%);
+  --color-shadow-medium: 0 3px 6px rgb(149 157 165 / 15%);
+  --color-shadow-large: 0 8px 24px rgb(149 157 165 / 20%);
+  --color-shadow-extra-large: 0 12px 48px rgb(149 157 165 / 30%);
+  --color-shadow-highlight: inset 0 1px 0 hsl(0deg 0% 100% / 25%);
+  --color-shadow-inset: inset 0 1px 0 rgb(225 228 232 / 20%);
   --color-state-hover-primary-bg: #0366d6;
   --color-state-hover-primary-border: #0366d6;
   --color-state-hover-primary-text: #fff;
@@ -220,93 +220,93 @@
   --color-state-selected-primary-text: #fff;
   --color-state-selected-primary-icon: #fff;
   --color-state-focus-border: #0366d6;
-  --color-state-focus-shadow: 0 0 0 3px rgba(3,102,214,0.3);
-  --color-fade-black-10: rgba(27,31,35,0.1);
-  --color-fade-black-15: rgba(27,31,35,0.15);
-  --color-fade-black-30: rgba(27,31,35,0.3);
-  --color-fade-black-50: rgba(27,31,35,0.5);
-  --color-fade-black-70: rgba(27,31,35,0.7);
-  --color-fade-black-85: rgba(27,31,35,0.85);
-  --color-fade-white-10: hsla(0,0%,100%,0.1);
-  --color-fade-white-15: hsla(0,0%,100%,0.15);
-  --color-fade-white-30: hsla(0,0%,100%,0.3);
-  --color-fade-white-50: hsla(0,0%,100%,0.5);
-  --color-fade-white-70: hsla(0,0%,100%,0.7);
-  --color-fade-white-85: hsla(0,0%,100%,0.85);
+  --color-state-focus-shadow: 0 0 0 3px rgb(3 102 214 / 30%);
+  --color-fade-black-10: rgb(27 31 35 / 10%);
+  --color-fade-black-15: rgb(27 31 35 / 15%);
+  --color-fade-black-30: rgb(27 31 35 / 30%);
+  --color-fade-black-50: rgb(27 31 35 / 50%);
+  --color-fade-black-70: rgb(27 31 35 / 70%);
+  --color-fade-black-85: rgb(27 31 35 / 85%);
+  --color-fade-white-10: hsl(0deg 0% 100% / 10%);
+  --color-fade-white-15: hsl(0deg 0% 100% / 15%);
+  --color-fade-white-30: hsl(0deg 0% 100% / 30%);
+  --color-fade-white-50: hsl(0deg 0% 100% / 50%);
+  --color-fade-white-70: hsl(0deg 0% 100% / 70%);
+  --color-fade-white-85: hsl(0deg 0% 100% / 85%);
   --color-alert-info-text: #24292e;
-  --color-alert-info-icon: rgba(4,66,137,0.6);
+  --color-alert-info-icon: rgb(4 66 137 / 60%);
   --color-alert-info-bg: #dbedff;
-  --color-alert-info-border: rgba(4,66,137,0.2);
+  --color-alert-info-border: rgb(4 66 137 / 20%);
   --color-alert-warn-text: #24292e;
   --color-alert-warn-icon: #b08800;
   --color-alert-warn-bg: #fffbdd;
-  --color-alert-warn-border: rgba(176,136,0,0.2);
+  --color-alert-warn-border: rgb(176 136 0 / 20%);
   --color-alert-error-text: #24292e;
-  --color-alert-error-icon: rgba(158,28,35,0.6);
+  --color-alert-error-icon: rgb(158 28 35 / 60%);
   --color-alert-error-bg: #ffe3e6;
-  --color-alert-error-border: rgba(158,28,35,0.2);
+  --color-alert-error-border: rgb(158 28 35 / 20%);
   --color-alert-success-text: #24292e;
-  --color-alert-success-icon: rgba(23,111,44,0.8);
+  --color-alert-success-icon: rgb(23 111 44 / 80%);
   --color-alert-success-bg: #dcffe4;
-  --color-alert-success-border: rgba(23,111,44,0.2);
+  --color-alert-success-border: rgb(23 111 44 / 20%);
   --color-autocomplete-bg: #fff;
   --color-autocomplete-border: #e1e4e8;
-  --color-autocomplete-shadow: 0 3px 6px rgba(149,157,165,0.15);
+  --color-autocomplete-shadow: 0 3px 6px rgb(149 157 165 / 15%);
   --color-autocomplete-row-border: #eaecef;
   --color-blankslate-icon: #a3aab1;
   --color-btn-bg: #fafbfc;
-  --color-btn-border: rgba(27,31,35,0.15);
+  --color-btn-border: rgb(27 31 35 / 15%);
   --color-btn-text: #24292e;
   --color-btn-ic: #6a737d;
-  --color-btn-shadow: 0 1px 0 rgba(27,31,35,0.04);
-  --color-btn-shadow-highlight: inset 0 1px 0 hsla(0,0%,100%,0.25);
+  --color-btn-shadow: 0 1px 0 rgb(27 31 35 / 4%);
+  --color-btn-shadow-highlight: inset 0 1px 0 hsl(0deg 0% 100% / 25%);
   --color-btn-bg-hover: #f3f4f6;
   --color-btn-bg-active: #edeff2;
-  --color-btn-shadow-active: inset 0 0.15em 0.3em rgba(27,31,35,0.15);
-  --color-btn-shadow-input-focus: 0 0 0 0.2em rgba(3,102,214,0.3);
+  --color-btn-shadow-active: inset 0 0.15em 0.3em rgb(27 31 35 / 15%);
+  --color-btn-shadow-input-focus: 0 0 0 0.2em rgb(3 102 214 / 30%);
   --color-btn-primary-bg: #2ea44f;
-  --color-btn-primary-border: rgba(27,31,35,0.15);
-  --color-btn-primary-border-disabled: rgba(27,31,35,0.1);
+  --color-btn-primary-border: rgb(27 31 35 / 15%);
+  --color-btn-primary-border-disabled: rgb(27 31 35 / 10%);
   --color-btn-primary-text: #fff;
-  --color-btn-primary-ic: hsla(0,0%,100%,0.8);
-  --color-btn-primary-shadow: 0 1px 0 rgba(27,31,35,0.1);
-  --color-btn-primary-shadow-highlight: inset 0 1px 0 hsla(0,0%,100%,0.03);
-  --color-btn-primary-shadow-selected: inset 0 1px 0 rgba(20,70,32,0.2);
+  --color-btn-primary-ic: hsl(0deg 0% 100% / 80%);
+  --color-btn-primary-shadow: 0 1px 0 rgb(27 31 35 / 10%);
+  --color-btn-primary-shadow-highlight: inset 0 1px 0 hsl(0deg 0% 100% / 3%);
+  --color-btn-primary-shadow-selected: inset 0 1px 0 rgb(20 70 32 / 20%);
   --color-btn-primary-bg-hover: #2c974b;
   --color-btn-primary-bg-active: #2a8f47;
   --color-btn-primary-bg-disabled: #94d3a2;
-  --color-btn-primary-disabled-text: hsla(0,0%,100%,0.8);
-  --color-btn-primary-disabled-shadow: 0 0 0 3px rgba(46,164,79,0.4);
-  --color-btn-primary-counter-bg: hsla(0,0%,100%,0.2);
-  --color-btn-inverse-on-hover-border: rgba(27,31,35,0.15);
-  --color-btn-inverse-on-hover-shadow: 0 1px 0 rgba(27,31,35,0.1);
-  --color-btn-inverse-on-hover-shadow-inset: inset 0 1px 0 hsla(0,0%,100%,0.03);
-  --color-btn-inverse-on-hover-counter-bg: hsla(0,0%,100%,0.2);
+  --color-btn-primary-disabled-text: hsl(0deg 0% 100% / 80%);
+  --color-btn-primary-disabled-shadow: 0 0 0 3px rgb(46 164 79 / 40%);
+  --color-btn-primary-counter-bg: hsl(0deg 0% 100% / 20%);
+  --color-btn-inverse-on-hover-border: rgb(27 31 35 / 15%);
+  --color-btn-inverse-on-hover-shadow: 0 1px 0 rgb(27 31 35 / 10%);
+  --color-btn-inverse-on-hover-shadow-inset: inset 0 1px 0 hsl(0deg 0% 100% / 3%);
+  --color-btn-inverse-on-hover-counter-bg: hsl(0deg 0% 100% / 20%);
   --color-btn-danger-text: #d73a49;
-  --color-btn-danger-text-disabled: rgba(215,58,73,0.5);
+  --color-btn-danger-text-disabled: rgb(215 58 73 / 50%);
   --color-btn-danger-bg-hover: #cb2431;
   --color-btn-danger-bg-active: #be222e;
-  --color-btn-danger-shadow: inset 0 1px 0 rgba(134,24,29,0.2);
-  --color-btn-danger-shadow-focus: 0 0 0 3px rgba(203,36,49,0.4);
-  --color-btn-danger-counter-bg: rgba(215,58,73,0.1);
-  --color-btn-danger-counter-bg-disabled: rgba(215,58,73,0.05);
+  --color-btn-danger-shadow: inset 0 1px 0 rgb(134 24 29 / 20%);
+  --color-btn-danger-shadow-focus: 0 0 0 3px rgb(203 36 49 / 40%);
+  --color-btn-danger-counter-bg: rgb(215 58 73 / 10%);
+  --color-btn-danger-counter-bg-disabled: rgb(215 58 73 / 5%);
   --color-btn-outline-text: #0366d6;
-  --color-btn-outline-text-disabled: rgba(3,102,214,0.5);
+  --color-btn-outline-text-disabled: rgb(3 102 214 / 50%);
   --color-btn-outline-bg-hover: #0366d6;
   --color-btn-outline-bg-active: #035fc7;
-  --color-btn-outline-shadow: inset 0 1px 0 rgba(5,38,76,0.2);
-  --color-btn-outline-shadow-focus: 0 0 0 3px rgba(0,92,197,0.4);
-  --color-btn-outline-counter-bg: rgba(3,102,214,0.1);
-  --color-btn-outline-counter-bg-disabled: rgba(3,102,214,0.05);
-  --color-btn-counter-bg: rgba(27,31,35,0.08);
+  --color-btn-outline-shadow: inset 0 1px 0 rgb(5 38 76 / 20%);
+  --color-btn-outline-shadow-focus: 0 0 0 3px rgb(0 92 197 / 40%);
+  --color-btn-outline-counter-bg: rgb(3 102 214 / 10%);
+  --color-btn-outline-counter-bg-disabled: rgb(3 102 214 / 5%);
+  --color-btn-counter-bg: rgb(27 31 35 / 8%);
   --color-counter-text: #24292e;
-  --color-counter-bg: rgba(209,213,218,0.5);
+  --color-counter-bg: rgb(209 213 218 / 50%);
   --color-counter-primary-text: #fff;
   --color-counter-primary-bg: #6a737d;
   --color-counter-secondary-text: #6a737d;
   --color-dropdown-bg: #fff;
   --color-dropdown-border: #e1e4e8;
-  --color-dropdown-shadow: 0 8px 24px rgba(149,157,165,0.2);
+  --color-dropdown-shadow: 0 8px 24px rgb(149 157 165 / 20%);
   --color-label-border: #e1e4e8;
   --color-label-primary-text: #24292e;
   --color-label-primary-border: #6a737d;
@@ -326,7 +326,7 @@
   --color-input-bg: #fff;
   --color-input-contrast-bg: #fafbfc;
   --color-input-border: #e1e4e8;
-  --color-input-shadow: inset 0 1px 2px rgba(27,31,35,0.075);
+  --color-input-shadow: inset 0 1px 2px rgb(27 31 35 / 7.5%);
   --color-input-disabled-bg: #fff;
   --color-input-disabled-border: #e1e4e8;
   --color-input-warning-border: #f9c513;
@@ -343,7 +343,7 @@
   --color-avatar-border: transparent;
   --color-avatar-stack-fade: #d1d5da;
   --color-avatar-stack-fade-more: #e1e4e8;
-  --color-avatar-child-shadow: -2px -2px 0 hsla(0,0%,100%,0.8);
+  --color-avatar-child-shadow: -2px -2px 0 hsl(0deg 0% 100% / 80%);
   --color-toast-ic-bg-loading: #586069;
   --color-timeline-text: #444d56;
   --color-timeline-badge-bg: #e1e4e8;
@@ -352,24 +352,24 @@
   --color-select-menu-bg: #fff;
   --color-select-menu-border: #e1e4e8;
   --color-select-menu-border-secondary: #eaecef;
-  --color-select-menu-shadow: 0 0 18px rgba(27,31,35,0.4);
-  --color-select-menu-backdrop-bg: rgba(27,31,35,0.5);
+  --color-select-menu-shadow: 0 0 18px rgb(27 31 35 / 40%);
+  --color-select-menu-backdrop-bg: rgb(27 31 35 / 50%);
   --color-select-menu-backdrop-border: transparent;
-  --color-select-menu-tap-highlight: rgba(209,213,218,0.5);
+  --color-select-menu-tap-highlight: rgb(209 213 218 / 50%);
   --color-select-menu-tap-focus-bg: #dbedff;
   --color-box-blue-border: #c8e1ff;
   --color-box-row-yellow-bg: #fffbdd;
   --color-box-row-blue-bg: #f1f8ff;
   --color-box-header-blue-bg: #f1f8ff;
   --color-box-header-blue-border: #c8e1ff;
-  --color-popover-border: rgba(27,31,35,0.15);
-  --color-branch-name-text: rgba(27,31,35,0.6);
+  --color-popover-border: rgb(27 31 35 / 15%);
+  --color-branch-name-text: rgb(27 31 35 / 60%);
   --color-branch-name-icon: #a8bbd0;
   --color-branch-name-bg: #eaf5ff;
   --color-branch-name-link-text: #0366d6;
   --color-branch-name-link-icon: #a8bbd0;
   --color-branch-name-link-bg: #eaf5ff;
-  --color-markdown-code-bg: rgba(27,31,35,0.05);
+  --color-markdown-code-bg: rgb(27 31 35 / 5%);
   --color-markdown-frame-border: #dfe2e5;
   --color-markdown-blockquote-border: #dfe2e5;
   --color-markdown-table-border: #dfe2e5;
@@ -379,7 +379,7 @@
   --color-sidenav-selected-bg: #fff;
   --color-sidenav-border-active: #f9826c;
   --color-tabnav-selected-bg: #fff;
-  --color-header-text: hsla(0,0%,100%,0.7);
+  --color-header-text: hsl(0deg 0% 100% / 70%);
   --color-header-bg: #24292e;
   --color-header-logo: #fff;
   --color-filter-item-bar-bg: #eff3f6;
@@ -390,7 +390,7 @@
   --color-upload-enabled-border-focused: #4a9eff;
   --color-previewable-comment-form-border: #c3c8cf;
   --color-previewable-comment-form-bg: #fff;
-  --color-underlinenav-border: rgba(209,213,218,0);
+  --color-underlinenav-border: rgb(209 213 218 / 0%);
   --color-underlinenav-border-hover: #d1d5da;
   --color-underlinenav-border-active: #f9826c;
   --color-underlinenav-text: #24292e;
@@ -427,15 +427,15 @@
   --color-global-nav-input-icon: #d1d5da;
   --color-global-nav-input-placeholder: #959da5;
   --color-calendar-graph-day-bg: #ebedf0;
-  --color-calendar-graph-day-border: rgba(27,31,35,0.06);
+  --color-calendar-graph-day-border: rgb(27 31 35 / 6%);
   --color-calendar-graph-day-L1-bg: #9be9a8;
   --color-calendar-graph-day-L2-bg: #40c463;
   --color-calendar-graph-day-L3-bg: #30a14e;
   --color-calendar-graph-day-L4-bg: #216e39;
-  --color-calendar-graph-day-L4-border: rgba(27,31,35,0.06);
-  --color-calendar-graph-day-L3-border: rgba(27,31,35,0.06);
-  --color-calendar-graph-day-L2-border: rgba(27,31,35,0.06);
-  --color-calendar-graph-day-L1-border: rgba(27,31,35,0.06);
+  --color-calendar-graph-day-L4-border: rgb(27 31 35 / 6%);
+  --color-calendar-graph-day-L3-border: rgb(27 31 35 / 6%);
+  --color-calendar-graph-day-L2-border: rgb(27 31 35 / 6%);
+  --color-calendar-graph-day-L1-border: rgb(27 31 35 / 6%);
   --color-calendar-halloween-graph-day-L1-bg: #ffee4a;
   --color-calendar-halloween-graph-day-L2-bg: #ffc501;
   --color-calendar-halloween-graph-day-L3-bg: #fe9600;
@@ -459,9 +459,8 @@
 .ContributionCalendar-day,
 .ContributionCalendar-day[data-level="0"] {
   fill: var(--color-calendar-graph-day-bg);
-  shape-rendering: geometricPrecision;
   background-color: var(--color-calendar-graph-day-bg);
-  shape-rendering: geometricPrecision;
+  shape-rendering: geometricprecision;
   border-radius: 2px;
   outline: 1px solid var(--color-calendar-graph-day-border);
   outline-offset: -1px;
@@ -487,19 +486,19 @@
   outline: 1px solid var(--color-calendar-graph-day-L4-border);
 }
 
-.ContributionCalendar[data-holiday=halloween].ContributionCalendar-day[data-level="1"] {
+.ContributionCalendar[data-holiday="halloween"].ContributionCalendar-day[data-level="1"] {
   background-color: var(--color-calendar-halloween-graph-day-L1-bg);
 }
 
-.ContributionCalendar[data-holiday=halloween].ContributionCalendar-day[data-level="2"] {
+.ContributionCalendar[data-holiday="halloween"].ContributionCalendar-day[data-level="2"] {
   background-color: var(--color-calendar-halloween-graph-day-L2-bg);
 }
 
-.ContributionCalendar[data-holiday=halloween].ContributionCalendar-day[data-level="3"] {
+.ContributionCalendar[data-holiday="halloween"].ContributionCalendar-day[data-level="3"] {
   background-color: var(--color-calendar-halloween-graph-day-L3-bg);
 }
 
-.ContributionCalendar[data-holiday=halloween].ContributionCalendar-day[data-level="4"] {
+.ContributionCalendar[data-holiday="halloween"].ContributionCalendar-day[data-level="4"] {
   background-color: var(--color-calendar-halloween-graph-day-L4-bg);
 }
 
@@ -522,6 +521,7 @@
   transform: scale(0.75);
   margin: -0.8rem -5.5rem -0.8rem -5.3rem;
 }
+
 .ContributionCalendar-grid thead tr:first-child td:first-child,
 .user-grass__image thead tr:first-child td:first-child {
   width: 0.75rem !important;

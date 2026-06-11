@@ -49,12 +49,12 @@ pre.code-toolbar > .toolbar span {
   text-decoration: none;
 }
 
-:not(pre) > code[class*=language-] {
+:not(pre) > code[class*="language-"] {
   padding: 0.2em;
   padding-top: 1px;
   padding-bottom: 1px;
   background: #f8f8f8;
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
 }
 
 /*# sourceMappingURL=_code-toolbar.css.map */

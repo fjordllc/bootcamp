@@ -3,6 +3,7 @@
   0% {
     background-color: var(--warning);
   }
+
   100% {
     background-color: var(--base);
   }
@@ -12,7 +13,7 @@
   margin-bottom: 1.5rem;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .admin-table {
     overflow-x: auto;
   }
@@ -134,14 +135,14 @@
 .admin-table-item__body {
   border-radius: .25rem;
   background-color: var(--base);
-  box-shadow: rgba(0, 0, 0, .2) 0 1px 4px;
+  box-shadow: rgb(0 0 0 / 20%) 0 1px 4px;
   overflow: hidden;
 }
 
 .admin-table__user {
   display: inline-flex;
   align-items: center;
-  gap: .25rem .25rem;
+  gap: .25rem;
 }
 
 .admin-table__user-icon {
@@ -157,7 +158,6 @@
 
 .admin-table__user-login-name {
   overflow-wrap: break-word;
-  word-wrap: break-word;
   color: var(--main-text);
 }
 

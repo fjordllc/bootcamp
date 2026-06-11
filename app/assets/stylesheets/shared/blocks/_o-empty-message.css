@@ -4,6 +4,7 @@
   text-align: center;
   color: var(--semi-muted-text);
 }
+
 .o-empty-message:not(:first-child) {
   margin-top: 1.5rem;
 }

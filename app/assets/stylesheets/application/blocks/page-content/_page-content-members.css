@@ -6,27 +6,33 @@
   border: solid 1px var(--border-shade);
 
 }
+
 .page-content-members__title {
   font-size: .8125rem;
   line-height: 1.4;
   font-weight: 600;
 
 }
+
 .page-content-members__items {
   display: flex;
   gap: .75rem;
   flex-wrap: wrap;
 
 }
+
 .page-content-members__item {
   display: flex;
   gap: .25rem;
-  @media (min-width: 48em) {
+
+  @media (width >= 48em) {
     font-size: .875rem;
   }
-  @media (max-width: 47.9375em) {
+
+  @media (width <= 47.9375em) {
     font-size: .75rem;
   }
+
   .a-user-name {
     font-size: 1em;
     line-height: 1.4;
@@ -34,12 +40,14 @@
 
   }
 }
+
 .page-content-members__user-icon {
-  @media (min-width: 48em) {
+  @media (width >= 48em) {
     height: 1.5rem;
     width: 1.5rem;
   }
-  @media (max-width: 47.9375em) {
+
+  @media (width <= 47.9375em) {
     height: 1.25rem;
     width: 1.25rem;
 

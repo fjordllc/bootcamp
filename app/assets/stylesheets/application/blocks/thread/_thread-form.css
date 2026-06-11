@@ -2,13 +2,13 @@
 .thread-form {
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .thread-form {
     padding: 1rem 2rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .thread-form {
     padding: .75rem 1rem;
   }
@@ -18,7 +18,7 @@
   margin-top: 1rem;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .thread-form__actions {
     display: flex;
     justify-content: center;
@@ -29,14 +29,14 @@
 .thread-form__action {
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .thread-form__action {
     flex: 0 0 14rem;
     max-width: 50%;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .thread-form__action:not(:first-child) {
     margin-top: .5rem;
   }

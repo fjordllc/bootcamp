@@ -5,7 +5,7 @@
   padding: 0.5rem 0.75rem;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .card-header {
     padding: 0.75rem 1rem;
   }
@@ -42,7 +42,7 @@
   font-size: 0.875rem;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .card-header__title {
     font-size: 1rem;
   }
@@ -77,7 +77,7 @@
   line-height: 1.4;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .card-header__sub-title {
     font-size: 0.75rem;
   }

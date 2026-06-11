@@ -3,7 +3,7 @@
   padding: 1rem;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .user-grass {
     padding: .75rem;
   }

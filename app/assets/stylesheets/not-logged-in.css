@@ -1,4 +1,5 @@
 @import "tailwindcss" source(none);
+
 @source "../../views/**/*.slim";
 @source "../../components/**/*.slim";
 @source "../../../app/javascript/**/*.{js,vue,jsx}";
