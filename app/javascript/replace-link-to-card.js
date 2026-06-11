@@ -158,8 +158,8 @@ const embedToLinkCard = async (targetLink, url) => {
       metaData.site_url || ''
     }" target="_blank"  rel="noopener" class="a-link-card__image-link">
       <img src="${metaData.images}" alt="${
-          metaData.title || 'Site Image'
-        }" class="a-link-card__image-ogp" />
+        metaData.title || 'Site Image'
+      }" class="a-link-card__image-ogp" />
     </a></div>
     `
       : ''
