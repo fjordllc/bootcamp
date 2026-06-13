@@ -8,9 +8,10 @@
       li.practice-status-buttons__item
         - button_class = "#{button_base_class} is-unstarted js-unstarted #{@status == 'unstarted' ? 'is-active' : 'is-inactive'}"
         = content_tag :button, '未着手', class: button_class, disabled: @status == 'unstarted', data: { status: 'unstarted' }
-      li.practice-status-buttons__item
-        - button_class = "#{button_base_class} is-started js-started #{@status == 'started' ? 'is-active' : 'is-inactive'}"
-        = content_tag :button, '着手', class: button_class, disabled: @status == 'started', data: { status: 'started' }
+      - if @practice.source_id.present? || !current_user.grant_course?
+        li.practice-status-buttons__item
+          - button_class = "#{button_base_class} is-started js-started #{@status == 'started' ? 'is-active' : 'is-inactive'}"
+          = content_tag :button, '着手', class: button_class, disabled: @status == 'started', data: { status: 'started' }
       - if @practice.submission
         li.practice-status-buttons__item
           - button_class = "#{button_base_class} is-submitted js-submitted #{@status == 'submitted' ? 'is-active' : 'is-inactive'}"
