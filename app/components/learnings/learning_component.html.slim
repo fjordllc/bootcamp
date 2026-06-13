@@ -1,6 +1,6 @@
 .card-main-actions
   ul.card-main-actions__items
-    - if submission?
+    - if submission? && @practice.source_id.present? || !@current_user.grant_course?
       li.card-main-actions__item
         = link_to product_link, class: 'a-button is-sm is-primary is-block test-product' do
           i.fa-solid.fa-file
