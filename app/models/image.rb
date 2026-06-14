@@ -4,23 +4,22 @@ class Image < ApplicationRecord
   belongs_to :user
   has_one_attached :image
 
-  after_commit :strip_exif, on: :create
+  validates :image, attached: true
 
-  private
+  def strip_exif!
+    attachment = attachment_changes['image']
+    return unless attachment
 
-  def strip_exif
-    original_image = image
-    copied_image = MiniMagick::Image.read(original_image.download)
-    copied_image.strip
+    uploaded_file = attachment.attachable
+    original_image = MiniMagick::Image.read(uploaded_file.tempfile)
+    original_image.strip
 
-    ext = File.extname(original_image.filename.to_s)
-    timestamp = Time.current.strftime('%Y%m%d%H%M%S%L')
-    File.open(copied_image.path) do |file|
-      original_image.attach(io: file, filename: "#{user.id}_#{timestamp}#{ext}")
-    end
-  rescue StandardError => e
-    Rails.logger.error("Failed to strip EXIF: #{e.message}")
-  ensure
-    copied_image&.destroy!
+    blob = {
+      io: StringIO.new(original_image.to_blob),
+      filename: uploaded_file.original_filename.to_s,
+      content_type: uploaded_file.content_type
+    }
+
+    image.attach(blob)
   end
 end
