@@ -1,4 +1,4 @@
-import { toast } from './vanillaToast'
+import { toast } from 'vanillaToast'
 import { FetchRequest } from '@rails/request.js'
 
 export const checkProduct = async (productId, currentUserId, url, method) => {

@@ -1,11 +1,11 @@
 import CSRF from 'csrf'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
-import { toast } from './vanillaToast.js'
-import updateAnswerCount from './updateAnswerCount.js'
-import initializeAnswer from './initializeAnswer.js'
-import { initializeReaction } from './reaction.js'
-import { setWatchable } from './setWatchable.js'
+import { toast } from 'vanillaToast'
+import updateAnswerCount from 'updateAnswerCount'
+import initializeAnswer from 'initializeAnswer'
+import { initializeReaction } from 'reaction'
+import { setWatchable } from 'setWatchable'
 
 document.addEventListener('DOMContentLoaded', () => {
   const newAnswer = document.querySelector('.new-answer')

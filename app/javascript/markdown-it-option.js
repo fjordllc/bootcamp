@@ -17,7 +17,12 @@ export default {
           '</code></pre>'
         )
       } catch (_) {
-        // 何もしない
+        const m = new MarkdownIt()
+        return (
+          `<pre class="language-${lang}"><code>` +
+          m.utils.escapeHtml(str) +
+          '</code></pre>'
+        )
       }
     }
     const m = new MarkdownIt()

@@ -6,8 +6,9 @@ meta content='IE=edge' http-equiv='X-UA-Compatible'
 
 // JavaScripts
 = javascript_include_tag 'application'
-= javascript_pack_tag 'application'
-= stylesheet_pack_tag 'application', media: 'all'
+= javascript_importmap_tags
+= stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css', media: 'all'
+= stylesheet_link_tag 'tagify', media: 'all'
 
 // WebFonts
 link rel="preconnect" href="https://fonts.googleapis.com"

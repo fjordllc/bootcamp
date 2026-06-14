@@ -1,4 +1,4 @@
-import { toast } from 'vanillaToast.js'
+import { toast } from 'vanillaToast'
 
 document.addEventListener('DOMContentLoaded', () => {
   const messages = document.querySelectorAll('.js-toast')

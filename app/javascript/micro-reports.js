@@ -1,4 +1,4 @@
-import { debounce } from './debounce.js'
+import { debounce } from 'debounce'
 
 window.addEventListener('DOMContentLoaded', function () {
   const textarea = document.getElementById('js-micro-report-textarea')

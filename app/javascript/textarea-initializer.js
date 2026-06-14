@@ -1,8 +1,8 @@
 import Tribute from 'tributejs'
 import TextareaAutocomplteEmoji from 'textarea-autocomplte-emoji'
 import TextareaAutocomplteMention from 'textarea-autocomplte-mention'
-import TextareaMarkdown from 'textarea-markdown'
-import MarkdownItEmoji from 'markdown-it-emoji'
+import TextareaMarkdownModule from 'textarea-markdown'
+import { full as MarkdownItEmoji } from 'markdown-it-emoji'
 import MarkdownItTaskLists from 'markdown-it-task-lists'
 import MarkdownItMention from 'markdown-it-mention'
 import MarkdownItUserIcon from 'markdown-it-user-icon'
@@ -18,6 +18,11 @@ import ReplaceLinkToCard from 'replace-link-to-card'
 import MarkDownItContainerFigure from 'markdown-it-container-figure'
 import MarkdownItVimeo from 'markdown-it-vimeo'
 import MarkdownItYoutube from 'markdown-it-youtube'
+
+const TextareaMarkdown =
+  TextareaMarkdownModule.default?.default ||
+  TextareaMarkdownModule.default ||
+  TextareaMarkdownModule
 
 export default class {
   static initialize(selector) {
