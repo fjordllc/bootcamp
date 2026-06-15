@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Admin::UsersController < AdminController
+class Admin::UsersController < AdminController # rubocop:todo Metrics/ClassLength
   before_action :set_user, only: %i[show edit update]
   ALLOWED_TARGETS = %w[all student_and_trainee inactive hibernated retired graduate adviser mentor trainee year_end_party campaign].freeze
 
@@ -35,6 +35,11 @@ class Admin::UsersController < AdminController
     @user.diploma_file = nil if params[:user][:remove_diploma] == '1'
     if @user.update(user_params)
       complete_graduation_or_retirement(@user)
+      if params[:hibernate_user]
+        return unless hibernate(@user)
+      elsif params[:comeback_user]
+        @user.comeback!
+      end
       redirect_to user_url(@user), notice: 'ユーザー情報を更新しました。'
     else
       render :edit
@@ -92,6 +97,7 @@ class Admin::UsersController < AdminController
       :organization, :os, :study_place,
       { experiences: [] }, :company_id,
       :trainee, :nda, :avatar,
+      :hibernated_at,
       :graduated_on, :retired_on,
       :job_seeker, :github_collaborator,
       :officekey_permission, :tag_list, :training_ends_on, :training_completed_at,
@@ -108,6 +114,20 @@ class Admin::UsersController < AdminController
       Retirement.by_admin(user:).execute
     elsif user.saved_change_to_graduated_on? && user.graduated_on_before_last_save.nil?
       Subscription.new.destroy(user.subscription_id) if user.subscription_id?
+    end
+  end
+
+  def hibernate(user)
+    hibernation = Hibernation.new(
+      reason: '管理者操作',
+      scheduled_return_on: params[:scheduled_return_on]
+    )
+    hibernation.user = user
+    if hibernation.save
+      hibernation.execute
+    else
+      render :edit
+      false
     end
   end
 end
