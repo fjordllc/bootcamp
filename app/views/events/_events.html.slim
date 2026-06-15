@@ -36,8 +36,8 @@ ul.card-list.a-card
                   .card-list-item-meta__item
                     .a-meta
                       | 補欠者（#{event.waitlist.count}名）
-                - if event.comments.size.positive?
+                - if event.comments.any?
                   .card-list-item-meta__item
                     .a-meta
-                      | コメント（#{event.comments.size}）
+                      = comment_count(event)
 = paginate @events
