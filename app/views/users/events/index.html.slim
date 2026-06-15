@@ -60,7 +60,7 @@
                           - if event.comments.any?
                             .card-list-item-meta__item
                               .a-meta
-                                = event_comment_count(event)
+                                = comment_count(event)
           .pagination
             = paginate @events
         - else

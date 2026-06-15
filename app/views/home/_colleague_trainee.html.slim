@@ -19,7 +19,7 @@
               .card-list-item-meta__item
                 = link_to user_products_path(user), class: 'card-list-item-meta__item-link a-text-link' do
                   | 提出物一覧（#{user.products.count}）
-            - if user.comments.present?
+            - if user.comments.any?
               .card-list-item-meta__item
                 = link_to user_comments_path(user), class: 'card-list-item-meta__item-link a-text-link' do
-                  = event_comment_count(user)
+                  = comment_count(user)

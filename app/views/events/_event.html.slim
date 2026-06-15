@@ -28,7 +28,7 @@
             .page-content-header-metas__meta
               - if event.comments.any?
                 a.a-meta(href='#comments')
-                  = event_comment_count(event)
+                  = comment_count(event)
 
       .page-content-header__row
         .page-content-header-actions

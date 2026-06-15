@@ -39,5 +39,5 @@ ul.card-list.a-card
                 - if event.comments.any?
                   .card-list-item-meta__item
                     .a-meta
-                      = event_comment_count(event)
+                      = comment_count(event)
 = paginate @events

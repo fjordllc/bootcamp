@@ -48,7 +48,7 @@
             .card-list-item-meta__items
               .card-list-item-meta__item
                 .a-meta
-                  = event_comment_count(report)
+                  = comment_count(report)
               .card-list-item-meta__item
                 .card-list-item__user-icons
                   = render partial: 'comments/user_icons', collection: report.comments.commented_users, as: :user

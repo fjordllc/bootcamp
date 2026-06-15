@@ -42,7 +42,7 @@ header.page-content-header.is-report
           .page-content-header-metas__meta
             - if report.comments.any?
               a.a-meta(href='#comments')
-                = event_comment_count(report)
+                = comment_count(report)
 
     .page-content-header__row
       .page-content-header-actions

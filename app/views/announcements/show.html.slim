@@ -47,7 +47,7 @@ hr.a-border
                   .page-content-header-metas__meta
                     - if @announcement.comments.any?
                       a.a-meta(href='#comments')
-                        = event_comment_count(@announcement)
+                        = comment_count(@announcement)
             .page-content-header__row
               .page-content-header-actions
                 .page-content-header-actions__start

@@ -44,7 +44,7 @@
             .card-list-item-meta__items
               .card-list-item-meta__item
                 .a-meta
-                  = event_comment_count(product)
+                  = comment_count(product)
               .card-list-item-meta__item
                 .card-list-item__user-icons
                   - commented_users[product.id].uniq.each do |user|

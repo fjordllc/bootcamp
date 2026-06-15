@@ -43,7 +43,7 @@
             - if pair_work.comments.any?
               .card-list-item-meta__item
                 .a-meta(class="is-important")
-                  = event_comment_count(pair_work)
+                  = comment_count(pair_work)
 
     - if pair_work.solved?
       .stamp.is-circle.is-solved

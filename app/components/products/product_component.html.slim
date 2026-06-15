@@ -69,7 +69,7 @@
           .card-list-item-meta
             .card-list-item-meta__items
               .card-list-item-meta__item
-                .a-meta = helpers.event_comment_count(@product)
+                .a-meta = helpers.comment_count(@product)
               .card-list-item-meta__item
                 .card-list-item__user-icons
                   - @product.commented_users.distinct.each do |user|
