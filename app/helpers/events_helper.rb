@@ -13,8 +13,8 @@ module EventsHelper
     uri.to_s
   end
 
-  def event_comment_count(event)
-    safe_join(['コメント（', content_tag(:span, event.comments.size, class: 'is-emphasized'), '）'])
+  def comment_count(commentable)
+    safe_join(['コメント（', content_tag(:span, commentable.comments.size, class: 'is-emphasized'), '）'])
   end
 
   def event_participant_count(event)
