@@ -12,12 +12,13 @@
   flex: 0 0 auto;
 }
 
-@media (min-width: 96em) {
+@media (width >= 96em) {
   .company-links__item {
     flex: 0 0 calc((100% - 1rem) / 3);
   }
 }
-@media (max-width: 79.9375em) {
+
+@media (width <= 79.9375em) {
   .company-links__item {
     flex: 0 0 calc((100% - 0.5rem) / 2);
   }

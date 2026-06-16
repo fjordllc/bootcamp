@@ -3,7 +3,7 @@
   min-height: 30rem;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .markdown-form__text-area.a-text-input {
     margin-bottom: 1rem;
   }
@@ -17,13 +17,13 @@
   min-height: 30rem;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .markdown-form__preview {
     padding: 1rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .markdown-form__preview {
     padding: .5rem;
   }

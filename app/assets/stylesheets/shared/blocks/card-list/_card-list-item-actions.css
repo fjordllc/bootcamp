@@ -11,7 +11,8 @@
   left: 0;
   top: 2.75rem;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .card-list-item-actions__trigger {
     position: static;
     margin-top: -0.5rem;
@@ -26,6 +27,7 @@
   top: -0.5rem;
   z-index: 3;
 }
+
 input:checked + .card-list-item-actions__inner {
   display: block;
 }
@@ -54,10 +56,12 @@ input:checked + .card-list-item-actions__inner {
   padding: 0.5em 1em;
   min-height: 2.75rem;
 }
+
 .card-list-item-actions__action i {
   margin-right: 0.5em;
 }
+
 .card-list-item-actions__action:hover {
-  background-color: rgb(245, 246, 252);
+  background-color: rgb(245 246 252);
   color: var(--main-text);
 }

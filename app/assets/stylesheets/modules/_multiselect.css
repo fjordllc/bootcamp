@@ -37,9 +37,11 @@
 .multiselect__element {
   font-size: 0.875rem;
 }
+
 .multiselect__element:not(:first-child) {
   border-top: solid 1px var(--border);
 }
+
 .multiselect__element > span {
   display: flex;
   height: 2.75rem;
@@ -48,9 +50,11 @@
   cursor: pointer;
   transition: all 0.2s ease-out;
 }
+
 .multiselect__element > span:hover {
   background-color: var(--background-tint);
 }
+
 .multiselect__element > span > span {
   display: block;
   white-space: nowrap;
@@ -64,7 +68,7 @@
   background-color: #fff5db;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .multiselect__element {
     font-size: 1rem;
   }

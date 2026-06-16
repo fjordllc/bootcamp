@@ -2,13 +2,13 @@
 .card-counts {
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .card-counts.is-user {
     margin-bottom: 1.5rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .card-counts.is-user {
     margin-bottom: 1.25rem;
   }
@@ -67,7 +67,7 @@
   overflow: hidden;
   text-align: center;
   color: var(--semi-muted-text);
-  padding: .125rem .125rem;
+  padding: .125rem;
   border-bottom: solid 1px var(--border);
   height: 1.25rem;
   text-overflow: ellipsis;

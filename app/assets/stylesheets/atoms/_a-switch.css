@@ -4,6 +4,7 @@
   cursor: pointer;
   transition: all 0.2s ease-out;
 }
+
 .a-switch * {
   cursor: pointer;
 }
@@ -15,19 +16,22 @@
   color: var(--muted-text);
   margin-right: 0.5em;
 }
+
 .a-switch__label .a-help {
   position: relative;
   top: -1px;
 }
+
 .a-switch__label:hover .a-switch__label-text {
   color: var(--main-text);
   text-decoration: underline;
 }
+
 .a-switch__label:hover .a-help {
   background-color: var(--main);
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .a-switch {
     align-items: center;
     justify-content: center;

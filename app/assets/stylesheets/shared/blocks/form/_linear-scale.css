@@ -56,7 +56,7 @@
 }
 
 .linear-scale__point:hover::before {
-  background-color: rgba(87, 82, 232, 0.4);
+  background-color: rgb(87 82 232 / 40%);
   border-color: var(--primary);
 }
 

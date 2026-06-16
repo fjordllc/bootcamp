@@ -1,7 +1,7 @@
 .thread-comment-form {
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .thread-comment-form {
     display: flex;
   }
@@ -11,14 +11,14 @@
   border-top: none;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .thread-comment-form.is-action-completed {
     margin-top: 1.5rem;
     padding-left: var(--thread-header-author);
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .thread-comment-form.is-action-completed {
     margin-top: 1rem;
   }

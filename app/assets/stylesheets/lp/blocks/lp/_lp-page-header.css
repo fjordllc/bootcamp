@@ -12,7 +12,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .lp-page-header__title {
     font-size: 1.5rem;
     max-width: none;
@@ -27,7 +28,6 @@
 
 .lp-page-header__start {
   flex: 1;
-  height: 100%;
   display: flex;
   align-items: center;
   height: 100%;

@@ -9,13 +9,12 @@
 a.a-user-name {
   text-decoration: none;
   cursor: pointer;
-}
-a.a-user-name:hover, a.a-user-name:active {
-  text-decoration: underline;
-}
-a.a-user-name {
   display: inline-block;
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+a.a-user-name:hover, a.a-user-name:active {
+  text-decoration: underline;
 }

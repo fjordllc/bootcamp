@@ -8,7 +8,7 @@
   color: var(--reversal-text);
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .card-message {
     padding: .75rem 1rem;
     font-size: .875rem;
@@ -16,7 +16,7 @@
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .card-message {
     padding: .75rem;
     font-size: .75rem;

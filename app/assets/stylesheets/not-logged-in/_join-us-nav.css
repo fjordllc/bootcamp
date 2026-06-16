@@ -11,10 +11,12 @@
   display: flex;
   justify-content: center;
 }
+
 .join-us-nav__item.is-main .join-us-nav__item-link {
   width: 22.5rem;
   max-width: 100%;
 }
+
 .join-us-nav__item.is-sub {
   text-align: center;
 }

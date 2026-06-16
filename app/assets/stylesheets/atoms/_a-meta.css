@@ -74,7 +74,7 @@ a.a-meta.is-disabled {
   content: "、";
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .a-meta {
     font-size: 0.75rem;
   }
@@ -92,7 +92,7 @@ a.a-meta.is-disabled {
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .a-meta {
     font-size: 0.75rem;
   }

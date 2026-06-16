@@ -2,8 +2,7 @@
   display: flex;
   position: relative;
   z-index: 2;
-  overflow-y: hidden;
-  overflow-x: auto;
+  overflow: auto hidden;
   transform: translateY(1px);
 }
 
@@ -38,9 +37,11 @@
   color: var(--muted-text);
   transition: all 0.2s ease-out;
 }
+
 .side-tabs-nav__item:not(:first-child) .side-tabs-nav__item-link {
   margin-left: -1px;
 }
+
 .side-tabs-nav__item-link:hover {
   color: var(--default-text);
 }

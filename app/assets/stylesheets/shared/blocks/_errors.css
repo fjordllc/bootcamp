@@ -7,7 +7,8 @@
   border-radius: 0.25rem;
   padding: 0.875rem 1rem;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .errors {
     padding: 1rem 1.5rem;
   }
@@ -22,7 +23,8 @@
   font-weight: 600;
   color: var(--danger-text);
 }
-@media (max-width: 47.9375em) {
+
+@media (width <= 47.9375em) {
   .errors__title {
     font-size: 0.8125rem;
   }
@@ -35,11 +37,13 @@
   margin-bottom: 0.2em;
   color: var(--danger-text);
 }
-@media (max-width: 47.9375em) {
+
+@media (width <= 47.9375em) {
   .errors__item {
     font-size: 0.75rem;
   }
 }
+
 .errors__item:last-child {
   margin-bottom: 0;
 }

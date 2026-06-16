@@ -1,6 +1,7 @@
 .a-file-insert {
   cursor: pointer;
 }
+
 .a-file-insert input {
   position: absolute;
   left: -44px;
