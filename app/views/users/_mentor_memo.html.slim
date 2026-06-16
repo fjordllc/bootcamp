@@ -1,15 +1,21 @@
 .mentor-memo data-memo_body="#{memo.body}" data-memo_id="#{memo.id}"
   .memo-display
-    a href="#{memo.writer.url}"
-      = memo.writer.login_name
-      = l memo.created_at
-    .a-long-text.is-sm.memo-text
+    .mentor-memo__meta
+      = render 'users/icon', user: memo.writer, image_class: 'mentor-memo__writer-icon is-xs', link_class: 'mentor-memo__writer-link'
+      a.mentor-memo__writer.a-text-link href="#{memo.writer.url}"
+        = memo.writer.login_name
+      time.mentor-memo__created-at
+        = l memo.created_at
+    .a-long-text.is-sm.memo-text.mentor-memo__body
       = memo.body
     - if memo.writer == current_user || current_user.admin?
-      button.js-edit-memo
-        | 編集
-      button.js-delete-memo
-        | 削除
+      .mentor-memo__actions
+        button.mentor-memo__action.js-edit-memo
+          i.fa-solid.fa-pen
+          | 編集
+        button.mentor-memo__action.is-danger.js-delete-memo
+          i.fa-solid.fa-trash-can
+          | 削除
   .memo-editor.is-hidden
     .form-tabs.js-tabs
       .form-tabs__tab.js-tabs__tab.editor-tab.is-active

@@ -6,21 +6,20 @@ section.a-card.is-memo.is-only-mentor.mentor-memos data-user_id=user_id
           | メンター向けユーザーメモ
       hr.a-border-tint
     .card-body
-      .card-body__description
-        .mentor-memo-list
-          - memos.each do |memo|
-            = render partial: 'users/mentor_memo', locals: { memo: memo }
-        .o-empty-message.is-hidden
-          .o-empty-message__icon
-            i.fa-regular.fa-sad-tear
-          .o-empty-message__text
-            | ユーザーメモはまだありません。
+      .mentor-memo-list
+        - memos.each do |memo|
+          = render partial: 'users/mentor_memo', locals: { memo: memo }
+      .o-empty-message.is-hidden
+        .o-empty-message__icon
+          i.fa-regular.fa-sad-tear
+        .o-empty-message__text
+          | ユーザーメモはまだありません。
     hr.a-border-tint
     footer.card-footer.js-add-action
       .card-main-actions
         .card-main-actions__items
           .card-main-actions__item
-            button.card-footer-actions__action.a-button.is-sm.is-block.js-add-memo
+            button.a-button.is-sm.is-secondary.is-block.js-add-memo
               i.fa-solid.fa-pen
               | 追加
   .new-memo-editor.is-hidden
