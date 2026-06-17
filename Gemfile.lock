@@ -160,6 +160,10 @@ GEM
       activerecord (>= 6.1)
       railties (>= 6.1)
     date (3.5.1)
+    debride (1.15.2)
+      path_expander (~> 2.0)
+      prism (~> 1.7)
+      sexp_processor (~> 4.17)
     declarative (0.0.20)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
@@ -492,6 +496,7 @@ GEM
     parser (3.3.7.2)
       ast (~> 2.4.1)
       racc
+    path_expander (2.0.1)
     pg (1.4.6)
     playwright-ruby-client (1.60.0)
       base64
@@ -673,6 +678,7 @@ GEM
     ruby_llm-schema (0.4.0)
     rubyzip (3.2.2)
     securerandom (0.4.1)
+    sexp_processor (4.17.5)
     signet (0.21.0)
       addressable (~> 2.8)
       faraday (>= 0.17.5, < 3.a)
@@ -815,6 +821,7 @@ DEPENDENCIES
   country_select
   csv
   data_migrate
+  debride (~> 1.15)
   diffy
   discord-notifier
   discordrb (~> 3.5)

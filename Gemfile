@@ -91,6 +91,7 @@ gem 'view_component'
 group :development, :test do
   gem 'benchmark', require: false
   gem 'byebug', platforms: :windows
+  gem 'debride', '~> 1.15', require: false
   gem 'dotenv-rails'
   gem 'openapi_parser', '~> 2.3', require: false
   gem 'pry-byebug'

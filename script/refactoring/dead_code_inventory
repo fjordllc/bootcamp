@@ -1,0 +1,161 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'fileutils'
+require 'open3'
+require 'pathname'
+require 'shellwords'
+
+ROOT = Pathname.new(__dir__).join('../..').expand_path
+DOC_PATH = ROOT.join('docs/refactoring/dead_code_inventory.md')
+
+def run_command(*command)
+  stdout, stderr, status = Open3.capture3({ 'DISABLE_SPRING' => '1' }, *command, chdir: ROOT.to_s)
+  {
+    command: command.shelljoin,
+    stdout: stdout,
+    stderr: stderr,
+    success: status.success?
+  }
+end
+
+def source_files
+  @source_files ||= Dir.chdir(ROOT) do
+    Dir.glob('{app,config,lib,test}/**/*').select { |path| File.file?(path) }
+  end
+end
+
+def text_source_files
+  @text_source_files ||= source_files.reject do |path|
+    path.start_with?('app/assets/builds/') || path.end_with?('.png', '.jpg', '.jpeg', '.gif', '.webp', '.ico', '.pdf')
+  end
+end
+
+def file_text(path)
+  File.read(ROOT.join(path), mode: 'rb').encode('UTF-8', invalid: :replace, undef: :replace, replace: '')
+rescue ArgumentError
+  ''
+end
+
+def text_source_contents
+  # rubocop:disable Rails/IndexWith
+  @text_source_contents ||= text_source_files.each_with_object({}) do |path, contents|
+    contents[path] = file_text(path)
+  end
+  # rubocop:enable Rails/IndexWith
+end
+
+def partial_identifier(path)
+  dirname = File.dirname(path)
+  basename = File.basename(path).delete_prefix('_').sub(/\..*\z/, '')
+  if dirname == 'app/views'
+    basename
+  else
+    "#{dirname.delete_prefix('app/views/')}/#{basename}"
+  end
+end
+
+def partial_referenced?(identifier, path)
+  basename = File.basename(identifier)
+  text_source_contents.any? do |candidate, text|
+    next false if candidate == path
+
+    text.include?(identifier) ||
+      text.include?("'#{identifier}'") ||
+      text.include?("\"#{identifier}\"") ||
+      text.match?(/render(?:\s|\()?['"]#{Regexp.escape(identifier)}['"]/) ||
+      text.match?(/render(?:\s|\()?['"]#{Regexp.escape(basename)}['"]/)
+  end
+end
+
+def unused_partials
+  Dir.chdir(ROOT) do
+    Dir.glob('app/views/**/_*.*').filter_map do |path|
+      identifier = partial_identifier(path)
+      next if partial_referenced?(identifier, path)
+
+      [path, identifier]
+    end
+  end
+end
+
+def helper_methods
+  Dir.chdir(ROOT) do
+    Dir.glob('app/helpers/**/*_helper.rb').flat_map do |path|
+      File.readlines(path).filter_map.with_index(1) do |line, lineno|
+        match = line.match(/^\s*def\s+([a-zA-Z_]\w*[!?=]?)/)
+        next unless match
+
+        [path, lineno, match[1]]
+      end
+    end
+  end
+end
+
+def helper_referenced?(path, method_name)
+  word = /(?<!def\s)\b#{Regexp.escape(method_name)}\b/
+  text_source_contents.any? do |candidate, original_text|
+    text = original_text
+    text = text.lines.reject { |line| line.match?(/^\s*def\s+#{Regexp.escape(method_name)}\b/) }.join if candidate == path
+    text.match?(word)
+  end
+end
+
+def unused_helper_methods
+  helper_methods.reject { |path, _lineno, method_name| helper_referenced?(path, method_name) }
+end
+
+def code_block(text)
+  body = text.to_s.strip
+  body.empty? ? '_出力なし_' : "```text\n#{body}\n```"
+end
+
+traceroute = run_command('bin/rails', 'traceroute')
+debride = run_command('bundle', 'exec', 'debride', 'app', 'lib')
+partials = unused_partials
+helpers = unused_helper_methods
+
+FileUtils.mkdir_p(DOC_PATH.dirname)
+DOC_PATH.write(<<~MARKDOWN)
+  # 死蔵コード台帳
+
+  生成日: #{Time.now.getlocal.strftime('%Y-%m-%d')}
+
+  ## 前提
+
+  この台帳は削除対象の確定リストではなく、後続の削除フェーズで確認する候補リスト。
+  Rails の動的呼び出し、メタプログラミング、文字列経由の `render`、ViewComponent などにより false positive が含まれる。
+  削除前に個別に参照経路を確認し、関連テストと system test で振る舞いを確認する。
+
+  ## 再生成方法
+
+  ```bash
+  mise exec -- script/refactoring/dead_code_inventory
+  ```
+
+  ## ルーティング・アクション候補
+
+  実行コマンド: `#{traceroute[:command]}`
+
+  #{code_block(traceroute[:stdout])}
+
+  #{traceroute[:success] ? '' : "stderr:\n\n#{code_block(traceroute[:stderr])}"}
+
+  ## 未使用メソッド候補
+
+  実行コマンド: `#{debride[:command]}`
+
+  #{code_block(debride[:stdout])}
+
+  #{debride[:success] ? '' : "stderr:\n\n#{code_block(debride[:stderr])}"}
+
+  ## 未参照パーシャル候補
+
+  #{partials.empty? ? '_候補なし_' : partials.map { |path, identifier| "- `#{path}` (`#{identifier}`)" }.join("\n")}
+
+  ## 未参照ヘルパーメソッド候補
+
+  #{helpers.empty? ? '_候補なし_' : helpers.map { |path, lineno, method_name| "- `#{path}:#{lineno}` `#{method_name}`" }.join("\n")}
+MARKDOWN
+
+puts "Wrote #{DOC_PATH.relative_path_from(ROOT)}"
