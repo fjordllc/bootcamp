@@ -13,6 +13,20 @@ class Hibernation < ApplicationRecord
     user.clean_up_regular_events
   end
 
+  def self.hibernate_by_admin(user:, scheduled_return_on:)
+    hibernation = new(
+      user:,
+      reason: '管理者操作',
+      scheduled_return_on:
+    )
+    if hibernation.save
+      hibernation.execute
+    else
+      render :edit
+      false
+    end
+  end
+
   private
 
   def update_hibernated_at!

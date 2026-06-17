@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Admin::UsersController < AdminController # rubocop:todo Metrics/ClassLength
+class Admin::UsersController < AdminController
   before_action :set_user, only: %i[show edit update]
   ALLOWED_TARGETS = %w[all student_and_trainee inactive hibernated retired graduate adviser mentor trainee year_end_party campaign].freeze
 
@@ -19,6 +19,7 @@ class Admin::UsersController < AdminController # rubocop:todo Metrics/ClassLengt
     user_scope = apply_job_seeking_filter(user_scope, job_seeking)
     payment_method = params[:payment_method]
     user_scope = apply_payment_method_filter(user_scope, payment_method)
+
     @users = user_scope.with_attached_avatar
                        .preload(:company, :course)
                        .order_by_counts(params[:order_by] || 'id', @direction)
@@ -36,7 +37,7 @@ class Admin::UsersController < AdminController # rubocop:todo Metrics/ClassLengt
     if @user.update(user_params)
       complete_graduation_or_retirement(@user)
       if params[:hibernate_user]
-        return unless hibernate(@user)
+        return unless Hibernation.hibernate_by_admin(user: @user, scheduled_return_on: params[:scheduled_return_on])
       elsif params[:comeback_user]
         @user.comeback!
       end
@@ -96,10 +97,8 @@ class Admin::UsersController < AdminController # rubocop:todo Metrics/ClassLengt
       :password, :password_confirmation, :job,
       :organization, :os, :study_place,
       { experiences: [] }, :company_id,
-      :trainee, :nda, :avatar,
-      :hibernated_at,
-      :graduated_on, :retired_on,
-      :job_seeker, :github_collaborator,
+      :trainee, :nda, :avatar, :hibernated_at,
+      :graduated_on, :retired_on, :job_seeker, :github_collaborator,
       :officekey_permission, :tag_list, :training_ends_on, :training_completed_at,
       :profile_image, :profile_name, :profile_job, :mentor, :diploma_file,
       :career_path, :career_memo,
@@ -114,20 +113,6 @@ class Admin::UsersController < AdminController # rubocop:todo Metrics/ClassLengt
       Retirement.by_admin(user:).execute
     elsif user.saved_change_to_graduated_on? && user.graduated_on_before_last_save.nil?
       Subscription.new.destroy(user.subscription_id) if user.subscription_id?
-    end
-  end
-
-  def hibernate(user)
-    hibernation = Hibernation.new(
-      reason: '管理者操作',
-      scheduled_return_on: params[:scheduled_return_on]
-    )
-    hibernation.user = user
-    if hibernation.save
-      hibernation.execute
-    else
-      render :edit
-      false
     end
   end
 end
