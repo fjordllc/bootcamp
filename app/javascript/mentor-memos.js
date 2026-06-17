@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     memoEditorPreview.innerHTML = markdownInitializer.render(
       editorTextarea.value
     )
+    toggleClass(tabElements, 'is-active')
   })
 
   function resetEditorTabs() {
