@@ -13,6 +13,7 @@
   width: 25%;
   max-width: 6rem;
 }
+
 .tags-highlight__item .a-badge {
   border: solid 1px var(--base);
 }

@@ -6,13 +6,14 @@
   display: flex;
   gap: 0.5rem;
 }
-@media (max-width: 20em) {
+
+@media (width <= 20em) {
   .share-buttons__items {
     gap: 0.25rem;
   }
 }
 
-@media (max-width: 20em) {
+@media (width <= 20em) {
   .share-buttons__item.is-x {
     flex: 1;
   }
@@ -35,6 +36,7 @@
   border: solid 1px black;
   overflow: hidden;
 }
+
 .x-share-button i {
   font-size: 0.875rem;
   color: black;
@@ -45,6 +47,7 @@
   justify-content: center;
   transition: all 0.2s ease-out;
 }
+
 .x-share-button span {
   background-color: var(--default-text);
   display: flex;
@@ -55,13 +58,16 @@
   transition: all 0.2s ease-out;
   padding-top: 1px;
 }
+
 .x-share-button:hover i {
   background-color: var(--background-tint);
 }
+
 .x-share-button:hover span {
   background-color: black;
 }
-@media (max-width: 20em) {
+
+@media (width <= 20em) {
   .x-share-button {
     width: 100%;
   }

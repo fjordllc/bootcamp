@@ -1,5 +1,5 @@
 import CSRF from 'csrf'
-import { formatDateToJapanese } from './utilities/date.js'
+import { formatDateToJapanese } from 'utilities/date'
 
 const headers = () => {
   return {

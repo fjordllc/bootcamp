@@ -3,7 +3,7 @@
   z-index: 5;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .header {
     position: fixed;
     top: 0;
@@ -13,7 +13,7 @@
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .header {
     position: relative;
     height: var(--header-height__sm-down);
@@ -54,13 +54,13 @@
 .header__title-image {
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .header__title-image {
     height: 2.25rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .header__title-image {
     height: 1.75rem;
   }
@@ -80,7 +80,7 @@
   display: none;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .header-show-mobile-nav-items {
     display: flex;
     height: 100%;

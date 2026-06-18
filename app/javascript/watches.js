@@ -1,5 +1,5 @@
 import { get, destroy } from '@rails/request.js'
-import { toast } from './vanillaToast.js'
+import { toast } from 'vanillaToast'
 
 document.addEventListener('DOMContentLoaded', () => {
   const localStorage = window.localStorage

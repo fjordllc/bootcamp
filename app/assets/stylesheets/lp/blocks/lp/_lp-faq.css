@@ -9,6 +9,7 @@
   padding-left: 2.5rem;
   position: relative;
 }
+
 .lp-faq__header::before,
 .lp-faq__body::before {
   left: 0;
@@ -18,7 +19,7 @@
   line-height: 1;
   font-weight: 900;
   color: var(--main);
-  font-family: "Lato", sans-serif;
+  font-family: Lato, sans-serif;
 }
 
 .lp-faq__header::before {
@@ -38,7 +39,8 @@
 .lp-faq__body {
   font-size: 0.875rem;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .lp-faq__body {
     font-size: 1rem;
   }
@@ -53,6 +55,7 @@
   line-height: 1.4;
   color: var(--muted-text);
 }
+
 .lp-faq__edit-link:hover {
   color: var(--main);
 }

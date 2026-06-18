@@ -7,7 +7,7 @@
 }
 
 .unauthorized__contents {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgb(0 0 0 / 30%);
   border-radius: 0.25rem;
 }
 
@@ -21,7 +21,7 @@
 }
 
 .unauthorized__content-separalor {
-  border-top: dashed 1px rgba(255, 255, 255, 0.1);
+  border-top: dashed 1px rgb(255 255 255 / 10%);
 }
 
 .must-be-enrolled {
@@ -51,7 +51,7 @@
   width: 100%;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .unauthorized {
     padding-block: 2rem;
   }

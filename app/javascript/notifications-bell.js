@@ -1,6 +1,6 @@
 import { FetchRequest } from '@rails/request.js'
-import userIconFrameClass from './user-icon-frame-class.js'
-import { formatRelativeTime } from './utilities/date.js'
+import userIconFrameClass from 'user-icon-frame-class'
+import { formatRelativeTime } from 'utilities/date'
 
 class NotificationsBell {
   constructor() {

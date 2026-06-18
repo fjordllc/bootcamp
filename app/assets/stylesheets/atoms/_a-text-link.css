@@ -1,5 +1,4 @@
 .a-text-link {
-  text-decoration: none;
   cursor: pointer;
   transition: color 0.2s ease-in;
   color: var(--link-text);
@@ -12,7 +11,7 @@
 }
 
 .a-text-link:visited {
-  color: hsl(233, 33%, 58%);
+  color: hsl(233deg 33% 58%);
   text-decoration: underline;
 }
 
@@ -38,7 +37,7 @@
 }
 
 .a-text-link.has-badge .a-text-link__text:visited {
-  color: hsl(233, 33%, 58%);
+  color: hsl(233deg 33% 58%);
 }
 
 .a-text-link.has-badge .a-text-link__text:hover,
@@ -70,19 +69,17 @@
 }
 
 .a-reversal-text-link:visited {
-  color: hsl(242, 62%, 74%);
+  color: hsl(242deg 62% 74%);
   text-decoration: none;
 }
 
 .a-reversal-text-link:hover {
-  text-decoration: underline;
-  color: hsl(210, 100%, 80%);
+  color: hsl(210deg 100% 80%);
   text-decoration: underline;
 }
 
 .a-reversal-text-link:active {
-  text-decoration: underline;
-  color: hsl(316, 90%, 66%);
+  color: hsl(316deg 90% 66%);
   text-decoration: underline;
 }
 

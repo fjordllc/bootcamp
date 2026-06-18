@@ -6,8 +6,9 @@ html lang='ja'
     title Component Preview
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application'
-    = javascript_pack_tag 'application'
-    = stylesheet_pack_tag 'application', media: 'all'
+    = javascript_importmap_tags
+    = stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css', media: 'all'
+    = stylesheet_link_tag 'tagify', media: 'all'
     = stylesheet_link_tag 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap', media: 'all'
     = stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/yakuhanjp@4.1.1/dist/css/yakuhanjp_s.css', media: 'all'
     = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Source+Code+Pro', media: 'all'

@@ -14,13 +14,13 @@
   color: var(--main);
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .thanks-message__title {
     font-size: 1.75rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .thanks-message__title {
     font-size: 1.75rem;
   }
@@ -34,7 +34,7 @@
   gap: 1rem;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .thanks-message__body {
     font-size: .875rem;
   }

@@ -3,6 +3,7 @@ body .tagify {
   align-items: center;
   padding: 0.5rem;
   gap: 0.5rem;
+
   --tag-bg: var(--background-semi-shade);
   --tag-inset-shadow-size: 2em;
   --tag-text-color: var(--default-text);
@@ -14,6 +15,7 @@ body .tagify {
   --tag-remove-btn-color: var(--muted-text);
   --tag-remove-btn-bg--hover: var(--danger);
 }
+
 body .tagify__input,
 body .tagify__tag {
   margin: 0;

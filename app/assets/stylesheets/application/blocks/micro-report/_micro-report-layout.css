@@ -200,7 +200,7 @@
    Responsive
 ============================================= */
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .mr-layout {
     flex-direction: column;
   }

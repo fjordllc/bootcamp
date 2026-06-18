@@ -3,6 +3,7 @@
   margin-bottom: 1rem;
   background-color: #eaeaf1;
   padding-block: .5rem;
+
   /* fallback for older UA */
   padding-top: .5rem;
   padding-bottom: .5rem;
@@ -21,8 +22,7 @@
   flex: 1 1 auto;
   min-width: 0;
   flex-wrap: nowrap;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow: auto hidden;
   scrollbar-gutter: stable both-edges;
 }
 
@@ -30,13 +30,13 @@
   flex: 0 0 2.5rem;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .current-user-icon-list__item {
     flex: 0 0 3rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .current-user-icon-list__item {
     flex: 0 0 2rem;
   }

@@ -1,18 +1,21 @@
 
 .form-textarea {
   position: relative;
+
   textarea.a-text-input {
     padding-bottom: 3rem;
 
   }
 }
-@media (max-width: 63.9375em) {
+
+@media (width <= 63.9375em) {
   .form-textarea__bottom-note {
     display: none;
 
   }
 }
-@media (min-width: 64em) {
+
+@media (width >= 64em) {
   .form-textarea__bottom-note {
     font-size: .75rem;
     line-height: 1.4;
@@ -20,6 +23,7 @@
 
   }
 }
+
 .form-textarea__footer {
   height: 2rem;
   display: flex;
@@ -37,11 +41,13 @@
   border-top: solid 1px var(--border-shade);
 
 }
+
 .form-textarea__bottom-note {
-  @media (max-width: 63.9375em) {
+  @media (width <= 63.9375em) {
     display: none;
   }
-  @media (min-width: 64em) {
+
+  @media (width >= 64em) {
     font-size: .75rem;
     line-height: 1.4;
     text-align: center;

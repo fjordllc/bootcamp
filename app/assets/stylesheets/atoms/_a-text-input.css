@@ -93,10 +93,7 @@ input[type="week"].a-text-input::-webkit-calendar-picker-indicator {
   color: transparent;
   background-color: transparent;
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   cursor: pointer;

@@ -9,7 +9,7 @@
 .practice-status-buttons__label {
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .practice-status-buttons__label {
     font-size: .75rem;
     font-weight: 600;
@@ -18,7 +18,7 @@
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .practice-status-buttons__label {
     display: none;
   }
@@ -29,7 +29,7 @@
   flex: 1;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .practice-status-buttons__items {
     max-width: 25rem;
   }
@@ -39,7 +39,7 @@
   flex: 1;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .practice-status-buttons__item {
     max-width: 4.75rem;
   }
@@ -89,7 +89,6 @@
 }
 
 .practice-status-buttons__button.is-active.is-unstarted {
-  background-color: #fff;
   color: var(--muted-text);
   border-color: var(--muted-text);
   background-color: var(--background-tint);
@@ -104,7 +103,7 @@
 .practice-status__buttons-item {
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .practice-status__buttons-item {
     width: 33.33%;
   }

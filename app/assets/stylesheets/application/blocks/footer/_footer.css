@@ -3,13 +3,13 @@
   color: var(--semi-muted-text);
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .footer {
     padding-block: 1.5rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .footer .container {
     padding-inline: 0;
   }
@@ -22,14 +22,14 @@
   color: var(--semi-muted-text);
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .footer__copyright {
     font-size: .8125rem;
     margin-top: 1.5em;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .footer__copyright {
     font-size: .75rem;
     padding-block: 1.25rem;

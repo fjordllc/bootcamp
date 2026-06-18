@@ -2,7 +2,8 @@
   position: relative;
   top: -4rem;
 }
-@media (max-width: 47.9375em) {
+
+@media (width <= 47.9375em) {
   .lp-course-selection-item__anchor#front-engineer-course {
     margin-top: 4rem;
   }
@@ -19,7 +20,8 @@
   font-size: 1.25rem;
   line-height: 1.4;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .lp-course-selection-item__title {
     font-size: 1.5rem;
   }
@@ -36,6 +38,7 @@
   flex-direction: column;
   gap: 0.75rem;
 }
+
 .lp-course-selection-item__categories details {
   background-color: var(--base);
 }

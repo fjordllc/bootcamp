@@ -12,7 +12,6 @@ gem 'importmap-rails'
 gem 'jbuilder'
 gem 'puma', '>= 5.0'
 gem 'rails', '8.1.1'
-gem 'shakapacker', '~> 9.0'
 gem 'sprockets-rails', '>= 2.0.0'
 gem 'stimulus-rails'
 gem 'tailwindcss-rails', '~> 4.0'
@@ -92,6 +91,7 @@ gem 'view_component'
 group :development, :test do
   gem 'benchmark', require: false
   gem 'byebug', platforms: :windows
+  gem 'debride', '~> 1.15', require: false
   gem 'dotenv-rails'
   gem 'openapi_parser', '~> 2.3', require: false
   gem 'pry-byebug'

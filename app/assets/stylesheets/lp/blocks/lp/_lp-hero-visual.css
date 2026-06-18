@@ -9,7 +9,8 @@
 .lp-hero-visual__image {
   max-height: 12rem;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .lp-hero-visual__image {
     max-height: 26.25rem;
   }

@@ -3,7 +3,8 @@
   flex-direction: column;
   gap: 1rem;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .lp-content-section {
     gap: 1.5rem;
   }
@@ -12,7 +13,8 @@
 .lp-content__description {
   font-size: 0.875rem;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .lp-content__description {
     font-size: 1rem;
   }
