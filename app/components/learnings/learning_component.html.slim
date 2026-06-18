@@ -8,7 +8,7 @@
     - else
       li.card-main-actions__item
         = link_to practice_path(@practice.copied_practices.first || @practice), class: 'a-button is-sm is-block' do
-          | Reスキルコースへ遷移する
+          | 給付金コースへ遷移する
     - if @practice.completed?(@current_user)
       li.card-main-actions__item
         button.a-button.is-sm.is-secondary.is-block.is-disabled.test-completed
