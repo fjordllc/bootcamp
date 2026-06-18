@@ -53,13 +53,13 @@ jobs:
             exit 1
           fi
 
-          mention="@bootcampスクラムチーム"
-          allowed_mentions='{"parse":[]}'
-
-          if [ -n "$SCRUM_TEAM_ROLE_ID" ]; then
-            mention="<@&${SCRUM_TEAM_ROLE_ID}>"
-            allowed_mentions="{\"roles\":[\"${SCRUM_TEAM_ROLE_ID}\"]}"
+          if [ -z "$SCRUM_TEAM_ROLE_ID" ]; then
+            echo "DISCORD_BOOTCAMP_SCRUM_TEAM_ROLE_ID is not set." >&2
+            exit 1
           fi
+
+          mention="<@&${SCRUM_TEAM_ROLE_ID}>"
+          allowed_mentions="{\"roles\":[\"${SCRUM_TEAM_ROLE_ID}\"]}"
 
           message="$(cat <<EOF
           ${mention} 本日のミーティングは下記で行います。
