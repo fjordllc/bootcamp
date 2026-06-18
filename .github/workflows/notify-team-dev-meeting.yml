@@ -16,6 +16,7 @@ permissions:
 
 env:
   TZ: Asia/Tokyo
+  SCRUM_TEAM_ROLE_ID: "1372122463831588995"
 
 jobs:
   notify:
@@ -46,15 +47,9 @@ jobs:
         if: steps.odd-week.outputs.should-send == 'true'
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_TEAM_DEV_BOOTCAMP_WEBHOOK_URL }}
-          SCRUM_TEAM_ROLE_ID: ${{ secrets.DISCORD_BOOTCAMP_SCRUM_TEAM_ROLE_ID }}
         run: |
           if [ -z "$DISCORD_WEBHOOK_URL" ]; then
             echo "DISCORD_TEAM_DEV_BOOTCAMP_WEBHOOK_URL is not set." >&2
-            exit 1
-          fi
-
-          if [ -z "$SCRUM_TEAM_ROLE_ID" ]; then
-            echo "DISCORD_BOOTCAMP_SCRUM_TEAM_ROLE_ID is not set." >&2
             exit 1
           fi
 
