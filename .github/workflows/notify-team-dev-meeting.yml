@@ -1,0 +1,77 @@
+name: Notify team development meeting
+
+on:
+  schedule:
+    # 10:00 JST every Wednesday. The job skips even year weeks.
+    - cron: "0 1 * * 3"
+  workflow_dispatch:
+    inputs:
+      force_send:
+        description: Send even when the current year week is even
+        required: false
+        default: "false"
+
+permissions:
+  contents: read
+
+env:
+  TZ: Asia/Tokyo
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check odd week
+        id: odd-week
+        run: |
+          day_of_year="$(date +%j)"
+          week_number="$(((10#$day_of_year - 1) / 7 + 1))"
+          echo "week-number=${week_number}" >> "$GITHUB_OUTPUT"
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force_send }}" = "true" ]; then
+            echo "should-send=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if [ "$((10#$week_number % 2))" -eq 1 ]; then
+            echo "should-send=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "should-send=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Notify Discord
+        if: steps.odd-week.outputs.should-send == 'true'
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_TEAM_DEV_BOOTCAMP_WEBHOOK_URL }}
+          SCRUM_TEAM_ROLE_ID: ${{ secrets.DISCORD_BOOTCAMP_SCRUM_TEAM_ROLE_ID }}
+        run: |
+          if [ -z "$DISCORD_WEBHOOK_URL" ]; then
+            echo "DISCORD_TEAM_DEV_BOOTCAMP_WEBHOOK_URL is not set." >&2
+            exit 1
+          fi
+
+          mention="@bootcampスクラムチーム"
+          allowed_mentions='{"parse":[]}'
+
+          if [ -n "$SCRUM_TEAM_ROLE_ID" ]; then
+            mention="<@&${SCRUM_TEAM_ROLE_ID}>"
+            allowed_mentions="{\"roles\":[\"${SCRUM_TEAM_ROLE_ID}\"]}"
+          fi
+
+          message="$(cat <<EOF
+          ${mention} 本日のミーティングは下記で行います。
+          昼の部：https://meet.google.com/kzg-rywc-nrs
+          夜の部：https://meet.google.com/xvv-iyeg-xdz
+          EOF
+          )"
+
+          jq -n \
+            --arg content "$message" \
+            --argjson allowed_mentions "$allowed_mentions" \
+            '{content: $content, allowed_mentions: $allowed_mentions}' > payload.json
+
+          curl -f \
+            -H 'Content-Type: application/json' \
+            -d @payload.json \
+            "$DISCORD_WEBHOOK_URL"
