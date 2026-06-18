@@ -2,12 +2,12 @@ name: Notify team development meeting
 
 on:
   schedule:
-    # 10:00 JST every Wednesday. The job skips even year weeks.
+    # 10:00 JST every Wednesday. The job skips even ISO weeks.
     - cron: "0 1 * * 3"
   workflow_dispatch:
     inputs:
       force_send:
-        description: Send even when the current year week is even
+        description: Send even when the current ISO week is even
         required: false
         default: "false"
 
@@ -24,12 +24,14 @@ jobs:
     steps:
       - name: Check odd week
         id: odd-week
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          FORCE_SEND: ${{ github.event.inputs.force_send || 'false' }}
         run: |
-          day_of_year="$(date +%j)"
-          week_number="$(((10#$day_of_year - 1) / 7 + 1))"
+          week_number="$(date +%V)"
           echo "week-number=${week_number}" >> "$GITHUB_OUTPUT"
 
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force_send }}" = "true" ]; then
+          if [ "$EVENT_NAME" = "workflow_dispatch" ] && [ "$FORCE_SEND" = "true" ]; then
             echo "should-send=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
