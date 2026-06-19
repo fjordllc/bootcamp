@@ -19,10 +19,11 @@
         li.practice-status-buttons__item
           - button_class = "#{button_base_class} is-complete js-complete #{@status == 'complete' ? 'is-active' : 'is-inactive'}"
           = content_tag :button, '修了', class: button_class, disabled: @status == 'complete', data: { status: 'complete' }
+    - if !@practice.submission
+      .practice-status-buttons__end
+        .practice-status-buttons__note
+          | このプラクティスに提出物はありません。修了条件をクリアしたら修了にしてください。
   - else
     = link_to practice_path(@practice.copied_practices.first || @practice), class: 'a-button is-sm' do
       | 給付金コースへ遷移する
-- if !@practice.submission
-  .practice-status-buttons__end
-    .practice-status-buttons__note
-      | このプラクティスに提出物はありません。修了条件をクリアしたら修了にしてください。
+
