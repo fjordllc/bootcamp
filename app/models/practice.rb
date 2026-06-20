@@ -221,6 +221,12 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
     Report.for_practice_including_source(self).count
   end
 
+  def pages_count(include_source: false)
+    return pages.count unless include_source
+
+    Page.for_practice_including_source(self).count
+  end
+
   private
 
   def total_learning_minute(report)
