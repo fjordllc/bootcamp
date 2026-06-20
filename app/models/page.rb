@@ -23,6 +23,11 @@ class Page < ApplicationRecord
 
   before_validation :empty_slug_to_nil
 
+  scope :for_practice_including_source, lambda { |practice|
+    ids = [practice.id, practice.source_id].compact
+    where(practice_id: ids)
+  }
+
   def self.ransackable_attributes(_auth_object = nil)
     %w[title body slug wip created_at updated_at user_id last_updated_user_id practice_id]
   end
