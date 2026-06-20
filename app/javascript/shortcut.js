@@ -39,6 +39,7 @@ const insertUserIconTag = (textarea) => {
 document.addEventListener('keydown', (event) => {
   if (event.isComposing || event.keyCode === 229) return
   if (!isModifierPressed(event)) return
+  if (event.shiftKey) return
 
   const key = event.key.toLowerCase()
   const editable = isEditableTarget(event.target)
