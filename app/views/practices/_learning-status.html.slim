@@ -9,9 +9,9 @@
         li.practice-status-buttons__item
           - button_class = "#{button_base_class} is-unstarted js-unstarted #{@status == 'unstarted' ? 'is-active' : 'is-inactive'}"
           = content_tag :button, '未着手', class: button_class, disabled: @status == 'unstarted', data: { status: 'unstarted' }
-          li.practice-status-buttons__item
-            - button_class = "#{button_base_class} is-started js-started #{@status == 'started' ? 'is-active' : 'is-inactive'}"
-            = content_tag :button, '着手', class: button_class, disabled: @status == 'started', data: { status: 'started' }
+        li.practice-status-buttons__item
+          - button_class = "#{button_base_class} is-started js-started #{@status == 'started' ? 'is-active' : 'is-inactive'}"
+          = content_tag :button, '着手', class: button_class, disabled: @status == 'started', data: { status: 'started' }
         - if @practice.submission
           li.practice-status-buttons__item
             - button_class = "#{button_base_class} is-submitted js-submitted #{@status == 'submitted' ? 'is-active' : 'is-inactive'}"
@@ -26,4 +26,3 @@
   - else
     = link_to practice_path(@practice.copied_practices.first || @practice), class: 'a-button is-sm' do
       | 給付金コースへ遷移する
-
