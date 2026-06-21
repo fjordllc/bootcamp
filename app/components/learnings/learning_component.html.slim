@@ -1,6 +1,10 @@
 .card-main-actions
   ul.card-main-actions__items
-    - if submission? && @practice.source_id.present? || !@current_user.grant_course?
+    - if @current_user.grant_course? && @practice.source_id.blank?
+      li.card-main-actions__item
+        = link_to practice_path(@practice.copied_practices.first || @practice), class: 'a-button is-sm is-block' do
+          | 給付金コースへ遷移する
+    - else
       li.card-main-actions__item
         = link_to product_link, class: 'a-button is-sm is-primary is-block test-product' do
           i.fa-solid.fa-file
@@ -15,7 +19,3 @@
           = button_tag type: 'button', class: 'a-button is-sm is-warning is-block', id: 'js-complete', data: { practice_id: @practice.id } do
             i.fa-solid.fa-check
             | 修了
-    - else
-      li.card-main-actions__item
-        = link_to practice_path(@practice.copied_practices.first || @practice), class: 'a-button is-sm is-block' do
-          | 給付金コースへ遷移する
