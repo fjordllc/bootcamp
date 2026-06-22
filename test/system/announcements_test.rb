@@ -44,7 +44,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert_selector 'p', text: 'コメント数表示のテストです。'
 
     visit current_path
-    assert_selector '#comment_count', text: '2'
+    assert_selector 'a.a-meta[href="#comments"] span.is-emphasized', text: '2'
   end
 
   test 'using file uploading by file selection dialogue in textarea' do

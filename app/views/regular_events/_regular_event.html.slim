@@ -22,14 +22,11 @@
               .a-meta
                 time.a-meta__value datetime=regular_event.updated_at.iso8601
                   = l regular_event.updated_at
-          .page-content-header-metas__end
-            .page-content-header-metas__meta
-              - length = regular_event.comments.length
-              a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
-                | コメント（
-                span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
-                  = length
-                | ）
+          - if regular_event.comments.any?
+            .page-content-header-metas__end
+              .page-content-header-metas__meta
+                a.a-meta(href='#comments')
+                  = comment_count(regular_event)
 
       .page-content-header__row
         .page-content-header-actions
