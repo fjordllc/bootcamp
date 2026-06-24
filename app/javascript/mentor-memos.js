@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const html = await createMemo(memoContent, userId)
     if (!html) return
 
-    const newMemo = initializeNewMemo(html, userId)
+    const newMemo = addNewMemo(html, userId)
     newMemo.scrollIntoView()
     closeEditor()
 
@@ -121,7 +121,7 @@ async function createMemo(memo, userId) {
   }
 }
 
-function initializeNewMemo(html, userId) {
+function addNewMemo(html, userId) {
   const memoList = document.querySelector('.mentor-memo-list')
   const memoDiv = document.createElement('div')
   memoDiv.innerHTML = html
