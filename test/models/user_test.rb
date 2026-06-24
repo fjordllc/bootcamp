@@ -94,6 +94,16 @@ class UserTest < ActiveSupport::TestCase
     assert_includes user_with_custom_avatar.avatar_url, "#{user_with_custom_avatar.login_name}.webp"
   end
 
+  test '#avatar_attach_with_filename' do
+    user = users(:komagata)
+    old_avatar_url = user.avatar.url
+
+    user.stub(:open_avatar_uri, File.open('test/fixtures/files/users/avatars/komagata.jpg')) do
+      user.avatar_attach_with_filename
+      assert_not_equal old_avatar_url, user.avatar.url
+    end
+  end
+
   test '#generation' do
     assert_equal 1, User.new(created_at: '2013-03-25 00:00:00').generation
     assert_equal 2, User.new(created_at: '2013-05-05 00:00:00').generation
