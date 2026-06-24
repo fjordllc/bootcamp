@@ -32,7 +32,7 @@ export default function initializeMemo(memo, userId) {
 
   const saveButton = memo.querySelector('.js-save-memo')
   editorTextarea.addEventListener('input', () => {
-    saveButton.disabled = editorTextarea.value.length === 0
+    saveButton.disabled = editorTextarea.value.trim().length === 0
   })
 
   saveButton.addEventListener('click', async () => {
