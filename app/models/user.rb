@@ -4,6 +4,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include ActionView::Helpers::AssetUrlHelper
   include Taggable
   include Searchable
+  include StagingEnvironment
 
   attr_accessor :credit_card_payment, :role, :uploaded_avatar
 
