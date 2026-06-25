@@ -551,12 +551,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     #        別Issueで入会n日目、休会開けn日目目の受講生にメッセージを送信する方針へ改修してほしい
     #        改修後、このメソッドは不要になると思われるので削除すること
     def mark_message_as_sent_for_hibernated_student
-      User.find_each do |user|
-        if user.hibernated?
-          user.sent_student_followup_message = true
-          user.save(validate: false)
-        end
-      end
+      User.hibernated.update_all(sent_student_followup_message: true, updated_at: Time.current) # rubocop:disable Rails/SkipsModelValidations
     end
 
     def create_followup_comment(student)
