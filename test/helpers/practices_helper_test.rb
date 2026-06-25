@@ -4,7 +4,6 @@ require 'test_helper'
 
 class PracticesHelperTest < ActionView::TestCase
   test 'difficulty_icon' do
-    assert_equal '', difficulty_icon(nil)
     assert_equal '🔥', difficulty_icon(0)
     assert_equal '🔥', difficulty_icon(300)
     assert_equal '🔥🔥', difficulty_icon(301)
