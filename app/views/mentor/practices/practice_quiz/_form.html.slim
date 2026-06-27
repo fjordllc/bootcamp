@@ -1,0 +1,24 @@
+- form_url = mentor_practice_practice_quiz_path(practice)
+- form_method = practice_quiz.persisted? ? :patch : :post
+= form_with model: practice_quiz, url: form_url, method: form_method, local: true, html: { class: 'form' } do |f|
+  = render 'errors', object: practice_quiz
+  .form__items
+    .form-item
+      .row
+        .col-md-8.col-xs-12
+          .a-form-label
+            | プラクティス
+          = link_to practice.title, practice_path(practice), class: 'a-link'
+        .col-md-4.col-xs-12
+          label.a-form-label
+            = f.check_box :published
+            | 公開する
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item.is-main
+        = f.submit nil, class: 'a-button is-lg is-primary is-block'
+      li.form-actions__item.is-sub
+        = link_to 'キャンセル', mentor_practices_path, class: 'a-button is-sm is-text'
+      - if practice_quiz.persisted?
+        li.form-actions__item.is-muted
+          = link_to '削除', mentor_practice_practice_quiz_path(practice), method: :delete, data: { confirm: '本当によろしいですか？' }, class: 'a-button is-sm is-muted-text'

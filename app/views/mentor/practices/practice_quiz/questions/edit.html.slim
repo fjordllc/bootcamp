@@ -1,0 +1,22 @@
+- title '理解度テスト問題編集'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title
+          | メンターページ
+
+= render 'mentor/mentor_page_tabs'
+
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            = title
+  hr.a-border
+  .page-body
+    .container.is-lg
+      = render 'form', practice: @practice, question: @question

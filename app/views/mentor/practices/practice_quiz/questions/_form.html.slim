@@ -1,0 +1,57 @@
+ruby:
+  form_url = question.persisted? ? mentor_practice_practice_quiz_question_path(practice, question) : mentor_practice_practice_quiz_questions_path(practice)
+  form_method = question.persisted? ? :patch : :post
+  question_type_options = { '単一選択' => 'single_choice', '複数選択' => 'multiple_choice' }
+= form_with model: question, url: form_url, method: form_method, local: true, html: { class: 'form' } do |f|
+  = render 'errors', object: question
+  .form__items
+    .form-item
+      .row
+        .col-md-3.col-xs-12
+          = f.label :question_type, '問題形式', class: 'a-form-label'
+          = f.select :question_type, question_type_options, {}, class: 'a-text-input'
+        .col-md-3.col-xs-12
+          = f.label :position, '並び順', class: 'a-form-label'
+          = f.number_field :position, class: 'a-text-input'
+        .col-md-3.col-xs-12
+          label.a-form-label
+            = f.check_box :published
+            | 公開する
+    .form-item
+      = f.label :body, '問題文', class: 'a-form-label'
+      = f.text_area :body, class: 'a-text-input', rows: 5
+    .form-item
+      = f.label :explanation, '解説', class: 'a-form-label'
+      = f.text_area :explanation, class: 'a-text-input', rows: 5
+
+  .form__items
+    h2.form__item-title
+      | 選択肢
+    = f.fields_for :practice_quiz_choices do |choice|
+      .form-item
+        .row
+          .col-md-1.col-xs-3
+            = choice.label :position, '順番', class: 'a-form-label'
+            = choice.number_field :position, class: 'a-text-input'
+          .col-md-7.col-xs-12
+            = choice.label :body, '選択肢', class: 'a-form-label'
+            = choice.text_field :body, class: 'a-text-input'
+          .col-md-2.col-xs-6
+            label.a-form-label
+              = choice.check_box :correct
+              | 正解
+          - if choice.object.persisted?
+            .col-md-2.col-xs-6
+              label.a-form-label
+                = choice.check_box :_destroy
+                | 削除
+
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item.is-main
+        = f.submit nil, class: 'a-button is-lg is-primary is-block'
+      li.form-actions__item.is-sub
+        = link_to 'キャンセル', edit_mentor_practice_practice_quiz_path(practice), class: 'a-button is-sm is-text'
+      - if question.persisted?
+        li.form-actions__item.is-muted
+          = link_to '削除', mentor_practice_practice_quiz_question_path(practice, question), method: :delete, data: { confirm: '本当によろしいですか？' }, class: 'a-button is-sm is-muted-text'
