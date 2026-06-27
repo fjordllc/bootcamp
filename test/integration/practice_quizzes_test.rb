@@ -80,6 +80,26 @@ class PracticeQuizzesTest < ActionDispatch::IntegrationTest
     assert_redirected_to practice_practice_quiz_path(practice)
     follow_redirect!
     assert_includes response.body, '次回は'
+    assert_not_includes response.body, '正解'
+    assert_not_includes response.body, '解説です。'
+  end
+
+  test 'student can pass multiple choice quiz' do
+    user = users(:kimura)
+    practice = practices(:practice3)
+    _quiz, question = create_quiz(practice, question_type: :multiple_choice)
+    login(user)
+
+    post practice_practice_quiz_attempts_path(practice), params: {
+      answers: {
+        question.id => question.practice_quiz_choices.where(correct: true).pluck(:id)
+      }
+    }
+
+    assert_redirected_to practice_practice_quiz_path(practice)
+    follow_redirect!
+    assert_response :success
+    assert_includes response.body, '理解度テストに合格しました。'
   end
 
   private
@@ -93,17 +113,18 @@ class PracticeQuizzesTest < ActionDispatch::IntegrationTest
     }
   end
 
-  def create_quiz(practice)
+  def create_quiz(practice, question_type: :single_choice)
     quiz = PracticeQuiz.create!(practice:, published: false)
     question = quiz.practice_quiz_questions.create!(
-      question_type: :single_choice,
+      question_type:,
       body: '正しいものを選んでください。',
       explanation: '解説です。',
       position: 1,
       published: false
     )
     question.practice_quiz_choices.create!(body: '正解', correct: true, position: 1)
-    question.practice_quiz_choices.create!(body: '不正解', correct: false, position: 2)
+    question.practice_quiz_choices.create!(body: '正解2', correct: true, position: 2) if question.multiple_choice?
+    question.practice_quiz_choices.create!(body: '不正解', correct: false, position: 3)
     question.update!(published: true)
     quiz.update!(published: true)
     [quiz, question]

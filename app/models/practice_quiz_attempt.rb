@@ -34,7 +34,7 @@ class PracticeQuizAttempt < ApplicationRecord
       choice = question.practice_quiz_choices.detect { |candidate| candidate.id == choice_id.to_i }
       next if choice.blank?
 
-      attempt.practice_quiz_answers.build(practice_quiz_question: question, practice_quiz_choice: choice, correct: choice.correct?)
+      attempt.practice_quiz_answers.build(practice_quiz_choice: choice, correct: choice.correct?)
     end
   end
   private_class_method :build_answers_for_question
