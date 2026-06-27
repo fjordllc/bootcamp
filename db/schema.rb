@@ -591,11 +591,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_30_000000) do
     t.datetime "created_at", null: false
     t.bigint "practice_quiz_attempt_id", null: false
     t.bigint "practice_quiz_choice_id", null: false
-    t.bigint "practice_quiz_question_id", null: false
     t.datetime "updated_at", null: false
     t.index ["practice_quiz_attempt_id"], name: "index_practice_quiz_answers_on_practice_quiz_attempt_id"
     t.index ["practice_quiz_choice_id"], name: "index_practice_quiz_answers_on_practice_quiz_choice_id"
-    t.index ["practice_quiz_question_id"], name: "index_practice_quiz_answers_on_practice_quiz_question_id"
   end
 
   create_table "practice_quiz_attempts", force: :cascade do |t|
@@ -1223,7 +1221,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_30_000000) do
   add_foreign_key "participations", "users"
   add_foreign_key "practice_quiz_answers", "practice_quiz_attempts"
   add_foreign_key "practice_quiz_answers", "practice_quiz_choices"
-  add_foreign_key "practice_quiz_answers", "practice_quiz_questions"
   add_foreign_key "practice_quiz_attempts", "practice_quizzes"
   add_foreign_key "practice_quiz_attempts", "users"
   add_foreign_key "practice_quiz_choices", "practice_quiz_questions"
