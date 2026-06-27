@@ -7,6 +7,8 @@ class CreatePracticeQuizAttempts < ActiveRecord::Migration[8.1]
       t.boolean :passed, null: false, default: false
 
       t.timestamps
+
+      t.index %i[practice_quiz_id user_id submitted_at], name: 'index_practice_quiz_attempts_on_quiz_user_submitted_at'
     end
   end
 end

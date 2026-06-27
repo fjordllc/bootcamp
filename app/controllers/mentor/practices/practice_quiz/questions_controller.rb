@@ -52,6 +52,7 @@ class Mentor::Practices::PracticeQuiz::QuestionsController < ApplicationControll
 
   def set_practice_quiz
     @practice_quiz = @practice.practice_quiz
+    redirect_to new_mentor_practice_practice_quiz_path(@practice) if @practice_quiz.blank?
   end
 
   def set_question
