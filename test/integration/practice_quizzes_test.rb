@@ -21,6 +21,11 @@ class PracticeQuizzesTest < ActionDispatch::IntegrationTest
     }
 
     assert_redirected_to practice_practice_quiz_path(practice)
+    follow_redirect!
+    assert_response :success
+    assert_includes response.body, '理解度テストに合格しました。'
+    assert_includes response.body, '正解'
+    assert_includes response.body, '解説です。'
     assert quiz.passed_by?(user)
 
     patch api_practice_learning_path(practice, format: :json), params: { status: 'complete' }
@@ -29,15 +34,26 @@ class PracticeQuizzesTest < ActionDispatch::IntegrationTest
     assert Learning.find_by!(user:, practice:).complete?
   end
 
-  test 'student can complete submission practice without quiz as before' do
+  test 'student can complete practice without quiz as before' do
     user = users(:kimura)
-    practice = practices(:practice5)
+    practice = practices(:practice4)
     login(user)
 
     patch api_practice_learning_path(practice, format: :json), params: { status: 'complete' }
 
     assert_response :success
     assert Learning.find_by!(user:, practice:).complete?
+  end
+
+  test 'student receives unprocessable entity when learning status is invalid' do
+    user = users(:kimura)
+    practice = practices(:practice4)
+    login(user)
+
+    patch api_practice_learning_path(practice, format: :json), params: { status: 'invalid' }
+
+    assert_response :unprocessable_entity
+    assert_equal 'status is invalid', response.parsed_body['error']
   end
 
   test 'student cannot retry quiz within one hour after failure' do
@@ -62,6 +78,8 @@ class PracticeQuizzesTest < ActionDispatch::IntegrationTest
       }
     end
     assert_redirected_to practice_practice_quiz_path(practice)
+    follow_redirect!
+    assert_includes response.body, '次回は'
   end
 
   private
