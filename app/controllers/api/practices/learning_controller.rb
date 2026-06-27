@@ -15,16 +15,12 @@ class API::Practices::LearningController < API::BaseController
   end
 
   def update
-    learning = Learning.find_or_initialize_by(
-      user_id: current_user.id,
-      practice_id: params[:practice_id]
-    )
+    learning = find_or_initialize_learning
 
-    learning.status = if params[:status].nil?
-                        :complete
-                      else
-                        params[:status].to_sym
-                      end
+    if learning.complete? && !practice.completable_by?(current_user)
+      render json: { error: '理解度テストに合格すると、このプラクティスを修了できます。' }, status: :unprocessable_entity
+      return
+    end
 
     status = learning.new_record? ? :created : :ok
 
@@ -38,6 +34,19 @@ class API::Practices::LearningController < API::BaseController
   end
 
   private
+
+  def practice
+    @practice ||= Practice.find(params[:practice_id])
+  end
+
+  def find_or_initialize_learning
+    Learning.find_or_initialize_by(
+      user_id: current_user.id,
+      practice_id: practice.id
+    ).tap do |learning|
+      learning.status = params[:status].nil? ? :complete : params[:status].to_sym
+    end
+  end
 
   def notify_to_chat_for_employment_counseling(learning)
     ChatNotifier.message(

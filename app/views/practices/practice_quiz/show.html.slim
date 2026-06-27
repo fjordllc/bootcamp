@@ -1,0 +1,66 @@
+- title "理解度テスト #{@practice.title}"
+- passed = @passed_attempt.present?
+- cooling_down = !passed && @next_attempt_at.present? && @next_attempt_at > Time.current
+
+= render '/practices/page_header',
+  title: @practice.title,
+  category: @practice.category(current_user.course),
+  practice: @practice
+
+= practice_page_tabs(@practice, active_tab: '理解度テスト')
+
+.page-body
+  .container.is-md
+    .a-card
+      header.card-header
+        h1.card-header__title
+          | 理解度テスト
+      hr.a-border-tint
+      .card-body
+        - if passed
+          .a-short-text
+            p
+              | 理解度テストに合格しました。
+        - elsif cooling_down
+          .a-short-text
+            p
+              | 次回は #{l @next_attempt_at, format: :long} 以降に受験できます。
+        - else
+          .a-short-text
+            p
+              | このプラクティスを修了するには理解度テストに合格する必要があります。
+
+      - if passed
+        .card-body
+          - @questions.each do |question|
+            .a-long-text.is-md
+              h2
+                = question.body
+              ul
+                - question.practice_quiz_choices.each do |choice|
+                  li
+                    - if choice.correct?
+                      strong
+                        = choice.body
+                    - else
+                      = choice.body
+              - if question.explanation.present?
+                = simple_format(question.explanation)
+      - elsif !cooling_down
+        .card-body
+          = form_with url: practice_practice_quiz_attempts_path(@practice), method: :post, local: true, html: { class: 'form' } do
+            - @questions.each do |question|
+              .form-item
+                .a-form-label
+                  = question.body
+                - question.practice_quiz_choices.each do |choice|
+                  label
+                    - if question.single_choice?
+                      = radio_button_tag "answers[#{question.id}]", choice.id, false
+                    - else
+                      = check_box_tag "answers[#{question.id}][]", choice.id, false
+                    = choice.body
+            .form-actions
+              ul.form-actions__items
+                li.form-actions__item.is-main
+                  = submit_tag '回答する', class: 'a-button is-lg is-primary is-block'
