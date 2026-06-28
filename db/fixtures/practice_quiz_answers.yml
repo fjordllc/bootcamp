@@ -1,0 +1,24 @@
+kimura_pc_cpu_answer:
+  practice_quiz_attempt: kimura_pc_performance_passed
+  practice_quiz_choice: pc_cpu_correct
+  correct: true
+
+kimura_pc_storage_answer:
+  practice_quiz_attempt: kimura_pc_performance_passed
+  practice_quiz_choice: pc_storage_correct
+  correct: true
+
+kimura_pc_memory_temporary_answer:
+  practice_quiz_attempt: kimura_pc_performance_passed
+  practice_quiz_choice: pc_memory_correct_temporary
+  correct: true
+
+kimura_pc_memory_capacity_answer:
+  practice_quiz_attempt: kimura_pc_performance_passed
+  practice_quiz_choice: pc_memory_correct_capacity
+  correct: true
+
+hatsuno_pc_cpu_answer:
+  practice_quiz_attempt: hatsuno_pc_performance_failed
+  practice_quiz_choice: pc_cpu_wrong_storage
+  correct: false
