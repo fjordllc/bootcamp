@@ -15,6 +15,7 @@ class Pjord::MentionResponseAgentTest < ActiveSupport::TestCase
     assert_includes chat.instructions, 'あなたはFJORD BOOT CAMP'
     assert_includes chat.instructions, 'メンション返信の指示'
     assert_includes chat.instructions, comment.sender.login_name
+    assert_includes chat.instructions, '人間らしい文章にする'
     assert_includes chat.instructions, 'external_content_toolを使って内容を確認してから返信してください。'
     assert_includes chat.instructions, 'GitHubのPR、ファイル、ディレクトリ、rawファイルへのURLが含まれる場合'
     assert_includes chat.instructions, 'ピヨルドのレビューコメントに対して'

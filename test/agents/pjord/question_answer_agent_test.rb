@@ -18,6 +18,7 @@ class Pjord::QuestionAnswerAgentTest < ActiveSupport::TestCase
     assert_includes chat.instructions, 'あなたはFJORD BOOT CAMP'
     assert_includes chat.instructions, 'Q&A回答の指示'
     assert_includes chat.instructions, question.practice.title
+    assert_includes chat.instructions, '人間らしい文章にする'
     assert_includes chat.asked_message, question.title
     assert_includes chat.asked_message, question.description
   end
