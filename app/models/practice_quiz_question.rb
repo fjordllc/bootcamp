@@ -5,7 +5,7 @@ class PracticeQuizQuestion < ApplicationRecord
 
   belongs_to :practice_quiz
   has_many :practice_quiz_choices, -> { order(:position, :id) }, dependent: :destroy, inverse_of: :practice_quiz_question
-  has_many :practice_quiz_answers, dependent: :destroy
+  has_many :practice_quiz_answers, through: :practice_quiz_choices
 
   before_destroy :published_quiz_must_keep_published_question
 

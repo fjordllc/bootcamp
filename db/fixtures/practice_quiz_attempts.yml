@@ -1,0 +1,11 @@
+kimura_pc_performance_passed:
+  practice_quiz: pc_performance_quiz
+  user: kimura
+  submitted_at: <%= 2.hours.ago %>
+  passed: true
+
+hatsuno_pc_performance_failed:
+  practice_quiz: pc_performance_quiz
+  user: hatsuno
+  submitted_at: <%= 20.minutes.ago %>
+  passed: false

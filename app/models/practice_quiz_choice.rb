@@ -2,6 +2,7 @@
 
 class PracticeQuizChoice < ApplicationRecord
   belongs_to :practice_quiz_question
+  has_many :practice_quiz_answers, dependent: :destroy
 
   validates :body, presence: true
   validates :position, presence: true
