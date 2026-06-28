@@ -148,4 +148,52 @@ class PracticeTest < ActiveSupport::TestCase
     assert_equal initial_count + 1, practice.reports_count(include_source: false)
     assert_equal initial_count_including_source + 1, practice.reports_count(include_source: true)
   end
+
+  test '#pages_count sums pages of self and source when include_source is true' do
+    source_practice = practices(:practice23)
+    practice = practices(:practice64)
+
+    Page.where(practice: [source_practice, practice]).destroy_all
+
+    Page.create!(
+      user: users(:'grant-course'),
+      title: 'rubyをインストールするにはDoc',
+      body: '通常プラクティスのDoc。',
+      practice: source_practice,
+      published_at: Time.zone.today
+    )
+    Page.create!(
+      user: users(:komagata),
+      title: 'rubyをインストールするには(Reスキル)Doc',
+      body: '給付金プラクティスのDoc',
+      practice: practice,
+      published_at: Time.zone.today - 1
+    )
+
+    assert_equal 2, practice.pages_count(include_source: true)
+  end
+
+  test '#pages_count counts only self pages when include_source is false' do
+    source_practice = practices(:practice23)
+    practice = practices(:practice64)
+
+    Page.where(practice: [source_practice, practice]).destroy_all
+
+    Page.create!(
+      user: users(:'grant-course'),
+      title: 'rubyをインストールするにはDoc',
+      body: '通常プラクティスのDoc。',
+      practice: source_practice,
+      published_at: Time.zone.today
+    )
+    Page.create!(
+      user: users(:komagata),
+      title: 'rubyをインストールするには(Reスキル)Doc',
+      body: '給付金プラクティスのDoc',
+      practice: practice,
+      published_at: Time.zone.today - 1
+    )
+
+    assert_equal 1, practice.pages_count(include_source: false)
+  end
 end
