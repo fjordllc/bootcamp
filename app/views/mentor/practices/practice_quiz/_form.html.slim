@@ -2,17 +2,29 @@
 - form_method = practice_quiz.persisted? ? :patch : :post
 = form_with model: practice_quiz, url: form_url, method: form_method, local: true, html: { class: 'form' } do |f|
   = render 'errors', object: practice_quiz
-  .form__items
-    .form-item
-      .row
-        .col-md-8.col-xs-12
+  .a-card
+    header.card-header
+      h2.card-header__title
+        | 理解度テストの設定
+    hr.a-border-tint
+    .card-body
+      .form__items
+        .form-item
           .a-form-label
             | プラクティス
           = link_to practice.title, practice_path(practice), class: 'a-link'
-        .col-md-4.col-xs-12
+        .form-item
           label.a-form-label
-            = f.check_box :published
-            | 公開する
+            | 公開設定
+          .checkboxes
+            ul.checkboxes__items
+              li.checkboxes__item
+                = f.check_box :published, class: 'a-toggle-checkbox'
+                = f.label :published do
+                  | 受講生に公開する
+          p.a-form-help
+            | 公開すると、受講生はこのプラクティスを修了するために理解度テストへの合格が必要になります。
+
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main

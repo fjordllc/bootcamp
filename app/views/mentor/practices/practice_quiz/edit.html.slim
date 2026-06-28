@@ -1,15 +1,18 @@
-- title '理解度テスト編集'
+ruby:
+  practice_title = @practice.title
+  category = @practice.category(current_user.course)
 
-header.page-header
-  .container
-    .page-header__inner
-      .page-header__start
-        h2.page-header__title
-          | メンターページ
+- title "「#{practice_title}」の理解度テスト編集"
+- set_meta_tags description: "プラクティス「#{practice_title}」の理解度テスト編集ページです。"
 
-= render 'mentor/mentor_page_tabs'
+= render '/practices/page_header',
+  title: practice_title,
+  category: category,
+  practice: @practice
 
-main.page-main
+= practice_page_tabs(@practice, active_tab: '理解度テスト')
+
+.page-main
   header.page-main-header
     .container
       .page-main-header__inner
@@ -17,9 +20,9 @@ main.page-main
           h1.page-main-header__title
             = title
         .page-main-header__end
-          .page-header-actions
-            .page-header-actions__items
-              .page-header-actions__item
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              li.page-main-header-actions__item
                 = link_to new_mentor_practice_practice_quiz_question_path(@practice), class: 'a-button is-md is-secondary is-block' do
                   i.fa-regular.fa-plus
                   span
@@ -32,10 +35,12 @@ main.page-main
       .a-card
         header.card-header
           h2.card-header__title
-            | 問題
+            | 問題一覧
+          span.card-header__count
+            = "#{@practice_quiz.practice_quiz_questions.size}問"
         hr.a-border-tint
-        .card-body
-          - if @practice_quiz.practice_quiz_questions.any?
+        - if @practice_quiz.practice_quiz_questions.any?
+          .card-body
             .admin-table
               table.admin-table__table
                 thead.admin-table__header
@@ -48,18 +53,23 @@ main.page-main
                 tbody.admin-table__items
                   - @practice_quiz.practice_quiz_questions.each do |question|
                     tr.admin-table__item
-                      td.admin-table__item-value
+                      td.admin-table__item-value.is-text-align-center
                         = question.position
                       td.admin-table__item-value
                         = question.body
-                      td.admin-table__item-value
+                      td.admin-table__item-value.is-text-align-center
                         = question.single_choice? ? '単一選択' : '複数選択'
-                      td.admin-table__item-value
-                        = question.published? ? '公開' : '非公開'
+                      td.admin-table__item-value.is-text-align-center
+                        - if question.published?
+                          span.a-badge.is-success.is-sm 公開
+                        - else
+                          span.a-badge.is-muted.is-sm 非公開
                       td.admin-table__item-value.is-text-align-center
                         = link_to edit_mentor_practice_practice_quiz_question_path(@practice, question), class: 'a-button is-sm is-secondary is-icon' do
                           i.fa-solid.fa-pen
-          - else
-            .a-short-text
-              p
-                | 問題はまだありません。
+        - else
+          .o-empty-message
+            .o-empty-message__icon
+              i.fa-regular.fa-clipboard aria-hidden="true"
+            p.o-empty-message__text
+              | 問題はまだありません。「問題作成」から追加してください。

@@ -1,6 +1,8 @@
 - title "理解度テスト #{@practice.title}"
-- passed = @passed_attempt.present?
-- cooling_down = !passed && @next_attempt_at.present? && @next_attempt_at > Time.current
+- set_meta_tags description: "プラクティス「#{@practice.title}」の理解度テストのページです。"
+ruby:
+  passed = @passed_attempt.present?
+  cooling_down = !passed && @next_attempt_at.present? && @next_attempt_at > Time.current
 
 = render '/practices/page_header',
   title: @practice.title,
@@ -11,56 +13,93 @@
 
 .page-body
   .container.is-md
-    .a-card
-      header.card-header
-        h1.card-header__title
-          | 理解度テスト
-      hr.a-border-tint
-      .card-body
-        - if passed
-          .a-short-text
-            p
-              | 理解度テストに合格しました。
-        - elsif cooling_down
-          .a-short-text
-            p
-              | 次回は #{l @next_attempt_at, format: :long} 以降に受験できます。
-        - else
-          .a-short-text
-            p
-              | このプラクティスを修了するには理解度テストに合格する必要があります。
+    - if passed
+      .practice-quiz-status.is-passed
+        .practice-quiz-status__icon
+          i.fa-solid.fa-circle-check
+        .practice-quiz-status__body
+          h1.practice-quiz-status__title 理解度テストに合格しました
+          p.practice-quiz-status__text
+            | このプラクティスを修了できます。各問題の正解と解説を復習しておきましょう。
 
-      - if passed
-        .card-body
-          - @questions.each do |question|
-            .a-long-text.is-md
-              h2
-                = question.body
-              ul
+      ul.practice-quiz-result
+        - @questions.each.with_index(1) do |question, index|
+          li.practice-quiz-result__item.a-card
+            header.card-header
+              h2.card-header__title
+                | 問#{index}
+              span.practice-quiz-question__type
+                = question.single_choice? ? '1つ選択' : '複数選択'
+            hr.a-border-tint
+            .card-body
+              .a-long-text.is-md.practice-quiz-question__body
+                = simple_format(question.body)
+              ul.practice-quiz-choices
                 - question.practice_quiz_choices.each do |choice|
-                  li
-                    - if choice.correct?
-                      strong
-                        = choice.body
-                    - else
+                  li.practice-quiz-choices__item(class="#{choice.correct? ? 'is-correct' : ''}")
+                    span.practice-quiz-choices__icon
+                      - if choice.correct?
+                        i.fa-solid.fa-circle-check
+                      - else
+                        i.fa-regular.fa-circle
+                    span.practice-quiz-choices__label
                       = choice.body
+                    - if choice.correct?
+                      span.a-badge.is-success 正解
               - if question.explanation.present?
-                = simple_format(question.explanation)
-      - elsif !cooling_down
-        .card-body
-          = form_with url: practice_practice_quiz_attempts_path(@practice), method: :post, local: true, html: { class: 'form' } do
-            - @questions.each do |question|
-              .form-item
-                .a-form-label
-                  = question.body
-                - question.practice_quiz_choices.each do |choice|
-                  label
-                    - if question.single_choice?
-                      = radio_button_tag "answers[#{question.id}]", choice.id, false
-                    - else
-                      = check_box_tag "answers[#{question.id}][]", choice.id, false
-                    = choice.body
-            .form-actions
-              ul.form-actions__items
-                li.form-actions__item.is-main
-                  = submit_tag '回答する', class: 'a-button is-lg is-primary is-block'
+                .practice-quiz-explanation
+                  .practice-quiz-explanation__label
+                    i.fa-solid.fa-lightbulb
+                    | 解説
+                  .a-long-text.is-md
+                    = simple_format(question.explanation)
+    - elsif cooling_down
+      .practice-quiz-status.is-waiting
+        .practice-quiz-status__icon
+          i.fa-solid.fa-hourglass-half
+        .practice-quiz-status__body
+          h1.practice-quiz-status__title しばらく待ってから再受験できます
+          p.practice-quiz-status__text
+            | 次回は #{l @next_attempt_at, format: :long} 以降に受験できます。
+            br
+            | それまでにもう一度プラクティスを復習しておきましょう。
+    - else
+      .practice-quiz-status.is-info
+        .practice-quiz-status__icon
+          i.fa-solid.fa-clipboard-question
+        .practice-quiz-status__body
+          h1.practice-quiz-status__title 理解度テスト
+          p.practice-quiz-status__text
+            | このプラクティスを修了するには、理解度テストに合格する必要があります。
+            | 全#{@questions.size}問です。落ち着いて回答しましょう。
+
+      = form_with url: practice_practice_quiz_attempts_path(@practice), method: :post, local: true, html: { class: 'form' } do
+        ul.practice-quiz-form
+          - @questions.each.with_index(1) do |question, index|
+            li.practice-quiz-form__item.a-card
+              header.card-header
+                h2.card-header__title
+                  | 問#{index}
+                span.practice-quiz-question__type
+                  = question.single_choice? ? '1つ選択' : '複数選択'
+              hr.a-border-tint
+              .card-body
+                .a-long-text.is-md.practice-quiz-question__body
+                  = simple_format(question.body)
+                ul.block-checks.is-vertical.is-1-item
+                  - question.practice_quiz_choices.each do |choice|
+                    li.block-checks__item
+                      - if question.single_choice?
+                        .a-block-check.is-radio
+                          = radio_button_tag "answers[#{question.id}]", choice.id, false, id: "choice-#{choice.id}", class: 'a-toggle-checkbox'
+                          label.a-block-check__label.is-ta-left(for="choice-#{choice.id}")
+                            = choice.body
+                      - else
+                        .a-block-check.is-checkbox
+                          = check_box_tag "answers[#{question.id}][]", choice.id, false, id: "choice-#{choice.id}", class: 'a-toggle-checkbox'
+                          label.a-block-check__label.is-ta-left(for="choice-#{choice.id}")
+                            = choice.body
+        .form-actions
+          ul.form-actions__items
+            li.form-actions__item.is-main
+              = submit_tag '回答する', class: 'a-button is-lg is-primary is-block'
