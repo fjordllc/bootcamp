@@ -14,6 +14,7 @@ class Pjord::ReportCommentAgentTest < ActiveSupport::TestCase
     assert_includes chat.instructions, 'あなたはFJORD BOOT CAMP'
     assert_includes chat.instructions, 'ネガティブな感情'
     assert_includes chat.instructions, report.user.login_name
+    assert_includes chat.instructions, '人間らしい文章にする'
     assert_includes chat.instructions, 'external_content_toolを使って内容を確認してからコメントしてください。'
     assert_includes chat.instructions, 'GitHubのPR、ファイル、ディレクトリ、rawファイルへのURLが含まれる場合'
     assert_includes chat.asked_message, report.title

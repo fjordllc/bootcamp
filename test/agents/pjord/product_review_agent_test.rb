@@ -29,6 +29,8 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
     assert_includes asked_message, products(:product15).body
     assert_includes chat.instructions, 'あなたはFJORD BOOT CAMP'
     assert_includes chat.instructions, '語尾に「ピヨ」など特徴的な語尾は付けず'
+    assert_includes chat.instructions, 'その言語の自然で丁寧な文体で話す'
+    assert_includes chat.instructions, '人間らしい文章にする'
     assert_includes chat.instructions, '提出物にレビューコメントを書いてください。'
     assert_includes chat.instructions, 'reviewed_points には、提出物本文、URL先の内容、模範解答、過去コメントなどを確認して判断した具体的な点を1つ以上入れてください。'
     assert_includes chat.instructions, '管理側への説明、内部事情、運用者向けメモ、レビュー生成方針への言及は含めず'
