@@ -24,18 +24,12 @@ class ExternalContentToolTest < ActiveSupport::TestCase
   end
 
   test 'routes CodePen URLs to the CodePen reader' do
-    stub_request(:get, 'https://codepen.io/takafumi-yamashita/pen/details/WbRjEro')
-      .to_return(
-        status: 200,
-        body: {
-          title: 'Readable Pen',
-          user: 'takafumi-yamashita',
-          html: '<h1>Readable</h1>',
-          css: 'h1 { color: blue; }',
-          js: 'console.log("readable")'
-        }.to_json,
-        headers: { 'Content-Type' => 'application/json' }
-      )
+    stub_request(:get, 'https://codepen.io/takafumi-yamashita/pen/WbRjEro.html')
+      .to_return(status: 200, body: '<h1>Readable</h1>', headers: { 'Content-Type' => 'text/html' })
+    stub_request(:get, 'https://codepen.io/takafumi-yamashita/pen/WbRjEro.css')
+      .to_return(status: 200, body: 'h1 { color: blue; }', headers: { 'Content-Type' => 'text/css' })
+    stub_request(:get, 'https://codepen.io/takafumi-yamashita/pen/WbRjEro.js')
+      .to_return(status: 200, body: 'console.log("readable")', headers: { 'Content-Type' => 'application/javascript' })
 
     result = @tool.execute(url: 'https://codepen.io/takafumi-yamashita/pen/WbRjEro')
 
