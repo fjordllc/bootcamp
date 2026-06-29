@@ -33,8 +33,10 @@ class Products::PjordReviewCommentTest < ActionDispatch::IntegrationTest
 
     Pjord::ProductReviewAgent.stub(:review, ->(_product) { raise 'should not be called' }) do
       assert_no_enqueued_jobs only: PjordProductReviewJob do
-        post products_path(_login_name: 'hatsuno'),
-             params: { practice_id: practice.id, product: { body: '提出物です。' }, commit: '提出する' }
+        assert_no_difference -> { Comment.where(user: users(:pjord)).count } do
+          post products_path(_login_name: 'hatsuno'),
+               params: { practice_id: practice.id, product: { body: '提出物です。' }, commit: '提出する' }
+        end
       end
     end
 
