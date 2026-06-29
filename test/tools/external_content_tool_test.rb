@@ -24,19 +24,10 @@ class ExternalContentToolTest < ActiveSupport::TestCase
   end
 
   test 'routes CodePen URLs to the CodePen reader' do
-    stub_request(:get, 'https://codepen.io/takafumi-yamashita/pen/WbRjEro.html')
-      .to_return(status: 200, body: '<h1>Readable</h1>', headers: { 'Content-Type' => 'text/html' })
-    stub_request(:get, 'https://codepen.io/takafumi-yamashita/pen/WbRjEro.css')
-      .to_return(status: 200, body: 'h1 { color: blue; }', headers: { 'Content-Type' => 'text/css' })
-    stub_request(:get, 'https://codepen.io/takafumi-yamashita/pen/WbRjEro.js')
-      .to_return(status: 200, body: 'console.log("readable")', headers: { 'Content-Type' => 'application/javascript' })
-
     result = @tool.execute(url: 'https://codepen.io/takafumi-yamashita/pen/WbRjEro')
 
-    assert_includes result, '# CodePen'
-    assert_includes result, '<h1>Readable</h1>'
-    assert_includes result, 'h1 { color: blue; }'
-    assert_includes result, 'console.log("readable")'
+    assert_equal ExternalContent::UNREADABLE_URL_MESSAGE, result
+    assert_not_requested :get, %r{\Ahttps://codepen\.io/}
   end
 
   test 'follows redirects' do
