@@ -55,6 +55,7 @@ class Mentor::PracticesController < ApplicationController
       :goal,
       :submission,
       :open_product,
+      :disable_pjord_review,
       :include_progress,
       :completion_image,
       :memo,

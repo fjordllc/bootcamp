@@ -25,6 +25,17 @@ class PjordProductReviewJobTest < ActiveJob::TestCase
     end
   end
 
+  test 'does nothing when practice disables Pjord review' do
+    product = products(:product8)
+    product.practice.update!(disable_pjord_review: true)
+
+    Pjord::ProductReviewAgent.stub(:review, ->(_product) { raise 'should not be called' }) do
+      assert_no_difference -> { product.comments.reload.count } do
+        PjordProductReviewJob.perform_now(product_id: product.id)
+      end
+    end
+  end
+
   test 'does nothing when pjord user is missing' do
     product = products(:product8)
 

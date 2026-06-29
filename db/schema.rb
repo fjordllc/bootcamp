@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_15_062046) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_30_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -590,6 +590,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_062046) do
     t.integer "category_id"
     t.datetime "created_at", precision: nil
     t.text "description"
+    t.boolean "disable_pjord_review", default: false, null: false
     t.text "goal"
     t.boolean "include_progress", default: true, null: false
     t.integer "last_updated_user_id"
