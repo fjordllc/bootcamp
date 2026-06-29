@@ -13,7 +13,7 @@ class Practices::PagesController < ApplicationController
         @practice.pages
       end
       .with_avatar
-      .includes(:comments, :practice, { last_updated_user: { avatar_attachment: :blob } })
+      .preload(:comments, :practice, { last_updated_user: { avatar_attachment: :blob } })
       .order(updated_at: :desc, id: :desc)
       .page(params[:page])
       .per(PAGER_NUMBER)
