@@ -64,7 +64,7 @@ class ExternalContentToolTest < ActiveSupport::TestCase
   test 'rejects private network urls' do
     result = @tool.execute(url: 'http://127.0.0.1/internal')
 
-    assert_equal 'URLの取得に失敗しました。', result
+    assert_equal ExternalContent::UNREADABLE_URL_MESSAGE, result
   end
 
   test 'rejects redirects to private network urls' do
@@ -73,6 +73,6 @@ class ExternalContentToolTest < ActiveSupport::TestCase
 
     result = @tool.execute(url: 'https://example.com/redirect-to-private')
 
-    assert_equal 'URLの取得に失敗しました。', result
+    assert_equal ExternalContent::UNREADABLE_URL_MESSAGE, result
   end
 end

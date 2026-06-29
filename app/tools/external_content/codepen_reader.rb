@@ -18,14 +18,14 @@ class ExternalContent::CodepenReader
     return 'CodePenの公開Pen URLだけ取得できます。' unless self.class.support?(uri)
 
     pen = fetch_pen(uri)
-    return 'CodePenを取得できませんでした。' if pen.blank?
+    return ExternalContent::UNREADABLE_URL_MESSAGE if pen.blank?
 
     format_pen(uri.to_s, pen)
   rescue URI::InvalidURIError
     'URLの形式が正しくありません。'
   rescue StandardError => e
     Rails.logger.warn("[ExternalContent::CodepenReader] #{url} #{e.class}: #{e.message}")
-    'CodePenを取得できませんでした。'
+    ExternalContent::UNREADABLE_URL_MESSAGE
   end
 
   private

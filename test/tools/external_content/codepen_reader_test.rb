@@ -42,4 +42,11 @@ class ExternalContent::CodepenReaderTest < ActiveSupport::TestCase
   test 'rejects unsupported CodePen paths' do
     assert_equal 'CodePenの公開Pen URLだけ取得できます。', @reader.fetch('https://codepen.io/takafumi-yamashita/full/WbRjEro')
   end
+
+  test 'asks Pjord to mention mentors when CodePen cannot be fetched' do
+    stub_request(:get, 'https://codepen.io/takafumi-yamashita/pen/details/WbRjEro')
+      .to_return(status: 403, body: 'Forbidden')
+
+    assert_equal ExternalContent::UNREADABLE_URL_MESSAGE, @reader.fetch('https://codepen.io/takafumi-yamashita/pen/WbRjEro')
+  end
 end

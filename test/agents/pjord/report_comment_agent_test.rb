@@ -17,6 +17,9 @@ class Pjord::ReportCommentAgentTest < ActiveSupport::TestCase
     assert_includes chat.instructions, '人間らしい文章にする'
     assert_includes chat.instructions, 'external_content_toolを使って内容を確認してからコメントしてください。'
     assert_includes chat.instructions, 'GitHubのPR、ファイル、ディレクトリ、rawファイルへのURLが含まれる場合'
+    assert_includes chat.instructions, 'CodePenやリンク先が見えない'
+    assert_includes chat.instructions, 'bodyに `@mentor` を含めて'
+    assert_includes chat.instructions, '日報を書いたユーザーに「見られる状態にしてください」「内容を教えてください」と質問しないでください。'
     assert_includes chat.asked_message, report.title
     assert_includes chat.asked_message, report.description
     assert_equal [BootcampSearchTool, UserInfoTool, ExternalContentTool], chat.tools
