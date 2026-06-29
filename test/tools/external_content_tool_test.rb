@@ -23,6 +23,28 @@ class ExternalContentToolTest < ActiveSupport::TestCase
     assert_not_includes result, 'ignore'
   end
 
+  test 'routes CodePen URLs to the CodePen reader' do
+    stub_request(:get, 'https://codepen.io/takafumi-yamashita/pen/details/WbRjEro')
+      .to_return(
+        status: 200,
+        body: {
+          title: 'Readable Pen',
+          user: 'takafumi-yamashita',
+          html: '<h1>Readable</h1>',
+          css: 'h1 { color: blue; }',
+          js: 'console.log("readable")'
+        }.to_json,
+        headers: { 'Content-Type' => 'application/json' }
+      )
+
+    result = @tool.execute(url: 'https://codepen.io/takafumi-yamashita/pen/WbRjEro')
+
+    assert_includes result, '# CodePen'
+    assert_includes result, '<h1>Readable</h1>'
+    assert_includes result, 'h1 { color: blue; }'
+    assert_includes result, 'console.log("readable")'
+  end
+
   test 'follows redirects' do
     stub_request(:get, 'https://example.com/old')
       .to_return(status: 302, headers: { 'Location' => '/new' })
