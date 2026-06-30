@@ -89,4 +89,19 @@ class PairWorksHelperTest < ActionView::TestCase
       assert_not_equal normal_meta_label, meta_label_by_status(pair_work)
     end
   end
+
+  test 'meta_value_by_status' do
+    pair_work = pair_works(:pair_work2)
+    normal_meta_value = 'a-meta__value'
+    important_meta_value = 'a-meta__value is-important'
+
+    assert_equal normal_meta_value, meta_value_by_status(pair_work)
+    assert_not_equal important_meta_value, meta_value_by_status(pair_work)
+
+    reserved_on = Time.zone.local(2025, 1, 2)
+    travel_to reserved_on do
+      assert_equal important_meta_value, meta_value_by_status(pair_work)
+      assert_not_equal normal_meta_value, meta_value_by_status(pair_work)
+    end
+  end
 end
