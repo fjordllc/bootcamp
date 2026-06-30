@@ -668,6 +668,23 @@ class UserTest < ActiveSupport::TestCase
     assert_equal description, comment.body
   end
 
+  test 'comeback skips subscription in staging environment' do
+    user = users(:kyuukai)
+
+    original_db_name = ENV['DB_NAME']
+    ENV['DB_NAME'] = 'bootcamp_staging'
+
+    Rails.env.stub(:production?, true) do
+      assert_nothing_raised do
+        user.comeback!
+      end
+    end
+
+    assert_nil user.reload.hibernated_at
+  ensure
+    ENV['DB_NAME'] = original_db_name
+  end
+
   test '#become_watcher!' do
     watchable = pages(:page1)
     user = users(:kimura)

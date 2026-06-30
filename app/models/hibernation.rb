@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Hibernation < ApplicationRecord
+  include StagingEnvironment
+
   belongs_to :user
   validates :reason, presence: true
   validates :scheduled_return_on, presence: true
@@ -32,10 +34,6 @@ class Hibernation < ApplicationRecord
   def update_hibernated_at!
     user.hibernated_at = created_at
     user.save!(validate: false)
-  end
-
-  def staging?
-    ENV['DB_NAME'] == 'bootcamp_staging'
   end
 
   def destroy_subscription!
