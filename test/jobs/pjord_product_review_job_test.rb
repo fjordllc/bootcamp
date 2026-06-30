@@ -25,9 +25,9 @@ class PjordProductReviewJobTest < ActiveJob::TestCase
     end
   end
 
-  test 'does nothing when practice disables Pjord review' do
+  test 'does nothing when practice does not enable Pjord review' do
     product = products(:product8)
-    product.practice.update!(disable_pjord_review: true)
+    product.practice.update!(pjord_review: false)
 
     Pjord::ProductReviewAgent.stub(:review, ->(_product) { raise 'should not be called' }) do
       assert_no_difference -> { product.comments.reload.count } do

@@ -8,7 +8,7 @@ class PjordProductReviewJob < ApplicationJob
   def perform(product_id:)
     product = Product.find_by(id: product_id)
     return if product.nil?
-    return if product.practice.disable_pjord_review?
+    return unless product.practice.pjord_review?
 
     pjord = Pjord.user
     return if pjord.nil?

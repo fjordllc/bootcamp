@@ -590,12 +590,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_30_000000) do
     t.integer "category_id"
     t.datetime "created_at", precision: nil
     t.text "description"
-    t.boolean "disable_pjord_review", default: false, null: false
     t.text "goal"
     t.boolean "include_progress", default: true, null: false
     t.integer "last_updated_user_id"
     t.text "memo"
     t.boolean "open_product", default: false, null: false
+    t.boolean "pjord_review", default: true, null: false
     t.integer "source_id"
     t.boolean "submission", default: false, null: false
     t.text "summary"

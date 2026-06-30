@@ -27,9 +27,9 @@ class Products::PjordReviewCommentTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'does not create product review comment by Pjord when practice disables Pjord review' do
+  test 'does not create product review comment by Pjord when practice does not enable Pjord review' do
     practice = practices(:practice6)
-    practice.update!(disable_pjord_review: true)
+    practice.update!(pjord_review: false)
 
     Pjord::ProductReviewAgent.stub(:review, ->(_product) { raise 'should not be called' }) do
       assert_no_enqueued_jobs only: PjordProductReviewJob do
