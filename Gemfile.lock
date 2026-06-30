@@ -444,7 +444,6 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     netrc (0.11.0)
-    newspaper (0.2.0)
     nio4r (2.7.5)
     nokogiri (1.19.2-arm64-darwin)
       racc (~> 1.4)
@@ -856,7 +855,6 @@ DEPENDENCIES
   mission_control-jobs
   mutex_m (= 0.1.1)
   neighbor
-  newspaper
   oauth2
   omniauth (~> 2.1.1)
   omniauth-discord

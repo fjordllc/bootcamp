@@ -74,7 +74,7 @@ class Comment::AfterCreateCallback
   end
 
   def notify_to_admins(comment)
-    Newspaper.publish(:came_comment_in_talk, { comment: })
+    ActiveSupport::Notifications.instrument('came_comment_in_talk', comment:)
   end
 
   def update_action_completed(comment)
