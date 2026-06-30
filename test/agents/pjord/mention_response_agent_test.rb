@@ -18,6 +18,9 @@ class Pjord::MentionResponseAgentTest < ActiveSupport::TestCase
     assert_includes chat.instructions, '人間らしい文章にする'
     assert_includes chat.instructions, 'external_content_toolを使って内容を確認してから返信してください。'
     assert_includes chat.instructions, 'GitHubのPR、ファイル、ディレクトリ、rawファイルへのURLが含まれる場合'
+    assert_includes chat.instructions, 'CodePenや提出物のリンク先が見えない'
+    assert_includes chat.instructions, 'bodyに `@mentor` を含めて'
+    assert_includes chat.instructions, 'メンションしてきたユーザーに「見られる状態にしてください」「内容を教えてください」と質問しないでください。'
     assert_includes chat.instructions, 'ピヨルドのレビューコメントに対して'
     assert_includes chat.instructions, 'body を空にして返信しないでください。'
     assert_includes chat.asked_message, comment.description
