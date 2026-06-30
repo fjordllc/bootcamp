@@ -21,9 +21,11 @@ module Practices
         end
         fill_in 'practice[goal]', with: 'テストのゴールの内容です'
         fill_in 'practice[memo]', with: 'テストのメンター向けメモの内容です'
+        uncheck 'practice[pjord_review]', allow_label_click: true
         click_button '登録する'
       end
       assert_text 'プラクティスを作成しました'
+      assert_not_predicate Practice.order(:created_at).last, :pjord_review?
     end
 
     test 'create practice as a mentor' do

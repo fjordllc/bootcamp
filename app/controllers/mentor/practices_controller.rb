@@ -11,7 +11,7 @@ class Mentor::PracticesController < ApplicationController
   end
 
   def new
-    @practice = Practice.new
+    @practice = Practice.new(pjord_review: true)
   end
 
   def edit; end
@@ -55,6 +55,7 @@ class Mentor::PracticesController < ApplicationController
       :goal,
       :submission,
       :open_product,
+      :pjord_review,
       :include_progress,
       :completion_image,
       :memo,
