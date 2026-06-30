@@ -15,3 +15,15 @@ correct_answer3:
   user: machida
   question: question1
   type: "CorrectAnswer"
+
+correct_answer4:
+  description: ベストアンサーです。
+  user: machida
+  question: question57
+  type: "CorrectAnswer"
+
+correct_answer5:
+  description: ベストアンサーです。
+  user: machida
+  question: question59
+  type: "CorrectAnswer"
