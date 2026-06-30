@@ -15,6 +15,13 @@ class ExternalContent::CodepenReaderTest < ActiveSupport::TestCase
     assert_not_requested :get, %r{\Ahttps://codepen\.io/}
   end
 
+  test 'asks Pjord to mention mentors without fetching http CodePen' do
+    result = @reader.fetch('http://codepen.io/takafumi-yamashita/pen/WbRjEro')
+
+    assert_equal ExternalContent::UNREADABLE_URL_MESSAGE, result
+    assert_not_requested :get, %r{\Ahttp://codepen\.io/}
+  end
+
   test 'rejects non CodePen URLs' do
     assert_equal 'CodePenの公開Pen URLだけ取得できます。', @reader.fetch('https://example.com/pen/WbRjEro')
   end

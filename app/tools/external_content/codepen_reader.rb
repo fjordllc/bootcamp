@@ -2,7 +2,7 @@
 
 class ExternalContent::CodepenReader
   def self.support?(uri)
-    uri.is_a?(URI::HTTPS) && uri.host == 'codepen.io' && uri.path.match?(%r{\A/[^/]+/pen/[^/]+/?\z})
+    uri.is_a?(URI::HTTP) && uri.host == 'codepen.io' && uri.path.match?(%r{\A/[^/]+/pen/[^/]+/?\z})
   end
 
   def self.fetch(url)

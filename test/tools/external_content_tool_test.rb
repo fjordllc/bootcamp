@@ -30,6 +30,13 @@ class ExternalContentToolTest < ActiveSupport::TestCase
     assert_not_requested :get, %r{\Ahttps://codepen\.io/}
   end
 
+  test 'routes http CodePen URLs to the CodePen reader' do
+    result = @tool.execute(url: 'http://codepen.io/takafumi-yamashita/pen/WbRjEro')
+
+    assert_equal ExternalContent::UNREADABLE_URL_MESSAGE, result
+    assert_not_requested :get, %r{\Ahttp://codepen\.io/}
+  end
+
   test 'follows redirects' do
     stub_request(:get, 'https://example.com/old')
       .to_return(status: 302, headers: { 'Location' => '/new' })
