@@ -7,9 +7,7 @@ module ExternalContent
     uri = URI.parse(url.to_s)
     return 'httpまたはhttpsのURLだけ取得できます。' unless uri.is_a?(URI::HTTP)
 
-    if CodepenReader.support?(uri)
-      CodepenReader.fetch(url)
-    elsif GithubReader.support?(uri)
+    if GithubReader.support?(uri)
       GithubReader.fetch(url)
     else
       WebPageReader.fetch(url)

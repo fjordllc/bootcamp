@@ -23,18 +23,13 @@ class ExternalContentToolTest < ActiveSupport::TestCase
     assert_not_includes result, 'ignore'
   end
 
-  test 'routes CodePen URLs to the CodePen reader' do
-    result = @tool.execute(url: 'https://codepen.io/takafumi-yamashita/pen/WbRjEro')
+  test 'asks Pjord to mention mentors when external links cannot be fetched' do
+    stub_request(:get, 'https://example.com/unreadable')
+      .to_return(status: 404, body: 'Not Found')
+
+    result = @tool.execute(url: 'https://example.com/unreadable')
 
     assert_equal ExternalContent::UNREADABLE_URL_MESSAGE, result
-    assert_not_requested :get, %r{\Ahttps://codepen\.io/}
-  end
-
-  test 'routes http CodePen URLs to the CodePen reader' do
-    result = @tool.execute(url: 'http://codepen.io/takafumi-yamashita/pen/WbRjEro')
-
-    assert_equal ExternalContent::UNREADABLE_URL_MESSAGE, result
-    assert_not_requested :get, %r{\Ahttp://codepen\.io/}
   end
 
   test 'follows redirects' do
