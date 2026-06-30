@@ -22,7 +22,6 @@
           class: ['pill-nav__item-link', ('is-active' if !@include_source)]
 
 .page-body
-  = paginate @pages
   .container.is-md
     - if @pages.empty?
       .o-empty-message
@@ -31,7 +30,8 @@
         p.o-empty-message__text
           | Docはまだありません
     - else
+      = paginate @pages
       .card-list.a-card
         .card-list__items
           = render partial: 'pages/page', collection: @pages
-  = paginate @pages
+      = paginate @pages
