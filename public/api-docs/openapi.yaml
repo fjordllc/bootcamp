@@ -1140,6 +1140,89 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/JsonObject'
+    post:
+      tags: [Content]
+      summary: Create a movie with uploaded movie data.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - movie
+              properties:
+                movie:
+                  type: object
+                  required:
+                    - title
+                    - description
+                    - movie_data
+                  properties:
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    movie_data:
+                      oneOf:
+                        - type: string
+                          format: binary
+                        - type: string
+                          description: Signed blob ID returned by /api/movies/direct_uploads.
+                    thumbnail:
+                      type: string
+                      format: binary
+                    tag_list:
+                      type: string
+                    wip:
+                      type: boolean
+                    practice_ids:
+                      type: array
+                      items:
+                        type: integer
+      responses:
+        '201':
+          $ref: '#/components/responses/JsonObject'
+        '422':
+          $ref: '#/components/responses/JsonObject'
+  /api/movies/direct_uploads:
+    post:
+      tags: [Content]
+      summary: Create direct upload data for a movie file.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - blob
+              properties:
+                blob:
+                  type: object
+                  required:
+                    - filename
+                    - byte_size
+                    - checksum
+                    - content_type
+                  properties:
+                    filename:
+                      type: string
+                    byte_size:
+                      type: integer
+                    checksum:
+                      type: string
+                      description: Base64-encoded MD5 checksum.
+                    content_type:
+                      type: string
+                      enum:
+                        - video/mp4
+                        - video/quicktime
+      responses:
+        '201':
+          $ref: '#/components/responses/JsonObject'
+        '400':
+          $ref: '#/components/responses/JsonObject'
   /api/movies/{id}:
     patch:
       tags: [Content]
