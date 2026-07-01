@@ -80,9 +80,9 @@
 @import "./application/blocks/survey/_survey-additional-question.css";
 @import "./application/blocks/survey/_survey-questions-item.css";
 @import "./application/blocks/survey/_survey-questions.css";
-@import "./application/blocks/survey/survey-answer.css";
-@import "./application/blocks/survey/survey-result.css";
-@import "./application/blocks/survey/survey-answers.css";
+@import "./application/blocks/survey/_survey-answer.css";
+@import "./application/blocks/survey/_survey-result.css";
+@import "./application/blocks/survey/_survey-answers.css";
 @import "./application/blocks/tags/_random-tags.css";
 @import "./application/blocks/tags/_tag-links.css";
 @import "./application/blocks/tags/_tag-input.css";
