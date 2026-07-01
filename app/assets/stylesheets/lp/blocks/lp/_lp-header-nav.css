@@ -45,7 +45,6 @@
     top: 0;
     bottom: 0;
     z-index: 2;
-    background-color: white;
     background-color: var(--base);
     width: 20rem;
     max-width: calc(100vw - 3rem);
@@ -76,13 +75,11 @@
     height: 2.25rem;
     padding-inline: 0.75rem;
     font-size: 0.875rem;
-    background-color: white;
     background-color: var(--base);
     border-radius: 0.5rem;
   }
 
   .lp-header-nav__item-link:hover {
-    background-color: #DEDEF2;
     background-color: var(--lp-bg-3);
   }
 }
