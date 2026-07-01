@@ -124,7 +124,7 @@
               hr.a-border-tint
               footer.card-footer
                 = render(Learnings::LearningComponent.new(practice: @practice, current_user:))
-                - if @practice.submission
+                - if @practice.submission && !(@practice.source_id.blank? && current_user.grant_course?)
                   .card-footer__alert
                     = link_to '提出の前に、提出時の注意点を確認しよう',
                       'https://bootcamp.fjord.jp/pages/info-for-product',
@@ -134,7 +134,7 @@
                     | 提出物を作成し提出し、メンターから確認をもらったら
                     br
                     | このプラクティスを修了にしてください。
-                - else
+                - elsif !(@practice.source_id.blank? && current_user.grant_course?)
                   .card-footer__description
                     | このプラクティスに提出物はありません。
                     br
