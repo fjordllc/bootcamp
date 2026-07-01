@@ -151,21 +151,3 @@
 a.category-practices-item__title-link:hover .category-practices-item__title-link-label {
   text-decoration: underline;
 }
-
-.category-practices-item__learning-time {
-  font-size: .75rem;
-  line-height: 1.4;
-  color: var(--muted-text);
-}
-
-@media (width >= 48em) {
-  .category-practices-item__learning-time {
-    margin-top: -.25rem;
-  }
-}
-
-@media (width <= 47.9375em) {
-  .category-practices-item__learning-time {
-    margin-top: .5rem;
-  }
-}
