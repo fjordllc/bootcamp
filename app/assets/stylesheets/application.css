@@ -70,6 +70,7 @@
 @import "./application/blocks/practice/_practice-first-actions.css";
 @import "./application/blocks/practice/_practice-status-buttons.css";
 @import "./application/blocks/practice/_sticky-message.css";
+@import "./application/blocks/practice-quiz/_practice-quiz.css";
 @import "./application/blocks/question/_answer-badge.css";
 @import "./application/blocks/reaction/_reaction.css";
 @import "./application/blocks/report/_learning-times.css";
