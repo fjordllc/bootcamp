@@ -172,7 +172,6 @@ input:checked + .a-button.is-checkbox::after {
 .a-button.is-secondary {
   background-color: var(--secondary);
   color: var(--default-text);
-  border-color: hsl(242deg 3% 88%);
   border-color: var(--input-border);
 }
 
