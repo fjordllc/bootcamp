@@ -3,6 +3,27 @@
 require 'test_helper'
 
 class Mentor::PracticeQuizzesTest < ActionDispatch::IntegrationTest
+  test 'mentor can navigate to practice quiz management from practice page tab' do
+    practice = practices(:practice3)
+    PracticeQuiz.create!(practice:, published: false)
+    login(users(:mentormentaro))
+
+    get practice_path(practice)
+
+    assert_response :success
+    assert_select 'a[href=?]', edit_mentor_practice_practice_quiz_path(practice), text: '理解度テスト管理'
+  end
+
+  test 'mentor can navigate to new practice quiz from practice page tab when quiz does not exist' do
+    practice = practices(:practice4)
+    login(users(:mentormentaro))
+
+    get practice_path(practice)
+
+    assert_response :success
+    assert_select 'a[href=?]', new_mentor_practice_practice_quiz_path(practice), text: '理解度テスト管理'
+  end
+
   test 'mentor creates practice quiz and question' do
     practice = practices(:practice3)
     login(users(:mentormentaro))
