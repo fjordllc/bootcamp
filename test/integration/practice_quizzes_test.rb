@@ -24,7 +24,7 @@ class PracticeQuizzesTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_response :success
     assert_includes response.body, '理解度テストに合格しました。'
-    assert_includes response.body, '正解'
+    assert_includes response.body, '正しい選択肢'
     assert_includes response.body, '解説です。'
     assert quiz.passed_by?(user)
 
@@ -80,7 +80,7 @@ class PracticeQuizzesTest < ActionDispatch::IntegrationTest
     assert_redirected_to practice_practice_quiz_path(practice)
     follow_redirect!
     assert_includes response.body, '次回は'
-    assert_not_includes response.body, '正解'
+    assert_not_includes response.body, '正しい選択肢'
     assert_not_includes response.body, '解説です。'
   end
 
@@ -122,9 +122,9 @@ class PracticeQuizzesTest < ActionDispatch::IntegrationTest
       position: 1,
       published: false
     )
-    question.practice_quiz_choices.create!(body: '正解', correct: true, position: 1)
-    question.practice_quiz_choices.create!(body: '正解2', correct: true, position: 2) if question.multiple_choice?
-    question.practice_quiz_choices.create!(body: '不正解', correct: false, position: 3)
+    question.practice_quiz_choices.create!(body: '正しい選択肢', correct: true, position: 1)
+    question.practice_quiz_choices.create!(body: 'もう一つの正しい選択肢', correct: true, position: 2) if question.multiple_choice?
+    question.practice_quiz_choices.create!(body: '誤った選択肢', correct: false, position: 3)
     question.update!(published: true)
     quiz.update!(published: true)
     [quiz, question]
