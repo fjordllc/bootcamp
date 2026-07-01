@@ -1,10 +1,13 @@
-.card-main-actions
-  ul.card-main-actions__items
-    - if @current_user.grant_course? && @practice.source_id.blank?
-      li.card-main-actions__item
-        = link_to practice_path(@practice.copied_practices.first || @practice), class: 'a-button is-sm is-block' do
-          | 給付金コースへ遷移する
-    - else
+- if @current_user.grant_course? && @practice.source_id.blank?
+  .practice-status-buttons
+    .practice-status-buttons__grant-guidance
+      = link_to practice_path(@practice.copied_practices.first || @practice), class: 'practice-status-buttons__grant-link a-button is-sm is-secondary' do
+        | 給付金コースへ移動する
+      .practice-status-buttons__note.practice-status-buttons__grant-note
+        | 提出・修了は、給付金コースのプラクティス側で行ってください。
+- else
+  .card-main-actions
+    ul.card-main-actions__items
       - if @practice.submission?
         li.card-main-actions__item
           = link_to product_link, class: 'a-button is-sm is-primary is-block test-product' do
