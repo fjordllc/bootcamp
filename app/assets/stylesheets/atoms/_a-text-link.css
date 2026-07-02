@@ -46,21 +46,11 @@
   color: var(--hover-text);
 }
 
-.a-hover-link-reversal,
 .a-reversal-text-link {
   text-decoration: none;
   cursor: pointer;
-}
-
-.a-hover-link-reversal:hover,
-.a-hover-link-reversal:active {
-  text-decoration: underline;
-}
-
-.a-reversal-text-link {
   transition: color 0.2s ease-in;
   color: var(--reversal-text);
-  text-decoration: none;
 }
 
 .a-reversal-text-link:link {

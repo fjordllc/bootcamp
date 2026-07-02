@@ -22,11 +22,6 @@
   margin-top: 1rem;
 }
 
-.a-card + .a-card-react,
-.a-card-react + .a-card {
-  margin-top: 1rem;
-}
-
 .a-card.is-borderd {
   border: solid 4px var(--default-text);
 }
@@ -100,17 +95,13 @@ table.a-card {
     margin-bottom: 1rem;
   }
 
-  .a-card + .a-card,
-  .a-card + .a-card-react,
-  .a-card-react + .a-card {
+  .a-card + .a-card {
     margin-top: 1rem;
   }
 }
 
 @media (width >= 80em) {
-  .a-card + .a-card,
-  .a-card + .a-card-react,
-  .a-card-react + .a-card {
+  .a-card + .a-card {
     margin-top: 1.25rem;
   }
 }

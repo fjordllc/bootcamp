@@ -181,14 +181,6 @@ a.page-nav__title-inner:hover {
   font-weight: 600;
 }
 
-.page-nav-metas {
-  margin-top: 0.25rem;
-  font-size: 0.75rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem 0.75rem;
-}
-
 .page-nav__item-link-inner {
   display: flex;
   text-decoration: none;
