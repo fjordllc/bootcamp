@@ -346,7 +346,7 @@ input:checked + .a-button.is-checkbox::after {
 
 .a-button.is-muted-bordered {
   border-color: var(--border);
-  color: hsl(242deg 5% 64%);
+  color: var(--muted-text);
   font-weight: 400 !important;
   background-color: white;
 }
@@ -438,7 +438,7 @@ input:checked + .a-button.is-checkbox::after {
 
 .a-button.is-text-reversal,
 .a-button.is-muted-text {
-  color: hsl(242deg 5% 64%);
+  color: var(--muted-text);
 }
 
 .a-button.is-xxs,
