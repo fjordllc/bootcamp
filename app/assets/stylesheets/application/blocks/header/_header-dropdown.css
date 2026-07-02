@@ -256,7 +256,6 @@ input:checked + .header-dropdown .header-dropdown__background {
   }
 }
 
-
 @media (width <= 47.9375em) {
   .header-dropdown__inner.is-notification .pill-nav__item-link.is-active {
     background-color: var(--base);

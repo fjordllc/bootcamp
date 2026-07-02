@@ -51,9 +51,6 @@
   opacity: .8;
 }
 
-.header__title-image {
-}
-
 @media (width >= 48em) {
   .header__title-image {
     height: 2.25rem;

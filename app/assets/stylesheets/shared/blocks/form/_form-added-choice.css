@@ -1,12 +1,5 @@
-
-.form-added-choice {
-}
-
 .form-added-choice + .form-added-choice {
   margin-top: 1rem;
-}
-
-.form-added-choice__inner {
 }
 
 @media (width >= 48em) {
@@ -29,9 +22,6 @@
   .form-added-choice__items {
     gap: 1rem;
   }
-}
-
-.form-added-choice__action {
 }
 
 @media (width <= 47.9375em) {
