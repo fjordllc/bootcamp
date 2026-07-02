@@ -1,4 +1,3 @@
-
 .user-profile__icon {
   @media (width <= 47.9375em) {
     position: static;
@@ -17,17 +16,6 @@
   @media (width <= 47.9375em) {
     height: 4rem;
     width: 4rem;
-
-  }
-}
-
-.user-company-profile__description {
-  @media (width >= 48em) {
-    font-size: .9375rem;
-  }
-
-  @media (width <= 47.9375em) {
-    font-size: .8125rem;
 
   }
 }
