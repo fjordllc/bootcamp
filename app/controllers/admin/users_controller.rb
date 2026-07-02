@@ -19,6 +19,7 @@ class Admin::UsersController < AdminController
     user_scope = apply_job_seeking_filter(user_scope, job_seeking)
     payment_method = params[:payment_method]
     user_scope = apply_payment_method_filter(user_scope, payment_method)
+
     @users = user_scope.with_attached_avatar
                        .preload(:company, :course)
                        .order_by_counts(params[:order_by] || 'id', @direction)
@@ -35,6 +36,11 @@ class Admin::UsersController < AdminController
     @user.diploma_file = nil if params[:user][:remove_diploma] == '1'
     if @user.update(user_params)
       complete_graduation_or_retirement(@user)
+      if params[:hibernate_user]
+        return unless Hibernation.hibernate_by_admin(user: @user, scheduled_return_on: params[:scheduled_return_on])
+      elsif params[:comeback_user]
+        @user.comeback!
+      end
       redirect_to user_url(@user), notice: 'ユーザー情報を更新しました。'
     else
       render :edit
@@ -91,9 +97,8 @@ class Admin::UsersController < AdminController
       :password, :password_confirmation, :job,
       :organization, :os, :study_place,
       { experiences: [] }, :company_id,
-      :trainee, :nda, :avatar,
-      :graduated_on, :retired_on,
-      :job_seeker, :github_collaborator,
+      :trainee, :nda, :avatar, :hibernated_at,
+      :graduated_on, :retired_on, :job_seeker, :github_collaborator,
       :officekey_permission, :tag_list, :training_ends_on, :training_completed_at,
       :profile_image, :profile_name, :profile_job, :mentor, :diploma_file,
       :career_path, :career_memo,

@@ -12,6 +12,7 @@ class PjordReview
 
   def call
     return unless submitted_on_save?
+    return unless product.practice.pjord_review?
 
     PjordProductReviewJob.perform_later(product_id: product.id)
   end

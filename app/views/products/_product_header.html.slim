@@ -68,15 +68,11 @@ header.page-content-header.is-product
                   | 更新
                 time.a-meta__value datetime=product.updated_at.iso8601
                   = l product.updated_at
-
-        .page-content-header-metas__end
-          .page-content-header-metas__meta
-            - length = product.comments.length
-            a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
-              | コメント（
-              span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
-                = length
-              | ）
+        - if product.comments.any?
+          .page-content-header-metas__end
+            .page-content-header-metas__meta
+              a.a-meta(href='#comments')
+                = comment_count(product)
 
     .page-content-header__row
       .page-content-header-actions

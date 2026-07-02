@@ -37,6 +37,7 @@ Rails.application.reloader.to_prepare do
   ActiveSupport::Notifications.subscribe('product.update', ProductUpdateNotifierForWatcher.new)
   ActiveSupport::Notifications.subscribe('product.update', ProductUpdateNotifierForChecker.new)
   ActiveSupport::Notifications.subscribe('came.comment', CommentNotifier.new)
+  ActiveSupport::Notifications.subscribe('came_comment_in_talk', CommentNotifierForAdmin.new)
   ActiveSupport::Notifications.subscribe('graduation.update', GraduationNotifier.new)
   ActiveSupport::Notifications.subscribe('comeback.update', ComebackNotifier.new)
 

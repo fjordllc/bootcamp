@@ -27,6 +27,27 @@ class Products::PjordReviewCommentTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'does not create product review comment by Pjord when practice does not enable Pjord review' do
+    practice = practices(:practice6)
+    practice.update!(pjord_review: false)
+
+    Pjord::ProductReviewAgent.stub(:review, ->(_product) { raise 'should not be called' }) do
+      assert_no_enqueued_jobs only: PjordProductReviewJob do
+        assert_no_difference -> { Comment.where(user: users(:pjord)).count } do
+          post products_path(_login_name: 'hatsuno'),
+               params: { practice_id: practice.id, product: { body: '提出物です。' }, commit: '提出する' }
+        end
+      end
+    end
+
+    product = Product.order(:created_at).last
+    assert_redirected_to product_path(product)
+    assert_predicate product, :published_at?
+    assert_no_difference -> { product.comments.where(user: users(:pjord)).count } do
+      PjordProductReviewJob.perform_now(product_id: product.id)
+    end
+  end
+
   test 'creates product review comment by Pjord when WIP product is submitted' do
     product = products(:product5)
 

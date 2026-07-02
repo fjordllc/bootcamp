@@ -22,6 +22,10 @@
   font-weight: 600;
 }
 
+.a-meta.is-important  .is-emphasized {
+  color: inherit;
+}
+
 a.a-meta {
   text-decoration: none;
   cursor: pointer;

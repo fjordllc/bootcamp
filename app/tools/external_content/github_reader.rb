@@ -28,7 +28,7 @@ class ExternalContent::GithubReader
     'URLの形式が正しくありません。'
   rescue StandardError => e
     Rails.logger.warn("[ExternalContent::GithubReader] #{url} #{e.class}: #{e.message}")
-    'GitHub URLの取得に失敗しました。'
+    ExternalContent::UNREADABLE_URL_MESSAGE
   end
 
   private
@@ -54,7 +54,7 @@ class ExternalContent::GithubReader
   def fetch_pull_request(owner, repository, number, url)
     pull_request = fetch_json(api_url("/repos/#{owner}/#{repository}/pulls/#{number}"))
     files = fetch_json(api_url("/repos/#{owner}/#{repository}/pulls/#{number}/files"))
-    return 'Pull Requestを取得できませんでした。' if pull_request.blank? || files.blank?
+    return ExternalContent::UNREADABLE_URL_MESSAGE if pull_request.blank? || files.blank?
 
     ExternalContent::GithubPullRequestFormatter.new(
       owner:,
@@ -67,14 +67,14 @@ class ExternalContent::GithubReader
 
   def fetch_directory(owner, repository, ref, path)
     items = fetch_json(api_url("/repos/#{owner}/#{repository}/contents/#{path}?ref=#{ref}"))
-    return 'ディレクトリを取得できませんでした。' if items.blank?
+    return ExternalContent::UNREADABLE_URL_MESSAGE if items.blank?
     return format_raw_file(items['download_url'], fetch_url(items['download_url'])) if items.is_a?(Hash) && items['type'] == 'file'
 
     ExternalContent::GithubDirectoryFormatter.new(owner:, repository:, ref:, path:, items:).format
   end
 
   def format_raw_file(url, body)
-    return 'ファイルを取得できませんでした。' if body.blank?
+    return ExternalContent::UNREADABLE_URL_MESSAGE if body.blank?
 
     ExternalContent::GithubRawFileFormatter.new(url:, body:).format
   end

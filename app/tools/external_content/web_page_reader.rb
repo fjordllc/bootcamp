@@ -13,14 +13,14 @@ class ExternalContent::WebPageReader
     return 'httpまたはhttpsのURLだけ取得できます。' unless uri.is_a?(URI::HTTP)
 
     response = fetch_response(uri)
-    return "URLの取得に失敗しました。HTTP status: #{response.code}" unless response.success?
+    return ExternalContent::UNREADABLE_URL_MESSAGE unless response.success?
 
     format_page(response.url, response.body)
   rescue URI::InvalidURIError
     'URLの形式が正しくありません。'
   rescue StandardError => e
     Rails.logger.warn("[ExternalContent::WebPageReader] #{url} #{e.class}: #{e.message}")
-    'URLの取得に失敗しました。'
+    ExternalContent::UNREADABLE_URL_MESSAGE
   end
 
   private
