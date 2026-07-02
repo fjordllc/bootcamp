@@ -82,10 +82,6 @@
   font-weight: 700;
 }
 
-.auth-form-items {
-  margin-bottom: 1.25rem;
-}
-
 .auth-form__alert {
   padding: .5rem 1.5rem;
   background-color: var(--danger);
