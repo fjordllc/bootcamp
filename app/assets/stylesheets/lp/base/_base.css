@@ -31,19 +31,3 @@ body.is-lp {
   color: var(--main);
   border-bottom: solid 1px var(--border);
 }
-
-.faqs-item__header {
-  padding-bottom: 0.5rem;
-  border-bottom: solid 1px var(--border);
-}
-
-.faqs-item__body {
-  margin-top: 1.5rem;
-}
-
-.faqs-item__title {
-  font-size: 1.25rem;
-  line-height: 1.6;
-  font-weight: 700;
-  color: var(--main);
-}
