@@ -45,7 +45,6 @@
 @import "./application/blocks/page/_page-header-actions.css";
 @import "./application/blocks/page/_page-main-header-actions.css";
 @import "./application/blocks/page/_page-main-header.css";
-@import "./application/blocks/page/_page-notices.css";
 @import "./application/blocks/page/_page-optional-header.css";
 @import "./application/blocks/page/_page-tabs.css";
 @import "./application/blocks/page/_page.css";
@@ -103,7 +102,6 @@
 @import "./application/blocks/user/_user-group.css";
 @import "./application/blocks/user/_user-metas.css";
 @import "./application/blocks/user/_user-profile.css";
-@import "./application/blocks/user/_user-secret-attributes.css";
 @import "./application/blocks/user/_users-item.css";
 @import "./application/blocks/user/_user-study-streak-tracker.css";
 @import "./application/blocks/coding-test/_code-editor.css";
