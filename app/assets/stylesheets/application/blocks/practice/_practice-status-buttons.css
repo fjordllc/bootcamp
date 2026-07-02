@@ -1,12 +1,8 @@
-
 .practice-status-buttons__start {
   text-align: center;
   width: 100%;
   display: flex;
   align-items: center;
-}
-
-.practice-status-buttons__label {
 }
 
 @media (width >= 48em) {
@@ -98,9 +94,6 @@
   background-color: #dcdcdc;
   border-color: #b0b0b0;
   color: var(--muted-text);
-}
-
-.practice-status__buttons-item {
 }
 
 @media (width <= 47.9375em) {

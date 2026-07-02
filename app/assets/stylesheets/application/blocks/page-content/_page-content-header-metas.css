@@ -1,7 +1,3 @@
-
-.page-content-header-metas {
-}
-
 @media (width >= 48em) {
   .page-content-header-metas {
     display: flex;
@@ -13,9 +9,6 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-}
-
-.page-content-header-metas__meta {
 }
 
 .page-content-header-metas__meta:not(:last-child) {

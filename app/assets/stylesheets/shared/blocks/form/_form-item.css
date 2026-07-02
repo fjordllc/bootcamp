@@ -1,6 +1,3 @@
-.form-item {
-}
-
 .form-item:not(:last-child) {
   margin-bottom: 1.75rem;
 }
@@ -195,9 +192,6 @@
   padding-top: .25rem;
   color: var(--default-text);
   font-weight: 400;
-}
-
-.form-item__add-times {
 }
 
 @media (width >= 48em) {

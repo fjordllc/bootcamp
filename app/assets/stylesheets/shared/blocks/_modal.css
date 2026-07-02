@@ -149,9 +149,6 @@ input:checked + .modal,
   }
 }
 
-.modal-footer {
-}
-
 @media (width >= 48em) {
   .modal-footer {
     padding: .25rem 1.5rem;
