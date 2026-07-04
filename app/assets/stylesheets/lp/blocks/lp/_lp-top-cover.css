@@ -44,42 +44,6 @@
   margin-inline: auto;
 }
 
-.lp-top-cover__image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.lp-top-cover__logo {
-  height: auto;
-  width: 38rem;
-  display: block;
-  margin-top: 1.125rem;
-  margin-inline: auto;
-}
-
-@media (width <= 47.9375em) {
-  .lp-top-cover__logo {
-    max-width: 90%;
-    margin-top: 0.75rem;
-  }
-}
-
-.lp-top-cover__description {
-  font-size: 1.5rem;
-  line-height: 1.4;
-  text-align: center;
-  font-weight: 800;
-  color: var(--reversal-text);
-  font-feature-settings: "palt";
-}
-
-@media (width <= 47.9375em) {
-  .lp-top-cover__description {
-    font-size: 0.875rem;
-  }
-}
-
 .lp-top-cover__title {
   font-feature-settings: "palt";
   background-color: var(--accent);
