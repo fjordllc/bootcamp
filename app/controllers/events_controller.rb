@@ -6,7 +6,7 @@ class EventsController < ApplicationController
   before_action :set_event, only: %i[edit update destroy]
 
   def index
-    @events = Event.with_avatar.includes(:comments, :users).order(start_at: :desc).page(params[:page]).per(PAGER_NUMBER)
+    @events = Event.with_avatar.includes(:comments, :users).with_attached_thumbnail.order(start_at: :desc).page(params[:page]).per(PAGER_NUMBER)
     @upcoming_events_groups = UpcomingEvent.upcoming_events_groups
   end
 
@@ -71,7 +71,8 @@ class EventsController < ApplicationController
       :open_start_at,
       :open_end_at,
       :job_hunting,
-      :announcement_of_publication
+      :announcement_of_publication,
+      :thumbnail
     )
   end
 
