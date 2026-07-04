@@ -2,7 +2,7 @@
 
 class InspectEmptyBuzz < ActiveRecord::Migration[8.1]
   def up
-    file_path = Rails.root.join('db/fixtures/files/buzzes/inspect-empty-buzz.csv')
+    file_path = Rails.root.join('db/fixtures/files/buzzes/production-buzz.csv')
     now = Time.current
     list = []
     CSV.foreach(file_path, headers: true).with_index(1) do |row, i|
@@ -14,12 +14,6 @@ class InspectEmptyBuzz < ActiveRecord::Migration[8.1]
         created_at: now,
         updated_at: now
       }
-    end
-    
-    ActiveRecord::Base.transaction do
-      list.each do |attr| 
-        Buzz.create!(attr)
-      end
     end
   end
 
