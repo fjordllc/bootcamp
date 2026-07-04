@@ -40,6 +40,9 @@
 
   = render('regular_event_meta', regular_event:)
 
+  .event-thumbnail
+    = image_tag regular_event.thumbnail_url, class: 'event-thumbnail__image', alt: regular_event.title
+
   .a-card
     .card-header.is-sm
       h2.card-header__title
