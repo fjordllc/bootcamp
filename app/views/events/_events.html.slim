@@ -3,6 +3,9 @@ ul.card-list.a-card
   - @events.each do |event|
     li.card-list-item
       .card-list-item__inner
+        / .card-list-item__thumbnail
+        /   = link_to event, class: 'card-list-item__thumbnail-link' do
+        /     = image_tag event.thumbnail_url, class: 'card-list-item__thumbnail-image', alt: event.title
         .card-list-item__user
           = render 'users/icon', user: event.user, link_class: 'card-list-item__user-link', image_class: 'card-list-item__user-icon'
         .card-list-item__rows
