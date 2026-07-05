@@ -150,6 +150,17 @@ class API::MoviesTest < ActionDispatch::IntegrationTest
     assert_includes response.parsed_body.dig('errors', 'title'), 'を入力してください'
   end
 
+  test 'POST /api/movies.json returns validation error with unknown practice_id' do
+    assert_no_difference('Movie.count') do
+      post api_movies_path(format: :json),
+           headers: { Authorization: "Bearer #{@write_token.token}" },
+           params: { movie: valid_movie_params.merge(practice_ids: [999_999_999]) }
+    end
+
+    assert_response :unprocessable_entity
+    assert_includes response.parsed_body.dig('errors', 'practice_ids'), 'に存在しないIDが含まれています'
+  end
+
   private
 
   def valid_movie_params

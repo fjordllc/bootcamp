@@ -18,6 +18,8 @@ class API::MoviesController < API::BaseController
     else
       render json: { errors: @movie.errors }, status: :unprocessable_entity
     end
+  rescue ActiveRecord::RecordNotFound
+    render json: { errors: { practice_ids: ['に存在しないIDが含まれています'] } }, status: :unprocessable_entity
   end
 
   def direct_uploads
