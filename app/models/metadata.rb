@@ -59,9 +59,9 @@ class Metadata
   def fetch_youtube_oembed
     return unless youtube?
 
-    uri = Addressable::URI.parse('https://www.youtube.com/oembed')
-    uri.query_values = { url: @url, format: 'json' }
-    response = Net::HTTP.get_response(uri.normalize)
+    oembed_uri = Addressable::URI.parse('https://www.youtube.com/oembed')
+    oembed_uri.query_values = { url: @url, format: 'json' }
+    response = Net::HTTP.get_response(oembed_uri.normalize)
     return unless response.is_a?(Net::HTTPSuccess)
 
     body = JSON.parse(response.body)
