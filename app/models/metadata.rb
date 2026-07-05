@@ -1,15 +1,6 @@
 # frozen_string_literal: true
 
 class Metadata
-  NETWORK_ERRORS = [
-    SocketError,
-    Errno::ECONNREFUSED,
-    Errno::ETIMEDOUT,
-    Net::OpenTimeout,
-    Net::ReadTimeout,
-    OpenSSL::SSL::SSLError
-  ].freeze
-
   def initialize(url)
     @url = url
   end
@@ -83,7 +74,7 @@ class Metadata
       url: @url,
       site_url: 'https://www.youtube.com'
     }
-  rescue JSON::ParserError, *NETWORK_ERRORS
+  rescue JSON::ParserError, *LinkFetcher::Fetcher::NETWORK_ERRORS
     nil
   end
 end

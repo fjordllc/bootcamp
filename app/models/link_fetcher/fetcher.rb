@@ -6,7 +6,7 @@ module LinkFetcher
   module Fetcher
     class TooManyRedirects < StandardError; end
 
-    FETCH_ERRORS = [
+    NETWORK_ERRORS = [
       SocketError,
       Errno::ECONNREFUSED,
       Errno::EHOSTUNREACH,
@@ -44,7 +44,7 @@ module LinkFetcher
     rescue TooManyRedirects => e
       Rails.logger.info("[LinkFetcher] #{e.class}")
       nil
-    rescue *FETCH_ERRORS => e
+    rescue *NETWORK_ERRORS => e
       Rails.logger.warn("[LinkFetcher] #{e.class}: #{e.message}: host=#{uri.host}")
       nil
     end
