@@ -1150,38 +1150,35 @@ paths:
             schema:
               type: object
               required:
-                - movie
+                - movie[title]
+                - movie[description]
+                - movie[movie_data]
               properties:
-                movie:
-                  type: object
-                  required:
-                    - title
-                    - description
-                    - movie_data
-                  properties:
-                    title:
-                      type: string
-                    description:
-                      type: string
-                    movie_data:
-                      oneOf:
-                        - type: string
-                          format: binary
-                        - type: string
-                          description: Signed blob ID returned by /api/movies/direct_uploads.
-                    thumbnail:
-                      type: string
+                movie[title]:
+                  type: string
+                movie[description]:
+                  type: string
+                movie[movie_data]:
+                  oneOf:
+                    - type: string
                       format: binary
-                    tag_list:
-                      type: string
-                    wip:
-                      type: boolean
-                    practice_ids:
-                      type: array
-                      items:
-                        type: integer
+                    - type: string
+                      description: Signed blob ID returned by /api/movies/direct_uploads.
+                movie[thumbnail]:
+                  type: string
+                  format: binary
+                movie[tag_list]:
+                  type: string
+                movie[wip]:
+                  type: boolean
+                movie[practice_ids][]:
+                  type: array
+                  items:
+                    type: integer
       responses:
         '201':
+          $ref: '#/components/responses/JsonObject'
+        '403':
           $ref: '#/components/responses/JsonObject'
         '422':
           $ref: '#/components/responses/JsonObject'
@@ -1222,6 +1219,8 @@ paths:
         '201':
           $ref: '#/components/responses/JsonObject'
         '400':
+          $ref: '#/components/responses/JsonObject'
+        '403':
           $ref: '#/components/responses/JsonObject'
   /api/movies/{id}:
     patch:
