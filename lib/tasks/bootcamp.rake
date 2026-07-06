@@ -63,7 +63,7 @@ namespace :bootcamp do
 
     desc 'Backfill thumbnails for existing movies'
     task backfill_movie_thumbnails: :environment do
-      BulkMovieThumbnailJob.perform_now
+      BulkGenerateMovieThumbnailJob.perform_now
     end
   end
 
