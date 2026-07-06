@@ -119,6 +119,7 @@ end
 group :test do
   gem 'capybara'
   gem 'capybara-playwright-driver', '~> 0.5.9'
+  gem 'capybara_screenshot_diff'
   gem 'minitest', '< 6.0'
   gem 'minitest-ci'
   gem 'minitest-retry'
