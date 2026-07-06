@@ -17,6 +17,12 @@
 
 vendor/bundle/
 
+# Visual regression: commit baseline PNGs, ignore transient diff/latest output.
+test/visual/screenshots/**/*.diff.png
+test/visual/screenshots/**/*.latest.png
+test/visual/screenshots/**/*.committed.png
+test/visual/screenshots/**/.attempts/
+
 /node_modules
 /yarn-error.log
 
