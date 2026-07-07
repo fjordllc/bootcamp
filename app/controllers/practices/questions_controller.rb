@@ -4,14 +4,14 @@ class Practices::QuestionsController < ApplicationController
   def index
     @practice = Practice.find(params[:practice_id])
     practices =
-      if scope == 'grant_course'
+      if selected_scope == 'grant_course'
         @practice
       else
         [@practice, @practice.source_practice].compact
       end
     @questions = Question.where(practice: practices)
                          .includes(%i[correct_answer answers])
-                         .by_target(target)
+                         .by_target(selected_target)
                          .order(created_at: :desc)
                          .page(params[:page])
     @empty_message = empty_message
@@ -30,11 +30,11 @@ class Practices::QuestionsController < ApplicationController
     end
   end
 
-  def target
+  def selected_target
     params[:target] if %w[solved not_solved].include?(params[:target])
   end
 
-  def scope
+  def selected_scope
     params[:scope] if %w[grant_course].include?(params[:scope])
   end
 end
