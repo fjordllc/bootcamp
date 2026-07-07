@@ -113,4 +113,20 @@ class CopyCheckTest < ActiveSupport::TestCase
       assert_match(/Failed to create check/, result.error)
     end
   end
+
+  test 'fails when check creation raises record not unique' do
+    # Create check for original product
+    Check.create!(user: @user1, checkable: @original_product)
+
+    # Mock Check.create! to raise an exception
+    Check.stub :create!, ->(*) { raise ActiveRecord::RecordNotUnique, 'duplicate key value' } do
+      result = CopyCheck.call(
+        original_product: @original_product,
+        copied_product: @copied_product
+      )
+
+      assert_not result.success?
+      assert_match(/Failed to create check/, result.error)
+    end
+  end
 end
