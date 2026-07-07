@@ -3,13 +3,7 @@
 class Practices::QuestionsController < ApplicationController
   def index
     @practice = Practice.find(params[:practice_id])
-    practices =
-      if selected_scope == 'grant_course'
-        [@practice]
-      else
-        [@practice, @practice.source_practice].compact
-      end
-    @questions = Question.where(practice: practices)
+    @questions = Question.where(practice: question_practices)
                          .includes(%i[correct_answer answers])
                          .by_target(selected_target)
                          .order(created_at: :desc)
@@ -27,6 +21,14 @@ class Practices::QuestionsController < ApplicationController
       '未解決のQ&Aはありません。'
     else
       '質問はありません。'
+    end
+  end
+
+  def question_practices
+    if selected_scope == 'grant_course'
+      [@practice]
+    else
+      [@practice, @practice.source_practice].compact
     end
   end
 
