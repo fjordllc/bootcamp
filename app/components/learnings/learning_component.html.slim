@@ -1,4 +1,4 @@
-- if @current_user.grant_course? && @practice.source_id.blank?
+- if @practice.guide_to_grant_course?(@current_user)
   .practice-status-buttons
     .practice-status-buttons__grant-guidance
       = link_to practice_path(@practice.copied_practices.first || @practice), class: 'practice-status-buttons__grant-link a-button is-sm is-secondary' do

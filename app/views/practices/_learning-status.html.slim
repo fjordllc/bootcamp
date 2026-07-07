@@ -1,6 +1,6 @@
 .js-learning-status(id="practice" data-id="#{@practice.id}")
 .practice-status-buttons
-  - if @practice.source_id.present? || !current_user.grant_course?
+  - unless @practice.guide_to_grant_course?(current_user)
     .practice-status-buttons__start
       .practice-status-buttons__label
         | ステータス
