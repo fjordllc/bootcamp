@@ -89,13 +89,26 @@ module Practices
     test 'update product template' do
       practice = practices(:practice1)
       visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
-      assert_field 'practice_product_template_attributes_description', with: '更新前テンプレート'
+      assert_field 'practice_product_template_attributes_description', with: '確認用テンプレート'
       fill_in 'practice_product_template_attributes_description', with: '更新後テンプレート'
       click_button '更新する'
       assert_text 'プラクティスを更新しました'
 
       visit new_product_path(practice_id: practice.id)
       assert_field 'product[body]', with: '更新後テンプレート'
+    end
+
+    test 'deletes product template from practice edit form' do
+      practice = practices(:practice1)
+      visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
+      check '提出物のテンプレートを削除する', allow_label_click: true
+
+      assert_difference 'ProductTemplate.count', -1 do
+        click_button '更新する'
+      end
+
+      assert_text 'プラクティスを更新しました'
+      assert_nil practice.reload.product_template
     end
 
     test 'add a book' do
