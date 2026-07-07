@@ -148,4 +148,36 @@ class PracticeTest < ActiveSupport::TestCase
     assert_equal initial_count + 1, practice.reports_count(include_source: false)
     assert_equal initial_count_including_source + 1, practice.reports_count(include_source: true)
   end
+
+  test 'does not create product template when description is blank' do
+    practice = practices(:practice1)
+    practice.product_template&.destroy!
+
+    assert_no_difference 'ProductTemplate.count' do
+      practice.update!(
+        product_template_attributes: {
+          description: ''
+        }
+      )
+    end
+
+    assert_nil practice.reload.product_template
+  end
+
+  test 'destroys product template with nested attributes' do
+    practice = practices(:practice1)
+    practice.product_template&.destroy!
+    product_template = practice.create_product_template!(description: '確認用テンプレート')
+
+    assert_difference 'ProductTemplate.count', -1 do
+      practice.update!(
+        product_template_attributes: {
+          id: product_template.id,
+          _destroy: '1'
+        }
+      )
+    end
+
+    assert_nil practice.reload.product_template
+  end
 end
