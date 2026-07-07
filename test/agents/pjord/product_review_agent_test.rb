@@ -16,6 +16,7 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
       chat
     }) do
       assert_equal 'レビュー本文', Pjord::ProductReviewAgent.review(product)
+      assert_equal({ body: 'レビュー本文', auto_check: true }, Pjord::ProductReviewAgent.review_result(product))
     end
 
     assert_equal [BootcampSearchTool, UserInfoTool, ExternalContentTool, GithubPullRequestReviewCommentTool], chat.tools
@@ -33,6 +34,7 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
     assert_includes chat.instructions, '人間らしい文章にする'
     assert_includes chat.instructions, '提出物にレビューコメントを書いてください。'
     assert_includes chat.instructions, 'reviewed_points には、提出物本文、URL先の内容、模範解答、過去コメントなどを確認して判断した具体的な点を1つ以上入れてください。'
+    assert_includes chat.instructions, 'メンターの追加確認なしでOKにしてよいと判断できる場合だけ true'
     assert_includes chat.instructions, '管理側への説明、内部事情、運用者向けメモ、レビュー生成方針への言及は含めず'
     assert_includes chat.instructions, 'external_content_toolを使って内容を確認してからレビューしてください。'
     assert_includes chat.instructions, 'CodePenや提出物のリンク先が見えない'
@@ -95,10 +97,20 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
     assert_not_includes chat.asked_message, '## 提出物内のGitHubリンク先コード'
   end
 
+  test '.review_result returns false when auto_check is false' do
+    product = products(:product1)
+    chat = ProductReviewChatFake.new(auto_check: false)
+
+    RubyLLM.stub(:chat, chat) do
+      assert_equal({ body: 'レビュー本文', auto_check: false }, Pjord::ProductReviewAgent.review_result(product))
+    end
+  end
+
   class ProductReviewChatFake
     attr_reader :asked_message, :instructions, :schema, :tools
 
-    def initialize
+    def initialize(auto_check: true)
+      @auto_check = auto_check
       @tools = []
     end
 
@@ -120,7 +132,7 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
     def ask(message, with: nil)
       @asked_message = message
       @attachments = with
-      Struct.new(:content).new({ body: 'レビュー本文', reviewed_points: ['提出物本文'] })
+      Struct.new(:content).new({ body: 'レビュー本文', reviewed_points: ['提出物本文'], auto_check: @auto_check })
     end
   end
 end

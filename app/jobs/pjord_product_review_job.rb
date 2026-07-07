@@ -13,9 +13,23 @@ class PjordProductReviewJob < ApplicationJob
     pjord = Pjord.user
     return if pjord.nil?
 
-    response = Pjord::ProductReviewAgent.review(product)
-    return if response.blank?
+    response = Pjord::ProductReviewAgent.review_result(product)
+    body = response[:body]
+    return if body.blank?
 
-    Comment.create!(user: pjord, commentable: product, description: response)
+    Comment.create!(user: pjord, commentable: product, description: body)
+    auto_check_product(product, pjord) if product.practice.pjord_auto_check? && response[:auto_check]
+  end
+
+  private
+
+  def auto_check_product(product, pjord)
+    return if product.checked?
+
+    Check.transaction do
+      check = Check.create!(user: pjord, checkable: product)
+      product.checks.reload
+      ActiveSupport::Notifications.instrument('check.create', check:)
+    end
   end
 end

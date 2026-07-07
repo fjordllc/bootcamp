@@ -34,6 +34,6 @@ class API::PracticesController < API::BaseController
   end
 
   def practice_params
-    params.require(:practice).permit(:memo)
+    params.require(:practice).permit(:memo, :pjord_auto_check)
   end
 end
