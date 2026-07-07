@@ -30,7 +30,6 @@ class CopyCheckTest < ActiveSupport::TestCase
   test 'successfully copies checks when original has checks and target has none' do
     # Create checks for original product
     Check.create!(user: @user1, checkable: @original_product)
-    Check.create!(user: @user2, checkable: @original_product)
 
     result = CopyCheck.call(
       original_product: @original_product,
@@ -38,24 +37,22 @@ class CopyCheckTest < ActiveSupport::TestCase
     )
 
     assert result.success?
-    assert_equal 'Copied 2 check(s), skipped 0 existing check(s)', result.message
-    assert_equal 2, result.copied_checks_count
+    assert_equal 'Copied 1 check(s), skipped 0 existing check(s)', result.message
+    assert_equal 1, result.copied_checks_count
     assert_equal 0, result.skipped_checks_count
 
     # Verify the checks were copied
     copied_checks = Check.where(checkable: @copied_product)
-    assert_equal 2, copied_checks.count
+    assert_equal 1, copied_checks.count
     assert_includes copied_checks.pluck(:user_id), @user1.id
-    assert_includes copied_checks.pluck(:user_id), @user2.id
   end
 
-  test 'skips existing checks and only copies new ones' do
+  test 'skips when copied product already has a check' do
     # Create checks for original product
     Check.create!(user: @user1, checkable: @original_product)
-    Check.create!(user: @user2, checkable: @original_product)
 
     # Create one existing check for copied product
-    Check.create!(user: @user1, checkable: @copied_product)
+    Check.create!(user: @user2, checkable: @copied_product)
 
     result = CopyCheck.call(
       original_product: @original_product,
@@ -63,13 +60,13 @@ class CopyCheckTest < ActiveSupport::TestCase
     )
 
     assert result.success?
-    assert_equal 'Copied 1 check(s), skipped 1 existing check(s)', result.message
-    assert_equal 1, result.copied_checks_count
+    assert_equal 'Copied 0 check(s), skipped 1 existing check(s)', result.message
+    assert_equal 0, result.copied_checks_count
     assert_equal 1, result.skipped_checks_count
 
-    # Verify only one new check was added
     copied_checks = Check.where(checkable: @copied_product)
-    assert_equal 2, copied_checks.count
+    assert_equal 1, copied_checks.count
+    assert_equal @user2.id, copied_checks.first.user_id
   end
 
   test 'succeeds when original product has no checks' do
@@ -107,6 +104,22 @@ class CopyCheckTest < ActiveSupport::TestCase
 
     # Mock Check.create! to raise an exception
     Check.stub :create!, ->(*) { raise ActiveRecord::RecordInvalid, Check.new } do
+      result = CopyCheck.call(
+        original_product: @original_product,
+        copied_product: @copied_product
+      )
+
+      assert_not result.success?
+      assert_match(/Failed to create check/, result.error)
+    end
+  end
+
+  test 'fails when check creation raises record not unique' do
+    # Create check for original product
+    Check.create!(user: @user1, checkable: @original_product)
+
+    # Mock Check.create! to raise an exception
+    Check.stub :create!, ->(*) { raise ActiveRecord::RecordNotUnique, 'duplicate key value' } do
       result = CopyCheck.call(
         original_product: @original_product,
         copied_product: @copied_product
