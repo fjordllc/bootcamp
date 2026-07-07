@@ -129,4 +129,25 @@ class PracticesTest < ApplicationSystemTestCase
     assert_no_text 'このプラクティスに提出物はありません。'
     assert_no_text '修了条件をクリアしたら修了にしてください。'
   end
+
+  test 'show normal status buttons on source practice for non grant course user' do
+    source_practice = practices(:practice23)
+
+    visit_with_auth practice_path(source_practice), 'kimura'
+
+    assert_selector '.practice-status-buttons__button'
+    assert_no_link '給付金コースへ移動する'
+    assert_no_text '進捗のステータス変更は、給付金コースのプラクティス側で行ってください。'
+    assert_no_text '提出・修了は、給付金コースのプラクティス側で行ってください。'
+  end
+
+  test 'show normal status buttons on grant course practice for grant course user' do
+    grant_course_practice = practices(:practice64)
+
+    visit_with_auth practice_path(grant_course_practice), 'grant-course'
+
+    assert_selector '.practice-status-buttons__button'
+    assert_no_link '給付金コースへ移動する'
+    assert_no_text '進捗のステータス変更は、給付金コースのプラクティス側で行ってください。'
+  end
 end

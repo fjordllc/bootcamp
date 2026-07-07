@@ -1,6 +1,13 @@
 .js-learning-status(id="practice" data-id="#{@practice.id}")
 .practice-status-buttons
-  - unless @practice.guide_to_grant_course?(current_user)
+  - if @practice.guide_to_grant_course?(current_user)
+    .practice-status-buttons
+      .practice-status-buttons__grant-guidance
+        = link_to practice_path(@practice.copied_practices.first || @practice), class: 'practice-status-buttons__grant-link a-button is-sm is-secondary' do
+          | 給付金コースへ移動する
+        .practice-status-buttons__note.practice-status-buttons__grant-note
+          | 進捗のステータス変更は、給付金コースのプラクティス側で行ってください。
+  - else
     .practice-status-buttons__start
       .practice-status-buttons__label
         | ステータス
@@ -23,10 +30,3 @@
       .practice-status-buttons__end
         .practice-status-buttons__note
           | このプラクティスに提出物はありません。修了条件をクリアしたら修了にしてください。
-  - else
-    .practice-status-buttons
-      .practice-status-buttons__grant-guidance
-        = link_to practice_path(@practice.copied_practices.first || @practice), class: 'practice-status-buttons__grant-link a-button is-sm is-secondary' do
-          | 給付金コースへ移動する
-        .practice-status-buttons__note.practice-status-buttons__grant-note
-          | 進捗のステータス変更は、給付金コースのプラクティス側で行ってください。
