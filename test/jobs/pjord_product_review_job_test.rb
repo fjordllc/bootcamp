@@ -96,6 +96,23 @@ class PjordProductReviewJobTest < ActiveJob::TestCase
     end
   end
 
+  test 'does not notify when Pjord check already exists' do
+    product = products(:product8)
+    product.practice.update!(pjord_auto_check: true)
+    Check.create!(user: users(:pjord), checkable: product)
+    check_create_count = 0
+
+    ActiveSupport::Notifications.subscribed(->(*) { check_create_count += 1 }, 'check.create') do
+      Pjord::ProductReviewAgent.stub(:review_result, { body: '確認してOKにしました。', auto_check: true }) do
+        assert_no_difference -> { product.checks.reload.count } do
+          PjordProductReviewJob.perform_now(product_id: product.id)
+        end
+      end
+    end
+
+    assert_equal 0, check_create_count
+  end
+
   test 'raises unexpected errors' do
     product = products(:product8)
 
