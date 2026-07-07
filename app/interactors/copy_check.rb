@@ -52,10 +52,6 @@ class CopyCheck
     context.message = build_summary_message(results)
   end
 
-  def products_available?
-    context.original_product && context.copied_product
-  end
-
   def build_summary_message(results)
     "Copied #{results[:copied]} check(s), skipped #{results[:skipped]} existing check(s)"
   end
