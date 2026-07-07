@@ -13,4 +13,7 @@ class PjordProductReviewResponse < RubyLLM::Schema
   string :body,
          min_length: 1,
          description: '提出者にそのまま見せるレビューコメント本文。検索やツール使用などの内部手順説明、管理側へのメッセージ、運用者向けメモは含めない。'
+
+  boolean :auto_check,
+          description: '提出物がプラクティスのゴールを満たしていて、メンターの追加確認なしでOKにしてよい場合はtrue。確認できない点や改善点がある場合はfalse。'
 end

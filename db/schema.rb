@@ -595,6 +595,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_07_000000) do
     t.integer "last_updated_user_id"
     t.text "memo"
     t.boolean "open_product", default: false, null: false
+    t.boolean "pjord_auto_check", default: false, null: false
     t.boolean "pjord_review", default: true, null: false
     t.integer "source_id"
     t.boolean "submission", default: false, null: false

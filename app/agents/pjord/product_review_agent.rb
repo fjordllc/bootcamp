@@ -10,10 +10,26 @@ class Pjord::ProductReviewAgent < Pjord::Agent
 
   class << self
     def review(product)
-      extract_public_response_body(new.ask(message(product)).content).presence
+      review_result(product)[:body]
+    end
+
+    def review_result(product)
+      content = new.ask(message(product)).content
+      {
+        body: extract_public_response_body(content).presence,
+        auto_check: auto_check?(content)
+      }
     end
 
     private
+
+    def auto_check?(content)
+      return false unless content.respond_to?(:to_h)
+
+      values = content.to_h
+      value = values.key?(:auto_check) ? values[:auto_check] : values['auto_check']
+      ActiveModel::Type::Boolean.new.cast(value) || false
+    end
 
     def message(product)
       user_course_practice = UserCoursePractice.new(product.user)
