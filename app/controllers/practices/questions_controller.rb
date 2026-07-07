@@ -5,7 +5,7 @@ class Practices::QuestionsController < ApplicationController
     @practice = Practice.find(params[:practice_id])
     practices =
       if selected_scope == 'grant_course'
-        @practice
+        [@practice]
       else
         [@practice, @practice.source_practice].compact
       end
