@@ -15,9 +15,35 @@ class BuzzTest < ActiveSupport::TestCase
     assert_equal latest_year, Buzz.latest_year
   end
 
+  test '.latest_year excludes years that cannot be routed' do
+    Buzz.create!(
+      title: '不正な年の記事',
+      url: 'https://www.example-latest-invalid-year.com',
+      published_at: Date.new(202_672, 1, 1)
+    )
+
+    assert_equal buzzes(:buzz1).published_at.year, Buzz.latest_year
+  end
+
   test '.years' do
     years = [2025, 2024]
     assert_equal years, Buzz.years
+  end
+
+  test '.years excludes years that cannot be routed' do
+    [
+      ['https://www.example-invalid-future-year.com', Date.new(202_672, 1, 1)],
+      ['https://www.example-invalid-past-year.com', Date.new(999, 1, 1)]
+    ].each do |url, published_at|
+      Buzz.create!(
+        title: '不正な年の記事',
+        url:,
+        published_at:
+      )
+    end
+
+    assert_not_includes Buzz.years, 202_672
+    assert_not_includes Buzz.years, 999
   end
 
   test '.doc_from_url returns nokogori object when succeeded' do

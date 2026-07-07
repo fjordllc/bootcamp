@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Buzz < ApplicationRecord
+  ROUTABLE_YEAR_RANGE = 1000..9999
+  ROUTABLE_PUBLISHED_AT_RANGE = Date.new(ROUTABLE_YEAR_RANGE.begin, 1, 1)..Date.new(ROUTABLE_YEAR_RANGE.end, 12, 31)
+
   validates :title, presence: true
   validates :published_at, presence: true
   validates :url, presence: true, uniqueness: { message: 'はすでに登録されています' }
@@ -53,11 +56,11 @@ class Buzz < ApplicationRecord
     end
 
     def latest_year
-      maximum('published_at')&.year
+      where(published_at: ROUTABLE_PUBLISHED_AT_RANGE).maximum(:published_at)&.year
     end
 
     def years
-      pluck('published_at').map(&:year).uniq.sort.reverse
+      where(published_at: ROUTABLE_PUBLISHED_AT_RANGE).pluck('published_at').map(&:year).uniq.sort.reverse
     end
 
     def doc_from_url(url)
