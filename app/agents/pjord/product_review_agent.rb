@@ -47,6 +47,7 @@ class Pjord::ProductReviewAgent < Pjord::Agent
 
         ## プラクティス
         - タイトル: #{product.practice.title}
+        - ピヨルドによる提出物OK: #{product.practice.pjord_auto_check? ? '許可されています' : '許可されていません'}
         - ゴール:
         #{truncate_for_prompt(product.practice.goal)}
         - 説明:
