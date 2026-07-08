@@ -13,6 +13,7 @@ class Hibernation < ApplicationRecord
     notify_to_chat
     notify_to_mentors_and_admins
     user.clean_up_regular_events
+    unmatch_pair_works(user)
   end
 
   def self.hibernate_by_admin(user:, scheduled_return_on:)
@@ -26,6 +27,12 @@ class Hibernation < ApplicationRecord
     else
       render :edit
       false
+    end
+  end
+
+  def unmatch_pair_works(user)
+    PairWork.where(buddy: user).find_each do |pair_work|
+      ActiveSupport::Notifications.instrument('pair_work.cancel', pair_work: pair_work, sender: user)
     end
   end
 
