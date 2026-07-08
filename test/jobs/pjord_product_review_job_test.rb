@@ -96,10 +96,10 @@ class PjordProductReviewJobTest < ActiveJob::TestCase
     end
   end
 
-  test 'does not notify when Pjord check already exists' do
+  test 'does not notify when product is already checked' do
     product = products(:product8)
     product.practice.update!(pjord_auto_check: true)
-    Check.create!(user: users(:pjord), checkable: product)
+    Check.create!(user: users(:mentormentaro), checkable: product)
     check_create_count = 0
 
     ActiveSupport::Notifications.subscribed(->(*) { check_create_count += 1 }, 'check.create') do

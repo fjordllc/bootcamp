@@ -24,18 +24,10 @@ class PjordProductReviewJob < ApplicationJob
   private
 
   def auto_check_product(product, pjord)
-    created_check = nil
+    return if product.checked?
 
-    product.with_lock do
-      unless product.checks.exists?
-        check = Check.create_or_find_by!(user: pjord, checkable: product)
-        if check.previously_new_record?
-          product.checks.reload
-          created_check = check
-        end
-      end
-    end
-
-    ActiveSupport::Notifications.instrument('check.create', check: created_check) if created_check
+    check = Check.create!(user: pjord, checkable: product)
+    product.checks.reload
+    ActiveSupport::Notifications.instrument('check.create', check:)
   end
 end
