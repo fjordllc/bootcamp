@@ -24,6 +24,7 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
     asked_message = chat.asked_message
     assert_includes asked_message, product.user.login_name
     assert_includes asked_message, product.practice.title
+    assert_includes asked_message, 'ピヨルドによる提出物OK: 許可されていません'
     assert_includes asked_message, product.practice.goal
     assert_includes asked_message, product.body
     assert_includes asked_message, product.practice.submission_answer.description
@@ -34,7 +35,9 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
     assert_includes chat.instructions, '人間らしい文章にする'
     assert_includes chat.instructions, '提出物にレビューコメントを書いてください。'
     assert_includes chat.instructions, 'reviewed_points には、提出物本文、URL先の内容、模範解答、過去コメントなどを確認して判断した具体的な点を1つ以上入れてください。'
-    assert_includes chat.instructions, 'メンターの追加確認なしでOKにしてよいと判断できる場合だけ true'
+    assert_includes chat.instructions, '「ピヨルドによる提出物OK」が許可されていない場合、auto_check は必ず false'
+    assert_includes chat.instructions, '「OKです」「合格です」「次に進んでください」「完了です」など、提出物を承認したと受け取れる表現を書かないでください。'
+    assert_includes chat.instructions, 'メンターの追加確認なしでOKにしてよいと判断できる場合だけ auto_check に true'
     assert_includes chat.instructions, '管理側への説明、内部事情、運用者向けメモ、レビュー生成方針への言及は含めず'
     assert_includes chat.instructions, 'external_content_toolを使って内容を確認してからレビューしてください。'
     assert_includes chat.instructions, 'CodePenや提出物のリンク先が見えない'
@@ -53,6 +56,18 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
     end
 
     assert_includes chat.asked_message, '進捗率: 不明'
+  end
+
+  test '.review tells when Pjord auto check is allowed' do
+    product = products(:product1)
+    product.practice.update!(pjord_auto_check: true)
+    chat = ProductReviewChatFake.new
+
+    RubyLLM.stub(:chat, chat) do
+      Pjord::ProductReviewAgent.review(product)
+    end
+
+    assert_includes chat.asked_message, 'ピヨルドによる提出物OK: 許可されています'
   end
 
   test '.review truncates long text in prompt' do
