@@ -228,4 +228,4 @@ jobs:
           junit-artifact-pattern: junit-xml-*
           source-root: ${{ github.workspace }}
           history-branch: flakewatch-data
-          history-write: auto
+          history-write: false
