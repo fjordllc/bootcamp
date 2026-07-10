@@ -27,7 +27,9 @@ module PracticesHelper
   end
 
   def difficulty_icon(minutes)
-    case minutes.to_i # nilの場合は0として扱う（nil.to_i == 0）
+    case minutes
+    when nil then ''
+    when 0 then 'データ収集中'
     when ..300 then '🔥' # 5時間以下
     when ..600 then '🔥🔥' # 10時間以下
     when ..900 then '🔥🔥🔥' # 15時間以下
