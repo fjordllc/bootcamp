@@ -51,12 +51,15 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     @original_adapter = ActiveJob::Base.queue_adapter
     ActiveJob::Base.queue_adapter = :inline
     @original_pjord_product_review = Pjord::ProductReviewAgent.method(:review)
+    @original_pjord_product_review_result = Pjord::ProductReviewAgent.method(:review_result)
     Pjord::ProductReviewAgent.define_singleton_method(:review) { |_product| '' }
+    Pjord::ProductReviewAgent.define_singleton_method(:review_result) { |_product| { body: '', auto_check: false } }
   end
 
   teardown do
     ActionMailer::Base.deliveries.clear
     Pjord::ProductReviewAgent.define_singleton_method(:review, @original_pjord_product_review)
+    Pjord::ProductReviewAgent.define_singleton_method(:review_result, @original_pjord_product_review_result)
     ActiveJob::Base.queue_adapter = @original_adapter
   end
 end
