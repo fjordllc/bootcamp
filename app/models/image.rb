@@ -5,21 +5,4 @@ class Image < ApplicationRecord
   has_one_attached :image
 
   validates :image, attached: true
-
-  def strip_exif!
-    attachment = attachment_changes['image']
-    return unless attachment
-
-    uploaded_file = attachment.attachable
-    original_image = MiniMagick::Image.read(uploaded_file.tempfile)
-    original_image.strip
-
-    blob = {
-      io: StringIO.new(original_image.to_blob),
-      filename: uploaded_file.original_filename.to_s,
-      content_type: uploaded_file.content_type
-    }
-
-    image.attach(blob)
-  end
 end
