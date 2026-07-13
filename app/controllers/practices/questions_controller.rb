@@ -25,7 +25,7 @@ class Practices::QuestionsController < ApplicationController
   end
 
   def question_practices
-    if selected_scope == 'grant_course'
+    if params[:scope] == 'grant_course'
       [@practice]
     else
       [@practice, @practice.source_practice].compact
@@ -34,9 +34,5 @@ class Practices::QuestionsController < ApplicationController
 
   def selected_target
     params[:target] if %w[solved not_solved].include?(params[:target])
-  end
-
-  def selected_scope
-    params[:scope] if %w[grant_course].include?(params[:scope])
   end
 end
