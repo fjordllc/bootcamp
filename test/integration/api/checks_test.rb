@@ -238,15 +238,37 @@ class API::ChecksTest < ActionDispatch::IntegrationTest
 
   test 'mentor can check multiple reports at once with write scope' do
     report_ids = Report.left_outer_joins(:checks).where(checks: { id: nil }).order(:id).limit(2).ids
+    check_create_count = 0
 
-    assert_difference('Check.count', 2) do
-      post api_reports_bulk_check_path(format: :json),
-           params: { report_ids: },
-           headers: { Authorization: "Bearer #{@mentor_write_token.token}" }
-      assert_response :created
+    ActiveSupport::Notifications.subscribed(->(*) { check_create_count += 1 }, 'check.create') do
+      assert_difference('Check.count', 2) do
+        post api_reports_checks_path(format: :json),
+             params: { report_ids: },
+             headers: { Authorization: "Bearer #{@mentor_write_token.token}" }
+        assert_response :created
+      end
     end
 
     assert_equal report_ids.sort, response.parsed_body['checks'].pluck('checkable_id').sort
+    assert_equal 0, check_create_count
+  end
+
+  test 'bulk check deletes report caches once per affected user' do
+    reports = Report.left_outer_joins(:checks).where(checks: { id: nil }).order(:id).limit(2).to_a
+    global_cache_delete_count = 0
+    deleted_user_ids = []
+
+    Cache.stub(:delete_unchecked_report_count, -> { global_cache_delete_count += 1 }) do
+      Cache.stub(:delete_user_unchecked_report_count, ->(user_id) { deleted_user_ids << user_id }) do
+        post api_reports_checks_path(format: :json),
+             params: { report_ids: reports.map(&:id) },
+             headers: { Authorization: "Bearer #{@mentor_write_token.token}" }
+      end
+    end
+
+    assert_response :created
+    assert_equal 1, global_cache_delete_count
+    assert_equal reports.map(&:user_id).uniq.sort, deleted_user_ids.sort
   end
 
   test 'bulk check skips reports that are already checked' do
@@ -254,7 +276,7 @@ class API::ChecksTest < ActionDispatch::IntegrationTest
     unchecked_report = self.unchecked_report
 
     assert_difference('Check.count', 1) do
-      post api_reports_bulk_check_path(format: :json),
+      post api_reports_checks_path(format: :json),
            params: { report_ids: [checked_report.id, unchecked_report.id] },
            headers: { Authorization: "Bearer #{@mentor_write_token.token}" }
       assert_response :created
@@ -267,7 +289,7 @@ class API::ChecksTest < ActionDispatch::IntegrationTest
     report = unchecked_report
 
     assert_no_difference('Check.count') do
-      post api_reports_bulk_check_path(format: :json),
+      post api_reports_checks_path(format: :json),
            params: { report_ids: [report.id, 0] },
            headers: { Authorization: "Bearer #{@mentor_write_token.token}" }
       assert_response :not_found
@@ -277,7 +299,7 @@ class API::ChecksTest < ActionDispatch::IntegrationTest
   end
 
   test 'student can not bulk check reports' do
-    post api_reports_bulk_check_path(format: :json),
+    post api_reports_checks_path(format: :json),
          params: { report_ids: [unchecked_report.id] },
          headers: { Authorization: "Bearer #{@student_token.token}" }
 
