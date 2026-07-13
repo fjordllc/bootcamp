@@ -20,9 +20,14 @@ class API::ImageTest < ActionDispatch::IntegrationTest
     post api_image_path(format: :json), params: { file: image_uploaded }
     assert_response :created
 
-    saved_image = Image.order(:created_at).last
-    processed_image = MiniMagick::Image.read(saved_image.image.download)
+    saved_image = Image.last
 
+    api_response = JSON.parse(response.body)
+    returned_url = api_response['url']
+    expected_blob = saved_image.image.blob
+    assert_includes(returned_url, expected_blob.signed_id)
+
+    processed_image = MiniMagick::Image.read(saved_image.image.download)
     assert_empty processed_image.exif
   end
 end
