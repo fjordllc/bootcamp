@@ -42,7 +42,7 @@ class GenerationsTest < ApplicationSystemTestCase
       assert_selector 'ul.sns-links__items'
       assert_selector 'li.sns-links__item', count: 5
       assert_selector "a.is-secondary[href='https://github.com/#{user.github_account}'] i.fa-github-alt", visible: :all
-      assert_selector "a.is-secondary[href='https://twitter.com/#{user.twitter_account}'] i.fa-x-twitter", visible: :all
+      assert_selector "a.is-secondary[href='https://x.com/#{user.twitter_account}'] i.fa-x-twitter", visible: :all
       assert_selector "a.is-secondary[href='#{user.facebook_url}'] i.fa-facebook-square", visible: :all
       assert_selector "a.is-secondary[href='#{user.blog_url}'] i.fa-blog", visible: :all
       assert_selector "a.is-secondary[href='#{user.discord_profile.times_url}'] i.fa-clock", visible: :all
