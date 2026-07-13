@@ -13,8 +13,9 @@ class API::Reports::ChecksController < API::BaseController
 
     checked_report_ids = Check.where(checkable_type: 'Report', checkable_id: report_ids).pluck(:checkable_id)
     unchecked_reports = reports.values_at(*(report_ids - checked_report_ids))
-    checks = insert_checks(unchecked_reports)
-    delete_report_caches(checks, reports)
+    checks = Check.transaction do
+      insert_checks(unchecked_reports).tap { |inserted_checks| delete_report_caches(inserted_checks, reports) }
+    end
 
     render json: { checks: checks.map { |check| check_json(check) } }, status: :created
   end
@@ -38,9 +39,5 @@ class API::Reports::ChecksController < API::BaseController
     checked_report_ids.map { |report_id| reports.fetch(report_id).user_id }.uniq.each do |user_id|
       Cache.delete_user_unchecked_report_count(user_id)
     end
-  end
-
-  def require_staff
-    render json: { message: '権限がありません。' }, status: :forbidden unless current_user&.staff?
   end
 end
