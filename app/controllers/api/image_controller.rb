@@ -2,8 +2,9 @@
 
 class API::ImageController < API::BaseController
   def create
-    @image = Image.new(user: current_user, image: params[:file])
-    @image.strip_exif!
+    uploaded_image = params[:file]
+    MiniMagick::Image.new(uploaded_image.tempfile.path).strip if uploaded_image
+    @image = Image.new(user: current_user, image: uploaded_image)
 
     if @image.save
       render :create, status: :created
