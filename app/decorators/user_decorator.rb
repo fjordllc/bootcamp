@@ -8,7 +8,7 @@ module UserDecorator
   include ReportStatus
 
   def twitter_url
-    "https://twitter.com/#{twitter_account}"
+    "https://x.com/#{twitter_account}"
   end
 
   def icon_title
