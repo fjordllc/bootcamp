@@ -55,7 +55,7 @@ class Hibernation < ApplicationRecord
 
   def unmatch_pair_works(user)
     PairWork.where(buddy: user).find_each do |pair_work|
-      ActiveSupport::Notifications.instrument('pair_work.cancel', pair_work: pair_work, sender: user)
+      ActiveSupport::Notifications.instrument('pair_work.cancel', pair_work: pair_work, sender: user) if pair_work.unmatch
     end
   end
 end
