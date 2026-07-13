@@ -134,11 +134,12 @@
                     | 提出物を作成し提出し、メンターから確認をもらったら
                     br
                     | このプラクティスを修了にしてください。
-                - elsif !@practice.guide_to_grant_course?(current_user)
-                  .card-footer__description
-                    | このプラクティスに提出物はありません。
-                    br
-                    | 修了条件をクリアしたら修了にしてください。
+                - else
+                  - unless @practice.guide_to_grant_course?(@current_user)
+                    .card-footer__description
+                      | このプラクティスに提出物はありません。
+                      br
+                      | 修了条件をクリアしたら修了にしてください。
 
           - if @practice.coding_tests.present?
             = render partial: 'coding_tests', locals: { coding_tests: @practice.coding_tests }
