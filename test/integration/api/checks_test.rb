@@ -271,6 +271,20 @@ class API::ChecksTest < ActionDispatch::IntegrationTest
     assert_equal reports.map(&:user_id).uniq.sort, deleted_user_ids.sort
   end
 
+  test 'bulk check rolls back checks when cache deletion fails' do
+    report = unchecked_report
+
+    assert_no_difference('Check.count') do
+      Cache.stub(:delete_unchecked_report_count, -> { raise 'cache deletion failed' }) do
+        assert_raises(RuntimeError) do
+          post api_reports_checks_path(format: :json),
+               params: { report_ids: [report.id] },
+               headers: { Authorization: "Bearer #{@mentor_write_token.token}" }
+        end
+      end
+    end
+  end
+
   test 'bulk check skips reports that are already checked' do
     checked_report = reports(:report1)
     unchecked_report = self.unchecked_report
@@ -305,6 +319,30 @@ class API::ChecksTest < ActionDispatch::IntegrationTest
 
     assert_response :forbidden
     assert_equal '権限がありません。', response.parsed_body['message']
+  end
+
+  test 'mentor can not bulk check reports with read scope' do
+    post api_reports_checks_path(format: :json),
+         params: { report_ids: [unchecked_report.id] },
+         headers: { Authorization: "Bearer #{@mentor_read_token.token}" }
+
+    assert_response :forbidden
+    assert_equal 'invalid_scope', response.parsed_body['error']
+  end
+
+  test 'mentor can not bulk check reports with write scope but without mentor scope' do
+    token = Doorkeeper::AccessToken.create!(
+      application: @application,
+      resource_owner_id: users(:mentormentaro).id,
+      scopes: 'read write'
+    )
+
+    post api_reports_checks_path(format: :json),
+         params: { report_ids: [unchecked_report.id] },
+         headers: { Authorization: "Bearer #{token.token}" }
+
+    assert_response :forbidden
+    assert_equal 'invalid_scope', response.parsed_body['error']
   end
 
   private
