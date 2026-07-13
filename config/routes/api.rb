@@ -58,6 +58,9 @@ Rails.application.routes.draw do
       resources :recents, only: %i(index)
     end
     resources :reports, only: %i(index show create update destroy) do
+      collection do
+        resource :bulk_check, only: %i(create), controller: 'reports/bulk_check', as: :reports_bulk_check
+      end
       resources :comments, only: %i[create], controller: 'reports/comments'
       resources :reactions, only: %i(index create destroy), controller: 'reports/reactions'
       resource :check, only: %i(create destroy), controller: 'reports/check'
