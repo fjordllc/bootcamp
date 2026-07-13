@@ -3,6 +3,15 @@
 require 'test_helper'
 
 class PracticeQuizzesTest < ActionDispatch::IntegrationTest
+  test 'guest can view practice without quiz management tab' do
+    practice = practices(:practice3)
+
+    get practice_path(practice)
+
+    assert_response :success
+    assert_not_includes response.body, '理解度テスト管理'
+  end
+
   test 'student can pass practice quiz and then complete practice' do
     user = users(:kimura)
     practice = practices(:practice3)
