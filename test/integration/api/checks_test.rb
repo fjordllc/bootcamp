@@ -236,6 +236,115 @@ class API::ChecksTest < ActionDispatch::IntegrationTest
     assert_equal 'この日報は確認済です。', response.parsed_body['message']
   end
 
+  test 'mentor can check multiple reports at once with write scope' do
+    report_ids = Report.left_outer_joins(:checks).where(checks: { id: nil }).order(:id).limit(2).ids
+    check_create_count = 0
+
+    ActiveSupport::Notifications.subscribed(->(*) { check_create_count += 1 }, 'check.create') do
+      assert_difference('Check.count', 2) do
+        post api_reports_checks_path(format: :json),
+             params: { report_ids: },
+             headers: { Authorization: "Bearer #{@mentor_write_token.token}" }
+        assert_response :created
+      end
+    end
+
+    assert_equal report_ids.sort, response.parsed_body['checks'].pluck('checkable_id').sort
+    assert_equal 0, check_create_count
+  end
+
+  test 'bulk check deletes report caches once per affected user' do
+    reports = Report.left_outer_joins(:checks).where(checks: { id: nil }).order(:id).limit(2).to_a
+    global_cache_delete_count = 0
+    deleted_user_ids = []
+
+    Cache.stub(:delete_unchecked_report_count, -> { global_cache_delete_count += 1 }) do
+      Cache.stub(:delete_user_unchecked_report_count, ->(user_id) { deleted_user_ids << user_id }) do
+        post api_reports_checks_path(format: :json),
+             params: { report_ids: reports.map(&:id) },
+             headers: { Authorization: "Bearer #{@mentor_write_token.token}" }
+      end
+    end
+
+    assert_response :created
+    assert_equal 1, global_cache_delete_count
+    assert_equal reports.map(&:user_id).uniq.sort, deleted_user_ids.sort
+  end
+
+  test 'bulk check rolls back checks when cache deletion fails' do
+    report = unchecked_report
+
+    assert_no_difference('Check.count') do
+      Cache.stub(:delete_unchecked_report_count, -> { raise 'cache deletion failed' }) do
+        assert_raises(RuntimeError) do
+          post api_reports_checks_path(format: :json),
+               params: { report_ids: [report.id] },
+               headers: { Authorization: "Bearer #{@mentor_write_token.token}" }
+        end
+      end
+    end
+  end
+
+  test 'bulk check skips reports that are already checked' do
+    checked_report = reports(:report1)
+    unchecked_report = self.unchecked_report
+
+    assert_difference('Check.count', 1) do
+      post api_reports_checks_path(format: :json),
+           params: { report_ids: [checked_report.id, unchecked_report.id] },
+           headers: { Authorization: "Bearer #{@mentor_write_token.token}" }
+      assert_response :created
+    end
+
+    assert_equal [unchecked_report.id], response.parsed_body['checks'].pluck('checkable_id')
+  end
+
+  test 'bulk check does not create checks when a report is missing' do
+    report = unchecked_report
+
+    assert_no_difference('Check.count') do
+      post api_reports_checks_path(format: :json),
+           params: { report_ids: [report.id, 0] },
+           headers: { Authorization: "Bearer #{@mentor_write_token.token}" }
+      assert_response :not_found
+    end
+
+    assert_equal [0], response.parsed_body['report_ids']
+  end
+
+  test 'student can not bulk check reports' do
+    post api_reports_checks_path(format: :json),
+         params: { report_ids: [unchecked_report.id] },
+         headers: { Authorization: "Bearer #{@student_token.token}" }
+
+    assert_response :forbidden
+    assert_equal '権限がありません。', response.parsed_body['message']
+  end
+
+  test 'mentor can not bulk check reports with read scope' do
+    post api_reports_checks_path(format: :json),
+         params: { report_ids: [unchecked_report.id] },
+         headers: { Authorization: "Bearer #{@mentor_read_token.token}" }
+
+    assert_response :forbidden
+    assert_equal 'invalid_scope', response.parsed_body['error']
+  end
+
+  test 'mentor can not bulk check reports with write scope but without mentor scope' do
+    token = Doorkeeper::AccessToken.create!(
+      application: @application,
+      resource_owner_id: users(:mentormentaro).id,
+      scopes: 'read write'
+    )
+
+    post api_reports_checks_path(format: :json),
+         params: { report_ids: [unchecked_report.id] },
+         headers: { Authorization: "Bearer #{token.token}" }
+
+    assert_response :forbidden
+    assert_equal 'invalid_scope', response.parsed_body['error']
+  end
+
   private
 
   def unchecked_report

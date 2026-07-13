@@ -57,6 +57,7 @@ Rails.application.routes.draw do
       end
       resources :recents, only: %i(index)
     end
+    post 'reports/checks', to: 'reports/checks#create', as: :reports_checks
     resources :reports, only: %i(index show create update destroy) do
       resources :comments, only: %i[create], controller: 'reports/comments'
       resources :reactions, only: %i(index create destroy), controller: 'reports/reactions'
