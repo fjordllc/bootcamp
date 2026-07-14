@@ -102,10 +102,7 @@ class API::ArticlesController < API::BaseController
   def update_article_params = permitted_article_params(UPDATE_ARTICLE_ATTRIBUTES)
 
   def permitted_article_params(attributes)
-    permitted = params.require(:article).permit(*attributes)
-    raw_tag_list = params[:article][:tag_list]
-    permitted[:tag_list] = raw_tag_list.map(&:to_s) if raw_tag_list.is_a?(Array)
-    permitted
+    params.require(:article).permit(*attributes, tag_list: [])
   end
 
   def assign_contributor(article, user_id, fallback: nil)
