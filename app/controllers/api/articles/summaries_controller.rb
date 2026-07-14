@@ -5,6 +5,10 @@ class API::Articles::SummariesController < API::BaseController
   before_action :require_admin_or_mentor_login_for_api
 
   def create
-    render json: Article.agent_summary(params[:body])
+    return render json: { error: '本文が空です' }, status: :unprocessable_entity if params[:body].blank?
+
+    result = Article.agent_summary(params[:body])
+    status = result[:error] ? :internal_server_error : :ok
+    render json: result, status:
   end
 end
