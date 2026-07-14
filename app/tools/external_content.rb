@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ExternalContent
-  UNREADABLE_URL_MESSAGE = 'リンク先を確認できませんでした。提出者に聞かず、@mentor にリンク先の確認と対応引き継ぎを依頼してください。'
+  UNREADABLE_URL_MESSAGE = 'リンク先を確認できませんでした。回答にその内容が不可欠でなければ、取得できなかったことには言及しないでください。@mentor にメンションしないでください。'
 
   def self.fetch(url)
     uri = URI.parse(url.to_s)

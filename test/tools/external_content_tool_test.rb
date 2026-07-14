@@ -23,13 +23,15 @@ class ExternalContentToolTest < ActiveSupport::TestCase
     assert_not_includes result, 'ignore'
   end
 
-  test 'asks Pjord to mention mentors when external links cannot be fetched' do
+  test 'tells Pjord not to mention mentors when external links cannot be fetched' do
     stub_request(:get, 'https://example.com/unreadable')
       .to_return(status: 404, body: 'Not Found')
 
     result = @tool.execute(url: 'https://example.com/unreadable')
 
     assert_equal ExternalContent::UNREADABLE_URL_MESSAGE, result
+    assert_includes result, '@mentor にメンションしない'
+    assert_includes result, '取得できなかったことには言及しない'
   end
 
   test 'follows redirects' do
