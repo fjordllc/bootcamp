@@ -211,6 +211,10 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
     source_id.present?
   end
 
+  def guide_to_grant_course?(user)
+    user.grant_course? && source_id.blank?
+  end
+
   def reports_count(include_source: false)
     return reports.count unless include_source
 
