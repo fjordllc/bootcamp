@@ -101,6 +101,10 @@ Rails.application.routes.draw do
     resources :movies, only: %i(index create update) do
       post :direct_uploads, on: :collection
     end
+    namespace :articles do
+      resource :summary, only: %i(create), controller: 'summaries'
+    end
+    resources :articles, only: %i(index show create update destroy)
     resources :metadata, only: %i(index)
     resources :micro_reports, only: %i(update)
     resources :trainee_progresses, only: %i(index)
