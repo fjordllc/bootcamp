@@ -111,7 +111,7 @@ class ExternalContent::GithubReaderTest < ActiveSupport::TestCase
     end
   end
 
-  test 'asks Pjord to mention mentors when GitHub content cannot be fetched' do
+  test 'tells Pjord not to mention mentors when GitHub content cannot be fetched' do
     stub_request(:get, 'https://raw.githubusercontent.com/fjordllc/bootcamp/main/app/models/product.rb')
       .to_return(status: 404, body: 'Not Found')
 
