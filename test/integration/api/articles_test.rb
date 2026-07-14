@@ -257,6 +257,26 @@ class API::ArticlesTest < ActionDispatch::IntegrationTest
     assert_equal 'APIで生成した概要', response.parsed_body['summary']
   end
 
+  test 'returns unprocessable entity when article body for summary is blank' do
+    post api_articles_summary_path(format: :json),
+         headers: authorization_header(@admin_token),
+         params: { body: '' }
+
+    assert_response :unprocessable_entity
+    assert_equal '本文が空です', response.parsed_body['error']
+  end
+
+  test 'returns internal server error when article summary generation fails' do
+    Article.stub(:agent_summary, { error: 'サマリー生成に失敗しました' }) do
+      post api_articles_summary_path(format: :json),
+           headers: authorization_header(@admin_token),
+           params: { body: '概要を生成する記事本文' }
+    end
+
+    assert_response :internal_server_error
+    assert_equal 'サマリー生成に失敗しました', response.parsed_body['error']
+  end
+
   private
 
   def create_access_token(application, user, scopes)
