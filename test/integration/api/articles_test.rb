@@ -101,6 +101,15 @@ class API::ArticlesTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'can create an article with a comma-separated tag list' do
+    post api_articles_path(format: :json),
+         headers: authorization_header(@admin_token),
+         params: { article: valid_article_params.merge(tag_list: 'API,記事') }
+
+    assert_response :created
+    assert_equal %w[API 記事], response.parsed_body['tags']
+  end
+
   test 'can specify an admin or mentor as the contributor' do
     post api_articles_path(format: :json),
          headers: authorization_header(@admin_token),
