@@ -1,23 +1,25 @@
 # ビジュアルリグレッションテスト
 
-ページのスクリーンショットを撮り、コミット済みのベースライン画像とピクセル単位で
-比較して **意図しない見た目の変化** を検出します。CSS リファクタなど「見た目を
-変えないはずの変更」の安全網です。
+ページのスクリーンショットを撮り、ピクセル単位で比較して **意図しない見た目の
+変化** を検出します。CSS を触るときに「レイアウトがズレていないか」を手元で
+確かめるための、**ローカル専用**のツールです（CI には組み込みません）。
 
 - 基盤: 既存の Minitest system test（Capybara + `capybara-playwright-driver`）
 - 比較: [`capybara-screenshot-diff`](https://github.com/donv/capybara-screenshot-diff)（1.12 系。`require: false` で導入し、ベースクラスで `capybara_screenshot_diff/minitest` を require）
 - ベースクラス: `test/application_visual_test_case.rb`
 - テスト: `test/visual/*_test.rb`
-- 画像: `test/visual/screenshots/`（ベースラインは git 管理、差分/一時画像は `.gitignore`）
+- 画像: `test/visual/screenshots/`（`.gitignore` 済み。**画像はコミットしない**）
+- 画像比較には ImageMagick を使う: `brew install imagemagick`
 
-## ⚠️ 最重要: 描画環境を固定する
+## ⚠️ 最重要: before / after は同じマシンで撮る
 
-スクリーンショットはフォントのアンチエイリアスなどが **OS によって異なる** ため、
-macOS で生成したベースラインを Linux（CI）で比較すると全ページ差分になります。
+スクリーンショットはフォントのアンチエイリアスなどが **OS・マシンによって微妙に
+異なります**。別環境で撮った画像同士を比べると、CSS を一切変えていなくても全面
+差分になります。
 
-**ベースラインの生成と比較は必ず同じ環境で行ってください。** 推奨は CI と同じ
-Ubuntu、またはそれに合わせた Docker コンテナです。ローカル Mac で撮った画像は
-コミットしないこと。
+**「変更前」と「変更後」は必ず同じマシン・同じブラウザで撮って比較してください。**
+撮った画像は環境依存なので **リポジトリにコミットしないこと**（`test/visual/
+screenshots/` は `.gitignore` 済み）。
 
 ## セットアップ
 
@@ -26,44 +28,68 @@ bundle install                 # capybara-screenshot-diff を導入（Gemfile.lo
 npx playwright install chromium
 ```
 
-## 使い方
+## ローカルで画面のズレをチェックする（普段使い）
 
-### 1. ベースラインを生成（初回 / 意図的な変更時）
-
-ベースライン画像が無い状態でテストを実行すると、その回のスクショが新しい
-ベースラインとして保存されます（テストは pending 扱い）。
+CSS を編集する前後でスクショを撮り、ピクセル比較して差分を見ます。**画像を
+コミットする必要はありません**。テストは撮った画像を `test/visual/screenshots/`
+に書き出すので、それを「変更前」「変更後」で退避して比べるだけです。
 
 ```sh
+# 0) （初回だけ）ブラウザと ImageMagick
+npx playwright install chromium
+brew install imagemagick
+
+# 1) 変更前の状態でスナップショットを撮って退避
 bin/rails test test/visual/pages_visual_test.rb
-git add test/visual/screenshots
-git commit -m "Add visual regression baselines"
-```
+mkdir -p tmp/visual/before && cp test/visual/screenshots/*.png tmp/visual/before/
 
-### 2. 比較（通常のテスト実行）
+# 2) ここで CSS を編集する
+#    app/assets/stylesheets/*.css を編集したら Tailwind を再ビルド:
+bin/rails tailwindcss:build
 
-ベースラインが存在する状態で実行すると、現在の描画と比較します。差分が許容値を
-超えるとテストが失敗し、`*.diff.png` が出力されます。
-
-```sh
+# 3) 変更後をもう一度撮る
+rm -f test/visual/screenshots/*.png
 bin/rails test test/visual/pages_visual_test.rb
+mkdir -p tmp/visual/after && cp test/visual/screenshots/*.png tmp/visual/after/
+
+# 4) 比較。差分ピクセル数を表示し、ズレた箇所は *.diff.png で可視化
+for f in tmp/visual/before/*.png; do
+  n=$(basename "$f")
+  d=$(compare -metric AE "$f" "tmp/visual/after/$n" "tmp/visual/${n%.png}.diff.png" 2>&1)
+  printf '%-16s %s px\n' "${n%.png}" "$d"
+done
 ```
 
-> ⚠️ **ベースラインは commit していないと比較されません（false green の罠）。**
-> このgemは working tree のスクショを **git 管理下のベースライン**（`git show
-> HEAD:<path>` で取り出す）と比較します。ベースラインが未追跡・未コミットだと
-> 「新規ベースライン＝pending 扱いで pass」になり、**差分があっても緑になります**。
-> 実際に比較させたいベースラインは必ず commit 済みにしておくこと。
+読み方:
 
-### 3. 意図した変更でベースラインを更新
+- **0 または数十 px** … 実質一致（サブピクセルのアンチエイリアス揺れ）。ズレなし。
+- **数千 px 以上** … どこかがズレている。`tmp/visual/<page>.diff.png` を開くと
+  変わったピクセルが赤くハイライトされるので、そこを確認する。
 
-デザインを意図的に変えたら、該当ベースラインを削除して再生成し、差分画像を
-レビューしてからコミットします。
+差分が「自分が意図した変更」なら OK。意図していない箇所が赤くなっていたら
+レイアウト崩れなので直す。`tmp/` は `.gitignore` 済みなので後片付けも不要。
 
-```sh
-rm test/visual/screenshots/report_show.png
-bin/rails test test/visual/pages_visual_test.rb -n /report_show/
-git add test/visual/screenshots/report_show.png
-```
+> 補足（最初の1ページが遅い / タイムアウトするとき）: sprockets が CSS を初回
+> コンパイルするため、キャッシュが冷えていると最初のページ遷移が数十秒かかり
+> ます。落ちたらもう一度実行すれば、2 回目以降は warm で速くなります。
+
+### 対象ページを増やす
+
+`test/visual/pages_visual_test.rb` にテストを足すだけです。動的要素があれば
+`capture('name', extra_mask: ['.selector'])` でマスクを追加します（次節参照）。
+
+### （参考）gem 標準の pass/fail フロー
+
+`bin/rails test` の合否だけで判定したい場合、gem は working tree のスクショを
+**git の HEAD にコミット済みのベースライン**（`git show HEAD:<path>` で取得）と
+比較します。つまりベースラインを一度コミットしておけば、以降は `bin/rails test`
+の赤/緑でズレを検出できます。
+
+> ⚠️ **未コミットのベースラインは比較されません（false green の罠）。** ローカルの
+> `fail_if_new` は false なので、ベースラインが HEAD に無いと「新規＝pass」になり、
+> 差分があっても緑になります。この方式を使うなら画像を commit すること（ただし
+> 環境依存なので push はしない・ローカル限定運用）。普段使いは上の before/after
+> 方式のほうが手軽で安全です。
 
 ## このリファクタの検証（before / after）— ✅ 実施済み
 
@@ -71,7 +97,7 @@ git add test/visual/screenshots/report_show.png
 `css_refactor` の CSS を **同一環境（同じ Mac・同じブラウザ・時刻固定）** で
 描画して 6 ページをピクセル比較して裏取りしました。
 
-やり方（README の commit 前提を避けるため、git を介さず直接比較する方式）:
+やり方（上の「普段使い」と同じく、画像をコミットせず直接 before/after 比較）:
 
 ```sh
 # 1. main のコンパイル済み CSS を app/assets/builds/ に入れて sprockets を warm、
@@ -135,19 +161,18 @@ git add test/visual/screenshots/report_show.png
        全ページ再現性を確認。
 5. [x] before/after で `main` ↔ `css_refactor` を実描画比較し、**見た目不変を裏取り**
        （上「このリファクタの検証」参照）。
-6. [ ] CI（`.github/workflows/ci.yml`）へステップ追加（任意・下記）。**未対応**。
+6. [—] CI 組み込みは **見送り**。スクショが環境依存で不安定になりやすいため、
+       ローカルで手元確認する用途に割り切る。
 7. [ ] 対象ページを代表画面から徐々に拡張。
 
 補足:
 - CSS リファクタ本体（デッドコード削除・色の変数化など）は `css_refactor` に別途
   コミット済みで、コンパイル後 CSS の値不変も検証済み。本テストは実描画での裏取り。
-- ローカル検証は同一 Mac 環境での **CSS 差し替え比較**で行った（ベースラインを
-  リポジトリに commit していない ＝ macOS 画像を履歴に残していない）。CI に載せる
-  場合は §「CI への組み込み」の通り Linux 環境でベースラインを生成・コミットする。
+- ローカル検証は同一 Mac 環境での **CSS 差し替え比較**で行った（画像はリポジトリに
+  コミットしていない ＝ 環境依存の画像を履歴に残していない）。
 
-## CI への組み込み（任意）
+## CI には組み込まない
 
-既存の system test ジョブ（`.github/workflows/ci.yml`、ubuntu-latest + chromium）
-と同じ環境なので、そこにビジュアルテストのステップと、失敗時の
-`test/visual/screenshots/**/*.diff.png` のアーティファクト保存を追加すれば
-そのまま回せます。ベースラインは必ずこの CI 環境で生成・更新してください。
+ビジュアル差分は OS・マシンでスクショが微妙に変わり CI では不安定になりやすいので、
+**あえて CI には載せず、ローカルで手元確認するツール**として運用します。上の
+「ローカルで画面のズレをチェックする」手順を、CSS を触ったときに回してください。
