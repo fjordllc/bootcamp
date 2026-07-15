@@ -20,7 +20,10 @@ class PagesVisualTest < ApplicationVisualTestCase
     report = reports(:report1)
     visit_with_auth "/reports/#{report.id}", 'komagata'
     assert_selector '.page-content'
-    capture('report_show')
+    # The mentor "直近の日報" side panel lists the author's recent reports;
+    # under frozen time their order/last-card height is non-deterministic, so
+    # mask that panel (its card CSS is covered by the main report body).
+    capture('report_show', extra_mask: ['#side-tabs-content-1'])
   end
 
   test 'report form' do
