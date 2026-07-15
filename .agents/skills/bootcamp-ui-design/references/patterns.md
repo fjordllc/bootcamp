@@ -43,7 +43,11 @@ Inspect source files instead of copying this document as markup. These are maint
 
 ## Tables and Empty States
 
-- Admin table inside a card:
+- Admin tables are standalone because `.admin-table` owns its borders, background, and corner treatment. Do not wrap an admin table in `.a-card`.
+- Use a preceding `header.page-body-header` when the table needs a local title or count.
+- Reference implementations:
+  - `app/views/mentor/categories/index.html.slim`
+  - `app/views/mentor/coding_tests/index.html.slim`
   - `app/views/mentor/practices/practice_quiz/edit.html.slim`
 - Empty state:
   - `.o-empty-message` in the same file.
