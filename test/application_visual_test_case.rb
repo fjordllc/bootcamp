@@ -60,6 +60,12 @@ class ApplicationVisualTestCase < ApplicationSystemTestCase
   ].freeze
 
   setup do
+    # Local-only tool. Baselines are environment-specific and intentionally not
+    # committed, so on CI there is nothing to compare against and the gem's
+    # fail_if_new (true when ENV["CI"] is set) would fail every test. CI already
+    # excludes test/visual from its test glob; this skip is the safety net.
+    # See test/visual/README.md.
+    skip 'Visual regression tests are local-only (not run on CI)' if ENV['CI'].present?
     # Freeze time so relative timestamps ("3日前") and elapsed-day badges are
     # stable across runs.
     travel_to Time.zone.local(2025, 1, 1, 12, 0, 0)
