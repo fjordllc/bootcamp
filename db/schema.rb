@@ -464,6 +464,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_15_093000) do
     t.index ["survey_question_id"], name: "index_linear_scales_on_survey_question_id"
   end
 
+  create_table "mentor_memos", force: :cascade do |t|
+    t.bigint "author_id"
+    t.text "content"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.bigint "user_id", null: false
+    t.index ["author_id"], name: "index_mentor_memos_on_author_id"
+    t.index ["user_id"], name: "index_mentor_memos_on_user_id"
+  end
+
   create_table "micro_reports", force: :cascade do |t|
     t.bigint "comment_user_id"
     t.text "content", null: false
@@ -1212,6 +1222,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_15_093000) do
   add_foreign_key "learning_time_frames_users", "users"
   add_foreign_key "learning_times", "reports"
   add_foreign_key "linear_scales", "survey_questions"
+  add_foreign_key "mentor_memos", "users"
+  add_foreign_key "mentor_memos", "users", column: "author_id"
   add_foreign_key "micro_reports", "users"
   add_foreign_key "micro_reports", "users", column: "comment_user_id"
   add_foreign_key "movies", "users"
