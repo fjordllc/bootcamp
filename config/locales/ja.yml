@@ -56,7 +56,6 @@ ja:
       answer: 回答
       correct_answer: 模範回答
       movie: 動画
-      product_template: 提出物テンプレート
     search_labels:
       practice: "プラク\nティス"
       event: "特別\nイベント"
@@ -184,8 +183,6 @@ ja:
         user: ユーザー
         practice: プラクティス
         body: 本文
-      product_template:
-        description: 提出物のテンプレート
       submission_answer:
         description: 内容
       company:

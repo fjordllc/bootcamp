@@ -11,6 +11,6 @@ class Practice::ProductsTest < ApplicationSystemTestCase
   test 'shows product template when product template exists' do
     practice = practices(:practice1)
     visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
-    assert_field 'practice_product_template_attributes_description', with: '確認用テンプレート'
+    assert_field 'practice_template_attributes_description', with: '提出物のテンプレート'
   end
 end

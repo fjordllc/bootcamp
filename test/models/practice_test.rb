@@ -151,33 +151,33 @@ class PracticeTest < ActiveSupport::TestCase
 
   test 'does not create product template when description is blank' do
     practice = practices(:practice1)
-    practice.product_template&.destroy!
+    practice.template&.destroy!
 
-    assert_no_difference 'ProductTemplate.count' do
+    assert_no_difference 'Template.count' do
       practice.update!(
-        product_template_attributes: {
+        template_attributes: {
           description: ''
         }
       )
     end
 
-    assert_nil practice.reload.product_template
+    assert_nil practice.reload.template
   end
 
   test 'destroys product template with nested attributes' do
     practice = practices(:practice1)
-    practice.product_template&.destroy!
-    product_template = practice.create_product_template!(description: '確認用テンプレート')
+    practice.template&.destroy!
+    template = practice.create_template!(description: '提出物のテンプレート')
 
-    assert_difference 'ProductTemplate.count', -1 do
+    assert_difference 'Template.count', -1 do
       practice.update!(
-        product_template_attributes: {
-          id: product_template.id,
+        template_attributes: {
+          id: template.id,
           _destroy: '1'
         }
       )
     end
 
-    assert_nil practice.reload.product_template
+    assert_nil practice.reload.template
   end
 end

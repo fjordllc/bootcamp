@@ -21,7 +21,7 @@ module Practices
         end
         fill_in 'practice[goal]', with: 'テストのゴールの内容です'
         fill_in 'practice[memo]', with: 'テストのメンター向けメモの内容です'
-        fill_in 'practice_product_template_attributes_description', with: 'テストテンプレート'
+        fill_in 'practice_template_attributes_description', with: 'テストテンプレート'
         uncheck 'practice[pjord_review]', allow_label_click: true
         click_button '登録する'
       end
@@ -44,7 +44,7 @@ module Practices
 
       practice = Practice.find_by!(title: 'テンプレなし')
       visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
-      assert_empty find_field('practice_product_template_attributes_description').value
+      assert_empty find_field('practice_template_attributes_description').value
     end
 
     test 'create practice as a mentor' do
@@ -58,7 +58,7 @@ module Practices
         end
         fill_in 'practice[goal]', with: 'テストのゴールの内容です'
         fill_in 'practice[memo]', with: 'テストのメンター向けメモの内容です'
-        fill_in 'practice_product_template_attributes_description', with: 'テストテンプレート'
+        fill_in 'practice_template_attributes_description', with: 'テストテンプレート'
         click_button '登録する'
       end
       assert_text 'プラクティスを作成しました'
@@ -71,7 +71,7 @@ module Practices
       within 'form[name=practice]' do
         fill_in 'practice[title]', with: 'テストプラクティス'
         fill_in 'practice[memo]', with: 'メンター向けのメモの内容です'
-        fill_in 'practice_product_template_attributes_description', with: 'テストテンプレート'
+        fill_in 'practice_template_attributes_description', with: 'テストテンプレート'
         within '#reference_books' do
           click_link '書籍を選択'
         end
@@ -89,8 +89,8 @@ module Practices
     test 'update product template' do
       practice = practices(:practice1)
       visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
-      assert_field 'practice_product_template_attributes_description', with: '確認用テンプレート'
-      fill_in 'practice_product_template_attributes_description', with: '更新後テンプレート'
+      assert_field 'practice_template_attributes_description', with: '提出物のテンプレート'
+      fill_in 'practice_template_attributes_description', with: '更新後テンプレート'
       click_button '更新する'
       assert_text 'プラクティスを更新しました'
 
@@ -103,12 +103,12 @@ module Practices
       visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
       check '提出物のテンプレートを削除する', allow_label_click: true
 
-      assert_difference 'ProductTemplate.count', -1 do
+      assert_difference 'Template.count', -1 do
         click_button '更新する'
       end
 
       assert_text 'プラクティスを更新しました'
-      assert_nil practice.reload.product_template
+      assert_nil practice.reload.template
     end
 
     test 'add a book' do

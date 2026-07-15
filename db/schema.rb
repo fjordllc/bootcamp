@@ -632,14 +632,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
     t.index ["report_id", "practice_id"], name: "index_practices_reports_on_report_id_and_practice_id"
   end
 
-  create_table "product_templates", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.text "description", null: false
-    t.bigint "practice_id", null: false
-    t.datetime "updated_at", null: false
-    t.index ["practice_id"], name: "index_product_templates_on_practice_id", unique: true
-  end
-
   create_table "products", force: :cascade do |t|
     t.text "body"
     t.bigint "checker_id"
@@ -1033,6 +1025,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
     t.index ["user_id"], name: "index_talks_on_user_id"
   end
 
+  create_table "templates", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "description", null: false
+    t.bigint "templatable_id", null: false
+    t.string "templatable_type", null: false
+    t.datetime "updated_at", null: false
+    t.index ["templatable_type", "templatable_id"], name: "index_templates_on_templatable", unique: true
+  end
+
   create_table "users", id: :serial, force: :cascade do |t|
     t.datetime "accessed_at", precision: nil
     t.boolean "admin", default: false, null: false
@@ -1181,7 +1182,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
   add_foreign_key "practices_books", "practices"
   add_foreign_key "practices_movies", "movies"
   add_foreign_key "practices_movies", "practices"
-  add_foreign_key "product_templates", "practices"
   add_foreign_key "products", "practices"
   add_foreign_key "products", "users"
   add_foreign_key "questions", "practices"

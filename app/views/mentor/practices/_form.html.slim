@@ -113,17 +113,17 @@
   .form-item
     label.a-form-label
       | 提出物のテンプレート
-    = f.fields_for :product_template do |pt|
-      - if pt.object.persisted?
+    = f.fields_for :template do |template_form|
+      - if template_form.object.persisted?
         .checkboxes
           ul.checkboxes__items
             li.checkboxes__item
-              = pt.check_box :_destroy, class: 'a-toggle-checkbox'
-              = pt.label :_destroy do
+              = template_form.check_box :_destroy, class: 'a-toggle-checkbox'
+              = template_form.label :_destroy do
                 | 提出物のテンプレートを削除する
       .row.js-markdown-parent
         .col-md-6.col-xs-12
-          = pt.text_area :description,
+          = template_form.text_area :description,
             class: 'a-text-input js-warning-form markdown-form__text-area js-markdown',
             data: { 'preview': '.js-product-template-preview' }
         .col-md-6.col-xs-12
