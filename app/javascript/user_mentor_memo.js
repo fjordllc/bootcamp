@@ -109,11 +109,12 @@ document.addEventListener('DOMContentLoaded', () => {
 function updateMemo(memo, userId) {
   const params = {
     user: {
-      mentor_memo: memo
+      content: memo,
+      user_id: userId
     }
   }
-  fetch(`/api/mentor_memos/${userId}`, {
-    method: 'PUT',
+  fetch(`/api/mentor_memos/`, {
+    method: 'POST',
     headers: {
       'X-Requested-With': 'XMLHttpRequest',
       'Content-Type': 'application/json; charset=utf-8',
