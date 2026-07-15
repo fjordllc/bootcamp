@@ -92,6 +92,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   belongs_to :company, optional: true
   belongs_to :course
+  has_many :mentor_memos, dependent: :destroy
   has_many :learnings, dependent: :destroy
   has_many :pages, dependent: :destroy
   has_many :comments, dependent: :destroy
