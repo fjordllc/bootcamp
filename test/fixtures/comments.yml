@@ -5,6 +5,10 @@ comment1:
   commentable: report1 (Report)
   description: |-
     CSSは奥が深いですね。
+  # Explicit timestamp so report1's two comments (this + comment11 at now+2s)
+  # keep a deterministic order; visual regression tests need a stable layout.
+  created_at: <%= now %>
+  updated_at: <%= now %>
 
 comment2:
   user: komagata

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'application_system_test_case'
-require 'capybara/screenshot/diff'
+require 'capybara_screenshot_diff/minitest'
 
 # Base class for visual regression tests.
 #
@@ -15,7 +15,7 @@ require 'capybara/screenshot/diff'
 # environment (the CI Ubuntu image or an equivalent Docker container).
 # See test/visual/README.md for the full workflow.
 class ApplicationVisualTestCase < ApplicationSystemTestCase
-  include Capybara::Screenshot::Diff
+  include CapybaraScreenshotDiff::Minitest::Assertions
 
   # Screenshots (baseline + diff) live under test/visual/screenshots.
   Capybara::Screenshot.save_path = 'test/visual/screenshots'
@@ -26,8 +26,12 @@ class ApplicationVisualTestCase < ApplicationSystemTestCase
   TOLERANCE = 0.001
   # Wait until the rendered image stops changing before snapping (async UI).
   Capybara::Screenshot.stability_time_limit = 0.5
-  # Hide the text cursor so a blinking caret never causes a diff.
-  Capybara::Screenshot.blur_active_element = true
+  # Do NOT use the gem's blur_active_element: it calls `.click` on the value
+  # returned by evaluate_script(document.activeElement), which the
+  # capybara-playwright-driver serializes to a Hash (not a Capybara node),
+  # raising NoMethodError. The blinking caret is instead neutralized by the
+  # `caret-color: transparent` rule injected via STABILIZE_CSS below.
+  Capybara::Screenshot.blur_active_element = false
 
   # CSS injected before every capture to remove non-deterministic motion.
   STABILIZE_CSS = <<~CSS
@@ -44,12 +48,14 @@ class ApplicationVisualTestCase < ApplicationSystemTestCase
   # is compared. Tune this list for your pages.
   DEFAULT_MASK_SELECTORS = [
     '.a-user-icons',
+    '.a-user-icon',      # the avatar <img> itself carries this class (header "Me", comments)
     '.a-user-icon img',
     '.user-icon img',
     '.a-grass',
     '.user-grass',
     '.niconico-calendar',
     '.a-elapsed-days',
+    '.random-tags-items', # users index sidebar renders a RANDOM set of tags
     'time'
   ].freeze
 
@@ -65,10 +71,13 @@ class ApplicationVisualTestCase < ApplicationSystemTestCase
 
   # Capture the current page and compare it against the baseline named +name+.
   # Waits for JS components, fonts, and lazy images before snapping.
-  def capture(name, mask: DEFAULT_MASK_SELECTORS)
+  #
+  # +extra_mask+ adds page-specific selectors on top of DEFAULT_MASK_SELECTORS
+  # (e.g. a panel whose row order/height is non-deterministic on that page).
+  def capture(name, mask: DEFAULT_MASK_SELECTORS, extra_mask: [])
     wait_for_javascript_components
     wait_for_fonts_and_images
-    stabilize_page(mask)
+    stabilize_page(mask + extra_mask)
     screenshot(name, tolerance: TOLERANCE)
   end
 
