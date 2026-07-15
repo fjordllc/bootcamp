@@ -32,27 +32,28 @@ ruby:
                 = question.single_choice? ? '1つ選択' : '複数選択'
             hr.a-border-tint
             .card-body
-              .a-long-text.is-md.practice-quiz-question__body
-                = simple_format(question.body)
-              ul.practice-quiz-choices
-                - question.practice_quiz_choices.each do |choice|
-                  li.practice-quiz-choices__item(class="#{choice.correct? ? 'is-correct' : ''}")
-                    span.practice-quiz-choices__icon
+              .card-body__inner
+                .a-long-text.is-md.practice-quiz-question__body
+                  = simple_format(question.body)
+                ul.practice-quiz-choices
+                  - question.practice_quiz_choices.each do |choice|
+                    li.practice-quiz-choices__item(class="#{choice.correct? ? 'is-correct' : ''}")
+                      span.practice-quiz-choices__icon
+                        - if choice.correct?
+                          i.fa-solid.fa-circle-check
+                        - else
+                          i.fa-regular.fa-circle
+                      span.practice-quiz-choices__label
+                        = choice.body
                       - if choice.correct?
-                        i.fa-solid.fa-circle-check
-                      - else
-                        i.fa-regular.fa-circle
-                    span.practice-quiz-choices__label
-                      = choice.body
-                    - if choice.correct?
-                      span.a-badge.is-success 正解
-              - if question.explanation.present?
-                .practice-quiz-explanation
-                  .practice-quiz-explanation__label
-                    i.fa-solid.fa-lightbulb
-                    | 解説
-                  .a-long-text.is-md
-                    = simple_format(question.explanation)
+                        span.a-badge.is-success 正解
+                - if question.explanation.present?
+                  .practice-quiz-explanation
+                    .practice-quiz-explanation__label
+                      i.fa-solid.fa-lightbulb
+                      | 解説
+                    .a-long-text.is-md
+                      = simple_format(question.explanation)
     - elsif cooling_down
       .practice-quiz-status.is-waiting
         .practice-quiz-status__icon
@@ -84,21 +85,22 @@ ruby:
                   = question.single_choice? ? '1つ選択' : '複数選択'
               hr.a-border-tint
               .card-body
-                .a-long-text.is-md.practice-quiz-question__body
-                  = simple_format(question.body)
-                ul.block-checks.is-vertical.is-1-item
-                  - question.practice_quiz_choices.each do |choice|
-                    li.block-checks__item
-                      - if question.single_choice?
-                        .a-block-check.is-radio
-                          = radio_button_tag "answers[#{question.id}]", choice.id, false, id: "choice-#{choice.id}", class: 'a-toggle-checkbox'
-                          label.a-block-check__label.is-ta-left(for="choice-#{choice.id}")
-                            = choice.body
-                      - else
-                        .a-block-check.is-checkbox
-                          = check_box_tag "answers[#{question.id}][]", choice.id, false, id: "choice-#{choice.id}", class: 'a-toggle-checkbox'
-                          label.a-block-check__label.is-ta-left(for="choice-#{choice.id}")
-                            = choice.body
+                .card-body__inner
+                  .a-long-text.is-md.practice-quiz-question__body
+                    = simple_format(question.body)
+                  ul.block-checks.is-vertical.is-1-item
+                    - question.practice_quiz_choices.each do |choice|
+                      li.block-checks__item
+                        - if question.single_choice?
+                          .a-block-check.is-radio
+                            = radio_button_tag "answers[#{question.id}]", choice.id, false, id: "choice-#{choice.id}", class: 'a-toggle-checkbox'
+                            label.a-block-check__label.is-ta-left(for="choice-#{choice.id}")
+                              = choice.body
+                        - else
+                          .a-block-check.is-checkbox
+                            = check_box_tag "answers[#{question.id}][]", choice.id, false, id: "choice-#{choice.id}", class: 'a-toggle-checkbox'
+                            label.a-block-check__label.is-ta-left(for="choice-#{choice.id}")
+                              = choice.body
         .form-actions
           ul.form-actions__items
             li.form-actions__item.is-main

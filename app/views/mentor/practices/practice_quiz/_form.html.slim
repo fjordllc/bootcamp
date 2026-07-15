@@ -8,22 +8,23 @@
         | 理解度テストの設定
     hr.a-border-tint
     .card-body
-      .form__items
-        .form-item
-          .a-form-label
-            | プラクティス
-          = link_to practice.title, practice_path(practice), class: 'a-link'
-        .form-item
-          label.a-form-label
-            | 公開設定
-          .checkboxes
-            ul.checkboxes__items
-              li.checkboxes__item
-                = f.check_box :published, class: 'a-toggle-checkbox'
-                = f.label :published do
-                  | 受講生に公開する
-          p.a-form-help
-            | 公開すると、受講生はこのプラクティスを修了するために理解度テストへの合格が必要になります。
+      .card-body__inner
+        .form__items
+          .form-item
+            .a-form-label
+              | プラクティス
+            = link_to practice.title, practice_path(practice), class: 'a-link'
+          .form-item
+            label.a-form-label
+              | 公開設定
+            .checkboxes
+              ul.checkboxes__items
+                li.checkboxes__item
+                  = f.check_box :published, class: 'a-toggle-checkbox'
+                  = f.label :published do
+                    | 受講生に公開する
+            p.a-form-help
+              | 公開すると、受講生はこのプラクティスを修了するために理解度テストへの合格が必要になります。
 
   .form-actions
     ul.form-actions__items

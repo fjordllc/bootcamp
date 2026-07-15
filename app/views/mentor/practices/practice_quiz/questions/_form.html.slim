@@ -4,76 +4,79 @@ ruby:
   question_type_options = { '単一選択' => 'single_choice', '複数選択' => 'multiple_choice' }
 = form_with model: question, url: form_url, method: form_method, local: true, html: { class: 'form' } do |f|
   = render 'errors', object: question
-  .a-card
-    header.card-header
-      h2.card-header__title
-        | 問題の設定
-    hr.a-border-tint
-    .card-body
-      .form__items
-        .form-item
-          .row
-            .col-md-4.col-xs-12
-              = f.label :question_type, '問題形式', class: 'a-form-label is-required'
-              = f.select :question_type, question_type_options, {}, class: 'a-text-input'
-            .col-md-4.col-xs-12
-              = f.label :position, '並び順', class: 'a-form-label is-required'
-              = f.number_field :position, class: 'a-text-input'
-            .col-md-4.col-xs-12
-              label.a-form-label
-                | 公開設定
-              .checkboxes
-                ul.checkboxes__items
-                  li.checkboxes__item
-                    = f.check_box :published, class: 'a-toggle-checkbox'
-                    = f.label :published do
-                      | この問題を公開する
-        .form-item
-          = f.label :body, '問題文', class: 'a-form-label is-required'
-          = f.text_area :body, class: 'a-text-input', rows: 5
-        .form-item
-          = f.label :explanation, '解説', class: 'a-form-label'
-          = f.text_area :explanation, class: 'a-text-input', rows: 5
-          p.a-form-help
-            | 合格後に正解とあわせて受講生に表示されます。
-
-  .a-card
-    header.card-header
-      h2.card-header__title
-        | 選択肢
-    hr.a-border-tint
-    .card-body
-      .form__items
-        p.a-form-help
-          | 公開する問題には2つ以上の選択肢と、1つ以上の正解が必要です。単一選択の場合、正解は1つにしてください。
-        = f.fields_for :practice_quiz_choices do |choice|
-          .form-item
-            .row
-              .col-md-2.col-xs-3
-                = choice.label :position, '順番', class: 'a-form-label'
-                = choice.number_field :position, class: 'a-text-input'
-              .col-md-6.col-xs-12
-                = choice.label :body, '選択肢', class: 'a-form-label'
-                = choice.text_field :body, class: 'a-text-input'
-              .col-md-2.col-xs-6
-                label.a-form-label
-                  | 正解
-                .checkboxes
-                  ul.checkboxes__items
-                    li.checkboxes__item
-                      = choice.check_box :correct, class: 'a-toggle-checkbox'
-                      = choice.label :correct do
-                        | 正解にする
-              - if choice.object.persisted?
-                .col-md-2.col-xs-6
+  .page-body__rows
+    .a-card
+      header.card-header
+        h2.card-header__title
+          | 問題の設定
+      hr.a-border-tint
+      .card-body
+        .card-body__inner
+          .form__items
+            .form-item
+              .row
+                .col-md-4.col-xs-12
+                  = f.label :question_type, '問題形式', class: 'a-form-label is-required'
+                  = f.select :question_type, question_type_options, {}, class: 'a-text-input'
+                .col-md-4.col-xs-12
+                  = f.label :position, '並び順', class: 'a-form-label is-required'
+                  = f.number_field :position, class: 'a-text-input'
+                .col-md-4.col-xs-12
                   label.a-form-label
-                    | 削除
+                    | 公開設定
                   .checkboxes
                     ul.checkboxes__items
                       li.checkboxes__item
-                        = choice.check_box :_destroy, class: 'a-toggle-checkbox'
-                        = choice.label :_destroy do
-                          | 削除する
+                        = f.check_box :published, class: 'a-toggle-checkbox'
+                        = f.label :published do
+                          | この問題を公開する
+            .form-item
+              = f.label :body, '問題文', class: 'a-form-label is-required'
+              = f.text_area :body, class: 'a-text-input', rows: 5
+            .form-item
+              = f.label :explanation, '解説', class: 'a-form-label'
+              = f.text_area :explanation, class: 'a-text-input', rows: 5
+              p.a-form-help
+                | 合格後に正解とあわせて受講生に表示されます。
+
+    .a-card
+      header.card-header
+        h2.card-header__title
+          | 選択肢
+      hr.a-border-tint
+      .card-body
+        .card-body__inner
+          .form__items
+            p.a-form-help
+              | 公開する問題には2つ以上の選択肢と、1つ以上の正解が必要です。単一選択の場合、正解は1つにしてください。
+            = f.fields_for :practice_quiz_choices do |choice|
+              .form-item
+                .row
+                  .col-md-2.col-xs-3
+                    = choice.label :position, '順番', class: 'a-form-label'
+                    = choice.number_field :position, class: 'a-text-input'
+                  .col-md-6.col-xs-12
+                    = choice.label :body, '選択肢', class: 'a-form-label'
+                    = choice.text_field :body, class: 'a-text-input'
+                  .col-md-2.col-xs-6
+                    label.a-form-label
+                      | 正解
+                    .checkboxes
+                      ul.checkboxes__items
+                        li.checkboxes__item
+                          = choice.check_box :correct, class: 'a-toggle-checkbox'
+                          = choice.label :correct do
+                            | 正解にする
+                  - if choice.object.persisted?
+                    .col-md-2.col-xs-6
+                      label.a-form-label
+                        | 削除
+                      .checkboxes
+                        ul.checkboxes__items
+                          li.checkboxes__item
+                            = choice.check_box :_destroy, class: 'a-toggle-checkbox'
+                            = choice.label :_destroy do
+                              | 削除する
 
   .form-actions
     ul.form-actions__items
