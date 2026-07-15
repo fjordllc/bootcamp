@@ -48,7 +48,7 @@ class ApplicationVisualTestCase < ApplicationSystemTestCase
   # is compared. Tune this list for your pages.
   DEFAULT_MASK_SELECTORS = [
     '.a-user-icons',
-    '.a-user-icon',      # the avatar <img> itself carries this class (header "Me", comments)
+    '.a-user-icon', # the avatar <img> itself carries this class (header "Me", comments)
     '.a-user-icon img',
     '.user-icon img',
     '.a-grass',
