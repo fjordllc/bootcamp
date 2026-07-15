@@ -1,5 +1,5 @@
 = render 'errors', object: report
-= form_with model: report, local: true, html: { name: 'report' } do |f|
+= form_with model: report, local: true, html: { name: 'report', data: { controller: 'report-latest' } } do |f|
   .form__items
     .form__items-inner
       .form-item
@@ -77,6 +77,14 @@
               editingValue: true,
               is_editing_template_valid: true,
               data: { 'registered-template-value': registered_preset }
+            .form-item-actions
+              ul.form-item-actions__items
+                li.form-item-actions__item
+                  button.a-button.is-sm.is-secondary(
+                    type='button'
+                    data-action='click->report-latest#replaceReport'
+                  )
+                    | 最新の日報を複製
           .form-textarea
             .form-textarea__body
               - value_option = report.description.blank? && registered_preset.present? ? { value: registered_preset } : {}
