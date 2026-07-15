@@ -114,4 +114,40 @@ class PracticesTest < ApplicationSystemTestCase
     assert_text 'rubyをインストールする'
     assert_no_link '給付金コース'
   end
+
+  test 'show status guidance link on source practice for grant course user' do
+    source_practice = practices(:practice23)
+
+    visit_with_auth practice_path(source_practice), 'grant-course'
+
+    assert_link '給付金コースへ移動する', href: practice_path(practices(:practice64))
+    assert_text '進捗のステータス変更は、給付金コースのプラクティス側で行ってください。'
+    assert_text '提出・修了は、給付金コースのプラクティス側で行ってください。'
+    assert_no_text '提出の前に、提出時の注意点を確認しよう'
+    assert_no_text '提出物を作成し提出し、メンターから確認をもらったら'
+    assert_no_text 'このプラクティスを修了にしてください。'
+    assert_no_text 'このプラクティスに提出物はありません。'
+    assert_no_text '修了条件をクリアしたら修了にしてください。'
+  end
+
+  test 'show normal status buttons on source practice for non grant course user' do
+    source_practice = practices(:practice23)
+
+    visit_with_auth practice_path(source_practice), 'kimura'
+
+    assert_selector '.practice-status-buttons__button'
+    assert_no_link '給付金コースへ移動する'
+    assert_no_text '進捗のステータス変更は、給付金コースのプラクティス側で行ってください。'
+    assert_no_text '提出・修了は、給付金コースのプラクティス側で行ってください。'
+  end
+
+  test 'show normal status buttons on grant course practice for grant course user' do
+    grant_course_practice = practices(:practice64)
+
+    visit_with_auth practice_path(grant_course_practice), 'grant-course'
+
+    assert_selector '.practice-status-buttons__button'
+    assert_no_link '給付金コースへ移動する'
+    assert_no_text '進捗のステータス変更は、給付金コースのプラクティス側で行ってください。'
+  end
 end

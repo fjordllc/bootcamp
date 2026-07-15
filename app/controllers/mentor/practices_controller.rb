@@ -11,7 +11,7 @@ class Mentor::PracticesController < ApplicationController
   end
 
   def new
-    @practice = Practice.new(pjord_review: true)
+    @practice = Practice.new(pjord_review: true, pjord_auto_check: false)
   end
 
   def edit; end
@@ -56,6 +56,7 @@ class Mentor::PracticesController < ApplicationController
       :submission,
       :open_product,
       :pjord_review,
+      :pjord_auto_check,
       :include_progress,
       :completion_image,
       :memo,

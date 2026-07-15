@@ -3,6 +3,7 @@
 json.id practice.id
 json.title practice.title
 json.submission practice.submission
+json.pjord_auto_check practice.pjord_auto_check
 
 json.category_ids_names practice.category_ids do |category_id|
   json.category_id category_id

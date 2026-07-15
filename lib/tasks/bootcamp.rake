@@ -60,6 +60,11 @@ namespace :bootcamp do
 
       puts '== END   Cloud Build Task =='
     end
+
+    desc 'Backfill thumbnails for existing movies'
+    task backfill_movie_thumbnails: :environment do
+      BulkGenerateMovieThumbnailJob.perform_now
+    end
   end
 
   namespace :statistics do

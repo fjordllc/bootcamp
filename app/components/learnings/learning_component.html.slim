@@ -1,17 +1,25 @@
-.card-main-actions
-  ul.card-main-actions__items
-    - if submission?
-      li.card-main-actions__item
-        = link_to product_link, class: 'a-button is-sm is-primary is-block test-product' do
-          i.fa-solid.fa-file
-          | #{product_label}
-    - if @practice.completed?(@current_user)
-      li.card-main-actions__item
-        button.a-button.is-sm.is-secondary.is-block.is-disabled.test-completed
-          i.fa-solid.fa-check
-          | 修了しています
-    - else
-      li.card-main-actions__item
-        = button_tag type: 'button', class: 'a-button is-sm is-warning is-block', id: 'js-complete', data: { practice_id: @practice.id } do
-          i.fa-solid.fa-check
-          | 修了
+- if @practice.guide_to_grant_course?(@current_user)
+  .practice-status-buttons
+    .practice-status-buttons__grant-guidance
+      = link_to practice_path(@practice.copied_practices.first || @practice), class: 'practice-status-buttons__grant-link a-button is-sm is-secondary' do
+        | 給付金コースへ移動する
+      .practice-status-buttons__note.practice-status-buttons__grant-note
+        | 提出・修了は、給付金コースのプラクティス側で行ってください。
+- else
+  .card-main-actions
+    ul.card-main-actions__items
+      - if @practice.submission?
+        li.card-main-actions__item
+          = link_to product_link, class: 'a-button is-sm is-primary is-block test-product' do
+            i.fa-solid.fa-file
+            | #{product_label}
+      - if @practice.completed?(@current_user)
+        li.card-main-actions__item
+          button.a-button.is-sm.is-secondary.is-block.is-disabled.test-completed
+            i.fa-solid.fa-check
+            | 修了しています
+      - else
+        li.card-main-actions__item
+          = button_tag type: 'button', class: 'a-button is-sm is-warning is-block', id: 'js-complete', data: { practice_id: @practice.id } do
+            i.fa-solid.fa-check
+            | 修了
