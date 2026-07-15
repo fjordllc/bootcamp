@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bootcamp UI Design"
+  short_description: "Bootcampらしい画面設計と視覚検証を一貫して支援"
+  default_prompt: "Use $bootcamp-ui-design to implement this UI consistently with existing Bootcamp pages."
