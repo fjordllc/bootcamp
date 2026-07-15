@@ -149,9 +149,9 @@ input:checked + .a-button.is-checkbox::after {
 }
 
 .a-button.is-primary {
-  background-color: #5752e8;
+  background-color: var(--primary);
   color: white;
-  border-color: #5752e8;
+  border-color: var(--primary);
 }
 
 .a-button.is-primary:focus, .a-button.is-primary:active {
@@ -160,7 +160,7 @@ input:checked + .a-button.is-checkbox::after {
 
 .a-button.is-primary:hover, .a-button.is-primary:focus, .a-button.is-primary:active {
   background-color: rgb(67.494552381 61.829877551 231.770122449);
-  border-color: #5752e8;
+  border-color: var(--primary);
 }
 
 .a-button.is-primary.is-disabled, .a-button.is-primary:disabled {
@@ -170,9 +170,8 @@ input:checked + .a-button.is-checkbox::after {
 }
 
 .a-button.is-secondary {
-  background-color: hsl(242deg 1% 100%);
-  color: hsl(242deg 10% 30%);
-  border-color: hsl(242deg 3% 88%);
+  background-color: var(--secondary);
+  color: var(--default-text);
   border-color: var(--input-border);
 }
 
@@ -192,9 +191,9 @@ input:checked + .a-button.is-checkbox::after {
 }
 
 .a-button.is-info {
-  background-color: hsl(190deg 73% 48%);
+  background-color: var(--info);
   color: white;
-  border-color: hsl(190deg 73% 48%);
+  border-color: var(--info);
 }
 
 .a-button.is-info:focus, .a-button.is-info:active {
@@ -203,7 +202,7 @@ input:checked + .a-button.is-checkbox::after {
 
 .a-button.is-info:hover, .a-button.is-info:focus, .a-button.is-info:active {
   background-color: hsl(190deg 75% 44%);
-  border-color: hsl(190deg 73% 48%);
+  border-color: var(--info);
 }
 
 .a-button.is-info.is-disabled, .a-button.is-info:disabled {
@@ -213,9 +212,9 @@ input:checked + .a-button.is-checkbox::after {
 }
 
 .a-button.is-success {
-  background-color: hsl(150deg 39% 49%);
+  background-color: var(--success);
   color: white;
-  border-color: hsl(150deg 39% 49%);
+  border-color: var(--success);
 }
 
 .a-button.is-success:focus, .a-button.is-success:active {
@@ -224,7 +223,7 @@ input:checked + .a-button.is-checkbox::after {
 
 .a-button.is-success:hover, .a-button.is-success:focus, .a-button.is-success:active {
   background-color: hsl(150deg 41% 45%);
-  border-color: hsl(150deg 39% 49%);
+  border-color: var(--success);
 }
 
 .a-button.is-success.is-disabled, .a-button.is-success:disabled {
@@ -234,9 +233,9 @@ input:checked + .a-button.is-checkbox::after {
 }
 
 .a-button.is-warning {
-  background-color: hsl(44deg 96% 54%);
-  color: hsl(242deg 10% 30%);
-  border-color: hsl(44deg 96% 54%);
+  background-color: var(--warning);
+  color: var(--default-text);
+  border-color: var(--warning);
 }
 
 .a-button.is-warning:focus, .a-button.is-warning:active {
@@ -245,7 +244,7 @@ input:checked + .a-button.is-checkbox::after {
 
 .a-button.is-warning:hover, .a-button.is-warning:focus, .a-button.is-warning:active {
   background-color: hsl(44deg 98% 50%);
-  border-color: hsl(44deg 96% 54%);
+  border-color: var(--warning);
 }
 
 .a-button.is-warning.is-disabled, .a-button.is-warning:disabled {
@@ -255,9 +254,9 @@ input:checked + .a-button.is-checkbox::after {
 }
 
 .a-button.is-danger {
-  background-color: hsl(349deg 90% 62%);
+  background-color: var(--danger);
   color: white;
-  border-color: hsl(349deg 90% 62%);
+  border-color: var(--danger);
 }
 
 .a-button.is-danger:focus, .a-button.is-danger:active {
@@ -266,7 +265,7 @@ input:checked + .a-button.is-checkbox::after {
 
 .a-button.is-danger:hover, .a-button.is-danger:focus, .a-button.is-danger:active {
   background-color: hsl(349deg 92% 58%);
-  border-color: hsl(349deg 90% 62%);
+  border-color: var(--danger);
 }
 
 .a-button.is-danger.is-disabled, .a-button.is-danger:disabled {
@@ -276,9 +275,9 @@ input:checked + .a-button.is-checkbox::after {
 }
 
 .a-button.is-disabled {
-  background-color: hsl(242deg 11% 85%);
-  color: hsl(242deg 10% 30%);
-  border-color: hsl(242deg 11% 85%);
+  background-color: var(--disabled);
+  color: var(--default-text);
+  border-color: var(--disabled);
 }
 
 .a-button.is-disabled:focus, .a-button.is-disabled:active {
@@ -287,7 +286,7 @@ input:checked + .a-button.is-checkbox::after {
 
 .a-button.is-disabled:hover, .a-button.is-disabled:focus, .a-button.is-disabled:active {
   background-color: hsl(242deg 13% 81%);
-  border-color: hsl(242deg 11% 85%);
+  border-color: var(--disabled);
 }
 
 .a-button.is-disabled.is-disabled, .a-button.is-disabled:disabled {
@@ -297,9 +296,9 @@ input:checked + .a-button.is-checkbox::after {
 }
 
 .a-button.is-main {
-  background-color: hsl(242deg 51% 51%);
+  background-color: var(--main);
   color: white;
-  border-color: hsl(242deg 51% 51%);
+  border-color: var(--main);
 }
 
 .a-button.is-main:focus, .a-button.is-main:active {
@@ -308,7 +307,7 @@ input:checked + .a-button.is-checkbox::after {
 
 .a-button.is-main:hover, .a-button.is-main:focus, .a-button.is-main:active {
   background-color: hsl(242deg 53% 47%);
-  border-color: hsl(242deg 51% 51%);
+  border-color: var(--main);
 }
 
 .a-button.is-main.is-disabled, .a-button.is-main:disabled {
@@ -318,9 +317,9 @@ input:checked + .a-button.is-checkbox::after {
 }
 
 .a-button.is-secondary.is-active {
-  background-color: #5752e8;
+  background-color: var(--primary);
   color: white;
-  border-color: #5752e8;
+  border-color: var(--primary);
 }
 
 .a-button.is-secondary.is-active:focus, .a-button.is-secondary.is-active:active {
@@ -329,7 +328,7 @@ input:checked + .a-button.is-checkbox::after {
 
 .a-button.is-secondary.is-active:hover, .a-button.is-secondary.is-active:focus, .a-button.is-secondary.is-active:active {
   background-color: rgb(67.494552381 61.829877551 231.770122449);
-  border-color: #5752e8;
+  border-color: var(--primary);
 }
 
 .a-button.is-secondary.is-active.is-disabled, .a-button.is-secondary.is-active:disabled {
@@ -346,8 +345,8 @@ input:checked + .a-button.is-checkbox::after {
 }
 
 .a-button.is-muted-bordered {
-  border-color: hsl(242deg 7% 89%);
-  color: hsl(242deg 5% 64%);
+  border-color: var(--border);
+  color: var(--muted-text);
   font-weight: 400 !important;
   background-color: white;
 }
@@ -359,8 +358,8 @@ input:checked + .a-button.is-checkbox::after {
 
 .a-button.is-primary-border {
   background-color: rgb(255 255 255 / 10%);
-  color: #5752e8;
-  border-color: #5752e8;
+  color: var(--primary);
+  border-color: var(--primary);
 }
 
 .a-button.is-primary-border:focus, .a-button.is-primary-border:active {
@@ -379,8 +378,8 @@ input:checked + .a-button.is-checkbox::after {
 
 .a-button.is-secondary-border {
   background-color: rgb(255 255 255 / 10%);
-  color: hsl(242deg 1% 100%);
-  border-color: hsl(242deg 1% 100%);
+  color: var(--secondary);
+  border-color: var(--secondary);
 }
 
 .a-button.is-secondary-border:focus, .a-button.is-secondary-border:active {
@@ -407,7 +406,7 @@ input:checked + .a-button.is-checkbox::after {
 
 .a-button.is-text {
   text-decoration: underline;
-  color: #5752e8;
+  color: var(--primary);
 }
 
 .a-button.is-text:hover,
@@ -439,7 +438,7 @@ input:checked + .a-button.is-checkbox::after {
 
 .a-button.is-text-reversal,
 .a-button.is-muted-text {
-  color: hsl(242deg 5% 64%);
+  color: var(--muted-text);
 }
 
 .a-button.is-xxs,

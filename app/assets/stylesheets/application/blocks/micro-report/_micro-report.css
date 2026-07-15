@@ -1,5 +1,3 @@
-
-
 .micro-report {
   position: relative;
   display: flex;
@@ -63,9 +61,6 @@
   }
 }
 
-.micro-report__title-user-icon {
-}
-
 @media (width >= 48em) {
   .micro-report__title-user-icon {
     display: none;
@@ -80,9 +75,6 @@
     vertical-align: middle;
     margin-right: .25rem;
   }
-}
-
-.micro-report__title-link {
 }
 
 @media (width >= 48em) {
@@ -125,9 +117,6 @@
 
 .micro-report__title-label i {
   margin-right: .1875rem;
-}
-
-.micro-report__body {
 }
 
 @media (width <= 47.9375em) {

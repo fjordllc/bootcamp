@@ -18,10 +18,3 @@
   display: block;
   border-top: solid 1px var(--danger);
 }
-
-.a-border-shade {
-  height: 1px;
-  width: 100%;
-  display: block;
-  border-top: solid 1px var(--border-shade);
-}

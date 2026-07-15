@@ -1,7 +1,3 @@
-
-.form-notice {
-}
-
 .form-notice:not(:first-child) {
   margin-top: 1em;
 }

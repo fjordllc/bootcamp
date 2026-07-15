@@ -98,15 +98,6 @@
   gap: 0.125em;
 }
 
-.lp-price__separator {
-  font-weight: 100;
-  align-self: baseline;
-}
-
-.lp-price__per-person {
-  align-self: baseline;
-}
-
 .lp-price__tax {
   font-size: 1.25em;
   align-self: baseline;

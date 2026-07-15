@@ -1,4 +1,3 @@
-
 .page-header {
   background-color: var(--base);
 }
@@ -83,9 +82,6 @@
 
 .page-header__start .page-header__title {
   align-self: center;
-}
-
-.page-header__action {
 }
 
 @media (width <= 47.9375em) {

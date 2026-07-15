@@ -156,47 +156,6 @@
 }
 
 /* =============================================
-   Bottom nav (mobile only)
-============================================= */
-
-.mr-bottom-nav {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: var(--background);
-  border-top: 1px solid var(--border);
-  z-index: 100;
-}
-
-.mr-bottom-nav__items {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-}
-
-.mr-bottom-nav__item {
-  flex: 1;
-}
-
-.mr-bottom-nav__link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 3.25rem;
-  font-size: 1.25rem;
-  color: var(--default-text);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.mr-bottom-nav__link:hover {
-  color: var(--main);
-}
-
-/* =============================================
    Responsive
 ============================================= */
 
@@ -213,9 +172,5 @@
     max-width: 100%;
     border-right: none;
     padding-bottom: 3.25rem;
-  }
-
-  .mr-bottom-nav {
-    display: block;
   }
 }

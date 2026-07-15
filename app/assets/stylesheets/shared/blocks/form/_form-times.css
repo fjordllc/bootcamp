@@ -1,7 +1,3 @@
-
-.form-times {
-}
-
 @media (width >= 48em) {
   .form-times {
     display: flex;
@@ -34,9 +30,6 @@
   .form-times__items {
     gap: 1rem;
   }
-}
-
-.form-times__action {
 }
 
 @media (width <= 47.9375em) {
