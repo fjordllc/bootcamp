@@ -34,7 +34,7 @@
     .container(class="#{visible_learning_time_frames?(@user) ? 'is-xxl' : 'is-xl'}")
       .row
         .col-xs-12(class="#{visible_learning_time_frames?(@user) ? 'col-lg-4 col-xxl-5' : 'col-lg-6 col-xxl-6'}")
-          .page-content.is-user
+          article.page-content.is-user
             = render 'users/profile', user: @user
             .card-counts.is-user
               = render 'users/activity_counts', user: @user
