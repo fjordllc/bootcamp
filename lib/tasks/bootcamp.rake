@@ -57,13 +57,9 @@ namespace :bootcamp do
       puts '== START Cloud Build Task =='
 
       Rake::Task['smart_search:generate_all'].invoke
+      BulkGenerateMovieThumbnailJob.perform_now
 
       puts '== END   Cloud Build Task =='
-    end
-
-    desc 'Backfill thumbnails for existing movies'
-    task backfill_movie_thumbnails: :environment do
-      BulkGenerateMovieThumbnailJob.perform_now
     end
   end
 
