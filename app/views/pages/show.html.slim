@@ -46,7 +46,7 @@ main.page-main
                     li.card-main-actions__item.is-sub
                       = link_to @page, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
                         | 削除する
-          .page-content-prev-next
+          nav.page-content-prev-next
             .page-content-prev-next__item
               = link_to :pages, class: 'page-content-prev-next__item-link is-index' do
                 | 一覧に戻る
