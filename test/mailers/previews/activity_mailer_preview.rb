@@ -21,7 +21,7 @@ class ActivityMailerPreview < ActionMailer::Preview
   end
 
   def checked
-    check = Check.find(ActiveRecord::FixtureSet.identify(:procuct2_check_komagata))
+    check = Check.find(ActiveRecord::FixtureSet.identify(:product2_check_komagata))
     ActivityMailer.with(receiver: check.receiver, check:).checked
   end
 
