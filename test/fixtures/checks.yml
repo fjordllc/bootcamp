@@ -22,30 +22,30 @@ report7_check_machida:
   user: machida
   checkable: report7 (Report)
 
-procuct2_check_komagata:
+product2_check_komagata:
   user: komagata
   checkable: product2 (Product)
 
-procuct3_check_komagata:
+product3_check_komagata:
   user: komagata
   checkable: product3 (Product)
 
-procuct4_check_komagata:
+product4_check_komagata:
   user: komagata
   checkable: product4 (Product)
 
-procuct7_check_komagata:
+product7_check_komagata:
   user: komagata
   checkable: product7 (Product)
 
-procuct9_check_komagata:
+product9_check_komagata:
   user: komagata
   checkable: product9 (Product)
 
-procuct67_check_long-id-mentor:
+product67_check_long-id-mentor:
   user: long-id-mentor
   checkable: product67 (Product)
 
-procuct75_check_komagata:
+product75_check_komagata:
   user: komagata
   checkable: product75 (Product)
