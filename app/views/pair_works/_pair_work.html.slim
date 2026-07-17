@@ -1,4 +1,4 @@
-.card-list-item(class="#{pair_work.wip ? 'is-wip' : ''}")
+article.card-list-item(class="#{pair_work.wip ? 'is-wip' : ''}")
   .card-list-item__inner
     .card-list-item__user
       = render 'users/icon', user: pair_work.user, link_class: 'card-list-item__user-link', image_class: 'card-list-item__user-icon'
