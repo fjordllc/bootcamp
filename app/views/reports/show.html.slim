@@ -26,7 +26,7 @@
           = render 'report_header', report: @report
           = render 'report_body', report: @report
 
-          nav.page-content-prev-next
+          nav.page-content-prev-next aria-label="日報ナビゲーション"
             .page-content-prev-next__item
               - if @report.previous
                 = link_to @report.previous, class: 'page-content-prev-next__item-link is-prev' do
@@ -52,7 +52,7 @@
             input.a-toggle-checkbox#side-tabs-2 type='radio' name='side-tabs-contents'
             input.a-toggle-checkbox#side-tabs-3 type='radio' name='side-tabs-contents'
             input.a-toggle-checkbox#side-tabs-4 type='radio' name='side-tabs-contents'
-            nav.side-tabs-nav.is-only-mentor
+            nav.side-tabs-nav.is-only-mentor aria-label="ユーザー情報ナビゲーション"
               .side-tabs-nav__items
                 .side-tabs-nav__item
                   label.side-tabs-nav__item-link#side-tabs-nav-1 for='side-tabs-1'
