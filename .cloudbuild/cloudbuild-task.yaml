@@ -36,6 +36,7 @@ steps:
   - |-
     eval "$(.cloudbuild/cloud-build-env exports)"
     export APP_HOST_NAME="${APP_HOST_NAME:-bootcamp-staging.fjord.jp}"
+    export SECRET_KEY_BASE="${SECRET_KEY_BASE:-dummy}"
     bin/rails bootcamp:oneshot:cloudbuild
 - id: Kill_SqlProxy
   name: gcr.io/cloud-builders/docker
