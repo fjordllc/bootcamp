@@ -6,9 +6,11 @@ json.adviser user.adviser
 
 if admin_or_mentor_login?
   json.mentor_memos user.mentor_memos do |memo|
+    json.id memo.id
     json.content memo.content
     json.author memo.author&.long_name
-    json.created_at memo.created_at
+    json.author_id memo.author_id
+    json.created_at memo.created_at&.strftime('%Y/%m/%d')
   end
 end
 
