@@ -222,8 +222,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Generate flakewatch HTML
-        # komagata/flakewatch v0.6.32
-        uses: komagata/flakewatch@v0.6.32
+        # komagata/flakewatch v0.6.33
+        uses: komagata/flakewatch@v0.6.33
         with:
           junit-artifact-pattern: junit-xml-*
           source-root: ${{ github.workspace }}
