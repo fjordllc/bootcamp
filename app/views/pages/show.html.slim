@@ -46,7 +46,7 @@ main.page-main
                     li.card-main-actions__item.is-sub
                       = link_to @page, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
                         | 削除する
-          nav.page-content-prev-next
+          nav.page-content-prev-next aria-label="ページナビゲーション"
             .page-content-prev-next__item
               = link_to :pages, class: 'page-content-prev-next__item-link is-index' do
                 | 一覧に戻る
@@ -54,7 +54,7 @@ main.page-main
         = render 'comments/comments', commentable: @page, commentable_type: 'Page'
 
       - if @page.practice
-        nav.a-side-nav
+        nav.a-side-nav aria-label="プラクティスのページ一覧"
           .a-side-nav__inner
             header.a-side-nav__header
               h2.a-side-nav__title
