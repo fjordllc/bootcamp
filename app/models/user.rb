@@ -791,13 +791,6 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     end
   end
 
-  def update_mentor_memo(new_memo)
-    # ユーザーの「最終ログイン」にupdated_at値が利用されるため
-    # メンターor管理者によるmemoカラムのupdateの際は、updated_at値の変更を防ぐ
-    self.record_timestamps = false
-    update!(mentor_memo: new_memo)
-  end
-
   def mark_all_as_read_and_delete_cache_of_unreads(target_notifications: nil)
     target_notifications ||= notifications
     target_notifications.update_all(read: true, updated_at: Time.current) # rubocop:disable Rails/SkipsModelValidations

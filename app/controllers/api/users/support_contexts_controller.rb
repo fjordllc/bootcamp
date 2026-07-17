@@ -14,7 +14,7 @@ class API::Users::SupportContextsController < API::BaseController # rubocop:todo
       recent_products: recent_products.map { |product| product_json(product) },
       recent_questions: recent_questions.map { |question| question_json(question) },
       talk: talk_json,
-      mentor_memo: @user.mentor_memo,
+      recent_mentor_memos: recent_mentor_memos.map { |mentor_memo| mentor_memo_json(mentor_memo) },
       learning_progress: learning_progress_json
     }
   end
@@ -88,6 +88,10 @@ class API::Users::SupportContextsController < API::BaseController # rubocop:todo
                                .limit(SUPPORT_CONTEXT_LIMIT)
   end
 
+  def recent_mentor_memos
+    @recent_mentor_memos ||= @user.mentor_memos.order(created_at: :desc).limit(SUPPORT_CONTEXT_LIMIT)
+  end
+
   def practice_json(practice)
     {
       id: practice.id,
@@ -103,6 +107,15 @@ class API::Users::SupportContextsController < API::BaseController # rubocop:todo
       wip: report.wip?,
       checked: report.checked?,
       updated_at: report.updated_at
+    }
+  end
+
+  def mentor_memo_json(mentor_memo)
+    {
+      id: mentor_memo.id,
+      content: mentor_memo.content,
+      author: mentor_memo.author && "#{mentor_memo.author.login_name} (#{mentor_memo.author.name_kana})",
+      created_at: mentor_memo.created_at
     }
   end
 
