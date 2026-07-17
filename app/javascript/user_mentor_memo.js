@@ -44,6 +44,16 @@ document.addEventListener('DOMContentLoaded', () => {
               editButton.textContent = '編集'
               updatedButtonCell.appendChild(editButton)
 
+              const deleteButton = document.createElement('button')
+              deleteButton.textContent = '削除'
+              updatedButtonCell.appendChild(deleteButton)
+
+              deleteButton.addEventListener('click', () => {
+                if (confirm('本当に削除しますか？')) {
+                  deleteMemo(memo.id)
+                }
+              })
+              
               editButton.addEventListener('click', () => {
                 contentCell.textContent = ''
                 const editInput = document.createElement('input')
@@ -142,5 +152,24 @@ document.addEventListener('DOMContentLoaded', () => {
           console.warn(error)
         })
     }
+
+    function deleteMemo(id) {
+      fetch(`/api/mentor_memos/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': CSRF.getToken()
+        },
+        credentials: 'same-origin',
+        redirect: 'manual'
+        })
+        .then((response) => {
+          location.reload()
+        })
+        .catch((error) => {
+          console.warn(error)
+        })
+      }
+    }
   }
-})
+)
