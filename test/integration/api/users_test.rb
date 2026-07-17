@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class API::UsersTest < ActionDispatch::IntegrationTest
-  fixtures :users
+  fixtures :users, :mentor_memos
 
   def setup
     @application = Doorkeeper::Application.create!(
@@ -36,7 +36,7 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     get api_user_path(users(:kimura).id, format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
-    assert_equal(users(:kimura).mentor_memo, JSON.parse(@response.body)['mentor_memo'])
+    assert_equal([mentor_memos(:kimura).content], JSON.parse(@response.body)['mentor_memos'].map { |memo| memo['content'] })
   end
 
   test 'GET /api/users/1234.json as mentor' do
@@ -47,7 +47,7 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     get api_user_path(users(:kimura).id, format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
-    assert_equal(users(:kimura).mentor_memo, JSON.parse(@response.body)['mentor_memo'])
+    assert_equal([mentor_memos(:kimura).content], JSON.parse(@response.body)['mentor_memos'].map { |memo| memo['content'] })
   end
 
   test 'GET /api/users/1234.json as adviser' do
@@ -58,7 +58,7 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     get api_user_path(users(:kimura).id, format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
-    assert_nil(JSON.parse(@response.body)['mentor_memo'])
+    assert_nil(JSON.parse(@response.body)['mentor_memos'])
   end
 
   test 'GET /api/users/1234.json as trainee' do
@@ -69,7 +69,7 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     get api_user_path(users(:kimura).id, format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
-    assert_nil(JSON.parse(@response.body)['mentor_memo'])
+    assert_nil(JSON.parse(@response.body)['mentor_memos'])
   end
 
   test 'GET /api/users/1234.json as graduate' do
@@ -80,7 +80,7 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     get api_user_path(users(:kimura).id, format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
-    assert_nil(JSON.parse(@response.body)['mentor_memo'])
+    assert_nil(JSON.parse(@response.body)['mentor_memos'])
   end
 
   test 'GET /api/users/1234.json as student' do
@@ -106,7 +106,7 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     assert_response :ok
 
     response_body = JSON.parse(@response.body)
-    authorized_keys = %w[id login_name email long_name url roles primary_role joining_status icon_title adviser avatar_url company mentor_memo]
+    authorized_keys = %w[id login_name email long_name url roles primary_role joining_status icon_title adviser avatar_url company mentor_memos]
     assert_equal authorized_keys.sort, response_body.keys.sort
   end
 
@@ -122,7 +122,7 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     assert_response :ok
 
     response_body = JSON.parse(@response.body)
-    authorized_keys = %w[id login_name email long_name url roles primary_role joining_status icon_title adviser avatar_url mentor_memo]
+    authorized_keys = %w[id login_name email long_name url roles primary_role joining_status icon_title adviser avatar_url mentor_memos]
     assert_equal authorized_keys.sort, response_body.keys.sort
   end
 
@@ -232,7 +232,7 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     assert_includes response_body.keys, 'recent_products'
     assert_includes response_body.keys, 'recent_questions'
     assert_includes response_body.keys, 'talk'
-    assert_includes response_body.keys, 'mentor_memo'
+    assert_includes response_body.keys, 'recent_mentor_memos'
     assert_includes response_body.keys, 'learning_progress'
     assert response_body['recent_reports'].size <= API::Users::SupportContextsController::SUPPORT_CONTEXT_LIMIT
   end
