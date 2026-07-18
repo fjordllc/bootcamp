@@ -22,7 +22,7 @@ hr.a-border
     .card-list.a-card
       .card-list__items
         - bookmarks.each do |bookmark|
-          .card-list-item class="is-#{bookmark.bookmarkable_type.downcase}" id="bookmark-#{bookmark.id}"
+          article.card-list-item class="is-#{bookmark.bookmarkable_type.downcase}" id="bookmark-#{bookmark.id}"
             .card-list-item__inner
               - if bookmark.bookmarkable_type == 'Talk'
                 = image_tag bookmark.bookmarkable.user.avatar_url, class: 'card-list-item__user-icon a-user-icon'
