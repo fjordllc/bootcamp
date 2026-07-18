@@ -1,12 +1,12 @@
 div(
-  data-report-preset-registered-template-value=template_description
-  data-report-preset-registered-template-id-value=template_id
+  data-report-preset-registered-template-value=preset_description
+  data-report-preset-registered-template-id-value=preset_id
   data-report-preset-editing-value=editingValue
   data-report-preset-is-editing-template-valid-value=is_editing_template_valid
 )
   .form-item-actions
     ul.form-item-actions__items
-      - if template_id.present?
+      - if preset_id.present?
         li.form-item-actions__item
           a.form-item-actions__text-link.is-danger(
             data-action="click->report-preset#replaceReport"
@@ -64,7 +64,7 @@ div(
             data-report-preset-target='templateInput'
             name='report_preset[description]'
             data-action='input->report-preset#updateSubmitButtonState'
-          ) = template_description
+          ) = preset_description
 
         .a-markdown-input__inner.js-tabs__content.a-long-text.is-md.a-markdown-input__preview.has-max-height(
           id='js-template-preview'
@@ -75,8 +75,8 @@ div(
       footer.card-footer
         .card-main-actions
           ul.card-main-actions__items
-            - action = template_id.present? ? 'updateTemplate' : 'registerTemplate'
-            - label = template_id.present? ? '変更' : '登録'
+            - action = preset_id.present? ? 'updateTemplate' : 'registerTemplate'
+            - label = preset_id.present? ? '変更' : '登録'
 
             li.card-main-actions__item
               button.a-button.is-primary.is-sm.is-block(

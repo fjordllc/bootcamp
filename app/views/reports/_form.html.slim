@@ -67,19 +67,19 @@
               | この日報はすでに提出済みです。
       .row.js-markdown-parent(data-controller="report-preset")
         .col-md-6.col-xs-12
-          - registered_template = current_user.report_preset&.description
-          - registered_template_id = current_user.report_preset&.id
+          - registered_preset = current_user.report_preset&.description
+          - registered_preset_id = current_user.report_preset&.id
           .form-item__header
             = f.label :description, class: 'a-form-label'
             = render 'reports/report_preset',
-              template_description: registered_template,
-              template_id: registered_template_id,
+              preset_description: registered_preset,
+              preset_id: registered_preset_id,
               editingValue: true,
               is_editing_template_valid: true,
-              data: { 'registered-template-value': registered_template }
+              data: { 'registered-template-value': registered_preset }
           .form-textarea
             .form-textarea__body
-              - value_option = report.description.blank? && registered_template.present? ? { value: registered_template } : {}
+              - value_option = report.description.blank? && registered_preset.present? ? { value: registered_preset } : {}
               = f.text_area :description,
                 **value_option,
                 class: "a-text-input js-warning-form js-report-content markdown-form__text-area #{params[:action] == 'new' && params[:id].blank? ? '' : 'js-markdown'}",
