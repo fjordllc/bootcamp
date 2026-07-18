@@ -3,12 +3,17 @@
 require 'test_helper'
 
 class BulkGenerateMovieThumbnailJobTest < ActiveJob::TestCase
-  test 'enqueues GenerateMovieThumbnailJob for movies without a thumbnail' do
+  test 'generates thumbnails synchronously for movies without one' do
     movie = movies(:movie1)
     movie.thumbnail.purge
+    movie.movie_data.attach(
+      io: File.open(Rails.root.join('test/fixtures/files/movies/movie.mp4')),
+      filename: 'movie.mp4',
+      content_type: 'video/mp4'
+    )
 
-    assert_enqueued_with(job: GenerateMovieThumbnailJob, args: [movie]) do
-      BulkGenerateMovieThumbnailJob.perform_now
-    end
+    BulkGenerateMovieThumbnailJob.perform_now
+
+    assert movie.reload.thumbnail.attached?
   end
 end
