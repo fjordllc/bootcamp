@@ -87,7 +87,7 @@ Rails.application.routes.draw do
     end
     resources :searchables, only: %i(index)
     resources :bookmarks, only: %i(index create destroy)
-    resources :report_templates, only: %i(create update)
+    resources :report_presets, only: %i(create update)
     resources :markdown_tasks, only: %i(create)
     namespace :talks do
       resources :action_uncompleted, only: %i(index)
