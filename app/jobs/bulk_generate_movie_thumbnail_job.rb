@@ -3,7 +3,7 @@
 class BulkGenerateMovieThumbnailJob < ApplicationJob
   def perform
     Movie.where.missing(:thumbnail_attachment).find_each do |movie|
-      GenerateMovieThumbnailJob.perform_later(movie)
+      GenerateMovieThumbnailJob.perform_now(movie)
     end
   end
 end
