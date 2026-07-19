@@ -586,6 +586,58 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
     t.index ["user_id"], name: "index_participations_on_user_id"
   end
 
+  create_table "practice_quiz_answers", force: :cascade do |t|
+    t.boolean "correct", default: false, null: false
+    t.datetime "created_at", null: false
+    t.bigint "practice_quiz_attempt_id", null: false
+    t.bigint "practice_quiz_choice_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["practice_quiz_attempt_id"], name: "index_practice_quiz_answers_on_practice_quiz_attempt_id"
+    t.index ["practice_quiz_choice_id"], name: "index_practice_quiz_answers_on_practice_quiz_choice_id"
+  end
+
+  create_table "practice_quiz_attempts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.boolean "passed", default: false, null: false
+    t.bigint "practice_quiz_id", null: false
+    t.datetime "submitted_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["practice_quiz_id", "user_id", "submitted_at"], name: "index_practice_quiz_attempts_on_quiz_user_submitted_at"
+    t.index ["practice_quiz_id"], name: "index_practice_quiz_attempts_on_practice_quiz_id"
+    t.index ["user_id"], name: "index_practice_quiz_attempts_on_user_id"
+  end
+
+  create_table "practice_quiz_choices", force: :cascade do |t|
+    t.string "body", null: false
+    t.boolean "correct", default: false, null: false
+    t.datetime "created_at", null: false
+    t.integer "position", default: 0, null: false
+    t.bigint "practice_quiz_question_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["practice_quiz_question_id"], name: "index_practice_quiz_choices_on_practice_quiz_question_id"
+  end
+
+  create_table "practice_quiz_questions", force: :cascade do |t|
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.text "explanation"
+    t.integer "position", default: 0, null: false
+    t.bigint "practice_quiz_id", null: false
+    t.boolean "published", default: false, null: false
+    t.integer "question_type", null: false
+    t.datetime "updated_at", null: false
+    t.index ["practice_quiz_id"], name: "index_practice_quiz_questions_on_practice_quiz_id"
+  end
+
+  create_table "practice_quizzes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "practice_id", null: false
+    t.boolean "published", default: false, null: false
+    t.datetime "updated_at", null: false
+    t.index ["practice_id"], name: "index_practice_quizzes_on_practice_id", unique: true
+  end
+
   create_table "practices", id: :serial, force: :cascade do |t|
     t.integer "category_id"
     t.datetime "created_at", precision: nil
@@ -1168,6 +1220,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
   add_foreign_key "pair_works", "users", column: "buddy_id"
   add_foreign_key "participations", "events"
   add_foreign_key "participations", "users"
+  add_foreign_key "practice_quiz_answers", "practice_quiz_attempts"
+  add_foreign_key "practice_quiz_answers", "practice_quiz_choices"
+  add_foreign_key "practice_quiz_attempts", "practice_quizzes"
+  add_foreign_key "practice_quiz_attempts", "users"
+  add_foreign_key "practice_quiz_choices", "practice_quiz_questions"
+  add_foreign_key "practice_quiz_questions", "practice_quizzes"
+  add_foreign_key "practice_quizzes", "practices"
   add_foreign_key "practices", "practices", column: "source_id"
   add_foreign_key "practices_books", "books"
   add_foreign_key "practices_books", "practices"

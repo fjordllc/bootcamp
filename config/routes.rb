@@ -61,6 +61,9 @@ Rails.application.routes.draw do
     resources :pages, only: %i(index), controller: "practices/pages"
     resource :completion, only: %i(show), controller: "practices/completion"
     resource :submission_answer, only: %i(show), controller: "practices/submission_answer"
+    resource :practice_quiz, only: %i(show), controller: "practices/practice_quiz" do
+      resources :attempts, only: %i(create), controller: "practices/practice_quiz/attempts"
+    end
     resources :coding_tests, only: %i(index), controller: "practices/coding_tests"
     resources :movies, only: %i(index), controller: "practices/movies"
   end
