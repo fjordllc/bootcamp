@@ -24,6 +24,10 @@ class UserDecoratorTest < ActiveDecoratorTestCase
     assert_equal 'hajime (Hajime Tayo)', @student_user.icon_title
   end
 
+  test '#twitter_url' do
+    assert_equal 'https://x.com/komagata', @admin_mentor_user.twitter_url
+  end
+
   test '#long_name' do
     assert_equal 'hajime (ハジメ タヨ)', @student_user.long_name
   end

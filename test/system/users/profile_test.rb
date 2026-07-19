@@ -5,8 +5,10 @@ require 'application_system_test_case'
 module Users
   class ProfileTest < ApplicationSystemTestCase
     test 'show profile' do
-      visit_with_auth "/users/#{users(:hatsuno).id}", 'hatsuno'
+      user = users(:hatsuno)
+      visit_with_auth "/users/#{user.id}", 'hatsuno'
       assert_equal 'hatsunoさんのプロフィール | FBC', title
+      assert_selector "a[href='https://x.com/#{user.twitter_account}'] i.fa-x-twitter", visible: :all
     end
 
     test 'autolink profile when url is included' do
