@@ -12,14 +12,14 @@ steps:
     current_create_time="$(
       gcloud builds describe "$current_build_id" \
         --project="$PROJECT_ID" \
-        --region=global \
+        --region=asia-northeast1 \
         --format="value(createTime)"
     )"
 
     echo "Cancelling previous running staging builds..."
     gcloud builds list \
       --project="$PROJECT_ID" \
-      --region=global \
+      --region=asia-northeast1 \
       --filter="substitutions.TRIGGER_NAME=cloud-run-deploy-staging AND (status=QUEUED OR status=WORKING)" \
       --format="value(id,createTime)" |
       while read -r build_id create_time; do
@@ -27,7 +27,7 @@ steps:
           echo "Cancelling previous build: $build_id"
           gcloud builds cancel "$build_id" \
             --project="$PROJECT_ID" \
-            --region=global \
+            --region=asia-northeast1 \
             --quiet || true
         fi
       done
@@ -67,7 +67,7 @@ steps:
   - --build
   - "$PROJECT_ID"
   - "$BUILD_ID"
-  - global
+  - asia-northeast1
   waitFor:
   - Push
 - id: StopCloudRun
