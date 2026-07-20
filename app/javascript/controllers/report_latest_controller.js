@@ -22,6 +22,10 @@ export default class extends Controller {
       return
     }
 
+    if (!confirm('日報が上書きされますが、よろしいですか？')) {
+      return
+    }
+
     const data = await response.json()
     this.practicesTarget.choices.removeActiveItems()
     data.practice_ids.forEach(id => {
