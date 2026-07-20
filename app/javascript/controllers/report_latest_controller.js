@@ -1,6 +1,7 @@
 import { Controller } from '@hotwired/stimulus'
 import TextareaInitializer from 'textarea-initializer'
 import { toast } from 'vanillaToast'
+import { get } from '@rails/request.js'
 
 export default class extends Controller {
   static targets = ['title', 'description', 'practices']
@@ -8,14 +9,7 @@ export default class extends Controller {
   async replaceReport(e) {
     e.preventDefault()
 
-    const response = await fetch('/api/reports/latest.json', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'X-Requested-With': 'XMLHttpRequest'
-      },
-      credentials: 'same-origin'
-    })
+    const response = await get('/api/reports/latest', { responseKind: 'json' })
 
     if (!response.ok) {
       toast('最新の日報が見つかりませんでした。')
@@ -26,7 +20,7 @@ export default class extends Controller {
       return
     }
 
-    const data = await response.json()
+    const data = await response.json
     this.practicesTarget.choices.removeActiveItems()
     data.practice_ids.forEach((id) => {
       this.practicesTarget.choices.setChoiceByValue(String(id))
