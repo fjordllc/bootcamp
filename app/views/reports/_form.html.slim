@@ -65,25 +65,25 @@
           .a-page-notice__inner
             p
               | この日報はすでに提出済みです。
-      .row.js-markdown-parent(data-controller="report-template")
+      .row.js-markdown-parent(data-controller="report-preset")
         .col-md-6.col-xs-12
-          - registered_template = current_user.report_template&.description
-          - registered_template_id = current_user.report_template&.id
+          - registered_preset = current_user.report_preset&.description
+          - registered_preset_id = current_user.report_preset&.id
           .form-item__header
             = f.label :description, class: 'a-form-label'
-            = render 'reports/report_template',
-              template_description: registered_template,
-              template_id: registered_template_id,
+            = render 'reports/report_preset',
+              preset_description: registered_preset,
+              preset_id: registered_preset_id,
               editingValue: true,
               is_editing_template_valid: true,
-              data: { 'registered-template-value': registered_template }
+              data: { 'registered-template-value': registered_preset }
           .form-textarea
             .form-textarea__body
-              - value_option = report.description.blank? && registered_template.present? ? { value: registered_template } : {}
+              - value_option = report.description.blank? && registered_preset.present? ? { value: registered_preset } : {}
               = f.text_area :description,
                 **value_option,
                 class: "a-text-input js-warning-form js-report-content markdown-form__text-area #{params[:action] == 'new' && params[:id].blank? ? '' : 'js-markdown'}",
-                data: { 'report-template-target': 'report', 'preview': '.js-preview', 'input': '.file-input' }
+                data: { 'report-preset-target': 'report', 'preview': '.js-preview', 'input': '.file-input' }
             .form-textarea__footer
               .form-textarea__insert
                 label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
@@ -94,7 +94,7 @@
         .col-md-6.col-xs-12
           .a-form-label
             | プレビュー
-          .js-preview.a-long-text.is-md.markdown-form__preview(data-report-template-target="previewContent")
+          .js-preview.a-long-text.is-md.markdown-form__preview(data-report-preset-target="previewContent")
 
   .form-actions.is-report
     ul.form-actions__items
