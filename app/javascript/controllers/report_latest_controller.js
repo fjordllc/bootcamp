@@ -28,7 +28,7 @@ export default class extends Controller {
 
     const data = await response.json()
     this.practicesTarget.choices.removeActiveItems()
-    data.practice_ids.forEach(id => {
+    data.practice_ids.forEach((id) => {
       this.practicesTarget.choices.setChoiceByValue(String(id))
     })
     this.titleTarget.value = data.title
