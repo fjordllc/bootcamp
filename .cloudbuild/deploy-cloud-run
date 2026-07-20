@@ -54,6 +54,10 @@ case "$environment" in
   staging)
     export _MISSION_CONTROL_USERNAME="${_MISSION_CONTROL_USERNAME:-fjord}"
     export _PJORD_LLM_MODEL=claude-sonnet-5
+    cloud_run_args+=(
+      --min-instances=1
+      --no-cpu-throttling
+    )
     ;;
   review)
     export _DISCORD_NOTICE_WEBHOOK_URL=
