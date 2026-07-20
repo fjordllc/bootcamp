@@ -3,6 +3,8 @@ import TextareaInitializer from 'textarea-initializer'
 import { toast } from 'vanillaToast'
 
 export default class extends Controller {
+  static targets = ['title', 'description']
+
   async replaceReport(e) {
     e.preventDefault()
 
@@ -19,5 +21,12 @@ export default class extends Controller {
       toast('最新の日報が見つかりませんでした。')
       return
     }
+
+    const data = await response.json()
+    this.titleTarget.value = data.title
+    this.descriptionTarget.value = data.description
+
+    TextareaInitializer.uninitialize('.js-report-content')
+    TextareaInitializer.initialize('.js-report-content')
   }
 }
