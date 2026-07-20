@@ -139,6 +139,16 @@ class API::CommentsTest < ActionDispatch::IntegrationTest
     assert response.parsed_body.dig('errors', 'description').present?
   end
 
+  test 'returns bad request when creating comment without commentable_type' do
+    assert_no_difference('Comment.count') do
+      post api_comments_url(format: :json, commentable_id: @comment.commentable_id),
+           headers: { Authorization: "Bearer #{@write_token.token}" },
+           params: { comment: { description: 'New comment' } }
+    end
+
+    assert_response :bad_request
+  end
+
   test 'can update comment with read, write scope' do
     patch api_comment_url(@comment.id, format: :json),
           headers: { Authorization: "Bearer #{@write_token.token}" },
