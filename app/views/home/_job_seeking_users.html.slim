@@ -5,7 +5,7 @@
   hr.a-border-tint
   .card-list.has-scroll
     - users.each do |user|
-      .card-list-item
+      article.card-list-item
         .card-list-item__inner
           .card-list-item__user
             = render 'users/icon', user: user, image_class: 'card-list-item__user-icon'
