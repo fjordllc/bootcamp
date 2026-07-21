@@ -2,11 +2,11 @@
 
 require 'application_system_test_case'
 
-class ReportTemplatesTest < ApplicationSystemTestCase
+class ReportPresetsTest < ApplicationSystemTestCase
   test 'register template' do
     visit_with_auth '/reports/new', 'mentormentaro'
     click_button 'テンプレート登録'
-    fill_in('report_template[description]', with: 'create test')
+    fill_in('report_preset[description]', with: 'create test')
     click_button '登録'
     visit_with_auth '/reports/new', 'mentormentaro'
     click_button 'テンプレート変更'
@@ -16,7 +16,7 @@ class ReportTemplatesTest < ApplicationSystemTestCase
   test 'update template' do
     visit_with_auth '/reports/new', 'hajime'
     click_button 'テンプレート変更'
-    fill_in('report_template[description]', with: 'update test')
+    fill_in('report_preset[description]', with: 'update test')
     click_button '変更'
     visit_with_auth '/reports/new', 'hajime'
     click_button 'テンプレート変更'
@@ -44,7 +44,7 @@ class ReportTemplatesTest < ApplicationSystemTestCase
   test 'registered template is set when user abort editing and then restart editing again' do
     visit_with_auth '/reports/new', 'hajime'
     click_button 'テンプレート変更'
-    fill_in('report_template[description]', with: 'update test')
+    fill_in('report_preset[description]', with: 'update test')
     find('div.card-main-actions__muted-action', text: 'キャンセル').click
     click_button 'テンプレート変更'
     textarea = find('#js-template-content')

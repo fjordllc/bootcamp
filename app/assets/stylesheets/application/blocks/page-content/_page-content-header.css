@@ -1,4 +1,3 @@
-
 .page-content-header {
   position: relative;
 }
@@ -53,17 +52,11 @@
   }
 }
 
-.page-content-header__user {
-}
-
 @media (width <= 47.9375em) {
   .page-content-header__user {
     display: flex;
     justify-content: center;
   }
-}
-
-.page-content-header__category {
 }
 
 @media (width <= 47.9375em) {
@@ -164,12 +157,6 @@
   }
 }
 
-.page-content-header__before-title .a-user-name {
-}
-
-.page-content-header__before-title .a-meta {
-}
-
 .page-content-header__before-title .a-category-link {
   font-size: .75rem;
 }
@@ -245,18 +232,12 @@
   margin-top: .75rem;
 }
 
-.page-content-header__row {
-}
-
 .page-content-header__row:not(:last-child) {
   margin-bottom: .5rem;
 }
 
 .page-content-header__row .a-horizontal-dashed {
   margin-bottom: 1rem;
-}
-
-.page-content-header__description {
 }
 
 @media (width >= 48em) {

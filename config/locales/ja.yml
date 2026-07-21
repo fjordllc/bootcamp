@@ -162,6 +162,7 @@ ja:
         target: ターゲット
         submission: 提出物
         pjord_review: ピヨルドの提出物レビュー
+        pjord_auto_check: ピヨルドの提出物OK
         submission_answer: 模範解答
         progress: 進捗の計算
         completion_image: 修了おめでとう画像

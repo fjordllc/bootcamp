@@ -1,14 +1,7 @@
-
-.card-books-item {
-}
-
 @media (width >= 48em) {
   .card-books-item {
     height: 100%;
   }
-}
-
-.card-books-item__body {
 }
 
 @media (width >= 48em) {
@@ -36,9 +29,6 @@
     display: block;
     overflow: hidden;
   }
-}
-
-.card-books-item__start {
 }
 
 @media (width >= 48em) {

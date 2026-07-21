@@ -1,7 +1,3 @@
-
-.event-meta {
-}
-
 @media (width >= 48em) {
   .event-meta {
     font-size: .8125rem;
@@ -12,9 +8,6 @@
   .event-meta {
     font-size: .75rem;
   }
-}
-
-.event-meta__inner {
 }
 
 @media (width >= 48em) {

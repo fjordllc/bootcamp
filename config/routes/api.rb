@@ -57,6 +57,7 @@ Rails.application.routes.draw do
       end
       resources :recents, only: %i(index)
     end
+    post 'reports/checks', to: 'reports/checks#create', as: :reports_checks
     resources :reports, only: %i(index show create update destroy) do
       resources :comments, only: %i[create], controller: 'reports/comments'
       resources :reactions, only: %i(index create destroy), controller: 'reports/reactions'
@@ -86,7 +87,7 @@ Rails.application.routes.draw do
     end
     resources :searchables, only: %i(index)
     resources :bookmarks, only: %i(index create destroy)
-    resources :report_templates, only: %i(create update)
+    resources :report_presets, only: %i(create update)
     resources :markdown_tasks, only: %i(create)
     namespace :talks do
       resources :action_uncompleted, only: %i(index)
@@ -97,7 +98,9 @@ Rails.application.routes.draw do
       resource :position, only: %i(update), controller: "survey_question_listings/position"
     end
     resources :reading_circles, only: %i(index)
-    resources :movies, only: %i(index update)
+    resources :movies, only: %i(index create update) do
+      post :direct_uploads, on: :collection
+    end
     resources :metadata, only: %i(index)
     resources :micro_reports, only: %i(update)
     resources :trainee_progresses, only: %i(index)

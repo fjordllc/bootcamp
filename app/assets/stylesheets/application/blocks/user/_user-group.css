@@ -1,4 +1,3 @@
-
 .user-group {
   padding: 1rem;
 }
@@ -22,9 +21,6 @@
   .user-group__header {
     flex-direction: column;
   }
-}
-
-.user-group__title {
 }
 
 @media (width >= 48em) {
@@ -94,9 +90,6 @@
   font-size: .75rem;
   font-weight: 400;
   color: var(--muted-text);
-}
-
-.user-group__counts {
 }
 
 @media (width >= 48em) {

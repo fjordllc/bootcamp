@@ -1,4 +1,3 @@
-
 .auth-form-logo-image {
   display: block;
 }
@@ -60,9 +59,6 @@
   padding: 1rem 1.75rem;
 }
 
-.auth-form__body {
-}
-
 @media (width >= 48em) {
   .auth-form__body {
     padding: 1.5rem 1.75rem;
@@ -84,10 +80,6 @@
   line-height: 1.4;
   text-align: center;
   font-weight: 700;
-}
-
-.auth-form-items {
-  margin-bottom: 1.25rem;
 }
 
 .auth-form__alert {

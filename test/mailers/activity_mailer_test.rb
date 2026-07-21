@@ -403,7 +403,7 @@ class ActivityMailerTest < ActionMailer::TestCase
   end
 
   test 'checked' do
-    check = checks(:procuct2_check_komagata)
+    check = checks(:product2_check_komagata)
 
     ActivityMailer.checked(
       sender: check.sender,
@@ -420,7 +420,7 @@ class ActivityMailerTest < ActionMailer::TestCase
   end
 
   test 'trainee and advisers receive different wording in their acceptance emails' do
-    check = checks(:procuct75_check_komagata)
+    check = checks(:product75_check_komagata)
 
     ActivityMailer.checked(
       sender: check.sender,
@@ -455,7 +455,7 @@ class ActivityMailerTest < ActionMailer::TestCase
   end
 
   test 'checked with params' do
-    check = checks(:procuct2_check_komagata)
+    check = checks(:product2_check_komagata)
 
     mailer = ActivityMailer.with(
       sender: check.sender,
@@ -476,7 +476,7 @@ class ActivityMailerTest < ActionMailer::TestCase
   end
 
   test 'checked with user who have been denied' do
-    check = checks(:procuct2_check_komagata)
+    check = checks(:product2_check_komagata)
     ActivityMailer.checked(
       sender: check.sender,
       receiver: users(:hajime),

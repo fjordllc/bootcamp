@@ -1,12 +1,8 @@
-
 .practice-status-buttons__start {
   text-align: center;
   width: 100%;
   display: flex;
   align-items: center;
-}
-
-.practice-status-buttons__label {
 }
 
 @media (width >= 48em) {
@@ -100,9 +96,6 @@
   color: var(--muted-text);
 }
 
-.practice-status__buttons-item {
-}
-
 @media (width <= 47.9375em) {
   .practice-status__buttons-item {
     width: 33.33%;
@@ -119,4 +112,24 @@
   text-align: left;
   color: var(--muted-text);
   margin-top: .5em;
+}
+
+.practice-status-buttons__grant-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 16rem;
+}
+
+.practice-status-buttons__grant-guidance {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .75rem;
+}
+
+.practice-status-buttons__grant-note {
+  margin-top: 0;
+  text-align: center;
 }

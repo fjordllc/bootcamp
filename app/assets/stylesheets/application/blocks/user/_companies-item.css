@@ -1,9 +1,5 @@
-
 .companies-item {
   height: 100%;
-}
-
-.companies-item__inner {
 }
 
 @media (width >= 48em) {
@@ -23,9 +19,6 @@
 .companies-item__header-inner {
   display: flex;
   gap: 1rem;
-}
-
-.companies-item__header-start {
 }
 
 @media (width >= 48em) {

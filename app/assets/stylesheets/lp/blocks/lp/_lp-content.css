@@ -181,9 +181,3 @@
     gap: 3.5rem;
   }
 }
-
-.lp-content__body {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-}

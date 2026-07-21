@@ -11,7 +11,7 @@
 }
 
 .a-copy-button.is-active {
-  background-color: hsl(242deg 51% 51%);
+  background-color: var(--main);
   color: var(--reversal-text);
 }
 

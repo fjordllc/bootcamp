@@ -33,10 +33,6 @@ module API::CheckableCheck
 
   private
 
-  def require_staff
-    render json: { message: '権限がありません。' }, status: :forbidden unless current_user&.staff?
-  end
-
   def set_checkable
     @checkable = checkable_class.find_by(id: params[:"#{checkable_name}_id"])
     render json: { message: "#{checkable_class.model_name.human}が見つかりません。" }, status: :not_found unless @checkable

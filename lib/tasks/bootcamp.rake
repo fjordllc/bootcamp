@@ -57,6 +57,7 @@ namespace :bootcamp do
       puts '== START Cloud Build Task =='
 
       Rake::Task['smart_search:generate_all'].invoke
+      BulkGenerateMovieThumbnailJob.perform_now
 
       puts '== END   Cloud Build Task =='
     end

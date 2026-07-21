@@ -77,9 +77,9 @@ export default class extends Controller {
     }
 
     const params = {
-      report_template: { description: editingTemplate }
+      report_preset: { description: editingTemplate }
     }
-    fetch('/api/report_templates', {
+    fetch('/api/report_presets', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -115,9 +115,9 @@ export default class extends Controller {
     }
 
     const params = {
-      report_template: { description: editingTemplate }
+      report_preset: { description: editingTemplate }
     }
-    fetch(`/api/report_templates/${this.registeredTemplateIdValue}`, {
+    fetch(`/api/report_presets/${this.registeredTemplateIdValue}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',

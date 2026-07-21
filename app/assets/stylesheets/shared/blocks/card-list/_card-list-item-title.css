@@ -1,4 +1,3 @@
-
 .card-list-item-title {
   display: flex;
   justify-content: space-between;
@@ -28,9 +27,6 @@
   .card-list-item-title .a-list-item-badge {
     margin-bottom: .25rem;
   }
-}
-
-.card-list-item-title__start {
 }
 
 @media (width >= 48em) {

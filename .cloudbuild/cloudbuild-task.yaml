@@ -25,6 +25,15 @@ steps:
 - id: Task
   name: asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA
   automapSubstitutions: true
+  env:
+  - RAILS_ENV=production
+  - APP_HOST_NAME=bootcamp-staging.fjord.jp
+  - SECRET_KEY_BASE=dummy
+  - DB_HOST=/cloudsql/$_CLOUD_SQL_HOST
+  - DB_NAME=$_DB_NAME
+  - DB_USER=$_DB_USER
+  - DB_PASS=$_DB_PASS
+  - OPEN_AI_ACCESS_TOKEN=$_OPEN_AI_ACCESS_TOKEN
   waitFor:
   - Build
   volumes:
@@ -34,7 +43,6 @@ steps:
   - bash
   - "-c"
   - |-
-    eval "$(.cloudbuild/cloud-build-env exports)"
     bin/rails bootcamp:oneshot:cloudbuild
 - id: Kill_SqlProxy
   name: gcr.io/cloud-builders/docker
@@ -50,7 +58,7 @@ options:
   substitutionOption: ALLOW_LOOSE
   automapSubstitutions: true
 substitutions:
-  _APP_HOST_NAME: _
+  _APP_HOST_NAME: bootcamp-staging.fjord.jp
   _CLOUD_SQL_HOST: _
   _DB_NAME: _
   _DB_PASS: _

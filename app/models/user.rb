@@ -123,7 +123,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   has_many :movies, dependent: :nullify
   has_many :coding_tests, dependent: :destroy
   has_many :coding_test_submissions, dependent: :destroy
-  has_one :report_template, dependent: :destroy
+  has_one :report_preset, dependent: :destroy
   has_one :talk, dependent: :destroy
   has_one :discord_profile, dependent: :destroy
   accepts_nested_attributes_for :discord_profile, allow_destroy: true
