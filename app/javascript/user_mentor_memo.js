@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
                   deleteMemo(memo.id)
                 }
               })
-              
+
               editButton.addEventListener('click', () => {
                 contentCell.textContent = ''
                 const editInput = document.createElement('input')
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const cancelButton = document.createElement('button')
                 cancelButton.textContent = 'キャンセル'
                 updatedButtonCell.appendChild(cancelButton)
-                
+
                 saveButton.addEventListener('click', () => {
                   editMemo(memo.id, editInput.value)
                 })
@@ -162,14 +162,13 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         credentials: 'same-origin',
         redirect: 'manual'
-        })
+      })
         .then((response) => {
           location.reload()
         })
         .catch((error) => {
           console.warn(error)
         })
-      }
     }
   }
-)
+})
