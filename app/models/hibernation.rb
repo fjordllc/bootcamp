@@ -61,8 +61,6 @@ class Hibernation < ApplicationRecord
   end
 
   def cancel_pair_works(user)
-    PairWork.where(user: user, buddy: nil, reserved_at: nil).find_each do |pair_work|
-      pair_work.destroy
-    end
+    PairWork.where(user: user, buddy: nil, reserved_at: nil).find_each(&:destroy)
   end
 end
