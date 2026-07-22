@@ -37,7 +37,9 @@ json.user do
 end
 
 json.practice do
+  json.id product.practice.id
   json.title product.practice.title
+  json.description product.practice.description
 end
 
 json.comments do
