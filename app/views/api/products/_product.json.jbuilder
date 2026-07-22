@@ -1,4 +1,5 @@
 json.id product.id
+json.body product.body
 json.checker_id product.checker_id
 json.checker_name product.checker_name
 json.checker_avatar product.checker_avatar
