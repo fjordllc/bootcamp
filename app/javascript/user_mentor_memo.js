@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function editMemo(id, content) {
       const params = {
         user: {
-          content: content
+          content
         }
       }
       fetch(`/api/mentor_memos/${id}`, {
