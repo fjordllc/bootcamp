@@ -19,12 +19,14 @@ module Talks
     test 'update memo' do
       user = users(:kimura)
       visit_with_auth "/talks/#{user.talk.id}", 'komagata'
-      assert_text 'kimuraさんのメモ'
+      assert_text 'この生徒は英語が得意です。'
       click_button '編集'
-      fill_in 'js-user-mentor-memo', with: '相談部屋テストメモ'
-      click_button '保存する'
-      assert_text '相談部屋テストメモ'
-      assert_no_text 'kimuraさんのメモ'
+      within('.user-mentor-memo-items') do
+        find('input[type=text]').set('ユーザーメンターメモ')
+      end
+      click_button '保存'
+      assert_text 'ユーザーメンターメモ'
+      assert_no_text 'この生徒は英語が得意です。'
     end
 
     test 'Displays a list of the 10 most recent reports' do
