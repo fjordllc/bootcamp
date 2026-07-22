@@ -296,6 +296,23 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
     assert_equal 'メンターがAPIから更新します。', product.reload.body
   end
 
+  test 'GET /api/products/:id.json returns practice information' do
+    token = create_token('mentormentaro', 'testtest')
+
+    product = products(:product1)
+
+    get api_product_path(product, format: :json),
+        headers: { 'Authorization' => "Bearer #{token}" }
+
+    assert_response :ok
+
+    json = JSON.parse(response.body)
+
+    assert_equal product.practice.id, json['practice']['id']
+    assert_equal product.practice.title, json['practice']['title']
+    assert_equal product.practice.description, json['practice']['description']
+  end
+
   private
 
   def first_unsubmitted_practice(user)
