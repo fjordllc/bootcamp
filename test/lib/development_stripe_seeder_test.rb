@@ -53,4 +53,23 @@ class DevelopmentStripeSeederTest < ActiveSupport::TestCase
     assert_equal 'cus_test', user.reload.customer_id
     assert_equal 'sub_test', user.subscription_id
   end
+
+  test 'recreates a customer when its payment source was deleted' do
+    user = users(:hatsuno)
+    customer_without_card = Struct.new(:id, :default_source).new('cus_old', nil)
+    new_customer = Struct.new(:id).new('cus_new')
+    stripe_subscription = Struct.new(:id).new('sub_new')
+    customer_gateway = Object.new
+    customer_gateway.define_singleton_method(:retrieve) { |_id| customer_without_card }
+    card = Object.new
+    card.define_singleton_method(:create) { |_user, _token| new_customer }
+    subscription = Object.new
+    subscription.define_singleton_method(:retrieve) { |_id| Struct.new(:id).new('sub_old') }
+    subscription.define_singleton_method(:create) { |*, **| stripe_subscription }
+
+    DevelopmentStripeSeeder.new(customer_gateway:, card:, subscription:).seed(user)
+
+    assert_equal 'cus_new', user.reload.customer_id
+    assert_equal 'sub_new', user.subscription_id
+  end
 end

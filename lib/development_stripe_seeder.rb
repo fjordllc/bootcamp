@@ -30,7 +30,10 @@ class DevelopmentStripeSeeder
   def find_or_create_customer(user)
     return [@card.create(user, 'tok_visa'), true] unless user.customer_id?
 
-    [@customer_gateway.retrieve(user.customer_id), false]
+    customer = @customer_gateway.retrieve(user.customer_id)
+    return [@card.create(user, 'tok_visa'), true] if customer.default_source.blank?
+
+    [customer, false]
   rescue Stripe::InvalidRequestError
     [@card.create(user, 'tok_visa'), true]
   end
