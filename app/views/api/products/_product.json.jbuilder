@@ -60,8 +60,18 @@ end
 
 json.checks do
   json.size product.checks.size
+
   if product.checks.size > 0
     json.last_created_at l(product.checks.last.created_at.to_date, format: :short)
     json.last_user_login_name product.checks.last.user.login_name
+  end
+
+  json.list product.checks do |check|
+    json.id check.id
+    json.user do
+      json.id check.user.id
+      json.login_name check.user.login_name
+    end
+    json.created_at check.created_at
   end
 end
