@@ -9,6 +9,7 @@ class DevelopmentStripeSeeder
   end
 
   def call
+    raise 'This seeder is only available in development.' unless Rails.env.development?
     raise 'Stripe test mode API key is required.' unless @api_key&.start_with?('sk_test_', 'rk_test_')
 
     User.where.not(subscription_id: nil).find_each do |user|
@@ -19,7 +20,12 @@ class DevelopmentStripeSeeder
 
   def seed(user)
     customer, customer_created = find_or_create_customer(user)
-    stripe_subscription = customer_created ? create_subscription(customer) : find_or_create_subscription(user, customer)
+    if customer_created
+      destroy_existing_subscription(user)
+      stripe_subscription = create_subscription(customer)
+    else
+      stripe_subscription = find_or_create_subscription(user, customer)
+    end
     @subscription.destroy(stripe_subscription.id) if user.hibernated?
 
     user.update_columns(customer_id: customer.id, subscription_id: stripe_subscription.id) # rubocop:disable Rails/SkipsModelValidations
@@ -46,5 +52,11 @@ class DevelopmentStripeSeeder
 
   def create_subscription(customer)
     @subscription.create(customer.id, trial: 0)
+  end
+
+  def destroy_existing_subscription(user)
+    @subscription.destroy(user.subscription_id) if user.subscription_id?
+  rescue Stripe::InvalidRequestError
+    nil
   end
 end
