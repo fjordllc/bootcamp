@@ -1,14 +1,14 @@
 = render 'errors', object: report
-= form_with model: report, local: true, html: { name: 'report' } do |f|
+= form_with model: report, local: true, html: { name: 'report', data: { controller: 'report-latest' } } do |f|
   .form__items
     .form__items-inner
       .form-item
         = f.label :practice, class: 'a-form-label'
         .select-practices
-          = f.select(:practice_ids, practice_options_within_course, { include_hidden: false }, { multiple: true, id: 'js-choices-multiple-select' })
+          = f.select(:practice_ids, practice_options_within_course, { include_hidden: false }, { multiple: true, id: 'js-choices-multiple-select', data: { 'report-latest-target': 'practices' } })
       .form-item
         = f.label :title, class: 'a-form-label'
-        = f.text_field :title, class: 'a-text-input js-warning-form', placeholder: 'display: inline-block の挙動の調査を進めた'
+        = f.text_field :title, class: 'a-text-input js-warning-form', placeholder: 'display: inline-block の挙動の調査を進めた', data: { 'report-latest-target': 'title' }
         .a-form-help
           p
             | 日報のタイトルはあとで振り返りやすいタイトルを付けてください。
@@ -77,13 +77,21 @@
               editingValue: true,
               is_editing_template_valid: true,
               data: { 'registered-template-value': registered_preset }
+            .form-item-actions
+              ul.form-item-actions__items
+                li.form-item-actions__item
+                  button.a-button.is-sm.is-secondary(
+                    type='button'
+                    data-action='click->report-latest#replaceReport'
+                  )
+                    | 最新の日報を複製
           .form-textarea
             .form-textarea__body
               - value_option = report.description.blank? && registered_preset.present? ? { value: registered_preset } : {}
               = f.text_area :description,
                 **value_option,
                 class: "a-text-input js-warning-form js-report-content markdown-form__text-area #{params[:action] == 'new' && params[:id].blank? ? '' : 'js-markdown'}",
-                data: { 'report-preset-target': 'report', 'preview': '.js-preview', 'input': '.file-input' }
+                data: { 'report-preset-target': 'report', 'preview': '.js-preview', 'input': '.file-input', 'report-latest-target': 'description' }
             .form-textarea__footer
               .form-textarea__insert
                 label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
