@@ -55,6 +55,17 @@ json.comments do
       json.primary_role user.primary_role
       json.joining_status user.joining_status
     end
+
+    json.list product.comments do |comment|
+      json.id comment.id
+      json.description comment.description
+      json.created_at comment.created_at
+      json.updated_at comment.updated_at
+
+      json.user do
+        json.partial! 'api/users/user', user: comment.user
+      end
+    end
   end
 end
 
