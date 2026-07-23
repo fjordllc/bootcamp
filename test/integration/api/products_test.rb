@@ -62,6 +62,29 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
     assert_equal check.created_at.as_json, json['checks']['list'][0]['created_at']
   end
 
+  test 'GET /api/products/:id.json returns comment list' do
+    product = products(:product1)
+    comment = comments(:comment10)
+
+    token = create_token('mentormentaro', 'testtest')
+
+    get api_product_path(product, format: :json),
+        headers: { 'Authorization' => "Bearer #{token}" }
+
+    assert_response :ok
+
+    json = JSON.parse(response.body)
+
+    assert_equal comment.id, json['comments']['list'][0]['id']
+    assert_equal comment.description, json['comments']['list'][0]['description']
+    assert_equal comment.created_at.as_json,
+                 json['comments']['list'][0]['created_at']
+    assert_equal comment.updated_at.as_json,
+                 json['comments']['list'][0]['updated_at']
+    assert_equal comment.user.login_name,
+                 json['comments']['list'][0]['user']['login_name']
+  end
+
   test 'returns json error with invalid token' do
     get api_products_path(format: :json),
         headers: { Authorization: 'Bearer invalid-token' }
