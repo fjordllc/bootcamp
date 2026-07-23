@@ -24,4 +24,29 @@ class Practice::PagesTest < ApplicationSystemTestCase
       assert_selector 'img[class="card-list-item-meta__icon a-user-icon"]'
     end
   end
+
+  test 'show grant filter with all tab active by default' do
+    normal_practice = Practice.create!(
+      title: 'テスト用プラクティス 通常コース',
+      description: 'テスト用',
+      categories: [categories(:category1)],
+      goal: 'goal...'
+    )
+    grant_practice = Practice.create!(
+      title: 'テスト用プラクティス 給付金コース',
+      description: 'テスト用',
+      categories: [categories(:category1)],
+      goal: 'goal...',
+      source_practice: normal_practice
+    )
+    normal_page = Page.create!(title: '通常のプラクティスDoc', body: '本文', user: users(:kimura), practice: normal_practice)
+    grant_page = Page.create!(title: '給付金のプラクティスDoc', body: '本文', user: users(:kimura), practice: grant_practice)
+
+    visit_with_auth "/practices/#{grant_practice.id}/pages", 'grant-course'
+    assert_selector 'a.pill-nav__item-link', count: 2
+    assert_selector 'a.pill-nav__item-link.is-active', text: '全て'
+    assert_selector 'a.pill-nav__item-link', text: '給付金コース'
+    assert_selector '.card-list-item-title__link', text: normal_page.title
+    assert_selector '.card-list-item-title__link', text: grant_page.title
+  end
 end
