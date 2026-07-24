@@ -57,9 +57,13 @@ class Movie < ApplicationRecord
   end
 
   def generate_default_thumbnail
-    GenerateMovieThumbnailJob.perform_later(self)
+    # ステージング環境ではSolid Queueワーカーが回らないため、リクエスト内で同期実行させる。
+    if ENV['DB_NAME'] == 'bootcamp_staging'
+      GenerateMovieThumbnailJob.perform_now(self)
+    else
+      GenerateMovieThumbnailJob.perform_later(self)
+    end
   rescue StandardError => e
-    Rails.logger.error("Failed to enqueue GenerateMovieThumbnailJob for Movie #{id}: #{e.message}")
-    raise
+    Rails.logger.error("Failed to generate default thumbnail for Movie #{id}: #{e.message}")
   end
 end
