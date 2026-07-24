@@ -462,8 +462,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_15_015953) do
   create_table "mentor_memos", force: :cascade do |t|
     t.bigint "author_id"
     t.text "content", null: false
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "user_id", null: false
     t.index ["author_id"], name: "index_mentor_memos_on_author_id"
     t.index ["user_id"], name: "index_mentor_memos_on_user_id"

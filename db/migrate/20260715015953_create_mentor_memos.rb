@@ -4,8 +4,8 @@ class CreateMentorMemos < ActiveRecord::Migration[8.1]
       t.references :user, null: false, foreign_key: true
       t.references :author, null: true, foreign_key: { to_table: :users }
       t.text :content, null: false
-      t.timestamp :created_at
-      t.timestamp :updated_at
+      t.timestamp :created_at, null: false
+      t.timestamp :updated_at, null: false
     end
   end
 end
