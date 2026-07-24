@@ -277,6 +277,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_15_093000) do
     t.index ["course_id", "category_id"], name: "index_courses_categories_on_course_id_and_category_id", unique: true
   end
 
+  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
+  end
+
   create_table "discord_profiles", force: :cascade do |t|
     t.string "account_name"
     t.datetime "created_at", null: false
@@ -466,7 +469,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_15_093000) do
 
   create_table "mentor_memos", force: :cascade do |t|
     t.bigint "author_id"
-    t.text "content"
+    t.text "content", null: false
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.bigint "user_id", null: false
