@@ -17,10 +17,7 @@ class HibernatedRetirementController < ApplicationController
           logout
           redirect_to retirement_url
         else
-          current_user.retired_on = nil
-          @regular_events_without_finished = RegularEvent.organizer_event(current_user).exclude_finished
-          set_current_user_practice
-          render :new
+          render_retirement_form
         end
       else
         logout
@@ -32,6 +29,13 @@ class HibernatedRetirementController < ApplicationController
   end
 
   private
+
+  def render_retirement_form
+    current_user.retired_on = nil
+    @regular_events_without_finished = RegularEvent.organizer_event(current_user).exclude_finished
+    set_current_user_practice
+    render :new
+  end
 
   def flash_message(message)
     @user = User.new
