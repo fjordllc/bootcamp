@@ -70,7 +70,7 @@
               .side-tabs-contents__item#side-tabs-content-1
                 = render partial: 'reports/recent_reports', locals: { header_display: false }
               .side-tabs-contents__item#side-tabs-content-2.is-only-mentor
-                = render 'users/user_mentor_memo', user_id: @report.user_id
+                = render 'users/user_mentor_memos', user_id: @report.user_id, memos: @mentor_memos
               .side-tabs-contents__item#side-tabs-content-3.is-only-mentor
                 .a-card
                   .user-data

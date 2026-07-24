@@ -28,6 +28,7 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     Footprint.find_or_create_for(@product, current_user)
     @footprints = Footprint.fetch_for_resource(@product)
     @comments = @product.comments.order(:created_at)
+    @mentor_memos = @product.user.received_memos.includes(:writer).order(created_at: :desc)
     respond_to do |format|
       format.html
       format.md

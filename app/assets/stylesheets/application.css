@@ -94,6 +94,7 @@
 @import "./application/blocks/user/_completed-practices-progress.css";
 @import "./application/blocks/user/_following.css";
 @import "./application/blocks/user/_group-company-name.css";
+@import "./application/blocks/user/_mentor-memos.css";
 @import "./application/blocks/user/_niconico-calendar.css";
 @import "./application/blocks/user/_sns-links.css";
 @import "./application/blocks/user/_user-data.css";
