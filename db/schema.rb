@@ -1025,6 +1025,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
     t.index ["user_id"], name: "index_talks_on_user_id"
   end
 
+  create_table "templates", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "description", null: false
+    t.bigint "templatable_id", null: false
+    t.string "templatable_type", null: false
+    t.datetime "updated_at", null: false
+    t.index ["templatable_type", "templatable_id"], name: "index_templates_on_templatable", unique: true
+  end
+
   create_table "users", id: :serial, force: :cascade do |t|
     t.datetime "accessed_at", precision: nil
     t.boolean "admin", default: false, null: false

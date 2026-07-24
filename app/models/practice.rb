@@ -25,6 +25,13 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
            source: :user
   has_many :skipped_practices, dependent: :destroy
   has_many :products, dependent: :destroy
+
+  has_one :template, as: :templatable, dependent: :destroy
+  accepts_nested_attributes_for :template, update_only: true, allow_destroy: true,
+                                           reject_if: proc { |attributes|
+                                             attributes['_destroy'] != '1' && attributes['description'].blank?
+                                           }
+
   has_many :questions, dependent: :nullify
   has_many :pages,
            -> { order(updated_at: :desc, id: :desc) },
@@ -75,6 +82,12 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
       .preload(:categories, :submission_answer)
       .order(:id)
   }
+
+  def template_attributes=(attributes)
+    attributes['_destroy'] = '1' if template.present? && attributes['description'].blank?
+
+    super
+  end
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[title description goal created_at updated_at last_updated_user_id submission]

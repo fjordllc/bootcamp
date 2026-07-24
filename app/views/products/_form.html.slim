@@ -9,8 +9,10 @@
             | 提出物
           .form-textarea
             .form-textarea__body
+              - template = @product.practice.template&.description
               = f.text_area :body, class: 'a-text-input js-warning-form js-markdown markdown-form__text-area',
-              data: { 'preview': '.js-preview', 'input': '.file-input' }
+              data: { 'preview': '.js-preview', 'input': '.file-input' },
+              value: @product.body.presence || template
             .form-textarea__footer
               .form-textarea__insert
                 label.a-file-insert.a-button.is-xs.is-text-reversal.is-block

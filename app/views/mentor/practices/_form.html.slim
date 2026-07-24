@@ -109,6 +109,30 @@
           = f.check_box :include_progress, class: 'a-toggle-checkbox'
           = f.label :include_progress
             | 進捗の計算に含むようにする場合はチェック
+
+  .form-item data-controller="template-form"
+    label.a-form-label
+      | 提出物のテンプレート
+    = f.fields_for :template do |template_form|
+      = template_form.hidden_field :_destroy,
+        data: { template_form_target: 'destroy' }
+      - if template_form.object.persisted?
+        .row.mb-3
+          .col-md-4.col-xs-10
+            = button_tag type: 'button', class: 'a-button is-md is-primary', data: { action: 'template-form#clear' } do
+              span
+                | 提出物のテンプレートを削除する
+          .col-md-8.col-xs-10
+            p.a-form-help.pt-3.font-semibold.hidden[ data-template-form-target="message" role="status"]
+              | テンプレートはまだ削除されていません。更新すると削除されます。
+      .row.js-markdown-parent
+        .col-md-6.col-xs-12
+          = template_form.text_area :description,
+            class: 'a-text-input js-warning-form markdown-form__text-area js-markdown',
+            data: { preview: '.js-product-template-preview', template_form_target: 'description' }
+        .col-md-6.col-xs-12
+          .js-product-template-preview.a-long-text.is-md.markdown-form__preview
+
   .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12
