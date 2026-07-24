@@ -36,7 +36,7 @@ class API::MentorMemosController < API::BaseController
   private
 
   def set_user
-    @user = User.find(params[:user][:user_id])
+    @user = User.find(params.require(:user).require(:user_id))
   end
 
   def set_mentor_memo
