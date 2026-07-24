@@ -18,6 +18,7 @@ class HibernatedRetirementController < ApplicationController
         else
           current_user.retired_on = nil
           @regular_events_without_finished = RegularEvent.organizer_event(current_user).exclude_finished
+          set_current_user_practice
           render :new
         end
       else
