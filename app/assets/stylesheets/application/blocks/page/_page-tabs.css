@@ -1,4 +1,3 @@
-
 .page-tabs {
   background-color: var(--base);
   border-bottom: solid 1px var(--border);
@@ -8,22 +7,18 @@
   display: flex;
   gap: .25rem;
   transform: translateY(1px);
-  overflow-y: visible;
-  overflow-x: auto;
+  overflow: auto visible;
   margin-inline: -1rem;
   padding-inline: 1rem;
 }
 
-.page-tabs__item {
-}
-
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .page-tabs__item {
     min-width: 8.5rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .page-tabs__item {
     min-width: 7rem;
   }
@@ -48,13 +43,13 @@
   transition: all .2s ease-out;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .page-tabs__item-link {
     height: 2.5rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .page-tabs__item-link {
     height: 2.75rem;
     font-size: .75rem;

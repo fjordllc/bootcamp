@@ -62,6 +62,20 @@ class DeployCloudRunTest < ActiveSupport::TestCase
     end
   end
 
+  test 'keeps a staging instance running with CPU for Solid Queue' do
+    Dir.mktmpdir do |dir|
+      gcloud_log = File.join(dir, 'gcloud.log')
+      stub_gcloud(dir, gcloud_log)
+
+      _stdout, stderr, status = Open3.capture3(deploy_env(dir), SCRIPT, 'staging')
+      assert_predicate status, :success?, stderr
+
+      commands = File.read(gcloud_log)
+      assert_includes commands, '--min-instances=1'
+      assert_includes commands, '--no-cpu-throttling'
+    end
+  end
+
   private
 
   def stub_gcloud(dir, gcloud_log)

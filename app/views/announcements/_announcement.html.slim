@@ -30,6 +30,7 @@
                   | 公開
                 time.a-meta__value datetime=announcement.published_at.iso8601
                   | #{l announcement.published_at}
-          .card-list-item-meta__item
-            .a-meta
-              | コメント（#{announcement.comments.length}）
+          - if announcement.comments.any?
+            .card-list-item-meta__item
+              .a-meta
+                = comment_count(announcement)

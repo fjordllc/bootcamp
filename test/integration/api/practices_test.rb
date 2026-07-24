@@ -48,4 +48,17 @@ class API::PracticesTest < ActionDispatch::IntegrationTest
           headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
   end
+
+  test 'PATCH /api/practices/1234.json updates Pjord auto check' do
+    practice = practices(:practice1)
+    practice.update!(pjord_auto_check: false)
+
+    token = create_token('mentormentaro', 'testtest')
+    patch api_practice_path(practice.id, format: :json),
+          params: { practice: { pjord_auto_check: true } },
+          headers: { 'Authorization' => "Bearer #{token}" }
+
+    assert_response :ok
+    assert_predicate practice.reload, :pjord_auto_check?
+  end
 end

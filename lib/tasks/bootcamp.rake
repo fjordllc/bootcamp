@@ -35,6 +35,13 @@ namespace :bootcamp do
     )
   end
 
+  desc 'Create Stripe test data for development seed users.'
+  task seed_stripe: :environment do
+    abort 'This task is only available in development.' unless Rails.env.development?
+
+    DevelopmentStripeSeeder.new.call
+  end
+
   desc 'Disconnect all DB user.'
   task disconnect_all_user: :environment do
     sql = "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = 'bootcamp_staging' and application_name = 'bin/rails'"
@@ -56,7 +63,7 @@ namespace :bootcamp do
     task cloudbuild: :environment do
       puts '== START Cloud Build Task =='
 
-      Rake::Task['smart_search:generate_all'].invoke
+      BulkGenerateMovieThumbnailJob.perform_now
 
       puts '== END   Cloud Build Task =='
     end

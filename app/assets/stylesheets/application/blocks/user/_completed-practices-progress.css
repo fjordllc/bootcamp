@@ -23,7 +23,7 @@
   background-color: var(--success);
   position: relative;
   top: -0.75rem;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 0.0625rem 0.0625rem;
+  box-shadow: rgb(0 0 0 / 20%) 0 0.0625rem 0.0625rem;
 }
 
 .completed-practices-progress__counts {

@@ -1,17 +1,10 @@
-
-.card-books-item {
-}
-
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .card-books-item {
     height: 100%;
   }
 }
 
-.card-books-item__body {
-}
-
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .card-books-item__body {
     flex: 1;
   }
@@ -22,7 +15,7 @@
   text-decoration: none;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .card-books-item__inner {
     display: flex;
     text-decoration: none;
@@ -31,23 +24,20 @@
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .card-books-item__inner {
     display: block;
     overflow: hidden;
   }
 }
 
-.card-books-item__start {
-}
-
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .card-books-item__start {
     flex: 0 0 4rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .card-books-item__start {
     float: left;
     margin-right: 1rem;

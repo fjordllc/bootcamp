@@ -9,9 +9,9 @@
 }
 
 .a-card.is-danger {
-  border-color: var(--danger);
   color: var(--danger-text);
   background-color: var(--danger-tint);
+  border: solid 0.25rem var(--danger);
 }
 
 .a-card:not(:last-child) {
@@ -19,11 +19,6 @@
 }
 
 .a-card + .a-card {
-  margin-top: 1rem;
-}
-
-.a-card + .a-card-react,
-.a-card-react + .a-card {
   margin-top: 1rem;
 }
 
@@ -65,10 +60,6 @@
   overflow-y: auto;
 }
 
-.a-card.is-danger {
-  border: solid 0.25rem var(--danger);
-}
-
 table.a-card {
   display: table;
 }
@@ -99,33 +90,29 @@ table.a-card {
   display: flex;
 }
 
-@media (max-width: 79.9375em) {
+@media (width <= 79.9375em) {
   .a-card:not(:last-child) {
     margin-bottom: 1rem;
   }
 
-  .a-card + .a-card,
-  .a-card + .a-card-react,
-  .a-card-react + .a-card {
+  .a-card + .a-card {
     margin-top: 1rem;
   }
 }
 
-@media (min-width: 80em) {
-  .a-card + .a-card,
-  .a-card + .a-card-react,
-  .a-card-react + .a-card {
+@media (width >= 80em) {
+  .a-card + .a-card {
     margin-top: 1.25rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .a-card.is-modal {
     margin-inline: 1rem;
   }
 }
 
-@media (max-width: 63.9375em) {
+@media (width <= 63.9375em) {
   .a-card__columns {
     flex-direction: column;
   }

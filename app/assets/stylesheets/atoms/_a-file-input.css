@@ -3,7 +3,7 @@
   gap: .75rem;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .a-pdf-input {
     flex-direction: column;
   }
@@ -125,13 +125,13 @@ a.a-pdf-input__inner {
   display: block;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .a-pdf-input__file-name {
     max-width: 18rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .a-pdf-input__file-name {
     max-width: 8rem;
   }

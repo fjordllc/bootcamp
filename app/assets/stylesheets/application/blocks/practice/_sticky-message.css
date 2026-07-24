@@ -2,7 +2,7 @@
   display: none;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .sticky-message {
     background-color: var(--success);
     width: 100%;

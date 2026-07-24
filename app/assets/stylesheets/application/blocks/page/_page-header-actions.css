@@ -1,7 +1,4 @@
-.page-header-actions {
-}
-
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .page-header-actions {
     margin-inline: -1rem;
   }
@@ -13,7 +10,7 @@
   justify-content: center;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .page-header-actions__items {
     padding-inline: 1rem;
   }
@@ -27,7 +24,7 @@
   width: 100%;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .page-header-actions__item {
     min-width: 10rem;
     display: flex;
@@ -35,7 +32,7 @@
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .page-header-actions__item {
     flex: 1;
     max-width: 50%;

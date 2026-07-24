@@ -15,7 +15,7 @@ class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLeng
   before_action :set_watch, only: %i[show]
 
   def index
-    @reports = Report.list.page(params[:page]).per(PAGER_NUMBER)
+    @reports = Report.list.includes(:comments).page(params[:page]).per(PAGER_NUMBER)
     @reports = @reports.joins(:practices).where(practices: { id: params[:practice_id] }) if params[:practice_id].present?
   end
 

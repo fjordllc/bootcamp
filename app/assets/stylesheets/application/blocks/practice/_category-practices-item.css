@@ -1,4 +1,3 @@
-
 .category-practices-item {
   padding: .75rem 1rem;
   position: relative;
@@ -12,7 +11,7 @@
   background-color: var(--background-more-tint);
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .category-practices-item {
     flex-wrap: wrap;
     padding: .5rem .75rem .75rem;
@@ -36,10 +35,7 @@
   flex: 0 0 2.75rem;
 }
 
-.category-practices-item__anchor {
-}
-
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .category-practices-item__anchor {
     position: relative;
     top: -3.5rem;
@@ -100,7 +96,7 @@
   display: flex;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .category-practices-item__header {
     display: block;
   }
@@ -111,7 +107,7 @@
   margin-right: .5rem;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .category-practices-item__title {
     margin-right: 0;
     margin-bottom: .5rem;
@@ -134,7 +130,7 @@
   text-decoration: none;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .category-practices-item__title-link {
     font-size: .8125rem;
   }
@@ -150,22 +146,4 @@
 
 a.category-practices-item__title-link:hover .category-practices-item__title-link-label {
   text-decoration: underline;
-}
-
-.category-practices-item__learning-time {
-  font-size: .75rem;
-  line-height: 1.4;
-  color: var(--muted-text);
-}
-
-@media (min-width: 48em) {
-  .category-practices-item__learning-time {
-    margin-top: -.25rem;
-  }
-}
-
-@media (max-width: 47.9375em) {
-  .category-practices-item__learning-time {
-    margin-top: .5rem;
-  }
 }

@@ -2,7 +2,7 @@
   position: static;
 }
 
-@media (min-width: 64em) {
+@media (width >= 64em) {
   .page-nav {
     right: 0;
     top: 3.5rem;
@@ -59,7 +59,7 @@ a.page-nav__title-inner:hover {
   max-height: 12rem;
 }
 
-@media (min-width: 64em) {
+@media (width >= 64em) {
   .page-nav__items {
     max-height: calc(100vh - 8.5rem);
   }
@@ -179,14 +179,6 @@ a.page-nav__title-inner:hover {
   line-height: 1.4;
   display: inline;
   font-weight: 600;
-}
-
-.page-nav-metas {
-  margin-top: 0.25rem;
-  font-size: 0.75rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem 0.75rem;
 }
 
 .page-nav__item-link-inner {

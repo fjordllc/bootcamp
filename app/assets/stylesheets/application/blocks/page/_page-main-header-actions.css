@@ -1,14 +1,10 @@
-
 .page-main-header-actions__items {
   display: flex;
   gap: .5rem;
   justify-content: center;
 }
 
-.page-main-header-actions__item {
-}
-
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .page-main-header-actions__item {
     min-width: 10rem;
     display: flex;
@@ -16,7 +12,7 @@
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .page-main-header-actions__item {
     flex: 1;
   }

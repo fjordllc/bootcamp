@@ -1,27 +1,23 @@
-
 .thread-comment {
   position: relative;
   border-radius: .25rem;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .thread-comment {
     display: flex;
     margin-bottom: 2rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .thread-comment {
     padding-left: 0;
     margin-bottom: 1rem;
   }
 }
 
-.thread-comment__start {
-}
-
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .thread-comment__start {
     flex: 0 0 var(--thread-header-author);
     height: 100%;
@@ -29,16 +25,13 @@
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .thread-comment__start {
     display: none;
   }
 }
 
-.thread-comment__end {
-}
-
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .thread-comment__end {
     max-width:  calc(100% - var(--thread-header-author));
     flex: 1;
@@ -51,29 +44,26 @@
   font-weight: 600;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .thread-comment__title {
     margin-right: .5rem;
     flex: 1;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .thread-comment__title {
     display: flex;
   }
 }
 
-.thread-comment__title-user-icon {
-}
-
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .thread-comment__title-user-icon {
     display: none;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .thread-comment__title-user-icon {
     height: 1.5rem;
     width: 1.5rem;
@@ -83,10 +73,7 @@
   }
 }
 
-.thread-comment__title-link {
-}
-
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .thread-comment__title-link {
     height: 100%;
     display: inline-flex;
@@ -94,7 +81,7 @@
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .thread-comment__title-link {
     display: inline-block;
     white-space: nowrap;
@@ -135,10 +122,10 @@
   padding-inline: 1rem;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .thread-comment__description {
     padding: .75rem;
-    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 }
 
@@ -149,7 +136,7 @@
   border-radius: 50%;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .thread-comment__user-icon {
     display: none;
   }
@@ -164,13 +151,13 @@
   background-color: white;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .thread-comment__company-logo {
     margin-top: .5rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .thread-comment__company-logo {
     height: 2.25rem;
     width: 2.25rem;
@@ -191,7 +178,7 @@
   position: relative;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .thread-comment__created-at {
     font-size: .75rem;
   }

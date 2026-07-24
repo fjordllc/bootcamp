@@ -2,7 +2,8 @@
   align-self: stretch;
   width: 100%;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .lp-actions {
     max-width: 42.5rem;
     margin-inline: auto;

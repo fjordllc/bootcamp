@@ -94,6 +94,14 @@
           = f.check_box :open_product, class: 'a-toggle-checkbox'
           = f.label :open_product
             | OKをもらっていない人も提出物を見られるようにする場合はチェック
+        li.checkboxes__item
+          = f.check_box :pjord_review, class: 'a-toggle-checkbox'
+          = f.label :pjord_review
+            | ピヨルドの提出物レビューをする場合はチェック
+        li.checkboxes__item
+          = f.check_box :pjord_auto_check, class: 'a-toggle-checkbox'
+          = f.label :pjord_auto_check
+            | ピヨルドがOKを出してもよい場合はチェック
     = f.label :progress, class: 'a-form-label'
     .checkboxes
       ul.checkboxes__items

@@ -3,6 +3,10 @@
     .dashboard-contents__cols
       .dashboard-contents__col.is-sub.is-only-mentor
         .dashboard-contents__categories
+          - if @upcoming_pair_works.present?
+            .dashboard-category
+              = render 'upcoming_pair_works', upcoming_pair_works: @upcoming_pair_works
+
           .dashboard-category
             - unchecked_report_count = Cache.unchecked_report_count
             - if unchecked_report_count > 100

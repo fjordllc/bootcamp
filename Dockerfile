@@ -60,6 +60,8 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
       python3 \
       git \
       ca-certificates \
+      ffmpeg \
+      imagemagick \
       libvips && \
     rm -rf /var/lib/apt/lists/*
 

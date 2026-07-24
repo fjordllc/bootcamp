@@ -5,10 +5,10 @@
  *
  * This work is licensed under the Creative Commons CC0 1.0 Universal License
  */
-code[class*=language-],
-pre[class*=language-] {
+code[class*="language-"],
+pre[class*="language-"] {
   background: #322931;
-  color: #ffffff;
+  color: #fff;
 }
 
 .token.comment,
@@ -92,5 +92,3 @@ pre > code.highlight {
   outline: 0.4em solid red;
   outline-offset: 0.4em;
 }
-
-/*# sourceMappingURL=_prism-ghcolors.css.map */

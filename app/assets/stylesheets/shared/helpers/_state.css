@@ -3,31 +3,31 @@ html .is-hidden {
   display: none !important;
 }
 
-@media (min-width: 64em) {
+@media (width >= 64em) {
   body .is-hidden-lg-up {
     display: none;
   }
 }
 
-@media (max-width: 63.9375em) {
+@media (width <= 63.9375em) {
   body .is-hidden-lg-down {
     display: none;
   }
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   body .is-hidden-md-up {
     display: none !important;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   body .is-hidden-md-down {
     display: none;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   body .is-hidden-sm-down {
     display: none;
   }

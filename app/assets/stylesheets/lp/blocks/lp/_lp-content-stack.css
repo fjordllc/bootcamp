@@ -3,7 +3,8 @@
   flex-direction: column;
   gap: 1.5rem;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .lp-content-stack {
     gap: 3rem;
   }

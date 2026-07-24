@@ -13,23 +13,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
   text-decoration: none;
   cursor: pointer;
+  transition: all 0.2s ease-out;
 }
+
 .niconico-calendar-nav__previous:hover, .niconico-calendar-nav__previous:active,
 .niconico-calendar-nav__next:hover,
 .niconico-calendar-nav__next:active {
   text-decoration: underline;
 }
-.niconico-calendar-nav__previous,
-.niconico-calendar-nav__next {
-  transition: all 0.2s ease-out;
-}
+
 .niconico-calendar-nav__previous:hover,
 .niconico-calendar-nav__next:hover {
   color: var(--main-text);
 }
+
 .niconico-calendar-nav__previous.is-blank,
 .niconico-calendar-nav__next.is-blank {
   cursor: default;
@@ -45,10 +44,12 @@
   width: 100%;
   table-layout: fixed;
 }
+
 .niconico-calendar th,
 .niconico-calendar td {
   border: solid 1px var(--border-shade);
 }
+
 .niconico-calendar td {
   height: 3rem;
 }
@@ -64,9 +65,11 @@
   text-align: center;
   padding-block: 0.25em;
 }
+
 .niconico-calendar__header-day.is-sunday {
   color: var(--danger);
 }
+
 .niconico-calendar__header-day.is-saturday {
   color: var(--main-text);
 }
@@ -74,18 +77,23 @@
 .niconico-calendar__day.is-blank {
   background-color: var(--background-more-tint);
 }
+
 .niconico-calendar__day.is-positive {
   background-color: var(--positive-background);
 }
+
 .niconico-calendar__day.is-negative {
   background-color: var(--negative-background);
 }
+
 .niconico-calendar__day.is-neutral {
   background-color: var(--neutral-background);
 }
+
 .niconico-calendar__day.is-today .niconico-calendar__day-inner {
   border: dashed 2px var(--success);
 }
+
 .niconico-calendar__day.is-today .niconico-calendar__day-label {
   font-weight: 600;
   color: var(--success);
@@ -103,6 +111,7 @@ a.niconico-calendar__day-inner {
   transition: all 0.2s ease-out;
   cursor: pointer;
 }
+
 a.niconico-calendar__day-inner:hover {
   background-color: color-mix(in srgb, var(--warning) 10%, transparent);
   box-shadow: var(--warning) 0 0 0 1px inset;
@@ -116,6 +125,7 @@ a.niconico-calendar__day-inner:hover {
   color: var(--default-text);
   margin-bottom: 0.125rem;
 }
+
 .niconico-calendar__day.is-blank .niconico-calendar__day-label {
   color: var(--muted-text);
 }
@@ -130,6 +140,7 @@ a.niconico-calendar__day-inner:hover {
   height: 1.875rem;
   width: 100%;
 }
+
 .niconico-calendar__day.is-blank .niconico-calendar__day-value {
   color: var(--muted-text);
   font-size: 1.25rem;

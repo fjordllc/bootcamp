@@ -28,13 +28,13 @@
   background-color: color-mix(in srgb, var(--success) 10%, transparent);
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .practice-content__body-notice {
     padding: .75rem .875rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .practice-content__body-notice {
     padding: .375rem .625rem;
   }
@@ -46,7 +46,7 @@
   color: var(--success-text);
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .practice-content__body-notice p {
     font-size: .75rem;
   }
@@ -57,13 +57,13 @@
   margin-top: 1em;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .card-footer__alert {
     font-size: .875rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .card-footer__alert {
     font-size: .75rem;
   }

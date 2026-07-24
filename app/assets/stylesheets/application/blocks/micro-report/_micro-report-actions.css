@@ -44,7 +44,7 @@
   border-radius: .25rem;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .micro-report__footer .reactions__items.is-reacted .reactions__item.is-reacted {
     height: 2.25rem;
   }
@@ -55,7 +55,7 @@
   border: none;
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .micro-report__footer .reactions__dropdown-toggle {
     height: 2.25rem;
   }

@@ -1,0 +1,93 @@
+div(
+  data-report-preset-registered-template-value=preset_description
+  data-report-preset-registered-template-id-value=preset_id
+  data-report-preset-editing-value=editingValue
+  data-report-preset-is-editing-template-valid-value=is_editing_template_valid
+)
+  .form-item-actions
+    ul.form-item-actions__items
+      - if preset_id.present?
+        li.form-item-actions__item
+          a.form-item-actions__text-link.is-danger(
+            data-action="click->report-preset#replaceReport"
+          )
+            | テンプレートを反映する
+
+        li.form-item-actions__item
+          button.a-button.is-sm.is-secondary.is-block(
+            type='button'
+            data-action="click->report-preset#openModal"
+          )
+            | テンプレート変更
+      - else
+        li.form-item-actions__item
+          button.a-button.is-sm.is-secondary.is-block(
+            type='button'
+            data-action="click->report-preset#openModal"
+          )
+            | テンプレート登録
+
+  .a-overlay.is-js.is-hidden(
+    data-report-preset-target='modal'
+    data-action='click->report-preset#clickOutside'
+    role='dialog'
+    aria-modal='true'
+    aria-labelledby='report-preset-modal-title'
+    aria-hidden='true'
+  )
+    .a-card.is-modal
+      header.card-header.is-sm
+        h1#report-preset-modal-title.card-header__title 日報テンプレート
+      hr.a-border
+
+      .a-form-tabs.js-tabs
+        .a-form-tabs__tab.js-tabs__tab(
+          class=(editingValue ? 'is-active' : '')
+          data-action='click->report-preset#clickTemplateTab'
+          data-report-preset-target='templateTab'
+        )
+          | テンプレート
+        .a-form-tabs__tab.js-tabs__tab(
+          class=(editingValue ? '' : 'is-active')
+          data-action='click->report-preset#clickPreviewTab'
+          data-report-preset-target='previewTab'
+        )
+          | プレビュー
+
+      .a-markdown-input.js-markdown-parent
+        .a-markdown-input__inner.js-tabs__content(
+          class=(editingValue ? 'is-active' : '')
+          data-report-preset-target='templateContent'
+        )
+          textarea.a-text-input.a-markdown-input__textarea.has-max-height#js-template-content(
+            data-preview='#js-template-preview'
+            data-report-preset-target='templateInput'
+            name='report_preset[description]'
+            data-action='input->report-preset#updateSubmitButtonState'
+          ) = preset_description
+
+        .a-markdown-input__inner.js-tabs__content.a-long-text.is-md.a-markdown-input__preview.has-max-height(
+          id='js-template-preview'
+          class=(editingValue ? '' : 'is-active')
+          data-report-preset-target='previewContent'
+        )
+
+      footer.card-footer
+        .card-main-actions
+          ul.card-main-actions__items
+            - action = preset_id.present? ? 'updateTemplate' : 'registerTemplate'
+            - label = preset_id.present? ? '変更' : '登録'
+
+            li.card-main-actions__item
+              button.a-button.is-primary.is-sm.is-block(
+                type='button'
+                class=(editingValue ? 'is-active' : '')
+                data-action='click->report-preset##{action}'
+                data-report-preset-target='submitButton'
+                disabled=true
+              ) = label
+            li.card-main-actions__item.is-sub
+              .card-main-actions__muted-action(
+                data-action='click->report-preset#closeModal'
+              )
+                | キャンセル

@@ -9,6 +9,7 @@
   align-items: center;
   flex-wrap: wrap;
 }
+
 .page-main-filter__row .page-main-filter__row {
   gap: 0.5rem;
 }

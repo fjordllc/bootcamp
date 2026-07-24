@@ -51,7 +51,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   scope :not_finished, -> { where(finished: false, wip: false) }
-  scope :participated_by, ->(user) { where(id: all.filter { |e| e.participated_by?(user) }.map(&:id)) }
   scope :organizer_event, ->(user) { joins(:regular_event_organizers).where(regular_event_organizers: { user: user }) }
 
   scope :fetch_target_events, lambda { |target|
@@ -124,10 +123,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   def cancel_participation(user)
     regular_event_participation = regular_event_participations.find_by(user_id: user.id)
     regular_event_participation.destroy
-  end
-
-  def participated_by?(user)
-    regular_event_participations.find_by(user_id: user.id).present?
   end
 
   def all_scheduled_dates(

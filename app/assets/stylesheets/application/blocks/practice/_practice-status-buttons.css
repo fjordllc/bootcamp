@@ -1,4 +1,3 @@
-
 .practice-status-buttons__start {
   text-align: center;
   width: 100%;
@@ -6,10 +5,7 @@
   align-items: center;
 }
 
-.practice-status-buttons__label {
-}
-
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .practice-status-buttons__label {
     font-size: .75rem;
     font-weight: 600;
@@ -18,7 +14,7 @@
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .practice-status-buttons__label {
     display: none;
   }
@@ -29,7 +25,7 @@
   flex: 1;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .practice-status-buttons__items {
     max-width: 25rem;
   }
@@ -39,7 +35,7 @@
   flex: 1;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .practice-status-buttons__item {
     max-width: 4.75rem;
   }
@@ -89,7 +85,6 @@
 }
 
 .practice-status-buttons__button.is-active.is-unstarted {
-  background-color: #fff;
   color: var(--muted-text);
   border-color: var(--muted-text);
   background-color: var(--background-tint);
@@ -101,10 +96,7 @@
   color: var(--muted-text);
 }
 
-.practice-status__buttons-item {
-}
-
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .practice-status__buttons-item {
     width: 33.33%;
   }
@@ -120,4 +112,24 @@
   text-align: left;
   color: var(--muted-text);
   margin-top: .5em;
+}
+
+.practice-status-buttons__grant-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 16rem;
+}
+
+.practice-status-buttons__grant-guidance {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .75rem;
+}
+
+.practice-status-buttons__grant-note {
+  margin-top: 0;
+  text-align: center;
 }

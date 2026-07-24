@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_15_062046) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -173,8 +173,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_062046) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "user_id", null: false
+    t.index ["checkable_id", "checkable_type"], name: "index_checks_on_checkable_id_and_checkable_type", unique: true
     t.index ["checkable_id"], name: "index_checks_on_checkable_id"
-    t.index ["user_id", "checkable_id", "checkable_type"], name: "index_checks_on_user_id_and_checkable_id_and_checkable_type", unique: true
     t.index ["user_id"], name: "index_checks_on_user_id"
   end
 
@@ -595,6 +595,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_062046) do
     t.integer "last_updated_user_id"
     t.text "memo"
     t.boolean "open_product", default: false, null: false
+    t.boolean "pjord_auto_check", default: false, null: false
+    t.boolean "pjord_review", default: true, null: false
     t.integer "source_id"
     t.boolean "submission", default: false, null: false
     t.text "summary"

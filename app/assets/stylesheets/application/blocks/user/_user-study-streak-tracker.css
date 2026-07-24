@@ -7,13 +7,13 @@
   justify-content: center;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .streak-container {
     gap: 1rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .streak-container {
     gap: .5rem;
   }
@@ -27,13 +27,13 @@
   align-items: center;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .streak-item {
     padding-block: 1rem;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .streak-item {
     padding-block: .75rem;
   }
@@ -55,14 +55,14 @@
   color: #f7941d;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .streak-item__number {
     font-size: 2.5rem;
     line-height: 1;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .streak-item__number {
     font-size: 2rem;
     line-height: 1;
@@ -74,14 +74,14 @@
   text-align: center;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .streak-item__label {
     font-size: 1rem;
     line-height: 1.4;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .streak-item__label {
     font-size: .875rem;
     line-height: 1.4;
@@ -93,14 +93,14 @@
   color: var(--muted-text);
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .streak-item__unit {
     font-size: 1rem;
     line-height: 1.4;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .streak-item__unit {
     font-size: .75rem;
     line-height: 1.4;
@@ -112,14 +112,14 @@
   text-align: center;
 }
 
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .streak-item__period {
     font-size: .875rem;
     line-height: 1.4;
   }
 }
 
-@media (max-width: 47.9375em) {
+@media (width <= 47.9375em) {
   .streak-item__period {
     font-size: .75rem;
     line-height: 1.4;

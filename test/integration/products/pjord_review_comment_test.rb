@@ -4,7 +4,7 @@ require 'test_helper'
 
 class Products::PjordReviewCommentTest < ActionDispatch::IntegrationTest
   test 'creates product review comment by Pjord when product is submitted' do
-    Pjord::ProductReviewAgent.stub(:review, 'レビュー本文') do
+    Pjord::ProductReviewAgent.stub(:review_result, { body: 'レビュー本文', auto_check: false }) do
       perform_enqueued_jobs do
         post products_path(_login_name: 'hatsuno'),
              params: { practice_id: practices(:practice6).id, product: { body: '提出物です。' }, commit: '提出する' }
@@ -19,7 +19,7 @@ class Products::PjordReviewCommentTest < ActionDispatch::IntegrationTest
   end
 
   test 'does not create product review comment by Pjord when product is saved as WIP' do
-    Pjord::ProductReviewAgent.stub(:review, 'レビュー本文') do
+    Pjord::ProductReviewAgent.stub(:review_result, { body: 'レビュー本文', auto_check: false }) do
       assert_no_enqueued_jobs only: PjordProductReviewJob do
         post products_path(_login_name: 'hatsuno'),
              params: { practice_id: practices(:practice6).id, product: { body: 'WIPです。' }, commit: 'WIP' }
@@ -27,10 +27,31 @@ class Products::PjordReviewCommentTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'does not create product review comment by Pjord when practice does not enable Pjord review' do
+    practice = practices(:practice6)
+    practice.update!(pjord_review: false)
+
+    Pjord::ProductReviewAgent.stub(:review_result, ->(_product) { raise 'should not be called' }) do
+      assert_no_enqueued_jobs only: PjordProductReviewJob do
+        assert_no_difference -> { Comment.where(user: users(:pjord)).count } do
+          post products_path(_login_name: 'hatsuno'),
+               params: { practice_id: practice.id, product: { body: '提出物です。' }, commit: '提出する' }
+        end
+      end
+    end
+
+    product = Product.order(:created_at).last
+    assert_redirected_to product_path(product)
+    assert_predicate product, :published_at?
+    assert_no_difference -> { product.comments.where(user: users(:pjord)).count } do
+      PjordProductReviewJob.perform_now(product_id: product.id)
+    end
+  end
+
   test 'creates product review comment by Pjord when WIP product is submitted' do
     product = products(:product5)
 
-    Pjord::ProductReviewAgent.stub(:review, 'レビュー本文') do
+    Pjord::ProductReviewAgent.stub(:review_result, { body: 'レビュー本文', auto_check: false }) do
       perform_enqueued_jobs do
         patch product_path(product, _login_name: 'kimura'),
               params: { product: { body: product.body }, commit: '提出する' }
@@ -46,7 +67,7 @@ class Products::PjordReviewCommentTest < ActionDispatch::IntegrationTest
   test 'does not create product review comment by Pjord when submitted product is updated' do
     product = products(:product8)
 
-    Pjord::ProductReviewAgent.stub(:review, 'レビュー本文') do
+    Pjord::ProductReviewAgent.stub(:review_result, { body: 'レビュー本文', auto_check: false }) do
       assert_no_enqueued_jobs only: PjordProductReviewJob do
         patch product_path(product, _login_name: 'kimura'),
               params: { product: { body: '更新しました。' }, commit: '提出する' }
@@ -66,7 +87,7 @@ class Products::PjordReviewCommentTest < ActionDispatch::IntegrationTest
   test 'mentor can manually create product review comment by Pjord' do
     product = products(:product8)
 
-    Pjord::ProductReviewAgent.stub(:review, 'コメント本文') do
+    Pjord::ProductReviewAgent.stub(:review_result, { body: 'コメント本文', auto_check: false }) do
       assert_no_enqueued_jobs only: PjordProductReviewJob do
         assert_difference -> { product.comments.where(user: users(:pjord)).count }, 1 do
           post review_by_pjord_product_path(product, _login_name: 'mentormentaro')

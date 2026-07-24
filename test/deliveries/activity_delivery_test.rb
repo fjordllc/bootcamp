@@ -40,7 +40,7 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
   end
 
   test '.notify(:checked)' do
-    check = checks(:procuct2_check_komagata)
+    check = checks(:product2_check_komagata)
     params = {
       check:,
       receiver: check.receiver

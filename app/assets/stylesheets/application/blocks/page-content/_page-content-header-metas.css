@@ -1,8 +1,4 @@
-
-.page-content-header-metas {
-}
-
-@media (min-width: 48em) {
+@media (width >= 48em) {
   .page-content-header-metas {
     display: flex;
     justify-content: space-between;
@@ -13,9 +9,6 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-}
-
-.page-content-header-metas__meta {
 }
 
 .page-content-header-metas__meta:not(:last-child) {

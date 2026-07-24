@@ -19,9 +19,7 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'show number of comments' do
     visit_with_auth report_path(reports(:report1)), 'komagata'
-    within(:css, '.is-emphasized') do
-      assert_text '2'
-    end
+    assert_selector '.is-emphasized', text: '2'
   end
 
   test 'hide user icon from recent reports in report show' do

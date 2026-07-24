@@ -53,7 +53,6 @@ gem 'mini_magick'
 gem 'mission_control-jobs'
 gem 'mutex_m', '0.1.1'
 gem 'neighbor'
-gem 'newspaper'
 gem 'oauth2'
 gem 'omniauth', '~> 2.1.1'
 gem 'omniauth-discord'
@@ -91,6 +90,7 @@ gem 'view_component'
 group :development, :test do
   gem 'benchmark', require: false
   gem 'byebug', platforms: :windows
+  gem 'debride', '~> 1.15', require: false
   gem 'dotenv-rails'
   gem 'openapi_parser', '~> 2.3', require: false
   gem 'pry-byebug'
@@ -119,6 +119,7 @@ end
 group :test do
   gem 'capybara'
   gem 'capybara-playwright-driver', '~> 0.5.9'
+  gem 'capybara-screenshot-diff', require: false
   gem 'minitest', '< 6.0'
   gem 'minitest-ci'
   gem 'minitest-retry'

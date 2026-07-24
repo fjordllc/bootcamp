@@ -17,7 +17,7 @@ class CopyCheck
   private
 
   def find_original_checks
-    context.original_checks = context.original_product.checks.to_a
+    context.original_checks = context.original_product.checks.order(:created_at, :id).limit(1).to_a
 
     context.message = if context.original_checks.empty?
                         'No checks found to copy'
@@ -32,28 +32,15 @@ class CopyCheck
     results = process_checks
     store_results(results)
     update_completion_message(results)
-  rescue ActiveRecord::RecordInvalid => e
+  rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique => e
     context.fail!(error: "Failed to create check: #{e.message}")
   end
 
   def process_checks
-    copied_count = 0
-    skipped_count = 0
+    return { copied: 0, skipped: 1 } if Check.exists?(checkable: context.copied_product)
 
-    # Fetch all existing check user IDs for the copied product in one query
-    existing_user_ids = Check.where(checkable: context.copied_product)
-                             .pluck(:user_id)
-                             .to_set
-
-    context.original_checks.each do |original_check|
-      if copy_check(original_check, existing_user_ids)
-        copied_count += 1
-      else
-        skipped_count += 1
-      end
-    end
-
-    { copied: copied_count, skipped: skipped_count }
+    copy_check(context.original_checks.first)
+    { copied: 1, skipped: 0 }
   end
 
   def store_results(results)
@@ -65,25 +52,14 @@ class CopyCheck
     context.message = build_summary_message(results)
   end
 
-  def products_available?
-    context.original_product && context.copied_product
-  end
-
   def build_summary_message(results)
     "Copied #{results[:copied]} check(s), skipped #{results[:skipped]} existing check(s)"
   end
 
-  def copy_check(original_check, existing_user_ids)
-    # Check if this user already has a check for the copied product
-    return false if existing_user_ids.include?(original_check.user_id)
-
+  def copy_check(original_check)
     Check.create!(
       user: original_check.user,
       checkable: context.copied_product
     )
-
-    # Add the new user ID to the set to avoid duplicates in subsequent iterations
-    existing_user_ids.add(original_check.user_id)
-    true
   end
 end

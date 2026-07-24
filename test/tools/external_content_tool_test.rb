@@ -23,6 +23,17 @@ class ExternalContentToolTest < ActiveSupport::TestCase
     assert_not_includes result, 'ignore'
   end
 
+  test 'tells Pjord not to mention mentors when external links cannot be fetched' do
+    stub_request(:get, 'https://example.com/unreadable')
+      .to_return(status: 404, body: 'Not Found')
+
+    result = @tool.execute(url: 'https://example.com/unreadable')
+
+    assert_equal ExternalContent::UNREADABLE_URL_MESSAGE, result
+    assert_includes result, '@mentor にメンションしない'
+    assert_includes result, '取得できなかったことには言及しない'
+  end
+
   test 'follows redirects' do
     stub_request(:get, 'https://example.com/old')
       .to_return(status: 302, headers: { 'Location' => '/new' })
@@ -35,6 +46,45 @@ class ExternalContentToolTest < ActiveSupport::TestCase
     assert_includes result, 'Moved content'
   end
 
+  test 'returns image content for Active Storage blob redirect urls' do
+    image_body = Rails.root.join('test/fixtures/files/companies-logos-1.jpg').binread
+    blob_url = 'https://bootcamp.fjord.jp/rails/active_storage/blobs/redirect/signed-id/image.jpg'
+    redirected_url = 'https://bootcamp.fjord.jp/rails/active_storage/disk/key/image.jpg'
+    stub_request(:get, blob_url)
+      .to_return(status: 302, headers: { 'Location' => redirected_url })
+    stub_request(:get, redirected_url)
+      .to_return(status: 200, body: image_body, headers: { 'Content-Type' => 'image/jpeg' })
+
+    result = @tool.execute(url: blob_url)
+
+    assert_instance_of RubyLLM::Content, result
+    assert_includes result.text, '# Image'
+    assert_includes result.text, "URL: #{redirected_url}"
+    assert_equal 1, result.attachments.size
+    assert_predicate result.attachments.first, :image?
+    assert_equal 'image.jpg', result.attachments.first.filename
+    assert_equal image_body, result.attachments.first.content
+
+    @tool.execute(url: blob_url)
+
+    assert_requested :get, blob_url, times: 2
+    assert_requested :get, redirected_url, times: 2
+  end
+
+  test 'returns svg image content with explicit filename' do
+    svg_body = '<svg xmlns="http://www.w3.org/2000/svg"><text>SVG</text></svg>'
+    stub_request(:get, 'https://example.com/image.svg')
+      .to_return(status: 200, body: svg_body, headers: { 'Content-Type' => 'image/svg+xml' })
+
+    result = @tool.execute(url: 'https://example.com/image.svg')
+
+    assert_instance_of RubyLLM::Content, result
+    assert_equal 1, result.attachments.size
+    assert_predicate result.attachments.first, :image?
+    assert_equal 'image.svg', result.attachments.first.filename
+    assert_equal 'image/svg+xml', result.attachments.first.mime_type
+  end
+
   test 'rejects non http urls' do
     assert_equal 'httpまたはhttpsのURLだけ取得できます。', @tool.execute(url: 'file:///etc/passwd')
   end
@@ -42,7 +92,7 @@ class ExternalContentToolTest < ActiveSupport::TestCase
   test 'rejects private network urls' do
     result = @tool.execute(url: 'http://127.0.0.1/internal')
 
-    assert_equal 'URLの取得に失敗しました。', result
+    assert_equal ExternalContent::UNREADABLE_URL_MESSAGE, result
   end
 
   test 'rejects redirects to private network urls' do
@@ -51,6 +101,6 @@ class ExternalContentToolTest < ActiveSupport::TestCase
 
     result = @tool.execute(url: 'https://example.com/redirect-to-private')
 
-    assert_equal 'URLの取得に失敗しました。', result
+    assert_equal ExternalContent::UNREADABLE_URL_MESSAGE, result
   end
 end

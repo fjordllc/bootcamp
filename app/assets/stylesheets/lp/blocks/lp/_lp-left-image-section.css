@@ -1,7 +1,8 @@
 .lp-left-image-section {
   padding: 1rem;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .lp-left-image-section {
     padding: 1.5rem;
   }
@@ -12,7 +13,8 @@
   align-items: center;
   gap: 1rem;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .lp-left-image-section__inner {
     gap: 1.5rem;
   }
@@ -22,7 +24,8 @@
   font-size: 5rem;
   flex: 0 0 4rem;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .lp-left-image-section__start {
     flex: 0 0 8rem;
   }
@@ -46,7 +49,8 @@
   margin-bottom: 0.75rem;
   font-size: 4rem;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .lp-left-image-section__icon {
     float: none;
   }

@@ -5,38 +5,47 @@
   gap: 0.75em;
   font-size: 0.5625rem;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .lp-price {
     font-size: 0.875rem;
   }
 }
-@media (min-width: 64em) {
+
+@media (width >= 64em) {
   .lp-price {
     font-size: 1rem;
   }
 }
+
 .lp-price.is-total {
   gap: 0.25em;
 }
+
 .lp-price.is-sm {
   justify-content: flex-start;
   font-size: 0.375em;
 }
+
 .lp-price.is-sm .lp-price__tax {
   font-size: 0.875rem;
 }
-@media (min-width: 48em) {
+
+@media (width >= 48em) {
   .lp-price.is-sm {
     font-size: 0.5em;
   }
+
   .lp-price.is-sm .lp-price__tax {
     font-size: 1rem;
   }
 }
-@media (min-width: 64em) {
+
+@media (width >= 64em) {
   .lp-price.is-sm {
     font-size: 0.5625em;
   }
+
   .lp-price.is-sm .lp-price__tax {
     font-size: 1.5rem;
   }
@@ -70,7 +79,7 @@
   line-height: 1;
   font-weight: 900;
   align-self: baseline;
-  font-family: "Lato", sans-serif;
+  font-family: Lato, sans-serif;
 }
 
 .lp-price__currency {
@@ -87,15 +96,6 @@
   display: flex;
   align-self: baseline;
   gap: 0.125em;
-}
-
-.lp-price__separator {
-  font-weight: 100;
-  align-self: baseline;
-}
-
-.lp-price__per-person {
-  align-self: baseline;
 }
 
 .lp-price__tax {

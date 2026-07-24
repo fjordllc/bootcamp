@@ -62,6 +62,10 @@ class API::BaseController < ApplicationController
     render json: { error: 'unauthorized' }, status: :unauthorized unless logged_in?
   end
 
+  def require_staff
+    render json: { message: '権限がありません。' }, status: :forbidden unless current_user&.staff?
+  end
+
   def doorkeeper_unauthorized_render_options(error:)
     { json: doorkeeper_error_body(error) }
   end

@@ -1,4 +1,5 @@
 @import "tailwindcss" source(none);
+
 @source "../../views/**/*.slim";
 @source "../../components/**/*.slim";
 @source "../../../app/javascript/**/*.{js,vue,jsx}";
@@ -30,7 +31,6 @@
 @import "./lp/blocks/lp/_lp-left-number-section.css";
 @import "./lp/blocks/lp/_lp-capture-section.css";
 @import "./lp/blocks/lp/_lp-top-image-sections.css";
-@import "./lp/blocks/lp/_lp-supplementary-info.css";
 @import "./lp/blocks/lp/_lp-page-header.css";
 @import "./lp/blocks/lp/_lp-page-header-nav.css";
 @import "./lp/blocks/lp/_lp-price.css";
@@ -43,7 +43,6 @@
 @import "./lp/blocks/lp/_lp-faqs.css";
 @import "./lp/blocks/lp/_lp-faq.css";
 @import "./lp/blocks/lp/_side-filter.css";
-@import "./lp/blocks/lp/_lp-course-selection.css";
 @import "./lp/blocks/lp/_lp-course-selection-nav.css";
 @import "./lp/blocks/lp/_lp-course-selection-item.css";
 @import "./lp/blocks/lp/_lp-category-practices.css";
