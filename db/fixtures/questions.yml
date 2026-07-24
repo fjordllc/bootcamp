@@ -160,3 +160,35 @@ question55:
   created_at: <%= Time.current - 3.month %>
   updated_at: <%= Time.current - 3.month %>
   published_at: <%= Time.current - 3.month %>
+
+question56:
+  title: 給付金コースのプラクティスの質問
+  description: 給付金コースのプラクティスの質問です。
+  user: grant-course
+  practice: practice113
+  created_at: "2026-05-15"
+  published_at: "2026-05-15"
+
+question57:
+  title: 給付金コースのプラクティスの質問(解決済み)
+  description: 解決済みです。
+  user: grant-course
+  practice: practice113
+  created_at: "2026-05-15"
+  published_at: "2026-05-15"
+
+question58:
+  title: 給付金コースのコピー元プラクティスの質問
+  description: 給付金コースのコピー元プラクティスの質問
+  user: grant-course
+  practice: practice23
+  created_at: "2026-05-15"
+  published_at: "2026-05-15"
+
+question59:
+  title: 給付金コースのコピー元プラクティスの質問(解決済み)
+  description: 解決済みです。
+  user: grant-course
+  practice: practice23
+  created_at: "2026-05-15"
+  published_at: "2026-05-15"
