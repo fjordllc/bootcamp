@@ -83,6 +83,12 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
       .order(:id)
   }
 
+  def template_attributes=(attributes)
+    attributes['_destroy'] = '1' if template.present? && attributes['description'].blank?
+
+    super
+  end
+
   def self.ransackable_attributes(_auth_object = nil)
     %w[title description goal created_at updated_at last_updated_user_id submission]
   end
