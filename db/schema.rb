@@ -1165,7 +1165,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_15_015953) do
   add_foreign_key "learning_times", "reports"
   add_foreign_key "linear_scales", "survey_questions"
   add_foreign_key "mentor_memos", "users"
-  add_foreign_key "mentor_memos", "users", column: "author_id"
+  add_foreign_key "mentor_memos", "users", column: "author_id", on_delete: :nullify
   add_foreign_key "micro_reports", "users"
   add_foreign_key "micro_reports", "users", column: "comment_user_id"
   add_foreign_key "movies", "users"
