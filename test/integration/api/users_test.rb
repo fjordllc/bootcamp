@@ -91,7 +91,7 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     get api_user_path(users(:kimura).id, format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
-    assert_nil(JSON.parse(@response.body)['mentor_memo'])
+    assert_nil(JSON.parse(@response.body)['mentor_memos'])
   end
 
   test 'returns only authorized user information for admin user with doorkeeper token' do
