@@ -1,34 +1,19 @@
 # frozen_string_literal: true
 
 class Metadata
-  NETWORK_ERRORS = [
-    SocketError,
-    Errno::ECONNREFUSED,
-    Errno::ETIMEDOUT,
-    Net::OpenTimeout,
-    Net::ReadTimeout,
-    OpenSSL::SSL::SSLError
-  ].freeze
-
   def initialize(url)
     @url = url
-    @uri = Addressable::URI.parse(url).normalize
+  end
+
+  def uri
+    @uri ||= Addressable::URI.parse(@url).normalize
   end
 
   def fetch
-    http = Net::HTTP.new(@uri.host, @uri.inferred_port)
-    if @uri.scheme == 'https'
-      http.use_ssl = true
-      http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-    end
-    http.response_body_encoding = true
-
-    response = http.request_get(@uri.request_uri)
+    response = LinkFetcher::Fetcher.fetch(@url)
     return fetch_youtube_oembed unless response.is_a?(Net::HTTPSuccess)
 
     parse(response.body) || fetch_youtube_oembed
-  rescue *NETWORK_ERRORS
-    nil
   end
 
   private
@@ -41,7 +26,7 @@ class Metadata
       title: object.og.title,
       description: object.og.description,
       images: object.og.image&.url,
-      site_name: object.og.site_name || @uri.host,
+      site_name: object.og.site_name || uri.host,
       favicon: favicon(html),
       url: @url,
       site_url: site_url
@@ -49,7 +34,7 @@ class Metadata
   end
 
   def site_url
-    "#{@uri.scheme}://#{@uri.host}"
+    "#{uri.scheme}://#{uri.host}"
   end
 
   def favicon(html)
@@ -68,15 +53,15 @@ class Metadata
   end
 
   def youtube?
-    @uri.host.in?(%w[www.youtube.com youtube.com youtu.be])
+    uri.host.in?(%w[www.youtube.com youtube.com youtu.be])
   end
 
   def fetch_youtube_oembed
     return unless youtube?
 
-    uri = Addressable::URI.parse('https://www.youtube.com/oembed')
-    uri.query_values = { url: @url, format: 'json' }
-    response = Net::HTTP.get_response(uri.normalize)
+    oembed_uri = Addressable::URI.parse('https://www.youtube.com/oembed')
+    oembed_uri.query_values = { url: @url, format: 'json' }
+    response = Net::HTTP.get_response(oembed_uri.normalize)
     return unless response.is_a?(Net::HTTPSuccess)
 
     body = JSON.parse(response.body)
@@ -89,7 +74,7 @@ class Metadata
       url: @url,
       site_url: 'https://www.youtube.com'
     }
-  rescue JSON::ParserError, *NETWORK_ERRORS
+  rescue JSON::ParserError, *LinkFetcher::Fetcher::NETWORK_ERRORS
     nil
   end
 end
