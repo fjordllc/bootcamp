@@ -8,7 +8,8 @@ class HibernatedRetirementController < ApplicationController
   end
 
   def create
-    @user = login(params[:user][:email], params[:user][:password])
+    credentials = params.require(:user).permit(:email, :password)
+    @user = login(credentials[:email], credentials[:password])
     if @user
       if @user&.hibernated?
         retirement = Retirement.by_self(retire_reason_params, user: current_user)
@@ -22,6 +23,7 @@ class HibernatedRetirementController < ApplicationController
           render :new
         end
       else
+        logout
         flash_message('休会していないユーザーです。')
       end
     else
