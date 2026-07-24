@@ -90,14 +90,21 @@ module Mentioner
   end
 
   def target_of_comment(commentable_class, commentable)
-    {
-      Report: "#{commentable.user.login_name}さんの日報「#{commentable.title}」",
-      Product: "#{commentable.user.login_name}さんの#{commentable.title}",
-      Event: "特別イベント「#{commentable.title}」",
-      RegularEvent: "定期イベント「#{commentable.title}」",
-      Page: "Docs「#{commentable.title}」",
-      Announcement: "お知らせ「#{commentable.title}」",
-      PairWork: "ペアワーク「#{commentable.title}」"
-    }[:"#{commentable_class}"]
+    case commentable_class.to_s
+    when 'Report'
+      "#{commentable.user&.login_name}さんの日報「#{commentable.title}」"
+    when 'Product'
+      "#{commentable.user&.login_name}さんの#{commentable.title}"
+    when 'Event'
+      "特別イベント「#{commentable.title}」"
+    when 'RegularEvent'
+      "定期イベント「#{commentable.title}」"
+    when 'Page'
+      "Docs「#{commentable.title}」"
+    when 'Announcement'
+      "お知らせ「#{commentable.title}」"
+    when 'PairWork'
+      "ペアワーク「#{commentable.title}」"
+    end
   end
 end
