@@ -154,6 +154,19 @@
               footer.card-footer
                 .card-main-actions
                   ul.card-main-actions__items
+                    - if @practice.source_practice.present?
+                      li.card-main-actions__item
+                        = link_to practice_path(@practice.source_practice), class: 'a-button is-sm is-secondary is-block' do
+                          i.fa-solid.fa-pen
+                          | 元プラクティスへ
+                    - @practice.copied_practices.each do |practice|
+                      li.card-main-actions__item
+                        = link_to practice_path(practice), class: 'a-button is-sm is-secondary is-block' do
+                          i.fa-solid.fa-pen
+                          - if @practice.copied_practices.many?
+                            | Reスキル側へ（#{practice.title}）
+                          - if @practice.copied_practices.one?
+                            | Reスキル側へ
                     li.card-main-actions__item
                       = link_to edit_mentor_practice_path(@practice), class: 'a-button is-sm is-secondary is-block' do
                         i.fa-solid.fa-pen
