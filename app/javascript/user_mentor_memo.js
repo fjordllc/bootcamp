@@ -102,73 +102,85 @@ document.addEventListener('DOMContentLoaded', () => {
       updateMemo(content, userId)
     })
 
-    function updateMemo(memo, userId) {
-      const params = {
-        user: {
-          content: memo,
-          user_id: userId
-        }
-      }
-      fetch(`/api/mentor_memos/`, {
-        method: 'POST',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-CSRF-Token': CSRF.getToken()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual',
-        body: JSON.stringify(params)
-      })
-        .then((response) => {
-          location.reload()
-        })
-        .catch((error) => {
-          console.warn(error)
-        })
-    }
+    function updateMemo(memo, userId) {  
+      const params = {  
+        user: {  
+          content: memo,  
+          user_id: userId  
+        }  
+      }  
+      fetch(`/api/mentor_memos/`, {  
+        method: 'POST',  
+        headers: {  
+          'X-Requested-With': 'XMLHttpRequest',  
+          'Content-Type': 'application/json; charset=utf-8',  
+          'X-CSRF-Token': CSRF.getToken()  
+        },  
+        credentials: 'same-origin',  
+        redirect: 'manual',  
+        body: JSON.stringify(params)  
+      })  
+        .then((response) => {  
+          if (response.ok) {  
+            location.reload()  
+          } else {  
+            alert('処理に失敗しました。')  
+          }  
+        })  
+        .catch((error) => {  
+          console.warn(error)  
+        })  
+    }  
 
-    function editMemo(id, content) {
-      const params = {
-        user: {
-          content
-        }
-      }
-      fetch(`/api/mentor_memos/${id}`, {
-        method: 'PATCH',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-CSRF-Token': CSRF.getToken()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual',
-        body: JSON.stringify(params)
-      })
-        .then((response) => {
-          location.reload()
-        })
-        .catch((error) => {
-          console.warn(error)
-        })
-    }
+    function editMemo(id, content) {  
+      const params = {  
+        user: {  
+          content  
+        }  
+      }  
+      fetch(`/api/mentor_memos/${id}`, {  
+        method: 'PATCH',  
+        headers: {  
+          'X-Requested-With': 'XMLHttpRequest',  
+          'Content-Type': 'application/json; charset=utf-8',  
+          'X-CSRF-Token': CSRF.getToken()  
+        },  
+        credentials: 'same-origin',  
+        redirect: 'manual',  
+        body: JSON.stringify(params)  
+      })  
+        .then((response) => {  
+          if (response.ok) {  
+            location.reload()  
+          } else {  
+            alert('処理に失敗しました。')  
+          }  
+        })  
+        .catch((error) => {  
+          console.warn(error)  
+        })  
+    }  
 
-    function deleteMemo(id) {
-      fetch(`/api/mentor_memos/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': CSRF.getToken()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual'
-      })
-        .then((response) => {
-          location.reload()
-        })
-        .catch((error) => {
-          console.warn(error)
-        })
+    function deleteMemo(id) {  
+      fetch(`/api/mentor_memos/${id}`, {  
+        method: 'DELETE',  
+        headers: {  
+          'X-Requested-With': 'XMLHttpRequest',  
+          'X-CSRF-Token': CSRF.getToken()  
+        },  
+        credentials: 'same-origin',  
+        redirect: 'manual'  
+      })  
+        .then((response) => {  
+          if (response.ok) {  
+            location.reload()  
+          } else {  
+            alert('処理に失敗しました。')  
+          }  
+        })  
+        .catch((error) => {  
+          console.warn(error)  
+        })  
     }
   }
 })
