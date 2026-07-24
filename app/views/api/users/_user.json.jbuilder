@@ -1,9 +1,18 @@
 columns = %i(id login_name long_name url roles primary_role icon_title joining_status)
-columns << :mentor_memo if admin_or_mentor_login?
 json.(user, *columns)
 json.avatar_url user.avatar_url
 json.delayed user.completed_at >= 2.weeks.ago.end_of_day if user.respond_to?(:completed_at)
 json.adviser user.adviser
+
+if admin_or_mentor_login?
+  json.mentor_memos user.mentor_memos do |memo|
+    json.id memo.id
+    json.content memo.content
+    json.author memo.author&.long_name
+    json.author_id memo.author_id
+    json.created_at memo.created_at&.strftime('%Y/%m/%d')
+  end
+end
 
 json.company do
   if user.company.present?
