@@ -30,4 +30,11 @@ class MentionerTest < ActiveSupport::TestCase
 
     assert_equal %w[komagata machida], report.notify_all_mention_user.map(&:login_name).sort
   end
+
+  test '#where_mention does not raise when the commentable has no user' do
+    comment = comments(:comment1)
+    comment.commentable.stub(:user, nil) do
+      assert_nothing_raised { comment.where_mention }
+    end
+  end
 end
