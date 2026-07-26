@@ -150,50 +150,44 @@ class PracticeTest < ActiveSupport::TestCase
   end
 
   test '#pages_count sums pages of self and source when include_source is true' do
-    source_practice = practices(:practice23)
-    practice = practices(:practice64)
-
-    Page.where(practice: [source_practice, practice]).destroy_all
-
-    Page.create!(
-      user: users(:'grant-course'),
-      title: 'rubyをインストールするにはDoc',
-      body: '通常プラクティスのDoc。',
-      practice: source_practice,
-      published_at: Time.zone.today
+    normal_practice = Practice.create!(
+      title: 'テスト用プラクティス 通常コース',
+      description: 'テスト用',
+      categories: [categories(:category1)],
+      goal: 'goal...'
     )
-    Page.create!(
-      user: users(:komagata),
-      title: 'rubyをインストールするには(Reスキル)Doc',
-      body: '給付金プラクティスのDoc',
-      practice: practice,
-      published_at: Time.zone.today - 1
+    grant_practice = Practice.create!(
+      title: 'テスト用プラクティス 給付金コース',
+      description: 'テスト用',
+      categories: [categories(:category1)],
+      goal: 'goal...',
+      source_practice: normal_practice
     )
 
-    assert_equal 2, practice.pages_count(include_source: true)
+    Page.create!(title: '通常のプラクティスDoc', body: '本文', user: users(:kimura), practice: normal_practice)
+    Page.create!(title: '給付金のプラクティスDoc', body: '本文', user: users(:kimura), practice: grant_practice)
+
+    assert_equal 2, grant_practice.pages_count(include_source: true)
   end
 
   test '#pages_count counts only self pages when include_source is false' do
-    source_practice = practices(:practice23)
-    practice = practices(:practice64)
-
-    Page.where(practice: [source_practice, practice]).destroy_all
-
-    Page.create!(
-      user: users(:'grant-course'),
-      title: 'rubyをインストールするにはDoc',
-      body: '通常プラクティスのDoc。',
-      practice: source_practice,
-      published_at: Time.zone.today
+    normal_practice = Practice.create!(
+      title: 'テスト用プラクティス 通常コース',
+      description: 'テスト用',
+      categories: [categories(:category1)],
+      goal: 'goal...'
     )
-    Page.create!(
-      user: users(:komagata),
-      title: 'rubyをインストールするには(Reスキル)Doc',
-      body: '給付金プラクティスのDoc',
-      practice: practice,
-      published_at: Time.zone.today - 1
+    grant_practice = Practice.create!(
+      title: 'テスト用プラクティス 給付金コース',
+      description: 'テスト用',
+      categories: [categories(:category1)],
+      goal: 'goal...',
+      source_practice: normal_practice
     )
 
-    assert_equal 1, practice.pages_count(include_source: false)
+    Page.create!(title: '通常のプラクティスDoc', body: '本文', user: users(:kimura), practice: normal_practice)
+    Page.create!(title: '給付金のプラクティスDoc', body: '本文', user: users(:kimura), practice: grant_practice)
+
+    assert_equal 1, grant_practice.pages_count(include_source: false)
   end
 end
