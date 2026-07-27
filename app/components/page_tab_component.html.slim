@@ -1,9 +1,13 @@
 li.page-tabs__item
   = link_to link,
-    class: ['page-tabs__item-link', active ? 'is-active' : '', enable ? '' : 'is-inactive'] do
+    class: ['page-tabs__item-link', active ? 'is-active' : '', enable ? '' : 'is-inactive'],
+    data: bookmark_tab? ? { controller: 'bookmark-count', action: 'bookmark:changed@window->bookmark-count#refresh pageshow@window->bookmark-count#refresh' } : {} do
     = name
     - if count.present?
-      = " （#{count}）"
+      - if bookmark_tab?
+        span data-bookmark-count-target="count" = "（#{count}）"
+      - else
+        = " （#{count}）"
     - if badge&.positive?
       .page-tabs__item-count.a-notification-count
         .not-solved-count = badge

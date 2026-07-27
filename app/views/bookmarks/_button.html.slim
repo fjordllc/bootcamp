@@ -1,2 +1,12 @@
-button(type="button" id="bookmark-button" data-bookmarkable-id="#{bookmarkable.id}" data-bookmarkable-type=bookmarkable.class class="a-bookmark-button a-button is-sm is-block is-inactive is-muted" disabled aria-pressed="false" aria-busy="true")
+button(type="button" id="bookmark-button"
+  data-controller="bookmark-button"
+  data-action="click->bookmark-button#toggle"
+  data-bookmark-button-bookmarkable-id-value=bookmarkable.id
+  data-bookmark-button-bookmarkable-type-value=bookmarkable.class
+  data-bookmark-button-active-class="is-active"
+  data-bookmark-button-main-class="is-main"
+  data-bookmark-button-inactive-class="is-inactive"
+  data-bookmark-button-muted-class="is-muted"
+  class="a-bookmark-button a-button is-sm is-block is-inactive is-muted"
+  disabled aria-pressed="false" aria-busy="true")
   | Bookmark
