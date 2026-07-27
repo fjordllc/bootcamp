@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_28_000011) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -63,7 +63,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
     t.datetime "updated_at", precision: nil
     t.integer "user_id"
     t.index ["question_id", "type"], name: "index_answers_on_question_id_and_type", unique: true
-    t.index ["question_id"], name: "index_answers_on_question_id"
     t.index ["user_id"], name: "index_answers_on_user_id"
   end
 
@@ -175,7 +174,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
     t.integer "user_id", null: false
     t.index ["checkable_id", "checkable_type"], name: "index_checks_on_checkable_id_and_checkable_type", unique: true
     t.index ["checkable_id"], name: "index_checks_on_checkable_id"
-    t.index ["user_id"], name: "index_checks_on_user_id"
   end
 
   create_table "coding_test_cases", force: :cascade do |t|
@@ -194,7 +192,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["coding_test_id", "user_id"], name: "index_coding_test_submissions_on_coding_test_id_and_user_id", unique: true
-    t.index ["coding_test_id"], name: "index_coding_test_submissions_on_coding_test_id"
     t.index ["user_id"], name: "index_coding_test_submissions_on_user_id"
   end
 
@@ -337,7 +334,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
     t.boolean "watch", default: true, null: false
     t.index ["followed_id"], name: "index_followings_on_followed_id"
     t.index ["follower_id", "followed_id"], name: "index_followings_on_follower_id_and_followed_id", unique: true
-    t.index ["follower_id"], name: "index_followings_on_follower_id"
   end
 
   create_table "footprints", id: :serial, force: :cascade do |t|
@@ -348,7 +344,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
     t.integer "user_id", null: false
     t.index ["footprintable_id"], name: "index_footprints_on_footprintable_id"
     t.index ["user_id", "footprintable_id", "footprintable_type"], name: "index_footprintable", unique: true
-    t.index ["user_id"], name: "index_footprints_on_user_id"
   end
 
   create_table "grant_course_applications", force: :cascade do |t|
@@ -554,7 +549,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
     t.datetime "proposed_at", precision: nil, null: false
     t.datetime "updated_at", null: false
     t.index ["pair_work_id", "proposed_at"], name: "index_pair_work_schedules_on_pair_work_id_and_proposed_at", unique: true
-    t.index ["pair_work_id"], name: "index_pair_work_schedules_on_pair_work_id"
   end
 
   create_table "pair_works", force: :cascade do |t|
@@ -583,7 +577,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
     t.bigint "user_id", null: false
     t.index ["event_id"], name: "index_participations_on_event_id"
     t.index ["user_id", "event_id"], name: "index_participations_on_user_id_and_event_id", unique: true
-    t.index ["user_id"], name: "index_participations_on_user_id"
   end
 
   create_table "practices", id: :serial, force: :cascade do |t|
@@ -647,7 +640,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
     t.index ["commented_at"], name: "index_products_on_commented_at"
     t.index ["practice_id"], name: "index_products_on_practice_id"
     t.index ["user_id", "practice_id"], name: "index_products_on_user_id_and_practice_id", unique: true
-    t.index ["user_id"], name: "index_products_on_user_id"
   end
 
   create_table "questions", id: :serial, force: :cascade do |t|
@@ -709,7 +701,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
     t.bigint "user_id", null: false
     t.index ["regular_event_id"], name: "index_regular_event_participations_on_regular_event_id"
     t.index ["user_id", "regular_event_id"], name: "index_user_id_and_regular_event_id", unique: true
-    t.index ["user_id"], name: "index_regular_event_participations_on_user_id"
   end
 
   create_table "regular_event_repeat_rules", force: :cascade do |t|
@@ -936,7 +927,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["survey_id", "user_id"], name: "index_survey_answers_on_survey_id_and_user_id", unique: true
-    t.index ["survey_id"], name: "index_survey_answers_on_survey_id"
     t.index ["user_id"], name: "index_survey_answers_on_user_id"
   end
 
@@ -1123,7 +1113,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
     t.string "url"
     t.bigint "user_id"
     t.index ["user_id", "title"], name: "index_works_on_user_id_and_title", unique: true
-    t.index ["user_id"], name: "index_works_on_user_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
