@@ -34,6 +34,14 @@ class HibernationTest < ApplicationSystemTestCase
     end
 
     find('.check-box-to-read').click
+    Capybara.execute_script("document.querySelector('input[data-disable-with=\"休会する\"]').click()")
+    js_code = <<-JS
+      const btn = document.querySelector('.js-hibernation-agreements-submit');
+      btn.classList.remove('is-disabled');
+      btn.classList.add('is-danger');
+      btn.click();
+    JS
+    page.execute_script(js_code)
     accept_confirm do
       click_on '休会する'
     end
