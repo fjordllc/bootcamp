@@ -39,4 +39,31 @@ class HibernationTest < ApplicationSystemTestCase
     end
     assert_text '復帰予定日を入力してください'
   end
+
+  test 'removed a pair_work by hibernate' do
+    pair_work = pair_works(:pair_work1)
+    visit_with_auth new_hibernation_path, 'kimura'
+    within('form[name=hibernation]') do
+      fill_in(
+        'hibernation[scheduled_return_on]',
+        with: (Date.current + 30)
+      )
+      fill_in('hibernation[reason]', with: 'test')
+    end
+
+    find('.check-box-to-read').click
+    Capybara.execute_script("document.querySelector('input[data-disable-with=\"休会する\"]').click()")
+    js_code = <<-JS
+      const btn = document.querySelector('.js-hibernation-agreements-submit');
+      btn.classList.remove('is-disabled');
+      btn.classList.add('is-danger');
+      btn.click();
+    JS
+    page.execute_script(js_code)
+    accept_confirm do
+      click_on '休会する'
+    end
+
+    assert_not PairWork.exists?(pair_work.id)
+  end
 end
