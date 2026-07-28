@@ -42,5 +42,6 @@ main.page-main
                   = AiPrompt.exists?(key:) ? '変更済み' : 'デフォルト'
                 td.admin-table__item-value.is-text-align-center
                   = link_to edit_admin_ai_prompt_path(key),
-                    class: 'a-button is-sm is-secondary is-icon' do
-                    i.fa-solid.fa-pen
+                    class: 'a-button is-sm is-secondary is-icon',
+                    aria: { label: '編集' } do
+                    i.fa-solid.fa-pen aria-hidden='true'

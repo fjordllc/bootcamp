@@ -22,6 +22,8 @@ class Admin::AiPromptsTest < ApplicationSystemTestCase
       assert_text definition.fetch(:name)
       assert_text definition.fetch(:description)
     end
+    assert_selector 'a[aria-label="編集"]', count: AiPrompt.definitions.size
+    assert_selector 'i[aria-hidden="true"]', count: AiPrompt.definitions.size
   end
 
   test 'admin can update a prompt' do
