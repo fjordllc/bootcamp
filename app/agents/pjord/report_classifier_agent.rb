@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Pjord::ReportClassifierAgent < RubyLLM::Agent
-  model ENV.fetch('PJORD_LLM_MODEL', 'claude-sonnet-4-6')
+  model ENV.fetch('PJORD_LLM_MODEL', 'claude-sonnet-5')
   schema PjordReportIntent
   instructions
 

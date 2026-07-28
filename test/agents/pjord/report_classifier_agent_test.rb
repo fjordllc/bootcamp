@@ -7,7 +7,10 @@ class Pjord::ReportClassifierAgentTest < ActiveSupport::TestCase
     report = reports(:report1)
     chat = ClassifierChatFake.new('{"intent":"general","reason":"通常の学習記録"}')
 
-    RubyLLM.stub(:chat, chat) do
+    RubyLLM.stub(:chat, lambda { |model:|
+      assert_equal 'claude-sonnet-5', model
+      chat
+    }) do
       result = Pjord::ReportClassifierAgent.classify(report)
 
       assert_equal 'general', result[:intent]

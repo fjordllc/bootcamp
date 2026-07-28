@@ -40,7 +40,7 @@ class Pjord::Agent < RubyLLM::Agent
     - URL先を見れば分かることを、ユーザーに質問しない
   PROMPT
 
-  model ENV.fetch('PJORD_LLM_MODEL', 'claude-sonnet-4-6')
+  model ENV.fetch('PJORD_LLM_MODEL', 'claude-sonnet-5')
   tools BootcampSearchTool, UserInfoTool, ExternalContentTool
   schema PjordResponse
   instructions

@@ -7,12 +7,12 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
     assert_operator Pjord::ProductReviewAgent, :<, Pjord::Agent
   end
 
-  test '.review asks latest Sonnet model with product review context' do
+  test '.review asks latest Opus model with product review context' do
     product = products(:product1)
     chat = ProductReviewChatFake.new
 
     RubyLLM.stub(:chat, lambda { |model:|
-      assert_equal 'claude-sonnet-4-6', model
+      assert_equal 'claude-opus-5', model
       chat
     }) do
       assert_equal 'レビュー本文', Pjord::ProductReviewAgent.review(product)
