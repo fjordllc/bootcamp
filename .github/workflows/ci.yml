@@ -4,7 +4,6 @@ on:
   pull_request:
     branches: [main]
   push:
-    branches: [main]
   workflow_dispatch:
 
 concurrency:
@@ -222,10 +221,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Generate flakewatch HTML
-        # komagata/flakewatch v0.6.32
-        uses: komagata/flakewatch@v0.6.32
+        # komagata/flakewatch v0.6.35
+        uses: komagata/flakewatch@v0.6.35
         with:
           junit-artifact-pattern: junit-xml-*
           source-root: ${{ github.workspace }}
           history-branch: flakewatch-data
-          history-write: false
+          history-write: auto
+          analysis-branch: main
