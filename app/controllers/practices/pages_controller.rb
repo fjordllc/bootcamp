@@ -6,17 +6,18 @@ class Practices::PagesController < ApplicationController
   def index
     @practice = Practice.find(params[:practice_id])
     @include_source = include_source?
-    @pages =
-      if @include_source
-        Page.for_practice_including_source(@practice)
-      else
-        @practice.pages
-      end
-      .with_avatar
-      .preload(:comments, :practice, { last_updated_user: { avatar_attachment: :blob } })
-      .order(updated_at: :desc, id: :desc)
-      .page(params[:page])
-      .per(PAGER_NUMBER)
+
+    base_pages = if @include_source
+                   Page.for_practice_including_source(@practice)
+                 else
+                   @practice.pages
+                 end
+    @pages = base_pages
+             .with_avatar
+             .preload(:comments, :practice, { last_updated_user: { avatar_attachment: :blob } })
+             .order(updated_at: :desc, id: :desc)
+             .page(params[:page])
+             .per(PAGER_NUMBER)
   end
 
   private
