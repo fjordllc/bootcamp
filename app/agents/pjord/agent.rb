@@ -43,9 +43,13 @@ class Pjord::Agent < RubyLLM::Agent
   model ENV.fetch('PJORD_LLM_MODEL', 'claude-sonnet-5')
   tools BootcampSearchTool, UserInfoTool, ExternalContentTool
   schema PjordResponse
-  instructions
+  instructions { AiPrompt.body_for('pjord') }
 
   class << self
+    def prompt_for(key, context = nil)
+      [AiPrompt.body_for('pjord'), AiPrompt.body_for(key), context].compact_blank.join("\n\n")
+    end
+
     def extract_public_response_body(content)
       body =
         if content.is_a?(String)
