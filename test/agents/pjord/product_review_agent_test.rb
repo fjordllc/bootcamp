@@ -58,6 +58,8 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
 
     assert_includes chat.instructions, '保存した共通プロンプト'
     assert_includes chat.instructions, '保存した提出物レビュープロンプト'
+    assert_includes chat.asked_message, products(:product1).user.login_name
+    assert_includes chat.asked_message, products(:product1).practice.title
   end
 
   test '.review handles user without course' do

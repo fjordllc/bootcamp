@@ -40,6 +40,8 @@ class Pjord::MentionResponseAgentTest < ActiveSupport::TestCase
 
     assert_includes chat.instructions, '保存した共通プロンプト'
     assert_includes chat.instructions, '保存したメンション返信プロンプト'
+    assert_includes chat.instructions, comments(:comment1).sender.login_name
+    assert_includes chat.instructions, comments(:comment1).where_mention
   end
 
   class AgentChatFake

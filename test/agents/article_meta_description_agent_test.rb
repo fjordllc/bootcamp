@@ -14,6 +14,16 @@ class ArticleMetaDescriptionAgentTest < ActiveSupport::TestCase
     assert_equal '保存したmeta descriptionプロンプト', chat.instructions
   end
 
+  test 'uses the default prompt when no prompt is saved' do
+    chat = AgentChatFake.new
+
+    RubyLLM.stub(:chat, chat) do
+      ArticleMetaDescriptionAgent.new.ask('記事本文')
+    end
+
+    assert_equal AiPrompt.default_body_for('article_meta_description'), chat.instructions
+  end
+
   class AgentChatFake
     attr_reader :instructions
 

@@ -41,6 +41,8 @@ class Pjord::ReportCommentAgentTest < ActiveSupport::TestCase
 
     assert_includes chat.instructions, '保存した共通プロンプト'
     assert_includes chat.instructions, '保存した日報コメントプロンプト'
+    assert_includes chat.instructions, 'general'
+    assert_includes chat.instructions, reports(:report1).user.login_name
   end
 
   test '.comment includes general intent instructions' do

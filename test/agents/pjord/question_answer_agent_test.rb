@@ -37,6 +37,8 @@ class Pjord::QuestionAnswerAgentTest < ActiveSupport::TestCase
 
     assert_includes chat.instructions, '保存した共通プロンプト'
     assert_includes chat.instructions, '保存したQ&A回答プロンプト'
+    assert_includes chat.instructions, questions(:question1).where_mention
+    assert_includes chat.instructions, questions(:question1).practice.title
   end
 
   class AgentChatFake
