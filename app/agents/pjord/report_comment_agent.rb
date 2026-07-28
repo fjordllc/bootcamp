@@ -2,6 +2,7 @@
 
 class Pjord::ReportCommentAgent < Pjord::Agent
   inputs :report, :intent
+  model ENV.fetch('PJORD_COMMENT_LLM_MODEL', 'claude-opus-5')
   instructions
 
   def self.comment(report, intent:)

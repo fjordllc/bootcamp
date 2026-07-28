@@ -11,7 +11,10 @@ class Pjord::QuestionAnswerAgentTest < ActiveSupport::TestCase
     question = questions(:question1)
     chat = AgentChatFake.new
 
-    RubyLLM.stub(:chat, chat) do
+    RubyLLM.stub(:chat, lambda { |model:|
+      assert_equal 'claude-sonnet-5', model
+      chat
+    }) do
       assert_equal '回答本文', Pjord::QuestionAnswerAgent.answer(question)
     end
 
