@@ -17,7 +17,7 @@ header.page-header
                   span
                     | 参考書籍登録
 hr.a-border
-nav.page-filter.form
+nav.page-filter.form aria-label="書籍絞り込み"
   .container.is-md
     = form_with url: books_path, local: true, method: 'get' do
       .form-item.is-inline-md-up

@@ -18,7 +18,7 @@ ruby:
     = render 'form', inquiry: @inquiry
   hr.a-border-tint
   footer.auth-form__footer
-    nav.auth-form-nav
+    nav.auth-form-nav aria-label="問い合わせ関連リンク"
       ul.auth-form-nav__items
         li.auth-form-nav__item
           = link_to 'トップページ', welcome_path, class: 'auth-form-nav__item-link'

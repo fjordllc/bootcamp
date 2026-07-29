@@ -20,7 +20,7 @@ header.page-header
     = render 'users/form', from: :edit, url: [:admin, @user], user: @user
   hr.a-border-tint
   footer.auth-form__footer
-    nav.auth-form-nav
+    nav.auth-form-nav aria-label="ユーザー管理関連リンク"
       ul.auth-form-nav__items
         li.auth-form-nav__item
           = link_to 'トップページ', root_path, class: 'auth-form-nav__item-link'

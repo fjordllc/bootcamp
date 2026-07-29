@@ -5,7 +5,7 @@ header.lp-page-header
         h1.lp-page-header__title
           = title
       .lp-page-header__end
-        nav.lp-page-header-nav
+        nav.lp-page-header-nav aria-label="ブログメニュー"
           ul.lp-page-header-nav__items
             - if current_user&.mentor?
               .lp-page-header-nav__item
@@ -27,7 +27,7 @@ header.lp-page-header
       hr.a-border
     .articles__body
       - if current_user&.admin_or_mentor_login?
-        nav.pill-nav.mb-8
+        nav.pill-nav.mb-8 aria-label="記事公開状態"
           .pill-nav__items
             .pill-nav__item
               = link_to articles_path, class: "pill-nav__item-link#{is_published ? ' is-active' : ''}" do
