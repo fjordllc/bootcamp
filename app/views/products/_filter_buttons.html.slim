@@ -2,7 +2,7 @@
 - current_target ||= params[:target]
 - targets = selected_tab == 'self_assigned' ? %w[self_assigned_all self_assigned_no_replied] : %w[unchecked_all unchecked_no_replied]
 
-nav.pill-nav
+nav.pill-nav aria-label="提出物絞り込み"
   ul.pill-nav__items
     - targets.each do |target|
       li.pill-nav__item

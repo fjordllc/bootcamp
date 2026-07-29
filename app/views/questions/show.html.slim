@@ -27,7 +27,7 @@
             - @answers.each do |answer|
               = render 'answer', question: @question, user: current_user, answer: answer
           = render 'new_answer', question: @question, user: current_user
-      nav.a-side-nav
+      nav.a-side-nav aria-label="関連する質問"
         .a-side-nav__inner
           header.a-side-nav__header
             h2.a-side-nav__title

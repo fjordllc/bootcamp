@@ -3,7 +3,7 @@ ruby:
   products_grouped_by_elapsed_days ||= {}
   all_days = [product_deadline_day + 2] + (product_deadline_day + 1).downto(0).to_a
 
-nav.page-nav.a-card
+nav.page-nav.a-card aria-label="提出物の経過日数"
   ol.page-nav__items.elapsed-days
     - all_days.each do |elapsed_days|
       ruby:
