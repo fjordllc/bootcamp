@@ -82,6 +82,10 @@
   text-decoration: underline;
 }
 
+.card-footer__alert > .card-footer__quiz-link {
+  text-decoration: underline;
+}
+
 .js-markdown-view {
   display: none;
 }
