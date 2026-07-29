@@ -101,7 +101,8 @@ module Practices
     test 'deletes product template from practice edit form' do
       practice = practices(:practice1)
       visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
-      check '提出物のテンプレートを削除する', allow_label_click: true
+      click_button '提出物のテンプレートを削除する'
+      assert_text 'テンプレートはまだ削除されていません。更新すると削除されます。'
 
       assert_difference 'Template.count', -1 do
         click_button '更新する'
