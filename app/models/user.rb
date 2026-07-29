@@ -12,6 +12,7 @@ class User < ApplicationRecord
   include UserActiveScopes
   include UserSimpleQueryScopes
   include UserComplexQueryScopes
+  include AvatarAttachable
 
   attr_accessor :credit_card_payment, :role, :uploaded_avatar
 
@@ -254,8 +255,6 @@ class User < ApplicationRecord
   validates :login_name, exclusion: { in: RESERVED_LOGIN_NAMES, message: 'に使用できない文字列が含まれています' }
 
   validates :login_name, length: { minimum: 3, message: 'は3文字以上にしてください。' }
-
-  validate :validate_uploaded_avatar_content_type
 
   validates :show_study_streak, inclusion: { in: [true, false] }
 
@@ -540,30 +539,6 @@ class User < ApplicationRecord
     !staff? && !graduated?
   end
 
-  def avatar_url
-    if avatar.attached? && avatar.blob.present?
-      custom_key = "avatars/#{login_name}.#{AVATAR_FORMAT}"
-      attach_custom_avatar if avatar.blob.key != custom_key
-      "#{avatar.url}?v=#{avatar.created_at.to_i}"
-    else
-      image_url DEFAULT_IMAGE_PATH
-    end
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::Error => e
-    log_avatar_error('avatar_url', e)
-    image_url DEFAULT_IMAGE_PATH
-  end
-
-  def profile_image_url
-    if profile_image.attached?
-      profile_image
-    else
-      image_url DEFAULT_IMAGE_PATH
-    end
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::Error => e
-    log_avatar_error('profile_image_url', e)
-    image_url DEFAULT_IMAGE_PATH
-  end
-
   def generation
     (created_at.year - 2013) * 4 + (created_at.month + 2) / 3
   end
@@ -805,15 +780,6 @@ class User < ApplicationRecord
     course.practices.where(include_progress: true)
   end
 
-  def validate_uploaded_avatar_content_type
-    return unless uploaded_avatar
-
-    mime_type = Marcel::Magic.by_magic(uploaded_avatar)&.type
-    return if mime_type&.start_with?('image/png', 'image/jpeg', 'image/gif', 'image/heic', 'image/heif')
-
-    errors.add(:avatar, 'は指定された拡張子(PNG, JPG, JPEG, GIF, HEIC, HEIF形式)になっていないか、あるいは画像が破損している可能性があります')
-  end
-
   def required_practices_size_with_skip
     course.practices.where(id: practice_ids_skipped, include_progress: true).size
   end
@@ -821,32 +787,6 @@ class User < ApplicationRecord
   def convert_blank_of_address_to_nil
     self.country_code = nil if country_code.blank?
     self.subdivision_code = nil if subdivision_code.blank?
-  end
-
-  def attach_custom_avatar
-    custom_key = "avatars/#{login_name}.#{AVATAR_FORMAT}"
-    variant_avatar = avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }, format: AVATAR_FORMAT).processed
-    io = StringIO.new(variant_avatar.download)
-
-    # Use ActiveStorage's create_and_upload! for proper checksum handling
-    custom_blob = ActiveStorage::Blob.find_by(key: custom_key)
-
-    unless custom_blob
-      custom_blob = ActiveStorage::Blob.create_and_upload!(
-        io:,
-        filename: "#{login_name}.#{AVATAR_FORMAT}",
-        content_type: "image/#{AVATAR_FORMAT}",
-        key: custom_key,
-        identify: false
-      )
-      avatar.attach(custom_blob)
-    end
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::Error, LoadError => e
-    log_avatar_error('attach_custom_avatar', e)
-  end
-
-  def log_avatar_error(context, error)
-    Rails.logger.error "[#{context}] Avatar processing failed for user #{login_name}: #{error.message}"
   end
 
   def role_for_thanks_page
