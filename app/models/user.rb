@@ -10,6 +10,8 @@ class User < ApplicationRecord
   include UserStudentGroupScopes
   include MentorIndexScopes
   include UserActiveScopes
+  include UserSimpleQueryScopes
+  include UserComplexQueryScopes
 
   attr_accessor :credit_card_payment, :role, :uploaded_avatar
 
@@ -327,60 +329,6 @@ class User < ApplicationRecord
     react
     languages_other_than_ruby_and_javascript
   ]
-
-  scope :by_course, ->(target) { joins(:course).where(courses: { title: target }) }
-  scope :order_by_counts, lambda { |order_by, direction|
-    raise ArgumentError, 'Invalid argument' unless order_by.in?(VALID_SORT_COLUMNS) && direction.in?(VALID_SORT_COLUMNS)
-
-    if order_by.in? %w[report comment]
-      left_outer_joins(order_by.pluralize.to_sym)
-        .group('users.id')
-        .order(Arel.sql("count(#{order_by.pluralize}.id) #{direction}, users.created_at"))
-    elsif order_by == 'created_at'
-      order(order_by.to_sym => direction.to_sym)
-    else
-      order(order_by.to_sym => direction.to_sym, created_at: :asc)
-    end
-  }
-  scope :classmates, lambda { |start_date, end_date|
-    where(created_at: start_date..end_date).order(:created_at, :id)
-  }
-  scope :active_tagged_with, lambda { |tag_name|
-    with_attached_avatar
-      .unretired
-      .unhibernated
-      .order(last_activity_at: :desc)
-      .tagged_with(tag_name)
-  }
-  scope :delayed, lambda {
-    sql = Learning.select(:user_id, 'MAX(updated_at) AS completed_at')
-                  .where(status: :complete)
-                  .group(:user_id).to_sql
-
-    students_and_trainees
-      .joins("JOIN (#{sql}) learnings ON users.id = user_id")
-      .select('users.*', :completed_at)
-      .where('completed_at <= ?', 2.weeks.ago.end_of_day)
-  }
-  scope :campaign, -> { where(created_at: Campaign.recently_campaign) }
-  columns_for_keyword_search(
-    :login_name,
-    :name,
-    :name_kana,
-    :twitter_account,
-    :facebook_url,
-    :blog_url,
-    :github_account,
-    :description
-  )
-
-  scope :currently_learning_except, lambda { |user|
-    students_and_trainees
-      .joins(:learning_time_frames)
-      .merge(LearningTimeFrame.active_now)
-      .where.not(id: user.id)
-      .with_attached_avatar
-  }
 
   class << self
     def notification_receiver(target)
