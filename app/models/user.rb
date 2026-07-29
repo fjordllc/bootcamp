@@ -5,7 +5,9 @@ class User < ApplicationRecord
   include Taggable
   include Searchable
   include StagingEnvironment
-  include UserStatus
+  include UserStatusScopes
+  include UserRoleScopes
+  include UserStudentGroupScopes
 
   attr_accessor :credit_card_payment, :role, :uploaded_avatar
 
@@ -324,53 +326,8 @@ class User < ApplicationRecord
     languages_other_than_ruby_and_javascript
   ]
 
-  scope :hibernated_for, ->(period) { where(hibernated_at: nil..period.ago) }
-  scope :auto_retire, -> { where(auto_retire: true) }
-  scope :advisers, -> { where(adviser: true) }
-  scope :not_advisers, -> { where(adviser: false) }
   scope :by_course, ->(target) { joins(:course).where(courses: { title: target }) }
-  scope :students_and_trainees, lambda {
-    where(
-      admin: false,
-      mentor: false,
-      adviser: false,
-      graduated_on: nil,
-      hibernated_at: nil,
-      retired_on: nil,
-      training_completed_at: nil
-    )
-  }
-  scope :students_trainees_mentors_and_admins, lambda {
-    where(
-      adviser: false,
-      graduated_on: nil,
-      hibernated_at: nil,
-      retired_on: nil
-    )
-  }
-  scope :students, lambda {
-    where(
-      admin: false,
-      mentor: false,
-      adviser: false,
-      trainee: false,
-      hibernated_at: nil,
-      retired_on: nil,
-      graduated_on: nil
-    )
-  }
-  scope :retired_students, lambda {
-    where.not(
-      retired_on: nil
-    ).where(
-      admin: false,
-      mentor: false,
-      adviser: false,
-      trainee: false,
-      hibernated_at: nil,
-      graduated_on: nil
-    )
-  }
+
   scope :active, -> { where(last_activity_at: 1.month.ago..Float::INFINITY) }
   scope :inactive, lambda {
     where(
