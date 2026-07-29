@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Pjord::Agent < RubyLLM::Agent
-  SYSTEM_PROMPT = Rails.root.join('app/prompts/pjord/agent/instructions.txt').read.freeze
-
   model ENV.fetch('PJORD_LLM_MODEL', 'claude-sonnet-5')
   tools BootcampSearchTool, UserInfoTool, ExternalContentTool
   schema PjordResponse
