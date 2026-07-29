@@ -67,12 +67,14 @@ header.lp-page-header
                             = image_tag article.user.avatar_url
                             = article.user.login_name
                         .thumbnail-card__meta
-                          .thumbnail-card__date
-                            - if article.wip?
-                              = '執筆中'
-                            - elsif article.published_at.nil?
+                          - if article.wip?
+                            .thumbnail-card__date
+                              | 執筆中
+                          - elsif article.published_at.nil?
+                            time.thumbnail-card__date datetime=article.created_at.iso8601
                               = l(article.created_at)
-                            - else
+                          - else
+                            time.thumbnail-card__date datetime=article.published_at.iso8601
                               = l(article.published_at)
                     .thumbnail-card__row
                       .a-tags

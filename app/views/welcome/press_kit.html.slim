@@ -107,7 +107,7 @@ hr.a-border
                                   = image_tag press_release.user.avatar_url
                                   = press_release.user.login_name
                               .thumbnail-card__meta
-                                .thumbnail-card__date
+                                time.thumbnail-card__date datetime=press_release.published_at.iso8601
                                   = l(press_release.published_at)
               .lp-content-stack__item
                 .lp-actions

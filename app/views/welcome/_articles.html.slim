@@ -47,7 +47,7 @@ section.lp-content.is-lp-bg-1.is-top-title.is-articles#articles
                                     = image_tag article.user.avatar_url
                                     = article.user.login_name
                                 .articles-item__meta
-                                  .articles-item__published-at
+                                  time.articles-item__published-at datetime=article.published_at.iso8601
                                     = l(article.published_at)
 
           .lp-content-stack__item

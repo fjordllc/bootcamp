@@ -37,7 +37,7 @@
       .thumbnail-card__row
         .thumbnail-card__metas
           .thumbnail-card__meta
-            .thumbnail-card__date
+            time.thumbnail-card__date datetime=movie.created_at.iso8601
               = l(movie.created_at)
       - if movie.tag_list.present?
         .thumbnail-card__row
