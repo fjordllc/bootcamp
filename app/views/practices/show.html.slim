@@ -110,7 +110,7 @@
             = render 'books', practice: @practice
 
           - unless skipped_practices.include?(@practice.id)
-            .a-card
+            section.a-card
               header.card-header
                 h2.card-header__title
                   = Practice.human_attribute_name :goal

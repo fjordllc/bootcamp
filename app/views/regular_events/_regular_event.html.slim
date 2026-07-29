@@ -40,7 +40,7 @@ article.page-content
 
   = render('regular_event_meta', regular_event:)
 
-  .a-card
+  section.a-card
     .card-header.is-sm
       h2.card-header__title
         | イベント内容
@@ -69,7 +69,7 @@ article.page-content
                 | 削除する
 
   - unless regular_event.wip? || regular_event.all
-    .a-card.participants
+    section.a-card.participants
       header.card-header.is-sm
         h2.card-header__title
           | 参加者（#{regular_event.participants.count}名）
