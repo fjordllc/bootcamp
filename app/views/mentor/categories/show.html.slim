@@ -49,7 +49,7 @@ header.page-header
                           .a-meta__value
                             = @category.slug
             section.a-card
-              .card-header.is-sm
+              header.card-header.is-sm
                 h2.card-header__title
                   | 説明
               hr.a-border-tint
@@ -58,7 +58,7 @@ header.page-header
                   .a-long-text.is-md.js-markdown-view
                     = @category.description
               hr.a-border-tint
-              .card-footer
+              footer.card-footer
                 .card-main-actions
                   ul.card-main-actions__items
                     li.card-main-actions__item
@@ -76,7 +76,7 @@ header.page-header
               .page-content-prev-next__item
         .col-xl-5.col-xs-12
           section.card-list.a-card
-            .card-header.is-sm
+            header.card-header.is-sm
               h2.card-header__title
                 | プラクティス
                 | （#{@category.practices.count}）

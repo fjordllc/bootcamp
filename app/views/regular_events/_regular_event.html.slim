@@ -41,7 +41,7 @@ article.page-content
   = render('regular_event_meta', regular_event:)
 
   section.a-card
-    .card-header.is-sm
+    header.card-header.is-sm
       h2.card-header__title
         | イベント内容
     hr.a-border-tint
@@ -57,7 +57,7 @@ article.page-content
     = render 'reactions/reactions', reactionable: regular_event
     - if admin_or_mentor_login? || regular_event.organizers.ids.include?(current_user.id)
       hr.a-border-tint
-      .card-footer
+      footer.card-footer
         .card-main-actions
           ul.card-main-actions__items
             li.card-main-actions__item
