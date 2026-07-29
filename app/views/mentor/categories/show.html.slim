@@ -84,7 +84,7 @@ header.page-header
             - if @category.practices.present?
               .card-list__items
                 - @category.practices.each do |practice|
-                  .card-list-item(id="practice_#{practice.id}")
+                  article.card-list-item(id="practice_#{practice.id}")
                     .card-list-item__inner
                       .card-list-item__rows
                         .card-list-item__row

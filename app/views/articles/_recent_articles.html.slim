@@ -6,7 +6,7 @@ aside.a-card
   nav.card-list
     .card-list__items.is-md-only-2-items
       - @recent_articles.each do |recent_article|
-        .card-list-item
+        article.card-list-item
           = link_to recent_article, class: 'card-list-item__inner' do
             .card-list-item__thumbnail
               .card-list-item__thumbnail-inner
