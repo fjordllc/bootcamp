@@ -325,7 +325,7 @@ class User < ApplicationRecord
     react
     languages_other_than_ruby_and_javascript
   ]
-  
+
   scope :by_course, ->(target) { joins(:course).where(courses: { title: target }) }
   scope :active, -> { where(last_activity_at: 1.month.ago..Float::INFINITY) }
   scope :inactive, lambda {
@@ -355,19 +355,6 @@ class User < ApplicationRecord
       retired_on: nil
     )
   }
-  scope :mentors_sorted_by_created_at, lambda {
-    with_attached_profile_image
-      .mentor
-      .includes(authored_books: { cover_attachment: :blob })
-      .order(:created_at)
-  }
-  scope :visible_sorted_mentors, lambda {
-    with_attached_profile_image
-      .mentor
-      .includes(authored_books: { cover_attachment: :blob })
-      .order(:created_at)
-      .where(show_mentor_profile: true)
-  }
   scope :working, lambda {
     active.where(
       adviser: false,
@@ -375,18 +362,6 @@ class User < ApplicationRecord
       hibernated_at: nil,
       retired_on: nil
     ).order(last_activity_at: :desc)
-  }
-  scope :admins_and_mentors, -> { admins.or(mentor) }
-  scope :job_seekers, lambda {
-    where(
-      admin: false,
-      mentor: false,
-      adviser: false,
-      trainee: false,
-      hibernated_at: nil,
-      retired_on: nil,
-      job_seeker: true
-    )
   }
   scope :order_by_counts, lambda { |order_by, direction|
     raise ArgumentError, 'Invalid argument' unless order_by.in?(VALID_SORT_COLUMNS) && direction.in?(VALID_SORT_COLUMNS)
