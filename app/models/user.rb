@@ -325,9 +325,8 @@ class User < ApplicationRecord
     react
     languages_other_than_ruby_and_javascript
   ]
-
+  
   scope :by_course, ->(target) { joins(:course).where(courses: { title: target }) }
-
   scope :active, -> { where(last_activity_at: 1.month.ago..Float::INFINITY) }
   scope :inactive, lambda {
     where(
@@ -356,7 +355,6 @@ class User < ApplicationRecord
       retired_on: nil
     )
   }
-  scope :mentor, -> { where(mentor: true) }
   scope :mentors_sorted_by_created_at, lambda {
     with_attached_profile_image
       .mentor
@@ -378,15 +376,7 @@ class User < ApplicationRecord
       retired_on: nil
     ).order(last_activity_at: :desc)
   }
-  scope :admins, -> { where(admin: true) }
   scope :admins_and_mentors, -> { admins.or(mentor) }
-  scope :trainees, lambda {
-    where(
-      trainee: true,
-      training_completed_at: nil
-    )
-  }
-  scope :job_seeking, -> { where(career_path: 'job_seeking') }
   scope :job_seekers, lambda {
     where(
       admin: false,
