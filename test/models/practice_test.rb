@@ -190,31 +190,16 @@ class PracticeTest < ActiveSupport::TestCase
 
     assert_equal 1, grant_practice.pages_count(include_source: false)
   end
-  test 'does not create product template when description is blank' do
+
+  test 'deletes product template when description is blank' do
     practice = practices(:practice1)
-    practice.template&.destroy!
-
-    assert_no_difference 'Template.count' do
-      practice.update!(
-        template_attributes: {
-          description: ''
-        }
-      )
-    end
-
-    assert_nil practice.reload.template
-  end
-
-  test 'destroys product template with nested attributes' do
-    practice = practices(:practice1)
-    practice.template&.destroy!
-    template = practice.create_template!(description: '提出物のテンプレート')
+    template = practice.template
 
     assert_difference 'Template.count', -1 do
       practice.update!(
         template_attributes: {
           id: template.id,
-          _destroy: '1'
+          description: ''
         }
       )
     end
