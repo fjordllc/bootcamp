@@ -13,6 +13,7 @@ class User < ApplicationRecord
   include UserSimpleQueryScopes
   include UserComplexQueryScopes
   include AvatarAttachable
+  include FollowerAndWatcher
 
   attr_accessor :credit_card_payment, :role, :uploaded_avatar
 
@@ -567,35 +568,6 @@ class User < ApplicationRecord
     save!(validate: false)
   end
 
-  def follow(other_user, watch:)
-    active_relationships.create(followed: other_user, watch:)
-  end
-
-  def change_watching(other_user, watch)
-    following = Following.find_by(follower_id: self, followed_id: other_user)
-    following.update(watch:)
-  end
-
-  def unfollow(other_user)
-    followees.delete(other_user)
-  end
-
-  def following?(other_user)
-    followees.include?(other_user)
-  end
-
-  def watching?(other_user)
-    following?(other_user) ? Following.find_by(follower_id: self, followed_id: other_user).watch? : false
-  end
-
-  def followees_list(watch: '')
-    if %w[true false].include?(watch)
-      followees.includes(:passive_relationships).where(followings: { watch: })
-    else
-      followees
-    end
-  end
-
   def update_mentor_memo(new_memo)
     # ユーザーの「最終ログイン」にupdated_at値が利用されるため
     # メンターor管理者によるmemoカラムのupdateの際は、updated_at値の変更を防ぐ
@@ -684,10 +656,6 @@ class User < ApplicationRecord
       commentable_id: Talk.find_by(user_id: id).id,
       commentable_type: 'Talk'
     )
-  end
-
-  def become_watcher!(watchable)
-    watches.find_or_create_by!(watchable:)
   end
 
   def scheduled_retire_at
