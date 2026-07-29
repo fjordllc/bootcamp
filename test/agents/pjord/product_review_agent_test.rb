@@ -47,6 +47,21 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
     assert_includes chat.instructions, 'コードの特定行に対する具体的な指摘は、可能な限りgithub_pull_request_review_comment_toolを使ってPRの該当行へ直接コメントしてください。'
   end
 
+  test '.review uses saved common and product review prompts' do
+    AiPrompt.create!(key: 'pjord', body: '保存した共通プロンプト')
+    AiPrompt.create!(key: 'product_review', body: '保存した提出物レビュープロンプト')
+    chat = ProductReviewChatFake.new
+
+    RubyLLM.stub(:chat, chat) do
+      Pjord::ProductReviewAgent.review(products(:product1))
+    end
+
+    assert_includes chat.instructions, '保存した共通プロンプト'
+    assert_includes chat.instructions, '保存した提出物レビュープロンプト'
+    assert_includes chat.asked_message, products(:product1).user.login_name
+    assert_includes chat.asked_message, products(:product1).practice.title
+  end
+
   test '.review handles user without course' do
     product = products(:product1)
     product.user.update_column(:course_id, nil) # rubocop:disable Rails/SkipsModelValidations

@@ -20,5 +20,6 @@ Rails.application.routes.draw do
     resources :grant_course_applications, only: %i(index show)
     resources :course_diffs, only: %i(index show)
     resources :embedding_status, only: %i(index)
+    resources :ai_prompts, only: %i(index edit update), param: :key
   end
 end

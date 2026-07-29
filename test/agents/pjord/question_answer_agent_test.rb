@@ -26,6 +26,21 @@ class Pjord::QuestionAnswerAgentTest < ActiveSupport::TestCase
     assert_includes chat.asked_message, question.description
   end
 
+  test '.answer uses saved common and question answer prompts' do
+    AiPrompt.create!(key: 'pjord', body: '保存した共通プロンプト')
+    AiPrompt.create!(key: 'question_answer', body: '保存したQ&A回答プロンプト')
+    chat = AgentChatFake.new
+
+    RubyLLM.stub(:chat, chat) do
+      Pjord::QuestionAnswerAgent.answer(questions(:question1))
+    end
+
+    assert_includes chat.instructions, '保存した共通プロンプト'
+    assert_includes chat.instructions, '保存したQ&A回答プロンプト'
+    assert_includes chat.instructions, questions(:question1).where_mention
+    assert_includes chat.instructions, questions(:question1).practice.title
+  end
+
   class AgentChatFake
     attr_reader :asked_message, :instructions
 

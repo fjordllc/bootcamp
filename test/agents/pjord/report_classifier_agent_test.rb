@@ -24,6 +24,17 @@ class Pjord::ReportClassifierAgentTest < ActiveSupport::TestCase
     assert_includes chat.asked_message, report.description
   end
 
+  test '.classify uses saved report classifier prompt' do
+    AiPrompt.create!(key: 'report_classifier', body: '保存した日報分類プロンプト')
+    chat = ClassifierChatFake.new('{"intent":"general","reason":"通常の学習記録"}')
+
+    RubyLLM.stub(:chat, chat) do
+      Pjord::ReportClassifierAgent.classify(reports(:report1))
+    end
+
+    assert_equal '保存した日報分類プロンプト', chat.instructions
+  end
+
   test '.classify returns nil on invalid intent' do
     report = reports(:report1)
     chat = ClassifierChatFake.new('{"intent":"unknown","reason":"?"}')

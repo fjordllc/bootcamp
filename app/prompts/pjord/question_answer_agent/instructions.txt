@@ -1,13 +1,3 @@
-<%= Pjord::Agent::SYSTEM_PROMPT %>
-
-## 現在の場所
-<%= question.where_mention %>
-<% if question.practice.present? %>
-
-## 関連プラクティス
-<%= question.practice.title %>
-<% end %>
-
 ## Q&A回答の指示
 Q&A質問に回答してください。
 答えを丸ごと教えず、受講生が自分で考えて進められるヒントを優先してください。

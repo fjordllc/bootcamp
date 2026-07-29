@@ -3,5 +3,5 @@
 class ArticleMetaDescriptionAgent < RubyLLM::Agent
   model 'claude-sonnet-5'
 
-  instructions
+  instructions { AiPrompt.body_for('article_meta_description') }
 end

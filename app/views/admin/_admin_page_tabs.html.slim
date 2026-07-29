@@ -37,3 +37,7 @@ nav.page-tabs
         = link_to 'Embedding',
           admin_embedding_status_index_path,
           class: "page-tabs__item-link #{current_link(/^admin-embedding_status/)}"
+      li.page-tabs__item
+        = link_to 'AIプロンプト',
+          admin_ai_prompts_path,
+          class: "page-tabs__item-link #{current_link(/^admin-ai_prompts/)}"

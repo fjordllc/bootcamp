@@ -29,6 +29,21 @@ class Pjord::MentionResponseAgentTest < ActiveSupport::TestCase
     assert_equal PjordResponse, chat.schema
   end
 
+  test '.respond_to uses saved common and mention response prompts' do
+    AiPrompt.create!(key: 'pjord', body: '保存した共通プロンプト')
+    AiPrompt.create!(key: 'mention_response', body: '保存したメンション返信プロンプト')
+    chat = AgentChatFake.new
+
+    RubyLLM.stub(:chat, chat) do
+      Pjord::MentionResponseAgent.respond_to(comments(:comment1))
+    end
+
+    assert_includes chat.instructions, '保存した共通プロンプト'
+    assert_includes chat.instructions, '保存したメンション返信プロンプト'
+    assert_includes chat.instructions, comments(:comment1).sender.login_name
+    assert_includes chat.instructions, comments(:comment1).where_mention
+  end
+
   class AgentChatFake
     attr_reader :asked_message, :instructions, :schema, :tools
 

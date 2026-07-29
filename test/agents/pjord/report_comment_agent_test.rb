@@ -30,6 +30,21 @@ class Pjord::ReportCommentAgentTest < ActiveSupport::TestCase
     assert_equal PjordResponse, chat.schema
   end
 
+  test '.comment uses saved common and report comment prompts' do
+    AiPrompt.create!(key: 'pjord', body: '保存した共通プロンプト')
+    AiPrompt.create!(key: 'report_comment', body: '保存した日報コメントプロンプト')
+    chat = AgentChatFake.new
+
+    RubyLLM.stub(:chat, chat) do
+      Pjord::ReportCommentAgent.comment(reports(:report1), intent: 'general')
+    end
+
+    assert_includes chat.instructions, '保存した共通プロンプト'
+    assert_includes chat.instructions, '保存した日報コメントプロンプト'
+    assert_includes chat.instructions, 'general'
+    assert_includes chat.instructions, reports(:report1).user.login_name
+  end
+
   test '.comment includes general intent instructions' do
     report = reports(:report1)
     chat = AgentChatFake.new
