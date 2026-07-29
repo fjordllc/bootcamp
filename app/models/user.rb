@@ -8,6 +8,7 @@ class User < ApplicationRecord
   include UserStatusScopes
   include UserRoleScopes
   include UserStudentGroupScopes
+  include MentorIndexScopes
 
   attr_accessor :credit_card_payment, :role, :uploaded_avatar
 
