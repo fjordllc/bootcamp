@@ -7,10 +7,21 @@
   category: category,
   practice: @practice
 
-= practice_page_tabs(@practice, active_tab: 'Docs')
+= practice_page_tabs(@practice, active_tab: 'Docs', include_source: @include_source)
+
+- if @practice.grant_course?
+  nav.pill-nav
+    ul.pill-nav__items
+      li.pill-nav__item
+        = link_to '全て',
+          practice_pages_path(@practice, include_source: true),
+          class: ['pill-nav__item-link', ('is-active' if @include_source)]
+      li.pill-nav__item
+        = link_to '給付金コース',
+          practice_pages_path(@practice, include_source: false),
+          class: ['pill-nav__item-link', ('is-active' if !@include_source)]
 
 .page-body
-  = paginate @pages
   .container.is-md
     - if @pages.empty?
       .o-empty-message
@@ -19,7 +30,8 @@
         p.o-empty-message__text
           | Docはまだありません
     - else
+      = paginate @pages
       .card-list.a-card
         .card-list__items
           = render partial: 'pages/page', collection: @pages
-  = paginate @pages
+      = paginate @pages
