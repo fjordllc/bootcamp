@@ -48,7 +48,7 @@ main.page-main
                         = link_to admin_faq_category_faqs_path(@faq.faq_category) do
                           = t("faq.#{FAQCategory.find_by(id: @faq.faq_category_id).name}")
 
-          .a-card
+          article.a-card
             .card-body
               .card-body__description
                 .a-long-text.js-markdown-view
