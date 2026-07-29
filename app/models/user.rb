@@ -9,6 +9,7 @@ class User < ApplicationRecord
   include UserRoleScopes
   include UserStudentGroupScopes
   include MentorIndexScopes
+  include UserActiveScopes
 
   attr_accessor :credit_card_payment, :role, :uploaded_avatar
 
@@ -328,42 +329,6 @@ class User < ApplicationRecord
   ]
 
   scope :by_course, ->(target) { joins(:course).where(courses: { title: target }) }
-  scope :active, -> { where(last_activity_at: 1.month.ago..Float::INFINITY) }
-  scope :inactive, lambda {
-    where(
-      last_activity_at: Date.new..1.month.ago,
-      adviser: false,
-      hibernated_at: nil,
-      retired_on: nil,
-      graduated_on: nil
-    )
-  }
-  scope :inactive_students_and_trainees, lambda {
-    where(
-      last_activity_at: Date.new..1.month.ago,
-      admin: false,
-      mentor: false,
-      adviser: false,
-      hibernated_at: nil,
-      retired_on: nil,
-      training_completed_at: nil,
-      graduated_on: nil
-    )
-  }
-  scope :year_end_party, lambda {
-    where(
-      hibernated_at: nil,
-      retired_on: nil
-    )
-  }
-  scope :working, lambda {
-    active.where(
-      adviser: false,
-      graduated_on: nil,
-      hibernated_at: nil,
-      retired_on: nil
-    ).order(last_activity_at: :desc)
-  }
   scope :order_by_counts, lambda { |order_by, direction|
     raise ArgumentError, 'Invalid argument' unless order_by.in?(VALID_SORT_COLUMNS) && direction.in?(VALID_SORT_COLUMNS)
 
