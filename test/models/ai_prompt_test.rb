@@ -15,6 +15,16 @@ class AiPromptTest < ActiveSupport::TestCase
     ], AiPrompt.definitions.keys
   end
 
+  test 'default prompts are static text files' do
+    AiPrompt.definitions.each_value do |definition|
+      path = Rails.root.join('app/prompts', definition.fetch(:path))
+
+      assert_equal '.txt', path.extname
+      assert_path_exists path
+      assert_not_includes path.read, '<%'
+    end
+  end
+
   test '.body_for returns the default prompt when not saved' do
     assert_includes AiPrompt.body_for('article_meta_description'), 'SEO分析の専門家'
   end
