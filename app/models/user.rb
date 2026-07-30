@@ -21,6 +21,7 @@ class User < ApplicationRecord
   include Region
   include EventParticipatable
   include PracticeInfo
+  include ReportInfo
 
   attr_accessor :credit_card_payment, :role, :uploaded_avatar
 
@@ -418,25 +419,6 @@ class User < ApplicationRecord
     (created_at.year - 2013) * 4 + (created_at.month + 2) / 3
   end
 
-  def depressed?
-    reported_reports = reports.order(reported_on: :desc).limit(DEPRESSED_SIZE)
-    reported_reports.size == DEPRESSED_SIZE && reported_reports.all?(&:negative?)
-  end
-
-  def raw_last_negative_report_id
-    reports.where(emotion: 'negative')
-           .order(reported_on: :desc)
-           .limit(1)
-           .pluck(:id)
-           .try(:first)
-  end
-
-  def update_negative_streak
-    self.negative_streak = depressed?
-    self.last_negative_report_id = raw_last_negative_report_id
-    save!(validate: false)
-  end
-
   def update_mentor_memo(new_memo)
     # ユーザーの「最終ログイン」にupdated_at値が利用されるため
     # メンターor管理者によるmemoカラムのupdateの際は、updated_at値の変更を防ぐ
@@ -450,21 +432,12 @@ class User < ApplicationRecord
     Cache.delete_mentioned_and_unread_notification_count(id)
   end
 
-  def wip_exists?
-    pages.wip.exists? || reports.wip.exists? || questions.wip.exists? ||
-      products.wip.exists? || announcements.wip.exists? || events.wip.exists?
-  end
-
   def clear_github_data
     update(
       github_id: nil,
       github_account: nil,
       github_collaborator: false
     )
-  end
-
-  def latest_micro_report_page(per_page: 25)
-    [micro_reports.page.per(per_page).total_pages, 1].max
   end
 
   def mark_mail_as_sent_before_auto_retire
@@ -493,10 +466,6 @@ class User < ApplicationRecord
 
   def self.ransackable_associations(_auth_object = nil)
     %w[company course discord_profile]
-  end
-
-  def reports_with_learning_times
-    reports.joins(:learning_times).distinct.order(reported_on: :asc)
   end
 
   private
