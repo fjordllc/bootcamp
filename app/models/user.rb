@@ -15,6 +15,7 @@ class User < ApplicationRecord
   include AvatarAttachable
   include FollowerAndWatcher
   include Comebackable
+  include Billable
 
   attr_accessor :credit_card_payment, :role, :uploaded_avatar
 
@@ -452,32 +453,6 @@ class User < ApplicationRecord
     else
       (Date.current - created_at.to_date).to_i
     end
-  end
-
-  def customer
-    return unless customer_id?
-
-    Customer.new.retrieve(customer_id)
-  end
-
-  def card?
-    customer_id?
-  end
-
-  alias paid? card?
-
-  def card
-    customer.sources.data.first
-  end
-
-  def subscription?
-    subscription_id?
-  end
-
-  def subscription
-    return unless subscription?
-
-    Subscription.new.retrieve(subscription_id)
   end
 
   def student?
