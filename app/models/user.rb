@@ -18,6 +18,7 @@ class User < ApplicationRecord
   include Billable
   include UserStatusCheck
   include Colleagues
+  include Region
 
   attr_accessor :credit_card_payment, :role, :uploaded_avatar
 
@@ -507,22 +508,6 @@ class User < ApplicationRecord
     (training_ends_on - Time.zone.today).to_i
   end
 
-  def country_name
-    country = ISO3166::Country[country_code]
-    country.translations[I18n.locale.to_sym]
-  end
-
-  def subdivision_name
-    country = ISO3166::Country[country_code]
-    subdivision = country.subdivisions[subdivision_code]
-    subdivision.translations[I18n.locale.to_sym]
-  end
-
-  def subdivision_codes
-    country = ISO3166::Country[country_code]
-    country ? country.subdivisions.keys : []
-  end
-
   def participated_regular_event_ids
     RegularEvent.where(id: regular_event_participations.pluck(:regular_event_id), finished: false)
   end
@@ -541,16 +526,6 @@ class User < ApplicationRecord
       github_account: nil,
       github_collaborator: false
     )
-  end
-
-  def area
-    if country_code == 'JP'
-      subdivision = ISO3166::Country['JP'].subdivisions[subdivision_code]
-      subdivision ? subdivision.translations[:ja] : nil
-    else
-      country = ISO3166::Country[country_code]
-      country ? country.translations[:ja] : nil
-    end
   end
 
   def grant_course?
