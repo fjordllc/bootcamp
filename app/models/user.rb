@@ -19,6 +19,7 @@ class User < ApplicationRecord
   include UserStatusCheck
   include Colleagues
   include Region
+  include EventParticipatable
 
   attr_accessor :credit_card_payment, :role, :uploaded_avatar
 
@@ -462,11 +463,6 @@ class User < ApplicationRecord
     (created_at.year - 2013) * 4 + (created_at.month + 2) / 3
   end
 
-  def participating?(event)
-    method_name = "participate_#{event.class.name.underscore.pluralize}"
-    send(method_name).include?(event)
-  end
-
   def depressed?
     reported_reports = reports.order(reported_on: :desc).limit(DEPRESSED_SIZE)
     reported_reports.size == DEPRESSED_SIZE && reported_reports.all?(&:negative?)
@@ -506,18 +502,6 @@ class User < ApplicationRecord
 
   def training_remaining_days
     (training_ends_on - Time.zone.today).to_i
-  end
-
-  def participated_regular_event_ids
-    RegularEvent.where(id: regular_event_participations.pluck(:regular_event_id), finished: false)
-  end
-
-  def involved_events
-    Event.where(id: participate_events.select(:id)).or(Event.where(user_id: id))
-  end
-
-  def involved_regular_events
-    RegularEvent.where(id: participate_regular_events).or(RegularEvent.where(id: organize_regular_events))
   end
 
   def clear_github_data
@@ -567,11 +551,6 @@ class User < ApplicationRecord
 
   def reports_with_learning_times
     reports.joins(:learning_times).distinct.order(reported_on: :asc)
-  end
-
-  def clean_up_regular_events
-    regular_event_participations.for_unfinished_events.destroy_all
-    organize_regular_events.exclude_finished.each { |event| event.close_or_destroy_organizer(self) }
   end
 
   private
