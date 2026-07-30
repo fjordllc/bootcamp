@@ -376,17 +376,6 @@ class User < ApplicationRecord
       unretired.unhibernated.all_tag_counts(order: 'count desc, name asc')
     end
 
-    def depressed_reports
-      ids = User.where(
-        hibernated_at: nil,
-        training_completed_at: nil,
-        retired_on: nil,
-        graduated_on: nil,
-        negative_streak: true
-      ).pluck(:last_negative_report_id)
-      Report.joins(:user).where(id: ids).order(reported_on: :desc)
-    end
-
     # FIXME: 一次対応として一回でも休会している受講生にはメッセージ送信済みとする
     #        別Issueで入会n日目、休会開けn日目目の受講生にメッセージを送信する方針へ改修してほしい
     #        改修後、このメソッドは不要になると思われるので削除すること

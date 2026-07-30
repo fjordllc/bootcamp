@@ -34,4 +34,17 @@ module ReportInfo
   def reports_with_learning_times
     reports.joins(:learning_times).distinct.order(reported_on: :asc)
   end
+
+  class_methods do
+    def depressed_reports
+      ids = User.where(
+        hibernated_at: nil,
+        training_completed_at: nil,
+        retired_on: nil,
+        graduated_on: nil,
+        negative_streak: true
+      ).pluck(:last_negative_report_id)
+      Report.joins(:user).where(id: ids).order(reported_on: :desc)
+    end
+  end
 end
