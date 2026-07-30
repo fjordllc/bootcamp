@@ -15,6 +15,7 @@ class User < ApplicationRecord
   include AvatarAttachable
   include FollowerAndWatcher
   include Comebackable
+  include Commentable
   include Billable
   include UserStatusCheck
   include Colleagues
@@ -375,33 +376,6 @@ class User < ApplicationRecord
     def tags
       unretired.unhibernated.all_tag_counts(order: 'count desc, name asc')
     end
-
-    # FIXME: 一次対応として一回でも休会している受講生にはメッセージ送信済みとする
-    #        別Issueで入会n日目、休会開けn日目目の受講生にメッセージを送信する方針へ改修してほしい
-    #        改修後、このメソッドは不要になると思われるので削除すること
-    def mark_message_as_sent_for_hibernated_student
-      User.hibernated.update_all(sent_student_followup_message: true, updated_at: Time.current) # rubocop:disable Rails/SkipsModelValidations
-    end
-
-    def create_followup_comment(student)
-      User.find_by(login_name: 'pjord').comments.create(
-        description: I18n.t('talk.followup'),
-        commentable_id: Talk.find_by(user_id: student.id).id,
-        commentable_type: 'Talk'
-      )
-      student.sent_student_followup_message = true
-      student.save(validate: false)
-    end
-
-    def by_area(area)
-      subdivision = ISO3166::Country[:JP].find_subdivision_by_name(area)
-      return User.with_attached_avatar.where(subdivision_code: subdivision.code.to_s) if subdivision
-
-      country = ISO3166::Country.find_country_by_any_name(area)
-      return User.with_attached_avatar.where(country_code: country.alpha2) if country
-
-      User.none
-    end
   end
 
   def generation
@@ -427,11 +401,6 @@ class User < ApplicationRecord
       github_account: nil,
       github_collaborator: false
     )
-  end
-
-  def mark_mail_as_sent_before_auto_retire
-    self.sent_student_before_auto_retire_mail = true
-    save(validate: false)
   end
 
   def search_title
