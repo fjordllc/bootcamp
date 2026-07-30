@@ -7,12 +7,12 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
     assert_operator Pjord::ProductReviewAgent, :<, Pjord::Agent
   end
 
-  test '.review asks latest Sonnet model with product review context' do
+  test '.review asks latest Opus model with product review context' do
     product = products(:product1)
     chat = ProductReviewChatFake.new
 
     RubyLLM.stub(:chat, lambda { |model:|
-      assert_equal 'claude-sonnet-4-6', model
+      assert_equal 'claude-opus-5', model
       chat
     }) do
       assert_equal 'レビュー本文', Pjord::ProductReviewAgent.review(product)
@@ -45,6 +45,21 @@ class Pjord::ProductReviewAgentTest < ActiveSupport::TestCase
     assert_includes chat.instructions, 'リンク先の内容がレビューに不可欠でない場合'
     assert_includes chat.instructions, '提出者に「見られる状態にしてください」「内容を教えてください」と質問しないでください。'
     assert_includes chat.instructions, 'コードの特定行に対する具体的な指摘は、可能な限りgithub_pull_request_review_comment_toolを使ってPRの該当行へ直接コメントしてください。'
+  end
+
+  test '.review uses saved common and product review prompts' do
+    AiPrompt.create!(key: 'pjord', body: '保存した共通プロンプト')
+    AiPrompt.create!(key: 'product_review', body: '保存した提出物レビュープロンプト')
+    chat = ProductReviewChatFake.new
+
+    RubyLLM.stub(:chat, chat) do
+      Pjord::ProductReviewAgent.review(products(:product1))
+    end
+
+    assert_includes chat.instructions, '保存した共通プロンプト'
+    assert_includes chat.instructions, '保存した提出物レビュープロンプト'
+    assert_includes chat.asked_message, products(:product1).user.login_name
+    assert_includes chat.asked_message, products(:product1).practice.title
   end
 
   test '.review handles user without course' do

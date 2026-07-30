@@ -3,13 +3,11 @@
 class Practices::QuestionsController < ApplicationController
   def index
     @practice = Practice.find(params[:practice_id])
-    allowed_targets = %w[solved not_solved].freeze
-    target = allowed_targets.include?(params[:target]) ? params[:target] : nil
-    @questions = @practice.questions
-                          .includes(%i[correct_answer answers])
-                          .by_target(target)
-                          .order(created_at: :desc)
-                          .page(params[:page])
+    @questions = Question.where(practice: question_practices)
+                         .includes(%i[correct_answer answers])
+                         .by_target(selected_target)
+                         .order(created_at: :desc)
+                         .page(params[:page])
     @empty_message = empty_message
   end
 
@@ -24,5 +22,17 @@ class Practices::QuestionsController < ApplicationController
     else
       '質問はありません。'
     end
+  end
+
+  def question_practices
+    if params[:scope] == 'grant_course'
+      [@practice]
+    else
+      [@practice, @practice.source_practice].compact
+    end
+  end
+
+  def selected_target
+    params[:target] if %w[solved not_solved].include?(params[:target])
   end
 end

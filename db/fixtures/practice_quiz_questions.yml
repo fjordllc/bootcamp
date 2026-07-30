@@ -1,0 +1,31 @@
+pc_cpu_single_choice:
+  practice_quiz: pc_performance_quiz
+  question_type: 0
+  body: CPUの説明として最も近いものを選んでください。
+  explanation: CPUは計算や制御を担当する部品です。ストレージ容量や画面サイズとは役割が異なります。
+  position: 1
+  published: true
+
+pc_storage_single_choice:
+  practice_quiz: pc_performance_quiz
+  question_type: 0
+  body: SSDやHDDの主な役割として正しいものを選んでください。
+  explanation: SSDやHDDはデータを長期保存するためのストレージです。メモリとは違い、電源を切っても内容が残ります。
+  position: 2
+  published: true
+
+pc_memory_multiple_choice:
+  practice_quiz: pc_performance_quiz
+  question_type: 1
+  body: メモリについて正しい説明をすべて選んでください。
+  explanation: メモリは作業中のデータを一時的に置く場所です。容量が十分だと複数アプリの同時利用がしやすくなります。
+  position: 3
+  published: true
+
+debian_install_single_choice:
+  practice_quiz: debian_draft_quiz
+  question_type: 0
+  body: Debianのインストール前に確認しておくことを選んでください。
+  explanation: インストール対象のディスク、ネットワーク、バックアップの確認が重要です。
+  position: 1
+  published: false

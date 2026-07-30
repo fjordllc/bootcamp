@@ -11,6 +11,15 @@ class BulkGenerateMovieThumbnailJobTest < ActiveJob::TestCase
       filename: 'movie.mp4',
       content_type: 'video/mp4'
     )
+    Movie.where.not(id: movie.id).find_each do |other_movie|
+      File.open(Rails.root.join('test/fixtures/files/articles/ogp_images/test.jpg')) do |file|
+        other_movie.thumbnail.attach(
+          io: file,
+          filename: 'test.jpg',
+          content_type: 'image/jpeg'
+        )
+      end
+    end
 
     BulkGenerateMovieThumbnailJob.perform_now
 

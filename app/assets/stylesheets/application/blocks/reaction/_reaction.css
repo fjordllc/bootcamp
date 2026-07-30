@@ -146,8 +146,9 @@
 }
 
 .reactions__dropdown-toggle-plus {
-  font-size: .4em;
-  margin-right: .3em;
+  width: 0.55em;
+  font-size: 0.8em;
+  transform: translateY(-0.1em);
 }
 
 .reactions__actions {

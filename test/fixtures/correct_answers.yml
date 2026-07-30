@@ -9,3 +9,15 @@ correct_answer2:
   user: advijirou
   question: question12
   type: "CorrectAnswer"
+
+correct_answer3:
+  description: ベストアンサーです。
+  user: machida
+  question: question18
+  type: "CorrectAnswer"
+
+correct_answer4:
+  description: ベストアンサーです。
+  user: machida
+  question: question20
+  type: "CorrectAnswer"

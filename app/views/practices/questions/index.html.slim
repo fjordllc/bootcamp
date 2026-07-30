@@ -13,14 +13,24 @@ nav.tab-nav
   .container
     ul.tab-nav__items
       li.tab-nav__item
-        = link_to '全ての質問', practice_questions_path(@practice),
+        = link_to '全ての質問', practice_questions_path(@practice, scope: params[:scope]),
           class: "tab-nav__item-link #{%w[not_solved solved].include?(params[:target]) ? '' : 'is-active'}"
       li.tab-nav__item
-        = link_to '解決済み', practice_questions_path(@practice, target: 'solved'),
+        = link_to '解決済み', practice_questions_path(@practice, target: 'solved', scope: params[:scope]),
           class: "tab-nav__item-link #{params[:target] == 'solved' ? 'is-active' : ''}"
       li.tab-nav__item
-        = link_to '未解決', practice_questions_path(@practice, target: 'not_solved'),
+        = link_to '未解決', practice_questions_path(@practice, target: 'not_solved', scope: params[:scope]),
           class: "tab-nav__item-link #{params[:target] == 'not_solved' ? 'is-active' : ''}"
+
+- if @practice.source_id.present?
+  nav.pill-nav
+    ul.pill-nav__items
+      li.pill-nav__item
+        = link_to '全て', practice_questions_path(@practice, target: params[:target]),
+          class: "pill-nav__item-link #{params[:scope] == 'grant_course' ? '' : 'is-active'}"
+      li.pill-nav__item
+        = link_to '給付金コース', practice_questions_path(@practice, target: params[:target], scope: 'grant_course'),
+          class: "pill-nav__item-link #{params[:scope] == 'grant_course' ? 'is-active' : ''}"
 
 .page-body
   .container.is-md

@@ -4,9 +4,10 @@ class Pjord::ProductReviewAgent < Pjord::Agent
   OTHER_PRODUCTS_LIMIT = 10
   PROMPT_TEXT_LIMIT = 2_000
 
+  model ENV.fetch('PJORD_REVIEW_LLM_MODEL', 'claude-opus-5')
   schema PjordProductReviewResponse
   tools BootcampSearchTool, UserInfoTool, ExternalContentTool, GithubPullRequestReviewCommentTool
-  instructions
+  instructions { Pjord::Agent.prompt_for('product_review') }
 
   class << self
     def review(product)
