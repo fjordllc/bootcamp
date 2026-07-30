@@ -17,6 +17,7 @@ class User < ApplicationRecord
   include Comebackable
   include Billable
   include UserStatusCheck
+  include Colleagues
 
   attr_accessor :credit_card_payment, :role, :uploaded_avatar
 
@@ -500,22 +501,6 @@ class User < ApplicationRecord
   def wip_exists?
     pages.wip.exists? || reports.wip.exists? || questions.wip.exists? ||
       products.wip.exists? || announcements.wip.exists? || events.wip.exists?
-  end
-
-  def belongs_company_and_adviser?
-    adviser? && company_id?
-  end
-
-  def colleagues
-    company_id ? company.users : User.none
-  end
-
-  def colleagues_other_than_self
-    colleagues.where.not(id:)
-  end
-
-  def colleague_trainees
-    colleagues.students_and_trainees
   end
 
   def training_remaining_days
