@@ -23,6 +23,9 @@ class User < ApplicationRecord
   include EventParticipatable
   include PracticeInfo
   include ReportInfo
+  include UserAssociations1
+  include UserAssociations2
+  include UserAssociations3
 
   attr_accessor :credit_card_payment, :role, :uploaded_avatar
 
@@ -107,135 +110,6 @@ class User < ApplicationRecord
     internal_transfer_to_programmer: 5,
     not_employed: 6
   }, prefix: true
-
-  belongs_to :company, optional: true
-  belongs_to :course
-  has_many :learnings, dependent: :destroy
-  has_many :pages, dependent: :destroy
-  has_many :comments, dependent: :destroy
-  has_many :reports, dependent: :destroy
-  has_many :checks, dependent: :destroy
-  has_many :footprints, dependent: :destroy
-  has_many :images, dependent: :destroy
-  has_many :products, dependent: :destroy
-  has_many :questions, dependent: :destroy
-  has_many :announcements, dependent: :destroy
-  has_many :reactions, dependent: :destroy
-  has_many :works, dependent: :destroy
-  has_many :notifications, dependent: :destroy
-  has_many :events, dependent: :destroy
-  has_many :participations, dependent: :destroy
-  has_many :regular_event_participations, dependent: :destroy
-  has_many :answers, dependent: :destroy
-  has_many :watches, dependent: :destroy
-  has_many :articles, dependent: :destroy
-  has_many :bookmarks, dependent: :destroy
-  has_many :regular_events, dependent: :destroy
-  has_many :regular_event_organizers, dependent: :destroy
-  has_many :hibernations, dependent: :destroy
-  has_many :authored_books, dependent: :destroy
-  accepts_nested_attributes_for :authored_books, allow_destroy: true
-  has_many :surveys, dependent: :destroy
-  has_many :survey_questions, dependent: :destroy
-  has_many :external_entries, dependent: :destroy
-  has_many :movies, dependent: :nullify
-  has_many :coding_tests, dependent: :destroy
-  has_many :coding_test_submissions, dependent: :destroy
-  has_one :report_preset, dependent: :destroy
-  has_one :talk, dependent: :destroy
-  has_one :discord_profile, dependent: :destroy
-  accepts_nested_attributes_for :discord_profile, allow_destroy: true
-  has_many :request_retirements, dependent: :destroy
-  has_one :targeted_request_retirement, class_name: 'RequestRetirement', foreign_key: 'target_user_id', dependent: :destroy, inverse_of: :target_user
-  has_many :micro_reports, dependent: :destroy
-  has_many :authored_micro_reports, class_name: 'MicroReport', foreign_key: 'comment_user_id', dependent: :destroy, inverse_of: :comment_user
-  has_many :learning_time_frames_users, dependent: :destroy
-  has_many :pair_works, dependent: :destroy
-
-  has_many :participate_events,
-           through: :participations,
-           source: :event
-
-  has_many :send_notifications,
-           class_name: 'Notification',
-           foreign_key: 'sender_id',
-           inverse_of: 'sender',
-           dependent: :destroy
-
-  has_many :completed_learnings,
-           -> { where(status: 'complete') },
-           class_name: 'Learning',
-           inverse_of: 'user',
-           dependent: :destroy
-
-  has_many :completed_practices,
-           through: :completed_learnings,
-           source: :practice,
-           dependent: :destroy
-
-  has_many :active_learnings,
-           -> { where(status: 'started') },
-           class_name: 'Learning',
-           inverse_of: 'user',
-           dependent: :destroy
-
-  has_many :active_practices,
-           through: :active_learnings,
-           source: :practice,
-           dependent: :destroy
-
-  has_many :active_relationships,
-           class_name: 'Following',
-           foreign_key: 'follower_id',
-           inverse_of: 'follower',
-           dependent: :destroy
-
-  has_many :skipped_practices,
-           dependent: :destroy
-
-  has_many :practices,
-           through: :skipped_practices
-
-  has_many :followees,
-           through: :active_relationships,
-           source: :followed
-
-  has_many :passive_relationships,
-           class_name: 'Following',
-           foreign_key: 'followed_id',
-           inverse_of: 'followed',
-           dependent: :destroy
-
-  has_many :followers,
-           through: :passive_relationships,
-           source: :follower
-
-  has_many :organize_regular_events,
-           through: :regular_event_organizers,
-           source: :regular_event
-
-  has_many :participate_regular_events,
-           through: :regular_event_participations,
-           source: :regular_event
-
-  has_many :coding_test_submissions, dependent: :destroy
-
-  has_many :learning_time_frames,
-           through: :learning_time_frames_users
-
-  has_many :oauth_access_grants,
-           foreign_key: 'resource_owner_id',
-           dependent: :delete_all,
-           inverse_of: 'user'
-
-  has_many :oauth_access_tokens,
-           foreign_key: 'resource_owner_id',
-           dependent: :delete_all,
-           inverse_of: 'user'
-
-  has_one_attached :avatar
-  has_one_attached :profile_image
-  has_one_attached :diploma_file
 
   after_create UserCallbacks.new
   before_validation :convert_blank_of_address_to_nil
