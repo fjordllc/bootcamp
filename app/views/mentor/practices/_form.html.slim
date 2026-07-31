@@ -107,12 +107,9 @@
       | 提出物のテンプレート
 
     = f.fields_for :template do |template_form|
-      = template_form.hidden_field :_destroy,
-        data: { template_form_target: 'destroy' }
-
       - if template_form.object.persisted?
         .row.mb-3.d-flex.flex-row
-          button.a-button.is-md.is-primary[
+          button.a-button.is-md.is-danger[
             type="button"
             data-action="click->template-form#clear"
           ]
@@ -129,7 +126,7 @@
         .col-md-6.col-xs-12
           = template_form.text_area :description,
             class: 'a-text-input js-warning-form markdown-form__text-area js-markdown',
-            data: { preview: '.js-product-template-preview', template_form_target: 'description' }
+            data: { preview: '.js-product-template-preview', template_form_target: 'description', action: 'input->template-form#updateMessage' }
 
         .col-md-6.col-xs-12
           .js-product-template-preview.a-long-text.is-md.markdown-form__preview[

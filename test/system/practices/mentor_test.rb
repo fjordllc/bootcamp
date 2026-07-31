@@ -112,6 +112,26 @@ module Practices
       assert_nil practice.reload.template
     end
 
+    test 'does not delete product template when description is re-entered' do
+      practice = practices(:practice1)
+
+      visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
+      click_button '提出物のテンプレートを削除する'
+
+      assert_text 'テンプレートはまだ削除されていません。更新すると削除されます。'
+
+      fill_in 'practice_template_attributes_description', with: '再入力したテンプレート'
+
+      assert_no_text 'テンプレートはまだ削除されていません。更新すると削除されます。'
+
+      assert_no_difference 'Template.count' do
+        click_button '更新する'
+      end
+
+      assert_text 'プラクティスを更新しました'
+      assert_equal '再入力したテンプレート', practice.reload.template.description
+    end
+
     test 'add a book' do
       practice = practices(:practice2)
       book = books(:book1)
