@@ -4,48 +4,28 @@ module UserAssociations2
   extend ActiveSupport::Concern
 
   included do
-    has_many :participate_events,
-             through: :participations,
-             source: :event
-
-    has_many :send_notifications,
-             class_name: 'Notification',
-             foreign_key: 'sender_id',
-             inverse_of: 'sender',
-             dependent: :destroy
-
-    has_many :completed_learnings,
-             -> { where(status: 'complete') },
-             class_name: 'Learning',
-             inverse_of: 'user',
-             dependent: :destroy
-
-    has_many :completed_practices,
-             through: :completed_learnings,
-             source: :practice,
-             dependent: :destroy
-
-    has_many :active_learnings,
-             -> { where(status: 'started') },
-             class_name: 'Learning',
-             inverse_of: 'user',
-             dependent: :destroy
-
-    has_many :active_practices,
-             through: :active_learnings,
-             source: :practice,
-             dependent: :destroy
-
-    has_many :active_relationships,
-             class_name: 'Following',
-             foreign_key: 'follower_id',
-             inverse_of: 'follower',
-             dependent: :destroy
-
-    has_many :skipped_practices,
-             dependent: :destroy
-
-    has_many :practices,
-             through: :skipped_practices
+    has_many :articles, dependent: :destroy
+    has_many :bookmarks, dependent: :destroy
+    has_many :regular_events, dependent: :destroy
+    has_many :regular_event_organizers, dependent: :destroy
+    has_many :hibernations, dependent: :destroy
+    has_many :authored_books, dependent: :destroy
+    accepts_nested_attributes_for :authored_books, allow_destroy: true
+    has_many :surveys, dependent: :destroy
+    has_many :survey_questions, dependent: :destroy
+    has_many :external_entries, dependent: :destroy
+    has_many :movies, dependent: :nullify
+    has_many :coding_tests, dependent: :destroy
+    has_many :coding_test_submissions, dependent: :destroy
+    has_one :report_preset, dependent: :destroy
+    has_one :talk, dependent: :destroy
+    has_one :discord_profile, dependent: :destroy
+    accepts_nested_attributes_for :discord_profile, allow_destroy: true
+    has_many :request_retirements, dependent: :destroy
+    has_one :targeted_request_retirement, class_name: 'RequestRetirement', foreign_key: 'target_user_id', dependent: :destroy, inverse_of: :target_user
+    has_many :micro_reports, dependent: :destroy
+    has_many :authored_micro_reports, class_name: 'MicroReport', foreign_key: 'comment_user_id', dependent: :destroy, inverse_of: :comment_user
+    has_many :learning_time_frames_users, dependent: :destroy
+    has_many :pair_works, dependent: :destroy
   end
 end

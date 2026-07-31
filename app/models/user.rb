@@ -26,6 +26,9 @@ class User < ApplicationRecord
   include UserAssociations1
   include UserAssociations2
   include UserAssociations3
+  include UserAssociations4
+  include UserAssociations5
+  include UserAssociations6
 
   attr_accessor :credit_card_payment, :role, :uploaded_avatar
 

@@ -4,45 +4,31 @@ module UserAssociations3
   extend ActiveSupport::Concern
 
   included do
-    has_many :followees,
-             through: :active_relationships,
-             source: :followed
+    has_many :participate_events,
+             through: :participations,
+             source: :event
 
-    has_many :passive_relationships,
-             class_name: 'Following',
-             foreign_key: 'followed_id',
-             inverse_of: 'followed',
+    has_many :send_notifications,
+             class_name: 'Notification',
+             foreign_key: 'sender_id',
+             inverse_of: 'sender',
              dependent: :destroy
 
-    has_many :followers,
-             through: :passive_relationships,
-             source: :follower
+    has_many :completed_learnings,
+             -> { where(status: 'complete') },
+             class_name: 'Learning',
+             inverse_of: 'user',
+             dependent: :destroy
 
-    has_many :organize_regular_events,
-             through: :regular_event_organizers,
-             source: :regular_event
+    has_many :completed_practices,
+             through: :completed_learnings,
+             source: :practice,
+             dependent: :destroy
 
-    has_many :participate_regular_events,
-             through: :regular_event_participations,
-             source: :regular_event
-
-    has_many :coding_test_submissions, dependent: :destroy
-
-    has_many :learning_time_frames,
-             through: :learning_time_frames_users
-
-    has_many :oauth_access_grants,
-             foreign_key: 'resource_owner_id',
-             dependent: :delete_all,
-             inverse_of: 'user'
-
-    has_many :oauth_access_tokens,
-             foreign_key: 'resource_owner_id',
-             dependent: :delete_all,
-             inverse_of: 'user'
-
-    has_one_attached :avatar
-    has_one_attached :profile_image
-    has_one_attached :diploma_file
+    has_many :active_learnings,
+             -> { where(status: 'started') },
+             class_name: 'Learning',
+             inverse_of: 'user',
+             dependent: :destroy
   end
 end
