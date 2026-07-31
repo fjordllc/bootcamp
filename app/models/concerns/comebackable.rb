@@ -48,6 +48,14 @@ module Comebackable
     save(validate: false)
   end
 
+  def clear_github_data
+    update(
+      github_id: nil,
+      github_account: nil,
+      github_collaborator: false
+    )
+  end
+
   class_methods do
     # FIXME: 一次対応として一回でも休会している受講生にはメッセージ送信済みとする
     #        別Issueで入会n日目、休会開けn日目目の受講生にメッセージを送信する方針へ改修してほしい

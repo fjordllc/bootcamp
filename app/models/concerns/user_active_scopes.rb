@@ -14,7 +14,7 @@ module UserActiveScopes
         graduated_on: nil
       )
     }
-    scope :inactive_students_and_trainees, -> { inactive.where(admin: false, mentor: false, training_completed_at: nilできた) }
+    scope :inactive_students_and_trainees, -> { inactive.where(admin: false, mentor: false, training_completed_at: nil) }
     scope :working, lambda {
       active.where(
         adviser: false,
