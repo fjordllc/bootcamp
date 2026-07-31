@@ -8,6 +8,15 @@ class Company::UsersTest < ApplicationSystemTestCase
     assert_equal 'Lokka Inc.所属ユーザー | FBC', title
   end
 
+  test 'profile X links use x.com' do
+    user = users(:komagata)
+    visit_with_auth "/companies/#{companies(:company1).id}/users?target=all", 'kimura'
+
+    within('.users-item', text: user.name) do
+      assert_selector "a[href='https://x.com/#{user.twitter_account}'] i.fa-x-twitter", visible: :all
+    end
+  end
+
   test 'show users by user category' do
     visit_with_auth "/companies/#{companies(:company2).id}/users", 'kimura'
     # デフォルトは現役 + 研修生のユーザーを表示
