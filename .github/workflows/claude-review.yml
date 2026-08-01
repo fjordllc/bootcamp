@@ -1,0 +1,47 @@
+name: Claude review Codex PR
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review, labeled]
+
+concurrency:
+  group: claude-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    if: |
+      !github.event.pull_request.draft &&
+      startsWith(github.event.pull_request.head.ref, 'ai/issue-') &&
+      contains(github.event.pull_request.labels.*.name, 'AI')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+      id-token: write
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Review with Claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          track_progress: true
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
+
+            このPRはGPT-5.6 SOL（Codex）が自動実装したものです。
+            バグ、要件漏れ、セキュリティ、既存規約との不整合、テスト不足を重点的にレビューしてください。
+            問題がある行にはインラインコメントを付け、全体の結論をトップレベルコメントに投稿してください。
+            トップレベルコメントには `<!-- claude-ai-review -->` を含めてください。
+            コードを変更しないでください。commit、push、approve、mergeも行わないでください。
+          claude_args: |
+            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"

@@ -1,0 +1,191 @@
+name: Codex implement AI issue
+
+on:
+  issues:
+    types: [labeled]
+
+concurrency:
+  group: codex-issue-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+env:
+  RUBY_VERSION: 3.4.3
+  NODE_VERSION: 22.19.0
+
+jobs:
+  prepare:
+    if: github.event.label.name == 'AI'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: read
+      pull-requests: read
+    outputs:
+      should_run: ${{ steps.guard.outputs.should_run }}
+      branch: ${{ steps.guard.outputs.branch }}
+    steps:
+      - name: Check for an existing PR
+        id: guard
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          branch="ai/issue-${ISSUE_NUMBER}"
+          count="$(gh pr list --repo "$GITHUB_REPOSITORY" --state all --head "$branch" --json number --jq length)"
+          {
+            echo "branch=$branch"
+            if [ "$count" = "0" ]; then
+              echo "should_run=true"
+            else
+              echo "should_run=false"
+            fi
+          } >> "$GITHUB_OUTPUT"
+
+  implement:
+    needs: prepare
+    if: needs.prepare.outputs.should_run == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+      issues: read
+    services:
+      postgres:
+        image: pgvector/pgvector:pg14
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: codex_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d codex_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      PGHOST: 127.0.0.1
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      RAILS_ENV: test
+      DATABASE_URL: postgres://postgres:postgres@localhost/codex_test
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+          bundler-cache: true
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          sudo apt-get update
+          sudo apt-get install -y libvips libheif-dev postgresql-client
+          psql -d codex_test -c "CREATE EXTENSION IF NOT EXISTS vector;"
+          bundle exec rails db:prepare
+
+      - name: Save issue context
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          mkdir -p tmp
+          gh issue view "$ISSUE_NUMBER" \
+            --repo "$GITHUB_REPOSITORY" \
+            --json number,title,body,author,labels,url \
+            > tmp/codex-issue-context.md
+
+      - name: Implement with Codex
+        id: codex
+        uses: openai/codex-action@v1
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          model: gpt-5.6-sol
+          effort: high
+          prompt-file: .github/codex/implement-issue.md
+          permission-profile: read-write
+          safety-strategy: drop-sudo
+          output-file: tmp/codex-result.md
+
+      - name: Build patch
+        run: |
+          git add --intent-to-add --all
+          git diff --binary -- . ':(exclude)tmp/**' > codex.patch
+          test -s codex.patch
+
+      - name: Upload implementation
+        uses: actions/upload-artifact@v4
+        with:
+          name: codex-issue-${{ github.event.issue.number }}
+          path: |
+            codex.patch
+            tmp/codex-result.md
+          if-no-files-found: error
+
+  publish:
+    needs: [prepare, implement]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Download implementation
+        uses: actions/download-artifact@v4
+        with:
+          name: codex-issue-${{ github.event.issue.number }}
+
+      - name: Apply and publish
+        env:
+          GH_TOKEN: ${{ secrets.CODEX_GITHUB_TOKEN }}
+          BRANCH: ${{ needs.prepare.outputs.branch }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+        run: |
+          git config user.name "Masaki Komagata"
+          git config user.email "komagata@gmail.com"
+          git checkout -b "$BRANCH"
+          git apply --index codex.patch
+          git commit -m "Issue #${ISSUE_NUMBER} をCodexで実装"
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push origin "$BRANCH"
+
+          {
+            echo "Closes #${ISSUE_NUMBER}"
+            echo
+            echo "GPT-5.6 SOL（Codex）による自動実装です。"
+            echo
+            cat tmp/codex-result.md
+            echo
+            echo "<!-- codex-ai-managed -->"
+          } > pr-body.md
+
+          pr_url="$(gh pr create \
+            --repo "$GITHUB_REPOSITORY" \
+            --base main \
+            --head "$BRANCH" \
+            --title "$ISSUE_TITLE" \
+            --body-file pr-body.md \
+            --draft=false)"
+          gh pr edit "$pr_url" --repo "$GITHUB_REPOSITORY" --add-label AI
+          gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" \
+            --body "Codexが通常PRを作成しました: ${pr_url}"
