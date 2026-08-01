@@ -178,12 +178,6 @@ class Practice < ApplicationRecord
     "https://twitter.com/intent/tweet?#{tweet_param}"
   end
 
-  def include_must_read_books?
-    return false if practices_books.empty?
-
-    practices_books.any?(&:must_read)
-  end
-
   def grant_course?
     source_id.present?
   end

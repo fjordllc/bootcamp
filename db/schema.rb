@@ -277,6 +277,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_28_164105) do
     t.index ["course_id", "category_id"], name: "index_courses_categories_on_course_id_and_category_id", unique: true
   end
 
+  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
+  end
+
   create_table "discord_profiles", force: :cascade do |t|
     t.string "account_name"
     t.datetime "created_at", null: false
@@ -462,6 +465,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_28_164105) do
     t.string "title_of_reason"
     t.datetime "updated_at", null: false
     t.index ["survey_question_id"], name: "index_linear_scales_on_survey_question_id"
+  end
+
+  create_table "mentor_memos", force: :cascade do |t|
+    t.bigint "author_id"
+    t.text "content", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.bigint "user_id", null: false
+    t.index ["author_id"], name: "index_mentor_memos_on_author_id"
+    t.index ["user_id"], name: "index_mentor_memos_on_user_id"
   end
 
   create_table "micro_reports", force: :cascade do |t|
@@ -1211,6 +1224,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_28_164105) do
   add_foreign_key "learning_time_frames_users", "users"
   add_foreign_key "learning_times", "reports"
   add_foreign_key "linear_scales", "survey_questions"
+  add_foreign_key "mentor_memos", "users"
+  add_foreign_key "mentor_memos", "users", column: "author_id", on_delete: :nullify
   add_foreign_key "micro_reports", "users"
   add_foreign_key "micro_reports", "users", column: "comment_user_id"
   add_foreign_key "movies", "users"

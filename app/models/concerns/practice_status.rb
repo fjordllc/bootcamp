@@ -50,4 +50,10 @@ module PracticeStatus
 
       product(user)&.checked?
     end
+
+    def include_must_read_books?
+    return false if practices_books.empty?
+
+    practices_books.any?(&:must_read)
+    end
 end
