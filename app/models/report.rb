@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
-  include Commentable
+class Report < ApplicationRecord
   include Checkable
   include Footprintable
   include Searchable
@@ -11,6 +10,7 @@ class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include Mentioner
   include Bookmarkable
   include Taskable
+  include ReportOrder
 
   enum :emotion, {
     negative: 1,
@@ -90,31 +90,6 @@ class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
         end
       end
     end
-  end
-
-  def previous
-    Report.where(user:)
-          .where('reported_on < ?', reported_on)
-          .order(reported_on: :desc)
-          .first
-  end
-
-  def next
-    Report.where(user:)
-          .where('reported_on > ?', reported_on)
-          .order(:reported_on)
-          .first
-  end
-
-  def first?
-    serial_number == 1
-  end
-
-  def serial_number
-    Report.select(:id)
-          .where(user:)
-          .order(:created_at)
-          .index(self) + 1
   end
 
   def first_public?
