@@ -104,23 +104,6 @@ class Report < ApplicationRecord
     (learning_times.sum(&:diff) / 60).to_i
   end
 
-  def latest_of_user?
-    self == Report.not_wip
-                  .where(user:, wip: false)
-                  .order(reported_on: :desc)
-                  .first
-  end
-
-  def interval
-    (reported_on - not_wip_previous_of_user.reported_on).to_i
-  end
-
-  def not_wip_previous_of_user
-    Report.where(user:, wip: false)
-          .order(reported_on: :desc)
-          .second
-  end
-
   def save_uniquely
     transaction do
       save
