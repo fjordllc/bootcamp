@@ -14,6 +14,7 @@ class Product < ApplicationRecord
   include Bookmarkable
   include Taskable
   include ProductStatus
+  include ProductChecker
 
   belongs_to :practice
   belongs_to :user, touch: true
@@ -104,33 +105,9 @@ class Product < ApplicationRecord
     Category.category(practice:, course:)
   end
 
-  def save_checker(user_id)
-    return false if other_checker_exists?(user_id)
-
-    self.checker_id = user_id
-    Cache.delete_self_assigned_no_replied_product_count(user_id)
-    save!
-  end
-
-  def other_checker_exists?(user_id)
-    checker_id.present? && checker_id != user_id
-  end
-
-  def unassigned?
-    checker_id.nil?
-  end
-
-  def checker_name
-    checker&.login_name
-  end
-
   def elapsed_days
     t = published_at || created_at
     ((Time.current - t) / 1.day).to_i
-  end
-
-  def checker_avatar
-    checker&.avatar_url
   end
 
   def replied_status_changed?(previous_commented_user_id, current_commented_user_id)
