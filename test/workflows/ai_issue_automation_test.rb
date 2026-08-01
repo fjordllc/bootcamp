@@ -12,6 +12,10 @@ class AiIssueAutomationTest < ActiveSupport::TestCase
     assert_includes workflow, "github.event.label.name == 'AI'"
     assert_includes workflow, 'uses: openai/codex-action@v1'
     assert_includes workflow, 'model: gpt-5.6-sol'
+    assert_includes workflow, 'sandbox: workspace-write'
+    assert_includes workflow, 'git diff --binary HEAD'
+    assert_includes workflow, 'base_sha:'
+    assert_includes workflow, 'codex-issue-validated-'
     assert_includes workflow, '--draft=false'
   end
 
@@ -32,6 +36,8 @@ class AiIssueAutomationTest < ActiveSupport::TestCase
     assert_includes workflow, 'coderabbitai'
     assert_includes workflow, 'claude'
     assert_includes workflow, 'model: gpt-5.6-sol'
+    assert_includes workflow, 'codex-follow-up-validated-'
+    assert_not_includes workflow, 'workflow_run:'
   end
 
   private

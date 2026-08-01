@@ -3,9 +3,6 @@ name: Codex follow up AI PR
 on:
   schedule:
     - cron: "*/5 * * * *"
-  workflow_run:
-    workflows: [CI, Claude review Codex PR]
-    types: [completed]
   workflow_dispatch:
 
 concurrency:
@@ -53,27 +50,8 @@ jobs:
       actions: read
       pull-requests: read
       issues: read
-    services:
-      postgres:
-        image: pgvector/pgvector:pg14
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: codex_test
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd "pg_isready -U postgres -d codex_test"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 10
     env:
       GH_TOKEN: ${{ github.token }}
-      PGHOST: 127.0.0.1
-      PGUSER: postgres
-      PGPASSWORD: postgres
-      RAILS_ENV: test
-      DATABASE_URL: postgres://postgres:postgres@localhost/codex_test
       PR_NUMBER: ${{ matrix.pr }}
     steps:
       - name: Read PR state
@@ -191,41 +169,15 @@ jobs:
           persist-credentials: false
           clean: false
 
-      - name: Set up Ruby
-        if: |
-          steps.state.outputs.pending == 'false' &&
-          (steps.state.outputs.failed == 'true' || steps.state.outputs.threads == 'true') &&
-          fromJSON(steps.attempts.outputs.count) < fromJSON(env.MAX_FIX_ATTEMPTS)
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: ${{ env.RUBY_VERSION }}
-          bundler-cache: true
-
-      - name: Set up Node
-        if: |
-          steps.state.outputs.pending == 'false' &&
-          (steps.state.outputs.failed == 'true' || steps.state.outputs.threads == 'true') &&
-          fromJSON(steps.attempts.outputs.count) < fromJSON(env.MAX_FIX_ATTEMPTS)
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: npm
-
       - name: Prepare correction context
         if: |
           steps.state.outputs.pending == 'false' &&
           (steps.state.outputs.failed == 'true' || steps.state.outputs.threads == 'true') &&
           fromJSON(steps.attempts.outputs.count) < fromJSON(env.MAX_FIX_ATTEMPTS)
         run: |
-          npm ci
-          sudo apt-get update
-          sudo apt-get install -y libvips libheif-dev postgresql-client
-          psql -d codex_test -c "CREATE EXTENSION IF NOT EXISTS vector;"
-          bundle exec rails db:prepare
-
           {
             echo "# Pull Request"
-            jq .
+            jq . tmp/pr.json
             echo
             echo "# Checks"
             cat tmp/checks.json
@@ -255,7 +207,7 @@ jobs:
           model: gpt-5.6-sol
           effort: high
           prompt-file: .github/codex/follow-up-pr.md
-          permission-profile: read-write
+          sandbox: workspace-write
           safety-strategy: drop-sudo
           output-file: tmp/codex-result.md
 
@@ -266,7 +218,7 @@ jobs:
           fromJSON(steps.attempts.outputs.count) < fromJSON(env.MAX_FIX_ATTEMPTS)
         run: |
           git add --intent-to-add --all
-          git diff --binary -- . ':(exclude)tmp/**' > codex.patch
+          git diff --binary HEAD -- . ':(exclude)tmp/**' > codex.patch
           jq -r .headRefName tmp/pr.json > tmp/head-ref.txt
           jq -r .headRefOid tmp/pr.json > tmp/head-sha.txt
 
@@ -286,9 +238,9 @@ jobs:
             tmp/thread-ids.txt
           if-no-files-found: error
 
-  publish:
+  validate:
     needs: [discover, inspect]
-    if: always() && needs.inspect.result == 'success'
+    if: always() && needs.inspect.result != 'skipped'
     strategy:
       fail-fast: false
       matrix:
@@ -303,6 +255,58 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: codex-follow-up-${{ matrix.pr }}
+
+      - name: Checkout correction base
+        if: steps.download.outcome == 'success'
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+          clean: false
+
+      - name: Validate correction
+        if: steps.download.outcome == 'success'
+        run: |
+          head_sha="$(cat tmp/head-sha.txt)"
+          git fetch origin "$head_sha"
+          git checkout --detach "$head_sha"
+          if test -s codex.patch; then
+            git apply --check codex.patch
+            git apply --index codex.patch
+            git diff --cached --check
+          fi
+          ruby -e 'require "yaml"; Dir[".github/workflows/*.yml"].each { |file| YAML.parse_file(file) }'
+
+      - name: Upload validated correction
+        if: steps.download.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: codex-follow-up-validated-${{ matrix.pr }}
+          path: |
+            codex.patch
+            tmp/codex-result.md
+            tmp/head-ref.txt
+            tmp/head-sha.txt
+            tmp/thread-ids.txt
+          if-no-files-found: error
+
+  publish:
+    needs: [discover, inspect, validate]
+    if: always() && needs.validate.result != 'skipped'
+    strategy:
+      fail-fast: false
+      matrix:
+        pr: ${{ fromJSON(needs.discover.outputs.prs) }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Download validated correction if present
+        id: download
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: codex-follow-up-validated-${{ matrix.pr }}
 
       - name: Publish correction
         if: steps.download.outcome == 'success'

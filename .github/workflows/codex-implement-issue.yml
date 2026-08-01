@@ -49,6 +49,8 @@ jobs:
     permissions:
       contents: read
       issues: read
+    outputs:
+      base_sha: ${{ steps.base.outputs.sha }}
     services:
       postgres:
         image: pgvector/pgvector:pg14
@@ -76,6 +78,10 @@ jobs:
           ref: main
           fetch-depth: 0
           persist-credentials: false
+
+      - name: Record base SHA
+        id: base
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -116,14 +122,14 @@ jobs:
           model: gpt-5.6-sol
           effort: high
           prompt-file: .github/codex/implement-issue.md
-          permission-profile: read-write
+          sandbox: workspace-write
           safety-strategy: drop-sudo
           output-file: tmp/codex-result.md
 
       - name: Build patch
         run: |
           git add --intent-to-add --all
-          git diff --binary -- . ':(exclude)tmp/**' > codex.patch
+          git diff --binary HEAD -- . ':(exclude)tmp/**' > codex.patch
           test -s codex.patch
 
       - name: Upload implementation
@@ -135,8 +141,42 @@ jobs:
             tmp/codex-result.md
           if-no-files-found: error
 
+  validate:
+    needs: implement
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout implementation base
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.implement.outputs.base_sha }}
+          persist-credentials: false
+
+      - name: Download implementation
+        uses: actions/download-artifact@v4
+        with:
+          name: codex-issue-${{ github.event.issue.number }}
+
+      - name: Validate patch
+        run: |
+          git apply --check codex.patch
+          git apply --index codex.patch
+          git diff --cached --check
+          ruby -e 'require "yaml"; Dir[".github/workflows/*.yml"].each { |file| YAML.parse_file(file) }'
+
+      - name: Upload validated implementation
+        uses: actions/upload-artifact@v4
+        with:
+          name: codex-issue-validated-${{ github.event.issue.number }}
+          path: |
+            codex.patch
+            tmp/codex-result.md
+          if-no-files-found: error
+
   publish:
-    needs: [prepare, implement]
+    needs: [prepare, implement, validate]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -145,14 +185,14 @@ jobs:
       - name: Checkout main
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ needs.implement.outputs.base_sha }}
           fetch-depth: 0
           persist-credentials: false
 
       - name: Download implementation
         uses: actions/download-artifact@v4
         with:
-          name: codex-issue-${{ github.event.issue.number }}
+          name: codex-issue-validated-${{ github.event.issue.number }}
 
       - name: Apply and publish
         env:

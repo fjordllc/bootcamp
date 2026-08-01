@@ -2,7 +2,7 @@
 
 Issue に `AI` ラベルを付けると、GPT-5.6 SOL（Codex）が実装して通常の
 Pull Request を作成します。作成後は Claude がレビューし、既存の
-CodeRabbit と CI の結果を5分ごと（および各workflow完了時）に確認します。
+CodeRabbit と CI の結果を5分ごとに確認します。
 失敗や未解決の指摘があれば Codex が最大3回まで修正します。自動mergeは
 行いません。
 
