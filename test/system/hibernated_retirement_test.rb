@@ -22,6 +22,7 @@ class HibernatedRetirementTest < ApplicationSystemTestCase
     visit new_hibernated_retirement_path
     fill_in 'user[email]', with: 'hatsuno@fjord.jp'
     fill_in 'user[password]', with: 'testtest'
+    find('label', text: 'とても良い').click
     accept_confirm do
       click_on '退会する'
     end
