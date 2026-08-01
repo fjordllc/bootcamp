@@ -75,14 +75,6 @@ class Product < ApplicationRecord
     checks.where(user:).present?
   end
 
-  def change_learning_status(status)
-    learning = Learning.find_or_initialize_by(
-      user_id: user.id,
-      practice_id: practice.id
-    )
-    learning.update!(status:)
-  end
-
   # nilの場合あり
   def learning
     Learning.find_by(
@@ -93,12 +85,6 @@ class Product < ApplicationRecord
 
   def text_for_embedding
     truncate_for_embedding(body)
-  end
-
-  def last_commented_user
-    Rails.cache.fetch "/model/product/#{id}/last_commented_user" do
-      commented_users.last
-    end
   end
 
   def category(course)
