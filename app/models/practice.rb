@@ -4,6 +4,8 @@ class Practice < ApplicationRecord
   include Watchable
   include Searchable
   include PracticeStatus
+  include PracticeBody
+  include PracticeStudyMinutes
 
   has_many :learnings, dependent: :destroy
   has_and_belongs_to_many :reports # rubocop:disable Rails/HasAndBelongsToMany
@@ -86,87 +88,6 @@ class Practice < ApplicationRecord
     %w[learnings categories products questions pages movies books last_updated_user]
   end
 
-  class << self
-    def save_learning_minute_statistics
-      Practice.all.find_each do |practice|
-        practice_id = practice.id
-        learning_minute_list = practice.learning_minute_per_user
-
-        if learning_minute_list.sum.positive?
-          average_learning_minute = practice.average_learning_minute(learning_minute_list)
-          median_learning_minute = practice.median_learning_minute(learning_minute_list)
-          practice.save_statistic(practice_id, average_learning_minute, median_learning_minute)
-        end
-      end
-    end
-  end
-
-  def exists_learning?(user)
-    Learning.exists?(
-      user:,
-      practice_id: id
-    )
-  end
-
-  def learning(user)
-    learnings.find_by(user:)
-  end
-
-  def all_text
-    [title, description, goal].join("\n")
-  end
-
-  def body
-    [description, goal].join("\n")
-  end
-
-  def text_for_embedding
-    text = [title, description, goal].compact.join("\n\n")
-    truncate_for_embedding(text)
-  end
-
-  def product(user)
-    products.find_by(user:)
-  end
-
-  def learning_minute_per_user
-    user_id = 0
-    learning_minute_list = []
-
-    reports.not_wip.order('user_id asc').each do |report|
-      if user_id == report.user_id
-        sum_same_user = learning_minute_list.last + total_learning_minute(report)
-        learning_minute_list.pop
-        learning_minute_list << sum_same_user
-      else
-        learning_minute_list << total_learning_minute(report)
-        user_id = report.user_id
-      end
-    end
-    learning_minute_list.sort!
-  end
-
-  def average_learning_minute(learning_minute_list)
-    learning_minute_list.sum.fdiv(learning_minute_list.size)
-  end
-
-  def median_learning_minute(minute_list)
-    center_index = ((minute_list.size - 1) / 2).floor
-    if minute_list.size.even?
-      (minute_list[center_index] + minute_list[center_index + 1]) / 2
-    else
-      minute_list[center_index]
-    end
-  end
-
-  def save_statistic(practice_id, average, median)
-    learning_minute_statistic = LearningMinuteStatistic.find_or_initialize_by(practice_id:)
-    learning_minute_statistic.update(
-      average:,
-      median:
-    )
-  end
-
   def tweet_url(practice_completion_url)
     completion_text = "プラクティス「#{title}」を修了しました🎉"
     # ref: https://developer.twitter.com/en/docs/twitter-for-websites/tweet-button/guides/web-intent
@@ -192,35 +113,6 @@ class Practice < ApplicationRecord
     return pages.count unless include_source
 
     Page.for_practice_including_source(self).count
-  end
-
-  private
-
-  def total_learning_minute(report)
-    total_time = report.learning_times.inject(0) do |sum, learning_time|
-      sum + learning_time.diff
-    end
-
-    total_minute = (total_time / 60)
-    if report.practices.size > 1
-      average_minute_per_practice(total_minute, report.practices.size)
-    else
-      total_minute
-    end
-  end
-
-  def average_minute_per_practice(minute, size)
-    minute / size
-  end
-
-  def convert_to_hour_minute(learning_minute_statistic)
-    converted_hour = learning_minute_statistic / 60
-    converted_minute = (learning_minute_statistic % 60).round
-    if converted_minute.zero?
-      "#{converted_hour}時間"
-    else
-      "#{converted_hour}時間#{converted_minute}分"
-    end
   end
 
   def source_id_cannot_be_self
