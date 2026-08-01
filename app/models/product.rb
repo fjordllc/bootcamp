@@ -15,6 +15,7 @@ class Product < ApplicationRecord
   include Taskable
   include ProductStatus
   include ProductChecker
+  include CommentedAtTracking
 
   belongs_to :practice
   belongs_to :user, touch: true
@@ -41,14 +42,6 @@ class Product < ApplicationRecord
 
   def self.ransackable_associations(_auth_object = nil)
     %w[user practice checker comments reactions checks bookmarks]
-  end
-
-  def self.add_latest_commented_at
-    Product.all.includes(:comments).find_each do |product|
-      next if product.comments.blank?
-
-      product.update!(commented_at: product.comments.last.updated_at)
-    end
   end
 
   def self.self_assigned_no_replied_products(user_id)
@@ -94,37 +87,6 @@ class Product < ApplicationRecord
   def elapsed_days
     t = published_at || created_at
     ((Time.current - t) / 1.day).to_i
-  end
-
-  def replied_status_changed?(previous_commented_user_id, current_commented_user_id)
-    is_replied_by_checker_previous = checker_id == previous_commented_user_id
-    is_replied_by_checker_current = checker_id == current_commented_user_id
-
-    is_replied_by_checker_previous != is_replied_by_checker_current
-  end
-
-  def update_last_commented_at(comment)
-    if comment
-      if comment.user.mentor
-        update_columns(mentor_last_commented_at: comment.updated_at) # rubocop:disable Rails/SkipsModelValidations
-      elsif comment.user == user
-        update_columns(self_last_commented_at: comment.updated_at) # rubocop:disable Rails/SkipsModelValidations
-      end
-    else
-      update_columns(mentor_last_commented_at: nil, self_last_commented_at: nil) # rubocop:disable Rails/SkipsModelValidations
-    end
-  end
-
-  def update_commented_at(comment)
-    update_columns(commented_at: comment&.updated_at) # rubocop:disable Rails/SkipsModelValidations
-  end
-
-  def delete_last_commented_at
-    update_last_commented_at(comments.last)
-  end
-
-  def delete_commented_at
-    update_commented_at(comments.last)
   end
 
   def notification_type
