@@ -56,4 +56,8 @@ module PracticeStatus
 
     practices_books.any?(&:must_read)
     end
+
+    def category(course)
+      Category.category(practice: self, course:) || categories.first || Category.first
+    end
 end

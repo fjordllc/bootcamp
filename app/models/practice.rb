@@ -167,10 +167,6 @@ class Practice < ApplicationRecord
     )
   end
 
-  def category(course)
-    Category.category(practice: self, course:) || categories.first || Category.first
-  end
-
   def tweet_url(practice_completion_url)
     completion_text = "プラクティス「#{title}」を修了しました🎉"
     # ref: https://developer.twitter.com/en/docs/twitter-for-websites/tweet-button/guides/web-intent
