@@ -13,24 +13,6 @@ module Comebackable
     (Time.zone.today - hibernated_at.to_date).to_i
   end
 
-  def update_last_returned_at!
-    hibernation = last_hibernation
-    hibernation.returned_at = Date.current
-    hibernation.save!(validate: false)
-  end
-
-  def comeback!
-    update_last_returned_at!
-
-    if Rails.env.production? && !staging?
-      subscription = Subscription.new.create(customer_id, trial: 0)
-      self.subscription_id = subscription['id']
-    end
-
-    self.hibernated_at = nil
-    save!(validate: false)
-  end
-
   def create_comebacked_comment
     User.find_by(login_name: 'pjord').comments.create(
       description: I18n.t('talk.comeback'),

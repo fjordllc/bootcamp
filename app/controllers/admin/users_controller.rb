@@ -38,7 +38,7 @@ class Admin::UsersController < AdminController
       if params[:hibernate_user]
         return unless Hibernation.hibernate_by_admin(user: @user, scheduled_return_on: params[:scheduled_return_on])
       elsif params[:comeback_user]
-        @user.comeback!
+        ComebackUser.call(user: @user)
       end
       redirect_to user_url(@user), notice: 'ユーザー情報を更新しました。'
     else
