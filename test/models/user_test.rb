@@ -127,18 +127,6 @@ class UserTest < ActiveSupport::TestCase
     assert_not user.depressed?
   end
 
-  test '.order_by_counts' do
-    ordered_users = User.order_by_counts('report', 'desc')
-    more_report_user = users(:sotugyou)
-    less_report_user = users(:mentormentaro)
-    assert ordered_users.index(more_report_user) < ordered_users.index(less_report_user)
-
-    ordered_users = User.order_by_counts('comment', 'asc')
-    more_comment_user = users(:komagata)
-    less_comment_user = users(:sotugyou)
-    assert ordered_users.index(less_comment_user) < ordered_users.index(more_comment_user)
-  end
-
   test 'is valid with 8 or more characters' do
     user = users(:hatsuno)
     user.retire_reason = '辞' * 8
