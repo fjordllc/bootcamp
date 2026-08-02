@@ -9,8 +9,6 @@ class ApplicationMailer < ActionMailer::Base
   private
 
   def stopped_mail_by_admin
-    if @user&.stopped_mail_by_admin?
-      mail.perform_deliveries = false
-    end
+    mail.perform_deliveries = false if @user&.stopped_mail_by_admin?
   end
 end
