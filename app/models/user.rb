@@ -43,7 +43,6 @@ class User < ApplicationRecord
   include UserActiveScopes
   include UserSimpleQueryScopes
   include UserComplexQueryScopes
-  include UserComplexQueryScopes2
   include AvatarAttachable
   include FollowerAndWatcher
   include Comebackable
