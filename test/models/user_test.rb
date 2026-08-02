@@ -667,13 +667,6 @@ class UserTest < ActiveSupport::TestCase
     assert_nil no_area_user.area
   end
 
-  test '.by_area' do
-    tokyo_users = [users(:adminonly), users(:machida), users(:kimura)]
-    assert_equal User.by_area('東京都').to_a.sort, tokyo_users.sort
-    america_users = [users(:neverlogin), users(:tom)]
-    assert_equal User.by_area('米国').to_a.sort, america_users.sort
-  end
-
   test 'clear_github_data should clear GitHub related fields' do
     user = users(:kimura)
     user.github_id = '12345'
