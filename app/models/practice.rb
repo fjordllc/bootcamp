@@ -27,10 +27,9 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
   has_many :products, dependent: :destroy
 
   has_one :template, as: :templatable, dependent: :destroy
-  accepts_nested_attributes_for :template, update_only: true, allow_destroy: true,
-                                           reject_if: proc { |attributes|
-                                             attributes['_destroy'] != '1' && attributes['description'].blank?
-                                           }
+  accepts_nested_attributes_for :template, update_only: true, allow_destroy: true
+
+  before_validation :mark_blank_template_for_destruction
 
   has_many :questions, dependent: :nullify
   has_many :pages,
@@ -84,10 +83,8 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
       .order(:id)
   }
 
-  def template_attributes=(attributes)
-    attributes['_destroy'] = '1' if template.present? && attributes['description'].blank?
-
-    super
+  def mark_blank_template_for_destruction
+    template&.mark_for_destruction if template&.description.blank?
   end
 
   def self.ransackable_attributes(_auth_object = nil)
