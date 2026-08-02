@@ -45,7 +45,7 @@ class EventsController < ApplicationController
     set_wip
     if @event.update(event_params)
       update_published_at
-      @event.update_participations if !@event.wip? && @event.can_move_up_the_waitlist?
+      UpdateEventParticipations.call(event: @event) if !@event.wip? && @event.can_move_up_the_waitlist?
       url = publish_with_announcement? ? new_announcement_path(event_id: @event.id) : Redirection.determin_url(self, @event)
       redirect_to url, notice: notice_message(@event)
     else

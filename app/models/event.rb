@@ -82,17 +82,6 @@ class Event < ApplicationRecord
     send_notification(move_up_participation.user)
   end
 
-  def update_participations
-    first_come_participations.each.with_index(1) do |participation, i|
-      if i <= capacity
-        participation.update(enable: true)
-        send_notification(participation.user) if participation.waited?
-      else
-        participation.update(enable: false)
-      end
-    end
-  end
-
   def send_notification(receiver)
     ActivityDelivery.with(receiver:, event: self).notify(:moved_up_event_waiting_user)
   end
@@ -109,14 +98,14 @@ class Event < ApplicationRecord
     Event.where('start_at > ?', Date.current).pluck(:id)
   end
 
+  def first_come_participations
+    participations.order(created_at: :asc)
+  end
+
   private
 
   def first_come_first_served
     users.order('participations.created_at asc')
-  end
-
-  def first_come_participations
-    participations.order(created_at: :asc)
   end
 
   def waiting_particpations
