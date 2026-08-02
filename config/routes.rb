@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   resources :request_retirements, only: %i(show new create)
   resource :hibernation, only: %i(show new create), controller: "hibernation"
   resource :comeback, only: %i(new create), controller: "comeback"
+  resource :hibernated_retirement, only: %i(new create), controller: "hibernated_retirement"
   resource :current_user, only: %i(edit update), controller: "current_user" do
     resource :password, only: %i(edit update), controller: "current_user/password"
   end
