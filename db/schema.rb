@@ -277,6 +277,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_15_093000) do
     t.index ["course_id", "category_id"], name: "index_courses_categories_on_course_id_and_category_id", unique: true
   end
 
+  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
+  end
+
   create_table "discord_profiles", force: :cascade do |t|
     t.string "account_name"
     t.datetime "created_at", null: false
@@ -1148,6 +1151,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_15_093000) do
     t.boolean "sent_student_followup_message", default: false
     t.boolean "show_mentor_profile", default: true, null: false
     t.boolean "show_study_streak", default: false, null: false
+    t.boolean "stopped_mail_by_admin", default: false, null: false
     t.string "subdivision_code"
     t.string "subscription_id"
     t.boolean "trainee", default: false, null: false
