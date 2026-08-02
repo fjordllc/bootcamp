@@ -22,6 +22,6 @@ class StoppedMailByAdminController < ApplicationController
   end
 
   def set_redirect_url
-    @redirect_url = params[:redirect_url].presence || admin_users_url
+    @redirect_url = url_from(params[:redirect_url]) || admin_users_url
   end
 end
