@@ -99,6 +99,17 @@
                         method: :patch,
                         data: { confirm: '本当によろしいですか？' },
                         class: 'a-button is-sm is-danger is-block'
+                  .user-statuses__item
+                    - if @user.stopped_mail_by_admin?
+                      = link_to 'メール配信を再開する', user_stopped_mail_by_admin_path(@user, redirect_url: "/users/#{@user.id}"),
+                        method: :patch,
+                        data: { confirm: '本当によろしいですか？' },
+                        class: 'a-button is-sm is-secondary is-block'
+                    - else
+                      = link_to 'メール配信を止める', user_stopped_mail_by_admin_path(@user, stopped_mail_by_admin: true, redirect_url: "/users/#{@user.id}"),
+                        method: :patch,
+                        data: { confirm: '本当によろしいですか？' },
+                        class: 'a-button is-sm is-secondary is-block'
                 - if @user != current_user
                   .user-statuses__delete
                     = link_to 'このユーザーを削除する', admin_user_path(@user), method: :delete, id: "delete-#{@user.id}", class: 'a-muted-text-link',
