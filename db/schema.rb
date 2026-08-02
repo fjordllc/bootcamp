@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_28_164105) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_02_071524) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -1147,6 +1147,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_28_164105) do
     t.boolean "sent_student_followup_message", default: false
     t.boolean "show_mentor_profile", default: true, null: false
     t.boolean "show_study_streak", default: false, null: false
+    t.boolean "stopped_mail_by_admin", default: false, null: false
     t.string "subdivision_code"
     t.string "subscription_id"
     t.boolean "trainee", default: false, null: false
