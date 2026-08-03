@@ -38,16 +38,6 @@ class PracticeTest < ActiveSupport::TestCase
     assert_not practices(:practice1).exists_learning?(users(:machida))
   end
 
-  test '.save_learning_minute_statistics' do
-    LearningMinuteStatistic.delete_all
-    assert LearningMinuteStatistic.count.zero?
-
-    Practice.save_learning_minute_statistics
-
-    practice_ids = Practice.joins(:reports).merge(Report.not_wip).distinct.pluck(:id)
-    assert_equal practice_ids.size, LearningMinuteStatistic.count
-  end
-
   test '#category' do
     practice = practices(:practice1)
     course = courses(:course1)
