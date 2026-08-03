@@ -22,8 +22,6 @@ class Pjord::MentionResponseAgentTest < ActiveSupport::TestCase
     assert_includes chat.instructions, 'メンターへのメンションや対応引き継ぎの依頼はしないでください。'
     assert_includes chat.instructions, 'リンク先の内容が返信に不可欠でない場合'
     assert_includes chat.instructions, 'メンションしてきたユーザーに「見られる状態にしてください」「内容を教えてください」と質問しないでください。'
-    assert_includes chat.instructions, 'ピヨルドのレビューコメントに対して'
-    assert_includes chat.instructions, 'body を空にして返信しないでください。'
     assert_includes chat.asked_message, comment.description
     assert_equal [BootcampSearchTool, UserInfoTool, ExternalContentTool], chat.tools
     assert_equal PjordResponse, chat.schema

@@ -87,7 +87,7 @@ class ExternalContent::GithubReader
   end
 
   def fetch_url(url)
-    Rails.cache.fetch("pjord_product_reviewer/github_context/#{Digest::SHA256.hexdigest(url)}", expires_in: 10.minutes) do
+    Rails.cache.fetch("pjord/github_context/#{Digest::SHA256.hexdigest(url)}", expires_in: 10.minutes) do
       response = ExternalContent::HttpClient.get(url, headers: github_request_headers)
       response.success? ? response.body : nil
     end

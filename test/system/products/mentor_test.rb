@@ -12,14 +12,14 @@ module Products
       assert_selector '#side-tabs-nav-4', text: '提出物'
     end
 
-    test 'mentors can see review by Pjord button' do
+    test 'mentors can not see review by Pjord button' do
       visit_with_auth "/products/#{products(:product2).id}", 'mentormentaro'
-      assert_button 'ピヨルドがコメントする'
+      assert_no_button 'ピヨルドがコメントする'
     end
 
-    test 'admins can see review by Pjord button' do
+    test 'admins can not see review by Pjord button' do
       visit_with_auth "/products/#{products(:product2).id}", 'adminonly'
-      assert_button 'ピヨルドがコメントする'
+      assert_no_button 'ピヨルドがコメントする'
     end
 
     test 'students can not see block for mentors' do
