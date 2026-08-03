@@ -32,34 +32,7 @@ pin "sortablejs" # @1.15.7
 pin "sweetalert2" # @11.26.25
 pin "textarea-markdown" # @1.7.0
 pin "tributejs" # @5.1.3
-pin "@kurkle/color", to: "https://ga.jspm.io/npm:@kurkle/color@0.3.4/dist/color.esm.js" # @0.3.4
-pin "abort-controller", to: "https://ga.jspm.io/npm:abort-controller@3.0.0/browser.js" # @3.0.0
-pin "base64-js", to: "https://ga.jspm.io/npm:base64-js@1.5.1/index.js" # @1.5.1
-pin "buffer", to: "https://ga.jspm.io/npm:@jspm/core@2.1.0/nodelibs/browser/buffer.js" # @2.1.0
-pin "chart.js/helpers", to: "https://ga.jspm.io/npm:chart.js@4.5.1/helpers/helpers.js" # @4.5.1
-pin "entities/lib/maps/entities.json", to: "https://ga.jspm.io/npm:entities@2.1.0/lib/maps/entities.json.js" # @2.1.0
-pin "events", to: "https://ga.jspm.io/npm:events@3.3.0/events.js" # @3.3.0
-pin "file-type/browser", to: "https://ga.jspm.io/npm:file-type@16.5.4/browser.js" # @16.5.4
-pin "filesize", to: "https://ga.jspm.io/npm:filesize@10.1.6/dist/filesize.esm.js" # @10.1.6
-pin "ieee754", to: "https://ga.jspm.io/npm:ieee754@1.2.1/index.js" # @1.2.1
-pin "linkify-it", to: "https://ga.jspm.io/npm:linkify-it@3.0.3/index.js" # @3.0.3
-pin "mdurl", to: "https://ga.jspm.io/npm:mdurl@1.0.1/index.js" # @1.0.1
-pin "peek-readable", to: "https://ga.jspm.io/npm:peek-readable@4.1.0/lib/index.js" # @4.1.0
-pin "process", to: "https://ga.jspm.io/npm:process@0.11.10/browser.js" # @0.11.10
-pin "punycode", to: "https://ga.jspm.io/npm:@jspm/core@2.1.0/nodelibs/browser/punycode.js" # @2.1.0
-pin "readable-stream", to: "https://ga.jspm.io/npm:readable-stream@4.7.0/lib/ours/browser.js" # @4.7.0
-pin "readable-web-to-node-stream", to: "https://ga.jspm.io/npm:readable-web-to-node-stream@3.0.4/lib/index.js" # @3.0.4
-pin "safe-buffer", to: "https://ga.jspm.io/npm:safe-buffer@5.2.1/index.js" # @5.2.1
-pin "string_decoder", to: "https://ga.jspm.io/npm:string_decoder@1.3.0/lib/string_decoder.js" # @1.3.0
-pin "strtok3/lib/core", to: "https://ga.jspm.io/npm:strtok3@6.3.0/lib/core.js" # @6.3.0
-pin "token-types", to: "https://ga.jspm.io/npm:token-types@4.2.1/lib/index.js" # @4.2.1
-pin "uc.micro", to: "https://ga.jspm.io/npm:uc.micro@1.0.6/index.js" # @1.0.6
-pin "uc.micro/categories/Cc/regex", to: "https://ga.jspm.io/npm:uc.micro@1.0.6/categories/Cc/regex.js" # @1.0.6
-pin "uc.micro/categories/P/regex", to: "https://ga.jspm.io/npm:uc.micro@1.0.6/categories/P/regex.js" # @1.0.6
-pin "uc.micro/categories/Z/regex", to: "https://ga.jspm.io/npm:uc.micro@1.0.6/categories/Z/regex.js" # @1.0.6
-pin "uc.micro/properties/Any/regex", to: "https://ga.jspm.io/npm:uc.micro@1.0.6/properties/Any/regex.js" # @1.0.6
-pin "util", to: "https://ga.jspm.io/npm:@jspm/core@2.1.0/nodelibs/browser/util.js" # @2.1.0
-pin "whatwg-fetch", to: "https://ga.jspm.io/npm:whatwg-fetch@2.0.4/fetch.js" # @2.0.4
+pin "whatwg-fetch" # @2.0.4
 pin "prismjs/components/prism-bash", to: "prismjs--components--prism-bash.js" # @1.30.0
 pin "prismjs/components/prism-clike", to: "prismjs--components--prism-clike.js" # @1.30.0
 pin "prismjs/components/prism-css", to: "prismjs--components--prism-css.js" # @1.30.0

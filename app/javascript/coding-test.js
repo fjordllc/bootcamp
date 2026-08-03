@@ -2,11 +2,6 @@ import { OnBrowserJudge } from 'onbrowserjudge'
 import ace from 'ace-builds'
 import { post } from '@rails/request.js'
 
-ace.config.set(
-  'basePath',
-  'https://cdn.jsdelivr.net/npm/ace-builds@1.44.0/src-noconflict'
-)
-
 document.addEventListener('DOMContentLoaded', () => {
   const id = 'code_editor'
   const element = document.getElementById(id)
@@ -20,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const editor = ace.edit(id)
 
   editor.session.setMode(`ace/mode/${language}`)
+  editor.session.setUseWorker(false)
   editor.setTheme('ace/theme/github')
 
   OnBrowserJudge.workerFile = `../${language}.js`

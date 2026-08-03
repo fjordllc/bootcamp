@@ -32,7 +32,8 @@ class ImportmapTest < ActiveSupport::TestCase
       'sortablejs',
       'sweetalert2',
       'textarea-markdown',
-      'tributejs'
+      'tributejs',
+      'whatwg-fetch'
     ]
     application_dependencies = imports.slice(*dependencies)
 
