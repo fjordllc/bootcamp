@@ -5,33 +5,33 @@ pin_all_from "app/javascript"
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin "@hotwired/stimulus", to: "stimulus.min.js"
 pin "@hotwired/stimulus-loading", to: "stimulus-loading.js"
-pin "@notus.sh/cocooned", to: "https://ga.jspm.io/npm:@notus.sh/cocooned@3.0.1/index.js" # @3.0.1
-pin "@rails/request.js", to: "https://ga.jspm.io/npm:@rails/request.js@0.0.13/src/index.js" # @0.0.13
-pin "@rails/ujs", to: "https://ga.jspm.io/npm:@rails/ujs@7.1.3-4/app/assets/javascripts/rails-ujs.esm.js" # @7.1.3-4
-pin "@yaireo/tagify", to: "https://ga.jspm.io/npm:@yaireo/tagify@4.37.1/dist/tagify.esm.js" # @4.37.1
-pin "ace-builds", to: "https://ga.jspm.io/npm:ace-builds@1.44.0/src-noconflict/ace.js" # @1.44.0
-pin "autosize", to: "https://ga.jspm.io/npm:autosize@6.0.1/dist/autosize.esm.js" # @6.0.1
-pin "chart.js", to: "https://ga.jspm.io/npm:chart.js@4.5.1/dist/chart.js" # @4.5.1
-pin "chartjs-plugin-annotation", to: "https://ga.jspm.io/npm:chartjs-plugin-annotation@3.1.0/dist/chartjs-plugin-annotation.esm.js" # @3.1.0
-pin "chartjs-plugin-datalabels", to: "https://ga.jspm.io/npm:chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.esm.js" # @2.2.0
-pin "choices.js", to: "https://ga.jspm.io/npm:choices.js@11.2.3/public/assets/scripts/choices.mjs" # @11.2.3
+pin "@notus.sh/cocooned", to: "@notus.sh--cocooned.js" # @3.0.1
+pin "@rails/request.js", to: "@rails--request.js.js" # @0.0.13
+pin "@rails/ujs", to: "@rails--ujs.js" # @7.1.3-4
+pin "@yaireo/tagify", to: "@yaireo--tagify.js" # @4.37.1
+pin "ace-builds" # @1.44.0
+pin "autosize" # @6.0.1
+pin "chart.js" # @4.5.1
+pin "chartjs-plugin-annotation" # @3.1.0
+pin "chartjs-plugin-datalabels" # @2.2.0
+pin "choices.js" # @11.2.3
 pin "emoji-data"
-pin "escape-html", to: "https://ga.jspm.io/npm:escape-html@1.0.3/index.js" # @1.0.3
-pin "escape-string-regexp", to: "https://ga.jspm.io/npm:escape-string-regexp@5.0.0/index.js" # @5.0.0
-pin "heic2any", to: "https://ga.jspm.io/npm:heic2any@0.0.4/dist/heic2any.js" # @0.0.4
-pin "markdown-it", to: "https://ga.jspm.io/npm:markdown-it@12.3.2/index.js" # @12.3.2
-pin "markdown-it-anchor", to: "https://ga.jspm.io/npm:markdown-it-anchor@9.2.0/dist/markdownItAnchor.mjs" # @9.2.0
-pin "markdown-it-container", to: "https://ga.jspm.io/npm:markdown-it-container@3.0.0/index.js" # @3.0.0
-pin "markdown-it-container-figure", to: "https://ga.jspm.io/npm:markdown-it-container-figure@1.1.3/index.js" # @1.1.3
-pin "markdown-it-emoji", to: "https://ga.jspm.io/npm:markdown-it-emoji@3.0.0/index.mjs" # @3.0.0
-pin "markdown-it-link-attributes", to: "https://ga.jspm.io/npm:markdown-it-link-attributes@4.0.1/index.js" # @4.0.1
-pin "markdown-it-regexp", to: "https://ga.jspm.io/npm:markdown-it-regexp@0.4.0/index.js" # @0.4.0
-pin "markdown-it-task-lists", to: "https://ga.jspm.io/npm:markdown-it-task-lists@2.1.1/index.js" # @2.1.1
-pin "prismjs", to: "https://ga.jspm.io/npm:prismjs@1.30.0/prism.js" # @1.30.0
-pin "sortablejs", to: "https://ga.jspm.io/npm:sortablejs@1.15.7/modular/sortable.esm.js" # @1.15.7
-pin "sweetalert2", to: "https://ga.jspm.io/npm:sweetalert2@11.26.25/dist/sweetalert2.all.js" # @11.26.25
-pin "textarea-markdown", to: "https://ga.jspm.io/npm:textarea-markdown@1.7.0/lib/textarea-markdown.js" # @1.7.0
-pin "tributejs", to: "https://ga.jspm.io/npm:tributejs@5.1.3/dist/tribute.min.js" # @5.1.3
+pin "escape-html" # @1.0.3
+pin "escape-string-regexp" # @5.0.0
+pin "heic2any" # @0.0.4
+pin "markdown-it" # @12.3.2
+pin "markdown-it-anchor" # @9.2.0
+pin "markdown-it-container" # @3.0.0
+pin "markdown-it-container-figure" # @1.1.3
+pin "markdown-it-emoji" # @3.0.0
+pin "markdown-it-link-attributes" # @4.0.1
+pin "markdown-it-regexp" # @0.4.0
+pin "markdown-it-task-lists" # @2.1.1
+pin "prismjs" # @1.30.0
+pin "sortablejs" # @1.15.7
+pin "sweetalert2" # @11.26.25
+pin "textarea-markdown" # @1.7.0
+pin "tributejs" # @5.1.3
 pin "@kurkle/color", to: "https://ga.jspm.io/npm:@kurkle/color@0.3.4/dist/color.esm.js" # @0.3.4
 pin "abort-controller", to: "https://ga.jspm.io/npm:abort-controller@3.0.0/browser.js" # @3.0.0
 pin "base64-js", to: "https://ga.jspm.io/npm:base64-js@1.5.1/index.js" # @1.5.1
