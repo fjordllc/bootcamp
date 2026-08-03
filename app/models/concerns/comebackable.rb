@@ -45,15 +45,5 @@ module Comebackable
     def mark_message_as_sent_for_hibernated_student
       User.hibernated.update_all(sent_student_followup_message: true, updated_at: Time.current) # rubocop:disable Rails/SkipsModelValidations
     end
-
-    def create_followup_comment(student)
-      User.find_by(login_name: 'pjord').comments.create(
-        description: I18n.t('talk.followup'),
-        commentable_id: Talk.find_by(user_id: student.id).id,
-        commentable_type: 'Talk'
-      )
-      student.sent_student_followup_message = true
-      student.save(validate: false)
-    end
   end
 end
