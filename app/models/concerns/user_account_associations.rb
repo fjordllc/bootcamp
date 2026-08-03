@@ -1,9 +1,15 @@
 # frozen_string_literal: true
 
-module UserAssociations6
+module UserAccountAssociations
   extend ActiveSupport::Concern
 
   included do
+    belongs_to :company, optional: true
+    belongs_to :course
+
+    has_one :discord_profile, dependent: :destroy
+    accepts_nested_attributes_for :discord_profile, allow_destroy: true
+
     has_many :oauth_access_grants,
              foreign_key: 'resource_owner_id',
              dependent: :delete_all,

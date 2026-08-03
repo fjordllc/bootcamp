@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Report < ApplicationRecord
+  include Commentable
   include Checkable
   include Footprintable
   include Searchable

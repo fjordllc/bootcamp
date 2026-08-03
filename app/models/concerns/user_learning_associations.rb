@@ -1,28 +1,20 @@
 # frozen_string_literal: true
 
-module UserAssociations3
+module UserLearningAssociations
   extend ActiveSupport::Concern
 
   included do
-    has_many :participate_events,
-             through: :participations,
-             source: :event
-
-    has_many :send_notifications,
-             class_name: 'Notification',
-             foreign_key: 'sender_id',
-             inverse_of: 'sender',
-             dependent: :destroy
+    has_many :learnings, dependent: :destroy
+    has_many :checks, dependent: :destroy
+    has_many :products, dependent: :destroy
+    has_many :coding_tests, dependent: :destroy
+    has_many :coding_test_submissions, dependent: :destroy
+    has_many :pair_works, dependent: :destroy
 
     has_many :completed_learnings,
              -> { where(status: 'complete') },
              class_name: 'Learning',
              inverse_of: 'user',
-             dependent: :destroy
-
-    has_many :completed_practices,
-             through: :completed_learnings,
-             source: :practice,
              dependent: :destroy
 
     has_many :active_learnings,

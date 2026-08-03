@@ -46,7 +46,6 @@ class User < ApplicationRecord
   include AvatarAttachable
   include FollowerAndWatcher
   include Comebackable
-  include Commentable
   include Billable
   include UserStatusCheck
   include Colleagues
@@ -54,12 +53,13 @@ class User < ApplicationRecord
   include EventParticipatable
   include PracticeInfo
   include ReportInfo
-  include UserAssociations1
-  include UserAssociations2
-  include UserAssociations3
-  include UserAssociations4
-  include UserAssociations5
-  include UserAssociations6
+  include UserContentAssociations
+  include UserLearningAssociations
+  include UserPracticeProgressAssociations
+  include UserEventAssociations
+  include UserFollowAssociations
+  include UserRetirementAssociations
+  include UserAccountAssociations
   include UserValidations1
   include UserValidations2
   include UserValidations3
