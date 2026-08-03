@@ -13,7 +13,7 @@ jobs:
     if: |
       !github.event.pull_request.draft &&
       startsWith(github.event.pull_request.head.ref, 'ai/issue-') &&
-      contains(github.event.pull_request.labels.*.name, 'AI')
+      contains(github.event.pull_request.labels.*.name, 'Codex')
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:

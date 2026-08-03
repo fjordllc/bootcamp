@@ -14,7 +14,7 @@ env:
 
 jobs:
   prepare:
-    if: github.event.label.name == 'AI'
+    if: github.event.label.name == 'Codex'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -226,6 +226,6 @@ jobs:
             --title "$ISSUE_TITLE" \
             --body-file pr-body.md \
             --draft=false)"
-          gh pr edit "$pr_url" --repo "$GITHUB_REPOSITORY" --add-label AI
+          gh pr edit "$pr_url" --repo "$GITHUB_REPOSITORY" --add-label Codex
           gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" \
             --body "Codexが通常PRを作成しました: ${pr_url}"

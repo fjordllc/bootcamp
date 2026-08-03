@@ -31,7 +31,7 @@ jobs:
           prs="$(gh pr list \
             --repo "$GITHUB_REPOSITORY" \
             --state open \
-            --label AI \
+            --label Codex \
             --json number,headRefName \
             --jq '[.[] | select(.headRefName | startswith("ai/issue-")) | .number]')"
           echo "prs=$prs" >> "$GITHUB_OUTPUT"
@@ -141,7 +141,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.CODEX_GITHUB_TOKEN }}
         run: |
-          gh pr edit "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --remove-label AI
+          gh pr edit "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --remove-label Codex
           gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" \
             --body $'CIとClaude・CodeRabbitレビューの確認が完了しました。\n\n<!-- codex-ai-completed -->'
 
@@ -153,7 +153,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.CODEX_GITHUB_TOKEN }}
         run: |
-          gh pr edit "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --remove-label AI
+          gh pr edit "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --remove-label Codex
           gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" \
             --body $'Codexによる自動修正が上限（3回）に達しました。人による確認が必要です。\n\n<!-- codex-ai-stopped -->'
 

@@ -5,11 +5,11 @@ require 'test_helper'
 class AiIssueAutomationTest < ActiveSupport::TestCase
   WORKFLOWS_DIR = Rails.root.join('.github/workflows')
 
-  test 'AIラベルを付けたissueをGPT-5.6 SOLで実装する' do
+  test 'Codexラベルを付けたissueをGPT-5.6 SOLで実装する' do
     workflow = workflow_source('codex-implement-issue.yml')
 
     assert_includes workflow, 'types: [labeled]'
-    assert_includes workflow, "github.event.label.name == 'AI'"
+    assert_includes workflow, "github.event.label.name == 'Codex'"
     assert_includes workflow, 'uses: openai/codex-action@v1'
     assert_includes workflow, 'model: gpt-5.6-sol'
     assert_includes workflow, 'sandbox: workspace-write'
@@ -17,12 +17,14 @@ class AiIssueAutomationTest < ActiveSupport::TestCase
     assert_includes workflow, 'base_sha:'
     assert_includes workflow, 'codex-issue-validated-'
     assert_includes workflow, '--draft=false'
+    assert_not_includes workflow, '--add-label AI'
   end
 
   test 'ClaudeはCodexが作ったPRのレビューだけを行う' do
     workflow = workflow_source('claude-review.yml')
 
     assert_includes workflow, 'uses: anthropics/claude-code-action@v1'
+    assert_includes workflow, "contains(github.event.pull_request.labels.*.name, 'Codex')"
     assert_includes workflow, 'ai/issue-'
     assert_includes workflow, 'コードを変更しない'
     refute_path_exists WORKFLOWS_DIR.join('claude.yml')
@@ -37,6 +39,8 @@ class AiIssueAutomationTest < ActiveSupport::TestCase
     assert_includes workflow, 'claude'
     assert_includes workflow, 'model: gpt-5.6-sol'
     assert_includes workflow, 'codex-follow-up-validated-'
+    assert_includes workflow, '--label Codex'
+    assert_includes workflow, '--remove-label Codex'
     assert_not_includes workflow, 'workflow_run:'
   end
 
