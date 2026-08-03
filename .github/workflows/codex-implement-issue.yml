@@ -201,8 +201,8 @@ jobs:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           ISSUE_TITLE: ${{ github.event.issue.title }}
         run: |
-          git config user.name "Masaki Komagata"
-          git config user.email "komagata@gmail.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$BRANCH"
           git apply --index codex.patch
           git commit -m "Issue #${ISSUE_NUMBER} をCodexで実装"

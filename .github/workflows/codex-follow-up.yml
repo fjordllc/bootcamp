@@ -320,8 +320,8 @@ jobs:
           cd repo
           git checkout "$branch"
           test "$(git rev-parse HEAD)" = "$head_sha"
-          git config user.name "Masaki Komagata"
-          git config user.email "komagata@gmail.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           if test -s ../codex.patch; then
             git apply --index ../codex.patch
