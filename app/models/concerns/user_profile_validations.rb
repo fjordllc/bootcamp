@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
-module UserValidations5
+module UserProfileValidations
   extend ActiveSupport::Concern
 
   included do
+    before_validation :convert_blank_of_address_to_nil
+
     validates :facebook_url, :feed_url, :blog_url,
               format: {
                 allow_blank: true,

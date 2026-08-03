@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module UserValidations1
+module UserJobAndEnvironmentEnums
   extend ActiveSupport::Concern
 
   included do
@@ -17,6 +17,14 @@ module UserValidations1
       mac_apple: 2,
       linux: 1,
       windows_wsl2: 3
+    }, prefix: true
+
+    enum :editor, {
+      vscode: 0,
+      ruby_mine: 1,
+      vim: 2,
+      emacs: 3,
+      other_editor: 99
     }, prefix: true
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module UserValidations6
+module UserSignupValidations
   extend ActiveSupport::Concern
 
   included do

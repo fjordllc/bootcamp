@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module UserValidations8
+module UserFlags
   extend ActiveSupport::Concern
 
   included do

@@ -1,9 +1,17 @@
 # frozen_string_literal: true
 
-module UserValidations7
+module UserRetirementValidations
   extend ActiveSupport::Concern
 
   included do
+    enum :satisfaction, {
+      excellent: 0,
+      good: 1,
+      average: 2,
+      poor: 3,
+      very_poor: 4
+    }, prefix: true
+
     with_options if: -> { validation_context.in?(%i[retirement training_completion]) } do
       validates :satisfaction, presence: true
     end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module UserValidations3
+module UserCareerEnums
   extend ActiveSupport::Concern
 
   included do
@@ -24,8 +24,5 @@ module UserValidations3
       internal_transfer_to_programmer: 5,
       not_employed: 6
     }, prefix: true
-
-    after_create UserCallbacks.new
-    before_validation :convert_blank_of_address_to_nil
   end
 end

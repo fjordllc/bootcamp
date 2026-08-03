@@ -60,14 +60,14 @@ class User < ApplicationRecord
   include UserFollowAssociations
   include UserRetirementAssociations
   include UserAccountAssociations
-  include UserValidations1
-  include UserValidations2
-  include UserValidations3
-  include UserValidations4
-  include UserValidations5
-  include UserValidations6
-  include UserValidations7
-  include UserValidations8
+  include UserJobAndEnvironmentEnums
+  include UserCareerEnums
+  include UserAccountValidations
+  include UserPaymentValidations
+  include UserProfileValidations
+  include UserSignupValidations
+  include UserRetirementValidations
+  include UserFlags
   include Ransackable
 
   def generation
