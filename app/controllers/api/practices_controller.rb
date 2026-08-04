@@ -4,7 +4,7 @@ class API::PracticesController < API::BaseController
   include Rails.application.routes.url_helpers
   before_action :require_mentor_login_for_api, only: %i[show update]
   before_action -> { doorkeeper_authorize! :mentor }, only: %i[show], if: -> { doorkeeper_token.present? }
-  before_action -> { doorkeeper_authorize! :write }, only: %i[update], if: -> { doorkeeper_token.present? }
+  before_action :require_write_scope, only: %i[update]
   before_action -> { doorkeeper_authorize! :mentor }, only: %i[update], if: -> { doorkeeper_token.present? }
   before_action :set_practice, only: %i[show update]
 
@@ -20,6 +20,7 @@ class API::PracticesController < API::BaseController
   end
 
   def update
+    @practice.last_updated_user = current_user
     if @practice.update(practice_params)
       head :ok
     else
@@ -34,6 +35,12 @@ class API::PracticesController < API::BaseController
   end
 
   def practice_params
-    params.require(:practice).permit(:memo)
+    params.require(:practice).permit(:memo, :description, :goal)
+  end
+
+  def require_write_scope
+    return unless doorkeeper_token.present? || params[:practice]&.slice(:description, :goal).present?
+
+    doorkeeper_authorize! :write
   end
 end
