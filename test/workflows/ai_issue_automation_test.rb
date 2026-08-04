@@ -10,7 +10,7 @@ class AiIssueAutomationTest < ActiveSupport::TestCase
   README = Rails.root.join('.github/codex/README.md')
   WORKFLOWS_DIR = Rails.root.join('.github/workflows')
 
-  test 'VPS上のCodex CLIを排他実行する' do
+  test 'runs Codex CLI exclusively on the VPS' do
     assert_path_exists RUNNER
 
     runner = RUNNER.read
@@ -30,7 +30,7 @@ class AiIssueAutomationTest < ActiveSupport::TestCase
     assert_not_includes runner, 'ANTHROPIC_API_KEY'
   end
 
-  test '一回の実行で一つの状態だけを処理する' do
+  test 'processes only one state per run' do
     assert_path_exists PROMPT
 
     prompt = PROMPT.read
@@ -47,7 +47,7 @@ class AiIssueAutomationTest < ActiveSupport::TestCase
     assert_includes prompt, 'Issueから `Codex` ラベルを外す'
   end
 
-  test 'GitHub ActionsからAI APIを呼ばない' do
+  test 'does not call AI APIs from GitHub Actions' do
     refute_path_exists WORKFLOWS_DIR.join('codex-implement-issue.yml')
     refute_path_exists WORKFLOWS_DIR.join('codex-follow-up.yml')
     refute_path_exists WORKFLOWS_DIR.join('claude-review.yml')
@@ -60,7 +60,7 @@ class AiIssueAutomationTest < ActiveSupport::TestCase
     assert_not_includes workflows, 'anthropics/claude-code-action'
   end
 
-  test 'VPSホストを汚さずDockerで実行する' do
+  test 'runs in Docker without installing development dependencies on the VPS' do
     assert_path_exists DOCKER_RUNNER
     assert_path_exists DOCKERFILE
 
@@ -74,6 +74,8 @@ class AiIssueAutomationTest < ActiveSupport::TestCase
     assert_includes docker_runner, '/home/codex/.config/gh'
     assert_includes docker_runner, '/home/codex/.gitconfig'
     assert_includes docker_runner, 'gh auth setup-git'
+    assert_includes docker_runner, 'CODEX_AUTOMATION_REPOSITORY'
+    assert_includes docker_runner, 'SECONDS + 60'
     assert_includes docker_runner, 'postgres:16-alpine'
     assert_not_includes docker_runner, '/var/run/docker.sock'
     assert_includes dockerfile, 'npm install --global @openai/codex'

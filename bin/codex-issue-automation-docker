@@ -5,6 +5,7 @@ set -euo pipefail
 repository_root="$(cd "$(dirname "$0")/.." && pwd)"
 automation_home="${CODEX_AUTOMATION_HOME:-/home/codex-bootcamp}"
 image="${CODEX_AUTOMATION_IMAGE:-bootcamp-codex-automation}"
+repository="${CODEX_AUTOMATION_REPOSITORY:-fjordllc/bootcamp}"
 container_user="$(id -u):$(id -g)"
 lock_file="$automation_home/runner.lock"
 
@@ -21,6 +22,7 @@ docker_arguments=(
   --rm
   --user "$container_user"
   -e HOME=/home/codex
+  -e "CODEX_AUTOMATION_REPOSITORY=$repository"
   -v "$repository_root:/workspace:ro"
   -v "$automation_home/config/codex:/home/codex/.codex"
   -v "$automation_home/config/gh:/home/codex/.config/gh"
@@ -62,7 +64,13 @@ docker run --detach --rm \
   -e POSTGRES_PASSWORD=postgres \
   postgres:16-alpine >/dev/null
 
+deadline=$((SECONDS + 60))
 until docker exec "$database_container" pg_isready -U postgres >/dev/null 2>&1; do
+  if ((SECONDS >= deadline)); then
+    echo "PostgreSQL did not become ready within 60 seconds." >&2
+    docker logs "$database_container" >&2 || true
+    exit 1
+  fi
   sleep 1
 done
 
