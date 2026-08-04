@@ -3,12 +3,11 @@
 require 'test_helper'
 
 class AiPromptTest < ActiveSupport::TestCase
-  test '.definitions returns seven manageable prompts' do
+  test '.definitions returns six manageable prompts' do
     assert_equal %w[
       article_meta_description
       pjord
       mention_response
-      product_review
       question_answer
       report_classifier
       report_comment
