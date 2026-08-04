@@ -54,15 +54,6 @@ class ProductsTest < ApplicationSystemTestCase
     assert_selector '.thread-comment-form'
   end
 
-  test 'does not show Pjord product review button' do
-    product = products(:product1)
-    visit_with_auth "/products/#{product.id}", 'adminonly'
-    assert_no_link 'ピヨルドでレビューコメントをする'
-
-    visit_with_auth "/products/#{product.id}", 'kimura'
-    assert_no_link 'ピヨルドでレビューコメントをする'
-  end
-
   test 'show user name_kana next to name' do
     product = products(:product1)
     visit_with_auth "/products/#{product.id}", 'kimura'

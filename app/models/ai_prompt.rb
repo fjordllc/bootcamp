@@ -17,11 +17,6 @@ class AiPrompt < ApplicationRecord
       description: 'ユーザーからピヨルドへのメンションに返信する方針を定めます。',
       path: 'pjord/mention_response_agent/instructions.txt'
     },
-    'product_review' => {
-      name: '提出物レビュー',
-      description: '提出物をレビューし、コメントを作成する方針を定めます。',
-      path: 'pjord/product_review_agent/instructions.txt'
-    },
     'question_answer' => {
       name: 'Q&A回答',
       description: 'Q&Aに投稿された質問へ回答する方針を定めます。',

@@ -3,7 +3,6 @@
 class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLength
   before_action :check_permission!, only: %i[show]
   before_action :require_staff_login, only: :index
-  before_action :require_admin_or_mentor_login, only: :review_by_pjord
   before_action :set_watch, only: %i[show]
   before_action :set_target, only: %i[index]
 
@@ -52,7 +51,6 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     set_wip
     update_published_at
     if @product.save
-      create_pjord_review(wip_before_save: nil)
       ActiveSupport::Notifications.instrument('product.create', product: @product)
       ActiveSupport::Notifications.instrument('product.save', product: @product)
       redirect_to Redirection.determin_url(self, @product), notice: notice_message(@product, :create)
@@ -64,12 +62,10 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
   def update
     @product = find_my_product
     @practice = @product.practice
-    wip_before_save = @product.wip?
     @product.published_at = nil if @product.published_at? && @product.wip
     set_wip
     update_published_at
     if @product.update(product_params)
-      create_pjord_review(wip_before_save:)
       ActiveSupport::Notifications.instrument('product.update', { product: @product, current_user: })
       ActiveSupport::Notifications.instrument('product.save', product: @product)
       notice_another_mentor_assigned_as_checker
@@ -85,28 +81,12 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     redirect_to @product.practice, notice: '提出物を削除しました。'
   end
 
-  def review_by_pjord
-    @product = Product.find(params[:id])
-    PjordProductReviewJob.perform_now(product_id: @product.id)
-    redirect_to @product, notice: 'ピヨルドがコメントしました。'
-  rescue RubyLLM::UnauthorizedError => e
-    Rails.logger.error("[ProductsController#review_by_pjord] PjordProductReviewJob failed: #{e.class}: #{e.message}")
-    redirect_to @product || products_path, alert: 'ピヨルドのAPIキー設定が無効です。管理者に確認してください。'
-  rescue StandardError => e
-    Rails.logger.error("[ProductsController#review_by_pjord] PjordProductReviewJob failed: #{e.class}: #{e.message}")
-    redirect_to @product || products_path, alert: 'ピヨルドのコメントに失敗しました。時間をおいて再度お試しください。'
-  end
-
   private
 
   def update_published_at
     return if @product.wip || @product.published_at?
 
     @product.published_at = Time.current
-  end
-
-  def create_pjord_review(wip_before_save:)
-    PjordReview.call(product: @product, wip_before_save:)
   end
 
   def find_product
