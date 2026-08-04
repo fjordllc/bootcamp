@@ -7,7 +7,7 @@ class Image < ApplicationRecord
   validates :image, attached: true
 
   def image=(attachable)
-    MiniMagick::Image.new(attachable.tempfile.path).strip if attachable.respond_to?(:tempfile)
+    MiniMagick::Image.new(attachable.tempfile.path).strip if attachable.respond_to?(:tempfile) && attachable.content_type&.start_with?('image/')
     super
   end
 end

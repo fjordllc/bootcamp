@@ -35,4 +35,14 @@ class TalksTest < ApplicationSystemTestCase
     visit_with_auth "/talks/#{user.talk.id}", 'kimura'
     assert_no_selector '.page-tabs'
   end
+
+  test 'upload PDF to talk comment' do
+    user = users(:kimura)
+    visit_with_auth "/talks/#{user.talk.id}", 'kimura'
+
+    pdf_path = Rails.root.join('test/fixtures/files/users/diplomas/diploma.pdf')
+    find('.new-comment-file-input', visible: false).set(pdf_path)
+
+    assert_field 'js-new-comment', with: /\[diploma\.pdf \(.+ KB\)\]\(http.+diploma\.pdf\)/
+  end
 end
