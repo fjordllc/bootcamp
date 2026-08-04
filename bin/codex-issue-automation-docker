@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+repository_root="$(cd "$(dirname "$0")/.." && pwd)"
+automation_home="${CODEX_AUTOMATION_HOME:-/home/codex-bootcamp}"
+image="${CODEX_AUTOMATION_IMAGE:-bootcamp-codex-automation}"
+container_user="$(id -u):$(id -g)"
+lock_file="$automation_home/runner.lock"
+
+mkdir -p \
+  "$automation_home/config/codex" \
+  "$automation_home/config/gh" \
+  "$automation_home/work"
+touch "$automation_home/config/gitconfig"
+
+exec 9>"$lock_file"
+flock -n 9 || exit 0
+
+docker_arguments=(
+  --rm
+  --user "$container_user"
+  -e HOME=/home/codex
+  -v "$repository_root:/workspace:ro"
+  -v "$automation_home/config/codex:/home/codex/.codex"
+  -v "$automation_home/config/gh:/home/codex/.config/gh"
+  -v "$automation_home/config/gitconfig:/home/codex/.gitconfig"
+  -v "$automation_home/work:/var/lib/codex-bootcamp"
+  -w /workspace
+)
+
+case "${1:-run}" in
+  login-codex)
+    exec docker run -it "${docker_arguments[@]}" "$image" codex login --device-auth
+    ;;
+  login-github)
+    exec docker run -it "${docker_arguments[@]}" "$image" sh -c \
+      'gh auth login --hostname github.com --git-protocol https && gh auth setup-git'
+    ;;
+  run)
+    ;;
+  *)
+    echo "Usage: $0 [run|login-codex|login-github]" >&2
+    exit 1
+    ;;
+esac
+
+network="codex-bootcamp-$$"
+database_container="codex-bootcamp-db-$$"
+
+cleanup() {
+  docker rm -f "$database_container" >/dev/null 2>&1 || true
+  docker network rm "$network" >/dev/null 2>&1 || true
+}
+trap cleanup EXIT
+
+docker network create "$network" >/dev/null
+docker run --detach --rm \
+  --name "$database_container" \
+  --network "$network" \
+  --network-alias db \
+  -e POSTGRES_PASSWORD=postgres \
+  postgres:16-alpine >/dev/null
+
+until docker exec "$database_container" pg_isready -U postgres >/dev/null 2>&1; do
+  sleep 1
+done
+
+docker run \
+  "${docker_arguments[@]}" \
+  --network "$network" \
+  -e DATABASE_URL=postgres://postgres:postgres@db:5432 \
+  "$image"

@@ -4,6 +4,8 @@ require 'test_helper'
 
 class AiIssueAutomationTest < ActiveSupport::TestCase
   RUNNER = Rails.root.join('bin/codex-issue-automation')
+  DOCKER_RUNNER = Rails.root.join('bin/codex-issue-automation-docker')
+  DOCKERFILE = Rails.root.join('.github/codex/Dockerfile')
   PROMPT = Rails.root.join('.github/codex/vps-runner.md')
   README = Rails.root.join('.github/codex/README.md')
   WORKFLOWS_DIR = Rails.root.join('.github/workflows')
@@ -58,7 +60,26 @@ class AiIssueAutomationTest < ActiveSupport::TestCase
     assert_not_includes workflows, 'anthropics/claude-code-action'
   end
 
-  test 'WorkのVPSへ専用ユーザーとcronで導入する手順を記載する' do
+  test 'VPSホストを汚さずDockerで実行する' do
+    assert_path_exists DOCKER_RUNNER
+    assert_path_exists DOCKERFILE
+
+    docker_runner = DOCKER_RUNNER.read
+    dockerfile = DOCKERFILE.read
+
+    assert_includes docker_runner, 'docker run'
+    assert_includes docker_runner, '--user'
+    assert_includes docker_runner, ':ro'
+    assert_includes docker_runner, '/home/codex/.codex'
+    assert_includes docker_runner, '/home/codex/.config/gh'
+    assert_includes docker_runner, '/home/codex/.gitconfig'
+    assert_includes docker_runner, 'gh auth setup-git'
+    assert_includes docker_runner, 'postgres:16-alpine'
+    assert_not_includes docker_runner, '/var/run/docker.sock'
+    assert_includes dockerfile, 'npm install --global @openai/codex'
+    assert_includes dockerfile, 'apt-get install'
+    assert_includes dockerfile, 'BUNDLE_PATH=/var/lib/codex-bootcamp/bundle'
+
     readme = README.read
 
     assert_includes readme, 'work.comagata.org'
@@ -68,6 +89,8 @@ class AiIssueAutomationTest < ActiveSupport::TestCase
     assert_includes readme, '*/5 * * * *'
     assert_includes readme, '専用ユーザー'
     assert_includes readme, 'Workアプリ'
+    assert_includes readme, 'Docker'
+    assert_not_includes readme, 'Ruby、Node.js、PostgreSQL、Chrome等を導入'
     assert_not_includes readme, 'OPENAI_API_KEY'
     assert_not_includes readme, 'ANTHROPIC_API_KEY'
   end
