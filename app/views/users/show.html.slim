@@ -34,7 +34,7 @@
     .container(class="#{visible_learning_time_frames?(@user) ? 'is-xxl' : 'is-xl'}")
       .row
         .col-xs-12(class="#{visible_learning_time_frames?(@user) ? 'col-lg-4 col-xxl-5' : 'col-lg-6 col-xxl-6'}")
-          .page-content.is-user
+          article.page-content.is-user
             = render 'users/profile', user: @user
             .card-counts.is-user
               = render 'users/activity_counts', user: @user
@@ -51,7 +51,7 @@
                   = render 'users/metas', user: @user, user_course_practice: UserCoursePractice.new(@user)
 
             - if admin_or_mentor_login?
-              .a-card.is-only-mentor
+              section.a-card.is-only-mentor
                 header.card-header.is-sm
                   h2.card-header__title
                     | ユーザー非公開情報
@@ -81,8 +81,8 @@
             - cache [@user, @completed_learnings] do
               = render '/users/practices/completed_practices', user: @user, completed_learnings: @completed_learnings
           - if admin_login?
-            .a-card.is-only-mentor
-              .card-header.is-sm
+            section.a-card.is-only-mentor
+              header.card-header.is-sm
                 h2.card-header__title
                   | ステータス変更
               hr.a-border-tint
@@ -104,8 +104,8 @@
                     = link_to 'このユーザーを削除する', admin_user_path(@user), method: :delete, id: "delete-#{@user.id}", class: 'a-muted-text-link',
                       data: { confirm: '本当によろしいですか？この操作はデータを削除するため元に戻すことができません。' }
           - if admin_login?
-            .a-card.is-only-mentor
-              .card-header.is-sm
+            section.a-card.is-only-mentor
+              header.card-header.is-sm
                 h2.card-header__title
                   | 卒業後の進路
                   | （#{t("activerecord.enums.user.career_path.#{@user.career_path}")}）

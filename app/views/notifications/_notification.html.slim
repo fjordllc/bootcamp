@@ -1,6 +1,6 @@
 - read_class = notification.read? ? 'is-read' : 'is-unread'
 
-.card-list-item class=read_class
+article.card-list-item class=read_class
   .card-list-item__inner
     .card-list-item__user
       = link_to user_path(notification.sender), class: 'card-list-item__user-link' do

@@ -26,7 +26,7 @@ main.page-main
   .page-body
     .page-body__inner.has-side-nav
       .container.is-md
-        .page-content
+        article.page-content
           header.page-content-header
             .page-content-header__end
               .page-content-header__row
@@ -48,13 +48,13 @@ main.page-main
                         = link_to admin_faq_category_faqs_path(@faq.faq_category) do
                           = t("faq.#{FAQCategory.find_by(id: @faq.faq_category_id).name}")
 
-          .a-card
+          article.a-card
             .card-body
               .card-body__description
                 .a-long-text.js-markdown-view
                   = @faq.answer
             hr.a-border-tint
-            .card-footer
+            footer.card-footer
               .card-main-actions
                 .card-main-actions__items
                   .card-main-actions__item
@@ -62,7 +62,7 @@ main.page-main
                       i.fa-solid.fa-pen
                       | 内容修正
 
-      nav.a-side-nav
+      nav.a-side-nav aria-label="同じカテゴリのFAQ"
         .a-side-nav__inner
           header.a-side-nav__header
             h2.a-side-nav__title

@@ -10,7 +10,7 @@
   hr.a-border
   = questions_sub_tabs
 
-  nav.page-filter.form
+  nav.page-filter.form aria-label="質問絞り込み"
     .container.is-md
       = form_with url: questions_path, method: 'get', local: true
         .form-item.is-inline-md-up
@@ -43,7 +43,7 @@
           .page-body__column.is-main
             = render 'questions/questions', questions: @questions, empty_message: @questions_property.empty_message
       - if @tags.any?
-        nav.a-side-nav
+        nav.a-side-nav aria-label="質問タグ一覧"
           .a-side-nav__inner
             header.a-side-nav__header
               h2.a-side-nav__title

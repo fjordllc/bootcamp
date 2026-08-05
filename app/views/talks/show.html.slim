@@ -12,7 +12,7 @@
   .container.is-xxl
     .row(class='!justify-center')
       .col-xl-7.col-xs-12
-        .talk.page-content
+        article.talk.page-content
           header.page-content-header
             .page-content-header__start
               .page-content-header__user
@@ -43,8 +43,8 @@
                       | ここは#{@user.login_name}さんと管理者のみが閲覧することのできる相談部屋です。
                       | 就職に関することや受講に関することなど、何か相談したいことがある場合にお気軽にコメントをしてください。
 
-              .a-card
-                .card-header.is-sm
+              section.a-card
+                header.card-header.is-sm
                   h2.page-content-members__title
                     | 相談部屋にアクセスできるメンバー
                 hr.a-border-tint
@@ -65,10 +65,10 @@
 
       - if current_user.admin?
         .col-xl-5.col-xs-12
-          .side-tabs
+          aside.side-tabs
             input.a-toggle-checkbox#side-tabs-1 type='radio' name='side-tabs-contents' checked='checked'
             input.a-toggle-checkbox#side-tabs-2 type='radio' name='side-tabs-contents'
-            .side-tabs-nav
+            nav.side-tabs-nav aria-label="ユーザー関連情報"
               .side-tabs-nav__items
                 .side-tabs-nav__item
                   label.side-tabs-nav__item-link#side-tabs-nav-1 for='side-tabs-1'

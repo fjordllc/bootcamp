@@ -58,7 +58,7 @@ hr.a-border
                   .page-content-header-actions__action
                     = link_to '複製', new_announcement_path(id: @announcement), class: 'a-button is-sm is-secondary is-block', id: 'copy'
 
-        .a-card
+        article.a-card
           .card-body
             .card-body__description
               .a-long-text.is-md.js-markdown-view
@@ -66,7 +66,7 @@ hr.a-border
           hr.a-border-tint
           = render 'reactions/reactions', reactionable: @announcement
           hr.a-border-tint
-          .card-footer
+          footer.card-footer
             .card-main-actions
               ul.card-main-actions__items(class="#{@announcement.published_at ? 'is-sub-actions' : ''}")
                 - if @announcement.published_at

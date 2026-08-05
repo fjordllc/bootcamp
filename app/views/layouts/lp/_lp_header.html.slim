@@ -6,7 +6,7 @@ header.lp-header
           = link_to current_user ? welcome_path : root_path, class: 'lp-header__home-link' do
             = image_tag('shared/logo-horizontal.svg', alt: 'プログラミングスクール', class: 'lp-header__home-link-image')
         input.a-toggle-checkbox#welcome-mobile-nav(type='checkbox')
-        nav.lp-header-nav
+        nav.lp-header-nav aria-label="メインナビゲーション"
           ul.lp-header-nav__items
             li.lp-header-nav__item
               = link_to (current_user ? welcome_path : root_path), class: 'lp-header-nav__item-link' do

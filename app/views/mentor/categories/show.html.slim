@@ -48,8 +48,8 @@ header.page-header
                             | URLスラッグ
                           .a-meta__value
                             = @category.slug
-            .a-card
-              .card-header.is-sm
+            section.a-card
+              header.card-header.is-sm
                 h2.card-header__title
                   | 説明
               hr.a-border-tint
@@ -58,7 +58,7 @@ header.page-header
                   .a-long-text.is-md.js-markdown-view
                     = @category.description
               hr.a-border-tint
-              .card-footer
+              footer.card-footer
                 .card-main-actions
                   ul.card-main-actions__items
                     li.card-main-actions__item
@@ -68,15 +68,15 @@ header.page-header
                     li.card-main-actions__item.is-sub
                       = link_to '削除', mentor_category_path(@category), method: :delete, data: { confirm: '本当によろしいですか？' }, class: 'card-main-actions__muted-action'
 
-            .page-content-prev-next
+            nav.page-content-prev-next aria-label="カテゴリーナビゲーション"
               .page-content-prev-next__item
               .page-content-prev-next__item
                 = link_to mentor_categories_path, class: 'page-content-prev-next__item-link is-index' do
                   | カテゴリー一覧
               .page-content-prev-next__item
         .col-xl-5.col-xs-12
-          .card-list.a-card
-            .card-header.is-sm
+          section.card-list.a-card
+            header.card-header.is-sm
               h2.card-header__title
                 | プラクティス
                 | （#{@category.practices.count}）
@@ -84,7 +84,7 @@ header.page-header
             - if @category.practices.present?
               .card-list__items
                 - @category.practices.each do |practice|
-                  .card-list-item(id="practice_#{practice.id}")
+                  article.card-list-item(id="practice_#{practice.id}")
                     .card-list-item__inner
                       .card-list-item__rows
                         .card-list-item__row

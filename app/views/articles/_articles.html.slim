@@ -5,7 +5,7 @@ header.lp-page-header
         h1.lp-page-header__title
           = title
       .lp-page-header__end
-        nav.lp-page-header-nav
+        nav.lp-page-header-nav aria-label="ブログメニュー"
           ul.lp-page-header-nav__items
             - if current_user&.mentor?
               .lp-page-header-nav__item
@@ -27,7 +27,7 @@ header.lp-page-header
       hr.a-border
     .articles__body
       - if current_user&.admin_or_mentor_login?
-        nav.pill-nav.mb-8
+        nav.pill-nav.mb-8 aria-label="記事公開状態"
           .pill-nav__items
             .pill-nav__item
               = link_to articles_path, class: "pill-nav__item-link#{is_published ? ' is-active' : ''}" do
@@ -41,7 +41,7 @@ header.lp-page-header
           .row
             - articles.each do |article|
               .col-lg-4.col-md-6.col-xs-12
-                .thumbnail-card.a-card class=(article.wip? ? ' is-wip' : '')
+                article.thumbnail-card.a-card class=(article.wip? ? ' is-wip' : '')
                   = link_to article, class: 'thumbnail-card__inner' do
                     - if current_user&.admin_or_mentor_login? && feature_tag?(article)
                       .tags-highlight
@@ -67,12 +67,14 @@ header.lp-page-header
                             = image_tag article.user.avatar_url
                             = article.user.login_name
                         .thumbnail-card__meta
-                          .thumbnail-card__date
-                            - if article.wip?
-                              = '執筆中'
-                            - elsif article.published_at.nil?
+                          - if article.wip?
+                            .thumbnail-card__date
+                              | 執筆中
+                          - elsif article.published_at.nil?
+                            time.thumbnail-card__date datetime=article.created_at.iso8601
                               = l(article.created_at)
-                            - else
+                          - else
+                            time.thumbnail-card__date datetime=article.published_at.iso8601
                               = l(article.published_at)
                     .thumbnail-card__row
                       .a-tags
