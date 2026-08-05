@@ -30,7 +30,7 @@ class ActiveSupport::TestCase
   include VCRHelper
 
   # Parallel testing configuration:
-  # - CI: Disabled - CircleCI handles parallelism via its own parallelism setting
+  # - CI: Disabled - GitHub Actions handles parallelism with test shards
   # - Local: Disabled - DRb/fork causes test hangs (Rails issue #55513)
   # To enable parallel tests locally, use: PARALLEL_WORKERS=4 bin/rails test
   parallelize(workers: ENV.fetch('PARALLEL_WORKERS', 1).to_i)
