@@ -44,5 +44,6 @@ class TalksTest < ApplicationSystemTestCase
     find('.new-comment-file-input', visible: false).set(pdf_path)
 
     assert_field 'js-new-comment', with: /\[diploma\.pdf \(.+ KB\)\]\(http.+diploma\.pdf\)/
+    assert_no_field 'js-new-comment', with: /undefined/
   end
 end
