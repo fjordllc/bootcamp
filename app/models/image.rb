@@ -7,7 +7,9 @@ class Image < ApplicationRecord
   validates :image, attached: true
 
   def image=(attachable)
-    MiniMagick::Image.new(attachable.tempfile.path).strip if attachable.respond_to?(:tempfile)
+    if attachable.respond_to?(:tempfile) && Marcel::MimeType.for(attachable.tempfile).start_with?('image/')
+      MiniMagick::Image.new(attachable.tempfile.path).strip
+    end
     super
   end
 end
