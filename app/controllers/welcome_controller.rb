@@ -22,6 +22,8 @@ class WelcomeController < ApplicationController
     @faqs = faqs_for(FAQ_CATEGORY_NAME_FOR_JOB_SUPPORT)
   end
 
+  def team_development; end
+
   def pricing; end
 
   def faq
