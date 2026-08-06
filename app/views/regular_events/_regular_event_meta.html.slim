@@ -1,4 +1,6 @@
-.event-meta.a-card
+.event-meta.a-card.overflow-hidden
+  .event-thumbnail
+    = image_tag regular_event.thumbnail_url, class: 'event-thumbnail__image', alt: regular_event.title
   .event-meta__inner
     dl.event-meta__items
       .event-meta__item
