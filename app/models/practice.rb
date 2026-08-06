@@ -25,6 +25,12 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
            source: :user
   has_many :skipped_practices, dependent: :destroy
   has_many :products, dependent: :destroy
+
+  has_one :template, as: :templatable, dependent: :destroy
+  accepts_nested_attributes_for :template, update_only: true, allow_destroy: true
+
+  before_validation :mark_blank_template_for_destruction
+
   has_many :questions, dependent: :nullify
   has_many :pages,
            -> { order(updated_at: :desc, id: :desc) },
@@ -76,6 +82,10 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
       .preload(:categories, :submission_answer, :practice_quiz)
       .order(:id)
   }
+
+  def mark_blank_template_for_destruction
+    template&.mark_for_destruction if template&.description.blank?
+  end
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[title description goal created_at updated_at last_updated_user_id submission]
