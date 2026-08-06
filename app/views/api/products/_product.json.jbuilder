@@ -1,5 +1,4 @@
 json.id product.id
-json.body product.body
 json.checker_id product.checker_id
 json.checker_name product.checker_name
 json.checker_avatar product.checker_avatar
@@ -37,9 +36,7 @@ json.user do
 end
 
 json.practice do
-  json.id product.practice.id
   json.title product.practice.title
-  json.description product.practice.description
 end
 
 json.comments do
@@ -55,34 +52,13 @@ json.comments do
       json.primary_role user.primary_role
       json.joining_status user.joining_status
     end
-
-    json.list product.comments do |comment|
-      json.id comment.id
-      json.description comment.description
-      json.created_at comment.created_at
-      json.updated_at comment.updated_at
-
-      json.user do
-        json.partial! 'api/users/user', user: comment.user
-      end
-    end
   end
 end
 
 json.checks do
   json.size product.checks.size
-
   if product.checks.size > 0
     json.last_created_at l(product.checks.last.created_at.to_date, format: :short)
     json.last_user_login_name product.checks.last.user.login_name
-  end
-
-  json.list product.checks do |check|
-    json.id check.id
-    json.user do
-      json.id check.user.id
-      json.login_name check.user.login_name
-    end
-    json.created_at check.created_at
   end
 end
