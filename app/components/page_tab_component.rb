@@ -13,4 +13,8 @@ class PageTabComponent < ViewComponent::Base
   private
 
   attr_reader :name, :link, :active, :enable, :count, :badge
+
+  def bookmark_tab?
+    name == 'ブックマーク'
+  end
 end
