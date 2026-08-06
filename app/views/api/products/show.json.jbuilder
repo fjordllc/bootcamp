@@ -4,6 +4,7 @@ json.body @product.body
 
 json.practice do
   json.id @product.practice.id
+  json.title @product.practice.title
   json.description @product.practice.description
 end
 
