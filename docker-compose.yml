@@ -20,6 +20,9 @@ services:
     environment:
       BINDING: 0.0.0.0
       DATABASE_URL: postgres://postgres:postgres@db:5432
+      STRIPE_PUBLIC_KEY: ${STRIPE_PUBLIC_KEY:-}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-}
+      STRIPE_ENDPOINT_SECRET: ${STRIPE_ENDPOINT_SECRET:-}
       HISTFILE: /workspace/log/.bash_history
     volumes:
       - .:/workspace
