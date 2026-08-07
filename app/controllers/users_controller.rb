@@ -73,7 +73,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     @user.uploaded_avatar = user_params[:avatar]
     @user.unsubscribe_email_token = SecureRandom.urlsafe_base64
 
-    if @user.staff? || @user.trainee?
+    if UserStatus.new(@user).staff? || @user.trainee?
       create_free_user!
     else
       create_user!
@@ -166,7 +166,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
         UserMailer.welcome(@user).deliver_now
         notify_to_mentors(@user)
         notify_to_chat(@user)
-        ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.student?
+        ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if UserStatus.new(@user).student?
         send_affiliate_kickback(@user)
         flash[:x_conversion] = 'signup'
         flash[:signup_email] = @user.email

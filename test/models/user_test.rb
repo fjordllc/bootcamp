@@ -14,18 +14,18 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '#hibernated?' do
-    assert users(:kyuukai).hibernated?
-    assert_not users(:hatsuno).hibernated?
+    assert UserStatus.new(users(:kyuukai)).hibernated?
+    assert_not UserStatus.new(users(:hatsuno)).hibernated?
   end
 
   test '#training_completed?' do
-    assert users(:kensyuowata).training_completed?
-    assert_not users(:kensyu).training_completed?
+    assert UserStatus.new(users(:kensyuowata)).training_completed?
+    assert_not UserStatus.new(users(:kensyu)).training_completed?
   end
 
   test '#retired?' do
-    assert users(:yameo).retired?
-    assert_not users(:komagata).retired?
+    assert UserStatus.new(users(:yameo)).retired?
+    assert_not UserStatus.new(users(:komagata)).retired?
   end
 
   test '#active?' do
@@ -471,8 +471,8 @@ class UserTest < ActiveSupport::TestCase
       sent_student_followup_message: false
     )
 
-    assert over29days_registered_student.after_twenty_nine_days_registration?
-    assert_not recently_registered_student.after_twenty_nine_days_registration?
+    assert UserStatus.new(over29days_registered_student).after_twenty_nine_days_registration?
+    assert_not UserStatus.new(recently_registered_student).after_twenty_nine_days_registration?
   end
 
   test '#followup_message_target?' do
@@ -494,10 +494,10 @@ class UserTest < ActiveSupport::TestCase
     nottarget = users(:komagata)
     otameshi = users(:otameshi)
     hibernated = users(:kyuukai)
-    assert target.followup_message_target?
-    assert_not nottarget.followup_message_target?
-    assert_not otameshi.followup_message_target?
-    assert_not hibernated.followup_message_target?
+    assert UserStatus.new(target).followup_message_target?
+    assert_not UserStatus.new(nottarget).followup_message_target?
+    assert_not UserStatus.new(otameshi).followup_message_target?
+    assert_not UserStatus.new(hibernated).followup_message_target?
   end
 
   test '#mark_message_as_sent_for_hibernated_student' do

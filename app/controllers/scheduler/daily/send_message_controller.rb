@@ -11,7 +11,7 @@ class Scheduler::Daily::SendMessageController < SchedulerController
 
   def sent_student_followup_message
     User.students.find_each do |student|
-      next unless student.followup_message_target?
+      next unless UserStatus.new(student).followup_message_target?
 
       CreateFollowupComment.call(student: student)
     end

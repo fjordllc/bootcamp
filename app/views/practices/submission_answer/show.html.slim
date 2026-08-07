@@ -28,7 +28,7 @@ ruby:
       .page-body__row
         .container.is-lg
           = render 'description', submission_answer: @submission_answer
-      - if current_user.admin_or_mentor?
+      - if UserStatus.new(current_user).admin_or_mentor?
         .page-body__row
           .container.is-lg
             = render 'admin_or_mentor_menu', practice: @practice, submission_answer: @submission_answer

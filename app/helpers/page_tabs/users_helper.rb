@@ -4,7 +4,7 @@ module PageTabs
   module UsersHelper
     def user_page_tabs(user, active_tab:)
       comment_count = user.comments.without_private_comment.length
-      unchecked_report_badge = current_user.admin_or_mentor? ? Cache.user_unchecked_report_count(user) : nil
+      unchecked_report_badge = UserStatus.new(current_user).admin_or_mentor? ? Cache.user_unchecked_report_count(user) : nil
       tabs = []
       tabs << { name: 'プロフィール', link: user_path(user) }
       tabs << { name: 'ポートフォリオ', link: user_portfolio_path(user) }

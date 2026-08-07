@@ -75,7 +75,7 @@ class PairWork < ApplicationRecord
   end
 
   def self.unsolved_badge(current_user:)
-    return nil if !current_user.admin_or_mentor?
+    return nil if !UserStatus.new(current_user).admin_or_mentor?
 
     ::Cache.not_solved_pair_work_count
   end

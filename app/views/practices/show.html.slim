@@ -152,7 +152,7 @@
           - if @practice.coding_tests.present?
             = render partial: 'coding_tests', locals: { coding_tests: @practice.coding_tests }
 
-          - if current_user.admin_or_mentor?
+          - if UserStatus.new(current_user).admin_or_mentor?
             = render 'memo', practice: @practice
 
             .a-card.is-only-mentor

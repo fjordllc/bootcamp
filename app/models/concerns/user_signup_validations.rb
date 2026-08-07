@@ -20,7 +20,7 @@ module UserSignupValidations
                             }
     end
 
-    with_options if: -> { !staff? && !validation_context.in?(%i[reset_password retirement training_completion]) } do
+    with_options if: -> { !UserStatus.new(self).staff? && !validation_context.in?(%i[reset_password retirement training_completion]) } do
       validates :job, presence: true
     end
 

@@ -100,7 +100,7 @@ module UsersHelper
   end
 
   def visible_learning_time_frames?(user)
-    !user.graduated? && user.learning_time_frames.exists?
+    !UserStatus.new(user).graduated? && user.learning_time_frames.exists?
   end
 
   def event_navs(user)

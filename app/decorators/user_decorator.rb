@@ -46,7 +46,7 @@ module UserDecorator
   end
 
   def enrollment_period
-    if graduated?
+    if UserStatus.new(self).graduated?
       if elapsed_days.positive?
         tag.span(" (#{l graduated_on}卒業 #{elapsed_days}日) ") + tag.a("#{generation}期生", href: generation_path(generation))
       else

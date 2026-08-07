@@ -1,4 +1,4 @@
-- if user.student_or_trainee?
+- if UserStatus.new(user).student_or_trainee?
   .card-counts.is-users(class='!mt-3')
     dl.card-counts__items
       .card-counts__item

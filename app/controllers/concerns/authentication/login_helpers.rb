@@ -25,10 +25,10 @@ module Authentication::LoginHelpers
   end
 
   def admin_or_mentor_login?
-    logged_in? && current_user.admin_or_mentor?
+    logged_in? && UserStatus.new(current_user).admin_or_mentor?
   end
 
   def inactive_login?
-    logged_in? && current_user.inactive?
+    logged_in? && UserStatus.new(current_user).inactive?
   end
 end
