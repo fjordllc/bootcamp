@@ -20,13 +20,17 @@ json.comments do
   end
 end
 
-json.checks do
-  json.list @product.checks do |check|
+check = @product.checks.first
+
+if check
+  json.check do
     json.id check.id
+
     json.user do
       json.id check.user.id
       json.login_name check.user.login_name
     end
+
     json.created_at check.created_at
   end
 end
