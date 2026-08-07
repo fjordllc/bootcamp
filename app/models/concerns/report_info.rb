@@ -3,25 +3,6 @@
 module ReportInfo
   extend ActiveSupport::Concern
 
-  def depressed?
-    reported_reports = reports.order(reported_on: :desc).limit(User::DEPRESSED_SIZE)
-    reported_reports.size == User::DEPRESSED_SIZE && reported_reports.all?(&:negative?)
-  end
-
-  def raw_last_negative_report_id
-    reports.where(emotion: 'negative')
-           .order(reported_on: :desc)
-           .limit(1)
-           .pluck(:id)
-           .try(:first)
-  end
-
-  def update_negative_streak
-    self.negative_streak = depressed?
-    self.last_negative_report_id = raw_last_negative_report_id
-    save!(validate: false)
-  end
-
   def wip_exists?
     pages.wip.exists? || reports.wip.exists? || questions.wip.exists? ||
       products.wip.exists? || announcements.wip.exists? || events.wip.exists?
