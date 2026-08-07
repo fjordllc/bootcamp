@@ -51,7 +51,7 @@ class ReportNotifier
   def notify_followers(report)
     report.user.followers.each do |follower|
       ActivityDelivery.with(sender: report.user, receiver: follower, report:).notify(:following_report)
-      create_following_watch(report, follower) if follower.watching?(report.user)
+      create_following_watch(report, follower) if UserFollows.new(follower).watching?(report.user)
     end
   end
 

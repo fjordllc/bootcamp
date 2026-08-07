@@ -96,7 +96,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
 
   def fetch_target_users
     if @target == 'followings'
-      current_user.followees_list(watch: @watch)
+      UserFollows.new(current_user).followees_list(watch: @watch)
     elsif @entered_tag
       User.active_tagged_with(@entered_tag)
     else

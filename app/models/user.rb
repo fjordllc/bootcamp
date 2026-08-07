@@ -44,7 +44,6 @@ class User < ApplicationRecord
   include UserSimpleQueryScopes
   include UserComplexQueryScopes
   include AvatarAttachable
-  include FollowerAndWatcher
   include Comebackable
   include Billable
   include UserStatusCheck

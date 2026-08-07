@@ -54,8 +54,8 @@ module UsersHelper
   end
 
   def button_label(user)
-    if current_user.following?(user)
-      current_user.watching?(user) ? 'コメントあり' : 'コメントなし'
+    if UserFollows.new(current_user).following?(user)
+      UserFollows.new(current_user).watching?(user) ? 'コメントあり' : 'コメントなし'
     else
       'フォローする'
     end

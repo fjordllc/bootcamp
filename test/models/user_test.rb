@@ -286,49 +286,49 @@ class UserTest < ActiveSupport::TestCase
   test '#follow' do
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)
-    kimura.follow(hatsuno, watch: true)
+    UserFollows.new(kimura).follow(hatsuno, watch: true)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id, watch: true)
   end
 
   test '#change_watching' do
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)
-    kimura.follow(hatsuno, watch: true)
+    UserFollows.new(kimura).follow(hatsuno, watch: true)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id, watch: true)
-    kimura.change_watching(hatsuno, false)
+    UserFollows.new(kimura).change_watching(hatsuno, false)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id, watch: false)
   end
 
   test '#unfollow' do
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)
-    kimura.follow(hatsuno, watch: true)
+    UserFollows.new(kimura).follow(hatsuno, watch: true)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
-    kimura.unfollow(hatsuno)
+    UserFollows.new(kimura).unfollow(hatsuno)
     assert_nil Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
   end
 
   test '#following' do
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)
-    kimura.following?(hatsuno)
-    assert_not kimura.following?(hatsuno)
-    kimura.follow(hatsuno, watch: true)
-    kimura.following?(hatsuno)
-    assert kimura.following?(hatsuno)
+    UserFollows.new(kimura).following?(hatsuno)
+    assert_not UserFollows.new(kimura).following?(hatsuno)
+    UserFollows.new(kimura).follow(hatsuno, watch: true)
+    UserFollows.new(kimura).following?(hatsuno)
+    assert UserFollows.new(kimura).following?(hatsuno)
   end
 
   test '#auto_watching' do
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)
-    kimura.following?(hatsuno)
-    assert_not kimura.watching?(hatsuno)
-    kimura.follow(hatsuno, watch: false)
-    kimura.following?(hatsuno)
-    assert_not kimura.watching?(hatsuno)
-    kimura.change_watching(hatsuno, true)
-    kimura.following?(hatsuno)
-    assert kimura.watching?(hatsuno)
+    UserFollows.new(kimura).following?(hatsuno)
+    assert_not UserFollows.new(kimura).watching?(hatsuno)
+    UserFollows.new(kimura).follow(hatsuno, watch: false)
+    UserFollows.new(kimura).following?(hatsuno)
+    assert_not UserFollows.new(kimura).watching?(hatsuno)
+    UserFollows.new(kimura).change_watching(hatsuno, true)
+    UserFollows.new(kimura).following?(hatsuno)
+    assert UserFollows.new(kimura).watching?(hatsuno)
   end
 
   test '#followees_list ' do
@@ -336,22 +336,22 @@ class UserTest < ActiveSupport::TestCase
     hatsuno = users(:hatsuno)
     hajime = users(:hajime)
     mentormentaro = users(:mentormentaro)
-    kimura.follow(hatsuno, watch: true)
-    kimura.follow(hajime, watch: true)
-    kimura.follow(mentormentaro, watch: false)
-    assert_equal 3, kimura.followees_list.count
-    assert_equal 2, kimura.followees_list(watch: 'true').count
-    assert_equal 1, kimura.followees_list(watch: 'false').count
+    UserFollows.new(kimura).follow(hatsuno, watch: true)
+    UserFollows.new(kimura).follow(hajime, watch: true)
+    UserFollows.new(kimura).follow(mentormentaro, watch: false)
+    assert_equal 3, UserFollows.new(kimura).followees_list.count
+    assert_equal 2, UserFollows.new(kimura).followees_list(watch: 'true').count
+    assert_equal 1, UserFollows.new(kimura).followees_list(watch: 'false').count
   end
 
   test "don't unfollow user when other user unfollow user" do
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)
-    kimura.follow(hatsuno, watch: true)
+    UserFollows.new(kimura).follow(hatsuno, watch: true)
     hajime = users(:hajime)
-    hajime.follow(hatsuno, watch: true)
+    UserFollows.new(hajime).follow(hatsuno, watch: true)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
-    hajime.unfollow(hatsuno)
+    UserFollows.new(hajime).unfollow(hatsuno)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
   end
 
@@ -568,7 +568,7 @@ class UserTest < ActiveSupport::TestCase
 
     assert_not user.watches.exists?(watchable:)
 
-    user.become_watcher!(watchable)
+    UserWatcher.new(user).become_watcher!(watchable)
     assert user.watches.exists?(watchable:)
   end
 
