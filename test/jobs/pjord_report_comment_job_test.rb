@@ -96,15 +96,22 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
   test 'creates a general comment when classification returns nil' do
     report = reports(:report1)
     pjord = users(:pjord)
+    captured_intent = nil
+    comment = lambda do |_report, intent:|
+      captured_intent = intent
+      '今日の取り組みもいいですね。'
+    end
 
     Pjord::ReportClassifierAgent.stub(:classify, nil) do
-      Pjord::ReportCommentAgent.stub(:comment, '今日の取り組みもいいですね。') do
+      Pjord::ReportCommentAgent.stub(:comment, comment) do
         assert_difference -> { Comment.count } => 1,
                           -> { Reaction.where(user: pjord, reactionable: report, kind: :eyes).count } => 1 do
           PjordReportCommentJob.perform_now(report_id: report.id)
         end
       end
     end
+
+    assert_equal 'general', captured_intent
   end
 
   test 'passes report and intent to report comment agent' do
