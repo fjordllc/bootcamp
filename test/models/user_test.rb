@@ -422,23 +422,23 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '#colleagues' do
-    target = users(:kensyu).colleagues
+    target = UserColleagues.new(users(:kensyu)).colleagues
     assert_includes(target, users(:kensyuowata))
-    assert_empty users(:kimura).colleagues
+    assert_empty UserColleagues.new(users(:kimura)).colleagues
   end
 
   test '#colleagues_other_than_self' do
     self_user = users(:kensyu)
-    target = self_user.colleagues_other_than_self
+    target = UserColleagues.new(self_user).colleagues_other_than_self
     assert_includes(target, users(:kensyuowata))
     assert_not_includes(target, self_user)
   end
 
   test '#colleague_trainees' do
-    target = users(:senpai).colleague_trainees
+    target = UserColleagues.new(users(:senpai)).colleague_trainees
     assert_includes(target, users(:kensyu))
-    assert_empty users(:kimura).colleague_trainees
-    assert_empty users(:advijirou).colleague_trainees
+    assert_empty UserColleagues.new(users(:kimura)).colleague_trainees
+    assert_empty UserColleagues.new(users(:advijirou)).colleague_trainees
   end
 
   test '#after_twenty_nine_days_registration?' do
@@ -518,19 +518,19 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '#country_name' do
-    assert_equal '日本', users(:kimura).country_name
-    assert_equal '米国', users(:tom).country_name
+    assert_equal '日本', UserRegion.new(users(:kimura)).country_name
+    assert_equal '米国', UserRegion.new(users(:tom)).country_name
   end
 
   test '#subdivision_name' do
-    assert_equal '東京都', users(:kimura).subdivision_name
-    assert_equal 'ニューヨーク州', users(:tom).subdivision_name
+    assert_equal '東京都', UserRegion.new(users(:kimura)).subdivision_name
+    assert_equal 'ニューヨーク州', UserRegion.new(users(:tom)).subdivision_name
   end
 
   test '#subdivision_codes' do
-    assert_equal ISO3166::Country['JP'].subdivisions.keys, users(:kimura).subdivision_codes
-    assert_equal ISO3166::Country['US'].subdivisions.keys, users(:tom).subdivision_codes
-    assert_empty users(:yameo).subdivision_codes
+    assert_equal ISO3166::Country['JP'].subdivisions.keys, UserRegion.new(users(:kimura)).subdivision_codes
+    assert_equal ISO3166::Country['US'].subdivisions.keys, UserRegion.new(users(:tom)).subdivision_codes
+    assert_empty UserRegion.new(users(:yameo)).subdivision_codes
   end
 
   test 'country_code and subdivision_code must be valid ISO 3166-1 and 3166-2 code' do
@@ -640,9 +640,9 @@ class UserTest < ActiveSupport::TestCase
     tokyo_user = users(:machida)
     america_user = users(:tom)
     no_area_user = users(:komagata)
-    assert_equal '東京都', tokyo_user.area
-    assert_equal '米国', america_user.area
-    assert_nil no_area_user.area
+    assert_equal '東京都', UserRegion.new(tokyo_user).area
+    assert_equal '米国', UserRegion.new(america_user).area
+    assert_nil UserRegion.new(no_area_user).area
   end
 
   test 'clear_github_data should clear GitHub related fields' do

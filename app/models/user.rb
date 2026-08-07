@@ -48,8 +48,6 @@ class User < ApplicationRecord
   include Comebackable
   include Billable
   include UserStatusCheck
-  include Colleagues
-  include Region
   include EventParticipatable
   include PracticeInfo
   include ReportInfo
@@ -89,6 +87,10 @@ class User < ApplicationRecord
 
   def search_title
     login_name
+  end
+
+  def belongs_company_and_adviser?
+    adviser? && company_id?
   end
 
   private

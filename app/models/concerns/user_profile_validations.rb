@@ -23,6 +23,6 @@ module UserProfileValidations
 
     validates :country_code, inclusion: { in: ISO3166::Country.codes }, allow_nil: true
 
-    validates :subdivision_code, inclusion: { in: ->(user) { user.subdivision_codes } }, allow_nil: true, if: -> { country_code.present? }
+    validates :subdivision_code, inclusion: { in: ->(user) { UserRegion.new(user).subdivision_codes } }, allow_nil: true, if: -> { country_code.present? }
   end
 end

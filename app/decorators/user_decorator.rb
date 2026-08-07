@@ -66,9 +66,9 @@ module UserDecorator
 
   def address
     if country_code.present? && subdivision_code.present?
-      "#{subdivision_name} (#{country_name})"
+      "#{UserRegion.new(self).subdivision_name} (#{UserRegion.new(self).country_name})"
     elsif country_code.present? && subdivision_code.blank?
-      country_name
+      UserRegion.new(self).country_name
     end
   end
 
