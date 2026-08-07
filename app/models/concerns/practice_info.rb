@@ -3,10 +3,6 @@
 module PracticeInfo
   extend ActiveSupport::Concern
 
-  def submitted?(coding_test)
-    coding_test_submissions.exists?(coding_test_id: coding_test.id)
-  end
-
   def elapsed_days
     if graduated_on.present?
       (graduated_on.to_date - created_at.to_date).to_i
