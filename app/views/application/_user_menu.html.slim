@@ -12,7 +12,7 @@
       = link_to edit_current_user_path,
         class: 'header-dropdown__item-link' do
         | 登録情報変更
-    - if current_user.card?
+    - if UserBilling.new(current_user).card?
         li.header-dropdown__item
           = link_to 'お支払い情報',
             billing_portal_path,

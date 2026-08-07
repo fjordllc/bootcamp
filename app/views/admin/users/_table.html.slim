@@ -115,7 +115,7 @@
             - else
               | -
           td.admin-table__item-value(class='!text-center')
-            - if user.card?
+            - if UserBilling.new(user).card?
               = link_to user.customer_url,
                 class: 'a-button is-sm is-success is-icon',
                 target: '_blank', rel: 'noopener' do

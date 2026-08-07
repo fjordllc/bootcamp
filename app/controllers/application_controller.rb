@@ -40,11 +40,11 @@ class ApplicationController < ActionController::Base
   end
 
   def require_card
-    redirect_to root_path, notice: 'カード登録が必要です。' unless current_user&.card?
+    redirect_to root_path, notice: 'カード登録が必要です。' unless current_user && UserBilling.new(current_user).card?
   end
 
   def require_subscription
-    redirect_to root_path, notice: 'サブスクリプション登録が必要です。' unless current_user&.subscription?
+    redirect_to root_path, notice: 'サブスクリプション登録が必要です。' unless current_user && UserBilling.new(current_user).subscription?
   end
 
   def require_scheduler_inheritation

@@ -45,7 +45,6 @@ class User < ApplicationRecord
   include UserComplexQueryScopes
   include AvatarAttachable
   include Comebackable
-  include Billable
   include PracticeInfo
   include ReportInfo
   include UserContentAssociations
