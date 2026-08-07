@@ -7,7 +7,7 @@ workspace="${CODEX_AUTOMATION_WORKSPACE:-/var/lib/codex-bootcamp}"
 lock_file="${CODEX_AUTOMATION_LOCK_FILE:-/tmp/codex-bootcamp.lock}"
 prompt_path=".github/codex/vps-runner.md"
 
-for required_command in flock gh git codex mktemp; do
+for required_command in flock gh git codex grep mktemp; do
   command -v "$required_command" >/dev/null || {
     echo "Required command not found: $required_command" >&2
     exit 1
@@ -33,7 +33,7 @@ issue_count="$(
     --json number \
     --jq length
 )"
-pr_count="$(
+managed_pr_count="$(
   gh pr list \
     --repo "$repository" \
     --state open \
@@ -43,7 +43,35 @@ pr_count="$(
     --jq '[.[] | select(.headRefName | startswith("ai/issue-"))] | length'
 )"
 
-if [ "$issue_count" = "0" ] && [ "$pr_count" = "0" ]; then
+command_pr_count=0
+while IFS= read -r pr_number; do
+  [ -n "$pr_number" ] || continue
+
+  command_comment_ids="$(
+    gh api --paginate "repos/$repository/issues/$pr_number/comments?per_page=100" \
+      --jq '.[] | select(.body | contains("<!-- codex-command-response:") | not) | select(.body | test("(^|[^[:alnum:]_])@codex([^[:alnum:]_]|$)"; "i")) | .id'
+  )"
+  response_comments="$(
+    gh api --paginate "repos/$repository/issues/$pr_number/comments?per_page=100" \
+      --jq '.[] | select(.body | contains("<!-- codex-command-response:")) | .body'
+  )"
+
+  for comment_id in $command_comment_ids; do
+    if ! grep -Fq "codex-command-response:$comment_id" <<< "$response_comments"; then
+      command_pr_count=1
+      break 2
+    fi
+  done
+done < <(
+  gh pr list \
+    --repo "$repository" \
+    --state open \
+    --limit 100 \
+    --json number,headRefName \
+    --jq '.[] | select(.headRefName | startswith("ai/issue-")) | .number'
+)
+
+if [ "$issue_count" = "0" ] && [ "$managed_pr_count" = "0" ] && [ "$command_pr_count" = "0" ]; then
   exit 0
 fi
 
