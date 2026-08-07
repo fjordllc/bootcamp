@@ -31,7 +31,7 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
     assert_response :ok
   end
 
-  test 'GET /api/products/:id.json returns body' do
+  test 'GET /api/products/:id.json returns review information' do
     product = products(:product1)
 
     token = create_token('mentormentaro', 'testtest')
@@ -40,10 +40,18 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
         headers: { 'Authorization' => "Bearer #{token}" }
 
     assert_response :ok
-    assert_equal product.body, response.parsed_body['body']
+
+    json = response.parsed_body
+
+    assert_equal product.body, json['body']
+
+    assert_equal product.practice.id, json['practice']['id']
+    assert_equal product.practice.title, json['practice']['title']
+    assert_equal product.practice.description,
+                 json['practice']['description']
   end
 
-  test 'GET /api/products/:id.json returns check list' do
+  test 'GET /api/products/:id.json returns check information' do
     product = products(:product2)
 
     token = create_token('mentormentaro', 'testtest')
@@ -57,14 +65,13 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
 
     check = checks(:product2_check_komagata)
 
-    assert_equal check.id, json['checks']['list'][0]['id']
-    assert_equal 'komagata', json['checks']['list'][0]['user']['login_name']
-    assert_equal check.created_at.as_json, json['checks']['list'][0]['created_at']
+    assert_equal check.id, json['check']['id']
+    assert_equal 'komagata', json['check']['user']['login_name']
+    assert_equal check.created_at.as_json, json['check']['created_at']
   end
 
-  test 'GET /api/products/:id.json returns comment list' do
+  test 'GET /api/products/:id.json returns comments list' do
     product = products(:product1)
-    comment = comments(:comment10)
 
     token = create_token('mentormentaro', 'testtest')
 
@@ -73,16 +80,15 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
 
     assert_response :ok
 
-    json = JSON.parse(response.body)
+    json = response.parsed_body
 
-    assert_equal comment.id, json['comments']['list'][0]['id']
-    assert_equal comment.description, json['comments']['list'][0]['description']
-    assert_equal comment.created_at.as_json,
-                 json['comments']['list'][0]['created_at']
-    assert_equal comment.updated_at.as_json,
-                 json['comments']['list'][0]['updated_at']
-    assert_equal comment.user.login_name,
-                 json['comments']['list'][0]['user']['login_name']
+    assert_equal 2, json['comments']['list'].size
+
+    assert_equal comments(:comment10).id,
+                 json['comments']['list'][0]['id']
+
+    assert_equal comments(:comment13).id,
+                 json['comments']['list'][1]['id']
   end
 
   test 'returns json error with invalid token' do
@@ -306,23 +312,6 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
 
     assert_response :ok
     assert_equal 'メンターがAPIから更新します。', product.reload.body
-  end
-
-  test 'GET /api/products/:id.json returns practice information' do
-    token = create_token('mentormentaro', 'testtest')
-
-    product = products(:product1)
-
-    get api_product_path(product, format: :json),
-        headers: { 'Authorization' => "Bearer #{token}" }
-
-    assert_response :ok
-
-    json = JSON.parse(response.body)
-
-    assert_equal product.practice.id, json['practice']['id']
-    assert_equal product.practice.title, json['practice']['title']
-    assert_equal product.practice.description, json['practice']['description']
   end
 
   private
