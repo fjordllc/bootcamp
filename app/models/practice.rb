@@ -100,7 +100,7 @@ class Practice < ApplicationRecord
   end
 
   def guide_to_grant_course?(user)
-    user.grant_course? && source_id.blank?
+    UserCourseGrant.new(user).grant_course? && source_id.blank?
   end
 
   def reports_count(include_source: false)

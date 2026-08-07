@@ -7,5 +7,5 @@
 - else
   | 学習開始から
   strong
-    = user.elapsed_days
+    = UserEnrollmentPeriod.new(user).elapsed_days
   | 日目
