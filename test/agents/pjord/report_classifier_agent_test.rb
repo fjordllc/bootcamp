@@ -19,7 +19,8 @@ class Pjord::ReportClassifierAgentTest < ActiveSupport::TestCase
 
     assert_includes chat.instructions, '日報の内容を分類'
     assert_includes chat.instructions, '通常の日報は `general`'
-    assert_includes chat.instructions, '`none` は'
+    assert_not_includes chat.instructions, '`none`'
+    assert_not_includes PjordReportIntent::INTENTS, 'none'
     assert_includes chat.asked_message, report.title
     assert_includes chat.asked_message, report.description
   end
