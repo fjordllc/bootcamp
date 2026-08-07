@@ -93,39 +93,14 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     end
   end
 
-  test 'creates only an eyes reaction when intent is none' do
-    report = reports(:report1)
-    pjord = users(:pjord)
-
-    Pjord::ReportClassifierAgent.stub(:classify, { intent: 'none', reason: '通常の学習記録' }) do
-      assert_difference -> { Reaction.where(user: pjord, reactionable: report, kind: :eyes).count }, 1 do
-        assert_no_difference 'Comment.count' do
-          PjordReportCommentJob.perform_now(report_id: report.id)
-        end
-      end
-    end
-  end
-
-  test 'does not duplicate eyes reaction when intent is none' do
-    report = reports(:report1)
-    pjord = users(:pjord)
-    Reaction.create!(user: pjord, reactionable: report, kind: :eyes)
-
-    Pjord::ReportClassifierAgent.stub(:classify, { intent: 'none', reason: '通常の学習記録' }) do
-      assert_no_difference ['Comment.count',
-                            -> { Reaction.where(user: pjord, reactionable: report, kind: :eyes).count }] do
-        PjordReportCommentJob.perform_now(report_id: report.id)
-      end
-    end
-  end
-
-  test 'creates only an eyes reaction when classification returns nil' do
+  test 'creates a general comment when classification returns nil' do
     report = reports(:report1)
     pjord = users(:pjord)
 
     Pjord::ReportClassifierAgent.stub(:classify, nil) do
-      assert_difference -> { Reaction.where(user: pjord, reactionable: report, kind: :eyes).count }, 1 do
-        assert_no_difference 'Comment.count' do
+      Pjord::ReportCommentAgent.stub(:comment, '今日の取り組みもいいですね。') do
+        assert_difference -> { Comment.count } => 1,
+                          -> { Reaction.where(user: pjord, reactionable: report, kind: :eyes).count } => 1 do
           PjordReportCommentJob.perform_now(report_id: report.id)
         end
       end
@@ -169,42 +144,44 @@ class PjordReportCommentJobTest < ActiveJob::TestCase
     end
   end
 
-  test 'creates only an eyes reaction when response is blank' do
+  test 'retries when response is blank' do
     report = reports(:report1)
     pjord = users(:pjord)
 
     Pjord::ReportClassifierAgent.stub(:classify, { intent: 'question', reason: '質問あり' }) do
       Pjord::ReportCommentAgent.stub(:comment, nil) do
         assert_difference -> { Reaction.where(user: pjord, reactionable: report, kind: :eyes).count }, 1 do
-          assert_no_difference 'Comment.count' do
-            PjordReportCommentJob.perform_now(report_id: report.id)
+          assert_enqueued_jobs 1, only: PjordReportCommentJob do
+            assert_no_difference 'Comment.count' do
+              PjordReportCommentJob.perform_now(report_id: report.id)
+            end
           end
         end
       end
     end
   end
 
-  test 'propagates errors from classify_report so ActiveJob can retry' do
+  test 'retries errors from classify_report' do
     report = reports(:report1)
-    error_classify = ->(**_args) { raise StandardError, 'API error' }
+    error_classify = ->(_report) { raise StandardError, 'API error' }
 
     Pjord::ReportClassifierAgent.stub(:classify, error_classify) do
-      assert_no_difference 'Comment.count' do
-        assert_raises(StandardError) do
+      assert_enqueued_jobs 1, only: PjordReportCommentJob do
+        assert_no_difference 'Comment.count' do
           PjordReportCommentJob.perform_now(report_id: report.id)
         end
       end
     end
   end
 
-  test 'propagates errors from report comment agent so ActiveJob can retry' do
+  test 'retries errors from report comment agent' do
     report = reports(:report1)
     error_comment = ->(_report, intent:) { raise StandardError, 'API error' } # rubocop:disable Lint/UnusedBlockArgument
 
     Pjord::ReportClassifierAgent.stub(:classify, { intent: 'question', reason: '質問あり' }) do
       Pjord::ReportCommentAgent.stub(:comment, error_comment) do
-        assert_no_difference 'Comment.count' do
-          assert_raises(StandardError) do
+        assert_enqueued_jobs 1, only: PjordReportCommentJob do
+          assert_no_difference 'Comment.count' do
             PjordReportCommentJob.perform_now(report_id: report.id)
           end
         end
