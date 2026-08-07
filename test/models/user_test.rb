@@ -30,31 +30,31 @@ class UserTest < ActiveSupport::TestCase
 
   test '#active?' do
     travel_to Time.zone.local(2014, 1, 1, 0, 0, 0) do
-      assert users(:komagata).active?
+      assert UserStatus.new(users(:komagata)).active?
     end
 
     travel_to Time.zone.local(2014, 2, 2, 0, 0, 0) do
-      assert_not users(:machida).active?
+      assert_not UserStatus.new(users(:machida)).active?
     end
 
     travel_to Time.zone.local(2022, 7, 11, 0, 0, 0) do
-      assert users(:neverlogin).active? # 未ログインでも登録したばかりならactive
+      assert UserStatus.new(users(:neverlogin)).active? # 未ログインでも登録したばかりならactive
     end
 
     travel_to Time.zone.local(2022, 8, 12, 0, 0, 0) do
-      assert_not users(:neverlogin).active?
+      assert_not UserStatus.new(users(:neverlogin)).active?
     end
   end
 
   test '#total_learnig_time' do
     user = users(:hatsuno)
-    assert_equal 0, user.total_learning_time
+    assert_equal 0, UserLearningTime.new(user).total
 
     report = Report.new(user_id: user.id, title: 'test', reported_on: '2018-01-01', description: 'test', wip: false)
     report.learning_times << LearningTime.new(started_at: '2018-01-01 00:00:00', finished_at: '2018-01-01 02:00:00')
     report.learning_times << LearningTime.new(started_at: '2018-01-01 23:00:00', finished_at: '2018-01-02 01:00:00')
     report.save!
-    assert_equal 4, user.total_learning_time
+    assert_equal 4, UserLearningTime.new(user).total
   end
 
   test '#reports_with_learning_times' do
@@ -103,7 +103,7 @@ class UserTest < ActiveSupport::TestCase
 
   test '#practice_ids_skipped' do
     user = users(:kensyu)
-    assert_includes(user.practice_ids_skipped, practices(:practice8).id)
+    assert_includes(UserPracticeProgress.new(user).practice_ids_skipped, practices(:practice8).id)
   end
 
   test '#depressed?' do

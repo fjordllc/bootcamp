@@ -18,7 +18,7 @@ class UserStatus
   end
 
   def staff_or_paid?
-    staff? || @user.paid?
+    staff? || UserBilling.new(@user).paid?
   end
 
   def admin_or_mentor?
@@ -64,5 +64,13 @@ class UserStatus
 
   def student_or_trainee_or_retired?
     !staff? && !graduated?
+  end
+
+  def away?
+    @user.last_activity_at && (@user.last_activity_at <= 10.minutes.ago)
+  end
+
+  def active?
+    (@user.last_activity_at && (@user.last_activity_at > 1.month.ago)) || @user.created_at > 1.month.ago
   end
 end

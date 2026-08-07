@@ -5,7 +5,7 @@ module ProductStatus
 
   included do
     scope :ids_of_common_checked_with,
-          ->(user) { where(practice: user.practices_with_checked_product).checked.pluck(:id) }
+          ->(user) { where(practice: UserPracticeProgress.new(user).practices_with_checked_product).checked.pluck(:id) }
 
     scope :unchecked, -> { where.not(id: Check.where(checkable_type: 'Product').pluck(:checkable_id)) }
     scope :unassigned, -> { where(checker_id: nil) }
