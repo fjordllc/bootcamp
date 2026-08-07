@@ -2,7 +2,7 @@
 
 class PjordReportCommentJob < ApplicationJob
   queue_as :default
-  retry_on StandardError, wait: :polynomially_longer, attempts: 3
+  retry_on StandardError, wait: :polynomially_longer, attempts: 4
   discard_on ActiveJob::DeserializationError
 
   def perform(report_id:)
@@ -32,10 +32,7 @@ class PjordReportCommentJob < ApplicationJob
 
   def classify(report)
     result = Pjord::ReportClassifierAgent.classify(report)
-    intent = result&.dig(:intent)
-    return 'none' if intent.nil?
-
-    intent
+    result&.dig(:intent)
   rescue StandardError => e
     Rails.logger.error("[PjordReportCommentJob] classify failed: #{e.class}: #{e.message}")
     raise
