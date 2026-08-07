@@ -75,7 +75,7 @@ class Retirement
   end
 
   def clean_up_regular_events
-    @user.clean_up_regular_events
+    UserEventInvolvement.new(@user).clean_up_regular_events
   end
 
   def unmatch_pair_works

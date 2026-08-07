@@ -48,7 +48,6 @@ class User < ApplicationRecord
   include Comebackable
   include Billable
   include UserStatusCheck
-  include EventParticipatable
   include PracticeInfo
   include ReportInfo
   include UserContentAssociations

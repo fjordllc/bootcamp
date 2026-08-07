@@ -600,7 +600,7 @@ class UserTest < ActiveSupport::TestCase
     finished_participated_event.update!(finished: true)
     finished_participated_event.regular_event_participations.create!(user: user)
 
-    user.clean_up_regular_events
+    UserEventInvolvement.new(user).clean_up_regular_events
 
     assert_not unfinished_participated_event.regular_event_participations.exists?(user:)
     assert finished_participated_event.regular_event_participations.exists?(user:)
@@ -613,7 +613,7 @@ class UserTest < ActiveSupport::TestCase
     finished_organized_event = regular_events(:regular_event5)
     finished_organized_event.update!(finished: true)
 
-    user.clean_up_regular_events
+    UserEventInvolvement.new(user).clean_up_regular_events
 
     assert_not unfinished_organized_event.regular_event_organizers.exists?(user:)
     assert finished_organized_event.regular_event_organizers.exists?(user:)
@@ -690,14 +690,14 @@ class UserTest < ActiveSupport::TestCase
   test '#involved_regular_events returns both participating and organizing regular events' do
     user = users(:kimura)
     expected_ids = (user.participate_regular_events.ids + user.organize_regular_events.ids).uniq.sort
-    actual_ids = user.involved_regular_events.ids.sort
+    actual_ids = UserEventInvolvement.new(user).involved_regular_events.ids.sort
     assert_equal expected_ids, actual_ids
   end
 
   test '#involved_events returns both participating and organizing events' do
     user = users(:kimura)
     expected_ids = (user.participate_events.ids + Event.where(user_id: user.id).ids).uniq.sort
-    actual_ids = user.involved_events.ids.sort
+    actual_ids = UserEventInvolvement.new(user).involved_events.ids.sort
     assert_equal expected_ids, actual_ids
   end
 end

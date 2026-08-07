@@ -7,7 +7,7 @@
         li.event-main-actions__item
           .a-button.is-disabled.is-lg.is-block
             | 参加申込
-- elsif current_user.participating?(event)
+- elsif UserEventInvolvement.new(current_user).participating?(event)
   .event-main-actions.is-participationed
     .event-main-actions__body
       .event-main-actions__description
