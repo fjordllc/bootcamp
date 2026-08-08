@@ -4,7 +4,6 @@ import MarkdownInitializer from 'markdown-initializer'
 import { toast } from 'vanillaToast'
 import updateAnswerCount from 'updateAnswerCount'
 import initializeAnswer from 'initializeAnswer'
-import { initializeReaction } from 'reaction'
 import { setWatchable } from 'setWatchable'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -129,6 +128,4 @@ function initializeNewAnswer(html) {
   const newAnswerElement = answerDiv.firstElementChild
   answersList.appendChild(newAnswerElement)
   initializeAnswer(newAnswerElement)
-  const reactionElement = newAnswerElement.querySelector('.js-reactions')
-  initializeReaction(reactionElement)
 }
