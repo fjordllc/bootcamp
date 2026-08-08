@@ -2,7 +2,7 @@
 
 class Scheduler::Daily::SendMessageController < SchedulerController
   def show
-    User.mark_message_as_sent_for_hibernated_student
+    UserHibernation.mark_message_as_sent_for_hibernated_student
     sent_student_followup_message
     head :ok
   end

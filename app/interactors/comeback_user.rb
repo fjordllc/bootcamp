@@ -12,7 +12,7 @@ class ComebackUser
   private
 
   def update_last_returned_at!
-    hibernation = context.user.last_hibernation
+    hibernation = UserHibernation.new(context.user).last_hibernation
     hibernation.returned_at = Date.current
     hibernation.save!(validate: false)
   end

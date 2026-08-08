@@ -501,7 +501,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '#mark_message_as_sent_for_hibernated_student' do
-    User.mark_message_as_sent_for_hibernated_student
+    UserHibernation.mark_message_as_sent_for_hibernated_student
 
     assert_not users(:komagata).sent_student_followup_message
     assert users(:kyuukai).sent_student_followup_message
@@ -511,7 +511,7 @@ class UserTest < ActiveSupport::TestCase
     user = users(:kyuukai)
 
     travel_to Time.zone.local(2020, 1, 10) do
-      elapsed_days = user.hibernation_elapsed_days
+      elapsed_days = UserHibernation.new(user).hibernation_elapsed_days
 
       assert assert_equal 9, elapsed_days
     end
@@ -550,7 +550,7 @@ class UserTest < ActiveSupport::TestCase
     hajime = users(:hajime)
     comment =
       assert_difference 'Comment.count', 1 do
-        hajime.create_comebacked_comment
+        UserHibernation.new(hajime).create_comebacked_comment
       end
     description = "お帰りなさい！！復会ありがとうございます。\n" \
            '休会中に何か変わったことがあれば、再びスムーズに学び始めることができるように全力でサポートします。' \
@@ -620,8 +620,8 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '#scheduled_retire_at' do
-    assert_equal '2020-04-01 09:00:00 +0900', users(:kyuukai).scheduled_retire_at.to_s
-    assert_nil users(:hatsuno).scheduled_retire_at
+    assert_equal '2020-04-01 09:00:00 +0900', UserHibernation.new(users(:kyuukai)).scheduled_retire_at.to_s
+    assert_nil UserHibernation.new(users(:hatsuno)).scheduled_retire_at
   end
 
   test '.users_job' do
@@ -652,7 +652,7 @@ class UserTest < ActiveSupport::TestCase
     user.github_collaborator = true
     user.save!(validate: false)
 
-    user.clear_github_data
+    UserGithubAccount.new(user).clear_github_data
 
     assert_nil user.github_id
     assert_nil user.github_account
@@ -683,7 +683,7 @@ class UserTest < ActiveSupport::TestCase
   test '#mark_mail_as_sent_before_auto_retire' do
     user = users(:hajime)
     assert_not user.sent_student_before_auto_retire_mail
-    user.mark_mail_as_sent_before_auto_retire
+    UserHibernation.new(user).mark_mail_as_sent_before_auto_retire
     assert user.sent_student_before_auto_retire_mail
   end
 

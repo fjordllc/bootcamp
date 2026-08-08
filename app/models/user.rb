@@ -55,7 +55,6 @@ class User < ApplicationRecord
   include UserActiveScopes
   include UserRegistrationScopes
   include AvatarAttachable
-  include Comebackable
   include UserContentAssociations
   include UserLearningAssociations
   include UserEventAssociations
