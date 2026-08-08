@@ -59,17 +59,17 @@ class UserTest < ActiveSupport::TestCase
 
   test '#reports_with_learning_times' do
     user = users(:hatsuno)
-    assert_empty user.reports_with_learning_times
+    assert_empty UserLearningTime.new(user).reports_with_learning_times
 
     reports = %w[2018-01-01 2018-01-02].map { |d| Report.new(user_id: user.id, title: "test #{d}", reported_on: d, description: 'test', wip: false) }
     reports.each do |r|
       r.learning_times << LearningTime.new(started_at: "#{r.reported_on} 00:00:00", finished_at: "#{r.reported_on} 02:00:00")
       r.save!
     end
-    assert_equal reports, user.reports_with_learning_times
+    assert_equal reports, UserLearningTime.new(user).reports_with_learning_times
 
     report_without_learning_times = Report.create!(user_id: user.id, title: 'test', reported_on: '2018-01-03', description: 'test', wip: false, no_learn: true)
-    assert_not_includes user.reports_with_learning_times, report_without_learning_times
+    assert_not_includes UserLearningTime.new(user).reports_with_learning_times, report_without_learning_times
   end
 
   test '#elapsed_days' do
@@ -373,15 +373,15 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '.depressed_reports' do
-    assert_equal 1, User.depressed_reports.size
+    assert_equal 1, DepressedReportsQuery.call.size
   end
 
   test '#wip_exists?' do
     user = users(:machida)
-    assert_not user.wip_exists?
+    assert_not UserWipContent.new(user).wip_exists?
 
     Report.create!(user_id: user.id, title: 'WIP test', description: 'WIP test', wip: true, reported_on: Time.current)
-    assert user.wip_exists?
+    assert UserWipContent.new(user).wip_exists?
   end
 
   test '#raw_last_negative_report_id' do
@@ -661,9 +661,9 @@ class UserTest < ActiveSupport::TestCase
 
   test '#latest_micro_report_page' do
     user = users(:hajime)
-    assert_equal 1, user.latest_micro_report_page
+    assert_equal 1, UserMicroReportPagination.new(user).latest_micro_report_page
     user.micro_reports.create!(Array.new(25) { |i| { content: "分報#{i + 1}" } })
-    assert_equal 2, user.latest_micro_report_page
+    assert_equal 2, UserMicroReportPagination.new(user).latest_micro_report_page
   end
 
   test 'convert to nil during saving when country_code and subdivision_code is empty string' do

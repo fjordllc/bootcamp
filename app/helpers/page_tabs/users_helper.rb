@@ -16,7 +16,7 @@ module PageTabs
       tabs << { name: 'イベント', link: user_events_path(user), count: UserEventInvolvement.new(user).involved_events.count + UserEventInvolvement.new(user).involved_regular_events.count }
       if Switchlet.enabled?(:micro_report) && (admin_or_mentor_login? || (Rails.env.in? %w[development test]))
         tabs << { name: '分報',
-                  link: "#{user_micro_reports_path(user, page: user.latest_micro_report_page)}#latest-micro-report",
+                  link: "#{user_micro_reports_path(user, page: UserMicroReportPagination.new(user).latest_micro_report_page)}#latest-micro-report",
                   count: user.micro_reports.length }
       end
       tabs << { name: '相談部屋', link: talk_path(user.talk) } if current_user.admin? && !user.admin? && user.talk.present?

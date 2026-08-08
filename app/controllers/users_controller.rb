@@ -45,7 +45,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     @target_end_date = GrassDateParameter.new(params[:end_date]).target_end_date
     @times = Grass.times(@user, @target_end_date)
 
-    reports = @user.reports_with_learning_times
+    reports = UserLearningTime.new(@user).reports_with_learning_times
     @study_streak = StudyStreak.new(reports, include_wip: false)
 
     if logged_in?

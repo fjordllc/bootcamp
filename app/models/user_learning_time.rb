@@ -18,4 +18,8 @@ class UserLearningTime
     learning_time = LearningTime.find_by_sql([sql, { user_id: @user.id }])
     learning_time.first.total || 0
   end
+
+  def reports_with_learning_times
+    @user.reports.joins(:learning_times).distinct.order(reported_on: :asc)
+  end
 end
