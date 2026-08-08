@@ -7,11 +7,11 @@ json.categories @categories do |category|
   json.practices do
     json.array! category.practices do |practice|
       json.practice practice
-      json.include_must_read_books practice.include_must_read_books?
+      json.include_must_read_books PracticeMustReadBooks.new(practice).include_must_read_books?
       json.url practice_path(practice)
       json.learning_minute_statistic practice.learning_minute_statistic
       json.started_or_submitted_students practice.started_or_submitted_students.each do |user|
-        json.active user.active?
+        json.active UserStatus.new(user).active?
         json.updated_at user.updated_at
         json.user_link user_path(user)
         json.avatar_url user.avatar_url
