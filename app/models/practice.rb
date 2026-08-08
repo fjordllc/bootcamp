@@ -122,4 +122,8 @@ class Practice < ApplicationRecord
     text = [title, description, goal].compact.join("\n\n")
     truncate_for_embedding(text)
   end
+
+  def body
+    [description, goal].join("\n")
+  end
 end
