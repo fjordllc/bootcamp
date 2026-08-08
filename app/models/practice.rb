@@ -3,7 +3,6 @@
 class Practice < ApplicationRecord
   include Watchable
   include Searchable
-  include PracticeStudyMinutes
 
   has_many :learnings, dependent: :destroy
   has_and_belongs_to_many :reports # rubocop:disable Rails/HasAndBelongsToMany

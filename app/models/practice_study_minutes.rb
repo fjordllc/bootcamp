@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
-module PracticeStudyMinutes
-  extend ActiveSupport::Concern
+class PracticeStudyMinutes
+  def initialize(practice)
+    @practice = practice
+  end
 
   def learning_minute_per_user
     user_id = 0
     learning_minute_list = []
 
-    reports.not_wip.order('user_id asc').each do |report|
+    @practice.reports.not_wip.order('user_id asc').each do |report|
       if user_id == report.user_id
         sum_same_user = learning_minute_list.last + total_learning_minute(report)
         learning_minute_list.pop
@@ -41,6 +43,16 @@ module PracticeStudyMinutes
     )
   end
 
+  def convert_to_hour_minute(learning_minute_statistic)
+    converted_hour = learning_minute_statistic / 60
+    converted_minute = (learning_minute_statistic % 60).round
+    if converted_minute.zero?
+      "#{converted_hour}時間"
+    else
+      "#{converted_hour}時間#{converted_minute}分"
+    end
+  end
+
   private
 
   def total_learning_minute(report)
@@ -58,15 +70,5 @@ module PracticeStudyMinutes
 
   def average_minute_per_practice(minute, size)
     minute / size
-  end
-
-  def convert_to_hour_minute(learning_minute_statistic)
-    converted_hour = learning_minute_statistic / 60
-    converted_minute = (learning_minute_statistic % 60).round
-    if converted_minute.zero?
-      "#{converted_hour}時間"
-    else
-      "#{converted_hour}時間#{converted_minute}分"
-    end
   end
 end
