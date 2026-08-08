@@ -19,7 +19,7 @@ class API::Practices::LearningController < API::BaseController
 
     learning = find_or_initialize_learning
 
-    return render_incomplete_practice_quiz if learning.complete? && !practice.completable_by?(current_user)
+    return render_incomplete_practice_quiz if learning.complete? && !PracticeQuizGate.new(practice).completable_by?(current_user)
 
     save_learning(learning)
   end

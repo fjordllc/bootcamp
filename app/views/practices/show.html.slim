@@ -1,6 +1,6 @@
 - title "プラクティス #{@practice.title}"
 - set_meta_tags description: "プラクティス「#{@practice.title}」のページです。"
-- category = @practice.category(current_user.course)
+- category = PracticeCategoryResolver.new(@practice).category(current_user.course)
 
 = render '/shared/modal_learning_completion', practice: @practice, tweet_url: @tweet_url, should_display_message_automatically: false
 
@@ -12,7 +12,7 @@
 = practice_page_tabs(@practice, active_tab: 'プラクティス')
 
 .page-body
-  - if @practice.learning(current_user)&.complete?
+  - if PracticeLearnerRecord.new(@practice).learning(current_user)&.complete?
     = render '/products/completion_message', practice: @practice
   .container.is-xl
     .row.is-gutter-width-32
@@ -66,7 +66,7 @@
             .page-content-header__end
               .page-content-header__row
                 h1.page-content-header__title(class="#{skipped_practices.include?(@practice.id) ? 'is-skip-on' : ''}")
-                  - if @practice.include_must_read_books?
+                  - if PracticeMustReadBooks.new(@practice).include_must_read_books?
                     span.a-title-label.is-danger
                       | 要書籍
                   = @practice.title
@@ -124,9 +124,9 @@
               hr.a-border-tint
               footer.card-footer
                 = render(Learnings::LearningComponent.new(practice: @practice, current_user:))
-                - if @practice.practice_quiz_required?
+                - if PracticeQuizGate.new(@practice).practice_quiz_required?
                   .card-footer__alert
-                    - if @practice.practice_quiz_passed_by?(current_user)
+                    - if PracticeQuizGate.new(@practice).practice_quiz_passed_by?(current_user)
                       | 理解度テストに合格済みです。
                     - else
                       = link_to '理解度テストに合格すると、このプラクティスを修了できます。',

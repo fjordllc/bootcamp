@@ -3,8 +3,6 @@
 class Practice < ApplicationRecord
   include Watchable
   include Searchable
-  include PracticeStatus
-  include PracticeBody
   include PracticeStudyMinutes
 
   has_many :learnings, dependent: :destroy
@@ -119,5 +117,10 @@ class Practice < ApplicationRecord
     return unless source_id && id
 
     errors.add(:source_id, 'cannot reference itself') if source_id == id
+  end
+
+  def text_for_embedding
+    text = [title, description, goal].compact.join("\n\n")
+    truncate_for_embedding(text)
   end
 end
