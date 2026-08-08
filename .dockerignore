@@ -15,8 +15,6 @@ test
 node_modules
 
 .github
-.circleci
 .bundle
 
 config/master.key
-

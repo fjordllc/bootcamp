@@ -57,6 +57,31 @@ class BuzzTest < ActiveSupport::TestCase
     assert_includes buzz.errors[:published_at], 'は4桁の年で入力してください'
   end
 
+  test 'invalid when title exceeds maximum length' do
+    title = 'a' * 121
+    buzz = Buzz.new(
+      title: title,
+      url: 'https://www.example-too-long-title.com',
+      published_at: Date.new(2026, 8, 5)
+    )
+
+    assert_not buzz.valid?
+    assert_includes buzz.errors[:title], 'は120文字以内で入力してください'
+  end
+
+  test 'invalid when memo exceeds maximum length' do
+    memo = 'a' * 501
+    buzz = Buzz.new(
+      title: 'memoが長すぎる記事',
+      url: 'https://www.example-too-long-memo.com',
+      published_at: Date.new(2026, 8, 5),
+      memo: memo
+    )
+
+    assert_not buzz.valid?
+    assert_includes buzz.errors[:memo], 'は500文字以内で入力してください'
+  end
+
   test '.doc_from_url returns nokogori object when succeeded' do
     dummy_response = <<~BODY
       <title>buzz1</title>
