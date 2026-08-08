@@ -8,7 +8,7 @@ class Event < ApplicationRecord
   include Watchable
   include Searchable
   include Bookmarkable
-  include EventMinutesStatus
+  include EventDateValidations
 
   validates :title, presence: true
   validates :description, presence: true

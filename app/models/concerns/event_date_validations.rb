@@ -1,23 +1,7 @@
 # frozen_string_literal: true
 
-module EventMinutesStatus
+module EventDateValidations
   extend ActiveSupport::Concern
-
-  def opening?
-    Time.current.between?(open_start_at, open_end_at)
-  end
-
-  def before_opening?
-    Time.current < open_start_at
-  end
-
-  def closing?
-    Time.current > open_end_at && Time.current < end_at
-  end
-
-  def ended?
-    Time.current >= end_at
-  end
 
   private
 
