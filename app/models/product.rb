@@ -14,8 +14,6 @@ class Product < ApplicationRecord
   include Bookmarkable
   include Taskable
   include ProductStatus
-  include ProductChecker
-  include CommentedAtTracking
 
   belongs_to :practice
   belongs_to :user, touch: true

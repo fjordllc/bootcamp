@@ -54,7 +54,7 @@ class ProductTest < ActiveSupport::TestCase
     )
 
     status = :started
-    product.change_learning_status(status)
+    ProductChecker.new(product).change_learning_status(status)
     assert Learning.find_by(user:, practice:, status: :started)
   end
 
@@ -75,7 +75,7 @@ class ProductTest < ActiveSupport::TestCase
       practice: practices(:practice5),
       checker_id: checker.id
     )
-    assert product.other_checker_exists?(other_checker.id)
+    assert ProductChecker.new(product).other_checker_exists?(other_checker.id)
   end
 
   test '#other_checker_exists return false when other checker not exists' do
@@ -86,7 +86,7 @@ class ProductTest < ActiveSupport::TestCase
       practice: practices(:practice5),
       checker_id: nil
     )
-    assert_not product.other_checker_exists?(other_checker.id)
+    assert_not ProductChecker.new(product).other_checker_exists?(other_checker.id)
   end
 
   test '#other_checker_exists return false when checker is oneself' do
@@ -97,27 +97,27 @@ class ProductTest < ActiveSupport::TestCase
       practice: practices(:practice5),
       checker_id: other_checker.id
     )
-    assert_not product.other_checker_exists?(other_checker.id)
+    assert_not ProductChecker.new(product).other_checker_exists?(other_checker.id)
   end
 
   test '#checker_name' do
     product = products(:product1)
 
     product.update!(checker: nil)
-    assert_nil product.checker_name
+    assert_nil ProductChecker.new(product).checker_name
 
     product.update!(checker: users(:mentormentaro))
-    assert_equal 'mentormentaro', product.checker_name
+    assert_equal 'mentormentaro', ProductChecker.new(product).checker_name
   end
 
   test '#checker_avatar' do
     product = products(:product1)
 
     product.update!(checker: nil)
-    assert_nil product.checker_avatar
+    assert_nil ProductChecker.new(product).checker_avatar
 
     product.update!(checker: users(:mentormentaro))
-    assert_not_nil product.checker_avatar
+    assert_not_nil ProductChecker.new(product).checker_avatar
   end
 
   test '.self_assigned_no_replied_products' do

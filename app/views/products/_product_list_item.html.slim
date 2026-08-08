@@ -90,7 +90,7 @@ ruby:
         .card-list-item__row.is-only-mentor
           .card-list-item__assignee(
             data-checker-id="#{product.checker_id}"
-            data-checker-name="#{product.checker_name}"
+            data-checker-name="#{ProductChecker.new(product).checker_name}"
             data-checker-avatar="#{product.checker&.avatar_url}"
             data-current-user-id="#{current_user.id}"
             data-product-id="#{product.id}"
