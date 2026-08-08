@@ -10,15 +10,17 @@ class Reactions::ReactionsComponent < ViewComponent::Base
     {
       data: {
         reaction: {
-          login: { name: @current_user.login_name },
-          reactionable: { gid: @reactionable.to_global_id.to_s }
-        }
+          'login-name-value': @current_user.login_name,
+          'reactionable-gid-value': @reactionable.to_global_id.to_s
+        },
+        controller: 'reaction',
+        action: 'click@document->reaction#closeUsersListIfOutside'
       }
     }
   end
 
   def reaction_attributes(kind, only_reacted: true)
-    attributes = { data: { reaction: { kind: } } }
+    attributes = { data: { reaction: { kind: }, action: 'click->reaction#toggle' } }
     attributes[:hidden] = @reactionable.reaction_count_by(kind).zero? if only_reacted
     reaction_id = @reactionable.find_reaction_id_by(kind, @current_user.login_name)
 
