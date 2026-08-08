@@ -11,7 +11,6 @@ class Report < ApplicationRecord
   include Mentioner
   include Bookmarkable
   include Taskable
-  include ReportOrder
 
   enum :emotion, {
     negative: 1,

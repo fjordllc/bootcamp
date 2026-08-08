@@ -10,12 +10,12 @@
       .container
         .a-page-notice__inner
           p このユーザーは退会しています。
-  - elsif !@report.first? && @report.latest_of_user?
-    .a-page-notice.is-only-mentor(class="#{@report.interval >= 10 ? 'is-danger' : ''}")
+  - elsif !ReportOrder.new(@report).first? && ReportOrder.new(@report).latest_of_user?
+    .a-page-notice.is-only-mentor(class="#{ReportOrder.new(@report).interval >= 10 ? 'is-danger' : ''}")
       .container
         .a-page-notice__inner
           p
-            strong #{@report.interval}日
+            strong #{ReportOrder.new(@report).interval}日
             | ぶりの日報です。
 
 .page-body
@@ -28,16 +28,16 @@
 
           .page-content-prev-next
             .page-content-prev-next__item
-              - if @report.previous
-                = link_to @report.previous, class: 'page-content-prev-next__item-link is-prev' do
+              - if ReportOrder.new(@report).previous
+                = link_to ReportOrder.new(@report).previous, class: 'page-content-prev-next__item-link is-prev' do
                   i.fa-solid.fa-angle-left
                   | 前の日報
             .page-content-prev-next__item
               = link_to user_reports_path(@report.user_id), class: 'page-content-prev-next__item-link is-index' do
                 | 日報一覧
             .page-content-prev-next__item
-              - if @report.next
-                = link_to @report.next, class: 'page-content-prev-next__item-link is-next' do
+              - if ReportOrder.new(@report).next
+                = link_to ReportOrder.new(@report).next, class: 'page-content-prev-next__item-link is-next' do
                   | 次の日報
                   i.fa-solid.fa-angle-right
         = render 'comments/comments', commentable: @report, commentable_type: 'Report'
