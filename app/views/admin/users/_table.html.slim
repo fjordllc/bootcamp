@@ -64,7 +64,7 @@
             - else
               span.admin-table__role
                 | 現役生
-            - if !user.active? && (!UserStatus.new(user).hibernated? || !user.retired_on?)
+            - if !UserStatus.new(user).active? && (!UserStatus.new(user).hibernated? || !user.retired_on?)
                 br
                 span.a-badge.is-secondary.is-xs
                   | 非ア

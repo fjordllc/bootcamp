@@ -13,7 +13,9 @@ module PageTabs
       tabs << { name: '提出物', link: user_products_path(user), count: user.products.length }
       tabs << { name: '質問', link: user_questions_path(user), count: user.questions.length }
       tabs << { name: '回答', link: user_answers_path(user), count: user.answers.length }
-      tabs << { name: 'イベント', link: user_events_path(user), count: UserEventInvolvement.new(user).involved_events.count + UserEventInvolvement.new(user).involved_regular_events.count }
+      user_event_involvement = UserEventInvolvement.new(user)
+      involved_events_count = user_event_involvement.involved_events.count + user_event_involvement.involved_regular_events.count
+      tabs << { name: 'イベント', link: user_events_path(user), count: involved_events_count }
       if Switchlet.enabled?(:micro_report) && (admin_or_mentor_login? || (Rails.env.in? %w[development test]))
         tabs << { name: '分報',
                   link: "#{user_micro_reports_path(user, page: UserMicroReportPagination.new(user).latest_micro_report_page)}#latest-micro-report",

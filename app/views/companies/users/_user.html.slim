@@ -9,7 +9,7 @@
           - elsif UserStatus.new(user).hibernated?
             .users-item__inactive-message
               | 休会中: #{user.hibernated_at.year}年#{user.hibernated_at.strftime('%m')}月#{user.hibernated_at.strftime('%d')}日〜(#{UserHibernation.new(user).hibernation_elapsed_days}日経過)
-          - elsif !user.active?
+          - elsif !UserStatus.new(user).active?
             .users-item__inactive-message
               | 1ヶ月以上ログインがありません
       header.users-item__header

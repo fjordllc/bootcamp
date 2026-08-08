@@ -9,7 +9,7 @@
           - elsif user.roles.include?('hibernationed')
             .users-item__inactive-message
               | 休会中: #{l user.hibernated_at, format: :year_and_date}〜(#{UserHibernation.new(user).hibernation_elapsed_days}日経過)
-          - elsif !user.active?
+          - elsif !UserStatus.new(user).active?
             .users-item__inactive-message
               | 1ヶ月以上ログインがありません
       header.users-item__header
