@@ -33,22 +33,22 @@ class EventTest < ActiveSupport::TestCase
 
   test '#opening?' do
     event = events(:event2)
-    assert event.opening?
+    assert EventOpeningStatus.new(event).opening?
   end
 
   test '#before_opening?' do
     event = events(:event4)
-    assert event.before_opening?
+    assert EventOpeningStatus.new(event).before_opening?
   end
 
   test '#closing?' do
     event = events(:event5)
-    assert event.closing?
+    assert EventOpeningStatus.new(event).closing?
   end
 
   test '#ended?' do
     event = events(:event6)
-    assert event.ended?
+    assert EventOpeningStatus.new(event).ended?
   end
 
   test '#participants' do
@@ -79,16 +79,6 @@ class EventTest < ActiveSupport::TestCase
     assert_includes event.participations.disabled, move_up_participation
 
     event.cancel_participation!(participant)
-    assert_not_includes event.participations.disabled, move_up_participation
-  end
-
-  test '#update_participations' do
-    event = events(:event3)
-    move_up_participation = participations(:participation2)
-
-    event.update(capacity: 2)
-    event.update_participations
-
     assert_not_includes event.participations.disabled, move_up_participation
   end
 

@@ -3,7 +3,7 @@
   - set_meta_tags description: "プラクティス「#{@practice.title}」の提出物一覧です。このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。"
 - else
   - set_meta_tags description: "プラクティス「#{@practice.title}」の提出物一覧です。"
-- category = @practice.category(current_user.course)
+- category = PracticeCategoryResolver.new(@practice).category(current_user.course)
 
 = render '/practices/page_header',
   title: @practice.title,
@@ -13,7 +13,7 @@
 = practice_page_tabs(@practice, active_tab: '提出物')
 
 .page-body
-  - if current_user.student_or_trainee?
+  - if UserStatus.new(current_user).student_or_trainee?
     - if @practice.open_product?
       .a-page-notice
         .container

@@ -45,7 +45,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     @target_end_date = GrassDateParameter.new(params[:end_date]).target_end_date
     @times = Grass.times(@user, @target_end_date)
 
-    reports = @user.reports_with_learning_times
+    reports = UserLearningTime.new(@user).reports_with_learning_times
     @study_streak = StudyStreak.new(reports, include_wip: false)
 
     if logged_in?
@@ -73,7 +73,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     @user.uploaded_avatar = user_params[:avatar]
     @user.unsubscribe_email_token = SecureRandom.urlsafe_base64
 
-    if @user.staff? || @user.trainee?
+    if UserStatus.new(@user).staff? || @user.trainee?
       create_free_user!
     else
       create_user!
@@ -96,7 +96,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
 
   def fetch_target_users
     if @target == 'followings'
-      current_user.followees_list(watch: @watch)
+      UserFollows.new(current_user).followees_list(watch: @watch)
     elsif @entered_tag
       User.active_tagged_with(@entered_tag)
     else
@@ -166,7 +166,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
         UserMailer.welcome(@user).deliver_now
         notify_to_mentors(@user)
         notify_to_chat(@user)
-        ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.student?
+        ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if UserStatus.new(@user).student?
         send_affiliate_kickback(@user)
         flash[:x_conversion] = 'signup'
         flash[:signup_email] = @user.email

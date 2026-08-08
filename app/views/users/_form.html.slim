@@ -23,7 +23,7 @@
     = render 'users/form/avatar', f: f, user: user
     = render 'users/form/description', f: f, user: user
     = render 'users/form/tags', f: f, user: user
-    - if from == :edit && !@user.graduated? && !@user.adviser?
+    - if from == :edit && !UserStatus.new(@user).graduated? && !@user.adviser?
       = render 'users/form/learning_time_frames', f: f, user: user
     - unless user.adviser?
       - unless user.mentor?
@@ -33,7 +33,7 @@
     - unless user.adviser? || user.mentor?
       = render 'users/form/experiences', f: f
 
-    - if user.trainee? && from == :new && !user.grant_course?
+    - if user.trainee? && from == :new && !UserCourseGrant.new(user).grant_course?
       .form-item
         .form-item-block
           .form-item-block__inner
@@ -51,7 +51,7 @@
 
     - if from == :edit
       = render 'users/form/editor', f: f, user: user
-    - if user.student?
+    - if UserStatus.new(user).student?
       = render 'users/form/job_seeker', f: f
     = render 'users/form/register_address', f: f, user: user
   - if from == :edit
@@ -76,7 +76,7 @@
       h3.form__items-title 所属企業情報
       = render 'users/form/company', f: f, user: user
 
-  - if from == :new && user.student? && !user.grant_course?
+  - if from == :new && UserStatus.new(user).student? && !UserCourseGrant.new(user).grant_course?
     .form__items
       h3.form__items-title クレジットカード情報
       = render 'users/form/card'
@@ -107,7 +107,7 @@
             .form-item-block__item
               .block-checks.is-1-item
                 .block-checks__item
-                  - if @user.hibernated?
+                  - if UserStatus.new(@user).hibernated?
                     .a-block-check.is-checkbox
                       = check_box_tag :comeback_user, 1, false, class: 'a-toggle-checkbox', id: 'comeback-user'
                       .a-block-check__label.is-ta-left
@@ -125,7 +125,7 @@
                             = date_field_tag :scheduled_return_on, nil, class: 'a-text-input js-date-input-toggler-date w-full'
         .a-form-help
           p
-            - if @user.hibernated?
+            - if UserStatus.new(@user).hibernated?
               | 現在このユーザーは、休会中です。
             - else
               | 現在このユーザーは、利用中です。
@@ -214,7 +214,7 @@
               = link_to 'https://github.com/orgs/fjordllc/people', target: '_blank', rel: 'noopener' do
                 | GitHub設定
 
-  - if (admin_login? && user.current_student?) || user.trainee?
+  - if (admin_login? && UserStatus.new(user).current_student?) || user.trainee?
     .form__items.js-training-info-block
       h3.form__items-title 研修情報
       = render 'users/form/training_end', f: f

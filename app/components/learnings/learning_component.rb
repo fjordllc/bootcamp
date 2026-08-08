@@ -9,7 +9,7 @@ class Learnings::LearningComponent < ViewComponent::Base
       practice_id: @practice.id
     )
     @learning.status = :unstarted if @learning.new_record?
-    @product = @practice.product(@current_user)
+    @product = PracticeLearnerRecord.new(@practice).product(@current_user)
   end
 
   def product_link

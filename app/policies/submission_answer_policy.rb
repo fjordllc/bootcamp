@@ -14,7 +14,7 @@ class SubmissionAnswerPolicy < ApplicationPolicy
       user.mentor? ||
       user.adviser? ||
       user.graduated_on? ||
-      submission_answer.practice.product(user)&.checked? ||
-      submission_answer.practice.completed?(user)
+      PracticeLearnerRecord.new(submission_answer.practice).product(user)&.checked? ||
+      PracticeLearnerRecord.new(submission_answer.practice).completed?(user)
   end
 end

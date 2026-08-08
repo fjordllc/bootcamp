@@ -36,12 +36,12 @@
                       = render partial: 'announcements'
                   - if current_user.bookmarks.present?
                     = render(DashboardBookmarksComponent.new(bookmarks: @bookmarks, count: @bookmark_count))
-                  - if current_user.wip_exists?
+                  - if UserWipContent.new(current_user).wip_exists?
                     .a-panels__item
                       = render 'wip_items'
-                  - if User.depressed_reports.present?
+                  - if DepressedReportsQuery.call.present?
                     .a-panels__item.is-only-mentor
-                      = render 'users/negative_emotion_report', reports: User.depressed_reports
+                      = render 'users/negative_emotion_report', reports: DepressedReportsQuery.call
                   - if @inactive_students.present?
                     .a-panels__item.is-only-mentor
                       = render 'users/inactive_users', users: @inactive_students

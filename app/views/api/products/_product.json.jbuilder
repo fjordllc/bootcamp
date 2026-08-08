@@ -1,7 +1,7 @@
 json.id product.id
 json.checker_id product.checker_id
-json.checker_name product.checker_name
-json.checker_avatar product.checker_avatar
+json.checker_name ProductChecker.new(product).checker_name
+json.checker_avatar ProductChecker.new(product).checker_avatar
 json.wip product.wip
 json.url product_url(product)
 json.created_at l(product.created_at)
@@ -31,7 +31,7 @@ json.user do
   json.partial! "api/users/user", user: product.user
   if product.user.training_ends_on
     json.training_ends_on l(product.user.training_ends_on)
-    json.training_remaining_days product.user.training_remaining_days
+    json.training_remaining_days UserEnrollmentPeriod.new(product.user).training_remaining_days
   end
 end
 

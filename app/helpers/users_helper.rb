@@ -54,8 +54,8 @@ module UsersHelper
   end
 
   def button_label(user)
-    if current_user.following?(user)
-      current_user.watching?(user) ? 'コメントあり' : 'コメントなし'
+    if UserFollows.new(current_user).following?(user)
+      UserFollows.new(current_user).watching?(user) ? 'コメントあり' : 'コメントなし'
     else
       'フォローする'
     end
@@ -100,13 +100,15 @@ module UsersHelper
   end
 
   def visible_learning_time_frames?(user)
-    !user.graduated? && user.learning_time_frames.exists?
+    !UserStatus.new(user).graduated? && user.learning_time_frames.exists?
   end
 
   def event_navs(user)
+    user_event_involvement = UserEventInvolvement.new(user)
     [
-      { id: 'events', name: Event.model_name.human, count: user.involved_events.length, path: user_events_path(user) },
-      { id: 'regular_events', name: RegularEvent.model_name.human, count: user.involved_regular_events.length, path: user_regular_events_path(user) }
+      { id: 'events', name: Event.model_name.human, count: user_event_involvement.involved_events.length, path: user_events_path(user) },
+      { id: 'regular_events', name: RegularEvent.model_name.human, count: user_event_involvement.involved_regular_events.length,
+        path: user_regular_events_path(user) }
     ]
   end
 end

@@ -3,13 +3,13 @@
     .users-item__inner.a-card
       - if current_user.mentor || current_user.admin && user.student_or_trainee
         .users-item__inactive-message-container.is-only-mentor
-          - if user.retired?
+          - if UserStatus.new(user).retired?
             .users-item__inactive-message
               | 退会しました
-          - elsif user.hibernated?
+          - elsif UserStatus.new(user).hibernated?
             .users-item__inactive-message
-              | 休会中: #{user.hibernated_at.year}年#{user.hibernated_at.strftime('%m')}月#{user.hibernated_at.strftime('%d')}日〜(#{user.hibernation_elapsed_days}日経過)
-          - elsif !user.active?
+              | 休会中: #{user.hibernated_at.year}年#{user.hibernated_at.strftime('%m')}月#{user.hibernated_at.strftime('%d')}日〜(#{UserHibernation.new(user).hibernation_elapsed_days}日経過)
+          - elsif !UserStatus.new(user).active?
             .users-item__inactive-message
               | 1ヶ月以上ログインがありません
       header.users-item__header

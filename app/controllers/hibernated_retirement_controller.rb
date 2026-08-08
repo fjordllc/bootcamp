@@ -11,7 +11,7 @@ class HibernatedRetirementController < ApplicationController
     credentials = params.require(:user).permit(:email, :password)
     @user = login(credentials[:email], credentials[:password])
     if @user
-      if @user&.hibernated?
+      if @user && UserStatus.new(@user).hibernated?
         retirement = Retirement.by_self(retire_reason_params, user: current_user)
         if retirement.execute
           logout

@@ -26,7 +26,7 @@ class DevelopmentStripeSeeder
     else
       stripe_subscription = find_or_create_subscription(user, customer)
     end
-    @subscription.destroy(stripe_subscription.id) if user.hibernated?
+    @subscription.destroy(stripe_subscription.id) if UserStatus.new(user).hibernated?
 
     user.update_columns(customer_id: customer.id, subscription_id: stripe_subscription.id) # rubocop:disable Rails/SkipsModelValidations
   end

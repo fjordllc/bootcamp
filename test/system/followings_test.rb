@@ -32,7 +32,7 @@ class FollowingsTest < ApplicationSystemTestCase
   end
 
   test 'unfollow' do
-    @kimura.follow(@hatsuno, watch: false)
+    UserFollows.new(@kimura).follow(@hatsuno, watch: false)
 
     visit_with_auth user_path(users(:hatsuno)), 'kimura'
     find('.following').click

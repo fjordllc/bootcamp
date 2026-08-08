@@ -14,12 +14,12 @@ class LearningStatusUpdater
   def update_after_check(check)
     return unless check.checkable_type == 'Product'
 
-    learning_status = if check.checkable.checked? && check.checkable.practice.completable_by?(check.checkable.user)
+    learning_status = if check.checkable.checked? && PracticeQuizGate.new(check.checkable.practice).completable_by?(check.checkable.user)
                         :complete
                       else
                         :submitted
                       end
-    check.checkable.change_learning_status(learning_status)
+    ProductChecker.new(check.checkable).change_learning_status(learning_status)
   end
 
   def update_after_submission(product)
@@ -35,6 +35,6 @@ class LearningStatusUpdater
              else
                :submitted
              end
-    product.change_learning_status status
+    ProductChecker.new(product).change_learning_status status
   end
 end

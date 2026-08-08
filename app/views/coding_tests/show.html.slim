@@ -20,7 +20,7 @@ ruby:
               li.page-main-header-actions__item
                 = link_to [@practice, :coding_tests], class: 'a-button is-md is-secondary is-block is-back' do
                   | テスト一覧
-              - if current_user.submitted?(@coding_test)
+              - if UserCodingTestSubmission.new(current_user).submitted?(@coding_test)
                 li.page-main-header-actions__item
                   = link_to [@coding_test, :coding_test_submissions], class: 'a-button is-md is-secondary is-block is-back' do
                     | みんなの回答一覧
@@ -29,7 +29,7 @@ ruby:
   .page-body
     .page-content
 
-      - if current_user.submitted?(@coding_test)
+      - if UserCodingTestSubmission.new(current_user).submitted?(@coding_test)
         .a-page-notice
           .container
             .a-page-notice__inner
@@ -88,7 +88,7 @@ ruby:
                               pre.io-sample__code.sample.coding_test_case-output(id="coding_test_case_#{coding_test_case.id}_output" class="language-#{@coding_test.language}")
                                 = coding_test_case.output
 
-              - if current_user.submitted?(@coding_test)
+              - if UserCodingTestSubmission.new(current_user).submitted?(@coding_test)
                 .a-card
                   header.card-header
                     h2.card-header__title
@@ -129,7 +129,7 @@ ruby:
                     .a-table
                       table.result-table#result
 
-              - if current_user.admin_or_mentor?
+              - if UserStatus.new(current_user).admin_or_mentor?
                 .a-card.is-only-mentor
                   header.card-header.is-sm
                     h2.card-header__title 管理者・メンター用メニュー

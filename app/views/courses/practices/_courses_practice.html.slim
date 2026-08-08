@@ -3,7 +3,7 @@
   header.category-practices-item__header
     .category-practices-item__title
       = link_to practice_path(practice.id), class: "category-practices-item__title-link #{skipped_practices.include?(practice.id) ? 'is-skip-on' : ''}" do
-        - if practice.include_must_read_books?
+        - if PracticeMustReadBooks.new(practice).include_must_read_books?
           span.a-badge.is-danger.is-xs
             | 要書籍
         span.category-practices-item__title-link-label

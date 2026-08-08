@@ -6,7 +6,7 @@ class TimesChannelCreatorTest < ActiveSupport::TestCase
   test '#call' do
     logs = []
     user = users(:hajime)
-    assert user.student?
+    assert UserStatus.new(user).student?
 
     Rails.logger.stub(:warn, ->(message) { logs << message }) do
       Discord::TimesChannel.stub(:new, ->(_) { InvalidTimesChannel.new }) do
@@ -32,21 +32,21 @@ class TimesChannelCreatorTest < ActiveSupport::TestCase
     assert_raise ArgumentError do
       TimesChannelCreator.new.call(nil, nil, nil, nil, user:)
     end
-    assert_not user.student_or_trainee?
+    assert_not UserStatus.new(user).student_or_trainee?
 
     user = users(:mentormentaro)
     assert user.mentor?
     assert_raise ArgumentError do
       TimesChannelCreator.new.call(nil, nil, nil, nil, user:)
     end
-    assert_not user.student_or_trainee?
+    assert_not UserStatus.new(user).student_or_trainee?
 
     user = users(:senpai)
     assert user.adviser?
     assert_raise ArgumentError do
       TimesChannelCreator.new.call(nil, nil, nil, nil, user:)
     end
-    assert_not user.student_or_trainee?
+    assert_not UserStatus.new(user).student_or_trainee?
   end
 
   class ValidTimesChannel

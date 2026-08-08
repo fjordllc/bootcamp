@@ -14,25 +14,25 @@ header.page-content-header.is-product
       .page-content-header__before-title
         = link_to product.user, class: 'a-user-name' do
           = product.user.long_name
-        - if current_user&.admin_or_mentor? && @product.user.trainee?
+        - if current_user && UserStatus.new(current_user).admin_or_mentor? && @product.user.trainee?
           .a-meta
             span.a-meta__label
               = User.human_attribute_name :training_ends_on
             - if @product.user.training_ends_on
               span.a-meta__value
                 = l @product.user.training_ends_on
-              - if @product.user.training_remaining_days.zero?
+              - if UserEnrollmentPeriod.new(@product.user).training_remaining_days.zero?
                 span.a-meta__value.is-danger
                   | （本日研修最終日）
-              - elsif @product.user.training_remaining_days.negative?
+              - elsif UserEnrollmentPeriod.new(@product.user).training_remaining_days.negative?
                 span.a-meta__value
                   | （研修終了）
-              - elsif @product.user.training_remaining_days < 7
+              - elsif UserEnrollmentPeriod.new(@product.user).training_remaining_days < 7
                 span.a-meta__value.is-danger
-                  | （あと#{@product.user.training_remaining_days}日）
+                  | （あと#{UserEnrollmentPeriod.new(@product.user).training_remaining_days}日）
               - else
                 span.a-meta__value
-                  | （あと#{@product.user.training_remaining_days}日）
+                  | （あと#{UserEnrollmentPeriod.new(@product.user).training_remaining_days}日）
             - else
               span.a-meta__value
                 | 未入力

@@ -31,8 +31,8 @@ class HomeController < ApplicationController
       discord_account_name: current_user.discord_profile.account_name,
       github_account: current_user.github_account,
       blog_url: current_user.blog_url,
-      graduated: current_user.graduated?,
-      learning_time_frames: current_user.graduated? || current_user.learning_time_frames.exists?
+      graduated: UserStatus.new(current_user).graduated?,
+      learning_time_frames: UserStatus.new(current_user).graduated? || current_user.learning_time_frames.exists?
     )
   end
 
@@ -43,16 +43,16 @@ class HomeController < ApplicationController
     @completed_learnings = current_user.learnings.where(status: 3).includes(:practice).order(updated_at: :desc)
     @inactive_students = User.with_attached_avatar.inactive_students_and_trainees.order(last_activity_at: :desc)
     @job_seeking_users = User.with_attached_avatar.job_seeking.includes(:reports, :products, :works, :course, :company)
-    @colleague_trainees = current_user.colleague_trainees.with_attached_avatar.includes(:reports, :products, :comments)
+    @colleague_trainees = UserColleagues.new(current_user).colleague_trainees.with_attached_avatar.includes(:reports, :products, :comments)
     @colleague_trainees_recent_reports = ColleagueTraineesRecentReportsQuery.new(current_user:).call.limit(10)
     @recent_reports = Report.with_avatar.where(wip: false).order(reported_on: :desc, created_at: :desc).limit(10)
     @product_deadline_day = Product::PRODUCT_DEADLINE
-    @colleagues = current_user.colleagues_other_than_self
+    @colleagues = UserColleagues.new(current_user).colleagues_other_than_self
     @calendar = NicoNicoCalendar.new(current_user, params[:niconico_calendar])
     @target_end_date = GrassDateParameter.new(params[:end_date]).target_end_date
     @times = Grass.times(current_user, @target_end_date)
-    @users_for_time_slot = User.currently_learning_except(current_user)
-    @study_streak = StudyStreak.new(current_user.reports_with_learning_times, include_wip: false)
+    @users_for_time_slot = CurrentlyLearningUsersExceptQuery.new(user: current_user).call
+    @study_streak = StudyStreak.new(UserLearningTime.new(current_user).reports_with_learning_times, include_wip: false)
   end
 
   def display_events_on_dashboard

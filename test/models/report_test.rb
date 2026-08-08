@@ -4,13 +4,13 @@ require 'test_helper'
 
 class ReportTest < ActiveSupport::TestCase
   test '#previous' do
-    assert_equal reports(:report1), reports(:report2).previous
-    assert_equal reports(:report22), reports(:report26).previous
-    assert_equal reports(:report27), reports(:report22).previous
+    assert_equal reports(:report1), ReportOrder.new(reports(:report2)).previous
+    assert_equal reports(:report22), ReportOrder.new(reports(:report26)).previous
+    assert_equal reports(:report27), ReportOrder.new(reports(:report22)).previous
   end
 
   test '#next' do
-    assert_equal reports(:report2), reports(:report1).next
+    assert_equal reports(:report2), ReportOrder.new(reports(:report1)).next
   end
 
   test '#anchor' do
@@ -26,8 +26,8 @@ class ReportTest < ActiveSupport::TestCase
   test '#serial_number' do
     report1 = reports(:report1)
     report2 = reports(:report2)
-    assert_equal report1.serial_number, 1
-    assert_equal report2.serial_number, 2
+    assert_equal ReportOrder.new(report1).serial_number, 1
+    assert_equal ReportOrder.new(report2).serial_number, 2
   end
 
   test '#total_learning_time' do
@@ -36,12 +36,12 @@ class ReportTest < ActiveSupport::TestCase
   end
 
   test '#latest_of_user?' do
-    assert_not reports(:report31).latest_of_user?
-    assert reports(:report32).latest_of_user?
+    assert_not ReportOrder.new(reports(:report31)).latest_of_user?
+    assert ReportOrder.new(reports(:report32)).latest_of_user?
   end
 
   test '#interval' do
-    assert_equal 10, reports(:report32).interval
+    assert_equal 10, ReportOrder.new(reports(:report32)).interval
   end
 
   test 'save_uniquely does not save duplicate report and adds validation errors' do

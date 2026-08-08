@@ -86,7 +86,7 @@ class Question < ApplicationRecord
     end
 
     def unsolved_badge(current_user:, practice_id: nil)
-      return nil if !current_user.admin_or_mentor?
+      return nil if !UserStatus.new(current_user).admin_or_mentor?
 
       if practice_id.present?
         Question.not_solved.not_wip.where(practice_id:).size

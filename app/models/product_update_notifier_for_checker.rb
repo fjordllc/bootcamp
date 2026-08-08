@@ -4,7 +4,7 @@ class ProductUpdateNotifierForChecker
   def call(_name, _started, _finished, _id, payload)
     product = payload[:product]
     current_user = payload[:current_user]
-    return if product.wip? || product.checker_id.nil? || !current_user.nil? && current_user.admin_or_mentor?
+    return if product.wip? || product.checker_id.nil? || !current_user.nil? && UserStatus.new(current_user).admin_or_mentor?
 
     ActivityDelivery.with(
       product:,

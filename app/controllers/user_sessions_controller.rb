@@ -12,9 +12,9 @@ class UserSessionsController < ApplicationController
     if @user
       if @user.retired_on?
         logout_with_alert('退会したユーザーです。')
-      elsif @user.training_completed?
+      elsif UserStatus.new(@user).training_completed?
         logout_with_alert('研修終了したユーザーです。')
-      elsif @user.hibernated?
+      elsif UserStatus.new(@user).hibernated?
         link = view_context.link_to '休会復帰ページ', new_comeback_path, target: '_blank', rel: 'noopener'
         logout_with_alert("休会中です。#{link}から手続きをお願いします。")
       else

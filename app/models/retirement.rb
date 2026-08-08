@@ -67,7 +67,7 @@ class Retirement
   end
 
   def clear_github_info
-    @user.clear_github_data
+    UserGithubAccount.new(@user).clear_github_data
   end
 
   def destroy_cards
@@ -75,7 +75,7 @@ class Retirement
   end
 
   def clean_up_regular_events
-    @user.clean_up_regular_events
+    UserEventInvolvement.new(@user).clean_up_regular_events
   end
 
   def unmatch_pair_works

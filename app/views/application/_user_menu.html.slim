@@ -12,7 +12,7 @@
       = link_to edit_current_user_path,
         class: 'header-dropdown__item-link' do
         | 登録情報変更
-    - if current_user.card?
+    - if UserBilling.new(current_user).card?
         li.header-dropdown__item
           = link_to 'お支払い情報',
             billing_portal_path,
@@ -21,7 +21,7 @@
     li.header-dropdown__item
       = link_to logout_path, class: 'header-dropdown__item-link' do
         | ログアウト
-    - if current_user.student_or_trainee_or_retired?
+    - if UserStatus.new(current_user).student_or_trainee_or_retired?
         li.header-dropdown__item
           = link_to new_hibernation_path, class: 'header-dropdown__item-link' do
             | 休会手続き

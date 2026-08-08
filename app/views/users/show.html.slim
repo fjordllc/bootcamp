@@ -57,10 +57,10 @@
                     | ユーザー非公開情報
                 hr.a-border-tint
                 .user-data
-                  - if @user.training_completed?
+                  - if UserStatus.new(@user).training_completed?
                     .user-data__row
                       = render 'users/training_completion_info', user: @user
-                  - if @user.retired?
+                  - if UserStatus.new(@user).retired?
                     .user-data__row
                       = render 'users/retire_info', user: @user
                   .user-data__row
@@ -69,11 +69,11 @@
             - if admin_or_mentor_login? && @user.hibernations.present?
               = render 'users/hibernation_history', user: @user
         .col-xs-12(class="#{visible_learning_time_frames?(@user) ? 'col-lg-4 col-xxl-4' : 'col-lg-6 col-xxl-6'}")
-          - if @user.student_or_trainee? && @user.total_learning_time.positive?
+          - if UserStatus.new(@user).student_or_trainee? && UserLearningTime.new(@user).total.positive?
             = render(StudyStreak::StudyStreakTrackerComponent.new(study_streak: @study_streak, target_user: @user))
-          - unless @user.total_learning_time.zero? || @user.mentor?
+          - unless UserLearningTime.new(@user).total.zero? || @user.mentor?
             = render(Grass::GrassComponent.new(user: @user, times: @times, target_end_date: @target_end_date, path: :user_path))
-          - if @user.student_or_trainee?
+          - if UserStatus.new(@user).student_or_trainee?
             = render(Calendar::NicoNicoCalendarComponent.new(user: @user, path: :niconico_calendar_date_in_profile_path, current_date: @calendar.current_date, current_calendar: @calendar.with_reports))
           - if @user.github_account.present?
               = render 'users/github_grass', user: @user
@@ -91,7 +91,7 @@
                   .user-statuses__item
                     = link_to '管理者として情報変更', edit_admin_user_path, class: 'card-main-actions__action a-button is-sm is-secondary is-block'
                   .user-statuses__item
-                    - if @user.graduated?
+                    - if UserStatus.new(@user).graduated?
                       .a-button.is-sm.is-disabled.is-block
                         | 卒業済
                     - else

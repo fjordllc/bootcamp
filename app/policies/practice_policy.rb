@@ -10,6 +10,6 @@ class PracticePolicy < ApplicationPolicy
   end
 
   def show?
-    user.staff? || user.card?
+    UserStatus.new(user).staff? || UserBilling.new(user).card?
   end
 end
