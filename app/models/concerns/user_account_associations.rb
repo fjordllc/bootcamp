@@ -23,5 +23,7 @@ module UserAccountAssociations
     has_one_attached :avatar
     has_one_attached :profile_image
     has_one_attached :diploma_file
+
+    scope :by_course, ->(target) { joins(:course).where(courses: { title: target }) }
   end
 end

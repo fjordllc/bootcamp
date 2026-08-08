@@ -35,22 +35,32 @@ class User < ApplicationRecord
   include ActionView::Helpers::AssetUrlHelper
   include Taggable
   include Searchable
+
+  columns_for_keyword_search(
+    :login_name,
+    :name,
+    :name_kana,
+    :twitter_account,
+    :facebook_url,
+    :blog_url,
+    :github_account,
+    :description
+  )
+
   include StagingEnvironment
   include UserStatusScopes
   include UserRoleScopes
   include UserStudentGroupScopes
   include MentorIndexScopes
   include UserActiveScopes
-  include UserSimpleQueryScopes
-  include UserComplexQueryScopes
+  include UserRegistrationScopes
   include AvatarAttachable
   include Comebackable
   include UserContentAssociations
   include UserLearningAssociations
-  include UserPracticeProgressAssociations
   include UserEventAssociations
   include UserFollowAssociations
-  include UserRetirementAssociations
+  include UserRetirement
   include UserAccountAssociations
   include UserJobAndEnvironmentEnums
   include UserCareerEnums
@@ -58,7 +68,6 @@ class User < ApplicationRecord
   include UserPaymentValidations
   include UserProfileValidations
   include UserSignupValidations
-  include UserRetirementValidations
   include UserFlags
   include Ransackable
 
