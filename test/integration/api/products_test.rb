@@ -84,11 +84,15 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
 
     assert_equal 2, json['comments']['list'].size
 
-    assert_equal comments(:comment10).id,
-                 json['comments']['list'][0]['id']
+    [comments(:comment10), comments(:comment13)].each_with_index do |comment, index|
+      response_comment = json['comments']['list'][index]
 
-    assert_equal comments(:comment13).id,
-                 json['comments']['list'][1]['id']
+      assert_equal comment.id, response_comment['id']
+      assert_equal comment.description, response_comment['description']
+      assert_equal comment.user.login_name, response_comment.dig('user', 'login_name')
+      assert_equal comment.created_at.as_json, response_comment['created_at']
+      assert_equal comment.updated_at.as_json, response_comment['updated_at']
+    end
   end
 
   test 'returns json error with invalid token' do
