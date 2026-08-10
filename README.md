@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/fjordllc/bootcamp.svg?style=shield)](https://app.circleci.com/pipelines/github/fjordllc/bootcamp)
+[![CI](https://github.com/fjordllc/bootcamp/actions/workflows/ci.yml/badge.svg)](https://github.com/fjordllc/bootcamp/actions/workflows/ci.yml)
 [![Create a release pull-request](https://github.com/fjordllc/bootcamp/actions/workflows/git-pr-release-action.yml/badge.svg)](https://github.com/fjordllc/bootcamp/actions/workflows/git-pr-release-action.yml)
 
 # Bootcamp

@@ -116,7 +116,6 @@ jobs:
       PGPASSWORD: postgres
       RAILS_ENV: test
       DATABASE_URL: postgres://postgres:postgres@localhost/ci_test
-      CIRCLE_TEST_REPORTS: test/reports
       TEST_SHARD: ${{ matrix.shard }}
       TEST_SHARDS: 8
 
