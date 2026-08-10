@@ -31,7 +31,7 @@
 ## Commit & Pull Request Guidelines
 - Commits: imperative mood and focused scope; reference issues (e.g., "Fix profile validation #123").
 - PRs: clear description, linked issues, screenshots for UI changes, migration notes, and rollback plan if relevant.
-- Quality gates: all linters pass (`bin/lint`) and CI (CircleCI) green; add/adjust tests when changing behavior.
+- Quality gates: all linters pass (`bin/lint`) and CI (GitHub Actions) green; add/adjust tests when changing behavior.
 
 ## Security & Configuration Tips
 - Never commit secrets; use `.env.local`. Respect `.ruby-version`, `.tool-versions`, and Node versions in `.node-version`/`.nvmrc`.
