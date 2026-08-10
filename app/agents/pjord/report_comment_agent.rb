@@ -2,7 +2,7 @@
 
 class Pjord::ReportCommentAgent < Pjord::Agent
   inputs :report, :intent
-  model ENV.fetch('PJORD_COMMENT_LLM_MODEL', 'claude-opus-4-6')
+  model ENV.fetch('PJORD_COMMENT_LLM_MODEL', 'claude-opus-5'), provider: :anthropic, assume_model_exists: true
   instructions { Pjord::Agent.prompt_for('report_comment', Pjord::ReportCommentAgent.context_for(report, intent)) }
 
   def self.comment(report, intent:)
