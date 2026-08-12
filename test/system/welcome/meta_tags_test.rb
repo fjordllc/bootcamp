@@ -32,6 +32,13 @@ module Welcome
       assert_selector "meta[name='twitter:title'][content='企業研修代行']", visible: false
     end
 
+    test 'GET /engineer_introduction' do
+      visit '/engineer_introduction'
+      assert_equal 'エンジニア紹介 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+      assert_selector "meta[property='og:title'][content='エンジニア紹介']", visible: false
+      assert_selector "meta[name='twitter:title'][content='エンジニア紹介']", visible: false
+    end
+
     test 'GET /articles' do
       visit '/articles'
       assert_equal 'ブログ | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title

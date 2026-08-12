@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get "pricing", to: "welcome#pricing", as: "pricing"
   get "alumni_voices", to: "welcome#alumni_voices", as: "alumni_voices"
   get "training", to: "welcome#training", as: "training"
+  get "engineer_introduction", to: "welcome#engineer_introduction", as: "engineer_introduction"
   get "faq", to: "welcome#faq", as: "faq"
   get "job_support", to: "welcome#job_support", as: "job_support"
   get "tos", to: "welcome#tos", as: "tos"

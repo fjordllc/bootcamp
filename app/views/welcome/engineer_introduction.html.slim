@@ -1,0 +1,494 @@
+- content_for :extra_body_classes, 'welcome no-forms'
+- title 'エンジニア紹介'
+- set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
+  description: '自ら学び続ける力を身につけたフィヨルドブートキャンプ卒業生を、採用をご検討の企業様へご紹介します。紹介料は入社時のみで、求人掲載や相談に費用はかかりません。')
+ruby:
+  steps = [
+    ['ヒアリング', '希望する仕事、企業選びの条件、将来の目標を伺い、マッチしそうな企業をご案内します。'],
+    ['カジュアル面談', '卒業生が選考を希望する前に、仕事内容や働き方、条件などを直接確認します。'],
+    ['卒業生のご紹介', '本人が入社を希望した段階で、学習中に作成した成果物とともにご紹介します。'],
+    ['選考', '選考内容に制限はありません。貴社で定めている採用試験を実施してください。'],
+    ['結果・フィードバック', '選考結果をご連絡いただき、今後のマッチング改善のために理由も伺います。'],
+    ['紹介料のお支払い', '紹介者の初出社を確認後、請求書をお送りします。']
+  ]
+  faqs = [
+    ['受講生の年齢層や男女比は？', '就職支援利用者では20代後半が最も多く、次いで30代前半、20代前半です。男女比はおよそ6対4です。'],
+    ['紹介から就職する卒業生の年収は？', '企業によって異なりますが、平均・最頻値ともにおよそ400万円です。'],
+    ['卒業生は選考を受ける企業をどう決めますか？', '企業説明会動画や公開情報を確認し、カジュアル面談で理解を深めたうえで、本人が希望する企業へ選考を依頼します。']
+  ]
+  contract_steps = [
+    ['契約書の確認', '契約書のひな形をお送りします。法務確認後、必要に応じて内容を調整します。'],
+    ['オンラインで契約', '内容が確定したら、クラウドサインを使って契約を締結します。'],
+    ['企業情報を掲載', '紹介企業リストへ追加し、受講生・卒業生が貴社を知れる状態にします。'],
+    ['企業説明会へ参加', '合同企業説明会で発表いただき、録画をFBC内で継続して公開します。']
+  ]
+
+article.lp
+  header.lp-content.is-lp-bg-main.is-hero
+    .l-container.is-xl
+      .lp-content__inner
+        .lp-content__start
+          .lp-hero-info
+            hgroup.lp-hero-info__titles
+              h1.lp-hero-info__title
+                | FBCのエンジニア紹介
+              h2.lp-hero-info__catchcopy
+                | 採用したいのは
+                br
+                | 自ら学び続ける人
+            .lp-hero-info__description
+              p
+                | 現場のプラスの戦力になることを目指し、実践的なカリキュラムを修了した
+                | フィヨルドブートキャンプの卒業生をご紹介します。
+            .lp-actions
+              ul.lp-actions__items
+                li.lp-actions__item
+                  = mail_to 'hr@lokka.jp', '採用について相談する', class: 'a-button is-xl is-warning is-block'
+        .lp-content__end
+          .lp-hero-visual
+            = image_tag('engineer_introduction/hero.png', class: 'lp-hero-visual__image', alt: '採用担当者とエンジニアが対話するイメージイラスト')
+
+  section.lp-content.is-lp-bg-1.is-top-title
+    .l-container.is-xl
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-border-bottom
+              | FBCが目指す「プラスの戦力」
+        .lp-content__end
+          .lp-content-stack
+            .lp-content-stack__item
+              .lp-content__description
+                .l-inner-container.is-md
+                  .a-short-text
+                    p
+                      | フィヨルドブートキャンプは、現役のソフトウェアエンジニアが作った、現場目線にこだわるプログラミングスクールです。
+                      | プロジェクトに入ったとき、経験が浅くてもチームの前進に貢献できる人を育てています。
+            .lp-content-stack__item
+              .row.is-gutter-width-32
+                .col-xs-12.col-md-6
+                  section.lp-top-image-section
+                    .lp-top-image-section__inner.a-card
+                      = image_tag('engineer_introduction/positive-team.png',
+                        class: 'lp-top-image-section__visual',
+                        alt: 'プラスの戦力によってチームのみんなが喜んでいる様子')
+                      h3.lp-card-title.text-center
+                        | みんなが喜ぶプラスの戦力
+                      .lp-card-description
+                        .a-short-text
+                          ul
+                            li 経験豊富なメンバーと比べて小さな貢献でも、決してゼロではない
+                            li 教育コストをかけてレビューすれば、チーム全体では助けになる
+                            li わからないことを自分で調べ、相談し、前へ進める
+                .col-xs-12.col-md-6
+                  section.lp-top-image-section
+                    .lp-top-image-section__inner.a-card
+                      = image_tag('engineer_introduction/negative-team.png',
+                        class: 'lp-top-image-section__visual',
+                        alt: 'マイナスの戦力によってチームのみんなが困っている様子')
+                      h3.lp-card-title.text-center
+                        | みんなが困るマイナスの戦力
+                      .lp-card-description
+                        .a-short-text
+                          ul
+                            li 教えるために多くの力が割かれ、かえってプロジェクトが進まない
+                            li コードを任せられず、本来とは異なる仕事しか依頼できない
+                            li 教材やメンターがいないと、自分で問題を解決できない
+
+  section.lp-content.is-lp-bg-2.is-top-title
+    .l-container.is-xl
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-border-bottom
+              | 卒業生が身につけていること
+        .lp-content__end
+          .row.is-gutter-width-32
+            .col-xs-12.col-md-4
+              section.lp-top-image-section
+                .lp-top-image-section__inner.a-card
+                  = image_tag('practice.svg', class: 'lp-top-image-section__icon', alt: '')
+                  h3.lp-card-title.text-center
+                    | 1200時間以上の
+                    br
+                    | 実践的な学習
+                  .lp-card-description
+                    .a-short-text
+                      p HTML、CSS、Linux、Git / GitHub、Ruby on Rails、JavaScript、React、チーム開発を学び、最後は自分のWebサービスを公開します。
+            .col-xs-12.col-md-4
+              section.lp-top-image-section
+                .lp-top-image-section__inner.a-card
+                  = image_tag('self-learning-skills.svg', class: 'lp-top-image-section__icon', alt: '')
+                  h3.lp-card-title.text-center
+                    | 自分で考え
+                    br
+                    | 学び続ける力
+                  .lp-card-description
+                    .a-short-text
+                      p 手取り足取り教える専用教材に依存せず、書籍や公式ドキュメントを読み、問題解決の手順や情報の探し方を身につけています。
+            .col-xs-12.col-md-4
+              section.lp-top-image-section
+                .lp-top-image-section__inner.a-card
+                  = image_tag('oss-engagement.svg', class: 'lp-top-image-section__icon', alt: '')
+                  h3.lp-card-title.text-center
+                    | チームで開発する
+                    br
+                    | OSSと同じ環境
+                  .lp-card-description
+                    .a-short-text
+                      p 学習アプリ自体をOSSとして開発。GitHub Issue、Pull Request、コードレビューを通じて、実務に近いチーム開発を経験します。
+
+  section.lp-content.is-lp-bg-3.is-left-title
+    .l-container.is-xl
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.is-border-left
+              | 採用企業と
+              br
+              strong
+                | 卒業生をつなぐ
+        .lp-content__end
+          .lp-content-stack
+            .lp-content-stack__item
+              .lp-content__description
+                .a-short-text
+                  p
+                    | 卒業生の多くは実務未経験ですが、卒業制作だけでなく、日報、質問、提出物、コードレビューの履歴など、学習の過程を確認できます。
+                    | 採用企業は完成品だけでは見えにくい、学習姿勢やコミュニケーションも含めて選考を判断できます。
+            .lp-content-stack__item
+              .row.is-gutter-width-32
+                .col-xs-12.col-md-6
+                  section.lp-top-image-section
+                    .lp-top-image-section__inner.a-card
+                      = image_tag('graduate.svg', class: 'lp-top-image-section__icon', alt: '')
+                      h3.lp-card-title.text-center
+                        | 無料で企業をご紹介
+                      .lp-card-description
+                        .a-short-text
+                          p 企業情報と説明会動画を受講生・卒業生へ共有します。求人掲載や候補者についての相談、カジュアル面談の実施に費用はかかりません。
+                .col-xs-12.col-md-6
+                  section.lp-top-image-section
+                    .lp-top-image-section__inner.a-card
+                      = image_tag('events.svg', class: 'lp-top-image-section__icon', alt: '')
+                      h3.lp-card-title.text-center
+                        | 合同企業説明ドリンクアップ
+                      .lp-card-description
+                        .a-short-text
+                          p オンラインの合同企業説明会を開催。選考前に現場のエンジニアと話し、仕事内容や文化を知ることで、双方のミスマッチを減らします。
+
+  section.lp-content.is-lp-bg-2.is-top-title
+    .l-container.is-xl
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-border-bottom
+              | 完成品だけでなく、学びの過程も見られます
+        .lp-content__end
+          .lp-content-stack
+            .lp-content-stack__item
+              .l-inner-container.is-md
+                .a-short-text
+                  p
+                    | FBCでは、入会から卒業までの学習がオンライン上に蓄積されます。
+                    | ご紹介時には、本人の同意のもとで成果物をご案内します。
+                    | 技術力だけでなく、試行錯誤の仕方、文章で伝える力、レビューへの向き合い方も採用判断の材料にできます。
+            .lp-content-stack__item
+              .row.is-gutter-width-32
+                .col-xs-12.col-md-6
+                  section.lp-top-image-section
+                    .lp-top-image-section__inner.a-card
+                      = image_tag('report.svg', class: 'lp-top-image-section__icon', alt: '')
+                      h3.lp-card-title.text-center
+                        | 学習の記録
+                      .lp-card-description
+                        .a-short-text
+                          ul
+                            li 毎日の学習内容と振り返りを記録した日報
+                            li カリキュラムで提出した課題
+                            li 質問と回答、レビューのやり取り
+                .col-xs-12.col-md-6
+                  section.lp-top-image-section
+                    .lp-top-image-section__inner.a-card
+                      = image_tag('product.svg', class: 'lp-top-image-section__icon', alt: '')
+                      h3.lp-card-title.text-center
+                        | コードと成果物
+                      .lp-card-description
+                        .a-short-text
+                          ul
+                            li 自分で企画・開発・公開したWebサービス
+                            li 自作サービスのソースコード
+                            li FBCの学習アプリへ送ったPull Request
+
+  section.lp-content.is-lp-bg-1.is-top-title
+    .l-container.is-xl
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-border-bottom
+              | 紹介者を長く知っているから、丁寧に推薦できます
+        .lp-content__end
+          .lp-content-stack
+            .lp-content-stack__item
+              .l-inner-container.is-md
+                .a-short-text
+                  p
+                    | FBCの卒業には1200時間以上、期間にして1年弱から2年ほどの学習が必要です。
+                    | その間、運営やメンターは日報、提出課題、コードレビュー、チャット、ミートアップを通じて、受講生の学習に継続して関わります。
+                    | 就職活動を始める際には個別のカウンセリングも行い、希望する仕事や将来像を確認します。
+            .lp-content-stack__item
+              .row.is-gutter-width-32
+                .col-xs-12.col-md-4
+                  section.lp-top-image-section
+                    .lp-top-image-section__inner.a-card
+                      = image_tag('daily-check-ins.svg', class: 'lp-top-image-section__icon', alt: '')
+                      h3.lp-card-title.text-center
+                        | 日々の学習を
+                        br
+                        | 記録
+                      .lp-card-description
+                        .a-short-text
+                          p 日報や質問には、その日の進捗だけでなく、つまずいた点、調べたこと、次に試すことが残ります。
+                .col-xs-12.col-md-4
+                  section.lp-top-image-section
+                    .lp-top-image-section__inner.a-card
+                      = image_tag('oss-engagement.svg', class: 'lp-top-image-section__icon', alt: '')
+                      h3.lp-card-title.text-center
+                        | 課題とコードを
+                        br
+                        | 継続レビュー
+                      .lp-card-description
+                        .a-short-text
+                          p 提出課題やPull Requestを通して、技術の習熟度、レビューへの対応、問題解決の過程を確認します。
+                .col-xs-12.col-md-4
+                  section.lp-top-image-section
+                    .lp-top-image-section__inner.a-card
+                      = image_tag('pair-work.svg', class: 'lp-top-image-section__icon', alt: '')
+                      h3.lp-card-title.text-center
+                        | 対話を通じて
+                        br
+                        | 希望を確認
+                      .lp-card-description
+                        .a-short-text
+                          p ミートアップやチャット、就職カウンセリングで、本人の考え方、希望する働き方、将来像を聞き取ります。
+            .lp-content-stack__item
+              .l-inner-container.is-md
+                .a-short-text
+                  p
+                    | この長期間の記録と対話があるため、履歴書や短時間の面談だけでは見えにくい、学び方、コミュニケーション、成長の過程を踏まえて推薦できます。
+                    | 本人の希望と企業の環境を照らし合わせ、双方にとってミスマッチの少ないご紹介を目指しています。
+
+  section.lp-content.is-lp-bg-3.is-top-title
+    .l-container.is-xl
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-border-bottom
+              | 契約後にできること
+        .lp-content__end
+          .row.is-gutter-width-32
+            .col-xs-12.col-md-4
+              section.lp-top-image-section
+                .lp-top-image-section__inner.a-card
+                  = image_tag('id-card.svg', class: 'lp-top-image-section__icon', alt: '')
+                  h3.lp-card-title.text-center
+                    | アドバイザーとして
+                    br
+                    | コミュニティに参加
+                  .lp-card-description
+                    .a-short-text
+                      p 採用に関わるエンジニアは無料でFBCへ参加できます。普段の学習や交流に触れ、気になる受講生についてFBCへ相談できます。
+            .col-xs-12.col-md-4
+              section.lp-top-image-section
+                .lp-top-image-section__inner.a-card
+                  = image_tag('everywhere.svg', class: 'lp-top-image-section__icon', alt: '')
+                  h3.lp-card-title.text-center
+                    | 紹介企業リストへ
+                    br
+                    | 掲載
+                  .lp-card-description
+                    .a-short-text
+                      p 受講生・卒業生が閲覧する企業リストへ、事業内容、働き方、募集情報などを掲載します。
+            .col-xs-12.col-md-4
+              section.lp-top-image-section
+                .lp-top-image-section__inner.a-card
+                  = image_tag('events.svg', class: 'lp-top-image-section__icon', alt: '')
+                  h3.lp-card-title.text-center
+                    | 合同企業説明会へ
+                    br
+                    | 参加
+                  .lp-card-description
+                    .a-short-text
+                      p 複数企業によるオンライン説明会で、現場の仕事や文化を直接伝えられます。発表動画は後から受講生にも共有します。
+
+  section.lp-content.is-lp-bg-2.is-top-title.lp-left-number-sections
+    .l-container.is-lg
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-border-bottom
+              | 契約締結までの流れ
+        .lp-content__end
+          .lp-left-number-sections__items
+            .l-cards.is-zigzag
+              - contract_steps.each do |step|
+                .l-cards__item
+                  .l-cards__item-inner
+                    .a-card
+                      section.lp-left-number-section
+                        .lp-left-number-section__start
+                          header.lp-left-number-section__header
+                            h3.lp-left-number-section__title = step.first
+                        .lp-left-number-section__end
+                          .lp-card-description
+                            .a-short-text
+                              p = step.last
+
+  section.lp-content.is-lp-bg-1.is-top-title.lp-left-number-sections
+    .l-container.is-lg
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-border-bottom
+              | ご紹介の流れ
+        .lp-content__end
+          .lp-left-number-sections__items
+            .l-cards.is-zigzag
+              - steps.each do |step|
+                .l-cards__item
+                  .l-cards__item-inner
+                    .a-card
+                      section.lp-left-number-section
+                        .lp-left-number-section__start
+                          header.lp-left-number-section__header
+                            h3.lp-left-number-section__title
+                              = step.first
+                        .lp-left-number-section__end
+                          .lp-card-description
+                            .a-short-text
+                              p = step.last
+
+  section.lp-content.is-lp-bg-2.is-top-title
+    .l-container.is-xl
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-border-bottom
+              | 紹介料と返還金額
+        .lp-content__end
+          .lp-content-stack
+            .lp-content-stack__item
+              .l-inner-container.is-md
+                .a-short-text
+                  p
+                    | 紹介料は、採用が決まった場合にのみ発生します。入社後に早期退職した場合は、在籍期間に応じて紹介料の一部を返還します。
+            .lp-content-stack__item
+              .row.is-gutter-width-32
+                .col-xs-12.col-md-6
+                  section.lp-top-image-section
+                    .lp-top-image-section__inner.a-card
+                      h3.lp-card-title.text-center 契約・紹介料
+                      .lp-card-description
+                        .a-short-text
+                          ul
+                            li 契約時・求人掲載時の費用：無料
+                            li 採用決定時の紹介料：年収の35％
+                .col-xs-12.col-md-6
+                  section.lp-top-image-section
+                    .lp-top-image-section__inner.a-card
+                      h3.lp-card-title.text-center 早期退職時の返還
+                      .lp-card-description
+                        .a-short-text
+                          ul
+                            li 入社から30日未満：紹介料の80％
+                            li 入社から60日未満：紹介料の50％
+                            li 入社から90日未満：紹介料の20％
+
+  section.lp-content.is-lp-bg-3.is-top-title
+    .l-container.is-xl
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-border-bottom
+              | Rubyコミュニティとつながり、学び続ける卒業生
+        .lp-content__end
+          .lp-content-stack
+            .lp-content-stack__item
+              .l-inner-container.is-md
+                .a-short-text
+                  p
+                    | FBCは、卒業後もプログラミングを楽しみ、コミュニティと関わりながら成長し続けることを大切にしています。
+                    | 卒業生はRubyに関わる企業を中心に、受託開発、自社サービス、スタートアップ、上場企業など幅広い環境で活躍しています。
+            .lp-content-stack__item
+              .row.is-gutter-width-32
+                .col-xs-12.col-md-4
+                  section.lp-top-image-section
+                    .lp-top-image-section__inner.a-card
+                      = image_tag('oss-engagement.svg', class: 'lp-top-image-section__icon', alt: '')
+                      h3.lp-card-title.text-center
+                        | OSSと
+                        br
+                        | コミュニティ
+                      .lp-card-description
+                        .a-short-text
+                          p 学習中からOSS開発の進め方に触れ、卒業後も技術コミュニティで学びを深めています。
+                .col-xs-12.col-md-4
+                  section.lp-top-image-section
+                    .lp-top-image-section__inner.a-card
+                      = image_tag('events.svg', class: 'lp-top-image-section__icon', alt: '')
+                      h3.lp-card-title.text-center
+                        | 技術イベントで
+                        br
+                        | 登壇・運営
+                      .lp-card-description
+                        .a-short-text
+                          p RubyKaigiやKaigi on Railsで、卒業生が登壇者やオーガナイザーとして活動しています。
+                .col-xs-12.col-md-4
+                  section.lp-top-image-section
+                    .lp-top-image-section__inner.a-card
+                      = image_tag('graduate.svg', class: 'lp-top-image-section__icon', alt: '')
+                      h3.lp-card-title.text-center
+                        | 卒業後も続く
+                        br
+                        | つながり
+                      .lp-card-description
+                        .a-short-text
+                          p 受講生、卒業生、メンター、アドバイザーが立場を越えて交流し、互いの成長を支えています。
+
+  section.lp-content.is-lp-bg-1.is-left-title.lp-faqs
+    .l-container.is-lg
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.is-vertical.is-border-left
+              | エンジニア紹介について
+              br
+              strong
+                | よくある質問
+        .lp-content__end
+          .lp-faqs__items
+            - faqs.each do |faq|
+              section.lp-faq
+                .lp-faq__inner
+                  header.lp-faq__header
+                    h3.lp-faq__title = faq.first
+                  .lp-faq__body
+                    .a-short-text
+                      p = faq.last
+              hr.a-border
+
+  section.lp-content.is-lp-bg-main.is-top-title
+    .l-container.is-xl
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-border-bottom
+              | まずは採用についてご相談ください
+        .lp-content__end
+          .l-inner-container.is-md
+            .a-short-text.is-ta-center
+              p 求める人物像や採用条件を伺い、貴社に合いそうな卒業生をご紹介します。
+            .lp-actions
+              ul.lp-actions__items
+                li.lp-actions__item
+                  = mail_to 'hr@lokka.jp', 'hr@lokka.jp に相談する', class: 'a-button is-xl is-warning is-block'

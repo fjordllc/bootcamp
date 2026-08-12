@@ -40,6 +40,8 @@ class WelcomeController < ApplicationController
     @faqs = faqs_for(FAQ_CATEGORY_NAME_FOR_TRAINING)
   end
 
+  def engineer_introduction; end
+
   def practices; end
 
   def tos; end

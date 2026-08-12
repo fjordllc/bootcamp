@@ -33,6 +33,14 @@
   }
 }
 
+.lp-top-image-section__visual {
+  width: 100%;
+  max-width: 24rem;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  margin-inline: auto;
+}
+
 .lp-top-image-section__chart-container {
   aspect-ratio: 3/4;
 }
