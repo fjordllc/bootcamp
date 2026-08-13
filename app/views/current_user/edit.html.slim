@@ -18,7 +18,7 @@ hr.a-border
       = render 'users/form', from: :edit, url: current_user_path, user: @user
     hr.a-border-tint
     footer.auth-form__footer
-      nav.auth-form-nav
+      nav.auth-form-nav aria-label="ユーザー情報変更関連リンク"
         ul.auth-form-nav__items
           li.auth-form-nav__item
             - if @user.trainee?

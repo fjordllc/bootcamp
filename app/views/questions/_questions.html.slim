@@ -7,11 +7,11 @@
       p.o-empty-message__text
         = empty_message
 - else
-  nav.pagination
+  .pagination
     = paginate questions
     .card-list.a-card
       .card-list__items
         - questions.each do |question|
           = render 'questions/question', question: question
-  nav.pagination
+  .pagination
     = paginate questions
