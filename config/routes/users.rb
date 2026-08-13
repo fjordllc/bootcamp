@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     resources :regular_events, only: %i(index), controller: "users/regular_events"
     get "portfolio" => "users/works#index", as: :portfolio
     patch "graduation", to: "graduation#update", as: :graduation
+    patch "stopped_mail_by_admin", to: "stopped_mail_by_admin#update", as: :stopped_mail_by_admin
     resource :mail_notification, only: %i(edit update), controller: "users/mail_notification"
   end
 

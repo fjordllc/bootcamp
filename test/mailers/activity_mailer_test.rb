@@ -1057,6 +1057,20 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_empty ActionMailer::Base.deliveries
   end
 
+  test 'not send came_comment email to user with stopped_mail_by_admin on' do
+    comment = comments(:commentOfTalk)
+    receiver = comment.receiver
+    receiver.update(stopped_mail_by_admin: true)
+
+    ActivityMailer.came_comment(
+      comment:,
+      message: "相談部屋で#{comment.sender.login_name}さんからコメントがありました。",
+      receiver: comment.receiver
+    ).deliver_now
+
+    assert_empty ActionMailer::Base.deliveries
+  end
+
   test 'not send chose_correct_answer email to retired user' do
     answer = correct_answers(:correct_answer1)
     receiver = answer.user
