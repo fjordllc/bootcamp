@@ -19,7 +19,10 @@
         li.header-links__item
           = render 'global_nav_help_link'
       li.header-links__item
-        button.header-links__link.js-header-dropdown.test-show-menu
+        button.header-links__link.test-show-menu[
+          data-controller="header-dropdown"
+          data-action="click->header-dropdown#toggle"
+        ]
           .header-current-user
             span class="a-user-role is-#{current_user.primary_role}"
               = image_tag current_user.avatar_url,
@@ -34,7 +37,10 @@
               - if admin_or_mentor_login?
                 = render 'mentor_menu'
       li.header-links__item.is-hidden-md-up
-        button.header-links__link.js-header-dropdown.test-show-menu
+        button.header-links__link.test-show-menu[
+        data-controller="header-dropdown"
+        data-action="click->header-dropdown#toggle"
+        ]
           i.fa-solid.fa-bars
           .header-links__link-label Menu
           .header-dropdown
