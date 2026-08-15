@@ -5,6 +5,7 @@ require 'test_helper'
 class Reports::PjordReportCommentTest < ActionDispatch::IntegrationTest
   test 'mentor can manually create report comment by Pjord' do
     report = reports(:report5)
+    report.user.update_column(:pjord_comment, false) # rubocop:disable Rails/SkipsModelValidations
 
     Pjord::ReportClassifierAgent.stub(:classify, { intent: 'general' }) do
       Pjord::ReportCommentAgent.stub(:comment, 'コメント本文') do
