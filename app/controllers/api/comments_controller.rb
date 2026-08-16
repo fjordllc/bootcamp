@@ -19,6 +19,8 @@ class API::CommentsController < API::BaseController
   end
 
   def create
+    return render_bad_request if params[:commentable_type].blank?
+
     @comment = Comment.new(comment_params)
     @comment.user = current_user
     @comment.commentable = commentable
