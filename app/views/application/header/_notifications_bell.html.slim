@@ -18,7 +18,8 @@
   #notifications-dropdown.is-hidden(role="dialog" aria-label="通知")
     button.header-dropdown__background.is-notification#notifications-background(
       type="button"
-      aria-label="通知を閉じる")
+      aria-label="通知を閉じる"
+      data-action="click->header-dropdown#close")
     .header-dropdown__inner.is-notification
       header.header-dropdown__header
         nav.pill-nav.is-half(role="tablist" aria-label="通知フィルター")

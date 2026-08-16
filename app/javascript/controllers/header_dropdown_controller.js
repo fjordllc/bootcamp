@@ -13,9 +13,13 @@ export default class extends Controller {
     this.element.classList.toggle('is-opened-dropdown')
   }
 
+  close() {
+    this.element.classList.remove('is-opened-dropdown')
+  }
+
   closeOnClickOutside = (event) => {
     if (!this.element.contains(event.target)) {
-      this.element.classList.remove('is-opened-dropdown')
+      this.close()
     }
   }
 }
