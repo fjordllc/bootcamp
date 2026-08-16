@@ -11,4 +11,11 @@ class HeaderTest < ApplicationSystemTestCase
     assert_text '受講生用ヘルプ'
     assert_text 'アドバイザー用ヘルプ'
   end
+
+  test 'toggle notifications dropdown' do
+    visit_with_auth root_path, 'komagata'
+
+    find('#notifications-bell-button').click
+    assert_selector '#notifications-bell-container.is-opened-dropdown'
+  end
 end
