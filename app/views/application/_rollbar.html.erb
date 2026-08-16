@@ -3,6 +3,7 @@ var _rollbarConfig = {
     accessToken: "<%= ENV['ROLLBAR_CLIENT_TOKEN'] %>",
     captureUncaught: true,
     captureUnhandledRejections: true,
+    hostBlockList: ["^chrome-extension://"],
     payload: {
         environment: "production"
     }
