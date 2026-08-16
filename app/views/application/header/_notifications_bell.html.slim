@@ -1,9 +1,13 @@
-#notifications-bell-container data-api-url="/api/notifications.json"
+#notifications-bell-container(
+  data-api-url="/api/notifications.json"
+  data-controller="header-dropdown"
+)
   button.header-links__link.test-show-notifications#notifications-bell-button(
     type="button"
     aria-expanded="false"
     aria-controls="notifications-dropdown"
-    aria-label="通知を表示")
+    aria-label="通知を表示"
+    data-action="click->header-dropdown#toggle")
     .header-links__link.test-bell
       .header-notification-icon
         #notification-count.header-notification-count.a-notification-count.test-notification-count.is-hidden
