@@ -1,65 +1,76 @@
-.header-links.is-user-links
-  ul.header-links__items
-    li.header-links__search.is-hidden
-      = render 'application/header/header_search',
-        select_id: 'header-search-select',
-        text_field_id: 'header-search-word',
-        submit_id: 'test-search',
-        mode_id_prefix: 'header-mode'
-    li.header-links__item
-      button.header-links__link.test-show-menu.js-modal-search-shown-trigger
-        .header-links__link-icon
-          i.fa-solid.fa-search
-        .header-links__link-label 検索
-
-      - if current_user.admin? || current_user.adviser?
-        li.header-links__item
-          = render 'global_nav_helps'
-      - else
-        li.header-links__item
-          = render 'global_nav_help_link'
+div[
+  data-controller="modal-switcher"
+]
+  .header-links.is-user-links
+    ul.header-links__items
+      li.header-links__search.is-hidden
+        = render 'application/header/header_search',
+          select_id: 'header-search-select',
+          text_field_id: 'header-search-word',
+          submit_id: 'test-search',
+          mode_id_prefix: 'header-mode'
       li.header-links__item
-        button.header-links__link.test-show-menu[
+        button.header-links__link.test-show-menu.js-modal-search-shown-trigger[
+          data-action="click->modal-switcher#toggle"
+        ]
+          .header-links__link-icon
+            i.fa-solid.fa-search
+          .header-links__link-label 検索
+
+        - if current_user.admin? || current_user.adviser?
+          li.header-links__item
+            = render 'global_nav_helps'
+        - else
+          li.header-links__item
+            = render 'global_nav_help_link'
+        li.header-links__item
+          button.header-links__link.test-show-menu[
+            data-controller="header-dropdown"
+            data-action="click->header-dropdown#toggle"
+          ]
+            .header-current-user
+              span class="a-user-role is-#{current_user.primary_role}"
+                = image_tag current_user.avatar_url,
+                  title: current_user.icon_title,
+                  class: 'header-current-user__icon a-user-icon is-xs'
+            .header-links__link-label Me
+            .header-dropdown
+              .header-dropdown__inner
+                = render 'user_menu'
+                - if current_user.admin?
+                  = render 'admin_menu'
+                - if admin_or_mentor_login?
+                  = render 'mentor_menu'
+        li.header-links__item.is-hidden-md-up
+          button.header-links__link.test-show-menu[
           data-controller="header-dropdown"
           data-action="click->header-dropdown#toggle"
-        ]
-          .header-current-user
-            span class="a-user-role is-#{current_user.primary_role}"
-              = image_tag current_user.avatar_url,
-                title: current_user.icon_title,
-                class: 'header-current-user__icon a-user-icon is-xs'
-          .header-links__link-label Me
-          .header-dropdown
-            .header-dropdown__inner
-              = render 'user_menu'
-              - if current_user.admin?
-                = render 'admin_menu'
-              - if admin_or_mentor_login?
-                = render 'mentor_menu'
-      li.header-links__item.is-hidden-md-up
-        button.header-links__link.test-show-menu[
-        data-controller="header-dropdown"
-        data-action="click->header-dropdown#toggle"
-        ]
-          i.fa-solid.fa-bars
-          .header-links__link-label Menu
-          .header-dropdown
-            .header-dropdown__inner
-              = render 'global_nav'
-      li.header-links__item
-        = render 'application/header/notifications_bell'
+          ]
+            i.fa-solid.fa-bars
+            .header-links__link-label Menu
+            .header-dropdown
+              .header-dropdown__inner
+                = render 'global_nav'
+        li.header-links__item
+          = render 'application/header/notifications_bell'
 
-.modal#js-modal-search
-  .modal__overlay.js-modal-search-hidden-trigger
-  .modal-content.is-sm
-    .modal-header
-      h2.modal-title
-        | 検索
-      .modal-header__close.js-modal-search-hidden-trigger
-    .modal-body
-      .modal__description
-        = render 'application/header/header_search',
-          select_id: 'header-search-select-modal',
-          text_field_id: 'header-search-word-modal',
-          submit_id: 'test-search-modal',
-          mode_id_prefix: 'modal-mode'
+  .modal#js-modal-search[
+    data-modal-switcher-target="modal"
+  ]
+    .modal__overlay[
+      data-action="click->modal-switcher#toggle"
+    ]
+    .modal-content.is-sm
+      .modal-header
+        h2.modal-title
+          | 検索
+        .modal-header__close[
+          data-action="click->modal-switcher#toggle"
+        ]
+      .modal-body
+        .modal__description
+          = render 'application/header/header_search',
+            select_id: 'header-search-select-modal',
+            text_field_id: 'header-search-word-modal',
+            submit_id: 'test-search-modal',
+            mode_id_prefix: 'modal-mode'
