@@ -1,0 +1,7 @@
+.form-item#pjord-comment
+  = f.label :pjord_comment, class: 'a-form-label'
+  label.a-on-off-checkbox.is-md
+    = f.check_box :pjord_comment
+    span
+  .a-form-help
+    p オフにすると、日報を投稿した際にAIピヨルドからコメントされなくなります。AIピヨルドにメンションした場合は返信されます。

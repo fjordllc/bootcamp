@@ -28,7 +28,7 @@ class CurrentUserController < ApplicationController
       :job, :organization, :os,
       { experiences: [] }, :editor, :other_editor, :company_id,
       :nda, :avatar, :trainee,
-      :mail_notification, :job_seeker, :tag_list,
+      :mail_notification, :pjord_comment, :job_seeker, :tag_list,
       :after_graduation_hope, :training_ends_on, :profile_image,
       :show_mentor_profile,
       :profile_name, :profile_job, :profile_text, { authored_books_attributes: %i[id title url cover _destroy] },
