@@ -13,6 +13,9 @@ export default class extends Controller {
 
     if (this.isHEIC(file)) {
       previewFile = await this.convertHEIC(file)
+      const dataTransfer = new DataTransfer()
+      dataTransfer.items.add(previewFile)
+      this.inputTarget.files = dataTransfer.files
     }
 
     const fileReader = new FileReader()
