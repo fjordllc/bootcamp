@@ -12,10 +12,16 @@ export default class extends Controller {
     let previewFile = file
 
     if (this.isHEIC(file)) {
-      previewFile = await this.convertHEIC(file)
-      const dataTransfer = new DataTransfer()
-      dataTransfer.items.add(previewFile)
-      this.inputTarget.files = dataTransfer.files
+      try {
+        previewFile = await this.convertHEIC(file)
+
+        const dataTransfer = new DataTransfer()
+        dataTransfer.items.add(previewFile)
+        this.inputTarget.files = dataTransfer.files
+      } catch (error) {
+        console.error('HEIC conversion failed:', error)
+        return
+      }
     }
 
     const fileReader = new FileReader()
@@ -58,21 +64,17 @@ export default class extends Controller {
     return type === 'heic' || type === 'heif'
   }
 
-  convertHEIC(file) {
-    return new Promise((resolve) => {
-      Heic2any({
-        blob: file,
-        toType: 'image/jpeg',
-        quality: 1
-      }).then((convertedBlob) => {
-        const convertedFile = new File(
-          [convertedBlob],
-          file.name.substring(0, file.name.lastIndexOf('.')) + '.jpg',
-          { type: 'image/jpeg' }
-        )
-
-        resolve(convertedFile)
-      })
+  async convertHEIC(file) {
+    const convertedBlob = await Heic2any({
+      blob: file,
+      toType: 'image/jpeg',
+      quality: 1
     })
+
+    return new File(
+      [convertedBlob],
+      file.name.substring(0, file.name.lastIndexOf('.')) + '.jpg',
+      { type: 'image/jpeg' }
+    )
   }
 }
