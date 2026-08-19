@@ -15,7 +15,7 @@
             = paginate @events
           .card-list.a-card
             - @events.each do |event|
-              .card-list-item.is-event
+              article.card-list-item.is-event
                 .card-list-item__inner
                   .card-list-item__user
                     = render 'users/icon',

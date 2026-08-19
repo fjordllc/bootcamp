@@ -17,7 +17,7 @@
       = render 'form', user: @user
     hr.a-border-tint
     footer.auth-form__footer
-      nav.auth-form-nav
+      nav.auth-form-nav aria-label="休会復帰関連リンク"
         ul.auth-form-nav__items
           li.auth-form-nav__item
             = link_to 'トップページ', root_path,
@@ -30,3 +30,6 @@
               class: 'auth-form-nav__item-link',
               target: '_blank',
               rel: 'noopener'
+          li.auth-form-nav__item
+            = link_to '退会手続き', new_hibernated_retirement_path,
+              class: 'auth-form-nav__item-link'

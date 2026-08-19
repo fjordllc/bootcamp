@@ -56,6 +56,7 @@ Rails.application.routes.draw do
         get 'counts', on: :collection
       end
       resources :recents, only: %i(index)
+      resource :latest, only: %i(show), controller: "latest"
     end
     post 'reports/checks', to: 'reports/checks#create', as: :reports_checks
     resources :reports, only: %i(index show create update destroy) do
