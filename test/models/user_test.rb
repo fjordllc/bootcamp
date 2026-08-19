@@ -97,7 +97,7 @@ class UserTest < ActiveSupport::TestCase
   test '#avatar_url attaches an existing custom avatar blob' do
     user = users(:komagata)
     reset_avatar(user)
-    user.login_name = 'new-login-name'
+    user.update!(login_name: 'new-login-name')
     custom_blob = ActiveStorage::Blob.create_and_upload!(
       io: StringIO.new('existing avatar'),
       filename: 'new-login-name.webp',
@@ -108,7 +108,7 @@ class UserTest < ActiveSupport::TestCase
 
     user.avatar_url
 
-    assert_equal custom_blob, user.avatar.blob
+    assert_equal custom_blob, user.reload.avatar.blob
   end
 
   test '#generation' do
