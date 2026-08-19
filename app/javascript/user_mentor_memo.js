@@ -7,14 +7,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentUserId = mentorMemo.dataset.current_user_id
     let mentorMemos = []
 
-    const memoDisplay = mentorMemo.querySelector('.memo-display')
-
-    const placeholder = memoDisplay.querySelector('.a-placeholder')
-    const emptyMessage = memoDisplay.querySelector('.o-empty-message')
-    const memoList = mentorMemo.querySelector('.user-mentor-memo-list')
-    const memoItems = mentorMemo.querySelector('.user-mentor-memo-items')
-    const newInput = mentorMemo.querySelector('.user-mentor-memo-new-input')
-    const addButton = mentorMemo.querySelector('.user-mentor-memo-add-button')
+    const status = mentorMemo.querySelector('.user-mentor-memo__status')
+    const placeholder = mentorMemo.querySelector('.a-placeholder')
+    const emptyMessage = mentorMemo.querySelector('.o-empty-message')
+    const memoCount = mentorMemo.querySelector('.user-mentor-memo__count')
+    const memoList = mentorMemo.querySelector('.user-mentor-memo__list')
+    const memoItems = mentorMemo.querySelector('.user-mentor-memo__items')
+    const newInput = mentorMemo.querySelector('.user-mentor-memo__new-input')
+    const addButton = mentorMemo.querySelector('.user-mentor-memo__add-button')
 
     fetch(`/api/users/${userId}.json`, {
       method: 'GET',
@@ -29,24 +29,56 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .then((json) => {
         mentorMemos = json.mentor_memos
+        memoCount.textContent = `（${mentorMemos.length}）`
         placeholder.classList.add('is-hidden')
         if (mentorMemos.length === 0) {
           emptyMessage.classList.remove('is-hidden')
         } else {
+          status.classList.add('is-hidden')
           mentorMemos.forEach((memo) => {
-            const tr = document.createElement('tr')
-            const contentCell = document.createElement('td')
-            const nameCell = document.createElement('td')
-            const updatedCell = document.createElement('td')
-            const updatedButtonCell = document.createElement('td')
+            const memoItem = document.createElement('article')
+            memoItem.className = 'user-mentor-memo-item'
+
+            const header = document.createElement('header')
+            header.className = 'user-mentor-memo-item__header'
+            const avatar = document.createElement('img')
+            avatar.className = 'a-user-icon user-mentor-memo-item__avatar'
+            avatar.src = memo.author_avatar_url
+            avatar.alt = `${memo.author}のアバター`
+            const meta = document.createElement('div')
+            meta.className = 'user-mentor-memo-item__meta'
+            const author = document.createElement('h3')
+            author.className = 'user-mentor-memo-item__author'
+            author.textContent = memo.author
+            const createdAt = document.createElement('time')
+            createdAt.className = 'user-mentor-memo-item__created-at'
+            createdAt.textContent = memo.created_at
+            meta.appendChild(author)
+            meta.appendChild(createdAt)
+            header.appendChild(avatar)
+            header.appendChild(meta)
+
+            const content = document.createElement('div')
+            content.className = 'user-mentor-memo-item__content'
+            content.textContent = memo.content
+
+            memoItem.appendChild(header)
+            memoItem.appendChild(content)
+
             if (String(memo.author_id) === currentUserId) {
+              const actionItems = document.createElement('div')
+              actionItems.className = 'user-mentor-memo-item__actions'
               const editButton = document.createElement('button')
+              editButton.className = 'a-button is-xs is-secondary'
               editButton.textContent = '編集'
-              updatedButtonCell.appendChild(editButton)
 
               const deleteButton = document.createElement('button')
-              deleteButton.textContent = '削除'
-              updatedButtonCell.appendChild(deleteButton)
+              deleteButton.className = 'user-mentor-memo-item__delete-button'
+              deleteButton.textContent = '削除する'
+
+              actionItems.appendChild(editButton)
+              actionItems.appendChild(deleteButton)
+              memoItem.appendChild(actionItems)
 
               deleteButton.addEventListener('click', () => {
                 if (confirm('本当に削除しますか？')) {
@@ -55,20 +87,23 @@ document.addEventListener('DOMContentLoaded', () => {
               })
 
               editButton.addEventListener('click', () => {
-                contentCell.textContent = ''
+                content.textContent = ''
                 const editInput = document.createElement('input')
+                editInput.className = 'a-text-input'
                 editInput.type = 'text'
                 editInput.value = memo.content
-                contentCell.appendChild(editInput)
+                content.appendChild(editInput)
 
-                updatedButtonCell.textContent = ''
+                actionItems.textContent = ''
                 const saveButton = document.createElement('button')
+                saveButton.className = 'a-button is-xs is-primary'
                 saveButton.textContent = '保存'
-                updatedButtonCell.appendChild(saveButton)
 
                 const cancelButton = document.createElement('button')
+                cancelButton.className = 'a-button is-xs is-secondary'
                 cancelButton.textContent = 'キャンセル'
-                updatedButtonCell.appendChild(cancelButton)
+                actionItems.appendChild(saveButton)
+                actionItems.appendChild(cancelButton)
 
                 saveButton.addEventListener('click', () => {
                   editMemo(memo.id, editInput.value)
@@ -80,15 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
               })
             }
 
-            contentCell.textContent = memo.content
-            tr.appendChild(contentCell)
-            nameCell.textContent = memo.author
-            tr.appendChild(nameCell)
-            updatedCell.textContent = memo.created_at
-            tr.appendChild(updatedCell)
-            tr.appendChild(updatedButtonCell)
-
-            memoItems.appendChild(tr)
+            memoItems.appendChild(memoItem)
           })
           memoList.classList.remove('is-hidden')
         }

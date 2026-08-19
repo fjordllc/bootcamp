@@ -10,6 +10,7 @@ if admin_or_mentor_login?
     json.content memo.content
     json.author memo.author&.long_name
     json.author_id memo.author_id
+    json.author_avatar_url memo.author&.avatar_url
     json.created_at memo.created_at&.strftime('%Y/%m/%d')
   end
 end

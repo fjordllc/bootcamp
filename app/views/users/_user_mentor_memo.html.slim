@@ -1,33 +1,30 @@
-section.a-card.is-memo.is-only-mentor.user-mentor-memo data-user_id=user_id data-current_user_id=current_user.id
-  .memo-display
-    .description
-      header.card-header.is-sm
-        h2.card-header__title
-          | メンター向けユーザーメモ
-      hr.a-border-tint
-    .card-body
-      .card-body__description
-        .a-long-text.is-sm.a-placeholder
-          p
-          p
-          p
-        .o-empty-message.is-hidden
-          .o-empty-message__icon
-            i.fa-regular.fa-sad-tear
-          .o-empty-message__text
-            | ユーザーメモはまだありません。
-      .a-table.is-sm.user-mentor-memo-list.is-hidden
-        table
-          thead
-            tr
-              th 本文
-              th 名前
-              th 最終更新日
-              th
-          tbody.user-mentor-memo-items
-    hr.a-border-tint
-    .card-body
-      .card-body__description
-        input.a-text-input.user-mentor-memo-new-input type='text'
-        button.a-button.is-sm.is-primary.user-mentor-memo-add-button
-           | 追加
+section.a-card.is-memo.is-only-mentor.user-mentor-memo(
+  data-user_id=user_id
+  data-current_user_id=current_user.id
+)
+  header.card-header.is-sm.user-mentor-memo__header
+    h2.card-header__title
+      | メンター向けユーザーメモ
+      span.user-mentor-memo__count
+  hr.a-border-tint
+  .user-mentor-memo__status
+    .a-long-text.is-sm.a-placeholder
+      p
+      p
+      p
+    .o-empty-message.is-hidden
+      .o-empty-message__icon
+        i.fa-regular.fa-sad-tear
+      .o-empty-message__text
+        | ユーザーメモはまだありません。
+  .user-mentor-memo__list.is-hidden
+    .user-mentor-memo__items
+  hr.a-border-tint
+  .user-mentor-memo__form-container
+    .user-mentor-memo__form
+      textarea.a-text-input.is-xs.user-mentor-memo__new-input(
+        placeholder='メンターメモを入力'
+        rows='2'
+      )
+      button.a-button.is-sm.is-primary.user-mentor-memo__add-button
+        | 追加

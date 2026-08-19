@@ -48,7 +48,7 @@ module Products
       visit_with_auth "/products/#{products(:product2).id}", 'komagata'
       find('#side-tabs-nav-2').click
       click_button '編集'
-      within('.user-mentor-memo-items') do
+      within('.user-mentor-memo__items') do
         find('input[type=text]').set('編集はできないはずです。')
       end
       click_button 'キャンセル'
@@ -62,7 +62,7 @@ module Products
       find('#side-tabs-nav-2').click
       assert_text 'この生徒は英語が得意です。'
       click_button '編集'
-      within('.user-mentor-memo-items') do
+      within('.user-mentor-memo__items') do
         find('input[type=text]').set('編集後のユーザーメモです。')
       end
       click_button '保存'

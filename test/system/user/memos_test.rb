@@ -6,7 +6,7 @@ class User::MemoTest < ApplicationSystemTestCase
   test 'update memo' do
     visit_with_auth user_path(users(:hatsuno)), 'komagata'
     assert_text 'ユーザーメモはまだありません。'
-    find('.user-mentor-memo-new-input').set 'ユーザーメンターメモ'
+    find('.user-mentor-memo__new-input').set 'ユーザーメンターメモ'
     click_button '追加'
     assert_text 'ユーザーメンターメモ'
     assert_no_text 'ユーザーメモはまだありません。'
@@ -17,7 +17,7 @@ class User::MemoTest < ApplicationSystemTestCase
     assert_text 'この生徒は英語が得意です。'
     assert_no_text 'ユーザーメモはまだありません。'
     click_button '編集'
-    within('.user-mentor-memo-items') do
+    within('.user-mentor-memo__items') do
       find('input[type=text]').set('ユーザーメンターメモ')
     end
     click_button 'キャンセル'

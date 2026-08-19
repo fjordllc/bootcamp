@@ -21,7 +21,7 @@ module Talks
       visit_with_auth "/talks/#{user.talk.id}", 'komagata'
       assert_text 'この生徒は英語が得意です。'
       click_button '編集'
-      within('.user-mentor-memo-items') do
+      within('.user-mentor-memo__items') do
         find('input[type=text]').set('ユーザーメンターメモ')
       end
       click_button '保存'

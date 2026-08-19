@@ -104,6 +104,7 @@
 @import "./application/blocks/user/_user-profile.css";
 @import "./application/blocks/user/_users-item.css";
 @import "./application/blocks/user/_user-study-streak-tracker.css";
+@import "./application/blocks/user/_user-mentor-memo.css";
 @import "./application/blocks/coding-test/_code-editor.css";
 @import "./application/blocks/coding-test/_io-sample.css";
 @import "./application/blocks/coding-test/_test-case.css";
