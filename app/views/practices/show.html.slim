@@ -157,16 +157,16 @@
                     - if @practice.source_practice.present?
                       li.card-main-actions__item
                         = link_to practice_path(@practice.source_practice), class: 'a-button is-sm is-secondary is-block' do
-                          i.fa-solid.fa-pen
+                          i.fa-solid.fa-right-left
                           | 元プラクティスへ
                     - @practice.copied_practices.each do |practice|
                       li.card-main-actions__item
                         = link_to practice_path(practice), class: 'a-button is-sm is-secondary is-block' do
-                          i.fa-solid.fa-pen
+                          i.fa-solid.fa-right-left
                           - if @practice.copied_practices.many?
-                            | Reスキル側へ（#{practice.title}）
+                            | 助成金コースへ（#{practice.title}）
                           - if @practice.copied_practices.one?
-                            | Reスキル側へ
+                            | 助成金コースへ
                     li.card-main-actions__item
                       = link_to edit_mentor_practice_path(@practice), class: 'a-button is-sm is-secondary is-block' do
                         i.fa-solid.fa-pen
