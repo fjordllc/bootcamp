@@ -18,7 +18,7 @@ class User::MemoTest < ApplicationSystemTestCase
     assert_no_text 'ユーザーメモはまだありません。'
     click_button '編集'
     within('.user-mentor-memo__items') do
-      find('input[type=text]').set('ユーザーメンターメモ')
+      find('textarea').set('ユーザーメンターメモ')
     end
     click_button 'キャンセル'
     assert_no_text 'ユーザーメンターメモ'

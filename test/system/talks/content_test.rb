@@ -22,7 +22,7 @@ module Talks
       assert_text 'この生徒は英語が得意です。'
       click_button '編集'
       within('.user-mentor-memo__items') do
-        find('input[type=text]').set('ユーザーメンターメモ')
+        find('textarea').set('ユーザーメンターメモ')
       end
       click_button '保存'
       assert_text 'ユーザーメンターメモ'

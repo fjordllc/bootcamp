@@ -88,9 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
               editButton.addEventListener('click', () => {
                 content.textContent = ''
-                const editInput = document.createElement('input')
+                const editInput = document.createElement('textarea')
                 editInput.className = 'a-text-input'
-                editInput.type = 'text'
                 editInput.value = memo.content
                 content.appendChild(editInput)
 

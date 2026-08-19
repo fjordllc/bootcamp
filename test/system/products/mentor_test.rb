@@ -49,7 +49,7 @@ module Products
       find('#side-tabs-nav-2').click
       click_button '編集'
       within('.user-mentor-memo__items') do
-        find('input[type=text]').set('編集はできないはずです。')
+        find('textarea').set('編集はできないはずです。')
       end
       click_button 'キャンセル'
       find('#side-tabs-nav-2').click
@@ -63,7 +63,7 @@ module Products
       assert_text 'この生徒は英語が得意です。'
       click_button '編集'
       within('.user-mentor-memo__items') do
-        find('input[type=text]').set('編集後のユーザーメモです。')
+        find('textarea').set('編集後のユーザーメモです。')
       end
       click_button '保存'
       assert_no_button '保存'
