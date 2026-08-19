@@ -75,6 +75,7 @@
 @import "./application/blocks/side/_side-tabs.css";
 @import "./application/blocks/side/_user-statuses.css";
 @import "./application/blocks/static-pages/_thanks-message.css";
+@import "./application/blocks/template-form/_template-form.css";
 @import "./application/blocks/survey/_survey-added-question.css";
 @import "./application/blocks/survey/_survey-additional-question.css";
 @import "./application/blocks/survey/_survey-questions-item.css";

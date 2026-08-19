@@ -101,35 +101,43 @@ module Practices
     test 'deletes product template from practice edit form' do
       practice = practices(:practice1)
       visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
-      click_button '提出物のテンプレートを削除する'
-      assert_text 'テンプレートはまだ削除されていません。更新すると削除されます。'
+      check '提出物のテンプレートを削除する', allow_label_click: true
+      assert_field 'practice_template_attributes_description',
+                   with: '提出物のテンプレート',
+                   disabled: true
+      assert_text 'プラクティスを更新すると削除されます。'
 
       assert_difference 'Template.count', -1 do
-        click_button '更新する'
+        within '.template-form__deletion-actions' do
+          click_button '更新する'
+        end
       end
 
       assert_text 'プラクティスを更新しました'
       assert_nil practice.reload.template
     end
 
-    test 'does not delete product template when description is re-entered' do
+    test 'does not delete product template when deletion is unchecked' do
       practice = practices(:practice1)
 
       visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
-      click_button '提出物のテンプレートを削除する'
-
-      assert_text 'テンプレートはまだ削除されていません。更新すると削除されます。'
-
-      fill_in 'practice_template_attributes_description', with: '再入力したテンプレート'
-
-      assert_no_text 'テンプレートはまだ削除されていません。更新すると削除されます。'
+      check '提出物のテンプレートを削除する', allow_label_click: true
+      within '.template-form__deletion-status' do
+        click_button 'キャンセル'
+      end
+      assert_unchecked_field '提出物のテンプレートを削除する',
+                             visible: false
+      assert_field 'practice_template_attributes_description',
+                   with: '提出物のテンプレート',
+                   disabled: false
+      assert_no_text 'プラクティスを更新すると削除されます。'
 
       assert_no_difference 'Template.count' do
         click_button '更新する'
       end
 
       assert_text 'プラクティスを更新しました'
-      assert_equal '再入力したテンプレート', practice.reload.template.description
+      assert_equal '提出物のテンプレート', practice.reload.template.description
     end
 
     test 'add a book' do
