@@ -8,9 +8,9 @@ if admin_or_mentor_login?
   json.mentor_memos user.mentor_memos do |memo|
     json.id memo.id
     json.content memo.content
-    json.author memo.author&.long_name
+    json.author memo.author&.long_name || 'メンター'
     json.author_id memo.author_id
-    json.author_avatar_url memo.author&.avatar_url
+    json.author_avatar_url memo.author&.avatar_url || image_url(User::DEFAULT_IMAGE_PATH)
     json.created_at memo.created_at&.strftime('%Y/%m/%d')
   end
 end
