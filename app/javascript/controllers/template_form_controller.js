@@ -29,7 +29,9 @@ export default class extends Controller {
       if (this.hasActionsTarget) {
         this.actionsTarget.classList.add('hidden')
       }
-      this.descriptionTarget.dispatchEvent(new Event('input', { bubbles: true }))
+      this.descriptionTarget.dispatchEvent(
+        new Event('input', { bubbles: true })
+      )
       return
     }
 

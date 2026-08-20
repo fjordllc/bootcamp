@@ -29,8 +29,9 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
   has_one :template, as: :templatable, dependent: :destroy
   accepts_nested_attributes_for :template,
                                 update_only: true,
-                                allow_destroy: true,
-                                reject_if: :all_blank
+                                allow_destroy: true
+
+  before_validation :mark_blank_template_for_destruction
 
   has_many :questions, dependent: :nullify
   has_many :pages,
@@ -259,6 +260,10 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
   end
 
   private
+
+  def mark_blank_template_for_destruction
+    template&.mark_for_destruction if template&.description.blank?
+  end
 
   def total_learning_minute(report)
     total_time = report.learning_times.inject(0) do |sum, learning_time|
