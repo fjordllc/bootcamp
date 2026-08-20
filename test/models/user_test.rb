@@ -94,6 +94,23 @@ class UserTest < ActiveSupport::TestCase
     assert_includes user_with_custom_avatar.avatar_url, "#{user_with_custom_avatar.login_name}.webp"
   end
 
+  test '#avatar_url attaches an existing custom avatar blob' do
+    user = users(:komagata)
+    reset_avatar(user)
+    user.update!(login_name: 'new-login-name')
+    custom_blob = ActiveStorage::Blob.create_and_upload!(
+      io: StringIO.new('existing avatar'),
+      filename: 'new-login-name.webp',
+      content_type: 'image/webp',
+      key: 'avatars/new-login-name.webp'
+    )
+    FileUtils.rm(user.avatar.blob.service.send(:path_for, user.avatar.blob.key))
+
+    user.avatar_url
+
+    assert_equal custom_blob, user.reload.avatar.blob
+  end
+
   test '#generation' do
     assert_equal 1, User.new(created_at: '2013-03-25 00:00:00').generation
     assert_equal 2, User.new(created_at: '2013-05-05 00:00:00').generation
