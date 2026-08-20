@@ -4,9 +4,7 @@ import { renderAllReactions } from 'reaction_render'
 
 export default class extends Controller {
   static targets = [
-    'reactionDropdown',
     'reactionCount',
-    'reactionLoginNames',
     'reactionsUsersToggle',
     'reactionsUsersList'
   ]

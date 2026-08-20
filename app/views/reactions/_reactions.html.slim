@@ -4,7 +4,7 @@
       li.reactions__item.test-inline-block[*reaction_attributes(reactionable, kind)]
         span.reactions__item-emoji.js-reaction-emoji = emoji
         span.reactions__item-count.js-reaction-count(data-reaction-target="reactionCount") = reactionable.reaction_count_by(kind)
-        ul.reactions__item-login-names.js-reaction-login-names(data-reaction-target="reactionLoginNames")
+        ul.reactions__item-login-names.js-reaction-login-names
           - reactionable.reaction_login_names_by(kind).each do |login_name|
             li = login_name
   .reactions__actions
@@ -13,7 +13,7 @@
         .reactions__dropdown-toggle.js-reactions-users-toggle(data-reaction-target="reactionsUsersToggle" data-action="click->reaction#toggleUsersList")
           i.fa-solid.fa-eye
       .reactions__users-list.js-reactions-users-list.hidden(data-reaction-target="reactionsUsersList")
-    .reactions__dropdown.is-emojis.js-reaction-dropdown(data-reaction-target="reactionDropdown" data-action="click->reaction#toggleDropdown")
+    .reactions__dropdown.is-emojis.js-reaction-dropdown(data-action="click->reaction#toggleDropdown")
       .reactions__dropdown-toggle.js-reaction-dropdown-toggle
         i.fa-regular.fa-plus.reactions__dropdown-toggle-plus
         i.fa-solid.fa-smile
