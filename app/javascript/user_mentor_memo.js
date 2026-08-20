@@ -125,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     addButton.addEventListener('click', () => {
       const content = newInput.value
+      addButton.disabled = true
       updateMemo(content, userId)
     })
 
@@ -151,10 +152,12 @@ document.addEventListener('DOMContentLoaded', () => {
             location.reload()
           } else {
             alert('処理に失敗しました。')
+            addButton.disabled = false
           }
         })
         .catch((error) => {
           console.warn(error)
+          addButton.disabled = false
         })
     }
 
