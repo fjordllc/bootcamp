@@ -176,24 +176,8 @@ jobs:
           ruby -e 'files = Dir["test/**/*_test.rb"].sort.each_with_index.select { |_, i| i % ENV.fetch("TEST_SHARDS").to_i == ENV.fetch("TEST_SHARD").to_i }.map(&:first); abort "No test files selected" if files.empty?; File.write("tmp/test_files.txt", files.join("\n") + "\n")'
           wc -l tmp/test_files.txt
 
-      - name: Run Rails tests with JUnit XML
-        run: |
-          mkdir -p test/reports
-          find test/reports -type f -delete
-          xargs bundle exec ruby -e '
-            require "minitest"
-            Minitest.const_set(:Reporter, Minitest::AbstractReporter) unless defined?(Minitest::Reporter)
-            require "minitest/ci"
-            load "bin/rails"
-          ' test < tmp/test_files.txt
-
-      - name: Upload JUnit XML
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: junit-xml-${{ matrix.shard }}
-          path: test/reports/**/*.xml
-          if-no-files-found: warn
+      - name: Run Rails tests
+        run: xargs bundle exec rails test < tmp/test_files.txt
 
       - name: Upload screenshots
         if: failure()
@@ -204,28 +188,3 @@ jobs:
             tmp/screenshots
             tmp/capybara
           if-no-files-found: ignore
-
-  flakewatch:
-    name: Flakewatch HTML report
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    needs: test
-    if: ${{ always() && !cancelled() }}
-    permissions:
-      actions: read
-      contents: write
-      pull-requests: write
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Generate flakewatch HTML
-        # komagata/flakewatch v0.6.40
-        uses: komagata/flakewatch@v0.6.40
-        with:
-          junit-artifact-pattern: junit-xml-*
-          source-root: ${{ github.workspace }}
-          history-branch: flakewatch-data
-          history-write: auto
-          analysis-branch: main
