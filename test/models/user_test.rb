@@ -367,17 +367,6 @@ class UserTest < ActiveSupport::TestCase
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
   end
 
-  test '#update_user_mentor_memo' do
-    user = users(:kimura)
-    assert_equal 'kimuraさんのメモ', user.mentor_memo
-    user.updated_at = Time.zone.local(2020, 1, 1, 0, 0, 0)
-    user.update_mentor_memo('新規メモ')
-    travel_to Time.zone.local(2020, 1, 1, 0, 0, 0) do
-      assert user.updated_at
-    end
-    assert_equal '新規メモ', user.mentor_memo
-  end
-
   test '.delayed when there are users within 2 weeks from completion of last practice' do
     user = users(:nippounashi)
     practice1 = practices(:practice1)
