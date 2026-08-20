@@ -188,6 +188,6 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         alert('処理に失敗しました。')
       }
-      }
     }
-  })
+  }
+})
