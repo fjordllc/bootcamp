@@ -1,4 +1,4 @@
-import CSRF from 'csrf'
+import { post, patch, destroy } from '@rails/request.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const mentorMemo = document.querySelector('.user-mentor-memo')
@@ -129,87 +129,65 @@ document.addEventListener('DOMContentLoaded', () => {
       updateMemo(content, userId)
     })
 
-    function updateMemo(memo, userId) {
+    async function updateMemo(memo, userId) {
       const params = {
         user: {
           content: memo,
           user_id: userId
         }
       }
-      fetch(`/api/mentor_memos/`, {
-        method: 'POST',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-CSRF-Token': CSRF.getToken()
-        },
-        credentials: 'same-origin',
+
+      const response = await post('/api/mentor_memos/', {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
         redirect: 'manual',
-        body: JSON.stringify(params)
+        body: params
       })
-        .then((response) => {
-          if (response.ok) {
-            location.reload()
-          } else {
-            alert('処理に失敗しました。')
-            addButton.disabled = false
-          }
-        })
-        .catch((error) => {
-          console.warn(error)
-          addButton.disabled = false
-        })
+
+      if (response.ok) {
+        location.reload()
+      } else {
+        alert('処理に失敗しました。')
+        addButton.disabled = false
+      }
     }
 
-    function editMemo(id, content) {
+    async function editMemo(id, content) {
       const params = {
         user: {
+          id,
           content
         }
       }
-      fetch(`/api/mentor_memos/${id}`, {
-        method: 'PATCH',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-CSRF-Token': CSRF.getToken()
-        },
-        credentials: 'same-origin',
+      const response = await patch(`/api/mentor_memos/${id}`, {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
         redirect: 'manual',
-        body: JSON.stringify(params)
+        body: params
       })
-        .then((response) => {
-          if (response.ok) {
-            location.reload()
-          } else {
-            alert('処理に失敗しました。')
-          }
-        })
-        .catch((error) => {
-          console.warn(error)
-        })
+
+      if (response.ok) {
+        location.reload()
+      } else {
+        alert('処理に失敗しました。')
+      }
     }
 
-    function deleteMemo(id) {
-      fetch(`/api/mentor_memos/${id}`, {
+    async function deleteMemo(id) {
+      const params = {
+        user: {
+          id
+        }
+      }
+      const response = await destroy(`/api/mentor_memos/${id}`, {
         method: 'DELETE',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': CSRF.getToken()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual'
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        redirect: 'manual',
+        body: params
       })
-        .then((response) => {
-          if (response.ok) {
-            location.reload()
-          } else {
-            alert('処理に失敗しました。')
-          }
-        })
-        .catch((error) => {
-          console.warn(error)
-        })
+      if (response.ok) {
+        location.reload()
+      } else {
+        alert('処理に失敗しました。')
+      }
+      }
     }
-  }
-})
+  })
