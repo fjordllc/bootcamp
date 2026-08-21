@@ -55,7 +55,7 @@ jobs:
             STATUS=$(gcloud builds describe "$BUILD_ID" \
               --project=bootcamp-224405 \
               --region=asia-northeast1 \
-              --format='value(status)' 2>/dev/null || true)
+              --format='value(status)')
             echo "[$i] Build status: $STATUS"
             if [ "$STATUS" = "SUCCESS" ]; then
               exit 0
