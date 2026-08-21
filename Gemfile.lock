@@ -411,8 +411,6 @@ GEM
       logger
     mini_mime (1.1.5)
     minitest (5.27.0)
-    minitest-ci (3.4.0)
-      minitest (>= 5.0.6)
     minitest-retry (0.3.0)
       minitest (>= 5.0)
     minitest-stub_any_instance (1.0.3)
@@ -852,7 +850,6 @@ DEPENDENCIES
   meta-tags
   mini_magick
   minitest (< 6.0)
-  minitest-ci
   minitest-retry
   minitest-stub_any_instance
   mission_control-jobs
