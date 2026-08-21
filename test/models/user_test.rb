@@ -111,6 +111,15 @@ class UserTest < ActiveSupport::TestCase
     assert_equal custom_blob, user.reload.avatar.blob
   end
 
+  test '#avatar_url returns the default image when the original avatar is missing' do
+    user = users(:komagata)
+    reset_avatar(user)
+    user.update!(login_name: 'new-login-name')
+    FileUtils.rm(user.avatar.blob.service.send(:path_for, user.avatar.blob.key))
+
+    assert_equal '/images/users/avatars/default.png', user.avatar_url
+  end
+
   test '#generation' do
     assert_equal 1, User.new(created_at: '2013-03-25 00:00:00').generation
     assert_equal 2, User.new(created_at: '2013-05-05 00:00:00').generation
