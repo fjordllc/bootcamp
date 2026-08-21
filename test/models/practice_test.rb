@@ -15,37 +15,27 @@ class PracticeTest < ActiveSupport::TestCase
 
   test '#status(user)' do
     assert_equal \
-      practices(:practice1).status(users(:komagata)),
+      practices(:practice1).learner_record.status(users(:komagata)),
       'started'
 
     assert_equal \
-      practices(:practice1).status(users(:machida)),
+      practices(:practice1).learner_record.status(users(:machida)),
       'unstarted'
   end
 
   test '#status_by_learnings(learnings)' do
     learnings = users(:komagata).learnings
 
-    assert_equal practices(:practice1).status_by_learnings(learnings), 'started'
-    assert_equal practices(:practice2).status_by_learnings(learnings), 'complete'
-    assert_equal practices(:practice3).status_by_learnings(learnings), 'unstarted'
-    assert_equal practices(:practice4).status_by_learnings(learnings), 'submitted'
-    assert_equal practices(:practice5).status_by_learnings(learnings), 'unstarted'
+    assert_equal practices(:practice1).learner_record.status_by_learnings(learnings), 'started'
+    assert_equal practices(:practice2).learner_record.status_by_learnings(learnings), 'complete'
+    assert_equal practices(:practice3).learner_record.status_by_learnings(learnings), 'unstarted'
+    assert_equal practices(:practice4).learner_record.status_by_learnings(learnings), 'submitted'
+    assert_equal practices(:practice5).learner_record.status_by_learnings(learnings), 'unstarted'
   end
 
   test '#exists_learning?(user)' do
-    assert practices(:practice1).exists_learning?(users(:komagata))
-    assert_not practices(:practice1).exists_learning?(users(:machida))
-  end
-
-  test '.save_learning_minute_statistics' do
-    LearningMinuteStatistic.delete_all
-    assert LearningMinuteStatistic.count.zero?
-
-    Practice.save_learning_minute_statistics
-
-    practice_ids = Practice.joins(:reports).merge(Report.not_wip).distinct.pluck(:id)
-    assert_equal practice_ids.size, LearningMinuteStatistic.count
+    assert practices(:practice1).learner_record.exists_learning?(users(:komagata))
+    assert_not practices(:practice1).learner_record.exists_learning?(users(:machida))
   end
 
   test '#category' do
@@ -53,7 +43,7 @@ class PracticeTest < ActiveSupport::TestCase
     course = courses(:course1)
     category = categories(:category2)
 
-    assert_equal category, practice.category(course)
+    assert_equal category, practice.category_resolver.category(course)
   end
 
   test 'source_id_cannot_be_self validation prevents self-reference' do

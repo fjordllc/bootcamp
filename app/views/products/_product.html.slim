@@ -72,7 +72,7 @@ article.card-list-item(class="#{product.wip? ? 'is-wip' : ''} #{current_user.men
                   | このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。
 
     - if current_user.mentor? && product.checks.empty?
-      .js-checker(data-checker-id="#{product.checker_id}" data-checker-name="#{product.checker_name}" data-current-user-id="#{current_user.id}" data-product-id="#{product.id}")
+      .js-checker(data-checker-id="#{product.checker_id}" data-checker-name="#{product.assignment.checker_name}" data-current-user-id="#{current_user.id}" data-product-id="#{product.id}")
 
   - if product.checks.any?
     .stamp.stamp-approve

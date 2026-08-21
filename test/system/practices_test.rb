@@ -32,7 +32,7 @@ class PracticesTest < ApplicationSystemTestCase
   test 'show link to all practices with same category' do
     user = users(:hatsuno)
     practice1 = practices(:practice1)
-    category = practice1.category(user.course)
+    category = practice1.category_resolver.category(user.course)
     visit_with_auth "/practices/#{practice1.id}", 'hatsuno'
     category.practices.each do |practice|
       assert has_link? practice.title
@@ -66,7 +66,7 @@ class PracticesTest < ApplicationSystemTestCase
   test 'category button link to courses/practices#index with category fragment' do
     practice = practices(:practice1)
     user = users(:komagata)
-    category = practice.category(user.course)
+    category = practice.category_resolver.category(user.course)
     visit_with_auth "/practices/#{practice.id}", 'komagata'
     within '.page-header-actions' do
       click_link 'プラクティス一覧'
@@ -86,7 +86,7 @@ class PracticesTest < ApplicationSystemTestCase
     visit_with_auth "/practices/#{practice.id}", 'hatsuno'
     first('.js-started').click
     wait_for_status_change
-    assert_equal 'started', practice.status(users(:hatsuno))
+    assert_equal 'started', practice.learner_record.status(users(:hatsuno))
   end
 
   test 'show other practices' do

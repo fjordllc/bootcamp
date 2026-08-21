@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
+class Report < ApplicationRecord
   include Commentable
   include Checkable
   include Footprintable
@@ -92,31 +92,6 @@ class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
     end
   end
 
-  def previous
-    Report.where(user:)
-          .where('reported_on < ?', reported_on)
-          .order(reported_on: :desc)
-          .first
-  end
-
-  def next
-    Report.where(user:)
-          .where('reported_on > ?', reported_on)
-          .order(:reported_on)
-          .first
-  end
-
-  def first?
-    serial_number == 1
-  end
-
-  def serial_number
-    Report.select(:id)
-          .where(user:)
-          .order(:created_at)
-          .index(self) + 1
-  end
-
   def first_public?
     !wip && published_at.nil?
   end
@@ -129,23 +104,6 @@ class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
     (learning_times.sum(&:diff) / 60).to_i
   end
 
-  def latest_of_user?
-    self == Report.not_wip
-                  .where(user:, wip: false)
-                  .order(reported_on: :desc)
-                  .first
-  end
-
-  def interval
-    (reported_on - not_wip_previous_of_user.reported_on).to_i
-  end
-
-  def not_wip_previous_of_user
-    Report.where(user:, wip: false)
-          .order(reported_on: :desc)
-          .second
-  end
-
   def save_uniquely
     transaction do
       save
@@ -153,6 +111,10 @@ class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
   rescue ActiveRecord::RecordNotUnique
     errors.add(:base, '学習日はすでに存在します')
     false
+  end
+
+  def sequence
+    ReportOrder.new(self)
   end
 
   private

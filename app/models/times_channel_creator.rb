@@ -3,7 +3,7 @@
 class TimesChannelCreator
   def call(_name, _started, _finished, _unique_id, payload)
     user = payload[:user]
-    raise ArgumentError, "#{user.login_name}は現役生または研修生ではありません。" unless user.student_or_trainee?
+    raise ArgumentError, "#{user.login_name}は現役生または研修生ではありません。" unless user.status.student_or_trainee?
 
     times_channel = Discord::TimesChannel.new(user.login_name)
     if times_channel.save

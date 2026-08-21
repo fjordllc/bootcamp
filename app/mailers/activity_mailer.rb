@@ -81,7 +81,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
       kind: Notification.kinds[:answered]
     )
     message = mail to: @user.email, subject: "[FBC] #{@answer.user.login_name}さんから回答がありました。"
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
 
     message
   end
@@ -98,7 +98,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
     )
     subject = "[FBC] #{@product.user.login_name}さんが#{@product.title}を提出しました。"
     message = mail(to: @user.email, subject:)
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
 
     message
   end
@@ -115,7 +115,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
     )
     subject = "[FBC] お知らせ「#{@announcement.title}」"
     message = mail(to: @user.email, subject:)
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
 
     message
   end
@@ -134,7 +134,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
     subject = "[FBC] #{@sender.login_name}さんから質問「#{@question.title}」が投稿されました。"
     message = mail(to: @user.email, subject:)
 
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
     message
   end
 
@@ -150,7 +150,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
     )
     subject = "[FBC] #{@sender.login_name}さんが退会しました。"
     message = mail(to: @user.email, subject:)
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
 
     message
   end
@@ -167,7 +167,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
     )
     subject = "[FBC] #{@check.checkable.user.login_name}さんの#{@check.checkable.title}を#{@check.action_label}しました。"
     message = mail(to: @user.email, subject:)
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
 
     message
   end
@@ -184,7 +184,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
     )
     subject = "[FBC] #{@mentionable.where_mention}で#{@mentionable.sender.login_name}さんからメンションがありました。"
     message = mail(to: @user.email, subject:)
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
 
     message
   end
@@ -202,7 +202,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
     subject = "[FBC] #{@page.user.login_name}さんがDocsに#{@page.title}を投稿しました。"
 
     message = mail(to: @user.email, subject:)
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
 
     message
   end
@@ -218,7 +218,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
     )
     subject = "[FBC] #{@event.title}で、補欠から参加に繰り上がりました。"
     message = mail(to: @user.email, subject:)
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
 
     message
   end
@@ -236,7 +236,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
     subject = "[FBC] #{@report.user.login_name}さんが日報【 #{@report.title} 】を書きました！"
 
     message = mail(to: @user.email, subject:)
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
 
     message
   end
@@ -257,7 +257,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
     subject = "[FBC] #{@watchable.user.login_name}さんの#{@watchable.notification_title}に#{@sender.login_name}さんが#{@action}しました。"
 
     message = mail(to: @user.email, subject:)
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
     message
   end
 
@@ -274,7 +274,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
 
     subject = "[FBC] #{@product.user.login_name}さんの提出物#{@product.title}の担当になりました。"
     message = mail(to: @user.email, subject:)
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
 
     message
   end
@@ -293,7 +293,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
 
     subject = "[FBC] #{@sender.login_name}さんが休会しました。"
     message = mail(to: @user.email, subject:)
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
     message
   end
 
@@ -308,7 +308,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
     )
     subject = "[FBC] #{@sender.login_name}さんが研修終了しました。"
     message = mail(to: @user.email, subject:)
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
 
     message
   end
@@ -326,7 +326,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
 
     subject = "[FBC] #{@report.user.login_name}さんがはじめての日報を書きました！"
     message = mail(to: @user.email, subject:)
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
     message
   end
 
@@ -342,7 +342,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
     )
     subject = "[FBC] #{@report.user.login_name}さんが#{User::DEPRESSED_SIZE}回連続でnegativeアイコンの日報を提出しました。"
     message = mail(to: @user.email, subject:)
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
 
     message
   end
@@ -359,7 +359,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
 
     subject = "[FBC] 定期イベント【#{@regular_event.title}】が更新されました。"
     message = mail(to: @user.email, subject:)
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
 
     message
   end
@@ -377,7 +377,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
 
     subject = "[FBC] #{@user.login_name}さんの質問【 #{@question.title} 】のベストアンサーがまだ選ばれていません。"
     message = mail(to: @user.email, subject:)
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
 
     message
   end
@@ -398,7 +398,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
 
     subject = "[FBC] #{@sender.login_name}さん#{@sender_roles}が#{@course_name}コースに入会しました！"
     message = mail(to: @user.email, subject:)
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
 
     message
   end
@@ -416,7 +416,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
 
     subject = "[FBC] #{@answer.receiver.login_name}さんの質問【 #{@answer.question.title} 】で#{@answer.sender.login_name}さんの回答がベストアンサーに選ばれました。"
     message = mail(to: @user.email, subject:)
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
     message
   end
 
@@ -432,7 +432,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
     )
     subject = "[FBC] #{@product.user.login_name}さんが#{@product.title}を更新しました。"
     message = mail(to: @user.email, subject:)
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
 
     message
   end
@@ -449,7 +449,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
     )
     subject = "新しいブログ「#{@article.title}」を#{@article.user.login_name}さんが投稿しました！"
     message = mail(to: @user.email, subject:)
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
     message
   end
 
@@ -466,7 +466,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
 
     subject = "[FBC] #{@work.user.login_name}さんがポートフォリオに作品「#{@work.title}」を追加しました。"
     message = mail(to: @user.email, subject:)
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
     message
   end
 
@@ -484,7 +484,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
     subject = "[FBC] #{@pair_work.user.login_name}さんからペアワーク依頼「#{@pair_work.title}」が投稿されました。"
     message = mail(to: @user.email, subject:)
 
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
     message
   end
 
@@ -505,7 +505,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
     subject = "[FBC] #{@pair_work.user.login_name}さんのペアワーク【 #{@pair_work.title} 】のペアが#{@user_name}に決定しました。"
     message = mail(to: @user.email, subject:)
 
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
     message
   end
 
@@ -525,7 +525,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
     subject = "[FBC] ペアワーク【 #{@pair_work.title} 】のペアが#{matched_user.login_name}さんに変更になりました。"
     message = mail(to: @user.email, subject:)
 
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
     message
   end
 
@@ -544,7 +544,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
     subject = "[FBC] ペアワーク【 #{@pair_work.title} 】の日程が#{I18n.l @pair_work.reserved_at}に変更になりました。"
     message = mail(to: @user.email, subject:)
 
-    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message.perform_deliveries = @user.mail_notification? && !@user.status.retired?
     message
   end
 
@@ -562,7 +562,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
 
     subject = "[FBC] #{@pair_work.user.login_name}さんのペアワーク【 #{@pair_work.title} 】のペア確定が取り消されました。"
     message = mail(to: @receiver.email, subject:)
-    message.perform_deliveries = @receiver.mail_notification? && !@receiver.retired?
+    message.perform_deliveries = @receiver.mail_notification? && !@receiver.status.retired?
     message
   end
 end

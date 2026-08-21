@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Event < ApplicationRecord # rubocop:todo Metrics/ClassLength
+class Event < ApplicationRecord
   include WithAvatar
   include Commentable
   include Footprintable
@@ -8,6 +8,7 @@ class Event < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include Watchable
   include Searchable
   include Bookmarkable
+  include EventDateValidations
 
   validates :title, presence: true
   validates :description, presence: true
@@ -55,22 +56,6 @@ class Event < ApplicationRecord # rubocop:todo Metrics/ClassLength
     %w[user participations users comments reactions watches]
   end
 
-  def opening?
-    Time.current.between?(open_start_at, open_end_at)
-  end
-
-  def before_opening?
-    Time.current < open_start_at
-  end
-
-  def closing?
-    Time.current > open_end_at && Time.current < end_at
-  end
-
-  def ended?
-    Time.current >= end_at
-  end
-
   def participants
     users.where('participations.enable = true').order(created_at: :asc)
   end
@@ -97,17 +82,6 @@ class Event < ApplicationRecord # rubocop:todo Metrics/ClassLength
     send_notification(move_up_participation.user)
   end
 
-  def update_participations
-    first_come_participations.each.with_index(1) do |participation, i|
-      if i <= capacity
-        participation.update(enable: true)
-        send_notification(participation.user) if participation.waited?
-      else
-        participation.update(enable: false)
-      end
-    end
-  end
-
   def send_notification(receiver)
     ActivityDelivery.with(receiver:, event: self).notify(:moved_up_event_waiting_user)
   end
@@ -124,42 +98,18 @@ class Event < ApplicationRecord # rubocop:todo Metrics/ClassLength
     Event.where('start_at > ?', Date.current).pluck(:id)
   end
 
+  def first_come_participations
+    participations.order(created_at: :asc)
+  end
+
+  def opening_status
+    EventOpeningStatus.new(self)
+  end
+
   private
-
-  def end_at_be_greater_than_start_at
-    diff = end_at - start_at
-    return unless diff <= 0
-
-    errors.add(:end_at, ': イベント終了日時はイベント開始日時よりも後の日時にしてください。')
-  end
-
-  def open_end_at_be_greater_than_open_start_at
-    diff = open_end_at - open_start_at
-    return unless diff <= 0
-
-    errors.add(:open_end_at, ': 募集終了日時は募集開始日時よりも後の日時にしてください。')
-  end
-
-  def open_start_at_be_less_than_start_at
-    diff = start_at - open_start_at
-    return unless diff <= 0
-
-    errors.add(:open_start_at, ': 募集開始日時はイベント開始日時よりも前の日時にしてください。')
-  end
-
-  def open_end_at_be_less_than_end_at
-    diff = end_at - open_end_at
-    return unless diff.negative?
-
-    errors.add(:open_end_at, ': 募集終了日時はイベント終了日時よりも前の日時にしてください。')
-  end
 
   def first_come_first_served
     users.order('participations.created_at asc')
-  end
-
-  def first_come_participations
-    participations.order(created_at: :asc)
   end
 
   def waiting_particpations

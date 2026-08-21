@@ -97,12 +97,12 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'not show study streak toggle when no learning reports exist' do
     user = users(:kensyu)
-    assert_not user.reports_with_learning_times.present?
+    assert_not user.learning_time.reports_with_learning_times.present?
     visit_with_auth "/users/#{user.id}", 'kensyu'
     assert_no_selector 'label.a-on-off-checkbox'
     logout
     user = users(:hajime)
-    assert user.reports_with_learning_times.present?
+    assert user.learning_time.reports_with_learning_times.present?
     visit_with_auth "/users/#{user.id}", 'hajime'
     assert_selector 'label.a-on-off-checkbox'
   end

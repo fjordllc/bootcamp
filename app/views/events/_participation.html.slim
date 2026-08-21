@@ -7,7 +7,7 @@
         li.event-main-actions__item
           .a-button.is-disabled.is-lg.is-block
             | 参加申込
-- elsif current_user.participating?(event)
+- elsif UserEventInvolvement.new(current_user).participating?(event)
   .event-main-actions.is-participationed
     .event-main-actions__body
       .event-main-actions__description
@@ -17,7 +17,7 @@
           = link_to event_participation_path(event_id: event), method: :delete,
             data: { confirm: '特別イベントの参加をキャンセルします。よろしいですか?' }, class: 'event-main-actions__item-cancel' do
             | 参加を取り消す
-- elsif event.opening?
+- elsif event.opening_status.opening?
   .event-main-actions.is-unparticipationed(class="#{event.capacity > event.participants.count ? 'is-available' : 'is-capacity-over'}")
     .event-main-actions__body
       .event-main-actions__description

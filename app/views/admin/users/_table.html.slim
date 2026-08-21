@@ -29,7 +29,7 @@
     tbody.admin-table__items
       - users.each do |user|
         - next if params[:target] == 'campaign' && user.adviser?
-        tr.admin-table__item class="!text-center #{user.retired_on? ? 'is-retired' : ''} #{user.hibernated? ? 'is-retired' : ''}"
+        tr.admin-table__item class="!text-center #{user.retired_on? ? 'is-retired' : ''} #{user.status.hibernated? ? 'is-retired' : ''}"
           td.admin-table__item-value
             - if user.admin? && user.mentor?
               span.admin-table__role
@@ -49,7 +49,7 @@
             - elsif user.adviser
               span.admin-table__role
                 | アドバイザー
-            - elsif user.hibernated?
+            - elsif user.status.hibernated?
               span.admin-table__role
                 | 休会
             - elsif user.retired_on?
@@ -64,7 +64,7 @@
             - else
               span.admin-table__role
                 | 現役生
-            - if !user.active? && (!user.hibernated? || !user.retired_on?)
+            - if !user.status.active? && (!user.status.hibernated? || !user.retired_on?)
                 br
                 span.a-badge.is-secondary.is-xs
                   | 非ア
@@ -115,7 +115,7 @@
             - else
               | -
           td.admin-table__item-value(class='!text-center')
-            - if user.card?
+            - if user.billing.card?
               = link_to user.customer_url,
                 class: 'a-button is-sm is-success is-icon',
                 target: '_blank', rel: 'noopener' do

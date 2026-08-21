@@ -32,13 +32,15 @@ class UserDecoratorTest < ActiveDecoratorTestCase
     assert_equal 'hajime (ハジメ タヨ)', @student_user.long_name
   end
 
-  test '#enrollment_period' do
-    assert_equal "<span> #{@student_user.elapsed_days}日目 </span><a href=\"/generations/#{@student_user.generation}\">#{@student_user.generation}期生</a>",
-                 @student_user.enrollment_period
+  test '#enrollment_period_label' do
+    student_elapsed_days = @student_user.enrollment_period.elapsed_days
+    assert_equal "<span> #{student_elapsed_days}日目 </span><a href=\"/generations/#{@student_user.generation}\">#{@student_user.generation}期生</a>",
+                 @student_user.enrollment_period_label
 
-    assert_equal "<span> (#{l @graduated_user.graduated_on}卒業 #{@graduated_user.elapsed_days}日)" \
+    graduated_elapsed_days = @graduated_user.enrollment_period.elapsed_days
+    assert_equal "<span> (#{l @graduated_user.graduated_on}卒業 #{graduated_elapsed_days}日)" \
                   " </span><a href=\"/generations/#{@graduated_user.generation}\">#{@graduated_user.generation}期生</a>",
-                 @graduated_user.enrollment_period
+                 @graduated_user.enrollment_period_label
   end
 
   test '#subdivisions_of_country' do

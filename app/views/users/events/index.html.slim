@@ -32,7 +32,7 @@
                           - if event.wip
                             .a-list-item-badge.is-wip
                               <span>WIP</span>
-                          - elsif event.ended?
+                          - elsif event.opening_status.ended?
                             .a-list-item-badge.is-ended
                               <span>終了</span>
                           h2.card-list-item-title__title
