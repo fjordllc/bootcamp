@@ -113,11 +113,11 @@ class UserTest < ActiveSupport::TestCase
 
   test '#avatar_url returns the default image when the original avatar is missing' do
     user = users(:komagata)
-    reset_avatar(user)
-    user.update!(login_name: 'new-login-name')
-    FileUtils.rm(user.avatar.blob.service.send(:path_for, user.avatar.blob.key))
+    user.login_name = 'new-login-name'
 
-    assert_equal '/images/users/avatars/default.png', user.avatar_url
+    user.avatar.stub(:variant, ->(*) { raise ActiveStorage::FileNotFoundError }) do
+      assert_equal '/images/users/avatars/default.png', user.avatar_url
+    end
   end
 
   test '#generation' do

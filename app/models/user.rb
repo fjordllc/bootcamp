@@ -717,7 +717,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     else
       image_url DEFAULT_IMAGE_PATH
     end
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::Error, LoadError => e
+  rescue ActiveStorage::Error => e
     log_avatar_error('avatar_url', e)
     image_url DEFAULT_IMAGE_PATH
   end
