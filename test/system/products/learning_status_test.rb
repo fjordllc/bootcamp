@@ -19,7 +19,7 @@ module Products
 
       # Phase 2: When previous_learning.status == 'started', WIP returns :started
       # because: started_practice && previous_learning.status != 'started' is false
-      product.change_learning_status(:started)
+      LearningStatusUpdater.new.change_learning_status(product, :started)
       visit "#{product_path}/edit"
       wait_for_product_form_ready
       click_button 'WIP'
@@ -32,9 +32,9 @@ module Products
       # WIP returns :unstarted because: started_practice && previous_learning.status != 'started' is true
       # Create another started learning for kimura
       other_product = products(:product8)
-      other_product.change_learning_status(:started)
+      LearningStatusUpdater.new.change_learning_status(other_product, :started)
 
-      product.change_learning_status(:submitted)
+      LearningStatusUpdater.new.change_learning_status(product, :submitted)
       visit product_path
       assert_selector 'input[type="submit"][value="提出する"]', wait: 10
       click_button '提出する'
@@ -55,7 +55,7 @@ module Products
 
       visit_with_auth "#{product_path}/edit", 'kimura'
       wait_for_product_form_ready
-      product.change_learning_status(:started)
+      LearningStatusUpdater.new.change_learning_status(product, :started)
       visit "#{product_path}/edit"
       wait_for_product_form_ready
       click_button 'WIP'

@@ -8,7 +8,7 @@ section.a-card class=('is-only-mentor' unless user == current_user)
     .user-data__row
       - user.hibernations.order(created_at: :desc).each_with_index do |hibernation, i|
         - number = user.hibernations.count - i
-        - if i.zero? && user.hibernated?
+        - if i.zero? && user.status.hibernated?
           .user-metas.is-only-mentor
             h2.user-metas__title
               | 現在

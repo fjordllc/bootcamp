@@ -24,7 +24,7 @@ class StudyStreakTest < ActiveSupport::TestCase
     wip_report_dates.each do |date|
       create_report_data_with_learning_times(user: @user, on: date, wip: true)
     end
-    @reports = @user.reports_with_learning_times
+    @reports = @user.learning_time.reports_with_learning_times
     @study_streak = StudyStreak.new(@reports)
   end
 
@@ -49,7 +49,7 @@ class StudyStreakTest < ActiveSupport::TestCase
 
   test 'longest_learning_streak returns nil when no learning days' do
     user_without_report = users(:nippounashi)
-    no_streak = StudyStreak.new(user_without_report.reports_with_learning_times)
+    no_streak = StudyStreak.new(user_without_report.learning_time.reports_with_learning_times)
 
     assert_nil no_streak.longest_start_on
     assert_nil no_streak.longest_end_on

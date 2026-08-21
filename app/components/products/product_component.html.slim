@@ -91,7 +91,7 @@
                     | 研修終了予定日
                   span.a-meta__value
                     = l(@product.user.training_ends_on)
-                  - case @product.user.training_remaining_days
+                  - case @product.user.enrollment_period.training_remaining_days
                   - when 0
                     span.a-meta__value.is-danger
                       | （本日研修最終日）
@@ -100,10 +100,10 @@
                       | （研修終了）
                   - when 1..6
                     span.a-meta__value.is-danger
-                      | （あと#{@product.user.training_remaining_days}日）
+                      | （あと#{@product.user.enrollment_period.training_remaining_days}日）
                   - else
                     span.a-meta__value
-                      | （あと#{@product.user.training_remaining_days}日）
+                      | （あと#{@product.user.enrollment_period.training_remaining_days}日）
               - else
                 .a-meta
                   span.a-meta__label

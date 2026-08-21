@@ -12,7 +12,7 @@ class User::RegularEventsTest < ApplicationSystemTestCase
 
   test 'shows correct count of user involved regular events' do
     visit_with_auth "/users/#{users(:kimura).id}/regular_events", 'kimura'
-    assert_text "定期イベント(#{users(:kimura).involved_regular_events.count})"
+    assert_text "定期イベント(#{UserEventInvolvement.new(users(:kimura)).involved_regular_events.count})"
   end
 
   test 'does not show regular events the user is not involved in' do

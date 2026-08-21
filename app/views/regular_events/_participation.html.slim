@@ -1,4 +1,4 @@
-- if current_user.participating?(regular_event)
+- if UserEventInvolvement.new(current_user).participating?(regular_event)
   .event-main-actions.is-participationed
     .event-main-actions__body
       .event-main-actions__description

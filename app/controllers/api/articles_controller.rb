@@ -81,13 +81,13 @@ class API::ArticlesController < API::BaseController
 
   def authorize_wip_index
     return unless wip_requested?
-    return if current_user.admin_or_mentor?
+    return if current_user.status.admin_or_mentor?
 
     render json: { error: '権限がありません' }, status: :forbidden
   end
 
   def authorize_wip_preview
-    return if performed? || @article.published? || current_user.admin_or_mentor?
+    return if performed? || @article.published? || current_user.status.admin_or_mentor?
     return if params[:token].present? && @article.token == params[:token]
 
     render json: { error: '権限がありません' }, status: :forbidden

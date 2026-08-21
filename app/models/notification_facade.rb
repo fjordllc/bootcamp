@@ -3,7 +3,7 @@
 class NotificationFacade
   def self.trainee_report(report, receiver)
     notification = ActivityNotifier.with(report:, receiver:).trainee_report.notify_now
-    return unless receiver.mail_notification? && !receiver.retired?
+    return unless receiver.mail_notification? && !receiver.status.retired?
 
     mailer = NotificationMailer.with(report:, receiver:, notification:).trainee_report
     if Rails.env.test?

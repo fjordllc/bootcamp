@@ -1,6 +1,6 @@
 ruby:
   practice_title = @practice.title
-  category = @practice.category(current_user.course)
+  category = @practice.category_resolver.category(current_user.course)
 
 - title "「#{practice_title}」の模範解答"
 - set_meta_tags description: "プラクティス「#{practice_title}」の模範解答です。"
@@ -28,7 +28,7 @@ ruby:
       .page-body__row
         .container.is-lg
           = render 'description', submission_answer: @submission_answer
-      - if current_user.admin_or_mentor?
+      - if current_user.status.admin_or_mentor?
         .page-body__row
           .container.is-lg
             = render 'admin_or_mentor_menu', practice: @practice, submission_answer: @submission_answer

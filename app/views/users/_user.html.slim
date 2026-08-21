@@ -2,14 +2,14 @@
   article.users-item.is-rails
     .users-item__inner.a-card
       .users-item__inactive-message-container.is-only-mentor
-        - if (current_user.mentor || current_user.admin) && user.student_or_trainee?
+        - if (current_user.mentor || current_user.admin) && user.status.student_or_trainee?
           - if user.roles.include?('retired')
             .users-item__inactive-message
               | 退会しました
           - elsif user.roles.include?('hibernationed')
             .users-item__inactive-message
-              | 休会中: #{l user.hibernated_at, format: :year_and_date}〜(#{user.hibernation_elapsed_days}日経過)
-          - elsif !user.active?
+              | 休会中: #{l user.hibernated_at, format: :year_and_date}〜(#{user.hibernation.hibernation_elapsed_days}日経過)
+          - elsif !user.status.active?
             .users-item__inactive-message
               | 1ヶ月以上ログインがありません
       header.users-item__header
@@ -52,7 +52,7 @@
                             | #{user.discord_profile.account_name}
               .card-list-item__row
                 = render 'users/sns', user: user
-        - if user.student_or_trainee?
+        - if user.status.student_or_trainee?
           .card-counts.is-users(class='!mt-3')
             = render 'users/activity_counts', user: user
       .users-item__body

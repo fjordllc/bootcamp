@@ -2,6 +2,7 @@
 
 module ReportDecorator
   def number
+    serial_number = sequence.serial_number
     serial_number == 1 ? '初日報' : serial_number
   end
 end

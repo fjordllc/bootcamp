@@ -30,10 +30,10 @@ header.page-content-header.is-report
             .a-meta
               = l report.reported_on
               | （
-              span.a-meta__count(class="#{report.serial_number < 6 ? 'is-important' : ''}")
+              span.a-meta__count(class="#{report.sequence.serial_number < 6 ? 'is-important' : ''}")
                 = report.number
               | ）
-              = 'の日報' unless report.first?
+              = 'の日報' unless report.sequence.first?
               - if report.published_at.present?
                 .a-meta
                   | （#{l report.published_at} 提出）

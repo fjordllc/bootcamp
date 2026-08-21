@@ -20,7 +20,7 @@
                 = link_to coding_test_coding_test_submissions_path(@coding_test),
                   class: 'a-button is-md is-secondary is-block is-back' do
                   | テスト一覧
-              - if current_user.submitted?(@coding_test)
+              - if current_user.coding_test_submission.submitted?(@coding_test)
                 li.page-main-header-actions__item
                   = link_to @coding_test, class: 'a-button is-md is-secondary is-block is-back' do
                     | 自分の回答
