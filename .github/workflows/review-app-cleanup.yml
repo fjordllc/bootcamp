@@ -29,11 +29,43 @@ jobs:
 
       - name: Cleanup Review App via Cloud Build
         run: |
-          gcloud builds submit \
+          set +e
+          BUILD_OUTPUT=$(gcloud builds submit \
             --config=.cloudbuild/cloudbuild-review-cleanup.yaml \
             --substitutions="_PR_NUMBER=${PR_NUMBER},_CLOUD_SQL_HOST=bootcamp-224405:asia-northeast1:bootcamp,_DB_USER=review,_DB_PASS=${{ secrets.REVIEW_DB_PASS }}" \
             --project=bootcamp-224405 \
             --region=asia-northeast1 \
             --no-source \
-            --suppress-logs \
-            --quiet
+            --async \
+            --quiet 2>&1)
+          SUBMIT_STATUS=$?
+          set -e
+
+          echo "$BUILD_OUTPUT"
+          if [ "$SUBMIT_STATUS" -ne 0 ]; then
+            exit "$SUBMIT_STATUS"
+          fi
+          BUILD_ID=$(echo "$BUILD_OUTPUT" | grep -oP '(?<=builds/)[a-f0-9-]+' | head -n1 || true)
+          if [ -z "$BUILD_ID" ]; then
+            echo "Failed to extract Build ID from output"
+            exit 1
+          fi
+
+          DEADLINE=$((SECONDS + 3600))
+          while true; do
+            STATUS=$(gcloud builds describe "$BUILD_ID" \
+              --project=bootcamp-224405 \
+              --region=asia-northeast1 \
+              --format='value(status)')
+            echo "Build status: $STATUS"
+            if [ "$STATUS" = "SUCCESS" ]; then
+              exit 0
+            elif [ "$STATUS" = "FAILURE" ] || [ "$STATUS" = "CANCELLED" ] || [ "$STATUS" = "TIMEOUT" ] || [ "$STATUS" = "INTERNAL_ERROR" ] || [ "$STATUS" = "EXPIRED" ]; then
+              exit 1
+            fi
+            if [ "$SECONDS" -ge "$DEADLINE" ]; then
+              echo "Timeout waiting for build"
+              exit 1
+            fi
+            sleep 30
+          done
