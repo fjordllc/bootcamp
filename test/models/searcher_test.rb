@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'supports/avatar_helper'
 
 class SearcherTest < ActiveSupport::TestCase
+  include AvatarHelper
   include SearchHelper
   SEARCHABLE_CLASSES = [Report, Page, Practice, Question, Announcement, Event, RegularEvent, Comment, Answer, CorrectAnswer, User].freeze
 
@@ -519,6 +521,7 @@ class SearcherTest < ActiveSupport::TestCase
   test 'search_thumbnail returns avatar_url for User and nil for others' do
     user = users(:komagata)
     report = reports(:report1)
+    reset_avatar(user)
 
     # User should return avatar_url
     user_thumbnail = user.search_thumbnail
