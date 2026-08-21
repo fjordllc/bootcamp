@@ -120,6 +120,21 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  test '#avatar_url returns the default image when the custom avatar is missing' do
+    user = users(:komagata)
+    user.update!(login_name: 'missing-avatar')
+    user.avatar.attach(
+      io: StringIO.new('missing avatar'),
+      filename: 'missing-avatar.webp',
+      content_type: 'image/webp',
+      key: 'avatars/missing-avatar.webp'
+    )
+
+    user.avatar.blob.service.stub(:exist?, false) do
+      assert_equal '/images/users/avatars/default.png', user.avatar_url
+    end
+  end
+
   test '#generation' do
     assert_equal 1, User.new(created_at: '2013-03-25 00:00:00').generation
     assert_equal 2, User.new(created_at: '2013-05-05 00:00:00').generation
