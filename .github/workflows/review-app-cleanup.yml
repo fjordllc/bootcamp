@@ -35,4 +35,5 @@ jobs:
             --project=bootcamp-224405 \
             --region=asia-northeast1 \
             --no-source \
+            --suppress-logs \
             --quiet
