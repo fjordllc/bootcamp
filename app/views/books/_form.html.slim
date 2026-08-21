@@ -18,15 +18,15 @@
       = f.text_field :page_url, class: 'a-text-input', placeholder: 'https://www.amazon.co.jp/dp/4297101238'
     .form-item
       = f.label :cover, class: 'a-form-label'
-      .form-item-file-input.js-file-input.a-file-input.is-book
-        label.js-file-input__preview
+      .form-item-file-input.a-file-input.is-book(data-controller="file-input")
+        label(data-file-input-target="preview" data-action="dragover->file-input#dragover drop->file-input#drop")
           - if f.object.cover.attached?
             p 画像を変更
-            = f.file_field :cover
+            = f.file_field :cover, data: { 'file-input-target': 'input', action: 'change->file-input#change' }
             = image_tag f.object.cover
           - else
             p 画像を選択
-            = f.file_field :cover
+            = f.file_field :cover, data: { 'file-input-target': 'input', action: 'change->file-input#change' }
     .form-item
       = f.label :description, class: 'a-form-label'
       = f.text_area :description, class: 'a-text-input', placeholder: '著者はあのXXXさん！！とても参考になる本です！'
