@@ -101,6 +101,57 @@
           = f.check_box :include_progress, class: 'a-toggle-checkbox'
           = f.label :include_progress
             | 進捗の計算に含むようにする場合はチェック
+
+  .form-item data-controller="template-form"
+    label.a-form-label
+      | 提出物のテンプレート
+
+    = f.fields_for :template do |template_form|
+      - if template_form.object.persisted?
+        - destroy_data = { template_form_target: 'destroy', \
+          action: 'change->template-form#toggle' }
+
+      .row.js-markdown-parent
+        .col-md-6.col-xs-12
+          - description_data = { preview: '.js-product-template-preview', \
+            template_form_target: 'description' }
+          .template-form__textarea
+            = template_form.text_area :description,
+              class: 'a-text-input js-warning-form ' \
+                'markdown-form__text-area js-markdown',
+              data: description_data
+            .template-form__deletion-status.hidden[
+              data-template-form-target="status"
+              role="status"
+            ]
+              p
+                | プラクティスを更新すると削除されます。
+              - if template_form.object.persisted?
+                .template-form__deletion-actions.hidden[
+                  data-template-form-target="actions"
+                ]
+                  = template_form.submit '更新する',
+                    class: 'a-button is-lg is-primary is-block'
+                  button.a-muted-text-link.template-form__cancel[
+                    type="button"
+                    data-action="click->template-form#cancelDeletion"
+                  ]
+                    | キャンセル
+          - if template_form.object.persisted?
+            .checkboxes.mt-3
+              ul.checkboxes__items
+                li.checkboxes__item
+                  = template_form.check_box :_destroy,
+                    class: 'a-toggle-checkbox js-warning-form',
+                    data: destroy_data
+                  = template_form.label :_destroy do
+                    | 提出物のテンプレートを削除する
+
+        .col-md-6.col-xs-12
+          .js-product-template-preview.a-long-text.is-md.markdown-form__preview[
+            data-template-form-target="preview"
+          ]
+
   .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12
