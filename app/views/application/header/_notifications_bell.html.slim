@@ -1,9 +1,13 @@
-#notifications-bell-container data-api-url="/api/notifications.json"
+#notifications-bell-container(
+  data-api-url="/api/notifications.json"
+  data-controller="header-dropdown"
+)
   button.header-links__link.test-show-notifications#notifications-bell-button(
     type="button"
     aria-expanded="false"
     aria-controls="notifications-dropdown"
-    aria-label="通知を表示")
+    aria-label="通知を表示"
+    data-action="click->header-dropdown#toggle")
     .header-links__link.test-bell
       .header-notification-icon
         #notification-count.header-notification-count.a-notification-count.test-notification-count.is-hidden
@@ -14,7 +18,8 @@
   #notifications-dropdown.is-hidden(role="dialog" aria-label="通知")
     button.header-dropdown__background.is-notification#notifications-background(
       type="button"
-      aria-label="通知を閉じる")
+      aria-label="通知を閉じる"
+      data-action="click->header-dropdown#close")
     .header-dropdown__inner.is-notification
       header.header-dropdown__header
         nav.pill-nav.is-half(role="tablist" aria-label="通知フィルター")
