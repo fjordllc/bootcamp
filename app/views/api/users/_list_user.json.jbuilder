@@ -4,13 +4,13 @@ json.(user, :id, :login_name, :name, :description, :github_account, :twitter_acc
 json.tag_list user.tags.pluck(:name)
 json.url user_url(user)
 json.updated_at l(user.updated_at)
-json.active user.status.active?
+json.active user.active?
 json.avatar_url user.avatar_url
-json.student user.status.student?
+json.student user.student?
 json.card user. billing.card?
 json.job_name t("activerecord.enums.user.job.#{user.job}")
 json.os_name t("activerecord.enums.user.os.#{user.os}")
-json.student_or_trainee user.status.student_or_trainee?
+json.student_or_trainee user.student_or_trainee?
 json.edit_admin_user_path edit_admin_user_path(user)
 json.isFollowing UserFollows.new(current_user).following?(user)
 json.isWatching UserFollows.new(current_user).watching?(user)
@@ -18,7 +18,7 @@ json.cached_completed_percentage user_course_practice.cached_completed_percentag
 json.cached_completed_fraction user_course_practice.cached_completed_fraction
 
 
-if user.status.student_or_trainee?
+if user.student_or_trainee?
   json.report_count user.reports.size
   json.comment_count user.comments.where.not(commentable_type: 'Talk').size
   json.product_count user.products.size
@@ -45,7 +45,7 @@ json.company do
   end
 end
 
-if user.status.hibernated?
+if user.hibernated?
   json.hibernated_at l(user.hibernated_at, format: :year_and_date)
   json.hibernation_elapsed_days user.hibernation.hibernation_elapsed_days
 end

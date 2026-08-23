@@ -1,15 +1,15 @@
 .col-xxxl-2.col-xxl-3.col-xl-4.col-lg-4.col-md-6.col-xs-12
   article.users-item
     .users-item__inner.a-card
-      - if current_user&.status&.admin_or_mentor? && user.status.student_or_trainee?
+      - if current_user&.status&.admin_or_mentor? && user.student_or_trainee?
         .users-item__inactive-message-container.is-only-mentor
-        - if user.status.retired?
+        - if user.retired?
           .users-item__inactive-message
             | 退会しました
-        - if user.status.hibernated?
+        - if user.hibernated?
           .users-item__inactive-message
             | 休会中: #{l(user.hibernated_at, format: :year_and_date)}〜(#{user.hibernation.hibernation_elapsed_days}日経過)
-        - if !user.status.active?
+        - if !user.active?
           .users-item__inactive-message
             | 1ヶ月以上ログインがありません
       header.users-item__header

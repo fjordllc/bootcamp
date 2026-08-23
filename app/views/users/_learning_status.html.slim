@@ -2,7 +2,7 @@
   | #{l user.graduated_on} 卒業
 - elsif user.retired_on.present?
   | #{l user.retired_on} 退会済
-- elsif user.status.training_completed?
+- elsif user.training_completed?
   | #{l user.training_completed_at} 研修終了済み
 - else
   | 学習開始から

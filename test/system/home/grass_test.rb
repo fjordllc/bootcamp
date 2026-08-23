@@ -5,7 +5,7 @@ require 'application_system_test_case'
 module Home
   class GrassTest < ApplicationSystemTestCase
     test 'show the grass for student' do
-      assert users(:kimura).status.student?
+      assert users(:kimura).student?
       visit_with_auth '/', 'kimura'
       assert_selector 'h2.card-header__title', text: '学習時間'
     end

@@ -129,7 +129,7 @@ ruby:
                     .a-table
                       table.result-table#result
 
-              - if current_user.status.admin_or_mentor?
+              - if current_user.admin_or_mentor?
                 aside.a-card.is-only-mentor
                   header.card-header.is-sm
                     h2.card-header__title 管理者・メンター用メニュー

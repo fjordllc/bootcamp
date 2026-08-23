@@ -91,9 +91,9 @@ module Searchable
     return 'mentor' if user.mentor?
     return 'adviser' if user.adviser?
     return 'trainee' if user.trainee?
-    return 'graduate' if user.status.graduated?
+    return 'graduate' if user.graduated?
 
-    'student' if user.status.student?
+    'student' if user.student?
   end
 
   # embedding生成用のテキストを返す

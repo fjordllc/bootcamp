@@ -31,11 +31,11 @@ module Authentication::LoginHelpers
   end
 
   def staff_login?
-    logged_in? && current_user.status.staff?
+    logged_in? && current_user.staff?
   end
 
   def student_login?
-    logged_in? && current_user.status.student?
+    logged_in? && current_user.student?
   end
 
   def paid_login?
@@ -43,11 +43,11 @@ module Authentication::LoginHelpers
   end
 
   def hibernated_login?
-    logged_in? && current_user.status.hibernated?
+    logged_in? && current_user.hibernated?
   end
 
   def training_completed_login?
-    logged_in? && current_user.status.training_completed?
+    logged_in? && current_user.training_completed?
   end
 
   def trainee_login?
@@ -55,14 +55,14 @@ module Authentication::LoginHelpers
   end
 
   def retired_login?
-    logged_in? && current_user.status.retired?
+    logged_in? && current_user.retired?
   end
 
   def admin_or_mentor_login?
-    logged_in? && current_user.status.admin_or_mentor?
+    logged_in? && current_user.admin_or_mentor?
   end
 
   def inactive_login?
-    logged_in? && current_user.status.inactive?
+    logged_in? && current_user.inactive?
   end
 end

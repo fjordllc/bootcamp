@@ -76,7 +76,7 @@ class UserInfoTool < RubyLLM::Tool
     return 'メンター' if user.mentor?
     return 'アドバイザー' if user.adviser?
     return '研修生' if user.trainee?
-    return '卒業生' if user.status.graduated?
+    return '卒業生' if user.graduated?
 
     '受講生'
   end

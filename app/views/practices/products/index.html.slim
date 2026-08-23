@@ -13,7 +13,7 @@
 = practice_page_tabs(@practice, active_tab: '提出物')
 
 .page-body
-  - if current_user.status.student_or_trainee?
+  - if current_user.student_or_trainee?
     - if @practice.open_product?
       .a-page-notice
         .container

@@ -54,6 +54,12 @@ class User < ApplicationRecord
   include Ransackable
   include UserCollaborators
 
+  delegate :student?, :current_student?, :staff?, :staff_or_paid?, :admin_or_mentor?,
+           :adviser_or_mentor?, :hibernated?, :after_twenty_nine_days_registration?,
+           :followup_message_target?, :training_completed?, :retired?, :inactive?,
+           :graduated?, :student_or_trainee?, :student_or_trainee_or_retired?,
+           :away?, :active?, to: :status
+
   def generation
     (created_at.year - 2013) * 4 + (created_at.month + 2) / 3
   end

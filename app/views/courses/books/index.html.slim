@@ -10,7 +10,7 @@ header.page-header
       .page-header__end
         .page-header-actions
           ul.page-header-actions__items
-            - if current_user.status.admin_or_mentor?
+            - if current_user.admin_or_mentor?
               li.page-header-actions__item
                 = link_to new_book_path, class: 'a-button is-md is-secondary is-block' do
                   i.fas.fa-plus
@@ -69,7 +69,7 @@ header.page-header
                               li.tag-links__item
                                 = link_to practice.title, practice_path(practice), class: 'tag-links__item-link'
                       hr.a-border-tint
-                      - if current_user.status.admin_or_mentor?
+                      - if current_user.admin_or_mentor?
                         footer.card-footer.is-only-mentor
                           .card-main-actions
                             ul.card-main-actions__items

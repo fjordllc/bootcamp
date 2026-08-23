@@ -5,7 +5,7 @@ module PageTabs
     def products_page_tabs(active_tab:)
       tabs = []
       tabs << { name: '全て', link: products_path }
-      if current_user.status.admin_or_mentor?
+      if current_user.admin_or_mentor?
         self_assinged_count = Product.unhibernated_user_products.self_assigned_product(current_user.id).unchecked.size
         self_assinged_badge = Cache.self_assigned_no_replied_product_count(current_user.id)
         tabs << { name: '未完了', link: products_unchecked_index_path, count: Cache.unchecked_product_count }

@@ -22,7 +22,7 @@ class API::Users::SupportContextsController < API::BaseController # rubocop:todo
   private
 
   def require_admin_or_mentor
-    render json: { message: '権限がありません。' }, status: :forbidden unless current_user.status.admin_or_mentor?
+    render json: { message: '権限がありません。' }, status: :forbidden unless current_user.admin_or_mentor?
   end
 
   def set_user
@@ -59,13 +59,13 @@ class API::Users::SupportContextsController < API::BaseController # rubocop:todo
   def role_value(role)
     case role
     when :hibernationed
-      @user.status.hibernated?
+      @user.hibernated?
     when :graduate
-      @user.status.graduated?
+      @user.graduated?
     when :retired
-      @user.status.retired?
+      @user.retired?
     when :training_completed
-      @user.status.training_completed?
+      @user.training_completed?
     else
       @user.public_send("#{role}?")
     end

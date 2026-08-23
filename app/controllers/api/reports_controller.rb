@@ -13,7 +13,7 @@ class API::ReportsController < API::BaseController
     @reports = @reports.limit(params[:limit].to_i) if params[:limit].present?
     @reports = @reports.joins(:user).where(users: { company_id: params[:company_id] }) if params[:company_id]
     return unless params[:target] == 'unchecked_reports'
-    return head :forbidden unless current_user.status.admin_or_mentor?
+    return head :forbidden unless current_user.admin_or_mentor?
 
     @reports = @reports.includes(:checks).unchecked.not_wip
   end

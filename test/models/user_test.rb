@@ -14,35 +14,35 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '#hibernated?' do
-    assert users(:kyuukai).status.hibernated?
-    assert_not users(:hatsuno).status.hibernated?
+    assert users(:kyuukai).hibernated?
+    assert_not users(:hatsuno).hibernated?
   end
 
   test '#training_completed?' do
-    assert users(:kensyuowata).status.training_completed?
-    assert_not users(:kensyu).status.training_completed?
+    assert users(:kensyuowata).training_completed?
+    assert_not users(:kensyu).training_completed?
   end
 
   test '#retired?' do
-    assert users(:yameo).status.retired?
-    assert_not users(:komagata).status.retired?
+    assert users(:yameo).retired?
+    assert_not users(:komagata).retired?
   end
 
   test '#active?' do
     travel_to Time.zone.local(2014, 1, 1, 0, 0, 0) do
-      assert users(:komagata).status.active?
+      assert users(:komagata).active?
     end
 
     travel_to Time.zone.local(2014, 2, 2, 0, 0, 0) do
-      assert_not users(:machida).status.active?
+      assert_not users(:machida).active?
     end
 
     travel_to Time.zone.local(2022, 7, 11, 0, 0, 0) do
-      assert users(:neverlogin).status.active? # 未ログインでも登録したばかりならactive
+      assert users(:neverlogin).active? # 未ログインでも登録したばかりならactive
     end
 
     travel_to Time.zone.local(2022, 8, 12, 0, 0, 0) do
-      assert_not users(:neverlogin).status.active?
+      assert_not users(:neverlogin).active?
     end
   end
 
@@ -512,8 +512,8 @@ class UserTest < ActiveSupport::TestCase
       sent_student_followup_message: false
     )
 
-    assert over29days_registered_student.status.after_twenty_nine_days_registration?
-    assert_not recently_registered_student.status.after_twenty_nine_days_registration?
+    assert over29days_registered_student.after_twenty_nine_days_registration?
+    assert_not recently_registered_student.after_twenty_nine_days_registration?
   end
 
   test '#followup_message_target?' do
@@ -535,10 +535,10 @@ class UserTest < ActiveSupport::TestCase
     nottarget = users(:komagata)
     otameshi = users(:otameshi)
     hibernated = users(:kyuukai)
-    assert target.status.followup_message_target?
-    assert_not nottarget.status.followup_message_target?
-    assert_not otameshi.status.followup_message_target?
-    assert_not hibernated.status.followup_message_target?
+    assert target.followup_message_target?
+    assert_not nottarget.followup_message_target?
+    assert_not otameshi.followup_message_target?
+    assert_not hibernated.followup_message_target?
   end
 
   test '#mark_message_as_sent_for_hibernated_student' do
