@@ -1,4 +1,5 @@
 import { initializeComment } from 'initializeComment'
+import { get } from '@rails/request.js'
 
 document.addEventListener('DOMContentLoaded', async () => {
   const comments = document.querySelectorAll('.thread-comment:not(.loading)')
@@ -39,21 +40,35 @@ document.addEventListener('DOMContentLoaded', async () => {
     let beforeId =
       commentItems.querySelector('.thread-comment').dataset.comment_id
     const loadComments = async (parameter, updateRemaining = true) => {
-      const response = await fetch(
+      const response = await get(
         `${moreComments.dataset.commentsUrl}?${parameter}`
       )
       if (!response.ok) throw new Error(`HTTP ${response.status}`)
 
       const template = document.createElement('template')
-      template.innerHTML = await response.text()
+      template.innerHTML = await response.text
       const loadedComments = Array.from(
         template.content.querySelectorAll('.thread-comment')
       )
+      loadedComments.forEach((comment) => {
+        if (document.getElementById(comment.id)) comment.remove()
+      })
       commentItems.prepend(template.content)
-      setComments(loadedComments)
+      const uniqueComments = loadedComments.filter(
+        (comment) => comment.isConnected
+      )
+      setComments(uniqueComments)
+      Array.from(commentItems.querySelectorAll(':scope > .thread-comment'))
+        .sort(
+          (left, right) =>
+            Number(left.dataset.comment_created_at) -
+              Number(right.dataset.comment_created_at) ||
+            Number(left.dataset.comment_id) - Number(right.dataset.comment_id)
+        )
+        .forEach((comment) => commentItems.append(comment))
       if (!updateRemaining) return
 
-      beforeId = loadedComments[0]?.dataset.comment_id || beforeId
+      beforeId = uniqueComments[0]?.dataset.comment_id || beforeId
       commentRemaining = Number(response.headers.get('X-Comment-Remaining'))
       if (commentRemaining > 0) {
         moreComments.classList.remove('is-hidden')
