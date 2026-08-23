@@ -77,6 +77,7 @@ class TalksTest < ApplicationSystemTestCase
     page.execute_script("document.querySelector('.thread-comments-more button').click()")
     assert_text 'アンカーコメント15'
     page.execute_script("document.querySelector('.thread-comments-more button').click()")
+    assert_selector '.thread-comments-more.is-hidden', visible: :hidden
     assert_selector "#comment_#{comments.last.id}", count: 1
     rendered_ids = page.all('.thread-comments__items > .thread-comment').map { |comment| comment[:id] }
     assert_equal comments.reverse.pluck(:id).map { |id| "comment_#{id}" }, rendered_ids
