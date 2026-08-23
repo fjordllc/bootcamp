@@ -39,7 +39,7 @@ module Authentication::LoginHelpers
   end
 
   def paid_login?
-    logged_in? && current_user.billing.paid?
+    logged_in? && current_user.paid?
   end
 
   def hibernated_login?

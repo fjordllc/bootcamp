@@ -18,7 +18,7 @@ class UserStatus
   end
 
   def staff_or_paid?
-    staff? || @user.billing.paid?
+    staff? || @user.paid?
   end
 
   def admin_or_mentor?

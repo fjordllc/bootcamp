@@ -59,6 +59,7 @@ class User < ApplicationRecord
            :followup_message_target?, :training_completed?, :retired?, :inactive?,
            :graduated?, :student_or_trainee?, :student_or_trainee_or_retired?,
            :away?, :active?, to: :status
+  delegate :card?, :paid?, :subscription?, to: :billing
 
   def generation
     (created_at.year - 2013) * 4 + (created_at.month + 2) / 3
