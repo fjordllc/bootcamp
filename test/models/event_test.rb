@@ -33,22 +33,22 @@ class EventTest < ActiveSupport::TestCase
 
   test '#opening?' do
     event = events(:event2)
-    assert event.opening_status.opening?
+    assert event.opening?
   end
 
   test '#before_opening?' do
     event = events(:event4)
-    assert event.opening_status.before_opening?
+    assert event.before_opening?
   end
 
   test '#closing?' do
     event = events(:event5)
-    assert event.opening_status.closing?
+    assert event.closing?
   end
 
   test '#ended?' do
     event = events(:event6)
-    assert event.opening_status.ended?
+    assert event.ended?
   end
 
   test '#participants' do

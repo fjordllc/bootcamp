@@ -12,7 +12,7 @@ ul.card-list.a-card
                 .a-list-item-badge.is-wip
                   span
                     | WIP
-              - elsif event.opening_status.ended?
+              - elsif event.ended?
                 .a-list-item-badge.is-ended
                   span
                     | 終了

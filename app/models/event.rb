@@ -10,6 +10,8 @@ class Event < ApplicationRecord
   include Bookmarkable
   include EventDateValidations
 
+  delegate :opening?, :before_opening?, :closing?, :ended?, to: :opening_status
+
   validates :title, presence: true
   validates :description, presence: true
   validates :location, presence: true

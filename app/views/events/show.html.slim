@@ -29,20 +29,20 @@
         .a-page-notice__inner
           p
             | 公開されるまでお待ちください。
-  - elsif !@event.opening_status.opening?
+  - elsif !@event.opening?
     - if @event.wip?
       .a-page-notice.is-danger
         .container.is-md
           .a-page-notice__inner
             p
               | 公開されるまでお待ちください。
-    - elsif @event.opening_status.before_opening?
+    - elsif @event.before_opening?
       .a-page-notice.is-danger
         .container.is-md
           .a-page-notice__inner
             p
               | 募集開始までお待ち下さい。
-    - elsif @event.opening_status.closing?
+    - elsif @event.closing?
       .a-page-notice.is-muted
         .container.is-md
           .a-page-notice__inner
