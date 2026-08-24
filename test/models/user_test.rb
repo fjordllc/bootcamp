@@ -144,7 +144,7 @@ class UserTest < ActiveSupport::TestCase
 
   test '#practice_ids_skipped' do
     user = users(:kensyu)
-    assert_includes(user.practice_progress.practice_ids_skipped, practices(:practice8).id)
+    assert_includes(user.practice_ids_skipped, practices(:practice8).id)
   end
 
   test '#depressed?' do

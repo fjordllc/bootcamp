@@ -60,6 +60,7 @@ class User < ApplicationRecord
            :graduated?, :student_or_trainee?, :student_or_trainee_or_retired?,
            :away?, :active?, to: :status
   delegate :card?, :paid?, :subscription?, to: :billing
+  delegate :practices_with_checked_product, :practice_ids_skipped, to: :practice_progress
 
   def generation
     (created_at.year - 2013) * 4 + (created_at.month + 2) / 3
