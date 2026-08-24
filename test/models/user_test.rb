@@ -686,9 +686,9 @@ class UserTest < ActiveSupport::TestCase
 
   test '#latest_micro_report_page' do
     user = users(:hajime)
-    assert_equal 1, user.micro_report_pagination.latest_micro_report_page
+    assert_equal 1, user.latest_micro_report_page
     user.micro_reports.create!(Array.new(25) { |i| { content: "分報#{i + 1}" } })
-    assert_equal 2, user.micro_report_pagination.latest_micro_report_page
+    assert_equal 2, user.latest_micro_report_page
   end
 
   test 'convert to nil during saving when country_code and subdivision_code is empty string' do

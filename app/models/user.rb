@@ -66,6 +66,7 @@ class User < ApplicationRecord
   delegate :grant_course?, to: :course_grant
   delegate :depressed?, :raw_last_negative_report_id, :update_negative_streak, to: :negative_streak_tracker
   delegate :wip_exists?, to: :wip_content
+  delegate :latest_micro_report_page, to: :micro_report_pagination
 
   def generation
     (created_at.year - 2013) * 4 + (created_at.month + 2) / 3
