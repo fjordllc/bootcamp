@@ -86,7 +86,7 @@ class PracticesTest < ApplicationSystemTestCase
     visit_with_auth "/practices/#{practice.id}", 'hatsuno'
     first('.js-started').click
     wait_for_status_change
-    assert_equal 'started', practice.learner_record.status(users(:hatsuno))
+    assert_equal 'started', practice.status(users(:hatsuno))
   end
 
   test 'show other practices' do

@@ -6,6 +6,8 @@ class Practice < ApplicationRecord
   include PracticeCollaborators
   include PracticeValidations
 
+  delegate :status_by_learnings, :status, :exists_learning?, :completed?, to: :learner_record
+
   has_many :learnings, dependent: :destroy
   has_and_belongs_to_many :reports # rubocop:disable Rails/HasAndBelongsToMany
   has_many :completed_learnings,

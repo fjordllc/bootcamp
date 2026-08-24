@@ -13,7 +13,7 @@
           = link_to product_link, class: 'a-button is-sm is-primary is-block test-product' do
             i.fa-solid.fa-file
             | #{product_label}
-      - if @practice.learner_record.completed?(@current_user)
+      - if @practice.completed?(@current_user)
         li.card-main-actions__item
           button.a-button.is-sm.is-secondary.is-block.is-disabled.test-completed
             i.fa-solid.fa-check

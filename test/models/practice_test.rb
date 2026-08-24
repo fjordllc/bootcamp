@@ -15,27 +15,27 @@ class PracticeTest < ActiveSupport::TestCase
 
   test '#status(user)' do
     assert_equal \
-      practices(:practice1).learner_record.status(users(:komagata)),
+      practices(:practice1).status(users(:komagata)),
       'started'
 
     assert_equal \
-      practices(:practice1).learner_record.status(users(:machida)),
+      practices(:practice1).status(users(:machida)),
       'unstarted'
   end
 
   test '#status_by_learnings(learnings)' do
     learnings = users(:komagata).learnings
 
-    assert_equal practices(:practice1).learner_record.status_by_learnings(learnings), 'started'
-    assert_equal practices(:practice2).learner_record.status_by_learnings(learnings), 'complete'
-    assert_equal practices(:practice3).learner_record.status_by_learnings(learnings), 'unstarted'
-    assert_equal practices(:practice4).learner_record.status_by_learnings(learnings), 'submitted'
-    assert_equal practices(:practice5).learner_record.status_by_learnings(learnings), 'unstarted'
+    assert_equal practices(:practice1).status_by_learnings(learnings), 'started'
+    assert_equal practices(:practice2).status_by_learnings(learnings), 'complete'
+    assert_equal practices(:practice3).status_by_learnings(learnings), 'unstarted'
+    assert_equal practices(:practice4).status_by_learnings(learnings), 'submitted'
+    assert_equal practices(:practice5).status_by_learnings(learnings), 'unstarted'
   end
 
   test '#exists_learning?(user)' do
-    assert practices(:practice1).learner_record.exists_learning?(users(:komagata))
-    assert_not practices(:practice1).learner_record.exists_learning?(users(:machida))
+    assert practices(:practice1).exists_learning?(users(:komagata))
+    assert_not practices(:practice1).exists_learning?(users(:machida))
   end
 
   test '#category' do

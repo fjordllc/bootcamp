@@ -11,7 +11,7 @@ class PracticesController < ApplicationController
     @common_page = nil if @common_page&.wip?
 
     if logged_in?
-      @status = @practice.learner_record.status_by_learnings(current_user.learnings)
+      @status = @practice.status_by_learnings(current_user.learnings)
       render :show
     else
       render :unauthorized_show, layout: 'not_logged_in'
