@@ -34,7 +34,7 @@
     - unless user.adviser? || user.mentor?
       = render 'users/form/experiences', f: f
 
-    - if user.trainee? && from == :new && !user.course_grant.grant_course?
+    - if user.trainee? && from == :new && !user.grant_course?
       .form-item
         .form-item-block
           .form-item-block__inner
@@ -77,7 +77,7 @@
       h3.form__items-title 所属企業情報
       = render 'users/form/company', f: f, user: user
 
-  - if from == :new && user.student? && !user.course_grant.grant_course?
+  - if from == :new && user.student? && !user.grant_course?
     .form__items
       h3.form__items-title クレジットカード情報
       = render 'users/form/card'

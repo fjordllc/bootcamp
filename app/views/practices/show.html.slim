@@ -17,7 +17,7 @@
   .container.is-xl
     .row.is-gutter-width-32
       .col-lg-8.col-xs-12
-        - if current_user.course_grant.grant_course?
+        - if current_user.grant_course?
           nav.pill-nav aria-label="プラクティス表示"
             ul.pill-nav__items
               li.pill-nav__item
