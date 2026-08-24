@@ -31,7 +31,7 @@ json.user do
   json.partial! "api/users/user", user: product.user
   if product.user.training_ends_on
     json.training_ends_on l(product.user.training_ends_on)
-    json.training_remaining_days product.user.enrollment_period.training_remaining_days
+    json.training_remaining_days product.user.training_remaining_days
   end
 end
 

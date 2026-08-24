@@ -21,18 +21,18 @@ header.page-content-header.is-product
             - if @product.user.training_ends_on
               span.a-meta__value
                 = l @product.user.training_ends_on
-              - if @product.user.enrollment_period.training_remaining_days.zero?
+              - if @product.user.training_remaining_days.zero?
                 span.a-meta__value.is-danger
                   | （本日研修最終日）
-              - elsif @product.user.enrollment_period.training_remaining_days.negative?
+              - elsif @product.user.training_remaining_days.negative?
                 span.a-meta__value
                   | （研修終了）
-              - elsif @product.user.enrollment_period.training_remaining_days < 7
+              - elsif @product.user.training_remaining_days < 7
                 span.a-meta__value.is-danger
-                  | （あと#{@product.user.enrollment_period.training_remaining_days}日）
+                  | （あと#{@product.user.training_remaining_days}日）
               - else
                 span.a-meta__value
-                  | （あと#{@product.user.enrollment_period.training_remaining_days}日）
+                  | （あと#{@product.user.training_remaining_days}日）
             - else
               span.a-meta__value
                 | 未入力

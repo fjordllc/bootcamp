@@ -62,6 +62,7 @@ class User < ApplicationRecord
   delegate :card?, :paid?, :subscription?, to: :billing
   delegate :practices_with_checked_product, :practice_ids_skipped, to: :practice_progress
   delegate :submitted?, to: :coding_test_submission
+  delegate :elapsed_days, :training_remaining_days, to: :enrollment_period
 
   def generation
     (created_at.year - 2013) * 4 + (created_at.month + 2) / 3
