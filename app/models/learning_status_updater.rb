@@ -14,7 +14,7 @@ class LearningStatusUpdater
   def update_after_check(check)
     return unless check.checkable_type == 'Product'
 
-    learning_status = if check.checkable.checked? && check.checkable.practice.quiz_gate.completable_by?(check.checkable.user)
+    learning_status = if check.checkable.checked? && check.checkable.practice.completable_by?(check.checkable.user)
                         :complete
                       else
                         :submitted

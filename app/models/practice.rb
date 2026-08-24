@@ -7,6 +7,7 @@ class Practice < ApplicationRecord
   include PracticeValidations
 
   delegate :status_by_learnings, :status, :exists_learning?, :completed?, to: :learner_record
+  delegate :practice_quiz_required?, :practice_quiz_passed_by?, :completable_by?, to: :quiz_gate
 
   has_many :learnings, dependent: :destroy
   has_and_belongs_to_many :reports # rubocop:disable Rails/HasAndBelongsToMany

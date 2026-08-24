@@ -124,9 +124,9 @@
               hr.a-border-tint
               footer.card-footer
                 = render(Learnings::LearningComponent.new(practice: @practice, current_user:))
-                - if @practice.quiz_gate.practice_quiz_required?
+                - if @practice.practice_quiz_required?
                   .card-footer__alert
-                    - if @practice.quiz_gate.practice_quiz_passed_by?(current_user)
+                    - if @practice.practice_quiz_passed_by?(current_user)
                       | 理解度テストに合格済みです。
                     - else
                       = link_to '理解度テストに合格すると、このプラクティスを修了できます。',
