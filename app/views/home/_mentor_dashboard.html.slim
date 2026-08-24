@@ -36,7 +36,7 @@
                       = render partial: 'announcements'
                   - if current_user.bookmarks.present?
                     = render(DashboardBookmarksComponent.new(bookmarks: @bookmarks, count: @bookmark_count))
-                  - if current_user.wip_content.wip_exists?
+                  - if current_user.wip_exists?
                     .a-panels__item
                       = render 'wip_items'
                   - if DepressedReportsQuery.call.present?

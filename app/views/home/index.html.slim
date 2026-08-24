@@ -33,7 +33,7 @@
                 = render partial: 'announcements'
               - if current_user.bookmarks.present?
                 = render(DashboardBookmarksComponent.new(bookmarks: @bookmarks, count: @bookmark_count))
-              - if current_user.wip_content.wip_exists?
+              - if current_user.wip_exists?
                 = render 'wip_items'
               - if current_user.active_practices.present?
                 = render '/users/practices/active_practices', user: current_user
