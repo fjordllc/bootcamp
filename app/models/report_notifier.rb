@@ -22,7 +22,7 @@ class ReportNotifier
 
   def notify_users(report)
     notify_advisers(report) if report.user.trainee? && report.user.company_id?
-    notify_consecutive_negative_report(report) if report.user.negative_streak_tracker.depressed?
+    notify_consecutive_negative_report(report) if report.user.depressed?
     notify_followers(report)
     report.notify_all_mention_user
   end

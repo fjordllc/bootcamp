@@ -64,6 +64,7 @@ class User < ApplicationRecord
   delegate :submitted?, to: :coding_test_submission
   delegate :elapsed_days, :training_remaining_days, to: :enrollment_period
   delegate :grant_course?, to: :course_grant
+  delegate :depressed?, :raw_last_negative_report_id, :update_negative_streak, to: :negative_streak_tracker
 
   def generation
     (created_at.year - 2013) * 4 + (created_at.month + 2) / 3

@@ -154,18 +154,18 @@ class UserTest < ActiveSupport::TestCase
       user_id: user.id, title: 'test 1', description: 'test',
       wip: false, emotion: 'negative', reported_on: Date.current, no_learn: true
     )
-    assert_not user.negative_streak_tracker.depressed?
+    assert_not user.depressed?
 
     Report.create!(
       user_id: user.id, title: 'test 2', description: 'test',
       wip: false, emotion: 'negative', reported_on: 1.day.ago, no_learn: true
     )
-    assert user.negative_streak_tracker.depressed?
+    assert user.depressed?
 
     report = user.reports.find_by(reported_on: Date.current)
     report.emotion = 'positive'
     report.save!
-    assert_not user.negative_streak_tracker.depressed?
+    assert_not user.depressed?
   end
 
   test 'is valid with 8 or more characters' do
@@ -428,7 +428,7 @@ class UserTest < ActiveSupport::TestCase
   test '#raw_last_negative_report_id' do
     assert_equal \
       users(:komagata).reports.order(reported_on: :desc).limit(1).pick(:id),
-      users(:komagata).negative_streak_tracker.raw_last_negative_report_id
+      users(:komagata).raw_last_negative_report_id
   end
 
   test 'students_and_trainees_method_does_not_include_retired_trainee' do
