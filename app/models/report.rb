@@ -34,7 +34,12 @@ class Report < ApplicationRecord
   validates :user, presence: true
   validates :reported_on, presence: true, uniqueness: { scope: :user }
   validates :emotion, presence: true
-  validate :limited_date_within_range
+
+  validates :reported_on, inclusion: {
+    in: -> { Date.new(2013, 1, 1)..Date.current },
+    allow_nil: true,
+    message: "は#{I18n.l(Date.new(2013, 1, 1))}から今日以前の間の日付にしてください"
+  }
 
   after_create ReportCallbacks.new
   after_destroy ReportCallbacks.new
@@ -117,14 +122,5 @@ class Report < ApplicationRecord
 
   def sequence
     ReportOrder.new(self)
-  end
-
-  private
-
-  def limited_date_within_range
-    min_date = Date.new(2013, 1, 1)
-    return if min_date <= reported_on && reported_on <= Date.current
-
-    errors.add(:reported_on, "は#{I18n.l min_date}から今日以前の間の日付にしてください")
   end
 end
