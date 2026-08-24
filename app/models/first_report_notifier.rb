@@ -3,7 +3,7 @@
 class FirstReportNotifier
   def call(_name, _started, _finished, _unique_id, payload)
     report = payload[:report]
-    return if report.wip || !report.sequence.first? || Notification.find_by(kind: :first_report, sender_id: report.user.id).present?
+    return if report.wip || !report.first? || Notification.find_by(kind: :first_report, sender_id: report.user.id).present?
 
     notify_admins_and_mentors(report)
     notify_to_chat(report)

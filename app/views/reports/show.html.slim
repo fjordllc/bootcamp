@@ -10,12 +10,12 @@
       .container
         .a-page-notice__inner
           p このユーザーは退会しています。
-  - elsif !@report.sequence.first? && @report.sequence.latest_of_user?
-    .a-page-notice.is-only-mentor(class="#{@report.sequence.interval >= 10 ? 'is-danger' : ''}")
+  - elsif !@report.first? && @report.latest_of_user?
+    .a-page-notice.is-only-mentor(class="#{@report.interval >= 10 ? 'is-danger' : ''}")
       .container
         .a-page-notice__inner
           p
-            strong #{@report.sequence.interval}日
+            strong #{@report.interval}日
             | ぶりの日報です。
 
 .page-body

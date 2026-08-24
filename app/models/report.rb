@@ -12,6 +12,8 @@ class Report < ApplicationRecord
   include Bookmarkable
   include Taskable
 
+  delegate :first?, :serial_number, :latest_of_user?, :interval, to: :sequence
+
   enum :emotion, {
     negative: 1,
     neutral: 0,

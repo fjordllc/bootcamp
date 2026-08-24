@@ -26,8 +26,8 @@ class ReportTest < ActiveSupport::TestCase
   test '#serial_number' do
     report1 = reports(:report1)
     report2 = reports(:report2)
-    assert_equal report1.sequence.serial_number, 1
-    assert_equal report2.sequence.serial_number, 2
+    assert_equal report1.serial_number, 1
+    assert_equal report2.serial_number, 2
   end
 
   test '#total_learning_time' do
@@ -36,12 +36,12 @@ class ReportTest < ActiveSupport::TestCase
   end
 
   test '#latest_of_user?' do
-    assert_not reports(:report31).sequence.latest_of_user?
-    assert reports(:report32).sequence.latest_of_user?
+    assert_not reports(:report31).latest_of_user?
+    assert reports(:report32).latest_of_user?
   end
 
   test '#interval' do
-    assert_equal 10, reports(:report32).sequence.interval
+    assert_equal 10, reports(:report32).interval
   end
 
   test 'save_uniquely does not save duplicate report and adds validation errors' do
