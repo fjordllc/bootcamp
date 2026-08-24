@@ -15,6 +15,9 @@ class Product < ApplicationRecord
   include Taskable
   include ProductStatus
 
+  delegate :replied_status_changed?, :update_last_commented_at, :update_commented_at,
+           :delete_last_commented_at, :delete_commented_at, to: :commented_at_tracking
+
   belongs_to :practice
   belongs_to :user, touch: true
   belongs_to :checker, class_name: 'User', optional: true
