@@ -3,7 +3,7 @@
 module UserDecorator
   module Retire
     def retire_countdown
-      ActiveSupport::Duration.build(hibernation.scheduled_retire_at - Time.current) if hibernated_at?
+      ActiveSupport::Duration.build(scheduled_retire_at - Time.current) if hibernated_at?
     end
 
     def retire_deadline
@@ -16,7 +16,7 @@ module UserDecorator
           "#{retire_countdown.in_days.floor}日"
         end
 
-      "#{l hibernation.scheduled_retire_at} (自動退会まであと#{countdown})"
+      "#{l scheduled_retire_at} (自動退会まであと#{countdown})"
     end
 
     def countdown_danger_tag

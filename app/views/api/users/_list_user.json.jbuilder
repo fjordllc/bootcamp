@@ -47,5 +47,5 @@ end
 
 if user.hibernated?
   json.hibernated_at l(user.hibernated_at, format: :year_and_date)
-  json.hibernation_elapsed_days user.hibernation.hibernation_elapsed_days
+  json.hibernation_elapsed_days user.hibernation_elapsed_days
 end

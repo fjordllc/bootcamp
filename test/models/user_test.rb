@@ -552,7 +552,7 @@ class UserTest < ActiveSupport::TestCase
     user = users(:kyuukai)
 
     travel_to Time.zone.local(2020, 1, 10) do
-      elapsed_days = user.hibernation.hibernation_elapsed_days
+      elapsed_days = user.hibernation_elapsed_days
 
       assert assert_equal 9, elapsed_days
     end
@@ -645,8 +645,8 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '#scheduled_retire_at' do
-    assert_equal '2020-04-01 09:00:00 +0900', users(:kyuukai).hibernation.scheduled_retire_at.to_s
-    assert_nil users(:hatsuno).hibernation.scheduled_retire_at
+    assert_equal '2020-04-01 09:00:00 +0900', users(:kyuukai).scheduled_retire_at.to_s
+    assert_nil users(:hatsuno).scheduled_retire_at
   end
 
   test '.users_job' do
