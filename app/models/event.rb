@@ -8,7 +8,6 @@ class Event < ApplicationRecord
   include Watchable
   include Searchable
   include Bookmarkable
-  include EventDateValidations
 
   delegate :opening?, :before_opening?, :closing?, :ended?, to: :opening_status
 
@@ -22,19 +21,19 @@ class Event < ApplicationRecord
   validates :open_end_at, presence: true
 
   with_options if: -> { start_at && end_at } do
-    validate :end_at_be_greater_than_start_at
+    validates :end_at, comparison: { greater_than: :start_at, message: ': イベント終了日時はイベント開始日時よりも後の日時にしてください。' }
   end
 
   with_options if: -> { open_start_at && open_end_at } do
-    validate :open_end_at_be_greater_than_open_start_at
+    validates :open_end_at, comparison: { greater_than: :open_start_at, message: ': 募集終了日時は募集開始日時よりも後の日時にしてください。' }
   end
 
   with_options if: -> { open_start_at && start_at } do
-    validate :open_start_at_be_less_than_start_at
+    validates :open_start_at, comparison: { less_than: :start_at, message: ': 募集開始日時はイベント開始日時よりも前の日時にしてください。' }
   end
 
   with_options if: -> { open_end_at && end_at } do
-    validate :open_end_at_be_less_than_end_at
+    validates :open_end_at, comparison: { less_than_or_equal_to: :end_at, message: ': 募集終了日時はイベント終了日時よりも前の日時にしてください。' }
   end
 
   belongs_to :user
