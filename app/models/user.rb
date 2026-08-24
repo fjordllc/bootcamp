@@ -69,6 +69,7 @@ class User < ApplicationRecord
   delegate :latest_micro_report_page, to: :micro_report_pagination
   delegate :hibernation_elapsed_days, :scheduled_retire_at, to: :hibernation
   delegate :clear_github_data, to: :github
+  delegate :reports_with_learning_times, to: :learning_time
 
   def generation
     (created_at.year - 2013) * 4 + (created_at.month + 2) / 3

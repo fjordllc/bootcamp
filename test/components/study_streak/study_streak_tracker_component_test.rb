@@ -19,7 +19,7 @@ class StudyStreak::StudyStreakTrackerComponentTest < ViewComponent::TestCase
       2024-08-20 2024-08-21 2024-08-22
     ]
     submitted_dates.each { |d| create_report_data_with_learning_times(user: @user, on: d) }
-    reports = @user.learning_time.reports_with_learning_times
+    reports = @user.reports_with_learning_times
     @study_streak = StudyStreak.new(reports)
   end
 
@@ -47,7 +47,7 @@ class StudyStreak::StudyStreakTrackerComponentTest < ViewComponent::TestCase
 
   test 'renders zero streak when no learning days' do
     user_without_learning = users(:hatsuno) # learning_times を含むレポートがないユーザー
-    reports = user_without_learning.learning_time.reports_with_learning_times
+    reports = user_without_learning.reports_with_learning_times
     study_streak = StudyStreak.new(reports, include_wip: false)
     render_inline(StudyStreak::StudyStreakTrackerComponent.new(study_streak:, target_user: @user))
 
@@ -87,7 +87,7 @@ class StudyStreak::StudyStreakTrackerComponentTest < ViewComponent::TestCase
     Report.where(user:).delete_all
     submitted_dates = %w[2023-12-30 2023-12-31 2024-01-01 2024-01-02]
     submitted_dates.each { |date| create_report_data_with_learning_times(user:, on: date) }
-    reports = user.learning_time.reports_with_learning_times
+    reports = user.reports_with_learning_times
     study_streak = StudyStreak.new(reports)
 
     render_inline(StudyStreak::StudyStreakTrackerComponent.new(study_streak:, target_user: user))
