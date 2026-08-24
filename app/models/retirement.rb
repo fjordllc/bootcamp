@@ -67,7 +67,7 @@ class Retirement
   end
 
   def clear_github_info
-    @user.github.clear_github_data
+    @user.clear_github_data
   end
 
   def destroy_cards

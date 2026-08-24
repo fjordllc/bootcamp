@@ -17,7 +17,7 @@ class TrainingCompletionController < ApplicationController
       user = current_user
       UserEventInvolvement.new(current_user).clean_up_regular_events
       ActiveSupport::Notifications.instrument('training_completion.create', user:)
-      user.github.clear_github_data
+      user.clear_github_data
       notify_to_user(user)
       notify_to_admins(user)
       notify_to_mentors(user)

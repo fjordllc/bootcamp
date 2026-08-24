@@ -677,7 +677,7 @@ class UserTest < ActiveSupport::TestCase
     user.github_collaborator = true
     user.save!(validate: false)
 
-    user.github.clear_github_data
+    user.clear_github_data
 
     assert_nil user.github_id
     assert_nil user.github_account
