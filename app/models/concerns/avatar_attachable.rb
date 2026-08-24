@@ -4,7 +4,7 @@ module AvatarAttachable
   extend ActiveSupport::Concern
 
   included do
-    validate :validate_uploaded_avatar_content_type
+    validates :uploaded_avatar, avatar_content_type: true
   end
 
   def avatar_url
@@ -31,15 +31,6 @@ module AvatarAttachable
   rescue ActiveStorage::FileNotFoundError, ActiveStorage::Error => e
     log_avatar_error('profile_image_url', e)
     image_url User::DEFAULT_IMAGE_PATH
-  end
-
-  def validate_uploaded_avatar_content_type
-    return unless uploaded_avatar
-
-    mime_type = Marcel::Magic.by_magic(uploaded_avatar)&.type
-    return if mime_type&.start_with?('image/png', 'image/jpeg', 'image/gif', 'image/heic', 'image/heif')
-
-    errors.add(:avatar, 'は指定された拡張子(PNG, JPG, JPEG, GIF, HEIC, HEIF形式)になっていないか、あるいは画像が破損している可能性があります')
   end
 
   private
