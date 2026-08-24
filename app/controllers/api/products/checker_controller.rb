@@ -10,7 +10,7 @@ class API::Products::CheckerController < API::BaseController
   def show
     render json: {
       checker_id: @product.checker_id,
-      checker_name: @product.assignment.checker_name
+      checker_name: @product.checker_name
     }
   end
 
@@ -18,7 +18,7 @@ class API::Products::CheckerController < API::BaseController
     if SaveProductChecker.call(product: @product, user_id: params[:current_user_id]).success?
       render json: {
         checker_id: @product.checker_id,
-        checker_name: @product.assignment.checker_name
+        checker_name: @product.checker_name
       }
     else
       render status: :bad_request, json: { message: 'すでに他のメンターが担当者になっています。' }
@@ -29,7 +29,7 @@ class API::Products::CheckerController < API::BaseController
     if @product.update(checker_id: nil)
       render json: {
         checker_id: @product.checker_id,
-        checker_name: @product.assignment.checker_name
+        checker_name: @product.checker_name
       }
     else
       render status: :bad_request, json: { message: 'すでに他のメンターが担当者になっています。' }
