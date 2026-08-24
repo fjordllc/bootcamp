@@ -40,8 +40,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     let beforeId =
       commentItems.querySelector('.thread-comment').dataset.comment_id
     const loadComments = async (parameter, updateRemaining = true) => {
+      const separator = moreComments.dataset.commentsUrl.includes('?')
+        ? '&'
+        : '?'
       const response = await get(
-        `${moreComments.dataset.commentsUrl}?${parameter}`
+        `${moreComments.dataset.commentsUrl}${separator}${parameter}`
       )
       if (!response.ok) throw new Error(`HTTP ${response.status}`)
 

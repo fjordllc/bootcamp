@@ -62,7 +62,7 @@
         = render 'comments/comments',
           commentable: @talk,
           commentable_type: 'Talk',
-          comments_url: comments_talk_path(@talk),
+          comments_url: api_comments_path(commentable_type: 'Talk', commentable_id: @talk.id),
           comment_total_count: @comment_total_count
         - if current_user.admin?
           = render(ActionCompletedButtonComponent.new(is_initial_action_completed: @talk.action_completed, update_path: api_talk_path(@talk), model_name: 'talk'))

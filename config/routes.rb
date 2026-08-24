@@ -87,9 +87,7 @@ Rails.application.routes.draw do
   namespace :talks do
     resources :action_uncompleted, only: %i(index)
   end
-  resources :talks, only: %i(index show) do
-    get :comments, on: :member
-  end
+  resources :talks, only: %i(index show)
   resources :questions
   resources :courses, only: :index
   resource :inquiry, only: %i(new create) do
