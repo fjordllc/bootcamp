@@ -2,6 +2,7 @@
 
 class HibernatedRetirementController < ApplicationController
   skip_before_action :require_active_user_login, raise: false
+  before_action :redirect_logged_in_user, only: %i[new]
 
   def new
     @user = User.new
@@ -29,6 +30,10 @@ class HibernatedRetirementController < ApplicationController
   end
 
   private
+
+  def redirect_logged_in_user
+    redirect_to new_retirement_path if current_user
+  end
 
   def render_retirement_form
     current_user.retired_on = nil
