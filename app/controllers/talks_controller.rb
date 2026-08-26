@@ -8,6 +8,7 @@ class TalksController < ApplicationController
   before_action :allow_show_talk_page_only_admin, only: %i[show]
 
   ALLOWED_TARGETS = %w[all student_and_trainee mentor graduate adviser trainee retired].freeze
+  COMMENT_LIMIT = 8
 
   def index
     @target = params[:target]
@@ -30,7 +31,8 @@ class TalksController < ApplicationController
   end
 
   def show
-    @comments = @talk.comments.order(:created_at)
+    @comment_total_count = @talk.comments.count
+    @comments = @talk.comments.with_user_details.order(created_at: :desc, id: :desc).limit(COMMENT_LIMIT).to_a.reverse
     @reports = @user.reports.list.limit(20)
   end
 

@@ -46,4 +46,40 @@ class TalksTest < ApplicationSystemTestCase
     assert_field 'js-new-comment', with: /\[diploma\.pdf \(.+ KB\)\]\(http.+diploma\.pdf\)/
     assert_no_field 'js-new-comment', with: /undefined/
   end
+
+  test 'loads previous comments eight at a time' do
+    user = users(:kimura)
+    user.talk.comments.delete_all
+    17.times do |index|
+      user.talk.comments.create!(user:, description: "相談コメント#{index}", created_at: index.minutes.ago)
+    end
+
+    visit_with_auth talk_path(user.talk), 'komagata'
+
+    assert_text '相談コメント0'
+    assert_no_text '相談コメント15'
+    page.execute_script("document.querySelector('.thread-comments-more button').click()")
+    assert_text '相談コメント15'
+    assert_button '前のコメント（ 1 ）'
+  end
+
+  test 'loads an old comment linked by its anchor' do
+    user = users(:kimura)
+    user.talk.comments.delete_all
+    comments = Array.new(17) do |index|
+      user.talk.comments.create!(user:, description: "アンカーコメント#{index}", created_at: index.minutes.ago)
+    end
+
+    visit_with_auth "#{talk_path(user.talk)}#comment_#{comments.last.id}", 'komagata'
+
+    assert_text 'アンカーコメント16'
+    assert_text 'アンカーコメント0'
+    page.execute_script("document.querySelector('.thread-comments-more button').click()")
+    assert_text 'アンカーコメント15'
+    page.execute_script("document.querySelector('.thread-comments-more button').click()")
+    assert_selector '.thread-comments-more.is-hidden', visible: :hidden
+    assert_selector "#comment_#{comments.last.id}", count: 1
+    rendered_ids = page.all('.thread-comments__items > .thread-comment').map { |comment| comment[:id] }
+    assert_equal comments.reverse.pluck(:id).map { |id| "comment_#{id}" }, rendered_ids
+  end
 end
