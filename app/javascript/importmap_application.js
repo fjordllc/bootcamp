@@ -73,7 +73,6 @@ import 'watch-toggle'
 import 'diploma-upload'
 import 'tag-shortcut'
 import 'tags-input'
-import Cocooned from '@notus.sh/cocooned'
 import 'action_completed_button'
 import 'toast'
 import 'tag'
@@ -85,6 +84,16 @@ import 'products-checker-init'
 
 Rails.start()
 
-document.addEventListener('DOMContentLoaded', () => {
-  Cocooned.start()
+document.addEventListener('DOMContentLoaded', async () => {
+  if (!document.querySelector('.cocooned-container')) return
+
+  try {
+    if (!globalThis.DisposableStack || !Symbol.dispose) {
+      await import('core-js/actual/disposable-stack')
+    }
+    const { default: Cocooned } = await import('@notus.sh/cocooned')
+    Cocooned.start()
+  } catch (error) {
+    console.error('Failed to initialize Cocooned', error)
+  }
 })
