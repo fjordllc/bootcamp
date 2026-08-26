@@ -6,13 +6,18 @@ require 'open3'
 class ImportmapApplicationTest < ActiveSupport::TestCase
   test 'loads the DisposableStack polyfill only when Cocooned needs it' do
     application = Rails.root.join('app/javascript/importmap_application.js').read
-    importmap = Rails.root.join('config/importmap.rb').read
+    polyfill = Rails.application.importmap.packages['core-js/actual/disposable-stack']
 
-    assert_includes importmap, 'pin "core-js/actual/disposable-stack", to: "disposable-stack-polyfill.js", preload: false'
+    assert_equal 'disposable-stack-polyfill.js', polyfill.path
+    assert_not polyfill.preload
     assert_includes application, "document.querySelector('.cocooned-container')"
     assert_match(%r{if \(!globalThis\.DisposableStack\).*await import\('core-js/actual/disposable-stack'\)}m, application)
-    assert_operator application.index("await import('core-js/actual/disposable-stack')"), :<,
-                    application.index("await import('@notus.sh/cocooned')")
+    polyfill_index = application.index("await import('core-js/actual/disposable-stack')")
+    cocooned_index = application.index("await import('@notus.sh/cocooned')")
+    assert_not_nil polyfill_index
+    assert_not_nil cocooned_index
+    assert_operator polyfill_index, :<, cocooned_index
+    assert_includes application, "console.error('Failed to initialize Cocooned', error)"
   end
 
   test 'the polyfill implements DisposableStack' do

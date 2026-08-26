@@ -87,9 +87,13 @@ Rails.start()
 document.addEventListener('DOMContentLoaded', async () => {
   if (!document.querySelector('.cocooned-container')) return
 
-  if (!globalThis.DisposableStack) {
-    await import('core-js/actual/disposable-stack')
+  try {
+    if (!globalThis.DisposableStack) {
+      await import('core-js/actual/disposable-stack')
+    }
+    const { default: Cocooned } = await import('@notus.sh/cocooned')
+    Cocooned.start()
+  } catch (error) {
+    console.error('Failed to initialize Cocooned', error)
   }
-  const { default: Cocooned } = await import('@notus.sh/cocooned')
-  Cocooned.start()
 })
