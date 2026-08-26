@@ -11,7 +11,10 @@ class ImportmapApplicationTest < ActiveSupport::TestCase
     assert_equal 'disposable-stack-polyfill.js', polyfill.path
     assert_not polyfill.preload
     assert_includes application, "document.querySelector('.cocooned-container')"
-    assert_match(%r{if \(!globalThis\.DisposableStack\).*await import\('core-js/actual/disposable-stack'\)}m, application)
+    assert_match(
+      %r{if \(!globalThis\.DisposableStack \|\| !Symbol\.dispose\).*await import\('core-js/actual/disposable-stack'\)}m,
+      application
+    )
     polyfill_index = application.index("await import('core-js/actual/disposable-stack')")
     cocooned_index = application.index("await import('@notus.sh/cocooned')")
     assert_not_nil polyfill_index

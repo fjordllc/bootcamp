@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (!document.querySelector('.cocooned-container')) return
 
   try {
-    if (!globalThis.DisposableStack) {
+    if (!globalThis.DisposableStack || !Symbol.dispose) {
       await import('core-js/actual/disposable-stack')
     }
     const { default: Cocooned } = await import('@notus.sh/cocooned')
