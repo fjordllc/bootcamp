@@ -98,6 +98,20 @@ module Practices
       assert_field 'product[body]', with: '更新後テンプレート'
     end
 
+    test 'deletes product template when description is blank' do
+      practice = practices(:practice1)
+      visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
+
+      fill_in 'practice_template_attributes_description', with: ''
+
+      assert_difference 'Template.count', -1 do
+        click_button '更新する'
+      end
+
+      assert_text 'プラクティスを更新しました'
+      assert_nil practice.reload.template
+    end
+
     test 'deletes product template from practice edit form' do
       practice = practices(:practice1)
       visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
