@@ -95,6 +95,17 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'GET /api/products/:id.json returns forbidden for incomplete practice by student' do
+    product = products(:product5)
+
+    token = create_token('kimura', 'testtest')
+
+    get api_product_path(product, format: :json),
+        headers: { 'Authorization' => "Bearer #{token}" }
+
+    assert_response :forbidden
+  end
+
   test 'returns json error with invalid token' do
     get api_products_path(format: :json),
         headers: { Authorization: 'Bearer invalid-token' }

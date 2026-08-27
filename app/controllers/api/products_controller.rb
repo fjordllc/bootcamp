@@ -20,6 +20,10 @@ class API::ProductsController < API::BaseController
 
   def show
     @product = Product.includes(comments: :user, checks: :user).find(params[:id])
+
+    return if !current_user.student? || current_user.completed_practices.include?(@product.practice)
+
+    head :forbidden
   end
 
   def create
