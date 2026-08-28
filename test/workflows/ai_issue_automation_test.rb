@@ -77,6 +77,7 @@ class AiIssueAutomationTest < ActiveSupport::TestCase
     assert_includes docker_runner, 'CODEX_AUTOMATION_REPOSITORY'
     assert_includes docker_runner, 'SECONDS + 60'
     assert_includes docker_runner, 'postgres:16-alpine'
+    assert_includes docker_runner, '--tmpfs /var/lib/postgresql/data'
     assert_not_includes docker_runner, '/var/run/docker.sock'
     assert_includes dockerfile, 'npm install --global @openai/codex'
     assert_includes dockerfile, 'apt-get install'

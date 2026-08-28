@@ -3,6 +3,12 @@
 require 'application_system_test_case'
 
 class HibernatedRetirementTest < ApplicationSystemTestCase
+  test 'redirect to retirement page when logged in' do
+    visit_with_auth new_hibernated_retirement_path, 'hatsuno'
+
+    assert_current_path new_retirement_path
+  end
+
   test 'retire as hibernated user' do
     visit new_hibernated_retirement_path
     fill_in 'user[email]', with: 'kyuukai@fjord.jp'

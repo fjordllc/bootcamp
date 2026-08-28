@@ -59,7 +59,11 @@
                             image_class: 'page-content-members__user-icon'
                           = link_to user_path(member.id), class: 'a-user-name' do
                             = member.login_name
-        = render 'comments/comments', commentable: @talk, commentable_type: 'Talk'
+        = render 'comments/comments',
+          commentable: @talk,
+          commentable_type: 'Talk',
+          comments_url: api_comments_path(commentable_type: 'Talk', commentable_id: @talk.id),
+          comment_total_count: @comment_total_count
         - if current_user.admin?
           = render(ActionCompletedButtonComponent.new(is_initial_action_completed: @talk.action_completed, update_path: api_talk_path(@talk), model_name: 'talk'))
 

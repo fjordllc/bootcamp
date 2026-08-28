@@ -121,7 +121,6 @@ group :test do
   gem 'capybara-playwright-driver', '~> 0.5.9'
   gem 'capybara-screenshot-diff', require: false
   gem 'minitest', '< 6.0'
-  gem 'minitest-ci'
   gem 'minitest-retry'
   gem 'minitest-stub_any_instance'
   gem 'vcr'

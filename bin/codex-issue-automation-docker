@@ -59,6 +59,7 @@ trap cleanup EXIT
 docker network create "$network" >/dev/null
 docker run --detach --rm \
   --name "$database_container" \
+  --tmpfs /var/lib/postgresql/data \
   --network "$network" \
   --network-alias db \
   -e POSTGRES_PASSWORD=postgres \
