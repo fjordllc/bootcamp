@@ -12,7 +12,7 @@ class Hibernation < ApplicationRecord
     destroy_subscription!
     notify_to_chat
     notify_to_mentors_and_admins
-    UserEventInvolvement.new(user).clean_up_regular_events
+    UserRegularEventCleanup.new(user).clean_up_regular_events
   end
 
   def self.hibernate_by_admin(user:, scheduled_return_on:)

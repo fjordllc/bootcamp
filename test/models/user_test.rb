@@ -625,7 +625,7 @@ class UserTest < ActiveSupport::TestCase
     finished_participated_event.update!(finished: true)
     finished_participated_event.regular_event_participations.create!(user: user)
 
-    UserEventInvolvement.new(user).clean_up_regular_events
+    UserRegularEventCleanup.new(user).clean_up_regular_events
 
     assert_not unfinished_participated_event.regular_event_participations.exists?(user:)
     assert finished_participated_event.regular_event_participations.exists?(user:)
@@ -638,7 +638,7 @@ class UserTest < ActiveSupport::TestCase
     finished_organized_event = regular_events(:regular_event5)
     finished_organized_event.update!(finished: true)
 
-    UserEventInvolvement.new(user).clean_up_regular_events
+    UserRegularEventCleanup.new(user).clean_up_regular_events
 
     assert_not unfinished_organized_event.regular_event_organizers.exists?(user:)
     assert finished_organized_event.regular_event_organizers.exists?(user:)
