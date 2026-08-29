@@ -1,6 +1,6 @@
 details.following id="follow_details#{user.id}"
-  - is_following = UserFollows.new(current_user).following?(user)
-  - is_watching = UserFollows.new(current_user).watching?(user)
+  - is_following = current_user.following?(user)
+  - is_watching = current_user.watching?(user)
   summary.following__summary
     - if is_following && is_watching
       span.a-button.is-warning.is-sm.is-block

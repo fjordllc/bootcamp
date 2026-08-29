@@ -20,6 +20,6 @@ class ColleagueTraineesRecentReportsQuery < Patterns::Query
   end
 
   def colleague_trainee_ids
-    UserColleagues.new(@current_user).colleague_trainees.pluck(:id)
+    @current_user.colleague_trainees.pluck(:id)
   end
 end

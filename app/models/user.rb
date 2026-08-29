@@ -53,6 +53,7 @@ class User < ApplicationRecord
   include UserFlags
   include Ransackable
   include UserCollaborators
+  include UserDelegateTargets
 
   delegate :student?, :current_student?, :staff?, :staff_or_paid?, :admin_or_mentor?,
            :adviser_or_mentor?, :hibernated?, :after_twenty_nine_days_registration?,
@@ -70,6 +71,12 @@ class User < ApplicationRecord
   delegate :hibernation_elapsed_days, :scheduled_retire_at, to: :hibernation
   delegate :clear_github_data, to: :github
   delegate :reports_with_learning_times, to: :learning_time
+  delegate :follow, :unfollow, :following?, :followees_list, :change_watching, :watching?, to: :follows
+  delegate :colleagues, :colleagues_other_than_self, :colleague_trainees, to: :colleagues_finder
+  delegate :country_name, :subdivision_name, :subdivision_codes, :area, to: :region
+  delegate :become_watcher!, to: :watcher
+  delegate :participating?, :participated_regular_event_ids, :involved_events, :involved_regular_events, to: :event_involvement
+  delegate :clean_up_regular_events, to: :regular_event_cleanup
 
   def generation
     (created_at.year - 2013) * 4 + (created_at.month + 2) / 3

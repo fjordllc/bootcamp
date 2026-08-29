@@ -46,7 +46,7 @@ class Area
     end
 
     def sorted_user_groups_by_area_user_num
-      users_group_by_areas = User.with_attached_avatar.order(created_at: :desc).group_by { |user| UserRegion.new(user).area }
+      users_group_by_areas = User.with_attached_avatar.order(created_at: :desc).group_by(&:area)
 
       sorted_users_group_by_non_nil_areas =
         users_group_by_areas.map do |area, users|

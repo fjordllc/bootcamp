@@ -6,7 +6,7 @@ class API::FollowingsController < API::BaseController
   def create
     user = User.find(params[:id])
     watch = params[:watch] == 'true'
-    if UserFollows.new(current_user).follow(user, watch:)
+    if current_user.follow(user, watch:)
       head :no_content
     else
       head :bad_request
@@ -16,7 +16,7 @@ class API::FollowingsController < API::BaseController
   def update
     user = User.find(params[:id])
     watch = params[:watch] == 'true'
-    if UserFollows.new(current_user).change_watching(user, watch)
+    if current_user.change_watching(user, watch)
       head :no_content
     else
       head :bad_request
@@ -25,7 +25,7 @@ class API::FollowingsController < API::BaseController
 
   def destroy
     user = User.find(params[:id])
-    if UserFollows.new(current_user).unfollow(user)
+    if current_user.unfollow(user)
       head :no_content
     else
       head :bad_request

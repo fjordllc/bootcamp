@@ -12,7 +12,7 @@ class User::EventsTest < ApplicationSystemTestCase
 
   test 'shows correct count of user involved events' do
     visit_with_auth "/users/#{users(:kimura).id}/events", 'kimura'
-    assert_selector '.tab-nav__item-link', text: "特別イベント(#{UserEventInvolvement.new(users(:kimura)).involved_events.count})"
+    assert_selector '.tab-nav__item-link', text: "特別イベント(#{users(:kimura).involved_events.count})"
   end
 
   test 'does not show events the user is not involved in' do

@@ -145,7 +145,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def self.fetch_participated_regular_events(user)
     participated_regular_events = []
-    UserEventInvolvement.new(user).participated_regular_event_ids.find_each do |regular_event|
+    user.participated_regular_event_ids.find_each do |regular_event|
       regular_event.all_scheduled_dates.each do |event_date|
         participated_regular_events << regular_event.transform_for_subscription(event_date)
       end

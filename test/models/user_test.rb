@@ -327,49 +327,49 @@ class UserTest < ActiveSupport::TestCase
   test '#follow' do
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)
-    UserFollows.new(kimura).follow(hatsuno, watch: true)
+    kimura.follow(hatsuno, watch: true)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id, watch: true)
   end
 
   test '#change_watching' do
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)
-    UserFollows.new(kimura).follow(hatsuno, watch: true)
+    kimura.follow(hatsuno, watch: true)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id, watch: true)
-    UserFollows.new(kimura).change_watching(hatsuno, false)
+    kimura.change_watching(hatsuno, false)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id, watch: false)
   end
 
   test '#unfollow' do
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)
-    UserFollows.new(kimura).follow(hatsuno, watch: true)
+    kimura.follow(hatsuno, watch: true)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
-    UserFollows.new(kimura).unfollow(hatsuno)
+    kimura.unfollow(hatsuno)
     assert_nil Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
   end
 
   test '#following' do
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)
-    UserFollows.new(kimura).following?(hatsuno)
-    assert_not UserFollows.new(kimura).following?(hatsuno)
-    UserFollows.new(kimura).follow(hatsuno, watch: true)
-    UserFollows.new(kimura).following?(hatsuno)
-    assert UserFollows.new(kimura).following?(hatsuno)
+    kimura.following?(hatsuno)
+    assert_not kimura.following?(hatsuno)
+    kimura.follow(hatsuno, watch: true)
+    kimura.following?(hatsuno)
+    assert kimura.following?(hatsuno)
   end
 
   test '#auto_watching' do
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)
-    UserFollows.new(kimura).following?(hatsuno)
-    assert_not UserFollows.new(kimura).watching?(hatsuno)
-    UserFollows.new(kimura).follow(hatsuno, watch: false)
-    UserFollows.new(kimura).following?(hatsuno)
-    assert_not UserFollows.new(kimura).watching?(hatsuno)
-    UserFollows.new(kimura).change_watching(hatsuno, true)
-    UserFollows.new(kimura).following?(hatsuno)
-    assert UserFollows.new(kimura).watching?(hatsuno)
+    kimura.following?(hatsuno)
+    assert_not kimura.watching?(hatsuno)
+    kimura.follow(hatsuno, watch: false)
+    kimura.following?(hatsuno)
+    assert_not kimura.watching?(hatsuno)
+    kimura.change_watching(hatsuno, true)
+    kimura.following?(hatsuno)
+    assert kimura.watching?(hatsuno)
   end
 
   test '#followees_list ' do
@@ -377,22 +377,22 @@ class UserTest < ActiveSupport::TestCase
     hatsuno = users(:hatsuno)
     hajime = users(:hajime)
     mentormentaro = users(:mentormentaro)
-    UserFollows.new(kimura).follow(hatsuno, watch: true)
-    UserFollows.new(kimura).follow(hajime, watch: true)
-    UserFollows.new(kimura).follow(mentormentaro, watch: false)
-    assert_equal 3, UserFollows.new(kimura).followees_list.count
-    assert_equal 2, UserFollows.new(kimura).followees_list(watch: 'true').count
-    assert_equal 1, UserFollows.new(kimura).followees_list(watch: 'false').count
+    kimura.follow(hatsuno, watch: true)
+    kimura.follow(hajime, watch: true)
+    kimura.follow(mentormentaro, watch: false)
+    assert_equal 3, kimura.followees_list.count
+    assert_equal 2, kimura.followees_list(watch: 'true').count
+    assert_equal 1, kimura.followees_list(watch: 'false').count
   end
 
   test "don't unfollow user when other user unfollow user" do
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)
-    UserFollows.new(kimura).follow(hatsuno, watch: true)
+    kimura.follow(hatsuno, watch: true)
     hajime = users(:hajime)
-    UserFollows.new(hajime).follow(hatsuno, watch: true)
+    hajime.follow(hatsuno, watch: true)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
-    UserFollows.new(hajime).unfollow(hatsuno)
+    hajime.unfollow(hatsuno)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
   end
 
@@ -463,23 +463,23 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '#colleagues' do
-    target = UserColleagues.new(users(:kensyu)).colleagues
+    target = users(:kensyu).colleagues
     assert_includes(target, users(:kensyuowata))
-    assert_empty UserColleagues.new(users(:kimura)).colleagues
+    assert_empty users(:kimura).colleagues
   end
 
   test '#colleagues_other_than_self' do
     self_user = users(:kensyu)
-    target = UserColleagues.new(self_user).colleagues_other_than_self
+    target = self_user.colleagues_other_than_self
     assert_includes(target, users(:kensyuowata))
     assert_not_includes(target, self_user)
   end
 
   test '#colleague_trainees' do
-    target = UserColleagues.new(users(:senpai)).colleague_trainees
+    target = users(:senpai).colleague_trainees
     assert_includes(target, users(:kensyu))
-    assert_empty UserColleagues.new(users(:kimura)).colleague_trainees
-    assert_empty UserColleagues.new(users(:advijirou)).colleague_trainees
+    assert_empty users(:kimura).colleague_trainees
+    assert_empty users(:advijirou).colleague_trainees
   end
 
   test '#after_twenty_nine_days_registration?' do
@@ -559,19 +559,19 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '#country_name' do
-    assert_equal '日本', UserRegion.new(users(:kimura)).country_name
-    assert_equal '米国', UserRegion.new(users(:tom)).country_name
+    assert_equal '日本', users(:kimura).country_name
+    assert_equal '米国', users(:tom).country_name
   end
 
   test '#subdivision_name' do
-    assert_equal '東京都', UserRegion.new(users(:kimura)).subdivision_name
-    assert_equal 'ニューヨーク州', UserRegion.new(users(:tom)).subdivision_name
+    assert_equal '東京都', users(:kimura).subdivision_name
+    assert_equal 'ニューヨーク州', users(:tom).subdivision_name
   end
 
   test '#subdivision_codes' do
-    assert_equal ISO3166::Country['JP'].subdivisions.keys, UserRegion.new(users(:kimura)).subdivision_codes
-    assert_equal ISO3166::Country['US'].subdivisions.keys, UserRegion.new(users(:tom)).subdivision_codes
-    assert_empty UserRegion.new(users(:yameo)).subdivision_codes
+    assert_equal ISO3166::Country['JP'].subdivisions.keys, users(:kimura).subdivision_codes
+    assert_equal ISO3166::Country['US'].subdivisions.keys, users(:tom).subdivision_codes
+    assert_empty users(:yameo).subdivision_codes
   end
 
   test 'country_code and subdivision_code must be valid ISO 3166-1 and 3166-2 code' do
@@ -593,7 +593,7 @@ class UserTest < ActiveSupport::TestCase
 
     assert_not user.watches.exists?(watchable:)
 
-    UserWatcher.new(user).become_watcher!(watchable)
+    user.become_watcher!(watchable)
     assert user.watches.exists?(watchable:)
   end
 
@@ -625,7 +625,7 @@ class UserTest < ActiveSupport::TestCase
     finished_participated_event.update!(finished: true)
     finished_participated_event.regular_event_participations.create!(user: user)
 
-    UserRegularEventCleanup.new(user).clean_up_regular_events
+    user.clean_up_regular_events
 
     assert_not unfinished_participated_event.regular_event_participations.exists?(user:)
     assert finished_participated_event.regular_event_participations.exists?(user:)
@@ -638,7 +638,7 @@ class UserTest < ActiveSupport::TestCase
     finished_organized_event = regular_events(:regular_event5)
     finished_organized_event.update!(finished: true)
 
-    UserRegularEventCleanup.new(user).clean_up_regular_events
+    user.clean_up_regular_events
 
     assert_not unfinished_organized_event.regular_event_organizers.exists?(user:)
     assert finished_organized_event.regular_event_organizers.exists?(user:)
@@ -665,9 +665,9 @@ class UserTest < ActiveSupport::TestCase
     tokyo_user = users(:machida)
     america_user = users(:tom)
     no_area_user = users(:komagata)
-    assert_equal '東京都', UserRegion.new(tokyo_user).area
-    assert_equal '米国', UserRegion.new(america_user).area
-    assert_nil UserRegion.new(no_area_user).area
+    assert_equal '東京都', tokyo_user.area
+    assert_equal '米国', america_user.area
+    assert_nil no_area_user.area
   end
 
   test 'clear_github_data should clear GitHub related fields' do
@@ -708,14 +708,14 @@ class UserTest < ActiveSupport::TestCase
   test '#involved_regular_events returns both participating and organizing regular events' do
     user = users(:kimura)
     expected_ids = (user.participate_regular_events.ids + user.organize_regular_events.ids).uniq.sort
-    actual_ids = UserEventInvolvement.new(user).involved_regular_events.ids.sort
+    actual_ids = user.involved_regular_events.ids.sort
     assert_equal expected_ids, actual_ids
   end
 
   test '#involved_events returns both participating and organizing events' do
     user = users(:kimura)
     expected_ids = (user.participate_events.ids + Event.where(user_id: user.id).ids).uniq.sort
-    actual_ids = UserEventInvolvement.new(user).involved_events.ids.sort
+    actual_ids = user.involved_events.ids.sort
     assert_equal expected_ids, actual_ids
   end
 end

@@ -59,7 +59,7 @@ class API::UsersController < API::BaseController
 
   def target_users
     if @target == 'followings'
-      UserFollows.new(current_user).followees_list(watch: @watch)
+      current_user.followees_list(watch: @watch)
     elsif @tag
       User.tagged_with(@tag).unhibernated.unretired
     else
