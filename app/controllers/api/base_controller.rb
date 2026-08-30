@@ -63,7 +63,7 @@ class API::BaseController < ApplicationController
   end
 
   def require_staff
-    render json: { message: '権限がありません。' }, status: :forbidden unless current_user&.status&.staff?
+    render json: { message: '権限がありません。' }, status: :forbidden unless current_user&.staff?
   end
 
   def doorkeeper_unauthorized_render_options(error:)
