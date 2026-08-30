@@ -1,11 +1,19 @@
 import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
-  static targets = ['actions', 'description', 'destroy', 'preview', 'status']
+  static targets = [
+    'actions',
+    'container',
+    'description',
+    'destroy',
+    'preview',
+    'status',
+    'submission'
+  ]
 
   connect() {
     this.description = this.descriptionTarget.value
-    this.update()
+    this.toggleSubmission()
   }
 
   toggle() {
@@ -39,5 +47,16 @@ export default class extends Controller {
     this.statusTarget.classList.remove('hidden')
     this.actionsTarget.classList.remove('hidden')
     this.previewTarget.textContent = ''
+  }
+
+  toggleSubmission() {
+    if (!this.submissionTarget.checked) {
+      this.description = this.descriptionTarget.value
+      this.containerTarget.hidden = true
+      this.descriptionTarget.disabled = true
+      return
+    }
+    this.containerTarget.hidden = false
+    this.update()
   }
 }

@@ -21,6 +21,7 @@ module Practices
         end
         fill_in 'practice[goal]', with: 'テストのゴールの内容です'
         fill_in 'practice[memo]', with: 'テストのメンター向けメモの内容です'
+        check '提出物がある場合はチェック', allow_label_click: true
         fill_in 'practice_template_attributes_description', with: 'テストテンプレート'
         assert_no_field 'practice[pjord_review]'
         assert_no_field 'practice[pjord_auto_check]'
@@ -44,7 +45,7 @@ module Practices
 
       practice = Practice.find_by!(title: 'テンプレなし')
       visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
-      assert_empty find_field('practice_template_attributes_description').value
+      assert_no_field 'practice_template_attributes_description'
     end
 
     test 'create practice as a mentor' do
@@ -58,6 +59,7 @@ module Practices
         end
         fill_in 'practice[goal]', with: 'テストのゴールの内容です'
         fill_in 'practice[memo]', with: 'テストのメンター向けメモの内容です'
+        check '提出物がある場合はチェック', allow_label_click: true
         fill_in 'practice_template_attributes_description', with: 'テストテンプレート'
         click_button '登録する'
       end
@@ -152,6 +154,26 @@ module Practices
 
       assert_text 'プラクティスを更新しました'
       assert_equal '提出物のテンプレート', practice.reload.template.description
+    end
+
+    test 'toggles product template field based on submission' do
+      visit_with_auth '/mentor/practices/new', 'komagata'
+      assert_no_field 'practice_template_attributes_description'
+
+      check '提出物がある場合はチェック', allow_label_click: true
+      assert_field 'practice_template_attributes_description'
+
+      fill_in 'practice_template_attributes_description', with: 'テストテンプレート'
+
+      uncheck '提出物がある場合はチェック', allow_label_click: true
+      assert_no_field 'practice_template_attributes_description'
+    end
+
+    test 'does not show product template field when practice has no submission' do
+      practice = practices(:practice3)
+      assert_not practice.submission?
+      visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
+      assert_no_field 'practice_template_attributes_description'
     end
 
     test 'add a book' do

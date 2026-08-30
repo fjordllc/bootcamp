@@ -1,4 +1,4 @@
-= form_with model: [:mentor, practice], local: true, class: 'form', html: { name: 'practice' } do |f|
+= form_with model: [:mentor, practice], local: true, class: 'form', html: { name: 'practice' }, data: { controller: 'template-form' } do |f|
   = render 'errors', object: practice
   .form-item
     .row
@@ -87,7 +87,7 @@
     .checkboxes
       ul.checkboxes__items
         li.checkboxes__item
-          = f.check_box :submission, class: 'a-toggle-checkbox'
+          = f.check_box :submission, class: 'a-toggle-checkbox', data: { template_form_target: 'submission', action: 'change->template-form#toggleSubmission' }
           = f.label :submission
             | 提出物がある場合はチェック
         li.checkboxes__item
@@ -102,7 +102,7 @@
           = f.label :include_progress
             | 進捗の計算に含むようにする場合はチェック
 
-  .form-item data-controller="template-form"
+  .form-item[ data-template-form-target="container" hidden=!f.object.submission? ]
     label.a-form-label
       | 提出物のテンプレート
 
