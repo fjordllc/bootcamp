@@ -15,9 +15,7 @@ module ProductDecorator
       commented_users.mentor.empty?
   end
 
-  def user_course_practice
-    UserCoursePractice.new(user)
-  end
+  delegate :course_practice, to: :user, prefix: true
 
   def practice_content_toggle_component
     PracticeContentToggle::PracticeContentToggleComponent.new(

@@ -48,7 +48,7 @@
                     .user-data__tags
                       = render(Tag::FormComponent.new(taggable: @user, param_name: 'user[tag_list]', input_id: 'user_tag_list', editable: (@user.id == current_user.id)))
                 .user-data__row
-                  = render 'users/metas', user: @user, user_course_practice: UserCoursePractice.new(@user)
+                  = render 'users/metas', user: @user, user_course_practice: @user.course_practice
 
             - if admin_or_mentor_login?
               section.a-card.is-only-mentor

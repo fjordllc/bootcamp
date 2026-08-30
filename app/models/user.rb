@@ -78,6 +78,10 @@ class User < ApplicationRecord
   delegate :participating?, :participated_regular_event_ids, :involved_events, :involved_regular_events, to: :event_involvement
   delegate :clean_up_regular_events, to: :regular_event_cleanup
 
+  def course_practice
+    UserCoursePractice.new(self)
+  end
+
   def generation
     (created_at.year - 2013) * 4 + (created_at.month + 2) / 3
   end

@@ -4,7 +4,7 @@ json.weekStart @week_start
 json.weekEnd @week_end
 
 json.trainees @trainees do |trainee| # rubocop:disable Metrics/BlockLength
-  user_course_practice = UserCoursePractice.new(trainee)
+  user_course_practice = trainee.course_practice
 
   # learningsを一度取得してフィルタリング
   all_learnings = trainee.learnings.reject { |l| l.status == 'unstarted' }

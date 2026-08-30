@@ -85,7 +85,7 @@
                     .user-data__row
                       = render 'users/user_secret_attributes', user: @user
                     .user-data__row
-                      = render 'users/metas', user: @user, user_course_practice: UserCoursePractice.new(@user)
+                      = render 'users/metas', user: @user, user_course_practice: @user.course_practice
                   hr.a-border-tint
                   .user-statuses
                     .user-statuses__items

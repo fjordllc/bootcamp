@@ -148,7 +148,7 @@ class API::Users::SupportContextsController < API::BaseController # rubocop:todo
   end
 
   def learning_progress_json
-    user_course_practice = UserCoursePractice.new(@user)
+    user_course_practice = @user.course_practice
     required_practices_count = user_course_practice.required_practices.size
     completed_practices_count = user_course_practice.completed_required_practices.size
     {
