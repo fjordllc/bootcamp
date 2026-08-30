@@ -9,12 +9,12 @@ class AvatarContentTypeValidator < ActiveModel::EachValidator
     image/heif
   ].freeze
 
-  def validate_each(record, attribute, value)
+  def validate_each(record, _attribute, value)
     return if value.blank?
     return if Marcel::Magic.by_magic(value)&.type.in?(ALLOWED_TYPES)
 
     record.errors.add(
-      attribute,
+      :avatar,
       'は指定された拡張子(PNG, JPG, JPEG, GIF, HEIC, HEIF形式)になっていないか、あるいは画像が破損している可能性があります'
     )
   end

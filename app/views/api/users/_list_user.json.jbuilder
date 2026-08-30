@@ -7,7 +7,7 @@ json.updated_at l(user.updated_at)
 json.active user.active?
 json.avatar_url user.avatar_url
 json.student user.student?
-json.card user. billing.card?
+json.card user.card?
 json.job_name t("activerecord.enums.user.job.#{user.job}")
 json.os_name t("activerecord.enums.user.os.#{user.os}")
 json.student_or_trainee user.student_or_trainee?
