@@ -22,27 +22,6 @@ class PracticeStudyMinutes
     learning_minute_list.sort!
   end
 
-  def average_learning_minute(learning_minute_list)
-    learning_minute_list.sum.fdiv(learning_minute_list.size)
-  end
-
-  def median_learning_minute(minute_list)
-    center_index = ((minute_list.size - 1) / 2).floor
-    if minute_list.size.even?
-      (minute_list[center_index] + minute_list[center_index + 1]) / 2
-    else
-      minute_list[center_index]
-    end
-  end
-
-  def save_statistic(practice_id, average, median)
-    learning_minute_statistic = LearningMinuteStatistic.find_or_initialize_by(practice_id:)
-    learning_minute_statistic.update(
-      average:,
-      median:
-    )
-  end
-
   def convert_to_hour_minute(learning_minute_statistic)
     converted_hour = learning_minute_statistic / 60
     converted_minute = (learning_minute_statistic % 60).round
