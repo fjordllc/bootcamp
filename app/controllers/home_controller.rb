@@ -13,7 +13,7 @@ class HomeController < ApplicationController
       display_products_for_mentor
       render action: :index
     else
-      @mentors = User.visible_sorted_mentors
+      @mentors = MentorsIndexQuery.call(visible_only: true)
       @featured_articles = Article.featured
       render template: 'welcome/index', layout: 'lp'
     end

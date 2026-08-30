@@ -31,25 +31,23 @@ class User < ApplicationRecord
   )
 
   include StagingEnvironment
-  include UserStatusScopes
+  include UserLifecycleStatus
+  include UserTargetScopeResolver
   include UserRoleScopes
   include UserStudentGroupScopes
-  include MentorIndexScopes
   include UserActiveScopes
-  include UserRegistrationScopes
+  include UserRegistration
   include AvatarAttachable
   include UserContentAssociations
   include UserLearningAssociations
   include UserEventAssociations
   include UserFollowAssociations
   include UserRetirement
-  include UserAccountAssociations
+  include UserAccount
   include UserJobAndEnvironmentEnums
   include UserCareerEnums
-  include UserAccountValidations
   include UserPaymentValidations
   include UserProfileValidations
-  include UserSignupValidations
   include UserFlags
   include Ransackable
   include UserDelegateTargets
