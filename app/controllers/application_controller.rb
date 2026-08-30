@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_current_user_practice
-    @current_user_practice = current_user.course_practice
+    @current_user_practice = current_user&.course_practice
   end
 
   def save_affiliate_rd_code

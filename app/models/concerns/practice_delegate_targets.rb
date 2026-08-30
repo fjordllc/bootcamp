@@ -10,4 +10,12 @@ module PracticeDelegateTargets
   def study_minutes
     PracticeStudyMinutes.new(self)
   end
+
+  def text
+    PracticeText.new(self)
+  end
+
+  def must_read_books
+    PracticeMustReadBooks.new(self)
+  end
 end

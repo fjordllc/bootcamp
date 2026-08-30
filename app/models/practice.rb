@@ -3,9 +3,9 @@
 class Practice < ApplicationRecord
   include Watchable
   include Searchable
-  include PracticeCollaborators
   include PracticeValidations
   include PracticeDelegateTargets
+  include PracticeRansackable
 
   delegate :status_by_learnings, :status, :exists_learning?, :completed?, to: :learner_record
   delegate :practice_quiz_required?, :practice_quiz_passed_by?, :completable_by?, to: :quiz_gate
@@ -79,14 +79,6 @@ class Practice < ApplicationRecord
       .order(:id)
   }
 
-  def self.ransackable_attributes(_auth_object = nil)
-    %w[title description goal created_at updated_at last_updated_user_id submission]
-  end
-
-  def self.ransackable_associations(_auth_object = nil)
-    %w[learnings categories products questions pages movies books last_updated_user]
-  end
-
   def tweet_url(practice_completion_url)
     completion_text = "プラクティス「#{title}」を修了しました🎉"
     # ref: https://developer.twitter.com/en/docs/twitter-for-websites/tweet-button/guides/web-intent
@@ -115,11 +107,22 @@ class Practice < ApplicationRecord
   end
 
   def text_for_embedding
-    text = [title, description, goal].compact.join("\n\n")
-    truncate_for_embedding(text)
+    truncate_for_embedding([title, description, goal].compact.join("\n\n"))
   end
 
   def body
     [description, goal].join("\n")
+  end
+
+  def learner_record
+    PracticeLearnerRecord.new(self)
+  end
+
+  def quiz_gate
+    PracticeQuizGate.new(self)
+  end
+
+  def category_resolver
+    PracticeCategoryResolver.new(self)
   end
 end

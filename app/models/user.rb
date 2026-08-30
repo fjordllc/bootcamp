@@ -52,7 +52,6 @@ class User < ApplicationRecord
   include UserSignupValidations
   include UserFlags
   include Ransackable
-  include UserCollaborators
   include UserDelegateTargets
 
   delegate :student?, :current_student?, :staff?, :staff_or_paid?, :admin_or_mentor?,
@@ -80,6 +79,14 @@ class User < ApplicationRecord
 
   def course_practice
     UserCoursePractice.new(self)
+  end
+
+  def learning_time
+    UserLearningTime.new(self)
+  end
+
+  def hibernation
+    UserHibernation.new(self)
   end
 
   def generation
