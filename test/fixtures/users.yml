@@ -224,7 +224,6 @@ kimura:
   updated_at: "2014-01-01 00:00:07"
   created_at: "2014-01-01 00:00:07"
   last_activity_at: "2014-01-01 00:00:07"
-  mentor_memo: "kimuraさんのメモ"
   country_code: JP
   subdivision_code: '13'
   show_study_streak: true
