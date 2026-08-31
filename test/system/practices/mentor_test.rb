@@ -30,7 +30,7 @@ module Practices
       assert_text 'プラクティスを作成しました'
     end
 
-    test 'can create practice without product template' do
+    test 'can create a practice without a submission template' do
       visit_with_auth '/mentor/practices/new', 'komagata'
 
       within 'form[name=practice]' do
@@ -167,6 +167,9 @@ module Practices
 
       uncheck '提出物がある場合はチェック', allow_label_click: true
       assert_no_field 'practice_template_attributes_description'
+
+      check '提出物がある場合はチェック', allow_label_click: true
+      assert_field 'practice_template_attributes_description', with: 'テストテンプレート'
     end
 
     test 'does not show product template field when practice has no submission' do
