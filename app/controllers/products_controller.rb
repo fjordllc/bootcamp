@@ -35,7 +35,10 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
 
   def new
     @practice = find_practice
-    @product = @practice.products.new(user: current_user)
+    @product = @practice.products.new(
+      user: current_user,
+      body: @practice.template&.description
+    )
   end
 
   def edit
