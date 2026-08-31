@@ -12,11 +12,11 @@ class Mentor::PracticesController < ApplicationController
 
   def new
     @practice = Practice.new
-    @practice.build_template
+    build_template
   end
 
   def edit
-    @practice.build_template unless @practice.template
+    build_template
   end
 
   def create
@@ -25,6 +25,7 @@ class Mentor::PracticesController < ApplicationController
       ChatNotifier.message("プラクティス：「#{@practice.title}」を#{current_user.login_name}さんが作成しました。\r<#{url_for(@practice)}>")
       redirect_to @practice, notice: 'プラクティスを作成しました。'
     else
+      build_template
       render :new
     end
   end
@@ -35,6 +36,7 @@ class Mentor::PracticesController < ApplicationController
       ChatNotifier.message("プラクティス：「#{@practice.title}」を#{current_user.login_name}さんが編集しました。\r<#{url_for(@practice)}>")
       redirect_to @practice, notice: 'プラクティスを更新しました。'
     else
+      build_template
       render :edit
     end
   end
@@ -75,5 +77,9 @@ class Mentor::PracticesController < ApplicationController
 
   def set_course
     @course = Course.find(params[:course_id]) if params[:course_id]
+  end
+
+  def build_template
+    @practice.build_template unless @practice.template
   end
 end
