@@ -23,7 +23,8 @@ class Metadata
     end
     http.response_body_encoding = true
 
-    response = http.request_get(@uri.request_uri)
+    header = { 'User-Agent' => 'Bootcamp-LinkCard (+https://github.com/fjordllc/bootcamp)' }
+    response = http.request_get(@uri.request_uri, header)
     return fetch_youtube_oembed unless response.is_a?(Net::HTTPSuccess)
 
     parse(response.body) || fetch_youtube_oembed
