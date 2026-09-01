@@ -36,6 +36,15 @@ class WorksTest < ApplicationSystemTestCase
     assert_text 'ポートフォリオに作品を追加しました'
   end
 
+  test 'user can preview thumbnail when selecting an image' do
+    visit_with_auth new_work_path, 'kimura'
+
+    image_path = Rails.root.join('test/fixtures/files/companies-logos-1.jpg')
+    attach_file('work[thumbnail]', image_path, make_visible: true)
+
+    assert_selector '.is-thumbnail label img'
+  end
+
   test 'vailidaiton error when create a work with thumbnail' do
     visit_with_auth new_work_path, 'kimura'
     image_path = Rails.root.join('test/fixtures/files/companies-logos-1.jpg')
