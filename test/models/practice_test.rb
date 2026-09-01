@@ -191,14 +191,12 @@ class PracticeTest < ActiveSupport::TestCase
     assert_equal 1, grant_practice.pages_count(include_source: false)
   end
 
-  test 'deletes product template when description is blank' do
+  test 'deletes submission template when description is blank' do
     practice = practices(:practice1)
-    template = practice.template
 
     assert_difference 'Template.count', -1 do
       practice.update!(
         template_attributes: {
-          id: template.id,
           description: ''
         }
       )
