@@ -88,7 +88,7 @@ module Practices
       assert_field 'product[body]', with: 'テストテンプレート'
     end
 
-    test 'update product template' do
+    test 'update submission template' do
       practice = practices(:practice1)
       visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
       assert_field 'practice_template_attributes_description', with: '提出物のテンプレート'
@@ -100,7 +100,7 @@ module Practices
       assert_field 'product[body]', with: '更新後テンプレート'
     end
 
-    test 'deletes product template when description is blank' do
+    test 'deletes submission template when description is blank' do
       practice = practices(:practice1)
       visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
 
@@ -114,7 +114,7 @@ module Practices
       assert_nil practice.reload.template
     end
 
-    test 'deletes product template from practice edit form' do
+    test 'deletes submission template from practice edit form' do
       practice = practices(:practice1)
       visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
       check '提出物のテンプレートを削除する', allow_label_click: true
@@ -133,7 +133,7 @@ module Practices
       assert_nil practice.reload.template
     end
 
-    test 'does not delete product template when deletion is unchecked' do
+    test 'does not delete submission template when deletion is unchecked' do
       practice = practices(:practice1)
 
       visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
@@ -156,7 +156,7 @@ module Practices
       assert_equal '提出物のテンプレート', practice.reload.template.description
     end
 
-    test 'toggles product template field based on submission' do
+    test 'toggles submission template field based on submission' do
       visit_with_auth '/mentor/practices/new', 'komagata'
       assert_no_field 'practice_template_attributes_description'
 
@@ -172,11 +172,34 @@ module Practices
       assert_field 'practice_template_attributes_description', with: 'テストテンプレート'
     end
 
-    test 'does not show product template field when practice has no submission' do
+    test 'shows and preserves submission template after practice validation failure' do
+      visit_with_auth '/mentor/practices/new', 'komagata'
+
+      click_button '登録する'
+      assert_text '入力内容にエラーがありました'
+
+      check '提出物がある場合はチェック', allow_label_click: true
+      assert_field 'practice_template_attributes_description'
+
+      fill_in 'practice_template_attributes_description', with: '入力途中のテンプレート'
+      click_button '登録する'
+
+      assert_text '入力内容にエラーがありました'
+      assert_checked_field '提出物がある場合はチェック', visible: false
+      assert_field 'practice_template_attributes_description', with: '入力途中のテンプレート'
+    end
+
+    test 'toggles submission template field when practice has no submission' do
       practice = practices(:practice3)
       assert_not practice.submission?
+
       visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
+
       assert_no_field 'practice_template_attributes_description'
+
+      check '提出物がある場合はチェック', allow_label_click: true
+
+      assert_field 'practice_template_attributes_description'
     end
 
     test 'add a book' do
