@@ -140,6 +140,31 @@ class MarkdownTest < ApplicationSystemTestCase
     assert_no_selector '.embed-error'
   end
 
+  test 'expands link card as long as og:title is present' do
+    html = <<~HTML
+      <html>
+        <head>
+          <meta property="og:title" content="OGPプロパティがtitleのみのURLでもリンクカードを展開できる">
+        </head>
+      </html>
+    HTML
+    stub_request(:get, 'https://example.com/og-title-only').to_return(status: 200, body: html, headers: { 'Content-Type' => 'text/html' })
+
+    visit_with_auth new_report_path, 'komagata'
+    within('form[name=report]') do
+      fill_in('report[title]', with: 'リンクカードが展開される')
+      fill_in('report[description]', with: '@[card](https://example.com/og-title-only)')
+      fill_in('report[reported_on]', with: Time.current)
+
+      check '学習時間は無し', allow_label_click: true
+    end
+
+    click_button '提出'
+    assert_selector '.a-link-card__title'
+    assert_no_selector 'a.before-replacement-link-card[href="https://example.com/og-title-only"]', visible: true
+    assert_no_selector '.embed-error'
+  end
+
   test 'When you press Ctrl + i in the report, it will type the user icon.' do
     reset_avatar(users(:komagata))
 
