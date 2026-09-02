@@ -113,7 +113,7 @@
 
       .row.js-markdown-parent
         .col-md-6.col-xs-12
-          - description_data = { preview: '.js-product-template-preview', \
+          - description_data = { preview: '.js-submission-template-preview', \
             template_form_target: 'description' }
           .template-form__textarea
             = template_form.text_area :description,
@@ -148,7 +148,8 @@
                     | 提出物のテンプレートを削除する
 
         .col-md-6.col-xs-12
-          .js-product-template-preview.a-long-text.is-md.markdown-form__preview[
+          .js-submission-template-preview.a-long-text.is-md[
+            class="markdown-form__preview"
             data-template-form-target="preview"
           ]
 
