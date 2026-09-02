@@ -21,13 +21,31 @@ module Practices
         end
         fill_in 'practice[goal]', with: 'テストのゴールの内容です'
         fill_in 'practice[memo]', with: 'テストのメンター向けメモの内容です'
-        check '提出物がある場合はチェック', allow_label_click: true
-        fill_in 'practice_template_attributes_description', with: 'テストテンプレート'
         assert_no_field 'practice[pjord_review]'
         assert_no_field 'practice[pjord_auto_check]'
         click_button '登録する'
       end
       assert_text 'プラクティスを作成しました'
+    end
+
+    test 'create practice with submission template' do
+      visit_with_auth '/mentor/practices/new', 'komagata'
+
+      within 'form[name=practice]' do
+        fill_in 'practice[title]', with: 'テンプレート付きプラクティス'
+        check categories(:category1).name, allow_label_click: true
+        fill_in 'practice[description]', with: 'テストの内容です'
+        fill_in 'practice[goal]', with: 'テストのゴールです'
+        check '提出物がある場合はチェック', allow_label_click: true
+        fill_in 'practice_template_attributes_description',
+                with: 'テストテンプレート'
+        click_button '登録する'
+      end
+
+      assert_text 'プラクティスを作成しました'
+
+      practice = Practice.find_by!(title: 'テンプレート付きプラクティス')
+      assert_equal 'テストテンプレート', practice.template.description
     end
 
     test 'can create a practice without a submission template' do
