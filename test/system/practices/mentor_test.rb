@@ -132,6 +132,25 @@ module Practices
       assert_nil practice.reload.template
     end
 
+    test 'deletes submission template when submission is unchecked' do
+      practice = practices(:practice1)
+
+      visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
+
+      uncheck '提出物がある場合はチェック', allow_label_click: true
+
+      assert_difference 'Template.count', -1 do
+        click_button '更新する'
+      end
+
+      assert_text 'プラクティスを更新しました'
+      assert_not practice.reload.submission?
+      assert_nil practice.template
+
+      visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
+      assert_no_field 'practice_template_attributes_description'
+    end
+
     test 'deletes submission template from practice edit form' do
       practice = practices(:practice1)
       visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
