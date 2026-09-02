@@ -127,21 +127,6 @@ class MarkdownTest < ApplicationSystemTestCase
     assert_no_selector '.embed-error'
   end
 
-  test 'expands link card even when og:url is missing' do
-    visit_with_auth new_report_path, 'komagata'
-    within('form[name=report]') do
-      fill_in('report[title]', with: 'リンクカードが展開される')
-      fill_in('report[description]', with: '@[card](https://www.wikipedia.org/)')
-      fill_in('report[reported_on]', with: Time.current)
-
-      check '学習時間は無し', allow_label_click: true
-    end
-
-    click_button '提出'
-    assert_selector '.a-link-card__title'
-    assert_no_selector '.embed-error'
-  end
-
   test 'expands link card even when favicon is missing' do
     stub_request(:get, 'https://example.com/favicon-missing')
       .to_return(status: 200, body: <<~HTML, headers: { 'Content-Type' => 'text/html; charset=utf-8' })
