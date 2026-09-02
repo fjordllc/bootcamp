@@ -56,6 +56,23 @@ class MarkdownTest < ApplicationSystemTestCase
   end
 
   test 'expands link card' do
+    stub_request(:get, 'https://bootcamp.fjord.jp/')
+      .to_return(status: 200, body: <<~HTML, headers: { 'Content-Type' => 'text/html; charset=utf-8' })
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <meta property="og:title" content="FJORD BOOT CAMP（フィヨルドブートキャンプ）">
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="fjord bootcamp">
+        <meta property="og:description" content="現場の即戦力になるためのスキルとプログラミングの楽しさを伝えるオンラインプログラミングスクール">
+        <meta property="og:image" content="https://bootcamp.fjord.jp/ogp/ogp.png">
+        <meta property="og:url" content="https://bootcamp.fjord.jp">
+        <link rel="icon" href="https://bootcamp.fjord.jp/favicon.ico">
+        </head>
+        <body></body>
+        </html>
+      HTML
+
     visit_with_auth new_report_path, 'komagata'
     within('form[name=report]') do
       fill_in('report[title]', with: 'リンクカードが展開される')
@@ -126,10 +143,26 @@ class MarkdownTest < ApplicationSystemTestCase
   end
 
   test 'expands link card even when favicon is missing' do
+    stub_request(:get, 'https://example.com/favicon-missing')
+      .to_return(status: 200, body: <<~HTML, headers: { 'Content-Type' => 'text/html; charset=utf-8' })
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <meta property="og:title" content="faviconが存在しないURLでもリンクカードを展開できる">
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="Example">
+        <meta property="og:description" content="faviconタグが無いページの説明文">
+        <meta property="og:image" content="https://example.com/favicon-missing/ogp.png">
+        <meta property="og:url" content="https://example.com/favicon-missing">
+        </head>
+        <body></body>
+        </html>
+      HTML
+
     visit_with_auth new_report_path, 'komagata'
     within('form[name=report]') do
       fill_in('report[title]', with: 'リンクカードが展開される')
-      fill_in('report[description]', with: '@[card](https://zenn.dev/)')
+      fill_in('report[description]', with: '@[card](https://example.com/favicon-missing)')
       fill_in('report[reported_on]', with: Time.current)
 
       check '学習時間は無し', allow_label_click: true
