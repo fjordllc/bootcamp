@@ -17,7 +17,8 @@ class ApplicationMailerTest < ActionMailer::TestCase
       end
     end
 
-    assert_includes logs, [user.email].to_s
+    local, domain = user.email.split('@')
+    assert_includes logs, ["#{local[0]}***@#{domain}"].to_s
   end
 
   test 'Mail to inactive address via deliver_later' do
@@ -36,6 +37,7 @@ class ApplicationMailerTest < ActionMailer::TestCase
       end
     end
 
-    assert_includes logs, [user.email].to_s
+    local, domain = user.email.split('@')
+    assert_includes logs, ["#{local[0]}***@#{domain}"].to_s
   end
 end
