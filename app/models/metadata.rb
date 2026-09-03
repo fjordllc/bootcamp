@@ -35,7 +35,8 @@ class Metadata
   private
 
   def parse(html)
-    object = OpenGraphReader.parse(html)
+    OpenGraphReader.config.synthesize_full_image_url = true
+    object = OpenGraphReader.parse(html, @url)
     return metadata_fallback(html) if object.nil?
 
     {
@@ -119,7 +120,10 @@ class Metadata
   end
 
   def fallback_images(doc)
-    card_content(doc, 'image') || doc.at_css('link[rel="image_src"]')&.[]('href')
+    image_path = card_content(doc, 'image') || doc.at_css('link[rel="image_src"]')&.[]('href')
+    return nil if image_path.blank?
+
+    URI.join(@url, image_path).to_s
   end
 
   def fallback_site_name(doc)
