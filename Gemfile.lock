@@ -389,7 +389,7 @@ GEM
       view_component (>= 2.0)
       yard (~> 0.9)
       zeitwerk (~> 2.5)
-    mail (2.9.0)
+    mail (2.9.1)
       logger
       mini_mime (>= 0.1.1)
       net-imap
@@ -434,12 +434,12 @@ GEM
       activerecord (>= 7.1)
     net-http (0.9.1)
       uri (>= 0.11.1)
-    net-imap (0.6.2)
+    net-imap (0.6.6)
       date
       net-protocol
     net-pop (0.1.2)
       net-protocol
-    net-protocol (0.2.2)
+    net-protocol (0.3.0)
       timeout
     net-smtp (0.5.1)
       net-protocol
@@ -739,7 +739,7 @@ GEM
     thor (1.5.0)
     thread_safe (0.3.6)
     tilt (2.7.0)
-    timeout (0.6.0)
+    timeout (0.6.1)
     traceroute (0.8.1)
       rails (>= 3.0.0)
     trailblazer-option (0.1.2)
