@@ -19,7 +19,7 @@ class API::ProductsController < API::BaseController
   end
 
   def show
-    @product = Product.find(params[:id])
+    @product = Product.includes(comments: :user, checks: :user).find(params[:id])
   end
 
   def create
