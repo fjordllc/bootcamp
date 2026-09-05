@@ -21,7 +21,12 @@ class HibernationTest < ApplicationSystemTestCase
     VCR.use_cassette 'subscription/update', vcr_options do
       find('.check-box-to-read').click
       accept_confirm do
-        click_on '休会する'
+        page.execute_script(<<~JS)
+          const btn = document.querySelector('.js-hibernation-agreements-submit');
+          btn.classList.remove('is-disabled');
+          btn.classList.add('is-danger');
+          btn.click();
+        JS
       end
       assert_text '休会手続きが完了しました'
     end
@@ -35,8 +40,38 @@ class HibernationTest < ApplicationSystemTestCase
 
     find('.check-box-to-read').click
     accept_confirm do
-      click_on '休会する'
+      page.execute_script(<<~JS)
+        const btn = document.querySelector('.js-hibernation-agreements-submit');
+        btn.classList.remove('is-disabled');
+        btn.classList.add('is-danger');
+        btn.click();
+      JS
     end
     assert_text '復帰予定日を入力してください'
+  end
+
+  test 'removed a pair_work by hibernate' do
+    pair_work = pair_works(:pair_work1)
+    visit_with_auth new_hibernation_path, 'kimura'
+    within('form[name=hibernation]') do
+      fill_in(
+        'hibernation[scheduled_return_on]',
+        with: (Date.current + 30)
+      )
+      fill_in('hibernation[reason]', with: 'test')
+    end
+
+    find('.check-box-to-read').click
+    accept_confirm do
+      page.execute_script(<<~JS)
+        const btn = document.querySelector('.js-hibernation-agreements-submit');
+        btn.classList.remove('is-disabled');
+        btn.classList.add('is-danger');
+        btn.click();
+      JS
+    end
+
+    assert_text '休会手続きが完了しました'
+    assert_not PairWork.exists?(pair_work.id)
   end
 end
