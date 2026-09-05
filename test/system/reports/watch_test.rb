@@ -13,7 +13,7 @@ module Reports
     test 'unwatch' do
       visit_with_auth report_path(reports(:report1)), 'kimura'
       assert_difference('Watch.count', -1) do
-        find('div.a-watch-button', text: 'Watch中').click
+        find('button.a-watch-button', text: 'Watch中').click
         wait_for_watch_change
       end
     end
@@ -21,7 +21,7 @@ module Reports
     test 'click unwatch' do
       visit_with_auth report_path(reports(:report1)), 'kimura'
       assert_difference('Watch.count', -1) do
-        find('div.a-watch-button', text: 'Watch中').click
+        find('button.a-watch-button', text: 'Watch中').click
         wait_for_watch_change
       end
     end
