@@ -10,8 +10,8 @@
 - if @welcome_message_first_time.blank? && current_user.adviser?
   = render 'welcome_message_for_adviser'
 
-.page-body.is-dash-board
-  .page-body__inner.has-side-nav
+.page-body
+  .page-body__inner class=('has-side-nav' unless current_user.adviser_or_mentor?)
 
     - if @users_for_time_slot.present?
       = render Users::CurrentUserIconListComponent.new(users: @users_for_time_slot)

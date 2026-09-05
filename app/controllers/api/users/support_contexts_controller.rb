@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::Users::SupportContextsController < API::BaseController # rubocop:todo Metrics/ClassLength
+class API::Users::SupportContextsController < API::BaseController
   SUPPORT_CONTEXT_LIMIT = 5
 
   before_action :require_admin_or_mentor
