@@ -3,7 +3,6 @@ import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
 import { initializeComment, toggleVisibility } from 'initializeComment'
 import { toast } from 'vanillaToast'
-import { setWatchable } from 'setWatchable'
 import commentCheckable from 'comment-checkable'
 import { post } from '@rails/request.js'
 
@@ -167,7 +166,15 @@ document.addEventListener('DOMContentLoaded', () => {
       await createComment()
 
       if (document.querySelector('.watch-toggle'))
-        setWatchable(commentableId, commentableType)
+        newComment.dispatchEvent(
+          new CustomEvent('watch:refresh', {
+            bubbles: true,
+            detail: {
+              watchableId: commentableId,
+              watchableType: commentableType
+            }
+          })
+        )
 
       if (checkAfterSave) {
         await performCheck()

@@ -4,7 +4,6 @@ import MarkdownInitializer from 'markdown-initializer'
 import { toast } from 'vanillaToast'
 import updateAnswerCount from 'updateAnswerCount'
 import initializeAnswer from 'initializeAnswer'
-import { setWatchable } from 'setWatchable'
 
 document.addEventListener('DOMContentLoaded', () => {
   const newAnswer = document.querySelector('.new-answer')
@@ -42,7 +41,16 @@ document.addEventListener('DOMContentLoaded', () => {
           editorTextarea.value
         )
         updateAnswerCount(true)
-        setWatchable(questionId, 'Question')
+        if (document.querySelector('.watch-toggle'))
+          newAnswer.dispatchEvent(
+            new CustomEvent('watch:refresh', {
+              bubbles: true,
+              detail: {
+                watchableId: questionId,
+                watchableType: 'Question'
+              }
+            })
+          )
         if (previewTab.classList.contains('is-active')) {
           toggleVisibility(tabElements, 'is-active')
         }

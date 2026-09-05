@@ -1,11 +1,20 @@
-- if watch
-  .page-content-header-actions__action#data-for-watch
-    .watch-toggle.a-watch-button.a-button.is-sm.is-block.is-active.is-main [
-      data-watchable_type="#{type}"
-      data-watchable_id="#{id}"
-      data-watch_id="#{watch.id}" ] Watch中
-- else
-  .page-content-header-actions__action#data-for-watch
-    .watch-toggle.a-watch-button.a-button.is-sm.is-block.is-inactive.is-muted [
-      data-watchable_type="#{type}"
-      data-watchable_id="#{id}" ] Watch
+.page-content-header-actions__action [
+    id=dom_id(watchable, :watch_toggle)
+    data-controller="watch"
+    data-watch-watching-value=watch.present?
+    data-action="watch:refresh@window->watch#refresh turbo:submit-end->watch#submitEnd"]
+  - if watch
+    = button_to 'Watch中',
+      watch_path(watch),
+      method: :delete,
+      form: { data: { turbo: true } },
+      class: 'watch-toggle a-watch-button a-button is-sm is-block is-active is-main',
+      aria: { pressed: true }
+  - else
+    = button_to 'Watch',
+      watches_path,
+      form: { data: { turbo: true } },
+      params: { watchable_type: watchable.class.name,
+        watchable_id: watchable.id },
+      class: 'watch-toggle a-watch-button a-button is-sm is-block is-inactive is-muted',
+      aria: { pressed: false }
