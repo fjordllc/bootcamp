@@ -1,6 +1,6 @@
 - title "プラクティス #{@practice.title}"
 - set_meta_tags description: "プラクティス「#{@practice.title}」のページです。"
-- category = @practice.category(current_user.course)
+- category = @practice.category_resolver.category(current_user.course)
 
 = render '/shared/modal_learning_completion', practice: @practice, tweet_url: @tweet_url, should_display_message_automatically: false
 
@@ -12,7 +12,7 @@
 = practice_page_tabs(@practice, active_tab: 'プラクティス')
 
 .page-body
-  - if @practice.learning(current_user)&.complete?
+  - if @practice.learner_record.learning(current_user)&.complete?
     = render '/products/completion_message', practice: @practice
   .container.is-xl
     .row.is-gutter-width-32

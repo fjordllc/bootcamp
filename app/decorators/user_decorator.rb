@@ -45,15 +45,15 @@ module UserDecorator
     "#{name} (#{name_kana})"
   end
 
-  def enrollment_period
-    if graduated?
-      if elapsed_days.positive?
-        tag.span(" (#{l graduated_on}卒業 #{elapsed_days}日) ") + tag.a("#{generation}期生", href: generation_path(generation))
+  def enrollment_period_label
+    if status.graduated?
+      if enrollment_period.elapsed_days.positive?
+        tag.span(" (#{l graduated_on}卒業 #{enrollment_period.elapsed_days}日) ") + tag.a("#{generation}期生", href: generation_path(generation))
       else
         tag.span(" (#{l graduated_on}卒業 ") + tag.a("#{generation}期生", href: generation_path(generation))
       end
     else
-      tag.span(" #{elapsed_days}日目 ") + tag.a("#{generation}期生", href: generation_path(generation))
+      tag.span(" #{enrollment_period.elapsed_days}日目 ") + tag.a("#{generation}期生", href: generation_path(generation))
     end
   end
 
@@ -96,7 +96,7 @@ module UserDecorator
   end
 
   def joining_status
-    elapsed_days <= NEW_USER_DAYS ? 'new-user' : ''
+    enrollment_period.elapsed_days <= NEW_USER_DAYS ? 'new-user' : ''
   end
 
   def product_sidebar_class

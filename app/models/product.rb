@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Product < ApplicationRecord # rubocop:todo Metrics/ClassLength
+class Product < ApplicationRecord
   PRODUCT_DEADLINE = 4
 
   include Commentable
@@ -13,6 +13,11 @@ class Product < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include Searchable
   include Bookmarkable
   include Taskable
+  include ProductStatus
+
+  delegate :replied_status_changed?, :update_last_commented_at, :update_commented_at,
+           :delete_last_commented_at, :delete_commented_at, to: :commented_at_tracking
+  delegate :other_checker_exists?, :unassigned?, :checker_name, :checker_avatar, to: :assignment
 
   belongs_to :practice
   belongs_to :user, touch: true
@@ -33,45 +38,12 @@ class Product < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   mentionable_as :body
 
-  scope :ids_of_common_checked_with,
-        ->(user) { where(practice: user.practices_with_checked_product).checked.pluck(:id) }
-
-  scope :unchecked, -> { where.not(id: Check.where(checkable_type: 'Product').pluck(:checkable_id)) }
-  scope :unassigned, -> { where(checker_id: nil) }
-  scope :self_assigned_product, ->(user_id) { where(checker_id: user_id) }
-  scope :self_assigned_and_replied_products, lambda { |user_id|
-                                               self_assigned_product(user_id)
-                                                 .where.not(id: ProductSelfAssignedNoRepliedQuery.new(user_id:).call.select(:id).reorder(nil))
-                                             }
-
-  scope :wip, -> { where(wip: true) }
-  scope :not_wip, -> { where(wip: false) }
-  scope :list, lambda {
-    with_avatar
-      .preload(:practice,
-               :comments,
-               { checks: { user: { avatar_attachment: :blob } } })
-  }
-  scope :order_for_list, -> { order(created_at: :desc, id: :desc) }
-  scope :order_for_all_list, -> { order(published_at: :desc, id: :asc) }
-  scope :ascending_by_date_of_publishing_and_id, -> { order(published_at: :asc, id: :asc) }
-  scope :order_for_self_assigned_list, -> { order('commented_at asc nulls first, published_at asc') }
-  scope :unhibernated_user_products, -> { joins(:user).where(user: { hibernated_at: nil }) }
-
   def self.ransackable_attributes(_auth_object = nil)
     %w[body wip published_at commented_at created_at updated_at user_id practice_id checker_id]
   end
 
   def self.ransackable_associations(_auth_object = nil)
     %w[user practice checker comments reactions checks bookmarks]
-  end
-
-  def self.add_latest_commented_at
-    Product.all.includes(:comments).find_each do |product|
-      next if product.comments.blank?
-
-      product.update!(commented_at: product.comments.last.updated_at)
-    end
   end
 
   def self.self_assigned_no_replied_products(user_id)
@@ -98,14 +70,6 @@ class Product < ApplicationRecord # rubocop:todo Metrics/ClassLength
     checks.where(user:).present?
   end
 
-  def change_learning_status(status)
-    learning = Learning.find_or_initialize_by(
-      user_id: user.id,
-      practice_id: practice.id
-    )
-    learning.update!(status:)
-  end
-
   # nilの場合あり
   def learning
     Learning.find_by(
@@ -118,74 +82,13 @@ class Product < ApplicationRecord # rubocop:todo Metrics/ClassLength
     truncate_for_embedding(body)
   end
 
-  def last_commented_user
-    Rails.cache.fetch "/model/product/#{id}/last_commented_user" do
-      commented_users.last
-    end
-  end
-
   def category(course)
     Category.category(practice:, course:)
-  end
-
-  def save_checker(user_id)
-    return false if other_checker_exists?(user_id)
-
-    self.checker_id = user_id
-    Cache.delete_self_assigned_no_replied_product_count(user_id)
-    save!
-  end
-
-  def other_checker_exists?(user_id)
-    checker_id.present? && checker_id != user_id
-  end
-
-  def unassigned?
-    checker_id.nil?
-  end
-
-  def checker_name
-    checker&.login_name
   end
 
   def elapsed_days
     t = published_at || created_at
     ((Time.current - t) / 1.day).to_i
-  end
-
-  def checker_avatar
-    checker&.avatar_url
-  end
-
-  def replied_status_changed?(previous_commented_user_id, current_commented_user_id)
-    is_replied_by_checker_previous = checker_id == previous_commented_user_id
-    is_replied_by_checker_current = checker_id == current_commented_user_id
-
-    is_replied_by_checker_previous != is_replied_by_checker_current
-  end
-
-  def update_last_commented_at(comment)
-    if comment
-      if comment.user.mentor
-        update_columns(mentor_last_commented_at: comment.updated_at) # rubocop:disable Rails/SkipsModelValidations
-      elsif comment.user == user
-        update_columns(self_last_commented_at: comment.updated_at) # rubocop:disable Rails/SkipsModelValidations
-      end
-    else
-      update_columns(mentor_last_commented_at: nil, self_last_commented_at: nil) # rubocop:disable Rails/SkipsModelValidations
-    end
-  end
-
-  def update_commented_at(comment)
-    update_columns(commented_at: comment&.updated_at) # rubocop:disable Rails/SkipsModelValidations
-  end
-
-  def delete_last_commented_at
-    update_last_commented_at(comments.last)
-  end
-
-  def delete_commented_at
-    update_commented_at(comments.last)
   end
 
   def notification_type
@@ -200,5 +103,13 @@ class Product < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   def search_title
     practice.title
+  end
+
+  def commented_at_tracking
+    ProductCommentedAtTracking.new(self)
+  end
+
+  def assignment
+    ProductAssignment.new(self)
   end
 end

@@ -2,7 +2,7 @@
 
 class Scheduler::Daily::SendMessageController < SchedulerController
   def show
-    User.mark_message_as_sent_for_hibernated_student
+    UserHibernation.mark_message_as_sent_for_hibernated_student
     sent_student_followup_message
     head :ok
   end
@@ -13,7 +13,7 @@ class Scheduler::Daily::SendMessageController < SchedulerController
     User.students.find_each do |student|
       next unless student.followup_message_target?
 
-      User.create_followup_comment(student)
+      CreateFollowupComment.call(student: student)
     end
   end
 end

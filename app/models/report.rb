@@ -12,6 +12,8 @@ class Report < ApplicationRecord
   include Bookmarkable
   include Taskable
 
+  delegate :first?, :serial_number, :latest_of_user?, :interval, to: :sequence
+
   enum :emotion, {
     negative: 1,
     neutral: 0,
@@ -32,7 +34,12 @@ class Report < ApplicationRecord
   validates :user, presence: true
   validates :reported_on, presence: true, uniqueness: { scope: :user }
   validates :emotion, presence: true
-  validate :limited_date_within_range
+
+  validates :reported_on, inclusion: {
+    in: -> { Date.new(2013, 1, 1)..Date.current },
+    allow_nil: true,
+    message: "は#{I18n.l(Date.new(2013, 1, 1))}から今日以前の間の日付にしてください"
+  }
 
   after_create ReportCallbacks.new
   after_destroy ReportCallbacks.new
@@ -92,31 +99,6 @@ class Report < ApplicationRecord
     end
   end
 
-  def previous
-    Report.where(user:)
-          .where('reported_on < ?', reported_on)
-          .order(reported_on: :desc)
-          .first
-  end
-
-  def next
-    Report.where(user:)
-          .where('reported_on > ?', reported_on)
-          .order(:reported_on)
-          .first
-  end
-
-  def first?
-    serial_number == 1
-  end
-
-  def serial_number
-    Report.select(:id)
-          .where(user:)
-          .order(:created_at)
-          .index(self) + 1
-  end
-
   def first_public?
     !wip && published_at.nil?
   end
@@ -129,23 +111,6 @@ class Report < ApplicationRecord
     (learning_times.sum(&:diff) / 60).to_i
   end
 
-  def latest_of_user?
-    self == Report.not_wip
-                  .where(user:, wip: false)
-                  .order(reported_on: :desc)
-                  .first
-  end
-
-  def interval
-    (reported_on - not_wip_previous_of_user.reported_on).to_i
-  end
-
-  def not_wip_previous_of_user
-    Report.where(user:, wip: false)
-          .order(reported_on: :desc)
-          .second
-  end
-
   def save_uniquely
     transaction do
       save
@@ -155,12 +120,7 @@ class Report < ApplicationRecord
     false
   end
 
-  private
-
-  def limited_date_within_range
-    min_date = Date.new(2013, 1, 1)
-    return if min_date <= reported_on && reported_on <= Date.current
-
-    errors.add(:reported_on, "は#{I18n.l min_date}から今日以前の間の日付にしてください")
+  def sequence
+    ReportOrder.new(self)
   end
 end

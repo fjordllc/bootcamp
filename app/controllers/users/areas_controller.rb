@@ -10,7 +10,7 @@ class Users::AreasController < ApplicationController
 
   def show
     @area = params[:area]
-    @users = User.by_area(@area).page(params[:page]).per(PAGER_NUMBER)
+    @users = UsersByAreaQuery.new(area: @area).call.page(params[:page]).per(PAGER_NUMBER)
     @number_of_users_by_region = Area.number_of_users_by_region
   end
 end
