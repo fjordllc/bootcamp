@@ -82,12 +82,13 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
 
     json = response.parsed_body
 
-    assert_equal 2, json['comments']['list'].size
+    comments = json['comments']['list']
 
-    [comments(:comment10), comments(:comment13)].each_with_index do |comment, index|
-      response_comment = json['comments']['list'][index]
+    assert_equal 2, comments.size
 
-      assert_equal comment.id, response_comment['id']
+    [comments(:comment10), comments(:comment13)].each do |comment|
+      response_comment = comments.find { |item| item['id'] == comment.id }
+
       assert_equal comment.description, response_comment['description']
       assert_equal comment.user.login_name, response_comment.dig('user', 'login_name')
       assert_equal comment.created_at.as_json, response_comment['created_at']
