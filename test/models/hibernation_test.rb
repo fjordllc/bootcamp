@@ -9,7 +9,6 @@ class HibernationTest < ActiveSupport::TestCase
 
   test 'publishes a cancellation notification for a future reservation' do
     hibernation = Hibernation.new
-    pair_work = pair_works(:pair_work2)
     buddy = users(:sotugyou)
     notification_count = 0
 
@@ -23,5 +22,20 @@ class HibernationTest < ActiveSupport::TestCase
     end
 
     assert_equal 1, notification_count
+  end
+
+  test 'destroy the pair works by the user' do
+    hibernation = Hibernation.create!(
+      user: @user,
+      reason: '多忙のため',
+      scheduled_return_on: Date.current + 3.months
+    )
+    pair_work = pair_works(:pair_work1)
+
+    assert_difference 'PairWork.count', -2 do
+      hibernation.send(:destroy_pair_works, @user)
+    end
+
+    assert_not PairWork.exists?(pair_work.id)
   end
 end
