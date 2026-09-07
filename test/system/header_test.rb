@@ -16,7 +16,7 @@ class HeaderTest < ApplicationSystemTestCase
     visit_with_auth root_path, 'komagata'
 
     find('#notifications-bell-button').click
-    assert_selector '#notifications-bell-container.is-opened-dropdown'
+    assert_no_selector '#notifications-dropdown.is-hidden'
   end
 
   test 'toggle search modal' do
