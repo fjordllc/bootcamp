@@ -14,10 +14,6 @@ export default class extends Controller {
     if (this.isHEIC(file)) {
       try {
         previewFile = await this.convertHEIC(file)
-
-        const dataTransfer = new DataTransfer()
-        dataTransfer.items.add(previewFile)
-        this.inputTarget.files = dataTransfer.files
       } catch (error) {
         console.error('HEIC conversion failed:', error)
         return
