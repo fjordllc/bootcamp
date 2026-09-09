@@ -51,14 +51,14 @@ module Products
 
     test 'notice accessibility to open products on products index' do
       visit_with_auth "/users/#{users(:kimura).id}/products/", 'kimura'
-      assert_text 'このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。'
+      assert_text 'このプラクティスは、合格をもらっていなくても他の人の提出物を閲覧できます。'
     end
 
     test 'notice accessibility to itself on an open product page' do
       visit_with_auth "/products/#{products(:product2).id}", 'kimura'
-      assert_no_text 'このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。'
+      assert_no_text 'このプラクティスは、合格をもらっていなくても他の人の提出物を閲覧できます。'
       visit "/products/#{products(:product3).id}"
-      assert_text 'このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。'
+      assert_text 'このプラクティスは、合格をもらっていなくても他の人の提出物を閲覧できます。'
     end
   end
 end
