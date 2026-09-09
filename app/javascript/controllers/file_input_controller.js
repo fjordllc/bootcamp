@@ -73,7 +73,7 @@ export default class extends Controller {
 
     return new File(
       [convertedBlob],
-      file.name.substring(0, file.name.lastIndexOf('.')) + '.jpg',
+      `${file.name.includes('.') ? file.name.substring(0, file.name.lastIndexOf('.')) : file.name}.jpg`,
       { type: 'image/jpeg' }
     )
   }
