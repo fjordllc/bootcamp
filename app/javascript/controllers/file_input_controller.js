@@ -5,6 +5,8 @@ export default class extends Controller {
   static targets = ['input', 'preview']
 
   async change() {
+    const changeId = (this.changeId ?? 0) + 1
+    this.changeId = changeId
     const file = this.inputTarget.files[0]
 
     if (!file) return
@@ -14,6 +16,7 @@ export default class extends Controller {
     if (this.isHEIC(file)) {
       try {
         previewFile = await this.convertHEIC(file)
+        if (changeId !== this.changeId) return
       } catch (error) {
         console.error('HEIC conversion failed:', error)
         return
@@ -23,6 +26,7 @@ export default class extends Controller {
     const fileReader = new FileReader()
 
     fileReader.addEventListener('load', (event) => {
+      if (changeId !== this.changeId) return
       const dataUri = event.target.result
 
       let img = this.previewTarget.querySelector('img')
