@@ -14,7 +14,6 @@
   padding: 0.25rem 1rem;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
 }
 
 .unchecked-report-alert__icon {

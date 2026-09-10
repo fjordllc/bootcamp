@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLength
+class DiscordNotifier < ApplicationNotifier
   self.driver = DiscordDriver.new
   self.async_adapter = DiscordAsyncAdapter.new
 

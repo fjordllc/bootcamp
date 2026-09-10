@@ -190,4 +190,28 @@ class PracticeTest < ActiveSupport::TestCase
 
     assert_equal 1, grant_practice.pages_count(include_source: false)
   end
+
+  test 'deletes submission template when description is blank' do
+    practice = practices(:practice1)
+
+    assert_difference 'Template.count', -1 do
+      practice.update!(
+        template_attributes: {
+          description: ''
+        }
+      )
+    end
+
+    assert_nil practice.reload.template
+  end
+
+  test 'deletes submission template when submission is false' do
+    practice = practices(:practice1)
+
+    assert_difference 'Template.count', -1 do
+      practice.update!(submission: false)
+    end
+
+    assert_nil practice.reload.template
+  end
 end
