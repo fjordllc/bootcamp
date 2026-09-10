@@ -1,0 +1,82 @@
+.mentor-memo-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.mentor-memo {
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.mentor-memo__inner {
+  padding: 1rem;
+}
+
+@media (width <= 47.9375em) {
+  .mentor-memo__inner {
+    padding: 0.75rem;
+  }
+}
+
+.mentor-memo:not(:last-child) {
+  border-bottom: solid 1px var(--border-tint);
+}
+
+.mentor-memo__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-bottom: 0.5rem;
+}
+
+.mentor-memo__writer-link {
+  display: inline-flex;
+  flex: 0 0 auto;
+  line-height: 1;
+}
+
+.mentor-memo__writer {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+.mentor-memo__created-at {
+  margin-left: auto;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  white-space: nowrap;
+  color: var(--muted-text);
+}
+
+.mentor-memo__body {
+  margin-bottom: 0.5rem;
+}
+
+.mentor-memo__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.mentor-memo__action {
+  font-size: 0.75rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  color: var(--muted-text);
+  transition: color 0.2s ease-in;
+}
+
+.mentor-memo__action:hover {
+  color: var(--link-text);
+}
+
+.mentor-memo__action.is-danger:hover {
+  color: var(--danger);
+}

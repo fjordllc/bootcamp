@@ -116,7 +116,7 @@ header.page-header
                 = render partial: 'reports/recent_reports',
                   locals: { header_display: true }
               .side-tabs-contents__item#side-tabs-content-2
-                = render 'users/user_mentor_memo', user_id: @product.user.id
+                = render 'users/user_mentor_memos', user_id: @product.user.id, memos: @mentor_memos
               .side-tabs-contents__item#side-tabs-content-3
                 .a-card
                   .user-data

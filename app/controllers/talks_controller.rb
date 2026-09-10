@@ -34,6 +34,7 @@ class TalksController < ApplicationController
     @comment_total_count = @talk.comments.count
     @comments = @talk.comments.with_user_details.order(created_at: :desc, id: :desc).limit(COMMENT_LIMIT).to_a.reverse
     @reports = @user.reports.list.limit(20)
+    @mentor_memos = @user.received_memos.includes(:writer).order(created_at: :desc)
   end
 
   private
