@@ -1,28 +1,20 @@
-import CSRF from 'csrf'
-import TextareaInitializer from 'textarea-initializer'
-import MarkdownInitializer from 'markdown-initializer'
+import { post, patch, destroy } from '@rails/request.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const mentorMemo = document.querySelector('.user-mentor-memo')
   if (mentorMemo) {
-    const markdownInitializer = new MarkdownInitializer()
     const userId = mentorMemo.dataset.user_id
-    let savedMemo = ''
+    const currentUserId = mentorMemo.dataset.current_user_id
+    let mentorMemos = []
 
-    const memoDisplay = mentorMemo.querySelector('.memo-display')
-    const memoEditor = mentorMemo.querySelector('.memo-editor')
-
-    const placeholder = memoDisplay.querySelector('.a-placeholder')
-    const emptyMessage = memoDisplay.querySelector('.o-empty-message')
-    const memoDisplayContent = memoDisplay.querySelector(
-      '.user-mentor-memo-content'
-    )
-    const memoEditorPreview = memoEditor.querySelector(
-      '.a-markdown-input__preview'
-    )
-    const editorTextarea = memoEditor.querySelector(
-      '.a-markdown-input__textarea'
-    )
+    const status = mentorMemo.querySelector('.user-mentor-memo__status')
+    const placeholder = mentorMemo.querySelector('.a-placeholder')
+    const emptyMessage = mentorMemo.querySelector('.o-empty-message')
+    const memoCount = mentorMemo.querySelector('.user-mentor-memo__count')
+    const memoList = mentorMemo.querySelector('.user-mentor-memo__list')
+    const memoItems = mentorMemo.querySelector('.user-mentor-memo__items')
+    const newInput = mentorMemo.querySelector('.user-mentor-memo__new-input')
+    const addButton = mentorMemo.querySelector('.user-mentor-memo__add-button')
 
     fetch(`/api/users/${userId}.json`, {
       method: 'GET',
@@ -36,112 +28,166 @@ document.addEventListener('DOMContentLoaded', () => {
         return response.json()
       })
       .then((json) => {
-        if (json.mentor_memo) {
-          savedMemo = json.mentor_memo
-        }
+        mentorMemos = json.mentor_memos
+        memoCount.textContent = `（${mentorMemos.length}）`
         placeholder.classList.add('is-hidden')
-        if (savedMemo.length === 0) {
+        if (mentorMemos.length === 0) {
           emptyMessage.classList.remove('is-hidden')
         } else {
-          memoDisplayContent.classList.remove('is-hidden')
-          editorTextarea.value = savedMemo
-          switchMemoDisplay(memoDisplay, savedMemo)
-          TextareaInitializer.initialize('#js-user-mentor-memo')
-          memoDisplayContent.innerHTML = markdownInitializer.render(savedMemo)
-          memoEditorPreview.innerHTML = markdownInitializer.render(savedMemo)
+          status.classList.add('is-hidden')
+          mentorMemos.forEach((memo) => {
+            const memoItem = document.createElement('article')
+            memoItem.className = 'user-mentor-memo-item'
+
+            const header = document.createElement('header')
+            header.className = 'user-mentor-memo-item__header'
+            const avatar = document.createElement('img')
+            avatar.className = 'a-user-icon user-mentor-memo-item__avatar'
+            avatar.src = memo.author_avatar_url
+            avatar.alt = `${memo.author}のアバター`
+            const meta = document.createElement('div')
+            meta.className = 'user-mentor-memo-item__meta'
+            const author = document.createElement('h3')
+            author.className = 'user-mentor-memo-item__author'
+            author.textContent = memo.author
+            const createdAt = document.createElement('time')
+            createdAt.className = 'user-mentor-memo-item__created-at'
+            createdAt.textContent = memo.created_at
+            meta.appendChild(author)
+            meta.appendChild(createdAt)
+            header.appendChild(avatar)
+            header.appendChild(meta)
+
+            const content = document.createElement('div')
+            content.className = 'user-mentor-memo-item__content'
+            content.textContent = memo.content
+
+            memoItem.appendChild(header)
+            memoItem.appendChild(content)
+
+            if (String(memo.author_id) === currentUserId) {
+              const actionItems = document.createElement('div')
+              actionItems.className = 'user-mentor-memo-item__actions'
+              const editButton = document.createElement('button')
+              editButton.className = 'a-button is-xs is-secondary'
+              editButton.textContent = '編集'
+
+              const deleteButton = document.createElement('button')
+              deleteButton.className = 'user-mentor-memo-item__delete-button'
+              deleteButton.textContent = '削除する'
+
+              actionItems.appendChild(editButton)
+              actionItems.appendChild(deleteButton)
+              memoItem.appendChild(actionItems)
+
+              deleteButton.addEventListener('click', () => {
+                if (confirm('本当に削除しますか？')) {
+                  deleteMemo(memo.id)
+                }
+              })
+
+              editButton.addEventListener('click', () => {
+                content.textContent = ''
+                const editInput = document.createElement('textarea')
+                editInput.className = 'a-text-input'
+                editInput.value = memo.content
+                content.appendChild(editInput)
+
+                actionItems.textContent = ''
+                const saveButton = document.createElement('button')
+                saveButton.className = 'a-button is-xs is-primary'
+                saveButton.textContent = '保存'
+
+                const cancelButton = document.createElement('button')
+                cancelButton.className = 'a-button is-xs is-secondary'
+                cancelButton.textContent = 'キャンセル'
+                actionItems.appendChild(saveButton)
+                actionItems.appendChild(cancelButton)
+
+                saveButton.addEventListener('click', () => {
+                  editMemo(memo.id, editInput.value)
+                })
+
+                cancelButton.addEventListener('click', () => {
+                  location.reload()
+                })
+              })
+            }
+
+            memoItems.appendChild(memoItem)
+          })
+          memoList.classList.remove('is-hidden')
         }
       })
       .catch((error) => {
         console.warn(error)
       })
 
-    const editButton = memoDisplay.querySelector('.card-footer-actions__action')
-    const modalElements = [memoDisplay, memoEditor]
-    editButton.addEventListener('click', () =>
-      toggleClass(modalElements, 'is-hidden')
-    )
-
-    const saveButton = memoEditor.querySelector('.is-primary')
-    saveButton.addEventListener('click', () => {
-      toggleClass(modalElements, 'is-hidden')
-      savedMemo = editorTextarea.value
-      updateMemo(savedMemo, userId)
-      memoDisplayContent.innerHTML = markdownInitializer.render(savedMemo)
-      TextareaInitializer.initialize('#js-user-mentor-memo')
-      switchMemoDisplay(memoDisplay, savedMemo)
+    addButton.addEventListener('click', () => {
+      const content = newInput.value
+      addButton.disabled = true
+      updateMemo(content, userId)
     })
 
-    const cancelButton = memoEditor.querySelector('.is-secondary')
-    cancelButton.addEventListener('click', () => {
-      toggleClass(modalElements, 'is-hidden')
-      editorTextarea.value = savedMemo
-      memoEditorPreview.innerHTML = markdownInitializer.render(savedMemo)
-      TextareaInitializer.initialize('#js-user-mentor-memo')
-    })
+    async function updateMemo(memo, userId) {
+      const params = {
+        user: {
+          content: memo,
+          user_id: userId
+        }
+      }
 
-    editorTextarea.addEventListener('change', () => {
-      memoEditorPreview.innerHTML = markdownInitializer.render(
-        editorTextarea.value
-      )
-      TextareaInitializer.initialize('#js-user-mentor-memo')
-    })
+      const response = await post('/api/mentor_memos/', {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        redirect: 'manual',
+        body: params
+      })
 
-    const editorTab = memoEditor.querySelector('.editor-tab')
-    const editorTabContent = memoEditor.querySelector('.is-editor')
-    const previewTab = memoEditor.querySelector('.preview-tab')
-    const previewTabContent = memoEditor.querySelector('.is-preview')
+      if (response.ok) {
+        location.reload()
+      } else {
+        alert('処理に失敗しました。')
+        addButton.disabled = false
+      }
+    }
 
-    const tabElements = [
-      editorTab,
-      editorTabContent,
-      previewTab,
-      previewTabContent
-    ]
-    editorTab.addEventListener('click', () =>
-      toggleClass(tabElements, 'is-active')
-    )
-    previewTab.addEventListener('click', () =>
-      toggleClass(tabElements, 'is-active')
-    )
-  }
-})
+    async function editMemo(id, content) {
+      const params = {
+        user: {
+          id,
+          content
+        }
+      }
+      const response = await patch(`/api/mentor_memos/${id}`, {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        redirect: 'manual',
+        body: params
+      })
 
-function updateMemo(memo, userId) {
-  const params = {
-    user: {
-      mentor_memo: memo
+      if (response.ok) {
+        location.reload()
+      } else {
+        alert('処理に失敗しました。')
+      }
+    }
+
+    async function deleteMemo(id) {
+      const params = {
+        user: {
+          id
+        }
+      }
+      const response = await destroy(`/api/mentor_memos/${id}`, {
+        method: 'DELETE',
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        redirect: 'manual',
+        body: params
+      })
+      if (response.ok) {
+        location.reload()
+      } else {
+        alert('処理に失敗しました。')
+      }
     }
   }
-  fetch(`/api/mentor_memos/${userId}`, {
-    method: 'PUT',
-    headers: {
-      'X-Requested-With': 'XMLHttpRequest',
-      'Content-Type': 'application/json; charset=utf-8',
-      'X-CSRF-Token': CSRF.getToken()
-    },
-    credentials: 'same-origin',
-    redirect: 'manual',
-    body: JSON.stringify(params)
-  })
-    .then((response) => {
-      return response
-    })
-    .catch((error) => {
-      console.warn(error)
-    })
-}
-
-function switchMemoDisplay(memoDisplay, memo) {
-  const memoDisplayContent = memoDisplay.querySelector(
-    '.user-mentor-memo-content'
-  )
-  const emptyMessage = memoDisplay.querySelector('.o-empty-message')
-  memoDisplayContent.classList.toggle('is-hidden', memo.length === 0)
-  emptyMessage.classList.toggle('is-hidden', memo.length !== 0)
-}
-
-function toggleClass(elements, className) {
-  elements.forEach((element) => {
-    element.classList.toggle(className)
-  })
-}
+})
