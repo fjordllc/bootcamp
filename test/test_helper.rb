@@ -5,6 +5,7 @@ ENV['RAILS_ENV'] ||= 'test'
 ENV['G_MESSAGES_DEBUG'] = ''
 
 require_relative '../config/environment'
+require_relative 'test_helpers/session_test_helper'
 require 'rails/test_help'
 require 'capybara/rails'
 require 'minitest/mock'
@@ -49,4 +50,5 @@ end
 class ActionDispatch::IntegrationTest
   include Sorcery::TestHelpers::Rails::Integration
   include APIHelper
+  include SessionTestHelper
 end

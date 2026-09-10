@@ -33,7 +33,7 @@ article.event.page-content
       .page-content-header__row
         .page-content-header-actions
           .page-content-header-actions__start
-            = render 'watches/watch_toggle', type: event.class.to_s, id: event.id, watch: event.watch_by(current_user)
+            = render 'watches/watch_toggle', watchable: event, watch: event.watch_by(current_user)
             .page-content-header-actions__action
               = render 'bookmarks/button', bookmarkable: event
           .page-content-header-actions__end
