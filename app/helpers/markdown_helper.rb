@@ -32,17 +32,6 @@ module MarkdownHelper
     find_match_in_text(escaped_comment, word)
   end
 
-  def process_markdown_case(comment)
-    processed_comment = if comment.is_a?(String) && !comment.empty?
-                          escape_special_chars(comment)
-                        else
-                          comment
-                        end
-
-    html_content = md2html(processed_comment)
-    ActionView::Base.full_sanitizer.sanitize(html_content).gsub(/[\r\n]/, '')
-  end
-
   def find_match_in_text(text, word)
     return text if word.blank?
 
