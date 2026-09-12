@@ -54,4 +54,4 @@ header.page-content-header
     .page-content-header__row
       .page-content-header-actions
         .page-content-header-actions__start
-          = render 'watches/watch_toggle', type: pair_work.class.to_s, id: pair_work.id, watch: pair_work.watch_by(current_user)
+          = render 'watches/watch_toggle', type: pair_work.class.to_s, id: pair_work.id, watch: pair_work.watched_by(current_user)
