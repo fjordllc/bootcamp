@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class User < ApplicationRecord
+class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   attr_accessor :credit_card_payment, :role, :uploaded_avatar
 
   authenticates_with_sorcery!
