@@ -48,7 +48,7 @@
                     .user-data__tags
                       = render(Tag::FormComponent.new(taggable: @user, param_name: 'user[tag_list]', input_id: 'user_tag_list', editable: (@user.id == current_user.id)))
                 .user-data__row
-                  = render 'users/metas', user: @user, user_course_practice: UserCoursePractice.new(@user)
+                  = render 'users/metas', user: @user, user_course_practice: @user.course_practice
 
             - if admin_or_mentor_login?
               section.a-card.is-only-mentor
@@ -69,9 +69,9 @@
             - if admin_or_mentor_login? && @user.hibernations.present?
               = render 'users/hibernation_history', user: @user
         .col-xs-12(class="#{visible_learning_time_frames?(@user) ? 'col-lg-4 col-xxl-4' : 'col-lg-6 col-xxl-6'}")
-          - if @user.student_or_trainee? && @user.total_learning_time.positive?
+          - if @user.student_or_trainee? && @user.learning_time.total.positive?
             = render(StudyStreak::StudyStreakTrackerComponent.new(study_streak: @study_streak, target_user: @user))
-          - unless @user.total_learning_time.zero? || @user.mentor?
+          - unless @user.learning_time.total.zero? || @user.mentor?
             = render(Grass::GrassComponent.new(user: @user, times: @times, target_end_date: @target_end_date, path: :user_path))
           - if @user.student_or_trainee?
             = render(Calendar::NicoNicoCalendarComponent.new(user: @user, path: :niconico_calendar_date_in_profile_path, current_date: @calendar.current_date, current_calendar: @calendar.with_reports))
