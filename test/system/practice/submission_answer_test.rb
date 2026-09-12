@@ -10,7 +10,7 @@ class Practice::SubmissionAnswerTest < ApplicationSystemTestCase
   test 'student passed practice and product can show submission answer' do
     user = users(:kimura)
     visit_with_auth practice_path(@practice), user.login_name
-    assert @practice.product(user).checked?
+    assert @practice.learner_record.product(user).checked?
     assert find_button('修了', disabled: true)
     click_on '模範解答'
     assert_text '「OS X Mountain Lionをクリーンインストールする」の模範解答'
@@ -20,7 +20,7 @@ class Practice::SubmissionAnswerTest < ApplicationSystemTestCase
   test 'student not passed practice and product can not show submission answer' do
     user = users(:kensyu)
     visit_with_auth practice_path(@practice), user.login_name
-    assert_not @practice.product(user).checked?
+    assert_not @practice.learner_record.product(user).checked?
     assert find_button('未着手', disabled: true)
     visit practice_submission_answer_path(@practice)
     assert_text 'プラクティスを修了するまで模範解答は見れません。'

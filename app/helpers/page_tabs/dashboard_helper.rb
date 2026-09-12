@@ -6,8 +6,9 @@ module PageTabs
       tabs = []
       tabs << { name: 'ダッシュボード', link: '/' }
       if Rails.env.in? %w[development test]
+        latest_micro_report_page = current_user.latest_micro_report_page
         tabs << { name: '自分の分報',
-                  link: "#{user_micro_reports_path(current_user, page: current_user.latest_micro_report_page)}#latest-micro-report",
+                  link: "#{user_micro_reports_path(current_user, page: latest_micro_report_page)}#latest-micro-report",
                   count: current_user.micro_reports.length }
       end
       tabs << { name: '自分の日報', link: current_user_reports_path, count: current_user.reports.length }
