@@ -4,13 +4,13 @@ require 'test_helper'
 
 class ReportTest < ActiveSupport::TestCase
   test '#previous' do
-    assert_equal reports(:report1), reports(:report2).previous
-    assert_equal reports(:report22), reports(:report26).previous
-    assert_equal reports(:report27), reports(:report22).previous
+    assert_equal reports(:report1), reports(:report2).sequence.previous
+    assert_equal reports(:report22), reports(:report26).sequence.previous
+    assert_equal reports(:report27), reports(:report22).sequence.previous
   end
 
   test '#next' do
-    assert_equal reports(:report2), reports(:report1).next
+    assert_equal reports(:report2), reports(:report1).sequence.next
   end
 
   test '#anchor' do

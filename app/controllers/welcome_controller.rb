@@ -10,7 +10,7 @@ class WelcomeController < ApplicationController
   FAQ_CATEGORY_NAME_FOR_JOB_SUPPORT = '就職について'
 
   def index
-    @mentors = current_user ? User.mentors_sorted_by_created_at : User.visible_sorted_mentors
+    @mentors = MentorsIndexQuery.call(visible_only: current_user.nil?)
     @featured_articles = Article.featured
   end
 

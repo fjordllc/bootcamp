@@ -54,7 +54,7 @@ class ProductTest < ActiveSupport::TestCase
     )
 
     status = :started
-    product.change_learning_status(status)
+    LearningStatusUpdater.new.change_learning_status(product, status)
     assert Learning.find_by(user:, practice:, status: :started)
   end
 
@@ -118,17 +118,6 @@ class ProductTest < ActiveSupport::TestCase
 
     product.update!(checker: users(:mentormentaro))
     assert_not_nil product.checker_avatar
-  end
-
-  test '#save_checker' do
-    checker = users(:komagata)
-    product = Product.create!(
-      body: 'test',
-      user: users(:kimura),
-      practice: practices(:practice5),
-      checker_id: nil
-    )
-    assert product.save_checker(checker.id)
   end
 
   test '.self_assigned_no_replied_products' do

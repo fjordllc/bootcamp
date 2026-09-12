@@ -1,6 +1,6 @@
 ruby:
   practice_title = @practice.title
-  category = @practice.category(current_user.course)
+  category = @practice.category_resolver.category(current_user.course)
 
 - title "「#{practice_title}」の理解度テスト作成"
 - set_meta_tags description: "プラクティス「#{practice_title}」の理解度テスト作成ページです。"
