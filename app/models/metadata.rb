@@ -23,7 +23,8 @@ class Metadata
     end
     http.response_body_encoding = true
 
-    response = http.request_get(@uri.request_uri)
+    header = { 'User-Agent' => 'Bootcamp-LinkCard (+https://github.com/fjordllc/bootcamp)' }
+    response = http.request_get(@uri.request_uri, header)
     return fetch_youtube_oembed unless response.is_a?(Net::HTTPSuccess)
 
     parse(response.body) || fetch_youtube_oembed
@@ -34,8 +35,9 @@ class Metadata
   private
 
   def parse(html)
-    object = OpenGraphReader.parse(html)
-    return unless object
+    OpenGraphReader.config.synthesize_full_image_url = true
+    object = OpenGraphReader.parse(html, @url)
+    return metadata_fallback(html) if object.nil?
 
     {
       title: object.og.title,
@@ -91,5 +93,45 @@ class Metadata
     }
   rescue JSON::ParserError, *NETWORK_ERRORS
     nil
+  end
+
+  def metadata_fallback(html)
+    doc = Nokogiri::HTML(html)
+    metadata = {
+      title: fallback_title(doc),
+      description: fallback_description(doc),
+      images: fallback_images(doc),
+      site_name: fallback_site_name(doc) || @uri.host,
+      favicon: favicon(html),
+      url: @url,
+      site_url: site_url
+    }
+    return nil if metadata[:title].blank?
+
+    metadata
+  end
+
+  def fallback_title(doc)
+    card_content(doc, 'title') || doc.at_css('title')&.text&.strip
+  end
+
+  def fallback_description(doc)
+    card_content(doc, 'description') || doc.at_css('meta[name="description"]')&.[]('content')
+  end
+
+  def fallback_images(doc)
+    image_path = card_content(doc, 'image') || doc.at_css('link[rel="image_src"]')&.[]('href')
+    return nil if image_path.blank?
+
+    URI.join(@url, image_path).to_s
+  end
+
+  def fallback_site_name(doc)
+    card_content(doc, 'site_name') || doc.at_css('meta[name="application-name"]')&.[]('content')
+  end
+
+  def card_content(doc, type)
+    doc.at_css("meta[property='og:#{type}']")&.[]('content').presence ||
+      doc.at_css("meta[name='twitter:#{type}']")&.[]('content').presence
   end
 end
