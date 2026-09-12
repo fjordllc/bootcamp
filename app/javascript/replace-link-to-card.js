@@ -77,7 +77,10 @@ const render = (element) => {
 
 const isValidHttpUrl = (str) => {
   try {
-    const url = new URL(str)
+    // IPv6のURLの場合、markdown-itによりpathの`[]`が%エンコードされ、new URL()でthrowしてしまう。
+    // そのため`[]`のみデコードしている。
+    const decodedUrl = str.replace(/%5B/g, '[').replace(/%5D/g, ']')
+    const url = new URL(decodedUrl)
     return url.protocol === 'http:' || url.protocol === 'https:'
   } catch (_) {
     return false
