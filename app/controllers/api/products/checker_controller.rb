@@ -15,7 +15,7 @@ class API::Products::CheckerController < API::BaseController
   end
 
   def update
-    if @product.save_checker(params[:current_user_id])
+    if SaveProductChecker.call(product: @product, user_id: params[:current_user_id]).success?
       render json: {
         checker_id: @product.checker_id,
         checker_name: @product.checker_name

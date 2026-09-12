@@ -8,7 +8,7 @@ class SkippedPracticeComponentTest < ViewComponent::TestCase
   # そのため、render_inlineを使わずにコンポーネントのロジックのみをテストする。
   def test_skipped_practices_count
     user = users(:kensyu)
-    user_course_practice = UserCoursePractice.new(user)
+    user_course_practice = user.course_practice
     categories = user_course_practice.categories_for_skip_practice
 
     # カテゴリが正しく取得できることを確認

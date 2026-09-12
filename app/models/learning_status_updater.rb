@@ -19,7 +19,7 @@ class LearningStatusUpdater
                       else
                         :submitted
                       end
-    check.checkable.change_learning_status(learning_status)
+    change_learning_status(check.checkable, learning_status)
   end
 
   def update_after_submission(product)
@@ -35,6 +35,14 @@ class LearningStatusUpdater
              else
                :submitted
              end
-    product.change_learning_status status
+    change_learning_status(product, status)
+  end
+
+  def change_learning_status(product, status)
+    learning = Learning.find_or_initialize_by(
+      user_id: product.user.id,
+      practice_id: product.practice.id
+    )
+    learning.update!(status:)
   end
 end

@@ -17,7 +17,7 @@ class Practices::PracticeQuizController < ApplicationController
   end
 
   def set_practice_quiz
-    @practice_quiz = @practice.published_practice_quiz
+    @practice_quiz = @practice.quiz_gate.published_practice_quiz
     redirect_to @practice, alert: '公開中の理解度テストはありません。' if @practice_quiz.blank?
   end
 end

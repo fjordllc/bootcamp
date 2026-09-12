@@ -7,9 +7,9 @@ require 'supports/product_helper'
 class UserCoursePracticeDecoratorTest < ActiveDecoratorTestCase
   include ProductHelper
   def setup
-    komagata = UserCoursePractice.new(users(:komagata))
-    kensyu = UserCoursePractice.new(users(:kensyu))
-    harikirio = UserCoursePractice.new(users(:harikirio))
+    komagata = users(:komagata).course_practice
+    kensyu = users(:kensyu).course_practice
+    harikirio = users(:harikirio).course_practice
 
     @user_course_practice_komagata = decorate(komagata)
     @user_course_practice_kensyu = decorate(kensyu)
