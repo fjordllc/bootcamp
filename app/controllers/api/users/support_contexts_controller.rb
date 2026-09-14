@@ -62,6 +62,10 @@ class API::Users::SupportContextsController < API::BaseController
       @user.hibernated?
     when :graduate
       @user.graduated?
+    when :retired
+      @user.retired?
+    when :training_completed
+      @user.training_completed?
     else
       @user.public_send("#{role}?")
     end
@@ -144,7 +148,7 @@ class API::Users::SupportContextsController < API::BaseController
   end
 
   def learning_progress_json
-    user_course_practice = UserCoursePractice.new(@user)
+    user_course_practice = @user.course_practice
     required_practices_count = user_course_practice.required_practices.size
     completed_practices_count = user_course_practice.completed_required_practices.size
     {

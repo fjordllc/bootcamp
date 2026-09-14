@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Event < ApplicationRecord # rubocop:todo Metrics/ClassLength
+class Event < ApplicationRecord
   include WithAvatar
   include Commentable
   include Footprintable
@@ -8,6 +8,8 @@ class Event < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include Watchable
   include Searchable
   include Bookmarkable
+
+  delegate :opening?, :before_opening?, :closing?, :ended?, to: :opening_status
 
   validates :title, presence: true
   validates :description, presence: true
@@ -19,19 +21,19 @@ class Event < ApplicationRecord # rubocop:todo Metrics/ClassLength
   validates :open_end_at, presence: true
 
   with_options if: -> { start_at && end_at } do
-    validate :end_at_be_greater_than_start_at
+    validates :end_at, comparison: { greater_than: :start_at, message: ': イベント終了日時はイベント開始日時よりも後の日時にしてください。' }
   end
 
   with_options if: -> { open_start_at && open_end_at } do
-    validate :open_end_at_be_greater_than_open_start_at
+    validates :open_end_at, comparison: { greater_than: :open_start_at, message: ': 募集終了日時は募集開始日時よりも後の日時にしてください。' }
   end
 
   with_options if: -> { open_start_at && start_at } do
-    validate :open_start_at_be_less_than_start_at
+    validates :open_start_at, comparison: { less_than: :start_at, message: ': 募集開始日時はイベント開始日時よりも前の日時にしてください。' }
   end
 
   with_options if: -> { open_end_at && end_at } do
-    validate :open_end_at_be_less_than_end_at
+    validates :open_end_at, comparison: { less_than_or_equal_to: :end_at, message: ': 募集終了日時はイベント終了日時よりも前の日時にしてください。' }
   end
 
   belongs_to :user
@@ -53,22 +55,6 @@ class Event < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   def self.ransackable_associations(_auth_object = nil)
     %w[user participations users comments reactions watches]
-  end
-
-  def opening?
-    Time.current.between?(open_start_at, open_end_at)
-  end
-
-  def before_opening?
-    Time.current < open_start_at
-  end
-
-  def closing?
-    Time.current > open_end_at && Time.current < end_at
-  end
-
-  def ended?
-    Time.current >= end_at
   end
 
   def participants
@@ -97,17 +83,6 @@ class Event < ApplicationRecord # rubocop:todo Metrics/ClassLength
     send_notification(move_up_participation.user)
   end
 
-  def update_participations
-    first_come_participations.each.with_index(1) do |participation, i|
-      if i <= capacity
-        participation.update(enable: true)
-        send_notification(participation.user) if participation.waited?
-      else
-        participation.update(enable: false)
-      end
-    end
-  end
-
   def send_notification(receiver)
     ActivityDelivery.with(receiver:, event: self).notify(:moved_up_event_waiting_user)
   end
@@ -124,42 +99,18 @@ class Event < ApplicationRecord # rubocop:todo Metrics/ClassLength
     Event.where('start_at > ?', Date.current).pluck(:id)
   end
 
+  def first_come_participations
+    participations.order(created_at: :asc)
+  end
+
+  def opening_status
+    EventOpeningStatus.new(self)
+  end
+
   private
-
-  def end_at_be_greater_than_start_at
-    diff = end_at - start_at
-    return unless diff <= 0
-
-    errors.add(:end_at, ': イベント終了日時はイベント開始日時よりも後の日時にしてください。')
-  end
-
-  def open_end_at_be_greater_than_open_start_at
-    diff = open_end_at - open_start_at
-    return unless diff <= 0
-
-    errors.add(:open_end_at, ': 募集終了日時は募集開始日時よりも後の日時にしてください。')
-  end
-
-  def open_start_at_be_less_than_start_at
-    diff = start_at - open_start_at
-    return unless diff <= 0
-
-    errors.add(:open_start_at, ': 募集開始日時はイベント開始日時よりも前の日時にしてください。')
-  end
-
-  def open_end_at_be_less_than_end_at
-    diff = end_at - open_end_at
-    return unless diff.negative?
-
-    errors.add(:open_end_at, ': 募集終了日時はイベント終了日時よりも前の日時にしてください。')
-  end
 
   def first_come_first_served
     users.order('participations.created_at asc')
-  end
-
-  def first_come_participations
-    participations.order(created_at: :asc)
   end
 
   def waiting_particpations
