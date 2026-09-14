@@ -20,8 +20,6 @@ module LinkCard
     end
 
     def request
-      return unless LinkChecker::Checker.valid_url?(@url)
-
       @tweet ? fetch_tweet : Metadata.new(@url).fetch
     end
 
