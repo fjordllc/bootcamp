@@ -13,6 +13,20 @@ Lint/MissingSuper:
   Exclude:
     - 'app/components/**/*'
 
+Metrics/ClassLength:
+  CountAsOne:
+    - array
+    - hash
+    - heredoc
+    - method_call
+
+Metrics/ModuleLength:
+  CountAsOne:
+    - array
+    - hash
+    - heredoc
+    - method_call
+
 AllCops:
   Exclude:
     - '**/templates/**/*'
