@@ -1,0 +1,95 @@
+.user-mentor-memo__status,
+.user-mentor-memo__form-container {
+  padding: 1rem;
+}
+
+.user-mentor-memo__items {
+  max-height: 22rem;
+  overflow-y: auto;
+  border-bottom: solid 1px var(--border-tint);
+}
+
+.user-mentor-memo-item {
+  padding: 0.75rem 1rem;
+}
+
+.user-mentor-memo-item + .user-mentor-memo-item {
+  border-top: solid 1px var(--border-tint);
+}
+
+.user-mentor-memo-item__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.user-mentor-memo-item__avatar {
+  flex: 0 0 auto;
+  width: 2rem;
+  height: 2rem;
+}
+
+.user-mentor-memo-item__meta {
+  display: flex;
+  min-width: 0;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.user-mentor-memo-item__author {
+  overflow: hidden;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-mentor-memo-item__created-at {
+  color: var(--muted-text);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.user-mentor-memo-item__content {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.user-mentor-memo-item__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.user-mentor-memo-item__delete-button {
+  color: var(--muted-text);
+  font-size: 0.75rem;
+}
+
+.user-mentor-memo-item__delete-button:hover {
+  color: var(--danger);
+  text-decoration: underline;
+}
+
+.user-mentor-memo__form {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.user-mentor-memo__form .a-text-input {
+  flex: 1;
+}
+
+@media (width <= 47.9375em) {
+  .user-mentor-memo__status,
+  .user-mentor-memo__form-container {
+    padding: 0.75rem;
+  }
+}
