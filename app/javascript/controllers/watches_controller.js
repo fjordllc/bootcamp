@@ -16,17 +16,17 @@ export default class extends Controller {
 
   disconnect() {
     if (!this.hasEditModeToggleTarget) {
-      localStorage.removeItem('watches-delete-mode')
+      localStorage.removeItem('watches-edit-mode')
     }
   }
 
   toggleEditMode() {
     if (this.editModeToggleTarget.checked) {
       this.#toggleDeleteButtonsVisibility(false)
-      localStorage.setItem('watches-delete-mode', 'on')
+      localStorage.setItem('watches-edit-mode', 'on')
     } else {
       this.#toggleDeleteButtonsVisibility(true)
-      localStorage.removeItem('watches-delete-mode')
+      localStorage.removeItem('watches-edit-mode')
     }
   }
 
@@ -45,10 +45,10 @@ export default class extends Controller {
   }
 
   #restoreEditMode() {
-    const deleteMode = localStorage.getItem('watches-delete-mode') === 'on'
+    const editMode = localStorage.getItem('watches-edit-mode') === 'on'
 
-    this.editModeToggleTarget.checked = deleteMode
-    this.#toggleDeleteButtonsVisibility(!deleteMode)
+    this.editModeToggleTarget.checked = editMode
+    this.#toggleDeleteButtonsVisibility(!editMode)
   }
 
   #toggleDeleteButtonsVisibility(shouldHide) {
