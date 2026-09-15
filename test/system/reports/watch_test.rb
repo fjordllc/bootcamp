@@ -4,19 +4,28 @@ require 'application_system_test_case'
 
 module Reports
   class WatchTest < ApplicationSystemTestCase
-    test 'unwatch' do
-      visit_with_auth report_path(reports(:report1)), 'kimura'
-      assert_difference('Watch.count', -1) do
-        find('button.a-watch-button', text: 'Watch中').click
-        assert_selector 'button.a-watch-button', text: 'Watch', exact_text: true
+    test 'watch' do
+      report = reports(:report1)
+      user = users(:kimura)
+      user.watches.where(watchable: report).destroy_all
+
+      visit_with_auth report_path(report), user.login_name
+
+      assert_difference('Watch.count', 1) do
+        find('button.a-watch-button', exact_text: 'Watch').click
+        assert_selector 'button.a-watch-button', exact_text: 'Watch中'
       end
     end
 
-    test 'click unwatch' do
-      visit_with_auth report_path(reports(:report1)), 'kimura'
+    test 'unwatch' do
+      report = reports(:report1)
+      user = users(:kimura)
+
+      visit_with_auth report_path(report), user.login_name
+
       assert_difference('Watch.count', -1) do
-        find('button.a-watch-button', text: 'Watch中').click
-        assert_selector 'button.a-watch-button', text: 'Watch', exact_text: true
+        find('button.a-watch-button', exact_text: 'Watch中').click
+        assert_selector 'button.a-watch-button', exact_text: 'Watch'
       end
     end
 
