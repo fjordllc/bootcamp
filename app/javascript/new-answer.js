@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
           editorTextarea.value
         )
         updateAnswerCount(true)
-        if (document.querySelector('.watch-toggle'))
+        if (document.querySelector('.watch-toggle')) {
           newAnswer.dispatchEvent(
             new CustomEvent('watch:refresh', {
               bubbles: true,
@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
               }
             })
           )
+        }
         if (previewTab.classList.contains('is-active')) {
           toggleVisibility(tabElements, 'is-active')
         }
