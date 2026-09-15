@@ -20,12 +20,12 @@ export default class extends Controller {
     }
   }
 
-  toggleEditMode() {
+  updateEditMode() {
+    this.#updateDeleteButtonsVisibility()
+
     if (this.editModeToggleTarget.checked) {
-      this.#toggleDeleteButtonsVisibility(false)
       localStorage.setItem('watches-edit-mode', 'on')
     } else {
-      this.#toggleDeleteButtonsVisibility(true)
       localStorage.removeItem('watches-edit-mode')
     }
   }
@@ -48,15 +48,15 @@ export default class extends Controller {
     const editMode = localStorage.getItem('watches-edit-mode') === 'on'
 
     this.editModeToggleTarget.checked = editMode
-    this.#toggleDeleteButtonsVisibility(!editMode)
+    this.#updateDeleteButtonsVisibility()
   }
 
-  #toggleDeleteButtonsVisibility(shouldHide) {
+  #updateDeleteButtonsVisibility() {
     const deleteButtonContainers = document.querySelectorAll(
       '.card-list-item__option'
     )
     deleteButtonContainers.forEach((container) => {
-      container.classList.toggle('hidden', shouldHide)
+      container.classList.toggle('hidden', !this.editModeToggleTarget.checked)
     })
   }
 
