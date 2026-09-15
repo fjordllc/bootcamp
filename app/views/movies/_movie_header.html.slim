@@ -62,7 +62,7 @@ header.page-content-header
     .page-content-header__row
       .page-content-header-actions
         .page-content-header-actions__start
-          = render 'watches/watch_toggle', type: movie.class.to_s, id: movie.id, watch: movie.watch_by(current_user)
+          = render 'watches/watch_toggle', watchable: movie, watch: movie.watch_by(current_user)
           .page-content-header-actions__action
             = render 'bookmarks/button', bookmarkable: movie
           = render 'application/url_copy_button'

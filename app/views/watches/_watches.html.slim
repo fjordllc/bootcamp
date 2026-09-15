@@ -1,5 +1,5 @@
 #watches
   = paginate watches, params: { controller: 'current_user/watches', action: 'index' }
-  .card-list.a-card data-current_page="#{@current_page}"
+  .card-list.a-card
     = render partial: 'watches/watch', collection: watches, as: :watch
   = paginate watches, params: { controller: 'current_user/watches', action: 'index' }

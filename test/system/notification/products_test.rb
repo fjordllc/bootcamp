@@ -103,7 +103,7 @@ class Notification::ProductsTest < NotificationSystemTestCase
     practice = practices(:practice5)
 
     visit_with_auth "/practices/#{practice.id}", 'mentormentaro'
-    find('div.a-watch-button', text: 'Watch').click
+    find('button.a-watch-button', text: 'Watch').click
 
     assert_text 'Watch中'
 
