@@ -36,7 +36,10 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     get api_user_path(users(:kimura).id, format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
-    assert_equal([mentor_memos(:kimura).content], JSON.parse(@response.body)['mentor_memos'].map { |memo| memo['content'] })
+    assert_equal(
+      [mentor_memos(:kimura).content, mentor_memos(:migrated_kimura).content],
+      JSON.parse(@response.body)['mentor_memos'].map { |memo| memo['content'] }
+    )
   end
 
   test 'GET /api/users/1234.json as mentor' do
@@ -47,7 +50,21 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     get api_user_path(users(:kimura).id, format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
-    assert_equal([mentor_memos(:kimura).content], JSON.parse(@response.body)['mentor_memos'].map { |memo| memo['content'] })
+    assert_equal(
+      [mentor_memos(:kimura).content, mentor_memos(:migrated_kimura).content],
+      JSON.parse(@response.body)['mentor_memos'].map { |memo| memo['content'] }
+    )
+  end
+
+  test 'GET /api/users/1234.json includes unknown created_at for migrated memo, sorted last' do
+    token = create_token('komagata', 'testtest')
+    get api_user_path(users(:kimura).id, format: :json),
+        headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :ok
+
+    memos = JSON.parse(@response.body)['mentor_memos']
+    assert_equal '作成日不明', memos.last['created_at']
+    assert_equal mentor_memos(:migrated_kimura).id, memos.last['id']
   end
 
   test 'GET /api/users/1234.json as adviser' do
