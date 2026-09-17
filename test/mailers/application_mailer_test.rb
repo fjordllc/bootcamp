@@ -18,7 +18,7 @@ class ApplicationMailerTest < ActionMailer::TestCase
     end
 
     local, domain = user.email.split('@')
-    assert_includes logs, ["#{local[0]}***@#{domain}"].to_s
+    assert_includes logs, "Postmarkの配信停止済みアドレスへの送信をスキップしました: [\"#{local[0]}***@#{domain}\"]"
   end
 
   test 'Mail to inactive address via deliver_later' do
@@ -38,6 +38,18 @@ class ApplicationMailerTest < ActionMailer::TestCase
     end
 
     local, domain = user.email.split('@')
-    assert_includes logs, ["#{local[0]}***@#{domain}"].to_s
+    assert_includes logs, "Postmarkの配信停止済みアドレスへの送信をスキップしました: [\"#{local[0]}***@#{domain}\"]"
+  end
+
+  test 'Other Postmark errors are still raised as job failures' do
+    user = users(:komagata)
+
+    Mail::TestMailer.stub_any_instance(:deliver!, lambda { |*|
+      raise Postmark::InvalidEmailRequestError.new(300, '', { 'Message' => 'Invalid email request' })
+    }) do
+      assert_raises(Postmark::InvalidEmailRequestError) do
+        UserMailer.welcome(user).deliver_now
+      end
+    end
   end
 end

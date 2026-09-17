@@ -10,7 +10,7 @@ class ApplicationMailer < ActionMailer::Base
 
   def mailerror(exception)
     masked_recipients = exception.recipients.map { |email| mask_email(email) }
-    Rails.logger.info(masked_recipients.to_s)
+    Rails.logger.info("Postmarkの配信停止済みアドレスへの送信をスキップしました: #{masked_recipients}")
   end
 
   def mask_email(email)
