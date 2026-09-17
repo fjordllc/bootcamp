@@ -54,10 +54,7 @@
 
 .user-mentor-memo-item__content {
   margin-top: 0.5rem;
-  font-size: 0.875rem;
-  line-height: 1.6;
   overflow-wrap: break-word;
-  white-space: pre-wrap;
 }
 
 .user-mentor-memo-item__actions {
