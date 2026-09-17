@@ -16,6 +16,15 @@ module UserTargetScopeResolver
     'admin' => :admins
   }.freeze
 
+  included do
+    scope :year_end_party, lambda {
+      where(
+        hibernated_at: nil,
+        retired_on: nil
+      )
+    }
+  end
+
   class_methods do
     def notification_receiver(target)
       case target

@@ -37,6 +37,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include UserDiscordIntegration
   include UserAffiliation
   include UserProfile
+  include UserLoginName
   include UserRegion
   include UserMentorMemo
   include UserCareerBackground

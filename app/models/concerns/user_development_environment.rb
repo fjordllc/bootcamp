@@ -9,5 +9,9 @@ module UserDevelopmentEnvironment
     enum :editor, { vscode: 0, ruby_mine: 1, vim: 2, emacs: 3, other_editor: 99 }, prefix: true
 
     validates :other_editor, presence: true, if: -> { editor == 'other_editor' }
+
+    with_options if: -> { !adviser? && !validation_context.in?(%i[reset_password retirement training_completion]) } do
+      validates :os, presence: true
+    end
   end
 end

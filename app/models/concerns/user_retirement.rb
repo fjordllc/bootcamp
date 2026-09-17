@@ -15,9 +15,5 @@ module UserRetirement
     with_options if: -> { validation_context.in?(%i[retirement training_completion]) } do
       validates :satisfaction, presence: true
     end
-
-    with_options if: -> { trainee? } do
-      validates :company_id, presence: true
-    end
   end
 end
