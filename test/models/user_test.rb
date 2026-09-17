@@ -471,29 +471,20 @@ class UserTest < ActiveSupport::TestCase
     assert_empty users(:advijirou).colleague_trainees
   end
 
-  test '#followup_message_target?' do
-    target = User.create!(
-      login_name: 'thirty',
-      email: 'thirty@fjord.jp',
-      password: 'testtest',
-      name: '入会 三十郎',
-      name_kana: 'ニュウカイ サンジュウロウ',
-      description: '入会30日経過したユーザーです',
-      course: courses(:course1),
-      job: 'student',
-      os: 'mac',
-      experiences: 2,
-      hibernated_at: nil,
-      created_at: Time.current - 30.days,
-      sent_student_followup_message: false
-    )
-    nottarget = users(:komagata)
-    otameshi = users(:otameshi)
-    hibernated = users(:kyuukai)
-    assert target.followup_message_target?
-    assert_not nottarget.followup_message_target?
-    assert_not otameshi.followup_message_target?
-    assert_not hibernated.followup_message_target?
+  test '#followup_message_target? delegates to UserFollowupEligibility#eligible?' do
+    user = users(:kimura)
+    fake_eligibility = Object.new
+    def fake_eligibility.eligible?
+      true
+    end
+    build_eligibility = lambda do |target|
+      assert_equal user, target
+      fake_eligibility
+    end
+
+    UserFollowupEligibility.stub(:new, build_eligibility) do
+      assert user.followup_message_target?
+    end
   end
 
   test '#hibernation_elapsed_days' do

@@ -7,5 +7,9 @@ module UserAffiliation
   included do
     belongs_to :company, optional: true
     belongs_to :course
+
+    with_options if: -> { trainee? } do
+      validates :company_id, presence: true
+    end
   end
 end

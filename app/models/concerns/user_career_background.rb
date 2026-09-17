@@ -11,5 +11,9 @@ module UserCareerBackground
       employed_non_it: 4, internal_transfer_to_programmer: 5, not_employed: 6
     }, prefix: true
     flag :experiences, %i[html_css ruby rails javascript react languages_other_than_ruby_and_javascript]
+
+    with_options if: -> { !staff? && !validation_context.in?(%i[reset_password retirement training_completion]) } do
+      validates :job, presence: true
+    end
   end
 end
