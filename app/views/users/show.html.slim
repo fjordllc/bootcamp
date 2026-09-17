@@ -122,7 +122,7 @@
                       .o-empty-message__text
                         | 進路メモはまだありません。
           - if admin_or_mentor_login?
-            = render 'users/user_mentor_memo', user_id: @user.id
+            = render 'users/user_mentor_memos', user_id: @user.id, memos: @mentor_memos
 
         - if visible_learning_time_frames?(@user)
           .col-xs-12.col-lg-4.col-xxl-3

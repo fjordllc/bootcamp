@@ -16,17 +16,6 @@ module Talks
       assert_text 'ユーザー公開情報'
     end
 
-    test 'update memo' do
-      user = users(:kimura)
-      visit_with_auth "/talks/#{user.talk.id}", 'komagata'
-      assert_text 'kimuraさんのメモ'
-      click_button '編集'
-      fill_in 'js-user-mentor-memo', with: '相談部屋テストメモ'
-      click_button '保存する'
-      assert_text '相談部屋テストメモ'
-      assert_no_text 'kimuraさんのメモ'
-    end
-
     test 'Displays a list of the 10 most recent reports' do
       user = users(:hajime)
       visit_with_auth "/talks/#{user.talk.id}", 'komagata'

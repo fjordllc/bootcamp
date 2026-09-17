@@ -48,6 +48,8 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     reports = @user.reports_with_learning_times
     @study_streak = StudyStreak.new(reports, include_wip: false)
 
+    @mentor_memos = @user.received_memos.includes(:writer).order(created_at: :desc)
+
     if logged_in?
       render :show
     else
