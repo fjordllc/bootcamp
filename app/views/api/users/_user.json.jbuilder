@@ -5,13 +5,14 @@ json.delayed user.completed_at >= 2.weeks.ago.end_of_day if user.respond_to?(:co
 json.adviser user.adviser
 
 if admin_or_mentor_login?
-  json.mentor_memos user.mentor_memos do |memo|
+  mentor_memos = user.mentor_memos.order(Arel.sql('created_at IS NULL, created_at'))
+  json.mentor_memos mentor_memos do |memo|
     json.id memo.id
     json.content memo.content
     json.author memo.author&.long_name || 'メンター'
     json.author_id memo.author_id
     json.author_avatar_url memo.author&.avatar_url || image_url(User::DEFAULT_IMAGE_PATH)
-    json.created_at memo.created_at&.strftime('%Y/%m/%d')
+    json.created_at memo.created_at&.strftime('%Y/%m/%d') || '作成日不明'
   end
 end
 
