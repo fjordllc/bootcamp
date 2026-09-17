@@ -47,8 +47,10 @@ class ApplicationMailerTest < ActionMailer::TestCase
     Mail::TestMailer.stub_any_instance(:deliver!, lambda { |*|
       raise Postmark::InvalidEmailRequestError.new(300, '', { 'Message' => 'Invalid email request' })
     }) do
-      assert_raises(Postmark::InvalidEmailRequestError) do
-        UserMailer.welcome(user).deliver_now
+      perform_enqueued_jobs do
+        assert_raises(Postmark::InvalidEmailRequestError) do
+          UserMailer.welcome(user).deliver_later
+        end
       end
     end
   end
