@@ -27,11 +27,6 @@ module MarkdownHelper
         .gsub('>', '&gt;')
   end
 
-  def process_special_case(comment, word)
-    escaped_comment = escape_special_chars(comment)
-    find_match_in_text(escaped_comment, word)
-  end
-
   def process_markdown_case(comment)
     processed_comment = if comment.is_a?(String) && !comment.empty?
                           escape_special_chars(comment)
@@ -41,21 +36,6 @@ module MarkdownHelper
 
     html_content = md2html(processed_comment)
     ActionView::Base.full_sanitizer.sanitize(html_content).gsub(/[\r\n]/, '')
-  end
-
-  def find_match_in_text(text, word)
-    return text if word.blank?
-
-    words = word.split(/[[:space:]]+/).compact.reject(&:empty?)
-    return text if words.blank?
-
-    words_pattern = words.map { |keyword| Regexp.escape(keyword) }.join('|')
-    words_regexp = Regexp.new(words_pattern, Regexp::IGNORECASE)
-    match = words_regexp.match(text)
-    return text if match.nil?
-
-    begin_offset = (match.begin(0) - 50).clamp(0, Float::INFINITY)
-    text[begin_offset...].strip
   end
 
   def md2plain_text(markdown_content)
