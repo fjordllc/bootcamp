@@ -1,3 +1,4 @@
+import { Turbo } from '@hotwired/turbo-rails'
 import 'controllers'
 import Rails from '@rails/ujs'
 import 'textarea'
@@ -68,8 +69,6 @@ import 'article-target'
 import 'article-summary'
 import 'referral-source-selection-form'
 import 'coding_tests_sort'
-import 'watches'
-import 'watch-toggle'
 import 'diploma-upload'
 import 'tag-shortcut'
 import 'tags-input'
@@ -81,6 +80,8 @@ import 'bookmark-button'
 import 'notifications_remove_after_open'
 import 'notifications-bell'
 import 'products-checker-init'
+
+Turbo.session.drive = false
 
 Rails.start()
 

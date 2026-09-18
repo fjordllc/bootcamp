@@ -5,6 +5,7 @@ pin_all_from "app/javascript"
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin "@hotwired/stimulus", to: "stimulus.min.js"
 pin "@hotwired/stimulus-loading", to: "stimulus-loading.js"
+pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
 pin "@notus.sh/cocooned", to: "https://ga.jspm.io/npm:@notus.sh/cocooned@3.0.1/index.js" # @3.0.1
 # esm.sh provides the polyfill as a single bundled module.
 pin "core-js/actual/disposable-stack", to: "https://esm.sh/core-js@3.50.0/es2022/actual/disposable-stack.bundle.mjs", preload: false # @3.50.0

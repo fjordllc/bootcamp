@@ -65,7 +65,7 @@ header.page-content-header
     .page-content-header__row
       .page-content-header-actions
         .page-content-header-actions__start
-          = render 'watches/watch_toggle', type: page.class.to_s, id: page.id, watch: page.watch_by(current_user)
+          = render 'watches/watch_toggle', watchable: page, watch: page.watch_by(current_user)
           .page-content-header-actions__action
             = render 'bookmarks/button', bookmarkable: page
           = render 'application/url_copy_button'

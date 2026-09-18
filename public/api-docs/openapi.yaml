@@ -675,39 +675,6 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/JsonObject'
-    post:
-      tags: [Social]
-      summary: Create a watch.
-      requestBody:
-        $ref: '#/components/requestBodies/Watch'
-      responses:
-        '201':
-          $ref: '#/components/responses/JsonObject'
-  /api/watches/{id}:
-    delete:
-      tags: [Social]
-      summary: Delete a watch.
-      parameters:
-        - $ref: '#/components/parameters/Id'
-      responses:
-        '200':
-          $ref: '#/components/responses/JsonObject'
-  /api/watches/toggle:
-    get:
-      tags: [Social]
-      summary: Toggle watch state for a watchable resource.
-      parameters:
-        - name: watchable_id
-          in: query
-          schema:
-            type: integer
-        - name: watchable_type
-          in: query
-          schema:
-            type: string
-      responses:
-        '200':
-          $ref: '#/components/responses/JsonObject'
   /api/mentor_memos/{id}:
     patch:
       tags: [Mentor]
@@ -1401,18 +1368,6 @@ components:
             type: object
             properties:
               kind:
-                type: string
-            additionalProperties: true
-    Watch:
-      required: true
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              watchable_id:
-                type: integer
-              watchable_type:
                 type: string
             additionalProperties: true
     Product:
