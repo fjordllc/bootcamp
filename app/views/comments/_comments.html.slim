@@ -28,6 +28,8 @@
   header.thread-comments__header
     h2.thread-comments__title
       | コメント
-  .thread-comments__items class=commentable_type
+  .thread-comments__items [
+    id=dom_id(commentable, :comments)
+    class=commentable_type]
     = render partial: 'comments/comment', collection: @comments, as: :comment, locals: { user: current_user, latest_comment: @comments.last }
   = render 'comments/new_comment', commentable: commentable, commentable_type: commentable_type, user: current_user
