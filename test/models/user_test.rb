@@ -284,46 +284,6 @@ class UserTest < ActiveSupport::TestCase
     assert user.invalid?
   end
 
-  test 'notification for all' do
-    target = User.notification_receiver('all')
-    assert_includes(target, users(:kimura))
-    assert_not_includes(target, users(:yameo))
-  end
-
-  test 'notification for students' do
-    target = User.notification_receiver('students')
-    assert_includes(target, users(:kimura))
-    assert_includes(target, users(:komagata))
-    assert_includes(target, users(:mentormentaro))
-    assert_not_includes(target, users(:yameo))
-    assert_not_includes(target, users(:sotugyou))
-    assert_not_includes(target, users(:advijirou))
-    assert_not_includes(target, users(:kensyu))
-  end
-
-  test 'notification for job_seekers' do
-    target = User.notification_receiver('job_seekers')
-    assert_includes(target, users(:jobseeker))
-    assert_includes(target, users(:komagata))
-    assert_includes(target, users(:sotugyou))
-    assert_includes(target, users(:mentormentaro))
-    assert_not_includes(target, users(:sotugyou_with_job))
-    assert_not_includes(target, users(:kimura))
-    assert_not_includes(target, users(:yameo))
-  end
-
-  test 'notification for none' do
-    target = User.notification_receiver('none')
-    assert_not_includes(target, users(:kimura))
-    assert_not_includes(target, users(:jobseeker))
-    assert_not_includes(target, users(:komagata))
-    assert_not_includes(target, users(:mentormentaro))
-    assert_not_includes(target, users(:sotugyou))
-    assert_not_includes(target, users(:advijirou))
-    assert_not_includes(target, users(:kensyu))
-    assert_not_includes(target, users(:yameo))
-  end
-
   test '#follow' do
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)

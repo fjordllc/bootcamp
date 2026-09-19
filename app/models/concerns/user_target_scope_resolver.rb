@@ -17,25 +17,10 @@ module UserTargetScopeResolver
   }.freeze
 
   included do
-    scope :year_end_party, lambda {
-      where(
-        hibernated_at: nil,
-        retired_on: nil
-      )
-    }
+    scope :year_end_party, -> { YearEndPartyTargetsQuery.new(all).call }
   end
 
   class_methods do
-    def notification_receiver(target)
-      case target
-      when 'all' then User.unretired
-      when 'students' then User.admins_and_mentors.or(User.students)
-      when 'job_seekers' then User.admins_and_mentors.or(User.job_seekers)
-      when 'none' then User.none
-      else User.none
-      end
-    end
-
     # このメソッドはユーザから送信された値をsendに渡すので、悪意のあるコードが実行される危険性がある
     # そのため、このメソッドを使用する際には安全性の確保のために以下の引数を指定すること
     # allowed_targets:　呼び出したいscope名に対応するtargetを過不足なく指定した配列。

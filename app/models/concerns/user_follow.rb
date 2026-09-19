@@ -24,11 +24,5 @@ module UserFollow
     has_many :followers,
              through: :passive_relationships,
              source: :follower
-
-    has_many :send_notifications,
-             class_name: 'Notification',
-             foreign_key: 'sender_id',
-             inverse_of: 'sender',
-             dependent: :destroy
   end
 end
