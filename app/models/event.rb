@@ -9,6 +9,8 @@ class Event < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include Searchable
   include Bookmarkable
 
+  THUMBNAIL_SIZE = [1200, 630].freeze
+
   validates :title, presence: true
   validates :description, presence: true
   validates :location, presence: true
@@ -17,6 +19,9 @@ class Event < ApplicationRecord # rubocop:todo Metrics/ClassLength
   validates :end_at, presence: true
   validates :open_start_at, presence: true
   validates :open_end_at, presence: true
+  validates :thumbnail,
+            content_type: %w[image/png image/jpeg],
+            size: { less_than: 10.megabytes }
 
   with_options if: -> { start_at && end_at } do
     validate :end_at_be_greater_than_start_at
@@ -38,6 +43,7 @@ class Event < ApplicationRecord # rubocop:todo Metrics/ClassLength
   has_many :participations, dependent: :destroy
   has_many :users, through: :participations
   attribute :announcement_of_publication, :boolean
+  has_one_attached :thumbnail
 
   columns_for_keyword_search :title, :description
 
@@ -122,6 +128,14 @@ class Event < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   def self.fetch_upcoming_ids
     Event.where('start_at > ?', Date.current).pluck(:id)
+  end
+
+  def thumbnail_url
+    if thumbnail.attached?
+      thumbnail.variant(resize_to_fill: THUMBNAIL_SIZE).processed.url
+    else
+      ActionController::Base.helpers.asset_path('work-blank.svg')
+    end
   end
 
   private
