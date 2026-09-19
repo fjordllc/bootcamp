@@ -1,0 +1,2 @@
+= turbo_stream.append dom_id(@commentable, :comment) do
+  = render 'comments/comment', commentable: @commentable, comment: @comment, latest_comment: @comment, user: current_user
