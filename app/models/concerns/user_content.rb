@@ -28,6 +28,5 @@ module UserContent
     has_many :footprints, dependent: :destroy
     has_many :answers, dependent: :destroy
     has_many :bookmarks, dependent: :destroy
-    has_many :notifications, dependent: :destroy
   end
 end

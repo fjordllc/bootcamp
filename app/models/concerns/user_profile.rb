@@ -7,7 +7,6 @@ module UserProfile
   included do
     validates :name, presence: true
     validates :description, presence: true
-    validates :mail_notification, inclusion: { in: [true, false] }
     validates :show_mentor_profile, inclusion: { in: [true, false] }
     validates :show_study_streak, inclusion: { in: [true, false] }
 

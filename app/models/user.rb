@@ -49,6 +49,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include UserLearning
   include UserEventParticipation
   include UserFollow
+  include UserNotification
   include UserRegistration
   include UserLifecycleStatus
   include UserRole
@@ -112,12 +113,6 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   def generation
     (created_at.year - 2013) * 4 + (created_at.month + 2) / 3
-  end
-
-  def mark_all_as_read_and_delete_cache_of_unreads(target_notifications: nil)
-    target_notifications ||= notifications
-    target_notifications.update_all(read: true, updated_at: Time.current) # rubocop:disable Rails/SkipsModelValidations
-    Cache.delete_mentioned_and_unread_notification_count(id)
   end
 
   def search_title
