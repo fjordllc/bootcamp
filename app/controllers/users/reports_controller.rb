@@ -43,7 +43,7 @@ class Users::ReportsController < ApplicationController
   end
 
   def set_current_user_practice
-    @current_user_practice = UserCoursePractice.new(@user || current_user)
+    @current_user_practice = (@user || current_user).course_practice
   end
 
   def set_report

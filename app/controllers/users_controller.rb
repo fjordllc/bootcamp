@@ -28,9 +28,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
                .order(updated_at: :desc)
     end
 
-    @random_tags = User.tags.sample(20)
-    @top3_tags_counts = User.tags.limit(3).map(&:count).uniq
-    @tag = ActsAsTaggableOn::Tag.find_by(name: params[:tag])
+    set_tag_cloud_variables
   end
 
   def show
@@ -93,6 +91,13 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
   end
 
   private
+
+  def set_tag_cloud_variables
+    user_tag_counts = UserTagCountsQuery.new.call
+    @random_tags = user_tag_counts.sample(20)
+    @top3_tags_counts = user_tag_counts.limit(3).map(&:count).uniq
+    @tag = ActsAsTaggableOn::Tag.find_by(name: params[:tag])
+  end
 
   def fetch_target_users
     if @target == 'followings'

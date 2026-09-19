@@ -13,7 +13,7 @@ class HomeController < ApplicationController
       display_products_for_mentor
       render action: :index
     else
-      @mentors = User.visible_sorted_mentors
+      @mentors = MentorsIndexQuery.call(visible_only: true)
       @featured_articles = Article.featured
       render template: 'welcome/index', layout: 'lp'
     end
@@ -51,7 +51,7 @@ class HomeController < ApplicationController
     @calendar = NicoNicoCalendar.new(current_user, params[:niconico_calendar])
     @target_end_date = GrassDateParameter.new(params[:end_date]).target_end_date
     @times = Grass.times(current_user, @target_end_date)
-    @users_for_time_slot = User.currently_learning_except(current_user)
+    @users_for_time_slot = CurrentlyLearningUsersExceptQuery.new(user: current_user).call
     @study_streak = StudyStreak.new(current_user.reports_with_learning_times, include_wip: false)
   end
 

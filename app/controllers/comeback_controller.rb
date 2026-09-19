@@ -11,9 +11,8 @@ class ComebackController < ApplicationController
     @user = login(params[:user][:email], params[:user][:password])
     if @user
       if @user&.hibernated?
-        @user.comeback!
+        ComebackUser.call(user: @user)
         ActiveSupport::Notifications.instrument('comeback.update', user: @user)
-        @user.create_comebacked_comment
         redirect_to root_url, notice: '休会から復帰しました。'
       else
         @user = User.new
