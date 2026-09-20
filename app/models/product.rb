@@ -38,6 +38,18 @@ class Product < ApplicationRecord
 
   mentionable_as :body
 
+  scope :list, lambda {
+    with_avatar
+      .preload(:practice,
+               :comments,
+               { checks: { user: { avatar_attachment: :blob } } })
+  }
+  scope :order_for_list, -> { order(created_at: :desc, id: :desc) }
+  scope :order_for_all_list, -> { order(published_at: :desc, id: :asc) }
+  scope :ascending_by_date_of_publishing_and_id, -> { order(published_at: :asc, id: :asc) }
+  scope :order_for_self_assigned_list, -> { order('commented_at asc nulls first, published_at asc') }
+  scope :unhibernated_user_products, -> { joins(:user).where(user: { hibernated_at: nil }) }
+
   def self.ransackable_attributes(_auth_object = nil)
     %w[body wip published_at commented_at created_at updated_at user_id practice_id checker_id]
   end

@@ -3,14 +3,18 @@
 class Practice < ApplicationRecord
   include Watchable
   include Searchable
-  include PracticeValidations
-  include PracticeDelegateTargets
   include PracticeRansackable
 
   delegate :status_by_learnings, :status, :exists_learning?, :completed?, to: :learner_record
   delegate :practice_quiz_required?, :practice_quiz_passed_by?, :completable_by?, to: :quiz_gate
   delegate :include_must_read_books?, to: :must_read_books
   delegate :learning_minute_per_user, to: :study_minutes
+
+  validates :title, presence: true
+  validates :description, presence: true
+  validates :goal, presence: true
+  validates :categories, presence: true
+  validate :source_id_cannot_be_self
 
   has_many :learnings, dependent: :destroy
   has_and_belongs_to_many :reports # rubocop:disable Rails/HasAndBelongsToMany
@@ -140,5 +144,19 @@ class Practice < ApplicationRecord
     return unless template
 
     template.mark_for_destruction if template.description.blank? || !submission?
+  end
+
+  def source_id_cannot_be_self
+    return unless source_id && id
+
+    errors.add(:source_id, 'cannot reference itself') if source_id == id
+  end
+
+  def study_minutes
+    PracticeStudyMinutes.new(self)
+  end
+
+  def must_read_books
+    PracticeMustReadBooks.new(self)
   end
 end

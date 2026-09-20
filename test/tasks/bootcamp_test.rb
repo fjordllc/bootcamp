@@ -7,6 +7,7 @@ class BootcampTaskTest < ActiveSupport::TestCase
   setup do
     Rails.application.load_tasks unless Rake::Task.task_defined?('bootcamp:oneshot:cloudbuild')
     Rake::Task['bootcamp:oneshot:cloudbuild'].reenable
+    Rake::Task['bootcamp:statistics:save_learning_minute_statistics'].reenable
   end
 
   test 'cloudbuild generates only movie thumbnails' do
@@ -20,5 +21,15 @@ class BootcampTaskTest < ActiveSupport::TestCase
     end
 
     assert thumbnail_generated
+  end
+
+  test 'statistics:save_learning_minute_statistics calls SaveLearningMinuteStatistics' do
+    called = false
+
+    SaveLearningMinuteStatistics.stub(:call, -> { called = true }) do
+      Rake::Task['bootcamp:statistics:save_learning_minute_statistics'].invoke
+    end
+
+    assert called
   end
 end
