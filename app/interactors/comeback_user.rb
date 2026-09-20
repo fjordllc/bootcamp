@@ -7,7 +7,6 @@ class ComebackUser
     update_last_returned_at!
     create_subscription_if_needed
     clear_hibernation
-    create_comebacked_comment
   end
 
   private
@@ -28,13 +27,5 @@ class ComebackUser
   def clear_hibernation
     context.user.hibernated_at = nil
     context.user.save!(validate: false)
-  end
-
-  def create_comebacked_comment
-    User.find_by(login_name: 'pjord').comments.create(
-      description: I18n.t('talk.comeback'),
-      commentable_id: Talk.find_by(user_id: context.user.id).id,
-      commentable_type: 'Talk'
-    )
   end
 end
