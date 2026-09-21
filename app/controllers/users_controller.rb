@@ -105,7 +105,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     elsif @entered_tag
       User.active_tagged_with(@entered_tag)
     else
-      users = User.users_role(@target, allowed_targets: target_allowlist)
+      users = UserTargetScopeResolver.new(User).users_role(@target, allowed_targets: target_allowlist)
       @target == 'inactive' ? users.order(:last_activity_at) : users
     end
   end

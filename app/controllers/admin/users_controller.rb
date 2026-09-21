@@ -7,14 +7,14 @@ class Admin::UsersController < AdminController
   def index
     @direction = params[:direction] || 'desc'
     @target = params[:target]
-    user_scope = User.users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'all')
+    user_scope = UserTargetScopeResolver.new(User).users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'all')
     user_scope = if @target == 'retired'
                    user_scope.where.not(retired_on: nil)
                  else
                    user_scope.where(retired_on: nil)
                  end
     @job = params[:job]
-    user_scope = user_scope.users_job(@job) if @job.present?
+    user_scope = UserTargetScopeResolver.new(user_scope).users_job(@job) if @job.present?
     job_seeking = params[:job_seeking]
     user_scope = apply_job_seeking_filter(user_scope, job_seeking)
     payment_method = params[:payment_method]
