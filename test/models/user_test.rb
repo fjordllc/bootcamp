@@ -496,26 +496,6 @@ class UserTest < ActiveSupport::TestCase
     assert user.watches.exists?(watchable:)
   end
 
-  test '.users_role' do
-    allowed_targets = %w[student_and_trainee mentor graduate adviser trainee year_end_party]
-
-    # target引数とdefault_target引数に関して、targetとscope名が一致しているケースと一致していないケースを順にテストする
-    assert_equal User.mentor, User.users_role('mentor', allowed_targets:, default_target: 'student_and_trainee')
-    assert_equal User.graduated, User.users_role('graduate', allowed_targets:, default_target: 'student_and_trainee')
-
-    assert_equal User.year_end_party, User.users_role('', allowed_targets:, default_target: 'year_end_party')
-    assert_equal User.students_and_trainees, User.users_role('', allowed_targets:, default_target: 'student_and_trainee')
-  end
-
-  test '.users_role returns default_target when invalid target is passed' do
-    allowed_targets = %w[student_and_trainee mentor graduate adviser trainee year_end_party]
-    not_allowed_target = 'retired'
-    assert_equal User.students_and_trainees, User.users_role(not_allowed_target, allowed_targets:, default_target: 'student_and_trainee')
-    not_scope_name = 'destroy_all'
-    assert_equal User.students_and_trainees, User.users_role(not_scope_name, allowed_targets:, default_target: 'student_and_trainee')
-    assert_empty User.users_role(not_scope_name, allowed_targets:)
-  end
-
   test '#clean_up_regular_events removes participant from unfinished regular event' do
     user = users(:kimura)
     unfinished_participated_event = regular_events(:regular_event1)
@@ -546,18 +526,6 @@ class UserTest < ActiveSupport::TestCase
   test '#scheduled_retire_at' do
     assert_equal '2020-04-01 09:00:00 +0900', users(:kyuukai).scheduled_retire_at.to_s
     assert_nil users(:hatsuno).scheduled_retire_at
-  end
-
-  test '.users_job' do
-    assert_equal User.job_student, User.users_job('student')
-    assert_equal User.job_office_worker, User.users_job('office_worker')
-    assert_equal User.job_part_time_worker, User.users_job('part_time_worker')
-    assert_equal User.job_vacation, User.users_job('vacation')
-    assert_equal User.job_unemployed, User.users_job('unemployed')
-  end
-
-  test '.users_job returns all users when invalid job is passed' do
-    assert_equal User.all, User.users_job('destroy_all')
   end
 
   test '#area' do

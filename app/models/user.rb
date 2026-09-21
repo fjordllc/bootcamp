@@ -32,7 +32,6 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   include StagingEnvironment
   include UserAuthentication
-  include UserAttachments
   include UserOauthProvider
   include UserDiscordIntegration
   include UserAffiliation
@@ -45,18 +44,54 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include UserDevelopmentEnvironment
   include UserPayment
   include UserRetirement
-  include UserContent
   include UserLearning
   include UserEventParticipation
   include UserFollow
   include UserNotification
-  include UserRegistration
   include UserLifecycleStatus
   include UserRole
   include UserActivityStatus
   include UserStudentGroup
-  include UserTargetScopeResolver
   include Ransackable
+
+  has_one_attached :avatar
+  has_one_attached :profile_image
+  has_one_attached :diploma_file
+
+  validates :uploaded_avatar, avatar_content_type: true
+  validates :diploma_file, content_type: { in: ['application/pdf'], message: 'はPDF形式にしてください' }
+
+  has_many :pages, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :reports, dependent: :destroy
+  has_many :articles, dependent: :destroy
+  has_many :questions, dependent: :destroy
+  has_many :announcements, dependent: :destroy
+  has_many :movies, dependent: :nullify
+  has_many :micro_reports, dependent: :destroy
+  has_many :authored_micro_reports, class_name: 'MicroReport', foreign_key: 'comment_user_id', dependent: :destroy, inverse_of: :comment_user
+  has_many :surveys, dependent: :destroy
+  has_many :survey_questions, dependent: :destroy
+  has_many :authored_books, dependent: :destroy
+  accepts_nested_attributes_for :authored_books, allow_destroy: true
+  has_one :talk, dependent: :destroy
+  has_one :report_preset, dependent: :destroy
+  has_many :images, dependent: :destroy
+  has_many :works, dependent: :destroy
+  has_many :external_entries, dependent: :destroy
+  has_many :watches, dependent: :destroy
+  has_many :reactions, dependent: :destroy
+  has_many :footprints, dependent: :destroy
+  has_many :answers, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
+
+  after_create UserCallbacks.new
+
+  scope :classmates, ->(start_date, end_date) { where(created_at: start_date..end_date).order(:created_at, :id) }
+  scope :campaign, -> { where(created_at: Campaign.recently_campaign) }
+  scope :year_end_party, -> { YearEndPartyTargetsQuery.new(all).call }
+
+  validates :nda, presence: true
 
   delegate :card?, :paid?, :subscription?, to: :billing
   delegate :elapsed_days, :training_remaining_days, to: :enrollment_period
@@ -70,6 +105,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   delegate :country_name, :subdivision_name, :subdivision_codes, :area, to: :region
   delegate :participating?, :unfinished_participated_regular_events, :involved_events, :involved_regular_events, to: :event_involvement
   delegate :clean_up_regular_events, to: :regular_event_cleanup
+  delegate :avatar_url, :profile_image_url, to: :avatar_handler
 
   def course_practice
     UserCoursePractice.new(self)
@@ -163,5 +199,9 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   def regular_event_cleanup
     UserRegularEventCleanup.new(self)
+  end
+
+  def avatar_handler
+    UserAvatar.new(self)
   end
 end
