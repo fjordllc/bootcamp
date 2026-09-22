@@ -16,6 +16,6 @@ article.card-list-item
                   | 更新
                 span.a-meta__value
                   | #{l coding_test.updated_at}
-      - if coding_test.passed_by?(current_user)
+      - if coding_test.submitted_by?(current_user)
         .stamp.is-circle.is-cleared
           .stamp__content.is-icon クリア

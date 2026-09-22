@@ -21,7 +21,7 @@ class CodingTest < ApplicationRecord
 
   validate :no_test_cases
 
-  def passed_by?(user)
+  def submitted_by?(user)
     coding_test_submissions.exists?(user:)
   end
 
