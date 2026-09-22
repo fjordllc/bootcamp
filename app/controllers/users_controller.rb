@@ -28,9 +28,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
                .order(updated_at: :desc)
     end
 
-    @random_tags = User.tags.sample(20)
-    @top3_tags_counts = User.tags.limit(3).map(&:count).uniq
-    @tag = ActsAsTaggableOn::Tag.find_by(name: params[:tag])
+    set_tag_cloud_variables
   end
 
   def show
@@ -94,13 +92,20 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
 
   private
 
+  def set_tag_cloud_variables
+    user_tag_counts = UserTagCountsQuery.new.call
+    @random_tags = user_tag_counts.sample(20)
+    @top3_tags_counts = user_tag_counts.limit(3).map(&:count).uniq
+    @tag = ActsAsTaggableOn::Tag.find_by(name: params[:tag])
+  end
+
   def fetch_target_users
     if @target == 'followings'
       current_user.followees_list(watch: @watch)
     elsif @entered_tag
       User.active_tagged_with(@entered_tag)
     else
-      users = User.users_role(@target, allowed_targets: target_allowlist)
+      users = UserTargetScopeResolver.new(User).users_role(@target, allowed_targets: target_allowlist)
       @target == 'inactive' ? users.order(:last_activity_at) : users
     end
   end

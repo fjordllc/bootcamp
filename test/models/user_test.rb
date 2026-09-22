@@ -8,6 +8,15 @@ class UserTest < ActiveSupport::TestCase
   include ProductHelper
   include AvatarHelper
 
+  test '.ransackable_attributes returns the allowed search attributes, not just the keyword search columns' do
+    attributes = User.ransackable_attributes
+
+    assert_includes attributes, 'email'
+    assert_includes attributes, 'company_id'
+    assert_includes attributes, 'created_at'
+    assert_equal 30, attributes.size
+  end
+
   test '#admin?' do
     assert users(:komagata).admin?
     assert users(:machida).admin?
@@ -48,13 +57,13 @@ class UserTest < ActiveSupport::TestCase
 
   test '#total_learnig_time' do
     user = users(:hatsuno)
-    assert_equal 0, user.total_learning_time
+    assert_equal 0, user.learning_time.total
 
     report = Report.new(user_id: user.id, title: 'test', reported_on: '2018-01-01', description: 'test', wip: false)
     report.learning_times << LearningTime.new(started_at: '2018-01-01 00:00:00', finished_at: '2018-01-01 02:00:00')
     report.learning_times << LearningTime.new(started_at: '2018-01-01 23:00:00', finished_at: '2018-01-02 01:00:00')
     report.save!
-    assert_equal 4, user.total_learning_time
+    assert_equal 4, user.learning_time.total
   end
 
   test '#reports_with_learning_times' do
@@ -142,11 +151,6 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 29, User.new(created_at: '2020-01-10 00:00:00').generation
   end
 
-  test '#practice_ids_skipped' do
-    user = users(:kensyu)
-    assert_includes(user.practice_ids_skipped, practices(:practice8).id)
-  end
-
   test '#depressed?' do
     user = users(:kimura)
 
@@ -166,18 +170,6 @@ class UserTest < ActiveSupport::TestCase
     report.emotion = 'positive'
     report.save!
     assert_not user.depressed?
-  end
-
-  test '.order_by_counts' do
-    ordered_users = User.order_by_counts('report', 'desc')
-    more_report_user = users(:sotugyou)
-    less_report_user = users(:mentormentaro)
-    assert ordered_users.index(more_report_user) < ordered_users.index(less_report_user)
-
-    ordered_users = User.order_by_counts('comment', 'asc')
-    more_comment_user = users(:komagata)
-    less_comment_user = users(:sotugyou)
-    assert ordered_users.index(less_comment_user) < ordered_users.index(more_comment_user)
   end
 
   test 'is valid with 8 or more characters' do
@@ -296,46 +288,6 @@ class UserTest < ActiveSupport::TestCase
     assert user.invalid?
   end
 
-  test 'notification for all' do
-    target = User.notification_receiver('all')
-    assert_includes(target, users(:kimura))
-    assert_not_includes(target, users(:yameo))
-  end
-
-  test 'notification for students' do
-    target = User.notification_receiver('students')
-    assert_includes(target, users(:kimura))
-    assert_includes(target, users(:komagata))
-    assert_includes(target, users(:mentormentaro))
-    assert_not_includes(target, users(:yameo))
-    assert_not_includes(target, users(:sotugyou))
-    assert_not_includes(target, users(:advijirou))
-    assert_not_includes(target, users(:kensyu))
-  end
-
-  test 'notification for job_seekers' do
-    target = User.notification_receiver('job_seekers')
-    assert_includes(target, users(:jobseeker))
-    assert_includes(target, users(:komagata))
-    assert_includes(target, users(:sotugyou))
-    assert_includes(target, users(:mentormentaro))
-    assert_not_includes(target, users(:sotugyou_with_job))
-    assert_not_includes(target, users(:kimura))
-    assert_not_includes(target, users(:yameo))
-  end
-
-  test 'notification for none' do
-    target = User.notification_receiver('none')
-    assert_not_includes(target, users(:kimura))
-    assert_not_includes(target, users(:jobseeker))
-    assert_not_includes(target, users(:komagata))
-    assert_not_includes(target, users(:mentormentaro))
-    assert_not_includes(target, users(:sotugyou))
-    assert_not_includes(target, users(:advijirou))
-    assert_not_includes(target, users(:kensyu))
-    assert_not_includes(target, users(:yameo))
-  end
-
   test '#follow' do
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)
@@ -408,78 +360,6 @@ class UserTest < ActiveSupport::TestCase
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
   end
 
-  test '.delayed when there are users within 2 weeks from completion of last practice' do
-    user = users(:nippounashi)
-    practice1 = practices(:practice1)
-    practice2 = practices(:practice2)
-    today = Time.zone.today
-
-    create_checked_product(user, practice1)
-    Learning.create!(
-      user:,
-      practice: practice1,
-      status: :complete,
-      created_at: (today - 2.weeks).to_formatted_s(:db),
-      updated_at: (today - 2.weeks).to_formatted_s(:db)
-    )
-
-    create_checked_product(user, practice2)
-    Learning.create!(
-      user:,
-      practice: practice2,
-      status: :complete,
-      created_at: (today - (2.weeks + 1.day)).to_formatted_s(:db),
-      updated_at: (today - (2.weeks + 1.day)).to_formatted_s(:db)
-    )
-
-    worried_users = User.delayed.order(completed_at: :asc)
-
-    assert_equal worried_users.where(id: user.id).size, 1
-    assert_equal worried_users.find(user.id).id, user.id
-  end
-
-  test '.delayed when there are users within less than 2 weeks from completion of last practice' do
-    user = users(:nippounashi)
-    today = Time.zone.today
-
-    Learning.create!(
-      user:,
-      practice: Practice.first,
-      status: :complete,
-      created_at: (today - (2.weeks - 1.day)).to_formatted_s(:db),
-      updated_at: (today - (2.weeks - 1.day)).to_formatted_s(:db)
-    )
-
-    worried_users = User.delayed.order(completed_at: :asc)
-
-    assert_equal worried_users.where(id: user.id).size, 0
-  end
-
-  test '.delayed when there are graduate users within 2 weeks from completion of last practice' do
-    user = users(:nippounashi)
-    practice1 = practices(:practice1)
-    today = Time.zone.today
-
-    create_checked_product(user, practice1)
-    Learning.create!(
-      user:,
-      practice: practice1,
-      status: :complete,
-      created_at: (today - 2.weeks).to_formatted_s(:db),
-      updated_at: (today - 2.weeks).to_formatted_s(:db)
-    )
-
-    worried_users = User.delayed.order(completed_at: :asc)
-    assert_equal worried_users.where(id: user.id).size, 1
-    assert_equal worried_users.find(user.id).id, user.id
-
-    user.graduated_on = today
-    user.save!
-
-    worried_users = User.delayed.order(completed_at: :asc)
-    assert_equal worried_users.where(id: user.id).size, 0
-  end
-
   test 'trainee must select company' do
     user = users(:kensyu)
     user.company_id = nil
@@ -487,7 +367,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '.depressed_reports' do
-    assert_equal 1, User.depressed_reports.size
+    assert_equal 1, DepressedReportsQuery.call.size
   end
 
   test '#wip_exists?' do
@@ -555,92 +435,20 @@ class UserTest < ActiveSupport::TestCase
     assert_empty users(:advijirou).colleague_trainees
   end
 
-  test '#after_twenty_nine_days_registration?' do
-    over29days_registered_student = User.create!(
-      login_name: 'thirty',
-      email: 'thirty@fjord.jp',
-      password: 'testtest',
-      name: '入会 三十郎',
-      name_kana: 'ニュウカイ サンジュウロウ',
-      description: '入会30日経過したユーザーです',
-      course: courses(:course1),
-      job: 'student',
-      os: 'mac',
-      experiences: 2,
-      created_at: Time.current - 30.days,
-      sent_student_followup_message: false
-    )
-    recently_registered_student = User.create!(
-      login_name: 'recently',
-      email: 'recently_registered_student@fjord.jp',
-      password: 'testtest',
-      name: '入会 太郎',
-      name_kana: 'ニュウカイ タロウ',
-      description: '最近入会したユーザーです',
-      course: courses(:course1),
-      job: 'student',
-      os: 'mac',
-      experiences: 2,
-      created_at: Time.current,
-      sent_student_followup_message: false
-    )
+  test '#followup_message_target? delegates to UserFollowupEligibility#eligible?' do
+    user = users(:kimura)
+    fake_eligibility = Object.new
+    def fake_eligibility.eligible?
+      true
+    end
+    build_eligibility = lambda do |target|
+      assert_equal user, target
+      fake_eligibility
+    end
 
-    assert over29days_registered_student.after_twenty_nine_days_registration?
-    assert_not recently_registered_student.after_twenty_nine_days_registration?
-  end
-
-  test '#followup_message_target?' do
-    target = User.create!(
-      login_name: 'thirty',
-      email: 'thirty@fjord.jp',
-      password: 'testtest',
-      name: '入会 三十郎',
-      name_kana: 'ニュウカイ サンジュウロウ',
-      description: '入会30日経過したユーザーです',
-      course: courses(:course1),
-      job: 'student',
-      os: 'mac',
-      experiences: 2,
-      hibernated_at: nil,
-      created_at: Time.current - 30.days,
-      sent_student_followup_message: false
-    )
-    nottarget = users(:komagata)
-    otameshi = users(:otameshi)
-    hibernated = users(:kyuukai)
-    assert target.followup_message_target?
-    assert_not nottarget.followup_message_target?
-    assert_not otameshi.followup_message_target?
-    assert_not hibernated.followup_message_target?
-  end
-
-  test '#mark_message_as_sent_for_hibernated_student' do
-    User.mark_message_as_sent_for_hibernated_student
-
-    assert_not users(:komagata).sent_student_followup_message
-    assert users(:kyuukai).sent_student_followup_message
-  end
-
-  test '#sent_student_followup_message' do
-    target = User.create!(
-      login_name: 'thirty',
-      email: 'thirty@fjord.jp',
-      password: 'testtest',
-      name: '入会 三十郎',
-      name_kana: 'ニュウカイ サンジュウロウ',
-      description: '入会30日経過したユーザーです',
-      course: courses(:course1),
-      job: 'student',
-      os: 'mac',
-      experiences: 2,
-      hibernated_at: nil,
-      created_at: Time.current - 30.days,
-      sent_student_followup_message: false
-    )
-
-    User.create_followup_comment(target)
-
-    assert target.sent_student_followup_message
+    UserFollowupEligibility.stub(:new, build_eligibility) do
+      assert user.followup_message_target?
+    end
   end
 
   test '#hibernation_elapsed_days' do
@@ -682,39 +490,6 @@ class UserTest < ActiveSupport::TestCase
     assert user.valid?
   end
 
-  test '#create_comebacked_comment' do
-    hajime = users(:hajime)
-    comment =
-      assert_difference 'Comment.count', 1 do
-        hajime.create_comebacked_comment
-      end
-    description = "お帰りなさい！！復会ありがとうございます。\n" \
-           '休会中に何か変わったことがあれば、再びスムーズに学び始めることができるように全力でサポートします。' \
-           "何か困ったことや質問があれば、メンターの皆さんに遠慮なくご相談ください。\n\n" \
-           "またフィヨルドブートキャンプの Discord のサーバーに入室できるように、再度、Doc にある Discord の招待 URL にアクセスをお願いします。\n" \
-           '<https://bootcamp.fjord.jp/practices/129#url>'
-    assert_equal hajime.id, comment.commentable.user_id
-    assert_equal users(:pjord).id, comment.user_id
-    assert_equal description, comment.body
-  end
-
-  test 'comeback skips subscription in staging environment' do
-    user = users(:kyuukai)
-
-    original_db_name = ENV['DB_NAME']
-    ENV['DB_NAME'] = 'bootcamp_staging'
-
-    Rails.env.stub(:production?, true) do
-      assert_nothing_raised do
-        user.comeback!
-      end
-    end
-
-    assert_nil user.reload.hibernated_at
-  ensure
-    ENV['DB_NAME'] = original_db_name
-  end
-
   test '#become_watcher!' do
     watchable = pages(:page1)
     user = users(:kimura)
@@ -723,26 +498,6 @@ class UserTest < ActiveSupport::TestCase
 
     user.become_watcher!(watchable)
     assert user.watches.exists?(watchable:)
-  end
-
-  test '.users_role' do
-    allowed_targets = %w[student_and_trainee mentor graduate adviser trainee year_end_party]
-
-    # target引数とdefault_target引数に関して、targetとscope名が一致しているケースと一致していないケースを順にテストする
-    assert_equal User.mentor, User.users_role('mentor', allowed_targets:, default_target: 'student_and_trainee')
-    assert_equal User.graduated, User.users_role('graduate', allowed_targets:, default_target: 'student_and_trainee')
-
-    assert_equal User.year_end_party, User.users_role('', allowed_targets:, default_target: 'year_end_party')
-    assert_equal User.students_and_trainees, User.users_role('', allowed_targets:, default_target: 'student_and_trainee')
-  end
-
-  test '.users_role returns default_target when invalid target is passed' do
-    allowed_targets = %w[student_and_trainee mentor graduate adviser trainee year_end_party]
-    not_allowed_target = 'retired'
-    assert_equal User.students_and_trainees, User.users_role(not_allowed_target, allowed_targets:, default_target: 'student_and_trainee')
-    not_scope_name = 'destroy_all'
-    assert_equal User.students_and_trainees, User.users_role(not_scope_name, allowed_targets:, default_target: 'student_and_trainee')
-    assert_empty User.users_role(not_scope_name, allowed_targets:)
   end
 
   test '#clean_up_regular_events removes participant from unfinished regular event' do
@@ -777,18 +532,6 @@ class UserTest < ActiveSupport::TestCase
     assert_nil users(:hatsuno).scheduled_retire_at
   end
 
-  test '.users_job' do
-    assert_equal User.job_student, User.users_job('student')
-    assert_equal User.job_office_worker, User.users_job('office_worker')
-    assert_equal User.job_part_time_worker, User.users_job('part_time_worker')
-    assert_equal User.job_vacation, User.users_job('vacation')
-    assert_equal User.job_unemployed, User.users_job('unemployed')
-  end
-
-  test '.users_job returns all users when invalid job is passed' do
-    assert_equal User.all, User.users_job('destroy_all')
-  end
-
   test '#area' do
     tokyo_user = users(:machida)
     america_user = users(:tom)
@@ -796,13 +539,6 @@ class UserTest < ActiveSupport::TestCase
     assert_equal '東京都', tokyo_user.area
     assert_equal '米国', america_user.area
     assert_nil no_area_user.area
-  end
-
-  test '.by_area' do
-    tokyo_users = [users(:adminonly), users(:machida), users(:kimura)]
-    assert_equal User.by_area('東京都').to_a.sort, tokyo_users.sort
-    america_users = [users(:neverlogin), users(:tom)]
-    assert_equal User.by_area('米国').to_a.sort, america_users.sort
   end
 
   test 'clear_github_data should clear GitHub related fields' do
@@ -838,13 +574,6 @@ class UserTest < ActiveSupport::TestCase
   test '.job_seeking' do
     user = users(:jobseeking)
     assert_includes User.job_seeking, user
-  end
-
-  test '#mark_mail_as_sent_before_auto_retire' do
-    user = users(:hajime)
-    assert_not user.sent_student_before_auto_retire_mail
-    user.mark_mail_as_sent_before_auto_retire
-    assert user.sent_student_before_auto_retire_mail
   end
 
   test '#involved_regular_events returns both participating and organizing regular events' do

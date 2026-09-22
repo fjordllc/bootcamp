@@ -2,6 +2,6 @@
 
 class Mentor::HomeController < MentorController
   def index
-    @worried_users = User.delayed.order(completed_at: :asc)
+    @worried_users = DelayedUsersQuery.new.call.order(completed_at: :asc)
   end
 end

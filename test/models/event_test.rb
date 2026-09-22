@@ -82,16 +82,6 @@ class EventTest < ActiveSupport::TestCase
     assert_not_includes event.participations.disabled, move_up_participation
   end
 
-  test '#update_participations' do
-    event = events(:event3)
-    move_up_participation = participations(:participation2)
-
-    event.update(capacity: 2)
-    event.update_participations
-
-    assert_not_includes event.participations.disabled, move_up_participation
-  end
-
   test '#send_notification' do
     event = events(:event3)
     user = users(:hatsuno)

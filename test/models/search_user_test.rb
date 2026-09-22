@@ -43,7 +43,7 @@ class SearchUserTest < ActiveSupport::TestCase
     mentor = users(:mentormentaro)
 
     allowed_targets = %w[student_and_trainee followings mentor graduate adviser trainee year_end_party]
-    users = User.users_role('mentor', allowed_targets:)
+    users = UserTargetScopeResolver.new(User).users_role('mentor', allowed_targets:)
 
     search_user = SearchUser.new(word: 'kimu', users:)
     assert_not_includes search_user.search, kimura

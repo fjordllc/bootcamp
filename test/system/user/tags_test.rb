@@ -152,7 +152,7 @@ class User::TagsTest < ApplicationSystemTestCase
     user = users(:kensyu)
     tag_name = acts_as_taggable_on_tags('guitar').name.to_s
 
-    User.tags.where.not(name: tag_name).destroy_all
+    UserTagCountsQuery.new.call.where.not(name: tag_name).destroy_all
 
     visit_with_auth users_tag_path(tag_name), 'kensyu'
     assert_text "タグ「#{tag_name}」のユーザー（2）"
@@ -191,7 +191,7 @@ class User::TagsTest < ApplicationSystemTestCase
     user = users(:kensyu)
     tag_name = acts_as_taggable_on_tags('guitar').name.to_s
 
-    User.tags.where.not(name: tag_name).destroy_all
+    UserTagCountsQuery.new.call.where.not(name: tag_name).destroy_all
 
     visit_with_auth users_tag_path(tag_name), 'kensyu'
     assert_text "タグ「#{tag_name}」のユーザー（2）"
