@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
 class MentorInfoTool < RubyLLM::Tool
-  description '相談に協力できるメンターのログイン名と得意分野・プロフィールを取得する。'
+  description '相談に協力できるメンターのログイン名と得意分野・経験を取得する。'
 
   def execute
-    profiles = User.mentor.unretired.unhibernated.order(:login_name).filter_map do |mentor|
-      next if mentor.mentor_profile.blank?
+    contexts = User.mentor.unretired.unhibernated.order(:login_name).filter_map do |mentor|
+      next if mentor.mentor_ai_context.blank?
 
-      "## @#{mentor.login_name}\n#{mentor.mentor_profile}"
+      "## @#{mentor.login_name}\n#{mentor.mentor_ai_context}"
     end
-    return '相談内容に合うメンター情報が登録されていません。メンションせずに回答してください。' if profiles.empty?
+    return '相談内容に合うメンター情報が登録されていません。メンションせずに回答してください。' if contexts.empty?
 
-    profiles.join("\n\n")
+    contexts.join("\n\n")
   end
 end

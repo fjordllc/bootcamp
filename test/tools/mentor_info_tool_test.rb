@@ -3,21 +3,21 @@
 require 'test_helper'
 
 class MentorInfoToolTest < ActiveSupport::TestCase
-  test 'returns active mentors with collaboration profiles and exact mention names' do
+  test 'returns active mentors with AI contexts and exact mention names' do
     mentor = users(:mentormentaro)
-    mentor.update!(mentor_profile: 'Rubyが得意です。Webアプリの開発経験があります。')
+    mentor.update!(mentor_ai_context: 'Rubyが得意です。Webアプリの開発経験があります。')
 
     result = MentorInfoTool.new.execute
 
     assert_includes result, "@#{mentor.login_name}"
-    assert_includes result, mentor.mentor_profile
+    assert_includes result, mentor.mentor_ai_context
   end
 
   test 'excludes students, retired or hibernated mentors and blank profiles' do
-    users(:kimura).update!(mentor_profile: 'Ruby')
-    users(:mentormentaro).update!(mentor_profile: 'Ruby', retired_on: Date.current)
-    users(:komagata).update!(mentor_profile: 'Rails', hibernated_at: Time.current)
-    users(:machida).update!(mentor_profile: '   ')
+    users(:kimura).update!(mentor_ai_context: 'Ruby')
+    users(:mentormentaro).update!(mentor_ai_context: 'Ruby', retired_on: Date.current)
+    users(:komagata).update!(mentor_ai_context: 'Rails', hibernated_at: Time.current)
+    users(:machida).update!(mentor_ai_context: '   ')
 
     result = MentorInfoTool.new.execute
 
