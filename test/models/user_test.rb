@@ -8,6 +8,15 @@ class UserTest < ActiveSupport::TestCase
   include ProductHelper
   include AvatarHelper
 
+  test '.ransackable_attributes returns the allowed search attributes, not just the keyword search columns' do
+    attributes = User.ransackable_attributes
+
+    assert_includes attributes, 'email'
+    assert_includes attributes, 'company_id'
+    assert_includes attributes, 'created_at'
+    assert_equal 30, attributes.size
+  end
+
   test '#admin?' do
     assert users(:komagata).admin?
     assert users(:machida).admin?
@@ -140,11 +149,6 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 2, User.new(created_at: '2013-05-05 00:00:00').generation
     assert_equal 6, User.new(created_at: '2014-04-10 00:00:00').generation
     assert_equal 29, User.new(created_at: '2020-01-10 00:00:00').generation
-  end
-
-  test '#practice_ids_skipped' do
-    user = users(:kensyu)
-    assert_includes(user.practice_ids_skipped, practices(:practice8).id)
   end
 
   test '#depressed?' do

@@ -41,6 +41,14 @@ class UserCoursePracticeTest < ActiveSupport::TestCase
     assert_includes(@user_course_practice_kensyu.skipped_practice_ids, practices(:practice8).id)
   end
 
+  test '#practices_with_checked_product' do
+    user = users(:kensyu)
+    practice = practices(:practice3)
+    create_checked_product(user, practice)
+
+    assert_includes(user.course_practice.practices_with_checked_product, practice)
+  end
+
   test '#category_active_or_unstarted_practice: returns the first started practice category if multiple started practices exist' do
     user = users(:komagata)
     user.learnings.destroy_all

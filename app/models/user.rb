@@ -5,9 +5,6 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w[id login_name company_id last_activity_at created_at report comment asc desc].freeze
-  AVATAR_SIZE = [120, 120].freeze
-  AVATAR_FORMAT = 'webp'
-  DEFAULT_IMAGE_PATH = '/images/users/avatars/default.png'
   RESERVED_LOGIN_NAMES = %w[adviser all graduate inactive job_seeking mentor retired student student_and_trainee trainee year_end_party].freeze
   MAX_PERCENTAGE = 100
   DEPRESSED_SIZE = 2
@@ -15,7 +12,6 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   HIBERNATION_LIMIT = 3.months
   HIBERNATION_LIMIT_BEFORE_ONE_WEEK = HIBERNATION_LIMIT - 1.week
 
-  include ActionView::Helpers::AssetUrlHelper
   include Taggable
   include Searchable
 
@@ -52,7 +48,25 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include UserRole
   include UserActivityStatus
   include UserStudentGroup
-  include Ransackable
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[
+      login_name name name_kana email twitter_account facebook_url
+      blog_url github_account description profile_text
+      created_at updated_at last_activity_at
+      company_id course_id graduated_on retired_on
+      admin mentor adviser trainee job_seeker hibernated_at
+      experiences career_path job os editor subdivision_code country_code
+    ]
+  end
+
+  def self.ransackable_scopes(_auth_object = nil)
+    %i[job_seeking]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[company course discord_profile]
+  end
 
   has_one_attached :avatar
   has_one_attached :profile_image
@@ -127,18 +141,6 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     course&.grant?
   end
 
-  def submitted?(coding_test)
-    coding_test_submissions.exists?(coding_test_id: coding_test.id)
-  end
-
-  def practices_with_checked_product
-    Practice.where(products: products.checked)
-  end
-
-  def practice_ids_skipped
-    skipped_practices.pluck(:practice_id)
-  end
-
   def clear_github_data
     update(github_id: nil, github_account: nil, github_collaborator: false)
   end
@@ -148,7 +150,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   end
 
   def generation
-    (created_at.year - 2013) * 4 + (created_at.month + 2) / 3
+    Generation.generation_number_for(created_at)
   end
 
   def search_title

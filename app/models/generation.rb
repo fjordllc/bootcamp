@@ -11,8 +11,11 @@ class Generation
     end
 
     def latest_generation_number
-      now_time = Time.zone.now
-      (now_time.year - START_YEAR) * 4 + (now_time.month + 2) / 3
+      generation_number_for(Time.zone.now)
+    end
+
+    def generation_number_for(date)
+      (date.year - START_YEAR) * 4 + (date.month + 2) / 3
     end
   end
 
