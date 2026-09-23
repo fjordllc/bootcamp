@@ -1,7 +1,13 @@
 import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
-  static targets = ['editTab', 'editPanel', 'previewTab', 'previewPanel']
+  static targets = [
+    'editTab',
+    'editPanel',
+    'editBody',
+    'previewTab',
+    'previewPanel'
+  ]
 
   openEditTab() {
     this.#showTab('edit')
@@ -9,6 +15,11 @@ export default class extends Controller {
 
   openPreviewTab() {
     this.#showTab('preview')
+  }
+
+  toggleRaw(event) {
+    const isRawVisible = !event.currentTarget.classList.contains('is-active')
+    this.#setRawMode(isRawVisible)
   }
 
   #showTab(tabName) {
@@ -19,5 +30,19 @@ export default class extends Controller {
     this.editPanelTarget.classList.toggle('is-active', showEdit)
     this.previewTabTarget.classList.toggle('is-active', showPreview)
     this.previewPanelTarget.classList.toggle('is-active', showPreview)
+  }
+
+  #setRawMode(isRawVisible) {
+    const rawMarkdownElement = this.element.querySelector('.js-comment-raw')
+    const renderedHtmlElement = this.element.querySelector('.js-comment-html')
+    const rawButton = this.element.querySelector('.js-raw-button')
+
+    if (isRawVisible) {
+      rawMarkdownElement.textContent = this.editBodyTarget.value
+    }
+
+    rawMarkdownElement.classList.toggle('is-hidden', !isRawVisible)
+    renderedHtmlElement.classList.toggle('is-hidden', isRawVisible)
+    rawButton.classList.toggle('is-active', isRawVisible)
   }
 }
