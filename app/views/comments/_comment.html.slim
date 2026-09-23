@@ -1,4 +1,5 @@
 article.thread-comment.comment [
+  data-controller="comment"
   class="#{'is-hidden' unless latest_comment?(comment, latest_comment)} #{'is-latest' if latest_comment?(comment, latest_comment)}"
   id="comment_#{comment.id}"
   data-comment_id=comment.id
@@ -57,12 +58,20 @@ article.thread-comment.comment [
     .a-card.is-comment.comment-editor.js-comment-editor.is-hidden
       .thread-comment-form__form
         .a-form-tabs.js-tabs
-          .a-form-tabs__tab.js-tabs__tab.edit-comment-tab.is-active
+          .a-form-tabs__tab.js-tabs__tab.edit-comment-tab.is-active [
+            data-comment-target="editTab"
+            data-action="click->comment#openEditTab"
+          ]
             | コメント
-          .a-form-tabs__tab.js-tabs__tab.comment-preview-tab
+          .a-form-tabs__tab.js-tabs__tab.comment-preview-tab [
+            data-comment-target="previewTab"
+            data-action="click->comment#openPreviewTab"
+          ]
             | プレビュー
         .a-markdown-input.js-markdown-parent
-          .a-markdown-input__inner.is-editor.js-tabs__content.is-active
+          .a-markdown-input__inner.is-editor.js-tabs__content.is-active [
+            data-comment-target="editContent"
+          ]
             .form-textarea
               .form-textarea__body
                 textarea.a-text-input.a-markdown-input__textarea id="js-comment-#{comment.id}" data-preview="#js-comment-preview-#{comment.id}" data-input=".js-comment-file-input-#{comment.id}" name='comment[description]'
@@ -72,7 +81,9 @@ article.thread-comment.comment [
                   label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
                     | ファイルを挿入
                     input(class="js-comment-file-input-#{comment.id}" type='file' multiple)
-          .a-markdown-input__inner.is-preview.js-tabs__content
+          .a-markdown-input__inner.is-preview.js-tabs__content [
+            data-comment-target="previewContent"
+          ]
             .js-preview.a-long-text.is-md.a-markdown-input__preview id="js-comment-preview-#{comment.id}"
         hr.a-border-tint
         .card-footer
