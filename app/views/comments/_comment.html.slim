@@ -28,7 +28,7 @@ article.thread-comment.comment [
           time.thread-comment__created-at
             = l(comment.created_at)
           .raw-button
-            button.a-button.is-sm.is-secondary.js-raw-button
+            button.a-button.is-sm.is-secondary.js-raw-button data-action="click->comment#toggleRaw"
               | Raw
       hr.a-border-tint
       .thread-comment__description
