@@ -59,18 +59,6 @@ function initializeComment(comment) {
     })
   }
 
-  const editTab = commentEditor.querySelector('.edit-comment-tab')
-  const editorTabContent = commentEditor.querySelector('.is-editor')
-  const previewTab = commentEditor.querySelector('.comment-preview-tab')
-  const previewTabContent = commentEditor.querySelector('.is-preview')
-  const tabElements = [editTab, editorTabContent, previewTab, previewTabContent]
-  editTab.addEventListener('click', () =>
-    toggleVisibility(tabElements, 'is-active')
-  )
-  previewTab.addEventListener('click', () =>
-    toggleVisibility(tabElements, 'is-active')
-  )
-
   const saveButton = commentEditor.querySelector('.js-comment-save-button')
   if (saveButton) {
     saveButton.addEventListener('click', () => {
