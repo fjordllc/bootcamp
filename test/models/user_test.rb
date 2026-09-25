@@ -348,8 +348,34 @@ class UserTest < ActiveSupport::TestCase
     hatsuno = users(:hatsuno)
     kimura.follow(hatsuno, watch: true)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id, watch: true)
-    kimura.change_watching(hatsuno, false)
+    assert kimura.change_watching(hatsuno, false)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id, watch: false)
+    assert kimura.change_watching(hatsuno, true)
+    assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id, watch: true)
+  end
+
+  test '#change_watching without following' do
+    kimura = users(:kimura)
+    hatsuno = users(:hatsuno)
+    other_following = users(:hajime).follow(hatsuno, watch: true)
+
+    assert_no_difference 'Following.count' do
+      assert_not kimura.change_watching(hatsuno, false)
+    end
+    assert_not kimura.following?(hatsuno)
+    assert other_following.reload.watch?
+  end
+
+  test '#change_watching after unfollowing' do
+    kimura = users(:kimura)
+    hatsuno = users(:hatsuno)
+    kimura.follow(hatsuno, watch: true)
+    kimura.unfollow(hatsuno)
+
+    assert_no_difference 'Following.count' do
+      assert_not kimura.change_watching(hatsuno, true)
+    end
+    assert_not kimura.following?(hatsuno)
   end
 
   test '#unfollow' do
@@ -406,17 +432,6 @@ class UserTest < ActiveSupport::TestCase
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
     hajime.unfollow(hatsuno)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
-  end
-
-  test '#update_user_mentor_memo' do
-    user = users(:kimura)
-    assert_equal 'kimuraさんのメモ', user.mentor_memo
-    user.updated_at = Time.zone.local(2020, 1, 1, 0, 0, 0)
-    user.update_mentor_memo('新規メモ')
-    travel_to Time.zone.local(2020, 1, 1, 0, 0, 0) do
-      assert user.updated_at
-    end
-    assert_equal '新規メモ', user.mentor_memo
   end
 
   test '.delayed when there are users within 2 weeks from completion of last practice' do

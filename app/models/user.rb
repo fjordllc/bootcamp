@@ -92,6 +92,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   belongs_to :company, optional: true
   belongs_to :course
+  has_many :mentor_memos, dependent: :destroy
   has_many :learnings, dependent: :destroy
   has_many :pages, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -769,7 +770,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   def change_watching(other_user, watch)
     following = Following.find_by(follower_id: self, followed_id: other_user)
-    following.update(watch:)
+    following&.update(watch:)
   end
 
   def unfollow(other_user)
@@ -790,13 +791,6 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     else
       followees
     end
-  end
-
-  def update_mentor_memo(new_memo)
-    # ユーザーの「最終ログイン」にupdated_at値が利用されるため
-    # メンターor管理者によるmemoカラムのupdateの際は、updated_at値の変更を防ぐ
-    self.record_timestamps = false
-    update!(mentor_memo: new_memo)
   end
 
   def mark_all_as_read_and_delete_cache_of_unreads(target_notifications: nil)
