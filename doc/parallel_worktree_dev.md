@@ -40,8 +40,13 @@ worktree間で衝突するのは**ホストポート**と`COMPOSE_PROJECT_NAME`�
 cat > .env.local <<EOF
 WEB_PORT=3010
 COMPOSE_PROJECT_NAME=bootcamp_qa
+STRIPE_PUBLIC_KEY=<your_stripe_test_public_key>
+STRIPE_SECRET_KEY=<your_stripe_test_secret_key>
+STRIPE_ENDPOINT_SECRET=<your_stripe_test_endpoint_secret>
 EOF
 ```
+
+※ Stripe テスト鍵は `.env.local` (gitignore対象) 経由でコンテナに注入される。
 
 ※ `claude-launcher` 経由で worktree を作れば自動生成される (空きポート自動割当)。
 
