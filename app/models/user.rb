@@ -770,7 +770,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   def change_watching(other_user, watch)
     following = Following.find_by(follower_id: self, followed_id: other_user)
-    following.update(watch:)
+    following&.update(watch:)
   end
 
   def unfollow(other_user)
