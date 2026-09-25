@@ -38,16 +38,9 @@ class NotificationsBell {
   }
 
   bindEvents() {
-    this.bellButton.addEventListener('click', () => {
-      this.showDropdown()
+    this.container.addEventListener('notifications-dropdown:opened', () => {
+      this.loadNotifications()
     })
-
-    this.background.addEventListener('click', (e) => {
-      if (e.target === e.currentTarget) {
-        this.hideDropdown()
-      }
-    })
-
     this.unreadTab.addEventListener('click', () => {
       this.setTargetStatus('unread')
     })
@@ -59,27 +52,6 @@ class NotificationsBell {
     this.openAllTabs.addEventListener('click', () => {
       this.openUnconfirmedItems()
     })
-
-    // Close dropdown on escape key
-    document.addEventListener('keydown', (e) => {
-      if (
-        e.key === 'Escape' &&
-        !this.dropdown.classList.contains('is-hidden')
-      ) {
-        this.hideDropdown()
-      }
-    })
-  }
-
-  showDropdown() {
-    this.dropdown.classList.remove('is-hidden')
-    this.bellButton.setAttribute('aria-expanded', 'true')
-    this.loadNotifications()
-  }
-
-  hideDropdown() {
-    this.dropdown.classList.add('is-hidden')
-    this.bellButton.setAttribute('aria-expanded', 'false')
   }
 
   setTargetStatus(status) {
