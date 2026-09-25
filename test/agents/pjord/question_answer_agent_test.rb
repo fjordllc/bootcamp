@@ -22,6 +22,8 @@ class Pjord::QuestionAnswerAgentTest < ActiveSupport::TestCase
     assert_includes chat.instructions, 'Q&A回答の指示'
     assert_includes chat.instructions, question.practice.title
     assert_includes chat.instructions, '人間らしい文章にする'
+    assert_includes chat.instructions, 'mentor_info_toolで得意分野・経験を確認する'
+    assert_includes chat.tools, MentorInfoTool
     assert_includes chat.asked_message, question.title
     assert_includes chat.asked_message, question.description
   end
@@ -42,14 +44,15 @@ class Pjord::QuestionAnswerAgentTest < ActiveSupport::TestCase
   end
 
   class AgentChatFake
-    attr_reader :asked_message, :instructions
+    attr_reader :asked_message, :instructions, :tools
 
     def with_instructions(instructions)
       @instructions = instructions
       self
     end
 
-    def with_tools(*)
+    def with_tools(*tools)
+      @tools = tools
       self
     end
 

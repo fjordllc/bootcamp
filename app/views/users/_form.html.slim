@@ -82,6 +82,11 @@
       h3.form__items-title クレジットカード情報
       = render 'users/form/card'
 
+  - if user.mentor? && from == :edit
+    .form__items
+      h3.form__items-title pjordとの連携
+      = render 'users/form/mentor_ai_context', f: f
+
   - if user.mentor?
     .form__items
       h3.form__items-title メンター紹介用公開プロフィール

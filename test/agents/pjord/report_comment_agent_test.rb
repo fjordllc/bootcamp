@@ -23,12 +23,13 @@ class Pjord::ReportCommentAgentTest < ActiveSupport::TestCase
     assert_includes chat.instructions, 'external_content_toolを使って内容を確認してからコメントしてください。'
     assert_includes chat.instructions, 'GitHubのPR、ファイル、ディレクトリ、rawファイルへのURLが含まれる場合'
     assert_includes chat.instructions, 'CodePenやリンク先が見えない'
-    assert_includes chat.instructions, 'メンターへのメンションや対応引き継ぎの依頼はしないでください。'
+    assert_includes chat.instructions, 'リンク先を確認できないことだけを理由に、メンターへのメンションや対応引き継ぎの依頼はしないでください。'
+    assert_includes chat.instructions, 'mentor_info_toolで得意分野・経験を確認する'
     assert_includes chat.instructions, 'リンク先の内容がコメントに不可欠でない場合'
     assert_includes chat.instructions, '日報を書いたユーザーに「見られる状態にしてください」「内容を教えてください」と質問しないでください。'
     assert_includes chat.asked_message, report.title
     assert_includes chat.asked_message, report.description
-    assert_equal [BootcampSearchTool, UserInfoTool, ExternalContentTool], chat.tools
+    assert_equal [BootcampSearchTool, UserInfoTool, ExternalContentTool, MentorInfoTool], chat.tools
     assert_equal PjordResponse, chat.schema
   end
 
