@@ -150,6 +150,7 @@ Rails.application.routes.draw do
   get '/users/:id', to: 'users#show', as: :niconico_calendar_date_in_profile, constraints: niconico_calendar_constraints
   resources :movies
   resources :watches, only: %i(create destroy)
+  resources :comments, only: %i(create)
   namespace 'watches' do
     resource :refresh, only: %i(show)
   end

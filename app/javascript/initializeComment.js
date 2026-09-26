@@ -34,16 +34,6 @@ function initializeComment(comment) {
   const commentHtml = commentDisplay.querySelector('.js-comment-html')
   const rawButton = commentDisplay.querySelector('.js-raw-button')
   const textareaElements = [commentHtml, commentRaw]
-  if (rawButton) {
-    rawButton.addEventListener('click', () => {
-      if (commentRaw) {
-        commentRaw.textContent = editorTextarea.value
-      }
-      toggleVisibility(textareaElements, 'is-hidden')
-      toggleVisibility([rawButton], 'is-active')
-    })
-  }
-
   const editButton = commentDisplay.querySelector('.card-main-actions__action')
   const modalElements = [commentDisplay, commentEditor]
   if (editButton) {
@@ -58,18 +48,6 @@ function initializeComment(comment) {
       }
     })
   }
-
-  const editTab = commentEditor.querySelector('.edit-comment-tab')
-  const editorTabContent = commentEditor.querySelector('.is-editor')
-  const previewTab = commentEditor.querySelector('.comment-preview-tab')
-  const previewTabContent = commentEditor.querySelector('.is-preview')
-  const tabElements = [editTab, editorTabContent, previewTab, previewTabContent]
-  editTab.addEventListener('click', () =>
-    toggleVisibility(tabElements, 'is-active')
-  )
-  previewTab.addEventListener('click', () =>
-    toggleVisibility(tabElements, 'is-active')
-  )
 
   const saveButton = commentEditor.querySelector('.js-comment-save-button')
   if (saveButton) {
