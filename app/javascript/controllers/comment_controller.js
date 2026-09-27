@@ -4,6 +4,7 @@ import MarkdownInitializer from 'markdown-initializer'
 export default class extends Controller {
   static targets = [
     'commentCard',
+    'commentBody',
     'editCard',
     'editTab',
     'editPanel',
@@ -12,6 +13,10 @@ export default class extends Controller {
     'previewPanel',
     'previewBody'
   ]
+
+  connect() {
+    this.#renderCommentAndPreview(this.editBodyTarget.value)
+  }
 
   openEditor() {
     this.savedComment = this.editBodyTarget.value
@@ -59,6 +64,13 @@ export default class extends Controller {
     } catch (error) {
       console.error(error)
     }
+  }
+
+  #renderCommentAndPreview(markdown) {
+    const html = new MarkdownInitializer().render(markdown)
+
+    this.commentBodyTarget.innerHTML = html
+    this.previewBodyTarget.innerHTML = html
   }
 
   #showTab(tabName) {

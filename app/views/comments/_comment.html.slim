@@ -4,7 +4,6 @@ article.thread-comment.comment.is-hidden [
   id=dom_id(comment)
   data-comment_id=comment.id
   data-comment_created_at=comment.created_at.to_f
-  data-comment_description=comment.description
 ]
   #latest-comment
   .thread-comment__start
@@ -35,7 +34,7 @@ article.thread-comment.comment.is-hidden [
         - if comment.user.company && comment.user.adviser?
           a.thread-comment__company-link.is-hidden-md-up href="#{company_path(comment.user.company)}"
             img.thread-comment__company-logo src="#{comment.user.company.logo_url}"
-        .a-long-text.is-md.js-comment-html
+        .a-long-text.is-md.js-comment-html data-comment-target="commentBody"
           = comment.description
         pre.a-raw.language-md.is-hidden.js-comment-raw
           code
