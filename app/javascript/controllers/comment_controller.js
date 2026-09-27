@@ -43,6 +43,24 @@ export default class extends Controller {
     this.#setRawMode(isRawVisible)
   }
 
+  async copyUrl(event) {
+    const createdAtElement = event.currentTarget
+    if (!navigator.clipboard) return
+
+    const commentUrl = new URL(window.location.href)
+    commentUrl.hash = this.element.id
+
+    try {
+      await navigator.clipboard.writeText(commentUrl.toString())
+      createdAtElement.classList.add('is-active')
+      setTimeout(() => {
+        createdAtElement.classList.remove('is-active')
+      }, 4000)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   #showTab(tabName) {
     const showEdit = tabName === 'edit'
     const showPreview = tabName === 'preview'
