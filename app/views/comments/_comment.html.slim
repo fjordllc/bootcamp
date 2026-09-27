@@ -1,7 +1,7 @@
 article.thread-comment.comment.is-hidden [
   data-controller="comment"
   class=" #{'is-latest' if latest_comment?(comment, latest_comment)}"
-  id="comment_#{comment.id}"
+  id=dom_id(comment)
   data-comment_id=comment.id
   data-comment_created_at=comment.created_at.to_f
   data-comment_description=comment.description
@@ -25,7 +25,7 @@ article.thread-comment.comment.is-hidden [
             a.thread-comment__title-link.a-text-link href="#{comment.user.url}"
               = comment.user.login_name
             = pjord_ai_badge(comment.user)
-          time.thread-comment__created-at
+          time.thread-comment__created-at data-action="click->comment#copyUrl"
             = l(comment.created_at)
           .raw-button
             button.a-button.is-sm.is-secondary.js-raw-button data-action="click->comment#toggleRaw"
