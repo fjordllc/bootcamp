@@ -4,7 +4,6 @@ import MarkdownInitializer from 'markdown-initializer'
 
 function initializeComment(comment) {
   const commentId = comment.dataset.comment_id
-  const commentDescription = comment.dataset.comment_description
 
   const commentEditor = comment.querySelector('.js-comment-editor')
   if (!commentEditor) return
@@ -24,12 +23,6 @@ function initializeComment(comment) {
   const commentDisplay = comment.querySelector('.js-comment-display')
   const commentDisplayContent =
     commentDisplay?.querySelector('.js-comment-html')
-  if (commentDescription && commentDisplayContent) {
-    const rendered = markdownInitializer.render(commentDescription)
-    commentDisplayContent.innerHTML = rendered
-    commentEditorPreview.innerHTML = rendered
-  }
-
   const modalElements = [commentDisplay, commentEditor]
   const saveButton = commentEditor.querySelector('.js-comment-save-button')
   if (saveButton) {
