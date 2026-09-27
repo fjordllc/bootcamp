@@ -69,7 +69,7 @@ article.card-list-item(class="#{product.wip? ? 'is-wip' : ''} #{current_user.men
             .card-list-item-meta__items
               .card-list-item-meta__item
                 .card-list-item-meta__item-note
-                  | このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。
+                  | このプラクティスは、合格をもらっていなくても他の人の提出物を閲覧できます。
 
     - if current_user.mentor? && product.checks.empty?
       .js-checker(data-checker-id="#{product.checker_id}" data-checker-name="#{product.checker_name}" data-current-user-id="#{current_user.id}" data-product-id="#{product.id}")

@@ -14,6 +14,20 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text 'Watch中'
   end
 
+  test 'does not restore submission template after validation failure' do
+    practice = practices(:practice1)
+
+    visit_with_auth "/products/new?practice_id=#{practice.id}", 'hatsuno'
+
+    assert_field 'product[body]', with: '提出物のテンプレート'
+
+    fill_in 'product[body]', with: ''
+    click_button '提出する'
+
+    assert_text '入力内容にエラーがありました'
+    assert_field 'product[body]', with: ''
+  end
+
   test 'update product' do
     product = products(:product1)
     visit_with_auth "/products/#{product.id}/edit", 'mentormentaro'

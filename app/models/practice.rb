@@ -25,6 +25,14 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
            source: :user
   has_many :skipped_practices, dependent: :destroy
   has_many :products, dependent: :destroy
+
+  has_one :template, as: :templatable, dependent: :destroy
+  accepts_nested_attributes_for :template,
+                                update_only: true,
+                                allow_destroy: true
+
+  before_validation :mark_unnecessary_template_for_destruction
+
   has_many :questions, dependent: :nullify
   has_many :pages,
            -> { order(updated_at: :desc, id: :desc) },
@@ -252,6 +260,12 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
   end
 
   private
+
+  def mark_unnecessary_template_for_destruction
+    return unless template
+
+    template.mark_for_destruction if template.description.blank? || !submission?
+  end
 
   def total_learning_minute(report)
     total_time = report.learning_times.inject(0) do |sum, learning_time|

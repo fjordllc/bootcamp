@@ -464,6 +464,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_15_093000) do
     t.index ["survey_question_id"], name: "index_linear_scales_on_survey_question_id"
   end
 
+  create_table "mentor_memos", force: :cascade do |t|
+    t.bigint "author_id"
+    t.text "content", null: false
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.bigint "user_id", null: false
+    t.index ["author_id"], name: "index_mentor_memos_on_author_id"
+    t.index ["user_id"], name: "index_mentor_memos_on_user_id"
+  end
+
   create_table "micro_reports", force: :cascade do |t|
     t.bigint "comment_user_id"
     t.text "content", null: false
@@ -1085,6 +1095,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_15_093000) do
     t.index ["user_id"], name: "index_talks_on_user_id"
   end
 
+  create_table "templates", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "description", null: false
+    t.bigint "templatable_id", null: false
+    t.string "templatable_type", null: false
+    t.datetime "updated_at", null: false
+    t.index ["templatable_type", "templatable_id"], name: "index_templates_on_templatable", unique: true
+  end
+
   create_table "users", id: :serial, force: :cascade do |t|
     t.datetime "accessed_at", precision: nil
     t.boolean "admin", default: false, null: false
@@ -1212,6 +1231,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_15_093000) do
   add_foreign_key "learning_time_frames_users", "users"
   add_foreign_key "learning_times", "reports"
   add_foreign_key "linear_scales", "survey_questions"
+  add_foreign_key "mentor_memos", "users"
+  add_foreign_key "mentor_memos", "users", column: "author_id", on_delete: :nullify
   add_foreign_key "micro_reports", "users"
   add_foreign_key "micro_reports", "users", column: "comment_user_id"
   add_foreign_key "movies", "users"

@@ -64,11 +64,8 @@ Rails.application.routes.draw do
       resources :reactions, only: %i(index create destroy), controller: 'reports/reactions'
       resource :check, only: %i(create destroy), controller: 'reports/check'
     end
-    resources :watches, only: %i(index create destroy)
-    namespace 'watches' do
-      resources :toggle, only: %i(index)
-    end
-    resources :mentor_memos, only: %i(update)
+    resources :watches, only: :index
+    resources :mentor_memos, only: %i(create update destroy)
     resources :tags, only: %i(index update)
     resources :pages, only: %i(update)
     resources :questions, only: %i(index show update)

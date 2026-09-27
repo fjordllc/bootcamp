@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
+class Report < ApplicationRecord
   include Commentable
   include Checkable
   include Footprintable

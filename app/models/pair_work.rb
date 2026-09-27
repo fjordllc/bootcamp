@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 class PairWork < ApplicationRecord
   include Searchable
   include Commentable
@@ -132,4 +131,3 @@ class PairWork < ApplicationRecord
     errors.add(:reserved_at, 'は提案されたスケジュールに含まれていません') unless schedules.map(&:proposed_at).include?(reserved_at)
   end
 end
-# rubocop:enable Metrics/ClassLength
