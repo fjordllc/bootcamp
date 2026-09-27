@@ -1,13 +1,34 @@
 import { Controller } from '@hotwired/stimulus'
+import MarkdownInitializer from 'markdown-initializer'
 
 export default class extends Controller {
   static targets = [
+    'commentCard',
+    'editCard',
     'editTab',
     'editPanel',
     'editBody',
     'previewTab',
-    'previewPanel'
+    'previewPanel',
+    'previewBody'
   ]
+
+  openEditor() {
+    this.savedComment = this.editBodyTarget.value
+
+    this.commentCardTarget.classList.add('is-hidden')
+    this.editCardTarget.classList.remove('is-hidden')
+    this.#setRawMode(false)
+  }
+
+  cancelEditor() {
+    this.commentCardTarget.classList.remove('is-hidden')
+    this.editCardTarget.classList.add('is-hidden')
+
+    this.editBodyTarget.value = this.savedComment
+    const html = new MarkdownInitializer().render(this.savedComment)
+    this.previewBodyTarget.innerHTML = html
+  }
 
   openEditTab() {
     this.#showTab('edit')

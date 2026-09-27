@@ -30,25 +30,7 @@ function initializeComment(comment) {
     commentEditorPreview.innerHTML = rendered
   }
 
-  const commentRaw = commentDisplay.querySelector('.js-comment-raw')
-  const commentHtml = commentDisplay.querySelector('.js-comment-html')
-  const rawButton = commentDisplay.querySelector('.js-raw-button')
-  const textareaElements = [commentHtml, commentRaw]
-  const editButton = commentDisplay.querySelector('.card-main-actions__action')
   const modalElements = [commentDisplay, commentEditor]
-  if (editButton) {
-    editButton.addEventListener('click', () => {
-      if (!savedComment) {
-        savedComment = editorTextarea.value
-      }
-      toggleVisibility(modalElements, 'is-hidden')
-      if (rawButton.classList.contains('is-active')) {
-        toggleVisibility(textareaElements, 'is-hidden')
-        toggleVisibility([rawButton], 'is-active')
-      }
-    })
-  }
-
   const saveButton = commentEditor.querySelector('.js-comment-save-button')
   if (saveButton) {
     saveButton.addEventListener('click', () => {
@@ -59,13 +41,6 @@ function initializeComment(comment) {
       commentDisplayContent.innerHTML = markdownInitializer.render(savedComment)
     })
   }
-
-  const cancelButton = commentEditor.querySelector('.is-secondary')
-  cancelButton.addEventListener('click', () => {
-    toggleVisibility(modalElements, 'is-hidden')
-    editorTextarea.value = savedComment
-    commentEditorPreview.innerHTML = markdownInitializer.render(savedComment)
-  })
 
   editorTextarea.addEventListener('input', () => {
     commentEditorPreview.innerHTML = markdownInitializer.render(
