@@ -35,12 +35,6 @@ function initializeComment(comment) {
     })
   }
 
-  editorTextarea.addEventListener('input', () => {
-    commentEditorPreview.innerHTML = markdownInitializer.render(
-      editorTextarea.value
-    )
-  })
-
   const deleteButton = comment.querySelector('.card-main-actions__muted-action')
   if (deleteButton) {
     deleteButton.addEventListener('click', () => {
