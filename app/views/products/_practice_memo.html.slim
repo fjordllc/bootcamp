@@ -1,6 +1,8 @@
 section.a-card.is-toggle.practice-memo.is-only-mentor(
   data-controller='memo-editor'
-  data-memo-editor-practice-id-value=practice_id
+  data-memo-editor-url-value=api_practice_path(practice_id)
+  data-memo-editor-param-root-value='practice'
+  data-memo-editor-editor-textarea-selector-value='#js-practice-memo'
 )
   input.a-toggle-checkbox#toggle-mentor-memo-body(type='checkbox')
   label.card-header.is-sm(for="toggle-mentor-memo-body")

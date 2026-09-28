@@ -9,7 +9,9 @@ export default class extends Controller {
   #savedMemo = ''
 
   static values = {
-    practiceId: Number
+    editorTextareaSelector: String,
+    url: String,
+    paramRoot: String
   }
 
   static targets = [
@@ -40,7 +42,7 @@ export default class extends Controller {
 
     try {
       this.#setFormDisabled(true)
-      await this.#updateMemo(memo, this.practiceIdValue)
+      await this.#updateMemo(memo)
     } catch (error) {
       toast('メモの保存に失敗しました', 'error')
       console.warn(error)
@@ -52,14 +54,14 @@ export default class extends Controller {
     this.#savedMemo = memo
     this.#renderMemo(this.#savedMemo)
     this.#showDisplay()
-    TextareaInitializer.initialize('#js-practice-memo')
+    TextareaInitializer.initialize(this.editorTextareaSelectorValue)
   }
 
   handleClickCancelButton() {
     this.editorTextareaContentTarget.value = this.#savedMemo
     this.#renderMemo(this.#savedMemo)
     this.#showDisplay()
-    TextareaInitializer.initialize('#js-practice-memo')
+    TextareaInitializer.initialize(this.editorTextareaSelectorValue)
   }
 
   showEditorTextarea() {
@@ -82,17 +84,14 @@ export default class extends Controller {
   }
 
   async #fetchMemo() {
-    const response = await fetch(
-      `/api/practices/${this.practiceIdValue}.json`,
-      {
-        method: 'GET',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest'
-        },
-        credentials: 'same-origin',
-        redirect: 'manual'
-      }
-    )
+    const response = await fetch(`${this.urlValue}.json`, {
+      method: 'GET',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      credentials: 'same-origin',
+      redirect: 'manual'
+    })
     if (!response.ok) {
       throw new Error(`メモの取得に失敗しました: ${response.status}`)
     }
@@ -101,14 +100,14 @@ export default class extends Controller {
     return json.memo ?? ''
   }
 
-  async #updateMemo(memo, practiceId) {
+  async #updateMemo(memo) {
     const params = {
-      practice: {
+      [this.paramRootValue]: {
         memo
       }
     }
 
-    const response = await fetch(`/api/practices/${practiceId}`, {
+    const response = await fetch(this.urlValue, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -159,7 +158,7 @@ export default class extends Controller {
     this.editorTextareaContentTarget.value = this.#savedMemo
     this.#renderMemo(this.#savedMemo)
     this.#showDisplay()
-    TextareaInitializer.initialize('#js-practice-memo')
+    TextareaInitializer.initialize(this.editorTextareaSelectorValue)
   }
 
   #setFormDisabled(isDisabled) {
