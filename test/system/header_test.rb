@@ -53,7 +53,7 @@ class HeaderTest < ApplicationSystemTestCase
 
     page.send_keys(:escape)
 
-    assert_selector '#notifications-dropdown.is-hidden'
+    assert_selector '#notifications-dropdown.is-hidden', visible: false
   end
 
   test 'toggle notifications dropdown' do
