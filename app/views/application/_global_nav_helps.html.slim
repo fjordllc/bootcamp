@@ -1,6 +1,6 @@
 button.header-links__link[
   data-controller="header-dropdown"
-  data-action="click->header-dropdown#toggle"
+  data-action="click->header-dropdown#toggle keydown@document->header-dropdown#closeOnEscape"
 ]
   .header-links__link-icon
     i.fa-solid.fa-circle-info

@@ -19,7 +19,7 @@ export default class extends Controller {
     this.buttonTarget.setAttribute('aria-expanded', 'false')
   }
 
-  closeOnEscape = (event) => {
+  closeOnEscape(event) {
     if (event.key === 'Escape') {
       this.close()
     }

@@ -6,4 +6,14 @@ export default class extends Controller {
   toggle() {
     this.modalTarget.classList.toggle('is-shown')
   }
+
+  close() {
+    this.modalTarget.classList.remove('is-shown')
+  }
+
+  closeOnEscape(event) {
+    if (event.key === 'Escape') {
+      this.close()
+    }
+  }
 }

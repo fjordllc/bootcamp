@@ -22,4 +22,10 @@ export default class extends Controller {
       this.close()
     }
   }
+
+  closeOnEscape(event) {
+    if (event.key === 'Escape') {
+      this.close()
+    }
+  }
 }

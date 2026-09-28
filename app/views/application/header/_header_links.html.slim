@@ -11,7 +11,7 @@ div[
           mode_id_prefix: 'header-mode'
       li.header-links__item
         button.header-links__link.test-show-menu.js-modal-search-shown-trigger[
-          data-action="click->modal-switcher#toggle"
+          data-action="click->modal-switcher#toggle keydown@document->modal-switcher#closeOnEscape"
         ]
           .header-links__link-icon
             i.fa-solid.fa-search
@@ -26,7 +26,7 @@ div[
         li.header-links__item
           button.header-links__link.test-show-menu[
             data-controller="header-dropdown"
-            data-action="click->header-dropdown#toggle"
+            data-action="click->header-dropdown#toggle keydown@document->header-dropdown#closeOnEscape"
           ]
             .header-current-user
               span class="a-user-role is-#{current_user.primary_role}"
