@@ -43,6 +43,12 @@ export default class extends Controller {
     this.#showTab('preview')
   }
 
+  renderPreview() {
+    this.previewBodyTarget.innerHTML = new MarkdownInitializer().render(
+      this.editBodyTarget.value
+    )
+  }
+
   toggleRaw(event) {
     const isRawVisible = !event.currentTarget.classList.contains('is-active')
     this.#setRawMode(isRawVisible)
