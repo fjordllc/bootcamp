@@ -78,6 +78,7 @@ article.thread-comment.comment.is-hidden [
                   data-preview="#js-comment-preview-#{comment.id}"
                   data-input=".js-comment-file-input-#{comment.id}"
                   name='comment[description]'
+                  data-action="input->comment#renderPreview"
                   data-comment-target="editBody"
                 ]
                   = comment.description
