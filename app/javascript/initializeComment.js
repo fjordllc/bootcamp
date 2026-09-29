@@ -1,5 +1,4 @@
 import CSRF from 'csrf'
-import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
 
 function initializeComment(comment) {
@@ -17,7 +16,6 @@ function initializeComment(comment) {
   if (!commentEditorPreview || !editorTextarea) return
 
   let savedComment = ''
-  TextareaInitializer.initialize(`#js-comment-${commentId}`)
   const markdownInitializer = new MarkdownInitializer()
 
   const commentDisplay = comment.querySelector('.js-comment-display')
@@ -27,7 +25,6 @@ function initializeComment(comment) {
   const saveButton = commentEditor.querySelector('.js-comment-save-button')
   if (saveButton) {
     saveButton.addEventListener('click', () => {
-      TextareaInitializer.initialize(`#js-comment-${commentId}`)
       toggleVisibility(modalElements, 'is-hidden')
       savedComment = editorTextarea.value
       updateComment(commentId, savedComment)
