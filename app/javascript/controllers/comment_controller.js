@@ -1,4 +1,5 @@
 import { Controller } from '@hotwired/stimulus'
+import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
 
 export default class extends Controller {
@@ -24,6 +25,10 @@ export default class extends Controller {
     this.commentCardTarget.classList.add('is-hidden')
     this.editCardTarget.classList.remove('is-hidden')
     this.#setRawMode(false)
+    if (!this.textareaInitialized) {
+      TextareaInitializer.initialize(`#${this.editBodyTarget.id}`)
+      this.textareaInitialized = true
+    }
   }
 
   cancelEditor() {
