@@ -33,7 +33,22 @@ class HibernationTest < ActiveSupport::TestCase
     pair_work = pair_works(:pair_work1)
 
     assert_difference 'PairWork.count', -2 do
-      hibernation.send(:destroy_pair_works, @user)
+      hibernation.send(:destroy_pair_works)
+    end
+
+    assert_not PairWork.exists?(pair_work.id)
+  end
+
+  test 'destroy scheduled the pair works by user' do
+    hibernation = Hibernation.create!(
+      user: @user,
+      reason: '多忙のため',
+      scheduled_return_on: Date.current + 3.months
+    )
+    pair_work = pair_works(:pair_work5)
+
+    assert_difference 'PairWork.count', -1 do
+      hibernation.send(:destroy_reserved_at_pair_works)
     end
 
     assert_not PairWork.exists?(pair_work.id)

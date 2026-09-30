@@ -14,7 +14,8 @@ class Hibernation < ApplicationRecord
     notify_to_mentors_and_admins
     user.clean_up_regular_events
     unmatch_pair_works(user)
-    destroy_pair_works(user)
+    destroy_pair_works
+    destroy_reserved_at_pair_works
   end
 
   def self.hibernate_by_admin(user:, scheduled_return_on:)
@@ -62,7 +63,11 @@ class Hibernation < ApplicationRecord
     end
   end
 
-  def destroy_pair_works(user)
+  def destroy_pair_works
     PairWork.where(user: user, buddy: nil, reserved_at: nil).find_each(&:destroy)
+  end
+
+  def destroy_reserved_at_pair_works
+    PairWork.where(user: user, reserved_at: Time.current...).where.not(buddy: nil).find_each(&:destroy)
   end
 end
