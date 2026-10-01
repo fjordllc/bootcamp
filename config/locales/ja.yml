@@ -120,6 +120,7 @@ ja:
         satisfaction: 満足度
         opinion: ご意見
         mail_notification: メール通知
+        pjord_comment: AIピヨルドからのコメント
         job_seeker: 就職サポート
         github_collaborator: GitHubチーム
         tag_list: タグ
@@ -161,8 +162,6 @@ ja:
         goal: 修了条件
         target: ターゲット
         submission: 提出物
-        pjord_review: ピヨルドの提出物レビュー
-        pjord_auto_check: ピヨルドの提出物OK
         submission_answer: 模範解答
         progress: 進捗の計算
         completion_image: 修了おめでとう画像

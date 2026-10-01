@@ -10,7 +10,7 @@ ul.sns-links__items.is-button-group
   li.sns-links__item
     - if user.twitter_account
       a[class="sns-links__item-link a-button is-sm is-secondary is-icon"
-        href="https://twitter.com/#{user.twitter_account}"]
+        href=user.twitter_url]
         i.fa-brands.fa-x-twitter
     - else
       .sns-links__item-link.a-button.is-sm.is-disabled.is-icon

@@ -7,7 +7,7 @@
 .page-body
   .container.is-md
     - if @answers.total_pages > 1
-      nav.pagination
+      .pagination
         = paginate @answers
     - if @answers.present?
       .card-list.a-card
@@ -20,5 +20,5 @@
         p.o-empty-message__text
           | 回答はまだありません。
     - if @answers.total_pages > 1
-      nav.pagination
+      .pagination
         = paginate @answers

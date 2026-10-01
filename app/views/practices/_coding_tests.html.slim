@@ -1,11 +1,11 @@
-.a-card.coding-tests
+section.a-card.coding-tests
   header.card-header
     h2.card-header__title
       | コーディングテスト
   hr.a-border-tint
   .card-list
     - coding_tests.order(:position).each do |coding_test|
-      .card-list-item
+      article.card-list-item
         .coding-tests-item
           - if coding_test.passed_by?(current_user)
             .coding-tests-item__passed

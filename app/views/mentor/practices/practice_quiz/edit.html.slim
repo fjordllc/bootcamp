@@ -1,0 +1,74 @@
+ruby:
+  practice_title = @practice.title
+  category = @practice.category(current_user.course)
+
+- title "「#{practice_title}」の理解度テスト編集"
+- set_meta_tags description: "プラクティス「#{practice_title}」の理解度テスト編集ページです。"
+
+= render '/practices/page_header',
+  title: practice_title,
+  category: category,
+  practice: @practice
+
+= practice_page_tabs(@practice, active_tab: '理解度テスト管理')
+
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            = title
+        .page-main-header__end
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              li.page-main-header-actions__item
+                = link_to new_mentor_practice_practice_quiz_question_path(@practice), class: 'a-button is-md is-secondary is-block' do
+                  i.fa-regular.fa-plus
+                  span
+                    | 問題作成
+  hr.a-border
+  .page-body
+    .container.is-lg
+      .page-body__rows
+        = render 'form', practice: @practice, practice_quiz: @practice_quiz
+
+        section
+          header.page-body-header
+            .page-body-header__inner
+              .page-body-header__start
+                h2.page-body-header__title
+                  | 問題一覧（#{@practice_quiz.practice_quiz_questions.size}問）
+          - if @practice_quiz.practice_quiz_questions.any?
+            .admin-table
+              table.admin-table__table
+                thead.admin-table__header
+                  tr.admin-table__labels
+                    th.admin-table__label 順番
+                    th.admin-table__label 問題文
+                    th.admin-table__label 形式
+                    th.admin-table__label 公開
+                    th.admin-table__label.actions 編集
+                tbody.admin-table__items
+                  - @practice_quiz.practice_quiz_questions.each do |question|
+                    tr.admin-table__item
+                      td.admin-table__item-value.is-text-align-center
+                        = question.position
+                      td.admin-table__item-value
+                        = question.body
+                      td.admin-table__item-value.is-text-align-center
+                        = question.single_choice? ? '単一選択' : '複数選択'
+                      td.admin-table__item-value.is-text-align-center
+                        - if question.published?
+                          span.a-badge.is-success.is-sm 公開
+                        - else
+                          span.a-badge.is-muted.is-sm 非公開
+                      td.admin-table__item-value.is-text-align-center
+                        = link_to edit_mentor_practice_practice_quiz_question_path(@practice, question), class: 'a-button is-sm is-secondary is-icon' do
+                          i.fa-solid.fa-pen
+          - else
+            .o-empty-message
+              .o-empty-message__icon
+                i.fa-regular.fa-clipboard aria-hidden="true"
+              p.o-empty-message__text
+                | 問題はまだありません。「問題作成」から追加してください。

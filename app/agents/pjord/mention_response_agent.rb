@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Pjord::MentionResponseAgent < Pjord::Agent
-  instructions
+  instructions { Pjord::Agent.prompt_for('mention_response', Pjord::MentionResponseAgent.context_for(mentionable)) }
 
   def self.respond_to(mentionable)
     extract_public_response_body(new(inputs: { mentionable: }).ask(mentionable.body).content).presence
@@ -29,5 +29,17 @@ class Pjord::MentionResponseAgent < Pjord::Agent
     when Product
       commentable.practice&.title
     end
+  end
+
+  def self.context_for(mentionable)
+    sections = []
+    location = mentionable.respond_to?(:where_mention) ? mentionable.where_mention : nil
+    practice = practice_title(mentionable)
+    sender_login_name = mentionable.sender&.login_name
+
+    sections << "## 現在の場所\n#{location}" if location.present?
+    sections << "## 関連プラクティス\n#{practice}" if practice.present?
+    sections << "## メンションしてきたユーザー\nログイン名: #{sender_login_name}" if sender_login_name.present?
+    sections.join("\n\n")
   end
 end

@@ -3,10 +3,10 @@ aside.a-card
     h2.card-header__title
       | 最新記事
   hr.a-border-tint
-  nav.card-list
+  nav.card-list aria-label="最新記事"
     .card-list__items.is-md-only-2-items
       - @recent_articles.each do |recent_article|
-        .card-list-item
+        article.card-list-item
           = link_to recent_article, class: 'card-list-item__inner' do
             .card-list-item__thumbnail
               .card-list-item__thumbnail-inner

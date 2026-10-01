@@ -4,7 +4,8 @@ class Buzz < ApplicationRecord
   ROUTABLE_YEAR_RANGE = 1000..9999
   ROUTABLE_PUBLISHED_AT_RANGE = Date.new(ROUTABLE_YEAR_RANGE.begin, 1, 1)..Date.new(ROUTABLE_YEAR_RANGE.end, 12, 31)
 
-  validates :title, presence: true
+  validates :title, presence: true, length: { maximum: 120, message: 'は120文字以内で入力してください' }
+  validates :memo, length: { maximum: 500, message: 'は500文字以内で入力してください' }
   validates :published_at, presence: true
   validates :url, presence: true, uniqueness: { message: 'はすでに登録されています' }
   validate :url_format

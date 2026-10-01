@@ -5,6 +5,7 @@ ENV['RAILS_ENV'] ||= 'test'
 ENV['G_MESSAGES_DEBUG'] = ''
 
 require_relative '../config/environment'
+require_relative 'test_helpers/session_test_helper'
 require 'rails/test_help'
 require 'capybara/rails'
 require 'minitest/mock'
@@ -30,7 +31,7 @@ class ActiveSupport::TestCase
   include VCRHelper
 
   # Parallel testing configuration:
-  # - CI: Disabled - CircleCI handles parallelism via its own parallelism setting
+  # - CI: Disabled - GitHub Actions handles parallelism with test shards
   # - Local: Disabled - DRb/fork causes test hangs (Rails issue #55513)
   # To enable parallel tests locally, use: PARALLEL_WORKERS=4 bin/rails test
   parallelize(workers: ENV.fetch('PARALLEL_WORKERS', 1).to_i)
@@ -49,4 +50,5 @@ end
 class ActionDispatch::IntegrationTest
   include Sorcery::TestHelpers::Rails::Integration
   include APIHelper
+  include SessionTestHelper
 end

@@ -3,6 +3,15 @@
 require 'application_system_test_case'
 
 class CurrentUserTest < ApplicationSystemTestCase
+  test 'disable Pjord comments' do
+    user = users(:kimura)
+    visit_with_auth '/current_user/edit', user.login_name
+    uncheck 'AIピヨルドからのコメント', allow_label_click: true
+    click_on '更新する'
+
+    assert_not user.reload.pjord_comment?
+  end
+
   test 'update user' do
     visit_with_auth '/current_user/edit', 'komagata'
     within 'form[name=user]' do

@@ -11,7 +11,7 @@ section.lp-content.is-lp-bg-2.is-top-title
             .l-cards.is-stacked
               .l-cards__item.is-wide
                 .l-cards__item-inner
-                  .a-card
+                  section.a-card
                     .flex
                       .lp-left-image-section
                         .lp-left-image-section__inner
@@ -33,11 +33,12 @@ section.lp-content.is-lp-bg-2.is-top-title
                                   | 給付金対象Railsエンジニアコースの場合、
                                   = link_to practices_path do
                                     | 通常のRailsエンジニアコース
-                                  | とは違い、受講料（税込 786,720円）を
-                                  | サブスクではなく、一括でお支払いいただく必要があります。
+                                  | とは違い、受講料（税込 786,720円）のお支払いは、
+                                  strong class="text-[var(--main)]"
+                                    | ご都合に合わせて一括払いまたは分割払い（2回・3回・4回）をお選びいただけます。
               .l-cards__item.is-wide
                 .l-cards__item-inner
-                  .a-card.is-danger
+                  section.a-card.is-danger
                     .lp-left-image-section
                       .lp-left-image-section__inner
                         .lp-left-image-section__start.is-hidden-sm-down
@@ -74,6 +75,7 @@ section.lp-content.is-lp-bg-2.is-top-title
                                 | 給付金最大80%を受給した場合、
                                 | 実質自己負担額は
                                 | 157,344円になります。
+                                | 分割払いの場合は、別途分割手数料がかかります。
           .lp-content-stack__item
             .lp-content__description
               .l-inner-container.is-sm

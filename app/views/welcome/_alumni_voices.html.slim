@@ -16,7 +16,7 @@ section.lp-content.is-lp-bg-1.is-top-title
 
                   - articles.each do |article|
                     .col-xs-6.col-md-4
-                      .thumbnail-card.a-card
+                      article.thumbnail-card.a-card
                         = link_to article_path(article), class: 'thumbnail-card__inner' do
                           = image_tag article.prepared_thumbnail_url, class: 'thumbnail-card__image', alt: "#{article.title}の記事のサムネイル"
                           .thumbnail-card__row

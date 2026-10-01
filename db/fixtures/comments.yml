@@ -148,6 +148,15 @@ commentOfTalk:
   description: "これは相談部屋の会話です。"
   updated_at: "2019-01-02 00:00:00 JST"
 
+<% 1.upto(300) do |i| %>
+talkPerformanceComment<%= i %>:
+  user: komagata
+  commentable: talk_komagata (Talk)
+  description: "相談部屋のパフォーマンス確認用コメント<%= i %>です。"
+  created_at: <%= Time.zone.parse('2026-01-01 00:00:00 JST') + i.minutes %>
+  updated_at: <%= Time.zone.parse('2026-01-01 00:00:00 JST') + i.minutes %>
+<% end %>
+
 comment45:
   user: kimura
   commentable: product77 (Product)

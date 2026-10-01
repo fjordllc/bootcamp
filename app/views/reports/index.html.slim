@@ -17,14 +17,14 @@ main.page-main
   hr.a-border
 
   - if admin_or_mentor_login?
-    nav.pill-nav
+    nav.pill-nav aria-label="日報表示対象"
       ul.pill-nav__items
         li.pill-nav__item
           = link_to '全て', reports_path, class: "pill-nav__item-link#{' is-active' if controller_path == 'reports'}"
         li.pill-nav__item
           = link_to '未チェック', reports_unchecked_index_path, class: "pill-nav__item-link#{' is-active' if controller_path == 'reports/unchecked'}"
   - if controller_path != 'reports/unchecked'
-    nav.page-filter.form.pb-0
+    nav.page-filter.form.pb-0 aria-label="日報絞り込み"
       .container.is-md
         = form_with url: reports_path, local: true, method: :get do
           .form-item.is-inline-md-up

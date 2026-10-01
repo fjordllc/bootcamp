@@ -25,6 +25,14 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
            source: :user
   has_many :skipped_practices, dependent: :destroy
   has_many :products, dependent: :destroy
+
+  has_one :template, as: :templatable, dependent: :destroy
+  accepts_nested_attributes_for :template,
+                                update_only: true,
+                                allow_destroy: true
+
+  before_validation :mark_unnecessary_template_for_destruction
+
   has_many :questions, dependent: :nullify
   has_many :pages,
            -> { order(updated_at: :desc, id: :desc) },
@@ -46,6 +54,7 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   has_one :submission_answer, dependent: :destroy
   has_many :coding_tests, dependent: :nullify
+  has_one :practice_quiz, dependent: :destroy
 
   has_many :coding_test_submissions,
            through: :coding_tests,
@@ -72,7 +81,7 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   scope :for_mentor_index, lambda {
     with_counts
-      .preload(:categories, :submission_answer)
+      .preload(:categories, :submission_answer, :practice_quiz)
       .order(:id)
   }
 
@@ -122,6 +131,29 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
       practice_id: id,
       status: Learning.statuses[:complete]
     )
+  end
+
+  def published_practice_quiz
+    practice_quiz if practice_quiz&.published?
+  end
+
+  def practice_quiz_required?
+    published_practice_quiz.present?
+  end
+
+  def practice_quiz_passed_by?(user)
+    return true unless practice_quiz_required?
+
+    published_practice_quiz.passed_by?(user)
+  end
+
+  def completable_by?(user)
+    return true unless practice_quiz_required?
+    return false unless practice_quiz_passed_by?(user)
+
+    return true unless submission
+
+    product(user)&.checked?
   end
 
   def exists_learning?(user)
@@ -221,7 +253,19 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
     Report.for_practice_including_source(self).count
   end
 
+  def pages_count(include_source: false)
+    return pages.count unless include_source
+
+    Page.for_practice_including_source(self).count
+  end
+
   private
+
+  def mark_unnecessary_template_for_destruction
+    return unless template
+
+    template.mark_for_destruction if template.description.blank? || !submission?
+  end
 
   def total_learning_minute(report)
     total_time = report.learning_times.inject(0) do |sum, learning_time|

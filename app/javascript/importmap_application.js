@@ -1,3 +1,4 @@
+import { Turbo } from '@hotwired/turbo-rails'
 import 'controllers'
 import Rails from '@rails/ujs'
 import 'textarea'
@@ -11,8 +12,6 @@ import 'unconfirmed-links-open'
 import 'new-comment'
 import 'category-select'
 import 'comments'
-import 'fileinput'
-import 'reaction'
 import 'practice_memo'
 import 'card'
 import 'warning'
@@ -40,13 +39,11 @@ import 'bookmarks'
 import 'dashboard-bookmarks'
 import 'hibernation_agreements'
 import 'current-date-time-setter'
-import 'modal-switcher'
 import 'survey-question-listings'
 import 'activity-time-filter'
 import 'change-subdivisions'
 import 'register-address'
 import 'upload-image-to-article'
-import 'header-dropdown'
 import 'postal-code-address'
 import 'editor-selection-form'
 import 'user_mentor_memo'
@@ -69,12 +66,9 @@ import 'article-target'
 import 'article-summary'
 import 'referral-source-selection-form'
 import 'coding_tests_sort'
-import 'watches'
-import 'watch-toggle'
 import 'diploma-upload'
 import 'tag-shortcut'
 import 'tags-input'
-import Cocooned from '@notus.sh/cocooned'
 import 'action_completed_button'
 import 'toast'
 import 'tag'
@@ -84,8 +78,20 @@ import 'notifications_remove_after_open'
 import 'notifications-bell'
 import 'products-checker-init'
 
+Turbo.session.drive = false
+
 Rails.start()
 
-document.addEventListener('DOMContentLoaded', () => {
-  Cocooned.start()
+document.addEventListener('DOMContentLoaded', async () => {
+  if (!document.querySelector('.cocooned-container')) return
+
+  try {
+    if (!globalThis.DisposableStack || !Symbol.dispose) {
+      await import('core-js/actual/disposable-stack')
+    }
+    const { default: Cocooned } = await import('@notus.sh/cocooned')
+    Cocooned.start()
+  } catch (error) {
+    console.error('Failed to initialize Cocooned', error)
+  }
 })

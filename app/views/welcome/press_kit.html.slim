@@ -90,7 +90,7 @@ hr.a-border
                 .row
                   - @press_releases.each do |press_release|
                     .col-lg-4.col-md-6.col-xs-12
-                      .thumbnail-card.a-card
+                      article.thumbnail-card.a-card
                         = link_to press_release, class: 'thumbnail-card__inner' do
                           .thumbnail-card__row
                             - if press_release.prepared_thumbnail?
@@ -107,7 +107,7 @@ hr.a-border
                                   = image_tag press_release.user.avatar_url
                                   = press_release.user.login_name
                               .thumbnail-card__meta
-                                .thumbnail-card__date
+                                time.thumbnail-card__date datetime=press_release.published_at.iso8601
                                   = l(press_release.published_at)
               .lp-content-stack__item
                 .lp-actions

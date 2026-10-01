@@ -29,7 +29,7 @@ main.page-main
   .page-body.is-movie
     .page-body__inner
       .container.is-md
-        .page-content.is-movie
+        article.page-content.is-movie
           = render 'movie_header', movie: @movie
           .a-card
             .card-body
@@ -62,7 +62,7 @@ main.page-main
                           class: 'card-main-actions__muted-action' do
                           | 削除する
 
-          .page-content-prev-next
+          nav.page-content-prev-next aria-label="動画ナビゲーション"
             .page-content-prev-next__item
               = link_to :movies,
                 class: 'page-content-prev-next__item-link is-index' do

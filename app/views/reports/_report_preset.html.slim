@@ -27,6 +27,13 @@ div(
           )
             | テンプレート登録
 
+      li.form-item-actions__item
+        button.a-button.is-sm.is-secondary.is-block(
+          type='button'
+          data-action='click->report-latest#replaceReport'
+        )
+          | 最新の日報を複製
+
   .a-overlay.is-js.is-hidden(
     data-report-preset-target='modal'
     data-action='click->report-preset#clickOutside'

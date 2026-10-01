@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'supports/avatar_helper'
 
 class API::ReactionTest < ActionDispatch::IntegrationTest
+  include AvatarHelper
+
   setup do
     user = users(:komagata)
     @application = Doorkeeper::Application.create!(
@@ -73,6 +76,7 @@ class API::ReactionTest < ActionDispatch::IntegrationTest
   test 'GET /api/reactions returns reactions' do
     report = reports(:report4)
     komagata = users(:komagata)
+    reset_avatar(komagata)
 
     token = create_token('komagata', 'testtest')
     post api_reactions_path, params: { reactionable_gid: report.to_global_id.to_s, kind: 'thumbsup' },

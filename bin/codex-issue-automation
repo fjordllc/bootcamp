@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+repository="${CODEX_AUTOMATION_REPOSITORY:-fjordllc/bootcamp}"
+workspace="${CODEX_AUTOMATION_WORKSPACE:-/var/lib/codex-bootcamp}"
+lock_file="${CODEX_AUTOMATION_LOCK_FILE:-/tmp/codex-bootcamp.lock}"
+prompt_path=".github/codex/vps-runner.md"
+
+for required_command in flock gh git codex mktemp; do
+  command -v "$required_command" >/dev/null || {
+    echo "Required command not found: $required_command" >&2
+    exit 1
+  }
+done
+
+exec 9>"$lock_file"
+flock -n 9 || exit 0
+
+gh auth status --hostname github.com >/dev/null
+codex_login_status="$(env -u OPENAI_API_KEY -u CODEX_API_KEY codex login status 2>&1)"
+if [[ "$codex_login_status" != *"Logged in using ChatGPT"* ]]; then
+  echo "Codex must be logged in using ChatGPT." >&2
+  exit 1
+fi
+
+issue_count="$(
+  gh issue list \
+    --repo "$repository" \
+    --state open \
+    --label Codex \
+    --limit 100 \
+    --json number \
+    --jq length
+)"
+pr_count="$(
+  gh pr list \
+    --repo "$repository" \
+    --state open \
+    --label Codex \
+    --limit 100 \
+    --json headRefName \
+    --jq '[.[] | select(.headRefName | startswith("ai/issue-"))] | length'
+)"
+
+if [ "$issue_count" = "0" ] && [ "$pr_count" = "0" ]; then
+  exit 0
+fi
+
+mkdir -p "$workspace"
+run_directory="$(mktemp -d "$workspace/run.XXXXXX")"
+trap 'rm -rf -- "$run_directory"' EXIT
+
+git clone --quiet "https://github.com/${repository}.git" "$run_directory/repository"
+cd "$run_directory/repository"
+
+test -f "$prompt_path"
+
+result_path="$run_directory/result.md"
+env -u OPENAI_API_KEY -u CODEX_API_KEY codex exec \
+  --ephemeral \
+  --ignore-user-config \
+  --model gpt-5.6-sol \
+  --config model_reasoning_effort=high \
+  --sandbox danger-full-access \
+  --output-last-message "$result_path" \
+  - < "$prompt_path"
+
+cat "$result_path"

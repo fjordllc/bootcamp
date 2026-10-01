@@ -1,4 +1,4 @@
-nav.pill-nav.mb-8
+nav.pill-nav.mb-8 aria-label="定期イベント絞り込み"
   .pill-nav__items
     .pill-nav__item
       = link_to regular_events_path(target: :not_finished), class: "pill-nav__item-link#{params[:target] == 'not_finished' ? ' is-active' : ''}" do

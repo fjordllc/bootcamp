@@ -1,6 +1,8 @@
 import CSRF from 'csrf'
 
-function followOrChangeFollow(userId, isFollowing, isWatching) {
+function followOrChangeFollow(userId, isFollowing, isWatching, button) {
+  const buttons = button.closest('details').querySelectorAll('button')
+  buttons.forEach((button) => (button.disabled = true))
   const url = isFollowing
     ? `/api/followings/${userId}?watch=${isWatching}`
     : `/api/followings?watch=${isWatching}`
@@ -21,20 +23,23 @@ function followOrChangeFollow(userId, isFollowing, isWatching) {
   })
     .then((response) => {
       if (response.ok) {
-        if (!isFollowing) {
-          isFollowing = true
-        }
+        changeButtonAppearance(userId, button)
       } else {
         alert('フォロー処理に失敗しました')
       }
     })
     .catch((error) => {
       console.warn(error)
+      alert('フォロー処理に失敗しました')
     })
-  changeButtonAppearance(userId)
+    .finally(() => {
+      buttons.forEach((button) => (button.disabled = false))
+    })
 }
 
-function unfollow(userId, isFollowing, isWatching) {
+function unfollow(userId, isFollowing, isWatching, button) {
+  const buttons = button.closest('details').querySelectorAll('button')
+  buttons.forEach((button) => (button.disabled = true))
   const url = isFollowing
     ? `/api/followings/${userId}?watch=${isWatching}`
     : `/api/followings?watch=${isWatching}`
@@ -53,14 +58,19 @@ function unfollow(userId, isFollowing, isWatching) {
     body: JSON.stringify(params)
   })
     .then((response) => {
-      if (!response.ok) {
+      if (response.ok) {
+        changeButtonAppearance(userId, button)
+      } else {
         alert('フォロー処理に失敗しました')
       }
     })
     .catch((error) => {
       console.warn(error)
+      alert('フォロー処理に失敗しました')
     })
-  changeButtonAppearance(userId)
+    .finally(() => {
+      buttons.forEach((button) => (button.disabled = false))
+    })
 }
 
 function closeDropDown(event) {
@@ -68,8 +78,8 @@ function closeDropDown(event) {
   details.removeAttribute('open')
 }
 
-function changeButtonAppearance(userId) {
-  const details = event.target.closest('#followingDetailsRef')
+function changeButtonAppearance(userId, button) {
+  const details = button.closest('#followingDetailsRef')
   const dropdownItems = details.querySelector('.a-dropdown__items')
   const firstDropdownItemButton = dropdownItems.children[0].children[0]
   const secondDropdownItemButton = dropdownItems.children[1].children[0]
@@ -77,7 +87,7 @@ function changeButtonAppearance(userId) {
 
   details.removeAttribute('open')
 
-  if (event.currentTarget.id === 'with-comments') {
+  if (button.id === 'with-comments') {
     replaceSummary(details, 'コメントあり')
     const notSelectedButtons = [
       secondDropdownItemButton,
@@ -99,7 +109,7 @@ function changeButtonAppearance(userId) {
         'data-is-watching': true
       }
     ])
-  } else if (event.currentTarget.id === 'without-comments') {
+  } else if (button.id === 'without-comments') {
     replaceSummary(details, 'コメントなし')
     const notSelectedButtons = [
       firstDropdownItemButton,
@@ -121,7 +131,7 @@ function changeButtonAppearance(userId) {
         'data-is-watching': false
       }
     ])
-  } else if (event.currentTarget.id === 'unfollow') {
+  } else if (button.id === 'unfollow') {
     replaceSummary(details, 'フォローする')
     const notSelectedButtons = [
       firstDropdownItemButton,
@@ -212,9 +222,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const isFollowing = event.currentTarget.dataset.isFollowing === 'true'
       const isWatching = event.currentTarget.dataset.isWatching === 'true'
       if (action === 'followOrChangeFollow') {
-        followOrChangeFollow(userId, isFollowing, isWatching)
+        followOrChangeFollow(
+          userId,
+          isFollowing,
+          isWatching,
+          event.currentTarget
+        )
       } else if (action === 'unfollow') {
-        unfollow(userId, isFollowing, isWatching)
+        unfollow(userId, isFollowing, isWatching, event.currentTarget)
       } else if (action === 'closeDropDown') {
         closeDropDown(event)
       }

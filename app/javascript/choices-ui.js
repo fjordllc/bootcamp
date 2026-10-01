@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'js-choices-multiple-select'
   )
   if (elementMultipleSelect) {
-    return new Choices(elementMultipleSelect, {
+    elementMultipleSelect.choices = new Choices(elementMultipleSelect, {
       removeItemButton: true,
       allowHTML: true,
       searchResultLimit: 20,
@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
       resetScrollPosition: false,
       renderSelectedChoices: 'always'
     })
+    return
   }
 
   const elementsOfSingles = document.querySelectorAll('.js-choices-singles')

@@ -19,6 +19,10 @@ class Comment < ApplicationRecord
   mentionable_as :description, hook_name: :after_commit
 
   scope :without_private_comment, -> { where.not(commentable_type: %w[Talk Inquiry CorporateTrainingInquiry]) }
+  scope :with_user_details, -> { includes(user: [{ avatar_attachment: :blob }, { company: { logo_attachment: :blob } }]) }
+  scope :before_comment, lambda { |comment|
+    where('created_at < ? OR (created_at = ? AND id < ?)', comment.created_at, comment.created_at, comment.id)
+  }
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[description commentable_type commentable_id created_at updated_at user_id]

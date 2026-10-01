@@ -14,6 +14,20 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text 'Watch中'
   end
 
+  test 'does not restore submission template after validation failure' do
+    practice = practices(:practice1)
+
+    visit_with_auth "/products/new?practice_id=#{practice.id}", 'hatsuno'
+
+    assert_field 'product[body]', with: '提出物のテンプレート'
+
+    fill_in 'product[body]', with: ''
+    click_button '提出する'
+
+    assert_text '入力内容にエラーがありました'
+    assert_field 'product[body]', with: ''
+  end
+
   test 'update product' do
     product = products(:product1)
     visit_with_auth "/products/#{product.id}/edit", 'mentormentaro'
@@ -52,15 +66,6 @@ class ProductsTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{product.id}", 'mentormentaro'
     wait_for_comment_form
     assert_selector '.thread-comment-form'
-  end
-
-  test 'does not show Pjord product review button' do
-    product = products(:product1)
-    visit_with_auth "/products/#{product.id}", 'adminonly'
-    assert_no_link 'ピヨルドでレビューコメントをする'
-
-    visit_with_auth "/products/#{product.id}", 'kimura'
-    assert_no_link 'ピヨルドでレビューコメントをする'
   end
 
   test 'show user name_kana next to name' do

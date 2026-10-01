@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   resources :request_retirements, only: %i(show new create)
   resource :hibernation, only: %i(show new create), controller: "hibernation"
   resource :comeback, only: %i(new create), controller: "comeback"
+  resource :hibernated_retirement, only: %i(new create), controller: "hibernated_retirement"
   resource :current_user, only: %i(edit update), controller: "current_user" do
     resource :password, only: %i(edit update), controller: "current_user/password"
   end
@@ -61,6 +62,9 @@ Rails.application.routes.draw do
     resources :pages, only: %i(index), controller: "practices/pages"
     resource :completion, only: %i(show), controller: "practices/completion"
     resource :submission_answer, only: %i(show), controller: "practices/submission_answer"
+    resource :practice_quiz, only: %i(show), controller: "practices/practice_quiz" do
+      resources :attempts, only: %i(create), controller: "practices/practice_quiz/attempts"
+    end
     resources :coding_tests, only: %i(index), controller: "practices/coding_tests"
     resources :movies, only: %i(index), controller: "practices/movies"
   end
@@ -145,6 +149,10 @@ Rails.application.routes.draw do
   get '/', to: 'home#index', as: :niconico_calendar_date, constraints: niconico_calendar_constraints
   get '/users/:id', to: 'users#show', as: :niconico_calendar_date_in_profile, constraints: niconico_calendar_constraints
   resources :movies
+  resources :watches, only: %i(create destroy)
+  namespace 'watches' do
+    resource :refresh, only: %i(show)
+  end
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   mount MissionControl::Jobs::Engine, at: "/jobs"
 end

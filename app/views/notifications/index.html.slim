@@ -54,7 +54,7 @@ main.page-main
       - else
         .page-content#notifications
           - if @notifications.total_pages > 1
-            nav.pagination
+            .pagination
               = paginate @notifications
           .card-list.a-card
             - @notifications.each do |notification|
@@ -64,5 +64,5 @@ main.page-main
             = render 'application/unconfirmed_links_open', label: '未読の通知を一括で開く'
 
           - if @notifications.total_pages > 1
-            nav.pagination
+            .pagination
               = paginate @notifications

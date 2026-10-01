@@ -1,5 +1,5 @@
 - commentable = comment.commentable
-.card-list-item(class="is-#{commentable.class.to_s.tableize.singularize}")
+article.card-list-item(class="is-#{commentable.class.to_s.tableize.singularize}")
   .card-list-item__inner
     .card-list-item__label
       - case commentable.class.to_s

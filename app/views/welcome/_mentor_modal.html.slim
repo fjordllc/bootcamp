@@ -25,7 +25,7 @@
                   i.fa-solid.fa-home
             - if mentor.twitter_account.present?
               li.lp-mentor__sns-item
-                = link_to "https://twitter.com/#{mentor.twitter_account}", class: 'lp-mentor__sns-item-link' do
+                = link_to mentor.twitter_url, class: 'lp-mentor__sns-item-link' do
                   i.fa-brands.fa-x-twitter
             - if mentor.facebook_url.present?
               li.lp-mentor__sns-item

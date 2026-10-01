@@ -116,6 +116,10 @@
   flex-direction: column;
 }
 
+.lp-content.is-top-title.is-campaign .lp-content__inner {
+  gap: 1rem;
+}
+
 @media (width >= 80em) {
   .lp-content.is-top-title .lp-content__inner {
     gap: 3.5rem;

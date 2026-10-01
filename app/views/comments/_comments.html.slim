@@ -2,11 +2,29 @@
   - 3.times do
     = render 'comments/comment_placeholder'
 #comments.thread-comments.loaded.is-hidden
-  .thread-comments-more.is-hidden
+  ruby:
+    paginated = local_assigns[:comments_url].present?
+    comment_total_count = local_assigns.fetch(
+      :comment_total_count, @comments.size
+    )
+    comment_remaining = comment_total_count - @comments.size
+    next_comment_amount = if comment_remaining > 8
+                            "8 / #{comment_remaining}"
+                          else
+                            comment_remaining
+                          end
+  .thread-comments-more(
+    class=('is-hidden' unless paginated && comment_remaining.positive?)
+    data-comments-url=local_assigns[:comments_url]
+    data-comment-remaining=comment_remaining
+  )
     .thread-comments-more__inner
       .thread-comments-more__action
         button.a-button.is-lg.is-text.is-block
-          | 前のコメント（  ）
+          - if paginated
+            | 前のコメント（ #{next_comment_amount} ）
+          - else
+            | 前のコメント（  ）
   header.thread-comments__header
     h2.thread-comments__title
       | コメント

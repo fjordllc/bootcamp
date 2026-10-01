@@ -38,6 +38,10 @@
   width: 34rem;
 }
 
+.auth-form-logo-image + .auth-form.is-lg {
+  margin-top: 0;
+}
+
 @media (width >= 48em) {
   .auth-form.is-lg {
     margin-top: 3rem;

@@ -24,6 +24,16 @@ class PjordReportCommenterTest < ActiveJob::TestCase
     end
   end
 
+  test 'does not enqueue when user disabled Pjord comments' do
+    report = reports(:report1)
+    report.user.update!(pjord_comment: false)
+    commenter = PjordReportCommenter.new
+
+    assert_no_enqueued_jobs(only: PjordReportCommentJob) do
+      commenter.call('report.create', Time.current, Time.current, 'unique_id', report: report)
+    end
+  end
+
   test 'does not enqueue when report is already published' do
     report = reports(:report1)
     report.update_column(:wip, false) # rubocop:disable Rails/SkipsModelValidations

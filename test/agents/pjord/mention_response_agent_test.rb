@@ -22,11 +22,24 @@ class Pjord::MentionResponseAgentTest < ActiveSupport::TestCase
     assert_includes chat.instructions, 'メンターへのメンションや対応引き継ぎの依頼はしないでください。'
     assert_includes chat.instructions, 'リンク先の内容が返信に不可欠でない場合'
     assert_includes chat.instructions, 'メンションしてきたユーザーに「見られる状態にしてください」「内容を教えてください」と質問しないでください。'
-    assert_includes chat.instructions, 'ピヨルドのレビューコメントに対して'
-    assert_includes chat.instructions, 'body を空にして返信しないでください。'
     assert_includes chat.asked_message, comment.description
     assert_equal [BootcampSearchTool, UserInfoTool, ExternalContentTool], chat.tools
     assert_equal PjordResponse, chat.schema
+  end
+
+  test '.respond_to uses saved common and mention response prompts' do
+    AiPrompt.create!(key: 'pjord', body: '保存した共通プロンプト')
+    AiPrompt.create!(key: 'mention_response', body: '保存したメンション返信プロンプト')
+    chat = AgentChatFake.new
+
+    RubyLLM.stub(:chat, chat) do
+      Pjord::MentionResponseAgent.respond_to(comments(:comment1))
+    end
+
+    assert_includes chat.instructions, '保存した共通プロンプト'
+    assert_includes chat.instructions, '保存したメンション返信プロンプト'
+    assert_includes chat.instructions, comments(:comment1).sender.login_name
+    assert_includes chat.instructions, comments(:comment1).where_mention
   end
 
   class AgentChatFake

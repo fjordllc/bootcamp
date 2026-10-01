@@ -1,15 +1,10 @@
 - if admin_or_mentor_login?
   hr.a-border-tint
-  .card-footer.is-only-mentor
+  footer.card-footer.is-only-mentor
     .card-main-actions
       ul.card-main-actions__items
         - check = checkable.checks.find_by(user: current_user)
         - if checkable_type == 'Product' && check.nil?
-          li.card-main-actions__item
-            = button_to review_by_pjord_product_path(checkable),
-              method: :post,
-              class: 'a-button is-sm is-primary is-block' do
-              | ピヨルドがコメントする
           li.card-main-actions__item
             - if !checkable.checker_id || checkable.checker_id == current_user.id
               - if checkable.checker_id

@@ -8,7 +8,7 @@ html.is-micro-report lang='ja'
     = content_for(:head_last) if content_for?(:head_last)
   body.is-micro-report#body(class="#{body_class}")
     .mr-layout
-      nav.mr-sidebar
+      nav.mr-sidebar aria-label="分報ナビゲーション"
         .mr-sidebar__inner
           .mr-sidebar__logo
             = link_to root_path, class: 'mr-sidebar__logo-link' do

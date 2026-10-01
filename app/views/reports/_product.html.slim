@@ -1,4 +1,4 @@
-.card-list-item(class="#{product.wip? ? 'is-wip' : ''}")
+article.card-list-item(class="#{product.wip? ? 'is-wip' : ''}")
   .card-list-item__inner
     .card-list-item__user
       = render 'users/icon', user: product.user, link_class: 'card-list-item__user-link', image_class: 'card-list-item__user-icon'

@@ -37,6 +37,11 @@ tables = %i[
   notifications
   participations
   practices
+  practice_quizzes
+  practice_quiz_questions
+  practice_quiz_choices
+  practice_quiz_attempts
+  practice_quiz_answers
   categories_practices
   pages
   books

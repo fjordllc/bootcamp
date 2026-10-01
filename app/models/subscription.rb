@@ -27,6 +27,10 @@ class Subscription
     return true if retrieve(subscription_id).status == 'canceled'
 
     Stripe::Subscription.update(subscription_id, cancel_at_period_end: true)
+  rescue Stripe::InvalidRequestError
+    raise unless retrieve(subscription_id).status == 'canceled'
+
+    true
   end
 
   def all

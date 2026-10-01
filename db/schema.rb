@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_15_093000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -41,6 +41,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "ai_prompts", force: :cascade do |t|
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.string "key", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_ai_prompts_on_key", unique: true
   end
 
   create_table "announcements", force: :cascade do |t|
@@ -456,6 +464,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
     t.index ["survey_question_id"], name: "index_linear_scales_on_survey_question_id"
   end
 
+  create_table "mentor_memos", force: :cascade do |t|
+    t.bigint "author_id"
+    t.text "content", null: false
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.bigint "user_id", null: false
+    t.index ["author_id"], name: "index_mentor_memos_on_author_id"
+    t.index ["user_id"], name: "index_mentor_memos_on_user_id"
+  end
+
   create_table "micro_reports", force: :cascade do |t|
     t.bigint "comment_user_id"
     t.text "content", null: false
@@ -584,6 +602,58 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
     t.index ["event_id"], name: "index_participations_on_event_id"
     t.index ["user_id", "event_id"], name: "index_participations_on_user_id_and_event_id", unique: true
     t.index ["user_id"], name: "index_participations_on_user_id"
+  end
+
+  create_table "practice_quiz_answers", force: :cascade do |t|
+    t.boolean "correct", default: false, null: false
+    t.datetime "created_at", null: false
+    t.bigint "practice_quiz_attempt_id", null: false
+    t.bigint "practice_quiz_choice_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["practice_quiz_attempt_id"], name: "index_practice_quiz_answers_on_practice_quiz_attempt_id"
+    t.index ["practice_quiz_choice_id"], name: "index_practice_quiz_answers_on_practice_quiz_choice_id"
+  end
+
+  create_table "practice_quiz_attempts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.boolean "passed", default: false, null: false
+    t.bigint "practice_quiz_id", null: false
+    t.datetime "submitted_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["practice_quiz_id", "user_id", "submitted_at"], name: "index_practice_quiz_attempts_on_quiz_user_submitted_at"
+    t.index ["practice_quiz_id"], name: "index_practice_quiz_attempts_on_practice_quiz_id"
+    t.index ["user_id"], name: "index_practice_quiz_attempts_on_user_id"
+  end
+
+  create_table "practice_quiz_choices", force: :cascade do |t|
+    t.string "body", null: false
+    t.boolean "correct", default: false, null: false
+    t.datetime "created_at", null: false
+    t.integer "position", default: 0, null: false
+    t.bigint "practice_quiz_question_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["practice_quiz_question_id"], name: "index_practice_quiz_choices_on_practice_quiz_question_id"
+  end
+
+  create_table "practice_quiz_questions", force: :cascade do |t|
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.text "explanation"
+    t.integer "position", default: 0, null: false
+    t.bigint "practice_quiz_id", null: false
+    t.boolean "published", default: false, null: false
+    t.integer "question_type", null: false
+    t.datetime "updated_at", null: false
+    t.index ["practice_quiz_id"], name: "index_practice_quiz_questions_on_practice_quiz_id"
+  end
+
+  create_table "practice_quizzes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "practice_id", null: false
+    t.boolean "published", default: false, null: false
+    t.datetime "updated_at", null: false
+    t.index ["practice_id"], name: "index_practice_quizzes_on_practice_id", unique: true
   end
 
   create_table "practices", id: :serial, force: :cascade do |t|
@@ -1025,6 +1095,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
     t.index ["user_id"], name: "index_talks_on_user_id"
   end
 
+  create_table "templates", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "description", null: false
+    t.bigint "templatable_id", null: false
+    t.string "templatable_type", null: false
+    t.datetime "updated_at", null: false
+    t.index ["templatable_type", "templatable_id"], name: "index_templates_on_templatable", unique: true
+  end
+
   create_table "users", id: :serial, force: :cascade do |t|
     t.datetime "accessed_at", precision: nil
     t.boolean "admin", default: false, null: false
@@ -1069,6 +1148,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
     t.integer "os"
     t.string "other_editor"
     t.text "other_referral_source"
+    t.boolean "pjord_comment", default: true, null: false
     t.string "profile_job"
     t.string "profile_name"
     t.text "profile_text"
@@ -1151,6 +1231,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
   add_foreign_key "learning_time_frames_users", "users"
   add_foreign_key "learning_times", "reports"
   add_foreign_key "linear_scales", "survey_questions"
+  add_foreign_key "mentor_memos", "users"
+  add_foreign_key "mentor_memos", "users", column: "author_id", on_delete: :nullify
   add_foreign_key "micro_reports", "users"
   add_foreign_key "micro_reports", "users", column: "comment_user_id"
   add_foreign_key "movies", "users"
@@ -1168,6 +1250,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_000000) do
   add_foreign_key "pair_works", "users", column: "buddy_id"
   add_foreign_key "participations", "events"
   add_foreign_key "participations", "users"
+  add_foreign_key "practice_quiz_answers", "practice_quiz_attempts"
+  add_foreign_key "practice_quiz_answers", "practice_quiz_choices"
+  add_foreign_key "practice_quiz_attempts", "practice_quizzes"
+  add_foreign_key "practice_quiz_attempts", "users"
+  add_foreign_key "practice_quiz_choices", "practice_quiz_questions"
+  add_foreign_key "practice_quiz_questions", "practice_quizzes"
+  add_foreign_key "practice_quizzes", "practices"
   add_foreign_key "practices", "practices", column: "source_id"
   add_foreign_key "practices_books", "books"
   add_foreign_key "practices_books", "practices"

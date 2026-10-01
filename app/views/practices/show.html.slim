@@ -18,7 +18,7 @@
     .row.is-gutter-width-32
       .col-lg-8.col-xs-12
         - if current_user.grant_course?
-          nav.pill-nav
+          nav.pill-nav aria-label="プラクティス表示"
             ul.pill-nav__items
               li.pill-nav__item
                 = link_to practice_path(@practice.source_practice || @practice),
@@ -99,7 +99,7 @@
                   - if current_user.mentor? && @practice.submission
                     .page-content-header-actions__end
                       .practice-first-actions__end.is-only-mentor
-                        = render 'watches/watch_toggle', type: @practice.class.to_s, id: @practice.id, watch: @practice.watched_by(current_user)
+                        = render 'watches/watch_toggle', watchable: @practice, watch: @practice.watched_by(current_user)
 
           - if @practice.summary?
             = render 'summary', practice: @practice
@@ -110,7 +110,7 @@
             = render 'books', practice: @practice
 
           - unless skipped_practices.include?(@practice.id)
-            .a-card
+            section.a-card
               header.card-header
                 h2.card-header__title
                   = Practice.human_attribute_name :goal
@@ -124,6 +124,14 @@
               hr.a-border-tint
               footer.card-footer
                 = render(Learnings::LearningComponent.new(practice: @practice, current_user:))
+                - if @practice.practice_quiz_required?
+                  .card-footer__alert
+                    - if @practice.practice_quiz_passed_by?(current_user)
+                      | 理解度テストに合格済みです。
+                    - else
+                      = link_to '理解度テストに合格すると、このプラクティスを修了できます。',
+                        practice_practice_quiz_path(@practice),
+                        class: 'card-footer__quiz-link'
                 - if @practice.submission && !@practice.guide_to_grant_course?(current_user)
                   .card-footer__alert
                     = link_to '提出の前に、提出時の注意点を確認しよう',
@@ -154,6 +162,19 @@
               footer.card-footer
                 .card-main-actions
                   ul.card-main-actions__items
+                    - if @practice.source_practice.present?
+                      li.card-main-actions__item
+                        = link_to practice_path(@practice.source_practice), class: 'a-button is-sm is-secondary is-block' do
+                          i.fa-solid.fa-right-left
+                          | 元プラクティスへ
+                    - @practice.copied_practices.each do |practice|
+                      li.card-main-actions__item
+                        = link_to practice_path(practice), class: 'a-button is-sm is-secondary is-block' do
+                          i.fa-solid.fa-right-left
+                          - if @practice.copied_practices.many?
+                            | 助成金コースへ（#{practice.title}）
+                          - if @practice.copied_practices.one?
+                            | 助成金コースへ
                     li.card-main-actions__item
                       = link_to edit_mentor_practice_path(@practice), class: 'a-button is-sm is-secondary is-block' do
                         i.fa-solid.fa-pen
@@ -163,7 +184,7 @@
                         i.fa-solid.fa-trash
                         | 削除する
       .col-lg-4.col-xs-12
-        nav.page-nav.a-card
+        nav.page-nav.a-card aria-label="同じカテゴリーのプラクティス"
           header.page-nav__header
             h2.page-nav__title
               = link_to course_practices_path(current_user.course, anchor: "category-#{category.id}"),

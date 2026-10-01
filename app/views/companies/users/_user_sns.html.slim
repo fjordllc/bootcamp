@@ -9,7 +9,7 @@
           i.fa-brands.fa-github-alt
     li.sns-links__item
       - if user.twitter_account
-        = link_to "https://twitter.com/#{user.twitter_account}", class: 'sns-links__item-link a-button is-sm is-secondary is-icon'
+        = link_to user.twitter_url, class: 'sns-links__item-link a-button is-sm is-secondary is-icon'
           i.fa-brands.fa-x-twitter
       - else
         .sns-links__item-link.a-button.is-sm.is-disabled.is-icon

@@ -92,6 +92,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   belongs_to :company, optional: true
   belongs_to :course
+  has_many :mentor_memos, dependent: :destroy
   has_many :learnings, dependent: :destroy
   has_many :pages, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -713,11 +714,13 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     if avatar.attached? && avatar.blob.present?
       custom_key = "avatars/#{login_name}.#{AVATAR_FORMAT}"
       attach_custom_avatar if avatar.blob.key != custom_key
+      return image_url DEFAULT_IMAGE_PATH unless avatar.blob.service.exist?(avatar.blob.key)
+
       "#{avatar.url}?v=#{avatar.created_at.to_i}"
     else
       image_url DEFAULT_IMAGE_PATH
     end
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::Error => e
+  rescue ActiveStorage::Error => e
     log_avatar_error('avatar_url', e)
     image_url DEFAULT_IMAGE_PATH
   end
@@ -767,7 +770,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   def change_watching(other_user, watch)
     following = Following.find_by(follower_id: self, followed_id: other_user)
-    following.update(watch:)
+    following&.update(watch:)
   end
 
   def unfollow(other_user)
@@ -788,13 +791,6 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     else
       followees
     end
-  end
-
-  def update_mentor_memo(new_memo)
-    # ユーザーの「最終ログイン」にupdated_at値が利用されるため
-    # メンターor管理者によるmemoカラムのupdateの際は、updated_at値の変更を防ぐ
-    self.record_timestamps = false
-    update!(mentor_memo: new_memo)
   end
 
   def mark_all_as_read_and_delete_cache_of_unreads(target_notifications: nil)
@@ -994,13 +990,12 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   def attach_custom_avatar
     custom_key = "avatars/#{login_name}.#{AVATAR_FORMAT}"
-    variant_avatar = avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }, format: AVATAR_FORMAT).processed
-    io = StringIO.new(variant_avatar.download)
-
-    # Use ActiveStorage's create_and_upload! for proper checksum handling
     custom_blob = ActiveStorage::Blob.find_by(key: custom_key)
 
     unless custom_blob
+      variant_avatar = avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }, format: AVATAR_FORMAT).processed
+      io = StringIO.new(variant_avatar.download)
+
       custom_blob = ActiveStorage::Blob.create_and_upload!(
         io:,
         filename: "#{login_name}.#{AVATAR_FORMAT}",
@@ -1008,10 +1003,8 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
         key: custom_key,
         identify: false
       )
-      avatar.attach(custom_blob)
     end
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::Error, LoadError => e
-    log_avatar_error('attach_custom_avatar', e)
+    avatar.attach(custom_blob)
   end
 
   def log_avatar_error(context, error)

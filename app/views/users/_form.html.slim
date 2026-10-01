@@ -18,6 +18,7 @@
     = render 'users/form/email', f: f, user: user
     - if from == :edit
       = render 'users/form/mail_notification', f: f
+      = render 'users/form/pjord_comment', f: f
     = render 'users/form/name', f: f, user: user
     = render 'users/form/kana_name', f: f, user: user
     = render 'users/form/avatar', f: f, user: user

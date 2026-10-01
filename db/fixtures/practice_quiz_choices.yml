@@ -1,0 +1,71 @@
+pc_cpu_correct:
+  practice_quiz_question: pc_cpu_single_choice
+  body: コンピューターの計算や処理を行う中心的な部品
+  correct: true
+  position: 1
+
+pc_cpu_wrong_storage:
+  practice_quiz_question: pc_cpu_single_choice
+  body: 写真や動画を長期保存するための部品
+  correct: false
+  position: 2
+
+pc_cpu_wrong_display:
+  practice_quiz_question: pc_cpu_single_choice
+  body: 画面の明るさや色味を決める部品
+  correct: false
+  position: 3
+
+pc_storage_correct:
+  practice_quiz_question: pc_storage_single_choice
+  body: OSやファイルを保存する
+  correct: true
+  position: 1
+
+pc_storage_wrong_memory:
+  practice_quiz_question: pc_storage_single_choice
+  body: 起動中のアプリが使う作業場所としてだけ使われる
+  correct: false
+  position: 2
+
+pc_storage_wrong_network:
+  practice_quiz_question: pc_storage_single_choice
+  body: ネットワーク通信を暗号化する
+  correct: false
+  position: 3
+
+pc_memory_correct_temporary:
+  practice_quiz_question: pc_memory_multiple_choice
+  body: 作業中のデータを一時的に置く場所である
+  correct: true
+  position: 1
+
+pc_memory_correct_capacity:
+  practice_quiz_question: pc_memory_multiple_choice
+  body: 容量が不足すると複数アプリの同時利用で動作が重くなりやすい
+  correct: true
+  position: 2
+
+pc_memory_wrong_persistent:
+  practice_quiz_question: pc_memory_multiple_choice
+  body: 電源を切ってもファイルを長期保存する場所である
+  correct: false
+  position: 3
+
+pc_memory_wrong_cpu:
+  practice_quiz_question: pc_memory_multiple_choice
+  body: CPUのクロック周波数そのものを表す
+  correct: false
+  position: 4
+
+debian_install_correct:
+  practice_quiz_question: debian_install_single_choice
+  body: インストール対象のディスクとバックアップの有無
+  correct: true
+  position: 1
+
+debian_install_wrong_browser:
+  practice_quiz_question: debian_install_single_choice
+  body: 普段使うブラウザのブックマーク数
+  correct: false
+  position: 2

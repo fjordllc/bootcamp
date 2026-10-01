@@ -22,7 +22,7 @@
                 - category.practices.each do |practice|
                   == render 'courses_practice', practice: practice, learnings: learnings, skipped_practices: skipped_practices
     .page-body__column.is-sub
-      nav.page-nav.a-card
+      nav.page-nav.a-card aria-label="プラクティスカテゴリー"
         ul.page-nav__items
           - categories.each do |category|
             - if category.practices.present?

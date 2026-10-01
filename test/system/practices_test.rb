@@ -8,6 +8,27 @@ class PracticesTest < ApplicationSystemTestCase
     assert_equal 'プラクティス OS X Mountain Lionをクリーンインストールする | FBC', title
   end
 
+  test 'show practice quiz guidance as an underlined link' do
+    practice = practices(:practice3)
+    quiz = PracticeQuiz.create!(practice:, published: false)
+    question = quiz.practice_quiz_questions.create!(
+      question_type: :single_choice,
+      body: '正しいものを選んでください。',
+      explanation: '解説です。',
+      position: 1,
+      published: false
+    )
+    question.practice_quiz_choices.create!(body: '正解', correct: true, position: 1)
+    question.practice_quiz_choices.create!(body: '不正解', correct: false, position: 2)
+    question.update!(published: true)
+    quiz.update!(published: true)
+
+    visit_with_auth practice_path(practice), 'kimura'
+
+    guidance_link = find_link '理解度テストに合格すると、このプラクティスを修了できます。'
+    assert_equal 'underline', guidance_link.style('text-decoration-line')['text-decoration-line']
+  end
+
   test 'show link to all practices with same category' do
     user = users(:hatsuno)
     practice1 = practices(:practice1)

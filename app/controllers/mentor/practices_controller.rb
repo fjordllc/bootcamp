@@ -11,10 +11,13 @@ class Mentor::PracticesController < ApplicationController
   end
 
   def new
-    @practice = Practice.new(pjord_review: true, pjord_auto_check: false)
+    @practice = Practice.new
+    build_template
   end
 
-  def edit; end
+  def edit
+    build_template
+  end
 
   def create
     @practice = Practice.new(practice_params)
@@ -22,6 +25,7 @@ class Mentor::PracticesController < ApplicationController
       ChatNotifier.message("プラクティス：「#{@practice.title}」を#{current_user.login_name}さんが作成しました。\r<#{url_for(@practice)}>")
       redirect_to @practice, notice: 'プラクティスを作成しました。'
     else
+      build_template
       render :new
     end
   end
@@ -32,6 +36,7 @@ class Mentor::PracticesController < ApplicationController
       ChatNotifier.message("プラクティス：「#{@practice.title}」を#{current_user.login_name}さんが編集しました。\r<#{url_for(@practice)}>")
       redirect_to @practice, notice: 'プラクティスを更新しました。'
     else
+      build_template
       render :edit
     end
   end
@@ -55,15 +60,14 @@ class Mentor::PracticesController < ApplicationController
       :goal,
       :submission,
       :open_product,
-      :pjord_review,
-      :pjord_auto_check,
       :include_progress,
       :completion_image,
       :memo,
       :summary,
       :ogp_image,
       category_ids: [],
-      practices_books_attributes: %i[id book_id must_read _destroy]
+      practices_books_attributes: %i[id book_id must_read _destroy],
+      template_attributes: %i[description _destroy]
     )
   end
 
@@ -73,5 +77,9 @@ class Mentor::PracticesController < ApplicationController
 
   def set_course
     @course = Course.find(params[:course_id]) if params[:course_id]
+  end
+
+  def build_template
+    @practice.build_template unless @practice.template
   end
 end

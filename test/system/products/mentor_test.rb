@@ -12,14 +12,14 @@ module Products
       assert_selector '#side-tabs-nav-4', text: '提出物'
     end
 
-    test 'mentors can see review by Pjord button' do
+    test 'mentors can not see review by Pjord button' do
       visit_with_auth "/products/#{products(:product2).id}", 'mentormentaro'
-      assert_button 'ピヨルドがコメントする'
+      assert_no_button 'ピヨルドがコメントする'
     end
 
-    test 'admins can see review by Pjord button' do
+    test 'admins can not see review by Pjord button' do
       visit_with_auth "/products/#{products(:product2).id}", 'adminonly'
-      assert_button 'ピヨルドがコメントする'
+      assert_no_button 'ピヨルドがコメントする'
     end
 
     test 'students can not see block for mentors' do
@@ -41,36 +41,33 @@ module Products
     test 'display the user memos after click on user-memos tab' do
       visit_with_auth "/products/#{products(:product2).id}", 'komagata'
       find('#side-tabs-nav-2').click
-      assert_text 'kimuraさんのメモ'
+      assert_text 'この生徒は英語が得意です。'
     end
 
     test 'can cancel editing of user-memos' do
       visit_with_auth "/products/#{products(:product2).id}", 'komagata'
       find('#side-tabs-nav-2').click
       click_button '編集'
-      fill_in 'js-user-mentor-memo', with: '編集はできないはずです。'
+      within('.user-mentor-memo__items') do
+        find('textarea').set('編集はできないはずです。')
+      end
       click_button 'キャンセル'
-      assert_no_text '編集はできないはずです。'
-      assert_text 'kimuraさんのメモ'
-    end
-
-    test 'can preview editing of user-memos' do
-      visit_with_auth "/products/#{products(:product2).id}", 'komagata'
       find('#side-tabs-nav-2').click
-      assert_text 'kimuraさんのメモ'
-      click_button '編集'
-      fill_in 'js-user-mentor-memo', with: 'プレビューができます。'
-      find('.form-tabs__tab', text: 'プレビュー').click
-      assert_text 'プレビューができます。'
+      assert_no_text '編集はできないはずです。'
+      assert_text 'この生徒は英語が得意です。'
     end
 
     test 'can update user-memos' do
       visit_with_auth "/products/#{products(:product2).id}", 'komagata'
       find('#side-tabs-nav-2').click
-      assert_text 'kimuraさんのメモ'
+      assert_text 'この生徒は英語が得意です。'
       click_button '編集'
-      fill_in 'js-user-mentor-memo', with: '編集後のユーザーメモです。'
-      click_button '保存する'
+      within('.user-mentor-memo__items') do
+        find('textarea').set('編集後のユーザーメモです。')
+      end
+      click_button '保存'
+      assert_no_button '保存'
+      find('#side-tabs-nav-2').click
       assert_text '編集後のユーザーメモです。', wait: 10
     end
 

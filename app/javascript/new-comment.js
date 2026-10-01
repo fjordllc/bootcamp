@@ -2,9 +2,7 @@ import autosize from 'autosize'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
 import { initializeComment, toggleVisibility } from 'initializeComment'
-import { initializeReaction } from 'reaction'
 import { toast } from 'vanillaToast'
-import { setWatchable } from 'setWatchable'
 import commentCheckable from 'comment-checkable'
 import { post } from '@rails/request.js'
 
@@ -136,9 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
     comments.appendChild(newCommentElement)
     initializeComment(newCommentElement)
 
-    const reactionElement = newCommentElement.querySelector('.js-reactions')
-    initializeReaction(reactionElement)
-
     const previousLatest = comments.querySelector('.is-latest')
     if (previousLatest) previousLatest.classList.remove('is-latest')
     newCommentElement.classList.add('is-latest')
@@ -171,7 +166,15 @@ document.addEventListener('DOMContentLoaded', () => {
       await createComment()
 
       if (document.querySelector('.watch-toggle'))
-        setWatchable(commentableId, commentableType)
+        newComment.dispatchEvent(
+          new CustomEvent('watch:refresh', {
+            bubbles: true,
+            detail: {
+              watchableId: commentableId,
+              watchableType: commentableType
+            }
+          })
+        )
 
       if (checkAfterSave) {
         await performCheck()

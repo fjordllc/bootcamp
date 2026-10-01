@@ -13,6 +13,12 @@ const usersIndex = {
   },
 
   followOrChangeFollow(userId, isFollow, isWatch) {
+    const details = document.getElementById(`follow_details${userId}`)
+    const options = Array.from(
+      details.querySelectorAll('.following__dropdown-item button')
+    )
+    if (options.some((button) => button.disabled)) return
+    options.forEach((button) => (button.disabled = true))
     const params = {
       id: userId
     }
@@ -29,11 +35,7 @@ const usersIndex = {
     })
       .then((response) => {
         if (response.ok) {
-          const details = document.getElementById(`follow_details${userId}`)
           const summary = details.querySelector('.following__summary span')
-          const options = Array.from(
-            details.querySelectorAll('.following__dropdown-item button')
-          )
 
           if (isWatch) {
             summary.className = 'a-button is-warning is-sm is-block'
@@ -75,10 +77,20 @@ const usersIndex = {
       })
       .catch(function (error) {
         console.warn(error)
+        alert('フォロー処理に失敗しました')
+      })
+      .finally(() => {
+        options.forEach((button) => (button.disabled = false))
       })
   },
 
   unfollow(userId, isWatch) {
+    const details = document.getElementById(`follow_details${userId}`)
+    const options = Array.from(
+      details.querySelectorAll('.following__dropdown-item button')
+    )
+    if (options.some((button) => button.disabled)) return
+    options.forEach((button) => (button.disabled = true))
     const params = {
       id: userId
     }
@@ -95,15 +107,10 @@ const usersIndex = {
     })
       .then((response) => {
         if (response.ok) {
-          const details = document.getElementById(`follow_details${userId}`)
-
           const summary = details.querySelector('.following__summary span')
           summary.className = 'a-button is-secondary is-sm is-block'
           summary.innerHTML = 'フォローする'
 
-          const options = Array.from(
-            details.querySelectorAll('.following__dropdown-item button')
-          )
           options[0].className = 'following-option a-dropdown__item-inner'
           options[0].onclick = function () {
             usersIndex.followOrChangeFollow(userId, false, true)
@@ -123,6 +130,10 @@ const usersIndex = {
       })
       .catch(function (error) {
         console.warn(error)
+        alert('フォロー処理に失敗しました')
+      })
+      .finally(() => {
+        options.forEach((button) => (button.disabled = false))
       })
   }
 }

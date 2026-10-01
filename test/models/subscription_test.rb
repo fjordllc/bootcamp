@@ -26,6 +26,20 @@ class SubscriptionTest < ActiveSupport::TestCase
     end
   end
 
+  test '#destroy succeeds if the subscription is canceled concurrently' do
+    statuses = %w[active canceled].map { |status| Struct.new(:status).new(status) }
+    error = Stripe::InvalidRequestError.new(
+      'A canceled subscription can only update its cancellation_details and metadata.',
+      'subscription'
+    )
+
+    Stripe::Subscription.stub(:retrieve, ->(*) { statuses.shift }) do
+      Stripe::Subscription.stub(:update, ->(*) { raise error }) do
+        assert Subscription.new.destroy('sub_12345678')
+      end
+    end
+  end
+
   test '#all' do
     VCR.use_cassette 'subscription/list' do
       subscriptions = Subscription.new.all

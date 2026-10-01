@@ -3,6 +3,13 @@
 require 'application_system_test_case'
 
 class WelcomeTest < ApplicationSystemTestCase
+  test 'profile X links use x.com' do
+    user = users(:komagata)
+    visit '/welcome'
+
+    assert_selector "a.lp-mentor__sns-item-link[href='https://x.com/#{user.twitter_account}'] i.fa-x-twitter", visible: :all
+  end
+
   test 'mentors can update their profiles' do
     visit_with_auth '/current_user/edit', 'komagata'
     attach_file 'user[profile_image]', Rails.root.join('test/fixtures/files/users-avatars-komagata.jpg'), make_visible: true

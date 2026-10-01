@@ -1,6 +1,7 @@
 import { initializeComment } from 'initializeComment'
+import { get } from '@rails/request.js'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const comments = document.querySelectorAll('.thread-comment:not(.loading)')
   const loadingContent = document.querySelector('.loading-content')
   if (!loadingContent) {
@@ -23,10 +24,90 @@ document.addEventListener('DOMContentLoaded', () => {
   const incrementSize = 8
   let commentRemaining = 0
   const nextCommentAmount = 0
-  const moreCommentButton = document.querySelector(
-    '.a-button.is-lg.is-text.is-block'
-  )
   const moreComments = document.querySelector('.thread-comments-more')
+  const moreCommentButton = moreComments?.querySelector('button')
+  if (!moreCommentButton || !moreComments) {
+    setComments(comments)
+    return
+  }
+
+  if (moreComments.dataset.commentsUrl) {
+    commentRemaining = Number(moreComments.dataset.commentRemaining)
+    setComments(comments)
+    displayMoreComments(commentRemaining, nextCommentAmount, moreCommentButton)
+
+    const commentItems = document.querySelector('.thread-comments__items')
+    let beforeId =
+      commentItems.querySelector('.thread-comment').dataset.comment_id
+    const loadComments = async (parameter, updateRemaining = true) => {
+      const separator = moreComments.dataset.commentsUrl.includes('?')
+        ? '&'
+        : '?'
+      const response = await get(
+        `${moreComments.dataset.commentsUrl}${separator}${parameter}`
+      )
+      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+
+      const template = document.createElement('template')
+      template.innerHTML = await response.text
+      const loadedComments = Array.from(
+        template.content.querySelectorAll('.thread-comment')
+      )
+      loadedComments.forEach((comment) => {
+        if (document.getElementById(comment.id)) comment.remove()
+      })
+      commentItems.prepend(template.content)
+      const uniqueComments = loadedComments.filter(
+        (comment) => comment.isConnected
+      )
+      setComments(uniqueComments)
+      Array.from(commentItems.querySelectorAll(':scope > .thread-comment'))
+        .sort(
+          (left, right) =>
+            Number(left.dataset.comment_created_at) -
+              Number(right.dataset.comment_created_at) ||
+            Number(left.dataset.comment_id) - Number(right.dataset.comment_id)
+        )
+        .forEach((comment) => commentItems.append(comment))
+      if (!updateRemaining) return
+
+      beforeId = uniqueComments[0]?.dataset.comment_id || beforeId
+      commentRemaining = Number(response.headers.get('X-Comment-Remaining'))
+      if (commentRemaining > 0) {
+        moreComments.classList.remove('is-hidden')
+        displayMoreComments(
+          commentRemaining,
+          nextCommentAmount,
+          moreCommentButton
+        )
+      } else {
+        moreComments.classList.add('is-hidden')
+      }
+    }
+
+    const commentAnchor = location.hash
+    const anchorId = commentAnchor.match(/^#comment_(\d+)$/)?.[1]
+    if (anchorId && !document.getElementById(`comment_${anchorId}`)) {
+      try {
+        await loadComments(`target=${encodeURIComponent(anchorId)}`, false)
+        document.getElementById(`comment_${anchorId}`)?.scrollIntoView()
+      } catch (error) {
+        console.warn(error)
+      }
+    }
+
+    moreCommentButton.addEventListener('click', async () => {
+      moreCommentButton.disabled = true
+      try {
+        await loadComments(`before=${encodeURIComponent(beforeId)}`)
+      } catch (error) {
+        console.warn(error)
+      } finally {
+        moreCommentButton.disabled = false
+      }
+    })
+    return
+  }
 
   if (commentTotalCount <= initialLimit) {
     comments.forEach((comment) => {

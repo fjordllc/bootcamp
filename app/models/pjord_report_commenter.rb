@@ -4,6 +4,7 @@ class PjordReportCommenter
   def call(name, _started, _finished, _unique_id, payload)
     report = payload[:report]
     return if report.wip
+    return unless report.user.pjord_comment?
 
     case name
     when 'report.create'

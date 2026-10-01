@@ -2,6 +2,7 @@
 
 class PjordReportCommentJob < ApplicationJob
   queue_as :default
+  retry_on StandardError, wait: :polynomially_longer, attempts: 4
   discard_on ActiveJob::DeserializationError
 
   def perform(report_id:)
@@ -13,11 +14,10 @@ class PjordReportCommentJob < ApplicationJob
 
     add_eyes_reaction(pjord, report)
 
-    intent = classify(report)
-    return if intent == 'none'
+    intent = classify(report) || 'general'
 
     response = generate_response(report, intent)
-    return if response.blank?
+    raise 'Pjord report comment response is blank' if response.blank?
 
     Comment.create!(user: pjord, commentable: report, description: response)
   end
@@ -32,10 +32,7 @@ class PjordReportCommentJob < ApplicationJob
 
   def classify(report)
     result = Pjord::ReportClassifierAgent.classify(report)
-    intent = result&.dig(:intent)
-    return 'none' if intent.nil?
-
-    intent
+    result&.dig(:intent)
   rescue StandardError => e
     Rails.logger.error("[PjordReportCommentJob] classify failed: #{e.class}: #{e.message}")
     raise

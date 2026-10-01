@@ -27,7 +27,7 @@ ruby:
   hr.a-border
 
   .page-body
-    .page-content
+    article.page-content
 
       - if current_user.submitted?(@coding_test)
         .a-page-notice
@@ -51,7 +51,7 @@ ruby:
                     h1.page-content-header__title
                       = @coding_test.title
 
-              .a-card
+              section.a-card
                 header.card-header
                   h2.card-header__title
                     = CodingTest.human_attribute_name :description
@@ -62,7 +62,7 @@ ruby:
                       = @coding_test.description
 
               - @coding_test.coding_test_cases.each_with_index do |coding_test_case, i|
-                .a-card.overflow-y-hidden
+                section.a-card.overflow-y-hidden
                   header.card-header.is-sm
                     h2.card-header__title
                       = "入力・出力例#{i + 1}"
@@ -89,7 +89,7 @@ ruby:
                                 = coding_test_case.output
 
               - if current_user.submitted?(@coding_test)
-                .a-card
+                section.a-card
                   header.card-header
                     h2.card-header__title
                       | 自分の回答
@@ -101,7 +101,7 @@ ruby:
                           code
                             = current_user.coding_test_submissions.find_by(coding_test: @coding_test).code
               - else
-                .a-card
+                section.a-card
                   header.card-header.is-sm
                     h2.card-header__title
                       | 回答を入力
@@ -121,7 +121,7 @@ ruby:
                           button#run.a-button.is-md.is-primary.is-block
                             | 実行
 
-                .a-card
+                section.a-card
                   header.card-header
                     h2.card-header__title
                       | 結果
@@ -130,7 +130,7 @@ ruby:
                       table.result-table#result
 
               - if current_user.admin_or_mentor?
-                .a-card.is-only-mentor
+                aside.a-card.is-only-mentor
                   header.card-header.is-sm
                     h2.card-header__title 管理者・メンター用メニュー
                   hr.a-border-tint
@@ -147,7 +147,7 @@ ruby:
                             | みんなのコード
 
           .col-lg-3.col-xs-12
-            nav.page-nav.a-card
+            nav.page-nav.a-card aria-label="同じプラクティスのコーディングテスト"
               header.page-nav__header
                 h2.page-nav__title
                   = link_to @practice,

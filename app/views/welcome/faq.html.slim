@@ -12,7 +12,7 @@
             = title
         .lp-page-header__end
           - if current_user&.admin?
-            nav.lp-page-header-nav
+            nav.lp-page-header-nav aria-label="FAQメニュー"
               ul.lp-page-header-nav__items
                 li.lp-page-header-nav__item
                   = link_to new_admin_faq_path, class: 'a-button is-md is-secondary-border is-block' do
