@@ -31,15 +31,6 @@ function initializeComment(comment) {
       commentDisplayContent.innerHTML = markdownInitializer.render(savedComment)
     })
   }
-
-  const deleteButton = comment.querySelector('.card-main-actions__muted-action')
-  if (deleteButton) {
-    deleteButton.addEventListener('click', () => {
-      if (window.confirm('削除してよろしいですか？')) {
-        deleteComment(commentId)
-      }
-    })
-  }
 }
 
 function toggleVisibility(elements, className) {
@@ -69,29 +60,6 @@ function updateComment(commentId, description) {
   }).catch((error) => {
     console.warn(error)
   })
-}
-
-function deleteComment(commentId) {
-  fetch(`/api/comments/${commentId}.json`, {
-    method: 'DELETE',
-    headers: {
-      'X-Requested-With': 'XMLHttpRequest',
-      'X-CSRF-Token': CSRF.getToken()
-    },
-    credentials: 'same-origin',
-    redirect: 'manual'
-  })
-    .then(() => {
-      const deletedComment = document.querySelector(
-        `.thread-comment.comment[data-comment_id='${commentId}']`
-      )
-      if (deletedComment) {
-        deletedComment.remove()
-      }
-    })
-    .catch((error) => {
-      console.warn(error)
-    })
 }
 
 export { initializeComment, toggleVisibility }
