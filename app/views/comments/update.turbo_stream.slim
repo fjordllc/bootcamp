@@ -1,0 +1,6 @@
+= turbo_stream.replace dom_id(@comment) do
+  = render 'comments/comment',
+    comment: @comment,
+    user: current_user,
+    latest_comment: @comment.commentable.comments.order(:created_at, :id).last,
+    hidden: false
