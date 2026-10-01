@@ -40,7 +40,7 @@ pair_work4:
   buddy: komagata
   published_at: <%= Time.zone.parse('2025-01-01 00:00:00') %>
   created_at: <%= Time.zone.parse('2025-01-01 00:00:00') %>
-  wip: true
+  wip: false
 
 pair_work5:
   title: 近日開催のペアワークの動作確認
