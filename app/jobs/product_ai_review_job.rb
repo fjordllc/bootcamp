@@ -3,60 +3,34 @@
 class ProductAiReviewJob < ApplicationJob
   queue_as :default
 
-  def perform(product_id:, generation:)
+  def perform(product_id)
     product = Product.find_by(id: product_id)
-    return unless product && claim(product, generation)
+    return if product.nil? || product.wip?
 
-    if RubyLLM.config.anthropic_api_key.blank?
-      finish(product, generation, status: 'unconfigured')
-      return
+    body = product.body
+    content = review(product)
+    return if content.nil?
+
+    product.with_lock do
+      return if product.wip? || product.body != body
+
+      review = product.reload_product_ai_review || product.build_product_ai_review
+      review.update!(content:)
     end
-
-    generate(product, generation)
+  rescue ActiveRecord::RecordNotFound
+    # The submission may have been deleted during generation.
+    nil
   end
 
   private
 
-  def claim(product, generation)
-    product.with_lock do
-      review = product.product_ai_review
-      return false unless review&.generation == generation && review.status == 'pending' && review.current_for?(product)
+  def review(product)
+    return if RubyLLM.config.anthropic_api_key.blank?
 
-      review.update!(status: 'generating')
-    end
-    true
-  rescue ActiveRecord::RecordNotFound
-    false
-  end
-
-  def generate(product, generation)
-    content = ProductReviewAgent.review(product, model: product.product_ai_review.model)
-    if content.is_a?(String) && content.present?
-      finish(product, generation, status: 'completed', content:, generated_at: Time.current)
-    else
-      finish(product, generation, status: 'failed')
-    end
+    content = ProductReviewAgent.review(product)
+    content.presence if content.is_a?(String)
   rescue StandardError
-    # Do not expose or log provider errors: they may contain submitted text or credentials.
-    retrying = executions < 3
-    updated = finish(product, generation, status: retrying ? 'pending' : 'failed')
-    retry_job wait: 1.minute if retrying && updated
-  end
-
-  def finish(product, generation, **attributes)
-    product.with_lock do
-      review = product.product_ai_review
-      return false unless review&.generation == generation && review.status == 'generating'
-
-      unless review.current_for?(product)
-        review.update!(status: 'cancelled', content: nil, generated_at: nil)
-        return false
-      end
-
-      review.update!(**attributes)
-    end
-    true
-  rescue ActiveRecord::RecordNotFound
-    false
+    # Provider errors may include submitted text or the private model answer.
+    nil
   end
 end

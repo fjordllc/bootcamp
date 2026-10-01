@@ -705,12 +705,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_01_020000) do
   create_table "product_ai_reviews", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", null: false
-    t.datetime "generated_at"
-    t.string "generation", null: false
-    t.string "model", null: false
     t.bigint "product_id", null: false
-    t.string "source_fingerprint", null: false
-    t.string "status", default: "pending", null: false
     t.datetime "updated_at", null: false
     t.index ["product_id"], name: "index_product_ai_reviews_on_product_id", unique: true
   end

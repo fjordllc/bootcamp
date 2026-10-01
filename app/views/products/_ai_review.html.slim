@@ -8,17 +8,6 @@ section.a-card#product-ai-review
       .a-long-text.is-md
         p
           | メンター・管理者だけに表示されるレビュー支援です。内容を確認してから、ご自身のコメントを作成してください。
-        - case review.status
-        - when 'completed'
-          = sanitize(md2html(escape_special_chars(review.content)),\
-            tags: %w[p h2 h3 h4 h5 h6 ul ol li pre code em strong blockquote a hr br],\
-            attributes: %w[href title])
-        - when 'pending', 'generating'
-          p
-            | AIレビューを作成中です。しばらくしてからページを開き直してください。
-        - when 'unconfigured'
-          p
-            | AIレビューの設定がされていません。管理者に設定をご確認ください。
-        - else
-          p
-            | AIレビューを作成できませんでした。提出物は保存されています。通常どおりレビューを進めてください。
+        = sanitize(md2html(escape_special_chars(review.content)),\
+          tags: %w[p h2 h3 h4 h5 h6 ul ol li pre code em strong blockquote a hr br],\
+          attributes: %w[href title])

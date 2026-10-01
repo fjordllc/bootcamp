@@ -14,7 +14,7 @@ class ProductReviewAgentTest < ActiveSupport::TestCase
       assert assume_model_exists
       chat
     }) do
-      assert_equal 'メンター支援', ProductReviewAgent.review(product, model: 'claude-opus-5-5')
+      assert_equal 'メンター支援', ProductReviewAgent.review(product)
     end
     context = JSON.parse(chat.message)
     assert_equal product.body, context['submitted_body']

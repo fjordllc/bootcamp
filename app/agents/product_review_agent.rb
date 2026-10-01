@@ -13,8 +13,8 @@ class ProductReviewAgent < RubyLLM::Agent
     軽微な好みの指摘は避けてください。返信案は「提出物の作成おつかれさまです。」で始め、温かく、断定を避けた言い方にしてください。
   INSTRUCTIONS
 
-  def self.review(product, model:)
-    new(model:).ask(message(product)).content
+  def self.review(product)
+    new.ask(message(product)).content
   end
 
   def self.message(product)

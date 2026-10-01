@@ -5,9 +5,6 @@ require 'test_helper'
 class ProductAiReviewJobTest < ActiveJob::TestCase
   setup do
     @product = products(:product8)
-    @product.update!(body: 'レビューする本文')
-    @review = @product.reload.product_ai_review
-    @generation = @review.generation
     @original_key = RubyLLM.config.anthropic_api_key
     RubyLLM.config.anthropic_api_key = 'fictional-test-key'
     clear_enqueued_jobs
@@ -23,130 +20,81 @@ class ProductAiReviewJobTest < ActiveJob::TestCase
         perform_review
       end
     end
-    assert_equal 'completed', @review.reload.status
-    assert_equal '支援内容', @review.content
-    assert_not_nil @review.generated_at
-    assert_equal 'claude-opus-5-5', @review.model
+    assert_equal '支援内容', @product.reload.product_ai_review.content
   end
 
-  test 'outdated jobs do not invoke the model' do
-    @product.update!(body: '最新本文')
-    ProductReviewAgent.stub(:review, ->(*) { flunk 'old generation called model' }) { perform_review }
-    assert_nil @review.reload.content
-    assert_equal 'pending', @review.status
+  test 'updates existing review content' do
+    review = @product.create_product_ai_review!(content: '以前の支援')
+    ProductReviewAgent.stub(:review, '新しい支援') do
+      assert_no_difference 'ProductAiReview.count' do
+        perform_review
+      end
+    end
+    assert_equal '新しい支援', review.reload.content
   end
 
-  test 'in flight result does not replace newer pending review' do
-    ProductReviewAgent.stub(:review, lambda { |*, **|
-      @product.update!(body: 'さらに新しい本文')
+  test 'in flight result cannot overwrite an edited submission' do
+    ProductReviewAgent.stub(:review, lambda { |product|
+      Product.find(product.id).update!(body: 'さらに新しい本文')
       '古い結果'
     }) { perform_review }
-    assert_nil @review.reload.content
-    assert_equal 'pending', @review.status
-    assert_not_equal @generation, @review.generation
-  end
-
-  test 'duplicate job cannot invoke model while another job is generating or after completion' do
-    calls = 0
-    ProductReviewAgent.stub(:review, lambda { |*, **|
-      calls += 1
-      perform_review
-      '最新結果'
-    }) do
-      perform_review
-      perform_review
-    end
-    assert_equal 1, calls
-    assert_equal '最新結果', @review.reload.content
+    assert_nil @product.reload.product_ai_review
   end
 
   test 'WIP change during generation cannot publish result' do
-    ProductReviewAgent.stub(:review, lambda { |*, **|
-      @product.update!(wip: true)
+    ProductReviewAgent.stub(:review, lambda { |product|
+      Product.find(product.id).update!(wip: true)
       '古い結果'
     }) { perform_review }
-    assert_nil @review.reload.content
-    assert_equal 'cancelled', @review.status
+    assert_nil @product.reload.product_ai_review
   end
 
   test 'deleted product is ignored' do
     @product.destroy!
     ProductReviewAgent.stub(:review, ->(*) { flunk 'deleted product called model' }) { perform_review }
-    assert_not ProductAiReview.exists?(@review.id)
   end
 
-  test 'missing key produces understandable private configuration status' do
+  test 'product deleted during generation is ignored' do
+    ProductReviewAgent.stub(:review, lambda { |product|
+      Product.find(product.id).destroy!
+      '古い結果'
+    }) { perform_review }
+    assert_not ProductAiReview.exists?(product_id: @product.id)
+  end
+
+  test 'WIP product is ignored' do
+    @product.update!(wip: true)
+    ProductReviewAgent.stub(:review, ->(*) { flunk 'WIP product called model' }) { perform_review }
+    assert_nil @product.reload.product_ai_review
+  end
+
+  test 'missing key skips generation' do
     RubyLLM.config.anthropic_api_key = nil
     ProductReviewAgent.stub(:review, ->(*) { flunk 'unconfigured model called' }) { perform_review }
-    assert_equal 'unconfigured', @review.reload.status
-    assert_nil @review.content
-    assert_no_enqueued_jobs only: ProductAiReviewJob
+    assert_nil @product.reload.product_ai_review
   end
 
-  test 'blank result fails privately' do
+  test 'blank result is not saved' do
     ProductReviewAgent.stub(:review, '  ') { perform_review }
-    assert_equal 'failed', @review.reload.status
-    assert_nil @review.content
+    assert_nil @product.reload.product_ai_review
   end
 
-  test 'model errors retry with no raw error content and exhaust to failed' do
-    ProductReviewAgent.stub(:review, ->(*, **) { raise StandardError, 'secret learner data and API key' }) do
-      assert_enqueued_jobs 1, only: ProductAiReviewJob do
-        perform_review
-      end
-      assert_equal 'pending', @review.reload.status
-      job = ProductAiReviewJob.new(product_id: @product.id, generation: @generation)
-      job.executions = 2
-      assert_no_enqueued_jobs only: ProductAiReviewJob do
-        job.perform_now
+  test 'provider failure does not save or retry or log private error text' do
+    logs = StringIO.new
+    ProductAiReviewJob.stub(:logger, ActiveSupport::Logger.new(logs)) do
+      ProductReviewAgent.stub(:review, ->(*) { raise StandardError, 'PRIVATE_PROVIDER_ERROR' }) do
+        assert_no_enqueued_jobs only: ProductAiReviewJob do
+          perform_review
+        end
       end
     end
-    assert_equal 'failed', @review.reload.status
-    assert_nil @review.content
-    assert_not_includes @review.attributes.values.join, 'secret learner data'
-  end
-
-  test 'input context change during generation prevents stale completion' do
-    original_goal = @product.practice.goal
-    ProductReviewAgent.stub(:review, lambda { |*, **|
-      @product.practice.update!(goal: '新しい目標')
-      '古い目標の結果'
-    }) { perform_review }
-    assert_nil @review.reload.content
-    assert_nil @review.generated_at
-    assert_equal 'cancelled', @review.status
-    assert_not @review.current_for?(@product.reload)
-
-    @product.practice.update!(goal: original_goal)
-    assert @review.current_for?(@product.reload)
-    ProductReviewAgent.stub(:review, ->(*) { flunk 'cancelled generation called model' }) { perform_review }
-    assert_equal 'cancelled', @review.reload.status
-  end
-
-  test 'input context change during generation cancels model errors without retrying' do
-    original_goal = @product.practice.goal
-    ProductReviewAgent.stub(:review, lambda { |*, **|
-      @product.practice.update!(goal: '新しい目標')
-      raise StandardError, 'provider error'
-    }) do
-      assert_no_enqueued_jobs only: ProductAiReviewJob do
-        perform_review
-      end
-    end
-    assert_equal 'cancelled', @review.reload.status
-    assert_nil @review.content
-    assert_nil @review.generated_at
-    assert_not @review.current_for?(@product.reload)
-
-    @product.practice.update!(goal: original_goal)
-    assert @review.current_for?(@product.reload)
-    ProductReviewAgent.stub(:review, ->(*) { flunk 'cancelled generation called model' }) { perform_review }
-    assert_equal 'cancelled', @review.reload.status
+    assert_nil @product.reload.product_ai_review
+    assert_not_includes logs.string, 'PRIVATE_PROVIDER_ERROR'
   end
 
   private
 
   def perform_review
-    ProductAiReviewJob.perform_now(product_id: @product.id, generation: @generation)
+    ProductAiReviewJob.perform_now(@product.id)
   end
 end
