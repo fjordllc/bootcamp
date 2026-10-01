@@ -18,18 +18,18 @@ section.a-card
             .card-list-item__row
               .card-list-item-meta
                 .card-list-item-meta__items
-                  - if user.reports.present?
+                  - if @job_seeking_counts.reports[user.id].positive?
                     .card-list-item-meta__item
                       = link_to user_reports_path(user), class: 'card-list-item-meta__item-link a-text-link' do
-                        | 日報一覧（#{user.reports.count}）
-                  - if user.products.present?
+                        | 日報一覧（#{@job_seeking_counts.reports[user.id]}）
+                  - if @job_seeking_counts.products[user.id].positive?
                     .card-list-item-meta__item
                       = link_to user_products_path(user), class: 'card-list-item-meta__item-link a-text-link' do
-                        | 提出物一覧（#{user.products.count}）
-                  - if user.works.present?
+                        | 提出物一覧（#{@job_seeking_counts.products[user.id]}）
+                  - if @job_seeking_counts.works[user.id].positive?
                     .card-list-item-meta__item
                       = link_to user_portfolio_path(user), class: 'card-list-item-meta__item-link a-text-link' do
-                        | ポートフォリオ（#{user.works.count}）
+                        | ポートフォリオ（#{@job_seeking_counts.works[user.id]}）
           label.card-list-item__show-user-detail(for="show-user-detail-#{user.id}")
             i.fa-solid.fa-angle-down
         input.a-toggle-checkbox(id="show-user-detail-#{user.id}" type='checkbox')
