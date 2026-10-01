@@ -17,7 +17,11 @@ class Product < ApplicationRecord # rubocop:todo Metrics/ClassLength
   belongs_to :practice
   belongs_to :user, touch: true
   belongs_to :checker, class_name: 'User', optional: true
+  has_one :product_ai_review, dependent: :destroy
   alias sender user
+
+  after_save ProductAiReviewCallbacks.new
+  after_save_commit ProductAiReviewCallbacks.new
 
   after_create ProductCallbacks.new
   after_update ProductCallbacks.new

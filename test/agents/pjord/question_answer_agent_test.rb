@@ -44,7 +44,7 @@ class Pjord::QuestionAnswerAgentTest < ActiveSupport::TestCase
   class AgentChatFake
     attr_reader :asked_message, :instructions
 
-    def with_instructions(instructions)
+    def with_instructions(instructions, **)
       @instructions = instructions
       self
     end
@@ -59,7 +59,7 @@ class Pjord::QuestionAnswerAgentTest < ActiveSupport::TestCase
 
     def ask(message, with: nil) # rubocop:disable Lint/UnusedMethodArgument
       @asked_message = message
-      Struct.new(:content).new({ body: '回答本文' })
+      RubyLLM::Message.new(role: :assistant, content: { body: '回答本文' }.to_json)
     end
   end
 end
