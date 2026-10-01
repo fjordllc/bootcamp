@@ -35,6 +35,7 @@ class CurrentUserController < ApplicationController
       :feed_url, :country_code, :subdivision_code, { discord_profile_attributes: %i[id account_name times_url] },
       { learning_time_frame_ids: [] }
     ]
+    user_attribute << :mentor_ai_context if current_user.mentor?
     user_attribute.concat(admin_user_attributes) if current_user.admin?
     params.require(:user).permit(user_attribute)
   end

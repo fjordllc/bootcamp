@@ -1,0 +1,10 @@
+.form-item
+  = f.label :mentor_ai_context, class: 'a-form-label'
+  = f.text_area :mentor_ai_context, class: 'a-text-input', rows: 5, placeholder: 'Ruby・Railsが得意です。Webアプリ開発の経験があり、設計やテストの相談に対応できます。'
+  .a-form-help
+    p
+      | pjordが相談内容に合うメンターを探す際に参照します。得意分野や経験、相談に対応できる内容を記入してください。
+    p
+      | 公開プロフィールには表示されません。本人と管理者が編集できます。
+    p
+      | 記入すると、pjordから日報やQ&Aなどでメンションされることがあります。空欄の場合は候補に含まれません。
