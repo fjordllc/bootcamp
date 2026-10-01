@@ -1,6 +1,6 @@
-article.thread-comment.comment.is-hidden [
+article.thread-comment.comment [
   data-controller="comment"
-  class=" #{'is-latest' if latest_comment?(comment, latest_comment)}"
+  class="#{'is-hidden' if local_assigns.fetch(:hidden, true)} #{'is-latest' if latest_comment?(comment, latest_comment)}"
   id=dom_id(comment)
   data-comment_id=comment.id
   data-comment_created_at=comment.created_at.to_f
@@ -14,7 +14,7 @@ article.thread-comment.comment.is-hidden [
         a.thread-comment__company-link href="#{company_path(comment.user.company)}"
           img.thread-comment__company-logo src="#{comment.user.company.logo_url}"
   .thread-comment__end
-    .a-card.is-comment.js-comment-display data-comment-target="commentCard"
+    .a-card.is-comment data-comment-target="commentCard"
       header.card-header.is-sm
         .card-header__inner
           h2.thread-comment__title
@@ -57,21 +57,23 @@ article.thread-comment.comment.is-hidden [
                   class: 'card-main-actions__muted-action',
                   form: { data: { turbo: true, turbo_confirm: '削除してよろしいですか？' } } do
                     | 削除する
-    .a-card.is-comment.comment-editor.js-comment-editor.is-hidden data-comment-target="editCard"
-      .thread-comment-form__form
-        .a-form-tabs.js-tabs
-          .a-form-tabs__tab.js-tabs__tab.edit-comment-tab.is-active [
+    .a-card.is-comment.is-hidden data-comment-target="editCard"
+      = form_with model: comment,
+        class: 'thread-comment-form__form',
+        data: { turbo: true } do
+        .a-form-tabs
+          .a-form-tabs__tab.is-active [
             data-comment-target="editTab"
             data-action="click->comment#openEditTab"
           ]
             | コメント
-          .a-form-tabs__tab.js-tabs__tab.comment-preview-tab [
+          .a-form-tabs__tab [
             data-comment-target="previewTab"
             data-action="click->comment#openPreviewTab"
           ]
             | プレビュー
         .a-markdown-input.js-markdown-parent
-          .a-markdown-input__inner.is-editor.js-tabs__content.is-active [
+          .a-markdown-input__inner.is-editor.is-active [
             data-comment-target="editPanel"
           ]
             .form-textarea
@@ -89,7 +91,7 @@ article.thread-comment.comment.is-hidden [
                   label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
                     | ファイルを挿入
                     input(class="js-comment-file-input-#{comment.id}" type='file' multiple)
-          .a-markdown-input__inner.is-preview.js-tabs__content [
+          .a-markdown-input__inner.is-preview [
             data-comment-target="previewPanel"
           ]
             .js-preview.a-long-text.is-md.a-markdown-input__preview [
@@ -101,8 +103,8 @@ article.thread-comment.comment.is-hidden [
           .card-main-actions
             .card-main-actions__items
               .card-main-actions__item
-                button.a-button.is-sm.is-primary.is-block.js-comment-save-button
+                button.a-button.is-sm.is-primary.is-block type="submit"
                   | 保存する
               .card-main-actions__item
-                button.a-button.is-sm.is-secondary.is-block data-action="click->comment#cancelEditor"
+                button.a-button.is-sm.is-secondary.is-block type="button" data-action="click->comment#cancelEditor"
                   | キャンセル

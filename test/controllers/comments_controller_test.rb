@@ -3,6 +3,63 @@
 require 'test_helper'
 
 class CommentsControllerTest < ActionDispatch::IntegrationTest
+  test 'update as Turbo Stream' do
+    sign_in(:hajime)
+    comment = users(:hajime).comments.create!(
+      commentable: reports(:report1),
+      description: '更新するコメントです'
+    )
+    params = { comment: { description: '更新後のコメントです' } }
+
+    patch comment_path(comment), params:, as: :turbo_stream
+
+    assert_response :ok
+    assert_equal '更新後のコメントです', comment.reload.description
+    assert_turbo_stream action: 'replace', target: dom_id(comment) do
+      assert_select "[data-comment-target='commentBody']", text: '更新後のコメントです'
+    end
+  end
+
+  test "update another user's comment as admin or mentor" do
+    %i[adminonly mentormentaro].each do |user|
+      sign_in(user)
+      comment = users(:hajime).comments.create!(
+        commentable: reports(:report1),
+        description: '他人が更新するコメントです'
+      )
+      params = { comment: { description: '更新後のコメントです' } }
+
+      patch comment_path(comment), params:, as: :turbo_stream
+
+      assert_response :ok
+      assert_equal '更新後のコメントです', comment.reload.description
+      assert_turbo_stream action: 'replace', target: dom_id(comment) do
+        assert_select "[data-comment-target='commentBody']", text: '更新後のコメントです'
+      end
+    end
+  end
+
+  test "update another user's comment as neither admin nor mentor" do
+    sign_in(:hajime)
+    comment = comments(:comment1)
+    params = { comment: { description: '更新後のコメントです' } }
+
+    patch comment_path(comment), params:, as: :turbo_stream
+
+    assert_response :not_found
+    assert_equal 'CSSは奥が深いですね。', comment.reload.description
+  end
+
+  test 'update without signing in' do
+    comment = comments(:comment1)
+    params = { comment: { description: '更新後のコメントです' } }
+
+    patch comment_path(comment), params:, as: :turbo_stream
+
+    assert_equal 'CSSは奥が深いですね。', comment.reload.description
+    assert_redirected_to root_path
+  end
+
   test 'destroy as Turbo Stream' do
     sign_in(:hajime)
     comment = users(:hajime).comments.create!(
