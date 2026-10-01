@@ -8,11 +8,12 @@ class ProductAiReviewJob < ApplicationJob
     return if product.nil? || product.wip?
 
     body = product.body
+    practice_id = product.practice_id
     content = review(product)
     return if content.nil?
 
     product.with_lock do
-      return if product.wip? || product.body != body
+      return if product.wip? || submission_changed?(product, body, practice_id)
 
       review = product.reload_product_ai_review || product.build_product_ai_review
       review.update!(content:)
@@ -23,6 +24,10 @@ class ProductAiReviewJob < ApplicationJob
   end
 
   private
+
+  def submission_changed?(product, body, practice_id)
+    product.body != body || product.practice_id != practice_id
+  end
 
   def review(product)
     return if RubyLLM.config.anthropic_api_key.blank?

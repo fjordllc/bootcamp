@@ -41,6 +41,14 @@ class ProductAiReviewJobTest < ActiveJob::TestCase
     assert_nil @product.reload.product_ai_review
   end
 
+  test 'in flight result cannot overwrite a submission moved to another practice' do
+    ProductReviewAgent.stub(:review, lambda { |product|
+      Product.find(product.id).update!(practice: practices(:practice5))
+      '古いプラクティスの結果'
+    }) { perform_review }
+    assert_nil @product.reload.product_ai_review
+  end
+
   test 'WIP change during generation cannot publish result' do
     ProductReviewAgent.stub(:review, lambda { |product|
       Product.find(product.id).update!(wip: true)
