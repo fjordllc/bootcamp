@@ -8,7 +8,7 @@ class Pjord::ReportCommentAgentTest < ActiveSupport::TestCase
     chat = AgentChatFake.new
 
     RubyLLM.stub(:chat, lambda { |model:, provider:, assume_model_exists:|
-      assert_equal 'claude-opus-5', model
+      assert_equal 'claude-opus-5-5', model
       assert_equal :anthropic, provider
       assert assume_model_exists
       chat
