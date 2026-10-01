@@ -1,7 +1,7 @@
 import autosize from 'autosize'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
-import { initializeComment, toggleVisibility } from 'initializeComment'
+import { toggleVisibility } from 'initializeComment'
 import { toast } from 'vanillaToast'
 import commentCheckable from 'comment-checkable'
 import { post } from '@rails/request.js'
@@ -132,7 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const newCommentElement = commentDiv.firstElementChild
     newCommentElement.classList.remove('is-hidden')
     comments.appendChild(newCommentElement)
-    initializeComment(newCommentElement)
 
     const previousLatest = comments.querySelector('.is-latest')
     if (previousLatest) previousLatest.classList.remove('is-latest')
