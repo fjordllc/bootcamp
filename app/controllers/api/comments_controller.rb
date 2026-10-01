@@ -48,7 +48,7 @@ class API::CommentsController < API::BaseController
 
   def destroy
     @comment.destroy!
-    request.format.json? ? render(json: { id: @comment.id }, status: :ok) : head(:no_content)
+    render(json: { id: @comment.id }, status: :ok)
   end
 
   private
