@@ -2,8 +2,8 @@
   - percentage = 100
   - fraction = "卒業#{"(#{user_course_practice.completed_practices.size})" if is_display_progress_count}"
 - else
-  - percentage = user_course_practice.cached_completed_percentage
-  - fraction = user_course_practice.cached_completed_fraction
+  - percentage = local_assigns.fetch(:percentage) { user_course_practice.cached_completed_percentage }
+  - fraction = local_assigns.fetch(:fraction) { user_course_practice.cached_completed_fraction }
 .completed-practices-progress
   .completed-practices-progress__bar-container
     .completed-practices-progress__bar

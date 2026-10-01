@@ -932,6 +932,18 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     login_name
   end
 
+  def self.activity_counts_for(users)
+    counts = users.to_h { |user| [user.id, {}] }
+    return counts if counts.empty?
+
+    %i[reports products comments questions answers works participations regular_event_participations].each do |association|
+      scope = association == :comments ? Comment.without_private_comment : reflect_on_association(association).klass.all
+      association_counts = scope.where(user_id: counts.keys).group(:user_id).count
+      counts.each { |user_id, activities| activities[association] = association_counts.fetch(user_id, 0) }
+    end
+    counts
+  end
+
   def self.ransackable_attributes(_auth_object = nil)
     %w[
       login_name name name_kana email twitter_account facebook_url
