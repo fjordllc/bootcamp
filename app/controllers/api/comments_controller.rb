@@ -40,7 +40,7 @@ class API::CommentsController < API::BaseController
 
   def update
     if @comment.update(comment_params)
-      request.format.json? ? render(json: comment_json(@comment), status: :ok) : head(:ok)
+      render(json: comment_json(@comment), status: :ok)
     else
       render_validation_errors(@comment)
     end

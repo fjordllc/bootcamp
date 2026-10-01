@@ -1,4 +1,3 @@
-import { initializeComment } from 'initializeComment'
 import { get } from '@rails/request.js'
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -197,7 +196,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   function setComments(comments) {
     comments.forEach((comment) => {
       comment.classList.remove('is-hidden')
-      initializeComment(comment)
     })
   }
 })
