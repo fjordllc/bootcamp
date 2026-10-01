@@ -107,12 +107,41 @@ class ProductAiReviewJobTest < ActiveJob::TestCase
   end
 
   test 'input context change during generation prevents stale completion' do
+    original_goal = @product.practice.goal
     ProductReviewAgent.stub(:review, lambda { |*, **|
       @product.practice.update!(goal: '新しい目標')
       '古い目標の結果'
     }) { perform_review }
     assert_nil @review.reload.content
+    assert_nil @review.generated_at
+    assert_equal 'cancelled', @review.status
     assert_not @review.current_for?(@product.reload)
+
+    @product.practice.update!(goal: original_goal)
+    assert @review.current_for?(@product.reload)
+    ProductReviewAgent.stub(:review, ->(*) { flunk 'cancelled generation called model' }) { perform_review }
+    assert_equal 'cancelled', @review.reload.status
+  end
+
+  test 'input context change during generation cancels model errors without retrying' do
+    original_goal = @product.practice.goal
+    ProductReviewAgent.stub(:review, lambda { |*, **|
+      @product.practice.update!(goal: '新しい目標')
+      raise StandardError, 'provider error'
+    }) do
+      assert_no_enqueued_jobs only: ProductAiReviewJob do
+        perform_review
+      end
+    end
+    assert_equal 'cancelled', @review.reload.status
+    assert_nil @review.content
+    assert_nil @review.generated_at
+    assert_not @review.current_for?(@product.reload)
+
+    @product.practice.update!(goal: original_goal)
+    assert @review.current_for?(@product.reload)
+    ProductReviewAgent.stub(:review, ->(*) { flunk 'cancelled generation called model' }) { perform_review }
+    assert_equal 'cancelled', @review.reload.status
   end
 
   private

@@ -46,7 +46,12 @@ class ProductAiReviewJob < ApplicationJob
   def finish(product, generation, **attributes)
     product.with_lock do
       review = product.product_ai_review
-      return false unless review&.generation == generation && review.status == 'generating' && review.current_for?(product)
+      return false unless review&.generation == generation && review.status == 'generating'
+
+      unless review.current_for?(product)
+        review.update!(status: 'cancelled', content: nil, generated_at: nil)
+        return false
+      end
 
       review.update!(**attributes)
     end
