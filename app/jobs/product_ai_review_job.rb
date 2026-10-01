@@ -2,6 +2,7 @@
 
 class ProductAiReviewJob < ApplicationJob
   queue_as :default
+  queue_with_priority 10
 
   def perform(product_id)
     product = Product.find_by(id: product_id)

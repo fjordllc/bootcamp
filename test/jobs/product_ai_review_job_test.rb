@@ -14,6 +14,12 @@ class ProductAiReviewJobTest < ActiveJob::TestCase
     RubyLLM.config.anthropic_api_key = @original_key
   end
 
+  test 'enqueues on the default queue with priority 10' do
+    assert_enqueued_with(job: ProductAiReviewJob, args: [@product.id], queue: 'default', priority: 10) do
+      ProductAiReviewJob.perform_later(@product.id)
+    end
+  end
+
   test 'persists review privately without comments approvals or notifications' do
     ProductReviewAgent.stub(:review, '支援内容') do
       assert_no_difference ['Comment.count', 'Check.count', 'Notification.count'] do
