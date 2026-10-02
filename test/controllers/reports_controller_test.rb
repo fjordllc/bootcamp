@@ -57,7 +57,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     report = reports(:report5)
 
     PjordReportCommentJob.stub(:perform_now, lambda { |_args|
-      raise RubyLLM::UnauthorizedError.new(nil, 'invalid x-api-key')
+      raise RubyLLM::UnauthorizedError, 'invalid x-api-key'
     }) do
       assert_no_difference 'Comment.count' do
         post comment_by_pjord_report_path(report, _login_name: 'mentormentaro')

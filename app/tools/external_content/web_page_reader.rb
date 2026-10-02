@@ -55,7 +55,7 @@ class ExternalContent::WebPageReader
     io = StringIO.new(response.body.to_s.b)
     io.binmode
 
-    RubyLLM::Content.new(
+    [
       <<~TEXT,
         # Image
         - URL: #{response.url}
@@ -63,10 +63,8 @@ class ExternalContent::WebPageReader
 
         この画像の内容を確認して、回答やレビューに必要な文脈として使ってください。
       TEXT
-      []
-    ).tap do |content|
-      content.add_attachment(io, filename: image_filename(response))
-    end
+      RubyLLM::Attachment.new(io, filename: image_filename(response))
+    ]
   end
 
   def image_filename(response)

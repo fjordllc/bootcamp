@@ -61,6 +61,11 @@ header.page-header
               = render 'practice_memo', practice_id: @practice.id
             .page-body__row
               = render 'product_body', product: @product
+            - if current_user.mentor? || current_user.admin?
+              - review = @product.product_ai_review
+              - if review&.content.present?
+                .page-body__row
+                  = render 'ai_review', review: review
 
         = render 'comments/comments',
           commentable: @product,

@@ -45,6 +45,18 @@ class Pjord::ReportClassifierAgentTest < ActiveSupport::TestCase
     end
   end
 
+  test 'classifier schema preserves required fields and allowed intents with RubyLLM' do
+    RubyLLM.config.stub(:anthropic_api_key, 'fictional-test-key') do
+      chat = RubyLLM.chat(model: 'claude-opus-5', provider: :anthropic, assume_model_exists: true)
+      schema = chat.with_schema(PjordReportIntent).schema.fetch(:schema)
+
+      assert_equal %w[intent reason], schema[:required]
+      assert_equal PjordReportIntent::INTENTS, schema.dig(:properties, :intent, :enum)
+      assert_equal 'string', schema.dig(:properties, :reason, :type)
+      assert_not schema[:additionalProperties]
+    end
+  end
+
   class ClassifierChatFake
     attr_reader :asked_message, :instructions
 
@@ -52,7 +64,7 @@ class Pjord::ReportClassifierAgentTest < ActiveSupport::TestCase
       @content = content
     end
 
-    def with_instructions(instructions)
+    def with_instructions(instructions, **)
       @instructions = instructions
       self
     end
@@ -63,7 +75,7 @@ class Pjord::ReportClassifierAgentTest < ActiveSupport::TestCase
 
     def ask(message, with: nil) # rubocop:disable Lint/UnusedMethodArgument
       @asked_message = message
-      Struct.new(:content).new(@content)
+      RubyLLM::Message.new(role: :assistant, content: @content)
     end
   end
 end

@@ -17,7 +17,11 @@ class Product < ApplicationRecord # rubocop:todo Metrics/ClassLength
   belongs_to :practice
   belongs_to :user, touch: true
   belongs_to :checker, class_name: 'User', optional: true
+  has_one :product_ai_review, dependent: :destroy
   alias sender user
+
+  after_save :clear_ai_review, if: :ai_review_input_changed?
+  after_save_commit :enqueue_ai_review, if: :ai_review_input_changed?
 
   after_create ProductCallbacks.new
   after_update ProductCallbacks.new
@@ -200,5 +204,22 @@ class Product < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   def search_title
     practice.title
+  end
+
+  private
+
+  def ai_review_input_changed?
+    saved_change_to_id? || saved_change_to_body? || saved_change_to_wip? || saved_change_to_practice_id?
+  end
+
+  def clear_ai_review
+    reload_product_ai_review&.update!(content: nil)
+  end
+
+  def enqueue_ai_review
+    ProductAiReviewJob.perform_later(id) unless wip?
+  rescue StandardError
+    # A queue failure must not prevent saving the submission.
+    nil
   end
 end
