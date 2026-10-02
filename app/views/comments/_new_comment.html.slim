@@ -1,4 +1,10 @@
-.thread-comment-form.new-comment data-commentable_id="#{commentable.id}" data-commentable_type="#{commentable_type}" data-is_mentor="#{mentor_login?}" data-current_user_id="#{current_user.id}"
+.thread-comment-form.new-comment [
+  data-controller='new-comment'
+  data-commentable_id="#{commentable.id}"
+  data-commentable_type="#{commentable_type}"
+  data-is_mentor="#{mentor_login?}"
+  data-current_user_id="#{current_user.id}"
+]
   .thread-comment__start
     span class="a-user-role is-#{user.primary_role}"
       img.thread-comment__user-icon.a-user-icon src="#{user.avatar_url}" alt="#{current_user.icon_title}"
@@ -14,7 +20,12 @@
           .a-markdown-input__inner.is-editor.js-tabs__content.is-active
             .form-textarea
               .form-textarea__body
-                textarea#js-new-comment.a-text-input.js-warning-form.a-markdown-input__textarea name='new_comment[description]' data-preview='#new-comment-preview' data-input='.new-comment-file-input'
+                textarea#js-new-comment.a-text-input.js-warning-form.a-markdown-input__textarea [
+                  data-new-comment-target='inputBody'
+                  name='new_comment[description]'
+                  data-preview='#new-comment-preview'
+                  data-input='.new-comment-file-input'
+                ]
               .form-textarea__footer
                 .form-textarea__insert
                   label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
