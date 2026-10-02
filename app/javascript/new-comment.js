@@ -1,5 +1,4 @@
 import autosize from 'autosize'
-import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
 import { toggleVisibility } from 'initializeComment'
 import { toast } from 'vanillaToast'
@@ -16,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const isMentor = newComment.dataset.is_mentor === 'true'
 
   let savedComment = ''
-  TextareaInitializer.initialize('#js-new-comment')
   const markdownInitializer = new MarkdownInitializer()
 
   const commentEditor = newComment.querySelector('.js-comment-editor')
