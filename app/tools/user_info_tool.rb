@@ -4,7 +4,7 @@ class UserInfoTool < RubyLLM::Tool
   description 'メンションしてきたユーザーのプロフィールやカリキュラムの進捗状況を取得する。' \
               'ユーザーに合わせた回答をするときに使う。'
 
-  param :login_name, desc: 'ユーザーのログイン名'
+  parameter :login_name, description: 'ユーザーのログイン名'
 
   def execute(login_name:)
     user = User.find_by(login_name: login_name)

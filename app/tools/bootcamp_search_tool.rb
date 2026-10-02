@@ -4,8 +4,8 @@ class BootcampSearchTool < RubyLLM::Tool
   description 'bootcampのプラクティス（カリキュラム）、ドキュメント（Docs）、Q&A、お知らせを検索する。' \
               'ユーザーの質問に答えるために必要な情報を探すときに使う。'
 
-  param :query, desc: '検索キーワード（日本語または英語）'
-  param :category, type: :string, desc: '検索カテゴリ（practice, page, question, announcement, all）', required: false
+  parameter :query, description: '検索キーワード（日本語または英語）'
+  parameter :category, type: :string, description: '検索カテゴリ（practice, page, question, announcement, all）', required: false
 
   # 検索対象とカラムの定義
   SEARCH_TARGETS = {

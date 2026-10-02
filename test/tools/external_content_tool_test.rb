@@ -57,13 +57,14 @@ class ExternalContentToolTest < ActiveSupport::TestCase
 
     result = @tool.execute(url: blob_url)
 
-    assert_instance_of RubyLLM::Content, result
-    assert_includes result.text, '# Image'
-    assert_includes result.text, "URL: #{redirected_url}"
-    assert_equal 1, result.attachments.size
-    assert_predicate result.attachments.first, :image?
-    assert_equal 'image.jpg', result.attachments.first.filename
-    assert_equal image_body, result.attachments.first.content
+    assert_instance_of Array, result
+    assert_includes result.first, '# Image'
+    assert_includes result.first, "URL: #{redirected_url}"
+    assert_equal 2, result.size
+    assert_instance_of RubyLLM::Attachment, result.last
+    assert_predicate result.last, :image?
+    assert_equal 'image.jpg', result.last.filename
+    assert_equal image_body, result.last.content
 
     @tool.execute(url: blob_url)
 
@@ -78,11 +79,12 @@ class ExternalContentToolTest < ActiveSupport::TestCase
 
     result = @tool.execute(url: 'https://example.com/image.svg')
 
-    assert_instance_of RubyLLM::Content, result
-    assert_equal 1, result.attachments.size
-    assert_predicate result.attachments.first, :image?
-    assert_equal 'image.svg', result.attachments.first.filename
-    assert_equal 'image/svg+xml', result.attachments.first.mime_type
+    assert_instance_of Array, result
+    assert_equal 2, result.size
+    assert_instance_of RubyLLM::Attachment, result.last
+    assert_predicate result.last, :image?
+    assert_equal 'image.svg', result.last.filename
+    assert_equal 'image/svg+xml', result.last.mime_type
   end
 
   test 'rejects non http urls' do
