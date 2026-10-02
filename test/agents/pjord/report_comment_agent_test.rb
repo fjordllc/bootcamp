@@ -59,6 +59,17 @@ class Pjord::ReportCommentAgentTest < ActiveSupport::TestCase
     assert_includes chat.instructions, '無理にアドバイスを足さず'
   end
 
+  test 'public response schema preserves a required string body with RubyLLM' do
+    RubyLLM.config.stub(:anthropic_api_key, 'fictional-test-key') do
+      chat = RubyLLM.chat(model: 'claude-opus-5', provider: :anthropic, assume_model_exists: true)
+      schema = chat.with_schema(PjordResponse).schema.fetch(:schema)
+
+      assert_equal ['body'], schema[:required]
+      assert_equal 'string', schema.dig(:properties, :body, :type)
+      assert_not schema[:additionalProperties]
+    end
+  end
+
   class AgentChatFake
     attr_reader :asked_message, :instructions, :schema, :tools
 
@@ -66,7 +77,7 @@ class Pjord::ReportCommentAgentTest < ActiveSupport::TestCase
       @tools = []
     end
 
-    def with_instructions(instructions)
+    def with_instructions(instructions, **)
       @instructions = instructions
       self
     end
@@ -83,7 +94,7 @@ class Pjord::ReportCommentAgentTest < ActiveSupport::TestCase
 
     def ask(message, with: nil) # rubocop:disable Lint/UnusedMethodArgument
       @asked_message = message
-      Struct.new(:content).new({ body: 'コメント本文' })
+      RubyLLM::Message.new(role: :assistant, content: { body: 'コメント本文' }.to_json)
     end
   end
 end

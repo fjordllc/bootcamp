@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'ruby_llm/schema'
+require 'schematist'
 
-class PjordReportIntent < RubyLLM::Schema
+class PjordReportIntent < Schematist::Schema
   INTENTS = %w[question struggling celebration general].freeze
 
   description '日報の内容から、ピヨルドがどんなコメントをすべきかを分類した結果'
