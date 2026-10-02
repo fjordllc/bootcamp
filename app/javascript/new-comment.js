@@ -37,13 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
     toast(message)
   }
 
-  editTab.addEventListener('click', () =>
-    toggleVisibility(tabElements, 'is-active')
-  )
-  previewTab.addEventListener('click', () =>
-    toggleVisibility(tabElements, 'is-active')
-  )
-
   const saveButton = commentEditor.querySelector('.js-comment-save-button')
   const saveAndCheckButton = commentEditor.querySelector(
     '.js-comment-check-button'
