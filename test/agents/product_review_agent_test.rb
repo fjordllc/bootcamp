@@ -9,7 +9,7 @@ class ProductReviewAgentTest < ActiveSupport::TestCase
     product.practice.create_submission_answer!(description: '非公開の模範解答')
     chat = ChatFake.new
     RubyLLM.stub(:chat, lambda { |model:, provider:, assume_model_exists:|
-      assert_equal 'claude-opus-5-5', model
+      assert_equal ENV.fetch('PRODUCT_REVIEW_LLM_MODEL', 'claude-opus-5-5'), model
       assert_equal :anthropic, provider
       assert assume_model_exists
       chat

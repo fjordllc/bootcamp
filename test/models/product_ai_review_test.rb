@@ -72,12 +72,60 @@ class ProductAiReviewTest < ActiveJob::TestCase
     assert_nil review.reload.content
   end
 
+  test 'body update followed by checker update queues once after transaction commit' do
+    product = products(:product8)
+    review = product.create_product_ai_review!(content: '保存済み支援')
+    assert_enqueued_jobs 1, only: ProductAiReviewJob do
+      Product.transaction do
+        assert_no_enqueued_jobs only: ProductAiReviewJob do
+          product.update!(body: '新しい本文')
+          product.update!(checker: users(:mentormentaro))
+        end
+        assert_nil review.reload.content
+      end
+    end
+    assert_enqueued_with(job: ProductAiReviewJob, args: [product.id])
+    assert_nil review.reload.content
+  end
+
+  test 'body update followed by WIP change queues nothing after transaction commit' do
+    product = products(:product8)
+    review = product.create_product_ai_review!(content: '保存済み支援')
+    assert_no_enqueued_jobs only: ProductAiReviewJob do
+      Product.transaction do
+        product.update!(body: '下書きに戻す本文')
+        product.update!(wip: true)
+      end
+    end
+    assert_nil review.reload.content
+  end
+
+  test 'queue failure after transaction commit does not prevent saving the submission' do
+    product = products(:product8)
+    review = product.create_product_ai_review!(content: '保存済み支援')
+    enqueue_attempts = 0
+    ProductAiReviewJob.stub(:perform_later, lambda { |*|
+      enqueue_attempts += 1
+      raise StandardError, 'queue unavailable'
+    }) do
+      Product.transaction do
+        product.update!(body: '保存される本文')
+        product.update!(checker: users(:mentormentaro))
+        assert_equal 0, enqueue_attempts
+      end
+    end
+    assert_equal 1, enqueue_attempts
+    assert_equal '保存される本文', product.reload.body
+    assert_nil review.reload.content
+  end
+
   test 'rollback preserves previous review and queues nothing' do
     product = products(:product8)
     review = product.create_product_ai_review!(content: '保存済み支援')
     assert_no_enqueued_jobs only: ProductAiReviewJob do
       Product.transaction do
         product.update!(body: '保存されない修正')
+        product.update!(checker: users(:mentormentaro))
         raise ActiveRecord::Rollback
       end
     end

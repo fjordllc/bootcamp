@@ -21,7 +21,7 @@ class Product < ApplicationRecord # rubocop:todo Metrics/ClassLength
   alias sender user
 
   after_save :clear_ai_review, if: :ai_review_input_changed?
-  after_save_commit :enqueue_ai_review, if: :ai_review_input_changed?
+  after_save :enqueue_ai_review, if: :ai_review_input_changed?
 
   after_create ProductCallbacks.new
   after_update ProductCallbacks.new
@@ -217,9 +217,11 @@ class Product < ApplicationRecord # rubocop:todo Metrics/ClassLength
   end
 
   def enqueue_ai_review
-    ProductAiReviewJob.perform_later(id) unless wip?
-  rescue StandardError
-    # A queue failure must not prevent saving the submission.
-    nil
+    ActiveRecord.after_all_transactions_commit do
+      ProductAiReviewJob.perform_later(id) unless wip?
+    rescue StandardError
+      # A queue failure must not prevent saving the submission.
+      nil
+    end
   end
 end
