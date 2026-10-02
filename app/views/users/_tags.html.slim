@@ -1,6 +1,7 @@
+- tags = @user_card_tags&.fetch(user.id, nil) || user.tag_list
 .tag-links
-  - if user.tag_list.present?
+  - if tags.present?
     ul.tag-links__items
-      - user.tag_list.each do |tag|
+      - tags.each do |tag|
         li.tag-links__item
           = link_to tag, users_tag_path(tag), class: 'tag-links__item-link'

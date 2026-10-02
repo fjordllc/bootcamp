@@ -15,18 +15,12 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
 
     target_users = fetch_target_users
 
-    if params[:search_word]
-      search_user = SearchUser.new(word: params[:search_word], users: target_users, target: @target)
-      @users = search_user.search
-                          .page(params[:page]).per(PAGER_NUMBER)
-                          .preload(:avatar_attachment, :course, :taggings)
-                          .order(updated_at: :desc)
-    else
-      @users = target_users
-               .page(params[:page]).per(PAGER_NUMBER)
-               .preload(:avatar_attachment, :course, :taggings)
-               .order(updated_at: :desc)
-    end
+    target_users = SearchUser.new(word: params[:search_word], users: target_users, target: @target).search if params[:search_word]
+    @users = target_users.page(params[:page]).per(PAGER_NUMBER)
+                         .preload(:course, :discord_profile, :talk, { avatar_attachment: :blob },
+                                  { company: { logo_attachment: :blob } }, { taggings: :tag })
+                         .order(updated_at: :desc)
+    prepare_user_cards
 
     @random_tags = User.tags.sample(20)
     @top3_tags_counts = User.tags.limit(3).map(&:count).uniq
@@ -93,6 +87,21 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
   end
 
   private
+
+  def prepare_user_cards
+    @user_activity_counts = User.activity_counts_for(@users.select(&:student_or_trainee?))
+    @user_progress_counts = UserCoursePractice.counts_by_user(@users.reject(&:graduated?))
+    @user_card_followings = current_user.active_relationships.where(followed_id: @users.map(&:id)).index_by(&:followed_id)
+    @user_card_tags = user_card_tags
+  end
+
+  def user_card_tags
+    @users.to_h do |user|
+      tags = user.taggings.select { |tagging| tagging.context == 'tags' && tagging.tagger_id.nil? }
+      tags = tags.sort_by(&:id) if User.preserve_tag_order?
+      [user.id, ActsAsTaggableOn::TagList.new(tags.map { |tagging| tagging.tag.name })]
+    end
+  end
 
   def fetch_target_users
     if @target == 'followings'
