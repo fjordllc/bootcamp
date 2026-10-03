@@ -3,6 +3,61 @@
 require 'test_helper'
 
 class CommentsControllerTest < ActionDispatch::IntegrationTest
+  test 'create as Turbo Stream' do
+    sign_in(:hajime)
+    report = reports(:report1)
+    params = {
+      commentable_type: Report.name,
+      commentable_id: report.id,
+      comment: { description: 'コメントを作成します' }
+    }
+
+    assert_difference -> { Comment.count }, 1 do
+      post comments_path, params:, as: :turbo_stream
+    end
+
+    assert_response :ok
+
+    comment = report.comments.order(:id).last
+    assert_equal params.dig(:comment, :description), comment.description
+    assert_equal users(:hajime), comment.user
+
+    assert_turbo_stream action: 'append', target: dom_id(report, :comments) do
+      assert_select "[data-comment-target='commentBody']", text: 'コメントを作成します'
+    end
+  end
+
+  test 'create with invalid params' do
+    sign_in(:hajime)
+    report = reports(:report1)
+    params = {
+      commentable_type: Report.name,
+      commentable_id: report.id,
+      comment: { description: '' }
+    }
+
+    assert_no_difference -> { Comment.count } do
+      post comments_path, params:, as: :turbo_stream
+    end
+
+    assert_response :unprocessable_entity
+  end
+
+  test 'create without signing in' do
+    report = reports(:report1)
+    params = {
+      commentable_type: Report.name,
+      commentable_id: report.id,
+      comment: { description: 'コメントを作成します' }
+    }
+
+    assert_no_difference -> { Comment.count } do
+      post comments_path, params:, as: :turbo_stream
+    end
+
+    assert_redirected_to root_path
+  end
+
   test 'update as Turbo Stream' do
     sign_in(:hajime)
     comment = users(:hajime).comments.create!(
