@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   post '/oauth/register', format: false, to: 'mcp_oauth/registrations#create'
   get '/.well-known/oauth-authorization-server', to: 'mcp_oauth/metadata#authorization_server'
   get '/.well-known/oauth-protected-resource/mcp', to: 'mcp_oauth/metadata#protected_resource'
+  match '/mcp', format: false, to: 'mcp#process_request', via: :all
 
   root to: "home#index"
 
