@@ -1,6 +1,6 @@
 article.thread-comment.comment [
   data-controller="comment"
-  class="#{'is-hidden' if local_assigns.fetch(:hidden, true)} #{'is-latest' if latest_comment?(comment, latest_comment)}"
+  class="#{'is-hidden' if local_assigns.fetch(:hidden, true)}"
   id=dom_id(comment)
   data-comment_id=comment.id
   data-comment_created_at=comment.created_at.to_f
