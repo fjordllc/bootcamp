@@ -32,5 +32,5 @@
     id=dom_id(commentable, :comments)
     class=commentable_type
   ]
-    = render partial: 'comments/comment', collection: @comments, as: :comment, locals: { user: current_user, latest_comment: @comments.last }
+    = render partial: 'comments/comment', collection: @comments, as: :comment, locals: { user: current_user }
   = render 'comments/new_comment', commentable: commentable, commentable_type: commentable_type, user: current_user

@@ -123,10 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const newCommentElement = commentDiv.firstElementChild
     newCommentElement.classList.remove('is-hidden')
     comments.appendChild(newCommentElement)
-
-    const previousLatest = comments.querySelector('.is-latest')
-    if (previousLatest) previousLatest.classList.remove('is-latest')
-    newCommentElement.classList.add('is-latest')
   }
 
   const createComment = async () => {
