@@ -5,6 +5,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   DAYS_OF_THE_WEEK_COUNT = 7
 
+  THUMBNAIL_SIZE = [1200, 630].freeze
+
   FREQUENCY_LIST = [
     ['毎週', 0],
     ['第1', 1],
@@ -41,6 +43,9 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validates :regular_event_repeat_rules, presence: true
   validates_associated :regular_event_repeat_rules
   validates_associated :regular_event_skip_dates
+  validates :thumbnail,
+            content_type: %w[image/png image/jpeg],
+            size: { less_than: 10.megabytes }
 
   validate :validate_skip_on_uniqueness
 
@@ -65,6 +70,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   scope :list, lambda {
     with_avatar
       .includes(:comments, :users, :regular_event_repeat_rules)
+      .with_attached_thumbnail
       .order(created_at: :desc)
   }
 
@@ -79,6 +85,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_many :participants,
            through: :regular_event_participations,
            source: :user
+  has_one_attached :thumbnail
   attribute :wants_announcement, :boolean
 
   columns_for_keyword_search :title, :description
@@ -155,6 +162,14 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def publish_with_announcement?
     wants_announcement? && !wip?
+  end
+
+  def thumbnail_url
+    if thumbnail.attached?
+      thumbnail.variant(resize_to_fill: THUMBNAIL_SIZE).processed.url
+    else
+      ActionController::Base.helpers.asset_path('work-blank.svg')
+    end
   end
 
   def skip_event?(date)
