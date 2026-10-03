@@ -152,9 +152,10 @@
           - if @practice.coding_tests.present?
             = render partial: 'coding_tests', locals: { coding_tests: @practice.coding_tests }
 
-          - if current_user.admin_or_mentor?
+          - if policy(@practice).show_memo?
             = render 'memo', practice: @practice
 
+          - if current_user.admin_or_mentor?
             .a-card.is-only-mentor
               header.card-header
                 h2.card-header__title 管理者・メンター用メニュー
