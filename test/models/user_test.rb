@@ -23,6 +23,16 @@ class UserTest < ActiveSupport::TestCase
     assert_not users(:kensyu).training_completed?
   end
 
+  test '#mcp_available?' do
+    assert users(:mentormentaro).mcp_available?
+    assert users(:komagata).mcp_available?
+    assert_not users(:kimura).mcp_available?
+
+    mentor = users(:mentormentaro)
+    mentor.hibernated_at = Time.current
+    assert_not mentor.mcp_available?
+  end
+
   test '#retired?' do
     assert users(:yameo).retired?
     assert_not users(:komagata).retired?

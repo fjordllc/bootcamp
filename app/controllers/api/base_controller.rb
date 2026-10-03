@@ -3,11 +3,19 @@
 class API::BaseController < ApplicationController
   skip_before_action :require_active_user_login, raise: false
   skip_before_action :verify_authenticity_token, if: -> { doorkeeper_token.present? }
+  before_action :reject_mcp_access_token, if: -> { doorkeeper_token.present? }
   before_action :doorkeeper_authorize!, if: -> { doorkeeper_token.present? }
   before_action :require_login_for_api, unless: -> { doorkeeper_token.present? }
   rescue_from Doorkeeper::Errors::DoorkeeperError, with: :render_doorkeeper_error
 
   private
+
+  def reject_mcp_access_token
+    token = doorkeeper_token
+    return unless token.application&.mcp_client? || token.scopes.to_a.include?(McpOauth::RegistrationsController::PRACTICES_SCOPE)
+
+    render json: { error: 'invalid_token' }, status: :unauthorized
+  end
 
   def current_user
     super || current_resource_owner

@@ -698,6 +698,10 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     hibernated_at? || training_completed_at? || retired_on?
   end
 
+  def mcp_available?
+    admin_or_mentor? && !inactive?
+  end
+
   def graduated?
     graduated_on?
   end
