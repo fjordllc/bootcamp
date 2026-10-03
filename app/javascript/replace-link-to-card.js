@@ -166,7 +166,7 @@ const embedToLinkCard = async (targetLink, url) => {
 
     const descriptionSection = metaData.description
       ? `<p>${metaData.description}</p>`
-      : `<p><a href="${url}" target="_blank" rel="noopener" class="a-link-card__body-url-link">${url}</a></p>`
+      : ''
 
     const faviconSection = metaData.favicon
       ? `
