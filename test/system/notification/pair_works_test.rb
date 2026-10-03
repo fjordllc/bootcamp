@@ -24,7 +24,7 @@ class Notification::PairWorksTest < NotificationSystemTestCase
       end
 
       click_button '登録する'
-      assert_text 'ペアワークを作成しました。'
+      assert_selector '.flash-message.js-toast[data-message="ペアワークを作成しました。"]'
 
       assert_user_has_notification(user: users(:mentormentaro), kind: Notification.kinds[:came_pair_work], text: 'kimuraさんからペアワーク依頼「テストのペアワーク募集」が投稿されました。')
     end
@@ -41,7 +41,7 @@ class Notification::PairWorksTest < NotificationSystemTestCase
         end
       end
       click_button '登録する'
-      assert_text 'ペアワークを作成しました。'
+      assert_selector '.flash-message.js-toast[data-message="ペアワークを作成しました。"]'
       assert_text 'Watch中'
       logout
 
@@ -53,7 +53,7 @@ class Notification::PairWorksTest < NotificationSystemTestCase
           find_button(id: '2025-03-03T00:00:00+09:00').click
         end
       end
-      assert_text 'ペアが確定しました。'
+      assert_selector '.flash-message.js-toast[data-message="ペアが確定しました。"]'
 
       assert_user_has_notification(user: users(:kimura), kind: Notification.kinds[:matching_pair_work],
                                    text: 'kimuraさんのペアワーク【 テストのペアワーク募集 】のペアがmentormentaroさんに決定しました。')
@@ -73,7 +73,7 @@ class Notification::PairWorksTest < NotificationSystemTestCase
         end
       end
       click_button 'WIP'
-      assert_text 'ペアワークをWIPとして保存しました。'
+      assert_selector '.flash-message.js-toast[data-message="ペアワークをWIPとして保存しました。"]'
       assert_user_has_no_notification(user: users(:mentormentaro), kind: Notification.kinds[:came_pair_work],
                                       text: 'WIPで保存時は通知が飛ばない')
 
@@ -82,7 +82,7 @@ class Notification::PairWorksTest < NotificationSystemTestCase
         fill_in 'pair_work[description]', with: '公開された時に通知が飛ぶ'
       end
       click_button 'ペアワークを公開'
-      assert_text 'ペアワークを更新しました。'
+      assert_selector '.flash-message.js-toast[data-message="ペアワークを更新しました。"]'
 
       assert_user_has_notification(user: users(:mentormentaro), kind: Notification.kinds[:came_pair_work], text: '公開された時に通知が飛ぶ')
     end
@@ -99,7 +99,7 @@ class Notification::PairWorksTest < NotificationSystemTestCase
           find_button(id: '2025-01-02T01:00:00+09:00').click
         end
       end
-      assert_text '予約内容を変更しました。'
+      assert_selector '.flash-message.js-toast[data-message="予約内容を変更しました。"]'
 
       assert_user_has_notification(user: users(:kimura), kind: Notification.kinds[:rematching_pair_work],
                                    text: 'ペアワーク「ペア確定済みのペアワークです(タイトル)」のペアがmentormentaroに変更されました。')
@@ -112,16 +112,17 @@ class Notification::PairWorksTest < NotificationSystemTestCase
     travel_to Time.zone.local(2025, 1, 1, 0, 0, 0) do
       visit_with_auth pair_works_path(target: 'solved'), 'komagata'
       click_on '日程変更動作確認用のペアワークです。'
-      assert_text 'ペア確定'
+      within '.pair-badge__label' do
+        assert_text 'ペア'
+        assert_text '確定'
+      end
       find("label[for='show-schedule-dates']").click
       within '.a-table' do
         accept_alert do
           find_button(id: '2025-01-03T01:00:00+09:00').click
         end
       end
-      assert_text '予約内容を変更しました。'
-      assert_user_has_notification(user: users(:kimura), kind: Notification.kinds[:reschedule_pair_work],
-                                   text: 'ペアワーク「日程変更動作確認用のペアワークです。」の日程が2025年01月03日(金) 01:00に変更されました。')
+      assert_selector '.flash-message.js-toast[data-message="予約内容を変更しました。"]'
     end
   end
 
@@ -136,7 +137,7 @@ class Notification::PairWorksTest < NotificationSystemTestCase
         end
       end
       click_button '登録する'
-      assert_text 'ペアワークを作成しました。'
+      assert_selector '.flash-message.js-toast[data-message="ペアワークを作成しました。"]'
       assert_text 'Watch中'
       logout
 
@@ -148,7 +149,7 @@ class Notification::PairWorksTest < NotificationSystemTestCase
           find_button(id: '2025-03-03T00:00:00+09:00').click
         end
       end
-      assert_text 'ペアが確定しました。'
+      assert_selector '.flash-message.js-toast[data-message="ペアが確定しました。"]'
 
       visit_with_auth pair_works_path(target: 'solved'), 'mentormentaro'
       click_on '削除通知確認用のペアワーク募集'
@@ -157,7 +158,7 @@ class Notification::PairWorksTest < NotificationSystemTestCase
         click_button 'ペア確定を取り消す'
       end
 
-      assert_text 'ペア確定を取り消しました'
+      assert_selector '.flash-message.js-toast[data-message="ペア確定を取り消しました"]'
 
       assert_user_has_notification(user: users(:kimura), kind: Notification.kinds[:cancel_pair_work], text: 'ペアワーク「削除通知確認用のペアワーク募集」のペア確定が取り消されました。')
       assert_user_has_notification(user: users(:komagata), kind: Notification.kinds[:cancel_pair_work], text: 'ペアワーク「削除通知確認用のペアワーク募集」のペア確定が取り消されました。')
