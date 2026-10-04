@@ -30,7 +30,9 @@ export default class extends Controller {
   ]
 
   connect() {
-    this.#initializeEditor()
+    this.#savedMemo = this.editorTextareaContentTarget.value
+    this.#renderMemo(this.#savedMemo)
+    TextareaInitializer.initialize(this.editorTextareaSelectorValue)
   }
 
   handleClickEditButton() {
@@ -83,23 +85,6 @@ export default class extends Controller {
       this.#markdownInitializer.render(this.editorTextareaContentTarget.value)
   }
 
-  async #fetchMemo() {
-    const response = await fetch(`${this.urlValue}.json`, {
-      method: 'GET',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      },
-      credentials: 'same-origin',
-      redirect: 'manual'
-    })
-    if (!response.ok) {
-      throw new Error(`メモの取得に失敗しました: ${response.status}`)
-    }
-    const json = await response.json()
-
-    return json.memo ?? ''
-  }
-
   async #updateMemo(memo) {
     const params = {
       [this.paramRootValue]: {
@@ -144,21 +129,6 @@ export default class extends Controller {
   #showEditor() {
     this.displayTarget.classList.add('is-hidden')
     this.editorTarget.classList.remove('is-hidden')
-  }
-
-  async #initializeEditor() {
-    try {
-      this.#savedMemo = await this.#fetchMemo()
-    } catch (error) {
-      toast('メモの取得に失敗しました', 'error')
-      console.warn(error)
-      return
-    }
-
-    this.editorTextareaContentTarget.value = this.#savedMemo
-    this.#renderMemo(this.#savedMemo)
-    this.#showDisplay()
-    TextareaInitializer.initialize(this.editorTextareaSelectorValue)
   }
 
   #setFormDisabled(isDisabled) {

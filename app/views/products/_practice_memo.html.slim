@@ -1,6 +1,6 @@
 section.a-card.is-toggle.practice-memo.is-only-mentor(
   data-controller='memo-editor'
-  data-memo-editor-url-value=api_practice_path(practice_id)
+  data-memo-editor-url-value=api_practice_path(practice)
   data-memo-editor-param-root-value='practice'
   data-memo-editor-editor-textarea-selector-value='#js-practice-memo'
 )
@@ -16,9 +16,15 @@ section.a-card.is-toggle.practice-memo.is-only-mentor(
     div(data-memo-editor-target='display')
       hr.a-border-tint
       .card-body
-        .card-body__description.is-hidden(data-memo-editor-target='displayWithMemo')
+        .card-body__description(
+          data-memo-editor-target='displayWithMemo'
+          class=('is-hidden' if practice.memo.blank?)
+        )
           .a-long-text.is-sm(data-memo-editor-target='displayContent')
-        .card-list(data-memo-editor-target='displayWithoutMemo')
+        .card-list(
+          data-memo-editor-target='displayWithoutMemo'
+          class=('is-hidden' if practice.memo.present?)
+        )
           .card-list__message
             .container
               .o-empty-message
@@ -60,6 +66,7 @@ section.a-card.is-toggle.practice-memo.is-only-mentor(
                 data-memo-editor-target='editorTextareaContent editorControl'
                 data-action='input->memo-editor#updateEditorPreviewContent'
               )
+                = practice.memo
             .a-markdown-input__inner.is-preview.js-tabs__content(data-memo-editor-target='editorPreview')
               .a-long-text.a-markdown-input__preview(data-memo-editor-target='editorPreviewContent')
       hr.a-border-tint
