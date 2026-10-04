@@ -1,5 +1,6 @@
 import { Controller } from '@hotwired/stimulus'
 import TextareaInitializer from 'textarea-initializer'
+import autosize from 'autosize'
 
 export default class extends Controller {
   static targets = [
@@ -8,6 +9,7 @@ export default class extends Controller {
     'inputBody',
     'previewTab',
     'previewPanel',
+    'previewBody',
     'submitButton',
     'submitAndCheckButton'
   ]
@@ -32,6 +34,14 @@ export default class extends Controller {
     if (this.hasSubmitAndCheckButtonTarget) {
       this.submitAndCheckButtonTarget.disabled = isEmpty
     }
+  }
+
+  #resetForm() {
+    this.openInputTab()
+    this.inputBodyTarget.value = ''
+    autosize.update(this.inputBodyTarget)
+    this.previewBodyTarget.innerHTML = ''
+    this.setSubmitButtonState()
   }
 
   #showTab(tabName) {
