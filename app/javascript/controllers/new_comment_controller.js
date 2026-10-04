@@ -1,6 +1,7 @@
 import { Controller } from '@hotwired/stimulus'
 import TextareaInitializer from 'textarea-initializer'
 import autosize from 'autosize'
+import commentCheckable from 'comment-checkable'
 
 export default class extends Controller {
   static targets = [
@@ -11,8 +12,16 @@ export default class extends Controller {
     'previewPanel',
     'previewBody',
     'submitButton',
-    'submitAndCheckButton'
+    'submitAndCheckButton',
+    'submitAndApproveButton'
   ]
+
+  static values = {
+    commentableType: String,
+    commentableId: Number,
+    isMentor: Boolean,
+    currentUserId: Number
+  }
 
   connect() {
     this.setSubmitButtonState()
@@ -34,6 +43,45 @@ export default class extends Controller {
     if (this.hasSubmitAndCheckButtonTarget) {
       this.submitAndCheckButtonTarget.disabled = isEmpty
     }
+    if (this.hasSubmitAndApproveButtonTarget) {
+      this.submitAndApproveButtonTarget.disabled = isEmpty
+    }
+  }
+
+  async #confirmReportComment() {
+    if (this.commentableTypeValue !== 'Report' || !this.isMentorValue) {
+      return true
+    }
+
+    const isChecked = await commentCheckable.isChecked(
+      this.commentableTypeValue,
+      this.commentableIdValue
+    )
+
+    if (isChecked) return true
+
+    return window.confirm('日報を確認済みにしていませんがよろしいですか？')
+  }
+
+  #confirmProductApproval() {
+    return window.confirm('提出物を合格にしてよろしいですか？')
+  }
+
+  async #assignProductChecker() {
+    const shouldAssign = await commentCheckable.isUnassignedAndUncheckedProduct(
+      this.commentableTypeValue,
+      this.commentableIdValue,
+      this.isMentorValue
+    )
+
+    if (!shouldAssign) return false
+
+    await commentCheckable.assignChecker(
+      this.commentableIdValue,
+      this.currentUserIdValue
+    )
+
+    return true
   }
 
   #resetForm() {
