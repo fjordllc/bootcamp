@@ -47,11 +47,17 @@
           .card-main-actions
             .card-main-actions__items
               .card-main-actions__item
-                button#js-shortcut-post-comment.a-button.is-sm.is-primary.is-block.js-comment-save-button(disabled=true)
+                button#js-shortcut-post-comment.a-button.is-sm.is-primary.is-block.js-comment-save-button [
+                  disabled=true
+                  data-new-comment-target='submitButton'
+                ]
                   | コメントする
               - if mentor_login? && %w[Report Product].include?(commentable_type) && !commentable.try(:checked?)
                 .card-main-actions__item.is-only-mentor
-                  button.a-button.is-sm.is-danger.is-block.js-comment-check-button(disabled=true)
+                  button.a-button.is-sm.is-danger.is-block.js-comment-check-button [
+                    disabled=true
+                    data-new-comment-target='submitAndCheckButton'
+                  ]
                     i.fa-solid.fa-check
                     - if commentable_type == 'Report'
                       | 確認OKにする

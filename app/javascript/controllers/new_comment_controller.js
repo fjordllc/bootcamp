@@ -7,10 +7,13 @@ export default class extends Controller {
     'inputPanel',
     'inputBody',
     'previewTab',
-    'previewPanel'
+    'previewPanel',
+    'submitButton',
+    'submitAndCheckButton'
   ]
 
   connect() {
+    this.setSubmitButtonState()
     TextareaInitializer.initialize(`#${this.inputBodyTarget.id}`)
   }
 
@@ -20,6 +23,15 @@ export default class extends Controller {
 
   openPreviewTab() {
     this.#showTab('preview')
+  }
+
+  setSubmitButtonState() {
+    const isEmpty = this.inputBodyTarget.value.length === 0
+
+    this.submitButtonTarget.disabled = isEmpty
+    if (this.hasSubmitAndCheckButtonTarget) {
+      this.submitAndCheckButtonTarget.disabled = isEmpty
+    }
   }
 
   #showTab(tabName) {
