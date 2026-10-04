@@ -84,6 +84,15 @@ export default class extends Controller {
     return true
   }
 
+  async #checkOrApprove() {
+    await commentCheckable.check(
+      this.commentableTypeValue,
+      this.commentableIdValue,
+      '/api/checks',
+      'post'
+    )
+  }
+
   #resetForm() {
     this.openInputTab()
     this.inputBodyTarget.value = ''
