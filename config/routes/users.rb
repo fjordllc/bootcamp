@@ -11,6 +11,10 @@ Rails.application.routes.draw do
     get "areas/:area", to: "areas#show", as: :area
   end
 
+  get "/users/new", to: "users/registrations#new", as: :new_user
+  post "/users", to: "users/registrations#create"
+  get "/users/created", to: "users/registrations#created", as: :created_users
+
   resources :users, only: %i(index show new create) do
     collection do
       get :created

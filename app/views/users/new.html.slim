@@ -36,7 +36,7 @@
               = link_to new_corporate_training_inquiry_path do
                 | こちらの企業研修申し込みフォーム
               | からお申し込みください。
-      = render 'form', from: :new, url: users_path, user: @user || user
+      = render 'users/form', from: :new, url: users_path, user: @user || user
     hr.a-border-tint
     footer.auth-form__footer
       nav.auth-form-nav aria-label="参加登録関連リンク"
