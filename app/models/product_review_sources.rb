@@ -63,9 +63,14 @@ class ProductReviewSources
   end
 
   def fetch(url)
-    result = ExternalContent::WebPageReader.fetch(url, max_body_bytes: MAX_BODY_BYTES, request_timeout: REQUEST_TIMEOUT, log_errors: false)
+    reader = if ExternalContent::GithubReviewReader.support?(URI.parse(url))
+               ExternalContent::GithubReviewReader
+             else
+               ExternalContent::WebPageReader
+             end
+    result = reader.fetch(url, max_body_bytes: MAX_BODY_BYTES, request_timeout: REQUEST_TIMEOUT, log_errors: false)
     return image_evidence(url, *result) if result.is_a?(Array)
-    return unavailable(url, UNAVAILABLE) unless result.to_s.start_with?("# Web Page\n")
+    return unavailable(url, UNAVAILABLE) unless result.to_s.start_with?("# Web Page\n", "# GitHub Review Source\n")
 
     { url:, status: 'fetched', content: result }
   rescue StandardError
