@@ -699,7 +699,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   end
 
   def mcp_available?
-    admin_or_mentor? && !inactive?
+    (admin_or_mentor? || student? || trainee?) && !graduated? && !inactive?
   end
 
   def graduated?

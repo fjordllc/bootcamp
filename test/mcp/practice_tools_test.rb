@@ -110,7 +110,7 @@ class McpPracticeToolsTest < ActiveSupport::TestCase
       assert_includes response.content.first.fetch(:text), 'memo'
     end
 
-    [users(:kimura), users(:advijirou)].each do |user|
+    [users(:kimura), users(:kensyu), users(:advijirou)].each do |user|
       response = Mcp::GetPractice.call(practice_id: practice.id, server_context: server_context(user))
       Mcp::GetPractice.output_schema_value.validate_result(response.structured_content)
       assert_not response.structured_content.key?('memo')

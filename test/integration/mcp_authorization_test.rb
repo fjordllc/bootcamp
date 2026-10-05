@@ -18,16 +18,42 @@ class McpAuthorizationTest < ActionDispatch::IntegrationTest
     Rails.cache = @previous_cache
   end
 
-  test 'mentor and admin-only users may initialize while adviser, student, trainee, and graduate are forbidden' do
-    %i[mentormentaro adminonly].each do |fixture_name|
+  test 'mentor, admin, student, and trainee users may initialize while adviser and graduate are forbidden' do
+    %i[mentormentaro adminonly kimura kensyu].each do |fixture_name|
       post '/mcp', params: initialize_request, as: :json, headers: mcp_headers(create_mcp_token(users(fixture_name)))
       assert_response :ok, fixture_name.to_s
     end
 
-    %i[advijirou kimura kensyu sotugyou].each do |fixture_name|
+    %i[advijirou sotugyou].each do |fixture_name|
       post '/mcp', params: initialize_request, as: :json, headers: mcp_headers(create_mcp_token(users(fixture_name)))
       assert_response :forbidden, fixture_name.to_s
     end
+  end
+
+  test 'each inactive state blocks a previously valid student token' do
+    student = users(:kimura)
+    token = create_mcp_token(student)
+
+    [
+      { hibernated_at: Time.current },
+      { training_completed_at: Time.current },
+      { retired_on: Date.current }
+    ].each do |inactive_attributes|
+      student.update!(inactive_attributes)
+      post '/mcp', params: initialize_request, as: :json, headers: mcp_headers(token)
+      assert_response :forbidden, inactive_attributes.keys.first.to_s
+      student.update!(hibernated_at: nil, training_completed_at: nil, retired_on: nil)
+    end
+  end
+
+  test 'a student who graduates loses access with an already issued token' do
+    student = users(:kimura)
+    token = create_mcp_token(student)
+
+    student.update!(graduated_on: Date.current)
+    post '/mcp', params: initialize_request, as: :json, headers: mcp_headers(token)
+
+    assert_response :forbidden
   end
 
   test 'each inactive state blocks a previously valid mentor token' do
@@ -84,24 +110,25 @@ class McpAuthorizationTest < ActionDispatch::IntegrationTest
     assert_response :forbidden
   end
 
-  test 'an admin cookie cannot elevate a student bearer token' do
+  test 'an admin cookie cannot elevate an adviser bearer token' do
     sign_in(users(:adminonly))
-    token = create_mcp_token(users(:kimura))
+    token = create_mcp_token(users(:advijirou))
 
     post '/mcp', params: initialize_request, as: :json, headers: mcp_headers(token)
 
     assert_response :forbidden
   end
 
-  test 'removing a mentor role or retiring the owner blocks an already issued token' do
+  test 'removing the mentor role leaves an active student token valid while retiring blocks it' do
     mentor = users(:mentormentaro)
     token = create_mcp_token(mentor)
 
+    # A demoted mentor is still an active student, which is MCP eligible.
     mentor.update!(mentor: false)
     post '/mcp', params: initialize_request, as: :json, headers: mcp_headers(token)
-    assert_response :forbidden
+    assert_response :ok
 
-    mentor.update!(mentor: true, retired_on: Date.current)
+    mentor.update!(retired_on: Date.current)
     post '/mcp', params: initialize_request, as: :json, headers: mcp_headers(token)
     assert_response :forbidden
   end
