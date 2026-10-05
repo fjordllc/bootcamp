@@ -56,6 +56,12 @@ class ExternalContent::GithubReviewReaderTest < ActiveSupport::TestCase
     end
   end
 
+  test 'rejects a NUL byte after the MIME sample window' do
+    url = 'https://raw.githubusercontent.com/example/repo/main/archive.bin'
+    stub_request(:get, url).to_return(body: ('a' * 9_000).b + "\0payload".b)
+    assert_equal ExternalContent::UNREADABLE_URL_MESSAGE, fetch(url)
+  end
+
   test 'annotates truncation at fifty thousand characters' do
     stub_request(:get, 'https://raw.githubusercontent.com/example/repo/main/example.rb').to_return(body: 'あ' * 50_001)
     result = fetch('https://raw.githubusercontent.com/example/repo/main/example.rb')
@@ -128,6 +134,16 @@ class ExternalContent::GithubReviewReaderTest < ActiveSupport::TestCase
       result = fetch('https://github.com/example/repo/pull/7')
       assert_includes result, body
       assert_includes result, 'バイナリの内容は確認できません'
+    end
+  end
+
+  test 'accepts metadata-only new and deleted file diffs' do
+    ["diff --git a/new.rb b/new.rb\nnew file mode 100644\nindex 0000000..1234567\n",
+     "diff --git a/old.rb b/old.rb\ndeleted file mode 100644\nindex 1234567..0000000\n"].each do |body|
+      stub_request(:get, 'https://github.com/example/repo/pull/7.diff').to_return(body: body)
+      result = fetch('https://github.com/example/repo/pull/7')
+      assert_includes result, body
+      assert_includes result, 'Files changed'
     end
   end
 

@@ -72,9 +72,9 @@ class ExternalContent::GithubReviewReader < ExternalContent::WebPageReader
   end
 
   def binary_source?(body)
-    sample = body.byteslice(0, 8_000).to_s
-    return true if sample.include?("\0")
+    return true if body.include?("\0")
 
+    sample = body.byteslice(0, 8_000).to_s
     mime_type = Marcel::MimeType.for(StringIO.new(sample))
     %w[application/pdf application/zip application/x-zip-compressed].include?(mime_type)
   end
@@ -82,6 +82,6 @@ class ExternalContent::GithubReviewReader < ExternalContent::WebPageReader
   def unified_diff?(code)
     code.start_with?('diff --git ') &&
       (code.match?(/^--- .+\n\+\+\+ .+\n@@ -\d+(?:,\d+)? \+\d+(?:,\d+)? @@/) ||
-       code.match?(/^(?:Binary files .+ differ|GIT binary patch|(?:old|new) mode \d+|(?:rename|copy) (?:from|to) .+)$/))
+       code.match?(/^(?:Binary files .+ differ|GIT binary patch|(?:old|new|new file|deleted file) mode \d+|(?:rename|copy) (?:from|to) .+)$/))
   end
 end
