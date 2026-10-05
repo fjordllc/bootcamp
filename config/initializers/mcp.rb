@@ -5,6 +5,7 @@ require 'uri'
 Rails.application.configure do
   config.x.mcp.request_max_bytes = Integer(ENV.fetch('MCP_REQUEST_MAX_BYTES', 1.megabyte.to_s))
   config.x.mcp.requests_per_minute = Integer(ENV.fetch('MCP_REQUESTS_PER_MINUTE', '120'))
+  config.x.mcp.global_requests_per_minute = Integer(ENV.fetch('MCP_GLOBAL_REQUESTS_PER_MINUTE', '600'))
   config.x.mcp.max_tool_response_bytes = Integer(ENV.fetch('MCP_MAX_TOOL_RESPONSE_BYTES', 256.kilobytes.to_s))
 
   public_origin = ENV['MCP_PUBLIC_ORIGIN'].presence
@@ -26,7 +27,7 @@ Rails.application.configure do
   end
 
   unless config.x.mcp.request_max_bytes.positive? && config.x.mcp.requests_per_minute.positive? &&
-         config.x.mcp.max_tool_response_bytes.positive?
+         config.x.mcp.global_requests_per_minute.positive? && config.x.mcp.max_tool_response_bytes.positive?
     raise ArgumentError, 'MCP size and rate limits must be positive integers'
   end
 end

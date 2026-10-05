@@ -35,10 +35,9 @@ class McpController < ActionController::API
     context = { user:, application_id: }
 
     case request_limit_status(user.id, application_id)
-    when :limited
-      return rate_limited(context)
-    when :unavailable
-      return rate_limit_unavailable(context)
+    when :limited then return rate_limited(context)
+    when :global_limited then return rate_limited(context, result: 'global_rate_limited')
+    when :unavailable then return rate_limit_unavailable(context)
     end
 
     started_at = Process.clock_gettime(Process::CLOCK_MONOTONIC)
@@ -101,9 +100,13 @@ class McpController < ActionController::API
 
   def request_limit_status(user_id, application_id)
     window = Time.current.to_i / 60
-    key = "mcp-request:#{user_id}:#{window}"
-    count = Mcp::RateLimitCounter.increment(key)
+    global_count = Mcp::RateLimitCounter.increment("mcp-request:global:#{window}")
+    return :unavailable unless global_count
+
+    count = Mcp::RateLimitCounter.increment("mcp-request:#{user_id}:#{window}")
     return :unavailable unless count
+
+    return :global_limited if global_count > Rails.configuration.x.mcp.global_requests_per_minute
 
     count > Rails.configuration.x.mcp.requests_per_minute ? :limited : :allowed
   rescue StandardError => e
@@ -128,13 +131,13 @@ class McpController < ActionController::API
     head :service_unavailable
   end
 
-  def rate_limited(context)
+  def rate_limited(context, result: 'rate_limited')
     audit_request(
       context:,
       status: 429,
       body: '',
       started_at: Process.clock_gettime(Process::CLOCK_MONOTONIC),
-      result: 'rate_limited'
+      result:
     )
     response.headers['Retry-After'] = (60 - Time.current.to_i % 60).to_s
     head :too_many_requests

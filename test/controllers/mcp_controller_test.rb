@@ -87,18 +87,43 @@ class McpControllerTest < ActionDispatch::IntegrationTest
 
   test 'MCP rate limits authenticated users and fails closed when the shared cache is unavailable' do
     token = create_mcp_token
+    messages = []
+    logger = Rails.logger
 
     Rails.cache.stub(:increment, Rails.configuration.x.mcp.requests_per_minute + 1) do
-      post '/mcp', params: initialize_request, as: :json, headers: mcp_headers(token)
+      logger.stub(:info, ->(*arguments) { messages << arguments.first if arguments.any? }) do
+        post '/mcp', params: initialize_request, as: :json, headers: mcp_headers(token)
+      end
     end
     assert_response :too_many_requests
     assert_equal 'no-store', response.headers.fetch('Cache-Control')
     assert response.headers.key?('Retry-After')
+    assert_includes messages.join, '"result":"rate_limited"'
 
     Rails.cache.stub(:increment, nil) do
       post '/mcp', params: initialize_request, as: :json, headers: mcp_headers(token)
     end
     assert_response :service_unavailable
+  end
+
+  test 'MCP enforces a global request limit with a distinguishable audit result' do
+    token = create_mcp_token
+    messages = []
+    logger = Rails.logger
+    global_key_exceeded = lambda do |key, *_args, **_kwargs|
+      key.to_s.include?(':global:') ? Rails.configuration.x.mcp.global_requests_per_minute + 1 : 1
+    end
+
+    Rails.cache.stub(:increment, global_key_exceeded) do
+      logger.stub(:info, ->(*arguments) { messages << arguments.first if arguments.any? }) do
+        post '/mcp', params: initialize_request, as: :json, headers: mcp_headers(token)
+      end
+    end
+
+    assert_response :too_many_requests
+    assert_equal 'no-store', response.headers.fetch('Cache-Control')
+    assert response.headers.key?('Retry-After')
+    assert_includes messages.join, '"result":"global_rate_limited"'
   end
 
   test 'token revocation removes MCP access and pending grants without affecting ordinary OAuth clients' do
