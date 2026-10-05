@@ -1,4 +1,3 @@
-import CSRF from 'csrf'
 import { Controller } from '@hotwired/stimulus'
 import MarkdownInitializer from 'markdown-initializer'
 import TextareaInitializer from 'textarea-initializer'
@@ -9,9 +8,7 @@ export default class extends Controller {
   #savedMemo = ''
 
   static values = {
-    editorTextareaSelector: String,
-    url: String,
-    paramRoot: String
+    editorTextareaSelector: String
   }
 
   static targets = [
@@ -35,28 +32,21 @@ export default class extends Controller {
     TextareaInitializer.initialize(this.editorTextareaSelectorValue)
   }
 
-  handleClickEditButton() {
-    this.#showEditor()
+  submitStart() {
+    this.#setFormDisabled(true)
   }
 
-  async handleClickSaveButton() {
-    const memo = this.editorTextareaContentTarget.value
-
-    try {
-      this.#setFormDisabled(true)
-      await this.#updateMemo(memo)
-    } catch (error) {
+  submitEnd(event) {
+    if (event.detail.success) {
+      toast('保存しました！')
+    } else {
       toast('メモの保存に失敗しました', 'error')
-      console.warn(error)
-      return
-    } finally {
       this.#setFormDisabled(false)
     }
+  }
 
-    this.#savedMemo = memo
-    this.#renderMemo(this.#savedMemo)
-    this.#showDisplay()
-    TextareaInitializer.initialize(this.editorTextareaSelectorValue)
+  handleClickEditButton() {
+    this.#showEditor()
   }
 
   handleClickCancelButton() {
@@ -83,31 +73,6 @@ export default class extends Controller {
   updateEditorPreviewContent() {
     this.editorPreviewContentTarget.innerHTML =
       this.#markdownInitializer.render(this.editorTextareaContentTarget.value)
-  }
-
-  async #updateMemo(memo) {
-    const params = {
-      [this.paramRootValue]: {
-        memo
-      }
-    }
-
-    const response = await fetch(this.urlValue, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': CSRF.getToken()
-      },
-      credentials: 'same-origin',
-      redirect: 'manual',
-      body: JSON.stringify(params)
-    })
-    if (!response.ok) {
-      throw new Error(`メモの更新に失敗しました: ${response.status}`)
-    }
-
-    toast('保存しました！')
   }
 
   #renderMemo(memo) {
