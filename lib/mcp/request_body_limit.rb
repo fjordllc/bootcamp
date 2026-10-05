@@ -14,22 +14,34 @@ module Mcp
     def call(env)
       path = normalize_path(env['PATH_INFO'])
       limit = body_limit(path)
-      return @app.call(env) unless limit
+      return call_app(env, path) unless limit
 
       return too_large if env['CONTENT_LENGTH'].to_i > limit
 
       input = env['rack.input']
-      return @app.call(env) unless input
+      return call_app(env, path) unless input
 
+      call_with_body(env, path, input, limit)
+    end
+
+    private
+
+    def call_with_body(env, path, input, limit)
       body = input.read(limit + 1).to_s
       return too_large if body.bytesize > limit
 
       env['rack.input'] = StringIO.new(body)
       env['mcp.audit_metadata'] = audit_metadata(body) if path == '/mcp' && env['REQUEST_METHOD'] == 'POST'
-      @app.call(env)
+      call_app(env, path)
     end
 
-    private
+    def call_app(env, path)
+      @app.call(env)
+    rescue ActionDispatch::RemoteIp::IpSpoofAttackError
+      raise unless path == '/mcp'
+
+      invalid_remote_ip
+    end
 
     def normalize_path(path)
       ActionDispatch::Journey::Router::Utils.normalize_path(path.to_s)
@@ -43,6 +55,19 @@ module Mcp
 
     def too_large
       [413, { 'cache-control' => 'no-store', 'content-length' => '0' }, []]
+    end
+
+    # Contradictory client-supplied IP headers fail trusted-proxy
+    # resolution the first time request.remote_ip is read. That happens
+    # in request-lifecycle middleware (e.g. the request log line) before
+    # the controller runs, so a controller-level rescue cannot catch it;
+    # this middleware is the narrowest MCP-scoped layer that wraps it.
+    # The failure occurs before any rate-limit counter is touched, so it
+    # is a client error, not cache unavailability: fail with 400 and
+    # audit at info level instead of logging a per-request error/stack.
+    def invalid_remote_ip
+      Rails.logger.info("mcp_audit #{{ event: 'mcp.rate_limit', result: 'invalid_remote_ip' }.to_json}")
+      [400, { 'cache-control' => 'no-store', 'content-length' => '0' }, []]
     end
 
     def audit_metadata(body)

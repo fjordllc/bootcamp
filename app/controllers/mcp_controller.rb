@@ -25,10 +25,10 @@ class McpController < ActionController::API
 
   def validate_and_process_request
     return forbidden unless canonical_request?
-    return unless within_global_request_limit?
 
     access_token = bearer_access_token
-    return unauthorized unless access_token&.accessible?
+    return process_unauthenticated_request unless access_token&.accessible?
+    return unless within_global_request_limit?
     return unless valid_mcp_access_token?(access_token)
 
     user = active_mcp_user(access_token)
@@ -39,6 +39,16 @@ class McpController < ActionController::API
 
   def canonical_request?
     canonical_request_host? && canonical_request_origin?
+  end
+
+  # Requests without an accessible bearer token are bounded per source
+  # IP before touching the shared global counter, then keep the existing
+  # unauthorized behavior (global counting plus an OAuth challenge).
+  def process_unauthenticated_request
+    return unless within_unauthenticated_ip_limit?
+    return unless within_global_request_limit?
+
+    unauthorized
   end
 
   def process_authorized_request(user, application_id)

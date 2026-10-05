@@ -2,10 +2,26 @@
 
 require 'uri'
 
+module McpConfig
+  def self.validate_limits(mcp)
+    limits = [
+      mcp.request_max_bytes,
+      mcp.requests_per_minute,
+      mcp.global_requests_per_minute,
+      mcp.unauthenticated_ip_requests_per_minute,
+      mcp.max_tool_response_bytes
+    ]
+    return if limits.all?(&:positive?)
+
+    raise ArgumentError, 'MCP size and rate limits must be positive integers'
+  end
+end
+
 Rails.application.configure do
   config.x.mcp.request_max_bytes = Integer(ENV.fetch('MCP_REQUEST_MAX_BYTES', 1.megabyte.to_s))
   config.x.mcp.requests_per_minute = Integer(ENV.fetch('MCP_REQUESTS_PER_MINUTE', '120'))
   config.x.mcp.global_requests_per_minute = Integer(ENV.fetch('MCP_GLOBAL_REQUESTS_PER_MINUTE', '600'))
+  config.x.mcp.unauthenticated_ip_requests_per_minute = Integer(ENV.fetch('MCP_UNAUTHENTICATED_IP_REQUESTS_PER_MINUTE', '60'))
   config.x.mcp.max_tool_response_bytes = Integer(ENV.fetch('MCP_MAX_TOOL_RESPONSE_BYTES', 256.kilobytes.to_s))
 
   public_origin = ENV['MCP_PUBLIC_ORIGIN'].presence
@@ -25,9 +41,6 @@ Rails.application.configure do
     end
     config.x.mcp.canonical_origin = uri.to_s.delete_suffix('/')
   end
-
-  unless config.x.mcp.request_max_bytes.positive? && config.x.mcp.requests_per_minute.positive? &&
-         config.x.mcp.global_requests_per_minute.positive? && config.x.mcp.max_tool_response_bytes.positive?
-    raise ArgumentError, 'MCP size and rate limits must be positive integers'
-  end
 end
+
+McpConfig.validate_limits(Rails.application.config.x.mcp)

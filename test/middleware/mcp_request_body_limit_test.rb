@@ -147,6 +147,36 @@ class McpRequestBodyLimitTest < ActiveSupport::TestCase
     assert_equal 200, status
   end
 
+  test 'a spoofed source IP on /mcp is rejected with 400 instead of propagating' do
+    app = ->(_env) { raise ActionDispatch::RemoteIp::IpSpoofAttackError, 'IP spoofing attack?!' }
+
+    status, headers, body = Mcp::RequestBodyLimit.new(app).call(
+      'PATH_INFO' => '/mcp',
+      'REQUEST_METHOD' => 'POST',
+      'CONTENT_LENGTH' => '',
+      'rack.input' => StringIO.new('')
+    )
+
+    assert_equal 400, status
+    assert_equal 'no-store', headers.fetch('cache-control')
+    assert_empty body.each.to_a
+  end
+
+  test 'a spoofed source IP outside /mcp is re-raised unchanged' do
+    app = ->(_env) { raise ActionDispatch::RemoteIp::IpSpoofAttackError, 'IP spoofing attack?!' }
+
+    ['/oauth/register', '/other'].each do |path|
+      assert_raises(ActionDispatch::RemoteIp::IpSpoofAttackError) do
+        Mcp::RequestBodyLimit.new(app).call(
+          'PATH_INFO' => path,
+          'REQUEST_METHOD' => 'POST',
+          'CONTENT_LENGTH' => '',
+          'rack.input' => StringIO.new('')
+        )
+      end
+    end
+  end
+
   test 'audit metadata is captured only for POST' do
     body = { method: 'tools/call', params: { name: 'get_practice' } }.to_json
     captured = {}

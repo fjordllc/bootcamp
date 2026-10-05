@@ -123,7 +123,7 @@ steps:
   - |-
     source .cloudbuild/substitutions.env
     eval "$(.cloudbuild/cloud-build-env exports)"
-    DB_STATEMENT_TIMEOUT_MS=0 bin/rails db:migrate db:seed
+    bin/rails db:migrate db:seed
   waitFor:
   - EnablePgvector
   - WriteSubstitutionEnv

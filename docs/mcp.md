@@ -41,6 +41,7 @@ MCP専用scope `mcp:practices:read` はプラクティスの読取権限で、�
 - `/mcp` の要求本文は1MiB、各ツール応答のテキスト内容と構造化データを合わせたJSON表現は256KiBまでです。超過時はエラーを返し、本文を切り詰めません。
 - 利用者ごとの要求上限は1分あたり120件です(`MCP_REQUESTS_PER_MINUTE` で変更可)。超過時はRetry-After付きのHTTP 429を返し、監査ログのresultは `rate_limited` です。
 - 全利用者合計の要求上限は1分あたり600件です(`MCP_GLOBAL_REQUESTS_PER_MINUTE` で変更可)。利用者ごとのキーとは別キーで計測し、超過時は同じくRetry-After付きのHTTP 429を返しますが、監査ログのresultは `global_rate_limited` で区別できます。
+- 有効なBearer tokenを持たない要求は、送信元IPごとに1分あたり60件までです(`MCP_UNAUTHENTICATED_IP_REQUESTS_PER_MINUTE` で変更可)。グローバル上限のカウンターより先に判定し、超過分はグローバル枠を消費しません。超過時はRetry-After付きのHTTP 429を返し、監査ログのresultは `unauthenticated_ip_rate_limited` です。送信元IPはフレームワークの信頼proxy考慮済みの `request.remote_ip` からSHA-256でハッシュしてキーに使います。`Client-Ip` と `X-Forwarded-For` が矛盾するなど送信元IPを確定できない要求は、カウンターを増やさずHTTP 400で拒否します(監査ログのresultは `invalid_remote_ip` です)。
 - 共有cacheのカウンターが利用できない場合、要求を通さずHTTP 503を返します(fail-closed)。
 - PostgreSQLの `statement_timeout` は既定で5000msです。長時間かかるmigrationは `DB_STATEMENT_TIMEOUT_MS=0 bin/rails db:migrate` のように0(無制限)へ上書きして実行してください。
 - DCRの登録要求は8KiBまで、同一IPから1分あたり10件までです。

@@ -126,11 +126,14 @@ class McpControllerTest < ActionDispatch::IntegrationTest
     assert_includes messages.join, '"result":"global_rate_limited"'
   end
 
-  test 'MCP enforces the global request limit on unauthenticated requests before token lookup' do
+  test 'MCP enforces the global request limit on unauthenticated requests within the IP cap' do
     messages = []
     logger = Rails.logger
+    global_key_exceeded = lambda do |key, *_args, **_kwargs|
+      key.to_s.include?(':global:') ? Rails.configuration.x.mcp.global_requests_per_minute + 1 : 1
+    end
 
-    Rails.cache.stub(:increment, Rails.configuration.x.mcp.global_requests_per_minute + 1) do
+    Rails.cache.stub(:increment, global_key_exceeded) do
       logger.stub(:info, ->(*arguments) { messages << arguments.first if arguments.any? }) do
         post '/mcp', params: initialize_request, as: :json
       end
@@ -140,6 +143,143 @@ class McpControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'no-store', response.headers.fetch('Cache-Control')
     assert response.headers.key?('Retry-After')
     assert_includes messages.join, '"result":"global_rate_limited"'
+  end
+
+  test 'MCP rate limits unauthenticated requests per source IP before the global limit' do
+    messages = []
+    logger = Rails.logger
+
+    with_unauthenticated_ip_limit(2) do
+      post '/mcp', params: initialize_request, as: :json
+      assert_response :unauthorized
+
+      post '/mcp', params: initialize_request, as: :json
+      assert_response :unauthorized
+
+      logger.stub(:info, ->(*arguments) { messages << arguments.first if arguments.any? }) do
+        post '/mcp', params: initialize_request, as: :json
+      end
+      assert_response :too_many_requests
+    end
+
+    assert_equal 'no-store', response.headers.fetch('Cache-Control')
+    assert response.headers.key?('Retry-After')
+    assert_includes messages.join, '"result":"unauthenticated_ip_rate_limited"'
+  end
+
+  test 'MCP unauthenticated IP limits are tracked in separate buckets per remote address' do
+    with_unauthenticated_ip_limit(1) do
+      post '/mcp', params: initialize_request, as: :json, headers: { 'REMOTE_ADDR' => '203.0.113.10' }
+      assert_response :unauthorized
+
+      post '/mcp', params: initialize_request, as: :json, headers: { 'REMOTE_ADDR' => '203.0.113.10' }
+      assert_response :too_many_requests
+
+      post '/mcp', params: initialize_request, as: :json, headers: { 'REMOTE_ADDR' => '203.0.113.11' }
+      assert_response :unauthorized
+    end
+  end
+
+  test 'MCP unauthenticated requests rejected by the IP limit do not increment the global counter' do
+    counted_keys = []
+    counts = Hash.new(0)
+    counting = lambda do |key, *_args, **_kwargs|
+      counted_keys << key.to_s
+      counts[key.to_s] += 1
+    end
+
+    with_unauthenticated_ip_limit(1) do
+      Rails.cache.stub(:increment, counting) do
+        post '/mcp', params: initialize_request, as: :json
+        assert_response :unauthorized
+
+        post '/mcp', params: initialize_request, as: :json
+        assert_response :too_many_requests
+      end
+    end
+
+    assert_equal(2, counted_keys.count { |key| key.include?(':unauthenticated-ip:') })
+    assert_equal(1, counted_keys.count { |key| key.include?(':global:') })
+  end
+
+  test 'MCP requests with a valid bearer token do not consume the unauthenticated IP quota' do
+    token = create_mcp_token
+    counted_keys = []
+    counting = lambda do |key, *_args, **_kwargs|
+      counted_keys << key.to_s
+      1
+    end
+
+    with_unauthenticated_ip_limit(1) do
+      Rails.cache.stub(:increment, counting) do
+        2.times do
+          post '/mcp', params: initialize_request, as: :json, headers: mcp_headers(token)
+          assert_response :ok
+        end
+      end
+    end
+
+    assert_equal(0, counted_keys.count { |key| key.include?(':unauthenticated-ip:') })
+  end
+
+  test 'MCP unauthenticated IP rate limit fails closed when the counter is unavailable' do
+    Rails.cache.stub(:increment, nil) do
+      post '/mcp', params: initialize_request, as: :json
+    end
+    assert_response :service_unavailable
+
+    Rails.cache.stub(:increment, ->(*) { raise StandardError, 'cache down' }) do
+      post '/mcp', params: initialize_request, as: :json
+    end
+    assert_response :service_unavailable
+  end
+
+  test 'MCP rejects spoofed client IP headers as a client error without touching counters' do
+    counted_keys = []
+    counting = lambda do |key, *_args, **_kwargs|
+      counted_keys << key.to_s
+      1
+    end
+    # A Client-Ip header that does not appear in X-Forwarded-For causes
+    # ActionDispatch::RemoteIp to raise IpSpoofAttackError.
+    spoofed_headers = {
+      'REMOTE_ADDR' => '127.0.0.1',
+      'X-Forwarded-For' => '203.0.113.10, 198.51.100.20',
+      'Client-Ip' => '203.0.113.99'
+    }
+
+    Rails.cache.stub(:increment, counting) do
+      post '/mcp', params: initialize_request, as: :json, headers: spoofed_headers
+    end
+
+    assert_response :bad_request
+    assert_empty counted_keys
+  end
+
+  test 'MCP rejects spoofed client IP headers as a client error when the controller first resolves remote_ip' do
+    counted_keys = []
+    counting = lambda do |key, *_args, **_kwargs|
+      counted_keys << key.to_s
+      1
+    end
+    spoofed_headers = {
+      'REMOTE_ADDR' => '127.0.0.1',
+      'X-Forwarded-For' => '203.0.113.10, 198.51.100.20',
+      'Client-Ip' => '203.0.113.99'
+    }
+
+    # Above info level the request logger never renders the
+    # "Started ... for <ip>" line, so nothing resolves request.remote_ip
+    # before the unauthenticated IP limiter reads it; the spoof error
+    # must surface inside the controller, not in middleware.
+    with_log_level(Logger::WARN) do
+      Rails.cache.stub(:increment, counting) do
+        post '/mcp', params: initialize_request, as: :json, headers: spoofed_headers
+      end
+    end
+
+    assert_response :bad_request
+    assert_empty counted_keys
   end
 
   test 'MCP counts unauthenticated and authenticated requests exactly once against the global limit' do
@@ -272,6 +412,22 @@ class McpControllerTest < ActionDispatch::IntegrationTest
   end
 
   private
+
+  def with_log_level(level)
+    previous = Rails.logger.level
+    Rails.logger.level = level
+    yield
+  ensure
+    Rails.logger.level = previous
+  end
+
+  def with_unauthenticated_ip_limit(limit)
+    previous = Rails.configuration.x.mcp.unauthenticated_ip_requests_per_minute
+    Rails.configuration.x.mcp.unauthenticated_ip_requests_per_minute = limit
+    yield
+  ensure
+    Rails.configuration.x.mcp.unauthenticated_ip_requests_per_minute = previous
+  end
 
   def initialize_request
     {
