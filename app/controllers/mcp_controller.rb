@@ -2,6 +2,7 @@
 
 class McpController < ActionController::API
   include McpAuditLogging
+  include McpRateLimiting
   include McpOauth::Urls
 
   PROTOCOL_VERSION = '2025-11-25'
@@ -9,16 +10,7 @@ class McpController < ActionController::API
 
   def process_request
     response.headers['Cache-Control'] = 'no-store'
-    return forbidden unless canonical_request_host? && canonical_request_origin?
-
-    access_token = bearer_access_token
-    return unauthorized unless access_token&.accessible?
-    return unless valid_mcp_access_token?(access_token)
-
-    user = active_mcp_user(access_token)
-    return unless user
-
-    process_authorized_request(user, access_token.application_id)
+    validate_and_process_request
   rescue StandardError => e
     Rails.logger.error(audit_log(
                          event: 'mcp.request',
@@ -31,12 +23,29 @@ class McpController < ActionController::API
 
   private
 
+  def validate_and_process_request
+    return forbidden unless canonical_request?
+    return unless within_global_request_limit?
+
+    access_token = bearer_access_token
+    return unauthorized unless access_token&.accessible?
+    return unless valid_mcp_access_token?(access_token)
+
+    user = active_mcp_user(access_token)
+    return unless user
+
+    process_authorized_request(user, access_token.application_id)
+  end
+
+  def canonical_request?
+    canonical_request_host? && canonical_request_origin?
+  end
+
   def process_authorized_request(user, application_id)
     context = { user:, application_id: }
 
     case request_limit_status(user.id, application_id)
     when :limited then return rate_limited(context)
-    when :global_limited then return rate_limited(context, result: 'global_rate_limited')
     when :unavailable then return rate_limit_unavailable(context)
     end
 
@@ -96,53 +105,6 @@ class McpController < ActionController::API
     origin.scheme == canonical.scheme && origin.host.to_s.casecmp?(canonical.host.to_s) && origin.port == canonical.port
   rescue URI::InvalidURIError
     false
-  end
-
-  def request_limit_status(user_id, application_id)
-    window = Time.current.to_i / 60
-    global_count = Mcp::RateLimitCounter.increment("mcp-request:global:#{window}")
-    return :unavailable unless global_count
-
-    count = Mcp::RateLimitCounter.increment("mcp-request:#{user_id}:#{window}")
-    return :unavailable unless count
-
-    return :global_limited if global_count > Rails.configuration.x.mcp.global_requests_per_minute
-
-    count > Rails.configuration.x.mcp.requests_per_minute ? :limited : :allowed
-  rescue StandardError => e
-    Rails.logger.error(audit_log(
-                         event: 'mcp.rate_limit',
-                         user_id:,
-                         application_id:,
-                         result: 'unavailable',
-                         exception_class: e.class.name,
-                         location: safe_backtrace_location(e)
-                       ))
-    :unavailable
-  end
-
-  def rate_limit_unavailable(context)
-    Rails.logger.error(audit_log(
-                         event: 'mcp.rate_limit',
-                         user_id: context.fetch(:user).id,
-                         application_id: context.fetch(:application_id),
-                         result: 'unavailable'
-                       ))
-    head :service_unavailable
-  end
-
-  def rate_limited(context, result: 'rate_limited')
-    audit_request(
-      context:,
-      status: 429,
-      body: '',
-      started_at: Process.clock_gettime(Process::CLOCK_MONOTONIC),
-      result:
-    )
-    response.headers['Retry-After'] = (60 - Time.current.to_i % 60).to_s
-    head :too_many_requests
-  rescue StandardError
-    head :service_unavailable
   end
 
   def transport_for(user)

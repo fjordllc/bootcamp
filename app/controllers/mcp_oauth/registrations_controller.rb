@@ -15,7 +15,11 @@ module McpOauth
 
     def create
       return head :unsupported_media_type unless request.media_type == 'application/json'
-      return head :too_many_requests unless within_registration_limit?
+
+      case registration_limit_status
+      when :limited then return head :too_many_requests
+      when :unavailable then return head :service_unavailable
+      end
 
       client = registration_params
       return render json: { error: 'invalid_client_metadata' }, status: :bad_request unless client
@@ -94,10 +98,15 @@ module McpOauth
       host.is_a?(String) && IPAddr.new(host).loopback?
     end
 
-    def within_registration_limit?
+    def registration_limit_status
       key = "mcp-oauth-dcr:#{Digest::SHA256.hexdigest(request.remote_ip)}:#{Time.current.to_i / 60}"
       count = Mcp::RateLimitCounter.increment(key)
-      count.present? && count <= MAX_REGISTRATIONS_PER_MINUTE
+      unless count
+        Rails.logger.error(audit_log(event: 'mcp.dcr_rate_limit', result: 'unavailable'))
+        return :unavailable
+      end
+
+      count > MAX_REGISTRATIONS_PER_MINUTE ? :limited : :allowed
     rescue StandardError => e
       Rails.logger.error(audit_log(
                            event: 'mcp.dcr_rate_limit',
@@ -105,7 +114,7 @@ module McpOauth
                            exception_class: e.class.name,
                            location: safe_backtrace_location(e)
                          ))
-      false
+      :unavailable
     end
 
     def registration_response(application, client)

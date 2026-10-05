@@ -36,7 +36,7 @@ class McpControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :ok
     tools = response.parsed_body.dig('result', 'tools')
-    assert_equal %w[get_practice list_practices], tools.map { |tool| tool.fetch('name') }.sort
+    assert_equal(%w[get_practice list_practices], tools.map { |tool| tool.fetch('name') }.sort)
   end
 
   test 'cookie authentication does not replace the required MCP bearer token' do
@@ -124,6 +124,45 @@ class McpControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'no-store', response.headers.fetch('Cache-Control')
     assert response.headers.key?('Retry-After')
     assert_includes messages.join, '"result":"global_rate_limited"'
+  end
+
+  test 'MCP enforces the global request limit on unauthenticated requests before token lookup' do
+    messages = []
+    logger = Rails.logger
+
+    Rails.cache.stub(:increment, Rails.configuration.x.mcp.global_requests_per_minute + 1) do
+      logger.stub(:info, ->(*arguments) { messages << arguments.first if arguments.any? }) do
+        post '/mcp', params: initialize_request, as: :json
+      end
+    end
+
+    assert_response :too_many_requests
+    assert_equal 'no-store', response.headers.fetch('Cache-Control')
+    assert response.headers.key?('Retry-After')
+    assert_includes messages.join, '"result":"global_rate_limited"'
+  end
+
+  test 'MCP counts unauthenticated and authenticated requests exactly once against the global limit' do
+    token = create_mcp_token
+    counted_keys = []
+    counting = lambda do |key, *_args, **_kwargs|
+      counted_keys << key.to_s
+      1
+    end
+
+    Rails.cache.stub(:increment, counting) do
+      post '/mcp', params: initialize_request, as: :json
+    end
+    assert_response :unauthorized
+    assert_equal(1, counted_keys.count { |key| key.include?(':global:') })
+
+    counted_keys.clear
+    Rails.cache.stub(:increment, counting) do
+      post '/mcp', params: initialize_request, as: :json, headers: mcp_headers(token)
+    end
+    assert_response :ok
+    assert_equal(1, counted_keys.count { |key| key.include?(':global:') })
+    assert_equal(1, counted_keys.count { |key| key.include?(":#{users(:mentormentaro).id}:") })
   end
 
   test 'token revocation removes MCP access and pending grants without affecting ordinary OAuth clients' do

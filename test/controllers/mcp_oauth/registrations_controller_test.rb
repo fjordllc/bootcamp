@@ -86,6 +86,18 @@ class McpOauth::RegistrationsControllerTest < ActionDispatch::IntegrationTest
     assert_response :too_many_requests
   end
 
+  test 'DCR fails closed with 503 when the rate counter is unavailable' do
+    Rails.cache.stub(:increment, nil) do
+      post '/oauth/register', params: registration_params, as: :json
+    end
+    assert_response :service_unavailable
+
+    Rails.cache.stub(:increment, ->(*) { raise ActiveRecord::ConnectionNotEstablished }) do
+      post '/oauth/register', params: registration_params, as: :json
+    end
+    assert_response :service_unavailable
+  end
+
   test 'metadata advertises DCR, S256, and only the supported grant and scope' do
     get '/.well-known/oauth-authorization-server'
 
@@ -231,9 +243,25 @@ class McpOauth::RegistrationsControllerTest < ActionDispatch::IntegrationTest
     assert_equal PRACTICES_SCOPE, token.scopes.to_s
   end
 
-  test 'authorization rejects a user without mentor or admin role' do
+  test 'authorization allows an active student to complete the consent flow' do
     application = register_mcp_client
     sign_in(users(:kimura))
+
+    params = authorization_params(application)
+    get '/oauth/authorize', params: params
+    assert_response :ok
+    assert_select 'h1.auth-form__title', 'アプリケーションとの接続'
+
+    post '/oauth/authorize', params: params
+    assert_response :redirect
+    code = URI.decode_www_form(URI(response.headers.fetch('Location')).query).to_h.fetch('code')
+
+    assert_equal users(:kimura).id, Doorkeeper::AccessGrant.find_by!(token: code).resource_owner_id
+  end
+
+  test 'authorization rejects an ineligible user' do
+    application = register_mcp_client
+    sign_in(users(:advijirou))
 
     get '/oauth/authorize', params: authorization_params(application)
 
