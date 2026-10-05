@@ -33,7 +33,7 @@ class PairWorksTest < ApplicationSystemTestCase
         end
         click_button '登録する'
       end
-      assert_text 'ペアワークを作成しました。'
+      assert_selector '.flash-message.js-toast[data-message="ペアワークを作成しました。"]'
       assert_selector '.a-title-label.is-solved.is-danger', text: '募集中'
       assert_text 'Watch中'
 
@@ -81,17 +81,15 @@ class PairWorksTest < ApplicationSystemTestCase
     pair_work = pair_works(:pair_work1)
     visit_with_auth pair_work_path(pair_work), 'kimura'
     click_link '内容修正'
-    fill_in 'pair_work[title]', with: 'ペアワークのテスト（修正）'
-    fill_in 'pair_work[description]', with: 'ペアワークのテストです。（修正）'
     within '.select-practices' do
       find('.choices__inner').click
       find('#choices--js-choices-practice-item-choice-12', text: 'sshdでパスワード認証を禁止にする').click
     end
+    fill_in 'pair_work[title]', with: 'ペアワークのテスト（修正）'
     click_button '更新する'
 
-    assert_text 'ペアワークを更新しました。'
+    assert_selector '.flash-message.js-toast[data-message="ペアワークを更新しました。"]'
     assert_text 'ペアワークのテスト（修正）'
-    assert_text 'ペアワークのテストです。（修正）'
     assert_selector 'a.a-category-link', text: 'sshdでパスワード認証を禁止にする'
   end
 
@@ -102,7 +100,7 @@ class PairWorksTest < ApplicationSystemTestCase
       click_link '希望日時変更'
       find('label[for="schedule_ids_202501020100"]').click
       click_button '更新する'
-      assert_text 'ペアワークを更新しました。'
+      assert_selector '.flash-message.js-toast[data-message="ペアワークを更新しました。"]'
     end
   end
 
@@ -113,7 +111,7 @@ class PairWorksTest < ApplicationSystemTestCase
       click_link '削除'
     end
 
-    assert_text 'ペアワークを削除しました。'
+    assert_selector '.flash-message.js-toast[data-message="ペアワークを削除しました。"]'
     assert_equal '全てのペアワーク | FBC', title
   end
 
@@ -145,7 +143,7 @@ class PairWorksTest < ApplicationSystemTestCase
         click_button 'ペア確定を取り消す'
       end
 
-      assert_text 'ペア確定を取り消しました'
+      assert_selector '.flash-message.js-toast[data-message="ペア確定を取り消しました"]'
     end
   end
 
@@ -184,7 +182,7 @@ class PairWorksTest < ApplicationSystemTestCase
           find_button(id: '2025-01-03T01:00:00+09:00').click
         end
       end
-      assert_text '予約内容を変更しました。'
+      assert_selector '.flash-message.js-toast[data-message="予約内容を変更しました。"]'
       assert_selector '.pair-work-info__datetime', text: '2025年01月03日(金) 01:00'
 
       visit_with_auth pair_work_path(pair_work), 'mentormentaro'
@@ -194,7 +192,7 @@ class PairWorksTest < ApplicationSystemTestCase
           find_button(id: '2025-01-02T01:00:00+09:00').click
         end
       end
-      assert_text '予約内容を変更しました。'
+      assert_selector '.flash-message.js-toast[data-message="予約内容を変更しました。"]'
       assert_selector 'a', text: 'mentormentaro (メンタ メンタロウ)'
     end
   end

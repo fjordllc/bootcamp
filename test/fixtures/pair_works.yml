@@ -41,3 +41,14 @@ pair_work4:
   published_at: <%= Time.zone.parse('2025-01-01 00:00:00') %>
   created_at: <%= Time.zone.parse('2025-01-01 00:00:00') %>
   wip: false
+
+pair_work5:
+  title: 近日開催のペアワークの動作確認
+  description: 近日開催のペア確定済みペアワークです
+  reserved_at: <%= Time.current + 1.day %>
+  user: kimura
+  practice: null
+  buddy: advijirou
+  published_at: <%= Time.current %>
+  created_at: <%= Time.current %>
+  wip: false
