@@ -138,6 +138,18 @@ class ProductReviewSourcesTest < ActiveSupport::TestCase
     assert_empty sources.attachments
   end
 
+  test 'binary GitHub blobs are unavailable as source evidence' do
+    url = 'https://raw.githubusercontent.com/example/repo/main/report.pdf'
+    stub_request(:get, url).to_return(body: "%PDF-1.4\n1 0 obj\n<< /Type /Catalog >>\n%%EOF\n",
+                                      headers: { 'Content-Type' => 'application/octet-stream' })
+
+    sources = collect(url)
+
+    assert_equal 'unavailable', sources.evidence.first[:status]
+    assert_includes sources.evidence.first[:reason], '未確認'
+    assert_empty sources.attachments
+  end
+
   test 'empty and no-link submissions have no evidence or attachments' do
     [nil, '', '普通の提出本文', '`https://example.com/code`'].each do |body|
       sources = collect(body)
@@ -152,6 +164,21 @@ class ProductReviewSourcesTest < ActiveSupport::TestCase
     Rails.logger.stub(:warn, ->(*) { flunk 'review retrieval must not log URLs or provider bodies' }) do
       assert_equal 'unavailable', collect(url).evidence.first[:status]
     end
+  end
+
+  test 'routes GitHub PR and blob links to code while failed diffs remain unavailable' do
+    diff = "diff --git a/example.rb b/example.rb\n--- a/example.rb\n+++ b/example.rb\n@@ -1 +1 @@\n-old\n+puts 1 < 2\n"
+    stub_request(:get, 'https://github.com/example/repo/pull/7.diff').to_return(body: diff)
+    stub_request(:get, 'https://github.com/example/repo/pull/8.diff').to_return(body: '<html>Login</html>')
+    stub_request(:get, 'https://raw.githubusercontent.com/example/repo/main/example.html').to_return(body: "<p>code</p>\n")
+
+    sources = collect("https://github.com/example/repo/pull/7/files/\nhttps://github.com/example/repo/pull/8\nhttps://github.com/example/repo/blob/main/example.html")
+
+    assert_equal %w[fetched unavailable fetched], sources.evidence.pluck(:status)
+    assert_includes sources.evidence.first[:content], diff
+    assert_includes sources.evidence.last[:content], "<p>code</p>\n"
+    assert_equal 'https://github.com/example/repo/pull/7/files/', sources.evidence.first[:url]
+    assert_not_requested :get, 'https://github.com/example/repo/pull/7/files/'
   end
 
   private
