@@ -80,16 +80,6 @@ class Report < ApplicationRecord
                          .to_h
                          .with_indifferent_access
     end
-
-    def save_as_markdown!(reports, folder_path)
-      reports.each do |report|
-        File.open("#{folder_path}/#{report.reported_on}.md", 'w') do |file|
-          file.puts("# #{report.title}")
-          file.puts
-          file.puts(report.description)
-        end
-      end
-    end
   end
 
   def previous
