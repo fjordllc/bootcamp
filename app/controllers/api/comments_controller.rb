@@ -2,8 +2,9 @@
 
 class API::CommentsController < API::BaseController
   before_action :set_my_comment, only: %i[update destroy]
+  before_action :authorize_comment, only: %i[update destroy]
   before_action :set_available_emojis, only: %i[index create]
-  before_action :authorize_commentable, only: %i[index]
+  before_action :authorize_commentable, only: %i[index create]
   before_action -> { doorkeeper_authorize! :write }, only: %i[create update destroy], if: -> { doorkeeper_token.present? }
 
   COMMENT_LIMIT = 8
@@ -74,6 +75,12 @@ class API::CommentsController < API::BaseController
   def authorize_commentable
     return if params[:commentable_type].blank?
     return if Comment.new(commentable:).visible_to_user?(current_user)
+
+    head :forbidden
+  end
+
+  def authorize_comment
+    return if @comment.visible_to_user?(current_user)
 
     head :forbidden
   end
