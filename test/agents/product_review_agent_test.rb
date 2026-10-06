@@ -31,13 +31,13 @@ class ProductReviewAgentTest < ActiveSupport::TestCase
     assert_includes chat.instructions, '受講生への返信案'
   end
 
-  test 'sends fetched text and actual image bytes through the real SDK without retrieving curriculum or answer links' do
+  test 'sends fetched text and actual image bytes through the real SDK without retrieving practice or answer links' do
     product = products(:product8)
     product.body = "https://example.com/submission\nhttps://github.com/example/repo/pull/7/files/\n![screen](https://example.com/image)"
     product.practice.goal = 'https://bootcamp.fjord.jp/pages/315'
-    product.practice.description = 'https://example.com/public-curriculum'
+    product.practice.description = 'https://example.com/public-practice'
     product.practice.create_submission_answer!(description: 'https://example.com/private-answer fictional mentor answer')
-    stub_request(:get, 'https://example.com/public-curriculum').to_return(body: '<p>Public curriculum requirements</p>')
+    stub_request(:get, 'https://example.com/public-practice').to_return(body: '<p>Public practice requirements</p>')
     image = Rails.root.join('test/fixtures/files/companies-logos-1.jpg').binread
     stub_request(:get, 'https://example.com/submission').with do |request|
       assert_nil request.headers['Authorization']
@@ -80,7 +80,7 @@ class ProductReviewAgentTest < ActiveSupport::TestCase
     assert_equal 'base64', images.first.dig('source', 'type')
     assert_equal 'image/png', images.first.dig('source', 'media_type')
     assert_equal image, Base64.strict_decode64(images.first.dig('source', 'data'))
-    assert_not_requested :get, 'https://example.com/public-curriculum'
+    assert_not_requested :get, 'https://example.com/public-practice'
     assert_not_requested :get, 'https://bootcamp.fjord.jp/pages/315'
     assert_equal 3, context.fetch('external_sources').size
     assert_not_requested :get, 'https://example.com/private-answer'
@@ -122,8 +122,8 @@ class ProductReviewAgentTest < ActiveSupport::TestCase
 
     content = payload.fetch('messages').last.fetch('content')
     context = JSON.parse(content.find { |part| part['type'] == 'text' }.fetch('text'))
-    assert context.key?('curriculum_docs'), 'Associated Docs must reach the SDK even without curriculum URLs'
-    evidence = context.fetch('curriculum_docs').find { |doc| doc['id'] == page.id }
+    assert context.key?('practice_docs'), 'Associated Docs must reach the SDK even without practice URLs'
+    evidence = context.fetch('practice_docs').find { |doc| doc['id'] == page.id }
     assert evidence, 'The associated problem Doc must be included'
     assert_equal page.title, evidence['title']
     assert_equal page.body, evidence['body']

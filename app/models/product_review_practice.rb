@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# Curriculum context comes from practice relationships, independently of submission sources.
-class ProductReviewCurriculum
+# Practice context comes from practice relationships, independently of submission sources.
+class ProductReviewPractice
   MAX_DOCS = 20
   DOC_BODY_LIMIT = 20_000
   TOTAL_BODY_LIMIT = 100_000
@@ -31,9 +31,9 @@ class ProductReviewCurriculum
       docs << doc
       remaining -= doc[:body].length
     end
-    context = { curriculum_docs: docs }
+    context = { practice_docs: docs }
     omitted_count = published.count - docs.size
-    context[:curriculum_docs_omission] = "上限（#{MAX_DOCS}件・本文合計#{TOTAL_BODY_LIMIT}文字）により#{omitted_count}件のDocを省略しました。省略した本文は未確認です。" if omitted_count.positive?
+    context[:practice_docs_omission] = "上限（#{MAX_DOCS}件・本文合計#{TOTAL_BODY_LIMIT}文字）により#{omitted_count}件のDocを省略しました。省略した本文は未確認です。" if omitted_count.positive?
     context
   end
 
