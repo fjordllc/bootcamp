@@ -57,7 +57,7 @@ class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLeng
     @report = Report.new(report_params)
     @report.user = current_user
     set_wip
-    canonicalize_learning_times(@report)
+    @report.canonicalize_learning_times
 
     if @report.save_uniquely
       ActiveSupport::Notifications.instrument('report.create', report: @report)
@@ -73,7 +73,7 @@ class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLeng
     @report.practice_ids = nil if params[:report][:practice_ids].nil?
     @report.assign_attributes(report_params)
     @report.learning_times.each(&:mark_for_destruction) if @report.no_learn
-    canonicalize_learning_times(@report)
+    @report.canonicalize_learning_times
 
     if @report.save_uniquely
       ActiveSupport::Notifications.instrument('report.update', report: @report)
@@ -176,23 +176,6 @@ class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLeng
 
   def set_watch
     @watch = Watch.new
-  end
-
-  def canonicalize_learning_times(report)
-    report.learning_times.each do |learning_time|
-      new_started_at = learning_time.started_at.change(
-        year: report.reported_on.year,
-        month: report.reported_on.month,
-        day: report.reported_on.day
-      )
-      new_finished_at = learning_time.finished_at.change(
-        year: report.reported_on.year,
-        month: report.reported_on.month,
-        day: report.reported_on.day
-      )
-      new_finished_at += 1.day if new_started_at > new_finished_at
-      learning_time.assign_attributes(started_at: new_started_at, finished_at: new_finished_at)
-    end
   end
 
   def build_learning_times(report)
