@@ -1,9 +1,15 @@
 # frozen_string_literal: true
 
 class API::ChecksController < API::BaseController
+  CHECKABLE_CLASSES = {
+    'Product' => Product,
+    'Report' => Report
+  }.freeze
+
   before_action :require_staff_login_for_api, only: %i[create destroy]
   before_action -> { doorkeeper_authorize! :write }, only: %i[create destroy], if: -> { doorkeeper_token.present? }
   before_action -> { doorkeeper_authorize! :mentor }, only: %i[create destroy], if: -> { doorkeeper_token.present? }
+  before_action :validate_checkable_type, only: %i[index create]
 
   def index
     @checks = Check.where(
@@ -41,7 +47,12 @@ class API::ChecksController < API::BaseController
 
   private
 
+  def validate_checkable_type
+    type = params[:checkable_type]
+    head :bad_request unless type.is_a?(String) && CHECKABLE_CLASSES.key?(type)
+  end
+
   def checkable
-    params[:checkable_type].constantize.find_by(id: params[:checkable_id])
+    CHECKABLE_CLASSES.fetch(params[:checkable_type]).find_by(id: params[:checkable_id])
   end
 end

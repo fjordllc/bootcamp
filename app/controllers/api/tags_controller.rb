@@ -1,7 +1,16 @@
 # frozen_string_literal: true
 
 class API::TagsController < API::BaseController
+  TAGGABLE_CLASSES = {
+    'User' => User,
+    'Page' => Page,
+    'Movie' => Movie,
+    'Question' => Question,
+    'Article' => Article
+  }.freeze
+
   skip_before_action :require_login_for_api
+  before_action :validate_taggable_type, only: :index
 
   def index
     @tags = taggable_type.all_tags
@@ -22,6 +31,11 @@ class API::TagsController < API::BaseController
 
   private
 
+  def validate_taggable_type
+    type = params[:taggable_type]
+    head :bad_request unless type.is_a?(String) && TAGGABLE_CLASSES.key?(type)
+  end
+
   def replace_tagging_tags_with(same_name_tag)
     taggings = ActsAsTaggableOn::Tagging.where(tag_id: params[:id])
     taggable_ids = ActsAsTaggableOn::Tagging.where(tag_id: same_name_tag.id).select(:taggable_id)
@@ -34,6 +48,6 @@ class API::TagsController < API::BaseController
   end
 
   def taggable_type
-    params[:taggable_type].constantize
+    TAGGABLE_CLASSES.fetch(params[:taggable_type])
   end
 end
