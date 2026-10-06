@@ -102,6 +102,13 @@ class Product < ApplicationRecord # rubocop:todo Metrics/ClassLength
     checks.where(user:).present?
   end
 
+  def user_products
+    user.products
+        .includes(:practice, :user, :comments, :checks, comments: :user)
+        .not_wip
+        .order(published_at: :desc)
+  end
+
   def change_learning_status(status)
     learning = Learning.find_or_initialize_by(
       user_id: user.id,
