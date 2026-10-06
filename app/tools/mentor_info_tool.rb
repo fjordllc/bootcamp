@@ -5,9 +5,9 @@ class MentorInfoTool < RubyLLM::Tool
 
   def execute
     contexts = User.mentor.unretired.unhibernated.order(:login_name).filter_map do |mentor|
-      next if mentor.mentor_ai_context.blank?
+      next if mentor.mentoring_expertise.blank?
 
-      "## @#{mentor.login_name}\n#{mentor.mentor_ai_context}"
+      "## @#{mentor.login_name}\n#{mentor.mentoring_expertise}"
     end
     return '相談内容に合うメンター情報が登録されていません。メンションせずに回答してください。' if contexts.empty?
 
