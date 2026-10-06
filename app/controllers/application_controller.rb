@@ -11,23 +11,20 @@ class ApplicationController < ActionController::Base
   before_action :basic_auth, if: :staging?
   before_action :test_login, if: :test?
   before_action :init_user
-  before_action :allow_cross_domain_access
   before_action :require_active_user_login
   before_action :set_current_user_practice
   before_action :save_affiliate_rd_code
-
-  protected
-
-  def allow_cross_domain_access
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    response.headers['Access-Control-Allow-Methods'] = '*'
-  end
 
   private
 
   def basic_auth
     authenticate_or_request_with_http_basic do |user, password|
-      user == ENV['BASIC_AUTH_USER'] && password == ENV['BASIC_AUTH_PASSWORD']
+      configured_user = ENV['BASIC_AUTH_USER']
+      configured_password = ENV['BASIC_AUTH_PASSWORD']
+      next false unless configured_user.present? && configured_password.present? && user.is_a?(String) && password.is_a?(String)
+
+      ActiveSupport::SecurityUtils.secure_compare(user, configured_user) &
+        ActiveSupport::SecurityUtils.secure_compare(password, configured_password)
     end
   end
 

@@ -8,7 +8,10 @@ class SchedulerController < ApplicationController
   protected
 
   def require_token
-    return if ENV['TOKEN'].present? && ENV['TOKEN'] == params[:token]
+    configured_token = ENV['TOKEN']
+    token = params[:token]
+    return if configured_token.present? && token.is_a?(String) && token.present? &&
+              ActiveSupport::SecurityUtils.secure_compare(token, configured_token)
 
     head :unauthorized
   end
