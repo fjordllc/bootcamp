@@ -1,14 +1,6 @@
 # frozen_string_literal: true
 
 class API::TagsController < API::BaseController
-  TAGGABLE_CLASSES = {
-    'User' => User,
-    'Page' => Page,
-    'Movie' => Movie,
-    'Question' => Question,
-    'Article' => Article
-  }.freeze
-
   skip_before_action :require_login_for_api, only: :index
   before_action :require_admin_or_mentor_login_for_api, only: :update
   before_action -> { doorkeeper_authorize! :write }, only: :update, if: -> { doorkeeper_token.present? }
@@ -34,8 +26,7 @@ class API::TagsController < API::BaseController
   private
 
   def validate_taggable_type
-    type = params[:taggable_type]
-    head :bad_request unless type.is_a?(String) && TAGGABLE_CLASSES.key?(type)
+    head :bad_request unless TaggableType.resolve(params[:taggable_type])
   end
 
   def replace_tagging_tags_with(same_name_tag)
@@ -50,6 +41,6 @@ class API::TagsController < API::BaseController
   end
 
   def taggable_type
-    TAGGABLE_CLASSES.fetch(params[:taggable_type])
+    TaggableType.resolve(params[:taggable_type])
   end
 end

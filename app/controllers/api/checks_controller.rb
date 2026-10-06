@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
 class API::ChecksController < API::BaseController
-  CHECKABLE_CLASSES = {
-    'Product' => Product,
-    'Report' => Report
-  }.freeze
-
   before_action :require_staff_login_for_api, only: %i[create destroy]
   before_action -> { doorkeeper_authorize! :write }, only: %i[create destroy], if: -> { doorkeeper_token.present? }
   before_action -> { doorkeeper_authorize! :mentor }, only: %i[create destroy], if: -> { doorkeeper_token.present? }
@@ -48,11 +43,10 @@ class API::ChecksController < API::BaseController
   private
 
   def validate_checkable_type
-    type = params[:checkable_type]
-    head :bad_request unless type.is_a?(String) && CHECKABLE_CLASSES.key?(type)
+    head :bad_request unless Check.checkable_class(params[:checkable_type])
   end
 
   def checkable
-    CHECKABLE_CLASSES.fetch(params[:checkable_type]).find_by(id: params[:checkable_id])
+    Check.checkable_class(params[:checkable_type]).find_by(id: params[:checkable_id])
   end
 end
