@@ -2,17 +2,6 @@
 
 class API::BookmarksController < API::BaseController
   PAGER_NUMBER = 20
-  BOOKMARKABLE_CLASSES = {
-    'Announcement' => Announcement,
-    'Page' => Page,
-    'Talk' => Talk,
-    'Movie' => Movie,
-    'RegularEvent' => RegularEvent,
-    'Event' => Event,
-    'Product' => Product,
-    'Question' => Question,
-    'Report' => Report
-  }.freeze
 
   before_action :validate_bookmarkable_type, only: %i[index create]
 
@@ -51,11 +40,10 @@ class API::BookmarksController < API::BaseController
   def validate_bookmarkable_type
     return if action_name == 'index' && !params.key?(:bookmarkable_type)
 
-    type = params[:bookmarkable_type]
-    head :bad_request unless type.is_a?(String) && BOOKMARKABLE_CLASSES.key?(type)
+    head :bad_request unless Bookmark.bookmarkable_class(params[:bookmarkable_type])
   end
 
   def bookmarkable
-    BOOKMARKABLE_CLASSES.fetch(params[:bookmarkable_type]).find_by(id: params[:bookmarkable_id])
+    Bookmark.bookmarkable_class(params[:bookmarkable_type]).find_by(id: params[:bookmarkable_id])
   end
 end

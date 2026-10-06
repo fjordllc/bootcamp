@@ -3,6 +3,22 @@
 require 'test_helper'
 
 class BookmarkTest < ActiveSupport::TestCase
+  test '.bookmarkable_class resolves supported exact type names' do
+    types = %w[Announcement Page Talk Movie RegularEvent Event Product Question Report]
+    models = [Announcement, Page, Talk, Movie, RegularEvent, Event, Product, Question, Report]
+
+    types.zip(models).each do |type, model|
+      assert_same model, Bookmark.bookmarkable_class(type)
+    end
+  end
+
+  test '.bookmarkable_class rejects unsupported names and non-string values' do
+    ['User', 'Kernel', 'Object', 'UnknownResource', 'Inquiry', 'CorporateTrainingInquiry', 'PairWork', '', ' ',
+     'report', '::Report', 'Report ', Report, nil, {}, [], :Report, true, false, 123].each do |type|
+      assert_nil Bookmark.bookmarkable_class(type), "Expected #{type.inspect} to be rejected"
+    end
+  end
+
   test 'prohibition of duplicate registration' do
     user = users(:machida)
     report = reports(:report1)

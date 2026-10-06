@@ -1,20 +1,6 @@
 # frozen_string_literal: true
 
 class API::CommentsController < API::BaseController
-  COMMENTABLE_CLASSES = {
-    'Announcement' => Announcement,
-    'CorporateTrainingInquiry' => CorporateTrainingInquiry,
-    'PairWork' => PairWork,
-    'Page' => Page,
-    'Inquiry' => Inquiry,
-    'Talk' => Talk,
-    'Movie' => Movie,
-    'RegularEvent' => RegularEvent,
-    'Event' => Event,
-    'Product' => Product,
-    'Report' => Report
-  }.freeze
-
   before_action :set_my_comment, only: %i[update destroy]
   before_action :set_available_emojis, only: %i[index create]
   before_action :validate_commentable_type, only: %i[index create]
@@ -67,8 +53,7 @@ class API::CommentsController < API::BaseController
   private
 
   def validate_commentable_type
-    type = params[:commentable_type]
-    head :bad_request unless type.is_a?(String) && COMMENTABLE_CLASSES.key?(type)
+    head :bad_request unless Comment.commentable_class(params[:commentable_type])
   end
 
   def render_comments_page
@@ -103,7 +88,7 @@ class API::CommentsController < API::BaseController
   end
 
   def commentable
-    @commentable ||= COMMENTABLE_CLASSES.fetch(params[:commentable_type]).find(params[:commentable_id])
+    @commentable ||= Comment.commentable_class(params[:commentable_type]).find(params[:commentable_id])
   end
 
   def set_my_comment
