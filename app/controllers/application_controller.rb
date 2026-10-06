@@ -27,7 +27,12 @@ class ApplicationController < ActionController::Base
 
   def basic_auth
     authenticate_or_request_with_http_basic do |user, password|
-      user == ENV['BASIC_AUTH_USER'] && password == ENV['BASIC_AUTH_PASSWORD']
+      configured_user = ENV['BASIC_AUTH_USER']
+      configured_password = ENV['BASIC_AUTH_PASSWORD']
+      next false unless configured_user.present? && configured_password.present? && user.is_a?(String) && password.is_a?(String)
+
+      ActiveSupport::SecurityUtils.secure_compare(user, configured_user) &
+        ActiveSupport::SecurityUtils.secure_compare(password, configured_password)
     end
   end
 
