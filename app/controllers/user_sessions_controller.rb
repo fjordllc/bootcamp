@@ -3,6 +3,10 @@
 class UserSessionsController < ApplicationController
   skip_before_action :require_active_user_login, raise: false
 
+  rate_limit to: 100, within: 3.minutes, only: :create, name: 'ip', scope: 'login', with: -> { head :too_many_requests }
+  rate_limit to: 10, within: 3.minutes, only: :create, name: 'account', scope: 'login',
+             by: :login_rate_limit_identity, with: -> { head :too_many_requests }
+
   def new
     @user = User.new
   end
@@ -53,6 +57,11 @@ class UserSessionsController < ApplicationController
   end
 
   private
+
+  def login_rate_limit_identity
+    login = params[:user][:login] if params[:user].is_a?(ActionController::Parameters)
+    Digest::SHA256.hexdigest(login.is_a?(String) ? login.strip.downcase : '')
+  end
 
   def assign_flash_and_session(result)
     flash[:notice] = result[:notice] if result[:notice]
