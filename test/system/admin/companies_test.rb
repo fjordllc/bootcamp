@@ -86,12 +86,8 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
     own_company = companies(:company1)
     other_company = companies(:company2)
 
-    # アドバイザーが自分の企業を設定
-    visit_with_auth '/current_user/edit', 'advijirou'
-    find('.choices__inner').click
-    find('.choices__item--choice', text: own_company.name).click
-    click_button '更新する'
-    assert_text 'ユーザー情報を更新しました'
+    users(:advijirou).update!(company: own_company)
+    visit_with_auth company_path(own_company), 'advijirou'
 
     # 自分の企業を編集できる
     visit company_path(own_company)
@@ -111,12 +107,8 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
   test 'mentor cannot edit as admin' do
     company = companies(:company1)
 
-    # メンターが自分の企業を設定
-    visit_with_auth '/current_user/edit', 'mentormentaro'
-    find('.choices__inner').click
-    find('.choices__item--choice', text: company.name).click
-    click_button '更新する'
-    assert_text 'ユーザー情報を更新しました'
+    users(:mentormentaro).update!(company: company)
+    visit_with_auth company_path(company), 'mentormentaro'
 
     # メンターは管理者として編集できない
     visit company_path(company)
