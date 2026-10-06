@@ -1,3 +1,5 @@
+import { get } from '@rails/request.js'
+
 document.addEventListener('DOMContentLoaded', () => {
   const invitationElements = Array.from(
     document.querySelectorAll('.invitation__element select')
@@ -28,12 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     try {
-      const response = await fetch(`${endpoint}?${query}`, {
-        credentials: 'same-origin',
-        headers: { Accept: 'application/json' }
-      })
+      const response = await get(endpoint, { query, responseKind: 'json' })
       if (!response.ok) throw new Error('Invitation request failed')
-      const result = await response.json()
+      const result = await response.json
       if (sequence !== requestSequence) return
       if (typeof result.url !== 'string' || !result.url) {
         throw new Error('Invitation URL missing')
