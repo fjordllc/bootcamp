@@ -15,10 +15,7 @@ Rails.application.routes.draw do
   post "/users", to: "users/registrations#create"
   get "/users/created", to: "users/registrations#created", as: :created_users
 
-  resources :users, only: %i(index show new create) do
-    collection do
-      get :created
-    end
+  resources :users, only: %i(index show) do
     member do
       patch :toggle_show_study_streak
     end
