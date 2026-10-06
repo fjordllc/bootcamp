@@ -3,6 +3,81 @@
 require 'test_helper'
 
 class HomeControllerTest < ActionDispatch::IntegrationTest
+  test 'anonymous users can view the public landing page' do
+    get root_path
+
+    assert_response :success
+    assert_select 'body.welcome-home'
+    assert_not_includes response.body, '最新のみんなの日報'
+  end
+
+  test 'active trainees can view the dashboard' do
+    sign_in users(:kensyu)
+
+    get root_path
+
+    assert_response :success
+    assert_includes response.body, '最新のみんなの日報'
+  end
+
+  test 'training completion rejects an existing session at the root' do
+    user = users(:kensyu)
+    sign_in user
+    assert_equal user.id.to_s, session[:user_id]
+    user.update!(training_completed_at: Time.current)
+
+    get root_path
+
+    assert_inactive_session_rejected('研修終了したユーザーです。')
+  end
+
+  test 'retirement rejects an existing session at the root' do
+    user = users(:hajime)
+    sign_in user
+    assert_equal user.id.to_s, session[:user_id]
+    user.update!(retired_on: Date.current)
+
+    get root_path
+
+    assert_inactive_session_rejected('退会したユーザーです。')
+  end
+
+  test 'hibernation rejects an existing session at the root' do
+    user = users(:hajime)
+    sign_in user
+    assert_equal user.id.to_s, session[:user_id]
+    user.update!(hibernated_at: Time.current)
+
+    get root_path
+
+    link = '<a target="_blank" rel="noopener" href="/comeback/new">休会復帰ページ</a>'
+    assert_inactive_session_rejected("休会中です。#{link}から手続きをお願いします。")
+  end
+
+  test 'training completion and pricing stay public with an existing completed session' do
+    user = users(:kensyu)
+    sign_in user
+    user.update!(training_completed_at: Time.current)
+
+    get training_completion_path
+
+    assert_response :success
+    assert_equal user.id.to_s, session[:user_id]
+
+    get pricing_path
+
+    assert_response :success
+    assert_equal user.id.to_s, session[:user_id]
+  end
+
+  test 'anonymous users can view training completion and pricing' do
+    get training_completion_path
+    assert_response :success
+
+    get pricing_path
+    assert_response :success
+  end
+
   test 'student dashboard does not prepare mentor assignments' do
     sign_in users(:hajime)
     Product.stub(:require_assignment_products, -> { flunk 'unused mentor assignments queried' }) do
@@ -90,6 +165,24 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
   end
 
   private
+
+  def assert_inactive_session_rejected(alert)
+    assert_redirected_to root_path
+    assert_equal alert, flash[:alert]
+    assert_nil session[:user_id]
+    assert_not_includes response.body, '最新のみんなの日報'
+
+    follow_redirect!
+
+    assert_response :success
+    assert_select 'body.welcome-home'
+    assert_not_includes response.body, '最新のみんなの日報'
+
+    get users_path
+
+    assert_redirected_to root_path
+    assert_equal 'ログインしてください', flash[:alert]
+  end
 
   def assert_job_seeking_counts(user)
     assert_select '.card-list-item', text: /#{user.login_name}/ do

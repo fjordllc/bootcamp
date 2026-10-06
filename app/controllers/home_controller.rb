@@ -2,6 +2,7 @@
 
 class HomeController < ApplicationController
   skip_before_action :require_active_user_login, raise: false
+  before_action :deny_inactive_user_login, if: :inactive_login?, only: %i[index]
 
   def index
     if current_user
