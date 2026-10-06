@@ -2,6 +2,7 @@
 
 class API::QuestionsController < API::BaseController
   include Rails.application.routes.url_helpers
+  before_action -> { doorkeeper_authorize! :write }, only: %i[update], if: -> { doorkeeper_token.present? }
   before_action :set_available_emojis, only: %i[show]
 
   def index
