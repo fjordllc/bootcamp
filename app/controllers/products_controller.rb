@@ -52,7 +52,7 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     @product.practice = @practice
     @product.user = current_user
     set_wip
-    update_published_at
+    @product.update_published_at
     if @product.save
       ActiveSupport::Notifications.instrument('product.create', product: @product)
       ActiveSupport::Notifications.instrument('product.save', product: @product)
@@ -67,7 +67,7 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     @practice = @product.practice
     @product.published_at = nil if @product.published_at? && @product.wip
     set_wip
-    update_published_at
+    @product.update_published_at
     if @product.update(product_params)
       ActiveSupport::Notifications.instrument('product.update', { product: @product, current_user: })
       ActiveSupport::Notifications.instrument('product.save', product: @product)
@@ -85,12 +85,6 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
   end
 
   private
-
-  def update_published_at
-    return if @product.wip || @product.published_at?
-
-    @product.published_at = Time.current
-  end
 
   def find_product
     Product.find(params[:id])

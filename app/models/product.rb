@@ -157,6 +157,12 @@ class Product < ApplicationRecord # rubocop:todo Metrics/ClassLength
     ((Time.current - t) / 1.day).to_i
   end
 
+  def update_published_at
+    return if wip || published_at?
+
+    self.published_at = Time.current
+  end
+
   def checker_avatar
     checker&.avatar_url
   end
