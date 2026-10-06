@@ -71,7 +71,7 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     if @product.update(product_params)
       ActiveSupport::Notifications.instrument('product.update', { product: @product, current_user: })
       ActiveSupport::Notifications.instrument('product.save', product: @product)
-      ProductCheckerNotifier.new(@product, current_user).call
+      ProductCheckerNotifier.new(@product, current_user).call if admin_or_mentor_login?
       redirect_to Redirection.determin_url(self, @product), notice: notice_message(@product, :update)
     else
       render :edit

@@ -10,7 +10,6 @@ class ProductCheckerNotifier
     checker_id = @product.checker_id
 
     return unless checker_id &&
-                  @current_user.admin_or_mentor_login? &&
                   checker_id != @current_user.id &&
                   !@product.wip?
 
