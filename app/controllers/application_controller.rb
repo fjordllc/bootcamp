@@ -11,17 +11,9 @@ class ApplicationController < ActionController::Base
   before_action :basic_auth, if: :staging?
   before_action :test_login, if: :test?
   before_action :init_user
-  before_action :allow_cross_domain_access
   before_action :require_active_user_login
   before_action :set_current_user_practice
   before_action :save_affiliate_rd_code
-
-  protected
-
-  def allow_cross_domain_access
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    response.headers['Access-Control-Allow-Methods'] = '*'
-  end
 
   private
 
