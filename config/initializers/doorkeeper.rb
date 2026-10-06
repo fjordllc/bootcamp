@@ -3,7 +3,11 @@
 Doorkeeper.configure do
   orm :active_record
   resource_owner_authenticator do
-    current_user || redirect_to(login_path)
+    current_user || begin
+      application = Doorkeeper.config.application_model.find_by(uid: params[:client_id])
+      session[:return_to_url] = request.fullpath if application&.mcp_client?
+      redirect_to(login_path)
+    end
   end
 
   admin_authenticator do
@@ -22,7 +26,10 @@ Doorkeeper.configure do
   # read = 読み取り, write = 書き込み, mentor = メンター業務, admin = 管理者業務
   default_scopes :read # Scopesが未設定（空白）の場合、設定されるスコープ
 
-  optional_scopes :write, :mentor, :admin # Scopesで指定されたときに設定されるスコープ
+  optional_scopes :write, :mentor, :admin, :'mcp:practices:read' # Scopesで指定されたときに設定されるスコープ
+
+  # MCP の発行先を認可コードからアクセストークンへ引き継ぐ。
+  custom_access_token_attributes [:resource]
 
   # defalut_scopeとoptional_scopeで定義されたスコープのみ要求できるようになる
   enforce_configured_scopes
