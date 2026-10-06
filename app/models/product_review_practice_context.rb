@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Practice context comes from practice relationships, independently of submission sources.
-class ProductReviewPractice
+class ProductReviewPracticeContext
   MAX_DOCS = 20
   DOC_BODY_LIMIT = 20_000
   TOTAL_BODY_LIMIT = 100_000

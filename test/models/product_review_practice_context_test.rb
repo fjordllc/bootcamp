@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class ProductReviewPracticeTest < ActiveSupport::TestCase
+class ProductReviewPracticeContextTest < ActiveSupport::TestCase
   setup do
     @practice = practices(:practice2)
     @practice.pages.each { |page| page.update!(practice: nil) }
@@ -23,7 +23,7 @@ class ProductReviewPracticeTest < ActiveSupport::TestCase
     create_doc(practice: practices(:practice5), body: '別の課題資料')
     create_doc(practice: nil, body: '関連のない資料')
 
-    context = ProductReviewPractice.new(@practice).to_h
+    context = ProductReviewPracticeContext.new(@practice).to_h
 
     assert_equal @practice.title, context[:practice_title]
     assert_equal @practice.description, context[:practice_description]
@@ -52,7 +52,7 @@ class ProductReviewPracticeTest < ActiveSupport::TestCase
     @practice.description = 'https://example.com/practice'
     @practice.goal = 'https://bootcamp.fjord.jp/pages/315'
 
-    context = ProductReviewPractice.new(@practice).to_h
+    context = ProductReviewPracticeContext.new(@practice).to_h
 
     assert_equal({ id: doc.id, title: doc.title, body: }, context[:practice_docs].sole)
     assert_not_requested :get, /example.com|bootcamp.fjord.jp/
@@ -61,7 +61,7 @@ class ProductReviewPracticeTest < ActiveSupport::TestCase
   test 'returns an empty list when the practice has no published Docs' do
     create_doc(wip: true)
 
-    context = ProductReviewPractice.new(@practice).to_h
+    context = ProductReviewPracticeContext.new(@practice).to_h
 
     assert_empty context[:practice_docs]
     assert_nil context[:practice_docs_omission]
@@ -70,7 +70,7 @@ class ProductReviewPracticeTest < ActiveSupport::TestCase
   test 'includes only twenty Docs and explicitly reports omitted Docs' do
     docs = Array.new(22) { create_doc }
 
-    context = ProductReviewPractice.new(@practice).to_h
+    context = ProductReviewPracticeContext.new(@practice).to_h
 
     assert_equal docs.first(20).map(&:id), context[:practice_docs].pluck(:id)
     assert_includes context[:practice_docs_omission], '2件'
@@ -80,7 +80,7 @@ class ProductReviewPracticeTest < ActiveSupport::TestCase
   test 'caps each Doc body at twenty thousand characters and marks truncation' do
     create_doc(body: "#{'界' * 20_000}UNSEEN_DOC_TAIL")
 
-    context = ProductReviewPractice.new(@practice).to_h
+    context = ProductReviewPracticeContext.new(@practice).to_h
     doc = context[:practice_docs].sole
 
     assert_equal '界' * 20_000, doc[:body]
@@ -92,7 +92,7 @@ class ProductReviewPracticeTest < ActiveSupport::TestCase
   test 'caps aggregate body characters and reports partial and omitted Docs' do
     docs = Array.new(7) { create_doc(body: '界' * 19_000) }
 
-    context = ProductReviewPractice.new(@practice).to_h
+    context = ProductReviewPracticeContext.new(@practice).to_h
     included = context[:practice_docs]
 
     assert_equal docs.first(6).map(&:id), included.pluck(:id)
@@ -106,7 +106,7 @@ class ProductReviewPracticeTest < ActiveSupport::TestCase
   test 'exact body limits do not falsely mark complete Docs as truncated' do
     Array.new(5) { create_doc(body: '界' * 20_000) }
 
-    context = ProductReviewPractice.new(@practice).to_h
+    context = ProductReviewPracticeContext.new(@practice).to_h
 
     assert_equal 5, context[:practice_docs].size
     assert(context[:practice_docs].none? { |doc| doc.key?(:truncation) })

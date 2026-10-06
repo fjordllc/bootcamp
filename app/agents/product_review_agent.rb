@@ -27,7 +27,7 @@ class ProductReviewAgent < RubyLLM::Agent
 
   def self.message(product, sources: [])
     practice = product.practice
-    context = ProductReviewPractice.new(practice).to_h.merge(
+    context = ProductReviewPracticeContext.new(practice).to_h.merge(
       submission_requirements: practice.submission? ? '提出物が必要。具体的な要件はプラクティス本文と目標を参照。' : 'プラクティス本文と目標を参照。',
       private_mentor_model_answer: practice.submission_answer&.description,
       submitted_body: product.body
