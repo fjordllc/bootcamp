@@ -2,7 +2,7 @@
 
 require 'vips'
 
-# Fetch only references in the submission, before any private mentor context reaches the model.
+# Fetch direct submission/curriculum references before any private mentor context reaches the model.
 class ProductReviewSources
   MAX_SOURCES = 10
   MAX_BODY_BYTES = 10.megabytes
@@ -14,24 +14,38 @@ class ProductReviewSources
 
   attr_reader :evidence, :attachments
 
-  def initialize(body)
+  def initialize(body, curriculum: {})
     @body = body
+    @curriculum = curriculum
     @evidence = []
     @attachments = []
     @attachment_bytes = 0
   end
 
   def collect
-    html = Kramdown::Document.new(@body.to_s, input: 'GFM', hard_wrap: true).to_html
-    urls = referenced_urls(html).map { |value| normalize_url(value) }.uniq(&:first)
-    urls.each_with_index do |(url, reason), index|
+    referenced_sources.each_value.with_index do |source, index|
+      url, reason = source.values_at(:url, :reason)
       reason ||= '未確認: 取得対象の上限10件を超えています。' if index >= MAX_SOURCES
-      @evidence << (reason ? unavailable(url, reason) : fetch(url))
+      result = reason ? unavailable(url, reason) : fetch(url, curriculum: source[:curriculum])
+      @evidence << result.merge(origins: source[:origins])
     end
     self
   end
 
   private
+
+  def referenced_sources
+    markdowns = { practice_goal: @curriculum[:practice_goal], submitted_body: @body, practice_description: @curriculum[:practice_description] }
+    markdowns.each_with_object({}) do |(origin, markdown), sources|
+      html = Kramdown::Document.new(markdown.to_s, input: 'GFM', hard_wrap: true).to_html
+      referenced_urls(html).each do |value|
+        url, reason = normalize_url(value)
+        source = sources[url] ||= { url:, reason:, origins: [], curriculum: false }
+        source[:origins] |= [origin.to_s]
+        source[:curriculum] ||= origin != :submitted_body && reason.nil?
+      end
+    end
+  end
 
   def referenced_urls(html)
     document = Nokogiri::HTML::DocumentFragment.parse(html)
@@ -62,7 +76,12 @@ class ProductReviewSources
     ['(不正なURL)', '未確認: URLの形式またはアプリのURL設定を確認できません。']
   end
 
-  def fetch(url)
+  def fetch(url, curriculum: false)
+    if curriculum
+      doc = ProductReviewCurriculumDoc.new(url)
+      return doc.read if doc.support?
+    end
+
     reader = if ExternalContent::GithubReviewReader.support?(URI.parse(url))
                ExternalContent::GithubReviewReader
              else
