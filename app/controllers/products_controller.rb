@@ -71,7 +71,7 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     if @product.update(product_params)
       ActiveSupport::Notifications.instrument('product.update', { product: @product, current_user: })
       ActiveSupport::Notifications.instrument('product.save', product: @product)
-      notice_another_mentor_assigned_as_checker
+      ProductCheckerNotifier.new(@product, current_user).call
       redirect_to Redirection.determin_url(self, @product), notice: notice_message(@product, :update)
     else
       render :edit
@@ -135,13 +135,6 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     when :update
       '提出物を更新しました。'
     end
-  end
-
-  def notice_another_mentor_assigned_as_checker
-    @checker_id = @product.checker_id
-    return unless @checker_id && admin_or_mentor_login? && (@checker_id != current_user.id) && !@product.wip?
-
-    ActivityDelivery.with(product: @product, receiver: User.find(@checker_id)).notify(:assigned_as_checker)
   end
 
   def set_target
