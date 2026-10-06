@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class API::CorrectAnswersController < API::BaseController
+  before_action -> { doorkeeper_authorize! :write }, only: %i[create update], if: -> { doorkeeper_token.present? }
   before_action :set_question, only: %i[create update]
+  before_action :authorize_question, only: %i[create update]
 
   def create
     @answer = @question.answers.find(params[:answer_id])
@@ -26,5 +28,11 @@ class API::CorrectAnswersController < API::BaseController
 
   def set_question
     @question = Question.find(params[:question_id])
+  end
+
+  def authorize_question
+    return if current_user.admin? || current_user.mentor? || @question.user == current_user
+
+    head :forbidden
   end
 end
