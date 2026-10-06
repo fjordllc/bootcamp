@@ -22,7 +22,7 @@ pin "emoji-data"
 pin "escape-html", to: "https://ga.jspm.io/npm:escape-html@1.0.3/index.js" # @1.0.3
 pin "escape-string-regexp", to: "https://ga.jspm.io/npm:escape-string-regexp@5.0.0/index.js" # @5.0.0
 pin "heic2any", to: "https://ga.jspm.io/npm:heic2any@0.0.4/dist/heic2any.js" # @0.0.4
-pin "markdown-it", to: "https://ga.jspm.io/npm:markdown-it@12.3.2/index.js" # @12.3.2
+pin "markdown-it", to: "markdown-it.js" # @14.3.2 (official UMD distribution with an isolated ESM adapter)
 pin "markdown-it-anchor", to: "https://ga.jspm.io/npm:markdown-it-anchor@9.2.0/dist/markdownItAnchor.mjs" # @9.2.0
 pin "markdown-it-container", to: "https://ga.jspm.io/npm:markdown-it-container@3.0.0/index.js" # @3.0.0
 pin "markdown-it-container-figure", to: "https://ga.jspm.io/npm:markdown-it-container-figure@1.1.3/index.js" # @1.1.3

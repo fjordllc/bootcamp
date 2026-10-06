@@ -75,7 +75,7 @@
   - if user.mentor? || user.adviser? || user.graduated_on? || user.admin?
     .form__items
       h3.form__items-title 所属企業情報
-      = render 'users/form/company', f: f, user: user
+      = render 'users/form/company', f: f, user: user, editable: from == :new || admin_login?
 
   - if from == :new && user.student? && !user.grant_course?
     .form__items
@@ -219,7 +219,7 @@
     .form__items.js-training-info-block
       h3.form__items-title 研修情報
       = render 'users/form/training_end', f: f
-      = render 'users/form/company', f: f, user: user
+      = render 'users/form/company', f: f, user: user, editable: from == :new || admin_login?
 
       - if admin_login? && user.course
         .form-item

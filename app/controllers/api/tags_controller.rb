@@ -9,7 +9,9 @@ class API::TagsController < API::BaseController
     'Article' => Article
   }.freeze
 
-  skip_before_action :require_login_for_api
+  skip_before_action :require_login_for_api, only: :index
+  before_action :require_admin_or_mentor_login_for_api, only: :update
+  before_action -> { doorkeeper_authorize! :write }, only: :update, if: -> { doorkeeper_token.present? }
   before_action :validate_taggable_type, only: :index
 
   def index

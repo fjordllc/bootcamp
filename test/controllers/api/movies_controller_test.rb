@@ -5,6 +5,8 @@ require 'test_helper'
 class API::MoviesControllerTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:kimura)
+    @movie = movies(:movie1)
+    @path = api_movie_path(@movie, format: :json)
     application = Doorkeeper::Application.create!(
       name: 'Sample Application',
       redirect_uri: 'urn:ietf:wg:oauth:2.0:oob'
@@ -161,7 +163,95 @@ class API::MoviesControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.parsed_body.dig('errors', 'practice_ids'), 'に存在しないIDが含まれています'
   end
 
+  %i[kimura hajime].each do |user|
+    test "PATCH /api/movies.json with read scope for #{user} cannot change tags" do
+      token = oauth_token(user, 'read')
+      original_attributes = @movie.attributes
+      original_tags = @movie.tag_list
+      original_taggings = ActsAsTaggableOn::Tagging.order(:id).map(&:attributes)
+
+      assert_no_difference('ActsAsTaggableOn::Tag.count') do
+        patch @path, params: { movie: tag_update_params }, headers: { Authorization: "Bearer #{token.token}" }
+      end
+
+      assert_response :forbidden
+      assert_equal 'invalid_scope', response.parsed_body['error']
+      assert_equal original_attributes, @movie.reload.attributes
+      assert_equal original_tags, @movie.tag_list
+      assert_equal original_taggings, ActsAsTaggableOn::Tagging.order(:id).map(&:attributes)
+    end
+
+    test "PATCH /api/movies.json with write scope for #{user} updates only tags" do
+      token = oauth_token(user, 'read write')
+
+      assert_tags_updated(headers: { Authorization: "Bearer #{token.token}" })
+    end
+  end
+
+  test 'PATCH /api/movies.json with read scope rejects a missing movie before lookup' do
+    patch api_movie_path(999_999_999, format: :json),
+          params: { movie: tag_update_params },
+          headers: { Authorization: "Bearer #{@read_token.token}" }
+
+    assert_response :forbidden
+    assert_equal 'invalid_scope', response.parsed_body['error']
+  end
+
+  test 'PATCH /api/movies.json with write scope returns not found for a missing movie' do
+    patch api_movie_path(999_999_999, format: :json),
+          params: { movie: tag_update_params },
+          headers: { Authorization: "Bearer #{@write_token.token}" }
+
+    assert_response :not_found
+  end
+
+  test 'PATCH /api/movies.json without authentication returns unauthorized' do
+    original_attributes = @movie.attributes
+    original_tags = @movie.tag_list
+
+    patch @path, params: { movie: tag_update_params }
+
+    assert_response :unauthorized
+    assert_equal original_attributes, @movie.reload.attributes
+    assert_equal original_tags, @movie.tag_list
+  end
+
+  test 'PATCH /api/movies.json with a nonowner JWT updates only tags' do
+    token = create_token('hajime', 'testtest')
+    reset!
+
+    assert_tags_updated(headers: { Authorization: "Bearer #{token}" })
+  end
+
+  test 'PATCH /api/movies.json with a nonowner session updates only tags' do
+    sign_in(:hajime)
+
+    assert_tags_updated
+  end
+
   private
+
+  def oauth_token(user, scopes)
+    Doorkeeper::AccessToken.create!(
+      application: @read_token.application,
+      resource_owner_id: users(user).id,
+      scopes:
+    )
+  end
+
+  def tag_update_params
+    { tag_list: '新規タグ1,新規タグ2', title: '変更禁止', description: '変更禁止', user_id: users(:hajime).id }
+  end
+
+  def assert_tags_updated(headers: {})
+    original_attributes = @movie.attributes.slice('title', 'description', 'user_id')
+
+    patch @path, headers:, params: { movie: tag_update_params }
+
+    assert_response :ok
+    assert_equal %w[新規タグ1 新規タグ2], @movie.reload.tag_list
+    assert_equal original_attributes, @movie.attributes.slice('title', 'description', 'user_id')
+  end
 
   def valid_movie_params
     {
