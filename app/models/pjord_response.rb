@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'ruby_llm/schema'
+require 'schematist'
 
-class PjordResponse < RubyLLM::Schema
+class PjordResponse < Schematist::Schema
   description 'ピヨルドがユーザーに公開する返答本文'
 
   string :body,

@@ -702,6 +702,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_06_000000) do
     t.index ["report_id", "practice_id"], name: "index_practices_reports_on_report_id_and_practice_id"
   end
 
+  create_table "product_ai_reviews", force: :cascade do |t|
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.bigint "product_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_product_ai_reviews_on_product_id", unique: true
+  end
+
   create_table "products", force: :cascade do |t|
     t.text "body"
     t.bigint "checker_id"
@@ -1263,6 +1271,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_06_000000) do
   add_foreign_key "practices_books", "practices"
   add_foreign_key "practices_movies", "movies"
   add_foreign_key "practices_movies", "practices"
+  add_foreign_key "product_ai_reviews", "products"
   add_foreign_key "products", "practices"
   add_foreign_key "products", "users"
   add_foreign_key "questions", "practices"

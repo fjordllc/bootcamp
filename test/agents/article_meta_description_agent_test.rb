@@ -27,13 +27,13 @@ class ArticleMetaDescriptionAgentTest < ActiveSupport::TestCase
   class AgentChatFake
     attr_reader :instructions
 
-    def with_instructions(instructions)
+    def with_instructions(instructions, **)
       @instructions = instructions
       self
     end
 
     def ask(*)
-      Struct.new(:content).new('meta description')
+      RubyLLM::Message.new(role: :assistant, content: 'meta description')
     end
   end
 end

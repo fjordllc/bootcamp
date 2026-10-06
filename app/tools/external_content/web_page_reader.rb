@@ -7,8 +7,14 @@ class ExternalContent::WebPageReader
   CONTENT_LIMIT = 20_000
   IMAGE_SIZE_LIMIT = 10.megabytes
 
-  def self.fetch(url)
-    new.fetch(url)
+  def self.fetch(url, **options)
+    new(**options).fetch(url)
+  end
+
+  def initialize(max_body_bytes: nil, request_timeout: nil, log_errors: true)
+    @max_body_bytes = max_body_bytes
+    @request_timeout = request_timeout
+    @log_errors = log_errors
   end
 
   def fetch(url)
@@ -24,13 +30,18 @@ class ExternalContent::WebPageReader
   rescue URI::InvalidURIError
     'URLの形式が正しくありません。'
   rescue StandardError => e
-    Rails.logger.warn("[ExternalContent::WebPageReader] #{url} #{e.class}: #{e.message}")
+    Rails.logger.warn("[ExternalContent::WebPageReader] #{url} #{e.class}: #{e.message}") if @log_errors
     ExternalContent::UNREADABLE_URL_MESSAGE
   end
 
   private
 
   def fetch_response(uri)
+    # Bounded retrieval must not reuse an unbounded cached response or cache private URLs.
+    if @max_body_bytes
+      return ExternalContent::HttpClient.get(uri.to_s, headers: request_headers, max_body_bytes: @max_body_bytes, request_timeout: @request_timeout)
+    end
+
     cache_key = "external_content/web_page/#{Digest::SHA256.hexdigest(uri.to_s)}"
     cached_response = Rails.cache.read(cache_key)
     return cached_response if cached_response
@@ -55,7 +66,7 @@ class ExternalContent::WebPageReader
     io = StringIO.new(response.body.to_s.b)
     io.binmode
 
-    RubyLLM::Content.new(
+    [
       <<~TEXT,
         # Image
         - URL: #{response.url}
@@ -63,10 +74,8 @@ class ExternalContent::WebPageReader
 
         この画像の内容を確認して、回答やレビューに必要な文脈として使ってください。
       TEXT
-      []
-    ).tap do |content|
-      content.add_attachment(io, filename: image_filename(response))
-    end
+      RubyLLM::Attachment.new(io, filename: image_filename(response))
+    ]
   end
 
   def image_filename(response)

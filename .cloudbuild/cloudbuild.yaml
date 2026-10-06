@@ -58,10 +58,37 @@ steps:
     set -euo pipefail
     source .cloudbuild/substitutions.env
     eval "$(.cloudbuild/cloud-build-env exports)"
-    bin/rails db:migrate:with_data
+    bin/rails db:migrate
   waitFor:
   - Push
   - WriteSubstitutionEnv
+  volumes:
+  - name: db
+    path: "/cloudsql"
+- id: Deploy
+  name: gcr.io/google.com/cloudsdktool/cloud-sdk
+  automapSubstitutions: true
+  entrypoint: bash
+  secretEnv:
+  - POSTMARK_API_TOKEN_FROM_SECRET
+  waitFor:
+  - DB_Migrate
+  args:
+  - ".cloudbuild/deploy-cloud-run"
+  - production
+- id: Data_Migrate
+  name: asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA
+  automapSubstitutions: true
+  args:
+  - bash
+  - "-c"
+  - |-
+    set -euo pipefail
+    source .cloudbuild/substitutions.env
+    eval "$(.cloudbuild/cloud-build-env exports)"
+    bin/rails db:migrate:with_data
+  waitFor:
+  - Deploy
   volumes:
   - name: db
     path: "/cloudsql"
@@ -72,16 +99,7 @@ steps:
   - "-c"
   - docker kill -s TERM $(docker ps -q --filter "volume=db")
   waitFor:
-  - DB_Migrate
-- id: Deploy
-  name: gcr.io/google.com/cloudsdktool/cloud-sdk
-  automapSubstitutions: true
-  entrypoint: bash
-  secretEnv:
-  - POSTMARK_API_TOKEN_FROM_SECRET
-  args:
-  - ".cloudbuild/deploy-cloud-run"
-  - production
+  - Data_Migrate
 - id: UpdateLinkCheckerJob
   name: gcr.io/google.com/cloudsdktool/cloud-sdk
   automapSubstitutions: true

@@ -348,8 +348,34 @@ class UserTest < ActiveSupport::TestCase
     hatsuno = users(:hatsuno)
     kimura.follow(hatsuno, watch: true)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id, watch: true)
-    kimura.change_watching(hatsuno, false)
+    assert kimura.change_watching(hatsuno, false)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id, watch: false)
+    assert kimura.change_watching(hatsuno, true)
+    assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id, watch: true)
+  end
+
+  test '#change_watching without following' do
+    kimura = users(:kimura)
+    hatsuno = users(:hatsuno)
+    other_following = users(:hajime).follow(hatsuno, watch: true)
+
+    assert_no_difference 'Following.count' do
+      assert_not kimura.change_watching(hatsuno, false)
+    end
+    assert_not kimura.following?(hatsuno)
+    assert other_following.reload.watch?
+  end
+
+  test '#change_watching after unfollowing' do
+    kimura = users(:kimura)
+    hatsuno = users(:hatsuno)
+    kimura.follow(hatsuno, watch: true)
+    kimura.unfollow(hatsuno)
+
+    assert_no_difference 'Following.count' do
+      assert_not kimura.change_watching(hatsuno, true)
+    end
+    assert_not kimura.following?(hatsuno)
   end
 
   test '#unfollow' do

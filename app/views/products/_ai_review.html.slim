@@ -1,0 +1,13 @@
+section.a-card#product-ai-review
+  header.card-header.is-sm
+    h2.card-header__title
+      | AIレビュー（メンター用）
+  hr.a-border-tint
+  .card-body
+    .card-body__description
+      .a-long-text.is-md
+        p
+          | メンター・管理者だけに表示されるレビュー支援です。内容を確認してから、ご自身のコメントを作成してください。
+        = sanitize(md2html(escape_special_chars(review.content)),\
+          tags: %w[p h2 h3 h4 h5 h6 ul ol li pre code em strong blockquote a hr br],\
+          attributes: %w[href title])
