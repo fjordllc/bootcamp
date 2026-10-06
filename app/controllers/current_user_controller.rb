@@ -20,14 +20,14 @@ class CurrentUserController < ApplicationController
 
   def user_params
     user_attribute = [
-      :adviser, :login_name, :name,
+      :login_name, :name,
       :name_kana, :email, :course_id,
       :description,
       :github_account, :twitter_account, :facebook_url,
       :blog_url, :password, :password_confirmation,
       :job, :organization, :os,
-      { experiences: [] }, :editor, :other_editor, :company_id,
-      :nda, :avatar, :trainee,
+      { experiences: [] }, :editor, :other_editor,
+      :nda, :avatar,
       :mail_notification, :pjord_comment, :job_seeker, :tag_list,
       :after_graduation_hope, :training_ends_on, :profile_image,
       :show_mentor_profile,
@@ -45,7 +45,7 @@ class CurrentUserController < ApplicationController
 
   def admin_user_attributes
     %i[
-      retired_on graduated_on github_collaborator
+      adviser trainee company_id retired_on graduated_on github_collaborator
       auto_retire invoice_payment mentor subscription_id
     ]
   end
