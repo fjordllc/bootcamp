@@ -8,7 +8,7 @@ class Connection::GitHubController < ApplicationController
     if !admin_login? && user != current_user
       redirect_to root_path, alert: '管理者としてログインしてください'
     else
-      user.update(github_id: nil)
+      UserGithubConnection.new(user).disconnect
       redirect_to user_path(user), notice: 'GitHubとの連携を解除しました。'
     end
   end

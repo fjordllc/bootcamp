@@ -567,20 +567,6 @@ class UserTest < ActiveSupport::TestCase
     assert_nil no_area_user.area
   end
 
-  test 'clear_github_data should clear GitHub related fields' do
-    user = users(:kimura)
-    user.github_id = '12345'
-    user.github_account = 'github_kimura'
-    user.github_collaborator = true
-    user.save!(validate: false)
-
-    user.clear_github_data
-
-    assert_nil user.github_id
-    assert_nil user.github_account
-    assert_not user.github_collaborator
-  end
-
   test '#latest_micro_report_page' do
     user = users(:hajime)
     assert_equal 1, user.latest_micro_report_page
