@@ -52,7 +52,7 @@ class Users::RegistrationsController < ApplicationController
       flash[:signup_email] = @user.email
       redirect_to created_users_path(role: determine_user_role(@user))
     else
-      render 'new', locals: { user: @user }
+      render 'users/new', locals: { user: @user }
     end
   end
 
@@ -73,7 +73,7 @@ class Users::RegistrationsController < ApplicationController
       logger.info "[Signup] 8. after create times channel. #{@user.email}"
       redirect_to created_users_path(role: determine_user_role(@user))
     else
-      render 'new'
+      render 'users/new'
     end
   end
 
