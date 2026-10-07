@@ -10,17 +10,17 @@ class API::FollowingsControllerTest < ActionDispatch::IntegrationTest
     @headers = { 'Authorization' => "Bearer #{token}" }
   end
 
-  test 'PATCH /api/followings/:id.json updates watching' do
+  test 'PATCH /api/followings/:id.html updates watching' do
     following = @follower.follow(@followed, watch: true)
     other_following = users(:hajime).follow(@followed, watch: true)
 
     assert_no_difference 'Following.count' do
-      patch api_following_path(@followed, format: :json), params: { watch: 'false' }, headers: @headers
-      assert_response :no_content
+      patch api_following_path(@followed, format: :html), params: { watch: 'false' }, headers: @headers
+      assert_response :ok
       assert_not following.reload.watch?
 
-      patch api_following_path(@followed, format: :json), params: { watch: 'true' }, headers: @headers
-      assert_response :no_content
+      patch api_following_path(@followed, format: :html), params: { watch: 'true' }, headers: @headers
+      assert_response :ok
       assert following.reload.watch?
     end
     assert other_following.reload.watch?

@@ -20,7 +20,8 @@ header.page-header
                         | 自社研修生
                 - else
                   li.page-main-header-actions__item
-                    = render 'users/following', user:
+                    = turbo_frame_tag "follow_details_#{user.id}", class: 'w-full' do
+                      = render 'users/following', user:
             li.page-header-actions__item
               - if current_user.admin?
                 = link_to users_path, class: 'a-button is-md is-secondary is-block is-back' do
