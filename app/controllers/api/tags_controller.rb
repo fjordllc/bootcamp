@@ -4,6 +4,7 @@ class API::TagsController < API::BaseController
   skip_before_action :require_login_for_api, only: :index
   before_action :require_admin_or_mentor_login_for_api, only: :update
   before_action -> { doorkeeper_authorize! :write }, only: :update, if: -> { doorkeeper_token.present? }
+  before_action :validate_taggable_type, only: :index
 
   def index
     @tags = taggable_type.all_tags
@@ -24,6 +25,10 @@ class API::TagsController < API::BaseController
 
   private
 
+  def validate_taggable_type
+    head :bad_request unless TaggableType.resolve(params[:taggable_type])
+  end
+
   def replace_tagging_tags_with(same_name_tag)
     taggings = ActsAsTaggableOn::Tagging.where(tag_id: params[:id])
     taggable_ids = ActsAsTaggableOn::Tagging.where(tag_id: same_name_tag.id).select(:taggable_id)
@@ -36,6 +41,6 @@ class API::TagsController < API::BaseController
   end
 
   def taggable_type
-    params[:taggable_type].constantize
+    TaggableType.resolve(params[:taggable_type])
   end
 end

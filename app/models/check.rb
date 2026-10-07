@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 class Check < ApplicationRecord
+  CHECKABLE_CLASSES = {
+    'Product' => Product,
+    'Report' => Report
+  }.freeze
+
   belongs_to :user
   belongs_to :checkable, polymorphic: true
   after_create_commit -> { CheckCallbacks.new.after_create(self) }
@@ -8,6 +13,10 @@ class Check < ApplicationRecord
   alias sender user
 
   validates :checkable_id, uniqueness: { scope: :checkable_type }
+
+  def self.checkable_class(type)
+    CHECKABLE_CLASSES[type] if type.is_a?(String)
+  end
 
   def receiver
     checkable.user

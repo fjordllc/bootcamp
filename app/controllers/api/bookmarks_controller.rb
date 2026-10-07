@@ -5,6 +5,8 @@ class API::BookmarksController < API::BaseController
 
   PAGER_NUMBER = 20
 
+  before_action :validate_bookmarkable_type, only: %i[index create]
+
   def index
     per = params[:per] || PAGER_NUMBER
     bookmarks = Bookmark.where(user: current_user).order(created_at: :desc).preload(bookmarkable: :user)
@@ -37,7 +39,13 @@ class API::BookmarksController < API::BaseController
 
   private
 
+  def validate_bookmarkable_type
+    return if action_name == 'index' && !params.key?(:bookmarkable_type)
+
+    head :bad_request unless Bookmark.bookmarkable_class(params[:bookmarkable_type])
+  end
+
   def bookmarkable
-    params[:bookmarkable_type].constantize.find_by(id: params[:bookmarkable_id])
+    Bookmark.bookmarkable_class(params[:bookmarkable_type]).find_by(id: params[:bookmarkable_id])
   end
 end

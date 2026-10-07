@@ -4,6 +4,7 @@ class API::CommentsController < API::BaseController
   before_action :set_my_comment, only: %i[update destroy]
   before_action :authorize_comment, only: %i[update destroy]
   before_action :set_available_emojis, only: %i[index create]
+  before_action :validate_commentable_type, only: %i[index create]
   before_action :authorize_commentable, only: %i[index create]
   before_action -> { doorkeeper_authorize! :write }, only: %i[create update destroy], if: -> { doorkeeper_token.present? }
 
@@ -52,6 +53,10 @@ class API::CommentsController < API::BaseController
 
   private
 
+  def validate_commentable_type
+    head :bad_request unless Comment.commentable_class(params[:commentable_type])
+  end
+
   def render_comments_page
     return head :bad_request unless params[:target] || params[:before]
 
@@ -90,7 +95,7 @@ class API::CommentsController < API::BaseController
   end
 
   def commentable
-    @commentable ||= params[:commentable_type].constantize.find(params[:commentable_id])
+    @commentable ||= Comment.commentable_class(params[:commentable_type]).find(params[:commentable_id])
   end
 
   def set_my_comment

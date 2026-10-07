@@ -4,6 +4,7 @@ class API::ChecksController < API::BaseController
   before_action :require_staff_login_for_api, only: %i[create destroy]
   before_action -> { doorkeeper_authorize! :write }, only: %i[create destroy], if: -> { doorkeeper_token.present? }
   before_action -> { doorkeeper_authorize! :mentor }, only: %i[create destroy], if: -> { doorkeeper_token.present? }
+  before_action :validate_checkable_type, only: %i[index create]
 
   def index
     @checks = Check.where(
@@ -41,7 +42,11 @@ class API::ChecksController < API::BaseController
 
   private
 
+  def validate_checkable_type
+    head :bad_request unless Check.checkable_class(params[:checkable_type])
+  end
+
   def checkable
-    params[:checkable_type].constantize.find_by(id: params[:checkable_id])
+    Check.checkable_class(params[:checkable_type]).find_by(id: params[:checkable_id])
   end
 end
