@@ -141,10 +141,6 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     course&.grant?
   end
 
-  def clear_github_data
-    update(github_id: nil, github_account: nil, github_collaborator: false)
-  end
-
   def become_watcher!(watchable)
     watches.find_or_create_by!(watchable:)
   end

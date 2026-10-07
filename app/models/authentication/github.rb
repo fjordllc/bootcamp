@@ -30,8 +30,6 @@ class Authentication::Github
   private
 
   def link
-    @user.github_account = @auth[:info][:nickname]
-    @user.github_id = @auth[:uid]
-    @user.save!
+    UserGithubConnection.new(@user).connect!(uid: @auth[:uid], nickname: @auth[:info][:nickname])
   end
 end

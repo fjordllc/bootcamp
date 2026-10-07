@@ -46,4 +46,15 @@ class Authentication::GithubTest < ActiveSupport::TestCase
     assert_equal user.reload.github_account, 'kimura_github'
     assert_equal user.reload.github_id, 'uid_test_data'
   end
+
+  test 'an already linked user keeps the existing GitHub account' do
+    user = users(:kimura)
+    user.update!(github_id: 'existing_id', github_account: 'existing_account')
+    authentication = Authentication::Github.new(user, { uid: 'another_id', info: { nickname: 'another_account' } })
+
+    authentication.authenticate
+
+    assert_equal 'existing_id', user.reload.github_id
+    assert_equal 'existing_account', user.github_account
+  end
 end
