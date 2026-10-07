@@ -27,12 +27,6 @@ class Events::ParticipationsController < ApplicationController
   end
 
   def create_watch
-    return if @event.watched_by(current_user)
-
-    watch = Watch.new(
-      user: current_user,
-      watchable: @event
-    )
-    watch.save!
+    Watch.register!(user: current_user, watchable: @event)
   end
 end

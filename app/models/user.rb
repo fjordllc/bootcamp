@@ -145,10 +145,6 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     update(github_id: nil, github_account: nil, github_collaborator: false)
   end
 
-  def become_watcher!(watchable)
-    watches.find_or_create_by!(watchable:)
-  end
-
   def generation
     Generation.generation_number_for(created_at)
   end

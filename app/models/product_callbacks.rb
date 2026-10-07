@@ -33,8 +33,7 @@ class ProductCallbacks
 
   def create_advisers_watch(product)
     product.user.company.advisers.each do |adviser|
-      target = { user: adviser, watchable: product }
-      Watch.create! target unless Watch.exists? target
+      Watch.register!(user: adviser, watchable: product)
     end
   end
 

@@ -5,12 +5,6 @@ class AnswererWatcher
     answer = payload[:answer]
     question = Question.find(answer.question_id)
 
-    return if question.watches.pluck(:user_id).include?(answer.sender.id)
-
-    @watch = Watch.new(
-      user: answer.sender,
-      watchable: question
-    )
-    @watch.save!
+    Watch.register!(user: answer.sender, watchable: question)
   end
 end
