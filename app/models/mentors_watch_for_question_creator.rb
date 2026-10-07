@@ -5,19 +5,6 @@ class MentorsWatchForQuestionCreator
     question = payload[:question]
     return if question.wip? || question.watched?
 
-    watch_question_records = watch_records(question)
-    Watch.insert_all(watch_question_records) # rubocop:disable Rails/SkipsModelValidations
-  end
-
-  def watch_records(question)
-    User.mentor.map do |mentor|
-      {
-        watchable_type: 'Question',
-        watchable_id: question.id,
-        created_at: Time.current,
-        updated_at: Time.current,
-        user_id: mentor.id
-      }
-    end
+    Watch.register_all(watchable: question, users: User.mentor)
   end
 end

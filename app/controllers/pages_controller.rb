@@ -119,6 +119,6 @@ class PagesController < ApplicationController
   end
 
   def become_watcher!(page, users)
-    users.each { |user| user.become_watcher!(page) }
+    users.each { |user| Watch.register!(user:, watchable: page) }
   end
 end

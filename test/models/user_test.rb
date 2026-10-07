@@ -516,16 +516,6 @@ class UserTest < ActiveSupport::TestCase
     assert user.valid?
   end
 
-  test '#become_watcher!' do
-    watchable = pages(:page1)
-    user = users(:kimura)
-
-    assert_not user.watches.exists?(watchable:)
-
-    user.become_watcher!(watchable)
-    assert user.watches.exists?(watchable:)
-  end
-
   test '#clean_up_regular_events removes participant from unfinished regular event' do
     user = users(:kimura)
     unfinished_participated_event = regular_events(:regular_event1)

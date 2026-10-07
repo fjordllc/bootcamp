@@ -50,15 +50,7 @@ class Comment::AfterCreateCallback
   end
 
   def create_watch(comment)
-    watchable = comment.commentable
-
-    return if watchable.watches.pluck(:user_id).include?(comment.sender.id)
-
-    @watch = Watch.new(
-      user: comment.sender,
-      watchable:
-    )
-    @watch.save!
+    Watch.register!(user: comment.sender, watchable: comment.commentable)
   end
 
   def delete_product_cache(product_id)
