@@ -8,7 +8,7 @@ class ReportExporter
     ZipFile.new(folder_path).save_as_file!
   end
 
-  def save_as_markdown!(reports, folder_path)
+  def self.save_as_markdown!(reports, folder_path)
     reports.each do |report|
       File.open("#{folder_path}/#{report.reported_on}.md", 'w') do |file|
         file.puts("# #{report.title}")
