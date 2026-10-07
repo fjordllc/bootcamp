@@ -100,7 +100,7 @@ class FollowingRequestsTest < ApplicationSystemTestCase
       within_following do
         find('summary').click
         click_button 'フォローしない'
-        accept_alert('フォロー処理に失敗しました') do
+        accept_alert('フォロー解除処理に失敗しました') do
           page.execute_script('window.pendingFollowingRequest.fail()')
         end
         assert_selector 'summary', text: 'コメントあり'
@@ -129,7 +129,7 @@ class FollowingRequestsTest < ApplicationSystemTestCase
   end
 
   def within_following(&)
-    within("details:has(button[data-user-id='#{users(:komagata).id}']), details#follow_details#{users(:komagata).id}", &)
+    within("turbo-frame#follow_details_#{users(:komagata).id}")
   end
 
   def open_following
