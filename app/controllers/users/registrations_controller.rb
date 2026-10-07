@@ -137,4 +137,11 @@ class Users::RegistrationsController < ApplicationController
       'student'
     end
   end
+
+  def require_token
+    return unless params[:role]
+    return unless !params[:token] || !ENV['TOKEN'] || params[:token] != ENV['TOKEN']
+
+    redirect_to root_path, notice: 'アドバイザー・メンター・研修生登録にはTOKENが必要です。'
+  end
 end
