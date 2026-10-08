@@ -29,7 +29,7 @@
 - Keep tests deterministic; use fixtures in `test/fixtures/`.
 
 ## Commit & Pull Request Guidelines
-- Commits: imperative mood and focused scope; reference issues (e.g., "Fix profile validation #123").
+- Commits: imperative mood and focused scope; reference issues (e.g., "プロフィールの入力検証を修正する #123").
 - Commit subjects and bodies must be written in Japanese; technical names and file paths may remain in their original form.
 - PRs: clear description, linked issues, screenshots for UI changes, migration notes, and rollback plan if relevant.
 - Quality gates: all linters pass (`bin/lint`) and CI (GitHub Actions) green; add/adjust tests when changing behavior.
