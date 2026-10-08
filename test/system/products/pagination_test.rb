@@ -43,13 +43,7 @@ class Products::PaginationTest < ApplicationSystemTestCase
 
   test 'When the number of pages is one, the pager will not be displayed' do
     count_of_delete = Product.count - Product.default_per_page
-    if count_of_delete.positive?
-      Product.all.each_with_index do |product, index|
-        product.delete
-
-        break if index >= count_of_delete
-      end
-    end
+    Product.where.missing(:product_ai_review).limit(count_of_delete + 1).each(&:delete) if count_of_delete.positive?
 
     visit_with_auth '/products', 'komagata'
 

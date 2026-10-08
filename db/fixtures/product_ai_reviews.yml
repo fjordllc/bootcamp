@@ -1,0 +1,13 @@
+fictional_sample_for_product13:
+  product: product13
+  content: |-
+    FICTIONAL_AI_REVIEW_SAMPLE
+
+    ## 表示確認用の架空レビュー
+
+    これはカードの余白とMarkdown表示を確認するためのサンプルです。AIが生成した内容ではなく、提出物や外部資料を参照していません。
+
+    - 見出しと箇条書きの表示を確認できます。
+    - [架空の参照先](https://example.invalid/sample) はリンク表示の例です。
+
+    <script>alert('fixture')</script>
