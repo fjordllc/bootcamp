@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'active_record/fixtures'
-require 'yaml'
 
 # 依存関係を考慮した順番に読み込む
 #
@@ -48,6 +47,7 @@ tables = %i[
   books
   practices_books
   products
+  product_ai_reviews
   questions
   submission_answers
   reactions
@@ -85,11 +85,5 @@ tables = %i[
 ]
 
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', tables
-
-ai_review_fixture = YAML.safe_load_file(Rails.root.join('db/fixtures/product_ai_reviews.yml')).fetch('fictional_sample_for_product13')
-ProductAiReview.find_or_create_by!(product_id: ActiveRecord::FixtureSet.identify(ai_review_fixture.fetch('product'))) do |review|
-  review.content = ai_review_fixture.fetch('content')
-end
-ProductAiReview.connection.reset_pk_sequence!('product_ai_reviews')
 
 Bootcamp::Setup.attachment if Rails.env.development? || ENV['DB_NAME'] == 'bootcamp_staging'
