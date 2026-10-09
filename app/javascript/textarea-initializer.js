@@ -18,11 +18,19 @@ import ReplaceLinkToCard from 'replace-link-to-card'
 import MarkDownItContainerFigure from 'markdown-it-container-figure'
 import MarkdownItVimeo from 'markdown-it-vimeo'
 import MarkdownItYoutube from 'markdown-it-youtube'
+import sanitizeMarkdown from 'markdown-sanitizer'
 
 const TextareaMarkdown =
   TextareaMarkdownModule.default?.default ||
   TextareaMarkdownModule.default ||
   TextareaMarkdownModule
+
+const sanitizePreview = (md) => {
+  const render = md.render
+  md.render = function (...args) {
+    return sanitizeMarkdown(render.apply(this, args))
+  }
+}
 
 export default class {
   static initialize(selector) {
@@ -103,7 +111,8 @@ export default class {
           MarkDownItContainerSpeak,
           MarkDownItContainerFigure,
           MarkdownItVimeo,
-          MarkdownItYoutube
+          MarkdownItYoutube,
+          sanitizePreview
         ],
         markdownOptions: MarkdownOption
       })
