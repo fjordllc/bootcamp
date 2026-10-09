@@ -7,7 +7,9 @@ module Products
     test 'products order on all tab' do
       Product.update_all(created_at: 1.day.ago, published_at: 1.day.ago) # rubocop:disable Rails/SkipsModelValidations
       # 最新と最古の提出物を画面上で判定するため、提出物を1ページ内に収める
-      Product.limit(Product.count - Product.default_per_page).delete_all
+      products_to_delete = Product.limit(Product.count - Product.default_per_page)
+      ProductAiReview.where(product: products_to_delete).delete_all
+      products_to_delete.delete_all
       newest_product = Product.reorder(:id).first
       newest_product.update(published_at: Time.current)
       newest_product_decorated_author = ActiveDecorator::Decorator.instance.decorate(newest_product.user)

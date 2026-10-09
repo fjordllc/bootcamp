@@ -10,6 +10,8 @@ class GenerateProductAiReviewsTest < ActiveJob::TestCase
 
     eligible = products(:product1, :product6, :product8, :product10)
     Product.unchecked.not_wip.where.not(id: eligible.map(&:id)).find_each do |product|
+      next if product.product_ai_review
+
       product.create_product_ai_review!(content: '保存済み支援')
     end
     eligible[1].create_product_ai_review!(content: nil)

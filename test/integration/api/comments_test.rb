@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class API::CommentsTest < ActionDispatch::IntegrationTest
+  include ActiveJob::TestHelper
+
   fixtures :comments, :products, :users
 
   def setup
@@ -270,5 +272,245 @@ class API::CommentsTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_entity
     assert response.parsed_body.dig('errors', 'description').present?
+  end
+
+  %i[kimura mentormentaro advijirou].each do |actor|
+    test "#{actor} cannot create a comment on another private talk" do
+      talk = talks(:talk9)
+      token = comment_oauth_token(actor)
+
+      assert_no_private_comment_mutation(talk) do
+        post api_comments_path(format: :json, commentable_type: 'Talk', commentable_id: talk.id),
+             headers: { Authorization: "Bearer #{token.token}" },
+             params: { comment: { description: 'Unauthorized private comment' } }
+        assert_response :forbidden
+      end
+    end
+  end
+
+  test 'student cannot create a comment on another private talk with JWT' do
+    talk = talks(:talk9)
+    token = create_token('kimura', 'testtest')
+    reset!
+
+    assert_no_private_comment_mutation(talk) do
+      post api_comments_path(format: :json, commentable_type: 'Talk', commentable_id: talk.id),
+           headers: { Authorization: "Bearer #{token}" },
+           params: { comment: { description: 'Unauthorized private comment' } }
+      assert_response :forbidden
+    end
+  end
+
+  test 'mentor cannot create a comment on another private talk with session' do
+    talk = talks(:talk9)
+    sign_in :mentormentaro
+
+    assert_no_private_comment_mutation(talk) do
+      post api_comments_path(format: :json, commentable_type: 'Talk', commentable_id: talk.id),
+           params: { comment: { description: 'Unauthorized private comment' } }
+      assert_response :forbidden
+    end
+  end
+
+  test 'talk owner can create a private comment with JWT' do
+    talk = talks(:talk9)
+    token = create_token('hajime', 'testtest')
+    reset!
+
+    assert_difference('Comment.count') do
+      post api_comments_path(format: :json, commentable_type: 'Talk', commentable_id: talk.id),
+           headers: { Authorization: "Bearer #{token}" },
+           params: { comment: { description: 'Own private comment' } }
+      assert_response :created
+    end
+
+    assert_equal talk.id, response.parsed_body['commentable_id']
+    assert_equal users(:hajime).id, response.parsed_body.dig('user', 'id')
+    assert_not talk.reload.action_completed?
+  end
+
+  test 'admin can create a comment on another private talk with write scope' do
+    talk = talks(:talk9)
+
+    assert_difference('Comment.count') do
+      post api_comments_path(format: :json, commentable_type: 'Talk', commentable_id: talk.id),
+           headers: { Authorization: "Bearer #{@write_token.token}" },
+           params: { comment: { description: 'Admin private comment' } }
+      assert_response :created
+    end
+
+    assert talk.reload.action_completed?
+  end
+
+  test 'mentor can create a comment on own private talk with session' do
+    talk = talks(:talk6)
+    sign_in :mentormentaro
+
+    assert_difference('Comment.count') do
+      post api_comments_path(format: :json, commentable_type: 'Talk', commentable_id: talk.id),
+           params: { comment: { description: 'Own mentor private comment' } }
+      assert_response :created
+    end
+
+    assert_not talk.reload.action_completed?
+  end
+
+  %i[update destroy].each do |action|
+    test "mentor cannot #{action} another private talk comment using forged commentable parameters" do
+      comment = comments(:commentOfTalk2)
+      talk = comment.commentable
+      token = comment_oauth_token(:mentormentaro)
+
+      assert_no_private_comment_mutation(talk, comment) do
+        mutate_comment(action, comment, token,
+                       commentable_type: 'Talk', commentable_id: talks(:talk6).id)
+        assert_response :forbidden
+      end
+    end
+
+    test "author cannot #{action} own comment on a private talk they cannot view" do
+      comment = comments(:commentOfTalk2)
+      comment.update!(user: users(:kimura))
+      talk = comment.commentable
+      token = comment_oauth_token(:kimura)
+
+      assert_no_private_comment_mutation(talk, comment) do
+        mutate_comment(action, comment, token,
+                       commentable_type: 'Report', commentable_id: reports(:report1).id)
+        assert_response :forbidden
+      end
+    end
+
+    test "unrelated student cannot #{action} another private talk comment" do
+      comment = comments(:commentOfTalk2)
+      token = comment_oauth_token(:kimura)
+
+      assert_no_private_comment_mutation(comment.commentable, comment) do
+        mutate_comment(action, comment, token)
+        assert_response :not_found
+      end
+    end
+
+    test "mentor gets not found when trying to #{action} a missing comment" do
+      token = comment_oauth_token(:mentormentaro)
+
+      assert_no_difference('Comment.count') do
+        mutate_comment(action, 0, token)
+        assert_response :not_found
+      end
+    end
+
+    %i[hajime komagata].each do |actor|
+      test "#{actor} can #{action} a visible private talk comment" do
+        comment = comments(:commentOfTalk2)
+        token = comment_oauth_token(actor)
+
+        assert_difference('Comment.count', action == :destroy ? -1 : 0) do
+          mutate_comment(action, comment, token)
+          assert_response :ok
+        end
+
+        assert_equal 'Updated private comment', comment.reload.description if action == :update
+      end
+    end
+
+    test "mentor can #{action} another author comment on own private talk" do
+      comment = comments(:commentOfTalk2)
+      comment.update!(commentable: talks(:talk6))
+      token = comment_oauth_token(:mentormentaro)
+
+      assert_difference('Comment.count', action == :destroy ? -1 : 0) do
+        mutate_comment(action, comment, token)
+        assert_response :ok
+      end
+
+      assert_equal 'Updated private comment', comment.reload.description if action == :update
+    end
+
+    test "talk owner cannot #{action} another author comment on own private talk" do
+      comment = comments(:commentOfTalk2)
+      comment.update!(user: users(:komagata))
+      token = comment_oauth_token(:hajime)
+
+      assert_no_private_comment_mutation(comment.commentable, comment) do
+        mutate_comment(action, comment, token)
+        assert_response :not_found
+      end
+    end
+
+    test "admin cannot #{action} a visible private talk comment with read scope" do
+      comment = comments(:commentOfTalk2)
+
+      assert_no_private_comment_mutation(comment.commentable, comment) do
+        mutate_comment(action, comment, @read_token)
+        assert_response :forbidden
+        assert_equal 'invalid_scope', response.parsed_body['error']
+      end
+    end
+  end
+
+  test 'admin cannot create a private talk comment with read scope' do
+    talk = talks(:talk9)
+
+    assert_no_private_comment_mutation(talk) do
+      post api_comments_path(format: :json, commentable_type: 'Talk', commentable_id: talk.id),
+           headers: { Authorization: "Bearer #{@read_token.token}" },
+           params: { comment: { description: 'Read-only private comment' } }
+      assert_response :forbidden
+      assert_equal 'invalid_scope', response.parsed_body['error']
+    end
+  end
+
+  test 'ordinary student can create update and delete a public report comment' do
+    report = reports(:report1)
+    token = comment_oauth_token(:kimura)
+
+    assert_difference('Comment.count') do
+      post api_comments_path(format: :json, commentable_type: 'Report', commentable_id: report.id),
+           headers: { Authorization: "Bearer #{token.token}" },
+           params: { comment: { description: 'Public report comment' } }
+      assert_response :created
+    end
+
+    comment = Comment.find(response.parsed_body['id'])
+    mutate_comment(:update, comment, token)
+    assert_response :ok
+    assert_equal 'Updated private comment', comment.reload.description
+
+    assert_difference('Comment.count', -1) do
+      mutate_comment(:destroy, comment, token)
+      assert_response :ok
+    end
+  end
+
+  private
+
+  def comment_oauth_token(actor)
+    Doorkeeper::AccessToken.create!(
+      application: @write_token.application,
+      resource_owner_id: users(actor).id,
+      scopes: 'read write'
+    )
+  end
+
+  def mutate_comment(action, comment, token, **commentable_params)
+    headers = { Authorization: "Bearer #{token.token}" }
+    path = api_comment_path(comment, format: :json)
+    params = commentable_params.merge(comment: { description: 'Updated private comment' })
+
+    action == :update ? patch(path, headers:, params:) : delete(path, headers:, params:)
+  end
+
+  def assert_no_private_comment_mutation(talk, comment = nil, &mutation)
+    events = []
+    subscriber = ->(name, *) { events << name }
+
+    ActiveSupport::Notifications.subscribed(subscriber, /\Acame(?:\.comment|_comment_in_talk)\z/) do
+      assert_no_changes -> { [Comment.count, Notification.count, talk.reload.attributes, comment&.reload&.attributes] } do
+        assert_no_enqueued_jobs(&mutation)
+      end
+    end
+
+    assert_empty events
   end
 end

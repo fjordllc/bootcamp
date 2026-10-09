@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 class API::BookmarksController < API::BaseController
+  before_action -> { doorkeeper_authorize! :write }, only: :destroy, if: -> { doorkeeper_token.present? }
+
   PAGER_NUMBER = 20
+
+  before_action :validate_bookmarkable_type, only: %i[index create]
 
   def index
     per = params[:per] || PAGER_NUMBER
@@ -29,13 +33,19 @@ class API::BookmarksController < API::BaseController
   end
 
   def destroy
-    Bookmark.find(params[:id]).destroy
+    current_user.bookmarks.find(params[:id]).destroy
     head :no_content
   end
 
   private
 
+  def validate_bookmarkable_type
+    return if action_name == 'index' && !params.key?(:bookmarkable_type)
+
+    head :bad_request unless Bookmark.bookmarkable_class(params[:bookmarkable_type])
+  end
+
   def bookmarkable
-    params[:bookmarkable_type].constantize.find_by(id: params[:bookmarkable_id])
+    Bookmark.bookmarkable_class(params[:bookmarkable_type]).find_by(id: params[:bookmarkable_id])
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class API::MoviesController < API::BaseController
-  before_action -> { doorkeeper_authorize! :write }, only: %i[create direct_uploads], if: -> { doorkeeper_token.present? }
+  before_action -> { doorkeeper_authorize! :write }, only: %i[create direct_uploads update], if: -> { doorkeeper_token.present? }
   before_action :set_movie, only: %i[update]
 
   MOVIE_CONTENT_TYPES = %w[video/mp4 video/quicktime].freeze

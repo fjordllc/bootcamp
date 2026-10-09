@@ -31,6 +31,7 @@ module Home
     end
 
     test 'display message if no product after 5 days' do
+      ProductAiReview.delete_all
       Product.delete_all
       user = users(:kimura)
       practice = practices(:practice1)

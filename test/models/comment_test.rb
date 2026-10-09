@@ -14,6 +14,22 @@ class CommentTest < ActiveSupport::TestCase
     AbstractNotifier.delivery_mode = @delivery_mode
   end
 
+  test '.commentable_class resolves supported exact type names' do
+    types = %w[Announcement CorporateTrainingInquiry PairWork Page Inquiry Talk Movie RegularEvent Event Product Report]
+    models = [Announcement, CorporateTrainingInquiry, PairWork, Page, Inquiry, Talk, Movie, RegularEvent, Event, Product, Report]
+
+    types.zip(models).each do |type, model|
+      assert_same model, Comment.commentable_class(type)
+    end
+  end
+
+  test '.commentable_class rejects unsupported names and non-string values' do
+    ['User', 'Kernel', 'Object', 'UnknownResource', 'Question', '', ' ',
+     'report', '::Report', 'Report ', Report, nil, {}, [], :Report, true, false, 123].each do |type|
+      assert_nil Comment.commentable_class(type), "Expected #{type.inspect} to be rejected"
+    end
+  end
+
   test '.without_private_comment' do
     non_talk_comment_count = Comment.without_private_comment.count
     all_comment_count = Comment.count

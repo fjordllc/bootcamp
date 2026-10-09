@@ -5,6 +5,7 @@ class API::BaseController < ApplicationController
   skip_before_action :verify_authenticity_token, if: -> { doorkeeper_token.present? }
   before_action :doorkeeper_authorize!, if: -> { doorkeeper_token.present? }
   before_action :require_login_for_api, unless: -> { doorkeeper_token.present? }
+  before_action :deny_inactive_user_for_api
   rescue_from Doorkeeper::Errors::DoorkeeperError, with: :render_doorkeeper_error
 
   private
@@ -60,6 +61,12 @@ class API::BaseController < ApplicationController
   def require_login_for_api
     login_from_jwt unless logged_in?
     render json: { error: 'unauthorized' }, status: :unauthorized unless logged_in?
+  end
+
+  def deny_inactive_user_for_api
+    return unless current_user&.inactive? || current_resource_owner&.inactive?
+
+    render json: { error: 'unauthorized' }, status: :unauthorized
   end
 
   def require_staff

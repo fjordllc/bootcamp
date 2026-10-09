@@ -1,6 +1,20 @@
 # frozen_string_literal: true
 
 class Comment < ApplicationRecord
+  COMMENTABLE_CLASSES = {
+    'Announcement' => Announcement,
+    'CorporateTrainingInquiry' => CorporateTrainingInquiry,
+    'PairWork' => PairWork,
+    'Page' => Page,
+    'Inquiry' => Inquiry,
+    'Talk' => Talk,
+    'Movie' => Movie,
+    'RegularEvent' => RegularEvent,
+    'Event' => Event,
+    'Product' => Product,
+    'Report' => Report
+  }.freeze
+
   include Reactionable
   include Searchable
   include Mentioner
@@ -33,6 +47,10 @@ class Comment < ApplicationRecord
   end
 
   class << self
+    def commentable_class(type)
+      COMMENTABLE_CLASSES[type] if type.is_a?(String)
+    end
+
     def commented_users
       User.with_attached_avatar
           .joins(:comments)

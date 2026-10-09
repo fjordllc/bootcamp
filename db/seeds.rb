@@ -47,6 +47,7 @@ tables = %i[
   books
   practices_books
   products
+  product_ai_reviews
   questions
   submission_answers
   reactions
@@ -84,4 +85,5 @@ tables = %i[
 ]
 
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', tables
+
 Bootcamp::Setup.attachment if Rails.env.development? || ENV['DB_NAME'] == 'bootcamp_staging'

@@ -2,6 +2,7 @@
 
 class HomeController < ApplicationController
   skip_before_action :require_active_user_login, raise: false
+  before_action :deny_inactive_user_login, if: :inactive_login?, only: %i[index]
 
   def index
     if current_user
@@ -10,7 +11,7 @@ class HomeController < ApplicationController
       display_pair_works_on_dashboard
       display_welcome_message_for_adviser
       set_required_fields
-      display_products_for_mentor
+      display_products_for_mentor if current_user.mentor? && !current_user.adviser?
       render action: :index
     else
       @mentors = User.visible_sorted_mentors
@@ -42,7 +43,8 @@ class HomeController < ApplicationController
     @bookmark_count = current_user.bookmarks.count
     @completed_learnings = current_user.learnings.where(status: 3).includes(:practice).order(updated_at: :desc)
     @inactive_students = User.with_attached_avatar.inactive_students_and_trainees.order(last_activity_at: :desc)
-    @job_seeking_users = User.with_attached_avatar.job_seeking.includes(:reports, :products, :works, :course, :company)
+    @job_seeking_users = User.with_attached_avatar.job_seeking.includes(:course, :company)
+    @job_seeking_counts = JobSeekingUserCounts.new(@job_seeking_users.map(&:id)) if current_user.adviser_or_mentor?
     @colleague_trainees = current_user.colleague_trainees.with_attached_avatar.includes(:reports, :products, :comments)
     @colleague_trainees_recent_reports = ColleagueTraineesRecentReportsQuery.new(current_user:).call.limit(10)
     @recent_reports = Report.with_avatar.where(wip: false).order(reported_on: :desc, created_at: :desc).limit(10)
