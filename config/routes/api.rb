@@ -43,6 +43,7 @@ Rails.application.routes.draw do
     end
     get "users/tags/:tag", to: "users#index", as: :users_tag, tag: /.+/
     resources :practices, only: %i(index show update) do
+      resource :practice_quiz, only: %i(show create update destroy), controller: "practices/practice_quiz", defaults: { format: :json }
       resource :learning, only: %i(show update), controller: "practices/learning" do
         resource :completion_message, only: %i(update), controller: "practices/learning/completion_message"
       end
