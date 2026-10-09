@@ -2,7 +2,8 @@
 
 class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
   skip_before_action :require_active_user_login, raise: false, only: %i[new create show created]
-  before_action :require_token, only: %i[new] if Rails.env.production?
+  before_action :prepare_registration_invitation, only: %i[new]
+  before_action :require_registration_invitation, only: %i[create]
   before_action :set_user, only: %w[show]
 
   PAGER_NUMBER = 24
@@ -56,9 +57,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
   end
 
   def new
-    @user = User.new
-    @user.course_id = params[:course_id]
-    @user.company_id = params[:company_id]
+    @user = User.new(@registration_invitation || params.permit(:course_id, :company_id))
     assign_role(@user)
   end
 
@@ -66,7 +65,8 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     logger.info "[Signup] 1. start create. #{user_params[:email]}"
 
     @user = User.new(user_params)
-    @user.course_id = params[:user][:course_id] if params[:user][:course_id].present?
+    @user.assign_attributes(@registration_invitation) if @registration_invitation
+    assign_role(@user)
     @user.course_id ||= Course.first.id
     @user.build_discord_profile
     @user.credit_card_payment = params[:credit_card_payment]
@@ -115,6 +115,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
   def create_free_user!
     logger.info "[Signup] 2. start create free user. #{@user.email}"
     if @user.save
+      session.delete(:registration_invitation)
       logger.info "[Signup] 3. after save free user. #{@user.email}"
       UserMailer.welcome(@user).deliver_now
       notify_to_mentors(@user)
@@ -206,10 +207,10 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
       :password_confirmation, :job, :organization,
       :os, { experiences: [] }, :editor, :other_editor,
       :company_id, :nda, :avatar,
-      :trainee, :adviser, :mentor, :job_seeker,
+      :job_seeker,
       :tag_list, :after_graduation_hope, :feed_url,
       :country_code, :subdivision_code, :invoice_payment,
-      :credit_card_payment, :role,
+      :credit_card_payment,
       :referral_source, :other_referral_source,
       authored_books_attributes: %i[id cover title url _destroy]
     )
@@ -219,16 +220,49 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     @user = User.where(id: params[:id]).or(User.where(login_name: params[:id])).first!
   end
 
-  def require_token
-    return unless params[:role]
-    return unless !params[:token] || !ENV['TOKEN'] || params[:token] != ENV['TOKEN']
+  def prepare_registration_invitation
+    session.delete(:registration_invitation)
+    return unless params.key?(:role) || params.key?(:token)
 
+    @registration_invitation = RegistrationInvitation.verify(params[:token])
+    return reject_registration_invitation unless @registration_invitation && matching_invitation_query?
+
+    session[:registration_invitation] = params[:token]
+  end
+
+  def matching_invitation_query?
+    RegistrationInvitation::CLAIM_KEYS.all? do |key|
+      provided = params[key]
+      provided = 'trainee_select_a_payment_method' if key == 'role' && provided == 'trainee'
+      !params.key?(key) || provided.to_s == @registration_invitation[key].to_s
+    end
+  end
+
+  def require_registration_invitation
+    token = session[:registration_invitation]
+    @registration_invitation = RegistrationInvitation.verify(token)
+    return reject_registration_invitation if token && !@registration_invitation
+    return if !params.key?(:role) && matching_invitation_form?(@registration_invitation || {})
+
+    reject_registration_invitation
+  end
+
+  def matching_invitation_form?(invitation)
+    attributes = params.require(:user)
+    valid_role = params[:invitation_role].to_s == invitation['role'].to_s &&
+                 attributes.fetch(:role, invitation['role']).to_s == invitation['role'].to_s
+    valid_context = invitation.except('role').all? do |key, value|
+      attributes.fetch(key, value).to_s == value.to_s
+    end
+    valid_role && valid_context
+  end
+
+  def reject_registration_invitation
+    session.delete(:registration_invitation)
     redirect_to root_path, notice: 'アドバイザー・メンター・研修生登録にはTOKENが必要です。'
   end
 
   def assign_role(user)
-    user.role = params[:role]
-
     case user.role
     when 'adviser'
       user.adviser = true

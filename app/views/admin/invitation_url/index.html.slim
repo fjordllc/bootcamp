@@ -31,7 +31,7 @@ header.page-header
               = label_tag :course, 'コース', class: 'a-form-label'
               .a-button.is-md.is-secondary.is-select.is-block
                 = select_tag :course, options_from_collection_for_select(Course.order(:created_at), :id, :title), class: 'js-invitation-course'
-          .invitation__url data-invitation-url-template=@invitation_url_template
+          .invitation__url data-invitation-url-endpoint=admin_invitation_url_index_path(format: :json)
             .a-form-label
               | URL
             .invitation__url-inner(class='!flex !gap-1')

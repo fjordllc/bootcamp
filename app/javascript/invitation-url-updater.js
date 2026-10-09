@@ -1,4 +1,6 @@
-document.addEventListener('DOMContentLoaded', async () => {
+import { get } from '@rails/request.js'
+
+document.addEventListener('DOMContentLoaded', () => {
   const invitationElements = Array.from(
     document.querySelectorAll('.invitation__element select')
   )
@@ -9,27 +11,44 @@ document.addEventListener('DOMContentLoaded', async () => {
     return
   }
 
+  let requestSequence = 0
+
   const updateInvitationURL = async () => {
-    const invitationCompany = document.querySelector('.js-invitation-company')
-    const invitationRole = document.querySelector('.js-invitation-role')
-    const invitationCourse = document.querySelector('.js-invitation-course')
+    const sequence = ++requestSequence
+    invitationUrl.removeAttribute('href')
+    invitationUrl.setAttribute('aria-disabled', 'true')
+    invitationUrlText.value = ''
+    invitationUrlText.disabled = true
+    invitationUrlText.placeholder = '招待URLを作成しています…'
 
-    const selectedCompanyId =
-      invitationCompany.options[invitationCompany.selectedIndex].value
-    const selectedRole =
-      invitationRole.options[invitationRole.selectedIndex].value
-    const selectedCourseId =
-      invitationCourse.options[invitationCourse.selectedIndex].value
+    const endpoint =
+      document.querySelector('.invitation__url').dataset.invitationUrlEndpoint
+    const query = new URLSearchParams({
+      company_id: document.querySelector('.js-invitation-company').value,
+      role: document.querySelector('.js-invitation-role').value,
+      course_id: document.querySelector('.js-invitation-course').value
+    })
 
-    const invitationUrlTemplate =
-      document.querySelector('.invitation__url').dataset.invitationUrlTemplate
-    const targetUrl = invitationUrlTemplate
-      .replace(/company_id=[^&]*/, `company_id=${selectedCompanyId}`)
-      .replace(/role=[^&]*/, `role=${selectedRole}`)
-      .replace(/course_id=[^&]*/, `course_id=${selectedCourseId}`)
+    try {
+      const response = await get(endpoint, { query, responseKind: 'json' })
+      if (!response.ok) throw new Error('Invitation request failed')
+      const result = await response.json
+      if (sequence !== requestSequence) return
+      if (typeof result.url !== 'string' || !result.url) {
+        throw new Error('Invitation URL missing')
+      }
 
-    invitationUrl.href = targetUrl
-    invitationUrlText.value = targetUrl
+      invitationUrl.href = result.url
+      invitationUrl.removeAttribute('aria-disabled')
+      invitationUrlText.value = result.url
+      invitationUrlText.disabled = false
+      invitationUrlText.placeholder = ''
+    } catch {
+      if (sequence === requestSequence) {
+        invitationUrlText.placeholder =
+          '招待URLを作成できませんでした。再度選択してください。'
+      }
+    }
   }
 
   invitationElements.forEach((invitationElement) => {
@@ -37,4 +56,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   })
 
   window.addEventListener('pageshow', updateInvitationURL)
+  updateInvitationURL()
 })
