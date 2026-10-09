@@ -29,6 +29,11 @@ class ProductReviewAgentTest < ActiveSupport::TestCase
     assert_includes chat.instructions, '必須'
     assert_includes chat.instructions, '不確実'
     assert_includes chat.instructions, '受講生への返信案'
+    headings = chat.instructions.scan(/^## .+$/)
+    assert_equal ['## 良い点', '## 必須の修正点・確認したい質問', '## 不確実な点', '## 受講生への返信案'], headings
+    assert_includes chat.instructions, '返信案の後にメンター向けの注記や補足を追加しない'
+    assert_includes chat.instructions, '返信案全体を引用やコードフェンスで囲まない'
+    assert_includes chat.instructions, '提出物の作成おつかれさまです。'
   end
 
   test 'sends fetched text and actual image bytes through the real SDK without retrieving practice or answer links' do
