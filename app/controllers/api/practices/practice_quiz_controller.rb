@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-class API::Practices::PracticeQuizController < API::BaseController
+class API::Practices::PracticeQuizController < API::BaseController # rubocop:disable Metrics/ClassLength
   skip_before_action :doorkeeper_authorize!
   prepend_before_action -> { doorkeeper_authorize! :mentor }
-  before_action -> { doorkeeper_authorize! :write }, only: :create
+  before_action -> { doorkeeper_authorize! :write }, only: %i[create update destroy]
   before_action :require_admin_or_mentor_login_for_api
   before_action :set_practice
 
@@ -31,6 +31,37 @@ class API::Practices::PracticeQuizController < API::BaseController
     else
       render_validation_errors(quiz)
     end
+  end
+
+  def update
+    quiz = @practice.practice_quiz
+    return render_not_found if quiz.blank?
+
+    attributes = params[:practice_quiz]
+    attributes = attributes.to_unsafe_h if attributes.is_a?(ActionController::Parameters)
+    if PracticeQuizUpdate.new(quiz, attributes).save
+      render json: quiz_json(quiz)
+    else
+      render_validation_errors(quiz)
+    end
+  end
+
+  def destroy
+    quiz = @practice.practice_quiz
+    return render_not_found if quiz.blank?
+
+    quiz.with_lock do
+      if quiz.practice_quiz_attempts.exists?
+        render json: { message: '受験履歴がある理解度テストは削除できません。' }, status: :conflict
+        return
+      end
+
+      quiz.update!(published: false)
+      raise ActiveRecord::RecordNotDestroyed.new('理解度テストを削除できませんでした。', quiz) unless quiz.destroy
+    end
+    head :no_content
+  rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotDestroyed => e
+    render_validation_errors(e.record)
   end
 
   private
