@@ -217,11 +217,18 @@ class Product < ApplicationRecord # rubocop:todo Metrics/ClassLength
   end
 
   def enqueue_ai_review
+    return if @ai_review_enqueue_pending
+
+    @ai_review_enqueue_pending = true
+    self.class.current_transaction.after_rollback { @ai_review_enqueue_pending = false }
     ActiveRecord.after_all_transactions_commit do
-      ProductAiReviewJob.perform_later(id) unless wip?
-    rescue StandardError
+      @ai_review_enqueue_pending = false
+      next if wip?
+
+      Rails.logger.warn "[ProductAiReviewJob] Enqueue failed product_id=#{id} failure=false" unless ProductAiReviewJob.perform_later(id)
+    rescue StandardError => e
       # A queue failure must not prevent saving the submission.
-      nil
+      Rails.logger.warn "[ProductAiReviewJob] Enqueue failed product_id=#{id} failure=#{e.class}"
     end
   end
 end
