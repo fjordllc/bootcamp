@@ -11,7 +11,6 @@ class API::Practices::PracticeQuizTest < ActionDispatch::IntegrationTest
 
   test 'mentor creates a complete draft and retrieves the same answer key' do
     payload = quiz_payload
-    payload[:practice_quiz][:published] = true
     headers = oauth_headers
 
     assert_difference({ 'PracticeQuiz.count' => 1, 'PracticeQuizQuestion.count' => 1, 'PracticeQuizChoice.count' => 2 }) do
@@ -39,6 +38,76 @@ class API::Practices::PracticeQuizTest < ActionDispatch::IntegrationTest
 
     assert_response :ok
     assert_equal expected, response.parsed_body
+  end
+
+  test 'POST with published false creates a draft' do
+    payload = quiz_payload
+    payload[:practice_quiz][:published] = false
+
+    assert_difference({ 'PracticeQuiz.count' => 1, 'PracticeQuizQuestion.count' => 1, 'PracticeQuizChoice.count' => 2 }) do
+      post @path, params: payload, headers: oauth_headers, as: :json
+    end
+
+    assert_response :created
+    assert_not response.parsed_body['published']
+    assert_not_predicate @practice.reload.practice_quiz, :published?
+  end
+
+  test 'POST with published true publishes a complete quiz and preserves question flags' do
+    payload = quiz_payload
+    payload[:practice_quiz][:published] = true
+    questions = payload[:practice_quiz][:practice_quiz_questions_attributes]
+    questions.first[:published] = true
+    questions << questions.first.deep_dup.merge(body: '未公開の問題', position: 2, published: false)
+    headers = oauth_headers
+
+    assert_difference({ 'PracticeQuiz.count' => 1, 'PracticeQuizQuestion.count' => 2, 'PracticeQuizChoice.count' => 4 }) do
+      post @path, params: payload, headers:, as: :json
+    end
+
+    assert_response :created
+    quiz = @practice.reload.practice_quiz
+    assert_predicate quiz, :published?
+    assert PracticeQuiz.published.exists?(quiz.id)
+    assert response.parsed_body['published']
+    assert_equal [true, false], response.parsed_body['questions'].pluck('published')
+    assert_equal [true, false], quiz.practice_quiz_questions.pluck(:published)
+    created = response.parsed_body
+
+    get @path, headers: headers
+
+    assert_response :ok
+    assert_equal created, response.parsed_body
+  end
+
+  test 'POST publication without published questions rolls back all rows' do
+    payload = quiz_payload
+    payload[:practice_quiz][:published] = true
+    payload[:practice_quiz][:practice_quiz_questions_attributes].first[:published] = false
+
+    assert_no_quiz_created(payload)
+
+    assert_includes response.parsed_body['errors']['base'], '公開中の理解度テストには公開中の問題が必要です。'
+    assert_nil @practice.reload.practice_quiz
+  end
+
+  test 'POST publication with an invalid later question saves nothing' do
+    payload = quiz_payload
+    payload[:practice_quiz][:published] = true
+    questions = payload[:practice_quiz][:practice_quiz_questions_attributes]
+    questions << questions.first.deep_dup.merge(body: '')
+
+    assert_no_quiz_created(payload)
+  end
+
+  test 'POST rejects non boolean quiz publication flags without creating rows' do
+    [nil, 'true', 'false', 0, 1, [], {}].each do |published|
+      payload = quiz_payload
+      payload[:practice_quiz][:published] = published
+
+      assert_no_quiz_created(payload)
+      assert_includes response.parsed_body['errors']['published'], 'publishedは真偽値で指定してください。'
+    end
   end
 
   test 'GET requires mentor scope but does not require write scope' do
@@ -241,6 +310,7 @@ class API::Practices::PracticeQuizTest < ActionDispatch::IntegrationTest
 
   test 'multiple choice question accepts multiple correct answers' do
     payload = quiz_payload
+    payload[:practice_quiz][:published] = true
     question = payload[:practice_quiz][:practice_quiz_questions_attributes].first
     question[:question_type] = 'multiple_choice'
     question[:practice_quiz_choices_attributes].each { |choice| choice[:correct] = true }
@@ -248,12 +318,27 @@ class API::Practices::PracticeQuizTest < ActionDispatch::IntegrationTest
     post @path, params: payload, headers: oauth_headers, as: :json
 
     assert_response :created
+    assert response.parsed_body['published']
+    assert_predicate @practice.reload.practice_quiz, :published?
     assert_equal [true, true], response.parsed_body['questions'].first['choices'].pluck('correct')
+  end
+
+  test 'POST publication with multiple choice question without correct answers saves nothing' do
+    payload = quiz_payload
+    payload[:practice_quiz][:published] = true
+    question = payload[:practice_quiz][:practice_quiz_questions_attributes].first
+    question[:question_type] = 'multiple_choice'
+    question[:practice_quiz_choices_attributes].each { |choice| choice[:correct] = false }
+
+    assert_no_quiz_created(payload)
   end
 
   test 'malformed payloads return 422 without creating rows' do
     [
       {},
+      { practice_quiz: {} },
+      { practice_quiz: nil },
+      quiz_payload[:practice_quiz],
       { practice_quiz: 'invalid' },
       { practice_quiz: { practice_quiz_questions_attributes: 'invalid' } },
       { practice_quiz: { practice_quiz_questions_attributes: ['invalid'] } }
@@ -516,15 +601,28 @@ class API::Practices::PracticeQuizTest < ActionDispatch::IntegrationTest
     assert_equal attempt.attributes, attempt.reload.attributes
   end
 
-  test 'PATCH accepts omitted question attributes without changing nested rows' do
-    quiz = create_complete_quiz
-    before = quiz_snapshot(quiz).last
+  %i[patch put].each do |method|
+    test "#{method} accepts an explicit empty root without changing nested rows" do
+      quiz = create_complete_quiz
+      before = quiz_snapshot(quiz)
 
-    patch @path, params: { practice_quiz: {} }, headers: oauth_headers, as: :json
+      public_send(method, @path, params: { practice_quiz: {} }, headers: oauth_headers, as: :json)
 
-    assert_response :ok
-    assert_equal before, quiz_snapshot(quiz).last
-    assert_not_predicate quiz.reload, :published?
+      assert_response :ok
+      assert_equal before, quiz_snapshot(quiz)
+    end
+
+    test "#{method} rejects missing and malformed roots without changing the quiz" do
+      quiz = create_complete_quiz
+      before = quiz_snapshot(quiz)
+
+      [{}, { practice_quiz: nil }, { practice_quiz: 'invalid' }].each do |payload|
+        public_send(method, @path, params: payload, headers: oauth_headers, as: :json)
+
+        assert_response :unprocessable_entity
+        assert_equal before, quiz_snapshot(quiz)
+      end
+    end
   end
 
   test 'PATCH rejects empty question arrays without changing publication or nested rows' do
@@ -560,10 +658,6 @@ class API::Practices::PracticeQuizTest < ActionDispatch::IntegrationTest
       { practice_quiz_choices_attributes: [{ id: question.practice_quiz_choices.first.id, _destroy: 1 }] },
       { practice_quiz_choices_attributes: [{ body: '', correct: false }] }
     ].each { |attributes| assert_update_rejected(quiz, practice_quiz_questions_attributes: [{ id: question.id, **attributes }]) }
-    [{}, { practice_quiz: nil }, { practice_quiz: 'invalid' }].each do |payload|
-      patch @path, params: payload, headers: oauth_headers, as: :json
-      assert_response :unprocessable_entity
-    end
   end
 
   %i[patch put delete].each do |method|

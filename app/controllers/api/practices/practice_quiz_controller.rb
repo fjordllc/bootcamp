@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class API::Practices::PracticeQuizController < API::BaseController # rubocop:disable Metrics/ClassLength
+  wrap_parameters false
+
   skip_before_action :doorkeeper_authorize!
   prepend_before_action -> { doorkeeper_authorize! :mentor }
   before_action -> { doorkeeper_authorize! :write }, only: %i[create update destroy]
@@ -24,7 +26,7 @@ class API::Practices::PracticeQuizController < API::BaseController # rubocop:dis
     quiz = PracticeQuiz.new(practice_quiz_params.merge(practice: @practice, published: false))
     return unless valid_questions?(quiz)
 
-    if quiz.save
+    if save_quiz(quiz)
       render json: quiz_json(quiz), status: :created
     elsif quiz.errors.of_kind?(:practice_id, :taken)
       render_conflict
@@ -79,6 +81,17 @@ class API::Practices::PracticeQuizController < API::BaseController # rubocop:dis
     render json: { message: 'このプラクティスには理解度テストが既に存在します。' }, status: :conflict
   end
 
+  def save_quiz(quiz)
+    PracticeQuiz.transaction do
+      raise ActiveRecord::Rollback unless quiz.save
+
+      # Publication validation queries persisted questions; keep both saves atomic.
+      raise ActiveRecord::Rollback if params[:practice_quiz][:published] == true && !quiz.update(published: true)
+
+      true
+    end
+  end
+
   def practice_quiz_params
     attributes = params.expect(practice_quiz: [{ practice_quiz_questions_attributes: [[
                                  :question_type, :body, :explanation, :position, :published,
@@ -93,6 +106,11 @@ class API::Practices::PracticeQuizController < API::BaseController # rubocop:dis
     questions = quiz[:practice_quiz_questions_attributes] if quiz.is_a?(ActionController::Parameters)
     unless questions.is_a?(Array) && questions.present?
       render json: { errors: { practice_quiz_questions_attributes: ['1つ以上の問題が必要です。'] } }, status: :unprocessable_entity
+      return false
+    end
+
+    if quiz.key?(:published) && ![true, false].include?(quiz[:published])
+      render json: { errors: { published: ['publishedは真偽値で指定してください。'] } }, status: :unprocessable_entity
       return false
     end
 
