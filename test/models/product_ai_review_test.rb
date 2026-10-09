@@ -72,16 +72,115 @@ class ProductAiReviewTest < ActiveJob::TestCase
     assert_nil review.reload.content
   end
 
+  test 'body update followed by checker update queues once after transaction commit' do
+    product = products(:product8)
+    review = product.create_product_ai_review!(content: '保存済み支援')
+    assert_enqueued_jobs 1, only: ProductAiReviewJob do
+      Product.transaction do
+        assert_no_enqueued_jobs only: ProductAiReviewJob do
+          product.update!(body: '新しい本文')
+          product.update!(checker: users(:mentormentaro))
+        end
+        assert_nil review.reload.content
+      end
+    end
+    assert_enqueued_with(job: ProductAiReviewJob, args: [product.id])
+    assert_nil review.reload.content
+  end
+
+  test 'two body updates queue once for the final body after transaction commit' do
+    product = products(:product8)
+    assert_enqueued_jobs 1, only: ProductAiReviewJob do
+      Product.transaction do
+        assert_no_enqueued_jobs only: ProductAiReviewJob do
+          product.update!(body: '途中の本文')
+          product.update!(body: '最終の本文')
+        end
+      end
+    end
+    assert_enqueued_with(job: ProductAiReviewJob, args: [product.id])
+    assert_equal '最終の本文', product.reload.body
+  end
+
+  test 'body update followed by WIP change queues nothing after transaction commit' do
+    product = products(:product8)
+    review = product.create_product_ai_review!(content: '保存済み支援')
+    assert_no_enqueued_jobs only: ProductAiReviewJob do
+      Product.transaction do
+        product.update!(body: '下書きに戻す本文')
+        product.update!(wip: true)
+      end
+    end
+    assert_nil review.reload.content
+  end
+
+  test 'queue failure after transaction commit does not prevent saving the submission' do
+    product = products(:product8)
+    review = product.create_product_ai_review!(content: '保存済み支援')
+    enqueue_attempts = 0
+    logs = []
+    Rails.logger.stub(:warn, ->(message) { logs << message }) do
+      ProductAiReviewJob.stub(:perform_later, lambda { |*|
+        enqueue_attempts += 1
+        raise StandardError, '保存される本文 保存済み支援 https://user:secret@example.com'
+      }) do
+        Product.transaction do
+          product.update!(body: '保存される本文')
+          product.update!(checker: users(:mentormentaro))
+          assert_equal 0, enqueue_attempts
+        end
+      end
+    end
+    assert_equal 1, enqueue_attempts
+    assert_equal '保存される本文', product.reload.body
+    assert_nil review.reload.content
+    assert_equal ["[ProductAiReviewJob] Enqueue failed product_id=#{product.id} failure=StandardError"], logs
+  end
+
+  test 'false enqueue return logs failure without preventing saving the submission' do
+    product = products(:product8)
+    review = product.create_product_ai_review!(content: '保存済み支援')
+    logs = []
+    Rails.logger.stub(:warn, ->(message) { logs << message }) do
+      ProductAiReviewJob.stub(:perform_later, false) do
+        product.update!(body: '保存される本文')
+      end
+    end
+    assert_equal '保存される本文', product.reload.body
+    assert_nil review.reload.content
+    assert_equal ["[ProductAiReviewJob] Enqueue failed product_id=#{product.id} failure=false"], logs
+  end
+
   test 'rollback preserves previous review and queues nothing' do
     product = products(:product8)
     review = product.create_product_ai_review!(content: '保存済み支援')
     assert_no_enqueued_jobs only: ProductAiReviewJob do
       Product.transaction do
         product.update!(body: '保存されない修正')
+        product.update!(checker: users(:mentormentaro))
         raise ActiveRecord::Rollback
       end
     end
     assert_equal '保存済み支援', review.reload.content
+  end
+
+  test 'rollback and commit do not suppress later generation on the same instance' do
+    product = products(:product8)
+    assert_no_enqueued_jobs only: ProductAiReviewJob do
+      Product.transaction do
+        product.update!(body: '保存されない修正')
+        raise ActiveRecord::Rollback
+      end
+    end
+    assert_enqueued_jobs 1, only: ProductAiReviewJob do
+      Product.transaction do
+        product.update!(body: '途中の本文')
+        product.update!(body: '保存される本文')
+      end
+    end
+    assert_enqueued_jobs 1, only: ProductAiReviewJob do
+      product.update!(body: '次の本文')
+    end
   end
 
   test 'destroy removes private review' do

@@ -9,7 +9,7 @@ class ProductReviewAgentTest < ActiveSupport::TestCase
     product.practice.create_submission_answer!(description: '非公開の模範解答')
     chat = ChatFake.new
     RubyLLM.stub(:chat, lambda { |model:, provider:, assume_model_exists:|
-      assert_equal 'claude-opus-5-5', model
+      assert_equal ENV.fetch('PRODUCT_REVIEW_LLM_MODEL', 'claude-opus-5-5'), model
       assert_equal :anthropic, provider
       assert assume_model_exists
       chat
@@ -35,7 +35,7 @@ class ProductReviewAgentTest < ActiveSupport::TestCase
     product = products(:product8)
     product.body = "https://example.com/submission\nhttps://github.com/example/repo/pull/7/files/\n![screen](https://example.com/image)"
     product.practice.goal = 'https://bootcamp.fjord.jp/pages/315'
-    product.practice.description = 'https://example.com/public-practice'
+    product.practice.description = "https://example.com/public-practice\nhttps://example.com/private-practice"
     product.practice.create_submission_answer!(description: 'https://example.com/private-answer fictional mentor answer')
     stub_request(:get, 'https://example.com/public-practice').to_return(body: '<p>Public practice requirements</p>')
     image = Rails.root.join('test/fixtures/files/companies-logos-1.jpg').binread
@@ -81,6 +81,7 @@ class ProductReviewAgentTest < ActiveSupport::TestCase
     assert_equal 'image/png', images.first.dig('source', 'media_type')
     assert_equal image, Base64.strict_decode64(images.first.dig('source', 'data'))
     assert_not_requested :get, 'https://example.com/public-practice'
+    assert_not_requested :get, 'https://example.com/private-practice'
     assert_not_requested :get, 'https://bootcamp.fjord.jp/pages/315'
     assert_equal 3, context.fetch('external_sources').size
     assert_not_requested :get, 'https://example.com/private-answer'
