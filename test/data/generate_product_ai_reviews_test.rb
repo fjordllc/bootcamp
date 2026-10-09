@@ -33,6 +33,26 @@ class GenerateProductAiReviewsTest < ActiveJob::TestCase
     assert_equal records_before, records_after
   end
 
+  test 'migration raises when enqueue returns false without changing records or calling AI' do
+    require Rails.root.join('db/data/20261001030000_generate_product_ai_reviews.rb')
+    models = [Product, ProductAiReview, Comment, Check, Notification]
+    records_before = models.map { |model| model.order(:id).map(&:attributes) }
+
+    ProductReviewAgent.stub(:review, ->(*) { flunk 'Migration must not call AI' }) do
+      ProductAiReviewJob.stub(:perform_later, false) do
+        assert_no_enqueued_jobs only: ProductAiReviewJob do
+          error = assert_raises ActiveJob::EnqueueError do
+            GenerateProductAiReviews.new.up
+          end
+          assert_equal 'Failed to enqueue product AI review', error.message
+        end
+      end
+    end
+
+    records_after = models.map { |model| model.order(:id).map(&:attributes) }
+    assert_equal records_before, records_after
+  end
+
   test 'migration cannot be reversed' do
     migration_path = Rails.root.join('db/data/20261001030000_generate_product_ai_reviews.rb')
     assert_path_exists migration_path
