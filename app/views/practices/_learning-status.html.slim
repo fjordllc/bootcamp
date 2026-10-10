@@ -25,7 +25,9 @@
             = content_tag :button, '提出', class: button_class, disabled: @status == 'submitted', data: { status: 'submitted' }
         li.practice-status-buttons__item
           - button_class = "#{button_base_class} is-complete js-complete #{@status == 'complete' ? 'is-active' : 'is-inactive'}"
-          = content_tag :button, '修了', class: button_class, disabled: @status == 'complete', data: { status: 'complete' }
+          = content_tag :button, '修了', class: button_class,
+            disabled: @status == 'complete' || !@practice.completable_by?(current_user),
+            data: { status: 'complete' }
     - if !@practice.submission
       .practice-status-buttons__end
         .practice-status-buttons__note

@@ -20,7 +20,12 @@ ruby:
         .practice-quiz-status__body
           h1.practice-quiz-status__title 理解度テストに合格しました
           p.practice-quiz-status__text
-            | このプラクティスを修了できます。各問題の正解と解説を復習しておきましょう。
+            - if @practice.learning(current_user)&.complete?
+              | このプラクティスを修了しました。各問題の正解と解説を復習しておきましょう。
+            - elsif @practice.submission?
+              | 提出物の確認をもらってから修了にしてください。各問題の正解と解説を復習しておきましょう。
+            - else
+              | このプラクティスを修了できます。各問題の正解と解説を復習しておきましょう。
 
       ul.practice-quiz-result
         - @questions.each.with_index(1) do |question, index|
@@ -63,7 +68,9 @@ ruby:
           p.practice-quiz-status__text
             | 次回は #{l @next_attempt_at, format: :long} 以降に受験できます。
             br
-            | それまでにもう一度プラクティスを復習しておきましょう。
+            | 間違えた問題の解説と本文を読み直しておきましょう。
+      - if @incorrect_questions.any?
+        = render 'incorrect_questions', incorrect_questions: @incorrect_questions
     - else
       .practice-quiz-status.is-info
         .practice-quiz-status__icon
@@ -73,6 +80,9 @@ ruby:
           p.practice-quiz-status__text
             | このプラクティスを修了するには、理解度テストに合格する必要があります。
             | 全#{@questions.size}問です。落ち着いて回答しましょう。
+
+      - if @incorrect_questions.any?
+        = render 'incorrect_questions', incorrect_questions: @incorrect_questions
 
       = form_with url: practice_practice_quiz_attempts_path(@practice), method: :post, local: true, html: { class: 'form' } do
         ul.practice-quiz-form

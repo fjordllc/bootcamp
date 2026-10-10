@@ -8,7 +8,7 @@ class PracticesTest < ApplicationSystemTestCase
     assert_equal 'プラクティス OS X Mountain Lionをクリーンインストールする | FBC', title
   end
 
-  test 'show practice quiz guidance as an underlined link' do
+  test 'show practice quiz as the primary next action' do
     practice = practices(:practice3)
     quiz = PracticeQuiz.create!(practice:, published: false)
     question = quiz.practice_quiz_questions.create!(
@@ -25,8 +25,9 @@ class PracticesTest < ApplicationSystemTestCase
 
     visit_with_auth practice_path(practice), 'kimura'
 
-    guidance_link = find_link '理解度テストに合格すると、このプラクティスを修了できます。'
-    assert_equal 'underline', guidance_link.style('text-decoration-line')['text-decoration-line']
+    quiz_link = find_link '理解度テストに進む'
+    assert_includes quiz_link[:class], 'is-primary'
+    assert_equal practice_practice_quiz_path(practice), URI.parse(quiz_link[:href]).path
   end
 
   test 'show link to all practices with same category' do

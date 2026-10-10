@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class Learnings::LearningComponent < ViewComponent::Base
-  def initialize(practice:, current_user:)
+  def initialize(practice:, current_user:, show_completion: true)
     @practice = practice
     @current_user = current_user
+    @show_completion = show_completion
     @learning = Learning.find_or_initialize_by(
       user_id: @current_user.id,
       practice_id: @practice.id

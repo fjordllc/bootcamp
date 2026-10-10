@@ -1,0 +1,19 @@
+section.a-card
+  header.card-header
+    h2.card-header__title 間違えた問題を復習
+  hr.a-border-tint
+  .card-body
+    .card-body__inner
+      .a-long-text.is-md
+        - incorrect_questions.each do |question, number|
+          h3 問#{number}
+          = simple_format(question.body)
+          - if question.explanation.present?
+            = simple_format(question.explanation)
+  hr.a-border-tint
+  footer.card-footer
+    .card-main-actions
+      ul.card-main-actions__items
+        li.card-main-actions__item
+          = link_to '本文を読み直す', practice_path(@practice),
+            class: 'a-button is-sm is-secondary is-block'
