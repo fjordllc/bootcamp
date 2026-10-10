@@ -99,7 +99,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{product.id}", 'kimura'
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
-    within('.thread-comment.is-latest') do
+    within('.thread-comments__items > .thread-comment:last-child') do
       assert_text 'kimura'
       assert_text 'test'
     end
@@ -115,7 +115,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     accept_alert '提出物の担当になりました。' do
       click_button 'コメントする'
     end
-    within('.thread-comment.is-latest') do
+    within('.thread-comments__items > .thread-comment:last-child') do
       assert_text 'mentormentaro'
       assert_text 'test'
     end

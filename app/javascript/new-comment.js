@@ -1,7 +1,6 @@
 import autosize from 'autosize'
-import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
-import { initializeComment, toggleVisibility } from 'initializeComment'
+import { toggleVisibility } from 'initializeComment'
 import { toast } from 'vanillaToast'
 import commentCheckable from 'comment-checkable'
 import { post } from '@rails/request.js'
@@ -16,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const isMentor = newComment.dataset.is_mentor === 'true'
 
   let savedComment = ''
-  TextareaInitializer.initialize('#js-new-comment')
   const markdownInitializer = new MarkdownInitializer()
 
   const commentEditor = newComment.querySelector('.js-comment-editor')
@@ -38,13 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
     sessionStorage.removeItem('showToast')
     toast(message)
   }
-
-  editTab.addEventListener('click', () =>
-    toggleVisibility(tabElements, 'is-active')
-  )
-  previewTab.addEventListener('click', () =>
-    toggleVisibility(tabElements, 'is-active')
-  )
 
   const saveButton = commentEditor.querySelector('.js-comment-save-button')
   const saveAndCheckButton = commentEditor.querySelector(
@@ -132,11 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const newCommentElement = commentDiv.firstElementChild
     newCommentElement.classList.remove('is-hidden')
     comments.appendChild(newCommentElement)
-    initializeComment(newCommentElement)
-
-    const previousLatest = comments.querySelector('.is-latest')
-    if (previousLatest) previousLatest.classList.remove('is-latest')
-    newCommentElement.classList.add('is-latest')
   }
 
   const createComment = async () => {

@@ -48,7 +48,7 @@ class API::CommentsController < API::BaseController
 
   def destroy
     @comment.destroy!
-    request.format.json? ? render(json: { id: @comment.id }, status: :ok) : head(:no_content)
+    render(json: { id: @comment.id }, status: :ok)
   end
 
   private
@@ -74,7 +74,7 @@ class API::CommentsController < API::BaseController
     end
     response.set_header('X-Comment-Remaining', comment_remaining.to_s)
     render partial: 'comments/comment', collection: @comments, as: :comment,
-           locals: { user: current_user, latest_comment: nil }
+           locals: { user: current_user }
   end
 
   def authorize_commentable
@@ -108,7 +108,7 @@ class API::CommentsController < API::BaseController
       render json: comment_json(@comment), status: :created
     else
       render partial: 'comments/comment',
-             locals: { commentable:, comment: @comment, user: current_user, latest_comment: @comment },
+             locals: { commentable:, comment: @comment, user: current_user },
              status: :created
     end
   end
