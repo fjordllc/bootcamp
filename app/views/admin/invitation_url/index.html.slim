@@ -26,7 +26,7 @@ header.page-header
             .invitation__element(class='!flex-1')
               = label_tag :role, 'ロール', class: 'a-form-label'
               .a-button.is-md.is-secondary.is-select.is-block
-                = select_tag :role, options_for_select(User::INVITATION_ROLES), class: 'js-invitation-role'
+                = select_tag :role, options_for_select(@invitation_roles), class: 'js-invitation-role'
             .invitation__element(class='!flex-1')
               = label_tag :course, 'コース', class: 'a-form-label'
               .a-button.is-md.is-secondary.is-select.is-block

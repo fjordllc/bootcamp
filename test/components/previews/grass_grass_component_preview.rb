@@ -4,7 +4,7 @@ class GrassGrassComponentPreview < ViewComponent::Preview
   def default
     user = OpenStruct.new(
       login_name: 'yamada',
-      graduated?: false
+      graduated_on?: false
     )
     times = build_times(Date.current)
 
@@ -19,7 +19,7 @@ class GrassGrassComponentPreview < ViewComponent::Preview
   def graduated_user
     user = OpenStruct.new(
       login_name: 'tanaka',
-      graduated?: true
+      graduated_on?: true
     )
     times = build_times(Date.current)
 

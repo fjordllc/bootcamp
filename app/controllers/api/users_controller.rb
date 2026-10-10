@@ -71,7 +71,7 @@ class API::UsersController < API::BaseController
         else
           User.unhibernated.unretired
         end
-      users_scope.users_role(@target, allowed_targets: target_allowlist)
+      UserTargetScopeResolver.new(users_scope).users_role(@target, allowed_targets: target_allowlist)
     end
   end
 

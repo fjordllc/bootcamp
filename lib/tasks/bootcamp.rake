@@ -72,7 +72,7 @@ namespace :bootcamp do
   namespace :statistics do
     desc 'save learning minute statistics'
     task save_learning_minute_statistics: :environment do
-      Practice.save_learning_minute_statistics
+      SaveLearningMinuteStatistics.call
     end
   end
 end

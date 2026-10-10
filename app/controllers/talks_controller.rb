@@ -15,7 +15,7 @@ class TalksController < ApplicationController
     @talks = Talk.joins(:user)
                  .includes(user: [{ avatar_attachment: :blob }, :discord_profile])
                  .order(updated_at: :desc, id: :asc)
-    users = User.users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'all')
+    users = UserTargetScopeResolver.new(User).users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'all')
 
     if params[:search_word]
       search_user = SearchUser.new(word: params[:search_word], users:, target: @target, require_retire_user: true)

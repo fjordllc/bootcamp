@@ -14,7 +14,7 @@ class Users::CoursesController < ApplicationController
         Course.where(published: true).where(title: I18n.t("course_names.#{@target}")).pluck(:title)
       end
 
-    target_users = User.by_course(course_names).students_and_trainees
+    target_users = User.joins(:course).where(courses: { title: course_names }).students_and_trainees
     @users = target_users
              .page(params[:page]).per(PAGER_NUMBER)
              .preload(:avatar_attachment, :course, :taggings)

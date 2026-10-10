@@ -7,7 +7,7 @@ section.a-card.coding-tests
     - coding_tests.order(:position).each do |coding_test|
       article.card-list-item
         .coding-tests-item
-          - if coding_test.passed_by?(current_user)
+          - if coding_test.submitted_by?(current_user)
             .coding-tests-item__passed
               .a-badge.is-success.is-sm
                 | クリア
