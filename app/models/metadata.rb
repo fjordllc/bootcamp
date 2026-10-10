@@ -1,40 +1,62 @@
 # frozen_string_literal: true
 
 class Metadata
-  NETWORK_ERRORS = [
+  FETCH_ERRORS = [
+    ExternalContent::HttpClient::FetchError,
+    ExternalContent::HttpClient::ResponseTooLarge,
+    URI::InvalidURIError,
+    Addressable::URI::InvalidURIError,
     SocketError,
-    Errno::ECONNREFUSED,
-    Errno::ETIMEDOUT,
-    Net::OpenTimeout,
-    Net::ReadTimeout,
-    OpenSSL::SSL::SSLError
+    SystemCallError,
+    IOError,
+    Timeout::Error,
+    OpenSSL::SSL::SSLError,
+    Net::HTTPBadResponse,
+    Encoding::InvalidByteSequenceError,
+    Encoding::UndefinedConversionError
   ].freeze
 
   def initialize(url)
     @url = url
-    @uri = Addressable::URI.parse(url).normalize
   end
 
   def fetch
-    http = Net::HTTP.new(@uri.host, @uri.inferred_port)
-    if @uri.scheme == 'https'
-      http.use_ssl = true
-      http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-    end
-    http.response_body_encoding = true
+    @uri = Addressable::URI.parse(@url)
+    return unless @uri && @uri.userinfo.nil?
 
-    response = http.request_get(@uri.request_uri)
-    return fetch_youtube_oembed unless response.is_a?(Net::HTTPSuccess)
+    @uri = @uri.normalize
+    response = ExternalContent::HttpClient.get(@uri.to_s, max_body_bytes: 2.megabytes, request_timeout: 10)
+    return fetch_youtube_oembed unless response.success?
 
-    parse(response.body) || fetch_youtube_oembed
-  rescue *NETWORK_ERRORS
+    parse(html_document(response)) || fetch_youtube_oembed
+  rescue *FETCH_ERRORS
     nil
   end
 
   private
 
-  def parse(html)
-    object = OpenGraphReader.parse(html)
+  def html_document(response)
+    body = response.body.to_s.b
+    encoding = declared_encoding(response.content_type)
+    return Nokogiri::HTML(body.force_encoding(encoding).encode(Encoding::UTF_8)) if encoding
+
+    document = Nokogiri::HTML(body)
+    utf8 = body.dup.force_encoding(Encoding::UTF_8)
+    # Respect HTML charset declarations; unlabelled, valid UTF-8 should not become Latin-1.
+    return document if document.meta_encoding || !utf8.valid_encoding?
+
+    Nokogiri::HTML(utf8)
+  end
+
+  def declared_encoding(content_type)
+    charset = content_type.to_s[/charset\s*=\s*["']?([^\s;"']+)/i, 1]
+    Encoding.find(charset) if charset
+  rescue ArgumentError
+    nil
+  end
+
+  def parse(document)
+    object = OpenGraphReader.parse(document)
     return unless object
 
     {
@@ -42,7 +64,7 @@ class Metadata
       description: object.og.description,
       images: object.og.image&.url,
       site_name: object.og.site_name || @uri.host,
-      favicon: favicon(html),
+      favicon: favicon(document),
       url: @url,
       site_url: site_url
     }
@@ -52,9 +74,8 @@ class Metadata
     "#{@uri.scheme}://#{@uri.host}"
   end
 
-  def favicon(html)
-    doc = Nokogiri::HTML(html)
-    favicon_path = doc.at_css('link[rel="icon"], link[rel="shortcut icon"]')&.attr('href')
+  def favicon(document)
+    favicon_path = document.at_css('link[rel="icon"], link[rel="shortcut icon"]')&.attr('href')
     return unless favicon_path
 
     absolute_regexp = URI::DEFAULT_PARSER.make_regexp
@@ -63,7 +84,7 @@ class Metadata
     if absolute_regexp.match?(favicon_path)
       favicon_path
     else
-      URI.join(@url, favicon_path).to_s
+      URI.join(@uri.to_s, favicon_path).to_s
     end
   end
 
@@ -76,10 +97,10 @@ class Metadata
 
     uri = Addressable::URI.parse('https://www.youtube.com/oembed')
     uri.query_values = { url: @url, format: 'json' }
-    response = Net::HTTP.get_response(uri.normalize)
-    return unless response.is_a?(Net::HTTPSuccess)
+    response = ExternalContent::HttpClient.get(uri.normalize.to_s, max_body_bytes: 2.megabytes, request_timeout: 10)
+    return unless response.success?
 
-    body = JSON.parse(response.body)
+    body = JSON.parse(response.body.to_s.dup.force_encoding(Encoding::UTF_8))
     {
       title: body['title'],
       description: nil,
@@ -89,7 +110,7 @@ class Metadata
       url: @url,
       site_url: 'https://www.youtube.com'
     }
-  rescue JSON::ParserError, *NETWORK_ERRORS
+  rescue JSON::ParserError
     nil
   end
 end

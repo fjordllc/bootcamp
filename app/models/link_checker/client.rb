@@ -2,10 +2,6 @@
 
 module LinkChecker
   class Client
-    SSL_VERIFY_NONE_HOST = [
-      'www.tablesgenerator.com' # 中間証明書を取得できず、SSLサーバー証明書の検証に失敗するため
-    ].freeze
-
     def self.request(url)
       new(url).request
     end
@@ -15,14 +11,14 @@ module LinkChecker
     end
 
     def request
-      uri = Addressable::URI.parse(@url).normalize
-      options = {}
-      options[:ssl_verify_mode] = OpenSSL::SSL::VERIFY_NONE if SSL_VERIFY_NONE_HOST.include?(uri.host)
-      response = OpenURI.open_uri(uri, **options)
-      response.status.first.to_i
-    rescue OpenURI::HTTPError => e
-      e.io.status.first.to_i
-    rescue StandardError => _e
+      uri = Addressable::URI.parse(@url)
+      return false unless uri && uri.userinfo.nil?
+
+      response = ExternalContent::HttpClient.get(uri.normalize.to_s, max_body_bytes: 2.megabytes, request_timeout: 10)
+      response.code.to_i
+    rescue URI::InvalidURIError, Addressable::URI::InvalidURIError, ExternalContent::HttpClient::FetchError,
+           ExternalContent::HttpClient::ResponseTooLarge, SocketError, SystemCallError, IOError,
+           Timeout::Error, OpenSSL::SSL::SSLError, Net::HTTPBadResponse
       false
     end
   end
