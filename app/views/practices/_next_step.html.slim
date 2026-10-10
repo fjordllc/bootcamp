@@ -27,11 +27,6 @@ section.a-card
             = link_to quiz_passed ? '理解度テストの解説を見る' : '理解度テストに進む',
               practice_practice_quiz_path(practice),
               class: 'a-button is-sm is-primary is-block'
-          li.card-main-actions__item
-            = link_to new_question_path(practice_id: practice.id),
-              class: 'a-button is-sm is-secondary is-block' do
-              i.fa-solid.fa-question-circle
-              | 質問する
       - if practice.submission? || quiz_passed
         ruby:
           can_complete = quiz_passed && practice.completable_by?(current_user)
@@ -43,10 +38,3 @@ section.a-card
         = render learning_component
     - else
       = render(Learnings::LearningComponent.new(practice:, current_user:))
-      .card-main-actions
-        ul.card-main-actions__items
-          li.card-main-actions__item
-            = link_to new_question_path(practice_id: practice.id),
-              class: 'a-button is-sm is-secondary is-block' do
-              i.fa-solid.fa-question-circle
-              | 質問する

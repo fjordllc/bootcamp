@@ -215,7 +215,7 @@ class PracticeQuizzesTest < ActionDispatch::IntegrationTest
     assert learning.reload.complete?
   end
 
-  test 'quiz goal precedes article with primary quiz action before question action' do
+  test 'quiz goal precedes article with primary quiz action in next step' do
     practice = practices(:practice3)
     create_quiz(practice)
     login(users(:kimura))
@@ -227,7 +227,6 @@ class PracticeQuizzesTest < ActionDispatch::IntegrationTest
     assert_includes response.body, '本文を読み、理解度テストに全問正解すると自動で修了になります。'
     assert_select next_step, 'a.a-button.is-primary.is-block[href=?]', practice_practice_quiz_path(practice), text: '理解度テストに進む'
     assert_select '#js-complete', count: 0
-    assert_operator response.body.index('理解度テストに進む'), :<, response.body.index('質問する')
     assert_select '.practice-status-buttons__item button.js-complete[disabled]', text: '修了'
   end
 
@@ -335,8 +334,10 @@ class PracticeQuizzesTest < ActionDispatch::IntegrationTest
     assert_operator titles.index('コーディングテスト'), :<, titles.index('次にやること') if titles.include?('コーディングテスト')
     goal = cards[titles.index(goal_title)]
     assert_empty goal.css('a.test-product, #js-complete, .test-completed')
+    article = cards[titles.index(article_title)]
+    assert_select article, 'a.a-button.is-secondary[href=?]', new_question_path(practice_id: practice.id), text: '質問する', count: 1
     next_step = cards[titles.index('次にやること')]
-    assert_select next_step, 'a.a-button.is-secondary[href=?]', new_question_path(practice_id: practice.id), text: '質問する', count: 1
+    assert_select next_step, 'a[href=?]', new_question_path(practice_id: practice.id), count: 0
     assert_select '.practice.page-content a[href=?]', new_question_path(practice_id: practice.id), count: 1
     next_step
   end

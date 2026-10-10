@@ -10,13 +10,12 @@ section.a-card
       = render 'shared/common_page_body',
         common_page: @common_page,
         classes: 'common-page-body js-markdown-view a-long-text is-md'
-  - if practice_skipped
-    hr.a-border-tint
-    footer.card-footer
-      .card-main-actions
-        ul.card-main-actions__items
-          li.card-main-actions__item
-            = link_to new_question_path(practice_id: params[:id]),
-              class: 'a-button is-sm is-secondary is-block' do
-              i.fa-solid.fa-question-circle
-              | 質問する
+  hr.a-border-tint
+  footer.card-footer
+    .card-main-actions
+      ul.card-main-actions__items
+        li.card-main-actions__item
+          = link_to new_question_path(practice_id: practice.id),
+            class: 'a-button is-sm is-secondary is-block' do
+            i.fa-solid.fa-question-circle
+            | 質問する
