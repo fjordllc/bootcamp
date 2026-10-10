@@ -14,6 +14,7 @@ class PracticeQuizQuestion < ApplicationRecord
   validates :body, presence: true
   validates :position, presence: true
   validate :published_question_must_have_valid_choices
+  validate :published_question_must_have_distinct_choices
   validate :published_quiz_must_have_published_question
 
   scope :published, -> { where(published: true).order(:position, :id) }
@@ -42,6 +43,17 @@ class PracticeQuizQuestion < ApplicationRecord
     errors.add(:base, '公開中の問題には2つ以上の選択肢が必要です。') if active_choices.size < 2
     errors.add(:base, '公開中の問題には正解が必要です。') if correct_choices.empty?
     errors.add(:base, '単一選択の正解は1つだけにしてください。') if single_choice? && correct_choices.size != 1
+  end
+
+  def published_question_must_have_distinct_choices
+    return unless published?
+
+    bodies = practice_quiz_choices.reject(&:marked_for_destruction?)
+                                  .map { |choice| choice.body.to_s.squish }
+                                  .reject(&:blank?)
+    return if bodies.uniq.size == bodies.size
+
+    errors.add(:base, '公開中の問題の選択肢は重複しないようにしてください。')
   end
 
   def published_quiz_must_have_published_question

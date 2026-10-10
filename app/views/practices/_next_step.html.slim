@@ -1,0 +1,40 @@
+ruby:
+  quiz_required = practice.practice_quiz_required?
+  quiz_passed = quiz_required && practice.practice_quiz_passed_by?(current_user)
+section.a-card
+  header.card-header
+    h2.card-header__title 次にやること
+  hr.a-border-tint
+  .card-body
+    .card-body__inner
+      .a-short-text
+        - if quiz_required && quiz_passed
+          p 理解度テストに合格済みです。正解と解説を振り返れます。
+        - elsif quiz_required
+          p 本文の内容を振り返り、理解度テストで確かめましょう。
+        - elsif practice.guide_to_grant_course?(current_user)
+          p 本文を読み終えたら、給付金コースのプラクティスで提出・修了を進めてください。
+        - elsif practice.submission?
+          p 本文を読み終えたら、修了条件を確認して提出物を作成しましょう。
+        - else
+          p 本文を読み終えたら、修了条件を確認して修了にしてください。
+  hr.a-border-tint
+  footer.card-footer
+    - if quiz_required
+      .card-main-actions
+        ul.card-main-actions__items
+          li.card-main-actions__item
+            = link_to quiz_passed ? '理解度テストの解説を見る' : '理解度テストに進む',
+              practice_practice_quiz_path(practice),
+              class: 'a-button is-sm is-primary is-block'
+      - if practice.submission? || quiz_passed
+        ruby:
+          can_complete = quiz_passed && practice.completable_by?(current_user)
+          learning_component = Learnings::LearningComponent.new(
+            practice:,
+            current_user:,
+            show_completion: can_complete
+          )
+        = render learning_component
+    - else
+      = render(Learnings::LearningComponent.new(practice:, current_user:))

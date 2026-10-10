@@ -104,53 +104,21 @@
           - if @practice.summary?
             = render 'summary', practice: @practice
 
-          = render 'description', practice: @practice
+          - practice_skipped = skipped_practices.include?(@practice.id)
+
+          - unless practice_skipped
+            = render 'goal', practice: @practice
+
+          = render 'description', practice: @practice, practice_skipped: practice_skipped
 
           - if @practice.practices_books.exists?
             = render 'books', practice: @practice
 
-          - unless skipped_practices.include?(@practice.id)
-            section.a-card
-              header.card-header
-                h2.card-header__title
-                  = Practice.human_attribute_name :goal
-              hr.a-border-tint
-              .card-body.is-goal
-                .card-body__description
-                  .a-long-text.is-md.js-markdown-view
-                    = @practice.goal
-                  - if !current_user.adviser? && @practice.open_product?
-                    = render 'content_notice'
-              hr.a-border-tint
-              footer.card-footer
-                = render(Learnings::LearningComponent.new(practice: @practice, current_user:))
-                - if @practice.practice_quiz_required?
-                  .card-footer__alert
-                    - if @practice.practice_quiz_passed_by?(current_user)
-                      | 理解度テストに合格済みです。
-                    - else
-                      = link_to '理解度テストに合格すると、このプラクティスを修了できます。',
-                        practice_practice_quiz_path(@practice),
-                        class: 'card-footer__quiz-link'
-                - if @practice.submission && !@practice.guide_to_grant_course?(current_user)
-                  .card-footer__alert
-                    = link_to '提出の前に、提出時の注意点を確認しよう',
-                      'https://bootcamp.fjord.jp/pages/info-for-product',
-                      target: '_blank',
-                      rel: 'noopener'
-                  .card-footer__description
-                    | 提出物を作成し提出し、メンターから確認をもらったら
-                    br
-                    | このプラクティスを修了にしてください。
-                - else
-                  - unless @practice.guide_to_grant_course?(@current_user)
-                    .card-footer__description
-                      | このプラクティスに提出物はありません。
-                      br
-                      | 修了条件をクリアしたら修了にしてください。
-
           - if @practice.coding_tests.present?
             = render partial: 'coding_tests', locals: { coding_tests: @practice.coding_tests }
+
+          - unless practice_skipped
+            = render 'next_step', practice: @practice
 
           - if current_user.admin_or_mentor?
             = render 'memo', practice: @practice
