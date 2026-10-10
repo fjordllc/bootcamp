@@ -35,6 +35,32 @@ class PracticeQuizQuestionTest < ActiveSupport::TestCase
     assert_includes question.errors.full_messages, '単一選択の正解は1つだけにしてください。'
   end
 
+  test 'published question rejects duplicate nonblank choices including nested updates' do
+    question = create_question(:single_choice)
+    choices = question.practice_quiz_choices.to_a
+    question.assign_attributes(practice_quiz_choices_attributes: [{ id: choices.last.id, body: choices.first.body }])
+
+    assert_not question.valid?
+    assert_includes question.errors.full_messages, '公開中の問題の選択肢は重複しないようにしてください。'
+  end
+
+  test 'published question ignores choice marked for deletion when checking duplicates' do
+    question = create_question(:single_choice)
+    duplicate = question.practice_quiz_choices.create!(body: '正解1', correct: false, position: 4)
+    question.assign_attributes(practice_quiz_choices_attributes: [{ id: duplicate.id, _destroy: '1' }])
+
+    assert question.valid?
+    assert question.practice_quiz_choices.detect { |choice| choice.id == duplicate.id }.marked_for_destruction?
+  end
+
+  test 'draft question may contain duplicate choices' do
+    question = create_question(:single_choice)
+    question.published = false
+    question.practice_quiz_choices.last.body = question.practice_quiz_choices.first.body
+
+    assert question.valid?
+  end
+
   private
 
   def create_question(question_type)
