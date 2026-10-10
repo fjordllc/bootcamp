@@ -4,6 +4,9 @@ Issue に `Codex` ラベルを付けると、`work.comagata.org` を運用して
 Codex CLIがGPT-5.6 SOLで実装し、ドラフトではない通常のPull Requestを作成
 します。次回の定期実行では別のCodexセッションがレビューし、その後はCIと
 CodeRabbitの結果を確認して最大3回まで修正します。自動mergeは行いません。
+自動作成したopenなPRでは、監視完了後も、repositoryへの書き込み権限を持つ
+ユーザーがconversation commentに `@codex` と書くと、次回の定期実行で回答し、
+依頼に変更が必要なら同じPRへ修正をpushします。
 
 OpenAIやAnthropicのAPIはGitHub Actionsから呼び出しません。Codex CLIは
 ChatGPTアカウントで認証し、契約プランのCodex利用枠を使用します。
@@ -61,9 +64,10 @@ socketは渡しません。テスト用PostgreSQLは実行ごとに別コンテ�
 bin/codex-issue-automation-docker
 ```
 
-ランナーは `flock` で多重起動を防ぎます。対象Issueまたは管理対象PRがなければ
-Codexを起動せず終了します。各Codexセッションは一つの状態遷移だけを行うため、
-実装したセッションとレビューするセッションは分離されます。
+ランナーは `flock` で多重起動を防ぎます。対象Issue、管理対象PR、または
+自動作成PRの未処理 `@codex` コメントがなければCodexを起動せず終了します。
+各Codexセッションは一つの状態遷移だけを行うため、実装したセッションと
+レビューするセッションは分離されます。
 
 以下の環境変数で配置だけを変更できます。
 

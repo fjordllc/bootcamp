@@ -47,6 +47,21 @@ class AiIssueAutomationTest < ActiveSupport::TestCase
     assert_includes prompt, 'Issueから `Codex` ラベルを外す'
   end
 
+  test 'responds to unprocessed @codex comments on managed pull requests' do
+    runner = RUNNER.read
+    prompt = PROMPT.read
+
+    assert_includes runner, 'issues/$pr_number/comments'
+    assert_includes runner, 'codex-command-response:$comment_id'
+    assert_includes prompt, '`@codex`'
+    assert_includes prompt, '<!-- codex-command-response:COMMENT_ID -->'
+    assert_includes prompt, 'conversation comment'
+    assert_includes prompt, '返信'
+    assert_includes prompt, '同じhead branchへpush'
+    assert_includes prompt, '@codexコメントへの対応を最優先'
+    assert_includes prompt, 'write、maintain、admin'
+  end
+
   test 'does not call AI APIs from GitHub Actions' do
     refute_path_exists WORKFLOWS_DIR.join('codex-implement-issue.yml')
     refute_path_exists WORKFLOWS_DIR.join('codex-follow-up.yml')
