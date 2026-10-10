@@ -15,6 +15,7 @@ import ReplaceLinkToCard from 'replace-link-to-card'
 import MarkDownItContainerFigure from 'markdown-it-container-figure'
 import MarkdownItVimeo from 'markdown-it-vimeo'
 import MarkdownItYoutube from 'markdown-it-youtube'
+import sanitizeMarkdown from 'markdown-sanitizer'
 
 export default class {
   replace(selector) {
@@ -59,6 +60,6 @@ export default class {
     md.use(MarkDownItContainerFigure)
     md.use(MarkdownItVimeo)
     md.use(MarkdownItYoutube)
-    return md.render(text)
+    return sanitizeMarkdown(md.render(text))
   }
 }
