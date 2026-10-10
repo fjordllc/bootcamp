@@ -80,16 +80,6 @@ class Report < ApplicationRecord
                          .to_h
                          .with_indifferent_access
     end
-
-    def save_as_markdown!(reports, folder_path)
-      reports.each do |report|
-        File.open("#{folder_path}/#{report.reported_on}.md", 'w') do |file|
-          file.puts("# #{report.title}")
-          file.puts
-          file.puts(report.description)
-        end
-      end
-    end
   end
 
   def previous
@@ -127,6 +117,29 @@ class Report < ApplicationRecord
 
   def total_learning_time
     (learning_times.sum(&:diff) / 60).to_i
+  end
+
+  def canonicalize_learning_times
+    learning_times.each do |learning_time|
+      new_started_at = learning_time.started_at.change(
+        year: reported_on.year,
+        month: reported_on.month,
+        day: reported_on.day
+      )
+
+      new_finished_at = learning_time.finished_at.change(
+        year: reported_on.year,
+        month: reported_on.month,
+        day: reported_on.day
+      )
+
+      new_finished_at += 1.day if new_started_at > new_finished_at
+
+      learning_time.assign_attributes(
+        started_at: new_started_at,
+        finished_at: new_finished_at
+      )
+    end
   end
 
   def latest_of_user?

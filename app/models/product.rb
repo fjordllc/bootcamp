@@ -102,6 +102,13 @@ class Product < ApplicationRecord # rubocop:todo Metrics/ClassLength
     checks.where(user:).present?
   end
 
+  def user_products
+    user.products
+        .includes(:practice, :user, :comments, :checks, comments: :user)
+        .not_wip
+        .order(published_at: :desc)
+  end
+
   def change_learning_status(status)
     learning = Learning.find_or_initialize_by(
       user_id: user.id,
@@ -155,6 +162,12 @@ class Product < ApplicationRecord # rubocop:todo Metrics/ClassLength
   def elapsed_days
     t = published_at || created_at
     ((Time.current - t) / 1.day).to_i
+  end
+
+  def update_published_at
+    return if wip || published_at?
+
+    self.published_at = Time.current
   end
 
   def checker_avatar
