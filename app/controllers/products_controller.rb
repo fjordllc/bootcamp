@@ -51,8 +51,7 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     @practice = find_practice
     @product.practice = @practice
     @product.user = current_user
-    set_wip
-    update_published_at
+    @product.update_wip_and_published_at(params[:commit] == 'WIP')
     if @product.save
       ActiveSupport::Notifications.instrument('product.create', product: @product)
       ActiveSupport::Notifications.instrument('product.save', product: @product)
@@ -66,8 +65,7 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     @product = find_my_product
     @practice = @product.practice
     @product.published_at = nil if @product.published_at? && @product.wip
-    set_wip
-    update_published_at
+    @product.update_wip_and_published_at(params[:commit] == 'WIP')
     if @product.update(product_params)
       ActiveSupport::Notifications.instrument('product.update', { product: @product, current_user: })
       ActiveSupport::Notifications.instrument('product.save', product: @product)
@@ -85,12 +83,6 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
   end
 
   private
-
-  def update_published_at
-    return if @product.wip || @product.published_at?
-
-    @product.published_at = Time.current
-  end
 
   def find_product
     Product.find(params[:id])
@@ -126,10 +118,6 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
 
   def set_watch
     @watch = Watch.new
-  end
-
-  def set_wip
-    @product.wip = params[:commit] == 'WIP'
   end
 
   def notice_message(product, action_name)
