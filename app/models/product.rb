@@ -206,6 +206,16 @@ class Product < ApplicationRecord # rubocop:todo Metrics/ClassLength
     practice.title
   end
 
+  def update_wip_and_published_at(wip_status)
+    self.wip = wip_status
+
+    if wip_status
+      self.published_at = nil
+    elsif published_at.nil?
+      self.published_at = Time.current
+    end
+  end
+
   private
 
   def ai_review_input_changed?
