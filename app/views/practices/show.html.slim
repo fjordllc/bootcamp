@@ -121,7 +121,8 @@
             = render 'next_step', practice: @practice
 
           - if current_user.admin_or_mentor?
-            = render 'memo', practice: @practice
+            - if @practice.memo.present?
+              = render 'memo', practice: @practice
 
             .a-card.is-only-mentor
               header.card-header
