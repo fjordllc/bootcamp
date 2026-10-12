@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_01_020000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_12_083419) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -831,7 +831,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_01_020000) do
     t.text "description"
     t.datetime "updated_at", null: false
     t.bigint "user_id"
-    t.index ["user_id"], name: "index_report_templates_on_user_id"
+    t.index ["user_id"], name: "index_report_templates_on_user_id", unique: true
   end
 
   create_table "reports", id: :serial, force: :cascade do |t|
