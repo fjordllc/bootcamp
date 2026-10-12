@@ -5,38 +5,38 @@ import { toast } from 'vanillaToast'
 
 export default class extends Controller {
   static targets = [
-    'report',
+    'reportInput',
     'modal',
-    'templateInput',
+    'presetInput',
     'submitButton',
-    'templateTab',
+    'presetEditTab',
     'previewTab',
-    'templateContent',
-    'previewContent'
+    'presetEditPanel',
+    'previewPanel'
   ]
 
   static values = {
-    registeredTemplate: String,
-    registeredTemplateId: Number,
+    savedPresetDescription: String,
+    presetId: Number,
     editing: Boolean,
-    isEditingTemplateValid: Boolean
+    isEditingPresetValid: Boolean
   }
 
   connect() {
-    if (this.reportTarget.value === '') {
-      this.reportTarget.value = this.registeredTemplateValue
+    if (this.reportInputTarget.value === '') {
+      this.reportInputTarget.value = this.savedPresetDescriptionValue
     }
-    this.registeredTemplateValue = this.templateInputTarget.value
+    this.savedPresetDescriptionValue = this.presetInputTarget.value
     TextareaInitializer.initialize('.js-report-content')
   }
 
-  replaceReport(e) {
+  replaceReportWithPreset(e) {
     e.preventDefault()
     if (
-      this.reportTarget.value === '' ||
+      this.reportInputTarget.value === '' ||
       confirm('日報が上書きされますが、よろしいですか？')
     ) {
-      this.reportTarget.value = this.registeredTemplateValue
+      this.reportInputTarget.value = this.savedPresetDescriptionValue
       TextareaInitializer.uninitialize('.js-report-content')
       TextareaInitializer.initialize('.js-report-content')
     }
@@ -46,7 +46,7 @@ export default class extends Controller {
     if (e.target !== e.currentTarget) {
       return
     }
-    if (this.editingValue === this.registeredTemplateValue) {
+    if (this.editingValue === this.savedPresetDescriptionValue) {
       this.closeModal()
     } else {
       confirm('テンプレートを登録せずに終了しますか？') && this.closeModal()
@@ -56,8 +56,8 @@ export default class extends Controller {
   openModal(e) {
     e.preventDefault()
     this.modalTarget.classList.remove('is-hidden')
-    this.templateInputTarget.value = this.registeredTemplateValue
-    TextareaInitializer.initialize('#js-template-content')
+    this.presetInputTarget.value = this.savedPresetDescriptionValue
+    TextareaInitializer.initialize('#js-preset-content')
     this.updateSubmitButtonState()
   }
 
@@ -65,19 +65,19 @@ export default class extends Controller {
     this.modalTarget.classList.add('is-hidden')
   }
 
-  registerTemplate(e) {
+  registerPreset(e) {
     e.preventDefault()
-    const editingTemplate = this.templateInputTarget.value
+    const editingDescription = this.presetInputTarget.value
 
     if (
-      editingTemplate === '' ||
-      editingTemplate === this.registeredTemplateValue
+      editingDescription === '' ||
+      editingDescription === this.savedPresetDescriptionValue
     ) {
       return null
     }
 
     const params = {
-      report_preset: { description: editingTemplate }
+      report_preset: { description: editingDescription }
     }
     fetch('/api/report_presets', {
       method: 'POST',
@@ -93,9 +93,9 @@ export default class extends Controller {
       .then((response) => {
         return response.json()
       })
-      .then((newTemplate) => {
-        this.registeredTemplateValue = editingTemplate
-        this.registeredTemplateIdValue = newTemplate.id
+      .then((createdPreset) => {
+        this.savedPresetDescriptionValue = editingDescription
+        this.presetIdValue = createdPreset.id
         toast('テンプレートを登録しました！')
         this.closeModal()
       })
@@ -104,20 +104,20 @@ export default class extends Controller {
       })
   }
 
-  updateTemplate(e) {
+  updatePreset(e) {
     e.preventDefault()
-    const editingTemplate = this.templateInputTarget.value
+    const editingDescription = this.presetInputTarget.value
     if (
-      editingTemplate === '' ||
-      editingTemplate === this.registeredTemplateValue
+      editingDescription === '' ||
+      editingDescription === this.savedPresetDescriptionValue
     ) {
       return null
     }
 
     const params = {
-      report_preset: { description: editingTemplate }
+      report_preset: { description: editingDescription }
     }
-    fetch(`/api/report_presets/${this.registeredTemplateIdValue}`, {
+    fetch(`/api/report_presets/${this.presetIdValue}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -129,7 +129,7 @@ export default class extends Controller {
       body: JSON.stringify(params)
     })
       .then(() => {
-        this.registeredTemplateValue = editingTemplate
+        this.savedPresetDescriptionValue = editingDescription
         toast('テンプレートを変更しました！')
         this.closeModal()
       })
@@ -138,31 +138,31 @@ export default class extends Controller {
       })
   }
 
-  clickTemplateTab(e) {
+  openPresetEditTab(e) {
     e.preventDefault()
     this.editingValue = true
-    this.templateTabTarget.classList.add('is-active')
+    this.presetEditTabTarget.classList.add('is-active')
     this.previewTabTarget.classList.remove('is-active')
-    this.templateContentTarget.classList.add('is-active')
-    this.previewContentTarget.classList.remove('is-active')
+    this.presetEditPanelTarget.classList.add('is-active')
+    this.previewPanelTarget.classList.remove('is-active')
   }
 
-  clickPreviewTab(e) {
+  openPreviewTab(e) {
     e.preventDefault()
     this.editingValue = false
-    this.templateTabTarget.classList.remove('is-active')
+    this.presetEditTabTarget.classList.remove('is-active')
     this.previewTabTarget.classList.add('is-active')
-    this.templateContentTarget.classList.remove('is-active')
-    this.previewContentTarget.classList.add('is-active')
+    this.presetEditPanelTarget.classList.remove('is-active')
+    this.previewPanelTarget.classList.add('is-active')
   }
 
   updateSubmitButtonState() {
-    const editingTemplate = this.templateInputTarget.value.trim()
-    const registeredTemplate = this.registeredTemplateValue.trim()
+    const editingDescription = this.presetInputTarget.value.trim()
+    const savedPresetDescription = this.savedPresetDescriptionValue.trim()
 
     const isValid =
-      editingTemplate !== '' && editingTemplate !== registeredTemplate
-    this.isEditingTemplateValidValue = isValid
+      editingDescription !== '' && editingDescription !== savedPresetDescription
+    this.isEditingPresetValidValue = isValid
     this.submitButtonTarget.disabled = !isValid
   }
 }

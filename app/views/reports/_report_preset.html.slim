@@ -1,15 +1,15 @@
 div(
-  data-report-preset-registered-template-value=preset_description
-  data-report-preset-registered-template-id-value=preset_id
+  data-report-preset-saved-preset-description-value=preset_description
+  data-report-preset-preset-id-value=preset_id
   data-report-preset-editing-value=editingValue
-  data-report-preset-is-editing-template-valid-value=is_editing_template_valid
+  data-report-preset-is-editing-preset-valid-value=is_editing_preset_valid
 )
   .form-item-actions
     ul.form-item-actions__items
       - if preset_id.present?
         li.form-item-actions__item
           a.form-item-actions__text-link.is-danger(
-            data-action="click->report-preset#replaceReport"
+            data-action="click->report-preset#replaceReportWithPreset"
           )
             | テンプレートを反映する
 
@@ -50,13 +50,13 @@ div(
       .a-form-tabs.js-tabs
         .a-form-tabs__tab.js-tabs__tab(
           class=(editingValue ? 'is-active' : '')
-          data-action='click->report-preset#clickTemplateTab'
-          data-report-preset-target='templateTab'
+          data-action='click->report-preset#openPresetEditTab'
+          data-report-preset-target='presetEditTab'
         )
           | テンプレート
         .a-form-tabs__tab.js-tabs__tab(
           class=(editingValue ? '' : 'is-active')
-          data-action='click->report-preset#clickPreviewTab'
+          data-action='click->report-preset#openPreviewTab'
           data-report-preset-target='previewTab'
         )
           | プレビュー
@@ -64,25 +64,25 @@ div(
       .a-markdown-input.js-markdown-parent
         .a-markdown-input__inner.js-tabs__content(
           class=(editingValue ? 'is-active' : '')
-          data-report-preset-target='templateContent'
+          data-report-preset-target='presetEditPanel'
         )
-          textarea.a-text-input.a-markdown-input__textarea.has-max-height#js-template-content(
-            data-preview='#js-template-preview'
-            data-report-preset-target='templateInput'
+          textarea.a-text-input.a-markdown-input__textarea.has-max-height#js-preset-content(
+            data-preview='#js-preset-preview'
+            data-report-preset-target='presetInput'
             name='report_preset[description]'
             data-action='input->report-preset#updateSubmitButtonState'
           ) = preset_description
 
         .a-markdown-input__inner.js-tabs__content.a-long-text.is-md.a-markdown-input__preview.has-max-height(
-          id='js-template-preview'
+          id='js-preset-preview'
           class=(editingValue ? '' : 'is-active')
-          data-report-preset-target='previewContent'
+          data-report-preset-target='previewPanel'
         )
 
       footer.card-footer
         .card-main-actions
           ul.card-main-actions__items
-            - action = preset_id.present? ? 'updateTemplate' : 'registerTemplate'
+            - action = preset_id.present? ? 'updatePreset' : 'registerPreset'
             - label = preset_id.present? ? '変更' : '登録'
 
             li.card-main-actions__item
