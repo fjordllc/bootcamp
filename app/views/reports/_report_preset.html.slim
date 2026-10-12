@@ -1,31 +1,21 @@
-div(
-  data-report-preset-saved-preset-description-value=preset_description
-  data-report-preset-preset-id-value=preset_id
-  data-report-preset-editing-value=editingValue
-  data-report-preset-is-editing-preset-valid-value=is_editing_preset_valid
-)
+div
   .form-item-actions
     ul.form-item-actions__items
-      - if preset_id.present?
-        li.form-item-actions__item
-          a.form-item-actions__text-link.is-danger(
-            data-action="click->report-preset#replaceReportWithPreset"
-          )
-            | テンプレートを反映する
+      li.form-item-actions__item (
+        class=(preset_id.present? ? '' : 'is-hidden')
+        data-report-preset-target='replaceReportAction'
+      )
+        a.form-item-actions__text-link.is-danger(
+          data-action='click->report-preset#replaceReportWithPreset'
+        )
+          | テンプレートを反映する
 
-        li.form-item-actions__item
-          button.a-button.is-sm.is-secondary.is-block(
-            type='button'
-            data-action="click->report-preset#openModal"
-          )
-            | テンプレート変更
-      - else
-        li.form-item-actions__item
-          button.a-button.is-sm.is-secondary.is-block(
-            type='button'
-            data-action="click->report-preset#openModal"
-          )
-            | テンプレート登録
+      li.form-item-actions__item
+        button.a-button.is-sm.is-secondary.is-block(
+          type='button'
+          data-action='click->report-preset#openModal'
+          data-report-preset-target='openModalButton'
+        ) = preset_id.present? ? 'テンプレート変更' : 'テンプレート登録'
 
       li.form-item-actions__item
         button.a-button.is-sm.is-secondary.is-block(
@@ -40,7 +30,6 @@ div(
     role='dialog'
     aria-modal='true'
     aria-labelledby='report-preset-modal-title'
-    aria-hidden='true'
   )
     .a-card.is-modal
       header.card-header.is-sm
@@ -48,22 +37,19 @@ div(
       hr.a-border
 
       .a-form-tabs.js-tabs
-        .a-form-tabs__tab.js-tabs__tab(
-          class=(editingValue ? 'is-active' : '')
+        .a-form-tabs__tab.js-tabs__tab.is-active(
           data-action='click->report-preset#openPresetEditTab'
           data-report-preset-target='presetEditTab'
         )
           | テンプレート
         .a-form-tabs__tab.js-tabs__tab(
-          class=(editingValue ? '' : 'is-active')
           data-action='click->report-preset#openPreviewTab'
           data-report-preset-target='previewTab'
         )
           | プレビュー
 
       .a-markdown-input.js-markdown-parent
-        .a-markdown-input__inner.js-tabs__content(
-          class=(editingValue ? 'is-active' : '')
+        .a-markdown-input__inner.js-tabs__content.is-active(
           data-report-preset-target='presetEditPanel'
         )
           textarea.a-text-input.a-markdown-input__textarea.has-max-height#js-preset-content(
@@ -75,24 +61,19 @@ div(
 
         .a-markdown-input__inner.js-tabs__content.a-long-text.is-md.a-markdown-input__preview.has-max-height(
           id='js-preset-preview'
-          class=(editingValue ? '' : 'is-active')
           data-report-preset-target='previewPanel'
         )
 
       footer.card-footer
         .card-main-actions
           ul.card-main-actions__items
-            - action = preset_id.present? ? 'updatePreset' : 'registerPreset'
-            - label = preset_id.present? ? '変更' : '登録'
-
             li.card-main-actions__item
               button.a-button.is-primary.is-sm.is-block(
                 type='button'
-                class=(editingValue ? 'is-active' : '')
-                data-action='click->report-preset##{action}'
+                data-action='click->report-preset#savePreset'
                 data-report-preset-target='submitButton'
                 disabled=true
-              ) = label
+              ) = preset_id.present? ? '変更' : '登録'
             li.card-main-actions__item.is-sub
               .card-main-actions__muted-action(
                 data-action='click->report-preset#closeModal'

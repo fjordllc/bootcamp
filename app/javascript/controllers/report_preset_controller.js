@@ -12,22 +12,22 @@ export default class extends Controller {
     'presetEditTab',
     'previewTab',
     'presetEditPanel',
-    'previewPanel'
+    'previewPanel',
+    'replaceReportAction',
+    'openModalButton'
   ]
 
   static values = {
-    savedPresetDescription: String,
     presetId: Number,
-    editing: Boolean,
-    isEditingPresetValid: Boolean
+    savedPresetDescription: String
   }
 
   connect() {
     if (this.reportInputTarget.value === '') {
       this.reportInputTarget.value = this.savedPresetDescriptionValue
     }
-    this.savedPresetDescriptionValue = this.presetInputTarget.value
     TextareaInitializer.initialize('.js-report-content')
+    this.updatePresetControls()
   }
 
   replaceReportWithPreset(e) {
@@ -46,10 +46,11 @@ export default class extends Controller {
     if (e.target !== e.currentTarget) {
       return
     }
-    if (this.editingValue === this.savedPresetDescriptionValue) {
+    if (
+      this.presetInputTarget.value === this.savedPresetDescriptionValue ||
+      confirm('テンプレートを登録せずに終了しますか？')
+    ) {
       this.closeModal()
-    } else {
-      confirm('テンプレートを登録せずに終了しますか？') && this.closeModal()
     }
   }
 
@@ -65,21 +66,28 @@ export default class extends Controller {
     this.modalTarget.classList.add('is-hidden')
   }
 
-  registerPreset(e) {
+  savePreset(e) {
     e.preventDefault()
     const editingDescription = this.presetInputTarget.value
 
     if (
-      editingDescription === '' ||
-      editingDescription === this.savedPresetDescriptionValue
+      editingDescription.trim() === '' ||
+      editingDescription.trim() === this.savedPresetDescriptionValue.trim()
     ) {
-      return null
+      return
     }
 
+    if (this.presetIdValue > 0) {
+      return this.updatePreset(editingDescription)
+    }
+    return this.registerPreset(editingDescription)
+  }
+
+  registerPreset(editingDescription) {
     const params = {
       report_preset: { description: editingDescription }
     }
-    fetch('/api/report_presets', {
+    return fetch('/api/report_presets', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -91,29 +99,25 @@ export default class extends Controller {
       body: JSON.stringify(params)
     })
       .then((response) => {
+        if (!response.ok) {
+          throw new Error('テンプレートの登録に失敗しました')
+        }
         return response.json()
       })
       .then((createdPreset) => {
-        this.savedPresetDescriptionValue = editingDescription
         this.presetIdValue = createdPreset.id
+        this.savedPresetDescriptionValue = editingDescription
+        this.updatePresetControls()
         toast('テンプレートを登録しました！')
         this.closeModal()
       })
       .catch((error) => {
         console.warn(error)
+        toast('テンプレートを登録できませんでした。', 'error')
       })
   }
 
-  updatePreset(e) {
-    e.preventDefault()
-    const editingDescription = this.presetInputTarget.value
-    if (
-      editingDescription === '' ||
-      editingDescription === this.savedPresetDescriptionValue
-    ) {
-      return null
-    }
-
+  updatePreset(editingDescription) {
     const params = {
       report_preset: { description: editingDescription }
     }
@@ -128,19 +132,45 @@ export default class extends Controller {
       redirect: 'manual',
       body: JSON.stringify(params)
     })
-      .then(() => {
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('テンプレートの変更に失敗しました')
+        }
         this.savedPresetDescriptionValue = editingDescription
+        this.updatePresetControls()
         toast('テンプレートを変更しました！')
         this.closeModal()
       })
       .catch((error) => {
         console.warn(error)
+        toast('テンプレートを変更できませんでした。', 'error')
       })
+  }
+
+  updatePresetControls() {
+    const isPresetRegistered = this.presetIdValue > 0
+    this.replaceReportActionTarget.classList.toggle(
+      'is-hidden',
+      !isPresetRegistered
+    )
+    this.openModalButtonTarget.textContent = isPresetRegistered
+      ? 'テンプレート変更'
+      : 'テンプレート登録'
+    this.submitButtonTarget.textContent = isPresetRegistered ? '変更' : '登録'
+    this.updateSubmitButtonState()
+  }
+
+  updateSubmitButtonState() {
+    const editingDescription = this.presetInputTarget.value.trim()
+    const savedDescription = this.savedPresetDescriptionValue.trim()
+
+    const isValid =
+      editingDescription !== '' && editingDescription !== savedDescription
+    this.submitButtonTarget.disabled = !isValid
   }
 
   openPresetEditTab(e) {
     e.preventDefault()
-    this.editingValue = true
     this.presetEditTabTarget.classList.add('is-active')
     this.previewTabTarget.classList.remove('is-active')
     this.presetEditPanelTarget.classList.add('is-active')
@@ -149,20 +179,9 @@ export default class extends Controller {
 
   openPreviewTab(e) {
     e.preventDefault()
-    this.editingValue = false
     this.presetEditTabTarget.classList.remove('is-active')
     this.previewTabTarget.classList.add('is-active')
     this.presetEditPanelTarget.classList.remove('is-active')
     this.previewPanelTarget.classList.add('is-active')
-  }
-
-  updateSubmitButtonState() {
-    const editingDescription = this.presetInputTarget.value.trim()
-    const savedPresetDescription = this.savedPresetDescriptionValue.trim()
-
-    const isValid =
-      editingDescription !== '' && editingDescription !== savedPresetDescription
-    this.isEditingPresetValidValue = isValid
-    this.submitButtonTarget.disabled = !isValid
   }
 }
