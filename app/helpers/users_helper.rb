@@ -1,6 +1,36 @@
 # frozen_string_literal: true
 
-module UsersHelper
+module UsersHelper # rubocop:todo Metrics/ModuleLength
+  def user_activity_count(user, association, counts_by_user = nil)
+    return counts_by_user.fetch(user.id).fetch(association) if counts_by_user&.key?(user.id)
+
+    association == :comments ? user.comments.without_private_comment.size : user.public_send(association).size
+  end
+
+  def user_card_following_options(user, followings = nil)
+    return {} unless followings
+
+    following = followings[user.id]
+    { is_following: following.present?, is_watching: following&.watch? || false }
+  end
+
+  def user_card_progress(user, counts_by_user = nil)
+    return {} unless counts_by_user&.key?(user.id)
+
+    counts = counts_by_user.fetch(user.id)
+    percentage = user_course_practice_percentage(user, counts)
+    fraction = Rails.cache.fetch("/model/user_course_practice/#{user.id}/completed_fraction") do
+      "修了: #{counts[:completed]} （必須: #{counts[:completed_required]}/#{counts[:required]}）"
+    end
+    { percentage:, fraction: }
+  end
+
+  def user_course_practice_percentage(user, counts)
+    Rails.cache.fetch("/model/user_course_practice/#{user.id}/completed_percentage") do
+      counts[:completed_required].to_f / counts[:required] * UserCoursePractice::MAX_PERCENTAGE
+    end
+  end
+
   def user_tab_attrs(name)
     target = params.fetch('target', 'all')
     if target == name

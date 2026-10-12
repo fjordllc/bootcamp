@@ -6,6 +6,91 @@ require 'supports/mock_env_helper'
 class UsersControllerTest < ActionDispatch::IntegrationTest
   include MockEnvHelper
 
+  test 'user card SQL does not grow with the number of displayed users' do
+    template = users(:kimura).attributes.slice(*User.column_names).except('id')
+    # Synthetic rows bypass signup callbacks and external services.
+    # rubocop:disable Rails/SkipsModelValidations
+    User.insert_all!(Array.new(4) do |index|
+      template.merge('login_name' => "card-sql-#{index}", 'email' => "card-sql-#{index}@example.com")
+    end)
+    page = User.where('login_name LIKE ?', 'card-sql-%').order(:login_name)
+    DiscordProfile.insert_all!(page.map { |user| { user_id: user.id } })
+    # rubocop:enable Rails/SkipsModelValidations
+    sign_in users(:komagata)
+    get users_path, params: { target: 'all', search_word: 'card-sql' }
+    assert_response :success
+
+    single_queries = user_card_queries('card-sql-0')
+    page_queries = user_card_queries('card-sql')
+
+    assert_select '.users-item', count: 4
+    assert_operator page_queries.size, :<=, single_queries.size + 2,
+                    "SQL grew from #{single_queries.size} to #{page_queries.size}: #{page_queries.join("\n")}"
+  end
+
+  test 'user cards preserve follow labels and private talk permissions' do
+    user = users(:kimura)
+    viewer = users(:hajime)
+    viewer.follow(user, watch: true)
+    sign_in viewer
+    get users_path, params: { search_word: user.login_name }
+    assert_response :success
+    assert_select "#follow_details#{user.id} summary", text: /コメントあり/
+    assert_select '.users-item a', text: '相談部屋', count: 0
+
+    viewer.change_watching(user, false)
+    get users_path, params: { search_word: user.login_name }
+    assert_select "#follow_details#{user.id} summary", text: /コメントなし/
+
+    viewer.unfollow(user)
+    get users_path, params: { search_word: user.login_name }
+    assert_select "#follow_details#{user.id} summary", text: /フォローする/
+  end
+
+  test 'unauthorized target and blank search retain existing list behavior' do
+    sign_in users(:hajime)
+    get users_path, params: { target: 'all', search_word: ' ' }
+    assert_response :success
+    assert_select '.users-item', count: 0
+    get users_path, params: { target: 'all' }
+    assert_response :success
+    assert_select '.page-main-header__title', text: /#{Regexp.escape(I18n.t('target.student_and_trainee'))}/
+    assert_select '.users-item a', text: '相談部屋', count: 0
+  end
+
+  test 'user cards retain cached progress and graduate display' do
+    user = users(:kimura)
+    cache = ActiveSupport::Cache::MemoryStore.new
+    cache.write("/model/user_course_practice/#{user.id}/completed_percentage", 12.5)
+    cache.write("/model/user_course_practice/#{user.id}/completed_fraction", 'Cached progress fraction')
+    sign_in users(:komagata)
+    Rails.stub(:cache, cache) do
+      get users_path, params: { target: 'all', search_word: user.login_name }
+      assert_response :success
+      assert_select '.completed-practices-progress__percentage', text: '12%'
+      assert_select '.completed-practices-progress__number', text: 'Cached progress fraction'
+      get users_path, params: { target: 'graduate', search_word: users(:sotugyou).login_name }
+      assert_response :success
+      assert_select '.completed-practices-progress__percentage', text: '100%'
+      assert_select '.completed-practices-progress__number', text: '卒業'
+    end
+  end
+
+  test 'user cards show only unowned tags from the tags context' do
+    user = users(:kimura)
+    ActsAsTaggableOn::Tagging.create!(taggable: user, tag: ActsAsTaggableOn::Tag.create!(name: 'card-owned-tag'), context: 'tags', tagger: users(:hajime))
+    ActsAsTaggableOn::Tagging.create!(taggable: user, tag: ActsAsTaggableOn::Tag.create!(name: 'card-other-context-tag'), context: 'skills')
+    ActsAsTaggableOn::Tagging.create!(taggable: user, tag: ActsAsTaggableOn::Tag.create!(name: 'card-visible-tag'), context: 'tags')
+    sign_in users(:komagata)
+
+    get users_path, params: { target: 'all', search_word: user.login_name }
+
+    assert_response :success
+    assert_select '.users-item .tag-links a', text: 'card-visible-tag', count: 1
+    assert_select '.users-item .tag-links a', text: 'card-owned-tag', count: 0
+    assert_select '.users-item .tag-links a', text: 'card-other-context-tag', count: 0
+  end
+
   test 'POST create by student' do
     mock_env('DISCORD_GUILD_ID' => '111') do
       Card.stub(:new, -> { FakeCard.new }) do
@@ -167,5 +252,22 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     def id
       '1234567890123456789'
     end
+  end
+
+  private
+
+  def user_card_queries(search_word)
+    queries = []
+    subscriber = lambda do |*args|
+      payload = args.last
+      queries << payload[:sql] if payload[:sql].start_with?('SELECT') && !payload[:cached] && payload[:name] != 'SCHEMA'
+    end
+    ActiveRecord::Base.uncached do
+      ActiveSupport::Notifications.subscribed(subscriber, 'sql.active_record') do
+        get users_path, params: { target: 'all', search_word: }
+      end
+    end
+    assert_response :success
+    queries
   end
 end

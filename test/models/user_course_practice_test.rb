@@ -14,6 +14,47 @@ class UserCoursePracticeTest < ActiveSupport::TestCase
     @user_course_practice_machida = UserCoursePractice.new(users(:machida))
   end
 
+  test 'page progress counts match distinct course practices and user skips' do
+    page = [users(:kimura), users(:kensyu), users(:komagata), users(:sotugyou)]
+    counts = UserCoursePractice.counts_by_user(page)
+
+    page.each do |user|
+      progress = UserCoursePractice.new(user)
+      assert_equal progress.required_practices.size, counts.fetch(user.id).fetch(:required)
+      assert_equal progress.completed_practices.size, counts.fetch(user.id).fetch(:completed)
+      assert_equal progress.completed_required_practices.size, counts.fetch(user.id).fetch(:completed_required)
+    end
+    assert_empty UserCoursePractice.counts_by_user([])
+  end
+
+  test 'page progress counts handle duplicate categories, skips, optional practices and empty courses' do
+    course = Course.create!(title: 'Card progress course', description: 'Synthetic course')
+    empty_course = Course.create!(title: 'Empty card course', description: 'Synthetic empty course')
+    first_category = Category.create!(name: 'Card first', slug: 'card-first')
+    second_category = Category.create!(name: 'Card second', slug: 'card-second')
+    course.categories << [first_category, second_category]
+    required, unstarted, optional, skipped = practices(:practice1, :practice2, :practice62, :practice8)
+    first_category.practices << [required, unstarted, optional, skipped]
+    second_category.practices << required
+    first, second, empty = users(:kimura, :kensyu, :komagata)
+    # These fixture updates avoid unrelated user and learning callbacks.
+    # rubocop:disable Rails/SkipsModelValidations
+    Practice.where(id: [required.id, unstarted.id, skipped.id]).update_all(include_progress: true)
+    optional.update_column(:include_progress, false)
+    User.where(id: [first.id, second.id]).update_all(course_id: course.id)
+    empty.update_column(:course_id, empty_course.id)
+    Learning.where(user_id: [first.id, second.id]).delete_all
+    SkippedPractice.where(user_id: [first.id, second.id]).delete_all
+    Learning.insert_all!([required, optional, skipped].map { |practice| { user_id: first.id, practice_id: practice.id, status: 3 } })
+    # rubocop:enable Rails/SkipsModelValidations
+    SkippedPractice.create!(user: first, practice: skipped)
+
+    counts = UserCoursePractice.counts_by_user([first, second, empty])
+    assert_equal({ required: 2, completed: 3, completed_required: 1 }, counts.fetch(first.id))
+    assert_equal({ required: 3, completed: 0, completed_required: 0 }, counts.fetch(second.id))
+    assert_equal({ required: 0, completed: 0, completed_required: 0 }, counts.fetch(empty.id))
+  end
+
   test '#categories_for_skip_practices' do
     user = users(:kensyu)
     categories = @user_course_practice_kensyu.categories_for_skip_practice

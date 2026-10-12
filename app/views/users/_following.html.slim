@@ -1,6 +1,6 @@
 details.following id="follow_details#{user.id}"
-  - is_following = current_user.following?(user)
-  - is_watching = current_user.watching?(user)
+  - is_following = local_assigns.fetch(:is_following) { current_user.following?(user) }
+  - is_watching = local_assigns.fetch(:is_watching) { current_user.watching?(user) }
   summary.following__summary
     - if is_following && is_watching
       span.a-button.is-warning.is-sm.is-block
@@ -14,7 +14,7 @@ details.following id="follow_details#{user.id}"
           | コメントなし
     - else
       span.a-button.is-secondary.is-sm.is-block
-        | #{button_label(user)}
+        | フォローする
   .following__dropdown.a-dropdown
     ul.a-dropdown__items
       li.following__dropdown-item.a-dropdown__item

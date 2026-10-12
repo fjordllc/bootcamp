@@ -62,7 +62,7 @@
               = desc_paragraph[:text]
         .users-item__tags
           = render 'users/tags', user: user
-      = render 'users/practices/completed_practices_progress', user: user, is_display_progress_count: false, user_course_practice: UserCoursePractice.new(user)
+      = render 'users/practices/completed_practices_progress', user: user, is_display_progress_count: false, user_course_practice: UserCoursePractice.new(user), **user_card_progress(user, @user_progress_counts)
       hr.a-border-tint
       footer.card-footer.users-item__footer
         .card-main-actions
@@ -75,7 +75,7 @@
                     | 自社研修生
             - elsif current_user.id != user.id
               li.card-main-actions__item
-                = render 'users/following', user:
+                = render 'users/following', user:, **user_card_following_options(user, @user_card_followings)
             - if current_user.admin && user.talk
               li.card-main-actions__item.is-only-mentor
                 = link_to '相談部屋', user.talk, class: 'a-button is-secondary is-sm is-block'

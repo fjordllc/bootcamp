@@ -6,6 +6,22 @@ class UserCoursePractice
   delegate :courses, to: :user
   MAX_PERCENTAGE = 100
 
+  def self.counts_by_user(users)
+    counts = users.to_h { |user| [user.id, { required: 0, completed: 0, completed_required: 0 }] }
+    return counts if counts.empty?
+
+    practices = Practice.joins(categories: { courses: :users }).where(users: { id: counts.keys })
+    required = practices.where(include_progress: true)
+                        .joins('LEFT JOIN skipped_practices ON skipped_practices.practice_id = practices.id AND skipped_practices.user_id = users.id')
+                        .where(skipped_practices: { id: nil })
+    completed = practices.joins(:learnings).where('learnings.user_id = users.id').where(learnings: { status: 'complete' })
+    completed_required = required.joins(:learnings).where('learnings.user_id = users.id').where(learnings: { status: 'complete' })
+    { required:, completed:, completed_required: }.each do |name, scope|
+      scope.group('users.id').count('DISTINCT practices.id').each { |user_id, count| counts.fetch(user_id)[name] = count }
+    end
+    counts
+  end
+
   def initialize(user)
     @user = user
   end

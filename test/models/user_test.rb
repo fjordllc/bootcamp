@@ -8,6 +8,19 @@ class UserTest < ActiveSupport::TestCase
   include ProductHelper
   include AvatarHelper
 
+  test 'activity counts for a page match association counts including private comment exclusion' do
+    page = [users(:kimura), users(:kensyu), users(:komagata), users(:sotugyou)]
+    counts = User.activity_counts_for(page)
+
+    page.each do |user|
+      %i[reports products questions answers works participations regular_event_participations].each do |association|
+        assert_equal user.public_send(association).size, counts.fetch(user.id).fetch(association)
+      end
+      assert_equal user.comments.without_private_comment.size, counts.fetch(user.id).fetch(:comments)
+    end
+    assert_empty User.activity_counts_for([])
+  end
+
   test '#admin?' do
     assert users(:komagata).admin?
     assert users(:machida).admin?
