@@ -30,6 +30,10 @@ export default class extends Controller {
     this.updatePresetControls()
   }
 
+  initialize() {
+    this.isSaving = false
+  }
+
   replaceReportWithPreset(e) {
     e.preventDefault()
     if (
@@ -66,10 +70,13 @@ export default class extends Controller {
     this.modalTarget.classList.add('is-hidden')
   }
 
-  savePreset(e) {
+  async savePreset(e) {
     e.preventDefault()
-    const editingDescription = this.presetInputTarget.value
+    if (this.isSaving) {
+      return
+    }
 
+    const editingDescription = this.presetInputTarget.value
     if (
       editingDescription.trim() === '' ||
       editingDescription.trim() === this.savedPresetDescriptionValue.trim()
@@ -77,10 +84,19 @@ export default class extends Controller {
       return
     }
 
-    if (this.presetIdValue > 0) {
-      return this.updatePreset(editingDescription)
+    this.isSaving = true
+    this.updateSubmitButtonState()
+
+    try {
+      if (this.presetIdValue > 0) {
+        await this.updatePreset(editingDescription)
+      } else {
+        await this.registerPreset(editingDescription)
+      }
+    } finally {
+      this.isSaving = false
+      this.updateSubmitButtonState()
     }
-    return this.registerPreset(editingDescription)
   }
 
   registerPreset(editingDescription) {
@@ -156,7 +172,7 @@ export default class extends Controller {
 
     const isValid =
       editingDescription !== '' && editingDescription !== savedDescription
-    this.submitButtonTarget.disabled = !isValid
+    this.submitButtonTarget.disabled = this.isSaving || !isValid
   }
 
   openPresetEditTab(e) {
