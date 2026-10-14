@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
-class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLength
+class ProductsController < ApplicationController
   before_action :check_permission!, only: %i[show]
   before_action :require_staff_login, only: :index
-  before_action :set_watch, only: %i[show]
-  before_action :set_target, only: %i[index]
 
   def index
+    @target = 'all'
     @products = Product.list
                        .order(:id)
                        .page(params[:page])
@@ -14,6 +13,7 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
   end
 
   def show
+    @watch = Watch.new
     @product = find_product
     @practice = find_practice
     @learning = @product.learning # decoratorメソッド用にcontrollerでインスタンス変数化
@@ -112,10 +112,6 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     params.require(:product).permit(*keys)
   end
 
-  def set_watch
-    @watch = Watch.new
-  end
-
   def notice_message(product, action_name)
     return '提出物をWIPとして保存しました。' if product.wip?
 
@@ -125,9 +121,5 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     when :update
       '提出物を更新しました。'
     end
-  end
-
-  def set_target
-    @target = 'all'
   end
 end
