@@ -1,6 +1,6 @@
 import { Controller } from '@hotwired/stimulus'
+import { post, put } from '@rails/request.js'
 import TextareaInitializer from 'textarea-initializer'
-import CSRF from 'csrf'
 import { toast } from 'vanillaToast'
 
 export default class extends Controller {
@@ -87,22 +87,17 @@ export default class extends Controller {
     const params = {
       report_preset: { description: editingDescription }
     }
-    return fetch('/api/report_presets', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': CSRF.getToken()
-      },
-      credentials: 'same-origin',
-      redirect: 'manual',
-      body: JSON.stringify(params)
+
+    return post('/api/report_presets', {
+      body: params,
+      responseKind: 'json',
+      redirect: 'manual'
     })
       .then((response) => {
         if (!response.ok) {
           throw new Error('テンプレートの登録に失敗しました')
         }
-        return response.json()
+        return response.json
       })
       .then((createdPreset) => {
         this.presetIdValue = createdPreset.id
@@ -121,16 +116,11 @@ export default class extends Controller {
     const params = {
       report_preset: { description: editingDescription }
     }
-    fetch(`/api/report_presets/${this.presetIdValue}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': CSRF.getToken()
-      },
-      credentials: 'same-origin',
-      redirect: 'manual',
-      body: JSON.stringify(params)
+
+    return put(`/api/report_presets/${this.presetIdValue}`, {
+      body: params,
+      responseKind: 'json',
+      redirect: 'manual'
     })
       .then((response) => {
         if (!response.ok) {
