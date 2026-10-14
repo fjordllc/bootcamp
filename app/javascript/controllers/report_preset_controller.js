@@ -1,42 +1,46 @@
 import { Controller } from '@hotwired/stimulus'
+import { post, put } from '@rails/request.js'
 import TextareaInitializer from 'textarea-initializer'
-import CSRF from 'csrf'
 import { toast } from 'vanillaToast'
 
 export default class extends Controller {
   static targets = [
-    'report',
+    'reportInput',
     'modal',
-    'templateInput',
+    'presetInput',
     'submitButton',
-    'templateTab',
+    'presetEditTab',
     'previewTab',
-    'templateContent',
-    'previewContent'
+    'presetEditPanel',
+    'previewPanel',
+    'replaceReportAction',
+    'openModalButton'
   ]
 
   static values = {
-    registeredTemplate: String,
-    registeredTemplateId: Number,
-    editing: Boolean,
-    isEditingTemplateValid: Boolean
+    presetId: Number,
+    savedPresetDescription: String
   }
 
   connect() {
-    if (this.reportTarget.value === '') {
-      this.reportTarget.value = this.registeredTemplateValue
+    if (this.reportInputTarget.value === '') {
+      this.reportInputTarget.value = this.savedPresetDescriptionValue
     }
-    this.registeredTemplateValue = this.templateInputTarget.value
     TextareaInitializer.initialize('.js-report-content')
+    this.updatePresetControls()
   }
 
-  replaceReport(e) {
+  initialize() {
+    this.isSaving = false
+  }
+
+  replaceReportWithPreset(e) {
     e.preventDefault()
     if (
-      this.reportTarget.value === '' ||
+      this.reportInputTarget.value === '' ||
       confirm('日報が上書きされますが、よろしいですか？')
     ) {
-      this.reportTarget.value = this.registeredTemplateValue
+      this.reportInputTarget.value = this.savedPresetDescriptionValue
       TextareaInitializer.uninitialize('.js-report-content')
       TextareaInitializer.initialize('.js-report-content')
     }
@@ -46,18 +50,19 @@ export default class extends Controller {
     if (e.target !== e.currentTarget) {
       return
     }
-    if (this.editingValue === this.registeredTemplateValue) {
+    if (
+      this.presetInputTarget.value === this.savedPresetDescriptionValue ||
+      confirm('テンプレートを登録せずに終了しますか？')
+    ) {
       this.closeModal()
-    } else {
-      confirm('テンプレートを登録せずに終了しますか？') && this.closeModal()
     }
   }
 
   openModal(e) {
     e.preventDefault()
     this.modalTarget.classList.remove('is-hidden')
-    this.templateInputTarget.value = this.registeredTemplateValue
-    TextareaInitializer.initialize('#js-template-content')
+    this.presetInputTarget.value = this.savedPresetDescriptionValue
+    TextareaInitializer.initialize('#js-preset-content')
     this.updateSubmitButtonState()
   }
 
@@ -65,104 +70,124 @@ export default class extends Controller {
     this.modalTarget.classList.add('is-hidden')
   }
 
-  registerTemplate(e) {
+  async savePreset(e) {
     e.preventDefault()
-    const editingTemplate = this.templateInputTarget.value
+    if (this.isSaving) {
+      return
+    }
 
+    const editingDescription = this.presetInputTarget.value
     if (
-      editingTemplate === '' ||
-      editingTemplate === this.registeredTemplateValue
+      editingDescription.trim() === '' ||
+      editingDescription.trim() === this.savedPresetDescriptionValue.trim()
     ) {
-      return null
+      return
     }
 
-    const params = {
-      report_preset: { description: editingTemplate }
+    this.isSaving = true
+    this.updateSubmitButtonState()
+
+    try {
+      if (this.presetIdValue > 0) {
+        await this.updatePreset(editingDescription)
+      } else {
+        await this.registerPreset(editingDescription)
+      }
+    } finally {
+      this.isSaving = false
+      this.updateSubmitButtonState()
     }
-    fetch('/api/report_presets', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': CSRF.getToken()
-      },
-      credentials: 'same-origin',
-      redirect: 'manual',
-      body: JSON.stringify(params)
+  }
+
+  registerPreset(editingDescription) {
+    const params = {
+      report_preset: { description: editingDescription }
+    }
+
+    return post('/api/report_presets', {
+      body: params,
+      responseKind: 'json',
+      redirect: 'manual'
     })
       .then((response) => {
-        return response.json()
+        if (!response.ok) {
+          throw new Error('テンプレートの登録に失敗しました')
+        }
+        return response.json
       })
-      .then((newTemplate) => {
-        this.registeredTemplateValue = editingTemplate
-        this.registeredTemplateIdValue = newTemplate.id
+      .then((createdPreset) => {
+        this.presetIdValue = createdPreset.id
+        this.savedPresetDescriptionValue = editingDescription
+        this.updatePresetControls()
         toast('テンプレートを登録しました！')
         this.closeModal()
       })
       .catch((error) => {
         console.warn(error)
+        toast('テンプレートを登録できませんでした。', 'error')
       })
   }
 
-  updateTemplate(e) {
-    e.preventDefault()
-    const editingTemplate = this.templateInputTarget.value
-    if (
-      editingTemplate === '' ||
-      editingTemplate === this.registeredTemplateValue
-    ) {
-      return null
+  updatePreset(editingDescription) {
+    const params = {
+      report_preset: { description: editingDescription }
     }
 
-    const params = {
-      report_preset: { description: editingTemplate }
-    }
-    fetch(`/api/report_presets/${this.registeredTemplateIdValue}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': CSRF.getToken()
-      },
-      credentials: 'same-origin',
-      redirect: 'manual',
-      body: JSON.stringify(params)
+    return put(`/api/report_presets/${this.presetIdValue}`, {
+      body: params,
+      responseKind: 'json',
+      redirect: 'manual'
     })
-      .then(() => {
-        this.registeredTemplateValue = editingTemplate
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('テンプレートの変更に失敗しました')
+        }
+        this.savedPresetDescriptionValue = editingDescription
+        this.updatePresetControls()
         toast('テンプレートを変更しました！')
         this.closeModal()
       })
       .catch((error) => {
         console.warn(error)
+        toast('テンプレートを変更できませんでした。', 'error')
       })
   }
 
-  clickTemplateTab(e) {
-    e.preventDefault()
-    this.editingValue = true
-    this.templateTabTarget.classList.add('is-active')
-    this.previewTabTarget.classList.remove('is-active')
-    this.templateContentTarget.classList.add('is-active')
-    this.previewContentTarget.classList.remove('is-active')
-  }
-
-  clickPreviewTab(e) {
-    e.preventDefault()
-    this.editingValue = false
-    this.templateTabTarget.classList.remove('is-active')
-    this.previewTabTarget.classList.add('is-active')
-    this.templateContentTarget.classList.remove('is-active')
-    this.previewContentTarget.classList.add('is-active')
+  updatePresetControls() {
+    const isPresetRegistered = this.presetIdValue > 0
+    this.replaceReportActionTarget.classList.toggle(
+      'is-hidden',
+      !isPresetRegistered
+    )
+    this.openModalButtonTarget.textContent = isPresetRegistered
+      ? 'テンプレート変更'
+      : 'テンプレート登録'
+    this.submitButtonTarget.textContent = isPresetRegistered ? '変更' : '登録'
+    this.updateSubmitButtonState()
   }
 
   updateSubmitButtonState() {
-    const editingTemplate = this.templateInputTarget.value.trim()
-    const registeredTemplate = this.registeredTemplateValue.trim()
+    const editingDescription = this.presetInputTarget.value.trim()
+    const savedDescription = this.savedPresetDescriptionValue.trim()
 
     const isValid =
-      editingTemplate !== '' && editingTemplate !== registeredTemplate
-    this.isEditingTemplateValidValue = isValid
-    this.submitButtonTarget.disabled = !isValid
+      editingDescription !== '' && editingDescription !== savedDescription
+    this.submitButtonTarget.disabled = this.isSaving || !isValid
+  }
+
+  openPresetEditTab(e) {
+    e.preventDefault()
+    this.presetEditTabTarget.classList.add('is-active')
+    this.previewTabTarget.classList.remove('is-active')
+    this.presetEditPanelTarget.classList.add('is-active')
+    this.previewPanelTarget.classList.remove('is-active')
+  }
+
+  openPreviewTab(e) {
+    e.preventDefault()
+    this.presetEditTabTarget.classList.remove('is-active')
+    this.previewTabTarget.classList.add('is-active')
+    this.presetEditPanelTarget.classList.remove('is-active')
+    this.previewPanelTarget.classList.add('is-active')
   }
 }
