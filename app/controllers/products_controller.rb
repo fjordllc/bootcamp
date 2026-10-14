@@ -15,10 +15,6 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
 
   def show
     @product = find_product
-    @products = @product.user
-                        .products
-                        .not_wip
-                        .order(published_at: :DESC)
     @practice = find_practice
     @learning = @product.learning # decoratorメソッド用にcontrollerでインスタンス変数化
     @tweet_url = @practice.tweet_url(practice_completion_url(@practice.id))
