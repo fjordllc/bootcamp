@@ -11,9 +11,9 @@ class ReportPresetsTest < ApplicationSystemTestCase
     assert_text 'テンプレートを登録しました！'
     assert_no_button 'テンプレート登録'
     assert_button 'テンプレート変更'
-    assert_selector 'a', text: 'テンプレートを反映する'
+    assert_button 'テンプレートを反映する'
     fill_in 'report[description]', with: ''
-    find('a', text: 'テンプレートを反映する').click
+    click_button 'テンプレートを反映する'
     assert_field 'report[description]', with: 'create test'
   end
 
@@ -24,7 +24,7 @@ class ReportPresetsTest < ApplicationSystemTestCase
     click_button '変更'
     assert_text 'テンプレートを変更しました！'
     fill_in 'report[description]', with: ''
-    find('a', text: 'テンプレートを反映する').click
+    click_button 'テンプレートを反映する'
     assert_field 'report[description]', with: 'update test'
     click_button 'テンプレート変更'
     assert_field 'report_preset[description]', with: 'update test'
@@ -38,7 +38,7 @@ class ReportPresetsTest < ApplicationSystemTestCase
   test 'replace button works' do
     visit_with_auth '/reports/new', 'hajime'
     fill_in('report[description]', with: '')
-    find('a', text: 'テンプレートを反映する').click
+    click_button 'テンプレートを反映する'
     assert_text 'template test hajime'
   end
 

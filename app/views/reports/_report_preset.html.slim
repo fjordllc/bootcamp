@@ -5,7 +5,8 @@ div
         class=(preset_id.present? ? '' : 'is-hidden')
         data-report-preset-target='replaceReportAction'
       )
-        a.form-item-actions__text-link.is-danger(
+        button.form-item-actions__text-link.is-danger(
+          type='button'
           data-action='click->report-preset#replaceReportWithPreset'
         )
           | テンプレートを反映する
