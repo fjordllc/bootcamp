@@ -4,7 +4,7 @@
 
 = render '/shared/modal_learning_completion',
   practice: @product.practice,
-  tweet_url: @tweet_url,
+  tweet_url: @presenter.tweet_url,
   should_display_message_automatically: @learning&.completion_modal?
 
 header.page-header
@@ -69,10 +69,11 @@ header.page-header
 
         = render 'comments/comments',
           commentable: @product,
-          commentable_type: 'Product'
+          commentable_type: 'Product',
+          comments: @presenter.comments
         .user-icons
           ul.user-icons__items
-            = render '/footprints/footprints', footprints: @footprints
+            = render '/footprints/footprints', footprints: @presenter.footprints
 
       .is-only-mentor class=current_user.product_sidebar_class
         - if current_user.mentor? || current_user.admin?
@@ -119,7 +120,7 @@ header.page-header
             .side-tabs-contents
               .side-tabs-contents__item#side-tabs-content-1
                 = render partial: 'reports/recent_reports',
-                  locals: { header_display: true }
+                  locals: { header_display: true, recent_reports: @presenter.recent_reports }
               .side-tabs-contents__item#side-tabs-content-2
                 = render 'users/user_mentor_memo', user_id: @product.user.id
               .side-tabs-contents__item#side-tabs-content-3
@@ -144,7 +145,7 @@ header.page-header
                                   = @product.skipped_practice_link(skip)
               .side-tabs-contents__item#side-tabs-content-4
                 = render Products::UserProductsComponent.new(\
-                  products: @user_products,
+                  products: @presenter.user_products,
                   current_user: current_user,
                   is_mentor: current_user.mentor? || current_user.admin?)
 
