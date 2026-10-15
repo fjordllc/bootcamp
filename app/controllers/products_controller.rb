@@ -17,11 +17,12 @@ class ProductsController < ApplicationController
     @product = find_product
     @practice = find_practice
     @learning = @product.learning # decoratorメソッド用にcontrollerでインスタンス変数化
-
-    @presenter = ProductShowPresenter.new(@product, @practice)
-
+    @tweet_url = @practice.tweet_url(practice_completion_url(@practice.id))
+    @recent_reports = Report.list.where(user_id: @product.user.id).limit(10)
+    @user_products = UserSubmittedProductsQuery.new(@product).call
     Footprint.find_or_create_for(@product, current_user)
-
+    @footprints = Footprint.fetch_for_resource(@product)
+    @comments = @product.comments.order(:created_at)
     respond_to do |format|
       format.html
       format.md
