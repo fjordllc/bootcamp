@@ -19,7 +19,7 @@ class ProductsController < ApplicationController
     @learning = @product.learning # decoratorメソッド用にcontrollerでインスタンス変数化
     @tweet_url = @practice.tweet_url(practice_completion_url(@practice.id))
     @recent_reports = Report.list.where(user_id: @product.user.id).limit(10)
-    @user_products = UserSubmittedProductsQuery.new(@product).call
+    @user_products = UserSubmittedProductsQuery.new(@product.user).call
     Footprint.find_or_create_for(@product, current_user)
     @footprints = Footprint.fetch_for_resource(@product)
     @comments = @product.comments.order(:created_at)
