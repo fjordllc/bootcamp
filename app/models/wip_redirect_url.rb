@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Redirection
+class WipRedirectUrl
   class << self
     def determin_url(controller, resource)
       new(controller, resource).determin_url

@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class RedirectionTest < ActiveSupport::TestCase
+class WipRedirectUrlTest < ActiveSupport::TestCase
   def setup
     @controller = ApplicationController.new
     @controller.request = ActionDispatch::TestRequest.create
@@ -18,7 +18,7 @@ class RedirectionTest < ActiveSupport::TestCase
     )
 
     url = "http://test.host/products/#{wip_product.id}/edit"
-    assert_equal url, Redirection.determin_url(@controller, wip_product)
+    assert_equal url, WipRedirectUrl.determin_url(@controller, wip_product)
 
     product = Product.create!(
       body: 'test',
@@ -28,6 +28,6 @@ class RedirectionTest < ActiveSupport::TestCase
     )
 
     url = "http://test.host/products/#{product.id}"
-    assert_equal url, Redirection.determin_url(@controller, product)
+    assert_equal url, WipRedirectUrl.determin_url(@controller, product)
   end
 end
