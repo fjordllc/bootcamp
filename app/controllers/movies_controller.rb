@@ -35,7 +35,7 @@ class MoviesController < ApplicationController
     set_wip
 
     if @movie.save
-      url = WipRedirectUrl.determin_url(self, @movie)
+      url = WipRedirectUrl.resolve(self, @movie)
       update_published_at
       redirect_to url, notice: notice_message(@movie, :create)
     else
@@ -45,7 +45,7 @@ class MoviesController < ApplicationController
 
   def update
     if @movie.update(movie_params)
-      url = WipRedirectUrl.determin_url(self, @movie)
+      url = WipRedirectUrl.resolve(self, @movie)
       update_published_at
       redirect_to url, notice: notice_message(@movie, :update)
     else

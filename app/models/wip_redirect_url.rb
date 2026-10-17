@@ -2,8 +2,8 @@
 
 class WipRedirectUrl
   class << self
-    def determin_url(controller, resource)
-      new(controller, resource).determin_url
+    def resolve(controller, resource)
+      new(controller, resource).resolve
     end
   end
 
@@ -12,7 +12,7 @@ class WipRedirectUrl
     @resource = resource
   end
 
-  def determin_url
+  def resolve
     @resource.wip? ? @controller.polymorphic_url(@resource, action: :edit) : @controller.polymorphic_url(@resource)
   end
 end
