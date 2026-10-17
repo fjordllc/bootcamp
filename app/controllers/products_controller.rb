@@ -60,7 +60,6 @@ class ProductsController < ApplicationController
   def update
     @product = find_my_product
     @practice = @product.practice
-    @product.published_at = nil if @product.published_at? && @product.wip
     @product.update_wip_and_published_at(params[:commit] == 'WIP')
     if @product.update(product_params)
       ActiveSupport::Notifications.instrument('product.update', { product: @product, current_user: })

@@ -207,11 +207,12 @@ class Product < ApplicationRecord # rubocop:todo Metrics/ClassLength
   end
 
   def update_wip_and_published_at(wip_status)
+    previous_wip_status = wip
     self.wip = wip_status
 
     if wip_status
       self.published_at = nil
-    elsif published_at.nil?
+    elsif previous_wip_status || published_at.nil?
       self.published_at = Time.current
     end
   end
