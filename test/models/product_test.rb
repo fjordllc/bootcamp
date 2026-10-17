@@ -279,4 +279,26 @@ class ProductTest < ActiveSupport::TestCase
     product = Product.create!(user: users(:hajime), practice: practices(:practice4), body: '自分担当提出物', checker_id: mentor.id)
     assert_includes Product.self_assigned_product(mentor.id), product
   end
+
+  test 'update published_at when submitting a WIP product with existing published_at' do
+    product = products(:product5)
+    previous_published_at = product.published_at
+
+    travel_to Time.current do
+      product.update_wip_and_published_at(false)
+
+      assert_not product.wip
+      assert_operator product.published_at, :>, previous_published_at
+    end
+  end
+
+  test 'keep published_at when resubmitting a published product' do
+    product = products(:product62)
+    previous_published_at = product.published_at
+
+    product.update_wip_and_published_at(false)
+
+    assert_not product.wip
+    assert_equal previous_published_at, product.published_at
+  end
 end
