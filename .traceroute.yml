@@ -5,12 +5,14 @@ ignore_unused_routes:
   - any_login\/.*
   - active_storage\/.*
   - jobs/mass_update
-  - doorkeeper/authorizations#show
+  - mcp_oauth/authorizations#show
   - mission_control\/.*
   - lookbook(\/.*)?
 ignore_unreachable_actions:
   - rails\/.*
   - active_storage\/.*
+  - doorkeeper\/authorizations#.*
+  - doorkeeper\/tokens#.*
   - mission_control\/.*
   - lookbook(\/.*)?
   - .*#admin_login\?
