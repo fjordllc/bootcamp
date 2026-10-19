@@ -59,7 +59,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     @user = User.new
     @user.course_id = params[:course_id]
     @user.company_id = params[:company_id]
-    assign_role(@user)
+    @user.assign_role(params[:role])
   end
 
   def create
@@ -224,19 +224,6 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     return unless !params[:token] || !ENV['TOKEN'] || params[:token] != ENV['TOKEN']
 
     redirect_to root_path, notice: 'アドバイザー・メンター・研修生登録にはTOKENが必要です。'
-  end
-
-  def assign_role(user)
-    user.role = params[:role]
-
-    case user.role
-    when 'adviser'
-      user.adviser = true
-    when 'trainee_invoice_payment', 'trainee_credit_card_payment', 'trainee_select_a_payment_method'
-      user.trainee = true
-    when 'mentor'
-      user.mentor = true
-    end
   end
 
   def determine_user_role(user)
