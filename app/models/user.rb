@@ -960,6 +960,19 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     organize_regular_events.exclude_finished.each { |event| event.close_or_destroy_organizer(self) }
   end
 
+  def assign_role(role)
+    self.role = role
+
+    case role
+    when 'adviser'
+      self.adviser = true
+    when 'trainee_invoice_payment', 'trainee_credit_card_payment', 'trainee_select_a_payment_method'
+      self.trainee = true
+    when 'mentor'
+      self.mentor = true
+    end
+  end
+
   private
 
   def password_required?
