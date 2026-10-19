@@ -120,9 +120,10 @@
           - unless practice_skipped
             = render 'next_step', practice: @practice
 
-          - if current_user.admin_or_mentor?
+          - if policy(@practice).show_memo?
             = render 'memo', practice: @practice
 
+          - if current_user.admin_or_mentor?
             .a-card.is-only-mentor
               header.card-header
                 h2.card-header__title 管理者・メンター用メニュー
