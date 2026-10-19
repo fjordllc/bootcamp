@@ -34,7 +34,7 @@ class Admin::InvitationUrlTest < ApplicationSystemTestCase
   test 'show invitation-url page' do
     visit_with_auth '/admin/invitation_url', 'komagata'
     company = Company.order(created_at: :desc).first
-    role = User::INVITATION_ROLES.first[1]
+    role = Admin::InvitationUrlController::INVITATION_ROLES.first[1]
     course = Course.order(:created_at).first
     expected = "#{@new_user_url}?company_id=#{company.id}&course_id=#{course.id}&role=#{role}&token=token"
 
@@ -45,7 +45,7 @@ class Admin::InvitationUrlTest < ApplicationSystemTestCase
   test 'change selected company' do
     visit_with_auth '/admin/invitation_url', 'komagata'
     company = companies(:company3)
-    role = User::INVITATION_ROLES.first[1]
+    role = Admin::InvitationUrlController::INVITATION_ROLES.first[1]
     course = Course.order(:created_at).first
     expected = "#{@new_user_url}?company_id=#{company.id}&course_id=#{course.id}&role=#{role}&token=token"
 
@@ -58,8 +58,8 @@ class Admin::InvitationUrlTest < ApplicationSystemTestCase
   test 'change selected role' do
     visit_with_auth '/admin/invitation_url', 'komagata'
     company = Company.order(created_at: :desc).first
-    role_text = User::INVITATION_ROLES.second[0]
-    role = User::INVITATION_ROLES.second[1]
+    role_text = Admin::InvitationUrlController::INVITATION_ROLES.second[0]
+    role = Admin::InvitationUrlController::INVITATION_ROLES.second[1]
     course = Course.order(:created_at).first
     expected = "#{@new_user_url}?company_id=#{company.id}&course_id=#{course.id}&role=#{role}&token=token"
 
@@ -72,7 +72,7 @@ class Admin::InvitationUrlTest < ApplicationSystemTestCase
   test 'change selected course' do
     visit_with_auth '/admin/invitation_url', 'komagata'
     company = Company.order(created_at: :desc).first
-    role = User::INVITATION_ROLES.first[1]
+    role = Admin::InvitationUrlController::INVITATION_ROLES.first[1]
     course = courses(:course2)
     expected = "#{@new_user_url}?company_id=#{company.id}&course_id=#{course.id}&role=#{role}&token=token"
 

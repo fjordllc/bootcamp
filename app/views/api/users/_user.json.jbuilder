@@ -11,7 +11,7 @@ if admin_or_mentor_login?
     json.content memo.content
     json.author memo.author&.long_name || 'メンター'
     json.author_id memo.author_id
-    json.author_avatar_url memo.author&.avatar_url || image_url(User::DEFAULT_IMAGE_PATH)
+    json.author_avatar_url memo.author&.avatar_url || image_url(UserAvatar::DEFAULT_IMAGE_PATH)
     json.created_at memo.created_at&.strftime('%Y/%m/%d') || '作成日不明'
   end
 end

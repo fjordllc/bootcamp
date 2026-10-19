@@ -2,8 +2,9 @@
 
 class Users::TagsController < ApplicationController
   def index
-    @tags = User.tags.page(params[:page])
-    @top3_tags_counts = User.tags.limit(3).map(&:count).uniq
+    user_tag_counts = UserTagCountsQuery.new.call
+    @tags = user_tag_counts.page(params[:page])
+    @top3_tags_counts = user_tag_counts.limit(3).map(&:count).uniq
   end
 
   def update

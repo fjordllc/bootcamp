@@ -14,6 +14,10 @@ class UserCoursePractice
     @user.course.practices.uniq.pluck(:id)
   end
 
+  def practices_with_checked_product
+    Practice.where(products: @user.products.checked)
+  end
+
   def categories_for_skip_practice
     filtered_categories = []
     practice_ids = uniq_practice_ids

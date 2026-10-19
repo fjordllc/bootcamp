@@ -11,8 +11,10 @@ class ComebackTest < ApplicationSystemTestCase
     end
 
     VCR.use_cassette 'subscription/create', vcr_options do
-      click_on '休会から復帰する'
-      assert_text '休会から復帰しました'
+      assert_difference 'Comment.count', 1 do
+        click_on '休会から復帰する'
+        assert_text '休会から復帰しました'
+      end
     end
   end
 

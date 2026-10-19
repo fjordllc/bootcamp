@@ -41,7 +41,7 @@ class UserInfoTool < RubyLLM::Tool
   def progress_section(user)
     return nil if user.admin? || user.mentor? || user.adviser?
 
-    ucp = UserCoursePractice.new(user)
+    ucp = user.course_practice
     completed = ucp.completed_practices.size
     required = ucp.required_practices.size
     percentage = required.positive? ? ucp.completed_percentage.round(1) : 0

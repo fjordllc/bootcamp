@@ -2,7 +2,7 @@
 
 class Scheduler::StatisticController < SchedulerController
   def show
-    Practice.save_learning_minute_statistics
+    SaveLearningMinuteStatistics.call
     head :ok
   end
 end

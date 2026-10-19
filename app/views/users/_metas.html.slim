@@ -9,7 +9,7 @@
         time datetime=user.created_at.iso8601
           = l user.created_at.to_date
         span
-          |（#{user.enrollment_period}）
+          |（#{user.enrollment_period_label}）
     .user-metas__item
       .user-metas__item-label
         | お住まい
@@ -38,7 +38,7 @@
         .user-metas__item-label
           | 合計学習時間
         .user-metas__item-value
-          = "#{number_with_precision(user.total_learning_time, precision: 1)}時間（"
+          = "#{number_with_precision(user.learning_time.total, precision: 1)}時間（"
           = render 'users/learning_status', user: user
           | ）
     .user-metas__item

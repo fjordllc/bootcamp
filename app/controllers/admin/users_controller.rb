@@ -7,22 +7,21 @@ class Admin::UsersController < AdminController
   def index
     @direction = params[:direction] || 'desc'
     @target = params[:target]
-    user_scope = User.users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'all')
+    user_scope = UserTargetScopeResolver.new(User).users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'all')
     user_scope = if @target == 'retired'
                    user_scope.where.not(retired_on: nil)
                  else
                    user_scope.where(retired_on: nil)
                  end
     @job = params[:job]
-    user_scope = user_scope.users_job(@job) if @job.present?
+    user_scope = UserTargetScopeResolver.new(user_scope).users_job(@job) if @job.present?
     job_seeking = params[:job_seeking]
     user_scope = apply_job_seeking_filter(user_scope, job_seeking)
     payment_method = params[:payment_method]
     user_scope = apply_payment_method_filter(user_scope, payment_method)
 
-    @users = user_scope.with_attached_avatar
-                       .preload(:company, :course)
-                       .order_by_counts(params[:order_by] || 'id', @direction)
+    @users = OrderedUsersByCountsQuery.new(user_scope.with_attached_avatar.preload(:company, :course),
+                                           order_by: params[:order_by] || 'id', direction: @direction).call
     @emails = user_scope.pluck(:email)
   end
 
@@ -39,7 +38,7 @@ class Admin::UsersController < AdminController
       if params[:hibernate_user]
         return unless Hibernation.hibernate_by_admin(user: @user, scheduled_return_on: params[:scheduled_return_on])
       elsif params[:comeback_user]
-        @user.comeback!
+        ComebackUser.call(user: @user)
       end
       redirect_to user_url(@user), notice: 'ユーザー情報を更新しました。'
     else
