@@ -43,6 +43,7 @@ MCP専用scope `mcp:practices:read` はプラクティスの読取権限で、�
 - 全利用者合計の要求上限は1分あたり600件です(`MCP_GLOBAL_REQUESTS_PER_MINUTE` で変更可)。利用者ごとのキーとは別キーで計測し、超過時は同じくRetry-After付きのHTTP 429を返しますが、監査ログのresultは `global_rate_limited` で区別できます。
 - 利用者が有効なMCP tokenを持つ場合は、利用者上限を先に判定し、通過後にグローバル上限を数えます。利用者上限で拒否された要求はグローバル枠を消費しません。有効なBearer tokenがない要求と、MCP client/scope/resource/利用者状態の検証に失敗した要求は、送信元IPごとに1分あたり60件までです(`MCP_UNAUTHENTICATED_IP_REQUESTS_PER_MINUTE` で変更可)。IP上限を通過した要求だけがグローバル上限を数えます。IP上限超過時はRetry-After付きのHTTP 429を返し、監査ログのresultは `unauthenticated_ip_rate_limited` です。送信元IPはフレームワークの信頼proxy考慮済みの `request.remote_ip` からSHA-256でハッシュしてキーに使います。`Client-Ip` と `X-Forwarded-For` が矛盾するなど送信元IPを確定できない要求は、カウンターを増やさずHTTP 400で拒否します(監査ログのresultは `invalid_remote_ip` です)。未認証要求はIP上限とグローバル上限を通過した後にHTTP 401、MCP資格情報の検証失敗は同じ順序でHTTP 403を返します。
 - 共有cacheのカウンターが利用できない場合、要求を通さずHTTP 503を返します(fail-closed)。
+- PostgreSQLの `statement_timeout` は既定で5000msです。長時間かかるmigrationは `DB_STATEMENT_TIMEOUT_MS=0 bin/rails db:migrate` のように0(無制限)へ上書きして実行してください。
 - DCRの登録要求は8KiBまで、同一IPから1分あたり10件までです。
 - `MCP_PUBLIC_ORIGIN` を設定する場合はschemeとhostだけを含む正規URLを指定します。本番はHTTPS必須です。未指定時は `https://#{APP_HOST_NAME}` を正規originに使います。HostとOriginは正規originに結び付けて検証します。
 - 本番runtimeでは正規originが未設定の場合、requestのHostを正規originとして使いません。metadata endpointはHost由来のissuer/resource URLを返さずエラーになります。
