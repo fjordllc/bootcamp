@@ -8,16 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: post approved pr event
-      env:
-        FJORD_CHOICE_TOKEN: ${{ secrets.FJORD_CHOICE_TOKEN }}
-        PR_PAYLOAD: |
-          {"title": ${{ toJson(github.event.pull_request.title) }},
-           "number": ${{ github.event.pull_request.number }},
-           "state": ${{ toJson(github.event.pull_request.state) }},
-           "reviewer_uids": ${{ toJson(github.event.pull_request.requested_reviewers.*.id) }}
-          }
       run: |
         curl -f -X POST https://fjord-choice.herokuapp.com/api/pulls \
              -H 'Content-Type: application/json' \
-             -H "Authorization: Token $FJORD_CHOICE_TOKEN" \
-             -d "$PR_PAYLOAD"
+             -H 'Authorization: Token ${{ secrets.FJORD_CHOICE_TOKEN }}' \
+             -d '{"title": ${{ toJson(github.event.pull_request.title) }},
+                  "number": ${{ github.event.pull_request.number }},
+                  "state": ${{ toJson(github.event.pull_request.state) }},
+                  "reviewer_uids": ${{ toJson(github.event.pull_request.requested_reviewers.*.id) }}
+                  }'
