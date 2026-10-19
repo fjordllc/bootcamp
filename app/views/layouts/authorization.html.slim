@@ -1,0 +1,54 @@
+doctype html
+html.is-application lang=I18n.locale
+  head
+    meta charset='utf-8'
+    meta name='viewport' content='width=device-width, initial-scale=1'
+    title = t('doorkeeper.authorizations.new.title')
+    = csrf_meta_tags
+    = stylesheet_link_tag 'application', media: 'all'
+  body.is-application
+    .wrapper.is-application
+      main.page
+        = image_tag('logo-lg.svg', class: 'auth-form-logo-image')
+        .auth-form.is-lg
+          .a-card
+            header.auth-form__header
+              h1.auth-form__title = t('doorkeeper.authorizations.new.title')
+            .auth-form__body
+              .form__items
+                .form-item
+                  .a-short-text.a-long-text
+                    p = t('doorkeeper.authorizations.new.connection_prompt', client_name: @pre_auth.client.name)
+                - if @pre_auth.scopes.count.positive?
+                  .form-item
+                    .a-short-text
+                      p = t('doorkeeper.authorizations.new.able_to')
+                      ul
+                        - @pre_auth.scopes.each do |scope|
+                          li = t scope, scope: %i[doorkeeper scopes]
+              .form-actions
+                .form-actions__items
+                  .form-actions__item.is-main
+                    = form_tag oauth_authorization_path, method: :post do
+                      = hidden_field_tag :client_id, @pre_auth.client.uid, id: nil
+                      = hidden_field_tag :redirect_uri, @pre_auth.redirect_uri, id: nil
+                      = hidden_field_tag :state, @pre_auth.state, id: nil
+                      = hidden_field_tag :response_type, @pre_auth.response_type, id: nil
+                      = hidden_field_tag :response_mode, @pre_auth.response_mode, id: nil
+                      = hidden_field_tag :scope, @pre_auth.scope, id: nil
+                      = hidden_field_tag :resource, @mcp_resource_uri, id: nil if @mcp_resource_uri.present?
+                      = hidden_field_tag :code_challenge, @pre_auth.code_challenge, id: nil
+                      = hidden_field_tag :code_challenge_method, @pre_auth.code_challenge_method, id: nil
+                      = submit_tag t('doorkeeper.authorizations.buttons.authorize'), class: 'a-button is-lg is-primary is-block'
+                  .form-actions__item.is-sub.is-main
+                    = form_tag oauth_authorization_path, method: :delete do
+                      = hidden_field_tag :client_id, @pre_auth.client.uid, id: nil
+                      = hidden_field_tag :redirect_uri, @pre_auth.redirect_uri, id: nil
+                      = hidden_field_tag :state, @pre_auth.state, id: nil
+                      = hidden_field_tag :response_type, @pre_auth.response_type, id: nil
+                      = hidden_field_tag :response_mode, @pre_auth.response_mode, id: nil
+                      = hidden_field_tag :scope, @pre_auth.scope, id: nil
+                      = hidden_field_tag :resource, @mcp_resource_uri, id: nil if @mcp_resource_uri.present?
+                      = hidden_field_tag :code_challenge, @pre_auth.code_challenge, id: nil
+                      = hidden_field_tag :code_challenge_method, @pre_auth.code_challenge_method, id: nil
+                      = submit_tag t('doorkeeper.authorizations.buttons.deny'), class: 'a-button is-lg is-secondary is-block'
