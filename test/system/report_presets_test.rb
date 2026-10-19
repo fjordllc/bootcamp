@@ -6,21 +6,28 @@ class ReportPresetsTest < ApplicationSystemTestCase
   test 'register template' do
     visit_with_auth '/reports/new', 'mentormentaro'
     click_button 'テンプレート登録'
-    fill_in('report_preset[description]', with: 'create test')
+    fill_in 'report_preset[description]', with: 'create test'
     click_button '登録'
-    visit_with_auth '/reports/new', 'mentormentaro'
-    click_button 'テンプレート変更'
-    assert_text 'create test'
+    assert_text 'テンプレートを登録しました！'
+    assert_no_button 'テンプレート登録'
+    assert_button 'テンプレート変更'
+    assert_button 'テンプレートを反映する'
+    fill_in 'report[description]', with: ''
+    click_button 'テンプレートを反映する'
+    assert_field 'report[description]', with: 'create test'
   end
 
   test 'update template' do
     visit_with_auth '/reports/new', 'hajime'
     click_button 'テンプレート変更'
-    fill_in('report_preset[description]', with: 'update test')
+    fill_in 'report_preset[description]', with: 'update test'
     click_button '変更'
-    visit_with_auth '/reports/new', 'hajime'
+    assert_text 'テンプレートを変更しました！'
+    fill_in 'report[description]', with: ''
+    click_button 'テンプレートを反映する'
+    assert_field 'report[description]', with: 'update test'
     click_button 'テンプレート変更'
-    assert_text 'update test'
+    assert_field 'report_preset[description]', with: 'update test'
   end
 
   test 'new report is replaced with template' do
@@ -31,7 +38,7 @@ class ReportPresetsTest < ApplicationSystemTestCase
   test 'replace button works' do
     visit_with_auth '/reports/new', 'hajime'
     fill_in('report[description]', with: '')
-    find('a', text: 'テンプレートを反映する').click
+    click_button 'テンプレートを反映する'
     assert_text 'template test hajime'
   end
 
@@ -47,7 +54,7 @@ class ReportPresetsTest < ApplicationSystemTestCase
     fill_in('report_preset[description]', with: 'update test')
     find('div.card-main-actions__muted-action', text: 'キャンセル').click
     click_button 'テンプレート変更'
-    textarea = find('#js-template-content')
+    textarea = find('#js-preset-content')
     assert_equal 'template test hajime', textarea.value
   end
 end
