@@ -22,7 +22,7 @@ module Discord
       def delete_text_channel(channel_id)
         response = Discordrb::API::Channel.delete(authorize_token, channel_id)
         response.code == 200
-      rescue Discordrb::Errors::CodeError => e
+      rescue Discordrb::Errors::CodeError, Discordrb::Errors::NoPermission => e
         log_error(e)
         nil
       end

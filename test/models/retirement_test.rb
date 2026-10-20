@@ -69,6 +69,23 @@ class RetirementTest < ActiveSupport::TestCase
     assert_nil strategy.notification_type
   end
 
+  test 'continues to notify when Discord channel deletion is forbidden' do
+    @user.discord_profile.update!(times_id: '987654321987654321')
+    retirement = Retirement.by_self({ satisfaction: 1 }, user: @user)
+    notified = false
+
+    retirement.stub(:notify, -> { notified = true }) do
+      Discord::Server.stub(:authorize_token, 'Bot valid token') do
+        VCR.use_cassette 'discord/server/delete_text_channel_with_missing_permissions' do
+          assert retirement.execute
+        end
+      end
+    end
+
+    assert_equal Date.current, @user.reload.retired_on
+    assert notified
+  end
+
   test 'rolls back user update if save_user fails' do
     retirement = Retirement.by_self({}, user: @user)
     retirement.define_singleton_method(:save_user) do
