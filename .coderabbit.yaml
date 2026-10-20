@@ -14,6 +14,8 @@ reviews:
         - Viewにpartialを作る場合はViewComponentを使うことを検討する。
         - 複数のActiveRecordモデルを操作する１つの責務がある時や外部APIとやりとりする処理がある場合にはInteractorオブジェクトパターンを検討する。（interactor gemを導入しているのでそれを使う）
         - 複数のInteractorを実行するような処理がある場合Organizerオブジェクトパターンを検討する。（interactor gemを導入しており、その中にOrganizerの機能があるので使う）
+        # Unit Test
+        model, helper, decorator, view_componentについてはメソッドを追加した場合は必ず対応したUnit TestのTestCaseを1つは書く。
     - path: "**/*.js"
       instructions: |-
         - どうしても避けられない時以外に新規にVue.js, Reactのコードを追加しない。
@@ -24,5 +26,3 @@ reviews:
         - TestCase名は英語で書く。
         - どうしても避けられない時以外にsystem testでsleepは使わない。
         - 各テストケースの間には空行を設ける。
-        # Unit Test
-        model, helper, decorator, view_componentについてはメソッドを追加した場合は必ず対応したUnit TestのTestCaseを1つは書く。
