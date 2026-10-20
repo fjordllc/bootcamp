@@ -116,7 +116,10 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     logger.info "[Signup] 2. start create free user. #{@user.email}"
     if @user.save
       logger.info "[Signup] 3. after save free user. #{@user.email}"
-      notify_user_registration(@user)
+      UserMailer.welcome(@user).deliver_now
+      notify_to_mentors(@user)
+      notify_to_chat(@user)
+      ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.trainee?
       logger.info "[Signup] 4. after create times channel for free user. #{@user.email}"
       flash[:signup_email] = @user.email
       redirect_to created_users_path(role: determine_user_role(@user))
@@ -137,7 +140,10 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
       return
     end
 
-    notify_user_registration(@user)
+    UserMailer.welcome(@user).deliver_now
+    notify_to_mentors(@user)
+    notify_to_chat(@user)
+    ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.student?
     send_affiliate_kickback(@user)
 
     flash[:x_conversion] = 'signup'
@@ -164,13 +170,6 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
 
   def notify_to_chat(user)
     ChatNotifier.message "#{user.login_name}さん#{user.roles_to_s.empty? ? '' : "（#{user.roles_to_s}）"}が新たなメンバーとしてJOINしました🎉\r<#{url_for(user)}>"
-  end
-
-  def notify_user_registration(user)
-    UserMailer.welcome(user).deliver_now
-    notify_to_mentors(user)
-    notify_to_chat(user)
-    ActiveSupport::Notifications.instrument('student_or_trainee.create', user: user) if user.student?
   end
 
   def user_params
