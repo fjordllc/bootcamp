@@ -128,56 +128,31 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     end
   end
 
-  # rubocop:disable Metrics/MethodLength, Metrics/BlockLength
   def create_user!
-    logger.info "[Signup] 2. start create user. #{@user.email}"
-    @user.with_lock do
-      unless @user.validate
-        render 'new'
-        return false
-      end
+    result = PaidUserRegistration.call(
+      user: @user,
+      stripe_token: params[:stripeToken],
+      idempotency_token: params[:idempotency_token]
+    )
 
-      if Card.new.search(email: @user.email)
-        logger.error '[Payment] 同じメールアドレスの顧客が既に登録済みです。'
-        @user.errors.add :base, '同じメールアドレスの顧客が既に登録済みです。'
-        render 'new'
-        return false
-      end
-
-      token = params[:idempotency_token]
-
-      logger.info "[Signup] 3. before create subscription. #{@user.email}"
-      begin
-        customer = Card.new.create(@user, params[:stripeToken], token)
-        subscription = Subscription.new.create(customer['id'], "#{token}-subscription")
-      rescue Stripe::CardError => e
-        logger.error "[Payment] customerの作成時にエラーが発生しました: #{e.message}"
-        @user.errors.add :base, I18n.translate("stripe.errors.#{e.code}")
-        render 'new'
-        return false
-      end
-      logger.info "[Signup] 4. after create subscription.#{@user.email}"
-
-      @user.customer_id = customer['id']
-      @user.subscription_id = subscription['id']
-
-      if @user.save
-        logger.info "[Signup] 5. after save user. #{@user.email}"
-        UserMailer.welcome(@user).deliver_now
-        notify_to_mentors(@user)
-        notify_to_chat(@user)
-        ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.student?
-        send_affiliate_kickback(@user)
-        flash[:x_conversion] = 'signup'
-        flash[:signup_email] = @user.email
-        logger.info "[Signup] 8. after create times channel. #{@user.email}"
-        redirect_to created_users_path(role: determine_user_role(@user))
-      else
-        render 'new'
-      end
+    unless result.success?
+      render 'new'
+      return
     end
+
+    UserMailer.welcome(@user).deliver_now
+    notify_to_mentors(@user)
+    notify_to_chat(@user)
+    ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.student?
+    send_affiliate_kickback(@user)
+
+    flash[:x_conversion] = 'signup'
+    flash[:signup_email] = @user.email
+
+    logger.info "[Signup] 8. after create times channel. #{@user.email}"
+
+    redirect_to created_users_path(role: determine_user_role(@user))
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/BlockLength
 
   def send_affiliate_kickback(user)
     rd_code = session[:affiliate_rd_code]
