@@ -41,3 +41,7 @@ nav.page-tabs aria-label="管理者メニュー"
         = link_to 'AIプロンプト',
           admin_ai_prompts_path,
           class: "page-tabs__item-link #{current_link(/^admin-ai_prompts/)}"
+      li.page-tabs__item
+        = link_to 'パフォーマンス',
+          admin_performance_path,
+          class: "page-tabs__item-link #{current_link(/^admin-performance/)}"

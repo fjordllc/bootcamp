@@ -1,0 +1,104 @@
+- title 'パフォーマンス'
+- rating_classes = { good: 'is-success', attention: 'is-warning', poor: 'is-danger', nil => 'is-muted' }
+- summary_rating = @performance.summary.rating || 'unknown'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title
+          | 管理ページ
+
+= render 'admin/admin_page_tabs'
+
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | パフォーマンス
+  hr.a-border
+  .page-body
+    .container.is-xl
+      .page-body__rows
+        section.a-card
+          header.card-header
+            h2.card-header__title data-summary-rating=summary_rating
+              span.a-badge.is-md class=rating_classes.fetch(@performance.summary.rating)
+                = @performance.summary.label
+          hr.a-border-tint
+          .card-body
+            .card-body__inner
+              div
+                p = @performance.label
+                p = "判定済み #{@performance.summary.known_count} / #{@performance.summary.expected_count}項目・未判定 #{@performance.summary.unknown_count}項目"
+                p
+                  | 対象: 直近24時間（反映まで15〜75分かかります）
+                  br
+                  = "#{l(@performance.window[:start].in_time_zone, format: :short)} 〜 #{l(@performance.window[:end].in_time_zone, format: :short)} JST"
+                p = "最終取得: #{@performance.fetched_at ? l(@performance.fetched_at.in_time_zone, format: :short) : '未取得'}"
+                - if @performance.collection_started_at && @performance.collection_started_at > @performance.window[:start]
+                  p = "計測開始: #{l(@performance.collection_started_at.in_time_zone, format: :short)} JST。この集計期間の一部は計測開始前です。"
+                - if @performance.limited
+                  p
+                    | 期間内に収集上限に達しました。受信できた範囲の結果です。
+        - @performance.pages.each do |page|
+          section data-performance-page=page[:key]
+            header.page-body-header
+              h2.page-body-header__title
+                = page[:label]
+                span.a-badge.is-sm class=rating_classes.fetch(page[:summary].rating)
+                  = page[:summary].label
+              p = "判定済み #{page[:summary].known_count} / 7項目・未判定 #{page[:summary].unknown_count}項目"
+            .admin-table
+              table.admin-table__table
+                thead.admin-table__header
+                  tr.admin-table__labels
+                    th.admin-table__label scope='col'
+                      | 指標
+                    th.admin-table__label scope='col'
+                      | 状態・推定範囲
+                    th.admin-table__label scope='col'
+                      | 観測数
+                tbody.admin-table__items
+                  - rows = [['サーバー処理時間（p95・共通）', page[:server]]]
+                  - { 'desktop' => 'PC幅', 'mobile' => 'モバイル幅' }.each do |device, label|
+                    - { 'LCP' => '主要な内容の表示 (LCP)', 'INP' => '操作への反応 (INP)', 'CLS' => '表示のずれ (CLS)' }.each do |metric, metric_label|
+                      - rows << ["#{label} / #{metric_label}（p75）", page[:browser][device][metric]]
+                  - rows.each do |label, cell|
+                    - cell_rating = cell.rating || 'unknown'
+                    tr.admin-table__item data-rating=cell_rating
+                      th.admin-table__item-value scope='row'
+                        = label
+                      td.admin-table__item-value
+                        span.a-badge.is-sm class=rating_classes.fetch(cell.rating)
+                          = cell.label
+                        br
+                        = cell.range
+                      td.admin-table__item-value
+                        = "#{cell.sample_count}件"
+                        - if cell.received
+                          br
+                          = "受信: 観測 #{cell.received['observed']} / 非対応 #{cell.received['unsupported']} / 未観測 #{cell.received['unobserved']}"
+        section.a-card
+          header.card-header
+            h2.card-header__title
+              | この結果の見方
+          hr.a-border-tint
+          .card-body
+            .card-body__inner
+              .a-long-text
+                p
+                  | ログイン後の全画面読み込みから20%を無作為に選び、ページを閉じたときに送信できた最新の値が対象です。戻る操作による復元や、画面内だけの切り替えは含みません。PC幅は768px以上、モバイル幅は767px以下の初期表示幅です。
+                p
+                  | 操作がない場合などはINPの値が集まらず、判定待ちになります。未観測は0ではありません。非対応・送信の失敗・収集上限・長時間の閲覧などによる欠損があり、全訪問者を表すものではありません。受信数から配信率は分かりません。
+                p
+                  | 各指標は20件から判定します。これは暫定の目安で、統計的な確かさを保証するものではありません。p75・p95は分布の区間から推定し、境界をまたぐ場合は判定を保留します。Googleの公開評価（CrUX）とは異なります。
+                p
+                  | ブラウザーの良好 / 要注意 / 要改善の境界はLCPが2.5秒・4秒、INPが200ms・500ms、CLSが0.1・0.25です。
+                  = link_to 'Google Web Vitalsの基準', 'https://web.dev/articles/vitals', target: '_blank', rel: 'noopener'
+                p
+                  | サーバー処理時間は成功したHTML応答のRails内の処理時間を全件計測します。通信や待ち行列、エラー率を含みません。境界の500ms・1秒はBootcampの暫定目標で、Googleの基準やSLOではありません。
+                p
+                  | ブラウザーの値は利用者側からの自己申告です。アクセス権・課金・利用者の評価には使いません。

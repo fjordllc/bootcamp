@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   use_doorkeeper
   namespace 'api' do
+    post 'performance_reports', to: '/performance_reports#create'
     namespace 'admin' do
       resource :count, controller: 'count', only: %i(show)
       resources :inquiries, only: %i(update)
