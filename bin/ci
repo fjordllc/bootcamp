@@ -1,6 +1,33 @@
 #!/usr/bin/env ruby
-require_relative "../config/boot"
-require "active_support/continuous_integration"
+# frozen_string_literal: true
+
+usage = 'Usage: bin/ci [--signoff | --help]'
+if ARGV == ['--help']
+  puts usage
+  exit
+end
+abort usage unless ARGV.empty? || ARGV == ['--signoff']
+
+Dir.chdir File.expand_path('..', __dir__)
+ENV['RAILS_ENV'] = 'test'
+ENV['TZ'] = 'Asia/Tokyo'
+
+# A signoff must describe the committed checkout that was actually tested.
+require 'open3'
+
+def signoff_head
+  status, result = Open3.capture2('git', 'status', '--porcelain')
+  return unless result.success? && status.empty?
+
+  head, result = Open3.capture2('git', 'rev-parse', '--verify', 'HEAD')
+  head.strip if result.success?
+end
+
+SIGNOFF_HEAD = signoff_head if ARGV.include?('--signoff')
+abort 'Signoff requires a clean, committed checkout. Commit and push first.' if ARGV.include?('--signoff') && !SIGNOFF_HEAD
+
+require_relative '../config/boot'
+require 'active_support/continuous_integration'
 
 CI = ActiveSupport::ContinuousIntegration
-require_relative "../config/ci.rb"
+require_relative '../config/ci'

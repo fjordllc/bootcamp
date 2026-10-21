@@ -70,6 +70,54 @@ $ HEADFUL=1 rails test:all
 $ PARALLEL_WORKERS=1 rails test:all
 ```
 
+## ローカル CI
+
+[Local CI × GitHub Actions](https://speakerdeck.com/gogutan/local-ci-x-github-actions) を参考に、`bin/ci` で GitHub Actions と同じ種類のチェックを手元で実行できます。リポジトリ内のどのディレクトリからでも実行でき、各ステップと全体の所要時間を表示します。
+
+### 実行前の準備
+
+- GitHub Actions と同じ Ruby 3.4.3、Node.js 22.19.0 と Bundler を用意し、`bundle install` を済ませてください。`bin/ci` は `bundle check` で gem の不足を検出し、JavaScript の依存は毎回 `npm ci` でインストールします。
+- pgvector 拡張を使える PostgreSQL と、使い捨てにできるテスト用 DB を用意してください。画像処理ライブラリに加え、CI で使う ffmpeg、ImageMagick、libvips、libheif、libuv、PostgreSQL クライアント、日本語フォント（Noto CJK など）が必要です。OS ごとのパッケージ名は異なります。
+- `npm ci` の後に `npx playwright install chromium` を実行してください。Linux で Chromium の共有ライブラリが不足する場合は `npx playwright install --with-deps chromium` も使えます。
+
+`bin/ci` は `RAILS_ENV=test` と `TZ=Asia/Tokyo` を設定します。例外として、Traceroute のルート検査だけは GitHub Actions と同じ `RAILS_ENV=development` で実行します。テスト DB の準備、アセットのプリコンパイル、全テストは `RAILS_ENV=test` で実行し、タイムゾーンは全ステップで `Asia/Tokyo` です。`DATABASE_URL` は変更せず引き継ぎます。DB 名より優先されるため、開発用・本番用の接続先を設定しないでください。テストではデータが消えます。worktree ごとに DB を分ける場合は、たとえば `BRANCH_DB_SUFFIX=_local_ci bin/ci` とすると `bootcamp_test_local_ci` を使います。`DATABASE_URL` を指定する場合は、その URL 自体をテスト専用 DB に向けてください。
+
+### チェックの実行
+
+```bash
+bin/ci
+```
+
+Ruby・Slim・JavaScript・CSS・OpenAPI の lint、Traceroute、テスト DB の準備、アセットのプリコンパイル、system test を含む全テストを順に実行します。途中で失敗すると後続の処理を止め、終了コードを失敗にします。lint の自動修正や開発環境のセットアップ、seed の再投入は実行しません。通常の実行では GitHub にステータスを送信しません。
+
+RuboCop は `--ignore-parent-exclusion` を指定し、入れ子の worktree でも親チェックアウトの除外設定を引き継がず、このチェックアウトの設定で検査します。
+
+テストは既存の設定どおり既定では1 worker です。`PARALLEL_WORKERS=4 bin/ci` のように並列実行を指定できますが、Rails の DRb/fork によってハングする環境があるため、問題が出たら1に戻してください。
+
+### 成功結果を signoff する
+
+GitHub CLI の認証と `gh-signoff` 拡張が既に利用できる環境では、変更を commit・push した後に明示的に指定します。
+
+```bash
+bin/ci --signoff
+```
+
+全チェックに成功し、開始時から HEAD と作業ツリーが変わっていない場合だけ `gh signoff` を実行します。未 commit の変更がある場合は開始前に終了します。signoff の失敗も終了コードに反映します。拡張のインストールや、リポジトリの必須チェック設定の変更は行いません。
+
+### クラウドで再実行する
+
+GitHub CLI の認証と Actions を実行できる権限がある環境で、現在のブランチを `origin` に push してから実行します。
+
+```bash
+bin/cloud-ci
+```
+
+`origin` のリポジトリと現在のブランチを明示して、既存の `ci.yml` を手動実行します。作業ツリーが変更済み、detached HEAD、未 push、またはローカルとリモートの HEAD が異なる場合は実行しません。Git の確認や GitHub CLI が失敗した場合は失敗で終了します。このコマンドは workflow の起動までを行い、完了は待ちません。
+
+### チームでの段階的な運用
+
+現在の PR・main への GitHub Actions と手動実行はそのまま維持します。まずローカル CI で早く問題を見つけ、必要に応じてクラウドでも確認する運用を想定しています。必須チェックを signoff に切り替える場合は、チームで検証方法と権限を合意してから別途設定してください。切り替え後も main の検証、ローカルで実行できない Dependabot の PR、手動のクラウド CI を扱う経路が必要です。
+
 ## Lint
 
 次のコマンドでlintを実行します。
