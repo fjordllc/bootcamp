@@ -12,9 +12,11 @@ require 'open3'
 
 Dir.chdir File.expand_path('..', __dir__)
 
-def git_output(*args)
+def git_output(*args, allowed_statuses: [])
   output, status = Open3.capture2('git', *args)
-  abort 'Could not verify the branch on origin. Check Git configuration and network access.' unless status.success?
+  unless status.success? || allowed_statuses.include?(status.exitstatus)
+    abort 'Could not verify the branch on origin. Check Git configuration and network access.'
+  end
 
   output.strip
 end
@@ -23,7 +25,7 @@ branch = git_output('symbolic-ref', '--quiet', '--short', 'HEAD')
 abort 'Cloud CI requires a clean checkout. Commit and push first.' unless git_output('status', '--porcelain').empty?
 
 head = git_output('rev-parse', '--verify', 'HEAD')
-remote = git_output('ls-remote', '--exit-code', 'origin', "refs/heads/#{branch}")
+remote = git_output('ls-remote', '--exit-code', 'origin', "refs/heads/#{branch}", allowed_statuses: [2])
 abort "Push #{branch} to origin before running cloud CI (local and remote HEAD must match)." unless remote.split.first == head
 
 # Pin both repository and ref: never let gh default to main or another fork.

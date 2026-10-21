@@ -25,7 +25,7 @@ class CiTest < Minitest::Test
     install_recorders
     @env = { 'PATH' => "#{@fake_bin}:#{ENV.fetch('PATH')}", 'COMMAND_LOG' => @log,
              'RAILS_ENV' => 'development', 'PARALLEL_WORKERS' => nil, 'FAIL_COMMAND' => nil,
-             'RUBYOPT' => nil, 'BUNDLE_GEMFILE' => nil }
+             'RUBYOPT' => '-rbundler/setup', 'BUNDLE_GEMFILE' => File.join(ROOT, 'Gemfile') }
     git('init', '--initial-branch=topic/local-ci')
     git('add', '.')
     git('-c', 'user.name=CI Test', '-c', 'user.email=ci@example.test', 'commit', '-m', 'initial')
@@ -114,6 +114,24 @@ class CiTest < Minitest::Test
     assert_equal @repo, calls.first['cwd']
   end
 
+  def test_cloud_requires_pushing_branch_missing_from_configured_origin
+    configure_origin
+    output, status = run_script('cloud-ci')
+    refute status.success?, output
+    assert_includes output, 'Push topic/local-ci to origin before running cloud CI'
+    refute_match(/Check Git configuration and network access/, output)
+    assert_empty calls
+  end
+
+  def test_cloud_reports_invalid_origin_as_verification_error
+    git('remote', 'add', 'origin', File.join(@tmp, 'missing.git'))
+    output, status = run_script('cloud-ci')
+    refute status.success?, output
+    assert_includes output, 'Could not verify the branch on origin. Check Git configuration and network access.'
+    refute_match(%r{Push topic/local-ci to origin}, output)
+    assert_empty calls
+  end
+
   def test_cloud_rejects_unpushed_dirty_detached_and_remote_mismatch
     output, status = run_script('cloud-ci')
     refute status.success?, output
@@ -179,12 +197,16 @@ class CiTest < Minitest::Test
     output.strip
   end
 
-  def push_branch
+  def configure_origin
     remote = File.join(@tmp, 'remote.git')
     output, status = Open3.capture2e('git', 'init', '--bare', remote)
     raise output unless status.success?
 
     git('remote', 'add', 'origin', remote)
+  end
+
+  def push_branch
+    configure_origin
     git('push', '-u', 'origin', 'HEAD')
   end
 
