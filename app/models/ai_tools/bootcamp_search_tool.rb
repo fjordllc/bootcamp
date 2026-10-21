@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Pjord::BootcampSearchTool < RubyLLM::Tool
+class AiTools::BootcampSearchTool < RubyLLM::Tool
   description 'bootcampのプラクティス（カリキュラム）、ドキュメント（Docs）、Q&A、お知らせを検索する。' \
               'ユーザーの質問に答えるために必要な情報を探すときに使う。'
 

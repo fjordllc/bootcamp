@@ -2,9 +2,9 @@
 
 require 'test_helper'
 
-class Pjord::UserInfoToolTest < ActiveSupport::TestCase
+class AiTools::UserInfoToolTest < ActiveSupport::TestCase
   setup do
-    @tool = Pjord::UserInfoTool.new
+    @tool = AiTools::UserInfoTool.new
   end
 
   test 'preserves the advertised RubyLLM tool name' do

@@ -28,7 +28,7 @@ class Pjord::ReportCommentAgentTest < ActiveSupport::TestCase
     assert_includes chat.instructions, '日報を書いたユーザーに「見られる状態にしてください」「内容を教えてください」と質問しないでください。'
     assert_includes chat.asked_message, report.title
     assert_includes chat.asked_message, report.description
-    assert_equal [Pjord::BootcampSearchTool, Pjord::UserInfoTool, Pjord::ExternalContentTool], chat.tools
+    assert_equal [AiTools::BootcampSearchTool, AiTools::UserInfoTool, AiTools::ExternalContentTool], chat.tools
     assert_equal PjordResponse, chat.schema
   end
 

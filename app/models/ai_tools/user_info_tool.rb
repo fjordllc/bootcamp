@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Pjord::UserInfoTool < RubyLLM::Tool
+class AiTools::UserInfoTool < RubyLLM::Tool
   description 'メンションしてきたユーザーのプロフィールやカリキュラムの進捗状況を取得する。' \
               'ユーザーに合わせた回答をするときに使う。'
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Pjord::ExternalContentTool < RubyLLM::Tool
+class AiTools::ExternalContentTool < RubyLLM::Tool
   description 'URLの先にある内容を確認する。GitHubのPR・コード・ディレクトリ、rawファイル、一般Webページを読み、回答やレビューに必要な文脈を取得するときに使う。'
 
   parameter :url, description: '確認したいhttpまたはhttpsのURL'

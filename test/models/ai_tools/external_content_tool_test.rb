@@ -2,10 +2,10 @@
 
 require 'test_helper'
 
-class Pjord::ExternalContentToolTest < ActiveSupport::TestCase
+class AiTools::ExternalContentToolTest < ActiveSupport::TestCase
   setup do
     Rails.cache.clear
-    @tool = Pjord::ExternalContentTool.new
+    @tool = AiTools::ExternalContentTool.new
   end
 
   test 'preserves the advertised RubyLLM tool name' do
