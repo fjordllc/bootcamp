@@ -4,11 +4,18 @@ import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
 
 export default function initializeAnswer(answer) {
+  const events = new AbortController()
+  const copyTimeouts = new Set()
+  const listen = (element, event, callback) => {
+    element.addEventListener(event, callback, { signal: events.signal })
+  }
   const questionId = answer.dataset.question_id
   const answerId = answer.dataset.answer_id
   const answerDescription = answer.dataset.answer_description
   let savedAnswer = ''
-  TextareaInitializer.initialize(`#js-comment-${answerId}`)
+  const cleanupTextarea = TextareaInitializer.initialize(
+    `#js-comment-${answerId}`
+  )
   const markdownInitializer = new MarkdownInitializer()
 
   const answerDisplay = answer.querySelector('.answer-display')
@@ -28,7 +35,7 @@ export default function initializeAnswer(answer) {
   const editButton = answerDisplay.querySelector('.edit-button')
   const modalElements = [answerDisplay, answerEditor]
   if (editButton) {
-    editButton.addEventListener('click', () => {
+    listen(editButton, 'click', () => {
       if (!savedAnswer) {
         savedAnswer = editorTextarea.value
       }
@@ -38,22 +45,23 @@ export default function initializeAnswer(answer) {
 
   const saveButton = answerEditor.querySelector('.save-button')
   if (saveButton) {
-    saveButton.addEventListener('click', () => {
+    listen(saveButton, 'click', () => {
       toggleVisibility(modalElements, 'is-hidden')
       savedAnswer = editorTextarea.value
+      answer.dataset.answer_description = savedAnswer
       updateAnswer(answerId, savedAnswer)
       answerDisplayContent.innerHTML = markdownInitializer.render(savedAnswer)
     })
   }
 
   const cancelButton = answerEditor.querySelector('.cancel-button')
-  cancelButton.addEventListener('click', () => {
+  listen(cancelButton, 'click', () => {
     toggleVisibility(modalElements, 'is-hidden')
     editorTextarea.value = savedAnswer
     answerEditorPreview.innerHTML = markdownInitializer.render(savedAnswer)
   })
 
-  editorTextarea.addEventListener('input', () => {
+  listen(editorTextarea, 'input', () => {
     answerEditorPreview.innerHTML = markdownInitializer.render(
       editorTextarea.value
     )
@@ -65,7 +73,7 @@ export default function initializeAnswer(answer) {
   )
   const answerBadgeElement = answerDisplay.querySelector('.best-answer-badge')
   if (makeBestAnswerButton) {
-    makeBestAnswerButton.addEventListener('click', () => {
+    listen(makeBestAnswerButton, 'click', () => {
       if (window.confirm('本当に宜しいですか？')) {
         makeToBestAnswer(answerId, questionId)
         answerBadgeElement.classList.remove('is-hidden')
@@ -87,7 +95,7 @@ export default function initializeAnswer(answer) {
     })
   }
   if (cancelBestAnswerButton) {
-    cancelBestAnswerButton.addEventListener('click', () => {
+    listen(cancelBestAnswerButton, 'click', () => {
       if (window.confirm('本当に宜しいですか？')) {
         cancelBestAnswer(answerId, questionId)
         answerBadgeElement.classList.remove('correct-answer')
@@ -111,7 +119,7 @@ export default function initializeAnswer(answer) {
 
   const deleteButton = answerDisplay.querySelector('.delete-button')
   if (deleteButton) {
-    deleteButton.addEventListener('click', () => {
+    listen(deleteButton, 'click', () => {
       if (window.confirm('本当に宜しいですか？')) {
         deleteAnswer(answerId)
         if (answerBadgeElement.classList.contains('correct-answer')) {
@@ -134,30 +142,36 @@ export default function initializeAnswer(answer) {
   const previewTabContent = answerEditor.querySelector('.preview-content')
 
   const tabElements = [editTab, editorTabContent, previewTab, previewTabContent]
-  editTab.addEventListener('click', () =>
-    toggleVisibility(tabElements, 'is-active')
-  )
+  listen(editTab, 'click', () => toggleVisibility(tabElements, 'is-active'))
 
-  previewTab.addEventListener('click', () =>
-    toggleVisibility(tabElements, 'is-active')
-  )
+  listen(previewTab, 'click', () => toggleVisibility(tabElements, 'is-active'))
 
   const createdAtElement = answer.querySelector('.created-at')
   if (createdAtElement && navigator.clipboard) {
-    createdAtElement.addEventListener('click', () => {
+    listen(createdAtElement, 'click', () => {
       const answerURL = location.href.split('#')[0] + '#answer_' + answerId
       navigator.clipboard
         .writeText(answerURL)
         .then(() => {
+          if (events.signal.aborted) return
           createdAtElement.classList.add('is-active')
-          setTimeout(() => {
+          const copyTimeout = setTimeout(() => {
             createdAtElement.classList.remove('is-active')
+            copyTimeouts.delete(copyTimeout)
           }, 4000)
+          copyTimeouts.add(copyTimeout)
         })
         .catch((error) => {
           console.error(error)
         })
     })
+  }
+
+  return () => {
+    events.abort()
+    copyTimeouts.forEach((timeout) => clearTimeout(timeout))
+    copyTimeouts.clear()
+    cleanupTextarea?.()
   }
 
   function toggleVisibility(elements, className) {

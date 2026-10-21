@@ -11,6 +11,13 @@ export default (selector) => {
   textareas.forEach((textarea) => {
     textarea.addEventListener('input', debouncedReplace)
   })
+
+  return () => {
+    debouncedReplace.clear()
+    textareas.forEach((textarea) => {
+      textarea.removeEventListener('input', debouncedReplace)
+    })
+  }
 }
 
 const replaceLinkToCard = () => {

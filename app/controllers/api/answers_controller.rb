@@ -26,12 +26,14 @@ class API::AnswersController < API::BaseController
   end
 
   def create
-    question = Question.find(params[:question_id])
-    @answer = question.answers.new(answer_params)
+    @question = Question.find(params[:question_id])
+    @answer = @question.answers.new(answer_params)
     @answer.user = current_user
     if @answer.save
       ActiveSupport::Notifications.instrument('answer.create', answer: @answer)
-      render_created_answer(question)
+      render_created_answer(@question)
+    elsif request.format.turbo_stream?
+      render :create, status: :unprocessable_entity
     else
       render_validation_errors(@answer)
     end
@@ -67,7 +69,9 @@ class API::AnswersController < API::BaseController
   end
 
   def render_created_answer(question)
-    if request.format.json?
+    if request.format.turbo_stream?
+      render :create, status: :created
+    elsif request.format.json?
       render json: answer_json(@answer), status: :created
     else
       render partial: 'questions/answer', locals: { question:, answer: @answer, user: current_user }, status: :created
