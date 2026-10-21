@@ -23,10 +23,12 @@ module Articles
 
     test 'share button Hatena' do
       widget_url = 'https://b.st-hatena.com/js/bookmark_button.js'
+      image_url = 'https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png'
       block_widget = ->(route, _request) { route.abort }
       page.driver.with_playwright_page do |playwright_page|
         # Verify our embed markup without depending on Hatena's generated iframe or shadow DOM.
         playwright_page.route(widget_url, block_widget)
+        playwright_page.route(image_url, block_widget)
         visit "/articles/#{@article.id}"
 
         assert_selector "a.hatena-bookmark-button[href='https://b.hatena.ne.jp/entry/s/bootcamp.fjord.jp/articles/#{@article.id}']" \
@@ -34,6 +36,7 @@ module Articles
         assert_selector "script[src='#{widget_url}']", visible: :all
       ensure
         playwright_page.unroute(widget_url, handler: block_widget)
+        playwright_page.unroute(image_url, handler: block_widget)
       end
     end
 
