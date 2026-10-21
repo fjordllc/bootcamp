@@ -1,12 +1,14 @@
 import MarkdownIt from 'markdown-it'
 
+const initializedTextareas = new WeakSet()
+
 export default class {
   linkify(selector) {
     const textareas = document.querySelectorAll(selector)
 
     Array.from(textareas).forEach((textarea) => {
-      if (textarea.dataset.listenerAttached) return
-      textarea.dataset.listenerAttached = 'true'
+      if (initializedTextareas.has(textarea)) return
+      initializedTextareas.add(textarea)
 
       textarea.addEventListener('paste', async (event) => {
         event.preventDefault()

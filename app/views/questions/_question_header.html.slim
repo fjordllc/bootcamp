@@ -11,8 +11,7 @@ header.page-content-header
     a.a-count-badge href='#comments'
       .a-count-badge__label
         | 回答
-      .a-count-badge__value.js-answer-count class=(question.answers.blank? ? 'is-zero' : '')
-        | #{question.answers.size}
+      = render 'questions/answer_count', question: question
 
     .page-content-header__row
       .page-content-header__before-title
