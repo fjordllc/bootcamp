@@ -19,6 +19,7 @@ pin "chartjs-plugin-annotation", to: "https://ga.jspm.io/npm:chartjs-plugin-anno
 pin "chartjs-plugin-datalabels", to: "https://ga.jspm.io/npm:chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.esm.js" # @2.2.0
 pin "choices.js", to: "https://ga.jspm.io/npm:choices.js@11.2.3/public/assets/scripts/choices.mjs" # @11.2.3
 pin "emoji-data"
+pin "dompurify", to: "dompurify.js" # @3.4.16
 pin "escape-html", to: "https://ga.jspm.io/npm:escape-html@1.0.3/index.js" # @1.0.3
 pin "escape-string-regexp", to: "https://ga.jspm.io/npm:escape-string-regexp@5.0.0/index.js" # @5.0.0
 pin "heic2any", to: "https://ga.jspm.io/npm:heic2any@0.0.4/dist/heic2any.js" # @0.0.4
