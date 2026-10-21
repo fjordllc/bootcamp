@@ -24,8 +24,13 @@ module Articles
     test 'share button Hatena' do
       visit "/articles/#{@article.id}"
 
+      article_url = "https://bootcamp.fjord.jp/articles/#{@article.id}"
+      entry_urls = [
+        "https://b.hatena.ne.jp/entry/s/bootcamp.fjord.jp/articles/#{@article.id}#bbutton",
+        "https://b.hatena.ne.jp/entry?url=#{URI.encode_www_form_component(article_url)}#bbutton"
+      ]
       within_frame(first('.hatena-bookmark-button-frame')) do
-        assert_selector "a[href='https://b.hatena.ne.jp/entry/s/bootcamp.fjord.jp/articles/#{@article.id}#bbutton']"
+        assert_selector entry_urls.map { |url| "a[href='#{url}']" }.join(', ')
       end
     end
 

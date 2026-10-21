@@ -122,10 +122,36 @@ module LinkChecker
       assert_equal 1, requests
     end
 
-    test '#request rejects oversized responses and total timeouts' do
-      stub_request(:get, 'https://example.com/').to_return(body: 'x' * (2.megabytes + 1))
-      with_public_dns { assert_same false, Client.request('https://example.com/') }
+    test '#request preserves the status of oversized final public responses' do
+      [200, 404].each do |status|
+        stub_request(:get, 'https://example.com/').to_return(status:, body: 'x' * (2.megabytes + 1))
 
+        with_public_dns { assert_equal status, Client.request('https://example.com/') }
+      end
+    end
+
+    test '#request fails closed when an oversized response has no status' do
+      ExternalContent::HttpClient.stub(:get, ->(*) { raise ExternalContent::HttpClient::ResponseTooLarge }) do
+        assert_same false, Client.request('https://example.com/')
+      end
+    end
+
+    test '#request rejects oversized redirects without contacting unsafe destinations' do
+      ['http://127.0.0.1/private', 'https://user:password@example.com/private'].each do |destination|
+        stub_request(:get, 'https://example.com/').to_return(
+          status: 302, body: 'x' * (2.megabytes + 1), headers: { 'Location' => destination }
+        )
+        Addrinfo.stub(:getaddrinfo, lambda { |host, *|
+          [Addrinfo.ip(host == '127.0.0.1' ? '127.0.0.1' : '93.184.216.34')]
+        }) do
+          assert_same false, Client.request('https://example.com/')
+        end
+      end
+      assert_not_requested :get, 'http://127.0.0.1/private'
+      assert_not_requested :get, 'https://user:password@example.com/private'
+    end
+
+    test '#request fails closed on total timeouts' do
       ExternalContent::HttpClient.stub(:get, ->(*) { raise Timeout::Error }) do
         assert_same false, Client.request('https://example.com/')
       end

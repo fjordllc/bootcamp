@@ -103,6 +103,32 @@ class MetadataTest < ActiveSupport::TestCase
     end
   end
 
+  test '#fetch decodes CP932 extensions declared as Shift JIS and its aliases' do
+    %w[Shift_JIS SJIS].each do |charset|
+      body = html.sub('日本語の題名', '日本語の題名①～').encode(Encoding::Windows_31J).b
+      stub_request(:get, 'https://example.com/').to_return(body:, headers: { 'Content-Type' => "text/html; charset=#{charset}" })
+
+      metadata = fetch('https://example.com/')
+
+      assert metadata
+      assert_equal '日本語の題名①～', metadata[:title]
+      assert_equal '日本語の説明', metadata[:description]
+    end
+  end
+
+  test '#fetch replaces malformed bytes in declared encodings while preserving metadata' do
+    [Encoding::Windows_31J, Encoding::UTF_8].each do |encoding|
+      body = html.encode(encoding).b.sub('content="'.b, 'content="'.b + "\xFF".b)
+      stub_request(:get, 'https://example.com/').to_return(body:, headers: { 'Content-Type' => "text/html; charset=#{encoding.name}" })
+
+      metadata = fetch('https://example.com/')
+
+      assert metadata
+      assert_equal "\uFFFD日本語の題名", metadata[:title]
+      assert_equal '日本語の説明', metadata[:description]
+    end
+  end
+
   test '#fetch handles UTF8 HTML without a charset and ignores unknown declared charsets' do
     ['text/html', 'text/html; charset=unknown-encoding'].each do |content_type|
       stub_request(:get, 'https://example.com/').to_return(body: html.b, headers: { 'Content-Type' => content_type })

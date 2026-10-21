@@ -38,7 +38,7 @@ class Metadata
   def html_document(response)
     body = response.body.to_s.b
     encoding = declared_encoding(response.content_type)
-    return Nokogiri::HTML(body.force_encoding(encoding).encode(Encoding::UTF_8)) if encoding
+    return Nokogiri::HTML(body.force_encoding(encoding).encode(Encoding::UTF_8, invalid: :replace, undef: :replace)) if encoding
 
     document = Nokogiri::HTML(body)
     utf8 = body.dup.force_encoding(Encoding::UTF_8)
@@ -50,7 +50,10 @@ class Metadata
 
   def declared_encoding(content_type)
     charset = content_type.to_s[/charset\s*=\s*["']?([^\s;"']+)/i, 1]
-    Encoding.find(charset) if charset
+    return unless charset
+
+    encoding = Encoding.find(charset)
+    encoding == Encoding::Shift_JIS ? Encoding::Windows_31J : encoding
   rescue ArgumentError
     nil
   end

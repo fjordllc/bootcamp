@@ -16,8 +16,10 @@ module LinkChecker
 
       response = ExternalContent::HttpClient.get(uri.normalize.to_s, max_body_bytes: 2.megabytes, request_timeout: 10)
       response.code.to_i
+    rescue ExternalContent::HttpClient::ResponseTooLarge => e
+      e.code && !e.code.to_i.between?(300, 399) ? e.code.to_i : false
     rescue URI::InvalidURIError, Addressable::URI::InvalidURIError, ExternalContent::HttpClient::FetchError,
-           ExternalContent::HttpClient::ResponseTooLarge, SocketError, SystemCallError, IOError,
+           SocketError, SystemCallError, IOError,
            Timeout::Error, OpenSSL::SSL::SSLError, Net::HTTPBadResponse
       false
     end

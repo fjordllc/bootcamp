@@ -104,9 +104,11 @@ class ExternalContent::HttpClientTest < ActiveSupport::TestCase
         http.stub(:request, ->(_request, &block) { block.call(response) }) do
           Net::HTTP.stub(:new, http) do
             Addrinfo.stub(:getaddrinfo, [Addrinfo.ip('93.184.216.34')]) do
-              assert_raises(ExternalContent::HttpClient::ResponseTooLarge) do
+              error = assert_raises(ExternalContent::HttpClient::ResponseTooLarge) do
                 ExternalContent::HttpClient.get('https://example.com/large', max_body_bytes: 5)
               end
+              assert_equal '200', error.code
+              assert_equal 'response too large', error.message
             end
           end
         end

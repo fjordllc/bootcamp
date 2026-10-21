@@ -14,7 +14,15 @@ class ExternalContent::HttpClient
   end
 
   class FetchError < RuntimeError; end
-  class ResponseTooLarge < StandardError; end
+
+  class ResponseTooLarge < StandardError
+    attr_reader :code
+
+    def initialize(code = nil)
+      @code = code
+      super('response too large')
+    end
+  end
 
   MAX_REDIRECTS = 5
   OPEN_TIMEOUT = 3
@@ -91,7 +99,7 @@ class ExternalContent::HttpClient
       http.request(Net::HTTP::Get.new(uri.request_uri, headers)) do |response|
         body = +''.b
         response.read_body do |chunk|
-          raise ResponseTooLarge if @max_body_bytes && body.bytesize + chunk.bytesize > @max_body_bytes
+          raise ResponseTooLarge, response.code if @max_body_bytes && body.bytesize + chunk.bytesize > @max_body_bytes
 
           body << chunk
         end
