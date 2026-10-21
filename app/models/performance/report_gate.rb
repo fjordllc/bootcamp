@@ -28,11 +28,7 @@ module Performance
     private
 
     def issue_locked(binding, page, now)
-      budget = @state.read('budget')
-      unless budget
-        budget = { 'generation' => SecureRandom.hex(16), 'accepted' => [] }
-        @state.write('budget', budget)
-      end
+      budget = @state.read('budget') || { 'generation' => SecureRandom.hex(16), 'accepted' => [] }
       record = @state.read("session:#{binding}")
       if !record || record['budget_generation'] != budget['generation']
         record = { 'generation' => SecureRandom.hex(16), 'budget_generation' => budget['generation'], 'nonces' => {}, 'accepted' => [] }
@@ -42,6 +38,7 @@ module Performance
 
       nonce = SecureRandom.hex(16)
       record['nonces'][Digest::SHA256.hexdigest(nonce)] = { 'expires' => now + 3600, 'used' => false }
+      @state.write('budget', budget)
       @state.write("session:#{binding}", record)
       @verifier.generate({ 'v' => 1, 'p' => page, 'b' => binding, 'g' => record['generation'], 'n' => nonce, 'i' => now, 'e' => now + 3600 },
                          purpose: 'initial-document')

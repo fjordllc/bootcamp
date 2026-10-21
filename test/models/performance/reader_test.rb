@@ -74,6 +74,45 @@ class Performance::ReaderTest < ActiveSupport::TestCase
 end
 
 class Performance::TransportTest < ActiveSupport::TestCase
+  [Faraday::ConnectionFailed, RuntimeError].each do |exception_class|
+    test "unexpected ADC #{exception_class} becomes a neutral credential error" do
+      auth = -> { raise exception_class, 'private-credential-detail' }
+      http = Object.new
+      http.define_singleton_method(:new) { |*_args| flunk 'authentication failure reached Monitoring' }
+      transport = Performance::MonitoringTransport.new(auth:, http:)
+      error = assert_raises(Performance::MonitoringTransport::Error) { transport.get('/v3/projects/school-project/timeSeries', []) }
+      assert_equal :credential_error, error.state
+      assert_equal 'credential_error', error.message
+    end
+  end
+
+  [Net::HTTPBadResponse, Net::ProtocolError, RuntimeError].each do |exception_class|
+    test "unexpected HTTP #{exception_class} becomes neutral unavailable" do
+      connection = Net::HTTP.new('monitoring.googleapis.com', 443)
+      connection.define_singleton_method(:request) { |*_args| raise exception_class, 'private-http-detail' }
+      http = Object.new
+      http.define_singleton_method(:new) { |*_args| connection }
+      transport = Performance::MonitoringTransport.new(auth: -> { 'ephemeral' }, http:)
+      error = assert_raises(Performance::MonitoringTransport::Error) { transport.get('/v3/projects/school-project/timeSeries', []) }
+      assert_equal :unavailable, error.state
+      assert_equal 'unavailable', error.message
+    end
+  end
+
+  test 'already typed errors retain their identity through authentication and HTTP boundaries' do
+    %i[partial timeout permission_error].each do |state|
+      original = Performance::MonitoringTransport::Error.new(state)
+      auth = -> { raise original }
+      transport = Performance::MonitoringTransport.new(auth:)
+      assert_same original, assert_raises(Performance::MonitoringTransport::Error) { transport.get('/v3/projects/school-project/timeSeries', []) }
+
+      http = Object.new
+      http.define_singleton_method(:new) { |*_args| raise original }
+      transport = Performance::MonitoringTransport.new(auth: -> { 'ephemeral' }, http:)
+      assert_same original, assert_raises(Performance::MonitoringTransport::Error) { transport.get('/v3/projects/school-project/timeSeries', []) }
+    end
+  end
+
   test 'outer authentication deadline interrupts blocked ADC work without calling Monitoring' do
     transport = Performance::MonitoringTransport.new(auth: -> { Queue.new.pop }, auth_budget: 0.02)
     started = Process.clock_gettime(Process::CLOCK_MONOTONIC)

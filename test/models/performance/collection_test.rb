@@ -127,6 +127,49 @@ class Performance::StateTest < ActiveSupport::TestCase
     assert_equal :accepted, accept(token, now: @now + 60)
   end
 
+  [64, 119].each do |minute|
+    test "issuance at minute #{minute} keeps its budget alive without accepted reports" do
+      @state = shared_store(ActiveSupport::Cache::MemoryStore.new, Mutex.new)
+      @gate = Performance::ReportGate.new(state: @state)
+      generation = nil
+      travel_to(@now) do
+        assert issue
+        generation = @state.read('budget').fetch('generation')
+      end
+      # Keep issuing before expiry, including across a hypothetical fixed two-hour TTL.
+      travel_to(@now + 60.minutes) { assert @gate.issue(session_binding: @binding, page: 'reports_index', now: Time.current) } if minute > 65
+      token = nil
+      travel_to(@now + minute.minutes) do
+        token = @gate.issue(session_binding: @binding, page: 'reports_index', now: Time.current)
+        assert token
+      end
+      travel_to(@now + (minute + 2).minutes) do
+        assert_equal :accepted, accept(token, now: Time.current)
+        assert_equal generation, @state.read('budget').fetch('generation')
+        assert_equal :duplicate, accept(token, now: Time.current)
+      end
+    end
+  end
+
+  test 'issuing a ticket preserves existing budget generation and rolling acceptances' do
+    assert_equal :accepted, accept(issue)
+    budget = @state.read('budget')
+    assert issue
+    assert_equal budget, @state.read('budget')
+  end
+
+  test 'failed budget renewal prevents issuing a new ticket' do
+    token = issue
+    original_write = @state.method(:write)
+    @state.define_singleton_method(:write) do |key, value, **options|
+      raise Performance::SharedState::Unavailable if key == 'budget'
+
+      original_write.call(key, value, **options)
+    end
+    assert_nil issue
+    assert_equal :unavailable, accept(token)
+  end
+
   test 'two independent stores share SQL lock exclusion and cannot accept a concurrent replay' do
     backend = ActiveSupport::Cache::MemoryStore.new
     mutex = Mutex.new
@@ -297,6 +340,52 @@ class Performance::StateTest < ActiveSupport::TestCase
                                    'PERFORMANCE_PROJECT_ID' => 'school-project',
                                    'PERFORMANCE_CLOUD_RUN_SERVICE' => 'bootcamp', 'PERFORMANCE_CLOUD_RUN_REGION' => 'asia-northeast1',
                                    'PERFORMANCE_COLLECTION_STARTED_AT' => '2026-10-01T00:00:00Z')
+  end
+end
+
+class Performance::SharedStateFactoryTest < ActiveSupport::TestCase
+  test 'concurrent default construction reuses one dedicated cache with configured options' do
+    previous_cache = Performance::SharedState.instance_variable_get(:@default_cache)
+    Performance::SharedState.instance_variable_set(:@default_cache, nil)
+    calls = Queue.new
+    ready = Queue.new
+    start = Queue.new
+    pool = Object.new
+    factory = lambda do |**options|
+      calls << options
+      Thread.pass
+      ActiveSupport::Cache::MemoryStore.new
+    end
+    SolidCache::Store.stub(:new, factory) do
+      workers = Array.new(8) do
+        Thread.new do
+          ready << true
+          start.pop
+          Performance::SharedState.new(pool:)
+        end
+      end
+      workers.length.times { ready.pop }
+      workers.length.times { start << true }
+      stores = workers.map(&:value)
+      assert_equal 1, calls.size
+      assert_equal SolidCache.configuration.store_options, calls.pop
+      cache = stores.first.instance_variable_get(:@cache)
+      stores.each { |store| assert_same cache, store.instance_variable_get(:@cache) }
+      assert_not_same Rails.cache, cache
+    ensure
+      workers&.each(&:join)
+    end
+  ensure
+    Performance::SharedState.instance_variable_set(:@default_cache, previous_cache)
+  end
+
+  test 'explicit cache injection bypasses the default factory' do
+    cache = ActiveSupport::Cache::MemoryStore.new
+    factory = ->(**_options) { flunk 'injected cache constructed a default store' }
+    SolidCache::Store.stub(:new, factory) do
+      shared = Performance::SharedState.new(cache:, pool: Object.new)
+      assert_same cache, shared.instance_variable_get(:@cache)
+    end
   end
 end
 

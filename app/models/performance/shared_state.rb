@@ -4,8 +4,16 @@ module Performance
   class SharedState
     class Unavailable < StandardError; end
 
+    @default_cache_mutex = Mutex.new
+
+    def self.default_cache
+      @default_cache_mutex.synchronize do
+        @default_cache ||= SolidCache::Store.new(**SolidCache.configuration.store_options)
+      end
+    end
+
     def initialize(cache: nil, pool: nil)
-      @cache = cache || SolidCache::Store.new(**SolidCache.configuration.store_options)
+      @cache = cache || self.class.default_cache
       @pool = pool || SolidCache::Record.connection_pool
     end
 

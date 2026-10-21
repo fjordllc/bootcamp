@@ -41,6 +41,10 @@ module Performance
       raise Error, :invalid_schema
     rescue SocketError, IOError, SystemCallError, OpenSSL::SSL::SSLError
       raise Error, :unavailable
+    rescue Error
+      raise
+    rescue StandardError
+      raise Error, :unavailable
     end
 
     private
@@ -53,6 +57,10 @@ module Performance
     rescue Timeout::Error
       raise Error, :credential_error
     rescue Google::Auth::Error, Signet::AuthorizationError
+      raise Error, :credential_error
+    rescue Error
+      raise
+    rescue StandardError
       raise Error, :credential_error
     end
 
