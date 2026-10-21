@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class BootcampSearchTool < RubyLLM::Tool
+class Pjord::BootcampSearchTool < RubyLLM::Tool
   description 'bootcampのプラクティス（カリキュラム）、ドキュメント（Docs）、Q&A、お知らせを検索する。' \
               'ユーザーの質問に答えるために必要な情報を探すときに使う。'
 
@@ -17,6 +17,10 @@ class BootcampSearchTool < RubyLLM::Tool
 
   RESULT_LIMIT = 5
   CONTENT_TRUNCATE_LENGTH = 500
+
+  def self.tool_name
+    'bootcamp_search'
+  end
 
   def execute(query:, category: 'all')
     targets = select_targets(category)

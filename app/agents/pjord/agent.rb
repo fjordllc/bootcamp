@@ -2,7 +2,7 @@
 
 class Pjord::Agent < RubyLLM::Agent
   model ENV.fetch('PJORD_LLM_MODEL', 'claude-sonnet-5')
-  tools BootcampSearchTool, UserInfoTool, ExternalContentTool
+  tools Pjord::BootcampSearchTool, Pjord::UserInfoTool, Pjord::ExternalContentTool
   schema PjordResponse
   instructions { AiPrompt.body_for('pjord') }
 

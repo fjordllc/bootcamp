@@ -2,9 +2,13 @@
 
 require 'test_helper'
 
-class BootcampSearchToolTest < ActiveSupport::TestCase
+class Pjord::BootcampSearchToolTest < ActiveSupport::TestCase
   setup do
-    @tool = BootcampSearchTool.new
+    @tool = Pjord::BootcampSearchTool.new
+  end
+
+  test 'preserves the advertised RubyLLM tool name' do
+    assert_equal 'bootcamp_search', @tool.name
   end
 
   test 'search practices by keyword' do

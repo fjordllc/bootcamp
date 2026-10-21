@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
-class UserInfoTool < RubyLLM::Tool
+class Pjord::UserInfoTool < RubyLLM::Tool
   description 'メンションしてきたユーザーのプロフィールやカリキュラムの進捗状況を取得する。' \
               'ユーザーに合わせた回答をするときに使う。'
 
   parameter :login_name, description: 'ユーザーのログイン名'
+
+  def self.tool_name
+    'user_info'
+  end
 
   def execute(login_name:)
     user = User.find_by(login_name: login_name)

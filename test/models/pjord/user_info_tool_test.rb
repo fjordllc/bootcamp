@@ -2,9 +2,13 @@
 
 require 'test_helper'
 
-class UserInfoToolTest < ActiveSupport::TestCase
+class Pjord::UserInfoToolTest < ActiveSupport::TestCase
   setup do
-    @tool = UserInfoTool.new
+    @tool = Pjord::UserInfoTool.new
+  end
+
+  test 'preserves the advertised RubyLLM tool name' do
+    assert_equal 'user_info', @tool.name
   end
 
   test 'returns user profile info' do

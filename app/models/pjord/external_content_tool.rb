@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
-class ExternalContentTool < RubyLLM::Tool
+class Pjord::ExternalContentTool < RubyLLM::Tool
   description 'URLの先にある内容を確認する。GitHubのPR・コード・ディレクトリ、rawファイル、一般Webページを読み、回答やレビューに必要な文脈を取得するときに使う。'
 
   parameter :url, description: '確認したいhttpまたはhttpsのURL'
+
+  def self.tool_name
+    'external_content'
+  end
 
   def execute(url:)
     ExternalContent.fetch(url)
