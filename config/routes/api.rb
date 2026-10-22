@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  use_doorkeeper
+  use_doorkeeper do
+    controllers authorizations: 'mcp_oauth/authorizations', tokens: 'mcp_oauth/tokens'
+  end
   namespace 'api' do
     namespace 'admin' do
       resource :count, controller: 'count', only: %i(show)
