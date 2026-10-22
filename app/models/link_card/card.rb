@@ -16,20 +16,29 @@ module LinkCard
     private
 
     def cache_key
-      ['link_card', @tweet ? 'tweet' : 'metadata', @url]
+      ['link_card', 'v2', @tweet ? 'tweet' : 'metadata', @url]
     end
 
     def request
-      return unless LinkChecker::Checker.valid_url?(@url)
+      uri = Addressable::URI.parse(@url)
+      return unless uri && uri.userinfo.nil?
+
+      uri = URI.parse(uri.normalize.to_s)
+      return unless uri.is_a?(URI::HTTP) && uri.hostname.present?
 
       @tweet ? fetch_tweet : Metadata.new(@url).fetch
+    rescue *Metadata::FETCH_ERRORS
+      nil
     end
 
     def fetch_tweet
-      embed_tweet_url = "https://publish.twitter.com/oembed?url=#{@url}"
-      uri = Addressable::URI.parse(embed_tweet_url).normalize
-      response = Net::HTTP.get_response(uri)
-      response.is_a?(Net::HTTPSuccess) ? response.body : nil
+      uri = Addressable::URI.parse('https://publish.twitter.com/oembed')
+      uri.query_values = { url: @url }
+      response = ExternalContent::HttpClient.get(uri.normalize.to_s, max_body_bytes: 2.megabytes, request_timeout: 10)
+      return unless response.success?
+
+      body = response.body.to_s.dup.force_encoding(Encoding::UTF_8)
+      body if body.valid_encoding?
     end
   end
 end
