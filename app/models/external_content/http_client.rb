@@ -13,7 +13,16 @@ class ExternalContent::HttpClient
     end
   end
 
-  class ResponseTooLarge < StandardError; end
+  class FetchError < RuntimeError; end
+
+  class ResponseTooLarge < StandardError
+    attr_reader :code
+
+    def initialize(code = nil)
+      @code = code
+      super('response too large')
+    end
+  end
 
   MAX_REDIRECTS = 5
   OPEN_TIMEOUT = 3
@@ -58,13 +67,13 @@ class ExternalContent::HttpClient
     raise URI::InvalidURIError unless uri.is_a?(URI::HTTP) && uri.userinfo.nil?
 
     address = validate_public_endpoint!(uri)
-    raise "too many redirects: #{uri}" if redirects_left.negative?
-    raise "redirect loop: #{uri}" if visited.include?(uri.to_s)
+    raise FetchError, 'too many redirects' if redirects_left.negative?
+    raise FetchError, 'redirect loop' if visited.include?(uri.to_s)
 
     response = request(uri, address)
     if response.is_a?(Net::HTTPRedirection)
       location = response['location'].to_s
-      raise "redirect without location: #{uri}" if location.blank?
+      raise FetchError, 'redirect without location' if location.blank?
 
       next_uri = URI.join(uri, location)
       return fetch(next_uri, redirects_left: redirects_left - 1, visited: visited + [uri.to_s])
@@ -90,7 +99,7 @@ class ExternalContent::HttpClient
       http.request(Net::HTTP::Get.new(uri.request_uri, headers)) do |response|
         body = +''.b
         response.read_body do |chunk|
-          raise ResponseTooLarge if @max_body_bytes && body.bytesize + chunk.bytesize > @max_body_bytes
+          raise ResponseTooLarge, response.code if @max_body_bytes && body.bytesize + chunk.bytesize > @max_body_bytes
 
           body << chunk
         end
@@ -102,8 +111,8 @@ class ExternalContent::HttpClient
 
   def validate_public_endpoint!(uri)
     addresses = resolved_addresses(uri)
-    raise "unresolvable host: #{uri}" if addresses.empty?
-    raise "private endpoint is not allowed: #{uri}" if addresses.any? { |address| private_endpoint?(address) }
+    raise FetchError, 'unresolvable host' if addresses.empty?
+    raise FetchError, 'private endpoint is not allowed' if addresses.any? { |address| private_endpoint?(address) }
 
     addresses.first
   end
