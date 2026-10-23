@@ -22,15 +22,21 @@ module Articles
     end
 
     test 'share button Hatena' do
-      visit "/articles/#{@article.id}"
+      widget_url = 'https://b.st-hatena.com/js/bookmark_button.js'
+      image_url = 'https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png'
+      block_widget = ->(route, _request) { route.abort }
+      page.driver.with_playwright_page do |playwright_page|
+        # Verify our embed markup without depending on Hatena's generated iframe or shadow DOM.
+        playwright_page.route(widget_url, block_widget)
+        playwright_page.route(image_url, block_widget)
+        visit "/articles/#{@article.id}"
 
-      article_url = "https://bootcamp.fjord.jp/articles/#{@article.id}"
-      entry_urls = [
-        "https://b.hatena.ne.jp/entry/s/bootcamp.fjord.jp/articles/#{@article.id}#bbutton",
-        "https://b.hatena.ne.jp/entry?url=#{URI.encode_www_form_component(article_url)}#bbutton"
-      ]
-      within_frame(first('.hatena-bookmark-button-frame')) do
-        assert_selector entry_urls.map { |url| "a[href='#{url}']" }.join(', ')
+        assert_selector "a.hatena-bookmark-button[href='https://b.hatena.ne.jp/entry/s/bootcamp.fjord.jp/articles/#{@article.id}']" \
+                        '[data-hatena-bookmark-layout="vertical-normal"][data-hatena-bookmark-lang="ja"]'
+        assert_selector "script[src='#{widget_url}']", visible: :all
+      ensure
+        playwright_page.unroute(widget_url, handler: block_widget)
+        playwright_page.unroute(image_url, handler: block_widget)
       end
     end
 

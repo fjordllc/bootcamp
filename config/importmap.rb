@@ -86,3 +86,5 @@ pin "prismjs/components/prism-sql", to: "prismjs--components--prism-sql.js" # @1
 pin "prismjs/components/prism-tsx", to: "prismjs--components--prism-tsx.js" # @1.30.0
 pin "prismjs/components/prism-typescript", to: "prismjs--components--prism-typescript.js" # @1.30.0
 pin "prismjs/components/prism-yaml", to: "prismjs--components--prism-yaml.js" # @1.30.0
+
+pin "web-vitals", to: "web-vitals.js", preload: false # @5.1.0 standard ESM
