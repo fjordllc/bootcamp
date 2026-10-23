@@ -6,7 +6,7 @@ class WatchesTest < ApplicationSystemTestCase
   test 'after posting a comment, clicking the Watch button removes the Watch.' do
     visit_with_auth "/announcements/#{announcements(:announcement1).id}", 'komagata'
     within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'test')
+      fill_in('comment[description]', with: 'test')
     end
     all('.a-form-tabs__tab.js-tabs__tab')[1].click
     click_button 'コメントする'
@@ -35,7 +35,7 @@ class WatchesTest < ApplicationSystemTestCase
     target_report_path = "/reports/#{reports(:report1).id}"
     visit_with_auth target_report_path, 'mentormentaro'
     within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'ウォッチ確認用のtestコメント')
+      fill_in('comment[description]', with: 'ウォッチ確認用のtestコメント')
     end
     click_button 'コメントする'
     assert_text 'ウォッチ確認用のtestコメント'
@@ -62,7 +62,7 @@ class WatchesTest < ApplicationSystemTestCase
     target_report_path = "/reports/#{reports(:report1).id}"
     visit_with_auth target_report_path, 'mentormentaro'
     within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'ウォッチ確認用のtestコメント')
+      fill_in('comment[description]', with: 'ウォッチ確認用のtestコメント')
     end
     click_button 'コメントする'
     assert_text 'ウォッチ確認用のtestコメント'

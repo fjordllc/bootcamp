@@ -22,7 +22,7 @@ class MentionAndInteractionTest < ApplicationSystemTestCase
 
   test 'company logo appear when adviser belongs to the company post comment' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'senpai'
-    fill_in('new_comment[description]', with: 'test')
+    fill_in('comment[description]', with: 'test')
     click_button 'コメントする'
     assert_text 'test'
     assert_includes ['companies-logos-2.webp', 'default.png'], File.basename(find('img.thread-comment__company-logo')['src'])

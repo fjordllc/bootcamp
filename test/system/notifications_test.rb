@@ -21,7 +21,7 @@ class NotificationsTest < ApplicationSystemTestCase
   test 'do not send mail if user deny mail' do
     visit_with_auth "/reports/#{reports(:report8).id}", 'kimura'
     within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'test')
+      fill_in('comment[description]', with: 'test')
     end
     click_button 'コメントする'
     assert_selector '.thread-comment__description', text: 'test'
@@ -76,7 +76,7 @@ class NotificationsTest < ApplicationSystemTestCase
     perform_enqueued_jobs do
       visit_with_auth "/reports/#{report_id}", 'komagata'
       assert_selector 'h1.page-content-header__title', text: 'コメントと'
-      fill_in 'new_comment[description]', with: 'コメントと確認した'
+      fill_in 'comment[description]', with: 'コメントと確認した'
       click_button '確認OKにする'
       logout
       visit_with_auth root_path, 'hatsuno'

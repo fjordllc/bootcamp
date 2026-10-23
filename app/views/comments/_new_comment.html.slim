@@ -1,27 +1,28 @@
-.thread-comment-form.new-comment [
+.thread-comment-form [
   data-controller='new-comment'
   data-new-comment-commentable-type-value=commentable_type
   data-new-comment-commentable-id-value=commentable.id
   data-new-comment-is-mentor-value=mentor_login?
   data-new-comment-current-user-id-value=current_user.id
-  data-commentable_id="#{commentable.id}"
-  data-commentable_type="#{commentable_type}"
-  data-is_mentor="#{mentor_login?}"
-  data-current_user_id="#{current_user.id}"
 ]
   .thread-comment__start
     span class="a-user-role is-#{user.primary_role}"
       img.thread-comment__user-icon.a-user-icon src="#{user.avatar_url}" alt="#{current_user.icon_title}"
   .thread-comment__end
-    .comment-editor.js-comment-editor
-      .thread-comment-form__form.a-card
+    .comment-editor
+      = form_with url: comments_path,
+        method: :post,
+        class: 'thread-comment-form__form a-card',
+        data: { turbo: false, action: 'submit->new-comment#submit' } do
+        = hidden_field_tag :commentable_type, commentable_type
+        = hidden_field_tag :commentable_id, commentable.id
         .a-form-tabs.js-tabs
-          .a-form-tabs__tab.js-tabs__tab.edit-comment-tab.is-active [
+          .a-form-tabs__tab.js-tabs__tab.is-active [
             data-new-comment-target="inputTab"
             data-action="click->new-comment#openInputTab"
           ]
             | コメント
-          .a-form-tabs__tab.js-tabs__tab.comment-preview-tab [
+          .a-form-tabs__tab.js-tabs__tab [
             data-new-comment-target="previewTab"
             data-action="click->new-comment#openPreviewTab"
           ]
@@ -34,7 +35,8 @@
               .form-textarea__body
                 textarea#js-new-comment.a-text-input.js-warning-form.a-markdown-input__textarea [
                   data-new-comment-target='inputBody'
-                  name='new_comment[description]'
+                  data-action='input->new-comment#setSubmitButtonState input->new-comment#renderPreview'
+                  name='comment[description]'
                   data-preview='#new-comment-preview'
                   data-input='.new-comment-file-input'
                 ]
@@ -53,23 +55,28 @@
           .card-main-actions
             .card-main-actions__items
               .card-main-actions__item
-                button#js-shortcut-post-comment.a-button.is-sm.is-primary.is-block.js-comment-save-button [
+                button#js-shortcut-post-comment.a-button.is-sm.is-primary.is-block [
                   disabled=true
+                  value='comment'
                   data-new-comment-target='submitButton'
                 ]
                   | コメントする
               - if mentor_login? && %w[Report Product].include?(commentable_type) && !commentable.try(:checked?)
-                .card-main-actions__item.is-only-mentor
+                .card-main-actions__item.is-only-mentor [
+                  data-new-comment-target='checkAndApproveButtonWrapper'
+                ]
                   - if commentable_type == 'Report'
-                    button.a-button.is-sm.is-danger.is-block.js-comment-check-button [
+                    button.a-button.is-sm.is-danger.is-block [
                       disabled=true
+                      value='commentAndCheck'
                       data-new-comment-target='submitAndCheckButton'
                     ]
                       i.fa-solid.fa-check
                       | 確認OKにする
                   - else
-                    button.a-button.is-sm.is-danger.is-block.js-comment-check-button [
+                    button.a-button.is-sm.is-danger.is-block [
                       disabled=true
+                      value='commentAndApprove'
                       data-new-comment-target='submitAndApproveButton'
                     ]
                       i.fa-solid.fa-check

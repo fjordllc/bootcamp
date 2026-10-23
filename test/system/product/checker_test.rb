@@ -69,7 +69,7 @@ class Product::CheckerTest < ApplicationSystemTestCase
     visit_with_auth product_url(old_product), 'kimura'
 
     within first('#comments.loaded') do
-      fill_in 'new_comment[description]', with: 'edit test'
+      fill_in 'comment[description]', with: 'edit test'
       click_button 'コメントする'
     end
 

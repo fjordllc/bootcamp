@@ -11,7 +11,7 @@ class ReportCommentsTest < ApplicationSystemTestCase
     end
 
     within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'test')
+      fill_in('comment[description]', with: 'test')
     end
     all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text 'test'
@@ -101,9 +101,11 @@ class ReportCommentsTest < ApplicationSystemTestCase
   test 'edit the comment for report' do
     visit_with_auth "/reports/#{reports(:report3).id}", 'komagata'
 
-    first('button', text: '編集').click
-    fill_in 'comment[description]', with: 'edit test'
-    click_button '保存する'
+    within find('.thread-comment', text: 'どういう教材がいいんでしょうかね？') do
+      first('button', text: '編集').click
+      fill_in 'comment[description]', with: 'edit test'
+      click_button '保存する'
+    end
 
     assert_text 'edit test'
     assert_no_text 'どういう教材がいいんでしょうかね？'
@@ -130,10 +132,9 @@ class ReportCommentsTest < ApplicationSystemTestCase
     # Find komagata's comment and click edit button
     within(all('.thread-comment').find { |comment| comment.text.include?('どういう教材がいいんでしょうかね？') }) do
       click_button '編集'
+      fill_in 'comment[description]', with: 'mentor edited this comment'
+      click_button '保存する'
     end
-
-    fill_in 'comment[description]', with: 'mentor edited this comment'
-    click_button '保存する'
 
     assert_text 'mentor edited this comment'
     assert_no_text 'どういう教材がいいんでしょうかね？'
@@ -184,7 +185,7 @@ class ReportCommentsTest < ApplicationSystemTestCase
 
     assert_text '確認OKにする'
     within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'comment test')
+      fill_in('comment[description]', with: 'comment test')
     end
     click_button '確認OKにする'
 
@@ -199,7 +200,7 @@ class ReportCommentsTest < ApplicationSystemTestCase
     wait_for_comments
 
     within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'comment test')
+      fill_in('comment[description]', with: 'comment test')
     end
 
     if has_text?('確認OKにする')
