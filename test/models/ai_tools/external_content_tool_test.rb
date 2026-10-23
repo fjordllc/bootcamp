@@ -2,10 +2,14 @@
 
 require 'test_helper'
 
-class ExternalContentToolTest < ActiveSupport::TestCase
+class AiTools::ExternalContentToolTest < ActiveSupport::TestCase
   setup do
     Rails.cache.clear
-    @tool = ExternalContentTool.new
+    @tool = AiTools::ExternalContentTool.new
+  end
+
+  test 'preserves the advertised RubyLLM tool name' do
+    assert_equal 'external_content', @tool.name
   end
 
   test 'reads regular web pages' do

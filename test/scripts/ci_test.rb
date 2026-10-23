@@ -41,7 +41,8 @@ class CiTest < Minitest::Test
     commands = calls.map { |call| call.fetch('command').join(' ') }
     %w[rubocop slim-lint traceroute].each { |check| assert commands.any? { |command| command.include?(check) }, commands.inspect }
     assert_includes commands, 'bundle exec rubocop --ignore-parent-exclusion --format progress'
-    ['bundle check', 'npm ci', 'npm run lint', 'rails db:prepare', 'rails assets:clean assets:precompile', 'rails test:all'].each do |command|
+    ['bundle check', 'npm ci', 'npm run lint', 'node --test test/javascript/performance_test.mjs',
+     'rails db:prepare', 'rails assets:clean assets:precompile', 'rails test:all'].each do |command|
       assert_includes commands, command
     end
     refute(commands.any? { |command| command.match?(/signoff|setup|replant|rubocop -a|npm install/) })
@@ -65,12 +66,14 @@ class CiTest < Minitest::Test
   def test_each_check_failure_prevents_signoff_and_returns_failure
     ['bundle check', 'npm ci', 'bundle exec rubocop --ignore-parent-exclusion --format progress',
      'bundle exec slim-lint app/views -c config/slim_lint.yml', 'bundle exec rake traceroute',
-     'npm run lint', 'rails db:prepare', 'rails assets:clean assets:precompile', 'rails test:all'].each do |command|
+     'npm run lint', 'node --test test/javascript/performance_test.mjs',
+     'rails db:prepare', 'rails assets:clean assets:precompile', 'rails test:all'].each do |command|
       FileUtils.rm_f(@log)
       output, status = run_script('ci', '--signoff', env: { 'FAIL_COMMAND' => command })
       refute status.success?, "#{command}: #{output}"
       refute calls.any? { |call| call['command'] == %w[gh signoff] }, command
       assert calls.any? { |call| call['command'].join(' ') == command }, output
+      assert_equal command, calls.last['command'].join(' '), 'No commands should run after a failed check'
     end
   end
 
@@ -181,7 +184,7 @@ class CiTest < Minitest::Test
       File.write('changed-during-ci', 'change') if name == 'rails' && ARGV == ['test:all'] && ENV['CHANGE_CHECKOUT'] == '1'
       exit 7 if ENV['FAIL_COMMAND'] == [name, *ARGV].join(' ')
     SCRIPT
-    %w[bundle npm gh].each { |name| executable("#{@fake_bin}/#{name}", recorder) }
+    %w[bundle npm node gh].each { |name| executable("#{@fake_bin}/#{name}", recorder) }
     executable("#{@repo}/bin/rails", recorder)
   end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Run using bin/ci. Rails 8.1 provides per-step and total timing reports.
 
 CI.run do
@@ -7,6 +9,7 @@ CI.run do
   step 'Routes: Traceroute', 'env', 'RAILS_ENV=development', 'FAIL_ON_ERROR=1', 'bundle', 'exec', 'rake', 'traceroute' if success?
   step 'Dependencies: JavaScript', 'npm', 'ci' if success?
   step 'Style: JavaScript, CSS and OpenAPI', 'npm', 'run', 'lint' if success?
+  step 'Tests: Performance collection', 'node', '--test', 'test/javascript/performance_test.mjs' if success?
 
   step 'Database: Prepare test database', 'bin/rails', 'db:prepare' if success?
   step 'Assets: Precompile', 'bin/rails', 'assets:clean', 'assets:precompile' if success?

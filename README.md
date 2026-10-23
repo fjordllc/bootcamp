@@ -72,6 +72,8 @@ $ PARALLEL_WORKERS=1 rails test:all
 
 ## ローカル CI
 
+これまでどおり push・PR の作成で開発を進められます。main 向け PR と main への push では、GitHub Actions の全チェックが引き続き自動実行されます。ローカル CI の利用は任意です。既存メンバーが作業を続けるために、`bin/ci` の実行や `gh-signoff` の導入は必要ありません。この PR では GitHub Actions のワークフロー、必須チェック、ruleset の設定を変更しません。
+
 [Local CI × GitHub Actions](https://speakerdeck.com/gogutan/local-ci-x-github-actions) を参考に、`bin/ci` で GitHub Actions と同じ種類のチェックを手元で実行できます。リポジトリ内のどのディレクトリからでも実行でき、各ステップと全体の所要時間を表示します。
 
 ### 実行前の準備
@@ -88,13 +90,13 @@ $ PARALLEL_WORKERS=1 rails test:all
 bin/ci
 ```
 
-Ruby・Slim・JavaScript・CSS・OpenAPI の lint、Traceroute、テスト DB の準備、アセットのプリコンパイル、system test を含む全テストを順に実行します。途中で失敗すると後続の処理を止め、終了コードを失敗にします。lint の自動修正や開発環境のセットアップ、seed の再投入は実行しません。通常の実行では GitHub にステータスを送信しません。
+Ruby・Slim・JavaScript・CSS・OpenAPI の lint、Traceroute、Node.js による性能収集テスト（`node --test test/javascript/performance_test.mjs`）、テスト DB の準備、アセットのプリコンパイル、system test を含む全テストを順に実行します。途中で失敗すると後続の処理を止め、終了コードを失敗にします。lint の自動修正や開発環境のセットアップ、seed の再投入は実行しません。通常の実行では GitHub にステータスを送信しません。
 
 RuboCop は `--ignore-parent-exclusion` を指定し、入れ子の worktree でも親チェックアウトの除外設定を引き継がず、このチェックアウトの設定で検査します。
 
 テストは既存の設定どおり既定では1 worker です。`PARALLEL_WORKERS=4 bin/ci` のように並列実行を指定できますが、Rails の DRb/fork によってハングする環境があるため、問題が出たら1に戻してください。
 
-### 成功結果を signoff する
+### 任意で成功結果を signoff する
 
 GitHub CLI の認証と `gh-signoff` 拡張が既に利用できる環境では、変更を commit・push した後に明示的に指定します。
 
@@ -104,19 +106,17 @@ bin/ci --signoff
 
 全チェックに成功し、開始時から HEAD と作業ツリーが変わっていない場合だけ `gh signoff` を実行します。未 commit の変更がある場合は開始前に終了します。signoff の失敗も終了コードに反映します。拡張のインストールや、リポジトリの必須チェック設定の変更は行いません。
 
+signoff はローカルの成功結果を追加のステータスとして報告するだけです。既存の GitHub Actions のチェックを省略・代替せず、必須チェックを満たしたことにもなりません。
+
 ### クラウドで再実行する
 
-GitHub CLI の認証と Actions を実行できる権限がある環境で、現在のブランチを `origin` に push してから実行します。
+`bin/cloud-ci` は必要に応じてクラウドで手動再実行するための任意のコマンドです。通常の GitHub Actions の自動実行を起動するために使う必要はありません。GitHub CLI の認証と Actions を実行できる権限がある環境で、現在のブランチを `origin` に push してから実行します。
 
 ```bash
 bin/cloud-ci
 ```
 
 `origin` のリポジトリと現在のブランチを明示して、既存の `ci.yml` を手動実行します。作業ツリーが変更済み、detached HEAD、未 push、またはローカルとリモートの HEAD が異なる場合は実行しません。Git の確認や GitHub CLI が失敗した場合は失敗で終了します。このコマンドは workflow の起動までを行い、完了は待ちません。
-
-### チームでの段階的な運用
-
-現在の PR・main への GitHub Actions と手動実行はそのまま維持します。まずローカル CI で早く問題を見つけ、必要に応じてクラウドでも確認する運用を想定しています。必須チェックを signoff に切り替える場合は、チームで検証方法と権限を合意してから別途設定してください。切り替え後も main の検証、ローカルで実行できない Dependabot の PR、手動のクラウド CI を扱う経路が必要です。
 
 ## Lint
 

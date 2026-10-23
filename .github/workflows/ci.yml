@@ -85,6 +85,9 @@ jobs:
       - name: Lint JavaScript
         run: npm run lint
 
+      - name: Test performance collection
+        run: node --test test/javascript/performance_test.mjs
+
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 40

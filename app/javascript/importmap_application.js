@@ -77,6 +77,7 @@ import 'bookmark-button'
 import 'notifications_remove_after_open'
 import 'notifications-bell'
 import 'products-checker-init'
+import 'performance'
 
 Turbo.session.drive = false
 
