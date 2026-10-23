@@ -39,7 +39,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
   test 'show comment count' do
     visit_with_auth "/announcements/#{announcements(:announcement1).id}", 'kimura'
 
-    fill_in 'new_comment[description]', with: 'コメント数表示のテストです。'
+    fill_in 'comment[description]', with: 'コメント数表示のテストです。'
     click_button 'コメントする'
     assert_selector 'p', text: 'コメント数表示のテストです。'
 

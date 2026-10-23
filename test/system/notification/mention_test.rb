@@ -33,7 +33,7 @@ class Notification::MentionTest < NotificationSystemTestCase
     post_mention = lambda { |comment|
       visit report_path(reports(:report1).id)
       within('.thread-comment-form__form') do
-        fill_in('new_comment[description]', with: comment)
+        fill_in('comment[description]', with: comment)
       end
       click_button 'コメントする'
     }

@@ -17,7 +17,7 @@ class Notification::CommentsTest < NotificationSystemTestCase
 
     find('.thread-comment-form__form')
     within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: '@machida @machida test')
+      fill_in('comment[description]', with: '@machida @machida test')
     end
     click_button 'コメントする'
     assert_text '@machida @machida test'
