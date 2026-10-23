@@ -105,8 +105,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
       session.delete(:registration_invitation)
       logger.info "[Signup] 3. after save free user. #{@user.email}"
       UserMailer.welcome(@user).deliver_now
-      notify_to_mentors(@user)
-      notify_to_chat(@user)
+      UserRegistrationNotifier.new.call(user: @user, user_url: url_for(@user))
       ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.trainee?
       logger.info "[Signup] 4. after create times channel for free user. #{@user.email}"
       flash[:signup_email] = @user.email
@@ -129,8 +128,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     end
 
     UserMailer.welcome(@user).deliver_now
-    notify_to_mentors(@user)
-    notify_to_chat(@user)
+    UserRegistrationNotifier.new.call(user: @user, user_url: user_url(@user))
     ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.student?
     send_affiliate_kickback(@user)
 
@@ -148,16 +146,6 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
 
     AffiliateKickbackJob.perform_later(user.id, rd_code)
     session.delete(:affiliate_rd_code)
-  end
-
-  def notify_to_mentors(user)
-    User.mentor.each do |mentor|
-      ActivityDelivery.with(sender: user, receiver: mentor, sender_roles: user.roles_to_s).notify(:signed_up)
-    end
-  end
-
-  def notify_to_chat(user)
-    ChatNotifier.message "#{user.login_name}さん#{user.roles_to_s.empty? ? '' : "（#{user.roles_to_s}）"}が新たなメンバーとしてJOINしました🎉\r<#{url_for(user)}>"
   end
 
   def user_params
