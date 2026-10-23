@@ -104,9 +104,11 @@ class ExternalContent::HttpClientTest < ActiveSupport::TestCase
         http.stub(:request, ->(_request, &block) { block.call(response) }) do
           Net::HTTP.stub(:new, http) do
             Addrinfo.stub(:getaddrinfo, [Addrinfo.ip('93.184.216.34')]) do
-              assert_raises(ExternalContent::HttpClient::ResponseTooLarge) do
+              error = assert_raises(ExternalContent::HttpClient::ResponseTooLarge) do
                 ExternalContent::HttpClient.get('https://example.com/large', max_body_bytes: 5)
               end
+              assert_equal '200', error.code
+              assert_equal 'response too large', error.message
             end
           end
         end
@@ -121,5 +123,45 @@ class ExternalContent::HttpClientTest < ActiveSupport::TestCase
         ExternalContent::HttpClient.get('https://example.com/slow', request_timeout: 0.01)
       end
     end
+  end
+  test 'policy and redirect errors have a narrow type without including supplied URLs' do
+    url = 'https://example.com/private?secret=fictional'
+    Addrinfo.stub(:getaddrinfo, [Addrinfo.ip('10.0.0.1')]) do
+      error = assert_raises(ExternalContent::HttpClient::FetchError) { ExternalContent::HttpClient.get(url) }
+      assert_kind_of RuntimeError, error
+      assert_not_includes error.message, url
+      assert_not_includes error.message, 'secret'
+    end
+    Addrinfo.stub(:getaddrinfo, []) do
+      assert_raises(ExternalContent::HttpClient::FetchError) { ExternalContent::HttpClient.get(url) }
+    end
+    Addrinfo.stub(:getaddrinfo, [Addrinfo.ip('93.184.216.34')]) do
+      stub_request(:get, url).to_return(status: 302)
+      assert_raises(ExternalContent::HttpClient::FetchError) { ExternalContent::HttpClient.get(url) }
+      stub_request(:get, url).to_return(status: 302, headers: { 'Location' => url })
+      assert_raises(ExternalContent::HttpClient::FetchError) { ExternalContent::HttpClient.get(url) }
+    end
+  end
+
+  test 'HTTPS uses peer verification even for the former link checker exception' do
+    socket = Minitest::Mock.new
+    socket.expect(:setsockopt, nil, [Socket::IPPROTO_TCP, Socket::TCP_NODELAY, 1])
+    socket.expect(:close, nil)
+    WebMock.stub(:net_http_connect_on_start?, true) do
+      TCPSocket.stub(:open, socket) do
+        OpenSSL::SSL::SSLSocket.stub(:new, lambda { |_socket, context|
+          assert_equal OpenSSL::SSL::VERIFY_PEER, context.verify_mode
+          assert context.verify_hostname
+          raise OpenSSL::SSL::SSLError, 'certificate verify failed'
+        }) do
+          Addrinfo.stub(:getaddrinfo, [Addrinfo.ip('93.184.216.34')]) do
+            assert_raises(OpenSSL::SSL::SSLError) do
+              ExternalContent::HttpClient.get('https://www.tablesgenerator.com/markdown_tables')
+            end
+          end
+        end
+      end
+    end
+    socket.verify
   end
 end

@@ -2,6 +2,9 @@ doctype html
 html.is-application lang='ja'
   - page_classes = content_for(:extra_body_classes).to_s
   head
+    - if (performance = performance_context)
+      meta name='performance-page' content=performance[:page]
+      meta name='performance-token' content=performance[:token]
     = display_meta_tags default_meta_tags
     = render 'layouts/common/common_head'
     - if page_classes.include?('welcome')

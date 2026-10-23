@@ -7,4 +7,5 @@ class ReportPreset < ApplicationRecord
 
   validates :description, presence: true
   validates :user, presence: true
+  validates :user_id, uniqueness: true
 end

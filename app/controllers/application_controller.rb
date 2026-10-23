@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   include Authentication
   include TestAuthentication if Rails.env.test?
   include PolicyHelper
-  helper_method :staging?
+  helper_method :staging?, :performance_context
   protect_from_forgery with: :exception
   before_action :require_scheduler_inheritation, if: -> { request.path_info.start_with?('/scheduler') }
   before_action :basic_auth, if: :staging?
@@ -16,6 +16,35 @@ class ApplicationController < ActionController::Base
   before_action :save_affiliate_rd_code
 
   private
+
+  def performance_page
+    return unless request.get? && request.format.html? && logged_in? && !inactive_login?
+
+    Performance::Pages.key_for(controller_path, action_name)
+  end
+
+  def performance_session_binding
+    nonce = session[:performance_nonce] ||= SecureRandom.hex(32)
+    OpenSSL::HMAC.hexdigest('SHA256', Rails.application.key_generator.generate_key('performance-session-v1'), nonce)
+  end
+
+  def performance_context
+    return @performance_context if defined?(@performance_context)
+
+    @performance_context = nil
+    unless response.status.between?(200, 299) && Performance::Configuration.new.collection? && performance_page && Random.rand < Performance::Pages::SAMPLE_RATE
+      return
+    end
+
+    token = Performance::ReportGate.new.issue(session_binding: performance_session_binding, page: performance_page)
+    @performance_context = { page: performance_page, token: } if token
+  end
+
+  def append_info_to_payload(payload)
+    super
+    payload[:performance_eligible] = performance_page.present?
+    payload[:performance_page] = performance_page
+  end
 
   def basic_auth
     authenticate_or_request_with_http_basic do |user, password|
