@@ -14,20 +14,18 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     @entered_tag = params[:tag]
     @watch = params[:watch]
 
-    target_users = fetch_target_users
+    target_users = TargetUsersQuery.new(
+      current_user: current_user,
+      target: @target,
+      watch: @watch,
+      entered_tag: @entered_tag,
+      allowed_targets: target_allowlist
+    ).call(search_word: params[:search_word])
 
-    if params[:search_word]
-      search_user = SearchUser.new(word: params[:search_word], users: target_users, target: @target)
-      @users = search_user.search
-                          .page(params[:page]).per(PAGER_NUMBER)
-                          .preload(:avatar_attachment, :course, :taggings)
-                          .order(updated_at: :desc)
-    else
-      @users = target_users
-               .page(params[:page]).per(PAGER_NUMBER)
-               .preload(:avatar_attachment, :course, :taggings)
-               .order(updated_at: :desc)
-    end
+    @users = target_users
+             .page(params[:page]).per(PAGER_NUMBER)
+             .preload(:avatar_attachment, :course, :taggings)
+             .order(updated_at: :desc)
 
     @random_tags = User.tags.sample(20)
     @top3_tags_counts = User.tags.limit(3).map(&:count).uniq
@@ -93,17 +91,6 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
   end
 
   private
-
-  def fetch_target_users
-    if @target == 'followings'
-      current_user.followees_list(watch: @watch)
-    elsif @entered_tag
-      User.active_tagged_with(@entered_tag)
-    else
-      users = User.users_role(@target, allowed_targets: target_allowlist)
-      @target == 'inactive' ? users.order(:last_activity_at) : users
-    end
-  end
 
   def target_allowlist
     target_allowlist = %w[student_and_trainee student trainee followings mentor graduate adviser year_end_party]
