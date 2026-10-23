@@ -10,7 +10,7 @@ class EventCommentsTest < ApplicationSystemTestCase
     find('.thread-comment-form__form')
 
     within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'test')
+      fill_in('comment[description]', with: 'test')
     end
 
     # Click preview tab and verify content

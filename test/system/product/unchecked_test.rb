@@ -74,7 +74,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
       checker_id: checker.id
     )
     visit_with_auth "/products/#{product.id}", 'kimura'
-    fill_in('new_comment[description]', with: 'test')
+    fill_in('comment[description]', with: 'test')
     click_button 'コメントする'
     assert_text 'コメントを投稿しました！'
 
@@ -97,7 +97,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
   test 'display products last commented by submitter if click on no-replied-button' do
     product = products(:product8)
     visit_with_auth "/products/#{product.id}", 'kimura'
-    fill_in('new_comment[description]', with: 'test')
+    fill_in('comment[description]', with: 'test')
     click_button 'コメントする'
     within('.thread-comments__items > .thread-comment:last-child') do
       assert_text 'kimura'
@@ -111,7 +111,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
   test 'not display products last commented by mentor if click on no-replied-button' do
     product = products(:product8)
     visit_with_auth "/products/#{product.id}", 'mentormentaro'
-    fill_in('new_comment[description]', with: 'test')
+    fill_in('comment[description]', with: 'test')
     accept_alert '提出物の担当になりました。' do
       click_button 'コメントする'
     end
@@ -134,7 +134,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
       checker_id: checker.id
     )
     visit_with_auth "/products/#{product.id}", 'kimura'
-    fill_in('new_comment[description]', with: 'test')
+    fill_in('comment[description]', with: 'test')
     click_button 'コメントする'
     assert_text 'コメントを投稿しました！'
 
@@ -157,7 +157,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
       checker_id: checker.id
     )
     visit_with_auth "/products/#{product.id}", 'komagata'
-    fill_in('new_comment[description]', with: 'test')
+    fill_in('comment[description]', with: 'test')
     click_button 'コメントする'
     visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'komagata'
     assert_no_text product.practice.title

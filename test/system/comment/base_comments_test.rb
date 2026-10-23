@@ -10,14 +10,14 @@ class BaseCommentsTest < ApplicationSystemTestCase
 
   test 'comment form not found in /users/:user_id/comments' do
     visit_with_auth user_comments_path(users(:komagata)), 'komagata'
-    assert has_no_field?('new_comment[description]')
+    assert has_no_field?('comment[description]')
   end
 
   test 'comment form found in /reports/:report_id' do
     visit_with_auth report_path(users(:komagata).reports.first), 'komagata'
     # Wait for page to load
     find('.thread-comment-form')
-    assert has_field?('new_comment[description]')
+    assert has_field?('comment[description]')
   end
 
   test 'comment form in reports/:id has comment tab and preview tab' do
@@ -55,7 +55,7 @@ class BaseCommentsTest < ApplicationSystemTestCase
     assert_selector '.a-form-tabs__tab.is-active', text: 'コメント'
 
     within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'test')
+      fill_in('comment[description]', with: 'test')
     end
 
     find('.a-form-tabs__tab', text: 'プレビュー').click
@@ -75,7 +75,7 @@ class BaseCommentsTest < ApplicationSystemTestCase
     end
 
     within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'test')
+      fill_in('comment[description]', with: 'test')
     end
 
     # Click button once and verify it becomes disabled
@@ -92,12 +92,12 @@ class BaseCommentsTest < ApplicationSystemTestCase
     end
 
     within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'test')
+      fill_in('comment[description]', with: 'test')
     end
     click_button 'コメントする'
     assert_text 'test'
     within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'testtest')
+      fill_in('comment[description]', with: 'testtest')
     end
     click_button 'コメントする'
     assert_text 'testtest'
