@@ -11,7 +11,7 @@ macOS版(`doc/development_on_docker.md`)やホストPostgreSQL直接利用とは
 
 ## 関連ファイル
 
-- `Dockerfile.dev` - dev用軽量イメージ (Ruby 3.4.3 + Node 22)
+- `Dockerfile.dev` - dev用軽量イメージ (Ruby 3.4.12 + Node 22)
 - `docker-compose.yml` - web + db サービス定義
 
 ## 並列運用の仕組み

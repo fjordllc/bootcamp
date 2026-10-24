@@ -1,4 +1,4 @@
-FROM ruby:3.4.3-slim
+FROM ruby:3.4.12-slim
 
 ENV LANG=C.UTF-8 \
     TZ=Asia/Tokyo \
