@@ -44,7 +44,7 @@ class PagesController < ApplicationController
     set_wip
     is_published = @page.published_at?
     if @page.save
-      url = Redirection.determin_url(self, @page)
+      url = WipRedirectUrl.resolve(self, @page)
       if !@page.wip?
         ActiveSupport::Notifications.instrument('page.create', page: @page)
         url = new_announcement_url(page_id: @page.id) if @page.announcement_of_publication?
@@ -63,7 +63,7 @@ class PagesController < ApplicationController
     @page.last_updated_user = current_user
     is_published = @page.published_at?
     if @page.update(page_params)
-      url = Redirection.determin_url(self, @page)
+      url = WipRedirectUrl.resolve(self, @page)
       if @page.saved_change_to_attribute?(:wip, from: true, to: false) && @page.published_at.nil?
         ActiveSupport::Notifications.instrument('page.update', page: @page)
         url = new_announcement_path(page_id: @page.id) if @page.announcement_of_publication?
