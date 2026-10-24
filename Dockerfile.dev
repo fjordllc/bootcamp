@@ -24,7 +24,7 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
 
 RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
     apt-get update && \
-    apt-get install -y --no-install-recommends nodejs && \
+    apt-get install -y --no-install-recommends nodejs=22.23.4-1nodesource1 && \
     rm -rf /var/lib/apt/lists/*
 
 RUN gem update --system && \
