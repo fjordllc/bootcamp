@@ -1,4 +1,7 @@
-section.a-card.is-toggle.practice-memo.is-only-mentor(data-practice_id=practice_id)
+section.a-card.is-toggle.practice-memo.is-only-mentor(
+  data-controller='memo-editor'
+  data-memo-editor-practice-id-value=practice_id
+)
   input.a-toggle-checkbox#toggle-mentor-memo-body(type='checkbox')
   label.card-header.is-sm(for="toggle-mentor-memo-body")
     h2.card-header__title
@@ -8,12 +11,12 @@ section.a-card.is-toggle.practice-memo.is-only-mentor(data-practice_id=practice_
     .is-hidden-then-unchecked
       i.fas.fa-angle-up
   .memo
-    .memo-display
+    div(data-memo-editor-target='display')
       hr.a-border-tint
       .card-body
-        .card-body__description.any-memo.is-hidden
-          .a-long-text.is-sm
-        .card-list.no-memo
+        .card-body__description.is-hidden(data-memo-editor-target='displayWithMemo')
+          .a-long-text.is-sm(data-memo-editor-target='displayContent')
+        .card-list(data-memo-editor-target='displayWithoutMemo')
           .card-list__message
             .container
               .o-empty-message
@@ -26,33 +29,50 @@ section.a-card.is-toggle.practice-memo.is-only-mentor(data-practice_id=practice_
         .card-main-actions
           ul.card-main-actions__items
             li.card-main-actions__item
-              button.card-main-actions__action.a-button.is-sm.is-secondary.is-block
+              button.card-main-actions__action.a-button.is-sm.is-secondary.is-block(data-action='memo-editor#handleClickEditButton')
                 i.fa-solid.fa-pen
                 | 編集
             li.card-main-actions__item.is-sub
               label.card-main-actions__muted-action(for="toggle-mentor-memo-body")
                 | 閉じる
-    .memo-editor.is-hidden
+    .memo-editor.is-hidden(data-memo-editor-target='editor')
       hr.a-border-tint
       .form-tabs.js-tabs
-        .form-tabs__tab.js-tabs__tab.editor-tab.is-active
+        .form-tabs__tab.js-tabs__tab.is-active(
+          data-memo-editor-target='editorTextareaTab'
+          data-action='click->memo-editor#showEditorTextarea'
+        )
           | メモ
-        .form-tabs__tab.js-tabs__tab.preview-tab
+        .form-tabs__tab.js-tabs__tab(
+          data-memo-editor-target='editorPreviewTab'
+          data-action='click->memo-editor#showEditorPreview'
+        )
           | プレビュー
       .card-body
         .card-body__description
           .a-markdown-input.js-markdown-parent
-            .a-markdown-input__inner.is-editor.js-tabs__content.is-active
-              textarea.a-text-input.a-markdown-input__textarea id='js-practice-memo' data-preview='#practice-memo-preview' name='practice[memo]'
-            .a-markdown-input__inner.is-preview.js-tabs__content
-              .a-long-text.a-markdown-input__preview
+            .a-markdown-input__inner.is-editor.js-tabs__content.is-active(data-memo-editor-target='editorTextarea')
+              textarea.a-text-input.a-markdown-input__textarea(
+                id='js-practice-memo'
+                name='practice[memo]'
+                data-memo-editor-target='editorTextareaContent editorControl'
+                data-action='input->memo-editor#updateEditorPreviewContent'
+              )
+            .a-markdown-input__inner.is-preview.js-tabs__content(data-memo-editor-target='editorPreview')
+              .a-long-text.a-markdown-input__preview(data-memo-editor-target='editorPreviewContent')
       hr.a-border-tint
       .card-footer
         .card-main-actions
           .card-main-actions__items
             .card-main-actions__item
-              button.a-button.is-sm.is-primary.is-block
+              button.a-button.is-sm.is-primary.is-block(
+                data-memo-editor-target='editorControl'
+                data-action='memo-editor#handleClickSaveButton'
+              )
                 | 保存する
             .card-main-actions__item
-              button.a-button.is-sm.is-secondary.is-block
+              button.a-button.is-sm.is-secondary.is-block(
+                data-memo-editor-target='editorControl'
+                data-action='memo-editor#handleClickCancelButton'
+              )
                 | キャンセル
