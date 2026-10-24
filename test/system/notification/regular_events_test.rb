@@ -55,7 +55,7 @@ class Notification::RegularEventsTest < NotificationSystemTestCase
     regular_event = regular_events(:regular_event1)
     visit_with_auth regular_event_path(regular_event), 'komagata'
     within('.thread-comment-form__form') do
-      fill_in 'new_comment[description]', with: '@machida test'
+      fill_in 'comment[description]', with: '@machida test'
     end
     click_button 'コメントする'
     assert_text '@machida test'

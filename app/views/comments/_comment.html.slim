@@ -1,10 +1,10 @@
-article.thread-comment.comment.is-hidden(
-  class=" #{'is-latest' if latest_comment?(comment, latest_comment)}"
-  id="comment_#{comment.id}"
+article.thread-comment.comment [
+  data-controller="comment"
+  class="#{'is-hidden' if local_assigns.fetch(:hidden, true)}"
+  id=dom_id(comment)
   data-comment_id=comment.id
   data-comment_created_at=comment.created_at.to_f
-  data-comment_description=comment.description
-)
+]
   #latest-comment
   .thread-comment__start
     a.thread-comment__user-link href="#{comment.user.url}"
@@ -14,7 +14,7 @@ article.thread-comment.comment.is-hidden(
         a.thread-comment__company-link href="#{company_path(comment.user.company)}"
           img.thread-comment__company-logo src="#{comment.user.company.logo_url}"
   .thread-comment__end
-    .a-card.is-comment.js-comment-display
+    .a-card.is-comment data-comment-target="commentCard"
       header.card-header.is-sm
         .card-header__inner
           h2.thread-comment__title
@@ -24,17 +24,17 @@ article.thread-comment.comment.is-hidden(
             a.thread-comment__title-link.a-text-link href="#{comment.user.url}"
               = comment.user.login_name
             = pjord_ai_badge(comment.user)
-          time.thread-comment__created-at
+          time.thread-comment__created-at data-action="click->comment#copyUrl"
             = l(comment.created_at)
           .raw-button
-            button.a-button.is-sm.is-secondary.js-raw-button
+            button.a-button.is-sm.is-secondary.js-raw-button data-action="click->comment#toggleRaw"
               | Raw
       hr.a-border-tint
       .thread-comment__description
         - if comment.user.company && comment.user.adviser?
           a.thread-comment__company-link.is-hidden-md-up href="#{company_path(comment.user.company)}"
             img.thread-comment__company-logo src="#{comment.user.company.logo_url}"
-        .a-long-text.is-md.js-comment-html
+        .a-long-text.is-md.js-comment-html data-comment-target="commentBody"
           = comment.description
         pre.a-raw.language-md.is-hidden.js-comment-raw
           code
@@ -48,39 +48,63 @@ article.thread-comment.comment.is-hidden(
           .card-main-actions
             ul.card-main-actions__items
               li.card-main-actions__item
-                button.card-main-actions__action.a-button.is-sm.is-secondary.is-block
+                button.card-main-actions__action.a-button.is-sm.is-secondary.is-block data-action="click->comment#openEditor"
                   i.fa-solid.fa-pen
                   | 編集
               li.card-main-actions__item.is-sub
-                button.card-main-actions__muted-action
-                  | 削除する
-    .a-card.is-comment.comment-editor.js-comment-editor.is-hidden
-      .thread-comment-form__form
-        .a-form-tabs.js-tabs
-          .a-form-tabs__tab.js-tabs__tab.edit-comment-tab.is-active
+                = button_to comment_path(comment),
+                  method: :delete,
+                  class: 'card-main-actions__muted-action',
+                  form: { data: { turbo: true, turbo_confirm: '削除してよろしいですか？' } } do
+                    | 削除する
+    .a-card.is-comment.is-hidden data-comment-target="editCard"
+      = form_with model: comment,
+        class: 'thread-comment-form__form',
+        data: { turbo: true } do
+        .a-form-tabs
+          .a-form-tabs__tab.is-active [
+            data-comment-target="editTab"
+            data-action="click->comment#openEditTab"
+          ]
             | コメント
-          .a-form-tabs__tab.js-tabs__tab.comment-preview-tab
+          .a-form-tabs__tab [
+            data-comment-target="previewTab"
+            data-action="click->comment#openPreviewTab"
+          ]
             | プレビュー
         .a-markdown-input.js-markdown-parent
-          .a-markdown-input__inner.is-editor.js-tabs__content.is-active
+          .a-markdown-input__inner.is-editor.is-active [
+            data-comment-target="editPanel"
+          ]
             .form-textarea
               .form-textarea__body
-                textarea.a-text-input.a-markdown-input__textarea id="js-comment-#{comment.id}" data-preview="#js-comment-preview-#{comment.id}" data-input=".js-comment-file-input-#{comment.id}" name='comment[description]'
+                textarea.a-text-input.a-markdown-input__textarea [
+                  id="js-comment-#{comment.id}"
+                  data-preview="#js-comment-preview-#{comment.id}"
+                  data-input=".js-comment-file-input-#{comment.id}"
+                  name='comment[description]'
+                  data-comment-target="editBody"
+                ]
                   = comment.description
               .form-textarea__footer
                 .form-textarea__insert
                   label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
                     | ファイルを挿入
                     input(class="js-comment-file-input-#{comment.id}" type='file' multiple)
-          .a-markdown-input__inner.is-preview.js-tabs__content
-            .js-preview.a-long-text.is-md.a-markdown-input__preview id="js-comment-preview-#{comment.id}"
+          .a-markdown-input__inner.is-preview [
+            data-comment-target="previewPanel"
+          ]
+            .js-preview.a-long-text.is-md.a-markdown-input__preview [
+              id="js-comment-preview-#{comment.id}"
+              data-comment-target="previewBody"
+            ]
         hr.a-border-tint
         .card-footer
           .card-main-actions
             .card-main-actions__items
               .card-main-actions__item
-                button.a-button.is-sm.is-primary.is-block.js-comment-save-button
+                button.a-button.is-sm.is-primary.is-block type="submit"
                   | 保存する
               .card-main-actions__item
-                button.a-button.is-sm.is-secondary.is-block
+                button.a-button.is-sm.is-secondary.is-block type="button" data-action="click->comment#cancelEditor"
                   | キャンセル
