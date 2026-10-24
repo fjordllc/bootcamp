@@ -1,5 +1,5 @@
 # Build stage - compiles Rails assets without a Node.js build step
-FROM ruby:3.4.3-slim as builder
+FROM ruby:3.4.12-slim as builder
 
 ENV RAILS_ENV production
 WORKDIR /app
@@ -38,7 +38,7 @@ ENV RAILS_LOG_TO_STDOUT true
 RUN SECRET_KEY_BASE=dummy bundle exec rails assets:precompile
 
 # Production stage - minimal runtime image
-FROM ruby:3.4.3-slim as production
+FROM ruby:3.4.12-slim as production
 
 ENV RAILS_ENV production
 WORKDIR /app
