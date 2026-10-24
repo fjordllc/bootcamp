@@ -2,6 +2,7 @@ import { Controller } from '@hotwired/stimulus'
 import MarkdownInitializer from 'markdown-initializer'
 import TextareaInitializer from 'textarea-initializer'
 import { toast } from 'vanillaToast'
+import { replaceLinkToCard } from 'replace-link-to-card'
 
 export default class extends Controller {
   #markdownInitializer = new MarkdownInitializer()
@@ -53,7 +54,7 @@ export default class extends Controller {
     this.editorTextareaContentTarget.value = this.#savedMemo
     this.#renderMemo(this.#savedMemo)
     this.#showDisplay()
-    TextareaInitializer.initialize(this.editorTextareaSelectorValue)
+    replaceLinkToCard()
   }
 
   showEditorTextarea() {
