@@ -15,8 +15,8 @@ permissions:
   contents: read
 
 env:
-  RUBY_VERSION: 3.4.3
-  NODE_VERSION: 22.19.0
+  RUBY_VERSION: 3.4.12
+  NODE_VERSION: 22.23.4
   BUNDLE_JOBS: "3"
   BUNDLE_RETRY: "3"
   TZ: Asia/Tokyo
