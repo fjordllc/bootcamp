@@ -1,4 +1,4 @@
-FROM ruby:3.4.3-slim
+FROM ruby:3.4.12-slim
 
 ENV LANG=C.UTF-8 \
     TZ=Asia/Tokyo \
@@ -21,7 +21,7 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
       postgresql-client \
       tzdata && \
     curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
-    apt-get update -qq && apt-get install -y --no-install-recommends nodejs && \
+    apt-get update -qq && apt-get install -y --no-install-recommends nodejs=22.23.4-1nodesource1 && \
     npm install --global @openai/codex && \
     gem update --system && \
     gem install --no-document bundler -v 2.7.2 && \
