@@ -75,6 +75,43 @@ class API::PracticesControllerTest < ActionDispatch::IntegrationTest
     assert_equal mentor, practice.last_updated_user
   end
 
+  test 'PATCH /api/practices/1234.turbo_stream replaces the practice memo' do
+    practice = practices(:practice1)
+    memo = 'Turbo Streamで更新したメモ'
+    token = create_token('mentormentaro', 'testtest')
+
+    patch api_practice_path(practice),
+          params: { practice: { memo: } },
+          headers: {
+            Authorization: "Bearer #{token}",
+            Accept: 'text/vnd.turbo-stream.html'
+          }
+
+    assert_response :ok
+    assert_select "turbo-stream[action='replace'][target='practice_#{practice.id}']"
+    assert_equal memo, practice.reload.memo
+  end
+
+  test 'PATCH /api/practices/1234.turbo_stream returns unprocessable entity when invalid' do
+    practice = practices(:practice1)
+    original_description = practice.description
+    token = Doorkeeper::AccessToken.create!(
+      application: @application,
+      resource_owner_id: users(:mentormentaro).id,
+      scopes: 'read write mentor'
+    )
+
+    patch api_practice_path(practice),
+          params: { practice: { description: '' } },
+          headers: {
+            Authorization: "Bearer #{token.token}",
+            Accept: 'text/vnd.turbo-stream.html'
+          }
+
+    assert_response :unprocessable_entity
+    assert_equal original_description, practice.reload.description
+  end
+
   test 'PATCH /api/practices/1234.json requires write scope to update content' do
     practice = practices(:practice1)
     token = Doorkeeper::AccessToken.create!(
