@@ -1,5 +1,5 @@
 # Build stage - compiles Rails assets without a Node.js build step
-FROM ruby:3.4.12-slim as builder
+FROM ruby:4.0.9-slim as builder
 
 ENV RAILS_ENV production
 WORKDIR /app
@@ -7,7 +7,7 @@ WORKDIR /app
 # Update rubygems
 RUN gem update --system
 RUN printf "install: --no-rdoc --no-ri\nupdate:  --no-rdoc --no-ri" > ~/.gemrc
-RUN gem install --no-document --force bundler -v 2.4.21
+RUN gem install --no-document --force bundler -v 2.7.2
 
 # Install build dependencies with minimal footprint
 RUN apt-get update -qq && apt-get install -y --no-install-recommends \
@@ -38,7 +38,7 @@ ENV RAILS_LOG_TO_STDOUT true
 RUN SECRET_KEY_BASE=dummy bundle exec rails assets:precompile
 
 # Production stage - minimal runtime image
-FROM ruby:3.4.12-slim as production
+FROM ruby:4.0.9-slim as production
 
 ENV RAILS_ENV production
 WORKDIR /app
@@ -46,7 +46,7 @@ WORKDIR /app
 # Update rubygems
 RUN gem update --system
 RUN printf "install: --no-rdoc --no-ri\nupdate:  --no-rdoc --no-ri" > ~/.gemrc
-RUN gem install --no-document --force bundler -v 2.4.21
+RUN gem install --no-document --force bundler -v 2.7.2
 
 # Install runtime and build dependencies
 RUN apt-get update -qq && apt-get install -y --no-install-recommends \

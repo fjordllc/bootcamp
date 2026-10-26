@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.4.12'
+ruby '4.0.9'
 
 gem 'bootsnap', require: false
 gem 'ffi', '1.17.1'
@@ -94,6 +94,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'openapi_parser', '~> 2.3', require: false
   gem 'pry-byebug'
+  gem 'readline'
   gem 'rubocop', '~> 1.82', require: false
   gem 'rubocop-capybara', require: false
   gem 'rubocop-fjord', '~> 0.4.0', require: false
