@@ -15,6 +15,7 @@ class Products::AiReviewTest < ActionDispatch::IntegrationTest
       get product_path(@product)
       assert_response :success
       assert_select '#product-ai-review', count: 1
+      assert_select '.page-body__row.is-only-mentor > #product-ai-review', count: 1
       assert_includes response.body, 'PRIVATE_REVIEW_SENTINEL'
       assert_includes response.body, '&lt;script&gt;'
       assert_not_includes response.body, '<script>alert(1)</script>'
