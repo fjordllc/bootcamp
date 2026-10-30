@@ -212,9 +212,7 @@ GEM
       net-http (~> 0.5)
     faraday-retry (2.4.0)
       faraday (~> 2.0)
-    ffi (1.17.1-arm64-darwin)
-    ffi (1.17.1-x86_64-darwin)
-    ffi (1.17.1-x86_64-linux-gnu)
+    ffi (1.17.1)
     foreman (0.90.0)
       thor (~> 1.4)
     fugit (1.12.1)
@@ -269,13 +267,7 @@ GEM
     google-id-token (1.4.2)
       jwt (>= 1)
     google-logging-utils (0.2.0)
-    google-protobuf (4.33.3-arm64-darwin)
-      bigdecimal
-      rake (>= 13)
-    google-protobuf (4.33.3-x86_64-darwin)
-      bigdecimal
-      rake (>= 13)
-    google-protobuf (4.33.3-x86_64-linux-gnu)
+    google-protobuf (4.33.3)
       bigdecimal
       rake (>= 13)
     googleapis-common-protos (1.9.0)
@@ -292,13 +284,7 @@ GEM
       multi_json (~> 1.11)
       os (>= 0.9, < 2.0)
       signet (>= 0.16, < 2.a)
-    grpc (1.76.0-arm64-darwin)
-      google-protobuf (>= 3.25, < 5.0)
-      googleapis-common-protos-types (~> 1.0)
-    grpc (1.76.0-x86_64-darwin)
-      google-protobuf (>= 3.25, < 5.0)
-      googleapis-common-protos-types (~> 1.0)
-    grpc (1.76.0-x86_64-linux-gnu)
+    grpc (1.76.0)
       google-protobuf (>= 3.25, < 5.0)
       googleapis-common-protos-types (~> 1.0)
     hashdiff (1.2.1)
@@ -414,6 +400,7 @@ GEM
     mini_magick (5.3.1)
       logger
     mini_mime (1.1.5)
+    mini_portile2 (2.8.9)
     minitest (5.27.0)
     minitest-retry (0.3.0)
       minitest (>= 5.0)
@@ -449,6 +436,9 @@ GEM
       net-protocol
     netrc (0.11.0)
     nio4r (2.7.5)
+    nokogiri (1.19.4)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
     nokogiri (1.19.4-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.19.4-x86_64-darwin)
@@ -610,6 +600,8 @@ GEM
       erb
       psych (>= 4.0.0)
       tsort
+    readline (0.0.4)
+      reline
     recaptcha (5.21.1)
     redcarpet (3.6.1)
     regexp_parser (2.11.3)
@@ -743,6 +735,7 @@ GEM
     tailwindcss-rails (4.4.0)
       railties (>= 7.0.0)
       tailwindcss-ruby (~> 4.0)
+    tailwindcss-ruby (4.1.18)
     tailwindcss-ruby (4.1.18-arm64-darwin)
     tailwindcss-ruby (4.1.18-x86_64-darwin)
     tailwindcss-ruby (4.1.18-x86_64-linux-gnu)
@@ -806,6 +799,7 @@ GEM
     zeitwerk (2.8.1)
 
 PLATFORMS
+  ruby
   universal-darwin
   x86_64-linux
 
@@ -888,6 +882,7 @@ DEPENDENCIES
   rails-patterns (~> 0.2)
   rails_autolink
   ransack (~> 4.3)
+  readline
   recaptcha (~> 5.12)
   rollbar
   rss
@@ -922,7 +917,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-   ruby 3.4.12p148
+   ruby 4.0.9p0
 
 BUNDLED WITH
    2.7.2

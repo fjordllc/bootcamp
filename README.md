@@ -78,7 +78,7 @@ $ PARALLEL_WORKERS=1 rails test:all
 
 ### 実行前の準備
 
-- GitHub Actions と同じ Ruby 3.4.12、Node.js 22.23.4 と Bundler を用意し、`bundle install` を済ませてください。`bin/ci` は `bundle check` で gem の不足を検出し、JavaScript の依存は毎回 `npm ci` でインストールします。
+- GitHub Actions と同じ Ruby 4.0.9、Node.js 22.23.4 と Bundler を用意し、`bundle install` を済ませてください。`bin/ci` は `bundle check` で gem の不足を検出し、JavaScript の依存は毎回 `npm ci` でインストールします。
 - pgvector 拡張を使える PostgreSQL と、使い捨てにできるテスト用 DB を用意してください。画像処理ライブラリに加え、CI で使う ffmpeg、ImageMagick、libvips、libheif、libuv、PostgreSQL クライアント、日本語フォント（Noto CJK など）が必要です。OS ごとのパッケージ名は異なります。
 - `npm ci` の後に `npx playwright install chromium` を実行してください。Linux で Chromium の共有ライブラリが不足する場合は `npx playwright install --with-deps chromium` も使えます。
 
