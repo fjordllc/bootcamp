@@ -26,7 +26,10 @@ details.following data-controller="user-follow"
               .following-option__desciption
                 | フォローしたユーザーの日報を自動でWatch状態にします。日報投稿時の通知と日報にコメントが来た際に通知を受け取ります。
         - else
-          button.following-option.a-dropdown__item-inner data-action="click->user-follow#followOrNot" data-user-follow-watching-param="true" data-user-follow-id-param="#{user.id}" data-user-follow-following-param="#{is_following}"
+          = button_to is_following ? following_path(user, watch: true) : followings_path(id: user.id, watch: true),
+            method: is_following ? :patch : :post,
+            class: 'following-option a-dropdown__item-inner',
+            form: { data: { turbo: true, action: 'turbo:submit-start->user-follow#disableButtons turbo:submit-end->user-follow#checkError' } } do
             .following-option__inner
               .following-option__label
                 | コメントあり
@@ -41,7 +44,10 @@ details.following data-controller="user-follow"
               .following-option__desciption
                 | フォローしたユーザーの日報はWatch状態にしません。日報投稿時の通知だけ通知を受けとります。
         - else
-          button.following-option.a-dropdown__item-inner data-action="click->user-follow#followOrNot" data-user-follow-watching-param="false" data-user-follow-id-param="#{user.id}" data-user-follow-following-param="#{is_following}"
+          = button_to is_following ? following_path(user, watch: false) : followings_path(id: user.id, watch: false),
+            method: is_following ? :patch : :post,
+            class: 'following-option a-dropdown__item-inner',
+            form: { data: { turbo: true, action: 'turbo:submit-start->user-follow#disableButtons turbo:submit-end->user-follow#checkError' } } do
             .following-option__inner
               .following-option__label
                 | コメントなし
@@ -49,12 +55,15 @@ details.following data-controller="user-follow"
                 | フォローしたユーザーの日報はWatch状態にしません。日報投稿時の通知だけ通知を受けとります。
       li.following__dropdown-item.a-dropdown__item
         - if !is_following
-          button.following-option.a-dropdown__item-inner.is-active data-user-follow-watching-param="#{is_watching}" data-user-follow-following-param="#{is_following}"
+          button.following-option.a-dropdown__item-inner.is-active
             .following-option__inner
               .following-option__label
                 | フォローしない
         - else
-          button.following-option.a-dropdown__item-inner data-action="click->user-follow#unFollow" data-user-follow-id-param="#{user.id}"
+          = button_to following_path(user),
+            method: :delete,
+            class: 'following-option a-dropdown__item-inner',
+            form: { data: { turbo: true, action: 'turbo:submit-start->user-follow#disableButtons turbo:submit-end->user-follow#checkError' } } do
             .following-option__inner
               .following-option__label
                 | フォローしない
