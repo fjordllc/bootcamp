@@ -22,6 +22,7 @@ test/visual/screenshots/**/*.diff.png
 test/visual/screenshots/**/*.latest.png
 test/visual/screenshots/**/*.committed.png
 test/visual/screenshots/**/.attempts/
+test/visual/screenshots/*.png
 
 /node_modules
 /yarn-error.log
