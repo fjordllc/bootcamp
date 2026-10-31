@@ -105,7 +105,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
       session.delete(:registration_invitation)
       logger.info "[Signup] 3. after save free user. #{@user.email}"
       UserMailer.welcome(@user).deliver_now
-      UserRegistrationNotifier.new.call(user: @user, user_url: url_for(@user))
+      UserRegistrationNotifier.new.call(@user, url_for(@user))
       ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.trainee?
       logger.info "[Signup] 4. after create times channel for free user. #{@user.email}"
       flash[:signup_email] = @user.email
@@ -128,7 +128,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     end
 
     UserMailer.welcome(@user).deliver_now
-    UserRegistrationNotifier.new.call(user: @user, user_url: user_url(@user))
+    UserRegistrationNotifier.new.call(@user, url_for(@user))
     ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.student?
     send_affiliate_kickback(@user)
 
