@@ -28,7 +28,7 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 # Install gems
 COPY Gemfile Gemfile.lock ./
-RUN bundle install -j4
+RUN GRPC_RUBY_BUILD_PROCS=2 bundle install -j4
 
 # Copy application code
 COPY . ./
@@ -70,7 +70,8 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 # Copy gems configuration
 COPY Gemfile Gemfile.lock ./
-RUN bundle install -j4
+COPY --from=builder /usr/local/bundle /usr/local/bundle
+RUN bundle check
 
 # Copy application code from builder (excluding large directories)
 COPY --from=builder /app/app ./app
