@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
-class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLength
+class ProductsController < ApplicationController
   before_action :check_permission!, only: %i[show]
   before_action :require_staff_login, only: :index
-  before_action :set_watch, only: %i[show]
-  before_action :set_target, only: %i[index]
 
   def index
+    @target = 'all'
     @products = Product.list
                        .order(:id)
                        .page(params[:page])
@@ -14,16 +13,13 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
   end
 
   def show
+    @watch = Watch.new
     @product = find_product
-    @products = @product.user
-                        .products
-                        .not_wip
-                        .order(published_at: :DESC)
     @practice = find_practice
     @learning = @product.learning # decoratorメソッド用にcontrollerでインスタンス変数化
     @tweet_url = @practice.tweet_url(practice_completion_url(@practice.id))
     @recent_reports = Report.list.where(user_id: @product.user.id).limit(10)
-    @user_products = user_products(@product)
+    @user_products = UserSubmittedProductsQuery.new(@product.user).call
     Footprint.find_or_create_for(@product, current_user)
     @footprints = Footprint.fetch_for_resource(@product)
     @comments = @product.comments.order(:created_at)
@@ -51,8 +47,7 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     @practice = find_practice
     @product.practice = @practice
     @product.user = current_user
-    set_wip
-    update_published_at
+    @product.update_wip_and_published_at(params[:commit] == 'WIP')
     if @product.save
       ActiveSupport::Notifications.instrument('product.create', product: @product)
       ActiveSupport::Notifications.instrument('product.save', product: @product)
@@ -65,13 +60,11 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
   def update
     @product = find_my_product
     @practice = @product.practice
-    @product.published_at = nil if @product.published_at? && @product.wip
-    set_wip
-    update_published_at
+    @product.update_wip_and_published_at(params[:commit] == 'WIP')
     if @product.update(product_params)
       ActiveSupport::Notifications.instrument('product.update', { product: @product, current_user: })
       ActiveSupport::Notifications.instrument('product.save', product: @product)
-      notice_another_mentor_assigned_as_checker
+      ProductCheckerNotifier.new(@product, current_user).call if admin_or_mentor_login?
       redirect_to Redirection.determin_url(self, @product), notice: notice_message(@product, :update)
     else
       render :edit
@@ -85,12 +78,6 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
   end
 
   private
-
-  def update_published_at
-    return if @product.wip || @product.published_at?
-
-    @product.published_at = Time.current
-  end
 
   def find_product
     Product.find(params[:id])
@@ -124,14 +111,6 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     params.require(:product).permit(*keys)
   end
 
-  def set_watch
-    @watch = Watch.new
-  end
-
-  def set_wip
-    @product.wip = params[:commit] == 'WIP'
-  end
-
   def notice_message(product, action_name)
     return '提出物をWIPとして保存しました。' if product.wip?
 
@@ -141,24 +120,5 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     when :update
       '提出物を更新しました。'
     end
-  end
-
-  def notice_another_mentor_assigned_as_checker
-    @checker_id = @product.checker_id
-    return unless @checker_id && admin_or_mentor_login? && (@checker_id != current_user.id) && !@product.wip?
-
-    ActivityDelivery.with(product: @product, receiver: User.find(@checker_id)).notify(:assigned_as_checker)
-  end
-
-  def user_products(product)
-    product.user
-           .products
-           .includes(:practice, :user, :comments, :checks, comments: :user)
-           .not_wip
-           .order(published_at: :desc)
-  end
-
-  def set_target
-    @target = 'all'
   end
 end
