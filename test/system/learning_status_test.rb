@@ -25,7 +25,7 @@ class LearningStatusTest < ApplicationSystemTestCase
     )
     visit_with_auth "/products/#{product.id}", 'machida'
     click_button '担当する'
-    fill_in('new_comment[description]', with: 'LGTMです。')
+    fill_in('comment[description]', with: 'LGTMです。')
     accept_alert do
       click_button '合格にする'
     end

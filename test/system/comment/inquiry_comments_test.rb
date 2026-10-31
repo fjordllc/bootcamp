@@ -6,7 +6,7 @@ class InquiryCommentsTest < ApplicationSystemTestCase
   test 'post new comment for inquiry' do
     visit_with_auth "/admin/inquiries/#{inquiries(:inquiry1).id}", 'komagata'
     within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'test')
+      fill_in('comment[description]', with: 'test')
     end
     all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text 'test'
@@ -16,7 +16,7 @@ class InquiryCommentsTest < ApplicationSystemTestCase
 
   test 'comment form found in /admin/inquiries/:inquiry_id' do
     visit_with_auth "/admin/inquiries/#{inquiries(:inquiry1).id}", 'komagata'
-    assert has_field?('new_comment[description]')
+    assert has_field?('comment[description]')
   end
 
   test 'comment form in inquiry/:id has comment tab and preview tab' do
@@ -113,7 +113,7 @@ class InquiryCommentsTest < ApplicationSystemTestCase
     visit_with_auth "/admin/inquiries/#{inquiries(:inquiry1).id}", 'komagata'
     assert_selector '.a-form-tabs__tab.is-active', text: 'コメント'
     within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'test')
+      fill_in('comment[description]', with: 'test')
     end
     find('.a-form-tabs__tab', text: 'プレビュー').click
     assert_selector '.a-form-tabs__tab.is-active', text: 'プレビュー'
@@ -124,7 +124,7 @@ class InquiryCommentsTest < ApplicationSystemTestCase
   test 'prevent double submit at inquiry' do
     visit_with_auth "/admin/inquiries/#{inquiries(:inquiry1).id}", 'komagata'
     within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'test')
+      fill_in('comment[description]', with: 'test')
     end
 
     # Click button once and verify it becomes disabled
@@ -162,12 +162,12 @@ class InquiryCommentsTest < ApplicationSystemTestCase
   test 'submit_button is enabled after a post is done at inquiry' do
     visit_with_auth "/admin/inquiries/#{inquiries(:inquiry1).id}", 'komagata'
     within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'test')
+      fill_in('comment[description]', with: 'test')
     end
     click_button 'コメントする'
     assert_text 'test'
     within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'testtest')
+      fill_in('comment[description]', with: 'testtest')
     end
     click_button 'コメントする'
     assert_text 'testtest'

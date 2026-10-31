@@ -16,7 +16,7 @@ class Notification::TalkTest < NotificationSystemTestCase
     talk_id = users(:kimura).talk.id
     visit_with_auth "/talks/#{talk_id}", 'kimura'
     within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'test')
+      fill_in('comment[description]', with: 'test')
     end
     all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text 'test'
@@ -30,7 +30,7 @@ class Notification::TalkTest < NotificationSystemTestCase
     talk_id = users(:kimura).talk.id
     visit_with_auth "/talks/#{talk_id}", 'komagata'
     within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'test')
+      fill_in('comment[description]', with: 'test')
     end
     all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text 'test'
@@ -45,7 +45,7 @@ class Notification::TalkTest < NotificationSystemTestCase
     talk_id = users(:kimura).talk.id
     visit_with_auth "/talks/#{talk_id}", 'komagata'
     within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'test')
+      fill_in('comment[description]', with: 'test')
     end
     all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text 'test'
