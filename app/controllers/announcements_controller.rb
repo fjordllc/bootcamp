@@ -50,7 +50,7 @@ class AnnouncementsController < ApplicationController
 
     if @announcement.update(announcement_params)
       ActiveSupport::Notifications.instrument('announcement.update', announcement: @announcement)
-      redirect_to Redirection.determin_url(self, @announcement), notice: notice_message(@announcement)
+      redirect_to WipRedirectUrl.resolve(self, @announcement), notice: notice_message(@announcement)
     else
       render :edit
     end
@@ -62,7 +62,7 @@ class AnnouncementsController < ApplicationController
     set_wip
     if @announcement.save
       ActiveSupport::Notifications.instrument('announcement.create', announcement: @announcement)
-      redirect_to Redirection.determin_url(self, @announcement), notice: notice_message(@announcement)
+      redirect_to WipRedirectUrl.resolve(self, @announcement), notice: notice_message(@announcement)
     else
       render :new
     end
