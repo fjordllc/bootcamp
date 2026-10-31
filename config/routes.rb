@@ -153,6 +153,7 @@ Rails.application.routes.draw do
   namespace 'watches' do
     resource :refresh, only: %i(show)
   end
+  resources :followings, only: %i(create update destroy)
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   mount MissionControl::Jobs::Engine, at: "/jobs"
 end

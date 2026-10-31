@@ -765,6 +765,8 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   end
 
   def follow(other_user, watch:)
+    return if other_user == self
+
     active_relationships.create(followed: other_user, watch:)
   end
 
