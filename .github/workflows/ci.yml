@@ -89,7 +89,7 @@ jobs:
         run: node --test test/javascript/performance_test.mjs
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 40
     needs: build
 
