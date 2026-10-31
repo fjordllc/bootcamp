@@ -28,7 +28,8 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 # Install gems
 COPY Gemfile Gemfile.lock ./
-RUN GRPC_RUBY_BUILD_PROCS=2 bundle install -j4
+ARG GRPC_BUILD_PROCS=2
+RUN GRPC_RUBY_BUILD_PROCS="${GRPC_BUILD_PROCS}" bundle install -j4
 
 # Copy application code
 COPY . ./

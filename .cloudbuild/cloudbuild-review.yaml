@@ -12,6 +12,8 @@ steps:
   - build
   - "-t"
   - asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}
+  - "--build-arg"
+  - GRPC_BUILD_PROCS=4
   - "."
   - "-f"
   - Dockerfile
@@ -148,6 +150,7 @@ steps:
   waitFor:
   - Kill_SqlProxy
 options:
+  machineType: E2_HIGHCPU_8
   substitutionOption: ALLOW_LOOSE
   automapSubstitutions: true
 timeout: 7200s
