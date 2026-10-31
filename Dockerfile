@@ -1,5 +1,5 @@
-# Build stage - compiles Rails assets without a Node.js build step
-FROM ruby:4.0.9-slim as builder
+# Dependency stage - reusable without application sources
+FROM ruby:4.0.9-slim as gems
 
 ENV RAILS_ENV production
 WORKDIR /app
@@ -30,6 +30,9 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 COPY Gemfile Gemfile.lock ./
 ARG GRPC_BUILD_PROCS=2
 RUN GRPC_RUBY_BUILD_PROCS="${GRPC_BUILD_PROCS}" bundle install -j4
+
+# Build stage - compiles Rails assets without a Node.js build step
+FROM gems as builder
 
 # Copy application code
 COPY . ./
