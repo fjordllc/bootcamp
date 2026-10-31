@@ -21,10 +21,15 @@ class API::PracticesController < API::BaseController
 
   def update
     @practice.last_updated_user = current_user
-    if @practice.update(practice_params)
-      head :ok
-    else
-      head :bad_request
+
+    respond_to do |format|
+      if @practice.update(practice_params)
+        format.turbo_stream
+        format.any { head :ok }
+      else
+        format.turbo_stream { head :unprocessable_entity }
+        format.any { head :bad_request }
+      end
     end
   end
 
