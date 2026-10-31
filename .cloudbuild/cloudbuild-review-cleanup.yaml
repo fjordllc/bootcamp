@@ -93,9 +93,23 @@ steps:
   - "-c"
   - |
     set -euo pipefail
-    IMAGE="asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}"
-    echo "Deleting image $${IMAGE}..."
-    gcloud container images delete $${IMAGE} --quiet --force-delete-tags 2>/dev/null || echo "Image not found, skipping."
+    # Read the automapped environment variable, not shell source interpolation.
+    case "$${_PR_NUMBER}" in
+      (*[!0-9]*|'')
+        echo "Invalid PR number" >&2
+        exit 1
+        ;;
+    esac
+    # Remove only this PR's tags: other PRs may reference the same digest.
+    # Untagged images/layers remain; this step does not reclaim registry storage
+    # or assume any retention policy.
+    for IMAGE in "asia.gcr.io/bootcamp-224405/bootcamp:pr-$${_PR_NUMBER}" \
+                 "asia.gcr.io/bootcamp-224405/bootcamp:pr-$${_PR_NUMBER}-gems"; do
+      echo "Removing tag $${IMAGE}..."
+      if ! gcloud container images untag "$${IMAGE}" --quiet; then
+        echo "WARNING: Could not remove tag $${IMAGE}; it may be absent or the registry request may have failed. Continuing." >&2
+      fi
+    done
   waitFor:
   - Kill_SqlProxy
 timeout: 1800s
