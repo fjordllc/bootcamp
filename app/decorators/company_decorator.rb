@@ -9,7 +9,7 @@ module CompanyDecorator
     new_user_url(
       role: 'adviser',
       company_id: id,
-      token: ENV['TOKEN'] || 'token'
+      token: RegistrationInvitation.generate(role: 'adviser', company_id: id)
     )
   end
 
@@ -17,7 +17,7 @@ module CompanyDecorator
     new_user_url(
       role: 'trainee',
       company_id: id,
-      token: ENV['TOKEN'] || 'token'
+      token: RegistrationInvitation.generate(role: 'trainee', company_id: id)
     )
   end
 end
