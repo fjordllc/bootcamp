@@ -45,6 +45,7 @@ class ReportsTest < ApplicationSystemTestCase
     visit_with_auth "/reports/#{report.id}", 'hajime'
     grant_clipboard_permission
     click_button 'URLコピー'
+    assert_selector '.a-copy-button.is-active'
     clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
     assert_equal current_url, clip_text
   end
