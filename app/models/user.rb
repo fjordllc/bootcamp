@@ -975,6 +975,18 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     end
   end
 
+  def determine_user_role
+    if adviser?
+      'adviser'
+    elsif trainee?
+      'trainee'
+    elsif mentor?
+      'mentor'
+    else
+      'student'
+    end
+  end
+
   private
 
   def password_required?
