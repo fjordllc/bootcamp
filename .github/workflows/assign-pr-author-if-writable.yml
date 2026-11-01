@@ -28,13 +28,7 @@ jobs:
 
             const isBot = author.endsWith("[bot]") || pr.user.type === "Bot"
             if (isBot) {
-              await github.rest.issues.addAssignees({
-                owner,
-                repo,
-                issue_number,
-                assignees: [author],
-              })
-              console.log(`Assigned bot PR author as assignee: ${author}`)
+              console.log("Bot PR author -> skip assigning.")
               return
             }
 
