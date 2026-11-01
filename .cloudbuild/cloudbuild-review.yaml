@@ -5,16 +5,43 @@ steps:
   entrypoint: bash
   args:
   - "-c"
-  - docker pull asia.gcr.io/bootcamp-224405/bootcamp:latest || exit 0
+  - docker pull asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}-gems || echo 'Dependency cache unavailable; building from scratch'
+- id: BuildGems
+  name: gcr.io/cloud-builders/docker
+  args:
+  - build
+  - "--target"
+  - gems
+  - "-t"
+  - asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}-gems
+  - "--cache-from"
+  - asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}-gems
+  - "--build-arg"
+  - BUILDKIT_INLINE_CACHE=1
+  - "--build-arg"
+  - GRPC_BUILD_PROCS=4
+  - "."
+  - "-f"
+  - Dockerfile
+  waitFor:
+  - Fetch
 - id: Build
   name: gcr.io/cloud-builders/docker
   args:
   - build
   - "-t"
   - asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}
+  - "--cache-from"
+  - asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}-gems
+  - "--build-arg"
+  - BUILDKIT_INLINE_CACHE=1
+  - "--build-arg"
+  - GRPC_BUILD_PROCS=4
   - "."
   - "-f"
   - Dockerfile
+  waitFor:
+  - BuildGems
 - id: Push
   name: gcr.io/cloud-builders/docker
   args:
@@ -148,11 +175,13 @@ steps:
   waitFor:
   - Kill_SqlProxy
 options:
+  machineType: E2_HIGHCPU_8
   substitutionOption: ALLOW_LOOSE
   automapSubstitutions: true
 timeout: 7200s
 images:
 - asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}
+- asia.gcr.io/bootcamp-224405/bootcamp:pr-${_PR_NUMBER}-gems
 substitutions:
   _PR_NUMBER: '0'
   _MEMORY: 2G
