@@ -56,7 +56,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
 
   def new
     @user = User.new(@registration_invitation || params.permit(:course_id, :company_id))
-    assign_role(@user)
+    @user.assign_role
   end
 
   def create
@@ -64,7 +64,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
 
     @user = User.new(user_params)
     @user.assign_attributes(@registration_invitation) if @registration_invitation
-    assign_role(@user)
+    @user.assign_role
     @user.course_id ||= Course.first.id
     @user.build_discord_profile
     @user.credit_card_payment = params[:credit_card_payment]
@@ -210,17 +210,6 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
   def reject_registration_invitation
     session.delete(:registration_invitation)
     redirect_to root_path, notice: 'アドバイザー・メンター・研修生登録にはTOKENが必要です。'
-  end
-
-  def assign_role(user)
-    case user.role
-    when 'adviser'
-      user.adviser = true
-    when 'trainee_invoice_payment', 'trainee_credit_card_payment', 'trainee_select_a_payment_method'
-      user.trainee = true
-    when 'mentor'
-      user.mentor = true
-    end
   end
 
   def determine_user_role(user)
