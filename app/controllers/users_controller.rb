@@ -109,7 +109,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
       ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.trainee?
       logger.info "[Signup] 4. after create times channel for free user. #{@user.email}"
       flash[:signup_email] = @user.email
-      redirect_to created_users_path(role: determine_user_role(@user))
+      redirect_to created_users_path(role: @user.determine_user_role)
     else
       render 'new', locals: { user: @user }
     end
@@ -137,7 +137,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
 
     logger.info "[Signup] 8. after create times channel. #{@user.email}"
 
-    redirect_to created_users_path(role: determine_user_role(@user))
+    redirect_to created_users_path(role: @user.determine_user_role)
   end
 
   def send_affiliate_kickback(user)
@@ -210,17 +210,5 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
   def reject_registration_invitation
     session.delete(:registration_invitation)
     redirect_to root_path, notice: 'アドバイザー・メンター・研修生登録にはTOKENが必要です。'
-  end
-
-  def determine_user_role(user)
-    if user.adviser?
-      'adviser'
-    elsif user.trainee?
-      'trainee'
-    elsif user.mentor?
-      'mentor'
-    else
-      'student'
-    end
   end
 end
