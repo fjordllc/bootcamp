@@ -20,6 +20,20 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, '最新のみんなの日報'
   end
 
+  test 'anonymous JSON requests are not acceptable' do
+    get root_path(format: :json)
+
+    assert_response :not_acceptable
+  end
+
+  test 'authenticated JSON requests are not acceptable' do
+    sign_in users(:kensyu)
+
+    get root_path, headers: { 'Accept' => 'application/json' }
+
+    assert_response :not_acceptable
+  end
+
   test 'training completion rejects an existing session at the root' do
     user = users(:kensyu)
     sign_in user

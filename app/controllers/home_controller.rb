@@ -5,6 +5,8 @@ class HomeController < ApplicationController
   before_action :deny_inactive_user_login, if: :inactive_login?, only: %i[index]
 
   def index
+    respond_to :html
+
     if current_user
       display_dashboard
       display_events_on_dashboard
