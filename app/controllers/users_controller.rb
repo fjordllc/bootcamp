@@ -4,7 +4,6 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
   skip_before_action :require_active_user_login, raise: false, only: %i[new create show created]
   before_action :prepare_registration_invitation, only: %i[new]
   before_action :require_registration_invitation, only: %i[create]
-  before_action :set_user, only: %w[show]
 
   PAGER_NUMBER = 24
 
@@ -33,6 +32,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
   end
 
   def show
+    @user = User.where(id: params[:id]).or(User.where(login_name: params[:id])).first!
     @completed_learnings = @user
                            .learnings
                            .includes(:practice)
@@ -164,10 +164,6 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
       :referral_source, :other_referral_source,
       authored_books_attributes: %i[id cover title url _destroy]
     )
-  end
-
-  def set_user
-    @user = User.where(id: params[:id]).or(User.where(login_name: params[:id])).first!
   end
 
   def prepare_registration_invitation
