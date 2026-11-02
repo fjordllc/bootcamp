@@ -29,7 +29,10 @@ module Mcp
             properties: {
               id: { type: 'integer' },
               title: { type: 'string' },
-              summary: { type: %w[string null] },
+              summary: {
+                type: %w[string null],
+                description: "一覧では先頭#{PracticeSerializer::LIST_SUMMARY_MAX_LENGTH}文字までに切り詰めます。全文はget_practiceで取得します。"
+              },
               url: { type: 'string' }
             },
             required: %w[id title summary url],

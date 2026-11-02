@@ -2,11 +2,13 @@
 
 module Mcp
   class PracticeSerializer
+    LIST_SUMMARY_MAX_LENGTH = 120
+
     def self.list_item(practice, canonical_origin:)
       {
         'id' => practice.id,
         'title' => practice.title,
-        'summary' => practice.summary,
+        'summary' => practice.summary&.truncate(LIST_SUMMARY_MAX_LENGTH),
         'url' => practice_url(practice, canonical_origin:)
       }
     end

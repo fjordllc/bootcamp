@@ -81,6 +81,35 @@ class McpPracticeToolsTest < ActiveSupport::TestCase
     end
   end
 
+  test 'list truncates an oversized summary so the page still returns a next cursor' do
+    practice = Practice.order(:id).first
+    practice.update!(summary: 'あ' * Rails.configuration.x.mcp.max_tool_response_bytes)
+
+    response = Mcp::ListPractices.call(limit: 1, server_context: server_context)
+
+    assert_not response.error?
+    result = response.structured_content
+    Mcp::ListPractices.output_schema_value.validate_result(result)
+    assert_equal [practice.id], result.fetch('practices').pluck('id')
+    assert_equal practice.id, result.fetch('next_cursor')
+    assert_equal Mcp::PracticeSerializer::LIST_SUMMARY_MAX_LENGTH, result.fetch('practices').first.fetch('summary').length
+    assert_operator response_payload_bytes(result), :<, Rails.configuration.x.mcp.max_tool_response_bytes
+  end
+
+  test 'the worst-case list page of the maximum limit fits the configured byte limit' do
+    practice_class = Struct.new(:id, :title, :summary)
+    worst_characters = ['あ', '"', '\\']
+    worst_characters.each do |character|
+      items = Array.new(Mcp::ListPractices::MAX_LIMIT) do |index|
+        practice = practice_class.new(2_147_483_000 + index, character * 255, character * 10_000)
+        Mcp::PracticeSerializer.list_item(practice, canonical_origin: CANONICAL_ORIGIN)
+      end
+      data = { 'practices' => items, 'next_cursor' => items.last.fetch('id') }
+
+      assert_operator response_payload_bytes(data), :<, Rails.configuration.x.mcp.max_tool_response_bytes, character
+    end
+  end
+
   test 'get serializes only the fixed practice fields and preserves Markdown and Japanese text' do
     practice = practices(:practice3)
     practice.update!(summary: '', description: "# 日本語の見出し\n\n本文 **Markdown**", goal: "- 目標\n- 完了条件", memo: nil)
