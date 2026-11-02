@@ -7,7 +7,7 @@ class PairWorks::ReservationsController < ApplicationController
     @pair_work = PairWork.find(params[:pair_work_id])
     if @pair_work.reserve(pair_work_reservation_params)
       ActiveSupport::Notifications.instrument('pair_work.reserve', pair_work: @pair_work)
-      redirect_to Redirection.determin_url(self, @pair_work), notice: @pair_work.generate_notice_message(:reserve)
+      redirect_to WipRedirectUrl.resolve(self, @pair_work), notice: @pair_work.generate_notice_message(:reserve)
     else
       @comments = @pair_work.comments.order(:created_at)
       render 'pair_works/show', status: :unprocessable_entity
@@ -21,7 +21,7 @@ class PairWorks::ReservationsController < ApplicationController
       if @pair_work.saved_change_to_buddy_id?
         ActiveSupport::Notifications.instrument('pair_work.rematch', pair_work: @pair_work, past_buddy: @pair_work.past_buddy)
       end
-      redirect_to Redirection.determin_url(self, @pair_work), notice: @pair_work.generate_notice_message(:update_reserve)
+      redirect_to WipRedirectUrl.resolve(self, @pair_work), notice: @pair_work.generate_notice_message(:update_reserve)
     else
       @comments = @pair_work.comments.order(:created_at)
       render 'pair_works/show', status: :unprocessable_entity
@@ -34,7 +34,7 @@ class PairWorks::ReservationsController < ApplicationController
 
     if @pair_work.unmatch
       ActiveSupport::Notifications.instrument('pair_work.cancel', pair_work: @pair_work, sender: current_user)
-      redirect_to Redirection.determin_url(self, @pair_work), notice: @pair_work.generate_notice_message(:cancel)
+      redirect_to WipRedirectUrl.resolve(self, @pair_work), notice: @pair_work.generate_notice_message(:cancel)
     else
       @comments = @pair_work.comments.order(:created_at)
       render 'pair_works/show', status: :unprocessable_entity
