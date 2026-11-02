@@ -1,4 +1,4 @@
-# FBC Design System — AI Context Document
+# FBC デザインシステム — AI向けコンテキスト
 
 このドキュメントは、AIにデザイン・実装を依頼する際に渡すコンテキストファイルです。
 bootcamp.fjord.jp のUIルールをまとめています。
