@@ -1,0 +1,23 @@
+---
+http_interactions:
+- request:
+    method: delete
+    uri: https://discord.com/api/v9/channels/987654321987654321
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bot valid token
+  response:
+    status:
+      code: 403
+      message: Forbidden
+    headers:
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{"message":"Missing Permissions","code":50013}'
+  recorded_at: Tue, 20 Oct 2026 00:00:00 GMT
+recorded_with: VCR 6.1.0
