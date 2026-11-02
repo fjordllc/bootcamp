@@ -41,6 +41,10 @@
 ## Agent-Specific Instructions
 - Follow these guidelines for any edits. Keep changes minimal, scoped to the task, and update docs/tests when adding commands or changing behavior.
 
+## Code Review
+- When reviewing this repository or drafting/revising a PR review reply, read and use the personal `bootcamp-code-review` skill at `~/.codex/skills/bootcamp-code-review/SKILL.md` when available. This includes re-reviews; do not rely solely on automatic skill selection.
+- For Rails model decomposition: consider a PORO first for an independent responsibility; keep a Concern when related model declarations and behavior are clearer together (reuse across models is not required); return arbitrary or line-count-only groupings to the model. Do not require blanket Concern-to-PORO conversion.
+- Reconcile findings with earlier review comments and the current diff. Keep essential fixes separate from optional preferences, preserve behavior, and publish only after explicit user approval.
 
 ## Error handling documentation (mandatory)
 - At the start of every implementation, bug fix, refactoring, or review, read [docs/error_handling.md](docs/error_handling.md) and [docs/rails_error_handling.md](docs/rails_error_handling.md).
