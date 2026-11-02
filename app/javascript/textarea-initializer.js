@@ -121,6 +121,7 @@ export default class {
     textareas.forEach((textarea) => {
       const cloneTextarea = textarea.cloneNode(true)
       delete cloneTextarea.dataset.textareaMarkdownInitialized
+      delete cloneTextarea.dataset.tribute
       textarea.parentNode.replaceChild(cloneTextarea, textarea)
     })
   }
