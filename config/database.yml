@@ -21,6 +21,11 @@ default: &default
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   url: <%= ENV['DATABASE_URL'] %>
+  # Aborts statements running longer than 5s by default. Long-running
+  # migrations (e.g. index builds on large tables) can exceed this; run them
+  # with DB_STATEMENT_TIMEOUT_MS=0 to disable the timeout (0 means no limit).
+  variables:
+    statement_timeout: <%= ENV.fetch('DB_STATEMENT_TIMEOUT_MS', '5000').to_i %>
 
 development:
   <<: *default
