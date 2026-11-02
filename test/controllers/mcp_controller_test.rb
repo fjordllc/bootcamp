@@ -420,11 +420,23 @@ class McpControllerTest < ActionDispatch::IntegrationTest
     assert_equal(1, counted_keys.count { |key| key.include?(":#{users(:mentormentaro).id}:") })
   end
 
-  test 'token revocation removes MCP access and pending grants without affecting ordinary OAuth clients' do
+  test 'token revocation removes MCP access and pending grants across all MCP applications without affecting ordinary OAuth clients' do
     token = create_mcp_token
     grant = Doorkeeper::AccessGrant.create!(
       application: token.application,
       resource_owner_id: token.resource_owner_id,
+      token: SecureRandom.hex(32),
+      expires_in: 600,
+      redirect_uri: 'http://127.0.0.1:48321/callback',
+      scopes: 'mcp:practices:read',
+      resource: RESOURCE,
+      code_challenge: 'test-challenge',
+      code_challenge_method: 'S256'
+    )
+    second_token = create_mcp_token
+    second_grant = Doorkeeper::AccessGrant.create!(
+      application: second_token.application,
+      resource_owner_id: second_token.resource_owner_id,
       token: SecureRandom.hex(32),
       expires_in: 600,
       redirect_uri: 'http://127.0.0.1:48321/callback',
@@ -466,9 +478,11 @@ class McpControllerTest < ActionDispatch::IntegrationTest
       expires_in: 3600
     )
 
-    assert_equal({ access_tokens: 1, authorization_grants: 1 }, Mcp::TokenRevoker.call(user: users(:mentormentaro)))
+    assert_equal({ access_tokens: 2, authorization_grants: 2 }, Mcp::TokenRevoker.call(user: users(:mentormentaro)))
     assert_predicate token.reload, :revoked?
     assert_predicate grant.reload, :revoked?
+    assert_predicate second_token.reload, :revoked?
+    assert_predicate second_grant.reload, :revoked?
     assert_not_predicate other_user_token.reload, :revoked?
     assert_not_predicate other_user_grant.reload, :revoked?
     assert_not_predicate ordinary_token.reload, :revoked?
