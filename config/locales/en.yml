@@ -31,3 +31,11 @@
 
 en:
   hello: "Hello world"
+  doorkeeper:
+    authorizations:
+      new:
+        able_to: This application is requesting the following permissions
+        title: Connect an application
+        connection_prompt: 'Allow %{client_name} to connect?'
+    scopes:
+      'mcp:practices:read': Read practice listings, content, and mentor memos

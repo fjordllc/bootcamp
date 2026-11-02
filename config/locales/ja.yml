@@ -606,8 +606,8 @@ ja:
         deny: キャンセル
       new:
         able_to: 次の許可をリクエストしています
-        title: ''
-        prompt: ''
+        title: アプリケーションとの接続
+        connection_prompt: '「%{client_name}」との接続を許可しますか？'
     errors:
       messages:
         invalid_client: アプリの認証に失敗しました
@@ -630,5 +630,6 @@ ja:
       application:
         title: Oauth2 Provider
     scopes:
+      'mcp:practices:read': プラクティスの一覧・本文とメンターメモの読み取り
       read: メールアドレスを含む基本的なプロフィール情報の読み取り
       write: リソースの作成・修正・削除
