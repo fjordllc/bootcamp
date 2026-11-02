@@ -44,6 +44,12 @@ AI入出力をHTTPデバッグログに残さないため、稼働環境で `RUB
 
 ## テスト
 
+### JavaScriptのテスト
+
+```bash
+node --test test/javascript/*.mjs
+```
+
 ### Playwright ブラウザーのインストール
 
 system test は Playwright で Chromium を起動します。初回セットアップ時、または Playwright のバージョン更新後にブラウザーをインストールしてください。
