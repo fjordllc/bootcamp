@@ -207,7 +207,47 @@ class McpPracticeToolsTest < ActiveSupport::TestCase
     assert_operator largest, :<, Rails.configuration.x.mcp.max_tool_response_bytes
   end
 
+  test 'the database query runs under the configured statement timeout' do
+    configured = Rails.configuration.x.mcp.statement_timeout_ms
+    during = nil
+    before = current_statement_timeout
+    probe = lambda do |practice, **_kwargs|
+      during = current_statement_timeout
+      { 'id' => practice.id }
+    end
+
+    Mcp::PracticeSerializer.stub(:detail, probe) do
+      Mcp::GetPractice.call(practice_id: practices(:practice1).id, server_context: server_context)
+    end
+
+    assert_equal configured.to_s, during
+    assert_not_equal during, before
+  end
+
+  test 'a query cancelled by the statement timeout returns a tool error' do
+    raises = ->(*) { raise ActiveRecord::QueryCanceled, 'canceled' }
+    practice_id = practices(:practice1).id
+
+    Practice.stub(:order, raises) do
+      response = Mcp::ListPractices.call(server_context: server_context)
+
+      assert response.error?
+      assert_includes response.content.first.fetch(:text), 'time limit'
+    end
+    Practice.stub(:find_by, raises) do
+      response = Mcp::GetPractice.call(practice_id:, server_context: server_context)
+
+      assert response.error?
+      assert_includes response.content.first.fetch(:text), 'time limit'
+    end
+    assert_equal 1, ActiveRecord::Base.connection.select_value('SELECT 1')
+  end
+
   private
+
+  def current_statement_timeout
+    ActiveRecord::Base.connection.select_value("SELECT setting FROM pg_settings WHERE name = 'statement_timeout'")
+  end
 
   def server_context(user = users(:mentormentaro))
     { user:, canonical_origin: CANONICAL_ORIGIN }

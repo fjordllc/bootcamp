@@ -9,7 +9,8 @@ module McpConfig
       mcp.requests_per_minute,
       mcp.global_requests_per_minute,
       mcp.unauthenticated_ip_requests_per_minute,
-      mcp.max_tool_response_bytes
+      mcp.max_tool_response_bytes,
+      mcp.statement_timeout_ms
     ]
     return if limits.all?(&:positive?)
 
@@ -23,6 +24,8 @@ Rails.application.configure do
   config.x.mcp.global_requests_per_minute = Integer(ENV.fetch('MCP_GLOBAL_REQUESTS_PER_MINUTE', '600'))
   config.x.mcp.unauthenticated_ip_requests_per_minute = Integer(ENV.fetch('MCP_UNAUTHENTICATED_IP_REQUESTS_PER_MINUTE', '60'))
   config.x.mcp.max_tool_response_bytes = Integer(ENV.fetch('MCP_MAX_TOOL_RESPONSE_BYTES', 256.kilobytes.to_s))
+
+  config.x.mcp.statement_timeout_ms = Integer(ENV.fetch('MCP_STATEMENT_TIMEOUT_MS', '5000'))
 
   public_origin = ENV['MCP_PUBLIC_ORIGIN'].presence
   if Rails.env.production?

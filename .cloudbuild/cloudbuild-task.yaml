@@ -43,7 +43,7 @@ steps:
   - bash
   - "-c"
   - |-
-    DB_STATEMENT_TIMEOUT_MS=0 bin/rails bootcamp:oneshot:cloudbuild
+    bin/rails bootcamp:oneshot:cloudbuild
 - id: Kill_SqlProxy
   name: gcr.io/cloud-builders/docker
   waitFor:

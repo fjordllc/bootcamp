@@ -39,13 +39,14 @@ module Mcp
     def call(practice_id: nil, server_context: nil)
       return error_response('practice_id must be a positive integer.') unless valid_practice_id?(practice_id)
 
-      practice = Practice.find_by(id: practice_id)
-      return error_response("Practice #{practice_id} was not found.") unless practice
-
       user = context_value(server_context, :user)
       canonical_origin = context_value(server_context, :canonical_origin).to_s
-      data = PracticeSerializer.detail(practice, user:, canonical_origin:)
-      success_response(data)
+      with_statement_timeout do
+        practice = Practice.find_by(id: practice_id)
+        next error_response("Practice #{practice_id} was not found.") unless practice
+
+        success_response(PracticeSerializer.detail(practice, user:, canonical_origin:))
+      end
     end
 
     private

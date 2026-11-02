@@ -54,21 +54,22 @@ module Mcp
       validation_error = validate_arguments(query:, cursor:, limit:)
       return error_response(validation_error) if validation_error
 
-      scope = Practice.order(:id)
-      if query.present?
-        escaped_query = Practice.sanitize_sql_like(query)
-        scope = scope.where('title ILIKE ?', "%#{escaped_query}%")
-      end
-      scope = scope.where(Practice.arel_table[:id].gt(cursor)) if cursor
+      with_statement_timeout do
+        scope = Practice.order(:id)
+        if query.present?
+          escaped_query = Practice.sanitize_sql_like(query)
+          scope = scope.where('title ILIKE ?', "%#{escaped_query}%")
+        end
+        scope = scope.where(Practice.arel_table[:id].gt(cursor)) if cursor
 
-      records = scope.limit(limit + 1).to_a
-      has_more = records.length > limit
-      page = records.first(limit)
-      data = {
-        'practices' => page.map { |practice| PracticeSerializer.list_item(practice, canonical_origin: canonical_origin(server_context)) },
-        'next_cursor' => has_more ? page.last.id : nil
-      }
-      success_response(data)
+        records = scope.limit(limit + 1).to_a
+        has_more = records.length > limit
+        page = records.first(limit)
+        success_response(
+          'practices' => page.map { |practice| PracticeSerializer.list_item(practice, canonical_origin: canonical_origin(server_context)) },
+          'next_cursor' => has_more ? page.last.id : nil
+        )
+      end
     end
 
     private
