@@ -5,8 +5,12 @@ Doorkeeper.configure do
   resource_owner_authenticator do
     current_user || begin
       application = Doorkeeper.config.application_model.find_by(uid: params[:client_id])
-      session[:return_to_url] = request.fullpath if application&.mcp_client?
-      redirect_to(login_path)
+      if application&.mcp_client? && request.fullpath.bytesize > McpOauth::AuthorizationsController::MAX_RETURN_TO_URL_BYTESIZE
+        render json: { error: 'invalid_request' }, status: :bad_request
+      else
+        session[:return_to_url] = request.fullpath if application&.mcp_client?
+        redirect_to(login_path)
+      end
     end
   end
 

@@ -5,6 +5,11 @@ module McpOauth
     include McpOauth::Urls
     include McpOauth::RedirectUris
 
+    # S256 の code_challenge は SHA-256 (32 バイト) を padding なしの base64url にした 43 文字。
+    CODE_CHALLENGE_FORMAT = /\A[A-Za-z0-9_-]{43}\z/
+    # return_to_url はセッション Cookie (4KB 上限) に入るため、暗号化・base64 による増加と他のセッション内容を見込んだ上限。
+    MAX_RETURN_TO_URL_BYTESIZE = 2048
+
     # These actions are inherited from Doorkeeper::AuthorizationsController.
     # rubocop:disable Rails/LexicallyScopedActionFilter
     before_action :validate_mcp_authorization, only: %i[new create]
@@ -73,7 +78,9 @@ module McpOauth
     end
 
     def valid_authorization_request?
-      params[:response_type] == 'code' && params[:code_challenge_method] == 'S256' && params[:code_challenge].present?
+      params[:response_type] == 'code' &&
+        params[:code_challenge_method] == 'S256' &&
+        CODE_CHALLENGE_FORMAT.match?(params[:code_challenge].to_s)
     end
 
     def can_authorize_response?

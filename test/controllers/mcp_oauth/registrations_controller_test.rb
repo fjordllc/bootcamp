@@ -174,6 +174,37 @@ class McpOauth::RegistrationsControllerTest < ActionDispatch::IntegrationTest
     assert_not grant.reload.revoked?
   end
 
+  test 'authorization rejects malformed code_challenge values' do
+    application = register_mcp_client
+    sign_in(users(:mentormentaro))
+
+    ['!', CHALLENGE[0, 42], "#{CHALLENGE}A", "#{CHALLENGE[0, 42]}="].each do |challenge|
+      get '/oauth/authorize', params: authorization_params(application, code_challenge: challenge)
+
+      assert_response :bad_request, challenge
+      assert_equal 'invalid_request', response.parsed_body.fetch('error')
+    end
+  end
+
+  test 'unauthenticated authorization rejects a request too long for the session cookie' do
+    application = register_mcp_client
+
+    get '/oauth/authorize', params: authorization_params(application, state: 'a' * 3000)
+
+    assert_response :bad_request
+    assert_equal 'invalid_request', response.parsed_body.fetch('error')
+    assert_nil session[:return_to_url]
+  end
+
+  test 'unauthenticated authorization stores the request path and redirects to login' do
+    application = register_mcp_client
+
+    get '/oauth/authorize', params: authorization_params(application)
+
+    assert_redirected_to '/login'
+    assert_match(%r{\A/oauth/authorize\?}, session[:return_to_url])
+  end
+
   test 'authorization consent screen escapes a malicious client name' do
     malicious_name = '<img src=x onerror=alert(1)>'
     application = register_mcp_client(client_name: malicious_name)
