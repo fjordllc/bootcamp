@@ -164,4 +164,5 @@ $ PROFILE=1 rails server
 
 ## その他
 
+- [設計判断の記録（ADR）](docs/adr/README.md)
 - [Bootcamp Wiki](https://github.com/fjordllc/bootcamp/wiki)
