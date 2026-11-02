@@ -25,7 +25,7 @@ default: &default
   # migrations (e.g. index builds on large tables) can exceed this; run them
   # with DB_STATEMENT_TIMEOUT_MS=0 to disable the timeout (0 means no limit).
   variables:
-    statement_timeout: <%= ENV.fetch('DB_STATEMENT_TIMEOUT_MS', '5000').to_i %>
+    statement_timeout: <%= Integer(ENV.fetch('DB_STATEMENT_TIMEOUT_MS', '5000'), 10) %>
 
 development:
   <<: *default

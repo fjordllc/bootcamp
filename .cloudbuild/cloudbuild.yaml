@@ -58,7 +58,7 @@ steps:
     set -euo pipefail
     source .cloudbuild/substitutions.env
     eval "$(.cloudbuild/cloud-build-env exports)"
-    bin/rails db:migrate
+    DB_STATEMENT_TIMEOUT_MS=0 bin/rails db:migrate
   waitFor:
   - Push
   - WriteSubstitutionEnv
@@ -86,7 +86,7 @@ steps:
     set -euo pipefail
     source .cloudbuild/substitutions.env
     eval "$(.cloudbuild/cloud-build-env exports)"
-    bin/rails db:migrate:with_data
+    DB_STATEMENT_TIMEOUT_MS=0 bin/rails db:migrate:with_data
   waitFor:
   - Deploy
   volumes:

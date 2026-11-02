@@ -35,7 +35,7 @@ steps:
   - "-c"
   - |-
     eval "$(.cloudbuild/cloud-build-env exports)"
-    bin/rails bootcamp:reset
+    DB_STATEMENT_TIMEOUT_MS=0 bin/rails bootcamp:reset
 - id: Kill_SqlProxy
   name: gcr.io/cloud-builders/docker
   waitFor:
