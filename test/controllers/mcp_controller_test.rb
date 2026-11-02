@@ -142,6 +142,24 @@ class McpControllerTest < ActionDispatch::IntegrationTest
     assert_equal 1, global_count
   end
 
+  test 'MCP per-user limit is shared across tokens of different applications' do
+    first_token = create_mcp_token
+    second_token = create_mcp_token
+    previous_limit = Rails.configuration.x.mcp.requests_per_minute
+    Rails.configuration.x.mcp.requests_per_minute = 1
+
+    assert_not_equal first_token.application_id, second_token.application_id
+    travel_to(Time.current.beginning_of_minute + 10.seconds) do
+      post '/mcp', params: initialize_request, as: :json, headers: mcp_headers(first_token)
+      assert_response :ok
+
+      post '/mcp', params: initialize_request, as: :json, headers: mcp_headers(second_token)
+      assert_response :too_many_requests
+    end
+  ensure
+    Rails.configuration.x.mcp.requests_per_minute = previous_limit
+  end
+
   test 'MCP accessible tokens rejected by eligibility checks are source limited before global counting' do
     invalid_scope = create_mcp_token
     invalid_scope.update!(scopes: 'read')

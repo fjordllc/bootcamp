@@ -184,6 +184,14 @@ class McpAuthorizationTest < ActionDispatch::IntegrationTest
     get '/oauth/authorize', params: authorization_params(application, code_challenge_method: 'plain')
     assert_response :bad_request
     assert_equal 'invalid_request', response.parsed_body.fetch('error')
+
+    post '/oauth/authorize', params: authorization_params(application).except(:code_challenge, :code_challenge_method)
+    assert_response :bad_request
+    assert_equal 'invalid_request', response.parsed_body.fetch('error')
+
+    post '/oauth/authorize', params: authorization_params(application, code_challenge_method: 'plain')
+    assert_response :bad_request
+    assert_equal 'invalid_request', response.parsed_body.fetch('error')
   end
 
   test 'an access token without an owner is forbidden at the MCP HTTP boundary' do
