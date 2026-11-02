@@ -1,11 +1,11 @@
-# Staging release verification fixtures
+# ステージングでのリリース検証用フィクスチャ
 
-Use the existing staging accounts from `db/fixtures/users.yml` with the repository fixture password `testtest`: `komagata` (admin), `mentormentaro` (mentor), `kimura` (learner), `advijirou` (adviser), and `kensyu` (trainee). Retired or inactive role examples include `kensyuowata` and `yameo`; their ability to sign in depends on the current application state.
+`db/fixtures/users.yml` にある既存のステージングアカウントを、リポジトリのフィクスチャ用パスワード `testtest` で使用します。対象は `komagata`（管理者）、`mentormentaro`（メンター）、`kimura`（受講生）、`advijirou`（アドバイザー）、`kensyu`（研修生）です。退会済みまたは非アクティブなロールの例には `kensyuowata` と `yameo` があります。これらのアカウントでログインできるかどうかは、現在のアプリケーションの状態によります。
 
-## AI review support card
+## AIレビュー支援カード
 
-Open the product represented by `products.yml` label `product13` (`OS X Mountain Lionをクリーンインストールする`), then sign in as `mentormentaro` or `komagata`. The card should appear after the submission body. As `kimura` or `advijirou`, the card and its content should be absent. The `fictional_sample_for_product13` review is static display data, not an AI-generated review. Its `example.invalid` link is illustrative; this does not show that Docs, URLs, GitHub, or any other external source was fetched or included as model context.
+`products.yml` のラベル `product13`（`OS X Mountain Lionをクリーンインストールする`）に対応する提出物を開き、`mentormentaro` または `komagata` でログインします。提出物の本文の後にカードが表示されることを確認します。`kimura` または `advijirou` では、カードとその内容が表示されないことを確認します。`fictional_sample_for_product13` のレビューは静的な表示用データであり、AIが生成したレビューではありません。`example.invalid` のリンクは説明用の例です。Docs、URL、GitHub、その他の外部ソースを取得したことや、モデルのコンテキストに含めたことを示すものではありません。
 
-## Other release PR smoke checks
+## その他のリリースPRのスモークチェック
 
-Existing fixtures include `page1` and the published Docs pages in `pages.yml`, `question1` in `questions.yml`, `talk_komagata` in `talks.yml`, `bookmark29` for `product1` in `bookmarks.yml`, and checks such as `product2_check_komagata` in `checks.yml`. Use the relevant signed-in role to exercise the corresponding UI or API path from `config/routes/api.rb`; these are sample records, and their presence does not establish an external integration result. OAuth read/write tokens and the Anthropic API key must be configured through the staging environment for checks that call those services. They are not stored in these public fixtures.
+既存のフィクスチャには、`pages.yml` の `page1` と公開済みのDocsページ、`questions.yml` の `question1`、`talks.yml` の `talk_komagata`、`bookmarks.yml` の `product1` に対する `bookmark29`、`checks.yml` の `product2_check_komagata` などの確認データがあります。該当するロールでログインして、対応するUIや `config/routes/api.rb` のAPIパスを確認します。これらはサンプルレコードであり、存在するだけでは外部連携の結果を確認したことにはなりません。OAuthやAnthropicのサービスを呼び出す検証では、OAuthのread/writeトークンとAnthropic APIキーをステージング環境で設定する必要があります。これらは公開フィクスチャには保存されていません。
