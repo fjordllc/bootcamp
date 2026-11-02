@@ -12,4 +12,8 @@ class PracticePolicy < ApplicationPolicy
   def show?
     user.staff? || user.card?
   end
+
+  def show_memo?
+    !!user&.admin_or_mentor?
+  end
 end
