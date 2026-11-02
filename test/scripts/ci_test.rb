@@ -41,7 +41,7 @@ class CiTest < Minitest::Test
     commands = calls.map { |call| call.fetch('command').join(' ') }
     %w[rubocop slim-lint traceroute].each { |check| assert commands.any? { |command| command.include?(check) }, commands.inspect }
     assert_includes commands, 'bundle exec rubocop --ignore-parent-exclusion --format progress'
-    ['bundle check', 'npm ci', 'npm run lint', 'node --test test/javascript/performance_test.mjs',
+    ['bundle check', 'npm ci', 'npm run lint', 'node --test test/javascript/*.mjs',
      'rails db:prepare', 'rails assets:clean assets:precompile', 'rails test:all'].each do |command|
       assert_includes commands, command
     end
@@ -66,7 +66,7 @@ class CiTest < Minitest::Test
   def test_each_check_failure_prevents_signoff_and_returns_failure
     ['bundle check', 'npm ci', 'bundle exec rubocop --ignore-parent-exclusion --format progress',
      'bundle exec slim-lint app/views -c config/slim_lint.yml', 'bundle exec rake traceroute',
-     'npm run lint', 'node --test test/javascript/performance_test.mjs',
+     'npm run lint', 'node --test test/javascript/*.mjs',
      'rails db:prepare', 'rails assets:clean assets:precompile', 'rails test:all'].each do |command|
       FileUtils.rm_f(@log)
       output, status = run_script('ci', '--signoff', env: { 'FAIL_COMMAND' => command })

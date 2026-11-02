@@ -5,6 +5,7 @@ import TextareaMarkdownModule from 'textarea-markdown'
 import { full as MarkdownItEmoji } from 'markdown-it-emoji'
 import MarkdownItTaskLists from 'markdown-it-task-lists'
 import MarkdownItMention from 'markdown-it-mention'
+import MarkdownItWikiLink from 'markdown-it-wiki-link'
 import MarkdownItUserIcon from 'markdown-it-user-icon'
 import MarkdownOption from 'markdown-it-option'
 import autosize from 'autosize'
@@ -95,6 +96,7 @@ export default class {
         plugins: [
           MarkdownItEmoji,
           MarkdownItMention,
+          MarkdownItWikiLink,
           MarkdownItUserIcon,
           MarkdownItTaskLists,
           MarkDownItContainerMessage,

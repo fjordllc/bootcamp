@@ -85,8 +85,8 @@ jobs:
       - name: Lint JavaScript
         run: npm run lint
 
-      - name: Test performance collection
-        run: node --test test/javascript/performance_test.mjs
+      - name: Test JavaScript
+        run: node --test test/javascript/*.mjs
 
   test:
     runs-on: ubuntu-24.04

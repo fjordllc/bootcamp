@@ -44,6 +44,12 @@ AI入出力をHTTPデバッグログに残さないため、稼働環境で `RUB
 
 ## テスト
 
+### JavaScriptのテスト
+
+```bash
+node --test test/javascript/*.mjs
+```
+
 ### Playwright ブラウザーのインストール
 
 system test は Playwright で Chromium を起動します。初回セットアップ時、または Playwright のバージョン更新後にブラウザーをインストールしてください。
@@ -90,7 +96,7 @@ $ PARALLEL_WORKERS=1 rails test:all
 bin/ci
 ```
 
-Ruby・Slim・JavaScript・CSS・OpenAPI の lint、Traceroute、Node.js による性能収集テスト（`node --test test/javascript/performance_test.mjs`）、テスト DB の準備、アセットのプリコンパイル、system test を含む全テストを順に実行します。途中で失敗すると後続の処理を止め、終了コードを失敗にします。lint の自動修正や開発環境のセットアップ、seed の再投入は実行しません。通常の実行では GitHub にステータスを送信しません。
+Ruby・Slim・JavaScript・CSS・OpenAPI の lint、Traceroute、JavaScript テスト（`node --test test/javascript/*.mjs`）、テスト DB の準備、アセットのプリコンパイル、system test を含む全テストを順に実行します。途中で失敗すると後続の処理を止め、終了コードを失敗にします。lint の自動修正や開発環境のセットアップ、seed の再投入は実行しません。通常の実行では GitHub にステータスを送信しません。
 
 RuboCop は `--ignore-parent-exclusion` を指定し、入れ子の worktree でも親チェックアウトの除外設定を引き継がず、このチェックアウトの設定で検査します。
 
