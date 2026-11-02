@@ -41,3 +41,7 @@
 ## Agent-Specific Instructions
 - Follow these guidelines for any edits. Keep changes minimal, scoped to the task, and update docs/tests when adding commands or changing behavior.
 
+
+## Error handling documentation (mandatory)
+- At the start of every implementation, bug fix, refactoring, or review, read [docs/error_handling.md](docs/error_handling.md) and [docs/rails_error_handling.md](docs/rails_error_handling.md).
+- When changing error handling, notifications, or monitoring, compare the relevant pages of the [Tokyo RubyKaigi 12 slide deck](https://speakerdeck.com/morihirok/hun-dun-tositali-wai-chu-li-toerajian-shi-nizhi-xu-womotarasu) and document any deliberate project-specific exception honestly.
