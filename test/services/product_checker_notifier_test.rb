@@ -28,4 +28,18 @@ class ProductCheckerNotifierTest < ActiveSupport::TestCase
       ProductCheckerNotifier.new(@product, @current_user).call
     end
   end
+
+  test 'Notify checker when product is published from WIP' do
+    @product.update!(wip: true, checker: @checker)
+    @product.update!(wip: false)
+
+    delivery = Minitest::Mock.new
+    delivery.expect(:notify, nil, [:assigned_as_checker])
+
+    ActivityDelivery.stub(:with, delivery) do
+      ProductCheckerNotifier.new(@product, @current_user).call
+    end
+
+    delivery.verify
+  end
 end
