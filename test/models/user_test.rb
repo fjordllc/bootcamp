@@ -792,6 +792,30 @@ class UserTest < ActiveSupport::TestCase
     assert_empty User.users_role(not_scope_name, allowed_targets:)
   end
 
+  test 'returns adviser when user is an adviser' do
+    user = User.new(adviser: true)
+
+    assert_equal 'adviser', user.determine_user_role
+  end
+
+  test 'returns trainee when user is a trainee' do
+    user = User.new(trainee: true)
+
+    assert_equal 'trainee', user.determine_user_role
+  end
+
+  test 'returns mentor when user is a mentor' do
+    user = User.new(mentor: true)
+
+    assert_equal 'mentor', user.determine_user_role
+  end
+
+  test 'returns student when user is not an adviser, trainee, or mentor' do
+    user = User.new
+
+    assert_equal 'student', user.determine_user_role
+  end
+
   test '#clean_up_regular_events removes participant from unfinished regular event' do
     user = users(:kimura)
     unfinished_participated_event = regular_events(:regular_event1)
