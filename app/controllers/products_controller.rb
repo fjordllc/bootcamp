@@ -61,10 +61,15 @@ class ProductsController < ApplicationController
     @product = find_my_product
     @practice = @product.practice
     @product.update_wip_and_published_at(params[:commit] == 'WIP')
+
     if @product.update(product_params)
       ActiveSupport::Notifications.instrument('product.update', { product: @product, current_user: })
       ActiveSupport::Notifications.instrument('product.save', product: @product)
-      ProductCheckerNotifier.new(@product, current_user).call if admin_or_mentor_login?
+
+      if admin_or_mentor_login? || (@product.saved_change_to_wip? && !@product.wip? && @product.checker_id)
+        ProductCheckerNotifier.new(@product, current_user).call
+      end
+
       redirect_to WipRedirectUrl.resolve(self, @product), notice: notice_message(@product, :update)
     else
       render :edit

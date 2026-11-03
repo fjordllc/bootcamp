@@ -9,10 +9,10 @@ class ProductCheckerNotifier
   def call
     checker_id = @product.checker_id
 
-    return unless @product.saved_change_to_checker_id? &&
-                  checker_id &&
+    return unless checker_id &&
                   checker_id != @current_user.id &&
-                  !@product.wip?
+                  !@product.wip? &&
+                  (@product.saved_change_to_checker_id? || @product.saved_change_to_wip?)
 
     ActivityDelivery.with(
       product: @product,
