@@ -32,7 +32,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
   end
 
   def show
-    @user = User.where(id: params[:id]).or(User.where(login_name: params[:id])).first!
+    @user = User.find_by(id: params[:id]) || User.find_by!(login_name: params[:id])
     @completed_learnings = @user
                            .learnings
                            .includes(:practice)
